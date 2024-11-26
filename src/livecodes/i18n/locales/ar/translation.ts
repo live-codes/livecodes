@@ -5,23 +5,13 @@ import type { I18nTranslation } from '../models';
 const translation: I18nTranslation = {
   about: {
     documentations: {
-      aboutUs: 'من نحن',
-      contact: 'اتصل بنا',
       heading: 'الوثائق',
-      home: 'الرئيسية',
-      license: 'الترخيص',
     },
     heading: 'حول LiveCodes',
-    livecodes: {
-      para1:
-        '<1><2>LiveCodes</2></1> هو محرر برمجي <3>مفتوح المصدر</3>، <4>غني بالميزات</4>، <5>يعمل في المتصفح</5>. حاليًا، يتم دعم <6>أكثر من 80 لغة/<7></7>إطار عمل</6>. يمكن استخدامه كتطبيق مستقل أو يمكن <8>تضمينه</8> في أي صفحة ويب. هناك العديد من الطرق <9>لملء المحرر مسبقًا</9> بالكود.',
-      para2:
-        'مجموعة واسعة من <1>خيارات التكوين</1> تجعله مرنًا للغاية. <2>SDK</2> قوي (لـ <3>JS/TS</3>، و<4>React</4>، و<5>Vue</5> و<6>Svelte</6>) يسهل <7>التضمين</7> و<8>التواصل</8> مع المحرر. تتوفر <9>وثائق شاملة</9> مع نماذج الكود والعروض التوضيحية ولقطات الشاشة.',
-    },
     version: {
       app: 'إصدار التطبيق: {{APP_VERSION}}',
       appPermanentUrl: 'الرابط الدائم للتطبيق',
-      commit: 'Git commit: {{COMMIT_SHA}}',
+      commit: 'التزام Git: {{COMMIT_SHA}}',
       heading: 'الإصدار',
       sdk: 'إصدار SDK: {{SDK_VERSION}}',
       sdkPermanentUrl: 'الرابط الدائم لـ SDK',
@@ -39,9 +29,6 @@ const translation: I18nTranslation = {
     },
     customSettings: {
       hint: 'الإعدادات المخصصة',
-    },
-    editorMode: {
-      hint: 'وضع المحرر',
     },
     editorSettings: {
       hint: 'إعدادات المحرر',
@@ -64,9 +51,6 @@ const translation: I18nTranslation = {
     redo: {
       hint: 'إعادة (Ctrl/Cmd + Shift + Z)',
     },
-    result: {
-      hint: 'النتيجة',
-    },
     run: {
       hint: 'تشغيل (Shift + Enter)',
     },
@@ -86,11 +70,11 @@ const translation: I18nTranslation = {
         label: 'إضافة ملف',
       },
       githubPages: {
-        desc: 'نشر الملف على صفحات GitHub. يتم دفع الملف إلى فرع <1>gh-pages</1> في المستودع <2>livecodes-assets</2> على حساب GitHub الخاص بك. إذا لم يكن المستودع موجودًا بالفعل، سيتم إنشاء مستودع عام.',
+        desc: 'نشر الأصل على صفحات GitHub. يتم دفع الملف إلى فرع <1>gh-pages</1> في المستودع <2>livecodes-assets</2> على حساب GitHub الخاص بك. إذا لم يكن المستودع موجودًا بالفعل، سيتم إنشاء مستودع عام.',
         heading: 'صفحات GitHub',
         label: 'رفع ملف',
       },
-      heading: 'إضافة ملف',
+      heading: 'إضافة أصل',
     },
     delete: {
       all: 'حذف {{assets}} ملفات؟',
@@ -100,7 +84,7 @@ const translation: I18nTranslation = {
     generic: {
       clickToCopyURL: 'انقر لنسخ الرابط',
     },
-    heading: 'الملفات',
+    heading: 'الأصول',
     link: {
       date: 'التاريخ: {{modified}}',
       type: 'النوع: {{type}}',
@@ -114,12 +98,12 @@ const translation: I18nTranslation = {
       upload: 'رفع ملف',
       uploading: 'جارٍ الرفع...',
     },
-    noMatch: 'لا توجد ملفات تطابق هذه الفلاتر.',
-    noSavedAssets: 'ليس لديك ملفات محفوظة.',
+    noMatch: 'لا توجد أصول تطابق هذه الفلاتر.',
+    noSavedAssets: 'ليس لديك أصول محفوظة.',
     processAsset: {
       addFile: 'تمت إضافة الملف: ',
-      deployNotice: 'من المتوقع أن يكون الملف متاحًا على هذا الرابط قريبًا (~1 دقيقة).',
-      success: 'تمت إضافة الملف!',
+      deployNotice: 'يجب أن يكون الأصل متاحًا على هذا الرابط قريبًا (~1 دقيقة).',
+      success: 'تمت إضافة الملف إلى الأصول!',
       urlLabel: 'الرابط: ',
     },
     resetFilters: 'إعادة تعيين',
@@ -155,7 +139,7 @@ const translation: I18nTranslation = {
   },
   backup: {
     backup: {
-      assets: 'الملفات',
+      assets: 'الأصول',
       button: 'نسخ احتياطي',
       desc: 'قم بعمل نسخة احتياطية من بيانات LiveCodes، حتى يمكن استعادتها لاحقًا على هذا الجهاز أو أجهزة أخرى. <1></1> يرجى زيارة <2>الوثائق</2> للحصول على التفاصيل.',
       heading: 'نسخ احتياطي',
@@ -271,11 +255,11 @@ const translation: I18nTranslation = {
     template: {
       blank: 'مشروع فارغ',
       delete: 'حذف القالب "{{item}}"؟',
-      javascript: 'مشروع JavaScript',
-      react: 'مشروع React',
+      javascript: 'بداية JavaScript',
+      react: 'بداية React',
       saved: 'تم الحفظ كقالب جديد',
-      typescript: 'مشروع TypeScript',
-      vue: 'مشروع Vue 3',
+      typescript: 'بداية TypeScript',
+      vue: 'بداية Vue 3',
     },
     unload: {
       notSaved: 'التغييرات التي أجريتها قد لا يتم حفظها.',
@@ -315,14 +299,8 @@ const translation: I18nTranslation = {
     searchRepo: 'البحث في مستودعاتك العامة...',
   },
   editorSettings: {
-    appLanguage: {
-      heading: 'لغة واجهة المستخدم',
-      note: 'سيتم إعادة تحميل التطبيق لتفعيل التغييرات بعد تبديل اللغة.',
-    },
     closeBrackets: 'إغلاق تلقائي للأقواس والعلامات',
-    codeJarDesc: '* الميزات المحددة غير متوفرة في CodeJar.',
     default: 'افتراضي',
-    desc: 'يرجى مراجعة <1>الوثائق</1> للتفاصيل.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -367,8 +345,8 @@ const translation: I18nTranslation = {
       style: '{{style}}',
     },
     activeTool: {
-      compiled: 'الناتج',
-      console: 'كونسول',
+      compiled: 'مُترجم',
+      console: 'وحدة التحكم',
       heading: 'الأداة النشطة',
       tests: 'الاختبارات',
     },
@@ -429,11 +407,8 @@ const translation: I18nTranslation = {
     about: {
       blog: 'المدونة',
       configuration: 'التكوين',
-      features: 'الميزات',
       gettingStarted: 'البدء',
       github: 'GitHub',
-      sdk: 'SDK',
-      sponsor: 'دعم',
       twitter: '𝕏 / تويتر',
     },
     clickForInfo: 'انقر للمزيد من المعلومات...',
@@ -451,14 +426,14 @@ const translation: I18nTranslation = {
   },
   import: {
     bulk: {
-      desc: 'استيراد بالجملة لعدة مشاريع إلى مشاريعك المحفوظة. يمكن تصدير المشاريع من شاشة <1>المشاريع المحفوظة</1>.',
-      fromFile: 'استيراد بالجملة من ملف محلي',
-      fromURL: 'استيراد بالجملة من رابط',
-      heading: 'استيراد بالجملة',
+      desc: 'استيراد جماعي لعدة مشاريع إلى مشاريعك المحفوظة. يمكن تصدير المشاريع من شاشة <1>المشاريع المحفوظة</1>.',
+      fromFile: 'استيراد جماعي من ملف محلي',
+      fromURL: 'استيراد جماعي من رابط',
+      heading: 'استيراد جماعي',
       started: 'بدأ الاستيراد بالجملة...',
     },
     code: {
-      desc: 'المصادر المدعومة: <1> <2>GitHub gist</2> <3>ملف GitHub</3> <4>دليل في مستودع GitHub</4> <5>مقتطف Gitlab</5> <6>ملف Gitlab</6> <7>دليل في مستودع Gitlab</7> <8>JS Bin</8> <9>كود خام</9> <10>كود في DOM صفحة الويب</10> <11>كود في ملف مضغوط</11> <12>المحررات الرسمية<13></13>(TypeScript، Vue و Svelte)</12> </1> يرجى زيارة <14>الوثائق</14> للتفاصيل.',
+      desc: 'المصادر المدعومة: <1> <2>GitHub gist</2> <3>ملف GitHub</3> <4>دليل في مستودع GitHub</4> <5>مقتطف Gitlab</5> <6>ملف Gitlab</6> <7>دليل في مستودع Gitlab</7> <8>JS Bin</8> <9>كود خام</9> <10>كود في DOM صفحة الويب</10> <11>كود في ملف مضغوط</11> <12>الملاعب الرسمية<13></13>(TypeScript، Vue و Svelte)</12> </1> يرجى زيارة <14>الوثائق</14> للتفاصيل.',
       fromFile: 'استيراد ملفات محلية',
       fromURL: 'استيراد من رابط',
       heading: 'استيراد الكود',
@@ -493,19 +468,6 @@ const translation: I18nTranslation = {
     publicRepo: 'المستودعات',
   },
   menu: {
-    about: 'حول',
-    appHelp: {
-      heading: 'مساعدة',
-      hint: 'مساعدة',
-    },
-    appProject: {
-      heading: 'المشروع',
-      hint: 'المشروع',
-    },
-    appSettings: {
-      heading: 'الإعدادات',
-      hint: 'الإعدادات',
-    },
     assets: 'الأصول …',
     autoSave: 'حفظ تلقائي',
     autoUpdate: 'تحديث تلقائي',
@@ -531,7 +493,6 @@ const translation: I18nTranslation = {
     formatOnsave: 'تنسيق عند الحفظ',
     import: 'استيراد …',
     layout: 'تخطيط عمودي',
-    login: 'تسجيل الدخول …',
     logout: 'تسجيل الخروج',
     new: 'جديد …',
     open: 'فتح …',
@@ -541,7 +502,6 @@ const translation: I18nTranslation = {
     save: 'حفظ',
     saveAs: {
       fork: 'تفرع (مشروع جديد)',
-      heading: 'حفظ باسم',
       template: 'قالب',
     },
     share: 'مشاركة …',
@@ -554,7 +514,6 @@ const translation: I18nTranslation = {
     theme: 'السمة الداكنة',
     welcome: {
       heading: 'الترحيب …',
-      hint: 'إظهار شاشة الترحيب عند بدء التشغيل',
     },
   },
   open: {
@@ -630,13 +589,13 @@ const translation: I18nTranslation = {
       select: 'اختر الخط ...',
     },
     heading: 'الموارد الخارجية',
-    scripts: 'سكريبتات',
+    scripts: 'النصوص البرمجية الخارجية',
     search: {
       heading: 'البحث عن الحزم <1>(مدعوم بواسطة jsDelivr)</1>',
       placeholder: 'مثال: jquery, lodash@4, bootstrap@5.2.3, ...',
     },
-    stylesheets: 'ستايلات',
-    urlDesc: 'أضف روابط ستايلات/سكريبتات. يجب أن يكون كل رابط في سطر منفصل.',
+    stylesheets: 'أوراق الأنماط الخارجية',
+    urlDesc: 'أضف روابط ورقة الأنماط/النص البرمجي. يجب أن يكون كل رابط في سطر منفصل.',
   },
   savePrompt: {
     heading: 'تغييرات غير محفوظة',
@@ -667,7 +626,6 @@ const translation: I18nTranslation = {
       generating: 'جارٍ الإنشاء...',
     },
     services: {
-      copyUrl: 'نسخ الرابط',
       devTo: 'Dev.to',
       email: 'البريد الإلكتروني',
       facebook: 'فيسبوك',
@@ -768,62 +726,62 @@ const translation: I18nTranslation = {
       heading: 'ليس لديك قوالب محفوظة.',
     },
     starter: {
-      angular: 'قالب Angular',
-      assemblyscript: 'قالب AssemblyScript',
-      astro: 'قالب Astro',
-      backbone: 'قالب Backbone',
-      blank: 'قالب فارغ',
-      blockly: 'قالب Blockly',
-      bootstrap: 'قالب Bootstrap',
-      civet: 'قالب Civet',
-      clio: 'قالب Clio',
-      clojurescript: 'قالب ClojureScript',
-      coffeescript: 'قالب CoffeeScript',
-      commonlisp: 'قالب Common Lisp',
-      cpp: 'قالب C++',
-      diagrams: 'قالب الرسوم البيانية',
-      fennel: 'قالب Fennel',
-      gleam: 'قالب Gleam',
-      go: 'قالب Go',
+      angular: 'مشروع Angular',
+      assemblyscript: 'مشروع AssemblyScript',
+      astro: 'مشروع Astro',
+      backbone: 'مشروع Backbone',
+      blank: 'مشروع فارغ',
+      blockly: 'مشروع Blockly',
+      bootstrap: 'مشروع Bootstrap',
+      civet: 'مشروع Civet',
+      clio: 'مشروع Clio',
+      clojurescript: 'بداية ClojureScript',
+      coffeescript: 'بداية CoffeeScript',
+      commonlisp: 'بداية Common Lisp',
+      cpp: 'بداية C++',
+      diagrams: 'بداية الرسوم البيانية',
+      fennel: 'بداية Fennel',
+      gleam: 'مشروع Gleam',
+      go: 'مشروع Go',
       heading: 'قوالب البداية',
-      imba: 'قالب Imba',
-      javascript: 'قالب JavaScript',
-      jest: 'قالب Jest',
-      'jest-react': 'قالب Jest/React',
-      jquery: 'قالب jQuery',
-      julia: 'قالب Julia',
-      knockout: 'قالب Knockout',
-      lit: 'قالب Lit',
-      livescript: 'قالب LiveScript',
+      imba: 'مشروع Imba',
+      javascript: 'مشروع JavaScript',
+      jest: 'مشروع Jest',
+      'jest-react': 'مشروع Jest/React',
+      jquery: 'مشروع jQuery',
+      julia: 'مشروع Julia',
+      knockout: 'مشروع Knockout',
+      lit: 'مشروع Lit',
+      livescript: 'مشروع LiveScript',
       loading: 'جارٍ تحميل قوالب البداية...',
-      lua: 'قالب Lua',
-      'lua-wasm': 'قالب Lua (Wasm)',
-      malina: 'قالب Malina.js',
-      markdown: 'قالب Markdown',
-      mdx: 'قالب MDX',
-      ocaml: 'قالب Ocaml',
-      perl: 'قالب Perl',
-      php: 'قالب PHP',
-      'php-wasm': 'قالب PHP (Wasm)',
-      postgresql: 'قالب PostgreSQL',
-      preact: 'قالب Preact',
-      prolog: 'قالب Prolog',
-      python: 'قالب Python',
-      r: 'قالب R',
-      react: 'قالب React',
-      'react-native': 'قالب React Native',
-      reason: 'قالب Reason',
-      rescript: 'قالب ReScript',
-      riot: 'قالب Riot.js',
-      ruby: 'قالب Ruby',
-      'ruby-wasm': 'قالب Ruby-Wasm',
-      scheme: 'قالب Scheme',
-      solid: 'قالب Solid',
-      sql: 'قالب SQL',
-      stencil: 'قالب Stencil',
-      svelte: 'قالب Svelte',
-      tailwindcss: 'قالب Tailwind CSS',
-      tcl: 'قالب Tcl',
+      lua: 'مشروع Lua',
+      'lua-wasm': 'مشروع Lua (Wasm)',
+      malina: 'مشروع Malina.js',
+      markdown: 'مشروع Markdown',
+      mdx: 'مشروع MDX',
+      ocaml: 'مشروع Ocaml',
+      perl: 'مشروع Perl',
+      php: 'مشروع PHP',
+      'php-wasm': 'بداية PHP (Wasm)',
+      postgresql: 'بداية PostgreSQL',
+      preact: 'بداية Preact',
+      prolog: 'بداية Prolog',
+      python: 'مشروع Python',
+      r: 'مشروع R',
+      react: 'مشروع React',
+      'react-native': 'مشروع React Native',
+      reason: 'مشروع Reason',
+      rescript: 'مشروع ReScript',
+      riot: 'مشروع Riot.js',
+      ruby: 'مشروع Ruby',
+      'ruby-wasm': 'مشروع Ruby-Wasm',
+      scheme: 'مشروع Scheme',
+      solid: 'مشروع Solid',
+      sql: 'مشروع SQL',
+      stencil: 'مشروع Stencil',
+      svelte: 'مشروع Svelte',
+      tailwindcss: 'مشروع Tailwind CSS',
+      tcl: 'مشروع Tcl',
       teal: 'قالب Teal',
       typescript: 'قالب TypeScript',
       vue: 'قالب Vue 3',
@@ -875,7 +833,6 @@ const translation: I18nTranslation = {
   },
   welcome: {
     about: {
-      documentation: 'الوثائق',
       heading: 'حول LiveCodes',
     },
     heading: 'مرحبًا',
@@ -885,7 +842,6 @@ const translation: I18nTranslation = {
     recover: {
       cancel: 'إلغاء',
       heading: 'استعادة',
-      lastModified: 'آخر تعديل: <1></1>',
       recover: 'استعادة',
       save: 'حفظ',
       unsavedChanges: 'آخر مشروع لديك يحتوي على تغييرات غير محفوظة:',

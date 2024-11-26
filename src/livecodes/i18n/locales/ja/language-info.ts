@@ -49,7 +49,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Clio',
   },
   clojurescript: {
-    desc: 'ClojureScript は JavaScript をターゲットとする<1>Clojure</1>のコンパイラです。<2></2>LiveCodes では、<3>Cherry</3>を使用してブラウザで実行されます。',
     link: '<1> <2>ClojureScript 公式ウェブサイト</2> </1> <3> <4>Clojure 公式ウェブサイト</4> </3> <5> <6>Cherry リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=clojure</8> </7> <9> <10>LiveCodes ドキュメント</10> </9> <11> <12>スターターテンプレートを読み込む</12> </11>',
     name: 'ClojureScript (CLJS)',
   },
@@ -71,7 +70,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: '<2>polylang.io</2>によって適応された<1>wasm-clang</1>を使用して、WebAssembly上で動作するClang C/C++コンパイラ。',
     link: '<1> <2>Standard C++ 財団</2> </1> <3> <4>Clang 公式ウェブサイト</4> </3> <5> <6>X分でYを学ぶ、X=C++</6> </5> <7> <8>スターターテンプレートを読み込む</8> </7>',
     name: 'C/C++ (Wasm)',
   },
@@ -119,7 +117,6 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go（Golang）は、シンプルで信頼性が高く効率的なソフトウェアを簡単に構築できるオープンソースのプログラミング言語です。',
     desc2: 'ここでは、GopherJS を使用して JavaScript にコンパイルされます。',
-    link: '<1><2>Go ウェブサイト</2></1> <3><4>Go ドキュメント</4></3> <5> <6>GopherJS リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=Go</8> </7> <9><10>スターターテンプレートを読み込む</10></9>',
     name: 'Go',
   },
   haml: {
@@ -143,9 +140,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'JSX',
   },
   julia: {
-    desc1: '（LiveCodes での Julia 言語サポートはまだ実験的です）',
-    desc2:
-      '<2>polylang.io</2>によって適応された<1>julia-wasm</1>を使用して、WASM上で動作するJuliaコンパイラとJulia Base。',
     link: '<1> <2>Julia 公式ウェブサイト</2> </1> <3> <4>Julia ドキュメント</4> </3> <5> <6>X分でYを学ぶ、X=Julia</6> </5> <7> <8>スターターテンプレートを読み込む</8> </7>',
     name: 'Julia',
   },
@@ -166,7 +160,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   lua: {
     desc: 'fengari-web を使用してブラウザで動作する Lua。',
-    link: '<1><2>Lua 公式ウェブサイト</2></1> <3> <4>Lua ドキュメント</4> </3> <5> <6>Fengari 公式ウェブサイト</6> </5> <7> <8>fengari-web GitHub リポジトリ</8> </7> <9> <10>X分でYを学ぶ、X=Lua</10> </9> <11> <12>LiveCodes ドキュメント</12> </11> <13><14>スターターテンプレートを読み込む</14></13>',
     name: 'Lua',
   },
   luaWasm: {
@@ -186,7 +179,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   mdx: {
     desc: 'コンポーネント時代の Markdown。<1></1>MDX を使用すると、Markdown ドキュメント内でシームレスに JSX を記述できます。',
-    link: '<1><2>MDX ドキュメント</2></1> <3><4>スターターテンプレートを読み込む</4></3>',
     name: 'MDX',
   },
   mjml: {
@@ -200,7 +192,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: 'JavaScript 用の豊富で強力なテンプレート言語。Nunjucks は本質的に<1>jinja2</1>のポートです。',
     link: '<1> <2>公式ウェブサイト</2> </1> <3> <4>LiveCodes ドキュメント</4> </3>',
     name: 'Nunjucks',
   },
@@ -219,7 +210,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   php: {
     desc: 'Uniter を使用してブラウザで動作する PHP。',
-    link: '<1><2>PHP 公式ウェブサイト</2></1> <3> <4>PHP ドキュメント</4> </3> <5> <6>Uniter GitHub リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=PHP</8> </7> <9> <10>LiveCodes ドキュメント</10> </9> <11><12>スターターテンプレートを読み込む</12></11>',
     name: 'PHP',
   },
   phpWasm: {
@@ -329,7 +319,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   sql: {
     desc: 'SQL.js を使用して JavaScript にコンパイルされた SQLite',
-    link: '<1> <2>SQLite 公式ウェブサイト</2> </1> <3> <4>SQLite 構文ドキュメント</4> </3> <5> <6>SQL.js 公式ウェブサイト</6> </5> <7> <8>X分でYを学ぶ、X=SQL</8> </7> <9><10>スターターテンプレートを読み込む</10></9>',
     name: 'SQLite',
   },
   stencil: {
@@ -377,7 +366,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
-    desc: '<2>Twig.js</2>による<1>Twig</1> PHP テンプレート言語の JavaScript 実装。',
     link: '<1> <2>Twig 公式ウェブサイト</2> </1> <3> <4>Twig ドキュメント</4> </3> <5> <6>Twig.js リポジトリ</6> </5> <7> <8>Twig.js ドキュメント</8> </7> <9> <10>LiveCodes ドキュメント</10> </9>',
     name: 'Twig',
   },
@@ -387,7 +375,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TypeScript',
   },
   vue: {
-    link: '<1> <2>Vue.js v3 公式ウェブサイト</2> </1> <3> <4>Vue3 ドキュメント</4> </3> <5> <6>Vue3 単一ファイルコンポーネント</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9><10>スターターテンプレートを読み込む</10></9>',
     name: 'Vue3 単一ファイルコンポーネント',
   },
   vue2: {
@@ -398,7 +385,6 @@ const languageInfo: I18nLangInfoTranslation = {
   wat: {
     desc1: 'WebAssembly（wasm）バイナリフォーマットの低レベルテキスト表現。',
     desc2: 'wabt.js を使用して wasm に変換されます。',
-    link: '<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly テキスト仕様</4> </3> <5> <6>MDN の WebAssembly</6> </5> <7> <8>WebAssembly テキストフォーマットの理解</8> </7> <9> <10>wabt.js ドキュメント</10> </9> <11> <12>X分でYを学ぶ、X=WebAssembly</12> </11> <13><14>スターターテンプレートを読み込む</14></13>',
     name: 'WebAssembly テキストフォーマット',
   },
 };

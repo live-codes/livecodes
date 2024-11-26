@@ -5,19 +5,9 @@ import type { I18nTranslation } from '../models';
 const translation: I18nTranslation = {
   about: {
     documentations: {
-      aboutUs: 'ہمارے بارے میں',
-      contact: 'رابطہ',
       heading: 'دستاویزات',
-      home: 'ہوم',
-      license: 'لائسنس',
     },
     heading: 'لائیو کوڈز کے بارے میں',
-    livecodes: {
-      para1:
-        '<1><2>لائیو کوڈز</2></1> ایک <3>اوپن سورس</3>، <4>خصوصیات سے بھرپور</4>، <5>کلائنٹ-سائیڈ</5> کوڈ پلے گراؤنڈ ہے۔ فی الحال، <6>80+ زبانیں/<7></7>فریم ورکس</6> کو سپورٹ کیا جاتا ہے۔ اسے ایک خودمختار ایپ کے طور پر استعمال کیا جا سکتا ہے یا کسی بھی ویب صفحے میں <8>ایمبیڈ</8> کیا جا سکتا ہے۔ کوڈ کے ساتھ پلے گراؤنڈز کو <9>پہلے سے بھرنے</9> کے کئی طریقے ہیں۔',
-      para2:
-        '<1>کنفیگریشن آپشنز</1> کی وسیع رینج اسے بہت لچکدار بناتی ہے۔ ایک طاقتور <2>ایس ڈی کے</2> (<3>جے ایس/ٹی ایس</3>، <4>ری ایکٹ</4>، <5>ویو</5> اور <6>سویلٹ</6> کے لیے) پلے گراؤنڈز کو <7>ایمبیڈ</7> کرنے اور ان سے <8>مواصلت</8> کرنے میں سہولت فراہم کرتی ہے۔ کوڈ نمونوں، لائیو ڈیموز اور اسکرین شاٹس کے ساتھ <9>جامع دستاویزات</9> دستیاب ہیں۔',
-    },
     version: {
       app: 'ایپ ورژن: {{APP_VERSION}}',
       appPermanentUrl: 'ایپ کا مستقل یو آر ایل',
@@ -40,9 +30,6 @@ const translation: I18nTranslation = {
     customSettings: {
       hint: 'حسب ضرورت ترتیبات',
     },
-    editorMode: {
-      hint: 'ایڈیٹر موڈ',
-    },
     editorSettings: {
       hint: 'ایڈیٹر کی ترتیبات',
     },
@@ -63,9 +50,6 @@ const translation: I18nTranslation = {
     },
     redo: {
       hint: 'دوبارہ کریں (Ctrl/Cmd + Shift + Z)',
-    },
-    result: {
-      hint: 'نتیجہ کو ٹوگل کریں',
     },
     run: {
       hint: 'چلائیں (Shift + Enter)',
@@ -315,14 +299,8 @@ const translation: I18nTranslation = {
     searchRepo: 'اپنے عوامی ریپوز میں تلاش کریں...',
   },
   editorSettings: {
-    appLanguage: {
-      heading: 'ایپ یو آئی زبان',
-      note: 'زبان تبدیل کرنے کے بعد تبدیلیاں لاگو کرنے کے لیے ایپ کو دوبارہ لوڈ کرے گا۔',
-    },
     closeBrackets: 'بریکٹس اور حوالہ جات خود بخود بند کریں',
-    codeJarDesc: '* نشان زدہ خصوصیات کوڈ جار میں دستیاب نہیں ہیں۔',
     default: 'ڈیفالٹ',
-    desc: 'تفصیلات کے لیے براہ کرم <1>دستاویزات</1> چیک کریں۔',
     editor: {
       codejar: 'کوڈ جار',
       codemirror: 'کوڈ مرر',
@@ -429,11 +407,8 @@ const translation: I18nTranslation = {
     about: {
       blog: 'بلاگ',
       configuration: 'ترتیب',
-      features: 'خصوصیات',
       gettingStarted: 'شروع کرنا',
       github: 'گٹ ہب',
-      sdk: 'ایس ڈی کے',
-      sponsor: 'کفیل',
       twitter: '𝕏 / ٹویٹر',
     },
     clickForInfo: 'معلومات کے لیے کلک کریں...',
@@ -493,19 +468,6 @@ const translation: I18nTranslation = {
     publicRepo: 'ریپوز',
   },
   menu: {
-    about: 'تعارف',
-    appHelp: {
-      heading: 'مدد',
-      hint: 'مدد',
-    },
-    appProject: {
-      heading: 'پروجیکٹ',
-      hint: 'پروجیکٹ',
-    },
-    appSettings: {
-      heading: 'ترتیبات',
-      hint: 'ترتیبات',
-    },
     assets: 'اثاثے …',
     autoSave: 'خود کار محفوظ',
     autoUpdate: 'خود کار اپ ڈیٹ',
@@ -531,7 +493,6 @@ const translation: I18nTranslation = {
     formatOnsave: 'محفوظ کرتے وقت فارمیٹ کریں',
     import: 'درآمد …',
     layout: 'عمودی لے آؤٹ',
-    login: 'لاگ ان …',
     logout: 'لاگ آؤٹ',
     new: 'نیا …',
     open: 'کھولیں …',
@@ -541,7 +502,6 @@ const translation: I18nTranslation = {
     save: 'محفوظ کریں',
     saveAs: {
       fork: 'فورک (نیا پروجیکٹ)',
-      heading: 'بطور محفوظ کریں',
       template: 'سانچہ',
     },
     share: 'شیئر کریں …',
@@ -554,7 +514,6 @@ const translation: I18nTranslation = {
     theme: 'ڈارک تھیم',
     welcome: {
       heading: 'خوش آمدید …',
-      hint: 'شروع ہونے پر خوش آمدیدی اسکرین دکھائیں',
     },
   },
   open: {
@@ -668,7 +627,6 @@ const translation: I18nTranslation = {
       generating: 'تیار کیا جا رہا ہے...',
     },
     services: {
-      copyUrl: 'یو آر ایل کاپی کریں',
       devTo: 'Dev.to',
       email: 'ای میل',
       facebook: 'فیس بک',
@@ -876,7 +834,6 @@ const translation: I18nTranslation = {
   },
   welcome: {
     about: {
-      documentation: 'دستاویزات',
       heading: 'لائیو کوڈز کے بارے میں',
     },
     heading: 'خوش آمدید',
@@ -886,7 +843,6 @@ const translation: I18nTranslation = {
     recover: {
       cancel: 'منسوخ کریں',
       heading: 'بحال کریں',
-      lastModified: 'آخری ترمیم: <1></1>',
       recover: 'بحال کریں',
       save: 'محفوظ کریں',
       unsavedChanges: 'آپ کے آخری پروجیکٹ میں غیر محفوظ شدہ تبدیلیاں تھیں:',

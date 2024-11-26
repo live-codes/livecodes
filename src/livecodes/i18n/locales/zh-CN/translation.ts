@@ -5,19 +5,9 @@ import type { I18nTranslation } from '../models';
 const translation: I18nTranslation = {
   about: {
     documentations: {
-      aboutUs: '关于我们',
-      contact: '联系方式',
       heading: '文档',
-      home: '首页',
-      license: '许可证',
     },
     heading: '关于 LiveCodes',
-    livecodes: {
-      para1:
-        '<1><2>LiveCodes</2></1> 是一个<3>开源的</3>、<4>功能丰富的</4>、<5>客户端侧的</5>代码运行环境。目前支持<6>超过 80 种语言 / <7></7>框架</6>。它可以作为独立应用使用，亦可<8>嵌入</8>到任意网页中。可以通过多种途径将代码<9>预填</9>到编辑器中。',
-      para2:
-        '多种<1>配置选项</1>使其非常灵活。功能强大的 <2>SDK</2>（可用于 <3>JS / TS</3>, <4>React</4>, <5>Vue</5> 和 <6>Svelte</6>）便于<7>嵌入运行环境</7>并与其<8>进行通信</8>。<9>文档内容详细完整</9>，代码示例、实时演示和屏幕截图一应俱全。',
-    },
     version: {
       app: '应用版本：{{APP_VERSION}}',
       appPermanentUrl: '应用永久 URL',
@@ -40,9 +30,6 @@ const translation: I18nTranslation = {
     customSettings: {
       hint: '自定义设置',
     },
-    editorMode: {
-      hint: '编辑器模式',
-    },
     editorSettings: {
       hint: '编辑器设置',
     },
@@ -63,9 +50,6 @@ const translation: I18nTranslation = {
     },
     redo: {
       hint: '重做（Ctrl/Cmd + Shift + Z）',
-    },
-    result: {
-      hint: '切换结果页面显示',
     },
     run: {
       hint: '运行（Shift + Enter）',
@@ -315,14 +299,8 @@ const translation: I18nTranslation = {
     searchRepo: '搜索您的公开代码仓库...',
   },
   editorSettings: {
-    appLanguage: {
-      heading: '应用界面语言',
-      note: '切换语言后，将重新加载本应用程序以应用更改。',
-    },
     closeBrackets: '自动闭合括号和引号',
-    codeJarDesc: '* 标记的功能在 CodeJar 中不可用。',
     default: '默认',
-    desc: '请查看<1>文档</1>以了解详情。',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -429,11 +407,8 @@ const translation: I18nTranslation = {
     about: {
       blog: '博客',
       configuration: '配置',
-      features: '特性',
       gettingStarted: '快速开始',
       github: 'GitHub',
-      sdk: 'SDK',
-      sponsor: '赞助',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: '点击以获取信息...',
@@ -493,19 +468,6 @@ const translation: I18nTranslation = {
     publicRepo: '仓库',
   },
   menu: {
-    about: '关于',
-    appHelp: {
-      heading: '帮助',
-      hint: '帮助',
-    },
-    appProject: {
-      heading: '项目',
-      hint: '项目',
-    },
-    appSettings: {
-      heading: '设置',
-      hint: '设置',
-    },
     assets: '资产 ...',
     autoSave: '自动保存',
     autoUpdate: '自动更新',
@@ -531,7 +493,6 @@ const translation: I18nTranslation = {
     formatOnsave: '保存时格式化',
     import: '导入 ...',
     layout: '垂直布局',
-    login: '登录 ...',
     logout: '登出',
     new: '新建 ...',
     open: '打开 ...',
@@ -541,7 +502,6 @@ const translation: I18nTranslation = {
     save: '保存',
     saveAs: {
       fork: 'Fork（新项目）',
-      heading: '另存为',
       template: '模板',
     },
     share: '分享 ...',
@@ -554,7 +514,6 @@ const translation: I18nTranslation = {
     theme: '深色主题',
     welcome: {
       heading: '欢迎 ...',
-      hint: '启动时显示欢迎屏幕',
     },
   },
   open: {
@@ -667,7 +626,6 @@ const translation: I18nTranslation = {
       generating: '正在生成...',
     },
     services: {
-      copyUrl: '复制 URL',
       devTo: 'Dev.to',
       email: '电子邮件',
       facebook: 'Facebook',
@@ -875,7 +833,6 @@ const translation: I18nTranslation = {
   },
   welcome: {
     about: {
-      documentation: '文档',
       heading: '关于 LiveCodes',
     },
     heading: '欢迎',
@@ -885,7 +842,6 @@ const translation: I18nTranslation = {
     recover: {
       cancel: '取消',
       heading: '恢复',
-      lastModified: '最后修改时间：<1></1>',
       recover: '恢复',
       save: '保存',
       unsavedChanges: '您的上一个项目有未保存的更改：',

@@ -49,7 +49,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Clio',
   },
   clojurescript: {
-    desc: 'ClojureScript هو مترجم لـ <1>Clojure</1> يستهدف JavaScript. <2></2>في LiveCodes، يعمل في المتصفح باستخدام <3>Cherry</3>.',
     link: '<1> <2>الموقع الرسمي لـ ClojureScript</2> </1> <3> <4>الموقع الرسمي لـ Clojure</4> </3> <5> <6>مستودع Cherry</6> </5> <7> <8>تعلم X في Y دقائق، حيث X=clojure</8> </7> <9> <10>وثائق LiveCodes</10> </9> <11> <12>تحميل القالب الأولي</12> </11>',
     name: 'ClojureScript (CLJS)',
   },
@@ -70,7 +69,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'مترجم Clang C/C++ يعمل على WebAssembly، باستخدام <1>wasm-clang</1> المعدل بواسطة <2>polylang.io</2>.',
     link: '<1> <2>مؤسسة C++ القياسية</2> </1> <3> <4>الموقع الرسمي لـ Clang</4> </3> <5> <6>تعلم X في Y دقائق، حيث X=C++</6> </5> <7> <8>تحميل القالب الأولي</8> </7>',
     name: 'C/C++ (Wasm)',
   },
@@ -117,7 +115,6 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'جو (جولانج) هي لغة برمجة مفتوحة المصدر تجعل من السهل بناء برمجيات بسيطة وموثوقة وفعالة.',
     desc2: 'هنا، يتم ترجمتها إلى جافا سكريبت باستخدام GopherJS.',
-    link: '<1><2>موقع جو</2></1> <3><4>وثائق جو</4></3> <5> <6>مستودع GopherJS</6> </5> <7> <8>تعلم X في Y دقيقة، حيث X=Go</8> </7> <9><10>تحميل قالب البداية</10></9>',
     name: 'Go',
   },
   haml: {
@@ -141,9 +138,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'JSX',
   },
   julia: {
-    desc1: '(دعم لغة Julia في LiveCodes لا يزال تجريبيًا)',
-    desc2:
-      'مترجم Julia وJulia Base يعملان على WASM، باستخدام <1>julia-wasm</1> المعدل بواسطة <2>polylang.io</2>.',
     link: '<1> <2>الموقع الرسمي لـ Julia</2> </1> <3> <4>وثائق Julia</4> </3> <5> <6>تعلم X في Y دقيقة، حيث X=Julia</6> </5> <7> <8>تحميل قالب البداية</8> </7>',
     name: 'Julia',
   },
@@ -164,7 +158,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   lua: {
     desc: 'لوا تعمل في المتصفح باستخدام fengari-web.',
-    link: '<1><2>الموقع الرسمي للوا</2></1> <3> <4>وثائق لوا</4> </3> <5> <6>الموقع الرسمي لـ Fengari</6> </5> <7> <8>مستودع GitHub لـ fengari-web</8> </7> <9> <10>تعلم X في Y دقيقة، حيث X=Lua</10> </9> <11> <12>وثائق LiveCodes</12> </11> <13><14>تحميل قالب البداية</14></13>',
     name: 'Lua',
   },
   luaWasm: {
@@ -184,7 +177,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   mdx: {
     desc: 'Markdown لعصر المكونات. <1></1>يتيح لك MDX كتابة JSX بسلاسة في مستندات Markdown الخاصة بك.',
-    link: '<1><2>وثائق MDX</2></1> <3><4>تحميل القالب الأولي</4></3>',
     name: 'MDX',
   },
   mjml: {
@@ -198,7 +190,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: 'لغة قوالب غنية وقوية لـ JavaScript. Nunjucks هو في الأساس نسخة من <1>jinja2</1>.',
     link: '<1> <2>الموقع الرسمي</2> </1> <3> <4>وثائق LiveCodes</4> </3>',
     name: 'Nunjucks',
   },
@@ -215,7 +206,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   php: {
     desc: 'PHP تعمل في المتصفح باستخدام Uniter.',
-    link: '<1><2>الموقع الرسمي لـ PHP</2></1> <3> <4>وثائق PHP</4> </3> <5> <6>مستودع GitHub لـ Uniter</6> </5> <7> <8>تعلم X في Y دقائق، حيث X=PHP</8> </7> <9> <10>وثائق LiveCodes</10> </9> <11><12>تحميل القالب الأولي</12></11>',
     name: 'PHP',
   },
   phpWasm: {
@@ -325,7 +315,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   sql: {
     desc: 'SQLite مترجم إلى JavaScript باستخدام SQL.js',
-    link: '<1> <2>الموقع الرسمي لـ SQLite</2> </1> <3> <4>وثائق بناء جملة SQLite</4> </3> <5> <6>الموقع الرسمي لـ SQL.js</6> </5> <7> <8>تعلم X في Y دقائق، حيث X=SQL</8> </7> <9><10>تحميل القالب الأولي</10></9>',
     name: 'SQLite',
   },
   stencil: {
@@ -373,7 +362,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
-    desc: 'تطبيق JavaScript لـ <1>Twig</1> لغة قوالب PHP بواسطة <2>Twig.js</2> .',
     link: '<1> <2>الموقع الرسمي لـ Twig</2> </1> <3> <4>وثائق Twig</4> </3> <5> <6>مستودع Twig.js</6> </5> <7> <8>وثائق Twig.js</8> </7> <9> <10>وثائق LiveCodes</10> </9>',
     name: 'Twig',
   },
@@ -383,7 +371,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TypeScript',
   },
   vue: {
-    link: '<1> <2>الموقع الرسمي لـ Vue.js v3</2> </1> <3> <4>وثائق Vue3</4> </3> <5> <6>مكونات الملف الواحد في Vue3</6> </5> <7> <8>وثائق LiveCodes</8> </7> <9><10>تحميل القالب الأولي</10></9>',
     name: 'مكونات الملف الواحد في Vue3',
   },
   vue2: {
@@ -394,7 +381,6 @@ const languageInfo: I18nLangInfoTranslation = {
   wat: {
     desc1: 'تمثيل نصي منخفض المستوى لتنسيق WebAssembly (wasm) الثنائي.',
     desc2: 'يتم تحويله إلى wasm باستخدام wabt.js.',
-    link: '<1><2>WebAssembly.org</2></1> <3> <4>مواصفات نص WebAssembly</4> </3> <5> <6>WebAssembly على MDN</6> </5> <7> <8>فهم تنسيق نص WebAssembly</8> </7> <9> <10>وثائق wabt.js</10> </9> <11> <12>تعلم X في Y دقائق، حيث X=WebAssembly</12> </11> <13><14>تحميل القالب الأولي</14></13>',
     name: 'تنسيق نص WebAssembly',
   },
 };

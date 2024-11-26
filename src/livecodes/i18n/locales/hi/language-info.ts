@@ -49,7 +49,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Clio',
   },
   clojurescript: {
-    desc: 'ClojureScript <1>Clojure</1> के लिए एक कंपाइलर है जो JavaScript को लक्षित करता है। <2></2>LiveCodes में, यह ब्राउज़र में <3>Cherry</3> का उपयोग करके चलता है।',
     link: '<1> <2>ClojureScript आधिकारिक वेबसाइट</2> </1> <3> <4>Clojure आधिकारिक वेबसाइट</4> </3> <5> <6>Cherry रेपो</6> </5> <7> <8>X को Y मिनटों में सीखें, जहां X=clojure</8> </7> <9> <10>LiveCodes दस्तावेज़ीकरण</10> </9> <11> <12>स्टार्टर टेम्पलेट लोड करें</12> </11>',
     name: 'ClojureScript (CLJS)',
   },
@@ -71,7 +70,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: '<2>polylang.io</2> द्वारा अनुकूलित <1>wasm-clang</1> का उपयोग करके WebAssembly पर चलने वाला Clang C/C++ कंपाइलर।',
     link: '<1> <2>मानक C++ फाउंडेशन</2> </1> <3> <4>Clang आधिकारिक वेबसाइट</4> </3> <5> <6>X को Y मिनटों में सीखें, जहां X=C++</6> </5> <7> <8>स्टार्टर टेम्पलेट लोड करें</8> </7>',
     name: 'C/C++ (Wasm)',
   },
@@ -119,7 +117,6 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) एक ओपन सोर्स प्रोग्रामिंग भाषा है जो सरल, विश्वसनीय और कुशल सॉफ्टवेयर बनाना आसान बनाती है।',
     desc2: 'यहाँ, यह GopherJS का उपयोग करके JavaScript में कंपाइल किया जाता है।',
-    link: '<1><2>Go वेबसाइट</2></1> <3><4>Go दस्तावेज़ीकरण</4></3> <5> <6>GopherJS रेपो</6> </5> <7> <8>X को Y मिनटों में सीखें, जहां X=Go</8> </7> <9><10>स्टार्टर टेम्पलेट लोड करें</10></9>',
     name: 'Go',
   },
   haml: {
@@ -143,9 +140,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'JSX',
   },
   julia: {
-    desc1: '(LiveCodes में Julia भाषा समर्थन अभी भी प्रयोगात्मक है)',
-    desc2:
-      '<2>polylang.io</2> द्वारा अनुकूलित <1>julia-wasm</1> का उपयोग करके WASM पर चलने वाला Julia कंपाइलर और Julia Base।',
     link: '<1> <2>Julia आधिकारिक वेबसाइट</2> </1> <3> <4>Julia दस्तावेज़ीकरण</4> </3> <5> <6>X को Y मिनटों में सीखें, जहां X=Julia</6> </5> <7> <8>स्टार्टर टेम्पलेट लोड करें</8> </7>',
     name: 'Julia',
   },
@@ -166,7 +160,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   lua: {
     desc: 'fengari-web का उपयोग करके ब्राउज़र में चलने वाला Lua।',
-    link: '<1><2>Lua आधिकारिक वेबसाइट</2></1> <3> <4>Lua दस्तावेज़ीकरण</4> </3> <5> <6>Fengari आधिकारिक वेबसाइट</6> </5> <7> <8>fengari-web GitHub रेपो</8> </7> <9> <10>X को Y मिनटों में सीखें, जहां X=Lua</10> </9> <11> <12>LiveCodes दस्तावेज़ीकरण</12> </11> <13><14>स्टार्टर टेम्पलेट लोड करें</14></13>',
     name: 'Lua',
   },
   luaWasm: {
@@ -186,7 +179,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   mdx: {
     desc: 'कंपोनेंट युग के लिए Markdown। <1></1>MDX आपको अपने Markdown दस्तावेज़ों में सहजता से JSX लिखने की अनुमति देता है।',
-    link: '<1><2>MDX दस्तावेज़ीकरण</2></1> <3><4>स्टार्टर टेम्पलेट लोड करें</4></3>',
     name: 'MDX',
   },
   mjml: {
@@ -200,7 +192,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: 'JavaScript के लिए एक समृद्ध और शक्तिशाली टेम्प्लेटिंग भाषा। Nunjucks अनिवार्य रूप से <1>jinja2</1> का एक पोर्ट है।',
     link: '<1> <2>आधिकारिक वेबसाइट</2> </1> <3> <4>LiveCodes दस्तावेज़ीकरण</4> </3>',
     name: 'Nunjucks',
   },
@@ -219,7 +210,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   php: {
     desc: 'Uniter का उपयोग करके ब्राउज़र में चलने वाला PHP।',
-    link: '<1><2>PHP आधिकारिक वेबसाइट</2></1> <3> <4>PHP दस्तावेज़ीकरण</4> </3> <5> <6>Uniter GitHub रेपो</6> </5> <7> <8>X को Y मिनटों में सीखें, जहां X=PHP</8> </7> <9> <10>LiveCodes दस्तावेज़ीकरण</10> </9> <11><12>स्टार्टर टेम्पलेट लोड करें</12></11>',
     name: 'PHP',
   },
   phpWasm: {
@@ -330,7 +320,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   sql: {
     desc: 'SQL.js का उपयोग करके JavaScript में संकलित SQLite',
-    link: '<1> <2>SQLite आधिकारिक वेबसाइट</2> </1> <3> <4>SQLite सिंटैक्स दस्तावेज़ीकरण</4> </3> <5> <6>SQL.js आधिकारिक वेबसाइट</6> </5> <7> <8>X को Y मिनटों में सीखें, जहां X=SQL</8> </7> <9><10>स्टार्टर टेम्पलेट लोड करें</10></9>',
     name: 'SQLite',
   },
   stencil: {
@@ -378,7 +367,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
-    desc: '<2>Twig.js</2> द्वारा PHP टेम्प्लेटिंग भाषा <1>Twig</1> का एक JavaScript कार्यान्वयन।',
     link: '<1> <2>Twig आधिकारिक वेबसाइट</2> </1> <3> <4>Twig दस्तावेज़ीकरण</4> </3> <5> <6>Twig.js रेपो</6> </5> <7> <8>Twig.js दस्तावेज़ीकरण</8> </7> <9> <10>LiveCodes दस्तावेज़ीकरण</10> </9>',
     name: 'Twig',
   },
@@ -388,7 +376,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TypeScript',
   },
   vue: {
-    link: '<1> <2>Vue.js v3 आधिकारिक वेबसाइट</2> </1> <3> <4>Vue3 दस्तावेज़ीकरण</4> </3> <5> <6>Vue3 सिंगल फाइल कंपोनेंट्स</6> </5> <7> <8>LiveCodes दस्तावेज़ीकरण</8> </7> <9><10>स्टार्टर टेम्पलेट लोड करें</10></9>',
     name: 'Vue3 सिंगल फाइल कंपोनेंट्स',
   },
   vue2: {
@@ -399,7 +386,6 @@ const languageInfo: I18nLangInfoTranslation = {
   wat: {
     desc1: 'WebAssembly (wasm) बाइनरी फॉर्मेट का निम्न-स्तरीय पाठ्य प्रतिनिधित्व।',
     desc2: 'इसे wabt.js का उपयोग करके wasm में परिवर्तित किया जाता है।',
-    link: '<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly टेक्स्ट स्पेक्स</4> </3> <5> <6>MDN पर WebAssembly</6> </5> <7> <8>WebAssembly टेक्स्ट फॉर्मेट को समझना</8> </7> <9> <10>wabt.js दस्तावेज़ीकरण</10> </9> <11> <12>X को Y मिनटों में सीखें, जहां X=WebAssembly</12> </11> <13><14>स्टार्टर टेम्पलेट लोड करें</14></13>',
     name: 'WebAssembly टेक्स्ट फॉर्मेट',
   },
 };

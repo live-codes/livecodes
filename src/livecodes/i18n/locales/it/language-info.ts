@@ -49,7 +49,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Clio',
   },
   clojurescript: {
-    desc: 'ClojureScript è un compilatore per <1>Clojure</1> che ha come target JavaScript. <2></2>In LiveCodes, funziona nel browser utilizzando <3>Cherry</3>.',
     link: '<1> <2>Sito ufficiale di ClojureScript</2> </1> <3> <4>Sito ufficiale di Clojure</4> </3> <5> <6>Repository di Cherry</6> </5> <7> <8>Impara X in Y minuti, dove X=clojure</8> </7> <9> <10>Documentazione di LiveCodes</10> </9> <11> <12>Carica il modello di partenza</12> </11>',
     name: 'ClojureScript (CLJS)',
   },
@@ -66,12 +65,11 @@ const languageInfo: I18nLangInfoTranslation = {
   cpp: {
     desc1: 'Supporto C++ utilizzando JSCPP (un semplice interprete C++ scritto in JavaScript).',
     desc2:
-      "Non è un'implementazione completa di C++. Per i dettagli, consultare la <1>documentazione di JSCPP</1>",
+      "Non è un'implementazione completa di C++. Si prega di fare riferimento alla <1>documentazione di JSCPP</1> per i dettagli.",
     link: '<1> <2>Fondazione Standard C++</2> </1> <3> <4>JSCPP</4> </3> <5> <6>Impara X in Y minuti, dove X=C++</6> </5> <7> <8>Carica il modello di partenza</8> </7>',
     name: 'C++',
   },
   cppWasm: {
-    desc: 'Compilatore Clang C/C++ in esecuzione su WebAssembly, utilizzando <1>wasm-clang</1> adattato da <2>polylang.io</2>.',
     link: '<1> <2>Fondazione Standard C++</2> </1> <3> <4>Sito ufficiale di Clang</4> </3> <5> <6>Impara X in Y minuti, dove X=C++</6> </5> <7> <8>Carica il modello di partenza</8> </7>',
     name: 'C/C++ (Wasm)',
   },
@@ -119,7 +117,6 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) è un linguaggio di programmazione open source che facilita la creazione di software semplice, affidabile ed efficiente.',
     desc2: 'Qui, viene compilato in JavaScript utilizzando GopherJS.',
-    link: '<1><2>Sito web di Go</2></1> <3><4>Documentazione di Go</4></3> <5> <6>Repository di GopherJS</6> </5> <7> <8>Impara X in Y minuti, dove X=Go</8> </7> <9><10>Carica modello di partenza</10></9>',
     name: 'Go',
   },
   haml: {
@@ -143,9 +140,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'JSX',
   },
   julia: {
-    desc1: '(Il supporto per il linguaggio Julia in LiveCodes è ancora sperimentale)',
-    desc2:
-      'Compilatore Julia e Julia Base in esecuzione su WASM, utilizzando <1>julia-wasm</1> adattato da <2>polylang.io</2>.',
     link: '<1> <2>Sito ufficiale di Julia</2> </1> <3> <4>Documentazione di Julia</4> </3> <5> <6>Impara X in Y minuti, dove X=Julia</6> </5> <7> <8>Carica modello di partenza</8> </7>',
     name: 'Julia',
   },
@@ -166,7 +160,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   lua: {
     desc: 'Lua in esecuzione nel browser utilizzando fengari-web.',
-    link: '<1><2>Sito ufficiale di Lua</2></1> <3> <4>Documentazione di Lua</4> </3> <5> <6>Sito ufficiale di Fengari</6> </5> <7> <8>Repository GitHub di fengari-web</8> </7> <9> <10>Impara X in Y minuti, dove X=Lua</10> </9> <11> <12>Documentazione LiveCodes</12> </11> <13><14>Carica modello di partenza</14></13>',
     name: 'Lua',
   },
   luaWasm: {
@@ -186,7 +179,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   mdx: {
     desc: "Markdown per l'era dei componenti. <1></1>MDX ti permette di scrivere senza problemi JSX nei tuoi documenti Markdown.",
-    link: '<1><2>Documentazione MDX</2></1> <3><4>Carica modello di partenza</4></3>',
     name: 'MDX',
   },
   mjml: {
@@ -200,7 +192,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: 'Un linguaggio di templating ricco e potente per JavaScript. Nunjucks è essenzialmente una porta di <1>jinja2</1>.',
     link: '<1> <2>Sito ufficiale</2> </1> <3> <4>Documentazione LiveCodes</4> </3>',
     name: 'Nunjucks',
   },
@@ -218,7 +209,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   php: {
     desc: 'PHP in esecuzione nel browser utilizzando Uniter.',
-    link: '<1><2>Sito ufficiale di PHP</2></1> <3> <4>Documentazione di PHP</4> </3> <5> <6>Repository GitHub di Uniter</6> </5> <7> <8>Impara X in Y minuti, dove X=PHP</8> </7> <9> <10>Documentazione LiveCodes</10> </9> <11><12>Carica modello di partenza</12></11>',
     name: 'PHP',
   },
   phpWasm: {
@@ -328,7 +318,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   sql: {
     desc: 'SQLite compilato in JavaScript usando SQL.js',
-    link: '<1> <2>Sito ufficiale di SQLite</2> </1> <3> <4>Documentazione della sintassi SQLite</4> </3> <5> <6>Sito ufficiale di SQL.js</6> </5> <7> <8>Impara X in Y minuti, dove X=SQL</8> </7> <9><10>Carica modello di partenza</10></9>',
     name: 'SQLite',
   },
   stencil: {
@@ -376,7 +365,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
-    desc: "Un'implementazione JavaScript del linguaggio di templating PHP <1>Twig</1> di <2>Twig.js</2>.",
     link: '<1> <2>Sito ufficiale di Twig</2> </1> <3> <4>Documentazione di Twig</4> </3> <5> <6>Repository di Twig.js</6> </5> <7> <8>Documentazione di Twig.js</8> </7> <9> <10>Documentazione LiveCodes</10> </9>',
     name: 'Twig',
   },
@@ -386,7 +374,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TypeScript',
   },
   vue: {
-    link: '<1> <2>Sito ufficiale di Vue.js v3</2> </1> <3> <4>Documentazione di Vue3</4> </3> <5> <6>Componenti a file singolo di Vue3</6> </5> <7> <8>Documentazione LiveCodes</8> </7> <9><10>Carica modello di partenza</10></9>',
     name: 'Componenti a file singolo Vue3',
   },
   vue2: {
@@ -397,7 +384,6 @@ const languageInfo: I18nLangInfoTranslation = {
   wat: {
     desc1: 'Rappresentazione testuale di basso livello del formato binario WebAssembly (wasm).',
     desc2: 'Viene convertito in wasm utilizzando wabt.js.',
-    link: '<1><2>WebAssembly.org</2></1> <3> <4>Specifiche del formato testuale WebAssembly</4> </3> <5> <6>WebAssembly su MDN</6> </5> <7> <8>Comprendere il formato testuale WebAssembly</8> </7> <9> <10>Documentazione di wabt.js</10> </9> <11> <12>Impara X in Y minuti, dove X=WebAssembly</12> </11> <13><14>Carica modello di partenza</14></13>',
     name: 'Formato testuale WebAssembly',
   },
 };

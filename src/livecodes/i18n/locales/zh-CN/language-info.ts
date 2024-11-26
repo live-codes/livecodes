@@ -49,7 +49,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Clio',
   },
   clojurescript: {
-    desc: 'ClojureScript 是 <1>Clojure</1> 到 JavaScript 的编译器。<2></2>在 LiveCodes 中，它使用 <3>Cherry</3> 在浏览器中运行。',
     link: '<1> <2>ClojureScript 官方网站</2> </1> <3> <4>Clojure 官方网站</4> </3> <5> <6>Cherry 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=clojure</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
     name: 'ClojureScript（CLJS）',
   },
@@ -70,7 +69,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: '运行在 WebAssembly 上的 Clang C/C++ 编译器，使用由 <2>polylang.io</2> 适配的 <1>wasm-clang</1> 。',
     link: '<1> <2>标准 C++ 基金会</2> </1> <3> <4>Clang 官网</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=C++</6> </5> <7> <8>加载启动模板</8> </7>',
     name: 'C/C++（WASM）',
   },
@@ -116,7 +114,6 @@ const languageInfo: I18nLangInfoTranslation = {
   go: {
     desc1: 'Go（Golang）是一种开源编程语言，可以轻松构建简单、可靠、高效的软件。',
     desc2: '此处使用 GopherJS 将其编译为 JavaScript。',
-    link: '<1><2>Go 官方网站</2></1> <3><4>Go 文档</4></3> <5> <6>GopherJS 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=Go</8> </7> <9><10>加载启动模板</10></9>',
     name: 'Go',
   },
   haml: {
@@ -140,9 +137,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'JSX',
   },
   julia: {
-    desc1: '（LiveCodes 中的 Julia 语言支持仍处于实验阶段）',
-    desc2:
-      '在 WASM 上运行的 Julia 编译器和 Julia Base，使用由 <2>polylang.io</2> 适配的 <1>julia-wasm</1> 。',
     link: '<1> <2>Julia 官方网站</2> </1> <3> <4>Julia 文档</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=Julia</6> </5> <7> <8>加载启动模板</8> </7>',
     name: 'Julia',
   },
@@ -163,7 +157,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   lua: {
     desc: '使用 fengari-web 在浏览器中运行的 Lua。',
-    link: '<1><2>Lua 官方网站</2></1> <3> <4>Lua 文档</4> </3> <5> <6>Fengari 官网</6> </5> <7> <8>fengari-web GitHub 仓库</8> </7> <9> <10>在 Y 分钟内学习 X，其中 X=Lua</10> </9> <11> <12>LiveCodes 文档</12> </11> <13><14>加载启动模板</14></13>',
     name: 'Lua',
   },
   luaWasm: {
@@ -183,7 +176,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   mdx: {
     desc: '组件时代的 Markdown。 <1> </1> MDX 让您可以在 Markdown 文档中无缝编写 JSX。',
-    link: '<1><2>MDX 文档</2></1> <3><4>加载启动模板</4></3>',
     name: 'MDX',
   },
   mjml: {
@@ -197,7 +189,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: '一种丰富而强大的 JavaScript 模板语言。Nunjucks 本质上是 <1>jinja2</1> 的一个移植。',
     link: '<1> <2>官方网站</2> </1> <3> <4>LiveCodes 文档</4> </3>',
     name: 'Nunjucks',
   },
@@ -214,7 +205,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   php: {
     desc: '使用 Uniter 在浏览器中运行的 PHP。',
-    link: '<1><2>PHP 官网</2></1> <3> <4>PHP 文档</4> </3> <5> <6>Uniter GitHub 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=PHP</8> </7> <9> <10>LiveCodes 文档</10> </9> <11><12>加载启动模板</12></11>',
     name: 'PHP',
   },
   phpWasm: {
@@ -323,7 +313,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   sql: {
     desc: '使用 SQL.js 编译为 JavaScript 的 SQLite。',
-    link: '<1> <2>SQLite 官方网站</2> </1> <3> <4>SQLite 语法文档</4> </3> <5> <6>SQL.js 官方网站</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=SQL</8> </7> <9><10>加载启动模板</10></9>',
     name: 'SQLite',
   },
   stencil: {
@@ -371,7 +360,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
-    desc: '由 <2>Twig.js </2> 支持的 <1>Twig</1> PHP 模板语言的 JavaScript 实现。',
     link: '<1> <2>Twig 官方网站</2> </1> <3> <4>Twig 文档</4> </3> <5> <6>Twig.js 仓库</6> </5> <7> <8>Twig.js 文档</8> </7> <9> <10>LiveCodes 文档</10> </9>',
     name: 'Twig',
   },
@@ -381,7 +369,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TypeScript',
   },
   vue: {
-    link: '<1> <2>Vue.js v3 官方网站</2> </1> <3> <4>Vue3 文档</4> </3> <5> <6>Vue3 单文件组件</6> </5> <7> <8>LiveCodes 文档</8> </7> <9><10>加载启动模板</10></9>',
     name: 'Vue3 单文件组件',
   },
   vue2: {
@@ -392,7 +379,6 @@ const languageInfo: I18nLangInfoTranslation = {
   wat: {
     desc1: 'WebAssembly（wasm）二进制格式的低级文本表示。',
     desc2: '使用 wabt.js 将其转换为 wasm。',
-    link: '<1><2>WebAssembly.org</2></1> <3> <4> WebAssembly 文本规范</4> </3> <5> <6> MDN 上的 WebAssembly</6> </5> <7> <8> 理解 WebAssembly 文本格式</8> </7> <9> <10> wabt.js 文档</10> </9> <11> <12> 在 Y 分钟内学习 X，其中 X=WebAssembly</12> </11> <13> <14> 加载启动模板</14></13>',
     name: 'WebAssembly 文本格式',
   },
 };

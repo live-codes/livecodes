@@ -5,19 +5,9 @@ import type { I18nTranslation } from '../models';
 const translation: I18nTranslation = {
   about: {
     documentations: {
-      aboutUs: 'Über uns',
-      contact: 'Kontakt',
       heading: 'Dokumentationen',
-      home: 'Startseite',
-      license: 'Lizenz',
     },
     heading: 'Über LiveCodes',
-    livecodes: {
-      para1:
-        '<1><2>LiveCodes</2></1> ist ein <3>Open-Source</3>, <4>funktionsreiches</4>, <5>clientseitiger</5> Code-Spielplatz. Derzeit werden <6>über 80 Sprachen/<7></7>Frameworks</6> unterstützt. Es kann als eigenständige App verwendet oder in jede Webseite <8>eingebettet</8> werden. Es gibt viele Möglichkeiten, Spielplätze mit Code <9>vorzufüllen</9>.',
-      para2:
-        'Eine breite Palette von <1>Konfigurationsoptionen</1> macht es sehr flexibel. Ein leistungsstarkes <2>SDK</2> (für <3>JS/TS</3>, <4>React</4>, <5>Vue</5> und <6>Svelte</6>) erleichtert das <7>Einbetten</7> und die <8>Kommunikation</8> mit Spielplätzen. <9>Umfassende Dokumentationen</9> sind mit Codebeispielen, Live-Demos und Screenshots verfügbar.',
-    },
     version: {
       app: 'App-Version: {{APP_VERSION}}',
       appPermanentUrl: 'Permanente App-URL',
@@ -40,9 +30,6 @@ const translation: I18nTranslation = {
     customSettings: {
       hint: 'Benutzerdefinierte Einstellungen',
     },
-    editorMode: {
-      hint: 'Editor-Modus',
-    },
     editorSettings: {
       hint: 'Editor-Einstellungen',
     },
@@ -63,9 +50,6 @@ const translation: I18nTranslation = {
     },
     redo: {
       hint: 'Wiederholen (Strg/Cmd + Umschalt + Z)',
-    },
-    result: {
-      hint: 'Ergebnis umschalten',
     },
     run: {
       hint: 'Ausführen (Umschalt + Enter)',
@@ -315,14 +299,8 @@ const translation: I18nTranslation = {
     searchRepo: 'Durchsuchen Sie Ihre öffentlichen Repositories...',
   },
   editorSettings: {
-    appLanguage: {
-      heading: 'App-Benutzeroberflächen-Sprache',
-      note: 'Die App wird neu geladen, um die Änderungen nach dem Sprachwechsel anzuwenden.',
-    },
     closeBrackets: 'Klammern und Anführungszeichen automatisch schließen',
-    codeJarDesc: '* Die markierten Funktionen sind in CodeJar nicht verfügbar.',
     default: 'Standard',
-    desc: 'Bitte lesen Sie die <1>Dokumentation</1> für Details.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -429,11 +407,8 @@ const translation: I18nTranslation = {
     about: {
       blog: 'Blog',
       configuration: 'Konfiguration',
-      features: 'Funktionen',
       gettingStarted: 'Erste Schritte',
       github: 'GitHub',
-      sdk: 'SDK',
-      sponsor: 'LiveCodes sponsern',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'Klicken für Informationen...',
@@ -493,7 +468,6 @@ const translation: I18nTranslation = {
     publicRepo: 'Repos',
   },
   menu: {
-    about: 'Über',
     assets: 'Assets …',
     autoSave: 'Automatisches Speichern',
     autoUpdate: 'Automatisches Aktualisieren',
@@ -519,7 +493,6 @@ const translation: I18nTranslation = {
     formatOnsave: 'Beim Speichern formatieren',
     import: 'Importieren …',
     layout: 'Vertikales Layout',
-    login: 'Anmelden …',
     logout: 'Abmelden',
     new: 'Neu …',
     open: 'Öffnen …',
@@ -529,7 +502,6 @@ const translation: I18nTranslation = {
     save: 'Speichern',
     saveAs: {
       fork: 'Abzweigen (Neues Projekt)',
-      heading: 'Speichern unter',
       template: 'Vorlage',
     },
     share: 'Teilen …',
@@ -542,7 +514,6 @@ const translation: I18nTranslation = {
     theme: 'Dunkles Theme',
     welcome: {
       heading: 'Willkommen …',
-      hint: 'Willkommensbildschirm beim Start anzeigen',
     },
   },
   open: {
@@ -657,7 +628,6 @@ const translation: I18nTranslation = {
       generating: 'Wird generiert...',
     },
     services: {
-      copyUrl: 'URL kopieren',
       devTo: 'Dev.to',
       email: 'E-Mail',
       facebook: 'Facebook',
@@ -865,7 +835,6 @@ const translation: I18nTranslation = {
   },
   welcome: {
     about: {
-      documentation: 'Dokumentation',
       heading: 'Über LiveCodes',
     },
     heading: 'Willkommen',
@@ -875,7 +844,6 @@ const translation: I18nTranslation = {
     recover: {
       cancel: 'Abbrechen',
       heading: 'Wiederherstellen',
-      lastModified: 'Zuletzt geändert: <1></1>',
       recover: 'Wiederherstellen',
       save: 'Speichern',
       unsavedChanges: 'Ihr letztes Projekt hatte ungespeicherte Änderungen:',

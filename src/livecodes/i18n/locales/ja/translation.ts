@@ -5,19 +5,9 @@ import type { I18nTranslation } from '../models';
 const translation: I18nTranslation = {
   about: {
     documentations: {
-      aboutUs: '私たちについて',
-      contact: 'お問い合わせ',
       heading: 'ドキュメント',
-      home: 'ホーム',
-      license: 'ライセンス',
     },
     heading: 'LiveCodesについて',
-    livecodes: {
-      para1:
-        '<1><2>LiveCodes</2></1>は、<3>オープンソース</3>で<4>機能豊富</4>な<5>クライアントサイド</5>のコードプレイグラウンドです。現在、<6>80以上の言語/<7></7>フレームワーク</6>をサポートしています。スタンドアロンアプリとして使用することも、任意のWebページに<8>埋め込む</8>こともできます。プレイグラウンドに<9>コードをプリフィル</9>する方法は多数あります。',
-      para2:
-        '幅広い<1>設定オプション</1>により、非常に柔軟性があります。強力な<2>SDK</2>（<3>JS/TS</3>、<4>React</4>、<5>Vue</5>、<6>Svelte</6>用）により、プレイグラウンドの<7>埋め込み</7>と<8>通信</8>が容易になります。コードサンプル、ライブデモ、スクリーンショットを含む<9>包括的なドキュメント</9>が利用可能です。',
-    },
     version: {
       app: 'アプリバージョン: {{APP_VERSION}}',
       appPermanentUrl: 'アプリの永続的URL',
@@ -40,9 +30,6 @@ const translation: I18nTranslation = {
     customSettings: {
       hint: 'カスタム設定',
     },
-    editorMode: {
-      hint: 'エディターモード',
-    },
     editorSettings: {
       hint: 'エディター設定',
     },
@@ -63,9 +50,6 @@ const translation: I18nTranslation = {
     },
     redo: {
       hint: 'やり直し (Ctrl/Cmd + Shift + Z)',
-    },
-    result: {
-      hint: '結果の表示切り替え',
     },
     run: {
       hint: '実行 (Shift + Enter)',
@@ -315,14 +299,8 @@ const translation: I18nTranslation = {
     searchRepo: '公開リポジトリを検索...',
   },
   editorSettings: {
-    appLanguage: {
-      heading: 'アプリUIの言語',
-      note: '言語を切り替えた後、変更を適用するためにアプリを再読み込みします。',
-    },
     closeBrackets: '括弧と引用符を自動的に閉じる',
-    codeJarDesc: '* マークされた機能はCodeJarでは利用できません。',
     default: 'デフォルト',
-    desc: '詳細については<1>ドキュメント</1>をご確認ください。',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -429,11 +407,8 @@ const translation: I18nTranslation = {
     about: {
       blog: 'ブログ',
       configuration: '設定',
-      features: '機能',
       gettingStarted: 'はじめに',
       github: 'GitHub',
-      sdk: 'SDK',
-      sponsor: 'をスポンサー',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'クリックして詳細を表示...',
@@ -493,19 +468,6 @@ const translation: I18nTranslation = {
     publicRepo: 'リポジトリ',
   },
   menu: {
-    about: '概要',
-    appHelp: {
-      heading: '手助け',
-      hint: '手助け',
-    },
-    appProject: {
-      heading: 'プロジェクト',
-      hint: 'プロジェクト',
-    },
-    appSettings: {
-      heading: '設定',
-      hint: '設定',
-    },
     assets: 'アセット …',
     autoSave: '自動保存',
     autoUpdate: '自動更新',
@@ -524,14 +486,13 @@ const translation: I18nTranslation = {
       gist: 'GitHub Gistにエクスポート',
       heading: 'エクスポート',
       jsfiddle: 'JSFiddleで編集',
-      json: 'エクスポート (JSON)',
+      json: 'プロジェクトをエクスポート（JSON）',
       result: '結果をエクスポート（HTML）',
       src: 'ソースをエクスポート（ZIP）',
     },
     formatOnsave: '保存時にフォーマット',
     import: 'インポート …',
     layout: '垂直レイアウト',
-    login: 'ログイン …',
     logout: 'ログアウト',
     new: '新規 …',
     open: '開く …',
@@ -541,7 +502,6 @@ const translation: I18nTranslation = {
     save: '保存',
     saveAs: {
       fork: 'フォーク（新規プロジェクト）',
-      heading: '別名で保存',
       template: 'テンプレート',
     },
     share: '共有 …',
@@ -554,7 +514,6 @@ const translation: I18nTranslation = {
     theme: 'ダークテーマ',
     welcome: {
       heading: 'ようこそ …',
-      hint: '起動時にウェルカム画面を表示',
     },
   },
   open: {
@@ -641,7 +600,7 @@ const translation: I18nTranslation = {
   savePrompt: {
     heading: '未保存の変更',
     prompt: {
-      cancel: '消去',
+      cancel: 'キャンセル',
       discard: '保存しない',
       heading: '変更が保存されていない可能性があります。<1></1>今すぐ保存しますか？',
       save: '保存',
@@ -667,7 +626,6 @@ const translation: I18nTranslation = {
       generating: '生成中...',
     },
     services: {
-      copyUrl: 'URLをコピー',
       devTo: 'Dev.to',
       email: 'メール',
       facebook: 'Facebook',
@@ -875,7 +833,6 @@ const translation: I18nTranslation = {
   },
   welcome: {
     about: {
-      documentation: 'ドキュメント',
       heading: 'LiveCodesについて',
     },
     heading: 'ようこそ',
@@ -883,9 +840,8 @@ const translation: I18nTranslation = {
       heading: '最近',
     },
     recover: {
-      cancel: '消去',
+      cancel: 'キャンセル',
       heading: '復元',
-      lastModified: '最終更新: <1></1>',
       recover: '復元',
       save: '保存',
       unsavedChanges: '最後のプロジェクトに未保存の変更があります：',
