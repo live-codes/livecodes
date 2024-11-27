@@ -1131,7 +1131,9 @@ const setCustomSettingsMark = () => {
 
 const run = async (editorId?: EditorId, runTests?: boolean) => {
   setLoading(true);
-  toolsPane?.console?.clear(/* silent= */ true);
+  if (editorId !== 'style') {
+    toolsPane?.console?.clear(/* silent= */ true);
+  }
   const config = getConfig();
   const shouldRunTests = (runTests ?? config.autotest) && Boolean(config.tests?.content?.trim());
   const result = await getResultPage({ sourceEditor: editorId, runTests: shouldRunTests });
