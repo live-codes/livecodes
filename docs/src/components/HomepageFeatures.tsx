@@ -26,7 +26,7 @@ const FeatureList1: FeatureItem[] = [
       <>
         Supports{' '}
         <Link to="./languages">
-          <strong>80+ languages/frameworks</strong>
+          <strong>90+ languages/frameworks</strong>
         </Link>
         . TypeScript Support, npm Modules, Console, Compiled code viewer, Tests, Starter Templates,
         Save, Import, Export, Share, Deploy, Assets, Snippets, Backup/Restore, Sync, Broadcast and a
@@ -327,7 +327,7 @@ export default function HomepageFeatures(): JSX.Element {
                   <li>No account required *</li>
                   <li>No limits for usage (unlimited private projects)</li>
                   <li>
-                    <Link to="./languages/">80+ languages/frameworks/processors</Link>
+                    <Link to="./languages/">90+ languages/frameworks/processors</Link>
                   </li>
                   <li>
                     Large set of <Link to="./features/">features</Link> and integrations
