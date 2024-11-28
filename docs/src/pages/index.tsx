@@ -31,7 +31,7 @@ function HomepageHeader() {
           An open-source <strong>client-side</strong> playground for React, Vue, Svelte, Solid,
           Typescript, Python, Go, Ruby, PHP and{' '}
           <Link to="./languages">
-            <strong>80+ languages/frameworks</strong>
+            <strong>90+ languages/frameworks</strong>
           </Link>
           .
         </div>
