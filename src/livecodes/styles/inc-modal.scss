@@ -742,7 +742,7 @@
     margin-top: 0;
   }
 
-  input:not([type='radio']):not([type='checkbox']) {
+  input:not([type='radio']):not([type='checkbox']):not([type='range']) {
     background: var(--input-bg-color);
     border: 1px solid var(--input-border-color);
     border-radius: var(--rs);
@@ -768,7 +768,6 @@
     }
 
     .radio-label {
-      color: var(--light);
       font-weight: unset;
       margin: 0;
       padding-left: 0.5em;
@@ -788,7 +787,6 @@
 
   label + .input-container,
   #editor-settings-form .input-container:not(.field-note) {
-    background: var(--input-container);
     border-radius: var(--rs);
     padding: var(--s6);
   }
