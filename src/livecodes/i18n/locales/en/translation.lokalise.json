@@ -50,7 +50,7 @@
   },
   "about.livecodes.para1": {
     "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<em  />\n\n",
-    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> is an open-source, feature-rich, client-side code playground. Currently, 80+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page."
+    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> is an open-source, feature-rich, client-side code playground. Currently, 90+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page."
   },
   "about.livecodes.para2": {
     "notes": "",

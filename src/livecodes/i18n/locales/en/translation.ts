@@ -34,7 +34,7 @@ const translation = {
     livecodes: {
       aboutUs: 'About LiveCodes',
       para1:
-        '<1><2>LiveCodes</2></1> is an open-source, feature-rich, client-side code playground. Currently, 80+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page.',
+        '<1><2>LiveCodes</2></1> is an open-source, feature-rich, client-side code playground. Currently, 90+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page.',
       para2:
         'A powerful SDK makes it easy to integrate and communicate with playgrounds. Extensive documentation is available with code examples, live demos, and screenshots.',
     },
