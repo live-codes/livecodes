@@ -45,11 +45,11 @@ const translation = {
       title: '𝕏 / Twitter',
     },
     version: {
-      app: 'App version: {{APP_VERSION}}',
+      app: 'App version: <1>{{APP_VERSION}}</1>',
       appPermanentUrl: 'App Permanent URL',
-      commit: 'Git commit: {{COMMIT_SHA}}',
+      commit: 'Git commit: <1>{{COMMIT_SHA}}</1>',
       heading: 'Version',
-      sdk: 'SDK version: {{SDK_VERSION}}',
+      sdk: 'SDK version: <1>{{SDK_VERSION}}</1>',
       sdkPermanentUrl: 'SDK Permanent URL',
     },
   },
@@ -58,7 +58,10 @@ const translation = {
       hint: 'Change Theme',
     },
     consoleMessage: {
+      appVersion: 'App version: {{APP_VERSION}}',
+      commit: 'Git commit: {{COMMIT_SHA}}',
       learnMore: 'Learn more! {{docsUrl}} 🚀',
+      sdkVersion: 'SDK version: {{SDK_VERSION}}',
     },
     copy: {
       hint: 'Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)',

@@ -2111,23 +2111,35 @@ const showConsoleMessage = () => {
       style: 'font-style: italic; font-size: 1.2em;',
     },
     {
-      content: window.deps.translateString('about.version.app', `App version: {{APP_VERSION}}`, {
-        APP_VERSION: predefinedValues.APP_VERSION,
-      }),
+      content: window.deps.translateString(
+        'app.consoleMessage.appVersion',
+        'App version: {{APP_VERSION}}',
+        {
+          APP_VERSION: predefinedValues.APP_VERSION,
+        },
+      ),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: ' ', style: '' },
     {
-      content: window.deps.translateString('about.version.sdk', `SDK version: {{SDK_VERSION}}`, {
-        SDK_VERSION: predefinedValues.SDK_VERSION,
-      }),
+      content: window.deps.translateString(
+        'app.consoleMessage.sdkVersion',
+        'SDK version: {{SDK_VERSION}}',
+        {
+          SDK_VERSION: predefinedValues.SDK_VERSION,
+        },
+      ),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: ' ', style: '' },
     {
-      content: window.deps.translateString('about.version.commit', `Git commit: {{COMMIT_SHA}}`, {
-        COMMIT_SHA: predefinedValues.COMMIT_SHA,
-      }),
+      content: window.deps.translateString(
+        'app.consoleMessage.commit',
+        'Git commit: {{COMMIT_SHA}}',
+        {
+          COMMIT_SHA: predefinedValues.COMMIT_SHA,
+        },
+      ),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: '\n\n', style: '' },

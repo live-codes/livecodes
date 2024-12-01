@@ -69,24 +69,24 @@
     "translation": "𝕏 / Twitter"
   },
   "about.version.app": {
-    "notes": "",
-    "translation": "App version: {{APP_VERSION}}"
+    "notes": "### <tag-1> ###\n<span class=\"version\" />\n\n",
+    "translation": "App version: <tag-1>{{APP_VERSION}}</tag-1>"
   },
   "about.version.appPermanentUrl": {
     "notes": "",
     "translation": "App Permanent URL"
   },
   "about.version.commit": {
-    "notes": "",
-    "translation": "Git commit: {{COMMIT_SHA}}"
+    "notes": "### <tag-1> ###\n<a href=\"{{COMMIT_URL}}\" target=\"_blank\" rel=\"noopener\" class=\"version\" />\n\n",
+    "translation": "Git commit: <tag-1>{{COMMIT_SHA}}</tag-1>"
   },
   "about.version.heading": {
     "notes": "",
     "translation": "Version"
   },
   "about.version.sdk": {
-    "notes": "",
-    "translation": "SDK version: {{SDK_VERSION}}"
+    "notes": "### <tag-1> ###\n<span class=\"version\" />\n\n",
+    "translation": "SDK version: <tag-1>{{SDK_VERSION}}</tag-1>"
   },
   "about.version.sdkPermanentUrl": {
     "notes": "",
@@ -96,9 +96,21 @@
     "notes": "",
     "translation": "Change Theme"
   },
+  "app.consoleMessage.appVersion": {
+    "notes": "",
+    "translation": "App version: {{APP_VERSION}}"
+  },
+  "app.consoleMessage.commit": {
+    "notes": "",
+    "translation": "Git commit: {{COMMIT_SHA}}"
+  },
   "app.consoleMessage.learnMore": {
     "notes": "",
     "translation": "Learn more! {{docsUrl}} 🚀"
+  },
+  "app.consoleMessage.sdkVersion": {
+    "notes": "",
+    "translation": "SDK version: {{SDK_VERSION}}"
   },
   "app.copy.hint": {
     "notes": "",
