@@ -18,6 +18,9 @@ const translation = {
     configuration: 'Configuration',
     credits: {
       heading: 'Credits',
+      para1:
+        'LiveCodes is made possible by open source projects, web services and contributors. <1>View Credits</1>',
+      para2: '© 2024 Hatem Hosny. LiveCodes is licensed under MIT License.',
     },
     documentations: {
       heading: 'Documentations',
@@ -29,7 +32,7 @@ const translation = {
     },
     heading: 'About LiveCodes',
     livecodes: {
-      aboutUs: 'About Livecodes',
+      aboutUs: 'About LiveCodes',
       para1:
         '<1><2>LiveCodes</2></1> is an open-source, feature-rich, client-side code playground. Currently, 80+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page.',
       para2:

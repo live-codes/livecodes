@@ -16,6 +16,14 @@
     "notes": "",
     "translation": "Credits"
   },
+  "about.credits.para1": {
+    "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}credits\" target=\"_blank\" />\n\n",
+    "translation": "LiveCodes is made possible by open source projects, web services and contributors. <tag-1>View Credits</tag-1>"
+  },
+  "about.credits.para2": {
+    "notes": "",
+    "translation": "© 2024 Hatem Hosny. LiveCodes is licensed under MIT License."
+  },
   "about.documentations.heading": {
     "notes": "",
     "translation": "Documentations"
@@ -38,7 +46,7 @@
   },
   "about.livecodes.aboutUs": {
     "notes": "",
-    "translation": "About Livecodes"
+    "translation": "About LiveCodes"
   },
   "about.livecodes.para1": {
     "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<em  />\n\n",
