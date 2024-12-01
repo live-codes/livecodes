@@ -609,7 +609,7 @@ const translation = {
     save: 'Save',
     saveAs: {
       fork: 'Fork (New Project)',
-      heading: 'Save as … Ctrl⇧s',
+      heading: 'Save as …',
       template: 'Template',
     },
     sdk: 'SDK',
