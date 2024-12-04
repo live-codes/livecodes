@@ -18,6 +18,9 @@ const translation = {
     configuration: 'Configuration',
     credits: {
       heading: 'Credits',
+      para1:
+        'LiveCodes is made possible by open source projects, web services and contributors. <1>View Credits</1>',
+      para2: '© 2024 Hatem Hosny. LiveCodes is licensed under MIT License.',
     },
     documentations: {
       heading: 'Documentations',
@@ -29,9 +32,9 @@ const translation = {
     },
     heading: 'About LiveCodes',
     livecodes: {
-      aboutUs: 'About Livecodes',
+      aboutUs: 'About LiveCodes',
       para1:
-        '<1><2>LiveCodes</2></1> is an open-source, feature-rich, client-side code playground. Currently, 80+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page.',
+        '<1><2>LiveCodes</2></1> is an open-source, feature-rich, client-side code playground. Currently, 90+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page.',
       para2:
         'A powerful SDK makes it easy to integrate and communicate with playgrounds. Extensive documentation is available with code examples, live demos, and screenshots.',
     },
@@ -45,11 +48,11 @@ const translation = {
       title: '𝕏 / Twitter',
     },
     version: {
-      app: 'App version: {{APP_VERSION}}',
+      app: 'App version: <1>{{APP_VERSION}}</1>',
       appPermanentUrl: 'App Permanent URL',
-      commit: 'Git commit: {{COMMIT_SHA}}',
+      commit: 'Git commit: <1>{{COMMIT_SHA}}</1>',
       heading: 'Version',
-      sdk: 'SDK version: {{SDK_VERSION}}',
+      sdk: 'SDK version: <1>{{SDK_VERSION}}</1>',
       sdkPermanentUrl: 'SDK Permanent URL',
     },
   },
@@ -58,7 +61,10 @@ const translation = {
       hint: 'Change Theme',
     },
     consoleMessage: {
+      appVersion: 'App version: {{APP_VERSION}}',
+      commit: 'Git commit: {{COMMIT_SHA}}',
       learnMore: 'Learn more! {{docsUrl}} 🚀',
+      sdkVersion: 'SDK version: {{SDK_VERSION}}',
     },
     copy: {
       hint: 'Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)',
@@ -603,7 +609,7 @@ const translation = {
     save: 'Save',
     saveAs: {
       fork: 'Fork (New Project)',
-      heading: 'Save as … Ctrl⇧s',
+      heading: 'Save as …',
       template: 'Template',
     },
     sdk: 'SDK',
