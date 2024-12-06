@@ -4,10 +4,36 @@ import type { I18nTranslation } from '../models';
 
 const translation: I18nTranslation = {
   about: {
+    blog: {
+      text: 'Blog',
+      title: 'Blog de LiveCodes',
+    },
+    configuration: 'Configuración',
+    credits: {
+      heading: 'Créditos',
+    },
     documentations: {
       heading: 'Documentación',
     },
+    gettingStarted: 'Primeros pasos',
+    github: {
+      text: 'GitHub',
+      title: 'GitHub',
+    },
     heading: 'Acerca de LiveCodes',
+    livecodes: {
+      para2:
+        'Una amplia gama de <1>opciones de configuración</1> lo hace muy flexible. Un potente <2>SDK</2> (para <3>JS/TS</3>, <4>React</4>, <5>Vue</5> y <6>Svelte</6>) facilita la <7>incrustación</7> y la <8>comunicación</8> con los campos de juego. Hay disponible una <9>documentación completa</9> con ejemplos de código, demostraciones en vivo y capturas de pantalla.',
+    },
+    sdk: 'LiveCodes SDK',
+    sponsor: {
+      text: 'Patrocinar',
+      title: 'Patrocinar LiveCodes',
+    },
+    twitter: {
+      text: '𝕏 / Twitter',
+      title: '𝕏 / Twitter',
+    },
     version: {
       appPermanentUrl: 'URL permanente de la aplicación',
       heading: 'Versión',
@@ -15,6 +41,9 @@ const translation: I18nTranslation = {
     },
   },
   app: {
+    changeTheme: {
+      hint: 'Cambiar tema',
+    },
     consoleMessage: {
       learnMore: '¡Aprende más! {{docsUrl}} 🚀',
     },
@@ -42,11 +71,24 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'Pantalla completa',
     },
+    i18nButton: {
+      hint: 'Idioma de la interfaz de la aplicación',
+    },
+    i18nMenu: {
+      docs: 'Documentación de i18n',
+      helpTranslate: 'Ayúdenos a traducir',
+    },
+    logo: {
+      title: 'LiveCodes: un editor de código que se ejecuta en su navegador!',
+    },
     projectInfo: {
       hint: 'Información del proyecto',
     },
     redo: {
       hint: 'Rehacer (Ctrl/Cmd + Shift + Z)',
+    },
+    result: {
+      hint: 'Mostrar resultado',
     },
     run: {
       hint: 'Ejecutar (Shift + Enter)',
@@ -54,12 +96,18 @@ const translation: I18nTranslation = {
     share: {
       hint: 'Compartir',
     },
+    themeColors: {
+      custom: 'Costumbre',
+    },
     undo: {
       hint: 'Deshacer (Ctrl/Cmd + Z)',
     },
     untitledProject: 'Proyecto sin título',
   },
   assets: {
+    action: {
+      delete: 'Eliminar',
+    },
     add: {
       dataURL: {
         desc: 'Agregar activo como <1>URL de datos</1> codificada en base64.',
@@ -267,6 +315,7 @@ const translation: I18nTranslation = {
   },
   customSettings: {
     JSON: 'JSON de configuraciones personalizadas',
+    desc: '<1></1> Para más información, consulte la <2>documentación</2>',
     heading: 'Configuraciones personalizadas',
     load: 'Cargar',
   },
@@ -298,6 +347,7 @@ const translation: I18nTranslation = {
   editorSettings: {
     closeBrackets: 'Cerrar automáticamente paréntesis y comillas',
     default: 'Predeterminado',
+    desc: 'Por favor, consulta la <1>documentación</1> para más detalles.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -351,6 +401,13 @@ const translation: I18nTranslation = {
       copy: 'Copiar código',
       heading: 'Código',
     },
+    codeEditor: {
+      codeJar: 'CodeJar',
+      codeMirror: 'CodeMirror',
+      default: 'Predeterminado',
+      heading: 'Editor de código',
+      monaco: 'Monaco',
+    },
     desc: 'Por favor, consulta la <1>documentación</1> para configuraciones avanzadas.',
     embedType: {
       cdn: 'Script (CDN)',
@@ -363,6 +420,12 @@ const translation: I18nTranslation = {
       vue: 'Vue',
     },
     heading: 'Incrustar proyecto',
+    layout: {
+      heading: 'Diseño',
+      horizontal: 'Horizontal',
+      responsive: 'Respuesta',
+      vertical: 'Vertical',
+    },
     lite: 'Modo ligero',
     loading: {
       click: 'Al hacer clic',
@@ -376,6 +439,7 @@ const translation: I18nTranslation = {
       full: 'Completo',
       heading: 'Modo de visualización',
       result: 'Resultado',
+      simple: 'Simple',
     },
     permanentUrl: 'URL permanente',
     preview: 'Vista previa',
@@ -410,6 +474,9 @@ const translation: I18nTranslation = {
     },
     clickForInfo: 'Clic para información...',
     close: 'Cerrar',
+    embed: {
+      logoHint: 'Editar en LiveCodes 🡕',
+    },
     error: {
       authentication: '¡Error de autenticación!',
       exceededSize: 'Error: Tamaño excedido {{size}} MB',
@@ -465,17 +532,33 @@ const translation: I18nTranslation = {
     publicRepo: 'Repositorios',
   },
   menu: {
+    about: 'Acerca de',
+    appHelp: {
+      heading: 'Ayuda',
+      hint: 'Ayuda',
+    },
+    appProject: {
+      heading: 'Proyecto',
+      hint: 'Proyecto',
+    },
+    appSettings: {
+      heading: 'Ajustes',
+      hint: 'Configuración de la aplicación',
+    },
     assets: 'Activos …',
     autoSave: 'Guardado automático',
     autoUpdate: 'Actualización automática',
     backup: 'Copia de seguridad / Restaurar …',
+    blog: 'Blog de LiveCodes',
     broadcast: 'Transmitir …',
+    config: 'Configuración',
     customSettings: 'Configuraciones personalizadas …',
     delay: {
       heading: 'Retraso: <1>1.5</1>s',
       hint: 'Retraso antes de la actualización automática',
     },
     deploy: 'Desplegar …',
+    docs: 'Documentación',
     editorSettings: 'Configuración del editor …',
     embed: 'Incrustar …',
     export: {
@@ -487,33 +570,47 @@ const translation: I18nTranslation = {
       result: 'Exportar resultado (HTML)',
       src: 'Exportar código fuente (ZIP)',
     },
+    features: 'Características',
     formatOnsave: 'Formatear al guardar',
+    getstart: 'Primeros pasos',
     import: 'Importar …',
     layout: 'Diseño vertical',
+    license: 'Licencia',
+    login: 'Iniciar sesión …',
     logout: 'Cerrar sesión',
     new: 'Nuevo …',
     open: 'Abrir …',
     project: 'Información del proyecto …',
     recoverUnsaved: 'Recuperar no guardado',
+    report: 'Informar de un problema',
     resources: 'Recursos externos …',
     save: 'Guardar',
     saveAs: {
       fork: 'Bifurcar (Nuevo proyecto)',
       template: 'Plantilla',
     },
+    sdk: 'SDK',
     share: 'Compartir …',
     showSpacing: {
       heading: 'Mostrar espaciado',
       hint: 'Presiona Alt/Opción y mueve el cursor sobre la página de resultados',
     },
+    showWelcome: {
+      title: 'Mostrar pantalla de bienvenida al inicio',
+    },
     snippets: 'Fragmentos de código …',
+    source: 'Código fuente en GitHub',
     sync: 'Sincronizar (beta) … <1> ⏳</1>',
     theme: 'Tema oscuro',
+    themeColor: 'Color',
     welcome: {
       heading: 'Bienvenida …',
     },
   },
   open: {
+    action: {
+      delete: 'Eliminar',
+    },
     defaultTemplate: 'Plantilla predeterminada ',
     delete: {
       all: '¿Eliminar {{projects}} proyectos?',
@@ -593,6 +690,9 @@ const translation: I18nTranslation = {
     },
     stylesheets: 'Hojas de estilo externas',
     urlDesc: 'Agrega URLs de hojas de estilo/scripts. Cada URL debe estar en una línea separada.',
+  },
+  resultMode: {
+    linkText: 'Editar en LiveCodes',
   },
   savePrompt: {
     heading: 'Cambios sin guardar',
@@ -794,6 +894,9 @@ const translation: I18nTranslation = {
     heading: 'Editar Pruebas',
     load: 'Cargar',
     tests: 'Pruebas',
+  },
+  testSettings: {
+    desc: '<1></1> Para más información, consulte la <2>documentación</2>',
   },
   toolspane: {
     close: 'Cerrar',

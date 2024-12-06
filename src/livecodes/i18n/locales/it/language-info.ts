@@ -160,6 +160,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   lua: {
     desc: 'Lua in esecuzione nel browser utilizzando fengari-web.',
+    link: '<1><2>Sito ufficiale di Lua</2></1> <3> <4>Documentazione di Lua</4> </3> <5> <6>Sito ufficiale di Fengari</6> </5> <7> <8>Repositori GitHub di fengari-web</8> </7> <9> <10>Impara X in Y minuti, dove X=Lua</10> </9> <11> <12>Documentazione LiveCodes</12> </11> <13><14>Carica modello di partenza</14></13>',
     name: 'Lua',
   },
   luaWasm: {
@@ -192,6 +193,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
+    desc: 'Un linguaggio di modello ricco e potente per JavaScript. Nunjucks è essenzialmente una porta di <1>jinja2</1>.',
     link: '<1> <2>Sito ufficiale</2> </1> <3> <4>Documentazione LiveCodes</4> </3>',
     name: 'Nunjucks',
   },
@@ -209,6 +211,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   php: {
     desc: 'PHP in esecuzione nel browser utilizzando Uniter.',
+    link: '<1><2>Sito ufficiale di PHP</2></1> <3> <4>Documentazione di PHP</4> </3> <5> <6>Repositori GitHub di Uniter</6> </5> <7> <8>Impara X in Y minuti, dove X=PHP</8> </7> <9> <10>Documentazione LiveCodes</10> </9> <11><12>Carica modello di partenza</12></11>',
     name: 'PHP',
   },
   phpWasm: {
@@ -365,6 +368,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
+    desc: "Un'implementazione JavaScript del linguaggio di template PHP <1>Twig</1> di <2>Twig.js</2>.",
     link: '<1> <2>Sito ufficiale di Twig</2> </1> <3> <4>Documentazione di Twig</4> </3> <5> <6>Repository di Twig.js</6> </5> <7> <8>Documentazione di Twig.js</8> </7> <9> <10>Documentazione LiveCodes</10> </9>',
     name: 'Twig',
   },
