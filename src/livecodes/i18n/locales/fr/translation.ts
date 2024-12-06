@@ -11,6 +11,9 @@ const translation: I18nTranslation = {
     configuration: 'Configuration',
     credits: {
       heading: 'Crédits',
+      para1:
+        'LiveCodes est rendu possible grâce à des projets open source, des services Web et des contributeurs. <1> Voir les crédits </1>',
+      para2: '© 2024 Hatem Hosny. LiveCodes est sous licence MIT.',
     },
     documentations: {
       heading: 'Documentation',
@@ -22,6 +25,9 @@ const translation: I18nTranslation = {
     },
     heading: 'À propos de LiveCodes',
     livecodes: {
+      aboutUs: 'À propos de LiveCodes',
+      para1:
+        "<1><2>LiveCodes</2></1> est un éditeur de code, open-source et riche en fonctionnalités. Actuellement, plus de 90 langages et frameworks sont pris en charge. Il peut être utilisé comme une application autonome ou intégré dans n'importe quelle page web.",
       para2:
         "Un puissant SDK facilite l'intégration et la communication avec le code intégré dans une page web. Une documentation complète est disponible avec des exemples de code, des démonstrations en direct et des captures d'écran.",
     },
@@ -35,8 +41,11 @@ const translation: I18nTranslation = {
       title: '𝕏 / Twitter',
     },
     version: {
+      app: 'Version : <1>{{APP_VERSION}}</1>',
       appPermanentUrl: 'URL permanente',
+      commit: 'Validation Git : <1> {{COMMIT_SHA}} </1>',
       heading: 'Version',
+      sdk: 'Version du SDK : <1> {{SDK_VERSION}} </1>',
       sdkPermanentUrl: 'URL permanente du SDK',
     },
   },
@@ -45,7 +54,10 @@ const translation: I18nTranslation = {
       hint: 'Changer de thème',
     },
     consoleMessage: {
+      appVersion: 'Version : {{APP_VERSION}}',
+      commit: 'Validation Git : {{COMMIT_SHA}}',
       learnMore: 'En savoir plus ! {{docsUrl}} 🚀',
+      sdkVersion: 'Version du SDK : {{SDK_VERSION}}',
     },
     copy: {
       hint: 'Copier (Ctrl/Cmd + A, Ctrl/Cmd + C)',
@@ -590,6 +602,7 @@ const translation: I18nTranslation = {
     save: 'Enregistrer',
     saveAs: {
       fork: 'Dupliquer (fork) nouveau projet',
+      heading: 'Enregistrer sous …',
       template: 'Modèle',
     },
     sdk: 'SDK',
