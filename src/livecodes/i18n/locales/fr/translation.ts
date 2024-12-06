@@ -79,7 +79,7 @@ const translation: I18nTranslation = {
       helpTranslate: 'Aidez-nous à traduire',
     },
     logo: {
-      title: 'LiveCodes : un éditeur de code qui fonctionne dans le navigateur!',
+      title: 'LiveCodes : un éditeur de code qui fonctionne, tout simplement!',
     },
     projectInfo: {
       hint: 'Informations sur le projet',

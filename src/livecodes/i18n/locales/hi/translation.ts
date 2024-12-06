@@ -79,7 +79,7 @@ const translation: I18nTranslation = {
       helpTranslate: 'अनुवाद करने में हमारी सहायता करें',
     },
     logo: {
-      title: 'LiveCodes: ब्राउज़र में चलने वाला कोड प्लेग्राउंड!',
+      title: 'LiveCodes: एक कोड प्लेग्राउंड जो बस काम करता है!',
     },
     projectInfo: {
       hint: 'प्रोजेक्ट जानकारी',
