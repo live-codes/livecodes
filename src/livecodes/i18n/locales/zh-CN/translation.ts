@@ -9,11 +9,8 @@ const translation: I18nTranslation = {
     },
     heading: '关于 LiveCodes',
     version: {
-      app: '应用版本：{{APP_VERSION}}',
       appPermanentUrl: '应用永久 URL',
-      commit: 'Git 提交：{{COMMIT_SHA}}',
       heading: '版本',
-      sdk: 'SDK 版本：{{SDK_VERSION}}',
       sdkPermanentUrl: 'SDK 永久 URL',
     },
   },

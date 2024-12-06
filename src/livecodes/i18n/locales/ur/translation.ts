@@ -9,11 +9,8 @@ const translation: I18nTranslation = {
     },
     heading: 'لائیو کوڈز کے بارے میں',
     version: {
-      app: 'ایپ ورژن: {{APP_VERSION}}',
       appPermanentUrl: 'ایپ کا مستقل یو آر ایل',
-      commit: 'گٹ کمٹ: {{COMMIT_SHA}}',
       heading: 'ورژن',
-      sdk: 'ایس ڈی کے ورژن: {{SDK_VERSION}}',
       sdkPermanentUrl: 'ایس ڈی کے کا مستقل یو آر ایل',
     },
   },

@@ -9,11 +9,8 @@ const translation: I18nTranslation = {
     },
     heading: 'Informazioni su LiveCodes',
     version: {
-      app: "Versione dell'app: {{APP_VERSION}}",
       appPermanentUrl: "URL permanente dell'app",
-      commit: 'Commit Git: {{COMMIT_SHA}}',
       heading: 'Versione',
-      sdk: 'Versione SDK: {{SDK_VERSION}}',
       sdkPermanentUrl: 'URL permanente SDK',
     },
   },
