@@ -4,30 +4,46 @@ import type { I18nTranslation } from '../models';
 
 const translation: I18nTranslation = {
   about: {
+    blog: {
+      text: 'Blog',
+      title: 'Blog de LiveCodes',
+    },
+    configuration: 'Configuración',
+    credits: {
+      heading: 'Créditos',
+    },
     documentations: {
-      aboutUs: 'Sobre nosotros',
-      contact: 'Contacto',
       heading: 'Documentación',
-      home: 'Inicio',
-      license: 'Licencia',
+    },
+    gettingStarted: 'Primeros pasos',
+    github: {
+      text: 'GitHub',
+      title: 'GitHub',
     },
     heading: 'Acerca de LiveCodes',
     livecodes: {
-      para1:
-        '<1><2>LiveCodes</2></1> es un editor de juego de código <3>abierto</3>, <4>rico en características</4> y <5>del lado del cliente</5>. Actualmente, se admiten <6>más de 80 lenguajes/<7></7>frameworks</6>. Se puede usar como una aplicación independiente o se puede <8>incrustar</8> en cualquier página web. Hay muchas formas de <9>precargar un playground</9> con código.',
       para2:
-        'Una amplia gama de <1>opciones de configuración</1> lo hace muy flexible. Un potente <2>SDK</2> (para <3>JS/TS</3>, <4>React</4>, <5>Vue</5> y <6>Svelte</6>) facilita la <7>incrustación</7> y la <8>comunicación</8> con playgrounds. Hay disponible una <9>documentación completa</9> con ejemplos de código, demostraciones en vivo y capturas de pantalla.',
+        'Una amplia gama de <1>opciones de configuración</1> lo hace muy flexible. Un potente <2>SDK</2> (para <3>JS/TS</3>, <4>React</4>, <5>Vue</5> y <6>Svelte</6>) facilita la <7>incrustación</7> y la <8>comunicación</8> con los campos de juego. Hay disponible una <9>documentación completa</9> con ejemplos de código, demostraciones en vivo y capturas de pantalla.',
+    },
+    sdk: 'LiveCodes SDK',
+    sponsor: {
+      text: 'Patrocinar',
+      title: 'Patrocinar LiveCodes',
+    },
+    twitter: {
+      text: '𝕏 / Twitter',
+      title: '𝕏 / Twitter',
     },
     version: {
-      app: 'Versión de la aplicación: {{APP_VERSION}}',
       appPermanentUrl: 'URL permanente de la aplicación',
-      commit: 'Commit de Git: {{COMMIT_SHA}}',
       heading: 'Versión',
-      sdk: 'Versión del SDK: {{SDK_VERSION}}',
       sdkPermanentUrl: 'URL permanente del SDK',
     },
   },
   app: {
+    changeTheme: {
+      hint: 'Cambiar tema',
+    },
     consoleMessage: {
       learnMore: '¡Aprende más! {{docsUrl}} 🚀',
     },
@@ -39,9 +55,6 @@ const translation: I18nTranslation = {
     },
     customSettings: {
       hint: 'Configuraciones personalizadas',
-    },
-    editorMode: {
-      hint: 'Modo del editor',
     },
     editorSettings: {
       hint: 'Configuración del editor',
@@ -58,8 +71,15 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'Pantalla completa',
     },
+    i18nButton: {
+      hint: 'Idioma de la interfaz de la aplicación',
+    },
+    i18nMenu: {
+      docs: 'Documentación de i18n',
+      helpTranslate: 'Ayúdenos a traducir',
+    },
     logo: {
-      title: 'LiveCodes: ¡Un Patio de Código Que Simplemente Funciona!',
+      title: 'LiveCodes: un editor de código que se ejecuta en su navegador!',
     },
     projectInfo: {
       hint: 'Información del proyecto',
@@ -68,7 +88,7 @@ const translation: I18nTranslation = {
       hint: 'Rehacer (Ctrl/Cmd + Shift + Z)',
     },
     result: {
-      hint: 'Alternar resultado',
+      hint: 'Mostrar resultado',
     },
     run: {
       hint: 'Ejecutar (Shift + Enter)',
@@ -76,12 +96,18 @@ const translation: I18nTranslation = {
     share: {
       hint: 'Compartir',
     },
+    themeColors: {
+      custom: 'Costumbre',
+    },
     undo: {
       hint: 'Deshacer (Ctrl/Cmd + Z)',
     },
     untitledProject: 'Proyecto sin título',
   },
   assets: {
+    action: {
+      delete: 'Eliminar',
+    },
     add: {
       dataURL: {
         desc: 'Agregar activo como <1>URL de datos</1> codificada en base64.',
@@ -160,7 +186,7 @@ const translation: I18nTranslation = {
     backup: {
       assets: 'Activos',
       button: 'Respaldar',
-      desc: 'Respalda los datos de LiveCodes para que puedan restaurarse más tarde en este u otros dispositivos. <1></1> Para obtener más detalles, consulte la <2>documentación</2>',
+      desc: 'Respalda los datos de LiveCodes para que puedan restaurarse más tarde en este u otros dispositivos. <1></1> Por favor, visita la <2>documentación</2> para más detalles.',
       heading: 'Respaldo',
       projects: 'Proyectos',
       settings: 'Configuraciones de usuario',
@@ -169,14 +195,14 @@ const translation: I18nTranslation = {
     },
     backupBtn: 'Respaldar',
     error: {
-      atLeastOneStore: 'Seleccionar al menos un almacenamiento para respaldar',
+      atLeastOneStore: 'Por favor, selecciona al menos un almacén para respaldar',
       incorrectFileType: 'Error: Tipo de archivo incorrecto',
     },
     fileInputLabel: 'Restaurar desde archivo',
     heading: 'Respaldo / Restauración',
     inProgress: 'En progreso...',
     restore: {
-      desc: 'Restaura los datos de LiveCodes previamente respaldados. <1></1> Si eliges reemplazar el contenido actual, es posible que desees respaldarlo primero. <2></2> Para obtener más detalles, consulte la <3>documentación</3>',
+      desc: 'Restaura los datos de LiveCodes previamente respaldados. <1></1> Si eliges reemplazar el contenido actual, es posible que desees respaldarlo primero. <2></2> Por favor, visita la <3>documentación</3> para más detalles.',
       fromFile: 'Restaurar desde archivo',
       heading: 'Restaurar',
       mode: {
@@ -194,7 +220,7 @@ const translation: I18nTranslation = {
     broadcasting: 'Transmitiendo...',
     channelURL: 'URL del canal',
     connecting: 'Conectando...',
-    desc: 'Transmite la página de resultados a otros navegadores/dispositivos en tiempo real. Para obtener más detalles, consulte la <1>documentación</1>',
+    desc: 'Transmite la página de resultados a otros navegadores/dispositivos en tiempo real. Por favor, visita la <1>documentación</1> para más detalles.',
     error: {
       generic: '¡La transmisión falló!',
       serverURLRequired: '¡Se requiere la URL del servidor!',
@@ -289,6 +315,7 @@ const translation: I18nTranslation = {
   },
   customSettings: {
     JSON: 'JSON de configuraciones personalizadas',
+    desc: '<1></1> Para más información, consulte la <2>documentación</2>',
     heading: 'Configuraciones personalizadas',
     load: 'Cargar',
   },
@@ -318,14 +345,10 @@ const translation: I18nTranslation = {
     searchRepo: 'Buscar en tus repositorios públicos...',
   },
   editorSettings: {
-    appLanguage: {
-      heading: 'Idioma de la interfaz de la aplicación',
-      note: 'Se recargará la aplicación para aplicar los cambios después de cambiar el idioma.',
-    },
     closeBrackets: 'Cerrar automáticamente paréntesis y comillas',
     codeJarDesc: '* Las características marcadas no están disponibles en CodeJar.',
     default: 'Predeterminado',
-    desc: 'Para obtener más detalles, consulte la <1>documentación</1>',
+    desc: 'Por favor, consulta la <1>documentación</1> para más detalles.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -379,7 +402,14 @@ const translation: I18nTranslation = {
       copy: 'Copiar código',
       heading: 'Código',
     },
-    desc: 'Consulte la <1>documentación</1> para configuraciones avanzadas.',
+    codeEditor: {
+      codeJar: 'CodeJar',
+      codeMirror: 'CodeMirror',
+      default: 'Predeterminado',
+      heading: 'Editor de código',
+      monaco: 'Monaco',
+    },
+    desc: 'Por favor, consulta la <1>documentación</1> para configuraciones avanzadas.',
     embedType: {
       cdn: 'Script (CDN)',
       heading: 'Tipo de incrustación',
@@ -391,12 +421,18 @@ const translation: I18nTranslation = {
       vue: 'Vue',
     },
     heading: 'Incrustar proyecto',
+    layout: {
+      heading: 'Diseño',
+      horizontal: 'Horizontal',
+      responsive: 'Respuesta',
+      vertical: 'Vertical',
+    },
     lite: 'Modo ligero',
     loading: {
       click: 'Al hacer clic',
       eager: 'Inmediato',
       heading: 'Carga',
-      lazy: 'Diferido',
+      lazy: 'Perezoso',
     },
     mode: {
       codeblock: 'Bloque de código',
@@ -404,6 +440,7 @@ const translation: I18nTranslation = {
       full: 'Completo',
       heading: 'Modo de visualización',
       result: 'Resultado',
+      simple: 'Simple',
     },
     permanentUrl: 'URL permanente',
     preview: 'Vista previa',
@@ -432,7 +469,6 @@ const translation: I18nTranslation = {
     about: {
       blog: 'Blog',
       configuration: 'Configuración',
-      features: 'Características',
       gettingStarted: 'Primeros pasos',
       github: 'GitHub',
       sdk: 'SDK',
@@ -441,6 +477,9 @@ const translation: I18nTranslation = {
     },
     clickForInfo: 'Clic para información...',
     close: 'Cerrar',
+    embed: {
+      logoHint: 'Editar en LiveCodes 🡕',
+    },
     error: {
       authentication: '¡Error de autenticación!',
       exceededSize: 'Error: Tamaño excedido {{size}} MB',
@@ -461,7 +500,7 @@ const translation: I18nTranslation = {
       started: 'Importación masiva iniciada...',
     },
     code: {
-      desc: 'Fuentes compatibles: <1> <2>GitHub gist</2> <3>Archivo de GitHub</3> <4>Directorio en un repositorio de GitHub</4> <5>Fragmento de Gitlab</5> <6>Archivo de Gitlab</6> <7>Directorio en un repositorio de Gitlab</7> <8>JS Bin</8> <9>Código en bruto</9> <10>Código en el DOM de la página web</10> <11>Código en archivo zip</11> <12>Entornos oficiales<13></13>(TypeScript, Vue y Svelte)</12> </1> Para obtener más detalles, consulte la <14>documentación</14>',
+      desc: 'Fuentes compatibles: <1> <2>GitHub gist</2> <3>Archivo de GitHub</3> <4>Directorio en un repositorio de GitHub</4> <5>Fragmento de Gitlab</5> <6>Archivo de Gitlab</6> <7>Directorio en un repositorio de Gitlab</7> <8>JS Bin</8> <9>Código en bruto</9> <10>Código en el DOM de la página web</10> <11>Código en archivo zip</11> <12>Entornos oficiales<13></13>(TypeScript, Vue y Svelte)</12> </1> Por favor, visita la <14>documentación</14> para más detalles.',
       fromFile: 'Importar archivos locales',
       fromURL: 'Importar desde URL',
       heading: 'Importar código',
@@ -477,7 +516,7 @@ const translation: I18nTranslation = {
     },
     heading: 'Importar',
     json: {
-      desc: 'Importar un único JSON de proyecto al editor. Un proyecto se puede exportar desde el menú de la aplicación Proyecto → Exportar → Exportar proyecto (JSON).',
+      desc: 'Importar un único JSON de proyecto al editor. Un proyecto se puede exportar desde el menú de la aplicación → Exportar → Exportar proyecto (JSON).',
       fromFile: 'Importar proyecto desde archivo local',
       fromURL: 'Importar proyecto desde URL',
       heading: 'Importar JSON de proyecto',
@@ -496,7 +535,7 @@ const translation: I18nTranslation = {
     publicRepo: 'Repositorios',
   },
   menu: {
-    about: 'Acerca de Livecodes …',
+    about: 'Acerca de',
     appHelp: {
       heading: 'Ayuda',
       hint: 'Ayuda',
@@ -506,20 +545,23 @@ const translation: I18nTranslation = {
       hint: 'Proyecto',
     },
     appSettings: {
-      heading: 'Configuración',
-      hint: 'Configuración',
+      heading: 'Ajustes',
+      hint: 'Configuración de la aplicación',
     },
     assets: 'Activos …',
     autoSave: 'Guardado automático',
     autoUpdate: 'Actualización automática',
     backup: 'Copia de seguridad / Restaurar …',
+    blog: 'Blog de LiveCodes',
     broadcast: 'Transmitir …',
+    config: 'Configuración',
     customSettings: 'Configuraciones personalizadas …',
     delay: {
       heading: 'Retraso: <1>1.5</1>s',
       hint: 'Retraso antes de la actualización automática',
     },
     deploy: 'Desplegar …',
+    docs: 'Documentación',
     editorSettings: 'Configuración del editor …',
     embed: 'Incrustar …',
     export: {
@@ -531,36 +573,47 @@ const translation: I18nTranslation = {
       result: 'Exportar resultado (HTML)',
       src: 'Exportar código fuente (ZIP)',
     },
+    features: 'Características',
     formatOnsave: 'Formatear al guardar',
+    getstart: 'Primeros pasos',
     import: 'Importar …',
     layout: 'Diseño vertical',
-    login: 'Iniciar sesión',
+    license: 'Licencia',
+    login: 'Iniciar sesión …',
     logout: 'Cerrar sesión',
     new: 'Nuevo …',
     open: 'Abrir …',
     project: 'Información del proyecto …',
     recoverUnsaved: 'Recuperar no guardado',
+    report: 'Informar de un problema',
     resources: 'Recursos externos …',
     save: 'Guardar',
     saveAs: {
       fork: 'Bifurcar (Nuevo proyecto)',
-      heading: 'Guardar como',
       template: 'Plantilla',
     },
+    sdk: 'SDK',
     share: 'Compartir …',
     showSpacing: {
       heading: 'Mostrar espaciado',
       hint: 'Presiona Alt/Opción y mueve el cursor sobre la página de resultados',
     },
+    showWelcome: {
+      title: 'Mostrar pantalla de bienvenida al inicio',
+    },
     snippets: 'Fragmentos de código …',
+    source: 'Código fuente en GitHub',
     sync: 'Sincronizar (beta) … <1> ⏳</1>',
     theme: 'Tema oscuro',
+    themeColor: 'Color',
     welcome: {
       heading: 'Bienvenida …',
-      hint: 'Mostrar pantalla de bienvenida al inicio',
     },
   },
   open: {
+    action: {
+      delete: 'Eliminar',
+    },
     defaultTemplate: 'Plantilla predeterminada ',
     delete: {
       all: '¿Eliminar {{projects}} proyectos?',
@@ -641,6 +694,9 @@ const translation: I18nTranslation = {
     stylesheets: 'Hojas de estilo externas',
     urlDesc: 'Agrega URLs de hojas de estilo/scripts. Cada URL debe estar en una línea separada.',
   },
+  resultMode: {
+    linkText: 'Editar en LiveCodes',
+  },
   savePrompt: {
     heading: 'Cambios sin guardar',
     prompt: {
@@ -670,7 +726,6 @@ const translation: I18nTranslation = {
       generating: 'Generando...',
     },
     services: {
-      copyUrl: 'Copiar URL',
       devTo: 'Dev.to',
       email: 'Correo electrónico',
       facebook: 'Facebook',
@@ -714,17 +769,17 @@ const translation: I18nTranslation = {
     deleteAll: 'Eliminar todo',
     error: {
       failedToCopy: 'No se pudo copiar la URL.',
-      noTitle: 'Agregar un título al fragmento.',
+      noTitle: 'Por favor, agrega un título al fragmento.',
     },
     filter: {
-      language: 'Filtrar por lenguaje',
+      language: 'filtrar por idioma',
     },
     heading: 'Fragmentos de código',
     lastModified: 'Última modificación: {{modified}}',
     noMatch: 'Ningún fragmento coincide con estos filtros.',
     noSavedSnippets: 'No tienes fragmentos guardados.',
     placeholder: {
-      allLanguages: 'Todos los lenguajes',
+      allLanguages: 'Todos los idiomas',
       search: 'Buscar',
     },
     reset: 'Restablecer',
@@ -842,6 +897,9 @@ const translation: I18nTranslation = {
     heading: 'Editar Pruebas',
     load: 'Cargar',
     tests: 'Pruebas',
+  },
+  testSettings: {
+    desc: '<1></1> Para más información, consulte la <2>documentación</2>',
   },
   toolspane: {
     close: 'Cerrar',

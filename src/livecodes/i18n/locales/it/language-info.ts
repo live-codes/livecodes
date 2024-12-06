@@ -66,7 +66,7 @@ const languageInfo: I18nLangInfoTranslation = {
   cpp: {
     desc1: 'Supporto C++ utilizzando JSCPP (un semplice interprete C++ scritto in JavaScript).',
     desc2:
-      "Non è un'implementazione completa di C++. Per i dettagli, consultare la <1>documentazione di JSCPP</1>",
+      "Non è un'implementazione completa di C++. Si prega di fare riferimento alla <1>documentazione di JSCPP</1> per i dettagli.",
     link: '<1> <2>Fondazione Standard C++</2> </1> <3> <4>JSCPP</4> </3> <5> <6>Impara X in Y minuti, dove X=C++</6> </5> <7> <8>Carica il modello di partenza</8> </7>',
     name: 'C++',
   },
@@ -166,7 +166,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   lua: {
     desc: 'Lua in esecuzione nel browser utilizzando fengari-web.',
-    link: '<1><2>Sito ufficiale di Lua</2></1> <3> <4>Documentazione di Lua</4> </3> <5> <6>Sito ufficiale di Fengari</6> </5> <7> <8>Repository GitHub di fengari-web</8> </7> <9> <10>Impara X in Y minuti, dove X=Lua</10> </9> <11> <12>Documentazione LiveCodes</12> </11> <13><14>Carica modello di partenza</14></13>',
+    link: '<1><2>Sito ufficiale di Lua</2></1> <3> <4>Documentazione di Lua</4> </3> <5> <6>Sito ufficiale di Fengari</6> </5> <7> <8>Repositori GitHub di fengari-web</8> </7> <9> <10>Impara X in Y minuti, dove X=Lua</10> </9> <11> <12>Documentazione LiveCodes</12> </11> <13><14>Carica modello di partenza</14></13>',
     name: 'Lua',
   },
   luaWasm: {
@@ -200,7 +200,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: 'Un linguaggio di templating ricco e potente per JavaScript. Nunjucks è essenzialmente una porta di <1>jinja2</1>.',
+    desc: 'Un linguaggio di modello ricco e potente per JavaScript. Nunjucks è essenzialmente una porta di <1>jinja2</1>.',
     link: '<1> <2>Sito ufficiale</2> </1> <3> <4>Documentazione LiveCodes</4> </3>',
     name: 'Nunjucks',
   },
@@ -218,7 +218,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   php: {
     desc: 'PHP in esecuzione nel browser utilizzando Uniter.',
-    link: '<1><2>Sito ufficiale di PHP</2></1> <3> <4>Documentazione di PHP</4> </3> <5> <6>Repository GitHub di Uniter</6> </5> <7> <8>Impara X in Y minuti, dove X=PHP</8> </7> <9> <10>Documentazione LiveCodes</10> </9> <11><12>Carica modello di partenza</12></11>',
+    link: '<1><2>Sito ufficiale di PHP</2></1> <3> <4>Documentazione di PHP</4> </3> <5> <6>Repositori GitHub di Uniter</6> </5> <7> <8>Impara X in Y minuti, dove X=PHP</8> </7> <9> <10>Documentazione LiveCodes</10> </9> <11><12>Carica modello di partenza</12></11>',
     name: 'PHP',
   },
   phpWasm: {
@@ -376,7 +376,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
-    desc: "Un'implementazione JavaScript del linguaggio di templating PHP <1>Twig</1> di <2>Twig.js</2>.",
+    desc: "Un'implementazione JavaScript del linguaggio di template PHP <1>Twig</1> di <2>Twig.js</2>.",
     link: '<1> <2>Sito ufficiale di Twig</2> </1> <3> <4>Documentazione di Twig</4> </3> <5> <6>Repository di Twig.js</6> </5> <7> <8>Documentazione di Twig.js</8> </7> <9> <10>Documentazione LiveCodes</10> </9>',
     name: 'Twig',
   },
