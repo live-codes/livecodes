@@ -65,9 +65,11 @@ let _ =
 let _ = print_endline "Hello, OCaml!"
 `.trimStart(),
   },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {},
+  customSettings: {
+    imports: {
+      react: 'https://esm.sh/react@18.3.1',
+      'react/': 'https://esm.sh/react@18.3.1/',
+      'react-dom': 'https://esm.sh/react-dom@18.3.1',
+    },
+  },
 };

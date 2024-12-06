@@ -975,10 +975,9 @@ function isFish(pet) {
     await app.click('text="JSX"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
-      `import React from "react";
-import ReactDOM from "react-dom";
+      `
 const Hello = (props) => <h1>Hello, {props.name}</h1>
-ReactDOM.render(<Hello name="React" />, document.body);
+export default () => <Hello name="React" />;
 `,
     );
 
@@ -997,11 +996,10 @@ ReactDOM.render(<Hello name="React" />, document.body);
     await app.click('text="TSX"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
-      `import React from "react";
-import ReactDOM from "react-dom";
+      `
 interface Props { name: string }
 const Hello = (props: Props) => <h1>Hello, {props.name}</h1>
-ReactDOM.render(<Hello name="React" />, document.body);
+export default () => <Hello name="React" />;
 `,
     );
 
