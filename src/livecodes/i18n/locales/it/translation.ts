@@ -11,6 +11,9 @@ const translation: I18nTranslation = {
     configuration: 'Configurazione',
     credits: {
       heading: 'Crediti',
+      para1:
+        'LiveCodes è reso possibile da progetti open source, servizi web e collaboratori. <1> Visualizza crediti </1>',
+      para2: '© 2024 Hatem Hosny. LiveCodes è concesso in licenza con licenza MIT.',
     },
     documentations: {
       heading: 'Documentazione',
@@ -22,6 +25,9 @@ const translation: I18nTranslation = {
     },
     heading: 'Informazioni su LiveCodes',
     livecodes: {
+      aboutUs: 'Informazioni su LiveCodes',
+      para1:
+        '<1><2>LiveCodes</2></1> è un playground di codice <3>open-source</3>, <4>ricco di funzionalità</4>, <5>lato client</5>. Attualmente, sono supportati <6>oltre 90 linguaggi/<7></7>framework</6>. Può essere utilizzato come app autonoma o può essere <8>incorporato</8> in qualsiasi pagina web. Ci sono molti modi per <9>precompilare i playground</9> con il codice.',
       para2:
         "Un'ampia gamma di <1>opzioni di configurazione</1> lo rende molto flessibile. Un potente <2>SDK</2> (per <3>JS/TS</3>, <4>React</4>, <5>Vue</5> e <6>Svelte</6>) facilita l'<7>incorporazione</7> e la <8>comunicazione</8> con i playground. È disponibile una <9>documentazione completa</9> con esempi di codice, demo dal vivo e screenshot.",
     },
@@ -35,8 +41,11 @@ const translation: I18nTranslation = {
       title: '𝕏 / Twitter',
     },
     version: {
+      app: "Versione dell'app: <1> {{APP_VERSION}} </1>",
       appPermanentUrl: "URL permanente dell'app",
+      commit: 'Commit Git: <1> {{COMMIT_SHA}} </1>',
       heading: 'Versione',
+      sdk: 'Versione SDK: <1> {{SDK_VERSION}} </1>',
       sdkPermanentUrl: 'URL permanente SDK',
     },
   },
@@ -45,7 +54,10 @@ const translation: I18nTranslation = {
       hint: 'Cambia tema',
     },
     consoleMessage: {
+      appVersion: "Versione dell'app: {{APP_VERSION}}",
+      commit: 'Commit Git: {{COMMIT_SHA}}',
       learnMore: 'Scopri di più! {{docsUrl}} 🚀',
+      sdkVersion: 'Versione SDK: {{SDK_VERSION}}',
     },
     copy: {
       hint: 'Copia (Ctrl/Cmd + A, Ctrl/Cmd + C)',
@@ -590,6 +602,7 @@ const translation: I18nTranslation = {
     save: 'Salva',
     saveAs: {
       fork: 'Fork (Nuovo progetto)',
+      heading: 'Salva come …',
       template: 'Modello',
     },
     sdk: 'SDK',
