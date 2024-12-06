@@ -28,7 +28,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 
 [What makes LiveCodes different?](https://livecodes.io/docs/why)
 
-![LiveCodes list of languages screenshot](https://dev.livecodes.io/docs/img/screenshots/livecodes-languages.jpg)
+![LiveCodes list of languages screenshot](https://dev.livecodes.io/docs/img/screenshots/livecodes-overview.jpg)
 
 ## A Code Playground That Just Works!
 
@@ -216,11 +216,31 @@ https://livecodes.io/docs/
 
 The documentations include demos, code samples, screenshots, [Storybook](https://livecodes.io/stories) and [TypeScript types](https://livecodes.io/docs/sdk/js-ts#typescript-types).
 
+## Updates
+
+Keep up with the latest changes:
+
+- Twitter/X: [@livecodes_io](https://twitter.com/livecodes_io)
+- Blog: [blog.livecodes.io](https://blog.livecodes.io/)
+- Development build: [dev.livecodes.io](https://dev.livecodes.io/)
+
+## Feedback
+
+We welcome feedback!
+
+Please start a new [issue](https://github.com/live-codes/livecodes/issues/new/choose) or [discussion](https://github.com/live-codes/livecodes/discussions/new).
+
+For security reports please refer to [SECURITY.md](https://github.com/live-codes/livecodes/blob/develop/SECURITY.md).
+
+You may also reach out to us using the [contact form](https://livecodes.io/docs/contact).
+
 ## Contribution
 
 Contributions are welcome and highly appreciated.
 
-Please refer to the [contribution guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md)
+A huge shout-out to our wonderful [contributors](https://github.com/live-codes/livecodes/graphs/contributors)! Your hard work makes all the difference!
+
+Please refer to the [contribution guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md).
 
 ## Credits
 

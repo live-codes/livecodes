@@ -78,7 +78,7 @@ test.describe('I18n', () => {
     });
   });
 
-  test.describe.skip('Check Embed (Run Button)', () => {
+  test.describe('Check Embed (Run Button)', () => {
     const checkRunButtonEmbed = (text: string, appLanguage?: AppLanguage) =>
       checkText('#run-button', text, 'title', appLanguage, { embed: true });
 

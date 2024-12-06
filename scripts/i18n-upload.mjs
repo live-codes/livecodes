@@ -11,6 +11,7 @@ const uploadParams = {
   // Since we're uploading files from Github where related history is stored, we can safely use cleanup_mode
   cleanup_mode: true,
   replace_modified: true,
+  convert_placeholders: false,
 };
 
 const pushToLokalise = () => {

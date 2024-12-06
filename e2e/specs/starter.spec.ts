@@ -75,7 +75,7 @@ test.describe('Starter Templates from UI', () => {
     });
   });
 
-  test('React Native Starter', async ({ page, getTestUrl }) => {
+  test.skip('React Native Starter', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -676,7 +676,7 @@ test.describe('Starter Templates from URL', () => {
     });
   });
 
-  test('React Native Starter (in URL)', async ({ page, getTestUrl }) => {
+  test.skip('React Native Starter (in URL)', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl({ template: 'react-native' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);

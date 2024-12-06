@@ -1131,7 +1131,9 @@ const setCustomSettingsMark = () => {
 
 const run = async (editorId?: EditorId, runTests?: boolean) => {
   setLoading(true);
-  toolsPane?.console?.clear(/* silent= */ true);
+  if (editorId !== 'style') {
+    toolsPane?.console?.clear(/* silent= */ true);
+  }
   const config = getConfig();
   const shouldRunTests = (runTests ?? config.autotest) && Boolean(config.tests?.content?.trim());
   const result = await getResultPage({ sourceEditor: editorId, runTests: shouldRunTests });
@@ -2109,23 +2111,35 @@ const showConsoleMessage = () => {
       style: 'font-style: italic; font-size: 1.2em;',
     },
     {
-      content: window.deps.translateString('about.version.app', `App version: {{APP_VERSION}}`, {
-        APP_VERSION: predefinedValues.APP_VERSION,
-      }),
+      content: window.deps.translateString(
+        'app.consoleMessage.appVersion',
+        'App version: {{APP_VERSION}}',
+        {
+          APP_VERSION: predefinedValues.APP_VERSION,
+        },
+      ),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: ' ', style: '' },
     {
-      content: window.deps.translateString('about.version.sdk', `SDK version: {{SDK_VERSION}}`, {
-        SDK_VERSION: predefinedValues.SDK_VERSION,
-      }),
+      content: window.deps.translateString(
+        'app.consoleMessage.sdkVersion',
+        'SDK version: {{SDK_VERSION}}',
+        {
+          SDK_VERSION: predefinedValues.SDK_VERSION,
+        },
+      ),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: ' ', style: '' },
     {
-      content: window.deps.translateString('about.version.commit', `Git commit: {{COMMIT_SHA}}`, {
-        COMMIT_SHA: predefinedValues.COMMIT_SHA,
-      }),
+      content: window.deps.translateString(
+        'app.consoleMessage.commit',
+        'Git commit: {{COMMIT_SHA}}',
+        {
+          COMMIT_SHA: predefinedValues.COMMIT_SHA,
+        },
+      ),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: '\n\n', style: '' },
@@ -2434,7 +2448,7 @@ const handleI18nMenu = () => {
           await loadI18n(langCode as AppLanguage);
         }
         await i18n?.changeLanguage(langCode);
-        setAppLanguage(true);
+        setAppLanguage(/* reload= */ true);
       })();
     });
     li.appendChild(link);
@@ -4471,7 +4485,7 @@ const setAppLanguage = (reload: boolean = false) => {
   const lang = i18n?.getLanguage() ?? 'en';
   document.documentElement.lang = lang;
   document.documentElement.dir = i18n?.getLanguageDirection() ?? 'ltr';
-  if (isEmbed || params.appLanguage) return;
+  if (!reload && (isEmbed || params.appLanguage)) return;
 
   const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
     Object.keys(obj).reduce((acc, key) => {

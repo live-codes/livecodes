@@ -519,14 +519,8 @@ const rgbaToHsla = /* @__PURE__ */ (r: number, g: number, b: number, a = 1) => {
   return { h, s, l, a };
 };
 
-// https://livecodes.io/?x=id/szanmixc6gy
+// https://livecodes.io/?x=id/v7s2n8f8iwv
 export const colorToHsla = (color: string) => {
-  if (color.startsWith('hsl') && color.includes('(')) {
-    const hsla = color.split('(')[1]?.split(')')[0]?.split(',') ?? [];
-    const [h, s, l, a = 1] = hsla.map((x) => Number(x.replace('%', '')));
-    return { h, s, l, a };
-  }
-
   const { r, g, b, a } = colorToRgba(color);
   return rgbaToHsla(r, g, b, a);
 };

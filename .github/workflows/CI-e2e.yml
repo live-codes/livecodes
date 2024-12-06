@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         node-version: [18.x]
-        test: [1, 2, 3, 4]
+        test: [1, 2, 3, 4, 5]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -36,4 +36,4 @@ jobs:
         env:
           CI: true
           CI_SHARD_INDEX: ${{ matrix.test }}
-          CI_SHARD_TOTAL: 4
+          CI_SHARD_TOTAL: 5
