@@ -40,6 +40,6 @@ jobs:
       - name: Deploy
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
-          npm run deploy -- -u "livecodes-ci[bot] <186997172+livecodes-ci[bot]@users.noreply.github.com>"
+          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
         env:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
