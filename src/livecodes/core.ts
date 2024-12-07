@@ -2689,6 +2689,8 @@ const handleAppMenuHelp = () => {
  * decrease font size in menus when text is too wide (for different languages)
  */
 const adjustFontSize = (container: HTMLElement) => {
+  if (!i18n || i18n.getLanguage() === 'en') return;
+
   const adjustFont = (el: HTMLElement) =>
     new Promise<void>((resolve) => {
       const fontSize = Number(getComputedStyle(el).getPropertyValue('font-size').replace('px', ''));
