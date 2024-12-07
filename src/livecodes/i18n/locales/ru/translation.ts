@@ -484,7 +484,7 @@ const translation: I18nTranslation = {
       gettingStarted: 'Начало работы',
       github: 'GitHub',
       sdk: 'SDK',
-      sponsor: 'Стать спонсором',
+      sponsor: 'Спонсор',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'Нажмите для информации...',
