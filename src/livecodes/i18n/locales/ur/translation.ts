@@ -484,7 +484,7 @@ const translation: I18nTranslation = {
       gettingStarted: 'شروع کرنا',
       github: 'گٹ ہب',
       sdk: 'ایس ڈی کے',
-      sponsor: 'لائیو کوڈز کو سپانسر کریں',
+      sponsor: 'لکفیل',
       twitter: '𝕏 / ٹویٹر',
     },
     clickForInfo: 'معلومات کے لیے کلک کریں...',
