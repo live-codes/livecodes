@@ -2458,6 +2458,7 @@ const handleI18nMenu = () => {
   sep.role = 'separator';
   i18nMenu.appendChild(sep);
   const contributeLi = document.createElement('li');
+  const contributeSpan = document.createElement('span');
   const contributeLink = document.createElement('a');
   contributeLink.href =
     'https://github.com/live-codes/livecodes/blob/develop/docs/docs/contribution/i18n.md';
@@ -2467,7 +2468,8 @@ const handleI18nMenu = () => {
   );
   contributeLink.target = '_blank';
   contributeLink.rel = 'noopener noreferrer';
-  contributeLi.appendChild(contributeLink);
+  contributeSpan.appendChild(contributeLink);
+  contributeLi.appendChild(contributeSpan);
   i18nMenu.appendChild(contributeLi);
 
   const docsLi = document.createElement('li');
@@ -2479,6 +2481,7 @@ const handleI18nMenu = () => {
   docsLi.appendChild(docsLink);
   i18nMenu.appendChild(docsLi);
   menuContainer.appendChild(i18nMenu);
+  adjustFontSize(menuContainer);
 };
 
 const handleEditorTools = () => {
@@ -2618,7 +2621,7 @@ const handleAppMenuProject = () => {
   if (!menuProjectContainer || !menuProjectButton) return;
   menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
   translateElement(menuProjectContainer);
-  adjustFontSize(menuProjectContainer);
+  // adjustFontSize(menuProjectContainer);
 
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
@@ -2665,7 +2668,7 @@ const handleAppMenuHelp = () => {
   if (!menuHelpContainer || !menuHelpButton) return;
   menuHelpContainer.innerHTML = menuHelpHTML;
   translateElement(menuHelpContainer);
-  adjustFontSize(menuHelpContainer);
+  // adjustFontSize(menuHelpContainer);
 
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
@@ -2699,7 +2702,7 @@ const adjustFontSize = (container: HTMLElement) => {
       });
     });
 
-  setTimeout(async () => {
+  const startAdjustment = async () => {
     container.style.display = 'block';
     container.style.visibility = 'hidden';
     (container.children[0] as HTMLElement).style.display = 'block';
@@ -2709,7 +2712,11 @@ const adjustFontSize = (container: HTMLElement) => {
     container.style.display = '';
     container.style.visibility = '';
     (container.children[0] as HTMLElement).style.display = '';
-  }, 1000);
+  };
+
+  setTimeout(startAdjustment, 1000);
+  setTimeout(startAdjustment, 2000);
+  setTimeout(startAdjustment, 3000);
 };
 
 const handleAppMenuButtonFocus = () => {

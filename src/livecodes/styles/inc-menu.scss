@@ -119,6 +119,14 @@
 
 #app-menu-i18n {
   width: 200px;
+
+  span {
+    flex-grow: 1;
+
+    a {
+      display: flex;
+    }
+  }
 }
 
 .menu-scroller {
@@ -303,7 +311,7 @@
   position: absolute !important;
   right: unset;
   top: 0;
-  width: 254px;
+  width: 275px;
 
   &:hover {
     display: block !important;
