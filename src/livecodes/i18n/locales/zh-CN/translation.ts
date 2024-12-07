@@ -11,6 +11,8 @@ const translation: I18nTranslation = {
     configuration: '配置',
     credits: {
       heading: '致谢',
+      para1: 'LiveCodes 的实现得益于开源项目、网络服务和贡献者的支持。 <1>查看致谢</1>',
+      para2: '© 2024 Hatem Hosny。LiveCodes 已获得 MIT 许可。',
     },
     documentations: {
       heading: '文档',
@@ -22,6 +24,9 @@ const translation: I18nTranslation = {
     },
     heading: '关于 LiveCodes',
     livecodes: {
+      aboutUs: '关于 LiveCodes',
+      para1:
+        '<1><2>LiveCodes</2></1> 是一个开源的、功能丰富的、客户端侧的代码运行环境。目前支持超过 90 种语言 / 框架。它可以作为独立应用使用，亦可嵌入到任意网页中。',
       para2:
         '功能强大的 SDK 可轻松整合代码运行环境并与其进行通信。文档内容详细完整，代码示例、实时演示和屏幕截图一应俱全。',
     },
@@ -35,8 +40,11 @@ const translation: I18nTranslation = {
       title: '𝕏 / Twitter',
     },
     version: {
+      app: '应用版本：<1>{{APP_VERSION}}</1>',
       appPermanentUrl: '应用永久 URL',
+      commit: 'Git 提交： <1> {{COMMIT_SHA}} </1>',
       heading: '版本',
+      sdk: 'SDK 版本： <1> {{SDK_VERSION}} </1>',
       sdkPermanentUrl: 'SDK 永久 URL',
     },
   },
@@ -45,7 +53,10 @@ const translation: I18nTranslation = {
       hint: '更改主题',
     },
     consoleMessage: {
+      appVersion: '应用版本：{{APP_VERSION}}',
+      commit: 'Git 提交：{{COMMIT_SHA}}',
       learnMore: '了解更多！ {{docsUrl}} 🚀',
+      sdkVersion: 'SDK 版本：{{SDK_VERSION}}',
     },
     copy: {
       hint: '复制（Ctrl/Cmd + A, Ctrl/Cmd + C）',
@@ -590,6 +601,7 @@ const translation: I18nTranslation = {
     save: '保存',
     saveAs: {
       fork: 'Fork（新项目）',
+      heading: '另存为 ...',
       template: '模板',
     },
     sdk: 'SDK',

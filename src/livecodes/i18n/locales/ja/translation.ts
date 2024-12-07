@@ -11,6 +11,9 @@ const translation: I18nTranslation = {
     configuration: '設定',
     credits: {
       heading: 'クレジット',
+      para1:
+        'LiveCodes は、オープンソース プロジェクト、Web サービス、貢献者によって実現されています。 <1>クレジットを表示</1>',
+      para2: '© 2024 Hatem Hosny。LiveCodes は MIT ライセンスに基づいてライセンスされています。',
     },
     documentations: {
       heading: 'ドキュメント',
@@ -22,6 +25,9 @@ const translation: I18nTranslation = {
     },
     heading: 'LiveCodesについて',
     livecodes: {
+      aboutUs: 'LiveCodesについて',
+      para1:
+        '<1><2>LiveCodes</2></1>は、<3>オープンソース</3>で<4>機能豊富</4>な<5>クライアントサイド</5>のコードプレイグラウンドです。現在、<6>90以上の言語/<7></7>フレームワーク</6>をサポートしています。スタンドアロンアプリとして使用することも、任意のWebページに<8>埋め込む</8>こともできます。プレイグラウンドに<9>コードをプリフィル</9>する方法は多数あります。',
       para2:
         '幅広い<1>設定オプション</1>により、非常に柔軟性があります。強力な<2>SDK</2>（<3>JS/TS</3>、<4>React</4>、<5>Vue</5>、<6>Svelte</6>用）により、プレイグラウンドの<7>埋め込み</7>と<8>通信</8>が容易になります。コードサンプル、ライブデモ、スクリーンショットを含む<9>包括的なドキュメント</9>が利用可能です。',
     },
@@ -35,8 +41,11 @@ const translation: I18nTranslation = {
       title: '𝕏 / Twitter',
     },
     version: {
+      app: 'アプリのバージョン: <1> {{APP_VERSION}} </1>',
       appPermanentUrl: 'アプリの永続的URL',
+      commit: 'Git コミット: <1> {{COMMIT_SHA}} </1>',
       heading: 'バージョン',
+      sdk: 'SDK バージョン: <1> {{SDK_VERSION}} </1>',
       sdkPermanentUrl: 'SDKの永続的URL',
     },
   },
@@ -45,7 +54,10 @@ const translation: I18nTranslation = {
       hint: 'テーマ変更',
     },
     consoleMessage: {
+      appVersion: 'アプリバージョン: {{APP_VERSION}}',
+      commit: 'Gitコミット: {{COMMIT_SHA}}',
       learnMore: '詳細はこちら！ {{docsUrl}} 🚀',
+      sdkVersion: 'SDKバージョン: {{SDK_VERSION}}',
     },
     copy: {
       hint: 'コピー (Ctrl/Cmd + A, Ctrl/Cmd + C)',
@@ -586,6 +598,7 @@ const translation: I18nTranslation = {
     save: '保存',
     saveAs: {
       fork: 'フォーク（新規プロジェクト）',
+      heading: '別名で保存 …',
       template: 'テンプレート',
     },
     sdk: 'SDK',

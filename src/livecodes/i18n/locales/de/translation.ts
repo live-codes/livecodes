@@ -11,6 +11,9 @@ const translation: I18nTranslation = {
     configuration: 'Konfiguration',
     credits: {
       heading: 'Kredite',
+      para1:
+        'LiveCodes wird durch Open-Source-Projekte, Webdienste und Mitwirkende ermöglicht. <1> Credits anzeigen </1>',
+      para2: '© 2024 Hatem Hosny. LiveCodes ist unter der MIT-Lizenz lizenziert.',
     },
     documentations: {
       heading: 'Dokumentationen',
@@ -22,6 +25,9 @@ const translation: I18nTranslation = {
     },
     heading: 'Über LiveCodes',
     livecodes: {
+      aboutUs: 'Über LiveCodes',
+      para1:
+        '<1><2>LiveCodes</2></1> ist ein <3>Open-Source</3>, <4>funktionsreiches</4>, <5>clientseitiger</5> Code-Spielplatz. Derzeit werden <6>über 90 Sprachen/<7></7>Frameworks</6> unterstützt. Es kann als eigenständige App verwendet oder in jede Webseite <8>eingebettet</8> werden. Es gibt viele Möglichkeiten, Spielplätze mit Code <9>vorzufüllen</9>.',
       para2:
         'Eine breite Palette von <1>Konfigurationsoptionen</1> macht es sehr flexibel. Ein leistungsstarkes <2>SDK</2> (für <3>JS/TS</3>, <4>React</4>, <5>Vue</5> und <6>Svelte</6>) erleichtert das <7>Einbetten</7> und die <8>Kommunikation</8> mit Spielplätzen. <9>umfassende Dokumentationen</9> sind mit Codebeispielen, Live-Demos und Screenshots verfügbar.',
     },
@@ -35,8 +41,11 @@ const translation: I18nTranslation = {
       title: '𝕏 / Twitter',
     },
     version: {
+      app: 'App-Version: <1> {{APP_VERSION}} </1>',
       appPermanentUrl: 'Permanente App-URL',
+      commit: 'Git-Commit: <1> {{COMMIT_SHA}} </1>',
       heading: 'Version',
+      sdk: 'SDK-Version: <1> {{SDK_VERSION}} </1>',
       sdkPermanentUrl: 'Permanente SDK-URL',
     },
   },
@@ -45,7 +54,10 @@ const translation: I18nTranslation = {
       hint: 'Thema ändern',
     },
     consoleMessage: {
+      appVersion: 'App-Version: {{APP_VERSION}}',
+      commit: 'Git-Commit: {{COMMIT_SHA}}',
       learnMore: 'Erfahren Sie mehr! {{docsUrl}} 🚀',
+      sdkVersion: 'SDK-Version: {{SDK_VERSION}}',
     },
     copy: {
       hint: 'Kopieren (Strg/Cmd + A, Strg/Cmd + C)',
@@ -466,6 +478,8 @@ const translation: I18nTranslation = {
       configuration: 'Konfiguration',
       gettingStarted: 'Erste Schritte',
       github: 'GitHub',
+      sdk: 'SDK',
+      sponsor: 'Sponsern',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'Klicken für Informationen...',
@@ -583,6 +597,7 @@ const translation: I18nTranslation = {
     save: 'Speichern',
     saveAs: {
       fork: 'Abzweigen (Neues Projekt)',
+      heading: 'Speichern unter',
       template: 'Vorlage',
     },
     sdk: 'SDK',
