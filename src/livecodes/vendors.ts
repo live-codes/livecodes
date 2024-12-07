@@ -108,7 +108,7 @@ export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.10/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
-export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.4.0/dist/emmet-monaco.js');
+export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.5.0/dist/emmet-monaco.js');
 
 export const esModuleShimsPath = 'es-module-shims@1.10.0/dist/es-module-shims.js';
 
@@ -230,8 +230,6 @@ export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.8/dist/'
 
 export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.5.1');
 
-export const hintCssUrl = /* @__PURE__ */ getUrl('hint.css@2.7.0/hint.min.css');
-
 export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 
 export const imbaBaseUrl = /* @__PURE__ */ getUrl('imba@2.0.0-alpha.229/dist/');
@@ -274,7 +272,7 @@ export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid
 
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
-export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.1.0/dist/');
+export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.2.1/');
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
@@ -334,7 +332,7 @@ export const quillHtmlEditUrl = /* @__PURE__ */ getUrl(
   'quill-html-edit-button@2.2.14/dist/quill.htmlEditButton.min.js',
 );
 
-export const quillBlotFormaterUrl = /* @__PURE__ */ getUrl(
+export const quillBlotFormatterUrl = /* @__PURE__ */ getUrl(
   'quill-blot-formatter@1.0.5/dist/quill-blot-formatter.min.js',
 );
 
@@ -404,7 +402,7 @@ export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
-export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.5.3/lib/typescript.js`);
+export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.6.2/lib/typescript.js`);
 
 export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.3/dist/vfs.esm.js');
 

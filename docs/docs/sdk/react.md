@@ -73,7 +73,7 @@ In addition, the following props are also available:
 
   Type: `string`.
 
-  Sets the hight of playground container element.
+  Sets the height of playground container element.
 
   Example:
 

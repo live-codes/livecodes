@@ -12,7 +12,8 @@ const buildStyles = async (devMode = false) => {
   const getFileNames = async (dir = srcDir) =>
     (await fs.promises.readdir(dir))
       .filter((name) => !fs.statSync(dir + name).isDirectory())
-      .filter((name) => ['css', 'scss'].some((t) => name.endsWith('.' + t)));
+      .filter((name) => ['css', 'scss'].some((t) => name.endsWith('.' + t)))
+      .filter((name) => !name.startsWith('inc-'));
 
   const files = await getFileNames(srcDir);
 

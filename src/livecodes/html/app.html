@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     {{codeiumMeta}}
     <title>LiveCodes</title>
     <style>
@@ -39,94 +39,150 @@
   <body>
     <div id="container">
       <div id="toolbar">
-        <div id="logo">
-          <a href="/" title="LiveCodes: Code playground that runs in the browser!"
-            ><img
-              alt="LiveCodes Logo"
-              src="{{baseUrl}}assets/images/livecodes-logo.svg"
-              width="50"
-              loading="lazy"
-          /></a>
+        <div class="toolbar-app">
+          <div class="toolbar-menu">
+            <a
+              href="/"
+              id="logo"
+              title="LiveCodes: A Code Playground That Just Works!"
+              data-i18n="app.logo.title"
+              data-i18n-prop="title"
+            >
+              <img
+                alt="LiveCodes Logo"
+                src="{{baseUrl}}assets/images/livecodes-logo.svg"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="javascript:void(0)"
+              id="app-menu-button-project"
+              class="app-menu-button menu"
+              title="Project"
+              data-i18n="menu.appProject.hint"
+              data-i18n-prop="title"
+              aria-label="Project"
+            >
+              <i class="icon-nav"></i>
+              <span class="menu-text" data-i18n="menu.appProject.heading">Project</span>
+            </a>
+            <div id="app-menu-container-project" class="menu-scroller"></div>
+            <a
+              href="javascript:void(0)"
+              id="app-menu-button-settings"
+              class="app-menu-button menu"
+              title="App Settings"
+              data-i18n="menu.appSettings.hint"
+              data-i18n-prop="title"
+              aria-label="Settings"
+            >
+              <i class="icon-settings"></i>
+              <span class="menu-text" data-i18n="menu.appSettings.heading">Settings</span>
+            </a>
+            <div id="app-menu-container-settings" class="menu-scroller"></div>
+            <a
+              href="javascript:void(0)"
+              id="app-menu-button-help"
+              class="app-menu-button menu"
+              title="Help"
+              data-i18n="menu.appHelp.hint"
+              data-i18n-prop="title"
+              aria-label="Help"
+            >
+              <i class="icon-help"></i>
+              <span class="menu-text" data-i18n="menu.appHelp.heading">Help</span>
+            </a>
+            <div id="app-menu-container-help" class="menu-scroller"></div>
+            <a
+              href="javascript:void(0)"
+              id="app-menu-button-i18n"
+              class="app-menu-button button"
+              title="UI Language"
+              data-i18n="app.i18nButton.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-i18n"></i>
+            </a>
+            <div id="app-menu-container-i18n" class="menu-scroller"></div>
+            <a
+              href="javascript:void(0)"
+              id="light-theme-button"
+              class="button"
+              title="Change Theme"
+              data-i18n="app.changeTheme.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-theme-light"></i>
+            </a>
+            <a
+              href="javascript:void(0)"
+              id="dark-theme-button"
+              class="button"
+              title="Change Theme"
+              data-i18n="app.changeTheme.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-theme-dark"></i>
+            </a>
+            <div class="enable-motion"></div>
+          </div>
+          <div id="select-editor"></div>
         </div>
-        <div id="select-editor"></div>
-        <div id="project-title" contenteditable="true" tabindex="8">Untitled Project</div>
-        <div id="buttons">
-          <a
-            href="javascript:void(0)"
-            id="run-button"
-            class="button hint--bottom"
-            data-hint="Run (Shift + Enter)"
-            tabindex="9"
+        <div class="toolbar-render">
+          <div>
+            <div id="project-title" contenteditable="true" data-i18n="app.untitledProject">
+              Untitled Project
+            </div>
+            <a
+              href="javascript:void(0)"
+              id="run-button"
+              class="button"
+              title="Run (Shift + Enter)"
+              data-i18n="app.run.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-run"></i>
+            </a>
+            <a
+              href="javascript:void(0)"
+              id="share-button"
+              class="button"
+              title="Share"
+              data-i18n="app.share.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-share"></i>
+            </a>
+
+            <a
+              href="javascript:void(0)"
+              id="result-button"
+              class="button"
+              title="Result"
+              data-i18n="app.result.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-result"></i>
+            </a>
+            <a
+              href="javascript:void(0)"
+              id="fullscreen-button"
+              title="Full Screen"
+              class="button -left"
+              data-i18n="app.fullscreen.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-full-screen"></i>
+            </a>
+          </div>
+          <a href="#" id="login-link" class="menu -left" title="Login" aria-label="Login">
+            <i class="icon-login"></i>
+            <span class="menu-text" data-i18n="menu.login">Login</span></a
           >
-            <img
-              width="20"
-              height="20"
-              alt="Run"
-              src="{{baseUrl}}assets/images/play.svg"
-              loading="lazy"
-            />
-          </a>
-          <a
-            href="javascript:void(0)"
-            id="share-button"
-            class="button hint--bottom"
-            data-hint="Share"
-            tabindex="10"
+          <a href="#" id="logout-link" class="menu -left" aria-label="Logout" style="display: none">
+            <i class="icon-logout"></i>
+            <span class="menu-text" data-i18n="menu.logout">Log out</span></a
           >
-            <img
-              width="20"
-              height="20"
-              alt="Run"
-              src="{{baseUrl}}assets/images/share.svg"
-              loading="lazy"
-            />
-          </a>
-          <a
-            href="javascript:void(0)"
-            id="result-button"
-            class="button hint--bottom"
-            data-hint="Toggle Result"
-            tabindex="11"
-          >
-            <img
-              width="28"
-              height="28"
-              alt="Result"
-              src="{{baseUrl}}assets/images/document.svg"
-              loading="lazy"
-            />
-          </a>
-          <a
-            href="javascript:void(0)"
-            id="fullscreen-button"
-            class="button hint--bottom"
-            data-hint="Full Screen"
-            tabindex="12"
-          >
-            <img
-              width="28"
-              height="28"
-              alt="Fullscreen"
-              src="{{baseUrl}}assets/images/expand.svg"
-              loading="lazy"
-            />
-          </a>
-          <a
-            href="javascript:void(0)"
-            id="settings-button"
-            class="button"
-            aria-label="Menu"
-            tabindex="13"
-          >
-            <img
-              width="30"
-              height="30"
-              alt="Menu"
-              src="{{baseUrl}}assets/images/menu.svg"
-              loading="lazy"
-            />
-          </a>
-          <div id="settings-menu-container" class="menu-scroller"></div>
         </div>
       </div>
       <div id="editor-container">
@@ -134,60 +190,106 @@
           <div id="markup" class="editor"></div>
           <div id="style" class="editor"></div>
           <div id="script" class="editor"></div>
-
           <div id="editor-tools" class="tool-buttons">
-            <span id="focus-btn" class="hint--top-right" data-hint="Toggle Focus mode">
-              <img src="{{baseUrl}}assets/images/focus.svg" alt="focus" />
-            </span>
-            <span
-              id="copy-btn"
-              class="hint--top-right"
-              data-hint="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
+            <button
+              type="button"
+              id="focus-btn"
+              title="Toggle Focus mode"
+              data-i18n="app.focus.hint"
+              data-i18n-prop="title"
             >
-              <img src="{{baseUrl}}assets/images/copy.svg" alt="copy" />
-            </span>
-            <span id="undo-btn" class="hint--top-right" data-hint="Undo (Ctrl/Cmd + Z)">
-              <img src="{{baseUrl}}assets/images/undo.svg" alt="undo" />
-            </span>
-            <span id="redo-btn" class="hint--top-right" data-hint="Redo (Ctrl/Cmd + Shift + Z)">
-              <img src="{{baseUrl}}assets/images/redo.svg" alt="redo" />
-            </span>
-            <span id="format-btn" class="hint--top-right" data-hint="Format (Alt + Shift + F)">
-              <img src="{{baseUrl}}assets/images/format.svg" alt="format" />
-            </span>
-            <span id="copy-as-url-btn" class="hint--top-right" data-hint="Copy code as data URL">
-              <img src="{{baseUrl}}assets/images/copy-as-url.svg" alt="copy" />
-            </span>
+              <i class="icon-editor-focus"></i>
+            </button>
+            <button
+              type="button"
+              id="format-btn"
+              title="Format (Alt + Shift + F)"
+              data-i18n="app.format.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-editor-format"></i>
+            </button>
+            <button
+              type="button"
+              id="undo-btn"
+              title="Undo (Ctrl/Cmd + Z)"
+              data-i18n="app.undo.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-editor-undo"></i>
+            </button>
+            <button
+              type="button"
+              id="redo-btn"
+              title="Redo (Ctrl/Cmd + Shift + Z)"
+              data-i18n="app.redo.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-editor-redo"></i>
+            </button>
+            <button
+              type="button"
+              id="copy-btn"
+              title="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
+              data-i18n="app.copy.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-editor-copy"></i>
+            </button>
+            <button
+              type="button"
+              id="copy-as-url-btn"
+              title="Copy code as data URL"
+              data-i18n="app.copyAsUrl.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-editor-copy-url"></i>
+            </button>
             <span id="editor-status">
-              <span id="editor-mode" class="hint--top-right" data-hint="Editor Mode"></span>
+              <span id="editor-mode" title="Editor Mode"></span>
               <span data-status="markup"></span>
               <span data-status="style"></span>
               <span data-status="script"></span>
             </span>
-            <span id="external-resources-btn" class="hint--top-left" data-hint="External Resources">
-              <img src="{{baseUrl}}assets/images/script-sheet.svg" alt="external resources" />
+            <button
+              type="button"
+              id="external-resources-btn"
+              title="External Resources"
+              data-i18n="app.externalResources.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-editor-external"></i>
               <span id="external-resources-mark" class="mark"></span>
-            </span>
-            <span id="project-info-btn" class="hint--top-left" data-hint="Project Info">
-              <img src="{{baseUrl}}assets/images/info.svg" alt="project info" />
-            </span>
-            <span id="custom-settings-btn" class="hint--top-left" data-hint="Custom Settings">
-              <img src="{{baseUrl}}assets/images/curly-braces.svg" alt="custom settings" />
+            </button>
+            <button
+              type="button"
+              id="project-info-btn"
+              title="Project Info"
+              data-i18n="app.projectInfo.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-editor-project"></i>
+            </button>
+            <button
+              type="button"
+              id="custom-settings-btn"
+              title="Custom Settings"
+              data-i18n="app.customSettings.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-editor-settings-custom"></i>
               <span id="custom-settings-mark" class="mark"></span>
-            </span>
-            <span id="editor-settings-btn" class="hint--top-left" data-hint="Editor Settings">
-              <img src="{{baseUrl}}assets/images/gear.svg" alt="editor settings" />
-            </span>
+            </button>
+            <button
+              type="button"
+              id="editor-settings-btn"
+              title="Editor Settings"
+              data-i18n="app.editorSettings.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-editor-settings"></i>
+            </button>
           </div>
-          <button id="code-run-button" class="hint--top-left" data-hint="Run (Shift + Enter)">
-            <img
-              width="20"
-              height="20"
-              alt="Run"
-              src="{{baseUrl}}assets/images/play.svg"
-              loading="lazy"
-            />
-          </button>
         </div>
         <div id="output">
           <div id="result" class="full"></div>
@@ -198,6 +300,41 @@
     <div id="overlay" style="display: none"></div>
     <div id="modal-container" style="display: none">
       <div id="modal"></div>
+    </div>
+    <div id="result-mode-drawer" class="hidden" style="display: none">
+      <a href="#">
+        <div id="drawer-logo">
+          <img
+            alt="LiveCodes Logo"
+            src="{{baseUrl}}assets/images/livecodes-logo.svg"
+            loading="lazy"
+          />
+        </div>
+        <div id="drawer-text">
+          <span data-i18n="resultMode.linkText">Edit on LiveCodes</span>
+          <svg viewBox="6 6 12 12" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="M15 13.5V9M15 9H10.5M15 9L9.00019 14.9999"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              ></path>
+            </g>
+          </svg>
+        </div>
+      </a>
+      <div>
+        <button id="drawer-close">
+          <svg viewBox="0 0 16 16">
+            <path
+              fill="rgb(119, 128, 137)"
+              d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+      </div>
     </div>
     <script
       src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js"

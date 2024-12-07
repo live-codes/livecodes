@@ -136,7 +136,7 @@ export const createExternalResourcesUI = ({
       itemScriptLink.onclick = scriptAdded ? null : () => addResource(files.js || '', 'scripts');
       itemScriptLink.title = files.js;
       itemScriptLink.dataset.resourceUrl = files.js;
-      itemScriptLink.innerHTML = `<img src="${baseUrl}assets/images/javascript.svg" />`;
+      itemScriptLink.innerHTML = `<img src="${baseUrl}assets/images/javascript.svg" /> JS`;
       itemScript.appendChild(itemScriptLink);
     }
 
@@ -155,7 +155,7 @@ export const createExternalResourcesUI = ({
         : () => addResource(files.css || '', 'stylesheets');
       itemStylesheetLink.title = files.css;
       itemStylesheetLink.dataset.resourceUrl = files.css;
-      itemStylesheetLink.innerHTML = `<img src="${baseUrl}assets/images/css.svg" />`;
+      itemStylesheetLink.innerHTML = `<img src="${baseUrl}assets/images/css.svg" /> CSS`;
       itemStylesheet.appendChild(itemStylesheetLink);
     }
 
@@ -166,7 +166,10 @@ export const createExternalResourcesUI = ({
     const itemBrowseLink = document.createElement('a');
     itemBrowseLink.href = `https://cdn.jsdelivr.net/npm/${name}/`;
     itemBrowseLink.target = '_blank';
-    itemBrowseLink.title = 'Browse package files on jsDelivr';
+    itemBrowseLink.title = window.deps.translateString(
+      'resources.browseOnJsDelivr',
+      'Browse package files on jsDelivr',
+    );
     itemBrowseLink.textContent = 'Browse';
     itemBrowse.appendChild(itemBrowseLink);
 
@@ -178,19 +181,17 @@ export const createExternalResourcesUI = ({
     const searchResults = await pkgInfoService.search(searchInput.value, 5);
 
     if (query !== searchInput.value) {
-      searchResultsEl.innerHTML =
-        '<li><div class="search-result-item-description">Loading...</div></li>';
+      searchResultsEl.innerHTML = `<li><div class="search-result-item-description">${window.deps.translateString('generic.loading', 'Loading...')}</div></li>`;
       return;
     }
 
     if ('error' in searchResults) {
-      searchResultsEl.innerHTML =
-        '<li><div class="search-result-item-error">Failed to load results!</div></li>';
+      searchResultsEl.innerHTML = `<li><div class="search-result-item-error">${window.deps.translateString('resources.error.failedToLoadResults', 'Failed to load results!')}</div></li>`;
       return;
     }
 
     if (searchResults.length === 0) {
-      searchResultsEl.innerHTML = `<li><div class="search-result-item-description">No results found for: <strong>${query}</strong></div></li>`;
+      searchResultsEl.innerHTML = `<li><div class="search-result-item-description">${window.deps.translateString('resources.error.noResultsFound', 'No results found for: ')}<strong>${query}</strong></div></li>`;
       return;
     }
 
@@ -211,8 +212,7 @@ export const createExternalResourcesUI = ({
     if (query !== searchInput.value) return;
 
     if (resultsWithFiles.length === 0) {
-      searchResultsEl.innerHTML =
-        '<li><div class="search-result-item-error">Failed to load results!</div></li>';
+      searchResultsEl.innerHTML = `<li><div class="search-result-item-error">${window.deps.translateString('resources.error.failedToLoadResults', 'Failed to load results!')}</div></li>`;
       return;
     }
 
@@ -224,8 +224,7 @@ export const createExternalResourcesUI = ({
 
   searchInput?.focus();
   searchInput.addEventListener('input', async () => {
-    searchResultsEl.innerHTML =
-      '<li><div class="search-result-item-description">Loading...</div></li>';
+    searchResultsEl.innerHTML = `<li><div class="search-result-item-description">${window.deps.translateString('generic.loading', 'Loading...')}</div></li>`;
 
     menuEvents?.clear();
     if (searchInput.value.length > 0) {
@@ -243,7 +242,7 @@ export const createExternalResourcesUI = ({
     baseUrl + '{{hash:google-fonts.js}}'
   );
   fontsModule.then((mod) => {
-    fontsSelect.innerHTML = '<option value="">Select font ...</option>';
+    fontsSelect.innerHTML = `<option value="">${window.deps.translateString('resources.fonts.select', 'Select font ...')}</option>`;
     const fonts = mod.googleFonts.getFonts();
     fonts.forEach((font) => {
       const option = document.createElement('option');
@@ -257,7 +256,7 @@ export const createExternalResourcesUI = ({
       fontsSelect.value = '';
       addFontsBtn.innerText = '✔';
       setTimeout(() => {
-        addFontsBtn.innerText = 'Add';
+        addFontsBtn.innerText = window.deps.translateString('resources.fonts.add', 'Add');
       }, 1000);
     });
   });

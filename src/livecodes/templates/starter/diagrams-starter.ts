@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const diagramsStarter: Template = {
   name: 'diagrams',
-  title: 'Diagrams Starter',
+  title: window.deps.translateString('templates.starter.diagrams', 'Diagrams Starter'),
   thumbnail: 'assets/templates/diagrams.svg',
   activeEditor: 'markup',
   markup: {

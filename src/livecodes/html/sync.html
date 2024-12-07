@@ -1,27 +1,41 @@
 <div id="sync-container" class="modal-container">
-  <div class="modal-title">Sync to GitHub Repo</div>
-  <div id="sync-status" class="modal-status"></div>
+  <div class="modal-title" data-i18n="sync.heading">Sync to GitHub Repo</div>
+  <div id="sync-status" class="modal-screen-container"></div>
+
   <ul id="sync-tabs" class="modal-tabs">
-    <li data-target="new-repo" class="active">Create New Repo</li>
-    <li data-target="existing-repo">Existing Repo</li>
+    <li data-target="new-repo" class="active" data-i18n="sync.create.heading">Create New Repo</li>
+    <li data-target="existing-repo" data-i18n="sync.existing.heading">Existing Repo</li>
   </ul>
   <div id="sync-screens" class="modal-screen-container">
     <div id="new-repo" class="tab-content active">
       <div class="modal-screen">
         <form id="new-repo-form">
           <div>
-            <label for="new-repo-name"
+            <label for="new-repo-name" data-i18n="sync.create.repoName"
               >Repo Name <span id="new-repo-name-error" class="error"></span
             ></label>
-            <input type="text" id="new-repo-name" placeholder="Required" />
+            <input
+              type="text"
+              id="new-repo-name"
+              placeholder="Required"
+              data-i18n="generic.required"
+              data-i18n-prop="placeholder"
+            />
           </div>
           <div class="padded">
             <input type="checkbox" id="new-repo-autosync" checked />
-            <label for="new-repo-autosync">Auto sync</label>
+            <label for="new-repo-autosync" data-i18n="sync.autoSync">Auto sync</label>
           </div>
-          <button id="new-repo-btn" class="wide-button start-sync-btn" type="submit">Sync</button>
+          <button
+            id="new-repo-btn"
+            class="wide-button start-sync-btn"
+            type="submit"
+            data-i18n="sync.syncBtn"
+          >
+            Sync
+          </button>
         </form>
-        <div class="description">
+        <div class="description help" data-i18n="sync.create.desc" data-i18n-prop="innerHTML">
           A new <strong>private</strong> repo will be created. Your LiveCodes local data will be
           synchronized with <span class="code">main</span> branch.
         </div>
@@ -31,23 +45,30 @@
       <div class="modal-screen">
         <form id="existing-repo-form">
           <div>
-            <label for="existing-repo-name">Repo Name</label>
+            <label for="existing-repo-name" data-i18n="sync.existing.repoName">Repo Name</label>
             <input
               type="text"
               id="existing-repo-name"
               autocomplete="off"
               placeholder="Loading..."
+              data-i18n="generic.loading"
+              data-i18n-prop="placeholder"
             />
           </div>
           <div class="padded">
             <input type="checkbox" id="existing-repo-autosync" checked />
-            <label for="existing-repo-autosync">Auto sync</label>
+            <label for="existing-repo-autosync" data-i18n="sync.autoSync">Auto sync</label>
           </div>
-          <button id="existing-repo-btn" class="wide-button start-sync-btn" type="submit">
-            sync
+          <button
+            id="existing-repo-btn"
+            class="wide-button start-sync-btn"
+            type="submit"
+            data-i18n="sync.syncBtn"
+          >
+            Sync
           </button>
         </form>
-        <div class="description">
+        <div class="description help" data-i18n="sync.existing.desc" data-i18n-prop="innerHTML">
           Your LiveCodes local data will be synchronized with
           <span class="code">main</span> branch.
         </div>

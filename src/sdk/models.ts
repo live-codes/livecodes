@@ -678,6 +678,11 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
    * If `true`, the [welcome screen](https://livecodes.io/docs/features/welcome) is displayed when the app loads.
    */
   welcome: boolean;
+
+  /**
+   * Sets the app UI language used.
+   */
+  appLanguage: AppLanguage | undefined;
 }
 
 export interface EditorConfig {
@@ -695,6 +700,13 @@ export interface EditorConfig {
    * @default "dark"
    */
   theme: Theme;
+
+  /**
+   * Sets the app theme color.
+   * If `undefined`, it is set to `"hsl(214, 40%, 50%)"`.
+   * @default undefined
+   */
+  themeColor: string | undefined;
 
   /**
    * Sets the [code editor](https://livecodes.io/docs/features/editor-settings) themes.
@@ -715,7 +727,7 @@ export interface EditorConfig {
   fontFamily: string | undefined;
 
   /**
-   * Sets the [code editor](https://livecodes.io/docs/features/editor-settings) font size.
+   * Sets the font size.
    *
    * If `undefined` (the default), the font size is set to 14 for the full app and 12 for [embeds](https://livecodes.io/docs/features/embeds).
    * @default undefined
@@ -1358,7 +1370,7 @@ export type TemplateName =
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';
-  title: 'Console' | 'Compiled' | 'Tests';
+  title: string;
   load: () => Promise<void>;
   onActivate: () => void;
   onDeactivate: () => void;
@@ -1380,7 +1392,7 @@ export type ToolList = Array<{
 }>;
 
 export interface Console extends Tool {
-  title: 'Console';
+  title: string;
   log: (...args: any[]) => void;
   info: (...args: any[]) => void;
   table: (...args: any[]) => void;
@@ -1390,16 +1402,17 @@ export interface Console extends Tool {
   // filterLog: (filter: string) => void;
   evaluate: (code: string) => void;
   reloadEditor: (config: Config) => Promise<void>;
+  setTheme?: (theme: Theme) => void;
 }
 
 export interface CompiledCodeViewer extends Tool {
-  title: 'Compiled';
+  title: string;
   update: (language: Language, content: string, label?: string | undefined) => void;
   reloadEditor: (config: Config) => Promise<void>;
 }
 
 export interface TestViewer extends Tool {
-  title: 'Tests';
+  title: string;
   showResults: ({ results, error }: { results: TestResult[]; error?: string }) => void;
   resetTests: () => void;
   clearTests: () => void;
@@ -1668,6 +1681,21 @@ export interface BlocklyContent {
   js?: string;
 }
 
+export type AppLanguage =
+  | 'auto'
+  | 'ar'
+  | 'de'
+  | 'en'
+  | 'es'
+  | 'fr'
+  | 'hi'
+  | 'it'
+  | 'ja'
+  | 'pt'
+  | 'ru'
+  | 'ur'
+  | 'zh-CN';
+
 export interface User {
   uid: string;
   token: string | null;
@@ -1915,6 +1943,7 @@ export interface CustomEvents {
   destroy: 'livecodes-destroy';
   resizeEditor: 'livecodes-resize-editor';
   apiResponse: 'livecodes-api-response';
+  i18n: 'livecodes-i18n';
 }
 
 export interface PkgInfo {

@@ -1,11 +1,19 @@
 /* eslint-disable import/no-unresolved */
+
+// eslint-disable-next-line import/no-internal-modules
+import { predefinedValues } from '../utils/utils';
+
 // @ts-ignore
 // eslint-disable-next-line import/no-internal-modules
 import resultTemplateRaw from './sandbox/v8/index.html?raw';
 // @ts-ignore
 import appHTMLRaw from './app.html?raw';
 // @ts-ignore
-import settingsMenuHTMLRaw from './settings-menu.html?raw';
+import menuProjectHTMLRaw from './app-menu-project.html?raw';
+// @ts-ignore
+import menuSettingsHTMLRaw from './app-menu-settings.html?raw';
+// @ts-ignore
+import menuHelpHTMLRaw from './app-menu-help.html?raw';
 // @ts-ignore
 import languageInfoRaw from './language-info.html?raw';
 // @ts-ignore
@@ -58,16 +66,16 @@ import editorSettingsScreenRaw from './editor-settings.html?raw';
 import resultPopupHTMLRaw from './result-popup.html?raw';
 
 const replaceValues = (str: string) =>
-  str
-    .replace(/{{APP_VERSION}}/g, process.env.VERSION || '')
-    .replace(/{{SDK_VERSION}}/g, process.env.SDK_VERSION || '')
-    .replace(/{{COMMIT_SHA}}/g, process.env.GIT_COMMIT || '')
-    .replace(/{{REPO_URL}}/g, process.env.REPO_URL || '')
-    .replace(/{{DOCS_BASE_URL}}/g, process.env.DOCS_BASE_URL || '');
+  Object.entries(predefinedValues).reduce(
+    (str, [key, value]) => str.replace(new RegExp(`{{${key}}}`, 'g'), value),
+    str,
+  );
 
 const resultTemplate = /* @__PURE__ */ replaceValues(resultTemplateRaw);
 const appHTML = /* @__PURE__ */ replaceValues(appHTMLRaw);
-const settingsMenuHTML = /* @__PURE__ */ replaceValues(settingsMenuHTMLRaw);
+const menuProjectHTML = /* @__PURE__ */ replaceValues(menuProjectHTMLRaw);
+const menuSettingsHTML = /* @__PURE__ */ replaceValues(menuSettingsHTMLRaw);
+const menuHelpHTML = /* @__PURE__ */ replaceValues(menuHelpHTMLRaw);
 const languageInfo = /* @__PURE__ */ replaceValues(languageInfoRaw);
 const customSettingsScreen = /* @__PURE__ */ replaceValues(customSettingsScreenRaw);
 const testEditorScreen = /* @__PURE__ */ replaceValues(testEditorScreenRaw);
@@ -97,7 +105,9 @@ const resultPopupHTML = /* @__PURE__ */ replaceValues(resultPopupHTMLRaw);
 export {
   resultTemplate,
   appHTML,
-  settingsMenuHTML,
+  menuProjectHTML,
+  menuSettingsHTML,
+  menuHelpHTML,
   languageInfo,
   customSettingsScreen,
   testEditorScreen,

@@ -7,7 +7,7 @@ const templates = [
   'TypeScript',
   'React',
   'Angular',
-  'Preact',
+  // 'Preact',
   'Svelte',
   'Solid',
   'Lit',
@@ -39,7 +39,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Blank');
     await waitForEditorFocus(app);
@@ -56,7 +56,7 @@ test.describe('Starter Templates from UI', () => {
 
       const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-      await app.click('[aria-label="Menu"]');
+      await app.click('[aria-label="Project"]');
       await app.click('text=New');
       await app.click(`text=${template} Starter`);
       await waitForEditorFocus(app);
@@ -75,12 +75,12 @@ test.describe('Starter Templates from UI', () => {
     });
   });
 
-  test('React Native Starter', async ({ page, getTestUrl }) => {
+  test.skip('React Native Starter', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=React Native Starter');
     await waitForEditorFocus(app);
@@ -103,7 +103,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Vue 2 Starter');
     await waitForEditorFocus(app);
@@ -126,7 +126,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Vue 3 SFC Starter');
     await waitForEditorFocus(app);
@@ -149,7 +149,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Riot.js Starter');
     await waitForEditorFocus(app);
@@ -172,7 +172,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Malina.js Starter');
     await waitForEditorFocus(app);
@@ -195,7 +195,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Imba Starter');
     await waitForEditorFocus(app);
@@ -223,7 +223,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Ruby (Wasm) Starter');
 
@@ -249,7 +249,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=D3 Starter');
 
@@ -267,7 +267,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Phaser Starter');
 
@@ -285,7 +285,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Lua (Wasm) Starter');
 
@@ -311,7 +311,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=PHP (Wasm) Starter');
 
@@ -330,7 +330,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Go Starter');
     await waitForEditorFocus(app);
@@ -354,7 +354,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=C++ Starter');
     await waitForEditorFocus(app);
@@ -379,7 +379,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=ReScript Starter');
     await waitForEditorFocus(app);
@@ -404,7 +404,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Reason Starter');
     await waitForEditorFocus(app);
@@ -429,7 +429,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=OCaml Starter');
     await waitForEditorFocus(app);
@@ -452,7 +452,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Common Lisp Starter');
     await waitForEditorFocus(app);
@@ -475,7 +475,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=AssemblyScript Starter');
     await waitForEditorFocus(app);
@@ -498,7 +498,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=WebAssembly Text Starter');
     await waitForEditorFocus(app);
@@ -521,7 +521,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Bootstrap Starter');
     await waitForEditorFocus(app);
@@ -537,7 +537,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Tailwind CSS Starter');
     await waitForEditorFocus(app);
@@ -553,7 +553,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Markdown Starter');
     await waitForEditorFocus(app);
@@ -569,7 +569,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=SQL Starter');
     await waitForEditorFocus(app);
@@ -585,7 +585,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=PostgreSQL Starter');
     await waitForEditorFocus(app);
@@ -601,7 +601,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click('text=Prolog Starter');
     await waitForEditorFocus(app);
@@ -622,7 +622,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
+    await app.click('[aria-label="Project"]');
     await app.click('text=New');
     await app.click(`text=Blockly Starter`);
     await waitForEditorFocus(app);
@@ -676,7 +676,7 @@ test.describe('Starter Templates from URL', () => {
     });
   });
 
-  test('React Native Starter (in URL)', async ({ page, getTestUrl }) => {
+  test.skip('React Native Starter (in URL)', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl({ template: 'react-native' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);

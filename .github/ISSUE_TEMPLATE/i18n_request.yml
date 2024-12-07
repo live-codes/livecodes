@@ -1,0 +1,44 @@
+name: 🌐 I18n Request
+description: Request for internationalization support for a specific language
+title: 'I18n: '
+labels: [👀 needs triage, 🌐 I18n]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this i18n request!
+  - type: markdown
+    attributes:
+      value: |
+        Before submitting your request, please check out [our Lokalise project page](https://app.lokalise.com/public/34958094667a72e9454592.95108106/) to see if the language you are requesting is already supported or being currently worked on.
+  - type: input
+    attributes:
+      label: Requested language
+      description: The UI language you would like to request support for.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Supporting details
+      description: We want to hear why you think this language should be supported (e.g. user base, translation help, etc.). Please provide details regarding your request.
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem or helpful links here.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/live-codes/livecodes/blob/HEAD/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contributing Docs
+      description: If you plan on contributing i18n please read - [Contribution Guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md) and [I18n Guide](https://github.com/live-codes/livecodes/blob/HEAD/docs/docs/contribution/i18n.md)
+      options:
+        - label: I agree to follow this project's Contribution Docs
+          required: false

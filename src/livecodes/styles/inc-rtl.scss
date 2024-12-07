@@ -1,0 +1,76 @@
+html[dir='rtl'] {
+  #editors,
+  #tools-pane,
+  .custom-editor {
+    direction: ltr;
+  }
+
+  [id^='app-menu-container-'] {
+    --logo-width: 44px;
+  }
+
+  .tool-buttons#editor-tools {
+    flex-direction: row-reverse;
+  }
+
+  .actions {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: var(--rs);
+    border-top-left-radius: var(--rs);
+    border-top-right-radius: 0;
+  }
+
+  i.arrow {
+    left: -6px;
+    transform: rotate(180deg);
+  }
+
+  .submenu {
+    right: 98%;
+  }
+
+  #modal .close-button {
+    left: 1.5rem;
+    right: unset;
+  }
+
+  #modal select {
+    background-position: 1% 50%;
+  }
+
+  .indent {
+    margin-left: unset;
+    margin-right: 1em;
+  }
+
+  select {
+    background-position: 2% 50%;
+  }
+
+  .input-container .radio-label {
+    padding-left: unset;
+    padding-right: var(--s8);
+  }
+
+  .input-container > span {
+    margin-left: 1.5em;
+    margin-right: unset;
+  }
+
+  @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+    input[type='checkbox'] + label,
+    input[type='radio'] + label {
+      margin-left: unset;
+      margin-right: 4px;
+    }
+  }
+
+  #share-screen ul li .share-image-container {
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: var(--rs);
+    border-top-left-radius: unset;
+    border-top-right-radius: var(--rs);
+    margin-left: var(--s16);
+    margin-right: unset;
+  }
+}

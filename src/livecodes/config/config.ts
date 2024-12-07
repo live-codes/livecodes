@@ -55,6 +55,7 @@ export const getUserConfig = (config: Config | UserConfig): UserConfig =>
     autoupdate: config.autoupdate,
     autosave: config.autosave,
     autotest: config.autotest,
+    appLanguage: config.appLanguage,
     delay: config.delay,
     formatOnsave: config.formatOnsave,
     layout: config.layout,
@@ -69,6 +70,7 @@ export const getEditorConfig = (config: Config | UserConfig): EditorConfig =>
   cloneObject({
     editor: config.editor ?? ((config as Config).readonly === true ? 'codejar' : undefined),
     theme: config.theme,
+    themeColor: config.themeColor,
     editorTheme: config.editorTheme,
     fontFamily: config.fontFamily,
     fontSize: config.fontSize,

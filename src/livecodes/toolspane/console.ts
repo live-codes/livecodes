@@ -1,7 +1,7 @@
 import LunaConsole from 'luna-console';
 import { createEditor, getFontFamily } from '../editor';
 import type { createEventsManager } from '../events';
-import type { Editors, Config, Console, CodeEditor, EditorOptions } from '../models';
+import type { Editors, Config, Console, CodeEditor, EditorOptions, Theme } from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
 import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '../UI';
@@ -68,7 +68,7 @@ export const createConsole = (
       return consoleEmulator;
     }
 
-    consoleEmulator = new LunaConsole(consoleElement);
+    consoleEmulator = new LunaConsole(consoleElement, { theme: config.theme });
     eventsManager.addEventListener(window, 'message', (event: any) => {
       if (
         !consoleElement ||
@@ -162,7 +162,7 @@ export const createConsole = (
       consoleEditor.setValue(commands[commandsIndex] || '');
     });
 
-    const minHeight = 25;
+    const minHeight = 30;
     container.style.minHeight = minHeight + 'px';
 
     consoleEditor.onContentChanged(() => {
@@ -221,13 +221,13 @@ export const createConsole = (
 
     const toolsPaneButtons = getToolspaneButtons();
     if (toolsPaneButtons) {
-      const btnContainer = document.createElement('span');
-      btnContainer.classList.add('hint--top-left');
-      btnContainer.dataset.hint = 'Clear console';
-
       clearButton = document.createElement('button');
-      clearButton.classList.add('clear-button');
+      clearButton.classList.add('console-clear-button');
+      clearButton.title = window.deps.translateString('toolspane.console.clear', 'Clear console');
+      const iconCSS = '<i class="icon-delete"></i>';
+      clearButton.innerHTML = iconCSS;
       clearButton.style.display = 'none';
+
       eventsManager.addEventListener(
         clearButton,
         'click',
@@ -246,8 +246,7 @@ export const createConsole = (
         },
         false,
       );
-      btnContainer.appendChild(clearButton);
-      toolsPaneButtons.prepend(btnContainer);
+      toolsPaneButtons.prepend(clearButton);
     }
   };
 
@@ -295,7 +294,7 @@ export const createConsole = (
 
   return {
     name: 'console',
-    title: 'Console',
+    title: window.deps.translateString('toolspane.console.title', 'Console'),
     load,
     onActivate: () => {
       if (!isMobile() && !isEmbed) {
@@ -313,6 +312,7 @@ export const createConsole = (
     },
     getEditor: () => editor,
     reloadEditor,
+    setTheme: (theme: Theme) => exec(() => consoleEmulator?.setOption('theme', theme)),
     log: (...args) => exec(() => consoleEmulator?.log(...args)),
     info: (...args) => exec(() => consoleEmulator?.info(...args)),
     table: (...args) => exec(() => consoleEmulator?.table(...args)),

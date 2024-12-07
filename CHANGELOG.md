@@ -4,6 +4,90 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v36](https://github.com/live-codes/livecodes/compare/v35...v36) (2024-12-07)
+
+### Highlights for this release
+
+This is a big release, featuring:
+
+- Total redesign of the UI to a cleaner, more modern, more consistent and more accessible design. In addition, a customizable `themeColor` allows for a lot of customization (see [livecodes.io/docs/configuration/configuration-object#themecolor](https://livecodes.io/docs/configuration/configuration-object#themecolor)).
+- Internationalization (i18n) support for the entire UI. The app can be displayed in multiple languages - currently 12. The new config option `appLanguage` allows setting the app language (see [livecodes.io/docs/configuration/configuration-object#applanguage](https://livecodes.io/docs/configuration/configuration-object#applanguage)).
+
+### Credits:
+
+A huge shout-out to our contributors for making this release possible!
+
+- @gigamaster for the design and implementation of the new UI.
+- @zyf722 for the i18n support.
+
+Thank you :)
+
+### Bug Fixes
+
+- **App:** do not clear console in style-only update ([f6ebeb5](https://github.com/live-codes/livecodes/commit/f6ebeb54e8dc62aa4bcfe21adedee30081213e21))
+- **docs:** align code block for e2e tests ([751c766](https://github.com/live-codes/livecodes/commit/751c7663f9644fc31b306ab6d465aac8171cfd3c))
+- **docs:** fix links to CDNs ([4150510](https://github.com/live-codes/livecodes/commit/41505101106b9005063da49fe3338851302ac6b0))
+- **services:** fix CORS error in firefox when calling jsdelivr API ([d00c7e5](https://github.com/live-codes/livecodes/commit/d00c7e538a3ea54a9b6866a612558526ab6be624))
+- **ToolsPane:** fix console themes ([58da00c](https://github.com/live-codes/livecodes/commit/58da00ce92d6f5b613f78175573a3527865c612a))
+- **UI:** fix external resources screen styles in firefox ([ff9f347](https://github.com/live-codes/livecodes/commit/ff9f3479ee7d15eac500956bf01b5313f98805c7))
+- **Templates** modify React Native template till React Native Web supports React 19.
+
+### Features
+
+- **Config:** add [`appLanguage`](https://livecodes.io/docs/configuration/configuration-object#applanguage) config property to set i18n language ([c682d7c](https://github.com/live-codes/livecodes/commit/c682d7c3c666e38089c3c150420406a56483a9f6))
+- **Config:** add [`themeColor`](https://livecodes.io/docs/configuration/configuration-object#themecolor) config property to set theme color.
+
+* abstract tag for innerHTML ([7c942e3](https://github.com/live-codes/livecodes/commit/7c942e3357131e2710a9bda93abab166083e1c51))
+* add a script to generate English .ts and .json template from .html for i18n ([7ab9473](https://github.com/live-codes/livecodes/commit/7ab9473ba6ffd4997579cef3182f84d4e969e11e))
+* add i18n integration for html pages ([e426d0f](https://github.com/live-codes/livecodes/commit/e426d0f45d519d8f0554545927b867890b578cf4))
+* **App:** add console message ([c17c4ed](https://github.com/live-codes/livecodes/commit/c17c4ed0868391d485508d83d308af8b84b58760))
+* export i18n keys in alphabetical order to have better diff ([7c72fda](https://github.com/live-codes/livecodes/commit/7c72fdaf4bd0bbad0be2d17f20be138e6c283aff))
+* extract i18n from .ts files with translateString ([1f1f507](https://github.com/live-codes/livecodes/commit/1f1f5071135cc5f0a5875ca99b99ccc182369975))
+* **i18n:** add `getLanguageDirection` to get ltr/rtl layout ([016b62c](https://github.com/live-codes/livecodes/commit/016b62cf53dc96ee75f218389139bb39a8ff9811))
+* **i18n:** add `placeholder` as translatable attribute ([6c9a27c](https://github.com/live-codes/livecodes/commit/6c9a27c221b9cae0436a751b22bb8935a60e15f5))
+* **i18n:** add a ci script to push source texts to lokalise ([0eaa5e7](https://github.com/live-codes/livecodes/commit/0eaa5e7fdc46269c8ea1038c464bd3b330eb1fe9))
+* **i18n:** add an `overwrite` flag for `i18n-export` ([eb9ba81](https://github.com/live-codes/livecodes/commit/eb9ba816dc5622ad8e8f9a5bb642f473ca68e2bb))
+* **i18n:** add app language in editor settings ([861a26b](https://github.com/live-codes/livecodes/commit/861a26b665b477c63fb40b099e38740c31cefe18))
+* **i18n:** add branching and rename `i18n-push-to-lokalise` ([d304f09](https://github.com/live-codes/livecodes/commit/d304f09cfdecf6e8afe7f9681211d5c5e8ea4828))
+* **i18n:** add i18n for loading screen ([1ff478d](https://github.com/live-codes/livecodes/commit/1ff478da270dbb4e72ddeb6622acd73c25c7415f))
+* **i18n:** add i18n-import ([83a040a](https://github.com/live-codes/livecodes/commit/83a040a035c5d379c1e45d9de8dc42bf08437f84))
+* **i18n:** add i18n-lokalise-json ([35471c7](https://github.com/live-codes/livecodes/commit/35471c7487b512f9d3fb53abc59122551523cf30))
+* **i18n:** add interpolation for element-level translation ([647849a](https://github.com/live-codes/livecodes/commit/647849ad153305ee14942458435f9c155e496169))
+* **i18n:** add types for translation keys ([d44159e](https://github.com/live-codes/livecodes/commit/d44159e982dc162da1064aba9f814c16c5cc2050))
+* **i18n:** async lazy load i18n for language-info ([a7bc906](https://github.com/live-codes/livecodes/commit/a7bc9066c2972f5dd4cfb0f2fee0fbdaf5fc6419))
+* **i18n:** change escapeValue to false to prevent HTML tag escaping ([4d3c04b](https://github.com/live-codes/livecodes/commit/4d3c04bd91ea8bf564e2dadfc32eea9019a566d6))
+* **i18n:** change tag numbering to left-to-right in `abstractifyHTML` ([f995c76](https://github.com/live-codes/livecodes/commit/f995c76279cd3ca7e922ea440359d3b3405017bf))
+* **i18n:** change translate to support multiple properties ([f482820](https://github.com/live-codes/livecodes/commit/f482820c361c1f69832519821d6fb1e7f4c81c70))
+* **i18n:** custom event driven translation ([a6c60cf](https://github.com/live-codes/livecodes/commit/a6c60cfa5b9baa3fb3a2e4b1b9603060e10c23b5))
+* **i18n:** deprecate outdated keys when importing ([2c4b49a](https://github.com/live-codes/livecodes/commit/2c4b49a2012706f84492088ba443beef438c8863))
+* **i18n:** enhance type-safety and intellisense of i18n ([cb4d9d6](https://github.com/live-codes/livecodes/commit/cb4d9d678ac741734dcd2cec31d20a76fb5fb210))
+* **i18n:** enhance type-safety for translateString ([12bdeea](https://github.com/live-codes/livecodes/commit/12bdeea5b7779e04560759174d7dda6cafd5c0ca))
+* **i18n:** lazy-load i18n ([56411fc](https://github.com/live-codes/livecodes/commit/56411fcd8aad172322b85fd2b67fd28879cbe797))
+* **i18n:** only allow supported appLanguages ([4114d98](https://github.com/live-codes/livecodes/commit/4114d98e0b57ed23acb95761dc2e8a067bad0dbf))
+* **i18n:** remove empty translation entries ([5d05602](https://github.com/live-codes/livecodes/commit/5d056029101719f91d3a0b33c43f253645f156f4))
+* **i18n:** set `dir` based on `appLanguage` ([cf115c1](https://github.com/live-codes/livecodes/commit/cf115c1975dc2985d57b44aa7f93c867b6a16e54))
+* **i18n:** string-level i18n ([d01bab0](https://github.com/live-codes/livecodes/commit/d01bab0632366da041bf5c8a172cfa72f7a8a892))
+* **i18n:** use ts to have type-safe translation ([b38e1a9](https://github.com/live-codes/livecodes/commit/b38e1a9ae488fb1fdfba7bdcf4f1cf6be4010be7))
+* **i18n:** utility function to support dynamically-added elements ([fe69071](https://github.com/live-codes/livecodes/commit/fe69071084b505ce6c305d720b4e9c077a4c6da2))
+* **Import:** import local files by dropping in editor ([09c69f6](https://github.com/live-codes/livecodes/commit/09c69f6015f552ab441174f99581b4fa8d090b1f))
+* **Import:** improve file selection criteria on import ([c96c541](https://github.com/live-codes/livecodes/commit/c96c541ec10f180e8f9e8fd0290ca35d18c1ba00))
+* load `appLanguage` in `getUserConfig` ([2e73a96](https://github.com/live-codes/livecodes/commit/2e73a963a04cfe9c88e265029ddc29d40a5eee31))
+* set document language with i18n ([0149c4a](https://github.com/live-codes/livecodes/commit/0149c4affb0f081438a982a4b32f58d864f12938))
+* **UI:** add fallback when css masking is not supported ([bde3df7](https://github.com/live-codes/livecodes/commit/bde3df7d0ed9b032f4ee2c6f70e047e9abc0ddb5))
+* use i18next ([73d74e2](https://github.com/live-codes/livecodes/commit/73d74e263081789d1a01caa63993a432a3e55dd8))
+
+---
+
+## [sdk-v0.7.0](https://github.com/live-codes/livecodes/compare/v35...sdk-v0.7.0) (2024-12-07)
+
+### Features
+
+- **Config:** add [`appLanguage`](https://livecodes.io/docs/configuration/configuration-object#applanguage) config property to set i18n language ([c682d7c](https://github.com/live-codes/livecodes/commit/c682d7c3c666e38089c3c150420406a56483a9f6))
+
+- **Config:** add [`themeColor`](https://livecodes.io/docs/configuration/configuration-object#themecolor) config property to set theme color.
+
+---
+
 ## [v35](https://github.com/live-codes/livecodes/compare/v34...v35) (2024-08-01)
 
 ### Highlights for this release:

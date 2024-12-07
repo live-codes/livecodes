@@ -10,9 +10,9 @@ The automated tests are run by the <a href="https://jestjs.io/" target="_blank">
 
 Screenshots:
 
-![Livecodes Tests](/img/screenshots/tests.png)
+![Livecodes Tests](/img/screenshots/tests.jpg)
 
-![Livecodes Tests](/img/screenshots/test-editor.png)
+![Livecodes Tests](/img/screenshots/test-editor.jpg)
 
 ## Use Cases
 

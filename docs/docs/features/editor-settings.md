@@ -2,17 +2,17 @@
 
 LiveCodes allows a lot of flexibility for configuring which code editor to use and its settings.
 
-`Editor Settings` screen can be accessed from app menu → Editor Settings.
+`Editor Settings` screen can be accessed from Settings menu → Editor Settings.
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 <RunInLiveCodes params={{screen: 'editor-settings'}} linkText="direct link" />
 
-![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-1.png)
+![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-1.jpg)
 
-![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-2.png)
+![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-2.jpg)
 
-![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-3.png)
+![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-3.jpg)
 
 A preview code editor is displayed to preview the settings in real time.
 

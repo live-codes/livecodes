@@ -56,6 +56,7 @@ import type {
   CompileInfo,
   SDKEvent,
   Editor,
+  AppLanguage,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -69,7 +70,9 @@ import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
 import {
-  settingsMenuHTML,
+  menuProjectHTML,
+  menuSettingsHTML,
+  menuHelpHTML,
   resultTemplate,
   customSettingsScreen,
   testEditorScreen,
@@ -96,6 +99,7 @@ import {
 } from './config';
 import { isGithub } from './import/check-src';
 import {
+  colorToHsla,
   copyToClipboard,
   debounce,
   getValidUrl,
@@ -103,6 +107,9 @@ import {
   stringify,
   stringToValidJson,
   toDataUrl,
+  predefinedValues,
+  colorToHex,
+  capitalize,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -113,7 +120,6 @@ import { createAuthService, getAppCDN, sandboxService, shareService } from './se
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   fscreenUrl,
-  hintCssUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
   lunaDataGridStylesUrl,
@@ -139,18 +145,42 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
+import { importFromFiles } from './import/files';
+import type {
+  I18nKeyType,
+  I18nValueType,
+  I18nInterpolationType,
+  I18nTranslationTemplate,
+} from './i18n';
+import { appLanguages } from './i18n/app-languages';
+import { themeColors } from './UI/theme-colors';
 
 // declare global dependencies
-declare const window: Window & {
-  deps: {
-    showMode: typeof showMode;
-  };
-};
+declare global {
+  interface Window {
+    deps: {
+      showMode: typeof showMode;
+      /**
+       * String-level i18n helper function.
+       * @param key The key of the translation.
+       * @param value The default value to translate.
+       * @param args The interpolation object.
+       * @returns The translated string.
+       */
+      translateString: <Key extends I18nKeyType, Value extends string>(
+        key: Key,
+        value: I18nValueType<Key, Value>,
+        ...args: I18nInterpolationType<I18nValueType<Key, Value>>
+      ) => string;
+    };
+  }
+}
 
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
 let notifications: ReturnType<typeof createNotifications>;
 let modal: ReturnType<typeof createModal>;
+let i18n: Await<ReturnType<typeof import('./i18n').init>> | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
@@ -184,6 +214,7 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
+let defaultColor: string | null = null;
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
@@ -204,7 +235,6 @@ const loadStyles = () =>
     : Promise.all(
         [
           snackbarUrl,
-          hintCssUrl,
           ...(isLite
             ? []
             : [
@@ -219,7 +249,9 @@ const loadStyles = () =>
 const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>
   new Promise((resolve, reject) => {
     if (!container) {
-      reject('Result container not found');
+      reject(
+        window.deps.translateString('core.error.noResultContainer', 'Result container not found'),
+      );
       return;
     }
 
@@ -352,34 +384,39 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 };
 
 const setEditorTitle = (editorId: EditorId, title: string) => {
-  const editorTitle = document.querySelector(`#${editorId}-selector span`);
+  const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
   const language = getLanguageByAlias(title);
   if (!editorTitle || !language) return;
-  editorTitle.textContent =
-    getConfig()[editorId].title ?? languages.find((lang) => lang.name === language)?.title ?? '';
   highlightSelectedLanguage(editorId, language);
+  const customTitle = getConfig()[editorId].title;
+  if (customTitle) {
+    editorTitle.textContent = customTitle;
+    editorTitle.title = `${capitalize(editorId)}: ${customTitle}`;
+    return;
+  }
+  const lang = languages.find((lang) => lang.name === language);
+  editorTitle.textContent = lang?.title ?? '';
+  editorTitle.title = `${capitalize(editorId)}: ${lang?.longTitle ?? lang?.title ?? ''}`;
 };
 
 const createCopyButtons = () => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
-  const copyImgHtml = `<span><img src="${baseUrl}assets/images/copy.svg" alt="copy"></span>`;
+  const copyImgHtml = `<span><i class="icon-copy" alt="copy"></i></span>`;
   editorIds.forEach((editorId) => {
     const copyButton = document.createElement('div');
     copyButton.innerHTML = copyImgHtml;
     copyButton.classList.add('copy-button', 'tool-buttons');
-    copyButton.title = 'Copy';
+    copyButton.title = window.deps.translateString('core.copy.title', 'Copy');
     document.getElementById(editorId)?.appendChild(copyButton);
     eventsManager.addEventListener(copyButton, 'click', () => {
       if (copyToClipboard(editors?.[editorId]?.getValue())) {
         copyButton.innerHTML = `<span><img src="${baseUrl}assets/images/tick.svg" alt="copied"></span>`;
-        copyButton.classList.add('hint--left', 'visible');
-        copyButton.dataset.hint = 'Copied!';
-        copyButton.title = '';
+        copyButton.classList.add('visible');
+        copyButton.title = window.deps.translateString('core.copy.hint', 'Copied!');
         setTimeout(() => {
           copyButton.innerHTML = copyImgHtml;
-          copyButton.classList.remove('hint--left', 'visible');
-          copyButton.dataset.hint = '';
-          copyButton.title = 'Copy';
+          copyButton.classList.remove('visible');
+          copyButton.title = window.deps.translateString('core.copy.title', 'Copy');
         }, 2000);
       }
     });
@@ -533,7 +570,6 @@ const showMode = (mode?: Config['mode']) => {
   const resultElement = UI.getResultElement();
   const gutterElement = UI.getGutterElement();
   const runButton = UI.getRunButton();
-  const codeRunButton = UI.getCodeRunButton();
   const editorTools = UI.getEditorToolbar();
 
   const showToolbar = modeConfig[0] === '1';
@@ -545,7 +581,6 @@ const showMode = (mode?: Config['mode']) => {
   resultElement.style.display = 'flex';
   outputElement.style.display = 'block';
   runButton.style.visibility = 'visible';
-  codeRunButton.style.visibility = 'visible';
   if (gutterElement) {
     gutterElement.style.display = 'block';
   }
@@ -564,13 +599,11 @@ const showMode = (mode?: Config['mode']) => {
     editorsElement.style.flexBasis = '100%';
     outputElement.style.display = 'none';
     resultElement.style.display = 'none';
-    codeRunButton.style.display = 'none';
     split?.destroy(true);
     split = null;
   }
   if (mode === 'editor' || mode === 'codeblock') {
     runButton.style.visibility = 'hidden';
-    codeRunButton.style.visibility = 'hidden';
   }
   if (mode === 'codeblock') {
     editorTools.style.display = 'none';
@@ -725,7 +758,15 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   const editorId = getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
   if (getLanguageSpecs(language)?.largeDownload) {
-    notifications.info(`Loading ${getLanguageTitle(language)}. This may take a while!`);
+    notifications.info(
+      window.deps.translateString(
+        'core.changeLanguage.message',
+        'Loading {{lang}}. This may take a while!',
+        {
+          lang: getLanguageTitle(language),
+        },
+      ),
+    );
   }
   const editor = editors[editorId];
   editor.setLanguage(language, value ?? (getConfig()[editorId].content || ''));
@@ -1054,6 +1095,7 @@ const setWindowTitle = () => {
     : location.hostname.startsWith('127.0.0.1') || location.hostname.startsWith('localhost')
       ? '(local) '
       : '';
+
   parent.document.title =
     hostLabel + (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
 };
@@ -1089,7 +1131,9 @@ const setCustomSettingsMark = () => {
 
 const run = async (editorId?: EditorId, runTests?: boolean) => {
   setLoading(true);
-  toolsPane?.console?.clear(/* silent= */ true);
+  if (editorId !== 'style') {
+    toolsPane?.console?.clear(/* silent= */ true);
+  }
   const config = getConfig();
   const shouldRunTests = (runTests ?? config.autotest) && Boolean(config.tests?.content?.trim());
   const result = await getResultPage({ sourceEditor: editorId, runTests: shouldRunTests });
@@ -1135,7 +1179,9 @@ const save = async (notify = false, setTitle = true, isAutoSave = false) => {
   await setSavedStatus();
 
   if (notify) {
-    notifications.success('Project locally saved to device!');
+    notifications.success(
+      window.deps.translateString('core.save.success', 'Project locally saved to device!'),
+    );
   }
 
   await share(false);
@@ -1145,7 +1191,9 @@ const fork = async () => {
   projectId = '';
   loadConfig({ ...getConfig(), title: getConfig().title + ' (fork)' });
   await save();
-  notifications.success('Forked as a new project');
+  notifications.success(
+    window.deps.translateString('core.fork.success', 'Forked as a new project'),
+  );
 };
 
 const share = async (
@@ -1265,7 +1313,7 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   if (newConfig.zoom) {
     zoom(newConfig.zoom);
   }
-  if (newConfig.theme || newConfig.editorTheme) {
+  if (newConfig.theme || newConfig.editorTheme || newConfig.themeColor || newConfig.fontSize) {
     setTheme(
       newConfig.theme || getConfig().theme,
       newConfig.editorTheme || getConfig().editorTheme,
@@ -1432,7 +1480,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
   return new Promise((resolve) => {
     const welcomeRecover = UI.getModalWelcomeRecover();
     if (isWelcomeScreen) {
-      welcomeRecover.style.display = 'unset';
+      welcomeRecover.style.display = 'block';
     } else {
       const div = document.createElement('div');
       div.innerHTML = recoverPromptScreen;
@@ -1456,10 +1504,18 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
     eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', async () => {
       if (stores.projects) {
         await stores.projects.addItem(unsavedProject);
-        notifications.success(`Project "${projectName}" saved to device.`);
+        notifications.success(
+          window.deps.translateString(
+            'core.save.successWithName',
+            'Project "{{name}}" saved to device.',
+            {
+              name: projectName,
+            },
+          ),
+        );
       }
       if (isWelcomeScreen) {
-        welcomeRecover.style.maxHeight = '0';
+        welcomeRecover.classList.add('cancelled');
       } else {
         modal.close();
       }
@@ -1468,7 +1524,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
     });
     eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
       if (isWelcomeScreen) {
-        welcomeRecover.style.maxHeight = '0';
+        welcomeRecover.classList.add('cancelled');
       } else {
         modal.close();
       }
@@ -1512,27 +1568,33 @@ const login = async () =>
   new Promise<User | void>((resolve, reject) => {
     const loginHandler = (scopes: GithubScope[]) => {
       if (!authService) {
-        reject('Login error!');
+        reject(window.deps.translateString('core.error.login', 'Login error!'));
       } else {
         authService
           .signIn(scopes)
           .then((user) => {
             if (!user) {
-              reject('Login error!');
+              reject(window.deps.translateString('core.error.login', 'Login error!'));
             } else {
               manageStoredUserData(user, 'restore');
 
               const displayName = user.displayName || user.username;
               const loginSuccessMessage = displayName
-                ? 'Logged in as: ' + displayName
-                : 'Logged in successfully';
+                ? window.deps.translateString(
+                    'core.login.successWithName',
+                    'Logged in as: {{name}}',
+                    {
+                      name: displayName,
+                    },
+                  )
+                : window.deps.translateString('core.login.success', 'Logged in successfully');
               notifications.success(loginSuccessMessage);
               displayLoggedIn(user);
               resolve(user);
             }
           })
           .catch(() => {
-            notifications.error('Login error!');
+            notifications.error(window.deps.translateString('core.error.login', 'Login error!'));
           });
       }
       modal.close();
@@ -1541,7 +1603,7 @@ const login = async () =>
     const loginContainer = createLoginContainer(eventsManager, loginHandler);
     modal.show(loginContainer, { size: 'small' });
   }).catch(() => {
-    notifications.error('Login error!');
+    notifications.error(window.deps.translateString('core.error.login', 'Login error!'));
   });
 
 const logout = () => {
@@ -1556,11 +1618,13 @@ const logout = () => {
       authService
         ?.signOut()
         .then(() => {
-          notifications.success('Logged out successfully');
+          notifications.success(
+            window.deps.translateString('core.logout.success', 'Logged out successfully'),
+          );
           displayLoggedOut();
         })
         .catch(() => {
-          notifications.error('Logout error!');
+          notifications.error(window.deps.translateString('core.error.logout', 'Logout error!'));
         }),
     );
 };
@@ -1686,14 +1750,74 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
   root?.classList.add(theme);
+  changeThemeColor();
+  setFontSize();
   const themeToggle = UI.getThemeToggle();
   if (themeToggle) {
     themeToggle.checked = theme === 'dark';
+  }
+  const darkThemeButton = UI.getDarkThemeButton();
+  if (darkThemeButton && !isEmbed) {
+    if (theme === 'dark') {
+      darkThemeButton.style.display = 'inherit';
+    } else {
+      darkThemeButton.style.display = 'none';
+    }
+  }
+  const lightThemeButton = UI.getLightThemeButton();
+  if (lightThemeButton && !isEmbed) {
+    if (theme === 'light') {
+      lightThemeButton.style.display = 'inherit';
+    } else {
+      lightThemeButton.style.display = 'none';
+    }
   }
   getAllEditors().forEach((editor) => {
     editor?.setTheme(theme, editorTheme);
     customEditors[editor?.getLanguage()]?.setTheme(theme);
   });
+  toolsPane?.console?.setTheme?.(theme);
+};
+
+const changeThemeColor = () => {
+  const { themeColor, theme } = getConfig();
+  const color = themeColor || getDefaultColor();
+  const { h, s, l } = colorToHsla(color);
+  const root = document.querySelector(':root') as HTMLElement;
+  root.style.setProperty('--hue', `${h}`);
+  root.style.setProperty('--st', `${s}%`);
+  root.style.setProperty('--lt', `${theme === 'light' ? 100 : l}%`);
+
+  const customColorInput = UI.getThemeColorSelector()?.querySelector(
+    'input[type="color"]',
+  ) as HTMLInputElement;
+  if (customColorInput) {
+    customColorInput.value = colorToHex(color);
+  }
+};
+
+const getDefaultColor = () => {
+  if (defaultColor) return defaultColor;
+  const root = document.querySelector(':root') as HTMLElement;
+  const theme = getConfig().theme;
+  root.classList.remove('light');
+  const h = getComputedStyle(root).getPropertyValue('--hue');
+  const s = getComputedStyle(root).getPropertyValue('--st');
+  const l = getComputedStyle(root).getPropertyValue('--lt');
+  if (theme === 'light') {
+    root.classList.add('light');
+  }
+  if (h === '' || s === '' || l === '') {
+    return themeColors[0].themeColor;
+  }
+  defaultColor = `hsl(${h}, ${s}, ${l})`;
+  return defaultColor;
+};
+
+const setFontSize = () => {
+  const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
+  const root = document.querySelector(':root') as HTMLElement;
+  root.style.setProperty('--font-size', `${fontSize + 2}px`);
 };
 
 const setLayout = (layout: Config['layout']) => {
@@ -1709,11 +1833,17 @@ const setLayout = (layout: Config['layout']) => {
     const layoutSwitch = layoutToggle.closest('.switch') as HTMLElement;
     if (layout === undefined) {
       layoutToggle.readOnly = layoutToggle.indeterminate = true;
-      layoutSwitch.dataset.hint = 'Responsive layout';
+      layoutSwitch.title = window.deps.translateString(
+        'core.layout.responsive',
+        'Responsive layout',
+      );
     } else {
       layoutToggle.checked = layout === 'vertical';
       layoutToggle.readOnly = layoutToggle.indeterminate = false;
-      layoutSwitch.dataset.hint = layout === 'vertical' ? 'Vertical layout' : 'Horizontal layout';
+      layoutSwitch.title =
+        layout === 'vertical'
+          ? window.deps.translateString('core.layout.vertical', 'Vertical layout')
+          : window.deps.translateString('core.layout.horizontal', 'Horizontal layout');
     }
   }
   handleIframeResize();
@@ -1774,8 +1904,13 @@ const loadSettings = (config: Config) => {
   });
 };
 
-const showLanguageInfo = (languageInfo: HTMLElement) => {
-  modal.show(languageInfo, { size: 'small' });
+const showLanguageInfo = async (languageInfo: HTMLElement) => {
+  const showModal = () => modal.show(languageInfo, { size: 'small' });
+  if (i18n) {
+    i18n.loadNamespaces(['language-info'], showModal);
+  } else {
+    showModal();
+  }
 };
 
 const loadStarterTemplate = async (templateName: Template['name'], checkSaved = true) => {
@@ -1803,7 +1938,9 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
       modal.close();
     });
   } else {
-    notifications.error('Failed loading template');
+    notifications.error(
+      window.deps.translateString('core.error.failedToLoadTemplate', 'Failed loading template'),
+    );
   }
 };
 
@@ -1910,10 +2047,13 @@ const setBroadcastStatus = (info: BroadcastInfo) => {
   if (!broadcastStatusBtn) return;
   if (info.isBroadcasting) {
     broadcastStatusBtn.firstElementChild?.classList.add('active');
-    broadcastStatusBtn.dataset.hint = 'Broadcasting...';
+    broadcastStatusBtn.title = window.deps.translateString(
+      'broadcast.broadcasting',
+      'Broadcasting...',
+    );
   } else {
     broadcastStatusBtn.firstElementChild?.classList.remove('active');
-    broadcastStatusBtn.dataset.hint = 'Broadcast';
+    broadcastStatusBtn.title = window.deps.translateString('core.broadcast.heading', 'Broadcast');
   }
 };
 
@@ -1948,6 +2088,81 @@ const getVersion = (log = true) => {
     appUrl,
     sdkUrl,
   };
+};
+
+const showConsoleMessage = () => {
+  if (isEmbed) return;
+  const docsBaseUrl = predefinedValues.DOCS_BASE_URL || 'docs';
+  const docsUrl = docsBaseUrl?.startsWith('http')
+    ? docsBaseUrl
+    : new URL(docsBaseUrl, location.href).href;
+
+  const items = [
+    {
+      content: ' ',
+      style:
+        'padding-left: 2.5em; line-height: 4em; background-size: 2.5em; background-repeat: no-repeat; background-position: left center; background-image: url("data:image/svg+xml;charset=UTF-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MzciIGhlaWdodD0iNDg4IiAgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHN0eWxlPjwhW0NEQVRBWy5Ce3N0cm9rZTpub25lfS5De2ZpbGw6dXJsKCNDKX0uRHtmaWxsOiM5NmJmM2R9LkV7ZmlsbC1ydWxlOm5vbnplcm99XV0+PC9zdHlsZT48ZGVmcz48ZmlsdGVyIGlkPSJBIiB4PSItMS44MTgyJSIgeT0iLTIuNzIyOSUiIHdpZHRoPSIxMDQuMDU1OSUiIGhlaWdodD0iMTA2LjA3NDElIj48ZmVHYXVzc2lhbkJsdXIgaW49IlNvdXJjZUFscGhhIiBzdGREZXZpYXRpb249IjUiLz48ZmVPZmZzZXQgZHg9IjMiIGR5PSIzIiByZXN1bHQ9IkIiLz48ZmVGbG9vZCBmbG9vZC1jb2xvcj0iIzAwMCIgZmxvb2Qtb3BhY2l0eT0iLjUiLz48ZmVDb21wb3NpdGUgaW4yPSJCIiBvcGVyYXRvcj0iaW4iIHJlc3VsdD0iQyIvPjxmZU1lcmdlPjxmZU1lcmdlTm9kZSBpbj0iQyIvPjxmZU1lcmdlTm9kZSBpbj0iU291cmNlR3JhcGhpYyIvPjwvZmVNZXJnZT48L2ZpbHRlcj48ZmlsdGVyIGlkPSJCIiB4PSItNC40MDY4JSIgeT0iLTMuNjExMSUiIHdpZHRoPSIxMDkuODMwNSUiIGhlaWdodD0iMTA4LjA1NTYlIj48ZmVHYXVzc2lhbkJsdXIgaW49IlNvdXJjZUFscGhhIiBzdGREZXZpYXRpb249IjUiLz48ZmVPZmZzZXQgZHg9IjMiIGR5PSIzIiByZXN1bHQ9IkIiLz48ZmVGbG9vZCBmbG9vZC1jb2xvcj0iIzAwMCIgZmxvb2Qtb3BhY2l0eT0iLjUiLz48ZmVDb21wb3NpdGUgaW4yPSJCIiBvcGVyYXRvcj0iaW4iIHJlc3VsdD0iQyIvPjxmZU1lcmdlPjxmZU1lcmdlTm9kZSBpbj0iQyIvPjxmZU1lcmdlTm9kZSBpbj0iU291cmNlR3JhcGhpYyIvPjwvZmVNZXJnZT48L2ZpbHRlcj48bGluZWFyR3JhZGllbnQgaWQ9IkMiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNkN2Q3ZDciLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2MjYyNjIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48ZyBmaWx0ZXI9InVybCgjQSkiIGZpbGw9IiNjMWMxYzEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkuNSA0LjUpIiBjbGFzcz0iQiBFIj48cGF0aCBkPSJNMTYuNzUyNSAyODYuNzI5OEM2LjcwNjYgMjc1Ljc0NTUgMCAyNTMuODA5NyAwIDIzNC41OTA5YzAtMTkuMjA2MSA1LjAyNjYtMzcuMDMyIDE3LjU4OTEtNDYuNjMzNmgtLjgzNTdMMjE0LjQyOTIgMHYxMjcuNTk2NGMtMjEuNzc4NCAyMC41NzYyLTUxLjA5MzkgNDMuOTA1Ny0xMjQuODAyOCAxMDguMzg5MWwuODM1NyAxLjM1NTJjMzkuMzY3MyAyOC44MjIgODQuNTk4OCA3Mi43MTYzIDEyMy45NjYyIDExMS4xMjk3djEyOC45NjZ6Ii8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTAwLjU3MTYgLjAwMTcpIj48cGF0aCBkPSJNMTk3LjY3NjEgMTkwLjY5NTZjMTAuMDM4NSAxMC45ODUgMTYuNzUyMyAzMi45MzE3IDE2Ljc1MjMgNTIuMTM5NnMtNS4wMjY4IDM3LjAzMDgtMTcuNTk2MiA0Ni42MzM2aC44NDQzTDAgNDc3LjQyNjZWMzQ5LjgyOTdjMjEuNzc5My0yMC41NjQ4IDUxLjA5NC00My44OTM3IDEyNC44MDM0LTEwOC4zNzc3bC0uODM1Ny0xLjM1NTNDODQuNjA3IDIxMS4yNzQ3IDM5LjM2OTIgMTY3LjM3OTkuMDAwOSAxMjguOTY3NlYweiIvPjwvZz48L2c+PGcgZmlsdGVyPSJ1cmwoI0IpIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTkuNSA1OS41KSIgY2xhc3M9IkIiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0Ny4yMjkgOTIuNTk1MSkiPjxwYXRoIGQ9Ik0wIDI2MS45MjM4bDE0My4xNjk4LTg3LjQ1MzRWMEwwIDg3LjIxMDl2MTc0LjcxMjl6Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQuMzMwMiA5Mi43NDA1KSI+PHBhdGggZD0iTTAgMTc0LjI3NjRsMTQyLjk4OTQgODcuMzA4MVY4Ny4xMTQyTDAgMHYxNzQuMjc2NHoiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNS4yMzI1IDYuMDE0NykiPjxwYXRoIGQ9Ik0yODQuMTc0MyA4Ni41ODA1TDE0Mi4wODcyIDAgMCA4Ni41ODA1bDE0Mi4wODcyIDg2LjcyNTcgMTQyLjA4NzEtODYuNzI1N3oiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQ3LjMxOTYgOTIuNTk1MSkiPjxwYXRoIGQ9Ik0wIDgxLjU4NDVMMTMzLjgzMjcuMDk2NyAxMzMuNjk3NCAwIDAgODEuNTg0NXoiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTMuNDg3IDkyLjU5NTEpIj48cGF0aCBkPSJNLjEzNTMgMEwwIC4wOTY3bDEzMy44MzI3IDgxLjQ4NzhMLjEzNTMgMHoiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQ3LjMxOTYgMTc0LjE3OTIpIj48cGF0aCBkPSJNMCAweiIvPjwvZz48cGF0aCBkPSJNMjkwLjEyODcgODcuMDE3TDE0Ny4zMTk2IDAgNC41MTA2IDg3LjAxNyAwIDg5Ljg3ODl2MTgwLjA0ODJMMTQ3LjUgMzYwbDQuNTEwNi0yLjc2NDhMMjk1IDI2OS45MjcxVjg5LjgzMDN6bS00LjUxMSAxNzcuMjgzN2wtMTMzLjc4NzUgODEuNzc4NlYxODIuNjE5NGwxMzMuOTY3OS04MS42MzMxem0tMTQyLjgwOSA4MS43Nzg2TDguODQwNyAyNjQuMjUyMVYxMDAuOTg2M2wxMzMuOTY4IDgxLjYzMzF6TTEzLjYyMjMgOTIuNjkxOWwxMzMuNjk3My04MS41MzYgMTMzLjY5NzQgODEuNTM2LTEzMy42OTc0IDgxLjQ4NzNMMTMuNDg3IDkyLjY5MTl6IiBmaWxsPSIjNDQ0Ii8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQ3LjkwNTggMTMzLjQ4NDQpIiBjbGFzcz0iQyI+PHBhdGggZD0iTTAgMTQwLjU2Nmw3Ni45MDczLTQ2LjkwMzlWMEwwIDQ2Ljg1NTN2OTMuNzEwN3oiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjkuODI1NyAxMzMuNDg0NCkiIGNsYXNzPSJDIj48cGF0aCBkPSJNMCA5My42NjIxbDc2LjkwNzMgNDYuOTAzOVY0Ni44NTUzTDAgMHY5My42NjIxeiIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3MC42MzczIDg1LjUxMykiIGNsYXNzPSJDIj48cGF0aCBkPSJNMTUzLjM2MzggNDYuNzFMNzYuNjgxOSAwIDAgNDYuNzFsNzYuNjgxOSA0Ni44NTU0TDE1My4zNjM4IDQ2LjcxeiIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNDcuMzE5NiAxMzIuMjIzKSIgY2xhc3M9IkQiPjxwYXRoIGQ9Ik0wIDQyLjEwMkw2OC45Njg1LjA5NjggNjguODc4NyAwIDAgNDIuMDUzNHYuMDQ4NnoiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzguMzUwNyAxMzIuMjIzKSIgY2xhc3M9IkQiPjxwYXRoIGQ9Ik0uMDkwMiAwTDAgLjA5NjggNjguOTY4NSA0Mi4xMDJ2LS4wNDg2TC4wOTAyIDB6Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0Ny4zMTk2IDE3NC4yNzY0KSIgY2xhc3M9IkQiPjxwYXRoIGQ9Ik0wIDB6Ii8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDY0Ljc3MzYgNzkuMTU5KSI+PHBhdGggZD0iTTE2MC41ODExIDQ3LjQ4NThMODIuNTQ1NiAwIDQuNTEwNiA0Ny40ODU4IDAgNTAuMjk5MnYxMDAuOTM3N2w4Mi41NDU2IDUwLjQ0NDYgNC41MTEtMi43NjQ4IDc4LjEyNTMtNDcuNjc5OFY1MC4yOTkyem0tNC41MTA5IDk4LjA3NjJsLTY5LjAxMzYgNDIuMTk4N3YtODQuMjAzNWw2OS4xMDQyLTQyLjEwMnptLTc4LjAzNTEgNDIuMTk4N0w4LjkzMDkgMTQ1LjU2MlY2MS40NTUybDY5LjEwNDIgNDIuMTAyek0xMy42Njc0IDUzLjA2NGw2OC44NzgyLTQxLjkwOCA2OC44Nzg3IDQxLjk1NjYtNjguODc4NyA0Mi4wMDQ4LTY4Ljk2ODQtNDEuOTU2NnoiLz48L2c+PC9nPjwvc3ZnPg==");',
+    },
+    { content: 'LiveCodes', style: 'font-weight: bold; font-size: 1.2em;' },
+    { content: ' - ', style: 'font-size: 1.2em;' },
+    {
+      content:
+        window.deps.translateString('generic.tagline', 'A Code Playground That Just Works!') + '\n',
+      style: 'font-style: italic; font-size: 1.2em;',
+    },
+    {
+      content: window.deps.translateString(
+        'app.consoleMessage.appVersion',
+        'App version: {{APP_VERSION}}',
+        {
+          APP_VERSION: predefinedValues.APP_VERSION,
+        },
+      ),
+      style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
+    },
+    { content: ' ', style: '' },
+    {
+      content: window.deps.translateString(
+        'app.consoleMessage.sdkVersion',
+        'SDK version: {{SDK_VERSION}}',
+        {
+          SDK_VERSION: predefinedValues.SDK_VERSION,
+        },
+      ),
+      style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
+    },
+    { content: ' ', style: '' },
+    {
+      content: window.deps.translateString(
+        'app.consoleMessage.commit',
+        'Git commit: {{COMMIT_SHA}}',
+        {
+          COMMIT_SHA: predefinedValues.COMMIT_SHA,
+        },
+      ),
+      style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
+    },
+    { content: '\n\n', style: '' },
+    {
+      content: window.deps.translateString(
+        'app.consoleMessage.learnMore',
+        'Learn more! {{docsUrl}} 🚀',
+        { docsUrl },
+      ),
+      style: 'padding: 0.2em 0.4em; font-size: 1.1em;',
+    },
+  ];
+
+  const message = items.reduce(
+    (acc, item) => {
+      acc[0] += `%c${item.content}`;
+      acc.push(item.style);
+      return acc;
+    },
+    [''],
+  );
+
+  parent.postMessage({ args: 'console-message', payload: message }, location.origin);
 };
 
 const resizeEditors = () => {
@@ -2202,7 +2417,6 @@ const handleRunButton = () => {
     await run();
   };
   eventsManager.addEventListener(UI.getRunButton(), 'click', handleRun);
-  eventsManager.addEventListener(UI.getCodeRunButton(), 'click', handleRun);
 };
 
 const handleResultButton = () => {
@@ -2211,6 +2425,63 @@ const handleResultButton = () => {
 
 const handleShareButton = () => {
   eventsManager.addEventListener(UI.getShareButton(), 'click', () => showScreen('share'));
+};
+
+const handleI18nMenu = () => {
+  const menuContainer = UI.getI18nMenuContainer();
+  const i18nMenu = document.createElement('ul');
+  i18nMenu.id = 'app-menu-i18n';
+  i18nMenu.className = 'dropdown-menu';
+  Object.entries(appLanguages).forEach(([langCode, langLabel]) => {
+    const li = document.createElement('li');
+    li.classList.toggle('active', langCode === getConfig().appLanguage);
+    const link = document.createElement('a');
+    link.href = `#`;
+    link.textContent = langLabel;
+    eventsManager.addEventListener(link, 'click', (ev) => {
+      ev.preventDefault();
+      if (langCode === getConfig().appLanguage) return;
+      checkSavedAndExecute(async () => {
+        setUserConfig({ appLanguage: langCode as AppLanguage });
+        if (!i18n && langCode !== 'en') {
+          modal.show(loadingMessage(), { size: 'small' });
+          await loadI18n(langCode as AppLanguage);
+        }
+        await i18n?.changeLanguage(langCode);
+        setAppLanguage(/* reload= */ true);
+      })();
+    });
+    li.appendChild(link);
+    i18nMenu.appendChild(li);
+  });
+  const sep = document.createElement('li');
+  sep.role = 'separator';
+  i18nMenu.appendChild(sep);
+  const contributeLi = document.createElement('li');
+  const contributeSpan = document.createElement('span');
+  const contributeLink = document.createElement('a');
+  contributeLink.href =
+    'https://github.com/live-codes/livecodes/blob/develop/docs/docs/contribution/i18n.md';
+  contributeLink.textContent = window.deps.translateString(
+    'app.i18nMenu.helpTranslate',
+    'Help Us Translate',
+  );
+  contributeLink.target = '_blank';
+  contributeLink.rel = 'noopener noreferrer';
+  contributeSpan.appendChild(contributeLink);
+  contributeLi.appendChild(contributeSpan);
+  i18nMenu.appendChild(contributeLi);
+
+  const docsLi = document.createElement('li');
+  const docsLink = document.createElement('a');
+  docsLink.href = `${process.env.DOCS_BASE_URL}features/i18n`;
+  docsLink.textContent = window.deps.translateString('app.i18nMenu.docs', 'i18n Documentation');
+  docsLink.target = '_blank';
+  docsLink.rel = 'noopener noreferrer';
+  docsLi.appendChild(docsLink);
+  i18nMenu.appendChild(docsLi);
+  menuContainer.appendChild(i18nMenu);
+  adjustFontSize(menuContainer);
 };
 
 const handleEditorTools = () => {
@@ -2232,9 +2503,13 @@ const handleEditorTools = () => {
 
   eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
     if (copyToClipboard(getActiveEditor().getValue())) {
-      notifications.success('Code copied to clipboard');
+      notifications.success(
+        window.deps.translateString('core.copy.copied', 'Code copied to clipboard'),
+      );
     } else {
-      notifications.error('Failed to copy code');
+      notifications.error(
+        window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
+      );
     }
   });
 
@@ -2259,9 +2534,13 @@ const handleEditorTools = () => {
     const mimeType = 'text/' + currentEditor.getLanguage();
     const dataUrl = toDataUrl(currentEditor.getValue(), mimeType);
     if (copyToClipboard(dataUrl)) {
-      notifications.success('Code copied as data URL');
+      notifications.success(
+        window.deps.translateString('core.copy.copiedAsDataURL', 'Code copied as data URL'),
+      );
     } else {
-      notifications.error('Failed to copy code');
+      notifications.error(
+        window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
+      );
     }
   });
 
@@ -2336,24 +2615,118 @@ const handleProcessors = () => {
   });
 };
 
-const handleSettingsMenu = () => {
-  const menuContainer = UI.getSettingsMenuScroller();
-  const settingsButton = UI.getSettingsButton();
-  if (!menuContainer || !settingsButton) return;
-  menuContainer.innerHTML = settingsMenuHTML;
+const handleAppMenuProject = () => {
+  const menuProjectContainer = UI.getAppMenuProjectScroller();
+  const menuProjectButton = UI.getAppMenuProjectButton();
+  if (!menuProjectContainer || !menuProjectButton) return;
+  menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
+  translateElement(menuProjectContainer);
+  // adjustFontSize(menuProjectContainer);
 
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container
-  // on small screens the conatiner covers most of the screen
+  // on small screens the container covers most of the screen
   // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuContainer, 'mousedown', (event) => {
-    if (event.target === menuContainer) {
-      menuContainer.classList.add('hidden');
+  eventsManager.addEventListener(menuProjectContainer, 'mousedown', (event) => {
+    if (event.target === menuProjectContainer) {
+      menuProjectContainer.classList.add('hidden');
     }
   });
-  eventsManager.addEventListener(settingsButton, 'mousedown', () => {
-    menuContainer.classList.remove('hidden');
+  eventsManager.addEventListener(menuProjectButton, 'mousedown', () => {
+    menuProjectContainer.classList.remove('hidden');
+  });
+};
+
+const handleAppMenuSettings = () => {
+  const menuSettingsContainer = UI.getAppMenuSettingsScroller();
+  const menuSettingsButton = UI.getAppMenuSettingsButton();
+  if (!menuSettingsContainer || !menuSettingsButton) return;
+  menuSettingsContainer.innerHTML = menuSettingsHTML; // settingsMenuHTML;
+
+  translateElement(menuSettingsContainer);
+  adjustFontSize(menuSettingsContainer);
+
+  // This fixes the behaviour where :
+  // clicking outside the settings menu but inside settings menu container,
+  // hides the settings menu but not the container
+  // on small screens the container covers most of the screen
+  // which gives the effect of a non-responsive app
+  eventsManager.addEventListener(menuSettingsContainer, 'mousedown', (event) => {
+    if (event.target === menuSettingsContainer) {
+      menuSettingsContainer.classList.add('hidden');
+    }
+  });
+  eventsManager.addEventListener(menuSettingsButton, 'mousedown', () => {
+    menuSettingsContainer.classList.remove('hidden');
+  });
+};
+
+const handleAppMenuHelp = () => {
+  const menuHelpContainer = UI.getAppMenuHelpScroller();
+  const menuHelpButton = UI.getAppMenuHelpButton();
+  if (!menuHelpContainer || !menuHelpButton) return;
+  menuHelpContainer.innerHTML = menuHelpHTML;
+  translateElement(menuHelpContainer);
+  // adjustFontSize(menuHelpContainer);
+
+  // This fixes the behaviour where :
+  // clicking outside the settings menu but inside settings menu container,
+  // hides the settings menu but not the container
+  // on small screens the container covers most of the screen
+  // which gives the effect of a non-responsive app
+  eventsManager.addEventListener(menuHelpContainer, 'mousedown', (event) => {
+    if (event.target === menuHelpContainer) {
+      menuHelpContainer.classList.add('hidden');
+    }
+  });
+  eventsManager.addEventListener(menuHelpButton, 'mousedown', () => {
+    menuHelpContainer.classList.remove('hidden');
+  });
+};
+
+/**
+ * decrease font size in menus when text is too wide (for different languages)
+ */
+const adjustFontSize = (container: HTMLElement) => {
+  if (!i18n || i18n.getLanguage() === 'en') return;
+
+  const adjustFont = (el: HTMLElement) =>
+    new Promise<void>((resolve) => {
+      const fontSize = Number(getComputedStyle(el).getPropertyValue('font-size').replace('px', ''));
+      const maxWidth =
+        Number(getComputedStyle(el).getPropertyValue('--label-max-width').replace('px', '')) || 188;
+      if (el.clientWidth <= maxWidth || fontSize <= 0) return resolve();
+      el.style.fontSize = fontSize - 1 + 'px';
+      requestAnimationFrame(async () => {
+        await adjustFont(el);
+        resolve();
+      });
+    });
+
+  const startAdjustment = async () => {
+    container.style.display = 'block';
+    container.style.visibility = 'hidden';
+    (container.children[0] as HTMLElement).style.display = 'block';
+    for (const el of container.querySelectorAll<HTMLElement>('span')) {
+      await adjustFont(el);
+    }
+    container.style.display = '';
+    container.style.visibility = '';
+    (container.children[0] as HTMLElement).style.display = '';
+  };
+
+  setTimeout(startAdjustment, 1000);
+  setTimeout(startAdjustment, 2000);
+  setTimeout(startAdjustment, 3000);
+};
+
+const handleAppMenuButtonFocus = () => {
+  // workaround for safari where click does not maintain focus!
+  document.querySelectorAll<HTMLElement>('.app-menu-button').forEach((button) => {
+    eventsManager.addEventListener(button, 'click', () => {
+      button.focus();
+    });
   });
 };
 
@@ -2429,6 +2802,49 @@ const handleSettings = () => {
     setConfig({ ...getConfig(), delay: value });
     setUserConfig(getUserConfig(getConfig()));
   });
+
+  const themeColorSelector = UI.getThemeColorSelector()!;
+  themeColors.forEach((colorItem) => {
+    const customColor = colorItem.name === 'custom';
+    const label = document.createElement('label');
+    label.htmlFor = 'theme-color-' + colorItem.name;
+    if (customColor) {
+      label.title = window.deps.translateString('app.themeColors.custom', 'Custom');
+    }
+    if (colorItem.themeColor) {
+      label.style.backgroundColor = colorItem.themeColor;
+    }
+
+    const input = document.createElement('input');
+    input.type = customColor ? 'color' : 'radio';
+    input.id = 'theme-color-' + colorItem.name;
+    input.name = 'theme-color';
+
+    label.appendChild(input);
+    themeColorSelector.appendChild(label);
+
+    eventsManager.addEventListener(input, 'input', () => {
+      setUserConfig({ themeColor: customColor ? input.value : colorItem.themeColor });
+      changeThemeColor();
+    });
+  });
+};
+
+const handleChangeTheme = () => {
+  const lightThemeButton = UI.getLightThemeButton();
+  const darkThemeButton = UI.getDarkThemeButton();
+  if (lightThemeButton) {
+    eventsManager.addEventListener(lightThemeButton, 'click', () => {
+      setUserConfig({ theme: 'dark' });
+      setTheme('dark', getConfig().editorTheme);
+    });
+  }
+  if (darkThemeButton) {
+    eventsManager.addEventListener(darkThemeButton, 'click', () => {
+      setUserConfig({ theme: 'light' });
+      setTheme('light', getConfig().editorTheme);
+    });
+  }
 };
 
 const handleLogin = () => {
@@ -2451,7 +2867,7 @@ const handleNew = () => {
     );
 
     if (userTemplates.length === 0) {
-      userTemplatesScreen.innerHTML = noUserTemplates;
+      userTemplatesScreen.innerHTML = noUserTemplates();
       return;
     }
     userTemplatesScreen.innerHTML = '';
@@ -2496,23 +2912,28 @@ const handleNew = () => {
         deleteButton,
         'click',
         async () => {
-          notifications.confirm(`Delete template "${item.title}"?`, async () => {
-            if (!stores.templates) return;
+          notifications.confirm(
+            window.deps.translateString('core.template.delete', 'Delete template "{{item}}"?', {
+              item: item.title,
+            }),
+            async () => {
+              if (!stores.templates) return;
 
-            if (getAppData()?.defaultTemplate === item.id) {
-              setAppData({ defaultTemplate: null });
-            }
-            await stores.templates.deleteItem(item.id);
-            const li = deleteButton.parentElement as HTMLElement;
-            li.classList.add('hidden');
-            setTimeout(async () => {
-              li.style.display = 'none';
-              if (stores.templates && (await stores.templates.getList()).length === 0) {
-                list.remove();
-                userTemplatesScreen.innerHTML = noUserTemplates;
+              if (getAppData()?.defaultTemplate === item.id) {
+                setAppData({ defaultTemplate: null });
               }
-            }, 500);
-          });
+              await stores.templates.deleteItem(item.id);
+              const li = deleteButton.parentElement as HTMLElement;
+              li.classList.add('hidden');
+              setTimeout(async () => {
+                li.style.display = 'none';
+                if (stores.templates && (await stores.templates.getList()).length === 0) {
+                  list.remove();
+                  userTemplatesScreen.innerHTML = noUserTemplates();
+                }
+              }, 500);
+            },
+          );
         },
         false,
       );
@@ -2568,7 +2989,12 @@ const handleNew = () => {
         })
         .catch(() => {
           loadingText?.remove();
-          notifications.error('Failed loading starter templates');
+          notifications.error(
+            window.deps.translateString(
+              'core.error.failedToLoadTemplates',
+              'Failed loading starter templates',
+            ),
+          );
         });
     }
 
@@ -2605,14 +3031,16 @@ const handleSaveAsTemplate = () => {
     (event as Event).preventDefault();
     if (stores.templates) {
       await stores.templates.addItem(getConfig());
-      notifications.success('Saved as a new template');
+      notifications.success(
+        window.deps.translateString('core.template.saved', 'Saved as a new template'),
+      );
     }
   });
 };
 
 const handleOpen = () => {
   const createList = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const openModule: typeof import('./UI/open') = await import(baseUrl + '{{hash:open.js}}');
     await openModule.createSavedProjectsList({
       eventsManager,
@@ -2641,7 +3069,7 @@ const handleOpen = () => {
 
 const handleImport = () => {
   const createImportUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     importModule.createImportUI({
       baseUrl,
@@ -2776,7 +3204,9 @@ const handleExport = () => {
       updateConfig();
       const user = await getUser();
       if (!user) return;
-      notifications.info('Creating a public GitHub gist...');
+      notifications.info(
+        window.deps.translateString('core.export.gist', 'Creating a public GitHub gist...'),
+      );
       await loadModule();
       exportModule.exportConfig(getConfig(), baseUrl, 'githubGist', {
         user,
@@ -2818,10 +3248,12 @@ const handleDeploy = () => {
   const createDeployUI = async () => {
     const user = await getUser();
     if (!user) {
-      notifications.error('Authentication error!');
+      notifications.error(
+        window.deps.translateString('generic.error.authentication', 'Authentication error!'),
+      );
       return;
     }
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const getProjectDeployRepo = async () => {
       if (!projectId) return;
@@ -2867,10 +3299,12 @@ const handleSync = () => {
   const createSyncUI = async () => {
     const user = await getUser();
     if (!user) {
-      notifications.error('Authentication error!');
+      notifications.error(
+        window.deps.translateString('generic.error.authentication', 'Authentication error!'),
+      );
       return;
     }
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const syncUIModule: typeof import('./UI/sync-ui') = await import(
       baseUrl + '{{hash:sync-ui.js}}'
@@ -2953,7 +3387,7 @@ const handlePersistentStorage = async () => {
     assetSubscription?.unsubscribe();
   };
 
-  const requestPersistance = () => {
+  const requestPersistence = () => {
     if (alreadyRequested) return unsubscribe();
     setTimeout(async () => {
       alreadyRequested = true;
@@ -2971,16 +3405,16 @@ const handlePersistentStorage = async () => {
     setAppData({ recentProjects });
   };
 
-  const projectSubscription = stores.projects?.subscribe(requestPersistance);
-  const templateSubscription = stores.templates?.subscribe(requestPersistance);
-  const assetSubscription = stores.assets?.subscribe(requestPersistance);
+  const projectSubscription = stores.projects?.subscribe(requestPersistence);
+  const templateSubscription = stores.templates?.subscribe(requestPersistence);
+  const assetSubscription = stores.assets?.subscribe(requestPersistence);
 
   stores.projects?.subscribe(updateRecentProjects);
 };
 
 const handleBackup = () => {
   const createBackupUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const backupModule: typeof import('./UI/backup') = await import(baseUrl + '{{hash:backup.js}}');
     backupModule.createBackupUI({
       baseUrl,
@@ -3002,7 +3436,7 @@ const handleBroadcast = () => {
   if (isEmbed) return;
 
   const createBroadcastUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const syncUIModule: typeof import('./UI/broadcast') = await import(
       baseUrl + '{{hash:broadcast.js}}'
@@ -3038,7 +3472,7 @@ const handleWelcome = () => {
   if (isEmbed) return;
 
   const createWelcomeUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const div = document.createElement('div');
     div.innerHTML = welcomeScreen.replace(/{{baseUrl}}/g, baseUrl);
@@ -3116,7 +3550,7 @@ const handleWelcome = () => {
 
     const defaultTemplateId = getAppData()?.defaultTemplate;
     if (!defaultTemplateId) {
-      UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'unset';
+      UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'inline-block';
     } else {
       const loadTemplateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
       eventsManager.addEventListener(
@@ -3130,30 +3564,30 @@ const handleWelcome = () => {
         },
         false,
       );
-      loadTemplateLink.style.display = 'unset';
+      loadTemplateLink.style.display = 'inline-block';
     }
     UI.getWelcomeLinkDefaultTemplateLi(welcomeContainer).style.visibility = 'visible';
 
     const defaultTemplates: Array<{ name: Template['name']; title: string }> = [
       {
         name: 'blank',
-        title: 'Blank Project',
+        title: window.deps.translateString('core.template.blank', 'Blank Project'),
       },
       {
         name: 'javascript',
-        title: 'JavaScript Starter',
+        title: window.deps.translateString('core.template.javascript', 'JavaScript Starter'),
       },
       {
         name: 'typescript',
-        title: 'TypeScript Starter',
+        title: window.deps.translateString('core.template.typescript', 'TypeScript Starter'),
       },
       {
         name: 'react',
-        title: 'React Starter',
+        title: window.deps.translateString('core.template.react', 'React Starter'),
       },
       {
         name: 'vue',
-        title: 'Vue 3 Starter',
+        title: window.deps.translateString('core.template.vue', 'Vue 3 Starter'),
       },
     ];
     const savedRecentTemplates = getAppData()?.recentTemplates || [];
@@ -3193,13 +3627,18 @@ const handleAbout = () => {
   if (isEmbed) return;
 
   const createAboutUI = async () => {
-    const versions = getVersion();
+    const versions = getVersion(/* log= */ false);
     const repoUrl = process.env.REPO_URL || '';
     const div = document.createElement('div');
     div.innerHTML = aboutScreen
       .replace(/{{COMMIT_URL}}/g, `${repoUrl}/commit/${versions.commitSHA}`)
       .replace(/{{APP_URL}}/g, versions.appUrl)
-      .replace(/{{SDK_URL}}/g, versions.sdkUrl);
+      .replace(/{{SDK_URL}}/g, versions.sdkUrl)
+      .replace('livecodes-text-logo-nowrap.svg', () =>
+        getConfig().theme === 'dark'
+          ? 'livecodes-text-logo-nowrap-light.svg'
+          : 'livecodes-text-logo-nowrap.svg',
+      );
     const aboutContainer = div.firstChild as HTMLElement;
     modal.show(aboutContainer);
   };
@@ -3273,13 +3712,12 @@ const handleEmbed = () => {
       getFontFamily,
     });
   const createEmbedUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const embedModule: typeof import('./UI/embed-ui') = await import(
       baseUrl + '{{hash:embed-ui.js}}'
     );
     await embedModule.createEmbedUI({
-      baseUrl,
       config: getContentConfig(getConfig()),
       editorLanguages: {
         markup: getLanguageTitle(getConfig().markup.language),
@@ -3302,6 +3740,7 @@ const handleEditorSettings = () => {
   const changeSettings = (newConfig: Partial<UserConfig> | null) => {
     if (!newConfig) return;
     const shouldReload = newConfig.editor !== getConfig().editor;
+
     setUserConfig(newConfig);
     const updatedConfig = getConfig();
     setTheme(updatedConfig.theme, updatedConfig.editorTheme);
@@ -3312,10 +3751,11 @@ const handleEditorSettings = () => {
     }
     showEditorModeStatus(updatedConfig.activeEditor || 'markup');
   };
+
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
   }: { scrollToSelector?: string } = {}) => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const editorSettingsModule: typeof import('./UI/editor-settings') = await import(
       baseUrl + '{{hash:editor-settings.js}}'
@@ -3347,7 +3787,7 @@ const handleEditorSettings = () => {
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     assetsModule = assetsModule || (await import(baseUrl + '{{hash:assets.js}}'));
   };
 
@@ -3404,7 +3844,7 @@ const handleAssets = () => {
 const handleSnippets = () => {
   let snippetsModule: typeof import('./UI/snippets');
   const loadModule = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     snippetsModule = snippetsModule || (await import(baseUrl + '{{hash:snippets.js}}'));
   };
 
@@ -3475,7 +3915,7 @@ const handleExternalResources = () => {
       dispatchChangeEvent();
     };
 
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const resourcesModule: typeof import('./UI/resources') = await import(
       baseUrl + '{{hash:resources.js}}'
     );
@@ -3538,7 +3978,12 @@ const handleCustomSettings = () => {
         try {
           customSettings = JSON.parse(stringToValidJson(editorContent));
         } catch {
-          notifications.error('Failed parsing settings as JSON');
+          notifications.error(
+            window.deps.translateString(
+              'core.error.failedToParseSettings',
+              'Failed parsing settings as JSON',
+            ),
+          );
           return;
         }
       }
@@ -3756,6 +4201,11 @@ const handleResultLoading = () => {
     }
     if (event.data.type === 'loading') {
       setLoading(event.data.payload);
+
+      if (getConfig().mode === 'result') {
+        const drawer = UI.getResultModeDrawer();
+        drawer.classList.remove('hidden');
+      }
     }
     const language = event.data.payload?.language;
     if (event.data.type === 'compiled' && language && getEditorLanguages().includes(language)) {
@@ -3770,11 +4220,11 @@ const handleResultLoading = () => {
 const handleResultPopup = () => {
   const popupBtn = document.createElement('div');
   popupBtn.id = 'result-popup-btn';
-  popupBtn.classList.add('tool-buttons', 'hint--top');
-  popupBtn.dataset.hint = 'Show result in new window';
+  popupBtn.classList.add('tool-buttons');
+  popupBtn.title = window.deps.translateString('core.result.hint', 'Show result in new window');
   popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const imgUrl = baseUrl + 'assets/images/new-window.svg';
-  popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
+  const iconCSS = '<i class="icon-window-new"></i>';
+  popupBtn.innerHTML = `<button id="show-result">${iconCSS}</button>`;
   let url: string | undefined;
   const openWindow = async () => {
     if (resultPopup && !resultPopup.closed) {
@@ -3809,14 +4259,14 @@ const handleResultPopup = () => {
 const handleResultZoom = () => {
   const zoomBtn = document.createElement('div');
   zoomBtn.id = 'zoom-button';
-  zoomBtn.classList.add('tool-buttons', 'hint--top');
-  zoomBtn.dataset.hint = 'Zoom';
+  zoomBtn.classList.add('tool-buttons');
+  zoomBtn.title = window.deps.translateString('core.zoom.hint', 'Zoom');
   zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   zoomBtn.innerHTML = `
-  <span class="text">
+  <button class="text">
     <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
     &times;
-  </span>`;
+  </button>`;
 
   const toggleZoom = () => {
     const config = getConfig();
@@ -3837,15 +4287,12 @@ const handleResultZoom = () => {
 const handleBroadcastStatus = () => {
   const broadcastStatusBtn = document.createElement('div');
   broadcastStatusBtn.id = 'broadcast-status-btn';
-  broadcastStatusBtn.classList.add('tool-buttons', 'hint--top');
-  broadcastStatusBtn.dataset.hint = 'Broadcast';
+  broadcastStatusBtn.classList.add('tool-buttons');
+  broadcastStatusBtn.title = window.deps.translateString('core.broadcast.heading', 'Broadcast');
   broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const imgUrl = baseUrl + 'assets/images/broadcast.svg';
-  broadcastStatusBtn.innerHTML = `
-  <span id="broadcast-status">
-    <img src="${imgUrl}" />
-    <span class="mark"></span>
-  </span>`;
+  const iconCSS = '<i class="icon-broadcast"></i>';
+  broadcastStatusBtn.innerHTML = `<button id="broadcast-status">${iconCSS}<span class="mark"></span></button>`;
+
   const showBroadcast = () => {
     showScreen('broadcast');
   };
@@ -3867,11 +4314,14 @@ const handleFullscreen = async () => {
   eventsManager.addEventListener(fscreen, 'fullscreenchange', async () => {
     if (!fscreen.fullscreenElement) {
       buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
-      fullscreenButton.dataset.hint = 'Full Screen';
+      fullscreenButton.title = window.deps.translateString('core.fullScreen.enter', 'Full Screen');
       return;
     }
     buttonImg.src = buttonImg.src.replace('expand.svg', 'collapse.svg');
-    fullscreenButton.dataset.hint = 'Exit Full Screen';
+    fullscreenButton.title = window.deps.translateString(
+      'core.fullScreen.exit',
+      'Exit Full Screen',
+    );
   });
 
   eventsManager.addEventListener(fullscreenButton, 'click', async () => {
@@ -3883,10 +4333,53 @@ const handleFullscreen = async () => {
   });
 };
 
+const handleDropFiles = () => {
+  if (isEmbed) return;
+
+  eventsManager.addEventListener(document, 'drop', (event: DragEvent) => {
+    event.preventDefault();
+    const files = event.dataTransfer?.files;
+    if (!files?.length) return;
+
+    importFromFiles(files, populateConfig, eventsManager)
+      .then(loadConfig)
+      .catch((message) => {
+        notifications.error(message);
+      });
+  });
+
+  eventsManager.addEventListener(document, 'dragover', (event: DragEvent) => {
+    event.preventDefault();
+  });
+};
+
+const handleResultMode = () => {
+  const drawer = UI.getResultModeDrawer();
+  const drawerLink = drawer.querySelector('a') as HTMLAnchorElement;
+  const closeBtn = drawer.querySelector('#drawer-close') as HTMLButtonElement;
+
+  drawer.style.display = 'flex';
+
+  eventsManager.addEventListener(drawerLink, 'click', async (event: Event) => {
+    event.preventDefault();
+    window.open(
+      (await share(/* shortUrl= */ false, /* contentOnly= */ true, /* urlUpdate= */ false)).url,
+      '_blank',
+    );
+  });
+
+  eventsManager.addEventListener(closeBtn, 'click', async () => {
+    drawer.classList.add('hidden');
+  });
+};
+
 const handleUnload = () => {
   window.onbeforeunload = () => {
     if (!isSaved) {
-      return 'Changes you made may not be saved.';
+      return window.deps.translateString(
+        'core.unload.notSaved',
+        'Changes you made may not be saved.',
+      );
     } else {
       return;
     }
@@ -3947,9 +4440,90 @@ const configureToolsPane = (
   // TODO: handle tools.enabled
 };
 
+const loadI18n = async (appLanguage: AppLanguage | undefined) => {
+  const userLang =
+    appLanguage && appLanguage !== 'auto' ? appLanguage : (navigator.language as AppLanguage);
+  if (
+    isHeadless ||
+    (isEmbed && !appLanguage) ||
+    !userLang ||
+    userLang.startsWith('en') ||
+    !Object.keys(appLanguages).find((lang) => lang.startsWith(userLang))
+  ) {
+    return;
+  }
+  setConfig({ ...getConfig(), appLanguage: userLang });
+  const i18nModule: typeof import('./i18n') = await import(baseUrl + '{{hash:i18n.js}}');
+  i18n = await i18nModule.init(userLang, baseUrl);
+  window.deps.translateString = i18n.translateString;
+};
+
+const handleI18n = () => {
+  if (!i18n) return;
+  eventsManager.addEventListener(document.body, customEvents.i18n, (e) => {
+    const elem = e.target as HTMLElement;
+    i18n?.translate(elem);
+  });
+  translateElement(document.body);
+};
+
+/**
+ * Dispatch a translation event to the given element.
+ * @param elem The element to dispatch the event to.
+ */
+const translateElement = (elem: HTMLElement) => {
+  elem.dispatchEvent(new CustomEvent(customEvents.i18n, { bubbles: true }));
+};
+
+const translateStringMock = <Key extends I18nKeyType, Value extends string>(
+  _key: Key,
+  value: I18nValueType<Key, Value>,
+  ...args: I18nInterpolationType<I18nValueType<Key, Value>>
+) => {
+  const rawInterpolation = args[0];
+  const { isHTML, ...interpolation } = rawInterpolation ?? {};
+  if (!interpolation) return value as string;
+  let result: string = value as string;
+  for (const [k, v] of Object.entries({ ...interpolation, ...predefinedValues })) {
+    result = result.replaceAll(`{{${k}}}`, v as string);
+  }
+  return result;
+};
+
+const setAppLanguage = (reload: boolean = false) => {
+  const lang = i18n?.getLanguage() ?? 'en';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = i18n?.getLanguageDirection() ?? 'ltr';
+  if (!reload && (isEmbed || params.appLanguage)) return;
+
+  const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
+    Object.keys(obj).reduce((acc, key) => {
+      const value = obj[key];
+      if (typeof value === 'object') {
+        return { ...acc, ...flatten(value, `${prefix}${key}.`) };
+      }
+      return { ...acc, [`${prefix}${key}`]: value };
+    }, {});
+
+  const i18nSplashData =
+    !isEmbed && i18n ? flatten(i18n.translateKey('splash', { returnObjects: true })) : {};
+
+  parent.postMessage(
+    {
+      args: 'i18n',
+      payload: {
+        data: i18nSplashData,
+        reload,
+        lang,
+      },
+    },
+    location.origin,
+  );
+};
+
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal();
+  modal = createModal(translateElement);
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
@@ -3969,6 +4543,7 @@ const basicHandlers = () => {
   handleResultLoading();
   handleTestResults();
   handleConsole();
+  handleI18n();
   if (isEmbed) {
     handleExternalResources();
     handleFullscreen();
@@ -3977,8 +4552,13 @@ const basicHandlers = () => {
 
 const extraHandlers = async () => {
   handleTitleEdit();
-  handleSettingsMenu();
+  handleAppMenuProject();
+  handleAppMenuSettings();
+  handleAppMenuHelp();
   handleSettings();
+  handleI18nMenu();
+  handleAppMenuButtonFocus();
+  handleChangeTheme();
   handleProjectInfo();
   handleCustomSettings();
   handleTestEditor();
@@ -4007,22 +4587,23 @@ const extraHandlers = async () => {
   handleAbout();
   handleResultPopup();
   handleBroadcastStatus();
+  handleDropFiles();
   handleUnload();
+  showConsoleMessage();
 };
 
 const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
   document.body.classList.add('embed');
   if (config.mode === 'result') {
     document.body.classList.add('result');
+    handleResultMode();
   }
   if (config.mode === 'editor' || config.mode === 'codeblock') {
     document.body.classList.add('no-result');
   }
 
   const logoLink = UI.getLogoLink();
-  logoLink.classList.add('hint--bottom-left');
-  logoLink.dataset.hint = 'Edit in LiveCodes 🡕';
-  logoLink.title = '';
+  logoLink.title = window.deps.translateString('generic.embed.logoHint', 'Edit on LiveCodes 🡕');
 
   eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
     event.preventDefault();
@@ -4100,7 +4681,10 @@ const importExternalContent = async (options: {
 
   const loadingMessage = document.createElement('div');
   loadingMessage.classList.add('modal-message');
-  loadingMessage.innerHTML = 'Loading Project...';
+  loadingMessage.innerHTML = window.deps.translateString(
+    'core.import.loading',
+    'Loading Project...',
+  );
   modal.show(loadingMessage, { size: 'small', isAsync: true });
 
   let templateConfig: Partial<Config> = {};
@@ -4113,7 +4697,15 @@ const importExternalContent = async (options: {
     if (templateObj) {
       templateConfig = upgradeAndValidate(templateObj);
     } else {
-      notifications.error('Could not load template: ' + template);
+      notifications.error(
+        window.deps.translateString(
+          'core.error.couldNotLoadTemplate',
+          'Could not load template: {{template}}',
+          {
+            template,
+          },
+        ),
+      );
     }
   }
 
@@ -4137,7 +4729,9 @@ const importExternalContent = async (options: {
     urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
 
     if (Object.keys(urlConfig).length === 0) {
-      notifications.error('Invalid import URL');
+      notifications.error(
+        window.deps.translateString('core.error.invalidImport', 'Invalid import URL'),
+      );
     }
   }
 
@@ -4226,7 +4820,9 @@ const loadDefaults = async () => {
 
   const defaultTemplateId = getAppData()?.defaultTemplate;
   if (defaultTemplateId) {
-    notifications.info('Loading default template');
+    notifications.info(
+      window.deps.translateString('core.loadDefaults.template', 'Loading default template'),
+    );
     await loadTemplate(defaultTemplateId);
     return;
   }
@@ -4298,6 +4894,12 @@ const bootstrap = async (reload = false) => {
 
   if (!reload) {
     await loadDefaults();
+
+    // re-run changing theme color after the UI is ready
+    // in case the previous one failed (e.g. in firefox)
+    requestAnimationFrame(() => {
+      changeThemeColor();
+    });
   }
 
   parent.dispatchEvent(new Event(customEvents.ready));
@@ -4333,6 +4935,7 @@ const initializePlayground = async (
   (window as any).compiler = compiler;
   formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
+  await loadI18n(getConfig().appLanguage);
   createLanguageMenus(
     getConfig(),
     baseUrl,
@@ -4364,6 +4967,7 @@ const initializePlayground = async (
     initialized = true;
   });
   configureEmmet(getConfig());
+  setAppLanguage();
 };
 
 const createApi = (): API => {
@@ -4422,7 +5026,7 @@ const createApi = (): API => {
         getActiveEditor().focus();
       }
     } else {
-      throw new Error('Invalid panel id');
+      throw new Error(window.deps.translateString('core.error.invalidPanelId', 'Invalid panel id'));
     }
   };
 
@@ -4448,24 +5052,42 @@ const createApi = (): API => {
 
   const apiExec: API['exec'] = async (command: APICommands, ...args: any[]) => {
     if (command === 'setBroadcastToken') {
-      if (isEmbed) return { error: 'Command unavailable for embeds' };
+      if (isEmbed) {
+        return {
+          error: window.deps.translateString(
+            'core.error.unavailableForEmbeds',
+            'Command unavailable for embeds',
+          ),
+        };
+      }
       const broadcastData = getAppData()?.broadcast;
-      if (!broadcastData) return { error: 'Command unavailable' };
+      if (!broadcastData) {
+        return {
+          error: window.deps.translateString('core.error.unavailable', 'Command unavailable'),
+        };
+      }
       const token = args[0];
-      if (typeof token !== 'string') return { error: 'Invalid token!' };
+      if (typeof token !== 'string') {
+        return { error: window.deps.translateString('core.error.invalidToken', 'Invalid token!') };
+      }
       setAppData({
         broadcast: {
           ...broadcastData,
           userToken: token,
         },
       });
-      return { output: 'Broadcast user token set successfully' };
+      return {
+        output: window.deps.translateString(
+          'core.broadcast.successSetToken',
+          'Broadcast user token set successfully',
+        ),
+      };
     }
     if (command === 'showVersion') {
       const output = getVersion();
       return { output };
     }
-    return { error: 'Invalid command!' };
+    return { error: window.deps.translateString('core.error.invalidCommand', 'Invalid command!') };
   };
 
   const apiDestroy = async () => {
@@ -4504,7 +5126,10 @@ const createApi = (): API => {
 };
 
 const initApp = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = { showMode };
+  window.deps = {
+    showMode,
+    translateString: translateStringMock,
+  };
   await initializePlayground({ config, baseUrl }, async () => {
     basicHandlers();
     await loadToolsPane();
@@ -4514,7 +5139,10 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
 };
 
 const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = { showMode };
+  window.deps = {
+    showMode,
+    translateString: translateStringMock,
+  };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     basicHandlers();
     await loadToolsPane();
@@ -4522,14 +5150,20 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   return createApi();
 };
 const initLite = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = { showMode };
+  window.deps = {
+    showMode,
+    translateString: translateStringMock,
+  };
   await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
     basicHandlers();
   });
   return createApi();
 };
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = { showMode: () => undefined };
+  window.deps = {
+    showMode: () => undefined,
+    translateString: translateStringMock,
+  };
   await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true }, () => {
     notifications = {
       info: () => undefined,

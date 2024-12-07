@@ -65,7 +65,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
             width: calc(100% - 2px);
             height: calc(100% - 2px);
             border: 1px solid #001b25;
-            border-radius: 5px;
+            border-radius: 8px;
         }
     `;
     document.head.appendChild(style);
@@ -134,10 +134,74 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
         registerSDKEvent(customEvents.destroy);
       }
 
+      let api: API | null = null;
+
+      addEventListener(
+        'message',
+        async (
+          e: MessageEventInit<{ method: keyof API; id: string; args: any; payload?: any }>,
+        ) => {
+          if (isEmbed) {
+            if (e.source !== parent || api == null) return;
+            const { method, id, args } = e.data ?? {};
+            if (!method || !id) return;
+            const methodArguments = Array.isArray(args) ? args : [args];
+            let payload: any;
+            try {
+              payload = await (api[method] as any)(...methodArguments);
+            } catch (error: any) {
+              payload = { error: error.message || error };
+            }
+            if (typeof payload === 'object') {
+              Object.keys(payload).forEach((key) => {
+                if (typeof payload[key] === 'function') {
+                  delete payload[key];
+                }
+              });
+            }
+            parent.postMessage(
+              {
+                type: customEvents.apiResponse,
+                method,
+                id,
+                payload,
+              },
+              anyOrigin,
+            );
+          } else {
+            if (e.source !== iframe.contentWindow) return;
+            if (e.data?.args === 'home') {
+              location.href = location.origin + location.pathname;
+            } else if (e.data?.args === 'console-message') {
+              // eslint-disable-next-line no-console
+              console.info(...(e.data.payload ?? []));
+            } else if (e.data?.args === 'i18n') {
+              // flatten i18n object `splash` and save to localStorage
+              const i18nSplashData = e.data.payload.data as { [k: string]: string };
+              for (const [key, value] of Object.entries(i18nSplashData)) {
+                localStorage.setItem(`i18n_splash.${key}`, value);
+              }
+
+              // Set document language
+              const lang = e.data.payload.lang as string;
+              document.documentElement.lang = lang;
+
+              // Reload the page to apply the new language
+              const reload = e.data.payload.reload as boolean;
+              if (reload) {
+                const url = new URL(location.href);
+                url.searchParams.delete('appLanguage');
+                location.href = url.href;
+              }
+            }
+          }
+        },
+      );
+
       iframe.addEventListener('load', async () => {
         const app = (iframe.contentWindow as any)?.app;
         if (typeof app === 'function') {
-          const api: API = await app(config, baseUrl);
+          api = (await app(config, baseUrl)) as API;
           if (!isHeadless) {
             iframe.style.display = 'block';
           }
@@ -146,46 +210,6 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
               detail: api,
             }),
           );
-
-          addEventListener(
-            'message',
-            async (e: MessageEventInit<{ method: keyof API; id: string; args: any }>) => {
-              if (isEmbed) {
-                if (e.source !== parent) return;
-                const { method, id, args } = e.data ?? {};
-                if (!method || !id) return;
-                const methodArguments = Array.isArray(args) ? args : [args];
-                let payload: any;
-                try {
-                  payload = await (api[method] as any)(...methodArguments);
-                } catch (error: any) {
-                  payload = { error: error.message || error };
-                }
-                if (typeof payload === 'object') {
-                  Object.keys(payload).forEach((key) => {
-                    if (typeof payload[key] === 'function') {
-                      delete payload[key];
-                    }
-                  });
-                }
-                parent.postMessage(
-                  {
-                    type: customEvents.apiResponse,
-                    method,
-                    id,
-                    payload,
-                  },
-                  anyOrigin,
-                );
-              } else {
-                if (e.source !== iframe.contentWindow) return;
-                if (e.data?.args === 'home') {
-                  location.href = location.origin + location.pathname;
-                }
-              }
-            },
-          );
-
           resolve(api);
         }
       });

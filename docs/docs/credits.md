@@ -45,6 +45,11 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 <p>
+<a href="https://netlify.com/" target="_blank" title="Netlify">
+  <img alt="Netlify" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/netlify.svg">
+</img></a>
+</p>
+<p>
 <a href="https://www.sonarsource.com/products/sonarcloud/" target="_blank" title="SonarCloud">
   <img alt="SonarCloud" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/sonarcloud.svg">
 </img></a>
@@ -62,6 +67,11 @@ LiveCodes uses services that are generously provided by:
 <p>
 <a href="https://www.browserstack.com/" target="_blank" title="BrowserStack">
   <img alt="BrowserStack" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/browserstack.svg">
+</img></a>
+</p>
+<p>
+<a href="https://lokalise.com/" target="_blank" title="Lokalise">
+  <img alt="Lokalise" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/lokalise.png">
 </img></a>
 </p>
 

@@ -3,7 +3,7 @@ import type { createEventsManager } from '../events';
 import { shareScreen } from '../html';
 import type { ShareData } from '../models';
 import { allowedOrigin } from '../services/allowed-origin';
-import { copyToClipboard, getAbsoluteUrl } from '../utils/utils';
+import { copyToClipboard } from '../utils/utils';
 import { generateQrCode } from './qrcode';
 import { getQrCodeContainer } from './selectors';
 
@@ -24,11 +24,13 @@ export const createShareContainer = async (
   let messageTimeout: any;
   const copyUrl = (url?: string) => {
     if (!url || !copyToClipboard(url)) {
-      setMessage('Copy to clipboard failed!');
+      setMessage(
+        window.deps.translateString('share.error.failedToCopy', 'Copy to clipboard failed!'),
+      );
     }
-    setMessage('URL copied to clipboard');
+    setMessage(window.deps.translateString('share.copy.copied', 'URL copied to clipboard'));
     messageTimeout = setTimeout(() => {
-      setMessage('Click to copy');
+      setMessage(window.deps.translateString('share.copy.clickToCopy', 'Click to copy'));
     }, 5000);
   };
 
@@ -67,11 +69,10 @@ export const createShareContainer = async (
       link.rel = 'noopener noreferrer';
       link.innerHTML = `
         <span class="share-image-container">
-          <img
-            src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
-            alt="${service.name}"
-            ${service.name === '𝕏 / Twitter' ? 'class="twitter"' : ''}
-          />
+        <i class="${service.icon}"
+          alt="${service.name}"
+          ${service.name === window.deps.translateString('share.services.twitter', '𝕏 / Twitter') ? 'class="twitter"' : ''}
+        ></i>
         </span>
         ${service.name}
       `;
@@ -85,7 +86,10 @@ export const createShareContainer = async (
       item.appendChild(link);
       items.appendChild(item);
 
-      if (service.name === 'Share via …' && !navigator.share) {
+      if (
+        service.name === window.deps.translateString('share.services.share', 'Share via …') &&
+        !navigator.share
+      ) {
         item.remove();
       }
     });
@@ -93,99 +97,94 @@ export const createShareContainer = async (
     if (input) {
       input.value = shareData.url;
     }
-    setMessage('Click to copy');
+    setMessage(window.deps.translateString('share.copy.clickToCopy', 'Click to copy'));
   };
 
   const services: Service[] = [
     {
-      name: 'Facebook',
-      icon: 'facebook.svg',
+      name: window.deps.translateString('share.services.facebook', 'Facebook'),
+      icon: 'icon-share-facebook',
       createShareUrl: ({ url }) => `https://www.facebook.com/sharer.php?u=${encode(url)}`,
     },
     {
-      name: '𝕏 / Twitter',
-      icon: 'x.svg',
+      name: window.deps.translateString('share.services.twitter', '𝕏 / Twitter'),
+      icon: 'icon-share-x',
       createShareUrl: ({ url, title }) =>
         `https://twitter.com/intent/tweet?url=${encode(url)}&text=${encode(title)}`,
     },
     {
-      name: 'Hacker News',
-      icon: 'hacker-news.svg',
+      name: window.deps.translateString('share.services.hackerNews', 'Hacker News'),
+      icon: 'icon-share-hacker',
       createShareUrl: ({ url, title }) =>
         `https://news.ycombinator.com/submitlink?u=${encode(url)}&t=${encode(title)}`,
     },
     {
-      name: 'Reddit',
-      icon: 'reddit.svg',
+      name: window.deps.translateString('share.services.reddit', 'Reddit'),
+      icon: 'icon-share-reddit',
       createShareUrl: ({ url, title }) =>
         `https://www.reddit.com/submit?url=${encode(url)}&title=${encode(title)}`,
     },
     {
-      name: 'LinkedIn',
-      icon: 'linkedin.svg',
+      name: window.deps.translateString('share.services.linkedIn', 'LinkedIn'),
+      icon: 'icon-share-linkedin',
       createShareUrl: ({ url, title }) =>
         `https://www.linkedin.com/shareArticle?url=${encode(url)}&title=${encode(
           title,
         )}&mini=true&source=LiveCodes`,
     },
     {
-      name: 'Dev.to',
-      icon: 'dev.svg',
+      name: window.deps.translateString('share.services.devTo', 'Dev.to'),
+      icon: 'icon-share-dev',
       createShareUrl: ({ url, title }) =>
         `https://dev.to/new?prefill=${encode(
           '---\ntitle: ' + title + '\npublished: true\ntags: livecodes\n---\n\n\n\n' + url,
         )}`,
     },
     {
-      name: 'Tumblr',
-      icon: 'tumblr.svg',
-      createShareUrl: ({ url, title }) => `
-      https://www.tumblr.com/share/link?url=${encode(url)}&name=${encode(title)}`,
+      name: window.deps.translateString('share.services.tumblr', 'Tumblr'),
+      icon: 'icon-share-tumblr',
+      createShareUrl: ({ url, title }) =>
+        `https://www.tumblr.com/share/link?url=${encode(url)}&name=${encode(title)}`,
     },
     {
-      name: 'Pinterest',
-      icon: 'pinterest.svg',
+      name: window.deps.translateString('share.services.pinterest', 'Pinterest'),
+      icon: 'icon-share-pinterest',
       createShareUrl: ({ url, title }) =>
         `https://pinterest.com/pin/create/bookmarklet/?url=${encode(url)}&description=${encode(
           title,
         )}`,
     },
     {
-      name: 'WhatsApp',
-      icon: 'whatsapp.svg',
+      name: window.deps.translateString('share.services.whatsApp', 'WhatsApp'),
+      icon: 'icon-share-whatsapp',
       createShareUrl: ({ url, title }) =>
         `https://api.whatsapp.com/send?text=${encode(title)} ${encode(url)}`,
     },
     {
-      name: 'Telegram',
-      icon: 'telegram.svg',
+      name: window.deps.translateString('share.services.telegram', 'Telegram'),
+      icon: 'icon-share-telegram',
       createShareUrl: ({ url, title }) =>
         `https://t.me/share/url?url=${encode(url)}&text=${encode(title)}`,
     },
     {
-      name: 'Pocket',
-      icon: 'pocket.svg',
+      name: window.deps.translateString('share.services.pocket', 'Pocket'),
+      icon: 'icon-share-pocket',
       createShareUrl: ({ url, title }) =>
         `https://getpocket.com/save?url=${encode(url)}&title=${encode(title)}`,
     },
     {
-      name: 'Email',
-      icon: 'email.svg',
+      name: window.deps.translateString('share.services.email', 'Email'),
+      icon: 'icon-share-email',
       createShareUrl: ({ url, title }) => `mailto:?subject=${encode(title)}&body=${encode(url)}`,
     },
     {
-      name: 'Copy URL',
-      icon: 'copy.svg',
-      onClick: ({ url }) => copyUrl(url),
-    },
-    {
-      name: 'QR code',
-      icon: 'qr-code.svg',
+      name: window.deps.translateString('share.services.qrCode', 'QR code'),
+      icon: 'icon-share-qr',
       onClick: showQrCode,
     },
     {
-      name: 'Share via …',
-      icon: 'share.svg',
+      name: window.deps.translateString('share.services.share', 'Share via …'),
+      icon: 'icon-share',
       onClick: ({ url, title }) => navigator.share({ url, title }),
     },
   ];
@@ -218,6 +217,11 @@ export const createShareContainer = async (
   const shortUrlLink = shareExpiry?.querySelector('.share-encoded-url-expiry a') as HTMLElement;
   const encodedUrlLink = shareExpiry?.querySelector('.share-short-url-expiry a') as HTMLElement;
 
+  const charactersSpan = shareExpiry?.querySelector(
+    '.share-encoded-url-expiry span',
+  ) as HTMLElement;
+  charactersSpan.dataset.i18nInterpolation = JSON.stringify({ urlLength });
+
   const setMessage = (message: string) => {
     if (!clickToCopy) return;
     clearTimeout(messageTimeout);
@@ -228,13 +232,18 @@ export const createShareContainer = async (
 
   const generateShortUrl = async (event?: Event) => {
     event?.preventDefault();
-    setMessage('Generating URL …');
+    setMessage(window.deps.translateString('share.generateURL', 'Generating URL …'));
     try {
       shareDataShort = shareDataShort || (await shareFn(true, permanentUrlCheckbox.checked));
       populateItems(shareDataShort, services, items);
       shareExpiry?.classList.add('short-url');
     } catch {
-      setMessage('Failed to generate short URL!');
+      setMessage(
+        window.deps.translateString(
+          'share.error.failedToGenerateURL',
+          'Failed to generate short URL!',
+        ),
+      );
     }
   };
 

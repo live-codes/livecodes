@@ -10,23 +10,23 @@ Broadcast can only be performed from the full app, and not from embedded playgro
 
 :::
 
-The `Broadcast` screen can be accessed from the Broadcast icon in the [tools pane](./tools-pane.md) (below the result page), or from the app menu → Broadcast.
+The `Broadcast` screen can be accessed from the Broadcast icon in the [tools pane](./tools-pane.md) (below the result page), or from the Project menu → Broadcast.
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 <RunInLiveCodes params={{screen: 'broadcast'}} linkText="direct link" />
 
-![Broadcast UI](./../../static/img/screenshots/broadcast.jpg)
+![Broadcast UI](./../../static/img/screenshots/broadcast-1.jpg)
 
 On connecting to the server, the channel URL returned by the server is displayed. The channel URL can be shared to different clients (browsers on same or different devices) to view result page or code updates in real-time.
 
 If the option `Include source code` is enabled, the source and compiled code together with the current project configuration are also posted to the server with each update.
 
-![Broadcast UI - broadcasting](./../../static/img/screenshots/broadcasting.jpg)
+![Broadcast UI - broadcasting](./../../static/img/screenshots/broadcast-2.jpg)
 
 The Broadcast icon (in tools pane), shows the broadcast status. Clicking the icon, opens the broadcast UI, where the channel URL is displayed and the broadcast can be stopped.
 
-![Broadcast icon - broadcasting](./../../static/img/screenshots/broadcasting2.jpg)
+![Broadcast icon - broadcasting](./../../static/img/screenshots/broadcast-3.jpg)
 
 :::info Server
 
@@ -57,9 +57,9 @@ You can use one of these links to self-host it:
 
 These are screenshots for the live-updated result page and code:
 
-![Broadcasting result](./../../static/img/screenshots/broadcasting-result.jpg)
+![Broadcasting result](./../../static/img/screenshots/broadcast-4.jpg)
 
-![Broadcasting code](./../../static/img/screenshots/broadcasting-code.jpg)
+![Broadcasting code](./../../static/img/screenshots/broadcast-5.jpg)
 
 ## Technical Details
 

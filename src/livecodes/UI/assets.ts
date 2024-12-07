@@ -8,6 +8,7 @@ import type { GitHubFile } from '../services/github';
 import { generateId, type Storage } from '../storage';
 import { addAssetScreen, assetsScreen } from '../html';
 import { copyToClipboard, isMobile, loadScript } from '../utils/utils';
+import { iconDelete as deleteIcon } from '../UI/icons';
 import { flexSearchUrl } from '../vendors';
 import {
   getAddAssetButton,
@@ -22,10 +23,29 @@ import {
 
 const copyUrl = (url: string, notifications: any) => {
   if (copyToClipboard(url)) {
-    notifications.success('URL is copied to clipboard.');
+    notifications.success(
+      window.deps.translateString('assets.url.success', 'URL is copied to clipboard.'),
+    );
   } else {
-    notifications.error('Failed to copy URL.');
+    notifications.error(window.deps.translateString('assets.url.fail', 'Failed to copy URL.'));
   }
+};
+
+const typesToShow = {
+  other: window.deps.translateString('assets.type.other', 'Other'),
+  audio: window.deps.translateString('assets.type.audio', 'Audio'),
+  video: window.deps.translateString('assets.type.video', 'Video'),
+  image: window.deps.translateString('assets.type.image', 'Image'),
+  archive: window.deps.translateString('assets.type.archive', 'Archive'),
+  stylesheet: window.deps.translateString('assets.type.stylesheet', 'Stylesheet'),
+  csv: window.deps.translateString('assets.type.csv', 'CSV'),
+  html: window.deps.translateString('assets.type.html', 'HTML'),
+  icon: window.deps.translateString('assets.type.icon', 'Icon'),
+  script: window.deps.translateString('assets.type.script', 'Script'),
+  json: window.deps.translateString('assets.type.json', 'JSON'),
+  font: window.deps.translateString('assets.type.font', 'Font'),
+  text: window.deps.translateString('assets.type.text', 'Text'),
+  xml: window.deps.translateString('assets.type.xml', 'XML'),
 };
 
 const createLinkContent = (item: Asset, baseUrl: string) => {
@@ -54,7 +74,9 @@ const createLinkContent = (item: Asset, baseUrl: string) => {
 
   const type = document.createElement('div');
   type.classList.add('light');
-  type.textContent = 'Type: ' + item.type;
+  type.textContent = window.deps.translateString('assets.link.type', 'Type: {{type}}', {
+    type: typesToShow[item.type],
+  });
   detailsContainer.appendChild(type);
 
   const lastModified = isMobile()
@@ -63,12 +85,16 @@ const createLinkContent = (item: Asset, baseUrl: string) => {
 
   const date = document.createElement('div');
   date.classList.add('light');
-  date.textContent = 'Date: ' + String(lastModified);
+  date.textContent = window.deps.translateString('assets.link.date', 'Date: {{modified}}', {
+    modified: String(lastModified),
+  });
   detailsContainer.appendChild(date);
 
   const url = document.createElement('div');
-  url.classList.add('light', 'overflow-text');
-  url.textContent = 'URL: ' + item.url;
+  url.classList.add('light', 'asset-url', 'overflow-text');
+  url.textContent = window.deps.translateString('assets.link.url', 'URL: {{url}}', {
+    url: item.url,
+  });
   detailsContainer.appendChild(url);
 
   return container;
@@ -86,19 +112,23 @@ const createAssetItem = (
   const link = document.createElement('a');
   link.href = '#';
   link.dataset.id = item.id;
-  link.classList.add('asset-link', 'hint--top');
-  link.dataset.hint = 'Click to copy URL';
+  link.classList.add('asset-link');
+  link.title = window.deps.translateString('assets.generic.clickToCopyURL', 'Click to copy URL');
   link.appendChild(createLinkContent(item, baseUrl));
   link.onclick = (ev) => {
     ev.preventDefault();
     copyUrl(item.url, notifications);
   };
-
   li.appendChild(link);
 
-  const deleteButton = document.createElement('button');
-  deleteButton.classList.add('delete-button');
-  li.appendChild(deleteButton);
+  const actions = document.createElement('div');
+  actions.classList.add('actions');
+  li.appendChild(actions);
+  const deleteButton = document.createElement('div');
+  deleteButton.innerHTML = deleteIcon;
+  deleteButton.classList.add('action-button', 'delete-button');
+  deleteButton.title = window.deps.translateString('assets.action.delete', 'Delete');
+  actions.appendChild(deleteButton);
 
   return { link, deleteButton };
 };
@@ -341,14 +371,19 @@ export const createAssetsList = async ({
     deleteAllButton,
     'click',
     async () => {
-      notifications.confirm(`Delete ${visibleAssets.length} assets?`, async () => {
-        for (const p of visibleAssets) {
-          await assetsStorage.deleteItem(p.id);
-        }
-        visibleAssets = [];
-        savedAssets = await assetsStorage.getAllData();
-        await showList(visibleAssets);
-      });
+      notifications.confirm(
+        window.deps.translateString('assets.delete.all', 'Delete {{assets}} assets?', {
+          assets: visibleAssets.length,
+        }),
+        async () => {
+          for (const p of visibleAssets) {
+            await assetsStorage.deleteItem(p.id);
+          }
+          visibleAssets = [];
+          savedAssets = await assetsStorage.getAllData();
+          await showList(visibleAssets);
+        },
+      );
     },
     false,
   );
@@ -365,15 +400,20 @@ export const createAssetsList = async ({
         deleteButton,
         'click',
         () => {
-          notifications.confirm(`Delete asset: ${item.filename}?`, async () => {
-            await assetsStorage.deleteItem(item.id);
-            visibleAssets = visibleAssets.filter((p) => p.id !== item.id);
-            const li = deleteButton.parentElement as HTMLElement;
-            li.classList.add('hidden');
-            setTimeout(() => {
-              showList(visibleAssets);
-            }, 500);
-          });
+          notifications.confirm(
+            window.deps.translateString('assets.delete.one', 'Delete asset: {{asset}}?', {
+              asset: item.filename,
+            }),
+            async () => {
+              await assetsStorage.deleteItem(item.id);
+              visibleAssets = visibleAssets.filter((p) => p.id !== item.id);
+              const li = deleteButton.parentElement as HTMLElement;
+              li.classList.add('hidden');
+              setTimeout(() => {
+                showList(visibleAssets);
+              }, 500);
+            },
+          );
         },
         false,
       );
@@ -474,7 +514,15 @@ export const createAddAssetContainer = ({
       // Max 2 MB allowed
       const maxSizeAllowed = 2 * 1024 * 1024;
       if (file.size > maxSizeAllowed) {
-        reject('Error: Exceeded size 2MB');
+        reject(
+          window.deps.translateString(
+            'generic.error.exceededSize',
+            'Error: Exceeded size {{size}} MB',
+            {
+              size: 2,
+            },
+          ),
+        );
         return;
       }
 
@@ -483,21 +531,37 @@ export const createAddAssetContainer = ({
         let url = '';
         if (deploy) {
           if (!user) {
-            reject('Error: Unauthenticated user');
+            reject(
+              window.deps.translateString(
+                'assets.loadFile.error.unauthenticated',
+                'Error: Unauthenticated user',
+              ),
+            );
             return;
           }
-          ghPagesFileInputLabel.innerText = 'Uploading...';
+          ghPagesFileInputLabel.innerText = window.deps.translateString(
+            'assets.loadFile.uploading',
+            'Uploading...',
+          );
           ghPagesFileInputLabel.classList.add('disabled');
           const deployResult = await deployAsset(user, {
             path: file.name,
             content: event.target?.result.split('base64,')[1],
           });
-          ghPagesFileInputLabel.innerText = 'Upload file';
+          ghPagesFileInputLabel.innerText = window.deps.translateString(
+            'assets.loadFile.upload',
+            'Upload file',
+          );
           ghPagesFileInputLabel.classList.remove('disabled');
           if (deployResult) {
             url = deployResult.url;
           } else {
-            reject('Error: Failed to upload file');
+            reject(
+              window.deps.translateString(
+                'assets.loadFile.error.failedToUpload',
+                'Error: Failed to upload file',
+              ),
+            );
           }
         }
         url = url || (event.target?.result as string);
@@ -511,7 +575,12 @@ export const createAddAssetContainer = ({
       });
 
       eventsManager.addEventListener(reader, 'error', () => {
-        reject('Error: Failed to read file');
+        reject(
+          window.deps.translateString(
+            'generic.error.failedToReadFile',
+            'Error: Failed to read file',
+          ),
+        );
       });
 
       reader.readAsDataURL(file);
@@ -522,7 +591,10 @@ export const createAddAssetContainer = ({
 
     const AddedFile = document.createElement('p');
     const fileLabel = document.createElement('span');
-    fileLabel.textContent = 'Added file: ';
+    fileLabel.textContent = window.deps.translateString(
+      'assets.processAsset.addFile',
+      'Added file: ',
+    );
     fileLabel.classList.add('bold');
     AddedFile.appendChild(fileLabel);
     const fileName = document.createElement('span');
@@ -533,7 +605,7 @@ export const createAddAssetContainer = ({
 
     const urlText = document.createElement('p');
     const urlLabel = document.createElement('span');
-    urlLabel.textContent = 'URL: ';
+    urlLabel.textContent = window.deps.translateString('assets.processAsset.urlLabel', 'URL: ');
     urlLabel.classList.add('bold');
     urlText.appendChild(urlLabel);
     const url = document.createElement('span');
@@ -544,7 +616,10 @@ export const createAddAssetContainer = ({
 
     if (deploy) {
       const deployNotice = document.createElement('p');
-      deployNotice.textContent = 'The asset should be available on this URL soon (~1 min).';
+      deployNotice.textContent = window.deps.translateString(
+        'assets.processAsset.deployNotice',
+        'The asset should be available on this URL soon (~1 min).',
+      );
       deployNotice.classList.add('description', 'center');
       outputElement.appendChild(deployNotice);
     } else {
@@ -561,7 +636,10 @@ export const createAddAssetContainer = ({
     }
 
     const clickToCopy = document.createElement('p');
-    clickToCopy.textContent = 'Click to copy URL';
+    clickToCopy.textContent = window.deps.translateString(
+      'assets.generic.clickToCopyURL',
+      'Click to copy URL',
+    );
     clickToCopy.classList.add('description', 'center');
     outputElement.appendChild(clickToCopy);
 
@@ -569,8 +647,13 @@ export const createAddAssetContainer = ({
     sep.style.margin = '1em';
     outputElement.appendChild(sep);
 
-    outputElement.title = 'Click to copy URL';
-    notifications.success('File added to assets!');
+    outputElement.title = window.deps.translateString(
+      'assets.generic.clickToCopyURL',
+      'Click to copy URL',
+    );
+    notifications.success(
+      window.deps.translateString('assets.processAsset.success', 'File added to assets!'),
+    );
     outputElement.onclick = () => copyUrl(asset.url, notifications);
   };
 
@@ -604,7 +687,9 @@ export const createAddAssetContainer = ({
       });
       if (!user) {
         ev.preventDefault();
-        notifications.error('Authentication error!');
+        notifications.error(
+          window.deps.translateString('generic.error.authentication', 'Authentication error!'),
+        );
       }
     },
     false,

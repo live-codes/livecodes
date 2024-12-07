@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const prologStarter: Template = {
   name: 'prolog',
-  title: 'Prolog Starter',
+  title: window.deps.translateString('templates.starter.prolog', 'Prolog Starter'),
   thumbnail: 'assets/templates/tau-prolog.svg',
   activeEditor: 'script',
   markup: {
@@ -72,7 +72,7 @@ export const prologStarter: Template = {
 #result {
   background-color: #fafafa;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 4px;
   box-sizing: border-box;
   color: #3d3d3d;
   margin: 1em;

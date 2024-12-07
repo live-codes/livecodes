@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const jqueryStarter: Template = {
   name: 'jquery',
-  title: 'jQuery Starter',
+  title: window.deps.translateString('templates.starter.jquery', 'jQuery Starter'),
   thumbnail: 'assets/templates/jquery.svg',
   activeEditor: 'script',
   markup: {

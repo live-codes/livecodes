@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const reasonStarter: Template = {
   name: 'reason',
-  title: 'Reason Starter',
+  title: window.deps.translateString('templates.starter.reason', 'Reason Starter'),
   thumbnail: 'assets/templates/reason.svg',
   activeEditor: 'script',
   markup: {
@@ -57,9 +57,11 @@ switch (ReactDOM.querySelector("#app")) {
 Js.log("Hello, Reason!");
 `.trimStart(),
   },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {},
+  customSettings: {
+    imports: {
+      react: 'https://esm.sh/react@18.3.1',
+      'react/': 'https://esm.sh/react@18.3.1/',
+      'react-dom': 'https://esm.sh/react-dom@18.3.1',
+    },
+  },
 };

@@ -29,7 +29,7 @@ import { createPlayground } from 'livecodes';
 })();
 ```
 
-Alternatively, the URL [query parameter](./query-params.md) `config` can provide a URL to a JSON representation of the configuartion object to be used while initializing the app.
+Alternatively, the URL [query parameter](./query-params.md) `config` can provide a URL to a JSON representation of the configuration object to be used while initializing the app.
 
 Example:
 
@@ -59,7 +59,7 @@ Type: [`string`](../api/interfaces/Config.md#title)
 
 Default: `"Untitled Project"`
 
-Project title. This is used as [result page](../features/result.md) title and title meta tag. Also used in [project](../features/projects.md) search. This can be set in the UI from the title input (above result page) or from app menu → Project Info.
+Project title. This is used as [result page](../features/result.md) title and title meta tag. Also used in [project](../features/projects.md) search. This can be set in the UI from the title input (above result page) or from Project menu → Project Info.
 
 ### `description`
 
@@ -67,7 +67,7 @@ Type: [`string`](../api/interfaces/Config.md#description)
 
 Default: `""`
 
-Project description. Used in [project](../features/projects.md) search and result page description meta tag. This can be set in the UI from app menu → Project Info.
+Project description. Used in [project](../features/projects.md) search and result page description meta tag. This can be set in the UI from Project menu → Project Info.
 
 ### `head`
 
@@ -75,7 +75,7 @@ Type: [`string`](../api/interfaces/Config.md#head)
 
 Default: `'<meta charset="UTF-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />'`
 
-Content added to the [result page](../features/result.md) `<head>` element. This can be set in the UI from app menu → Project Info.
+Content added to the [result page](../features/result.md) `<head>` element. This can be set in the UI from Project menu → Project Info.
 
 ### `htmlAttrs`
 
@@ -88,7 +88,7 @@ Attributes added to the [result page](../features/result.md) `<html>` element. I
 Example: `{ lang: "en", class: "dark" }` or `'lang="en" class="dark"'`,  
 become `<html lang="en" class="dark">`.
 
-This can be set in the UI from app menu → Project Info.
+This can be set in the UI from Project menu → Project Info.
 
 ### `tags`
 
@@ -96,7 +96,7 @@ Type: [`string[]`](../api/interfaces/Config.md#tags)
 
 Default: `[]`
 
-Project tags. Used in [project](../features/projects.md) filter and search. This can be set in the UI from app menu → Project Info.
+Project tags. Used in [project](../features/projects.md) filter and search. This can be set in the UI from Project menu → Project Info.
 
 ### `activeEditor`
 
@@ -114,7 +114,7 @@ Default: all supported languages in full app and only current editor languages i
 
 List of enabled languages. Languages that are not already loaded in the editors ([markup](#markup), [style](#style) and [script](#script)) can be selected from a drop down menu at the editor title.
 
-![Change Language](../../static/img/screenshots/languages.jpg)
+![Change Language](../../static/img/screenshots/languages-3.jpg)
 
 ### `markup`
 
@@ -314,7 +314,7 @@ It can be used like that:
 }
 ```
 
-Alternatively, the value for module name can be an object with the following proprties:
+Alternatively, the value for module name can be an object with the following properties:
 
 - `url`: `string` (required). The URL to type declaration file.
 - `autoload`: `boolean` (optional). By default, the types are only loaded when the module is imported in code. If `autoload` property is set to `true`, the types are loaded regardless if the module was imported.
@@ -485,6 +485,14 @@ Default: `"dark"`
 
 Sets the app [theme](../features/themes.md) to light/dark mode.
 
+### `themeColor`
+
+Type: [`string | undefined`](../api/interfaces/Config.md#themecolor)
+
+Default: `"hsl(214, 40%, 50%)"`
+
+A string representing a [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), used to set the app [theme color](../features/themes.md). It can be any valid CSS color value, such as `"#4DB39E"`, `"rgb(245, 225, 49)"`, `"hsl(324, 40%, 50%)"` and `"lightblue"`.
+
 ### `editorTheme`
 
 Type: [`EditorTheme[] | string | undefined`](../api/interfaces/Config.md#editortheme)
@@ -526,6 +534,14 @@ Examples:
 Each `EditorTheme` item requires a theme name. The theme name can optionally be preceded with the editor name separated by a colon to specify the editor (e.g. `"monaco:monokai"`). It can also optionally be followed by the app theme separated by "@" (e.g. `"monokai@dark"`).
 
 Multiple `EditorTheme` items can be supplied (as array items or in the comma-separated string) to specify the theme for each editor and in dark and light modes. The order matters. The first valid item in the array or string for the current editor (`monaco`, `codemirror` or `codejar`) and app theme (`light` or `dark`) will be used. If no items match the current editor and app theme, the default theme for the editor and app theme will be used.
+
+### `appLanguage`
+
+Type: [`AppLanguage | undefined`](../api/interfaces/Config.md#applanguage)
+
+Default: `undefined`
+
+Spoken language code that sets the app UI language (e.g. `"ar"`, `"zh-CN"`). Used in translations for internationalization. If `undefined` (the default), the language is automatically detected based on the user's browser settings and falls back to English, if detection fails or the language is not supported.
 
 ### `recoverUnsaved`
 

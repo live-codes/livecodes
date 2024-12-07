@@ -1,0 +1,81 @@
+:root.light {
+  --hue: 214; // Hue from 0 to 360. 0=red, 120=green, and 214=blue.
+  --st: 40%; // Saturation
+  --lt: 100%; // Lightness
+
+  --color: hsl(var(--hue), var(--st), var(--lt));
+  --color10: hsl(var(--hue), var(--st), calc(var(--lt) * 0.1)); // 10%
+  --color15: hsl(var(--hue), var(--st), calc(var(--lt) * 0.15)); // 15%
+  --color20: hsl(var(--hue), var(--st), calc(var(--lt) * 0.2)); // 20%
+  --color25: hsl(var(--hue), var(--st), calc(var(--lt) * 0.25)); // 25%
+  --color30: hsl(var(--hue), var(--st), calc(var(--lt) * 0.3)); // 30%
+  --color40: hsl(var(--hue), var(--st), calc(var(--lt) * 0.4)); // 40%
+  --color50: hsl(var(--hue), var(--st), calc(var(--lt) * 0.5)); // 50%
+  --color60: hsl(var(--hue), var(--st), calc(var(--lt) * 0.6)); // 60%
+  --color80: hsl(var(--hue), var(--st), calc(var(--lt) * 0.8)); // 80%
+  --color85: hsl(var(--hue), var(--st), calc(var(--lt) * 0.85)); // 85%
+  --color90: hsl(var(--hue), var(--st), calc(var(--lt) * 0.9)); // 90%
+  --color95: hsl(var(--hue), var(--st), calc(var(--lt) * 0.95)); // 95%
+
+  --darker-bg-color: var(--color40);
+  --darker-bg-active: var(--color50);
+  --darker-color: var(--color80);
+  --darker-active: var(--color90);
+
+  --dark-bg-color: var(--color85);
+  --dark-bg-active: var(--color95);
+  --dark-color: var(--color40);
+  --dark-active: var(--color50);
+
+  --link: var(--color40);
+  --light: hsl(var(--hue), var(--st), var(--lt));
+
+  --editor-title-simple-color: var(--color10);
+
+  --thumbnail-bg-active: var(--color90);
+  --thumbnail-bg-color: var(--color80);
+  --console-bg: var(--color10);
+  --disabled: 0.5; // opacity
+  --dropdown: var(--color95);
+  --layout: var(--color90);
+  --modal: var(--color95);
+
+  --gutter-split-bg-handle: var(--color40);
+
+  --input-container: var(--color60);
+  --input-bg-color: hsl(var(--hue), 25%, 98%);
+  --input-border-color: hsl(var(--hue), 13%, 84%);
+  --input-color: hsl(var(--hue), 13%, 21%);
+  --input-range-bg-color: var(--darker-bg-color);
+  --input-switch-active: var(--color90);
+  --input-switch-color: var(--color60);
+
+  --modal-text-color: hsl(var(--hue), 13%, 21%);
+
+  --tests-bg-color: inherit;
+  --tests-color: inherit;
+  --tests-bg-color: var(--color90);
+  --test-results-bg-color: rgba(0, 128, 0, 0.2);
+  --test-results-border: 1px solid rgb(0, 128, 0);
+  --test-pass-color: rgb(0, 178, 0);
+  --test-fail-background: rgb(217 38 38 / 20%);
+  --test-fail-border: 1px solid rgb(255, 0, 0);
+  --test-fail-color: rgb(242 13 13);
+
+  --text-confirm-bg-color: rgba(255, 128, 0, 0.25);
+  --text-confirm-border: 1px solid rgb(250, 128, 0);
+  --text-confirm-color: rgb(194, 102, 10);
+  --text-help-bg-color: rgba(38, 116, 217, 0.2);
+  --text-help-border: 1px solid rgb(13, 112, 242);
+  --text-help-color: rgb(13, 112, 242);
+  --text-success-bg-color: rgba(0, 128, 0, 0.2);
+  --text-success-border: 1px solid rgb(0, 128, 0);
+  --text-success-color: rgb(0, 178, 0);
+
+  --icon-filter: invert(0.3);
+  --icon-filter-active: invert(1);
+
+  #logo img {
+    filter: drop-shadow(1px 1px 1px var(--color50));
+  }
+}

@@ -6,7 +6,7 @@ interface ModalOptions {
   scrollToSelector?: string;
 }
 
-export const createModal = () => {
+export const createModal = (translate: (container: HTMLElement) => void) => {
   const overlay = document.querySelector('#overlay') as HTMLElement;
   const modalContainer = document.querySelector('#modal-container') as HTMLElement;
   const modal = document.querySelector('#modal') as HTMLElement;
@@ -26,6 +26,7 @@ export const createModal = () => {
     modal.innerHTML = '';
     modal.className = size;
     modal.appendChild(container);
+    translate(modal);
     onCloseFn = onClose;
 
     if (scrollToSelector) {
@@ -43,7 +44,7 @@ export const createModal = () => {
       closeContainer.className = 'close-container';
       const closeBtn = document.createElement('button');
       closeBtn.classList.add('button');
-      closeBtn.innerHTML = 'Close';
+      closeBtn.innerHTML = window.deps.translateString('generic.close', 'Close');
       closeBtn.onclick = close;
       closeContainer.appendChild(closeBtn);
       modal.appendChild(closeContainer);
@@ -51,6 +52,8 @@ export const createModal = () => {
 
     const cornerCloseBtn = document.createElement('div');
     cornerCloseBtn.classList.add('close-button');
+    const iconCSS = '<span class="icon-close"></span>';
+    cornerCloseBtn.innerHTML = iconCSS;
     cornerCloseBtn.title = 'Esc';
     cornerCloseBtn.onclick = close;
     modal.appendChild(cornerCloseBtn);

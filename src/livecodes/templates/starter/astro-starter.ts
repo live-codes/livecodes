@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const astroStarter: Template = {
   name: 'astro',
-  title: 'Astro Starter',
+  title: window.deps.translateString('templates.starter.astro', 'Astro Starter'),
   thumbnail: 'assets/templates/astro.svg',
   activeEditor: 'markup',
   markup: {
@@ -34,7 +34,7 @@ const builtAtFormatted = format(builtAt, 'MMMM dd, yyyy -- H:mm:ss.SSS');
     .note {
       margin: 1rem;
       padding: 1rem;
-      border-radius: 8px;
+      border-radius: 4px;
       background: #E4E5E6;
       border: 1px solid #BBB;
     }

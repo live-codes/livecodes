@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const commonlispStarter: Template = {
   name: 'commonlisp',
-  title: 'Common Lisp Starter',
+  title: window.deps.translateString('templates.starter.commonlisp', 'Common Lisp Starter'),
   thumbnail: 'assets/templates/commonlisp.svg',
   activeEditor: 'script',
   markup: {

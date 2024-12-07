@@ -1,126 +1,190 @@
 <div id="welcome-container" class="modal-container">
-  <div class="modal-title">Welcome</div>
+  <div class="modal-title" data-i18n="welcome.heading">Welcome</div>
+
   <div id="welcome-screen-container" class="modal-screen-container">
-    <div class="modal-screen">
-      <div class="modal-section">
-        <h3>Start</h3>
+    <div class="modal-section" id="welcome-start">
+      <h3 data-i18n="welcome.start.heading">Start</h3>
+      <ul>
+        <li>
+          <a href="#" id="welcome-link-new">
+            <i class="icon-file-new"></i> <span data-i18n="welcome.start.new">New...</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="welcome-link-open">
+            <i class="icon-file-open"></i> <span data-i18n="welcome.start.open">Open...</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="welcome-link-import">
+            <i class="icon-file-import"></i>
+            <span data-i18n="welcome.start.import">Import...</span></a
+          >
+        </li>
+        <li class="default-template-li">
+          <span
+            id="no-default-template"
+            class="default-template"
+            data-i18n="welcome.start.noDefaultTemplate"
+            ><i class="icon-file-template"></i> No default template
+          </span>
+          <a href="#" id="welcome-link-load-default" class="default-template">
+            <i class="icon-file-template"></i>
+            <span data-i18n="welcome.start.loadDefaultTemplate">Load default template</span></a
+          >
+          <a
+            href="{{DOCS_BASE_URL}}features/default-template-language"
+            target="_blank"
+            id="welcome-default-template-info"
+            class="more"
+            title="Click for info..."
+            data-i18n="generic.clickForInfo"
+            data-i18n-prop="title"
+            ><i class="icon-info"></i
+          ></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="modal-section" id="welcome-recent">
+      <h3 data-i18n="welcome.recent.heading">Recent</h3>
+      <ul id="welcome-recent-list">
+        <li>
+          <a href="#" id="welcome-link-recent-open" class="more" data-i18n="generic.more"
+            >More...</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="modal-section" id="welcome-templates">
+      <h3 data-i18n="welcome.templates.heading">Starter Templates</h3>
+      <ul id="welcome-template-list">
+        <li>
+          <a href="#" id="welcome-link-templates" class="more" data-i18n="generic.more">More...</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="modal-section" id="welcome-recover">
+      <h3 data-i18n="welcome.recover.heading">Recover</h3>
+      <div class="welcome-recover-content">
+        <div class="smaller" data-i18n="welcome.recover.unsavedChanges">
+          Your last project had unsaved changes:
+        </div>
         <ul>
-          <li>
-            <img src="{{baseUrl}}assets/icons/new.svg" alt="new" width="19.19" height="19.19" />
-            <a href="#" id="welcome-link-new"> New...</a>
-          </li>
-          <li>
-            <img src="{{baseUrl}}assets/icons/open.svg" alt="open" width="19.19" height="19.19" />
-            <a href="#" id="welcome-link-open"> Open...</a>
-          </li>
-          <li>
-            <img
-              src="{{baseUrl}}assets/icons/import.svg"
-              alt="import"
-              width="19.19"
-              height="19.19"
-            />
-            <a href="#" id="welcome-link-import"> Import...</a>
-          </li>
-          <li class="default-template-li">
-            <img
-              src="{{baseUrl}}assets/icons/template.svg"
-              alt="template"
-              width="19.19"
-              height="19.19"
-            />
-            <span id="no-default-template" class="default-template">No default template</span>
-            <a href="#" id="welcome-link-load-default" class="default-template"
-              >Load default template</a
-            >
-            <a
-              href="{{DOCS_BASE_URL}}features/default-template-language"
-              target="_blank"
-              class="help-link"
-              title="Click for info..."
-              rel="noopener"
-              ><img src="{{baseUrl}}assets/icons/info.svg" alt="info"
-            /></a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="modal-section" id="welcome-recent">
-        <h3>Recent</h3>
-        <ul id="welcome-recent-list">
-          <li><a href="#" id="welcome-link-recent-open" class="more">More...</a></li>
-        </ul>
-      </div>
-
-      <div class="modal-section" id="welcome-templates">
-        <h3>Starter Templates</h3>
-        <ul id="welcome-template-list">
-          <li><a href="#" id="welcome-link-templates" class="more">More...</a></li>
-        </ul>
-      </div>
-
-      <div class="modal-section" id="welcome-recover">
-        <h3>Recover</h3>
-        <div class="smaller">Your last project had unsaved changes:</div>
-        <ul>
-          <li class="overflow-ellipsis">
+          <li class="smaller overflow-ellipsis">
+            <i class="icon-edit"></i>
             <span id="unsaved-project-name" class="overflow-ellipsis"></span>
           </li>
-          <li class="smaller">Last modified: <span id="unsaved-project-last-modified"></span></li>
+          <li class="smaller">
+            <i class="icon-calendar"></i>
+            <span data-i18n="welcome.recover.lastModified" data-i18n-prop="innerHTML"
+              >Last modified:</span
+            >
+            <span id="unsaved-project-last-modified"></span>
+          </li>
         </ul>
         <div class="welcome-recover-actions">
-          <div>
-            <img src="{{baseUrl}}assets/icons/recover.svg" alt="recover" />
-            <a href="#" id="prompt-recover-btn" title="Recover project to editor">Recover</a>
-          </div>
-          <div>
-            <img src="{{baseUrl}}assets/icons/save.svg" alt="save" />
-            <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">Save</a>
-          </div>
-          <div>
-            <img src="{{baseUrl}}assets/icons/cancel.svg" alt="cancel" />
-            <a href="#" id="prompt-cancel-recover-btn">Cancel</a>
-          </div>
+          <a href="#" id="prompt-recover-btn" title="Recover project to editor">
+            <i class="icon-recover"></i>
+            <span data-i18n="welcome.recover.recover">Recover</span></a
+          >
+          <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">
+            <i class="icon-save"></i>
+            <span data-i18n="welcome.recover.save">Save</span>
+          </a>
+          <a href="#" id="prompt-cancel-recover-btn">
+            <i class="icon-delete"></i>
+            <span data-i18n="welcome.recover.cancel">Cancel</span>
+          </a>
         </div>
       </div>
+    </div>
 
-      <div class="modal-section">
-        <h3>About LiveCodes</h3>
-        <ul>
-          <li><a href="{{DOCS_BASE_URL}}" target="_blank" rel="noopener">Documentations</a></li>
-          <li>
-            <a href="{{DOCS_BASE_URL}}getting-started" target="_blank" rel="noopener"
-              >Getting Started</a
-            >
-          </li>
-          <li><a href="{{DOCS_BASE_URL}}features" target="_blank" rel="noopener">Features</a></li>
-          <li>
-            <a href="{{DOCS_BASE_URL}}configuration" target="_blank" rel="noopener"
-              >Configuration</a
-            >
-          </li>
-          <li><a href="{{DOCS_BASE_URL}}sdk" target="_blank" rel="noopener">SDK</a></li>
-          <li><a href="https://blog.livecodes.io" target="_blank" rel="noopener">Blog</a></li>
-          <li>
-            <a href="{{DOCS_BASE_URL}}sponsor" target="_blank" rel="noopener">Sponsor LiveCodes</a>
-          </li>
-          <li>
-            <a href="https://twitter.com/livecodes_io" target="_blank" rel="noopener"
-              >𝕏 / Twitter</a
-            >
-          </li>
-          <li><a href="{{REPO_URL}}" target="_blank" rel="noopener">GitHub</a></li>
-          <li>
-            <a href="{{DOCS_BASE_URL}}overview" target="_blank" rel="noopener" class="more"
-              >More...</a
-            >
-          </li>
-        </ul>
+    <div class="modal-section" id="welcome-about">
+      <h3 data-i18n="welcome.about.heading">About LiveCodes</h3>
+      <ul class="modal-docs">
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}"
+            target="_blank"
+            rel="noopener"
+            data-i18n="welcome.about.documentation"
+            >Documentation</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}getting-started"
+            target="_blank"
+            rel="noopener"
+            data-i18n="generic.about.gettingStarted"
+            >Getting Started</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}configuration"
+            target="_blank"
+            rel="noopener"
+            data-i18n="generic.about.configuration"
+            >Configuration</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}sdk"
+            target="_blank"
+            rel="noopener"
+            data-i18n="generic.about.sdk"
+            >LiveCodes SDK</a
+          >
+        </li>
+      </ul>
+
+      <div class="livecodes-support">
+        <div>
+          <a
+            href="{{DOCS_BASE_URL}}sponsor"
+            target="_blank"
+            rel="noopener"
+            title="Sponsor LiveCodes"
+          >
+            <i class="icon-sponsor"></i>
+            <br /><span data-i18n="generic.about.sponsor">Sponsor</span></a
+          >
+        </div>
+        <div>
+          <a href="https://blog.livecodes.io" target="_blank" rel="noopener" title="LiveCodes Blog">
+            <i class="icon-blog"></i>
+            <br /><span data-i18n="generic.about.blog">Blog</span></a
+          >
+        </div>
+        <div>
+          <a
+            href="https://twitter.com/livecodes_io"
+            target="_blank"
+            rel="noopener"
+            title="𝕏 / Twitter"
+          >
+            <i class="icon-share-x"></i>
+            <br /><span data-i18n="generic.about.twitter">𝕏 / Twitter</span></a
+          >
+        </div>
+        <div>
+          <a href="{{REPO_URL}}" target="_blank" rel="noopener" title="GitHub">
+            <i class="icon-github"></i>
+            <br />
+            <span data-i18n="generic.about.github">GitHub</span></a
+          >
+        </div>
       </div>
     </div>
   </div>
-  <div id="show-welcome">
-    <input type="checkbox" value="show-welcome-checkbox" id="show-welcome-checkbox" checked />
-    <label for="show-welcome-checkbox">Show on startup</label>
+
+  <div id="welcome-show">
+    <input type="checkbox" value="welcome-show-checkbox" id="welcome-show-checkbox" checked />
+    <label for="welcome-show-checkbox" data-i18n="welcome.showOnStartup">Show on startup</label>
   </div>
 </div>

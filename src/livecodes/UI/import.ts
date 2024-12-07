@@ -1,5 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import type { SourceFile, populateConfig as populateConfigFn } from '../import/utils';
+import type { populateConfig as populateConfigFn } from '../import/utils';
 import type { createModal } from '../modal';
 import type { Config, ContentConfig, User, Screen } from '../models';
 import type { createNotifications } from '../notifications';
@@ -9,7 +9,7 @@ import { defaultConfig } from '../config/default-config';
 import { importScreen } from '../html';
 import { fetchWithHandler } from '../utils/utils';
 import { importCode } from '../import/import';
-import { importFromZip } from '../import/zip';
+import { importFromFiles } from '../import/files';
 import {
   getBulkImportFileInput,
   getBulkImportJsonUrlButton,
@@ -77,7 +77,7 @@ export const createImportUI = ({
   eventsManager.addEventListener(importForm, 'submit', async (e) => {
     e.preventDefault();
     const buttonText = importButton.innerHTML;
-    importButton.innerHTML = 'Loading...';
+    importButton.innerHTML = window.deps.translateString('generic.loading', 'Loading...');
     importButton.disabled = true;
     const importInput = getUrlImportInput(importContainer);
     const url = importInput.value;
@@ -95,57 +95,18 @@ export const createImportUI = ({
     } else {
       importButton.innerHTML = buttonText;
       importButton.disabled = false;
-      notifications.error('failed to load URL');
+      notifications.error(
+        window.deps.translateString('import.error.failedToLoadURL', 'Error: failed to load URL'),
+      );
       importInput.focus();
     }
   });
 
-  const loadFiles = (input: HTMLInputElement) =>
-    new Promise<Partial<ContentConfig>>((resolve, reject) => {
-      const files = Array.from(input.files as FileList);
-      const sourceFiles: SourceFile[] = [];
-
-      for (const file of files) {
-        // Max 100 MB allowed
-        const maxSizeAllowed = 100 * 1024 * 1024;
-        if (file.size > maxSizeAllowed) {
-          reject('Error: Exceeded size 100 MB');
-          return;
-        }
-
-        const reader = new FileReader();
-        eventsManager.addEventListener(reader, 'load', async (event: any) => {
-          const text = (event.target?.result as string) || '';
-          sourceFiles.push({
-            filename: file.name,
-            content: text,
-          });
-
-          if (sourceFiles.length === files.length) {
-            resolve(populateConfig(sourceFiles, {}));
-          }
-        });
-
-        eventsManager.addEventListener(reader, 'error', () => {
-          reject('Error: Failed to read file');
-        });
-
-        reader.readAsText(file);
-      }
-    });
-
-  const loadZipFile = (input: HTMLInputElement) => importFromZip(input.files![0], populateConfig);
-
   const codeImportInput = getCodeImportInput(importContainer);
   eventsManager.addEventListener(codeImportInput, 'change', () => {
-    if (codeImportInput.files?.length === 0) return;
+    if (!codeImportInput.files?.length) return;
 
-    const getConfigFromFiles =
-      codeImportInput.files?.length === 1 && codeImportInput.files[0].name.endsWith('.zip')
-        ? loadZipFile
-        : loadFiles;
-
-    getConfigFromFiles(codeImportInput)
+    importFromFiles(codeImportInput.files, populateConfig, eventsManager)
       .then(loadConfig)
       .then(modal.close)
       .catch((message) => {
@@ -158,7 +119,7 @@ export const createImportUI = ({
   eventsManager.addEventListener(importJsonUrlForm, 'submit', async (e) => {
     e.preventDefault();
     const buttonText = importJsonUrlButton.innerHTML;
-    importJsonUrlButton.innerHTML = 'Loading...';
+    importJsonUrlButton.innerHTML = window.deps.translateString('generic.loading', 'Loading...');
     importJsonUrlButton.disabled = true;
     const importInput = getImportJsonUrlInput(importContainer);
     const url = importInput.value;
@@ -171,7 +132,9 @@ export const createImportUI = ({
       .catch(() => {
         importJsonUrlButton.innerHTML = buttonText;
         importJsonUrlButton.disabled = false;
-        notifications.error('Error: failed to load URL');
+        notifications.error(
+          window.deps.translateString('import.error.failedToLoadURL', 'Error: failed to load URL'),
+        );
         importInput.focus();
       });
   });
@@ -180,8 +143,14 @@ export const createImportUI = ({
   const bulkimportJsonUrlButton = getBulkImportJsonUrlButton(importContainer);
   eventsManager.addEventListener(bulkImportJsonUrlForm, 'submit', async (e) => {
     e.preventDefault();
+    notifications.info(
+      window.deps.translateString('import.bulk.started', 'Bulk import started...'),
+    );
     const buttonText = bulkimportJsonUrlButton.innerHTML;
-    bulkimportJsonUrlButton.innerHTML = 'Loading...';
+    bulkimportJsonUrlButton.innerHTML = window.deps.translateString(
+      'generic.loading',
+      'Loading...',
+    );
     bulkimportJsonUrlButton.disabled = true;
     const importInput = getBulkImportJsonUrlInput(importContainer);
     const url = importInput.value;
@@ -191,7 +160,9 @@ export const createImportUI = ({
       .catch(() => {
         bulkimportJsonUrlButton.innerHTML = buttonText;
         bulkimportJsonUrlButton.disabled = false;
-        notifications.error('Error: failed to load URL');
+        notifications.error(
+          window.deps.translateString('import.error.failedToLoadURL', 'Error: failed to load URL'),
+        );
         importInput.focus();
       });
   });
@@ -211,7 +182,15 @@ export const createImportUI = ({
       // Max 100 MB allowed
       const maxSizeAllowed = 100 * 1024 * 1024;
       if (file.size > maxSizeAllowed) {
-        reject('Error: Exceeded size 100 MB');
+        reject(
+          window.deps.translateString(
+            'generic.error.exceededSize',
+            'Error: Exceeded size {{size}} MB',
+            {
+              size: 100,
+            },
+          ),
+        );
         return;
       }
 
@@ -221,12 +200,22 @@ export const createImportUI = ({
         try {
           resolve(JSON.parse(text));
         } catch (error) {
-          reject('Invalid configuration file');
+          reject(
+            window.deps.translateString(
+              'import.error.invalidConfigFile',
+              'Invalid configuration file',
+            ),
+          );
         }
       });
 
       eventsManager.addEventListener(reader, 'error', () => {
-        reject('Error: Failed to read file');
+        reject(
+          window.deps.translateString(
+            'generic.error.failedToReadFile',
+            'Error: Failed to read file',
+          ),
+        );
       });
 
       reader.readAsText(file);
@@ -236,11 +225,13 @@ export const createImportUI = ({
     const getItemConfig = (item: StorageItem) => item.config || (item as any).pen; // for backward compatibility
     if (Array.isArray(items) && items.every(getItemConfig) && projectStorage) {
       await projectStorage.bulkInsert(items.map(getItemConfig));
-      notifications.success('Import Successful!');
+      notifications.success(window.deps.translateString('import.success', 'Import Successful!'));
       showScreen('open');
       return;
     }
-    return Promise.reject('Error: Invalid file');
+    return Promise.reject(
+      window.deps.translateString('import.error.invalidFile', 'Error: Invalid file'),
+    );
   };
 
   const fileInput = getImportFileInput(importContainer);
@@ -255,6 +246,9 @@ export const createImportUI = ({
 
   const bulkFileInput = getBulkImportFileInput(importContainer);
   eventsManager.addEventListener(bulkFileInput, 'change', () => {
+    notifications.info(
+      window.deps.translateString('import.bulk.started', 'Bulk import started...'),
+    );
     loadFile<StorageItem[]>(bulkFileInput)
       .then(insertItems)
       .catch((message) => {

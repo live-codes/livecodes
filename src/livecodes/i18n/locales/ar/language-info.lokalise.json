@@ -1,0 +1,714 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "artTemplate.desc": {
+    "translation": "محرك قوالب جافا سكريبت عالي الأداء."
+  },
+  "artTemplate.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ art-template</tag-2> </tag-1> <tag-3> <tag-4>وثائق art-template</tag-4> </tag-3>"
+  },
+  "artTemplate.name": {
+    "translation": "art-template"
+  },
+  "asciidoc.desc": {
+    "translation": "AsciiDoc مترجم إلى HTML باستخدام Asciidoctor."
+  },
+  "asciidoc.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ AsciiDoc</tag-2> </tag-1> <tag-3> <tag-4>الموقع الرسمي لـ Asciidoctor</tag-4> </tag-3> <tag-5> <tag-6>وثائق Asciidoctor</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=asciidoc</tag-8> </tag-7>"
+  },
+  "asciidoc.name": {
+    "translation": "AsciiDoc"
+  },
+  "assemblyscript.desc": {
+    "translation": "لغة شبيهة بـ TypeScript لـ WebAssembly."
+  },
+  "assemblyscript.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ AssemblyScript</tag-2> </tag-1> <tag-3> <tag-4>وثائق AssemblyScript</tag-4> </tag-3> <tag-5> <tag-6>تحميل القالب الأولي</tag-6> </tag-5>"
+  },
+  "assemblyscript.name": {
+    "translation": "AssemblyScript"
+  },
+  "astro.desc": {
+    "translation": "بناء مواقع ويب أسرع مع جافاسكريبت أقل على جانب العميل. (لا يزال في مرحلة بيتا)"
+  },
+  "astro.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Astro</tag-2> </tag-1> <tag-3> <tag-4>وثائق Astro</tag-4> </tag-3> <tag-5> <tag-6>تحميل القالب الأولي</tag-6> </tag-5>"
+  },
+  "astro.name": {
+    "translation": "Astro"
+  },
+  "babel.desc": {
+    "translation": "مترجم جافاسكريبت"
+  },
+  "babel.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي</tag-2></tag-1> <tag-3> <tag-4>وثائق Babel</tag-4> </tag-3>"
+  },
+  "babel.name": {
+    "translation": "Babel"
+  },
+  "bbcode.desc": {
+    "translation": "BBCode (\"رمز لوحة الإعلانات\") هي لغة ترميز خفيفة تستخدم لتنسيق الرسائل في العديد من برامج منتديات الإنترنت."
+  },
+  "bbcode.link": {
+    "translation": "<tag-1><tag-2>bbcode.org</tag-2></tag-1> <tag-3> <tag-4>دليل BBCode</tag-4> </tag-3> <tag-5> <tag-6>BBCode على ويكيبيديا</tag-6> </tag-5>"
+  },
+  "bbcode.name": {
+    "translation": "BBCode"
+  },
+  "blockly.desc": {
+    "translation": "مكتبة جافاسكريبت لبناء محررات البرمجة المرئية."
+  },
+  "blockly.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي</tag-2> </tag-1> <tag-3> <tag-4>الأدلة</tag-4> </tag-3> <tag-5> <tag-6>المرجع</tag-6> </tag-5> <tag-7> <tag-8>النماذج</tag-8> </tag-7> <tag-9> <tag-10>تحميل القالب الأولي</tag-10> </tag-9>"
+  },
+  "blockly.name": {
+    "translation": "Blockly"
+  },
+  "civet.desc": {
+    "translation": "Civet هي لغة برمجة تترجم إلى TypeScript أو JavaScript، لذا يمكنك استخدام الأدوات الموجودة ولكن مع تمكين بناء جملة قوي وموجز."
+  },
+  "civet.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Civet</tag-2> </tag-1> <tag-3> <tag-4>ورقة الغش لـ Civet</tag-4> </tag-3> <tag-5> <tag-6>تحميل القالب الأولي</tag-6> </tag-5>"
+  },
+  "civet.name": {
+    "translation": "Civet"
+  },
+  "clio.desc": {
+    "translation": "Clio هي لغة برمجة وظيفية سريعة وموزعة تترجم إلى JavaScript."
+  },
+  "clio.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Clio</tag-2> </tag-1> <tag-3> <tag-4>وثائق Clio</tag-4> </tag-3> <tag-5> <tag-6>تحميل القالب الأولي</tag-6> </tag-5>"
+  },
+  "clio.name": {
+    "translation": "Clio"
+  },
+  "clojurescript.desc": {
+    "translation": "ClojureScript هو مترجم لـ <tag-1>Clojure</tag-1> يستهدف JavaScript. <tag-2></tag-2>في LiveCodes، يعمل في المتصفح باستخدام <tag-3>Cherry</tag-3>."
+  },
+  "clojurescript.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>الموقع الرسمي لـ Clojure</tag-4> </tag-3> <tag-5> <tag-6>مستودع Cherry</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=clojure</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل القالب الأولي</tag-12> </tag-11>"
+  },
+  "clojurescript.name": {
+    "translation": "ClojureScript (CLJS)"
+  },
+  "coffeescript.desc": {
+    "translation": "جافاسكريبت بسيطة."
+  },
+  "coffeescript.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ CoffeeScript</tag-2> </tag-1> <tag-3> <tag-4>تعلم X في Y دقائق، حيث X=coffeescript</tag-4> </tag-3> <tag-5> <tag-6>تحميل القالب الأولي</tag-6> </tag-5>"
+  },
+  "coffeescript.name": {
+    "translation": "CoffeeScript"
+  },
+  "commonlisp.desc": {
+    "translation": "تطبيق Common Lisp على جافاسكريبت باستخدام JSCL (مترجم Lisp إلى جافاسكريبت مبني ذاتيًا من Common Lisp)."
+  },
+  "commonlisp.link": {
+    "translation": "<tag-1> <tag-2>Common-Lisp.net</tag-2> </tag-1> <tag-3> <tag-4>مشروع JSCL</tag-4> </tag-3> <tag-5> <tag-6>موارد Common Lisp</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=Common Lisp</tag-8> </tag-7> <tag-9> <tag-10>تحميل القالب الأولي</tag-10> </tag-9>"
+  },
+  "commonlisp.name": {
+    "translation": "Common Lisp"
+  },
+  "cpp.desc1": {
+    "translation": "دعم C++ باستخدام JSCPP (مترجم C++ بسيط مكتوب بلغة JavaScript)."
+  },
+  "cpp.desc2": {
+    "translation": "إنه ليس تطبيقًا كاملاً لـ C++. يرجى الرجوع إلى <tag-1>وثائق JSCPP</tag-1> للحصول على التفاصيل."
+  },
+  "cpp.link": {
+    "translation": "<tag-1> <tag-2>مؤسسة C++ القياسية</tag-2> </tag-1> <tag-3> <tag-4>JSCPP</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقائق، حيث X=C++</tag-6> </tag-5> <tag-7> <tag-8>تحميل القالب الأولي</tag-8> </tag-7>"
+  },
+  "cpp.name": {
+    "translation": "C++"
+  },
+  "cppWasm.desc": {
+    "translation": "مترجم Clang C/C++ يعمل على WebAssembly، باستخدام <tag-1>wasm-clang</tag-1> المعدل بواسطة <tag-2>polylang.io</tag-2>."
+  },
+  "cppWasm.link": {
+    "translation": "<tag-1> <tag-2>مؤسسة C++ القياسية</tag-2> </tag-1> <tag-3> <tag-4>الموقع الرسمي لـ Clang</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقائق، حيث X=C++</tag-6> </tag-5> <tag-7> <tag-8>تحميل القالب الأولي</tag-8> </tag-7>"
+  },
+  "cppWasm.name": {
+    "translation": "C/C++ (Wasm)"
+  },
+  "diagrams.desc1": {
+    "translation": "(تجريبي)"
+  },
+  "diagrams.desc2": {
+    "translation": "رسومات بيانية كبرمجة. يدعم:"
+  },
+  "diagrams.desc3": {
+    "translation": "<tag-1> <tag-2>Cytoscape</tag-2> </tag-1> <tag-3> <tag-4>ELK</tag-4> (باستخدام <tag-5>elkjs</tag-5>) </tag-3> <tag-6> <tag-7>Gnuplot</tag-7> (باستخدام <tag-8>gnuplot-JS</tag-8>) </tag-6> <tag-9> <tag-10>Graphviz</tag-10> (باستخدام <tag-11>@hpcc-js/wasm</tag-11>) </tag-9> <tag-12> <tag-13>Mermaid</tag-13> </tag-12> <tag-14> <tag-15>Nomnoml</tag-15> </tag-14> <tag-16> <tag-17>Pintora</tag-17> </tag-16> <tag-18> <tag-19>Plotly</tag-19> </tag-18> <tag-20> <tag-21>Svgbob</tag-21> </tag-20> <tag-22> <tag-23>Vega</tag-23> </tag-22> <tag-24> <tag-25>VegaLite</tag-25> </tag-24> <tag-26> <tag-27>WaveDrom</tag-27> </tag-26>"
+  },
+  "diagrams.link": {
+    "translation": "<tag-1> <tag-2>تحميل القالب الأولي</tag-2> </tag-1> <tag-3> <tag-4>وثائق LiveCodes</tag-4> </tag-3>"
+  },
+  "diagrams.name": {
+    "translation": "الرسومات البيانية"
+  },
+  "dot.desc": {
+    "translation": "أسرع وأكثر إيجازًا محرك قوالب جافاسكريبت لـ Node.js والمتصفحات."
+  },
+  "dot.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي</tag-2> </tag-1> <tag-3> <tag-4>وثائق LiveCodes</tag-4> </tag-3>"
+  },
+  "dot.name": {
+    "translation": "doT.js"
+  },
+  "ejs.desc": {
+    "translation": "قوالب JavaScript المضمنة."
+  },
+  "ejs.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي</tag-2></tag-1> <tag-3> <tag-4>وثائق LiveCodes</tag-4> </tag-3>"
+  },
+  "ejs.name": {
+    "translation": "EJS"
+  },
+  "eta.desc": {
+    "translation": "محرك قوالب JS مضمن لـ Node وDeno والمتصفح. خفيف وسريع وقابل للتوسيع. مكتوب بلغة TypeScript."
+  },
+  "eta.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي</tag-2></tag-1> <tag-3> <tag-4>الوثائق</tag-4> </tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5>"
+  },
+  "eta.name": {
+    "translation": "Eta"
+  },
+  "fennel.desc": {
+    "translation": "فينل هي لغة برمجة تجمع بين سرعة وبساطة ونطاق لوا مع مرونة بناء جملة ليسب ونظام الماكرو."
+  },
+  "fennel.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لفينل</tag-2> </tag-1> <tag-3> <tag-4>البدء مع فينل</tag-4> </tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>تحميل قالب البداية</tag-8> </tag-7>"
+  },
+  "fennel.name": {
+    "translation": "Fennel"
+  },
+  "flow.desc": {
+    "translation": "فلو هو مدقق أنواع ثابت لجافا سكريبت."
+  },
+  "flow.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لفلو</tag-2> </tag-1> <tag-3> <tag-4>وثائق فلو</tag-4> </tag-3>"
+  },
+  "flow.name": {
+    "translation": "Flow"
+  },
+  "gleam.desc1": {
+    "translation": "جليم هي لغة ودودة لبناء أنظمة آمنة الأنواع قابلة للتوسع!"
+  },
+  "gleam.desc2": {
+    "translation": "جليم هي لغة برمجة وظيفية ذات أنواع ثابتة، تترجم إلى إرلانج أو جافا سكريبت."
+  },
+  "gleam.link": {
+    "translation": "<tag-1><tag-2>موقع جليم</tag-2></tag-1> <tag-3> <tag-4>وثائق جليم</tag-4> </tag-3> <tag-5> <tag-6>جولة في لغة جليم</tag-6> </tag-5> <tag-7> <tag-8>تحميل قالب البداية</tag-8> </tag-7>"
+  },
+  "gleam.name": {
+    "translation": "Gleam"
+  },
+  "go.desc1": {
+    "translation": "جو (جولانج) هي لغة برمجة مفتوحة المصدر تجعل من السهل بناء برمجيات بسيطة وموثوقة وفعالة."
+  },
+  "go.desc2": {
+    "translation": "هنا، يتم ترجمتها إلى جافا سكريبت باستخدام GopherJS."
+  },
+  "go.link": {
+    "translation": "<tag-1><tag-2>موقع جو</tag-2></tag-1> <tag-3><tag-4>وثائق جو</tag-4></tag-3> <tag-5> <tag-6>مستودع GopherJS</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقيقة، حيث X=Go</tag-8> </tag-7> <tag-9><tag-10>تحميل قالب البداية</tag-10></tag-9>"
+  },
+  "go.name": {
+    "translation": "Go"
+  },
+  "haml.desc": {
+    "translation": "مترجم Haml لقوالب العرض في جافا سكريبت على جانب العميل باستخدام clientside-haml-js."
+  },
+  "haml.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي لـ Haml</tag-2></tag-1> <tag-3> <tag-4>وثائق Haml</tag-4> </tag-3> <tag-5> <tag-6>مستودع GitHub لـ clientside-haml-js</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقيقة، حيث X=haml</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9>"
+  },
+  "haml.name": {
+    "translation": "Haml"
+  },
+  "handlebars.desc": {
+    "translation": "قوالب بسيطة على المنشطات."
+  },
+  "handlebars.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي</tag-2></tag-1> <tag-3> <tag-4>وثائق LiveCodes</tag-4> </tag-3>"
+  },
+  "handlebars.name": {
+    "translation": "Handlebars"
+  },
+  "imba.desc": {
+    "translation": "اللغة الودودة للتطوير الشامل."
+  },
+  "imba.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي</tag-2></tag-1>"
+  },
+  "imba.name": {
+    "translation": "Imba"
+  },
+  "jsx.desc": {
+    "translation": "يتم ترجمة JSX إلى جافا سكريبت في LiveCodes باستخدام مترجم TypeScript. افتراضيًا، يستخدم React كبيئة تشغيل JSX."
+  },
+  "jsx.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ React</tag-2> </tag-1> <tag-3> <tag-4>وثائق JSX في React</tag-4> </tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>تحميل قالب البداية</tag-8> </tag-7>"
+  },
+  "jsx.name": {
+    "translation": "JSX"
+  },
+  "julia.desc1": {
+    "translation": "(دعم لغة Julia في LiveCodes لا يزال تجريبيًا)"
+  },
+  "julia.desc2": {
+    "translation": "مترجم Julia وJulia Base يعملان على WASM، باستخدام <tag-1>julia-wasm</tag-1> المعدل بواسطة <tag-2>polylang.io</tag-2>."
+  },
+  "julia.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Julia</tag-2> </tag-1> <tag-3> <tag-4>وثائق Julia</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقيقة، حيث X=Julia</tag-6> </tag-5> <tag-7> <tag-8>تحميل قالب البداية</tag-8> </tag-7>"
+  },
+  "julia.name": {
+    "translation": "Julia"
+  },
+  "less.desc": {
+    "translation": "إنه CSS، مع القليل من الإضافات."
+  },
+  "less.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي لـ Less</tag-2></tag-1> <tag-3> <tag-4>تعلم X في Y دقيقة، حيث X=less</tag-4> </tag-3>"
+  },
+  "less.name": {
+    "translation": "Less"
+  },
+  "liquid.desc": {
+    "translation": "محرك قوالب بسيط ومعبر وآمن."
+  },
+  "liquid.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ LiquidJS</tag-2> </tag-1> <tag-3> <tag-4>وثائق LiquidJS</tag-4> </tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5>"
+  },
+  "liquid.name": {
+    "translation": "LiquidJS"
+  },
+  "livescript.desc": {
+    "translation": "لغة تترجم إلى جافا سكريبت."
+  },
+  "livescript.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ LiveScript</tag-2> </tag-1> <tag-3> <tag-4>تعلم X في Y دقيقة، حيث X=LiveScript</tag-4> </tag-3> <tag-5> <tag-6>تحميل قالب البداية</tag-6> </tag-5>"
+  },
+  "livescript.name": {
+    "translation": "LiveScript"
+  },
+  "lua.desc": {
+    "translation": "لوا تعمل في المتصفح باستخدام fengari-web."
+  },
+  "lua.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي للوا</tag-2></tag-1> <tag-3> <tag-4>وثائق لوا</tag-4> </tag-3> <tag-5> <tag-6>الموقع الرسمي لـ Fengari</tag-6> </tag-5> <tag-7> <tag-8>مستودع GitHub لـ fengari-web</tag-8> </tag-7> <tag-9> <tag-10>تعلم X في Y دقيقة، حيث X=Lua</tag-10> </tag-9> <tag-11> <tag-12>وثائق LiveCodes</tag-12> </tag-11> <tag-13><tag-14>تحميل قالب البداية</tag-14></tag-13>"
+  },
+  "lua.name": {
+    "translation": "Lua"
+  },
+  "luaWasm.desc": {
+    "translation": "لوا تعمل في المتصفح باستخدام Wasmoon، وهي آلة افتراضية حقيقية للوا 5.4 مع ارتباطات JS مصنوعة باستخدام WebAssembly."
+  },
+  "luaWasm.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي للوا</tag-2></tag-1> <tag-3> <tag-4>وثائق لوا</tag-4> </tag-3> <tag-5> <tag-6>مستودع GitHub لـ Wasmoon</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقيقة، حيث X=Lua</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل قالب البداية</tag-12> </tag-11>"
+  },
+  "luaWasm.name": {
+    "translation": "Lua (Wasm)"
+  },
+  "malina.desc": {
+    "translation": "مترجم واجهة أمامية، مستوحى من Svelte."
+  },
+  "malina.link": {
+    "translation": "<tag-1> <tag-2>مستودع Malina.js</tag-2> </tag-1> <tag-3> <tag-4>وثائق Malina.js</tag-4> </tag-3> <tag-5> <tag-6>تحميل القالب الأولي</tag-6> </tag-5>"
+  },
+  "malina.name": {
+    "translation": "Malina.js"
+  },
+  "markdown.desc": {
+    "translation": "Markdown مترجم إلى HTML باستخدام Marked."
+  },
+  "markdown.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Markdown</tag-2> </tag-1> <tag-3> <tag-4>وثائق Marked</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقائق، حيث X=markdown</tag-6> </tag-5> <tag-7> <tag-8>تحميل القالب الأولي</tag-8> </tag-7>"
+  },
+  "markdown.name": {
+    "translation": "Markdown"
+  },
+  "mdx.desc": {
+    "translation": "Markdown لعصر المكونات. <tag-1></tag-1>يتيح لك MDX كتابة JSX بسلاسة في مستندات Markdown الخاصة بك."
+  },
+  "mdx.link": {
+    "translation": "<tag-1><tag-2>وثائق MDX</tag-2></tag-1> <tag-3><tag-4>تحميل القالب الأولي</tag-4></tag-3>"
+  },
+  "mdx.name": {
+    "translation": "MDX"
+  },
+  "mjml.desc": {
+    "translation": "MJML هي لغة ترميز مصممة لتقليل صعوبة ترميز البريد الإلكتروني المتجاوب."
+  },
+  "mjml.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي لـ MJML</tag-2></tag-1> <tag-3> <tag-4>وثائق MJML</tag-4> </tag-3> <tag-5> <tag-6>القوالب الرسمية لـ MJML</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7>"
+  },
+  "mjml.name": {
+    "translation": "MJML"
+  },
+  "mustache.desc": {
+    "translation": "قوالب بدون منطق."
+  },
+  "mustache.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي</tag-2> </tag-1> <tag-3> <tag-4>دليل mustache(5)</tag-4> </tag-3> <tag-5> <tag-6>تطبيق JavaScript</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7>"
+  },
+  "mustache.name": {
+    "translation": "Mustache"
+  },
+  "nunjucks.desc": {
+    "translation": "لغة قوالب غنية وقوية لـ JavaScript. Nunjucks هو في الأساس نسخة من <tag-1>jinja2</tag-1>."
+  },
+  "nunjucks.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي</tag-2> </tag-1> <tag-3> <tag-4>وثائق LiveCodes</tag-4> </tag-3>"
+  },
+  "nunjucks.name": {
+    "translation": "Nunjucks"
+  },
+  "ocaml.desc1": {
+    "translation": "OCaml هي لغة برمجة صناعية تدعم الأنماط الوظيفية والإجرائية والكائنية."
+  },
+  "ocaml.desc2": {
+    "translation": "يتم استخدام مترجم ReScript هنا لترجمة OCaml إلى JavaScript."
+  },
+  "ocaml.link": {
+    "translation": "<tag-1><tag-2>موقع OCaml</tag-2></tag-1> <tag-3> <tag-4>وثائق OCaml</tag-4> </tag-3> <tag-5> <tag-6>موقع ReScript</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=OCaml</tag-8> </tag-7> <tag-9> <tag-10>تحميل القالب الأولي</tag-10> </tag-9>"
+  },
+  "ocaml.name": {
+    "translation": "OCaml"
+  },
+  "perl.desc": {
+    "translation": "بيرل تعمل في المتصفح باستخدام Perlito."
+  },
+  "perl.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Perl</tag-2> </tag-1> <tag-3> <tag-4>وثائق Perl</tag-4> </tag-3> <tag-5> <tag-6>ملف README لـ Perlito5</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=perl</tag-8> </tag-7> <tag-9> <tag-10>تحميل القالب الأولي</tag-10> </tag-9>"
+  },
+  "perl.name": {
+    "translation": "Perl"
+  },
+  "php.desc": {
+    "translation": "PHP تعمل في المتصفح باستخدام Uniter."
+  },
+  "php.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي لـ PHP</tag-2></tag-1> <tag-3> <tag-4>وثائق PHP</tag-4> </tag-3> <tag-5> <tag-6>مستودع GitHub لـ Uniter</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=PHP</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11><tag-12>تحميل القالب الأولي</tag-12></tag-11>"
+  },
+  "php.name": {
+    "translation": "PHP"
+  },
+  "phpWasm.desc": {
+    "translation": "PHP في المتصفح، مدعومة بـ WebAssembly، باستخدام php-wasm."
+  },
+  "phpWasm.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي لـ PHP</tag-2></tag-1> <tag-3> <tag-4>وثائق PHP</tag-4> </tag-3> <tag-5> <tag-6>مستودع GitHub لـ php-wasm</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=PHP</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل القالب الأولي</tag-12> </tag-11>"
+  },
+  "phpWasm.name": {
+    "translation": "PHP (Wasm)"
+  },
+  "postgresql.desc": {
+    "translation": "PostgreSQL معبأة كـ WASM باستخدام PGlite"
+  },
+  "postgresql.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ PostgreSQL</tag-2> </tag-1> <tag-3> <tag-4>وثائق PostgreSQL</tag-4> </tag-3> <tag-5> <tag-6>مستودع GitHub لـ PGlite</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=SQL</tag-8> </tag-7> <tag-9> <tag-10>تحميل القالب الأولي</tag-10> </tag-9>"
+  },
+  "postgresql.name": {
+    "translation": "PostgreSQL"
+  },
+  "prolog.desc": {
+    "translation": "مترجم Prolog مفتوح المصدر في JavaScript."
+  },
+  "prolog.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Tau Prolog</tag-2> </tag-1> <tag-3> <tag-4>وثائق Tau Prolog</tag-4> </tag-3> <tag-5> <tag-6>SWI-Prolog</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=Prolog</tag-8> </tag-7> <tag-9> <tag-10>تحميل القالب الأولي</tag-10> </tag-9>"
+  },
+  "prolog.name": {
+    "translation": "Tau Prolog"
+  },
+  "pug.desc": {
+    "translation": "محرك قوالب قوي وأنيق وغني بالميزات."
+  },
+  "pug.link": {
+    "translation": "<tag-1> <tag-2>وثائق Pug</tag-2> </tag-1> <tag-3> <tag-4>تعلم X في Y دقائق، حيث X=Pug</tag-4> </tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5>"
+  },
+  "pug.name": {
+    "translation": "Pug"
+  },
+  "python.desc": {
+    "translation": "بايثون تعمل في المتصفح باستخدام Brython."
+  },
+  "python.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Python</tag-2> </tag-1> <tag-3> <tag-4>وثائق Python</tag-4> </tag-3> <tag-5> <tag-6>وثائق Brython</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=Python</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل القالب الأولي</tag-12> </tag-11>"
+  },
+  "python.name": {
+    "translation": "Python"
+  },
+  "pythonWasm.desc1": {
+    "translation": "بايثون مع المجموعة العلمية، مترجمة إلى WebAssembly باستخدام Pyodide."
+  },
+  "pythonWasm.desc2": {
+    "translation": "يتيح Pyodide استخدام المجموعة العلمية لبايثون بما في ذلك NumPy و Pandas و Matplotlib و SciPy و scikit-learn والكثير غيرها. بالإضافة إلى ذلك، من الممكن تثبيت حزم بايثون النقية من PyPi."
+  },
+  "pythonWasm.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Python</tag-2> </tag-1> <tag-3> <tag-4>وثائق Python</tag-4> </tag-3> <tag-5><tag-6>وثائق Pyodide</tag-6></tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=Python</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل القالب الأولي</tag-12> </tag-11>"
+  },
+  "pythonWasm.name": {
+    "translation": "Python (Wasm)"
+  },
+  "r.desc": {
+    "translation": "R تعمل في المتصفح باستخدام WebR."
+  },
+  "r.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لمشروع R</tag-2> </tag-1> <tag-3> <tag-4>أدلة R</tag-4> </tag-3> <tag-5> <tag-6>R لعلوم البيانات (الإصدار الثاني)</tag-6> </tag-5> <tag-7> <tag-8>وثائق WebR</tag-8> </tag-7> <tag-9> <tag-10>تعلم X في Y دقيقة، حيث X=R</tag-10> </tag-9> <tag-11> <tag-12>وثائق LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>تحميل قالب البداية</tag-14> </tag-13>"
+  },
+  "r.name": {
+    "translation": "R"
+  },
+  "reactNative.desc": {
+    "translation": "React Native للويب هو تنفيذ سهل الوصول لمكونات وواجهات برمجة تطبيقات React Native التي تتوافق مع React DOM."
+  },
+  "reactNative.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ React</tag-2> </tag-1> <tag-3> <tag-4>موقع React Native</tag-4> </tag-3> <tag-5> <tag-6>موقع React Native للويب</tag-6> </tag-5> <tag-7> <tag-8>وثائق React Native</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل قالب البداية</tag-12> </tag-11>"
+  },
+  "reactNative.name": {
+    "translation": "React Native للويب"
+  },
+  "reactNativeTsx.desc": {
+    "translation": "React Native للويب هو تنفيذ سهل الوصول لمكونات وواجهات برمجة تطبيقات React Native التي تتوافق مع React DOM."
+  },
+  "reactNativeTsx.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ React</tag-2> </tag-1> <tag-3> <tag-4>موقع React Native</tag-4> </tag-3> <tag-5> <tag-6>موقع React Native للويب</tag-6> </tag-5> <tag-7> <tag-8>وثائق React Native</tag-8> </tag-7> <tag-9> <tag-10>موقع TypeScript</tag-10> </tag-9> <tag-11> <tag-12>وثائق TypeScript</tag-12> </tag-11> <tag-13> <tag-14>وثائق LiveCodes</tag-14> </tag-13> <tag-15> <tag-16>تحميل قالب البداية (JSX)</tag-16> </tag-15>"
+  },
+  "reactNativeTsx.name": {
+    "translation": "React Native للويب (مع TypeScript)"
+  },
+  "reason.desc1": {
+    "translation": "تتيح لك Reason كتابة كود بسيط وسريع وعالي الجودة وآمن الأنواع مع الاستفادة من النظم البيئية لكل من JavaScript و OCaml."
+  },
+  "reason.desc2": {
+    "translation": "يتم استخدام مترجم ReScript هنا لترجمة Reason إلى JavaScript."
+  },
+  "reason.link": {
+    "translation": "<tag-1><tag-2>موقع Reason</tag-2></tag-1> <tag-3> <tag-4>وثائق Reason</tag-4> </tag-3> <tag-5> <tag-6>ReasonReact</tag-6> </tag-5> <tag-7> <tag-8>موقع ReScript</tag-8> </tag-7> <tag-9> <tag-10>تعلم X في Y دقيقة، حيث X=reason</tag-10> </tag-9> <tag-11> <tag-12>تحميل قالب البداية</tag-12> </tag-11>"
+  },
+  "reason.name": {
+    "translation": "Reason"
+  },
+  "rescript.desc": {
+    "translation": "ReScript هي لغة ذات أنواع قوية تترجم إلى JavaScript فعال وقابل للقراءة من قبل البشر."
+  },
+  "rescript.link": {
+    "translation": "<tag-1> <tag-2>موقع ReScript</tag-2> </tag-1> <tag-3> <tag-4>ReScript / React</tag-4> </tag-3> <tag-5> <tag-6>تحميل قالب البداية</tag-6> </tag-5>"
+  },
+  "rescript.name": {
+    "translation": "ReScript"
+  },
+  "richtext.desc1": {
+    "translation": "باستخدام Quill:"
+  },
+  "richtext.desc2": {
+    "translation": "محرر النصوص الغنية القوي الخاص بك."
+  },
+  "richtext.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Quill</tag-2> </tag-1>"
+  },
+  "richtext.name": {
+    "translation": "محرر النصوص الغنية"
+  },
+  "riot.desc": {
+    "translation": "مكتبة واجهة مستخدم بسيطة وأنيقة قائمة على المكونات."
+  },
+  "riot.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Riot.js</tag-2> </tag-1> <tag-3> <tag-4>وثائق Riot.js</tag-4> </tag-3> <tag-5> <tag-6>تحميل قالب البداية</tag-6> </tag-5>"
+  },
+  "riot.name": {
+    "translation": "Riot.js"
+  },
+  "ruby.desc": {
+    "translation": "روبي تعمل في المتصفح باستخدام Opal."
+  },
+  "ruby.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لروبي</tag-2> </tag-1> <tag-3> <tag-4>وثائق روبي</tag-4> </tag-3> <tag-5><tag-6>الموقع الرسمي لـ Opal</tag-6></tag-5> <tag-7> <tag-8>CDN مكتبة Opal القياسية</tag-8> </tag-7> <tag-9> <tag-10>تعلم X في Y دقيقة، حيث X=ruby</tag-10> </tag-9> <tag-11> <tag-12>وثائق LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>تحميل قالب البداية</tag-14> </tag-13>"
+  },
+  "ruby.name": {
+    "translation": "Ruby"
+  },
+  "rubyWasm.desc": {
+    "translation": "روبي تعمل في المتصفح باستخدام ruby-wasm (مجموعة من إصدارات WebAssembly لـ CRuby)."
+  },
+  "rubyWasm.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لروبي</tag-2> </tag-1> <tag-3> <tag-4>وثائق روبي</tag-4> </tag-3> <tag-5> <tag-6>موقع ruby.wasm</tag-6> </tag-5> <tag-7><tag-8>CRuby</tag-8></tag-7> <tag-9> <tag-10>تعلم X في Y دقيقة، حيث X=ruby</tag-10> </tag-9> <tag-11> <tag-12>وثائق LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>تحميل قالب البداية</tag-14> </tag-13>"
+  },
+  "rubyWasm.name": {
+    "translation": "Ruby (WASM)"
+  },
+  "sass.desc": {
+    "translation": "أوراق الأنماط الرائعة نحويًا."
+  },
+  "sass.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Sass</tag-2> </tag-1> <tag-3> <tag-4>وثائق Sass</tag-4> </tag-3> <tag-5> <tag-6>بناء جملة Sass (المسافة البادئة)</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقيقة، حيث X=sass</tag-8> </tag-7>"
+  },
+  "sass.name": {
+    "translation": "Sass"
+  },
+  "scheme.desc": {
+    "translation": "Scheme تعمل في المتصفح باستخدام biwascheme."
+  },
+  "scheme.link": {
+    "translation": "<tag-1> <tag-2>لغة البرمجة Scheme</tag-2> </tag-1> <tag-3> <tag-4>الموقع الرسمي لـ BiwaScheme</tag-4> </tag-3> <tag-5> <tag-6>مرجع BiwaScheme</tag-6> </tag-5> <tag-7> <tag-8>تحميل قالب البداية</tag-8> </tag-7>"
+  },
+  "scheme.name": {
+    "translation": "Scheme"
+  },
+  "scss.desc": {
+    "translation": "أوراق الأنماط الرائعة نحويًا."
+  },
+  "scss.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Sass</tag-2> </tag-1> <tag-3> <tag-4>وثائق Sass</tag-4> </tag-3> <tag-5> <tag-6>بناء جملة SCSS</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقيقة، حيث X=sass</tag-8> </tag-7>"
+  },
+  "scss.name": {
+    "translation": "SCSS"
+  },
+  "solid.desc": {
+    "translation": "مكتبة JavaScript تصريحية وفعالة ومرنة لبناء واجهات المستخدم."
+  },
+  "solid.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي</tag-2></tag-1> <tag-3><tag-4>الوثائق</tag-4></tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>تحميل قالب البداية (TSX)</tag-8> </tag-7>"
+  },
+  "solid.name": {
+    "translation": "Solid"
+  },
+  "solid.tsx.desc": {
+    "translation": "مكتبة JavaScript تصريحية وفعالة ومرنة لبناء واجهات المستخدم."
+  },
+  "solid.tsx.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي</tag-2></tag-1> <tag-3> <tag-4>وثائق Solid</tag-4> </tag-3> <tag-5> <tag-6>موقع TypeScript</tag-6> </tag-5> <tag-7> <tag-8>وثائق TypeScript</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل قالب البداية</tag-12> </tag-11>"
+  },
+  "solid.tsx.name": {
+    "translation": "Solid (مع TypeScript)"
+  },
+  "sql.desc": {
+    "translation": "SQLite مترجم إلى JavaScript باستخدام SQL.js"
+  },
+  "sql.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ SQLite</tag-2> </tag-1> <tag-3> <tag-4>وثائق بناء جملة SQLite</tag-4> </tag-3> <tag-5> <tag-6>الموقع الرسمي لـ SQL.js</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=SQL</tag-8> </tag-7> <tag-9><tag-10>تحميل القالب الأولي</tag-10></tag-9>"
+  },
+  "sql.name": {
+    "translation": "SQLite"
+  },
+  "stencil.desc": {
+    "translation": "مترجم لمكونات الويب وتطبيقات الويب عالية الأداء."
+  },
+  "stencil.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Stencil</tag-2> </tag-1> <tag-3> <tag-4>وثائق Stencil</tag-4> </tag-3> <tag-5> <tag-6>تحميل القالب الأولي</tag-6> </tag-5>"
+  },
+  "stencil.name": {
+    "translation": "Stencil"
+  },
+  "styleProcessors.link": {
+    "translation": "<tag-1> <tag-2>Tailwind CSS</tag-2> </tag-1> <tag-3> <tag-4>Windi CSS</tag-4> </tag-3> <tag-5> <tag-6>UnoCSS</tag-6> </tag-5> <tag-7> <tag-8>Lightning CSS</tag-8> </tag-7> <tag-9> <tag-10>PostCSS</tag-10> الإضافات: <tag-11> <tag-12> <tag-13>Autoprefixer</tag-13> </tag-12> <tag-14> <tag-15>postcss-preset-env</tag-15> </tag-14> <tag-16> <tag-17>postcss-import-url</tag-17> </tag-16> <tag-18> <tag-19>postcss-modules</tag-19> </tag-18> </tag-11> </tag-9>"
+  },
+  "styleProcessors.name": {
+    "translation": "أطر عمل ومعالجات CSS"
+  },
+  "stylis.desc": {
+    "translation": "معالج CSS خفيف الوزن."
+  },
+  "stylis.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Stylis</tag-2> </tag-1>"
+  },
+  "stylis.name": {
+    "translation": "Stylis"
+  },
+  "stylus.desc": {
+    "translation": "CSS تعبيري، ديناميكي، وقوي."
+  },
+  "stylus.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Stylus</tag-2> </tag-1> <tag-3> <tag-4>تعلم X في Y دقائق، حيث X=stylus</tag-4> </tag-3>"
+  },
+  "stylus.name": {
+    "translation": "Stylus"
+  },
+  "sucrase.desc": {
+    "translation": "بديل فائق السرعة لـ Babel عندما تستهدف بيئات تشغيل JavaScript الحديثة."
+  },
+  "sucrase.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Sucrase</tag-2> </tag-1> <tag-3> <tag-4>مستودع GitHub لـ Sucrase</tag-4> </tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5>"
+  },
+  "sucrase.name": {
+    "translation": "Sucrase"
+  },
+  "svelte.desc": {
+    "translation": "تطبيقات ويب معززة سيبرانياً."
+  },
+  "svelte.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Svelte</tag-2> </tag-1> <tag-3> <tag-4>وثائق Svelte</tag-4> </tag-3> <tag-5> <tag-6>تحميل القالب الأولي</tag-6> </tag-5>"
+  },
+  "svelte.name": {
+    "translation": "Svelte"
+  },
+  "tcl.desc": {
+    "translation": "Tcl يعمل في المتصفح، باستخدام <tag-1>wacl</tag-1>."
+  },
+  "tcl.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Tcl</tag-2> </tag-1> <tag-3> <tag-4>مستودع wacl</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقائق، حيث X=Tcl</tag-6> </tag-5> <tag-7> <tag-8>تحميل القالب الأولي</tag-8> </tag-7>"
+  },
+  "tcl.name": {
+    "translation": "Tcl (لغة أوامر الأدوات)"
+  },
+  "teal.desc": {
+    "translation": "لهجة مكتوبة من Lua."
+  },
+  "teal.link": {
+    "translation": "<tag-1> <tag-2>مستودع GitHub لـ Teal</tag-2> </tag-1> <tag-3> <tag-4>وثائق Teal</tag-4> </tag-3> <tag-5> <tag-6>دليل Teal التعليمي</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل القالب الأولي</tag-10> </tag-9>"
+  },
+  "teal.name": {
+    "translation": "Teal"
+  },
+  "tsx.desc": {
+    "translation": "TypeScript في JSX. يتم ترجمة TSX إلى JavaScript في LiveCodes باستخدام مترجم TypeScript. افتراضيًا، يستخدم React كبيئة تشغيل JSX."
+  },
+  "tsx.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ React</tag-2> </tag-1> <tag-3> <tag-4>وثائق JSX في React</tag-4> </tag-3> <tag-5> <tag-6>وثائق Typescript</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7>"
+  },
+  "tsx.name": {
+    "translation": "TSX"
+  },
+  "twig.desc": {
+    "translation": "تطبيق JavaScript لـ <tag-1>Twig</tag-1> لغة قوالب PHP بواسطة <tag-2>Twig.js</tag-2> ."
+  },
+  "twig.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Twig</tag-2> </tag-1> <tag-3> <tag-4>وثائق Twig</tag-4> </tag-3> <tag-5> <tag-6>مستودع Twig.js</tag-6> </tag-5> <tag-7> <tag-8>وثائق Twig.js</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9>"
+  },
+  "twig.name": {
+    "translation": "Twig"
+  },
+  "typescript.desc": {
+    "translation": "مجموعة فرعية مكتوبة من JavaScript."
+  },
+  "typescript.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي</tag-2> </tag-1> <tag-3> <tag-4>وثائق TypeScript</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقائق، حيث X=TypeScript</tag-6> </tag-5> <tag-7> <tag-8>تحميل القالب الأولي</tag-8> </tag-7>"
+  },
+  "typescript.name": {
+    "translation": "TypeScript"
+  },
+  "vue.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Vue.js v3</tag-2> </tag-1> <tag-3> <tag-4>وثائق Vue3</tag-4> </tag-3> <tag-5> <tag-6>مكونات الملف الواحد في Vue3</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9><tag-10>تحميل القالب الأولي</tag-10></tag-9>"
+  },
+  "vue.name": {
+    "translation": "مكونات الملف الواحد في Vue3"
+  },
+  "vue2.desc": {
+    "translation": "تم تحميله باستخدام vue3-sfc-loader."
+  },
+  "vue2.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي لـ Vue.js</tag-2></tag-1> <tag-3> <tag-4>وثائق Vue2</tag-4> </tag-3> <tag-5> <tag-6>مكونات الملف الواحد في Vue2</tag-6> </tag-5> <tag-7> <tag-8>مستودع GitHub لـ vue3-sfc-loader</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9>"
+  },
+  "vue2.name": {
+    "translation": "مكونات الملف الواحد في Vue2"
+  },
+  "wat.desc1": {
+    "translation": "تمثيل نصي منخفض المستوى لتنسيق WebAssembly (wasm) الثنائي."
+  },
+  "wat.desc2": {
+    "translation": "يتم تحويله إلى wasm باستخدام wabt.js."
+  },
+  "wat.link": {
+    "translation": "<tag-1><tag-2>WebAssembly.org</tag-2></tag-1> <tag-3> <tag-4>مواصفات نص WebAssembly</tag-4> </tag-3> <tag-5> <tag-6>WebAssembly على MDN</tag-6> </tag-5> <tag-7> <tag-8>فهم تنسيق نص WebAssembly</tag-8> </tag-7> <tag-9> <tag-10>وثائق wabt.js</tag-10> </tag-9> <tag-11> <tag-12>تعلم X في Y دقائق، حيث X=WebAssembly</tag-12> </tag-11> <tag-13><tag-14>تحميل القالب الأولي</tag-14></tag-13>"
+  },
+  "wat.name": {
+    "translation": "تنسيق نص WebAssembly"
+  }
+}

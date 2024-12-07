@@ -1,12 +1,17 @@
 <div id="test-editor-container" class="modal-container">
-  <div class="modal-title">Edit Tests</div>
+  <div class="modal-title" data-i18n="testEditor.heading">Edit Tests</div>
   <div id="test-editor-screen-container" class="modal-screen-container">
     <div class="modal-screen">
-      <label>Tests</label>
+      <label data-i18n="testEditor.tests">Tests</label>
       <div id="test-editor" class="editor custom-editor"></div>
-      <button id="test-load-btn" class="wide-button">Load</button>
+      <button id="test-load-btn" class="wide-button" data-i18n="testEditor.load">Load</button>
     </div>
-    <!-- TODO: add link to documentations -->
-    <!-- <div class="description">See documentations for details.</div> -->
+    <div class="description help" data-i18n="testSettings.desc" data-i18n-prop="innerHTML">
+      <i class="icon-help"></i>
+      For further details, please refer to the
+      <a href="https://livecodes.io/docs/features/tests/" target="_blank" rel="noopener"
+        >documentation</a
+      >
+    </div>
   </div>
 </div>

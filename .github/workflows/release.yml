@@ -6,6 +6,9 @@ on:
       - develop
     types: [closed]
 
+env:
+  NODE_VERSION: 18.x
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -13,25 +16,36 @@ jobs:
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Generate Github Token for CI Bot
+        uses: actions/create-github-app-token@v1
+        id: generate-token
         with:
-          token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Get version
         id: vars
         run: echo ::set-output name=version::$(echo ${{github.head_ref}} | sed 's/^releases\///')
 
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build
         run: npm run build
+        env:
+          BUILD_INCLUDE_LOCALES: true
 
       - name: Release notes
         run: node ./scripts/release-notes.js
@@ -57,7 +71,7 @@ jobs:
           files: |
             livecodes-${{steps.vars.outputs.version}}.tar.gz
             livecodes-${{steps.vars.outputs.version}}.zip
-          token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Create permanent URL
         if: startsWith(github.head_ref, 'releases/v')
@@ -81,10 +95,10 @@ jobs:
         if: startsWith(github.head_ref, 'releases/v')
         run: gh pr create --title "release ${{steps.vars.outputs.version}}" --body "https://${{steps.vars.outputs.version}}.livecodes.io" --base main --head develop
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
 
       - name: Create pull request to main (SDK)
         if: startsWith(github.head_ref, 'releases/sdk-v')
         run: gh pr create --title "release ${{steps.vars.outputs.version}}" --body "https://www.npmjs.com/package/livecodes" --base main --head develop
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
