@@ -2,7 +2,7 @@
 
 # LiveCodes
 
-Code Playground That Just Works!
+A Code Playground That Just Works!
 
 <p align="center">
 <img width="300" src="https://dev.livecodes.io/docs/img/livecodes-logo.svg"></img>
@@ -14,8 +14,11 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 [![LiveCodes: app version](https://img.shields.io/github/v/release/live-codes/livecodes?label=app)](https://livecodes.io)
 [![LiveCodes: npm version](https://img.shields.io/npm/v/livecodes)](https://www.npmjs.com/package/livecodes)
 [![LiveCodes: npm downloads](https://img.shields.io/npm/dw/livecodes)](https://www.npmjs.com/package/livecodes)
+[![LiveCodes: jsdelivr downloads](https://data.jsdelivr.com/v1/package/npm/livecodes/badge?style=rounded)](https://www.jsdelivr.com/package/npm/livecodes)
 [![LiveCodes: languages](https://img.shields.io/badge/languages-91-blue)](https://livecodes.io/docs/languages/)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://www.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade)
+[![Lokalise: translated](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/translated.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
+[![Lokalise: UI languages](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/languages.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
 [![license - MIT](https://img.shields.io/github/license/live-codes/livecodes)](https://github.com/live-codes/livecodes/blob/develop/LICENSE)
 [![LiveCodes: GitHub repo](https://img.shields.io/github/stars/live-codes/livecodes?style=social)](https://github.com/live-codes/livecodes)
 
@@ -25,9 +28,9 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 
 [What makes LiveCodes different?](https://livecodes.io/docs/why)
 
-![LiveCodes list of languages screenshot](https://dev.livecodes.io/docs/img/screenshots/livecodes-languages.jpg)
+![LiveCodes list of languages screenshot](https://dev.livecodes.io/docs/img/screenshots/livecodes-overview.jpg)
 
-## Code Playground That Just Works!
+## A Code Playground That Just Works!
 
 - No servers to configure (or pay for!)
 - No databases to maintain (or pay for!)
@@ -213,11 +216,31 @@ https://livecodes.io/docs/
 
 The documentations include demos, code samples, screenshots, [Storybook](https://livecodes.io/stories) and [TypeScript types](https://livecodes.io/docs/sdk/js-ts#typescript-types).
 
+## Updates
+
+Keep up with the latest changes:
+
+- Twitter/X: [@livecodes_io](https://twitter.com/livecodes_io)
+- Blog: [blog.livecodes.io](https://blog.livecodes.io/)
+- Development build: [dev.livecodes.io](https://dev.livecodes.io/)
+
+## Feedback
+
+We welcome feedback!
+
+Please start a new [issue](https://github.com/live-codes/livecodes/issues/new/choose) or [discussion](https://github.com/live-codes/livecodes/discussions/new).
+
+For security reports please refer to [SECURITY.md](https://github.com/live-codes/livecodes/blob/develop/SECURITY.md).
+
+You may also reach out to us using the [contact form](https://livecodes.io/docs/contact).
+
 ## Contribution
 
 Contributions are welcome and highly appreciated.
 
-Please refer to the [contribution guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md)
+A huge shout-out to our wonderful [contributors](https://github.com/live-codes/livecodes/graphs/contributors)! Your hard work makes all the difference!
+
+Please refer to the [contribution guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md).
 
 ## Credits
 
@@ -264,6 +287,11 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
+<a href="https://netlify.com/" target="_blank" title="Netlify">
+  <img alt="Netlify" width="200" src="https://dev.livecodes.io/docs/img/credits/netlify.svg">
+</img></a><br /><br />
+</p>
+<p>
 <a href="https://www.sonarsource.com/products/sonarcloud/" target="_blank" title="SonarCloud">
   <img alt="SonarCloud" width="200" src="https://dev.livecodes.io/docs/img/credits/sonarcloud.svg">
 </img></a><br /><br />
@@ -281,6 +309,11 @@ LiveCodes uses services that are generously provided by:
 <p>
 <a href="https://www.browserstack.com/" target="_blank" title="BrowserStack">
   <img alt="BrowserStack" width="200" src="https://dev.livecodes.io/docs/img/credits/browserstack.svg">
+</img></a><br /><br />
+</p>
+<p>
+<a href="https://lokalise.com/" target="_blank" title="Lokalise">
+  <img alt="Lokalise" width="200" src="https://dev.livecodes.io/docs/img/credits/lokalise.png">
 </img></a><br /><br />
 </p>
 

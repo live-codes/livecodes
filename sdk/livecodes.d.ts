@@ -654,6 +654,10 @@ declare module 'livecodes/models' {
                 * If `true`, the [welcome screen](https://livecodes.io/docs/features/welcome) is displayed when the app loads.
                 */
             welcome: boolean;
+            /**
+                * Sets the app UI language used.
+                */
+            appLanguage: AppLanguage | undefined;
     }
     export interface EditorConfig {
             /**
@@ -669,6 +673,12 @@ declare module 'livecodes/models' {
                 * @default "dark"
                 */
             theme: Theme;
+            /**
+                * Sets the app theme color.
+                * If `undefined`, it is set to `"hsl(214, 40%, 50%)"`.
+                * @default undefined
+                */
+            themeColor: string | undefined;
             /**
                 * Sets the [code editor](https://livecodes.io/docs/features/editor-settings) themes.
                 *
@@ -686,7 +696,7 @@ declare module 'livecodes/models' {
                 */
             fontFamily: string | undefined;
             /**
-                * Sets the [code editor](https://livecodes.io/docs/features/editor-settings) font size.
+                * Sets the font size.
                 *
                 * If `undefined` (the default), the font size is set to 14 for the full app and 12 for [embeds](https://livecodes.io/docs/features/embeds).
                 * @default undefined
@@ -991,7 +1001,7 @@ declare module 'livecodes/models' {
     export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
             name: 'console' | 'compiled' | 'tests';
-            title: 'Console' | 'Compiled' | 'Tests';
+            title: string;
             load: () => Promise<void>;
             onActivate: () => void;
             onDeactivate: () => void;
@@ -1003,7 +1013,7 @@ declare module 'livecodes/models' {
             factory: (config: Config, baseUrl: string, editors: Editors, eventsManager: EventsManager, isEmbed: boolean, runTests: () => Promise<void>) => Tool;
     }>;
     export interface Console extends Tool {
-            title: 'Console';
+            title: string;
             log: (...args: any[]) => void;
             info: (...args: any[]) => void;
             table: (...args: any[]) => void;
@@ -1012,14 +1022,15 @@ declare module 'livecodes/models' {
             clear: (silent?: boolean) => void;
             evaluate: (code: string) => void;
             reloadEditor: (config: Config) => Promise<void>;
+            setTheme?: (theme: Theme) => void;
     }
     export interface CompiledCodeViewer extends Tool {
-            title: 'Compiled';
+            title: string;
             update: (language: Language, content: string, label?: string | undefined) => void;
             reloadEditor: (config: Config) => Promise<void>;
     }
     export interface TestViewer extends Tool {
-            title: 'Tests';
+            title: string;
             showResults: ({ results, error }: {
                     results: TestResult[];
                     error?: string;
@@ -1117,6 +1128,7 @@ declare module 'livecodes/models' {
             xml?: string;
             js?: string;
     }
+    export type AppLanguage = 'auto' | 'ar' | 'de' | 'en' | 'es' | 'fr' | 'hi' | 'it' | 'ja' | 'pt' | 'ru' | 'ur' | 'zh-CN';
     export interface User {
             uid: string;
             token: string | null;
@@ -1264,6 +1276,7 @@ declare module 'livecodes/models' {
             destroy: 'livecodes-destroy';
             resizeEditor: 'livecodes-resize-editor';
             apiResponse: 'livecodes-api-response';
+            i18n: 'livecodes-i18n';
     }
     export interface PkgInfo {
             name: string;
