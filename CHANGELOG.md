@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.7.0](https://github.com/live-codes/livecodes/compare/v35...sdk-v0.7.0) (2024-12-07)
+
+### Features
+
+- **Config:** add [`appLanguage`](https://livecodes.io/docs/configuration/configuration-object#applanguage) config property to set i18n language ([c682d7c](https://github.com/live-codes/livecodes/commit/c682d7c3c666e38089c3c150420406a56483a9f6))
+
+- **Config:** add [`themeColor`](https://livecodes.io/docs/configuration/configuration-object#themecolor) config property to set theme color.
+
+---
+
 ## [v35](https://github.com/live-codes/livecodes/compare/v34...v35) (2024-08-01)
 
 ### Highlights for this release:
