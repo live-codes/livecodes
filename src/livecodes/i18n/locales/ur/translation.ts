@@ -4,60 +4,19 @@ import type { I18nTranslation } from '../models';
 
 const translation: I18nTranslation = {
   about: {
-    blog: {
-      text: 'بلاگ',
-      title: 'LiveCodes بلاگ',
-    },
-    configuration: 'ترتیب',
-    credits: {
-      heading: 'کریڈٹس',
-      para1:
-        'LiveCodes کو اوپن سورس پروجیکٹس، ویب سروسز اور تعاون کنندگان کے ذریعے ممکن بنایا گیا ہے۔ <1> کریڈٹ دیکھیں </1>',
-      para2: '© 2024 حاتم حسنی LiveCodes MIT لائسنس کے تحت لائسنس یافتہ ہے۔',
-    },
     documentations: {
       heading: 'دستاویزات',
     },
-    gettingStarted: 'شروع کرنا',
-    github: {
-      text: 'گٹ ہب',
-      title: 'گٹ ہب',
-    },
     heading: 'لائیو کوڈز کے بارے میں',
-    livecodes: {
-      aboutUs: 'لائیو کوڈز کے بارے میں',
-      para1:
-        '<1><2>لائیو کوڈز</2></1> ایک <3>اوپن سورس</3>، <4>خصوصیات سے بھرپور</4>، <5>کلائنٹ-سائیڈ</5> کوڈ پلے گراؤنڈ ہے۔ فی الحال، <6>90+ زبانیں/<7></7>فریم ورکس</6> کو سپورٹ کیا جاتا ہے۔ اسے ایک خودمختار ایپ کے طور پر استعمال کیا جا سکتا ہے یا کسی بھی ویب صفحے میں <8>ایمبیڈ</8> کیا جا سکتا ہے۔ کوڈ کے ساتھ پلے گراؤنڈز کو <9>پہلے سے بھرنے</9> کے کئی طریقے ہیں۔',
-      para2:
-        '<1>کنفیگریشن آپشنز</1> کی وسیع رینج اسے بہت لچکدار بناتی ہے۔ ایک طاقتور <2>ایس ڈی کے</2> (<3>جے ایس/ٹی ایس</3>، <4>ری ایکٹ</4>، <5>ویو</5> اور <6>سویلٹ</6> کے لیے) پلے گراؤنڈز کو <7>ایمبیڈ</7> کرنے اور ان سے <8>مواصلت</8> کرنے میں سہولت فراہم کرتی ہے۔ کوڈ نمونوں، لائیو ڈیموز اور اسکرین شاٹس کے ساتھ <9>جامع دستاویزات</9> دستیاب ہیں۔',
-    },
-    sdk: 'LiveCodes SDK',
-    sponsor: {
-      text: 'سپانسر',
-      title: 'لائیو کوڈز کو سپانسر کریں',
-    },
-    twitter: {
-      text: '𝕏 / ٹویٹر',
-      title: '𝕏 / ٹویٹر',
-    },
     version: {
-      app: 'ایپ ورژن: <1> {{APP_VERSION}} </1>',
       appPermanentUrl: 'ایپ کا مستقل یو آر ایل',
-      commit: 'گٹ کمٹ: <1> {{COMMIT_SHA}} </1>',
       heading: 'ورژن',
-      sdk: 'ایس ڈی کے ورژن: <1>{{SDK_VERSION}}</1>',
       sdkPermanentUrl: 'ایس ڈی کے کا مستقل یو آر ایل',
     },
   },
   app: {
-    changeTheme: {
-      hint: 'تھیم تبدیل کریں۔',
-    },
     consoleMessage: {
-      appVersion: 'ایپ ورژن: {{APP_VERSION}}',
-      commit: 'گٹ کمٹ: {{COMMIT_SHA}}',
       learnMore: 'مزید جانیں! {{docsUrl}} 🚀',
-      sdkVersion: 'ایس ڈی کے ورژن: {{SDK_VERSION}}',
     },
     copy: {
       hint: 'کاپی (Ctrl/Cmd + A, Ctrl/Cmd + C)',
@@ -83,16 +42,6 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'فل اسکرین',
     },
-    i18nButton: {
-      hint: 'ایپ یو آئی زبان',
-    },
-    i18nMenu: {
-      docs: 'i18n دستاویزات',
-      helpTranslate: 'ترجمہ کرنے میں ہماری مدد کریں۔',
-    },
-    logo: {
-      title: 'لائیو کوڈز: ایک کوڈ پلے گراؤنڈ جو بس کام کرتا ہے!',
-    },
     projectInfo: {
       hint: 'پروجیکٹ کی معلومات',
     },
@@ -105,18 +54,12 @@ const translation: I18nTranslation = {
     share: {
       hint: 'شیئر کریں',
     },
-    themeColors: {
-      custom: 'حسب ضرورت',
-    },
     undo: {
       hint: 'واپس لیں (Ctrl/Cmd + Z)',
     },
     untitledProject: 'بے نام پروجیکٹ',
   },
   assets: {
-    action: {
-      delete: 'حذف کریں',
-    },
     add: {
       dataURL: {
         desc: 'اثاثے کو بیس64-انکوڈڈ <1>ڈیٹا یو آر ایل</1> کے طور پر شامل کریں۔',
@@ -324,7 +267,6 @@ const translation: I18nTranslation = {
   },
   customSettings: {
     JSON: 'حسب ضرورت ترتیبات JSON',
-    desc: '<1> </1> مزید تفصیلات کے لیے، براہ کرم <2> دستاویزات </2> دیکھیں۔',
     heading: 'حسب ضرورت ترتیبات',
     load: 'لوڈ کریں',
   },
@@ -409,13 +351,6 @@ const translation: I18nTranslation = {
       copy: 'کوڈ کاپی کریں',
       heading: 'کوڈ',
     },
-    codeEditor: {
-      codeJar: 'کوڈ جار',
-      codeMirror: 'کوڈ مرر',
-      default: 'ڈیفالٹ',
-      heading: 'کوڈ ایڈیٹر',
-      monaco: 'موناکو',
-    },
     desc: 'اعلی درجے کی ترتیبات کے لیے براہ کرم <1>دستاویزات</1> چیک کریں۔',
     embedType: {
       cdn: 'اسکرپٹ (سی ڈی این)',
@@ -428,12 +363,6 @@ const translation: I18nTranslation = {
       vue: 'ویو',
     },
     heading: 'پروجیکٹ ایمبیڈ کریں',
-    layout: {
-      heading: 'لے آؤٹ',
-      horizontal: 'افقی',
-      responsive: 'جوابدہ',
-      vertical: 'عمودی',
-    },
     lite: 'لائٹ موڈ',
     loading: {
       click: 'کلک پر',
@@ -447,7 +376,6 @@ const translation: I18nTranslation = {
       full: 'مکمل',
       heading: 'ڈسپلے موڈ',
       result: 'نتیجہ',
-      simple: 'سادہ',
     },
     permanentUrl: 'مستقل یو آر ایل',
     preview: 'پیش نظارہ',
@@ -478,15 +406,10 @@ const translation: I18nTranslation = {
       configuration: 'ترتیب',
       gettingStarted: 'شروع کرنا',
       github: 'گٹ ہب',
-      sdk: 'ایس ڈی کے',
-      sponsor: 'لکفیل',
       twitter: '𝕏 / ٹویٹر',
     },
     clickForInfo: 'معلومات کے لیے کلک کریں...',
     close: 'بند کریں',
-    embed: {
-      logoHint: 'لائیو کوڈ پر ترمیم کریں 🡕',
-    },
     error: {
       authentication: 'تصدیق میں خرابی!',
       exceededSize: 'خرابی: سائز {{size}} ایم بی سے زیادہ ہو گیا',
@@ -542,33 +465,17 @@ const translation: I18nTranslation = {
     publicRepo: 'ریپوز',
   },
   menu: {
-    about: 'تعارف',
-    appHelp: {
-      heading: 'مدد',
-      hint: 'مدد',
-    },
-    appProject: {
-      heading: 'پروجیکٹ',
-      hint: 'پروجیکٹ',
-    },
-    appSettings: {
-      heading: 'ترتیبات',
-      hint: 'ایپ کی ترتیبات',
-    },
     assets: 'اثاثے …',
     autoSave: 'خود کار محفوظ',
     autoUpdate: 'خود کار اپ ڈیٹ',
     backup: 'بیک اپ / بحالی …',
-    blog: 'LiveCodes بلاگ',
     broadcast: 'نشریات …',
-    config: 'ترتیب',
     customSettings: 'حسب ضرورت ترتیبات …',
     delay: {
       heading: 'تاخیر: <1>1.5</1> سیکنڈ',
       hint: 'خود کار اپ ڈیٹ سے پہلے تاخیر',
     },
     deploy: 'تعینات کریں …',
-    docs: 'دستاویزی',
     editorSettings: 'ایڈیٹر کی ترتیبات …',
     embed: 'ایمبیڈ …',
     export: {
@@ -580,48 +487,33 @@ const translation: I18nTranslation = {
       result: 'نتیجہ برآمد کریں (HTML)',
       src: 'سورس برآمد کریں (ZIP)',
     },
-    features: 'خصوصیات',
     formatOnsave: 'محفوظ کرتے وقت فارمیٹ کریں',
-    getstart: 'شروع کرنا',
     import: 'درآمد …',
     layout: 'عمودی لے آؤٹ',
-    license: 'لائسنس',
-    login: 'لاگ ان …',
     logout: 'لاگ آؤٹ',
     new: 'نیا …',
     open: 'کھولیں …',
     project: 'پروجیکٹ کی معلومات …',
     recoverUnsaved: 'غیر محفوظ شدہ بحال کریں',
-    report: 'کسی مسئلے کی اطلاع دیں۔',
     resources: 'بیرونی وسائل …',
     save: 'محفوظ کریں',
     saveAs: {
       fork: 'فورک (نیا پروجیکٹ)',
-      heading: 'بطور محفوظ کریں',
       template: 'سانچہ',
     },
-    sdk: 'ایس ڈی کے',
     share: 'شیئر کریں …',
     showSpacing: {
       heading: 'خالی جگہ دکھائیں',
       hint: 'Alt/Option دبائیں اور اپنے کرسر کو نتیجے کے صفحے پر لے جائیں',
     },
-    showWelcome: {
-      title: 'شروع ہونے پر خوش آمدیدی اسکرین دکھائیں',
-    },
     snippets: 'کوڈ اسنیپٹس …',
-    source: 'GitHub پر ماخذ کوڈ',
     sync: 'مطابقت پذیری (بیٹا) … <1> ⏳</1>',
     theme: 'ڈارک تھیم',
-    themeColor: 'رنگ',
     welcome: {
       heading: 'خوش آمدید …',
     },
   },
   open: {
-    action: {
-      delete: 'حذف کریں',
-    },
     defaultTemplate: 'ڈیفالٹ سانچہ ',
     delete: {
       all: '{{projects}} پروجیکٹس حذف کریں؟',
@@ -701,9 +593,6 @@ const translation: I18nTranslation = {
     },
     stylesheets: 'بیرونی اسٹائل شیٹس',
     urlDesc: 'اسٹائل شیٹ/اسکرپٹ یو آر ایلز شامل کریں۔ ہر یو آر ایل ایک الگ لائن میں ہونی چاہیے۔',
-  },
-  resultMode: {
-    linkText: 'لائیو کوڈ پر ترمیم کریں',
   },
   savePrompt: {
     heading: 'غیر محفوظ شدہ تبدیلیاں',
@@ -906,9 +795,6 @@ const translation: I18nTranslation = {
     heading: 'ٹیسٹ میں ترمیم کریں',
     load: 'لوڈ کریں',
     tests: 'ٹیسٹ',
-  },
-  testSettings: {
-    desc: '<1> </1> مزید تفصیلات کے لیے، براہ کرم <2> دستاویزات </2> دیکھیں۔',
   },
   toolspane: {
     close: 'بند کریں',

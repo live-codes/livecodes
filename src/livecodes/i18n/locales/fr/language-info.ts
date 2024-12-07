@@ -141,9 +141,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'JSX',
   },
   julia: {
-    desc1: 'Le support du langage Julia dans LiveCodes est encore expérimentale',
-    desc2:
-      "Compilateur Julia et Julia Base s'exécutant sur WASM, utilisant <1>julia-wasm</1> adapté par <2>polylang.io</2>.",
     link: '<1> <2>Site officiel de Julia</2> </1> <3> <4>Documentation de Julia</4> </3> <5> <6>Apprenez X en Y minutes, où X=Julia</6> </5> <7> <8>Charger le modèle de démarrage</8> </7>',
     name: 'Julia',
   },
@@ -325,7 +322,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'SQLite',
   },
   stencil: {
-    desc: 'Un compilateur pour les composants Web et haute performance des applications Web.',
+    desc: 'Un compilateur pour les composants Web et les applications Web haute performance.',
     link: '<1> <2>Site officiel de Stencil</2> </1> <3> <4>Documentation de Stencil</4> </3> <5> <6>Charger le modèle de démarrage</6> </5>',
     name: 'Stencil',
   },

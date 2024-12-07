@@ -137,9 +137,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'JSX',
   },
   julia: {
-    desc1: 'LiveCodes 中的 Julia 语言支持仍处于实验阶段。',
-    desc2:
-      '在 WASM 上运行的 Julia 编译器和 Julia Base，使用由 <2>polylang.io</2> 适配的 <1>julia-wasm</1> 。',
     link: '<1> <2>Julia 官方网站</2> </1> <3> <4>Julia 文档</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=Julia</6> </5> <7> <8>加载启动模板</8> </7>',
     name: 'Julia',
   },
@@ -179,7 +176,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   mdx: {
     desc: '组件时代的 Markdown。 <1> </1> MDX 让您可以在 Markdown 文档中无缝编写 JSX。',
-    link: '<1><2>MDX 文档</2></1> <3><4>加载启动模板</4> </3>',
     name: 'MDX',
   },
   mjml: {
@@ -317,7 +313,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   sql: {
     desc: '使用 SQL.js 编译为 JavaScript 的 SQLite。',
-    link: '<1> <2>SQLite 官方网站</2> </1> <3> <4>SQLite 语法文档</4> </3> <5> <6>SQL.js 官方网站</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=SQL</8> </7> <9><10>加载启动模板</10> </9>',
     name: 'SQLite',
   },
   stencil: {
@@ -374,7 +369,6 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TypeScript',
   },
   vue: {
-    link: '<1> <2>Vue.js v3 官方网站</2> </1> <3> <4>Vue3 文档</4> </3> <5> <6>Vue3 单文件组件</6> </5> <7> <8>LiveCodes 文档</8> </7> <9><10>加载启动模板</10> </9>',
     name: 'Vue3 单文件组件',
   },
   vue2: {
@@ -385,7 +379,6 @@ const languageInfo: I18nLangInfoTranslation = {
   wat: {
     desc1: 'WebAssembly（wasm）二进制格式的低级文本表示。',
     desc2: '使用 wabt.js 将其转换为 wasm。',
-    link: '<1><2>WebAssembly.org</2></1> <3> <4> WebAssembly 文本规范</4> </3> <5> <6> MDN 上的 WebAssembly</6> </5> <7> <8> 理解 WebAssembly 文本格式</8> </7> <9> <10> wabt.js 文档</10> </9> <11> <12> 在 Y 分钟内学习 X，其中 X=WebAssembly</12> </11> <13> <14> 加载启动模板</14> </13>',
     name: 'WebAssembly 文本格式',
   },
 };
