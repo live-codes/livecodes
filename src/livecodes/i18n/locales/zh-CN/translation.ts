@@ -4,19 +4,59 @@ import type { I18nTranslation } from '../models';
 
 const translation: I18nTranslation = {
   about: {
+    blog: {
+      text: '博客',
+      title: 'LiveCodes 博客',
+    },
+    configuration: '配置',
+    credits: {
+      heading: '致谢',
+      para1: 'LiveCodes 的实现得益于开源项目、网络服务和贡献者的支持。 <1>查看致谢</1>',
+      para2: '© 2024 Hatem Hosny。LiveCodes 已获得 MIT 许可。',
+    },
     documentations: {
       heading: '文档',
     },
+    gettingStarted: '快速开始',
+    github: {
+      text: 'GitHub',
+      title: 'GitHub',
+    },
     heading: '关于 LiveCodes',
+    livecodes: {
+      aboutUs: '关于 LiveCodes',
+      para1:
+        '<1><2>LiveCodes</2></1> 是一个开源的、功能丰富的、客户端侧的代码运行环境。目前支持超过 90 种语言 / 框架。它可以作为独立应用使用，亦可嵌入到任意网页中。',
+      para2:
+        '功能强大的 SDK 可轻松整合代码运行环境并与其进行通信。文档内容详细完整，代码示例、实时演示和屏幕截图一应俱全。',
+    },
+    sdk: 'LiveCodes SDK',
+    sponsor: {
+      text: '赞助',
+      title: '赞助 LiveCodes',
+    },
+    twitter: {
+      text: '𝕏 / Twitter',
+      title: '𝕏 / Twitter',
+    },
     version: {
+      app: '应用版本：<1>{{APP_VERSION}}</1>',
       appPermanentUrl: '应用永久 URL',
+      commit: 'Git 提交： <1> {{COMMIT_SHA}} </1>',
       heading: '版本',
+      sdk: 'SDK 版本： <1> {{SDK_VERSION}} </1>',
       sdkPermanentUrl: 'SDK 永久 URL',
     },
   },
   app: {
+    changeTheme: {
+      hint: '更改主题',
+    },
     consoleMessage: {
+      appVersion: '应用版本：{{APP_VERSION}}',
+      commit: 'Git 提交：{{COMMIT_SHA}}',
       learnMore: '了解更多！ {{docsUrl}} 🚀',
+      sdkVersion: 'SDK 版本：{{SDK_VERSION}}',
     },
     copy: {
       hint: '复制（Ctrl/Cmd + A, Ctrl/Cmd + C）',
@@ -42,11 +82,24 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: '全屏',
     },
+    i18nButton: {
+      hint: '应用界面语言',
+    },
+    i18nMenu: {
+      docs: 'i18n 文档',
+      helpTranslate: '帮助我们翻译',
+    },
+    logo: {
+      title: 'LiveCodes: 一个简单实用的代码运行环境！',
+    },
     projectInfo: {
       hint: '项目信息',
     },
     redo: {
       hint: '重做（Ctrl/Cmd + Shift + Z）',
+    },
+    result: {
+      hint: '结果',
     },
     run: {
       hint: '运行（Shift + Enter）',
@@ -54,12 +107,18 @@ const translation: I18nTranslation = {
     share: {
       hint: '分享',
     },
+    themeColors: {
+      custom: '自定义',
+    },
     undo: {
       hint: '撤消（Ctrl/Cmd + Z）',
     },
     untitledProject: '未命名项目',
   },
   assets: {
+    action: {
+      delete: '删除',
+    },
     add: {
       dataURL: {
         desc: '将资产添加为 base64 编码的 <1>Data URL</1> 。',
@@ -111,7 +170,7 @@ const translation: I18nTranslation = {
       heading: '排序方式：',
     },
     type: {
-      archive: '档案',
+      archive: '归档文件',
       audio: '音频',
       csv: 'CSV',
       font: '字体',
@@ -267,6 +326,7 @@ const translation: I18nTranslation = {
   },
   customSettings: {
     JSON: '自定义设置 JSON',
+    desc: '<1></1> 请查看 <2>文档</2> 以了解详情。',
     heading: '自定义设置',
     load: '加载',
   },
@@ -297,7 +357,9 @@ const translation: I18nTranslation = {
   },
   editorSettings: {
     closeBrackets: '自动闭合括号和引号',
+    codeJarDesc: '<1></1> * 标记的功能在 CodeJar 中不可用。',
     default: '默认',
+    desc: '<1></1> 请查看 <2>文档</2> 以了解详情。',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -342,7 +404,7 @@ const translation: I18nTranslation = {
       style: '{{style}}',
     },
     activeTool: {
-      compiled: '已编译',
+      compiled: '编译结果',
       console: '控制台',
       heading: '活动工具',
       tests: '测试',
@@ -350,6 +412,13 @@ const translation: I18nTranslation = {
     code: {
       copy: '复制代码',
       heading: '代码',
+    },
+    codeEditor: {
+      codeJar: 'CodeJar',
+      codeMirror: 'CodeMirror',
+      default: '默认',
+      heading: '代码编辑器',
+      monaco: 'Monaco',
     },
     desc: '请查看<1>文档</1>以了解高级配置。',
     embedType: {
@@ -363,6 +432,12 @@ const translation: I18nTranslation = {
       vue: 'Vue',
     },
     heading: '嵌入项目',
+    layout: {
+      heading: '布局',
+      horizontal: '横向',
+      responsive: '响应式',
+      vertical: '纵向',
+    },
     lite: '精简模式',
     loading: {
       click: '点击时',
@@ -376,6 +451,7 @@ const translation: I18nTranslation = {
       full: '完整',
       heading: '显示模式',
       result: '结果',
+      simple: '简洁',
     },
     permanentUrl: '永久 URL',
     preview: '预览',
@@ -406,10 +482,15 @@ const translation: I18nTranslation = {
       configuration: '配置',
       gettingStarted: '快速开始',
       github: 'GitHub',
+      sdk: 'LiveCodes SDK',
+      sponsor: '赞助',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: '点击以获取信息...',
     close: '关闭',
+    embed: {
+      logoHint: '在 LiveCodes 上编辑 🡕',
+    },
     error: {
       authentication: '身份验证错误！',
       exceededSize: '错误：过大的文件大小 {{size}} MB',
@@ -465,17 +546,33 @@ const translation: I18nTranslation = {
     publicRepo: '仓库',
   },
   menu: {
+    about: '关于 ...',
+    appHelp: {
+      heading: '帮助',
+      hint: '帮助',
+    },
+    appProject: {
+      heading: '项目',
+      hint: '项目',
+    },
+    appSettings: {
+      heading: '设置',
+      hint: '应用程序设置',
+    },
     assets: '资产 ...',
     autoSave: '自动保存',
     autoUpdate: '自动更新',
     backup: '备份 / 恢复 ...',
+    blog: 'LiveCodes 博客',
     broadcast: '播送 ...',
+    config: '配置',
     customSettings: '自定义设置 ...',
     delay: {
       heading: '延迟：<1> 1.5 </1> 秒',
       hint: '自动更新前的延迟',
     },
     deploy: '部署 ...',
+    docs: '文档',
     editorSettings: '编辑器设置 ...',
     embed: '嵌入 ...',
     export: {
@@ -487,33 +584,48 @@ const translation: I18nTranslation = {
       result: '导出结果页（HTML）',
       src: '导出源代码（ZIP）',
     },
+    features: '特性',
     formatOnsave: '保存时格式化',
+    getstart: '快速开始',
     import: '导入 ...',
     layout: '垂直布局',
+    license: '许可证',
+    login: '登录',
     logout: '登出',
     new: '新建 ...',
     open: '打开 ...',
     project: '项目信息 ...',
     recoverUnsaved: '恢复未保存的内容',
+    report: '报告问题',
     resources: '外部资源 ...',
     save: '保存',
     saveAs: {
       fork: 'Fork（新项目）',
+      heading: '另存为 ...',
       template: '模板',
     },
+    sdk: 'SDK',
     share: '分享 ...',
     showSpacing: {
       heading: '显示间距',
-      hint: '按下 Alt/Option 并将光标移至结果页面',
+      hint: '按下 Alt/Option 并将光标移至结果页面以显示',
+    },
+    showWelcome: {
+      title: '启动时显示欢迎屏幕',
     },
     snippets: '代码片段 ...',
+    source: 'GitHub 上的源代码',
     sync: '同步（Beta 版）... <1> ⏳</1>',
     theme: '深色主题',
+    themeColor: '颜色',
     welcome: {
       heading: '欢迎 ...',
     },
   },
   open: {
+    action: {
+      delete: '删除',
+    },
     defaultTemplate: '默认模板',
     delete: {
       all: '删除 {{projects}} 个项目？',
@@ -592,7 +704,10 @@ const translation: I18nTranslation = {
       placeholder: '例如 jquery, lodash@4, bootstrap@5.2.3, ...',
     },
     stylesheets: '外部样式',
-    urlDesc: '键入样式/脚本 URL 并点击“加载”。每个 URL 应位于单独的一行中。',
+    urlDesc: '键入样式/脚本 URL。每个 URL 应位于单独的一行中。',
+  },
+  resultMode: {
+    linkText: '在 LiveCodes 上编辑',
   },
   savePrompt: {
     heading: '未保存的更改',
@@ -795,10 +910,13 @@ const translation: I18nTranslation = {
     load: '加载',
     tests: '测试',
   },
+  testSettings: {
+    desc: '<1></1> 请查看 <2>文档</2> 以了解详情。',
+  },
   toolspane: {
     close: '关闭',
     compiled: {
-      title: '已编译',
+      title: '编译结果',
     },
     console: {
       clear: '清除控制台',
@@ -830,6 +948,7 @@ const translation: I18nTranslation = {
   },
   welcome: {
     about: {
+      documentation: '文档',
       heading: '关于 LiveCodes',
     },
     heading: '欢迎',
@@ -839,6 +958,7 @@ const translation: I18nTranslation = {
     recover: {
       cancel: '取消',
       heading: '恢复',
+      lastModified: '最后修改时间：',
       recover: '恢复',
       save: '保存',
       unsavedChanges: '您的上一个项目有未保存的更改：',

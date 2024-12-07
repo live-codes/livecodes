@@ -49,6 +49,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Clio',
   },
   clojurescript: {
+    desc: 'ClojureScript ist ein Compiler für <1>Clojure</1>, der auf JavaScript abzielt. <2></2>In LiveCodes läuft es im Browser mit <3>Cherry</3>.',
     link: '<1> <2>ClojureScript offizielle Website</2> </1> <3> <4>Clojure offizielle Website</4> </3> <5> <6>Cherry Repository</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=clojure</8> </7> <9> <10>LiveCodes Dokumentation</10> </9> <11> <12>Starter-Vorlage laden</12> </11>',
     name: 'ClojureScript (CLJS)',
   },
@@ -71,6 +72,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
+    desc: 'Clang C/C++-Compiler läuft auf WebAssembly und verwendet <1>wasm-clang</1>, angepasst von <2>polylang.io</2>.',
     link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang offizielle Website</4> </3> <5> <6>Lerne X in Y Minuten, wobei X=C++</6> </5> <7> <8>Starter-Vorlage laden</8> </7>',
     name: 'C/C++ (Wasm)',
   },
@@ -118,6 +120,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) ist eine Open-Source-Programmiersprache, mit der einfache, zuverlässige und effiziente Software erstellt werden kann.',
     desc2: 'Hier wird es mit GopherJS nach JavaScript kompiliert.',
+    link: '<1><2>Go Website</2></1> <3><4>Go Dokumentation</4></3> <5> <6>GopherJS Repository</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=Go</8> </7> <9><10>Starter-Vorlage laden</10></9>',
     name: 'Go',
   },
   haml: {
@@ -141,6 +144,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'JSX',
   },
   julia: {
+    desc1: '(Die Julia-Sprachunterstützung in LiveCodes ist noch experimentell)',
+    desc2:
+      'Julia-Compiler und Julia Base laufen auf WASM, unter Verwendung von <1>julia-wasm</1>, angepasst von <2>polylang.io</2>.',
     link: '<1> <2>Julia offizielle Website</2> </1> <3> <4>Julia Dokumentation</4> </3> <5> <6>Lerne X in Y Minuten, wobei X=Julia</6> </5> <7> <8>Starter-Vorlage laden</8> </7>',
     name: 'Julia',
   },
@@ -161,6 +167,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   lua: {
     desc: 'Lua läuft im Browser mit fengari-web.',
+    link: '<1><2>Lua offizielle Website</2></1> <3> <4>Lua Dokumentation</4> </3> <5> <6>Fengari offizielle Website</6> </5> <7> <8>fengari-web GitHub Repository</8> </7> <9> <10>Lerne X in Y Minuten, wobei X=Lua</10> </9> <11> <12>LiveCodes Dokumentation</12> </11> <13><14>Starter-Vorlage laden</14></13>',
     name: 'Lua',
   },
   luaWasm: {
@@ -180,6 +187,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   mdx: {
     desc: 'Markdown für die Komponenten-Ära. <1></1>MDX ermöglicht es Ihnen, nahtlos JSX in Ihren Markdown-Dokumenten zu schreiben.',
+    link: '<1><2>MDX Dokumentation</2></1> <3><4>Starter-Vorlage laden</4></3>',
     name: 'MDX',
   },
   mjml: {
@@ -193,6 +201,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
+    desc: 'Eine leistungsstarke und vielseitige Templating-Sprache für JavaScript. Nunjucks ist im Wesentlichen eine Portierung von <1>jinja2</1>.',
     link: '<1> <2>Offizielle Website</2> </1> <3> <4>LiveCodes Dokumentation</4> </3>',
     name: 'Nunjucks',
   },
@@ -210,6 +219,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   php: {
     desc: 'PHP läuft im Browser mit Uniter.',
+    link: '<1><2>PHP offizielle Website</2></1> <3> <4>PHP Dokumentation</4> </3> <5> <6>Uniter GitHub Repository</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=PHP</8> </7> <9> <10>LiveCodes Dokumentation</10> </9> <11><12>Starter-Vorlage laden</12></11>',
     name: 'PHP',
   },
   phpWasm: {
@@ -319,6 +329,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   sql: {
     desc: 'SQLite, kompiliert zu JavaScript mit SQL.js',
+    link: '<1> <2>Offizielle SQLite-Website</2> </1> <3> <4>SQLite-Syntax-Dokumentation</4> </3> <5> <6>Offizielle SQL.js-Website</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=SQL</8> </7> <9><10>Starter-Vorlage laden</10></9>',
     name: 'SQLite',
   },
   stencil: {
@@ -366,6 +377,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
+    desc: 'Eine JavaScript-Implementierung der <1>Twig</1> PHP-Templating-Sprache durch <2>Twig.js</2>.',
     link: '<1> <2>Offizielle Twig-Website</2> </1> <3> <4>Twig-Dokumentation</4> </3> <5> <6>Twig.js-Repository</6> </5> <7> <8>Twig.js-Dokumentation</8> </7> <9> <10>LiveCodes-Dokumentation</10> </9>',
     name: 'Twig',
   },
@@ -375,6 +387,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TypeScript',
   },
   vue: {
+    link: '<1> <2>Offizielle Vue.js v3-Website</2> </1> <3> <4>Vue3-Dokumentation</4> </3> <5> <6>Vue3 Single-File-Komponenten</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9><10>Starter-Vorlage laden</10></9>',
     name: 'Vue3 Single-File-Komponenten',
   },
   vue2: {
@@ -385,6 +398,7 @@ const languageInfo: I18nLangInfoTranslation = {
   wat: {
     desc1: 'Textuelle Darstellung des WebAssembly (wasm) Binärformats auf niedriger Ebene.',
     desc2: 'Es wird mit wabt.js in wasm umgewandelt.',
+    link: '<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly-Textspezifikationen</4> </3> <5> <6>WebAssembly auf MDN</6> </5> <7> <8>Verständnis des WebAssembly-Textformats</8> </7> <9> <10>wabt.js-Dokumentation</10> </9> <11> <12>Lerne X in Y Minuten, wobei X=WebAssembly</12> </11> <13><14>Starter-Vorlage laden</14></13>',
     name: 'WebAssembly-Textformat',
   },
 };

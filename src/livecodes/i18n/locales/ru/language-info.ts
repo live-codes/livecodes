@@ -49,6 +49,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Clio',
   },
   clojurescript: {
+    desc: 'ClojureScript - это компилятор для <1>Clojure</1>, который нацелен на JavaScript. <2></2>В LiveCodes он работает в браузере с использованием <3>Cherry</3>.',
     link: '<1> <2>Официальный сайт ClojureScript</2> </1> <3> <4>Официальный сайт Clojure</4> </3> <5> <6>Репозиторий Cherry</6> </5> <7> <8>Изучите X за Y минут, где X=clojure</8> </7> <9> <10>Документация LiveCodes</10> </9> <11> <12>Загрузить стартовый шаблон</12> </11>',
     name: 'ClojureScript (CLJS)',
   },
@@ -71,6 +72,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
+    desc: 'Компилятор Clang C/C++, работающий на WebAssembly, использующий <1>wasm-clang</1>, адаптированный <2>polylang.io</2>.',
     link: '<1> <2>Фонд стандартного C++</2> </1> <3> <4>Официальный сайт Clang</4> </3> <5> <6>Изучите X за Y минут, где X=C++</6> </5> <7> <8>Загрузить стартовый шаблон</8> </7>',
     name: 'C/C++ (Wasm)',
   },
@@ -119,6 +121,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) - это язык программирования с открытым исходным кодом, который упрощает создание простого, надежного и эффективного программного обеспечения.',
     desc2: 'Здесь он компилируется в JavaScript с помощью GopherJS.',
+    link: '<1><2>Сайт Go</2></1> <3><4>Документация Go</4></3> <5> <6>Репозиторий GopherJS</6> </5> <7> <8>Изучите X за Y минут, где X=Go</8> </7> <9><10>Загрузить стартовый шаблон</10></9>',
     name: 'Go',
   },
   haml: {
@@ -142,6 +145,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'JSX',
   },
   julia: {
+    desc1: '(Поддержка языка Julia в LiveCodes все еще экспериментальна)',
+    desc2:
+      'Компилятор Julia и Julia Base, работающие на WASM, с использованием <1>julia-wasm</1>, адаптированного <2>polylang.io</2>.',
     link: '<1> <2>Официальный сайт Julia</2> </1> <3> <4>Документация Julia</4> </3> <5> <6>Изучите X за Y минут, где X=Julia</6> </5> <7> <8>Загрузить стартовый шаблон</8> </7>',
     name: 'Julia',
   },
@@ -162,6 +168,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   lua: {
     desc: 'Lua, работающий в браузере с использованием fengari-web.',
+    link: '<1><2>Официальный сайт Lua</2></1> <3> <4>Документация Lua</4> </3> <5> <6>Официальный сайт Fengari</6> </5> <7> <8>GitHub-репозиторий fengari-web</8> </7> <9> <10>Изучите X за Y минут, где X=Lua</10> </9> <11> <12>Документация LiveCodes</12> </11> <13><14>Загрузить стартовый шаблон</14></13>',
     name: 'Lua',
   },
   luaWasm: {
@@ -181,6 +188,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   mdx: {
     desc: 'Markdown для эры компонентов. <1></1>MDX позволяет вам легко писать JSX в ваших Markdown-документах.',
+    link: '<1><2>Документация MDX</2></1> <3><4>Загрузить стартовый шаблон</4></3>',
     name: 'MDX',
   },
   mjml: {
@@ -194,6 +202,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
+    desc: 'Богатый и мощный язык шаблонов для JavaScript. Nunjucks по сути является портом <1>jinja2</1>.',
     link: '<1> <2>Официальный сайт</2> </1> <3> <4>Документация LiveCodes</4> </3>',
     name: 'Nunjucks',
   },
@@ -211,6 +220,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   php: {
     desc: 'PHP, работающий в браузере с использованием Uniter.',
+    link: '<1><2>Официальный сайт PHP</2></1> <3> <4>Документация PHP</4> </3> <5> <6>GitHub-репозиторий Uniter</6> </5> <7> <8>Изучите X за Y минут, где X=PHP</8> </7> <9> <10>Документация LiveCodes</10> </9> <11><12>Загрузить стартовый шаблон</12></11>',
     name: 'PHP',
   },
   phpWasm: {
@@ -320,6 +330,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   sql: {
     desc: 'SQLite, скомпилированный в JavaScript с использованием SQL.js',
+    link: '<1> <2>Официальный сайт SQLite</2> </1> <3> <4>Документация по синтаксису SQLite</4> </3> <5> <6>Официальный сайт SQL.js</6> </5> <7> <8>Изучите X за Y минут, где X=SQL</8> </7> <9><10>Загрузить стартовый шаблон</10></9>',
     name: 'SQLite',
   },
   stencil: {
@@ -367,6 +378,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
+    desc: 'JavaScript-реализация <1>Twig</1> — языка шаблонов PHP с помощью <2>Twig.js</2>.',
     link: '<1> <2>Официальный сайт Twig</2> </1> <3> <4>Документация Twig</4> </3> <5> <6>Репозиторий Twig.js</6> </5> <7> <8>Документация Twig.js</8> </7> <9> <10>Документация LiveCodes</10> </9>',
     name: 'Twig',
   },
@@ -376,6 +388,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TypeScript',
   },
   vue: {
+    link: '<1> <2>Официальный сайт Vue.js v3</2> </1> <3> <4>Документация Vue3</4> </3> <5> <6>Одно файловые компоненты Vue3</6> </5> <7> <8>Документация LiveCodes</8> </7> <9><10>Загрузить стартовый шаблон</10></9>',
     name: 'Однофайловые компоненты Vue3',
   },
   vue2: {
@@ -386,6 +399,7 @@ const languageInfo: I18nLangInfoTranslation = {
   wat: {
     desc1: 'Низкоуровневое текстовое представление двоичного формата WebAssembly (wasm).',
     desc2: 'Он конвертируется в wasm с использованием wabt.js.',
+    link: '<1><2>WebAssembly.org</2></1> <3> <4>Спецификация текстового формата WebAssembly</4> </3> <5> <6>WebAssembly на MDN</6> </5> <7> <8>Понимание текстового формата WebAssembly</8> </7> <9> <10>Документация wabt.js</10> </9> <11> <12>Изучите X за Y минут, где X=WebAssembly</12> </11> <13><14>Загрузить стартовый шаблон</14></13>',
     name: 'Текстовый формат WebAssembly',
   },
 };
