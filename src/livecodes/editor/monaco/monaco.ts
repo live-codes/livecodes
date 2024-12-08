@@ -203,7 +203,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let editorOptions: Options = cloneObject({ ...baseOptions, ...initOptions });
 
   const configureTypeScriptFeatures = () => {
-    const JSLangs = ['javascript', 'jsx', 'flow', 'solid', 'react-native'];
+    const JSLangs = ['javascript', 'jsx', 'react', 'flow', 'solid', 'react-native'];
     const isJSLang = JSLangs.includes(language);
     if (
       !['script', 'tests', 'editorSettings'].includes(editorId) ||

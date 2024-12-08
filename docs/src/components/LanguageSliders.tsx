@@ -55,6 +55,8 @@ export default function Sliders() {
       { name: 'sucrase', title: 'Sucrase' },
       { name: 'jsx', title: 'JSX' },
       { name: 'tsx', title: 'TSX' },
+      { name: 'react', title: 'React' },
+      { name: 'react-tsx', title: 'React (TSX)' },
       { name: 'react-native', title: 'React Native' },
       { name: 'react-native-tsx', title: 'React Native (TSX)' },
       { name: 'vue', title: 'Vue 3' },

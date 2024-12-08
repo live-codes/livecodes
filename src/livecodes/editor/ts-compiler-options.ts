@@ -4,10 +4,12 @@ import type { Language } from '../models';
 type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
 
 export const getCompilerOptions = (language: Language): CompilerOptions => {
-  const JSLangs = ['javascript', 'jsx', 'flow', 'solid', 'react-native'];
+  const JSLangs = ['javascript', 'jsx', 'react', 'flow', 'solid', 'react-native'];
   const hasJsx = [
     'jsx',
     'tsx',
+    'react',
+    'react-tsx',
     'sucrase',
     'babel',
     'flow',
