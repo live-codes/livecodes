@@ -1009,7 +1009,7 @@ export default () => <Hello name="React" />;
     expect(resultText).toContain(`Hello, React`);
   });
 
-  test('React (JSX)', async ({ page, getTestUrl }) => {
+  test('React', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
