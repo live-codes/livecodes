@@ -7,6 +7,8 @@ It has been popularized by [React](https://react.dev/), and then adopted by many
 By default, when running JSX/TSX in LiveCodes, [React](https://react.dev/) runtime is used.
 However, other libraries like [Preact](https://preactjs.com/), [nano JSX](https://nanojsx.io/) and others can be used as well (see [Custom JSX Runtimes](./jsx.md#custom-jsx-runtimes)).
 
+Please note that [React compiler](https://react.dev/learn/react-compiler) is also available in LiveCodes and is [documented here](./react.md).
+
 ## Usage
 
 For usage and examples, see documentation for [JSX](./jsx.md) and [TypeScript](./typescript.md) support in LiveCodes.
@@ -51,10 +53,6 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
   }
 }
 ```
-
-## Starter Template
-
-https://livecodes.io/?template=react (uses JSX)
 
 ## Links
 

@@ -23,7 +23,7 @@ export const reactStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'jsx',
+    language: 'react',
     content: `
 import { useState } from "react";
 

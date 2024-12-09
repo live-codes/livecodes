@@ -1009,6 +1009,53 @@ export default () => <Hello name="React" />;
     expect(resultText).toContain(`Hello, React`);
   });
 
+  test('React', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('text="HTML"');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(`<div id="app">Loading...</div>`);
+
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text="React"');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      `
+const Hello = (props) => <h1>Hello, {props.name}</h1>
+export default () => <Hello name="React" />;
+`,
+    );
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain(`Hello, React`);
+  });
+
+  test('React (TSX)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text="React (TSX)"');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      `
+interface Props { name: string }
+const Hello = (props: Props) => <h1>Hello, {props.name}</h1>
+export default () => <Hello name="React" />;
+`,
+    );
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain(`Hello, React`);
+  });
+
   test('Vue 3', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

@@ -18,7 +18,7 @@ export const svelteStarter: Template = {
     content: `
 <script>
   let title = "Svelte";
-  let counter = 0;
+  let counter = $state(0);
   function increment() {
     counter += 1;
   }

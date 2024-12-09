@@ -185,6 +185,8 @@ export const createResultPage = async ({
   const jsxRuntimes: Partial<Record<Language, string>> = {
     jsx: reactRuntime,
     tsx: reactRuntime,
+    react: reactRuntime,
+    'react-tsx': reactRuntime,
     'react-native': reactNativeRuntime,
     'react-native-tsx': reactNativeRuntime,
     solid: solidRuntime,
