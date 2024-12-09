@@ -784,7 +784,7 @@ declare module "sdk/models" {
     /**
      * Language name, alias or extension.
      */
-    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
+    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react' | 'react-jsx' | 'react.jsx' | 'react-tsx' | 'react.tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
     export interface Editor {
         /**
          * A language name, extension or alias (as defined in [language documentations](https://livecodes.io/docs/languages/)).
@@ -1479,7 +1479,7 @@ declare module "livecodes/vendors" {
     export const squintCljsBaseUrl: string;
     export const stencilUrl: string;
     export const stylisUrl: string;
-    export const svelteRuntimeBaseUrl: string;
+    export const svelteBaseUrl: string;
     export const svgbobWasmCdnUrl: string;
     export const tagifyBaseUrl: string;
     export const tailwindcssUrl: string;
@@ -2716,6 +2716,18 @@ declare module "livecodes/languages/vento/lang-vento" {
 }
 declare module "livecodes/languages/vento/index" {
     export * from "livecodes/languages/vento/lang-vento";
+}
+declare module "livecodes/languages/react/lang-react" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const react: LanguageSpecs;
+}
+declare module "livecodes/languages/react/lang-react-tsx" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const reactTsx: LanguageSpecs;
+}
+declare module "livecodes/languages/react/index" {
+    export * from "livecodes/languages/react/lang-react";
+    export * from "livecodes/languages/react/lang-react-tsx";
 }
 declare module "livecodes/languages/languages" {
     import type { LanguageSpecs } from "livecodes/models";
@@ -5127,7 +5139,7 @@ declare module "livecodes/i18n/locales/en/language-info" {
         };
         readonly jsx: {
             readonly desc: "JSX is compiled to JavaScript in LiveCodes using the TypeScript Compiler.  By default it uses React as the JSX runtime.";
-            readonly link: "<1> <2>React official website</2> </1> <3> <4>JSX in React documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly link: "<1> <2>React official website</2> </1> <3> <4>JSX in React documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
             readonly name: "JSX";
         };
         readonly julia: {
@@ -5243,6 +5255,11 @@ declare module "livecodes/i18n/locales/en/language-info" {
             readonly link: "<1> <2>R project official website</2> </1> <3> <4>The R Manuals</4> </3> <5> <6>R for Data Science (2e)</6> </5> <7> <8>WebR documentation</8> </7> <9> <10>Learn X in Y minutes, where X=R</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>";
             readonly name: "R";
         };
+        readonly react: {
+            readonly desc: "React Compiler is a build-time only tool that automatically optimizes React apps.";
+            readonly link: "<1> <2>React official website</2> </1> <3> <4>React Compiler</4> </3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "React Compiler";
+        };
         readonly reactNative: {
             readonly desc: "React Native for Web is an accessible implementation of React Native's Components and APIs that is interoperable with React DOM.";
             readonly link: "<1> <2>React official website</2> </1> <3> <4>React Native website</4> </3> <5> <6>React Native for Web website</6> </5> <7> <8>React Native documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
@@ -5252,6 +5269,11 @@ declare module "livecodes/i18n/locales/en/language-info" {
             readonly desc: "React Native for Web is an accessible implementation of React Native's Components and APIs that is interoperable with React DOM.";
             readonly link: "<1> <2>React official website</2> </1> <3> <4>React Native website</4> </3> <5> <6>React Native for Web website</6> </5> <7> <8>React Native documentation</8> </7> <9> <10>TypeScript website</10> </9> <11> <12>TypeScript documentation</12> </11> <13> <14>LiveCodes Documentations</14> </13> <15> <16>Load starter template (JSX)</16> </15>";
             readonly name: "React Native for Web (with TypeScript)";
+        };
+        readonly reactTsx: {
+            readonly desc: "React Compiler is a build-time only tool that automatically optimizes React apps.";
+            readonly link: "<1> <2>React official website</2> </1> <3> <4>React Compiler</4> </3> <5> <6>TypeScript website</6> </5> <7> <8>TypeScript documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template (JSX)</12> </11>";
+            readonly name: "React Compiler (with TypeScript)";
         };
         readonly reason: {
             readonly desc1: "Reason lets you write simple, fast and quality type safe code while leveraging both the JavaScript & OCaml ecosystems.";
