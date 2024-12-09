@@ -6,7 +6,7 @@ import { getLanguageCustomSettings, getLanguageByAlias } from '../utils';
 import { getCompileResult } from '../../compiler';
 
 (self as any).createSvelteCompiler = (): CompilerFunction => {
-  const MAIN_FILE = 'App.svelte';
+  const MAIN_FILE = '__LiveCodes_App__.svelte';
   let importedContent = '';
   let imports: Record<string, string> = {};
 
@@ -38,13 +38,10 @@ import { getCompileResult } from '../../compiler';
       removeEnclosingTemplate: true,
     });
     const customSettings = getLanguageCustomSettings('svelte', config);
-    const init =
-      filename === MAIN_FILE
-        ? `\nnew Component({ target: document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')) });`
-        : '';
 
     const { js } = (window as any).svelte.compile(processedCode, {
       css: 'injected',
+      filename: MAIN_FILE,
       ...customSettings,
     });
 
@@ -53,10 +50,18 @@ import { getCompileResult } from '../../compiler';
     }
 
     return {
-      code: js.code + init,
+      code: filename === MAIN_FILE ? getMountCode(js.code) : js.code,
       info: { importedContent, imports },
     };
   };
 
   return (code, { config }) => compileSvelteSFC(code, { config, filename: MAIN_FILE });
 };
+
+const getMountCode = (code: string) =>
+  `
+import { mount } from "svelte";
+${code}
+
+mount(__LiveCodes_App__, { target: document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')) });
+`.trimStart();
