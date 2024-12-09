@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.7.1](https://github.com/live-codes/livecodes/compare/v36...sdk-v0.7.1) (2024-12-09)
+
+### Features
+
+- Add `react` and `react-tsx` to supported languages for React compiler.
+
+---
+
 ## [v36](https://github.com/live-codes/livecodes/compare/v35...v36) (2024-12-07)
 
 ### Highlights for this release
