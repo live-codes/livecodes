@@ -136,7 +136,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   jsx: {
     desc: '在 LiveCodes 中，JSX 使用 TypeScript 编译器编译为 JavaScript。默认情况下，React 将作为 JSX 运行时。',
-    link: '<1> <2>React 官方网站</2> </1> <3> <4>React 文档中的 JSX</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载启动模板</8> </7>',
+    link: '<1> <2>React 官方网站</2> </1> <3> <4>React 文档中的 JSX</4> </3> <5> <6>LiveCodes 文档</6> </5>',
     name: 'JSX',
   },
   julia: {
@@ -254,6 +254,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>R 项目官方网站</2> </1> <3> <4>R 手册</4> </3> <5> <6>R for Data Science（2e）</6> </5> <7> <8>WebR 文档</8> </7> <9> <10>在 Y 分钟内学习 X，其中 X=R</10> </9> <11> <12>LiveCodes 文档</12> </11> <13> <14>加载启动模板</14> </13>',
     name: 'R',
   },
+  react: {
+    desc: 'React Compiler 是一个仅在构建时运行的工具，可自动优化 React 应用程序。',
+    link: '<1> <2>React 官方网站</2> </1> <3> <4>React 编译器</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载初始模板</8> </7>',
+    name: 'React 编译器',
+  },
   reactNative: {
     desc: 'React Native for Web 是 React Native 的组件和 API 的可访问实现，可与 React DOM 互操作。',
     link: '<1> <2>React 官方网站</2> </1> <3> <4>React Native 官方网站</4> </3> <5> <6>React Native for Web 官方网站</6> </5> <7> <8>React Native 文档</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
@@ -263,6 +268,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'React Native for Web 是 React Native 的组件和 API 的可访问实现，可与 React DOM 互操作。',
     link: '<1> <2>React 官方网站</2> </1> <3> <4>React Native 官方网站</4> </3> <5> <6>React Native for Web 官方网站</6> </5> <7> <8>React Native 文档</8> </7> <9> <10>TypeScript 网站</10> </9> <11> <12>TypeScript 文档</12> </11> <13> <14>LiveCodes 文档</14> </13> <15> <16>加载启动模板（JSX）</16> </15>',
     name: 'React Native for Web（TypeScript 支持）',
+  },
+  reactTsx: {
+    desc: 'React Compiler 是一个仅在构建时运行的工具，可自动优化 React 应用程序。',
+    link: '<1> <2>React 官方网站</2> </1> <3> <4>React 编译器</4> </3> <5> <6>TypeScript 网站</6> </5> <7> <8>TypeScript 文档</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载初始模板 (JSX)</12> </11>',
+    name: 'React 编译器 (使用 TypeScript)',
   },
   reason: {
     desc1: 'Reason 可让您利用 JavaScript 和 OCaml 生态系统编写简单、快速和高质量的类型安全代码。',
