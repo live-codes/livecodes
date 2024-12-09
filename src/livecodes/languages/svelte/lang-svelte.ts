@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { svelteRuntimeBaseUrl, vendorsBaseUrl } from '../../vendors';
+import { svelteBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const svelte: LanguageSpecs = {
@@ -10,16 +10,18 @@ export const svelte: LanguageSpecs = {
     pluginUrls: [parserPlugins.html, parserPlugins.babel],
   },
   compiler: {
-    url: vendorsBaseUrl + 'svelte/svelte-compiler.min.js',
+    url: svelteBaseUrl + 'compiler/index.js',
     factory: (_config, baseUrl) => {
       (self as any).importScripts(baseUrl + '{{hash:lang-svelte-compiler.js}}');
       return (self as any).createSvelteCompiler();
     },
     imports: {
-      svelte: svelteRuntimeBaseUrl + 'index.js',
-      'svelte/internal': svelteRuntimeBaseUrl + 'index.js',
-      'svelte/internal/disclose-version': svelteRuntimeBaseUrl + 'disclose-version/index.js',
+      svelte: svelteBaseUrl + 'src/index-client.js',
+      'svelte/internal/client': svelteBaseUrl + 'src/internal/client/index.js',
+      'svelte/internal/disclose-version': svelteBaseUrl + 'src/internal/disclose-version.js',
+      'esm-env': 'https://esm.sh/esm-env',
     },
+    inlineScript: 'globalThis.process = { env: { NODE_ENV: "production" } };',
   },
   extensions: ['svelte'],
   editor: 'script',
