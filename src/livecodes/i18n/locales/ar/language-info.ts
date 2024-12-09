@@ -137,7 +137,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   jsx: {
     desc: 'يتم ترجمة JSX إلى جافا سكريبت في LiveCodes باستخدام مترجم TypeScript. افتراضيًا، يستخدم React كبيئة تشغيل JSX.',
-    link: '<1> <2>الموقع الرسمي لـ React</2> </1> <3> <4>وثائق JSX في React</4> </3> <5> <6>وثائق LiveCodes</6> </5> <7> <8>تحميل قالب البداية</8> </7>',
+    link: '<1> <2>الموقع الرسمي لـ React</2> </1> <3> <4>وثائق JSX في React</4> </3> <5> <6>وثائق LiveCodes</6> </5>',
     name: 'JSX',
   },
   julia: {
@@ -255,6 +255,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>الموقع الرسمي لمشروع R</2> </1> <3> <4>أدلة R</4> </3> <5> <6>R لعلوم البيانات (الإصدار الثاني)</6> </5> <7> <8>وثائق WebR</8> </7> <9> <10>تعلم X في Y دقيقة، حيث X=R</10> </9> <11> <12>وثائق LiveCodes</12> </11> <13> <14>تحميل قالب البداية</14> </13>',
     name: 'R',
   },
+  react: {
+    desc: 'React Compiler هو أداة تعمل في وقت البناء فقط وتقوم تلقائياً بتحسين تطبيقات React.',
+    link: '<1> <2>موقع React الرسمي</2> </1> <3> <4>مُترجم React</4> </3> <5> <6>وثائق LiveCodes</6> </5> <7> <8>تحميل القالب المبدئي</8> </7>',
+    name: 'مترجم React',
+  },
   reactNative: {
     desc: 'React Native للويب هو تنفيذ سهل الوصول لمكونات وواجهات برمجة تطبيقات React Native التي تتوافق مع React DOM.',
     link: '<1> <2>الموقع الرسمي لـ React</2> </1> <3> <4>موقع React Native</4> </3> <5> <6>موقع React Native للويب</6> </5> <7> <8>وثائق React Native</8> </7> <9> <10>وثائق LiveCodes</10> </9> <11> <12>تحميل قالب البداية</12> </11>',
@@ -264,6 +269,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'React Native للويب هو تنفيذ سهل الوصول لمكونات وواجهات برمجة تطبيقات React Native التي تتوافق مع React DOM.',
     link: '<1> <2>الموقع الرسمي لـ React</2> </1> <3> <4>موقع React Native</4> </3> <5> <6>موقع React Native للويب</6> </5> <7> <8>وثائق React Native</8> </7> <9> <10>موقع TypeScript</10> </9> <11> <12>وثائق TypeScript</12> </11> <13> <14>وثائق LiveCodes</14> </13> <15> <16>تحميل قالب البداية (JSX)</16> </15>',
     name: 'React Native للويب (مع TypeScript)',
+  },
+  reactTsx: {
+    desc: 'React Compiler هو أداة تعمل في وقت البناء فقط وتقوم تلقائياً بتحسين تطبيقات React.',
+    link: '<1> <2>موقع React الرسمي</2> </1> <3> <4>مُترجم React</4> </3> <5> <6>موقع TypeScript</6> </5> <7> <8>وثائق TypeScript</8> </7> <9> <10>وثائق LiveCodes</10> </9> <11> <12>تحميل القالب المبدئي (JSX)</12> </11>',
+    name: 'مترجم React (مع TypeScript)',
   },
   reason: {
     desc1:
