@@ -140,7 +140,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   jsx: {
     desc: 'JSX wird in LiveCodes mit dem TypeScript-Compiler zu JavaScript kompiliert. Standardmäßig verwendet es React als JSX-Laufzeitumgebung.',
-    link: '<1> <2>React offizielle Website</2> </1> <3> <4>JSX in React Dokumentation</4> </3> <5> <6>LiveCodes Dokumentation</6> </5> <7> <8>Starter-Vorlage laden</8> </7>',
+    link: '<1> <2>React offizielle Website</2> </1> <3> <4>JSX in React Dokumentation</4> </3> <5> <6>LiveCodes Dokumentation</6> </5>',
     name: 'JSX',
   },
   julia: {
@@ -259,6 +259,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Offizielle R-Projekt-Website</2> </1> <3> <4>Die R-Handbücher</4> </3> <5> <6>R für Data Science (2. Auflage)</6> </5> <7> <8>WebR-Dokumentation</8> </7> <9> <10>Lerne X in Y Minuten, wobei X=R</10> </9> <11> <12>LiveCodes Dokumentation</12> </11> <13> <14>Starter-Vorlage laden</14> </13>',
     name: 'R',
   },
+  react: {
+    desc: 'React Compiler ist ein Tool, das nur zur Build-Zeit läuft und React-Anwendungen automatisch optimiert.',
+    link: '<1> <2>React offizielle Website</2> </1> <3> <4>React Compiler</4> </3> <5> <6>LiveCodes Dokumentation</6> </5> <7> <8>Startvorlage laden</8> </7>',
+    name: 'React-Compiler',
+  },
   reactNative: {
     desc: 'React Native für Web ist eine zugängliche Implementierung der Komponenten und APIs von React Native, die mit React DOM interoperabel ist.',
     link: '<1> <2>Offizielle React-Website</2> </1> <3> <4>React Native Website</4> </3> <5> <6>React Native für Web Website</6> </5> <7> <8>React Native Dokumentation</8> </7> <9> <10>LiveCodes Dokumentation</10> </9> <11> <12>Starter-Vorlage laden</12> </11>',
@@ -268,6 +273,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'React Native für Web ist eine zugängliche Implementierung der Komponenten und APIs von React Native, die mit React DOM interoperabel ist.',
     link: '<1> <2>Offizielle React-Website</2> </1> <3> <4>React Native Website</4> </3> <5> <6>React Native für Web Website</6> </5> <7> <8>React Native Dokumentation</8> </7> <9> <10>TypeScript Website</10> </9> <11> <12>TypeScript Dokumentation</12> </11> <13> <14>LiveCodes Dokumentation</14> </13> <15> <16>Starter-Vorlage laden (JSX)</16> </15>',
     name: 'React Native für Web (mit TypeScript)',
+  },
+  reactTsx: {
+    desc: 'React Compiler ist ein Tool, das nur zur Build-Zeit läuft und React-Anwendungen automatisch optimiert.',
+    link: '<1> <2>React offizielle Website</2> </1> <3> <4>React Compiler</4> </3> <5> <6>TypeScript Website</6> </5> <7> <8>TypeScript Dokumentation</8> </7> <9> <10>LiveCodes Dokumentation</10> </9> <11> <12>Startvorlage laden (JSX)</12> </11>',
+    name: 'React-Compiler (mit TypeScript)',
   },
   reason: {
     desc1:

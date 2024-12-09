@@ -139,7 +139,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   jsx: {
     desc: 'JSX は LiveCodes で TypeScript コンパイラを使用して JavaScript にコンパイルされます。デフォルトでは React を JSX ランタイムとして使用します。',
-    link: '<1> <2>React 公式ウェブサイト</2> </1> <3> <4>React ドキュメントの JSX</4> </3> <5> <6>LiveCodes ドキュメント</6> </5> <7> <8>スターターテンプレートを読み込む</8> </7>',
+    link: '<1> <2>React 公式ウェブサイト</2> </1> <3> <4>React ドキュメントの JSX</4> </3> <5> <6>LiveCodes ドキュメント</6> </5>',
     name: 'JSX',
   },
   julia: {
@@ -259,6 +259,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Rプロジェクト公式ウェブサイト</2> </1> <3> <4>Rマニュアル</4> </3> <5> <6>Rによるデータサイエンス（第2版）</6> </5> <7> <8>WebRドキュメント</8> </7> <9> <10>X分でわかるR（X in Y minutes）</10> </9> <11> <12>LiveCodesドキュメント</12> </11> <13> <14>スターターテンプレートを読み込む</14> </13>',
     name: 'R',
   },
+  react: {
+    desc: 'React Compiler はビルド時にのみ動作し、React アプリケーションを自動的に最適化するツールです。',
+    link: '<1> <2>React 公式サイト</2> </1> <3> <4>React コンパイラ</4> </3> <5> <6>LiveCodes ドキュメント</6> </5> <7> <8>スターターテンプレートを読み込む</8> </7>',
+    name: 'React コンパイラ',
+  },
   reactNative: {
     desc: 'React Native for WebはReact DOMと相互運用可能なReact NativeのコンポーネントとAPIのアクセシブルな実装です。',
     link: '<1> <2>React公式ウェブサイト</2> </1> <3> <4>React Nativeウェブサイト</4> </3> <5> <6>React Native for Webウェブサイト</6> </5> <7> <8>React Nativeドキュメント</8> </7> <9> <10>LiveCodesドキュメント</10> </9> <11> <12>スターターテンプレートを読み込む</12> </11>',
@@ -268,6 +273,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'React Native for WebはReact DOMと相互運用可能なReact NativeのコンポーネントとAPIのアクセシブルな実装です。',
     link: '<1> <2>React公式ウェブサイト</2> </1> <3> <4>React Nativeウェブサイト</4> </3> <5> <6>React Native for Webウェブサイト</6> </5> <7> <8>React Nativeドキュメント</8> </7> <9> <10>TypeScriptウェブサイト</10> </9> <11> <12>TypeScriptドキュメント</12> </11> <13> <14>LiveCodesドキュメント</14> </13> <15> <16>スターターテンプレートを読み込む（JSX）</16> </15>',
     name: 'React Native for Web（TypeScript使用）',
+  },
+  reactTsx: {
+    desc: 'React Compiler はビルド時にのみ動作し、React アプリケーションを自動的に最適化するツールです。',
+    link: '<1> <2>React 公式サイト</2> </1> <3> <4>React コンパイラ</4> </3> <5> <6>TypeScript サイト</6> </5> <7> <8>TypeScript ドキュメント</8> </7> <9> <10>LiveCodes ドキュメント</10> </9> <11> <12>スターターテンプレートを読み込む (JSX)</12> </11>',
+    name: 'React コンパイラ (TypeScript 付き)',
   },
   reason: {
     desc1:
