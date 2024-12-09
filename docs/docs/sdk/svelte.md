@@ -29,7 +29,7 @@ This is an example of using the LiveCodes JS SDK in a Svelte component:
   };
 
   let container;
-  let playground;
+  let playground = $state(null);
   onMount(() => {
     createPlayground(container, options).then((p) => {
       playground = p; // now the SDK is available
@@ -43,7 +43,7 @@ This is an example of using the LiveCodes JS SDK in a Svelte component:
 ```
 
 export const svelteSDKDemo = {
-svelte: `\x3Cscript>\n  import { onMount } from 'svelte';\n  import { createPlayground } from 'livecodes';\n\n  // Embed Options\n  const options = {\n    params: {\n      html: '<h1>Hello World!</h1>',\n      css: 'h1 {color: blue;}',\n      js: 'console.log("Hello, Svelte!")',\n      console: 'open',\n    },\n  };\n\n  let container;\n  let playground;\n  onMount(() => {\n    createPlayground(container, options).then((p) => {\n      playground = p; // now the SDK is available\n    });\n    // cleanup when the component is destroyed\n    return () => playground?.destroy();\n  });\n\x3C/script>\n\n<div bind:this="{container}"></div>\n`,
+svelte: `\x3Cscript>\n  import { onMount } from 'svelte';\n  import { createPlayground } from 'livecodes';\n\n  // Embed Options\n  const options = {\n    params: {\n      html: '<h1>Hello World!</h1>',\n      css: 'h1 {color: blue;}',\n      js: 'console.log("Hello, Svelte!")',\n      console: 'open',\n    },\n  };\n\n  let container;\n  let playground = $state(null);\n  onMount(() => {\n    createPlayground(container, options).then((p) => {\n      playground = p; // now the SDK is available\n    });\n    // cleanup when the component is destroyed\n    return () => playground?.destroy();\n  });\n\x3C/script>\n\n<div bind:this="{container}"></div>\n`,
 };
 
 <RunInLiveCodes params={svelteSDKDemo}></RunInLiveCodes>
@@ -75,7 +75,7 @@ However, it is recommended to cleanup when the node is unmounted, like that:
   };
 
   const livecodes = (node, opts) => {
-    let playground;
+    let playground = $state(null);
     const ready = new Promise(async (res) => {
       playground = await createPlayground(node, opts);
       res();
