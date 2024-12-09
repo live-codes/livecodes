@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v37](https://github.com/live-codes/livecodes/compare/v36...v37) (2024-12-09)
+
+### Features
+
+- **Compilers:** add support for React Compiler ([353ed97](https://github.com/live-codes/livecodes/commit/353ed9734b664fecaa79231d2bd573016bbc65a9)). The [React starter template](https://livecodes.io/?template=react) now uses the React compiler.
+- **Compilers:** upgrade Svelte to version 5 ([db3053c](https://github.com/live-codes/livecodes/commit/db3053ce407a7996add3586e4549eceae77f72c3))
+
+### Breaking Changes
+
+- Svelte 5 is mostly compatible with Svelte 4, but there are some breaking changes. See [release notes](https://github.com/sveltejs/svelte/releases/tag/svelte%405.0.0)
+
+---
+
 ## [sdk-v0.7.1](https://github.com/live-codes/livecodes/compare/v36...sdk-v0.7.1) (2024-12-09)
 
 ### Features
