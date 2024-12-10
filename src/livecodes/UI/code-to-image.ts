@@ -365,6 +365,11 @@ export const createCodeToImageUI = async ({
         form[`code-to-img-width`].value = formData.width;
       }, 150);
     } else {
+      const color1 = formData.bg1 || '#f5f5dc';
+      const color2 = formData.bg2 || color1;
+      const direction = formData.bgDirection || 'to bottom';
+      backgroundEl.style.backgroundImage = `linear-gradient(${direction}, ${color1}, ${color2})`;
+
       backgroundEl.style.width = formData.width + '%';
       edirtorContainer.style.width = backgroundEl.offsetWidth - formData.padding * 2 + 'px';
     }
