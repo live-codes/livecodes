@@ -3,7 +3,7 @@
   <div id="info-screen-container" class="modal-screen-container">
     <div class="modal-screen">
       <label for="title-input" data-i18n="project.title">Project Title</label>
-      <input id="title-input" type="text" />
+      <input id="title-input" type="text" spellcheck="false" />
       <label for="description-textarea" data-i18n="project.desc">Description</label>
       <textarea id="description-textarea"></textarea>
       <label for="head-textarea" data-i18n="project.head" data-i18n-prop="innerHTML"
@@ -13,6 +13,7 @@
         dir="ltr"
         id="head-textarea"
         placeholder='&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;'
+        spellcheck="false"
       ></textarea>
       <label for="html-attrs-textarea" data-i18n="project.htmlAttr" data-i18n-prop="innerHTML"
         >Attributes for &lt;html&gt;</label
@@ -21,6 +22,7 @@
         dir="ltr"
         id="html-attrs-textarea"
         placeholder='lang="en" class="my-class"'
+        spellcheck="false"
       ></textarea>
       <label for="tags-input" data-i18n="project.tags">Tags</label>
       <input id="tags-input" type="text" />
