@@ -105,13 +105,6 @@ export const createCodeToImageUI = async ({
     width: 70,
     padding: 48,
     format: 'png',
-    width: 70,
-    padding: 48,
-    borderRadius: 5,
-    shadow: true,
-    width: 70,
-    padding: 48,
-    format: 'png',
     scale: 1,
     fileName,
   };
