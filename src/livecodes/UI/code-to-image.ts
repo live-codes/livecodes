@@ -2,7 +2,7 @@
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
-import type { CodeEditor, EditorOptions, FormatFn, UserConfig } from '../models';
+import type { CodeEditor, Config, EditorId, EditorOptions, FormatFn, UserConfig } from '../models';
 import { codeToImageScreen } from '../html';
 import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
@@ -22,11 +22,17 @@ type PreviewEditorOptions = Pick<
 };
 
 export const createCodeToImageUI = async ({
+  baseUrl,
+  currentUrl,
+  editorId,
   modal,
   notifications,
   eventsManager,
   deps,
 }: {
+  baseUrl: string;
+  currentUrl: string;
+  editorId: EditorId;
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
@@ -35,12 +41,13 @@ export const createCodeToImageUI = async ({
     createEditor: (options: PreviewEditorOptions) => Promise<CodeEditor>;
     getFormatFn: () => Promise<FormatFn>;
     changeSettings: (newConfig: Partial<UserConfig>) => void;
+    getShareUrl: (config: Partial<Config>) => Promise<string>;
   };
 }) => {
   const userConfig = deps.getUserConfig();
 
   const div = document.createElement('div');
-  div.innerHTML = codeToImageScreen;
+  div.innerHTML = codeToImageScreen.replace(/{{baseUrl}}/g, baseUrl);
   const codeToImageContainer = div.firstChild as HTMLElement;
   modal.show(codeToImageContainer, { isAsync: true, size: 'full' });
 
@@ -133,6 +140,7 @@ export const createCodeToImageUI = async ({
         '#00b4d8',
         '#48cae4',
         '#f5f5dc',
+        '#4a90e2',
       ],
     });
     Coloris({ el: '#code-to-img-bg2' });
@@ -145,10 +153,32 @@ export const createCodeToImageUI = async ({
   windowControls.id = 'code-to-img-window-controls';
   windowControls.innerHTML = `
   <span id="code-to-img-mac" class="window-buttons"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span>
-  <span id="code-to-img-title" class="window-title" contenteditable></span>
+  <span id="code-to-img-title" class="window-title" spellcheck="false" contenteditable="true"></span>
   <span id="code-to-img-windows" class="window-buttons"><svg width="58" height="14" viewBox="0 0 58 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7H11" stroke="#878787" stroke-linecap="round" stroke-linejoin="round"></path><path d="M35 1H25C24.4477 1 24 1.44772 24 2V12C24 12.5523 24.4477 13 25 13H35C35.5523 13 36 12.5523 36 12V2C36 1.44772 35.5523 1 35 1Z" stroke="#878787"></path><path d="M47 2L57 12" stroke="#878787" stroke-linecap="round" stroke-linejoin="round"></path><path d="M47 12L57 2" stroke="#878787" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
 `;
   edirtorContainer.querySelector('pre')?.prepend(windowControls);
+  const watermark = backgroundEl.querySelector<HTMLElement>('#code-to-img-watermark')!;
+
+  const updateWatermark = (url: string) => {
+    watermark.innerHTML = `
+    <img src="${baseUrl}assets/images/livecodes-logo.svg" alt="LiveCodes logo" />
+    ${url}
+  `;
+  };
+  updateWatermark(currentUrl);
+
+  const getCodeConfig = (): Partial<Config> => {
+    const language = editor.getLanguage();
+    return {
+      title: windowControls.querySelector('#code-to-img-title')!.textContent || '',
+      activeEditor: editorId,
+      [editorId]: {
+        language,
+        content: editor.getValue(),
+      },
+    };
+  };
+  let cachedConfig: Partial<Config> | undefined;
 
   let formData: PreviewEditorOptions;
   const updateOptions = async (initialLoad = false) => {
@@ -184,40 +214,45 @@ export const createCodeToImageUI = async ({
       setTimeout(() => {
         // wait till the editor is rendered
         formData.width = (backgroundEl.offsetWidth / backgroundEl.parentElement!.offsetWidth) * 100;
-
         form[`code-to-img-width`].value = formData.width;
-
-        edirtorContainer.classList.toggle('shadow', Boolean(formData.shadow));
       }, 50);
-    } else {
-      const color1 = formData.bg1 || '#f5f5dc';
-      const color2 = formData.bg2 || color1;
-      const direction = formData.bgDirection || 'to bottom';
-      backgroundEl.style.backgroundImage = `linear-gradient(${direction}, ${color1}, ${color2})`;
+    }
+    const color1 = formData.bg1 || '#f5f5dc';
+    const color2 = formData.bg2 || color1;
+    const direction = formData.bgDirection || 'to bottom';
+    backgroundEl.style.backgroundImage = `linear-gradient(${direction}, ${color1}, ${color2})`;
 
-      backgroundEl.style.width = formData.width + '%';
-      edirtorContainer.style.width = backgroundEl.offsetWidth - formData.padding * 2 + 'px';
+    backgroundEl.style.width = formData.width + '%';
+    edirtorContainer.style.width = backgroundEl.offsetWidth - formData.padding * 2 + 'px';
 
-      backgroundEl.style.borderRadius = formData.borderRadius + 'px';
-      edirtorContainer.style.borderRadius = formData.borderRadius + 'px';
-      edirtorContainer.querySelector('pre')!.style.borderRadius = formData.borderRadius + 'px';
-      edirtorContainer.querySelector('code')!.style.borderRadius = formData.borderRadius + 'px';
+    backgroundEl.style.borderRadius = formData.borderRadius + 'px';
+    edirtorContainer.style.borderRadius = formData.borderRadius + 'px';
+    edirtorContainer.querySelector('pre')!.style.borderRadius = formData.borderRadius + 'px';
+    edirtorContainer.querySelector('code')!.style.borderRadius = formData.borderRadius + 'px';
 
-      edirtorContainer.classList.toggle('shadow', Boolean(formData.shadow));
+    edirtorContainer.classList.toggle('shadow', Boolean(formData.shadow));
 
-      if (formData.windowStyle === 'none') {
-        windowControls.style.display = 'none';
-      } else if (formData.windowStyle === 'mac') {
-        windowControls.style.display = 'flex';
-        windowControls.querySelector<HTMLElement>('#code-to-img-windows')!.style.visibility =
-          'hidden';
-        windowControls.querySelector<HTMLElement>('#code-to-img-mac')!.style.visibility = 'visible';
-      } else if (formData.windowStyle === 'windows') {
-        windowControls.style.display = 'flex';
-        windowControls.querySelector<HTMLElement>('#code-to-img-windows')!.style.visibility =
-          'visible';
-        windowControls.querySelector<HTMLElement>('#code-to-img-mac')!.style.visibility = 'hidden';
-      }
+    watermark.hidden = !formData.watermark;
+    watermark.classList.toggle('shadow', Boolean(formData.shadow));
+
+    windowControls.style.display = formData.windowStyle === 'none' ? 'none' : 'flex';
+    windowControls.querySelector<HTMLElement>('#code-to-img-windows')!.style.visibility =
+      formData.windowStyle === 'windows' ? 'visible' : 'hidden';
+    windowControls.querySelector<HTMLElement>('#code-to-img-mac')!.style.visibility =
+      formData.windowStyle === 'mac' ? 'visible' : 'hidden';
+
+    if (formData.watermark && !cachedConfig) {
+      // only first time
+      updateShareLink();
+    }
+  };
+
+  const updateShareLink = async () => {
+    const newConfig = getCodeConfig();
+    if (formData.watermark && JSON.stringify(cachedConfig) !== JSON.stringify(newConfig)) {
+      cachedConfig = newConfig;
+      const url = await deps.getShareUrl(newConfig);
+      updateWatermark(url);
     }
   };
 
@@ -229,6 +264,7 @@ export const createCodeToImageUI = async ({
   eventsManager.addEventListener(saveBtn, 'click', async () => {
     saveBtn.disabled = true;
     const htmlToImage: any = await htmlToImagePromise;
+    await updateShareLink();
 
     const container = backgroundEl;
     const width = container.offsetWidth;
@@ -263,3 +299,5 @@ export const createCodeToImageUI = async ({
       });
   });
 };
+
+const presets = [{ bg1: '#823bb9', bg2: '#f4a261', theme: 'doutone-dark' }];

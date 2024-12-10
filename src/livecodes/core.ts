@@ -3826,10 +3826,20 @@ const handleCodeToImage = () => {
         ...options,
       });
 
+    const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/');
+
+    const getShareUrl = async (config: Partial<Config>) => {
+      const param = '/?x=id/' + (await shareService.shareProject(config));
+      return currentUrl + param;
+    };
+
     const codeToImageModule: typeof import('./UI/code-to-image') = await import(
       baseUrl + '{{hash:code-to-image.js}}'
     );
     await codeToImageModule.createCodeToImageUI({
+      baseUrl,
+      currentUrl,
+      editorId: getLanguageEditorId(activeEditor.getLanguage()) || 'script',
       modal,
       notifications,
       eventsManager,
@@ -3838,6 +3848,7 @@ const handleCodeToImage = () => {
         createEditor: createPreviewEditor,
         getFormatFn: () => formatter.getFormatFn(activeEditor.getLanguage()),
         changeSettings,
+        getShareUrl,
       },
     });
   };
