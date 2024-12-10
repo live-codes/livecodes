@@ -18,7 +18,7 @@ type Preset = PreviewEditorOptions & {
   format: 'png' | 'jpg' | 'svg';
   bg1: string;
   bg2: string;
-  bgDirection: string;
+  bgDirection: `to ${'top' | 'bottom' | 'left' | 'right' | 'top right' | 'top left' | 'bottom right' | 'bottom left'}`;
   width: number;
   padding: number;
   borderRadius: number;
@@ -268,9 +268,7 @@ export const createCodeToImageUI = async ({
   };
   const updateOptions = async (initialLoad = false) => {
     const formData = getFormData();
-
     editor.changeSettings(formData as any);
-
     adjustSize(formData, initialLoad);
 
     const color1 = formData.bg1 || '#f5f5dc';
@@ -306,6 +304,25 @@ export const createCodeToImageUI = async ({
       const url = await deps.getShareUrl(newConfig);
       updateWatermark(url);
     }
+  };
+
+  const applyPreset = (preset: Partial<Preset>) => {
+    const fullPreset: Preset = {
+      ...defaultPreset,
+      ...preset,
+    };
+    const keys = Object.keys(fullPreset) as Array<keyof Preset>;
+    keys
+      .filter((key) => form[`code-to-img-${key}`] != null)
+      .forEach((key) => {
+        const field = form[`code-to-img-${key}`];
+        if (field.type === 'checkbox') {
+          field.checked = fullPreset[key];
+        } else {
+          field.value = String(fullPreset[key]);
+        }
+      });
+    updateOptions();
   };
 
   eventsManager.addEventListener(form, 'input', () => updateOptions());
@@ -382,9 +399,18 @@ export const createCodeToImageUI = async ({
         shareBtn.disabled = false;
       });
   });
+
+  applyPreset(presets[0]);
 };
 
-const presets = [{ bg1: '#823bb9', bg2: '#f4a261', theme: 'doutone-dark' }];
+const presets: Array<Partial<Preset>> = [
+  {
+    bg1: '#823bb9',
+    bg2: '#f4a261',
+    bgDirection: 'to bottom right',
+    editorTheme: 'duotone-dark',
+  },
+];
 
 const defaultCode = `
 import { useState } from "react";
