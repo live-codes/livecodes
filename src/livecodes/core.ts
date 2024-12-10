@@ -1747,7 +1747,7 @@ const getAllEditors = (): CodeEditor[] => [
 
 const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];
-  const root = document.querySelector(':root');
+  const root = document.documentElement;
   root?.classList.remove(...themes);
   root?.classList.add(theme);
   changeThemeColor();
@@ -1783,7 +1783,7 @@ const changeThemeColor = () => {
   const { themeColor, theme } = getConfig();
   const color = themeColor || getDefaultColor();
   const { h, s, l } = colorToHsla(color);
-  const root = document.querySelector(':root') as HTMLElement;
+  const root = document.documentElement;
   root.style.setProperty('--hue', `${h}`);
   root.style.setProperty('--st', `${s}%`);
   root.style.setProperty('--lt', `${theme === 'light' ? 100 : l}%`);
@@ -1798,7 +1798,7 @@ const changeThemeColor = () => {
 
 const getDefaultColor = () => {
   if (defaultColor) return defaultColor;
-  const root = document.querySelector(':root') as HTMLElement;
+  const root = document.documentElement;
   const theme = getConfig().theme;
   root.classList.remove('light');
   const h = getComputedStyle(root).getPropertyValue('--hue');
@@ -1816,7 +1816,7 @@ const getDefaultColor = () => {
 
 const setFontSize = () => {
   const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
-  const root = document.querySelector(':root') as HTMLElement;
+  const root = document.documentElement;
   root.style.setProperty('--font-size', `${fontSize + 2}px`);
 };
 
