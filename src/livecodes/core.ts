@@ -3792,9 +3792,10 @@ const handleEditorSettings = () => {
 };
 
 const handleCodeToImage = () => {
-  const changeSettings = (newConfig: Partial<UserConfig> | null) => {
-    if (!newConfig) return;
-    // setUserConfig(newConfig);
+  const getSavedPreset = () => getAppData()?.codeToImagePreset;
+
+  const savePreset = (preset: AppData['codeToImagePreset']) => {
+    setAppData({ codeToImagePreset: preset });
   };
 
   const createCodeToImageUI = async () => {
@@ -3848,11 +3849,11 @@ const handleCodeToImage = () => {
       notifications,
       eventsManager,
       deps: {
-        getUserConfig: () => getUserConfig(getConfig()),
         createEditor: createPreviewEditor,
         getFormatFn: () => formatter.getFormatFn(activeEditor.getLanguage()),
-        changeSettings,
         getShareUrl,
+        getSavedPreset,
+        savePreset,
       },
     });
   };

@@ -66,15 +66,13 @@ export const createCodeToImageUI = async ({
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   deps: {
-    getUserConfig: () => UserConfig;
     createEditor: (options: PreviewEditorOptions) => Promise<CodeEditor>;
     getFormatFn: () => Promise<FormatFn>;
-    changeSettings: (newConfig: Partial<UserConfig>) => void;
     getShareUrl: (config: Partial<Config>) => Promise<string>;
+    getSavedPreset: () => Partial<Preset> | undefined;
+    savePreset: (preset: Partial<Preset>) => void;
   };
 }) => {
-  const userConfig = deps.getUserConfig();
-
   const div = document.createElement('div');
   div.innerHTML = codeToImageScreen.replace(/{{baseUrl}}/g, baseUrl);
   const codeToImageContainer = div.firstChild as HTMLElement;
@@ -112,6 +110,33 @@ export const createCodeToImageUI = async ({
     fileName,
   };
 
+  const selectPreset = (id: string) => {
+    presetsContainer.querySelectorAll<HTMLElement>('.preset').forEach((p) => {
+      if (p.dataset.id === id) {
+        p.classList.add('active');
+      } else {
+        p.classList.remove('active');
+      }
+    });
+  };
+
+  const updateCustomPreset = (id: string) => {
+    const preset = getFormData();
+    const customPreset = presets.find((preset) => preset.id === 'custom');
+    if (!customPreset) return;
+    (Object.keys(preset) as Array<keyof Preset>)
+      .filter((key) => key !== 'id')
+      .forEach((key) => {
+        (customPreset as any)[key] = preset[key];
+      });
+
+    if (id === 'custom') {
+      deps.savePreset(customPreset);
+    } else {
+      deps.savePreset({ id });
+    }
+  };
+
   const applyPreset = (preset: Partial<Preset>) => {
     const fullPreset: Preset = {
       ...defaultPreset,
@@ -143,13 +168,7 @@ export const createCodeToImageUI = async ({
       });
     updateOptions(/* initialLoad = */ true);
 
-    presetsContainer.querySelectorAll<HTMLElement>('.preset').forEach((p) => {
-      if (p.dataset.id === preset.id) {
-        p.classList.add('active');
-      } else {
-        p.classList.remove('active');
-      }
-    });
+    selectPreset(fullPreset.id);
   };
 
   const populatePresets = () => {
@@ -157,11 +176,16 @@ export const createCodeToImageUI = async ({
       const presetBtn = document.createElement('btn');
       presetBtn.classList.add('preset');
       presetBtn.dataset.id = preset.id;
-      const img = document.createElement('img');
-      img.src = `${baseUrl}assets/code-to-img/${preset.id}.png`;
-      presetBtn.appendChild(img);
+      if (preset.id === 'custom') {
+        presetBtn.textContent = 'Custom';
+      } else {
+        const img = document.createElement('img');
+        img.src = `${baseUrl}assets/code-to-img/${preset.id}.png`;
+        presetBtn.appendChild(img);
+      }
       presetBtn.addEventListener('click', () => {
         applyPreset(preset);
+        updateCustomPreset(preset.id);
       });
       presetBtn.tabIndex = 0;
       eventsManager.addEventListener(presetBtn, 'keydown', (ev: KeyboardEvent) => {
@@ -317,7 +341,7 @@ export const createCodeToImageUI = async ({
       {} as Preset,
     );
 
-    const booleanFields = ['lineNumbers'];
+    const booleanFields = ['lineNumbers', 'wordWrap', 'shadow', 'watermark'];
     booleanFields.forEach((key) => {
       if (!(key in formData)) {
         (formData as any)[key] = false;
@@ -382,7 +406,11 @@ export const createCodeToImageUI = async ({
     }
   };
 
-  eventsManager.addEventListener(form, 'input', () => updateOptions());
+  eventsManager.addEventListener(form, 'input', () => {
+    updateOptions();
+    updateCustomPreset('custom');
+    selectPreset('custom');
+  });
   updateOptions(true);
 
   eventsManager.addEventListener(window, 'resize', () => adjustSize(getFormData(), true));
@@ -457,10 +485,17 @@ export const createCodeToImageUI = async ({
       });
   });
 
-  applyPreset(presets[0]);
+  const savedPreset = deps.getSavedPreset();
+  if (!savedPreset) {
+    applyPreset(presets[0]);
+  } else if (savedPreset.id === 'custom') {
+    applyPreset(savedPreset);
+  } else {
+    applyPreset(presets.find((preset) => preset.id === savedPreset.id) || presets[0]);
+  }
 };
 
-const presets: Array<Partial<Preset>> = [
+const presets: Array<Partial<Preset> & { id: string }> = [
   {
     id: 'preset-7',
     bg1: '#4a90e2',
@@ -601,6 +636,9 @@ const presets: Array<Partial<Preset>> = [
     shadow: true,
     editorTheme: 'coy-without-shadows',
     fontFamily: 'hack',
+  },
+  {
+    id: 'custom',
   },
 ];
 
