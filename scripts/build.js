@@ -173,6 +173,7 @@ const esmBuild = () =>
       'UI/sync-ui.ts',
       'UI/embed-ui.ts',
       'UI/editor-settings.ts',
+      'UI/code-to-image.ts',
       'languages/diagrams/lang-diagrams-compiler-esm.ts',
       'languages/postgresql/lang-postgresql-compiler-esm.ts',
       'languages/r/lang-r-script-esm.ts',

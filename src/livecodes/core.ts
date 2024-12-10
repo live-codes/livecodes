@@ -104,6 +104,7 @@ import {
   debounce,
   getValidUrl,
   loadStylesheet,
+  safeName,
   stringify,
   stringToValidJson,
   toDataUrl,
@@ -1736,7 +1737,9 @@ const loadSelectedScreen = () => {
   const screen = params.new === '' ? 'new' : params.screen;
   if (screen) {
     showScreen(screen);
+    return true;
   }
+  return false;
 };
 
 const getAllEditors = (): CodeEditor[] => [
@@ -2535,6 +2538,10 @@ const handleEditorTools = () => {
         window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
       );
     }
+  });
+
+  eventsManager.addEventListener(UI.getCodeToImageButton(), 'click', () => {
+    showScreen('code-to-image');
   });
 
   eventsManager.addEventListener(UI.getEditorStatus(), 'click', () => {
@@ -3777,6 +3784,76 @@ const handleEditorSettings = () => {
   registerScreen('editor-settings', createEditorSettingsUI);
 };
 
+const handleCodeToImage = () => {
+  const getSavedPreset = () => getAppData()?.codeToImagePreset;
+
+  const savePreset = (preset: AppData['codeToImagePreset']) => {
+    setAppData({ codeToImagePreset: preset });
+  };
+
+  const createCodeToImageUI = async () => {
+    modal.show(loadingMessage());
+
+    const activeEditor = getActiveEditor();
+
+    const createPreviewEditor = (
+      options: Pick<
+        EditorOptions,
+        'container' | 'editorTheme' | 'fontFamily' | 'fontSize' | 'lineNumbers'
+      >,
+    ) =>
+      createEditor({
+        ...getEditorConfig(getConfig()),
+        baseUrl,
+        editor: 'codejar',
+        theme: 'dark',
+        wordWrap: true,
+        language: activeEditor.getLanguage(),
+        value: activeEditor.getValue(),
+        readonly: false,
+        editorId: 'codeToImage',
+        isEmbed: false,
+        isHeadless: false,
+        getLanguageExtension,
+        mapLanguage,
+        getFormatterConfig: () => getFormatterConfig(getConfig()),
+        getFontFamily,
+        ...options,
+      });
+
+    const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/');
+
+    const getShareUrl = async (config: Partial<Config>) => {
+      const param = '/?x=id/' + (await shareService.shareProject(config));
+      return currentUrl + param;
+    };
+
+    const codeToImageModule: typeof import('./UI/code-to-image') = await import(
+      baseUrl + '{{hash:code-to-image.js}}'
+    );
+    const title = getConfig().title;
+    const fileName = title.trim() !== '' && title !== defaultConfig.title ? title : 'code-to-image';
+    await codeToImageModule.createCodeToImageUI({
+      baseUrl,
+      currentUrl,
+      fileName: safeName(fileName, '-').toLowerCase(),
+      editorId: getLanguageEditorId(activeEditor.getLanguage()) || 'script',
+      modal,
+      notifications,
+      eventsManager,
+      deps: {
+        createEditor: createPreviewEditor,
+        getFormatFn: () => formatter.getFormatFn(activeEditor.getLanguage()),
+        getShareUrl,
+        getSavedPreset,
+        savePreset,
+      },
+    });
+  };
+
+  registerScreen('code-to-image', createCodeToImageUI);
+};
+
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
@@ -4590,6 +4667,7 @@ const extraHandlers = async () => {
   handleAssets();
   handleSnippets();
   handleEditorSettings();
+  handleCodeToImage();
   handleSync();
   handleAutosync();
   handlePersistentStorage();
@@ -4800,7 +4878,11 @@ const importExternalContent = async (options: {
     false,
   );
 
-  modal.close();
+  const screenLoaded = loadSelectedScreen();
+  if (!screenLoaded) {
+    modal.close();
+  }
+
   return true;
 };
 
@@ -4962,7 +5044,6 @@ const initializePlayground = async (
   loadUserConfig(/* updateUI = */ true);
   loadStyles();
   await createIframe(UI.getResultElement());
-  loadSelectedScreen();
   setTheme(getConfig().theme, getConfig().editorTheme);
   if (!isEmbed) {
     initializeAuth().then(() => showSyncStatus());
@@ -4975,6 +5056,7 @@ const initializePlayground = async (
     url: params.x || parent.location.hash.substring(1),
   }).then(async (contentImported) => {
     if (!contentImported) {
+      loadSelectedScreen();
       await bootstrap();
     }
     initialized = true;

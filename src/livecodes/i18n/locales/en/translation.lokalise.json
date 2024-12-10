@@ -104,6 +104,10 @@
     "notes": "",
     "translation": "Change Theme"
   },
+  "app.codeToImage.hint": {
+    "notes": "",
+    "translation": "Code to Image"
+  },
   "app.consoleMessage.appVersion": {
     "notes": "",
     "translation": "App version: {{APP_VERSION}}"
@@ -516,6 +520,126 @@
     "notes": "",
     "translation": "Server URL"
   },
+  "codeToImage.background": {
+    "notes": "",
+    "translation": "Background"
+  },
+  "codeToImage.borderRadius": {
+    "notes": "",
+    "translation": "Border Radius"
+  },
+  "codeToImage.code": {
+    "notes": "",
+    "translation": "Code"
+  },
+  "codeToImage.copy": {
+    "notes": "",
+    "translation": "Copy"
+  },
+  "codeToImage.default": {
+    "notes": "",
+    "translation": "Default"
+  },
+  "codeToImage.direction": {
+    "notes": "",
+    "translation": "Direction"
+  },
+  "codeToImage.fileName": {
+    "notes": "",
+    "translation": "File Name"
+  },
+  "codeToImage.fontFamily": {
+    "notes": "",
+    "translation": "Font Family"
+  },
+  "codeToImage.fontSize": {
+    "notes": "",
+    "translation": "Font Size"
+  },
+  "codeToImage.heading": {
+    "notes": "",
+    "translation": "Code to Image"
+  },
+  "codeToImage.image": {
+    "notes": "",
+    "translation": "Image"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "notes": "",
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "notes": "",
+    "translation": "Image Format"
+  },
+  "codeToImage.imageFormat.png": {
+    "notes": "",
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "notes": "",
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "notes": "",
+    "translation": "Layout"
+  },
+  "codeToImage.padding": {
+    "notes": "",
+    "translation": "Padding"
+  },
+  "codeToImage.presets": {
+    "notes": "",
+    "translation": "Presets"
+  },
+  "codeToImage.preview": {
+    "notes": "",
+    "translation": "Preview"
+  },
+  "codeToImage.save": {
+    "notes": "",
+    "translation": "Save Image"
+  },
+  "codeToImage.scale": {
+    "notes": "",
+    "translation": "Image Scale"
+  },
+  "codeToImage.shadow": {
+    "notes": "",
+    "translation": "Shadow"
+  },
+  "codeToImage.share": {
+    "notes": "",
+    "translation": "Share Image"
+  },
+  "codeToImage.shareUrl": {
+    "notes": "",
+    "translation": "Share URL"
+  },
+  "codeToImage.theme": {
+    "notes": "",
+    "translation": "Theme"
+  },
+  "codeToImage.width": {
+    "notes": "",
+    "translation": "Width"
+  },
+  "codeToImage.windowStyle.label": {
+    "notes": "",
+    "translation": "Window Style"
+  },
+  "codeToImage.windowStyle.mac": {
+    "notes": "",
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "notes": "",
+    "translation": "None"
+  },
+  "codeToImage.windowStyle.windows": {
+    "notes": "",
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "notes": "",
     "translation": "Broadcast"
@@ -567,6 +691,14 @@
   "core.error.failedToParseSettings": {
     "notes": "",
     "translation": "Failed parsing settings as JSON"
+  },
+  "core.error.failedToSaveImage": {
+    "notes": "",
+    "translation": "Failed to save image"
+  },
+  "core.error.failedToShareImage": {
+    "notes": "",
+    "translation": "Failed to share image"
   },
   "core.error.invalidCommand": {
     "notes": "",

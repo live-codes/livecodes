@@ -1,5 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import { CodeJar } from 'codejar';
+import { CodeJar, type Position } from 'codejar';
 import 'prismjs';
 import 'prismjs/plugins/autoloader/prism-autoloader';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
@@ -49,7 +49,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   preElement.appendChild(codeElement);
 
   container.classList.add('prism');
-  if (!readonly) {
+  if (!readonly && editorId !== 'codeToImage') {
     container.classList.add('codejar');
     preElement.addEventListener('click', () => {
       currentPosition = getPosition();
@@ -82,8 +82,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
 
   const highlight = async () => {
+    const hasFocus = document.activeElement === codeElement;
+    let pos: Position | undefined;
+    try {
+      pos = codejar?.save();
+    } catch {
+      // codejar not initialized
+    }
     if (mappedLanguage in Prism.languages) {
       Prism.highlightElement(codeElement);
+      if (pos && hasFocus) {
+        codejar?.restore(pos);
+      }
       return;
     }
     await loadLanguage(mappedLanguage);
@@ -92,6 +102,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       // this fixes the problem of cursor resetting position while typing
       Prism.highlightElement(codeElement);
       listeners.splice(listeners.indexOf(fn), 1);
+      if (pos) {
+        codejar?.restore(pos);
+      }
     }, 100);
     fn();
     onContentChanged(fn);
@@ -275,6 +288,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     stylesheet.rel = 'stylesheet';
     stylesheet.href = stylesUrl;
     stylesheet.id = id;
+    stylesheet.crossOrigin = 'anonymous';
     document.head.appendChild(stylesheet);
 
     const id2 = 'prism-styles-override';
@@ -319,7 +333,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       }
     `;
     document.head.appendChild(styleEl);
-
+    setTheme(settings.theme, settings.editorTheme);
     preElement.classList.toggle('line-numbers', editorOptions.lineNumbers);
     highlight();
   };
