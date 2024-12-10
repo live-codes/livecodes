@@ -843,6 +843,7 @@ export interface AppData {
     serverUrl: string;
     userToken?: string;
   };
+  codeToImagePreset?: Record<string, any>;
 }
 
 /**
@@ -1488,6 +1489,7 @@ export interface EditorOptions extends EditorConfig {
     | 'console'
     | 'customSettings'
     | 'editorSettings'
+    | 'codeToImage'
     | 'tests'
     | 'embed'
     | 'snippet'
@@ -1633,6 +1635,7 @@ export type CodejarTheme =
   | 'monochrome-dark'
   | 'night-owl'
   | 'nord'
+  | 'nord-2'
   | 'okaidia'
   | 'one-dark'
   | 'one-light'
@@ -1739,6 +1742,7 @@ export interface Screen {
     | 'about'
     | 'custom-settings'
     | 'editor-settings'
+    | 'code-to-image'
     | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;
 }
