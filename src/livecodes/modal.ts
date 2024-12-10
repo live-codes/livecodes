@@ -1,5 +1,5 @@
 interface ModalOptions {
-  size?: 'large' | 'small';
+  size?: 'large' | 'small' | 'full';
   closeButton?: boolean;
   isAsync?: boolean;
   onClose?: () => void;
