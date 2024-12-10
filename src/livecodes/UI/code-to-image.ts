@@ -195,7 +195,8 @@ export const createCodeToImageUI = async ({
   let cachedConfig: Partial<Config> | undefined;
 
   let formData: PreviewEditorOptions;
-  const updateOptions = async (initialLoad = false) => {
+
+  const getFormData = () => {
     formData = Array.from(new FormData(form)).reduce(
       (acc, [name, value]) => ({
         ...acc,
@@ -220,8 +221,10 @@ export const createCodeToImageUI = async ({
       }
     });
 
-    editor.changeSettings(formData as any);
+    return formData;
+  };
 
+  const adjustSize = (formData: PreviewEditorOptions, initialLoad: boolean) => {
     backgroundEl.style.padding = formData.padding + 'px';
     backgroundEl.style.margin = 64 - formData.padding + 'px';
     if (initialLoad) {
@@ -234,6 +237,14 @@ export const createCodeToImageUI = async ({
       backgroundEl.style.width = formData.width + '%';
       edirtorContainer.style.width = backgroundEl.offsetWidth - formData.padding * 2 + 'px';
     }
+  };
+  const updateOptions = async (initialLoad = false) => {
+    const formData = getFormData();
+
+    editor.changeSettings(formData as any);
+
+    adjustSize(formData, initialLoad);
+
     const color1 = formData.bg1 || '#f5f5dc';
     const color2 = formData.bg2 || color1;
     const direction = formData.bgDirection || 'to bottom';
@@ -271,6 +282,8 @@ export const createCodeToImageUI = async ({
 
   eventsManager.addEventListener(form, 'input', () => updateOptions());
   updateOptions(true);
+
+  eventsManager.addEventListener(window, 'resize', () => adjustSize(getFormData(), false));
 
   const htmlToImagePromise = loadScript(htmlToImageUrl, 'htmlToImage');
 
