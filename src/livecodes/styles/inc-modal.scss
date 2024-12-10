@@ -1566,6 +1566,24 @@
     }
   }
 
+  #code-to-img-container {
+    .modal-screen {
+      position: relative;
+    }
+
+    #code-to-img-format-link {
+      font-size: 0.9em;
+      position: absolute;
+      right: 10%;
+      top: 0.75em;
+    }
+
+    #code-to-img-preview-container {
+      height: 250px !important;
+      max-height: 250px;
+    }
+  }
+
   @media only screen and (max-width: 768px) {
     #welcome-container {
       .modal-screen-container {

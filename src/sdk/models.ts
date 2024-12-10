@@ -1488,6 +1488,7 @@ export interface EditorOptions extends EditorConfig {
     | 'console'
     | 'customSettings'
     | 'editorSettings'
+    | 'codeToImage'
     | 'tests'
     | 'embed'
     | 'snippet'
@@ -1739,6 +1740,7 @@ export interface Screen {
     | 'about'
     | 'custom-settings'
     | 'editor-settings'
+    | 'code-to-image'
     | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;
 }

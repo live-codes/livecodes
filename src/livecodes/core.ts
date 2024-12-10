@@ -2544,6 +2544,10 @@ const handleEditorTools = () => {
     }
   });
 
+  eventsManager.addEventListener(UI.getCodeToImageButton(), 'click', () => {
+    showScreen('code-to-image');
+  });
+
   eventsManager.addEventListener(UI.getEditorStatus(), 'click', () => {
     showScreen('editor-settings', { scrollToSelector: 'label[data-name="editorMode"]' });
   });
@@ -3784,6 +3788,60 @@ const handleEditorSettings = () => {
   registerScreen('editor-settings', createEditorSettingsUI);
 };
 
+const handleCodeToImage = () => {
+  const changeSettings = (newConfig: Partial<UserConfig> | null) => {
+    if (!newConfig) return;
+    // setUserConfig(newConfig);
+  };
+
+  const createCodeToImageUI = async () => {
+    modal.show(loadingMessage());
+
+    const activeEditor = getActiveEditor();
+
+    const createPreviewEditor = (
+      options: Pick<
+        EditorOptions,
+        'container' | 'editorTheme' | 'fontFamily' | 'fontSize' | 'lineNumbers'
+      >,
+    ) =>
+      createEditor({
+        ...getEditorConfig(getConfig()),
+        baseUrl,
+        editor: 'codejar',
+        theme: 'dark',
+        wordWrap: true,
+        language: activeEditor.getLanguage(),
+        value: activeEditor.getValue(),
+        readonly: false,
+        editorId: 'codeToImage',
+        isEmbed: false,
+        isHeadless: false,
+        getLanguageExtension,
+        mapLanguage,
+        getFormatterConfig: () => getFormatterConfig(getConfig()),
+        getFontFamily,
+        ...options,
+      });
+
+    const codeToImageModule: typeof import('./UI/code-to-image') = await import(
+      baseUrl + '{{hash:code-to-image.js}}'
+    );
+    await codeToImageModule.createCodeToImageUI({
+      modal,
+      eventsManager,
+      deps: {
+        getUserConfig: () => getUserConfig(getConfig()),
+        createEditor: createPreviewEditor,
+        getFormatFn: () => formatter.getFormatFn(activeEditor.getLanguage()),
+        changeSettings,
+      },
+    });
+  };
+
+  registerScreen('code-to-image', createCodeToImageUI);
+};
+
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
@@ -4577,6 +4635,7 @@ const extraHandlers = async () => {
   handleAssets();
   handleSnippets();
   handleEditorSettings();
+  handleCodeToImage();
   handleSync();
   handleAutosync();
   handlePersistentStorage();

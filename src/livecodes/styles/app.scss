@@ -682,6 +682,10 @@ a#result-button {
       min-width: var(--s24);
     }
   }
+
+  #code-to-img-btn {
+    display: none;
+  }
 }
 
 .result {
