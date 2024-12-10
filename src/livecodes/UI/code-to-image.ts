@@ -308,7 +308,7 @@ export const createCodeToImageUI = async ({
     saveBtn.disabled = true;
     getImageUrl()
       .then((dataUrl: string) => {
-        downloadFile('code-to-image', formData.format || 'png', dataUrl);
+        downloadFile(formData.fileName, formData.format || 'png', dataUrl);
       })
       .catch(() => {
         notifications.error('Failed to save image.');
@@ -326,7 +326,7 @@ export const createCodeToImageUI = async ({
         const blob = await fetch(dataUrl).then((res) => res.blob());
         const data = {
           files: [
-            new File([blob], `code-to-image.${formData.format || 'png'}`, {
+            new File([blob], `${formData.fileName}.${formData.format || 'png'}`, {
               type: blob.type,
             }),
           ],
