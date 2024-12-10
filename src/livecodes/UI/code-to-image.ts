@@ -225,7 +225,7 @@ export const createCodeToImageUI = async ({
     backgroundEl.style.width = formData.width + '%';
     edirtorContainer.style.width = backgroundEl.offsetWidth - formData.padding * 2 + 'px';
 
-    backgroundEl.style.borderRadius = formData.borderRadius + 'px';
+    // backgroundEl.style.borderRadius = formData.borderRadius + 'px';
     edirtorContainer.style.borderRadius = formData.borderRadius + 'px';
     edirtorContainer.querySelector('pre')!.style.borderRadius = formData.borderRadius + 'px';
     edirtorContainer.querySelector('code')!.style.borderRadius = formData.borderRadius + 'px';
@@ -276,6 +276,8 @@ export const createCodeToImageUI = async ({
       jpg: 'toJpeg',
       svg: 'toSvg',
     };
+    const border = container.style.border;
+    container.style.border = '0 solid transparent';
     htmlToImage[methodNames[formData.format] || 'toPng'](container, {
       quality: 1,
       width: width * scale,
@@ -284,11 +286,13 @@ export const createCodeToImageUI = async ({
         transform: `scale(${scale})`,
         transformOrigin: 'top left',
         margin: '0',
+        border: '0 solid transparent',
         width: `${width}px`,
         height: `${height}px`,
       },
     })
       .then(function (dataUrl: string) {
+        container.style.border = border;
         downloadFile('code-to-image', formData.format || 'png', dataUrl);
       })
       .catch(() => {
