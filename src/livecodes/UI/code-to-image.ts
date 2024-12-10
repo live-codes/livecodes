@@ -9,7 +9,6 @@ import type {
   EditorId,
   EditorOptions,
   FormatFn,
-  UserConfig,
 } from '../models';
 import { codeToImageScreen } from '../html';
 import { fonts } from '../editor/fonts';
