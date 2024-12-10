@@ -46,6 +46,12 @@ export const languageIsEnabled = (language: Language, config: Config) => {
   const lang = getLanguageByAlias(language);
   if (!lang) return false;
   if (!config.languages) return true;
+  if (
+    ['javascript', 'typescript'].includes(lang) &&
+    ['javascript', 'typescript'].includes(mapLanguage(lang))
+  ) {
+    return true;
+  }
   return config.languages?.map(getLanguageByAlias).filter(Boolean).includes(lang);
 };
 
