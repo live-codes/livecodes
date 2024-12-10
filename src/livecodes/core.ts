@@ -1747,7 +1747,7 @@ const getAllEditors = (): CodeEditor[] => [
 
 const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];
-  const root = document.querySelector(':root');
+  const root = document.documentElement;
   root?.classList.remove(...themes);
   root?.classList.add(theme);
   changeThemeColor();
@@ -1783,7 +1783,7 @@ const changeThemeColor = () => {
   const { themeColor, theme } = getConfig();
   const color = themeColor || getDefaultColor();
   const { h, s, l } = colorToHsla(color);
-  const root = document.querySelector(':root') as HTMLElement;
+  const root = document.documentElement;
   root.style.setProperty('--hue', `${h}`);
   root.style.setProperty('--st', `${s}%`);
   root.style.setProperty('--lt', `${theme === 'light' ? 100 : l}%`);
@@ -1798,7 +1798,7 @@ const changeThemeColor = () => {
 
 const getDefaultColor = () => {
   if (defaultColor) return defaultColor;
-  const root = document.querySelector(':root') as HTMLElement;
+  const root = document.documentElement;
   const theme = getConfig().theme;
   root.classList.remove('light');
   const h = getComputedStyle(root).getPropertyValue('--hue');
@@ -1816,7 +1816,7 @@ const getDefaultColor = () => {
 
 const setFontSize = () => {
   const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
-  const root = document.querySelector(':root') as HTMLElement;
+  const root = document.documentElement;
   root.style.setProperty('--font-size', `${fontSize + 2}px`);
 };
 
@@ -2441,15 +2441,8 @@ const handleI18nMenu = () => {
     eventsManager.addEventListener(link, 'click', (ev) => {
       ev.preventDefault();
       if (langCode === getConfig().appLanguage) return;
-      checkSavedAndExecute(async () => {
-        setUserConfig({ appLanguage: langCode as AppLanguage });
-        if (!i18n && langCode !== 'en') {
-          modal.show(loadingMessage(), { size: 'small' });
-          await loadI18n(langCode as AppLanguage);
-        }
-        await i18n?.changeLanguage(langCode);
-        setAppLanguage(/* reload= */ true);
-      })();
+      setUserConfig({ appLanguage: langCode as AppLanguage });
+      changeAppLanguage(langCode as AppLanguage);
     });
     li.appendChild(link);
     i18nMenu.appendChild(li);
@@ -4490,8 +4483,16 @@ const translateStringMock = <Key extends I18nKeyType, Value extends string>(
   return result;
 };
 
-const setAppLanguage = (reload: boolean = false) => {
-  const lang = i18n?.getLanguage() ?? 'en';
+const setAppLanguage = ({
+  appLanguage,
+  reload = false,
+  url,
+}: {
+  appLanguage?: AppLanguage;
+  reload?: boolean;
+  url?: string;
+} = {}) => {
+  const lang = (appLanguage ?? i18n?.getLanguage() ?? 'en') as AppLanguage;
   document.documentElement.lang = lang;
   document.documentElement.dir = i18n?.getLanguageDirection() ?? 'ltr';
   if (!reload && (isEmbed || params.appLanguage)) return;
@@ -4515,10 +4516,22 @@ const setAppLanguage = (reload: boolean = false) => {
         data: i18nSplashData,
         reload,
         lang,
+        url,
       },
     },
     location.origin,
   );
+};
+
+const changeAppLanguage = async (appLanguage: AppLanguage) => {
+  if (!i18n && appLanguage !== 'en') {
+    modal.show(loadingMessage(), { size: 'small' });
+    await loadI18n(appLanguage);
+  }
+  await i18n?.changeLanguage(appLanguage);
+  const url = (await share(/* shortUrl = */ false, /* contentOnly = */ false)).url;
+  isSaved = true;
+  setAppLanguage({ appLanguage, reload: true, url });
 };
 
 const basicHandlers = () => {
@@ -4981,7 +4994,13 @@ const createApi = (): API => {
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
     const newAppConfig = buildConfig({ ...getConfig(), ...newConfig });
+    const hasNewAppLanguage =
+      newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
     setConfig(newAppConfig);
+    if (hasNewAppLanguage) {
+      changeAppLanguage(newConfig.appLanguage!);
+      return newAppConfig;
+    }
     await applyConfig(newConfig);
     const content = getContentConfig(newConfig as Config);
     const hasContent = Object.values(content).some((value) => value != null);
