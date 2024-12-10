@@ -105,6 +105,8 @@ export const createCodeToImageUI = async ({
     width: 70,
     padding: 48,
     format: 'png',
+    width: 70,
+    padding: 48,
     scale: 1,
     fileName,
   };
@@ -421,8 +423,8 @@ export const createCodeToImageUI = async ({
     await updateShareLink();
 
     const container = backgroundEl;
-    const width = container.offsetWidth;
-    const height = container.offsetHeight;
+    const width = container.offsetWidth + formData.padding * 2;
+    const height = container.offsetHeight + formData.padding * 2;
     const scale = formData.scale || 1;
 
     const methodNames: any = {
