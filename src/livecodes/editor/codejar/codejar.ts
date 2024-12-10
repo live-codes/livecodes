@@ -275,6 +275,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     stylesheet.rel = 'stylesheet';
     stylesheet.href = stylesUrl;
     stylesheet.id = id;
+    stylesheet.crossOrigin = 'anonymous';
     document.head.appendChild(stylesheet);
 
     const id2 = 'prism-styles-override';
