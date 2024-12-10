@@ -1,5 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import { CodeJar } from 'codejar';
+import { CodeJar, type Position } from 'codejar';
 import 'prismjs';
 import 'prismjs/plugins/autoloader/prism-autoloader';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
@@ -82,8 +82,17 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
 
   const highlight = async () => {
+    let pos: Position | undefined;
+    try {
+      pos = codejar?.save();
+    } catch {
+      // codejar not initialized
+    }
     if (mappedLanguage in Prism.languages) {
       Prism.highlightElement(codeElement);
+      if (pos) {
+        codejar?.restore(pos);
+      }
       return;
     }
     await loadLanguage(mappedLanguage);
@@ -92,6 +101,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       // this fixes the problem of cursor resetting position while typing
       Prism.highlightElement(codeElement);
       listeners.splice(listeners.indexOf(fn), 1);
+      if (pos) {
+        codejar?.restore(pos);
+      }
     }, 100);
     fn();
     onContentChanged(fn);
