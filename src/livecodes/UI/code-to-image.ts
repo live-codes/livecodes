@@ -141,6 +141,15 @@ export const createCodeToImageUI = async ({
 
   const editor = await initializeEditor(editorOptions);
 
+  const windowControls = document.createElement('div');
+  windowControls.id = 'code-to-img-window-controls';
+  windowControls.innerHTML = `
+  <span id="code-to-img-mac" class="window-buttons"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span>
+  <span id="code-to-img-title" class="window-title" contenteditable></span>
+  <span id="code-to-img-windows" class="window-buttons"><svg width="58" height="14" viewBox="0 0 58 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7H11" stroke="#878787" stroke-linecap="round" stroke-linejoin="round"></path><path d="M35 1H25C24.4477 1 24 1.44772 24 2V12C24 12.5523 24.4477 13 25 13H35C35.5523 13 36 12.5523 36 12V2C36 1.44772 35.5523 1 35 1Z" stroke="#878787"></path><path d="M47 2L57 12" stroke="#878787" stroke-linecap="round" stroke-linejoin="round"></path><path d="M47 12L57 2" stroke="#878787" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+`;
+  edirtorContainer.querySelector('pre')?.prepend(windowControls);
+
   let formData: PreviewEditorOptions;
   const updateOptions = async (initialLoad = false) => {
     formData = Array.from(new FormData(form)).reduce(
@@ -195,6 +204,20 @@ export const createCodeToImageUI = async ({
       edirtorContainer.querySelector('code')!.style.borderRadius = formData.borderRadius + 'px';
 
       edirtorContainer.classList.toggle('shadow', Boolean(formData.shadow));
+
+      if (formData.windowStyle === 'none') {
+        windowControls.style.display = 'none';
+      } else if (formData.windowStyle === 'mac') {
+        windowControls.style.display = 'flex';
+        windowControls.querySelector<HTMLElement>('#code-to-img-windows')!.style.visibility =
+          'hidden';
+        windowControls.querySelector<HTMLElement>('#code-to-img-mac')!.style.visibility = 'visible';
+      } else if (formData.windowStyle === 'windows') {
+        windowControls.style.display = 'flex';
+        windowControls.querySelector<HTMLElement>('#code-to-img-windows')!.style.visibility =
+          'visible';
+        windowControls.querySelector<HTMLElement>('#code-to-img-mac')!.style.visibility = 'hidden';
+      }
     }
   };
 
