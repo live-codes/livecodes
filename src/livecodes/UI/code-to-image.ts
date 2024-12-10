@@ -266,7 +266,7 @@ export const createCodeToImageUI = async ({
     Coloris.init();
     Coloris({
       el: '#code-to-img-bg1',
-      parent: '.modal-container',
+      parent: '.modal-screen-container',
       swatches: [
         '#264653',
         '#2a9d8f',
