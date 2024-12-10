@@ -4,7 +4,6 @@ import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
 import type { CodeEditor, Config, EditorOptions, FormatFn, UserConfig } from '../models';
 import { codeToImageScreen } from '../html';
-import { defaultConfig } from '../config/default-config';
 import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
 import { downloadFile, loadScript } from '../utils';
@@ -47,77 +46,11 @@ export const createCodeToImageUI = async ({
   const form = codeToImageContainer.querySelector<HTMLFormElement>('#code-to-img-form');
   if (!previewContainer || !form) return;
 
-  interface FormField {
-    title?: string;
-    name: string;
-    options: Array<{ label?: string; value: string; checked?: boolean }>;
-    help?: string;
-  }
-  const formFields: FormField[] = [
-    {
-      title: 'Editor Theme',
-      name: 'editorTheme',
-      options: prismThemes.map((t) => ({ label: t.title, value: t.name })),
-    },
-    {
-      title: 'Font Family',
-      name: 'fontFamily',
-      options: [
-        { label: 'Default', value: '' },
-        ...fonts.map((font) => ({ label: font.label || font.name, value: font.name })),
-      ],
-    },
-    {
-      title: 'Font Size',
-      name: 'fontSize',
-      options: [
-        { label: '10', value: '10' },
-        { label: '11', value: '11' },
-        { label: '12', value: '12' },
-        { label: '13', value: '13' },
-        { label: '14', value: '14', checked: true },
-        { label: '15', value: '15' },
-        { label: '16', value: '16' },
-        { label: '17', value: '17' },
-        { label: '18', value: '18' },
-        { label: '19', value: '19' },
-        { label: '20', value: '20' },
-        { label: '22', value: '22' },
-        { label: '24', value: '24' },
-        { label: '26', value: '26' },
-      ],
-    },
-    {
-      title: 'Show line numbers',
-      name: 'lineNumbers',
-      options: [{ value: 'true' }],
-    },
-    {
-      title: 'Image Scale',
-      name: 'scale',
-      options: [
-        { label: '0.5', value: '0.5' },
-        { label: '1', value: '1' },
-        { label: '2', value: '2' },
-        { label: '4', value: '4' },
-      ],
-    },
-    {
-      title: 'Image Format',
-      name: 'format',
-      options: [
-        { label: 'PNG', value: 'png' },
-        { label: 'JPEG', value: 'jpg' },
-        { label: 'SVG', value: 'svg' },
-      ],
-    },
-  ];
-
   const editorOptions: PreviewEditorOptions = {
     container: previewContainer,
     editorTheme: 'dracula',
-    fontFamily: undefined,
-    fontSize: undefined,
+    fontFamily: 'fira-code',
+    fontSize: 14,
     lineNumbers: false,
     format: 'png',
     scale: 1,
@@ -142,66 +75,30 @@ export const createCodeToImageUI = async ({
     return ed;
   };
 
-  formFields.forEach((field) => {
-    let title: HTMLElement | undefined;
-    if (field.title) {
-      title = document.createElement('label');
-      title.innerHTML = field.title.replace(
-        '*',
-        `<a href="#codejar-info" class="hint--top" data-hint="Not available in CodeJar" style="text-decoration: none;">*</a>`,
-      );
-      title.dataset.name = field.name;
-      form.appendChild(title);
+  const editorThemesSelect = form.querySelector<HTMLSelectElement>('#code-to-img-editorTheme')!;
+  prismThemes.forEach((theme) => {
+    const option = document.createElement('option');
+    option.text = theme.title;
+    option.value = theme.name;
+    editorThemesSelect.appendChild(option);
+  });
+
+  const fontFamilySelect = form.querySelector<HTMLSelectElement>('#code-to-img-fontFamily')!;
+  fonts.forEach((font) => {
+    const option = document.createElement('option');
+    option.text = font.name;
+    option.value = font.id;
+    fontFamilySelect.appendChild(option);
+  });
+
+  Object.keys(editorOptions).forEach((key) => {
+    const field = form[`code-to-img-${key}`];
+    if (!field) return;
+    if (field.type === 'checkbox') {
+      field.checked = (editorOptions as any)[key];
+    } else {
+      field.value = String((editorOptions as any)[key]);
     }
-
-    const fieldContainer = document.createElement('div');
-    fieldContainer.classList.add('input-container');
-    form.appendChild(fieldContainer);
-
-    const name = `code-to-img-${field.name}`;
-    const optionValue = String(
-      (editorOptions as any)[field.name] ?? (defaultConfig as any)[field.name] ?? '',
-    );
-
-    if (field.options.length > 4) {
-      const select = document.createElement('select');
-      select.name = name;
-      fieldContainer.appendChild(select);
-      field.options.forEach((option) => {
-        const optionEl = document.createElement('option');
-        optionEl.text = option.label || '';
-        optionEl.value = option.value;
-        optionEl.selected = optionValue === option.value || option.checked === true;
-        select.appendChild(optionEl);
-      });
-      return;
-    }
-
-    field.options.forEach((option) => {
-      const id = `${name}-${option.value}`;
-      const isCheckBox = !option.label && option.value === 'true';
-
-      const optionContainer = document.createElement('span');
-      fieldContainer.appendChild(optionContainer);
-
-      const input = document.createElement('input');
-      input.type = isCheckBox ? 'checkbox' : 'radio';
-      input.name = name;
-      input.id = id;
-      input.value = option.value;
-      input.checked = optionValue === option.value;
-      optionContainer.appendChild(input);
-
-      if (isCheckBox) {
-        input.classList.add('switch');
-      } else {
-        const label = document.createElement('label');
-        label.classList.add('radio-label');
-        label.htmlFor = id;
-        label.innerHTML = option.label || '';
-        optionContainer.appendChild(label);
-      }
-    });
   });
 
   const editor = await initializeEditor(editorOptions);
@@ -225,15 +122,7 @@ export const createCodeToImageUI = async ({
       {} as PreviewEditorOptions,
     );
 
-    const booleanFields = formFields
-      .filter(
-        (field) =>
-          field.options.length === 1 &&
-          !field.options[0].label &&
-          field.options[0].value === 'true',
-      )
-      .map((field) => field.name);
-
+    const booleanFields = ['lineNumbers'];
     booleanFields.forEach((key) => {
       if (!(key in formData)) {
         (formData as any)[key] = false;

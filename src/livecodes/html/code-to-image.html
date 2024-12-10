@@ -7,7 +7,83 @@
       <div id="code-to-img-preview-background">
         <div id="code-to-img-preview-container" class="custom-editor"></div>
       </div>
-      <form id="code-to-img-form"></form>
+      <form id="code-to-img-form">
+        <label>Editor Theme</label>
+        <div class="input-container">
+          <select name="code-to-img-editorTheme" id="code-to-img-editorTheme"></select>
+        </div>
+
+        <label>Font Family</label>
+        <div class="input-container">
+          <select name="code-to-img-fontFamily" id="code-to-img-fontFamily">
+            <option value="">Default</option>
+          </select>
+        </div>
+
+        <label>Font Size</label>
+        <div class="input-container">
+          <select name="code-to-img-fontSize" id="code-to-img-fontSize">
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="22">22</option>
+            <option value="24">24</option>
+            <option value="26">26</option>
+          </select>
+        </div>
+
+        <label>Show line numbers</label>
+        <div class="input-container">
+          <span>
+            <input name="code-to-img-lineNumbers" type="checkbox" class="switch"></input>
+          </span>
+        </div>
+
+        <label>Image Scale</label>
+        <div class="input-container">
+          <span>
+            <input name="code-to-img-scale" type="radio" value="0.5" id="code-to-img-scale-0.5"></input>
+            <label for="code-to-img-scale-0.5" class="radio-label">0.5</label>
+          </span>
+          <span>
+            <input name="code-to-img-scale" type="radio" value="1" id="code-to-img-scale-1"></input>
+            <label for="code-to-img-scale-1" class="radio-label">1</label>
+          </span>
+          <span>
+            <input name="code-to-img-scale" type="radio" value="2" id="code-to-img-scale-2"></input>
+            <label for="code-to-img-scale-2" class="radio-label">2</label>
+          </span>
+          <span>
+            <input name="code-to-img-scale" type="radio" value="4" id="code-to-img-scale-4"></input>
+            <label for="code-to-img-scale-4" class="radio-label">4</label>
+          </span>
+        </div>
+
+        <label>Image Format</label>
+        <div class="input-container">
+          <span>
+            <input name="code-to-img-format" type="radio" value="png" id="code-to-img-format-png"></input>
+            <label for="code-to-img-format-png" class="radio-label">PNG</label>
+          </span>
+          <span>
+            <input name="code-to-img-format" type="radio" value="jpg" id="code-to-img-format-jpg"></input>
+            <label for="code-to-img-format-jpg" class="radio-label">JPEG</label>
+          </span>
+          <span>
+            <input name="code-to-img-format" type="radio" value="svg" id="code-to-img-format-svg"></input>
+            <label for="code-to-img-format-svg" class="radio-label">SVG</label>
+          </span>
+        </div>
+
+      </form>
       <button id="code-to-img-save-btn" class="wide-button">Save Image</button>
     </div>
   </div>
