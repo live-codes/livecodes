@@ -226,9 +226,13 @@ export const createCodeToImageUI = async ({
         ev.preventDefault();
         const code = ed.getValue();
         if (copyToClipboard(code)) {
-          notifications.success('Code copied to clipboard!');
+          notifications.success(
+            window.deps.translateString('core.copy.copied', 'Code copied to clipboard'),
+          );
         } else {
-          notifications.error('Failed to copy code to clipboard');
+          notifications.error(
+            window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
+          );
         }
       },
     );
@@ -458,7 +462,9 @@ export const createCodeToImageUI = async ({
         downloadFile(formData.fileName, formData.format || 'png', dataUrl);
       })
       .catch(() => {
-        notifications.error('Failed to save image.');
+        notifications.error(
+          window.deps.translateString('core.error.failedToSaveImage', 'Failed to save image'),
+        );
       })
       .finally(() => {
         saveBtn.disabled = false;
@@ -482,7 +488,9 @@ export const createCodeToImageUI = async ({
         await navigator.share(data);
       })
       .catch(() => {
-        notifications.error('Failed to share image.');
+        notifications.error(
+          window.deps.translateString('core.error.failedToShareImage', 'Failed to share image'),
+        );
       })
       .finally(() => {
         shareBtn.disabled = false;
