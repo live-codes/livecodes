@@ -198,6 +198,7 @@ export const loadStylesheet = (url: string, id?: string, insertBefore?: string) 
   stylesheet.rel = 'stylesheet';
   stylesheet.href = url;
   stylesheet.id = id || 'styles-' + getRandomString();
+  stylesheet.crossOrigin = 'anonymous';
   document.head.insertBefore(
     stylesheet,
     insertBefore ? document.querySelector(insertBefore) : null,

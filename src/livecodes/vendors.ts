@@ -232,6 +232,8 @@ export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.5.1'
 
 export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 
+export const htmlToImageUrl = /* @__PURE__ */ getUrl('html-to-image@1.11.11/dist/html-to-image.js');
+
 export const imbaBaseUrl = /* @__PURE__ */ getUrl('imba@2.0.0-alpha.229/dist/');
 
 export const jestTypesUrl = /* @__PURE__ */ getUrl('@types/jest@27.4.1/index.d.ts');
@@ -315,6 +317,10 @@ export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/components/')
 export const prismOfficialThemesBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/themes/');
 
 export const prismThemesBaseUrl = /* @__PURE__ */ getUrl('prism-themes@1.9.0/themes/');
+
+export const prismThemeNordUrl = /* @__PURE__ */ getUrl(
+  'gh:GalenWong/nord-prism-js@9f085d2a64b37f72a516540ba3f87877d12d7e2d/prism-nord.css',
+);
 
 export const prismThemesLaserWaveUrl = /* @__PURE__ */ getUrl(
   'gh:PrismJS/prism-themes@447479fc7b2be2051fe27e561aceed7cc87a589f/themes/prism-laserwave.css',

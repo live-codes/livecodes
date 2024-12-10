@@ -3829,6 +3829,7 @@ const handleCodeToImage = () => {
     );
     await codeToImageModule.createCodeToImageUI({
       modal,
+      notifications,
       eventsManager,
       deps: {
         getUserConfig: () => getUserConfig(getConfig()),
