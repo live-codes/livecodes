@@ -1587,10 +1587,10 @@
     }
 
     .modal-screen {
-      position: relative;
+      align-items: center;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      position: relative;
 
       > label {
         align-self: flex-start;
@@ -1739,16 +1739,16 @@
       .panel {
         input {
           margin-bottom: 0;
+        }
 
-          &[type='checkbox'],
-          &[type='range'] {
-            margin-inline: var(--s8);
-          }
+        input[type='checkbox'],
+        input[type='range'] {
+          margin-inline: var(--s8);
+        }
 
-          &[type='range'] {
-            width: calc(100% - var(--s8) * 2);
-            margin-bottom: var(--s8);
-          }
+        input[type='range'] {
+          margin-bottom: var(--s8);
+          width: calc(100% - var(--s8) * 2);
         }
 
         > label:first-of-type {
@@ -1780,8 +1780,8 @@
 
   .accordion {
     .title {
-      border: 0;
       background-color: var(--btn-modal-bg-color);
+      border: 0;
       border-radius: var(--rs);
       color: var(--btn-modal-color);
       cursor: pointer;
