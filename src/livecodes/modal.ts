@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-internal-modules
+import { createAccordion } from './UI/accordion';
+
 interface ModalOptions {
   size?: 'large' | 'small' | 'full';
   closeButton?: boolean;
@@ -38,6 +41,8 @@ export const createModal = (translate: (container: HTMLElement) => void) => {
         }
       }, 500);
     }
+
+    createAccordion({ container, open: true });
 
     if (closeButton) {
       const closeContainer = document.createElement('div');
