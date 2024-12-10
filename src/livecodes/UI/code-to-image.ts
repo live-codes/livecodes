@@ -12,18 +12,36 @@ import { colorisBaseUrl, htmlToImageUrl } from '../vendors';
 type PreviewEditorOptions = Pick<
   EditorOptions,
   'container' | 'editorTheme' | 'fontFamily' | 'fontSize' | 'lineNumbers' | 'wordWrap'
-> & {
+>;
+
+type Preset = PreviewEditorOptions & {
   format: 'png' | 'jpg' | 'svg';
+  bg1: string;
+  bg2: string;
+  bgDirection: string;
   width: number;
   padding: number;
   borderRadius: number;
   shadow: boolean;
+  watermark: boolean;
+  windowStyle: 'mac' | 'windows' | 'none';
   scale: number;
+  fileName: string;
 };
+
+const getEditorOptions = (options: Preset): PreviewEditorOptions => ({
+  container: options.container,
+  editorTheme: options.editorTheme,
+  fontFamily: options.fontFamily,
+  fontSize: options.fontSize,
+  lineNumbers: options.lineNumbers,
+  wordWrap: options.wordWrap,
+});
 
 export const createCodeToImageUI = async ({
   baseUrl,
   currentUrl,
+  fileName,
   editorId,
   modal,
   notifications,
@@ -32,6 +50,7 @@ export const createCodeToImageUI = async ({
 }: {
   baseUrl: string;
   currentUrl: string;
+  fileName: string;
   editorId: EditorId;
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
@@ -61,8 +80,13 @@ export const createCodeToImageUI = async ({
   const form = codeToImageContainer.querySelector<HTMLFormElement>('#code-to-img-form');
   if (!edirtorContainer || !form) return;
 
-  const editorOptions: PreviewEditorOptions = {
+  const defaultPreset: Preset = {
     container: edirtorContainer,
+    bg1: 'white',
+    bg2: 'white',
+    bgDirection: 'to bottom',
+    windowStyle: 'none',
+    watermark: false,
     editorTheme: 'dracula',
     fontFamily: 'fira-code',
     fontSize: 14,
@@ -74,10 +98,11 @@ export const createCodeToImageUI = async ({
     borderRadius: 5,
     shadow: true,
     scale: 1,
+    fileName,
   };
 
-  const initializeEditor = async (options: PreviewEditorOptions) => {
-    const ed = await deps.createEditor(options);
+  const initializeEditor = async (options: Preset) => {
+    const ed = await deps.createEditor(getEditorOptions(options));
     if (ed.getValue().trim() === '') {
       ed.setLanguage('tsx', defaultCode);
     }
@@ -128,13 +153,13 @@ export const createCodeToImageUI = async ({
     fontFamilySelect.appendChild(option);
   });
 
-  Object.keys(editorOptions).forEach((key) => {
+  Object.keys(defaultPreset).forEach((key) => {
     const field = form[`code-to-img-${key}`];
     if (!field) return;
     if (field.type === 'checkbox') {
-      field.checked = (editorOptions as any)[key];
+      field.checked = (defaultPreset as any)[key];
     } else {
-      field.value = String((editorOptions as any)[key]);
+      field.value = String((defaultPreset as any)[key]);
     }
   });
 
@@ -164,7 +189,7 @@ export const createCodeToImageUI = async ({
   });
   loadStylesheet(colorisBaseUrl + 'coloris.css');
 
-  const editor = await initializeEditor(editorOptions);
+  const editor = await initializeEditor(defaultPreset);
 
   const windowControls = document.createElement('div');
   windowControls.id = 'code-to-img-window-controls';
@@ -197,7 +222,7 @@ export const createCodeToImageUI = async ({
   };
   let cachedConfig: Partial<Config> | undefined;
 
-  let formData: PreviewEditorOptions;
+  let formData: Preset;
 
   const getFormData = () => {
     formData = Array.from(new FormData(form)).reduce(
@@ -214,7 +239,7 @@ export const createCodeToImageUI = async ({
                   ? Number(value)
                   : value,
       }),
-      {} as PreviewEditorOptions,
+      {} as Preset,
     );
 
     const booleanFields = ['lineNumbers'];
@@ -227,7 +252,7 @@ export const createCodeToImageUI = async ({
     return formData;
   };
 
-  const adjustSize = (formData: PreviewEditorOptions, initialLoad: boolean) => {
+  const adjustSize = (formData: Preset, initialLoad: boolean) => {
     backgroundEl.style.padding = formData.padding + 'px';
     backgroundEl.style.margin = 64 - formData.padding + 'px';
     if (initialLoad) {
