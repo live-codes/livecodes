@@ -14,7 +14,7 @@
             type="range"
             min="30"
             max="100"
-            value="70"
+            step="0.25"
             class="range-slider"
             name="code-to-img-width"
           />
@@ -24,12 +24,35 @@
         <div class="input-container">
           <input
             type="range"
-            id="delay-range"
             min="0"
             max="64"
             value="48"
+            step="0.25"
             class="range-slider"
             name="code-to-img-padding"
+          />
+        </div>
+
+        <label class="range-slider-label">Border Radius</label>
+        <div class="input-container">
+          <input
+            type="range"
+            min="0"
+            max="20"
+            value="5"
+            class="range-slider"
+            name="code-to-img-borderRadius"
+          />
+        </div>
+
+        <label>Shadow</label>
+        <div class="input-container">
+          <input
+            type="checkbox"
+            class="switch"
+            value="true"
+            checked="checked"
+            name="code-to-img-shadow"
           />
         </div>
 
