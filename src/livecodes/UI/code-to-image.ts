@@ -361,6 +361,7 @@ export const createCodeToImageUI = async ({
       setTimeout(() => {
         // wait till the editor is rendered
         formData.width = (backgroundEl.offsetWidth / backgroundEl.parentElement!.offsetWidth) * 100;
+
         form[`code-to-img-width`].value = formData.width;
       }, 150);
     } else {
