@@ -88,6 +88,8 @@ export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
 );
 
+export const colorisBaseUrl = /* @__PURE__ */ getUrl('@melloware/coloris@0.22.0/dist/');
+
 export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 
 export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/');

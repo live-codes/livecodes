@@ -11,6 +11,35 @@
         <div class="accordion">
           <button class="title">Layout</button>
           <div class="panel">
+            <label class="range-slider-label">Background</label>
+            <div class="input-container color-picker-container">
+              <input
+                type="text"
+                class="color-picker"
+                name="code-to-img-bg1"
+                id="code-to-img-bg1"
+                placeholder="color 1"
+              />
+              <input
+                type="text"
+                class="color-picker"
+                name="code-to-img-bg2"
+                id="code-to-img-bg2"
+                placeholder="color 2"
+              />
+              <select name="code-to-img-bgDirection" id="code-to-img-bgDirection">
+                <option value="">Direction</option>
+                <option value="to bottom">↓</option>
+                <option value="to top">↑</option>
+                <option value="to right">→</option>
+                <option value="to left">←</option>
+                <option value="to bottom right">↘</option>
+                <option value="to bottom left">↙</option>
+                <option value="to top right">↗</option>
+                <option value="to top left">↖</option>
+              </select>
+            </div>
+
             <label class="range-slider-label">Width</label>
             <div class="input-container">
               <input
@@ -60,9 +89,9 @@
             </div>
           </div>
 
-          <button class="title">Editor</button>
+          <button class="title">Code</button>
           <div class="panel">
-            <label>Editor Theme</label>
+            <label>Theme</label>
             <div class="input-container">
               <select name="code-to-img-editorTheme" id="code-to-img-editorTheme"></select>
             </div>
