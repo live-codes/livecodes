@@ -1576,42 +1576,46 @@
   #code-to-img-container {
     box-sizing: border-box;
     padding: 0 10px;
-    position: relative;
     width: 100%;
+
+    .modal-title {
+      max-width: calc(100% - 3rem);
+    }
 
     .modal-screen {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > label {
+        align-self: flex-start;
+        margin-bottom: 2rem;
+      }
+
+      .wide-button {
+        align-self: flex-start;
+      }
     }
 
     .code-link {
-      font-size: 0.9em;
+      font-size: var(--s14);
       position: absolute;
-      top: 0.75em;
+      top: 0.75rem;
 
       &#code-to-img-format-link {
-        right: 10%;
+        inset-inline-end: 5%;
       }
 
       &#code-to-img-copy-link {
-        right: calc(10% + 5em);
+        // inset-inline-end: calc(5% + 5em);
+        inset-inline-end: 5%;
       }
     }
 
     #code-to-img-preview-background {
       align-items: center;
-      box-shadow: 0 0 0 0.5px grey; // simulate border but stay outside the element
-      box-sizing: border-box;
-      display: flex;
-      justify-content: center;
-      margin: 0;
-      max-width: 100%;
-      position: relative;
-    }
-
-    #code-to-img-preview-background {
-      align-items: center;
-      background: beige;
-      box-shadow: 0 0 0 0.5px grey; // simulate border but stay outside the element
+      box-shadow: 0 0 0 1px var(--link); // simulate border but stay outside the element
       box-sizing: border-box;
       display: flex;
       justify-content: center;
@@ -1718,8 +1722,36 @@
       }
     }
 
-    .accordion .title.active + #presets-container {
-      padding: 20px 0;
+    .accordion {
+      margin-top: 2rem;
+
+      .title.active + #presets-container {
+        padding: 20px 0;
+      }
+
+      .panel {
+        input {
+          margin-bottom: 0;
+
+          &[type='checkbox'],
+          &[type='range'] {
+            margin-inline: var(--s8);
+          }
+
+          &[type='range'] {
+            width: calc(100% - var(--s8) * 2);
+            margin-bottom: var(--s8);
+          }
+        }
+
+        > label:first-of-type {
+          margin-top: 1.5rem;
+        }
+
+        > :last-child {
+          margin-bottom: 2rem;
+        }
+      }
     }
 
     .color-picker-container {
@@ -1727,7 +1759,7 @@
       flex-wrap: wrap;
       gap: 10px;
       justify-content: space-between;
-      width: 73%;
+      width: 100%;
 
       input.color-picker {
         cursor: pointer;
@@ -1742,24 +1774,27 @@
   .accordion {
     .title {
       border: 0;
-      color: #444;
+      background-color: var(--btn-modal-bg-color);
+      border-radius: var(--rs);
+      color: var(--btn-modal-color);
       cursor: pointer;
-      font-size: 15px;
+      font-size: var(--s16);
       outline: none;
-      padding: 18px;
-      text-align: left;
+      padding: var(--s10) var(--s16);
+      text-align: start;
       transition: 0.4s;
       width: 100%;
 
       &:hover,
       &.active {
-        background-color: #ccc;
+        background-color: var(--btn-modal-bg-active);
+        color: var(--btn-modal-active);
       }
 
       &::after {
-        color: #777;
+        color: var(--btn-modal-color);
         content: '\002B';
-        float: right;
+        float: inline-end;
         font-weight: bold;
         margin-left: 5px;
       }
@@ -1772,7 +1807,7 @@
     .panel {
       max-height: 0;
       overflow: hidden;
-      padding: 0 18px;
+      padding: 2px 18px;
       transition: max-height 0.2s ease-out;
     }
   }
