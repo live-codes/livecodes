@@ -379,6 +379,13 @@
     width: 25rem;
   }
 
+  &.full {
+    height: calc(100vh - 50px);
+    max-height: unset;
+    max-width: unset;
+    width: calc(100vw - 50px);
+  }
+
   a[target='_blank']::after {
     content: '↑';
     display: inline-block;
@@ -1567,20 +1574,206 @@
   }
 
   #code-to-img-container {
+    box-sizing: border-box;
+    padding: 0 10px;
+    position: relative;
+    width: 100%;
+
     .modal-screen {
       position: relative;
     }
 
-    #code-to-img-format-link {
+    .code-link {
       font-size: 0.9em;
       position: absolute;
-      right: 10%;
       top: 0.75em;
+
+      &#code-to-img-format-link {
+        right: 10%;
+      }
+
+      &#code-to-img-copy-link {
+        right: calc(10% + 5em);
+      }
+    }
+
+    #code-to-img-preview-background {
+      align-items: center;
+      box-shadow: 0 0 0 0.5px grey; // simulate border but stay outside the element
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      max-width: 100%;
+      position: relative;
+    }
+
+    #code-to-img-preview-background {
+      align-items: center;
+      background: beige;
+      box-shadow: 0 0 0 0.5px grey; // simulate border but stay outside the element
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      max-width: 100%;
+      position: relative;
     }
 
     #code-to-img-preview-container {
-      height: 250px !important;
-      max-height: 250px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      overflow: hidden;
+
+      &.shadow {
+        box-shadow: 0 20px 68px rgba(0, 0, 0, 0.55);
+      }
+
+      code {
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      pre {
+        border-radius: 5px;
+        min-height: 3em;
+        min-width: 150px;
+        overflow: hidden;
+        padding: 1em;
+        text-align: left;
+      }
+    }
+
+    #code-to-img-watermark {
+      background-color: #ededed;
+      border: #a9a9a9 1px solid;
+      border-radius: 3px;
+      bottom: 0.5em;
+      font-size: 0.8em;
+      padding: 0.5em;
+      padding-top: 0.2em;
+      position: absolute;
+      right: 0.5em;
+      transform: scale(0.8);
+      transform-origin: bottom right;
+
+      &.shadow {
+        box-shadow: 0 20px 68px rgba(0, 0, 0, 0.55);
+      }
+
+      img {
+        height: 2em;
+        margin-bottom: -0.7em;
+      }
+    }
+
+    #code-to-img-window-controls {
+      display: flex;
+      gap: 1em;
+      justify-content: space-between;
+      margin-bottom: 1em;
+
+      .window-buttons {
+        visibility: hidden;
+      }
+
+      .window-title {
+        height: 1.2em;
+        min-width: 7em;
+        outline: none;
+        overflow: hidden;
+        text-align: center;
+      }
+    }
+
+    #presets-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+
+      .preset {
+        align-items: center;
+        background-color: var(--dark-bg-color);
+        border: var(--dark-bg-active) 1px solid;
+        border-radius: var(--rs);
+        box-sizing: content-box;
+        cursor: pointer;
+        display: flex;
+        height: 5em;
+        justify-content: center;
+        margin: 2px;
+        padding: 0.5em;
+        padding-top: 0.2em;
+        width: 7em;
+
+        &.active {
+          border: var(--link) 3px solid;
+          margin: 0;
+        }
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .accordion .title.active + #presets-container {
+      padding: 20px 0;
+    }
+
+    .color-picker-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      width: 73%;
+
+      input.color-picker {
+        cursor: pointer;
+      }
+
+      #code-to-img-bgDirection {
+        width: 6em;
+      }
+    }
+  }
+
+  .accordion {
+    .title {
+      border: 0;
+      color: #444;
+      cursor: pointer;
+      font-size: 15px;
+      outline: none;
+      padding: 18px;
+      text-align: left;
+      transition: 0.4s;
+      width: 100%;
+
+      &:hover,
+      &.active {
+        background-color: #ccc;
+      }
+
+      &::after {
+        color: #777;
+        content: '\002B';
+        float: right;
+        font-weight: bold;
+        margin-left: 5px;
+      }
+
+      &.active::after {
+        content: '\2212';
+      }
+    }
+
+    .panel {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 18px;
+      transition: max-height 0.2s ease-out;
     }
   }
 
