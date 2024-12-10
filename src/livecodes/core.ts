@@ -1736,7 +1736,9 @@ const loadSelectedScreen = () => {
   const screen = params.new === '' ? 'new' : params.screen;
   if (screen) {
     showScreen(screen);
+    return true;
   }
+  return false;
 };
 
 const getAllEditors = (): CodeEditor[] => [
@@ -4847,7 +4849,11 @@ const importExternalContent = async (options: {
     false,
   );
 
-  modal.close();
+  const screenLoaded = loadSelectedScreen();
+  if (!screenLoaded) {
+    modal.close();
+  }
+
   return true;
 };
 
@@ -5009,7 +5015,6 @@ const initializePlayground = async (
   loadUserConfig(/* updateUI = */ true);
   loadStyles();
   await createIframe(UI.getResultElement());
-  loadSelectedScreen();
   setTheme(getConfig().theme, getConfig().editorTheme);
   if (!isEmbed) {
     initializeAuth().then(() => showSyncStatus());
@@ -5022,6 +5027,7 @@ const initializePlayground = async (
     url: params.x || parent.location.hash.substring(1),
   }).then(async (contentImported) => {
     if (!contentImported) {
+      loadSelectedScreen();
       await bootstrap();
     }
     initialized = true;
