@@ -1768,6 +1768,11 @@
       justify-content: space-between;
       width: 100%;
 
+      .clr-field {
+        border-radius: var(--rs);
+        overflow: hidden;
+      }
+
       input.color-picker {
         cursor: pointer;
       }
