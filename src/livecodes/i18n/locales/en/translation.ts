@@ -332,6 +332,7 @@ const translation = {
       enter: 'Full Screen',
       exit: 'Exit Full Screen',
     },
+    generating: 'Generating...',
     import: {
       loading: 'Loading Project...',
     },

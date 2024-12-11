@@ -457,6 +457,9 @@ export const createCodeToImageUI = async ({
   const saveBtn = codeToImageContainer.querySelector<HTMLButtonElement>('#code-to-img-save-btn')!;
   eventsManager.addEventListener(saveBtn, 'click', async () => {
     saveBtn.disabled = true;
+    saveBtn.classList.add('disabled');
+    const btnText = saveBtn.innerText;
+    saveBtn.innerText = window.deps.translateString('core.generating', 'Generating...');
     getImageUrl()
       .then((dataUrl: string) => {
         downloadFile(formData.fileName, formData.format || 'png', dataUrl);
@@ -468,12 +471,17 @@ export const createCodeToImageUI = async ({
       })
       .finally(() => {
         saveBtn.disabled = false;
+        saveBtn.classList.remove('disabled');
+        saveBtn.innerText = btnText;
       });
   });
 
   const shareBtn = codeToImageContainer.querySelector<HTMLButtonElement>('#code-to-img-share-btn')!;
   eventsManager.addEventListener(shareBtn, 'click', () => {
     shareBtn.disabled = true;
+    shareBtn.classList.add('disabled');
+    const btnText = shareBtn.innerText;
+    shareBtn.innerText = window.deps.translateString('core.generating', 'Generating...');
     getImageUrl()
       .then(async (dataUrl: string) => {
         const blob = await fetch(dataUrl).then((res) => res.blob());
@@ -494,6 +502,8 @@ export const createCodeToImageUI = async ({
       })
       .finally(() => {
         shareBtn.disabled = false;
+        shareBtn.classList.remove('disabled');
+        shareBtn.innerText = btnText;
       });
   });
 

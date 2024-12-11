@@ -752,6 +752,10 @@
     "notes": "",
     "translation": "Exit Full Screen"
   },
+  "core.generating": {
+    "notes": "",
+    "translation": "Generating..."
+  },
   "core.import.loading": {
     "notes": "",
     "translation": "Loading Project..."
