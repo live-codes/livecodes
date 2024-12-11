@@ -25,31 +25,34 @@ const parseObject = (node) => {
     result[key] = parseValue(prop.value);
   });
   return result;
-}
+};
 
 const parseValue = (node) => {
   switch (node.type) {
-    case "ObjectExpression":
+    case 'ObjectExpression':
       return parseObject(node);
-    case "ArrayExpression":
+    case 'ArrayExpression':
       return node.elements.map(parseValue);
-    case "StringLiteral":
-    case "NumericLiteral":
-    case "BooleanLiteral":
+    case 'StringLiteral':
+    case 'NumericLiteral':
+    case 'BooleanLiteral':
       return node.value;
-    case "NullLiteral":
+    case 'NullLiteral':
       return null;
     default:
       throw new Error(`Unsupported node type: ${node.type}`);
   }
-}
+};
 
-const generateLokaliseJSON = async () => {
-  const lang = process.argv[2];
+/** @param {string} lang */
+const generateLokaliseJSON = async (lang) => {
   const srcDir = path.resolve('src/livecodes/i18n/locales/' + lang);
   if (!fs.existsSync(srcDir)) {
     console.error(`Language ${srcDir} does not exist.`);
     return;
+  } else if (lang === 'en') {
+    console.warn('This script is not intended to be run for English language.\nPlease use `npm run i18n-export` instead.');
+    return
   }
 
   const files = fs
@@ -57,7 +60,7 @@ const generateLokaliseJSON = async () => {
     .filter((file) => file.endsWith('.ts'))
     .map((file) => path.resolve(srcDir, file));
 
-  await Promise.all(
+  return Promise.all(
     files.map(async (file) => {
       try {
         console.log(`Generating Lokalise JSON for ${file} in language ${lang}...`);
@@ -83,7 +86,10 @@ const generateLokaliseJSON = async () => {
         }
 
         const outFile = path.resolve(srcDir, file.replace('.ts', '.lokalise.json'));
-        await fs.promises.writeFile(outFile, sortedJSONify(result).replace(/<(\/?)(\d+)>/g, '<$1tag-$2>'));
+        await fs.promises.writeFile(
+          outFile,
+          sortedJSONify(result).replace(/<(\/?)(\d+)>/g, '<$1tag-$2>'),
+        );
       } catch (err) {
         console.error(err);
       }
@@ -91,4 +97,22 @@ const generateLokaliseJSON = async () => {
   );
 };
 
-generateLokaliseJSON();
+const main = async () => {
+  const langs = new Set(process.argv.slice(2));
+
+  if (langs.has('all')) {
+    langs.delete('all');
+    const srcDir = path.resolve('src/livecodes/i18n/locales');
+    const files = fs
+      .readdirSync(srcDir)
+      .filter(
+        (file) =>
+          fs.statSync(path.resolve(srcDir, file)).isDirectory() && file !== 'en' && file !== 'tmp',
+      );
+    files.forEach((file) => langs.add(file));
+  }
+
+  await Promise.all([...langs].map(generateLokaliseJSON));
+};
+
+main();

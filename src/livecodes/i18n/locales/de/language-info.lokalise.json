@@ -1,239 +1,732 @@
 {
-    "artTemplate.desc": "Hochleistungsfähige JavaScript-Templating-Engine.",
-    "artTemplate.link": "<tag-1> <tag-2>art-template offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>art-template Dokumentation<\/tag-4> <\/tag-3>",
-    "artTemplate.name": "art-template",
-    "asciidoc.desc": "AsciiDoc zu HTML kompiliert mit Asciidoctor.",
-    "asciidoc.link": "<tag-1> <tag-2>AsciiDoc offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Asciidoctor offizielle Website<\/tag-4> <\/tag-3> <tag-5> <tag-6>Asciidoctor Dokumentation<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=asciidoc<\/tag-8> <\/tag-7>",
-    "asciidoc.name": "AsciiDoc",
-    "assemblyscript.desc": "Eine TypeScript-ähnliche Sprache für WebAssembly.",
-    "assemblyscript.link": "<tag-1> <tag-2>AssemblyScript offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>AssemblyScript Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "assemblyscript.name": "AssemblyScript",
-    "astro.desc": "Erstelle schnellere Websites mit weniger clientseitigem Javascript. (Noch in Beta)",
-    "astro.link": "<tag-1> <tag-2>Astro offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Astro Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "astro.name": "Astro",
-    "babel.desc": "Der JavaScript-Compiler",
-    "babel.link": "<tag-1><tag-2>Offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>Babel Dokumentation<\/tag-4> <\/tag-3>",
-    "babel.name": "Babel",
-    "bbcode.desc": "BBCode (\"Bulletin Board Code\") ist eine leichtgewichtige Auszeichnungssprache, die zur Formatierung von Nachrichten in vielen Internet-Forum-Softwares verwendet wird.",
-    "bbcode.link": "<tag-1><tag-2>bbcode.org<\/tag-2><\/tag-1> <tag-3> <tag-4>BBCode-Anleitung<\/tag-4> <\/tag-3> <tag-5> <tag-6>BBCode auf Wikipedia<\/tag-6> <\/tag-5>",
-    "bbcode.name": "BBCode",
-    "blockly.desc": "Eine JavaScript-Bibliothek zum Erstellen visueller Programmiereditoren.",
-    "blockly.link": "<tag-1> <tag-2>Offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Anleitungen<\/tag-4> <\/tag-3> <tag-5> <tag-6>Referenz<\/tag-6> <\/tag-5> <tag-7> <tag-8>Beispiele<\/tag-8> <\/tag-7> <tag-9> <tag-10>Starter-Vorlage laden<\/tag-10> <\/tag-9>",
-    "blockly.name": "Blockly",
-    "civet.desc": "Civet ist eine Programmiersprache, die zu TypeScript oder JavaScript kompiliert wird, sodass Sie vorhandene Tools verwenden, aber eine prägnante und leistungsstarke Syntax ermöglichen können.",
-    "civet.link": "<tag-1> <tag-2>Civet offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Civet Spickzettel<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "civet.name": "Civet",
-    "clio.desc": "Clio ist eine schnelle, verteilte, funktionale Programmiersprache, die zu JavaScript kompiliert wird.",
-    "clio.link": "<tag-1> <tag-2>Clio offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Clio Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "clio.name": "Clio",
-    "clojurescript.desc": "ClojureScript ist ein Compiler für <tag-1>Clojure<\/tag-1>, der auf JavaScript abzielt. <tag-2><\/tag-2>In LiveCodes läuft es im Browser mit <tag-3>Cherry<\/tag-3>.",
-    "clojurescript.link": "<tag-1> <tag-2>ClojureScript offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Clojure offizielle Website<\/tag-4> <\/tag-3> <tag-5> <tag-6>Cherry Repository<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=clojure<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes Dokumentation<\/tag-10> <\/tag-9> <tag-11> <tag-12>Starter-Vorlage laden<\/tag-12> <\/tag-11>",
-    "clojurescript.name": "ClojureScript (CLJS)",
-    "coffeescript.desc": "Schnörkelloses JavaScript.",
-    "coffeescript.link": "<tag-1> <tag-2>CoffeeScript offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Lerne X in Y Minuten, wobei X=coffeescript<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "coffeescript.name": "CoffeeScript",
-    "commonlisp.desc": "Eine Common Lisp-Implementierung in Javascript mit JSCL (ein Lisp-zu-Javascript-Compiler, der von Common Lisp gebootstrapt wurde).",
-    "commonlisp.link": "<tag-1> <tag-2>Common-Lisp.net<\/tag-2> <\/tag-1> <tag-3> <tag-4>JSCL Projekt<\/tag-4> <\/tag-3> <tag-5> <tag-6>Common Lisp Ressourcen<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Common Lisp<\/tag-8> <\/tag-7> <tag-9> <tag-10>Starter-Vorlage laden<\/tag-10> <\/tag-9>",
-    "commonlisp.name": "Common Lisp",
-    "cpp.desc1": "C++-Unterstützung mit JSCPP (ein einfacher C++-Interpreter, geschrieben in JavaScript).",
-    "cpp.desc2": "Es ist keine vollständige Implementierung von C++. Bitte beachten Sie die <tag-1>JSCPP-Dokumentation<\/tag-1> für Details.",
-    "cpp.link": "<tag-1> <tag-2>Standard C++ Foundation<\/tag-2> <\/tag-1> <tag-3> <tag-4>JSCPP<\/tag-4> <\/tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=C++<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden<\/tag-8> <\/tag-7>",
-    "cpp.name": "C++",
-    "cppWasm.desc": "Clang C\/C++-Compiler läuft auf WebAssembly und verwendet <tag-1>wasm-clang<\/tag-1>, angepasst von <tag-2>polylang.io<\/tag-2>.",
-    "cppWasm.link": "<tag-1> <tag-2>Standard C++ Foundation<\/tag-2> <\/tag-1> <tag-3> <tag-4>Clang offizielle Website<\/tag-4> <\/tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=C++<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden<\/tag-8> <\/tag-7>",
-    "cppWasm.name": "C\/C++ (Wasm)",
-    "diagrams.desc1": "(Experimentell)",
-    "diagrams.desc2": "Diagramme als Code. Unterstützt:",
-    "diagrams.desc3": "<tag-1> <tag-2>Cytoscape<\/tag-2> <\/tag-1> <tag-3> <tag-4>ELK<\/tag-4> (verwendet <tag-5>elkjs<\/tag-5>) <\/tag-3> <tag-6> <tag-7>Gnuplot<\/tag-7> (verwendet <tag-8>gnuplot-JS<\/tag-8>) <\/tag-6> <tag-9> <tag-10>Graphviz<\/tag-10> (verwendet <tag-11>@hpcc-js\/wasm<\/tag-11>) <\/tag-9> <tag-12> <tag-13>Mermaid<\/tag-13> <\/tag-12> <tag-14> <tag-15>Nomnoml<\/tag-15> <\/tag-14> <tag-16> <tag-17>Pintora<\/tag-17> <\/tag-16> <tag-18> <tag-19>Plotly<\/tag-19> <\/tag-18> <tag-20> <tag-21>Svgbob<\/tag-21> <\/tag-20> <tag-22> <tag-23>Vega<\/tag-23> <\/tag-22> <tag-24> <tag-25>VegaLite<\/tag-25> <\/tag-24> <tag-26> <tag-27>WaveDrom<\/tag-27> <\/tag-26>",
-    "diagrams.link": "<tag-1> <tag-2>Starter-Vorlage laden<\/tag-2> <\/tag-1> <tag-3> <tag-4>LiveCodes Dokumentation<\/tag-4> <\/tag-3>",
-    "diagrams.name": "Diagramme",
-    "dot.desc": "Die schnellste + prägnante JavaScript-Template-Engine für Node.js und Browser.",
-    "dot.link": "<tag-1> <tag-2>Offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>LiveCodes Dokumentation<\/tag-4> <\/tag-3>",
-    "dot.name": "doT.js",
-    "ejs.desc": "Eingebettetes JavaScript-Templating.",
-    "ejs.link": "<tag-1><tag-2>Offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>LiveCodes Dokumentation<\/tag-4> <\/tag-3>",
-    "ejs.name": "EJS",
-    "eta.desc": "Eingebettete JS-Template-Engine für Node, Deno und den Browser. Leichtgewichtig, schnell und erweiterbar. Geschrieben in TypeScript.",
-    "eta.link": "<tag-1><tag-2>Offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>LiveCodes Dokumentation<\/tag-6> <\/tag-5>",
-    "eta.name": "Eta",
-    "fennel.desc": "Fennel ist eine Programmiersprache, die die Geschwindigkeit, Einfachheit und Reichweite von Lua mit der Flexibilität einer Lisp-Syntax und eines Makrosystems verbindet.",
-    "fennel.link": "<tag-1> <tag-2>Fennel offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Erste Schritte mit Fennel<\/tag-4> <\/tag-3> <tag-5> <tag-6>LiveCodes Dokumentation<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden<\/tag-8> <\/tag-7>",
-    "fennel.name": "Fennel",
-    "flow.desc": "Flow ist ein statischer Typ-Checker für JavaScript.",
-    "flow.link": "<tag-1> <tag-2>Flow offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Flow Dokumentation<\/tag-4> <\/tag-3>",
-    "flow.name": "Flow",
-    "gleam.desc1": "Gleam ist eine freundliche Sprache zum Erstellen typsicherer Systeme, die skalieren!",
-    "gleam.desc2": "Gleam ist eine statisch typisierte funktionale Programmiersprache, die nach Erlang oder JavaScript kompiliert wird.",
-    "gleam.link": "<tag-1><tag-2>Gleam Website<\/tag-2><\/tag-1> <tag-3> <tag-4>Gleam Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Gleam Sprachführung<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden<\/tag-8> <\/tag-7>",
-    "gleam.name": "Gleam",
-    "go.desc1": "Go (Golang) ist eine Open-Source-Programmiersprache, mit der einfache, zuverlässige und effiziente Software erstellt werden kann.",
-    "go.desc2": "Hier wird es mit GopherJS nach JavaScript kompiliert.",
-    "go.link": "<tag-1><tag-2>Go Website<\/tag-2><\/tag-1> <tag-3><tag-4>Go Dokumentation<\/tag-4><\/tag-3> <tag-5> <tag-6>GopherJS Repository<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Go<\/tag-8> <\/tag-7> <tag-9><tag-10>Starter-Vorlage laden<\/tag-10><\/tag-9>",
-    "go.name": "Go",
-    "haml.desc": "Haml-Compiler für clientseitige JavaScript-View-Templates unter Verwendung von clientside-haml-js.",
-    "haml.link": "<tag-1><tag-2>Haml offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>Haml Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>clientside-haml-js GitHub Repository<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=haml<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes Dokumentation<\/tag-10> <\/tag-9>",
-    "haml.name": "Haml",
-    "handlebars.desc": "Minimales Templating auf Steroiden.",
-    "handlebars.link": "<tag-1><tag-2>Offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>LiveCodes Dokumentation<\/tag-4> <\/tag-3>",
-    "handlebars.name": "Handlebars",
-    "imba.desc": "Die freundliche Full-Stack-Sprache.",
-    "imba.link": "<tag-1><tag-2>Offizielle Website<\/tag-2><\/tag-1>",
-    "imba.name": "Imba",
-    "jsx.desc": "JSX wird in LiveCodes mit dem TypeScript-Compiler zu JavaScript kompiliert. Standardmäßig verwendet es React als JSX-Laufzeitumgebung.",
-    "jsx.link": "<tag-1> <tag-2>React offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>JSX in React Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>LiveCodes Dokumentation<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden<\/tag-8> <\/tag-7>",
-    "jsx.name": "JSX",
-    "julia.desc1": "(Die Julia-Sprachunterstützung in LiveCodes ist noch experimentell)",
-    "julia.desc2": "Julia-Compiler und Julia Base laufen auf WASM, unter Verwendung von <tag-1>julia-wasm<\/tag-1>, angepasst von <tag-2>polylang.io<\/tag-2>.",
-    "julia.link": "<tag-1> <tag-2>Julia offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Julia Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=Julia<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden<\/tag-8> <\/tag-7>",
-    "julia.name": "Julia",
-    "less.desc": "Es ist CSS, mit ein bisschen mehr.",
-    "less.link": "<tag-1><tag-2>Less offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>Lerne X in Y Minuten, wobei X=less<\/tag-4> <\/tag-3>",
-    "less.name": "Less",
-    "liquid.desc": "Eine einfache, ausdrucksstarke und sichere Template-Engine.",
-    "liquid.link": "<tag-1> <tag-2>LiquidJS offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>LiquidJS Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>LiveCodes Dokumentation<\/tag-6> <\/tag-5>",
-    "liquid.name": "LiquidJS",
-    "livescript.desc": "Eine Sprache, die zu JavaScript kompiliert wird.",
-    "livescript.link": "<tag-1> <tag-2>LiveScript offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Lerne X in Y Minuten, wobei X=LiveScript<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "livescript.name": "LiveScript",
-    "lua.desc": "Lua läuft im Browser mit fengari-web.",
-    "lua.link": "<tag-1><tag-2>Lua offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>Lua Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Fengari offizielle Website<\/tag-6> <\/tag-5> <tag-7> <tag-8>fengari-web GitHub Repository<\/tag-8> <\/tag-7> <tag-9> <tag-10>Lerne X in Y Minuten, wobei X=Lua<\/tag-10> <\/tag-9> <tag-11> <tag-12>LiveCodes Dokumentation<\/tag-12> <\/tag-11> <tag-13><tag-14>Starter-Vorlage laden<\/tag-14><\/tag-13>",
-    "lua.name": "Lua",
-    "luaWasm.desc": "Lua läuft im Browser mit Wasmoon, einer echten Lua 5.4 VM mit JS-Bindungen, die mit WebAssembly erstellt wurde.",
-    "luaWasm.link": "<tag-1><tag-2>Lua offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>Lua Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Wasmoon GitHub Repository<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Lua<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes Dokumentation<\/tag-10> <\/tag-9> <tag-11> <tag-12>Starter-Vorlage laden<\/tag-12> <\/tag-11>",
-    "luaWasm.name": "Lua (Wasm)",
-    "malina.desc": "Frontend-Compiler, inspiriert von Svelte.",
-    "malina.link": "<tag-1> <tag-2>Malina.js Repository<\/tag-2> <\/tag-1> <tag-3> <tag-4>Malina.js Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "malina.name": "Malina.js",
-    "markdown.desc": "Markdown zu HTML kompiliert mit Marked.",
-    "markdown.link": "<tag-1> <tag-2>Markdown offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Marked Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=Markdown<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden<\/tag-8> <\/tag-7>",
-    "markdown.name": "Markdown",
-    "mdx.desc": "Markdown für die Komponenten-Ära. <tag-1><\/tag-1>MDX ermöglicht es Ihnen, nahtlos JSX in Ihren Markdown-Dokumenten zu schreiben.",
-    "mdx.link": "<tag-1><tag-2>MDX Dokumentation<\/tag-2><\/tag-1> <tag-3><tag-4>Starter-Vorlage laden<\/tag-4><\/tag-3>",
-    "mdx.name": "MDX",
-    "mjml.desc": "MJML ist eine Auszeichnungssprache, die entwickelt wurde, um den Aufwand beim Codieren einer responsiven E-Mail zu reduzieren.",
-    "mjml.link": "<tag-1><tag-2>MJML offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>MJML Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>MJML offizielle Vorlagen<\/tag-6> <\/tag-5> <tag-7> <tag-8>LiveCodes Dokumentation<\/tag-8> <\/tag-7>",
-    "mjml.name": "MJML",
-    "mustache.desc": "Logikfreie Templates.",
-    "mustache.link": "<tag-1> <tag-2>Offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>mustache(5) Handbuch<\/tag-4> <\/tag-3> <tag-5> <tag-6>JavaScript-Implementierung<\/tag-6> <\/tag-5> <tag-7> <tag-8>LiveCodes Dokumentation<\/tag-8> <\/tag-7>",
-    "mustache.name": "Mustache",
-    "nunjucks.desc": "Eine leistungsstarke und vielseitige Templating-Sprache für JavaScript. Nunjucks ist im Wesentlichen eine Portierung von <tag-1>jinja2<\/tag-1>.",
-    "nunjucks.link": "<tag-1> <tag-2>Offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>LiveCodes Dokumentation<\/tag-4> <\/tag-3>",
-    "nunjucks.name": "Nunjucks",
-    "ocaml.desc1": "OCaml ist eine industrietaugliche Programmiersprache, die funktionale, imperative und objektorientierte Stile unterstützt.",
-    "ocaml.desc2": "Hier wird der ReScript-Compiler verwendet, um OCaml zu JavaScript zu kompilieren.",
-    "ocaml.link": "<tag-1><tag-2>OCaml Website<\/tag-2><\/tag-1> <tag-3> <tag-4>OCaml Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>ReScript Website<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=OCaml<\/tag-8> <\/tag-7> <tag-9> <tag-10>Starter-Vorlage laden<\/tag-10> <\/tag-9>",
-    "ocaml.name": "OCaml",
-    "perl.desc": "Perl läuft im Browser mit Perlito.",
-    "perl.link": "<tag-1> <tag-2>Perl offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Perl Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Perlito5 Readme<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Perl<\/tag-8> <\/tag-7> <tag-9> <tag-10>Starter-Vorlage laden<\/tag-10> <\/tag-9>",
-    "perl.name": "Perl",
-    "php.desc": "PHP läuft im Browser mit Uniter.",
-    "php.link": "<tag-1><tag-2>PHP offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>PHP Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Uniter GitHub Repository<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=PHP<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes Dokumentation<\/tag-10> <\/tag-9> <tag-11><tag-12>Starter-Vorlage laden<\/tag-12><\/tag-11>",
-    "php.name": "PHP",
-    "phpWasm.desc": "PHP im Browser, unterstützt durch WebAssembly, unter Verwendung von php-wasm.",
-    "phpWasm.link": "<tag-1><tag-2>PHP offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>PHP Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>php-wasm GitHub Repository<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=PHP<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes Dokumentation<\/tag-10> <\/tag-9> <tag-11> <tag-12>Starter-Vorlage laden<\/tag-12> <\/tag-11>",
-    "phpWasm.name": "PHP (Wasm)",
-    "postgresql.desc": "PostgreSQL als WASM verpackt mit PGlite",
-    "postgresql.link": "<tag-1> <tag-2>PostgreSQL offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>PostgreSQL Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>PGlite GitHub Repository<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=SQL<\/tag-8> <\/tag-7> <tag-9> <tag-10>Starter-Vorlage laden<\/tag-10> <\/tag-9>",
-    "postgresql.name": "PostgreSQL",
-    "prolog.desc": "Ein Open-Source-Prolog-Interpreter in JavaScript.",
-    "prolog.link": "<tag-1> <tag-2>Tau Prolog offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Tau Prolog Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>SWI-Prolog<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Prolog<\/tag-8> <\/tag-7> <tag-9> <tag-10>Starter-Vorlage laden<\/tag-10> <\/tag-9>",
-    "prolog.name": "Tau Prolog",
-    "pug.desc": "Robuste, elegante, funktionsreiche Template-Engine.",
-    "pug.link": "<tag-1> <tag-2>Pug Dokumentation<\/tag-2> <\/tag-1> <tag-3> <tag-4>Lerne X in Y Minuten, wobei X=Pug<\/tag-4> <\/tag-3> <tag-5> <tag-6>LiveCodes Dokumentation<\/tag-6> <\/tag-5>",
-    "pug.name": "Pug",
-    "python.desc": "Python läuft im Browser mit Brython.",
-    "python.link": "<tag-1> <tag-2>Python offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Python Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Brython Dokumentation<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Python<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes Dokumentation<\/tag-10> <\/tag-9> <tag-11> <tag-12>Starter-Vorlage laden<\/tag-12> <\/tag-11>",
-    "python.name": "Python",
-    "pythonWasm.desc1": "Python mit dem wissenschaftlichen Stack, kompiliert zu WebAssembly mit Pyodide.",
-    "pythonWasm.desc2": "Pyodide ermöglicht die Verwendung des wissenschaftlichen Python-Stacks einschließlich NumPy, Pandas, Matplotlib, SciPy, scikit-learn und vielen mehr. Zusätzlich ist es möglich, reine Python-Wheels von PyPi zu installieren.",
-    "pythonWasm.link": "<tag-1> <tag-2>Python offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Python Dokumentation<\/tag-4> <\/tag-3> <tag-5><tag-6>Pyodide Dokumentation<\/tag-6><\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Python<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes Dokumentation<\/tag-10> <\/tag-9> <tag-11> <tag-12>Starter-Vorlage laden<\/tag-12> <\/tag-11>",
-    "pythonWasm.name": "Python (Wasm)",
-    "r.desc": "R läuft im Browser mit WebR.",
-    "r.link": "<tag-1> <tag-2>Offizielle R-Projekt-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Die R-Handbücher<\/tag-4> <\/tag-3> <tag-5> <tag-6>R für Data Science (2. Auflage)<\/tag-6> <\/tag-5> <tag-7> <tag-8>WebR-Dokumentation<\/tag-8> <\/tag-7> <tag-9> <tag-10>Lerne X in Y Minuten, wobei X=R<\/tag-10> <\/tag-9> <tag-11> <tag-12>LiveCodes Dokumentation<\/tag-12> <\/tag-11> <tag-13> <tag-14>Starter-Vorlage laden<\/tag-14> <\/tag-13>",
-    "r.name": "R",
-    "reactNative.desc": "React Native für Web ist eine zugängliche Implementierung der Komponenten und APIs von React Native, die mit React DOM interoperabel ist.",
-    "reactNative.link": "<tag-1> <tag-2>Offizielle React-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>React Native Website<\/tag-4> <\/tag-3> <tag-5> <tag-6>React Native für Web Website<\/tag-6> <\/tag-5> <tag-7> <tag-8>React Native Dokumentation<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes Dokumentation<\/tag-10> <\/tag-9> <tag-11> <tag-12>Starter-Vorlage laden<\/tag-12> <\/tag-11>",
-    "reactNative.name": "React Native für Web",
-    "reactNativeTsx.desc": "React Native für Web ist eine zugängliche Implementierung der Komponenten und APIs von React Native, die mit React DOM interoperabel ist.",
-    "reactNativeTsx.link": "<tag-1> <tag-2>Offizielle React-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>React Native Website<\/tag-4> <\/tag-3> <tag-5> <tag-6>React Native für Web Website<\/tag-6> <\/tag-5> <tag-7> <tag-8>React Native Dokumentation<\/tag-8> <\/tag-7> <tag-9> <tag-10>TypeScript Website<\/tag-10> <\/tag-9> <tag-11> <tag-12>TypeScript Dokumentation<\/tag-12> <\/tag-11> <tag-13> <tag-14>LiveCodes Dokumentation<\/tag-14> <\/tag-13> <tag-15> <tag-16>Starter-Vorlage laden (JSX)<\/tag-16> <\/tag-15>",
-    "reactNativeTsx.name": "React Native für Web (mit TypeScript)",
-    "reason.desc1": "Reason ermöglicht es Ihnen, einfachen, schnellen und qualitativ hochwertigen typensicheren Code zu schreiben und dabei sowohl das JavaScript- als auch das OCaml-Ökosystem zu nutzen.",
-    "reason.desc2": "Der ReScript-Compiler wird hier verwendet, um Reason nach JavaScript zu kompilieren.",
-    "reason.link": "<tag-1><tag-2>Reason Website<\/tag-2><\/tag-1> <tag-3> <tag-4>Reason Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>ReasonReact<\/tag-6> <\/tag-5> <tag-7> <tag-8>ReScript Website<\/tag-8> <\/tag-7> <tag-9> <tag-10>Lerne X in Y Minuten, wobei X=Reason<\/tag-10> <\/tag-9> <tag-11> <tag-12>Starter-Vorlage laden<\/tag-12> <\/tag-11>",
-    "reason.name": "Reason",
-    "rescript.desc": "ReScript ist eine robust typisierte Sprache, die zu effizientem und lesbarem JavaScript kompiliert wird.",
-    "rescript.link": "<tag-1> <tag-2>ReScript Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>ReScript \/ React<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "rescript.name": "ReScript",
-    "richtext.desc1": "Mit Quill:",
-    "richtext.desc2": "Ihr leistungsstarker Rich-Text-Editor.",
-    "richtext.link": "<tag-1> <tag-2>Quill offizielle Website<\/tag-2> <\/tag-1>",
-    "richtext.name": "Rich-Text-Editor",
-    "riot.desc": "Einfache und elegante komponentenbasierte UI-Bibliothek.",
-    "riot.link": "<tag-1> <tag-2>Riot.js offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Riot.js Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "riot.name": "Riot.js",
-    "ruby.desc": "Ruby läuft im Browser mit Opal.",
-    "ruby.link": "<tag-1> <tag-2>Ruby offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Ruby Dokumentation<\/tag-4> <\/tag-3> <tag-5><tag-6>Opal offizielle Website<\/tag-6><\/tag-5> <tag-7> <tag-8>Opal Standardbibliothek CDN<\/tag-8> <\/tag-7> <tag-9> <tag-10>Lerne X in Y Minuten, wobei X=Ruby<\/tag-10> <\/tag-9> <tag-11> <tag-12>LiveCodes Dokumentation<\/tag-12> <\/tag-11> <tag-13> <tag-14>Starter-Vorlage laden<\/tag-14> <\/tag-13>",
-    "ruby.name": "Ruby",
-    "rubyWasm.desc": "Ruby läuft im Browser mit ruby-wasm (einer Sammlung von WebAssembly-Portierungen von CRuby).",
-    "rubyWasm.link": "<tag-1> <tag-2>Ruby offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Ruby Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>ruby.wasm Website<\/tag-6> <\/tag-5> <tag-7><tag-8>CRuby<\/tag-8><\/tag-7> <tag-9> <tag-10>Lerne X in Y Minuten, wobei X=Ruby<\/tag-10> <\/tag-9> <tag-11> <tag-12>LiveCodes Dokumentation<\/tag-12> <\/tag-11> <tag-13> <tag-14>Starter-Vorlage laden<\/tag-14> <\/tag-13>",
-    "rubyWasm.name": "Ruby (WASM)",
-    "sass.desc": "Syntaktisch Awesome Style Sheets.",
-    "sass.link": "<tag-1> <tag-2>Sass offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Sass Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Sass (die eingerückte) Syntax<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Sass<\/tag-8> <\/tag-7>",
-    "sass.name": "Sass",
-    "scheme.desc": "Scheme läuft im Browser mit biwascheme.",
-    "scheme.link": "<tag-1> <tag-2>Die Scheme Programmiersprache<\/tag-2> <\/tag-1> <tag-3> <tag-4>BiwaScheme offizielle Website<\/tag-4> <\/tag-3> <tag-5> <tag-6>BiwaScheme Referenz<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden<\/tag-8> <\/tag-7>",
-    "scheme.name": "Scheme",
-    "scss.desc": "Syntaktisch Awesome Style Sheets.",
-    "scss.link": "<tag-1> <tag-2>Sass offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Sass Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>SCSS Syntax<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Sass<\/tag-8> <\/tag-7>",
-    "scss.name": "SCSS",
-    "solid.desc": "Eine deklarative, effiziente und flexible JavaScript-Bibliothek zum Erstellen von Benutzeroberflächen.",
-    "solid.link": "<tag-1><tag-2>Offizielle Website<\/tag-2><\/tag-1> <tag-3><tag-4>Dokumentation<\/tag-4><\/tag-3> <tag-5> <tag-6>LiveCodes Dokumentation<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden (TSX)<\/tag-8> <\/tag-7>",
-    "solid.name": "Solid",
-    "solid.tsx.desc": "Eine deklarative, effiziente und flexible JavaScript-Bibliothek zum Erstellen von Benutzeroberflächen.",
-    "solid.tsx.link": "<tag-1><tag-2>Offizielle Website<\/tag-2><\/tag-1> <tag-3> <tag-4>Solid Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>TypeScript Website<\/tag-6> <\/tag-5> <tag-7> <tag-8>TypeScript Dokumentation<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes Dokumentation<\/tag-10> <\/tag-9> <tag-11> <tag-12>Starter-Vorlage laden<\/tag-12> <\/tag-11>",
-    "solid.tsx.name": "Solid (mit TypeScript)",
-    "sql.desc": "SQLite, kompiliert zu JavaScript mit SQL.js",
-    "sql.link": "<tag-1> <tag-2>Offizielle SQLite-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>SQLite-Syntax-Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Offizielle SQL.js-Website<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=SQL<\/tag-8> <\/tag-7> <tag-9><tag-10>Starter-Vorlage laden<\/tag-10><\/tag-9>",
-    "sql.name": "SQLite",
-    "stencil.desc": "Ein Compiler für Webkomponenten und High-Performance-Webanwendungen.",
-    "stencil.link": "<tag-1> <tag-2>Offizielle Stencil-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Stencil-Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "stencil.name": "Stencil",
-    "styleProcessors.link": "<tag-1> <tag-2>Tailwind CSS<\/tag-2> <\/tag-1> <tag-3> <tag-4>Windi CSS<\/tag-4> <\/tag-3> <tag-5> <tag-6>UnoCSS<\/tag-6> <\/tag-5> <tag-7> <tag-8>Lightning CSS<\/tag-8> <\/tag-7> <tag-9> <tag-10>PostCSS<\/tag-10> Plugins: <tag-11> <tag-12> <tag-13>Autoprefixer<\/tag-13> <\/tag-12> <tag-14> <tag-15>postcss-preset-env<\/tag-15> <\/tag-14> <tag-16> <tag-17>postcss-import-url<\/tag-17> <\/tag-16> <tag-18> <tag-19>postcss-modules<\/tag-19> <\/tag-18> <\/tag-11> <\/tag-9>",
-    "styleProcessors.name": "CSS-Frameworks und -Prozessoren",
-    "stylis.desc": "Leichtgewichtiger CSS-Präprozessor.",
-    "stylis.link": "<tag-1> <tag-2>Offizielle Stylis-Website<\/tag-2> <\/tag-1>",
-    "stylis.name": "Stylis",
-    "stylus.desc": "Ausdrucksstarkes, dynamisches, robustes CSS.",
-    "stylus.link": "<tag-1> <tag-2>Offizielle Stylus-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Lerne X in Y Minuten, wobei X=Stylus<\/tag-4> <\/tag-3>",
-    "stylus.name": "Stylus",
-    "sucrase.desc": "Superschnelle Alternative zu Babel für moderne JS-Laufzeitumgebungen.",
-    "sucrase.link": "<tag-1> <tag-2>Offizielle Sucrase-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Sucrase GitHub-Repository<\/tag-4> <\/tag-3> <tag-5> <tag-6>LiveCodes-Dokumentation<\/tag-6> <\/tag-5>",
-    "sucrase.name": "Sucrase",
-    "svelte.desc": "Kybernetisch verbesserte Webanwendungen.",
-    "svelte.link": "<tag-1> <tag-2>Offizielle Svelte-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Svelte-Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Starter-Vorlage laden<\/tag-6> <\/tag-5>",
-    "svelte.name": "Svelte",
-    "tcl.desc": "Tcl läuft im Browser mit <tag-1>wacl<\/tag-1>.",
-    "tcl.link": "<tag-1> <tag-2>Offizielle Tcl-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>wacl-Repository<\/tag-4> <\/tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=Tcl<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden<\/tag-8> <\/tag-7>",
-    "tcl.name": "Tcl (Tool Command Language)",
-    "teal.desc": "Ein typisierter Dialekt von Lua.",
-    "teal.link": "<tag-1> <tag-2>Teal GitHub-Repository<\/tag-2> <\/tag-1> <tag-3> <tag-4>Teal-Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Teal-Tutorial<\/tag-6> <\/tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation<\/tag-8> <\/tag-7> <tag-9> <tag-10>Starter-Vorlage laden<\/tag-10> <\/tag-9>",
-    "teal.name": "Teal",
-    "tsx.desc": "TypeScript in JSX. TSX wird in LiveCodes mit dem TypeScript-Compiler zu JavaScript kompiliert. Standardmäßig verwendet es React als JSX-Laufzeitumgebung.",
-    "tsx.link": "<tag-1> <tag-2>Offizielle React-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>JSX in React-Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>TypeScript-Dokumentation<\/tag-6> <\/tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation<\/tag-8> <\/tag-7>",
-    "tsx.name": "TSX",
-    "twig.desc": "Eine JavaScript-Implementierung der <tag-1>Twig<\/tag-1> PHP-Templating-Sprache durch <tag-2>Twig.js<\/tag-2>.",
-    "twig.link": "<tag-1> <tag-2>Offizielle Twig-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Twig-Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Twig.js-Repository<\/tag-6> <\/tag-5> <tag-7> <tag-8>Twig.js-Dokumentation<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes-Dokumentation<\/tag-10> <\/tag-9>",
-    "twig.name": "Twig",
-    "typescript.desc": "Eine typisierte Obermenge von JavaScript.",
-    "typescript.link": "<tag-1> <tag-2>Offizielle Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>TypeScript-Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=TypeScript<\/tag-6> <\/tag-5> <tag-7> <tag-8>Starter-Vorlage laden<\/tag-8> <\/tag-7>",
-    "typescript.name": "TypeScript",
-    "vue.link": "<tag-1> <tag-2>Offizielle Vue.js v3-Website<\/tag-2> <\/tag-1> <tag-3> <tag-4>Vue3-Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Vue3 Single-File-Komponenten<\/tag-6> <\/tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation<\/tag-8> <\/tag-7> <tag-9><tag-10>Starter-Vorlage laden<\/tag-10><\/tag-9>",
-    "vue.name": "Vue3 Single-File-Komponenten",
-    "vue2.desc": "Geladen mit vue3-sfc-loader.",
-    "vue2.link": "<tag-1><tag-2>Offizielle Vue.js-Website<\/tag-2><\/tag-1> <tag-3> <tag-4>Vue2-Dokumentation<\/tag-4> <\/tag-3> <tag-5> <tag-6>Vue2 Single-File-Komponenten<\/tag-6> <\/tag-5> <tag-7> <tag-8>vue3-sfc-loader GitHub-Repository<\/tag-8> <\/tag-7> <tag-9> <tag-10>LiveCodes-Dokumentation<\/tag-10> <\/tag-9>",
-    "vue2.name": "Vue2 Single-File-Komponenten",
-    "wat.desc1": "Textuelle Darstellung des WebAssembly (wasm) Binärformats auf niedriger Ebene.",
-    "wat.desc2": "Es wird mit wabt.js in wasm umgewandelt.",
-    "wat.link": "<tag-1><tag-2>WebAssembly.org<\/tag-2><\/tag-1> <tag-3> <tag-4>WebAssembly-Textspezifikationen<\/tag-4> <\/tag-3> <tag-5> <tag-6>WebAssembly auf MDN<\/tag-6> <\/tag-5> <tag-7> <tag-8>Verständnis des WebAssembly-Textformats<\/tag-8> <\/tag-7> <tag-9> <tag-10>wabt.js-Dokumentation<\/tag-10> <\/tag-9> <tag-11> <tag-12>Lerne X in Y Minuten, wobei X=WebAssembly<\/tag-12> <\/tag-11> <tag-13><tag-14>Starter-Vorlage laden<\/tag-14><\/tag-13>",
-    "wat.name": "WebAssembly-Textformat"
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "artTemplate.desc": {
+    "translation": "Hochleistungsfähige JavaScript-Templating-Engine."
+  },
+  "artTemplate.link": {
+    "translation": "<tag-1> <tag-2>art-template offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>art-template Dokumentation</tag-4> </tag-3>"
+  },
+  "artTemplate.name": {
+    "translation": "art-template"
+  },
+  "asciidoc.desc": {
+    "translation": "AsciiDoc zu HTML kompiliert mit Asciidoctor."
+  },
+  "asciidoc.link": {
+    "translation": "<tag-1> <tag-2>AsciiDoc offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Asciidoctor offizielle Website</tag-4> </tag-3> <tag-5> <tag-6>Asciidoctor Dokumentation</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=asciidoc</tag-8> </tag-7>"
+  },
+  "asciidoc.name": {
+    "translation": "AsciiDoc"
+  },
+  "assemblyscript.desc": {
+    "translation": "Eine TypeScript-ähnliche Sprache für WebAssembly."
+  },
+  "assemblyscript.link": {
+    "translation": "<tag-1> <tag-2>AssemblyScript offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>AssemblyScript Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "assemblyscript.name": {
+    "translation": "AssemblyScript"
+  },
+  "astro.desc": {
+    "translation": "Erstelle schnellere Websites mit weniger clientseitigem Javascript. (Noch in Beta)"
+  },
+  "astro.link": {
+    "translation": "<tag-1> <tag-2>Astro offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Astro Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "astro.name": {
+    "translation": "Astro"
+  },
+  "babel.desc": {
+    "translation": "Der JavaScript-Compiler"
+  },
+  "babel.link": {
+    "translation": "<tag-1><tag-2>Offizielle Website</tag-2></tag-1> <tag-3> <tag-4>Babel Dokumentation</tag-4> </tag-3>"
+  },
+  "babel.name": {
+    "translation": "Babel"
+  },
+  "bbcode.desc": {
+    "translation": "BBCode (\"Bulletin Board Code\") ist eine leichtgewichtige Auszeichnungssprache, die zur Formatierung von Nachrichten in vielen Internet-Forum-Softwares verwendet wird."
+  },
+  "bbcode.link": {
+    "translation": "<tag-1><tag-2>bbcode.org</tag-2></tag-1> <tag-3> <tag-4>BBCode-Anleitung</tag-4> </tag-3> <tag-5> <tag-6>BBCode auf Wikipedia</tag-6> </tag-5>"
+  },
+  "bbcode.name": {
+    "translation": "BBCode"
+  },
+  "blockly.desc": {
+    "translation": "Eine JavaScript-Bibliothek zum Erstellen visueller Programmiereditoren."
+  },
+  "blockly.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Anleitungen</tag-4> </tag-3> <tag-5> <tag-6>Referenz</tag-6> </tag-5> <tag-7> <tag-8>Beispiele</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
+  },
+  "blockly.name": {
+    "translation": "Blockly"
+  },
+  "civet.desc": {
+    "translation": "Civet ist eine Programmiersprache, die zu TypeScript oder JavaScript kompiliert wird, sodass Sie vorhandene Tools verwenden, aber eine prägnante und leistungsstarke Syntax ermöglichen können."
+  },
+  "civet.link": {
+    "translation": "<tag-1> <tag-2>Civet offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Civet Spickzettel</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "civet.name": {
+    "translation": "Civet"
+  },
+  "clio.desc": {
+    "translation": "Clio ist eine schnelle, verteilte, funktionale Programmiersprache, die zu JavaScript kompiliert wird."
+  },
+  "clio.link": {
+    "translation": "<tag-1> <tag-2>Clio offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Clio Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "clio.name": {
+    "translation": "Clio"
+  },
+  "clojurescript.desc": {
+    "translation": "ClojureScript ist ein Compiler für <tag-1>Clojure</tag-1>, der auf JavaScript abzielt. <tag-2></tag-2>In LiveCodes läuft es im Browser mit <tag-3>Cherry</tag-3>."
+  },
+  "clojurescript.link": {
+    "translation": "<tag-1> <tag-2>ClojureScript offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Clojure offizielle Website</tag-4> </tag-3> <tag-5> <tag-6>Cherry Repository</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+  },
+  "clojurescript.name": {
+    "translation": "ClojureScript (CLJS)"
+  },
+  "coffeescript.desc": {
+    "translation": "Schnörkelloses JavaScript."
+  },
+  "coffeescript.link": {
+    "translation": "<tag-1> <tag-2>CoffeeScript offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Lerne X in Y Minuten, wobei X=coffeescript</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "coffeescript.name": {
+    "translation": "CoffeeScript"
+  },
+  "commonlisp.desc": {
+    "translation": "Eine Common Lisp-Implementierung in Javascript mit JSCL (ein Lisp-zu-Javascript-Compiler, der von Common Lisp gebootstrapt wurde)."
+  },
+  "commonlisp.link": {
+    "translation": "<tag-1> <tag-2>Common-Lisp.net</tag-2> </tag-1> <tag-3> <tag-4>JSCL Projekt</tag-4> </tag-3> <tag-5> <tag-6>Common Lisp Ressourcen</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Common Lisp</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
+  },
+  "commonlisp.name": {
+    "translation": "Common Lisp"
+  },
+  "cpp.desc1": {
+    "translation": "C++-Unterstützung mit JSCPP (ein einfacher C++-Interpreter, geschrieben in JavaScript)."
+  },
+  "cpp.desc2": {
+    "translation": "Es ist keine vollständige Implementierung von C++. Bitte beachten Sie die <tag-1>JSCPP-Dokumentation</tag-1> für Details."
+  },
+  "cpp.link": {
+    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>JSCPP</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=C++</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden</tag-8> </tag-7>"
+  },
+  "cpp.name": {
+    "translation": "C++"
+  },
+  "cppWasm.desc": {
+    "translation": "Clang C/C++-Compiler läuft auf WebAssembly und verwendet <tag-1>wasm-clang</tag-1>, angepasst von <tag-2>polylang.io</tag-2>."
+  },
+  "cppWasm.link": {
+    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>Clang offizielle Website</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=C++</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden</tag-8> </tag-7>"
+  },
+  "cppWasm.name": {
+    "translation": "C/C++ (Wasm)"
+  },
+  "diagrams.desc1": {
+    "translation": "(Experimentell)"
+  },
+  "diagrams.desc2": {
+    "translation": "Diagramme als Code. Unterstützt:"
+  },
+  "diagrams.desc3": {
+    "translation": "<tag-1> <tag-2>Cytoscape</tag-2> </tag-1> <tag-3> <tag-4>ELK</tag-4> (verwendet <tag-5>elkjs</tag-5>) </tag-3> <tag-6> <tag-7>Gnuplot</tag-7> (verwendet <tag-8>gnuplot-JS</tag-8>) </tag-6> <tag-9> <tag-10>Graphviz</tag-10> (verwendet <tag-11>@hpcc-js/wasm</tag-11>) </tag-9> <tag-12> <tag-13>Mermaid</tag-13> </tag-12> <tag-14> <tag-15>Nomnoml</tag-15> </tag-14> <tag-16> <tag-17>Pintora</tag-17> </tag-16> <tag-18> <tag-19>Plotly</tag-19> </tag-18> <tag-20> <tag-21>Svgbob</tag-21> </tag-20> <tag-22> <tag-23>Vega</tag-23> </tag-22> <tag-24> <tag-25>VegaLite</tag-25> </tag-24> <tag-26> <tag-27>WaveDrom</tag-27> </tag-26>"
+  },
+  "diagrams.link": {
+    "translation": "<tag-1> <tag-2>Starter-Vorlage laden</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes Dokumentation</tag-4> </tag-3>"
+  },
+  "diagrams.name": {
+    "translation": "Diagramme"
+  },
+  "dot.desc": {
+    "translation": "Die schnellste + prägnante JavaScript-Template-Engine für Node.js und Browser."
+  },
+  "dot.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes Dokumentation</tag-4> </tag-3>"
+  },
+  "dot.name": {
+    "translation": "doT.js"
+  },
+  "ejs.desc": {
+    "translation": "Eingebettetes JavaScript-Templating."
+  },
+  "ejs.link": {
+    "translation": "<tag-1><tag-2>Offizielle Website</tag-2></tag-1> <tag-3> <tag-4>LiveCodes Dokumentation</tag-4> </tag-3>"
+  },
+  "ejs.name": {
+    "translation": "EJS"
+  },
+  "eta.desc": {
+    "translation": "Eingebettete JS-Template-Engine für Node, Deno und den Browser. Leichtgewichtig, schnell und erweiterbar. Geschrieben in TypeScript."
+  },
+  "eta.link": {
+    "translation": "<tag-1><tag-2>Offizielle Website</tag-2></tag-1> <tag-3> <tag-4>Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokumentation</tag-6> </tag-5>"
+  },
+  "eta.name": {
+    "translation": "Eta"
+  },
+  "fennel.desc": {
+    "translation": "Fennel ist eine Programmiersprache, die die Geschwindigkeit, Einfachheit und Reichweite von Lua mit der Flexibilität einer Lisp-Syntax und eines Makrosystems verbindet."
+  },
+  "fennel.link": {
+    "translation": "<tag-1> <tag-2>Fennel offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Erste Schritte mit Fennel</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokumentation</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden</tag-8> </tag-7>"
+  },
+  "fennel.name": {
+    "translation": "Fennel"
+  },
+  "flow.desc": {
+    "translation": "Flow ist ein statischer Typ-Checker für JavaScript."
+  },
+  "flow.link": {
+    "translation": "<tag-1> <tag-2>Flow offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Flow Dokumentation</tag-4> </tag-3>"
+  },
+  "flow.name": {
+    "translation": "Flow"
+  },
+  "gleam.desc1": {
+    "translation": "Gleam ist eine freundliche Sprache zum Erstellen typsicherer Systeme, die skalieren!"
+  },
+  "gleam.desc2": {
+    "translation": "Gleam ist eine statisch typisierte funktionale Programmiersprache, die nach Erlang oder JavaScript kompiliert wird."
+  },
+  "gleam.link": {
+    "translation": "<tag-1><tag-2>Gleam Website</tag-2></tag-1> <tag-3> <tag-4>Gleam Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Gleam Sprachführung</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden</tag-8> </tag-7>"
+  },
+  "gleam.name": {
+    "translation": "Gleam"
+  },
+  "go.desc1": {
+    "translation": "Go (Golang) ist eine Open-Source-Programmiersprache, mit der einfache, zuverlässige und effiziente Software erstellt werden kann."
+  },
+  "go.desc2": {
+    "translation": "Hier wird es mit GopherJS nach JavaScript kompiliert."
+  },
+  "go.link": {
+    "translation": "<tag-1><tag-2>Go Website</tag-2></tag-1> <tag-3><tag-4>Go Dokumentation</tag-4></tag-3> <tag-5> <tag-6>GopherJS Repository</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Go</tag-8> </tag-7> <tag-9><tag-10>Starter-Vorlage laden</tag-10></tag-9>"
+  },
+  "go.name": {
+    "translation": "Go"
+  },
+  "haml.desc": {
+    "translation": "Haml-Compiler für clientseitige JavaScript-View-Templates unter Verwendung von clientside-haml-js."
+  },
+  "haml.link": {
+    "translation": "<tag-1><tag-2>Haml offizielle Website</tag-2></tag-1> <tag-3> <tag-4>Haml Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>clientside-haml-js GitHub Repository</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=haml</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9>"
+  },
+  "haml.name": {
+    "translation": "Haml"
+  },
+  "handlebars.desc": {
+    "translation": "Minimales Templating auf Steroiden."
+  },
+  "handlebars.link": {
+    "translation": "<tag-1><tag-2>Offizielle Website</tag-2></tag-1> <tag-3> <tag-4>LiveCodes Dokumentation</tag-4> </tag-3>"
+  },
+  "handlebars.name": {
+    "translation": "Handlebars"
+  },
+  "imba.desc": {
+    "translation": "Die freundliche Full-Stack-Sprache."
+  },
+  "imba.link": {
+    "translation": "<tag-1><tag-2>Offizielle Website</tag-2></tag-1>"
+  },
+  "imba.name": {
+    "translation": "Imba"
+  },
+  "jsx.desc": {
+    "translation": "JSX wird in LiveCodes mit dem TypeScript-Compiler zu JavaScript kompiliert. Standardmäßig verwendet es React als JSX-Laufzeitumgebung."
+  },
+  "jsx.link": {
+    "translation": "<tag-1> <tag-2>React offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>JSX in React Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokumentation</tag-6> </tag-5>"
+  },
+  "jsx.name": {
+    "translation": "JSX"
+  },
+  "julia.desc1": {
+    "translation": "(Die Julia-Sprachunterstützung in LiveCodes ist noch experimentell)"
+  },
+  "julia.desc2": {
+    "translation": "Julia-Compiler und Julia Base laufen auf WASM, unter Verwendung von <tag-1>julia-wasm</tag-1>, angepasst von <tag-2>polylang.io</tag-2>."
+  },
+  "julia.link": {
+    "translation": "<tag-1> <tag-2>Julia offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Julia Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=Julia</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden</tag-8> </tag-7>"
+  },
+  "julia.name": {
+    "translation": "Julia"
+  },
+  "less.desc": {
+    "translation": "Es ist CSS, mit ein bisschen mehr."
+  },
+  "less.link": {
+    "translation": "<tag-1><tag-2>Less offizielle Website</tag-2></tag-1> <tag-3> <tag-4>Lerne X in Y Minuten, wobei X=less</tag-4> </tag-3>"
+  },
+  "less.name": {
+    "translation": "Less"
+  },
+  "liquid.desc": {
+    "translation": "Eine einfache, ausdrucksstarke und sichere Template-Engine."
+  },
+  "liquid.link": {
+    "translation": "<tag-1> <tag-2>LiquidJS offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>LiquidJS Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokumentation</tag-6> </tag-5>"
+  },
+  "liquid.name": {
+    "translation": "LiquidJS"
+  },
+  "livescript.desc": {
+    "translation": "Eine Sprache, die zu JavaScript kompiliert wird."
+  },
+  "livescript.link": {
+    "translation": "<tag-1> <tag-2>LiveScript offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Lerne X in Y Minuten, wobei X=LiveScript</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "livescript.name": {
+    "translation": "LiveScript"
+  },
+  "lua.desc": {
+    "translation": "Lua läuft im Browser mit fengari-web."
+  },
+  "lua.link": {
+    "translation": "<tag-1><tag-2>Lua offizielle Website</tag-2></tag-1> <tag-3> <tag-4>Lua Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Fengari offizielle Website</tag-6> </tag-5> <tag-7> <tag-8>fengari-web GitHub Repository</tag-8> </tag-7> <tag-9> <tag-10>Lerne X in Y Minuten, wobei X=Lua</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Dokumentation</tag-12> </tag-11> <tag-13><tag-14>Starter-Vorlage laden</tag-14></tag-13>"
+  },
+  "lua.name": {
+    "translation": "Lua"
+  },
+  "luaWasm.desc": {
+    "translation": "Lua läuft im Browser mit Wasmoon, einer echten Lua 5.4 VM mit JS-Bindungen, die mit WebAssembly erstellt wurde."
+  },
+  "luaWasm.link": {
+    "translation": "<tag-1><tag-2>Lua offizielle Website</tag-2></tag-1> <tag-3> <tag-4>Lua Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Wasmoon GitHub Repository</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Lua</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+  },
+  "luaWasm.name": {
+    "translation": "Lua (Wasm)"
+  },
+  "malina.desc": {
+    "translation": "Frontend-Compiler, inspiriert von Svelte."
+  },
+  "malina.link": {
+    "translation": "<tag-1> <tag-2>Malina.js Repository</tag-2> </tag-1> <tag-3> <tag-4>Malina.js Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "malina.name": {
+    "translation": "Malina.js"
+  },
+  "markdown.desc": {
+    "translation": "Markdown zu HTML kompiliert mit Marked."
+  },
+  "markdown.link": {
+    "translation": "<tag-1> <tag-2>Markdown offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Marked Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=Markdown</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden</tag-8> </tag-7>"
+  },
+  "markdown.name": {
+    "translation": "Markdown"
+  },
+  "mdx.desc": {
+    "translation": "Markdown für die Komponenten-Ära. <tag-1></tag-1>MDX ermöglicht es Ihnen, nahtlos JSX in Ihren Markdown-Dokumenten zu schreiben."
+  },
+  "mdx.link": {
+    "translation": "<tag-1><tag-2>MDX Dokumentation</tag-2></tag-1> <tag-3><tag-4>Starter-Vorlage laden</tag-4></tag-3>"
+  },
+  "mdx.name": {
+    "translation": "MDX"
+  },
+  "mjml.desc": {
+    "translation": "MJML ist eine Auszeichnungssprache, die entwickelt wurde, um den Aufwand beim Codieren einer responsiven E-Mail zu reduzieren."
+  },
+  "mjml.link": {
+    "translation": "<tag-1><tag-2>MJML offizielle Website</tag-2></tag-1> <tag-3> <tag-4>MJML Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>MJML offizielle Vorlagen</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokumentation</tag-8> </tag-7>"
+  },
+  "mjml.name": {
+    "translation": "MJML"
+  },
+  "mustache.desc": {
+    "translation": "Logikfreie Templates."
+  },
+  "mustache.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>mustache(5) Handbuch</tag-4> </tag-3> <tag-5> <tag-6>JavaScript-Implementierung</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokumentation</tag-8> </tag-7>"
+  },
+  "mustache.name": {
+    "translation": "Mustache"
+  },
+  "nunjucks.desc": {
+    "translation": "Eine leistungsstarke und vielseitige Templating-Sprache für JavaScript. Nunjucks ist im Wesentlichen eine Portierung von <tag-1>jinja2</tag-1>."
+  },
+  "nunjucks.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes Dokumentation</tag-4> </tag-3>"
+  },
+  "nunjucks.name": {
+    "translation": "Nunjucks"
+  },
+  "ocaml.desc1": {
+    "translation": "OCaml ist eine industrietaugliche Programmiersprache, die funktionale, imperative und objektorientierte Stile unterstützt."
+  },
+  "ocaml.desc2": {
+    "translation": "Hier wird der ReScript-Compiler verwendet, um OCaml zu JavaScript zu kompilieren."
+  },
+  "ocaml.link": {
+    "translation": "<tag-1><tag-2>OCaml Website</tag-2></tag-1> <tag-3> <tag-4>OCaml Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>ReScript Website</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=OCaml</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
+  },
+  "ocaml.name": {
+    "translation": "OCaml"
+  },
+  "perl.desc": {
+    "translation": "Perl läuft im Browser mit Perlito."
+  },
+  "perl.link": {
+    "translation": "<tag-1> <tag-2>Perl offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Perl Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Perlito5 Readme</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Perl</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
+  },
+  "perl.name": {
+    "translation": "Perl"
+  },
+  "php.desc": {
+    "translation": "PHP läuft im Browser mit Uniter."
+  },
+  "php.link": {
+    "translation": "<tag-1><tag-2>PHP offizielle Website</tag-2></tag-1> <tag-3> <tag-4>PHP Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Uniter GitHub Repository</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=PHP</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9> <tag-11><tag-12>Starter-Vorlage laden</tag-12></tag-11>"
+  },
+  "php.name": {
+    "translation": "PHP"
+  },
+  "phpWasm.desc": {
+    "translation": "PHP im Browser, unterstützt durch WebAssembly, unter Verwendung von php-wasm."
+  },
+  "phpWasm.link": {
+    "translation": "<tag-1><tag-2>PHP offizielle Website</tag-2></tag-1> <tag-3> <tag-4>PHP Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>php-wasm GitHub Repository</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=PHP</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+  },
+  "phpWasm.name": {
+    "translation": "PHP (Wasm)"
+  },
+  "postgresql.desc": {
+    "translation": "PostgreSQL als WASM verpackt mit PGlite"
+  },
+  "postgresql.link": {
+    "translation": "<tag-1> <tag-2>PostgreSQL offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>PostgreSQL Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>PGlite GitHub Repository</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=SQL</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
+  },
+  "postgresql.name": {
+    "translation": "PostgreSQL"
+  },
+  "prolog.desc": {
+    "translation": "Ein Open-Source-Prolog-Interpreter in JavaScript."
+  },
+  "prolog.link": {
+    "translation": "<tag-1> <tag-2>Tau Prolog offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Tau Prolog Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>SWI-Prolog</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Prolog</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
+  },
+  "prolog.name": {
+    "translation": "Tau Prolog"
+  },
+  "pug.desc": {
+    "translation": "Robuste, elegante, funktionsreiche Template-Engine."
+  },
+  "pug.link": {
+    "translation": "<tag-1> <tag-2>Pug Dokumentation</tag-2> </tag-1> <tag-3> <tag-4>Lerne X in Y Minuten, wobei X=Pug</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokumentation</tag-6> </tag-5>"
+  },
+  "pug.name": {
+    "translation": "Pug"
+  },
+  "python.desc": {
+    "translation": "Python läuft im Browser mit Brython."
+  },
+  "python.link": {
+    "translation": "<tag-1> <tag-2>Python offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Python Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Brython Dokumentation</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Python</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+  },
+  "python.name": {
+    "translation": "Python"
+  },
+  "pythonWasm.desc1": {
+    "translation": "Python mit dem wissenschaftlichen Stack, kompiliert zu WebAssembly mit Pyodide."
+  },
+  "pythonWasm.desc2": {
+    "translation": "Pyodide ermöglicht die Verwendung des wissenschaftlichen Python-Stacks einschließlich NumPy, Pandas, Matplotlib, SciPy, scikit-learn und vielen mehr. Zusätzlich ist es möglich, reine Python-Wheels von PyPi zu installieren."
+  },
+  "pythonWasm.link": {
+    "translation": "<tag-1> <tag-2>Python offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Python Dokumentation</tag-4> </tag-3> <tag-5><tag-6>Pyodide Dokumentation</tag-6></tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Python</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+  },
+  "pythonWasm.name": {
+    "translation": "Python (Wasm)"
+  },
+  "r.desc": {
+    "translation": "R läuft im Browser mit WebR."
+  },
+  "r.link": {
+    "translation": "<tag-1> <tag-2>Offizielle R-Projekt-Website</tag-2> </tag-1> <tag-3> <tag-4>Die R-Handbücher</tag-4> </tag-3> <tag-5> <tag-6>R für Data Science (2. Auflage)</tag-6> </tag-5> <tag-7> <tag-8>WebR-Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>Lerne X in Y Minuten, wobei X=R</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Dokumentation</tag-12> </tag-11> <tag-13> <tag-14>Starter-Vorlage laden</tag-14> </tag-13>"
+  },
+  "r.name": {
+    "translation": "R"
+  },
+  "react.desc": {
+    "translation": "React Compiler ist ein Tool, das nur zur Build-Zeit läuft und React-Anwendungen automatisch optimiert."
+  },
+  "react.link": {
+    "translation": "<tag-1> <tag-2>React offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>React Compiler</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokumentation</tag-6> </tag-5> <tag-7> <tag-8>Startvorlage laden</tag-8> </tag-7>"
+  },
+  "react.name": {
+    "translation": "React-Compiler"
+  },
+  "reactNative.desc": {
+    "translation": "React Native für Web ist eine zugängliche Implementierung der Komponenten und APIs von React Native, die mit React DOM interoperabel ist."
+  },
+  "reactNative.link": {
+    "translation": "<tag-1> <tag-2>Offizielle React-Website</tag-2> </tag-1> <tag-3> <tag-4>React Native Website</tag-4> </tag-3> <tag-5> <tag-6>React Native für Web Website</tag-6> </tag-5> <tag-7> <tag-8>React Native Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+  },
+  "reactNative.name": {
+    "translation": "React Native für Web"
+  },
+  "reactNativeTsx.desc": {
+    "translation": "React Native für Web ist eine zugängliche Implementierung der Komponenten und APIs von React Native, die mit React DOM interoperabel ist."
+  },
+  "reactNativeTsx.link": {
+    "translation": "<tag-1> <tag-2>Offizielle React-Website</tag-2> </tag-1> <tag-3> <tag-4>React Native Website</tag-4> </tag-3> <tag-5> <tag-6>React Native für Web Website</tag-6> </tag-5> <tag-7> <tag-8>React Native Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>TypeScript Website</tag-10> </tag-9> <tag-11> <tag-12>TypeScript Dokumentation</tag-12> </tag-11> <tag-13> <tag-14>LiveCodes Dokumentation</tag-14> </tag-13> <tag-15> <tag-16>Starter-Vorlage laden (JSX)</tag-16> </tag-15>"
+  },
+  "reactNativeTsx.name": {
+    "translation": "React Native für Web (mit TypeScript)"
+  },
+  "reactTsx.desc": {
+    "translation": "React Compiler ist ein Tool, das nur zur Build-Zeit läuft und React-Anwendungen automatisch optimiert."
+  },
+  "reactTsx.link": {
+    "translation": "<tag-1> <tag-2>React offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>React Compiler</tag-4> </tag-3> <tag-5> <tag-6>TypeScript Website</tag-6> </tag-5> <tag-7> <tag-8>TypeScript Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Startvorlage laden (JSX)</tag-12> </tag-11>"
+  },
+  "reactTsx.name": {
+    "translation": "React-Compiler (mit TypeScript)"
+  },
+  "reason.desc1": {
+    "translation": "Reason ermöglicht es Ihnen, einfachen, schnellen und qualitativ hochwertigen typensicheren Code zu schreiben und dabei sowohl das JavaScript- als auch das OCaml-Ökosystem zu nutzen."
+  },
+  "reason.desc2": {
+    "translation": "Der ReScript-Compiler wird hier verwendet, um Reason nach JavaScript zu kompilieren."
+  },
+  "reason.link": {
+    "translation": "<tag-1><tag-2>Reason Website</tag-2></tag-1> <tag-3> <tag-4>Reason Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>ReasonReact</tag-6> </tag-5> <tag-7> <tag-8>ReScript Website</tag-8> </tag-7> <tag-9> <tag-10>Lerne X in Y Minuten, wobei X=Reason</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+  },
+  "reason.name": {
+    "translation": "Reason"
+  },
+  "rescript.desc": {
+    "translation": "ReScript ist eine robust typisierte Sprache, die zu effizientem und lesbarem JavaScript kompiliert wird."
+  },
+  "rescript.link": {
+    "translation": "<tag-1> <tag-2>ReScript Website</tag-2> </tag-1> <tag-3> <tag-4>ReScript / React</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "rescript.name": {
+    "translation": "ReScript"
+  },
+  "richtext.desc1": {
+    "translation": "Mit Quill:"
+  },
+  "richtext.desc2": {
+    "translation": "Ihr leistungsstarker Rich-Text-Editor."
+  },
+  "richtext.link": {
+    "translation": "<tag-1> <tag-2>Quill offizielle Website</tag-2> </tag-1>"
+  },
+  "richtext.name": {
+    "translation": "Rich-Text-Editor"
+  },
+  "riot.desc": {
+    "translation": "Einfache und elegante komponentenbasierte UI-Bibliothek."
+  },
+  "riot.link": {
+    "translation": "<tag-1> <tag-2>Riot.js offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Riot.js Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "riot.name": {
+    "translation": "Riot.js"
+  },
+  "ruby.desc": {
+    "translation": "Ruby läuft im Browser mit Opal."
+  },
+  "ruby.link": {
+    "translation": "<tag-1> <tag-2>Ruby offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Ruby Dokumentation</tag-4> </tag-3> <tag-5><tag-6>Opal offizielle Website</tag-6></tag-5> <tag-7> <tag-8>Opal Standardbibliothek CDN</tag-8> </tag-7> <tag-9> <tag-10>Lerne X in Y Minuten, wobei X=Ruby</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Dokumentation</tag-12> </tag-11> <tag-13> <tag-14>Starter-Vorlage laden</tag-14> </tag-13>"
+  },
+  "ruby.name": {
+    "translation": "Ruby"
+  },
+  "rubyWasm.desc": {
+    "translation": "Ruby läuft im Browser mit ruby-wasm (einer Sammlung von WebAssembly-Portierungen von CRuby)."
+  },
+  "rubyWasm.link": {
+    "translation": "<tag-1> <tag-2>Ruby offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Ruby Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>ruby.wasm Website</tag-6> </tag-5> <tag-7><tag-8>CRuby</tag-8></tag-7> <tag-9> <tag-10>Lerne X in Y Minuten, wobei X=Ruby</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Dokumentation</tag-12> </tag-11> <tag-13> <tag-14>Starter-Vorlage laden</tag-14> </tag-13>"
+  },
+  "rubyWasm.name": {
+    "translation": "Ruby (WASM)"
+  },
+  "sass.desc": {
+    "translation": "Syntaktisch Awesome Style Sheets."
+  },
+  "sass.link": {
+    "translation": "<tag-1> <tag-2>Sass offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Sass Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Sass (die eingerückte) Syntax</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Sass</tag-8> </tag-7>"
+  },
+  "sass.name": {
+    "translation": "Sass"
+  },
+  "scheme.desc": {
+    "translation": "Scheme läuft im Browser mit biwascheme."
+  },
+  "scheme.link": {
+    "translation": "<tag-1> <tag-2>Die Scheme Programmiersprache</tag-2> </tag-1> <tag-3> <tag-4>BiwaScheme offizielle Website</tag-4> </tag-3> <tag-5> <tag-6>BiwaScheme Referenz</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden</tag-8> </tag-7>"
+  },
+  "scheme.name": {
+    "translation": "Scheme"
+  },
+  "scss.desc": {
+    "translation": "Syntaktisch Awesome Style Sheets."
+  },
+  "scss.link": {
+    "translation": "<tag-1> <tag-2>Sass offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>Sass Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>SCSS Syntax</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Sass</tag-8> </tag-7>"
+  },
+  "scss.name": {
+    "translation": "SCSS"
+  },
+  "solid.desc": {
+    "translation": "Eine deklarative, effiziente und flexible JavaScript-Bibliothek zum Erstellen von Benutzeroberflächen."
+  },
+  "solid.link": {
+    "translation": "<tag-1><tag-2>Offizielle Website</tag-2></tag-1> <tag-3><tag-4>Dokumentation</tag-4></tag-3> <tag-5> <tag-6>LiveCodes Dokumentation</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden (TSX)</tag-8> </tag-7>"
+  },
+  "solid.name": {
+    "translation": "Solid"
+  },
+  "solid.tsx.desc": {
+    "translation": "Eine deklarative, effiziente und flexible JavaScript-Bibliothek zum Erstellen von Benutzeroberflächen."
+  },
+  "solid.tsx.link": {
+    "translation": "<tag-1><tag-2>Offizielle Website</tag-2></tag-1> <tag-3> <tag-4>Solid Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>TypeScript Website</tag-6> </tag-5> <tag-7> <tag-8>TypeScript Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+  },
+  "solid.tsx.name": {
+    "translation": "Solid (mit TypeScript)"
+  },
+  "sql.desc": {
+    "translation": "SQLite, kompiliert zu JavaScript mit SQL.js"
+  },
+  "sql.link": {
+    "translation": "<tag-1> <tag-2>Offizielle SQLite-Website</tag-2> </tag-1> <tag-3> <tag-4>SQLite-Syntax-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Offizielle SQL.js-Website</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=SQL</tag-8> </tag-7> <tag-9><tag-10>Starter-Vorlage laden</tag-10></tag-9>"
+  },
+  "sql.name": {
+    "translation": "SQLite"
+  },
+  "stencil.desc": {
+    "translation": "Ein Compiler für Webkomponenten und High-Performance-Webanwendungen."
+  },
+  "stencil.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Stencil-Website</tag-2> </tag-1> <tag-3> <tag-4>Stencil-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "stencil.name": {
+    "translation": "Stencil"
+  },
+  "styleProcessors.link": {
+    "translation": "<tag-1> <tag-2>Tailwind CSS</tag-2> </tag-1> <tag-3> <tag-4>Windi CSS</tag-4> </tag-3> <tag-5> <tag-6>UnoCSS</tag-6> </tag-5> <tag-7> <tag-8>Lightning CSS</tag-8> </tag-7> <tag-9> <tag-10>PostCSS</tag-10> Plugins: <tag-11> <tag-12> <tag-13>Autoprefixer</tag-13> </tag-12> <tag-14> <tag-15>postcss-preset-env</tag-15> </tag-14> <tag-16> <tag-17>postcss-import-url</tag-17> </tag-16> <tag-18> <tag-19>postcss-modules</tag-19> </tag-18> </tag-11> </tag-9>"
+  },
+  "styleProcessors.name": {
+    "translation": "CSS-Frameworks und -Prozessoren"
+  },
+  "stylis.desc": {
+    "translation": "Leichtgewichtiger CSS-Präprozessor."
+  },
+  "stylis.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Stylis-Website</tag-2> </tag-1>"
+  },
+  "stylis.name": {
+    "translation": "Stylis"
+  },
+  "stylus.desc": {
+    "translation": "Ausdrucksstarkes, dynamisches, robustes CSS."
+  },
+  "stylus.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Stylus-Website</tag-2> </tag-1> <tag-3> <tag-4>Lerne X in Y Minuten, wobei X=Stylus</tag-4> </tag-3>"
+  },
+  "stylus.name": {
+    "translation": "Stylus"
+  },
+  "sucrase.desc": {
+    "translation": "Superschnelle Alternative zu Babel für moderne JS-Laufzeitumgebungen."
+  },
+  "sucrase.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Sucrase-Website</tag-2> </tag-1> <tag-3> <tag-4>Sucrase GitHub-Repository</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes-Dokumentation</tag-6> </tag-5>"
+  },
+  "sucrase.name": {
+    "translation": "Sucrase"
+  },
+  "svelte.desc": {
+    "translation": "Kybernetisch verbesserte Webanwendungen."
+  },
+  "svelte.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Svelte-Website</tag-2> </tag-1> <tag-3> <tag-4>Svelte-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Starter-Vorlage laden</tag-6> </tag-5>"
+  },
+  "svelte.name": {
+    "translation": "Svelte"
+  },
+  "tcl.desc": {
+    "translation": "Tcl läuft im Browser mit <tag-1>wacl</tag-1>."
+  },
+  "tcl.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Tcl-Website</tag-2> </tag-1> <tag-3> <tag-4>wacl-Repository</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=Tcl</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden</tag-8> </tag-7>"
+  },
+  "tcl.name": {
+    "translation": "Tcl (Tool Command Language)"
+  },
+  "teal.desc": {
+    "translation": "Ein typisierter Dialekt von Lua."
+  },
+  "teal.link": {
+    "translation": "<tag-1> <tag-2>Teal GitHub-Repository</tag-2> </tag-1> <tag-3> <tag-4>Teal-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Teal-Tutorial</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
+  },
+  "teal.name": {
+    "translation": "Teal"
+  },
+  "tsx.desc": {
+    "translation": "TypeScript in JSX. TSX wird in LiveCodes mit dem TypeScript-Compiler zu JavaScript kompiliert. Standardmäßig verwendet es React als JSX-Laufzeitumgebung."
+  },
+  "tsx.link": {
+    "translation": "<tag-1> <tag-2>Offizielle React-Website</tag-2> </tag-1> <tag-3> <tag-4>JSX in React-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>TypeScript-Dokumentation</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation</tag-8> </tag-7>"
+  },
+  "tsx.name": {
+    "translation": "TSX"
+  },
+  "twig.desc": {
+    "translation": "Eine JavaScript-Implementierung der <tag-1>Twig</tag-1> PHP-Templating-Sprache durch <tag-2>Twig.js</tag-2>."
+  },
+  "twig.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Twig-Website</tag-2> </tag-1> <tag-3> <tag-4>Twig-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Twig.js-Repository</tag-6> </tag-5> <tag-7> <tag-8>Twig.js-Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes-Dokumentation</tag-10> </tag-9>"
+  },
+  "twig.name": {
+    "translation": "Twig"
+  },
+  "typescript.desc": {
+    "translation": "Eine typisierte Obermenge von JavaScript."
+  },
+  "typescript.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Website</tag-2> </tag-1> <tag-3> <tag-4>TypeScript-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=TypeScript</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden</tag-8> </tag-7>"
+  },
+  "typescript.name": {
+    "translation": "TypeScript"
+  },
+  "vue.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Vue.js v3-Website</tag-2> </tag-1> <tag-3> <tag-4>Vue3-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Vue3 Single-File-Komponenten</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation</tag-8> </tag-7> <tag-9><tag-10>Starter-Vorlage laden</tag-10></tag-9>"
+  },
+  "vue.name": {
+    "translation": "Vue3 Single-File-Komponenten"
+  },
+  "vue2.desc": {
+    "translation": "Geladen mit vue3-sfc-loader."
+  },
+  "vue2.link": {
+    "translation": "<tag-1><tag-2>Offizielle Vue.js-Website</tag-2></tag-1> <tag-3> <tag-4>Vue2-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>Vue2 Single-File-Komponenten</tag-6> </tag-5> <tag-7> <tag-8>vue3-sfc-loader GitHub-Repository</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes-Dokumentation</tag-10> </tag-9>"
+  },
+  "vue2.name": {
+    "translation": "Vue2 Single-File-Komponenten"
+  },
+  "wat.desc1": {
+    "translation": "Textuelle Darstellung des WebAssembly (wasm) Binärformats auf niedriger Ebene."
+  },
+  "wat.desc2": {
+    "translation": "Es wird mit wabt.js in wasm umgewandelt."
+  },
+  "wat.link": {
+    "translation": "<tag-1><tag-2>WebAssembly.org</tag-2></tag-1> <tag-3> <tag-4>WebAssembly-Textspezifikationen</tag-4> </tag-3> <tag-5> <tag-6>WebAssembly auf MDN</tag-6> </tag-5> <tag-7> <tag-8>Verständnis des WebAssembly-Textformats</tag-8> </tag-7> <tag-9> <tag-10>wabt.js-Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Lerne X in Y Minuten, wobei X=WebAssembly</tag-12> </tag-11> <tag-13><tag-14>Starter-Vorlage laden</tag-14></tag-13>"
+  },
+  "wat.name": {
+    "translation": "WebAssembly-Textformat"
+  }
 }
