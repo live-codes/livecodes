@@ -1,585 +1,1878 @@
 {
-    "about.documentations.aboutUs": "私たちについて",
-    "about.documentations.contact": "お問い合わせ",
-    "about.documentations.heading": "ドキュメント",
-    "about.documentations.home": "ホーム",
-    "about.documentations.license": "ライセンス",
-    "about.livecodes.para1": "<tag-1><tag-2>LiveCodes<\/tag-2><\/tag-1>は、<tag-3>オープンソース<\/tag-3>で<tag-4>機能豊富<\/tag-4>な<tag-5>クライアントサイド<\/tag-5>のコードプレイグラウンドです。現在、<tag-6>80以上の言語\/<tag-7><\/tag-7>フレームワーク<\/tag-6>をサポートしています。スタンドアロンアプリとして使用することも、任意のWebページに<tag-8>埋め込む<\/tag-8>こともできます。プレイグラウンドに<tag-9>コードをプリフィル<\/tag-9>する方法は多数あります。",
-    "about.livecodes.para2": "幅広い<tag-1>設定オプション<\/tag-1>により、非常に柔軟性があります。強力な<tag-2>SDK<\/tag-2>（<tag-3>JS\/TS<\/tag-3>、<tag-4>React<\/tag-4>、<tag-5>Vue<\/tag-5>、<tag-6>Svelte<\/tag-6>用）により、プレイグラウンドの<tag-7>埋め込み<\/tag-7>と<tag-8>通信<\/tag-8>が容易になります。コードサンプル、ライブデモ、スクリーンショットを含む<tag-9>包括的なドキュメント<\/tag-9>が利用可能です。",
-    "about.version.app": "アプリバージョン: {{APP_VERSION}}",
-    "about.version.appPermanentUrl": "アプリの永続的URL",
-    "about.version.commit": "Gitコミット: {{COMMIT_SHA}}",
-    "about.version.heading": "バージョン",
-    "about.version.sdk": "SDKバージョン: {{SDK_VERSION}}",
-    "about.version.sdkPermanentUrl": "SDKの永続的URL",
-    "assets.add.dataURL.desc": "アセットをBase64エンコードされた<tag-1>データURL<\/tag-1>として追加します。",
-    "assets.add.dataURL.heading": "データURL",
-    "assets.add.dataURL.label": "ファイルを追加",
-    "assets.add.githubPages.desc": "アセットをGitHub Pagesにデプロイします。ファイルはあなたのGitHubアカウントの<tag-2>livecodes-assets<\/tag-2>リポジトリの<tag-1>gh-pages<\/tag-1>ブランチにプッシュされます。リポジトリがまだ存在しない場合は、公開リポジトリが作成されます。",
-    "assets.add.githubPages.heading": "GitHub Pages",
-    "assets.add.githubPages.label": "ファイルをアップロード",
-    "assets.add.heading": "アセットを追加",
-    "assets.deleteAll": "すべて削除",
-    "assets.generic.clickToCopyURL": "クリックしてURLをコピー",
-    "assets.heading": "アセット",
-    "assets.link.type": "タイプ: {{type}}",
-    "assets.link.url": "URL: {{url}}",
-    "assets.loadFile.error.failedToUpload": "エラー: ファイルのアップロードに失敗しました",
-    "assets.loadFile.error.unauthenticated": "エラー: 認証されていないユーザー",
-    "assets.loadFile.upload": "ファイルをアップロード",
-    "assets.loadFile.uploading": "アップロード中...",
-    "assets.noMatch": "これらのフィルターに一致するアセットはありません。",
-    "assets.noSavedAssets": "保存されたアセットはありません。",
-    "assets.processAsset.addFile": "追加されたファイル: ",
-    "assets.processAsset.deployNotice": "アセットはまもなく（約1分）このURLで利用可能になります。",
-    "assets.processAsset.success": "ファイルがアセットに追加されました！",
-    "assets.processAsset.urlLabel": "URL: ",
-    "assets.resetFilters": "リセット",
-    "assets.search": "検索",
-    "assets.sort.date": "日付",
-    "assets.sort.fileName": "ファイル名",
-    "assets.sort.heading": "並び替え:",
-    "assets.types.all": "すべてのタイプ",
-    "assets.url.fail": "URLのコピーに失敗しました。",
-    "assets.url.success": "URLがクリップボードにコピーされました。",
-    "backup.backup.assets": "アセット",
-    "backup.backup.button": "バックアップ",
-    "backup.backup.desc": "LiveCodesのデータをバックアップして、後でこのデバイスや他のデバイスで復元できるようにします。<tag-1><\/tag-1>詳細については<tag-2>ドキュメント<\/tag-2>をご覧ください。",
-    "backup.backup.heading": "バックアップ",
-    "backup.backup.projects": "プロジェクト",
-    "backup.backup.settings": "ユーザー設定",
-    "backup.backup.snippets": "コードスニペット",
-    "backup.backup.templates": "ユーザーテンプレート",
-    "backup.backupBtn": "バックアップ",
-    "backup.error.atLeastOneStore": "バックアップする項目を少なくとも1つ選択してください",
-    "backup.error.incorrectFileType": "エラー: ファイルタイプが正しくありません",
-    "backup.fileInputLabel": "ファイルから復元",
-    "backup.heading": "バックアップ \/ 復元",
-    "backup.inProgress": "進行中...",
-    "backup.restore.desc": "以前にバックアップしたLiveCodesデータを復元します。<tag-1><\/tag-1>現在のコンテンツを置き換える場合は、先にバックアップを取ることをお勧めします。<tag-2><\/tag-2>詳細については<tag-3>ドキュメント<\/tag-3>をご覧ください。",
-    "backup.restore.fromFile": "ファイルから復元",
-    "backup.restore.heading": "復元",
-    "backup.restore.mode.merge": "現在のコンテンツとマージ",
-    "backup.restore.mode.replace": "現在のコンテンツを置き換え",
-    "backup.restore.success": "正常に復元されました！",
-    "broadcast.broadcastBtn.start": "配信",
-    "broadcast.broadcastBtn.stop": "配信停止",
-    "broadcast.broadcasting": "配信中...",
-    "broadcast.channelURL": "チャンネルURL",
-    "broadcast.connecting": "接続中...",
-    "broadcast.desc": "結果ページを他のブラウザやデバイスにリアルタイムで配信します。詳細については<tag-1>ドキュメント<\/tag-1>をご覧ください。",
-    "broadcast.error.generic": "配信に失敗しました！",
-    "broadcast.error.serverURLRequired": "サーバーURLが必要です！",
-    "broadcast.heading": "配信",
-    "broadcast.includeSourceCode": "ソースコードを含める",
-    "broadcast.serverURL.heading": "サーバーURL",
-    "core.broadcast.heading": "配信",
-    "core.broadcast.successSetToken": "配信ユーザートークンが正常に設定されました",
-    "core.copy.copied": "コードがクリップボードにコピーされました",
-    "core.copy.copiedAsDataURL": "コードがデータURLとしてコピーされました",
-    "core.copy.hint": "コピーしました！",
-    "core.copy.title": "コピー",
-    "core.error.couldNotLoadTemplate": "テンプレートを読み込めませんでした: {{template}}",
-    "core.error.failedToCopyCode": "コードのコピーに失敗しました",
-    "core.error.failedToLoadTemplate": "テンプレートの読み込みに失敗しました",
-    "core.error.failedToLoadTemplates": "スターターテンプレートの読み込みに失敗しました",
-    "core.error.failedToParseSettings": "設定をJSONとして解析できませんでした",
-    "core.error.invalidCommand": "無効なコマンドです！",
-    "core.error.invalidImport": "無効なインポートURLです",
-    "core.error.invalidPanelId": "無効なパネルIDです",
-    "core.error.invalidToken": "無効なトークンです！",
-    "core.error.login": "ログインエラー！",
-    "core.error.logout": "ログアウトエラー！",
-    "core.error.noResultContainer": "結果コンテナが見つかりません",
-    "core.error.unavailable": "コマンドは利用できません",
-    "core.error.unavailableForEmbeds": "埋め込みではコマンドを利用できません",
-    "core.export.gist": "公開GitHubギストを作成中...",
-    "core.fork.success": "新しいプロジェクトとしてフォークしました",
-    "core.fullScreen.enter": "全画面表示",
-    "core.fullScreen.exit": "全画面表示を終了",
-    "core.import.loading": "プロジェクトを読み込んでいます...",
-    "core.layout.horizontal": "水平レイアウト",
-    "core.layout.responsive": "レスポンシブレイアウト",
-    "core.layout.vertical": "垂直レイアウト",
-    "core.loadDefaults.template": "デフォルトのテンプレートを読み込んでいます",
-    "core.login.success": "ログインに成功しました",
-    "core.login.successWithName": "ログイン中: {{name}}",
-    "core.logout.success": "ログアウトに成功しました",
-    "core.result.hint": "新しいウィンドウで結果を表示",
-    "core.save.success": "プロジェクトがデバイスにローカル保存されました！",
-    "core.save.successWithName": "プロジェクト「{{name}}」がデバイスに保存されました。",
-    "core.template.blank": "空のプロジェクト",
-    "core.template.delete": "テンプレート「{{item}}」を削除しますか？",
-    "core.template.javascript": "JavaScriptスターター",
-    "core.template.react": "Reactスターター",
-    "core.template.saved": "新しいテンプレートとして保存されました",
-    "core.template.typescript": "TypeScriptスターター",
-    "core.template.vue": "Vue 3スターター",
-    "core.unload.notSaved": "変更が保存されていない可能性があります。",
-    "core.zoom.hint": "ズーム",
-    "customSettings.JSON": "カスタム設定JSON",
-    "customSettings.heading": "カスタム設定",
-    "customSettings.load": "読み込み",
-    "deploy.create.desc": "新しい<tag-1>公開<\/tag-1>リポジトリが作成されます。結果ページは<tag-2>gh-pages<\/tag-2>ブランチにプッシュされます。",
-    "deploy.create.heading": "新しいリポジトリを作成",
-    "deploy.create.repoName": "リポジトリ名 <tag-1><\/tag-1>",
-    "deploy.error.generic": "デプロイに失敗しました！",
-    "deploy.error.repoNameRequired": "リポジトリ名は必須です",
-    "deploy.existing.desc": "新しいコミットが<tag-1>gh-pages<\/tag-1>ブランチに追加されます。",
-    "deploy.existing.heading": "既存のリポジトリ",
-    "deploy.existing.repoName": "リポジトリ名",
-    "deploy.generic.commitMessage": "コミットメッセージ",
-    "deploy.generic.commitSourceCodePublic": "ソースコードをコミット（公開）",
-    "deploy.generic.deployBtn": "デプロイ",
-    "deploy.generic.deploying": "デプロイ中...",
-    "deploy.heading": "GitHub Pagesにデプロイ",
-    "deploy.searchRepo": "公開リポジトリを検索...",
-    "editorSettings.closeBrackets": "括弧と引用符を自動的に閉じる",
-    "editorSettings.codeJarDesc": "* マークされた機能はCodeJarでは利用できません。",
-    "editorSettings.default": "デフォルト",
-    "editorSettings.desc": "詳細については<tag-1>ドキュメント<\/tag-1>をご確認ください。",
-    "editorSettings.editor.codejar": "CodeJar",
-    "editorSettings.editor.codemirror": "CodeMirror",
-    "editorSettings.editor.heading": "エディター",
-    "editorSettings.editor.monaco": "Monaco",
-    "editorSettings.editorMode.emacs": "Emacs",
-    "editorSettings.editorMode.heading": "エディターモード *",
-    "editorSettings.editorMode.vim": "Vim",
-    "editorSettings.editorTheme": "エディターテーマ",
-    "editorSettings.emmet": "Emmetを有効化 *",
-    "editorSettings.enableAI.heading": "AIコードアシスタントを有効化",
-    "editorSettings.enableAI.note": "提供： <tag-1><tag-2><\/tag-2><\/tag-1>",
-    "editorSettings.fontFamily": "フォントファミリー",
-    "editorSettings.fontSize": "フォントサイズ",
-    "editorSettings.format": "フォーマット",
-    "editorSettings.heading": "エディター設定",
-    "editorSettings.lineNumbers": "行番号を表示",
-    "editorSettings.notAvailableInCodeJar": "CodeJarでは利用できません",
-    "editorSettings.preview": "プレビュー",
-    "editorSettings.semicolons": "フォーマット：セミコロンを使用",
-    "editorSettings.singleQuote": "フォーマット：シングルクォートを使用",
-    "editorSettings.tabSize": "タブサイズ",
-    "editorSettings.theme": "ダークモード",
-    "editorSettings.trailingComma": "フォーマット：末尾のカンマを使用",
-    "editorSettings.useTabs.heading": "インデント",
-    "editorSettings.useTabs.spaces": "スペース",
-    "editorSettings.useTabs.tabs": "タブ",
-    "editorSettings.wordWrap": "ワードラップ",
-    "embed.activeEditor.heading": "アクティブエディター",
-    "embed.activeEditor.markup": "{{markup}}",
-    "embed.activeEditor.script": "{{script}}",
-    "embed.activeEditor.style": "{{style}}",
-    "embed.activeTool.compiled": "コンパイル済み",
-    "embed.activeTool.console": "コンソール",
-    "embed.activeTool.heading": "アクティブツール",
-    "embed.activeTool.tests": "テスト",
-    "embed.code.copy": "コードをコピー",
-    "embed.code.heading": "コード",
-    "embed.desc": "高度な設定については<tag-1>ドキュメント<\/tag-1>をご確認ください。",
-    "embed.embedType.cdn": "スクリプト（CDN）",
-    "embed.embedType.heading": "埋め込みタイプ",
-    "embed.embedType.html": "HTML",
-    "embed.embedType.iframe": "Iframe",
-    "embed.embedType.npm": "JS（npm）",
-    "embed.embedType.react": "React",
-    "embed.embedType.svelte": "Svelte",
-    "embed.embedType.vue": "Vue",
-    "embed.heading": "プロジェクトの埋め込み",
-    "embed.lite": "ライトモード",
-    "embed.loading.click": "クリック時",
-    "embed.loading.eager": "即時",
-    "embed.loading.heading": "読み込み",
-    "embed.loading.lazy": "遅延",
-    "embed.mode.codeblock": "コードブロック",
-    "embed.mode.editor": "エディター",
-    "embed.mode.full": "フル",
-    "embed.mode.heading": "表示モード",
-    "embed.mode.result": "結果",
-    "embed.permanentUrl": "永続的URL",
-    "embed.preview": "プレビュー",
-    "embed.previewLoading": "プレビューを読み込み中...",
-    "embed.readonly": "読み取り専用",
-    "embed.theme.dark": "ダーク",
-    "embed.theme.heading": "テーマ",
-    "embed.theme.light": "ライト",
-    "embed.tools.closed": "閉じる",
-    "embed.tools.full": "フル",
-    "embed.tools.heading": "ツール",
-    "embed.tools.none": "なし",
-    "embed.tools.open": "開く",
-    "embed.view.editor": "エディター",
-    "embed.view.heading": "デフォルトビュー",
-    "embed.view.result": "結果",
-    "embed.view.split": "分割",
-    "generic.about.blog": "ブログ",
-    "generic.about.configuration": "設定",
-    "generic.about.features": "機能",
-    "generic.about.gettingStarted": "はじめに",
-    "generic.about.github": "GitHub",
-    "generic.about.sdk": "SDK",
-    "generic.about.sponsor": "をスポンサー",
-    "generic.about.twitter": "𝕏 \/ Twitter",
-    "generic.clickForInfo": "クリックして詳細を表示...",
-    "generic.error.authentication": "認証エラー！",
-    "generic.error.exceededSize": "エラー：サイズ{{size}} MBを超えています",
-    "generic.error.failedToReadFile": "エラー：ファイルの読み取りに失敗しました",
-    "generic.loading": "読み込み中...",
-    "generic.more": "もっと見る...",
-    "generic.optional": "任意",
-    "generic.required": "必須",
-    "import.bulk.desc": "複数のプロジェクトを一括で保存済みプロジェクトにインポートします。プロジェクトは<tag-1>保存済みプロジェクト<\/tag-1>画面からエクスポートできます。",
-    "import.bulk.fromFile": "ローカルファイルから一括インポート",
-    "import.bulk.fromURL": "URLから一括インポート",
-    "import.bulk.heading": "一括インポート",
-    "import.code.desc": "サポートされているソース：<tag-1> <tag-2>GitHub gist<\/tag-2> <tag-3>GitHubファイル<\/tag-3> <tag-4>GitHubリポジトリ内のディレクトリ<\/tag-4> <tag-5>Gitlab snippet<\/tag-5> <tag-6>Gitlabファイル<\/tag-6> <tag-7>Gitlabリポジトリ内のディレクトリ<\/tag-7> <tag-8>JS Bin<\/tag-8> <tag-9>生のコード<\/tag-9> <tag-10>Webページ内のDOM内のコード<\/tag-10> <tag-11>ZIPファイル内のコード<\/tag-11> <tag-12>公式プレイグラウンド<tag-13><\/tag-13>（TypeScript、Vue、Svelte）<\/tag-12> <\/tag-1> 詳細については<tag-14>ドキュメント<\/tag-14>をご覧ください。",
-    "import.code.fromFile": "ローカルファイルをインポート",
-    "import.code.fromURL": "URLからインポート",
-    "import.code.heading": "コードのインポート",
-    "import.error.failedToLoadURL": "エラー：URLの読み込みに失敗しました",
-    "import.error.invalidConfigFile": "無効な設定ファイルです",
-    "import.error.invalidFile": "エラー：無効なファイルです",
-    "import.generic.file": "ローカルファイル",
-    "import.generic.url": "URL",
-    "import.heading": "インポート",
-    "import.json.desc": "単一のプロジェクトJSONをエディターにインポートします。プロジェクトはアプリメニュー→エクスポート→プロジェクトのエクスポート（JSON）からエクスポートできます。",
-    "import.json.fromFile": "ローカルファイルからプロジェクトをインポート",
-    "import.json.fromURL": "URLからプロジェクトをインポート",
-    "import.json.heading": "プロジェクトJSONのインポート",
-    "import.success": "インポートに成功しました！",
-    "login.accessAllowed": "アクセスを許可：",
-    "login.desc": "<tag-1>ログインすることで、お使いのデバイスに<tag-2>クッキー<\/tag-2>が保存されることに同意したものとみなされます。<\/tag-1> <tag-3> <tag-4>これらの権限が必要な理由は？<\/tag-4> <\/tag-3> <tag-5> <tag-6>権限の変更\/取り消し方法は？<\/tag-6> <\/tag-5>",
-    "login.gist": "Gist",
-    "login.heading": "GitHubでログイン",
-    "login.loginAs": "{{name}}としてログイン中",
-    "login.loginBtn": "ログイン",
-    "login.logout": "ログアウト",
-    "login.privateRepo": "プライベートリポジトリ",
-    "login.publicRepo": "リポジトリ",
-    "menu.about": "概要",
-    "menu.appHelp.heading": "手助け",
-    "menu.appHelp.hint": "手助け",
-    "menu.appProject.heading": "プロジェクト",
-    "menu.appProject.hint": "プロジェクト",
-    "menu.appSettings.heading": "設定",
-    "menu.appSettings.hint": "設定",
-    "menu.assets": "アセット …",
-    "menu.autoSave": "自動保存",
-    "menu.autoUpdate": "自動更新",
-    "menu.backup": "バックアップ \/ 復元 …",
-    "menu.broadcast": "配信 …",
-    "menu.customSettings": "カスタム設定 …",
-    "menu.delay.heading": "遅延: <tag-1>1.5<\/tag-1>秒",
-    "menu.delay.hint": "自動更新前の遅延",
-    "menu.deploy": "デプロイ …",
-    "menu.editorSettings": "エディター設定 …",
-    "menu.embed": "埋め込み …",
-    "menu.export.codepen": "CodePenで編集",
-    "menu.export.gist": "GitHub Gistにエクスポート",
-    "menu.export.heading": "エクスポート",
-    "menu.export.jsfiddle": "JSFiddleで編集",
-    "menu.export.json": "エクスポート (JSON)",
-    "menu.export.result": "結果をエクスポート（HTML）",
-    "menu.export.src": "ソースをエクスポート（ZIP）",
-    "menu.formatOnsave": "保存時にフォーマット",
-    "menu.import": "インポート …",
-    "menu.layout": "垂直レイアウト",
-    "menu.login": "ログイン …",
-    "menu.logout": "ログアウト",
-    "menu.new": "新規 …",
-    "menu.open": "開く …",
-    "menu.project": "プロジェクト情報 …",
-    "menu.recoverUnsaved": "未保存の復元",
-    "menu.resources": "外部リソース …",
-    "menu.save": "保存",
-    "menu.saveAs.fork": "フォーク（新規プロジェクト）",
-    "menu.saveAs.heading": "別名で保存",
-    "menu.saveAs.template": "テンプレート",
-    "menu.share": "共有 …",
-    "menu.showSpacing.heading": "間隔を表示",
-    "menu.showSpacing.hint": "Alt\/Optionキーを押しながら結果ページにカーソルを合わせてください",
-    "menu.snippets": "コードスニペット …",
-    "menu.sync": "同期（ベータ） … <tag-1> ⏳<\/tag-1>",
-    "menu.theme": "ダークテーマ",
-    "menu.welcome.heading": "ようこそ …",
-    "menu.welcome.hint": "起動時にウェルカム画面を表示",
-    "open.defaultTemplate": "デフォルトテンプレート ",
-    "open.delete.all": "{{projects}}個のプロジェクトを削除しますか？",
-    "open.delete.one": "プロジェクトを削除: {{project}}?",
-    "open.deleteAll": "すべて削除",
-    "open.exportAll": "すべてエクスポート",
-    "open.filter.language": "言語でフィルター",
-    "open.filter.tag": "タグでフィルター",
-    "open.heading": "保存済みプロジェクト",
-    "open.import": "インポート",
-    "open.lastModified": "最終更新: {{modified}}",
-    "open.noData.desc": "プロジェクトは（設定メニュー&nbsp;&gt;&nbsp;保存）からまたはキーボードショートカット（Ctrl\/Cmd&nbsp;+&nbsp;S）で保存できます。",
-    "open.noData.heading": "保存済みプロジェクトがありません。",
-    "open.noMatch": "これらのフィルターに一致するプロジェクトはありません。",
-    "open.placeholder.allLanguages": "すべての言語",
-    "open.placeholder.filterByTags": "タグでフィルター",
-    "open.placeholder.search": "検索",
-    "open.removeDefault": "（解除）",
-    "open.reset": "リセット",
-    "open.setAsDefault": "デフォルトに設定",
-    "open.sort.heading": "並び替え:",
-    "open.sort.lastModified": "最終更新日",
-    "open.sort.title": "タイトル",
-    "project.desc": "説明",
-    "project.head": "&lt;head&gt;に追加",
-    "project.heading": "プロジェクト情報",
-    "project.htmlAttr": "&lt;html&gt;の属性",
-    "project.tags": "タグ",
-    "project.title": "プロジェクトタイトル",
-    "recoverPrompt.desc": "最後のプロジェクトに未保存の変更があります！",
-    "recoverPrompt.heading": "未保存のプロジェクトを復元しますか？",
-    "recoverPrompt.meta": "タイトル: <tag-1><\/tag-1> <tag-2><\/tag-2> 最終更新: <tag-3><\/tag-3>",
-    "recoverPrompt.notShowAgain": "今後表示しない。",
-    "recoverPrompt.prompt.discard": "未保存のプロジェクトを破棄",
-    "recoverPrompt.prompt.heading": "<tag-1><\/tag-1>今すぐ復元しますか？",
-    "recoverPrompt.prompt.recover": "プロジェクトをエディターに復元",
-    "recoverPrompt.prompt.save": "デバイスに保存して続行",
-    "resources.browseOnJsDelivr": "jsDelivrでパッケージファイルを閲覧",
-    "resources.cssPresets.heading": "CSSプリセット",
-    "resources.cssPresets.none": "なし",
-    "resources.cssPresets.normalizeCss": "Normalize.css",
-    "resources.cssPresets.resetCss": "Reset CSS",
-    "resources.error.failedToLoadResults": "結果の読み込みに失敗しました！",
-    "resources.error.noResultsFound": "結果が見つかりません: ",
-    "resources.fonts.add": "追加",
-    "resources.fonts.heading": "フォント <tag-1>（Google Fontsを利用）<\/tag-1>",
-    "resources.fonts.select": "フォントを選択...",
-    "resources.heading": "外部リソース",
-    "resources.scripts": "外部スクリプト",
-    "resources.search.heading": "パッケージを検索 <tag-1>（jsDelivrを利用）<\/tag-1>",
-    "resources.search.placeholder": "例：jquery, lodash@4, bootstrap@5.2.3, ...",
-    "resources.stylesheets": "外部スタイルシート",
-    "resources.urlDesc": "スタイルシート\/スクリプトのURLを追加。各URLは別の行に記述してください。",
-    "savePrompt.heading": "未保存の変更",
-    "savePrompt.prompt.cancel": "消去",
-    "savePrompt.prompt.discard": "保存しない",
-    "savePrompt.prompt.heading": "変更が保存されていない可能性があります。<tag-1><\/tag-1>今すぐ保存しますか？",
-    "savePrompt.prompt.save": "保存",
-    "share.characters": "{{urlLength}}文字",
-    "share.copy.clickToCopy": "クリックしてコピー",
-    "share.copy.copied": "URLがクリップボードにコピーされました",
-    "share.encodedURL": "エンコードされたURLを取得",
-    "share.error.failedToCopy": "クリップボードへのコピーに失敗しました！",
-    "share.error.failedToGenerateURL": "短縮URLの生成に失敗しました！",
-    "share.expireInOneYear": "1年後に有効期限切れ",
-    "share.generateURL": "URLを生成中 …",
-    "share.heading": "共有",
-    "share.permanentURL": "永続的URL",
-    "share.qrcode.clickToDownload": "クリックしてダウンロード",
-    "share.qrcode.generating": "生成中...",
-    "share.services.copyUrl": "URLをコピー",
-    "share.services.devTo": "Dev.to",
-    "share.services.email": "メール",
-    "share.services.facebook": "Facebook",
-    "share.services.hackerNews": "Hacker News",
-    "share.services.linkedIn": "LinkedIn",
-    "share.services.pinterest": "Pinterest",
-    "share.services.pocket": "Pocket",
-    "share.services.qrCode": "QRコード",
-    "share.services.reddit": "Reddit",
-    "share.services.share": "共有方法 …",
-    "share.services.telegram": "Telegram",
-    "share.services.tumblr": "Tumblr",
-    "share.services.twitter": "𝕏 \/ Twitter",
-    "share.services.whatsApp": "WhatsApp",
-    "share.shortURL": "短縮URLを取得",
-    "snippets.action.copy": "コピー",
-    "snippets.action.delete": "削除",
-    "snippets.action.edit": "編集",
-    "snippets.add.code": "コード",
-    "snippets.add.desc": "説明",
-    "snippets.add.heading": "スニペットを追加",
-    "snippets.add.language": "言語",
-    "snippets.add.save": "保存",
-    "snippets.add.snippets": "スニペット",
-    "snippets.add.title": "タイトル",
-    "snippets.copy.clickToCopySnippet": "クリックしてスニペットをコピー",
-    "snippets.copy.copied": "スニペットがクリップボードにコピーされました。",
-    "snippets.delete.all": "{{snippets}}個のスニペットを削除しますか？",
-    "snippets.delete.one": "スニペットを削除: {{snippet}}?",
-    "snippets.deleteAll": "すべて削除",
-    "snippets.error.failedToCopy": "URLのコピーに失敗しました。",
-    "snippets.error.noTitle": "スニペットのタイトルを追加してください。",
-    "snippets.filter.language": "言語でフィルター",
-    "snippets.heading": "コードスニペット",
-    "snippets.lastModified": "最終更新: {{modified}}",
-    "snippets.noMatch": "これらのフィルターに一致するスニペットはありません。",
-    "snippets.noSavedSnippets": "保存済みのスニペットはありません。",
-    "snippets.placeholder.allLanguages": "すべての言語",
-    "snippets.placeholder.search": "検索",
-    "snippets.reset": "リセット",
-    "snippets.save.success": "スニペットがデバイスにローカル保存されました！",
-    "snippets.sort.date": "日付",
-    "snippets.sort.heading": "並び替え:",
-    "snippets.sort.title": "タイトル",
-    "snippets.text": "プレーンテキスト",
-    "splash.loading": "LiveCodesを読み込み中…",
-    "sync.autoSync": "自動同期",
-    "sync.create.desc": "新しい<tag-1>プライベート<\/tag-1>リポジトリが作成されます。LiveCodesのローカルデータは<tag-2>main<\/tag-2>ブランチと同期されます。",
-    "sync.create.heading": "新しいリポジトリを作成",
-    "sync.create.repoName": "リポジトリ名",
-    "sync.error.generic": "同期に失敗しました！",
-    "sync.error.repoNameRequired": "リポジトリ名は必須です",
-    "sync.existing.desc": "LiveCodesのローカルデータは<tag-1>main<\/tag-1>ブランチと同期されます。",
-    "sync.existing.heading": "既存のリポジトリ",
-    "sync.existing.repoName": "リポジトリ名",
-    "sync.heading": "GitHubリポジトリと同期",
-    "sync.searchRepos": "リポジトリを検索...",
-    "sync.success": "同期が完了しました！",
-    "sync.syncBtn": "同期",
-    "sync.syncInProgress": "同期中...",
-    "sync.syncStarted": "同期を開始しました...",
-    "templates.heading": "新規プロジェクト",
-    "templates.noUserTemplates.desc": "プロジェクトをテンプレートとして保存するには、<tag-1><\/tag-1>（アプリメニュー&nbsp;&gt;&nbsp;別名で保存&nbsp;&gt;&nbsp;テンプレート）から行えます。",
-    "templates.noUserTemplates.heading": "保存されたテンプレートはありません。",
-    "templates.starter.heading": "スターターテンプレート",
-    "templates.starter.loading": "スターターテンプレートを読み込み中...",
-    "templates.user.heading": "マイテンプレート",
-    "templates.user.loading": "ユーザーテンプレートを読み込み中...",
-    "testEditor.heading": "テストを編集",
-    "testEditor.load": "読み込み",
-    "testEditor.tests": "テスト",
-    "welcome.about.documentation": "ドキュメント",
-    "welcome.about.heading": "LiveCodesについて",
-    "welcome.heading": "ようこそ",
-    "welcome.recent.heading": "最近",
-    "welcome.recover.cancel": "消去",
-    "welcome.recover.heading": "復元",
-    "welcome.recover.lastModified": "最終更新: <tag-1><\/tag-1>",
-    "welcome.recover.recover": "復元",
-    "welcome.recover.save": "保存",
-    "welcome.recover.unsavedChanges": "最後のプロジェクトに未保存の変更があります：",
-    "welcome.showOnStartup": "起動時に表示",
-    "welcome.start.heading": "開始",
-    "welcome.start.import": "インポート...",
-    "welcome.start.loadDefaultTemplate": "デフォルトテンプレートを読み込む",
-    "welcome.start.new": "新規...",
-    "welcome.start.noDefaultTemplate": "デフォルトテンプレートなし",
-    "welcome.start.open": "開く...",
-    "welcome.templates.heading": "スターターテンプレート",
-    "app.copy.hint": "コピー (Ctrl\/Cmd + A, Ctrl\/Cmd + C)",
-    "app.copyAsUrl.hint": "コードをデータURLとしてコピー",
-    "app.customSettings.hint": "カスタム設定",
-    "app.editorMode.hint": "エディターモード",
-    "app.editorSettings.hint": "エディター設定",
-    "app.externalResources.hint": "外部リソース",
-    "app.focus.hint": "フォーカスモードの切り替え",
-    "app.format.hint": "フォーマット (Alt + Shift + F)",
-    "app.fullscreen.hint": "全画面表示",
-    "app.logo.title": "LiveCodes: ブラウザで動作するコードプレイグラウンド！",
-    "app.projectInfo.hint": "プロジェクト情報",
-    "app.redo.hint": "やり直し (Ctrl\/Cmd + Shift + Z)",
-    "app.result.hint": "結果の表示切り替え",
-    "app.run.hint": "実行 (Shift + Enter)",
-    "app.share.hint": "共有",
-    "app.undo.hint": "元に戻す (Ctrl\/Cmd + Z)",
-    "app.untitledProject": "無題のプロジェクト",
-    "about.heading": "LiveCodesについて",
-    "generic.close": "閉じる",
-    "toolspane.close": "閉じる",
-    "toolspane.console.clear": "コンソールをクリア",
-    "toolspane.test.edit": "編集",
-    "toolspane.test.error": "<tag-1><tag-2>テストエラー！<\/tag-2><\/tag-1>",
-    "toolspane.test.loading": "<tag-1>テストを読み込み中...<\/tag-1>",
-    "toolspane.test.noTest": "<tag-1>このプロジェクトにはテストがありません！<\/tag-1>",
-    "toolspane.test.reset": "リセット",
-    "toolspane.test.run.desc": "Ctrl\/Cmd + Alt + T",
-    "toolspane.test.run.heading": "実行",
-    "toolspane.test.summary.failed": "{{failedNum}} 失敗",
-    "toolspane.test.summary.passed": "{{passedNum}} 成功",
-    "toolspane.test.summary.skipped": "{{skippedNum}} スキップ",
-    "toolspane.test.watch.desc": "コードが変更されたらテストを実行",
-    "toolspane.test.watch.heading": "監視",
-    "toolspane.test.summary.desc": "テスト: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<tag-1><\/tag-1>\n時間: {{duration}}秒",
-    "toolspane.test.summary.total": "{{totalNum}} 合計",
-    "templates.starter.angular": "Angularスターター",
-    "templates.starter.assemblyscript": "AssemblyScriptスターター",
-    "templates.starter.astro": "Astroスターター",
-    "templates.starter.backbone": "Backboneスターター",
-    "templates.starter.blank": "空のプロジェクト",
-    "templates.starter.blockly": "Blocklyスターター",
-    "templates.starter.bootstrap": "Bootstrapスターター",
-    "templates.starter.civet": "Civetスターター",
-    "templates.starter.clio": "Clioスターター",
-    "templates.starter.clojurescript": "ClojureScriptスターター",
-    "templates.starter.coffeescript": "CoffeeScriptスターター",
-    "templates.starter.commonlisp": "Common Lispスターター",
-    "templates.starter.cpp": "C++スターター",
-    "templates.starter.diagrams": "ダイアグラムスターター",
-    "templates.starter.fennel": "Fennelスターター",
-    "templates.starter.gleam": "Gleamスターター",
-    "templates.starter.go": "Goスターター",
-    "templates.starter.imba": "Imbaスターター",
-    "templates.starter.javascript": "JavaScriptスターター",
-    "templates.starter.jest": "Jestスターター",
-    "templates.starter.jest-react": "Jest\/Reactスターター",
-    "templates.starter.jquery": "jQueryスターター",
-    "templates.starter.julia": "Juliaスターター",
-    "templates.starter.knockout": "Knockoutスターター",
-    "templates.starter.lit": "Litスターター",
-    "templates.starter.livescript": "LiveScriptスターター",
-    "templates.starter.lua": "Luaスターター",
-    "templates.starter.lua-wasm": "Lua（Wasm）スターター",
-    "templates.starter.malina": "Malina.jsスターター",
-    "templates.starter.markdown": "Markdownスターター",
-    "templates.starter.mdx": "MDXスターター",
-    "templates.starter.ocaml": "OCamlスターター",
-    "templates.starter.perl": "Perlスターター",
-    "templates.starter.php": "PHPスターター",
-    "templates.starter.php-wasm": "PHP（Wasm）スターター",
-    "templates.starter.postgresql": "PostgreSQLスターター",
-    "templates.starter.preact": "Preactスターター",
-    "templates.starter.prolog": "Prologスターター",
-    "templates.starter.python": "Pythonスターター",
-    "templates.starter.r": "Rスターター",
-    "templates.starter.react": "Reactスターター",
-    "templates.starter.react-native": "React Nativeスターター",
-    "templates.starter.reason": "Reasonスターター",
-    "templates.starter.rescript": "ReScriptスターター",
-    "templates.starter.riot": "Riot.jsスターター",
-    "templates.starter.ruby": "Rubyスターター",
-    "templates.starter.ruby-wasm": "Ruby（Wasm）スターター",
-    "templates.starter.scheme": "Schemeスターター",
-    "templates.starter.solid": "Solidスターター",
-    "templates.starter.sql": "SQLスターター",
-    "templates.starter.stencil": "Stencilスターター",
-    "templates.starter.svelte": "Svelteスターター",
-    "templates.starter.tailwindcss": "Tailwind CSSスターター",
-    "templates.starter.tcl": "Tclスターター",
-    "templates.starter.teal": "Tealスターター",
-    "templates.starter.typescript": "TypeScriptスターター",
-    "templates.starter.vue": "Vue 3 SFCスターター",
-    "templates.starter.vue2": "Vue 2スターター",
-    "templates.starter.wat": "WebAssembly Textスターター",
-    "toolspane.compiled.title": "コンパイル済み",
-    "toolspane.console.title": "コンソール",
-    "toolspane.test.title": "テスト",
-    "assets.delete.all": "{{assets}}個のアセットを削除しますか？",
-    "assets.delete.one": "アセットを削除: {{asset}}?",
-    "editorSettings.appLanguage.heading": "アプリUIの言語",
-    "editorSettings.appLanguage.note": "言語を切り替えた後、変更を適用するためにアプリを再読み込みします。",
-    "import.bulk.started": "一括インポートを開始しました...",
-    "open.delete.deleting": "プロジェクトを削除中...",
-    "core.changeLanguage.hint": "言語を変更",
-    "core.changeLanguage.message": "{{lang}}を読み込んでいます。しばらくお待ちください！",
-    "assets.link.date": "日付: {{modified}}",
-    "assets.type.archive": "アーカイブ",
-    "assets.type.audio": "オーディオ",
-    "assets.type.csv": "CSV",
-    "assets.type.font": "フォント",
-    "assets.type.html": "HTML",
-    "assets.type.icon": "アイコン",
-    "assets.type.image": "画像",
-    "assets.type.json": "JSON",
-    "assets.type.other": "その他",
-    "assets.type.script": "スクリプト",
-    "assets.type.stylesheet": "スタイルシート",
-    "assets.type.text": "テキスト",
-    "assets.type.video": "ビデオ",
-    "assets.type.xml": "XML",
-    "deploy.error.repoNameExists": "リポジトリ名はすでに存在します"
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "about.blog.text": {
+    "translation": "ブログ"
+  },
+  "about.blog.title": {
+    "translation": "LiveCodesブログ"
+  },
+  "about.configuration": {
+    "translation": "設定"
+  },
+  "about.credits.heading": {
+    "translation": "クレジット"
+  },
+  "about.credits.para1": {
+    "translation": "LiveCodes は、オープンソース プロジェクト、Web サービス、貢献者によって実現されています。 <tag-1>クレジットを表示</tag-1>"
+  },
+  "about.credits.para2": {
+    "translation": "© 2024 Hatem Hosny。LiveCodes は MIT ライセンスに基づいてライセンスされています。"
+  },
+  "about.documentations.heading": {
+    "translation": "ドキュメント"
+  },
+  "about.gettingStarted": {
+    "translation": "はじめに"
+  },
+  "about.github.text": {
+    "translation": "GitHub"
+  },
+  "about.github.title": {
+    "translation": "GitHub"
+  },
+  "about.heading": {
+    "translation": "LiveCodesについて"
+  },
+  "about.livecodes.aboutUs": {
+    "translation": "LiveCodesについて"
+  },
+  "about.livecodes.para1": {
+    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1>は、<tag-3>オープンソース</tag-3>で<tag-4>機能豊富</tag-4>な<tag-5>クライアントサイド</tag-5>のコードプレイグラウンドです。現在、<tag-6>90以上の言語/<tag-7></tag-7>フレームワーク</tag-6>をサポートしています。スタンドアロンアプリとして使用することも、任意のWebページに<tag-8>埋め込む</tag-8>こともできます。プレイグラウンドに<tag-9>コードをプリフィル</tag-9>する方法は多数あります。"
+  },
+  "about.livecodes.para2": {
+    "translation": "幅広い<tag-1>設定オプション</tag-1>により、非常に柔軟性があります。強力な<tag-2>SDK</tag-2>（<tag-3>JS/TS</tag-3>、<tag-4>React</tag-4>、<tag-5>Vue</tag-5>、<tag-6>Svelte</tag-6>用）により、プレイグラウンドの<tag-7>埋め込み</tag-7>と<tag-8>通信</tag-8>が容易になります。コードサンプル、ライブデモ、スクリーンショットを含む<tag-9>包括的なドキュメント</tag-9>が利用可能です。"
+  },
+  "about.sdk": {
+    "translation": "LiveCodes SDK"
+  },
+  "about.sponsor.text": {
+    "translation": "スポンサー"
+  },
+  "about.sponsor.title": {
+    "translation": "LiveCodesをスポンサー"
+  },
+  "about.twitter.text": {
+    "translation": "𝕏 / Twitter"
+  },
+  "about.twitter.title": {
+    "translation": "𝕏 / Twitter"
+  },
+  "about.version.app": {
+    "translation": "アプリのバージョン: <tag-1> {{APP_VERSION}} </tag-1>"
+  },
+  "about.version.appPermanentUrl": {
+    "translation": "アプリの永続的URL"
+  },
+  "about.version.commit": {
+    "translation": "Git コミット: <tag-1> {{COMMIT_SHA}} </tag-1>"
+  },
+  "about.version.heading": {
+    "translation": "バージョン"
+  },
+  "about.version.sdk": {
+    "translation": "SDK バージョン: <tag-1> {{SDK_VERSION}} </tag-1>"
+  },
+  "about.version.sdkPermanentUrl": {
+    "translation": "SDKの永続的URL"
+  },
+  "app.changeTheme.hint": {
+    "translation": "テーマ変更"
+  },
+  "app.consoleMessage.appVersion": {
+    "translation": "アプリバージョン: {{APP_VERSION}}"
+  },
+  "app.consoleMessage.commit": {
+    "translation": "Gitコミット: {{COMMIT_SHA}}"
+  },
+  "app.consoleMessage.learnMore": {
+    "translation": "詳細はこちら！ {{docsUrl}} 🚀"
+  },
+  "app.consoleMessage.sdkVersion": {
+    "translation": "SDKバージョン: {{SDK_VERSION}}"
+  },
+  "app.copy.hint": {
+    "translation": "コピー (Ctrl/Cmd + A, Ctrl/Cmd + C)"
+  },
+  "app.copyAsUrl.hint": {
+    "translation": "コードをデータURLとしてコピー"
+  },
+  "app.customSettings.hint": {
+    "translation": "カスタム設定"
+  },
+  "app.editorSettings.hint": {
+    "translation": "エディター設定"
+  },
+  "app.externalResources.hint": {
+    "translation": "外部リソース"
+  },
+  "app.focus.hint": {
+    "translation": "フォーカスモードの切り替え"
+  },
+  "app.format.hint": {
+    "translation": "フォーマット (Alt + Shift + F)"
+  },
+  "app.fullscreen.hint": {
+    "translation": "全画面表示"
+  },
+  "app.i18nButton.hint": {
+    "translation": "アプリUIの言語"
+  },
+  "app.i18nMenu.docs": {
+    "translation": "i18nドキュメント"
+  },
+  "app.i18nMenu.helpTranslate": {
+    "translation": "翻訳にご協力ください"
+  },
+  "app.logo.title": {
+    "translation": "LiveCodes: ブラウザ上で動作するコード エディターです。"
+  },
+  "app.projectInfo.hint": {
+    "translation": "プロジェクト情報"
+  },
+  "app.redo.hint": {
+    "translation": "やり直し (Ctrl/Cmd + Shift + Z)"
+  },
+  "app.result.hint": {
+    "translation": "結果を表示"
+  },
+  "app.run.hint": {
+    "translation": "実行 (Shift + Enter)"
+  },
+  "app.share.hint": {
+    "translation": "共有"
+  },
+  "app.themeColors.custom": {
+    "translation": "カスタム"
+  },
+  "app.undo.hint": {
+    "translation": "元に戻す (Ctrl/Cmd + Z)"
+  },
+  "app.untitledProject": {
+    "translation": "無題のプロジェクト"
+  },
+  "assets.action.delete": {
+    "translation": "削除"
+  },
+  "assets.add.dataURL.desc": {
+    "translation": "アセットをBase64エンコードされた<tag-1>データURL</tag-1>として追加します。"
+  },
+  "assets.add.dataURL.heading": {
+    "translation": "データURL"
+  },
+  "assets.add.dataURL.label": {
+    "translation": "ファイルを追加"
+  },
+  "assets.add.githubPages.desc": {
+    "translation": "アセットをGitHub Pagesにデプロイします。ファイルはあなたのGitHubアカウントの<tag-2>livecodes-assets</tag-2>リポジトリの<tag-1>gh-pages</tag-1>ブランチにプッシュされます。リポジトリがまだ存在しない場合は、公開リポジトリが作成されます。"
+  },
+  "assets.add.githubPages.heading": {
+    "translation": "GitHub Pages"
+  },
+  "assets.add.githubPages.label": {
+    "translation": "ファイルをアップロード"
+  },
+  "assets.add.heading": {
+    "translation": "アセットを追加"
+  },
+  "assets.delete.all": {
+    "translation": "{{assets}}個のアセットを削除しますか？"
+  },
+  "assets.delete.one": {
+    "translation": "アセットを削除: {{asset}}?"
+  },
+  "assets.deleteAll": {
+    "translation": "すべて削除"
+  },
+  "assets.generic.clickToCopyURL": {
+    "translation": "クリックしてURLをコピー"
+  },
+  "assets.heading": {
+    "translation": "アセット"
+  },
+  "assets.link.date": {
+    "translation": "日付: {{modified}}"
+  },
+  "assets.link.type": {
+    "translation": "タイプ: {{type}}"
+  },
+  "assets.link.url": {
+    "translation": "URL: {{url}}"
+  },
+  "assets.loadFile.error.failedToUpload": {
+    "translation": "エラー: ファイルのアップロードに失敗しました"
+  },
+  "assets.loadFile.error.unauthenticated": {
+    "translation": "エラー: 認証されていないユーザー"
+  },
+  "assets.loadFile.upload": {
+    "translation": "ファイルをアップロード"
+  },
+  "assets.loadFile.uploading": {
+    "translation": "アップロード中..."
+  },
+  "assets.noMatch": {
+    "translation": "これらのフィルターに一致するアセットはありません。"
+  },
+  "assets.noSavedAssets": {
+    "translation": "保存されたアセットはありません。"
+  },
+  "assets.processAsset.addFile": {
+    "translation": "追加されたファイル: "
+  },
+  "assets.processAsset.deployNotice": {
+    "translation": "アセットはまもなく（約1分）このURLで利用可能になります。"
+  },
+  "assets.processAsset.success": {
+    "translation": "ファイルがアセットに追加されました！"
+  },
+  "assets.processAsset.urlLabel": {
+    "translation": "URL: "
+  },
+  "assets.resetFilters": {
+    "translation": "リセット"
+  },
+  "assets.search": {
+    "translation": "検索"
+  },
+  "assets.sort.date": {
+    "translation": "日付"
+  },
+  "assets.sort.fileName": {
+    "translation": "ファイル名"
+  },
+  "assets.sort.heading": {
+    "translation": "並び替え:"
+  },
+  "assets.type.archive": {
+    "translation": "アーカイブ"
+  },
+  "assets.type.audio": {
+    "translation": "オーディオ"
+  },
+  "assets.type.csv": {
+    "translation": "CSV"
+  },
+  "assets.type.font": {
+    "translation": "フォント"
+  },
+  "assets.type.html": {
+    "translation": "HTML"
+  },
+  "assets.type.icon": {
+    "translation": "アイコン"
+  },
+  "assets.type.image": {
+    "translation": "画像"
+  },
+  "assets.type.json": {
+    "translation": "JSON"
+  },
+  "assets.type.other": {
+    "translation": "その他"
+  },
+  "assets.type.script": {
+    "translation": "スクリプト"
+  },
+  "assets.type.stylesheet": {
+    "translation": "スタイルシート"
+  },
+  "assets.type.text": {
+    "translation": "テキスト"
+  },
+  "assets.type.video": {
+    "translation": "ビデオ"
+  },
+  "assets.type.xml": {
+    "translation": "XML"
+  },
+  "assets.types.all": {
+    "translation": "すべてのタイプ"
+  },
+  "assets.url.fail": {
+    "translation": "URLのコピーに失敗しました。"
+  },
+  "assets.url.success": {
+    "translation": "URLがクリップボードにコピーされました。"
+  },
+  "backup.backup.assets": {
+    "translation": "アセット"
+  },
+  "backup.backup.button": {
+    "translation": "バックアップ"
+  },
+  "backup.backup.desc": {
+    "translation": "LiveCodesのデータをバックアップして、後でこのデバイスや他のデバイスで復元できるようにします。<tag-1></tag-1>詳細については<tag-2>ドキュメント</tag-2>をご覧ください。"
+  },
+  "backup.backup.heading": {
+    "translation": "バックアップ"
+  },
+  "backup.backup.projects": {
+    "translation": "プロジェクト"
+  },
+  "backup.backup.settings": {
+    "translation": "ユーザー設定"
+  },
+  "backup.backup.snippets": {
+    "translation": "コードスニペット"
+  },
+  "backup.backup.templates": {
+    "translation": "ユーザーテンプレート"
+  },
+  "backup.backupBtn": {
+    "translation": "バックアップ"
+  },
+  "backup.error.atLeastOneStore": {
+    "translation": "バックアップする項目を少なくとも1つ選択してください"
+  },
+  "backup.error.incorrectFileType": {
+    "translation": "エラー: ファイルタイプが正しくありません"
+  },
+  "backup.fileInputLabel": {
+    "translation": "ファイルから復元"
+  },
+  "backup.heading": {
+    "translation": "バックアップ / 復元"
+  },
+  "backup.inProgress": {
+    "translation": "進行中..."
+  },
+  "backup.restore.desc": {
+    "translation": "以前にバックアップしたLiveCodesデータを復元します。<tag-1></tag-1>現在のコンテンツを置き換える場合は、先にバックアップを取ることをお勧めします。<tag-2></tag-2>詳細については<tag-3>ドキュメント</tag-3>をご覧ください。"
+  },
+  "backup.restore.fromFile": {
+    "translation": "ファイルから復元"
+  },
+  "backup.restore.heading": {
+    "translation": "復元"
+  },
+  "backup.restore.mode.merge": {
+    "translation": "現在のコンテンツとマージ"
+  },
+  "backup.restore.mode.replace": {
+    "translation": "現在のコンテンツを置き換え"
+  },
+  "backup.restore.success": {
+    "translation": "正常に復元されました！"
+  },
+  "broadcast.broadcastBtn.start": {
+    "translation": "配信"
+  },
+  "broadcast.broadcastBtn.stop": {
+    "translation": "配信停止"
+  },
+  "broadcast.broadcasting": {
+    "translation": "配信中..."
+  },
+  "broadcast.channelURL": {
+    "translation": "チャンネルURL"
+  },
+  "broadcast.connecting": {
+    "translation": "接続中..."
+  },
+  "broadcast.desc": {
+    "translation": "結果ページを他のブラウザやデバイスにリアルタイムで配信します。詳細については<tag-1>ドキュメント</tag-1>をご覧ください。"
+  },
+  "broadcast.error.generic": {
+    "translation": "配信に失敗しました！"
+  },
+  "broadcast.error.serverURLRequired": {
+    "translation": "サーバーURLが必要です！"
+  },
+  "broadcast.heading": {
+    "translation": "配信"
+  },
+  "broadcast.includeSourceCode": {
+    "translation": "ソースコードを含める"
+  },
+  "broadcast.serverURL.heading": {
+    "translation": "サーバーURL"
+  },
+  "core.broadcast.heading": {
+    "translation": "配信"
+  },
+  "core.broadcast.successSetToken": {
+    "translation": "配信ユーザートークンが正常に設定されました"
+  },
+  "core.changeLanguage.hint": {
+    "translation": "言語を変更"
+  },
+  "core.changeLanguage.message": {
+    "translation": "{{lang}}を読み込んでいます。しばらくお待ちください！"
+  },
+  "core.copy.copied": {
+    "translation": "コードがクリップボードにコピーされました"
+  },
+  "core.copy.copiedAsDataURL": {
+    "translation": "コードがデータURLとしてコピーされました"
+  },
+  "core.copy.hint": {
+    "translation": "コピーしました！"
+  },
+  "core.copy.title": {
+    "translation": "コピー"
+  },
+  "core.error.couldNotLoadTemplate": {
+    "translation": "テンプレートを読み込めませんでした: {{template}}"
+  },
+  "core.error.failedToCopyCode": {
+    "translation": "コードのコピーに失敗しました"
+  },
+  "core.error.failedToLoadTemplate": {
+    "translation": "テンプレートの読み込みに失敗しました"
+  },
+  "core.error.failedToLoadTemplates": {
+    "translation": "スターターテンプレートの読み込みに失敗しました"
+  },
+  "core.error.failedToParseSettings": {
+    "translation": "設定をJSONとして解析できませんでした"
+  },
+  "core.error.invalidCommand": {
+    "translation": "無効なコマンドです！"
+  },
+  "core.error.invalidImport": {
+    "translation": "無効なインポートURLです"
+  },
+  "core.error.invalidPanelId": {
+    "translation": "無効なパネルIDです"
+  },
+  "core.error.invalidToken": {
+    "translation": "無効なトークンです！"
+  },
+  "core.error.login": {
+    "translation": "ログインエラー！"
+  },
+  "core.error.logout": {
+    "translation": "ログアウトエラー！"
+  },
+  "core.error.noResultContainer": {
+    "translation": "結果コンテナが見つかりません"
+  },
+  "core.error.unavailable": {
+    "translation": "コマンドは利用できません"
+  },
+  "core.error.unavailableForEmbeds": {
+    "translation": "埋め込みではコマンドを利用できません"
+  },
+  "core.export.gist": {
+    "translation": "公開GitHubギストを作成中..."
+  },
+  "core.fork.success": {
+    "translation": "新しいプロジェクトとしてフォークしました"
+  },
+  "core.fullScreen.enter": {
+    "translation": "全画面表示"
+  },
+  "core.fullScreen.exit": {
+    "translation": "全画面表示を終了"
+  },
+  "core.import.loading": {
+    "translation": "プロジェクトを読み込んでいます..."
+  },
+  "core.layout.horizontal": {
+    "translation": "水平レイアウト"
+  },
+  "core.layout.responsive": {
+    "translation": "レスポンシブレイアウト"
+  },
+  "core.layout.vertical": {
+    "translation": "垂直レイアウト"
+  },
+  "core.loadDefaults.template": {
+    "translation": "デフォルトのテンプレートを読み込んでいます"
+  },
+  "core.login.success": {
+    "translation": "ログインに成功しました"
+  },
+  "core.login.successWithName": {
+    "translation": "ログイン中: {{name}}"
+  },
+  "core.logout.success": {
+    "translation": "ログアウトに成功しました"
+  },
+  "core.result.hint": {
+    "translation": "新しいウィンドウで結果を表示"
+  },
+  "core.save.success": {
+    "translation": "プロジェクトがデバイスにローカル保存されました！"
+  },
+  "core.save.successWithName": {
+    "translation": "プロジェクト「{{name}}」がデバイスに保存されました。"
+  },
+  "core.template.blank": {
+    "translation": "空のプロジェクト"
+  },
+  "core.template.delete": {
+    "translation": "テンプレート「{{item}}」を削除しますか？"
+  },
+  "core.template.javascript": {
+    "translation": "JavaScriptスターター"
+  },
+  "core.template.react": {
+    "translation": "Reactスターター"
+  },
+  "core.template.saved": {
+    "translation": "新しいテンプレートとして保存されました"
+  },
+  "core.template.typescript": {
+    "translation": "TypeScriptスターター"
+  },
+  "core.template.vue": {
+    "translation": "Vue 3スターター"
+  },
+  "core.unload.notSaved": {
+    "translation": "変更が保存されていない可能性があります。"
+  },
+  "core.zoom.hint": {
+    "translation": "ズーム"
+  },
+  "customSettings.JSON": {
+    "translation": "カスタム設定JSON"
+  },
+  "customSettings.desc": {
+    "translation": "<tag-1></tag-1>詳細は <tag-2>資料</tag-2>"
+  },
+  "customSettings.heading": {
+    "translation": "カスタム設定"
+  },
+  "customSettings.load": {
+    "translation": "読み込み"
+  },
+  "deploy.create.desc": {
+    "translation": "新しい<tag-1>公開</tag-1>リポジトリが作成されます。結果ページは<tag-2>gh-pages</tag-2>ブランチにプッシュされます。"
+  },
+  "deploy.create.heading": {
+    "translation": "新しいリポジトリを作成"
+  },
+  "deploy.create.repoName": {
+    "translation": "リポジトリ名 <tag-1></tag-1>"
+  },
+  "deploy.error.generic": {
+    "translation": "デプロイに失敗しました！"
+  },
+  "deploy.error.repoNameExists": {
+    "translation": "リポジトリ名はすでに存在します"
+  },
+  "deploy.error.repoNameRequired": {
+    "translation": "リポジトリ名は必須です"
+  },
+  "deploy.existing.desc": {
+    "translation": "新しいコミットが<tag-1>gh-pages</tag-1>ブランチに追加されます。"
+  },
+  "deploy.existing.heading": {
+    "translation": "既存のリポジトリ"
+  },
+  "deploy.existing.repoName": {
+    "translation": "リポジトリ名"
+  },
+  "deploy.generic.commitMessage": {
+    "translation": "コミットメッセージ"
+  },
+  "deploy.generic.commitSourceCodePublic": {
+    "translation": "ソースコードをコミット（公開）"
+  },
+  "deploy.generic.deployBtn": {
+    "translation": "デプロイ"
+  },
+  "deploy.generic.deploying": {
+    "translation": "デプロイ中..."
+  },
+  "deploy.heading": {
+    "translation": "GitHub Pagesにデプロイ"
+  },
+  "deploy.searchRepo": {
+    "translation": "公開リポジトリを検索..."
+  },
+  "editorSettings.closeBrackets": {
+    "translation": "括弧と引用符を自動的に閉じる"
+  },
+  "editorSettings.codeJarDesc": {
+    "translation": "* マークされた機能はCodeJarでは利用できません。"
+  },
+  "editorSettings.default": {
+    "translation": "デフォルト"
+  },
+  "editorSettings.desc": {
+    "translation": "詳細については<tag-1>ドキュメント</tag-1>をご確認ください。"
+  },
+  "editorSettings.editor.codejar": {
+    "translation": "CodeJar"
+  },
+  "editorSettings.editor.codemirror": {
+    "translation": "CodeMirror"
+  },
+  "editorSettings.editor.heading": {
+    "translation": "エディター"
+  },
+  "editorSettings.editor.monaco": {
+    "translation": "Monaco"
+  },
+  "editorSettings.editorMode.emacs": {
+    "translation": "Emacs"
+  },
+  "editorSettings.editorMode.heading": {
+    "translation": "エディターモード *"
+  },
+  "editorSettings.editorMode.vim": {
+    "translation": "Vim"
+  },
+  "editorSettings.editorTheme": {
+    "translation": "エディターテーマ"
+  },
+  "editorSettings.emmet": {
+    "translation": "Emmetを有効化 *"
+  },
+  "editorSettings.enableAI.heading": {
+    "translation": "AIコードアシスタントを有効化"
+  },
+  "editorSettings.enableAI.note": {
+    "translation": "提供： <tag-1><tag-2></tag-2></tag-1>"
+  },
+  "editorSettings.fontFamily": {
+    "translation": "フォントファミリー"
+  },
+  "editorSettings.fontSize": {
+    "translation": "フォントサイズ"
+  },
+  "editorSettings.format": {
+    "translation": "フォーマット"
+  },
+  "editorSettings.heading": {
+    "translation": "エディター設定"
+  },
+  "editorSettings.lineNumbers": {
+    "translation": "行番号を表示"
+  },
+  "editorSettings.notAvailableInCodeJar": {
+    "translation": "CodeJarでは利用できません"
+  },
+  "editorSettings.preview": {
+    "translation": "プレビュー"
+  },
+  "editorSettings.semicolons": {
+    "translation": "フォーマット：セミコロンを使用"
+  },
+  "editorSettings.singleQuote": {
+    "translation": "フォーマット：シングルクォートを使用"
+  },
+  "editorSettings.tabSize": {
+    "translation": "タブサイズ"
+  },
+  "editorSettings.theme": {
+    "translation": "ダークモード"
+  },
+  "editorSettings.trailingComma": {
+    "translation": "フォーマット：末尾のカンマを使用"
+  },
+  "editorSettings.useTabs.heading": {
+    "translation": "インデント"
+  },
+  "editorSettings.useTabs.spaces": {
+    "translation": "スペース"
+  },
+  "editorSettings.useTabs.tabs": {
+    "translation": "タブ"
+  },
+  "editorSettings.wordWrap": {
+    "translation": "ワードラップ"
+  },
+  "embed.activeEditor.heading": {
+    "translation": "アクティブエディター"
+  },
+  "embed.activeEditor.markup": {
+    "translation": "{{markup}}"
+  },
+  "embed.activeEditor.script": {
+    "translation": "{{script}}"
+  },
+  "embed.activeEditor.style": {
+    "translation": "{{style}}"
+  },
+  "embed.activeTool.compiled": {
+    "translation": "コンパイル済み"
+  },
+  "embed.activeTool.console": {
+    "translation": "コンソール"
+  },
+  "embed.activeTool.heading": {
+    "translation": "アクティブツール"
+  },
+  "embed.activeTool.tests": {
+    "translation": "テスト"
+  },
+  "embed.code.copy": {
+    "translation": "コードをコピー"
+  },
+  "embed.code.heading": {
+    "translation": "コード"
+  },
+  "embed.codeEditor.codeJar": {
+    "translation": "CodeJar"
+  },
+  "embed.codeEditor.codeMirror": {
+    "translation": "CodeMirror"
+  },
+  "embed.codeEditor.default": {
+    "translation": "デフォルト"
+  },
+  "embed.codeEditor.heading": {
+    "translation": "コードエディター"
+  },
+  "embed.codeEditor.monaco": {
+    "translation": "Monaco"
+  },
+  "embed.desc": {
+    "translation": "高度な設定については<tag-1>ドキュメント</tag-1>をご確認ください。"
+  },
+  "embed.embedType.cdn": {
+    "translation": "スクリプト（CDN）"
+  },
+  "embed.embedType.heading": {
+    "translation": "埋め込みタイプ"
+  },
+  "embed.embedType.html": {
+    "translation": "HTML"
+  },
+  "embed.embedType.iframe": {
+    "translation": "Iframe"
+  },
+  "embed.embedType.npm": {
+    "translation": "JS（npm）"
+  },
+  "embed.embedType.react": {
+    "translation": "React"
+  },
+  "embed.embedType.svelte": {
+    "translation": "Svelte"
+  },
+  "embed.embedType.vue": {
+    "translation": "Vue"
+  },
+  "embed.heading": {
+    "translation": "プロジェクトの埋め込み"
+  },
+  "embed.layout.heading": {
+    "translation": "レイアウト"
+  },
+  "embed.layout.horizontal": {
+    "translation": "水平"
+  },
+  "embed.layout.responsive": {
+    "translation": "レスポンシブ"
+  },
+  "embed.layout.vertical": {
+    "translation": "垂直"
+  },
+  "embed.lite": {
+    "translation": "ライトモード"
+  },
+  "embed.loading.click": {
+    "translation": "クリック時"
+  },
+  "embed.loading.eager": {
+    "translation": "即時"
+  },
+  "embed.loading.heading": {
+    "translation": "読み込み"
+  },
+  "embed.loading.lazy": {
+    "translation": "遅延"
+  },
+  "embed.mode.codeblock": {
+    "translation": "コードブロック"
+  },
+  "embed.mode.editor": {
+    "translation": "エディター"
+  },
+  "embed.mode.full": {
+    "translation": "フル"
+  },
+  "embed.mode.heading": {
+    "translation": "表示モード"
+  },
+  "embed.mode.result": {
+    "translation": "結果"
+  },
+  "embed.mode.simple": {
+    "translation": "シンプル"
+  },
+  "embed.permanentUrl": {
+    "translation": "永続的URL"
+  },
+  "embed.preview": {
+    "translation": "プレビュー"
+  },
+  "embed.previewLoading": {
+    "translation": "プレビューを読み込み中..."
+  },
+  "embed.readonly": {
+    "translation": "読み取り専用"
+  },
+  "embed.theme.dark": {
+    "translation": "ダーク"
+  },
+  "embed.theme.heading": {
+    "translation": "テーマ"
+  },
+  "embed.theme.light": {
+    "translation": "ライト"
+  },
+  "embed.tools.closed": {
+    "translation": "閉じる"
+  },
+  "embed.tools.full": {
+    "translation": "フル"
+  },
+  "embed.tools.heading": {
+    "translation": "ツール"
+  },
+  "embed.tools.none": {
+    "translation": "なし"
+  },
+  "embed.tools.open": {
+    "translation": "開く"
+  },
+  "embed.view.editor": {
+    "translation": "エディター"
+  },
+  "embed.view.heading": {
+    "translation": "デフォルトビュー"
+  },
+  "embed.view.result": {
+    "translation": "結果"
+  },
+  "embed.view.split": {
+    "translation": "分割"
+  },
+  "generic.about.blog": {
+    "translation": "ブログ"
+  },
+  "generic.about.configuration": {
+    "translation": "設定"
+  },
+  "generic.about.gettingStarted": {
+    "translation": "はじめに"
+  },
+  "generic.about.github": {
+    "translation": "GitHub"
+  },
+  "generic.about.sdk": {
+    "translation": "SDK"
+  },
+  "generic.about.sponsor": {
+    "translation": "をスポンサー"
+  },
+  "generic.about.twitter": {
+    "translation": "𝕏 / Twitter"
+  },
+  "generic.clickForInfo": {
+    "translation": "クリックして詳細を表示..."
+  },
+  "generic.close": {
+    "translation": "閉じる"
+  },
+  "generic.embed.logoHint": {
+    "translation": "LiveCodes で編集する。🡕"
+  },
+  "generic.error.authentication": {
+    "translation": "認証エラー！"
+  },
+  "generic.error.exceededSize": {
+    "translation": "エラー：サイズ{{size}} MBを超えています"
+  },
+  "generic.error.failedToReadFile": {
+    "translation": "エラー：ファイルの読み取りに失敗しました"
+  },
+  "generic.loading": {
+    "translation": "読み込み中..."
+  },
+  "generic.more": {
+    "translation": "もっと見る..."
+  },
+  "generic.optional": {
+    "translation": "任意"
+  },
+  "generic.required": {
+    "translation": "必須"
+  },
+  "generic.tagline": {
+    "translation": "シンプルに動作するコードの遊び場！"
+  },
+  "import.bulk.desc": {
+    "translation": "複数のプロジェクトを一括で保存済みプロジェクトにインポートします。プロジェクトは<tag-1>保存済みプロジェクト</tag-1>画面からエクスポートできます。"
+  },
+  "import.bulk.fromFile": {
+    "translation": "ローカルファイルから一括インポート"
+  },
+  "import.bulk.fromURL": {
+    "translation": "URLから一括インポート"
+  },
+  "import.bulk.heading": {
+    "translation": "一括インポート"
+  },
+  "import.bulk.started": {
+    "translation": "一括インポートを開始しました..."
+  },
+  "import.code.desc": {
+    "translation": "サポートされているソース：<tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHubファイル</tag-3> <tag-4>GitHubリポジトリ内のディレクトリ</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlabファイル</tag-6> <tag-7>Gitlabリポジトリ内のディレクトリ</tag-7> <tag-8>JS Bin</tag-8> <tag-9>生のコード</tag-9> <tag-10>Webページ内のDOM内のコード</tag-10> <tag-11>ZIPファイル内のコード</tag-11> <tag-12>公式プレイグラウンド<tag-13></tag-13>（TypeScript、Vue、Svelte）</tag-12> </tag-1> 詳細については<tag-14>ドキュメント</tag-14>をご覧ください。"
+  },
+  "import.code.fromFile": {
+    "translation": "ローカルファイルをインポート"
+  },
+  "import.code.fromURL": {
+    "translation": "URLからインポート"
+  },
+  "import.code.heading": {
+    "translation": "コードのインポート"
+  },
+  "import.error.failedToLoadURL": {
+    "translation": "エラー：URLの読み込みに失敗しました"
+  },
+  "import.error.invalidConfigFile": {
+    "translation": "無効な設定ファイルです"
+  },
+  "import.error.invalidFile": {
+    "translation": "エラー：無効なファイルです"
+  },
+  "import.generic.file": {
+    "translation": "ローカルファイル"
+  },
+  "import.generic.url": {
+    "translation": "URL"
+  },
+  "import.heading": {
+    "translation": "インポート"
+  },
+  "import.json.desc": {
+    "translation": "単一のプロジェクトJSONをエディターにインポートします。プロジェクトはアプリメニュー→エクスポート→プロジェクトのエクスポート（JSON）からエクスポートできます。"
+  },
+  "import.json.fromFile": {
+    "translation": "ローカルファイルからプロジェクトをインポート"
+  },
+  "import.json.fromURL": {
+    "translation": "URLからプロジェクトをインポート"
+  },
+  "import.json.heading": {
+    "translation": "プロジェクトJSONのインポート"
+  },
+  "import.success": {
+    "translation": "インポートに成功しました！"
+  },
+  "login.accessAllowed": {
+    "translation": "アクセスを許可："
+  },
+  "login.desc": {
+    "translation": "<tag-1>ログインすることで、お使いのデバイスに<tag-2>クッキー</tag-2>が保存されることに同意したものとみなされます。</tag-1> <tag-3> <tag-4>これらの権限が必要な理由は？</tag-4> </tag-3> <tag-5> <tag-6>権限の変更/取り消し方法は？</tag-6> </tag-5>"
+  },
+  "login.gist": {
+    "translation": "Gist"
+  },
+  "login.heading": {
+    "translation": "GitHubでログイン"
+  },
+  "login.loginAs": {
+    "translation": "{{name}}としてログイン中"
+  },
+  "login.loginBtn": {
+    "translation": "ログイン"
+  },
+  "login.logout": {
+    "translation": "ログアウト"
+  },
+  "login.privateRepo": {
+    "translation": "プライベートリポジトリ"
+  },
+  "login.publicRepo": {
+    "translation": "リポジトリ"
+  },
+  "menu.about": {
+    "translation": "概要"
+  },
+  "menu.appHelp.heading": {
+    "translation": "ヘルプ"
+  },
+  "menu.appHelp.hint": {
+    "translation": "ヘルプ"
+  },
+  "menu.appProject.heading": {
+    "translation": "プロジェクト"
+  },
+  "menu.appProject.hint": {
+    "translation": "プロジェクト"
+  },
+  "menu.appSettings.heading": {
+    "translation": "設定"
+  },
+  "menu.appSettings.hint": {
+    "translation": "アプリの設定"
+  },
+  "menu.assets": {
+    "translation": "アセット …"
+  },
+  "menu.autoSave": {
+    "translation": "自動保存"
+  },
+  "menu.autoUpdate": {
+    "translation": "自動更新"
+  },
+  "menu.backup": {
+    "translation": "バックアップ / 復元 …"
+  },
+  "menu.blog": {
+    "translation": "LiveCodesブログ"
+  },
+  "menu.broadcast": {
+    "translation": "配信 …"
+  },
+  "menu.config": {
+    "translation": "設定"
+  },
+  "menu.customSettings": {
+    "translation": "カスタム設定 …"
+  },
+  "menu.delay.heading": {
+    "translation": "遅延: <tag-1>1.5</tag-1>秒"
+  },
+  "menu.delay.hint": {
+    "translation": "自動更新前の遅延"
+  },
+  "menu.deploy": {
+    "translation": "デプロイ …"
+  },
+  "menu.docs": {
+    "translation": "ドキュメンテーション"
+  },
+  "menu.editorSettings": {
+    "translation": "エディター設定 …"
+  },
+  "menu.embed": {
+    "translation": "埋め込み …"
+  },
+  "menu.export.codepen": {
+    "translation": "CodePenで編集"
+  },
+  "menu.export.gist": {
+    "translation": "GitHub Gistにエクスポート"
+  },
+  "menu.export.heading": {
+    "translation": "エクスポート"
+  },
+  "menu.export.jsfiddle": {
+    "translation": "JSFiddleで編集"
+  },
+  "menu.export.json": {
+    "translation": "プロジェクトをエクスポート（JSON）"
+  },
+  "menu.export.result": {
+    "translation": "結果をエクスポート（HTML）"
+  },
+  "menu.export.src": {
+    "translation": "ソースをエクスポート（ZIP）"
+  },
+  "menu.features": {
+    "translation": "機能"
+  },
+  "menu.formatOnsave": {
+    "translation": "保存時にフォーマット"
+  },
+  "menu.getstart": {
+    "translation": "はじめに"
+  },
+  "menu.import": {
+    "translation": "インポート …"
+  },
+  "menu.layout": {
+    "translation": "垂直レイアウト"
+  },
+  "menu.license": {
+    "translation": "ライセンス"
+  },
+  "menu.login": {
+    "translation": "ログイン …"
+  },
+  "menu.logout": {
+    "translation": "ログアウト"
+  },
+  "menu.new": {
+    "translation": "新規 …"
+  },
+  "menu.open": {
+    "translation": "開く …"
+  },
+  "menu.project": {
+    "translation": "プロジェクト情報 …"
+  },
+  "menu.recoverUnsaved": {
+    "translation": "未保存の復元"
+  },
+  "menu.report": {
+    "translation": "問題を報告する"
+  },
+  "menu.resources": {
+    "translation": "外部リソース …"
+  },
+  "menu.save": {
+    "translation": "保存"
+  },
+  "menu.saveAs.fork": {
+    "translation": "フォーク（新規プロジェクト）"
+  },
+  "menu.saveAs.heading": {
+    "translation": "別名で保存 …"
+  },
+  "menu.saveAs.template": {
+    "translation": "テンプレート"
+  },
+  "menu.sdk": {
+    "translation": "SDK"
+  },
+  "menu.share": {
+    "translation": "共有 …"
+  },
+  "menu.showSpacing.heading": {
+    "translation": "間隔を表示"
+  },
+  "menu.showSpacing.hint": {
+    "translation": "Alt/Optionキーを押しながら結果ページにカーソルを合わせてください"
+  },
+  "menu.showWelcome.title": {
+    "translation": "起動時にウェルカム画面を表示"
+  },
+  "menu.snippets": {
+    "translation": "コードスニペット …"
+  },
+  "menu.source": {
+    "translation": "GitHubのソースコード"
+  },
+  "menu.sync": {
+    "translation": "同期（ベータ） … <tag-1> ⏳</tag-1>"
+  },
+  "menu.theme": {
+    "translation": "ダークテーマ"
+  },
+  "menu.themeColor": {
+    "translation": "色"
+  },
+  "menu.welcome.heading": {
+    "translation": "ようこそ …"
+  },
+  "open.action.delete": {
+    "translation": "削除"
+  },
+  "open.defaultTemplate": {
+    "translation": "デフォルトテンプレート "
+  },
+  "open.delete.all": {
+    "translation": "{{projects}}個のプロジェクトを削除しますか？"
+  },
+  "open.delete.deleting": {
+    "translation": "プロジェクトを削除中..."
+  },
+  "open.delete.one": {
+    "translation": "プロジェクトを削除: {{project}}?"
+  },
+  "open.deleteAll": {
+    "translation": "すべて削除"
+  },
+  "open.exportAll": {
+    "translation": "すべてエクスポート"
+  },
+  "open.filter.language": {
+    "translation": "言語でフィルター"
+  },
+  "open.filter.tag": {
+    "translation": "タグでフィルター"
+  },
+  "open.heading": {
+    "translation": "保存済みプロジェクト"
+  },
+  "open.import": {
+    "translation": "インポート"
+  },
+  "open.lastModified": {
+    "translation": "最終更新: {{modified}}"
+  },
+  "open.noData.desc": {
+    "translation": "プロジェクトは（設定メニュー&nbsp;&gt;&nbsp;保存）からまたはキーボードショートカット（Ctrl/Cmd&nbsp;+&nbsp;S）で保存できます。"
+  },
+  "open.noData.heading": {
+    "translation": "保存済みプロジェクトがありません。"
+  },
+  "open.noMatch": {
+    "translation": "これらのフィルターに一致するプロジェクトはありません。"
+  },
+  "open.placeholder.allLanguages": {
+    "translation": "すべての言語"
+  },
+  "open.placeholder.filterByTags": {
+    "translation": "タグでフィルター"
+  },
+  "open.placeholder.search": {
+    "translation": "検索"
+  },
+  "open.removeDefault": {
+    "translation": "（解除）"
+  },
+  "open.reset": {
+    "translation": "リセット"
+  },
+  "open.setAsDefault": {
+    "translation": "デフォルトに設定"
+  },
+  "open.sort.heading": {
+    "translation": "並び替え:"
+  },
+  "open.sort.lastModified": {
+    "translation": "最終更新日"
+  },
+  "open.sort.title": {
+    "translation": "タイトル"
+  },
+  "project.desc": {
+    "translation": "説明"
+  },
+  "project.head": {
+    "translation": "&lt;head&gt;に追加"
+  },
+  "project.heading": {
+    "translation": "プロジェクト情報"
+  },
+  "project.htmlAttr": {
+    "translation": "&lt;html&gt;の属性"
+  },
+  "project.tags": {
+    "translation": "タグ"
+  },
+  "project.title": {
+    "translation": "プロジェクトタイトル"
+  },
+  "recoverPrompt.desc": {
+    "translation": "最後のプロジェクトに未保存の変更があります！"
+  },
+  "recoverPrompt.heading": {
+    "translation": "未保存のプロジェクトを復元しますか？"
+  },
+  "recoverPrompt.meta": {
+    "translation": "タイトル: <tag-1></tag-1> <tag-2></tag-2> 最終更新: <tag-3></tag-3>"
+  },
+  "recoverPrompt.notShowAgain": {
+    "translation": "今後表示しない。"
+  },
+  "recoverPrompt.prompt.discard": {
+    "translation": "未保存のプロジェクトを破棄"
+  },
+  "recoverPrompt.prompt.heading": {
+    "translation": "<tag-1></tag-1>今すぐ復元しますか？"
+  },
+  "recoverPrompt.prompt.recover": {
+    "translation": "プロジェクトをエディターに復元"
+  },
+  "recoverPrompt.prompt.save": {
+    "translation": "デバイスに保存して続行"
+  },
+  "resources.browseOnJsDelivr": {
+    "translation": "jsDelivrでパッケージファイルを閲覧"
+  },
+  "resources.cssPresets.heading": {
+    "translation": "CSSプリセット"
+  },
+  "resources.cssPresets.none": {
+    "translation": "なし"
+  },
+  "resources.cssPresets.normalizeCss": {
+    "translation": "Normalize.css"
+  },
+  "resources.cssPresets.resetCss": {
+    "translation": "Reset CSS"
+  },
+  "resources.error.failedToLoadResults": {
+    "translation": "結果の読み込みに失敗しました！"
+  },
+  "resources.error.noResultsFound": {
+    "translation": "結果が見つかりません: "
+  },
+  "resources.fonts.add": {
+    "translation": "追加"
+  },
+  "resources.fonts.heading": {
+    "translation": "フォント <tag-1>（Google Fontsを利用）</tag-1>"
+  },
+  "resources.fonts.select": {
+    "translation": "フォントを選択..."
+  },
+  "resources.heading": {
+    "translation": "外部リソース"
+  },
+  "resources.scripts": {
+    "translation": "外部スクリプト"
+  },
+  "resources.search.heading": {
+    "translation": "パッケージを検索 <tag-1>（jsDelivrを利用）</tag-1>"
+  },
+  "resources.search.placeholder": {
+    "translation": "例：jquery, lodash@4, bootstrap@5.2.3, ..."
+  },
+  "resources.stylesheets": {
+    "translation": "外部スタイルシート"
+  },
+  "resources.urlDesc": {
+    "translation": "スタイルシート/スクリプトのURLを追加。各URLは別の行に記述してください。"
+  },
+  "resultMode.linkText": {
+    "translation": "LiveCodesで編集する"
+  },
+  "savePrompt.heading": {
+    "translation": "未保存の変更"
+  },
+  "savePrompt.prompt.cancel": {
+    "translation": "キャンセル"
+  },
+  "savePrompt.prompt.discard": {
+    "translation": "保存しない"
+  },
+  "savePrompt.prompt.heading": {
+    "translation": "変更が保存されていない可能性があります。<tag-1></tag-1>今すぐ保存しますか？"
+  },
+  "savePrompt.prompt.save": {
+    "translation": "保存"
+  },
+  "share.characters": {
+    "translation": "{{urlLength}}文字"
+  },
+  "share.copy.clickToCopy": {
+    "translation": "クリックしてコピー"
+  },
+  "share.copy.copied": {
+    "translation": "URLがクリップボードにコピーされました"
+  },
+  "share.encodedURL": {
+    "translation": "エンコードされたURLを取得"
+  },
+  "share.error.failedToCopy": {
+    "translation": "クリップボードへのコピーに失敗しました！"
+  },
+  "share.error.failedToGenerateURL": {
+    "translation": "短縮URLの生成に失敗しました！"
+  },
+  "share.expireInOneYear": {
+    "translation": "1年後に有効期限切れ"
+  },
+  "share.generateURL": {
+    "translation": "URLを生成中 …"
+  },
+  "share.heading": {
+    "translation": "共有"
+  },
+  "share.permanentURL": {
+    "translation": "永続的URL"
+  },
+  "share.qrcode.clickToDownload": {
+    "translation": "クリックしてダウンロード"
+  },
+  "share.qrcode.generating": {
+    "translation": "生成中..."
+  },
+  "share.services.devTo": {
+    "translation": "Dev.to"
+  },
+  "share.services.email": {
+    "translation": "メール"
+  },
+  "share.services.facebook": {
+    "translation": "Facebook"
+  },
+  "share.services.hackerNews": {
+    "translation": "Hacker News"
+  },
+  "share.services.linkedIn": {
+    "translation": "LinkedIn"
+  },
+  "share.services.pinterest": {
+    "translation": "Pinterest"
+  },
+  "share.services.pocket": {
+    "translation": "Pocket"
+  },
+  "share.services.qrCode": {
+    "translation": "QRコード"
+  },
+  "share.services.reddit": {
+    "translation": "Reddit"
+  },
+  "share.services.share": {
+    "translation": "共有方法 …"
+  },
+  "share.services.telegram": {
+    "translation": "Telegram"
+  },
+  "share.services.tumblr": {
+    "translation": "Tumblr"
+  },
+  "share.services.twitter": {
+    "translation": "𝕏 / Twitter"
+  },
+  "share.services.whatsApp": {
+    "translation": "WhatsApp"
+  },
+  "share.shortURL": {
+    "translation": "短縮URLを取得"
+  },
+  "snippets.action.copy": {
+    "translation": "コピー"
+  },
+  "snippets.action.delete": {
+    "translation": "削除"
+  },
+  "snippets.action.edit": {
+    "translation": "編集"
+  },
+  "snippets.add.code": {
+    "translation": "コード"
+  },
+  "snippets.add.desc": {
+    "translation": "説明"
+  },
+  "snippets.add.heading": {
+    "translation": "スニペットを追加"
+  },
+  "snippets.add.language": {
+    "translation": "言語"
+  },
+  "snippets.add.save": {
+    "translation": "保存"
+  },
+  "snippets.add.snippets": {
+    "translation": "スニペット"
+  },
+  "snippets.add.title": {
+    "translation": "タイトル"
+  },
+  "snippets.copy.clickToCopySnippet": {
+    "translation": "クリックしてスニペットをコピー"
+  },
+  "snippets.copy.copied": {
+    "translation": "スニペットがクリップボードにコピーされました。"
+  },
+  "snippets.delete.all": {
+    "translation": "{{snippets}}個のスニペットを削除しますか？"
+  },
+  "snippets.delete.one": {
+    "translation": "スニペットを削除: {{snippet}}?"
+  },
+  "snippets.deleteAll": {
+    "translation": "すべて削除"
+  },
+  "snippets.error.failedToCopy": {
+    "translation": "URLのコピーに失敗しました。"
+  },
+  "snippets.error.noTitle": {
+    "translation": "スニペットのタイトルを追加してください。"
+  },
+  "snippets.filter.language": {
+    "translation": "言語でフィルター"
+  },
+  "snippets.heading": {
+    "translation": "コードスニペット"
+  },
+  "snippets.lastModified": {
+    "translation": "最終更新: {{modified}}"
+  },
+  "snippets.noMatch": {
+    "translation": "これらのフィルターに一致するスニペットはありません。"
+  },
+  "snippets.noSavedSnippets": {
+    "translation": "保存済みのスニペットはありません。"
+  },
+  "snippets.placeholder.allLanguages": {
+    "translation": "すべての言語"
+  },
+  "snippets.placeholder.search": {
+    "translation": "検索"
+  },
+  "snippets.reset": {
+    "translation": "リセット"
+  },
+  "snippets.save.success": {
+    "translation": "スニペットがデバイスにローカル保存されました！"
+  },
+  "snippets.sort.date": {
+    "translation": "日付"
+  },
+  "snippets.sort.heading": {
+    "translation": "並び替え:"
+  },
+  "snippets.sort.title": {
+    "translation": "タイトル"
+  },
+  "snippets.text": {
+    "translation": "プレーンテキスト"
+  },
+  "splash.loading": {
+    "translation": "LiveCodesを読み込み中…"
+  },
+  "sync.autoSync": {
+    "translation": "自動同期"
+  },
+  "sync.create.desc": {
+    "translation": "新しい<tag-1>プライベート</tag-1>リポジトリが作成されます。LiveCodesのローカルデータは<tag-2>main</tag-2>ブランチと同期されます。"
+  },
+  "sync.create.heading": {
+    "translation": "新しいリポジトリを作成"
+  },
+  "sync.create.repoName": {
+    "translation": "リポジトリ名"
+  },
+  "sync.error.generic": {
+    "translation": "同期に失敗しました！"
+  },
+  "sync.error.repoNameRequired": {
+    "translation": "リポジトリ名は必須です"
+  },
+  "sync.existing.desc": {
+    "translation": "LiveCodesのローカルデータは<tag-1>main</tag-1>ブランチと同期されます。"
+  },
+  "sync.existing.heading": {
+    "translation": "既存のリポジトリ"
+  },
+  "sync.existing.repoName": {
+    "translation": "リポジトリ名"
+  },
+  "sync.heading": {
+    "translation": "GitHubリポジトリと同期"
+  },
+  "sync.searchRepos": {
+    "translation": "リポジトリを検索..."
+  },
+  "sync.success": {
+    "translation": "同期が完了しました！"
+  },
+  "sync.syncBtn": {
+    "translation": "同期"
+  },
+  "sync.syncInProgress": {
+    "translation": "同期中..."
+  },
+  "sync.syncStarted": {
+    "translation": "同期を開始しました..."
+  },
+  "templates.heading": {
+    "translation": "新規プロジェクト"
+  },
+  "templates.noUserTemplates.desc": {
+    "translation": "プロジェクトをテンプレートとして保存するには、<tag-1></tag-1>（アプリメニュー&nbsp;&gt;&nbsp;別名で保存&nbsp;&gt;&nbsp;テンプレート）から行えます。"
+  },
+  "templates.noUserTemplates.heading": {
+    "translation": "保存されたテンプレートはありません。"
+  },
+  "templates.starter.angular": {
+    "translation": "Angularスターター"
+  },
+  "templates.starter.assemblyscript": {
+    "translation": "AssemblyScriptスターター"
+  },
+  "templates.starter.astro": {
+    "translation": "Astroスターター"
+  },
+  "templates.starter.backbone": {
+    "translation": "Backboneスターター"
+  },
+  "templates.starter.blank": {
+    "translation": "空のプロジェクト"
+  },
+  "templates.starter.blockly": {
+    "translation": "Blocklyスターター"
+  },
+  "templates.starter.bootstrap": {
+    "translation": "Bootstrapスターター"
+  },
+  "templates.starter.civet": {
+    "translation": "Civetスターター"
+  },
+  "templates.starter.clio": {
+    "translation": "Clioスターター"
+  },
+  "templates.starter.clojurescript": {
+    "translation": "ClojureScriptスターター"
+  },
+  "templates.starter.coffeescript": {
+    "translation": "CoffeeScriptスターター"
+  },
+  "templates.starter.commonlisp": {
+    "translation": "Common Lispスターター"
+  },
+  "templates.starter.cpp": {
+    "translation": "C++スターター"
+  },
+  "templates.starter.diagrams": {
+    "translation": "ダイアグラムスターター"
+  },
+  "templates.starter.fennel": {
+    "translation": "Fennelスターター"
+  },
+  "templates.starter.gleam": {
+    "translation": "Gleamスターター"
+  },
+  "templates.starter.go": {
+    "translation": "Goスターター"
+  },
+  "templates.starter.heading": {
+    "translation": "スターターテンプレート"
+  },
+  "templates.starter.imba": {
+    "translation": "Imbaスターター"
+  },
+  "templates.starter.javascript": {
+    "translation": "JavaScriptスターター"
+  },
+  "templates.starter.jest": {
+    "translation": "Jestスターター"
+  },
+  "templates.starter.jest-react": {
+    "translation": "Jest/Reactスターター"
+  },
+  "templates.starter.jquery": {
+    "translation": "jQueryスターター"
+  },
+  "templates.starter.julia": {
+    "translation": "Juliaスターター"
+  },
+  "templates.starter.knockout": {
+    "translation": "Knockoutスターター"
+  },
+  "templates.starter.lit": {
+    "translation": "Litスターター"
+  },
+  "templates.starter.livescript": {
+    "translation": "LiveScriptスターター"
+  },
+  "templates.starter.loading": {
+    "translation": "スターターテンプレートを読み込み中..."
+  },
+  "templates.starter.lua": {
+    "translation": "Luaスターター"
+  },
+  "templates.starter.lua-wasm": {
+    "translation": "Lua（Wasm）スターター"
+  },
+  "templates.starter.malina": {
+    "translation": "Malina.jsスターター"
+  },
+  "templates.starter.markdown": {
+    "translation": "Markdownスターター"
+  },
+  "templates.starter.mdx": {
+    "translation": "MDXスターター"
+  },
+  "templates.starter.ocaml": {
+    "translation": "OCamlスターター"
+  },
+  "templates.starter.perl": {
+    "translation": "Perlスターター"
+  },
+  "templates.starter.php": {
+    "translation": "PHPスターター"
+  },
+  "templates.starter.php-wasm": {
+    "translation": "PHP（Wasm）スターター"
+  },
+  "templates.starter.postgresql": {
+    "translation": "PostgreSQLスターター"
+  },
+  "templates.starter.preact": {
+    "translation": "Preactスターター"
+  },
+  "templates.starter.prolog": {
+    "translation": "Prologスターター"
+  },
+  "templates.starter.python": {
+    "translation": "Pythonスターター"
+  },
+  "templates.starter.r": {
+    "translation": "Rスターター"
+  },
+  "templates.starter.react": {
+    "translation": "Reactスターター"
+  },
+  "templates.starter.react-native": {
+    "translation": "React Nativeスターター"
+  },
+  "templates.starter.reason": {
+    "translation": "Reasonスターター"
+  },
+  "templates.starter.rescript": {
+    "translation": "ReScriptスターター"
+  },
+  "templates.starter.riot": {
+    "translation": "Riot.jsスターター"
+  },
+  "templates.starter.ruby": {
+    "translation": "Rubyスターター"
+  },
+  "templates.starter.ruby-wasm": {
+    "translation": "Ruby（Wasm）スターター"
+  },
+  "templates.starter.scheme": {
+    "translation": "Schemeスターター"
+  },
+  "templates.starter.solid": {
+    "translation": "Solidスターター"
+  },
+  "templates.starter.sql": {
+    "translation": "SQLスターター"
+  },
+  "templates.starter.stencil": {
+    "translation": "Stencilスターター"
+  },
+  "templates.starter.svelte": {
+    "translation": "Svelteスターター"
+  },
+  "templates.starter.tailwindcss": {
+    "translation": "Tailwind CSSスターター"
+  },
+  "templates.starter.tcl": {
+    "translation": "Tclスターター"
+  },
+  "templates.starter.teal": {
+    "translation": "Tealスターター"
+  },
+  "templates.starter.typescript": {
+    "translation": "TypeScriptスターター"
+  },
+  "templates.starter.vue": {
+    "translation": "Vue 3 SFCスターター"
+  },
+  "templates.starter.vue2": {
+    "translation": "Vue 2スターター"
+  },
+  "templates.starter.wat": {
+    "translation": "WebAssembly Textスターター"
+  },
+  "templates.user.heading": {
+    "translation": "マイテンプレート"
+  },
+  "templates.user.loading": {
+    "translation": "ユーザーテンプレートを読み込み中..."
+  },
+  "testEditor.heading": {
+    "translation": "テストを編集"
+  },
+  "testEditor.load": {
+    "translation": "読み込み"
+  },
+  "testEditor.tests": {
+    "translation": "テスト"
+  },
+  "testSettings.desc": {
+    "translation": "<tag-1></tag-1>詳細は <tag-2>資料</tag-2>"
+  },
+  "toolspane.close": {
+    "translation": "閉じる"
+  },
+  "toolspane.compiled.title": {
+    "translation": "コンパイル済み"
+  },
+  "toolspane.console.clear": {
+    "translation": "コンソールをクリア"
+  },
+  "toolspane.console.title": {
+    "translation": "コンソール"
+  },
+  "toolspane.test.edit": {
+    "translation": "編集"
+  },
+  "toolspane.test.error": {
+    "translation": "<tag-1><tag-2>テストエラー！</tag-2></tag-1>"
+  },
+  "toolspane.test.loading": {
+    "translation": "<tag-1>テストを読み込み中...</tag-1>"
+  },
+  "toolspane.test.noTest": {
+    "translation": "<tag-1>このプロジェクトにはテストがありません！</tag-1>"
+  },
+  "toolspane.test.reset": {
+    "translation": "リセット"
+  },
+  "toolspane.test.run.desc": {
+    "translation": "Ctrl/Cmd + Alt + T"
+  },
+  "toolspane.test.run.heading": {
+    "translation": "実行"
+  },
+  "toolspane.test.summary.desc": {
+    "translation": "テスト: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<tag-1></tag-1>\n時間: {{duration}}秒"
+  },
+  "toolspane.test.summary.failed": {
+    "translation": "{{failedNum}} 失敗"
+  },
+  "toolspane.test.summary.passed": {
+    "translation": "{{passedNum}} 成功"
+  },
+  "toolspane.test.summary.skipped": {
+    "translation": "{{skippedNum}} スキップ"
+  },
+  "toolspane.test.summary.total": {
+    "translation": "{{totalNum}} 合計"
+  },
+  "toolspane.test.title": {
+    "translation": "テスト"
+  },
+  "toolspane.test.watch.desc": {
+    "translation": "コードが変更されたらテストを実行"
+  },
+  "toolspane.test.watch.heading": {
+    "translation": "監視"
+  },
+  "welcome.about.documentation": {
+    "translation": "ドキュメント"
+  },
+  "welcome.about.heading": {
+    "translation": "LiveCodesについて"
+  },
+  "welcome.heading": {
+    "translation": "ようこそ"
+  },
+  "welcome.recent.heading": {
+    "translation": "最近"
+  },
+  "welcome.recover.cancel": {
+    "translation": "キャンセル"
+  },
+  "welcome.recover.heading": {
+    "translation": "復元"
+  },
+  "welcome.recover.lastModified": {
+    "translation": "最終更新: <tag-1></tag-1>"
+  },
+  "welcome.recover.recover": {
+    "translation": "復元"
+  },
+  "welcome.recover.save": {
+    "translation": "保存"
+  },
+  "welcome.recover.unsavedChanges": {
+    "translation": "最後のプロジェクトに未保存の変更があります："
+  },
+  "welcome.showOnStartup": {
+    "translation": "起動時に表示"
+  },
+  "welcome.start.heading": {
+    "translation": "開始"
+  },
+  "welcome.start.import": {
+    "translation": "インポート..."
+  },
+  "welcome.start.loadDefaultTemplate": {
+    "translation": "デフォルトテンプレートを読み込む"
+  },
+  "welcome.start.new": {
+    "translation": "新規..."
+  },
+  "welcome.start.noDefaultTemplate": {
+    "translation": "デフォルトテンプレートなし"
+  },
+  "welcome.start.open": {
+    "translation": "開く..."
+  },
+  "welcome.templates.heading": {
+    "translation": "スターターテンプレート"
+  }
 }
