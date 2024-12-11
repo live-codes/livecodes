@@ -244,7 +244,7 @@
     "translation": "يتم ترجمة JSX إلى جافا سكريبت في LiveCodes باستخدام مترجم TypeScript. افتراضيًا، يستخدم React كبيئة تشغيل JSX."
   },
   "jsx.link": {
-    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ React</tag-2> </tag-1> <tag-3> <tag-4>وثائق JSX في React</tag-4> </tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>تحميل قالب البداية</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ React</tag-2> </tag-1> <tag-3> <tag-4>وثائق JSX في React</tag-4> </tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5>"
   },
   "jsx.name": {
     "translation": "JSX"
@@ -456,6 +456,15 @@
   "r.name": {
     "translation": "R"
   },
+  "react.desc": {
+    "translation": "React Compiler هو أداة تعمل في وقت البناء فقط وتقوم تلقائياً بتحسين تطبيقات React."
+  },
+  "react.link": {
+    "translation": "<tag-1> <tag-2>موقع React الرسمي</tag-2> </tag-1> <tag-3> <tag-4>مُترجم React</tag-4> </tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>تحميل القالب المبدئي</tag-8> </tag-7>"
+  },
+  "react.name": {
+    "translation": "مترجم React"
+  },
   "reactNative.desc": {
     "translation": "React Native للويب هو تنفيذ سهل الوصول لمكونات وواجهات برمجة تطبيقات React Native التي تتوافق مع React DOM."
   },
@@ -473,6 +482,15 @@
   },
   "reactNativeTsx.name": {
     "translation": "React Native للويب (مع TypeScript)"
+  },
+  "reactTsx.desc": {
+    "translation": "React Compiler هو أداة تعمل في وقت البناء فقط وتقوم تلقائياً بتحسين تطبيقات React."
+  },
+  "reactTsx.link": {
+    "translation": "<tag-1> <tag-2>موقع React الرسمي</tag-2> </tag-1> <tag-3> <tag-4>مُترجم React</tag-4> </tag-3> <tag-5> <tag-6>موقع TypeScript</tag-6> </tag-5> <tag-7> <tag-8>وثائق TypeScript</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل القالب المبدئي (JSX)</tag-12> </tag-11>"
+  },
+  "reactTsx.name": {
+    "translation": "مترجم React (مع TypeScript)"
   },
   "reason.desc1": {
     "translation": "تتيح لك Reason كتابة كود بسيط وسريع وعالي الجودة وآمن الأنواع مع الاستفادة من النظم البيئية لكل من JavaScript و OCaml."
