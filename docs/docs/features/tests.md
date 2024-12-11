@@ -164,7 +164,7 @@ Usage examples are provided in the starter templates (<a href="pathname:///../?t
 
 :::caution
 
-The test code is added to the result page and run in its context. Please note that script errors (e.g. import or syntax errors) may prevent the tests from loading.
+The test code is added to the result page and runs in its context. Please note that script errors (e.g. import or syntax errors) may prevent the tests from loading.
 
 :::
 
