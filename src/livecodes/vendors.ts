@@ -276,7 +276,7 @@ export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid
 
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
-export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.2.1/');
+export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.2.2/');
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
