@@ -380,7 +380,7 @@ export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/s
 
 export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.3.2/dist/umd/stylis.js');
 
-export const svelteBaseUrl = /* @__PURE__ */ getUrl('svelte@5.10.0/');
+export const svelteBaseUrl = /* @__PURE__ */ getUrl('svelte@5.12.0/');
 
 export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm');
 
