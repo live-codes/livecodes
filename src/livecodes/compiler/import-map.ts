@@ -12,9 +12,11 @@ import {
 } from '../utils/utils';
 import { compileInCompiler } from './compile-in-compiler';
 
+// https://regexr.com/8a2j7
 export const importsPattern =
   /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
 
+// https://regexr.com/8a2ja
 export const dynamicImportsPattern = /(import\s*?\(\s*?((?:".*?")|(?:'.*?'))\s*?\))/g;
 
 export const getImports = (code: string, removeSpecifier = false) =>
