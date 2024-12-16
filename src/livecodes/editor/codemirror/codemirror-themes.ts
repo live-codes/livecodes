@@ -1,5 +1,5 @@
 import { EditorView } from 'codemirror';
-import {tags as t} from '@lezer/highlight';
+import { tags as t } from '@lezer/highlight';
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language';
 
 import type { CodemirrorTheme } from '../../models';
@@ -301,114 +301,113 @@ export const customThemes = {
   'catppuccin-latte': createTheme({
     variant: 'light',
     settings: {
-      background: '#eff1f5',    // base
-      foreground: '#4c4f69',    // text
-      caret: '#dc8a78',        // rosewater
-      selection: '#ccd0da',     // surface0
+      background: '#eff1f5', // base
+      foreground: '#4c4f69', // text
+      caret: '#dc8a78', // rosewater
+      selection: '#ccd0da', // surface0
       gutterBackground: '#e6e9ef', // mantle
       gutterForeground: '#4c4f69', // text
-      lineHighlight: '#ccd0da',  // surface0
+      lineHighlight: '#ccd0da', // surface0
     },
     styles: [
-      { tag: t.keyword, color: '#8839ef' },      // mauve
-      { tag: t.operator, color: '#04a5e5' },     // sky
-      { tag: t.string, color: '#40a02b' },       // green
+      { tag: t.keyword, color: '#8839ef' }, // mauve
+      { tag: t.operator, color: '#04a5e5' }, // sky
+      { tag: t.string, color: '#40a02b' }, // green
       { tag: t.comment, color: '#8c8fa1', fontStyle: 'italic' }, // overlay1
-      { tag: t.function(t.variableName), color: '#1e66f5' },  // blue
-      { tag: t.number, color: '#fe640b' },       // peach
-      { tag: t.bool, color: '#fe640b' },         // peach
-      { tag: t.className, color: '#df8e1d' },    // yellow
-      { tag: t.constant(t.variableName), color: '#fe640b' },  // peach
+      { tag: t.function(t.variableName), color: '#1e66f5' }, // blue
+      { tag: t.number, color: '#fe640b' }, // peach
+      { tag: t.bool, color: '#fe640b' }, // peach
+      { tag: t.className, color: '#df8e1d' }, // yellow
+      { tag: t.constant(t.variableName), color: '#fe640b' }, // peach
       { tag: t.variableName, color: '#4c4f69' }, // text
-      { tag: t.punctuation, color: '#04a5e5' },  // sky
-      { tag: t.bracket, color: '#04a5e5' },      // sky
-      { tag: t.typeName, color: '#1e66f5' },     // blue
+      { tag: t.punctuation, color: '#04a5e5' }, // sky
+      { tag: t.bracket, color: '#04a5e5' }, // sky
+      { tag: t.typeName, color: '#1e66f5' }, // blue
       { tag: t.attributeName, color: '#df8e1d' }, // red
     ],
   }),
   'catppuccin-frappe': createTheme({
     variant: 'dark',
     settings: {
-      background: '#303446',    // base
-      foreground: '#c6d0f5',    // text
-      caret: '#f2d5cf',        // rosewater
-      selection: '#51576d',     // surface0
+      background: '#303446', // base
+      foreground: '#c6d0f5', // text
+      caret: '#f2d5cf', // rosewater
+      selection: '#51576d', // surface0
       gutterBackground: '#292c3c', // mantle
       gutterForeground: '#c6d0f5', // text
-      lineHighlight: '#414559',  // surface0
+      lineHighlight: '#414559', // surface0
     },
     styles: [
-      { tag: t.keyword, color: '#ca9ee6' },      // mauve
-      { tag: t.operator, color: '#99d1db' },     // sky
-      { tag: t.string, color: '#a6d189' },       // green
+      { tag: t.keyword, color: '#ca9ee6' }, // mauve
+      { tag: t.operator, color: '#99d1db' }, // sky
+      { tag: t.string, color: '#a6d189' }, // green
       { tag: t.comment, color: '#838ba7', fontStyle: 'italic' }, // overlay1
-      { tag: t.function(t.variableName), color: '#8caaee' },  // blue
-      { tag: t.number, color: '#ef9f76' },       // peach
-      { tag: t.bool, color: '#ef9f76' },         // peach
-      { tag: t.className, color: '#e5c890' },    // yellow
-      { tag: t.constant(t.variableName), color: '#ef9f76' },  // peach
+      { tag: t.function(t.variableName), color: '#8caaee' }, // blue
+      { tag: t.number, color: '#ef9f76' }, // peach
+      { tag: t.bool, color: '#ef9f76' }, // peach
+      { tag: t.className, color: '#e5c890' }, // yellow
+      { tag: t.constant(t.variableName), color: '#ef9f76' }, // peach
       { tag: t.variableName, color: '#c6d0f5' }, // text
-      { tag: t.punctuation, color: '#99d1db' },  // sky
-      { tag: t.bracket, color: '#99d1db' },      // sky
-      { tag: t.typeName, color: '#8caaee' },     // blue
+      { tag: t.punctuation, color: '#99d1db' }, // sky
+      { tag: t.bracket, color: '#99d1db' }, // sky
+      { tag: t.typeName, color: '#8caaee' }, // blue
       { tag: t.attributeName, color: '#e5c890' }, // red
     ],
   }),
   'catppuccin-macchiato': createTheme({
     variant: 'dark',
     settings: {
-      background: '#24273a',    // base
-      foreground: '#cad3f5',    // text
-      caret: '#f4dbd6',        // rosewater
-      selection: '#494d64',     // surface0
+      background: '#24273a', // base
+      foreground: '#cad3f5', // text
+      caret: '#f4dbd6', // rosewater
+      selection: '#494d64', // surface0
       gutterBackground: '#1e2030', // mantle
       gutterForeground: '#cad3f5', // text
-      lineHighlight: '#363a4f',  // surface0
+      lineHighlight: '#363a4f', // surface0
     },
     styles: [
-      { tag: t.keyword, color: '#c6a0f6' },      // mauve
-      { tag: t.operator, color: '#91d7e3' },     // sky
-      { tag: t.string, color: '#a6da95' },       // green
+      { tag: t.keyword, color: '#c6a0f6' }, // mauve
+      { tag: t.operator, color: '#91d7e3' }, // sky
+      { tag: t.string, color: '#a6da95' }, // green
       { tag: t.comment, color: '#9ca0b0', fontStyle: 'italic' }, // overlay1
-      { tag: t.function(t.variableName), color: '#8aadf4' },  // blue
-      { tag: t.number, color: '#f5a97f' },       // peach
-      { tag: t.bool, color: '#f5a97f' },         // peach
-      { tag: t.className, color: '#eed49f' },    // yellow
-      { tag: t.constant(t.variableName), color: '#f5a97f' },  // peach
+      { tag: t.function(t.variableName), color: '#8aadf4' }, // blue
+      { tag: t.number, color: '#f5a97f' }, // peach
+      { tag: t.bool, color: '#f5a97f' }, // peach
+      { tag: t.className, color: '#eed49f' }, // yellow
+      { tag: t.constant(t.variableName), color: '#f5a97f' }, // peach
       { tag: t.variableName, color: '#cad3f5' }, // text
-      { tag: t.punctuation, color: '#91d7e3' },  // sky
-      { tag: t.bracket, color: '#91d7e3' },      // sky
-      { tag: t.typeName, color: '#8aadf4' },     // blue
+      { tag: t.punctuation, color: '#91d7e3' }, // sky
+      { tag: t.bracket, color: '#91d7e3' }, // sky
+      { tag: t.typeName, color: '#8aadf4' }, // blue
       { tag: t.attributeName, color: '#eed49f' }, // red
     ],
   }),
   'catppuccin-mocha': createTheme({
     variant: 'dark',
     settings: {
-      background: '#1e1e2e',    // base
-      foreground: '#cdd6f4',    // text
-      caret: '#f5e0dc',        // rosewater
-      selection: '#45475a',     // surface0
+      background: '#1e1e2e', // base
+      foreground: '#cdd6f4', // text
+      caret: '#f5e0dc', // rosewater
+      selection: '#45475a', // surface0
       gutterBackground: '#181825', // mantle
       gutterForeground: '#cdd6f4', // text
-      lineHighlight: '#313244',  // surface0
+      lineHighlight: '#313244', // surface0
     },
     styles: [
-      { tag: t.keyword, color: '#cba6f7' },      // mauve
-      { tag: t.operator, color: '#89dceb' },     // sky
-      { tag: t.string, color: '#a6e3a1' },       // green
+      { tag: t.keyword, color: '#cba6f7' }, // mauve
+      { tag: t.operator, color: '#89dceb' }, // sky
+      { tag: t.string, color: '#a6e3a1' }, // green
       { tag: t.comment, color: '#9399b2', fontStyle: 'italic' }, // overlay1
-      { tag: t.function(t.variableName), color: '#89b4fa' },  // blue
-      { tag: t.number, color: '#fab387' },       // peach
-      { tag: t.bool, color: '#fab387' },         // peach
-      { tag: t.className, color: '#f9e2af' },    // yellow
-      { tag: t.constant(t.variableName), color: '#fab387' },  // peach
+      { tag: t.function(t.variableName), color: '#89b4fa' }, // blue
+      { tag: t.number, color: '#fab387' }, // peach
+      { tag: t.bool, color: '#fab387' }, // peach
+      { tag: t.className, color: '#f9e2af' }, // yellow
+      { tag: t.constant(t.variableName), color: '#fab387' }, // peach
       { tag: t.variableName, color: '#cdd6f4' }, // text
-      { tag: t.punctuation, color: '#89dceb' },  // sky
-      { tag: t.bracket, color: '#89dceb' },      // sky
-      { tag: t.typeName, color: '#89b4fa' },     // blue
+      { tag: t.punctuation, color: '#89dceb' }, // sky
+      { tag: t.bracket, color: '#89dceb' }, // sky
+      { tag: t.typeName, color: '#89b4fa' }, // blue
       { tag: t.attributeName, color: '#f9e2af' }, // red
     ],
   }),
-
 };
