@@ -1,5 +1,4 @@
 import { EditorView } from 'codemirror';
-import { tags as t } from '@lezer/highlight';
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language';
 
 import type { CodemirrorTheme } from '../../models';
