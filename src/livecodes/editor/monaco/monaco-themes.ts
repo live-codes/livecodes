@@ -1,6 +1,6 @@
 import type * as Monaco from 'monaco-editor';
 import type { MonacoTheme } from '../../models';
-import { monacoThemesBaseUrl } from '../../vendors';
+import { monacoThemesBaseUrl, vendorsBaseUrl } from '../../vendors';
 
 export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: string }> = [
   {
@@ -37,6 +37,26 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     name: 'brilliance-dull',
     title: 'Brilliance Dull',
     url: monacoThemesBaseUrl + 'Brilliance Dull.json',
+  },
+  {
+    name: 'catppuccin-latte',
+    title: 'Catppuccin Latte',
+    url: vendorsBaseUrl + 'catppuccin/monaco/latte.json',
+  },
+  {
+    name: 'catppuccin-frappe',
+    title: 'Catppuccin Frappe',
+    url: vendorsBaseUrl + 'catppuccin/monaco/frappe.json',
+  },
+  {
+    name: 'catppuccin-macchiato',
+    title: 'Catppuccin Macchiato',
+    url: vendorsBaseUrl + 'catppuccin/monaco/macchiato.json',
+  },
+  {
+    name: 'catppuccin-mocha',
+    title: 'Catppuccin Mocha',
+    url: vendorsBaseUrl + 'catppuccin/monaco/mocha.json',
   },
   {
     name: 'chrome-devtools',
