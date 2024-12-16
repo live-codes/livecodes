@@ -13,6 +13,7 @@ import {
   cm6ThemeSolarizedLightUrl,
   ddietrCmThemesBaseUrl,
   thememirrorBaseUrl,
+  vendorsBaseUrl,
 } from '../../vendors';
 
 export const codemirrorThemes: Array<{
@@ -74,6 +75,30 @@ export const codemirrorThemes: Array<{
     title: 'Boys and Girls',
     url: thememirrorBaseUrl + 'boys-and-girls.js',
     exportName: 'boysAndGirls',
+  },
+  {
+    name: 'catppuccin-latte',
+    title: 'Catppuccin Latte',
+    url: vendorsBaseUrl + 'catppuccin/codemirror/codemirror-theme-catppuccin.js',
+    exportName: 'catppuccinLatte',
+  },
+  {
+    name: 'catppuccin-frappe',
+    title: 'Catppuccin Frappe',
+    url: vendorsBaseUrl + 'catppuccin/codemirror/codemirror-theme-catppuccin.js',
+    exportName: 'catppuccinFrappe',
+  },
+  {
+    name: 'catppuccin-macchiato',
+    title: 'Catppuccin Macchiato',
+    url: vendorsBaseUrl + 'catppuccin/codemirror/codemirror-theme-catppuccin.js',
+    exportName: 'catppuccinMacchiato',
+  },
+  {
+    name: 'catppuccin-mocha',
+    title: 'Catppuccin Mocha',
+    url: vendorsBaseUrl + 'catppuccin/codemirror/codemirror-theme-catppuccin.js',
+    exportName: 'catppuccinMocha',
   },
   {
     name: 'clouds',

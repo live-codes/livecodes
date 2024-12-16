@@ -4,6 +4,7 @@ import {
   prismThemeNordUrl,
   prismThemesBaseUrl,
   prismThemesLaserWaveUrl,
+  vendorsBaseUrl,
 } from '../../vendors';
 
 const changeLineNumberColor = (color: string) =>
@@ -21,6 +22,26 @@ export const prismThemes: Array<{
     name: 'base16-ateliersulphurpool-light',
     title: 'Base16 Ateliersulphurpool Light',
     url: prismThemesBaseUrl + 'prism-base16-ateliersulphurpool.light.css',
+  },
+  {
+    name: 'catppuccin-latte',
+    title: 'Catppuccin Latte',
+    url: vendorsBaseUrl + 'catppuccin/prism/latte.css',
+  },
+  {
+    name: 'catppuccin-frappe',
+    title: 'Catppuccin Frappe',
+    url: vendorsBaseUrl + 'catppuccin/prism/frappe.css',
+  },
+  {
+    name: 'catppuccin-macchiato',
+    title: 'Catppuccin Macchiato',
+    url: vendorsBaseUrl + 'catppuccin/prism/macchiato.css',
+  },
+  {
+    name: 'catppuccin-mocha',
+    title: 'Catppuccin Mocha',
+    url: vendorsBaseUrl + 'catppuccin/prism/mocha.css',
   },
   { name: 'cb', title: 'CB', url: prismThemesBaseUrl + 'prism-cb.css' },
   {
