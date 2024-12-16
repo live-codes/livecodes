@@ -41,22 +41,18 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
   {
     name: 'catppuccin-latte',
     title: 'Catppuccin Latte',
-    url: monacoThemesBaseUrl + 'Chrome DevTools.json',
   },
   {
     name: 'catppuccin-frappe',
     title: 'Catppuccin Frappe',
-    url: monacoThemesBaseUrl + 'Chrome DevTools.json',
   },
   {
     name: 'catppuccin-macchiato',
     title: 'Catppuccin Macchiato',
-    url: monacoThemesBaseUrl + 'Chrome DevTools.json',
   },
   {
     name: 'catppuccin-mocha',
     title: 'Catppuccin Mocha',
-    url: monacoThemesBaseUrl + 'Chrome DevTools.json',
   },
   {
     name: 'chrome-devtools',
@@ -386,6 +382,7 @@ export const customThemes: Array<{ name: MonacoTheme; theme: Monaco.editor.IStan
           { token: 'parameter', foreground: '#ea76cb' },  // Pink
           { token: 'class', foreground: '#df8e1d' },  // Yellow
           { token: 'operator', foreground: '#04a5e5' },  // Sky
+          
         ],
         colors: {
           // Editor colors
