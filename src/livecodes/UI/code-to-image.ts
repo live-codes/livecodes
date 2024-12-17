@@ -13,7 +13,7 @@ import type {
 import { codeToImageScreen } from '../html';
 import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
-import { copyToClipboard, downloadFile, loadScript, loadStylesheet } from '../utils';
+import { colorToHsla, copyToClipboard, downloadFile, loadScript, loadStylesheet } from '../utils';
 import { colorisBaseUrl, htmlToImageUrl } from '../vendors';
 
 type PreviewEditorOptions = Pick<
@@ -27,6 +27,7 @@ type Preset = PreviewEditorOptions & {
   bg1: string;
   bg2: string;
   bgDirection: `to ${'top' | 'bottom' | 'left' | 'right' | 'top right' | 'top left' | 'bottom right' | 'bottom left'}`;
+  opacity: number | undefined;
   width: number;
   padding: number;
   borderRadius: number;
@@ -93,6 +94,7 @@ export const createCodeToImageUI = async ({
     bg1: '#f5f5dc',
     bg2: '',
     bgDirection: 'to bottom right',
+    opacity: undefined,
     windowStyle: 'none',
     watermark: false,
     editorTheme: 'dracula',
@@ -163,6 +165,9 @@ export const createCodeToImageUI = async ({
           if (parent.classList.contains('clr-field')) {
             parent.style.color = field.value;
           }
+        }
+        if (key === 'opacity' && preset.opacity == null) {
+          field.value = '1';
         }
       });
     updateOptions(/* initialLoad = */ true);
@@ -388,6 +393,17 @@ export const createCodeToImageUI = async ({
     edirtorContainer.querySelector('pre')!.style.borderRadius = formData.borderRadius + 'px';
     edirtorContainer.querySelector('code')!.style.borderRadius = formData.borderRadius + 'px';
 
+    const editorBackground = edirtorContainer.querySelector<HTMLElement>('pre')!;
+    const editorCode = edirtorContainer.querySelector<HTMLElement>('code')!;
+    if (initialLoad && formData.opacity === 1) {
+      editorBackground.style.background = '';
+      editorCode.style.background = '';
+    } else {
+      const editorBackgroundColor = colorToHsla(getComputedStyle(editorBackground).backgroundColor);
+      editorBackground.style.background = `hsla(${editorBackgroundColor.h}, ${editorBackgroundColor.s}%, ${editorBackgroundColor.l}%, ${formData.opacity})`;
+      editorCode.style.background = `hsla(${editorBackgroundColor.h}, ${editorBackgroundColor.s}%, ${editorBackgroundColor.l}%, 0)`;
+    }
+
     edirtorContainer.classList.toggle('shadow', Boolean(formData.shadow));
 
     watermark.hidden = !formData.watermark;
@@ -541,6 +557,7 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     bg2: '#f4a261',
     bgDirection: 'to bottom right',
     editorTheme: 'duotone-dark',
+    windowStyle: 'mac',
     shadow: true,
   },
   {
@@ -594,7 +611,7 @@ const presets: Array<Partial<Preset> & { id: string }> = [
   {
     id: 'preset-11',
     bg1: '#f4a261',
-    bg2: '#262626',
+    bg2: '#6a360d',
     shadow: true,
     editorTheme: 'tomorrow',
     windowStyle: 'none',
@@ -658,6 +675,16 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     shadow: true,
     editorTheme: 'coy-without-shadows',
     fontFamily: 'hack',
+  },
+  {
+    id: 'preset-17',
+    bg1: '#c3ac75',
+    bg2: '#ff8e38',
+    borderRadius: 15,
+    shadow: true,
+    editorTheme: 'darcula',
+    opacity: 0.85,
+    fontFamily: 'fira-code',
   },
   {
     id: 'custom',
