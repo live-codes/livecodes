@@ -13,7 +13,14 @@ import type {
 import { codeToImageScreen } from '../html';
 import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
-import { colorToHsla, copyToClipboard, downloadFile, loadScript, loadStylesheet } from '../utils';
+import {
+  colorToRgba,
+  copyToClipboard,
+  debounce,
+  downloadFile,
+  loadScript,
+  loadStylesheet,
+} from '../utils';
 import { colorisBaseUrl, htmlToImageUrl } from '../vendors';
 
 type PreviewEditorOptions = Pick<
@@ -94,7 +101,7 @@ export const createCodeToImageUI = async ({
     bg1: '#f5f5dc',
     bg2: '',
     bgDirection: 'to bottom right',
-    opacity: undefined,
+    opacity: 0.9,
     windowStyle: 'none',
     watermark: false,
     editorTheme: 'dracula',
@@ -166,7 +173,7 @@ export const createCodeToImageUI = async ({
             parent.style.color = field.value;
           }
         }
-        if (key === 'opacity' && preset.opacity == null) {
+        if (key === 'opacity' && fullPreset.opacity == null) {
           field.value = '1';
         }
       });
@@ -395,13 +402,23 @@ export const createCodeToImageUI = async ({
 
     const editorBackground = edirtorContainer.querySelector<HTMLElement>('pre')!;
     const editorCode = edirtorContainer.querySelector<HTMLElement>('code')!;
-    editorBackground.style.background = '';
-    editorCode.style.background = '';
-    if (formData.opacity !== 1) {
-      const editorBackgroundColor = colorToHsla(getComputedStyle(editorBackground).backgroundColor);
-      editorBackground.style.background = `hsla(${editorBackgroundColor.h}, ${editorBackgroundColor.s}%, ${editorBackgroundColor.l}%, ${formData.opacity})`;
-      editorCode.style.background = `hsla(${editorBackgroundColor.h}, ${editorBackgroundColor.s}%, ${editorBackgroundColor.l}%, 0)`;
-    }
+
+    const applyOpacity = () => {
+      editorBackground.style.background = '';
+      editorCode.style.background = '';
+      if (formData.opacity === 1) return;
+
+      const { r, g, b } = colorToRgba(getComputedStyle(editorBackground).backgroundColor);
+      editorBackground.style.background = `rgba(${r}, ${g}, ${b}, ${formData.opacity})`;
+      editorCode.style.background = `rgba(${r}, ${g}, ${b}, 0)`;
+    };
+
+    // wait till the theme styles are applied
+    setTimeout(applyOpacity, 50);
+    setTimeout(applyOpacity, 200);
+    setTimeout(applyOpacity, 500);
+    setTimeout(applyOpacity, 1000);
+    setTimeout(applyOpacity, 2000);
 
     edirtorContainer.classList.toggle('shadow', Boolean(formData.shadow));
 
@@ -429,10 +446,13 @@ export const createCodeToImageUI = async ({
     }
   };
 
+  const debouncedUpdateOptions = debounce(updateOptions, 500);
   eventsManager.addEventListener(form, 'input', (e: any) => {
     if (e?.target?.id === 'code-to-img-editorTheme') {
       form['code-to-img-opacity'].value = '1';
-      updateOptions();
+    }
+    if (e?.target?.id === 'code-to-img-opacity') {
+      debouncedUpdateOptions();
     } else {
       updateOptions();
     }

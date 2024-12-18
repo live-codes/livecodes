@@ -479,7 +479,7 @@ export const evaluateCssCalc = /* @__PURE__ */ (expression: string) => {
   return value;
 };
 
-const colorToRgba = /* @__PURE__ */ (name: string) => {
+export const colorToRgba = /* @__PURE__ */ (name: string) => {
   const fakeDiv = document.createElement('div');
   fakeDiv.style.color = name;
   document.body.appendChild(fakeDiv);
