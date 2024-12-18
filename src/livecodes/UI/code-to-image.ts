@@ -150,7 +150,7 @@ export const createCodeToImageUI = async ({
       ...defaultPreset,
       ...preset,
     };
-    const excludedKeys = ['container', 'width', 'format', 'scale', 'fileName'];
+    const excludedKeys = ['container', 'width', 'fileName'];
     const keys = Object.keys(fullPreset) as Array<keyof Preset>;
     keys
       .filter((key) => !excludedKeys.includes(key) && form[`code-to-img-${key}`] != null)
@@ -191,7 +191,7 @@ export const createCodeToImageUI = async ({
         presetBtn.textContent = 'Custom';
       } else {
         const img = document.createElement('img');
-        img.src = `${baseUrl}assets/code-to-img/${preset.id}.png`;
+        img.src = `${baseUrl}assets/code-to-img/${preset.id}.jpg`;
         presetBtn.appendChild(img);
       }
       presetBtn.addEventListener('click', () => {
@@ -456,8 +456,10 @@ export const createCodeToImageUI = async ({
     } else {
       updateOptions();
     }
-    updateCustomPreset('custom');
-    selectPreset('custom');
+    if (!['fileName', 'width'].map((n) => 'code-to-img-' + n).includes(e?.target?.name)) {
+      updateCustomPreset('custom');
+      selectPreset('custom');
+    }
   });
   updateOptions(/* reset = */ true);
 
@@ -559,7 +561,7 @@ export const createCodeToImageUI = async ({
 
 const presets: Array<Partial<Preset> & { id: string }> = [
   {
-    id: 'preset-7',
+    id: 'preset_1',
     bg1: '#4a90e2',
     bg2: '#c162f5',
     bgDirection: 'to bottom left',
@@ -568,15 +570,15 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     windowStyle: 'mac',
   },
   {
-    id: 'preset-0',
-    bg1: '#f5f5dc',
-    bg2: '',
+    id: 'preset_2',
+    bg1: '#48cae4',
+    bg2: '#f562f5',
     bgDirection: 'to bottom right',
-    editorTheme: 'dracula',
+    editorTheme: 'laserwave',
     shadow: true,
   },
   {
-    id: 'preset-1',
+    id: 'preset_3',
     bg1: '#823bb9',
     bg2: '#f4a261',
     bgDirection: 'to bottom right',
@@ -585,15 +587,7 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     shadow: true,
   },
   {
-    id: 'preset-2',
-    bg1: '#48cae4',
-    bg2: '#f562f5',
-    bgDirection: 'to bottom right',
-    editorTheme: 'laserwave',
-    shadow: true,
-  },
-  {
-    id: 'preset-17',
+    id: 'preset_4',
     bg1: '#c3ac75',
     bg2: '#ff8e38',
     borderRadius: 15,
@@ -603,14 +597,60 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     fontFamily: 'fira-code',
   },
   {
-    id: 'preset-4',
+    id: 'preset_5',
+    bg1: '#f5f5dc',
+    bg2: '',
+    bgDirection: 'to bottom right',
+    editorTheme: 'dracula',
+    shadow: true,
+  },
+  {
+    id: 'preset_6',
+    bg1: '#deecdd',
+    bg2: '#c1dfc4',
+    bgDirection: 'to bottom',
+    shadow: true,
+    editorTheme: 'tomorrow',
+    opacity: 1,
+    windowStyle: 'none',
+    fontFamily: 'nova-mono',
+  },
+  {
+    id: 'preset_7',
+    bg1: '#fd978b',
+    bg2: '#f9748f',
+    windowStyle: 'mac',
+    shadow: true,
+    editorTheme: 'holi-theme',
+    opacity: 0.85,
+  },
+  {
+    id: 'preset_8',
+    bg1: '#e94057',
+    bg2: '#a52c78',
+    bgDirection: 'to bottom left',
+    shadow: true,
+    editorTheme: 'funky',
+    opacity: 0.95,
+  },
+  {
+    id: 'preset_9',
+    bg1: '#4cb88e',
+    bg2: '#1e6267',
+    bgDirection: 'to bottom',
+    shadow: true,
+    editorTheme: 'holi-theme',
+    fontFamily: 'cascadia-code',
+  },
+  {
+    id: 'preset_10',
     bg1: '#07a2a2',
     bg2: '',
     editorTheme: 'a11y-dark',
     shadow: true,
   },
   {
-    id: 'preset-5',
+    id: 'preset_11',
     bg1: '#4a90e2',
     bg2: '',
     editorTheme: 'dracula',
@@ -618,27 +658,7 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     shadow: false,
   },
   {
-    id: 'preset-9',
-    bg1: '#162435',
-    bg2: '',
-    padding: 0,
-    borderRadius: 0,
-    shadow: false,
-    editorTheme: 'coldark-dark',
-    windowStyle: 'none',
-    fontFamily: 'monaspace-krypton',
-  },
-  {
-    id: 'preset-11',
-    bg1: '#f4a261',
-    bg2: '#6a360d',
-    shadow: true,
-    editorTheme: 'tomorrow',
-    windowStyle: 'none',
-    fontFamily: 'nova-mono',
-  },
-  {
-    id: 'preset-12',
+    id: 'preset_12',
     bg1: '#48cae4',
     bg2: '#0096c7',
     shadow: true,
@@ -648,23 +668,18 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     fontSize: 16,
   },
   {
-    id: 'preset-13',
-    bg1: '#48cae4',
-    bg2: '#2a9d8f',
-    shadow: true,
-    editorTheme: 'holi-theme',
-    fontFamily: 'cascadia-code',
+    id: 'preset_13',
+    bg1: '#111c28',
+    bg2: '#111c28',
+    padding: 10,
+    borderRadius: 0,
+    shadow: false,
+    editorTheme: 'coldark-dark',
+    windowStyle: 'none',
+    fontFamily: 'monaspace-krypton',
   },
   {
-    id: 'preset-15',
-    bg1: '#f2daa1',
-    bg2: '#998149',
-    shadow: true,
-    editorTheme: 'duotone-earth',
-    fontFamily: 'jetbrains-mono',
-  },
-  {
-    id: 'preset-14',
+    id: 'preset_14',
     bg1: '#f2daa1',
     bg2: '#998149',
     shadow: true,
@@ -672,38 +687,33 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     fontFamily: 'jetbrains-mono',
   },
   {
-    id: 'preset-8',
+    id: 'preset_15',
     bg1: '#494949',
-    bg2: '',
+    bg2: '#494949',
     editorTheme: 'coldark-cold',
+    opacity: 1,
     shadow: true,
     windowStyle: 'windows',
   },
   {
-    id: 'preset-10',
-    bg1: '#cececc',
-    bg2: '#262626',
+    id: 'preset_16',
+    bg1: '#243b55',
+    bg2: '#141e30',
+    bgDirection: 'to right',
     shadow: true,
     editorTheme: 'vs',
+    opacity: 0.95,
     windowStyle: 'none',
     fontFamily: 'sf-mono',
   },
   {
-    id: 'preset-16',
+    id: 'preset_17',
     bg1: '#ffffff',
     bg2: '#e2efff',
     shadow: true,
     editorTheme: 'coy-without-shadows',
+    opacity: 1,
     fontFamily: 'hack',
-  },
-  {
-    id: 'preset-18',
-    bg1: '#fd978b',
-    bg2: '#f9748f',
-    windowStyle: 'mac',
-    shadow: true,
-    editorTheme: 'holi-theme',
-    opacity: 0.85,
   },
   {
     id: 'custom',
