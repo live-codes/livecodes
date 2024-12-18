@@ -170,7 +170,7 @@ export const createCodeToImageUI = async ({
           field.value = '1';
         }
       });
-    updateOptions(/* initialLoad = */ true);
+    updateOptions(/* reset = */ true);
 
     selectPreset(fullPreset.id);
   };
@@ -379,10 +379,10 @@ export const createCodeToImageUI = async ({
     }
   };
 
-  const updateOptions = async (initialLoad = false) => {
+  const updateOptions = async (reset = false) => {
     const formData = getFormData();
     editor.changeSettings(formData as any);
-    adjustSize(formData, initialLoad);
+    adjustSize(formData, reset);
 
     const color1 = formData.bg1 || '#f5f5dc';
     const color2 = formData.bg2 || color1;
@@ -395,10 +395,9 @@ export const createCodeToImageUI = async ({
 
     const editorBackground = edirtorContainer.querySelector<HTMLElement>('pre')!;
     const editorCode = edirtorContainer.querySelector<HTMLElement>('code')!;
-    if (initialLoad && formData.opacity === 1) {
-      editorBackground.style.background = '';
-      editorCode.style.background = '';
-    } else {
+    editorBackground.style.background = '';
+    editorCode.style.background = '';
+    if (formData.opacity !== 1) {
       const editorBackgroundColor = colorToHsla(getComputedStyle(editorBackground).backgroundColor);
       editorBackground.style.background = `hsla(${editorBackgroundColor.h}, ${editorBackgroundColor.s}%, ${editorBackgroundColor.l}%, ${formData.opacity})`;
       editorCode.style.background = `hsla(${editorBackgroundColor.h}, ${editorBackgroundColor.s}%, ${editorBackgroundColor.l}%, 0)`;
@@ -430,12 +429,17 @@ export const createCodeToImageUI = async ({
     }
   };
 
-  eventsManager.addEventListener(form, 'input', () => {
-    updateOptions();
+  eventsManager.addEventListener(form, 'input', (e: any) => {
+    if (e?.target?.id === 'code-to-img-editorTheme') {
+      form['code-to-img-opacity'].value = '1';
+      updateOptions();
+    } else {
+      updateOptions();
+    }
     updateCustomPreset('custom');
     selectPreset('custom');
   });
-  updateOptions(true);
+  updateOptions(/* reset = */ true);
 
   eventsManager.addEventListener(window, 'resize', () => adjustSize(getFormData(), true));
 
@@ -569,12 +573,14 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     shadow: true,
   },
   {
-    id: 'preset-3',
-    bg1: '#e9c46a',
-    bg2: '#e76f51',
-    bgDirection: 'to bottom right',
-    editorTheme: 'dark',
+    id: 'preset-17',
+    bg1: '#c3ac75',
+    bg2: '#ff8e38',
+    borderRadius: 15,
     shadow: true,
+    editorTheme: 'darcula',
+    opacity: 0.95,
+    fontFamily: 'fira-code',
   },
   {
     id: 'preset-4',
@@ -590,12 +596,6 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     editorTheme: 'dracula',
     fontFamily: 'monaspace-radon',
     shadow: false,
-  },
-  {
-    id: 'preset-6',
-    bg1: '#470044',
-    bg2: '',
-    editorTheme: 'synthwave84',
   },
   {
     id: 'preset-9',
@@ -677,14 +677,13 @@ const presets: Array<Partial<Preset> & { id: string }> = [
     fontFamily: 'hack',
   },
   {
-    id: 'preset-17',
-    bg1: '#c3ac75',
-    bg2: '#ff8e38',
-    borderRadius: 15,
+    id: 'preset-18',
+    bg1: '#fd978b',
+    bg2: '#f9748f',
+    windowStyle: 'mac',
     shadow: true,
-    editorTheme: 'darcula',
+    editorTheme: 'holi-theme',
     opacity: 0.85,
-    fontFamily: 'fira-code',
   },
   {
     id: 'custom',
