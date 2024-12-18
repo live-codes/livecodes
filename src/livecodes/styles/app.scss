@@ -985,6 +985,8 @@ a#result-button {
       background-color: transparent;
       display: flex;
       flex-grow: 1;
+      font-size: var(--s12);
+      justify-content: flex-start;
       white-space: nowrap;
 
       > span {
