@@ -584,6 +584,10 @@
     "notes": "",
     "translation": "Layout"
   },
+  "codeToImage.opacity": {
+    "notes": "",
+    "translation": "Opacity"
+  },
   "codeToImage.padding": {
     "notes": "",
     "translation": "Padding"

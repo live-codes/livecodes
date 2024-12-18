@@ -272,6 +272,7 @@ const translation = {
       svg: 'SVG',
     },
     layout: 'Layout',
+    opacity: 'Opacity',
     padding: 'Padding',
     presets: 'Presets',
     preview: 'Preview',
