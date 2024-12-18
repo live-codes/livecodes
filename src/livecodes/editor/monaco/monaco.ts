@@ -562,6 +562,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     configureEmmet(settings.emmet);
     configureEditorMode(settings.editorMode);
     editor.updateOptions(editorOptions);
+    setTheme(settings.theme, settings.editorTheme);
     configureCodeium(settings.enableAI);
   };
 

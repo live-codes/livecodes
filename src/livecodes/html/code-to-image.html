@@ -1,0 +1,280 @@
+<div id="code-to-img-container" class="modal-container">
+  <div class="modal-title" data-i18n="codeToImage.heading">Code to Image</div>
+  <div class="modal-screen-container">
+    <div class="modal-screen">
+      <label data-i18n="codeToImage.preview">Preview</label>
+      <a href="#" id="code-to-img-copy-link" class="code-link" data-i18n="codeToImage.copy">Copy</a>
+      <!-- <a href="#" id="code-to-img-format-link" class="code-link" data-i18n="codeToImage.format">Format</a> -->
+      <div id="code-to-img-preview-background" dir="ltr">
+        <div id="code-to-img-preview-container"></div>
+        <div id="code-to-img-watermark"></div>
+      </div>
+      <form id="code-to-img-form">
+        <div class="accordion">
+          <button class="title" data-i18n="codeToImage.presets">Presets</button>
+          <div class="panel" id="presets-container"></div>
+
+          <button class="title" data-i18n="codeToImage.layout">Layout</button>
+          <div class="panel">
+            <label class="range-slider-label" data-i18n="codeToImage.background">Background</label>
+            <div class="input-container color-picker-container">
+              <input
+                type="text"
+                class="color-picker"
+                name="code-to-img-bg1"
+                id="code-to-img-bg1"
+                placeholder="color 1"
+              />
+              <input
+                type="text"
+                class="color-picker"
+                name="code-to-img-bg2"
+                id="code-to-img-bg2"
+                placeholder="color 2"
+              />
+              <select name="code-to-img-bgDirection" id="code-to-img-bgDirection">
+                <option value="" data-i18n="codeToImage.direction">Direction</option>
+                <option value="to bottom">↓</option>
+                <option value="to top">↑</option>
+                <option value="to right">→</option>
+                <option value="to left">←</option>
+                <option value="to bottom right">↘</option>
+                <option value="to bottom left">↙</option>
+                <option value="to top right">↗</option>
+                <option value="to top left">↖</option>
+              </select>
+            </div>
+
+            <label class="range-slider-label" data-i18n="codeToImage.width">Width</label>
+            <div class="input-container">
+              <input
+                type="range"
+                min="30"
+                max="100"
+                class="range-slider"
+                name="code-to-img-width"
+              />
+            </div>
+
+            <label class="range-slider-label" data-i18n="codeToImage.padding">Padding</label>
+            <div class="input-container">
+              <input
+                type="range"
+                min="0"
+                max="64"
+                value="48"
+                class="range-slider"
+                name="code-to-img-padding"
+              />
+            </div>
+
+            <label class="range-slider-label" data-i18n="codeToImage.borderRadius"
+              >Border Radius</label
+            >
+            <div class="input-container">
+              <input
+                type="range"
+                min="0"
+                max="30"
+                value="5"
+                class="range-slider"
+                name="code-to-img-borderRadius"
+              />
+            </div>
+
+            <label data-i18n="codeToImage.shadow">Shadow</label>
+            <div class="input-container">
+              <input
+                type="checkbox"
+                class="switch"
+                value="true"
+                checked="checked"
+                name="code-to-img-shadow"
+              />
+            </div>
+
+            <label data-i18n="codeToImage.windowStyle.label">Window Style</label>
+            <div class="input-container">
+              <span>
+                <input
+                  name="code-to-img-windowStyle"
+                  type="radio"
+                  value="none"
+                  checked="checked"
+                  id="code-to-img-windowStyle-none"
+                />
+                <label
+                  for="code-to-img-windowStyle-none"
+                  class="radio-label"
+                  data-i18n="codeToImage.windowStyle.none"
+                  >None</label
+                >
+              </span>
+              <span>
+                <input
+                  name="code-to-img-windowStyle"
+                  type="radio"
+                  value="mac"
+                  id="code-to-img-windowStyle-mac"
+                />
+                <label
+                  for="code-to-img-windowStyle-mac"
+                  class="radio-label"
+                  data-i18n="codeToImage.windowStyle.mac"
+                  >macOS</label
+                >
+              </span>
+              <span>
+                <input
+                  name="code-to-img-windowStyle"
+                  type="radio"
+                  value="windows"
+                  id="code-to-img-windowStyle-windows"
+                />
+                <label
+                  for="code-to-img-windowStyle-windows"
+                  class="radio-label"
+                  data-i18n="codeToImage.windowStyle.windows"
+                  >Windows</label
+                >
+              </span>
+            </div>
+
+            <label data-i18n="codeToImage.shareUrl">Share URL</label>
+            <div class="input-container">
+              <input type="checkbox" class="switch" value="true" name="code-to-img-watermark" />
+            </div>
+          </div>
+
+          <button class="title" data-i18n="codeToImage.code">Code</button>
+          <div class="panel">
+            <label data-i18n="codeToImage.theme">Theme</label>
+            <div class="input-container">
+              <select name="code-to-img-editorTheme" id="code-to-img-editorTheme"></select>
+            </div>
+
+            <label class="range-slider-label" data-i18n="codeToImage.opacity">Opacity</label>
+            <div class="input-container">
+              <input
+                type="range"
+                min="0.7"
+                max="1.0"
+                step="0.01"
+                class="range-slider"
+                name="code-to-img-opacity"
+                id="code-to-img-opacity"
+              />
+            </div>
+
+            <label data-i18n="codeToImage.fontFamily">Font Family</label>
+            <div class="input-container">
+              <select name="code-to-img-fontFamily" id="code-to-img-fontFamily">
+                <option value="" data-i18n="codeToImage.default">Default</option>
+              </select>
+            </div>
+
+            <label data-i18n="codeToImage.fontSize">Font Size</label>
+            <div class="input-container">
+              <select name="code-to-img-fontSize" id="code-to-img-fontSize">
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="22">22</option>
+                <option value="24">24</option>
+                <option value="26">26</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="title" data-i18n="codeToImage.image">Image</button>
+          <div class="panel">
+            <label data-i18n="codeToImage.scale">Image Scale</label>
+            <div class="input-container">
+              <span>
+                <input name="code-to-img-scale" type="radio" value="1" id="code-to-img-scale-1" />
+                <label for="code-to-img-scale-1" class="radio-label">1x</label>
+              </span>
+              <span>
+                <input name="code-to-img-scale" type="radio" value="2" id="code-to-img-scale-2" />
+                <label for="code-to-img-scale-2" class="radio-label">2x</label>
+              </span>
+              <span>
+                <input name="code-to-img-scale" type="radio" value="3" id="code-to-img-scale-3" />
+                <label for="code-to-img-scale-3" class="radio-label">3x</label>
+              </span>
+              <span>
+                <input name="code-to-img-scale" type="radio" value="4" id="code-to-img-scale-4" />
+                <label for="code-to-img-scale-4" class="radio-label">4x</label>
+              </span>
+            </div>
+
+            <label data-i18n="codeToImage.imageFormat.label">Image Format</label>
+            <div class="input-container">
+              <span>
+                <input
+                  name="code-to-img-format"
+                  type="radio"
+                  value="png"
+                  id="code-to-img-format-png"
+                />
+                <label
+                  for="code-to-img-format-png"
+                  class="radio-label"
+                  data-i18n="codeToImage.imageFormat.png"
+                  >PNG</label
+                >
+              </span>
+              <span>
+                <input
+                  name="code-to-img-format"
+                  type="radio"
+                  value="jpg"
+                  id="code-to-img-format-jpg"
+                />
+                <label
+                  for="code-to-img-format-jpg"
+                  class="radio-label"
+                  data-i18n="codeToImage.imageFormat.jpg"
+                  >JPEG</label
+                >
+              </span>
+              <span>
+                <input
+                  name="code-to-img-format"
+                  type="radio"
+                  value="svg"
+                  id="code-to-img-format-svg"
+                />
+                <label
+                  for="code-to-img-format-svg"
+                  class="radio-label"
+                  data-i18n="codeToImage.imageFormat.svg"
+                  >SVG</label
+                >
+              </span>
+            </div>
+
+            <label data-i18n="codeToImage.fileName">File Name</label>
+            <div class="input-container">
+              <input name="code-to-img-fileName" type="text" id="code-to-img-fileName" />
+            </div>
+          </div>
+        </div>
+      </form>
+      <button id="code-to-img-save-btn" class="wide-button" data-i18n="codeToImage.save">
+        Save Image
+      </button>
+      <button id="code-to-img-share-btn" class="wide-button" data-i18n="codeToImage.share">
+        Share Image
+      </button>
+    </div>
+  </div>
+</div>
