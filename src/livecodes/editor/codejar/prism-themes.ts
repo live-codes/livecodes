@@ -1,6 +1,7 @@
 import type { CodejarTheme } from '../../models';
 import {
   prismOfficialThemesBaseUrl,
+  prismThemeNordUrl,
   prismThemesBaseUrl,
   prismThemesLaserWaveUrl,
   vendorsBaseUrl,
@@ -137,6 +138,7 @@ export const prismThemes: Array<{
   },
   { name: 'night-owl', title: 'Night Owl', url: prismThemesBaseUrl + 'prism-night-owl.css' },
   { name: 'nord', title: 'Nord', url: prismThemesBaseUrl + 'prism-nord.css' },
+  { name: 'nord-2', title: 'Nord 2', url: prismThemeNordUrl },
   { name: 'okaidia', title: 'Okaidia', url: prismOfficialThemesBaseUrl + 'prism-okaidia.css' },
   { name: 'one-dark', title: 'One Dark', url: prismThemesBaseUrl + 'prism-one-dark.css' },
   { name: 'one-light', title: 'One Light', url: prismThemesBaseUrl + 'prism-one-light.css' },
