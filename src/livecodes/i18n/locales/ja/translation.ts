@@ -4,32 +4,60 @@ import type { I18nTranslation } from '../models';
 
 const translation: I18nTranslation = {
   about: {
+    blog: {
+      text: 'ブログ',
+      title: 'LiveCodesブログ',
+    },
+    configuration: '設定',
+    credits: {
+      heading: 'クレジット',
+      para1:
+        'LiveCodes は、オープンソース プロジェクト、Web サービス、貢献者によって実現されています。 <1>クレジットを表示</1>',
+      para2: '© 2024 Hatem Hosny。LiveCodes は MIT ライセンスに基づいてライセンスされています。',
+    },
     documentations: {
-      aboutUs: '私たちについて',
-      contact: 'お問い合わせ',
       heading: 'ドキュメント',
-      home: 'ホーム',
-      license: 'ライセンス',
+    },
+    gettingStarted: 'はじめに',
+    github: {
+      text: 'GitHub',
+      title: 'GitHub',
     },
     heading: 'LiveCodesについて',
     livecodes: {
+      aboutUs: 'LiveCodesについて',
       para1:
-        '<1><2>LiveCodes</2></1>は、<3>オープンソース</3>で<4>機能豊富</4>な<5>クライアントサイド</5>のコードプレイグラウンドです。現在、<6>80以上の言語/<7></7>フレームワーク</6>をサポートしています。スタンドアロンアプリとして使用することも、任意のWebページに<8>埋め込む</8>こともできます。プレイグラウンドに<9>コードをプリフィル</9>する方法は多数あります。',
+        '<1><2>LiveCodes</2></1>は、<3>オープンソース</3>で<4>機能豊富</4>な<5>クライアントサイド</5>のコードプレイグラウンドです。現在、<6>90以上の言語/<7></7>フレームワーク</6>をサポートしています。スタンドアロンアプリとして使用することも、任意のWebページに<8>埋め込む</8>こともできます。プレイグラウンドに<9>コードをプリフィル</9>する方法は多数あります。',
       para2:
         '幅広い<1>設定オプション</1>により、非常に柔軟性があります。強力な<2>SDK</2>（<3>JS/TS</3>、<4>React</4>、<5>Vue</5>、<6>Svelte</6>用）により、プレイグラウンドの<7>埋め込み</7>と<8>通信</8>が容易になります。コードサンプル、ライブデモ、スクリーンショットを含む<9>包括的なドキュメント</9>が利用可能です。',
     },
+    sdk: 'LiveCodes SDK',
+    sponsor: {
+      text: 'スポンサー',
+      title: 'LiveCodesをスポンサー',
+    },
+    twitter: {
+      text: '𝕏 / Twitter',
+      title: '𝕏 / Twitter',
+    },
     version: {
-      app: 'アプリバージョン: {{APP_VERSION}}',
+      app: 'アプリのバージョン: <1> {{APP_VERSION}} </1>',
       appPermanentUrl: 'アプリの永続的URL',
-      commit: 'Gitコミット: {{COMMIT_SHA}}',
+      commit: 'Git コミット: <1> {{COMMIT_SHA}} </1>',
       heading: 'バージョン',
-      sdk: 'SDKバージョン: {{SDK_VERSION}}',
+      sdk: 'SDK バージョン: <1> {{SDK_VERSION}} </1>',
       sdkPermanentUrl: 'SDKの永続的URL',
     },
   },
   app: {
+    changeTheme: {
+      hint: 'テーマ変更',
+    },
     consoleMessage: {
+      appVersion: 'アプリバージョン: {{APP_VERSION}}',
+      commit: 'Gitコミット: {{COMMIT_SHA}}',
       learnMore: '詳細はこちら！ {{docsUrl}} 🚀',
+      sdkVersion: 'SDKバージョン: {{SDK_VERSION}}',
     },
     copy: {
       hint: 'コピー (Ctrl/Cmd + A, Ctrl/Cmd + C)',
@@ -39,9 +67,6 @@ const translation: I18nTranslation = {
     },
     customSettings: {
       hint: 'カスタム設定',
-    },
-    editorMode: {
-      hint: 'エディターモード',
     },
     editorSettings: {
       hint: 'エディター設定',
@@ -58,8 +83,15 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: '全画面表示',
     },
+    i18nButton: {
+      hint: 'アプリUIの言語',
+    },
+    i18nMenu: {
+      docs: 'i18nドキュメント',
+      helpTranslate: '翻訳にご協力ください',
+    },
     logo: {
-      title: 'LiveCodes: シンプルに動作するコードの遊び場！',
+      title: 'LiveCodes: ブラウザ上で動作するコード エディターです。',
     },
     projectInfo: {
       hint: 'プロジェクト情報',
@@ -68,7 +100,7 @@ const translation: I18nTranslation = {
       hint: 'やり直し (Ctrl/Cmd + Shift + Z)',
     },
     result: {
-      hint: '結果の表示切り替え',
+      hint: '結果を表示',
     },
     run: {
       hint: '実行 (Shift + Enter)',
@@ -76,12 +108,18 @@ const translation: I18nTranslation = {
     share: {
       hint: '共有',
     },
+    themeColors: {
+      custom: 'カスタム',
+    },
     undo: {
       hint: '元に戻す (Ctrl/Cmd + Z)',
     },
     untitledProject: '無題のプロジェクト',
   },
   assets: {
+    action: {
+      delete: '削除',
+    },
     add: {
       dataURL: {
         desc: 'アセットをBase64エンコードされた<1>データURL</1>として追加します。',
@@ -289,6 +327,7 @@ const translation: I18nTranslation = {
   },
   customSettings: {
     JSON: 'カスタム設定JSON',
+    desc: '<1></1>詳細は <2>資料</2>',
     heading: 'カスタム設定',
     load: '読み込み',
   },
@@ -318,10 +357,6 @@ const translation: I18nTranslation = {
     searchRepo: '公開リポジトリを検索...',
   },
   editorSettings: {
-    appLanguage: {
-      heading: 'アプリUIの言語',
-      note: '言語を切り替えた後、変更を適用するためにアプリを再読み込みします。',
-    },
     closeBrackets: '括弧と引用符を自動的に閉じる',
     codeJarDesc: '* マークされた機能はCodeJarでは利用できません。',
     default: 'デフォルト',
@@ -379,6 +414,13 @@ const translation: I18nTranslation = {
       copy: 'コードをコピー',
       heading: 'コード',
     },
+    codeEditor: {
+      codeJar: 'CodeJar',
+      codeMirror: 'CodeMirror',
+      default: 'デフォルト',
+      heading: 'コードエディター',
+      monaco: 'Monaco',
+    },
     desc: '高度な設定については<1>ドキュメント</1>をご確認ください。',
     embedType: {
       cdn: 'スクリプト（CDN）',
@@ -391,6 +433,12 @@ const translation: I18nTranslation = {
       vue: 'Vue',
     },
     heading: 'プロジェクトの埋め込み',
+    layout: {
+      heading: 'レイアウト',
+      horizontal: '水平',
+      responsive: 'レスポンシブ',
+      vertical: '垂直',
+    },
     lite: 'ライトモード',
     loading: {
       click: 'クリック時',
@@ -404,6 +452,7 @@ const translation: I18nTranslation = {
       full: 'フル',
       heading: '表示モード',
       result: '結果',
+      simple: 'シンプル',
     },
     permanentUrl: '永続的URL',
     preview: 'プレビュー',
@@ -432,7 +481,6 @@ const translation: I18nTranslation = {
     about: {
       blog: 'ブログ',
       configuration: '設定',
-      features: '機能',
       gettingStarted: 'はじめに',
       github: 'GitHub',
       sdk: 'SDK',
@@ -441,6 +489,9 @@ const translation: I18nTranslation = {
     },
     clickForInfo: 'クリックして詳細を表示...',
     close: '閉じる',
+    embed: {
+      logoHint: 'LiveCodes で編集する。🡕',
+    },
     error: {
       authentication: '認証エラー！',
       exceededSize: 'エラー：サイズ{{size}} MBを超えています',
@@ -498,8 +549,8 @@ const translation: I18nTranslation = {
   menu: {
     about: '概要',
     appHelp: {
-      heading: '手助け',
-      hint: '手助け',
+      heading: 'ヘルプ',
+      hint: 'ヘルプ',
     },
     appProject: {
       heading: 'プロジェクト',
@@ -507,19 +558,22 @@ const translation: I18nTranslation = {
     },
     appSettings: {
       heading: '設定',
-      hint: '設定',
+      hint: 'アプリの設定',
     },
     assets: 'アセット …',
     autoSave: '自動保存',
     autoUpdate: '自動更新',
     backup: 'バックアップ / 復元 …',
+    blog: 'LiveCodesブログ',
     broadcast: '配信 …',
+    config: '設定',
     customSettings: 'カスタム設定 …',
     delay: {
       heading: '遅延: <1>1.5</1>秒',
       hint: '自動更新前の遅延',
     },
     deploy: 'デプロイ …',
+    docs: 'ドキュメンテーション',
     editorSettings: 'エディター設定 …',
     embed: '埋め込み …',
     export: {
@@ -527,40 +581,52 @@ const translation: I18nTranslation = {
       gist: 'GitHub Gistにエクスポート',
       heading: 'エクスポート',
       jsfiddle: 'JSFiddleで編集',
-      json: 'エクスポート (JSON)',
+      json: 'プロジェクトをエクスポート（JSON）',
       result: '結果をエクスポート（HTML）',
       src: 'ソースをエクスポート（ZIP）',
     },
+    features: '機能',
     formatOnsave: '保存時にフォーマット',
+    getstart: 'はじめに',
     import: 'インポート …',
     layout: '垂直レイアウト',
+    license: 'ライセンス',
     login: 'ログイン …',
     logout: 'ログアウト',
     new: '新規 …',
     open: '開く …',
     project: 'プロジェクト情報 …',
     recoverUnsaved: '未保存の復元',
+    report: '問題を報告する',
     resources: '外部リソース …',
     save: '保存',
     saveAs: {
       fork: 'フォーク（新規プロジェクト）',
-      heading: '別名で保存',
+      heading: '別名で保存 …',
       template: 'テンプレート',
     },
+    sdk: 'SDK',
     share: '共有 …',
     showSpacing: {
       heading: '間隔を表示',
       hint: 'Alt/Optionキーを押しながら結果ページにカーソルを合わせてください',
     },
+    showWelcome: {
+      title: '起動時にウェルカム画面を表示',
+    },
     snippets: 'コードスニペット …',
+    source: 'GitHubのソースコード',
     sync: '同期（ベータ） … <1> ⏳</1>',
     theme: 'ダークテーマ',
+    themeColor: '色',
     welcome: {
       heading: 'ようこそ …',
-      hint: '起動時にウェルカム画面を表示',
     },
   },
   open: {
+    action: {
+      delete: '削除',
+    },
     defaultTemplate: 'デフォルトテンプレート ',
     delete: {
       all: '{{projects}}個のプロジェクトを削除しますか？',
@@ -641,10 +707,13 @@ const translation: I18nTranslation = {
     stylesheets: '外部スタイルシート',
     urlDesc: 'スタイルシート/スクリプトのURLを追加。各URLは別の行に記述してください。',
   },
+  resultMode: {
+    linkText: 'LiveCodesで編集する',
+  },
   savePrompt: {
     heading: '未保存の変更',
     prompt: {
-      cancel: '消去',
+      cancel: 'キャンセル',
       discard: '保存しない',
       heading: '変更が保存されていない可能性があります。<1></1>今すぐ保存しますか？',
       save: '保存',
@@ -670,7 +739,6 @@ const translation: I18nTranslation = {
       generating: '生成中...',
     },
     services: {
-      copyUrl: 'URLをコピー',
       devTo: 'Dev.to',
       email: 'メール',
       facebook: 'Facebook',
@@ -843,6 +911,9 @@ const translation: I18nTranslation = {
     load: '読み込み',
     tests: 'テスト',
   },
+  testSettings: {
+    desc: '<1></1>詳細は <2>資料</2>',
+  },
   toolspane: {
     close: '閉じる',
     compiled: {
@@ -886,7 +957,7 @@ const translation: I18nTranslation = {
       heading: '最近',
     },
     recover: {
-      cancel: '消去',
+      cancel: 'キャンセル',
       heading: '復元',
       lastModified: '最終更新: <1></1>',
       recover: '復元',

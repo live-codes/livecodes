@@ -18,13 +18,13 @@
     <div class="modal-section">
       <h3 data-i18n="about.version.heading">Version</h3>
       <ul class="about-version">
-        <li data-i18n="about.version.app">
+        <li data-i18n="about.version.app" data-i18n-prop="innerHTML">
           App version: <span class="version">{{APP_VERSION}}</span>
         </li>
-        <li data-i18n="about.version.sdk">
+        <li data-i18n="about.version.sdk" data-i18n-prop="innerHTML">
           SDK version: <span class="version">{{SDK_VERSION}}</span>
         </li>
-        <li data-i18n="about.version.commit">
+        <li data-i18n="about.version.commit" data-i18n-prop="innerHTML">
           Git commit:
           <a href="{{COMMIT_URL}}" target="_blank" rel="noopener" class="version">{{COMMIT_SHA}}</a>
         </li>
@@ -48,18 +48,20 @@
         </li>
       </ul>
       <h3 data-i18n="about.credits.heading">Credits</h3>
-      <p>
-        Livecodes is made possible by open source projects, web services and contributors.
+      <p data-i18n="about.credits.para1" data-i18n-prop="innerHTML">
+        LiveCodes is made possible by open source projects, web services and contributors.
         <a href="{{DOCS_BASE_URL}}credits" target="_blank">View Credits</a>
       </p>
-      <p>© 2024 Hatem Hosny. Livecodes is licensed under MIT License.</p>
+      <p data-i18n="about.credits.para2">
+        © 2024 Hatem Hosny. LiveCodes is licensed under MIT License.
+      </p>
     </div>
 
     <div class="modal-section" id="about-info">
-      <h3 data-i18n="about.livecodes.aboutUs">About Livecodes</h3>
+      <h3 data-i18n="about.livecodes.aboutUs">About LiveCodes</h3>
       <p data-i18n="about.livecodes.para1" data-i18n-prop="innerHTML">
         <strong><em>LiveCodes</em></strong> is an open-source, feature-rich, client-side code
-        playground. Currently, 80+ languages and frameworks are supported. It can be used as a
+        playground. Currently, 90+ languages and frameworks are supported. It can be used as a
         standalone app or embedded in any web page.
       </p>
       <p data-i18n="about.livecodes.para2" data-i18n-prop="innerHTML">

@@ -6,7 +6,7 @@ There are great products like [CodePen](https://codepen.io/), [JSFiddle](https:/
 
 ### Language Support
 
-Currently, there are 80+ languages/frameworks supported. These include:
+Currently, there are 90+ languages/frameworks supported. These include:
 
 - Web languages (HTML, CSS & JavaScript).
 - Web frameworks/libraries (e.g. React JSX/TSX, Vue SFC, Svelte SFC, Solid, MDX, Astro).

@@ -9,11 +9,9 @@ It has been popularized by [React](https://react.dev/), and then adopted by many
 By default, when running JSX in LiveCodes, [React](https://react.dev/) runtime is used.
 However, other libraries like [Preact](https://preactjs.com/), [nano JSX](https://nanojsx.io/) and others can be used as well (see [Custom JSX Runtimes](#custom-jsx-runtimes)).
 
-Please note that TSX is also supported in LiveCodes and is [documented here](./tsx.md).
+TSX is also supported in LiveCodes and is [documented here](./tsx.md).
 
-## Demo:
-
-<LiveCodes template="react" height="400px"></LiveCodes>
+Please note that [React compiler](https://react.dev/learn/react-compiler) is also available in LiveCodes and is [documented here](./react.md).
 
 ## Usage
 
@@ -87,9 +85,9 @@ Module imports can be customized using import maps as described in [module resol
 
 Types for imported modules are loaded automatically (if available) to provide [Intellisense](../features/intellisense.md), auto-completion and type information.
 
-![LiveCodes Intellisense](../../static/img/screenshots/intellisense1.jpg)
+![LiveCodes Intellisense](../../static/img/screenshots/intellisense-1.jpg)
 
-![LiveCodes Intellisense](../../static/img/screenshots/intellisense2.jpg)
+![LiveCodes Intellisense](../../static/img/screenshots/intellisense-2.jpg)
 
 Moreover, you can provide custom type definitions for modules that do not have types available on npm. See [Custom Types](../features/intellisense.md#custom-types) for details.
 
@@ -222,10 +220,6 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
   }
 }
 ```
-
-## Starter Template
-
-https://livecodes.io/?template=react
 
 ## Links
 

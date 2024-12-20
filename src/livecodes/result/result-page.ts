@@ -112,9 +112,27 @@ export const createResultPage = async ({
     dom.head.appendChild(stylesheet);
   });
 
+  // editor markup
+  const markup = code.markup.compiled;
+  dom.body.innerHTML += markup;
+
+  // user-defined import map in <script type="importmap">
+  type ImportMap = Partial<{ [key in 'imports' | 'scopes']: Record<string, string> }>;
+  let userDefinedImportmap: ImportMap = {};
+  const importmapScript = dom.querySelector('script[type="importmap"]');
+  if (importmapScript) {
+    try {
+      userDefinedImportmap = JSON.parse(importmapScript.innerHTML.trim());
+    } catch {
+      // ignore
+    }
+    importmapScript.remove();
+  }
+
   const configImports = {
     ...config.imports,
     ...config.customSettings.imports,
+    ...userDefinedImportmap.imports,
   };
 
   // stylesheets imported in script editor
@@ -150,10 +168,6 @@ export const createResultPage = async ({
     dom.head.appendChild(EditorStylesheet);
   }
 
-  // editor markup
-  const markup = code.markup.compiled;
-  dom.body.innerHTML += markup;
-
   // cleanup extra scripts added to detect classes for CSS processors
   const extra = dom.querySelectorAll('script[type="script-for-styles"]');
   extra.forEach((el) => el.remove());
@@ -185,6 +199,8 @@ export const createResultPage = async ({
   const jsxRuntimes: Partial<Record<Language, string>> = {
     jsx: reactRuntime,
     tsx: reactRuntime,
+    react: reactRuntime,
+    'react-tsx': reactRuntime,
     'react-native': reactNativeRuntime,
     'react-native-tsx': reactNativeRuntime,
     solid: solidRuntime,
@@ -316,11 +332,14 @@ export const createResultPage = async ({
     });
 
   const importMaps = {
-    ...userImports,
-    ...scriptImport,
-    ...compilerImports,
-    ...(runTests ? testImports : {}),
-    ...configImports,
+    ...userDefinedImportmap, // for "scopes"
+    imports: {
+      ...userImports,
+      ...scriptImport,
+      ...compilerImports,
+      ...(runTests ? testImports : {}),
+      ...configImports,
+    },
   };
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');
@@ -330,7 +349,7 @@ export const createResultPage = async ({
 
     const importMapsScript = dom.createElement('script');
     importMapsScript.type = 'importmap';
-    importMapsScript.innerHTML = `{"imports": ${JSON.stringify(importMaps, null, 2)}}`;
+    importMapsScript.innerHTML = JSON.stringify(importMaps, null, 2);
     dom.head.appendChild(importMapsScript);
   }
 

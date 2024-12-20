@@ -136,11 +136,11 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   jsx: {
     desc: '在 LiveCodes 中，JSX 使用 TypeScript 编译器编译为 JavaScript。默认情况下，React 将作为 JSX 运行时。',
-    link: '<1> <2>React 官方网站</2> </1> <3> <4>React 文档中的 JSX</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载启动模板</8> </7>',
+    link: '<1> <2>React 官方网站</2> </1> <3> <4>React 文档中的 JSX</4> </3> <5> <6>LiveCodes 文档</6> </5>',
     name: 'JSX',
   },
   julia: {
-    desc1: '（LiveCodes 中的 Julia 语言支持仍处于实验阶段）',
+    desc1: 'LiveCodes 中的 Julia 语言支持仍处于实验阶段。',
     desc2:
       '在 WASM 上运行的 Julia 编译器和 Julia Base，使用由 <2>polylang.io</2> 适配的 <1>julia-wasm</1> 。',
     link: '<1> <2>Julia 官方网站</2> </1> <3> <4>Julia 文档</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=Julia</6> </5> <7> <8>加载启动模板</8> </7>',
@@ -183,7 +183,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   mdx: {
     desc: '组件时代的 Markdown。 <1> </1> MDX 让您可以在 Markdown 文档中无缝编写 JSX。',
-    link: '<1><2>MDX 文档</2></1> <3><4>加载启动模板</4></3>',
+    link: '<1><2>MDX 文档</2></1> <3><4>加载启动模板</4> </3>',
     name: 'MDX',
   },
   mjml: {
@@ -254,6 +254,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>R 项目官方网站</2> </1> <3> <4>R 手册</4> </3> <5> <6>R for Data Science（2e）</6> </5> <7> <8>WebR 文档</8> </7> <9> <10>在 Y 分钟内学习 X，其中 X=R</10> </9> <11> <12>LiveCodes 文档</12> </11> <13> <14>加载启动模板</14> </13>',
     name: 'R',
   },
+  react: {
+    desc: 'React Compiler 是一个仅在构建时运行的工具，可自动优化 React 应用程序。',
+    link: '<1> <2>React 官方网站</2> </1> <3> <4>React 编译器</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载初始模板</8> </7>',
+    name: 'React 编译器',
+  },
   reactNative: {
     desc: 'React Native for Web 是 React Native 的组件和 API 的可访问实现，可与 React DOM 互操作。',
     link: '<1> <2>React 官方网站</2> </1> <3> <4>React Native 官方网站</4> </3> <5> <6>React Native for Web 官方网站</6> </5> <7> <8>React Native 文档</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
@@ -263,6 +268,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'React Native for Web 是 React Native 的组件和 API 的可访问实现，可与 React DOM 互操作。',
     link: '<1> <2>React 官方网站</2> </1> <3> <4>React Native 官方网站</4> </3> <5> <6>React Native for Web 官方网站</6> </5> <7> <8>React Native 文档</8> </7> <9> <10>TypeScript 网站</10> </9> <11> <12>TypeScript 文档</12> </11> <13> <14>LiveCodes 文档</14> </13> <15> <16>加载启动模板（JSX）</16> </15>',
     name: 'React Native for Web（TypeScript 支持）',
+  },
+  reactTsx: {
+    desc: 'React Compiler 是一个仅在构建时运行的工具，可自动优化 React 应用程序。',
+    link: '<1> <2>React 官方网站</2> </1> <3> <4>React 编译器</4> </3> <5> <6>TypeScript 网站</6> </5> <7> <8>TypeScript 文档</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载初始模板 (JSX)</12> </11>',
+    name: 'React 编译器 (使用 TypeScript)',
   },
   reason: {
     desc1: 'Reason 可让您利用 JavaScript 和 OCaml 生态系统编写简单、快速和高质量的类型安全代码。',
@@ -323,7 +333,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   sql: {
     desc: '使用 SQL.js 编译为 JavaScript 的 SQLite。',
-    link: '<1> <2>SQLite 官方网站</2> </1> <3> <4>SQLite 语法文档</4> </3> <5> <6>SQL.js 官方网站</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=SQL</8> </7> <9><10>加载启动模板</10></9>',
+    link: '<1> <2>SQLite 官方网站</2> </1> <3> <4>SQLite 语法文档</4> </3> <5> <6>SQL.js 官方网站</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=SQL</8> </7> <9><10>加载启动模板</10> </9>',
     name: 'SQLite',
   },
   stencil: {
@@ -381,7 +391,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TypeScript',
   },
   vue: {
-    link: '<1> <2>Vue.js v3 官方网站</2> </1> <3> <4>Vue3 文档</4> </3> <5> <6>Vue3 单文件组件</6> </5> <7> <8>LiveCodes 文档</8> </7> <9><10>加载启动模板</10></9>',
+    link: '<1> <2>Vue.js v3 官方网站</2> </1> <3> <4>Vue3 文档</4> </3> <5> <6>Vue3 单文件组件</6> </5> <7> <8>LiveCodes 文档</8> </7> <9><10>加载启动模板</10> </9>',
     name: 'Vue3 单文件组件',
   },
   vue2: {
@@ -392,7 +402,7 @@ const languageInfo: I18nLangInfoTranslation = {
   wat: {
     desc1: 'WebAssembly（wasm）二进制格式的低级文本表示。',
     desc2: '使用 wabt.js 将其转换为 wasm。',
-    link: '<1><2>WebAssembly.org</2></1> <3> <4> WebAssembly 文本规范</4> </3> <5> <6> MDN 上的 WebAssembly</6> </5> <7> <8> 理解 WebAssembly 文本格式</8> </7> <9> <10> wabt.js 文档</10> </9> <11> <12> 在 Y 分钟内学习 X，其中 X=WebAssembly</12> </11> <13> <14> 加载启动模板</14></13>',
+    link: '<1><2>WebAssembly.org</2></1> <3> <4> WebAssembly 文本规范</4> </3> <5> <6> MDN 上的 WebAssembly</6> </5> <7> <8> 理解 WebAssembly 文本格式</8> </7> <9> <10> wabt.js 文档</10> </9> <11> <12> 在 Y 分钟内学习 X，其中 X=WebAssembly</12> </11> <13> <14> 加载启动模板</14> </13>',
     name: 'WebAssembly 文本格式',
   },
 };

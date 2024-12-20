@@ -74,6 +74,7 @@ import { bbcode } from './bbcode';
 import { postgresql } from './postgresql';
 import { gleam } from './gleam';
 import { vento } from './vento';
+import { react, reactTsx } from './react';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -110,6 +111,8 @@ export const languages: LanguageSpecs[] = [
   sucrase,
   jsx,
   tsx,
+  react,
+  reactTsx,
   reactNative,
   reactNativeTsx,
   vue,

@@ -16,6 +16,14 @@
     "notes": "",
     "translation": "Credits"
   },
+  "about.credits.para1": {
+    "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}credits\" target=\"_blank\" />\n\n",
+    "translation": "LiveCodes is made possible by open source projects, web services and contributors. <tag-1>View Credits</tag-1>"
+  },
+  "about.credits.para2": {
+    "notes": "",
+    "translation": "© 2024 Hatem Hosny. LiveCodes is licensed under MIT License."
+  },
   "about.documentations.heading": {
     "notes": "",
     "translation": "Documentations"
@@ -38,11 +46,11 @@
   },
   "about.livecodes.aboutUs": {
     "notes": "",
-    "translation": "About Livecodes"
+    "translation": "About LiveCodes"
   },
   "about.livecodes.para1": {
     "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<em  />\n\n",
-    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> is an open-source, feature-rich, client-side code playground. Currently, 80+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page."
+    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> is an open-source, feature-rich, client-side code playground. Currently, 90+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page."
   },
   "about.livecodes.para2": {
     "notes": "",
@@ -69,24 +77,24 @@
     "translation": "𝕏 / Twitter"
   },
   "about.version.app": {
-    "notes": "",
-    "translation": "App version: {{APP_VERSION}}"
+    "notes": "### <tag-1> ###\n<span class=\"version\" />\n\n",
+    "translation": "App version: <tag-1>{{APP_VERSION}}</tag-1>"
   },
   "about.version.appPermanentUrl": {
     "notes": "",
     "translation": "App Permanent URL"
   },
   "about.version.commit": {
-    "notes": "",
-    "translation": "Git commit: {{COMMIT_SHA}}"
+    "notes": "### <tag-1> ###\n<a href=\"{{COMMIT_URL}}\" target=\"_blank\" rel=\"noopener\" class=\"version\" />\n\n",
+    "translation": "Git commit: <tag-1>{{COMMIT_SHA}}</tag-1>"
   },
   "about.version.heading": {
     "notes": "",
     "translation": "Version"
   },
   "about.version.sdk": {
-    "notes": "",
-    "translation": "SDK version: {{SDK_VERSION}}"
+    "notes": "### <tag-1> ###\n<span class=\"version\" />\n\n",
+    "translation": "SDK version: <tag-1>{{SDK_VERSION}}</tag-1>"
   },
   "about.version.sdkPermanentUrl": {
     "notes": "",
@@ -96,9 +104,25 @@
     "notes": "",
     "translation": "Change Theme"
   },
+  "app.codeToImage.hint": {
+    "notes": "",
+    "translation": "Code to Image"
+  },
+  "app.consoleMessage.appVersion": {
+    "notes": "",
+    "translation": "App version: {{APP_VERSION}}"
+  },
+  "app.consoleMessage.commit": {
+    "notes": "",
+    "translation": "Git commit: {{COMMIT_SHA}}"
+  },
   "app.consoleMessage.learnMore": {
     "notes": "",
     "translation": "Learn more! {{docsUrl}} 🚀"
+  },
+  "app.consoleMessage.sdkVersion": {
+    "notes": "",
+    "translation": "SDK version: {{SDK_VERSION}}"
   },
   "app.copy.hint": {
     "notes": "",
@@ -496,6 +520,130 @@
     "notes": "",
     "translation": "Server URL"
   },
+  "codeToImage.background": {
+    "notes": "",
+    "translation": "Background"
+  },
+  "codeToImage.borderRadius": {
+    "notes": "",
+    "translation": "Border Radius"
+  },
+  "codeToImage.code": {
+    "notes": "",
+    "translation": "Code"
+  },
+  "codeToImage.copy": {
+    "notes": "",
+    "translation": "Copy"
+  },
+  "codeToImage.default": {
+    "notes": "",
+    "translation": "Default"
+  },
+  "codeToImage.direction": {
+    "notes": "",
+    "translation": "Direction"
+  },
+  "codeToImage.fileName": {
+    "notes": "",
+    "translation": "File Name"
+  },
+  "codeToImage.fontFamily": {
+    "notes": "",
+    "translation": "Font Family"
+  },
+  "codeToImage.fontSize": {
+    "notes": "",
+    "translation": "Font Size"
+  },
+  "codeToImage.heading": {
+    "notes": "",
+    "translation": "Code to Image"
+  },
+  "codeToImage.image": {
+    "notes": "",
+    "translation": "Image"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "notes": "",
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "notes": "",
+    "translation": "Image Format"
+  },
+  "codeToImage.imageFormat.png": {
+    "notes": "",
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "notes": "",
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "notes": "",
+    "translation": "Layout"
+  },
+  "codeToImage.opacity": {
+    "notes": "",
+    "translation": "Opacity"
+  },
+  "codeToImage.padding": {
+    "notes": "",
+    "translation": "Padding"
+  },
+  "codeToImage.presets": {
+    "notes": "",
+    "translation": "Presets"
+  },
+  "codeToImage.preview": {
+    "notes": "",
+    "translation": "Preview"
+  },
+  "codeToImage.save": {
+    "notes": "",
+    "translation": "Save Image"
+  },
+  "codeToImage.scale": {
+    "notes": "",
+    "translation": "Image Scale"
+  },
+  "codeToImage.shadow": {
+    "notes": "",
+    "translation": "Shadow"
+  },
+  "codeToImage.share": {
+    "notes": "",
+    "translation": "Share Image"
+  },
+  "codeToImage.shareUrl": {
+    "notes": "",
+    "translation": "Share URL"
+  },
+  "codeToImage.theme": {
+    "notes": "",
+    "translation": "Theme"
+  },
+  "codeToImage.width": {
+    "notes": "",
+    "translation": "Width"
+  },
+  "codeToImage.windowStyle.label": {
+    "notes": "",
+    "translation": "Window Style"
+  },
+  "codeToImage.windowStyle.mac": {
+    "notes": "",
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "notes": "",
+    "translation": "None"
+  },
+  "codeToImage.windowStyle.windows": {
+    "notes": "",
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "notes": "",
     "translation": "Broadcast"
@@ -548,6 +696,14 @@
     "notes": "",
     "translation": "Failed parsing settings as JSON"
   },
+  "core.error.failedToSaveImage": {
+    "notes": "",
+    "translation": "Failed to save image"
+  },
+  "core.error.failedToShareImage": {
+    "notes": "",
+    "translation": "Failed to share image"
+  },
   "core.error.invalidCommand": {
     "notes": "",
     "translation": "Invalid command!"
@@ -599,6 +755,10 @@
   "core.fullScreen.exit": {
     "notes": "",
     "translation": "Exit Full Screen"
+  },
+  "core.generating": {
+    "notes": "",
+    "translation": "Generating..."
   },
   "core.import.loading": {
     "notes": "",
@@ -1470,7 +1630,7 @@
   },
   "menu.saveAs.heading": {
     "notes": "",
-    "translation": "Save as … Ctrl⇧s"
+    "translation": "Save as …"
   },
   "menu.saveAs.template": {
     "notes": "",

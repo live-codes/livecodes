@@ -104,6 +104,7 @@ import {
   debounce,
   getValidUrl,
   loadStylesheet,
+  safeName,
   stringify,
   stringToValidJson,
   toDataUrl,
@@ -1736,7 +1737,9 @@ const loadSelectedScreen = () => {
   const screen = params.new === '' ? 'new' : params.screen;
   if (screen) {
     showScreen(screen);
+    return true;
   }
+  return false;
 };
 
 const getAllEditors = (): CodeEditor[] => [
@@ -1747,7 +1750,7 @@ const getAllEditors = (): CodeEditor[] => [
 
 const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];
-  const root = document.querySelector(':root');
+  const root = document.documentElement;
   root?.classList.remove(...themes);
   root?.classList.add(theme);
   changeThemeColor();
@@ -1783,7 +1786,7 @@ const changeThemeColor = () => {
   const { themeColor, theme } = getConfig();
   const color = themeColor || getDefaultColor();
   const { h, s, l } = colorToHsla(color);
-  const root = document.querySelector(':root') as HTMLElement;
+  const root = document.documentElement;
   root.style.setProperty('--hue', `${h}`);
   root.style.setProperty('--st', `${s}%`);
   root.style.setProperty('--lt', `${theme === 'light' ? 100 : l}%`);
@@ -1798,7 +1801,7 @@ const changeThemeColor = () => {
 
 const getDefaultColor = () => {
   if (defaultColor) return defaultColor;
-  const root = document.querySelector(':root') as HTMLElement;
+  const root = document.documentElement;
   const theme = getConfig().theme;
   root.classList.remove('light');
   const h = getComputedStyle(root).getPropertyValue('--hue');
@@ -1816,7 +1819,7 @@ const getDefaultColor = () => {
 
 const setFontSize = () => {
   const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
-  const root = document.querySelector(':root') as HTMLElement;
+  const root = document.documentElement;
   root.style.setProperty('--font-size', `${fontSize + 2}px`);
 };
 
@@ -2111,23 +2114,35 @@ const showConsoleMessage = () => {
       style: 'font-style: italic; font-size: 1.2em;',
     },
     {
-      content: window.deps.translateString('about.version.app', `App version: {{APP_VERSION}}`, {
-        APP_VERSION: predefinedValues.APP_VERSION,
-      }),
+      content: window.deps.translateString(
+        'app.consoleMessage.appVersion',
+        'App version: {{APP_VERSION}}',
+        {
+          APP_VERSION: predefinedValues.APP_VERSION,
+        },
+      ),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: ' ', style: '' },
     {
-      content: window.deps.translateString('about.version.sdk', `SDK version: {{SDK_VERSION}}`, {
-        SDK_VERSION: predefinedValues.SDK_VERSION,
-      }),
+      content: window.deps.translateString(
+        'app.consoleMessage.sdkVersion',
+        'SDK version: {{SDK_VERSION}}',
+        {
+          SDK_VERSION: predefinedValues.SDK_VERSION,
+        },
+      ),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: ' ', style: '' },
     {
-      content: window.deps.translateString('about.version.commit', `Git commit: {{COMMIT_SHA}}`, {
-        COMMIT_SHA: predefinedValues.COMMIT_SHA,
-      }),
+      content: window.deps.translateString(
+        'app.consoleMessage.commit',
+        'Git commit: {{COMMIT_SHA}}',
+        {
+          COMMIT_SHA: predefinedValues.COMMIT_SHA,
+        },
+      ),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: '\n\n', style: '' },
@@ -2429,15 +2444,8 @@ const handleI18nMenu = () => {
     eventsManager.addEventListener(link, 'click', (ev) => {
       ev.preventDefault();
       if (langCode === getConfig().appLanguage) return;
-      checkSavedAndExecute(async () => {
-        setUserConfig({ appLanguage: langCode as AppLanguage });
-        if (!i18n && langCode !== 'en') {
-          modal.show(loadingMessage(), { size: 'small' });
-          await loadI18n(langCode as AppLanguage);
-        }
-        await i18n?.changeLanguage(langCode);
-        setAppLanguage(true);
-      })();
+      setUserConfig({ appLanguage: langCode as AppLanguage });
+      changeAppLanguage(langCode as AppLanguage);
     });
     li.appendChild(link);
     i18nMenu.appendChild(li);
@@ -2446,6 +2454,7 @@ const handleI18nMenu = () => {
   sep.role = 'separator';
   i18nMenu.appendChild(sep);
   const contributeLi = document.createElement('li');
+  const contributeSpan = document.createElement('span');
   const contributeLink = document.createElement('a');
   contributeLink.href =
     'https://github.com/live-codes/livecodes/blob/develop/docs/docs/contribution/i18n.md';
@@ -2455,7 +2464,8 @@ const handleI18nMenu = () => {
   );
   contributeLink.target = '_blank';
   contributeLink.rel = 'noopener noreferrer';
-  contributeLi.appendChild(contributeLink);
+  contributeSpan.appendChild(contributeLink);
+  contributeLi.appendChild(contributeSpan);
   i18nMenu.appendChild(contributeLi);
 
   const docsLi = document.createElement('li');
@@ -2467,6 +2477,7 @@ const handleI18nMenu = () => {
   docsLi.appendChild(docsLink);
   i18nMenu.appendChild(docsLi);
   menuContainer.appendChild(i18nMenu);
+  adjustFontSize(menuContainer);
 };
 
 const handleEditorTools = () => {
@@ -2527,6 +2538,10 @@ const handleEditorTools = () => {
         window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
       );
     }
+  });
+
+  eventsManager.addEventListener(UI.getCodeToImageButton(), 'click', () => {
+    showScreen('code-to-image');
   });
 
   eventsManager.addEventListener(UI.getEditorStatus(), 'click', () => {
@@ -2606,7 +2621,7 @@ const handleAppMenuProject = () => {
   if (!menuProjectContainer || !menuProjectButton) return;
   menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
   translateElement(menuProjectContainer);
-  adjustFontSize(menuProjectContainer);
+  // adjustFontSize(menuProjectContainer);
 
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
@@ -2653,7 +2668,7 @@ const handleAppMenuHelp = () => {
   if (!menuHelpContainer || !menuHelpButton) return;
   menuHelpContainer.innerHTML = menuHelpHTML;
   translateElement(menuHelpContainer);
-  adjustFontSize(menuHelpContainer);
+  // adjustFontSize(menuHelpContainer);
 
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
@@ -2674,6 +2689,8 @@ const handleAppMenuHelp = () => {
  * decrease font size in menus when text is too wide (for different languages)
  */
 const adjustFontSize = (container: HTMLElement) => {
+  if (!i18n || i18n.getLanguage() === 'en') return;
+
   const adjustFont = (el: HTMLElement) =>
     new Promise<void>((resolve) => {
       const fontSize = Number(getComputedStyle(el).getPropertyValue('font-size').replace('px', ''));
@@ -2687,7 +2704,7 @@ const adjustFontSize = (container: HTMLElement) => {
       });
     });
 
-  setTimeout(async () => {
+  const startAdjustment = async () => {
     container.style.display = 'block';
     container.style.visibility = 'hidden';
     (container.children[0] as HTMLElement).style.display = 'block';
@@ -2697,7 +2714,11 @@ const adjustFontSize = (container: HTMLElement) => {
     container.style.display = '';
     container.style.visibility = '';
     (container.children[0] as HTMLElement).style.display = '';
-  }, 1000);
+  };
+
+  setTimeout(startAdjustment, 1000);
+  setTimeout(startAdjustment, 2000);
+  setTimeout(startAdjustment, 3000);
 };
 
 const handleAppMenuButtonFocus = () => {
@@ -3763,6 +3784,76 @@ const handleEditorSettings = () => {
   registerScreen('editor-settings', createEditorSettingsUI);
 };
 
+const handleCodeToImage = () => {
+  const getSavedPreset = () => getAppData()?.codeToImagePreset;
+
+  const savePreset = (preset: AppData['codeToImagePreset']) => {
+    setAppData({ codeToImagePreset: preset });
+  };
+
+  const createCodeToImageUI = async () => {
+    modal.show(loadingMessage());
+
+    const activeEditor = getActiveEditor();
+
+    const createPreviewEditor = (
+      options: Pick<
+        EditorOptions,
+        'container' | 'editorTheme' | 'fontFamily' | 'fontSize' | 'lineNumbers'
+      >,
+    ) =>
+      createEditor({
+        ...getEditorConfig(getConfig()),
+        baseUrl,
+        editor: 'codejar',
+        theme: 'dark',
+        wordWrap: true,
+        language: activeEditor.getLanguage(),
+        value: activeEditor.getValue(),
+        readonly: false,
+        editorId: 'codeToImage',
+        isEmbed: false,
+        isHeadless: false,
+        getLanguageExtension,
+        mapLanguage,
+        getFormatterConfig: () => getFormatterConfig(getConfig()),
+        getFontFamily,
+        ...options,
+      });
+
+    const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/');
+
+    const getShareUrl = async (config: Partial<Config>) => {
+      const param = '/?x=id/' + (await shareService.shareProject(config));
+      return currentUrl + param;
+    };
+
+    const codeToImageModule: typeof import('./UI/code-to-image') = await import(
+      baseUrl + '{{hash:code-to-image.js}}'
+    );
+    const title = getConfig().title;
+    const fileName = title.trim() !== '' && title !== defaultConfig.title ? title : 'code-to-image';
+    await codeToImageModule.createCodeToImageUI({
+      baseUrl,
+      currentUrl,
+      fileName: safeName(fileName, '-').toLowerCase(),
+      editorId: getLanguageEditorId(activeEditor.getLanguage()) || 'script',
+      modal,
+      notifications,
+      eventsManager,
+      deps: {
+        createEditor: createPreviewEditor,
+        getFormatFn: () => formatter.getFormatFn(activeEditor.getLanguage()),
+        getShareUrl,
+        getSavedPreset,
+        savePreset,
+      },
+    });
+  };
+
+  registerScreen('code-to-image', createCodeToImageUI);
+};
+
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
@@ -4469,11 +4560,19 @@ const translateStringMock = <Key extends I18nKeyType, Value extends string>(
   return result;
 };
 
-const setAppLanguage = (reload: boolean = false) => {
-  const lang = i18n?.getLanguage() ?? 'en';
+const setAppLanguage = ({
+  appLanguage,
+  reload = false,
+  url,
+}: {
+  appLanguage?: AppLanguage;
+  reload?: boolean;
+  url?: string;
+} = {}) => {
+  const lang = (appLanguage ?? i18n?.getLanguage() ?? 'en') as AppLanguage;
   document.documentElement.lang = lang;
   document.documentElement.dir = i18n?.getLanguageDirection() ?? 'ltr';
-  if (isEmbed || params.appLanguage) return;
+  if (!reload && (isEmbed || params.appLanguage)) return;
 
   const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
     Object.keys(obj).reduce((acc, key) => {
@@ -4494,10 +4593,22 @@ const setAppLanguage = (reload: boolean = false) => {
         data: i18nSplashData,
         reload,
         lang,
+        url,
       },
     },
     location.origin,
   );
+};
+
+const changeAppLanguage = async (appLanguage: AppLanguage) => {
+  if (!i18n && appLanguage !== 'en') {
+    modal.show(loadingMessage(), { size: 'small' });
+    await loadI18n(appLanguage);
+  }
+  await i18n?.changeLanguage(appLanguage);
+  const url = (await share(/* shortUrl = */ false, /* contentOnly = */ false)).url;
+  isSaved = true;
+  setAppLanguage({ appLanguage, reload: true, url });
 };
 
 const basicHandlers = () => {
@@ -4556,6 +4667,7 @@ const extraHandlers = async () => {
   handleAssets();
   handleSnippets();
   handleEditorSettings();
+  handleCodeToImage();
   handleSync();
   handleAutosync();
   handlePersistentStorage();
@@ -4766,7 +4878,11 @@ const importExternalContent = async (options: {
     false,
   );
 
-  modal.close();
+  const screenLoaded = loadSelectedScreen();
+  if (!screenLoaded) {
+    modal.close();
+  }
+
   return true;
 };
 
@@ -4928,7 +5044,6 @@ const initializePlayground = async (
   loadUserConfig(/* updateUI = */ true);
   loadStyles();
   await createIframe(UI.getResultElement());
-  loadSelectedScreen();
   setTheme(getConfig().theme, getConfig().editorTheme);
   if (!isEmbed) {
     initializeAuth().then(() => showSyncStatus());
@@ -4941,6 +5056,7 @@ const initializePlayground = async (
     url: params.x || parent.location.hash.substring(1),
   }).then(async (contentImported) => {
     if (!contentImported) {
+      loadSelectedScreen();
       await bootstrap();
     }
     initialized = true;
@@ -4960,7 +5076,13 @@ const createApi = (): API => {
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
     const newAppConfig = buildConfig({ ...getConfig(), ...newConfig });
+    const hasNewAppLanguage =
+      newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
     setConfig(newAppConfig);
+    if (hasNewAppLanguage) {
+      changeAppLanguage(newConfig.appLanguage!);
+      return newAppConfig;
+    }
     await applyConfig(newConfig);
     const content = getContentConfig(newConfig as Config);
     const hasContent = Object.values(content).some((value) => value != null);

@@ -95,10 +95,10 @@ jobs:
         if: startsWith(github.head_ref, 'releases/v')
         run: gh pr create --title "release ${{steps.vars.outputs.version}}" --body "https://${{steps.vars.outputs.version}}.livecodes.io" --base main --head develop
         env:
-          GITHUB_token: ${{ steps.generate-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
 
       - name: Create pull request to main (SDK)
         if: startsWith(github.head_ref, 'releases/sdk-v')
         run: gh pr create --title "release ${{steps.vars.outputs.version}}" --body "https://www.npmjs.com/package/livecodes" --base main --head develop
         env:
-          GITHUB_token: ${{ steps.generate-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}

@@ -14,12 +14,21 @@ export const babel: LanguageSpecs = {
     url: babelUrl,
     factory:
       () =>
-      async (code, { config }) =>
-        (window as any).Babel.transform(code, {
+      async (code, { config }) => {
+        const babelConfig = getLanguageCustomSettings('babel', config);
+        const presetEnvConfig = getLanguageCustomSettings('@babel/preset-env' as any, config);
+        const presetTsConfig = getLanguageCustomSettings('@babel/preset-typescript' as any, config);
+        const presetReactConfig = getLanguageCustomSettings('@babel/preset-react' as any, config);
+        return (window as any).Babel.transform(code, {
           filename: 'script.tsx',
-          presets: [['env', { modules: false }], 'typescript', 'react'],
-          ...getLanguageCustomSettings('babel', config),
-        }).code,
+          presets: [
+            ['env', { modules: false, ...presetEnvConfig }],
+            ['typescript', presetTsConfig],
+            ['react', presetReactConfig],
+          ],
+          ...babelConfig,
+        }).code;
+      },
   },
   extensions: ['es', 'babel'],
   editor: 'script',

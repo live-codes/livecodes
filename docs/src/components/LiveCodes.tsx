@@ -61,8 +61,8 @@ const options = ${stringify(options)};
 import { onMount } from 'svelte';
 import { createPlayground } from 'livecodes';
 
-const options = ${stringify(options)};
-let container;
+let options = $state(${stringify(options)});
+let container = $state(null);
 onMount(() => {
   createPlayground(container, options);
 });
@@ -83,7 +83,7 @@ onMount(() => {
         appUrl={appUrl}
         {...props}
         config={{
-          themeColor: 'hsl(166, 40%, 50%',
+          themeColor: 'hsl(180, 60%, 60%)',
           ...(typeof props.config === 'object' ? props.config : {}),
         }}
       ></LiveCodesReact>

@@ -66,7 +66,7 @@ const languageInfo: I18nLangInfoTranslation = {
   cpp: {
     desc1: 'Soporte de C++ usando JSCPP (un intérprete simple de C++ escrito en JavaScript).',
     desc2:
-      'No es una implementación completa de C++. Para obtener más detalles, consulte la <1>documentación de JSCPP</1>',
+      'No es una implementación completa de C++. Por favor, consulta la <1>documentación de JSCPP</1> para más detalles.',
     link: '<1> <2>Fundación Standard C++</2> </1> <3> <4>JSCPP</4> </3> <5> <6>Aprende X en Y minutos, donde X=C++</6> </5> <7> <8>Cargar plantilla inicial</8> </7>',
     name: 'C++',
   },
@@ -140,7 +140,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   jsx: {
     desc: 'JSX se compila a JavaScript en LiveCodes usando el Compilador de TypeScript. Por defecto, utiliza React como el tiempo de ejecución de JSX.',
-    link: '<1> <2>Sitio web oficial de React</2> </1> <3> <4>Documentación de JSX en React</4> </3> <5> <6>Documentación de LiveCodes</6> </5> <7> <8>Cargar plantilla inicial</8> </7>',
+    link: '<1> <2>Sitio web oficial de React</2> </1> <3> <4>Documentación de JSX en React</4> </3> <5> <6>Documentación de LiveCodes</6> </5>',
     name: 'JSX',
   },
   julia: {
@@ -259,6 +259,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sitio web oficial del proyecto R</2> </1> <3> <4>Los manuales de R</4> </3> <5> <6>R para Ciencia de Datos (2a ed.)</6> </5> <7> <8>Documentación de WebR</8> </7> <9> <10>Aprende X en Y minutos, donde X=R</10> </9> <11> <12>Documentación de LiveCodes</12> </11> <13> <14>Cargar plantilla inicial</14> </13>',
     name: 'R',
   },
+  react: {
+    desc: 'React Compiler es una herramienta que funciona solo durante la compilación y optimiza automáticamente las aplicaciones React.',
+    link: '<1> <2>Sitio web oficial de React</2> </1> <3> <4>Compilador React</4> </3> <5> <6>Documentación de LiveCodes</6> </5> <7> <8>Cargar plantilla inicial</8> </7>',
+    name: 'Compilador de React',
+  },
   reactNative: {
     desc: 'React Native para Web es una implementación accesible de los Componentes y APIs de React Native que es interoperable con React DOM.',
     link: '<1> <2>Sitio web oficial de React</2> </1> <3> <4>Sitio web de React Native</4> </3> <5> <6>Sitio web de React Native para Web</6> </5> <7> <8>Documentación de React Native</8> </7> <9> <10>Documentación de LiveCodes</10> </9> <11> <12>Cargar plantilla inicial</12> </11>',
@@ -268,6 +273,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'React Native para Web es una implementación accesible de los Componentes y APIs de React Native que es interoperable con React DOM.',
     link: '<1> <2>Sitio web oficial de React</2> </1> <3> <4>Sitio web de React Native</4> </3> <5> <6>Sitio web de React Native para Web</6> </5> <7> <8>Documentación de React Native</8> </7> <9> <10>Sitio web de TypeScript</10> </9> <11> <12>Documentación de TypeScript</12> </11> <13> <14>Documentación de LiveCodes</14> </13> <15> <16>Cargar plantilla inicial (JSX)</16> </15>',
     name: 'React Native para Web (con TypeScript)',
+  },
+  reactTsx: {
+    desc: 'React Compiler es una herramienta que funciona solo durante la compilación y optimiza automáticamente las aplicaciones React.',
+    link: '<1> <2>Sitio web oficial de React</2> </1> <3> <4>Compilador React</4> </3> <5> <6>Sitio web TypeScript</6> </5> <7> <8>Documentación TypeScript</8> </7> <9> <10>Documentación de LiveCodes</10> </9> <11> <12>Cargar plantilla inicial (JSX)</12> </11>',
+    name: 'Compilador React (con TypeScript)',
   },
   reason: {
     desc1:

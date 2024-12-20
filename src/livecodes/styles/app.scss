@@ -217,6 +217,9 @@
   --text-success-bg-color: rgba(85, 255, 0, 0.25);
   --text-success-border: 1px solid rgb(85, 255, 0);
   --text-success-color: rgb(153, 255, 102);
+
+  --icon-filter: invert(0.8);
+  --icon-filter-active: invert(1);
 }
 
 @import 'inc-light';
@@ -679,6 +682,10 @@ a#result-button {
       min-width: var(--s24);
     }
   }
+
+  #code-to-img-btn {
+    display: none;
+  }
 }
 
 .result {
@@ -978,6 +985,8 @@ a#result-button {
       background-color: transparent;
       display: flex;
       flex-grow: 1;
+      font-size: var(--s12);
+      justify-content: flex-start;
       white-space: nowrap;
 
       > span {
@@ -1408,6 +1417,44 @@ li.editor-title {
     background-color: var(--resources-search-bg);
     border: var(--resources-search-border);
     color: var(--resources-search-color);
+  }
+
+  .accordion {
+    .title {
+      border: 0;
+      color: #444;
+      cursor: pointer;
+      font-size: 15px;
+      outline: none;
+      padding: 18px;
+      text-align: left;
+      transition: 0.4s;
+      width: 100%;
+
+      &:hover,
+      &.active {
+        background-color: #ccc;
+      }
+
+      &::after {
+        color: #777;
+        content: '\002B';
+        float: right;
+        font-weight: bold;
+        margin-left: 5px;
+      }
+
+      &.active::after {
+        content: '\2212';
+      }
+    }
+
+    .panel {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 18px;
+      transition: max-height 0.2s ease-out;
+    }
   }
 }
 

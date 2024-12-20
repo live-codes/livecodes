@@ -66,7 +66,7 @@ const languageInfo: I18nLangInfoTranslation = {
   cpp: {
     desc1: 'Suporte a C++ usando JSCPP (um interpretador C++ simples escrito em JavaScript).',
     desc2:
-      'Não é uma implementação completa de C++. Para mais detalhes, consulte a <1>documentação do JSCPP</1>',
+      'Não é uma implementação completa de C++. Por favor, consulte a <1>documentação do JSCPP</1> para detalhes.',
     link: '<1> <2>Fundação C++ Padrão</2> </1> <3> <4>JSCPP</4> </3> <5> <6>Aprenda X em Y minutos, onde X=C++</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
     name: 'C++',
   },
@@ -139,7 +139,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   jsx: {
     desc: 'JSX é compilado para JavaScript no LiveCodes usando o Compilador TypeScript. Por padrão, ele usa React como o runtime JSX.',
-    link: '<1> <2>Site oficial do React</2> </1> <3> <4>Documentação JSX no React</4> </3> <5> <6>Documentação do LiveCodes</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
+    link: '<1> <2>Site oficial do React</2> </1> <3> <4>Documentação JSX no React</4> </3> <5> <6>Documentação do LiveCodes</6> </5>',
     name: 'JSX',
   },
   julia: {
@@ -200,7 +200,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: 'Uma linguagem de modelagem rica e poderosa para JavaScript. Nunjucks é essencialmente uma adaptação do <1>jinja2</1>',
+    desc: 'Uma linguagem de modelagem rica e poderosa para JavaScript. Nunjucks é essencialmente uma adaptação do <1>jinja2</1>.',
     link: '<1> <2>Site oficial</2> </1> <3> <4>Documentação do LiveCodes</4> </3>',
     name: 'Nunjucks',
   },
@@ -258,6 +258,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Site oficial do projeto R</2> </1> <3> <4>Manuais do R</4> </3> <5> <6>R para Ciência de Dados (2ª ed.)</6> </5> <7> <8>Documentação do WebR</8> </7> <9> <10>Aprenda X em Y minutos, onde X=R</10> </9> <11> <12>Documentação do LiveCodes</12> </11> <13> <14>Carregar modelo inicial</14> </13>',
     name: 'R',
   },
+  react: {
+    desc: 'React Compiler é uma ferramenta que funciona apenas durante a compilação e otimiza automaticamente aplicativos React.',
+    link: '<1> <2>Site oficial do React</2> </1> <3> <4>Compilador React</4> </3> <5> <6>Documentação LiveCodes</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
+    name: 'Compilador React',
+  },
   reactNative: {
     desc: 'React Native for Web é uma implementação acessível dos Componentes e APIs do React Native que é interoperável com React DOM.',
     link: '<1> <2>Site oficial do React</2> </1> <3> <4>Site do React Native</4> </3> <5> <6>Site do React Native for Web</6> </5> <7> <8>Documentação do React Native</8> </7> <9> <10>Documentação do LiveCodes</10> </9> <11> <12>Carregar modelo inicial</12> </11>',
@@ -267,6 +272,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'React Native for Web é uma implementação acessível dos Componentes e APIs do React Native que é interoperável com React DOM.',
     link: '<1> <2>Site oficial do React</2> </1> <3> <4>Site do React Native</4> </3> <5> <6>Site do React Native for Web</6> </5> <7> <8>Documentação do React Native</8> </7> <9> <10>Site do TypeScript</10> </9> <11> <12>Documentação do TypeScript</12> </11> <13> <14>Documentação do LiveCodes</14> </13> <15> <16>Carregar modelo inicial (JSX)</16> </15>',
     name: 'React Native para Web (com TypeScript)',
+  },
+  reactTsx: {
+    desc: 'React Compiler é uma ferramenta que funciona apenas durante a compilação e otimiza automaticamente aplicativos React.',
+    link: '<1> <2>Site oficial do React</2> </1> <3> <4>Compilador React</4> </3> <5> <6>Site TypeScript</6> </5> <7> <8>Documentação TypeScript</8> </7> <9> <10>Documentação LiveCodes</10> </9> <11> <12>Carregar modelo inicial (JSX)</12> </11>',
+    name: 'Compilador React (com TypeScript)',
   },
   reason: {
     desc1:

@@ -140,11 +140,11 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   jsx: {
     desc: 'JSX est compilé en JavaScript dans LiveCodes en utilisant le compilateur TypeScript. Par défaut, il utilise React comme runtime JSX.',
-    link: '<1> <2>Site officiel de React</2> </1> <3> <4>Documentation JSX dans React</4> </3> <5> <6>Documentation LiveCodes</6> </5> <7> <8>Charger le modèle de démarrage</8> </7>',
+    link: '<1> <2>Site officiel de React</2> </1> <3> <4>Documentation JSX dans React</4> </3> <5> <6>Documentation LiveCodes</6> </5>',
     name: 'JSX',
   },
   julia: {
-    desc1: '(Le support du langage Julia dans LiveCodes est encore expérimental)',
+    desc1: 'Le support du langage Julia dans LiveCodes est encore expérimentale',
     desc2:
       "Compilateur Julia et Julia Base s'exécutant sur WASM, utilisant <1>julia-wasm</1> adapté par <2>polylang.io</2>.",
     link: '<1> <2>Site officiel de Julia</2> </1> <3> <4>Documentation de Julia</4> </3> <5> <6>Apprenez X en Y minutes, où X=Julia</6> </5> <7> <8>Charger le modèle de démarrage</8> </7>',
@@ -259,6 +259,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Site officiel du projet R</2> </1> <3> <4>Les manuels R</4> </3> <5> <6>R pour la Science des Données (2e édition)</6> </5> <7> <8>Documentation WebR</8> </7> <9> <10>Apprenez X en Y minutes, où X=R</10> </9> <11> <12>Documentation LiveCodes</12> </11> <13> <14>Charger le modèle de démarrage</14> </13>',
     name: 'R',
   },
+  react: {
+    desc: 'React Compiler est un outil qui fonctionne uniquement lors de la compilation et optimise automatiquement les applications React.',
+    link: '<1> <2>Site officiel React</2> </1> <3> <4>Compilateur React</4> </3> <5> <6>Documentation LiveCodes</6> </5> <7> <8>Charger le modèle de démarrage</8> </7>',
+    name: 'Compilateur React',
+  },
   reactNative: {
     desc: 'React Native pour le Web est une implémentation accessible des composants et API de React Native qui est interopérable avec React DOM.',
     link: '<1> <2>Site officiel de React</2> </1> <3> <4>Site web de React Native</4> </3> <5> <6>Site web de React Native pour le Web</6> </5> <7> <8>Documentation React Native</8> </7> <9> <10>Documentation LiveCodes</10> </9> <11> <12>Charger le modèle de démarrage</12> </11>',
@@ -268,6 +273,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'React Native pour le Web est une implémentation accessible des composants et API de React Native qui est interopérable avec React DOM.',
     link: '<1> <2>Site officiel de React</2> </1> <3> <4>Site web de React Native</4> </3> <5> <6>Site web de React Native pour le Web</6> </5> <7> <8>Documentation React Native</8> </7> <9> <10>Site web de TypeScript</10> </9> <11> <12>Documentation TypeScript</12> </11> <13> <14>Documentation LiveCodes</14> </13> <15> <16>Charger le modèle de démarrage (JSX)</16> </15>',
     name: 'React Native pour le Web (avec TypeScript)',
+  },
+  reactTsx: {
+    desc: 'React Compiler est un outil qui fonctionne uniquement lors de la compilation et optimise automatiquement les applications React.',
+    link: '<1> <2>Site officiel React</2> </1> <3> <4>Compilateur React</4> </3> <5> <6>Site TypeScript</6> </5> <7> <8>Documentation TypeScript</8> </7> <9> <10>Documentation LiveCodes</10> </9> <11> <12>Charger le modèle de démarrage (JSX)</12> </11>',
+    name: 'Compilateur React (avec TypeScript)',
   },
   reason: {
     desc1:
@@ -333,7 +343,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'SQLite',
   },
   stencil: {
-    desc: 'Un compilateur pour les composants Web et les applications Web haute performance.',
+    desc: 'Un compilateur pour les composants Web et haute performance des applications Web.',
     link: '<1> <2>Site officiel de Stencil</2> </1> <3> <4>Documentation de Stencil</4> </3> <5> <6>Charger le modèle de démarrage</6> </5>',
     name: 'Stencil',
   },

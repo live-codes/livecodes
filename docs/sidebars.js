@@ -47,6 +47,7 @@ const sidebars = {
             'features/share',
             'features/welcome',
             'features/recover',
+            'features/code-to-image',
             'features/display-modes',
             'features/default-view',
             'features/themes',
