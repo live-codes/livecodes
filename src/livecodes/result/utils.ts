@@ -17,6 +17,9 @@ export const typeOf = (obj: any) => {
           typeof o.nodeType === 'number' &&
           typeof o.nodeName === 'string';
   }
+  function isNodeList(o: any) {
+    return o instanceof NodeList;
+  }
   function isDocument(o: any) {
     return Object.prototype.toString.call(o) === '[object HTMLDocument]';
   }
@@ -33,6 +36,7 @@ export const typeOf = (obj: any) => {
   if (isDocument(obj)) return 'document';
   if (isElement(obj)) return 'element';
   if (isNode(obj)) return 'node';
+  if (isNodeList(obj)) return 'nodelist';
 
   if (
     obj.constructor &&
@@ -73,13 +77,24 @@ function consoleArgs(args: any[]): Array<{ type: string; content: any }> {
         return { type: typeOf(arg), content: arg.outerHTML };
       case 'node':
         return { type: typeOf(arg), content: arg.textContent };
+      case 'nodelist':
+        return {
+          type: typeOf(arg),
+          content: [...arg].map((x: unknown) => consoleArgs([x])[0].content),
+        };
       case 'array':
         return { type: typeOf(arg), content: arg.map((x: unknown) => consoleArgs([x])[0].content) };
       case 'object':
+      case 'event':
+        const obj: Record<string, any> = {};
+        // eslint-disable-next-line guard-for-in
+        for (const k in arg) {
+          obj[k] = arg[k];
+        }
         return {
           type: typeOf(arg),
-          content: Object.keys(arg).reduce(
-            (acc, key) => ({ ...acc, [key]: consoleArgs([arg[key]])[0].content }),
+          content: Object.keys(obj).reduce(
+            (acc, key) => ({ ...acc, [key]: consoleArgs([obj[key]])[0].content }),
             {},
           ),
         };
