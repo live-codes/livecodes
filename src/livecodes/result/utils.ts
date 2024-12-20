@@ -20,6 +20,9 @@ export const typeOf = (obj: any) => {
   function isNodeList(o: any) {
     return o instanceof NodeList;
   }
+  function isHTMLCollection(o: any) {
+    return o instanceof HTMLCollection;
+  }
   function isDocument(o: any) {
     return Object.prototype.toString.call(o) === '[object HTMLDocument]';
   }
@@ -37,6 +40,7 @@ export const typeOf = (obj: any) => {
   if (isElement(obj)) return 'element';
   if (isNode(obj)) return 'node';
   if (isNodeList(obj)) return 'nodelist';
+  if (isHTMLCollection(obj)) return 'htmlcollection';
 
   if (
     obj.constructor &&
@@ -78,6 +82,7 @@ function consoleArgs(args: any[]): Array<{ type: string; content: any }> {
       case 'node':
         return { type: typeOf(arg), content: arg.textContent };
       case 'nodelist':
+      case 'htmlcollection':
         return {
           type: typeOf(arg),
           content: [...arg].map((x: unknown) => consoleArgs([x])[0].content),
