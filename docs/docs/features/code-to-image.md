@@ -1,6 +1,6 @@
 # Code to Image
 
-LiveCodes has a feature called "Code to Image" that allows converting the code in the code editor into nice-looking images, that can be downloaded or shared.
+LiveCodes has a feature called "Code to Image" that allows converting the code in the code editor into nice-looking images (or code screenshots), that can be downloaded or shared.
 
 This can be accessed from the camera icon in the toolbar below the editor. Clicking the icon will open the "Code to Image" screen and load the code in the editor.
 
