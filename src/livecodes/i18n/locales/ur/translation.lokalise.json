@@ -975,6 +975,9 @@
   "generic.close": {
     "translation": "بند کریں"
   },
+  "generic.custom": {
+    "translation": "حسب ضرورت"
+  },
   "generic.embed.logoHint": {
     "translation": "لائیو کوڈ پر ترمیم کریں 🡕"
   },
