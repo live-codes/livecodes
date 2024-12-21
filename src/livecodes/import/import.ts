@@ -15,7 +15,6 @@ import {
   isGitlabSnippet,
   isJsbin,
   isProjectId,
-  isSveltePlayground,
   isTypescriptPlayground,
   isVuePlayground,
 } from './check-src';
@@ -45,7 +44,6 @@ export const importCode = async (
     importFromGitlabDir,
     importFromGitlabSnippet,
     importFromJsbin,
-    importSveltePlayground,
     importTypescriptPlayground,
     importVuePlayground,
     importFromUrl,
@@ -77,9 +75,6 @@ export const importCode = async (
   }
   if (isJsbin(url)) {
     return importFromJsbin(url);
-  }
-  if (isSveltePlayground(url)) {
-    return importSveltePlayground(url);
   }
   if (isTypescriptPlayground(url)) {
     return importTypescriptPlayground(url);
