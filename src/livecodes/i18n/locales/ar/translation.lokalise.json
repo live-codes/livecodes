@@ -78,6 +78,9 @@
   "app.changeTheme.hint": {
     "translation": "تغيير السمة"
   },
+  "app.codeToImage.hint": {
+    "translation": "كود إلى صورة"
+  },
   "app.consoleMessage.appVersion": {
     "translation": "إصدار التطبيق: {{APP_VERSION}}"
   },
@@ -387,6 +390,99 @@
   "broadcast.serverURL.heading": {
     "translation": "رابط الخادم"
   },
+  "codeToImage.background": {
+    "translation": "الخلفية"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "نصف قطر الحدود"
+  },
+  "codeToImage.code": {
+    "translation": "الكود"
+  },
+  "codeToImage.copy": {
+    "translation": "نسخ"
+  },
+  "codeToImage.default": {
+    "translation": "افتراضي"
+  },
+  "codeToImage.direction": {
+    "translation": "الاتجاه"
+  },
+  "codeToImage.fileName": {
+    "translation": "اسم الملف"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "عائلة الخط"
+  },
+  "codeToImage.fontSize": {
+    "translation": "حجم الخط"
+  },
+  "codeToImage.heading": {
+    "translation": "كود إلى صورة"
+  },
+  "codeToImage.image": {
+    "translation": "الصورة"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "تنسيق الصورة"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "تَخطِيط"
+  },
+  "codeToImage.opacity": {
+    "translation": "العتامة"
+  },
+  "codeToImage.padding": {
+    "translation": "المسافة"
+  },
+  "codeToImage.presets": {
+    "translation": "الإعدادات المسبقة"
+  },
+  "codeToImage.preview": {
+    "translation": "معاينة"
+  },
+  "codeToImage.save": {
+    "translation": "حفظ الصورة"
+  },
+  "codeToImage.scale": {
+    "translation": "مقياس الصورة"
+  },
+  "codeToImage.shadow": {
+    "translation": "الظل"
+  },
+  "codeToImage.share": {
+    "translation": "مشاركة الصورة"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "مشاركة الرابط"
+  },
+  "codeToImage.theme": {
+    "translation": "السمة"
+  },
+  "codeToImage.width": {
+    "translation": "العرض"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "نمط النافذة"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "لا شيء"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "translation": "بث"
   },
@@ -426,6 +522,12 @@
   "core.error.failedToParseSettings": {
     "translation": "فشل في تحليل الإعدادات كـ JSON"
   },
+  "core.error.failedToSaveImage": {
+    "translation": "فشل في حفظ الصورة"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "فشل في مشاركة الصورة"
+  },
   "core.error.invalidCommand": {
     "translation": "أمر غير صالح!"
   },
@@ -464,6 +566,9 @@
   },
   "core.fullScreen.exit": {
     "translation": "الخروج من ملء الشاشة"
+  },
+  "core.generating": {
+    "translation": "جارٍ الإنشاء..."
   },
   "core.import.loading": {
     "translation": "جارٍ تحميل المشروع..."

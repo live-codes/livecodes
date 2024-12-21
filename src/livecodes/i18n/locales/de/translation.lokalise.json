@@ -78,6 +78,9 @@
   "app.changeTheme.hint": {
     "translation": "Thema ändern"
   },
+  "app.codeToImage.hint": {
+    "translation": "Code zu Bild"
+  },
   "app.consoleMessage.appVersion": {
     "translation": "App-Version: {{APP_VERSION}}"
   },
@@ -387,6 +390,99 @@
   "broadcast.serverURL.heading": {
     "translation": "Server-URL"
   },
+  "codeToImage.background": {
+    "translation": "Hintergrund"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "Randradius"
+  },
+  "codeToImage.code": {
+    "translation": "Code"
+  },
+  "codeToImage.copy": {
+    "translation": "Kopieren"
+  },
+  "codeToImage.default": {
+    "translation": "Standard"
+  },
+  "codeToImage.direction": {
+    "translation": "Richtung"
+  },
+  "codeToImage.fileName": {
+    "translation": "Dateiname"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "Schriftart"
+  },
+  "codeToImage.fontSize": {
+    "translation": "Schriftgröße"
+  },
+  "codeToImage.heading": {
+    "translation": "Code zu Bild"
+  },
+  "codeToImage.image": {
+    "translation": "Bild"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "Bildformat"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "Layout"
+  },
+  "codeToImage.opacity": {
+    "translation": "Opazität"
+  },
+  "codeToImage.padding": {
+    "translation": "Polsterung"
+  },
+  "codeToImage.presets": {
+    "translation": "Voreinstellungen"
+  },
+  "codeToImage.preview": {
+    "translation": "Vorschau"
+  },
+  "codeToImage.save": {
+    "translation": "Bild speichern"
+  },
+  "codeToImage.scale": {
+    "translation": "Bild Skala"
+  },
+  "codeToImage.shadow": {
+    "translation": "Schatten"
+  },
+  "codeToImage.share": {
+    "translation": "Bild teilen"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "URL freigeben"
+  },
+  "codeToImage.theme": {
+    "translation": "Theme"
+  },
+  "codeToImage.width": {
+    "translation": "Breite"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "Fenster-Stil"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "Keine"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "translation": "Übertragung"
   },
@@ -426,6 +522,12 @@
   "core.error.failedToParseSettings": {
     "translation": "Fehler beim Parsen der Einstellungen als JSON"
   },
+  "core.error.failedToSaveImage": {
+    "translation": "Bild konnte nicht gespeichert werden"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "Bild kann nicht freigegeben werden"
+  },
   "core.error.invalidCommand": {
     "translation": "Ungültiger Befehl!"
   },
@@ -464,6 +566,9 @@
   },
   "core.fullScreen.exit": {
     "translation": "Vollbild beenden"
+  },
+  "core.generating": {
+    "translation": "Wird generiert..."
   },
   "core.import.loading": {
     "translation": "Projekt wird geladen..."
