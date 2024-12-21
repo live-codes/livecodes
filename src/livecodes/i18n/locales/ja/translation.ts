@@ -556,7 +556,7 @@ const translation: I18nTranslation = {
       started: '一括インポートを開始しました...',
     },
     code: {
-      desc: 'サポートされているソース：<1> <2>GitHub gist</2> <3>GitHubファイル</3> <4>GitHubリポジトリ内のディレクトリ</4> <5>Gitlab snippet</5> <6>Gitlabファイル</6> <7>Gitlabリポジトリ内のディレクトリ</7> <8>JS Bin</8> <9>生のコード</9> <10>Webページ内のDOM内のコード</10> <11>ZIPファイル内のコード</11> <12>公式プレイグラウンド<13></13>（TypeScript、Vue、Svelte）</12> </1> 詳細については<14>ドキュメント</14>をご覧ください。',
+      desc: 'サポートされているソース：<1> <2>GitHub gist</2> <3>GitHubファイル</3> <4>GitHubリポジトリ内のディレクトリ</4> <5>Gitlab snippet</5> <6>Gitlabファイル</6> <7>Gitlabリポジトリ内のディレクトリ</7> <8>JS Bin</8> <9>生のコード</9> <10>Webページ内のDOM内のコード</10> <11>ZIPファイル内のコード</11> <12>公式プレイグラウンド<13></13>（TypeScript、Vue）</12> </1> 詳細については<14>ドキュメント</14>をご覧ください。',
       fromFile: 'ローカルファイルをインポート',
       fromURL: 'URLからインポート',
       heading: 'コードのインポート',

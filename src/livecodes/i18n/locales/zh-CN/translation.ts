@@ -555,7 +555,7 @@ const translation: I18nTranslation = {
       started: '批量导入已开始 ...',
     },
     code: {
-      desc: '支持的来源： <1> <2>GitHub Gist</2> <3>GitHub 文件</3> <4>GitHub 仓库中的目录</4> <5>Gitlab Snippet</5> <6>Gitlab 文件</6><7>Gitlab 仓库中的目录</7> <8>JS Bin</8><9> 原始代码</9> <10>网页 DOM 中的代码 </10> <11>zip 文件中的代码</11> <12>官方样板<13></13>（TypeScript, Vue 和 Svelte）</12> </1> 请访问<14>文档</14>以了解详细信息。',
+      desc: '支持的来源： <1> <2>GitHub Gist</2> <3>GitHub 文件</3> <4>GitHub 仓库中的目录</4> <5>Gitlab Snippet</5> <6>Gitlab 文件</6><7>Gitlab 仓库中的目录</7> <8>JS Bin</8><9> 原始代码</9> <10>网页 DOM 中的代码 </10> <11>zip 文件中的代码</11> <12>官方样板<13></13>（TypeScript 和 Vue）</12> </1> 请访问<14>文档</14>以了解详细信息。',
       fromFile: '从本地文件导入',
       fromURL: '从 URL 导入',
       heading: '导入代码',
