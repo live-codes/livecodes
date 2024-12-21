@@ -4,6 +4,52 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v38](https://github.com/live-codes/livecodes/compare/v37...v38) (2024-12-21)
+
+### Highlights for this release
+
+- This release adds the new feature "Code to Image". It allows generating nice-looking code screenshots. Many customization options are available to change the look of the generated image. In addition, many presets are available for quick selection. See [docs](https://livecodes.io/docs/features/code-to-image).
+- [Catppuccin](https://catppuccin.com/) themes were added for Monaco, CodeMirror and CodeJar.
+- User-defined import map in a `<script type="importmap">` tag added to markup is now supported.
+- In addition to many bugs fixes and improvements.
+
+Credits:
+
+Many thanks to our contributors:
+
+- @zyf722: for improving the i18n workflow and sync with Lokalise, helping with translations and reviewing the "Code to Image" feature.
+- @Shlok-Bhakta: for [adding Catppuccin themes](https://github.com/live-codes/livecodes/pull/688).
+
+### Bug Fixes
+
+- **App:** fix changing themes in embeds ([5ad16f4](https://github.com/live-codes/livecodes/commit/5ad16f47d70e383dec17a85d8b00c1bc607380c8))
+- **App:** show selected screen after importing external content ([3e473b8](https://github.com/live-codes/livecodes/commit/3e473b85603f36ac6281f58b1ef5e736754a6b40))
+- **Compilers:** fix cannot find TS compiler in JS ([76a7345](https://github.com/live-codes/livecodes/commit/76a734536aee7930b1e84cf168105a63780539b8))
+- **Compilers:** fix Svelte backward compatibility ([c9a7412](https://github.com/live-codes/livecodes/commit/c9a7412f398039d88a9c49750e63aed9d8a5a833))
+- **Editor:** fix codejar changing cursor position on highlight ([84baf7d](https://github.com/live-codes/livecodes/commit/84baf7dd7e117ea7f8279b37525d12c679d21bd0))
+- **SDK:** fix changing appLanguage from SDK ([bd23174](https://github.com/live-codes/livecodes/commit/bd23174e20cd9ca456e286a5e71b5d8bdaa567c5))
+- **Templates:** fix/upgrade testing-library ([c292807](https://github.com/live-codes/livecodes/commit/c2928078a04073778770df80269b236abea810be))
+- **ToolsPane:** improve console output for HTMLCollection ([d4df4ac](https://github.com/live-codes/livecodes/commit/d4df4ac0f2e37e4a823b86a38486de718c0190cc))
+- **ToolsPane:** improve console output for nodelist and event objects ([e7821cf](https://github.com/live-codes/livecodes/commit/e7821cf0a166d126806a5104ffcdb14cca091e53))
+
+### Features
+
+- **ci:** update .lokalise.json after pulling from Lokalise ([ba305c6](https://github.com/live-codes/livecodes/commit/ba305c65c8d840e9a5e4cbde0748c6c0c6b1d3d6))
+- **Code-to-Image:** add Code to Image feature ([f9a2856](https://github.com/live-codes/livecodes/commit/f9a28562425194a005e3a304919e3318582d0ead))
+- **Code-to-Image:** add copy code link ([d883d4e](https://github.com/live-codes/livecodes/commit/d883d4e9733ac04a4f09f0445e4719985c351837))
+- **Code-to-Image:** apply preset ([c7f1db5](https://github.com/live-codes/livecodes/commit/c7f1db51ec647e1ffc73ee863910a4eef1e7e41f))
+- **Code-to-Image:** prefill empty editor ([f1fe6fa](https://github.com/live-codes/livecodes/commit/f1fe6fa39327b847ded9d26f73562f44a53ff417))
+- **Code-to-Image:** re-calculate width on window resize ([7dbc1f5](https://github.com/live-codes/livecodes/commit/7dbc1f5d35105190bc5faeca0c7d8efc7e78ae3e))
+- **Code-to-Image:** save custom preset ([cf1143c](https://github.com/live-codes/livecodes/commit/cf1143c7c958a7d8268cd2d60ad8c49884c1f41f))
+- **Code-to-Image:** set fileName from title ([02095a2](https://github.com/live-codes/livecodes/commit/02095a2df2088129b908421fe331deae411f9d3a))
+- **Code-to-Image:** share image ([d7611e3](https://github.com/live-codes/livecodes/commit/d7611e36211d9fc49b23569cd59acbef8f86c3ec))
+- **Code-to-Image:** specify image file name ([b3266e2](https://github.com/live-codes/livecodes/commit/b3266e2fad15a1bb70bad9a3719ab42a031ca2bc))
+- **Compilers:** upgrade Svelte to v5.12.0 ([63d2e2c](https://github.com/live-codes/livecodes/commit/63d2e2c9f162a4fa5bac029c54793845e8e90dc3))
+- **Import-maps:** allow user-defined import map in `<script type="importmap">` ([d7d34d2](https://github.com/live-codes/livecodes/commit/d7d34d286e7c1e0ea8486f16824ec32a778d3ffc))
+- **UI:** add accordion ([a8f37fc](https://github.com/live-codes/livecodes/commit/a8f37fc1d6e7cb7d0aacd5b47ae9633c444aaaf1))
+
+---
+
 ## [sdk-v0.7.2](https://github.com/live-codes/livecodes/compare/v37...sdk-v0.7.2) (2024-12-21)
 
 ### Features
