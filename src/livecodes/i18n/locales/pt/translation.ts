@@ -556,7 +556,7 @@ const translation: I18nTranslation = {
       started: 'Importação em massa iniciada...',
     },
     code: {
-      desc: 'Fontes Suportadas: <1> <2>GitHub gist</2> <3>Arquivo do GitHub</3> <4>Diretório em um repositório GitHub</4> <5>Trecho do Gitlab</5> <6>Arquivo do Gitlab</6> <7>Diretório em um repositório Gitlab</7> <8>JS Bin</8> <9>Código bruto</9> <10>Código no DOM da página web</10> <11>Código em arquivo zip</11> <12>Playgrounds oficiais<13></13>(TypeScript, Vue e Svelte)</12> </1> Visite a <14>documentação</14> para detalhes.',
+      desc: 'Fontes Suportadas: <1> <2>GitHub gist</2> <3>Arquivo do GitHub</3> <4>Diretório em um repositório GitHub</4> <5>Trecho do Gitlab</5> <6>Arquivo do Gitlab</6> <7>Diretório em um repositório Gitlab</7> <8>JS Bin</8> <9>Código bruto</9> <10>Código no DOM da página web</10> <11>Código em arquivo zip</11> <12>Playgrounds oficiais<13></13>(TypeScript e Vue)</12> </1> Visite a <14>documentação</14> para detalhes.',
       fromFile: 'Importar arquivos locais',
       fromURL: 'Importar de URL',
       heading: 'Importar Código',

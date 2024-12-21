@@ -1021,7 +1021,7 @@
     "translation": "Importation groupée a commencée..."
   },
   "import.code.desc": {
-    "translation": "Sources prises en charge : <tag-1> <tag-2>Gist GitHub</tag-2> <tag-3>Fichier GitHub</tag-3> <tag-4>Répertoire dans un dépôt GitHub</tag-4> <tag-5>Extrait Gitlab</tag-5> <tag-6>Fichier Gitlab</tag-6> <tag-7>Répertoire dans un dépôt Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Code brut</tag-9> <tag-10>Code dans une page Web</tag-10> <tag-11>Code dans un fichier zip</tag-11> <tag-12>Playgrounds officiels<tag-13></tag-13>(TypeScript, Vue et Svelte)</tag-12> </tag-1> Pour plus de détails, veuillez consulter la <tag-14>documentation</tag-14>"
+    "translation": "Sources prises en charge : <tag-1> <tag-2>Gist GitHub</tag-2> <tag-3>Fichier GitHub</tag-3> <tag-4>Répertoire dans un dépôt GitHub</tag-4> <tag-5>Extrait Gitlab</tag-5> <tag-6>Fichier Gitlab</tag-6> <tag-7>Répertoire dans un dépôt Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Code brut</tag-9> <tag-10>Code dans une page Web</tag-10> <tag-11>Code dans un fichier zip</tag-11> <tag-12>Playgrounds officiels<tag-13></tag-13>(TypeScript et Vue)</tag-12> </tag-1> Pour plus de détails, veuillez consulter la <tag-14>documentation</tag-14>"
   },
   "import.code.fromFile": {
     "translation": "Importer des fichiers locaux"
