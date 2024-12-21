@@ -188,7 +188,7 @@ export const createCodeToImageUI = async ({
       presetBtn.classList.add('preset');
       presetBtn.dataset.id = preset.id;
       if (preset.id === 'custom') {
-        presetBtn.textContent = 'Custom';
+        presetBtn.textContent = window.deps.translateString('generic.custom', 'Custom');
       } else {
         const img = document.createElement('img');
         img.src = `${baseUrl}assets/code-to-img/${preset.id}.jpg`;
