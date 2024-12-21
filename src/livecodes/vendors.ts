@@ -4,7 +4,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.16.0/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.18.0/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -40,7 +40,7 @@ export const browserJestUrl = /* @__PURE__ */ getUrl(
 
 export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.12.4/');
 
-export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@5.0.0-alpha.2');
+export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@5.1.2');
 
 export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.2.19/');
 
@@ -87,6 +87,8 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
 );
+
+export const colorisBaseUrl = /* @__PURE__ */ getUrl('@melloware/coloris@0.22.0/dist/');
 
 export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 
@@ -232,6 +234,8 @@ export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.5.1'
 
 export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 
+export const htmlToImageUrl = /* @__PURE__ */ getUrl('html-to-image@1.11.11/dist/html-to-image.js');
+
 export const imbaBaseUrl = /* @__PURE__ */ getUrl('imba@2.0.0-alpha.229/dist/');
 
 export const jestTypesUrl = /* @__PURE__ */ getUrl('@types/jest@27.4.1/index.d.ts');
@@ -272,7 +276,7 @@ export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid
 
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
-export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.2.1/');
+export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.2.2/');
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
@@ -315,6 +319,10 @@ export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/components/')
 export const prismOfficialThemesBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/themes/');
 
 export const prismThemesBaseUrl = /* @__PURE__ */ getUrl('prism-themes@1.9.0/themes/');
+
+export const prismThemeNordUrl = /* @__PURE__ */ getUrl(
+  'gh:GalenWong/nord-prism-js@9f085d2a64b37f72a516540ba3f87877d12d7e2d/prism-nord.css',
+);
 
 export const prismThemesLaserWaveUrl = /* @__PURE__ */ getUrl(
   'gh:PrismJS/prism-themes@447479fc7b2be2051fe27e561aceed7cc87a589f/themes/prism-laserwave.css',
@@ -380,7 +388,7 @@ export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/s
 
 export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.3.2/dist/umd/stylis.js');
 
-export const svelteBaseUrl = /* @__PURE__ */ getUrl('svelte@5.10.0/');
+export const svelteBaseUrl = /* @__PURE__ */ getUrl('svelte@5.12.0/');
 
 export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm');
 

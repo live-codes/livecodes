@@ -50,7 +50,7 @@ export const createConsole = (
 
   const convertTypes = (
     args: Array<{
-      type: 'element' | 'node' | 'document' | 'window' | 'function' | 'other';
+      type: 'element' | 'node' | 'nodelist' | 'document' | 'window' | 'function' | 'other';
       content: any;
     }>,
   ) =>

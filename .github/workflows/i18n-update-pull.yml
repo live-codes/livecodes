@@ -102,6 +102,9 @@ jobs:
         mkdir -p $LOKALISE_TEMP && touch $LOKALISE_TEMP/locales.zip && npm run i18n-update-pull -- $PR_BRANCH && rm -rf $LOKALISE_TEMP
       env:
         LOKALISE_TEMP: lokalise_tmp
+    
+    - name: Generate Lokalise JSON files
+      run: npm run i18n-lokalise-json all
 
     - name: Linting and fixing
       run: npm run fix

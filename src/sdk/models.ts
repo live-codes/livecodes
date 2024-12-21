@@ -843,6 +843,7 @@ export interface AppData {
     serverUrl: string;
     userToken?: string;
   };
+  codeToImagePreset?: Record<string, any>;
 }
 
 /**
@@ -1488,6 +1489,7 @@ export interface EditorOptions extends EditorConfig {
     | 'console'
     | 'customSettings'
     | 'editorSettings'
+    | 'codeToImage'
     | 'tests'
     | 'embed'
     | 'snippet'
@@ -1509,6 +1511,10 @@ export type MonacoTheme =
   | 'blackboard'
   | 'brilliance-black'
   | 'brilliance-dull'
+  | 'catppuccin-latte'
+  | 'catppuccin-frappe'
+  | 'catppuccin-macchiato'
+  | 'catppuccin-mocha'
   | 'chrome-devtools'
   | 'clouds-midnight'
   | 'clouds'
@@ -1574,6 +1580,10 @@ export type CodemirrorTheme =
   | 'bespin'
   | 'birds-of-paradise'
   | 'boys-and-girls'
+  | 'catppuccin-latte'
+  | 'catppuccin-frappe'
+  | 'catppuccin-macchiato'
+  | 'catppuccin-mocha'
   | 'clouds'
   | 'cm-light'
   | 'cobalt'
@@ -1604,6 +1614,10 @@ export type CodejarTheme =
   | 'a11y-dark'
   | 'atom-dark'
   | 'base16-ateliersulphurpool-light'
+  | 'catppuccin-latte'
+  | 'catppuccin-frappe'
+  | 'catppuccin-macchiato'
+  | 'catppuccin-mocha'
   | 'cb'
   | 'coldark-cold'
   | 'coldark-dark'
@@ -1633,6 +1647,7 @@ export type CodejarTheme =
   | 'monochrome-dark'
   | 'night-owl'
   | 'nord'
+  | 'nord-2'
   | 'okaidia'
   | 'one-dark'
   | 'one-light'
@@ -1739,6 +1754,7 @@ export interface Screen {
     | 'about'
     | 'custom-settings'
     | 'editor-settings'
+    | 'code-to-image'
     | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;
 }

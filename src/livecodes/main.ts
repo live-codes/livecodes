@@ -141,6 +141,39 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
         async (
           e: MessageEventInit<{ method: keyof API; id: string; args: any; payload?: any }>,
         ) => {
+          if (e.data?.args === 'i18n') {
+            if (e.source !== iframe.contentWindow) return;
+
+            if (!isEmbed) {
+              // flatten i18n object `splash` and save to localStorage
+              const i18nSplashData = e.data.payload.data as { [k: string]: string };
+              for (const [key, value] of Object.entries(i18nSplashData)) {
+                localStorage.setItem(`i18n_splash.${key}`, value);
+              }
+            }
+
+            // Set document language
+            const lang = e.data.payload.lang as string;
+            document.documentElement.lang = lang;
+
+            // Reload the page to apply the new language
+            const reload = e.data.payload.reload as boolean;
+            const appUrl = e.data.payload.url as string | undefined;
+            if (reload) {
+              const url = new URL(appUrl || location.href);
+              if (appUrl && lang) {
+                url.searchParams.set('appLanguage', lang);
+              } else {
+                url.searchParams.delete('appLanguage');
+              }
+              if (isEmbed) {
+                url.searchParams.set('embed', '');
+              }
+              location.href = url.href;
+            }
+            return;
+          }
+
           if (isEmbed) {
             if (e.source !== parent || api == null) return;
             const { method, id, args } = e.data ?? {};
@@ -175,24 +208,6 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
             } else if (e.data?.args === 'console-message') {
               // eslint-disable-next-line no-console
               console.info(...(e.data.payload ?? []));
-            } else if (e.data?.args === 'i18n') {
-              // flatten i18n object `splash` and save to localStorage
-              const i18nSplashData = e.data.payload.data as { [k: string]: string };
-              for (const [key, value] of Object.entries(i18nSplashData)) {
-                localStorage.setItem(`i18n_splash.${key}`, value);
-              }
-
-              // Set document language
-              const lang = e.data.payload.lang as string;
-              document.documentElement.lang = lang;
-
-              // Reload the page to apply the new language
-              const reload = e.data.payload.reload as boolean;
-              if (reload) {
-                const url = new URL(location.href);
-                url.searchParams.delete('appLanguage');
-                location.href = url.href;
-              }
             }
           }
         },

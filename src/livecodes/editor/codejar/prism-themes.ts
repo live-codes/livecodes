@@ -1,8 +1,10 @@
 import type { CodejarTheme } from '../../models';
 import {
   prismOfficialThemesBaseUrl,
+  prismThemeNordUrl,
   prismThemesBaseUrl,
   prismThemesLaserWaveUrl,
+  vendorsBaseUrl,
 } from '../../vendors';
 
 const changeLineNumberColor = (color: string) =>
@@ -20,6 +22,26 @@ export const prismThemes: Array<{
     name: 'base16-ateliersulphurpool-light',
     title: 'Base16 Ateliersulphurpool Light',
     url: prismThemesBaseUrl + 'prism-base16-ateliersulphurpool.light.css',
+  },
+  {
+    name: 'catppuccin-latte',
+    title: 'Catppuccin Latte',
+    url: vendorsBaseUrl + 'catppuccin/prism/latte.css',
+  },
+  {
+    name: 'catppuccin-frappe',
+    title: 'Catppuccin Frappe',
+    url: vendorsBaseUrl + 'catppuccin/prism/frappe.css',
+  },
+  {
+    name: 'catppuccin-macchiato',
+    title: 'Catppuccin Macchiato',
+    url: vendorsBaseUrl + 'catppuccin/prism/macchiato.css',
+  },
+  {
+    name: 'catppuccin-mocha',
+    title: 'Catppuccin Mocha',
+    url: vendorsBaseUrl + 'catppuccin/prism/mocha.css',
   },
   { name: 'cb', title: 'CB', url: prismThemesBaseUrl + 'prism-cb.css' },
   {
@@ -116,6 +138,7 @@ export const prismThemes: Array<{
   },
   { name: 'night-owl', title: 'Night Owl', url: prismThemesBaseUrl + 'prism-night-owl.css' },
   { name: 'nord', title: 'Nord', url: prismThemesBaseUrl + 'prism-nord.css' },
+  { name: 'nord-2', title: 'Nord 2', url: prismThemeNordUrl },
   { name: 'okaidia', title: 'Okaidia', url: prismOfficialThemesBaseUrl + 'prism-okaidia.css' },
   { name: 'one-dark', title: 'One Dark', url: prismThemesBaseUrl + 'prism-one-dark.css' },
   { name: 'one-light', title: 'One Light', url: prismThemesBaseUrl + 'prism-one-light.css' },

@@ -53,6 +53,9 @@ const translation: I18nTranslation = {
     changeTheme: {
       hint: 'Alterar tema',
     },
+    codeToImage: {
+      hint: 'Código para Imagem',
+    },
     consoleMessage: {
       appVersion: 'Versão : {{APP_VERSION}}',
       commit: 'Commit Git: {{COMMIT_SHA}}',
@@ -243,6 +246,43 @@ const translation: I18nTranslation = {
       heading: 'URL do Servidor',
     },
   },
+  codeToImage: {
+    background: 'Antecedentes',
+    borderRadius: 'Raio da Borda',
+    code: 'Código',
+    copy: 'Copiar',
+    default: 'Padrão',
+    direction: 'Direção',
+    fileName: 'Nome do Arquivo',
+    fontFamily: 'Família da Fonte',
+    fontSize: 'Tamanho da Fonte',
+    heading: 'Código para Imagem',
+    image: 'Imagem',
+    imageFormat: {
+      jpg: 'JPEG',
+      label: 'Formato da imagem',
+      png: 'PNG',
+      svg: 'SVG',
+    },
+    layout: 'Disposição',
+    opacity: 'Opacidade',
+    padding: 'Acolchoamento',
+    presets: 'Predefinições',
+    preview: 'Visualização',
+    save: 'Guardar imagem',
+    scale: 'Escala de imagem',
+    shadow: 'Sombra',
+    share: 'Partilhar imagem',
+    shareUrl: 'Partilhar URL',
+    theme: 'Tema',
+    width: 'Largura',
+    windowStyle: {
+      label: 'Estilo de janela',
+      mac: 'macOS',
+      none: 'Nenhum',
+      windows: 'Windows',
+    },
+  },
   core: {
     broadcast: {
       heading: 'Transmissão',
@@ -264,6 +304,8 @@ const translation: I18nTranslation = {
       failedToLoadTemplate: 'Falha no carregamento do modelo',
       failedToLoadTemplates: 'Falha no carregamento dos modelos iniciais',
       failedToParseSettings: 'Falha na análise das configurações como JSON',
+      failedToSaveImage: 'Falha ao guardar a imagem',
+      failedToShareImage: 'Falha ao partilhar a imagem',
       invalidCommand: 'Comando inválido!',
       invalidImport: 'URL de importação inválida',
       invalidPanelId: 'ID de painel inválido',
@@ -284,6 +326,7 @@ const translation: I18nTranslation = {
       enter: 'Tela inteira',
       exit: 'Sair da tela inteira',
     },
+    generating: 'Gerando...',
     import: {
       loading: 'Carregando Projeto...',
     },
@@ -489,6 +532,7 @@ const translation: I18nTranslation = {
     },
     clickForInfo: 'Clique para informações...',
     close: 'Fechar',
+    custom: 'Costume',
     embed: {
       logoHint: 'Editar no LiveCodes 🡕',
     },
@@ -512,7 +556,7 @@ const translation: I18nTranslation = {
       started: 'Importação em massa iniciada...',
     },
     code: {
-      desc: 'Fontes Suportadas: <1> <2>GitHub gist</2> <3>Arquivo do GitHub</3> <4>Diretório em um repositório GitHub</4> <5>Trecho do Gitlab</5> <6>Arquivo do Gitlab</6> <7>Diretório em um repositório Gitlab</7> <8>JS Bin</8> <9>Código bruto</9> <10>Código no DOM da página web</10> <11>Código em arquivo zip</11> <12>Playgrounds oficiais<13></13>(TypeScript, Vue e Svelte)</12> </1> Visite a <14>documentação</14> para detalhes.',
+      desc: 'Fontes Suportadas: <1> <2>GitHub gist</2> <3>Arquivo do GitHub</3> <4>Diretório em um repositório GitHub</4> <5>Trecho do Gitlab</5> <6>Arquivo do Gitlab</6> <7>Diretório em um repositório Gitlab</7> <8>JS Bin</8> <9>Código bruto</9> <10>Código no DOM da página web</10> <11>Código em arquivo zip</11> <12>Playgrounds oficiais<13></13>(TypeScript e Vue)</12> </1> Visite a <14>documentação</14> para detalhes.',
       fromFile: 'Importar arquivos locais',
       fromURL: 'Importar de URL',
       heading: 'Importar Código',

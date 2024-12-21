@@ -60,6 +60,9 @@ const translation = {
     changeTheme: {
       hint: 'Change Theme',
     },
+    codeToImage: {
+      hint: 'Code to Image',
+    },
     consoleMessage: {
       appVersion: 'App version: {{APP_VERSION}}',
       commit: 'Git commit: {{COMMIT_SHA}}',
@@ -250,6 +253,43 @@ const translation = {
       heading: 'Server URL',
     },
   },
+  codeToImage: {
+    background: 'Background',
+    borderRadius: 'Border Radius',
+    code: 'Code',
+    copy: 'Copy',
+    default: 'Default',
+    direction: 'Direction',
+    fileName: 'File Name',
+    fontFamily: 'Font Family',
+    fontSize: 'Font Size',
+    heading: 'Code to Image',
+    image: 'Image',
+    imageFormat: {
+      jpg: 'JPEG',
+      label: 'Image Format',
+      png: 'PNG',
+      svg: 'SVG',
+    },
+    layout: 'Layout',
+    opacity: 'Opacity',
+    padding: 'Padding',
+    presets: 'Presets',
+    preview: 'Preview',
+    save: 'Save Image',
+    scale: 'Image Scale',
+    shadow: 'Shadow',
+    share: 'Share Image',
+    shareUrl: 'Share URL',
+    theme: 'Theme',
+    width: 'Width',
+    windowStyle: {
+      label: 'Window Style',
+      mac: 'macOS',
+      none: 'None',
+      windows: 'Windows',
+    },
+  },
   core: {
     broadcast: {
       heading: 'Broadcast',
@@ -271,6 +311,8 @@ const translation = {
       failedToLoadTemplate: 'Failed loading template',
       failedToLoadTemplates: 'Failed loading starter templates',
       failedToParseSettings: 'Failed parsing settings as JSON',
+      failedToSaveImage: 'Failed to save image',
+      failedToShareImage: 'Failed to share image',
       invalidCommand: 'Invalid command!',
       invalidImport: 'Invalid import URL',
       invalidPanelId: 'Invalid panel id',
@@ -291,6 +333,7 @@ const translation = {
       enter: 'Full Screen',
       exit: 'Exit Full Screen',
     },
+    generating: 'Generating...',
     import: {
       loading: 'Loading Project...',
     },
@@ -496,6 +539,7 @@ const translation = {
     },
     clickForInfo: 'Click for info...',
     close: 'Close',
+    custom: 'Custom',
     embed: {
       logoHint: 'Edit on LiveCodes 🡕',
     },
@@ -519,7 +563,7 @@ const translation = {
       started: 'Bulk import started...',
     },
     code: {
-      desc: 'Supported Sources: <1> <2>GitHub gist</2> <3>GitHub file</3> <4>Directory in a GitHub repo</4> <5>Gitlab snippet</5> <6>Gitlab file</6> <7>Directory in a Gitlab repo</7> <8>JS Bin</8> <9>Raw code</9> <10>Code in web page DOM</10> <11>Code in zip file</11> <12>Official playgrounds<13></13>(TypeScript, Vue and Svelte)</12> </1> Please visit the <14>documentations</14> for details.',
+      desc: 'Supported Sources: <1> <2>GitHub gist</2> <3>GitHub file</3> <4>Directory in a GitHub repo</4> <5>Gitlab snippet</5> <6>Gitlab file</6> <7>Directory in a Gitlab repo</7> <8>JS Bin</8> <9>Raw code</9> <10>Code in web page DOM</10> <11>Code in zip file</11> <12>Official playgrounds<13></13>(TypeScript and Vue)</12> </1> Please visit the <14>documentations</14> for details.',
       fromFile: 'Import local files',
       fromURL: 'Import from URL',
       heading: 'Import Code',

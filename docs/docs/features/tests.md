@@ -143,6 +143,12 @@ import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 ```
 
+- <a href="https://testing-library.com/docs/user-event/intro" target="_blank">user-event</a>
+
+```js
+import userEvent from '@testing-library/user-event';
+```
+
 ### Chai
 
 Jest assertions can be used in the tests. However, if you prefer Chai, it can be easily used.
@@ -158,7 +164,7 @@ Usage examples are provided in the starter templates (<a href="pathname:///../?t
 
 :::caution
 
-The test code is added to the result page and run in its context. Please note that script errors (e.g. import or syntax errors) may prevent the tests from loading.
+The test code is added to the result page and runs in its context. Please note that script errors (e.g. import or syntax errors) may prevent the tests from loading.
 
 :::
 

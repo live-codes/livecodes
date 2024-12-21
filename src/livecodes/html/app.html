@@ -130,7 +130,12 @@
         </div>
         <div class="toolbar-render">
           <div>
-            <div id="project-title" contenteditable="true" data-i18n="app.untitledProject">
+            <div
+              id="project-title"
+              contenteditable="true"
+              spellcheck="false"
+              data-i18n="app.untitledProject"
+            >
               Untitled Project
             </div>
             <a
@@ -244,6 +249,15 @@
               data-i18n-prop="title"
             >
               <i class="icon-editor-copy-url"></i>
+            </button>
+            <button
+              type="button"
+              id="code-to-img-btn"
+              title="Code to Image"
+              data-i18n="app.codeToImage.hint"
+              data-i18n-prop="title"
+            >
+              <i class="icon-camera"></i>
             </button>
             <span id="editor-status">
               <span id="editor-mode" title="Editor Mode"></span>

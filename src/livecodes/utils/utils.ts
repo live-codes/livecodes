@@ -198,6 +198,7 @@ export const loadStylesheet = (url: string, id?: string, insertBefore?: string) 
   stylesheet.rel = 'stylesheet';
   stylesheet.href = url;
   stylesheet.id = id || 'styles-' + getRandomString();
+  stylesheet.crossOrigin = 'anonymous';
   document.head.insertBefore(
     stylesheet,
     insertBefore ? document.querySelector(insertBefore) : null,
@@ -478,7 +479,7 @@ export const evaluateCssCalc = /* @__PURE__ */ (expression: string) => {
   return value;
 };
 
-const colorToRgba = /* @__PURE__ */ (name: string) => {
+export const colorToRgba = /* @__PURE__ */ (name: string) => {
   const fakeDiv = document.createElement('div');
   fakeDiv.style.color = name;
   document.body.appendChild(fakeDiv);
