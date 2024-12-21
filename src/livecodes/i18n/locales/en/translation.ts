@@ -539,6 +539,7 @@ const translation = {
     },
     clickForInfo: 'Click for info...',
     close: 'Close',
+    custom: 'Custom',
     embed: {
       logoHint: 'Edit on LiveCodes 🡕',
     },

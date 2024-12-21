@@ -1300,6 +1300,10 @@
     "notes": "",
     "translation": "Close"
   },
+  "generic.custom": {
+    "notes": "",
+    "translation": "Custom"
+  },
   "generic.embed.logoHint": {
     "notes": "",
     "translation": "Edit on LiveCodes 🡕"
