@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.7.2](https://github.com/live-codes/livecodes/compare/v37...sdk-v0.7.2) (2024-12-21)
+
+### Features
+
+- **SDK:** Add Catppuccin themes for Monaco, CodeMirror and CodeJar (`catppuccin-latte`, `catppuccin-frappe`, `catppuccin-macchiato` and `catppuccin-mocha`)
+
+---
+
 ## [v37](https://github.com/live-codes/livecodes/compare/v36...v37) (2024-12-09)
 
 ### Features
