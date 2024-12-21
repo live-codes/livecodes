@@ -532,6 +532,7 @@ const translation: I18nTranslation = {
     },
     clickForInfo: 'クリックして詳細を表示...',
     close: '閉じる',
+    custom: 'カスタム',
     embed: {
       logoHint: 'LiveCodes で編集する。🡕',
     },

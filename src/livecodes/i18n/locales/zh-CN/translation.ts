@@ -531,6 +531,7 @@ const translation: I18nTranslation = {
     },
     clickForInfo: '点击以获取信息...',
     close: '关闭',
+    custom: '自定义',
     embed: {
       logoHint: '在 LiveCodes 上编辑 🡕',
     },

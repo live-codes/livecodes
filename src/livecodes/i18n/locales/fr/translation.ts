@@ -532,6 +532,7 @@ const translation: I18nTranslation = {
     },
     clickForInfo: "Cliquez pour plus d'information...",
     close: 'Fermer',
+    custom: 'Personnalisé',
     embed: {
       logoHint: 'Editer sur LiveCodes 🡕',
     },
