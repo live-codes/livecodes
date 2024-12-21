@@ -78,6 +78,9 @@
   "app.changeTheme.hint": {
     "translation": "Изменить тему"
   },
+  "app.codeToImage.hint": {
+    "translation": "Код к изображению"
+  },
   "app.consoleMessage.appVersion": {
     "translation": "Версия приложения: {{APP_VERSION}}"
   },
@@ -387,6 +390,99 @@
   "broadcast.serverURL.heading": {
     "translation": "URL сервера"
   },
+  "codeToImage.background": {
+    "translation": "Фон"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "Радиус границы"
+  },
+  "codeToImage.code": {
+    "translation": "Код"
+  },
+  "codeToImage.copy": {
+    "translation": "Копировать"
+  },
+  "codeToImage.default": {
+    "translation": "По умолчанию"
+  },
+  "codeToImage.direction": {
+    "translation": "Направление"
+  },
+  "codeToImage.fileName": {
+    "translation": "Имя файла"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "Семейство шрифтов"
+  },
+  "codeToImage.fontSize": {
+    "translation": "Размер шрифта"
+  },
+  "codeToImage.heading": {
+    "translation": "Код к изображению"
+  },
+  "codeToImage.image": {
+    "translation": "Изображение"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "Формат изображения"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "Макет"
+  },
+  "codeToImage.opacity": {
+    "translation": "Непрозрачность"
+  },
+  "codeToImage.padding": {
+    "translation": "Набивка"
+  },
+  "codeToImage.presets": {
+    "translation": "Пресеты"
+  },
+  "codeToImage.preview": {
+    "translation": "Предпросмотр"
+  },
+  "codeToImage.save": {
+    "translation": "Сохранить изображение"
+  },
+  "codeToImage.scale": {
+    "translation": "Масштаб изображения"
+  },
+  "codeToImage.shadow": {
+    "translation": "Тень"
+  },
+  "codeToImage.share": {
+    "translation": "Поделиться изображением"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "Поделиться URL"
+  },
+  "codeToImage.theme": {
+    "translation": "Тема"
+  },
+  "codeToImage.width": {
+    "translation": "Ширина"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "Стиль окна"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "Нет"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "translation": "Трансляция"
   },
@@ -426,6 +522,12 @@
   "core.error.failedToParseSettings": {
     "translation": "Не удалось разобрать настройки как JSON"
   },
+  "core.error.failedToSaveImage": {
+    "translation": "Не удалось сохранить изображение"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "Не удалось поделиться изображением"
+  },
   "core.error.invalidCommand": {
     "translation": "Недопустимая команда!"
   },
@@ -464,6 +566,9 @@
   },
   "core.fullScreen.exit": {
     "translation": "Выйти из полноэкранного режима"
+  },
+  "core.generating": {
+    "translation": "Генерация..."
   },
   "core.import.loading": {
     "translation": "Загрузка проекта..."

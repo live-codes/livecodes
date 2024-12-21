@@ -78,6 +78,9 @@
   "app.changeTheme.hint": {
     "translation": "تھیم تبدیل کریں۔"
   },
+  "app.codeToImage.hint": {
+    "translation": "تصویر کے لئے کوڈ"
+  },
   "app.consoleMessage.appVersion": {
     "translation": "ایپ ورژن: {{APP_VERSION}}"
   },
@@ -387,6 +390,99 @@
   "broadcast.serverURL.heading": {
     "translation": "سرور یو آر ایل"
   },
+  "codeToImage.background": {
+    "translation": "پس منظر"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "سرحدی رداس"
+  },
+  "codeToImage.code": {
+    "translation": "کوڈ"
+  },
+  "codeToImage.copy": {
+    "translation": "کاپی کریں"
+  },
+  "codeToImage.default": {
+    "translation": "ڈیفالٹ"
+  },
+  "codeToImage.direction": {
+    "translation": "سمت"
+  },
+  "codeToImage.fileName": {
+    "translation": "فائل کا نام"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "فونٹ فیملی"
+  },
+  "codeToImage.fontSize": {
+    "translation": "فونٹ سائز"
+  },
+  "codeToImage.heading": {
+    "translation": "تصویر کے لئے کوڈ"
+  },
+  "codeToImage.image": {
+    "translation": "تصویر"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "تصویری شکل"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "لے آؤٹ"
+  },
+  "codeToImage.opacity": {
+    "translation": "دھندلاپن"
+  },
+  "codeToImage.padding": {
+    "translation": "پیڈنگ"
+  },
+  "codeToImage.presets": {
+    "translation": "پریسیٹس"
+  },
+  "codeToImage.preview": {
+    "translation": "پیش نظارہ"
+  },
+  "codeToImage.save": {
+    "translation": "تصویر محفوظ کریں۔"
+  },
+  "codeToImage.scale": {
+    "translation": "تصویری پیمانہ"
+  },
+  "codeToImage.shadow": {
+    "translation": "سایہ"
+  },
+  "codeToImage.share": {
+    "translation": "تصویر شیئر کریں۔"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "URL کا اشتراک کریں۔"
+  },
+  "codeToImage.theme": {
+    "translation": "تھیم"
+  },
+  "codeToImage.width": {
+    "translation": "چوڑائی"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "ونڈو اسٹائل"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "کوئی نہیں"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "translation": "نشریات"
   },
@@ -426,6 +522,12 @@
   "core.error.failedToParseSettings": {
     "translation": "ترتیبات کو JSON کے طور پر پارس کرنے میں ناکام"
   },
+  "core.error.failedToSaveImage": {
+    "translation": "تصویر محفوظ کرنے میں ناکام"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "تصویر کا اشتراک کرنے میں ناکام"
+  },
   "core.error.invalidCommand": {
     "translation": "غلط کمانڈ!"
   },
@@ -464,6 +566,9 @@
   },
   "core.fullScreen.exit": {
     "translation": "فل اسکرین سے باہر نکلیں"
+  },
+  "core.generating": {
+    "translation": "تیار کیا جا رہا ہے..."
   },
   "core.import.loading": {
     "translation": "پروجیکٹ لوڈ ہو رہا ہے..."

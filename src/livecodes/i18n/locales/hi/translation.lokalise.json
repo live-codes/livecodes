@@ -78,6 +78,9 @@
   "app.changeTheme.hint": {
     "translation": "विषय को परिवर्तित करें"
   },
+  "app.codeToImage.hint": {
+    "translation": "कोड से छवि"
+  },
   "app.consoleMessage.appVersion": {
     "translation": "ऐप संस्करण: {{APP_VERSION}}"
   },
@@ -387,6 +390,99 @@
   "broadcast.serverURL.heading": {
     "translation": "सर्वर URL"
   },
+  "codeToImage.background": {
+    "translation": "पृष्ठभूमि"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "बॉर्डर त्रिज्या"
+  },
+  "codeToImage.code": {
+    "translation": "कोड"
+  },
+  "codeToImage.copy": {
+    "translation": "कॉपी करें"
+  },
+  "codeToImage.default": {
+    "translation": "डिफ़ॉल्ट"
+  },
+  "codeToImage.direction": {
+    "translation": "दिशा"
+  },
+  "codeToImage.fileName": {
+    "translation": "फ़ाइल का नाम"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "फ़ॉन्ट परिवार"
+  },
+  "codeToImage.fontSize": {
+    "translation": "फ़ॉन्ट आकार"
+  },
+  "codeToImage.heading": {
+    "translation": "कोड से छवि"
+  },
+  "codeToImage.image": {
+    "translation": "छवि"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "छवि प्रारूप"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "लेआउट"
+  },
+  "codeToImage.opacity": {
+    "translation": "अस्पष्टता"
+  },
+  "codeToImage.padding": {
+    "translation": "पैडिंग"
+  },
+  "codeToImage.presets": {
+    "translation": "प्रीसेट"
+  },
+  "codeToImage.preview": {
+    "translation": "पूर्वावलोकन"
+  },
+  "codeToImage.save": {
+    "translation": "चित्र को सेव करें"
+  },
+  "codeToImage.scale": {
+    "translation": "छवि स्केल"
+  },
+  "codeToImage.shadow": {
+    "translation": "छाया"
+  },
+  "codeToImage.share": {
+    "translation": "चित्र साझा करें"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "यूआरएल साझा करें"
+  },
+  "codeToImage.theme": {
+    "translation": "थीम"
+  },
+  "codeToImage.width": {
+    "translation": "चौड़ाई"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "विंडो स्टाइल"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "कोई नहीं"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "translation": "प्रसारण"
   },
@@ -426,6 +522,12 @@
   "core.error.failedToParseSettings": {
     "translation": "सेटिंग्स को JSON के रूप में पार्स करने में विफल"
   },
+  "core.error.failedToSaveImage": {
+    "translation": "छवि सहेजने में विफल"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "छवि साझा करने में विफल"
+  },
   "core.error.invalidCommand": {
     "translation": "अमान्य कमांड!"
   },
@@ -464,6 +566,9 @@
   },
   "core.fullScreen.exit": {
     "translation": "पूर्ण स्क्रीन से बाहर निकलें"
+  },
+  "core.generating": {
+    "translation": "उत्पन्न हो रहा है..."
   },
   "core.import.loading": {
     "translation": "प्रोजेक्ट लोड हो रहा है..."
