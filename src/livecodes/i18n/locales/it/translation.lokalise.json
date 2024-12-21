@@ -1021,7 +1021,7 @@
     "translation": "Importazione in blocco avviata..."
   },
   "import.code.desc": {
-    "translation": "Fonti supportate: <tag-1> <tag-2>Gist GitHub</tag-2> <tag-3>File GitHub</tag-3> <tag-4>Directory in un repository GitHub</tag-4> <tag-5>Snippet Gitlab</tag-5> <tag-6>File Gitlab</tag-6> <tag-7>Directory in un repository Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Codice grezzo</tag-9> <tag-10>Codice nel DOM della pagina web</tag-10> <tag-11>Codice in file zip</tag-11> <tag-12>Playground ufficiali<tag-13></tag-13>(TypeScript, Vue e Svelte)</tag-12> </tag-1> Si prega di visitare la <tag-14>documentazione</tag-14> per i dettagli."
+    "translation": "Fonti supportate: <tag-1> <tag-2>Gist GitHub</tag-2> <tag-3>File GitHub</tag-3> <tag-4>Directory in un repository GitHub</tag-4> <tag-5>Snippet Gitlab</tag-5> <tag-6>File Gitlab</tag-6> <tag-7>Directory in un repository Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Codice grezzo</tag-9> <tag-10>Codice nel DOM della pagina web</tag-10> <tag-11>Codice in file zip</tag-11> <tag-12>Playground ufficiali<tag-13></tag-13>(TypeScript e Vue)</tag-12> </tag-1> Si prega di visitare la <tag-14>documentazione</tag-14> per i dettagli."
   },
   "import.code.fromFile": {
     "translation": "Importa file locali"
