@@ -975,6 +975,9 @@
   "generic.close": {
     "translation": "Fechar"
   },
+  "generic.custom": {
+    "translation": "Costume"
+  },
   "generic.embed.logoHint": {
     "translation": "Editar no LiveCodes 🡕"
   },

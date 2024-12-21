@@ -975,6 +975,9 @@
   "generic.close": {
     "translation": "बंद करें"
   },
+  "generic.custom": {
+    "translation": "रिवाज़"
+  },
   "generic.embed.logoHint": {
     "translation": "लाइवकोड्स पर संपादित करें 🡕"
   },

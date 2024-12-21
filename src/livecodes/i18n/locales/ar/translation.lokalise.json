@@ -975,6 +975,9 @@
   "generic.close": {
     "translation": "إغلاق"
   },
+  "generic.custom": {
+    "translation": "مخصص"
+  },
   "generic.embed.logoHint": {
     "translation": "تحرير على LiveCodes 🡕"
   },
