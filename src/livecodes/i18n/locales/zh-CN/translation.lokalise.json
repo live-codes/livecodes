@@ -78,6 +78,9 @@
   "app.changeTheme.hint": {
     "translation": "更改主题"
   },
+  "app.codeToImage.hint": {
+    "translation": "代码转图片"
+  },
   "app.consoleMessage.appVersion": {
     "translation": "应用版本：{{APP_VERSION}}"
   },
@@ -387,6 +390,99 @@
   "broadcast.serverURL.heading": {
     "translation": "服务器 URL"
   },
+  "codeToImage.background": {
+    "translation": "背景色"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "边框半径"
+  },
+  "codeToImage.code": {
+    "translation": "代码"
+  },
+  "codeToImage.copy": {
+    "translation": "复制"
+  },
+  "codeToImage.default": {
+    "translation": "默认"
+  },
+  "codeToImage.direction": {
+    "translation": "方向"
+  },
+  "codeToImage.fileName": {
+    "translation": "文件名"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "字体"
+  },
+  "codeToImage.fontSize": {
+    "translation": "字体大小"
+  },
+  "codeToImage.heading": {
+    "translation": "代码转图片"
+  },
+  "codeToImage.image": {
+    "translation": "图像"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "图像格式"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "布局"
+  },
+  "codeToImage.opacity": {
+    "translation": "不透明度"
+  },
+  "codeToImage.padding": {
+    "translation": "内边距"
+  },
+  "codeToImage.presets": {
+    "translation": "预设"
+  },
+  "codeToImage.preview": {
+    "translation": "预览"
+  },
+  "codeToImage.save": {
+    "translation": "保存图片"
+  },
+  "codeToImage.scale": {
+    "translation": "图像缩放比例"
+  },
+  "codeToImage.shadow": {
+    "translation": "阴影"
+  },
+  "codeToImage.share": {
+    "translation": "分享图片"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "分享 URL"
+  },
+  "codeToImage.theme": {
+    "translation": "主题"
+  },
+  "codeToImage.width": {
+    "translation": "宽度"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "窗口样式"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "无"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "translation": "播送"
   },
@@ -426,6 +522,12 @@
   "core.error.failedToParseSettings": {
     "translation": "无法将设置解析为 JSON"
   },
+  "core.error.failedToSaveImage": {
+    "translation": "保存图像失败"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "分享图像失败"
+  },
   "core.error.invalidCommand": {
     "translation": "命令无效！"
   },
@@ -464,6 +566,9 @@
   },
   "core.fullScreen.exit": {
     "translation": "退出全屏"
+  },
+  "core.generating": {
+    "translation": "正在生成 ..."
   },
   "core.import.loading": {
     "translation": "正在加载项目 ..."
