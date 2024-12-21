@@ -975,6 +975,9 @@
   "generic.close": {
     "translation": "Fermer"
   },
+  "generic.custom": {
+    "translation": "Personnalisé"
+  },
   "generic.embed.logoHint": {
     "translation": "Editer sur LiveCodes 🡕"
   },
