@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v39](https://github.com/live-codes/livecodes/compare/v38...v39) (2024-12-22)
+
+### Bug Fixes
+
+- **UI:** hide code to image button in embeds ([648654b](https://github.com/live-codes/livecodes/commit/648654b79cc4c3e74e2239f1d9eb38d4c743671b))
+
+---
+
 ## [v38](https://github.com/live-codes/livecodes/compare/v37...v38) (2024-12-21)
 
 ### Highlights for this release
