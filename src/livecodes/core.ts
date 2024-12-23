@@ -619,6 +619,9 @@ const showMode = (mode?: Config['mode']) => {
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
   }
+  if (mode === 'focus') {
+    toolsPane?.setActiveTool('console');
+  }
   window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
 
@@ -2346,7 +2349,8 @@ const handleChangeContent = () => {
   });
 };
 
-const handleHotKeys = () => {
+const handleKeyboardShortcuts = () => {
+  let lastkeys = '';
   const ctrl = (e: KeyboardEvent) => (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey);
   const hotKeys = async (e: KeyboardEvent) => {
     if (!e) return;
@@ -2356,32 +2360,32 @@ const handleHotKeys = () => {
     if (ctrl(e) && e.key.toLowerCase() === 'p' && activeEditor.monaco) {
       e.preventDefault();
       activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
+      lastkeys = 'Ctrl + p';
       return;
     }
 
     // Ctrl + d prevents browser bookmark dialog
     if (ctrl(e) && e.key.toLowerCase() === 'd') {
       e.preventDefault();
+      lastkeys = 'Ctrl + d';
       return;
     }
 
-    if (isEmbed) return;
-
-    // Ctrl + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.key.toLowerCase() === 's') {
+    // Ctrl + Alt + c: toggle console
+    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'c') {
       e.preventDefault();
-      await fork();
+      lastkeys = 'Ctrl + Alt + c';
+      if (!toolsPane) return;
+      if (toolsPane.getStatus() === 'open' && toolsPane.getActiveTool() === 'console') {
+        toolsPane.close();
+      } else {
+        toolsPane.open();
+      }
+      toolsPane.setActiveTool('console');
       return;
     }
 
-    // Ctrl + S saves the project
-    if (ctrl(e) && e.key.toLowerCase() === 's') {
-      e.preventDefault();
-      await save(true);
-      return;
-    }
-
-    // Ctrl + Alt + T runs tests
+    // Ctrl + Alt + t runs tests
     if (ctrl(e) && e.altKey && e.key.toLowerCase() === 't') {
       e.preventDefault();
       split?.show('output');
@@ -2390,6 +2394,7 @@ const handleHotKeys = () => {
         toolsPane?.open();
       }
       await runTests();
+      lastkeys = 'Ctrl + Alt + t';
       return;
     }
 
@@ -2398,6 +2403,107 @@ const handleHotKeys = () => {
       e.preventDefault();
       split?.show('output');
       await run();
+      lastkeys = 'Shift + Enter';
+      return;
+    }
+
+    // Ctrl + Alt + r toggles result page
+    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'r') {
+      e.preventDefault();
+      split?.show('toggle', true);
+      lastkeys = 'Ctrl + Alt + r';
+      return;
+    }
+
+    // Ctrl + Alt + (1-3) activates editor 1-3
+    // Ctrl + Alt + (ArrowLeft/ArrowRight) activates previous/next editor
+    const editorIds = ['markup', 'style', 'script'];
+    if (ctrl(e) && e.altKey && ['1', '2', '3', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+      split?.show('code');
+      const index = ['1', '2', '3'].includes(e.key)
+        ? Number(e.key) - 1
+        : e.key === 'ArrowLeft'
+          ? editorIds.findIndex((id) => id === getConfig().activeEditor) - 1 || 0
+          : e.key === 'ArrowRight'
+            ? editorIds.findIndex((id) => id === getConfig().activeEditor) + 1 || 0
+            : 0;
+      const editorIndex = index === 3 ? 0 : index === -1 ? 2 : index;
+      showEditor(editorIds[editorIndex] as EditorId);
+      lastkeys = 'Ctrl + Alt + ' + e.key;
+      return;
+    }
+
+    if (isEmbed) return;
+
+    // Ctrl + Alt + n: new project
+    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'n') {
+      e.preventDefault();
+      await showScreen('new');
+      lastkeys = 'Ctrl + Alt + n';
+      return;
+    }
+
+    // Ctrl + o: open project
+    if (ctrl(e) && e.key.toLowerCase() === 'o') {
+      e.preventDefault();
+      await showScreen('open');
+      lastkeys = 'Ctrl + o';
+      return;
+    }
+
+    // Ctrl + Alt + i: import
+    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'i') {
+      e.preventDefault();
+      await showScreen('import');
+      lastkeys = 'Ctrl + Alt + i';
+      return;
+    }
+
+    // Ctrl + Alt + s: share
+    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      await showScreen('share');
+      lastkeys = 'Ctrl + Alt + s';
+      return;
+    }
+
+    // Ctrl + Shift + s forks the project (save as...)
+    if (ctrl(e) && e.shiftKey && e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      await fork();
+      lastkeys = 'Ctrl + Shift + s';
+      return;
+    }
+
+    // Ctrl + s saves the project
+    if (ctrl(e) && e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      await save(true);
+      lastkeys = 'Ctrl + s';
+      return;
+    }
+
+    // Ctrl + k z toggles focus mode
+    if (ctrl(e) && e.key.toLowerCase() === 'k') {
+      lastkeys = 'Ctrl + k';
+      return;
+    }
+    if (e.key.toLowerCase() === 'z' && lastkeys === 'Ctrl + k') {
+      e.preventDefault();
+      const config = getConfig();
+      const newMode = config.mode === 'full' ? 'focus' : 'full';
+      setConfig({
+        ...config,
+        mode: newMode,
+      });
+      showMode(newMode);
+      lastkeys = 'z';
+      return;
+    }
+
+    if (!ctrl(e) && !e.altKey && !e.shiftKey) {
+      lastkeys = e.key;
       return;
     }
   };
@@ -2485,15 +2591,11 @@ const handleEditorTools = () => {
 
   eventsManager.addEventListener(UI.getFocusButton(), 'click', () => {
     const config = getConfig();
-    const currentMode = config.mode;
-    const newMode = currentMode === 'full' ? 'focus' : 'full';
+    const newMode = config.mode === 'full' ? 'focus' : 'full';
     setConfig({
       ...config,
       mode: newMode,
     });
-    if (newMode === 'focus') {
-      toolsPane?.setActiveTool('console');
-    }
     showMode(newMode);
   });
 
@@ -4624,7 +4726,7 @@ const basicHandlers = () => {
   handleSelectEditor();
   handleChangeLanguage();
   handleChangeContent();
-  handleHotKeys();
+  handleKeyboardShortcuts();
   handleRunButton();
   handleResultButton();
   handleShareButton();
