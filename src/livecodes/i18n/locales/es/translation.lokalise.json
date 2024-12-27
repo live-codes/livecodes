@@ -78,6 +78,9 @@
   "app.changeTheme.hint": {
     "translation": "Cambiar tema"
   },
+  "app.codeToImage.hint": {
+    "translation": "Código a imagen"
+  },
   "app.consoleMessage.appVersion": {
     "translation": "Versión de la aplicación: {{APP_VERSION}}"
   },
@@ -387,6 +390,99 @@
   "broadcast.serverURL.heading": {
     "translation": "URL del servidor"
   },
+  "codeToImage.background": {
+    "translation": "Fondo"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "Radio del borde"
+  },
+  "codeToImage.code": {
+    "translation": "Código"
+  },
+  "codeToImage.copy": {
+    "translation": "Copiar"
+  },
+  "codeToImage.default": {
+    "translation": "Predeterminado"
+  },
+  "codeToImage.direction": {
+    "translation": "Dirección"
+  },
+  "codeToImage.fileName": {
+    "translation": "Nombre del archivo"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "Familia de fuentes"
+  },
+  "codeToImage.fontSize": {
+    "translation": "Tamaño de fuente"
+  },
+  "codeToImage.heading": {
+    "translation": "Código a imagen"
+  },
+  "codeToImage.image": {
+    "translation": "Imagen"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "Formato de imagen"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "Diseño"
+  },
+  "codeToImage.opacity": {
+    "translation": "Opacidad"
+  },
+  "codeToImage.padding": {
+    "translation": "Acolchado"
+  },
+  "codeToImage.presets": {
+    "translation": "Preajustes"
+  },
+  "codeToImage.preview": {
+    "translation": "Vista previa"
+  },
+  "codeToImage.save": {
+    "translation": "Guardar imagen"
+  },
+  "codeToImage.scale": {
+    "translation": "Escala de imágenes"
+  },
+  "codeToImage.shadow": {
+    "translation": "Sombra"
+  },
+  "codeToImage.share": {
+    "translation": "Compartir imagen"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "Compartir URL"
+  },
+  "codeToImage.theme": {
+    "translation": "Tema"
+  },
+  "codeToImage.width": {
+    "translation": "Anchura"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "Estilo de ventana"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "Ninguno"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "translation": "Transmisión"
   },
@@ -426,6 +522,12 @@
   "core.error.failedToParseSettings": {
     "translation": "Fallo al analizar las configuraciones como JSON"
   },
+  "core.error.failedToSaveImage": {
+    "translation": "Error al guardar la imagen"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "Error al compartir imagen"
+  },
   "core.error.invalidCommand": {
     "translation": "¡Comando inválido!"
   },
@@ -464,6 +566,9 @@
   },
   "core.fullScreen.exit": {
     "translation": "Salir de pantalla completa"
+  },
+  "core.generating": {
+    "translation": "Generando..."
   },
   "core.import.loading": {
     "translation": "Cargando proyecto..."
@@ -870,6 +975,9 @@
   "generic.close": {
     "translation": "Cerrar"
   },
+  "generic.custom": {
+    "translation": "Costumbre"
+  },
   "generic.embed.logoHint": {
     "translation": "Editar en LiveCodes 🡕"
   },
@@ -913,7 +1021,7 @@
     "translation": "Importación masiva iniciada..."
   },
   "import.code.desc": {
-    "translation": "Fuentes compatibles: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>Archivo de GitHub</tag-3> <tag-4>Directorio en un repositorio de GitHub</tag-4> <tag-5>Fragmento de Gitlab</tag-5> <tag-6>Archivo de Gitlab</tag-6> <tag-7>Directorio en un repositorio de Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Código en bruto</tag-9> <tag-10>Código en el DOM de la página web</tag-10> <tag-11>Código en archivo zip</tag-11> <tag-12>Entornos oficiales<tag-13></tag-13>(TypeScript, Vue y Svelte)</tag-12> </tag-1> Por favor, visita la <tag-14>documentación</tag-14> para más detalles."
+    "translation": "Fuentes compatibles: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>Archivo de GitHub</tag-3> <tag-4>Directorio en un repositorio de GitHub</tag-4> <tag-5>Fragmento de Gitlab</tag-5> <tag-6>Archivo de Gitlab</tag-6> <tag-7>Directorio en un repositorio de Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Código en bruto</tag-9> <tag-10>Código en el DOM de la página web</tag-10> <tag-11>Código en archivo zip</tag-11> <tag-12>Entornos oficiales<tag-13></tag-13>(TypeScript y Vue)</tag-12> </tag-1> Por favor, visita la <tag-14>documentación</tag-14> para más detalles."
   },
   "import.code.fromFile": {
     "translation": "Importar archivos locales"

@@ -53,6 +53,9 @@ const translation: I18nTranslation = {
     changeTheme: {
       hint: 'Thema ändern',
     },
+    codeToImage: {
+      hint: 'Code zu Bild',
+    },
     consoleMessage: {
       appVersion: 'App-Version: {{APP_VERSION}}',
       commit: 'Git-Commit: {{COMMIT_SHA}}',
@@ -243,6 +246,43 @@ const translation: I18nTranslation = {
       heading: 'Server-URL',
     },
   },
+  codeToImage: {
+    background: 'Hintergrund',
+    borderRadius: 'Randradius',
+    code: 'Code',
+    copy: 'Kopieren',
+    default: 'Standard',
+    direction: 'Richtung',
+    fileName: 'Dateiname',
+    fontFamily: 'Schriftart',
+    fontSize: 'Schriftgröße',
+    heading: 'Code zu Bild',
+    image: 'Bild',
+    imageFormat: {
+      jpg: 'JPEG',
+      label: 'Bildformat',
+      png: 'PNG',
+      svg: 'SVG',
+    },
+    layout: 'Layout',
+    opacity: 'Opazität',
+    padding: 'Polsterung',
+    presets: 'Voreinstellungen',
+    preview: 'Vorschau',
+    save: 'Bild speichern',
+    scale: 'Bild Skala',
+    shadow: 'Schatten',
+    share: 'Bild teilen',
+    shareUrl: 'URL freigeben',
+    theme: 'Theme',
+    width: 'Breite',
+    windowStyle: {
+      label: 'Fenster-Stil',
+      mac: 'macOS',
+      none: 'Keine',
+      windows: 'Windows',
+    },
+  },
   core: {
     broadcast: {
       heading: 'Übertragung',
@@ -264,6 +304,8 @@ const translation: I18nTranslation = {
       failedToLoadTemplate: 'Fehler beim Laden der Vorlage',
       failedToLoadTemplates: 'Fehler beim Laden der Startvorlagen',
       failedToParseSettings: 'Fehler beim Parsen der Einstellungen als JSON',
+      failedToSaveImage: 'Bild konnte nicht gespeichert werden',
+      failedToShareImage: 'Bild kann nicht freigegeben werden',
       invalidCommand: 'Ungültiger Befehl!',
       invalidImport: 'Ungültige Import-URL',
       invalidPanelId: 'Ungültige Panel-ID',
@@ -284,6 +326,7 @@ const translation: I18nTranslation = {
       enter: 'Vollbild',
       exit: 'Vollbild beenden',
     },
+    generating: 'Wird generiert...',
     import: {
       loading: 'Projekt wird geladen...',
     },
@@ -489,6 +532,7 @@ const translation: I18nTranslation = {
     },
     clickForInfo: 'Klicken für Informationen...',
     close: 'Schließen',
+    custom: 'Benutzerdefiniert',
     embed: {
       logoHint: 'Bearbeiten auf LiveCodes 🡕',
     },
@@ -512,7 +556,7 @@ const translation: I18nTranslation = {
       started: 'Massen-Import gestartet...',
     },
     code: {
-      desc: 'Unterstützte Quellen: <1> <2>GitHub Gist</2> <3>GitHub-Datei</3> <4>Verzeichnis in einem GitHub-Repository</4> <5>Gitlab-Snippet</5> <6>Gitlab-Datei</6> <7>Verzeichnis in einem Gitlab-Repository</7> <8>JS Bin</8> <9>Rohcode</9> <10>Code im Webseiten-DOM</10> <11>Code in ZIP-Datei</11> <12>Offizielle Playgrounds<13></13>(TypeScript, Vue und Svelte)</12> </1> Bitte besuchen Sie die <14>Dokumentation</14> für Details.',
+      desc: 'Unterstützte Quellen: <1> <2>GitHub Gist</2> <3>GitHub-Datei</3> <4>Verzeichnis in einem GitHub-Repository</4> <5>Gitlab-Snippet</5> <6>Gitlab-Datei</6> <7>Verzeichnis in einem Gitlab-Repository</7> <8>JS Bin</8> <9>Rohcode</9> <10>Code im Webseiten-DOM</10> <11>Code in ZIP-Datei</11> <12>Offizielle Playgrounds<13></13>(TypeScript und Vue)</12> </1> Bitte besuchen Sie die <14>Dokumentation</14> für Details.',
       fromFile: 'Lokale Dateien importieren',
       fromURL: 'Von URL importieren',
       heading: 'Code importieren',

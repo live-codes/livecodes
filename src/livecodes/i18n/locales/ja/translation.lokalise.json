@@ -78,6 +78,9 @@
   "app.changeTheme.hint": {
     "translation": "テーマ変更"
   },
+  "app.codeToImage.hint": {
+    "translation": "コードから画像へ"
+  },
   "app.consoleMessage.appVersion": {
     "translation": "アプリバージョン: {{APP_VERSION}}"
   },
@@ -387,6 +390,99 @@
   "broadcast.serverURL.heading": {
     "translation": "サーバーURL"
   },
+  "codeToImage.background": {
+    "translation": "背景"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "境界半径"
+  },
+  "codeToImage.code": {
+    "translation": "コード"
+  },
+  "codeToImage.copy": {
+    "translation": "コピー"
+  },
+  "codeToImage.default": {
+    "translation": "デフォルト"
+  },
+  "codeToImage.direction": {
+    "translation": "ディレクション"
+  },
+  "codeToImage.fileName": {
+    "translation": "ファイル名"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "フォントファミリー"
+  },
+  "codeToImage.fontSize": {
+    "translation": "フォントサイズ"
+  },
+  "codeToImage.heading": {
+    "translation": "コードから画像へ"
+  },
+  "codeToImage.image": {
+    "translation": "画像"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "画像フォーマット"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "レイアウト"
+  },
+  "codeToImage.opacity": {
+    "translation": "不透明度"
+  },
+  "codeToImage.padding": {
+    "translation": "パディング"
+  },
+  "codeToImage.presets": {
+    "translation": "プリセット"
+  },
+  "codeToImage.preview": {
+    "translation": "プレビュー"
+  },
+  "codeToImage.save": {
+    "translation": "画像を保存"
+  },
+  "codeToImage.scale": {
+    "translation": "画像スケール"
+  },
+  "codeToImage.shadow": {
+    "translation": "シャドウ"
+  },
+  "codeToImage.share": {
+    "translation": "画像を共有する"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "URLを共有する"
+  },
+  "codeToImage.theme": {
+    "translation": "テーマ"
+  },
+  "codeToImage.width": {
+    "translation": "幅"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "窓のスタイル"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "なし"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "translation": "配信"
   },
@@ -426,6 +522,12 @@
   "core.error.failedToParseSettings": {
     "translation": "設定をJSONとして解析できませんでした"
   },
+  "core.error.failedToSaveImage": {
+    "translation": "画像の保存に失敗しました"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "画像の共有に失敗しました"
+  },
   "core.error.invalidCommand": {
     "translation": "無効なコマンドです！"
   },
@@ -464,6 +566,9 @@
   },
   "core.fullScreen.exit": {
     "translation": "全画面表示を終了"
+  },
+  "core.generating": {
+    "translation": "生成中..."
   },
   "core.import.loading": {
     "translation": "プロジェクトを読み込んでいます..."
@@ -870,6 +975,9 @@
   "generic.close": {
     "translation": "閉じる"
   },
+  "generic.custom": {
+    "translation": "カスタム"
+  },
   "generic.embed.logoHint": {
     "translation": "LiveCodes で編集する。🡕"
   },
@@ -913,7 +1021,7 @@
     "translation": "一括インポートを開始しました..."
   },
   "import.code.desc": {
-    "translation": "サポートされているソース：<tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHubファイル</tag-3> <tag-4>GitHubリポジトリ内のディレクトリ</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlabファイル</tag-6> <tag-7>Gitlabリポジトリ内のディレクトリ</tag-7> <tag-8>JS Bin</tag-8> <tag-9>生のコード</tag-9> <tag-10>Webページ内のDOM内のコード</tag-10> <tag-11>ZIPファイル内のコード</tag-11> <tag-12>公式プレイグラウンド<tag-13></tag-13>（TypeScript、Vue、Svelte）</tag-12> </tag-1> 詳細については<tag-14>ドキュメント</tag-14>をご覧ください。"
+    "translation": "サポートされているソース：<tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHubファイル</tag-3> <tag-4>GitHubリポジトリ内のディレクトリ</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlabファイル</tag-6> <tag-7>Gitlabリポジトリ内のディレクトリ</tag-7> <tag-8>JS Bin</tag-8> <tag-9>生のコード</tag-9> <tag-10>Webページ内のDOM内のコード</tag-10> <tag-11>ZIPファイル内のコード</tag-11> <tag-12>公式プレイグラウンド<tag-13></tag-13>（TypeScript、Vue）</tag-12> </tag-1> 詳細については<tag-14>ドキュメント</tag-14>をご覧ください。"
   },
   "import.code.fromFile": {
     "translation": "ローカルファイルをインポート"

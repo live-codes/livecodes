@@ -52,6 +52,9 @@ const translation: I18nTranslation = {
     changeTheme: {
       hint: '更改主题',
     },
+    codeToImage: {
+      hint: '代码转图片',
+    },
     consoleMessage: {
       appVersion: '应用版本：{{APP_VERSION}}',
       commit: 'Git 提交：{{COMMIT_SHA}}',
@@ -242,6 +245,43 @@ const translation: I18nTranslation = {
       heading: '服务器 URL',
     },
   },
+  codeToImage: {
+    background: '背景色',
+    borderRadius: '边框半径',
+    code: '代码',
+    copy: '复制',
+    default: '默认',
+    direction: '方向',
+    fileName: '文件名',
+    fontFamily: '字体',
+    fontSize: '字体大小',
+    heading: '代码转图片',
+    image: '图像',
+    imageFormat: {
+      jpg: 'JPEG',
+      label: '图像格式',
+      png: 'PNG',
+      svg: 'SVG',
+    },
+    layout: '布局',
+    opacity: '不透明度',
+    padding: '内边距',
+    presets: '预设',
+    preview: '预览',
+    save: '保存图片',
+    scale: '图像缩放比例',
+    shadow: '阴影',
+    share: '分享图片',
+    shareUrl: '分享 URL',
+    theme: '主题',
+    width: '宽度',
+    windowStyle: {
+      label: '窗口样式',
+      mac: 'macOS',
+      none: '无',
+      windows: 'Windows',
+    },
+  },
   core: {
     broadcast: {
       heading: '播送',
@@ -263,6 +303,8 @@ const translation: I18nTranslation = {
       failedToLoadTemplate: '加载模板失败',
       failedToLoadTemplates: '加载启动模板失败',
       failedToParseSettings: '无法将设置解析为 JSON',
+      failedToSaveImage: '保存图像失败',
+      failedToShareImage: '分享图像失败',
       invalidCommand: '命令无效！',
       invalidImport: '导入 URL 无效',
       invalidPanelId: '面板 ID 无效',
@@ -283,6 +325,7 @@ const translation: I18nTranslation = {
       enter: '全屏',
       exit: '退出全屏',
     },
+    generating: '正在生成 ...',
     import: {
       loading: '正在加载项目 ...',
     },
@@ -488,6 +531,7 @@ const translation: I18nTranslation = {
     },
     clickForInfo: '点击以获取信息...',
     close: '关闭',
+    custom: '自定义',
     embed: {
       logoHint: '在 LiveCodes 上编辑 🡕',
     },
@@ -511,7 +555,7 @@ const translation: I18nTranslation = {
       started: '批量导入已开始 ...',
     },
     code: {
-      desc: '支持的来源： <1> <2>GitHub Gist</2> <3>GitHub 文件</3> <4>GitHub 仓库中的目录</4> <5>Gitlab Snippet</5> <6>Gitlab 文件</6><7>Gitlab 仓库中的目录</7> <8>JS Bin</8><9> 原始代码</9> <10>网页 DOM 中的代码 </10> <11>zip 文件中的代码</11> <12>官方样板<13></13>（TypeScript, Vue 和 Svelte）</12> </1> 请访问<14>文档</14>以了解详细信息。',
+      desc: '支持的来源： <1> <2>GitHub Gist</2> <3>GitHub 文件</3> <4>GitHub 仓库中的目录</4> <5>Gitlab Snippet</5> <6>Gitlab 文件</6><7>Gitlab 仓库中的目录</7> <8>JS Bin</8><9> 原始代码</9> <10>网页 DOM 中的代码 </10> <11>zip 文件中的代码</11> <12>官方样板<13></13>（TypeScript 和 Vue）</12> </1> 请访问<14>文档</14>以了解详细信息。',
       fromFile: '从本地文件导入',
       fromURL: '从 URL 导入',
       heading: '导入代码',

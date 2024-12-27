@@ -78,7 +78,7 @@ Import is supported from any of the following:
 - [Shared projects](./share.md)
 - Raw code
 - Code in web page DOM
-- Projects shared in official playgrounds of [TypeScript](https://www.typescriptlang.org/play), [Vue](https://play.vuejs.org/) and [Svelte](https://svelte.dev/repl)
+- Projects shared in official playgrounds of [TypeScript](https://www.typescriptlang.org/play) and [Vue](https://play.vuejs.org/)
 - Local file(s)
 - Code in zip file (Local or URL)
 - [Exported project JSON](./export.md) (single project and bulk import)

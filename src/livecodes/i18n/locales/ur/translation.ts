@@ -53,6 +53,9 @@ const translation: I18nTranslation = {
     changeTheme: {
       hint: 'تھیم تبدیل کریں۔',
     },
+    codeToImage: {
+      hint: 'تصویر کے لئے کوڈ',
+    },
     consoleMessage: {
       appVersion: 'ایپ ورژن: {{APP_VERSION}}',
       commit: 'گٹ کمٹ: {{COMMIT_SHA}}',
@@ -243,6 +246,43 @@ const translation: I18nTranslation = {
       heading: 'سرور یو آر ایل',
     },
   },
+  codeToImage: {
+    background: 'پس منظر',
+    borderRadius: 'سرحدی رداس',
+    code: 'کوڈ',
+    copy: 'کاپی کریں',
+    default: 'ڈیفالٹ',
+    direction: 'سمت',
+    fileName: 'فائل کا نام',
+    fontFamily: 'فونٹ فیملی',
+    fontSize: 'فونٹ سائز',
+    heading: 'تصویر کے لئے کوڈ',
+    image: 'تصویر',
+    imageFormat: {
+      jpg: 'JPEG',
+      label: 'تصویری شکل',
+      png: 'PNG',
+      svg: 'SVG',
+    },
+    layout: 'لے آؤٹ',
+    opacity: 'دھندلاپن',
+    padding: 'پیڈنگ',
+    presets: 'پریسیٹس',
+    preview: 'پیش نظارہ',
+    save: 'تصویر محفوظ کریں۔',
+    scale: 'تصویری پیمانہ',
+    shadow: 'سایہ',
+    share: 'تصویر شیئر کریں۔',
+    shareUrl: 'URL کا اشتراک کریں۔',
+    theme: 'تھیم',
+    width: 'چوڑائی',
+    windowStyle: {
+      label: 'ونڈو اسٹائل',
+      mac: 'macOS',
+      none: 'کوئی نہیں',
+      windows: 'Windows',
+    },
+  },
   core: {
     broadcast: {
       heading: 'نشریات',
@@ -264,6 +304,8 @@ const translation: I18nTranslation = {
       failedToLoadTemplate: 'ٹیمپلیٹ لوڈ کرنے میں ناکام',
       failedToLoadTemplates: 'شروعاتی ٹیمپلیٹس لوڈ کرنے میں ناکام',
       failedToParseSettings: 'ترتیبات کو JSON کے طور پر پارس کرنے میں ناکام',
+      failedToSaveImage: 'تصویر محفوظ کرنے میں ناکام',
+      failedToShareImage: 'تصویر کا اشتراک کرنے میں ناکام',
       invalidCommand: 'غلط کمانڈ!',
       invalidImport: 'غلط درآمد یو آر ایل',
       invalidPanelId: 'غلط پینل آئی ڈی',
@@ -284,6 +326,7 @@ const translation: I18nTranslation = {
       enter: 'فل اسکرین',
       exit: 'فل اسکرین سے باہر نکلیں',
     },
+    generating: 'تیار کیا جا رہا ہے...',
     import: {
       loading: 'پروجیکٹ لوڈ ہو رہا ہے...',
     },
@@ -489,6 +532,7 @@ const translation: I18nTranslation = {
     },
     clickForInfo: 'معلومات کے لیے کلک کریں...',
     close: 'بند کریں',
+    custom: 'حسب ضرورت',
     embed: {
       logoHint: 'لائیو کوڈ پر ترمیم کریں 🡕',
     },
@@ -512,7 +556,7 @@ const translation: I18nTranslation = {
       started: 'بلک درآمد شروع ہو گیا...',
     },
     code: {
-      desc: 'سپورٹڈ ذرائع: <1> <2>گٹ ہب گسٹ</2> <3>گٹ ہب فائل</3> <4>گٹ ہب ریپو میں ڈائریکٹری</4> <5>گٹ لیب اسنپٹ</5> <6>گٹ لیب فائل</6> <7>گٹ لیب ریپو میں ڈائریکٹری</7> <8>جے ایس بن</8> <9>خام کوڈ</9> <10>ویب صفحہ ڈی او ایم میں کوڈ</10> <11>زپ فائل میں کوڈ</11> <12>سرکاری پلے گراؤنڈز<13></13>(ٹائپ اسکرپٹ، ویو اور سویلٹ)</12> </1> تفصیلات کے لیے براہ کرم <14>دستاویزات</14> ملاحظہ کریں۔',
+      desc: 'سپورٹڈ ذرائع: <1> <2>گٹ ہب گسٹ</2> <3>گٹ ہب فائل</3> <4>گٹ ہب ریپو میں ڈائریکٹری</4> <5>گٹ لیب اسنپٹ</5> <6>گٹ لیب فائل</6> <7>گٹ لیب ریپو میں ڈائریکٹری</7> <8>جے ایس بن</8> <9>خام کوڈ</9> <10>ویب صفحہ ڈی او ایم میں کوڈ</10> <11>زپ فائل میں کوڈ</11> <12>سرکاری پلے گراؤنڈز<13></13>(ٹائپ اسکرپٹ اور ویو)</12> </1> تفصیلات کے لیے براہ کرم <14>دستاویزات</14> ملاحظہ کریں۔',
       fromFile: 'مقامی فائلیں درآمد کریں',
       fromURL: 'یو آر ایل سے درآمد کریں',
       heading: 'کوڈ درآمد کریں',

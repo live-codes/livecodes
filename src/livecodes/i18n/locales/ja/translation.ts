@@ -53,6 +53,9 @@ const translation: I18nTranslation = {
     changeTheme: {
       hint: 'テーマ変更',
     },
+    codeToImage: {
+      hint: 'コードから画像へ',
+    },
     consoleMessage: {
       appVersion: 'アプリバージョン: {{APP_VERSION}}',
       commit: 'Gitコミット: {{COMMIT_SHA}}',
@@ -243,6 +246,43 @@ const translation: I18nTranslation = {
       heading: 'サーバーURL',
     },
   },
+  codeToImage: {
+    background: '背景',
+    borderRadius: '境界半径',
+    code: 'コード',
+    copy: 'コピー',
+    default: 'デフォルト',
+    direction: 'ディレクション',
+    fileName: 'ファイル名',
+    fontFamily: 'フォントファミリー',
+    fontSize: 'フォントサイズ',
+    heading: 'コードから画像へ',
+    image: '画像',
+    imageFormat: {
+      jpg: 'JPEG',
+      label: '画像フォーマット',
+      png: 'PNG',
+      svg: 'SVG',
+    },
+    layout: 'レイアウト',
+    opacity: '不透明度',
+    padding: 'パディング',
+    presets: 'プリセット',
+    preview: 'プレビュー',
+    save: '画像を保存',
+    scale: '画像スケール',
+    shadow: 'シャドウ',
+    share: '画像を共有する',
+    shareUrl: 'URLを共有する',
+    theme: 'テーマ',
+    width: '幅',
+    windowStyle: {
+      label: '窓のスタイル',
+      mac: 'macOS',
+      none: 'なし',
+      windows: 'Windows',
+    },
+  },
   core: {
     broadcast: {
       heading: '配信',
@@ -264,6 +304,8 @@ const translation: I18nTranslation = {
       failedToLoadTemplate: 'テンプレートの読み込みに失敗しました',
       failedToLoadTemplates: 'スターターテンプレートの読み込みに失敗しました',
       failedToParseSettings: '設定をJSONとして解析できませんでした',
+      failedToSaveImage: '画像の保存に失敗しました',
+      failedToShareImage: '画像の共有に失敗しました',
       invalidCommand: '無効なコマンドです！',
       invalidImport: '無効なインポートURLです',
       invalidPanelId: '無効なパネルIDです',
@@ -284,6 +326,7 @@ const translation: I18nTranslation = {
       enter: '全画面表示',
       exit: '全画面表示を終了',
     },
+    generating: '生成中...',
     import: {
       loading: 'プロジェクトを読み込んでいます...',
     },
@@ -489,6 +532,7 @@ const translation: I18nTranslation = {
     },
     clickForInfo: 'クリックして詳細を表示...',
     close: '閉じる',
+    custom: 'カスタム',
     embed: {
       logoHint: 'LiveCodes で編集する。🡕',
     },
@@ -512,7 +556,7 @@ const translation: I18nTranslation = {
       started: '一括インポートを開始しました...',
     },
     code: {
-      desc: 'サポートされているソース：<1> <2>GitHub gist</2> <3>GitHubファイル</3> <4>GitHubリポジトリ内のディレクトリ</4> <5>Gitlab snippet</5> <6>Gitlabファイル</6> <7>Gitlabリポジトリ内のディレクトリ</7> <8>JS Bin</8> <9>生のコード</9> <10>Webページ内のDOM内のコード</10> <11>ZIPファイル内のコード</11> <12>公式プレイグラウンド<13></13>（TypeScript、Vue、Svelte）</12> </1> 詳細については<14>ドキュメント</14>をご覧ください。',
+      desc: 'サポートされているソース：<1> <2>GitHub gist</2> <3>GitHubファイル</3> <4>GitHubリポジトリ内のディレクトリ</4> <5>Gitlab snippet</5> <6>Gitlabファイル</6> <7>Gitlabリポジトリ内のディレクトリ</7> <8>JS Bin</8> <9>生のコード</9> <10>Webページ内のDOM内のコード</10> <11>ZIPファイル内のコード</11> <12>公式プレイグラウンド<13></13>（TypeScript、Vue）</12> </1> 詳細については<14>ドキュメント</14>をご覧ください。',
       fromFile: 'ローカルファイルをインポート',
       fromURL: 'URLからインポート',
       heading: 'コードのインポート',

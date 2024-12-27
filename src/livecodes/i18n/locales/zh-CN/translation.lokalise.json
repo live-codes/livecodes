@@ -78,6 +78,9 @@
   "app.changeTheme.hint": {
     "translation": "更改主题"
   },
+  "app.codeToImage.hint": {
+    "translation": "代码转图片"
+  },
   "app.consoleMessage.appVersion": {
     "translation": "应用版本：{{APP_VERSION}}"
   },
@@ -387,6 +390,99 @@
   "broadcast.serverURL.heading": {
     "translation": "服务器 URL"
   },
+  "codeToImage.background": {
+    "translation": "背景色"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "边框半径"
+  },
+  "codeToImage.code": {
+    "translation": "代码"
+  },
+  "codeToImage.copy": {
+    "translation": "复制"
+  },
+  "codeToImage.default": {
+    "translation": "默认"
+  },
+  "codeToImage.direction": {
+    "translation": "方向"
+  },
+  "codeToImage.fileName": {
+    "translation": "文件名"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "字体"
+  },
+  "codeToImage.fontSize": {
+    "translation": "字体大小"
+  },
+  "codeToImage.heading": {
+    "translation": "代码转图片"
+  },
+  "codeToImage.image": {
+    "translation": "图像"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "图像格式"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "布局"
+  },
+  "codeToImage.opacity": {
+    "translation": "不透明度"
+  },
+  "codeToImage.padding": {
+    "translation": "内边距"
+  },
+  "codeToImage.presets": {
+    "translation": "预设"
+  },
+  "codeToImage.preview": {
+    "translation": "预览"
+  },
+  "codeToImage.save": {
+    "translation": "保存图片"
+  },
+  "codeToImage.scale": {
+    "translation": "图像缩放比例"
+  },
+  "codeToImage.shadow": {
+    "translation": "阴影"
+  },
+  "codeToImage.share": {
+    "translation": "分享图片"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "分享 URL"
+  },
+  "codeToImage.theme": {
+    "translation": "主题"
+  },
+  "codeToImage.width": {
+    "translation": "宽度"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "窗口样式"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "无"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
   "core.broadcast.heading": {
     "translation": "播送"
   },
@@ -426,6 +522,12 @@
   "core.error.failedToParseSettings": {
     "translation": "无法将设置解析为 JSON"
   },
+  "core.error.failedToSaveImage": {
+    "translation": "保存图像失败"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "分享图像失败"
+  },
   "core.error.invalidCommand": {
     "translation": "命令无效！"
   },
@@ -464,6 +566,9 @@
   },
   "core.fullScreen.exit": {
     "translation": "退出全屏"
+  },
+  "core.generating": {
+    "translation": "正在生成 ..."
   },
   "core.import.loading": {
     "translation": "正在加载项目 ..."
@@ -870,6 +975,9 @@
   "generic.close": {
     "translation": "关闭"
   },
+  "generic.custom": {
+    "translation": "自定义"
+  },
   "generic.embed.logoHint": {
     "translation": "在 LiveCodes 上编辑 🡕"
   },
@@ -913,7 +1021,7 @@
     "translation": "批量导入已开始 ..."
   },
   "import.code.desc": {
-    "translation": "支持的来源： <tag-1> <tag-2>GitHub Gist</tag-2> <tag-3>GitHub 文件</tag-3> <tag-4>GitHub 仓库中的目录</tag-4> <tag-5>Gitlab Snippet</tag-5> <tag-6>Gitlab 文件</tag-6><tag-7>Gitlab 仓库中的目录</tag-7> <tag-8>JS Bin</tag-8><tag-9> 原始代码</tag-9> <tag-10>网页 DOM 中的代码 </tag-10> <tag-11>zip 文件中的代码</tag-11> <tag-12>官方样板<tag-13></tag-13>（TypeScript, Vue 和 Svelte）</tag-12> </tag-1> 请访问<tag-14>文档</tag-14>以了解详细信息。"
+    "translation": "支持的来源： <tag-1> <tag-2>GitHub Gist</tag-2> <tag-3>GitHub 文件</tag-3> <tag-4>GitHub 仓库中的目录</tag-4> <tag-5>Gitlab Snippet</tag-5> <tag-6>Gitlab 文件</tag-6><tag-7>Gitlab 仓库中的目录</tag-7> <tag-8>JS Bin</tag-8><tag-9> 原始代码</tag-9> <tag-10>网页 DOM 中的代码 </tag-10> <tag-11>zip 文件中的代码</tag-11> <tag-12>官方样板<tag-13></tag-13>（TypeScript 和 Vue）</tag-12> </tag-1> 请访问<tag-14>文档</tag-14>以了解详细信息。"
   },
   "import.code.fromFile": {
     "translation": "从本地文件导入"
