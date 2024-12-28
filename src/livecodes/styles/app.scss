@@ -32,6 +32,7 @@
   --color40: hsl(var(--hue), var(--st), calc(var(--lt) * 0.8)); // 40%
   --color50: hsl(var(--hue), var(--st), calc(var(--lt) * 1)); // 50%
   --color60: hsl(var(--hue), var(--st), calc(var(--lt) * 1.2)); // 60%
+  --color70: hsl(var(--hue), var(--st), calc(var(--lt) * 1.4)); // 70%
   --color80: hsl(var(--hue), var(--st), calc(var(--lt) * 1.6)); // 80%
   --color85: hsl(var(--hue), var(--st), calc(var(--lt) * 1.7)); // 85%
   --color90: hsl(var(--hue), var(--st), calc(var(--lt) * 1.8)); // 90%
@@ -1749,6 +1750,24 @@ li.editor-title {
   }
 }
 
+ninja-keys {
+  --ninja-text-color: var(--dropdown-color);
+  --ninja-modal-background: var(--dropdown-bg-color);
+  --ninja-accent-color: var(--dropdown-color);
+  --ninja-selected-background: var(--dark-bg-color);
+  --ninja-secondary-text-color: var(--btn-color);
+  --ninja-secondary-background-color: var(--btn-bg-color);
+  --ninja-placeholder-color: var(--color70);
+  --ninja-footer-background: var(--dropdown-bg-color);
+  --ninja-overflow-background: var(--overlay-bg-color);
+  font-family: 'Inter';
+
+  &.dark {
+    --ninja-selected-background: var(--color40);
+    --ninja-placeholder-color: var(--color40);
+  }
+}
+
 /* Code Mirror */
 // TODO TEST CM
 .cm-wrap {
@@ -2147,6 +2166,10 @@ body {
 
   #result-mode-drawer {
     z-index: 2500;
+  }
+
+  ninja-keys {
+    z-index: 2700;
   }
 
   .snackbars {

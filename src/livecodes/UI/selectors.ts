@@ -254,6 +254,9 @@ export const getWelcomeLink = /* @__PURE__ */ () =>
 export const getAboutLink = /* @__PURE__ */ () =>
   document.querySelector<HTMLAnchorElement>('#about-link');
 
+export const getCommandMenuLink = /* @__PURE__ */ () =>
+  document.querySelector<HTMLAnchorElement>('#command-menu-link');
+
 export const getAutoupdateToggle = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-settings input#autoupdate') as HTMLInputElement;
 

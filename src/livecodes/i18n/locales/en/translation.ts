@@ -290,6 +290,18 @@ const translation = {
       windows: 'Windows',
     },
   },
+  commandMenu: {
+    changeTheme: {
+      dark: 'Change theme to dark',
+      light: 'Change theme to light',
+    },
+    home: 'Home',
+    moveToParent: 'move to parent',
+    placeholder: 'Type a command or search...',
+    toClose: 'to close',
+    toNavigate: 'to navigate',
+    toSelect: 'to select',
+  },
   core: {
     broadcast: {
       heading: 'Broadcast',
@@ -617,6 +629,7 @@ const translation = {
     backup: 'Backup / Restore …',
     blog: 'LiveCodes Blog',
     broadcast: 'Broadcast …',
+    commandMenu: 'Command Menu',
     config: 'Configuration',
     customSettings: 'Custom Settings …',
     delay: {

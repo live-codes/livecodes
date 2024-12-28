@@ -644,6 +644,38 @@
     "notes": "",
     "translation": "Windows"
   },
+  "commandMenu.changeTheme.dark": {
+    "notes": "",
+    "translation": "Change theme to dark"
+  },
+  "commandMenu.changeTheme.light": {
+    "notes": "",
+    "translation": "Change theme to light"
+  },
+  "commandMenu.home": {
+    "notes": "",
+    "translation": "Home"
+  },
+  "commandMenu.moveToParent": {
+    "notes": "",
+    "translation": "move to parent"
+  },
+  "commandMenu.placeholder": {
+    "notes": "",
+    "translation": "Type a command or search..."
+  },
+  "commandMenu.toClose": {
+    "notes": "",
+    "translation": "to close"
+  },
+  "commandMenu.toNavigate": {
+    "notes": "",
+    "translation": "to navigate"
+  },
+  "commandMenu.toSelect": {
+    "notes": "",
+    "translation": "to select"
+  },
   "core.broadcast.heading": {
     "notes": "",
     "translation": "Broadcast"
@@ -1507,6 +1539,10 @@
   "menu.broadcast": {
     "notes": "",
     "translation": "Broadcast …"
+  },
+  "menu.commandMenu": {
+    "notes": "",
+    "translation": "Command Menu"
   },
   "menu.config": {
     "notes": "",

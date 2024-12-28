@@ -12,6 +12,7 @@
     </style>
     <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossorigin />
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
     <link rel="stylesheet" href="{{baseUrl}}{{hash:app.css}}" id="app-styles" />
     <script src="{{esModuleShimsUrl}}" async></script>
     <script type="importmap">
@@ -315,6 +316,11 @@
     <div id="modal-container" style="display: none">
       <div id="modal"></div>
     </div>
+    <ninja-keys
+      placeholder="Type a command or search..."
+      data-i18n="commandMenu.placeholder"
+      data-i18n-prop="placeholder"
+    ></ninja-keys>
     <div id="result-mode-drawer" class="hidden" style="display: none">
       <a href="#">
         <div id="drawer-logo">

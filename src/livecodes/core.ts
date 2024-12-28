@@ -120,12 +120,15 @@ import * as UI from './UI/selectors';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
+  fontInterUrl,
+  fontMaterialIconsUrl,
   fscreenUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
   lunaDataGridStylesUrl,
   lunaDomViewerStylesUrl,
   lunaObjViewerStylesUrl,
+  ninjaKeysUrl,
   snackbarUrl,
 } from './vendors';
 import { createToolsPane } from './toolspane';
@@ -1789,6 +1792,7 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
     customEditors[editor?.getLanguage()]?.setTheme(theme);
   });
   toolsPane?.console?.setTheme?.(theme);
+  document.querySelector('ninja-keys')?.classList.toggle('dark', theme === 'dark');
 };
 
 const changeThemeColor = () => {
@@ -2358,8 +2362,11 @@ const handleChangeContent = () => {
 const handleKeyboardShortcuts = () => {
   let lastkeys = '';
   const ctrl = (e: KeyboardEvent) => (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey);
+
   const hotKeys = async (e: KeyboardEvent) => {
-    if (!e) return;
+    const ninja = document.querySelector('ninja-keys') as any;
+    // eslint-disable-next-line no-underscore-dangle
+    if (ninja.__visible != null) return;
 
     // Ctrl + P opens the command palette
     const activeEditor = getActiveEditor();
@@ -2514,7 +2521,109 @@ const handleKeyboardShortcuts = () => {
     }
   };
 
-  eventsManager.addEventListener(window, 'keydown', hotKeys as any, true);
+  eventsManager.addEventListener(window, 'keydown', hotKeys, true);
+};
+
+const handleCommandMenu = async () => {
+  if (isEmbed) return;
+
+  const loadNinjaKeys = () => import(ninjaKeysUrl);
+  loadStylesheet(fontInterUrl, 'font-inter');
+  loadStylesheet(fontMaterialIconsUrl, 'material-icons');
+  await loadNinjaKeys();
+
+  const ninja = document.querySelector('ninja-keys') as any;
+
+  ninja.data = [
+    {
+      id: 'New',
+      title: window.deps.translateString('menu.new', 'New …'),
+      hotkey: 'Ctrl + Alt + N',
+      mdIcon: 'note_add',
+      handler: () => {
+        showScreen('new');
+      },
+    },
+    {
+      id: 'Open',
+      title: window.deps.translateString('menu.open', 'Open …'),
+      hotkey: 'Ctrl + O',
+      mdIcon: 'file_open',
+      handler: () => {
+        showScreen('open');
+      },
+    },
+    {
+      id: 'Theme',
+      title: window.deps.translateString('app.changeTheme.hint', 'Change Theme') + ' …',
+      mdIcon: 'palette',
+      children: [
+        {
+          id: 'Light Theme',
+          title: window.deps.translateString(
+            'commandMenu.changeTheme.light',
+            'Change theme to light',
+          ),
+          mdIcon: 'light_mode',
+          handler: () => {
+            setUserConfig({ theme: 'light' });
+            setTheme('light', getConfig().editorTheme);
+          },
+        },
+        {
+          id: 'Dark Theme',
+          title: window.deps.translateString(
+            'commandMenu.changeTheme.dark',
+            'Change theme to dark',
+          ),
+          mdIcon: 'dark_mode',
+          handler: () => {
+            setUserConfig({ theme: 'dark' });
+            setTheme('dark', getConfig().editorTheme);
+          },
+        },
+      ],
+    },
+  ];
+
+  const header = ninja.shadowRoot.querySelector('ninja-header');
+  const breadcrumb = header?.shadowRoot.querySelector('.breadcrumb-list .breadcrumb');
+  if (breadcrumb) {
+    breadcrumb.innerHTML = breadcrumb.innerHTML.replace(
+      'Home',
+      window.deps.translateString('commandMenu.home', 'Home'),
+    );
+  }
+
+  const footer = ninja.shadowRoot.querySelector('.modal-footer');
+  if (footer) {
+    footer.innerHTML = footer.innerHTML
+      .replace('to select', window.deps.translateString('commandMenu.toSelect', 'to select'))
+      .replace('to navigate', window.deps.translateString('commandMenu.toNavigate', 'to navigate'))
+      .replace('to close', window.deps.translateString('commandMenu.toClose', 'to close'))
+      .replace(
+        'move to parent',
+        window.deps.translateString('commandMenu.moveToParent', 'move to parent'),
+      );
+  }
+
+  const openCommandMenu = async (e: KeyboardEvent) => {
+    const ctrl = (e: KeyboardEvent) => (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey);
+    if (ctrl(e) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      // eslint-disable-next-line no-underscore-dangle
+      if (ninja.__visible == null) {
+        await loadNinjaKeys();
+      }
+      // eslint-disable-next-line no-underscore-dangle
+      if (ninja.__visible === false) {
+        ninja.focus();
+        requestAnimationFrame(() => ninja.open());
+      }
+    }
+  };
+  eventsManager.addEventListener(window, 'keydown', openCommandMenu, true);
+  eventsManager.addEventListener(UI.getCommandMenuLink(), 'click', () => ninja.open(), true);
 };
 
 const handleLogoLink = () => {
@@ -4787,6 +4896,7 @@ const extraHandlers = async () => {
   handleResultPopup();
   handleBroadcastStatus();
   handleDropFiles();
+  handleCommandMenu();
   handleUnload();
   showConsoleMessage();
 };
