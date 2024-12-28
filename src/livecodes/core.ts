@@ -385,19 +385,25 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 };
 
 const setEditorTitle = (editorId: EditorId, title: string) => {
+  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
   const language = getLanguageByAlias(title);
   if (!editorTitle || !language) return;
   highlightSelectedLanguage(editorId, language);
+  const shortcut = ` (Ctrl/⌘ + Alt + ${editorIds.indexOf(editorId) + 1})`;
   const customTitle = getConfig()[editorId].title;
   if (customTitle) {
     editorTitle.textContent = customTitle;
-    editorTitle.title = `${capitalize(editorId)}: ${customTitle}`;
+    if (!isEmbed) {
+      editorTitle.title = `${capitalize(editorId)}: ${customTitle}${shortcut}`;
+    }
     return;
   }
   const lang = languages.find((lang) => lang.name === language);
   editorTitle.textContent = lang?.title ?? '';
-  editorTitle.title = `${capitalize(editorId)}: ${lang?.longTitle ?? lang?.title ?? ''}`;
+  if (!isEmbed) {
+    editorTitle.title = `${capitalize(editorId)}: ${lang?.longTitle ?? lang?.title ?? ''}${shortcut}`;
+  }
 };
 
 const createCopyButtons = () => {
@@ -2355,26 +2361,26 @@ const handleKeyboardShortcuts = () => {
   const hotKeys = async (e: KeyboardEvent) => {
     if (!e) return;
 
-    // Ctrl + p opens the command palette
+    // Ctrl + P opens the command palette
     const activeEditor = getActiveEditor();
     if (ctrl(e) && e.key.toLowerCase() === 'p' && activeEditor.monaco) {
       e.preventDefault();
       activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
-      lastkeys = 'Ctrl + p';
+      lastkeys = 'Ctrl + P';
       return;
     }
 
-    // Ctrl + d prevents browser bookmark dialog
+    // Ctrl + D prevents browser bookmark dialog
     if (ctrl(e) && e.key.toLowerCase() === 'd') {
       e.preventDefault();
-      lastkeys = 'Ctrl + d';
+      lastkeys = 'Ctrl + D';
       return;
     }
 
-    // Ctrl + Alt + c: toggle console
+    // Ctrl + Alt + C: toggle console
     if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'c') {
       e.preventDefault();
-      lastkeys = 'Ctrl + Alt + c';
+      lastkeys = 'Ctrl + Alt + C';
       if (!toolsPane) return;
       if (toolsPane.getStatus() === 'open' && toolsPane.getActiveTool() === 'console') {
         toolsPane.close();
@@ -2385,7 +2391,7 @@ const handleKeyboardShortcuts = () => {
       return;
     }
 
-    // Ctrl + Alt + t runs tests
+    // Ctrl + Alt + T runs tests
     if (ctrl(e) && e.altKey && e.key.toLowerCase() === 't') {
       e.preventDefault();
       split?.show('output');
@@ -2394,7 +2400,7 @@ const handleKeyboardShortcuts = () => {
         toolsPane?.open();
       }
       await runTests();
-      lastkeys = 'Ctrl + Alt + t';
+      lastkeys = 'Ctrl + Alt + T';
       return;
     }
 
@@ -2407,11 +2413,11 @@ const handleKeyboardShortcuts = () => {
       return;
     }
 
-    // Ctrl + Alt + r toggles result page
+    // Ctrl + Alt + R toggles result page
     if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'r') {
       e.preventDefault();
       split?.show('toggle', true);
-      lastkeys = 'Ctrl + Alt + r';
+      lastkeys = 'Ctrl + Alt + R';
       return;
     }
 
@@ -2436,60 +2442,60 @@ const handleKeyboardShortcuts = () => {
 
     if (isEmbed) return;
 
-    // Ctrl + Alt + n: new project
+    // Ctrl + Alt + N: new project
     if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'n') {
       e.preventDefault();
       await showScreen('new');
-      lastkeys = 'Ctrl + Alt + n';
+      lastkeys = 'Ctrl + Alt + N';
       return;
     }
 
-    // Ctrl + o: open project
+    // Ctrl + O: open project
     if (ctrl(e) && e.key.toLowerCase() === 'o') {
       e.preventDefault();
       await showScreen('open');
-      lastkeys = 'Ctrl + o';
+      lastkeys = 'Ctrl + O';
       return;
     }
 
-    // Ctrl + Alt + i: import
+    // Ctrl + Alt + I: import
     if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'i') {
       e.preventDefault();
       await showScreen('import');
-      lastkeys = 'Ctrl + Alt + i';
+      lastkeys = 'Ctrl + Alt + I';
       return;
     }
 
-    // Ctrl + Alt + s: share
+    // Ctrl + Alt + S: share
     if (ctrl(e) && e.altKey && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await showScreen('share');
-      lastkeys = 'Ctrl + Alt + s';
+      lastkeys = 'Ctrl + Alt + S';
       return;
     }
 
-    // Ctrl + Shift + s forks the project (save as...)
+    // Ctrl + Shift + S forks the project (save as...)
     if (ctrl(e) && e.shiftKey && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await fork();
-      lastkeys = 'Ctrl + Shift + s';
+      lastkeys = 'Ctrl + Shift + S';
       return;
     }
 
-    // Ctrl + s saves the project
+    // Ctrl + S saves the project
     if (ctrl(e) && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await save(true);
-      lastkeys = 'Ctrl + s';
+      lastkeys = 'Ctrl + S';
       return;
     }
 
-    // Ctrl + k z toggles focus mode
+    // Ctrl + k Z toggles focus mode
     if (ctrl(e) && e.key.toLowerCase() === 'k') {
-      lastkeys = 'Ctrl + k';
+      lastkeys = 'Ctrl + K';
       return;
     }
-    if (e.key.toLowerCase() === 'z' && lastkeys === 'Ctrl + k') {
+    if (e.key.toLowerCase() === 'z' && lastkeys === 'Ctrl + K') {
       e.preventDefault();
       const config = getConfig();
       const newMode = config.mode === 'full' ? 'focus' : 'full';
@@ -2498,7 +2504,7 @@ const handleKeyboardShortcuts = () => {
         mode: newMode,
       });
       showMode(newMode);
-      lastkeys = 'z';
+      lastkeys = 'Z';
       return;
     }
 

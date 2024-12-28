@@ -70,7 +70,7 @@ const translation = {
       sdkVersion: 'SDK version: {{SDK_VERSION}}',
     },
     copy: {
-      hint: 'Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)',
+      hint: 'Copy (Ctrl/⌘ + A, Ctrl/⌘ + C)',
     },
     copyAsUrl: {
       hint: 'Copy code as data URL',
@@ -85,7 +85,7 @@ const translation = {
       hint: 'External Resources',
     },
     focus: {
-      hint: 'Toggle Focus mode',
+      hint: 'Toggle Focus mode (Ctrl/⌘ + K, Z)',
     },
     format: {
       hint: 'Format (Alt + Shift + F)',
@@ -107,22 +107,22 @@ const translation = {
       hint: 'Project Info',
     },
     redo: {
-      hint: 'Redo (Ctrl/Cmd + Shift + Z)',
+      hint: 'Redo (Ctrl/⌘ + Shift + Z)',
     },
     result: {
-      hint: 'Result',
+      hint: 'Result (Ctrl/⌘ + Alt + R)',
     },
     run: {
       hint: 'Run (Shift + Enter)',
     },
     share: {
-      hint: 'Share',
+      hint: 'Share (Ctrl/⌘ + Alt + S)',
     },
     themeColors: {
       custom: 'Custom',
     },
     undo: {
-      hint: 'Undo (Ctrl/Cmd + Z)',
+      hint: 'Undo (Ctrl/⌘ + Z)',
     },
     untitledProject: 'Untitled Project',
   },
@@ -694,7 +694,7 @@ const translation = {
     import: 'Import',
     lastModified: 'Last modified: {{modified}}',
     noData: {
-      desc: 'You can save a project from (settings&nbsp;menu&nbsp;&gt;&nbsp;Save) or by the keyboard shortcut (Ctrl/Cmd&nbsp;+&nbsp;S).',
+      desc: 'You can save a project from (settings&nbsp;menu&nbsp;&gt;&nbsp;Save) or by the keyboard shortcut (Ctrl/⌘&nbsp;+&nbsp;S).',
       heading: 'You have no saved projects.',
     },
     noMatch: 'No projects match these filters.',
@@ -981,7 +981,7 @@ const translation = {
       noTest: '<1>This project has no tests!</1>',
       reset: 'Reset',
       run: {
-        desc: 'Ctrl/Cmd + Alt + T',
+        desc: 'Ctrl/⌘ + Alt + T',
         heading: 'Run',
       },
       summary: {

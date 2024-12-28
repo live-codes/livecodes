@@ -126,7 +126,7 @@
   },
   "app.copy.hint": {
     "notes": "",
-    "translation": "Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
+    "translation": "Copy (Ctrl/⌘ + A, Ctrl/⌘ + C)"
   },
   "app.copyAsUrl.hint": {
     "notes": "",
@@ -146,7 +146,7 @@
   },
   "app.focus.hint": {
     "notes": "",
-    "translation": "Toggle Focus mode"
+    "translation": "Toggle Focus mode (Ctrl/⌘ + K, Z)"
   },
   "app.format.hint": {
     "notes": "",
@@ -178,11 +178,11 @@
   },
   "app.redo.hint": {
     "notes": "",
-    "translation": "Redo (Ctrl/Cmd + Shift + Z)"
+    "translation": "Redo (Ctrl/⌘ + Shift + Z)"
   },
   "app.result.hint": {
     "notes": "",
-    "translation": "Result"
+    "translation": "Result (Ctrl/⌘ + Alt + R)"
   },
   "app.run.hint": {
     "notes": "",
@@ -190,7 +190,7 @@
   },
   "app.share.hint": {
     "notes": "",
-    "translation": "Share"
+    "translation": "Share (Ctrl/⌘ + Alt + S)"
   },
   "app.themeColors.custom": {
     "notes": "",
@@ -198,7 +198,7 @@
   },
   "app.undo.hint": {
     "notes": "",
-    "translation": "Undo (Ctrl/Cmd + Z)"
+    "translation": "Undo (Ctrl/⌘ + Z)"
   },
   "app.untitledProject": {
     "notes": "",
@@ -1734,7 +1734,7 @@
   },
   "open.noData.desc": {
     "notes": "",
-    "translation": "You can save a project from (settings&nbsp;menu&nbsp;&gt;&nbsp;Save) or by the keyboard shortcut (Ctrl/Cmd&nbsp;+&nbsp;S)."
+    "translation": "You can save a project from (settings&nbsp;menu&nbsp;&gt;&nbsp;Save) or by the keyboard shortcut (Ctrl/⌘&nbsp;+&nbsp;S)."
   },
   "open.noData.heading": {
     "notes": "",
@@ -2534,7 +2534,7 @@
   },
   "toolspane.test.run.desc": {
     "notes": "",
-    "translation": "Ctrl/Cmd + Alt + T"
+    "translation": "Ctrl/⌘ + Alt + T"
   },
   "toolspane.test.run.heading": {
     "notes": "",
