@@ -3,21 +3,22 @@ import type { Language } from '../models';
 
 type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
 
+export const hasJsx = [
+  'jsx',
+  'tsx',
+  'react',
+  'react-tsx',
+  'sucrase',
+  'babel',
+  'flow',
+  'solid',
+  'solid.tsx',
+  'react-native',
+  'react-native-tsx',
+];
+
 export const getCompilerOptions = (language: Language): CompilerOptions => {
   const JSLangs = ['javascript', 'jsx', 'react', 'flow', 'solid', 'react-native'];
-  const hasJsx = [
-    'jsx',
-    'tsx',
-    'react',
-    'react-tsx',
-    'sucrase',
-    'babel',
-    'flow',
-    'solid',
-    'solid.tsx',
-    'react-native',
-    'react-native-tsx',
-  ];
   const isJSLang = JSLangs.includes(language);
   const isJsx = hasJsx.includes(language);
   const nonReactJsx = ['solid', 'solid.tsx', 'stencil'].includes(language);
