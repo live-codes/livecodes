@@ -535,6 +535,18 @@ export const colorToHex = (color: string) => {
   return rgbToHex(r, g, b);
 };
 
+type ValueOf<T> = T[keyof T];
+type NonEmptyArray<T> = [T, ...T[]];
+type MustInclude<T, U extends T[]> = [T] extends [ValueOf<U>] ? U : never;
+/**
+ * converts TypeScript string union to array
+ * see https://stackoverflow.com/a/70694878/5054774
+ */
+export const stringUnionToArray =
+  <T>() =>
+  <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) =>
+    elements;
+
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
   SDK_VERSION: process.env.SDK_VERSION || '',

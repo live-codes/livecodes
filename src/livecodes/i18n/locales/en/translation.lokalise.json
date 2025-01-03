@@ -646,15 +646,103 @@
   },
   "commandMenu.changeTheme.dark": {
     "notes": "",
-    "translation": "Change theme to dark"
+    "translation": "Change to Dark Theme"
   },
   "commandMenu.changeTheme.light": {
     "notes": "",
-    "translation": "Change theme to light"
+    "translation": "Change to Light Theme"
+  },
+  "commandMenu.changeTheme.title": {
+    "notes": "",
+    "translation": "Change Theme"
+  },
+  "commandMenu.changeUILanguage": {
+    "notes": "",
+    "translation": "Change UI Language"
+  },
+  "commandMenu.copy": {
+    "notes": "",
+    "translation": "Copy Code"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "notes": "",
+    "translation": "Copy Code as Data URL"
+  },
+  "commandMenu.disableAI": {
+    "notes": "",
+    "translation": "Disable AI Code Assistant"
+  },
+  "commandMenu.disableAutoSave": {
+    "notes": "",
+    "translation": "Disable Auto Save"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "notes": "",
+    "translation": "Disable Auto Update"
+  },
+  "commandMenu.disableEmacs": {
+    "notes": "",
+    "translation": "Disable Emacs Mode"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "notes": "",
+    "translation": "Disable Format On-Save"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "notes": "",
+    "translation": "Disable Recover Unsaved"
+  },
+  "commandMenu.disableVim": {
+    "notes": "",
+    "translation": "Disable Vim Mode"
+  },
+  "commandMenu.enableAI": {
+    "notes": "",
+    "translation": "Enable AI Code Assistant"
+  },
+  "commandMenu.enableAutoSave": {
+    "notes": "",
+    "translation": "Enable Auto Save"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "notes": "",
+    "translation": "Enable Auto Update"
+  },
+  "commandMenu.enableEmacs": {
+    "notes": "",
+    "translation": "Enable Emacs Mode"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "notes": "",
+    "translation": "Enable Format On-Save"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "notes": "",
+    "translation": "Enable Recover Unsaved"
+  },
+  "commandMenu.enableVim": {
+    "notes": "",
+    "translation": "Enable Vim Mode"
+  },
+  "commandMenu.formatCode": {
+    "notes": "",
+    "translation": "Format Code"
   },
   "commandMenu.home": {
     "notes": "",
     "translation": "Home"
+  },
+  "commandMenu.horizontalLayout": {
+    "notes": "",
+    "translation": "Horizontal Layout"
+  },
+  "commandMenu.login": {
+    "notes": "",
+    "translation": "Login"
+  },
+  "commandMenu.logout": {
+    "notes": "",
+    "translation": "Logout"
   },
   "commandMenu.moveToParent": {
     "notes": "",
@@ -663,6 +751,98 @@
   "commandMenu.placeholder": {
     "notes": "",
     "translation": "Type a command or search..."
+  },
+  "commandMenu.responsiveLayout": {
+    "notes": "",
+    "translation": "Responsive Layout"
+  },
+  "commandMenu.run": {
+    "notes": "",
+    "translation": "Run"
+  },
+  "commandMenu.saveAsFork": {
+    "notes": "",
+    "translation": "Save as a Fork (New Project)"
+  },
+  "commandMenu.saveAsTemplate": {
+    "notes": "",
+    "translation": "Save as a Template"
+  },
+  "commandMenu.selectLanguage": {
+    "notes": "",
+    "translation": "Select Language"
+  },
+  "commandMenu.show.compiled": {
+    "notes": "",
+    "translation": "Toggle Compiled Code"
+  },
+  "commandMenu.show.console": {
+    "notes": "",
+    "translation": "Toggle Console"
+  },
+  "commandMenu.show.focusMode": {
+    "notes": "",
+    "translation": "Toggle Focus Mode"
+  },
+  "commandMenu.show.fullscreen": {
+    "notes": "",
+    "translation": "Toggle Full Screen"
+  },
+  "commandMenu.show.markup": {
+    "notes": "",
+    "translation": "Show Markup Editor"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "notes": "",
+    "translation": "Maximize Compiled Code"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "notes": "",
+    "translation": "Maximize Console"
+  },
+  "commandMenu.show.maximizeTests": {
+    "notes": "",
+    "translation": "Maximize Tests"
+  },
+  "commandMenu.show.next": {
+    "notes": "",
+    "translation": "Show Next Editor"
+  },
+  "commandMenu.show.previous": {
+    "notes": "",
+    "translation": "Show Previous Editor"
+  },
+  "commandMenu.show.result": {
+    "notes": "",
+    "translation": "Toggle Result"
+  },
+  "commandMenu.show.runTests": {
+    "notes": "",
+    "translation": "Run Tests"
+  },
+  "commandMenu.show.script": {
+    "notes": "",
+    "translation": "Show Script Editor"
+  },
+  "commandMenu.show.style": {
+    "notes": "",
+    "translation": "Show Style Editor"
+  },
+  "commandMenu.show.tests": {
+    "notes": "",
+    "translation": "Toggle Tests"
+  },
+  "commandMenu.show.title": {
+    "notes": "",
+    "translation": "Show …"
+  },
+  "commandMenu.starterTemplates": {
+    "notes": "",
+    "translation": "Starter Templates"
+  },
+  "commandMenu.template": {
+    "notes": "",
+    "translation": "Template"
   },
   "commandMenu.toClose": {
     "notes": "",
@@ -675,6 +855,10 @@
   "commandMenu.toSelect": {
     "notes": "",
     "translation": "to select"
+  },
+  "commandMenu.verticalLayout": {
+    "notes": "",
+    "translation": "Vertical Layout"
   },
   "core.broadcast.heading": {
     "notes": "",

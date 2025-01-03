@@ -57,6 +57,8 @@ import type {
   SDKEvent,
   Editor,
   AppLanguage,
+  INinjaAction,
+  TemplateName,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -111,6 +113,7 @@ import {
   predefinedValues,
   colorToHex,
   capitalize,
+  stringUnionToArray,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -2364,13 +2367,9 @@ const handleKeyboardShortcuts = () => {
   const ctrl = (e: KeyboardEvent) => (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey);
 
   const hotKeys = async (e: KeyboardEvent) => {
-    const ninja = document.querySelector('ninja-keys') as any;
-    // eslint-disable-next-line no-underscore-dangle
-    if (ninja.__visible != null) return;
-
     // Ctrl + P opens the command palette
     const activeEditor = getActiveEditor();
-    if (ctrl(e) && e.key.toLowerCase() === 'p' && activeEditor.monaco) {
+    if (ctrl(e) && e.code === 'KeyP' && activeEditor.monaco) {
       e.preventDefault();
       activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
       lastkeys = 'Ctrl + P';
@@ -2378,35 +2377,32 @@ const handleKeyboardShortcuts = () => {
     }
 
     // Ctrl + D prevents browser bookmark dialog
-    if (ctrl(e) && e.key.toLowerCase() === 'd') {
+    if (ctrl(e) && e.code === 'KeyD') {
       e.preventDefault();
       lastkeys = 'Ctrl + D';
       return;
     }
 
     // Ctrl + Alt + C: toggle console
-    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'c') {
+    if (ctrl(e) && e.altKey && e.code === 'KeyC') {
       e.preventDefault();
       lastkeys = 'Ctrl + Alt + C';
-      if (!toolsPane) return;
-      if (toolsPane.getStatus() === 'open' && toolsPane.getActiveTool() === 'console') {
-        toolsPane.close();
-      } else {
-        toolsPane.open();
-      }
-      toolsPane.setActiveTool('console');
+      UI.getConsoleButton()?.dispatchEvent(new Event('touchstart'));
+      return;
+    }
+
+    // Ctrl + Alt + C, F: maximize console
+    if (ctrl(e) && e.altKey && e.code === 'KeyF' && lastkeys === 'Ctrl + Alt + C') {
+      e.preventDefault();
+      lastkeys = 'Ctrl + Alt + C, F';
+      UI.getConsoleButton()?.dispatchEvent(new Event('dblclick'));
       return;
     }
 
     // Ctrl + Alt + T runs tests
-    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 't') {
+    if (ctrl(e) && e.altKey && e.code === 'KeyT') {
       e.preventDefault();
-      split?.show('output');
-      toolsPane?.setActiveTool('tests');
-      if (toolsPane?.getStatus() === 'closed') {
-        toolsPane?.open();
-      }
-      await runTests();
+      UI.getRunTestsButton()?.click();
       lastkeys = 'Ctrl + Alt + T';
       return;
     }
@@ -2414,16 +2410,15 @@ const handleKeyboardShortcuts = () => {
     // Shift + Enter triggers run
     if (e.shiftKey && e.key === 'Enter') {
       e.preventDefault();
-      split?.show('output');
-      await run();
+      UI.getRunButton()?.click();
       lastkeys = 'Shift + Enter';
       return;
     }
 
     // Ctrl + Alt + R toggles result page
-    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'r') {
+    if (ctrl(e) && e.altKey && e.code === 'KeyR') {
       e.preventDefault();
-      split?.show('toggle', true);
+      UI.getResultButton()?.click();
       lastkeys = 'Ctrl + Alt + R';
       return;
     }
@@ -2450,67 +2445,61 @@ const handleKeyboardShortcuts = () => {
     if (isEmbed) return;
 
     // Ctrl + Alt + N: new project
-    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'n') {
+    if (ctrl(e) && e.altKey && e.code === 'KeyN') {
       e.preventDefault();
-      await showScreen('new');
+      UI.getNewLink()?.click();
       lastkeys = 'Ctrl + Alt + N';
       return;
     }
 
     // Ctrl + O: open project
-    if (ctrl(e) && e.key.toLowerCase() === 'o') {
+    if (ctrl(e) && e.code === 'KeyO') {
       e.preventDefault();
-      await showScreen('open');
+      UI.getOpenLink()?.click();
       lastkeys = 'Ctrl + O';
       return;
     }
 
     // Ctrl + Alt + I: import
-    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 'i') {
+    if (ctrl(e) && e.altKey && e.code === 'KeyI') {
       e.preventDefault();
-      await showScreen('import');
+      UI.getImportLink()?.click();
       lastkeys = 'Ctrl + Alt + I';
       return;
     }
 
     // Ctrl + Alt + S: share
-    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 's') {
+    if (ctrl(e) && e.altKey && e.code === 'KeyS') {
       e.preventDefault();
-      await showScreen('share');
+      UI.getShareLink()?.click();
       lastkeys = 'Ctrl + Alt + S';
       return;
     }
 
     // Ctrl + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.key.toLowerCase() === 's') {
+    if (ctrl(e) && e.shiftKey && e.code === 'KeyS') {
       e.preventDefault();
-      await fork();
+      UI.getForkLink()?.click();
       lastkeys = 'Ctrl + Shift + S';
       return;
     }
 
     // Ctrl + S saves the project
-    if (ctrl(e) && e.key.toLowerCase() === 's') {
+    if (ctrl(e) && e.code === 'KeyS') {
       e.preventDefault();
-      await save(true);
+      UI.getSaveLink()?.click();
       lastkeys = 'Ctrl + S';
       return;
     }
 
-    // Ctrl + k Z toggles focus mode
-    if (ctrl(e) && e.key.toLowerCase() === 'k') {
+    // Ctrl + K Z toggles focus mode
+    if (ctrl(e) && e.code === 'KeyK') {
       lastkeys = 'Ctrl + K';
       return;
     }
-    if (e.key.toLowerCase() === 'z' && lastkeys === 'Ctrl + K') {
+    if (ctrl(e) && e.code === 'KeyZ' && lastkeys === 'Ctrl + K') {
       e.preventDefault();
-      const config = getConfig();
-      const newMode = config.mode === 'full' ? 'focus' : 'full';
-      setConfig({
-        ...config,
-        mode: newMode,
-      });
-      showMode(newMode);
+      UI.getFocusButton()?.click();
       lastkeys = 'Z';
       return;
     }
@@ -2534,57 +2523,818 @@ const handleCommandMenu = async () => {
 
   const ninja = document.querySelector('ninja-keys') as any;
 
-  ninja.data = [
+  const changeMenuSetting = (setting: keyof Config, checked: boolean) => {
+    const toggle = [...UI.getSettingToggles()].find((t) => t.dataset.config === setting);
+    if (toggle) {
+      toggle.checked = checked;
+      toggle.dispatchEvent(new Event('change'));
+    }
+  };
+
+  const actions: INinjaAction[] = [
+    {
+      id: 'Show',
+      title: window.deps.translateString('commandMenu.show.title', 'Show …'),
+      mdIcon: 'visibility',
+      children: [
+        {
+          id: 'Next Editor',
+          title: window.deps.translateString('commandMenu.show.next', 'Show Next Editor'),
+          hotkey: 'ctrl+alt+ArrowRight',
+          mdIcon: 'skip_next',
+          handler: () => {
+            document.dispatchEvent(
+              new KeyboardEvent('keydown', {
+                ctrlKey: true,
+                altKey: true,
+                key: 'ArrowRight',
+                code: 'ArrowRight',
+              }),
+            );
+          },
+        },
+        {
+          id: 'Previous Editor',
+          title: window.deps.translateString('commandMenu.show.previous', 'Show Previous Editor'),
+          hotkey: 'ctrl+alt+ArrowLeft',
+          mdIcon: 'skip_previous',
+          handler: () => {
+            document.dispatchEvent(
+              new KeyboardEvent('keydown', {
+                ctrlKey: true,
+                altKey: true,
+                key: 'ArrowLeft',
+                code: 'ArrowLeft',
+              }),
+            );
+          },
+        },
+        {
+          id: 'Markup Editor',
+          title: window.deps.translateString('commandMenu.show.markup', 'Show Markup Editor'),
+          hotkey: 'ctrl+alt+1',
+          mdIcon: 'html',
+          handler: () => {
+            UI.getMarkupEditorTitle()?.click();
+          },
+        },
+        {
+          id: 'Style Editor',
+          title: window.deps.translateString('commandMenu.show.style', 'Show Style Editor'),
+          hotkey: 'ctrl+alt+2',
+          mdIcon: 'css',
+          handler: () => {
+            UI.getStyleEditorTitle()?.click();
+          },
+        },
+        {
+          id: 'Script Editor',
+          title: window.deps.translateString('commandMenu.show.script', 'Show Script Editor'),
+          hotkey: 'ctrl+alt+3',
+          mdIcon: 'javascript',
+          handler: () => {
+            UI.getScriptEditorTitle()?.click();
+          },
+        },
+        {
+          id: 'Toggle Result',
+          title: window.deps.translateString('commandMenu.show.result', 'Toggle Result'),
+          hotkey: 'ctrl+alt+R',
+          // mdIcon: 'split_scene',
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h200v80H160v480h200v80H160Zm280 80v-800h80v80h280q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H520v80h-80Zm80-160h280v-480H520v480Zm-360 0v-480 480Zm640 0v-480 480Z"/></svg>`,
+          handler: () => {
+            UI.getResultButton()?.click();
+          },
+        },
+        {
+          id: 'Toggle Console',
+          title: window.deps.translateString('commandMenu.show.console', 'Toggle Console'),
+          hotkey: 'ctrl+alt+C',
+          mdIcon: 'terminal',
+          handler: () => {
+            UI.getConsoleButton()?.dispatchEvent(new Event('touchstart'));
+          },
+        },
+        {
+          id: 'Maximize Console',
+          title: window.deps.translateString(
+            'commandMenu.show.maximizeConsole',
+            'Maximize Console',
+          ),
+          hotkey: 'ctrl+alt+C+F',
+          mdIcon: 'terminal',
+          handler: () => {
+            UI.getConsoleButton()?.dispatchEvent(new Event('dblclick'));
+          },
+        },
+        {
+          id: 'Toggle Compiled Code',
+          title: window.deps.translateString('commandMenu.show.compiled', 'Toggle Compiled Code'),
+          // mdIcon: 'code_blocks',
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>`,
+          handler: () => {
+            UI.getCompiledButton()?.dispatchEvent(new Event('touchstart'));
+          },
+        },
+        {
+          id: 'Maximize Compiled Code',
+          title: window.deps.translateString(
+            'commandMenu.show.maximizeCompiled',
+            'Maximize Compiled Code',
+          ),
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>`,
+          handler: () => {
+            UI.getCompiledButton()?.dispatchEvent(new Event('dblclick'));
+          },
+        },
+        {
+          id: 'Toggle Tests',
+          title: window.deps.translateString('commandMenu.show.tests', 'Toggle Tests'),
+          // mdIcon: 'labs',
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M480-80q-83 0-141.5-58.5T280-280v-360q-33 0-56.5-23.5T200-720v-80q0-33 23.5-56.5T280-880h400q33 0 56.5 23.5T760-800v80q0 33-23.5 56.5T680-640v360q0 83-58.5 141.5T480-80ZM280-720h400v-80H280v80Zm200 560q50 0 85-35t35-85H480v-80h120v-80H480v-80h120v-120H360v360q0 50 35 85t85 35ZM280-720v-80 80Z"/></svg>`,
+          handler: () => {
+            UI.getTestsButton()?.dispatchEvent(new Event('touchstart'));
+          },
+        },
+        {
+          id: 'Maximize Tests',
+          title: window.deps.translateString('commandMenu.show.maximizeTests', 'Maximize Tests'),
+          // mdIcon: 'labs',
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M480-80q-83 0-141.5-58.5T280-280v-360q-33 0-56.5-23.5T200-720v-80q0-33 23.5-56.5T280-880h400q33 0 56.5 23.5T760-800v80q0 33-23.5 56.5T680-640v360q0 83-58.5 141.5T480-80ZM280-720h400v-80H280v80Zm200 560q50 0 85-35t35-85H480v-80h120v-80H480v-80h120v-120H360v360q0 50 35 85t85 35ZM280-720v-80 80Z"/></svg>`,
+          handler: () => {
+            UI.getTestsButton()?.dispatchEvent(new Event('dblclick'));
+          },
+        },
+        {
+          id: 'Toggle Full Screen',
+          title: window.deps.translateString('commandMenu.show.fullscreen', 'Toggle Full Screen'),
+          hotkey: 'f11',
+          mdIcon: 'zoom_out_map',
+          handler: () => {
+            UI.getFullscreenButton()?.click();
+          },
+        },
+        {
+          id: 'Toggle Focus Mode',
+          title: window.deps.translateString('commandMenu.show.focusMode', 'Toggle Focus Mode'),
+          hotkey: 'ctrl+K+Z',
+          mdIcon: 'crop_free',
+          handler: () => {
+            UI.getFocusButton()?.click();
+          },
+        },
+      ],
+    },
+    {
+      id: 'Select Language',
+      title: window.deps.translateString('commandMenu.selectLanguage', 'Select Language'),
+      mdIcon: 'code',
+      children: languages
+        .sort((a, b) => a.title.localeCompare(b.title))
+        .map((lang) => ({
+          id: 'Language: ' + lang.title,
+          title: lang.longTitle ?? lang.title,
+          keywords: [lang.name, lang.title, lang.longTitle, ...lang.extensions].join(', '),
+          handler: async () => {
+            document
+              .querySelector<HTMLAnchorElement>('a[data-editor][data-lang="' + lang.name + '"]')
+              ?.dispatchEvent(new Event('mousedown'));
+          },
+        })),
+    },
+    {
+      id: 'Starter Templates',
+      title: window.deps.translateString('commandMenu.starterTemplates', 'Starter Templates'),
+      mdIcon: 'library_books',
+      children: stringUnionToArray<TemplateName>()(
+        'blank',
+        'javascript',
+        'typescript',
+        'react',
+        'react-native',
+        'vue2',
+        'vue',
+        'angular',
+        'preact',
+        'svelte',
+        'solid',
+        'lit',
+        'stencil',
+        'mdx',
+        'astro',
+        'riot',
+        'malina',
+        'jquery',
+        'backbone',
+        'knockout',
+        'jest',
+        'jest-react',
+        'bootstrap',
+        'tailwindcss',
+        'd3',
+        'phaser',
+        'coffeescript',
+        'livescript',
+        'civet',
+        'clio',
+        'imba',
+        'rescript',
+        'reason',
+        'ocaml',
+        'python',
+        'pyodide',
+        'python-wasm',
+        'r',
+        'ruby',
+        'ruby-wasm',
+        'go',
+        'php',
+        'php-wasm',
+        'cpp',
+        'clang',
+        'cpp-wasm',
+        'perl',
+        'lua',
+        'lua-wasm',
+        'teal',
+        'fennel',
+        'julia',
+        'scheme',
+        'commonlisp',
+        'clojurescript',
+        'gleam',
+        'tcl',
+        'markdown',
+        'assemblyscript',
+        'wat',
+        'sql',
+        'postgresql',
+        'prolog',
+        'blockly',
+        'diagrams',
+      ).map((template) => ({
+        id: 'Starter template: ' + template,
+        title: window.deps.translateString('commandMenu.template', 'Template') + ': ' + template,
+        handler: async () => {
+          await loadStarterTemplate(template);
+        },
+      })),
+    },
+    {
+      id: 'Run',
+      title: window.deps.translateString('commandMenu.run', 'Run'),
+      hotkey: 'shift+Enter',
+      mdIcon: 'play_arrow',
+      handler: () => {
+        UI.getRunButton()?.click();
+      },
+    },
+    {
+      id: 'Share',
+      title: window.deps.translateString('menu.share', 'Share …'),
+      hotkey: 'ctrl+alt+S',
+      mdIcon: 'share',
+      handler: () => {
+        UI.getShareLink()?.click();
+      },
+    },
     {
       id: 'New',
       title: window.deps.translateString('menu.new', 'New …'),
-      hotkey: 'Ctrl + Alt + N',
+      hotkey: 'ctrl+alt+N',
       mdIcon: 'note_add',
       handler: () => {
-        showScreen('new');
+        UI.getNewLink()?.click();
       },
     },
     {
       id: 'Open',
       title: window.deps.translateString('menu.open', 'Open …'),
-      hotkey: 'Ctrl + O',
+      hotkey: 'ctrl+O',
       mdIcon: 'file_open',
       handler: () => {
-        showScreen('open');
+        UI.getOpenLink()?.click();
       },
     },
     {
-      id: 'Theme',
-      title: window.deps.translateString('app.changeTheme.hint', 'Change Theme') + ' …',
+      id: 'Save',
+      title: window.deps.translateString('menu.save', 'Save'),
+      hotkey: 'ctrl+S',
+      mdIcon: 'save',
+      handler: () => {
+        UI.getSaveLink()?.click();
+      },
+    },
+    {
+      id: 'Save As',
+      title: window.deps.translateString('menu.saveAs.heading', 'Save as …'),
+      mdIcon: 'save_as',
+      children: [
+        {
+          id: 'Save as a fork',
+          title: window.deps.translateString(
+            'commandMenu.saveAsFork',
+            'Save as a Fork (New Project)',
+          ),
+          hotkey: 'ctrl+shift+S',
+          mdIcon: 'save_as',
+          handler: () => {
+            UI.getForkLink()?.click();
+          },
+        },
+        {
+          id: 'Save as a template',
+          title: window.deps.translateString('commandMenu.saveAsTemplate', 'Save as a Template'),
+          mdIcon: 'library_add',
+          handler: async () => {
+            UI.getSaveAsTemplateLink()?.click();
+          },
+        },
+      ],
+    },
+    {
+      id: 'Import',
+      title: window.deps.translateString('menu.import', 'Import …'),
+      hotkey: 'ctrl+alt+I',
+      mdIcon: 'upload',
+      handler: () => {
+        UI.getImportLink()?.click();
+      },
+    },
+    {
+      id: 'Export',
+      title: window.deps.translateString('menu.export.heading', 'Export'),
+      mdIcon: 'download',
+      children: [
+        {
+          id: 'Export as JSON',
+          title: window.deps.translateString('menu.export.json', 'Export Project (JSON)'),
+          mdIcon: 'data_object',
+          handler: () => {
+            UI.getExportJSONLink()?.click();
+          },
+        },
+        {
+          id: 'Export as HTML',
+          title: window.deps.translateString('menu.export.result', 'Export Result (HTML)'),
+          mdIcon: 'html',
+          handler: () => {
+            UI.getExportResultLink()?.click();
+          },
+        },
+        {
+          id: 'Export as ZIP',
+          title: window.deps.translateString('menu.export.src', 'Export Source (ZIP)'),
+          mdIcon: 'archive',
+          handler: () => {
+            UI.getExportSourceLink()?.click();
+          },
+        },
+        {
+          id: 'Export to GitHub Gist',
+          title: window.deps.translateString('menu.export.gist', 'Export to GitHub Gist'),
+          mdIcon: 'north_east',
+          handler: () => {
+            UI.getExportGithubGistLink()?.click();
+          },
+        },
+        {
+          id: 'Export to Codepen',
+          title: window.deps.translateString('menu.export.codepen', 'Edit in CodePen'),
+          mdIcon: 'north_east',
+          handler: () => {
+            UI.getExportCodepenLink()?.click();
+          },
+        },
+        {
+          id: 'Export to Fiddle',
+          title: window.deps.translateString('menu.export.jsfiddle', 'Edit in JSFiddle'),
+          mdIcon: 'north_east',
+          handler: () => {
+            UI.getExportJsfiddleLink()?.click();
+          },
+        },
+      ],
+    },
+    {
+      id: 'Deploy',
+      title: window.deps.translateString('menu.deploy', 'Deploy …'),
+      mdIcon: 'rocket_launch',
+      handler: () => {
+        UI.getDeployLink()?.click();
+      },
+    },
+    {
+      id: 'Broadcast',
+      title: window.deps.translateString('menu.broadcast', 'Broadcast …'),
+      mdIcon: 'rss_feed',
+      handler: () => {
+        UI.getBroadcastLink()?.click();
+      },
+    },
+    {
+      id: 'Embed',
+      title: window.deps.translateString('menu.embed', 'Embed …'),
+      mdIcon: 'widgets',
+      handler: () => {
+        UI.getEmbedLink()?.click();
+      },
+    },
+    {
+      id: 'Project Info',
+      title: window.deps.translateString('menu.project', 'Project Info …'),
+      mdIcon: 'info',
+      handler: () => {
+        UI.getProjectInfoLink()?.click();
+      },
+    },
+    {
+      id: 'Custom Settings',
+      title: window.deps.translateString('menu.customSettings', 'Custom Settings …'),
+      mdIcon: 'data_object',
+      handler: () => {
+        UI.getCustomSettingsLink()?.click();
+      },
+    },
+    {
+      id: 'External Resources',
+      title: window.deps.translateString('menu.resources', 'External Resources …'),
+      mdIcon: 'file_present',
+      handler: () => {
+        UI.getExternalResourcesLink()?.click();
+      },
+    },
+    {
+      id: 'Assets',
+      title: window.deps.translateString('menu.assets', 'Assets …'),
+      mdIcon: 'perm_media',
+      handler: () => {
+        UI.getAssetsLink()?.click();
+      },
+    },
+    {
+      id: 'Code Snippets',
+      title: window.deps.translateString('menu.snippets', 'Code Snippets …'),
+      mdIcon: 'text_snippet',
+      handler: () => {
+        UI.getSnippetsLink()?.click();
+      },
+    },
+    {
+      id: 'Backup / Restore',
+      title: window.deps.translateString('menu.backup', 'Backup / Restore …'),
+      // mdIcon: 'deployed_code_update',
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="m720-80 120-120-28-28-72 72v-164h-40v164l-72-72-28 28L720-80ZM480-800 243-663l237 137 237-137-237-137ZM120-321v-318q0-22 10.5-40t29.5-29l280-161q10-5 19.5-8t20.5-3q11 0 21 3t19 8l280 161q19 11 29.5 29t10.5 40v159h-80v-116L479-434 200-596v274l240 139v92L160-252q-19-11-29.5-29T120-321ZM720 0q-83 0-141.5-58.5T520-200q0-83 58.5-141.5T720-400q83 0 141.5 58.5T920-200q0 83-58.5 141.5T720 0ZM480-491Z"/></svg>`,
+      handler: () => {
+        UI.getBackupLink()?.click();
+      },
+    },
+    {
+      id: 'Welcome Screen',
+      title: window.deps.translateString('menu.welcome.heading', 'Welcome …'),
+      mdIcon: 'dashboard',
+      handler: () => {
+        UI.getWelcomeLink()?.click();
+      },
+    },
+    {
+      id: 'Settings',
+      title: window.deps.translateString('menu.appSettings.heading', 'Settings'),
+      mdIcon: 'settings',
+      children: [
+        {
+          id: 'Editor Settings',
+          title: window.deps.translateString('menu.editorSettings', 'Editor Settings …'),
+          mdIcon: 'settings',
+          handler: () => {
+            UI.getEditorSettingsLink()?.click();
+          },
+        },
+        {
+          id: 'Enable AI Code Assistant',
+          title: window.deps.translateString('commandMenu.enableAI', 'Enable AI Code Assistant'),
+          mdIcon: 'settings',
+          handler: () => {
+            changeEditorSettings({ enableAI: true });
+          },
+        },
+        {
+          id: 'Disable AI Code Assistant',
+          title: window.deps.translateString('commandMenu.disableAI', 'Disable AI Code Assistant'),
+          mdIcon: 'settings',
+          handler: () => {
+            changeEditorSettings({ enableAI: false });
+          },
+        },
+        {
+          id: 'Enable Auto Update',
+          title: window.deps.translateString('commandMenu.enableAutoUpdate', 'Enable Auto Update'),
+          keywords: 'autoupdate',
+          mdIcon: 'edit',
+          handler: () => {
+            changeMenuSetting('autoupdate', true);
+          },
+        },
+        {
+          id: 'Disable Auto Update',
+          title: window.deps.translateString(
+            'commandMenu.disableAutoUpdate',
+            'Disable Auto Update',
+          ),
+          keywords: 'autoupdate',
+          mdIcon: 'edit',
+          handler: () => {
+            changeMenuSetting('autoupdate', false);
+          },
+        },
+        {
+          id: 'Enable Auto Save',
+          title: window.deps.translateString('commandMenu.enableAutoSave', 'Enable Auto Save'),
+          keywords: 'autosave',
+          mdIcon: 'edit',
+          handler: () => {
+            changeMenuSetting('autosave', true);
+          },
+        },
+        {
+          id: 'Disable Auto Save',
+          title: window.deps.translateString('commandMenu.disableAutoSave', 'Disable Auto Save'),
+          keywords: 'autosave',
+          mdIcon: 'edit',
+          handler: () => {
+            changeMenuSetting('autosave', false);
+          },
+        },
+        {
+          id: 'Enable Format On-Save',
+          title: window.deps.translateString(
+            'commandMenu.enableFormatOnSave',
+            'Enable Format On-Save',
+          ),
+          keywords: 'onsave',
+          mdIcon: 'edit',
+          handler: () => {
+            changeMenuSetting('formatOnsave', true);
+          },
+        },
+        {
+          id: 'Disable Format On-Save',
+          title: window.deps.translateString(
+            'commandMenu.disableFormatOnSave',
+            'Disable Format On-Save',
+          ),
+          keywords: 'onsave',
+          mdIcon: 'edit',
+          handler: () => {
+            changeMenuSetting('formatOnsave', false);
+          },
+        },
+        {
+          id: 'Enable Recover Unsaved',
+          title: window.deps.translateString(
+            'commandMenu.enableRecoverUnsaved',
+            'Enable Recover Unsaved',
+          ),
+          mdIcon: 'edit',
+          handler: () => {
+            changeMenuSetting('recoverUnsaved', true);
+          },
+        },
+        {
+          id: 'Disable Recover Unsaved',
+          title: window.deps.translateString(
+            'commandMenu.disableRecoverUnsaved',
+            'Disable Recover Unsaved',
+          ),
+          mdIcon: 'edit',
+          handler: () => {
+            changeMenuSetting('recoverUnsaved', false);
+          },
+        },
+        {
+          id: 'Enable Vim Mode',
+          title: window.deps.translateString('commandMenu.enableVim', 'Enable Vim Mode'),
+          mdIcon: 'edit',
+          handler: () => {
+            changeEditorSettings({ editorMode: 'vim' });
+          },
+        },
+        {
+          id: 'Disable Vim Mode',
+          title: window.deps.translateString('commandMenu.disableVim', 'Disable Vim Mode'),
+          mdIcon: 'edit',
+          handler: () => {
+            changeEditorSettings({ editorMode: undefined });
+          },
+        },
+        {
+          id: 'Enable Emacs Mode',
+          title: window.deps.translateString('commandMenu.enableEmacs', 'Enable Emacs Mode'),
+          mdIcon: 'edit',
+          handler: () => {
+            changeEditorSettings({ editorMode: 'emacs' });
+          },
+        },
+        {
+          id: 'Disable Emacs Mode',
+          title: window.deps.translateString('commandMenu.disableEmacs', 'Disable Emacs Mode'),
+          mdIcon: 'edit',
+          handler: () => {
+            changeEditorSettings({ editorMode: undefined });
+          },
+        },
+        {
+          id: 'Responsive Layout',
+          title: window.deps.translateString('commandMenu.responsiveLayout', 'Responsive Layout'),
+          mdIcon: 'edit',
+          handler: () => {
+            setUserConfig({ layout: 'responsive' });
+            setLayout('responsive');
+          },
+        },
+        {
+          id: 'Vertical Layout',
+          title: window.deps.translateString('commandMenu.verticalLayout', 'Vertical Layout'),
+          mdIcon: 'edit',
+          handler: () => {
+            setUserConfig({ layout: 'vertical' });
+            setLayout('vertical');
+          },
+        },
+        {
+          id: 'Horizontal Layout',
+          title: window.deps.translateString('commandMenu.horizontalLayout', 'Horizontal Layout'),
+          mdIcon: 'edit',
+          handler: () => {
+            setUserConfig({ layout: 'horizontal' });
+            setLayout('horizontal');
+          },
+        },
+      ],
+    },
+    {
+      id: 'Format Code',
+      title: window.deps.translateString('commandMenu.formatCode', 'Format Code'),
+      hotkey: 'shift+alt+f',
+      mdIcon: 'format_align_left',
+      handler: () => {
+        UI.getFormatButton()?.click();
+      },
+    },
+    {
+      id: 'Copy Code',
+      title: window.deps.translateString('commandMenu.copy', 'Copy Code'),
+      mdIcon: 'content_copy',
+      handler: () => {
+        UI.getCopyButton()?.click();
+      },
+    },
+    {
+      id: 'Copy Code as Data URL',
+      title: window.deps.translateString('commandMenu.copyAsDataUrl', 'Copy Code as Data URL'),
+      mdIcon: 'dataset_linked',
+      handler: () => {
+        UI.getCopyAsUrlButton()?.click();
+      },
+    },
+    {
+      id: 'Code to Image',
+      title: window.deps.translateString('app.codeToImage.hint', 'Code to Image'),
+      mdIcon: 'camera',
+      handler: () => {
+        UI.getCodeToImageButton()?.click();
+      },
+    },
+    {
+      id: 'Run Tests',
+      title: window.deps.translateString('commandMenu.show.runTests', 'Run Tests'),
+      hotkey: 'ctrl+alt+T',
+      // mdIcon: 'labs',
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M480-80q-83 0-141.5-58.5T280-280v-360q-33 0-56.5-23.5T200-720v-80q0-33 23.5-56.5T280-880h400q33 0 56.5 23.5T760-800v80q0 33-23.5 56.5T680-640v360q0 83-58.5 141.5T480-80ZM280-720h400v-80H280v80Zm200 560q50 0 85-35t35-85H480v-80h120v-80H480v-80h120v-120H360v360q0 50 35 85t85 35ZM280-720v-80 80Z"/></svg>`,
+      handler: async () => {
+        UI.getRunTestsButton()?.click();
+      },
+    },
+    {
+      id: 'Change UI Language',
+      title: window.deps.translateString('commandMenu.changeUILanguage', 'Change UI Language'),
+      mdIcon: 'language',
+      children: Object.entries(appLanguages).map(([key, lang]) => ({
+        id: 'UI Language: ' + key,
+        title: lang,
+        keywords: key,
+        matcher: (
+          _action: INinjaAction,
+          { searchString }: { searchString: string; searchRegex: RegExp },
+        ) => key.includes(searchString.toLowerCase()) || lang.includes(searchString),
+        handler: async () => {
+          document
+            .querySelector<HTMLAnchorElement>('#app-menu-i18n a[data-lang="' + key + '"]')
+            ?.click();
+        },
+      })),
+    },
+    {
+      id: 'Change Theme',
+      title: window.deps.translateString('commandMenu.changeTheme.title', 'Change Theme'),
       mdIcon: 'palette',
       children: [
         {
           id: 'Light Theme',
           title: window.deps.translateString(
             'commandMenu.changeTheme.light',
-            'Change theme to light',
+            'Change to Light Theme',
           ),
           mdIcon: 'light_mode',
           handler: () => {
-            setUserConfig({ theme: 'light' });
-            setTheme('light', getConfig().editorTheme);
+            UI.getDarkThemeButton()?.click();
+            return { keepOpen: true };
           },
         },
         {
           id: 'Dark Theme',
           title: window.deps.translateString(
             'commandMenu.changeTheme.dark',
-            'Change theme to dark',
+            'Change to Dark Theme',
           ),
           mdIcon: 'dark_mode',
           handler: () => {
-            setUserConfig({ theme: 'dark' });
-            setTheme('dark', getConfig().editorTheme);
+            UI.getLightThemeButton()?.click();
+            return { keepOpen: true };
           },
         },
       ],
     },
+    {
+      id: 'Documentation',
+      title: window.deps.translateString('menu.docs', 'Documentation'),
+      mdIcon: 'menu_book',
+      children: [
+        {
+          id: 'Documentation Home',
+          title: window.deps.translateString('menu.docs', 'Documentation'),
+          mdIcon: 'menu_book',
+          handler: () => {
+            window.open(predefinedValues.DOCS_BASE_URL, '_blank');
+          },
+        },
+        {
+          id: 'Getting Started',
+          title: window.deps.translateString('menu.getstart', 'Getting Started'),
+          mdIcon: 'menu_book',
+          handler: () => {
+            window.open(predefinedValues.DOCS_BASE_URL + 'getting-started', '_blank');
+          },
+        },
+        {
+          id: 'Features',
+          title: window.deps.translateString('menu.features', 'Features'),
+          mdIcon: 'menu_book',
+          handler: () => {
+            window.open(predefinedValues.DOCS_BASE_URL + 'features', '_blank');
+          },
+        },
+        {
+          id: 'Configuration',
+          title: window.deps.translateString('menu.config', 'Configuration'),
+          mdIcon: 'menu_book',
+          handler: () => {
+            window.open(predefinedValues.DOCS_BASE_URL + 'configuration', '_blank');
+          },
+        },
+        {
+          id: 'SDK',
+          title: window.deps.translateString('menu.sdk', 'SDK'),
+          mdIcon: 'menu_book',
+          handler: () => {
+            window.open(predefinedValues.DOCS_BASE_URL + 'sdk', '_blank');
+          },
+        },
+      ],
+    },
+    {
+      id: 'About',
+      title: window.deps.translateString('menu.about', 'About ...'),
+      mdIcon: 'contact_support',
+      handler: () => {
+        UI.getAboutLink()?.click();
+      },
+    },
   ];
+
+  const adjustTrailingDots = (data: INinjaAction[]): INinjaAction[] =>
+    data.map((action) => ({
+      ...action,
+      children:
+        action.children?.length && action.children.every((a) => typeof a !== 'string')
+          ? adjustTrailingDots(action.children)
+          : action.children,
+      title: !action.children?.length
+        ? action.title.replace(' …', '').replace(' ...', '')
+        : action.title.endsWith(' …') || action.title.endsWith(' ...')
+          ? action.title
+          : action.title + ' …',
+    }));
 
   const header = ninja.shadowRoot.querySelector('ninja-header');
   const breadcrumb = header?.shadowRoot.querySelector('.breadcrumb-list .breadcrumb');
@@ -2593,6 +3343,11 @@ const handleCommandMenu = async () => {
       'Home',
       window.deps.translateString('commandMenu.home', 'Home'),
     );
+  }
+
+  const closeBtn = header?.shadowRoot.querySelector('.breadcrumb-list .breadcrumb--close');
+  if (closeBtn) {
+    closeBtn.hidden = true;
   }
 
   const footer = ninja.shadowRoot.querySelector('.modal-footer');
@@ -2607,9 +3362,35 @@ const handleCommandMenu = async () => {
       );
   }
 
-  const openCommandMenu = async (e: KeyboardEvent) => {
+  const openCommandMenu = () => {
+    modal.close();
+    let authAction: INinjaAction | undefined;
+    if (authService?.isLoggedIn()) {
+      authAction = {
+        id: 'Logout',
+        title: window.deps.translateString('commandMenu.logout', 'Logout'),
+        mdIcon: 'logout',
+        handler: () => {
+          UI.getLogoutLink()?.click();
+        },
+      };
+    } else {
+      authAction = {
+        id: 'Login',
+        title: window.deps.translateString('commandMenu.login', 'Login'),
+        mdIcon: 'login',
+        handler: () => {
+          UI.getLoginLink()?.click();
+        },
+      };
+    }
+    ninja.data = adjustTrailingDots([...actions, authAction]);
+    ninja.open();
+  };
+
+  const onHotkey = async (e: KeyboardEvent) => {
     const ctrl = (e: KeyboardEvent) => (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey);
-    if (ctrl(e) && e.key.toLowerCase() === 'k') {
+    if (ctrl(e) && e.code === 'KeyK') {
       e.preventDefault();
       // eslint-disable-next-line no-underscore-dangle
       if (ninja.__visible == null) {
@@ -2618,12 +3399,13 @@ const handleCommandMenu = async () => {
       // eslint-disable-next-line no-underscore-dangle
       if (ninja.__visible === false) {
         ninja.focus();
-        requestAnimationFrame(() => ninja.open());
+        requestAnimationFrame(openCommandMenu);
       }
     }
   };
-  eventsManager.addEventListener(window, 'keydown', openCommandMenu, true);
-  eventsManager.addEventListener(UI.getCommandMenuLink(), 'click', () => ninja.open(), true);
+
+  eventsManager.addEventListener(window, 'keydown', onHotkey, true);
+  eventsManager.addEventListener(UI.getCommandMenuLink(), 'click', openCommandMenu, true);
 };
 
 const handleLogoLink = () => {
@@ -2662,6 +3444,7 @@ const handleI18nMenu = () => {
     const link = document.createElement('a');
     link.href = `#`;
     link.textContent = langLabel;
+    link.dataset.lang = langCode;
     eventsManager.addEventListener(link, 'click', (ev) => {
       ev.preventDefault();
       if (langCode === getConfig().appLanguage) return;
@@ -3953,22 +4736,25 @@ const handleEmbed = () => {
   registerScreen('embed', createEmbedUI);
 };
 
+const changeEditorSettings = (newConfig: Partial<UserConfig> | null) => {
+  if (!newConfig) return;
+  const shouldReload = newConfig.editor != null && newConfig.editor !== getConfig().editor;
+
+  setUserConfig(newConfig);
+  const updatedConfig = getConfig();
+  setTheme(updatedConfig.theme, updatedConfig.editorTheme);
+  if (shouldReload) {
+    reloadEditors(updatedConfig);
+  } else {
+    getAllEditors().forEach((editor) => {
+      editor.changeSettings(updatedConfig);
+    });
+  }
+  showEditorModeStatus(updatedConfig.activeEditor || 'markup');
+  getActiveEditor().focus();
+};
+
 const handleEditorSettings = () => {
-  const changeSettings = (newConfig: Partial<UserConfig> | null) => {
-    if (!newConfig) return;
-    const shouldReload = newConfig.editor !== getConfig().editor;
-
-    setUserConfig(newConfig);
-    const updatedConfig = getConfig();
-    setTheme(updatedConfig.theme, updatedConfig.editorTheme);
-    if (shouldReload) {
-      reloadEditors(updatedConfig);
-    } else {
-      getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
-    }
-    showEditorModeStatus(updatedConfig.activeEditor || 'markup');
-  };
-
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
   }: { scrollToSelector?: string } = {}) => {
@@ -3987,7 +4773,7 @@ const handleEditorSettings = () => {
         createEditor,
         loadTypes: async (code: string) => typeLoader.load(code, {}),
         getFormatFn: () => formatter.getFormatFn('jsx'),
-        changeSettings,
+        changeSettings: changeEditorSettings,
       },
     });
   };
@@ -4372,6 +5158,13 @@ const handleTests = () => {
     'click',
     (ev: Event) => {
       ev.preventDefault();
+      if (!toolsPane?.tests) return;
+      // in case it is triggered by keyboard shortcut or command menu
+      split?.show('output');
+      toolsPane.setActiveTool('tests');
+      if (toolsPane.getStatus() === 'closed') {
+        toolsPane.open();
+      }
       runTests();
     },
     false,
@@ -4589,9 +5382,8 @@ const handleBroadcastStatus = () => {
 };
 
 const handleFullscreen = async () => {
-  if (!isEmbed) return;
   const fullscreenButton = getFullscreenButton();
-  const buttonImg = fullscreenButton.querySelector('img')!;
+  const buttonImg = fullscreenButton.querySelector('img');
   const fscreen = (await import(fscreenUrl)).default;
   if (!fscreen.fullscreenEnabled) {
     fullscreenButton.style.visibility = 'hidden';
@@ -4599,6 +5391,7 @@ const handleFullscreen = async () => {
   }
 
   eventsManager.addEventListener(fscreen, 'fullscreenchange', async () => {
+    if (!buttonImg) return;
     if (!fscreen.fullscreenElement) {
       buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
       fullscreenButton.title = window.deps.translateString('core.fullScreen.enter', 'Full Screen');
@@ -4851,9 +5644,9 @@ const basicHandlers = () => {
   handleTestResults();
   handleConsole();
   handleI18n();
+  handleFullscreen();
   if (isEmbed) {
     handleExternalResources();
-    handleFullscreen();
   }
 };
 
