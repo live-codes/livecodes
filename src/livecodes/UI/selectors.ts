@@ -137,8 +137,14 @@ export const getTestsButton = /* @__PURE__ */ () =>
 export const getToolspaneLoader = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#tools-pane-loading');
 
+export const getZoomButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#zoom-button');
+
 export const getZoomButtonValue = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#zoom-button #zoom-value');
+
+export const getResultPopupButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#result-popup-btn');
 
 export const getModalSaveButton = /* @__PURE__ */ () =>
   document.querySelector('#modal #prompt-save-btn') as HTMLElement;
@@ -284,6 +290,9 @@ export const getAboutLink = /* @__PURE__ */ () =>
 export const getCommandMenuLink = /* @__PURE__ */ () =>
   document.querySelector<HTMLAnchorElement>('#command-menu-link');
 
+export const getKeyboardShortcutsMenuLink = /* @__PURE__ */ () =>
+  document.querySelector<HTMLAnchorElement>('#keyboard-shortcuts-menu-link');
+
 export const getAutoupdateToggle = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-settings input#autoupdate') as HTMLInputElement;
 
@@ -320,6 +329,12 @@ export const getShowWelcomeToggle = /* @__PURE__ */ () =>
 export const getRecoverToggle = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-settings input#recover-unsaved') as HTMLInputElement;
 
+export const getThemeColorContainer = /* @__PURE__ */ () =>
+  document.querySelector('#theme-color-selector') as HTMLElement;
+
+export const getCustomThemeColorInput = /* @__PURE__ */ () =>
+  document.querySelector('#theme-color-custom') as HTMLInputElement;
+
 export const getSpacingToggle = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-settings input#show-spacing') as HTMLInputElement;
 
@@ -334,6 +349,9 @@ export const getAssetsLink = /* @__PURE__ */ () =>
 
 export const getSnippetsLink = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-settings #snippets-link') as HTMLInputElement;
+
+export const getHelpMenu = /* @__PURE__ */ () =>
+  document.querySelector('#app-menu-help') as HTMLElement;
 
 export const getInfoTitleInput = /* @__PURE__ */ () =>
   document.querySelector('#info-container input#title-input') as HTMLInputElement;
@@ -616,6 +634,8 @@ export const getModalWelcomeRecentList = /* @__PURE__ */ (welcomeContainer: HTML
 
 export const getModalWelcomeTemplateList = /* @__PURE__ */ (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#modal #welcome-template-list') as HTMLElement;
+
+export const getNinjaKeys = /* @__PURE__ */ () => document.querySelector('ninja-keys') as any;
 
 export const getResultModeDrawer = /* @__PURE__ */ () =>
   document.querySelector('#result-mode-drawer') as HTMLElement;

@@ -660,6 +660,10 @@
     "notes": "",
     "translation": "Change UI Language"
   },
+  "commandMenu.contribute": {
+    "notes": "",
+    "translation": "Contribute"
+  },
   "commandMenu.copy": {
     "notes": "",
     "translation": "Copy Code"
@@ -696,6 +700,10 @@
     "notes": "",
     "translation": "Disable Vim Mode"
   },
+  "commandMenu.editorKeyboardShortcuts": {
+    "notes": "",
+    "translation": "Editor Keyboard Shortcuts"
+  },
   "commandMenu.enableAI": {
     "notes": "",
     "translation": "Enable AI Code Assistant"
@@ -724,6 +732,18 @@
     "notes": "",
     "translation": "Enable Vim Mode"
   },
+  "commandMenu.focus.editor": {
+    "notes": "",
+    "translation": "Focus Editor"
+  },
+  "commandMenu.focus.home": {
+    "notes": "",
+    "translation": "Move Focus to Home"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "notes": "",
+    "translation": "Move Focus out of Editor"
+  },
   "commandMenu.formatCode": {
     "notes": "",
     "translation": "Format Code"
@@ -735,6 +755,10 @@
   "commandMenu.horizontalLayout": {
     "notes": "",
     "translation": "Horizontal Layout"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "notes": "",
+    "translation": "Keyboard Shortcuts"
   },
   "commandMenu.login": {
     "notes": "",
@@ -751,6 +775,10 @@
   "commandMenu.placeholder": {
     "notes": "",
     "translation": "Type a command or search..."
+  },
+  "commandMenu.processors": {
+    "notes": "",
+    "translation": "Processors"
   },
   "commandMenu.responsiveLayout": {
     "notes": "",
@@ -836,13 +864,29 @@
     "notes": "",
     "translation": "Show …"
   },
+  "commandMenu.show.zoom": {
+    "notes": "",
+    "translation": "Toggle Result Zoom"
+  },
   "commandMenu.starterTemplates": {
     "notes": "",
     "translation": "Starter Templates"
   },
+  "commandMenu.sync": {
+    "notes": "",
+    "translation": "Sync (beta) …"
+  },
   "commandMenu.template": {
     "notes": "",
     "translation": "Template"
+  },
+  "commandMenu.theme.color": {
+    "notes": "",
+    "translation": "Set Theme Color"
+  },
+  "commandMenu.theme.defaultColor": {
+    "notes": "",
+    "translation": "Set Default Theme Color"
   },
   "commandMenu.toClose": {
     "notes": "",
@@ -855,6 +899,10 @@
   "commandMenu.toSelect": {
     "notes": "",
     "translation": "to select"
+  },
+  "commandMenu.toggle": {
+    "notes": "",
+    "translation": "Toggle: "
   },
   "commandMenu.verticalLayout": {
     "notes": "",
@@ -1803,6 +1851,10 @@
   "menu.import": {
     "notes": "",
     "translation": "Import …"
+  },
+  "menu.keyboardShortcuts": {
+    "notes": "",
+    "translation": "Keyboard Shortcuts"
   },
   "menu.layout": {
     "notes": "",

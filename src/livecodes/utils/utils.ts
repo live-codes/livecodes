@@ -68,6 +68,9 @@ export const isMobile = /* @__PURE__ */ () => {
   return mobile;
 };
 
+export const isMac = /* @__PURE__ */ () =>
+  navigator.userAgent.includes('Mac') || navigator.platform.includes('Mac');
+
 export const isFirefox = /* @__PURE__ */ () => {
   const userAgent = navigator.userAgent.toLowerCase();
   return userAgent.includes('firefox') || userAgent.includes('fxios');

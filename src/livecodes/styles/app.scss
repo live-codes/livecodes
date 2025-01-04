@@ -1777,7 +1777,8 @@ ninja-keys {
 
   &::part(ninja-action__highlight) {
     background-color: yellow;
-    padding: 1px;
+    font-weight: bold;
+    padding: 0;
   }
 
   &::part(actions-list) {
