@@ -1761,7 +1761,7 @@ ninja-keys {
   --ninja-placeholder-color: var(--color70);
   --ninja-footer-background: var(--dropdown-bg-color);
   --ninja-overflow-background: var(--overlay-bg-color);
-  font-family: 'Inter';
+  font-family: Inter, system-ui, sans-serif;
 
   &.dark {
     --ninja-placeholder-color: var(--color40);
