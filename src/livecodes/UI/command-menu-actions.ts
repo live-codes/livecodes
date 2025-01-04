@@ -1017,16 +1017,18 @@ export const getCommandMenuActions = ({
     }
   };
 
+  const isActionList = (list: INinjaAction[] | string[] | undefined): list is INinjaAction[] =>
+    Boolean(list?.every((a) => typeof a !== 'string'));
+
   const traverseMenu = (
     data: INinjaAction[],
     transform: (action: INinjaAction) => INinjaAction,
   ): INinjaAction[] =>
     data.map((action) => ({
       ...transform(action),
-      children:
-        action.children?.length && action.children.every((a) => typeof a !== 'string')
-          ? traverseMenu(action.children, transform)
-          : action.children,
+      children: isActionList(action.children)
+        ? traverseMenu(action.children, transform)
+        : action.children,
     }));
 
   const transformAction = (action: INinjaAction): INinjaAction => ({
@@ -1040,10 +1042,7 @@ export const getCommandMenuActions = ({
   });
 
   const flatten = (list: INinjaAction[]): INinjaAction[] =>
-    list.flatMap((a) => [
-      a,
-      ...(a.children?.every((a) => typeof a !== 'string') ? flatten(a.children) : []),
-    ]);
+    list.flatMap((a) => [a, ...(isActionList(a.children) ? flatten(a.children) : [])]);
 
   const getKeyboardShortcutList = (list: INinjaAction[]): INinjaAction[] =>
     flatten(list).filter((a) => a.hotkey);

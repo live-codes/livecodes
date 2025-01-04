@@ -245,10 +245,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   ) => {
     const random = getRandomString();
     const ext = getLanguageExtension(language);
-    const extension = 'ts';
-    // monacoMapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
-    //   ? ext + '.tsx'
-    //   : ext;
+    const extension =
+      monacoMapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
+        ? ext + '.tsx'
+        : ext;
     modelUri = `file:///${editorId}.${random}.${extension}`;
     const oldModel = editor.getModel();
     const model = monaco.editor.createModel(
