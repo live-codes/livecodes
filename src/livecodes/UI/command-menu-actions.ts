@@ -1059,6 +1059,7 @@ export const getCommandMenuActions = ({
         window.open(
           'https://code.visualstudio.com/docs/getstarted/keybindings#_basic-editing',
           '_blank',
+          'noopener,noreferrer',
         );
       },
     },
