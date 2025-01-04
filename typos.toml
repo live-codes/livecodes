@@ -23,6 +23,8 @@ Darcula = "Darcula"
 IIF = "IIF"
 xdescribe = "xdescribe"
 arange = "arange"
+touchs = "touchs"
+decid = "decid"
 
 [type.svg]
 # Skip check contents for svg files
