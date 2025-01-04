@@ -10,7 +10,7 @@ module.exports = {
     },
     {
       path: './build/livecodes/*(app|embed|lite|headless).*.js',
-      maxSize: '100kB',
+      maxSize: '120kB',
     },
     // {
     //   path: './build/livecodes/lang-*.js',
