@@ -294,7 +294,7 @@ export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.1/dist/monaco
 
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
 
-export const ninjaKeysUrl = /* @__PURE__ */ getUrl('konnors-ninja-keys@1.14.0/bundle/all.js');
+export const ninjaKeysUrl = /* @__PURE__ */ getUrl('@hatemhosny/ninja-keys@1.14.0/bundle/index.js');
 
 export const nomnomlCdnUrl = /* @__PURE__ */ getUrl('nomnoml@1.6.1/dist/nomnoml.js');
 
