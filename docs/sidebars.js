@@ -35,6 +35,7 @@ const sidebars = {
             'features/intellisense',
             'features/ai',
             'features/code-format',
+            'features/command-menu',
             'features/keyboard-shortcuts',
             'features/user-settings',
             'features/editor-settings',
