@@ -291,8 +291,9 @@ body {
 }
 
 html.dark {
-  --placeholder-color: var(--darker-color) --placeholder-color-focus: var(--darker-active) --tag-bg:
-    var(--dropdown-bg-color);
+  --placeholder-color: var(--darker-color);
+  --placeholder-color-focus: var(--darker-active);
+  --tag-bg: var(--dropdown-bg-color);
   --tag-hover: var(--dropdown-bg-active);
   --tag-text-color: var(--dropdown-color);
   // Sugegstion's dropdown
@@ -321,8 +322,6 @@ html.dark {
 
 html {
   .tagify {
-    --placeholder-color: var(--darker-active);
-    --placeholder-color-focus: var(--darker-active);
     --tags-border-color: var(--input-border-color) !important;
     background: var(--input-bg-color); // color2);
     border-radius: var(--rs);

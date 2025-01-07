@@ -31,12 +31,25 @@
 }
 
 .tagify {
+  --scrollbar-width: 3px;
+  --scrollbar-width-legacy: 3px;
+  --tag-inset-shadow-size: 2em !important;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap !important;
   font-size: var(--s12);
   max-width: 140px;
   overflow: hidden;
+
+  .tagify__tag-text {
+    white-space: nowrap;
+  }
+
+  .tagify__input {
+    --placeholder-color: var(--input-color) !important;
+    --placeholder-color-focus: var(--input-color) !important;
+    text-align: start;
+  }
 }
 
 #modal {
@@ -181,19 +194,20 @@
 
       &:hover,
       &:focus {
-        background: var(--input-bg-active);
+        // background: var(--input-bg-active);
         overflow-x: auto;
       }
 
       &::placeholder {
-        color: var(--input-color);
+        color: var(--darker-color);
         opacity: 0.7;
       }
     }
 
-    input#search-assets,
-    input#search-projects,
-    input#search-snippets {
+    input[id*='search']:not([type='radio']):not([type='checkbox']) {
+      border-radius: 0 !important;
+      margin-bottom: 0 !important;
+
       &::placeholder {
         color: var(--darker-color);
       }
