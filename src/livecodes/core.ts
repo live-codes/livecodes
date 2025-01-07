@@ -1329,7 +1329,17 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   };
   const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
   if (hasEditorConfig) {
-    await reloadEditors({ ...getConfig(), ...newConfig });
+    const currentConfig = getConfig();
+    const currentEditorConfig = {
+      ...getEditorConfig(currentConfig),
+      ...getFormatterConfig(currentConfig),
+    };
+    for (const key in editorConfig) {
+      if ((editorConfig as any)[key] !== (currentEditorConfig as any)[key]) {
+        await reloadEditors({ ...currentConfig, ...newConfig });
+        break;
+      }
+    }
   }
 };
 
@@ -1928,14 +1938,12 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
       ].slice(0, 5),
     });
     const doNotCheckAndExecute = (fn: () => void) => async () => fn();
-    (checkSaved ? checkSavedAndExecute : doNotCheckAndExecute)(() => {
+    (checkSaved ? checkSavedAndExecute : doNotCheckAndExecute)(async () => {
       projectId = '';
-      loadConfig(
-        {
-          ...defaultConfig,
-          ...templateConfig,
-        },
-        '?template=' + templateName,
+      const newConfig = { ...defaultConfig, ...templateConfig };
+      return (
+        (await importExternalContent({ config: newConfig })) ||
+        loadConfig(newConfig, '?template=' + templateName)
       );
     })().finally(() => {
       modal.close();
