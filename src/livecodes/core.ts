@@ -4271,11 +4271,6 @@ const handleResultLoading = () => {
     }
     if (event.data.type === 'loading') {
       setLoading(event.data.payload);
-
-      if (getConfig().mode === 'result') {
-        const drawer = UI.getResultModeDrawer();
-        drawer.classList.remove('hidden');
-      }
     }
     const language = event.data.payload?.language;
     if (event.data.type === 'compiled' && language && getEditorLanguages().includes(language)) {
@@ -4285,6 +4280,23 @@ const handleResultLoading = () => {
       updateCompiledCode();
     }
   });
+
+  const showResultModeDrawer = (event: MessageEvent) => {
+    const iframe = UI.getResultIFrameElement();
+    if (
+      !iframe ||
+      event.source !== iframe.contentWindow ||
+      event.data.type !== 'loading' ||
+      event.data.payload !== false ||
+      getConfig().mode !== 'result'
+    ) {
+      return;
+    }
+    const drawer = UI.getResultModeDrawer();
+    drawer.classList.remove('hidden');
+    eventsManager.removeEventListener(window, 'message', showResultModeDrawer);
+  };
+  eventsManager.addEventListener(window, 'message', showResultModeDrawer);
 };
 
 const handleResultPopup = () => {
