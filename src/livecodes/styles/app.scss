@@ -1502,15 +1502,27 @@ li.editor-title {
   animation: spin 1s infinite linear;
   border-radius: 2.5px;
   box-shadow:
-    6.25px 0 0 0 rgba(255, 255, 255, 0.2),
-    5px 3.5px 0 0 rgba(255, 255, 255, 0.4),
-    1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6),
-    -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8),
-    -5px 3.5px 0 0 rgb(255, 255, 255);
+    6.25px 0 0 0 var(--color10),
+    5px 3.5px 0 0 var(--color30),
+    1.75px 5.75px 0 0 var(--color50),
+    -1.75px 5.75px 0 0 var(--color80),
+    -5px 3.5px 0 0 var(--color95);
   content: '';
   display: block;
   height: 2.5px;
   width: 2.5px;
+}
+
+:root.light {
+  #tools-pane-loading::before,
+  .loading #show-result::before {
+    box-shadow:
+      6.25px 0 0 0 var(--color95),
+      5px 3.5px 0 0 var(--color80),
+      1.75px 5.75px 0 0 var(--color50),
+      -1.75px 5.75px 0 0 var(--color30),
+      -5px 3.5px 0 0 var(--color10);
+  }
 }
 
 .language-item {
