@@ -324,11 +324,12 @@ createPlayground('#container').then(async (playground) => {
 
 ### `show`
 
-Type: [`(panel: EditorId | Lowercase<Tool['title']> | 'result' | 'toggle-result', options?: { full?: boolean; line?: number; column?: number; zoom?: 1 | 0.5 | 0.25 }) => Promise<void>`](../api/interfaces/Playground.md#show)
+Type: [`(panel: 'code' | 'markup' | 'style' | 'script' | 'console' | 'compiled' | 'tests' | 'result' | 'toggle-result', options?: { full?: boolean; line?: number; column?: number; zoom?: 1 | 0.5 | 0.25 }) => Promise<void>`](../api/interfaces/Playground.md#show)
 
 Shows the selected panel, which is either:
 
-- Editor: `markup`, `style` or `script`
+- Active Editor: `code`
+- Specific Editor: `markup`, `style` or `script`
 - Tool: `console`, `compiled` or `tests`
 - Result page: `result` or `toggle-result`
 

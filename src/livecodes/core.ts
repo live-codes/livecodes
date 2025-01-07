@@ -5137,6 +5137,8 @@ const createApi = (): API => {
       if (zoomLevel) {
         zoom(zoomLevel);
       }
+    } else if (panel === 'code') {
+      split?.show('code', full);
     } else if (panel === 'console' || panel === 'compiled' || panel === 'tests') {
       split?.show('output');
       toolsPane?.setActiveTool(panel);

@@ -117,7 +117,7 @@ export interface API {
    * await playground.show("console", { full: true });
    */
   show: (
-    panel: EditorId | Tool['name'] | 'result' | 'toggle-result',
+    panel: EditorId | 'code' | 'result' | 'toggle-result' | Tool['name'],
     options?: { full?: boolean; line?: number; column?: number; zoom?: Config['zoom'] },
   ) => Promise<void>;
 
