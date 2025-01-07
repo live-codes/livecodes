@@ -110,13 +110,14 @@ export interface API {
    * See [docs](https://livecodes.io/docs/sdk/js-ts#show) for details.
    * @example
    * await playground.show("style");
+   * await playground.show("toggle-result");
    * await playground.show("result", { full: true });
    * await playground.show("script");
    * await playground.show("result", { zoom: 0.5 });
    * await playground.show("console", { full: true });
    */
   show: (
-    panel: EditorId | Tool['name'] | 'result',
+    panel: EditorId | Tool['name'] | 'result' | 'toggle-result',
     options?: { full?: boolean; line?: number; column?: number; zoom?: Config['zoom'] },
   ) => Promise<void>;
 

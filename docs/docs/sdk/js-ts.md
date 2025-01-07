@@ -324,13 +324,13 @@ createPlayground('#container').then(async (playground) => {
 
 ### `show`
 
-Type: [`(panel: EditorId | Lowercase<Tool['title']> | 'result', options?: { full?: boolean; line?: number; column?: number; zoom?: 1 | 0.5 | 0.25 }) => Promise<void>`](../api/interfaces/Playground.md#show)
+Type: [`(panel: EditorId | Lowercase<Tool['title']> | 'result' | 'toggle-result', options?: { full?: boolean; line?: number; column?: number; zoom?: 1 | 0.5 | 0.25 }) => Promise<void>`](../api/interfaces/Playground.md#show)
 
 Shows the selected panel, which is either:
 
 - Editor: `markup`, `style` or `script`
 - Tool: `console`, `compiled` or `tests`
-- Result page: `result`
+- Result page: `result` or `toggle-result`
 
 The second optional argument is an object:
 
@@ -349,6 +349,8 @@ createPlayground('#container').then(async (playground) => {
       setTimeout(resolve, duration);
     });
 
+  await playground.show('toggle-result');
+  await delay(2000);
   await playground.show('style');
   await delay(2000);
   await playground.show('result', { full: true });

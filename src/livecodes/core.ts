@@ -5116,7 +5116,12 @@ const createApi = (): API => {
     panel,
     { full = false, line, column, zoom: zoomLevel } = {},
   ) => {
-    if (panel === 'result') {
+    if (panel === 'toggle-result') {
+      UI.getResultButton()?.click();
+      if (zoomLevel) {
+        zoom(zoomLevel);
+      }
+    } else if (panel === 'result') {
       split?.show('output', full);
       if (getConfig().tools.status !== 'none') {
         setTimeout(() => toolsPane?.close(), 350);
