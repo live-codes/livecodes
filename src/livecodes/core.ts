@@ -5118,7 +5118,9 @@ const createApi = (): API => {
   ) => {
     if (panel === 'result') {
       split?.show('output', full);
-      toolsPane?.close();
+      if (getConfig().tools.status !== 'none') {
+        setTimeout(() => toolsPane?.close(), 350);
+      }
       if (zoomLevel) {
         zoom(zoomLevel);
       }
