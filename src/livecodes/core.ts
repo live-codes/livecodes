@@ -386,10 +386,17 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 
 const setEditorTitle = (editorId: EditorId, title: string) => {
   const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
+  const editorTitleContainer = document.querySelector(`#${editorId}-selector`) as HTMLElement;
   const language = getLanguageByAlias(title);
   if (!editorTitle || !language) return;
+  const config = getConfig();
+  if (config[editorId].hideTitle) {
+    editorTitleContainer.style.display = 'none';
+    return;
+  }
+  editorTitleContainer.style.display = '';
   highlightSelectedLanguage(editorId, language);
-  const customTitle = getConfig()[editorId].title;
+  const customTitle = config[editorId].title;
   if (customTitle) {
     editorTitle.textContent = customTitle;
     editorTitle.title = `${capitalize(editorId)}: ${customTitle}`;

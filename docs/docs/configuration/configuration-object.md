@@ -130,11 +130,6 @@ An object that configures the language and content of the markup editor. This ca
   This can be a language name, extension or alias (as defined in [language documentations](../languages/index.md)).  
   (e.g. `"markdown"`, `"md"`)
 
-- `title`:
-  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#title)  
-  Default: `""`  
-  If set, this is used as the title of the editor in the UI, overriding the default title set to the language name (e.g. "Python" can be used instead of "Py (Wasm)").
-
 - `content`:
   Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#content)  
   Default: `""`  
@@ -157,6 +152,17 @@ An object that configures the language and content of the markup editor. This ca
   Default: `undefined`  
   A URL to load `hiddenContent` from. It has to be a valid URL that is CORS-enabled.  
   The URL is only fetched if `hiddenContent` property had no value.
+
+- `title`:
+  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#title)  
+  Default: `""`  
+  If set, this is used as the title of the editor in the UI, overriding the default title set to the language name (e.g. "Python" can be used instead of "Py (Wasm)").
+
+- `hideTitle`:
+  Type: [`boolean | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#hidetitle)  
+  Default: `""`  
+  If `true`, the title of the code editor is hidden, however its code is still evaluated.  
+  This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
 
 - `selector`:
   Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#selector)  

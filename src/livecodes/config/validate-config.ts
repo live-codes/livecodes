@@ -51,6 +51,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.title, 'string') ? { title: x.title } : {}),
     ...(is(x.content, 'string') ? { content: x.content } : {}),
     ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
+    ...(is(x.hideTitle, 'boolean') ? { hideTitle: x.hideTitle } : {}),
     ...(is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),
     ...(is(x.hiddenContentUrl, 'string') ? { hiddenContentUrl: x.hiddenContentUrl } : {}),
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),

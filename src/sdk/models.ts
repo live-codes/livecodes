@@ -1053,13 +1053,6 @@ export interface Editor {
   language: Language;
 
   /**
-   * If set, this is used as the title of the editor in the UI,
-   * overriding the default title set to the language name
-   * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
-   */
-  title?: string;
-
-  /**
    * The initial content of the code editor.
    * @default ""
    */
@@ -1085,6 +1078,20 @@ export interface Editor {
    * The URL is only fetched if `hiddenContent` property had no value.
    */
   hiddenContentUrl?: string;
+
+  /**
+   * If set, this is used as the title of the editor in the UI,
+   * overriding the default title set to the language name
+   * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
+   */
+  title?: string;
+
+  /**
+   * If `true`, the title of the code editor is hidden, however its code is still evaluated.
+   *
+   * This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
+   */
+  hideTitle?: boolean;
 
   /**
    * A CSS selector to load content from [DOM import](https://livecodes.io/docs/features/import#import-code-from-dom).
