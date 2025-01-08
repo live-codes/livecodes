@@ -48,11 +48,9 @@ const options: EmbedOptions = {
   // appUrl: ...
   // config: ...
   // import: ...
-  // lite: ...
   // loading: ...
   // params: ...
   // template: ...
-  // view: ...
 };
 
 createPlayground('#container', options).then((playground) => {
@@ -133,14 +131,6 @@ If supplied and is not an object or a valid URL, an error is thrown.
 Type: [`string`](../api/interfaces/EmbedOptions.md#import)
 
 A resource to [import](../features/import.md) (from any of the supported [sources](../features/import.md#sources)).
-
-### `lite`
-
-Type: [`boolean`](../api/interfaces/EmbedOptions.md#lite)
-
-Default: `false`
-
-If `true`, the playground is loaded in [lite mode](../features/lite.md).
 
 ### `loading`
 

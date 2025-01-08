@@ -1661,6 +1661,12 @@ li.editor-title {
   }
 }
 
+.lite-mode {
+  #editor-tools {
+    display: none;
+  }
+}
+
 .simple-mode {
   .editor-title:not(.active),
   &.embed #toolbar .toolbar-render #result-button,

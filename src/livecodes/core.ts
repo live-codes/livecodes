@@ -565,6 +565,7 @@ const showMode = (mode?: Config['mode']) => {
     full: '111',
     focus: '111',
     simple: '111',
+    lite: '111',
     editor: '110',
     codeblock: '010',
     result: '001',
@@ -623,6 +624,7 @@ const showMode = (mode?: Config['mode']) => {
   }
   document.body.classList.toggle('simple-mode', mode === 'simple');
   document.body.classList.toggle('focus-mode', mode === 'focus');
+  document.body.classList.toggle('lite-mode', mode === 'lite');
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
   }
@@ -2497,11 +2499,11 @@ const handleI18nMenu = () => {
 
 const handleEditorTools = () => {
   if (!configureEditorTools(getActiveEditor().getLanguage())) return;
-
+  const originalMode = getConfig().mode;
   eventsManager.addEventListener(UI.getFocusButton(), 'click', () => {
     const config = getConfig();
     const currentMode = config.mode;
-    const newMode = currentMode === 'full' ? 'focus' : 'full';
+    const newMode = currentMode === originalMode ? 'focus' : originalMode;
     setConfig({
       ...config,
       mode: newMode,
@@ -4484,6 +4486,7 @@ const handleUnload = () => {
 };
 
 const loadToolsPane = async () => {
+  if (isLite) return;
   const updateConfigTools = debounce((tools: Config['tools']) => {
     setConfig({
       ...getConfig(),
@@ -5032,7 +5035,6 @@ const initializePlayground = async (
     config?: Partial<Config>;
     baseUrl?: string;
     isEmbed?: boolean;
-    isLite?: boolean;
     isHeadless?: boolean;
   },
   initializeFn?: () => void | Promise<void>,
@@ -5040,7 +5042,11 @@ const initializePlayground = async (
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isHeadless = options?.isHeadless ?? false;
-  isLite = options?.isLite ?? params.lite ?? false;
+  isLite =
+    params.mode === 'lite' ||
+    (params.lite != null && params.lite !== false) || // for backward compatibility
+    appConfig.mode === 'lite' ||
+    false;
   isEmbed =
     isHeadless ||
     isLite ||
@@ -5282,17 +5288,9 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     basicHandlers();
-    await loadToolsPane();
-  });
-  return createApi();
-};
-const initLite = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = {
-    showMode,
-    translateString: translateStringMock,
-  };
-  await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
-    basicHandlers();
+    if (config.mode !== 'lite') {
+      await loadToolsPane();
+    }
   });
   return createApi();
 };
@@ -5317,4 +5315,4 @@ const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
   return createApi();
 };
 
-export { initApp, initEmbed, initLite, initHeadless };
+export { initApp, initEmbed, initHeadless };

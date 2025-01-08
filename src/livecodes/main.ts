@@ -12,8 +12,9 @@ export type { API, Config };
 
 export const params = new URLSearchParams(location.search);
 export const isHeadless = params.get('view') === 'headless';
-export const isLite = params.get('lite') != null && params.get('lite') !== 'false';
-export const isEmbed =
+export let isLite =
+  (params.get('lite') != null && params.get('lite') !== 'false') || params.get('mode') === 'lite';
+export let isEmbed =
   isHeadless ||
   isLite ||
   (params.get('embed') != null && params.get('embed') !== 'false') ||
@@ -39,13 +40,17 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
     }
     const baseUrl =
       (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/livecodes/';
+
+    if (config.mode === 'lite') {
+      isLite = true;
+      isEmbed = true;
+    }
     const scriptFile = isHeadless
       ? '{{hash:headless.js}}'
-      : isLite
-        ? '{{hash:lite.js}}'
-        : isEmbed
-          ? '{{hash:embed.js}}'
-          : '{{hash:app.js}}';
+      : isEmbed
+        ? '{{hash:embed.js}}'
+        : '{{hash:app.js}}';
+
     const anyOrigin = '*';
 
     const style = document.createElement('style');

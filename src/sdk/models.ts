@@ -352,6 +352,10 @@ export interface EmbedOptions {
   import?: string;
 
   /**
+   * @deprecated
+   *
+   * Use `{ config: { mode: "lite" } }` instead
+   *
    * If `true`, the playground is loaded in [lite mode](https://livecodes.io/docs/features/lite).
    */
   lite?: boolean;
@@ -591,7 +595,7 @@ export interface AppConfig {
    * Sets the [display mode](https://livecodes.io/docs/features/display-modes).
    * @default "full"
    */
-  mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
+  mode: 'full' | 'focus' | 'lite' | 'simple' | 'editor' | 'codeblock' | 'result';
 
   /**
    * Sets enabled and active tools and status of [tools pane](https://livecodes.io/docs/features/tools-pane).
@@ -1939,6 +1943,7 @@ export type UrlQueryParams = Partial<
       config: string;
       embed: boolean;
       preview: boolean;
+      lite: boolean;
       x: string;
       files: string; // comma-separated files (e.g. import from GitHub dir)
       raw: Language;

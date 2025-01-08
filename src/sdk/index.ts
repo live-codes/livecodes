@@ -112,7 +112,15 @@ export async function createPlayground(
     url.searchParams.set('x', importFrom);
   }
   if (lite) {
-    url.searchParams.set('lite', 'true');
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Deprecation notice: "lite" option is deprecated. Use "config: { mode: 'lite' }" instead.`,
+    );
+    if (typeof config === 'object' && config.mode == null) {
+      config.mode = 'lite';
+    } else {
+      url.searchParams.set('lite', 'true');
+    }
   }
   url.searchParams.set('embed', 'true');
   url.searchParams.set('loading', headless ? 'eager' : loading);

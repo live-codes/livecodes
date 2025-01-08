@@ -68,14 +68,14 @@ const baseOptions = {
     ...(devMode
       ? []
       : [
-        minifyHTML({
-          collapseWhitespace: true,
-          collapseBooleanAttributes: true,
-          minifyJS: true,
-          minifyCSS: true,
-          processScripts: ['importmap'],
-        }),
-      ]),
+          minifyHTML({
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true,
+            minifyJS: true,
+            minifyCSS: true,
+            processScripts: ['importmap'],
+          }),
+        ]),
   ],
 };
 
@@ -146,7 +146,6 @@ const esmBuild = () =>
     entryPoints: [
       'app.ts',
       'embed.ts',
-      'lite.ts',
       'headless.ts',
       'templates/starter/index.ts',
       'editor/monaco/monaco.ts',
@@ -266,7 +265,7 @@ const workersBuild = () =>
       fs.writeFile(
         path.resolve('build/livecodes', filename),
         filename.endsWith('.map') ? content : iife(content),
-        () => { },
+        () => {},
       );
     }
   });
