@@ -79,4 +79,14 @@
   #logo img {
     filter: drop-shadow(1px 1px 1px var(--color50));
   }
+
+  .tagify {
+    background-color: var(--input-bg-color) !important;
+
+    .tagify__input {
+      --placeholder-color: var(--input-color) !important;
+      --placeholder-color-focus: var(--input-color) !important;
+      text-align: start;
+    }
+  }
 }
