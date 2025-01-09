@@ -117,7 +117,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
       {} as Partial<Config>,
     );
 
-    // populate params config from query string params
+  // populate params config from query string params
 
   // ?html=hi&scss&ts
   (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((key) => {
