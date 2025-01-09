@@ -12,7 +12,7 @@ Example: https://livecodes.io/?view=split
 
 Demo:
 
-<LiveCodes view="split"></LiveCodes>
+<LiveCodes config={{view: 'split'}}></LiveCodes>
 
 ## `editor`
 
@@ -22,7 +22,7 @@ Example: https://livecodes.io/?view=editor
 
 Demo:
 
-<LiveCodes view="editor"></LiveCodes>
+<LiveCodes config={{view: 'editor'}}></LiveCodes>
 
 ## `result`
 
@@ -32,7 +32,7 @@ Example: https://livecodes.io/?view=result
 
 Demo:
 
-<LiveCodes view="result"></LiveCodes>
+<LiveCodes config={{view: 'result'}}></LiveCodes>
 
 ## Display Mode vs Default View
 

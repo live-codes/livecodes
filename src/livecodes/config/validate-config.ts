@@ -24,6 +24,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
 
   const includes = (arr: any[], x: any) => x != null && arr.includes(x);
 
+  const views: Array<Config['view']> = ['split', 'editor', 'result'];
   const modes: Array<Config['mode']> = [
     'full',
     'focus',
@@ -111,6 +112,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.autotest, 'boolean') ? { autotest: config.autotest } : {}),
     ...(is(config.delay, 'number') ? { delay: Number(config.delay) } : {}),
     ...(is(config.formatOnsave, 'boolean') ? { formatOnsave: config.formatOnsave } : {}),
+    ...(includes(views, config.view) ? { view: config.view } : {}),
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),
     ...(includes(themes, config.theme) ? { theme: config.theme } : {}),
     ...(is(config.themeColor, 'string') ? { themeColor: config.themeColor } : {}),

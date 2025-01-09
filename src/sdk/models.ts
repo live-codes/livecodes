@@ -347,6 +347,12 @@ export interface EmbedOptions {
   config?: Partial<Config> | string;
 
   /**
+   * If `true`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+   * @default false
+   */
+  headless?: boolean;
+
+  /**
    * A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
    */
   import?: string;
@@ -357,6 +363,7 @@ export interface EmbedOptions {
    * Use `{ config: { mode: "lite" } }` instead
    *
    * If `true`, the playground is loaded in [lite mode](https://livecodes.io/docs/features/lite).
+   * @default false
    */
   lite?: boolean;
 
@@ -366,7 +373,6 @@ export interface EmbedOptions {
    * - `"eager"`: The playground loads immediately.
    * - `"lazy"`: A playground embedded low down in the page will not load until the user scrolls so that it approaches the viewport.
    * - `"click"`: The playground does not load automatically. Instead, a "Click-to-load" screen is shown.
-   *
    * @default "lazy"
    */
   loading?: 'lazy' | 'click' | 'eager';
@@ -378,9 +384,15 @@ export interface EmbedOptions {
   template?: TemplateName;
 
   /**
+   * @deprecated
+   *
+   * The `view` option has been moved to `config.view`.
+   * For headless mode use `headless: true`.
+   *
    * The [default view](https://livecodes.io/docs/features/default-view) for the playground.
    *
    * When set to `"headless"`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+   * @default "split"
    */
   view?: 'split' | 'editor' | 'result' | 'headless';
 }
@@ -590,6 +602,12 @@ export interface AppConfig {
    * @default true
    */
   allowLangChange: boolean;
+
+  /**
+   * Sets the [default view](https://livecodes.io/docs/features/default-view) for the playground.
+   * @default "split"
+   */
+  view?: 'split' | 'editor' | 'result';
 
   /**
    * Sets the [display mode](https://livecodes.io/docs/features/display-modes).

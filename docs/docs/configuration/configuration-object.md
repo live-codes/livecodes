@@ -385,6 +385,14 @@ Default: `true`
 
 If `false`, the UI will not show the menu that allows changing editor language.
 
+### `view`
+
+Type: [`"editor" | "result" | "split" | "headless"`](../api/interfaces/Config.md#view)
+
+Default: `"split"`
+
+The [default view](../features/default-view.md) for the playground.
+
 ### `mode`
 
 Type: [`"full" | "focus" | "simple" | "lite" | "result" | "editor" | "codeblock"`](../api/interfaces/Config.md#mode)

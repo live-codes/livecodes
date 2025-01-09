@@ -47,6 +47,7 @@ import { createPlayground, type EmbedOptions } from 'livecodes';
 const options: EmbedOptions = {
   // appUrl: ...
   // config: ...
+  // headless: ...
   // import: ...
   // loading: ...
   // params: ...
@@ -126,6 +127,14 @@ A [configuration object](../configuration/configuration-object.md) or a URL to a
 
 If supplied and is not an object or a valid URL, an error is thrown.
 
+### `headless`
+
+Type: [`boolean`](../api/interfaces/EmbedOptions.md#headless)
+
+Default: `false`
+
+When set to `true`, the playground is loaded in [headless mode](./headless.md).
+
 ### `import`
 
 Type: [`string`](../api/interfaces/EmbedOptions.md#import)
@@ -174,16 +183,6 @@ createPlayground('#container', { params: { md: '# Hello World!' } });
 Type: [`TemplateName`](../api/interfaces/EmbedOptions.md#template)
 
 A [starter template](../features/templates.md) to load. Allowed valued can be found [here](../api/interfaces/EmbedOptions.md#template).
-
-### `view`
-
-Type: [`"editor" | "result" | "split" | "headless"`](../api/interfaces/EmbedOptions.md#view)
-
-Default: `"split"`
-
-The [default view](../features/default-view.md) for the playground.
-
-When set to `"headless"`, the playground is loaded in [headless mode](./headless.md).
 
 ## SDK Methods
 

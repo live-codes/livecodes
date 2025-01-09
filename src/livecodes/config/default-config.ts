@@ -11,6 +11,7 @@ export const defaultConfig: Config = {
   autotest: false,
   delay: 1500,
   formatOnsave: false,
+  view: 'split',
   mode: 'full',
   theme: 'dark',
   themeColor: undefined,

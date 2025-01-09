@@ -542,16 +542,19 @@ const updateEditors = async (editors: Editors, config: Config) => {
   }
 };
 
-const showMode = (mode?: Config['mode']) => {
+const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   if (!mode) {
     mode = 'full';
   }
+  if (!view) {
+    view = getConfig().view;
+  }
 
   if (mode === 'full') {
-    if (params.view === 'editor') {
+    if (view === 'editor') {
       split?.show('code', true);
     }
-    if (params.view === 'result') {
+    if (view === 'result') {
       split?.show('output', true);
     }
   }
@@ -632,6 +635,10 @@ const showMode = (mode?: Config['mode']) => {
 };
 
 const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
+  const config = getConfig();
+  const editorIds: EditorId[] = ['markup', 'style', 'script'];
+  const allHidden = editorIds.every((editor) => config[editor].hideTitle);
+  if (config[editorId].hideTitle && !allHidden) return;
   const titles = UI.getEditorTitles();
   const editorIsVisible = () =>
     Array.from(titles)
@@ -659,7 +666,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
     });
   }
   updateCompiledCode();
-  if (initialized || params.view !== 'result') {
+  if (initialized || config.view !== 'result') {
     split?.show('code');
   }
   configureEditorTools(getActiveEditor().getLanguage());
@@ -1315,7 +1322,7 @@ const applyConfig = async (newConfig: Partial<Config>) => {
     loadSettings(getConfig());
   }
   if (newConfig.mode) {
-    window.deps.showMode(newConfig.mode);
+    window.deps.showMode(newConfig.mode, newConfig.view ?? getConfig().view);
   }
   if (newConfig.tools) {
     configureToolsPane(newConfig.tools, newConfig.mode);
@@ -2511,7 +2518,7 @@ const handleEditorTools = () => {
     if (newMode === 'focus') {
       toolsPane?.setActiveTool('console');
     }
-    showMode(newMode);
+    showMode(newMode, config.view);
   });
 
   eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
@@ -4967,7 +4974,7 @@ const bootstrap = async (reload = false) => {
   }
   phpHelper({ editor: editors.script });
   setLoading(true);
-  window.deps?.showMode?.(getConfig().mode);
+  window.deps?.showMode?.(getConfig().mode, getConfig().view);
   zoom(getConfig().zoom);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
