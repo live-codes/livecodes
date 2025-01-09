@@ -297,6 +297,7 @@ const translation = {
       title: 'Change Theme',
     },
     changeUILanguage: 'Change UI Language',
+    closeModal: 'Close Modal',
     contribute: 'Contribute',
     copy: 'Copy Code',
     copyAsDataUrl: 'Copy Code as Data URL',
@@ -307,7 +308,6 @@ const translation = {
     disableFormatOnSave: 'Disable Format On-Save',
     disableRecoverUnsaved: 'Disable Recover Unsaved',
     disableVim: 'Disable Vim Mode',
-    editorKeyboardShortcuts: 'Editor Keyboard Shortcuts',
     enableAI: 'Enable AI Code Assistant',
     enableAutoSave: 'Enable Auto Save',
     enableAutoUpdate: 'Enable Auto Update',
@@ -360,6 +360,7 @@ const translation = {
       color: 'Set Theme Color',
       defaultColor: 'Set Default Theme Color',
     },
+    title: 'Command Menu',
     toClose: 'to close',
     toNavigate: 'to navigate',
     toSelect: 'to select',
@@ -661,6 +662,13 @@ const translation = {
       heading: 'Import Project JSON',
     },
     success: 'Import Successful!',
+  },
+  keyboardShortcuts: {
+    command: 'Command',
+    editorShortcuts:
+      'For the list of code editor keyboard shortcuts, see <1> VS Code shortcuts</1>',
+    heading: 'Keyboard Shortcuts',
+    key: 'Key',
   },
   login: {
     accessAllowed: 'Allow access to:',

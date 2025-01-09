@@ -81,6 +81,7 @@ import {
   resultPopupHTML,
   welcomeScreen,
   aboutScreen,
+  keyboardShortcutsScreen,
 } from './html';
 import { exportJSON } from './export/export-json';
 import { createEventsManager, createPub } from './events';
@@ -1895,6 +1896,11 @@ const setLayout = (layout: Config['layout']) => {
   handleIframeResize();
 };
 
+const changeAndSaveLayout = (layout: Config['layout']) => {
+  setUserConfig({ layout });
+  setLayout(layout);
+};
+
 const loadSettings = (config: Config) => {
   const processorToggles = UI.getProcessorToggles();
   processorToggles.forEach((toggle) => {
@@ -2485,7 +2491,9 @@ const handleKeyboardShortcuts = () => {
 
     // Ctrl + Alt + (1-3) activates editor 1-3
     // Ctrl + Alt + (ArrowLeft/ArrowRight) activates previous/next editor
-    const editorIds = ['markup', 'style', 'script'];
+    const editorIds = (['markup', 'style', 'script'] as EditorId[]).filter(
+      (id) => getConfig()[id].hideTitle !== true,
+    );
     if (ctrl(e) && e.altKey && ['1', '2', '3', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
       e.preventDefault();
       split?.show('code');
@@ -2496,7 +2504,8 @@ const handleKeyboardShortcuts = () => {
           : e.key === 'ArrowRight'
             ? editorIds.findIndex((id) => id === getConfig().activeEditor) + 1 || 0
             : 0;
-      const editorIndex = index === 3 ? 0 : index === -1 ? 2 : index;
+      const editorIndex =
+        index === editorIds.length ? 0 : index === -1 ? editorIds.length - 1 : index;
       showEditor(editorIds[editorIndex] as EditorId);
       lastkeys = 'Ctrl + Alt + ' + e.key;
       return;
@@ -2569,6 +2578,48 @@ const handleKeyboardShortcuts = () => {
   eventsManager.addEventListener(window, 'keydown', hotKeys, true);
 };
 
+const handleKeyboardShortcutsScreen = () => {
+  if (isEmbed) return;
+
+  const { keyboardShortcuts } = getCommandMenuActions({
+    deps: {
+      getConfig,
+      loadStarterTemplate,
+      changeEditorSettings,
+      changeLayout: changeAndSaveLayout,
+    },
+  });
+
+  const createShortcutsUI = async () => {
+    const div = document.createElement('div');
+    div.innerHTML = keyboardShortcutsScreen;
+    const shortcutsContainer = div.firstChild as HTMLElement;
+    const rows = keyboardShortcuts
+      .map(
+        (item) => `
+      <tr>
+        <td>${item.title}</td>
+        <td>${item.hotkey
+          ?.split('+')
+          .map((key) => `<kbd>${capitalize(key)}</kbd>`)
+          .join(' ')}</td>
+      </tr>
+    `,
+      )
+      .join('');
+    shortcutsContainer.querySelector('tbody')!.innerHTML = rows;
+    modal.show(shortcutsContainer as HTMLElement);
+  };
+
+  eventsManager.addEventListener(
+    UI.getKeyboardShortcutsMenuLink(),
+    'click',
+    createShortcutsUI,
+    false,
+  );
+  registerScreen('keyboard-shortcuts', createShortcutsUI);
+};
+
 const handleCommandMenu = async () => {
   if (isEmbed) return;
 
@@ -2600,39 +2651,21 @@ const handleCommandMenu = async () => {
       );
   }
 
-  const changeLayout = (layout: Config['layout']) => {
-    setUserConfig({ layout });
-    setLayout(layout);
-  };
-
-  const openCommandMenu = (parent?: string) => {
+  const openCommandMenu = () => {
     modal.close();
     ninja.close();
-    const { actions, keyboardShortcuts, loginAction, logoutAction } = getCommandMenuActions({
+    const { actions, loginAction, logoutAction } = getCommandMenuActions({
       deps: {
         getConfig,
         loadStarterTemplate,
         changeEditorSettings,
-        changeLayout,
+        changeLayout: changeAndSaveLayout,
       },
     });
-    if (parent === 'Keyboard Shortcuts') {
-      ninja.data = keyboardShortcuts;
-      if (HomeBreadcrumb) {
-        HomeBreadcrumb.innerText = window.deps.translateString(
-          'commandMenu.keyboardShortcuts',
-          'Keyboard Shortcuts',
-        );
-      }
-    } else {
-      const authAction = authService?.isLoggedIn() ? logoutAction : loginAction;
-      ninja.data = [...actions, authAction];
-      if (parent) {
-        ninja.setParent(parent);
-      }
-      if (HomeBreadcrumb) {
-        HomeBreadcrumb.innerText = window.deps.translateString('commandMenu.home', 'Home');
-      }
+    const authAction = authService?.isLoggedIn() ? logoutAction : loginAction;
+    ninja.data = [...actions, authAction];
+    if (HomeBreadcrumb) {
+      HomeBreadcrumb.innerText = window.deps.translateString('commandMenu.home', 'Home');
     }
     requestAnimationFrame(() => ninja.open());
   };
@@ -2655,12 +2688,6 @@ const handleCommandMenu = async () => {
 
   eventsManager.addEventListener(window, 'keydown', onHotkey, true);
   eventsManager.addEventListener(UI.getCommandMenuLink(), 'click', () => openCommandMenu(), true);
-  eventsManager.addEventListener(
-    UI.getKeyboardShortcutsMenuLink(),
-    'click',
-    () => openCommandMenu('Keyboard Shortcuts'),
-    true,
-  );
 };
 
 const handleLogoLink = () => {
@@ -4976,6 +5003,7 @@ const extraHandlers = async () => {
   handleBroadcastStatus();
   handleDropFiles();
   handleCommandMenu();
+  handleKeyboardShortcutsScreen();
   handleUnload();
   showConsoleMessage();
 };

@@ -1785,7 +1785,8 @@ export interface Screen {
     | 'custom-settings'
     | 'editor-settings'
     | 'code-to-image'
-    | 'test-editor';
+    | 'test-editor'
+    | 'keyboard-shortcuts';
   show: (options?: any) => void | Promise<unknown>;
 }
 

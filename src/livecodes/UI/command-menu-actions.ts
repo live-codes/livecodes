@@ -1100,6 +1100,16 @@ export const getCommandMenuActions = ({
     },
   };
 
+  const keyboardShortcutsAction: INinjaAction = {
+    id: 'Keyboard',
+    title: window.deps.translateString('commandMenu.keyboardShortcuts', 'Keyboard Shortcuts'),
+    content: getContent('Keyboard Shortcuts'),
+    mdIcon: 'keyboard',
+    handler: () => {
+      UI.getKeyboardShortcutsMenuLink()?.click();
+    },
+  };
+
   const aboutAction: INinjaAction = {
     id: 'About',
     title: window.deps.translateString('menu.about', 'About ...'),
@@ -1145,51 +1155,39 @@ export const getCommandMenuActions = ({
   const flatten = (list: INinjaAction[]): INinjaAction[] =>
     list.flatMap((a) => [a, ...(isActionList(a.children) ? flatten(a.children) : [])]);
 
-  const getKeyboardShortcutList = (list: INinjaAction[]): INinjaAction[] =>
-    flatten(list).filter((a) => a.hotkey);
+  const getKeyboardShortcutList = (list: INinjaAction[]) =>
+    flatten(list).filter((a) => a.hotkey != null);
 
   const keyboardShortcuts: INinjaAction[] = [
     {
-      id: 'Editor Keyboard Shortcuts',
-      title: window.deps.translateString(
-        'commandMenu.editorKeyboardShortcuts',
-        'Editor Keyboard Shortcuts',
-      ),
-      content: getContent('Editor Keyboard Shortcuts'),
-      mdIcon: 'north_east',
-      handler: () => {
-        window.open(
-          'https://code.visualstudio.com/docs/getstarted/keybindings#_basic-editing',
-          '_blank',
-          'noopener,noreferrer',
-        );
-      },
-    },
-    ...getKeyboardShortcutList(actions),
-    {
-      id: 'Command Menu Home',
-      title: window.deps.translateString('commandMenu.home', 'Home'),
-      content: getContent('Home'),
+      id: 'Command Menu',
+      title: window.deps.translateString('commandMenu.title', 'Command Menu'),
+      content: getContent('Command Menu'),
+      hotkey: 'ctrl+k',
       mdIcon: 'home',
       handler: () => {
         UI.getCommandMenuLink()?.click();
       },
     },
-  ];
-
-  const keyboardShortcutsAction: INinjaAction = {
-    id: 'Keyboard',
-    title: window.deps.translateString('commandMenu.keyboardShortcuts', 'Keyboard Shortcuts'),
-    content: getContent('Keyboard Shortcuts'),
-    mdIcon: 'keyboard',
-    handler: () => {
-      UI.getKeyboardShortcutsMenuLink()?.click();
+    ...getKeyboardShortcutList(actions),
+    {
+      id: 'Close Modal',
+      title: window.deps.translateString('commandMenu.closeModal', 'Close Modal'),
+      content: getContent('Close Modal'),
+      hotkey: 'esc',
+      mdIcon: 'cancel',
+      handler: () => {
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      },
     },
-  };
+  ];
 
   return {
     actions: traverseMenu([...actions, keyboardShortcutsAction, aboutAction], transformAction),
-    keyboardShortcuts: traverseMenu(keyboardShortcuts, transformAction),
+    keyboardShortcuts: traverseMenu(keyboardShortcuts, transformAction).map((item) => ({
+      title: item.title,
+      hotkey: item.hotkey || '',
+    })),
     loginAction,
     logoutAction,
   };

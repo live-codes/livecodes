@@ -660,6 +660,10 @@
     "notes": "",
     "translation": "Change UI Language"
   },
+  "commandMenu.closeModal": {
+    "notes": "",
+    "translation": "Close Modal"
+  },
   "commandMenu.contribute": {
     "notes": "",
     "translation": "Contribute"
@@ -699,10 +703,6 @@
   "commandMenu.disableVim": {
     "notes": "",
     "translation": "Disable Vim Mode"
-  },
-  "commandMenu.editorKeyboardShortcuts": {
-    "notes": "",
-    "translation": "Editor Keyboard Shortcuts"
   },
   "commandMenu.enableAI": {
     "notes": "",
@@ -887,6 +887,10 @@
   "commandMenu.theme.defaultColor": {
     "notes": "",
     "translation": "Set Default Theme Color"
+  },
+  "commandMenu.title": {
+    "notes": "",
+    "translation": "Command Menu"
   },
   "commandMenu.toClose": {
     "notes": "",
@@ -1683,6 +1687,22 @@
   "import.success": {
     "notes": "",
     "translation": "Import Successful!"
+  },
+  "keyboardShortcuts.command": {
+    "notes": "",
+    "translation": "Command"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "notes": "### <tag-1> ###\n<a href=\"https://code.visualstudio.com/docs/getstarted/keybindings#_basic-editing\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "For the list of code editor keyboard shortcuts, see <tag-1> VS Code shortcuts</tag-1>"
+  },
+  "keyboardShortcuts.heading": {
+    "notes": "",
+    "translation": "Keyboard Shortcuts"
+  },
+  "keyboardShortcuts.key": {
+    "notes": "",
+    "translation": "Key"
   },
   "login.accessAllowed": {
     "notes": "",
