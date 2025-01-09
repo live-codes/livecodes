@@ -550,17 +550,16 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
     view = getConfig().view;
   }
 
-  if (mode === 'full') {
+  if (mode === 'editor' || mode === 'codeblock' || mode === 'result') {
+    split?.destroy();
+    split = null;
+  } else {
     if (view === 'editor') {
       split?.show('code', true);
     }
     if (view === 'result') {
       split?.show('output', true);
     }
-  }
-  if (mode === 'editor' || mode === 'codeblock' || mode === 'result') {
-    split?.destroy();
-    split = null;
   }
 
   // toolbar-editor-result
@@ -1318,11 +1317,15 @@ const loadConfig = async (
 };
 
 const applyConfig = async (newConfig: Partial<Config>) => {
+  const currentConfig = getConfig();
   if (!isEmbed) {
-    loadSettings(getConfig());
+    loadSettings(currentConfig);
   }
-  if (newConfig.mode) {
-    window.deps.showMode(newConfig.mode, newConfig.view ?? getConfig().view);
+  if (newConfig.mode || newConfig.view) {
+    window.deps.showMode(
+      newConfig.mode ?? currentConfig.mode,
+      newConfig.view ?? currentConfig.view,
+    );
   }
   if (newConfig.tools) {
     configureToolsPane(newConfig.tools, newConfig.mode);
@@ -1332,8 +1335,8 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   }
   if (newConfig.theme || newConfig.editorTheme || newConfig.themeColor || newConfig.fontSize) {
     setTheme(
-      newConfig.theme || getConfig().theme,
-      newConfig.editorTheme || getConfig().editorTheme,
+      newConfig.theme || currentConfig.theme,
+      newConfig.editorTheme || currentConfig.editorTheme,
     );
   }
   if (newConfig.autotest) {
@@ -1345,7 +1348,6 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   };
   const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
   if (hasEditorConfig) {
-    const currentConfig = getConfig();
     const currentEditorConfig = {
       ...getEditorConfig(currentConfig),
       ...getFormatterConfig(currentConfig),

@@ -91,22 +91,6 @@ export async function createPlayground(
       url.searchParams.set(param, String(params[param]));
     });
   }
-
-  if (typeof config === 'string') {
-    try {
-      new URL(config);
-      url.searchParams.set('config', config);
-    } catch {
-      throw new Error(`"config" is not a valid URL or configuration object.`);
-    }
-  } else if (typeof config === 'object') {
-    if (Object.keys(config).length > 0) {
-      url.searchParams.set('config', 'sdk');
-    }
-  } else {
-    throw new Error(`"config" is not a valid URL or configuration object.`);
-  }
-
   if (template) {
     url.searchParams.set('template', template);
   }
@@ -138,6 +122,21 @@ export async function createPlayground(
       url.searchParams.set('view', view);
     }
   }
+  if (typeof config === 'string') {
+    try {
+      new URL(config);
+      url.searchParams.set('config', config);
+    } catch {
+      throw new Error(`"config" is not a valid URL or configuration object.`);
+    }
+  } else if (typeof config === 'object') {
+    if (Object.keys(config).length > 0) {
+      url.searchParams.set('config', 'sdk');
+    }
+  } else {
+    throw new Error(`"config" is not a valid URL or configuration object.`);
+  }
+
   url.searchParams.set('embed', 'true');
   url.searchParams.set('loading', isHeadless ? 'eager' : loading);
 
