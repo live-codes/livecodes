@@ -1782,6 +1782,9 @@ ninja-keys {
   }
 
   &::part(actions-list) {
+    scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+    scrollbar-width: var(--scrollbar-width, thin);
+
     &::-webkit-scrollbar {
       height: var(--scrollbar-width-legacy, 8px);
       width: var(--scrollbar-width-legacy, 8px);
