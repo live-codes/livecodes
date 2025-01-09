@@ -1788,6 +1788,10 @@ ninja-keys {
     border-inline-end: none;
   }
 
+  &::part(ninja-action__content) {
+    color: var(--color70);
+  }
+
   &::part(ninja-hotkey) {
     margin-inline-end: 0.5em;
   }

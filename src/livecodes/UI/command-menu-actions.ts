@@ -17,16 +17,22 @@ export const getCommandMenuActions = ({
   };
 }) => {
   const { getConfig, loadStarterTemplate, changeEditorSettings, changeLayout } = deps;
+  const config = getConfig();
+
+  const getContent = (content: string) =>
+    config.appLanguage && config.appLanguage !== 'en' ? content : undefined;
 
   const actions: INinjaAction[] = [
     {
       id: 'Show',
       title: window.deps.translateString('commandMenu.show.title', 'Show …'),
+      content: getContent('Show …'),
       mdIcon: 'visibility',
       children: [
         {
           id: 'Next Editor',
           title: window.deps.translateString('commandMenu.show.next', 'Show Next Editor'),
+          content: getContent('Show Next Editor'),
           hotkey: 'ctrl+alt+ArrowRight',
           mdIcon: 'skip_next',
           handler: () => {
@@ -43,6 +49,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Previous Editor',
           title: window.deps.translateString('commandMenu.show.previous', 'Show Previous Editor'),
+          content: getContent('Show Previous Editor'),
           hotkey: 'ctrl+alt+ArrowLeft',
           mdIcon: 'skip_previous',
           handler: () => {
@@ -59,6 +66,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Markup Editor',
           title: window.deps.translateString('commandMenu.show.markup', 'Show Markup Editor'),
+          content: getContent('Show Markup Editor'),
           hotkey: 'ctrl+alt+1',
           mdIcon: 'html',
           handler: () => {
@@ -68,6 +76,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Style Editor',
           title: window.deps.translateString('commandMenu.show.style', 'Show Style Editor'),
+          content: getContent('Show Style Editor'),
           hotkey: 'ctrl+alt+2',
           mdIcon: 'css',
           handler: () => {
@@ -77,6 +86,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Script Editor',
           title: window.deps.translateString('commandMenu.show.script', 'Show Script Editor'),
+          content: getContent('Show Script Editor'),
           hotkey: 'ctrl+alt+3',
           mdIcon: 'javascript',
           handler: () => {
@@ -86,6 +96,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Toggle Result',
           title: window.deps.translateString('commandMenu.show.result', 'Toggle Result'),
+          content: getContent('Toggle Result'),
           hotkey: 'ctrl+alt+R',
           // mdIcon: 'split_scene',
           icon: icons.split_scene,
@@ -96,6 +107,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Toggle Console',
           title: window.deps.translateString('commandMenu.show.console', 'Toggle Console'),
+          content: getContent('Toggle Console'),
           hotkey: 'ctrl+alt+C',
           mdIcon: 'terminal',
           handler: () => {
@@ -108,6 +120,7 @@ export const getCommandMenuActions = ({
             'commandMenu.show.maximizeConsole',
             'Maximize Console',
           ),
+          content: getContent('Maximize Console'),
           hotkey: 'ctrl+alt+C+F',
           mdIcon: 'terminal',
           handler: () => {
@@ -117,6 +130,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Toggle Compiled Code',
           title: window.deps.translateString('commandMenu.show.compiled', 'Toggle Compiled Code'),
+          content: getContent('Toggle Compiled Code'),
           // mdIcon: 'code_blocks',
           icon: icons.code_blocks,
           handler: () => {
@@ -129,6 +143,7 @@ export const getCommandMenuActions = ({
             'commandMenu.show.maximizeCompiled',
             'Maximize Compiled Code',
           ),
+          content: getContent('Maximize Compiled Code'),
           icon: icons.code_blocks,
           handler: () => {
             UI.getCompiledButton()?.dispatchEvent(new Event('dblclick'));
@@ -137,6 +152,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Toggle Tests',
           title: window.deps.translateString('commandMenu.show.tests', 'Toggle Tests'),
+          content: getContent('Toggle Tests'),
           // mdIcon: 'labs',
           icon: icons.labs,
           handler: () => {
@@ -146,6 +162,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Maximize Tests',
           title: window.deps.translateString('commandMenu.show.maximizeTests', 'Maximize Tests'),
+          content: getContent('Maximize Tests'),
           // mdIcon: 'labs',
           icon: icons.labs,
           handler: () => {
@@ -155,6 +172,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Toggle Result Zoom',
           title: window.deps.translateString('commandMenu.show.zoom', 'Toggle Result Zoom'),
+          content: getContent('Toggle Result Zoom'),
           hotkey: 'ctrl+alt+z',
           mdIcon: 'zoom_in',
           handler: () => {
@@ -165,6 +183,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Toggle Full Screen',
           title: window.deps.translateString('commandMenu.show.fullscreen', 'Toggle Full Screen'),
+          content: getContent('Toggle Full Screen'),
           hotkey: 'f11',
           mdIcon: 'zoom_out_map',
           handler: () => {
@@ -174,6 +193,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Toggle Focus Mode',
           title: window.deps.translateString('commandMenu.show.focusMode', 'Toggle Focus Mode'),
+          content: getContent('Toggle Focus Mode'),
           hotkey: 'ctrl+alt+F',
           mdIcon: 'crop_free',
           handler: () => {
@@ -185,6 +205,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Select Language',
       title: window.deps.translateString('commandMenu.selectLanguage', 'Select Language'),
+      content: getContent('Select Language'),
       mdIcon: 'code',
       children: languages
         .filter((l) => languageIsEnabled(l.name, getConfig()))
@@ -203,6 +224,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Processors',
       title: window.deps.translateString('commandMenu.processors', 'Processors'),
+      content: getContent('Processors'),
       // mdIcon: 'manufacturing',
       icon: icons.manufacturing,
       children: processors
@@ -212,6 +234,7 @@ export const getCommandMenuActions = ({
           title:
             window.deps.translateString('commandMenu.toggle', 'Toggle: ') +
             (processor.longTitle ?? processor.title),
+          content: getContent('Toggle: ' + (processor.longTitle ?? processor.title)),
           keywords: [
             processor.name,
             processor.title,
@@ -230,6 +253,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Starter Templates',
       title: window.deps.translateString('commandMenu.starterTemplates', 'Starter Templates'),
+      content: getContent('Starter Templates'),
       mdIcon: 'library_books',
       children: stringUnionToArray<TemplateName>()(
         'blank',
@@ -300,6 +324,7 @@ export const getCommandMenuActions = ({
       ).map((template) => ({
         id: 'Starter template: ' + template,
         title: window.deps.translateString('commandMenu.template', 'Template') + ': ' + template,
+        content: getContent('Template: ' + template),
         handler: async () => {
           await loadStarterTemplate(template);
         },
@@ -308,6 +333,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Run',
       title: window.deps.translateString('commandMenu.run', 'Run'),
+      content: getContent('Run'),
       hotkey: 'shift+Enter',
       mdIcon: 'play_arrow',
       handler: () => {
@@ -317,6 +343,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Share',
       title: window.deps.translateString('menu.share', 'Share …'),
+      content: getContent('Share'),
       hotkey: 'ctrl+alt+S',
       mdIcon: 'share',
       handler: () => {
@@ -326,6 +353,7 @@ export const getCommandMenuActions = ({
     {
       id: 'New',
       title: window.deps.translateString('menu.new', 'New …'),
+      content: getContent('New'),
       hotkey: 'ctrl+alt+N',
       mdIcon: 'note_add',
       handler: () => {
@@ -335,6 +363,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Open',
       title: window.deps.translateString('menu.open', 'Open …'),
+      content: getContent('Open'),
       hotkey: 'ctrl+O',
       mdIcon: 'file_open',
       handler: () => {
@@ -344,6 +373,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Save',
       title: window.deps.translateString('menu.save', 'Save'),
+      content: getContent('Save'),
       hotkey: 'ctrl+S',
       mdIcon: 'save',
       handler: () => {
@@ -353,6 +383,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Save As',
       title: window.deps.translateString('menu.saveAs.heading', 'Save as …'),
+      content: getContent('Save as'),
       mdIcon: 'save_as',
       children: [
         {
@@ -361,6 +392,7 @@ export const getCommandMenuActions = ({
             'commandMenu.saveAsFork',
             'Save as a Fork (New Project)',
           ),
+          content: getContent('Save as a Fork (New Project)'),
           hotkey: 'ctrl+shift+S',
           mdIcon: 'save_as',
           handler: () => {
@@ -370,6 +402,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Save as a template',
           title: window.deps.translateString('commandMenu.saveAsTemplate', 'Save as a Template'),
+          content: getContent('Save as a template'),
           mdIcon: 'library_add',
           handler: async () => {
             UI.getSaveAsTemplateLink()?.click();
@@ -380,6 +413,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Import',
       title: window.deps.translateString('menu.import', 'Import …'),
+      content: getContent('Import'),
       hotkey: 'ctrl+alt+I',
       mdIcon: 'upload',
       handler: () => {
@@ -389,11 +423,13 @@ export const getCommandMenuActions = ({
     {
       id: 'Export',
       title: window.deps.translateString('menu.export.heading', 'Export'),
+      content: getContent('Export'),
       mdIcon: 'download',
       children: [
         {
           id: 'Export as JSON',
           title: window.deps.translateString('menu.export.json', 'Export Project (JSON)'),
+          content: getContent('Export Project (JSON)'),
           mdIcon: 'data_object',
           handler: () => {
             UI.getExportJSONLink()?.click();
@@ -402,6 +438,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Export as HTML',
           title: window.deps.translateString('menu.export.result', 'Export Result (HTML)'),
+          content: getContent('Export Result (HTML)'),
           mdIcon: 'html',
           handler: () => {
             UI.getExportResultLink()?.click();
@@ -410,6 +447,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Export as ZIP',
           title: window.deps.translateString('menu.export.src', 'Export Source (ZIP)'),
+          content: getContent('Export Source (ZIP)'),
           mdIcon: 'archive',
           handler: () => {
             UI.getExportSourceLink()?.click();
@@ -418,6 +456,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Export to GitHub Gist',
           title: window.deps.translateString('menu.export.gist', 'Export to GitHub Gist'),
+          content: getContent('Export to GitHub Gist'),
           mdIcon: 'north_east',
           handler: () => {
             UI.getExportGithubGistLink()?.click();
@@ -426,6 +465,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Export to Codepen',
           title: window.deps.translateString('menu.export.codepen', 'Edit in CodePen'),
+          content: getContent('Export to CodePen'),
           mdIcon: 'north_east',
           handler: () => {
             UI.getExportCodepenLink()?.click();
@@ -434,6 +474,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Export to Fiddle',
           title: window.deps.translateString('menu.export.jsfiddle', 'Edit in JSFiddle'),
+          content: getContent('Export to JSFiddle'),
           mdIcon: 'north_east',
           handler: () => {
             UI.getExportJsfiddleLink()?.click();
@@ -444,6 +485,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Deploy',
       title: window.deps.translateString('menu.deploy', 'Deploy …'),
+      content: getContent('Deploy'),
       mdIcon: 'rocket_launch',
       handler: () => {
         UI.getDeployLink()?.click();
@@ -452,6 +494,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Broadcast',
       title: window.deps.translateString('menu.broadcast', 'Broadcast …'),
+      content: getContent('Broadcast'),
       mdIcon: 'cell_tower',
       handler: () => {
         UI.getBroadcastLink()?.click();
@@ -460,6 +503,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Embed',
       title: window.deps.translateString('menu.embed', 'Embed …'),
+      content: getContent('Embed'),
       mdIcon: 'aspect_ratio',
       handler: () => {
         UI.getEmbedLink()?.click();
@@ -468,6 +512,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Project Info',
       title: window.deps.translateString('menu.project', 'Project Info …'),
+      content: getContent('Project Info'),
       mdIcon: 'info',
       handler: () => {
         UI.getProjectInfoLink()?.click();
@@ -476,6 +521,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Custom Settings',
       title: window.deps.translateString('menu.customSettings', 'Custom Settings …'),
+      content: getContent('Custom Settings'),
       mdIcon: 'data_object',
       handler: () => {
         UI.getCustomSettingsLink()?.click();
@@ -484,6 +530,7 @@ export const getCommandMenuActions = ({
     {
       id: 'External Resources',
       title: window.deps.translateString('menu.resources', 'External Resources …'),
+      content: getContent('External Resources'),
       mdIcon: 'file_present',
       handler: () => {
         UI.getExternalResourcesLink()?.click();
@@ -492,6 +539,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Assets',
       title: window.deps.translateString('menu.assets', 'Assets …'),
+      content: getContent('Assets'),
       mdIcon: 'perm_media',
       handler: () => {
         UI.getAssetsLink()?.click();
@@ -500,6 +548,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Code Snippets',
       title: window.deps.translateString('menu.snippets', 'Code Snippets …'),
+      content: getContent('Code Snippets'),
       mdIcon: 'text_snippet',
       handler: () => {
         UI.getSnippetsLink()?.click();
@@ -508,6 +557,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Backup / Restore',
       title: window.deps.translateString('menu.backup', 'Backup / Restore …'),
+      content: getContent('Backup / Restore'),
       // mdIcon: 'deployed_code_update',
       icon: icons.deployed_code_update,
       handler: () => {
@@ -517,6 +567,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Sync',
       title: window.deps.translateString('commandMenu.sync', 'Sync (beta) …'),
+      content: getContent('Sync'),
       mdIcon: 'sync',
       handler: () => {
         UI.getBackupLink()?.click();
@@ -525,6 +576,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Welcome Screen',
       title: window.deps.translateString('menu.welcome.heading', 'Welcome …'),
+      content: getContent('Welcome'),
       mdIcon: 'dashboard',
       handler: () => {
         UI.getWelcomeLink()?.click();
@@ -533,11 +585,13 @@ export const getCommandMenuActions = ({
     {
       id: 'Settings',
       title: window.deps.translateString('menu.appSettings.heading', 'Settings'),
+      content: getContent('Settings'),
       mdIcon: 'settings',
       children: [
         {
           id: 'Editor Settings',
           title: window.deps.translateString('menu.editorSettings', 'Editor Settings …'),
+          content: getContent('Editor Settings'),
           mdIcon: 'settings',
           handler: () => {
             UI.getEditorSettingsLink()?.click();
@@ -546,6 +600,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Enable AI Code Assistant',
           title: window.deps.translateString('commandMenu.enableAI', 'Enable AI Code Assistant'),
+          content: getContent('Enable AI Code Assistant'),
           mdIcon: 'toggle_on',
           handler: () => {
             changeEditorSettings({ enableAI: true });
@@ -554,6 +609,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Disable AI Code Assistant',
           title: window.deps.translateString('commandMenu.disableAI', 'Disable AI Code Assistant'),
+          content: getContent('Disable AI Code Assistant'),
           mdIcon: 'toggle_off',
           handler: () => {
             changeEditorSettings({ enableAI: false });
@@ -562,6 +618,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Enable Auto Update',
           title: window.deps.translateString('commandMenu.enableAutoUpdate', 'Enable Auto Update'),
+          content: getContent('Enable Auto Update'),
           keywords: 'autoupdate',
           mdIcon: 'update',
           handler: () => {
@@ -574,6 +631,7 @@ export const getCommandMenuActions = ({
             'commandMenu.disableAutoUpdate',
             'Disable Auto Update',
           ),
+          content: getContent('Disable Auto Update'),
           keywords: 'autoupdate',
           mdIcon: 'update_disabled',
           handler: () => {
@@ -583,6 +641,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Enable Auto Save',
           title: window.deps.translateString('commandMenu.enableAutoSave', 'Enable Auto Save'),
+          content: getContent('Enable Auto Save'),
           keywords: 'toggle_on',
           mdIcon: 'label',
           handler: () => {
@@ -592,6 +651,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Disable Auto Save',
           title: window.deps.translateString('commandMenu.disableAutoSave', 'Disable Auto Save'),
+          content: getContent('Disable Auto Save'),
           keywords: 'autosave',
           mdIcon: 'label_off',
           handler: () => {
@@ -604,6 +664,7 @@ export const getCommandMenuActions = ({
             'commandMenu.enableFormatOnSave',
             'Enable Format On-Save',
           ),
+          content: getContent('Enable Format On-Save'),
           keywords: 'onsave',
           mdIcon: 'format_align_left',
           handler: () => {
@@ -616,6 +677,7 @@ export const getCommandMenuActions = ({
             'commandMenu.disableFormatOnSave',
             'Disable Format On-Save',
           ),
+          content: getContent('Disable Format On-Save'),
           keywords: 'onsave',
           mdIcon: 'filter_list_off',
           handler: () => {
@@ -628,6 +690,7 @@ export const getCommandMenuActions = ({
             'commandMenu.enableRecoverUnsaved',
             'Enable Recover Unsaved',
           ),
+          content: getContent('Enable Recover Unsaved'),
           mdIcon: 'update',
           handler: () => {
             changeMenuSetting('recoverUnsaved', true);
@@ -639,6 +702,7 @@ export const getCommandMenuActions = ({
             'commandMenu.disableRecoverUnsaved',
             'Disable Recover Unsaved',
           ),
+          content: getContent('Disable Recover Unsaved'),
           mdIcon: 'update_disabled',
           handler: () => {
             changeMenuSetting('recoverUnsaved', false);
@@ -647,6 +711,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Enable Vim Mode',
           title: window.deps.translateString('commandMenu.enableVim', 'Enable Vim Mode'),
+          content: getContent('Enable Vim Mode'),
           mdIcon: 'edit',
           handler: () => {
             changeEditorSettings({ editorMode: 'vim' });
@@ -655,6 +720,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Disable Vim Mode',
           title: window.deps.translateString('commandMenu.disableVim', 'Disable Vim Mode'),
+          content: getContent('Disable Vim Mode'),
           mdIcon: 'edit_off',
           handler: () => {
             changeEditorSettings({ editorMode: undefined });
@@ -663,6 +729,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Enable Emacs Mode',
           title: window.deps.translateString('commandMenu.enableEmacs', 'Enable Emacs Mode'),
+          content: getContent('Enable Emacs Mode'),
           mdIcon: 'edit',
           handler: () => {
             changeEditorSettings({ editorMode: 'emacs' });
@@ -671,6 +738,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Disable Emacs Mode',
           title: window.deps.translateString('commandMenu.disableEmacs', 'Disable Emacs Mode'),
+          content: getContent('Disable Emacs Mode'),
           mdIcon: 'edit_off',
           handler: () => {
             changeEditorSettings({ editorMode: undefined });
@@ -679,6 +747,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Responsive Layout',
           title: window.deps.translateString('commandMenu.responsiveLayout', 'Responsive Layout'),
+          content: getContent('Responsive Layout'),
           // mdIcon: 'responsive_layout',
           icon: icons.responsive_layout,
           handler: () => {
@@ -688,6 +757,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Vertical Layout',
           title: window.deps.translateString('commandMenu.verticalLayout', 'Vertical Layout'),
+          content: getContent('Vertical Layout'),
           mdIcon: 'stay_current_portrait',
           handler: () => {
             changeLayout('vertical');
@@ -696,6 +766,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Horizontal Layout',
           title: window.deps.translateString('commandMenu.horizontalLayout', 'Horizontal Layout'),
+          content: getContent('Horizontal Layout'),
           mdIcon: 'stay_current_landscape',
           handler: () => {
             changeLayout('horizontal');
@@ -706,6 +777,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Format Code',
       title: window.deps.translateString('commandMenu.formatCode', 'Format Code'),
+      content: getContent('Format Code'),
       hotkey: 'shift+alt+f',
       mdIcon: 'format_align_left',
       handler: () => {
@@ -715,6 +787,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Copy Code',
       title: window.deps.translateString('commandMenu.copy', 'Copy Code'),
+      content: getContent('Copy Code'),
       mdIcon: 'content_copy',
       handler: () => {
         UI.getCopyButton()?.click();
@@ -723,6 +796,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Copy Code as Data URL',
       title: window.deps.translateString('commandMenu.copyAsDataUrl', 'Copy Code as Data URL'),
+      content: getContent('Copy Code as Data URL'),
       keywords: 'base64',
       mdIcon: 'dataset_linked',
       handler: () => {
@@ -732,6 +806,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Code to Image',
       title: window.deps.translateString('app.codeToImage.hint', 'Code to Image'),
+      content: getContent('Code to Image'),
       keywords: 'picture screenshot',
       mdIcon: 'camera',
       handler: () => {
@@ -741,6 +816,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Run Tests',
       title: window.deps.translateString('commandMenu.show.runTests', 'Run Tests'),
+      content: getContent('Run Tests'),
       hotkey: 'ctrl+alt+T',
       // mdIcon: 'labs',
       icon: icons.labs,
@@ -751,6 +827,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Show result in new window',
       title: window.deps.translateString('core.result.hint', 'Show result in new window'),
+      content: getContent('Show result in new window'),
       keywords: 'popup',
       mdIcon: 'open_in_new',
       handler: () => {
@@ -760,6 +837,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Focus Editor',
       title: window.deps.translateString('commandMenu.focus.editor', 'Focus Editor'),
+      content: getContent('Focus Editor'),
       hotkey: 'ctrl+alt+e',
       mdIcon: 'filter_center_focus',
       handler: () => {
@@ -774,6 +852,7 @@ export const getCommandMenuActions = ({
         'commandMenu.focus.outOfEditor',
         'Move Focus out of Editor',
       ),
+      content: getContent('Move Focus out of Editor'),
       hotkey: 'esc+esc',
       // mdIcon: 'reset_focus',
       icon: icons.reset_focus,
@@ -785,6 +864,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Move Focus to Home',
       title: window.deps.translateString('commandMenu.focus.home', 'Move Focus to Home'),
+      content: getContent('Move Focus to Home'),
       hotkey: 'esc+esc+esc',
       // mdIcon: 'pip_exit',
       icon: icons.pip_exit,
@@ -797,6 +877,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Change UI Language',
       title: window.deps.translateString('commandMenu.changeUILanguage', 'Change UI Language'),
+      content: getContent('Change UI Language'),
       mdIcon: 'language',
       children: Object.entries(appLanguages).map(([key, lang]) => ({
         id: 'UI Language: ' + key,
@@ -816,6 +897,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Change Theme',
       title: window.deps.translateString('commandMenu.changeTheme.title', 'Change Theme'),
+      content: getContent('Change Theme'),
       mdIcon: 'palette',
       children: [
         {
@@ -824,6 +906,7 @@ export const getCommandMenuActions = ({
             'commandMenu.changeTheme.light',
             'Change to Light Theme',
           ),
+          content: getContent('Change to Light Theme'),
           mdIcon: 'light_mode',
           handler: () => {
             UI.getDarkThemeButton()?.click();
@@ -836,6 +919,7 @@ export const getCommandMenuActions = ({
             'commandMenu.changeTheme.dark',
             'Change to Dark Theme',
           ),
+          content: getContent('Change to Dark Theme'),
           mdIcon: 'dark_mode',
           handler: () => {
             UI.getLightThemeButton()?.click();
@@ -845,6 +929,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Set Theme Color',
           title: window.deps.translateString('commandMenu.theme.color', 'Set Theme Color'),
+          content: getContent('Set Theme Color'),
           mdIcon: 'palette',
           handler: () => {
             UI.getCustomThemeColorInput()?.click();
@@ -856,6 +941,7 @@ export const getCommandMenuActions = ({
             'commandMenu.theme.defaultColor',
             'Set Default Theme Color',
           ),
+          content: getContent('Set Default Theme Color'),
           mdIcon: 'palette',
           handler: () => {
             UI.getThemeColorContainer()?.querySelector('input')?.click();
@@ -866,11 +952,13 @@ export const getCommandMenuActions = ({
     {
       id: 'Documentation',
       title: window.deps.translateString('menu.docs', 'Documentation'),
+      content: getContent('Documentation'),
       mdIcon: 'menu_book',
       children: [
         {
           id: 'Documentation Home',
           title: window.deps.translateString('menu.docs', 'Documentation'),
+          content: getContent('Documentation'),
           mdIcon: 'menu_book',
           handler: () => {
             UI.getHelpMenu()?.querySelector<HTMLAnchorElement>('a[data-i18n="menu.docs"]')?.click();
@@ -880,6 +968,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Getting Started',
           title: window.deps.translateString('menu.getstart', 'Getting Started'),
+          content: getContent('Getting Started'),
           mdIcon: 'start',
           handler: () => {
             UI.getHelpMenu()
@@ -891,6 +980,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Features',
           title: window.deps.translateString('menu.features', 'Features'),
+          content: getContent('Features'),
           mdIcon: 'widgets',
           handler: () => {
             UI.getHelpMenu()
@@ -902,6 +992,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Configuration',
           title: window.deps.translateString('menu.config', 'Configuration'),
+          content: getContent('Configuration'),
           mdIcon: 'tune',
           handler: () => {
             UI.getHelpMenu()
@@ -913,6 +1004,7 @@ export const getCommandMenuActions = ({
         {
           id: 'SDK',
           title: window.deps.translateString('menu.sdk', 'SDK'),
+          content: getContent('SDK'),
           // mdIcon: 'deployed_code',
           icon: icons.deployed_code,
           handler: () => {
@@ -923,6 +1015,7 @@ export const getCommandMenuActions = ({
         {
           id: 'LiveCodes Blog',
           title: window.deps.translateString('menu.blog', 'LiveCodes Blog'),
+          content: getContent('LiveCodes Blog'),
           mdIcon: 'newspaper',
           handler: () => {
             UI.getHelpMenu()?.querySelector<HTMLAnchorElement>('a[data-i18n="menu.blog"]')?.click();
@@ -934,11 +1027,13 @@ export const getCommandMenuActions = ({
     {
       id: 'Contribute',
       title: window.deps.translateString('commandMenu.contribute', 'Contribute'),
+      content: getContent('Contribute'),
       mdIcon: 'construction',
       children: [
         {
           id: 'Source code on GitHub',
           title: window.deps.translateString('menu.source', 'Source code on GitHub'),
+          content: getContent('Source code on GitHub'),
           mdIcon: 'star',
           handler: () => {
             UI.getHelpMenu()
@@ -950,6 +1045,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Report an issue',
           title: window.deps.translateString('menu.report', 'Report an issue'),
+          content: getContent('Report an issue'),
           mdIcon: 'bug_report',
           handler: () => {
             UI.getHelpMenu()
@@ -961,6 +1057,7 @@ export const getCommandMenuActions = ({
         {
           id: 'License',
           title: window.deps.translateString('menu.license', 'License'),
+          content: getContent('License'),
           mdIcon: 'receipt_long',
           handler: () => {
             UI.getHelpMenu()
@@ -972,6 +1069,7 @@ export const getCommandMenuActions = ({
         {
           id: 'Sponsor',
           title: window.deps.translateString('about.sponsor.text', 'Sponsor'),
+          content: getContent('Sponsor'),
           mdIcon: 'handshake',
           handler: () => {
             window.open(predefinedValues.DOCS_BASE_URL + 'sponsor', '_blank');
@@ -985,6 +1083,7 @@ export const getCommandMenuActions = ({
   const loginAction: INinjaAction = {
     id: 'Login',
     title: window.deps.translateString('commandMenu.login', 'Login'),
+    content: getContent('Login'),
     mdIcon: 'login',
     handler: () => {
       UI.getLoginLink()?.click();
@@ -994,6 +1093,7 @@ export const getCommandMenuActions = ({
   const logoutAction: INinjaAction = {
     id: 'Logout',
     title: window.deps.translateString('commandMenu.logout', 'Logout'),
+    content: getContent('Logout'),
     mdIcon: 'logout',
     handler: () => {
       UI.getLogoutLink()?.click();
@@ -1003,6 +1103,7 @@ export const getCommandMenuActions = ({
   const aboutAction: INinjaAction = {
     id: 'About',
     title: window.deps.translateString('menu.about', 'About ...'),
+    content: getContent('About'),
     mdIcon: 'contact_support',
     handler: () => {
       UI.getAboutLink()?.click();
@@ -1054,6 +1155,7 @@ export const getCommandMenuActions = ({
         'commandMenu.editorKeyboardShortcuts',
         'Editor Keyboard Shortcuts',
       ),
+      content: getContent('Editor Keyboard Shortcuts'),
       mdIcon: 'north_east',
       handler: () => {
         window.open(
@@ -1067,6 +1169,7 @@ export const getCommandMenuActions = ({
     {
       id: 'Command Menu Home',
       title: window.deps.translateString('commandMenu.home', 'Home'),
+      content: getContent('Home'),
       mdIcon: 'home',
       handler: () => {
         UI.getCommandMenuLink()?.click();
@@ -1077,6 +1180,7 @@ export const getCommandMenuActions = ({
   const keyboardShortcutsAction: INinjaAction = {
     id: 'Keyboard',
     title: window.deps.translateString('commandMenu.keyboardShortcuts', 'Keyboard Shortcuts'),
+    content: getContent('Keyboard Shortcuts'),
     mdIcon: 'keyboard',
     handler: () => {
       UI.getKeyboardShortcutsMenuLink()?.click();
