@@ -45,6 +45,7 @@ export const getAppConfig = (config: Config | AppConfig): AppConfig =>
   cloneObject({
     readonly: config.readonly,
     allowLangChange: config.allowLangChange,
+    view: config.view,
     mode: config.mode,
     tools: config.tools,
     zoom: config.zoom,

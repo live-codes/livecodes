@@ -110,13 +110,14 @@ export interface API {
    * See [docs](https://livecodes.io/docs/sdk/js-ts#show) for details.
    * @example
    * await playground.show("style");
+   * await playground.show("toggle-result");
    * await playground.show("result", { full: true });
    * await playground.show("script");
    * await playground.show("result", { zoom: 0.5 });
    * await playground.show("console", { full: true });
    */
   show: (
-    panel: EditorId | Tool['name'] | 'result',
+    panel: EditorId | 'code' | 'result' | 'toggle-result' | Tool['name'],
     options?: { full?: boolean; line?: number; column?: number; zoom?: Config['zoom'] },
   ) => Promise<void>;
 
@@ -346,12 +347,23 @@ export interface EmbedOptions {
   config?: Partial<Config> | string;
 
   /**
+   * If `true`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+   * @default false
+   */
+  headless?: boolean;
+
+  /**
    * A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
    */
   import?: string;
 
   /**
+   * @deprecated
+   *
+   * Use `{ config: { mode: "lite" } }` instead
+   *
    * If `true`, the playground is loaded in [lite mode](https://livecodes.io/docs/features/lite).
+   * @default false
    */
   lite?: boolean;
 
@@ -361,7 +373,6 @@ export interface EmbedOptions {
    * - `"eager"`: The playground loads immediately.
    * - `"lazy"`: A playground embedded low down in the page will not load until the user scrolls so that it approaches the viewport.
    * - `"click"`: The playground does not load automatically. Instead, a "Click-to-load" screen is shown.
-   *
    * @default "lazy"
    */
   loading?: 'lazy' | 'click' | 'eager';
@@ -373,9 +384,15 @@ export interface EmbedOptions {
   template?: TemplateName;
 
   /**
+   * @deprecated
+   *
+   * The `view` option has been moved to `config.view`.
+   * For headless mode use `headless: true`.
+   *
    * The [default view](https://livecodes.io/docs/features/default-view) for the playground.
    *
    * When set to `"headless"`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+   * @default "split"
    */
   view?: 'split' | 'editor' | 'result' | 'headless';
 }
@@ -587,10 +604,16 @@ export interface AppConfig {
   allowLangChange: boolean;
 
   /**
+   * Sets the [default view](https://livecodes.io/docs/features/default-view) for the playground.
+   * @default "split"
+   */
+  view?: 'split' | 'editor' | 'result';
+
+  /**
    * Sets the [display mode](https://livecodes.io/docs/features/display-modes).
    * @default "full"
    */
-  mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
+  mode: 'full' | 'focus' | 'lite' | 'simple' | 'editor' | 'codeblock' | 'result';
 
   /**
    * Sets enabled and active tools and status of [tools pane](https://livecodes.io/docs/features/tools-pane).
@@ -1052,13 +1075,6 @@ export interface Editor {
   language: Language;
 
   /**
-   * If set, this is used as the title of the editor in the UI,
-   * overriding the default title set to the language name
-   * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
-   */
-  title?: string;
-
-  /**
    * The initial content of the code editor.
    * @default ""
    */
@@ -1084,6 +1100,20 @@ export interface Editor {
    * The URL is only fetched if `hiddenContent` property had no value.
    */
   hiddenContentUrl?: string;
+
+  /**
+   * If set, this is used as the title of the editor in the UI,
+   * overriding the default title set to the language name
+   * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
+   */
+  title?: string;
+
+  /**
+   * If `true`, the title of the code editor is hidden, however its code is still evaluated.
+   *
+   * This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
+   */
+  hideTitle?: boolean;
 
   /**
    * A CSS selector to load content from [DOM import](https://livecodes.io/docs/features/import#import-code-from-dom).
@@ -1931,6 +1961,7 @@ export type UrlQueryParams = Partial<
       config: string;
       embed: boolean;
       preview: boolean;
+      lite: boolean;
       x: string;
       files: string; // comma-separated files (e.g. import from GitHub dir)
       raw: Language;

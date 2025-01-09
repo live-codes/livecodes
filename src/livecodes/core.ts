@@ -386,10 +386,17 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 
 const setEditorTitle = (editorId: EditorId, title: string) => {
   const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
+  const editorTitleContainer = document.querySelector(`#${editorId}-selector`) as HTMLElement;
   const language = getLanguageByAlias(title);
   if (!editorTitle || !language) return;
+  const config = getConfig();
+  if (config[editorId].hideTitle) {
+    editorTitleContainer.style.display = 'none';
+    return;
+  }
+  editorTitleContainer.style.display = '';
   highlightSelectedLanguage(editorId, language);
-  const customTitle = getConfig()[editorId].title;
+  const customTitle = config[editorId].title;
   if (customTitle) {
     editorTitle.textContent = customTitle;
     editorTitle.title = `${capitalize(editorId)}: ${customTitle}`;
@@ -535,22 +542,24 @@ const updateEditors = async (editors: Editors, config: Config) => {
   }
 };
 
-const showMode = (mode?: Config['mode']) => {
+const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   if (!mode) {
     mode = 'full';
   }
-
-  if (mode === 'full') {
-    if (params.view === 'editor') {
-      split?.show('code', true);
-    }
-    if (params.view === 'result') {
-      split?.show('output', true);
-    }
+  if (!view) {
+    view = getConfig().view;
   }
+
   if (mode === 'editor' || mode === 'codeblock' || mode === 'result') {
     split?.destroy();
     split = null;
+  } else {
+    if (view === 'editor') {
+      split?.show('code', true);
+    }
+    if (view === 'result') {
+      split?.show('output', true);
+    }
   }
 
   // toolbar-editor-result
@@ -558,6 +567,7 @@ const showMode = (mode?: Config['mode']) => {
     full: '111',
     focus: '111',
     simple: '111',
+    lite: '111',
     editor: '110',
     codeblock: '010',
     result: '001',
@@ -616,6 +626,7 @@ const showMode = (mode?: Config['mode']) => {
   }
   document.body.classList.toggle('simple-mode', mode === 'simple');
   document.body.classList.toggle('focus-mode', mode === 'focus');
+  document.body.classList.toggle('lite-mode', mode === 'lite');
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
   }
@@ -623,6 +634,10 @@ const showMode = (mode?: Config['mode']) => {
 };
 
 const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
+  const config = getConfig();
+  const editorIds: EditorId[] = ['markup', 'style', 'script'];
+  const allHidden = editorIds.every((editor) => config[editor].hideTitle);
+  if (config[editorId].hideTitle && !allHidden) return;
   const titles = UI.getEditorTitles();
   const editorIsVisible = () =>
     Array.from(titles)
@@ -650,7 +665,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
     });
   }
   updateCompiledCode();
-  if (initialized || params.view !== 'result') {
+  if (initialized || config.view !== 'result') {
     split?.show('code');
   }
   configureEditorTools(getActiveEditor().getLanguage());
@@ -1302,11 +1317,15 @@ const loadConfig = async (
 };
 
 const applyConfig = async (newConfig: Partial<Config>) => {
+  const currentConfig = getConfig();
   if (!isEmbed) {
-    loadSettings(getConfig());
+    loadSettings(currentConfig);
   }
-  if (newConfig.mode) {
-    window.deps.showMode(newConfig.mode);
+  if (newConfig.mode || newConfig.view) {
+    window.deps.showMode(
+      newConfig.mode ?? currentConfig.mode,
+      newConfig.view ?? currentConfig.view,
+    );
   }
   if (newConfig.tools) {
     configureToolsPane(newConfig.tools, newConfig.mode);
@@ -1316,8 +1335,8 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   }
   if (newConfig.theme || newConfig.editorTheme || newConfig.themeColor || newConfig.fontSize) {
     setTheme(
-      newConfig.theme || getConfig().theme,
-      newConfig.editorTheme || getConfig().editorTheme,
+      newConfig.theme || currentConfig.theme,
+      newConfig.editorTheme || currentConfig.editorTheme,
     );
   }
   if (newConfig.autotest) {
@@ -1329,7 +1348,16 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   };
   const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
   if (hasEditorConfig) {
-    await reloadEditors({ ...getConfig(), ...newConfig });
+    const currentEditorConfig = {
+      ...getEditorConfig(currentConfig),
+      ...getFormatterConfig(currentConfig),
+    };
+    for (const key in editorConfig) {
+      if ((editorConfig as any)[key] !== (currentEditorConfig as any)[key]) {
+        await reloadEditors({ ...currentConfig, ...newConfig });
+        break;
+      }
+    }
   }
 };
 
@@ -1928,14 +1956,12 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
       ].slice(0, 5),
     });
     const doNotCheckAndExecute = (fn: () => void) => async () => fn();
-    (checkSaved ? checkSavedAndExecute : doNotCheckAndExecute)(() => {
+    (checkSaved ? checkSavedAndExecute : doNotCheckAndExecute)(async () => {
       projectId = '';
-      loadConfig(
-        {
-          ...defaultConfig,
-          ...templateConfig,
-        },
-        '?template=' + templateName,
+      const newConfig = { ...defaultConfig, ...templateConfig };
+      return (
+        (await importExternalContent({ config: newConfig })) ||
+        loadConfig(newConfig, '?template=' + templateName)
       );
     })().finally(() => {
       modal.close();
@@ -2482,11 +2508,11 @@ const handleI18nMenu = () => {
 
 const handleEditorTools = () => {
   if (!configureEditorTools(getActiveEditor().getLanguage())) return;
-
+  const originalMode = getConfig().mode;
   eventsManager.addEventListener(UI.getFocusButton(), 'click', () => {
     const config = getConfig();
     const currentMode = config.mode;
-    const newMode = currentMode === 'full' ? 'focus' : 'full';
+    const newMode = currentMode === originalMode ? 'focus' : originalMode;
     setConfig({
       ...config,
       mode: newMode,
@@ -2494,7 +2520,7 @@ const handleEditorTools = () => {
     if (newMode === 'focus') {
       toolsPane?.setActiveTool('console');
     }
-    showMode(newMode);
+    showMode(newMode, config.view);
   });
 
   eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
@@ -4271,11 +4297,6 @@ const handleResultLoading = () => {
     }
     if (event.data.type === 'loading') {
       setLoading(event.data.payload);
-
-      if (getConfig().mode === 'result') {
-        const drawer = UI.getResultModeDrawer();
-        drawer.classList.remove('hidden');
-      }
     }
     const language = event.data.payload?.language;
     if (event.data.type === 'compiled' && language && getEditorLanguages().includes(language)) {
@@ -4285,6 +4306,23 @@ const handleResultLoading = () => {
       updateCompiledCode();
     }
   });
+
+  const showResultModeDrawer = (event: MessageEvent) => {
+    const iframe = UI.getResultIFrameElement();
+    if (
+      !iframe ||
+      event.source !== iframe.contentWindow ||
+      event.data.type !== 'loading' ||
+      event.data.payload !== false ||
+      getConfig().mode !== 'result'
+    ) {
+      return;
+    }
+    const drawer = UI.getResultModeDrawer();
+    drawer.classList.remove('hidden');
+    eventsManager.removeEventListener(window, 'message', showResultModeDrawer);
+  };
+  eventsManager.addEventListener(window, 'message', showResultModeDrawer);
 };
 
 const handleResultPopup = () => {
@@ -4457,6 +4495,7 @@ const handleUnload = () => {
 };
 
 const loadToolsPane = async () => {
+  if (isLite) return;
   const updateConfigTools = debounce((tools: Config['tools']) => {
     setConfig({
       ...getConfig(),
@@ -4937,7 +4976,7 @@ const bootstrap = async (reload = false) => {
   }
   phpHelper({ editor: editors.script });
   setLoading(true);
-  window.deps?.showMode?.(getConfig().mode);
+  window.deps?.showMode?.(getConfig().mode, getConfig().view);
   zoom(getConfig().zoom);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
@@ -5005,7 +5044,6 @@ const initializePlayground = async (
     config?: Partial<Config>;
     baseUrl?: string;
     isEmbed?: boolean;
-    isLite?: boolean;
     isHeadless?: boolean;
   },
   initializeFn?: () => void | Promise<void>,
@@ -5013,7 +5051,11 @@ const initializePlayground = async (
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isHeadless = options?.isHeadless ?? false;
-  isLite = options?.isLite ?? params.lite ?? false;
+  isLite =
+    params.mode === 'lite' ||
+    (params.lite != null && params.lite !== false) || // for backward compatibility
+    appConfig.mode === 'lite' ||
+    false;
   isEmbed =
     isHeadless ||
     isLite ||
@@ -5104,12 +5146,21 @@ const createApi = (): API => {
     panel,
     { full = false, line, column, zoom: zoomLevel } = {},
   ) => {
-    if (panel === 'result') {
-      split?.show('output', full);
-      toolsPane?.close();
+    if (panel === 'toggle-result') {
+      UI.getResultButton()?.click();
       if (zoomLevel) {
         zoom(zoomLevel);
       }
+    } else if (panel === 'result') {
+      split?.show('output', full);
+      if (getConfig().tools.status !== 'none') {
+        setTimeout(() => toolsPane?.close(), 350);
+      }
+      if (zoomLevel) {
+        zoom(zoomLevel);
+      }
+    } else if (panel === 'code') {
+      split?.show('code', full);
     } else if (panel === 'console' || panel === 'compiled' || panel === 'tests') {
       split?.show('output');
       toolsPane?.setActiveTool(panel);
@@ -5246,17 +5297,9 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     basicHandlers();
-    await loadToolsPane();
-  });
-  return createApi();
-};
-const initLite = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = {
-    showMode,
-    translateString: translateStringMock,
-  };
-  await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
-    basicHandlers();
+    if (config.mode !== 'lite') {
+      await loadToolsPane();
+    }
   });
   return createApi();
 };
@@ -5281,4 +5324,4 @@ const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
   return createApi();
 };
 
-export { initApp, initEmbed, initLite, initHeadless };
+export { initApp, initEmbed, initHeadless };

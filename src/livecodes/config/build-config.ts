@@ -104,6 +104,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   // ?languages=html,md,css,scss,ts
   // ?console
   // ?tests=full
+  // ?lite
 
   // initialize paramsConfig with defaultConfig keys and params values
   const paramsConfig = ([...Object.keys(defaultConfig), ...[]] as Array<keyof Config>)
@@ -296,6 +297,11 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
     } else if (!paramsConfig.tools!.status) {
       paramsConfig.tools!.status = 'closed';
     }
+  }
+
+  // ?lite
+  if (params.lite) {
+    paramsConfig.mode = 'lite';
   }
 
   return paramsConfig;
