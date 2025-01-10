@@ -536,6 +536,10 @@
     "notes": "",
     "translation": "Copy"
   },
+  "codeToImage.copyImage": {
+    "notes": "",
+    "translation": "Copy Image"
+  },
   "codeToImage.default": {
     "notes": "",
     "translation": "Default"
@@ -667,6 +671,10 @@
   "core.copy.copiedAsDataURL": {
     "notes": "",
     "translation": "Code copied as data URL"
+  },
+  "core.copy.copiedImage": {
+    "notes": "",
+    "translation": "Image copied to clipboard."
   },
   "core.copy.hint": {
     "notes": "",
