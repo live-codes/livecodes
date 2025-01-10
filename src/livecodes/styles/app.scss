@@ -1803,6 +1803,12 @@ ninja-keys {
     padding: 0;
   }
 
+  // English content for translated actions
+  &::part(ninja-action__content) {
+    border-top: 0;
+    padding-top: 0;
+  }
+
   &::part(actions-list) {
     &::-webkit-scrollbar {
       height: var(--scrollbar-width-legacy, 8px);
