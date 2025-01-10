@@ -540,6 +540,7 @@ export const createCodeToImageUI = async ({
             );
             return;
           }
+          // else fallback to share image
         }
         const data = {
           files: [
