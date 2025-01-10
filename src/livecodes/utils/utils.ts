@@ -124,20 +124,13 @@ export const copyImage = /* @__PURE__ */ async (image: Blob, type: 'png' | 'jpg'
   };
   try {
     if ('write' in navigator.clipboard) {
-      await navigator.clipboard.write([
-        new ClipboardItem({
-          [mimeTypes[type]]: new Promise(async (resolve) => {
-            resolve(image);
-          }),
-        }),
-      ]);
+      await navigator.clipboard.write([new ClipboardItem({ [mimeTypes[type]]: image })]);
       return true;
-    } else {
-      return false;
     }
   } catch (err) {
-    return false;
+    // proceed to return false
   }
+  return false;
 };
 
 export const stringToValidJson = /* @__PURE__ */ (str: string) =>
