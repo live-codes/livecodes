@@ -15,9 +15,11 @@ import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
 import {
   colorToRgba,
+  copyImage,
   copyToClipboard,
   debounce,
   downloadFile,
+  isMobile,
   loadScript,
   loadStylesheet,
 } from '../utils';
@@ -519,14 +521,27 @@ export const createCodeToImageUI = async ({
   });
 
   const shareBtn = codeToImageContainer.querySelector<HTMLButtonElement>('#code-to-img-share-btn')!;
+  const btnText = isMobile()
+    ? shareBtn.innerText
+    : window.deps.translateString('codeToImage.copyImage', 'Copy Image');
+  shareBtn.innerText = btnText;
   eventsManager.addEventListener(shareBtn, 'click', () => {
     shareBtn.disabled = true;
     shareBtn.classList.add('disabled');
-    const btnText = shareBtn.innerText;
     shareBtn.innerText = window.deps.translateString('core.generating', 'Generating...');
     getImageUrl()
       .then(async (dataUrl: string) => {
         const blob = await fetch(dataUrl).then((res) => res.blob());
+        if (!isMobile()) {
+          const imageCopied = await copyImage(blob, formData.format || 'png');
+          if (imageCopied) {
+            notifications.success(
+              window.deps.translateString('core.copy.copiedImage', 'Image copied to clipboard.'),
+            );
+            return;
+          }
+          // else fallback to share image
+        }
         const data = {
           files: [
             new File([blob], `${formData.fileName}.${formData.format || 'png'}`, {

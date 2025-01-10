@@ -258,6 +258,7 @@ const translation = {
     borderRadius: 'Border Radius',
     code: 'Code',
     copy: 'Copy',
+    copyImage: 'Copy Image',
     default: 'Default',
     direction: 'Direction',
     fileName: 'File Name',
@@ -302,6 +303,7 @@ const translation = {
     copy: {
       copied: 'Code copied to clipboard',
       copiedAsDataURL: 'Code copied as data URL',
+      copiedImage: 'Image copied to clipboard.',
       hint: 'Copied!',
       title: 'Copy',
     },

@@ -116,6 +116,23 @@ export const copyToClipboard = /* @__PURE__ */ (text: string) => {
   return false;
 };
 
+export const copyImage = /* @__PURE__ */ async (image: Blob, type: 'png' | 'jpg' | 'svg') => {
+  const mimeTypes = {
+    png: 'image/png',
+    jpg: 'image/jpeg',
+    svg: 'image/svg+xml',
+  };
+  try {
+    if ('write' in navigator.clipboard) {
+      await navigator.clipboard.write([new ClipboardItem({ [mimeTypes[type]]: image })]);
+      return true;
+    }
+  } catch (err) {
+    // proceed to return false
+  }
+  return false;
+};
+
 export const stringToValidJson = /* @__PURE__ */ (str: string) =>
   str
     .replace(/'[^'"]*'(?=(?:[^"]*"[^"]*")*[^"]*$)/g, function replaceSingleQuotes(matchedStr) {
