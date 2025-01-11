@@ -81,6 +81,7 @@ import {
   resultPopupHTML,
   welcomeScreen,
   aboutScreen,
+  keyboardShortcutsScreen,
 } from './html';
 import { exportJSON } from './export/export-json';
 import { createEventsManager, createPub } from './events';
@@ -111,6 +112,7 @@ import {
   predefinedValues,
   colorToHex,
   capitalize,
+  isMac,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -120,12 +122,15 @@ import * as UI from './UI/selectors';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
+  fontInterUrl,
+  fontMaterialIconsUrl,
   fscreenUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
   lunaDataGridStylesUrl,
   lunaDomViewerStylesUrl,
   lunaObjViewerStylesUrl,
+  ninjaKeysUrl,
   snackbarUrl,
 } from './vendors';
 import { createToolsPane } from './toolspane';
@@ -155,6 +160,7 @@ import type {
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
 import { themeColors } from './UI/theme-colors';
+import { getCommandMenuActions } from './UI/command-menu-actions';
 
 // declare global dependencies
 declare global {
@@ -180,7 +186,7 @@ declare global {
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
 let notifications: ReturnType<typeof createNotifications>;
-let modal: ReturnType<typeof createModal>;
+export let modal: ReturnType<typeof createModal>;
 let i18n: Await<ReturnType<typeof import('./i18n').init>> | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
@@ -197,7 +203,7 @@ let formatter: Formatter;
 let editors: Editors;
 let customEditors: CustomEditors;
 let toolsPane: ToolsPane | undefined;
-let authService: ReturnType<typeof createAuthService> | undefined;
+export let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
 let resultLanguages: Language[] = [];
 let projectId: string;
@@ -385,6 +391,7 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 };
 
 const setEditorTitle = (editorId: EditorId, title: string) => {
+  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
   const editorTitleContainer = document.querySelector(`#${editorId}-selector`) as HTMLElement;
   const language = getLanguageByAlias(title);
@@ -396,15 +403,20 @@ const setEditorTitle = (editorId: EditorId, title: string) => {
   }
   editorTitleContainer.style.display = '';
   highlightSelectedLanguage(editorId, language);
+  const shortcut = ` (Ctrl/⌘ + Alt + ${editorIds.indexOf(editorId) + 1})`;
   const customTitle = config[editorId].title;
   if (customTitle) {
     editorTitle.textContent = customTitle;
-    editorTitle.title = `${capitalize(editorId)}: ${customTitle}`;
+    if (!isEmbed) {
+      editorTitle.title = `${capitalize(editorId)}: ${customTitle}${shortcut}`;
+    }
     return;
   }
   const lang = languages.find((lang) => lang.name === language);
   editorTitle.textContent = lang?.title ?? '';
-  editorTitle.title = `${capitalize(editorId)}: ${lang?.longTitle ?? lang?.title ?? ''}`;
+  if (!isEmbed) {
+    editorTitle.title = `${capitalize(editorId)}: ${lang?.longTitle ?? lang?.title ?? ''}${shortcut}`;
+  }
 };
 
 const createCopyButtons = () => {
@@ -629,6 +641,9 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   document.body.classList.toggle('lite-mode', mode === 'lite');
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
+  }
+  if (mode === 'focus') {
+    toolsPane?.setActiveTool('console');
   }
   window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
@@ -1808,6 +1823,7 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
     customEditors[editor?.getLanguage()]?.setTheme(theme);
   });
   toolsPane?.console?.setTheme?.(theme);
+  UI.getNinjaKeys()?.classList.toggle('dark', theme === 'dark');
 };
 
 const changeThemeColor = () => {
@@ -1878,6 +1894,11 @@ const setLayout = (layout: Config['layout']) => {
     }
   }
   handleIframeResize();
+};
+
+const changeAndSaveLayout = (layout: Config['layout']) => {
+  setUserConfig({ layout });
+  setLayout(layout);
 };
 
 const loadSettings = (config: Config) => {
@@ -2372,63 +2393,301 @@ const handleChangeContent = () => {
   });
 };
 
-const handleHotKeys = () => {
-  const ctrl = (e: KeyboardEvent) => (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey);
-  const hotKeys = async (e: KeyboardEvent) => {
-    if (!e) return;
+const handleKeyboardShortcuts = () => {
+  let lastkeys = '';
+  const ctrl = (e: KeyboardEvent) => (isMac() ? e.metaKey : e.ctrlKey);
 
-    // Ctrl + p opens the command palette
+  const hotKeys = async (e: KeyboardEvent) => {
+    // Ctrl + P opens the command palette
     const activeEditor = getActiveEditor();
-    if (ctrl(e) && e.key.toLowerCase() === 'p' && activeEditor.monaco) {
+    if (ctrl(e) && e.code === 'KeyP' && activeEditor.monaco) {
       e.preventDefault();
       activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
+      lastkeys = 'Ctrl + P';
       return;
     }
 
-    // Ctrl + d prevents browser bookmark dialog
-    if (ctrl(e) && e.key.toLowerCase() === 'd') {
+    // Ctrl + D prevents browser bookmark dialog
+    if (ctrl(e) && e.code === 'KeyD') {
       e.preventDefault();
+      lastkeys = 'Ctrl + D';
       return;
     }
 
-    if (isEmbed) return;
-
-    // Ctrl + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.key.toLowerCase() === 's') {
+    // Ctrl + Alt + C: toggle console
+    if (ctrl(e) && e.altKey && e.code === 'KeyC') {
       e.preventDefault();
-      await fork();
+      lastkeys = 'Ctrl + Alt + C';
+      UI.getConsoleButton()?.dispatchEvent(new Event('touchstart'));
       return;
     }
 
-    // Ctrl + S saves the project
-    if (ctrl(e) && e.key.toLowerCase() === 's') {
+    // Ctrl + Alt + C, F: maximize console
+    if (ctrl(e) && e.altKey && e.code === 'KeyF' && lastkeys === 'Ctrl + Alt + C') {
       e.preventDefault();
-      await save(true);
+      lastkeys = 'Ctrl + Alt + C, F';
+      UI.getConsoleButton()?.dispatchEvent(new Event('dblclick'));
       return;
     }
 
     // Ctrl + Alt + T runs tests
-    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 't') {
+    if (ctrl(e) && e.altKey && e.code === 'KeyT') {
       e.preventDefault();
-      split?.show('output');
-      toolsPane?.setActiveTool('tests');
-      if (toolsPane?.getStatus() === 'closed') {
-        toolsPane?.open();
-      }
-      await runTests();
+      UI.getRunTestsButton()?.click();
+      lastkeys = 'Ctrl + Alt + T';
       return;
     }
 
     // Shift + Enter triggers run
     if (e.shiftKey && e.key === 'Enter') {
       e.preventDefault();
-      split?.show('output');
-      await run();
+      UI.getRunButton()?.click();
+      lastkeys = 'Shift + Enter';
+      return;
+    }
+
+    // Ctrl + Alt + R toggles result page
+    if (ctrl(e) && e.altKey && e.code === 'KeyR') {
+      e.preventDefault();
+      UI.getResultButton()?.click();
+      lastkeys = 'Ctrl + Alt + R';
+      return;
+    }
+
+    // Ctrl + Alt + Z toggles result zoom
+    if (ctrl(e) && e.altKey && e.code === 'KeyZ') {
+      e.preventDefault();
+      UI.getZoomButton()?.click();
+      lastkeys = 'Ctrl + Alt + Z';
+      return;
+    }
+
+    // Ctrl + Alt + E focuses active editor
+    if (ctrl(e) && e.altKey && e.code === 'KeyE') {
+      e.preventDefault();
+      getActiveEditor().focus();
+      lastkeys = 'Ctrl + Alt + E';
+      return;
+    }
+
+    // Esc + Esc moves focus out of editor
+    // Esc + Esc + Esc moves focus to logo
+    if (e.code === 'Escape') {
+      if (lastkeys === 'Esc') {
+        e.preventDefault();
+        UI.getFocusButton()?.focus();
+        lastkeys = 'Esc + Esc';
+        return;
+      }
+      if (lastkeys === 'Esc + Esc') {
+        e.preventDefault();
+        UI.getLogoLink()?.focus();
+        lastkeys = 'Esc + Esc + Esc';
+        return;
+      }
+      lastkeys = 'Esc';
+      return;
+    }
+
+    // Ctrl + Alt + (1-3) activates editor 1-3
+    // Ctrl + Alt + (ArrowLeft/ArrowRight) activates previous/next editor
+    const editorIds = (['markup', 'style', 'script'] as EditorId[]).filter(
+      (id) => getConfig()[id].hideTitle !== true,
+    );
+    if (ctrl(e) && e.altKey && ['1', '2', '3', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+      split?.show('code');
+      const index = ['1', '2', '3'].includes(e.key)
+        ? Number(e.key) - 1
+        : e.key === 'ArrowLeft'
+          ? editorIds.findIndex((id) => id === getConfig().activeEditor) - 1 || 0
+          : e.key === 'ArrowRight'
+            ? editorIds.findIndex((id) => id === getConfig().activeEditor) + 1 || 0
+            : 0;
+      const editorIndex =
+        index === editorIds.length ? 0 : index === -1 ? editorIds.length - 1 : index;
+      showEditor(editorIds[editorIndex] as EditorId);
+      lastkeys = 'Ctrl + Alt + ' + e.key;
+      return;
+    }
+
+    if (isEmbed) return;
+
+    // Ctrl + Alt + N: new project
+    if (ctrl(e) && e.altKey && e.code === 'KeyN') {
+      e.preventDefault();
+      UI.getNewLink()?.click();
+      lastkeys = 'Ctrl + Alt + N';
+      return;
+    }
+
+    // Ctrl + O: open project
+    if (ctrl(e) && e.code === 'KeyO') {
+      e.preventDefault();
+      UI.getOpenLink()?.click();
+      lastkeys = 'Ctrl + O';
+      return;
+    }
+
+    // Ctrl + Alt + I: import
+    if (ctrl(e) && e.altKey && e.code === 'KeyI') {
+      e.preventDefault();
+      UI.getImportLink()?.click();
+      lastkeys = 'Ctrl + Alt + I';
+      return;
+    }
+
+    // Ctrl + Alt + S: share
+    if (ctrl(e) && e.altKey && e.code === 'KeyS') {
+      e.preventDefault();
+      UI.getShareLink()?.click();
+      lastkeys = 'Ctrl + Alt + S';
+      return;
+    }
+
+    // Ctrl + Shift + S forks the project (save as...)
+    if (ctrl(e) && e.shiftKey && e.code === 'KeyS') {
+      e.preventDefault();
+      UI.getForkLink()?.click();
+      lastkeys = 'Ctrl + Shift + S';
+      return;
+    }
+
+    // Ctrl + S saves the project
+    if (ctrl(e) && e.code === 'KeyS') {
+      e.preventDefault();
+      UI.getSaveLink()?.click();
+      lastkeys = 'Ctrl + S';
+      return;
+    }
+
+    // Ctrl + Alt + F toggles focus mode
+    if (ctrl(e) && e.altKey && e.code === 'KeyF') {
+      e.preventDefault();
+      UI.getFocusButton()?.click();
+      lastkeys = 'Ctrl + Alt + F';
+      return;
+    }
+
+    if (!ctrl(e) && !e.altKey && !e.shiftKey) {
+      lastkeys = e.key;
       return;
     }
   };
 
-  eventsManager.addEventListener(window, 'keydown', hotKeys as any, true);
+  eventsManager.addEventListener(window, 'keydown', hotKeys, true);
+};
+
+const handleKeyboardShortcutsScreen = () => {
+  if (isEmbed) return;
+
+  const { keyboardShortcuts } = getCommandMenuActions({
+    deps: {
+      getConfig,
+      loadStarterTemplate,
+      changeEditorSettings,
+      changeLayout: changeAndSaveLayout,
+    },
+  });
+
+  const createShortcutsUI = async () => {
+    const div = document.createElement('div');
+    div.innerHTML = keyboardShortcutsScreen;
+    const shortcutsContainer = div.firstChild as HTMLElement;
+    const rows = keyboardShortcuts
+      .map(
+        (item) => `
+      <tr>
+        <td>${item.title}</td>
+        <td>${item.hotkey
+          ?.split('+')
+          .map((key) => `<kbd>${capitalize(key)}</kbd>`)
+          .join(' ')}</td>
+      </tr>
+    `,
+      )
+      .join('');
+    shortcutsContainer.querySelector('tbody')!.innerHTML = rows;
+    modal.show(shortcutsContainer as HTMLElement);
+  };
+
+  eventsManager.addEventListener(
+    UI.getKeyboardShortcutsMenuLink(),
+    'click',
+    createShortcutsUI,
+    false,
+  );
+  registerScreen('keyboard-shortcuts', createShortcutsUI);
+};
+
+const handleCommandMenu = async () => {
+  if (isEmbed) return;
+
+  const loadNinjaKeys = () => import(ninjaKeysUrl);
+  loadStylesheet(fontInterUrl, 'font-inter');
+  loadStylesheet(fontMaterialIconsUrl, 'material-icons');
+  await loadNinjaKeys();
+
+  const ninja = UI.getNinjaKeys() as any;
+  if (!ninja) return;
+
+  const header = ninja.shadowRoot.querySelector('ninja-header');
+  const HomeBreadcrumb = header?.shadowRoot.querySelector('.breadcrumb-list .breadcrumb');
+
+  const closeBtn = header?.shadowRoot.querySelector('.breadcrumb-list .breadcrumb--close');
+  if (closeBtn) {
+    closeBtn.hidden = true;
+  }
+
+  const footer = ninja.shadowRoot.querySelector('.modal-footer');
+  if (footer) {
+    footer.innerHTML = footer.innerHTML
+      .replace('to select', window.deps.translateString('commandMenu.toSelect', 'to select'))
+      .replace('to navigate', window.deps.translateString('commandMenu.toNavigate', 'to navigate'))
+      .replace('to close', window.deps.translateString('commandMenu.toClose', 'to close'))
+      .replace(
+        'move to parent',
+        window.deps.translateString('commandMenu.moveToParent', 'move to parent'),
+      );
+  }
+
+  const openCommandMenu = () => {
+    modal.close();
+    ninja.close();
+    const { actions, loginAction, logoutAction } = getCommandMenuActions({
+      deps: {
+        getConfig,
+        loadStarterTemplate,
+        changeEditorSettings,
+        changeLayout: changeAndSaveLayout,
+      },
+    });
+    const authAction = authService?.isLoggedIn() ? logoutAction : loginAction;
+    ninja.data = [...actions, authAction];
+    if (HomeBreadcrumb) {
+      HomeBreadcrumb.innerText = window.deps.translateString('commandMenu.home', 'Home');
+    }
+    requestAnimationFrame(() => ninja.open());
+  };
+
+  const onHotkey = async (e: KeyboardEvent) => {
+    const ctrl = (e: KeyboardEvent) => (isMac() ? e.metaKey : e.ctrlKey);
+    if (ctrl(e) && e.code === 'KeyK') {
+      e.preventDefault();
+      // eslint-disable-next-line no-underscore-dangle
+      if (ninja.__visible == null) {
+        await loadNinjaKeys();
+      }
+      // eslint-disable-next-line no-underscore-dangle
+      if (ninja.__visible === false) {
+        ninja.focus();
+        requestAnimationFrame(() => openCommandMenu());
+      }
+    }
+  };
+
+  eventsManager.addEventListener(window, 'keydown', onHotkey, true);
+  eventsManager.addEventListener(UI.getCommandMenuLink(), 'click', () => openCommandMenu(), true);
 };
 
 const handleLogoLink = () => {
@@ -2467,6 +2726,7 @@ const handleI18nMenu = () => {
     const link = document.createElement('a');
     link.href = `#`;
     link.textContent = langLabel;
+    link.dataset.lang = langCode;
     eventsManager.addEventListener(link, 'click', (ev) => {
       ev.preventDefault();
       if (langCode === getConfig().appLanguage) return;
@@ -2517,7 +2777,11 @@ const handleEditorTools = () => {
       ...config,
       mode: newMode,
     });
-    if (newMode === 'focus') {
+    const consoleIsEnabled =
+      config.tools.enabled?.includes('console') ||
+      config.tools.enabled === 'all' ||
+      config.tools.enabled == null;
+    if (newMode === 'focus' && consoleIsEnabled) {
       toolsPane?.setActiveTool('console');
     }
     showMode(newMode, config.view);
@@ -2645,7 +2909,11 @@ const handleAppMenuProject = () => {
   const menuProjectContainer = UI.getAppMenuProjectScroller();
   const menuProjectButton = UI.getAppMenuProjectButton();
   if (!menuProjectContainer || !menuProjectButton) return;
-  menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
+
+  const html = isMac()
+    ? menuProjectHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>')
+    : menuProjectHTML;
+  menuProjectContainer.innerHTML = html;
   translateElement(menuProjectContainer);
   // adjustFontSize(menuProjectContainer);
 
@@ -2668,7 +2936,11 @@ const handleAppMenuSettings = () => {
   const menuSettingsContainer = UI.getAppMenuSettingsScroller();
   const menuSettingsButton = UI.getAppMenuSettingsButton();
   if (!menuSettingsContainer || !menuSettingsButton) return;
-  menuSettingsContainer.innerHTML = menuSettingsHTML; // settingsMenuHTML;
+
+  const html = isMac()
+    ? menuSettingsHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>')
+    : menuSettingsHTML;
+  menuSettingsContainer.innerHTML = html;
 
   translateElement(menuSettingsContainer);
   adjustFontSize(menuSettingsContainer);
@@ -2692,7 +2964,9 @@ const handleAppMenuHelp = () => {
   const menuHelpContainer = UI.getAppMenuHelpScroller();
   const menuHelpButton = UI.getAppMenuHelpButton();
   if (!menuHelpContainer || !menuHelpButton) return;
-  menuHelpContainer.innerHTML = menuHelpHTML;
+
+  const html = isMac() ? menuHelpHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>') : menuHelpHTML;
+  menuHelpContainer.innerHTML = html;
   translateElement(menuHelpContainer);
   // adjustFontSize(menuHelpContainer);
 
@@ -3762,22 +4036,25 @@ const handleEmbed = () => {
   registerScreen('embed', createEmbedUI);
 };
 
+const changeEditorSettings = (newConfig: Partial<UserConfig> | null) => {
+  if (!newConfig) return;
+  const shouldReload = newConfig.editor != null && newConfig.editor !== getConfig().editor;
+
+  setUserConfig(newConfig);
+  const updatedConfig = getConfig();
+  setTheme(updatedConfig.theme, updatedConfig.editorTheme);
+  if (shouldReload) {
+    reloadEditors(updatedConfig);
+  } else {
+    getAllEditors().forEach((editor) => {
+      editor.changeSettings(updatedConfig);
+    });
+  }
+  showEditorModeStatus(updatedConfig.activeEditor || 'markup');
+  getActiveEditor().focus();
+};
+
 const handleEditorSettings = () => {
-  const changeSettings = (newConfig: Partial<UserConfig> | null) => {
-    if (!newConfig) return;
-    const shouldReload = newConfig.editor !== getConfig().editor;
-
-    setUserConfig(newConfig);
-    const updatedConfig = getConfig();
-    setTheme(updatedConfig.theme, updatedConfig.editorTheme);
-    if (shouldReload) {
-      reloadEditors(updatedConfig);
-    } else {
-      getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
-    }
-    showEditorModeStatus(updatedConfig.activeEditor || 'markup');
-  };
-
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
   }: { scrollToSelector?: string } = {}) => {
@@ -3796,7 +4073,7 @@ const handleEditorSettings = () => {
         createEditor,
         loadTypes: async (code: string) => typeLoader.load(code, {}),
         getFormatFn: () => formatter.getFormatFn('jsx'),
-        changeSettings,
+        changeSettings: changeEditorSettings,
       },
     });
   };
@@ -4181,6 +4458,13 @@ const handleTests = () => {
     'click',
     (ev: Event) => {
       ev.preventDefault();
+      if (!toolsPane?.tests) return;
+      // in case it is triggered by keyboard shortcut or command menu
+      split?.show('output');
+      toolsPane.setActiveTool('tests');
+      if (toolsPane.getStatus() === 'closed') {
+        toolsPane.open();
+      }
       runTests();
     },
     false,
@@ -4368,7 +4652,7 @@ const handleResultZoom = () => {
   const zoomBtn = document.createElement('div');
   zoomBtn.id = 'zoom-button';
   zoomBtn.classList.add('tool-buttons');
-  zoomBtn.title = window.deps.translateString('core.zoom.hint', 'Zoom');
+  zoomBtn.title = window.deps.translateString('core.zoom.hint', 'Zoom') + ' (Ctrl/Cmd + Alt + Z)';
   zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   zoomBtn.innerHTML = `
   <button class="text">
@@ -4410,9 +4694,8 @@ const handleBroadcastStatus = () => {
 };
 
 const handleFullscreen = async () => {
-  if (!isEmbed) return;
   const fullscreenButton = getFullscreenButton();
-  const buttonImg = fullscreenButton.querySelector('img')!;
+  const buttonImg = fullscreenButton.querySelector('img');
   const fscreen = (await import(fscreenUrl)).default;
   if (!fscreen.fullscreenEnabled) {
     fullscreenButton.style.visibility = 'hidden';
@@ -4420,6 +4703,7 @@ const handleFullscreen = async () => {
   }
 
   eventsManager.addEventListener(fscreen, 'fullscreenchange', async () => {
+    if (!buttonImg) return;
     if (!fscreen.fullscreenElement) {
       buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
       fullscreenButton.title = window.deps.translateString('core.fullScreen.enter', 'Full Screen');
@@ -4663,7 +4947,7 @@ const basicHandlers = () => {
   handleSelectEditor();
   handleChangeLanguage();
   handleChangeContent();
-  handleHotKeys();
+  handleKeyboardShortcuts();
   handleRunButton();
   handleResultButton();
   handleShareButton();
@@ -4673,9 +4957,9 @@ const basicHandlers = () => {
   handleTestResults();
   handleConsole();
   handleI18n();
+  handleFullscreen();
   if (isEmbed) {
     handleExternalResources();
-    handleFullscreen();
   }
 };
 
@@ -4718,6 +5002,8 @@ const extraHandlers = async () => {
   handleResultPopup();
   handleBroadcastStatus();
   handleDropFiles();
+  handleCommandMenu();
+  handleKeyboardShortcutsScreen();
   handleUnload();
   showConsoleMessage();
 };

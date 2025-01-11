@@ -170,10 +170,18 @@ export const fontInconsolataUrl = /* @__PURE__ */ getUrl(
   'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap',
 );
 
+export const fontInterUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.googleapis.com/css?family=Inter:300,400,500',
+);
+
 export const fontIosevkaUrl = /* @__PURE__ */ getUrl('@fontsource/iosevka@4.5.4/index.css');
 
 export const fontJetbrainsMonoUrl = /* @__PURE__ */ getUrl(
   '@fontsource/jetbrains-mono@4.5.11/index.css',
+);
+
+export const fontMaterialIconsUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.googleapis.com/css?family=Material+Icons&display=swap',
 );
 
 export const fontMenloUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/menlo');
@@ -285,6 +293,8 @@ export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/t
 export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.1/dist/monaco-vim.js');
 
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
+
+export const ninjaKeysUrl = /* @__PURE__ */ getUrl('@hatemhosny/ninja-keys@1.14.0/bundle/index.js');
 
 export const nomnomlCdnUrl = /* @__PURE__ */ getUrl('nomnoml@1.6.1/dist/nomnoml.js');
 

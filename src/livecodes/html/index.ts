@@ -39,6 +39,8 @@ import infoScreenRaw from './project-info.html?raw';
 // @ts-ignore
 import resourcesScreenRaw from './external-resources.html?raw';
 // @ts-ignore
+import keyboardShortcutsScreenRaw from './keyboard-shortcuts.html?raw';
+// @ts-ignore
 import loginScreenRaw from './login.html?raw';
 // @ts-ignore
 import savePromptScreenRaw from './save-prompt.html?raw';
@@ -90,6 +92,7 @@ const welcomeScreen = /* @__PURE__ */ replaceValues(welcomeScreenRaw);
 const aboutScreen = /* @__PURE__ */ replaceValues(aboutScreenRaw);
 const infoScreen = /* @__PURE__ */ replaceValues(infoScreenRaw);
 const resourcesScreen = /* @__PURE__ */ replaceValues(resourcesScreenRaw);
+const keyboardShortcutsScreen = /* @__PURE__ */ replaceValues(keyboardShortcutsScreenRaw);
 const loginScreen = /* @__PURE__ */ replaceValues(loginScreenRaw);
 const savePromptScreen = /* @__PURE__ */ replaceValues(savePromptScreenRaw);
 const recoverPromptScreen = /* @__PURE__ */ replaceValues(recoverPromptScreenRaw);
@@ -123,6 +126,7 @@ export {
   aboutScreen,
   infoScreen,
   resourcesScreen,
+  keyboardShortcutsScreen,
   loginScreen,
   savePromptScreen,
   recoverPromptScreen,

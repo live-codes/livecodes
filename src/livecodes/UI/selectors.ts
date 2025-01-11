@@ -32,6 +32,7 @@ export const getGutterElement = /* @__PURE__ */ () =>
 
 export const getLogoLink = /* @__PURE__ */ () =>
   document.querySelector('a#logo') as HTMLAnchorElement;
+
 export const getRunButton = /* @__PURE__ */ () =>
   document.querySelector('#run-button') as HTMLElement;
 
@@ -43,6 +44,15 @@ export const getDarkThemeButton = /* @__PURE__ */ () =>
 
 export const getI18nMenuContainer = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-container-i18n') as HTMLElement;
+
+export const getMarkupEditorTitle = /* @__PURE__ */ () =>
+  document.querySelector('#markup-selector') as HTMLElement;
+
+export const getStyleEditorTitle = /* @__PURE__ */ () =>
+  document.querySelector('#style-selector') as HTMLElement;
+
+export const getScriptEditorTitle = /* @__PURE__ */ () =>
+  document.querySelector('#script-selector') as HTMLElement;
 
 export const getEditorToolbar = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools') as HTMLElement;
@@ -99,8 +109,10 @@ export const getFullscreenButton = /* @__PURE__ */ () =>
 
 export const getEditorTitles = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');
+
 export const getEditorDivs = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLElement>('#editors > .editor');
+
 export const getToolspaneElement = /* @__PURE__ */ () =>
   document.querySelector('#output #tools-pane') as HTMLElement;
 
@@ -112,10 +124,28 @@ export const getToolspaneButtons = /* @__PURE__ */ () =>
 
 export const getToolspaneTitles = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#tools-pane-titles');
+
+export const getConsoleButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#tools-pane-titles > .console');
+
+export const getCompiledButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#tools-pane-titles > .compiled');
+
+export const getTestsButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#tools-pane-titles > .tests');
+
 export const getToolspaneLoader = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#tools-pane-loading');
+
+export const getZoomButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#zoom-button');
+
 export const getZoomButtonValue = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#zoom-button #zoom-value');
+
+export const getResultPopupButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#result-popup-btn');
+
 export const getModalSaveButton = /* @__PURE__ */ () =>
   document.querySelector('#modal #prompt-save-btn') as HTMLElement;
 
@@ -163,16 +193,19 @@ export const getCssPresetLinks = /* @__PURE__ */ () =>
 
 export const getAppMenuProjectScroller = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#app-menu-container-project');
+
 export const getAppMenuProjectButton = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#app-menu-button-project');
 
 export const getAppMenuSettingsScroller = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#app-menu-container-settings');
+
 export const getAppMenuSettingsButton = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#app-menu-button-settings');
 
 export const getAppMenuHelpScroller = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#app-menu-container-help');
+
 export const getAppMenuHelpButton = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#app-menu-button-help');
 
@@ -254,6 +287,12 @@ export const getWelcomeLink = /* @__PURE__ */ () =>
 export const getAboutLink = /* @__PURE__ */ () =>
   document.querySelector<HTMLAnchorElement>('#about-link');
 
+export const getCommandMenuLink = /* @__PURE__ */ () =>
+  document.querySelector<HTMLAnchorElement>('#command-menu-link');
+
+export const getKeyboardShortcutsMenuLink = /* @__PURE__ */ () =>
+  document.querySelector<HTMLAnchorElement>('#keyboard-shortcuts-menu-link');
+
 export const getAutoupdateToggle = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-settings input#autoupdate') as HTMLInputElement;
 
@@ -290,6 +329,12 @@ export const getShowWelcomeToggle = /* @__PURE__ */ () =>
 export const getRecoverToggle = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-settings input#recover-unsaved') as HTMLInputElement;
 
+export const getThemeColorContainer = /* @__PURE__ */ () =>
+  document.querySelector('#theme-color-selector') as HTMLElement;
+
+export const getCustomThemeColorInput = /* @__PURE__ */ () =>
+  document.querySelector('#theme-color-custom') as HTMLInputElement;
+
 export const getSpacingToggle = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-settings input#show-spacing') as HTMLInputElement;
 
@@ -304,6 +349,9 @@ export const getAssetsLink = /* @__PURE__ */ () =>
 
 export const getSnippetsLink = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-settings #snippets-link') as HTMLInputElement;
+
+export const getHelpMenu = /* @__PURE__ */ () =>
+  document.querySelector('#app-menu-help') as HTMLElement;
 
 export const getInfoTitleInput = /* @__PURE__ */ () =>
   document.querySelector('#info-container input#title-input') as HTMLInputElement;
@@ -349,26 +397,34 @@ export const getWatchTestsButton = /* @__PURE__ */ () =>
 
 export const getUrlImportForm = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector<HTMLFormElement>('#url-import-form');
+
 export const getUrlImportButton = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector('#url-import-btn') as HTMLButtonElement;
+
 export const getUrlImportInput = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector('#code-url') as HTMLInputElement;
+
 export const getCodeImportInput = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector('#local-code-input') as HTMLInputElement;
 
 export const getImportJsonUrlForm = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector('#json-url-import-form') as HTMLInputElement;
+
 export const getImportJsonUrlButton = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector('#json-url-import-btn') as HTMLInputElement;
+
 export const getImportJsonUrlInput = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector('#json-url') as HTMLInputElement;
 
 export const getBulkImportJsonUrlForm = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector('#bulk-json-url-import-form') as HTMLInputElement;
+
 export const getBulkImportJsonUrlButton = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector('#bulk-json-url-import-btn') as HTMLInputElement;
+
 export const getBulkImportJsonUrlInput = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector('#bulk-json-url') as HTMLInputElement;
+
 export const getLinkToSavedProjects = /* @__PURE__ */ (importContainer: HTMLElement) =>
   importContainer.querySelector('#link-to-saved-projects') as HTMLAnchorElement;
 
@@ -383,30 +439,40 @@ export const getBulkImportFileInput = /* @__PURE__ */ (importContainer: HTMLElem
 
 export const getNewRepoForm = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector<HTMLFormElement>('#new-repo-form');
+
 export const getNewRepoButton = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-btn') as HTMLButtonElement;
+
 export const getNewRepoNameInput = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-name') as HTMLInputElement;
+
 export const getNewRepoNameError = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-name-error') as HTMLElement;
 
 export const getNewRepoMessageInput = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-message') as HTMLInputElement;
+
 export const getNewRepoCommitSource = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-source') as HTMLInputElement;
+
 export const getNewRepoAutoSync = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-autosync') as HTMLInputElement;
 
 export const getExistingRepoForm = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector<HTMLFormElement>('#existing-repo-form');
+
 export const getExistingRepoButton = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-btn') as HTMLButtonElement;
+
 export const getExistingRepoNameInput = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-name') as HTMLInputElement;
+
 export const getExistingRepoMessageInput = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-message') as HTMLInputElement;
+
 export const getExistingRepoCommitSource = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-source') as HTMLInputElement;
+
 export const getExistingRepoAutoSync = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-autosync') as HTMLInputElement;
 
@@ -414,8 +480,10 @@ export const getStarterTemplatesTab = /* @__PURE__ */ (templatesContainer: HTMLE
   templatesContainer.querySelector<HTMLElement>(
     '#templates-tabs [data-target="templates-starter"]',
   );
+
 export const getStarterTemplatesList = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector<HTMLElement>('#starter-templates-list');
+
 export const getUserTemplatesScreen = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector('#templates-user .modal-screen') as HTMLElement;
 
@@ -566,6 +634,8 @@ export const getModalWelcomeRecentList = /* @__PURE__ */ (welcomeContainer: HTML
 
 export const getModalWelcomeTemplateList = /* @__PURE__ */ (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#modal #welcome-template-list') as HTMLElement;
+
+export const getNinjaKeys = /* @__PURE__ */ () => document.querySelector('ninja-keys') as any;
 
 export const getResultModeDrawer = /* @__PURE__ */ () =>
   document.querySelector('#result-mode-drawer') as HTMLElement;

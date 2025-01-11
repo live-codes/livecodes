@@ -22,7 +22,8 @@
     "Import-maps",
     "Formatter",
     "Build",
-    "services"
+    "services",
+    "CommandMenu"
   ],
   "html.customData": ["./.vscode/html.html-data.json"]
 }

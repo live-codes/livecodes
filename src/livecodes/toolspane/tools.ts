@@ -223,6 +223,9 @@ export const createToolsPane = (
       toolTitle.dataset.id = String(index);
       toolTitle.classList.add('tools-pane-title', tool.name);
       toolTitle.innerHTML = tool.title;
+      if (tool.name === 'console') {
+        toolTitle.title = '(Ctrl/⌘ + Alt + C)';
+      }
       toolsPaneTitles.appendChild(toolTitle);
 
       let timer: any;

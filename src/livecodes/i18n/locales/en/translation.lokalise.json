@@ -126,7 +126,7 @@
   },
   "app.copy.hint": {
     "notes": "",
-    "translation": "Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
+    "translation": "Copy (Ctrl/⌘ + A, Ctrl/⌘ + C)"
   },
   "app.copyAsUrl.hint": {
     "notes": "",
@@ -146,7 +146,7 @@
   },
   "app.focus.hint": {
     "notes": "",
-    "translation": "Toggle Focus mode"
+    "translation": "Toggle Focus mode (Ctrl/⌘ + K, Z)"
   },
   "app.format.hint": {
     "notes": "",
@@ -178,11 +178,11 @@
   },
   "app.redo.hint": {
     "notes": "",
-    "translation": "Redo (Ctrl/Cmd + Shift + Z)"
+    "translation": "Redo (Ctrl/⌘ + Shift + Z)"
   },
   "app.result.hint": {
     "notes": "",
-    "translation": "Result"
+    "translation": "Result (Ctrl/⌘ + Alt + R)"
   },
   "app.run.hint": {
     "notes": "",
@@ -190,7 +190,7 @@
   },
   "app.share.hint": {
     "notes": "",
-    "translation": "Share"
+    "translation": "Share (Ctrl/⌘ + Alt + S)"
   },
   "app.themeColors.custom": {
     "notes": "",
@@ -198,7 +198,7 @@
   },
   "app.undo.hint": {
     "notes": "",
-    "translation": "Undo (Ctrl/Cmd + Z)"
+    "translation": "Undo (Ctrl/⌘ + Z)"
   },
   "app.untitledProject": {
     "notes": "",
@@ -616,9 +616,13 @@
     "notes": "",
     "translation": "Shadow"
   },
-  "codeToImage.share": {
+  "codeToImage.shareImage": {
     "notes": "",
     "translation": "Share Image"
+  },
+  "codeToImage.shareTitle": {
+    "notes": "",
+    "translation": "Share"
   },
   "codeToImage.shareUrl": {
     "notes": "",
@@ -647,6 +651,274 @@
   "codeToImage.windowStyle.windows": {
     "notes": "",
     "translation": "Windows"
+  },
+  "commandMenu.changeTheme.dark": {
+    "notes": "",
+    "translation": "Change to Dark Theme"
+  },
+  "commandMenu.changeTheme.light": {
+    "notes": "",
+    "translation": "Change to Light Theme"
+  },
+  "commandMenu.changeTheme.title": {
+    "notes": "",
+    "translation": "Change Theme"
+  },
+  "commandMenu.changeUILanguage": {
+    "notes": "",
+    "translation": "Change UI Language"
+  },
+  "commandMenu.closeModal": {
+    "notes": "",
+    "translation": "Close Modal"
+  },
+  "commandMenu.contribute": {
+    "notes": "",
+    "translation": "Contribute"
+  },
+  "commandMenu.copy": {
+    "notes": "",
+    "translation": "Copy Code"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "notes": "",
+    "translation": "Copy Code as Data URL"
+  },
+  "commandMenu.disableAI": {
+    "notes": "",
+    "translation": "Disable AI Code Assistant"
+  },
+  "commandMenu.disableAutoSave": {
+    "notes": "",
+    "translation": "Disable Auto Save"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "notes": "",
+    "translation": "Disable Auto Update"
+  },
+  "commandMenu.disableEmacs": {
+    "notes": "",
+    "translation": "Disable Emacs Mode"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "notes": "",
+    "translation": "Disable Format On-Save"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "notes": "",
+    "translation": "Disable Recover Unsaved"
+  },
+  "commandMenu.disableVim": {
+    "notes": "",
+    "translation": "Disable Vim Mode"
+  },
+  "commandMenu.enableAI": {
+    "notes": "",
+    "translation": "Enable AI Code Assistant"
+  },
+  "commandMenu.enableAutoSave": {
+    "notes": "",
+    "translation": "Enable Auto Save"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "notes": "",
+    "translation": "Enable Auto Update"
+  },
+  "commandMenu.enableEmacs": {
+    "notes": "",
+    "translation": "Enable Emacs Mode"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "notes": "",
+    "translation": "Enable Format On-Save"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "notes": "",
+    "translation": "Enable Recover Unsaved"
+  },
+  "commandMenu.enableVim": {
+    "notes": "",
+    "translation": "Enable Vim Mode"
+  },
+  "commandMenu.focus.editor": {
+    "notes": "",
+    "translation": "Focus Editor"
+  },
+  "commandMenu.focus.home": {
+    "notes": "",
+    "translation": "Move Focus to Home"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "notes": "",
+    "translation": "Move Focus out of Editor"
+  },
+  "commandMenu.formatCode": {
+    "notes": "",
+    "translation": "Format Code"
+  },
+  "commandMenu.home": {
+    "notes": "",
+    "translation": "Home"
+  },
+  "commandMenu.horizontalLayout": {
+    "notes": "",
+    "translation": "Horizontal Layout"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "notes": "",
+    "translation": "Keyboard Shortcuts"
+  },
+  "commandMenu.login": {
+    "notes": "",
+    "translation": "Login"
+  },
+  "commandMenu.logout": {
+    "notes": "",
+    "translation": "Logout"
+  },
+  "commandMenu.moveToParent": {
+    "notes": "",
+    "translation": "move to parent"
+  },
+  "commandMenu.placeholder": {
+    "notes": "",
+    "translation": "Type a command or search..."
+  },
+  "commandMenu.processors": {
+    "notes": "",
+    "translation": "Processors"
+  },
+  "commandMenu.responsiveLayout": {
+    "notes": "",
+    "translation": "Responsive Layout"
+  },
+  "commandMenu.run": {
+    "notes": "",
+    "translation": "Run"
+  },
+  "commandMenu.saveAsFork": {
+    "notes": "",
+    "translation": "Save as a Fork (New Project)"
+  },
+  "commandMenu.saveAsTemplate": {
+    "notes": "",
+    "translation": "Save as a Template"
+  },
+  "commandMenu.selectLanguage": {
+    "notes": "",
+    "translation": "Select Language"
+  },
+  "commandMenu.show.compiled": {
+    "notes": "",
+    "translation": "Toggle Compiled Code"
+  },
+  "commandMenu.show.console": {
+    "notes": "",
+    "translation": "Toggle Console"
+  },
+  "commandMenu.show.focusMode": {
+    "notes": "",
+    "translation": "Toggle Focus Mode"
+  },
+  "commandMenu.show.fullscreen": {
+    "notes": "",
+    "translation": "Toggle Full Screen"
+  },
+  "commandMenu.show.markup": {
+    "notes": "",
+    "translation": "Show Markup Editor"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "notes": "",
+    "translation": "Maximize Compiled Code"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "notes": "",
+    "translation": "Maximize Console"
+  },
+  "commandMenu.show.maximizeTests": {
+    "notes": "",
+    "translation": "Maximize Tests"
+  },
+  "commandMenu.show.next": {
+    "notes": "",
+    "translation": "Show Next Editor"
+  },
+  "commandMenu.show.previous": {
+    "notes": "",
+    "translation": "Show Previous Editor"
+  },
+  "commandMenu.show.result": {
+    "notes": "",
+    "translation": "Toggle Result"
+  },
+  "commandMenu.show.runTests": {
+    "notes": "",
+    "translation": "Run Tests"
+  },
+  "commandMenu.show.script": {
+    "notes": "",
+    "translation": "Show Script Editor"
+  },
+  "commandMenu.show.style": {
+    "notes": "",
+    "translation": "Show Style Editor"
+  },
+  "commandMenu.show.tests": {
+    "notes": "",
+    "translation": "Toggle Tests"
+  },
+  "commandMenu.show.title": {
+    "notes": "",
+    "translation": "Show …"
+  },
+  "commandMenu.show.zoom": {
+    "notes": "",
+    "translation": "Toggle Result Zoom"
+  },
+  "commandMenu.starterTemplates": {
+    "notes": "",
+    "translation": "Starter Templates"
+  },
+  "commandMenu.sync": {
+    "notes": "",
+    "translation": "Sync (beta) …"
+  },
+  "commandMenu.template": {
+    "notes": "",
+    "translation": "Template"
+  },
+  "commandMenu.theme.color": {
+    "notes": "",
+    "translation": "Set Theme Color"
+  },
+  "commandMenu.theme.defaultColor": {
+    "notes": "",
+    "translation": "Set Default Theme Color"
+  },
+  "commandMenu.title": {
+    "notes": "",
+    "translation": "Command Menu"
+  },
+  "commandMenu.toClose": {
+    "notes": "",
+    "translation": "to close"
+  },
+  "commandMenu.toNavigate": {
+    "notes": "",
+    "translation": "to navigate"
+  },
+  "commandMenu.toSelect": {
+    "notes": "",
+    "translation": "to select"
+  },
+  "commandMenu.toggle": {
+    "notes": "",
+    "translation": "Toggle: "
+  },
+  "commandMenu.verticalLayout": {
+    "notes": "",
+    "translation": "Vertical Layout"
   },
   "core.broadcast.heading": {
     "notes": "",
@@ -1436,6 +1708,22 @@
     "notes": "",
     "translation": "Import Successful!"
   },
+  "keyboardShortcuts.command": {
+    "notes": "",
+    "translation": "Command"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "notes": "### <tag-1> ###\n<a href=\"https://code.visualstudio.com/docs/getstarted/keybindings#_basic-editing\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "For the list of code editor keyboard shortcuts, see <tag-1> VS Code shortcuts</tag-1>"
+  },
+  "keyboardShortcuts.heading": {
+    "notes": "",
+    "translation": "Keyboard Shortcuts"
+  },
+  "keyboardShortcuts.key": {
+    "notes": "",
+    "translation": "Key"
+  },
   "login.accessAllowed": {
     "notes": "",
     "translation": "Allow access to:"
@@ -1524,6 +1812,10 @@
     "notes": "",
     "translation": "Broadcast …"
   },
+  "menu.commandMenu": {
+    "notes": "",
+    "translation": "Command Menu"
+  },
   "menu.config": {
     "notes": "",
     "translation": "Configuration"
@@ -1599,6 +1891,10 @@
   "menu.import": {
     "notes": "",
     "translation": "Import …"
+  },
+  "menu.keyboardShortcuts": {
+    "notes": "",
+    "translation": "Keyboard Shortcuts"
   },
   "menu.layout": {
     "notes": "",
@@ -1750,7 +2046,7 @@
   },
   "open.noData.desc": {
     "notes": "",
-    "translation": "You can save a project from (settings&nbsp;menu&nbsp;&gt;&nbsp;Save) or by the keyboard shortcut (Ctrl/Cmd&nbsp;+&nbsp;S)."
+    "translation": "You can save a project from (settings&nbsp;menu&nbsp;&gt;&nbsp;Save) or by the keyboard shortcut (Ctrl/⌘&nbsp;+&nbsp;S)."
   },
   "open.noData.heading": {
     "notes": "",
@@ -2550,7 +2846,7 @@
   },
   "toolspane.test.run.desc": {
     "notes": "",
-    "translation": "Ctrl/Cmd + Alt + T"
+    "translation": "Ctrl/⌘ + Alt + T"
   },
   "toolspane.test.run.heading": {
     "notes": "",
