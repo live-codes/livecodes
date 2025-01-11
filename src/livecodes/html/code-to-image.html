@@ -3,7 +3,7 @@
   <div class="modal-screen-container">
     <div class="modal-screen">
       <label data-i18n="codeToImage.preview">Preview</label>
-      <a href="#" id="code-to-img-copy-link" class="code-link" data-i18n="codeToImage.copy">Copy</a>
+      <!-- <a href="#" id="code-to-img-copy-link" class="code-link" data-i18n="codeToImage.copy">Copy</a> -->
       <!-- <a href="#" id="code-to-img-format-link" class="code-link" data-i18n="codeToImage.format">Format</a> -->
       <div id="code-to-img-preview-background" dir="ltr">
         <div id="code-to-img-preview-container"></div>
@@ -269,12 +269,37 @@
           </div>
         </div>
       </form>
-      <button id="code-to-img-save-btn" class="wide-button" data-i18n="codeToImage.save">
-        Save Image
-      </button>
-      <button id="code-to-img-share-btn" class="wide-button" data-i18n="codeToImage.share">
-        Share Image
-      </button>
+      <div id="code-to-img-actions">
+        <button id="code-to-img-save-btn" class="wide-button" data-i18n="codeToImage.save">
+          Save Image
+        </button>
+        <button
+          id="code-to-img-menu-btn"
+          class="button"
+          title="Share"
+          data-i18n="app.share.hint"
+          data-i18n-prop="title"
+        >
+          <i class="icon-share"></i>
+        </button>
+        <div id="code-to-img-menu-container">
+          <ul id="code-to-img-share-menu" class="dropdown-menu">
+            <li>
+              <a href="#" id="code-to-img-share-btn" data-i18n="codeToImage.share">Share Image</a>
+            </li>
+            <li>
+              <a href="#" id="code-to-img-copy-img-btn" data-i18n="codeToImage.copyImage"
+                >Copy Image</a
+              >
+            </li>
+            <li>
+              <a href="#" id="code-to-img-copy-code-btn" data-i18n="codeToImage.copyCode"
+                >Copy Code</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>

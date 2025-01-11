@@ -257,7 +257,7 @@ const translation = {
     background: 'Background',
     borderRadius: 'Border Radius',
     code: 'Code',
-    copy: 'Copy',
+    copyCode: 'Copy Code',
     copyImage: 'Copy Image',
     default: 'Default',
     direction: 'Direction',
@@ -310,6 +310,7 @@ const translation = {
     error: {
       couldNotLoadTemplate: 'Could not load template: {{template}}',
       failedToCopyCode: 'Failed to copy code',
+      failedToCopyImage: 'Failed to copy image',
       failedToLoadTemplate: 'Failed loading template',
       failedToLoadTemplates: 'Failed loading starter templates',
       failedToParseSettings: 'Failed parsing settings as JSON',

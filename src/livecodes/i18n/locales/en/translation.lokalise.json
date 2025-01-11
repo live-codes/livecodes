@@ -532,9 +532,9 @@
     "notes": "",
     "translation": "Code"
   },
-  "codeToImage.copy": {
+  "codeToImage.copyCode": {
     "notes": "",
-    "translation": "Copy"
+    "translation": "Copy Code"
   },
   "codeToImage.copyImage": {
     "notes": "",
@@ -691,6 +691,10 @@
   "core.error.failedToCopyCode": {
     "notes": "",
     "translation": "Failed to copy code"
+  },
+  "core.error.failedToCopyImage": {
+    "notes": "",
+    "translation": "Failed to copy image"
   },
   "core.error.failedToLoadTemplate": {
     "notes": "",
