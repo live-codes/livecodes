@@ -75,6 +75,7 @@ const buildVendors = () => {
       'codemirror-emacs.ts',
       'codemirror-emmet.ts',
       'codemirror-codeium.ts',
+      'codemirror-line-numbers-relative.ts',
       'languages/codemirror-lang-json.ts',
       'languages/codemirror-lang-markdown.ts',
       'languages/codemirror-lang-python.ts',
