@@ -756,6 +756,9 @@
   "editorSettings.lineNumbers": {
     "translation": "إظهار أرقام الأسطر"
   },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "أرقام الأسطر النسبية*"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "غير متوفر في CodeJar"
   },

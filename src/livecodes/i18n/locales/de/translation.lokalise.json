@@ -756,6 +756,9 @@
   "editorSettings.lineNumbers": {
     "translation": "Zeilennummern anzeigen"
   },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "Relative Zeilennummern *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "Nicht verfügbar in CodeJar"
   },
