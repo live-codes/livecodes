@@ -756,6 +756,9 @@
   "editorSettings.lineNumbers": {
     "translation": "पंक्ति संख्याएँ दिखाएँ"
   },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "सापेक्ष पंक्ति संख्या *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "CodeJar में उपलब्ध नहीं"
   },

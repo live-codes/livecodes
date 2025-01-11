@@ -756,6 +756,9 @@
   "editorSettings.lineNumbers": {
     "translation": "Mostrar números de linha"
   },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "Números relativos de linhas *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "Não disponível no CodeJar"
   },

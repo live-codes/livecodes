@@ -756,6 +756,9 @@
   "editorSettings.lineNumbers": {
     "translation": "لائن نمبرز دکھائیں"
   },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "متعلقہ لائن نمبر *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "کوڈ جار میں دستیاب نہیں"
   },
