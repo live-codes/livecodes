@@ -429,6 +429,7 @@ const translation: I18nTranslation = {
     format: 'تنسيق',
     heading: 'إعدادات المحرر',
     lineNumbers: 'إظهار أرقام الأسطر',
+    lineNumbersRelative: 'أرقام الأسطر النسبية*',
     notAvailableInCodeJar: 'غير متوفر في CodeJar',
     preview: 'معاينة',
     semicolons: 'التنسيق: استخدام الفواصل المنقوطة',

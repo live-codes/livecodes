@@ -429,6 +429,7 @@ const translation: I18nTranslation = {
     format: 'Format',
     heading: 'Editor-Einstellungen',
     lineNumbers: 'Zeilennummern anzeigen',
+    lineNumbersRelative: 'Relative Zeilennummern *',
     notAvailableInCodeJar: 'Nicht verfügbar in CodeJar',
     preview: 'Vorschau',
     semicolons: 'Format: Semikolons verwenden',

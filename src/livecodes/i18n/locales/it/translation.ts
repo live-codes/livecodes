@@ -429,6 +429,7 @@ const translation: I18nTranslation = {
     format: 'Formato',
     heading: 'Impostazioni Editor',
     lineNumbers: 'Mostra numeri di riga',
+    lineNumbersRelative: 'Numeri di riga relativi *',
     notAvailableInCodeJar: 'Non disponibile in CodeJar',
     preview: 'Anteprima',
     semicolons: 'Formato: Usa punto e virgola',
