@@ -162,7 +162,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.fontSize, 'number') ? { fontSize: Number(config.fontSize) } : {}),
     ...(is(config.useTabs, 'boolean') ? { useTabs: config.useTabs } : {}),
     ...(is(config.tabSize, 'number') ? { tabSize: Number(config.tabSize) } : {}),
-    ...(is(config.lineNumbers, 'boolean') ? { lineNumbers: config.lineNumbers } : {}),
+    ...(is(config.lineNumbers, 'boolean') || config.lineNumbers === 'relative'
+      ? { lineNumbers: config.lineNumbers }
+      : {}),
     ...(is(config.wordWrap, 'boolean') ? { wordWrap: config.wordWrap } : {}),
     ...(is(config.closeBrackets, 'boolean') ? { closeBrackets: config.closeBrackets } : {}),
     ...(is(config.semicolons, 'boolean') ? { semicolons: config.semicolons } : {}),

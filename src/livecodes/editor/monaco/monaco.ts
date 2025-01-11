@@ -67,7 +67,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     insertSpaces: !opt.useTabs,
     detectIndentation: false,
     tabSize: opt.tabSize,
-    lineNumbers: opt.lineNumbers ? 'on' : 'off',
+    lineNumbers: opt.lineNumbers === 'relative' ? 'relative' : opt.lineNumbers ? 'on' : 'off',
     wordWrap: opt.wordWrap ? 'on' : 'off',
     autoClosingBrackets: opt.closeBrackets ? 'always' : 'never',
     autoClosingQuotes: opt.closeBrackets ? 'always' : 'never',
