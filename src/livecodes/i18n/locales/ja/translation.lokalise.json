@@ -399,8 +399,11 @@
   "codeToImage.code": {
     "translation": "コード"
   },
-  "codeToImage.copy": {
-    "translation": "コピー"
+  "codeToImage.copyCode": {
+    "translation": "コードをコピー"
+  },
+  "codeToImage.copyImage": {
+    "translation": "コピー画像"
   },
   "codeToImage.default": {
     "translation": "デフォルト"
@@ -501,6 +504,9 @@
   "core.copy.copiedAsDataURL": {
     "translation": "コードがデータURLとしてコピーされました"
   },
+  "core.copy.copiedImage": {
+    "translation": "クリップボードにコピーされた画像。"
+  },
   "core.copy.hint": {
     "translation": "コピーしました！"
   },
@@ -512,6 +518,9 @@
   },
   "core.error.failedToCopyCode": {
     "translation": "コードのコピーに失敗しました"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "イメージのコピーに失敗しました"
   },
   "core.error.failedToLoadTemplate": {
     "translation": "テンプレートの読み込みに失敗しました"

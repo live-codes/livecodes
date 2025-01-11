@@ -399,8 +399,11 @@
   "codeToImage.code": {
     "translation": "کوڈ"
   },
-  "codeToImage.copy": {
-    "translation": "کاپی کریں"
+  "codeToImage.copyCode": {
+    "translation": "کوڈ کاپی کریں"
+  },
+  "codeToImage.copyImage": {
+    "translation": "تصویر کاپی کریں۔"
   },
   "codeToImage.default": {
     "translation": "ڈیفالٹ"
@@ -501,6 +504,9 @@
   "core.copy.copiedAsDataURL": {
     "translation": "کوڈ ڈیٹا یو آر ایل کے طور پر کاپی کیا گیا"
   },
+  "core.copy.copiedImage": {
+    "translation": "تصویر کلپ بورڈ پر کاپی ہو گئی۔"
+  },
   "core.copy.hint": {
     "translation": "کاپی ہو گیا!"
   },
@@ -512,6 +518,9 @@
   },
   "core.error.failedToCopyCode": {
     "translation": "کوڈ کاپی کرنے میں ناکام"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "تصویر کاپی کرنے میں ناکام"
   },
   "core.error.failedToLoadTemplate": {
     "translation": "ٹیمپلیٹ لوڈ کرنے میں ناکام"

@@ -399,8 +399,11 @@
   "codeToImage.code": {
     "translation": "Код"
   },
-  "codeToImage.copy": {
-    "translation": "Копировать"
+  "codeToImage.copyCode": {
+    "translation": "Копировать код"
+  },
+  "codeToImage.copyImage": {
+    "translation": "Копирование изображения"
   },
   "codeToImage.default": {
     "translation": "По умолчанию"
@@ -501,6 +504,9 @@
   "core.copy.copiedAsDataURL": {
     "translation": "Код скопирован как URL данных"
   },
+  "core.copy.copiedImage": {
+    "translation": "Изображение копируется в буфер обмена."
+  },
   "core.copy.hint": {
     "translation": "Скопировано!"
   },
@@ -512,6 +518,9 @@
   },
   "core.error.failedToCopyCode": {
     "translation": "Не удалось скопировать код"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "Не удалось скопировать изображение"
   },
   "core.error.failedToLoadTemplate": {
     "translation": "Не удалось загрузить шаблон"

@@ -399,8 +399,11 @@
   "codeToImage.code": {
     "translation": "Code"
   },
-  "codeToImage.copy": {
-    "translation": "Copier"
+  "codeToImage.copyCode": {
+    "translation": "Copier le code"
+  },
+  "codeToImage.copyImage": {
+    "translation": "Copier l'image"
   },
   "codeToImage.default": {
     "translation": "Par défaut"
@@ -501,6 +504,9 @@
   "core.copy.copiedAsDataURL": {
     "translation": "Code copié comme URL de données"
   },
+  "core.copy.copiedImage": {
+    "translation": "Image copiée dans le presse-papiers."
+  },
   "core.copy.hint": {
     "translation": "Copié !"
   },
@@ -512,6 +518,9 @@
   },
   "core.error.failedToCopyCode": {
     "translation": "Échec de la copie du code"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "Échec de la copie de l'image"
   },
   "core.error.failedToLoadTemplate": {
     "translation": "Échec du chargement du modèle"
