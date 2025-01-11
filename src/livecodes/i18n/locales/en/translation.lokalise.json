@@ -616,9 +616,13 @@
     "notes": "",
     "translation": "Shadow"
   },
-  "codeToImage.share": {
+  "codeToImage.shareImage": {
     "notes": "",
     "translation": "Share Image"
+  },
+  "codeToImage.shareTitle": {
+    "notes": "",
+    "translation": "Share"
   },
   "codeToImage.shareUrl": {
     "notes": "",
