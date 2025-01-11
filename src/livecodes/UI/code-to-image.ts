@@ -19,7 +19,6 @@ import {
   copyToClipboard,
   debounce,
   downloadFile,
-  isMobile,
   loadScript,
   loadStylesheet,
 } from '../utils';
