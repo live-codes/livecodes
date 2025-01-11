@@ -399,8 +399,11 @@
   "codeToImage.code": {
     "translation": "Código"
   },
-  "codeToImage.copy": {
-    "translation": "Copiar"
+  "codeToImage.copyCode": {
+    "translation": "Copiar código"
+  },
+  "codeToImage.copyImage": {
+    "translation": "Copiar imagen"
   },
   "codeToImage.default": {
     "translation": "Predeterminado"
@@ -501,6 +504,9 @@
   "core.copy.copiedAsDataURL": {
     "translation": "Código copiado como URL de datos"
   },
+  "core.copy.copiedImage": {
+    "translation": "Imagen copiada en el portapapeles."
+  },
   "core.copy.hint": {
     "translation": "¡Copiado!"
   },
@@ -512,6 +518,9 @@
   },
   "core.error.failedToCopyCode": {
     "translation": "No se pudo copiar el código"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "Error al copiar la imagen"
   },
   "core.error.failedToLoadTemplate": {
     "translation": "Fallo al cargar la plantilla"
