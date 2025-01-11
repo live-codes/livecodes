@@ -777,7 +777,7 @@ export interface EditorConfig {
    * Show line numbers in [code editor](https://livecodes.io/docs/features/editor-settings).
    * @default true
    */
-  lineNumbers: boolean;
+  lineNumbers: boolean | 'relative';
 
   /**
    * Enables word-wrap for long lines.

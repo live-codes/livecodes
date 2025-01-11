@@ -429,6 +429,7 @@ const translation: I18nTranslation = {
     format: 'フォーマット',
     heading: 'エディター設定',
     lineNumbers: '行番号を表示',
+    lineNumbersRelative: '相対的な行番号',
     notAvailableInCodeJar: 'CodeJarでは利用できません',
     preview: 'プレビュー',
     semicolons: 'フォーマット：セミコロンを使用',

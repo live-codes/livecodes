@@ -1280,6 +1280,10 @@
     "notes": "",
     "translation": "Show line numbers"
   },
+  "editorSettings.lineNumbersRelative": {
+    "notes": "",
+    "translation": "Relative line numbers *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "notes": "",
     "translation": "Not available in CodeJar"

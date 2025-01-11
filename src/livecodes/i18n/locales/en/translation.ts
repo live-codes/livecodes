@@ -514,6 +514,7 @@ const translation = {
     format: 'Format',
     heading: 'Editor Settings',
     lineNumbers: 'Show line numbers',
+    lineNumbersRelative: 'Relative line numbers *',
     notAvailableInCodeJar: 'Not available in CodeJar',
     preview: 'Preview',
     semicolons: 'Format: Use Semicolons',

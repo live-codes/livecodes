@@ -55,7 +55,10 @@ export const createEditorSettingsUI = async ({
 
   interface FormField {
     title?: string;
-    name: keyof UserConfig | `editorTheme-${Config['editor']}-${Config['theme']}`;
+    name:
+      | keyof UserConfig
+      | 'lineNumbersRelative'
+      | `editorTheme-${Config['editor']}-${Config['theme']}`;
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
     note?: string;
@@ -209,6 +212,14 @@ export const createEditorSettingsUI = async ({
       options: [{ value: 'true' }],
     },
     {
+      title: window.deps.translateString(
+        'editorSettings.lineNumbersRelative',
+        'Relative line numbers *',
+      ),
+      name: 'lineNumbersRelative',
+      options: [{ value: 'true' }],
+    },
+    {
       title: window.deps.translateString('editorSettings.wordWrap', 'Word-wrap'),
       name: 'wordWrap',
       options: [{ value: 'true' }],
@@ -342,12 +353,14 @@ export const createEditorSettingsUI = async ({
     form.appendChild(fieldContainer);
 
     const name = `editor-settings-${field.name}`;
-    const optionValue = String(
-      (editorOptions as any)[field.name] ??
-        (userConfig as any)[field.name] ??
-        (defaultConfig as any)[field.name] ??
-        '',
-    );
+    const getOptionValue = (name: string) =>
+      String(
+        (editorOptions as any)[name] ??
+          (userConfig as any)[name] ??
+          (defaultConfig as any)[name] ??
+          '',
+      );
+    const optionValue = getOptionValue(field.name);
 
     if (field.options.length > 4) {
       const select = document.createElement('select');
@@ -400,7 +413,16 @@ export const createEditorSettingsUI = async ({
       input.id = id;
       input.value = option.value;
       input.checked =
-        field.name === 'theme' ? optionValue === 'dark' : optionValue === option.value;
+        field.name === 'theme'
+          ? optionValue === 'dark'
+          : field.name === 'lineNumbers'
+            ? optionValue === 'true' || optionValue === 'relative'
+            : optionValue === option.value;
+
+      if (field.name === 'lineNumbersRelative') {
+        input.checked = getOptionValue('lineNumbers') === 'relative';
+        input.disabled = getOptionValue('lineNumbers') === 'false';
+      }
 
       optionContainer.appendChild(input);
 
@@ -440,7 +462,7 @@ export const createEditorSettingsUI = async ({
                   ? Number(value)
                   : value,
       }),
-      {} as EditorOptions,
+      {} as EditorOptions & { lineNumbersRelative?: boolean },
     );
 
     const booleanFields = formFields
@@ -459,7 +481,23 @@ export const createEditorSettingsUI = async ({
       if (key === 'theme') {
         formData.theme = (formData.theme as any) === true ? 'dark' : 'light';
       }
+      if (
+        key === 'lineNumbersRelative' &&
+        formData.lineNumbersRelative === true &&
+        formData.lineNumbers === true
+      ) {
+        formData.lineNumbers = 'relative';
+      }
     });
+
+    const relativeLineNumbersField = form.querySelector<HTMLInputElement>(
+      '[name="editor-settings-lineNumbersRelative"]',
+    );
+    if (relativeLineNumbersField) {
+      relativeLineNumbersField.checked = formData.lineNumbers === 'relative';
+      relativeLineNumbersField.disabled = formData.lineNumbers === false;
+    }
+    delete formData.lineNumbersRelative;
 
     formData.editorTheme = allThemes
       .map((name) => (formData as any)[name])
