@@ -101,6 +101,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let codeium:
     | ((editors: CodeiumEditor[], mapLanguage: (lang: Language) => Language) => Extension)
     | undefined;
+  let lineNumbersRelative: () => Extension;
 
   const configureTSExtension = (extensionList: readonly Extension[]) => {
     if (mappedLanguage === 'typescript') {
@@ -170,17 +171,20 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       emacs: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emacs.js`,
       emmet: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emmet.js`,
       codeium: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-codeium.js`,
+      lineNumbersRelative: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-line-numbers-relative.js`,
     };
-    const [vimMod, emacsMod, emmetMod, codeiumMod] = await Promise.all([
+    const [vimMod, emacsMod, emmetMod, codeiumMod, lineNumbersRelativeMod] = await Promise.all([
       opt.editorMode === 'vim' ? import(modules.vim) : Promise.resolve({}),
       opt.editorMode === 'emacs' ? import(modules.emacs) : Promise.resolve({}),
       opt.emmet ? import(modules.emmet) : Promise.resolve({}),
       opt.enableAI ? import(modules.codeium) : Promise.resolve({}),
+      opt.lineNumbers === 'relative' ? import(modules.lineNumbersRelative) : Promise.resolve({}),
     ]);
     vim = vimMod.vim;
     emacs = emacsMod.emacs;
     emmet = emmetMod.emmet;
     codeium = codeiumMod.codeium;
+    lineNumbersRelative = lineNumbersRelativeMod.lineNumbersRelative;
   };
   await loadExtensions(options);
 
@@ -201,6 +205,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const useTabs = settings.useTabs ?? editorSettings.useTabs;
     const wordWrap = settings.wordWrap ?? editorSettings.wordWrap;
     const enableEmmet = settings.emmet ?? editorSettings.emmet;
+    const enableLineNumbers = settings.lineNumbers ?? editorSettings.lineNumbers;
     const enableAI = settings.enableAI ?? editorSettings.enableAI;
     const editorMode = settings.editorMode ?? editorSettings.editorMode;
 
@@ -210,6 +215,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ...(wordWrap ? [EditorView.lineWrapping] : []),
       ...(editorMode === 'vim' && vim ? [vim()] : editorMode === 'emacs' && emacs ? [emacs()] : []),
       ...(enableEmmet && emmet ? [emmet] : []),
+      ...(enableLineNumbers === 'relative' && lineNumbersRelative
+        ? [lineNumbersRelative()]
+        : enableLineNumbers && lineNumbers
+          ? [lineNumbers()]
+          : []),
       ...(enableAI && codeium ? [codeium(editors, mapLanguage)] : []),
       EditorView.theme({
         '&': {
@@ -237,7 +247,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       syntaxHighlighting(italicComments),
       editorSettingsExtension.of(configureSettingsExtension({})),
       keyBindingsExtension.of(keymap.of(keyBindings)),
-      lineNumbersExtension.of(editorSettings.lineNumbers ? lineNumbers() : []),
       closeBracketsExtension.of(editorSettings.closeBrackets ? closeBrackets() : []),
       basicSetup,
       readonly ? readOnlyExtension : [],

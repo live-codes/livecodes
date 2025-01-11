@@ -627,11 +627,12 @@ The number of spaces per indentation-level. Also used in [code formatting](../fe
 
 ### `lineNumbers`
 
-Type: [`boolean`](../api/interfaces/Config.md#linenumbers)
+Type: [`boolean | "relative"`](../api/interfaces/Config.md#linenumbers)
 
 Default: `true`
 
-Show line numbers in [code editor](../features/editor-settings.md).
+Show line numbers in [code editor](../features/editor-settings.md).  
+If set to `"relative"`, line numbers are shown relative to the current line. This can be useful with [vim mode](#editormode).
 
 ### `wordWrap`
 

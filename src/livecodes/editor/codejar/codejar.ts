@@ -334,7 +334,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     `;
     document.head.appendChild(styleEl);
     setTheme(settings.theme, settings.editorTheme);
-    preElement.classList.toggle('line-numbers', editorOptions.lineNumbers);
+    preElement.classList.toggle('line-numbers', Boolean(editorOptions.lineNumbers));
     highlight();
   };
   changeSettings(options);
