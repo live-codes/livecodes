@@ -399,8 +399,11 @@
   "codeToImage.code": {
     "translation": "代码"
   },
-  "codeToImage.copy": {
-    "translation": "复制"
+  "codeToImage.copyCode": {
+    "translation": "复制代码"
+  },
+  "codeToImage.copyImage": {
+    "translation": "复制图像"
   },
   "codeToImage.default": {
     "translation": "默认"
@@ -501,6 +504,9 @@
   "core.copy.copiedAsDataURL": {
     "translation": "将代码复制为 Data URL"
   },
+  "core.copy.copiedImage": {
+    "translation": "图像复制到剪贴板。"
+  },
   "core.copy.hint": {
     "translation": "已复制！"
   },
@@ -512,6 +518,9 @@
   },
   "core.error.failedToCopyCode": {
     "translation": "复制代码失败"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "复制图像失败"
   },
   "core.error.failedToLoadTemplate": {
     "translation": "加载模板失败"
