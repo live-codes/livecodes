@@ -15,6 +15,7 @@ import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
 import {
   colorToRgba,
+  copyImage,
   copyToClipboard,
   debounce,
   downloadFile,
@@ -231,23 +232,6 @@ export const createCodeToImageUI = async ({
       },
     );
 
-    eventsManager.addEventListener(
-      codeToImageContainer.querySelector<HTMLElement>('#code-to-img-copy-link'),
-      'click',
-      (ev) => {
-        ev.preventDefault();
-        const code = ed.getValue();
-        if (copyToClipboard(code)) {
-          notifications.success(
-            window.deps.translateString('core.copy.copied', 'Code copied to clipboard'),
-          );
-        } else {
-          notifications.error(
-            window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
-          );
-        }
-      },
-    );
     return ed;
   };
 
@@ -518,10 +502,22 @@ export const createCodeToImageUI = async ({
       });
   });
 
-  const shareBtn = codeToImageContainer.querySelector<HTMLButtonElement>('#code-to-img-share-btn')!;
+  const menu = codeToImageContainer.querySelector<HTMLElement>('#code-to-img-share-menu')!;
+  const menuBtn = codeToImageContainer.querySelector<HTMLElement>('#code-to-img-menu-btn')!;
+  eventsManager.addEventListener(menuBtn, 'click', () => {
+    const currentDisplay = menu.style.display;
+    menu.style.display = currentDisplay === 'block' ? 'none' : 'block';
+  });
+  eventsManager.addEventListener(document, 'click', (e) => {
+    // click outside handler
+    if (!menu || !menuBtn) return;
+    if (e.target !== menuBtn && !menuBtn.contains(e.target as Node)) {
+      menu.style.display = 'none';
+    }
+  });
+
+  const shareBtn = codeToImageContainer.querySelector<HTMLElement>('#code-to-img-share-btn')!;
   eventsManager.addEventListener(shareBtn, 'click', () => {
-    shareBtn.disabled = true;
-    shareBtn.classList.add('disabled');
     const btnText = shareBtn.innerText;
     shareBtn.innerText = window.deps.translateString('core.generating', 'Generating...');
     getImageUrl()
@@ -543,10 +539,52 @@ export const createCodeToImageUI = async ({
         );
       })
       .finally(() => {
-        shareBtn.disabled = false;
-        shareBtn.classList.remove('disabled');
         shareBtn.innerText = btnText;
       });
+  });
+
+  const copyImageBtn = codeToImageContainer.querySelector<HTMLElement>(
+    '#code-to-img-copy-img-btn',
+  )!;
+  eventsManager.addEventListener(copyImageBtn, 'click', () => {
+    const btnText = copyImageBtn.innerText;
+    copyImageBtn.innerText = window.deps.translateString('core.generating', 'Generating...');
+    getImageUrl()
+      .then(async (dataUrl: string) => {
+        const blob = await fetch(dataUrl).then((res) => res.blob());
+        const imageCopied = await copyImage(blob, formData.format || 'png');
+        if (imageCopied) {
+          notifications.success(
+            window.deps.translateString('core.copy.copiedImage', 'Image copied to clipboard.'),
+          );
+          return;
+        }
+      })
+      .catch(() => {
+        notifications.error(
+          window.deps.translateString('core.error.failedToCopyImage', 'Failed to copy image'),
+        );
+      })
+      .finally(() => {
+        copyImageBtn.innerText = btnText;
+      });
+  });
+
+  const copyCodeBtn = codeToImageContainer.querySelector<HTMLElement>(
+    '#code-to-img-copy-code-btn',
+  )!;
+  eventsManager.addEventListener(copyCodeBtn, 'click', (ev) => {
+    ev.preventDefault();
+    const code = editor.getValue();
+    if (copyToClipboard(code)) {
+      notifications.success(
+        window.deps.translateString('core.copy.copied', 'Code copied to clipboard'),
+      );
+    } else {
+      notifications.error(
+        window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
+      );
+    }
   });
 
   const savedPreset = deps.getSavedPreset();

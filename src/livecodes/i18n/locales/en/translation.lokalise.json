@@ -532,9 +532,13 @@
     "notes": "",
     "translation": "Code"
   },
-  "codeToImage.copy": {
+  "codeToImage.copyCode": {
     "notes": "",
-    "translation": "Copy"
+    "translation": "Copy Code"
+  },
+  "codeToImage.copyImage": {
+    "notes": "",
+    "translation": "Copy Image"
   },
   "codeToImage.default": {
     "notes": "",
@@ -936,6 +940,10 @@
     "notes": "",
     "translation": "Code copied as data URL"
   },
+  "core.copy.copiedImage": {
+    "notes": "",
+    "translation": "Image copied to clipboard."
+  },
   "core.copy.hint": {
     "notes": "",
     "translation": "Copied!"
@@ -951,6 +959,10 @@
   "core.error.failedToCopyCode": {
     "notes": "",
     "translation": "Failed to copy code"
+  },
+  "core.error.failedToCopyImage": {
+    "notes": "",
+    "translation": "Failed to copy image"
   },
   "core.error.failedToLoadTemplate": {
     "notes": "",

@@ -399,8 +399,11 @@
   "codeToImage.code": {
     "translation": "الكود"
   },
-  "codeToImage.copy": {
-    "translation": "نسخ"
+  "codeToImage.copyCode": {
+    "translation": "نسخ الكود"
+  },
+  "codeToImage.copyImage": {
+    "translation": "نسخ الصورة"
   },
   "codeToImage.default": {
     "translation": "افتراضي"
@@ -501,6 +504,9 @@
   "core.copy.copiedAsDataURL": {
     "translation": "تم نسخ الكود كرابط بيانات"
   },
+  "core.copy.copiedImage": {
+    "translation": "تم نسخ الصورة إلى الحافظة."
+  },
   "core.copy.hint": {
     "translation": "تم النسخ!"
   },
@@ -512,6 +518,9 @@
   },
   "core.error.failedToCopyCode": {
     "translation": "فشل في نسخ الكود"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "فشل في نسخ الصورة"
   },
   "core.error.failedToLoadTemplate": {
     "translation": "فشل في تحميل القالب"

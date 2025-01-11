@@ -5445,7 +5445,7 @@ const createApi = (): API => {
       if (zoomLevel) {
         zoom(zoomLevel);
       }
-    } else if (panel === 'code') {
+    } else if (panel === 'editor') {
       split?.show('code', full);
     } else if (panel === 'console' || panel === 'compiled' || panel === 'tests') {
       split?.show('output');

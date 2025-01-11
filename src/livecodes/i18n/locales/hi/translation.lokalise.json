@@ -399,8 +399,11 @@
   "codeToImage.code": {
     "translation": "कोड"
   },
-  "codeToImage.copy": {
-    "translation": "कॉपी करें"
+  "codeToImage.copyCode": {
+    "translation": "कोड कॉपी करें"
+  },
+  "codeToImage.copyImage": {
+    "translation": "नकल छवि"
   },
   "codeToImage.default": {
     "translation": "डिफ़ॉल्ट"
@@ -501,6 +504,9 @@
   "core.copy.copiedAsDataURL": {
     "translation": "कोड डेटा URL के रूप में कॉपी किया गया"
   },
+  "core.copy.copiedImage": {
+    "translation": "छवि क्लिपबोर्ड पर कॉपी की गई."
+  },
   "core.copy.hint": {
     "translation": "कॉपी किया गया!"
   },
@@ -512,6 +518,9 @@
   },
   "core.error.failedToCopyCode": {
     "translation": "कोड कॉपी करने में विफल"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "छवि कॉपी करने में विफल"
   },
   "core.error.failedToLoadTemplate": {
     "translation": "टेम्पलेट लोड करने में विफल"
