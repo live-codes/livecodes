@@ -241,7 +241,9 @@ const processHTML = async (files) => {
         desc: generateElementsNote(elements),
       };
     }
-    const value = prop.startsWith('data-') ? element.dataset[prop.slice(5)] : element[prop];
+    const value = prop.startsWith('data-')
+      ? element.dataset[prop.slice(5)]
+      : element[prop] || element.getAttribute(prop);
     return {
       value: value.trim(),
       desc: '',

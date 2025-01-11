@@ -28,7 +28,7 @@ import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
 import { pkgInfoService } from '../../services/pkgInfo';
 import { getEditorTheme } from '../themes';
-import { getCompilerOptions } from '../ts-compiler-options';
+import { getCompilerOptions, hasJsx } from '../ts-compiler-options';
 import { customThemes, monacoThemes } from './monaco-themes';
 import { registerTwoSlash } from './register-twoslash';
 
@@ -639,6 +639,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     if (
       !model ||
       !addCloseLanguages.includes(monacoMapLanguage(language)) ||
+      (monacoMapLanguage(language) === 'typescript' && !hasJsx.includes(language)) || // avoid autocompleting TS generics
       editorOptions.autoClosingBrackets === 'never'
     ) {
       return;

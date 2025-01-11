@@ -1,0 +1,35 @@
+<div id="keyboard-shortcuts-container" class="modal-container">
+  <div class="modal-title" data-i18n="keyboardShortcuts.heading">Keyboard Shortcuts</div>
+  <div id="keyboard-shortcuts-screen-container" class="modal-screen-container">
+    <div id="keyboard-shortcuts-status" class="modal-status"></div>
+
+    <div class="modal-screen">
+      <div
+        class="description help"
+        data-i18n="keyboardShortcuts.editorShortcuts"
+        data-i18n-prop="innerHTML"
+      >
+        For the list of code editor keyboard shortcuts, see
+        <a
+          href="https://code.visualstudio.com/docs/getstarted/keybindings#_basic-editing"
+          target="_blank"
+          rel="noopener"
+        >
+          VS Code shortcuts</a
+        >
+      </div>
+
+      <div id="keyboard-shortcuts-table-container">
+        <table id="keyboard-shortcuts-table">
+          <thead>
+            <tr>
+              <th data-i18n="keyboardShortcuts.command">Command</th>
+              <th data-i18n="keyboardShortcuts.key">Key</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

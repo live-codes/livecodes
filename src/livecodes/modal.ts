@@ -107,7 +107,9 @@ export const createModal = (translate: (container: HTMLElement) => void) => {
     ) {
       close();
     }
-    isOpening = false;
+    requestAnimationFrame(() => {
+      isOpening = false;
+    });
   }
 
   const escapeListener = (event: KeyboardEvent) => {

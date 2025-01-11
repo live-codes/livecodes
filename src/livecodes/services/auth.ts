@@ -59,10 +59,9 @@ export const createAuthService = (isEmbed: boolean): AuthService => {
       if (!auth) {
         await this.load();
       }
+      const token = await getToken(currentUser?.uid);
       if (currentUser) {
-        if (!(await getToken(currentUser.uid))) {
-          return;
-        }
+        if (!token) return;
         return Promise.resolve(await getUserInfo(currentUser));
       }
       return new Promise((resolve) => {
