@@ -429,6 +429,7 @@ const translation: I18nTranslation = {
     format: 'Formato',
     heading: 'Configuración del editor',
     lineNumbers: 'Mostrar números de línea',
+    lineNumbersRelative: 'Números de línea relativos *',
     notAvailableInCodeJar: 'No disponible en CodeJar',
     preview: 'Vista previa',
     semicolons: 'Formato: Usar punto y coma',

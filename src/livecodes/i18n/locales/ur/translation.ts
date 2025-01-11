@@ -429,6 +429,7 @@ const translation: I18nTranslation = {
     format: 'فارمیٹ',
     heading: 'ایڈیٹر کی ترتیبات',
     lineNumbers: 'لائن نمبرز دکھائیں',
+    lineNumbersRelative: 'متعلقہ لائن نمبر *',
     notAvailableInCodeJar: 'کوڈ جار میں دستیاب نہیں',
     preview: 'پیش نظارہ',
     semicolons: 'فارمیٹ: سیمی کولن استعمال کریں',

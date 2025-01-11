@@ -756,6 +756,9 @@
   "editorSettings.lineNumbers": {
     "translation": "行番号を表示"
   },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "相対的な行番号"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "CodeJarでは利用できません"
   },
