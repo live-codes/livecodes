@@ -62,9 +62,6 @@ const translation: I18nTranslation = {
       learnMore: 'تعرف على المزيد! {{docsUrl}} 🚀',
       sdkVersion: 'إصدار SDK: {{SDK_VERSION}}',
     },
-    copy: {
-      hint: 'نسخ (Ctrl/Cmd + A، Ctrl/Cmd + C)',
-    },
     copyAsUrl: {
       hint: 'نسخ الكود كرابط بيانات',
     },
@@ -76,9 +73,6 @@ const translation: I18nTranslation = {
     },
     externalResources: {
       hint: 'الموارد الخارجية',
-    },
-    focus: {
-      hint: 'تبديل وضع التركيز',
     },
     format: {
       hint: 'تنسيق (Alt + Shift + F)',
@@ -99,23 +93,11 @@ const translation: I18nTranslation = {
     projectInfo: {
       hint: 'معلومات المشروع',
     },
-    redo: {
-      hint: 'إعادة (Ctrl/Cmd + Shift + Z)',
-    },
-    result: {
-      hint: 'النتيجة',
-    },
     run: {
       hint: 'تشغيل (Shift + Enter)',
     },
-    share: {
-      hint: 'مشاركة',
-    },
     themeColors: {
       custom: 'مخصص',
-    },
-    undo: {
-      hint: 'تراجع (Ctrl/Cmd + Z)',
     },
     untitledProject: 'مشروع بدون عنوان',
   },
@@ -273,7 +255,6 @@ const translation: I18nTranslation = {
     save: 'حفظ الصورة',
     scale: 'مقياس الصورة',
     shadow: 'الظل',
-    share: 'مشاركة الصورة',
     shareUrl: 'مشاركة الرابط',
     theme: 'السمة',
     width: 'العرض',
@@ -691,7 +672,6 @@ const translation: I18nTranslation = {
     import: 'استيراد',
     lastModified: 'آخر تعديل: {{modified}}',
     noData: {
-      desc: 'يمكنك حفظ مشروع من (قائمة الإعدادات > حفظ) أو باستخدام اختصار لوحة المفاتيح (Ctrl/Cmd + S).',
       heading: 'ليس لديك مشاريع محفوظة.',
     },
     noMatch: 'لا توجد مشاريع تطابق هذه المرشحات.',
@@ -978,7 +958,6 @@ const translation: I18nTranslation = {
       noTest: '<1>هذا المشروع لا يحتوي على اختبارات!</1>',
       reset: 'إعادة تعيين',
       run: {
-        desc: 'Ctrl/Cmd + Alt + T',
         heading: 'تشغيل',
       },
       summary: {

@@ -62,9 +62,6 @@ const translation: I18nTranslation = {
       learnMore: 'مزید جانیں! {{docsUrl}} 🚀',
       sdkVersion: 'ایس ڈی کے ورژن: {{SDK_VERSION}}',
     },
-    copy: {
-      hint: 'کاپی (Ctrl/Cmd + A, Ctrl/Cmd + C)',
-    },
     copyAsUrl: {
       hint: 'کوڈ کو ڈیٹا یو آر ایل کے طور پر کاپی کریں',
     },
@@ -76,9 +73,6 @@ const translation: I18nTranslation = {
     },
     externalResources: {
       hint: 'بیرونی وسائل',
-    },
-    focus: {
-      hint: 'فوکس موڈ کو ٹوگل کریں',
     },
     format: {
       hint: 'فارمیٹ (Alt + Shift + F)',
@@ -99,23 +93,11 @@ const translation: I18nTranslation = {
     projectInfo: {
       hint: 'پروجیکٹ کی معلومات',
     },
-    redo: {
-      hint: 'دوبارہ کریں (Ctrl/Cmd + Shift + Z)',
-    },
-    result: {
-      hint: 'نتیجہ کو ٹوگل کریں',
-    },
     run: {
       hint: 'چلائیں (Shift + Enter)',
     },
-    share: {
-      hint: 'شیئر کریں',
-    },
     themeColors: {
       custom: 'حسب ضرورت',
-    },
-    undo: {
-      hint: 'واپس لیں (Ctrl/Cmd + Z)',
     },
     untitledProject: 'بے نام پروجیکٹ',
   },
@@ -273,7 +255,6 @@ const translation: I18nTranslation = {
     save: 'تصویر محفوظ کریں۔',
     scale: 'تصویری پیمانہ',
     shadow: 'سایہ',
-    share: 'تصویر شیئر کریں۔',
     shareUrl: 'URL کا اشتراک کریں۔',
     theme: 'تھیم',
     width: 'چوڑائی',
@@ -691,7 +672,6 @@ const translation: I18nTranslation = {
     import: 'درآمد',
     lastModified: 'آخری ترمیم: {{modified}}',
     noData: {
-      desc: 'آپ (ترتیبات&nbsp;مینو&nbsp;&gt;&nbsp;محفوظ کریں) سے یا کی بورڈ شارٹ کٹ (Ctrl/Cmd&nbsp;+&nbsp;S) سے پروجیکٹ محفوظ کر سکتے ہیں۔',
       heading: 'آپ کے پاس کوئی محفوظ شدہ پروجیکٹ نہیں ہے۔',
     },
     noMatch: 'کوئی پروجیکٹ ان فلٹرز سے مطابقت نہیں رکھتا۔',
@@ -979,7 +959,6 @@ const translation: I18nTranslation = {
       noTest: '<1>اس پروجیکٹ میں کوئی ٹیسٹ نہیں ہے!</1>',
       reset: 'دوبارہ ترتیب دیں',
       run: {
-        desc: 'Ctrl/Cmd + Alt + T',
         heading: 'چلائیں',
       },
       summary: {

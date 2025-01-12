@@ -61,9 +61,6 @@ const translation: I18nTranslation = {
       learnMore: '了解更多！ {{docsUrl}} 🚀',
       sdkVersion: 'SDK 版本：{{SDK_VERSION}}',
     },
-    copy: {
-      hint: '复制（Ctrl/Cmd + A, Ctrl/Cmd + C）',
-    },
     copyAsUrl: {
       hint: '将代码复制为 Data URL',
     },
@@ -75,9 +72,6 @@ const translation: I18nTranslation = {
     },
     externalResources: {
       hint: '外部资源',
-    },
-    focus: {
-      hint: '切换聚焦模式',
     },
     format: {
       hint: '格式化（Alt + Shift + F）',
@@ -98,23 +92,11 @@ const translation: I18nTranslation = {
     projectInfo: {
       hint: '项目信息',
     },
-    redo: {
-      hint: '重做（Ctrl/Cmd + Shift + Z）',
-    },
-    result: {
-      hint: '结果',
-    },
     run: {
       hint: '运行（Shift + Enter）',
     },
-    share: {
-      hint: '分享',
-    },
     themeColors: {
       custom: '自定义',
-    },
-    undo: {
-      hint: '撤消（Ctrl/Cmd + Z）',
     },
     untitledProject: '未命名项目',
   },
@@ -272,7 +254,6 @@ const translation: I18nTranslation = {
     save: '保存图片',
     scale: '图像缩放比例',
     shadow: '阴影',
-    share: '分享图片',
     shareUrl: '分享 URL',
     theme: '主题',
     width: '宽度',
@@ -690,7 +671,6 @@ const translation: I18nTranslation = {
     import: '导入',
     lastModified: '最后修改时间：{{modified}}',
     noData: {
-      desc: '您可以从菜单 &gt; 保存或通过键盘快捷键（Ctrl/Cmd + S）保存项目。',
       heading: '您没有已保存的项目。',
     },
     noMatch: '没有符合筛选条件的项目。',
@@ -977,7 +957,6 @@ const translation: I18nTranslation = {
       noTest: '<1>该项目没有测试！</1>',
       reset: '重置',
       run: {
-        desc: 'Ctrl/Cmd + Alt + T',
         heading: '运行',
       },
       summary: {

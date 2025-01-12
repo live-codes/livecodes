@@ -62,9 +62,6 @@ const translation: I18nTranslation = {
       learnMore: 'En savoir plus ! {{docsUrl}} 🚀',
       sdkVersion: 'Version du SDK : {{SDK_VERSION}}',
     },
-    copy: {
-      hint: 'Copier (Ctrl/Cmd + A, Ctrl/Cmd + C)',
-    },
     copyAsUrl: {
       hint: "Copier le code en tant qu'URL de données",
     },
@@ -76,9 +73,6 @@ const translation: I18nTranslation = {
     },
     externalResources: {
       hint: 'Ressources externes',
-    },
-    focus: {
-      hint: 'Basculer le mode focus',
     },
     format: {
       hint: 'Formater (Alt + Maj + F)',
@@ -99,23 +93,11 @@ const translation: I18nTranslation = {
     projectInfo: {
       hint: 'Informations sur le projet',
     },
-    redo: {
-      hint: 'Rétablir (Ctrl/Cmd + Maj + Z)',
-    },
-    result: {
-      hint: 'Voir le résultat',
-    },
     run: {
       hint: 'Exécuter (Maj + Entrée)',
     },
-    share: {
-      hint: 'Partager',
-    },
     themeColors: {
       custom: 'Personnalisé',
-    },
-    undo: {
-      hint: 'Annuler (Ctrl/Cmd + Z)',
     },
     untitledProject: 'Projet sans titre',
   },
@@ -273,7 +255,6 @@ const translation: I18nTranslation = {
     save: "Enregistrer l'image",
     scale: "Échelle d'image",
     shadow: 'Ombre',
-    share: "Partager l'image",
     shareUrl: "Partager l'URL",
     theme: 'Thème',
     width: 'Largeur',
@@ -691,7 +672,6 @@ const translation: I18nTranslation = {
     import: 'Importer',
     lastModified: 'Dernière modification : {{modified}}',
     noData: {
-      desc: 'Vous pouvez enregistrer un projet depuis le menu&nbsp;Projet&nbsp;&gt;&nbsp;Enregistrer et le raccourci clavier (Ctrl/Cmd&nbsp;+&nbsp;S).',
       heading: "Vous n'avez aucun projet enregistré.",
     },
     noMatch: 'Aucun projet ne correspond à ces filtres.',
@@ -980,7 +960,6 @@ const translation: I18nTranslation = {
       noTest: "<1>Ce projet n'a pas de tests !</1>",
       reset: 'Réinitialiser',
       run: {
-        desc: 'Ctrl/Cmd + Alt + T',
         heading: 'Exécuter',
       },
       summary: {

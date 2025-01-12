@@ -62,9 +62,6 @@ const translation: I18nTranslation = {
       learnMore: '¡Aprende más! {{docsUrl}} 🚀',
       sdkVersion: 'Versión del SDK: {{SDK_VERSION}}',
     },
-    copy: {
-      hint: 'Copiar (Ctrl/Cmd + A, Ctrl/Cmd + C)',
-    },
     copyAsUrl: {
       hint: 'Copiar código como URL de datos',
     },
@@ -76,9 +73,6 @@ const translation: I18nTranslation = {
     },
     externalResources: {
       hint: 'Recursos externos',
-    },
-    focus: {
-      hint: 'Alternar modo de enfoque',
     },
     format: {
       hint: 'Formatear (Alt + Shift + F)',
@@ -99,23 +93,11 @@ const translation: I18nTranslation = {
     projectInfo: {
       hint: 'Información del proyecto',
     },
-    redo: {
-      hint: 'Rehacer (Ctrl/Cmd + Shift + Z)',
-    },
-    result: {
-      hint: 'Mostrar resultado',
-    },
     run: {
       hint: 'Ejecutar (Shift + Enter)',
     },
-    share: {
-      hint: 'Compartir',
-    },
     themeColors: {
       custom: 'Costumbre',
-    },
-    undo: {
-      hint: 'Deshacer (Ctrl/Cmd + Z)',
     },
     untitledProject: 'Proyecto sin título',
   },
@@ -273,7 +255,6 @@ const translation: I18nTranslation = {
     save: 'Guardar imagen',
     scale: 'Escala de imágenes',
     shadow: 'Sombra',
-    share: 'Compartir imagen',
     shareUrl: 'Compartir URL',
     theme: 'Tema',
     width: 'Anchura',
@@ -691,7 +672,6 @@ const translation: I18nTranslation = {
     import: 'Importar',
     lastModified: 'Última modificación: {{modified}}',
     noData: {
-      desc: 'Puedes guardar un proyecto desde (menú&nbsp;de&nbsp;configuración&nbsp;&gt;&nbsp;Guardar) o con el atajo de teclado (Ctrl/Cmd&nbsp;+&nbsp;S).',
       heading: 'No tienes proyectos guardados.',
     },
     noMatch: 'Ningún proyecto coincide con estos filtros.',
@@ -978,7 +958,6 @@ const translation: I18nTranslation = {
       noTest: '<1>¡Este proyecto no tiene pruebas!</1>',
       reset: 'Reiniciar',
       run: {
-        desc: 'Ctrl/Cmd + Alt + T',
         heading: 'Ejecutar',
       },
       summary: {

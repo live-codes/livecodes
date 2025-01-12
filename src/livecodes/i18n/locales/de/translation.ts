@@ -62,9 +62,6 @@ const translation: I18nTranslation = {
       learnMore: 'Erfahren Sie mehr! {{docsUrl}} 🚀',
       sdkVersion: 'SDK-Version: {{SDK_VERSION}}',
     },
-    copy: {
-      hint: 'Kopieren (Strg/Cmd + A, Strg/Cmd + C)',
-    },
     copyAsUrl: {
       hint: 'Code als Daten-URL kopieren',
     },
@@ -76,9 +73,6 @@ const translation: I18nTranslation = {
     },
     externalResources: {
       hint: 'Externe Ressourcen',
-    },
-    focus: {
-      hint: 'Fokusmodus umschalten',
     },
     format: {
       hint: 'Formatieren (Alt + Umschalt + F)',
@@ -99,23 +93,11 @@ const translation: I18nTranslation = {
     projectInfo: {
       hint: 'Projektinformationen',
     },
-    redo: {
-      hint: 'Wiederholen (Strg/Cmd + Umschalt + Z)',
-    },
-    result: {
-      hint: 'Ergebnis umschalten',
-    },
     run: {
       hint: 'Ausführen (Umschalt + Enter)',
     },
-    share: {
-      hint: 'Teilen',
-    },
     themeColors: {
       custom: 'Benutzerdefiniert',
-    },
-    undo: {
-      hint: 'Rückgängig machen (Strg/Cmd + Z)',
     },
     untitledProject: 'Unbenanntes Projekt',
   },
@@ -273,7 +255,6 @@ const translation: I18nTranslation = {
     save: 'Bild speichern',
     scale: 'Bild Skala',
     shadow: 'Schatten',
-    share: 'Bild teilen',
     shareUrl: 'URL freigeben',
     theme: 'Theme',
     width: 'Breite',
@@ -691,7 +672,6 @@ const translation: I18nTranslation = {
     import: 'Importieren',
     lastModified: 'Zuletzt geändert: {{modified}}',
     noData: {
-      desc: 'Sie können ein Projekt über (Einstellungsmenü&nbsp;&gt;&nbsp;Speichern) oder mit der Tastenkombination (Strg/Cmd&nbsp;+&nbsp;S) speichern.',
       heading: 'Sie haben keine gespeicherten Projekte.',
     },
     noMatch: 'Keine Projekte entsprechen diesen Filtern.',
@@ -980,7 +960,6 @@ const translation: I18nTranslation = {
       noTest: '<1>Dieses Projekt hat keine Tests!</1>',
       reset: 'Zurücksetzen',
       run: {
-        desc: 'Strg/Cmd + Alt + T',
         heading: 'Ausführen',
       },
       summary: {

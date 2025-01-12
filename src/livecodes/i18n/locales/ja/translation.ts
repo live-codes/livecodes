@@ -62,9 +62,6 @@ const translation: I18nTranslation = {
       learnMore: '詳細はこちら！ {{docsUrl}} 🚀',
       sdkVersion: 'SDKバージョン: {{SDK_VERSION}}',
     },
-    copy: {
-      hint: 'コピー (Ctrl/Cmd + A, Ctrl/Cmd + C)',
-    },
     copyAsUrl: {
       hint: 'コードをデータURLとしてコピー',
     },
@@ -76,9 +73,6 @@ const translation: I18nTranslation = {
     },
     externalResources: {
       hint: '外部リソース',
-    },
-    focus: {
-      hint: 'フォーカスモードの切り替え',
     },
     format: {
       hint: 'フォーマット (Alt + Shift + F)',
@@ -99,23 +93,11 @@ const translation: I18nTranslation = {
     projectInfo: {
       hint: 'プロジェクト情報',
     },
-    redo: {
-      hint: 'やり直し (Ctrl/Cmd + Shift + Z)',
-    },
-    result: {
-      hint: '結果を表示',
-    },
     run: {
       hint: '実行 (Shift + Enter)',
     },
-    share: {
-      hint: '共有',
-    },
     themeColors: {
       custom: 'カスタム',
-    },
-    undo: {
-      hint: '元に戻す (Ctrl/Cmd + Z)',
     },
     untitledProject: '無題のプロジェクト',
   },
@@ -273,7 +255,6 @@ const translation: I18nTranslation = {
     save: '画像を保存',
     scale: '画像スケール',
     shadow: 'シャドウ',
-    share: '画像を共有する',
     shareUrl: 'URLを共有する',
     theme: 'テーマ',
     width: '幅',
@@ -691,7 +672,6 @@ const translation: I18nTranslation = {
     import: 'インポート',
     lastModified: '最終更新: {{modified}}',
     noData: {
-      desc: 'プロジェクトは（設定メニュー&nbsp;&gt;&nbsp;保存）からまたはキーボードショートカット（Ctrl/Cmd&nbsp;+&nbsp;S）で保存できます。',
       heading: '保存済みプロジェクトがありません。',
     },
     noMatch: 'これらのフィルターに一致するプロジェクトはありません。',
@@ -978,7 +958,6 @@ const translation: I18nTranslation = {
       noTest: '<1>このプロジェクトにはテストがありません！</1>',
       reset: 'リセット',
       run: {
-        desc: 'Ctrl/Cmd + Alt + T',
         heading: '実行',
       },
       summary: {
