@@ -593,6 +593,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   const resultElement = UI.getResultElement();
   const gutterElement = UI.getGutterElement();
   const runButton = UI.getRunButton();
+  const resultButton = UI.getResultButton();
   const editorTools = UI.getEditorToolbar();
 
   const showToolbar = modeConfig[0] === '1';
@@ -600,10 +601,14 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   const showResult = modeConfig[2] === '1';
 
   toolbarElement.style.display = 'flex';
+  editorContainerElement.style.height = '';
   editorsElement.style.display = 'flex';
   resultElement.style.display = 'flex';
   outputElement.style.display = 'block';
+  editorTools.style.display = 'flex';
   runButton.style.visibility = 'visible';
+  resultButton.style.visibility = 'visible';
+
   if (gutterElement) {
     gutterElement.style.display = 'block';
   }
@@ -625,8 +630,9 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
     split?.destroy(true);
     split = null;
   }
-  if (mode === 'editor' || mode === 'codeblock') {
+  if (mode === 'editor') {
     runButton.style.visibility = 'hidden';
+    resultButton.style.visibility = 'hidden';
   }
   if (mode === 'codeblock') {
     editorTools.style.display = 'none';
