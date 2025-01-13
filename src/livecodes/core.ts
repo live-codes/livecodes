@@ -284,9 +284,9 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       }
     }
 
-    if (['codeblock', 'editor'].includes(getConfig().mode)) {
-      result = '';
-    }
+    // if (['codeblock', 'editor'].includes(getConfig().mode)) {
+    //   result = '';
+    // }
 
     const scriptLang = getEditorLanguage('script') || 'javascript';
     const compilers = getAllCompilers(languages, getConfig(), baseUrl);
@@ -5403,13 +5403,23 @@ const createApi = (): API => {
   };
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
-    const newAppConfig = buildConfig({ ...getConfig(), ...newConfig });
+    const currentConfig = getConfig();
+    const newAppConfig = buildConfig({ ...currentConfig, ...newConfig });
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
+    const reloadCompiler =
+      (currentConfig.mode === 'editor' || currentConfig.mode === 'codeblock') &&
+      newConfig.mode !== 'editor' &&
+      newConfig.mode !== 'codeblock' &&
+      compiler.isFake;
     setConfig(newAppConfig);
     if (hasNewAppLanguage) {
       changeAppLanguage(newConfig.appLanguage!);
       return newAppConfig;
+    }
+    if (reloadCompiler) {
+      compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
+      await run();
     }
     await applyConfig(newConfig);
     const content = getContentConfig(newConfig as Config);
