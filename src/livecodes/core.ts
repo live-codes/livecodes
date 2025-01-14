@@ -285,6 +285,7 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
         );
       }
     }
+    iframe.tabIndex = 1;
 
     // if (['codeblock', 'editor'].includes(getConfig().mode)) {
     //   result = '';
@@ -2308,7 +2309,8 @@ const handleSelectEditor = () => {
     eventsManager.addEventListener(
       title,
       'click',
-      () => {
+      (ev) => {
+        ev.preventDefault();
         showEditor(title.dataset.editor as EditorId);
         setAppData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
         setProjectRecover();

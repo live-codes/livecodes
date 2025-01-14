@@ -28,11 +28,11 @@ export const createLanguageMenus = (
   let editorsNumber = editorIds.length;
 
   editorIds.forEach((editorId) => {
-    const editorSelector = document.createElement('li');
+    const editorSelector = document.createElement('a');
+    editorSelector.href = '#';
     editorSelector.id = editorId + '-selector';
     editorSelector.classList.add('editor-title', 'noselect');
     editorSelector.dataset.editor = editorId;
-    editorSelector.tabIndex = 1;
     editorSelector.innerHTML = `
       <span></span>
       <a
