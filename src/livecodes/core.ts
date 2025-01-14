@@ -600,14 +600,14 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   const showEditor = modeConfig[1] === '1';
   const showResult = modeConfig[2] === '1';
 
-  toolbarElement.style.display = 'flex';
+  toolbarElement.style.display = '';
   editorContainerElement.style.height = '';
-  editorsElement.style.display = 'flex';
-  resultElement.style.display = 'flex';
-  outputElement.style.display = 'block';
-  editorTools.style.display = 'flex';
-  runButton.style.visibility = 'visible';
-  resultButton.style.visibility = 'visible';
+  editorsElement.style.display = '';
+  resultElement.style.display = '';
+  outputElement.style.display = '';
+  editorTools.style.display = '';
+  runButton.style.visibility = '';
+  resultButton.style.visibility = '';
 
   if (gutterElement) {
     gutterElement.style.display = 'block';
