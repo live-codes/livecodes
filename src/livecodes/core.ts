@@ -221,7 +221,6 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
-let defaultColor: string | null = null;
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
@@ -284,9 +283,9 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       }
     }
 
-    if (['codeblock', 'editor'].includes(getConfig().mode)) {
-      result = '';
-    }
+    // if (['codeblock', 'editor'].includes(getConfig().mode)) {
+    //   result = '';
+    // }
 
     const scriptLang = getEditorLanguage('script') || 'javascript';
     const compilers = getAllCompilers(languages, getConfig(), baseUrl);
@@ -593,17 +592,22 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   const resultElement = UI.getResultElement();
   const gutterElement = UI.getGutterElement();
   const runButton = UI.getRunButton();
+  const resultButton = UI.getResultButton();
   const editorTools = UI.getEditorToolbar();
 
   const showToolbar = modeConfig[0] === '1';
   const showEditor = modeConfig[1] === '1';
   const showResult = modeConfig[2] === '1';
 
-  toolbarElement.style.display = 'flex';
-  editorsElement.style.display = 'flex';
-  resultElement.style.display = 'flex';
-  outputElement.style.display = 'block';
-  runButton.style.visibility = 'visible';
+  toolbarElement.style.display = '';
+  editorContainerElement.style.height = '';
+  editorsElement.style.display = '';
+  resultElement.style.display = '';
+  outputElement.style.display = '';
+  editorTools.style.display = '';
+  runButton.style.visibility = '';
+  resultButton.style.visibility = '';
+
   if (gutterElement) {
     gutterElement.style.display = 'block';
   }
@@ -625,8 +629,9 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
     split?.destroy(true);
     split = null;
   }
-  if (mode === 'editor' || mode === 'codeblock') {
+  if (mode === 'editor') {
     runButton.style.visibility = 'hidden';
+    resultButton.style.visibility = 'hidden';
   }
   if (mode === 'codeblock') {
     editorTools.style.display = 'none';
@@ -1843,23 +1848,7 @@ const changeThemeColor = () => {
   }
 };
 
-const getDefaultColor = () => {
-  if (defaultColor) return defaultColor;
-  const root = document.documentElement;
-  const theme = getConfig().theme;
-  root.classList.remove('light');
-  const h = getComputedStyle(root).getPropertyValue('--hue');
-  const s = getComputedStyle(root).getPropertyValue('--st');
-  const l = getComputedStyle(root).getPropertyValue('--lt');
-  if (theme === 'light') {
-    root.classList.add('light');
-  }
-  if (h === '' || s === '' || l === '') {
-    return themeColors[0].themeColor;
-  }
-  defaultColor = `hsl(${h}, ${s}, ${l})`;
-  return defaultColor;
-};
+const getDefaultColor = () => `hsl(214, 40%, 50%)`;
 
 const setFontSize = () => {
   const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
@@ -5403,13 +5392,23 @@ const createApi = (): API => {
   };
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
-    const newAppConfig = buildConfig({ ...getConfig(), ...newConfig });
+    const currentConfig = getConfig();
+    const newAppConfig = buildConfig({ ...currentConfig, ...newConfig });
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
+    const reloadCompiler =
+      (currentConfig.mode === 'editor' || currentConfig.mode === 'codeblock') &&
+      newConfig.mode !== 'editor' &&
+      newConfig.mode !== 'codeblock' &&
+      compiler.isFake;
     setConfig(newAppConfig);
     if (hasNewAppLanguage) {
       changeAppLanguage(newConfig.appLanguage!);
       return newAppConfig;
+    }
+    if (reloadCompiler) {
+      compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
+      await run();
     }
     await applyConfig(newConfig);
     const content = getContentConfig(newConfig as Config);
