@@ -2471,7 +2471,14 @@ const handleKeyboardShortcuts = () => {
       document.querySelectorAll('.menu-scroller').forEach((el) => el.classList.add('hidden'));
       if (lastkeys === 'Esc') {
         e.preventDefault();
-        UI.getFocusButton()?.focus();
+        if (
+          (toolsPane?.getStatus() === 'open' || toolsPane?.getStatus() === 'full') &&
+          toolsPane.getActiveTool() === 'console'
+        ) {
+          UI.getConsoleButton()?.focus();
+        } else {
+          UI.getFocusButton()?.focus();
+        }
         lastkeys = 'Esc + Esc';
         return;
       }
