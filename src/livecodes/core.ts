@@ -221,7 +221,6 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
-let defaultColor: string | null = null;
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
@@ -1849,23 +1848,7 @@ const changeThemeColor = () => {
   }
 };
 
-const getDefaultColor = () => {
-  if (defaultColor) return defaultColor;
-  const root = document.documentElement;
-  const theme = getConfig().theme;
-  root.classList.remove('light');
-  const h = getComputedStyle(root).getPropertyValue('--hue');
-  const s = getComputedStyle(root).getPropertyValue('--st');
-  const l = getComputedStyle(root).getPropertyValue('--lt');
-  if (theme === 'light') {
-    root.classList.add('light');
-  }
-  if (h === '' || s === '' || l === '') {
-    return themeColors[0].themeColor;
-  }
-  defaultColor = `hsl(${h}, ${s}, ${l})`;
-  return defaultColor;
-};
+const getDefaultColor = () => `hsl(214, 40%, 50%)`;
 
 const setFontSize = () => {
   const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
