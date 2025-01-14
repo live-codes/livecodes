@@ -1,5 +1,12 @@
-import type { createEventsManager } from '../events';
-import type { EditorId, Config, Language, Processor, LanguageSpecs, Template } from '../models';
+import type {
+  EditorId,
+  Config,
+  Language,
+  Processor,
+  LanguageSpecs,
+  Template,
+  EventsManager,
+} from '../models';
 import { languages } from './languages';
 import { processors } from './processors';
 import { languageIsEnabled, processorIsEnabled } from './utils';
@@ -7,7 +14,7 @@ import { languageIsEnabled, processorIsEnabled } from './utils';
 export const createLanguageMenus = (
   config: Config,
   baseUrl: string,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
   showLanguageInfo: (languageInfo: HTMLElement) => void,
   loadStarterTemplate: (templateName: Template['name']) => void,
   importCode: (options: { url: string }) => Promise<boolean>,

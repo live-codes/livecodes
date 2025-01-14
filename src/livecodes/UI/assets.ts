@@ -1,9 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 import type { DeployResult } from '../deploy';
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { Asset, FileType, Screen, User } from '../models';
-import type { createNotifications } from '../notifications';
+import type { Asset, EventsManager, FileType, Modal, Notifications, Screen, User } from '../models';
 import type { GitHubFile } from '../services/github';
 import { generateId, type Storage } from '../storage';
 import { addAssetScreen, assetsScreen } from '../html';
@@ -103,7 +100,7 @@ const createLinkContent = (item: Asset, baseUrl: string) => {
 const createAssetItem = (
   item: Asset,
   list: HTMLElement,
-  notifications: ReturnType<typeof createNotifications>,
+  notifications: Notifications,
   baseUrl: string,
 ) => {
   const li = document.createElement('li');
@@ -136,7 +133,7 @@ const createAssetItem = (
 const organizeAssets = async (
   getAssets: () => Promise<Asset[]>,
   showAssets: (assets: Asset[]) => Promise<void>,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
 ) => {
   let sortBy: 'date' | 'filename' = 'date';
   let sortByDirection: 'asc' | 'desc' = 'desc';
@@ -338,10 +335,10 @@ export const createAssetsList = async ({
   baseUrl,
 }: {
   assetsStorage: Storage<Asset>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  eventsManager: EventsManager;
   showScreen: (screen: Screen['screen']) => void;
-  notifications: ReturnType<typeof createNotifications>;
-  modal: ReturnType<typeof createModal>;
+  notifications: Notifications;
+  modal: Modal;
   baseUrl: string;
 }) => {
   const div = document.createElement('div');
@@ -455,9 +452,9 @@ export const createAddAssetContainer = ({
   activeTab,
 }: {
   assetsStorage: Storage<Asset>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  eventsManager: EventsManager;
   showScreen: (screen: Screen['screen'], activeTab?: number) => Promise<void>;
-  notifications: ReturnType<typeof createNotifications>;
+  notifications: Notifications;
   deployAsset: (user: User, file: GitHubFile) => Promise<DeployResult | null>;
   getUser: (fn?: () => void) => Promise<User | void>;
   baseUrl: string;

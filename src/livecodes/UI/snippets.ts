@@ -1,8 +1,15 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { Snippet, CodeEditor, EditorOptions, Screen, Language, AppData } from '../models';
-import type { createNotifications } from '../notifications';
+import type {
+  Snippet,
+  CodeEditor,
+  EditorOptions,
+  Modal,
+  Screen,
+  Language,
+  AppData,
+  Notifications,
+  EventsManager,
+} from '../models';
 import { generateId, type Storage } from '../storage';
 import { addSnippetScreen, snippetsScreen } from '../html';
 import { getLanguageTitle, languages } from '../languages';
@@ -46,7 +53,7 @@ const copySnippet = (url: string, notifications: any) => {
 const createSnippetItem = (
   item: Snippet,
   list: HTMLElement,
-  notifications: ReturnType<typeof createNotifications>,
+  notifications: Notifications,
   showScreen: any,
 ) => {
   const li = document.createElement('li');
@@ -141,7 +148,7 @@ const createSnippetItem = (
 const organizeSnippets = async (
   getSnippets: () => Promise<Snippet[]>,
   showSnippets: (snippets: Snippet[]) => Promise<void>,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
 ) => {
   let sortBy: 'date' | 'title' = 'date';
   let sortByDirection: 'asc' | 'desc' = 'desc';
@@ -365,9 +372,9 @@ export const createSnippetsList = async ({
   deps,
 }: {
   snippetsStorage: Storage<Snippet>;
-  eventsManager: ReturnType<typeof createEventsManager>;
-  notifications: ReturnType<typeof createNotifications>;
-  modal: ReturnType<typeof createModal>;
+  eventsManager: EventsManager;
+  notifications: Notifications;
+  modal: Modal;
   deps: {
     createEditorFn: (options: Partial<EditorOptions>) => Promise<CodeEditor>;
     showScreen: (screen: Screen['screen']) => void;
@@ -493,9 +500,9 @@ export const createAddSnippetContainer = async ({
 }: {
   snippetId?: string;
   snippetsStorage: Storage<Snippet>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  eventsManager: EventsManager;
   showScreen: (screen: Screen['screen'], activeTab?: number) => Promise<void>;
-  notifications: ReturnType<typeof createNotifications>;
+  notifications: Notifications;
   deps: {
     createEditorFn: (options: Partial<EditorOptions>) => Promise<CodeEditor>;
     getAppData: () => AppData | null;

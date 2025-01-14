@@ -1,8 +1,13 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { createNotifications } from '../notifications';
-import type { Config, ContentConfig, Cache, User } from '../models';
+import type {
+  Config,
+  ContentConfig,
+  Cache,
+  Modal,
+  Notifications,
+  User,
+  EventsManager,
+} from '../models';
 import type {
   getLanguageCompiler as getLanguageCompilerFn,
   getLanguageExtension as getLanguageExtensionFn,
@@ -28,10 +33,7 @@ import {
 
 export { deployFile };
 
-const createDeployContainer = (
-  eventsManager: ReturnType<typeof createEventsManager>,
-  repo: string | undefined,
-) => {
+const createDeployContainer = (eventsManager: EventsManager, repo: string | undefined) => {
   const div = document.createElement('div');
   div.innerHTML = deployScreen;
   const deployContainer = div.firstChild as HTMLElement;
@@ -72,9 +74,9 @@ export const createDeployUI = async ({
   deployRepo,
   deps,
 }: {
-  modal: ReturnType<typeof createModal>;
-  notifications: ReturnType<typeof createNotifications>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  notifications: Notifications;
+  eventsManager: EventsManager;
   user: User;
   deployRepo: string | undefined;
   deps: {

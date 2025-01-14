@@ -1,6 +1,27 @@
 // eslint-disable-next-line import/no-internal-modules
 export * from '../sdk/models';
 
+export interface ModalOptions {
+  size?: 'large' | 'small' | 'full';
+  closeButton?: boolean;
+  isAsync?: boolean;
+  onClose?: () => void;
+  scrollToSelector?: string;
+}
+
+export interface Modal {
+  show: (container: HTMLElement, options?: ModalOptions) => void;
+  close: () => void;
+}
+
+export interface Notifications {
+  info: (message: string, dismissable?: boolean) => void;
+  success: (message: string, dismissable?: boolean) => void;
+  warning: (message: string, dismissable?: boolean) => void;
+  error: (message: string, dismissable?: boolean) => void;
+  confirm: (message: string, confirmCallback: () => void, cancelCallback?: () => void) => void;
+}
+
 export interface INinjaAction {
   title: string;
   keywords?: string;

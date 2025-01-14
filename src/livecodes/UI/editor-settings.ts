@@ -1,7 +1,13 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { Config, EditorLibrary, EditorOptions, FormatFn, UserConfig } from '../models';
+import type {
+  Config,
+  EditorLibrary,
+  EditorOptions,
+  EventsManager,
+  FormatFn,
+  Modal,
+  UserConfig,
+} from '../models';
 import type { createEditor } from '../editor/create-editor';
 import { editorSettingsScreen } from '../html';
 import { getEditorConfig, getFormatterConfig } from '../config/config';
@@ -21,8 +27,8 @@ export const createEditorSettingsUI = async ({
   deps,
 }: {
   baseUrl: string;
-  modal: ReturnType<typeof createModal>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  eventsManager: EventsManager;
   scrollToSelector: string;
   deps: {
     getUserConfig: () => UserConfig;

@@ -1,8 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { createNotifications } from '../notifications';
-import type { User, UserData } from '../models';
+import type { EventsManager, Modal, Notifications, User, UserData } from '../models';
 import { syncScreen } from '../html';
 import { autoCompleteUrl } from '../vendors';
 import { getUserRepos } from '../services/github';
@@ -19,10 +16,7 @@ import {
   getSyncStatus,
 } from './selectors';
 
-const createSyncContainer = (
-  eventsManager: ReturnType<typeof createEventsManager>,
-  repo: string | null | undefined,
-) => {
+const createSyncContainer = (eventsManager: EventsManager, repo: string | null | undefined) => {
   const div = document.createElement('div');
   div.innerHTML = syncScreen;
   const syncContainer = div.firstChild as HTMLElement;
@@ -108,9 +102,9 @@ export const createSyncUI = async ({
   deps,
 }: {
   baseUrl: string;
-  modal: ReturnType<typeof createModal>;
-  notifications: ReturnType<typeof createNotifications>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  notifications: Notifications;
+  eventsManager: EventsManager;
   user: User;
   deps: {
     getSyncData: () => Promise<UserData['data']['sync'] | null>;

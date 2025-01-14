@@ -1,9 +1,8 @@
-import type { createEventsManager } from '../events';
 import { templatesScreen } from '../html';
-import type { Template } from '../models';
+import type { EventsManager, Template } from '../models';
 
 export const createTemplatesContainer = (
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
   loadUserTemplates: () => void,
 ) => {
   const div = document.createElement('div');

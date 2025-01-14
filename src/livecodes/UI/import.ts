@@ -1,10 +1,15 @@
 /* eslint-disable import/no-internal-modules */
 import type { populateConfig as populateConfigFn } from '../import/utils';
-import type { createModal } from '../modal';
-import type { Config, ContentConfig, User, Screen } from '../models';
-import type { createNotifications } from '../notifications';
+import type {
+  Config,
+  ContentConfig,
+  Modal,
+  Notifications,
+  User,
+  Screen,
+  EventsManager,
+} from '../models';
 import type { ProjectStorage, StorageItem } from '../storage';
-import type { createEventsManager } from '../events';
 import { defaultConfig } from '../config/default-config';
 import { importScreen } from '../html';
 import { fetchWithHandler } from '../utils/utils';
@@ -27,7 +32,7 @@ import {
 } from './selectors';
 export { importCode };
 
-const createImportContainer = (eventsManager: ReturnType<typeof createEventsManager>) => {
+const createImportContainer = (eventsManager: EventsManager) => {
   const div = document.createElement('div');
   div.innerHTML = importScreen;
   const importContainer = div.firstChild as HTMLElement;
@@ -62,9 +67,9 @@ export const createImportUI = ({
   showScreen,
 }: {
   baseUrl: string;
-  modal: ReturnType<typeof createModal>;
-  notifications: ReturnType<typeof createNotifications>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  notifications: Notifications;
+  eventsManager: EventsManager;
   getUser: (() => Promise<void | User>) | undefined;
   loadConfig: (newConfig: Partial<ContentConfig>, url?: string) => Promise<void>;
   populateConfig: typeof populateConfigFn;

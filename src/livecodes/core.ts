@@ -57,6 +57,9 @@ import type {
   SDKEvent,
   Editor,
   AppLanguage,
+  Modal,
+  Notifications,
+  EventsManager,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -185,8 +188,8 @@ declare global {
 
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
-let notifications: ReturnType<typeof createNotifications>;
-export let modal: ReturnType<typeof createModal>;
+let notifications: Notifications;
+let modal: Modal;
 let i18n: Await<ReturnType<typeof import('./i18n').init>> | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
@@ -4997,7 +5000,7 @@ const extraHandlers = async () => {
   showConsoleMessage();
 };
 
-const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
+const configureEmbed = (config: Config, eventsManager: EventsManager) => {
   document.body.classList.add('embed');
   if (config.mode === 'result') {
     document.body.classList.add('result');

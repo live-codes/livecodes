@@ -1,7 +1,13 @@
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { Config, ContentConfig, Language, LanguageSpecs, Screen } from '../models';
-import type { createNotifications } from '../notifications';
+import type {
+  Config,
+  ContentConfig,
+  EventsManager,
+  Language,
+  LanguageSpecs,
+  Modal,
+  Notifications,
+  Screen,
+} from '../models';
 import type { SavedProject, ProjectStorage } from '../storage';
 import { openScreen } from '../html';
 import { getDate, isMobile, downloadFile, loadScript, loadStylesheet } from '../utils';
@@ -144,7 +150,7 @@ const createItemLoader = (item: SavedProject) => {
 const organizeProjects = (
   getProjects: () => Promise<SavedProject[]>,
   showProjects: (projects: SavedProject[]) => Promise<void>,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
   languages: LanguageSpecs[],
 ) => {
   let sortBy: 'lastModified' | 'title' = 'lastModified';
@@ -431,11 +437,11 @@ export const createSavedProjectsList = async ({
   getLanguageByAlias,
 }: {
   projectStorage: ProjectStorage;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  eventsManager: EventsManager;
   showScreen: (screen: Screen['screen']) => void;
   getContentConfig: (config: Config | ContentConfig) => ContentConfig;
-  notifications: ReturnType<typeof createNotifications>;
-  modal: ReturnType<typeof createModal>;
+  notifications: Notifications;
+  modal: Modal;
   loadConfig: (config: ContentConfig) => Promise<void>;
   getProjectId: () => string | undefined;
   setProjectId: (id: string) => void;

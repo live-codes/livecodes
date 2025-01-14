@@ -1,5 +1,6 @@
 import { createSnackbar, type Action } from '@snackbar/core';
 import { getConfig } from '../config';
+import type { Notifications } from '../models';
 import {
   infoTheme,
   successTheme,
@@ -11,7 +12,7 @@ import {
   darkTheme,
 } from './snackbar';
 
-export const createNotifications = () => {
+export const createNotifications = (): Notifications => {
   const timeout = 2000;
 
   const info = (message: string, dismissable = true) => {

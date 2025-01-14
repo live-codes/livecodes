@@ -1,8 +1,13 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { CodeEditor, ContentConfig, EditorId, Language } from '../models';
-import type { createNotifications } from '../notifications';
+import type {
+  CodeEditor,
+  ContentConfig,
+  EditorId,
+  EventsManager,
+  Language,
+  Modal,
+  Notifications,
+} from '../models';
 import { defaultConfig } from '../config/default-config';
 import { embedScreen } from '../html';
 import { cloneObject, copyToClipboard, encodeHTML, escapeCode, indentCode } from '../utils/utils';
@@ -19,9 +24,9 @@ export const createEmbedUI = async ({
 }: {
   config: ContentConfig;
   editorLanguages: { [key in EditorId]: string };
-  modal: ReturnType<typeof createModal>;
-  notifications: ReturnType<typeof createNotifications>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  notifications: Notifications;
+  eventsManager: EventsManager;
   createEditorFn: (container: HTMLElement) => Promise<CodeEditor>;
   getUrlFn: (permanentUrl?: boolean) => Promise<string>;
 }) => {

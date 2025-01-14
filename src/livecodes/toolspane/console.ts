@@ -1,7 +1,14 @@
 import LunaConsole from 'luna-console';
 import { createEditor, getFontFamily } from '../editor';
-import type { createEventsManager } from '../events';
-import type { Editors, Config, Console, CodeEditor, EditorOptions, Theme } from '../models';
+import type {
+  Editors,
+  Config,
+  Console,
+  CodeEditor,
+  EditorOptions,
+  Theme,
+  EventsManager,
+} from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
 import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '../UI';
@@ -12,7 +19,7 @@ export const createConsole = (
   config: Config,
   baseUrl: string,
   _editors: Editors,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
   isEmbed: boolean,
   _runTests: () => Promise<void>,
 ): Console => {

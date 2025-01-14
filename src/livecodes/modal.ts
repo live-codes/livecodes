@@ -1,15 +1,8 @@
 // eslint-disable-next-line import/no-internal-modules
 import { createAccordion } from './UI/accordion';
+import type { Modal, ModalOptions } from './models';
 
-interface ModalOptions {
-  size?: 'large' | 'small' | 'full';
-  closeButton?: boolean;
-  isAsync?: boolean;
-  onClose?: () => void;
-  scrollToSelector?: string;
-}
-
-export const createModal = (translate: (container: HTMLElement) => void) => {
+export const createModal = (translate: (container: HTMLElement) => void): Modal => {
   const overlay = document.querySelector('#overlay') as HTMLElement;
   const modalContainer = document.querySelector('#modal-container') as HTMLElement;
   const modal = document.querySelector('#modal') as HTMLElement;
