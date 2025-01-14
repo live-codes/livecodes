@@ -166,12 +166,12 @@ export async function createPlayground(
         containerElement.style.resize ||= 'vertical';
       }
 
-      const id = '__livecodes-iframe__';
+      const className = 'livecodes';
       const preExistingIframe = containerElement.querySelector<HTMLIFrameElement>(
-        `iframe[id="${id}"]`,
+        `iframe.${className}`,
       );
       const frame = preExistingIframe || document.createElement('iframe');
-      frame.id = id;
+      frame.classList.add(className);
       frame.setAttribute(
         'allow',
         'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
@@ -185,7 +185,6 @@ export async function createPlayground(
       );
       const iframeLoading = loading === 'eager' ? 'eager' : 'lazy';
       frame.setAttribute('loading', iframeLoading);
-      frame.classList.add('livecodes');
       if (isHeadless) {
         hideElement(frame);
       } else {
