@@ -166,7 +166,12 @@ export async function createPlayground(
         containerElement.style.resize ||= 'vertical';
       }
 
-      const frame = document.createElement('iframe');
+      const id = '__livecodes-iframe__';
+      const preExistingIframe = containerElement.querySelector<HTMLIFrameElement>(
+        `iframe[id="${id}"]`,
+      );
+      const frame = preExistingIframe || document.createElement('iframe');
+      frame.id = id;
       frame.setAttribute(
         'allow',
         'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
@@ -209,7 +214,9 @@ export async function createPlayground(
         resolve(frame);
       };
       frame.src = url.href;
-      containerElement.appendChild(frame);
+      if (!preExistingIframe) {
+        containerElement.appendChild(frame);
+      }
     });
 
   const iframe = await createIframe();
