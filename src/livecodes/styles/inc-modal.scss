@@ -587,7 +587,6 @@
     cursor: pointer;
     font-size: var(--btn-modal-font);
     min-width: 80px;
-    outline: none;
     padding: var(--s6);
     place-self: center;
     transition: all 0.4s ease-in-out;
@@ -693,7 +692,6 @@
     cursor: pointer;
     font-size: var(--s16);
     margin: var(--s16) 0;
-    outline: none;
     padding: var(--s8);
     text-align: center;
     transition: all 0.5s ease-in-out;
@@ -770,7 +768,6 @@
     color: var(--input-color);
     height: var(--s32);
     margin-bottom: 1rem;
-    outline: none;
     padding: var(--s6);
     width: 100%;
   }
@@ -1049,7 +1046,6 @@
     cursor: pointer;
     font-size: var(--s14);
     margin-bottom: 1rem;
-    outline: none;
     padding: 0.5rem 1.5rem 0.5rem 0.5rem;
     width: 100%;
   }
@@ -1072,7 +1068,6 @@
     height: 4em;
     margin-bottom: 1rem;
     min-height: 4em;
-    outline: none;
     padding: var(--s6);
     resize: vertical;
     width: 100%;
@@ -1703,7 +1698,6 @@
       .window-title {
         height: 1.2em;
         min-width: 7em;
-        outline: none;
         overflow: hidden;
         text-align: center;
       }
@@ -1841,7 +1835,6 @@
       color: var(--btn-modal-color);
       cursor: pointer;
       font-size: var(--s16);
-      outline: none;
       padding: var(--s10) var(--s16);
       text-align: start;
       transition: 0.4s;

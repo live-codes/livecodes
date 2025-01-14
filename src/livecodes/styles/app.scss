@@ -371,7 +371,6 @@ a:visited {
   height: 32px;
   justify-content: center;
   min-width: 32px;
-  outline: none;
   padding: var(--s4);
   text-decoration: none;
   transition: ease-in-out 0.4s;
@@ -605,7 +604,6 @@ kbd {
       background: var(--project-title-bg-active);
       box-shadow: var(--project-title-box-shadow);
       color: var(--project-title-active);
-      outline: none;
     }
 
     &.unsaved {
@@ -1386,7 +1384,6 @@ li.editor-title {
     height: var(--s16);
     justify-content: center;
     margin: 0;
-    outline: none;
     padding: 0;
     place-content: center;
     place-items: center;
@@ -1427,7 +1424,6 @@ li.editor-title {
       color: #444;
       cursor: pointer;
       font-size: 15px;
-      outline: none;
       padding: 18px;
       text-align: left;
       transition: 0.4s;
@@ -1988,7 +1984,6 @@ pre[class*='language-'].line-numbers > code {
     left: 0;
     margin: 0.5rem 0 0;
     max-height: 226px;
-    outline: none;
     overflow-y: scroll;
     padding: var(--s8) !important;
     padding-inline-end: 0 !important;
@@ -2050,7 +2045,6 @@ pre[class*='language-'].line-numbers > code {
     display: inline-block;
     height: 20px;
     margin: 0;
-    outline: none;
     position: relative;
     transition:
       background 0.3s,
