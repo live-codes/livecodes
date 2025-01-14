@@ -71,7 +71,7 @@ import type {
 import type { Formatter } from './formatter/models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
-import { createModal } from './modal';
+import { createModal } from './UI/modal';
 import {
   menuProjectHTML,
   menuSettingsHTML,
@@ -1492,6 +1492,7 @@ const checkSavedStatus = (doNotCloseModal = false): Promise<boolean> => {
       }
       resolve(false);
     });
+    UI.getModalSaveButton().focus();
   });
 };
 
@@ -4928,7 +4929,7 @@ const changeAppLanguage = async (appLanguage: AppLanguage) => {
 
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal(translateElement);
+  modal = createModal({ translate: translateElement, onClose: () => getActiveEditor().focus() });
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 

@@ -1,8 +1,10 @@
-// eslint-disable-next-line import/no-internal-modules
-import { createAccordion } from './UI/accordion';
-import type { Modal, ModalOptions } from './models';
+import type { Modal, ModalOptions } from '../models';
+import { createAccordion } from './accordion';
 
-export const createModal = (translate: (container: HTMLElement) => void): Modal => {
+export const createModal = (deps: {
+  translate: (container: HTMLElement) => void;
+  onClose: () => void;
+}): Modal => {
   const overlay = document.querySelector('#overlay') as HTMLElement;
   const modalContainer = document.querySelector('#modal-container') as HTMLElement;
   const modal = document.querySelector('#modal') as HTMLElement;
@@ -22,7 +24,7 @@ export const createModal = (translate: (container: HTMLElement) => void): Modal 
     modal.innerHTML = '';
     modal.className = size;
     modal.appendChild(container);
-    translate(modal);
+    deps.translate(modal);
     onCloseFn = onClose;
 
     if (scrollToSelector) {
@@ -31,8 +33,11 @@ export const createModal = (translate: (container: HTMLElement) => void): Modal 
         container.style.scrollBehavior = 'smooth';
         if (target) {
           target.scrollIntoView();
+          target.focus();
         }
       }, 500);
+    } else {
+      container.focus();
     }
 
     createAccordion({ container, open: true });
@@ -89,6 +94,7 @@ export const createModal = (translate: (container: HTMLElement) => void): Modal 
       modalContainer.style.display = 'none';
       isOpening = false;
     }, 400);
+    deps.onClose();
   };
 
   function onClickOutside(ev: Event) {
