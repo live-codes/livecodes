@@ -27,6 +27,10 @@ export const createModal = (deps: {
     deps.translate(modal);
     onCloseFn = onClose;
 
+    document.querySelectorAll('.menu-scroller').forEach((el) => {
+      el.classList.add('hidden');
+    });
+
     if (scrollToSelector) {
       setTimeout(() => {
         const target = container.querySelector<HTMLElement>(scrollToSelector);

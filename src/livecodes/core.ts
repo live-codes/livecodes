@@ -2323,8 +2323,9 @@ const handleChangeLanguage = () => {
     UI.getLanguageMenuLinks().forEach((menuItem) => {
       eventsManager.addEventListener(
         menuItem,
-        'mousedown', // fire this event before unhover
+        'click',
         async () => {
+          menuItem.closest('.menu-scroller')?.classList.add('hidden');
           await changeLanguage(menuItem.dataset.lang as Language);
           setAppData({ language: menuItem.dataset.lang as Language });
         },
@@ -2463,9 +2464,11 @@ const handleKeyboardShortcuts = () => {
       return;
     }
 
+    // Esc closes dropdown menus
     // Esc + Esc moves focus out of editor
     // Esc + Esc + Esc moves focus to logo
     if (e.code === 'Escape') {
+      document.querySelectorAll('.menu-scroller').forEach((el) => el.classList.add('hidden'));
       if (lastkeys === 'Esc') {
         e.preventDefault();
         UI.getFocusButton()?.focus();
@@ -2757,6 +2760,7 @@ const handleI18nMenu = () => {
   i18nMenu.appendChild(docsLi);
   menuContainer.appendChild(i18nMenu);
   adjustFontSize(menuContainer);
+  registerMenuButton(menuContainer, UI.getI18nMenuButton());
 };
 
 const handleEditorTools = () => {
@@ -2898,6 +2902,37 @@ const handleProcessors = () => {
   });
 };
 
+const registerMenuButton = (menu: HTMLElement, button: HTMLElement) => {
+  menu.classList.add('hidden');
+  // onclick outside
+  const onClickOutside = (event: MouseEvent) => {
+    if (
+      !button.contains(event.target as Node) &&
+      !menu.firstElementChild?.contains(event.target as Node)
+    ) {
+      menu.classList.add('hidden');
+    }
+  };
+
+  const onIframeClicked = (event: MessageEvent) => {
+    if (event.data.type !== 'clicked') return;
+    menu.classList.add('hidden');
+  };
+
+  eventsManager.addEventListener(window, 'click', onClickOutside);
+  eventsManager.addEventListener(window, 'message', onIframeClicked);
+
+  eventsManager.addEventListener(button, 'click', () => {
+    document.querySelectorAll('.menu-scroller').forEach((el) => {
+      if (el === menu) {
+        menu.classList.toggle('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+  });
+};
+
 const handleAppMenuProject = () => {
   const menuProjectContainer = UI.getAppMenuProjectScroller();
   const menuProjectButton = UI.getAppMenuProjectButton();
@@ -2909,20 +2944,7 @@ const handleAppMenuProject = () => {
   menuProjectContainer.innerHTML = html;
   translateElement(menuProjectContainer);
   // adjustFontSize(menuProjectContainer);
-
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the container covers most of the screen
-  // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuProjectContainer, 'mousedown', (event) => {
-    if (event.target === menuProjectContainer) {
-      menuProjectContainer.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(menuProjectButton, 'mousedown', () => {
-    menuProjectContainer.classList.remove('hidden');
-  });
+  registerMenuButton(menuProjectContainer, menuProjectButton);
 };
 
 const handleAppMenuSettings = () => {
@@ -2937,20 +2959,7 @@ const handleAppMenuSettings = () => {
 
   translateElement(menuSettingsContainer);
   adjustFontSize(menuSettingsContainer);
-
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the container covers most of the screen
-  // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuSettingsContainer, 'mousedown', (event) => {
-    if (event.target === menuSettingsContainer) {
-      menuSettingsContainer.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(menuSettingsButton, 'mousedown', () => {
-    menuSettingsContainer.classList.remove('hidden');
-  });
+  registerMenuButton(menuSettingsContainer, menuSettingsButton);
 };
 
 const handleAppMenuHelp = () => {
@@ -2960,22 +2969,10 @@ const handleAppMenuHelp = () => {
 
   const html = isMac() ? menuHelpHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>') : menuHelpHTML;
   menuHelpContainer.innerHTML = html;
+  menuHelpContainer.classList.add('hidden');
   translateElement(menuHelpContainer);
   // adjustFontSize(menuHelpContainer);
-
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the container covers most of the screen
-  // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuHelpContainer, 'mousedown', (event) => {
-    if (event.target === menuHelpContainer) {
-      menuHelpContainer.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(menuHelpButton, 'mousedown', () => {
-    menuHelpContainer.classList.remove('hidden');
-  });
+  registerMenuButton(menuHelpContainer, menuHelpButton);
 };
 
 /**
@@ -5359,6 +5356,7 @@ const initializePlayground = async (
     showLanguageInfo,
     loadStarterTemplate,
     importExternalContent,
+    registerMenuButton,
   );
   await createEditors(getConfig());
   await initializeFn?.();

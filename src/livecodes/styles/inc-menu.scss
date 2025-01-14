@@ -88,16 +88,6 @@
   }
 }
 
-.app-menu-button {
-  &:focus + .menu-scroller,
-  &:focus + .menu-scroller > .dropdown-menu,
-  + .menu-scroller:hover,
-  + .menu-scroller > .dropdown-menu:hover {
-    animation: fadeIn 0.4s forwards;
-    display: block;
-  }
-}
-
 // active
 #app-menu-help,
 #app-menu-settings,
@@ -130,7 +120,7 @@
 }
 
 .menu-scroller {
-  display: none;
+  animation: fadeIn 0.4s forwards;
   height: calc(100vh - var(--toolbar-height));
   overflow-x: hidden;
   overflow-y: scroll;
@@ -198,7 +188,7 @@
   border-radius: var(--dropdown-border-radius);
   box-shadow: var(--dropdown-shadow);
   color: var(--dropdown-color);
-  display: none;
+  // display: none;
   font-size: var(--dropdown-font);
   list-style: none;
   overflow: visible;

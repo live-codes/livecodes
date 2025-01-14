@@ -299,7 +299,7 @@ const translation = {
       title: 'Change Theme',
     },
     changeUILanguage: 'Change UI Language',
-    closeModal: 'Close Modal',
+    closeModalMenu: 'Close Modal/Menu',
     contribute: 'Contribute',
     copy: 'Copy Code',
     copyAsDataUrl: 'Copy Code as Data URL',

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 import type {
   EditorId,
   Config,
@@ -7,9 +8,9 @@ import type {
   Template,
   EventsManager,
 } from '../models';
-import { languages } from './languages';
-import { processors } from './processors';
-import { languageIsEnabled, processorIsEnabled } from './utils';
+import { languages } from '../languages/languages';
+import { processors } from '../languages/processors';
+import { languageIsEnabled, processorIsEnabled } from '../languages/utils';
 
 export const createLanguageMenus = (
   config: Config,
@@ -18,6 +19,7 @@ export const createLanguageMenus = (
   showLanguageInfo: (languageInfo: HTMLElement) => void,
   loadStarterTemplate: (templateName: Template['name']) => void,
   importCode: (options: { url: string }) => Promise<boolean>,
+  registerMenuButton: (menu: HTMLElement, button: HTMLElement) => void,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const rootList = document.createElement('ul');
@@ -36,7 +38,6 @@ export const createLanguageMenus = (
       <a
         href="javascript:void(0)"
         onclick="event.stopPropagation();"
-        tabIndex="1"
         class="language-menu-button"
         title="${window.deps.translateString('core.changeLanguage.hint', 'Change Language')}"
       >
@@ -48,6 +49,7 @@ export const createLanguageMenus = (
     const menuScroller = document.createElement('div');
     menuScroller.classList.add('menu-scroller');
     menuScroller.classList.add('menu-scroller-' + editorId);
+    registerMenuButton(menuScroller, editorSelector.querySelector('.language-menu-button')!);
     editorSelector.appendChild(menuScroller);
 
     const languageMenu = document.createElement('ul');

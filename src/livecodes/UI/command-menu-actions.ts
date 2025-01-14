@@ -1171,9 +1171,9 @@ export const getCommandMenuActions = ({
     },
     ...getKeyboardShortcutList(actions),
     {
-      id: 'Close Modal',
-      title: window.deps.translateString('commandMenu.closeModal', 'Close Modal'),
-      content: getContent('Close Modal'),
+      id: 'Close Modal/Menu',
+      title: window.deps.translateString('commandMenu.closeModalMenu', 'Close Modal/Menu'),
+      content: getContent('Close Modal/Menu'),
       hotkey: 'esc',
       mdIcon: 'cancel',
       handler: () => {

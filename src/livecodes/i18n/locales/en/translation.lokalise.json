@@ -668,9 +668,9 @@
     "notes": "",
     "translation": "Change UI Language"
   },
-  "commandMenu.closeModal": {
+  "commandMenu.closeModalMenu": {
     "notes": "",
-    "translation": "Close Modal"
+    "translation": "Close Modal/Menu"
   },
   "commandMenu.contribute": {
     "notes": "",
