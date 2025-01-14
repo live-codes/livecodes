@@ -23,5 +23,6 @@ async function createFakeCompiler(): Promise<Compiler> {
       Promise.resolve(getCompileResult(content)),
     clearCache: () => undefined,
     typescriptFeatures: async () => undefined,
+    isFake: true,
   };
 }

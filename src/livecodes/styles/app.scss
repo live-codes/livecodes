@@ -19,6 +19,7 @@
   --rs: var(--s4); // border radius
 
   // Color
+  // this should match getDefaultColor() in core.ts
   --hue: 214; // Hue from 0 to 360. 0=red, 120=green, and 214=blue.
   --st: 40%; // Saturation
   --lt: 50%; // Lightness
