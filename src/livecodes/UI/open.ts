@@ -364,6 +364,7 @@ const organizeProjects = (
     const Tagify = tagifyMod.default;
     if (Tagify) {
       tagify = new Tagify(filterTagsInput, {
+        focusable: false,
         whitelist: Array.from(new Set((await getProjects()).map((item) => item.tags).flat())).sort(
           (a, b) => (b > a ? -1 : 1),
         ),
