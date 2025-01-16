@@ -46,7 +46,6 @@
   border: 0;
   border-radius: var(--rs);
   color: var(--modal-text-color);
-  display: flex;
   flex-direction: column;
   margin: auto;
   max-height: 72vh;
@@ -55,6 +54,10 @@
   outline: none;
   position: relative;
   width: 80vw;
+
+  &[open] {
+    display: flex;
+  }
 
   &.large {
     max-height: 85vh;
@@ -356,7 +359,6 @@
       border-bottom: 0;
       border-top-left-radius: var(--rs);
       border-top-right-radius: var(--rs);
-      color: var(--btn-modal-color);
       display: block;
       list-style: none;
       text-align: center;
@@ -366,11 +368,15 @@
       &.active {
         background-color: var(--btn-modal-bg-active);
         border-bottom: 1px solid var(--btn-modal-bg-active);
-        color: var(--btn-modal-active);
         margin-bottom: -1px;
+
+        a {
+          color: var(--btn-modal-active);
+        }
       }
 
       a {
+        color: var(--btn-modal-color);
         display: block;
         padding: 0.5rem;
         text-decoration: none;
@@ -939,6 +945,15 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 100%;
+  }
+
+  // workaround to use snackbars in dialog modals
+  .snackbars-left {
+    // reset to center
+    .snackbar {
+      left: 50% !important;
+      margin-left: -172px !important;
+    }
   }
 
   .padded {

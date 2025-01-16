@@ -1,4 +1,5 @@
 import type { Modal, ModalOptions } from '../models';
+import { hasOpenNotifications } from '../notifications';
 import { isFocusable } from '../utils';
 import { createAccordion } from './accordion';
 
@@ -23,7 +24,6 @@ export const createModal = (deps: {
     }: ModalOptions = {},
   ) => {
     modal.className = size;
-    modal.style.display = '';
     modalContainer.innerHTML = '';
     modalContainer.appendChild(container);
     deps.translate(modal);
@@ -92,7 +92,6 @@ export const createModal = (deps: {
     overlay.classList.add('hidden');
     modalContainer.innerHTML = '';
     modal.className = '';
-    modal.style.display = 'none';
     modal.close();
     setTimeout(() => {
       overlay.style.display = 'none';
@@ -102,7 +101,12 @@ export const createModal = (deps: {
   };
 
   function onClickOutside(ev: Event) {
-    if (!modalContainer?.contains(ev.target as Node) && !isOpening) {
+    const notificationsBar = modal.querySelector('.snackbars-left');
+    if (
+      !modalContainer?.contains(ev.target as Node) &&
+      !notificationsBar?.contains(ev.target as Node) &&
+      !isOpening
+    ) {
       close();
     }
     requestAnimationFrame(() => {
@@ -111,10 +115,11 @@ export const createModal = (deps: {
   }
 
   const keydownListener = (event: KeyboardEvent) => {
-    if (!modal.contains(event.target as Node)) return;
-    if (event.key === 'Escape' && !(window as any).watchingEscape) {
-      close();
+    if (event.key === 'Escape') {
       event.preventDefault();
+      if (!hasOpenNotifications()) {
+        close();
+      }
     }
     if (event.key === 'Enter' || event.key === 'Space') {
       const activeElement = document.activeElement as HTMLElement;

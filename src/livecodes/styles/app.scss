@@ -1083,7 +1083,7 @@ a#result-button {
   justify-content: flex-start;
 }
 
-.tools-pane-title {
+a.tools-pane-title {
   align-items: center;
   background-color: var(--toolspane-bg-color);
   border-bottom: var(--toolspane-border);
@@ -1324,7 +1324,7 @@ a#result-button {
   }
 }
 
-.editor-title {
+a.editor-title {
   align-items: center;
   background: var(--editor-title-bg-color);
   border-bottom: 1px solid var(--editor-title-bg-color);
@@ -1763,6 +1763,10 @@ a#result-button {
       }
     }
   }
+}
+
+.snackbar--button:focus {
+  outline: auto !important;
 }
 
 ninja-keys {
@@ -2244,7 +2248,9 @@ body {
     z-index: 2700;
   }
 
-  .snackbars {
+  .snackbars,
+  .snackbars-left,
+  .snackbars-right {
     z-index: 3000;
   }
 }
