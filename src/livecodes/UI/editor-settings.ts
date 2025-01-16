@@ -17,6 +17,7 @@ import { getEditorTheme } from '../editor/themes';
 import { monacoThemes } from '../editor/monaco/monaco-themes';
 import { codemirrorThemes } from '../editor/codemirror/codemirror-themes';
 import { prismThemes } from '../editor/codejar/prism-themes';
+import { preventFocus } from '../utils/utils';
 import { getEditorSettingsFormatLink } from './selectors';
 
 export const createEditorSettingsUI = async ({
@@ -557,6 +558,7 @@ export const createEditorSettingsUI = async ({
     });
   };
 
+  preventFocus(previewContainer);
   eventsManager.addEventListener(form, 'change', () => updateOptions());
   updateOptions(true);
 };

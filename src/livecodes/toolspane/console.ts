@@ -9,7 +9,7 @@ import type {
   Theme,
   EventsManager,
 } from '../models';
-import { isMobile } from '../utils';
+import { isMobile, preventFocus } from '../utils';
 import { sandboxService } from '../services';
 import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '../UI';
 import { getLanguageExtension, mapLanguage } from '../languages';
@@ -196,29 +196,7 @@ export const createConsole = (
       });
     });
     observer.observe(consoleElement, { subtree: true, childList: true, attributes: true });
-
-    // avoid focus on tab
-    const editorFocusArea =
-      container.querySelector('textarea') || // monaco
-      container.querySelector('[role="textbox"]'); // codemirror
-    if (editorFocusArea) {
-      const disableFocus = () => (editorFocusArea.tabIndex = -1);
-      // monaco keeps setting it to 0
-      const ob = new MutationObserver((mutationList) => {
-        for (const mutation of mutationList) {
-          if (
-            // avoid infinite loop
-            mutation.type === 'attributes' &&
-            mutation.attributeName === 'tabindex' &&
-            editorFocusArea.tabIndex !== -1
-          ) {
-            disableFocus();
-          }
-        }
-      });
-      ob.observe(editorFocusArea, { attributes: true });
-      disableFocus();
-    }
+    preventFocus(container);
 
     const gutterSelector = consoleEditor.monaco ? '.glyph-margin' : '.cm-gutters';
 
