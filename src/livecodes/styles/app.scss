@@ -698,7 +698,7 @@ a#result-button {
     opacity: 1 !important;
   }
 
-  #modal-container {
+  #modal {
     display: none !important;
   }
 
@@ -2231,7 +2231,8 @@ body {
   }
 
   #overlay,
-  #modal-container {
+  #modal-container,
+  #modal-container .close-button {
     z-index: 2000;
   }
 

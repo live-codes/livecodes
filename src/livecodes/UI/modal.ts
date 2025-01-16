@@ -7,7 +7,7 @@ export const createModal = (deps: {
 }): Modal => {
   const overlay = document.querySelector('#overlay') as HTMLElement;
   const modalContainer = document.querySelector('#modal-container') as HTMLElement;
-  const modal = document.querySelector('#modal') as HTMLElement;
+  const modal = document.querySelector('#modal') as HTMLDialogElement;
   let isOpening: boolean;
   let onCloseFn: () => void = () => undefined;
 
@@ -21,28 +21,16 @@ export const createModal = (deps: {
       scrollToSelector = '',
     }: ModalOptions = {},
   ) => {
-    modal.innerHTML = '';
     modal.className = size;
-    modal.appendChild(container);
+    modal.style.display = '';
+    modalContainer.innerHTML = '';
+    modalContainer.appendChild(container);
     deps.translate(modal);
     onCloseFn = onClose;
 
     document.querySelectorAll('.menu-scroller').forEach((el) => {
       el.classList.add('hidden');
     });
-
-    if (scrollToSelector) {
-      setTimeout(() => {
-        const target = container.querySelector<HTMLElement>(scrollToSelector);
-        container.style.scrollBehavior = 'smooth';
-        if (target) {
-          target.scrollIntoView();
-          target.focus();
-        }
-      }, 500);
-    } else {
-      container.focus();
-    }
 
     createAccordion({ container, open: true });
 
@@ -54,22 +42,34 @@ export const createModal = (deps: {
       closeBtn.innerHTML = window.deps.translateString('generic.close', 'Close');
       closeBtn.onclick = close;
       closeContainer.appendChild(closeBtn);
-      modal.appendChild(closeContainer);
+      modalContainer.appendChild(closeContainer);
     }
 
-    const cornerCloseBtn = document.createElement('div');
+    const cornerCloseBtn = document.createElement('button');
     cornerCloseBtn.classList.add('close-button');
     const iconCSS = '<span class="icon-close"></span>';
     cornerCloseBtn.innerHTML = iconCSS;
     cornerCloseBtn.title = 'Esc';
     cornerCloseBtn.onclick = close;
-    modal.appendChild(cornerCloseBtn);
+    modalContainer.appendChild(cornerCloseBtn);
 
     overlay.style.display = 'flex';
-    modalContainer.style.display = 'flex';
-    modal.style.display = 'flex';
+    modal.showModal();
     overlay.classList.remove('hidden');
-    modalContainer.classList.remove('hidden');
+
+    setTimeout(() => {
+      if (scrollToSelector) {
+        const target = container.querySelector<HTMLElement>(scrollToSelector);
+        modalContainer.style.scrollBehavior = 'smooth';
+        if (target) {
+          target.scrollIntoView();
+          target.focus();
+        }
+      } else {
+        modal.focus();
+      }
+    }, 500);
+
     isOpening = true;
     // remove previous event listener if it was not cleared
     document.removeEventListener('click', onClickOutside);
@@ -88,26 +88,20 @@ export const createModal = (deps: {
     document.removeEventListener('click', onClickOutside);
     document.removeEventListener('keydown', escapeListener);
 
-    modal.innerHTML = '';
-    modal.className = '';
     overlay.classList.add('hidden');
-    modalContainer.classList.add('hidden');
+    modalContainer.innerHTML = '';
+    modal.className = '';
     modal.style.display = 'none';
+    modal.close();
     setTimeout(() => {
       overlay.style.display = 'none';
-      modalContainer.style.display = 'none';
       isOpening = false;
     }, 400);
     deps.onClose();
   };
 
   function onClickOutside(ev: Event) {
-    const notificationBar = document.querySelector('.snackbar');
-    if (
-      !modal?.contains(ev.target as Node) &&
-      !notificationBar?.contains(ev.target as Node) &&
-      !isOpening
-    ) {
+    if (!modalContainer?.contains(ev.target as Node) && !isOpening) {
       close();
     }
     requestAnimationFrame(() => {
