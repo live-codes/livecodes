@@ -1171,6 +1171,21 @@ export const getCommandMenuActions = ({
     },
     ...getKeyboardShortcutList(actions),
     {
+      id: 'Toggle Tab Focus Mode',
+      title: window.deps.translateString(
+        'commandMenu.focus.toggleTabFocusMode',
+        'Toggle Tab Focus Mode',
+      ),
+      content: getContent('Toggle Tab Focus Mode'),
+      hotkey: 'ctrl+m',
+      mdIcon: 'cancel',
+      handler: () => {
+        window.dispatchEvent(
+          new KeyboardEvent('keydown', { key: 'M', code: 'KeyM', ctrlKey: true }),
+        );
+      },
+    },
+    {
       id: 'Close Modal/Menu',
       title: window.deps.translateString('commandMenu.closeModalMenu', 'Close Modal/Menu'),
       content: getContent('Close Modal/Menu'),

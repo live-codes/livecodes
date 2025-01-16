@@ -321,6 +321,7 @@ const translation = {
       editor: 'Focus Editor',
       home: 'Move Focus to Home',
       outOfEditor: 'Move Focus out of Editor',
+      toggleTabFocusMode: 'Toggle Tab Focus Mode',
     },
     formatCode: 'Format Code',
     home: 'Home',

@@ -71,6 +71,8 @@ export const isMobile = /* @__PURE__ */ () => {
 export const isMac = /* @__PURE__ */ () =>
   navigator.userAgent.includes('Mac') || navigator.platform.includes('Mac');
 
+export const ctrl = /* @__PURE__ */ (e: KeyboardEvent) => (isMac() ? e.metaKey : e.ctrlKey);
+
 export const isFirefox = /* @__PURE__ */ () => {
   const userAgent = navigator.userAgent.toLowerCase();
   return userAgent.includes('firefox') || userAgent.includes('fxios');
@@ -563,9 +565,36 @@ type MustInclude<T, U extends T[]> = [T] extends [ValueOf<U>] ? U : never;
  * see https://stackoverflow.com/a/70694878/5054774
  */
 export const stringUnionToArray =
-  <T>() =>
-  <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) =>
-    elements;
+  /* @__PURE__ */
+
+    <T>() =>
+    <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) =>
+      elements;
+
+export const preventFocus = /* @__PURE__ */ (container: HTMLElement) => {
+  // avoid focus on tab
+  const editorFocusArea =
+    container.querySelector('textarea') || // monaco
+    container.querySelector('[role="textbox"]'); // codemirror
+  if (editorFocusArea) {
+    const disableFocus = () => (editorFocusArea.tabIndex = -1);
+    // monaco keeps setting it to 0
+    const ob = new MutationObserver((mutationList) => {
+      for (const mutation of mutationList) {
+        if (
+          // avoid infinite loop
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'tabindex' &&
+          editorFocusArea.tabIndex !== -1
+        ) {
+          disableFocus();
+        }
+      }
+    });
+    ob.observe(editorFocusArea, { attributes: true });
+    disableFocus();
+  }
+};
 
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',

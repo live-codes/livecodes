@@ -116,6 +116,7 @@ import {
   colorToHex,
   capitalize,
   isMac,
+  ctrl,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -2391,7 +2392,6 @@ const handleChangeContent = () => {
 
 const handleKeyboardShortcuts = () => {
   let lastkeys = '';
-  const ctrl = (e: KeyboardEvent) => (isMac() ? e.metaKey : e.ctrlKey);
 
   const hotKeys = async (e: KeyboardEvent) => {
     // Ctrl + P opens the command palette
@@ -2676,7 +2676,6 @@ const handleCommandMenu = async () => {
   };
 
   const onHotkey = async (e: KeyboardEvent) => {
-    const ctrl = (e: KeyboardEvent) => (isMac() ? e.metaKey : e.ctrlKey);
     if (ctrl(e) && e.code === 'KeyK') {
       e.preventDefault();
       // eslint-disable-next-line no-underscore-dangle

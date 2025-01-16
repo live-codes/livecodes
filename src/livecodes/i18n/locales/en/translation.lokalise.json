@@ -752,6 +752,10 @@
     "notes": "",
     "translation": "Move Focus out of Editor"
   },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "notes": "",
+    "translation": "Toggle Tab Focus Mode"
+  },
   "commandMenu.formatCode": {
     "notes": "",
     "translation": "Format Code"
