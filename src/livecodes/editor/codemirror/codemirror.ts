@@ -6,7 +6,7 @@
 import { Compartment, EditorState, type Extension } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView, keymap, type KeyBinding, type ViewUpdate } from '@codemirror/view';
-import { indentWithTab, undo, redo } from '@codemirror/commands';
+import { undo, redo } from '@codemirror/commands';
 import {
   defaultHighlightStyle,
   syntaxHighlighting,
@@ -30,7 +30,7 @@ import type {
   EditorLibrary,
 } from '../../models';
 import { getEditorModeNode } from '../../UI/selectors';
-import { getRandomString } from '../../utils/utils';
+import { ctrl, debounce, getRandomString } from '../../utils/utils';
 import { comlinkBaseUrl } from '../../vendors';
 import { getEditorTheme } from '../themes';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
@@ -44,6 +44,8 @@ export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
 };
 const editors: CodeiumEditor[] = [];
 let tsWorker: any;
+let tabFocusMode = false;
+const changeTabFocusMode = debounce(() => (tabFocusMode = !tabFocusMode), 50);
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
@@ -250,7 +252,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       closeBracketsExtension.of(editorSettings.closeBrackets ? closeBrackets() : []),
       basicSetup,
       readonly ? readOnlyExtension : [],
-      keymap.of([indentWithTab]),
       keymap.of(vscodeKeymap),
       indentationMarkers(),
       colorPicker,
@@ -363,6 +364,19 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  const toggleTabFocusMode = (event: KeyboardEvent) => {
+    if (event.code === 'KeyM' && ctrl(event)) {
+      event.preventDefault();
+      changeTabFocusMode();
+      // wait for debounce
+      setTimeout(() => {
+        view.setTabFocusMode?.(tabFocusMode);
+      }, 70);
+    }
+  };
+  view.setTabFocusMode(tabFocusMode);
+  addEventListener('keydown', toggleTabFocusMode);
+
   let formatter: FormatFn | undefined;
   const registerFormatter = (formatFn: FormatFn | undefined) => {
     if (!formatFn) return;
@@ -459,6 +473,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     view.destroy();
     container.innerHTML = '';
     editors.splice(editors.indexOf(codeiumEditor), 1);
+    removeEventListener('keydown', toggleTabFocusMode);
   };
 
   return {
