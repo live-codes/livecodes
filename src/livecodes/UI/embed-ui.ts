@@ -346,6 +346,7 @@ export const createEmbedUI = async ({
   const previewIframe: HTMLIFrameElement = document.createElement('iframe');
   previewIframe.id = 'embed-preview-iframe';
   previewContainer.innerHTML = '';
+  previewIframe.tabIndex = -1;
   previewContainer.appendChild(previewIframe);
 
   const getContainerId = () => 'livecodes-' + (Math.random() + 1).toString(36).substring(2);
