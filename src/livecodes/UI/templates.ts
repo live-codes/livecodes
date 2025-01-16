@@ -11,16 +11,18 @@ export const createTemplatesContainer = (
 
   const tabs = templatesContainer.querySelectorAll<HTMLElement>('#templates-tabs li');
   tabs.forEach((tab) => {
-    eventsManager.addEventListener(tab, 'click', () => {
+    const link = tab.querySelector('a');
+    if (!link) return;
+    eventsManager.addEventListener(link, 'click', () => {
       tabs.forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
 
       document.querySelectorAll('#templates-screens > div').forEach((screen) => {
         screen.classList.remove('active');
       });
-      const target = templatesContainer.querySelector('#' + tab.dataset.target);
+      const target = templatesContainer.querySelector('#' + link.dataset.target);
       target?.classList.add('active');
-      if (tab.dataset.target === 'templates-user') {
+      if (link.dataset.target === 'templates-user') {
         loadUserTemplates();
       }
     });

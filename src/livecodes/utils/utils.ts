@@ -567,6 +567,7 @@ type MustInclude<T, U extends T[]> = [T] extends [ValueOf<U>] ? U : never;
 export const stringUnionToArray =
   /* @__PURE__ */
 
+
     <T>() =>
     <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) =>
       elements;
@@ -593,6 +594,25 @@ export const preventFocus = /* @__PURE__ */ (container: HTMLElement) => {
     });
     ob.observe(editorFocusArea, { attributes: true });
     disableFocus();
+  }
+};
+
+export const findFirstFocusableElement = /* @__PURE__ */ (container: HTMLElement) =>
+  Array.from(container.getElementsByTagName('*')).find(isFocusable);
+
+export const isFocusable = /* @__PURE__ */ (item: any | null): boolean => {
+  if (!item || item.tabIndex < 0) return false;
+  switch (item.tagName) {
+    case 'A':
+      return !!item.href;
+    case 'INPUT':
+      return item.type !== 'hidden' && !item.disabled;
+    case 'SELECT':
+    case 'TEXTAREA':
+    case 'BUTTON':
+      return !item.disabled;
+    default:
+      return false;
   }
 };
 

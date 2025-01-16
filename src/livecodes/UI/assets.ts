@@ -121,7 +121,7 @@ const createAssetItem = (
   const actions = document.createElement('div');
   actions.classList.add('actions');
   li.appendChild(actions);
-  const deleteButton = document.createElement('div');
+  const deleteButton = document.createElement('button');
   deleteButton.innerHTML = deleteIcon;
   deleteButton.classList.add('action-button', 'delete-button');
   deleteButton.title = window.deps.translateString('assets.action.delete', 'Delete');
@@ -467,17 +467,21 @@ export const createAddAssetContainer = ({
 
   const tabs = addAssetContainer.querySelectorAll<HTMLElement>('#add-asset-tabs li');
   const activateTab = (tab: HTMLElement) => {
+    const link = tab.querySelector('a');
+    if (!link) return;
     tabs.forEach((t) => t.classList.remove('active'));
     tab.classList.add('active');
 
     document.querySelectorAll('#add-asset-screens > div').forEach((screen) => {
       screen.classList.remove('active');
     });
-    const target = addAssetContainer.querySelector('#' + tab.dataset.target);
+    const target = addAssetContainer.querySelector('#' + link.dataset.target);
     target?.classList.add('active');
     target?.querySelector('input')?.focus();
   };
   tabs.forEach((tab) => {
+    const link = tab.querySelector('a');
+    if (!link) return;
     eventsManager.addEventListener(tab, 'click', () => activateTab(tab));
   });
   setTimeout(() => {

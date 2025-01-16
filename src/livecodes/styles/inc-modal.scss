@@ -357,10 +357,8 @@
       border-top-left-radius: var(--rs);
       border-top-right-radius: var(--rs);
       color: var(--btn-modal-color);
-      cursor: pointer;
       display: block;
       list-style: none;
-      padding: 0.5rem;
       text-align: center;
       width: 30%;
 
@@ -370,6 +368,12 @@
         border-bottom: 1px solid var(--btn-modal-bg-active);
         color: var(--btn-modal-active);
         margin-bottom: -1px;
+      }
+
+      a {
+        display: block;
+        padding: 0.5rem;
+        text-decoration: none;
       }
     }
   }
@@ -499,6 +503,7 @@
 
     .action-button {
       background: var(--btn-modal-bg-color);
+      border: 0;
       border-radius: var(--rs);
       color: var(--btn-modal-color);
       cursor: pointer;

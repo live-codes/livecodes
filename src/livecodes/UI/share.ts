@@ -272,7 +272,8 @@ export const createShareContainer = async (
     input?.select();
   });
 
-  eventsManager.addEventListener(clickToCopy, 'click', function () {
+  eventsManager.addEventListener(clickToCopy, 'click', function (ev) {
+    ev.preventDefault();
     copyUrl(input?.value);
     input?.select();
   });

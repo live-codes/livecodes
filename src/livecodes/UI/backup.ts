@@ -20,14 +20,16 @@ const createBackupContainer = (eventsManager: EventsManager) => {
 
   const tabs = backupContainer.querySelectorAll<HTMLElement>('#backup-tabs li');
   tabs.forEach((tab) => {
-    eventsManager.addEventListener(tab, 'click', () => {
+    const link = tab.querySelector('a');
+    if (!link) return;
+    eventsManager.addEventListener(link, 'click', () => {
       tabs.forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
 
       document.querySelectorAll('#backup-screens > div').forEach((screen) => {
         screen.classList.remove('active');
       });
-      const target = backupContainer.querySelector('#' + tab.dataset.target);
+      const target = backupContainer.querySelector('#' + link.dataset.target);
       target?.classList.add('active');
       target?.querySelector('input')?.focus();
     });

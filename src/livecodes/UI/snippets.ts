@@ -117,7 +117,7 @@ const createSnippetItem = (
   actions.classList.add('actions');
   li.appendChild(actions);
 
-  const copyButton = document.createElement('div');
+  const copyButton = document.createElement('button');
   copyButton.innerHTML = copyIcon;
   copyButton.classList.add('action-button');
   copyButton.title = window.deps.translateString('snippets.action.copy', 'Copy');
@@ -127,7 +127,7 @@ const createSnippetItem = (
   };
   actions.appendChild(copyButton);
 
-  const editButton = document.createElement('div');
+  const editButton = document.createElement('button');
   editButton.innerHTML = editIcon;
   editButton.classList.add('action-button');
   editButton.title = window.deps.translateString('snippets.action.edit', 'Edit');
@@ -136,7 +136,7 @@ const createSnippetItem = (
   };
   actions.appendChild(editButton);
 
-  const deleteButton = document.createElement('div');
+  const deleteButton = document.createElement('button');
   deleteButton.innerHTML = deleteIcon;
   deleteButton.classList.add('action-button', 'delete-button');
   deleteButton.title = window.deps.translateString('snippets.action.delete', 'Delete');

@@ -1,4 +1,5 @@
 import type { Modal, ModalOptions } from '../models';
+import { isFocusable } from '../utils';
 import { createAccordion } from './accordion';
 
 export const createModal = (deps: {
@@ -73,9 +74,9 @@ export const createModal = (deps: {
     isOpening = true;
     // remove previous event listener if it was not cleared
     document.removeEventListener('click', onClickOutside);
-    document.removeEventListener('keydown', escapeListener);
+    document.removeEventListener('keydown', keydownListener);
     document.addEventListener('click', onClickOutside, false);
-    document.addEventListener('keydown', escapeListener, false);
+    document.addEventListener('keydown', keydownListener, false);
     if (isAsync) {
       container.click();
     }
@@ -86,7 +87,7 @@ export const createModal = (deps: {
       onCloseFn();
     }
     document.removeEventListener('click', onClickOutside);
-    document.removeEventListener('keydown', escapeListener);
+    document.removeEventListener('keydown', keydownListener);
 
     overlay.classList.add('hidden');
     modalContainer.innerHTML = '';
@@ -109,10 +110,18 @@ export const createModal = (deps: {
     });
   }
 
-  const escapeListener = (event: KeyboardEvent) => {
+  const keydownListener = (event: KeyboardEvent) => {
+    if (!modal.contains(event.target as Node)) return;
     if (event.key === 'Escape' && !(window as any).watchingEscape) {
       close();
       event.preventDefault();
+    }
+    if (event.key === 'Enter' || event.key === 'Space') {
+      const activeElement = document.activeElement as HTMLElement;
+      if (!isFocusable(activeElement) || activeElement.dataset.clickonenter === 'true') {
+        event.preventDefault();
+        activeElement?.click?.();
+      }
     }
   };
 

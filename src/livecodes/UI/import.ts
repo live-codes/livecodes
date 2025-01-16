@@ -39,14 +39,16 @@ const createImportContainer = (eventsManager: EventsManager) => {
 
   const tabs = importContainer.querySelectorAll<HTMLElement>('#import-tabs li');
   tabs.forEach((tab) => {
-    eventsManager.addEventListener(tab, 'click', () => {
+    const link = tab.querySelector('a');
+    if (!link) return;
+    eventsManager.addEventListener(link, 'click', () => {
       tabs.forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
 
       document.querySelectorAll('#import-screens > div').forEach((screen) => {
         screen.classList.remove('active');
       });
-      const target = importContainer.querySelector('#' + tab.dataset.target);
+      const target = importContainer.querySelector('#' + link.dataset.target);
       target?.classList.add('active');
       target?.querySelector('input')?.focus();
     });

@@ -40,6 +40,8 @@ const createDeployContainer = (eventsManager: EventsManager, repo: string | unde
 
   const tabs = deployContainer.querySelectorAll<HTMLElement>('#deploy-tabs li');
   tabs.forEach((tab) => {
+    const link = tab.querySelector('a');
+    if (!link) return;
     eventsManager.addEventListener(tab, 'click', () => {
       tabs.forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
@@ -47,7 +49,7 @@ const createDeployContainer = (eventsManager: EventsManager, repo: string | unde
       document.querySelectorAll('#deploy-screens > div').forEach((screen) => {
         screen.classList.remove('active');
       });
-      const target = deployContainer.querySelector('#' + tab.dataset.target);
+      const target = deployContainer.querySelector('#' + link.dataset.target);
       target?.classList.add('active');
       target?.querySelector('input')?.focus();
     });
