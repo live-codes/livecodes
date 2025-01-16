@@ -289,6 +289,12 @@
 
   &.processor-item {
     font-size: 0.9em;
+
+    a {
+      display: flex !important;
+      max-width: unset !important;
+      padding: 0 !important;
+    }
   }
 }
 

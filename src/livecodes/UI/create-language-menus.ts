@@ -168,14 +168,16 @@ export const createProcessorItem = (processor: { name: string; title: string }) 
   const processorItem = document.createElement('li');
   processorItem.classList.add('language-item', 'processor-item');
   processorItem.innerHTML = `
-        <label class="switch">
-          <span>${processor.title}</span>
-          <div>
-            <input id="${processor.name}" type="checkbox" data-processor="${processor.name}" />
-            <span class="slider round"></span>
-          </div>
-        </label>
-        `;
+  <a href="#">
+    <label class="switch">
+      <span>${processor.title}</span>
+      <div>
+        <input id="${processor.name}" type="checkbox" data-processor="${processor.name}" tabindex="-1" />
+        <span class="slider round"></span>
+      </div>
+    </label>
+  </a>
+  `;
   return processorItem;
 };
 

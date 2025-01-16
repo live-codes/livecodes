@@ -2875,18 +2875,15 @@ const handleProcessors = () => {
     const processorItem = createProcessorItem(processor);
     styleMenu.append(processorItem);
     eventsManager.addEventListener(
-      processorItem,
-      'mousedown',
+      processorItem.firstElementChild as HTMLElement,
+      'click',
       async (event) => {
         event.preventDefault();
-        event.stopPropagation();
         const toggle = processorItem.querySelector<HTMLInputElement>('input');
         if (!toggle) return;
         toggle.checked = !toggle.checked;
-
         const processorName = toggle.dataset.processor as Processor;
         if (!processorName || !processorList.find((p) => p.name === processorName)) return;
-
         setConfig({
           ...getConfig(),
           processors: [
@@ -2902,11 +2899,6 @@ const handleProcessors = () => {
       },
       false,
     );
-
-    eventsManager.addEventListener(processorItem, 'click', async (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-    });
   });
 };
 
