@@ -9,8 +9,6 @@ import {
   processorIsEnabled,
   getLanguageByAlias,
   mapLanguage,
-  createLanguageMenus,
-  createProcessorItem,
   getLanguageTitle,
   getLanguageSpecs,
   getLanguageExtension,
@@ -165,6 +163,7 @@ import type {
 import { appLanguages } from './i18n/app-languages';
 import { themeColors } from './UI/theme-colors';
 import { getCommandMenuActions } from './UI/command-menu-actions';
+import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
 
 // declare global dependencies
 declare global {
