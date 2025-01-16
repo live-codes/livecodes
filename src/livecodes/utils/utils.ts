@@ -102,7 +102,9 @@ export const objectFilter = /* @__PURE__ */ (
 ) => Object.fromEntries(Object.entries(obj).filter(([k, v], i) => predicate(v, k, i)));
 
 export const copyToClipboard = /* @__PURE__ */ (text: string) => {
-  if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
+  if ('clipboard' in navigator) {
+    return navigator.clipboard.writeText(text);
+  } else if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
     const textarea = document.createElement('textarea');
     textarea.textContent = text;
     textarea.style.position = 'fixed'; // Prevent scrolling to bottom of page in Microsoft Edge.
