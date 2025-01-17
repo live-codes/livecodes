@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig",
+  "exclude": [
+    "src/livecodes/i18n/locales/**"
+  ]
+}
