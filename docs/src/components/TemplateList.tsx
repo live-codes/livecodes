@@ -27,6 +27,7 @@ const templates = [
   { name: 'jest-react', title: 'Jest/React Starter', thumbnail: 'jest.svg' },
   { name: 'bootstrap', title: 'Bootstrap Starter', thumbnail: 'bootstrap.svg' },
   { name: 'tailwindcss', title: 'Tailwind CSS Starter', thumbnail: 'tailwindcss.svg' },
+  { name: 'shadcn-ui', title: 'shadcn/ui Starter', thumbnail: 'shadcn-ui.svg' },
   { name: 'coffeescript', title: 'CoffeeScript Starter', thumbnail: 'coffeescript.svg' },
   { name: 'livescript', title: 'LiveScript Starter', thumbnail: 'livescript.svg' },
   { name: 'civet', title: 'Civet Starter', thumbnail: 'civet.png' },

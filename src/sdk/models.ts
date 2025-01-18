@@ -1362,6 +1362,7 @@ export type TemplateName =
   | 'jest-react'
   | 'bootstrap'
   | 'tailwindcss'
+  | 'shadcn-ui'
   | 'd3'
   | 'phaser'
   | 'coffeescript'

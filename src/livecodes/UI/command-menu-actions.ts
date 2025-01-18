@@ -280,6 +280,7 @@ export const getCommandMenuActions = ({
         'jest-react',
         'bootstrap',
         'tailwindcss',
+        'shadcn-ui',
         'd3',
         'phaser',
         'coffeescript',

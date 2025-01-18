@@ -63,6 +63,7 @@ import { postgresqlStarter } from './postgresql-starter';
 import { gleamStarter } from './gleam-starter';
 import { phaserStarter } from './phaser-starter';
 import { d3Starter } from './d3-starter';
+import { shadcnuiStarter } from './shadcn-ui-starter';
 
 export const starterTemplates = [
   blank,
@@ -89,6 +90,7 @@ export const starterTemplates = [
   jestReactStarter,
   bootstrapStarter,
   tailwindcssStarter,
+  shadcnuiStarter,
   d3Starter,
   phaserStarter,
   coffeescriptStarter,
