@@ -1,6 +1,6 @@
 import type { Template } from '../../models';
 
-const cdnBaseUrl = 'https://cdn.jsdelivr.net/npm/@hatemhosny/shadcdn@0.0.13/build/';
+const cdnBaseUrl = 'https://cdn.jsdelivr.net/npm/@hatemhosny/shadcdn@0.0.14/build/';
 
 export const shadcnuiStarter: Template = {
   name: 'shadcn-ui',
@@ -9,7 +9,10 @@ export const shadcnuiStarter: Template = {
   activeEditor: 'script',
   markup: {
     language: 'html',
-    content: `<link rel="stylesheet" href="${cdnBaseUrl}shadcdn.css">`.trimStart(),
+    content: `
+<link rel="stylesheet" href="${cdnBaseUrl}shadcdn.css">
+<link rel="stylesheet" href="${cdnBaseUrl}themes.css">
+`.trimStart(),
   },
   style: {
     language: 'css',
@@ -17,32 +20,52 @@ export const shadcnuiStarter: Template = {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer base {
+  :root .custom {
+    --radius: 0.5rem;
+  }
+}
 `.trimStart(),
   },
   script: {
     language: 'react-tsx',
     content: `
 // from https://ui.shadcn.com/blocks/login#login-03
-import React from "react"
-import { GalleryVerticalEnd } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { GalleryVerticalEnd } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
-export function LoginForm({
+export default function LoginPage() {
+  return (
+    // \`dark\` for dark mode
+    // themes: zinc, slate, stone, gray, neutral, red, rose, orange, green, blue, yellow, violet
+    <div className="theme-violet custom">
+      <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
+        <div className="flex w-full max-w-sm flex-col gap-6">
+          <a href="#" className="flex items-center gap-2 self-center font-medium text-foreground">
+            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
+              <GalleryVerticalEnd className="size-4" />
+            </div>
+            Acme Inc.
+          </a>
+          <LoginForm />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LoginForm({
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+}: React.ComponentPropsWithoutRef<'div'>) {
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
@@ -105,7 +128,7 @@ export function LoginForm({
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
+                Don&apos;t have an account?{' '}
                 <a href="#" className="underline underline-offset-4">
                   Sign up
                 </a>
@@ -115,28 +138,11 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+        By clicking continue, you agree to our <a href="#">Terms of Service</a>{' '}
         and <a href="#">Privacy Policy</a>.
       </div>
     </div>
-  )
-}
-
-
-export default function LoginPage() {
-  return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
-      <div className="flex w-full max-w-sm flex-col gap-6">
-        <a href="#" className="flex items-center gap-2 self-center font-medium">
-          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <GalleryVerticalEnd className="size-4" />
-          </div>
-          Acme Inc.
-        </a>
-        <LoginForm />
-      </div>
-    </div>
-  )
+  );
 }
 `.trimStart(),
   },
