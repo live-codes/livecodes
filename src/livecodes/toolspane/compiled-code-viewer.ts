@@ -1,6 +1,5 @@
 import { getEditorConfig } from '../config';
 import { createEditor, getFontFamily } from '../editor';
-import type { createEventsManager } from '../events';
 import { getLanguageExtension, languages, mapLanguage } from '../languages';
 import type {
   Editors,
@@ -9,6 +8,7 @@ import type {
   EditorOptions,
   Language,
   CompiledCodeViewer,
+  EventsManager,
 } from '../models';
 import { getToolspaneButtons, getToolspaneElement } from '../UI';
 
@@ -16,7 +16,7 @@ export const createCompiledCodeViewer = (
   config: Config,
   baseUrl: string,
   _editors: Editors,
-  _eventsManager: ReturnType<typeof createEventsManager>,
+  _eventsManager: EventsManager,
   isEmbed: boolean,
   _runTests: () => Promise<void>,
 ): CompiledCodeViewer => {

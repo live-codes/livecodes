@@ -1,7 +1,13 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { Config, EditorLibrary, EditorOptions, FormatFn, UserConfig } from '../models';
+import type {
+  Config,
+  EditorLibrary,
+  EditorOptions,
+  EventsManager,
+  FormatFn,
+  Modal,
+  UserConfig,
+} from '../models';
 import type { createEditor } from '../editor/create-editor';
 import { editorSettingsScreen } from '../html';
 import { getEditorConfig, getFormatterConfig } from '../config/config';
@@ -11,6 +17,7 @@ import { getEditorTheme } from '../editor/themes';
 import { monacoThemes } from '../editor/monaco/monaco-themes';
 import { codemirrorThemes } from '../editor/codemirror/codemirror-themes';
 import { prismThemes } from '../editor/codejar/prism-themes';
+import { preventFocus } from '../utils/utils';
 import { getEditorSettingsFormatLink } from './selectors';
 
 export const createEditorSettingsUI = async ({
@@ -21,8 +28,8 @@ export const createEditorSettingsUI = async ({
   deps,
 }: {
   baseUrl: string;
-  modal: ReturnType<typeof createModal>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  eventsManager: EventsManager;
   scrollToSelector: string;
   deps: {
     getUserConfig: () => UserConfig;
@@ -551,6 +558,7 @@ export const createEditorSettingsUI = async ({
     });
   };
 
+  preventFocus(previewContainer);
   eventsManager.addEventListener(form, 'change', () => updateOptions());
   updateOptions(true);
 };

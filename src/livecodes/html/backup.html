@@ -2,8 +2,10 @@
   <div class="modal-title" data-i18n="backup.heading">Backup / Restore</div>
   <div id="backup-screens" class="modal-screen-container">
     <ul id="backup-tabs" class="modal-tabs">
-      <li data-target="backup" class="active" data-i18n="backup.backup.heading">Backup</li>
-      <li data-target="restore" data-i18n="backup.restore.heading">Restore</li>
+      <li class="active">
+        <a href="#" data-target="backup" data-i18n="backup.backup.heading">Backup</a>
+      </li>
+      <li><a href="#" data-target="restore" data-i18n="backup.restore.heading">Restore</a></li>
     </ul>
 
     <div id="backup" class="tab-content active">
@@ -107,7 +109,11 @@
             </span>
           </div>
 
-          <label for="file-input" class="file-input-label" data-i18n="backup.restore.fromFile"
+          <label
+            for="file-input"
+            class="file-input-label"
+            data-i18n="backup.restore.fromFile"
+            tabindex="0"
             >Restore from file</label
           >
           <input

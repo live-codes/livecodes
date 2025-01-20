@@ -23,7 +23,8 @@
     "Formatter",
     "Build",
     "services",
-    "CommandMenu"
+    "CommandMenu",
+    "Accessibility"
   ],
   "html.customData": ["./.vscode/html.html-data.json"]
 }

@@ -7,11 +7,15 @@
     </div>
 
     <ul id="add-asset-tabs" class="modal-tabs">
-      <li data-target="add-asset-data-url" class="active" data-i18n="assets.add.dataURL.heading">
-        Data URL
+      <li class="active">
+        <a href="#" data-target="add-asset-data-url" data-i18n="assets.add.dataURL.heading">
+          Data URL</a
+        >
       </li>
-      <li data-target="add-asset-gh-pages" data-i18n="assets.add.githubPages.heading">
-        GitHub Pages
+      <li>
+        <a href="#" data-target="add-asset-gh-pages" data-i18n="assets.add.githubPages.heading">
+          GitHub Pages</a
+        >
       </li>
     </ul>
 
@@ -35,6 +39,7 @@
             for="asset-data-url-file-input"
             class="file-input-label"
             data-i18n="assets.add.dataURL.label"
+            tabindex="0"
             >Add file</label
           >
           <input type="file" id="asset-data-url-file-input" class="file-input" />
@@ -60,6 +65,7 @@
             id="asset-gh-pages-file-input-label"
             class="file-input-label"
             data-i18n="assets.add.githubPages.label"
+            tabindex="0"
             >Upload file</label
           >
           <input type="file" id="asset-gh-pages-file-input" class="file-input" />

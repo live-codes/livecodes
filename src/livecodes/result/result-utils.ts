@@ -28,4 +28,8 @@ import { handleEval, handleResize, handleScrollPosition, proxyConsole } from './
   window.addEventListener('load', () => {
     parent.postMessage({ type: 'loading', payload: false }, '*');
   });
+
+  window.addEventListener('click', () => {
+    parent.postMessage({ type: 'clicked' }, '*');
+  });
 })();

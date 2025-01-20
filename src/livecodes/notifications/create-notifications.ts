@@ -1,5 +1,12 @@
-import { createSnackbar, type Action } from '@snackbar/core';
+import {
+  createSnackbar,
+  destroyAllSnackbars,
+  type Message,
+  type SnackOptions,
+  type Action,
+} from '@snackbar/core';
 import { getConfig } from '../config';
+import type { Notifications } from '../models';
 import {
   infoTheme,
   successTheme,
@@ -11,19 +18,32 @@ import {
   darkTheme,
 } from './snackbar';
 
-export const createNotifications = () => {
+export const hasOpenNotifications = () => document.querySelectorAll('.snackbar').length > 0;
+
+export const createNotifications = (): Notifications => {
   const timeout = 2000;
 
+  const getPosition = () =>
+    document.querySelector<HTMLDialogElement>('dialog#modal')?.open ? 'left' : 'center';
+
+  const createBar = (message: Message, options?: SnackOptions) => {
+    const position = getPosition();
+    const bar = createSnackbar(message, {
+      position,
+      ...options,
+    });
+    return bar;
+  };
+
   const info = (message: string, dismissable = true) => {
-    createSnackbar(message, {
+    createBar(message, {
       theme: infoTheme,
       actions: dismissable ? [closeButton] : [],
       timeout,
     });
   };
-
   const success = (message: string, dismissable = true) => {
-    createSnackbar('✓ ' + message, {
+    createBar('✓ ' + message, {
       theme: successTheme,
       actions: dismissable ? [closeButton] : [],
       timeout,
@@ -31,7 +51,8 @@ export const createNotifications = () => {
   };
 
   const warning = (message: string, dismissable = true) => {
-    createSnackbar(message, {
+    createBar(message, {
+      position: getPosition(),
       theme: warningTheme,
       actions: dismissable ? [closeButton] : [],
       timeout,
@@ -39,7 +60,8 @@ export const createNotifications = () => {
   };
 
   const error = (message: string, dismissable = true) => {
-    createSnackbar('✖ ' + message, {
+    createBar('✖ ' + message, {
+      position: getPosition(),
       theme: dangerTheme,
       actions: dismissable ? [closeButton] : [],
       timeout,
@@ -61,11 +83,19 @@ export const createNotifications = () => {
         snackbar.destroy();
       },
     };
-    createSnackbar(message, {
+    createBar(message, {
       theme: getConfig().theme === 'dark' ? darkTheme : lightTheme,
       actions: [confirmAction, cancelAction],
     });
+    document.querySelector<HTMLButtonElement>('.snackbar--button')?.focus();
   };
+
+  addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && hasOpenNotifications()) {
+      event.preventDefault();
+      destroyAllSnackbars();
+    }
+  });
 
   return {
     info,

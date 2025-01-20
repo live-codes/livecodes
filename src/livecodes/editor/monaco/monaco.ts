@@ -155,7 +155,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     },
     acceptSuggestionOnCommitCharacter: !isAndroid,
     acceptSuggestionOnEnter: !isAndroid ? 'on' : 'off',
-    accessibilitySupport: !isAndroid ? 'on' : 'off',
     inlayHints: {
       enabled: 'on',
     },
