@@ -1,12 +1,11 @@
-import type { createEventsManager } from '../events';
-import type { ContentConfig } from '../models';
+import type { ContentConfig, EventsManager } from '../models';
 import type { populateConfig as populateConfigFn, SourceFile } from './utils';
 import { importFromZip } from './zip';
 
 export const importFromFiles = async (
   files: FileList,
   populateConfig: typeof populateConfigFn,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
 ) => {
   const loadFiles = (files: FileList) =>
     new Promise<Partial<ContentConfig>>((resolve, reject) => {

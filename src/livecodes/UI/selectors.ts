@@ -42,6 +42,9 @@ export const getLightThemeButton = /* @__PURE__ */ () =>
 export const getDarkThemeButton = /* @__PURE__ */ () =>
   document.querySelector('#dark-theme-button') as HTMLElement;
 
+export const getI18nMenuButton = /* @__PURE__ */ () =>
+  document.querySelector('#app-menu-button-i18n') as HTMLElement;
+
 export const getI18nMenuContainer = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-container-i18n') as HTMLElement;
 

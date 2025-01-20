@@ -1,33 +1,21 @@
-#overlay,
-#modal-container {
+#overlay {
+  align-items: center;
+  animation: overlayfadeIn 0.4s forwards;
+  background-color: var(--overlay-bg-color);
+  display: flex;
   height: 100%;
+  justify-content: center;
   left: 0;
   margin: 0;
+  opacity: 0.7;
   overflow: hidden;
   position: absolute;
   top: 0;
   width: 100%;
-}
 
-#overlay {
-  animation: overlayfadeIn 0.4s forwards;
-  background-color: var(--overlay-bg-color);
-  opacity: 0.7;
-}
-
-#modal-container {
-  align-items: center;
-  animation: fadeIn 0.4s forwards;
-  display: flex;
-  justify-content: center;
-}
-
-#overlay.hidden {
-  animation: overlayfadeOut 0.4s forwards;
-}
-
-#modal-container.hidden {
-  animation: fadeOut 0.4s forwards;
+  &.hidden {
+    animation: overlayfadeOut 0.4s forwards;
+  }
 }
 
 .tagify {
@@ -53,21 +41,33 @@
 }
 
 #modal {
+  animation: fadeIn 0.4s forwards;
   background-color: var(--modal-bg-color);
+  border: 0;
   border-radius: var(--rs);
   color: var(--modal-text-color);
-  display: flex;
   flex-direction: column;
+  margin: auto;
   max-height: 72vh;
   max-width: 52rem;
   opacity: 1;
-  padding-top: 2rem;
+  outline: none;
   position: relative;
   width: 80vw;
+
+  &[open] {
+    display: flex;
+  }
 
   &.large {
     max-height: 85vh;
     min-height: 60vh;
+  }
+
+  #modal-container {
+    height: 100%;
+    margin-top: 2rem;
+    overflow: scroll;
   }
 
   .modal-message {
@@ -76,6 +76,7 @@
     width: 100%;
 
     &.hidden {
+      animation: fadeOut 0.4s forwards;
       display: none;
     }
 
@@ -358,11 +359,8 @@
       border-bottom: 0;
       border-top-left-radius: var(--rs);
       border-top-right-radius: var(--rs);
-      color: var(--btn-modal-color);
-      cursor: pointer;
       display: block;
       list-style: none;
-      padding: 0.5rem;
       text-align: center;
       width: 30%;
 
@@ -370,8 +368,18 @@
       &.active {
         background-color: var(--btn-modal-bg-active);
         border-bottom: 1px solid var(--btn-modal-bg-active);
-        color: var(--btn-modal-active);
         margin-bottom: -1px;
+
+        a {
+          color: var(--btn-modal-active);
+        }
+      }
+
+      a {
+        color: var(--btn-modal-color);
+        display: block;
+        padding: 0.5rem;
+        text-decoration: none;
       }
     }
   }
@@ -501,6 +509,7 @@
 
     .action-button {
       background: var(--btn-modal-bg-color);
+      border: 0;
       border-radius: var(--rs);
       color: var(--btn-modal-color);
       cursor: pointer;
@@ -587,7 +596,6 @@
     cursor: pointer;
     font-size: var(--btn-modal-font);
     min-width: 80px;
-    outline: none;
     padding: var(--s6);
     place-self: center;
     transition: all 0.4s ease-in-out;
@@ -693,7 +701,6 @@
     cursor: pointer;
     font-size: var(--s16);
     margin: var(--s16) 0;
-    outline: none;
     padding: var(--s8);
     text-align: center;
     transition: all 0.5s ease-in-out;
@@ -770,7 +777,6 @@
     color: var(--input-color);
     height: var(--s32);
     margin-bottom: 1rem;
-    outline: none;
     padding: var(--s6);
     width: 100%;
   }
@@ -941,6 +947,15 @@
     width: 100%;
   }
 
+  // workaround to use snackbars in dialog modals
+  .snackbars-left {
+    // reset to center
+    .snackbar {
+      left: 50% !important;
+      margin-left: -172px !important;
+    }
+  }
+
   .padded {
     margin: 1rem 0;
 
@@ -1049,7 +1064,6 @@
     cursor: pointer;
     font-size: var(--s14);
     margin-bottom: 1rem;
-    outline: none;
     padding: 0.5rem 1.5rem 0.5rem 0.5rem;
     width: 100%;
   }
@@ -1072,7 +1086,6 @@
     height: 4em;
     margin-bottom: 1rem;
     min-height: 4em;
-    outline: none;
     padding: var(--s6);
     resize: vertical;
     width: 100%;
@@ -1570,7 +1583,7 @@
     background: var(--darker-bg-color);
     border-top-left-radius: var(--rs);
     border-top-right-radius: var(--rs);
-    bottom: -8px;
+    bottom: 0;
     box-shadow: 0 0 8px 1px #0006;
     color: var(--darker-color);
     display: flex;
@@ -1703,7 +1716,6 @@
       .window-title {
         height: 1.2em;
         min-width: 7em;
-        outline: none;
         overflow: hidden;
         text-align: center;
       }
@@ -1841,7 +1853,6 @@
       color: var(--btn-modal-color);
       cursor: pointer;
       font-size: var(--s16);
-      outline: none;
       padding: var(--s10) var(--s16);
       text-align: start;
       transition: 0.4s;

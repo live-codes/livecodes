@@ -1,7 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events/events';
-import type { createModal } from '../modal';
-import type { Config, CssPresetId, PkgInfo } from '../models';
+import type { Config, CssPresetId, EventsManager, Modal, PkgInfo } from '../models';
 import { resourcesScreen } from '../html';
 import { pkgInfoService } from '../services/pkgInfo';
 import { debounce, hideOnClickOutside } from '../utils/utils';
@@ -23,8 +21,8 @@ export const createExternalResourcesUI = ({
   deps,
 }: {
   baseUrl: string;
-  modal: ReturnType<typeof createModal>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  eventsManager: EventsManager;
   deps: {
     getConfig: () => Config;
     setConfig: (config: Config) => void;

@@ -1,14 +1,14 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { createNotifications } from '../notifications';
 import type {
   CodeEditor,
   CodejarTheme,
   Config,
   EditorId,
   EditorOptions,
+  EventsManager,
   FormatFn,
+  Modal,
+  Notifications,
 } from '../models';
 import { codeToImageScreen } from '../html';
 import { fonts } from '../editor/fonts';
@@ -70,9 +70,9 @@ export const createCodeToImageUI = async ({
   currentUrl: string;
   fileName: string;
   editorId: EditorId;
-  modal: ReturnType<typeof createModal>;
-  notifications: ReturnType<typeof createNotifications>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  notifications: Notifications;
+  eventsManager: EventsManager;
   deps: {
     createEditor: (options: PreviewEditorOptions) => Promise<CodeEditor>;
     getFormatFn: () => Promise<FormatFn>;

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 /**
  * <h2>Internal API.</h2>
  * This module should <strong>NOT</strong> be used.
@@ -19,7 +20,7 @@ export * as formatter from './formatter';
 export * as html from './html';
 export * as import from './import';
 export * as languages from './languages';
-export * as modal from './modal';
+export * as modal from './UI/modal';
 export * as models from './models';
 export * as notifications from './notifications';
 export * as result from './result';

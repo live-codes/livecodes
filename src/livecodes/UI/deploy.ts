@@ -1,8 +1,13 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { createNotifications } from '../notifications';
-import type { Config, ContentConfig, Cache, User } from '../models';
+import type {
+  Config,
+  ContentConfig,
+  Cache,
+  Modal,
+  Notifications,
+  User,
+  EventsManager,
+} from '../models';
 import type {
   getLanguageCompiler as getLanguageCompilerFn,
   getLanguageExtension as getLanguageExtensionFn,
@@ -28,16 +33,15 @@ import {
 
 export { deployFile };
 
-const createDeployContainer = (
-  eventsManager: ReturnType<typeof createEventsManager>,
-  repo: string | undefined,
-) => {
+const createDeployContainer = (eventsManager: EventsManager, repo: string | undefined) => {
   const div = document.createElement('div');
   div.innerHTML = deployScreen;
   const deployContainer = div.firstChild as HTMLElement;
 
   const tabs = deployContainer.querySelectorAll<HTMLElement>('#deploy-tabs li');
   tabs.forEach((tab) => {
+    const link = tab.querySelector('a');
+    if (!link) return;
     eventsManager.addEventListener(tab, 'click', () => {
       tabs.forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
@@ -45,7 +49,7 @@ const createDeployContainer = (
       document.querySelectorAll('#deploy-screens > div').forEach((screen) => {
         screen.classList.remove('active');
       });
-      const target = deployContainer.querySelector('#' + tab.dataset.target);
+      const target = deployContainer.querySelector('#' + link.dataset.target);
       target?.classList.add('active');
       target?.querySelector('input')?.focus();
     });
@@ -72,9 +76,9 @@ export const createDeployUI = async ({
   deployRepo,
   deps,
 }: {
-  modal: ReturnType<typeof createModal>;
-  notifications: ReturnType<typeof createNotifications>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  notifications: Notifications;
+  eventsManager: EventsManager;
   user: User;
   deployRepo: string | undefined;
   deps: {
