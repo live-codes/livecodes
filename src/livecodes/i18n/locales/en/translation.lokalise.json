@@ -2744,6 +2744,10 @@
     "notes": "",
     "translation": "Scheme Starter"
   },
+  "templates.starter.shadcnui": {
+    "notes": "",
+    "translation": "shadcn/ui Starter"
+  },
   "templates.starter.solid": {
     "notes": "",
     "translation": "Solid Starter"

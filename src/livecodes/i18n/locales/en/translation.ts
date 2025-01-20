@@ -1032,6 +1032,7 @@ const translation = {
       ruby: 'Ruby Starter',
       'ruby-wasm': 'Ruby (Wasm) Starter',
       scheme: 'Scheme Starter',
+      shadcnui: 'shadcn/ui Starter',
       solid: 'Solid Starter',
       sql: 'SQL Starter',
       stencil: 'Stencil Starter',
