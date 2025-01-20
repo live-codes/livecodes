@@ -1,10 +1,9 @@
 /* eslint-disable import/no-internal-modules */
 import { infoScreen } from '../html';
-import type { createModal } from '../modal';
 import * as UI from '../UI';
 import { loadStylesheet, removeDuplicates } from '../utils/utils';
 import { tagifyBaseUrl } from '../vendors';
-import type { Config } from '../models';
+import type { Config, Modal } from '../models';
 import type { ProjectStorage } from '../storage';
 
 export const getTags = (value: string): string[] => {
@@ -19,7 +18,7 @@ export const getTags = (value: string): string[] => {
 export const createProjectInfoUI = async (
   config: Config,
   storage: ProjectStorage,
-  modal: ReturnType<typeof createModal>,
+  modal: Modal,
   onUpdate: (
     title: string,
     description: string,
@@ -68,6 +67,7 @@ export const createProjectInfoUI = async (
   const Tagify = (await import(tagifyBaseUrl + 'tagify.esm.js')).default;
   if (Tagify) {
     new Tagify(tagsInput, {
+      focusable: false,
       whitelist: Array.from(
         new Set((await storage.getList()).map((item) => item.tags).flat()),
       ).sort((a, b) => (b > a ? -1 : 1)),

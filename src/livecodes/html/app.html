@@ -313,14 +313,14 @@
       </div>
     </div>
     <div id="overlay" style="display: none"></div>
-    <div id="modal-container" style="display: none">
-      <div id="modal"></div>
-    </div>
+    <dialog id="modal">
+      <div id="modal-container"></div>
+      <div class="snackbars-left"></div>
+    </dialog>
     <ninja-keys
       placeholder="Type a command or search..."
       data-i18n="commandMenu.placeholder"
       data-i18n-prop="placeholder"
-      search-type="fuzzy"
       highlight-matches
       disableHotkeys
     ></ninja-keys>

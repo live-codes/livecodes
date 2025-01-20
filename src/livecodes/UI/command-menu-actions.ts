@@ -280,6 +280,7 @@ export const getCommandMenuActions = ({
         'jest-react',
         'bootstrap',
         'tailwindcss',
+        'shadcn-ui',
         'd3',
         'phaser',
         'coffeescript',
@@ -1171,9 +1172,24 @@ export const getCommandMenuActions = ({
     },
     ...getKeyboardShortcutList(actions),
     {
-      id: 'Close Modal',
-      title: window.deps.translateString('commandMenu.closeModal', 'Close Modal'),
-      content: getContent('Close Modal'),
+      id: 'Toggle Tab Focus Mode',
+      title: window.deps.translateString(
+        'commandMenu.focus.toggleTabFocusMode',
+        'Toggle Tab Focus Mode',
+      ),
+      content: getContent('Toggle Tab Focus Mode'),
+      hotkey: 'ctrl+m',
+      mdIcon: 'cancel',
+      handler: () => {
+        window.dispatchEvent(
+          new KeyboardEvent('keydown', { key: 'M', code: 'KeyM', ctrlKey: true }),
+        );
+      },
+    },
+    {
+      id: 'Close Modal/Menu',
+      title: window.deps.translateString('commandMenu.closeModalMenu', 'Close Modal/Menu'),
+      content: getContent('Close Modal/Menu'),
       hotkey: 'esc',
       mdIcon: 'cancel',
       handler: () => {

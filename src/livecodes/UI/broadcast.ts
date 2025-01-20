@@ -1,8 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { createNotifications } from '../notifications';
-import type { AppData } from '../models';
+import type { AppData, EventsManager, Modal, Notifications } from '../models';
 import { broadcastScreen } from '../html';
 import { broadcastService } from '../services/broadcast';
 import {
@@ -38,9 +35,9 @@ export const createBroadcastUI = async ({
   eventsManager,
   deps,
 }: {
-  modal: ReturnType<typeof createModal>;
-  notifications: ReturnType<typeof createNotifications>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  notifications: Notifications;
+  eventsManager: EventsManager;
   deps: {
     getBroadcastData: () => BroadcastData | null;
     setBroadcastData: (broadcastData: BroadcastData) => void;

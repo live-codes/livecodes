@@ -71,6 +71,8 @@ export const isMobile = /* @__PURE__ */ () => {
 export const isMac = /* @__PURE__ */ () =>
   navigator.userAgent.includes('Mac') || navigator.platform.includes('Mac');
 
+export const ctrl = /* @__PURE__ */ (e: KeyboardEvent) => (isMac() ? e.metaKey : e.ctrlKey);
+
 export const isFirefox = /* @__PURE__ */ () => {
   const userAgent = navigator.userAgent.toLowerCase();
   return userAgent.includes('firefox') || userAgent.includes('fxios');
@@ -100,7 +102,9 @@ export const objectFilter = /* @__PURE__ */ (
 ) => Object.fromEntries(Object.entries(obj).filter(([k, v], i) => predicate(v, k, i)));
 
 export const copyToClipboard = /* @__PURE__ */ (text: string) => {
-  if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
+  if ('clipboard' in navigator) {
+    return navigator.clipboard.writeText(text);
+  } else if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
     const textarea = document.createElement('textarea');
     textarea.textContent = text;
     textarea.style.position = 'fixed'; // Prevent scrolling to bottom of page in Microsoft Edge.
@@ -563,9 +567,56 @@ type MustInclude<T, U extends T[]> = [T] extends [ValueOf<U>] ? U : never;
  * see https://stackoverflow.com/a/70694878/5054774
  */
 export const stringUnionToArray =
-  <T>() =>
-  <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) =>
-    elements;
+  /* @__PURE__ */
+
+
+    <T>() =>
+    <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) =>
+      elements;
+
+export const preventFocus = /* @__PURE__ */ (container: HTMLElement) => {
+  // avoid focus on tab
+  const editorFocusArea =
+    container.querySelector('textarea') || // monaco
+    container.querySelector('[role="textbox"]'); // codemirror
+  if (editorFocusArea) {
+    const disableFocus = () => (editorFocusArea.tabIndex = -1);
+    // monaco keeps setting it to 0
+    const ob = new MutationObserver((mutationList) => {
+      for (const mutation of mutationList) {
+        if (
+          // avoid infinite loop
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'tabindex' &&
+          editorFocusArea.tabIndex !== -1
+        ) {
+          disableFocus();
+        }
+      }
+    });
+    ob.observe(editorFocusArea, { attributes: true });
+    disableFocus();
+  }
+};
+
+export const findFirstFocusableElement = /* @__PURE__ */ (container: HTMLElement) =>
+  Array.from(container.getElementsByTagName('*')).find(isFocusable);
+
+export const isFocusable = /* @__PURE__ */ (item: any | null): boolean => {
+  if (!item || item.tabIndex < 0) return false;
+  switch (item.tagName) {
+    case 'A':
+      return !!item.href;
+    case 'INPUT':
+      return item.type !== 'hidden' && !item.disabled;
+    case 'SELECT':
+    case 'TEXTAREA':
+    case 'BUTTON':
+      return !item.disabled;
+    default:
+      return false;
+  }
+};
 
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
