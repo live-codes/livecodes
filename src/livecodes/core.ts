@@ -4310,7 +4310,10 @@ const handleCustomSettings = () => {
     const div = document.createElement('div');
     div.innerHTML = customSettingsScreen;
     const customSettingsContainer = div.firstChild as HTMLElement;
-    modal.show(customSettingsContainer, { onClose: () => customSettingsEditor?.destroy() });
+    modal.show(customSettingsContainer, {
+      onClose: () => customSettingsEditor?.destroy(),
+      autoFocus: false,
+    });
 
     const options: EditorOptions = {
       baseUrl,

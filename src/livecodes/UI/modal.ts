@@ -21,6 +21,7 @@ export const createModal = (deps: {
       isAsync = false,
       onClose = () => undefined,
       scrollToSelector = '',
+      autoFocus = true,
     }: ModalOptions = {},
   ) => {
     modal.className = size;
@@ -55,7 +56,9 @@ export const createModal = (deps: {
     modalContainer.appendChild(cornerCloseBtn);
 
     overlay.style.display = 'flex';
-    modal.showModal();
+    if (!modal.open) {
+      modal.showModal();
+    }
     overlay.classList.remove('hidden');
 
     setTimeout(() => {
@@ -66,7 +69,7 @@ export const createModal = (deps: {
           target.scrollIntoView();
           target.focus();
         }
-      } else {
+      } else if (autoFocus) {
         modal.focus();
       }
     }, 500);

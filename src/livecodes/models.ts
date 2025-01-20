@@ -7,6 +7,7 @@ export interface ModalOptions {
   isAsync?: boolean;
   onClose?: () => void;
   scrollToSelector?: string;
+  autoFocus?: boolean;
 }
 
 export interface Modal {
