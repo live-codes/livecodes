@@ -5405,7 +5405,14 @@ const createApi = (): API => {
       newConfig.mode !== 'editor' &&
       newConfig.mode !== 'codeblock' &&
       compiler.isFake;
+    const reloadCodeEditors =
+      newConfig.mode != null &&
+      newConfig.mode !== currentConfig.mode &&
+      (['codeblock', 'result'].includes(currentConfig.mode) ||
+        ['codeblock', 'result'].includes(newConfig.mode!));
+
     setConfig(newAppConfig);
+
     if (hasNewAppLanguage) {
       changeAppLanguage(newConfig.appLanguage!);
       return newAppConfig;
@@ -5413,6 +5420,9 @@ const createApi = (): API => {
     if (reloadCompiler) {
       compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
       await run();
+    }
+    if (reloadCodeEditors) {
+      await createEditors(newAppConfig);
     }
     await applyConfig(newConfig);
     const content = getContentConfig(newConfig as Config);
