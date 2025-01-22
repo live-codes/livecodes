@@ -501,8 +501,8 @@
   "commandMenu.changeUILanguage": {
     "translation": "UI言語の変更"
   },
-  "commandMenu.closeModal": {
-    "translation": "モーダルを閉じる"
+  "commandMenu.closeModalMenu": {
+    "translation": "モーダル/メニューを閉じる"
   },
   "commandMenu.contribute": {
     "translation": "貢献する"

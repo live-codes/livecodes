@@ -501,8 +501,8 @@
   "commandMenu.changeUILanguage": {
     "translation": "切换界面语言"
   },
-  "commandMenu.closeModal": {
-    "translation": "关闭对话框"
+  "commandMenu.closeModalMenu": {
+    "translation": "关闭模式/菜单"
   },
   "commandMenu.contribute": {
     "translation": "贡献"

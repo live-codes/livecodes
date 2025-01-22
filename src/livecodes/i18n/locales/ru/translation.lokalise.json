@@ -501,8 +501,8 @@
   "commandMenu.changeUILanguage": {
     "translation": "Изменить язык пользовательского интерфейса"
   },
-  "commandMenu.closeModal": {
-    "translation": "Закрыть модальное окно"
+  "commandMenu.closeModalMenu": {
+    "translation": "Закрыть модальное меню/меню"
   },
   "commandMenu.contribute": {
     "translation": "Вклад"

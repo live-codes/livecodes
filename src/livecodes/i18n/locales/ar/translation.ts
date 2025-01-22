@@ -292,7 +292,7 @@ const translation: I18nTranslation = {
       title: 'تغيير السمة',
     },
     changeUILanguage: 'تغيير لغة واجهة المستخدم',
-    closeModal: 'إغلاق النافذة المنبثقة',
+    closeModalMenu: 'إغلاق النافذة المنبثقة/القائمة',
     contribute: 'المساهمة',
     copy: 'نسخ الكود',
     copyAsDataUrl: 'نسخ الكود كرابط بيانات',

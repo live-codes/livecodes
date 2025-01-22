@@ -292,7 +292,7 @@ const translation: I18nTranslation = {
       title: 'テーマ変更',
     },
     changeUILanguage: 'UI言語の変更',
-    closeModal: 'モーダルを閉じる',
+    closeModalMenu: 'モーダル/メニューを閉じる',
     contribute: '貢献する',
     copy: 'コードをコピー',
     copyAsDataUrl: 'コードをデータURLとしてコピー',

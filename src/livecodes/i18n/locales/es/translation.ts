@@ -292,7 +292,7 @@ const translation: I18nTranslation = {
       title: 'Cambiar tema',
     },
     changeUILanguage: 'Cambiar el idioma de la interfaz de usuario',
-    closeModal: 'Cerrar Modal',
+    closeModalMenu: 'Cerrar Modal/Menú',
     contribute: 'Contribuir',
     copy: 'Copiar código',
     copyAsDataUrl: 'Copiar código como URL de datos',

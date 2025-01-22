@@ -501,8 +501,8 @@
   "commandMenu.changeUILanguage": {
     "translation": "تغيير لغة واجهة المستخدم"
   },
-  "commandMenu.closeModal": {
-    "translation": "إغلاق النافذة المنبثقة"
+  "commandMenu.closeModalMenu": {
+    "translation": "إغلاق النافذة المنبثقة/القائمة"
   },
   "commandMenu.contribute": {
     "translation": "المساهمة"

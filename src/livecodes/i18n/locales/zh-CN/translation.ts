@@ -291,7 +291,7 @@ const translation: I18nTranslation = {
       title: '切换主题',
     },
     changeUILanguage: '切换界面语言',
-    closeModal: '关闭对话框',
+    closeModalMenu: '关闭模式/菜单',
     contribute: '贡献',
     copy: '复制代码',
     copyAsDataUrl: '将代码复制为 Data URL',

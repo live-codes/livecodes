@@ -501,8 +501,8 @@
   "commandMenu.changeUILanguage": {
     "translation": "Alterar o idioma da IU"
   },
-  "commandMenu.closeModal": {
-    "translation": "Fechar modal"
+  "commandMenu.closeModalMenu": {
+    "translation": "Fechar Modal/Menu"
   },
   "commandMenu.contribute": {
     "translation": "Contribuir"

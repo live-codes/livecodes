@@ -501,8 +501,8 @@
   "commandMenu.changeUILanguage": {
     "translation": "UI کی زبان تبدیل کریں۔"
   },
-  "commandMenu.closeModal": {
-    "translation": "موڈل بند کریں۔"
+  "commandMenu.closeModalMenu": {
+    "translation": "موڈل/مینو بند کریں۔"
   },
   "commandMenu.contribute": {
     "translation": "تعاون کریں"

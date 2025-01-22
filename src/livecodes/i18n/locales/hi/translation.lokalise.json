@@ -501,8 +501,8 @@
   "commandMenu.changeUILanguage": {
     "translation": "UI भाषा बदलें"
   },
-  "commandMenu.closeModal": {
-    "translation": "मोडल बंद करें"
+  "commandMenu.closeModalMenu": {
+    "translation": "मोडल/मेनू बंद करें"
   },
   "commandMenu.contribute": {
     "translation": "योगदान देना"

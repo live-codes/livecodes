@@ -292,7 +292,7 @@ const translation: I18nTranslation = {
       title: 'تھیم تبدیل کریں۔',
     },
     changeUILanguage: 'UI کی زبان تبدیل کریں۔',
-    closeModal: 'موڈل بند کریں۔',
+    closeModalMenu: 'موڈل/مینو بند کریں۔',
     contribute: 'تعاون کریں',
     copy: 'کوڈ کاپی کریں',
     copyAsDataUrl: 'کوڈ کو ڈیٹا یو آر ایل کے طور پر کاپی کریں',
