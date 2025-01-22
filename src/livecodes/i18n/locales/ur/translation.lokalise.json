@@ -462,8 +462,11 @@
   "codeToImage.shadow": {
     "translation": "سایہ"
   },
-  "codeToImage.share": {
+  "codeToImage.shareImage": {
     "translation": "تصویر شیئر کریں۔"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "شیئر کریں"
   },
   "codeToImage.shareUrl": {
     "translation": "URL کا اشتراک کریں۔"
@@ -485,6 +488,210 @@
   },
   "codeToImage.windowStyle.windows": {
     "translation": "Windows"
+  },
+  "commandMenu.changeTheme.dark": {
+    "translation": "ڈارک تھیم میں تبدیل کریں۔"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "ہلکی تھیم میں تبدیل کریں۔"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "تھیم تبدیل کریں۔"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "UI کی زبان تبدیل کریں۔"
+  },
+  "commandMenu.closeModalMenu": {
+    "translation": "موڈل/مینو بند کریں۔"
+  },
+  "commandMenu.contribute": {
+    "translation": "تعاون کریں"
+  },
+  "commandMenu.copy": {
+    "translation": "کوڈ کاپی کریں"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "کوڈ کو ڈیٹا یو آر ایل کے طور پر کاپی کریں"
+  },
+  "commandMenu.disableAI": {
+    "translation": "AI کوڈ اسسٹنٹ کو غیر فعال کریں۔"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "آٹو سیو کو غیر فعال کریں۔"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "آٹو اپ ڈیٹ کو غیر فعال کریں۔"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "ایماکس موڈ کو غیر فعال کریں۔"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "آن سیو فارمیٹ کو غیر فعال کریں۔"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "غیر محفوظ شدہ بازیافت کو غیر فعال کریں۔"
+  },
+  "commandMenu.disableVim": {
+    "translation": "ویم موڈ کو غیر فعال کریں۔"
+  },
+  "commandMenu.enableAI": {
+    "translation": "اے آئی کوڈ اسسٹنٹ فعال کریں"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "آٹو سیو کو فعال کریں۔"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "آٹو اپ ڈیٹ کو فعال کریں۔"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "ایماکس موڈ کو فعال کریں۔"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "آن سیو فارمیٹ کو فعال کریں۔"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "غیر محفوظ شدہ بازیافت کو فعال کریں۔"
+  },
+  "commandMenu.enableVim": {
+    "translation": "ویم موڈ کو فعال کریں۔"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "فوکس ایڈیٹر"
+  },
+  "commandMenu.focus.home": {
+    "translation": "فوکس کو گھر پر منتقل کریں۔"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "فوکس کو ایڈیٹر سے باہر منتقل کریں۔"
+  },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "ٹیب فوکس موڈ کو ٹوگل کریں۔"
+  },
+  "commandMenu.formatCode": {
+    "translation": "فارمیٹ کوڈ"
+  },
+  "commandMenu.home": {
+    "translation": "ہوم"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "افقی لے آؤٹ"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "کی بورڈ شارٹ کٹس"
+  },
+  "commandMenu.login": {
+    "translation": "لاگ ان"
+  },
+  "commandMenu.logout": {
+    "translation": "لاگ آؤٹ"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "والدین کو منتقل کریں"
+  },
+  "commandMenu.placeholder": {
+    "translation": "کمانڈ ٹائپ کریں یا تلاش کریں..."
+  },
+  "commandMenu.processors": {
+    "translation": "پروسیسرز"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "ریسپانسو لے آؤٹ"
+  },
+  "commandMenu.run": {
+    "translation": "چلائیں"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "ایک نئے پروجیکٹ کے طور پر محفوظ کریں۔"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "بطور ٹیمپلیٹ محفوظ کریں۔"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "زبان منتخب کریں۔"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "مرتب شدہ کوڈ کو ٹوگل کریں۔"
+  },
+  "commandMenu.show.console": {
+    "translation": "کنسول ٹوگل کریں۔"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "فوکس موڈ ٹوگل کریں۔"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "پوری اسکرین کو ٹوگل کریں۔"
+  },
+  "commandMenu.show.markup": {
+    "translation": "مارک اپ ایڈیٹر دکھائیں۔"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "مرتب شدہ کوڈ کو زیادہ سے زیادہ بنائیں"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "کنسول کو زیادہ سے زیادہ بنائیں"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "زیادہ سے زیادہ ٹیسٹ"
+  },
+  "commandMenu.show.next": {
+    "translation": "اگلا ایڈیٹر دکھائیں۔"
+  },
+  "commandMenu.show.previous": {
+    "translation": "پچھلا ایڈیٹر دکھائیں۔"
+  },
+  "commandMenu.show.result": {
+    "translation": "نتیجہ کو ٹوگل کریں"
+  },
+  "commandMenu.show.runTests": {
+    "translation": "ٹیسٹ چلائیں۔"
+  },
+  "commandMenu.show.script": {
+    "translation": "اسکرپٹ ایڈیٹر دکھائیں۔"
+  },
+  "commandMenu.show.style": {
+    "translation": "اسٹائل ایڈیٹر دکھائیں۔"
+  },
+  "commandMenu.show.tests": {
+    "translation": "ٹوگل ٹیسٹ"
+  },
+  "commandMenu.show.title": {
+    "translation": "دکھائیں…"
+  },
+  "commandMenu.show.zoom": {
+    "translation": "ٹوگل رزلٹ زوم"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "شروعاتی سانچے"
+  },
+  "commandMenu.sync": {
+    "translation": "مطابقت پذیری (بی ٹا)…"
+  },
+  "commandMenu.template": {
+    "translation": "سانچہ"
+  },
+  "commandMenu.theme.color": {
+    "translation": "تھیم کا رنگ سیٹ کریں۔"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "ڈیفالٹ تھیم کا رنگ سیٹ کریں۔"
+  },
+  "commandMenu.title": {
+    "translation": "کمانڈ مینو"
+  },
+  "commandMenu.toClose": {
+    "translation": "بند کرنا"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "نیویگیٹ کرنے کے لیے"
+  },
+  "commandMenu.toSelect": {
+    "translation": "منتخب کرنے کے لئے"
+  },
+  "commandMenu.toggle": {
+    "translation": "ٹوگل: "
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "عمودی لے آؤٹ"
   },
   "core.broadcast.heading": {
     "translation": "نشریات"
@@ -1077,6 +1284,18 @@
   "import.success": {
     "translation": "درآمد کامیاب!"
   },
+  "keyboardShortcuts.command": {
+    "translation": "حکم"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "کوڈ ایڈیٹر کی بورڈ شارٹ کٹس کی فہرست کے لیے، دیکھیں <tag-1> VS کوڈ شارٹ کٹس </tag-1>"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "کی بورڈ شارٹ کٹس"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "چابی"
+  },
   "login.accessAllowed": {
     "translation": "رسائی کی اجازت دیں:"
   },
@@ -1143,6 +1362,9 @@
   "menu.broadcast": {
     "translation": "نشریات …"
   },
+  "menu.commandMenu": {
+    "translation": "کمانڈ مینو"
+  },
   "menu.config": {
     "translation": "ترتیب"
   },
@@ -1199,6 +1421,9 @@
   },
   "menu.import": {
     "translation": "درآمد …"
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "کی بورڈ شارٹ کٹس"
   },
   "menu.layout": {
     "translation": "عمودی لے آؤٹ"
@@ -1832,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "اسکیم شروعاتی"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/ui شروعاتی"
   },
   "templates.starter.solid": {
     "translation": "سالڈ شروعاتی"

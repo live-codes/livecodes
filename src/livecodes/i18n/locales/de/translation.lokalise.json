@@ -462,8 +462,11 @@
   "codeToImage.shadow": {
     "translation": "Schatten"
   },
-  "codeToImage.share": {
+  "codeToImage.shareImage": {
     "translation": "Bild teilen"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "Teilen"
   },
   "codeToImage.shareUrl": {
     "translation": "URL freigeben"
@@ -485,6 +488,210 @@
   },
   "codeToImage.windowStyle.windows": {
     "translation": "Windows"
+  },
+  "commandMenu.changeTheme.dark": {
+    "translation": "Zu dunklem Thema wechseln"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "Zu Light Theme wechseln"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "Thema ändern"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "UI-Sprache ändern"
+  },
+  "commandMenu.closeModalMenu": {
+    "translation": "Modal/Menü schließen"
+  },
+  "commandMenu.contribute": {
+    "translation": "Beitragen"
+  },
+  "commandMenu.copy": {
+    "translation": "Code kopieren"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "Code als Daten-URL kopieren"
+  },
+  "commandMenu.disableAI": {
+    "translation": "Deaktivieren des KI-Code-Assistenten"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "Automatisches Speichern deaktivieren"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "Automatische Aktualisierung deaktivieren"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "Emacs-Modus deaktivieren"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "Formatieren beim Speichern deaktivieren"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "Deaktivieren Wiederherstellen ungesicherter"
+  },
+  "commandMenu.disableVim": {
+    "translation": "Vim-Modus deaktivieren"
+  },
+  "commandMenu.enableAI": {
+    "translation": "KI-Code-Assistent aktivieren"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "Automatisches Speichern einschalten"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "Automatisches Update einschalten"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "Emacs-Modus einschalten"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "Formatieren beim Speichern aktivieren"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "Wiederherstellen ungesicherter Daten aktivieren"
+  },
+  "commandMenu.enableVim": {
+    "translation": "Vim-Modus einschalten"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "Konzentrieren Sie sich auf den Herausgeber"
+  },
+  "commandMenu.focus.home": {
+    "translation": "Fokus nach Hause verschieben"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "Fokus aus dem Editor verschieben"
+  },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "Tabulator-Fokusmodus umschalten"
+  },
+  "commandMenu.formatCode": {
+    "translation": "Formatieren von Code"
+  },
+  "commandMenu.home": {
+    "translation": "Startseite"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "Horizontales Layout"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "Tastaturkurzbefehle"
+  },
+  "commandMenu.login": {
+    "translation": "Anmelden"
+  },
+  "commandMenu.logout": {
+    "translation": "Abmeldung"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "zur Muttergesellschaft wechseln"
+  },
+  "commandMenu.placeholder": {
+    "translation": "Geben Sie einen Befehl ein oder suchen Sie..."
+  },
+  "commandMenu.processors": {
+    "translation": "Prozessoren"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "Responsives Layout"
+  },
+  "commandMenu.run": {
+    "translation": "Ausführen"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "Als neues Projekt speichern"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "Als Vorlage speichern"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "Sprache auswählen"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "Kompilierten Code umschalten"
+  },
+  "commandMenu.show.console": {
+    "translation": "Toggle-Konsole"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "Fokusmodus umschalten"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "Vollbild umschalten"
+  },
+  "commandMenu.show.markup": {
+    "translation": "Markup-Editor anzeigen"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "Maximierung des kompilierten Codes"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "Konsole maximieren"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "Tests maximieren"
+  },
+  "commandMenu.show.next": {
+    "translation": "Nächsten Editor anzeigen"
+  },
+  "commandMenu.show.previous": {
+    "translation": "Vorherigen Editor anzeigen"
+  },
+  "commandMenu.show.result": {
+    "translation": "Ergebnis umschalten"
+  },
+  "commandMenu.show.runTests": {
+    "translation": "Tests durchführen"
+  },
+  "commandMenu.show.script": {
+    "translation": "Skript-Editor anzeigen"
+  },
+  "commandMenu.show.style": {
+    "translation": "Stil-Editor anzeigen"
+  },
+  "commandMenu.show.tests": {
+    "translation": "Tests umschalten"
+  },
+  "commandMenu.show.title": {
+    "translation": "Anzeigen ..."
+  },
+  "commandMenu.show.zoom": {
+    "translation": "Ergebniszoom umschalten"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "Starter-Vorlagen"
+  },
+  "commandMenu.sync": {
+    "translation": "Sync (beta) ..."
+  },
+  "commandMenu.template": {
+    "translation": "Vorlage"
+  },
+  "commandMenu.theme.color": {
+    "translation": "Themenfarbe einstellen"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "Standard-Themenfarbe festlegen"
+  },
+  "commandMenu.title": {
+    "translation": "Befehlsmenü"
+  },
+  "commandMenu.toClose": {
+    "translation": "zu schließen"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "zum Navigieren"
+  },
+  "commandMenu.toSelect": {
+    "translation": "zum Auswählen"
+  },
+  "commandMenu.toggle": {
+    "translation": "Umschalten: "
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "Vertikales Layout"
   },
   "core.broadcast.heading": {
     "translation": "Übertragung"
@@ -1077,6 +1284,18 @@
   "import.success": {
     "translation": "Import erfolgreich!"
   },
+  "keyboardShortcuts.command": {
+    "translation": "Befehl"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "Eine Liste der Tastaturkürzel für den Code-Editor finden Sie unter <tag-1> VS Code-Tastenkombinationen</tag-1>"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "Tastaturkurzbefehle"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "Schlüssel"
+  },
   "login.accessAllowed": {
     "translation": "Zugriff erlauben auf:"
   },
@@ -1143,6 +1362,9 @@
   "menu.broadcast": {
     "translation": "Übertragen …"
   },
+  "menu.commandMenu": {
+    "translation": "Befehlsmenü"
+  },
   "menu.config": {
     "translation": "Konfiguration"
   },
@@ -1199,6 +1421,9 @@
   },
   "menu.import": {
     "translation": "Importieren …"
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "Tastaturkurzbefehle"
   },
   "menu.layout": {
     "translation": "Vertikales Layout"
@@ -1832,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "Scheme-Starter"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/ui-Starter"
   },
   "templates.starter.solid": {
     "translation": "Solid-Starter"
