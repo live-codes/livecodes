@@ -2,11 +2,16 @@
   <div class="modal-title" data-i18n="sync.heading">Sync to GitHub Repo</div>
   <div id="sync-status" class="modal-screen-container"></div>
 
-  <ul id="sync-tabs" class="modal-tabs">
-    <li data-target="new-repo" class="active" data-i18n="sync.create.heading">Create New Repo</li>
-    <li data-target="existing-repo" data-i18n="sync.existing.heading">Existing Repo</li>
-  </ul>
   <div id="sync-screens" class="modal-screen-container">
+    <ul id="sync-tabs" class="modal-tabs">
+      <li class="active">
+        <a href="#" data-target="new-repo" data-i18n="sync.create.heading">Create New Repo</a>
+      </li>
+      <li>
+        <a href="#" data-target="existing-repo" data-i18n="sync.existing.heading">Existing Repo</a>
+      </li>
+    </ul>
+
     <div id="new-repo" class="tab-content active">
       <div class="modal-screen">
         <form id="new-repo-form">

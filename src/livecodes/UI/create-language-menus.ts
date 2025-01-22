@@ -1,16 +1,25 @@
-import type { createEventsManager } from '../events';
-import type { EditorId, Config, Language, Processor, LanguageSpecs, Template } from '../models';
-import { languages } from './languages';
-import { processors } from './processors';
-import { languageIsEnabled, processorIsEnabled } from './utils';
+/* eslint-disable import/no-internal-modules */
+import type {
+  EditorId,
+  Config,
+  Language,
+  Processor,
+  LanguageSpecs,
+  Template,
+  EventsManager,
+} from '../models';
+import { languages } from '../languages/languages';
+import { processors } from '../languages/processors';
+import { languageIsEnabled, processorIsEnabled } from '../languages/utils';
 
 export const createLanguageMenus = (
   config: Config,
   baseUrl: string,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
   showLanguageInfo: (languageInfo: HTMLElement) => void,
   loadStarterTemplate: (templateName: Template['name']) => void,
   importCode: (options: { url: string }) => Promise<boolean>,
+  registerMenuButton: (menu: HTMLElement, button: HTMLElement) => void,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const rootList = document.createElement('ul');
@@ -19,17 +28,16 @@ export const createLanguageMenus = (
   let editorsNumber = editorIds.length;
 
   editorIds.forEach((editorId) => {
-    const editorSelector = document.createElement('li');
+    const editorSelector = document.createElement('a');
+    editorSelector.href = '#';
     editorSelector.id = editorId + '-selector';
     editorSelector.classList.add('editor-title', 'noselect');
     editorSelector.dataset.editor = editorId;
-    editorSelector.tabIndex = 1;
     editorSelector.innerHTML = `
       <span></span>
       <a
         href="javascript:void(0)"
         onclick="event.stopPropagation();"
-        tabIndex="1"
         class="language-menu-button"
         title="${window.deps.translateString('core.changeLanguage.hint', 'Change Language')}"
       >
@@ -41,6 +49,7 @@ export const createLanguageMenus = (
     const menuScroller = document.createElement('div');
     menuScroller.classList.add('menu-scroller');
     menuScroller.classList.add('menu-scroller-' + editorId);
+    registerMenuButton(menuScroller, editorSelector.querySelector('.language-menu-button')!);
     editorSelector.appendChild(menuScroller);
 
     const languageMenu = document.createElement('ul');
@@ -159,14 +168,16 @@ export const createProcessorItem = (processor: { name: string; title: string }) 
   const processorItem = document.createElement('li');
   processorItem.classList.add('language-item', 'processor-item');
   processorItem.innerHTML = `
-        <label class="switch">
-          <span>${processor.title}</span>
-          <div>
-            <input id="${processor.name}" type="checkbox" data-processor="${processor.name}" />
-            <span class="slider round"></span>
-          </div>
-        </label>
-        `;
+  <a href="#">
+    <label class="switch">
+      <span>${processor.title}</span>
+      <div>
+        <input id="${processor.name}" type="checkbox" data-processor="${processor.name}" tabindex="-1" />
+        <span class="slider round"></span>
+      </div>
+    </label>
+  </a>
+  `;
   return processorItem;
 };
 

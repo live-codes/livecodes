@@ -9,8 +9,6 @@ import {
   processorIsEnabled,
   getLanguageByAlias,
   mapLanguage,
-  createLanguageMenus,
-  createProcessorItem,
   getLanguageTitle,
   getLanguageSpecs,
   getLanguageExtension,
@@ -57,6 +55,9 @@ import type {
   SDKEvent,
   Editor,
   AppLanguage,
+  Modal,
+  Notifications,
+  EventsManager,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -68,7 +69,7 @@ import type {
 import type { Formatter } from './formatter/models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
-import { createModal } from './modal';
+import { createModal } from './UI/modal';
 import {
   menuProjectHTML,
   menuSettingsHTML,
@@ -113,6 +114,7 @@ import {
   colorToHex,
   capitalize,
   isMac,
+  ctrl,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -161,6 +163,7 @@ import type {
 import { appLanguages } from './i18n/app-languages';
 import { themeColors } from './UI/theme-colors';
 import { getCommandMenuActions } from './UI/command-menu-actions';
+import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
 
 // declare global dependencies
 declare global {
@@ -185,8 +188,8 @@ declare global {
 
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
-let notifications: ReturnType<typeof createNotifications>;
-export let modal: ReturnType<typeof createModal>;
+let notifications: Notifications;
+let modal: Modal;
 let i18n: Await<ReturnType<typeof import('./i18n').init>> | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
@@ -221,7 +224,6 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
-let defaultColor: string | null = null;
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
@@ -283,10 +285,11 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
         );
       }
     }
+    iframe.tabIndex = 1;
 
-    if (['codeblock', 'editor'].includes(getConfig().mode)) {
-      result = '';
-    }
+    // if (['codeblock', 'editor'].includes(getConfig().mode)) {
+    //   result = '';
+    // }
 
     const scriptLang = getEditorLanguage('script') || 'javascript';
     const compilers = getAllCompilers(languages, getConfig(), baseUrl);
@@ -593,17 +596,22 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   const resultElement = UI.getResultElement();
   const gutterElement = UI.getGutterElement();
   const runButton = UI.getRunButton();
+  const resultButton = UI.getResultButton();
   const editorTools = UI.getEditorToolbar();
 
   const showToolbar = modeConfig[0] === '1';
   const showEditor = modeConfig[1] === '1';
   const showResult = modeConfig[2] === '1';
 
-  toolbarElement.style.display = 'flex';
-  editorsElement.style.display = 'flex';
-  resultElement.style.display = 'flex';
-  outputElement.style.display = 'block';
-  runButton.style.visibility = 'visible';
+  toolbarElement.style.display = '';
+  editorContainerElement.style.height = '';
+  editorsElement.style.display = '';
+  resultElement.style.display = '';
+  outputElement.style.display = '';
+  editorTools.style.display = '';
+  runButton.style.visibility = '';
+  resultButton.style.visibility = '';
+
   if (gutterElement) {
     gutterElement.style.display = 'block';
   }
@@ -625,8 +633,9 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
     split?.destroy(true);
     split = null;
   }
-  if (mode === 'editor' || mode === 'codeblock') {
+  if (mode === 'editor') {
     runButton.style.visibility = 'hidden';
+    resultButton.style.visibility = 'hidden';
   }
   if (mode === 'codeblock') {
     editorTools.style.display = 'none';
@@ -1484,6 +1493,7 @@ const checkSavedStatus = (doNotCloseModal = false): Promise<boolean> => {
       }
       resolve(false);
     });
+    UI.getModalSaveButton().focus();
   });
 };
 
@@ -1843,23 +1853,7 @@ const changeThemeColor = () => {
   }
 };
 
-const getDefaultColor = () => {
-  if (defaultColor) return defaultColor;
-  const root = document.documentElement;
-  const theme = getConfig().theme;
-  root.classList.remove('light');
-  const h = getComputedStyle(root).getPropertyValue('--hue');
-  const s = getComputedStyle(root).getPropertyValue('--st');
-  const l = getComputedStyle(root).getPropertyValue('--lt');
-  if (theme === 'light') {
-    root.classList.add('light');
-  }
-  if (h === '' || s === '' || l === '') {
-    return themeColors[0].themeColor;
-  }
-  defaultColor = `hsl(${h}, ${s}, ${l})`;
-  return defaultColor;
-};
+const getDefaultColor = () => `hsl(214, 40%, 50%)`;
 
 const setFontSize = () => {
   const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
@@ -2315,7 +2309,8 @@ const handleSelectEditor = () => {
     eventsManager.addEventListener(
       title,
       'click',
-      () => {
+      (ev) => {
+        ev.preventDefault();
         showEditor(title.dataset.editor as EditorId);
         setAppData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
         setProjectRecover();
@@ -2330,8 +2325,9 @@ const handleChangeLanguage = () => {
     UI.getLanguageMenuLinks().forEach((menuItem) => {
       eventsManager.addEventListener(
         menuItem,
-        'mousedown', // fire this event before unhover
+        'click',
         async () => {
+          menuItem.closest('.menu-scroller')?.classList.add('hidden');
           await changeLanguage(menuItem.dataset.lang as Language);
           setAppData({ language: menuItem.dataset.lang as Language });
         },
@@ -2395,7 +2391,6 @@ const handleChangeContent = () => {
 
 const handleKeyboardShortcuts = () => {
   let lastkeys = '';
-  const ctrl = (e: KeyboardEvent) => (isMac() ? e.metaKey : e.ctrlKey);
 
   const hotKeys = async (e: KeyboardEvent) => {
     // Ctrl + P opens the command palette
@@ -2470,12 +2465,21 @@ const handleKeyboardShortcuts = () => {
       return;
     }
 
+    // Esc closes dropdown menus
     // Esc + Esc moves focus out of editor
     // Esc + Esc + Esc moves focus to logo
     if (e.code === 'Escape') {
+      document.querySelectorAll('.menu-scroller').forEach((el) => el.classList.add('hidden'));
       if (lastkeys === 'Esc') {
         e.preventDefault();
-        UI.getFocusButton()?.focus();
+        if (
+          (toolsPane?.getStatus() === 'open' || toolsPane?.getStatus() === 'full') &&
+          toolsPane.getActiveTool() === 'console'
+        ) {
+          UI.getConsoleButton()?.focus();
+        } else {
+          UI.getFocusButton()?.focus();
+        }
         lastkeys = 'Esc + Esc';
         return;
       }
@@ -2671,7 +2675,6 @@ const handleCommandMenu = async () => {
   };
 
   const onHotkey = async (e: KeyboardEvent) => {
-    const ctrl = (e: KeyboardEvent) => (isMac() ? e.metaKey : e.ctrlKey);
     if (ctrl(e) && e.code === 'KeyK') {
       e.preventDefault();
       // eslint-disable-next-line no-underscore-dangle
@@ -2764,6 +2767,7 @@ const handleI18nMenu = () => {
   i18nMenu.appendChild(docsLi);
   menuContainer.appendChild(i18nMenu);
   adjustFontSize(menuContainer);
+  registerMenuButton(menuContainer, UI.getI18nMenuButton());
 };
 
 const handleEditorTools = () => {
@@ -2870,18 +2874,15 @@ const handleProcessors = () => {
     const processorItem = createProcessorItem(processor);
     styleMenu.append(processorItem);
     eventsManager.addEventListener(
-      processorItem,
-      'mousedown',
+      processorItem.firstElementChild as HTMLElement,
+      'click',
       async (event) => {
         event.preventDefault();
-        event.stopPropagation();
         const toggle = processorItem.querySelector<HTMLInputElement>('input');
         if (!toggle) return;
         toggle.checked = !toggle.checked;
-
         const processorName = toggle.dataset.processor as Processor;
         if (!processorName || !processorList.find((p) => p.name === processorName)) return;
-
         setConfig({
           ...getConfig(),
           processors: [
@@ -2897,10 +2898,36 @@ const handleProcessors = () => {
       },
       false,
     );
+  });
+};
 
-    eventsManager.addEventListener(processorItem, 'click', async (event) => {
-      event.preventDefault();
-      event.stopPropagation();
+const registerMenuButton = (menu: HTMLElement, button: HTMLElement) => {
+  menu.classList.add('hidden');
+  // onclick outside
+  const onClickOutside = (event: MouseEvent) => {
+    if (
+      !button.contains(event.target as Node) &&
+      !menu.firstElementChild?.contains(event.target as Node)
+    ) {
+      menu.classList.add('hidden');
+    }
+  };
+
+  const onIframeClicked = (event: MessageEvent) => {
+    if (event.data.type !== 'clicked') return;
+    menu.classList.add('hidden');
+  };
+
+  eventsManager.addEventListener(window, 'click', onClickOutside);
+  eventsManager.addEventListener(window, 'message', onIframeClicked);
+
+  eventsManager.addEventListener(button, 'click', () => {
+    document.querySelectorAll('.menu-scroller').forEach((el) => {
+      if (el === menu) {
+        menu.classList.toggle('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
     });
   });
 };
@@ -2916,20 +2943,7 @@ const handleAppMenuProject = () => {
   menuProjectContainer.innerHTML = html;
   translateElement(menuProjectContainer);
   // adjustFontSize(menuProjectContainer);
-
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the container covers most of the screen
-  // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuProjectContainer, 'mousedown', (event) => {
-    if (event.target === menuProjectContainer) {
-      menuProjectContainer.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(menuProjectButton, 'mousedown', () => {
-    menuProjectContainer.classList.remove('hidden');
-  });
+  registerMenuButton(menuProjectContainer, menuProjectButton);
 };
 
 const handleAppMenuSettings = () => {
@@ -2944,20 +2958,7 @@ const handleAppMenuSettings = () => {
 
   translateElement(menuSettingsContainer);
   adjustFontSize(menuSettingsContainer);
-
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the container covers most of the screen
-  // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuSettingsContainer, 'mousedown', (event) => {
-    if (event.target === menuSettingsContainer) {
-      menuSettingsContainer.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(menuSettingsButton, 'mousedown', () => {
-    menuSettingsContainer.classList.remove('hidden');
-  });
+  registerMenuButton(menuSettingsContainer, menuSettingsButton);
 };
 
 const handleAppMenuHelp = () => {
@@ -2967,22 +2968,10 @@ const handleAppMenuHelp = () => {
 
   const html = isMac() ? menuHelpHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>') : menuHelpHTML;
   menuHelpContainer.innerHTML = html;
+  menuHelpContainer.classList.add('hidden');
   translateElement(menuHelpContainer);
   // adjustFontSize(menuHelpContainer);
-
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the container covers most of the screen
-  // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuHelpContainer, 'mousedown', (event) => {
-    if (event.target === menuHelpContainer) {
-      menuHelpContainer.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(menuHelpButton, 'mousedown', () => {
-    menuHelpContainer.classList.remove('hidden');
-  });
+  registerMenuButton(menuHelpContainer, menuHelpButton);
 };
 
 /**
@@ -4321,7 +4310,10 @@ const handleCustomSettings = () => {
     const div = document.createElement('div');
     div.innerHTML = customSettingsScreen;
     const customSettingsContainer = div.firstChild as HTMLElement;
-    modal.show(customSettingsContainer, { onClose: () => customSettingsEditor?.destroy() });
+    modal.show(customSettingsContainer, {
+      onClose: () => customSettingsEditor?.destroy(),
+      autoFocus: false,
+    });
 
     const options: EditorOptions = {
       baseUrl,
@@ -4936,7 +4928,7 @@ const changeAppLanguage = async (appLanguage: AppLanguage) => {
 
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal(translateElement);
+  modal = createModal({ translate: translateElement, onClose: () => getActiveEditor().focus() });
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
@@ -5008,7 +5000,7 @@ const extraHandlers = async () => {
   showConsoleMessage();
 };
 
-const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
+const configureEmbed = (config: Config, eventsManager: EventsManager) => {
   document.body.classList.add('embed');
   if (config.mode === 'result') {
     document.body.classList.add('result');
@@ -5366,6 +5358,7 @@ const initializePlayground = async (
     showLanguageInfo,
     loadStarterTemplate,
     importExternalContent,
+    registerMenuButton,
   );
   await createEditors(getConfig());
   await initializeFn?.();
@@ -5403,13 +5396,23 @@ const createApi = (): API => {
   };
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
-    const newAppConfig = buildConfig({ ...getConfig(), ...newConfig });
+    const currentConfig = getConfig();
+    const newAppConfig = buildConfig({ ...currentConfig, ...newConfig });
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
+    const reloadCompiler =
+      (currentConfig.mode === 'editor' || currentConfig.mode === 'codeblock') &&
+      newConfig.mode !== 'editor' &&
+      newConfig.mode !== 'codeblock' &&
+      compiler.isFake;
     setConfig(newAppConfig);
     if (hasNewAppLanguage) {
       changeAppLanguage(newConfig.appLanguage!);
       return newAppConfig;
+    }
+    if (reloadCompiler) {
+      compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
+      await run();
     }
     await applyConfig(newConfig);
     const content = getContentConfig(newConfig as Config);

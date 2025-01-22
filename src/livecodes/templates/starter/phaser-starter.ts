@@ -39,7 +39,7 @@ body {
 // based on https://github.com/phaserjs/template-vite
 // and https://phaser.io/sandbox/XyqPcjNr
 
-import * as Phaser from "phaser";
+import Phaser from "phaser";
 
 // learn about adding assets in livecodes
 // https://livecodes.io/docs/features/assets

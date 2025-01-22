@@ -1,7 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import type { createModal } from '../modal';
-import type { createNotifications } from '../notifications';
-import type { createEventsManager } from '../events';
+import type { EventsManager, Modal, Notifications } from '../models';
 import type { Stores } from '../storage';
 import { backupScreen } from '../html';
 import { base64ToUint8Array, downloadFile, getDate, loadScript } from '../utils/utils';
@@ -15,21 +13,23 @@ import {
   getImportFileInputLabel,
 } from './selectors';
 
-const createBackupContainer = (eventsManager: ReturnType<typeof createEventsManager>) => {
+const createBackupContainer = (eventsManager: EventsManager) => {
   const div = document.createElement('div');
   div.innerHTML = backupScreen;
   const backupContainer = div.firstChild as HTMLElement;
 
   const tabs = backupContainer.querySelectorAll<HTMLElement>('#backup-tabs li');
   tabs.forEach((tab) => {
-    eventsManager.addEventListener(tab, 'click', () => {
+    const link = tab.querySelector('a');
+    if (!link) return;
+    eventsManager.addEventListener(link, 'click', () => {
       tabs.forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
 
       document.querySelectorAll('#backup-screens > div').forEach((screen) => {
         screen.classList.remove('active');
       });
-      const target = backupContainer.querySelector('#' + tab.dataset.target);
+      const target = backupContainer.querySelector('#' + link.dataset.target);
       target?.classList.add('active');
       target?.querySelector('input')?.focus();
     });
@@ -84,9 +84,9 @@ export const createBackupUI = ({
   deps,
 }: {
   baseUrl: string;
-  modal: ReturnType<typeof createModal>;
-  notifications: ReturnType<typeof createNotifications>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  notifications: Notifications;
+  eventsManager: EventsManager;
   stores: Stores;
   deps: {
     loadUserConfig: () => void;

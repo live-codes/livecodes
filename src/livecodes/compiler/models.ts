@@ -10,6 +10,7 @@ export interface Compiler {
   ) => Promise<CompileResult>;
   clearCache: () => void;
   typescriptFeatures: (options: { feature: TypescriptFeatures; payload: any }) => Promise<unknown>;
+  isFake: boolean;
 }
 
 export type LanguageOrProcessor = Language | Processor;

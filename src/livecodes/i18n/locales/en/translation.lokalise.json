@@ -668,9 +668,9 @@
     "notes": "",
     "translation": "Change UI Language"
   },
-  "commandMenu.closeModal": {
+  "commandMenu.closeModalMenu": {
     "notes": "",
-    "translation": "Close Modal"
+    "translation": "Close Modal/Menu"
   },
   "commandMenu.contribute": {
     "notes": "",
@@ -751,6 +751,10 @@
   "commandMenu.focus.outOfEditor": {
     "notes": "",
     "translation": "Move Focus out of Editor"
+  },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "notes": "",
+    "translation": "Toggle Tab Focus Mode"
   },
   "commandMenu.formatCode": {
     "notes": "",
@@ -2739,6 +2743,10 @@
   "templates.starter.scheme": {
     "notes": "",
     "translation": "Scheme Starter"
+  },
+  "templates.starter.shadcnui": {
+    "notes": "",
+    "translation": "shadcn/ui Starter"
   },
   "templates.starter.solid": {
     "notes": "",

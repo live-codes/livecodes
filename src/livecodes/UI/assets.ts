@@ -1,9 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 import type { DeployResult } from '../deploy';
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { Asset, FileType, Screen, User } from '../models';
-import type { createNotifications } from '../notifications';
+import type { Asset, EventsManager, FileType, Modal, Notifications, Screen, User } from '../models';
 import type { GitHubFile } from '../services/github';
 import { generateId, type Storage } from '../storage';
 import { addAssetScreen, assetsScreen } from '../html';
@@ -103,7 +100,7 @@ const createLinkContent = (item: Asset, baseUrl: string) => {
 const createAssetItem = (
   item: Asset,
   list: HTMLElement,
-  notifications: ReturnType<typeof createNotifications>,
+  notifications: Notifications,
   baseUrl: string,
 ) => {
   const li = document.createElement('li');
@@ -124,7 +121,7 @@ const createAssetItem = (
   const actions = document.createElement('div');
   actions.classList.add('actions');
   li.appendChild(actions);
-  const deleteButton = document.createElement('div');
+  const deleteButton = document.createElement('button');
   deleteButton.innerHTML = deleteIcon;
   deleteButton.classList.add('action-button', 'delete-button');
   deleteButton.title = window.deps.translateString('assets.action.delete', 'Delete');
@@ -136,7 +133,7 @@ const createAssetItem = (
 const organizeAssets = async (
   getAssets: () => Promise<Asset[]>,
   showAssets: (assets: Asset[]) => Promise<void>,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
 ) => {
   let sortBy: 'date' | 'filename' = 'date';
   let sortByDirection: 'asc' | 'desc' = 'desc';
@@ -338,10 +335,10 @@ export const createAssetsList = async ({
   baseUrl,
 }: {
   assetsStorage: Storage<Asset>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  eventsManager: EventsManager;
   showScreen: (screen: Screen['screen']) => void;
-  notifications: ReturnType<typeof createNotifications>;
-  modal: ReturnType<typeof createModal>;
+  notifications: Notifications;
+  modal: Modal;
   baseUrl: string;
 }) => {
   const div = document.createElement('div');
@@ -455,9 +452,9 @@ export const createAddAssetContainer = ({
   activeTab,
 }: {
   assetsStorage: Storage<Asset>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  eventsManager: EventsManager;
   showScreen: (screen: Screen['screen'], activeTab?: number) => Promise<void>;
-  notifications: ReturnType<typeof createNotifications>;
+  notifications: Notifications;
   deployAsset: (user: User, file: GitHubFile) => Promise<DeployResult | null>;
   getUser: (fn?: () => void) => Promise<User | void>;
   baseUrl: string;
@@ -470,17 +467,21 @@ export const createAddAssetContainer = ({
 
   const tabs = addAssetContainer.querySelectorAll<HTMLElement>('#add-asset-tabs li');
   const activateTab = (tab: HTMLElement) => {
+    const link = tab.querySelector('a');
+    if (!link) return;
     tabs.forEach((t) => t.classList.remove('active'));
     tab.classList.add('active');
 
     document.querySelectorAll('#add-asset-screens > div').forEach((screen) => {
       screen.classList.remove('active');
     });
-    const target = addAssetContainer.querySelector('#' + tab.dataset.target);
+    const target = addAssetContainer.querySelector('#' + link.dataset.target);
     target?.classList.add('active');
     target?.querySelector('input')?.focus();
   };
   tabs.forEach((tab) => {
+    const link = tab.querySelector('a');
+    if (!link) return;
     eventsManager.addEventListener(tab, 'click', () => activateTab(tab));
   });
   setTimeout(() => {
