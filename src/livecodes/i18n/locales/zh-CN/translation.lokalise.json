@@ -94,7 +94,7 @@
     "translation": "SDK 版本：{{SDK_VERSION}}"
   },
   "app.copy.hint": {
-    "translation": "复制（Ctrl/Cmd + A, Ctrl/Cmd + C）"
+    "translation": "复制（Ctrl/⌘ + A, Ctrl/⌘ + C）"
   },
   "app.copyAsUrl.hint": {
     "translation": "将代码复制为 Data URL"
@@ -109,7 +109,7 @@
     "translation": "外部资源"
   },
   "app.focus.hint": {
-    "translation": "切换聚焦模式"
+    "translation": "切换聚焦模式（Ctrl/⌘ + K, Z）"
   },
   "app.format.hint": {
     "translation": "格式化（Alt + Shift + F）"
@@ -133,22 +133,22 @@
     "translation": "项目信息"
   },
   "app.redo.hint": {
-    "translation": "重做（Ctrl/Cmd + Shift + Z）"
+    "translation": "重做（Ctrl/⌘ + Shift + Z）"
   },
   "app.result.hint": {
-    "translation": "结果"
+    "translation": "结果（Ctrl/⌘ + Alt + R）"
   },
   "app.run.hint": {
     "translation": "运行（Shift + Enter）"
   },
   "app.share.hint": {
-    "translation": "分享"
+    "translation": "分享（Ctrl/⌘ + Alt + S）"
   },
   "app.themeColors.custom": {
     "translation": "自定义"
   },
   "app.undo.hint": {
-    "translation": "撤消（Ctrl/Cmd + Z）"
+    "translation": "撤消（Ctrl/⌘ + Z）"
   },
   "app.untitledProject": {
     "translation": "未命名项目"
@@ -462,8 +462,11 @@
   "codeToImage.shadow": {
     "translation": "阴影"
   },
-  "codeToImage.share": {
+  "codeToImage.shareImage": {
     "translation": "分享图片"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "分享"
   },
   "codeToImage.shareUrl": {
     "translation": "分享 URL"
@@ -486,6 +489,207 @@
   "codeToImage.windowStyle.windows": {
     "translation": "Windows"
   },
+  "commandMenu.changeTheme.dark": {
+    "translation": "切换为深色主题"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "切换为浅色主题"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "切换主题"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "切换界面语言"
+  },
+  "commandMenu.closeModal": {
+    "translation": "关闭对话框"
+  },
+  "commandMenu.contribute": {
+    "translation": "贡献"
+  },
+  "commandMenu.copy": {
+    "translation": "复制代码"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "将代码复制为 Data URL"
+  },
+  "commandMenu.disableAI": {
+    "translation": "禁用 AI 代码助手"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "禁用自动保存"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "禁用自动更新"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "禁用 Emacs 模式"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "禁用保存时格式化"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "禁用恢复未保存的内容"
+  },
+  "commandMenu.disableVim": {
+    "translation": "禁用 Vim 模式"
+  },
+  "commandMenu.enableAI": {
+    "translation": "启用 AI 代码助手"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "启用自动保存"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "启用自动更新"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "启用 Emacs 模式"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "启用保存时格式化"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "启用恢复未保存的内容"
+  },
+  "commandMenu.enableVim": {
+    "translation": "启用 Vim 模式"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "聚焦编辑器"
+  },
+  "commandMenu.focus.home": {
+    "translation": "将焦点移至主页"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "将焦点移出编辑器"
+  },
+  "commandMenu.formatCode": {
+    "translation": "格式化代码"
+  },
+  "commandMenu.home": {
+    "translation": "主页"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "水平布局"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "键盘快捷键"
+  },
+  "commandMenu.login": {
+    "translation": "登录"
+  },
+  "commandMenu.logout": {
+    "translation": "登出"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "转至父级"
+  },
+  "commandMenu.placeholder": {
+    "translation": "输入命令或搜索 ..."
+  },
+  "commandMenu.processors": {
+    "translation": "处理器"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "响应式布局"
+  },
+  "commandMenu.run": {
+    "translation": "运行"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "另存为 Fork（新项目）"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "另存为模板"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "选择语言"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "切换编译结果页面显示"
+  },
+  "commandMenu.show.console": {
+    "translation": "切换控制台页面显示"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "切换聚焦模式"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "切换全屏"
+  },
+  "commandMenu.show.markup": {
+    "translation": "显示标记编辑器"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "最大化编译结果页面"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "最大化控制台页面"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "最大化测试页面"
+  },
+  "commandMenu.show.next": {
+    "translation": "显示下一个编辑器"
+  },
+  "commandMenu.show.previous": {
+    "translation": "显示前一个编辑器"
+  },
+  "commandMenu.show.result": {
+    "translation": "切换结果页面显示"
+  },
+  "commandMenu.show.runTests": {
+    "translation": "运行测试"
+  },
+  "commandMenu.show.script": {
+    "translation": "显示脚本编辑器"
+  },
+  "commandMenu.show.style": {
+    "translation": "显示样式编辑器"
+  },
+  "commandMenu.show.tests": {
+    "translation": "切换测试页面显示"
+  },
+  "commandMenu.show.title": {
+    "translation": "显示 …"
+  },
+  "commandMenu.show.zoom": {
+    "translation": "切换结果页面缩放"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "启动模板"
+  },
+  "commandMenu.sync": {
+    "translation": "同步（Beta 版）..."
+  },
+  "commandMenu.template": {
+    "translation": "模板"
+  },
+  "commandMenu.theme.color": {
+    "translation": "设置主题颜色"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "设置默认主题颜色"
+  },
+  "commandMenu.title": {
+    "translation": "命令菜单"
+  },
+  "commandMenu.toClose": {
+    "translation": "以关闭"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "以导航"
+  },
+  "commandMenu.toSelect": {
+    "translation": "以选择"
+  },
+  "commandMenu.toggle": {
+    "translation": "切换："
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "垂直布局"
+  },
   "core.broadcast.heading": {
     "translation": "播送"
   },
@@ -505,7 +709,7 @@
     "translation": "将代码复制为 Data URL"
   },
   "core.copy.copiedImage": {
-    "translation": "图像复制到剪贴板。"
+    "translation": "图像已复制到剪贴板"
   },
   "core.copy.hint": {
     "translation": "已复制！"
@@ -1015,7 +1219,7 @@
     "translation": "必填"
   },
   "generic.tagline": {
-    "translation": "一个简单实用的代码游乐场！"
+    "translation": "一个简单实用的代码运行环境！"
   },
   "import.bulk.desc": {
     "translation": "将多个项目批量导入到您已保存的项目中。可以从<tag-1>已保存的项目</tag-1>屏幕导出项目。"
@@ -1076,6 +1280,18 @@
   },
   "import.success": {
     "translation": "导入成功！"
+  },
+  "keyboardShortcuts.command": {
+    "translation": "命令"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "请参见 <tag-1> VS Code 快捷键</tag-1> 以获取有关代码编辑器的所有快捷键。"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "键盘快捷键"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "快捷键"
   },
   "login.accessAllowed": {
     "translation": "允许访问："
@@ -1143,6 +1359,9 @@
   "menu.broadcast": {
     "translation": "播送 ..."
   },
+  "menu.commandMenu": {
+    "translation": "命令菜单"
+  },
   "menu.config": {
     "translation": "配置"
   },
@@ -1199,6 +1418,9 @@
   },
   "menu.import": {
     "translation": "导入 ..."
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "键盘快捷键"
   },
   "menu.layout": {
     "translation": "垂直布局"
@@ -1312,7 +1534,7 @@
     "translation": "最后修改时间：{{modified}}"
   },
   "open.noData.desc": {
-    "translation": "您可以从菜单 &gt; 保存或通过键盘快捷键（Ctrl/Cmd + S）保存项目。"
+    "translation": "您可以从菜单 &gt; 保存或通过键盘快捷键（Ctrl/⌘ + S）保存项目。"
   },
   "open.noData.heading": {
     "translation": "您没有已保存的项目。"
@@ -1912,7 +2134,7 @@
     "translation": "重置"
   },
   "toolspane.test.run.desc": {
-    "translation": "Ctrl/Cmd + Alt + T"
+    "translation": "Ctrl/⌘ + Alt + T"
   },
   "toolspane.test.run.heading": {
     "translation": "运行"

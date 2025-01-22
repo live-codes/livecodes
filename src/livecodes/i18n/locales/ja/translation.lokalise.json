@@ -462,8 +462,11 @@
   "codeToImage.shadow": {
     "translation": "シャドウ"
   },
-  "codeToImage.share": {
+  "codeToImage.shareImage": {
     "translation": "画像を共有する"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "共有"
   },
   "codeToImage.shareUrl": {
     "translation": "URLを共有する"
@@ -485,6 +488,207 @@
   },
   "codeToImage.windowStyle.windows": {
     "translation": "Windows"
+  },
+  "commandMenu.changeTheme.dark": {
+    "translation": "ダークテーマへの変更"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "ライトテーマへの変更"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "テーマ変更"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "UI言語の変更"
+  },
+  "commandMenu.closeModal": {
+    "translation": "モーダルを閉じる"
+  },
+  "commandMenu.contribute": {
+    "translation": "貢献する"
+  },
+  "commandMenu.copy": {
+    "translation": "コードをコピー"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "コードをデータURLとしてコピー"
+  },
+  "commandMenu.disableAI": {
+    "translation": "AIコードアシスタントを無効にする"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "オートセーブを無効にする"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "自動アップデートを無効にする"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "Emacsモードを無効にする"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "保存時のフォーマットを無効にする"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "保存されていないファイルの復元を無効にする"
+  },
+  "commandMenu.disableVim": {
+    "translation": "Vimモードを無効にする"
+  },
+  "commandMenu.enableAI": {
+    "translation": "AIコードアシスタントを有効化"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "オートセーブを有効にする"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "自動アップデートを有効にする"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "Emacsモードを有効にする"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "保存時にフォーマットを有効にする"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "未保存のリカバリーを有効にする"
+  },
+  "commandMenu.enableVim": {
+    "translation": "Vimモードを有効にする"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "エディターに焦点を当てる"
+  },
+  "commandMenu.focus.home": {
+    "translation": "フォーカスをホームに移す"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "エディターからフォーカスを移す"
+  },
+  "commandMenu.formatCode": {
+    "translation": "フォーマットコード"
+  },
+  "commandMenu.home": {
+    "translation": "ホーム"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "水平レイアウト"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "キーボードショートカット"
+  },
+  "commandMenu.login": {
+    "translation": "ログイン"
+  },
+  "commandMenu.logout": {
+    "translation": "ログアウト"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "親に移る"
+  },
+  "commandMenu.placeholder": {
+    "translation": "コマンドを入力または検索..."
+  },
+  "commandMenu.processors": {
+    "translation": "プロセッサー"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "レスポンシブレイアウト"
+  },
+  "commandMenu.run": {
+    "translation": "実行"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "新しいプロジェクトとして保存"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "テンプレートとして保存"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "言語選択"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "コンパイル済みコードの切り替え"
+  },
+  "commandMenu.show.console": {
+    "translation": "トグルコンソール"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "フォーカスモードの切り替え"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "全画面表示"
+  },
+  "commandMenu.show.markup": {
+    "translation": "マークアップエディタを表示する"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "コンパイル済みコードの最大化"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "コンソールの最大化"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "テストの最大化"
+  },
+  "commandMenu.show.next": {
+    "translation": "次のエディターを表示"
+  },
+  "commandMenu.show.previous": {
+    "translation": "前のエディターを表示"
+  },
+  "commandMenu.show.result": {
+    "translation": "結果の表示切り替え"
+  },
+  "commandMenu.show.runTests": {
+    "translation": "テストの実行"
+  },
+  "commandMenu.show.script": {
+    "translation": "スクリプトエディターの表示"
+  },
+  "commandMenu.show.style": {
+    "translation": "スタイルエディターを表示"
+  },
+  "commandMenu.show.tests": {
+    "translation": "トグル・テスト"
+  },
+  "commandMenu.show.title": {
+    "translation": "ショー ..."
+  },
+  "commandMenu.show.zoom": {
+    "translation": "結果ズームの切り替え"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "スターターテンプレート"
+  },
+  "commandMenu.sync": {
+    "translation": "シンク（ベータ版） ..."
+  },
+  "commandMenu.template": {
+    "translation": "テンプレート"
+  },
+  "commandMenu.theme.color": {
+    "translation": "テーマカラーの設定"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "テーマカラーのデフォルト設定"
+  },
+  "commandMenu.title": {
+    "translation": "コマンドメニュー"
+  },
+  "commandMenu.toClose": {
+    "translation": "閉じる"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "ナビゲートする"
+  },
+  "commandMenu.toSelect": {
+    "translation": "を選択します。"
+  },
+  "commandMenu.toggle": {
+    "translation": "トグル： "
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "垂直レイアウト"
   },
   "core.broadcast.heading": {
     "translation": "配信"
@@ -1077,6 +1281,18 @@
   "import.success": {
     "translation": "インポートに成功しました！"
   },
+  "keyboardShortcuts.command": {
+    "translation": "コマンド"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "コード エディターのキーボード ショートカットの一覧については、 <tag-1> VS Code ショートカット</tag-1>を参照してください。"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "キーボードショートカット"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "キー"
+  },
   "login.accessAllowed": {
     "translation": "アクセスを許可："
   },
@@ -1143,6 +1359,9 @@
   "menu.broadcast": {
     "translation": "配信 …"
   },
+  "menu.commandMenu": {
+    "translation": "コマンドメニュー"
+  },
   "menu.config": {
     "translation": "設定"
   },
@@ -1199,6 +1418,9 @@
   },
   "menu.import": {
     "translation": "インポート …"
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "キーボードショートカット"
   },
   "menu.layout": {
     "translation": "垂直レイアウト"

@@ -462,8 +462,11 @@
   "codeToImage.shadow": {
     "translation": "الظل"
   },
-  "codeToImage.share": {
+  "codeToImage.shareImage": {
     "translation": "مشاركة الصورة"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "مشاركة"
   },
   "codeToImage.shareUrl": {
     "translation": "مشاركة الرابط"
@@ -485,6 +488,207 @@
   },
   "codeToImage.windowStyle.windows": {
     "translation": "Windows"
+  },
+  "commandMenu.changeTheme.dark": {
+    "translation": "التغيير إلى السمة الداكنة"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "التغيير إلى السمة الفاتحة"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "تغيير السمة"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "تغيير لغة واجهة المستخدم"
+  },
+  "commandMenu.closeModal": {
+    "translation": "إغلاق النافذة المنبثقة"
+  },
+  "commandMenu.contribute": {
+    "translation": "المساهمة"
+  },
+  "commandMenu.copy": {
+    "translation": "نسخ الكود"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "نسخ الكود كرابط بيانات"
+  },
+  "commandMenu.disableAI": {
+    "translation": "تعطيل مساعد كود الذكاء الاصطناعي"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "تعطيل الحفظ التلقائي"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "تعطيل التحديث التلقائي"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "تعطيل وضع Emacs"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "تعطيل التنسيق عند الحفظ"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "تعطيل استعادة المشروع غير المحفوظ"
+  },
+  "commandMenu.disableVim": {
+    "translation": "تعطيل وضع Vim"
+  },
+  "commandMenu.enableAI": {
+    "translation": "تفعيل مساعد الكود الذكي"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "تفعيل الحفظ التلقائي"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "تفعيل التحديث التلقائي"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "تفعيل وضع Emacs"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "تفعيل التنسيق عند الحفظ"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "تفعيل استرداد ما لم يتم حفظه"
+  },
+  "commandMenu.enableVim": {
+    "translation": "تفعيل وضع Vim"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "نقل التركيز إلى المحرر"
+  },
+  "commandMenu.focus.home": {
+    "translation": "نقل التركيز إلى الصفحة الرئيسية"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "نقل التركيز خارج المحرر"
+  },
+  "commandMenu.formatCode": {
+    "translation": "تنسيق الكود"
+  },
+  "commandMenu.home": {
+    "translation": "الرئيسية"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "تخطيط أفقي"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "اختصارات لوحة المفاتيح"
+  },
+  "commandMenu.login": {
+    "translation": "تسجيل الدخول"
+  },
+  "commandMenu.logout": {
+    "translation": "تسجيل الخروج"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "الانتقال إلى أعلى"
+  },
+  "commandMenu.placeholder": {
+    "translation": "اكتب الأمر أو ابحث..."
+  },
+  "commandMenu.processors": {
+    "translation": "المعالجات"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "تخطيط متجاوب"
+  },
+  "commandMenu.run": {
+    "translation": "تشغيل"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "حفظ كمشروع جديد"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "حفظ كقالب"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "اختر اللغة"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "تبديل الكود المُترجم"
+  },
+  "commandMenu.show.console": {
+    "translation": "تبديل الكونسول"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "تبديل وضع التركيز"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "تبديل ملء الشاشة"
+  },
+  "commandMenu.show.markup": {
+    "translation": "إظهار محرر Markup"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "تكبير الكود الناتج"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "تكبير الكونسول"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "تكبير الاختبارات"
+  },
+  "commandMenu.show.next": {
+    "translation": "عرض المحرر التالي"
+  },
+  "commandMenu.show.previous": {
+    "translation": "عرض المحرر السابق"
+  },
+  "commandMenu.show.result": {
+    "translation": "تبديل النتيجة "
+  },
+  "commandMenu.show.runTests": {
+    "translation": "تشغيل الاختبارات"
+  },
+  "commandMenu.show.script": {
+    "translation": "عرض محرر السكريبت"
+  },
+  "commandMenu.show.style": {
+    "translation": "عرض محرر الأنماط"
+  },
+  "commandMenu.show.tests": {
+    "translation": "تبديل الاختبارات"
+  },
+  "commandMenu.show.title": {
+    "translation": "عرض .."
+  },
+  "commandMenu.show.zoom": {
+    "translation": "تبديل تكبير النتيجة"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "قوالب البداية"
+  },
+  "commandMenu.sync": {
+    "translation": "المزامنة (نسخة تجريبية) …"
+  },
+  "commandMenu.template": {
+    "translation": "قالب"
+  },
+  "commandMenu.theme.color": {
+    "translation": "تعيين لون السمة"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "تعيين لون السمة الافتراضي"
+  },
+  "commandMenu.title": {
+    "translation": "قائمة الأوامر"
+  },
+  "commandMenu.toClose": {
+    "translation": "للإغلاق"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "للتنقل"
+  },
+  "commandMenu.toSelect": {
+    "translation": "للاختيار"
+  },
+  "commandMenu.toggle": {
+    "translation": "تبديل: "
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "تخطيط عمودي"
   },
   "core.broadcast.heading": {
     "translation": "بث"
@@ -1077,6 +1281,18 @@
   "import.success": {
     "translation": "تم الاستيراد بنجاح!"
   },
+  "keyboardShortcuts.command": {
+    "translation": "الأمر"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "للاطلاع على قائمة اختصارات لوحة مفاتيح محرر الأكواد، راجع <tag-1> اختصارات VS Code</tag-1>"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "اختصارات لوحة المفاتيح"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "المفتاح"
+  },
   "login.accessAllowed": {
     "translation": "السماح بالوصول إلى:"
   },
@@ -1143,6 +1359,9 @@
   "menu.broadcast": {
     "translation": "بث …"
   },
+  "menu.commandMenu": {
+    "translation": "قائمة الأوامر"
+  },
   "menu.config": {
     "translation": "إعدادات"
   },
@@ -1199,6 +1418,9 @@
   },
   "menu.import": {
     "translation": "استيراد …"
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "اختصارات لوحة المفاتيح"
   },
   "menu.layout": {
     "translation": "تخطيط عمودي"
