@@ -648,6 +648,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   document.body.classList.toggle('simple-mode', mode === 'simple');
   document.body.classList.toggle('focus-mode', mode === 'focus');
   document.body.classList.toggle('lite-mode', mode === 'lite');
+  document.body.classList.toggle('result', mode === 'result');
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
   }
@@ -4741,8 +4742,6 @@ const handleResultMode = () => {
   const drawer = UI.getResultModeDrawer();
   const drawerLink = drawer.querySelector('a') as HTMLAnchorElement;
   const closeBtn = drawer.querySelector('#drawer-close') as HTMLButtonElement;
-
-  drawer.style.display = 'flex';
 
   eventsManager.addEventListener(drawerLink, 'click', async (event: Event) => {
     event.preventDefault();
