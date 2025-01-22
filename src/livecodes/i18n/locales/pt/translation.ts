@@ -62,6 +62,9 @@ const translation: I18nTranslation = {
       learnMore: 'Saiba mais! {{docsUrl}} 🚀',
       sdkVersion: 'Versão do SDK: {{SDK_VERSION}}',
     },
+    copy: {
+      hint: 'Copiar (Ctrl/Cmd + A, Ctrl/Cmd + C)',
+    },
     copyAsUrl: {
       hint: 'Copiar código como URL de dados',
     },
@@ -73,6 +76,9 @@ const translation: I18nTranslation = {
     },
     externalResources: {
       hint: 'Recursos Externos',
+    },
+    focus: {
+      hint: 'Alternar modo de foco',
     },
     format: {
       hint: 'Formatar (Alt + Shift + F)',
@@ -93,11 +99,23 @@ const translation: I18nTranslation = {
     projectInfo: {
       hint: 'Informações do Projeto',
     },
+    redo: {
+      hint: 'Refazer (Ctrl/Cmd + Shift + Z)',
+    },
+    result: {
+      hint: 'Mostrar Resultado',
+    },
     run: {
       hint: 'Executar (Shift + Enter)',
     },
+    share: {
+      hint: 'Compartilhar',
+    },
     themeColors: {
       custom: 'Costume',
+    },
+    undo: {
+      hint: 'Desfazer (Ctrl/Cmd + Z)',
     },
     untitledProject: 'Projeto Sem Título',
   },
@@ -255,6 +273,8 @@ const translation: I18nTranslation = {
     save: 'Guardar imagem',
     scale: 'Escala de imagem',
     shadow: 'Sombra',
+    shareImage: 'Partilhar imagem',
+    shareTitle: 'Compartilhar',
     shareUrl: 'Partilhar URL',
     theme: 'Tema',
     width: 'Largura',
@@ -264,6 +284,83 @@ const translation: I18nTranslation = {
       none: 'Nenhum',
       windows: 'Windows',
     },
+  },
+  commandMenu: {
+    changeTheme: {
+      dark: 'Mudar para o tema escuro',
+      light: 'Mudar para o tema Luz',
+      title: 'Alterar tema',
+    },
+    changeUILanguage: 'Alterar o idioma da IU',
+    closeModalMenu: 'Fechar Modal/Menu',
+    contribute: 'Contribuir',
+    copy: 'Copiar Código',
+    copyAsDataUrl: 'Copiar código como URL de dados',
+    disableAI: 'Desativar o Assistente de Código da IA',
+    disableAutoSave: 'Desativar a gravação automática',
+    disableAutoUpdate: 'Desativar a atualização automática',
+    disableEmacs: 'Desativar o modo Emacs',
+    disableFormatOnSave: 'Desativar formato na gravação',
+    disableRecoverUnsaved: 'Desativar Recuperar não guardado',
+    disableVim: 'Desativar o modo Vim',
+    enableAI: 'Habilitar Assistente de Código IA',
+    enableAutoSave: 'Ativar a gravação automática',
+    enableAutoUpdate: 'Ativar a atualização automática',
+    enableEmacs: 'Ativar o modo Emacs',
+    enableFormatOnSave: 'Ativar formato na gravação',
+    enableRecoverUnsaved: 'Ativar Recuperar não guardado',
+    enableVim: 'Ativar o modo Vim',
+    focus: {
+      editor: 'foco no editor',
+      home: 'Mudar o foco para casa',
+      outOfEditor: 'Mover o foco para fora do editor',
+    },
+    formatCode: 'formatar o código',
+    home: 'Início',
+    horizontalLayout: 'Disposição horizontal',
+    keyboardShortcuts: 'Atalhos de teclado',
+    login: 'Conectar',
+    logout: 'Terminar sessão',
+    moveToParent: 'mudar para o pai',
+    placeholder: 'Escreva um comando ou pesquise...',
+    processors: 'Processadores',
+    responsiveLayout: 'Disposição responsiva',
+    run: 'Executar',
+    saveAsFork: 'Salvar como um novo projeto',
+    saveAsTemplate: 'Guardar como modelo',
+    selectLanguage: 'Selecionar idioma',
+    show: {
+      compiled: 'Alternar código compilado',
+      console: 'Alternar consola',
+      focusMode: 'Alternar o modo de focagem',
+      fullscreen: 'Alternar ecrã inteiro',
+      markup: 'Mostrar editor de marcação',
+      maximizeCompiled: 'Maximizar o código compilado',
+      maximizeConsole: 'Maximizar a consola',
+      maximizeTests: 'Maximizar os testes',
+      next: 'Mostrar o próximo editor',
+      previous: 'Mostrar o editor anterior',
+      result: 'Alternar Resultado',
+      runTests: 'Executar testes',
+      script: 'Mostrar o editor de scripts',
+      style: 'Mostrar editor de estilos',
+      tests: 'Alternar testes',
+      title: 'Mostrar ...',
+      zoom: 'Alternar o zoom do resultado',
+    },
+    starterTemplates: 'Modelos Iniciantes',
+    sync: 'Sincronização (beta) ...',
+    template: 'Modelo',
+    theme: {
+      color: 'Definir cor do tema',
+      defaultColor: 'Definir a cor predefinida do tema',
+    },
+    title: 'Menu de comando',
+    toClose: 'para encerrar',
+    toNavigate: 'para navegar',
+    toSelect: 'para selecionar',
+    toggle: 'Alternar: ',
+    verticalLayout: 'Layout Vertical',
   },
   core: {
     broadcast: {
@@ -564,6 +661,13 @@ const translation: I18nTranslation = {
     },
     success: 'Importação Bem-sucedida!',
   },
+  keyboardShortcuts: {
+    command: 'Comando',
+    editorShortcuts:
+      'Para obter a lista de atalhos de teclado do editor de código, consulte <1> Atalhos do VS Code </1>',
+    heading: 'Atalhos de teclado',
+    key: 'Chave',
+  },
   login: {
     accessAllowed: 'Permitir acesso a:',
     desc: '<1>Ao fazer login, você concorda que <2>cookies</2> podem ser armazenados no seu dispositivo.</1> <3> <4>Por que essas permissões são necessárias?</4> </3> <5> <6>Como alterar/revogar permissões?</6> </5>',
@@ -595,6 +699,7 @@ const translation: I18nTranslation = {
     backup: 'Backup / Restaurar …',
     blog: 'Blog do LiveCodes',
     broadcast: 'Transmitir …',
+    commandMenu: 'Menu de comando',
     config: 'Configuração',
     customSettings: 'Configurações Personalizadas …',
     delay: {
@@ -618,6 +723,7 @@ const translation: I18nTranslation = {
     formatOnsave: 'Formatar ao Salvar',
     getstart: 'Começando',
     import: 'Importar …',
+    keyboardShortcuts: 'Atalhos de teclado',
     layout: 'Layout Vertical',
     license: 'Licença',
     login: 'Conectar…',
@@ -672,6 +778,7 @@ const translation: I18nTranslation = {
     import: 'Importar',
     lastModified: 'Última modificação: {{modified}}',
     noData: {
+      desc: 'Você pode salvar um projeto a partir de (menu&nbsp;de&nbsp;configurações&nbsp;&gt;&nbsp;Salvar) ou pelo atalho de teclado (Ctrl/Cmd&nbsp;+&nbsp;S).',
       heading: 'Você não tem projetos salvos.',
     },
     noMatch: 'Nenhum projeto corresponde a esses filtros.',
@@ -959,6 +1066,7 @@ const translation: I18nTranslation = {
       noTest: '<1>Este projeto não tem testes!</1>',
       reset: 'Reiniciar',
       run: {
+        desc: 'Ctrl/Cmd + Alt + T',
         heading: 'Executar',
       },
       summary: {

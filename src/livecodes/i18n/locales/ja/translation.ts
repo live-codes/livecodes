@@ -62,6 +62,9 @@ const translation: I18nTranslation = {
       learnMore: '詳細はこちら！ {{docsUrl}} 🚀',
       sdkVersion: 'SDKバージョン: {{SDK_VERSION}}',
     },
+    copy: {
+      hint: 'コピー (Ctrl/Cmd + A, Ctrl/Cmd + C)',
+    },
     copyAsUrl: {
       hint: 'コードをデータURLとしてコピー',
     },
@@ -73,6 +76,9 @@ const translation: I18nTranslation = {
     },
     externalResources: {
       hint: '外部リソース',
+    },
+    focus: {
+      hint: 'フォーカスモードの切り替え',
     },
     format: {
       hint: 'フォーマット (Alt + Shift + F)',
@@ -93,11 +99,23 @@ const translation: I18nTranslation = {
     projectInfo: {
       hint: 'プロジェクト情報',
     },
+    redo: {
+      hint: 'やり直し (Ctrl/Cmd + Shift + Z)',
+    },
+    result: {
+      hint: '結果を表示',
+    },
     run: {
       hint: '実行 (Shift + Enter)',
     },
+    share: {
+      hint: '共有',
+    },
     themeColors: {
       custom: 'カスタム',
+    },
+    undo: {
+      hint: '元に戻す (Ctrl/Cmd + Z)',
     },
     untitledProject: '無題のプロジェクト',
   },
@@ -255,6 +273,8 @@ const translation: I18nTranslation = {
     save: '画像を保存',
     scale: '画像スケール',
     shadow: 'シャドウ',
+    shareImage: '画像を共有する',
+    shareTitle: '共有',
     shareUrl: 'URLを共有する',
     theme: 'テーマ',
     width: '幅',
@@ -264,6 +284,83 @@ const translation: I18nTranslation = {
       none: 'なし',
       windows: 'Windows',
     },
+  },
+  commandMenu: {
+    changeTheme: {
+      dark: 'ダークテーマへの変更',
+      light: 'ライトテーマへの変更',
+      title: 'テーマ変更',
+    },
+    changeUILanguage: 'UI言語の変更',
+    closeModalMenu: 'モーダル/メニューを閉じる',
+    contribute: '貢献する',
+    copy: 'コードをコピー',
+    copyAsDataUrl: 'コードをデータURLとしてコピー',
+    disableAI: 'AIコードアシスタントを無効にする',
+    disableAutoSave: 'オートセーブを無効にする',
+    disableAutoUpdate: '自動アップデートを無効にする',
+    disableEmacs: 'Emacsモードを無効にする',
+    disableFormatOnSave: '保存時のフォーマットを無効にする',
+    disableRecoverUnsaved: '保存されていないファイルの復元を無効にする',
+    disableVim: 'Vimモードを無効にする',
+    enableAI: 'AIコードアシスタントを有効化',
+    enableAutoSave: 'オートセーブを有効にする',
+    enableAutoUpdate: '自動アップデートを有効にする',
+    enableEmacs: 'Emacsモードを有効にする',
+    enableFormatOnSave: '保存時にフォーマットを有効にする',
+    enableRecoverUnsaved: '未保存のリカバリーを有効にする',
+    enableVim: 'Vimモードを有効にする',
+    focus: {
+      editor: 'エディターに焦点を当てる',
+      home: 'フォーカスをホームに移す',
+      outOfEditor: 'エディターからフォーカスを移す',
+    },
+    formatCode: 'フォーマットコード',
+    home: 'ホーム',
+    horizontalLayout: '水平レイアウト',
+    keyboardShortcuts: 'キーボードショートカット',
+    login: 'ログイン',
+    logout: 'ログアウト',
+    moveToParent: '親に移る',
+    placeholder: 'コマンドを入力または検索...',
+    processors: 'プロセッサー',
+    responsiveLayout: 'レスポンシブレイアウト',
+    run: '実行',
+    saveAsFork: '新しいプロジェクトとして保存',
+    saveAsTemplate: 'テンプレートとして保存',
+    selectLanguage: '言語選択',
+    show: {
+      compiled: 'コンパイル済みコードの切り替え',
+      console: 'トグルコンソール',
+      focusMode: 'フォーカスモードの切り替え',
+      fullscreen: '全画面表示',
+      markup: 'マークアップエディタを表示する',
+      maximizeCompiled: 'コンパイル済みコードの最大化',
+      maximizeConsole: 'コンソールの最大化',
+      maximizeTests: 'テストの最大化',
+      next: '次のエディターを表示',
+      previous: '前のエディターを表示',
+      result: '結果の表示切り替え',
+      runTests: 'テストの実行',
+      script: 'スクリプトエディターの表示',
+      style: 'スタイルエディターを表示',
+      tests: 'トグル・テスト',
+      title: 'ショー ...',
+      zoom: '結果ズームの切り替え',
+    },
+    starterTemplates: 'スターターテンプレート',
+    sync: 'シンク（ベータ版） ...',
+    template: 'テンプレート',
+    theme: {
+      color: 'テーマカラーの設定',
+      defaultColor: 'テーマカラーのデフォルト設定',
+    },
+    title: 'コマンドメニュー',
+    toClose: '閉じる',
+    toNavigate: 'ナビゲートする',
+    toSelect: 'を選択します。',
+    toggle: 'トグル： ',
+    verticalLayout: '垂直レイアウト',
   },
   core: {
     broadcast: {
@@ -564,6 +661,13 @@ const translation: I18nTranslation = {
     },
     success: 'インポートに成功しました！',
   },
+  keyboardShortcuts: {
+    command: 'コマンド',
+    editorShortcuts:
+      'コード エディターのキーボード ショートカットの一覧については、 <1> VS Code ショートカット</1>を参照してください。',
+    heading: 'キーボードショートカット',
+    key: 'キー',
+  },
   login: {
     accessAllowed: 'アクセスを許可：',
     desc: '<1>ログインすることで、お使いのデバイスに<2>クッキー</2>が保存されることに同意したものとみなされます。</1> <3> <4>これらの権限が必要な理由は？</4> </3> <5> <6>権限の変更/取り消し方法は？</6> </5>',
@@ -595,6 +699,7 @@ const translation: I18nTranslation = {
     backup: 'バックアップ / 復元 …',
     blog: 'LiveCodesブログ',
     broadcast: '配信 …',
+    commandMenu: 'コマンドメニュー',
     config: '設定',
     customSettings: 'カスタム設定 …',
     delay: {
@@ -618,6 +723,7 @@ const translation: I18nTranslation = {
     formatOnsave: '保存時にフォーマット',
     getstart: 'はじめに',
     import: 'インポート …',
+    keyboardShortcuts: 'キーボードショートカット',
     layout: '垂直レイアウト',
     license: 'ライセンス',
     login: 'ログイン …',
@@ -672,6 +778,7 @@ const translation: I18nTranslation = {
     import: 'インポート',
     lastModified: '最終更新: {{modified}}',
     noData: {
+      desc: 'プロジェクトは（設定メニュー&nbsp;&gt;&nbsp;保存）からまたはキーボードショートカット（Ctrl/Cmd&nbsp;+&nbsp;S）で保存できます。',
       heading: '保存済みプロジェクトがありません。',
     },
     noMatch: 'これらのフィルターに一致するプロジェクトはありません。',
@@ -958,6 +1065,7 @@ const translation: I18nTranslation = {
       noTest: '<1>このプロジェクトにはテストがありません！</1>',
       reset: 'リセット',
       run: {
+        desc: 'Ctrl/Cmd + Alt + T',
         heading: '実行',
       },
       summary: {

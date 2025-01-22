@@ -61,6 +61,9 @@ const translation: I18nTranslation = {
       learnMore: '了解更多！ {{docsUrl}} 🚀',
       sdkVersion: 'SDK 版本：{{SDK_VERSION}}',
     },
+    copy: {
+      hint: '复制（Ctrl/⌘ + A, Ctrl/⌘ + C）',
+    },
     copyAsUrl: {
       hint: '将代码复制为 Data URL',
     },
@@ -72,6 +75,9 @@ const translation: I18nTranslation = {
     },
     externalResources: {
       hint: '外部资源',
+    },
+    focus: {
+      hint: '切换聚焦模式（Ctrl/⌘ + K, Z）',
     },
     format: {
       hint: '格式化（Alt + Shift + F）',
@@ -92,11 +98,23 @@ const translation: I18nTranslation = {
     projectInfo: {
       hint: '项目信息',
     },
+    redo: {
+      hint: '重做（Ctrl/⌘ + Shift + Z）',
+    },
+    result: {
+      hint: '结果（Ctrl/⌘ + Alt + R）',
+    },
     run: {
       hint: '运行（Shift + Enter）',
     },
+    share: {
+      hint: '分享（Ctrl/⌘ + Alt + S）',
+    },
     themeColors: {
       custom: '自定义',
+    },
+    undo: {
+      hint: '撤消（Ctrl/⌘ + Z）',
     },
     untitledProject: '未命名项目',
   },
@@ -254,6 +272,8 @@ const translation: I18nTranslation = {
     save: '保存图片',
     scale: '图像缩放比例',
     shadow: '阴影',
+    shareImage: '分享图片',
+    shareTitle: '分享',
     shareUrl: '分享 URL',
     theme: '主题',
     width: '宽度',
@@ -263,6 +283,83 @@ const translation: I18nTranslation = {
       none: '无',
       windows: 'Windows',
     },
+  },
+  commandMenu: {
+    changeTheme: {
+      dark: '切换为深色主题',
+      light: '切换为浅色主题',
+      title: '切换主题',
+    },
+    changeUILanguage: '切换界面语言',
+    closeModalMenu: '关闭模式/菜单',
+    contribute: '贡献',
+    copy: '复制代码',
+    copyAsDataUrl: '将代码复制为 Data URL',
+    disableAI: '禁用 AI 代码助手',
+    disableAutoSave: '禁用自动保存',
+    disableAutoUpdate: '禁用自动更新',
+    disableEmacs: '禁用 Emacs 模式',
+    disableFormatOnSave: '禁用保存时格式化',
+    disableRecoverUnsaved: '禁用恢复未保存的内容',
+    disableVim: '禁用 Vim 模式',
+    enableAI: '启用 AI 代码助手',
+    enableAutoSave: '启用自动保存',
+    enableAutoUpdate: '启用自动更新',
+    enableEmacs: '启用 Emacs 模式',
+    enableFormatOnSave: '启用保存时格式化',
+    enableRecoverUnsaved: '启用恢复未保存的内容',
+    enableVim: '启用 Vim 模式',
+    focus: {
+      editor: '聚焦编辑器',
+      home: '将焦点移至主页',
+      outOfEditor: '将焦点移出编辑器',
+    },
+    formatCode: '格式化代码',
+    home: '主页',
+    horizontalLayout: '水平布局',
+    keyboardShortcuts: '键盘快捷键',
+    login: '登录',
+    logout: '登出',
+    moveToParent: '转至父级',
+    placeholder: '输入命令或搜索 ...',
+    processors: '处理器',
+    responsiveLayout: '响应式布局',
+    run: '运行',
+    saveAsFork: '另存为 Fork（新项目）',
+    saveAsTemplate: '另存为模板',
+    selectLanguage: '选择语言',
+    show: {
+      compiled: '切换编译结果页面显示',
+      console: '切换控制台页面显示',
+      focusMode: '切换聚焦模式',
+      fullscreen: '切换全屏',
+      markup: '显示标记编辑器',
+      maximizeCompiled: '最大化编译结果页面',
+      maximizeConsole: '最大化控制台页面',
+      maximizeTests: '最大化测试页面',
+      next: '显示下一个编辑器',
+      previous: '显示前一个编辑器',
+      result: '切换结果页面显示',
+      runTests: '运行测试',
+      script: '显示脚本编辑器',
+      style: '显示样式编辑器',
+      tests: '切换测试页面显示',
+      title: '显示 …',
+      zoom: '切换结果页面缩放',
+    },
+    starterTemplates: '启动模板',
+    sync: '同步（Beta 版）...',
+    template: '模板',
+    theme: {
+      color: '设置主题颜色',
+      defaultColor: '设置默认主题颜色',
+    },
+    title: '命令菜单',
+    toClose: '以关闭',
+    toNavigate: '以导航',
+    toSelect: '以选择',
+    toggle: '切换：',
+    verticalLayout: '垂直布局',
   },
   core: {
     broadcast: {
@@ -276,7 +373,7 @@ const translation: I18nTranslation = {
     copy: {
       copied: '代码已复制到剪贴板',
       copiedAsDataURL: '将代码复制为 Data URL',
-      copiedImage: '图像复制到剪贴板。',
+      copiedImage: '图像已复制到剪贴板',
       hint: '已复制！',
       title: '复制',
     },
@@ -529,7 +626,7 @@ const translation: I18nTranslation = {
     more: '更多...',
     optional: '可选',
     required: '必填',
-    tagline: '一个简单实用的代码游乐场！',
+    tagline: '一个简单实用的代码运行环境！',
   },
   import: {
     bulk: {
@@ -563,6 +660,12 @@ const translation: I18nTranslation = {
     },
     success: '导入成功！',
   },
+  keyboardShortcuts: {
+    command: '命令',
+    editorShortcuts: '请参见 <1> VS Code 快捷键</1> 以获取有关代码编辑器的所有快捷键。',
+    heading: '键盘快捷键',
+    key: '快捷键',
+  },
   login: {
     accessAllowed: '允许访问：',
     desc: '<1>登录即表示您同意 <2>Cookie</2> 将可能存储在您的设备上。</1><3> <4>为什么需要这些权限？</4> </3><5> <6>如何更改 / 撤销权限？</6> </5>',
@@ -594,6 +697,7 @@ const translation: I18nTranslation = {
     backup: '备份 / 恢复 ...',
     blog: 'LiveCodes 博客',
     broadcast: '播送 ...',
+    commandMenu: '命令菜单',
     config: '配置',
     customSettings: '自定义设置 ...',
     delay: {
@@ -617,6 +721,7 @@ const translation: I18nTranslation = {
     formatOnsave: '保存时格式化',
     getstart: '快速开始',
     import: '导入 ...',
+    keyboardShortcuts: '键盘快捷键',
     layout: '垂直布局',
     license: '许可证',
     login: '登录',
@@ -671,6 +776,7 @@ const translation: I18nTranslation = {
     import: '导入',
     lastModified: '最后修改时间：{{modified}}',
     noData: {
+      desc: '您可以从菜单 &gt; 保存或通过键盘快捷键（Ctrl/⌘ + S）保存项目。',
       heading: '您没有已保存的项目。',
     },
     noMatch: '没有符合筛选条件的项目。',
@@ -957,6 +1063,7 @@ const translation: I18nTranslation = {
       noTest: '<1>该项目没有测试！</1>',
       reset: '重置',
       run: {
+        desc: 'Ctrl/⌘ + Alt + T',
         heading: '运行',
       },
       summary: {
