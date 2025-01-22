@@ -462,8 +462,11 @@
   "codeToImage.shadow": {
     "translation": "Тень"
   },
-  "codeToImage.share": {
+  "codeToImage.shareImage": {
     "translation": "Поделиться изображением"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "Поделиться"
   },
   "codeToImage.shareUrl": {
     "translation": "Поделиться URL"
@@ -485,6 +488,207 @@
   },
   "codeToImage.windowStyle.windows": {
     "translation": "Windows"
+  },
+  "commandMenu.changeTheme.dark": {
+    "translation": "Переход на темную тему"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "Переход на светлую тему"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "Изменить тему"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "Изменить язык пользовательского интерфейса"
+  },
+  "commandMenu.closeModalMenu": {
+    "translation": "Закрыть модальное меню/меню"
+  },
+  "commandMenu.contribute": {
+    "translation": "Вклад"
+  },
+  "commandMenu.copy": {
+    "translation": "Копировать код"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "Копировать код как URL данных"
+  },
+  "commandMenu.disableAI": {
+    "translation": "Отключить помощника по кодам искусственного интеллекта"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "Отключить автосохранение"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "Отключить автоматическое обновление"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "Отключить режим Emacs"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "Отключение форматирования при сохранении"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "Отключить восстановление несохраненного"
+  },
+  "commandMenu.disableVim": {
+    "translation": "Отключить режим Vim"
+  },
+  "commandMenu.enableAI": {
+    "translation": "Включить AI-помощник для кода"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "Включить автосохранение"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "Включить автоматическое обновление"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "Включить режим Emacs"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "Включение формата при сохранении"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "Включить восстановление несохраненного"
+  },
+  "commandMenu.enableVim": {
+    "translation": "Включить режим Vim"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "сосредоточься на редакторе"
+  },
+  "commandMenu.focus.home": {
+    "translation": "Переместите фокус на дом"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "Переместить фокус из редактора"
+  },
+  "commandMenu.formatCode": {
+    "translation": "форматировать код"
+  },
+  "commandMenu.home": {
+    "translation": "Главная"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "Горизонтальный макет"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "Ярлыки клавиатуры"
+  },
+  "commandMenu.login": {
+    "translation": "Войти"
+  },
+  "commandMenu.logout": {
+    "translation": "Выход из системы"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "перейти к родителям"
+  },
+  "commandMenu.placeholder": {
+    "translation": "Введите команду или выполните поиск..."
+  },
+  "commandMenu.processors": {
+    "translation": "Процессоры"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "Адаптивный макет"
+  },
+  "commandMenu.run": {
+    "translation": "Запустить"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "Сохранить как новый проект"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "Сохранить как шаблон"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "Выберите язык"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "Переключить скомпилированный код"
+  },
+  "commandMenu.show.console": {
+    "translation": "Переключаемая консоль"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "Переключение режима фокусировки"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "Переключить на полный экран"
+  },
+  "commandMenu.show.markup": {
+    "translation": "Показать редактор разметки"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "Максимальное использование скомпилированного кода"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "Максимизировать консоль"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "Максимально эффективные тесты"
+  },
+  "commandMenu.show.next": {
+    "translation": "Показать следующий редактор"
+  },
+  "commandMenu.show.previous": {
+    "translation": "Показать предыдущий редактор"
+  },
+  "commandMenu.show.result": {
+    "translation": "Переключить результат"
+  },
+  "commandMenu.show.runTests": {
+    "translation": "Выполнить тесты"
+  },
+  "commandMenu.show.script": {
+    "translation": "Показать редактор сценариев"
+  },
+  "commandMenu.show.style": {
+    "translation": "Показать редактор стилей"
+  },
+  "commandMenu.show.tests": {
+    "translation": "Переключить тесты"
+  },
+  "commandMenu.show.title": {
+    "translation": "Показать ..."
+  },
+  "commandMenu.show.zoom": {
+    "translation": "Переключение масштаба результатов"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "Стартовые шаблоны"
+  },
+  "commandMenu.sync": {
+    "translation": "Синхронизация (бета) ..."
+  },
+  "commandMenu.template": {
+    "translation": "Шаблон"
+  },
+  "commandMenu.theme.color": {
+    "translation": "Установите цвет темы"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "Установите цвет темы по умолчанию"
+  },
+  "commandMenu.title": {
+    "translation": "Командное меню"
+  },
+  "commandMenu.toClose": {
+    "translation": "закрываться"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "перемещаться"
+  },
+  "commandMenu.toSelect": {
+    "translation": "чтобы выбрать"
+  },
+  "commandMenu.toggle": {
+    "translation": "Тогл: "
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "Вертикальная компоновка"
   },
   "core.broadcast.heading": {
     "translation": "Трансляция"
@@ -1077,6 +1281,18 @@
   "import.success": {
     "translation": "Импорт успешно завершен!"
   },
+  "keyboardShortcuts.command": {
+    "translation": "Команда"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "Список сочетаний клавиш редактора кода см <tag-1> Ярлыки VS Code</tag-1>"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "Ярлыки клавиатуры"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "Ключ"
+  },
   "login.accessAllowed": {
     "translation": "Разрешить доступ к:"
   },
@@ -1143,6 +1359,9 @@
   "menu.broadcast": {
     "translation": "Трансляция …"
   },
+  "menu.commandMenu": {
+    "translation": "Командное меню"
+  },
   "menu.config": {
     "translation": "Конфигурация"
   },
@@ -1199,6 +1418,9 @@
   },
   "menu.import": {
     "translation": "Импорт …"
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "Ярлыки клавиатуры"
   },
   "menu.layout": {
     "translation": "Вертикальная компоновка"
