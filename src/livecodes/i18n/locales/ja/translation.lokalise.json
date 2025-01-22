@@ -564,6 +564,9 @@
   "commandMenu.focus.outOfEditor": {
     "translation": "エディターからフォーカスを移す"
   },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "タブフォーカスモードの切り替え"
+  },
   "commandMenu.formatCode": {
     "translation": "フォーマットコード"
   },
@@ -2054,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "Schemeスターター"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/uiスターター"
   },
   "templates.starter.solid": {
     "translation": "Solidスターター"

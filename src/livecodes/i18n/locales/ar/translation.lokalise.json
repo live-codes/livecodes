@@ -564,6 +564,9 @@
   "commandMenu.focus.outOfEditor": {
     "translation": "نقل التركيز خارج المحرر"
   },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "تبديل وضع التركيز على علامة التبويب"
+  },
   "commandMenu.formatCode": {
     "translation": "تنسيق الكود"
   },
@@ -2054,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "قالب Scheme"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "قالب shadcn/ui"
   },
   "templates.starter.solid": {
     "translation": "قالب Solid"

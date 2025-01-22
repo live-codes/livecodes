@@ -564,6 +564,9 @@
   "commandMenu.focus.outOfEditor": {
     "translation": "Переместить фокус из редактора"
   },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "Переключение режима фокусировки вкладки"
+  },
   "commandMenu.formatCode": {
     "translation": "форматировать код"
   },
@@ -2054,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "Стартер Scheme"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "Стартер shadcn/ui"
   },
   "templates.starter.solid": {
     "translation": "Стартер Solid"

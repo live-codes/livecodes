@@ -564,6 +564,9 @@
   "commandMenu.focus.outOfEditor": {
     "translation": "फ़ोकस को संपादक से बाहर ले जाएँ"
   },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "टैब फ़ोकस मोड टॉगल करें"
+  },
   "commandMenu.formatCode": {
     "translation": "प्रारूप कोड"
   },
@@ -2054,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "Scheme स्टार्टर"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/ui स्टार्टर"
   },
   "templates.starter.solid": {
     "translation": "Solid स्टार्टर"

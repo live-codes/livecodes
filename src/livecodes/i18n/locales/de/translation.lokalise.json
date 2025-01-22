@@ -564,6 +564,9 @@
   "commandMenu.focus.outOfEditor": {
     "translation": "Fokus aus dem Editor verschieben"
   },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "Tabulator-Fokusmodus umschalten"
+  },
   "commandMenu.formatCode": {
     "translation": "Formatieren von Code"
   },
@@ -2054,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "Scheme-Starter"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/ui-Starter"
   },
   "templates.starter.solid": {
     "translation": "Solid-Starter"

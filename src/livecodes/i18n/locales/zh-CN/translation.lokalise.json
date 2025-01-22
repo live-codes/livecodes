@@ -564,6 +564,9 @@
   "commandMenu.focus.outOfEditor": {
     "translation": "将焦点移出编辑器"
   },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "切换标签聚焦模式"
+  },
   "commandMenu.formatCode": {
     "translation": "格式化代码"
   },
@@ -2054,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "Scheme 启动模板"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/ui 启动模板"
   },
   "templates.starter.solid": {
     "translation": "Solid 启动模板"

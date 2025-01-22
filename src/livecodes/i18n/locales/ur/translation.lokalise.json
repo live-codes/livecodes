@@ -564,6 +564,9 @@
   "commandMenu.focus.outOfEditor": {
     "translation": "فوکس کو ایڈیٹر سے باہر منتقل کریں۔"
   },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "ٹیب فوکس موڈ کو ٹوگل کریں۔"
+  },
   "commandMenu.formatCode": {
     "translation": "فارمیٹ کوڈ"
   },
@@ -2054,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "اسکیم شروعاتی"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/ui شروعاتی"
   },
   "templates.starter.solid": {
     "translation": "سالڈ شروعاتی"

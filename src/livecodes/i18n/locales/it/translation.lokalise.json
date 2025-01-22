@@ -564,6 +564,9 @@
   "commandMenu.focus.outOfEditor": {
     "translation": "Spostare la messa a fuoco dall'editor"
   },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "Alterna la modalità di messa a fuoco della scheda"
+  },
   "commandMenu.formatCode": {
     "translation": "formattare il codice"
   },
@@ -2054,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "Starter Scheme"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "Starter shadcn/ui"
   },
   "templates.starter.solid": {
     "translation": "Starter Solid"

@@ -564,6 +564,9 @@
   "commandMenu.focus.outOfEditor": {
     "translation": "Déplacer le focus hors de l'éditeur"
   },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "Modifier le mode de mise au point de l'onglet"
+  },
   "commandMenu.formatCode": {
     "translation": "formater le code"
   },
@@ -2054,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "Démarrage Scheme"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "Démarrage shadcn/ui"
   },
   "templates.starter.solid": {
     "translation": "Démarrage Solid"
