@@ -648,6 +648,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   document.body.classList.toggle('simple-mode', mode === 'simple');
   document.body.classList.toggle('focus-mode', mode === 'focus');
   document.body.classList.toggle('lite-mode', mode === 'lite');
+  document.body.classList.toggle('result', mode === 'result');
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
   }
@@ -4742,8 +4743,6 @@ const handleResultMode = () => {
   const drawerLink = drawer.querySelector('a') as HTMLAnchorElement;
   const closeBtn = drawer.querySelector('#drawer-close') as HTMLButtonElement;
 
-  drawer.style.display = 'flex';
-
   eventsManager.addEventListener(drawerLink, 'click', async (event: Event) => {
     event.preventDefault();
     window.open(
@@ -5405,7 +5404,14 @@ const createApi = (): API => {
       newConfig.mode !== 'editor' &&
       newConfig.mode !== 'codeblock' &&
       compiler.isFake;
+    const reloadCodeEditors =
+      newConfig.mode != null &&
+      newConfig.mode !== currentConfig.mode &&
+      (['codeblock', 'result'].includes(currentConfig.mode) ||
+        ['codeblock', 'result'].includes(newConfig.mode!));
+
     setConfig(newAppConfig);
+
     if (hasNewAppLanguage) {
       changeAppLanguage(newConfig.appLanguage!);
       return newAppConfig;
@@ -5413,6 +5419,9 @@ const createApi = (): API => {
     if (reloadCompiler) {
       compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
       await run();
+    }
+    if (reloadCodeEditors) {
+      await createEditors(newAppConfig);
     }
     await applyConfig(newConfig);
     const content = getContentConfig(newConfig as Config);

@@ -34,16 +34,29 @@ const ghCDNs: CDN[] = [
 export const modulesService = {
   getModuleUrl: (
     moduleName: string,
-    { isModule = true, defaultCDN = 'esm.sh' }: { isModule?: boolean; defaultCDN?: CDN } = {},
+    {
+      isModule = true,
+      defaultCDN = 'esm.sh',
+      external,
+    }: { isModule?: boolean; defaultCDN?: CDN; external?: string } = {},
   ) => {
     moduleName = moduleName.replace(/#nobundle/g, '');
 
+    const addExternalParam = (url: string) =>
+      !external || !url.includes('https://esm.sh')
+        ? url
+        : url.includes('?')
+          ? `${url}&external=${external}`
+          : `${url}?external=${external}`;
+
     const moduleUrl = getCdnUrl(moduleName, isModule, defaultCDN);
     if (moduleUrl) {
-      return moduleUrl;
+      return addExternalParam(moduleUrl);
     }
 
-    return isModule ? 'https://esm.sh/' + moduleName : 'https://cdn.jsdelivr.net/npm/' + moduleName;
+    return isModule
+      ? addExternalParam('https://esm.sh/' + moduleName)
+      : 'https://cdn.jsdelivr.net/npm/' + moduleName;
   },
 
   getUrl: (path: string, cdn?: CDN) =>

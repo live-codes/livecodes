@@ -688,6 +688,10 @@ a#result-button {
   }
 }
 
+#result-mode-drawer {
+  display: none;
+}
+
 .result {
   #toolbar {
     display: none;
@@ -1634,6 +1638,10 @@ a.editor-title {
   #project-info-btn,
   #custom-settings-btn {
     display: none;
+  }
+
+  #editor-status {
+    cursor: default;
   }
 
   #editor-container {
