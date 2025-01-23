@@ -27,7 +27,7 @@ export const preactStarter: Template = {
     content: `
 /** @jsx h */
 import { h, render } from 'preact';
-import { useSignal } from "@preact/signals?deps=preact";
+import { useSignal } from "@preact/signals";
 
 function App(props) {
   const count = useSignal(0);
