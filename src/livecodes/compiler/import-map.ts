@@ -65,7 +65,11 @@ const isStylesheet = /* @__PURE__ */ (mod: string) =>
 export const findImportMapKey = /* @__PURE__ */ (mod: string, importmap: Record<string, string>) =>
   Object.keys(importmap).find((key) => key === mod || mod.startsWith(key + '/'));
 
-export const createImportMap = (code: string, config: Config, fallbackToCdn = true) =>
+export const createImportMap = (
+  code: string,
+  config: Config,
+  { fallbackToCdn = true, external }: { fallbackToCdn?: boolean; external?: string } = {},
+) =>
   getImports(code)
     .map((libName) => {
       if ((!needsBundler(libName) && !isBare(libName)) || isStylesheet(libName)) {
@@ -82,6 +86,7 @@ export const createImportMap = (code: string, config: Config, fallbackToCdn = tr
         return {
           [libName]: modulesService.getModuleUrl(libName, {
             defaultCDN: config?.customSettings?.defaultCDN,
+            external,
           }),
         };
       }
@@ -109,9 +114,9 @@ export const isModuleScript = (code: string) =>
 export const replaceImports = (
   code: string,
   config: Config,
-  importMap?: Record<string, string>,
+  { importMap, external }: { importMap?: Record<string, string>; external?: string } = {},
 ) => {
-  importMap = importMap || createImportMap(code, config);
+  importMap = importMap || createImportMap(code, config, { external });
   return code.replace(new RegExp(importsPattern), (statement) => {
     if (!importMap) {
       return statement;
@@ -137,12 +142,14 @@ export const replaceSFCImports = async (
     sfcExtension,
     getLanguageByAlias,
     compileSFC,
+    external,
   }: {
     config: Config;
     filename: string;
     sfcExtension: string;
     getLanguageByAlias: (alias: string) => Language | undefined;
     compileSFC: (code: string, options: { filename: string; config: Config }) => Promise<string>;
+    external?: string;
   },
 ) => {
   const isSfc = (mod: string) => mod.toLowerCase().endsWith(sfcExtension);
@@ -185,14 +192,14 @@ export const replaceSFCImports = async (
                 config,
               )
             ).code,
-            { filename: url, config, sfcExtension, getLanguageByAlias, compileSFC },
+            { filename: url, config, sfcExtension, getLanguageByAlias, compileSFC, external },
           );
       if (!compiled) return;
       const dataUrl = toDataUrl(compiled);
       importMap[mod] = dataUrl;
     }),
   );
-  return replaceImports(code, {} as Config, importMap);
+  return replaceImports(code, {} as Config, { importMap, external });
 };
 
 export const removeImports = (code: string, mods: string[]) =>
