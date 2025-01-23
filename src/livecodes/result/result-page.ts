@@ -269,20 +269,22 @@ export const createResultPage = async ({
 
   const styleExtension = getLanguageExtension(code.style.language);
 
+  const reactExternalImports = jsxRuntime === reactRuntime ? 'react,react-dom' : undefined;
+
   // import maps
   const userImports =
     config.customSettings.mapImports === false
       ? {}
       : {
           ...(hasImports(code.script.compiled)
-            ? createImportMap(code.script.compiled, config)
+            ? createImportMap(code.script.compiled, config, { external: reactExternalImports })
             : {}),
           ...(hasImports(code.markup.compiled)
-            ? createImportMap(code.markup.compiled, config)
+            ? createImportMap(code.markup.compiled, config, { external: reactExternalImports })
             : {}),
           ...(shouldInsertJsxRuntime ? createImportMap(reactImport + jsxRuntime, config) : {}),
           ...(runTests && !forExport && hasImports(compiledTests)
-            ? createImportMap(compiledTests, config)
+            ? createImportMap(compiledTests, config, { external: reactExternalImports })
             : {}),
           ...stylesheetImports.reduce(
             (acc, url) => ({
@@ -310,11 +312,10 @@ export const createResultPage = async ({
     importFromScript || shouldInsertJsxRuntime
       ? {
           './script': toDataUrl(
-            replaceImports(
-              code.script.compiled,
-              config,
-              objectFilter(userImports, (_value, key) => key.startsWith('./')),
-            ),
+            replaceImports(code.script.compiled, config, {
+              importMap: objectFilter(userImports, (_value, key) => key.startsWith('./')),
+              external: reactExternalImports,
+            }),
           ),
         }
       : {};
@@ -331,16 +332,31 @@ export const createResultPage = async ({
       delete userImports[userKey as keyof typeof userImports];
     });
 
+  // avoid duplicate react instances
+  const reactImports = (() => {
+    if (!reactExternalImports) return {};
+    const reactUrl = modulesService.getModuleUrl('react');
+    const reactDomUrl = modulesService.getModuleUrl('react-dom');
+    return {
+      react: reactUrl,
+      'react/': reactUrl + '/',
+      'react-dom': reactDomUrl,
+      'react-dom/': reactDomUrl + '/',
+    };
+  })();
+
   const importMaps = {
     ...userDefinedImportmap, // for "scopes"
     imports: {
       ...userImports,
       ...scriptImport,
+      ...reactImports,
       ...compilerImports,
       ...(runTests ? testImports : {}),
       ...configImports,
     },
   };
+
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');
     esModuleShims.src = modulesService.getUrl(esModuleShimsPath, getAppCDN());
