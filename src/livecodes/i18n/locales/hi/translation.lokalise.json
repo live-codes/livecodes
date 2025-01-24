@@ -399,8 +399,11 @@
   "codeToImage.code": {
     "translation": "कोड"
   },
-  "codeToImage.copy": {
-    "translation": "कॉपी करें"
+  "codeToImage.copyCode": {
+    "translation": "कोड कॉपी करें"
+  },
+  "codeToImage.copyImage": {
+    "translation": "नकल छवि"
   },
   "codeToImage.default": {
     "translation": "डिफ़ॉल्ट"
@@ -459,8 +462,11 @@
   "codeToImage.shadow": {
     "translation": "छाया"
   },
-  "codeToImage.share": {
+  "codeToImage.shareImage": {
     "translation": "चित्र साझा करें"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "साझा करें"
   },
   "codeToImage.shareUrl": {
     "translation": "यूआरएल साझा करें"
@@ -483,6 +489,210 @@
   "codeToImage.windowStyle.windows": {
     "translation": "Windows"
   },
+  "commandMenu.changeTheme.dark": {
+    "translation": "डार्क थीम में बदलें"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "लाइट थीम में बदलें"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "विषय को परिवर्तित करें"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "UI भाषा बदलें"
+  },
+  "commandMenu.closeModalMenu": {
+    "translation": "मोडल/मेनू बंद करें"
+  },
+  "commandMenu.contribute": {
+    "translation": "योगदान देना"
+  },
+  "commandMenu.copy": {
+    "translation": "कोड कॉपी करें"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "कोड को डेटा URL के रूप में कॉपी करें"
+  },
+  "commandMenu.disableAI": {
+    "translation": "एआई कोड सहायक अक्षम करें"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "ऑटो सेव अक्षम करें"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "स्वतः अद्यतन अक्षम करें"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "Emacs मोड अक्षम करें"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "फ़ॉर्मेट ऑन-सेव अक्षम करें"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "सहेजे न गए पुनर्प्राप्त को अक्षम करें"
+  },
+  "commandMenu.disableVim": {
+    "translation": "विम मोड अक्षम करें"
+  },
+  "commandMenu.enableAI": {
+    "translation": "AI कोड सहायक सक्षम करें"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "स्वतः सहेजें सक्षम करें"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "स्वतः अद्यतन सक्षम करें"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "Emacs मोड सक्षम करें"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "फ़ॉर्मेट ऑन-सेव सक्षम करें"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "सहेजे न गए पुनर्प्राप्त करें सक्षम करें"
+  },
+  "commandMenu.enableVim": {
+    "translation": "विम मोड सक्षम करें"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "संपादक पर ध्यान दें"
+  },
+  "commandMenu.focus.home": {
+    "translation": "फ़ोकस को होम पर ले जाएँ"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "फ़ोकस को संपादक से बाहर ले जाएँ"
+  },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "टैब फ़ोकस मोड टॉगल करें"
+  },
+  "commandMenu.formatCode": {
+    "translation": "प्रारूप कोड"
+  },
+  "commandMenu.home": {
+    "translation": "होम"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "क्षैतिज लेआउट"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "कुंजीपटल अल्प मार्ग"
+  },
+  "commandMenu.login": {
+    "translation": "लॉगिन"
+  },
+  "commandMenu.logout": {
+    "translation": "लॉग आउट"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "माता-पिता के पास जाना"
+  },
+  "commandMenu.placeholder": {
+    "translation": "कोई आदेश लिखें या खोजें..."
+  },
+  "commandMenu.processors": {
+    "translation": "प्रोसेसर"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "प्रतिक्रियाशील लेआउट"
+  },
+  "commandMenu.run": {
+    "translation": "चलाएं"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "एक नये प्रोजेक्ट के रूप में सहेजें"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "टेम्पलेट के रूप में सहेजें"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "भाषा चुने"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "संकलित कोड टॉगल करें"
+  },
+  "commandMenu.show.console": {
+    "translation": "टॉगल कंसोल"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "फोकस मोड टॉगल करें"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "संपूर्ण स्क्रीन टॉगल करें"
+  },
+  "commandMenu.show.markup": {
+    "translation": "मार्कअप संपादक दिखाएँ"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "संकलित कोड को अधिकतम करें"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "कंसोल को अधिकतम करें"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "अधिकतम परीक्षण करें"
+  },
+  "commandMenu.show.next": {
+    "translation": "अगला संपादक दिखाएं"
+  },
+  "commandMenu.show.previous": {
+    "translation": "पिछला संपादक दिखाएँ"
+  },
+  "commandMenu.show.result": {
+    "translation": "परिणाम टॉगल करें"
+  },
+  "commandMenu.show.runTests": {
+    "translation": "परीक्षण चलाएं"
+  },
+  "commandMenu.show.script": {
+    "translation": "स्क्रिप्ट संपादक दिखाएँ"
+  },
+  "commandMenu.show.style": {
+    "translation": "शैली संपादक दिखाएँ"
+  },
+  "commandMenu.show.tests": {
+    "translation": "टॉगल टेस्ट"
+  },
+  "commandMenu.show.title": {
+    "translation": "दिखाओ …"
+  },
+  "commandMenu.show.zoom": {
+    "translation": "टॉगल परिणाम ज़ूम"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "स्टार्टर टेम्पलेट्स"
+  },
+  "commandMenu.sync": {
+    "translation": "सिंक (बीटा) …"
+  },
+  "commandMenu.template": {
+    "translation": "टेम्पलेट"
+  },
+  "commandMenu.theme.color": {
+    "translation": "थीम रंग सेट करें"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "डिफ़ॉल्ट थीम रंग सेट करें"
+  },
+  "commandMenu.title": {
+    "translation": "कमांड मेनू"
+  },
+  "commandMenu.toClose": {
+    "translation": "बंद कर देना"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "नेविगेट करना"
+  },
+  "commandMenu.toSelect": {
+    "translation": "चयन करने के लिए"
+  },
+  "commandMenu.toggle": {
+    "translation": "टॉगल करें: "
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "लंबवत लेआउट"
+  },
   "core.broadcast.heading": {
     "translation": "प्रसारण"
   },
@@ -501,6 +711,9 @@
   "core.copy.copiedAsDataURL": {
     "translation": "कोड डेटा URL के रूप में कॉपी किया गया"
   },
+  "core.copy.copiedImage": {
+    "translation": "छवि क्लिपबोर्ड पर कॉपी की गई."
+  },
   "core.copy.hint": {
     "translation": "कॉपी किया गया!"
   },
@@ -512,6 +725,9 @@
   },
   "core.error.failedToCopyCode": {
     "translation": "कोड कॉपी करने में विफल"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "छवि कॉपी करने में विफल"
   },
   "core.error.failedToLoadTemplate": {
     "translation": "टेम्पलेट लोड करने में विफल"
@@ -746,6 +962,9 @@
   },
   "editorSettings.lineNumbers": {
     "translation": "पंक्ति संख्याएँ दिखाएँ"
+  },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "सापेक्ष पंक्ति संख्या *"
   },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "CodeJar में उपलब्ध नहीं"
@@ -1065,6 +1284,18 @@
   "import.success": {
     "translation": "आयात सफल!"
   },
+  "keyboardShortcuts.command": {
+    "translation": "आज्ञा"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "कोड संपादक कीबोर्ड शॉर्टकट की सूची के लिए, <tag-1> VS कोड शॉर्टकट </tag-1> देखें"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "कुंजीपटल अल्प मार्ग"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "चाबी"
+  },
   "login.accessAllowed": {
     "translation": "इन तक पहुँच की अनुमति दें:"
   },
@@ -1131,6 +1362,9 @@
   "menu.broadcast": {
     "translation": "प्रसारण …"
   },
+  "menu.commandMenu": {
+    "translation": "कमांड मेनू"
+  },
   "menu.config": {
     "translation": "कॉन्फ़िगरेशन"
   },
@@ -1187,6 +1421,9 @@
   },
   "menu.import": {
     "translation": "आयात …"
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "कुंजीपटल अल्प मार्ग"
   },
   "menu.layout": {
     "translation": "लंबवत लेआउट"
@@ -1820,6 +2057,9 @@
   },
   "templates.starter.scheme": {
     "translation": "Scheme स्टार्टर"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/ui स्टार्टर"
   },
   "templates.starter.solid": {
     "translation": "Solid स्टार्टर"

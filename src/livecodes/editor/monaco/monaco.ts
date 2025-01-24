@@ -28,7 +28,7 @@ import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
 import { pkgInfoService } from '../../services/pkgInfo';
 import { getEditorTheme } from '../themes';
-import { getCompilerOptions } from '../ts-compiler-options';
+import { getCompilerOptions, hasJsx } from '../ts-compiler-options';
 import { customThemes, monacoThemes } from './monaco-themes';
 import { registerTwoSlash } from './register-twoslash';
 
@@ -67,7 +67,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     insertSpaces: !opt.useTabs,
     detectIndentation: false,
     tabSize: opt.tabSize,
-    lineNumbers: opt.lineNumbers ? 'on' : 'off',
+    lineNumbers: opt.lineNumbers === 'relative' ? 'relative' : opt.lineNumbers ? 'on' : 'off',
     wordWrap: opt.wordWrap ? 'on' : 'off',
     autoClosingBrackets: opt.closeBrackets ? 'always' : 'never',
     autoClosingQuotes: opt.closeBrackets ? 'always' : 'never',
@@ -155,7 +155,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     },
     acceptSuggestionOnCommitCharacter: !isAndroid,
     acceptSuggestionOnEnter: !isAndroid ? 'on' : 'off',
-    accessibilitySupport: !isAndroid ? 'on' : 'off',
     inlayHints: {
       enabled: 'on',
     },
@@ -639,6 +638,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     if (
       !model ||
       !addCloseLanguages.includes(monacoMapLanguage(language)) ||
+      (monacoMapLanguage(language) === 'typescript' && !hasJsx.includes(language)) || // avoid autocompleting TS generics
       editorOptions.autoClosingBrackets === 'never'
     ) {
       return;

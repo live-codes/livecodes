@@ -6,7 +6,7 @@
 import { Compartment, EditorState, type Extension } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView, keymap, type KeyBinding, type ViewUpdate } from '@codemirror/view';
-import { indentWithTab, undo, redo } from '@codemirror/commands';
+import { undo, redo } from '@codemirror/commands';
 import {
   defaultHighlightStyle,
   syntaxHighlighting,
@@ -30,7 +30,7 @@ import type {
   EditorLibrary,
 } from '../../models';
 import { getEditorModeNode } from '../../UI/selectors';
-import { getRandomString } from '../../utils/utils';
+import { ctrl, debounce, getRandomString } from '../../utils/utils';
 import { comlinkBaseUrl } from '../../vendors';
 import { getEditorTheme } from '../themes';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
@@ -44,6 +44,8 @@ export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
 };
 const editors: CodeiumEditor[] = [];
 let tsWorker: any;
+let tabFocusMode = false;
+const changeTabFocusMode = debounce(() => (tabFocusMode = !tabFocusMode), 50);
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
@@ -101,6 +103,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let codeium:
     | ((editors: CodeiumEditor[], mapLanguage: (lang: Language) => Language) => Extension)
     | undefined;
+  let lineNumbersRelative: () => Extension;
 
   const configureTSExtension = (extensionList: readonly Extension[]) => {
     if (mappedLanguage === 'typescript') {
@@ -170,17 +173,20 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       emacs: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emacs.js`,
       emmet: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emmet.js`,
       codeium: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-codeium.js`,
+      lineNumbersRelative: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-line-numbers-relative.js`,
     };
-    const [vimMod, emacsMod, emmetMod, codeiumMod] = await Promise.all([
+    const [vimMod, emacsMod, emmetMod, codeiumMod, lineNumbersRelativeMod] = await Promise.all([
       opt.editorMode === 'vim' ? import(modules.vim) : Promise.resolve({}),
       opt.editorMode === 'emacs' ? import(modules.emacs) : Promise.resolve({}),
       opt.emmet ? import(modules.emmet) : Promise.resolve({}),
       opt.enableAI ? import(modules.codeium) : Promise.resolve({}),
+      opt.lineNumbers === 'relative' ? import(modules.lineNumbersRelative) : Promise.resolve({}),
     ]);
     vim = vimMod.vim;
     emacs = emacsMod.emacs;
     emmet = emmetMod.emmet;
     codeium = codeiumMod.codeium;
+    lineNumbersRelative = lineNumbersRelativeMod.lineNumbersRelative;
   };
   await loadExtensions(options);
 
@@ -201,6 +207,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const useTabs = settings.useTabs ?? editorSettings.useTabs;
     const wordWrap = settings.wordWrap ?? editorSettings.wordWrap;
     const enableEmmet = settings.emmet ?? editorSettings.emmet;
+    const enableLineNumbers = settings.lineNumbers ?? editorSettings.lineNumbers;
     const enableAI = settings.enableAI ?? editorSettings.enableAI;
     const editorMode = settings.editorMode ?? editorSettings.editorMode;
 
@@ -210,6 +217,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ...(wordWrap ? [EditorView.lineWrapping] : []),
       ...(editorMode === 'vim' && vim ? [vim()] : editorMode === 'emacs' && emacs ? [emacs()] : []),
       ...(enableEmmet && emmet ? [emmet] : []),
+      ...(enableLineNumbers === 'relative' && lineNumbersRelative
+        ? [lineNumbersRelative()]
+        : enableLineNumbers && lineNumbers
+          ? [lineNumbers()]
+          : []),
       ...(enableAI && codeium ? [codeium(editors, mapLanguage)] : []),
       EditorView.theme({
         '&': {
@@ -237,11 +249,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       syntaxHighlighting(italicComments),
       editorSettingsExtension.of(configureSettingsExtension({})),
       keyBindingsExtension.of(keymap.of(keyBindings)),
-      lineNumbersExtension.of(editorSettings.lineNumbers ? lineNumbers() : []),
       closeBracketsExtension.of(editorSettings.closeBrackets ? closeBrackets() : []),
       basicSetup,
       readonly ? readOnlyExtension : [],
-      keymap.of([indentWithTab]),
       keymap.of(vscodeKeymap),
       indentationMarkers(),
       colorPicker,
@@ -354,6 +364,19 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  const toggleTabFocusMode = (event: KeyboardEvent) => {
+    if (event.code === 'KeyM' && ctrl(event)) {
+      event.preventDefault();
+      changeTabFocusMode();
+      // wait for debounce
+      setTimeout(() => {
+        view.setTabFocusMode?.(tabFocusMode);
+      }, 70);
+    }
+  };
+  view.setTabFocusMode(tabFocusMode);
+  addEventListener('keydown', toggleTabFocusMode);
+
   let formatter: FormatFn | undefined;
   const registerFormatter = (formatFn: FormatFn | undefined) => {
     if (!formatFn) return;
@@ -450,6 +473,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     view.destroy();
     container.innerHTML = '';
     editors.splice(editors.indexOf(codeiumEditor), 1);
+    removeEventListener('keydown', toggleTabFocusMode);
   };
 
   return {

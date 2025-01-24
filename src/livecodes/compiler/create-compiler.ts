@@ -323,5 +323,6 @@ export const createCompiler = async ({
     compile,
     clearCache,
     typescriptFeatures,
+    isFake: false,
   };
 };

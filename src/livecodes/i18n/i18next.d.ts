@@ -14,7 +14,7 @@ declare module 'i18next' {
     defaultNS: 'translation';
     resources: {
       translation: typeof Translation;
-      'lang-info': typeof LangInfoTranslation;
+      'language-info': typeof LangInfoTranslation;
     };
   }
 }

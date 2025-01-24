@@ -12,6 +12,7 @@
   --color40: hsl(var(--hue), var(--st), calc(var(--lt) * 0.4)); // 40%
   --color50: hsl(var(--hue), var(--st), calc(var(--lt) * 0.5)); // 50%
   --color60: hsl(var(--hue), var(--st), calc(var(--lt) * 0.6)); // 60%
+  --color70: hsl(var(--hue), var(--st), calc(var(--lt) * 0.7)); // 70%
   --color80: hsl(var(--hue), var(--st), calc(var(--lt) * 0.8)); // 80%
   --color85: hsl(var(--hue), var(--st), calc(var(--lt) * 0.85)); // 85%
   --color90: hsl(var(--hue), var(--st), calc(var(--lt) * 0.9)); // 90%
@@ -77,5 +78,15 @@
 
   #logo img {
     filter: drop-shadow(1px 1px 1px var(--color50));
+  }
+
+  .tagify {
+    background-color: var(--input-bg-color) !important;
+
+    .tagify__input {
+      --placeholder-color: var(--input-color) !important;
+      --placeholder-color-focus: var(--input-color) !important;
+      text-align: start;
+    }
   }
 }

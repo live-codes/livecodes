@@ -68,6 +68,11 @@ export const isMobile = /* @__PURE__ */ () => {
   return mobile;
 };
 
+export const isMac = /* @__PURE__ */ () =>
+  navigator.userAgent.includes('Mac') || navigator.platform.includes('Mac');
+
+export const ctrl = /* @__PURE__ */ (e: KeyboardEvent) => (isMac() ? e.metaKey : e.ctrlKey);
+
 export const isFirefox = /* @__PURE__ */ () => {
   const userAgent = navigator.userAgent.toLowerCase();
   return userAgent.includes('firefox') || userAgent.includes('fxios');
@@ -97,7 +102,9 @@ export const objectFilter = /* @__PURE__ */ (
 ) => Object.fromEntries(Object.entries(obj).filter(([k, v], i) => predicate(v, k, i)));
 
 export const copyToClipboard = /* @__PURE__ */ (text: string) => {
-  if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
+  if ('clipboard' in navigator) {
+    return navigator.clipboard.writeText(text);
+  } else if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
     const textarea = document.createElement('textarea');
     textarea.textContent = text;
     textarea.style.position = 'fixed'; // Prevent scrolling to bottom of page in Microsoft Edge.
@@ -112,6 +119,23 @@ export const copyToClipboard = /* @__PURE__ */ (text: string) => {
     } finally {
       document.body.removeChild(textarea);
     }
+  }
+  return false;
+};
+
+export const copyImage = /* @__PURE__ */ async (image: Blob, type: 'png' | 'jpg' | 'svg') => {
+  const mimeTypes = {
+    png: 'image/png',
+    jpg: 'image/jpeg',
+    svg: 'image/svg+xml',
+  };
+  try {
+    if ('write' in navigator.clipboard) {
+      await navigator.clipboard.write([new ClipboardItem({ [mimeTypes[type]]: image })]);
+      return true;
+    }
+  } catch (err) {
+    // proceed to return false
   }
   return false;
 };
@@ -533,6 +557,65 @@ const rgbToHex = /* @__PURE__ */ (r: number, g: number, b: number) =>
 export const colorToHex = (color: string) => {
   const { r, g, b } = colorToRgba(color);
   return rgbToHex(r, g, b);
+};
+
+type ValueOf<T> = T[keyof T];
+type NonEmptyArray<T> = [T, ...T[]];
+type MustInclude<T, U extends T[]> = [T] extends [ValueOf<U>] ? U : never;
+/**
+ * converts TypeScript string union to array
+ * see https://stackoverflow.com/a/70694878/5054774
+ */
+export const stringUnionToArray =
+  /* @__PURE__ */
+
+
+    <T>() =>
+    <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) =>
+      elements;
+
+export const preventFocus = /* @__PURE__ */ (container: HTMLElement) => {
+  // avoid focus on tab
+  const editorFocusArea =
+    container.querySelector('textarea') || // monaco
+    container.querySelector('[role="textbox"]'); // codemirror
+  if (editorFocusArea) {
+    const disableFocus = () => (editorFocusArea.tabIndex = -1);
+    // monaco keeps setting it to 0
+    const ob = new MutationObserver((mutationList) => {
+      for (const mutation of mutationList) {
+        if (
+          // avoid infinite loop
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'tabindex' &&
+          editorFocusArea.tabIndex !== -1
+        ) {
+          disableFocus();
+        }
+      }
+    });
+    ob.observe(editorFocusArea, { attributes: true });
+    disableFocus();
+  }
+};
+
+export const findFirstFocusableElement = /* @__PURE__ */ (container: HTMLElement) =>
+  Array.from(container.getElementsByTagName('*')).find(isFocusable);
+
+export const isFocusable = /* @__PURE__ */ (item: any | null): boolean => {
+  if (!item || item.tabIndex < 0) return false;
+  switch (item.tagName) {
+    case 'A':
+      return !!item.href;
+    case 'INPUT':
+      return item.type !== 'hidden' && !item.disabled;
+    case 'SELECT':
+    case 'TEXTAREA':
+    case 'BUTTON':
+      return !item.disabled;
+    default:
+      return false;
+  }
 };
 
 export const predefinedValues = {

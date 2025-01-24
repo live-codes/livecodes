@@ -24,7 +24,16 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
 
   const includes = (arr: any[], x: any) => x != null && arr.includes(x);
 
-  const modes: Array<Config['mode']> = ['full', 'focus', 'simple', 'editor', 'codeblock', 'result'];
+  const views: Array<Config['view']> = ['split', 'editor', 'result'];
+  const modes: Array<Config['mode']> = [
+    'full',
+    'focus',
+    'lite',
+    'simple',
+    'editor',
+    'codeblock',
+    'result',
+  ];
   const themes: Array<Config['theme']> = ['light', 'dark'];
   const layout: Array<Config['layout']> = ['responsive', 'horizontal', 'vertical'];
   const editorModes: Array<Config['editorMode']> = ['vim', 'emacs'];
@@ -51,6 +60,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.title, 'string') ? { title: x.title } : {}),
     ...(is(x.content, 'string') ? { content: x.content } : {}),
     ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
+    ...(is(x.hideTitle, 'boolean') ? { hideTitle: x.hideTitle } : {}),
     ...(is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),
     ...(is(x.hiddenContentUrl, 'string') ? { hiddenContentUrl: x.hiddenContentUrl } : {}),
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
@@ -102,6 +112,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.autotest, 'boolean') ? { autotest: config.autotest } : {}),
     ...(is(config.delay, 'number') ? { delay: Number(config.delay) } : {}),
     ...(is(config.formatOnsave, 'boolean') ? { formatOnsave: config.formatOnsave } : {}),
+    ...(includes(views, config.view) ? { view: config.view } : {}),
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),
     ...(includes(themes, config.theme) ? { theme: config.theme } : {}),
     ...(is(config.themeColor, 'string') ? { themeColor: config.themeColor } : {}),
@@ -151,7 +162,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.fontSize, 'number') ? { fontSize: Number(config.fontSize) } : {}),
     ...(is(config.useTabs, 'boolean') ? { useTabs: config.useTabs } : {}),
     ...(is(config.tabSize, 'number') ? { tabSize: Number(config.tabSize) } : {}),
-    ...(is(config.lineNumbers, 'boolean') ? { lineNumbers: config.lineNumbers } : {}),
+    ...(is(config.lineNumbers, 'boolean') || config.lineNumbers === 'relative'
+      ? { lineNumbers: config.lineNumbers }
+      : {}),
     ...(is(config.wordWrap, 'boolean') ? { wordWrap: config.wordWrap } : {}),
     ...(is(config.closeBrackets, 'boolean') ? { closeBrackets: config.closeBrackets } : {}),
     ...(is(config.semicolons, 'boolean') ? { semicolons: config.semicolons } : {}),

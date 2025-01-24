@@ -12,6 +12,7 @@
     </style>
     <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossorigin />
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
     <link rel="stylesheet" href="{{baseUrl}}{{hash:app.css}}" id="app-styles" />
     <script src="{{esModuleShimsUrl}}" async></script>
     <script type="importmap">
@@ -152,7 +153,7 @@
               href="javascript:void(0)"
               id="share-button"
               class="button"
-              title="Share"
+              title="Share (Ctrl/⌘ + Alt + S)"
               data-i18n="app.share.hint"
               data-i18n-prop="title"
             >
@@ -163,7 +164,7 @@
               href="javascript:void(0)"
               id="result-button"
               class="button"
-              title="Result"
+              title="Result (Ctrl/⌘ + Alt + R)"
               data-i18n="app.result.hint"
               data-i18n-prop="title"
             >
@@ -199,7 +200,7 @@
             <button
               type="button"
               id="focus-btn"
-              title="Toggle Focus mode"
+              title="Toggle Focus mode (Ctrl/⌘ + K, Z)"
               data-i18n="app.focus.hint"
               data-i18n-prop="title"
             >
@@ -217,7 +218,7 @@
             <button
               type="button"
               id="undo-btn"
-              title="Undo (Ctrl/Cmd + Z)"
+              title="Undo (Ctrl/⌘ + Z)"
               data-i18n="app.undo.hint"
               data-i18n-prop="title"
             >
@@ -226,7 +227,7 @@
             <button
               type="button"
               id="redo-btn"
-              title="Redo (Ctrl/Cmd + Shift + Z)"
+              title="Redo (Ctrl/⌘ + Shift + Z)"
               data-i18n="app.redo.hint"
               data-i18n-prop="title"
             >
@@ -235,7 +236,7 @@
             <button
               type="button"
               id="copy-btn"
-              title="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
+              title="Copy (Ctrl/⌘ + A, Ctrl/⌘ + C)"
               data-i18n="app.copy.hint"
               data-i18n-prop="title"
             >
@@ -312,10 +313,18 @@
       </div>
     </div>
     <div id="overlay" style="display: none"></div>
-    <div id="modal-container" style="display: none">
-      <div id="modal"></div>
-    </div>
-    <div id="result-mode-drawer" class="hidden" style="display: none">
+    <dialog id="modal">
+      <div id="modal-container"></div>
+      <div class="snackbars-left"></div>
+    </dialog>
+    <ninja-keys
+      placeholder="Type a command or search..."
+      data-i18n="commandMenu.placeholder"
+      data-i18n-prop="placeholder"
+      highlight-matches
+      disableHotkeys
+    ></ninja-keys>
+    <div id="result-mode-drawer" class="hidden">
       <a href="#">
         <div id="drawer-logo">
           <img

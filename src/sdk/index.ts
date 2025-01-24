@@ -49,24 +49,26 @@ export async function createPlayground(
     params = {},
     config = {},
     import: importFrom,
+    headless,
     lite,
     loading = 'lazy',
     template,
-    view = 'split',
+    view,
   } = options;
 
-  const headless = view === 'headless';
+  const isHeadless = headless || view === 'headless'; // for backwards compatibility;
+
   let containerElement: HTMLElement | null = null;
 
   if (typeof container === 'string') {
     containerElement = document.querySelector(container);
   } else if (container instanceof HTMLElement) {
     containerElement = container;
-  } else if (!(headless && typeof container === 'object')) {
+  } else if (!(isHeadless && typeof container === 'object')) {
     throw new Error('A valid container element is required.');
   }
   if (!containerElement) {
-    if (headless) {
+    if (isHeadless) {
       containerElement = document.createElement('div');
       hideElement(containerElement);
       document.body.appendChild(containerElement);
@@ -89,7 +91,37 @@ export async function createPlayground(
       url.searchParams.set(param, String(params[param]));
     });
   }
-
+  if (template) {
+    url.searchParams.set('template', template);
+  }
+  if (importFrom) {
+    url.searchParams.set('x', importFrom);
+  }
+  if (isHeadless) {
+    url.searchParams.set('headless', 'true');
+  }
+  if (lite) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Deprecation notice: "lite" option is deprecated. Use "config: { mode: 'lite' }" instead.`,
+    );
+    if (typeof config === 'object' && config.mode == null) {
+      config.mode = 'lite';
+    } else {
+      url.searchParams.set('lite', 'true');
+    }
+  }
+  if (view) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Deprecation notice: The "view" option has been moved to "config.view". For headless mode use "headless: true".`,
+    );
+    if (typeof config === 'object' && config.view == null && view !== 'headless') {
+      config.view = view;
+    } else {
+      url.searchParams.set('view', view);
+    }
+  }
   if (typeof config === 'string') {
     try {
       new URL(config);
@@ -105,18 +137,8 @@ export async function createPlayground(
     throw new Error(`"config" is not a valid URL or configuration object.`);
   }
 
-  if (template) {
-    url.searchParams.set('template', template);
-  }
-  if (importFrom) {
-    url.searchParams.set('x', importFrom);
-  }
-  if (lite) {
-    url.searchParams.set('lite', 'true');
-  }
   url.searchParams.set('embed', 'true');
-  url.searchParams.set('loading', headless ? 'eager' : loading);
-  url.searchParams.set('view', view);
+  url.searchParams.set('loading', isHeadless ? 'eager' : loading);
 
   let destroyed = false;
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
@@ -126,11 +148,11 @@ export async function createPlayground(
       if (!containerElement) return;
 
       const height = containerElement.dataset.height || containerElement.style.height;
-      if (height && !headless) {
+      if (height && !isHeadless) {
         const cssHeight = isNaN(Number(height)) ? height : height + 'px';
         containerElement.style.height = cssHeight;
       }
-      if (containerElement.dataset.defaultStyles !== 'false' && !headless) {
+      if (containerElement.dataset.defaultStyles !== 'false' && !isHeadless) {
         containerElement.style.backgroundColor ||= '#fff';
         containerElement.style.border ||= '1px solid black';
         containerElement.style.borderRadius ||= '8px';
@@ -144,7 +166,12 @@ export async function createPlayground(
         containerElement.style.resize ||= 'vertical';
       }
 
-      const frame = document.createElement('iframe');
+      const className = 'livecodes';
+      const preExistingIframe = containerElement.querySelector<HTMLIFrameElement>(
+        `iframe.${className}`,
+      );
+      const frame = preExistingIframe || document.createElement('iframe');
+      frame.classList.add(className);
       frame.setAttribute(
         'allow',
         'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
@@ -158,8 +185,7 @@ export async function createPlayground(
       );
       const iframeLoading = loading === 'eager' ? 'eager' : 'lazy';
       frame.setAttribute('loading', iframeLoading);
-      frame.classList.add('livecodes');
-      if (headless) {
+      if (isHeadless) {
         hideElement(frame);
       } else {
         frame.style.height = '100%';
@@ -187,7 +213,9 @@ export async function createPlayground(
         resolve(frame);
       };
       frame.src = url.href;
-      containerElement.appendChild(frame);
+      if (!preExistingIframe) {
+        containerElement.appendChild(frame);
+      }
     });
 
   const iframe = await createIframe();

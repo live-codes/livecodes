@@ -1,7 +1,6 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
 import { shareScreen } from '../html';
-import type { ShareData } from '../models';
+import type { EventsManager, ShareData } from '../models';
 import { allowedOrigin } from '../services/allowed-origin';
 import { copyToClipboard } from '../utils/utils';
 import { generateQrCode } from './qrcode';
@@ -19,7 +18,7 @@ const encode = encodeURIComponent;
 export const createShareContainer = async (
   shareFn: (shortUrl: boolean, permanentUrl: boolean) => Promise<ShareData>,
   baseUrl: string,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
 ) => {
   let messageTimeout: any;
   const copyUrl = (url?: string) => {
@@ -38,6 +37,7 @@ export const createShareContainer = async (
     const qrcodeContainer = getQrCodeContainer();
     items!.style.visibility = 'hidden';
     qrcodeContainer.style.display = 'flex';
+    // TODO: fix qrcodeImg is not assigned
     if (qrcodeImg) {
       shareExpiry?.classList.add('short-url');
       if (input && shareDataShort) {
@@ -272,7 +272,8 @@ export const createShareContainer = async (
     input?.select();
   });
 
-  eventsManager.addEventListener(clickToCopy, 'click', function () {
+  eventsManager.addEventListener(clickToCopy, 'click', function (ev) {
+    ev.preventDefault();
     copyUrl(input?.value);
     input?.select();
   });

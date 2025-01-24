@@ -9,8 +9,6 @@ import {
   processorIsEnabled,
   getLanguageByAlias,
   mapLanguage,
-  createLanguageMenus,
-  createProcessorItem,
   getLanguageTitle,
   getLanguageSpecs,
   getLanguageExtension,
@@ -57,6 +55,9 @@ import type {
   SDKEvent,
   Editor,
   AppLanguage,
+  Modal,
+  Notifications,
+  EventsManager,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -68,7 +69,7 @@ import type {
 import type { Formatter } from './formatter/models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
-import { createModal } from './modal';
+import { createModal } from './UI/modal';
 import {
   menuProjectHTML,
   menuSettingsHTML,
@@ -81,6 +82,7 @@ import {
   resultPopupHTML,
   welcomeScreen,
   aboutScreen,
+  keyboardShortcutsScreen,
 } from './html';
 import { exportJSON } from './export/export-json';
 import { createEventsManager, createPub } from './events';
@@ -111,6 +113,8 @@ import {
   predefinedValues,
   colorToHex,
   capitalize,
+  isMac,
+  ctrl,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -120,12 +124,15 @@ import * as UI from './UI/selectors';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
+  fontInterUrl,
+  fontMaterialIconsUrl,
   fscreenUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
   lunaDataGridStylesUrl,
   lunaDomViewerStylesUrl,
   lunaObjViewerStylesUrl,
+  ninjaKeysUrl,
   snackbarUrl,
 } from './vendors';
 import { createToolsPane } from './toolspane';
@@ -155,6 +162,8 @@ import type {
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
 import { themeColors } from './UI/theme-colors';
+import { getCommandMenuActions } from './UI/command-menu-actions';
+import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
 
 // declare global dependencies
 declare global {
@@ -179,8 +188,8 @@ declare global {
 
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
-let notifications: ReturnType<typeof createNotifications>;
-let modal: ReturnType<typeof createModal>;
+let notifications: Notifications;
+let modal: Modal;
 let i18n: Await<ReturnType<typeof import('./i18n').init>> | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
@@ -197,7 +206,7 @@ let formatter: Formatter;
 let editors: Editors;
 let customEditors: CustomEditors;
 let toolsPane: ToolsPane | undefined;
-let authService: ReturnType<typeof createAuthService> | undefined;
+export let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
 let resultLanguages: Language[] = [];
 let projectId: string;
@@ -215,7 +224,6 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
-let defaultColor: string | null = null;
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
@@ -277,10 +285,11 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
         );
       }
     }
+    iframe.tabIndex = 1;
 
-    if (['codeblock', 'editor'].includes(getConfig().mode)) {
-      result = '';
-    }
+    // if (['codeblock', 'editor'].includes(getConfig().mode)) {
+    //   result = '';
+    // }
 
     const scriptLang = getEditorLanguage('script') || 'javascript';
     const compilers = getAllCompilers(languages, getConfig(), baseUrl);
@@ -385,19 +394,32 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 };
 
 const setEditorTitle = (editorId: EditorId, title: string) => {
+  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
+  const editorTitleContainer = document.querySelector(`#${editorId}-selector`) as HTMLElement;
   const language = getLanguageByAlias(title);
   if (!editorTitle || !language) return;
+  const config = getConfig();
+  if (config[editorId].hideTitle) {
+    editorTitleContainer.style.display = 'none';
+    return;
+  }
+  editorTitleContainer.style.display = '';
   highlightSelectedLanguage(editorId, language);
-  const customTitle = getConfig()[editorId].title;
+  const shortcut = ` (Ctrl/⌘ + Alt + ${editorIds.indexOf(editorId) + 1})`;
+  const customTitle = config[editorId].title;
   if (customTitle) {
     editorTitle.textContent = customTitle;
-    editorTitle.title = `${capitalize(editorId)}: ${customTitle}`;
+    if (!isEmbed) {
+      editorTitle.title = `${capitalize(editorId)}: ${customTitle}${shortcut}`;
+    }
     return;
   }
   const lang = languages.find((lang) => lang.name === language);
   editorTitle.textContent = lang?.title ?? '';
-  editorTitle.title = `${capitalize(editorId)}: ${lang?.longTitle ?? lang?.title ?? ''}`;
+  if (!isEmbed) {
+    editorTitle.title = `${capitalize(editorId)}: ${lang?.longTitle ?? lang?.title ?? ''}${shortcut}`;
+  }
 };
 
 const createCopyButtons = () => {
@@ -535,22 +557,24 @@ const updateEditors = async (editors: Editors, config: Config) => {
   }
 };
 
-const showMode = (mode?: Config['mode']) => {
+const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   if (!mode) {
     mode = 'full';
   }
-
-  if (mode === 'full') {
-    if (params.view === 'editor') {
-      split?.show('code', true);
-    }
-    if (params.view === 'result') {
-      split?.show('output', true);
-    }
+  if (!view) {
+    view = getConfig().view;
   }
+
   if (mode === 'editor' || mode === 'codeblock' || mode === 'result') {
     split?.destroy();
     split = null;
+  } else {
+    if (view === 'editor') {
+      split?.show('code', true);
+    }
+    if (view === 'result') {
+      split?.show('output', true);
+    }
   }
 
   // toolbar-editor-result
@@ -558,6 +582,7 @@ const showMode = (mode?: Config['mode']) => {
     full: '111',
     focus: '111',
     simple: '111',
+    lite: '111',
     editor: '110',
     codeblock: '010',
     result: '001',
@@ -571,17 +596,22 @@ const showMode = (mode?: Config['mode']) => {
   const resultElement = UI.getResultElement();
   const gutterElement = UI.getGutterElement();
   const runButton = UI.getRunButton();
+  const resultButton = UI.getResultButton();
   const editorTools = UI.getEditorToolbar();
 
   const showToolbar = modeConfig[0] === '1';
   const showEditor = modeConfig[1] === '1';
   const showResult = modeConfig[2] === '1';
 
-  toolbarElement.style.display = 'flex';
-  editorsElement.style.display = 'flex';
-  resultElement.style.display = 'flex';
-  outputElement.style.display = 'block';
-  runButton.style.visibility = 'visible';
+  toolbarElement.style.display = '';
+  editorContainerElement.style.height = '';
+  editorsElement.style.display = '';
+  resultElement.style.display = '';
+  outputElement.style.display = '';
+  editorTools.style.display = '';
+  runButton.style.visibility = '';
+  resultButton.style.visibility = '';
+
   if (gutterElement) {
     gutterElement.style.display = 'block';
   }
@@ -603,8 +633,9 @@ const showMode = (mode?: Config['mode']) => {
     split?.destroy(true);
     split = null;
   }
-  if (mode === 'editor' || mode === 'codeblock') {
+  if (mode === 'editor') {
     runButton.style.visibility = 'hidden';
+    resultButton.style.visibility = 'hidden';
   }
   if (mode === 'codeblock') {
     editorTools.style.display = 'none';
@@ -616,13 +647,22 @@ const showMode = (mode?: Config['mode']) => {
   }
   document.body.classList.toggle('simple-mode', mode === 'simple');
   document.body.classList.toggle('focus-mode', mode === 'focus');
+  document.body.classList.toggle('lite-mode', mode === 'lite');
+  document.body.classList.toggle('result', mode === 'result');
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
+  }
+  if (mode === 'focus') {
+    toolsPane?.setActiveTool('console');
   }
   window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
 
 const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
+  const config = getConfig();
+  const editorIds: EditorId[] = ['markup', 'style', 'script'];
+  const allHidden = editorIds.every((editor) => config[editor].hideTitle);
+  if (config[editorId].hideTitle && !allHidden) return;
   const titles = UI.getEditorTitles();
   const editorIsVisible = () =>
     Array.from(titles)
@@ -650,7 +690,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
     });
   }
   updateCompiledCode();
-  if (initialized || params.view !== 'result') {
+  if (initialized || config.view !== 'result') {
     split?.show('code');
   }
   configureEditorTools(getActiveEditor().getLanguage());
@@ -1302,11 +1342,15 @@ const loadConfig = async (
 };
 
 const applyConfig = async (newConfig: Partial<Config>) => {
+  const currentConfig = getConfig();
   if (!isEmbed) {
-    loadSettings(getConfig());
+    loadSettings(currentConfig);
   }
-  if (newConfig.mode) {
-    window.deps.showMode(newConfig.mode);
+  if (newConfig.mode || newConfig.view) {
+    window.deps.showMode(
+      newConfig.mode ?? currentConfig.mode,
+      newConfig.view ?? currentConfig.view,
+    );
   }
   if (newConfig.tools) {
     configureToolsPane(newConfig.tools, newConfig.mode);
@@ -1316,8 +1360,8 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   }
   if (newConfig.theme || newConfig.editorTheme || newConfig.themeColor || newConfig.fontSize) {
     setTheme(
-      newConfig.theme || getConfig().theme,
-      newConfig.editorTheme || getConfig().editorTheme,
+      newConfig.theme || currentConfig.theme,
+      newConfig.editorTheme || currentConfig.editorTheme,
     );
   }
   if (newConfig.autotest) {
@@ -1329,7 +1373,16 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   };
   const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
   if (hasEditorConfig) {
-    await reloadEditors({ ...getConfig(), ...newConfig });
+    const currentEditorConfig = {
+      ...getEditorConfig(currentConfig),
+      ...getFormatterConfig(currentConfig),
+    };
+    for (const key in editorConfig) {
+      if ((editorConfig as any)[key] !== (currentEditorConfig as any)[key]) {
+        await reloadEditors({ ...currentConfig, ...newConfig });
+        break;
+      }
+    }
   }
 };
 
@@ -1441,6 +1494,7 @@ const checkSavedStatus = (doNotCloseModal = false): Promise<boolean> => {
       }
       resolve(false);
     });
+    UI.getModalSaveButton().focus();
   });
 };
 
@@ -1780,6 +1834,7 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
     customEditors[editor?.getLanguage()]?.setTheme(theme);
   });
   toolsPane?.console?.setTheme?.(theme);
+  UI.getNinjaKeys()?.classList.toggle('dark', theme === 'dark');
 };
 
 const changeThemeColor = () => {
@@ -1799,23 +1854,7 @@ const changeThemeColor = () => {
   }
 };
 
-const getDefaultColor = () => {
-  if (defaultColor) return defaultColor;
-  const root = document.documentElement;
-  const theme = getConfig().theme;
-  root.classList.remove('light');
-  const h = getComputedStyle(root).getPropertyValue('--hue');
-  const s = getComputedStyle(root).getPropertyValue('--st');
-  const l = getComputedStyle(root).getPropertyValue('--lt');
-  if (theme === 'light') {
-    root.classList.add('light');
-  }
-  if (h === '' || s === '' || l === '') {
-    return themeColors[0].themeColor;
-  }
-  defaultColor = `hsl(${h}, ${s}, ${l})`;
-  return defaultColor;
-};
+const getDefaultColor = () => `hsl(214, 40%, 50%)`;
 
 const setFontSize = () => {
   const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
@@ -1850,6 +1889,11 @@ const setLayout = (layout: Config['layout']) => {
     }
   }
   handleIframeResize();
+};
+
+const changeAndSaveLayout = (layout: Config['layout']) => {
+  setUserConfig({ layout });
+  setLayout(layout);
 };
 
 const loadSettings = (config: Config) => {
@@ -1928,14 +1972,12 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
       ].slice(0, 5),
     });
     const doNotCheckAndExecute = (fn: () => void) => async () => fn();
-    (checkSaved ? checkSavedAndExecute : doNotCheckAndExecute)(() => {
+    (checkSaved ? checkSavedAndExecute : doNotCheckAndExecute)(async () => {
       projectId = '';
-      loadConfig(
-        {
-          ...defaultConfig,
-          ...templateConfig,
-        },
-        '?template=' + templateName,
+      const newConfig = { ...defaultConfig, ...templateConfig };
+      return (
+        (await importExternalContent({ config: newConfig })) ||
+        loadConfig(newConfig, '?template=' + templateName)
       );
     })().finally(() => {
       modal.close();
@@ -2268,7 +2310,8 @@ const handleSelectEditor = () => {
     eventsManager.addEventListener(
       title,
       'click',
-      () => {
+      (ev) => {
+        ev.preventDefault();
         showEditor(title.dataset.editor as EditorId);
         setAppData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
         setProjectRecover();
@@ -2283,8 +2326,9 @@ const handleChangeLanguage = () => {
     UI.getLanguageMenuLinks().forEach((menuItem) => {
       eventsManager.addEventListener(
         menuItem,
-        'mousedown', // fire this event before unhover
+        'click',
         async () => {
+          menuItem.closest('.menu-scroller')?.classList.add('hidden');
           await changeLanguage(menuItem.dataset.lang as Language);
           setAppData({ language: menuItem.dataset.lang as Language });
         },
@@ -2346,63 +2390,308 @@ const handleChangeContent = () => {
   });
 };
 
-const handleHotKeys = () => {
-  const ctrl = (e: KeyboardEvent) => (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey);
-  const hotKeys = async (e: KeyboardEvent) => {
-    if (!e) return;
+const handleKeyboardShortcuts = () => {
+  let lastkeys = '';
 
-    // Ctrl + p opens the command palette
+  const hotKeys = async (e: KeyboardEvent) => {
+    // Ctrl + P opens the command palette
     const activeEditor = getActiveEditor();
-    if (ctrl(e) && e.key.toLowerCase() === 'p' && activeEditor.monaco) {
+    if (ctrl(e) && e.code === 'KeyP' && activeEditor.monaco) {
       e.preventDefault();
       activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
+      lastkeys = 'Ctrl + P';
       return;
     }
 
-    // Ctrl + d prevents browser bookmark dialog
-    if (ctrl(e) && e.key.toLowerCase() === 'd') {
+    // Ctrl + D prevents browser bookmark dialog
+    if (ctrl(e) && e.code === 'KeyD') {
       e.preventDefault();
+      lastkeys = 'Ctrl + D';
       return;
     }
 
-    if (isEmbed) return;
-
-    // Ctrl + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.key.toLowerCase() === 's') {
+    // Ctrl + Alt + C: toggle console
+    if (ctrl(e) && e.altKey && e.code === 'KeyC') {
       e.preventDefault();
-      await fork();
+      lastkeys = 'Ctrl + Alt + C';
+      UI.getConsoleButton()?.dispatchEvent(new Event('touchstart'));
       return;
     }
 
-    // Ctrl + S saves the project
-    if (ctrl(e) && e.key.toLowerCase() === 's') {
+    // Ctrl + Alt + C, F: maximize console
+    if (ctrl(e) && e.altKey && e.code === 'KeyF' && lastkeys === 'Ctrl + Alt + C') {
       e.preventDefault();
-      await save(true);
+      lastkeys = 'Ctrl + Alt + C, F';
+      UI.getConsoleButton()?.dispatchEvent(new Event('dblclick'));
       return;
     }
 
     // Ctrl + Alt + T runs tests
-    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 't') {
+    if (ctrl(e) && e.altKey && e.code === 'KeyT') {
       e.preventDefault();
-      split?.show('output');
-      toolsPane?.setActiveTool('tests');
-      if (toolsPane?.getStatus() === 'closed') {
-        toolsPane?.open();
-      }
-      await runTests();
+      UI.getRunTestsButton()?.click();
+      lastkeys = 'Ctrl + Alt + T';
       return;
     }
 
     // Shift + Enter triggers run
     if (e.shiftKey && e.key === 'Enter') {
       e.preventDefault();
-      split?.show('output');
-      await run();
+      UI.getRunButton()?.click();
+      lastkeys = 'Shift + Enter';
+      return;
+    }
+
+    // Ctrl + Alt + R toggles result page
+    if (ctrl(e) && e.altKey && e.code === 'KeyR') {
+      e.preventDefault();
+      UI.getResultButton()?.click();
+      lastkeys = 'Ctrl + Alt + R';
+      return;
+    }
+
+    // Ctrl + Alt + Z toggles result zoom
+    if (ctrl(e) && e.altKey && e.code === 'KeyZ') {
+      e.preventDefault();
+      UI.getZoomButton()?.click();
+      lastkeys = 'Ctrl + Alt + Z';
+      return;
+    }
+
+    // Ctrl + Alt + E focuses active editor
+    if (ctrl(e) && e.altKey && e.code === 'KeyE') {
+      e.preventDefault();
+      getActiveEditor().focus();
+      lastkeys = 'Ctrl + Alt + E';
+      return;
+    }
+
+    // Esc closes dropdown menus
+    // Esc + Esc moves focus out of editor
+    // Esc + Esc + Esc moves focus to logo
+    if (e.code === 'Escape') {
+      document.querySelectorAll('.menu-scroller').forEach((el) => el.classList.add('hidden'));
+      if (lastkeys === 'Esc') {
+        e.preventDefault();
+        if (
+          (toolsPane?.getStatus() === 'open' || toolsPane?.getStatus() === 'full') &&
+          toolsPane.getActiveTool() === 'console'
+        ) {
+          UI.getConsoleButton()?.focus();
+        } else {
+          UI.getFocusButton()?.focus();
+        }
+        lastkeys = 'Esc + Esc';
+        return;
+      }
+      if (lastkeys === 'Esc + Esc') {
+        e.preventDefault();
+        UI.getLogoLink()?.focus();
+        lastkeys = 'Esc + Esc + Esc';
+        return;
+      }
+      lastkeys = 'Esc';
+      return;
+    }
+
+    // Ctrl + Alt + (1-3) activates editor 1-3
+    // Ctrl + Alt + (ArrowLeft/ArrowRight) activates previous/next editor
+    const editorIds = (['markup', 'style', 'script'] as EditorId[]).filter(
+      (id) => getConfig()[id].hideTitle !== true,
+    );
+    if (ctrl(e) && e.altKey && ['1', '2', '3', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+      split?.show('code');
+      const index = ['1', '2', '3'].includes(e.key)
+        ? Number(e.key) - 1
+        : e.key === 'ArrowLeft'
+          ? editorIds.findIndex((id) => id === getConfig().activeEditor) - 1 || 0
+          : e.key === 'ArrowRight'
+            ? editorIds.findIndex((id) => id === getConfig().activeEditor) + 1 || 0
+            : 0;
+      const editorIndex =
+        index === editorIds.length ? 0 : index === -1 ? editorIds.length - 1 : index;
+      showEditor(editorIds[editorIndex] as EditorId);
+      lastkeys = 'Ctrl + Alt + ' + e.key;
+      return;
+    }
+
+    if (isEmbed) return;
+
+    // Ctrl + Alt + N: new project
+    if (ctrl(e) && e.altKey && e.code === 'KeyN') {
+      e.preventDefault();
+      UI.getNewLink()?.click();
+      lastkeys = 'Ctrl + Alt + N';
+      return;
+    }
+
+    // Ctrl + O: open project
+    if (ctrl(e) && e.code === 'KeyO') {
+      e.preventDefault();
+      UI.getOpenLink()?.click();
+      lastkeys = 'Ctrl + O';
+      return;
+    }
+
+    // Ctrl + Alt + I: import
+    if (ctrl(e) && e.altKey && e.code === 'KeyI') {
+      e.preventDefault();
+      UI.getImportLink()?.click();
+      lastkeys = 'Ctrl + Alt + I';
+      return;
+    }
+
+    // Ctrl + Alt + S: share
+    if (ctrl(e) && e.altKey && e.code === 'KeyS') {
+      e.preventDefault();
+      UI.getShareLink()?.click();
+      lastkeys = 'Ctrl + Alt + S';
+      return;
+    }
+
+    // Ctrl + Shift + S forks the project (save as...)
+    if (ctrl(e) && e.shiftKey && e.code === 'KeyS') {
+      e.preventDefault();
+      UI.getForkLink()?.click();
+      lastkeys = 'Ctrl + Shift + S';
+      return;
+    }
+
+    // Ctrl + S saves the project
+    if (ctrl(e) && e.code === 'KeyS') {
+      e.preventDefault();
+      UI.getSaveLink()?.click();
+      lastkeys = 'Ctrl + S';
+      return;
+    }
+
+    // Ctrl + Alt + F toggles focus mode
+    if (ctrl(e) && e.altKey && e.code === 'KeyF') {
+      e.preventDefault();
+      UI.getFocusButton()?.click();
+      lastkeys = 'Ctrl + Alt + F';
+      return;
+    }
+
+    if (!ctrl(e) && !e.altKey && !e.shiftKey) {
+      lastkeys = e.key;
       return;
     }
   };
 
-  eventsManager.addEventListener(window, 'keydown', hotKeys as any, true);
+  eventsManager.addEventListener(window, 'keydown', hotKeys, true);
+};
+
+const handleKeyboardShortcutsScreen = () => {
+  if (isEmbed) return;
+
+  const { keyboardShortcuts } = getCommandMenuActions({
+    deps: {
+      getConfig,
+      loadStarterTemplate,
+      changeEditorSettings,
+      changeLayout: changeAndSaveLayout,
+    },
+  });
+
+  const createShortcutsUI = async () => {
+    const div = document.createElement('div');
+    div.innerHTML = keyboardShortcutsScreen;
+    const shortcutsContainer = div.firstChild as HTMLElement;
+    const rows = keyboardShortcuts
+      .map(
+        (item) => `
+      <tr>
+        <td>${item.title}</td>
+        <td>${item.hotkey
+          ?.split('+')
+          .map((key) => `<kbd>${capitalize(key)}</kbd>`)
+          .join(' ')}</td>
+      </tr>
+    `,
+      )
+      .join('');
+    shortcutsContainer.querySelector('tbody')!.innerHTML = rows;
+    modal.show(shortcutsContainer as HTMLElement);
+  };
+
+  eventsManager.addEventListener(
+    UI.getKeyboardShortcutsMenuLink(),
+    'click',
+    createShortcutsUI,
+    false,
+  );
+  registerScreen('keyboard-shortcuts', createShortcutsUI);
+};
+
+const handleCommandMenu = async () => {
+  if (isEmbed) return;
+
+  const loadNinjaKeys = () => import(ninjaKeysUrl);
+  loadStylesheet(fontInterUrl, 'font-inter');
+  loadStylesheet(fontMaterialIconsUrl, 'material-icons');
+  await loadNinjaKeys();
+
+  const ninja = UI.getNinjaKeys() as any;
+  if (!ninja) return;
+
+  const header = ninja.shadowRoot.querySelector('ninja-header');
+  const HomeBreadcrumb = header?.shadowRoot.querySelector('.breadcrumb-list .breadcrumb');
+
+  const closeBtn = header?.shadowRoot.querySelector('.breadcrumb-list .breadcrumb--close');
+  if (closeBtn) {
+    closeBtn.hidden = true;
+  }
+
+  const footer = ninja.shadowRoot.querySelector('.modal-footer');
+  if (footer) {
+    footer.innerHTML = footer.innerHTML
+      .replace('to select', window.deps.translateString('commandMenu.toSelect', 'to select'))
+      .replace('to navigate', window.deps.translateString('commandMenu.toNavigate', 'to navigate'))
+      .replace('to close', window.deps.translateString('commandMenu.toClose', 'to close'))
+      .replace(
+        'move to parent',
+        window.deps.translateString('commandMenu.moveToParent', 'move to parent'),
+      );
+  }
+
+  const openCommandMenu = () => {
+    modal.close();
+    ninja.close();
+    const { actions, loginAction, logoutAction } = getCommandMenuActions({
+      deps: {
+        getConfig,
+        loadStarterTemplate,
+        changeEditorSettings,
+        changeLayout: changeAndSaveLayout,
+      },
+    });
+    const authAction = authService?.isLoggedIn() ? logoutAction : loginAction;
+    ninja.data = [...actions, authAction];
+    if (HomeBreadcrumb) {
+      HomeBreadcrumb.innerText = window.deps.translateString('commandMenu.home', 'Home');
+    }
+    requestAnimationFrame(() => ninja.open());
+  };
+
+  const onHotkey = async (e: KeyboardEvent) => {
+    if (ctrl(e) && e.code === 'KeyK') {
+      e.preventDefault();
+      // eslint-disable-next-line no-underscore-dangle
+      if (ninja.__visible == null) {
+        await loadNinjaKeys();
+      }
+      // eslint-disable-next-line no-underscore-dangle
+      if (ninja.__visible === false) {
+        ninja.focus();
+        requestAnimationFrame(() => openCommandMenu());
+      }
+    }
+  };
+
+  eventsManager.addEventListener(window, 'keydown', onHotkey, true);
+  eventsManager.addEventListener(UI.getCommandMenuLink(), 'click', () => openCommandMenu(), true);
 };
 
 const handleLogoLink = () => {
@@ -2441,6 +2730,7 @@ const handleI18nMenu = () => {
     const link = document.createElement('a');
     link.href = `#`;
     link.textContent = langLabel;
+    link.dataset.lang = langCode;
     eventsManager.addEventListener(link, 'click', (ev) => {
       ev.preventDefault();
       if (langCode === getConfig().appLanguage) return;
@@ -2478,23 +2768,28 @@ const handleI18nMenu = () => {
   i18nMenu.appendChild(docsLi);
   menuContainer.appendChild(i18nMenu);
   adjustFontSize(menuContainer);
+  registerMenuButton(menuContainer, UI.getI18nMenuButton());
 };
 
 const handleEditorTools = () => {
   if (!configureEditorTools(getActiveEditor().getLanguage())) return;
-
+  const originalMode = getConfig().mode;
   eventsManager.addEventListener(UI.getFocusButton(), 'click', () => {
     const config = getConfig();
     const currentMode = config.mode;
-    const newMode = currentMode === 'full' ? 'focus' : 'full';
+    const newMode = currentMode === originalMode ? 'focus' : originalMode;
     setConfig({
       ...config,
       mode: newMode,
     });
-    if (newMode === 'focus') {
+    const consoleIsEnabled =
+      config.tools.enabled?.includes('console') ||
+      config.tools.enabled === 'all' ||
+      config.tools.enabled == null;
+    if (newMode === 'focus' && consoleIsEnabled) {
       toolsPane?.setActiveTool('console');
     }
-    showMode(newMode);
+    showMode(newMode, config.view);
   });
 
   eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
@@ -2580,18 +2875,15 @@ const handleProcessors = () => {
     const processorItem = createProcessorItem(processor);
     styleMenu.append(processorItem);
     eventsManager.addEventListener(
-      processorItem,
-      'mousedown',
+      processorItem.firstElementChild as HTMLElement,
+      'click',
       async (event) => {
         event.preventDefault();
-        event.stopPropagation();
         const toggle = processorItem.querySelector<HTMLInputElement>('input');
         if (!toggle) return;
         toggle.checked = !toggle.checked;
-
         const processorName = toggle.dataset.processor as Processor;
         if (!processorName || !processorList.find((p) => p.name === processorName)) return;
-
         setConfig({
           ...getConfig(),
           processors: [
@@ -2607,10 +2899,36 @@ const handleProcessors = () => {
       },
       false,
     );
+  });
+};
 
-    eventsManager.addEventListener(processorItem, 'click', async (event) => {
-      event.preventDefault();
-      event.stopPropagation();
+const registerMenuButton = (menu: HTMLElement, button: HTMLElement) => {
+  menu.classList.add('hidden');
+  // onclick outside
+  const onClickOutside = (event: MouseEvent) => {
+    if (
+      !button.contains(event.target as Node) &&
+      !menu.firstElementChild?.contains(event.target as Node)
+    ) {
+      menu.classList.add('hidden');
+    }
+  };
+
+  const onIframeClicked = (event: MessageEvent) => {
+    if (event.data.type !== 'clicked') return;
+    menu.classList.add('hidden');
+  };
+
+  eventsManager.addEventListener(window, 'click', onClickOutside);
+  eventsManager.addEventListener(window, 'message', onIframeClicked);
+
+  eventsManager.addEventListener(button, 'click', () => {
+    document.querySelectorAll('.menu-scroller').forEach((el) => {
+      if (el === menu) {
+        menu.classList.toggle('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
     });
   });
 };
@@ -2619,70 +2937,42 @@ const handleAppMenuProject = () => {
   const menuProjectContainer = UI.getAppMenuProjectScroller();
   const menuProjectButton = UI.getAppMenuProjectButton();
   if (!menuProjectContainer || !menuProjectButton) return;
-  menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
+
+  const html = isMac()
+    ? menuProjectHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>')
+    : menuProjectHTML;
+  menuProjectContainer.innerHTML = html;
   translateElement(menuProjectContainer);
   // adjustFontSize(menuProjectContainer);
-
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the container covers most of the screen
-  // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuProjectContainer, 'mousedown', (event) => {
-    if (event.target === menuProjectContainer) {
-      menuProjectContainer.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(menuProjectButton, 'mousedown', () => {
-    menuProjectContainer.classList.remove('hidden');
-  });
+  registerMenuButton(menuProjectContainer, menuProjectButton);
 };
 
 const handleAppMenuSettings = () => {
   const menuSettingsContainer = UI.getAppMenuSettingsScroller();
   const menuSettingsButton = UI.getAppMenuSettingsButton();
   if (!menuSettingsContainer || !menuSettingsButton) return;
-  menuSettingsContainer.innerHTML = menuSettingsHTML; // settingsMenuHTML;
+
+  const html = isMac()
+    ? menuSettingsHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>')
+    : menuSettingsHTML;
+  menuSettingsContainer.innerHTML = html;
 
   translateElement(menuSettingsContainer);
   adjustFontSize(menuSettingsContainer);
-
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the container covers most of the screen
-  // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuSettingsContainer, 'mousedown', (event) => {
-    if (event.target === menuSettingsContainer) {
-      menuSettingsContainer.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(menuSettingsButton, 'mousedown', () => {
-    menuSettingsContainer.classList.remove('hidden');
-  });
+  registerMenuButton(menuSettingsContainer, menuSettingsButton);
 };
 
 const handleAppMenuHelp = () => {
   const menuHelpContainer = UI.getAppMenuHelpScroller();
   const menuHelpButton = UI.getAppMenuHelpButton();
   if (!menuHelpContainer || !menuHelpButton) return;
-  menuHelpContainer.innerHTML = menuHelpHTML;
+
+  const html = isMac() ? menuHelpHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>') : menuHelpHTML;
+  menuHelpContainer.innerHTML = html;
+  menuHelpContainer.classList.add('hidden');
   translateElement(menuHelpContainer);
   // adjustFontSize(menuHelpContainer);
-
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the container covers most of the screen
-  // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuHelpContainer, 'mousedown', (event) => {
-    if (event.target === menuHelpContainer) {
-      menuHelpContainer.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(menuHelpButton, 'mousedown', () => {
-    menuHelpContainer.classList.remove('hidden');
-  });
+  registerMenuButton(menuHelpContainer, menuHelpButton);
 };
 
 /**
@@ -3736,22 +4026,25 @@ const handleEmbed = () => {
   registerScreen('embed', createEmbedUI);
 };
 
+const changeEditorSettings = (newConfig: Partial<UserConfig> | null) => {
+  if (!newConfig) return;
+  const shouldReload = newConfig.editor != null && newConfig.editor !== getConfig().editor;
+
+  setUserConfig(newConfig);
+  const updatedConfig = getConfig();
+  setTheme(updatedConfig.theme, updatedConfig.editorTheme);
+  if (shouldReload) {
+    reloadEditors(updatedConfig);
+  } else {
+    getAllEditors().forEach((editor) => {
+      editor.changeSettings(updatedConfig);
+    });
+  }
+  showEditorModeStatus(updatedConfig.activeEditor || 'markup');
+  getActiveEditor().focus();
+};
+
 const handleEditorSettings = () => {
-  const changeSettings = (newConfig: Partial<UserConfig> | null) => {
-    if (!newConfig) return;
-    const shouldReload = newConfig.editor !== getConfig().editor;
-
-    setUserConfig(newConfig);
-    const updatedConfig = getConfig();
-    setTheme(updatedConfig.theme, updatedConfig.editorTheme);
-    if (shouldReload) {
-      reloadEditors(updatedConfig);
-    } else {
-      getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
-    }
-    showEditorModeStatus(updatedConfig.activeEditor || 'markup');
-  };
-
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
   }: { scrollToSelector?: string } = {}) => {
@@ -3770,7 +4063,7 @@ const handleEditorSettings = () => {
         createEditor,
         loadTypes: async (code: string) => typeLoader.load(code, {}),
         getFormatFn: () => formatter.getFormatFn('jsx'),
-        changeSettings,
+        changeSettings: changeEditorSettings,
       },
     });
   };
@@ -4018,7 +4311,10 @@ const handleCustomSettings = () => {
     const div = document.createElement('div');
     div.innerHTML = customSettingsScreen;
     const customSettingsContainer = div.firstChild as HTMLElement;
-    modal.show(customSettingsContainer, { onClose: () => customSettingsEditor?.destroy() });
+    modal.show(customSettingsContainer, {
+      onClose: () => customSettingsEditor?.destroy(),
+      autoFocus: false,
+    });
 
     const options: EditorOptions = {
       baseUrl,
@@ -4155,6 +4451,13 @@ const handleTests = () => {
     'click',
     (ev: Event) => {
       ev.preventDefault();
+      if (!toolsPane?.tests) return;
+      // in case it is triggered by keyboard shortcut or command menu
+      split?.show('output');
+      toolsPane.setActiveTool('tests');
+      if (toolsPane.getStatus() === 'closed') {
+        toolsPane.open();
+      }
       runTests();
     },
     false,
@@ -4271,11 +4574,6 @@ const handleResultLoading = () => {
     }
     if (event.data.type === 'loading') {
       setLoading(event.data.payload);
-
-      if (getConfig().mode === 'result') {
-        const drawer = UI.getResultModeDrawer();
-        drawer.classList.remove('hidden');
-      }
     }
     const language = event.data.payload?.language;
     if (event.data.type === 'compiled' && language && getEditorLanguages().includes(language)) {
@@ -4285,6 +4583,23 @@ const handleResultLoading = () => {
       updateCompiledCode();
     }
   });
+
+  const showResultModeDrawer = (event: MessageEvent) => {
+    const iframe = UI.getResultIFrameElement();
+    if (
+      !iframe ||
+      event.source !== iframe.contentWindow ||
+      event.data.type !== 'loading' ||
+      event.data.payload !== false ||
+      getConfig().mode !== 'result'
+    ) {
+      return;
+    }
+    const drawer = UI.getResultModeDrawer();
+    drawer.classList.remove('hidden');
+    eventsManager.removeEventListener(window, 'message', showResultModeDrawer);
+  };
+  eventsManager.addEventListener(window, 'message', showResultModeDrawer);
 };
 
 const handleResultPopup = () => {
@@ -4330,7 +4645,7 @@ const handleResultZoom = () => {
   const zoomBtn = document.createElement('div');
   zoomBtn.id = 'zoom-button';
   zoomBtn.classList.add('tool-buttons');
-  zoomBtn.title = window.deps.translateString('core.zoom.hint', 'Zoom');
+  zoomBtn.title = window.deps.translateString('core.zoom.hint', 'Zoom') + ' (Ctrl/Cmd + Alt + Z)';
   zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   zoomBtn.innerHTML = `
   <button class="text">
@@ -4372,9 +4687,8 @@ const handleBroadcastStatus = () => {
 };
 
 const handleFullscreen = async () => {
-  if (!isEmbed) return;
   const fullscreenButton = getFullscreenButton();
-  const buttonImg = fullscreenButton.querySelector('img')!;
+  const buttonImg = fullscreenButton.querySelector('img');
   const fscreen = (await import(fscreenUrl)).default;
   if (!fscreen.fullscreenEnabled) {
     fullscreenButton.style.visibility = 'hidden';
@@ -4382,6 +4696,7 @@ const handleFullscreen = async () => {
   }
 
   eventsManager.addEventListener(fscreen, 'fullscreenchange', async () => {
+    if (!buttonImg) return;
     if (!fscreen.fullscreenElement) {
       buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
       fullscreenButton.title = window.deps.translateString('core.fullScreen.enter', 'Full Screen');
@@ -4428,8 +4743,6 @@ const handleResultMode = () => {
   const drawerLink = drawer.querySelector('a') as HTMLAnchorElement;
   const closeBtn = drawer.querySelector('#drawer-close') as HTMLButtonElement;
 
-  drawer.style.display = 'flex';
-
   eventsManager.addEventListener(drawerLink, 'click', async (event: Event) => {
     event.preventDefault();
     window.open(
@@ -4457,6 +4770,7 @@ const handleUnload = () => {
 };
 
 const loadToolsPane = async () => {
+  if (isLite) return;
   const updateConfigTools = debounce((tools: Config['tools']) => {
     setConfig({
       ...getConfig(),
@@ -4613,7 +4927,7 @@ const changeAppLanguage = async (appLanguage: AppLanguage) => {
 
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal(translateElement);
+  modal = createModal({ translate: translateElement, onClose: () => getActiveEditor().focus() });
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
@@ -4624,7 +4938,7 @@ const basicHandlers = () => {
   handleSelectEditor();
   handleChangeLanguage();
   handleChangeContent();
-  handleHotKeys();
+  handleKeyboardShortcuts();
   handleRunButton();
   handleResultButton();
   handleShareButton();
@@ -4634,9 +4948,9 @@ const basicHandlers = () => {
   handleTestResults();
   handleConsole();
   handleI18n();
+  handleFullscreen();
   if (isEmbed) {
     handleExternalResources();
-    handleFullscreen();
   }
 };
 
@@ -4679,11 +4993,13 @@ const extraHandlers = async () => {
   handleResultPopup();
   handleBroadcastStatus();
   handleDropFiles();
+  handleCommandMenu();
+  handleKeyboardShortcutsScreen();
   handleUnload();
   showConsoleMessage();
 };
 
-const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
+const configureEmbed = (config: Config, eventsManager: EventsManager) => {
   document.body.classList.add('embed');
   if (config.mode === 'result') {
     document.body.classList.add('result');
@@ -4937,7 +5253,7 @@ const bootstrap = async (reload = false) => {
   }
   phpHelper({ editor: editors.script });
   setLoading(true);
-  window.deps?.showMode?.(getConfig().mode);
+  window.deps?.showMode?.(getConfig().mode, getConfig().view);
   zoom(getConfig().zoom);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
@@ -5005,7 +5321,6 @@ const initializePlayground = async (
     config?: Partial<Config>;
     baseUrl?: string;
     isEmbed?: boolean;
-    isLite?: boolean;
     isHeadless?: boolean;
   },
   initializeFn?: () => void | Promise<void>,
@@ -5013,7 +5328,11 @@ const initializePlayground = async (
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isHeadless = options?.isHeadless ?? false;
-  isLite = options?.isLite ?? params.lite ?? false;
+  isLite =
+    params.mode === 'lite' ||
+    (params.lite != null && params.lite !== false) || // for backward compatibility
+    appConfig.mode === 'lite' ||
+    false;
   isEmbed =
     isHeadless ||
     isLite ||
@@ -5038,6 +5357,7 @@ const initializePlayground = async (
     showLanguageInfo,
     loadStarterTemplate,
     importExternalContent,
+    registerMenuButton,
   );
   await createEditors(getConfig());
   await initializeFn?.();
@@ -5075,13 +5395,33 @@ const createApi = (): API => {
   };
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
-    const newAppConfig = buildConfig({ ...getConfig(), ...newConfig });
+    const currentConfig = getConfig();
+    const newAppConfig = buildConfig({ ...currentConfig, ...newConfig });
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
+    const reloadCompiler =
+      (currentConfig.mode === 'editor' || currentConfig.mode === 'codeblock') &&
+      newConfig.mode !== 'editor' &&
+      newConfig.mode !== 'codeblock' &&
+      compiler.isFake;
+    const reloadCodeEditors =
+      newConfig.mode != null &&
+      newConfig.mode !== currentConfig.mode &&
+      (['codeblock', 'result'].includes(currentConfig.mode) ||
+        ['codeblock', 'result'].includes(newConfig.mode!));
+
     setConfig(newAppConfig);
+
     if (hasNewAppLanguage) {
       changeAppLanguage(newConfig.appLanguage!);
       return newAppConfig;
+    }
+    if (reloadCompiler) {
+      compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
+      await run();
+    }
+    if (reloadCodeEditors) {
+      await createEditors(newAppConfig);
     }
     await applyConfig(newConfig);
     const content = getContentConfig(newConfig as Config);
@@ -5104,12 +5444,21 @@ const createApi = (): API => {
     panel,
     { full = false, line, column, zoom: zoomLevel } = {},
   ) => {
-    if (panel === 'result') {
-      split?.show('output', full);
-      toolsPane?.close();
+    if (panel === 'toggle-result') {
+      UI.getResultButton()?.click();
       if (zoomLevel) {
         zoom(zoomLevel);
       }
+    } else if (panel === 'result') {
+      split?.show('output', full);
+      if (getConfig().tools.status !== 'none') {
+        setTimeout(() => toolsPane?.close(), 350);
+      }
+      if (zoomLevel) {
+        zoom(zoomLevel);
+      }
+    } else if (panel === 'editor') {
+      split?.show('code', full);
     } else if (panel === 'console' || panel === 'compiled' || panel === 'tests') {
       split?.show('output');
       toolsPane?.setActiveTool(panel);
@@ -5246,17 +5595,9 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     basicHandlers();
-    await loadToolsPane();
-  });
-  return createApi();
-};
-const initLite = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = {
-    showMode,
-    translateString: translateStringMock,
-  };
-  await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
-    basicHandlers();
+    if (config.mode !== 'lite') {
+      await loadToolsPane();
+    }
   });
   return createApi();
 };
@@ -5281,4 +5622,4 @@ const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
   return createApi();
 };
 
-export { initApp, initEmbed, initLite, initHeadless };
+export { initApp, initEmbed, initHeadless };

@@ -219,10 +219,14 @@ export const createToolsPane = (
     toolsPaneBar.appendChild(toolsPaneTitles);
 
     tools.forEach((tool, index) => {
-      const toolTitle = document.createElement('div');
+      const toolTitle = document.createElement('a');
+      toolTitle.href = '#';
       toolTitle.dataset.id = String(index);
       toolTitle.classList.add('tools-pane-title', tool.name);
       toolTitle.innerHTML = tool.title;
+      if (tool.name === 'console') {
+        toolTitle.title = '(Ctrl/⌘ + Alt + C)';
+      }
       toolsPaneTitles.appendChild(toolTitle);
 
       let timer: any;
@@ -230,7 +234,8 @@ export const createToolsPane = (
         toolTitle,
         'click',
         (event: any) => {
-          if (event.detail === 1) {
+          event.preventDefault();
+          if (event.detail === 0 || event.detail === 1) {
             timer = setTimeout(() => {
               if (toolsSplit.getSizes()[0] > 90) {
                 open(index);
@@ -247,7 +252,8 @@ export const createToolsPane = (
       eventsManager.addEventListener(
         toolTitle,
         'dblclick',
-        () => {
+        (event) => {
+          event.preventDefault();
           clearTimeout(timer);
           if (toolsSplit.getSizes()[0] < 10) {
             close();
@@ -260,7 +266,8 @@ export const createToolsPane = (
       eventsManager.addEventListener(
         toolTitle,
         'touchstart',
-        () => {
+        (event) => {
+          event.preventDefault();
           if (toolsSplit.getSizes()[0] > 90) {
             open(index);
           } else if (!toolTitle.classList.contains('active')) {

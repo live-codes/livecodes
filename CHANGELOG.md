@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.8.0](https://github.com/live-codes/livecodes/compare/v39...sdk-v0.8.0) (2025-01-24)
+
+This release introduces **backward-compatible** changes for the SDK. The use of the old SDK API is still supported, but a deprecation notice is shown in the console. The old API will be removed in a future release.
+
+### SDK Changes (and deprecations)
+
+- **SDK:** move embed option `view` to [`config.view`](https://livecodes.io/docs/configuration/configuration-object#view) ([e5f6ad3](https://github.com/live-codes/livecodes/commit/e5f6ad33d1df4c0194047520d2e5ca3f6a1e27a3))
+- **SDK:** move embed option `lite` to [`config.mode:"lite"`](https://livecodes.io/docs/configuration/configuration-object#mode) ([e5f6ad3](https://github.com/live-codes/livecodes/commit/e5f6ad33d1df4c0194047520d2e5ca3f6a1e27a3))
+- **SDK:** change embed option `view:"headles"` to [`headless:true`](https://livecodes.io/docs/sdk/js-ts#headless) ([e5f6ad3](https://github.com/live-codes/livecodes/commit/e5f6ad33d1df4c0194047520d2e5ca3f6a1e27a3))
+
+### Features
+
+- **Config:** add the property `hideTitle` for [editors](https://livecodes.io/docs/configuration/configuration-object#markup). ([43f25b0](https://github.com/live-codes/livecodes/commit/43f25b098c865b1868f26cbb9c15d7ba8bde6d16))
+- **Editor:** allow [relative line numbers](https://livecodes.io/docs/configuration/configuration-object#linenumbers) in code editors ([c88ad99](https://github.com/live-codes/livecodes/commit/c88ad9963d05de8137c3d54b5e8c7c3edc92687a))
+- **SDK:** add a new value `toggle-result` for SDK [`show`](https://livecodes.io/docs/sdk/js-ts#show) method ([8e7e0aa](https://github.com/live-codes/livecodes/commit/8e7e0aa426bb7f3b346c303fb857dbee8400ef16))
+- **SDK:** add value `code` to SDK [`show`](https://livecodes.io/docs/sdk/js-ts#show) method to show active editor ([3069d17](https://github.com/live-codes/livecodes/commit/3069d179ed6962d31edc21a9943b4a078be40716))
+
+### Bug Fixes
+
+- **SDK:** fix changing result mode ([eeaab42](https://github.com/live-codes/livecodes/commit/eeaab42a3eb96aa0b7abf23624bfbd210e2ccfce))
+- **SDK:** fix creating duplicate plygrounds ([fad9edd](https://github.com/live-codes/livecodes/commit/fad9edd83f7359847b36c54e5ec410aa5bcc9c4d))
+- **SDK:** fix the SDK method `show` with inconsistent toolspane behaviour ([a8acfad](https://github.com/live-codes/livecodes/commit/a8acfad2de3933a2772e86ee28fa720fec05421d))
+- **SDK:** fix unavailable compiler on changing mode ([224a6ba](https://github.com/live-codes/livecodes/commit/224a6baa9cf3c1bb2bd283066ee2ca147899b1b7))
+- **SDK:** reload editors when sdk changes mode ([993f5cf](https://github.com/live-codes/livecodes/commit/993f5cf579d442a7613b22aa86095d52dcbd710b))
+
+---
+
 ## [v39](https://github.com/live-codes/livecodes/compare/v38...v39) (2024-12-22)
 
 ### Bug Fixes
@@ -1033,7 +1060,7 @@ This release introduces [headless mode](https://livecodes.io/docs/sdk/headless).
 - **sync:** do not re-download unchanged remote sync data ([1a56d48](https://github.com/live-codes/livecodes/commit/1a56d4831193cafbb4ede9d6451fc1ca4ba87c08))
 - **sync:** fix sync (cache and encoding) ([feec8d5](https://github.com/live-codes/livecodes/commit/feec8d57516109f028d3e5b88a00f74e9e6a93d0))
 - **templates:** fix loading starter template from unsaved project ([2f09967](https://github.com/live-codes/livecodes/commit/2f09967da223d2de9f6db8bb851edf38a305e6b6))
-- **tests:** fix chai assertion messages by imorting chai from jsdelivr(+esm) ([0b9cef0](https://github.com/live-codes/livecodes/commit/0b9cef0ae1d91b81f8e513264d8d209927766b90))
+- **tests:** fix chai assertion messages by importing chai from jsdelivr(+esm) ([0b9cef0](https://github.com/live-codes/livecodes/commit/0b9cef0ae1d91b81f8e513264d8d209927766b90))
 - **tools:** fix firing onActivate on resizing tools pane ([6e26981](https://github.com/live-codes/livecodes/commit/6e26981bb8bcc2a540cd868c9bf6b5a98e4f2c8f))
 - **UI:** disable autofocus in embeds ([b009f74](https://github.com/live-codes/livecodes/commit/b009f742d91e09018fe922c02023c98c604c8232))
 - **UI:** fix focus on hidden editors ([2453121](https://github.com/live-codes/livecodes/commit/24531216309ddf9a8ff93feb57f9f6d5bea55511))
@@ -1364,7 +1391,7 @@ This release introduces [headless mode](https://livecodes.io/docs/sdk/headless).
 - **sync:** do not re-download unchanged remote sync data ([1a56d48](https://github.com/live-codes/livecodes/commit/1a56d4831193cafbb4ede9d6451fc1ca4ba87c08))
 - **sync:** fix sync (cache and encoding) ([feec8d5](https://github.com/live-codes/livecodes/commit/feec8d57516109f028d3e5b88a00f74e9e6a93d0))
 - **templates:** fix loading starter template from unsaved project ([2f09967](https://github.com/live-codes/livecodes/commit/2f09967da223d2de9f6db8bb851edf38a305e6b6))
-- **tests:** fix chai assertion messages by imorting chai from jsdelivr(+esm) ([0b9cef0](https://github.com/live-codes/livecodes/commit/0b9cef0ae1d91b81f8e513264d8d209927766b90))
+- **tests:** fix chai assertion messages by importing chai from jsdelivr(+esm) ([0b9cef0](https://github.com/live-codes/livecodes/commit/0b9cef0ae1d91b81f8e513264d8d209927766b90))
 - **tools:** fix firing onActivate on resizing tools pane ([6e26981](https://github.com/live-codes/livecodes/commit/6e26981bb8bcc2a540cd868c9bf6b5a98e4f2c8f))
 - **UI:** disable autofocus in embeds ([b009f74](https://github.com/live-codes/livecodes/commit/b009f742d91e09018fe922c02023c98c604c8232))
 - **UI:** fix focus on hidden editors ([2453121](https://github.com/live-codes/livecodes/commit/24531216309ddf9a8ff93feb57f9f6d5bea55511))
@@ -1904,7 +1931,7 @@ This release introduces [headless mode](https://livecodes.io/docs/sdk/headless).
 - **sync:** do not re-download unchanged remote sync data ([1a56d48](https://github.com/live-codes/livecodes/commit/1a56d4831193cafbb4ede9d6451fc1ca4ba87c08))
 - **sync:** fix sync (cache and encoding) ([feec8d5](https://github.com/live-codes/livecodes/commit/feec8d57516109f028d3e5b88a00f74e9e6a93d0))
 - **templates:** fix loading starter template from unsaved project ([2f09967](https://github.com/live-codes/livecodes/commit/2f09967da223d2de9f6db8bb851edf38a305e6b6))
-- **tests:** fix chai assertion messages by imorting chai from jsdelivr(+esm) ([0b9cef0](https://github.com/live-codes/livecodes/commit/0b9cef0ae1d91b81f8e513264d8d209927766b90))
+- **tests:** fix chai assertion messages by importing chai from jsdelivr(+esm) ([0b9cef0](https://github.com/live-codes/livecodes/commit/0b9cef0ae1d91b81f8e513264d8d209927766b90))
 - **tools:** fix firing onActivate on resizing tools pane ([6e26981](https://github.com/live-codes/livecodes/commit/6e26981bb8bcc2a540cd868c9bf6b5a98e4f2c8f))
 - **UI:** disable autofocus in embeds ([b009f74](https://github.com/live-codes/livecodes/commit/b009f742d91e09018fe922c02023c98c604c8232))
 - **UI:** fix focus on hidden editors ([2453121](https://github.com/live-codes/livecodes/commit/24531216309ddf9a8ff93feb57f9f6d5bea55511))
@@ -1998,7 +2025,7 @@ This release introduces [headless mode](https://livecodes.io/docs/sdk/headless).
 - **config:** store user config ([45de26b](https://github.com/live-codes/livecodes/commit/45de26b12dd984281dded89f4ab00417c6754d0b))
 - **config:** upgrade config from previous versions ([237c137](https://github.com/live-codes/livecodes/commit/237c13737398864ee8bb75108b792a47647e32ec))
 - **config:** validate config before load ([e2f82bf](https://github.com/live-codes/livecodes/commit/e2f82bf6f7c818626f5cb0bff1ba8e7a8963ae1a))
-- **deploy:** allow commiting source code and result as separate files ([a183ede](https://github.com/live-codes/livecodes/commit/a183edecc64b789aa447c593e5b298370b854a28))
+- **deploy:** allow committing source code and result as separate files ([a183ede](https://github.com/live-codes/livecodes/commit/a183edecc64b789aa447c593e5b298370b854a28))
 - **deploy:** allow deploy to github pages ([997ab39](https://github.com/live-codes/livecodes/commit/997ab398994ad61bab93c6fccb4bea74db103073))
 - **editor:** add codemirror emmet support ([f4c2c0f](https://github.com/live-codes/livecodes/commit/f4c2c0ff1218fc5cb501836b2de5a8207518e002))
 - **editor:** add prismjs as readonly code editor ([5c0b6c2](https://github.com/live-codes/livecodes/commit/5c0b6c2fe0acc616d61042e1aafbeefca75c5c94))

@@ -60,6 +60,17 @@ content: '.App {\n font-family: sans-serif;\n text-align: center;\n}\n'.trimStar
 
 <LiveCodes config={simpleConfig} height="400px"></LiveCodes>
 
+## `lite`
+
+Loads a light-weight, minimal code editor, with limited playground features.  
+See the section about [lite mode](./lite.md) for details
+
+Example: https://livecodes.io/?mode=lite&template=react
+
+Demo:
+
+<LiveCodes config={{mode:'lite'}} template="react"></LiveCodes>
+
 ## `editor`
 
 Hides the results pane and works as editor only.

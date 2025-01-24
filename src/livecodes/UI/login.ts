@@ -1,10 +1,9 @@
-import type { createEventsManager } from '../events';
 import { loginScreen } from '../html';
-import type { GithubScope, User } from '../models';
+import type { EventsManager, GithubScope, User } from '../models';
 import { getLoginLink, getLogoutLink } from './selectors';
 
 export const createLoginContainer = (
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
   loginCallback: (scopes: GithubScope[]) => void,
 ) => {
   const div = document.createElement('div');

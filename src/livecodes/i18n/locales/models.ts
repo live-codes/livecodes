@@ -33,6 +33,6 @@ type ValidI18nTypes = I18nAttributes | I18nTranslationTemplate;
 export type I18nTranslation = UnAsConst<typeof Translation, ValidI18nTypes, string>;
 
 /**
- * Type for all i18n object of namespace `lang-info` other than `en`.
+ * Type for all i18n object of namespace `language-info` other than `en`.
  */
 export type I18nLangInfoTranslation = UnAsConst<typeof LangInfoTranslation, ValidI18nTypes, string>;

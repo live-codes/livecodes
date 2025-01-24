@@ -130,11 +130,6 @@ An object that configures the language and content of the markup editor. This ca
   This can be a language name, extension or alias (as defined in [language documentations](../languages/index.md)).  
   (e.g. `"markdown"`, `"md"`)
 
-- `title`:
-  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#title)  
-  Default: `""`  
-  If set, this is used as the title of the editor in the UI, overriding the default title set to the language name (e.g. "Python" can be used instead of "Py (Wasm)").
-
 - `content`:
   Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#content)  
   Default: `""`  
@@ -157,6 +152,17 @@ An object that configures the language and content of the markup editor. This ca
   Default: `undefined`  
   A URL to load `hiddenContent` from. It has to be a valid URL that is CORS-enabled.  
   The URL is only fetched if `hiddenContent` property had no value.
+
+- `title`:
+  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#title)  
+  Default: `""`  
+  If set, this is used as the title of the editor in the UI, overriding the default title set to the language name (e.g. "Python" can be used instead of "Py (Wasm)").
+
+- `hideTitle`:
+  Type: [`boolean | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#hidetitle)  
+  Default: `""`  
+  If `true`, the title of the code editor is hidden, however its code is still evaluated.  
+  This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
 
 - `selector`:
   Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#selector)  
@@ -379,9 +385,17 @@ Default: `true`
 
 If `false`, the UI will not show the menu that allows changing editor language.
 
+### `view`
+
+Type: [`"split" | "editor" | "result"`](../api/interfaces/Config.md#view)
+
+Default: `"split"`
+
+The [default view](../features/default-view.md) for the playground.
+
 ### `mode`
 
-Type: [`"full" | "focus" | "simple" | "result" | "editor" | "codeblock"`](../api/interfaces/Config.md#mode)
+Type: [`"full" | "focus" | "simple" | "lite" | "result" | "editor" | "codeblock"`](../api/interfaces/Config.md#mode)
 
 Default: `"full"`
 
@@ -613,11 +627,12 @@ The number of spaces per indentation-level. Also used in [code formatting](../fe
 
 ### `lineNumbers`
 
-Type: [`boolean`](../api/interfaces/Config.md#linenumbers)
+Type: [`boolean | "relative"`](../api/interfaces/Config.md#linenumbers)
 
 Default: `true`
 
-Show line numbers in [code editor](../features/editor-settings.md).
+Show line numbers in [code editor](../features/editor-settings.md).  
+If set to `"relative"`, line numbers are shown relative to the current line. This can be useful with [vim mode](#editormode).
 
 ### `wordWrap`
 

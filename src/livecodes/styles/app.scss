@@ -19,6 +19,7 @@
   --rs: var(--s4); // border radius
 
   // Color
+  // this should match getDefaultColor() in core.ts
   --hue: 214; // Hue from 0 to 360. 0=red, 120=green, and 214=blue.
   --st: 40%; // Saturation
   --lt: 50%; // Lightness
@@ -32,6 +33,7 @@
   --color40: hsl(var(--hue), var(--st), calc(var(--lt) * 0.8)); // 40%
   --color50: hsl(var(--hue), var(--st), calc(var(--lt) * 1)); // 50%
   --color60: hsl(var(--hue), var(--st), calc(var(--lt) * 1.2)); // 60%
+  --color70: hsl(var(--hue), var(--st), calc(var(--lt) * 1.4)); // 70%
   --color80: hsl(var(--hue), var(--st), calc(var(--lt) * 1.6)); // 80%
   --color85: hsl(var(--hue), var(--st), calc(var(--lt) * 1.7)); // 85%
   --color90: hsl(var(--hue), var(--st), calc(var(--lt) * 1.8)); // 90%
@@ -78,6 +80,7 @@
   --thumbnail-bg-color: var(--dark-bg-color);
   --thumbnail-active: var(--dark-active);
   --thumbnail-color: var(--dark-color);
+  --stripes-bg-color: var(--layout);
 
   --custom-editor-background-color: rgb(30, 30, 30);
   --custom-editor-loading-color: rgb(255, 255, 255);
@@ -291,8 +294,9 @@ body {
 }
 
 html.dark {
-  --placeholder-color: var(--darker-color) --placeholder-color-focus: var(--darker-active) --tag-bg:
-    var(--dropdown-bg-color);
+  --placeholder-color: var(--darker-color);
+  --placeholder-color-focus: var(--darker-active);
+  --tag-bg: var(--dropdown-bg-color);
   --tag-hover: var(--dropdown-bg-active);
   --tag-text-color: var(--dropdown-color);
   // Sugegstion's dropdown
@@ -321,8 +325,6 @@ html.dark {
 
 html {
   .tagify {
-    --placeholder-color: var(--darker-active);
-    --placeholder-color-focus: var(--darker-active);
     --tags-border-color: var(--input-border-color) !important;
     background: var(--input-bg-color); // color2);
     border-radius: var(--rs);
@@ -369,7 +371,6 @@ a:visited {
   height: 32px;
   justify-content: center;
   min-width: 32px;
-  outline: none;
   padding: var(--s4);
   text-decoration: none;
   transition: ease-in-out 0.4s;
@@ -603,7 +604,6 @@ kbd {
       background: var(--project-title-bg-active);
       box-shadow: var(--project-title-box-shadow);
       color: var(--project-title-active);
-      outline: none;
     }
 
     &.unsaved {
@@ -688,6 +688,10 @@ a#result-button {
   }
 }
 
+#result-mode-drawer {
+  display: none;
+}
+
 .result {
   #toolbar {
     display: none;
@@ -698,7 +702,7 @@ a#result-button {
     opacity: 1 !important;
   }
 
-  #modal-container {
+  #modal {
     display: none !important;
   }
 
@@ -1083,7 +1087,7 @@ a#result-button {
   justify-content: flex-start;
 }
 
-.tools-pane-title {
+a.tools-pane-title {
   align-items: center;
   background-color: var(--toolspane-bg-color);
   border-bottom: var(--toolspane-border);
@@ -1324,7 +1328,7 @@ a#result-button {
   }
 }
 
-li.editor-title {
+a.editor-title {
   align-items: center;
   background: var(--editor-title-bg-color);
   border-bottom: 1px solid var(--editor-title-bg-color);
@@ -1384,7 +1388,6 @@ li.editor-title {
     height: var(--s16);
     justify-content: center;
     margin: 0;
-    outline: none;
     padding: 0;
     place-content: center;
     place-items: center;
@@ -1425,7 +1428,6 @@ li.editor-title {
       color: #444;
       cursor: pointer;
       font-size: 15px;
-      outline: none;
       padding: 18px;
       text-align: left;
       transition: 0.4s;
@@ -1503,15 +1505,27 @@ li.editor-title {
   animation: spin 1s infinite linear;
   border-radius: 2.5px;
   box-shadow:
-    6.25px 0 0 0 rgba(255, 255, 255, 0.2),
-    5px 3.5px 0 0 rgba(255, 255, 255, 0.4),
-    1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6),
-    -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8),
-    -5px 3.5px 0 0 rgb(255, 255, 255);
+    6.25px 0 0 0 var(--color10),
+    5px 3.5px 0 0 var(--color30),
+    1.75px 5.75px 0 0 var(--color50),
+    -1.75px 5.75px 0 0 var(--color80),
+    -5px 3.5px 0 0 var(--color95);
   content: '';
   display: block;
   height: 2.5px;
   width: 2.5px;
+}
+
+:root.light {
+  #tools-pane-loading::before,
+  .loading #show-result::before {
+    box-shadow:
+      6.25px 0 0 0 var(--color95),
+      5px 3.5px 0 0 var(--color80),
+      1.75px 5.75px 0 0 var(--color50),
+      -1.75px 5.75px 0 0 var(--color30),
+      -5px 3.5px 0 0 var(--color10);
+  }
 }
 
 .language-item {
@@ -1626,6 +1640,10 @@ li.editor-title {
     display: none;
   }
 
+  #editor-status {
+    cursor: default;
+  }
+
   #editor-container {
     height: calc(100% - var(--toolbar-height));
   }
@@ -1647,6 +1665,12 @@ li.editor-title {
         display: none !important;
       }
     }
+  }
+}
+
+.lite-mode {
+  #editor-tools {
+    display: none;
   }
 }
 
@@ -1745,6 +1769,86 @@ li.editor-title {
       #logout-link > span {
         display: none !important;
       }
+    }
+  }
+}
+
+.snackbar--button:focus {
+  outline: auto !important;
+}
+
+ninja-keys {
+  --ninja-text-color: var(--dropdown-color);
+  --ninja-modal-background: var(--dropdown-bg-color);
+  --ninja-accent-color: var(--dropdown-color);
+  --ninja-selected-text-color: var(--dropdown-active);
+  --ninja-selected-background: var(--dropdown-bg-active);
+  --ninja-secondary-text-color: var(--btn-color);
+  --ninja-secondary-background-color: var(--btn-bg-color);
+  --ninja-placeholder-color: var(--color70);
+  --ninja-footer-background: var(--dropdown-bg-color);
+  --ninja-overflow-background: var(--overlay-bg-color);
+  font-family: Inter, system-ui, sans-serif;
+
+  &.dark {
+    --ninja-placeholder-color: var(--color40);
+  }
+
+  &::part(ninja-selected) {
+    border-inline-end: none;
+  }
+
+  &::part(ninja-action__content) {
+    color: var(--color70);
+  }
+
+  &::part(ninja-hotkey) {
+    margin-inline-end: 0.5em;
+  }
+
+  &::part(ninja-action__highlight) {
+    background-color: yellow;
+    font-weight: bold;
+    padding: 0;
+  }
+
+  // English content for translated actions
+  &::part(ninja-action__content) {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  &::part(actions-list) {
+    &::-webkit-scrollbar {
+      height: var(--scrollbar-width-legacy, 8px);
+      width: var(--scrollbar-width-legacy, 8px);
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--scrollbar-color-track);
+      background: transparent;
+      border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color-thumb);
+      border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--scrollbar-hover-color);
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background: var(--scrollbar-active-color);
+    }
+
+    &::-webkit-scrollbar-button {
+      display: none;
     }
   }
 }
@@ -1892,7 +1996,6 @@ pre[class*='language-'].line-numbers > code {
     left: 0;
     margin: 0.5rem 0 0;
     max-height: 226px;
-    outline: none;
     overflow-y: scroll;
     padding: var(--s8) !important;
     padding-inline-end: 0 !important;
@@ -1954,7 +2057,6 @@ pre[class*='language-'].line-numbers > code {
     display: inline-block;
     height: 20px;
     margin: 0;
-    outline: none;
     position: relative;
     transition:
       background 0.3s,
@@ -2141,7 +2243,8 @@ body {
   }
 
   #overlay,
-  #modal-container {
+  #modal-container,
+  #modal-container .close-button {
     z-index: 2000;
   }
 
@@ -2149,7 +2252,13 @@ body {
     z-index: 2500;
   }
 
-  .snackbars {
+  ninja-keys {
+    z-index: 2700;
+  }
+
+  .snackbars,
+  .snackbars-left,
+  .snackbars-right {
     z-index: 3000;
   }
 }

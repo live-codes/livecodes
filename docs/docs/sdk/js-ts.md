@@ -47,12 +47,11 @@ import { createPlayground, type EmbedOptions } from 'livecodes';
 const options: EmbedOptions = {
   // appUrl: ...
   // config: ...
+  // headless: ...
   // import: ...
-  // lite: ...
   // loading: ...
   // params: ...
   // template: ...
-  // view: ...
 };
 
 createPlayground('#container', options).then((playground) => {
@@ -128,19 +127,19 @@ A [configuration object](../configuration/configuration-object.md) or a URL to a
 
 If supplied and is not an object or a valid URL, an error is thrown.
 
+### `headless`
+
+Type: [`boolean`](../api/interfaces/EmbedOptions.md#headless)
+
+Default: `false`
+
+When set to `true`, the playground is loaded in [headless mode](./headless.md).
+
 ### `import`
 
 Type: [`string`](../api/interfaces/EmbedOptions.md#import)
 
 A resource to [import](../features/import.md) (from any of the supported [sources](../features/import.md#sources)).
-
-### `lite`
-
-Type: [`boolean`](../api/interfaces/EmbedOptions.md#lite)
-
-Default: `false`
-
-If `true`, the playground is loaded in [lite mode](../features/lite.md).
 
 ### `loading`
 
@@ -184,16 +183,6 @@ createPlayground('#container', { params: { md: '# Hello World!' } });
 Type: [`TemplateName`](../api/interfaces/EmbedOptions.md#template)
 
 A [starter template](../features/templates.md) to load. Allowed valued can be found [here](../api/interfaces/EmbedOptions.md#template).
-
-### `view`
-
-Type: [`"editor" | "result" | "split" | "headless"`](../api/interfaces/EmbedOptions.md#view)
-
-Default: `"split"`
-
-The [default view](../features/default-view.md) for the playground.
-
-When set to `"headless"`, the playground is loaded in [headless mode](./headless.md).
 
 ## SDK Methods
 
@@ -324,13 +313,14 @@ createPlayground('#container').then(async (playground) => {
 
 ### `show`
 
-Type: [`(panel: EditorId | Lowercase<Tool['title']> | 'result', options?: { full?: boolean; line?: number; column?: number; zoom?: 1 | 0.5 | 0.25 }) => Promise<void>`](../api/interfaces/Playground.md#show)
+Type: [`(panel: 'editor' | 'markup' | 'style' | 'script' | 'console' | 'compiled' | 'tests' | 'result' | 'toggle-result', options?: { full?: boolean; line?: number; column?: number; zoom?: 1 | 0.5 | 0.25 }) => Promise<void>`](../api/interfaces/Playground.md#show)
 
 Shows the selected panel, which is either:
 
-- Editor: `markup`, `style` or `script`
+- Active Editor: `editor`
+- Specific Editor: `markup`, `style` or `script`
 - Tool: `console`, `compiled` or `tests`
-- Result page: `result`
+- Result page: `result` or `toggle-result`
 
 The second optional argument is an object:
 
@@ -349,6 +339,8 @@ createPlayground('#container').then(async (playground) => {
       setTimeout(resolve, duration);
     });
 
+  await playground.show('toggle-result');
+  await delay(2000);
   await playground.show('style');
   await delay(2000);
   await playground.show('result', { full: true });

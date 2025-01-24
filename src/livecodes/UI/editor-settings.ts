@@ -1,7 +1,13 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
-import type { createModal } from '../modal';
-import type { Config, EditorLibrary, EditorOptions, FormatFn, UserConfig } from '../models';
+import type {
+  Config,
+  EditorLibrary,
+  EditorOptions,
+  EventsManager,
+  FormatFn,
+  Modal,
+  UserConfig,
+} from '../models';
 import type { createEditor } from '../editor/create-editor';
 import { editorSettingsScreen } from '../html';
 import { getEditorConfig, getFormatterConfig } from '../config/config';
@@ -11,6 +17,7 @@ import { getEditorTheme } from '../editor/themes';
 import { monacoThemes } from '../editor/monaco/monaco-themes';
 import { codemirrorThemes } from '../editor/codemirror/codemirror-themes';
 import { prismThemes } from '../editor/codejar/prism-themes';
+import { preventFocus } from '../utils/utils';
 import { getEditorSettingsFormatLink } from './selectors';
 
 export const createEditorSettingsUI = async ({
@@ -21,8 +28,8 @@ export const createEditorSettingsUI = async ({
   deps,
 }: {
   baseUrl: string;
-  modal: ReturnType<typeof createModal>;
-  eventsManager: ReturnType<typeof createEventsManager>;
+  modal: Modal;
+  eventsManager: EventsManager;
   scrollToSelector: string;
   deps: {
     getUserConfig: () => UserConfig;
@@ -55,7 +62,10 @@ export const createEditorSettingsUI = async ({
 
   interface FormField {
     title?: string;
-    name: keyof UserConfig | `editorTheme-${Config['editor']}-${Config['theme']}`;
+    name:
+      | keyof UserConfig
+      | 'lineNumbersRelative'
+      | `editorTheme-${Config['editor']}-${Config['theme']}`;
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
     note?: string;
@@ -209,6 +219,14 @@ export const createEditorSettingsUI = async ({
       options: [{ value: 'true' }],
     },
     {
+      title: window.deps.translateString(
+        'editorSettings.lineNumbersRelative',
+        'Relative line numbers *',
+      ),
+      name: 'lineNumbersRelative',
+      options: [{ value: 'true' }],
+    },
+    {
       title: window.deps.translateString('editorSettings.wordWrap', 'Word-wrap'),
       name: 'wordWrap',
       options: [{ value: 'true' }],
@@ -342,12 +360,14 @@ export const createEditorSettingsUI = async ({
     form.appendChild(fieldContainer);
 
     const name = `editor-settings-${field.name}`;
-    const optionValue = String(
-      (editorOptions as any)[field.name] ??
-        (userConfig as any)[field.name] ??
-        (defaultConfig as any)[field.name] ??
-        '',
-    );
+    const getOptionValue = (name: string) =>
+      String(
+        (editorOptions as any)[name] ??
+          (userConfig as any)[name] ??
+          (defaultConfig as any)[name] ??
+          '',
+      );
+    const optionValue = getOptionValue(field.name);
 
     if (field.options.length > 4) {
       const select = document.createElement('select');
@@ -400,7 +420,16 @@ export const createEditorSettingsUI = async ({
       input.id = id;
       input.value = option.value;
       input.checked =
-        field.name === 'theme' ? optionValue === 'dark' : optionValue === option.value;
+        field.name === 'theme'
+          ? optionValue === 'dark'
+          : field.name === 'lineNumbers'
+            ? optionValue === 'true' || optionValue === 'relative'
+            : optionValue === option.value;
+
+      if (field.name === 'lineNumbersRelative') {
+        input.checked = getOptionValue('lineNumbers') === 'relative';
+        input.disabled = getOptionValue('lineNumbers') === 'false';
+      }
 
       optionContainer.appendChild(input);
 
@@ -440,7 +469,7 @@ export const createEditorSettingsUI = async ({
                   ? Number(value)
                   : value,
       }),
-      {} as EditorOptions,
+      {} as EditorOptions & { lineNumbersRelative?: boolean },
     );
 
     const booleanFields = formFields
@@ -459,7 +488,23 @@ export const createEditorSettingsUI = async ({
       if (key === 'theme') {
         formData.theme = (formData.theme as any) === true ? 'dark' : 'light';
       }
+      if (
+        key === 'lineNumbersRelative' &&
+        formData.lineNumbersRelative === true &&
+        formData.lineNumbers === true
+      ) {
+        formData.lineNumbers = 'relative';
+      }
     });
+
+    const relativeLineNumbersField = form.querySelector<HTMLInputElement>(
+      '[name="editor-settings-lineNumbersRelative"]',
+    );
+    if (relativeLineNumbersField) {
+      relativeLineNumbersField.checked = formData.lineNumbers === 'relative';
+      relativeLineNumbersField.disabled = formData.lineNumbers === false;
+    }
+    delete formData.lineNumbersRelative;
 
     formData.editorTheme = allThemes
       .map((name) => (formData as any)[name])
@@ -513,6 +558,7 @@ export const createEditorSettingsUI = async ({
     });
   };
 
+  preventFocus(previewContainer);
   eventsManager.addEventListener(form, 'change', () => updateOptions());
   updateOptions(true);
 };
