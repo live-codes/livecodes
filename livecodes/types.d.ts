@@ -105,12 +105,13 @@ declare module "sdk/models" {
          * See [docs](https://livecodes.io/docs/sdk/js-ts#show) for details.
          * @example
          * await playground.show("style");
+         * await playground.show("toggle-result");
          * await playground.show("result", { full: true });
          * await playground.show("script");
          * await playground.show("result", { zoom: 0.5 });
          * await playground.show("console", { full: true });
          */
-        show: (panel: EditorId | Tool['name'] | 'result', options?: {
+        show: (panel: EditorId | 'editor' | 'result' | 'toggle-result' | Tool['name'], options?: {
             full?: boolean;
             line?: number;
             column?: number;
@@ -332,11 +333,21 @@ declare module "sdk/models" {
          */
         config?: Partial<Config> | string;
         /**
+         * If `true`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+         * @default false
+         */
+        headless?: boolean;
+        /**
          * A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
          */
         import?: string;
         /**
+         * @deprecated
+         *
+         * Use `{ config: { mode: "lite" } }` instead
+         *
          * If `true`, the playground is loaded in [lite mode](https://livecodes.io/docs/features/lite).
+         * @default false
          */
         lite?: boolean;
         /**
@@ -345,7 +356,6 @@ declare module "sdk/models" {
          * - `"eager"`: The playground loads immediately.
          * - `"lazy"`: A playground embedded low down in the page will not load until the user scrolls so that it approaches the viewport.
          * - `"click"`: The playground does not load automatically. Instead, a "Click-to-load" screen is shown.
-         *
          * @default "lazy"
          */
         loading?: 'lazy' | 'click' | 'eager';
@@ -355,9 +365,15 @@ declare module "sdk/models" {
          */
         template?: TemplateName;
         /**
+         * @deprecated
+         *
+         * The `view` option has been moved to `config.view`.
+         * For headless mode use `headless: true`.
+         *
          * The [default view](https://livecodes.io/docs/features/default-view) for the playground.
          *
          * When set to `"headless"`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+         * @default "split"
          */
         view?: 'split' | 'editor' | 'result' | 'headless';
     }
@@ -549,10 +565,15 @@ declare module "sdk/models" {
          */
         allowLangChange: boolean;
         /**
+         * Sets the [default view](https://livecodes.io/docs/features/default-view) for the playground.
+         * @default "split"
+         */
+        view?: 'split' | 'editor' | 'result';
+        /**
          * Sets the [display mode](https://livecodes.io/docs/features/display-modes).
          * @default "full"
          */
-        mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
+        mode: 'full' | 'focus' | 'lite' | 'simple' | 'editor' | 'codeblock' | 'result';
         /**
          * Sets enabled and active tools and status of [tools pane](https://livecodes.io/docs/features/tools-pane).
          * @default { enabled: "all", active: "", status: "" }
@@ -695,7 +716,7 @@ declare module "sdk/models" {
          * Show line numbers in [code editor](https://livecodes.io/docs/features/editor-settings).
          * @default true
          */
-        lineNumbers: boolean;
+        lineNumbers: boolean | 'relative';
         /**
          * Enables word-wrap for long lines.
          * @default false
@@ -794,12 +815,6 @@ declare module "sdk/models" {
          */
         language: Language;
         /**
-         * If set, this is used as the title of the editor in the UI,
-         * overriding the default title set to the language name
-         * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
-         */
-        title?: string;
-        /**
          * The initial content of the code editor.
          * @default ""
          */
@@ -822,6 +837,18 @@ declare module "sdk/models" {
          * The URL is only fetched if `hiddenContent` property had no value.
          */
         hiddenContentUrl?: string;
+        /**
+         * If set, this is used as the title of the editor in the UI,
+         * overriding the default title set to the language name
+         * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
+         */
+        title?: string;
+        /**
+         * If `true`, the title of the code editor is hidden, however its code is still evaluated.
+         *
+         * This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
+         */
+        hideTitle?: boolean;
         /**
          * A CSS selector to load content from [DOM import](https://livecodes.io/docs/features/import#import-code-from-dom).
          */
@@ -974,7 +1001,7 @@ declare module "sdk/models" {
         tools?: Config['tools'];
         autotest?: Config['autotest'];
     };
-    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
+    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'shadcn-ui' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
         name: 'console' | 'compiled' | 'tests';
         title: string;
@@ -1119,7 +1146,7 @@ declare module "sdk/models" {
         title: string;
     }
     export interface Screen {
-        screen: 'login' | 'info' | 'new' | 'open' | 'assets' | 'add-asset' | 'snippets' | 'add-snippet' | 'import' | 'resources' | 'share' | 'embed' | 'deploy' | 'sync' | 'backup' | 'broadcast' | 'welcome' | 'about' | 'custom-settings' | 'editor-settings' | 'code-to-image' | 'test-editor';
+        screen: 'login' | 'info' | 'new' | 'open' | 'assets' | 'add-asset' | 'snippets' | 'add-snippet' | 'import' | 'resources' | 'share' | 'embed' | 'deploy' | 'sync' | 'backup' | 'broadcast' | 'welcome' | 'about' | 'custom-settings' | 'editor-settings' | 'code-to-image' | 'test-editor' | 'keyboard-shortcuts';
         show: (options?: any) => void | Promise<unknown>;
     }
     export type CustomSettings = Partial<{
@@ -1221,6 +1248,7 @@ declare module "sdk/models" {
         config: string;
         embed: boolean;
         preview: boolean;
+        lite: boolean;
         x: string;
         files: string;
         raw: Language;
@@ -1292,39 +1320,55 @@ declare module "sdk/models" {
 }
 declare module "livecodes/models" {
     export * from "sdk/models";
-}
-declare module "livecodes/events/events" {
-    export const createEventsManager: () => {
-        addEventListener: <T extends Event>(element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: T) => any, options?: any) => void;
-        removeEventListener: <T_1 extends Event>(element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: T_1) => void) => void;
-        removeEventListeners: () => void;
-    };
-}
-declare module "livecodes/events/custom-events" {
-    import type { CustomEvents } from "livecodes/models";
-    export const customEvents: CustomEvents;
-}
-declare module "livecodes/events/pub" {
-    export const createPub: <T>() => {
-        subscribe: (fn: (data: T) => void) => {
-            unsubscribe: () => void;
-        };
-        notify: (data: T) => void;
-        hasSubscribers: () => boolean;
-        unsubscribeAll: () => void;
-    };
-}
-declare module "livecodes/events/index" {
-    export * from "livecodes/events/events";
-    export * from "livecodes/events/custom-events";
-    export * from "livecodes/events/pub";
+    export interface ModalOptions {
+        size?: 'large' | 'small' | 'full';
+        closeButton?: boolean;
+        isAsync?: boolean;
+        onClose?: () => void;
+        scrollToSelector?: string;
+        autoFocus?: boolean;
+    }
+    export interface Modal {
+        show: (container: HTMLElement, options?: ModalOptions) => void;
+        close: () => void;
+    }
+    export interface Notifications {
+        info: (message: string, dismissable?: boolean) => void;
+        success: (message: string, dismissable?: boolean) => void;
+        warning: (message: string, dismissable?: boolean) => void;
+        error: (message: string, dismissable?: boolean) => void;
+        confirm: (message: string, confirmCallback: () => void, cancelCallback?: () => void) => void;
+    }
+    export interface INinjaAction {
+        title: string;
+        keywords?: string;
+        content?: string;
+        id?: string;
+        hotkey?: string;
+        icon?: string;
+        mdIcon?: string;
+        parent?: string;
+        children?: string[] | Array<Omit<INinjaAction, 'parent'>>;
+        section?: string;
+        href?: string;
+        attributes?: Record<string, string>;
+        handler?: (action: INinjaAction, event: KeyboardEvent | CustomEvent<INinjaAction> | undefined, searchQuery: string) => void | {
+            keepOpen: boolean;
+        } | Promise<void>;
+        matcher?: (action: INinjaAction, searchOptions: {
+            searchString: string;
+            searchRegex: RegExp;
+        }) => boolean;
+        keepOpen?: boolean;
+    }
 }
 declare module "livecodes/services/modules" {
     import type { CDN } from "livecodes/models";
     export const modulesService: {
-        getModuleUrl: (moduleName: string, { isModule, defaultCDN }?: {
+        getModuleUrl: (moduleName: string, { isModule, defaultCDN, external, }?: {
             isModule?: boolean;
             defaultCDN?: CDN;
+            external?: string;
         }) => string;
         getUrl: (path: string, cdn?: CDN) => string;
         cdnLists: {
@@ -1396,8 +1440,10 @@ declare module "livecodes/vendors" {
     export const fontHermitUrl: string;
     export const fontIBMPlexMonoUrl: string;
     export const fontInconsolataUrl: string;
+    export const fontInterUrl: string;
     export const fontIosevkaUrl: string;
     export const fontJetbrainsMonoUrl: string;
+    export const fontMaterialIconsUrl: string;
     export const fontMenloUrl: string;
     export const fontMonaspaceBaseUrl: string;
     export const fontMonofurUrl: string;
@@ -1443,6 +1489,7 @@ declare module "livecodes/vendors" {
     export const monacoThemesBaseUrl: string;
     export const monacoVimUrl: string;
     export const mustacheUrl: string;
+    export const ninjaKeysUrl: string;
     export const nomnomlCdnUrl: string;
     export const normalizeCssUrl: string;
     export const nunjucksBaseUrl: string;
@@ -1506,6 +1553,10 @@ declare module "livecodes/vendors" {
     export const waveDromBaseUrl: string;
     export const webRBaseUrl: string;
 }
+declare module "livecodes/languages/css-presets" {
+    import type { CssPreset } from "livecodes/models";
+    export const cssPresets: CssPreset[];
+}
 declare module "livecodes/utils/utils" {
     import type { Config, Language, Processor } from "livecodes/models";
     export const debounce: (fn: (...x: any[]) => any, delay: number | (() => number)) => (...args: unknown[]) => void;
@@ -1516,6 +1567,8 @@ declare module "livecodes/utils/utils" {
     export const pipe: (...fns: Function[]) => Function;
     export const safeName: (name: string, symbol?: string) => string;
     export const isMobile: () => boolean;
+    export const isMac: () => boolean;
+    export const ctrl: (e: KeyboardEvent) => boolean;
     export const isFirefox: () => boolean;
     export const isRelativeUrl: (url?: string) => boolean;
     export const getAbsoluteUrl: (url: string, baseUrl?: string) => string;
@@ -1526,7 +1579,8 @@ declare module "livecodes/utils/utils" {
     export const objectFilter: (obj: Record<string, any>, predicate: (value: any, key: string, index: number) => any) => {
         [k: string]: any;
     };
-    export const copyToClipboard: (text: string) => boolean;
+    export const copyToClipboard: (text: string) => boolean | Promise<void>;
+    export const copyImage: (image: Blob, type: 'png' | 'jpg' | 'svg') => Promise<boolean>;
     export const stringToValidJson: (str: string) => string;
     export const stringify: (obj: any, pretty?: boolean) => string;
     export const getRandomString: () => string;
@@ -1593,6 +1647,17 @@ declare module "livecodes/utils/utils" {
         a: number;
     };
     export const colorToHex: (color: string) => string;
+    type ValueOf<T> = T[keyof T];
+    type NonEmptyArray<T> = [T, ...T[]];
+    type MustInclude<T, U extends T[]> = [T] extends [ValueOf<U>] ? U : never;
+    /**
+     * converts TypeScript string union to array
+     * see https://stackoverflow.com/a/70694878/5054774
+     */
+    export const stringUnionToArray: <T>() => <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) => MustInclude<T, U>;
+    export const preventFocus: (container: HTMLElement) => void;
+    export const findFirstFocusableElement: (container: HTMLElement) => Element | undefined;
+    export const isFocusable: (item: any | null) => boolean;
     export const predefinedValues: {
         readonly APP_VERSION: string;
         readonly SDK_VERSION: string;
@@ -2234,6 +2299,29 @@ declare module "livecodes/services/allowed-origin" {
     export const allowedOrigin: (origin?: string) => boolean;
     export const whitelistTarget: (url: string) => boolean;
 }
+declare module "livecodes/events/events" {
+    import type { EventsManager } from "livecodes/models";
+    export const createEventsManager: () => EventsManager;
+}
+declare module "livecodes/events/custom-events" {
+    import type { CustomEvents } from "livecodes/models";
+    export const customEvents: CustomEvents;
+}
+declare module "livecodes/events/pub" {
+    export const createPub: <T>() => {
+        subscribe: (fn: (data: T) => void) => {
+            unsubscribe: () => void;
+        };
+        notify: (data: T) => void;
+        hasSubscribers: () => boolean;
+        unsubscribeAll: () => void;
+    };
+}
+declare module "livecodes/events/index" {
+    export * from "livecodes/events/events";
+    export * from "livecodes/events/custom-events";
+    export * from "livecodes/events/pub";
+}
 declare module "livecodes/sync/diff" {
     import * as Y from 'yjs';
     import * as DeepDiff from 'deep-diff';
@@ -2501,7 +2589,10 @@ declare module "livecodes/compiler/import-map" {
     export const getImports: (code: string, removeSpecifier?: boolean) => string[];
     export const isBare: (mod: string) => boolean;
     export const findImportMapKey: (mod: string, importmap: Record<string, string>) => string | undefined;
-    export const createImportMap: (code: string, config: Config, fallbackToCdn?: boolean) => {
+    export const createImportMap: (code: string, config: Config, { fallbackToCdn, external }?: {
+        fallbackToCdn?: boolean;
+        external?: string;
+    }) => {
         [x: string]: string;
     };
     export const hasImports: (code: string) => boolean;
@@ -2510,8 +2601,11 @@ declare module "livecodes/compiler/import-map" {
     export const hasUrlImportsOrExports: (code: string) => boolean;
     export const hasAwait: (code: string) => boolean;
     export const isModuleScript: (code: string) => boolean;
-    export const replaceImports: (code: string, config: Config, importMap?: Record<string, string>) => string;
-    export const replaceSFCImports: (code: string, { filename, config, sfcExtension, getLanguageByAlias, compileSFC, }: {
+    export const replaceImports: (code: string, config: Config, { importMap, external }?: {
+        importMap?: Record<string, string>;
+        external?: string;
+    }) => string;
+    export const replaceSFCImports: (code: string, { filename, config, sfcExtension, getLanguageByAlias, compileSFC, external, }: {
         config: Config;
         filename: string;
         sfcExtension: string;
@@ -2520,6 +2614,7 @@ declare module "livecodes/compiler/import-map" {
             filename: string;
             config: Config;
         }) => Promise<string>;
+        external?: string;
     }) => Promise<string>;
     export const removeImports: (code: string, mods: string[]) => string;
     export const styleimportsPattern: RegExp;
@@ -2564,6 +2659,7 @@ declare module "livecodes/compiler/models" {
             feature: TypescriptFeatures;
             payload: any;
         }) => Promise<unknown>;
+        isFake: boolean;
     }
     export type LanguageOrProcessor = Language | Processor;
     export type TypescriptFeatures = 'getOptionDeclarations' | 'ata' | 'initCodeMirrorTS' | 'changeCodeMirrorLanguage' | 'addTypes';
@@ -2743,23 +2839,7 @@ declare module "livecodes/languages/languages" {
     import type { LanguageSpecs } from "livecodes/models";
     export const languages: LanguageSpecs[];
 }
-declare module "livecodes/languages/create-language-menus" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { Config, Template } from "livecodes/models";
-    export const createLanguageMenus: (config: Config, baseUrl: string, eventsManager: ReturnType<typeof createEventsManager>, showLanguageInfo: (languageInfo: HTMLElement) => void, loadStarterTemplate: (templateName: Template['name']) => void, importCode: (options: {
-        url: string;
-    }) => Promise<boolean>) => void;
-    export const createProcessorItem: (processor: {
-        name: string;
-        title: string;
-    }) => HTMLLIElement;
-}
-declare module "livecodes/languages/css-presets" {
-    import type { CssPreset } from "livecodes/models";
-    export const cssPresets: CssPreset[];
-}
 declare module "livecodes/languages/index" {
-    export * from "livecodes/languages/create-language-menus";
     export * from "livecodes/languages/css-presets";
     export * from "livecodes/languages/languages";
     export * from "livecodes/languages/postcss/index";
@@ -3138,6 +3218,7 @@ declare module "livecodes/html/index" {
     const aboutScreen: string;
     const infoScreen: string;
     const resourcesScreen: string;
+    const keyboardShortcutsScreen: string;
     const loginScreen: string;
     const savePromptScreen: string;
     const recoverPromptScreen: string;
@@ -3152,7 +3233,7 @@ declare module "livecodes/html/index" {
     const editorSettingsScreen: string;
     const codeToImageScreen: string;
     const resultPopupHTML: string;
-    export { resultTemplate, appHTML, menuProjectHTML, menuSettingsHTML, menuHelpHTML, languageInfo, customSettingsScreen, testEditorScreen, importScreen, deployScreen, syncScreen, backupScreen, broadcastScreen, welcomeScreen, aboutScreen, infoScreen, resourcesScreen, loginScreen, savePromptScreen, recoverPromptScreen, templatesScreen, openScreen, assetsScreen, addAssetScreen, snippetsScreen, addSnippetScreen, shareScreen, embedScreen, editorSettingsScreen, codeToImageScreen, resultPopupHTML, };
+    export { resultTemplate, appHTML, menuProjectHTML, menuSettingsHTML, menuHelpHTML, languageInfo, customSettingsScreen, testEditorScreen, importScreen, deployScreen, syncScreen, backupScreen, broadcastScreen, welcomeScreen, aboutScreen, infoScreen, resourcesScreen, keyboardShortcutsScreen, loginScreen, savePromptScreen, recoverPromptScreen, templatesScreen, openScreen, assetsScreen, addAssetScreen, snippetsScreen, addSnippetScreen, shareScreen, embedScreen, editorSettingsScreen, codeToImageScreen, resultPopupHTML, };
 }
 declare module "livecodes/import/code" {
     import type { Config } from "livecodes/models";
@@ -3310,26 +3391,6 @@ declare module "livecodes/import/import" {
 declare module "livecodes/import/index" {
     export * from "livecodes/import/import";
 }
-declare module "livecodes/UI/accordion" {
-    export const createAccordion: ({ container, single, open, }: {
-        container: HTMLElement | Document;
-        single?: boolean;
-        open?: boolean;
-    }) => void;
-}
-declare module "livecodes/modal" {
-    interface ModalOptions {
-        size?: 'large' | 'small' | 'full';
-        closeButton?: boolean;
-        isAsync?: boolean;
-        onClose?: () => void;
-        scrollToSelector?: string;
-    }
-    export const createModal: (translate: (container: HTMLElement) => void) => {
-        show: (container: HTMLElement, { size, closeButton, isAsync, onClose, scrollToSelector, }?: ModalOptions) => void;
-        close: () => void;
-    };
-}
 declare module "livecodes/notifications/snackbar" {
     import type { Action } from '@snackbar/core';
     export const darkTheme: {
@@ -3366,16 +3427,26 @@ declare module "livecodes/notifications/snackbar" {
     export const acceptButton: Action;
 }
 declare module "livecodes/notifications/create-notifications" {
-    export const createNotifications: () => {
-        info: (message: string, dismissable?: boolean) => void;
-        success: (message: string, dismissable?: boolean) => void;
-        warning: (message: string, dismissable?: boolean) => void;
-        error: (message: string, dismissable?: boolean) => void;
-        confirm: (message: string, confirmCallback: () => void, cancelCallback?: () => void) => void;
-    };
+    import type { Notifications } from "livecodes/models";
+    export const hasOpenNotifications: () => boolean;
+    export const createNotifications: () => Notifications;
 }
 declare module "livecodes/notifications/index" {
     export * from "livecodes/notifications/create-notifications";
+}
+declare module "livecodes/UI/accordion" {
+    export const createAccordion: ({ container, single, open, }: {
+        container: HTMLElement | Document;
+        single?: boolean;
+        open?: boolean;
+    }) => void;
+}
+declare module "livecodes/UI/modal" {
+    import type { Modal } from "livecodes/models";
+    export const createModal: (deps: {
+        translate: (container: HTMLElement) => void;
+        onClose: () => void;
+    }) => Modal;
 }
 declare module "livecodes/languages/jsx/react-runtime" {
     export const reactRuntime = "\nimport { jsx as _jsx } from \"react/jsx-runtime\";\nimport { createRoot } from \"react-dom/client\";\nimport App from \"./script\";\n(() => {\n  if (typeof App !== \"function\") return;\n  const root = createRoot(document.querySelector(\"#livecodes-app\") || document.body.appendChild(document.createElement(\"div\")));\n  root.render(_jsx(App, {}));\n})();\n";
@@ -3438,11 +3509,10 @@ declare module "livecodes/templates/index" {
     export * from "livecodes/templates/get-starter-templates";
 }
 declare module "livecodes/UI/info" {
-    import type { createModal } from "livecodes/modal";
-    import type { Config } from "livecodes/models";
+    import type { Config, Modal } from "livecodes/models";
     import type { ProjectStorage } from "livecodes/storage/index";
     export const getTags: (value: string) => string[];
-    export const createProjectInfoUI: (config: Config, storage: ProjectStorage, modal: ReturnType<typeof createModal>, onUpdate: (title: string, description: string, head: string, htmlAttrs: string, tags: string[]) => void) => Promise<void>;
+    export const createProjectInfoUI: (config: Config, storage: ProjectStorage, modal: Modal, onUpdate: (title: string, description: string, head: string, htmlAttrs: string, tags: string[]) => void) => Promise<void>;
 }
 declare module "livecodes/UI/loading" {
     export const loadingMessage: (message?: string) => HTMLDivElement;
@@ -3463,7 +3533,11 @@ declare module "livecodes/UI/selectors" {
     export const getRunButton: () => HTMLElement;
     export const getLightThemeButton: () => HTMLElement;
     export const getDarkThemeButton: () => HTMLElement;
+    export const getI18nMenuButton: () => HTMLElement;
     export const getI18nMenuContainer: () => HTMLElement;
+    export const getMarkupEditorTitle: () => HTMLElement;
+    export const getStyleEditorTitle: () => HTMLElement;
+    export const getScriptEditorTitle: () => HTMLElement;
     export const getEditorToolbar: () => HTMLElement;
     export const getFocusButton: () => HTMLElement;
     export const getCopyButton: () => HTMLElement;
@@ -3488,8 +3562,13 @@ declare module "livecodes/UI/selectors" {
     export const getToolspaneBar: () => HTMLElement;
     export const getToolspaneButtons: () => HTMLElement;
     export const getToolspaneTitles: () => HTMLElement | null;
+    export const getConsoleButton: () => HTMLElement | null;
+    export const getCompiledButton: () => HTMLElement | null;
+    export const getTestsButton: () => HTMLElement | null;
     export const getToolspaneLoader: () => HTMLElement | null;
+    export const getZoomButton: () => HTMLElement | null;
     export const getZoomButtonValue: () => HTMLElement | null;
+    export const getResultPopupButton: () => HTMLElement | null;
     export const getModalSaveButton: () => HTMLElement;
     export const getModalDoNotSaveButton: () => HTMLElement;
     export const getModalCancelButton: () => HTMLElement;
@@ -3537,6 +3616,8 @@ declare module "livecodes/UI/selectors" {
     export const getBroadcastLink: () => HTMLAnchorElement | null;
     export const getWelcomeLink: () => HTMLAnchorElement | null;
     export const getAboutLink: () => HTMLAnchorElement | null;
+    export const getCommandMenuLink: () => HTMLAnchorElement | null;
+    export const getKeyboardShortcutsMenuLink: () => HTMLAnchorElement | null;
     export const getAutoupdateToggle: () => HTMLInputElement;
     export const getDelayValue: () => HTMLElement;
     export const getDelayRange: () => HTMLInputElement;
@@ -3549,11 +3630,14 @@ declare module "livecodes/UI/selectors" {
     export const getLayoutToggle: () => HTMLInputElement;
     export const getShowWelcomeToggle: () => HTMLInputElement;
     export const getRecoverToggle: () => HTMLInputElement;
+    export const getThemeColorContainer: () => HTMLElement;
+    export const getCustomThemeColorInput: () => HTMLInputElement;
     export const getSpacingToggle: () => HTMLInputElement;
     export const getCSSPresetLinks: () => NodeListOf<HTMLAnchorElement>;
     export const getProjectInfoLink: () => HTMLInputElement;
     export const getAssetsLink: () => HTMLInputElement;
     export const getSnippetsLink: () => HTMLInputElement;
+    export const getHelpMenu: () => HTMLElement;
     export const getInfoTitleInput: () => HTMLInputElement;
     export const getInfoHead: () => HTMLTextAreaElement;
     export const getInfoHtmlAttrs: () => HTMLTextAreaElement;
@@ -3647,20 +3731,17 @@ declare module "livecodes/UI/selectors" {
     export const getModalWelcomeRecent: (welcomeContainer: HTMLElement) => HTMLElement;
     export const getModalWelcomeRecentList: (welcomeContainer: HTMLElement) => HTMLElement;
     export const getModalWelcomeTemplateList: (welcomeContainer: HTMLElement) => HTMLElement;
+    export const getNinjaKeys: () => any;
     export const getResultModeDrawer: () => HTMLElement;
 }
 declare module "livecodes/UI/login" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { GithubScope, User } from "livecodes/models";
-    export const createLoginContainer: (eventsManager: ReturnType<typeof createEventsManager>, loginCallback: (scopes: GithubScope[]) => void) => HTMLElement;
+    import type { EventsManager, GithubScope, User } from "livecodes/models";
+    export const createLoginContainer: (eventsManager: EventsManager, loginCallback: (scopes: GithubScope[]) => void) => HTMLElement;
     export const displayLoggedIn: (user: User) => void;
     export const displayLoggedOut: () => void;
 }
 declare module "livecodes/UI/open" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { createModal } from "livecodes/modal";
-    import type { Config, ContentConfig, Language, LanguageSpecs, Screen } from "livecodes/models";
-    import type { createNotifications } from "livecodes/notifications/index";
+    import type { Config, ContentConfig, EventsManager, Language, LanguageSpecs, Modal, Notifications, Screen } from "livecodes/models";
     import type { SavedProject, ProjectStorage } from "livecodes/storage/index";
     export const createOpenItem: (item: SavedProject, list: HTMLElement, getLanguageTitle: (language: Language) => string, getLanguageByAlias: (alias?: string) => Language | undefined, isTemplate?: boolean) => {
         link: HTMLAnchorElement;
@@ -3670,11 +3751,11 @@ declare module "livecodes/UI/open" {
     };
     export const createSavedProjectsList: ({ projectStorage, eventsManager, showScreen, getContentConfig, notifications, modal, loadConfig, getProjectId, setProjectId, languages, getLanguageTitle, getLanguageByAlias, }: {
         projectStorage: ProjectStorage;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        eventsManager: EventsManager;
         showScreen: (screen: Screen['screen']) => void;
         getContentConfig: (config: Config | ContentConfig) => ContentConfig;
-        notifications: ReturnType<typeof createNotifications>;
-        modal: ReturnType<typeof createModal>;
+        notifications: Notifications;
+        modal: Modal;
         loadConfig: (config: ContentConfig) => Promise<void>;
         getProjectId: () => string | undefined;
         setProjectId: (id: string) => void;
@@ -3692,9 +3773,8 @@ declare module "livecodes/UI/split-panes" {
     };
 }
 declare module "livecodes/UI/templates" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { Template } from "livecodes/models";
-    export const createTemplatesContainer: (eventsManager: ReturnType<typeof createEventsManager>, loadUserTemplates: () => void) => HTMLElement;
+    import type { EventsManager, Template } from "livecodes/models";
+    export const createTemplatesContainer: (eventsManager: EventsManager, loadUserTemplates: () => void) => HTMLElement;
     export const createStarterTemplateLink: (template: Template, starterTemplatesList: HTMLElement | null, baseUrl: string) => HTMLAnchorElement;
     export const noUserTemplates: () => string;
 }
@@ -3708,14 +3788,12 @@ declare module "livecodes/UI/index" {
     export * from "livecodes/UI/templates";
 }
 declare module "livecodes/toolspane/compiled-code-viewer" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { Editors, Config, CompiledCodeViewer } from "livecodes/models";
-    export const createCompiledCodeViewer: (config: Config, baseUrl: string, _editors: Editors, _eventsManager: ReturnType<typeof createEventsManager>, isEmbed: boolean, _runTests: () => Promise<void>) => CompiledCodeViewer;
+    import type { Editors, Config, CompiledCodeViewer, EventsManager } from "livecodes/models";
+    export const createCompiledCodeViewer: (config: Config, baseUrl: string, _editors: Editors, _eventsManager: EventsManager, isEmbed: boolean, _runTests: () => Promise<void>) => CompiledCodeViewer;
 }
 declare module "livecodes/toolspane/console" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { Editors, Config, Console } from "livecodes/models";
-    export const createConsole: (config: Config, baseUrl: string, _editors: Editors, eventsManager: ReturnType<typeof createEventsManager>, isEmbed: boolean, _runTests: () => Promise<void>) => Console;
+    import type { Editors, Config, Console, EventsManager } from "livecodes/models";
+    export const createConsole: (config: Config, baseUrl: string, _editors: Editors, eventsManager: EventsManager, isEmbed: boolean, _runTests: () => Promise<void>) => Console;
 }
 declare module "livecodes/UI/icons" {
     export const run = "<i class=\"icon-run\"></i>";
@@ -3822,7 +3900,7 @@ declare module "livecodes/_modules" {
     export * as html from "livecodes/html/index";
     export * as import from "livecodes/import/index";
     export * as languages from "livecodes/languages/index";
-    export * as modal from "livecodes/modal";
+    export * as modal from "livecodes/UI/modal";
     export * as models from "livecodes/models";
     export * as notifications from "livecodes/notifications/index";
     export * as result from "livecodes/result/index";
@@ -3837,10 +3915,7 @@ declare module "livecodes/_modules" {
     export * as vendors from "livecodes/vendors";
 }
 declare module "livecodes/UI/broadcast" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { createModal } from "livecodes/modal";
-    import type { createNotifications } from "livecodes/notifications/index";
-    import type { AppData } from "livecodes/models";
+    import type { AppData, EventsManager, Modal, Notifications } from "livecodes/models";
     export interface BroadcastInfo {
         isBroadcasting: boolean;
         channel: string;
@@ -3858,9 +3933,9 @@ declare module "livecodes/UI/broadcast" {
         error: string;
     }
     export const createBroadcastUI: ({ modal, notifications, eventsManager, deps, }: {
-        modal: ReturnType<typeof createModal>;
-        notifications: ReturnType<typeof createNotifications>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        modal: Modal;
+        notifications: Notifications;
+        eventsManager: EventsManager;
         deps: {
             getBroadcastData: () => BroadcastData | null;
             setBroadcastData: (broadcastData: BroadcastData) => void;
@@ -3876,10 +3951,9 @@ declare module "livecodes/services/permanent-url" {
     };
 }
 declare module "livecodes/import/files" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { ContentConfig } from "livecodes/models";
+    import type { ContentConfig, EventsManager } from "livecodes/models";
     import type { populateConfig as populateConfigFn } from "livecodes/import/utils";
-    export const importFromFiles: (files: FileList, populateConfig: typeof populateConfigFn, eventsManager: ReturnType<typeof createEventsManager>) => Promise<Partial<ContentConfig>>;
+    export const importFromFiles: (files: FileList, populateConfig: typeof populateConfigFn, eventsManager: EventsManager) => Promise<Partial<ContentConfig>>;
 }
 declare module "livecodes/i18n/locale-paths" {
     export const pathLoader: (baseUrl: string) => (lngs: string[], nss: string[]) => string | false;
@@ -4042,7 +4116,7 @@ declare module "livecodes/i18n/i18n" {
     export const init: (lng: string | undefined, baseUrl: string) => Promise<{
         translate: (container: HTMLElement) => void;
         translateString: <Key extends I18nKeyType, Value extends string>(key: Key, value: I18nValueType<Key, Value>, ...args: I18nInterpolationType<Value>) => string;
-        translateKey: import("i18next").TFunction<["translation", ..."lang-info"[]], undefined>;
+        translateKey: import("i18next").TFunction<["translation", ..."language-info"[]], undefined>;
         getLanguage: () => string;
         getLanguageDirection: (lng?: string | undefined) => "ltr" | "rtl";
         changeLanguage: (lng?: string | undefined, callback?: import("i18next").Callback | undefined) => Promise<import("i18next").TFunction<"translation", undefined>>;
@@ -4108,7 +4182,7 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly sdkVersion: "SDK version: {{SDK_VERSION}}";
             };
             readonly copy: {
-                readonly hint: "Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)";
+                readonly hint: "Copy (Ctrl/⌘ + A, Ctrl/⌘ + C)";
             };
             readonly copyAsUrl: {
                 readonly hint: "Copy code as data URL";
@@ -4123,7 +4197,7 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly hint: "External Resources";
             };
             readonly focus: {
-                readonly hint: "Toggle Focus mode";
+                readonly hint: "Toggle Focus mode (Ctrl/⌘ + K, Z)";
             };
             readonly format: {
                 readonly hint: "Format (Alt + Shift + F)";
@@ -4145,22 +4219,22 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly hint: "Project Info";
             };
             readonly redo: {
-                readonly hint: "Redo (Ctrl/Cmd + Shift + Z)";
+                readonly hint: "Redo (Ctrl/⌘ + Shift + Z)";
             };
             readonly result: {
-                readonly hint: "Result";
+                readonly hint: "Result (Ctrl/⌘ + Alt + R)";
             };
             readonly run: {
                 readonly hint: "Run (Shift + Enter)";
             };
             readonly share: {
-                readonly hint: "Share";
+                readonly hint: "Share (Ctrl/⌘ + Alt + S)";
             };
             readonly themeColors: {
                 readonly custom: "Custom";
             };
             readonly undo: {
-                readonly hint: "Undo (Ctrl/Cmd + Z)";
+                readonly hint: "Undo (Ctrl/⌘ + Z)";
             };
             readonly untitledProject: "Untitled Project";
         };
@@ -4295,7 +4369,8 @@ declare module "livecodes/i18n/locales/en/translation" {
             readonly background: "Background";
             readonly borderRadius: "Border Radius";
             readonly code: "Code";
-            readonly copy: "Copy";
+            readonly copyCode: "Copy Code";
+            readonly copyImage: "Copy Image";
             readonly default: "Default";
             readonly direction: "Direction";
             readonly fileName: "File Name";
@@ -4317,7 +4392,8 @@ declare module "livecodes/i18n/locales/en/translation" {
             readonly save: "Save Image";
             readonly scale: "Image Scale";
             readonly shadow: "Shadow";
-            readonly share: "Share Image";
+            readonly shareImage: "Share Image";
+            readonly shareTitle: "Share";
             readonly shareUrl: "Share URL";
             readonly theme: "Theme";
             readonly width: "Width";
@@ -4327,6 +4403,84 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly none: "None";
                 readonly windows: "Windows";
             };
+        };
+        readonly commandMenu: {
+            readonly changeTheme: {
+                readonly dark: "Change to Dark Theme";
+                readonly light: "Change to Light Theme";
+                readonly title: "Change Theme";
+            };
+            readonly changeUILanguage: "Change UI Language";
+            readonly closeModalMenu: "Close Modal/Menu";
+            readonly contribute: "Contribute";
+            readonly copy: "Copy Code";
+            readonly copyAsDataUrl: "Copy Code as Data URL";
+            readonly disableAI: "Disable AI Code Assistant";
+            readonly disableAutoSave: "Disable Auto Save";
+            readonly disableAutoUpdate: "Disable Auto Update";
+            readonly disableEmacs: "Disable Emacs Mode";
+            readonly disableFormatOnSave: "Disable Format On-Save";
+            readonly disableRecoverUnsaved: "Disable Recover Unsaved";
+            readonly disableVim: "Disable Vim Mode";
+            readonly enableAI: "Enable AI Code Assistant";
+            readonly enableAutoSave: "Enable Auto Save";
+            readonly enableAutoUpdate: "Enable Auto Update";
+            readonly enableEmacs: "Enable Emacs Mode";
+            readonly enableFormatOnSave: "Enable Format On-Save";
+            readonly enableRecoverUnsaved: "Enable Recover Unsaved";
+            readonly enableVim: "Enable Vim Mode";
+            readonly focus: {
+                readonly editor: "Focus Editor";
+                readonly home: "Move Focus to Home";
+                readonly outOfEditor: "Move Focus out of Editor";
+                readonly toggleTabFocusMode: "Toggle Tab Focus Mode";
+            };
+            readonly formatCode: "Format Code";
+            readonly home: "Home";
+            readonly horizontalLayout: "Horizontal Layout";
+            readonly keyboardShortcuts: "Keyboard Shortcuts";
+            readonly login: "Login";
+            readonly logout: "Logout";
+            readonly moveToParent: "move to parent";
+            readonly placeholder: "Type a command or search...";
+            readonly processors: "Processors";
+            readonly responsiveLayout: "Responsive Layout";
+            readonly run: "Run";
+            readonly saveAsFork: "Save as a Fork (New Project)";
+            readonly saveAsTemplate: "Save as a Template";
+            readonly selectLanguage: "Select Language";
+            readonly show: {
+                readonly compiled: "Toggle Compiled Code";
+                readonly console: "Toggle Console";
+                readonly focusMode: "Toggle Focus Mode";
+                readonly fullscreen: "Toggle Full Screen";
+                readonly markup: "Show Markup Editor";
+                readonly maximizeCompiled: "Maximize Compiled Code";
+                readonly maximizeConsole: "Maximize Console";
+                readonly maximizeTests: "Maximize Tests";
+                readonly next: "Show Next Editor";
+                readonly previous: "Show Previous Editor";
+                readonly result: "Toggle Result";
+                readonly runTests: "Run Tests";
+                readonly script: "Show Script Editor";
+                readonly style: "Show Style Editor";
+                readonly tests: "Toggle Tests";
+                readonly title: "Show …";
+                readonly zoom: "Toggle Result Zoom";
+            };
+            readonly starterTemplates: "Starter Templates";
+            readonly sync: "Sync (beta) …";
+            readonly template: "Template";
+            readonly theme: {
+                readonly color: "Set Theme Color";
+                readonly defaultColor: "Set Default Theme Color";
+            };
+            readonly title: "Command Menu";
+            readonly toClose: "to close";
+            readonly toNavigate: "to navigate";
+            readonly toSelect: "to select";
+            readonly toggle: "Toggle: ";
+            readonly verticalLayout: "Vertical Layout";
         };
         readonly core: {
             readonly broadcast: {
@@ -4340,12 +4494,14 @@ declare module "livecodes/i18n/locales/en/translation" {
             readonly copy: {
                 readonly copied: "Code copied to clipboard";
                 readonly copiedAsDataURL: "Code copied as data URL";
+                readonly copiedImage: "Image copied to clipboard.";
                 readonly hint: "Copied!";
                 readonly title: "Copy";
             };
             readonly error: {
                 readonly couldNotLoadTemplate: "Could not load template: {{template}}";
                 readonly failedToCopyCode: "Failed to copy code";
+                readonly failedToCopyImage: "Failed to copy image";
                 readonly failedToLoadTemplate: "Failed loading template";
                 readonly failedToLoadTemplates: "Failed loading starter templates";
                 readonly failedToParseSettings: "Failed parsing settings as JSON";
@@ -4471,6 +4627,7 @@ declare module "livecodes/i18n/locales/en/translation" {
             readonly format: "Format";
             readonly heading: "Editor Settings";
             readonly lineNumbers: "Show line numbers";
+            readonly lineNumbersRelative: "Relative line numbers *";
             readonly notAvailableInCodeJar: "Not available in CodeJar";
             readonly preview: "Preview";
             readonly semicolons: "Format: Use Semicolons";
@@ -4624,6 +4781,12 @@ declare module "livecodes/i18n/locales/en/translation" {
             };
             readonly success: "Import Successful!";
         };
+        readonly keyboardShortcuts: {
+            readonly command: "Command";
+            readonly editorShortcuts: "For the list of code editor keyboard shortcuts, see <1> VS Code shortcuts</1>";
+            readonly heading: "Keyboard Shortcuts";
+            readonly key: "Key";
+        };
         readonly login: {
             readonly accessAllowed: "Allow access to:";
             readonly desc: "<1>By logging in, you agree that <2>cookies</2> may be stored on your device.</1> <3> <4>Why are these permissions required?</4> </3> <5> <6>How to change/revoke permissions?</6> </5>";
@@ -4655,6 +4818,7 @@ declare module "livecodes/i18n/locales/en/translation" {
             readonly backup: "Backup / Restore …";
             readonly blog: "LiveCodes Blog";
             readonly broadcast: "Broadcast …";
+            readonly commandMenu: "Command Menu";
             readonly config: "Configuration";
             readonly customSettings: "Custom Settings …";
             readonly delay: {
@@ -4678,6 +4842,7 @@ declare module "livecodes/i18n/locales/en/translation" {
             readonly formatOnsave: "Format On-save";
             readonly getstart: "Getting Started";
             readonly import: "Import …";
+            readonly keyboardShortcuts: "Keyboard Shortcuts";
             readonly layout: "Vertical Layout";
             readonly license: "License";
             readonly login: "Login";
@@ -4732,7 +4897,7 @@ declare module "livecodes/i18n/locales/en/translation" {
             readonly import: "Import";
             readonly lastModified: "Last modified: {{modified}}";
             readonly noData: {
-                readonly desc: "You can save a project from (settings&nbsp;menu&nbsp;&gt;&nbsp;Save) or by the keyboard shortcut (Ctrl/Cmd&nbsp;+&nbsp;S).";
+                readonly desc: "You can save a project from (settings&nbsp;menu&nbsp;&gt;&nbsp;Save) or by the keyboard shortcut (Ctrl/⌘&nbsp;+&nbsp;S).";
                 readonly heading: "You have no saved projects.";
             };
             readonly noMatch: "No projects match these filters.";
@@ -4978,6 +5143,7 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly ruby: "Ruby Starter";
                 readonly 'ruby-wasm': "Ruby (Wasm) Starter";
                 readonly scheme: "Scheme Starter";
+                readonly shadcnui: "shadcn/ui Starter";
                 readonly solid: "Solid Starter";
                 readonly sql: "SQL Starter";
                 readonly stencil: "Stencil Starter";
@@ -5019,7 +5185,7 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly noTest: "<1>This project has no tests!</1>";
                 readonly reset: "Reset";
                 readonly run: {
-                    readonly desc: "Ctrl/Cmd + Alt + T";
+                    readonly desc: "Ctrl/⌘ + Alt + T";
                     readonly heading: "Run";
                 };
                 readonly summary: {
@@ -5503,7 +5669,7 @@ declare module "livecodes/i18n/locales/models" {
      */
     export type I18nTranslation = UnAsConst<typeof Translation, ValidI18nTypes, string>;
     /**
-     * Type for all i18n object of namespace `lang-info` other than `en`.
+     * Type for all i18n object of namespace `language-info` other than `en`.
      */
     export type I18nLangInfoTranslation = UnAsConst<typeof LangInfoTranslation, ValidI18nTypes, string>;
 }
@@ -5545,11 +5711,37 @@ declare module "livecodes/UI/theme-colors" {
         readonly themeColor: undefined;
     }];
 }
+declare module "livecodes/UI/command-menu-actions" {
+    import type { Config, INinjaAction, TemplateName } from "livecodes/models";
+    export const getCommandMenuActions: ({ deps, }: {
+        deps: {
+            getConfig: () => Config;
+            loadStarterTemplate: (templateName: TemplateName) => Promise<void>;
+            changeEditorSettings: (config: Partial<Config>) => void;
+            changeLayout: (layout: Config['layout']) => void;
+        };
+    }) => {
+        actions: INinjaAction[];
+        keyboardShortcuts: {
+            title: string;
+            hotkey: string;
+        }[];
+        loginAction: INinjaAction;
+        logoutAction: INinjaAction;
+    };
+}
+declare module "livecodes/UI/create-language-menus" {
+    import type { Config, Template, EventsManager } from "livecodes/models";
+    export const createLanguageMenus: (config: Config, baseUrl: string, eventsManager: EventsManager, showLanguageInfo: (languageInfo: HTMLElement) => void, loadStarterTemplate: (templateName: Template['name']) => void, importCode: (options: {
+        url: string;
+    }) => Promise<boolean>, registerMenuButton: (menu: HTMLElement, button: HTMLElement) => void) => void;
+    export const createProcessorItem: (processor: {
+        name: string;
+        title: string;
+    }) => HTMLLIElement;
+}
 declare module "livecodes/UI/sync-ui" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { createModal } from "livecodes/modal";
-    import type { createNotifications } from "livecodes/notifications/index";
-    import type { User, UserData } from "livecodes/models";
+    import type { EventsManager, Modal, Notifications, User, UserData } from "livecodes/models";
     export const isSyncInProgress: () => boolean;
     export const updateSyncStatus: ({ inProgress, lastSync, syncContainer, }: {
         inProgress?: boolean;
@@ -5558,9 +5750,9 @@ declare module "livecodes/UI/sync-ui" {
     }) => void;
     export const createSyncUI: ({ baseUrl, modal, notifications, eventsManager, user, deps, }: {
         baseUrl: string;
-        modal: ReturnType<typeof createModal>;
-        notifications: ReturnType<typeof createNotifications>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        modal: Modal;
+        notifications: Notifications;
+        eventsManager: EventsManager;
         user: User;
         deps: {
             getSyncData: () => Promise<UserData['data']['sync'] | null>;
@@ -5570,18 +5762,15 @@ declare module "livecodes/UI/sync-ui" {
 }
 declare module "livecodes/UI/import" {
     import type { populateConfig as populateConfigFn } from "livecodes/import/utils";
-    import type { createModal } from "livecodes/modal";
-    import type { ContentConfig, User, Screen } from "livecodes/models";
-    import type { createNotifications } from "livecodes/notifications/index";
+    import type { ContentConfig, Modal, Notifications, User, Screen, EventsManager } from "livecodes/models";
     import type { ProjectStorage } from "livecodes/storage/index";
-    import type { createEventsManager } from "livecodes/events/index";
     import { importCode } from "livecodes/import/import";
     export { importCode };
     export const createImportUI: ({ baseUrl, modal, notifications, eventsManager, getUser, loadConfig, populateConfig, projectStorage, showScreen, }: {
         baseUrl: string;
-        modal: ReturnType<typeof createModal>;
-        notifications: ReturnType<typeof createNotifications>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        modal: Modal;
+        notifications: Notifications;
+        eventsManager: EventsManager;
         getUser: (() => Promise<void | User>) | undefined;
         loadConfig: (newConfig: Partial<ContentConfig>, url?: string) => Promise<void>;
         populateConfig: typeof populateConfigFn;
@@ -5598,22 +5787,18 @@ declare module "livecodes/UI/qrcode" {
     }) => Promise<void>;
 }
 declare module "livecodes/UI/share" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { ShareData } from "livecodes/models";
-    export const createShareContainer: (shareFn: (shortUrl: boolean, permanentUrl: boolean) => Promise<ShareData>, baseUrl: string, eventsManager: ReturnType<typeof createEventsManager>) => Promise<HTMLElement>;
+    import type { EventsManager, ShareData } from "livecodes/models";
+    export const createShareContainer: (shareFn: (shortUrl: boolean, permanentUrl: boolean) => Promise<ShareData>, baseUrl: string, eventsManager: EventsManager) => Promise<HTMLElement>;
 }
 declare module "livecodes/UI/deploy" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { createModal } from "livecodes/modal";
-    import type { createNotifications } from "livecodes/notifications/index";
-    import type { Config, ContentConfig, Cache, User } from "livecodes/models";
+    import type { Config, ContentConfig, Cache, Modal, Notifications, User, EventsManager } from "livecodes/models";
     import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
     import { deployFile } from "livecodes/deploy/deploy";
     export { deployFile };
     export const createDeployUI: ({ modal, notifications, eventsManager, user, deployRepo, deps, }: {
-        modal: ReturnType<typeof createModal>;
-        notifications: ReturnType<typeof createNotifications>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        modal: Modal;
+        notifications: Notifications;
+        eventsManager: EventsManager;
         user: User;
         deployRepo: string | undefined;
         deps: {
@@ -5632,9 +5817,7 @@ declare module "livecodes/UI/deploy" {
     }) => Promise<void>;
 }
 declare module "livecodes/UI/backup" {
-    import type { createModal } from "livecodes/modal";
-    import type { createNotifications } from "livecodes/notifications/index";
-    import type { createEventsManager } from "livecodes/events/index";
+    import type { EventsManager, Modal, Notifications } from "livecodes/models";
     import type { Stores } from "livecodes/storage/index";
     export const isInProgress: () => boolean;
     export const updateProgressStatus: ({ inProgress, backupContainer, }: {
@@ -5643,9 +5826,9 @@ declare module "livecodes/UI/backup" {
     }) => void;
     export const createBackupUI: ({ baseUrl, modal, notifications, eventsManager, stores, deps, }: {
         baseUrl: string;
-        modal: ReturnType<typeof createModal>;
-        notifications: ReturnType<typeof createNotifications>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        modal: Modal;
+        notifications: Notifications;
+        eventsManager: EventsManager;
         stores: Stores;
         deps: {
             loadUserConfig: () => void;
@@ -5653,10 +5836,7 @@ declare module "livecodes/UI/backup" {
     }) => void;
 }
 declare module "livecodes/UI/embed-ui" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { createModal } from "livecodes/modal";
-    import type { CodeEditor, ContentConfig, EditorId } from "livecodes/models";
-    import type { createNotifications } from "livecodes/notifications/index";
+    import type { CodeEditor, ContentConfig, EditorId, EventsManager, Modal, Notifications } from "livecodes/models";
     export const createEmbedUI: ({ config, editorLanguages, modal, notifications, eventsManager, createEditorFn, getUrlFn, }: {
         config: ContentConfig;
         editorLanguages: {
@@ -5664,9 +5844,9 @@ declare module "livecodes/UI/embed-ui" {
             style: string;
             markup: string;
         };
-        modal: ReturnType<typeof createModal>;
-        notifications: ReturnType<typeof createNotifications>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        modal: Modal;
+        notifications: Notifications;
+        eventsManager: EventsManager;
         createEditorFn: (container: HTMLElement) => Promise<CodeEditor>;
         getUrlFn: (permanentUrl?: boolean) => Promise<string>;
     }) => Promise<void>;
@@ -5713,14 +5893,12 @@ declare module "livecodes/editor/codejar/prism-themes" {
     }>;
 }
 declare module "livecodes/UI/editor-settings" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { createModal } from "livecodes/modal";
-    import type { EditorLibrary, FormatFn, UserConfig } from "livecodes/models";
+    import type { EditorLibrary, EventsManager, FormatFn, Modal, UserConfig } from "livecodes/models";
     import type { createEditor } from "livecodes/editor/create-editor";
     export const createEditorSettingsUI: ({ baseUrl, modal, eventsManager, scrollToSelector, deps, }: {
         baseUrl: string;
-        modal: ReturnType<typeof createModal>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        modal: Modal;
+        eventsManager: EventsManager;
         scrollToSelector: string;
         deps: {
             getUserConfig: () => UserConfig;
@@ -5732,10 +5910,7 @@ declare module "livecodes/UI/editor-settings" {
     }) => Promise<void>;
 }
 declare module "livecodes/UI/code-to-image" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { createModal } from "livecodes/modal";
-    import type { createNotifications } from "livecodes/notifications/index";
-    import type { CodeEditor, CodejarTheme, Config, EditorId, EditorOptions, FormatFn } from "livecodes/models";
+    import type { CodeEditor, CodejarTheme, Config, EditorId, EditorOptions, EventsManager, FormatFn, Modal, Notifications } from "livecodes/models";
     type PreviewEditorOptions = Pick<EditorOptions, 'container' | 'editorTheme' | 'fontFamily' | 'fontSize' | 'lineNumbers' | 'wordWrap'>;
     type Preset = PreviewEditorOptions & {
         id: string;
@@ -5759,9 +5934,9 @@ declare module "livecodes/UI/code-to-image" {
         currentUrl: string;
         fileName: string;
         editorId: EditorId;
-        modal: ReturnType<typeof createModal>;
-        notifications: ReturnType<typeof createNotifications>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        modal: Modal;
+        notifications: Notifications;
+        eventsManager: EventsManager;
         deps: {
             createEditor: (options: PreviewEditorOptions) => Promise<CodeEditor>;
             getFormatFn: () => Promise<FormatFn>;
@@ -5773,25 +5948,22 @@ declare module "livecodes/UI/code-to-image" {
 }
 declare module "livecodes/UI/assets" {
     import type { DeployResult } from "livecodes/deploy/index";
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { createModal } from "livecodes/modal";
-    import type { Asset, Screen, User } from "livecodes/models";
-    import type { createNotifications } from "livecodes/notifications/index";
+    import type { Asset, EventsManager, Modal, Notifications, Screen, User } from "livecodes/models";
     import type { GitHubFile } from "livecodes/services/github";
     import { type Storage } from "livecodes/storage/index";
     export const createAssetsList: ({ assetsStorage, eventsManager, showScreen, notifications, modal, baseUrl, }: {
         assetsStorage: Storage<Asset>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        eventsManager: EventsManager;
         showScreen: (screen: Screen['screen']) => void;
-        notifications: ReturnType<typeof createNotifications>;
-        modal: ReturnType<typeof createModal>;
+        notifications: Notifications;
+        modal: Modal;
         baseUrl: string;
     }) => Promise<void>;
     export const createAddAssetContainer: ({ assetsStorage, eventsManager, showScreen, notifications, deployAsset, getUser, baseUrl, activeTab, }: {
         assetsStorage: Storage<Asset>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        eventsManager: EventsManager;
         showScreen: (screen: Screen['screen'], activeTab?: number) => Promise<void>;
-        notifications: ReturnType<typeof createNotifications>;
+        notifications: Notifications;
         deployAsset: (user: User, file: GitHubFile) => Promise<DeployResult | null>;
         getUser: (fn?: () => void) => Promise<User | void>;
         baseUrl: string;
@@ -5799,16 +5971,13 @@ declare module "livecodes/UI/assets" {
     }) => HTMLElement;
 }
 declare module "livecodes/UI/snippets" {
-    import type { createEventsManager } from "livecodes/events/index";
-    import type { createModal } from "livecodes/modal";
-    import type { Snippet, CodeEditor, EditorOptions, Screen, AppData } from "livecodes/models";
-    import type { createNotifications } from "livecodes/notifications/index";
+    import type { Snippet, CodeEditor, EditorOptions, Modal, Screen, AppData, Notifications, EventsManager } from "livecodes/models";
     import { type Storage } from "livecodes/storage/index";
     export const createSnippetsList: ({ snippetsStorage, eventsManager, notifications, modal, deps, }: {
         snippetsStorage: Storage<Snippet>;
-        eventsManager: ReturnType<typeof createEventsManager>;
-        notifications: ReturnType<typeof createNotifications>;
-        modal: ReturnType<typeof createModal>;
+        eventsManager: EventsManager;
+        notifications: Notifications;
+        modal: Modal;
         deps: {
             createEditorFn: (options: Partial<EditorOptions>) => Promise<CodeEditor>;
             showScreen: (screen: Screen['screen']) => void;
@@ -5817,9 +5986,9 @@ declare module "livecodes/UI/snippets" {
     export const createAddSnippetContainer: ({ snippetId, snippetsStorage, eventsManager, showScreen, notifications, deps, }: {
         snippetId?: string;
         snippetsStorage: Storage<Snippet>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        eventsManager: EventsManager;
         showScreen: (screen: Screen['screen'], activeTab?: number) => Promise<void>;
-        notifications: ReturnType<typeof createNotifications>;
+        notifications: Notifications;
         deps: {
             createEditorFn: (options: Partial<EditorOptions>) => Promise<CodeEditor>;
             getAppData: () => AppData | null;
@@ -5838,13 +6007,11 @@ declare module "livecodes/services/google-fonts" {
     };
 }
 declare module "livecodes/UI/resources" {
-    import type { createEventsManager } from "livecodes/events/events";
-    import type { createModal } from "livecodes/modal";
-    import type { Config } from "livecodes/models";
+    import type { Config, EventsManager, Modal } from "livecodes/models";
     export const createExternalResourcesUI: ({ baseUrl, modal, eventsManager, deps, }: {
         baseUrl: string;
-        modal: ReturnType<typeof createModal>;
-        eventsManager: ReturnType<typeof createEventsManager>;
+        modal: Modal;
+        eventsManager: EventsManager;
         deps: {
             getConfig: () => Config;
             setConfig: (config: Config) => void;
@@ -5854,6 +6021,7 @@ declare module "livecodes/UI/resources" {
 }
 declare module "livecodes/core" {
     import type { API, Config } from "livecodes/models";
+    import { createAuthService } from "livecodes/services/index";
     import type { I18nKeyType, I18nValueType, I18nInterpolationType } from "livecodes/i18n/index";
     global {
         interface Window {
@@ -5870,12 +6038,12 @@ declare module "livecodes/core" {
             };
         }
     }
-    const showMode: (mode?: Config['mode']) => void;
+    export let authService: ReturnType<typeof createAuthService> | undefined;
+    const showMode: (mode?: Config['mode'], view?: Config['view']) => void;
     const initApp: (config: Partial<Config>, baseUrl: string) => Promise<API>;
     const initEmbed: (config: Partial<Config>, baseUrl: string) => Promise<API>;
-    const initLite: (config: Partial<Config>, baseUrl: string) => Promise<API>;
     const initHeadless: (config: Partial<Config>, baseUrl: string) => Promise<API>;
-    export { initApp, initEmbed, initLite, initHeadless };
+    export { initApp, initEmbed, initHeadless };
 }
 declare module "livecodes/app" {
     export const app: (config: Partial<import("sdk").Config>, baseUrl: string) => Promise<import("sdk/models").API>;
@@ -5890,25 +6058,20 @@ declare module "livecodes/main" {
     import type { API, Config, EmbedOptions } from "livecodes/models";
     export type { API, Config };
     export const params: URLSearchParams;
-    export const isHeadless: boolean;
-    export const isLite: boolean;
-    export const isEmbed: boolean;
-    export const loadingParam: string | null;
+    export let isEmbed: boolean;
     export const clickToLoad: boolean;
     export const loading: EmbedOptions['loading'];
     export const disableAI: boolean;
     export const livecodes: (container: string, config?: Partial<Config>) => Promise<API>;
 }
 declare module "livecodes/index" { }
-declare module "livecodes/lite" {
-    export const app: (config: Partial<import("sdk").Config>, baseUrl: string) => Promise<import("sdk/models").API>;
-}
 declare module "livecodes/cache/__tests__/cache.spec" { }
 declare module "livecodes/compiler/compile.page" { }
 declare module "livecodes/editor/ts-compiler-options" {
     import type * as Monaco from 'monaco-editor';
     import type { Language } from "livecodes/models";
     type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
+    export const hasJsx: string[];
     export const getCompilerOptions: (language: Language) => CompilerOptions;
 }
 declare module "livecodes/compiler/compile.worker" { }
@@ -5918,6 +6081,7 @@ declare module "livecodes/config/__tests__/build-config.spec" { }
 declare module "livecodes/config/__tests__/is-earlier.spec" { }
 declare module "livecodes/config/__tests__/upgrade-config.spec" { }
 declare module "livecodes/config/__tests__/validate-config.spec" { }
+declare module "livecodes/editor/custom-editor-utils" { }
 declare module "livecodes/editor/codejar/codejar" {
     import 'prismjs';
     import 'prismjs/plugins/autoloader/prism-autoloader';
@@ -5987,6 +6151,10 @@ declare module "livecodes/editor/codemirror/codemirror-emacs" {
 }
 declare module "livecodes/editor/codemirror/codemirror-emmet" {
     export const emmet: import("@codemirror/state").Extension[];
+}
+declare module "livecodes/editor/codemirror/codemirror-line-numbers-relative" {
+    import { type Extension } from '@codemirror/state';
+    export function lineNumbersRelative(): Extension;
 }
 declare module "livecodes/editor/codemirror/codemirror-ts" {
     export { tsFacetWorker, tsSyncWorker, tsLinterWorker, tsAutocompleteWorker, tsHoverWorker, } from '@valtown/codemirror-ts';
@@ -7442,116 +7610,6 @@ declare module "livecodes/editor/monaco/languages/monaco-lang-wat" {
     export default _default_4;
 }
 declare module "livecodes/formatter/format.worker" { }
-declare module "livecodes/i18n/locales/ar/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/ar/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
-declare module "livecodes/i18n/locales/de/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/de/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
-declare module "livecodes/i18n/locales/es/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/es/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
-declare module "livecodes/i18n/locales/fr/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/fr/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
-declare module "livecodes/i18n/locales/hi/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/hi/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
-declare module "livecodes/i18n/locales/it/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/it/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
-declare module "livecodes/i18n/locales/ja/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/ja/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
-declare module "livecodes/i18n/locales/pt/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/pt/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
-declare module "livecodes/i18n/locales/ru/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/ru/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
-declare module "livecodes/i18n/locales/ur/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/ur/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
-declare module "livecodes/i18n/locales/zh-CN/language-info" {
-    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
-    const languageInfo: I18nLangInfoTranslation;
-    export default languageInfo;
-}
-declare module "livecodes/i18n/locales/zh-CN/translation" {
-    import type { I18nTranslation } from "livecodes/i18n/locales/models";
-    const translation: I18nTranslation;
-    export default translation;
-}
 declare module "livecodes/import/__tests__/hosts.spec" { }
 declare module "livecodes/import/__tests__/populate-config.spec" { }
 declare module "livecodes/import/__tests__/url.spec" { }
@@ -7908,6 +7966,10 @@ declare module "livecodes/templates/starter/phaser-starter" {
     import type { Template } from "livecodes/models";
     export const phaserStarter: Template;
 }
+declare module "livecodes/templates/starter/shadcn-ui-starter" {
+    import type { Template } from "livecodes/models";
+    export const shadcnuiStarter: Template;
+}
 declare module "livecodes/templates/starter/index" {
     export const starterTemplates: import("sdk/models").Template[];
 }
@@ -7953,11 +8015,12 @@ declare module "sdk/vue" {
      * @prop {string} [appUrl] - The URL of the LiveCodes app. Defaults to `https://livecodes.io/`.
      * @prop {object | string} [config] - The [config object](https://livecodes.io/docs/api/interfaces/Config) for the playground or the URL of the config file.
      * @prop {string} [import] - A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
-     * @prop {boolean} [lite=false] - Whether to use the lite mode of LiveCodes.
+     * @prop {boolean} [headless=false] - Whether to use the headless mode of LiveCodes.
+     * @prop {boolean} [lite=false] - Deprecated! Use `config={{ mode: "lite" }}` instead - Whether to use the lite mode of LiveCodes.
      * @prop {string} [loading='lazy'] - When to load the playground.
      * @prop {object} [params] - An object that represents [URL Query parameters](https://livecodes.io/docs/configuration/query-params).
      * @prop {string} [template] - A [starter template](https://livecodes.io/docs/features/templates) to load.
-     * @prop {string} [view='split'] - The [default view](https://livecodes.io/docs/features/default-view) for the playground.
+     * @prop {string} [view='split'] - Deprecated! The `view` option has been moved to `config.view`. For headless mode use `headless="true"` - The [default view](https://livecodes.io/docs/features/default-view) for the playground.
      * @prop {string} [height] - Sets the [height of playground container](https://livecodes.io/docs/sdk/js-ts#height) element.
      * @prop {object} [style] - Sets the style of playground container element.
      * @emits {event} [sdkReady] - When the playground initializes, the event `"sdkReady"` is emitted.

@@ -130,12 +130,13 @@ declare module 'livecodes/models' {
                 * See [docs](https://livecodes.io/docs/sdk/js-ts#show) for details.
                 * @example
                 * await playground.show("style");
+                * await playground.show("toggle-result");
                 * await playground.show("result", { full: true });
                 * await playground.show("script");
                 * await playground.show("result", { zoom: 0.5 });
                 * await playground.show("console", { full: true });
                 */
-            show: (panel: EditorId | Tool['name'] | 'result', options?: {
+            show: (panel: EditorId | 'editor' | 'result' | 'toggle-result' | Tool['name'], options?: {
                     full?: boolean;
                     line?: number;
                     column?: number;
@@ -357,11 +358,21 @@ declare module 'livecodes/models' {
                 */
             config?: Partial<Config> | string;
             /**
+                * If `true`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+                * @default false
+                */
+            headless?: boolean;
+            /**
                 * A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
                 */
             import?: string;
             /**
+                * @deprecated
+                *
+                * Use `{ config: { mode: "lite" } }` instead
+                *
                 * If `true`, the playground is loaded in [lite mode](https://livecodes.io/docs/features/lite).
+                * @default false
                 */
             lite?: boolean;
             /**
@@ -370,7 +381,6 @@ declare module 'livecodes/models' {
                 * - `"eager"`: The playground loads immediately.
                 * - `"lazy"`: A playground embedded low down in the page will not load until the user scrolls so that it approaches the viewport.
                 * - `"click"`: The playground does not load automatically. Instead, a "Click-to-load" screen is shown.
-                *
                 * @default "lazy"
                 */
             loading?: 'lazy' | 'click' | 'eager';
@@ -380,9 +390,15 @@ declare module 'livecodes/models' {
                 */
             template?: TemplateName;
             /**
+                * @deprecated
+                *
+                * The `view` option has been moved to `config.view`.
+                * For headless mode use `headless: true`.
+                *
                 * The [default view](https://livecodes.io/docs/features/default-view) for the playground.
                 *
                 * When set to `"headless"`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+                * @default "split"
                 */
             view?: 'split' | 'editor' | 'result' | 'headless';
     }
@@ -574,10 +590,15 @@ declare module 'livecodes/models' {
                 */
             allowLangChange: boolean;
             /**
+                * Sets the [default view](https://livecodes.io/docs/features/default-view) for the playground.
+                * @default "split"
+                */
+            view?: 'split' | 'editor' | 'result';
+            /**
                 * Sets the [display mode](https://livecodes.io/docs/features/display-modes).
                 * @default "full"
                 */
-            mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
+            mode: 'full' | 'focus' | 'lite' | 'simple' | 'editor' | 'codeblock' | 'result';
             /**
                 * Sets enabled and active tools and status of [tools pane](https://livecodes.io/docs/features/tools-pane).
                 * @default { enabled: "all", active: "", status: "" }
@@ -720,7 +741,7 @@ declare module 'livecodes/models' {
                 * Show line numbers in [code editor](https://livecodes.io/docs/features/editor-settings).
                 * @default true
                 */
-            lineNumbers: boolean;
+            lineNumbers: boolean | 'relative';
             /**
                 * Enables word-wrap for long lines.
                 * @default false
@@ -819,12 +840,6 @@ declare module 'livecodes/models' {
                 */
             language: Language;
             /**
-                * If set, this is used as the title of the editor in the UI,
-                * overriding the default title set to the language name
-                * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
-                */
-            title?: string;
-            /**
                 * The initial content of the code editor.
                 * @default ""
                 */
@@ -847,6 +862,18 @@ declare module 'livecodes/models' {
                 * The URL is only fetched if `hiddenContent` property had no value.
                 */
             hiddenContentUrl?: string;
+            /**
+                * If set, this is used as the title of the editor in the UI,
+                * overriding the default title set to the language name
+                * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
+                */
+            title?: string;
+            /**
+                * If `true`, the title of the code editor is hidden, however its code is still evaluated.
+                *
+                * This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
+                */
+            hideTitle?: boolean;
             /**
                 * A CSS selector to load content from [DOM import](https://livecodes.io/docs/features/import#import-code-from-dom).
                 */
@@ -999,7 +1026,7 @@ declare module 'livecodes/models' {
             tools?: Config['tools'];
             autotest?: Config['autotest'];
     };
-    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
+    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'shadcn-ui' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
             name: 'console' | 'compiled' | 'tests';
             title: string;
@@ -1144,7 +1171,7 @@ declare module 'livecodes/models' {
             title: string;
     }
     export interface Screen {
-            screen: 'login' | 'info' | 'new' | 'open' | 'assets' | 'add-asset' | 'snippets' | 'add-snippet' | 'import' | 'resources' | 'share' | 'embed' | 'deploy' | 'sync' | 'backup' | 'broadcast' | 'welcome' | 'about' | 'custom-settings' | 'editor-settings' | 'code-to-image' | 'test-editor';
+            screen: 'login' | 'info' | 'new' | 'open' | 'assets' | 'add-asset' | 'snippets' | 'add-snippet' | 'import' | 'resources' | 'share' | 'embed' | 'deploy' | 'sync' | 'backup' | 'broadcast' | 'welcome' | 'about' | 'custom-settings' | 'editor-settings' | 'code-to-image' | 'test-editor' | 'keyboard-shortcuts';
             show: (options?: any) => void | Promise<unknown>;
     }
     export type CustomSettings = Partial<{
@@ -1246,6 +1273,7 @@ declare module 'livecodes/models' {
             config: string;
             embed: boolean;
             preview: boolean;
+            lite: boolean;
             x: string;
             files: string;
             raw: Language;
@@ -1332,11 +1360,12 @@ declare module 'livecodes/react' {
       * @prop {string} [appUrl] - The URL of the LiveCodes app. Defaults to `https://livecodes.io/`.
       * @prop {object | string} [config] - The [config object](https://livecodes.io/docs/api/interfaces/Config) for the playground or the URL of the config file.
       * @prop {string} [import] - A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
-      * @prop {boolean} [lite=false] - Whether to use the lite mode of LiveCodes.
+      * @prop {boolean} [headless=false] - Whether to use the headless mode of LiveCodes.
+      * @prop {boolean} [lite=false] - Deprecated! Use `config={{ mode: "lite" }}` instead - Whether to use the lite mode of LiveCodes.
       * @prop {string} [loading='lazy'] - When to load the playground.
       * @prop {object} [params] - An object that represents [URL Query parameters](https://livecodes.io/docs/configuration/query-params).
       * @prop {string} [template] - A [starter template](https://livecodes.io/docs/features/templates) to load.
-      * @prop {string} [view='split'] - The [default view](https://livecodes.io/docs/features/default-view) for the playground.
+      * @prop {string} [view='split'] - Deprecated! The `view` option has been moved to `config.view`. For headless mode use `headless="true"` - The [default view](https://livecodes.io/docs/features/default-view) for the playground.
       * @prop {string} [height] - Sets the [height of playground container](https://livecodes.io/docs/sdk/js-ts#height) element.
       * @prop {string} [className] - Sets the class name of playground container element.
       * @prop {object} [style] - Sets the style of playground container element.
@@ -1371,11 +1400,12 @@ declare module 'livecodes/vue' {
       * @prop {string} [appUrl] - The URL of the LiveCodes app. Defaults to `https://livecodes.io/`.
       * @prop {object | string} [config] - The [config object](https://livecodes.io/docs/api/interfaces/Config) for the playground or the URL of the config file.
       * @prop {string} [import] - A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
-      * @prop {boolean} [lite=false] - Whether to use the lite mode of LiveCodes.
+      * @prop {boolean} [headless=false] - Whether to use the headless mode of LiveCodes.
+      * @prop {boolean} [lite=false] - Deprecated! Use `config={{ mode: "lite" }}` instead - Whether to use the lite mode of LiveCodes.
       * @prop {string} [loading='lazy'] - When to load the playground.
       * @prop {object} [params] - An object that represents [URL Query parameters](https://livecodes.io/docs/configuration/query-params).
       * @prop {string} [template] - A [starter template](https://livecodes.io/docs/features/templates) to load.
-      * @prop {string} [view='split'] - The [default view](https://livecodes.io/docs/features/default-view) for the playground.
+      * @prop {string} [view='split'] - Deprecated! The `view` option has been moved to `config.view`. For headless mode use `headless="true"` - The [default view](https://livecodes.io/docs/features/default-view) for the playground.
       * @prop {string} [height] - Sets the [height of playground container](https://livecodes.io/docs/sdk/js-ts#height) element.
       * @prop {object} [style] - Sets the style of playground container element.
       * @emits {event} [sdkReady] - When the playground initializes, the event `"sdkReady"` is emitted.
