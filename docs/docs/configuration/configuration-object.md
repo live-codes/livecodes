@@ -387,7 +387,7 @@ If `false`, the UI will not show the menu that allows changing editor language.
 
 ### `view`
 
-Type: [`"editor" | "result" | "split" | "headless"`](../api/interfaces/Config.md#view)
+Type: [`"split" | "editor" | "result"`](../api/interfaces/Config.md#view)
 
 Default: `"split"`
 
