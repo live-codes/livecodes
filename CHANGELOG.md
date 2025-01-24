@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.8.0](https://github.com/live-codes/livecodes/compare/v39...sdk-v0.8.0) (2025-01-24)
+
+This release introduces **backward-compatible** changes for the SDK. The use of the old SDK API is still supported, but a deprecation notice is shown in the console. The old API will be removed in a future release.
+
+### SDK Changes (and deprecations)
+
+- **SDK:** move embed option `view` to [`config.view`](https://livecodes.io/docs/configuration/configuration-object#view) ([e5f6ad3](https://github.com/live-codes/livecodes/commit/e5f6ad33d1df4c0194047520d2e5ca3f6a1e27a3))
+- **SDK:** move embed option `lite` to [`config.mode:"lite"`](https://livecodes.io/docs/configuration/configuration-object#mode) ([e5f6ad3](https://github.com/live-codes/livecodes/commit/e5f6ad33d1df4c0194047520d2e5ca3f6a1e27a3))
+- **SDK:** change embed option `view:"headles"` to [`headless:true`](https://livecodes.io/docs/sdk/js-ts#headless) ([e5f6ad3](https://github.com/live-codes/livecodes/commit/e5f6ad33d1df4c0194047520d2e5ca3f6a1e27a3))
+
+### Features
+
+- **Config:** add the property `hideTitle` for [editors](https://livecodes.io/docs/configuration/configuration-object#markup). ([43f25b0](https://github.com/live-codes/livecodes/commit/43f25b098c865b1868f26cbb9c15d7ba8bde6d16))
+- **Editor:** allow [relative line numbers](https://livecodes.io/docs/configuration/configuration-object#linenumbers) in code editors ([c88ad99](https://github.com/live-codes/livecodes/commit/c88ad9963d05de8137c3d54b5e8c7c3edc92687a))
+- **SDK:** add a new value `toggle-result` for SDK [`show`](https://livecodes.io/docs/sdk/js-ts#show) method ([8e7e0aa](https://github.com/live-codes/livecodes/commit/8e7e0aa426bb7f3b346c303fb857dbee8400ef16))
+- **SDK:** add value `code` to SDK [`show`](https://livecodes.io/docs/sdk/js-ts#show) method to show active editor ([3069d17](https://github.com/live-codes/livecodes/commit/3069d179ed6962d31edc21a9943b4a078be40716))
+
+### Bug Fixes
+
+- **SDK:** fix changing result mode ([eeaab42](https://github.com/live-codes/livecodes/commit/eeaab42a3eb96aa0b7abf23624bfbd210e2ccfce))
+- **SDK:** fix creating duplicate plygrounds ([fad9edd](https://github.com/live-codes/livecodes/commit/fad9edd83f7359847b36c54e5ec410aa5bcc9c4d))
+- **SDK:** fix the SDK method `show` with inconsistent toolspane behaviour ([a8acfad](https://github.com/live-codes/livecodes/commit/a8acfad2de3933a2772e86ee28fa720fec05421d))
+- **SDK:** fix unavailable compiler on changing mode ([224a6ba](https://github.com/live-codes/livecodes/commit/224a6baa9cf3c1bb2bd283066ee2ca147899b1b7))
+- **SDK:** reload editors when sdk changes mode ([993f5cf](https://github.com/live-codes/livecodes/commit/993f5cf579d442a7613b22aa86095d52dcbd710b))
+
+---
+
 ## [v39](https://github.com/live-codes/livecodes/compare/v38...v39) (2024-12-22)
 
 ### Bug Fixes
