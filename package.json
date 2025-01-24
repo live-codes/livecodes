@@ -67,7 +67,8 @@
     "i18n-update-push": "node ./scripts/i18n-upload.mjs",
     "i18n-update-pull": "node ./scripts/i18n-import.mjs",
     "i18n-exclude": "node ./scripts/i18n-exclude.js",
-    "i18n-lokalise-json": "node ./scripts/i18n-lokalise-json.mjs"
+    "i18n-lokalise-json": "node ./scripts/i18n-lokalise-json.mjs",
+    "check-types": "tsc -p tsconfig.full.json --noEmit"
   },
   "dependencies": {
     "@codemirror/autocomplete": "6.18.4",
