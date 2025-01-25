@@ -1,14 +1,18 @@
 import { LanguageSupport, StreamLanguage, type StreamParser } from '@codemirror/language';
+import { html } from '@codemirror/lang-html';
+import { css } from '@codemirror/lang-css';
+import { javascript } from '@codemirror/lang-javascript';
+import { json } from '@codemirror/lang-json';
 
 import type { Language } from '../../models';
+import { codeMirrorBaseUrl } from '../../vendors';
 
 const legacy = (parser: StreamParser<unknown>) =>
   new LanguageSupport(StreamLanguage.define(parser));
 
-const getPath = (mod: string) => `./vendor/codemirror/${process.env.codemirrorVersion}/${mod}`;
+const getPath = (mod: string) => codeMirrorBaseUrl + mod;
 
 const moduleUrls = {
-  core: getPath('codemirror-core.js'),
   vue: getPath('codemirror-lang-vue.js'),
   json: getPath('codemirror-lang-json.js'),
   markdown: getPath('codemirror-lang-markdown.js'),
@@ -36,13 +40,13 @@ const moduleUrls = {
 };
 
 export const editorLanguages: Partial<{ [key in Language]: () => Promise<LanguageSupport> }> = {
-  html: async () => (await import(moduleUrls.core)).html(),
-  css: async () => (await import(moduleUrls.core)).css(),
-  javascript: async () => (await import(moduleUrls.core)).javascript(),
-  typescript: async () => (await import(moduleUrls.core)).javascript({ typescript: true }),
-  jsx: async () => (await import(moduleUrls.core)).javascript({ jsx: true }),
-  tsx: async () => (await import(moduleUrls.core)).javascript({ jsx: true, typescript: true }),
-  json: async () => (await import(moduleUrls.core)).json(),
+  html: async () => html(),
+  css: async () => css(),
+  javascript: async () => javascript(),
+  typescript: async () => javascript({ typescript: true }),
+  jsx: async () => javascript({ jsx: true }),
+  tsx: async () => javascript({ jsx: true, typescript: true }),
+  json: async () => json(),
   vue: async () => (await import(moduleUrls.vue)).vue(),
   markdown: async () => (await import(moduleUrls.markdown)).markdown(),
   python: async () => (await import(moduleUrls.python)).python(),

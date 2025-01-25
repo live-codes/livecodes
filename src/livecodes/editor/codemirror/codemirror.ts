@@ -3,6 +3,7 @@
 // these imports are marked as external and are mapped to ./codemirror-core
 // (see html/app.html and scripts/build.js)
 // to allow lazy loaded modules to import the same modules
+import { autocompletion } from '@codemirror/autocomplete';
 import { Compartment, EditorState, type Extension } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView, keymap, type KeyBinding, type ViewUpdate } from '@codemirror/view';
@@ -31,13 +32,12 @@ import type {
 } from '../../models';
 import { getEditorModeNode } from '../../UI/selectors';
 import { ctrl, debounce, getRandomString } from '../../utils/utils';
-import { comlinkBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, comlinkBaseUrl } from '../../vendors';
 import { getEditorTheme } from '../themes';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { editorLanguages } from './editor-languages';
 import { colorPicker, indentationMarkers, vscodeKeymap } from './extras';
 import { codemirrorThemes, customThemes } from './codemirror-themes';
-import { autocompletion } from './codemirror-core';
 
 export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
   editorId: EditorOptions['editorId'];
@@ -49,7 +49,6 @@ const changeTabFocusMode = debounce(() => (tabFocusMode = !tabFocusMode), 50);
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
-    baseUrl,
     container,
     readonly,
     isEmbed,
@@ -126,7 +125,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       codemirrorTS = undefined;
     }
     if (!['typescript', 'javascript'].includes(mappedLanguage) || codemirrorTS) return;
-    const codemirrorTsUrl = `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-ts.js`;
+    const codemirrorTsUrl = `${codeMirrorBaseUrl}codemirror-ts.js`;
     const [tsMod, Comlink, _] = await Promise.all([
       import(codemirrorTsUrl),
       import(comlinkBaseUrl + 'esm/comlink.min.js'),
@@ -169,11 +168,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const loadExtensions = async (opt: EditorConfig) => {
     const modules = {
-      vim: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-vim.js`,
-      emacs: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emacs.js`,
-      emmet: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emmet.js`,
-      codeium: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-codeium.js`,
-      lineNumbersRelative: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-line-numbers-relative.js`,
+      vim: `${codeMirrorBaseUrl}codemirror-vim.js`,
+      emacs: `${codeMirrorBaseUrl}codemirror-emacs.js`,
+      emmet: `${codeMirrorBaseUrl}codemirror-emmet.js`,
+      codeium: `${codeMirrorBaseUrl}codemirror-codeium.js`,
+      lineNumbersRelative: `${codeMirrorBaseUrl}codemirror-line-numbers-relative.js`,
     };
     const [vimMod, emacsMod, emmetMod, codeiumMod, lineNumbersRelativeMod] = await Promise.all([
       opt.editorMode === 'vim' ? import(modules.vim) : Promise.resolve({}),
