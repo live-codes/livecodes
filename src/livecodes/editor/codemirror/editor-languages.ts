@@ -1,7 +1,13 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-extraneous-dependencies */
 import { LanguageSupport, StreamLanguage, type StreamParser } from '@codemirror/language';
+// @ts-expect-error
 import { html } from '@codemirror/lang-html';
+// @ts-expect-error
 import { css } from '@codemirror/lang-css';
+// @ts-expect-error
 import { javascript } from '@codemirror/lang-javascript';
+// @ts-expect-error
 import { json } from '@codemirror/lang-json';
 
 import type { Language } from '../../models';

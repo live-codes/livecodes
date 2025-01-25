@@ -62,7 +62,7 @@ const baseOptions = {
   },
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
-  external: ['@codemirror/*', '@lezer/*'],
+  external: ['codemirror', '@codemirror/*', '@lezer/*', '@replit/codemirror-*'],
   plugins: [
     ...(devMode
       ? []

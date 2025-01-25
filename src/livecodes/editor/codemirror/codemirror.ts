@@ -1,12 +1,21 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-internal-modules */
 
 // these imports are marked as external and are mapped to ./codemirror-core
 // (see html/app.html and scripts/build.js)
 // to allow lazy loaded modules to import the same modules
+// @ts-ignore
 import { autocompletion } from '@codemirror/autocomplete';
+// @ts-ignore
+import { basicSetup, lineNumbers, closeBrackets } from 'codemirror';
+// @ts-ignore
 import { Compartment, EditorState, type Extension } from '@codemirror/state';
+// @ts-ignore
 import { oneDark } from '@codemirror/theme-one-dark';
+// @ts-ignore
 import { EditorView, keymap, type KeyBinding, type ViewUpdate } from '@codemirror/view';
+// @ts-ignore
 import { undo, redo } from '@codemirror/commands';
 import {
   defaultHighlightStyle,
@@ -14,8 +23,16 @@ import {
   indentUnit,
   HighlightStyle,
   type LanguageSupport,
+  // @ts-ignore
 } from '@codemirror/language';
+// @ts-ignore
 import { tags } from '@lezer/highlight';
+// @ts-ignore
+import { indentationMarkers } from '@replit/codemirror-indentation-markers';
+// @ts-ignore
+import { vscodeKeymap } from '@replit/codemirror-vscode-keymap';
+// @ts-ignore
+import { colorPicker } from '@replit/codemirror-css-color-picker';
 
 // these are imported normally
 import type {
@@ -34,9 +51,7 @@ import { getEditorModeNode } from '../../UI/selectors';
 import { ctrl, debounce, getRandomString } from '../../utils/utils';
 import { codeMirrorBaseUrl, comlinkBaseUrl } from '../../vendors';
 import { getEditorTheme } from '../themes';
-import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { editorLanguages } from './editor-languages';
-import { colorPicker, indentationMarkers, vscodeKeymap } from './extras';
 import { codemirrorThemes, customThemes } from './codemirror-themes';
 
 export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
