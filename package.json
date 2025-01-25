@@ -71,9 +71,13 @@
     "check-types": "tsc -p tsconfig.full.json --noEmit"
   },
   "dependencies": {
+    "@replit/codemirror-css-color-picker": "6.0.0",
+    "@replit/codemirror-indentation-markers": "6.1.0",
+    "@replit/codemirror-vscode-keymap": "6.0.2",
     "@snackbar/core": "1.7.0",
     "@types/deep-diff": "1.0.1",
     "codejar": "4.1.1",
+    "codemirror": "6.0.1",
     "deep-diff": "1.0.2",
     "eslint-plugin-no-only-tests": "3.1.0",
     "firebase": "9.6.6",
