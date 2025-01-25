@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v41](https://github.com/live-codes/livecodes/compare/v40...v41) (2025-01-25)
+
+This release fixes invalid cache for codemirror build and simplifies the build process.
+
+---
+
 ## [v40](https://github.com/live-codes/livecodes/compare/v39...v40) (2025-01-24)
 
 ### Highlights for this release

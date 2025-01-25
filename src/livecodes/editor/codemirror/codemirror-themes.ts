@@ -1,4 +1,8 @@
-import { EditorView } from 'codemirror';
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-extraneous-dependencies */
+// @ts-ignore
+import { EditorView } from '@codemirror/view';
+// @ts-ignore
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language';
 
 import type { CodemirrorTheme } from '../../models';
