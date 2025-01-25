@@ -55,21 +55,17 @@ const getVars = (/** @type {boolean} */ devMode) => {
       ? 'https://livecodes.io/docs/'
       : process.env.DOCS_BASE_URL || (devMode ? 'http://localhost:3000/docs/' : '/docs/');
 
-  const codemirrorVersion = `v${pkg.dependencies['codemirror']}`;
-
   return {
     appVersion,
     sdkVersion,
     gitCommit,
     repoUrl,
     docsBaseUrl,
-    codemirrorVersion,
   };
 };
 
 const getEnvVars = (/** @type {boolean} */ devMode) => {
-  const { appVersion, sdkVersion, gitCommit, repoUrl, docsBaseUrl, codemirrorVersion } =
-    getVars(devMode);
+  const { appVersion, sdkVersion, gitCommit, repoUrl, docsBaseUrl } = getVars(devMode);
   return {
     'process.env.VERSION': `"${appVersion || ''}"`,
     'process.env.SDK_VERSION': `"${sdkVersion || ''}"`,
@@ -77,7 +73,6 @@ const getEnvVars = (/** @type {boolean} */ devMode) => {
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
     'process.env.DOCS_BASE_URL': `"${docsBaseUrl}"`,
     'process.env.CI': `${process.env.CI || false}`,
-    'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
     define: 'undefined', // prevent using AMD (e.g. in lz-string),
   };
 };

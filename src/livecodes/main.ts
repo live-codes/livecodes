@@ -5,7 +5,7 @@ import appHTML from './html/app.html?raw';
 import { customEvents } from './events/custom-events';
 import type { API, CDN, Config, CustomEvents, EmbedOptions } from './models';
 import { isInIframe } from './utils/utils';
-import { esModuleShimsPath } from './vendors';
+import { codeMirrorBaseUrl, esModuleShimsPath } from './vendors';
 import { modulesService } from './services/modules';
 
 export type { API, Config };
@@ -107,10 +107,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
     </script>
     `,
           )
-          .replace(
-            /{{codemirrorCoreUrl}}/g,
-            `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-core.js`,
-          )
+          .replace(/{{codemirrorCoreUrl}}/g, `${codeMirrorBaseUrl}codemirror-core.js`)
           .replace(/src="[^"]*?\.svg"/g, (str: string) => (isHeadless ? 'src=""' : str))
           .replace(
             /{{codeiumMeta}}/g,
