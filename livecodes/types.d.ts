@@ -1408,6 +1408,7 @@ declare module "livecodes/vendors" {
     export const cm6ThemeSolarizedLightUrl: string;
     export const cm6ThemeSolarizedDarkUrl: string;
     export const codeiumProviderUrl: string;
+    export const codeMirrorBaseUrl: string;
     export const coffeeScriptUrl: string;
     export const colorisBaseUrl: string;
     export const comlinkBaseUrl: string;
@@ -5879,8 +5880,8 @@ declare module "livecodes/editor/codemirror/codemirror-themes" {
         exportName?: string;
     }>;
     export const customThemes: {
-        monochrome: import("@codemirror/state").Extension[];
-        'monochrome-dark': import("@codemirror/state").Extension[];
+        monochrome: any[];
+        'monochrome-dark': any[];
     };
 }
 declare module "livecodes/editor/codejar/prism-themes" {
@@ -6096,15 +6097,6 @@ declare module "livecodes/editor/codejar/codejar" {
     import type { CodeEditor, EditorOptions } from "livecodes/models";
     export const createEditor: (options: EditorOptions) => Promise<CodeEditor>;
 }
-declare module "livecodes/editor/codemirror/basic-setup" {
-    import { lineNumbers } from '@codemirror/view';
-    import { type Extension } from '@codemirror/state';
-    import { closeBrackets } from '@codemirror/autocomplete';
-    export const basicSetup: Extension;
-    export const minimalSetup: Extension;
-    export { EditorView } from '@codemirror/view';
-    export { lineNumbers, closeBrackets };
-}
 declare module "livecodes/editor/codemirror/editor-languages" {
     import { LanguageSupport } from '@codemirror/language';
     import type { Language } from "livecodes/models";
@@ -6112,130 +6104,12 @@ declare module "livecodes/editor/codemirror/editor-languages" {
         [key in Language]: () => Promise<LanguageSupport>;
     }>;
 }
-declare module "livecodes/editor/codemirror/extras" {
-    export { indentationMarkers } from '@replit/codemirror-indentation-markers';
-    export { vscodeKeymap } from '@replit/codemirror-vscode-keymap';
-    export { colorPicker } from '@replit/codemirror-css-color-picker';
-}
-declare module "livecodes/editor/codemirror/codemirror-core" {
-    export * from '@codemirror/autocomplete';
-    export * from '@codemirror/commands';
-    export * from '@codemirror/language';
-    export * from '@codemirror/lint';
-    export * from '@codemirror/search';
-    export * from '@codemirror/state';
-    export * from '@codemirror/view';
-    export type { TagSpec } from '@codemirror/lang-html';
-    export { html, htmlCompletionSource, htmlCompletionSourceWith, htmlLanguage, } from '@codemirror/lang-html';
-    export * from '@codemirror/lang-css';
-    export * from '@codemirror/lang-javascript';
-    export * from '@codemirror/lang-json';
-    export * from '@codemirror/theme-one-dark';
-    export * from '@lezer/common';
-    export * from '@lezer/highlight';
-    export * from '@lezer/lr';
-}
 declare module "livecodes/editor/codemirror/codemirror" {
     import type { CodeEditor, EditorOptions } from "livecodes/models";
     export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
         editorId: EditorOptions['editorId'];
     };
     export const createEditor: (options: EditorOptions) => Promise<CodeEditor>;
-}
-declare module "livecodes/editor/codemirror/codemirror-codeium" {
-    import type { CodeiumEditor } from "livecodes/editor/codemirror/codemirror";
-    export const codeium: (editors: CodeiumEditor[], mapLanguage: (lang: string) => string) => import("@codemirror/state").Extension[];
-}
-declare module "livecodes/editor/codemirror/codemirror-emacs" {
-    export { emacs } from '@replit/codemirror-emacs';
-}
-declare module "livecodes/editor/codemirror/codemirror-emmet" {
-    export const emmet: import("@codemirror/state").Extension[];
-}
-declare module "livecodes/editor/codemirror/codemirror-line-numbers-relative" {
-    import { type Extension } from '@codemirror/state';
-    export function lineNumbersRelative(): Extension;
-}
-declare module "livecodes/editor/codemirror/codemirror-ts" {
-    export { tsFacetWorker, tsSyncWorker, tsLinterWorker, tsAutocompleteWorker, tsHoverWorker, } from '@valtown/codemirror-ts';
-}
-declare module "livecodes/editor/codemirror/codemirror-ts.worker" {
-    export { createWorker } from '@valtown/codemirror-ts/worker';
-}
-declare module "livecodes/editor/codemirror/codemirror-vim" {
-    export { vim } from '@replit/codemirror-vim';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-clojure" {
-    export { clojure } from '@codemirror/legacy-modes/mode/clojure';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-coffeescript" {
-    export { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-cpp" {
-    export { cpp } from '@codemirror/lang-cpp';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-go" {
-    export { go } from '@codemirror/legacy-modes/mode/go';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-json" {
-    export * from '@codemirror/lang-json';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-julia" {
-    export { julia } from '@codemirror/legacy-modes/mode/julia';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-less" {
-    export { less } from '@codemirror/legacy-modes/mode/css';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-livescript" {
-    export { liveScript } from '@codemirror/legacy-modes/mode/livescript';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-lua" {
-    export { lua } from '@codemirror/legacy-modes/mode/lua';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-markdown" {
-    export * from '@codemirror/lang-markdown';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-perl" {
-    export { perl } from '@codemirror/legacy-modes/mode/perl';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-php" {
-    export { php } from '@codemirror/lang-php';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-python" {
-    export { python } from '@codemirror/lang-python';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-r" {
-    export { r } from '@codemirror/legacy-modes/mode/r';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-ruby" {
-    export { ruby } from '@codemirror/legacy-modes/mode/ruby';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-rust" {
-    export { rust } from '@codemirror/legacy-modes/mode/rust';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-scheme" {
-    export { scheme } from '@codemirror/legacy-modes/mode/scheme';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-scss" {
-    export { sass } from '@codemirror/lang-sass';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-sql" {
-    export { sql } from '@codemirror/lang-sql';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-stylus" {
-    export { stylus } from '@codemirror/legacy-modes/mode/stylus';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-swift" {
-    export { swift } from '@codemirror/legacy-modes/mode/swift';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-tcl" {
-    export { tcl } from '@codemirror/legacy-modes/mode/tcl';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-vue" {
-    export { vue } from '@codemirror/lang-vue';
-}
-declare module "livecodes/editor/codemirror/languages/codemirror-lang-wast" {
-    export { wast } from '@codemirror/lang-wast';
 }
 declare module "livecodes/editor/monaco/twoslashSupport" {
     /**
