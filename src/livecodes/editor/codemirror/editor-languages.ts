@@ -1,13 +1,14 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-extraneous-dependencies */
+// @ts-ignore
 import { LanguageSupport, StreamLanguage, type StreamParser } from '@codemirror/language';
-// @ts-expect-error
+// @ts-ignore
 import { html } from '@codemirror/lang-html';
-// @ts-expect-error
+// @ts-ignore
 import { css } from '@codemirror/lang-css';
-// @ts-expect-error
+// @ts-ignore
 import { javascript } from '@codemirror/lang-javascript';
-// @ts-expect-error
+// @ts-ignore
 import { json } from '@codemirror/lang-json';
 
 import type { Language } from '../../models';
