@@ -4,6 +4,68 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v40](https://github.com/live-codes/livecodes/compare/v39...v40) (2025-01-24)
+
+### Highlights for this release
+
+This release markedly improves accessibility and keyboard support in addition to other features and fixes. The most notable include:
+
+- A new [command menu](https://livecodes.io/docs/features/command-menu) (using the keyboard shortcut Ctrl/Cmd + K or from the help menu), that allows running a large set of commands from the UI.
+- A large number of [keyboard shortcuts](https://livecodes.io/?screen=keyboard-shortcuts) are added (the list can be opened from the help menu or the command menu).
+- Keyboard navigation for the app is significantly improved, including menus, tabs and modals.
+- A new [starter template for shadcn/ui](https://livecodes.io/?template=shadcn-ui) is added.
+- Relative [line numbers](https://livecodes.io/docs/configuration/configuration-object#linenumbers) support is added in code editors (can be configured in [editors settings](https://livecodes.io/?screen=editor-settings) screen). This can be useful in [vim mode](https://livecodes.io/docs/configuration/configuration-object#mode).
+- The SDK can hide a specific editor while still running its code using the new [`hideTitle`](https://livecodes.io/docs/configuration/configuration-object#markup) option.
+
+### Credits
+
+@zyf722 provided significant contributions.
+
+Many features and fixes in this release were suggested by:
+@dai-shi , @sharno , @Mohmed-Refaay & @ibrahimSP
+
+Thank you ❤️
+
+### Features
+
+- **Accessibility:** allow switching tabs in modals using keyboard ([9bb17cc](https://github.com/live-codes/livecodes/commit/9bb17ccd65d8561c07ad61bdf5d0d8168516f23d))
+- **Accessibility:** allow toggle tab focus mode ([bf93fb6](https://github.com/live-codes/livecodes/commit/bf93fb6b723f791b7e387dd7edebab93e9804d98))
+- **Accessibility:** improve focus on opening and closing modal ([992b456](https://github.com/live-codes/livecodes/commit/992b456d0c71e8eea7e05e2a08906554a621568a))
+- **Accessibility:** show outline for focusable elements ([0230afe](https://github.com/live-codes/livecodes/commit/0230afea4b7f93ebaf022dac556497f15a92746f))
+- **App:** add keyboard shortcuts ([2972855](https://github.com/live-codes/livecodes/commit/297285579f3b54ab72a2e9fd74a299a5d95c72e8))
+- **App:** add keyboard shortcuts screen ([a4491ee](https://github.com/live-codes/livecodes/commit/a4491ee4c61590b7557afa3a86e04aa33f28c6a1))
+- **Code-to-Image:** add share/copy image menu ([3b0491f](https://github.com/live-codes/livecodes/commit/3b0491ffaf358a9033a0deca0fd61148c154a239))
+- **Code-to-Image:** copy image on desktop ([de60e72](https://github.com/live-codes/livecodes/commit/de60e725c640700bdd6da26c170a4aef6eab8306))
+- **CommandMenu:** add command menu ([9cba67a](https://github.com/live-codes/livecodes/commit/9cba67a944d53ab9a56317b1e8ad95c028bbf7d5))
+- **CommandMenu:** add command menu items ([b08aabc](https://github.com/live-codes/livecodes/commit/b08aabc2f3f681e1ff0ec2bcb7c9069ad5f8c576))
+- **CommandMenu:** add keyboard shortcuts menu ([2d60494](https://github.com/live-codes/livecodes/commit/2d60494a491ee620c4955aacba1cade0baf02a53))
+- **Config:** add the property `hideTitle` for editors. ([43f25b0](https://github.com/live-codes/livecodes/commit/43f25b098c865b1868f26cbb9c15d7ba8bde6d16))
+- **Editor:** allow relative line numbers in code editors ([c88ad99](https://github.com/live-codes/livecodes/commit/c88ad9963d05de8137c3d54b5e8c7c3edc92687a))
+- **Templates:** add shadcn-ui starter template ([ac31801](https://github.com/live-codes/livecodes/commit/ac318011d1bd8586c3f7a1c7d39fe91bf0e8be94))
+- **Templates:** add themes for shadcn-ui starter template ([1a89ffb](https://github.com/live-codes/livecodes/commit/1a89ffb6fb094dce1f013e04a084ed1967010feb))
+- **UI:** allow keyboard navigation for menus ([d9fad50](https://github.com/live-codes/livecodes/commit/d9fad5096571745ee737f3b266e525366ce72745))
+- **UI:** show keyboard shortcuts in UI ([8860f67](https://github.com/live-codes/livecodes/commit/8860f674755ab21777690c7c435ae97eaee228aa))
+
+### Bug Fixes
+
+- **App:** fix copy to clipboard ([87ab701](https://github.com/live-codes/livecodes/commit/87ab701ef155181b2ec0d8edf81094a0ee6e982a))
+- avoid trapping focus in tags input ([19531b6](https://github.com/live-codes/livecodes/commit/19531b6d987260b55666f94af7ddc7d0b69134bf))
+- **ci:** fix false positive in lokalise json files ([df9e114](https://github.com/live-codes/livecodes/commit/df9e114dc1eacfeacc1c990b0a469f3e9844465f))
+- **ci:** make locale exclusion in base tsconfig and include in full tsconfig ([4fa8db7](https://github.com/live-codes/livecodes/commit/4fa8db7378bf7ae547b92b18a84f2cbb49736a29))
+- **Editor:** fix autocompleting TS generics as JSX ([81402c8](https://github.com/live-codes/livecodes/commit/81402c8d0153cfb0ac22cb23a2708dd7fa38f8f5))
+- **Editor:** fix losing multicursor on pressing ctrl in monaco ([601a517](https://github.com/live-codes/livecodes/commit/601a5175cdb34f0b04ea6ba91b49d5c025f66c89))
+- fix typos in CHANGELOG ([7fb3e58](https://github.com/live-codes/livecodes/commit/7fb3e58207811bf5d0080d25b06c4085b80186ed))
+- **i18n:** fix i18n-export (prop indexing vs getAttribute) ([a3e83d4](https://github.com/live-codes/livecodes/commit/a3e83d408f04dedf34f5158a8407722bedee66be))
+- **i18n:** rename 'lang-info' to 'language-info' for consistency ([35174d0](https://github.com/live-codes/livecodes/commit/35174d0553b65f66c5c88de36b7c66e96f249447))
+- **Import-maps:** avoid duplicate react instances ([f3f0607](https://github.com/live-codes/livecodes/commit/f3f06074c6180be1e8d1df5517bc798ccbfbdc30))
+- **Result:** fix result mode drawer reappearing after closure ([34fed4f](https://github.com/live-codes/livecodes/commit/34fed4f0da3d183a720a4e939ec32c1fad56ed59))
+- **services:** fix auth service bug for undefined user ([9daa9a5](https://github.com/live-codes/livecodes/commit/9daa9a5b9bb070dc55e488ded244a29c5fa40dc4))
+- **Templates:** fix loading diagrams template ([feb14ed](https://github.com/live-codes/livecodes/commit/feb14ed60eb4f3a40d12f82a7445d7c12b3d582d))
+- **UI:** fix loading spinner colors ([7659a3f](https://github.com/live-codes/livecodes/commit/7659a3f1136463de29da709186c1aea1df009827))
+- **UI:** fix styles for search box and tags ([66caeed](https://github.com/live-codes/livecodes/commit/66caeed36e4854677671dc695068a50d5efa6f14))
+
+---
+
 ## [sdk-v0.8.0](https://github.com/live-codes/livecodes/compare/v39...sdk-v0.8.0) (2025-01-24)
 
 This release introduces **backward-compatible** changes for the SDK. The use of the old SDK API is still supported, but a deprecation notice is shown in the console. The old API will be removed in a future release.
