@@ -2,7 +2,7 @@
 import type TS from 'typescript';
 import type { Compilers, Config, CompileOptions, EditorLibrary, Language } from '../models';
 import { languages, processors } from '../languages';
-import { comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
+import { codeMirrorBaseUrl, comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
 import { doOnce, objectFilter } from '../utils/utils';
 import { getCompilerOptions } from '../editor/ts-compiler-options';
 import type { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
@@ -266,9 +266,7 @@ const initCodemirrorTS = doOnce(async () => {
   await loadTypeScript();
   importScripts(comlinkBaseUrl + 'umd/comlink.js');
   importScripts(typescriptVfsUrl);
-  importScripts(
-    `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-ts.worker.js`,
-  );
+  importScripts(codeMirrorBaseUrl + 'codemirror-ts.worker.js');
   const { createWorker } = worker.CodemirrorTsWorker;
   const { createDefaultMapFromCDN, createSystem, createVirtualTypeScriptEnvironment } =
     worker.typescriptVFS;

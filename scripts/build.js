@@ -5,7 +5,6 @@ const path = require('path');
 
 const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
-const { buildVendors } = require('./vendors');
 const { buildStyles } = require('./styles');
 const { buildI18n, buildLocalePathLoader } = require('./i18n');
 const { arrToObj, mkdir, uint8arrayToString, iife, getFileNames, getEnvVars } = require('./utils');
@@ -63,7 +62,7 @@ const baseOptions = {
   },
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
-  external: ['@codemirror/*', '@lezer/*'],
+  external: ['codemirror', '@codemirror/*', '@lezer/*', '@replit/codemirror-*'],
   plugins: [
     ...(devMode
       ? []
@@ -149,6 +148,11 @@ const esmBuild = () =>
       'headless.ts',
       'templates/starter/index.ts',
       'editor/monaco/monaco.ts',
+      'editor/monaco/languages/monaco-lang-astro.ts',
+      'editor/monaco/languages/monaco-lang-clio.ts',
+      'editor/monaco/languages/monaco-lang-imba.ts',
+      // 'editor/monaco/languages/monaco-lang-sql.ts',
+      'editor/monaco/languages/monaco-lang-wat.ts',
       'editor/codemirror/codemirror.ts',
       'editor/codejar/codejar.ts',
       'editor/blockly/blockly.ts',
@@ -290,7 +294,6 @@ prepareDir().then(async () => {
     buildI18n(),
   ]).then(async () => {
     if (!devMode) {
-      buildVendors();
       functionsBuild();
     }
     await applyHash({ devMode });
