@@ -4,7 +4,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.18.0/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.19.1/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -406,7 +406,9 @@ export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svg
 
 export const tagifyBaseUrl = /* @__PURE__ */ getUrl('@yaireo/tagify@4.25.1/dist/');
 
-export const tailwindcssUrl = /* @__PURE__ */ getUrl(
+export const tailwindcssBaseUrl = /* @__PURE__ */ getUrl('tailwindcss@4.0.0/');
+
+export const tailwindcss3Url = /* @__PURE__ */ getUrl(
   '@mhsdesign/jit-browser-tailwindcss@0.4.1/dist/cdn.min.js',
 );
 
