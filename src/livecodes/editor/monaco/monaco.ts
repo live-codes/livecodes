@@ -23,6 +23,7 @@ import {
   monacoBaseUrl,
   monacoEmacsUrl,
   monacoVimUrl,
+  vendorsBaseUrl,
 } from '../../vendors';
 import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
@@ -41,6 +42,7 @@ const loadedThemes = new Set<string>();
 let codeiumProvider: { dispose: () => void } | undefined;
 // track editors for providing context for AI
 let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
+let tailwindcssConfig: any | undefined;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
@@ -553,6 +555,28 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  const configureTailwindcss = (enabled: boolean) => {
+    if (!enabled) {
+      tailwindcssConfig?.dispose();
+      tailwindcssConfig = undefined;
+      return;
+    }
+    if (tailwindcssConfig) return;
+    tailwindcssConfig = true; // avoid multiple loads
+    import(vendorsBaseUrl + 'tailwindcss/monaco-tailwindcss.js').then(
+      ({ configureMonacoTailwindcss, tailwindcssData }) => {
+        monaco.languages.css.cssDefaults.setOptions({
+          data: {
+            dataProviders: {
+              tailwindcssData,
+            },
+          },
+        });
+        tailwindcssConfig = configureMonacoTailwindcss(monaco);
+      },
+    );
+  };
+
   const changeSettings = (settings: EditorConfig) => {
     editorOptions = {
       ...convertOptions(settings),
@@ -809,6 +833,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     layout,
     addTypes,
     changeSettings,
+    configureTailwindcss,
     onContentChanged,
     keyCodes,
     addKeyBinding,
