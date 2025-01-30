@@ -100,7 +100,7 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
     if (officialPlugins.includes(id) && !cachedPlugins) {
       loadPlugins();
     }
-    if (cachedPlugins && cachedPlugins[id]) {
+    if (cachedPlugins?.[id]) {
       return {
         base: '/',
         module: cachedPlugins[id],
@@ -120,7 +120,7 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
   const checkVersion = (code: string) => {
     // https://regexr.com/8bfbb
     const directivesPattern = /@tailwind\s+((base)|(components)|(utilities))\s*;?/g;
-    if (code.match(new RegExp(directivesPattern))) return 3;
+    if (new RegExp(directivesPattern).exec(code)) return 3;
     return 4;
   };
 

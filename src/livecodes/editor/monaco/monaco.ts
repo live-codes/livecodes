@@ -42,7 +42,7 @@ const loadedThemes = new Set<string>();
 let codeiumProvider: { dispose: () => void } | undefined;
 // track editors for providing context for AI
 let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
-let tailwindcssConfig: any | undefined;
+let tailwindcssConfig: any;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
