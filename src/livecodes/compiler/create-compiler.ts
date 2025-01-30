@@ -242,7 +242,10 @@ export const createCompiler = async ({
     let postcssRequired = false;
 
     const editorId = getLanguageEditorId(language) || 'markup';
-    if (editorId === 'style' && hasStyleImports(code)) {
+    // let tailwindcss handle style imports if activated, otherwise use postcss
+    const tailwindcssIsActive =
+      processorIsEnabled('tailwindcss', config) && processorIsActivated('tailwindcss', config);
+    if (editorId === 'style' && hasStyleImports(code) && !tailwindcssIsActive) {
       postcssRequired = true;
     }
 

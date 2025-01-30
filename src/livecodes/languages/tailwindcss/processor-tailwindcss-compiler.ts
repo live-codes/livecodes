@@ -2,8 +2,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-bitwise */
 import type { CompilerFunction, Config, Language } from '../../models';
-import { compileInCompiler } from '../../compiler';
-import { getLanguageCustomSettings } from '../../utils/utils';
+import { compileInCompiler, replaceStyleImports } from '../../compiler';
+import { escapeCode, getLanguageCustomSettings } from '../../utils/utils';
 import { tailwindcss3Url, tailwindcssBaseUrl, vendorsBaseUrl } from '../../vendors';
 import { lightningcssFeatures } from '../lightningcss/processor-lightningcss-compiler';
 
@@ -129,7 +129,7 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
   };
 
   const processInLightningCss: typeof compileInCompiler = async (
-    output,
+    code,
     language,
     config,
     options,
@@ -161,12 +161,11 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
         },
       },
     };
-
     // process twice
     // https://github.com/tailwindlabs/tailwindcss/blob/515a9bdc5ff77291d6f41cd1d4c22e9d24ea91bc/packages/%40tailwindcss-cli/src/commands/build/index.ts#L462-L464
-    const compiled1 = await compileInCompiler(output, language, modifiedConfig, options);
-    const compiledStr = typeof compiled1 === 'string' ? compiled1 : compiled1.code;
-    return compileInCompiler(compiledStr, language, modifiedConfig, options);
+    const compiled1 = await compileInCompiler(code, language, modifiedConfig, options);
+    const compiled2 = await compileInCompiler(compiled1.code, language, modifiedConfig, options);
+    return compiled2;
   };
 
   const tailwind3: CompilerFunction = (code, { config, options }) => {
@@ -196,11 +195,15 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
   };
 
   const tailwind4: CompilerFunction = async (code, { config, options }) => {
-    let css = code;
+    const prepareCode = (css: string) => {
+      let result = escapeCode(replaceStyleImports(css, [/tailwindcss/g]), /* slash = */ false);
+      if (!result.includes('@import')) {
+        result = `@import "tailwindcss";${result}`;
+      }
+      return result;
+    };
     const html = `<template>${options.html}\n<script>${config.script.content}</script></template>`;
-    if (!css.includes('@import')) {
-      css = `@import "tailwindcss";${css}`;
-    }
+    const css = prepareCode(code);
     try {
       const compiler = await self.tailwindcss.compile(css, {
         base: '/',
