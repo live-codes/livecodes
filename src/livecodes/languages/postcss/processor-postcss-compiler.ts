@@ -46,7 +46,7 @@ const getSpecs = (pluginName: Processor) => processors.find((specs) => specs.nam
       .flat(); // allow plugins to have arrays of plugins
   };
 
-  const prepareCode = (code: string) => escapeCode(replaceStyleImports(code));
+  const prepareCode = (code: string) => escapeCode(replaceStyleImports(code), /* slash = */ false);
 
   return async function process(code, { config, baseUrl, options }) {
     if (!config || !baseUrl) return { code, info: {} };
