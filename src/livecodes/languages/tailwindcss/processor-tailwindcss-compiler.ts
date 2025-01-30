@@ -93,11 +93,7 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
       };
     };
 
-    try {
-      return load();
-    } catch (err) {
-      throw err;
-    }
+    return load();
   };
 
   const loadModule = async (id: string) => {
@@ -196,7 +192,7 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
 
   const tailwind4: CompilerFunction = async (code, { config, options }) => {
     const prepareCode = (css: string) => {
-      let result = escapeCode(replaceStyleImports(css, [/tailwindcss/g]), /* slash = */ false);
+      let result = replaceStyleImports(css, [/tailwindcss/g]);
       if (!result.includes('@import')) {
         result = `@import "tailwindcss";${result}`;
       }
