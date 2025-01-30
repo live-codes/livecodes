@@ -6,7 +6,7 @@ import type { Config } from './src/livecodes/models';
 const config: PlaywrightTestConfig<{ editor: Config['editor'] }> = {
   globalSetup: require.resolve('./e2e/global-setup'),
   testDir: 'e2e',
-  retries: process.env.CI ? 10 : 2,
+  retries: process.env.CI ? 10 : 0,
   timeout: 60000,
   globalTimeout: 45 * 60 * 1000,
   webServer: {
@@ -19,7 +19,7 @@ const config: PlaywrightTestConfig<{ editor: Config['editor'] }> = {
       name: 'monaco',
       use: {
         editor: 'monaco',
-        headless: true,
+        headless: Boolean(process.env.CI),
       },
     },
     // {

@@ -1,5 +1,5 @@
 import type { ProcessorSpecs } from '../../models';
-import { tailwindcssUrl } from '../../vendors';
+import { vendorsBaseUrl } from '../../vendors';
 
 export const tailwindcss: ProcessorSpecs = {
   name: 'tailwindcss',
@@ -7,7 +7,7 @@ export const tailwindcss: ProcessorSpecs = {
   isPostcssPlugin: false,
   needsHTML: true,
   compiler: {
-    url: tailwindcssUrl,
+    url: vendorsBaseUrl + 'tailwindcss/tailwindcss.js',
     factory: (_config, baseUrl) => {
       (self as any).importScripts(baseUrl + '{{hash:processor-tailwindcss-compiler.js}}');
       return (self as any).createTailwindcssCompiler();

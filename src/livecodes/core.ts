@@ -1367,6 +1367,7 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   if (newConfig.autotest) {
     UI.getWatchTestsButton()?.classList.remove('disabled');
   }
+  let shouldReloadEditors = false;
   const editorConfig = {
     ...getEditorConfig(newConfig as Config),
     ...getFormatterConfig(newConfig as Config),
@@ -1379,10 +1380,25 @@ const applyConfig = async (newConfig: Partial<Config>) => {
     };
     for (const key in editorConfig) {
       if ((editorConfig as any)[key] !== (currentEditorConfig as any)[key]) {
-        await reloadEditors({ ...currentConfig, ...newConfig });
+        shouldReloadEditors = true;
         break;
       }
     }
+  }
+  if ('configureTailwindcss' in editors.markup) {
+    if (newConfig.processors?.includes('tailwindcss')) {
+      editors.markup.configureTailwindcss?.(true);
+    }
+    if (
+      currentConfig.processors?.includes('tailwindcss') &&
+      !newConfig.processors?.includes('tailwindcss')
+    ) {
+      editors.markup.configureTailwindcss?.(false);
+      shouldReloadEditors = true;
+    }
+  }
+  if (shouldReloadEditors) {
+    await reloadEditors({ ...currentConfig, ...newConfig });
   }
 };
 
@@ -2892,6 +2908,14 @@ const handleProcessors = () => {
               : getConfig().processors.filter((p) => p !== processorName)),
           ],
         });
+        if (processorName === 'tailwindcss' && 'configureTailwindcss' in editors.markup) {
+          if (toggle.checked) {
+            editors.markup.configureTailwindcss?.(true);
+          } else {
+            editors.markup.configureTailwindcss?.(false);
+            await reloadEditors(getConfig());
+          }
+        }
         if (getConfig().autoupdate) {
           await run();
         }
