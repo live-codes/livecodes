@@ -29,7 +29,7 @@ const translation: I18nTranslation = {
       para1:
         '<1><2>LiveCodes</2></1> è un playground di codice <3>open-source</3>, <4>ricco di funzionalità</4>, <5>lato client</5>. Attualmente, sono supportati <6>oltre 90 linguaggi/<7></7>framework</6>. Può essere utilizzato come app autonoma o può essere <8>incorporato</8> in qualsiasi pagina web. Ci sono molti modi per <9>precompilare i playground</9> con il codice.',
       para2:
-        "Un'ampia gamma di <1>opzioni di configurazione</1> lo rende molto flessibile. Un potente <2>SDK</2> (per <3>JS/TS</3>, <4>React</4>, <5>Vue</5> e <6>Svelte</6>) facilita l'<7>incorporazione</7> e la <8>comunicazione</8> con i playground. È disponibile una <9>documentazione completa</9> con esempi di codice, demo dal vivo e screenshot.",
+        "Un potente SDK semplifica l'integrazione e la comunicazione con i playground. È disponibile un'ampia documentazione con esempi di codice, demo dal vivo e schermate.",
     },
     sdk: 'LiveCodes SDK',
     sponsor: {
@@ -100,7 +100,7 @@ const translation: I18nTranslation = {
       hint: 'Informazioni progetto',
     },
     redo: {
-      hint: 'Ripeti (Ctrl/Cmd + Shift + Z)',
+      hint: 'Rifare (Ctrl/Cmd + Shift + Z)',
     },
     result: {
       hint: 'Mostra risultato',
@@ -681,7 +681,7 @@ const translation: I18nTranslation = {
     publicRepo: 'Repository',
   },
   menu: {
-    about: 'Informazioni',
+    about: 'Informazioni ...',
     appHelp: {
       heading: 'Aiuto',
       hint: 'Aiuto',
@@ -727,7 +727,7 @@ const translation: I18nTranslation = {
     keyboardShortcuts: 'Scorciatoie da tastiera',
     layout: 'Layout verticale',
     license: 'Licenza',
-    login: 'Accedi …',
+    login: 'Registrarsi …',
     logout: 'Esci',
     new: 'Nuovo …',
     open: 'Apri …',

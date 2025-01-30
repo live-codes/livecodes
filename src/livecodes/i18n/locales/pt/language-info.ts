@@ -71,7 +71,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'Compilador Clang C/C++ rodando em WebAssembly, usando <1>wasm-clang</1> adaptado por <2>polylang.io</2>.',
+    desc: 'Compilador Clang C/C++ executado em WebAssembly, usando <1>wasm-clang</1> adaptado por <2>polylang.io</2>.',
     link: '<1> <2>Fundação C++ Padrão</2> </1> <3> <4>Site oficial do Clang</4> </3> <5> <6>Aprenda X em Y minutos, onde X=C++</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
     name: 'C/C++ (Wasm)',
   },
@@ -143,7 +143,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'JSX',
   },
   julia: {
-    desc1: '(O suporte à linguagem Julia no LiveCodes ainda é experimental)',
+    desc1: '(O suporte da linguagem Julia no LiveCodes ainda é experimental)',
     desc2:
       'Compilador Julia e Julia Base rodando em WASM, usando <1>julia-wasm</1> adaptado por <2>polylang.io</2>.',
     link: '<1> <2>Site oficial do Julia</2> </1> <3> <4>Documentação do Julia</4> </3> <5> <6>Aprenda X em Y minutos, onde X=Julia</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
@@ -200,7 +200,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: 'Uma linguagem de modelagem rica e poderosa para JavaScript. Nunjucks é essencialmente uma adaptação do <1>jinja2</1>.',
+    desc: 'Uma linguagem de modelação rica e poderosa para JavaScript. Nunjucks é essencialmente uma adaptação do <1>jinja2</1>.',
     link: '<1> <2>Site oficial</2> </1> <3> <4>Documentação do LiveCodes</4> </3>',
     name: 'Nunjucks',
   },
@@ -386,7 +386,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
-    desc: 'Uma implementação JavaScript da linguagem de template PHP <1>Twig</1> por <2>Twig.js</2>.',
+    desc: 'Uma implementação JavaScript de <1>Twig</1> a linguagem de template PHP  por <2>Twig.js</2>.',
     link: '<1> <2>Site oficial do Twig</2> </1> <3> <4>Documentação do Twig</4> </3> <5> <6>Repositório do Twig.js</6> </5> <7> <8>Documentação do Twig.js</8> </7> <9> <10>Documentação do LiveCodes</10> </9>',
     name: 'Twig',
   },

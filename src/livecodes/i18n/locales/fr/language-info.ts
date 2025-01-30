@@ -387,7 +387,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TSX',
   },
   twig: {
-    desc: 'Une implémentation JavaScript du langage de template PHP <1>Twig</1> par <2>Twig.js</2>.',
+    desc: 'Une implémentation JavaScript de <1>Twig</1> le langage de modèle PHP par <2>Twig.js</2>.',
     link: '<1> <2>Site officiel de Twig</2> </1> <3> <4>Documentation de Twig</4> </3> <5> <6>Dépôt Twig.js</6> </5> <7> <8>Documentation Twig.js</8> </7> <9> <10>Documentation LiveCodes</10> </9>',
     name: 'Twig',
   },

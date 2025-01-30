@@ -29,7 +29,7 @@ const translation: I18nTranslation = {
       para1:
         '<1><2>LiveCodes</2></1> es un área de juego de código <3>de código abierto</3>, <4>rico en características</4> y <5>del lado del cliente</5>. Actualmente, se admiten <6>más de 90 lenguajes/<7></7>frameworks</6>. Se puede usar como una aplicación independiente o se puede <8>incrustar</8> en cualquier página web. Hay muchas formas de <9>precargar los campos de juego</9> con código.',
       para2:
-        'Una amplia gama de <1>opciones de configuración</1> lo hace muy flexible. Un potente <2>SDK</2> (para <3>JS/TS</3>, <4>React</4>, <5>Vue</5> y <6>Svelte</6>) facilita la <7>incrustación</7> y la <8>comunicación</8> con los campos de juego. Hay disponible una <9>documentación completa</9> con ejemplos de código, demostraciones en vivo y capturas de pantalla.',
+        'Un potente SDK facilita la integración y la comunicación con editores de código. Hay disponible una amplia documentación con ejemplos de código, demostraciones en vivo y capturas de pantalla.',
     },
     sdk: 'LiveCodes SDK',
     sponsor: {
@@ -681,7 +681,7 @@ const translation: I18nTranslation = {
     publicRepo: 'Repositorios',
   },
   menu: {
-    about: 'Acerca de',
+    about: 'Acerca ...',
     appHelp: {
       heading: 'Ayuda',
       hint: 'Ayuda',

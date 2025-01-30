@@ -779,7 +779,7 @@ const translation: I18nTranslation = {
     import: 'Importer',
     lastModified: 'Dernière modification : {{modified}}',
     noData: {
-      desc: 'Vous pouvez enregistrer un projet depuis le menu&nbsp;Projet&nbsp;&gt;&nbsp;Enregistrer et le raccourci clavier (Ctrl/Cmd&nbsp;+&nbsp;S).',
+      desc: 'Vous pouvez enregistrer un projet depuis le menu&nbsp;Paramètres&nbsp;&gt;&nbsp;Enregistrer et le raccourci clavier (Ctrl/Cmd&nbsp;+&nbsp;S).',
       heading: "Vous n'avez aucun projet enregistré.",
     },
     noMatch: 'Aucun projet ne correspond à ces filtres.',
