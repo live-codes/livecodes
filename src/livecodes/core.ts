@@ -2691,9 +2691,22 @@ const handleCommandMenu = async () => {
     requestAnimationFrame(() => ninja.open());
   };
 
+  let anotherShortcut = false;
   const onHotkey = async (e: KeyboardEvent) => {
-    if (ctrl(e) && e.code === 'KeyK') {
-      e.preventDefault();
+    // Ctrl+K opens the command menu
+    // wait for 500ms to allow other shortcuts like Ctrl+K Ctrl+0
+    if (!ctrl(e)) {
+      anotherShortcut = false;
+      return;
+    }
+    if (e.code !== 'KeyK') {
+      anotherShortcut = true;
+      return;
+    }
+    e.preventDefault();
+    anotherShortcut = false;
+    setTimeout(async () => {
+      if (anotherShortcut) return;
       // eslint-disable-next-line no-underscore-dangle
       if (ninja.__visible == null) {
         await loadNinjaKeys();
@@ -2703,7 +2716,7 @@ const handleCommandMenu = async () => {
         ninja.focus();
         requestAnimationFrame(() => openCommandMenu());
       }
-    }
+    }, 500);
   };
 
   eventsManager.addEventListener(window, 'keydown', onHotkey, true);
