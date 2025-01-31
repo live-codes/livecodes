@@ -1248,6 +1248,21 @@ const share = async (
   const content = contentOnly
     ? {
         ...getContentConfig(config),
+        markup: {
+          ...config.markup,
+          title: undefined,
+          hideTitle: undefined,
+        },
+        style: {
+          ...config.style,
+          title: undefined,
+          hideTitle: undefined,
+        },
+        script: {
+          ...config.script,
+          title: undefined,
+          hideTitle: undefined,
+        },
         tools: {
           ...config.tools,
           enabled: defaultConfig.tools.enabled,
