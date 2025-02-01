@@ -29,7 +29,7 @@ const translation: I18nTranslation = {
       para1:
         '<1><2>LiveCodes</2></1>は、<3>オープンソース</3>で<4>機能豊富</4>な<5>クライアントサイド</5>のコードプレイグラウンドです。現在、<6>90以上の言語/<7></7>フレームワーク</6>をサポートしています。スタンドアロンアプリとして使用することも、任意のWebページに<8>埋め込む</8>こともできます。プレイグラウンドに<9>コードをプリフィル</9>する方法は多数あります。',
       para2:
-        '幅広い<1>設定オプション</1>により、非常に柔軟性があります。強力な<2>SDK</2>（<3>JS/TS</3>、<4>React</4>、<5>Vue</5>、<6>Svelte</6>用）により、プレイグラウンドの<7>埋め込み</7>と<8>通信</8>が容易になります。コードサンプル、ライブデモ、スクリーンショットを含む<9>包括的なドキュメント</9>が利用可能です。',
+        '強力な SDK により、プレイグラウンドとの統合や通信が簡単になります。コード例、ライブ デモ、スクリーンショットを含む詳細なドキュメントもご利用いただけます。',
     },
     sdk: 'LiveCodes SDK',
     sponsor: {
@@ -103,13 +103,13 @@ const translation: I18nTranslation = {
       hint: 'やり直し (Ctrl/Cmd + Shift + Z)',
     },
     result: {
-      hint: '結果を表示',
+      hint: '結果を表示 (Ctrl/⌘ + Alt + R)',
     },
     run: {
       hint: '実行 (Shift + Enter)',
     },
     share: {
-      hint: '共有',
+      hint: 'リンクを共有 (Ctrl/⌘ + Alt + S)',
     },
     themeColors: {
       custom: 'カスタム',
@@ -483,9 +483,9 @@ const translation: I18nTranslation = {
   },
   editorSettings: {
     closeBrackets: '括弧と引用符を自動的に閉じる',
-    codeJarDesc: '* マークされた機能はCodeJarでは利用できません。',
+    codeJarDesc: '<1></1> * マークされた機能はCodeJarでは利用できません。',
     default: 'デフォルト',
-    desc: '詳細については<1>ドキュメント</1>をご確認ください。',
+    desc: '<1></1> 詳細については<2>ドキュメント</2>をご確認ください。',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -681,7 +681,7 @@ const translation: I18nTranslation = {
     publicRepo: 'リポジトリ',
   },
   menu: {
-    about: '概要',
+    about: 'について...',
     appHelp: {
       heading: 'ヘルプ',
       hint: 'ヘルプ',
@@ -1096,7 +1096,7 @@ const translation: I18nTranslation = {
     recover: {
       cancel: 'キャンセル',
       heading: '復元',
-      lastModified: '最終更新: <1></1>',
+      lastModified: '最終更新:',
       recover: '復元',
       save: '保存',
       unsavedChanges: '最後のプロジェクトに未保存の変更があります：',

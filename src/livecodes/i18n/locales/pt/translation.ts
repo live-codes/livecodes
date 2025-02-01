@@ -29,7 +29,7 @@ const translation: I18nTranslation = {
       para1:
         '<1><2>LiveCodes</2></1> é um playground de código <3>de código aberto</3>, <4>rico em recursos</4> e <5>do lado do cliente</5>. Atualmente, <6>mais de 90 linguagens e<7></7>frameworks</6> são suportados. Pode ser usado como um aplicativo independente ou pode ser <8>incorporado</8> em qualquer página web. Existem muitas maneiras de <9>preencher previamente os playgrounds</9> com código.',
       para2:
-        'Uma ampla gama de <1>opções de configuração</1> o torna muito flexível. Um poderoso <2>SDK</2> (para <3>JS/TS</3>, <4>React</4>, <5>Vue</5> e <6>Svelte</6>) facilita a <7>incorporação</7> e <8>comunicação</8> com os playgrounds. <9>Documentações abrangentes</9> estão disponíveis com exemplos de código, demonstrações ao vivo e capturas de tela.',
+        'Um SDK poderoso facilita a integração e a comunicação com editores de código. Existe uma vasta documentação disponível com exemplos de código, demonstrações ao vivo e capturas de ecrã.',
     },
     sdk: 'LiveCodes SDK',
     sponsor: {
@@ -349,7 +349,7 @@ const translation: I18nTranslation = {
       title: 'Mostrar ...',
       zoom: 'Alternar o zoom do resultado',
     },
-    starterTemplates: 'Modelos Iniciantes',
+    starterTemplates: 'Modelos Iniciais',
     sync: 'Sincronização (beta) ...',
     template: 'Modelo',
     theme: {
@@ -1026,7 +1026,7 @@ const translation: I18nTranslation = {
       ruby: 'Iniciante Ruby',
       'ruby-wasm': 'Iniciante Ruby (Wasm)',
       scheme: 'Iniciante Scheme',
-      shadcnui: 'Iniciante shadcn/ui',
+      shadcnui: 'Modelo inicial shadcn/ui',
       solid: 'Iniciante Solid',
       sql: 'Iniciante SQL',
       stencil: 'Iniciante Stencil',

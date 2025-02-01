@@ -1248,6 +1248,21 @@ const share = async (
   const content = contentOnly
     ? {
         ...getContentConfig(config),
+        markup: {
+          ...config.markup,
+          title: undefined,
+          hideTitle: undefined,
+        },
+        style: {
+          ...config.style,
+          title: undefined,
+          hideTitle: undefined,
+        },
+        script: {
+          ...config.script,
+          title: undefined,
+          hideTitle: undefined,
+        },
         tools: {
           ...config.tools,
           enabled: defaultConfig.tools.enabled,
@@ -1367,6 +1382,7 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   if (newConfig.autotest) {
     UI.getWatchTestsButton()?.classList.remove('disabled');
   }
+  let shouldReloadEditors = false;
   const editorConfig = {
     ...getEditorConfig(newConfig as Config),
     ...getFormatterConfig(newConfig as Config),
@@ -1379,10 +1395,25 @@ const applyConfig = async (newConfig: Partial<Config>) => {
     };
     for (const key in editorConfig) {
       if ((editorConfig as any)[key] !== (currentEditorConfig as any)[key]) {
-        await reloadEditors({ ...currentConfig, ...newConfig });
+        shouldReloadEditors = true;
         break;
       }
     }
+  }
+  if ('configureTailwindcss' in editors.markup) {
+    if (newConfig.processors?.includes('tailwindcss')) {
+      editors.markup.configureTailwindcss?.(true);
+    }
+    if (
+      currentConfig.processors?.includes('tailwindcss') &&
+      !newConfig.processors?.includes('tailwindcss')
+    ) {
+      editors.markup.configureTailwindcss?.(false);
+      shouldReloadEditors = true;
+    }
+  }
+  if (shouldReloadEditors) {
+    await reloadEditors({ ...currentConfig, ...newConfig });
   }
 };
 
@@ -2675,9 +2706,22 @@ const handleCommandMenu = async () => {
     requestAnimationFrame(() => ninja.open());
   };
 
+  let anotherShortcut = false;
   const onHotkey = async (e: KeyboardEvent) => {
-    if (ctrl(e) && e.code === 'KeyK') {
-      e.preventDefault();
+    // Ctrl+K opens the command menu
+    // wait for 500ms to allow other shortcuts like Ctrl+K Ctrl+0
+    if (!ctrl(e)) {
+      anotherShortcut = false;
+      return;
+    }
+    if (e.code !== 'KeyK') {
+      anotherShortcut = true;
+      return;
+    }
+    e.preventDefault();
+    anotherShortcut = false;
+    setTimeout(async () => {
+      if (anotherShortcut) return;
       // eslint-disable-next-line no-underscore-dangle
       if (ninja.__visible == null) {
         await loadNinjaKeys();
@@ -2687,7 +2731,7 @@ const handleCommandMenu = async () => {
         ninja.focus();
         requestAnimationFrame(() => openCommandMenu());
       }
-    }
+    }, 500);
   };
 
   eventsManager.addEventListener(window, 'keydown', onHotkey, true);
@@ -2892,6 +2936,14 @@ const handleProcessors = () => {
               : getConfig().processors.filter((p) => p !== processorName)),
           ],
         });
+        if (processorName === 'tailwindcss' && 'configureTailwindcss' in editors.markup) {
+          if (toggle.checked) {
+            editors.markup.configureTailwindcss?.(true);
+          } else {
+            editors.markup.configureTailwindcss?.(false);
+            await reloadEditors(getConfig());
+          }
+        }
         if (getConfig().autoupdate) {
           await run();
         }

@@ -216,8 +216,17 @@ export const styleimportsPattern =
 
 export const hasStyleImports = (code: string) => new RegExp(styleimportsPattern).test(code);
 
-export const replaceStyleImports = (code: string) =>
+export const replaceStyleImports = (code: string, exceptions?: string[] | RegExp[]) =>
   code.replace(new RegExp(styleimportsPattern), (statement, match, media) => {
+    if (
+      exceptions?.some(
+        (e) =>
+          (typeof e === 'string' && e === match) ||
+          (typeof e === 'object' && new RegExp(e).test(match)),
+      )
+    ) {
+      return statement;
+    }
     const url: string = match
       .replace(/"/g, '')
       .replace(/'/g, '')
