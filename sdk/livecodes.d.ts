@@ -1103,6 +1103,7 @@ declare module 'livecodes/models' {
                     ShiftAltF: any;
             };
             changeSettings: (editorSettings: EditorConfig) => void;
+            configureTailwindcss?: (enabled: boolean) => void;
             registerFormatter: (formatFn: FormatFn | undefined) => void;
             format: () => Promise<void>;
             isReadonly: boolean;

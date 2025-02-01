@@ -1078,6 +1078,7 @@ declare module "sdk/models" {
             ShiftAltF: any;
         };
         changeSettings: (editorSettings: EditorConfig) => void;
+        configureTailwindcss?: (enabled: boolean) => void;
         registerFormatter: (formatFn: FormatFn | undefined) => void;
         format: () => Promise<void>;
         isReadonly: boolean;
@@ -1534,7 +1535,8 @@ declare module "livecodes/vendors" {
     export const svelteBaseUrl: string;
     export const svgbobWasmCdnUrl: string;
     export const tagifyBaseUrl: string;
-    export const tailwindcssUrl: string;
+    export const tailwindcssBaseUrl: string;
+    export const tailwindcss3Url: string;
     export const tauPrologBaseUrl: string;
     export const tealUrl: string;
     export const thememirrorBaseUrl: string;
@@ -2620,7 +2622,7 @@ declare module "livecodes/compiler/import-map" {
     export const removeImports: (code: string, mods: string[]) => string;
     export const styleimportsPattern: RegExp;
     export const hasStyleImports: (code: string) => boolean;
-    export const replaceStyleImports: (code: string) => string;
+    export const replaceStyleImports: (code: string, exceptions?: string[] | RegExp[]) => string;
     export const cjs2esm: (code: string) => string;
     export const createCSSModulesImportMap: (compiledScript: string, compiledStyle: string, cssTokens?: CompileInfo['cssModules'], extension?: Language) => {
         [x: string]: string;
@@ -7521,7 +7523,34 @@ declare module "livecodes/languages/haml/lang-haml-compiler" { }
 declare module "livecodes/languages/handlebars/lang-handlebars-compiler" { }
 declare module "livecodes/languages/imba/lang-imba-compiler" { }
 declare module "livecodes/languages/julia/lang-julia-script" { }
-declare module "livecodes/languages/lightningcss/processor-lightningcss-compiler" { }
+declare module "livecodes/languages/lightningcss/processor-lightningcss-compiler" {
+    export const lightningcssFeatures: {
+        Nesting: number;
+        NotSelectorList: number;
+        DirSelector: number;
+        LangSelectorList: number;
+        IsSelector: number;
+        TextDecorationThicknessPercent: number;
+        MediaIntervalSyntax: number;
+        MediaRangeSyntax: number;
+        CustomMediaQueries: number;
+        ClampFunction: number;
+        ColorFunction: number;
+        OklabColors: number;
+        LabColors: number;
+        P3Colors: number;
+        HexAlphaColors: number;
+        SpaceSeparatedColorNotation: number;
+        FontFamilySystemUi: number;
+        DoublePositionGradients: number;
+        VendorPrefixes: number;
+        LogicalProperties: number;
+        LightDark: number;
+        Selectors: number;
+        MediaQueries: number;
+        Colors: number;
+    };
+}
 declare module "livecodes/languages/liquid/lang-liquid-compiler" { }
 declare const wasmoon: any;
 declare module "livecodes/languages/malina/lang-malina-compiler" { }
