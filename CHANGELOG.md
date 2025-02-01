@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v42](https://github.com/live-codes/livecodes/compare/sdk-v0.8.0...0.0.0) (2025-02-01)
+
+### Highlights for this release
+
+This release adds support for Tailwind CSS v4, while maintaining backward compatibility for v3.
+
+Projects using the old Tailwind CSS directives (e.g. `@tailwind base; @tailwind components; @tailwind utilities;`) will use v3.
+To upgrade to v4 replace the directives with the new import statement `@import "tailwindcss";` or simply remove the directives.
+
+The [Tailwind CSS starter template](https://livecodes.io/?template=tailwindcss) was upgraded to use v4.
+
+In addition Monaco editor intellisense for Tailwind CSS was added: autocomplete, hover for generated css, color preview, etc.
+
+### Features
+
+- **Compilers:** add support for tailwindcss v4 ([cc90203](https://github.com/live-codes/livecodes/commit/cc90203d62fea59bc53a02bf004963556c7c545c))
+- **Editor:** add support for tailwindcss in monaco editor ([c7f166b](https://github.com/live-codes/livecodes/commit/c7f166b9672cf138b77f9908bcbc9d4419f42e29))
+- **Templates:** upgrade tailwindcss starter template to v4 ([84b32f3](https://github.com/live-codes/livecodes/commit/84b32f3ca692a322cf52a789babff9d97175cb2b))
+
+### Bug Fixes
+
+- **CommandMenu:** allow other shortcut combinations to use ctrl+k ([2e026d0](https://github.com/live-codes/livecodes/commit/2e026d03ad6db14f86ca3a74a153f2d0f9d24e72))
+- reset editor titles in shared URLs ([297cd29](https://github.com/live-codes/livecodes/commit/297cd29d8dfb2c1b706adbc5dd1e0348bf58be2a))
+
+---
+
 ## [v41](https://github.com/live-codes/livecodes/compare/v40...v41) (2025-01-25)
 
 This release fixes invalid cache for codemirror build and simplifies the build process.
