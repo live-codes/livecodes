@@ -7,6 +7,7 @@ import {
   isModuleScript,
   hasDefaultExport,
   replaceImports,
+  isScriptImport,
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import { hasCustomJsxRuntime } from '../languages/typescript';
@@ -191,10 +192,15 @@ export const createResultPage = async ({
   const compiledTests = runTests ? code.tests?.compiled || '' : '';
 
   const scriptCompiler = getLanguageCompiler(code.script.language);
-  const importFromScript =
-    getImports(markup).includes('./script') ||
-    scriptCompiler?.loadAsExternalModule ||
-    (runTests && !forExport && getImports(compiledTests).includes('./script'));
+
+  const scriptImportsInMarkup = getImports(markup).filter(isScriptImport);
+  const scriptImportsInTests =
+    runTests && !forExport ? getImports(compiledTests).filter(isScriptImport) : [];
+  const importFromScript = Boolean(
+    scriptImportsInMarkup.length > 0 ||
+      scriptCompiler?.loadAsExternalModule ||
+      scriptImportsInTests.length > 0,
+  );
 
   const jsxRuntimes: Partial<Record<Language, string>> = {
     jsx: reactRuntime,
@@ -308,16 +314,21 @@ export const createResultPage = async ({
           ...compileInfo.imports,
         };
 
+  const scriptImportKeys = [...scriptImportsInMarkup, ...scriptImportsInTests];
   const scriptImport =
     importFromScript || shouldInsertJsxRuntime
-      ? {
-          './script': toDataUrl(
-            replaceImports(code.script.compiled, config, {
-              importMap: objectFilter(userImports, (_value, key) => key.startsWith('./')),
-              external: reactExternalImports,
-            }),
-          ),
-        }
+      ? scriptImportKeys.reduce(
+          (acc, key) => ({
+            ...acc,
+            [key]: toDataUrl(
+              replaceImports(code.script.compiled, config, {
+                importMap: objectFilter(userImports, (_value, key) => key.startsWith('./')),
+                external: reactExternalImports,
+              }),
+            ),
+          }),
+          {},
+        )
       : {};
 
   // allow config imports to override auto-generated user imports

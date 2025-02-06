@@ -134,6 +134,9 @@ export const replaceImports = (
   });
 };
 
+export const isScriptImport = (mod: string) =>
+  mod.toLowerCase().startsWith('./script') || mod.toLowerCase().startsWith('./component');
+
 export const replaceSFCImports = async (
   code: string,
   {
@@ -165,6 +168,7 @@ export const replaceSFCImports = async (
   const importMap: Record<string, string> = {};
   await Promise.all(
     sfcImports.map(async (mod) => {
+      if (isScriptImport(mod)) return;
       // convert extensionless, relative URL to absolute URL and find in import map
       const urlInMap =
         isExtensionless(mod) &&

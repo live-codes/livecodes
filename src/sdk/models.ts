@@ -945,6 +945,8 @@ export type Language =
   | 'vue3'
   | 'vue2'
   | 'svelte'
+  | 'svelte-app'
+  | 'app.svelte'
   | 'stencil'
   | 'stencil.tsx'
   | 'solid'
