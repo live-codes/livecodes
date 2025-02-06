@@ -6,8 +6,8 @@ const compilerUrl = vendorsBaseUrl + 'vue-compiler-sfc/vue-compiler-sfc.js';
 
 export const vue: LanguageSpecs = {
   name: 'vue',
-  title: 'Vue 3',
-  longTitle: 'Vue 3 SFC',
+  title: 'Vue',
+  longTitle: 'Vue SFC',
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html],
