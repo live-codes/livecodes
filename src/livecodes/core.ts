@@ -938,11 +938,19 @@ const getResultPage = async ({
     toolsPane?.tests?.showResults({ results: [] });
   }
 
-  const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {});
+  const forceCompileSFC =
+    (config.markup.language === config.script.language + '-app' ||
+      getCache().markup.language === getCache().script.language + '-app') &&
+    (config.markup.language !== getCache().markup.language ||
+      config.script.language !== getCache().script.language);
+
+  const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {
+    forceCompile: forceCompileSFC,
+  });
   let compiledMarkup = markupCompileResult.code;
 
   const scriptCompileResult = await compiler.compile(scriptContent, scriptLanguage, config, {
-    forceCompile: forceCompileStyles,
+    forceCompile: forceCompileStyles || forceCompileSFC,
     blockly:
       scriptLanguage === 'blockly'
         ? ((await customEditors.blockly?.getContent({

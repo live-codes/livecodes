@@ -83,7 +83,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ? 'coffeescript'
       : ['rescript', 'reason', 'ocaml'].includes(language)
         ? 'csharp'
-        : mapLanguage(language);
+        : ['vue', 'svelte', 'malina', 'riot'].includes(language)
+          ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
+          : mapLanguage(language);
 
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;
