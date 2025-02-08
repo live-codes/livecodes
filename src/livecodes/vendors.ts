@@ -436,9 +436,7 @@ export const vue3CdnUrl = /* @__PURE__ */ getUrl('vue@3');
 
 export const vue2CdnUrl = /* @__PURE__ */ getUrl('vue@2');
 
-export const vueRuntimeUrl = /* @__PURE__ */ getUrl(
-  'vue@3.4.31/dist/vue.runtime.esm-browser.prod.js',
-);
+export const vueRuntimeUrl = /* @__PURE__ */ getUrl('vue@3/dist/vue.runtime.esm-browser.prod.js');
 
 export const vueSDKUrl = /* @__PURE__ */ getUrl(`livecodes@${process.env.SDK_VERSION}/vue.js`);
 
