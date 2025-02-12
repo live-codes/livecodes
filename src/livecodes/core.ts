@@ -164,6 +164,7 @@ import { appLanguages } from './i18n/app-languages';
 import { themeColors } from './UI/theme-colors';
 import { getCommandMenuActions } from './UI/command-menu-actions';
 import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
+import { hasJsx } from './editor/ts-compiler-options';
 
 // declare global dependencies
 declare global {
@@ -370,8 +371,9 @@ const loadModuleTypes = async (
       ...config.types,
       ...config.customSettings.types,
     };
+    const reactImport = hasJsx.includes(scriptLanguage) ? `import React from 'react';\n` : '';
     const libs = await typeLoader.load(
-      getConfig().script.content + '\n' + getConfig().markup.content,
+      reactImport + getConfig().script.content + '\n' + getConfig().markup.content,
       configTypes,
       loadAll,
       force,
