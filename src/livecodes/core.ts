@@ -649,6 +649,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   document.body.classList.toggle('focus-mode', mode === 'focus');
   document.body.classList.toggle('lite-mode', mode === 'lite');
   document.body.classList.toggle('result', mode === 'result');
+  document.body.classList.toggle('no-result', mode === 'editor' || mode === 'codeblock');
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
   }
@@ -4798,7 +4799,7 @@ const handleDropFiles = () => {
   });
 };
 
-const handleResultMode = () => {
+const handleResultModeDrawer = () => {
   const drawer = UI.getResultModeDrawer();
   const drawerLink = drawer.querySelector('a') as HTMLAnchorElement;
   const closeBtn = drawer.querySelector('#drawer-close') as HTMLButtonElement;
@@ -5059,15 +5060,9 @@ const extraHandlers = async () => {
   showConsoleMessage();
 };
 
-const configureEmbed = (config: Config, eventsManager: EventsManager) => {
+const configureEmbed = (eventsManager: EventsManager) => {
   document.body.classList.add('embed');
-  if (config.mode === 'result') {
-    document.body.classList.add('result');
-    handleResultMode();
-  }
-  if (config.mode === 'editor' || config.mode === 'codeblock') {
-    document.body.classList.add('no-result');
-  }
+  handleResultModeDrawer();
 
   const logoLink = UI.getLogoLink();
   logoLink.title = window.deps.translateString('generic.embed.logoHint', 'Edit on LiveCodes 🡕');
@@ -5122,7 +5117,7 @@ const configureModes = ({
     configureLite();
   }
   if (isEmbed || config.mode === 'result') {
-    configureEmbed(config, eventsManager);
+    configureEmbed(eventsManager);
   }
   if (config.mode === 'simple') {
     configureSimpleMode(config);
@@ -5661,6 +5656,7 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   });
   return createApi();
 };
+
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode: () => undefined,
