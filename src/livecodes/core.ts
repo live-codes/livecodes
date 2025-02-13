@@ -164,6 +164,7 @@ import { appLanguages } from './i18n/app-languages';
 import { themeColors } from './UI/theme-colors';
 import { getCommandMenuActions } from './UI/command-menu-actions';
 import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
+import { hasJsx } from './editor/ts-compiler-options';
 
 // declare global dependencies
 declare global {
@@ -370,8 +371,9 @@ const loadModuleTypes = async (
       ...config.types,
       ...config.customSettings.types,
     };
+    const reactImport = hasJsx.includes(scriptLanguage) ? `import React from 'react';\n` : '';
     const libs = await typeLoader.load(
-      getConfig().script.content + '\n' + getConfig().markup.content,
+      reactImport + getConfig().script.content + '\n' + getConfig().markup.content,
       configTypes,
       loadAll,
       force,
@@ -649,6 +651,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   document.body.classList.toggle('focus-mode', mode === 'focus');
   document.body.classList.toggle('lite-mode', mode === 'lite');
   document.body.classList.toggle('result', mode === 'result');
+  document.body.classList.toggle('no-result', mode === 'editor' || mode === 'codeblock');
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
   }
@@ -4790,7 +4793,7 @@ const handleDropFiles = () => {
   });
 };
 
-const handleResultMode = () => {
+const handleResultModeDrawer = () => {
   const drawer = UI.getResultModeDrawer();
   const drawerLink = drawer.querySelector('a') as HTMLAnchorElement;
   const closeBtn = drawer.querySelector('#drawer-close') as HTMLButtonElement;
@@ -5051,15 +5054,9 @@ const extraHandlers = async () => {
   showConsoleMessage();
 };
 
-const configureEmbed = (config: Config, eventsManager: EventsManager) => {
+const configureEmbed = (eventsManager: EventsManager) => {
   document.body.classList.add('embed');
-  if (config.mode === 'result') {
-    document.body.classList.add('result');
-    handleResultMode();
-  }
-  if (config.mode === 'editor' || config.mode === 'codeblock') {
-    document.body.classList.add('no-result');
-  }
+  handleResultModeDrawer();
 
   const logoLink = UI.getLogoLink();
   logoLink.title = window.deps.translateString('generic.embed.logoHint', 'Edit on LiveCodes 🡕');
@@ -5114,7 +5111,7 @@ const configureModes = ({
     configureLite();
   }
   if (isEmbed || config.mode === 'result') {
-    configureEmbed(config, eventsManager);
+    configureEmbed(eventsManager);
   }
   if (config.mode === 'simple') {
     configureSimpleMode(config);
@@ -5653,6 +5650,7 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   });
   return createApi();
 };
+
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode: () => undefined,
