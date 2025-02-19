@@ -364,6 +364,10 @@ const loadModuleTypes = async (
   if (typeof editors?.script?.addTypes !== 'function') return;
   const scriptLanguage = config.script.language;
   if (['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) || force) {
+    if (compiler.isFake) {
+      // we need the real compiler for types
+      await reloadCompiler({ ...config, mode: 'full' });
+    }
     const configTypes = {
       ...getLanguageCompiler(config.markup.language)?.types,
       ...getLanguageCompiler(config.script.language)?.types,
@@ -449,7 +453,9 @@ const createCopyButtons = () => {
 };
 
 const createEditors = async (config: Config) => {
+  let isReload = false;
   if (editors) {
+    isReload = true;
     Object.values(editors).forEach((editor: CodeEditor) => editor.destroy());
     resetEditorModeStatus();
   }
@@ -538,6 +544,10 @@ const createEditors = async (config: Config) => {
 
   if (config.mode === 'codeblock') {
     createCopyButtons();
+  }
+
+  if (isReload) {
+    loadModuleTypes(editors, config, /* loadAll = */ true);
   }
 };
 
@@ -1055,6 +1065,17 @@ const getResultPage = async ({
   }
 
   return result;
+};
+
+const reloadCompiler = async (config: Config, force = false) => {
+  if (!compiler.isFake && !force) return;
+  compiler = (window as any).compiler = await getCompiler({
+    config,
+    baseUrl,
+    eventsManager,
+  });
+  setCache();
+  await getResultPage({});
 };
 
 const setLoading = (status: boolean) => {
@@ -4982,7 +5003,15 @@ const changeAppLanguage = async (appLanguage: AppLanguage) => {
 
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal({ translate: translateElement, onClose: () => getActiveEditor().focus() });
+  modal = createModal({
+    translate: translateElement,
+    isEmbed,
+    onClose: () => {
+      if (!isEmbed) {
+        getActiveEditor().focus();
+      }
+    },
+  });
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
@@ -5394,8 +5423,11 @@ const initializePlayground = async (
   loadUserConfig(/* updateUI = */ false);
   setConfig(buildConfig({ ...getConfig(), ...appConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
-  compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
-  (window as any).compiler = compiler;
+  compiler = (window as any).compiler = await getCompiler({
+    config: getConfig(),
+    baseUrl,
+    eventsManager,
+  });
   formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
   await loadI18n(getConfig().appLanguage);
@@ -5448,16 +5480,17 @@ const createApi = (): API => {
     const newAppConfig = buildConfig({ ...currentConfig, ...newConfig });
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
-    const reloadCompiler =
-      (currentConfig.mode === 'editor' || currentConfig.mode === 'codeblock') &&
-      newConfig.mode !== 'editor' &&
-      newConfig.mode !== 'codeblock' &&
-      compiler.isFake;
-    const reloadCodeEditors =
-      newConfig.mode != null &&
-      newConfig.mode !== currentConfig.mode &&
-      (['codeblock', 'result'].includes(currentConfig.mode) ||
-        ['codeblock', 'result'].includes(newConfig.mode!));
+    const shouldRun =
+      newConfig.mode != null && newConfig.mode !== 'editor' && newConfig.mode !== 'codeblock';
+    const shouldReloadCompiler = shouldRun && compiler.isFake;
+    const shouldReloadCodeEditors = (() => {
+      if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
+      if (newConfig.mode != null) {
+        if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
+        if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
+      }
+      return false;
+    })();
 
     setConfig(newAppConfig);
 
@@ -5465,11 +5498,10 @@ const createApi = (): API => {
       changeAppLanguage(newConfig.appLanguage!);
       return newAppConfig;
     }
-    if (reloadCompiler) {
-      compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
-      await run();
+    if (shouldReloadCompiler) {
+      await reloadCompiler(newAppConfig);
     }
-    if (reloadCodeEditors) {
+    if (shouldReloadCodeEditors) {
       await createEditors(newAppConfig);
     }
     await applyConfig(newConfig);
@@ -5477,6 +5509,8 @@ const createApi = (): API => {
     const hasContent = Object.values(content).some((value) => value != null);
     if (hasContent) {
       await loadConfig(newAppConfig);
+    } else if (shouldRun) {
+      await run();
     }
     return newAppConfig;
   };

@@ -94,10 +94,11 @@ export const createTypeLoader = (baseUrl: string) => {
     if (!code?.trim()) {
       return [];
     }
-    const types: EditorLibrary[] = await (window as any).compiler.typescriptFeatures({
-      feature: 'ata',
-      payload: code,
-    });
+    const types: EditorLibrary[] =
+      (await (window as any).compiler?.typescriptFeatures?.({
+        feature: 'ata',
+        payload: code,
+      })) ?? [];
     libs.push(...types);
     if (typeof callback === 'function') {
       types.forEach((type) => {
