@@ -5,6 +5,7 @@ import { createAccordion } from './accordion';
 
 export const createModal = (deps: {
   translate: (container: HTMLElement) => void;
+  isEmbed: boolean;
   onClose: () => void;
 }): Modal => {
   const overlay = document.querySelector('#overlay') as HTMLElement;
@@ -21,7 +22,7 @@ export const createModal = (deps: {
       isAsync = false,
       onClose = () => undefined,
       scrollToSelector = '',
-      autoFocus = true,
+      autoFocus = !deps.isEmbed,
     }: ModalOptions = {},
   ) => {
     modal.className = size;

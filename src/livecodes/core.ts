@@ -5003,7 +5003,15 @@ const changeAppLanguage = async (appLanguage: AppLanguage) => {
 
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal({ translate: translateElement, onClose: () => getActiveEditor().focus() });
+  modal = createModal({
+    translate: translateElement,
+    isEmbed,
+    onClose: () => {
+      if (!isEmbed) {
+        getActiveEditor().focus();
+      }
+    },
+  });
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
