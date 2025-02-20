@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+ 
 import type { CompilerFunction } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 

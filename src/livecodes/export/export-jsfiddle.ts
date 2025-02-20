@@ -20,7 +20,7 @@ export const exportJsfiddle = (
     };
   },
 ) => {
-  /* eslint-disable camelcase */
+   
   const form = document.createElement('form') as HTMLFormElement;
   form.action = 'https://jsfiddle.net/api/post/library/pure/';
   form.method = 'POST';

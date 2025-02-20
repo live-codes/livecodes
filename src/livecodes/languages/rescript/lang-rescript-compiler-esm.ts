@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+ 
 import type { CompilerFunction, Language } from '../../models';
 import { getAbsoluteUrl, loadScript } from '../../utils';
 import {

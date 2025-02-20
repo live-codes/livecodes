@@ -49,7 +49,6 @@ export default [
       jsdoc,
       'no-only-tests': noOnlyTests,
     },
-
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -58,67 +57,16 @@ export default [
         project: ['./tsconfig.eslint.json'],
       },
     },
-
     rules: {
       '@typescript-eslint/adjacent-overload-signatures': 'error',
-
-      '@typescript-eslint/array-type': [
-        'error',
-        {
-          default: 'array-simple',
-        },
-      ],
-
-      // "@typescript-eslint/ban-types": ["error", {
-      //     types: {
-      //         Object: {
-      //             message: "Avoid using the `Object` type. Did you mean `object`?",
-      //         },
-
-      //         Function: {
-      //             message: "Avoid using the `Function` type. Prefer a specific function type, like `() => void`.",
-      //         },
-
-      //         Boolean: {
-      //             message: "Avoid using the `Boolean` type. Did you mean `boolean`?",
-      //         },
-
-      //         Number: {
-      //             message: "Avoid using the `Number` type. Did you mean `number`?",
-      //         },
-
-      //         String: {
-      //             message: "Avoid using the `String` type. Did you mean `string`?",
-      //         },
-
-      //         Symbol: {
-      //             message: "Avoid using the `Symbol` type. Did you mean `symbol`?",
-      //         },
-      //     },
-      // }],
-
+      '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
       '@typescript-eslint/consistent-type-assertions': 'error',
       '@typescript-eslint/consistent-type-definitions': 'error',
       '@typescript-eslint/consistent-type-exports': 'error',
-
-      '@typescript-eslint/consistent-type-imports': [
-        'error',
-        {
-          disallowTypeAnnotations: false,
-        },
-      ],
-
+      '@typescript-eslint/consistent-type-imports': ['error', { disallowTypeAnnotations: false }],
       '@typescript-eslint/dot-notation': 'error',
-
-      '@typescript-eslint/explicit-member-accessibility': [
-        'error',
-        {
-          accessibility: 'explicit',
-        },
-      ],
-
+      '@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'explicit' }],
       '@typescript-eslint/indent': 'off',
-
       '@typescript-eslint/member-delimiter-style': [
         'off',
         {
@@ -133,7 +81,6 @@ export default [
           },
         },
       ],
-
       '@typescript-eslint/member-ordering': 'error',
       '@typescript-eslint/no-empty-function': 'error',
       '@typescript-eslint/no-empty-interface': 'error',
@@ -150,7 +97,6 @@ export default [
       '@typescript-eslint/prefer-namespace-keyword': 'error',
       '@typescript-eslint/quotes': 'off',
       '@typescript-eslint/semi': ['off', null],
-
       '@typescript-eslint/triple-slash-reference': [
         'error',
         {
@@ -159,13 +105,12 @@ export default [
           lib: 'always',
         },
       ],
-
       '@typescript-eslint/type-annotation-spacing': 'off',
       '@typescript-eslint/unified-signatures': 'error',
       'arrow-body-style': 'error',
       'arrow-parens': ['off', 'always'],
       'brace-style': ['off', 'off'],
-      camelcase: 'error',
+      camelcase: 'off',
       'comma-dangle': 'off',
       complexity: 'off',
       'constructor-super': 'error',
@@ -173,7 +118,6 @@ export default [
       'eol-last': 'off',
       eqeqeq: ['error', 'smart'],
       'guard-for-in': 'error',
-
       'id-blacklist': [
         'error',
         'any',
@@ -186,16 +130,8 @@ export default [
         'Undefined',
         'undefined',
       ],
-
       'id-match': 'error',
-
-      'import/no-extraneous-dependencies': [
-        'error',
-        {
-          devDependencies: false,
-        },
-      ],
-
+      'import/no-extraneous-dependencies': ['error', { devDependencies: false }],
       'import/order': 'error',
       'import/named': 'off',
       'jsdoc/check-alignment': 'error',
@@ -224,24 +160,10 @@ export default [
       'no-new-wrappers': 'error',
       'no-only-tests/no-only-tests': 'error',
       'no-redeclare': 'error',
-
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: ['**/_modules'],
-        },
-      ],
-
+      'no-restricted-imports': ['error', { patterns: ['**/_modules'] }],
       'no-return-await': 'error',
       'no-sequences': 'error',
-
-      'no-shadow': [
-        'off',
-        {
-          hoist: 'all',
-        },
-      ],
-
+      'no-shadow': ['off', { hoist: 'all' }],
       'no-sparse-arrays': 'error',
       'no-template-curly-in-string': 'error',
       'no-throw-literal': 'error',
@@ -260,15 +182,7 @@ export default [
       radix: 'error',
       'space-before-function-paren': 'off',
       'space-in-parens': ['off', 'never'],
-
-      'spaced-comment': [
-        'error',
-        'always',
-        {
-          markers: ['/'],
-        },
-      ],
-
+      'spaced-comment': ['error', 'always', { markers: ['/'] }],
       'use-isnan': 'error',
       'valid-typeof': 'off',
     },

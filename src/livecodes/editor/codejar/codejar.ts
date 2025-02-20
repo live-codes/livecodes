@@ -28,7 +28,7 @@ import { prismThemes } from './prism-themes';
 
 declare const Prism: any;
 Prism.manual = true;
-// eslint-disable-next-line camelcase
+ 
 Prism.plugins.autoloader.languages_path = prismBaseUrl;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
