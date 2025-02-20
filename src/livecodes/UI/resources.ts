@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { Config, CssPresetId, EventsManager, Modal, PkgInfo } from '../models';
 import { resourcesScreen } from '../html';
 import { pkgInfoService } from '../services/pkgInfo';

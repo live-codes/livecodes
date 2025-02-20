@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-unresolved, import/no-internal-modules
+ 
 import { decompress } from './build/compression';
 
 interface ProjectInfo {

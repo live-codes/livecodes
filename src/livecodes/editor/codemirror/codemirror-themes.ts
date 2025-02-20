@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-/* eslint-disable import/no-extraneous-dependencies */
+
 // @ts-ignore
 import { EditorView } from '@codemirror/view';
 // @ts-ignore
@@ -248,7 +248,6 @@ const createTheme = ({
 }) => {
   const theme = EditorView.theme(
     {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       '&': {
         backgroundColor: settings.background,
         color: settings.foreground,

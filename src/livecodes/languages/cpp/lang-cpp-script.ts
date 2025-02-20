@@ -29,7 +29,7 @@ livecodes.cpp = {
             livecodes.cpp.output += s;
           },
         },
-        // eslint-disable-next-line camelcase
+
         unsigned_overflow: 'warn',
       });
       // eslint-disable-next-line no-console

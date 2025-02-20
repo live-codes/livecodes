@@ -1,6 +1,5 @@
 // based on https://github.com/microsoft/TypeScript-Website/blob/v2/packages/sandbox/src/index.ts
 
-/* eslint-disable import/no-internal-modules */
 import type * as Monaco from 'monaco-editor';
 import { extractTwoSlashCompilerOptions, twoslashCompletions } from './twoslashSupport';
 
@@ -94,7 +93,6 @@ export const registerTwoSlash = async ({
           };
         }
 
-        /* eslint-disable-next-line */
         while ((match = queryRegex.exec(text)) !== null) {
           if (cancel.isCancellationRequested || model.isDisposed()) {
             return {

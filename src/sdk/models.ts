@@ -273,7 +273,6 @@ export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) ex
 
 export type Prettify<T> = {
   [K in keyof T]: T[K] extends object ? Prettify<T[K]> : T[K];
-  // eslint-disable-next-line @typescript-eslint/ban-types
 } & {};
 
 export type WatchFn = UnionToIntersection<WatchFns>;

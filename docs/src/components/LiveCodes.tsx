@@ -1,5 +1,4 @@
 import React from 'react';
-/* eslint-disable import/no-internal-modules */
 import type { EmbedOptions } from '../../../src/sdk';
 import LiveCodesReact from '../../../src/sdk/react';
 import { appUrl } from '../utils';

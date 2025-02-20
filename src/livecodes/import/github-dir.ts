@@ -1,6 +1,5 @@
 import { decode } from 'js-base64';
 import type { User } from '../models';
-// eslint-disable-next-line import/no-internal-modules
 import { getGithubHeaders } from '../services/github';
 import { populateConfig } from './utils';
 import { addBaseTag } from './github';

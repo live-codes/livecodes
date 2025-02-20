@@ -1,5 +1,4 @@
 import type { CompilerFunction } from '../../models';
-// eslint-disable-next-line import/no-internal-modules
 import { modulesService } from '../../services/modules';
 import { getLanguageCustomSettings } from '../../utils';
 

@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+ 
 /// <reference path="../node_modules/@cloudflare/workers-types/index.d.ts" />
 
 import { getProjectInfo } from './utils';

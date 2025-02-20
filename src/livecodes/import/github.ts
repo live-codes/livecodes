@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { decode } from 'js-base64';
 import type { Language, Config, User, EditorId } from '../models';
 import { getLanguageByAlias, getLanguageEditorId, getLanguageExtension } from '../languages/utils';

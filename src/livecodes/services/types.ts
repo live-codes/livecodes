@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { isBare } from '../compiler/import-map';
 import type { Types } from '../models';
 import { removeCDNPrefix, removeSpecifier } from './utils';

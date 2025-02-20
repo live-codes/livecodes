@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { LanguageSpecs } from '../../models';
 import { brythonBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils/utils';

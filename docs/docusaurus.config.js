@@ -1,5 +1,4 @@
 // @ts-check
-/* eslint-disable import/no-internal-modules */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');

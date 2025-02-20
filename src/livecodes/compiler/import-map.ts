@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { CompileInfo, Config, Language } from '../models';
 import { modulesService } from '../services/modules';
 import {

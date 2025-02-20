@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { CodeJar, type Position } from 'codejar';
 import 'prismjs';
 import 'prismjs/plugins/autoloader/prism-autoloader';
@@ -29,7 +28,7 @@ import { prismThemes } from './prism-themes';
 
 declare const Prism: any;
 Prism.manual = true;
-// eslint-disable-next-line camelcase
+
 Prism.plugins.autoloader.languages_path = prismBaseUrl;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {

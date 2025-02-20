@@ -1,5 +1,4 @@
 import type { FormatFn, Language } from '../models';
-// eslint-disable-next-line import/no-internal-modules
 import { getAppCDN } from '../services/modules';
 import type { Formatter, FormatterMessage, FormatterMessageEvent } from './models';
 

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { createPlayground, type EmbedOptions } from '../../src/sdk';
 import { createStory } from './create-story';
 

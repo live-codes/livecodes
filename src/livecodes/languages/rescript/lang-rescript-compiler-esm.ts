@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import type { CompilerFunction, Language } from '../../models';
 import { getAbsoluteUrl, loadScript } from '../../utils';
 import {
@@ -9,7 +8,6 @@ import {
   rescriptCdnBaseUrl,
   rescriptStdLibBaseUrl,
 } from '../../vendors';
-// eslint-disable-next-line import/no-internal-modules
 import { importsPattern } from '../../compiler/import-map';
 
 declare const window: Window & {

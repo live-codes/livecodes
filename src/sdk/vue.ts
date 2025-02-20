@@ -1,5 +1,4 @@
 /* eslint-disable no-duplicate-imports */
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable import/no-extraneous-dependencies */
 
 // '@vue/runtime-core' is used for generating type definitions,

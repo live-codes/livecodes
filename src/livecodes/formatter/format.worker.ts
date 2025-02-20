@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-internal-modules
 import { defaultConfig } from '../config/default-config';
 import type { FormatFn, FormatterConfig, Language, Parser } from '../models';
 import { languages, parserPlugins, prettierUrl } from '../languages';

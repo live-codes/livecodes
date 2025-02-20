@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 /* eslint-disable import/no-named-as-default-member */
 import i18next from 'i18next';
 import backend from 'i18next-http-backend';
