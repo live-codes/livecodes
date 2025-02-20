@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { decompressFromEncodedURIComponent } from 'lz-string';
 import type { Config } from '../models';
 

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 /* eslint-disable camelcase */
 import type { ArgTypes, Story } from '@storybook/html';
 import { flatten, unflatten } from 'flat';

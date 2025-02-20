@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { LanguageSpecs } from '../../models';
 import { wasmoonUrl } from '../../vendors';
 import { luaFormatter } from '../lua/lang-lua';

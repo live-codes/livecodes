@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 /* eslint-disable camelcase */
 /* eslint-disable no-bitwise */
 import type { CompilerFunction, Config, Language } from '../../models';

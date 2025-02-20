@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import type { LanguageSpecs } from '../../models';
 import { vendorsBaseUrl, wabtjsUrl } from '../../vendors';
 

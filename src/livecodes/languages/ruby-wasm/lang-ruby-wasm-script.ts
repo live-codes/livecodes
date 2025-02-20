@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { rubyWasmBaseUrl } from '../../vendors';
 
 parent.postMessage({ type: 'loading', payload: true }, '*');

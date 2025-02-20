@@ -1,5 +1,3 @@
-/* eslint-disable import/no-internal-modules */
-// eslint-disable-next-line import/no-unresolved
 import type * as Monaco from 'monaco-editor';
 
 import type {

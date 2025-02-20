@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type TS from 'typescript';
 import type { Compilers, Config, CompileOptions, EditorLibrary, Language } from '../models';
 import { languages, processors } from '../languages';

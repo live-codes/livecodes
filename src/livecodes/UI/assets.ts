@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { DeployResult } from '../deploy';
 import type { Asset, EventsManager, FileType, Modal, Notifications, Screen, User } from '../models';
 import type { GitHubFile } from '../services/github';

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { loadScript, safeName } from '../utils/utils';
 import { qrcodeUrl } from '../vendors';
 

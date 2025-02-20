@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { CompilerFunction, Config } from '../../models';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
 import { createImportMap, replaceSFCImports } from '../../compiler/import-map';

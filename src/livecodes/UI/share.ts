@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { shareScreen } from '../html';
 import type { EventsManager, ShareData } from '../models';
 import { allowedOrigin } from '../services/allowed-origin';

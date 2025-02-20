@@ -1,6 +1,5 @@
 import { getLanguageByAlias } from '../languages';
 import type { Config, Template, TemplateName } from '../models';
-// eslint-disable-next-line import/no-internal-modules
 import { modulesService } from '../services/modules';
 import { getAbsoluteUrl, objectMap } from '../utils';
 

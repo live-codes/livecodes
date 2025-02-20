@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { predefinedValues } from '../utils/utils';
 import type { TagElement } from './models';
 

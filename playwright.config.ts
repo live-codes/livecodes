@@ -1,6 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+ 
 import type { PlaywrightTestConfig } from '@playwright/test';
-// eslint-disable-next-line import/no-internal-modules
 import type { Config } from './src/livecodes/models';
 
 const config: PlaywrightTestConfig<{ editor: Config['editor'] }> = {

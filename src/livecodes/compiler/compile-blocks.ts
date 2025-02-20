@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { Config } from '../models';
 import { getLanguageByAlias } from '../languages';
 import { modulesService } from '../services/modules';

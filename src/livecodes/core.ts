@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { createEditor, createCustomEditors, getFontFamily } from './editor';
 import {
   languages,
@@ -20,7 +19,7 @@ import {
   type Stores,
   type StorageItem,
 } from './storage';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+
 import type {
   API,
   Cache,

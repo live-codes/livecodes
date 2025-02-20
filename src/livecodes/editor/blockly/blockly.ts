@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { getCustomSettings } from '../../languages';
 import type { BlocklyContent, CustomEditorOptions, Theme, Config } from '../../models';
 import { sandboxService } from '../../services';

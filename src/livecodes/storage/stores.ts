@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-internal-modules
 import { cloneObject } from '../utils/utils';
 import { createProjectStorage } from './project-storage';
 import { createSimpleStorage } from './simple-storage';

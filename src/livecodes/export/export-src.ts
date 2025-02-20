@@ -1,6 +1,5 @@
 import type { EditorId, Config } from '../models';
 import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
-// eslint-disable-next-line import/no-internal-modules
 import { downloadFile, loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
 import { getFilesFromConfig } from './utils';

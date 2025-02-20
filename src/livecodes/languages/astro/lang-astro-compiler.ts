@@ -1,6 +1,4 @@
-// eslint-disable-next-line import/no-internal-modules
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
-// eslint-disable-next-line import/no-internal-modules
 import { replaceImports } from '../../compiler/import-map';
 import type { CompilerFunction, Config } from '../../models';
 import { astroBaseUrl, astroWasmURL } from '../../vendors';

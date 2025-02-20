@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { populateConfig as populateConfigFn } from '../import/utils';
 import type {
   Config,

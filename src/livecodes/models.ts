@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-internal-modules
-export * from '../sdk/models';
+export type * from '../sdk/models';
 
 export interface ModalOptions {
   size?: 'large' | 'small' | 'full';

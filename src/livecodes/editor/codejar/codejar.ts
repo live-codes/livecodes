@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { CodeJar, type Position } from 'codejar';
 import 'prismjs';
 import 'prismjs/plugins/autoloader/prism-autoloader';

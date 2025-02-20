@@ -1,6 +1,4 @@
 /* eslint-disable import/no-unresolved */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable import/no-internal-modules */
 
 // these imports are marked as external and are mapped to ./codemirror-core
 // (see html/app.html and scripts/build.js)

@@ -1,5 +1,4 @@
 import type { CompilerFunction } from '../../models';
-// eslint-disable-next-line import/no-internal-modules
 import { getLanguageCustomSettings, safeName } from '../../utils/utils';
 import { pgliteUrl } from '../../vendors';
 

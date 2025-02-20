@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { localforageUrl } from '../vendors';
 import { createPub } from '../events';
 import { loadScript } from '../utils/utils';

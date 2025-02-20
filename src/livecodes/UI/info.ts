@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { infoScreen } from '../html';
 import * as UI from '../UI';
 import { loadStylesheet, removeDuplicates } from '../utils/utils';

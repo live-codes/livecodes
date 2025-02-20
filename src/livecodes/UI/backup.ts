@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { EventsManager, Modal, Notifications } from '../models';
 import type { Stores } from '../storage';
 import { backupScreen } from '../html';

@@ -1,9 +1,7 @@
 import 'i18next';
 
-// eslint-disable-next-line import/no-internal-modules
 import type Translation from './locales/en/translation';
 
-// eslint-disable-next-line import/no-internal-modules
 import type LangInfoTranslation from './locales/en/language-info';
 
 // This file is meant to ensure type-safety for `i18n.t`.

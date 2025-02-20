@@ -1,5 +1,4 @@
 import type { CompilerFunction, LanguageSpecs } from '../../models';
-// eslint-disable-next-line import/no-internal-modules
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { escapeCode, getLanguageCustomSettings } from '../../utils';
 import { vendorsBaseUrl } from '../../vendors';

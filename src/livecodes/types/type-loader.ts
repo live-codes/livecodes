@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { EditorLibrary, Types } from '../models';
 import { getImports, hasUrlImportsOrExports } from '../compiler/import-map';
 import { typesService } from '../services/types';

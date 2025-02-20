@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';

@@ -1,6 +1,5 @@
 import { encode } from 'js-base64';
 import type { User } from '../models';
-// eslint-disable-next-line import/no-internal-modules
 import { safeName } from '../utils/utils';
 
 export interface GitHubFile {
