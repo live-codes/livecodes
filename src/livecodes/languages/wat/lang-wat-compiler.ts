@@ -1,4 +1,3 @@
- 
 import type { CompilerFunction } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 

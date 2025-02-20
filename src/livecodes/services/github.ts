@@ -227,7 +227,6 @@ const createTree = async (
     cache: 'no-store',
     headers: getGithubHeaders(user),
     body: JSON.stringify({
-       
       ...(baseTree ? { base_tree: baseTree } : {}),
       tree,
     }),

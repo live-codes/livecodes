@@ -20,7 +20,6 @@ export const exportCodepen = (
     };
   },
 ) => {
-   
   const form = document.createElement('form') as HTMLFormElement;
   form.action = 'https://codepen.io/pen/define';
   form.method = 'POST';

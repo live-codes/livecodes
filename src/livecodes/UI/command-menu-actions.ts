@@ -1,4 +1,3 @@
- 
 import type { Config, INinjaAction, TemplateName } from '../models';
 import { appLanguages } from '../i18n/app-languages';
 import { languageIsEnabled, languages, processorIsEnabled, processors } from '../languages';
