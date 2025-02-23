@@ -11,7 +11,7 @@ import { markdown } from './markdown';
 import { mdx } from './mdx';
 import { pug } from './pug';
 import { scss, sass } from './scss';
-import { svelte } from './svelte';
+import { svelte, svelteApp } from './svelte';
 import { stylus } from './stylus';
 import { typescript } from './typescript';
 import { vue } from './vue';
@@ -118,6 +118,7 @@ export const languages: LanguageSpecs[] = [
   vue,
   vue2,
   svelte,
+  svelteApp,
   stencil,
   solid,
   solidTsx,
