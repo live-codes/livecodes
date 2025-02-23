@@ -1,8 +1,9 @@
 // @ts-check
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const prismThemes = require('prism-react-renderer').themes;
+const lightCodeTheme = prismThemes.github;
+const darkCodeTheme = prismThemes.dracula;
 
 const appPkg = require('../package.json');
 const sdkPkg = require('../src/sdk/package.sdk.json');
@@ -53,7 +54,7 @@ const config = {
     ({
       colorMode: {
         defaultMode: 'light',
-        disableSwitch: true,
+        disableSwitch: false,
       },
       docs: {
         sidebar: {
@@ -289,6 +290,9 @@ const config = {
       },
     ],
   ],
+  future: {
+    experimental_faster: true,
+  },
 };
 
 const excludeSidebarItems = (items) =>

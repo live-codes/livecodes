@@ -21,42 +21,42 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
   These include:
   [config](../sdk/js-ts.md#config),
   [import](../sdk/js-ts.md#import),
-  [lite](../sdk/js-ts.md#lite),
+  [lite](../configuration/configuration-object.md#mode),
   [loading](../sdk/js-ts.md#loading),
   [template](../sdk/js-ts.md#template),
-  [view](../sdk/js-ts.md#view),
+  [view](../configuration/configuration-object.md#view),
   [title](./configuration-object.md#title),
   [description](./configuration-object.md#description),
-  [activeEditor](./configuration-object.md#activeEditor),
-  [cssPreset](./configuration-object.md#cssPreset),
+  [activeEditor](./configuration-object.md#activeeditor),
+  [cssPreset](./configuration-object.md#csspreset),
   [readonly](./configuration-object.md#readonly),
-  [allowLangChange](./configuration-object.md#allowLangChange),
+  [allowLangChange](./configuration-object.md#allowlangchange),
   [mode](./configuration-object.md#mode),
   [autoupdate](./configuration-object.md#autoupdate),
   [autosave](./configuration-object.md#autosave),
   [delay](./configuration-object.md#delay),
-  [formatOnsave](./configuration-object.md#formatOnsave),
+  [formatOnsave](./configuration-object.md#formatonsave),
   [theme](./configuration-object.md#theme),
   [themeColor](./configuration-object.md#themecolor),
   [appLanguage](./configuration-object.md#applanguage),
-  [recoverUnsaved](./configuration-object.md#recoverUnsaved),
+  [recoverUnsaved](./configuration-object.md#recoverunsaved),
   [welcome](./configuration-object.md#welcome),
-  [showSpacing](./configuration-object.md#showSpacing),
+  [showSpacing](./configuration-object.md#showspacing),
   [layout](./configuration-object.md#layout),
   [editor](./configuration-object.md#editor),
   [editorTheme](./configuration-object.md#editortheme),
-  [fontFamily](./configuration-object.md#fontFamily),
-  [fontSize](./configuration-object.md#fontSize),
-  [useTabs](./configuration-object.md#useTabs),
-  [tabSize](./configuration-object.md#tabSize),
-  [lineNumbers](./configuration-object.md#lineNumbers),
-  [wordWrap](./configuration-object.md#wordWrap),
-  [closeBrackets](./configuration-object.md#closeBrackets),
+  [fontFamily](./configuration-object.md#fontfamily),
+  [fontSize](./configuration-object.md#fontsize),
+  [useTabs](./configuration-object.md#usetabs),
+  [tabSize](./configuration-object.md#tabsize),
+  [lineNumbers](./configuration-object.md#linenumbers),
+  [wordWrap](./configuration-object.md#wordwrap),
+  [closeBrackets](./configuration-object.md#closebrackets),
   [emmet](./configuration-object.md#emmet),
-  [editorMode](./configuration-object.md#editorMode),
+  [editorMode](./configuration-object.md#editormode),
   [semicolons](./configuration-object.md#semicolons),
-  [singleQuote](./configuration-object.md#singleQuote),
-  [trailingComma](./configuration-object.md#trailingComma).
+  [singleQuote](./configuration-object.md#singlequote),
+  [trailingComma](./configuration-object.md#trailingcomma).
 
   Example:
 
@@ -112,21 +112,21 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
     A comma-separated [list of files to import](../features/import.md#file-selection).
 
-  - `raw`: [`Language`](../api/modules/internal.md#language).
+  - `raw`: [`Language`](../api/type-aliases/Language.md).
 
     When used with `import` or `x`, imports the URL as code of the provided language.
 
-  - `language`: [`Language`](../api/modules/internal.md#language).
+  - `language`: [`Language`](../api/type-aliases/Language.md).
 
     The language to load by default in the editor.
 
-  - `lang`: [`Language`](../api/modules/internal.md#language).
+  - `lang`: [`Language`](../api/type-aliases/Language.md).
 
     Alias to `language`.
 
   - `active`: `"markup" | "style" | "script" | 0 | 1 | 2`.
 
-    Alias to [`activeEditor`](./configuration-object.md#activeEditor).
+    Alias to [`activeEditor`](./configuration-object.md#activeeditor).
 
   - `tools`: `"open" | "full" | "closed" | "console" | "compiled" | "tests" | "none"`
 
@@ -148,7 +148,7 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
     If `false`, the [result page](../features/result.md) [scroll position](../features/result.md#scroll-position) will not be maintained after reload.
 
-  - Any [`Language`](../api/modules/internal.md#language) can used as a query parameter, and the value will be used as its code.
+  - Any [`Language`](../api/type-aliases/Language.md) can used as a query parameter, and the value will be used as its code.
 
     Example:
 

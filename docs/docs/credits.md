@@ -4,6 +4,7 @@
 
 LiveCodes uses services that are generously provided by:
 
+<div style={{backgroundColor: "#fff", float: "left", display: "flex", flexWrap: "wrap", justifyContent: "space-evenly"}}>
 <p>
 <a href="https://pages.cloudflare.com/" target="_blank" title="Cloudflare Pages">
   <img alt="Cloudflare Pages" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/cloudflare-pages.svg">
@@ -74,7 +75,8 @@ LiveCodes uses services that are generously provided by:
   <img alt="Lokalise" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/lokalise.png">
 </img></a>
 </p>
-
+</div>
+<div style={{clear: "both"}}></div>
 ## Third Party Packages
 
 Packages used by LiveCodes and their licenses are [listed here](https://github.com/live-codes/livecodes/blob/develop/vendor-licenses.md).

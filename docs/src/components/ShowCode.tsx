@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
- 
-import React, { useState, useRef, useEffect } from 'react';
+
+import { useState, useRef, useEffect, type ReactNode } from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import CodeBlock from '@theme/CodeBlock';
 import Tabs from '@theme/Tabs';
@@ -14,7 +14,7 @@ export default function ShowCode(props: {
   react: string;
   vue: string;
   svelte: string;
-}): JSX.Element {
+}): ReactNode {
   const [jsCode, setJsCode] = useState(props.js);
   const [tsCode, setTsCode] = useState(props.ts);
   const [reactCode, setReactCode] = useState(props.react);

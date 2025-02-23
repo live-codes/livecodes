@@ -1,17 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { type ReactNode, useContext, useEffect } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import Heading from '@theme-original/Heading';
+import type HeadingType from '@theme/Heading';
+import type { WrapperProps } from '@docusaurus/types';
 import { CustomContentContext, loadAds } from '../../custom-content';
 import styles from './styles.module.css';
 
-/**
- * wraps the theme Heading component
- * allows adding custom content below Heading (h1)
- * use this format in markdown to customize:
- * `# Overview {#overview-custom-content-option}`
- * available options: top, none
- */
-export default function HeadingWrapper(props) {
+type Props = WrapperProps<typeof HeadingType>;
+
+export default function HeadingWrapper(props: Props): ReactNode {
   const { docContent, updateContent } = useContext(CustomContentContext);
   const [id, customContentOption] = props.id?.split('-custom-content-') || [''];
 

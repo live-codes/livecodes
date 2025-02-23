@@ -1,7 +1,6 @@
 # Gleam
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
-import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 [Gleam](https://gleam.run) is a friendly language for building type-safe systems that scale!
 

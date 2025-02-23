@@ -42,7 +42,7 @@ React compiler is implemented as a babel plugin ([babel-plugin-react-compiler](h
 
 [Custom settings](../advanced/custom-settings.md) can be used to add configuration under the following keys:
 
-- `react-tsx`: the option `disableAutoRender` can be set to `true` to disable [auto-rendering](#auto-rendering).
+- `react-tsx`: the option `disableAutoRender` can be set to `true` to disable [auto-rendering](./react.md#auto-rendering).
 - `babel`: custom settings for [babel](https://babeljs.io/docs/options).
 - `babel-plugin-react-compiler`: custom settings for [babel-plugin-react-compiler](https://www.npmjs.com/package/babel-plugin-react-compiler).
 - `@babel/preset-env`: custom settings for [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env).

@@ -15,14 +15,14 @@ To start a new release:
 - Once the pull request is merged a GitHub action workflow runs, which will:
   - Build the app.
   - Create and push a release tag:  
-    App -> v{version}  
-    SDK -> sdk-v{version}
+    App -> v\{version\}  
+    SDK -> sdk-v\{version\}
   - Compress the build directory to zip and tar files.
   - Create a release:
     - Use changelog as release notes.
     - Upload compressed files as release artifacts.
   - Create a pull request to `main`.
-  - If App release -> create a permanent URL (v{version}.livecodes.io) which is a proxy to preview deploy.
+  - If App release -> create a permanent URL (v\{version\}.livecodes.io) which is a proxy to preview deploy.
   - If SDK release -> publish to npm.
 
 :::info

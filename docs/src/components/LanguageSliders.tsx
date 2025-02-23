@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-// eslint-disable-next-line import/no-unresolved
+/* eslint-disable import/no-unresolved */
+import { useEffect, useState } from 'react';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import Link from '@docusaurus/Link';
 import styles from './LanguageSliders.module.css';
 
@@ -133,11 +134,14 @@ export default function Sliders() {
     window.open(location.origin + '?' + query + processor, '_blank');
   };
 
-  setInterval(() => {
-    const slide = slides[Math.floor(Math.random() * slides.length)];
-    if (typeof flipper[slide] !== 'function') return;
-    flipper[slide]();
-  }, 2000);
+  if (ExecutionEnvironment.canUseDOM) {
+    // only run this in the browser to allow the build to exit
+    setInterval(() => {
+      const slide = slides[Math.floor(Math.random() * slides.length)];
+      if (typeof flipper[slide] !== 'function') return;
+      flipper[slide]();
+    }, 2000);
+  }
 
   return (
     <div className={styles.sliders}>

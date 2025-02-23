@@ -18,7 +18,7 @@ A direct link for a starter template has the following format:
 
 `?template={template_name}` (e.g. https://livecodes.io/?template=react)
 
-The list of template names are documented [here](../api/modules/internal.md#templatename).
+The list of template names are documented [here](../api/internal/type-aliases/TemplateName.md).
 
 ### Template List
 

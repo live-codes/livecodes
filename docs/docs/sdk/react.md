@@ -33,7 +33,7 @@ const options: Props = {
 export const Playground = () => <LiveCodes {...options} />;
 ```
 
-TypeScript types are [documented here](../api/modules.md).
+TypeScript types are [documented here](../api/globals.md).
 
 ### Props
 

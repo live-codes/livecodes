@@ -1,5 +1,6 @@
 .list {
   align-items: baseline;
+  background-color: var(--ifm-card-background-color);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
