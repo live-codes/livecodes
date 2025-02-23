@@ -274,7 +274,12 @@ export const createResultPage = async ({
 
   const styleExtension = getLanguageExtension(code.style.language);
 
-  const reactExternalImports = jsxRuntime === reactRuntime ? 'react,react-dom' : undefined;
+  const externalModules =
+    jsxRuntime === reactRuntime
+      ? 'react,react-dom'
+      : [config.markup.language, config.script.language].find((lang) => lang.startsWith('vue'))
+        ? 'vue'
+        : undefined;
 
   // import maps
   const userImports =
@@ -282,14 +287,14 @@ export const createResultPage = async ({
       ? {}
       : {
           ...(hasImports(code.script.compiled)
-            ? createImportMap(code.script.compiled, config, { external: reactExternalImports })
+            ? createImportMap(code.script.compiled, config, { external: externalModules })
             : {}),
           ...(hasImports(code.markup.compiled)
-            ? createImportMap(code.markup.compiled, config, { external: reactExternalImports })
+            ? createImportMap(code.markup.compiled, config, { external: externalModules })
             : {}),
           ...(shouldInsertJsxRuntime ? createImportMap(reactImport + jsxRuntime, config) : {}),
           ...(runTests && !forExport && hasImports(compiledTests)
-            ? createImportMap(compiledTests, config, { external: reactExternalImports })
+            ? createImportMap(compiledTests, config, { external: externalModules })
             : {}),
           ...stylesheetImports.reduce(
             (acc, url) => ({
@@ -322,7 +327,7 @@ export const createResultPage = async ({
             [key]: toDataUrl(
               replaceImports(code.script.compiled, config, {
                 importMap: objectFilter(userImports, (_value, key) => key.startsWith('./')),
-                external: reactExternalImports,
+                external: externalModules,
               }),
             ),
           }),
@@ -344,7 +349,7 @@ export const createResultPage = async ({
 
   // avoid duplicate react instances
   const reactImports = (() => {
-    if (!reactExternalImports) return {};
+    if (!externalModules) return {};
     const reactUrl = modulesService.getModuleUrl('react');
     const reactDomUrl = modulesService.getModuleUrl('react-dom');
     return {
