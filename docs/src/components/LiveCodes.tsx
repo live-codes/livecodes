@@ -70,10 +70,9 @@ onMount(() => {
 
 `.trimStart();
 
-  const LC: any = LiveCodesReact;
   return (
     <>
-      <LC
+      <LiveCodesReact
         className={`${styles.container} ${props.className}`}
         style={{
           height: height || '50vh',
@@ -85,7 +84,7 @@ onMount(() => {
           themeColor: 'hsl(180, 60%, 60%)',
           ...(typeof props.config === 'object' ? props.config : {}),
         }}
-      ></LC>
+      />
       {props.showCode !== false && (
         <ShowCode
           js={jsCode}

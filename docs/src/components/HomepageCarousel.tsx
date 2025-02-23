@@ -130,12 +130,11 @@ function CarouselItem({ label, url }) {
 }
 
 export default function HomepageCarousel() {
-  const CarouSel: any = Carousel;
   return (
-    <CarouSel showStatus={false} showThumbs={false} infiniteLoop={true} className={styles.carousel}>
+    <Carousel showStatus={false} showThumbs={false} infiniteLoop={true} className={styles.carousel}>
       {screenshots.map((props, idx) => (
         <CarouselItem key={idx} {...props} />
       ))}
-    </CarouSel>
+    </Carousel>
   );
 }

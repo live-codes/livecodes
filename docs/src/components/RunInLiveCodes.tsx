@@ -15,7 +15,7 @@ export default function RunInLiveCodes(props: {
   linkText?: string;
   style?: Record<string, string>;
   className?: string;
-}): JSX.Element {
+}) {
   const {
     params,
     config,
