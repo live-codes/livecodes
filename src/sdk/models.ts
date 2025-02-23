@@ -943,6 +943,8 @@ export type Language =
   | 'vue'
   | 'vue3'
   | 'vue2'
+  | 'vue-app'
+  | 'app.vue'
   | 'svelte'
   | 'svelte-app'
   | 'app.svelte'
