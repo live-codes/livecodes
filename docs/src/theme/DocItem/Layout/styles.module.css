@@ -8,3 +8,7 @@
     max-width: 75% !important;
   }
 }
+
+.docItemContainer :global .custom-content-toc {
+  display: none;
+}

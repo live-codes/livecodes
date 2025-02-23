@@ -1,0 +1,25 @@
+.content {
+  align-items: center;
+  display: flex;
+  float: right;
+  height: 200px;
+  justify-content: center;
+  margin: 10px 0 20px 20px;
+  width: 300px;
+}
+
+@media (max-width: 576px) {
+  .content {
+    float: none;
+    margin: 10px auto 20px;
+  }
+}
+
+.top {
+  float: none;
+  margin: 10px auto 20px;
+}
+
+.none {
+  display: none !important;
+}

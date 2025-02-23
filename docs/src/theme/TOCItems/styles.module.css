@@ -1,0 +1,41 @@
+.content {
+  align-items: center;
+  color: #3c3c3c54;
+  display: flex;
+  justify-content: center;
+}
+
+:global .sponsors {
+  align-self: start;
+  padding: 1em;
+  text-align: left;
+  width: 100%;
+}
+
+:global .sponsors .sponsors-title {
+  font-weight: bold;
+}
+
+:global .sponsors ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+:global .sponsors a {
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #3c3c3c75;
+  border-radius: 2px;
+  color: #3c3c3c54;
+  display: flex;
+  height: 60px;
+  justify-content: center;
+  margin: 0.5em 0;
+  text-decoration: none;
+}
+
+:global .sponsors img {
+  max-height: 60px;
+  max-width: 100%;
+}
