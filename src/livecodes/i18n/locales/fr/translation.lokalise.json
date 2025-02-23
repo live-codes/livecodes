@@ -1537,7 +1537,7 @@
     "translation": "Dernière modification : {{modified}}"
   },
   "open.noData.desc": {
-    "translation": "Vous pouvez enregistrer un projet depuis le menu&nbsp;Projet&nbsp;&gt;&nbsp;Enregistrer et le raccourci clavier (Ctrl/Cmd&nbsp;+&nbsp;S)."
+    "translation": "Vous pouvez enregistrer un projet depuis le menu&nbsp;Paramètres&nbsp;&gt;&nbsp;Enregistrer et le raccourci clavier (Ctrl/Cmd&nbsp;+&nbsp;S)."
   },
   "open.noData.heading": {
     "translation": "Vous n'avez aucun projet enregistré."

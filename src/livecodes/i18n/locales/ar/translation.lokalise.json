@@ -40,7 +40,7 @@
     "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> هو ملعب برمجي <tag-3>مفتوح المصدر</tag-3>، <tag-4>غني بالميزات</tag-4>، <tag-5>يعمل على جانب العميل</tag-5>. حاليًا، يتم دعم <tag-6>أكثر من 90 لغة/<tag-7></tag-7>إطار عمل</tag-6>. يمكن استخدامه كتطبيق مستقل أو يمكن <tag-8>تضمينه</tag-8> في أي صفحة ويب. هناك العديد من الطرق <tag-9>لملء الملاعب مسبقًا</tag-9> بالكود."
   },
   "about.livecodes.para2": {
-    "translation": "مجموعة واسعة من <tag-1>الإعدادات</tag-1> تجعله مرنًا للغاية. <tag-2>SDK</tag-2> قوي (لـ <tag-3>JS/TS</tag-3>، و<tag-4>React</tag-4>، و<tag-5>Vue</tag-5> و<tag-6>Svelte</tag-6>) يسهل <tag-7>التضمين</tag-7> و<tag-8>التواصل</tag-8> مع الملاعب. تتوفر <tag-9>وثائق شاملة</tag-9> مع نماذج الكود والعروض التوضيحية الحية ولقطات الشاشة."
+    "translation": "تعمل مجموعة أدوات تطوير البرمجيات القوية على تسهيل التكامل والتواصل مع الملاعب. تتوفر وثائق مستفيضة مع أمثلة برمجية وعروض توضيحية مباشرة ولقطات شاشة."
   },
   "about.sdk": {
     "translation": "LiveCodes SDK"
@@ -907,13 +907,13 @@
     "translation": "إغلاق تلقائي للأقواس والعلامات"
   },
   "editorSettings.codeJarDesc": {
-    "translation": "* الميزات المحددة غير متوفرة في CodeJar."
+    "translation": "<tag-1> </tag-1> * الميزات المحددة غير متوفرة في CodeJar."
   },
   "editorSettings.default": {
     "translation": "افتراضي"
   },
   "editorSettings.desc": {
-    "translation": "يرجى مراجعة <tag-1>الوثائق</tag-1> للتفاصيل."
+    "translation": "<tag-1> </tag-1> يرجى مراجعة وثائق <tag-2> </tag-2> للحصول على التفاصيل."
   },
   "editorSettings.editor.codejar": {
     "translation": "CodeJar"

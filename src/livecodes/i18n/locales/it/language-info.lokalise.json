@@ -208,7 +208,7 @@
     "translation": "Qui, viene compilato in JavaScript utilizzando GopherJS."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Sito web di Go</tag-2></tag-1> <tag-3><tag-4>Documentazione di Go</tag-4></tag-3> <tag-5> <tag-6>Repository di GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Impara X in Y minuti, dove X=Go</tag-8> </tag-7> <tag-9><tag-10>Carica modello di partenza</tag-10></tag-9>"
+    "translation": "<tag-1><tag-2>Sito web di Go</tag-2></tag-1> <tag-3><tag-4>Documentazione di Go</tag-4></tag-3> <tag-5> <tag-6>Repo di GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Impara X in Y minuti, dove X=Go</tag-8> </tag-7> <tag-9><tag-10>Carica modello di partenza</tag-10></tag-9>"
   },
   "go.name": {
     "translation": "Go"

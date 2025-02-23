@@ -483,9 +483,9 @@ const translation: I18nTranslation = {
   },
   editorSettings: {
     closeBrackets: 'Fechar automaticamente colchetes e aspas',
-    codeJarDesc: '* Os recursos marcados não estão disponíveis no CodeJar.',
+    codeJarDesc: '<1> </1> * Os recursos marcados não estão disponíveis no CodeJar.',
     default: 'Padrão',
-    desc: 'Por favor, consulte a <1>documentação</1> para detalhes.',
+    desc: '<1></1>Por favor, consulte a <2>documentação</2> para detalhes.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -1097,7 +1097,7 @@ const translation: I18nTranslation = {
     recover: {
       cancel: 'Cancelar',
       heading: 'Recuperar',
-      lastModified: 'Última modificação: <1></1>',
+      lastModified: 'Última modificação:',
       recover: 'Recuperar',
       save: 'Salvar',
       unsavedChanges: 'O último projeto tem alterações não salvas:',

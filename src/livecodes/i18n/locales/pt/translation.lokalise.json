@@ -40,7 +40,7 @@
     "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> é um playground de código <tag-3>de código aberto</tag-3>, <tag-4>rico em recursos</tag-4> e <tag-5>do lado do cliente</tag-5>. Atualmente, <tag-6>mais de 90 linguagens e<tag-7></tag-7>frameworks</tag-6> são suportados. Pode ser usado como um aplicativo independente ou pode ser <tag-8>incorporado</tag-8> em qualquer página web. Existem muitas maneiras de <tag-9>preencher previamente os playgrounds</tag-9> com código."
   },
   "about.livecodes.para2": {
-    "translation": "Uma ampla gama de <tag-1>opções de configuração</tag-1> o torna muito flexível. Um poderoso <tag-2>SDK</tag-2> (para <tag-3>JS/TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> e <tag-6>Svelte</tag-6>) facilita a <tag-7>incorporação</tag-7> e <tag-8>comunicação</tag-8> com os playgrounds. <tag-9>Documentações abrangentes</tag-9> estão disponíveis com exemplos de código, demonstrações ao vivo e capturas de tela."
+    "translation": "Um SDK poderoso facilita a integração e a comunicação com editores de código. Existe uma vasta documentação disponível com exemplos de código, demonstrações ao vivo e capturas de ecrã."
   },
   "about.sdk": {
     "translation": "LiveCodes SDK"
@@ -661,7 +661,7 @@
     "translation": "Alternar o zoom do resultado"
   },
   "commandMenu.starterTemplates": {
-    "translation": "Modelos Iniciantes"
+    "translation": "Modelos Iniciais"
   },
   "commandMenu.sync": {
     "translation": "Sincronização (beta) ..."
@@ -907,13 +907,13 @@
     "translation": "Fechar automaticamente colchetes e aspas"
   },
   "editorSettings.codeJarDesc": {
-    "translation": "* Os recursos marcados não estão disponíveis no CodeJar."
+    "translation": "<tag-1> </tag-1> * Os recursos marcados não estão disponíveis no CodeJar."
   },
   "editorSettings.default": {
     "translation": "Padrão"
   },
   "editorSettings.desc": {
-    "translation": "Por favor, consulte a <tag-1>documentação</tag-1> para detalhes."
+    "translation": "<tag-1></tag-1>Por favor, consulte a <tag-2>documentação</tag-2> para detalhes."
   },
   "editorSettings.editor.codejar": {
     "translation": "CodeJar"
@@ -2059,7 +2059,7 @@
     "translation": "Iniciante Scheme"
   },
   "templates.starter.shadcnui": {
-    "translation": "Iniciante shadcn/ui"
+    "translation": "Modelo inicial shadcn/ui"
   },
   "templates.starter.solid": {
     "translation": "Iniciante Solid"
@@ -2188,7 +2188,7 @@
     "translation": "Recuperar"
   },
   "welcome.recover.lastModified": {
-    "translation": "Última modificação: <tag-1></tag-1>"
+    "translation": "Última modificação:"
   },
   "welcome.recover.recover": {
     "translation": "Recuperar"
