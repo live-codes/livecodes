@@ -41,7 +41,7 @@ Prop types are exported as `Props` from `livecodes/vue`.
 </template>
 ```
 
-TypeScript types are [documented here](../api/modules.md).
+TypeScript types are [documented here](../api/globals.md).
 
 ### Props
 

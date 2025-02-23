@@ -21,7 +21,7 @@ In the full [standalone app](../getting-started.md#standalone-app), the JavaScri
 
 ## TypeScript Types
 
-TypeScript types are [documented here](../api/modules.md) and can be imported from the library.
+TypeScript types are [documented here](../api/globals.md) and can be imported from the library.
 
 ```ts
 import type { EmbedOptions, Playground } from 'livecodes';
@@ -31,7 +31,7 @@ The following 2 functions are exported by the library:
 
 ## `createPlayground`
 
-Type: [`(container: string | Element, options?: EmbedOptions) => Promise<Playground>`](../api/modules.md#createplayground)
+Type: [`(container: string | Element, options?: EmbedOptions) => Promise<Playground>`](../api/functions/createPlayground.md)
 
 The library exports the function `createPlayground` which has 2 parameters:
 
@@ -73,7 +73,7 @@ The `createPlayground` function throws an error (promise is rejected) in any of 
 
 ## `getPlaygroundUrl`
 
-Type: [`(options?: EmbedOptions) => string`](../api/modules.md#getplaygroundurl)
+Type: [`(options?: EmbedOptions) => string`](../api/functions/getPlaygroundUrl.md)
 
 Gets the URL to playground (as a string) from the provided [options](#embed-options). This can be useful for providing links to run code in playgrounds.
 

@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   CustomContentContext,
   defaultDocContent,

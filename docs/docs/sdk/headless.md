@@ -8,7 +8,7 @@ This provides the power of leveraging the wide range of features and language su
 
 ## Usage
 
-To create a headless playground, set the [embed option](./js-ts.md#embed-options) [`view`](../sdk/js-ts.md#view) to `"headless"`.
+To create a headless playground, set the [embed option](./js-ts.md#embed-options) [`headless`](../sdk/js-ts.md#headless) to `true`.
 
 Please note that in headless mode, the first parameter (`container`) of the function [`createPlayground`](../sdk/js-ts.md#createplayground) is optional and can be omitted.
 

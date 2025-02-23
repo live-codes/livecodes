@@ -125,7 +125,7 @@ Default: `{ language: "html", content: "" }`
 An object that configures the language and content of the markup editor. This can include the following properties:
 
 - `language`:  
-  Type: [Language](../api/modules#language)  
+  Type: [Language](../api/type-aliases/Language.md)  
   Default: `"html"` in markup editor, `"css"` in style editor and `"javascript"` in script editor.  
   This can be a language name, extension or alias (as defined in [language documentations](../languages/index.md)).  
   (e.g. `"markdown"`, `"md"`)
@@ -217,7 +217,7 @@ Default: `""`
 
 ### `processors`
 
-Type: [`Processor[]`](../api/modules/internal/#processor)
+Type: [`Processor[]`](../api/internal/type-aliases/Processor.md)
 
 Default: `[]`
 
@@ -292,7 +292,7 @@ When bare module imports are encountered, LiveCodes adds an import map to the re
 
 ### `types`
 
-Type: [`[key: string]: string | { autoload?: boolean ; declareAsModule?: boolean ; url: string }`](../api/interfaces/internal.Types.md)
+Type: `[key: string]: string | { autoload?: boolean ; declareAsModule?: boolean ; url: string }`
 
 Default: `{}`
 
@@ -519,9 +519,9 @@ Sets the code editor themes.
 You can preview and set editor themes in the [editor settings screen](pathname:///../?screen=editor-settings).
 :::
 
-Three [code editors](#editor) are supported in LiveCodes: **Monaco** (the default on desktop), **CodeMirror** (the default on mobile) and **CodeJar** (the default in [codeblocks](../features/display-modes.md#codeblock), in [lite mode](../features/lite.md) and in [readonly](#readonly) playgrounds). Each editor has its own set of themes, represented by the types: [`MonacoTheme`](../api/modules/internal/#monacotheme), [`CodemirrorTheme`](../api/modules/internal/#codemirrortheme) and [`CodejarTheme`](../api/modules/internal/#codejartheme).
+Three [code editors](#editor) are supported in LiveCodes: **Monaco** (the default on desktop), **CodeMirror** (the default on mobile) and **CodeJar** (the default in [codeblocks](../features/display-modes.md#codeblock), in [lite mode](../features/lite.md) and in [readonly](#readonly) playgrounds). Each editor has its own set of themes, represented by the types: [`MonacoTheme`](../api/internal/type-aliases/MonacoTheme.md), [`CodemirrorTheme`](../api/internal/type-aliases/CodemirrorTheme.md) and [`CodejarTheme`](../api/internal/type-aliases/CodejarTheme.md).
 
-The `editorTheme` property can be used to set the editor theme for each editor and on light/dark modes. It can be set to an array of [`EditorTheme`](../api/modules/internal#editortheme) items or a string of comma-separated items.
+The `editorTheme` property can be used to set the editor theme for each editor and on light/dark modes. It can be set to an array of [`EditorTheme`](../api/internal/type-aliases/EditorTheme.md) items or a string of comma-separated items.
 
 Each item can be composed of:
 
@@ -532,9 +532,9 @@ Where:
 - `editor` is the name of the editor (`"monaco" | "codemirror" | "codejar"`). [Optional]
 - `theme-name` is the name of the theme (e.g. `"monokai"`). [Required]  
   Valid theme names can be found here:
-  - Monaco: [`MonacoTheme`](../api/modules/internal/#monacotheme)
-  - CodeMirror: [`CodemirrorTheme`](../api/modules/internal/#codemirrortheme)
-  - CodeJar: [`CodejarTheme`](../api/modules/internal/#codejartheme]).
+  - Monaco: [`MonacoTheme`](../api/internal/type-aliases/MonacoTheme.md)
+  - CodeMirror: [`CodemirrorTheme`](../api/internal/type-aliases/CodemirrorTheme.md)
+  - CodeJar: [`CodejarTheme`](../api/internal/type-aliases/CodejarTheme.md).
 - `app-theme` is the name of the app theme (`"dark" | "light"`). [Optional]
 
 Examples:

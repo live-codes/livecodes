@@ -43,7 +43,7 @@ export interface Props extends EmbedOptions {
  * export const Playground = () => <LiveCodes config={config} />;
  * ```
  */
-export default function LiveCodes(props: Props): JSX.Element {
+export default function LiveCodes(props: Props): React.ReactElement<Props> {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [className, setClassName] = useState(props.className || '');
   const [style, setStyle] = useState(props.style || {});

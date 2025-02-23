@@ -1,12 +1,32 @@
 .form-container {
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--ifm-table-border-color);
   border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    'Noto Sans',
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'Noto Color Emoji';
   margin: 1.5rem;
   padding: 1.5rem;
+}
+
+html[data-theme='dark'] .form-container {
+  box-shadow:
+    0 10px 15px -3px rgba(255, 255, 255, 0.1),
+    0 4px 6px -2px rgba(255, 255, 255, 0.05);
 }
 
 .form-container > div {
@@ -15,7 +35,6 @@
 
 .form-container label,
 .sent {
-  color: #111827;
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
@@ -24,10 +43,10 @@
 }
 
 .form-container input {
-  background-color: #f9fafb;
-  border: solid 1px #d1d5db;
+  background-color: var(--ifm-code-background);
+  border: solid 1px var(--ifm-table-border-color);
   border-radius: 5px;
-  color: #374151;
+  color: var(--ifm-color-emphasis-700);
   display: block;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -37,11 +56,11 @@
 }
 
 .form-container textarea {
-  background-color: #f9fafb;
-  border-color: #d1d5db;
+  background-color: var(--ifm-code-background);
+  border-color: var(--ifm-table-border-color);
   border-radius: 5px;
   border-width: 1px;
-  color: #374151;
+  color: var(--ifm-color-emphasis-700);
   display: block;
   font-size: 0.875rem;
   height: 8rem;

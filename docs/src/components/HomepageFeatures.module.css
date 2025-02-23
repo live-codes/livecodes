@@ -60,6 +60,18 @@
   background-color: var(--ifm-color-secondary-lighter);
 }
 
+html[data-theme='dark'] .rowLight {
+  background-color: var(--ifm-background-color);
+}
+
+html[data-theme='dark'] .rowDark {
+  background-color: var(--ifm-background-surface-color);
+}
+
+html[data-theme='dark'] .features img[src$='.svg'] {
+  filter: invert(0.9);
+}
+
 .carousel {
   max-width: 800px;
 }
