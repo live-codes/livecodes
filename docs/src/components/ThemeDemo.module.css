@@ -1,9 +1,10 @@
 .form {
+  margin-bottom: 3em;
+
   input,
   select {
     margin-left: 1em;
   }
-  margin-bottom: 3em;
 }
 
 .colorValue {
