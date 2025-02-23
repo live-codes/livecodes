@@ -14,7 +14,7 @@ Any project can be exported to:
 - **GitHub gist** (_requires login with [GitHub account](./github-integration.md)_): creates a **public** GitHub gist on the user's GitHub account containing the source code as separate files.
 - **CodePen:** creates a [CodePen](https://codepen.io/) prefilled with the project code. If the used [languages/frameworks](./../languages/index.md) are not supported in CodePen (e.g. Astro, Svelte, Python, ...etc), the compiled code is exported so that it continues to work there. [Bare module imports](./module-resolution.md) are converted to esm imports, for example:
   ```js
-  import React from 'react';
+
   ```
   becomes:
   ```js

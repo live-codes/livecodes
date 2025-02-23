@@ -1,5 +1,4 @@
 /* eslint-disable import/no-unresolved */
-import React from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import CodeBlock from '@theme/CodeBlock';
 import { getPlaygroundUrl, type EmbedOptions } from '../../../src/sdk';

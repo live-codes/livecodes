@@ -1,4 +1,3 @@
-import React from 'react';
 import type { EmbedOptions } from '../../../src/sdk';
 import LiveCodesReact from '../../../src/sdk/react';
 import { appUrl } from '../utils';
@@ -12,7 +11,7 @@ export default function LiveCodes(
     showCode?: boolean;
     height?: string;
   },
-): JSX.Element {
+) {
   const { className, style, showCode, height, ...options } = props;
 
   const stringify = (obj: EmbedOptions) => JSON.stringify(obj, null, 2);
@@ -71,9 +70,10 @@ onMount(() => {
 
 `.trimStart();
 
+  const LC: any = LiveCodesReact;
   return (
     <>
-      <LiveCodesReact
+      <LC
         className={`${styles.container} ${props.className}`}
         style={{
           height: height || '50vh',
@@ -85,7 +85,7 @@ onMount(() => {
           themeColor: 'hsl(180, 60%, 60%)',
           ...(typeof props.config === 'object' ? props.config : {}),
         }}
-      ></LiveCodesReact>
+      ></LC>
       {props.showCode !== false && (
         <ShowCode
           js={jsCode}

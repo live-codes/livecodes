@@ -37,6 +37,7 @@ export const createShareContainer = async (
     items!.style.visibility = 'hidden';
     qrcodeContainer.style.display = 'flex';
     // TODO: fix qrcodeImg is not assigned
+    qrcodeImg = '';
     if (qrcodeImg) {
       shareExpiry?.classList.add('short-url');
       if (input && shareDataShort) {

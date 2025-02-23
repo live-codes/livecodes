@@ -88,7 +88,7 @@ LiveCodes makes it easy to [get started](../getting-started.md). It is highly [c
 
 ## Comprehensive Documentations
 
-Rich documentations with screenshots, code samples and live demos are available. They cover the app [features](../features/index.md), [configuration](../configuration/index.md), [supported languages](../languages/index.md) and [SDK](../sdk/index.md) (including [TypeScript Types](../api/modules.md)). A gallery of usage examples is provided as a [storybook](pathname:///../stories).
+Rich documentations with screenshots, code samples and live demos are available. They cover the app [features](../features/index.md), [configuration](../configuration/index.md), [supported languages](../languages/index.md) and [SDK](../sdk/index.md) (including [TypeScript Types](../api/globals.md)). A gallery of usage examples is provided as a [storybook](pathname:///../stories).
 
 ## Focused on Privacy
 

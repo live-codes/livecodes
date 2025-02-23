@@ -1,4 +1,3 @@
-import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import styles from './HomepageCarousel.module.css';
 
@@ -121,7 +120,7 @@ const screenshots = [
   },
 ];
 
-function CarouselItem({ label, url }): JSX.Element {
+function CarouselItem({ label, url }) {
   return (
     <div>
       <img src={url} alt={label} />
@@ -130,12 +129,13 @@ function CarouselItem({ label, url }): JSX.Element {
   );
 }
 
-export default function HomepageCarousel(): JSX.Element {
+export default function HomepageCarousel() {
+  const CarouSel: any = Carousel;
   return (
-    <Carousel showStatus={false} showThumbs={false} infiniteLoop={true} className={styles.carousel}>
+    <CarouSel showStatus={false} showThumbs={false} infiniteLoop={true} className={styles.carousel}>
       {screenshots.map((props, idx) => (
         <CarouselItem key={idx} {...props} />
       ))}
-    </Carousel>
+    </CarouSel>
   );
 }

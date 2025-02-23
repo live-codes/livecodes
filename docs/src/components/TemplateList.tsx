@@ -1,4 +1,3 @@
-import React from 'react';
 import { appUrl } from '../utils';
 import styles from './TemplateList.module.css';
 
