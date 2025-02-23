@@ -6,8 +6,16 @@ export const vueSfcStarter: Template = {
   thumbnail: 'assets/templates/vue.svg',
   activeEditor: 'script',
   markup: {
-    language: 'html',
-    content: '',
+    language: 'vue',
+    content: `
+<script setup lang="tsx">
+import Counter from './Component.vue';
+</script>
+
+<template>
+  <Counter name="Vue" />
+</template>
+`.trimStart(),
   },
   style: {
     language: 'css',
@@ -19,19 +27,21 @@ export const vueSfcStarter: Template = {
 <script setup lang="tsx">
   import { ref } from 'vue';
 
-  const name = 'Vue';
+  const props = defineProps({
+    name: String
+  })
   const count = ref(0);
   const align = 'center';
 
   // define inline component
   function Greeting(props: {name: string}) {
-    return <h1>Hello, { props.name }!</h1>
+    return <h1>Hello, { props.name || 'World' }!</h1>
   }
 </script>
 
 <template>
   <div class="container">
-    <Greeting :name="name" />
+    <Greeting :name="props.name" />
     <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/vue.svg" />
     <p>You clicked {{ count }} times.</p>
     <button @click="count++">Click me</button>
