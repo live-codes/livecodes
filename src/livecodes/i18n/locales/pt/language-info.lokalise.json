@@ -121,7 +121,7 @@
     "translation": "C++"
   },
   "cppWasm.desc": {
-    "translation": "Compilador Clang C/C++ rodando em WebAssembly, usando <tag-1>wasm-clang</tag-1> adaptado por <tag-2>polylang.io</tag-2>."
+    "translation": "Compilador Clang C/C++ executado em WebAssembly, usando <tag-1>wasm-clang</tag-1> adaptado por <tag-2>polylang.io</tag-2>."
   },
   "cppWasm.link": {
     "translation": "<tag-1> <tag-2>Fundação C++ Padrão</tag-2> </tag-1> <tag-3> <tag-4>Site oficial do Clang</tag-4> </tag-3> <tag-5> <tag-6>Aprenda X em Y minutos, onde X=C++</tag-6> </tag-5> <tag-7> <tag-8>Carregar modelo inicial</tag-8> </tag-7>"
@@ -250,7 +250,7 @@
     "translation": "JSX"
   },
   "julia.desc1": {
-    "translation": "(O suporte à linguagem Julia no LiveCodes ainda é experimental)"
+    "translation": "(O suporte da linguagem Julia no LiveCodes ainda é experimental)"
   },
   "julia.desc2": {
     "translation": "Compilador Julia e Julia Base rodando em WASM, usando <tag-1>julia-wasm</tag-1> adaptado por <tag-2>polylang.io</tag-2>."
@@ -352,7 +352,7 @@
     "translation": "Mustache"
   },
   "nunjucks.desc": {
-    "translation": "Uma linguagem de modelagem rica e poderosa para JavaScript. Nunjucks é essencialmente uma adaptação do <tag-1>jinja2</tag-1>."
+    "translation": "Uma linguagem de modelação rica e poderosa para JavaScript. Nunjucks é essencialmente uma adaptação do <tag-1>jinja2</tag-1>."
   },
   "nunjucks.link": {
     "translation": "<tag-1> <tag-2>Site oficial</tag-2> </tag-1> <tag-3> <tag-4>Documentação do LiveCodes</tag-4> </tag-3>"
@@ -685,7 +685,7 @@
     "translation": "TSX"
   },
   "twig.desc": {
-    "translation": "Uma implementação JavaScript da linguagem de template PHP <tag-1>Twig</tag-1> por <tag-2>Twig.js</tag-2>."
+    "translation": "Uma implementação JavaScript de <tag-1>Twig</tag-1> a linguagem de template PHP  por <tag-2>Twig.js</tag-2>."
   },
   "twig.link": {
     "translation": "<tag-1> <tag-2>Site oficial do Twig</tag-2> </tag-1> <tag-3> <tag-4>Documentação do Twig</tag-4> </tag-3> <tag-5> <tag-6>Repositório do Twig.js</tag-6> </tag-5> <tag-7> <tag-8>Documentação do Twig.js</tag-8> </tag-7> <tag-9> <tag-10>Documentação do LiveCodes</tag-10> </tag-9>"

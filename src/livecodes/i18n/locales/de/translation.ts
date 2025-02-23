@@ -29,7 +29,7 @@ const translation: I18nTranslation = {
       para1:
         '<1><2>LiveCodes</2></1> ist ein <3>Open-Source</3>, <4>funktionsreiches</4>, <5>clientseitiger</5> Code-Spielplatz. Derzeit werden <6>über 90 Sprachen/<7></7>Frameworks</6> unterstützt. Es kann als eigenständige App verwendet oder in jede Webseite <8>eingebettet</8> werden. Es gibt viele Möglichkeiten, Spielplätze mit Code <9>vorzufüllen</9>.',
       para2:
-        'Eine breite Palette von <1>Konfigurationsoptionen</1> macht es sehr flexibel. Ein leistungsstarkes <2>SDK</2> (für <3>JS/TS</3>, <4>React</4>, <5>Vue</5> und <6>Svelte</6>) erleichtert das <7>Einbetten</7> und die <8>Kommunikation</8> mit Spielplätzen. <9>umfassende Dokumentationen</9> sind mit Codebeispielen, Live-Demos und Screenshots verfügbar.',
+        'Ein leistungsfähiges SDK erleichtert die Integration und Kommunikation mit Playgrounds. Eine ausführliche Dokumentation mit Codebeispielen, Live-Demos und Screenshots ist verfügbar.',
     },
     sdk: 'LiveCodes SDK',
     sponsor: {
@@ -483,9 +483,9 @@ const translation: I18nTranslation = {
   },
   editorSettings: {
     closeBrackets: 'Klammern und Anführungszeichen automatisch schließen',
-    codeJarDesc: '* Die markierten Funktionen sind in CodeJar nicht verfügbar.',
+    codeJarDesc: '<1></1> * Die markierten Funktionen sind in CodeJar nicht verfügbar.',
     default: 'Standard',
-    desc: 'Bitte lesen Sie die <1>Dokumentation</1> für Details.',
+    desc: '<1></1>Bitte lesen Sie die <2>Dokumentation</2> für Details.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -1098,7 +1098,7 @@ const translation: I18nTranslation = {
     recover: {
       cancel: 'Abbrechen',
       heading: 'Wiederherstellen',
-      lastModified: 'Zuletzt geändert: <1></1>',
+      lastModified: 'Zuletzt geändert:',
       recover: 'Wiederherstellen',
       save: 'Speichern',
       unsavedChanges: 'Ihr letztes Projekt hatte ungespeicherte Änderungen:',

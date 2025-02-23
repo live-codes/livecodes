@@ -40,7 +40,7 @@
     "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> es un área de juego de código <tag-3>de código abierto</tag-3>, <tag-4>rico en características</tag-4> y <tag-5>del lado del cliente</tag-5>. Actualmente, se admiten <tag-6>más de 90 lenguajes/<tag-7></tag-7>frameworks</tag-6>. Se puede usar como una aplicación independiente o se puede <tag-8>incrustar</tag-8> en cualquier página web. Hay muchas formas de <tag-9>precargar los campos de juego</tag-9> con código."
   },
   "about.livecodes.para2": {
-    "translation": "Una amplia gama de <tag-1>opciones de configuración</tag-1> lo hace muy flexible. Un potente <tag-2>SDK</tag-2> (para <tag-3>JS/TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> y <tag-6>Svelte</tag-6>) facilita la <tag-7>incrustación</tag-7> y la <tag-8>comunicación</tag-8> con los campos de juego. Hay disponible una <tag-9>documentación completa</tag-9> con ejemplos de código, demostraciones en vivo y capturas de pantalla."
+    "translation": "Un potente SDK facilita la integración y la comunicación con editores de código. Hay disponible una amplia documentación con ejemplos de código, demostraciones en vivo y capturas de pantalla."
   },
   "about.sdk": {
     "translation": "LiveCodes SDK"
@@ -907,13 +907,13 @@
     "translation": "Cerrar automáticamente paréntesis y comillas"
   },
   "editorSettings.codeJarDesc": {
-    "translation": "* Las características marcadas no están disponibles en CodeJar."
+    "translation": "<tag-1> </tag-1> * Las características marcadas no están disponibles en CodeJar."
   },
   "editorSettings.default": {
     "translation": "Predeterminado"
   },
   "editorSettings.desc": {
-    "translation": "Por favor, consulta la <tag-1>documentación</tag-1> para más detalles."
+    "translation": "<tag-1></tag-1>Por favor, consulta la <tag-2>documentación</tag-2> para más detalles."
   },
   "editorSettings.editor.codejar": {
     "translation": "CodeJar"
@@ -1324,7 +1324,7 @@
     "translation": "Repositorios"
   },
   "menu.about": {
-    "translation": "Acerca de"
+    "translation": "Acerca ..."
   },
   "menu.appHelp.heading": {
     "translation": "Ayuda"
@@ -2188,7 +2188,7 @@
     "translation": "Recuperar"
   },
   "welcome.recover.lastModified": {
-    "translation": "Última modificación: <tag-1></tag-1>"
+    "translation": "Última modificación:"
   },
   "welcome.recover.recover": {
     "translation": "Recuperar"
