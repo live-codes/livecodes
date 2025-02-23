@@ -108,4 +108,4 @@ If you are interested in becoming a sponsor of LiveCodes, please don't hesitate 
 
 ## LiveCodes Sponsors
 
-<div style={{display: "flex", alignItems: "center", justifyContent: "center", height:" 60px", width: "300px", border: "1px solid #3c3c3c75", borderRadius: "3px", backgroundColor: "#f9f9f9", margin: "0.5em", marginBottom: "1.5em", color: "#3c3c3c54"}}>Your logo here</div>
+<div style={{display: "flex", alignItems: "center", justifyContent: "center", height:" 60px", width: "300px", border: "1px solid var(--ifm-table-border-color)", borderRadius: "3px", backgroundColor: "var(--ifm-color-emphasis-100)", margin: "0.5em", marginBottom: "1.5em", color: "var(--ifm-color-content-secondary)"}}>Your logo here</div>

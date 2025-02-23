@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+html[data-theme='light'] .heroBanner {
+  background-color: var(--ifm-color-secondary);
+}
+
 .eaHomepage {
   margin: 2.5em auto 0;
   min-height: 90px;

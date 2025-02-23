@@ -1,5 +1,7 @@
 # Themes
 
+import ThemeDemo from '../../src/components/ThemeDemo.tsx'
+
 LiveCodes comes with dark and light themes. In addition, a theme color can be set to change the app color.
 
 ## Theme
@@ -42,6 +44,10 @@ Similarly, a theme color can be set in:
 ![LiveCodes custom theme color](../../static/img/screenshots/themes-4.jpg)
 
 <div className="caption">Custom theme color</div>
+
+## Demo
+
+<ThemeDemo></ThemeDemo>
 
 :::info Note
 Please note that editor themes can be set in the [editor settings](./editor-settings.md) or using the [`editorTheme`](../configuration/configuration-object.md#editortheme) configuration option.

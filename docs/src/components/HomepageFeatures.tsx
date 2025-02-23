@@ -307,7 +307,7 @@ export default function HomepageFeatures(): ReactNode {
           </div>
         </div>
       </section>
-      <section className={styles.rowDark}>
+      <section className={clsx(styles.features, styles.rowDark)}>
         <div className="container padding-vert--lg">
           <div className="text--center padding-horiz--md">
             <h2 className={styles.padding}>Code Playground That Just Works!</h2>
@@ -420,7 +420,7 @@ export default function HomepageFeatures(): ReactNode {
           </div>
         </div>
       </section>
-      <section className={styles.rowLight}>
+      <section className={clsx(styles.features, styles.rowLight)}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList1.map((props, idx) => (
@@ -429,7 +429,7 @@ export default function HomepageFeatures(): ReactNode {
           </div>
         </div>
       </section>
-      <section className={styles.rowDark}>
+      <section className={clsx(styles.features, styles.rowDark)}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList2.map((props, idx) => (
@@ -438,7 +438,7 @@ export default function HomepageFeatures(): ReactNode {
           </div>
         </div>
       </section>
-      <section className={styles.rowLight}>
+      <section className={clsx(styles.features, styles.rowLight)}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList3.map((props, idx) => (
@@ -447,7 +447,7 @@ export default function HomepageFeatures(): ReactNode {
           </div>
         </div>
       </section>
-      <section className={styles.rowDark}>
+      <section className={clsx(styles.features, styles.rowDark)}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList4.map((props, idx) => (
