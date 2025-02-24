@@ -8,9 +8,9 @@ Gleam is a statically-typed functional programming language, which compiles to E
 
 ## Usage
 
-LiveCodes compiles Gleam code to JavaScript using the WebAssembly (wasm) version of the [official Gleam compiler](https://github.com/gleam-lang/gleam). The compiled JavaScript code is then executed in the context of the [result page](../features/result.md).
+LiveCodes compiles Gleam code to JavaScript using the WebAssembly (wasm) version of the [official Gleam compiler](https://github.com/gleam-lang/gleam). The compiled JavaScript code is then executed in the context of the [result page](../features/result.mdx).
 
-The compiled JavaScript code can be inspected in the [Compiled Code Viewer](../features/compiled-code.md) in the [Tools Pane](../features/tools-pane.md) (below the result page). Console output is shown in the [integrated console](../features/console.md).
+The compiled JavaScript code can be inspected in the [Compiled Code Viewer](../features/compiled-code.mdx) in the [Tools Pane](../features/tools-pane.mdx) (below the result page). Console output is shown in the [integrated console](../features/console.mdx).
 
 Please note that the compiler messages (e.g. errors and warnings) are shown in the browser console (not the integrated console).
 
@@ -29,13 +29,13 @@ Please note that the compiler messages (e.g. errors and warnings) are shown in t
 Demo:
 
 export const stdlibConfig = {
-activeEditor: 'script',
-script: {
-language: 'gleam',
-content: `import gleam/io\nimport gleam/string\n\npub fn main() {\n  "hello world!"\n  |> string.uppercase\n  |> io.println\n}`
-},
-tools: { status: 'open'},
-}
+  activeEditor: 'script',
+  script: {
+    language: 'gleam',
+    content: `import gleam/io\nimport gleam/string\n\npub fn main() {\n  "hello world!"\n  |> string.uppercase\n  |> io.println\n}`,
+  },
+  tools: { status: 'open' },
+};
 
 <LiveCodes config={stdlibConfig}></LiveCodes>
 
@@ -43,17 +43,17 @@ tools: { status: 'open'},
 
 Custom modules can be used in Gleam code. These modules have to be precompiled (to JavaScript) by the Gleam compiler. URLs to the compiled JavaScript code and either the Gleam source code or URLs to the Gleam source code are needed to be able to import custom modules.
 
-This is an example for a repo with precompiled Gleam modules:  
+This is an example for a repo with precompiled Gleam modules:
 https://github.com/live-codes/gleam-precompiled
 
 Please refer to [Gleam CLI docs](https://gleam.run/writing-gleam/command-line-reference/) for details about adding and building packages.
 
 Note that the built code was committed to the repo by clearing out `.gitignore` file.
 
-The built code can then by accessed from a [CDN that mirrors GitHub](https://www.jsdelivr.com/?docs=gh), like this:  
+The built code can then by accessed from a [CDN that mirrors GitHub](https://www.jsdelivr.com/?docs=gh), like this:
 `https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@main/...`
 
-Built modules can then be declared in [custom settings](../advanced/custom-settings.md) (Project menu → Custom Settings), under the `gleam` property, by adding a `modules` property.
+Built modules can then be declared in [custom settings](../advanced/custom-settings.mdx) (Project menu → Custom Settings), under the `gleam` property, by adding a `modules` property.
 
 The `modules` property is an object that has the module name as the key. The value is an object with the following properties:
 
@@ -78,8 +78,8 @@ Example:
 
 See the [demo below](#example-usage) ([open in LiveCodes](https://livecodes.io/?template=gleam)).
 
-If `compiledUrl` property is not specified, the JavaScript module is imported from this URL pattern: `{module_name}.mjs` (example: `plinth/browser/document.mjs`).  
-This can then be [mapped (using import maps)](../features/module-resolution.md#custom-module-resolution) in [custom settings](../advanced/custom-settings.md) (Project menu → Custom Settings) to the full URL of the compiled JavaScript code.
+If `compiledUrl` property is not specified, the JavaScript module is imported from this URL pattern: `{module_name}.mjs` (example: `plinth/browser/document.mjs`).
+This can then be [mapped (using import maps)](../features/module-resolution.mdx#custom-module-resolution) in [custom settings](../advanced/custom-settings.mdx) (Project menu → Custom Settings) to the full URL of the compiled JavaScript code.
 
 Example:
 
@@ -106,11 +106,11 @@ Example:
 
 ### Externals
 
-[External functions](https://tour.gleam.run/advanced-features/externals/) written in JavaScript can also be used. An external function has the `@external` attribute on it. It needs to specify a "relative" URL specifying the location of the external code. This URL is [mapped (using import maps)](../features/module-resolution.md#custom-module-resolution) in [custom settings](../advanced/custom-settings.md) (Project menu → Custom Settings) to the full URL of the script that contains the code.
+[External functions](https://tour.gleam.run/advanced-features/externals/) written in JavaScript can also be used. An external function has the `@external` attribute on it. It needs to specify a "relative" URL specifying the location of the external code. This URL is [mapped (using import maps)](../features/module-resolution.mdx#custom-module-resolution) in [custom settings](../advanced/custom-settings.mdx) (Project menu → Custom Settings) to the full URL of the script that contains the code.
 
 **Example:**
 
-The following script is hosted on this URL:  
+The following script is hosted on this URL:
 https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.3.0/demo/greet.js
 
 ```js title="greet.js"
@@ -145,26 +145,28 @@ pub fn main() {
 Demo:
 
 export const externalsConfig = {
-activeEditor: 'script',
-script: {
-language: 'gleam',
-content: 'import gleam/io\n\n@external(javascript, "my_pkg/greet.js", "hello")\npub fn hello(str: String) -> String\n\npub fn main() {\n io.println(hello("from JavaScript"))\n}'
-},
-tools: { status: 'open'},
-customSettings: {
-"imports": {
-"my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.3.0/demo/greet.js"
-}
-}
-}
+  activeEditor: 'script',
+  script: {
+    language: 'gleam',
+    content:
+      'import gleam/io\n\n@external(javascript, "my_pkg/greet.js", "hello")\npub fn hello(str: String) -> String\n\npub fn main() {\n io.println(hello("from JavaScript"))\n}',
+  },
+  tools: { status: 'open' },
+  customSettings: {
+    imports: {
+      'my_pkg/greet.js':
+        'https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.3.0/demo/greet.js',
+    },
+  },
+};
 
 <LiveCodes config={externalsConfig}></LiveCodes>
 
 :::tip
 
-[Data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs) can be used to avoid having to host the external code online. LiveCodes enables [creating data URLs](../features/data-urls.md) easily.
+[Data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs) can be used to avoid having to host the external code online. LiveCodes enables [creating data URLs](../features/data-urls.mdx) easily.
 
-Example:  
+Example:
 The import map in the previous example can be rewritten like this:
 
 ```json title="Custom Settings"
@@ -181,7 +183,7 @@ The import map in the previous example can be rewritten like this:
 
 Modules published to [npm](https://www.npmjs.com/), [deno.land/x](https://deno.land/x) and [jsr.io](https://jsr.io/) can be imported as external functions. There is no need to specify import maps. The package/module name is prefixed with a modifier to specify the source (e.g. `npm:uuid` to import the [`uuid`](https://www.npmjs.com/package/uuid) npm module).
 
-See list of supported CDNs and the respective modifiers in the section about [module resolution](../features/module-resolution.md#cdn-providers).
+See list of supported CDNs and the respective modifiers in the section about [module resolution](../features/module-resolution.mdx#cdn-providers).
 
 Example:
 
@@ -205,13 +207,14 @@ pub fn main() {
 Demo:
 
 export const npmConfig = {
-activeEditor: 'script',
-script: {
-language: 'gleam',
-content: 'import gleam/io\n\n// npm module (https://www.npmjs.com/package/uuid)\n@external(javascript, "npm:uuid", "v4")\npub fn uuid() -> String\n\n// jsr module (https://jsr.io/@kwhinnery/yassify)\n@external(javascript, "jsr:@kwhinnery/yassify", "yassify")\npub fn yassify(str: String) -> String\n\npub fn main() {\n io.println(uuid())\n io.println(yassify("Hello, World!"))\n}\n'
-},
-tools: { status: 'open'},
-}
+  activeEditor: 'script',
+  script: {
+    language: 'gleam',
+    content:
+      'import gleam/io\n\n// npm module (https://www.npmjs.com/package/uuid)\n@external(javascript, "npm:uuid", "v4")\npub fn uuid() -> String\n\n// jsr module (https://jsr.io/@kwhinnery/yassify)\n@external(javascript, "jsr:@kwhinnery/yassify", "yassify")\npub fn yassify(str: String) -> String\n\npub fn main() {\n io.println(uuid())\n io.println(yassify("Hello, World!"))\n}\n',
+  },
+  tools: { status: 'open' },
+};
 
 <LiveCodes config={npmConfig}></LiveCodes>
 

@@ -2,7 +2,7 @@
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-The [configuration](../configuration/configuration-object.md) option [`mode`](../configuration/configuration-object.md#mode), also available as [query param](../configuration/query-params.md), can be used to select different display modes.
+The [configuration](../configuration/configuration-object.mdx) option [`mode`](../configuration/configuration-object.mdx#mode), also available as [query param](../configuration/query-params.mdx), can be used to select different display modes.
 The following display modes are supported:
 
 ## `full`
@@ -31,45 +31,47 @@ Screenshot: (focus mode)
 
 ## `simple`
 
-This mode is mainly useful for embedded playgrounds.  
-It shows only 1 editor with the output (result page +/- console). The content of other editors can be set using [SDK](../sdk/index.md) [config](../configuration/configuration-object.md) even though the editors are not shown.  
-By default, `codemirror` editor is used, however, this can be changed by the [`editor`](../configuration/configuration-object.md#editor) option.  
-By default, the layout is `responsive` but can also be overridden by the [`layout`](../configuration/configuration-object.md#layout) option to `vertical` or `horizontal`.
+This mode is mainly useful for embedded playgrounds.
+It shows only 1 editor with the output (result page +/- console). The content of other editors can be set using [SDK](../sdk/index.mdx) [config](../configuration/configuration-object.mdx) even though the editors are not shown.
+By default, `codemirror` editor is used, however, this can be changed by the [`editor`](../configuration/configuration-object.mdx#editor) option.
+By default, the layout is `responsive` but can also be overridden by the [`layout`](../configuration/configuration-object.mdx#layout) option to `vertical` or `horizontal`.
 
 Demo: JS with console
 
-<LiveCodes params={{mode:'simple', js: 'console.log("hello world")', layout: 'vertical', console: 'full'}}></LiveCodes>
+<LiveCodes
+  params={{ mode: 'simple', js: 'console.log("hello world")', layout: 'vertical', console: 'full' }}
+></LiveCodes>
 
 Demo: JSX & Result page (Monaco editor, add CSS)
 
 export const simpleConfig = {
-mode: "simple",
-layout: "vertical",
-activeEditor: "script",
-editor: "monaco",
-tools: { status: "none" },
-script: {
-language: "jsx",
-content: `import { atom, useAtom } from 'jotai';\n\nconst countAtom = atom(0);\n\nconst Counter = () => {\n  const [count, setCount] = useAtom(countAtom);\n  const inc = () => setCount((c) => c + 1);\n  return (\n    <>\n      {count} <button onClick={inc}>+1</button>\n    </>\n  );\n};\n\nconst App = () => (\n  <div className="App">\n    <h1>Hello Jotai</h1>\n    <h2>Enjoy coding!</h2>\n    <Counter />\n  </div>\n);\n\nexport default App;\n`,
-},
-style: {
-language: "css",
-content: '.App {\n font-family: sans-serif;\n text-align: center;\n}\n'.trimStart(),
-},
-}
+  mode: 'simple',
+  layout: 'vertical',
+  activeEditor: 'script',
+  editor: 'monaco',
+  tools: { status: 'none' },
+  script: {
+    language: 'jsx',
+    content: `import { atom, useAtom } from 'jotai';\n\nconst countAtom = atom(0);\n\nconst Counter = () => {\n  const [count, setCount] = useAtom(countAtom);\n  const inc = () => setCount((c) => c + 1);\n  return (\n    <>\n      {count} <button onClick={inc}>+1</button>\n    </>\n  );\n};\n\nconst App = () => (\n  <div className="App">\n    <h1>Hello Jotai</h1>\n    <h2>Enjoy coding!</h2>\n    <Counter />\n  </div>\n);\n\nexport default App;\n`,
+  },
+  style: {
+    language: 'css',
+    content: '.App {\n font-family: sans-serif;\n text-align: center;\n}\n'.trimStart(),
+  },
+};
 
 <LiveCodes config={simpleConfig} height="400px"></LiveCodes>
 
 ## `lite`
 
-Loads a light-weight, minimal code editor, with limited playground features.  
-See the section about [lite mode](./lite.md) for details
+Loads a light-weight, minimal code editor, with limited playground features.
+See the section about [lite mode](./lite.mdx) for details
 
 Example: https://livecodes.io/?mode=lite&template=react
 
 Demo:
 
-<LiveCodes config={{mode:'lite'}} template="react"></LiveCodes>
+<LiveCodes config={{ mode: 'lite' }} template="react"></LiveCodes>
 
 ## `editor`
 
@@ -79,7 +81,7 @@ Example: https://livecodes.io/?mode=editor&template=react
 
 Demo:
 
-<LiveCodes config={{mode:'editor'}} template="react"></LiveCodes>
+<LiveCodes config={{ mode: 'editor' }} template="react"></LiveCodes>
 
 ## `codeblock`
 
@@ -89,15 +91,15 @@ Example: https://livecodes.io/?mode=codeblock&template=react
 
 Demo:
 
-<LiveCodes config={{mode:'codeblock'}} template="react"></LiveCodes>
+<LiveCodes config={{ mode: 'codeblock' }} template="react"></LiveCodes>
 
-By default, in `codeblock` mode, the light-weight `CodeJar` editor is used (in read-only mode). You can override this by setting the `editor` option. Refer to [Editor Settings](./editor-settings.md#code-editor) for details.
+By default, in `codeblock` mode, the light-weight `CodeJar` editor is used (in read-only mode). You can override this by setting the `editor` option. Refer to [Editor Settings](./editor-settings.mdx#code-editor) for details.
 
 Example: https://livecodes.io/?mode=codeblock&editor=monaco&template=react
 
 Demo:
 
-<LiveCodes config={{mode:'codeblock', editor:'monaco'}} template="react"></LiveCodes>
+<LiveCodes config={{ mode: 'codeblock', editor: 'monaco' }} template="react"></LiveCodes>
 
 ## `result`
 
@@ -107,21 +109,23 @@ Example: https://livecodes.io/?mode=result&template=react
 
 Demo:
 
-<LiveCodes params={{mode: 'result', template: 'react'}}></LiveCodes>
+<LiveCodes params={{ mode: 'result', template: 'react' }}></LiveCodes>
 
-The tools pane (e.g. console/compiled code viewer) is hidden by default in `result` mode. It can be shown if set to `open` or `full`. Refer to [Tools pane](./tools-pane.md) documentation for details.
+The tools pane (e.g. console/compiled code viewer) is hidden by default in `result` mode. It can be shown if set to `open` or `full`. Refer to [Tools pane](./tools-pane.mdx) documentation for details.
 
 Example: https://livecodes.io/?mode=result&tools=console|full&&js=console.log("Hello%20World!")
 
 Demo:
 
-<LiveCodes params={{mode: 'result', tools: 'console|full', js: 'console.log("Hello World!")'}}></LiveCodes>
+<LiveCodes
+  params={{ mode: 'result', tools: 'console|full', js: 'console.log("Hello World!")' }}
+></LiveCodes>
 
 ## Display Mode vs Default View
 
 :::info
 
-"Display Mode" is different from "[Default View](./default-view.md)".
+"Display Mode" is different from "[Default View](./default-view.mdx)".
 
 In `editor` display mode, only the editor is loaded and the result page is not available. While `editor` default view shows the editor by default, and the result page can be shown by dragging the split gutter.
 

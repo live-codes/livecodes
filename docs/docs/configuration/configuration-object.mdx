@@ -7,7 +7,7 @@ A JavaScript object is used for configuration and keeping state.
 
 ## Usage
 
-The configuration object can be used while initializing a new playground using the [SDK](../sdk/index.md).
+The configuration object can be used while initializing a new playground using the [SDK](../sdk/index.mdx).
 
 ```ts
 import { createPlayground } from 'livecodes';
@@ -29,7 +29,7 @@ import { createPlayground } from 'livecodes';
 })();
 ```
 
-Alternatively, the URL [query parameter](./query-params.md) `config` can provide a URL to a JSON representation of the configuration object to be used while initializing the app.
+Alternatively, the URL [query parameter](./query-params.mdx) `config` can provide a URL to a JSON representation of the configuration object to be used while initializing the app.
 
 Example:
 
@@ -51,7 +51,7 @@ Default config is [defined here](https://github.com/live-codes/livecodes/blob/de
 
 ## Project Content
 
-These are properties that define the content of the current [project](../features/projects.md).
+These are properties that define the content of the current [project](../features/projects.mdx).
 
 ### `title`
 
@@ -59,7 +59,7 @@ Type: [`string`](../api/interfaces/Config.md#title)
 
 Default: `"Untitled Project"`
 
-Project title. This is used as [result page](../features/result.md) title and title meta tag. Also used in [project](../features/projects.md) search. This can be set in the UI from the title input (above result page) or from Project menu → Project Info.
+Project title. This is used as [result page](../features/result.mdx) title and title meta tag. Also used in [project](../features/projects.mdx) search. This can be set in the UI from the title input (above result page) or from Project menu → Project Info.
 
 ### `description`
 
@@ -67,7 +67,7 @@ Type: [`string`](../api/interfaces/Config.md#description)
 
 Default: `""`
 
-Project description. Used in [project](../features/projects.md) search and result page description meta tag. This can be set in the UI from Project menu → Project Info.
+Project description. Used in [project](../features/projects.mdx) search and result page description meta tag. This can be set in the UI from Project menu → Project Info.
 
 ### `head`
 
@@ -75,7 +75,7 @@ Type: [`string`](../api/interfaces/Config.md#head)
 
 Default: `'<meta charset="UTF-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />'`
 
-Content added to the [result page](../features/result.md) `<head>` element. This can be set in the UI from Project menu → Project Info.
+Content added to the [result page](../features/result.mdx) `<head>` element. This can be set in the UI from Project menu → Project Info.
 
 ### `htmlAttrs`
 
@@ -83,9 +83,9 @@ Type: [`string | Record<string, string>`](../api/interfaces/Config.md#htmlattrs)
 
 Default: `'lang="en" class=""'`
 
-Attributes added to the [result page](../features/result.md) `<html>` element. It can be an object or a string.
+Attributes added to the [result page](../features/result.mdx) `<html>` element. It can be an object or a string.
 
-Example: `{ lang: "en", class: "dark" }` or `'lang="en" class="dark"'`,  
+Example: `{ lang: "en", class: "dark" }` or `'lang="en" class="dark"'`,
 become `<html lang="en" class="dark">`.
 
 This can be set in the UI from Project menu → Project Info.
@@ -96,7 +96,7 @@ Type: [`string[]`](../api/interfaces/Config.md#tags)
 
 Default: `[]`
 
-Project tags. Used in [project](../features/projects.md) filter and search. This can be set in the UI from Project menu → Project Info.
+Project tags. Used in [project](../features/projects.mdx) filter and search. This can be set in the UI from Project menu → Project Info.
 
 ### `activeEditor`
 
@@ -110,7 +110,7 @@ Selects the active editor to show.
 
 Type: [`Language[] | undefined`](../api/interfaces/Config.md#languages)
 
-Default: all supported languages in full app and only current editor languages in [embeds](../features/embeds.md).
+Default: all supported languages in full app and only current editor languages in [embeds](../features/embeds.mdx).
 
 List of enabled languages. Languages that are not already loaded in the editors ([markup](#markup), [style](#style) and [script](#script)) can be selected from a drop down menu at the editor title.
 
@@ -118,66 +118,66 @@ List of enabled languages. Languages that are not already loaded in the editors 
 
 ### `markup`
 
-Type: [`Editor`](https://livecodes.io/docs/api/interfaces/internal.Editor)
+Type: [`Editor`](../api/interfaces/Config.md#markup)
 
 Default: `{ language: "html", content: "" }`
 
 An object that configures the language and content of the markup editor. This can include the following properties:
 
-- `language`:  
-  Type: [Language](../api/type-aliases/Language.md)  
-  Default: `"html"` in markup editor, `"css"` in style editor and `"javascript"` in script editor.  
-  This can be a language name, extension or alias (as defined in [language documentations](../languages/index.md)).  
+- `language`:
+  Type: [Language](../api/type-aliases/Language.md)
+  Default: `"html"` in markup editor, `"css"` in style editor and `"javascript"` in script editor.
+  This can be a language name, extension or alias (as defined in [language documentations](../languages/index.mdx)).
   (e.g. `"markdown"`, `"md"`)
 
 - `content`:
-  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#content)  
-  Default: `""`  
+  Type: [`string | undefined`](../api/interfaces/Config.md#content)
+  Default: `""`
   The initial content of the code editor.
 
 - `contentUrl`:
-  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#contenturl)  
-  Default: `undefined`  
-  A URL to load `content` from. It has to be a valid URL that is CORS-enabled.  
+  Type: [`string | undefined`](../api/interfaces/Config.md#contenturl)
+  Default: `undefined`
+  A URL to load `content` from. It has to be a valid URL that is CORS-enabled.
   The URL is only fetched if `content` property had no value.
 
 - `hiddenContent`:
-  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#hiddencontent)  
-  Default: `undefined`  
+  Type: [`string | undefined`](../api/interfaces/Config.md#hiddencontent)
+  Default: `undefined`
   Hidden content that gets evaluated without being visible in the code editor.
   This can be useful in embedded playgrounds (e.g. for adding helper functions, utilities or tests)
 
 - `hiddenContentUrl`:
-  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#hiddencontenturl)  
-  Default: `undefined`  
-  A URL to load `hiddenContent` from. It has to be a valid URL that is CORS-enabled.  
+  Type: [`string | undefined`](../api/interfaces/Config.md#hiddencontenturl)
+  Default: `undefined`
+  A URL to load `hiddenContent` from. It has to be a valid URL that is CORS-enabled.
   The URL is only fetched if `hiddenContent` property had no value.
 
 - `title`:
-  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#title)  
-  Default: `""`  
+  Type: [`string | undefined`](../api/interfaces/Config.md#title)
+  Default: `""`
   If set, this is used as the title of the editor in the UI, overriding the default title set to the language name (e.g. "Python" can be used instead of "Py (Wasm)").
 
 - `hideTitle`:
-  Type: [`boolean | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#hidetitle)  
-  Default: `""`  
-  If `true`, the title of the code editor is hidden, however its code is still evaluated.  
+  Type: [`boolean | undefined`](../api/interfaces/Config.md#hidetitle)
+  Default: `""`
+  If `true`, the title of the code editor is hidden, however its code is still evaluated.
   This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
 
 - `selector`:
-  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#selector)  
-  Default: `undefined`  
-  A CSS selector to load `content` from [DOM import](../features/import.md#import-code-from-dom).
+  Type: [`string | undefined`](../api/interfaces/Config.md#selector)
+  Default: `undefined`
+  A CSS selector to load `content` from [DOM import](../features/import.mdx#import-code-from-dom).
 
 - `position`:
-  Type: [`{lineNumber: number, column?: number} | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#position)  
-  Default: `undefined`  
-  The initial position of the cursor in the code editor.  
+  Type: [`{lineNumber: number, column?: number} | undefined`](../api/interfaces/Config.md#position)
+  Default: `undefined`
+  The initial position of the cursor in the code editor.
   Example: `{lineNumber: 5, column: 10}`
 
 ### `style`
 
-Type: [`Editor`](https://livecodes.io/docs/api/interfaces/internal.Editor)
+Type: [`Editor`](../api/interfaces/Config.md#style)
 
 Default: `{ language: "css", content: "" }`
 
@@ -185,7 +185,7 @@ An object that configures the language and content of the style editor. See [mar
 
 ### `script`
 
-Type: [`Editor`](https://livecodes.io/docs/api/interfaces/internal.Editor)
+Type: [`Editor`](../api/interfaces/Config.md#script)
 
 Default: `{ language: "javascript", content: "" }`
 
@@ -197,7 +197,7 @@ Type: [`string[]`](../api/interfaces/Config.md#stylesheets)
 
 Default: `[]`
 
-List of URLs for [external stylesheets](../features/external-resources.md) to add to the [result page](../features/result.md).
+List of URLs for [external stylesheets](../features/external-resources.mdx) to add to the [result page](../features/result.mdx).
 
 ### `scripts`
 
@@ -205,7 +205,7 @@ Type: [`string[]`](../api/interfaces/Config.md#scripts)
 
 Default: `[]`
 
-List of URLs for [external scripts](../features/external-resources.md) to add to the [result page](../features/result.md).
+List of URLs for [external scripts](../features/external-resources.mdx) to add to the [result page](../features/result.mdx).
 
 ### `cssPreset`
 
@@ -213,7 +213,7 @@ Type: [`"" | "normalize.css" | "reset-css"`](../api/interfaces/Config.md#csspres
 
 Default: `""`
 
-[CSS Preset](../features/external-resources.md#css-presets) to use.
+[CSS Preset](../features/external-resources.mdx#css-presets) to use.
 
 ### `processors`
 
@@ -221,7 +221,7 @@ Type: [`Processor[]`](../api/internal/type-aliases/Processor.md)
 
 Default: `[]`
 
-List of enabled [CSS processors](../features/css.md#css-processors).
+List of enabled [CSS processors](../features/css.mdx#css-processors).
 
 ### `customSettings`
 
@@ -229,7 +229,7 @@ Type: [`CustomSettings`](../api/interfaces/Config.md#customsettings)
 
 Default: `{}`
 
-Defines [custom settings](../advanced/custom-settings.md) for the current project.
+Defines [custom settings](../advanced/custom-settings.mdx) for the current project.
 
 ### `imports`
 
@@ -237,7 +237,7 @@ Type: [`[key: string]: string`](../api/interfaces/Config.md#imports)
 
 Default: `{}`
 
-Allows specifying custom [import maps](https://github.com/WICG/import-maps) for [module imports](../features/module-resolution.md#custom-module-resolution).
+Allows specifying custom [import maps](https://github.com/WICG/import-maps) for [module imports](../features/module-resolution.mdx#custom-module-resolution).
 
 For example, adding this JavaScript code:
 
@@ -296,7 +296,7 @@ Type: `[key: string]: string | { autoload?: boolean ; declareAsModule?: boolean 
 
 Default: `{}`
 
-Allows providing custom [TypeScript type declarations](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html) for better [editor intellisense](../features/intellisense.md).
+Allows providing custom [TypeScript type declarations](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html) for better [editor intellisense](../features/intellisense.mdx).
 
 It is an object where each key represents module name and value represents the types.
 This can be a URL to a type declaration file. For example, if this is the type declaration file:
@@ -346,7 +346,7 @@ Type: `undefined` | `Partial<Editor>`
 
 Default: `{ language: 'typescript', content: '' }`
 
-Configures the [language](../features/tests.md#supported-languages) and content of [tests](../features/tests.md).
+Configures the [language](../features/tests.mdx#supported-languages) and content of [tests](../features/tests.mdx).
 
 ### `version`
 
@@ -354,14 +354,14 @@ Type: `Readonly` [`string`](../api/interfaces/Config.md#description)
 
 Default: Current LiveCodes Version.
 
-This is a read-only property which specifies the current LiveCodes version. It can be shown using the SDK [`exec`](../sdk/js-ts.md#exec) method.
+This is a read-only property which specifies the current LiveCodes version. It can be shown using the SDK [`exec`](../sdk/js-ts.mdx#exec) method.
 
 ```js
 // in browser console of full app (e.g. https://livecodes.io)
 await livecodes.exec('showVersion');
 ```
 
-Version specified in [exported](../features/export.md) projects allows automatically upgrading the project configuration when imported by an app with a newer version.
+Version specified in [exported](../features/export.mdx) projects allows automatically upgrading the project configuration when imported by an app with a newer version.
 
 ## App Settings
 
@@ -375,7 +375,7 @@ Default: `false`
 
 If `true`, editors are loaded in read-only mode, where the user is not allowed to change the code.
 
-By default, when `readonly` is set to `true`, the light-weight code editor [CodeJar](../features/editor-settings.md#code-editor) is used. If you wish to use another editor, set the [editor](#editor) property.
+By default, when `readonly` is set to `true`, the light-weight code editor [CodeJar](../features/editor-settings.mdx#code-editor) is used. If you wish to use another editor, set the [editor](#editor) property.
 
 ### `allowLangChange`
 
@@ -391,7 +391,7 @@ Type: [`"split" | "editor" | "result"`](../api/interfaces/Config.md#view)
 
 Default: `"split"`
 
-The [default view](../features/default-view.md) for the playground.
+The [default view](../features/default-view.mdx) for the playground.
 
 ### `mode`
 
@@ -399,7 +399,7 @@ Type: [`"full" | "focus" | "simple" | "lite" | "result" | "editor" | "codeblock"
 
 Default: `"full"`
 
-Sets the [display mode](../features/display-modes.md).
+Sets the [display mode](../features/display-modes.mdx).
 
 ### `tools`
 
@@ -407,7 +407,7 @@ Type: [`Partial<{ enabled: Array<'console' | 'compiled' | 'tests'> | 'all'; acti
 
 Default: `{ enabled: 'all', active: '', status: '' }`
 
-Sets enabled and active tools and status of [tools pane](../features/tools-pane.md).
+Sets enabled and active tools and status of [tools pane](../features/tools-pane.mdx).
 
 Example:
 
@@ -421,7 +421,13 @@ Example:
 }
 ```
 
-<LiveCodes config={{script: {language: "javascript", content: "console.log('Hello World!');"}, activeEditor: "script", tools: {enabled: ["console", "compiled"], active: "console", status: "open"}}}></LiveCodes>
+<LiveCodes
+  config={{
+    script: { language: 'javascript', content: "console.log('Hello World!');" },
+    activeEditor: 'script',
+    tools: { enabled: ['console', 'compiled'], active: 'console', status: 'open' },
+  }}
+></LiveCodes>
 
 ### `zoom`
 
@@ -429,11 +435,11 @@ Type: [`1 | 0.5 | 0.25`](../api/interfaces/Config.md#zoom)
 
 Default: `1`
 
-Sets result page [zoom level](../features/result.md#result-page-zoom).
+Sets result page [zoom level](../features/result.mdx#result-page-zoom).
 
 ## User Settings
 
-These are properties that define the [user settings](./../features/user-settings.md), including [editor settings](../features/editor-settings.md).
+These are properties that define the [user settings](./../features/user-settings.mdx), including [editor settings](../features/editor-settings.mdx).
 
 ### `enableAI`
 
@@ -441,7 +447,7 @@ Type: [`boolean`](../api/interfaces/Config.md#enableai)
 
 Default: `false`
 
-If `true`, [AI code assistant](../features/ai.md) is enabled.
+If `true`, [AI code assistant](../features/ai.mdx) is enabled.
 
 ### `autoupdate`
 
@@ -481,7 +487,7 @@ Type: [`boolean`](../api/interfaces/Config.md#formatonsave)
 
 Default: `false`
 
-If `true`, the code is automatically [formatted](../features/code-format.md) on saving the project.
+If `true`, the code is automatically [formatted](../features/code-format.mdx) on saving the project.
 
 ### `layout`
 
@@ -497,7 +503,7 @@ Type: [`"light" | "dark"`](../api/interfaces/Config.md#theme)
 
 Default: `"dark"`
 
-Sets the app [theme](../features/themes.md) to light/dark mode.
+Sets the app [theme](../features/themes.mdx) to light/dark mode.
 
 ### `themeColor`
 
@@ -505,7 +511,7 @@ Type: [`string | undefined`](../api/interfaces/Config.md#themecolor)
 
 Default: `"hsl(214, 40%, 50%)"`
 
-A string representing a [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), used to set the app [theme color](../features/themes.md). It can be any valid CSS color value, such as `"#4DB39E"`, `"rgb(245, 225, 49)"`, `"hsl(324, 40%, 50%)"` and `"lightblue"`.
+A string representing a [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), used to set the app [theme color](../features/themes.mdx). It can be any valid CSS color value, such as `"#4DB39E"`, `"rgb(245, 225, 49)"`, `"hsl(324, 40%, 50%)"` and `"lightblue"`.
 
 ### `editorTheme`
 
@@ -519,7 +525,7 @@ Sets the code editor themes.
 You can preview and set editor themes in the [editor settings screen](pathname:///../?screen=editor-settings).
 :::
 
-Three [code editors](#editor) are supported in LiveCodes: **Monaco** (the default on desktop), **CodeMirror** (the default on mobile) and **CodeJar** (the default in [codeblocks](../features/display-modes.md#codeblock), in [lite mode](../features/lite.md) and in [readonly](#readonly) playgrounds). Each editor has its own set of themes, represented by the types: [`MonacoTheme`](../api/internal/type-aliases/MonacoTheme.md), [`CodemirrorTheme`](../api/internal/type-aliases/CodemirrorTheme.md) and [`CodejarTheme`](../api/internal/type-aliases/CodejarTheme.md).
+Three [code editors](#editor) are supported in LiveCodes: **Monaco** (the default on desktop), **CodeMirror** (the default on mobile) and **CodeJar** (the default in [codeblocks](../features/display-modes.mdx#codeblock), in [lite mode](../features/lite.mdx) and in [readonly](#readonly) playgrounds). Each editor has its own set of themes, represented by the types: [`MonacoTheme`](../api/internal/type-aliases/MonacoTheme.md), [`CodemirrorTheme`](../api/internal/type-aliases/CodemirrorTheme.md) and [`CodejarTheme`](../api/internal/type-aliases/CodejarTheme.md).
 
 The `editorTheme` property can be used to set the editor theme for each editor and on light/dark modes. It can be set to an array of [`EditorTheme`](../api/internal/type-aliases/EditorTheme.md) items or a string of comma-separated items.
 
@@ -530,7 +536,7 @@ Each item can be composed of:
 Where:
 
 - `editor` is the name of the editor (`"monaco" | "codemirror" | "codejar"`). [Optional]
-- `theme-name` is the name of the theme (e.g. `"monokai"`). [Required]  
+- `theme-name` is the name of the theme (e.g. `"monokai"`). [Required]
   Valid theme names can be found here:
   - Monaco: [`MonacoTheme`](../api/internal/type-aliases/MonacoTheme.md)
   - CodeMirror: [`CodemirrorTheme`](../api/internal/type-aliases/CodemirrorTheme.md)
@@ -563,7 +569,7 @@ Type: [`boolean`](../api/interfaces/Config.md#recoverunsaved)
 
 Default: `true`
 
-Enables [recovering last unsaved project](../features/recover.md) when the app is reopened.
+Enables [recovering last unsaved project](../features/recover.mdx) when the app is reopened.
 
 ### `welcome`
 
@@ -571,7 +577,7 @@ Type: [`boolean`](../api/interfaces/Config.md#welcome)
 
 Default: `true`
 
-If `true`, the [welcome screen](../features/welcome.md) is displayed when the app loads.
+If `true`, the [welcome screen](../features/welcome.mdx) is displayed when the app loads.
 
 ### `showSpacing`
 
@@ -579,7 +585,7 @@ Type: [`boolean`](../api/interfaces/Config.md#showspacing)
 
 Default: `false`
 
-Enables [showing element spacing](../features/result.md#show-spacings) in the result page.
+Enables [showing element spacing](../features/result.mdx#show-spacings) in the result page.
 
 ### `editor`
 
@@ -587,9 +593,9 @@ Type: [`"monaco" | "codemirror" | "codejar" | undefined`](../api/interfaces/Conf
 
 Default: `undefined`
 
-Selects the [code editor](../features/editor-settings.md#code-editor) to use.
+Selects the [code editor](../features/editor-settings.mdx#code-editor) to use.
 
-If `undefined` (the default), Monaco editor is used on desktop, CodeMirror is used on mobile and CodeJar is used in [codeblocks](../features/display-modes.md#codeblock), in [lite mode](../features/lite.md) and in [readonly](#readonly) playgrounds.
+If `undefined` (the default), Monaco editor is used on desktop, CodeMirror is used on mobile and CodeJar is used in [codeblocks](../features/display-modes.mdx#codeblock), in [lite mode](../features/lite.mdx) and in [readonly](#readonly) playgrounds.
 
 ### `fontFamily`
 
@@ -597,7 +603,7 @@ Type: [`string | undefined`](../api/interfaces/Config.md#fontfamily)
 
 Default: `undefined`
 
-Sets the [code editor](../features/editor-settings.md) font family.
+Sets the [code editor](../features/editor-settings.mdx) font family.
 
 ### `fontSize`
 
@@ -605,9 +611,9 @@ Type: [`number | undefined`](../api/interfaces/Config.md#fontfamily)
 
 Default: `undefined`
 
-Sets the [code editor](../features/editor-settings.md) font size.
+Sets the [code editor](../features/editor-settings.mdx) font size.
 
-If `undefined` (the default), the font size is set to 14 for the full app and 12 for [embeds](../features/embeds.md).
+If `undefined` (the default), the font size is set to 14 for the full app and 12 for [embeds](../features/embeds.mdx).
 
 ### `useTabs`
 
@@ -615,7 +621,7 @@ Type: [`boolean`](../api/interfaces/Config.md#usetabs)
 
 Default: `false`
 
-If `true`, lines are indented with tabs instead of spaces. Also used in [code formatting](../features/code-format.md).
+If `true`, lines are indented with tabs instead of spaces. Also used in [code formatting](../features/code-format.mdx).
 
 ### `tabSize`
 
@@ -623,7 +629,7 @@ Type: [`number`](../api/interfaces/Config.md#tabsize)
 
 Default: `2`
 
-The number of spaces per indentation-level. Also used in [code formatting](../features/code-format.md).
+The number of spaces per indentation-level. Also used in [code formatting](../features/code-format.mdx).
 
 ### `lineNumbers`
 
@@ -631,7 +637,7 @@ Type: [`boolean | "relative"`](../api/interfaces/Config.md#linenumbers)
 
 Default: `true`
 
-Show line numbers in [code editor](../features/editor-settings.md).  
+Show line numbers in [code editor](../features/editor-settings.mdx).
 If set to `"relative"`, line numbers are shown relative to the current line. This can be useful with [vim mode](#editormode).
 
 ### `wordWrap`
@@ -656,7 +662,7 @@ Type: [`boolean`](../api/interfaces/Config.md#emmet)
 
 Default: `true`
 
-Enables [Emmet](../features/editor-settings.md#emmet).
+Enables [Emmet](../features/editor-settings.mdx#emmet).
 
 ### `editorMode`
 
@@ -664,7 +670,7 @@ Type: [`"vim" | "emacs" | undefined`](../api/interfaces/Config.md#editormode)
 
 Default: `undefined`
 
-Sets [editor mode](../features/editor-settings.md#editor-modes).
+Sets [editor mode](../features/editor-settings.mdx#editor-modes).
 
 ### `semicolons`
 
@@ -672,7 +678,7 @@ Type: [`boolean`](../api/interfaces/Config.md#semicolons)
 
 Default: `true`
 
-Configures Prettier [code formatter](../features/code-format.md) to use [semi-colons](https://prettier.io/docs/en/options.html#semicolons).
+Configures Prettier [code formatter](../features/code-format.mdx) to use [semi-colons](https://prettier.io/docs/en/options.html#semicolons).
 
 ### `singleQuote`
 
@@ -680,7 +686,7 @@ Type: [`boolean`](../api/interfaces/Config.md#singlequote)
 
 Default: `false`
 
-Configures Prettier [code formatter](../features/code-format.md) to use [single quotes instead of double quotes](https://prettier.io/docs/en/options.html#quotes).
+Configures Prettier [code formatter](../features/code-format.mdx) to use [single quotes instead of double quotes](https://prettier.io/docs/en/options.html#quotes).
 
 ### `trailingComma`
 
@@ -688,4 +694,4 @@ Type: [`boolean`](../api/interfaces/Config.md#trailingcomma)
 
 Default: `true`
 
-Configures Prettier [code formatter](../features/code-format.md) to use [trailing commas](https://prettier.io/docs/en/options.html#trailing-commas).
+Configures Prettier [code formatter](../features/code-format.mdx) to use [trailing commas](https://prettier.io/docs/en/options.html#trailing-commas).

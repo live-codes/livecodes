@@ -45,13 +45,13 @@ npx cross-env DOCS_BASE_URL=null npm run build:app
 
 ## Services
 
-Some of the [services](../advanced/services.md) used by the app are not supported on [self-hosted](../features/self-hosting.md) deploys and are either replaced by other compatible services (e.g. the [share](../features/share.md) service uses [dpaste](https://dpaste.com/) for short URLs, which are [**deleted after 365 days**](https://dpaste.com/help)) or require you to provide an alternative service (e.g. [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication).
+Some of the [services](../advanced/services.mdx) used by the app are not supported on [self-hosted](../features/self-hosting.mdx) deploys and are either replaced by other compatible services (e.g. the [share](../features/share.mdx) service uses [dpaste](https://dpaste.com/) for short URLs, which are [**deleted after 365 days**](https://dpaste.com/help)) or require you to provide an alternative service (e.g. [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication).
 
-You may wish to edit one or more of the used [services](../advanced/services.md) to use your own.
+You may wish to edit one or more of the used [services](../advanced/services.mdx) to use your own.
 
 :::info
 
-LiveCodes [sponsors](../sponsor.md) (Bronze sponsors and above) get access to managed custom services.
+LiveCodes [sponsors](../sponsor.mdx) (Bronze sponsors and above) get access to managed custom services.
 
 :::
 
@@ -63,7 +63,7 @@ https://live-codes.github.io/livecodes/
 
 ## SDK Usage
 
-The [SDK](../sdk/index.md) can still be used with the self-hosted app by providing the [`appUrl`](../sdk/js-ts.md#appurl) [embed option](../sdk/js-ts.md#embed-options).
+The [SDK](../sdk/index.mdx) can still be used with the self-hosted app by providing the [`appUrl`](../sdk/js-ts.mdx#appurl) [embed option](../sdk/js-ts.mdx#embed-options).
 
 ```js title="index.js"
 import { createPlayground } from 'livecodes';

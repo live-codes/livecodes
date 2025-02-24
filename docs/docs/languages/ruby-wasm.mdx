@@ -10,7 +10,7 @@ LiveCodes uses [ruby.wasm](https://github.com/ruby/ruby.wasm) to run Ruby in the
 
 :::info Note
 
-LiveCodes also supports running Ruby using [Opal](https://opalrb.com/) which is a Ruby to JavaScript source-to-source compiler. Read documentation [here](./ruby.md).
+LiveCodes also supports running Ruby using [Opal](https://opalrb.com/) which is a Ruby to JavaScript source-to-source compiler. Read documentation [here](./ruby.mdx).
 
 :::
 
@@ -54,7 +54,10 @@ Not supported for Ruby.
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-export const params = {"ruby-wasm": `class User\n  attr_accessor :name\n\n  def initialize(name)\n    @name = name\n  end\n\n  def admin?\n    @name == 'Admin'\n  end\nend\n\nuser = User.new('Bob')\n\n# the output will go to the console\nputs user\nputs user.admin?\n`, console: 'full'};
+export const params = {
+  'ruby-wasm': `class User\n  attr_accessor :name\n\n  def initialize(name)\n    @name = name\n  end\n\n  def admin?\n    @name == 'Admin'\n  end\nend\n\nuser = User.new('Bob')\n\n# the output will go to the console\nputs user\nputs user.admin?\n`,
+  console: 'full',
+};
 
 <LiveCodes params={params} height="80vh"></LiveCodes>
 
@@ -71,4 +74,4 @@ https://livecodes.io/?template=ruby-wasm
 - [Ruby](https://ruby-lang.org/)
 - [Ruby documentation](https://ruby-lang.org/en/documentation/)
 - [ruby.wasm](https://github.com/ruby/ruby.wasm)
-- [Ruby using Opal](./ruby.md) in LiveCodes
+- [Ruby using Opal](./ruby.mdx) in LiveCodes

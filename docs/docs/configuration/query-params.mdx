@@ -3,60 +3,60 @@
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 A flexible and convenient way to configure the app is to use URL query parameters.
-It allows configuration of a wide range of options, including those of the [configuration object](./configuration-object.md) and [embed options](../sdk/js-ts.md#embed-options).
+It allows configuration of a wide range of options, including those of the [configuration object](./configuration-object.mdx) and [embed options](../sdk/js-ts.mdx#embed-options).
 
-<div style={{clear: 'both'}}></div>
+<div style={{ clear: 'both' }}></div>
 Example:
 
 ```
 https://livecodes.io?js=console.log('Hello World!')&console=open
 ```
 
-<LiveCodes params={{js: "console.log('Hello World!')", console: 'open'}}></LiveCodes>
+<LiveCodes params={{ js: "console.log('Hello World!')", console: 'open' }}></LiveCodes>
 
 ## Usage
 
-- All properties of [configuration object](./configuration-object.md) and [embed options](../sdk/js-ts.md#embed-options) that have values of primitive types (e.g. string, number, boolean) can be assigned to a query parameter with the same name.
+- All properties of [configuration object](./configuration-object.mdx) and [embed options](../sdk/js-ts.mdx#embed-options) that have values of primitive types (e.g. string, number, boolean) can be assigned to a query parameter with the same name.
 
   These include:
-  [config](../sdk/js-ts.md#config),
-  [import](../sdk/js-ts.md#import),
-  [lite](../configuration/configuration-object.md#mode),
-  [loading](../sdk/js-ts.md#loading),
-  [template](../sdk/js-ts.md#template),
-  [view](../configuration/configuration-object.md#view),
-  [title](./configuration-object.md#title),
-  [description](./configuration-object.md#description),
-  [activeEditor](./configuration-object.md#activeeditor),
-  [cssPreset](./configuration-object.md#csspreset),
-  [readonly](./configuration-object.md#readonly),
-  [allowLangChange](./configuration-object.md#allowlangchange),
-  [mode](./configuration-object.md#mode),
-  [autoupdate](./configuration-object.md#autoupdate),
-  [autosave](./configuration-object.md#autosave),
-  [delay](./configuration-object.md#delay),
-  [formatOnsave](./configuration-object.md#formatonsave),
-  [theme](./configuration-object.md#theme),
-  [themeColor](./configuration-object.md#themecolor),
-  [appLanguage](./configuration-object.md#applanguage),
-  [recoverUnsaved](./configuration-object.md#recoverunsaved),
-  [welcome](./configuration-object.md#welcome),
-  [showSpacing](./configuration-object.md#showspacing),
-  [layout](./configuration-object.md#layout),
-  [editor](./configuration-object.md#editor),
-  [editorTheme](./configuration-object.md#editortheme),
-  [fontFamily](./configuration-object.md#fontfamily),
-  [fontSize](./configuration-object.md#fontsize),
-  [useTabs](./configuration-object.md#usetabs),
-  [tabSize](./configuration-object.md#tabsize),
-  [lineNumbers](./configuration-object.md#linenumbers),
-  [wordWrap](./configuration-object.md#wordwrap),
-  [closeBrackets](./configuration-object.md#closebrackets),
-  [emmet](./configuration-object.md#emmet),
-  [editorMode](./configuration-object.md#editormode),
-  [semicolons](./configuration-object.md#semicolons),
-  [singleQuote](./configuration-object.md#singlequote),
-  [trailingComma](./configuration-object.md#trailingcomma).
+  [config](../sdk/js-ts.mdx#config),
+  [import](../sdk/js-ts.mdx#import),
+  [lite](../configuration/configuration-object.mdx#mode),
+  [loading](../sdk/js-ts.mdx#loading),
+  [template](../sdk/js-ts.mdx#template),
+  [view](../configuration/configuration-object.mdx#view),
+  [title](./configuration-object.mdx#title),
+  [description](./configuration-object.mdx#description),
+  [activeEditor](./configuration-object.mdx#activeeditor),
+  [cssPreset](./configuration-object.mdx#csspreset),
+  [readonly](./configuration-object.mdx#readonly),
+  [allowLangChange](./configuration-object.mdx#allowlangchange),
+  [mode](./configuration-object.mdx#mode),
+  [autoupdate](./configuration-object.mdx#autoupdate),
+  [autosave](./configuration-object.mdx#autosave),
+  [delay](./configuration-object.mdx#delay),
+  [formatOnsave](./configuration-object.mdx#formatonsave),
+  [theme](./configuration-object.mdx#theme),
+  [themeColor](./configuration-object.mdx#themecolor),
+  [appLanguage](./configuration-object.mdx#applanguage),
+  [recoverUnsaved](./configuration-object.mdx#recoverunsaved),
+  [welcome](./configuration-object.mdx#welcome),
+  [showSpacing](./configuration-object.mdx#showspacing),
+  [layout](./configuration-object.mdx#layout),
+  [editor](./configuration-object.mdx#editor),
+  [editorTheme](./configuration-object.mdx#editortheme),
+  [fontFamily](./configuration-object.mdx#fontfamily),
+  [fontSize](./configuration-object.mdx#fontsize),
+  [useTabs](./configuration-object.mdx#usetabs),
+  [tabSize](./configuration-object.mdx#tabsize),
+  [lineNumbers](./configuration-object.mdx#linenumbers),
+  [wordWrap](./configuration-object.mdx#wordwrap),
+  [closeBrackets](./configuration-object.mdx#closebrackets),
+  [emmet](./configuration-object.mdx#emmet),
+  [editorMode](./configuration-object.mdx#editormode),
+  [semicolons](./configuration-object.mdx#semicolons),
+  [singleQuote](./configuration-object.mdx#singlequote),
+  [trailingComma](./configuration-object.mdx#trailingcomma).
 
   Example:
 
@@ -82,11 +82,11 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
   ```
 
 - Parameters that expect array of values can be supplied with comma separated values. These include:
-  [tags](./configuration-object.md#tags),
-  [languages](./configuration-object.md#languages),
-  [processors](./configuration-object.md#processors),
-  [stylesheets](./configuration-object.md#stylesheets),
-  [scripts](./configuration-object.md#scripts).
+  [tags](./configuration-object.mdx#tags),
+  [languages](./configuration-object.mdx#languages),
+  [processors](./configuration-object.mdx#processors),
+  [stylesheets](./configuration-object.mdx#stylesheets),
+  [scripts](./configuration-object.mdx#scripts).
 
   Example:
 
@@ -94,23 +94,23 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
   ?languages=html,md,css,ts
   ```
 
-- Values set in the URL query parameters override those set in [configuration object](./configuration-object.md).
+- Values set in the URL query parameters override those set in [configuration object](./configuration-object.mdx).
 
-- Unlike [user settings](../features/user-settings.md) that are set in the UI which are saved and subsequently used, those that are set in query parameters are not automatically saved.
+- Unlike [user settings](../features/user-settings.mdx) that are set in the UI which are saved and subsequently used, those that are set in query parameters are not automatically saved.
 
 - Additional query parameters include:
 
   - `no-defaults`: `boolean` (Default: `false`).
 
-    If `true`, the app will not load the [default template/language](../features/default-template-language.md).
+    If `true`, the app will not load the [default template/language](../features/default-template-language.mdx).
 
   - `x`: `string`.
 
-    Alias to [`import`](../sdk/js-ts.md#import) (a URL to [import](../features/import.md)).
+    Alias to [`import`](../sdk/js-ts.mdx#import) (a URL to [import](../features/import.mdx)).
 
   - `files`: `string`.
 
-    A comma-separated [list of files to import](../features/import.md#file-selection).
+    A comma-separated [list of files to import](../features/import.mdx#file-selection).
 
   - `raw`: [`Language`](../api/type-aliases/Language.md).
 
@@ -126,27 +126,27 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
   - `active`: `"markup" | "style" | "script" | 0 | 1 | 2`.
 
-    Alias to [`activeEditor`](./configuration-object.md#activeeditor).
+    Alias to [`activeEditor`](./configuration-object.mdx#activeeditor).
 
   - `tools`: `"open" | "full" | "closed" | "console" | "compiled" | "tests" | "none"`
 
-    The [tools pane](../features/tools-pane.md) status.
+    The [tools pane](../features/tools-pane.mdx) status.
 
   - `console`: `"open" | "full" | "closed" | "none"`
 
-    The [console](../features/console.md) status.
+    The [console](../features/console.mdx) status.
 
   - `compiled`: `"open" | "full" | "closed" | "none"`
 
-    The [compiled code viewer](../features/compiled-code.md) status.
+    The [compiled code viewer](../features/compiled-code.mdx) status.
 
   - `tests`: `"open" | "full" | "closed" | "none"`
 
-    The [tests panel](../features/tests.md) status.
+    The [tests panel](../features/tests.mdx) status.
 
   - `scrollPosition`: `boolean` (Default: `true`).
 
-    If `false`, the [result page](../features/result.md) [scroll position](../features/result.md#scroll-position) will not be maintained after reload.
+    If `false`, the [result page](../features/result.mdx) [scroll position](../features/result.mdx#scroll-position) will not be maintained after reload.
 
   - Any [`Language`](../api/type-aliases/Language.md) can used as a query parameter, and the value will be used as its code.
 

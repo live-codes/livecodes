@@ -26,7 +26,7 @@ The [browser build](https://www.npmjs.com/package/mjml-browser) of the official 
 
 ## Custom Settings
 
-[Custom settings](../advanced/custom-settings.md) added to the property `mjml` are passed as a JSON object to the mjml compiler. Please check the [documentation](https://documentation.mjml.io/#inside-node-js) for full reference.
+[Custom settings](../advanced/custom-settings.mdx) added to the property `mjml` are passed as a JSON object to the mjml compiler. Please check the [documentation](https://documentation.mjml.io/#inside-node-js) for full reference.
 
 **Example:**
 
@@ -44,14 +44,17 @@ The [browser build](https://www.npmjs.com/package/mjml-browser) of the official 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 export const params = {
-mjml: '<mjml>\n\t<mj-body>\n\t\t<mj-section>\n\t\t\t<mj-column>\n\t\t\t\t<mj-text>\n\t\t\t\t\tHello World!\n\t\t\t\t</mj-text>\n\t\t\t</mj-column>\n\t\t</mj-section>\n\t</mj-body>\n</mjml>\n'
+  mjml: '<mjml>\n\t<mj-body>\n\t\t<mj-section>\n\t\t\t<mj-column>\n\t\t\t\t<mj-text>\n\t\t\t\t\tHello World!\n\t\t\t\t</mj-text>\n\t\t\t</mj-column>\n\t\t</mj-section>\n\t</mj-body>\n</mjml>\n',
 };
 
 <LiveCodes params={params}></LiveCodes>
 
 This playground loads a template from the official MJML [email templates](https://github.com/mjmlio/email-templates):
 
-<LiveCodes import="https://github.com/mjmlio/email-templates/blob/master/templates/onepage.mjml" height="400"></LiveCodes>
+<LiveCodes
+  import="https://github.com/mjmlio/email-templates/blob/master/templates/onepage.mjml"
+  height="400"
+></LiveCodes>
 
 ## Links
 

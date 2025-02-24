@@ -4,18 +4,18 @@ title: JS/TS SDK
 
 # JavaScript/<wbr />TypeScript SDK
 
-import LiveCodes from '../../src/components/LiveCodes.tsx'
-import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx'
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
-This is the core SDK on which others ([React](react.md), [Vue](vue.md), and [Svelte](svelte.md) SDKs) are build on top. It is a light-weight ([less than 5kb gzipped](https://bundlephobia.com/package/livecodes)), zero-dependencies library that allows creating, embedding and communication with LiveCodes playgrounds. It also allows easily creating links to playgrounds.
+This is the core SDK on which others ([React](react.mdx), [Vue](vue.mdx), and [Svelte](svelte.mdx) SDKs) are build on top. It is a light-weight ([less than 5kb gzipped](https://bundlephobia.com/package/livecodes)), zero-dependencies library that allows creating, embedding and communication with LiveCodes playgrounds. It also allows easily creating links to playgrounds.
 
 ## Installation
 
-Please refer to the [SDK installation](./index.md#installation) section.
+Please refer to the [SDK installation](./index.mdx#installation) section.
 
 :::info
 
-In the full [standalone app](../getting-started.md#standalone-app), the JavaScript SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
+In the full [standalone app](../getting-started.mdx#standalone-app), the JavaScript SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
 
 :::
 
@@ -36,7 +36,7 @@ Type: [`(container: string | Element, options?: EmbedOptions) => Promise<Playgro
 The library exports the function `createPlayground` which has 2 parameters:
 
 - `container` (required): `HTMLElement` or a string representing a CSS selector. This is the container where the playground is rendered.
-  If not found, an error is thrown (except in [headless mode](./headless.md), in which this parameter is optional and can be omitted).
+  If not found, an error is thrown (except in [headless mode](./headless.mdx), in which this parameter is optional and can be omitted).
 - `options` (optional): an object with embed options ([EmbedOptions](../api/interfaces/EmbedOptions.md)).
 
 The `createPlayground` function returns a promise which resolves to an object that exposes the SDK methods ([Playground](../api/interfaces/Playground.md)).
@@ -64,7 +64,7 @@ createPlayground('#container', options).then((playground) => {
 
 The `createPlayground` function throws an error (promise is rejected) in any of the following conditions:
 
-- The first parameter ([`container`](#createplayground)) is not an element or not found (by CSS selector), except in [headless mode](./headless.md).
+- The first parameter ([`container`](#createplayground)) is not an element or not found (by CSS selector), except in [headless mode](./headless.mdx).
 - The embed option [`appUrl`](#appurl) is supplied and is not a valid URL.
 - The embed option [`config`](#config) is supplied and is not an object or a valid URL.
 - Any of the [SDK methods](#sdk-methods) was called after calling the [`destroy`](#destroy) method.
@@ -97,7 +97,9 @@ Example:
 </script>
 ```
 
-export const getPlaygroundUrlDemo = {html: `<pre><code\nclass="language-markdown"># Hello World!</code></pre>\n<a href="#" id="playground-link" target="_blank">Open in playground</a>\n<script type="module">\n  import { getPlaygroundUrl } from 'livecodes';\n  const config = {\n    markup: {\n      language: 'markdown',\n      content: '# Hello World!',\n    },\n  };\n  const url = getPlaygroundUrl({ config });\n  document.querySelector('#playground-link').href = url;\n</script>`}
+export const getPlaygroundUrlDemo = {
+  html: `<pre><code\nclass="language-markdown"># Hello World!</code></pre>\n<a href="#" id="playground-link" target="_blank">Open in playground</a>\n<script type="module">\n  import { getPlaygroundUrl } from 'livecodes';\n  const config = {\n    markup: {\n      language: 'markdown',\n      content: '# Hello World!',\n    },\n  };\n  const url = getPlaygroundUrl({ config });\n  document.querySelector('#playground-link').href = url;\n</script>`,
+};
 
 <RunInLiveCodes params={getPlaygroundUrlDemo} />
 
@@ -113,7 +115,7 @@ Type: [`string`](../api/interfaces/EmbedOptions.md#appurl)
 
 Default: `"https://livecodes.io/"`
 
-Allows loading the playground from a custom URL (e.g. a [self-hosted app](../features/self-hosting.md) or a [permanent URL](../features/permanent-url.md)).
+Allows loading the playground from a custom URL (e.g. a [self-hosted app](../features/self-hosting.mdx) or a [permanent URL](../features/permanent-url.mdx)).
 
 If supplied with an invalid URL, an error is thrown.
 
@@ -123,7 +125,7 @@ Type: [`string | Partial<Config>`](../api/interfaces/EmbedOptions.md#config)
 
 Default: `{}`
 
-A [configuration object](../configuration/configuration-object.md) or a URL to a JSON file representing a configuration object to load.
+A [configuration object](../configuration/configuration-object.mdx) or a URL to a JSON file representing a configuration object to load.
 
 If supplied and is not an object or a valid URL, an error is thrown.
 
@@ -133,13 +135,13 @@ Type: [`boolean`](../api/interfaces/EmbedOptions.md#headless)
 
 Default: `false`
 
-When set to `true`, the playground is loaded in [headless mode](./headless.md).
+When set to `true`, the playground is loaded in [headless mode](./headless.mdx).
 
 ### `import`
 
 Type: [`string`](../api/interfaces/EmbedOptions.md#import)
 
-A resource to [import](../features/import.md) (from any of the supported [sources](../features/import.md#sources)).
+A resource to [import](../features/import.mdx) (from any of the supported [sources](../features/import.mdx#sources)).
 
 ### `loading`
 
@@ -157,7 +159,7 @@ Sets how the playground loads:
 
 Type: [`UrlQueryParams`](../api/interfaces/EmbedOptions.md#params)
 
-An object that represents [URL Query parameters](../configuration/query-params.md), that can be used to configure the playground.
+An object that represents [URL Query parameters](../configuration/query-params.mdx), that can be used to configure the playground.
 
 These 2 snippets produce similar output:
 
@@ -182,7 +184,7 @@ createPlayground('#container', { params: { md: '# Hello World!' } });
 
 Type: [`TemplateName`](../api/interfaces/EmbedOptions.md#template)
 
-A [starter template](../features/templates.md) to load. Allowed valued can be found [here](../api/interfaces/EmbedOptions.md#template).
+A [starter template](../features/templates.mdx) to load. Allowed valued can be found [here](../api/interfaces/EmbedOptions.md#template).
 
 ## SDK Methods
 
@@ -210,7 +212,7 @@ createPlayground('#container').then(async (playground) => {
 
 Type: [`() => Promise<void>`](../api/interfaces/Playground.md#run)
 
-Runs the [result page](../features/result.md) (after any required compilation for code).
+Runs the [result page](../features/result.mdx) (after any required compilation for code).
 
 ```js
 import { createPlayground } from 'livecodes';
@@ -225,7 +227,7 @@ createPlayground('#container').then(async (playground) => {
 
 Type: [`(allEditors?: boolean) => Promise<void>`](../api/interfaces/Playground.md#format)
 
-[Formats the code](../features/code-format.md).
+[Formats the code](../features/code-format.mdx).
 
 By default, the code in all editors (markup, style and script) is formatted.
 If you wish to format only the active editor, pass the value `false` as an argument.
@@ -243,7 +245,7 @@ createPlayground('#container').then(async (playground) => {
 
 Type: [`(shortUrl?: boolean) => Promise<string>`](../api/interfaces/Playground.md#getshareurl)
 
-Gets a [share url](../features/share.md) for the current project.
+Gets a [share url](../features/share.mdx) for the current project.
 
 By default, the url has a long query string representing the compressed encoded config object. If the argument `shortUrl` was set to `true`, a short url is generated.
 
@@ -328,7 +330,7 @@ The second optional argument is an object:
 
 - The optional properties `line` and `column` allow scrolling to line/column number in the shown editor.
 
-- The optional property `zoom` sets the result page [zoom level](../features/result.md#result-page-zoom) (the selected panel must be `result`).
+- The optional property `zoom` sets the result page [zoom level](../features/result.mdx#result-page-zoom) (the selected panel must be `result`).
 
 ```js
 import { createPlayground } from 'livecodes';
@@ -357,7 +359,7 @@ createPlayground('#container').then(async (playground) => {
 
 Type: [`() => Promise<{ results: TestResult[] }>`](../api/interfaces/Playground.md#runtests)
 
-Runs project [tests](./../features/tests.md) (if present) and gets test results.
+Runs project [tests](./../features/tests.mdx) (if present) and gets test results.
 
 ```js
 import { createPlayground } from 'livecodes';
@@ -428,7 +430,7 @@ These are the events that can be watched and the description of their callback f
   ) => { remove: () => void }
   ```
 
-- `"ready"`: Called when a new project is loaded (including when [imported](../features/import.md)) and the playground is ready to run.
+- `"ready"`: Called when a new project is loaded (including when [imported](../features/import.mdx)) and the playground is ready to run.
 
   ```ts
   (
@@ -437,18 +439,18 @@ These are the events that can be watched and the description of their callback f
   ) => { remove: () => void }
   ```
 
-- `"code"`: Called when the playground "content" is changed (see [`getCode`](./js-ts.md#getcode) and [`getConfig`](./js-ts.md#getconfig)).
+- `"code"`: Called when the playground "content" is changed (see [`getCode`](./js-ts.mdx#getcode) and [`getConfig`](./js-ts.mdx#getconfig)).
 
   This includes changes in:
 
   - Code (in editors)
   - Editor languages
-  - [CSS processors](../features/css.md#css-processors)
-  - [External resources](../features/external-resources.md)
+  - [CSS processors](../features/css.mdx#css-processors)
+  - [External resources](../features/external-resources.mdx)
   - Project info (e.g. allows adding content in page head and attributes to `<html>` element)
-  - [Custom settings](../advanced/custom-settings.md) (e.g. allows changing [import maps](../features/module-resolution.md#custom-module-resolution))
+  - [Custom settings](../advanced/custom-settings.mdx) (e.g. allows changing [import maps](../features/module-resolution.mdx#custom-module-resolution))
   - Project title
-  - [Test](../features/tests.md) code
+  - [Test](../features/tests.mdx) code
 
   ```ts
   (
@@ -466,7 +468,7 @@ These are the events that can be watched and the description of their callback f
   ) => { remove: () => void }
   ```
 
-- `"tests"`: Called when tests run and test results are available (see [`runTests`](./js-ts.md#runtests)).
+- `"tests"`: Called when tests run and test results are available (see [`runTests`](./js-ts.mdx#runtests)).
 
   ```ts
   (
@@ -517,14 +519,14 @@ Type: [`(command: APICommands, ...args: any[]) => Promise<{ output: any } | { er
 
 Execute custom commands, including:
 
-- `"setBroadcastToken"`: Sets [broadcast `userToken`](../features/broadcast.md#technical-details).
+- `"setBroadcastToken"`: Sets [broadcast `userToken`](../features/broadcast.mdx#technical-details).
 
 ```js
 // in browser console of full app (e.g. https://livecodes.io)
 await livecodes.exec('setBroadcastToken', 'my-token');
 ```
 
-- `"showVersion"`: Logs the current LiveCodes app version, SDK version, git commit SHA, [permanent app URL](../features/permanent-url.md) and SDK URL in the browser console.
+- `"showVersion"`: Logs the current LiveCodes app version, SDK version, git commit SHA, [permanent app URL](../features/permanent-url.mdx) and SDK URL in the browser console.
 
 ```js
 // in browser console of full app (e.g. https://livecodes.io)
@@ -580,15 +582,15 @@ Example:
 ## Demo
 
 export const sdkDemo = {
-js: `import { createPlayground } from "livecodes";\n\nconst params = {\n  html: "<h1>Hello World!</h1>",\n  css: "h1 {color: blue;}",\n  js: 'console.log("Hello, LiveCodes!")',\n  console: "open",\n};\n\ncreatePlayground('#container', { params });\n`,
-html: '<div id="container"></div>',
-}
+  js: `import { createPlayground } from "livecodes";\n\nconst params = {\n  html: "<h1>Hello World!</h1>",\n  css: "h1 {color: blue;}",\n  js: 'console.log("Hello, LiveCodes!")',\n  console: "open",\n};\n\ncreatePlayground('#container', { params });\n`,
+  html: '<div id="container"></div>',
+};
 
 <LiveCodes params={sdkDemo} height="80vh" />
 
 ## Related
 
-- [React SDK](./react.md)
-- [Vue SDK](./vue.md)
-- [Using SDK in Svelte](./svelte.md)
-- [Embedded Playgrounds](../features/embeds.md)
+- [React SDK](./react.mdx)
+- [Vue SDK](./vue.mdx)
+- [Using SDK in Svelte](./svelte.mdx)
+- [Embedded Playgrounds](../features/embeds.mdx)

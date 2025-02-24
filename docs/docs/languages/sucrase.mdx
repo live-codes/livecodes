@@ -1,6 +1,6 @@
 # Sucrase
 
-[Sucrase](https://sucrase.io/) is a super-fast alternative to [Babel](./babel.md) for when you can target modern JS runtimes.
+[Sucrase](https://sucrase.io/) is a super-fast alternative to [Babel](./babel.mdx) for when you can target modern JS runtimes.
 
 ## Language Info
 
@@ -26,7 +26,7 @@ The official [Sucrase compiler](https://github.com/alangpierce/sucrase).
 
 ## Custom Settings
 
-[Custom settings](../advanced/custom-settings.md) added to the property `sucrase` are passed as a JSON object to the [`transform` function](https://github.com/alangpierce/sucrase#usage-from-code) during compile. Please check the [documentation](https://github.com/alangpierce/sucrase) for full reference.
+[Custom settings](../advanced/custom-settings.mdx) added to the property `sucrase` are passed as a JSON object to the [`transform` function](https://github.com/alangpierce/sucrase#usage-from-code) during compile. Please check the [documentation](https://github.com/alangpierce/sucrase) for full reference.
 
 By default, the following transforms are enabled: `['jsx', 'typescript']`
 
@@ -45,8 +45,8 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 export const params = {
-sucrase: 'export const Greet = (name: string) => <>Hello {name}!</>;',
-compiled: 'open',
+  sucrase: 'export const Greet = (name: string) => <>Hello {name}!</>;',
+  compiled: 'open',
 };
 
 <LiveCodes params={params}></LiveCodes>

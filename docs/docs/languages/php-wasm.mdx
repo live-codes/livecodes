@@ -8,7 +8,7 @@ PHP in Browser, powered by WebAssembly (using [php-wasm](https://github.com/sean
 
 :::info Note
 
-If you need a lighter-weight interpreter with more capable client-side DOM manipulation in PHP and do not need to use PHP's standard library, you may want to use the [PHP interpreter written in JavaScript](./php.md).
+If you need a lighter-weight interpreter with more capable client-side DOM manipulation in PHP and do not need to use PHP's standard library, you may want to use the [PHP interpreter written in JavaScript](./php.mdx).
 
 :::
 
@@ -23,8 +23,10 @@ The PHP standard library is supported.
 phpinfo();
 ```
 
-<!-- prettier-ignore -->
+{/* prettier-ignore-start */}
 export const infoConfig = {script: {language: "php-wasm", content: `<?php\n\nphpinfo();`}, activeEditor: "script", mode: "result"};
+
+{/* prettier-ignore-end */}
 
 <LiveCodes config={infoConfig} height="80vh"></LiveCodes>
 
@@ -34,8 +36,10 @@ export const infoConfig = {script: {language: "php-wasm", content: `<?php\n\nphp
 
 Example:
 
-<!-- prettier-ignore -->
+{/* prettier-ignore-start */}
 export const jsOpParams = { phpwasm: `<?php\n\n// read from DOM\n$oldTitle = vrzno_eval('document.querySelector("#title").innerText');\necho $oldTitle;\n\n$newTitle = 'Changed@' . date('h:i:s');\n\n// set DOM properties\nvrzno_eval('document.querySelector("#title").innerText = "' . $newTitle . '"' );\n\n// run console.log\nvrzno_eval('console.log("Hello, World!")');\n`, html: `<h1 id="title">Hello, PHP!</h1>\n`, console: 'open' };
+
+{/* prettier-ignore-end */}
 
 <LiveCodes params={jsOpParams} height="80vh"></LiveCodes>
 
@@ -84,4 +88,4 @@ https://livecodes.io/?template=php-wasm
 - [PHP](https://php.net/)
 - [PHP documentation](https://www.php.net/manual/en/)
 - [php-wasm](https://github.com/seanmorris/php-wasm)
-- [PHP using Uniter](./php.md) in LiveCodes
+- [PHP using Uniter](./php.mdx) in LiveCodes

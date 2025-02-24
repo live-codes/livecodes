@@ -2,7 +2,7 @@
 
 ## Overview
 
-LiveCodes Broadcast allows sending the [result page](./result.md) (and optionally source & compiled code and project configuration) to custom API. This can be used to live-view result page updates on different browsers/devices in real-time or broadcast live-coding sessions.
+LiveCodes Broadcast allows sending the [result page](./result.mdx) (and optionally source & compiled code and project configuration) to custom API. This can be used to live-view result page updates on different browsers/devices in real-time or broadcast live-coding sessions.
 
 :::note
 
@@ -10,11 +10,11 @@ Broadcast can only be performed from the full app, and not from embedded playgro
 
 :::
 
-The `Broadcast` screen can be accessed from the Broadcast icon in the [tools pane](./tools-pane.md) (below the result page), or from the Project menu → Broadcast.
+The `Broadcast` screen can be accessed from the Broadcast icon in the [tools pane](./tools-pane.mdx) (below the result page), or from the Project menu → Broadcast.
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
-<RunInLiveCodes params={{screen: 'broadcast'}} linkText="direct link" />
+<RunInLiveCodes params={{ screen: 'broadcast' }} linkText="direct link" />
 
 ![Broadcast UI](./../../static/img/screenshots/broadcast-1.jpg)
 
@@ -32,7 +32,7 @@ The Broadcast icon (in tools pane), shows the broadcast status. Clicking the ico
 
 An open-source example implementation of an API server is available on: [live-codes/broadcast](https://github.com/live-codes/broadcast).
 
-It is a [simple implementation](https://github.com/live-codes/broadcast/blob/main/index.js), which you can use or extend. It makes use of LiveCodes [Embeds](./embeds.md) and [SDK](../sdk/index.md) for code broadcasting.
+It is a [simple implementation](https://github.com/live-codes/broadcast/blob/main/index.js), which you can use or extend. It makes use of LiveCodes [Embeds](./embeds.mdx) and [SDK](../sdk/index.mdx) for code broadcasting.
 
 A demo, free-to-test, instance is hosted on:
 https://livecodes-broadcast.onrender.com/ (low resources - sleeps after 15 minutes of inactivity)
@@ -40,7 +40,11 @@ https://livecodes-broadcast.onrender.com/ (low resources - sleeps after 15 minut
 You can use one of these links to self-host it:
 
 <a href="https://render.com/deploy?repo=https://github.com/live-codes/broadcast">
-  <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" width="150" />
+  <img
+    src="https://render.com/images/deploy-to-render-button.svg"
+    alt="Deploy to Render"
+    width="150"
+  />
 </a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://heroku.com/deploy?template=https://github.com/live-codes/broadcast/tree/main">
@@ -51,7 +55,7 @@ You can use one of these links to self-host it:
 
 :::tip Hosted API
 
-[LiveCodes sponsors](../sponsor.md) (bronze sponsors and above) get access to a hosted (always-on) API, which they can use without having to manage their own server.
+[LiveCodes sponsors](../sponsor.mdx) (bronze sponsors and above) get access to a hosted (always-on) API, which they can use without having to manage their own server.
 
 :::
 

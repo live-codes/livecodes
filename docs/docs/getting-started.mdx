@@ -8,20 +8,20 @@ There are multiple options:
 
 The easiest way to get started with LiveCodes is to just use the app (https://livecodes.io).
 
-It is packed with [features](./features/index.md) and offers various ways to [import code](./features/import.md).
+It is packed with [features](./features/index.mdx) and offers various ways to [import code](./features/import.mdx).
 
 ## Embedded Playgrounds
 
-LiveCodes playgrounds can be easily [embedded](./features/embeds.md) into any web page. This can be achieved using:
+LiveCodes playgrounds can be easily [embedded](./features/embeds.mdx) into any web page. This can be achieved using:
 
 ### App Embed Screen
 
-The [standalone app](#standalone-app) allows you to embed any project from the [embed screen](./features/embeds.md). The UI allows setting embed options and shows a preview of the embedded playground.  
+The [standalone app](#standalone-app) allows you to embed any project from the [embed screen](./features/embeds.mdx). The UI allows setting embed options and shows a preview of the embedded playground.
 Copy the generated code snippet (at the bottom of the screen) and add it to the web page that you want to embed the playground in.
 
 ### SDK
 
-LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as [npm package](https://www.npmjs.com/package/livecodes) to allow easy embedding and communication with playgrounds.
+LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.mdx) is available as [npm package](https://www.npmjs.com/package/livecodes) to allow easy embedding and communication with playgrounds.
 
 #### Option 1: Using a bundler
 
@@ -50,39 +50,43 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import CodeBlock from '@theme/CodeBlock';
 
 export const ESMCode = () => {
-const { siteConfig } = useDocusaurusContext();
-return (<CodeBlock title="index.html" language="html">
-{`<div id="container"></div>\n<script type="module">
+  const { siteConfig } = useDocusaurusContext();
+  return (
+    <CodeBlock title="index.html" language="html">
+      {`<div id="container"></div>\n<script type="module">
 ${'  '}import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}';\n
 ${'  '}createPlayground('#container', {
 ${'    '}template: 'react',
 ${'    '}// other embed options
 ${'  '}});
 </script>`}
-</CodeBlock>);
-}
+    </CodeBlock>
+  );
+};
 
 <ESMCode />
 
 UMD:
 
 export const UMDCode = () => {
-const { siteConfig } = useDocusaurusContext();
-return (<CodeBlock title="index.html" language="html">
-{`<div id="container"></div>\n<script src="https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}/livecodes.umd.js"></script>\n<script>\n  // the UMD version provides the global object \`livecodes\`
+  const { siteConfig } = useDocusaurusContext();
+  return (
+    <CodeBlock title="index.html" language="html">
+      {`<div id="container"></div>\n<script src="https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}/livecodes.umd.js"></script>\n<script>\n  // the UMD version provides the global object \`livecodes\`
 ${' '}livecodes.createPlayground('#container', {\n${' '.repeat(4)}template: 'react',
 ${'    '}// other embed options
 ${' '}});
 </script>
 `}
-</CodeBlock>);
-}
+    </CodeBlock>
+  );
+};
 
 <UMDCode />
 
 #### Add your own content
 
-You may use any of the methods to [prefill the playground](./features/code-prefill.md) with your own code.
+You may use any of the methods to [prefill the playground](./features/code-prefill.mdx) with your own code.
 
 Example:
 
@@ -109,27 +113,27 @@ createPlayground('#container', { config, params: { console: 'open' } });
 ```
 
 export const config = {
-markup: {
-language: 'markdown',
-content: '# Hello LiveCodes!',
-},
-style: {
-language: 'css',
-content: 'body { color: blue; }',
-},
-script: {
-language: 'javascript',
-content: 'console.log("hello from JavaScript!");',
-},
-activeEditor: 'script',
+  markup: {
+    language: 'markdown',
+    content: '# Hello LiveCodes!',
+  },
+  style: {
+    language: 'css',
+    content: 'body { color: blue; }',
+  },
+  script: {
+    language: 'javascript',
+    content: 'console.log("hello from JavaScript!");',
+  },
+  activeEditor: 'script',
 };
 
-Live demo:  
+Live demo:
 (this is an interactive playground - try editing the code!)
 
 <LiveCodes config={config} params={{ console: 'open' }}></LiveCodes>
 
-Please refer to the section on [Embedded Playgrounds](./features/embeds.md) for more details.
+Please refer to the section on [Embedded Playgrounds](./features/embeds.mdx) for more details.
 
 ## Self-Hosting
 
@@ -137,4 +141,4 @@ LiveCodes can be hosted on any static file server or CDN.
 
 The easiest way is to download the app from [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
 
-Please check the section on [self-hosting](./features/self-hosting.md) for other methods of self-hosting, including the built-in setup to deploy to GitHub pages and how to use the SDK with the self-hosted app.
+Please check the section on [self-hosting](./features/self-hosting.mdx) for other methods of self-hosting, including the built-in setup to deploy to GitHub pages and how to use the SDK with the self-hosted app.

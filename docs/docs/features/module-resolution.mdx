@@ -31,7 +31,9 @@ This is made possible by using [import maps](https://github.com/WICG/import-maps
 
 <p id="npm-modules-demo1">Demo:</p>
 
-<LiveCodes params={{js: "import { v4 } from 'uuid';\n\ndocument.body.innerHTML = v4();"}}></LiveCodes>
+<LiveCodes
+  params={{ js: "import { v4 } from 'uuid';\n\ndocument.body.innerHTML = v4();" }}
+></LiveCodes>
 
 <p>&nbsp;</p>
 
@@ -45,10 +47,10 @@ Demo:
 
 <LiveCodes template="react"></LiveCodes>
 
-It just works without a build step and without you having to worry about. And when you [export your project](./export.md) to another service (e.g. CodePen) or as HTML, the full URL imports are used, so your code continues to work.
+It just works without a build step and without you having to worry about. And when you [export your project](./export.mdx) to another service (e.g. CodePen) or as HTML, the full URL imports are used, so your code continues to work.
 
 :::tip
-It is recommended to use this method for dependencies over using [external scripts](./external-resources.md). The dependencies are explicitly stated in the code. And if you move to a local development environment, your bundler will take care of importing them and doing other optimizations like [tree-shaking](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking).
+It is recommended to use this method for dependencies over using [external scripts](./external-resources.mdx). The dependencies are explicitly stated in the code. And if you move to a local development environment, your bundler will take care of importing them and doing other optimizations like [tree-shaking](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking).
 :::
 
 ### CommonJS Modules
@@ -77,7 +79,7 @@ Script code that contains `import`, `export` or `require` gets served in a scrip
 
 ### NPM Package Search
 
-NPM packages can be searched and added as script tags from the [External Resources](./external-resources.md) screen.
+NPM packages can be searched and added as script tags from the [External Resources](./external-resources.mdx) screen.
 
 ## Deno Modules
 
@@ -187,7 +189,7 @@ import { createRoot } from 'skypack:react-dom/client'; // React from skypack.dev
 
 ### Change Default CDN
 
-Default CDN can be changed on project-level using the [custom settings](../advanced/custom-settings.md) property `defaultCDN` which accepts a string representing one of the CDN aliases listed above.
+Default CDN can be changed on project-level using the [custom settings](../advanced/custom-settings.mdx) property `defaultCDN` which accepts a string representing one of the CDN aliases listed above.
 
 Example: This assigns [Skypack](https://www.skypack.dev/) as the default CDN for all imports of the project
 
@@ -214,7 +216,7 @@ console.log(v3.VERSION); // -> 3.10.1
 
 ## Custom Module Resolution
 
-Module resolution described in this page mainly depends on [import maps](https://github.com/WICG/import-maps). The generated import map is added to the [result page](./result.md).
+Module resolution described in this page mainly depends on [import maps](https://github.com/WICG/import-maps). The generated import map is added to the [result page](./result.mdx).
 
 You may wish to override or customize module resolution behavior (e.g. change URL, CDN, specify version, import custom unpublished library, ...etc. ), however you cannot add another import map script because [currently multiple import maps are not yet supported](https://github.com/WICG/import-maps#multiple-import-map-support).
 
@@ -222,7 +224,7 @@ LiveCodes allows you to add your custom import map by one of the following metho
 
 #### Custom Settings
 
-In the standalone app, via the [custom settings](../advanced/custom-settings.md) property `imports`.
+In the standalone app, via the [custom settings](../advanced/custom-settings.mdx) property `imports`.
 
 Example:
 
@@ -236,7 +238,7 @@ Example:
 
 #### SDK
 
-For embedded playgrounds, use the [SDK](../sdk/index.md) embed option [`config.imports`](../configuration/configuration-object.md#imports).
+For embedded playgrounds, use the [SDK](../sdk/index.mdx) embed option [`config.imports`](../configuration/configuration-object.mdx#imports).
 
 Example:
 
@@ -253,11 +255,11 @@ const config = {
 createPlayground('#container', { config });
 ```
 
-Please note that you may also provide [custom type definitions](./intellisense.md#custom-types) for your custom modules for editor intellisense and better development experience.
+Please note that you may also provide [custom type definitions](./intellisense.mdx#custom-types) for your custom modules for editor intellisense and better development experience.
 
 ## Related
 
-- [Import](./import.md)
-- [External Resources](./external-resources.md)
-- [Projects](./projects.md)
-- [Intellisense](./intellisense.md)
+- [Import](./import.mdx)
+- [External Resources](./external-resources.mdx)
+- [Projects](./projects.mdx)
+- [Intellisense](./intellisense.mdx)

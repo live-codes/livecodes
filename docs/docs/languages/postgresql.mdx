@@ -4,19 +4,19 @@
 
 :::info Note
 
-Please note that LiveCodes also supports [SQL using SQLite](./sql.md).
+Please note that LiveCodes also supports [SQL using SQLite](./sql.mdx).
 
 :::
 
 ## Usage
 
-The SQL code runs (in the browser) and the output is produced as a JSON object. This JSON object is added to the [result page](../features/result.md) in a `script` block with type `application/json`.
+The SQL code runs (in the browser) and the output is produced as a JSON object. This JSON object is added to the [result page](../features/result.mdx) in a `script` block with type `application/json`.
 
 [Helper methods](#helper-methods) are provided for easy access/rendering of the JSON object (see below).
 
 ### Helper Methods
 
-The JavaScript object `livecodes.sql` is globally available in the [result page](../features/result.md). This can be used in `script` blocks in the [markup editor](../features/projects.md) (page HTML - see HTML editor is [example usage](#example-usage)). It provides the following methods for easy access/rendering of the JSON object:
+The JavaScript object `livecodes.sql` is globally available in the [result page](../features/result.mdx). This can be used in `script` blocks in the [markup editor](../features/projects.mdx) (page HTML - see HTML editor is [example usage](#example-usage)). It provides the following methods for easy access/rendering of the JSON object:
 
 - `livecodes.sql.getResult`
 
@@ -83,7 +83,7 @@ The JavaScript object `livecodes.sql` is globally available in the [result page]
 
 :::info Note
 
-Helper methods for PostgreSQL are identical to those for [SQL using SQLite](./sql.md). So the same code can be used for both engines.
+Helper methods for PostgreSQL are identical to those for [SQL using SQLite](./sql.mdx). So the same code can be used for both engines.
 
 :::
 
@@ -99,7 +99,7 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 ### Custom Settings
 
-[Custom settings](../advanced/custom-settings.md) added to the property `postgresql` are used during running the SQL code. It is a JSON object with the following properties:
+[Custom settings](../advanced/custom-settings.mdx) added to the property `postgresql` are used during running the SQL code. It is a JSON object with the following properties:
 
 - `dbName`: a database name that allows persisting data in the browser in IndexedDB (see [PGlite](https://github.com/electric-sql/pglite?tab=readme-ov-file#browser)).
 
@@ -163,4 +163,4 @@ https://livecodes.io/?template=postgresql
 - [PostgreSQL official website](https://www.postgresql.org/)
 - [PostgreSQL documentation](https://www.postgresql.org/docs/)
 - [PGlite GitHub repo](https://github.com/electric-sql/pglite)
-- [SQL in LiveCodes](./sql.md) (using SQLite)
+- [SQL in LiveCodes](./sql.mdx) (using SQLite)

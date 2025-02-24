@@ -16,7 +16,7 @@ Data URLs can be created from:
 
 For local files on user's device.
 
-[Assets screen](./assets.md) can be accessed from Settings menu → Assets. This works for any file type, including text files (e.g. stylesheets or scripts) and binary files like images. Generated data URLs are saved locally in the user's browser storage and are available across projects.
+[Assets screen](./assets.mdx) can be accessed from Settings menu → Assets. This works for any file type, including text files (e.g. stylesheets or scripts) and binary files like images. Generated data URLs are saved locally in the user's browser storage and are available across projects.
 
 ### "Copy code as data URL" button
 
@@ -30,13 +30,13 @@ The content is base64-encoded. Unicode content is appropriately encoded (see [Th
 
 Data URLs can be used anywhere you use a regular URL (e.g. for `<script src>`, `<link href>`, import URL, etc.).
 
-In addition, LiveCodes supports [importing](./import.md) data URLs, like other URLs. If the language is detected, it is loaded in the appropriate editor (e.g. `data:text/typescript;charset=UTF-8;base64,....` is detected as TypeScript).
+In addition, LiveCodes supports [importing](./import.mdx) data URLs, like other URLs. If the language is detected, it is loaded in the appropriate editor (e.g. `data:text/typescript;charset=UTF-8;base64,....` is detected as TypeScript).
 
 :::caution
 
 Depending on the browser, there may be [length limitations](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs#common_problems) on URLs. So, it is generally recommended to use data URLs for small files.
 
-For large files, it is better to host these online. LiveCodes allows hosting assets on [GitHub Pages](https://pages.github.com/) (see [assets](./assets.md)).
+For large files, it is better to host these online. LiveCodes allows hosting assets on [GitHub Pages](https://pages.github.com/) (see [assets](./assets.mdx)).
 
 :::
 
@@ -63,8 +63,8 @@ console.log(sayHello('Ali'));
 ## Related
 
 - [Data URLs (MDN)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)
-- [Assets](./assets.md)
-- [Import](./import.md)
-- [External Resources](./external-resources.md)
-- [Module resolution](./module-resolution.md)
-- [CSS](./css.md)
+- [Assets](./assets.mdx)
+- [Import](./import.mdx)
+- [External Resources](./external-resources.mdx)
+- [Module resolution](./module-resolution.mdx)
+- [CSS](./css.mdx)
