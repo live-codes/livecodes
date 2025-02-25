@@ -35,11 +35,3 @@ export const vueApp: LanguageSpecs = {
   editor: 'markup',
   editorLanguage: 'html',
 };
-
-export const vueApp: LanguageSpecs = {
-  ...vue,
-  name: 'vue-app',
-  compiler: 'vue',
-  extensions: ['app.vue'],
-  editor: 'markup',
-};
