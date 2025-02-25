@@ -25,7 +25,6 @@ export const vue: LanguageSpecs = {
   },
   extensions: ['vue', 'vue3'],
   editor: 'script',
-  editorLanguage: 'html',
 };
 
 export const vueApp: LanguageSpecs = {
@@ -34,4 +33,5 @@ export const vueApp: LanguageSpecs = {
   compiler: 'vue',
   extensions: ['app.vue'],
   editor: 'markup',
+  editorLanguage: 'html',
 };
