@@ -1056,13 +1056,13 @@ export default () => <Hello name="React" />;
     expect(resultText).toContain(`Hello, React`);
   });
 
-  test('Vue 3', async ({ page, getTestUrl }) => {
+  test('Vue', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Vue 3 SFC');
+    await app.click('text=Vue SFC');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `<template>
@@ -1070,7 +1070,7 @@ export default () => <Hello name="React" />;
 </template>
 <script>
 export default {
-  data: () =>({ title: 'Vue 3' })
+  data: () =>({ title: 'Vue' })
 };
 </script>
 <style scoped>
@@ -1083,11 +1083,11 @@ h1 {
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
-    expect(resultText).toContain(`Hello, Vue 3`);
+    expect(resultText).toContain(`Hello, Vue`);
     expect(await getResult().$eval('h1', (e) => getComputedStyle(e).color)).toBe('rgb(0, 0, 255)');
   });
 
-  test('Vue 3 JSX', async ({ page, getTestUrl }) => {
+  test('Vue JSX', async ({ page, getTestUrl }) => {
     const sfc = `<script>
   export default {
     data() {
@@ -1133,7 +1133,7 @@ h1 {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Vue 3 SFC');
+    await app.click('text=Vue SFC');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(sfc);
 
@@ -1150,7 +1150,7 @@ h1 {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
-  test('Vue 3 import', async ({ page, getTestUrl }) => {
+  test('Vue import', async ({ page, getTestUrl }) => {
     const sfc = `<template>
   <div class="container">
     <p id="uuid">{{ uuid }}</p>
@@ -1180,7 +1180,7 @@ h1 {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Vue 3 SFC');
+    await app.click('text=Vue SFC');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(sfc);
 
@@ -1206,14 +1206,14 @@ h1 {
     expect(buttonText).toBe('Count is: 3, double is: 6');
   });
 
-  test('Vue 3 langs', async ({ page, getTestUrl }) => {
+  test('Vue langs', async ({ page, getTestUrl }) => {
     const sfc = `<template lang="md">
   # Hello, {{ name }}!
   <p :class="$style.text">some text</p>
 </template>
 
 <script lang="ts" setup>
-  const name: string = 'Vue 3';
+  const name: string = 'Vue';
 </script>
 
 <style lang="scss" module>
@@ -1242,7 +1242,7 @@ h1 {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Vue 3 SFC');
+    await app.click('text=Vue SFC');
     await waitForEditorFocus(app);
     // await page.keyboard.insertText(sfc);
 
@@ -1251,20 +1251,20 @@ h1 {
     const headerText = await getResult().innerText('h1');
 
     // markdown, scss, typescript
-    expect(headerText).toContain(`Hello, Vue 3!`);
+    expect(headerText).toContain(`Hello, Vue!`);
     expect(await getResult().$eval('h1', (e) => getComputedStyle(e).color)).toBe('rgb(85, 85, 85)');
 
     // css modules
     expect(await getResult().$eval('p', (e) => getComputedStyle(e).color)).toBe('rgb(0, 128, 0)');
   });
 
-  test('Vue 3 + Tailwind CSS', async ({ page, getTestUrl }) => {
+  test('Vue + Tailwind CSS', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Vue 3 SFC');
+    await app.click('text=Vue SFC');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `<template>
