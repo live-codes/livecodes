@@ -1036,7 +1036,7 @@ const translation: I18nTranslation = {
       tcl: 'Démarrage Tcl',
       teal: 'Démarrage Teal',
       typescript: 'Démarrage TypeScript',
-      vue: 'Démarrage Vue 3 SFC',
+      vue: 'Démarrage Vue',
       vue2: 'Démarrage Vue 2',
       wat: 'Démarrage WebAssembly Text',
     },
