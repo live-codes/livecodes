@@ -121,14 +121,14 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
-  test('Vue 3 Starter', async ({ page, getTestUrl }) => {
+  test('Vue Starter', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click('[aria-label="Project"]');
     await app.click('text=New');
-    await app.click('text=Vue 3 SFC Starter');
+    await app.click('text=Vue SFC Starter');
     await waitForEditorFocus(app);
 
     await waitForResultUpdate();
@@ -714,7 +714,7 @@ test.describe('Starter Templates from URL', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
-  test('Vue 3 Starter (in URL)', async ({ page, getTestUrl }) => {
+  test('Vue Starter (in URL)', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl({ template: 'vue' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);

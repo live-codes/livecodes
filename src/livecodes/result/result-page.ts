@@ -6,6 +6,7 @@ import {
   isModuleScript,
   hasDefaultExport,
   replaceImports,
+  isScriptImport,
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import { hasCustomJsxRuntime } from '../languages/typescript';
@@ -190,10 +191,15 @@ export const createResultPage = async ({
   const compiledTests = runTests ? code.tests?.compiled || '' : '';
 
   const scriptCompiler = getLanguageCompiler(code.script.language);
-  const importFromScript =
-    getImports(markup).includes('./script') ||
-    scriptCompiler?.loadAsExternalModule ||
-    (runTests && !forExport && getImports(compiledTests).includes('./script'));
+
+  const scriptImportsInMarkup = getImports(markup).filter(isScriptImport);
+  const scriptImportsInTests =
+    runTests && !forExport ? getImports(compiledTests).filter(isScriptImport) : [];
+  const importFromScript = Boolean(
+    scriptImportsInMarkup.length > 0 ||
+      scriptCompiler?.loadAsExternalModule ||
+      scriptImportsInTests.length > 0,
+  );
 
   const jsxRuntimes: Partial<Record<Language, string>> = {
     jsx: reactRuntime,
@@ -268,7 +274,12 @@ export const createResultPage = async ({
 
   const styleExtension = getLanguageExtension(code.style.language);
 
-  const reactExternalImports = jsxRuntime === reactRuntime ? 'react,react-dom' : undefined;
+  const externalModules =
+    jsxRuntime === reactRuntime
+      ? 'react,react-dom'
+      : [config.markup.language, config.script.language].find((lang) => lang.startsWith('vue'))
+        ? 'vue'
+        : undefined;
 
   // import maps
   const userImports =
@@ -276,14 +287,14 @@ export const createResultPage = async ({
       ? {}
       : {
           ...(hasImports(code.script.compiled)
-            ? createImportMap(code.script.compiled, config, { external: reactExternalImports })
+            ? createImportMap(code.script.compiled, config, { external: externalModules })
             : {}),
           ...(hasImports(code.markup.compiled)
-            ? createImportMap(code.markup.compiled, config, { external: reactExternalImports })
+            ? createImportMap(code.markup.compiled, config, { external: externalModules })
             : {}),
           ...(shouldInsertJsxRuntime ? createImportMap(reactImport + jsxRuntime, config) : {}),
           ...(runTests && !forExport && hasImports(compiledTests)
-            ? createImportMap(compiledTests, config, { external: reactExternalImports })
+            ? createImportMap(compiledTests, config, { external: externalModules })
             : {}),
           ...stylesheetImports.reduce(
             (acc, url) => ({
@@ -307,16 +318,23 @@ export const createResultPage = async ({
           ...compileInfo.imports,
         };
 
+  const scriptImportKeys = Array.from(
+    new Set(['./script', ...scriptImportsInMarkup, ...scriptImportsInTests]),
+  );
   const scriptImport =
     importFromScript || shouldInsertJsxRuntime
-      ? {
-          './script': toDataUrl(
-            replaceImports(code.script.compiled, config, {
-              importMap: objectFilter(userImports, (_value, key) => key.startsWith('./')),
-              external: reactExternalImports,
-            }),
-          ),
-        }
+      ? scriptImportKeys.reduce(
+          (acc, key) => ({
+            ...acc,
+            [key]: toDataUrl(
+              replaceImports(code.script.compiled, config, {
+                importMap: objectFilter(userImports, (_value, key) => key.startsWith('./')),
+                external: externalModules,
+              }),
+            ),
+          }),
+          {},
+        )
       : {};
 
   // allow config imports to override auto-generated user imports
@@ -333,7 +351,7 @@ export const createResultPage = async ({
 
   // avoid duplicate react instances
   const reactImports = (() => {
-    if (!reactExternalImports) return {};
+    if (!externalModules) return {};
     const reactUrl = modulesService.getModuleUrl('react');
     const reactDomUrl = modulesService.getModuleUrl('react-dom');
     return {
