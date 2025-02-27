@@ -1264,7 +1264,7 @@ h1 {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Vue SFC');
+    await (await app.$('[data-lang="vue"]'))?.click();
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `<template>
@@ -1330,7 +1330,7 @@ h1 { color: blue; }
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Svelte');
+    await (await app.$('[data-lang="svelte"]'))?.click();
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `<script>
