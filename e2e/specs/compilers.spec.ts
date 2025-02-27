@@ -1251,7 +1251,7 @@ h1 {
     const headerText = await getResult().innerText('h1');
 
     // markdown, scss, typescript
-    expect(headerText).toContain(`Hello, Vue!`);
+    expect(headerText).toContain(`Hello, Vue 3!`);
     expect(await getResult().$eval('h1', (e) => getComputedStyle(e).color)).toBe('rgb(85, 85, 85)');
 
     // css modules
