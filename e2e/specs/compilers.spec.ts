@@ -1062,7 +1062,7 @@ export default () => <Hello name="React" />;
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Vue SFC');
+    await (await app.$('[data-lang="vue"]'))?.click();
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `<template>
@@ -1133,7 +1133,7 @@ h1 {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Vue SFC');
+    await (await app.$('[data-lang="vue"]'))?.click();
     await waitForEditorFocus(app);
     await page.keyboard.insertText(sfc);
 
@@ -1180,7 +1180,7 @@ h1 {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Vue SFC');
+    await (await app.$('[data-lang="vue"]'))?.click();
     await waitForEditorFocus(app);
     await page.keyboard.insertText(sfc);
 
@@ -1242,7 +1242,7 @@ h1 {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Vue SFC');
+    await (await app.$('[data-lang="vue"]'))?.click();
     await waitForEditorFocus(app);
     // await page.keyboard.insertText(sfc);
 
