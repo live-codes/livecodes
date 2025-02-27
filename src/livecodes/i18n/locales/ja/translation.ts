@@ -1034,7 +1034,7 @@ const translation: I18nTranslation = {
       tcl: 'Tclスターター',
       teal: 'Tealスターター',
       typescript: 'TypeScriptスターター',
-      vue: 'Vue 3 SFCスターター',
+      vue: 'Vue スターター',
       vue2: 'Vue 2スターター',
       wat: 'WebAssembly Textスターター',
     },

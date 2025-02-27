@@ -1035,7 +1035,7 @@ const translation: I18nTranslation = {
       tcl: 'Iniciante Tcl',
       teal: 'Iniciante Teal',
       typescript: 'Iniciante TypeScript',
-      vue: 'Iniciante Vue 3 SFC',
+      vue: 'Iniciante Vue',
       vue2: 'Iniciante Vue 2',
       wat: 'Iniciante WebAssembly Text',
     },
