@@ -318,7 +318,7 @@ export const createResultPage = async ({
           ...compileInfo.imports,
         };
 
-  const scriptImportKeys = [...scriptImportsInMarkup, ...scriptImportsInTests];
+  const scriptImportKeys = ['./script', ...scriptImportsInMarkup, ...scriptImportsInTests];
   const scriptImport =
     importFromScript || shouldInsertJsxRuntime
       ? scriptImportKeys.reduce(
