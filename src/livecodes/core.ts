@@ -774,10 +774,8 @@ const configureEditorTools = (language: Language) => {
   return true;
 };
 
-const addPhpToken = (code: string) => (code.trim().startsWith('<?php') ? code : '<?php\n' + code);
-
-const removePhpToken = (code: string) =>
-  code.trim().startsWith('<?php') ? code.replace('<?php', '') : code;
+const addPhpToken = (code: string) =>
+  code.includes('<?php') || code.includes('<?=') ? code : '<?php\n' + code;
 
 const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => {
   if (code?.trim()) {
@@ -905,21 +903,15 @@ const getResultPage = async ({
   const contentConfig = getContentConfig(config);
 
   const getContent = (editor: Partial<Editor> | undefined) => {
-    if (!editor?.hiddenContent) {
-      return editor?.content ?? '';
+    const editorContent = editor?.content ?? '';
+    const hiddenContent = editor?.hiddenContent ?? '';
+    if (!hiddenContent) {
+      return editorContent;
     }
-    const editorContent = editor.language?.startsWith('php')
-      ? removePhpToken(editor.content ?? '')
-      : editor.content ?? '';
-    const hiddenContent = editor.language?.startsWith('php')
-      ? removePhpToken(editor.hiddenContent ?? '')
-      : editor.hiddenContent ?? '';
-    const token = editor.language?.startsWith('php') ? '<?php\n' : '';
     const placeholder = '{{__livecodes_editor_content__}}';
-    if (hiddenContent.includes(placeholder)) {
-      return token + hiddenContent.replace(placeholder, editorContent);
-    }
-    return `${token}${hiddenContent}\n${editorContent}`;
+    return hiddenContent.includes(placeholder)
+      ? hiddenContent.replace(placeholder, editorContent)
+      : `${hiddenContent}\n${editorContent}`;
   };
 
   const markupContent = getContent(config.markup);
