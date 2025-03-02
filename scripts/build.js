@@ -277,7 +277,7 @@ const workersBuild = () =>
 const functionsBuild = () =>
   esbuild.build({
     ...baseOptions,
-    outdir: 'functions/build',
+    outdir: 'functions/vendors',
     entryPoints: ['src/livecodes/utils/compression.ts'],
   });
 
