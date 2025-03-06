@@ -222,6 +222,7 @@ export const createResultPage = async ({
     hasDefaultExport(code.script.compiled) &&
     !hasCustomJsxRuntime(code.script.content || '', config) &&
     !importFromScript;
+  const hasPreact = getImports(code.script.compiled).find((mod) => mod === 'preact');
 
   let compilerImports = {};
 
@@ -274,8 +275,9 @@ export const createResultPage = async ({
 
   const styleExtension = getLanguageExtension(code.style.language);
 
-  const externalModules =
-    jsxRuntime === reactRuntime
+  const externalModules = hasPreact
+    ? 'preact'
+    : jsxRuntime === reactRuntime
       ? 'react,react-dom'
       : [config.markup.language, config.script.language].find((lang) => lang.startsWith('vue'))
         ? 'vue'
@@ -349,9 +351,16 @@ export const createResultPage = async ({
       delete userImports[userKey as keyof typeof userImports];
     });
 
-  // avoid duplicate react instances
+  // avoid duplicate (p)react instances
   const reactImports = (() => {
     if (!externalModules) return {};
+    if (hasPreact) {
+      const preactUrl = modulesService.getModuleUrl('preact');
+      return {
+        preact: preactUrl,
+        'preact/': preactUrl + '/',
+      };
+    }
     const reactUrl = modulesService.getModuleUrl('react');
     const reactDomUrl = modulesService.getModuleUrl('react-dom');
     return {
