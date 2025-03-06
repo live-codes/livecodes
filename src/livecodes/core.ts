@@ -410,6 +410,7 @@ const setEditorTitle = (editorId: EditorId, title: string) => {
     return;
   }
   editorTitleContainer.style.display = '';
+  editorTitleContainer.style.order = String(config[editorId].order ?? 0);
   highlightSelectedLanguage(editorId, language);
   const shortcut = ` (Ctrl/⌘ + Alt + ${editorIds.indexOf(editorId) + 1})`;
   const customTitle = config[editorId].title;
