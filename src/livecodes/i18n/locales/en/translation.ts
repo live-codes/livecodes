@@ -995,6 +995,7 @@ const translation = {
       coffeescript: 'CoffeeScript Starter',
       commonlisp: 'Common Lisp Starter',
       cpp: 'C++ Starter',
+      daisyui: 'daisyUI Starter',
       diagrams: 'Diagrams Starter',
       fennel: 'Fennel Starter',
       gleam: 'Gleam Starter',

@@ -2596,6 +2596,10 @@
     "notes": "",
     "translation": "C++ Starter"
   },
+  "templates.starter.daisyui": {
+    "notes": "",
+    "translation": "daisyUI Starter"
+  },
   "templates.starter.diagrams": {
     "notes": "",
     "translation": "Diagrams Starter"

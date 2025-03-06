@@ -1372,6 +1372,7 @@ export type TemplateName =
   | 'bootstrap'
   | 'tailwindcss'
   | 'shadcn-ui'
+  | 'daisyui'
   | 'd3'
   | 'phaser'
   | 'coffeescript'
