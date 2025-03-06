@@ -988,6 +988,7 @@ const translation: I18nTranslation = {
       coffeescript: 'قالب CoffeeScript',
       commonlisp: 'قالب Common Lisp',
       cpp: 'قالب C++',
+      daisyui: 'قالب daisyUI',
       diagrams: 'قالب الرسوم البيانية',
       fennel: 'قالب Fennel',
       gleam: 'قالب Gleam',

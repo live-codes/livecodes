@@ -986,6 +986,7 @@ const translation: I18nTranslation = {
       coffeescript: 'CoffeeScript 启动模板',
       commonlisp: 'Common Lisp 启动模板',
       cpp: 'C++ 启动模板',
+      daisyui: 'daisyUI 启动模板',
       diagrams: '图表启动模板',
       fennel: 'Fennel 启动模板',
       gleam: 'Gleam 启动模板',

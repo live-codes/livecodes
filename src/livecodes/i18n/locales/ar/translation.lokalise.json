@@ -1947,6 +1947,9 @@
   "templates.starter.cpp": {
     "translation": "قالب C++"
   },
+  "templates.starter.daisyui": {
+    "translation": "قالب daisyUI"
+  },
   "templates.starter.diagrams": {
     "translation": "قالب الرسوم البيانية"
   },

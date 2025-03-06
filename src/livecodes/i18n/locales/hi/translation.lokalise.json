@@ -1947,6 +1947,9 @@
   "templates.starter.cpp": {
     "translation": "C++ स्टार्टर"
   },
+  "templates.starter.daisyui": {
+    "translation": "daisyUI स्टार्टर"
+  },
   "templates.starter.diagrams": {
     "translation": "आरेख स्टार्टर"
   },
