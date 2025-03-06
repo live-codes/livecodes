@@ -64,6 +64,7 @@ import { gleamStarter } from './gleam-starter';
 import { phaserStarter } from './phaser-starter';
 import { d3Starter } from './d3-starter';
 import { shadcnuiStarter } from './shadcn-ui-starter';
+import { daisyuiStarter } from './daisyui-starter';
 
 export const starterTemplates = [
   blank,
@@ -81,6 +82,7 @@ export const starterTemplates = [
   mdxStarter,
   tailwindcssStarter,
   shadcnuiStarter,
+  daisyuiStarter,
   bootstrapStarter,
   astroStarter,
   riotStarter,

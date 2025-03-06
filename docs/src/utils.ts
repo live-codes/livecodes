@@ -11,8 +11,8 @@ export const appUrl =
   globalThis.location?.hostname.startsWith('localhost')
     ? 'http://127.0.0.1:8080/'
     : docsBaseUrl && globalThis.location?.href
-    ? new URL(docsBaseUrl + '../', globalThis.location?.href).href
-    : globalThis.location?.origin || 'https://livecodes.io/';
+      ? new URL(docsBaseUrl + '../', globalThis.location?.href).href
+      : globalThis.location?.origin || 'https://livecodes.io/';
 
 export const allowedOrigin = (origin = location.origin) =>
   Boolean(
