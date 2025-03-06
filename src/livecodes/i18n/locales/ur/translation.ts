@@ -988,6 +988,7 @@ const translation: I18nTranslation = {
       coffeescript: 'کافی اسکرپٹ شروعاتی',
       commonlisp: 'کامن لسپ شروعاتی',
       cpp: 'سی++ شروعاتی',
+      daisyui: 'daisyUI شروعاتی',
       diagrams: 'ڈایاگرامز شروعاتی',
       fennel: 'فینل شروعاتی',
       gleam: 'گلیم شروعاتی',

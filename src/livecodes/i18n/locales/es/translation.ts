@@ -988,6 +988,7 @@ const translation: I18nTranslation = {
       coffeescript: 'Inicio CoffeeScript',
       commonlisp: 'Inicio Common Lisp',
       cpp: 'Inicio C++',
+      daisyui: 'Inicio daisyUI',
       diagrams: 'Inicio Diagramas',
       fennel: 'Inicio Fennel',
       gleam: 'Inicio Gleam',

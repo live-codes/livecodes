@@ -1947,6 +1947,9 @@
   "templates.starter.cpp": {
     "translation": "Démarrage C++"
   },
+  "templates.starter.daisyui": {
+    "translation": "Démarrage daisyUI"
+  },
   "templates.starter.diagrams": {
     "translation": "Démarrage Diagrammes"
   },
