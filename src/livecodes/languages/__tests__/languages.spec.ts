@@ -28,9 +28,7 @@ describe('languages', () => {
     expect(mapLanguage('stencil')).toBe('typescript');
     expect(mapLanguage('solid.tsx')).toBe('typescript');
     expect(mapLanguage('assemblyscript')).toBe('typescript');
-    expect(mapLanguage('vue')).toBe('html');
     expect(mapLanguage('vue2')).toBe('html');
-    expect(mapLanguage('svelte')).toBe('html');
     expect(mapLanguage('mdx')).toBe('markdown');
     expect(mapLanguage('pyodide')).toBe('python');
     expect(mapLanguage('javascript')).toBe('javascript');

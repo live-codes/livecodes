@@ -410,6 +410,7 @@ const setEditorTitle = (editorId: EditorId, title: string) => {
     return;
   }
   editorTitleContainer.style.display = '';
+  editorTitleContainer.style.order = String(config[editorId].order ?? 0);
   highlightSelectedLanguage(editorId, language);
   const shortcut = ` (Ctrl/⌘ + Alt + ${editorIds.indexOf(editorId) + 1})`;
   const customTitle = config[editorId].title;
@@ -774,10 +775,8 @@ const configureEditorTools = (language: Language) => {
   return true;
 };
 
-const addPhpToken = (code: string) => (code.trim().startsWith('<?php') ? code : '<?php\n' + code);
-
-const removePhpToken = (code: string) =>
-  code.trim().startsWith('<?php') ? code.replace('<?php', '') : code;
+const addPhpToken = (code: string) =>
+  code.includes('<?php') || code.includes('<?=') ? code : '<?php\n' + code;
 
 const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => {
   if (code?.trim()) {
@@ -905,21 +904,15 @@ const getResultPage = async ({
   const contentConfig = getContentConfig(config);
 
   const getContent = (editor: Partial<Editor> | undefined) => {
-    if (!editor?.hiddenContent) {
-      return editor?.content ?? '';
+    const editorContent = editor?.content ?? '';
+    const hiddenContent = editor?.hiddenContent ?? '';
+    if (!hiddenContent) {
+      return editorContent;
     }
-    const editorContent = editor.language?.startsWith('php')
-      ? removePhpToken(editor.content ?? '')
-      : editor.content ?? '';
-    const hiddenContent = editor.language?.startsWith('php')
-      ? removePhpToken(editor.hiddenContent ?? '')
-      : editor.hiddenContent ?? '';
-    const token = editor.language?.startsWith('php') ? '<?php\n' : '';
     const placeholder = '{{__livecodes_editor_content__}}';
-    if (hiddenContent.includes(placeholder)) {
-      return token + hiddenContent.replace(placeholder, editorContent);
-    }
-    return `${token}${hiddenContent}\n${editorContent}`;
+    return hiddenContent.includes(placeholder)
+      ? hiddenContent.replace(placeholder, editorContent)
+      : `${hiddenContent}\n${editorContent}`;
   };
 
   const markupContent = getContent(config.markup);
@@ -950,11 +943,19 @@ const getResultPage = async ({
     toolsPane?.tests?.showResults({ results: [] });
   }
 
-  const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {});
+  const forceCompileSFC =
+    (config.markup.language === config.script.language + '-app' ||
+      getCache().markup.language === getCache().script.language + '-app') &&
+    (config.markup.language !== getCache().markup.language ||
+      config.script.language !== getCache().script.language);
+
+  const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {
+    forceCompile: forceCompileSFC,
+  });
   let compiledMarkup = markupCompileResult.code;
 
   const scriptCompileResult = await compiler.compile(scriptContent, scriptLanguage, config, {
-    forceCompile: forceCompileStyles,
+    forceCompile: forceCompileStyles || forceCompileSFC,
     blockly:
       scriptLanguage === 'blockly'
         ? ((await customEditors.blockly?.getContent({

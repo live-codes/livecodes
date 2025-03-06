@@ -1,11 +1,9 @@
-// eslint-disable-next-line import/no-unresolved
+/* eslint-disable import/no-unresolved */
 import Link from '@docusaurus/Link';
-// eslint-disable-next-line import/no-unresolved
 import CodeBlock from '@theme/CodeBlock';
-// eslint-disable-next-line import/no-unresolved
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-import React from 'react';
+import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 import LiveCodes from './LiveCodes';
@@ -15,7 +13,7 @@ import HomepageCarousel from './HomepageCarousel';
 interface FeatureItem {
   title: string;
   image?: string;
-  description: JSX.Element;
+  description: ReactNode;
 }
 
 const FeatureList1: FeatureItem[] = [
@@ -169,7 +167,7 @@ const FeatureList4: FeatureItem[] = [
       <>
         Comprehensive <Link to="./overview">documentations</Link> for{' '}
         <Link to="./features">features</Link>, <Link to="./configuration">configuration</Link> and{' '}
-        <Link to="./sdk">SDK</Link> (including <Link to="./api/modules">TypeScript types</Link>).
+        <Link to="./sdk">SDK</Link> (including <Link to="./api/globals">TypeScript types</Link>).
         Documentations are rich with code samples, live demos and screenshots. A gallery of usage
         examples is provided as a <Link to="pathname:///../stories">storybook</Link>.
       </>
@@ -253,7 +251,7 @@ createPlayground('#container', {
   );
 };
 
-export default function HomepageFeatures(): JSX.Element {
+export default function HomepageFeatures(): ReactNode {
   return (
     <>
       <section className={styles.features}>
@@ -309,7 +307,7 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
         </div>
       </section>
-      <section className={styles.rowDark}>
+      <section className={clsx(styles.features, styles.rowDark)}>
         <div className="container padding-vert--lg">
           <div className="text--center padding-horiz--md">
             <h2 className={styles.padding}>Code Playground That Just Works!</h2>
@@ -422,7 +420,7 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
         </div>
       </section>
-      <section className={styles.rowLight}>
+      <section className={clsx(styles.features, styles.rowLight)}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList1.map((props, idx) => (
@@ -431,7 +429,7 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
         </div>
       </section>
-      <section className={styles.rowDark}>
+      <section className={clsx(styles.features, styles.rowDark)}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList2.map((props, idx) => (
@@ -440,7 +438,7 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
         </div>
       </section>
-      <section className={styles.rowLight}>
+      <section className={clsx(styles.features, styles.rowLight)}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList3.map((props, idx) => (
@@ -449,7 +447,7 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
         </div>
       </section>
-      <section className={styles.rowDark}>
+      <section className={clsx(styles.features, styles.rowDark)}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList4.map((props, idx) => (

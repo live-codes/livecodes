@@ -1,6 +1,6 @@
 .content {
   align-items: center;
-  color: #3c3c3c54;
+  color: var(--ifm-color-content-secondary);
   display: flex;
   justify-content: center;
 }
@@ -24,10 +24,10 @@
 
 :global .sponsors a {
   align-items: center;
-  background-color: #f9f9f9;
-  border: 1px solid #3c3c3c75;
+  background-color: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-table-border-color);
   border-radius: 2px;
-  color: #3c3c3c54;
+  color: var(--ifm-color-content-secondary);
   display: flex;
   height: 60px;
   justify-content: center;

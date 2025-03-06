@@ -1,5 +1,5 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import type { Editor, Config, ToolsPaneStatus, EditorId, Tool } from '../models';
+import type { Editor, Config, ToolsPaneStatus, EditorId, Tool, Language } from '../models';
 import { removeDuplicates } from '../utils';
 import { defaultConfig } from './default-config';
 
@@ -50,19 +50,33 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
       is(x.content, 'string') ||
       is(x.contentUrl, 'string') ||
       is(x.hiddenContent, 'string') ||
-      is(x.hiddenContentUrl, 'string'));
+      is(x.hiddenContentUrl, 'string') ||
+      is(x.order, 'number') ||
+      is(x.selector, 'string'));
+
+  const fixSfcLanguage = (lang: Language, editorId: EditorId) =>
+    editorId !== 'markup'
+      ? lang
+      : lang === 'svelte'
+        ? 'svelte-app'
+        : lang === 'vue'
+          ? 'vue-app'
+          : lang;
 
   const validateEditorProps = (x: Editor, editorId: EditorId): Editor => ({
-    language:
-      getLanguageEditorId(x.language) === editorId
+    language: fixSfcLanguage(
+      getLanguageEditorId(fixSfcLanguage(x.language, editorId)) === editorId
         ? getLanguageByAlias(x.language) || defaultConfig[editorId].language
         : defaultConfig[editorId].language,
+      editorId,
+    ),
     ...(is(x.title, 'string') ? { title: x.title } : {}),
     ...(is(x.content, 'string') ? { content: x.content } : {}),
     ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
     ...(is(x.hideTitle, 'boolean') ? { hideTitle: x.hideTitle } : {}),
     ...(is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),
     ...(is(x.hiddenContentUrl, 'string') ? { hiddenContentUrl: x.hiddenContentUrl } : {}),
+    ...(is(x.order, 'number') ? { order: x.order } : {}),
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
     ...(is(x.position, 'object') ? { position: x.position } : {}),
   });

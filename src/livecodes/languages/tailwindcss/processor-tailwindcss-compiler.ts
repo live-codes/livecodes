@@ -1,9 +1,10 @@
 /* eslint-disable no-bitwise */
 import type { CompilerFunction, Config, Language } from '../../models';
-import { compileInCompiler, replaceStyleImports } from '../../compiler';
+import { compileInCompiler, isBare, replaceStyleImports } from '../../compiler';
 import { getLanguageCustomSettings } from '../../utils/utils';
 import { tailwindcss3Url, tailwindcssBaseUrl, vendorsBaseUrl } from '../../vendors';
 import { lightningcssFeatures } from '../lightningcss/processor-lightningcss-compiler';
+import { modulesService } from '../../services';
 
 declare const self: any;
 
@@ -105,7 +106,8 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
       };
     }
     try {
-      const module = await import(id);
+      const moduleUrl = isBare(id) ? modulesService.getModuleUrl(id) : id;
+      const module = await import(moduleUrl);
       return {
         base: '/',
         module: module.default ?? module,

@@ -685,7 +685,7 @@
     "translation": "TSX"
   },
   "twig.desc": {
-    "translation": "Une implémentation JavaScript du langage de template PHP <tag-1>Twig</tag-1> par <tag-2>Twig.js</tag-2>."
+    "translation": "Une implémentation JavaScript de <tag-1>Twig</tag-1> le langage de modèle PHP par <tag-2>Twig.js</tag-2>."
   },
   "twig.link": {
     "translation": "<tag-1> <tag-2>Site officiel de Twig</tag-2> </tag-1> <tag-3> <tag-4>Documentation de Twig</tag-4> </tag-3> <tag-5> <tag-6>Dépôt Twig.js</tag-6> </tag-5> <tag-7> <tag-8>Documentation Twig.js</tag-8> </tag-7> <tag-9> <tag-10>Documentation LiveCodes</tag-10> </tag-9>"

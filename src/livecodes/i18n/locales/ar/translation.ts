@@ -29,7 +29,7 @@ const translation: I18nTranslation = {
       para1:
         '<1><2>LiveCodes</2></1> هو ملعب برمجي <3>مفتوح المصدر</3>، <4>غني بالميزات</4>، <5>يعمل على جانب العميل</5>. حاليًا، يتم دعم <6>أكثر من 90 لغة/<7></7>إطار عمل</6>. يمكن استخدامه كتطبيق مستقل أو يمكن <8>تضمينه</8> في أي صفحة ويب. هناك العديد من الطرق <9>لملء الملاعب مسبقًا</9> بالكود.',
       para2:
-        'مجموعة واسعة من <1>الإعدادات</1> تجعله مرنًا للغاية. <2>SDK</2> قوي (لـ <3>JS/TS</3>، و<4>React</4>، و<5>Vue</5> و<6>Svelte</6>) يسهل <7>التضمين</7> و<8>التواصل</8> مع الملاعب. تتوفر <9>وثائق شاملة</9> مع نماذج الكود والعروض التوضيحية الحية ولقطات الشاشة.',
+        'تعمل مجموعة أدوات تطوير البرمجيات القوية على تسهيل التكامل والتواصل مع الملاعب. تتوفر وثائق مستفيضة مع أمثلة برمجية وعروض توضيحية مباشرة ولقطات شاشة.',
     },
     sdk: 'LiveCodes SDK',
     sponsor: {
@@ -483,9 +483,9 @@ const translation: I18nTranslation = {
   },
   editorSettings: {
     closeBrackets: 'إغلاق تلقائي للأقواس والعلامات',
-    codeJarDesc: '* الميزات المحددة غير متوفرة في CodeJar.',
+    codeJarDesc: '<1> </1> * الميزات المحددة غير متوفرة في CodeJar.',
     default: 'افتراضي',
-    desc: 'يرجى مراجعة <1>الوثائق</1> للتفاصيل.',
+    desc: '<1> </1> يرجى مراجعة وثائق <2> </2> للحصول على التفاصيل.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -988,6 +988,7 @@ const translation: I18nTranslation = {
       coffeescript: 'قالب CoffeeScript',
       commonlisp: 'قالب Common Lisp',
       cpp: 'قالب C++',
+      daisyui: 'قالب daisyUI',
       diagrams: 'قالب الرسوم البيانية',
       fennel: 'قالب Fennel',
       gleam: 'قالب Gleam',
@@ -1034,7 +1035,7 @@ const translation: I18nTranslation = {
       tcl: 'قالب Tcl',
       teal: 'قالب Teal',
       typescript: 'قالب TypeScript',
-      vue: 'قالب Vue 3',
+      vue: 'قالب Vue',
       vue2: 'قالب Vue 2',
       wat: 'قالب WebAssembly Text',
     },

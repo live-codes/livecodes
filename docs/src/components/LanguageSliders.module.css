@@ -28,7 +28,7 @@
 }
 
 .slider > div {
-  background-color: white;
+  background-color: var(--ifm-background-color);
   margin: 0.2em;
   overflow: hidden;
   position: absolute;

@@ -1,0 +1,34 @@
+# Read-Only
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+In case you need to embed a playground in your web page to show case some code and want users to read through the code and not allow edits, you may use the `readonly` setting.
+
+Code editing, [formatting](./code-format.mdx), and [console input](./console.mdx) are not available. However, any language supported by LiveCodes can be used, with syntax highlighting. Code can be [prefilled](./code-prefill.mdx), and is compiled and shown in the [result page](./result.mdx) as usual.
+
+By default, a light-weight, minimal [code editor](./editor-settings.mdx#code-editor) is used. This can be changed by explicitly setting the [configuration object](../configuration/configuration-object.mdx) property [`editor`](../configuration/configuration-object.mdx#editor) (e.g. to show hover intellisense).
+
+Demo:
+
+<LiveCodes template="javascript" config={{ readonly: true }}></LiveCodes>
+
+## Using SDK
+
+set the [configuration object](../configuration/configuration-object.mdx) property [`readonly`](../configuration/configuration-object.mdx#readonly) to `true`.
+
+```js
+import { createPlayground } from 'livecodes';
+
+createPlayground('#container', { template: 'javascript', config: { readonly: true } });
+```
+
+## Using query params
+
+add the [query parameter](../configuration/query-params.mdx) `readonly` (no need to set a value).
+
+https://livecodes.io?template=javascript&readonly
+
+## Related
+
+- [Code prefill](./code-prefill.mdx)
+- [Lite mode](./lite.mdx)

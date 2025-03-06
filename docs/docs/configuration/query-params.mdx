@@ -1,0 +1,163 @@
+# Query Parameters
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+A flexible and convenient way to configure the app is to use URL query parameters.
+It allows configuration of a wide range of options, including those of the [configuration object](./configuration-object.mdx) and [embed options](../sdk/js-ts.mdx#embed-options).
+
+<div style={{ clear: 'both' }}></div>
+Example:
+
+```
+https://livecodes.io?js=console.log('Hello World!')&console=open
+```
+
+<LiveCodes params={{ js: "console.log('Hello World!')", console: 'open' }}></LiveCodes>
+
+## Usage
+
+- All properties of [configuration object](./configuration-object.mdx) and [embed options](../sdk/js-ts.mdx#embed-options) that have values of primitive types (e.g. string, number, boolean) can be assigned to a query parameter with the same name.
+
+  These include:
+  [config](../sdk/js-ts.mdx#config),
+  [import](../sdk/js-ts.mdx#import),
+  [lite](../configuration/configuration-object.mdx#mode),
+  [loading](../sdk/js-ts.mdx#loading),
+  [template](../sdk/js-ts.mdx#template),
+  [view](../configuration/configuration-object.mdx#view),
+  [title](./configuration-object.mdx#title),
+  [description](./configuration-object.mdx#description),
+  [activeEditor](./configuration-object.mdx#activeeditor),
+  [cssPreset](./configuration-object.mdx#csspreset),
+  [readonly](./configuration-object.mdx#readonly),
+  [allowLangChange](./configuration-object.mdx#allowlangchange),
+  [mode](./configuration-object.mdx#mode),
+  [autoupdate](./configuration-object.mdx#autoupdate),
+  [autosave](./configuration-object.mdx#autosave),
+  [delay](./configuration-object.mdx#delay),
+  [formatOnsave](./configuration-object.mdx#formatonsave),
+  [theme](./configuration-object.mdx#theme),
+  [themeColor](./configuration-object.mdx#themecolor),
+  [appLanguage](./configuration-object.mdx#applanguage),
+  [recoverUnsaved](./configuration-object.mdx#recoverunsaved),
+  [welcome](./configuration-object.mdx#welcome),
+  [showSpacing](./configuration-object.mdx#showspacing),
+  [layout](./configuration-object.mdx#layout),
+  [editor](./configuration-object.mdx#editor),
+  [editorTheme](./configuration-object.mdx#editortheme),
+  [fontFamily](./configuration-object.mdx#fontfamily),
+  [fontSize](./configuration-object.mdx#fontsize),
+  [useTabs](./configuration-object.mdx#usetabs),
+  [tabSize](./configuration-object.mdx#tabsize),
+  [lineNumbers](./configuration-object.mdx#linenumbers),
+  [wordWrap](./configuration-object.mdx#wordwrap),
+  [closeBrackets](./configuration-object.mdx#closebrackets),
+  [emmet](./configuration-object.mdx#emmet),
+  [editorMode](./configuration-object.mdx#editormode),
+  [semicolons](./configuration-object.mdx#semicolons),
+  [singleQuote](./configuration-object.mdx#singlequote),
+  [trailingComma](./configuration-object.mdx#trailingcomma).
+
+  Example:
+
+  ```
+  ?theme=light&delay=500&lineNumbers=false
+  ```
+
+- Any value given for booleans except `"false"` (including no value) will be considered `true`.
+
+  Example: all these are considered `true`
+
+  ```
+  ?lite=true
+  ?lite=1
+  ?lite=any
+  ?lite
+  ```
+
+  while this is considered `false`
+
+  ```
+  ?lite=false
+  ```
+
+- Parameters that expect array of values can be supplied with comma separated values. These include:
+  [tags](./configuration-object.mdx#tags),
+  [languages](./configuration-object.mdx#languages),
+  [processors](./configuration-object.mdx#processors),
+  [stylesheets](./configuration-object.mdx#stylesheets),
+  [scripts](./configuration-object.mdx#scripts).
+
+  Example:
+
+  ```
+  ?languages=html,md,css,ts
+  ```
+
+- Values set in the URL query parameters override those set in [configuration object](./configuration-object.mdx).
+
+- Unlike [user settings](../features/user-settings.mdx) that are set in the UI which are saved and subsequently used, those that are set in query parameters are not automatically saved.
+
+- Additional query parameters include:
+
+  - `no-defaults`: `boolean` (Default: `false`).
+
+    If `true`, the app will not load the [default template/language](../features/default-template-language.mdx).
+
+  - `x`: `string`.
+
+    Alias to [`import`](../sdk/js-ts.mdx#import) (a URL to [import](../features/import.mdx)).
+
+  - `files`: `string`.
+
+    A comma-separated [list of files to import](../features/import.mdx#file-selection).
+
+  - `raw`: [`Language`](../api/type-aliases/Language.md).
+
+    When used with `import` or `x`, imports the URL as code of the provided language.
+
+  - `language`: [`Language`](../api/type-aliases/Language.md).
+
+    The language to load by default in the editor.
+
+  - `lang`: [`Language`](../api/type-aliases/Language.md).
+
+    Alias to `language`.
+
+  - `active`: `"markup" | "style" | "script" | 0 | 1 | 2`.
+
+    Alias to [`activeEditor`](./configuration-object.mdx#activeeditor).
+
+  - `tools`: `"open" | "full" | "closed" | "console" | "compiled" | "tests" | "none"`
+
+    The [tools pane](../features/tools-pane.mdx) status.
+
+  - `console`: `"open" | "full" | "closed" | "none"`
+
+    The [console](../features/console.mdx) status.
+
+  - `compiled`: `"open" | "full" | "closed" | "none"`
+
+    The [compiled code viewer](../features/compiled-code.mdx) status.
+
+  - `tests`: `"open" | "full" | "closed" | "none"`
+
+    The [tests panel](../features/tests.mdx) status.
+
+  - `scrollPosition`: `boolean` (Default: `true`).
+
+    If `false`, the [result page](../features/result.mdx) [scroll position](../features/result.mdx#scroll-position) will not be maintained after reload.
+
+  - Any [`Language`](../api/type-aliases/Language.md) can used as a query parameter, and the value will be used as its code.
+
+    Example:
+
+    ```
+    https://livecodes.io?js=console.log('Hello World!')
+    ```
+
+:::info Examples
+For usage examples, check [storybook](pathname:///../stories/?path=/story/embed-options-params--select-language) and [unit tests](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/config/__tests__/build-config.spec.ts).
+:::
+
+<!-- TODO: add docs for languageSelector and ToolsStatus -->

@@ -9,7 +9,7 @@ const sources = {
     'https://github.com/hatemhosny/typescript-demo-for-testing-import-/tree/gh-pages/src',
   'GitHub dir - permalink':
     'https://github.com/hatemhosny/typescript-demo-for-testing-import-/tree/29b328154267b36d77bfac284bc285784757c473/src',
-  'GitLab snippet': 'https://gitlab.com/-/snippets/2199319',
+  // 'GitLab snippet': 'https://gitlab.com/-/snippets/2199319',  // FIXME: flaky
   'GitLab dir':
     'https://gitlab.com/hatemhosny/typescript-demo-for-testing-import-/-/tree/gh-pages/src',
   JsBin: 'https://jsbin.com/jikojak/edit?html,css,js,output',

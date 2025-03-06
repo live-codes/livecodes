@@ -39,5 +39,13 @@ export const svelte: LanguageSpecs = {
   },
   extensions: ['svelte'],
   editor: 'script',
+};
+
+export const svelteApp: LanguageSpecs = {
+  ...svelte,
+  name: 'svelte-app',
+  compiler: 'svelte',
+  extensions: ['app.svelte'],
+  editor: 'markup',
   editorLanguage: 'html',
 };

@@ -40,7 +40,7 @@
     "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> ist ein <tag-3>Open-Source</tag-3>, <tag-4>funktionsreiches</tag-4>, <tag-5>clientseitiger</tag-5> Code-Spielplatz. Derzeit werden <tag-6>über 90 Sprachen/<tag-7></tag-7>Frameworks</tag-6> unterstützt. Es kann als eigenständige App verwendet oder in jede Webseite <tag-8>eingebettet</tag-8> werden. Es gibt viele Möglichkeiten, Spielplätze mit Code <tag-9>vorzufüllen</tag-9>."
   },
   "about.livecodes.para2": {
-    "translation": "Eine breite Palette von <tag-1>Konfigurationsoptionen</tag-1> macht es sehr flexibel. Ein leistungsstarkes <tag-2>SDK</tag-2> (für <tag-3>JS/TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> und <tag-6>Svelte</tag-6>) erleichtert das <tag-7>Einbetten</tag-7> und die <tag-8>Kommunikation</tag-8> mit Spielplätzen. <tag-9>umfassende Dokumentationen</tag-9> sind mit Codebeispielen, Live-Demos und Screenshots verfügbar."
+    "translation": "Ein leistungsfähiges SDK erleichtert die Integration und Kommunikation mit Playgrounds. Eine ausführliche Dokumentation mit Codebeispielen, Live-Demos und Screenshots ist verfügbar."
   },
   "about.sdk": {
     "translation": "LiveCodes SDK"
@@ -907,13 +907,13 @@
     "translation": "Klammern und Anführungszeichen automatisch schließen"
   },
   "editorSettings.codeJarDesc": {
-    "translation": "* Die markierten Funktionen sind in CodeJar nicht verfügbar."
+    "translation": "<tag-1></tag-1> * Die markierten Funktionen sind in CodeJar nicht verfügbar."
   },
   "editorSettings.default": {
     "translation": "Standard"
   },
   "editorSettings.desc": {
-    "translation": "Bitte lesen Sie die <tag-1>Dokumentation</tag-1> für Details."
+    "translation": "<tag-1></tag-1>Bitte lesen Sie die <tag-2>Dokumentation</tag-2> für Details."
   },
   "editorSettings.editor.codejar": {
     "translation": "CodeJar"
@@ -1947,6 +1947,9 @@
   "templates.starter.cpp": {
     "translation": "C++-Starter"
   },
+  "templates.starter.daisyui": {
+    "translation": "daisyUI-Starter"
+  },
   "templates.starter.diagrams": {
     "translation": "Diagramm-Starter"
   },
@@ -2086,7 +2089,7 @@
     "translation": "TypeScript-Starter"
   },
   "templates.starter.vue": {
-    "translation": "Vue 3 SFC-Starter"
+    "translation": "Vue-Starter"
   },
   "templates.starter.vue2": {
     "translation": "Vue 2-Starter"
@@ -2188,7 +2191,7 @@
     "translation": "Wiederherstellen"
   },
   "welcome.recover.lastModified": {
-    "translation": "Zuletzt geändert: <tag-1></tag-1>"
+    "translation": "Zuletzt geändert:"
   },
   "welcome.recover.recover": {
     "translation": "Wiederherstellen"

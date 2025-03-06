@@ -31,6 +31,7 @@ export default [
       '**/.docusaurus',
       '**/.jest',
       '**/.storybook',
+      'functions/vendors',
     ],
   },
   ...fixupConfigRules(
