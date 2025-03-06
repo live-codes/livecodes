@@ -50,7 +50,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
       is(x.content, 'string') ||
       is(x.contentUrl, 'string') ||
       is(x.hiddenContent, 'string') ||
-      is(x.hiddenContentUrl, 'string'));
+      is(x.hiddenContentUrl, 'string') ||
+      is(x.order, 'number') ||
+      is(x.selector, 'string'));
 
   const fixSfcLanguage = (lang: Language, editorId: EditorId) =>
     editorId !== 'markup'
@@ -74,6 +76,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.hideTitle, 'boolean') ? { hideTitle: x.hideTitle } : {}),
     ...(is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),
     ...(is(x.hiddenContentUrl, 'string') ? { hiddenContentUrl: x.hiddenContentUrl } : {}),
+    ...(is(x.order, 'number') ? { order: x.order } : {}),
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
     ...(is(x.position, 'object') ? { position: x.position } : {}),
   });

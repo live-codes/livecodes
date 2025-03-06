@@ -1119,6 +1119,12 @@ export interface Editor {
   hideTitle?: boolean;
 
   /**
+   * The order of the editor in the UI.
+   * @default 0
+   */
+  order?: number;
+
+  /**
    * A CSS selector to load content from [DOM import](https://livecodes.io/docs/features/import#import-code-from-dom).
    */
   selector?: string;
