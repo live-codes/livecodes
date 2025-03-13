@@ -53,9 +53,10 @@ export default function (
     if (options.exportIndividualFiles) {
       const relativePath = path.relative(docsDir, filePath);
       fs.mkdirSync(path.resolve(staticDir, path.dirname(relativePath)), { recursive: true });
-      fs.copyFileSync(
-        filePath,
+      const content = fs.readFileSync(filePath, 'utf8');
+      fs.writeFileSync(
         path.resolve(staticDir, relativePath).replace(/\.md(x)?/g, '.html.md'),
+        cleanContent(content),
       );
     }
   };
@@ -121,7 +122,10 @@ export default function (
   }
 
   function cleanContent(content: string) {
-    return content.replace(/^---[\s\S]*?---\s*/, '').trim();
+    return content
+      .replace(/^---[\s\S]*?---\s*/, '')
+      .replace(/\.md(x)\)?/g, '.html.md)')
+      .trim();
   }
 
   async function generateContent() {
