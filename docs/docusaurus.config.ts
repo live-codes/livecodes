@@ -153,6 +153,9 @@ const config: Config = {
               label: 'Bookmarklet',
               to: '/bookmarklet',
             },
+            {
+              html: `<a href="/docs/llms.txt" target="_blank" class="footer__link-item">llms.txt</a> - <a href="/docs/llms-full.txt" target="_blank" class="footer__link-item">llms-full.txt</a>`,
+            },
           ],
         },
         {
@@ -283,6 +286,32 @@ const config: Config = {
             to: '/languages/python-wasm',
           },
         ],
+      },
+    ],
+    [
+      './src/plugins/generate-llms-txt.ts',
+      {
+        title: 'LiveCodes',
+        description: `LiveCodes is a feature-rich, open-source, client-side code playground that supports React, Vue, Svelte, Solid, JavaScript, TypeScript, CSS, Sass, Tailwind CSS, Python, Go, Ruby, PHP, and 90+ languages/frameworks.
+
+A large number of starter templates are available to help you get started quickly.
+Projects can be saved, shared, exported (e.g. to GitHub Gists), deployed (e.g. to GitHub Pages), or embedded in web pages.
+A powerful yet easy-to-use SDK enables the creation of and communication with embedded playgrounds.
+
+With extensive language support and high configurability, LiveCodes can easily adapt to your needs.
+It offers excellent mobile support, featuring a responsive layout and a touch-friendly code editor.
+
+LiveCodes is an outstanding tool for learning, teaching, prototyping, sharing, and testing code.
+It can be easily self-hosted, if needed, on any static file server.
+
+LiveCodes is completely free for unlimited use, with no ads and no account required.
+Its MIT License also permits commercial use.
+
+- [Docs](https://livecodes.io/docs/llms.txt)
+- [Full Docs](https://livecodes.io/docs/llms-full.txt)`,
+        exportIndividualFiles: true,
+        ignoreFiles: [],
+        prependFiles: ['../../README.md'],
       },
     ],
   ],
