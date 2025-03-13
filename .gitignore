@@ -5,6 +5,9 @@ dist
 **/*.log
 .env
 docs/docs/api
+docs/static/**/*.html.md
+docs/static/llms.txt
+docs/static/llms-full.txt
 /test-results/
 /playwright-report/
 /playwright/.cache/
