@@ -154,7 +154,7 @@ const config: Config = {
               to: '/bookmarklet',
             },
             {
-              html: `<a href="/docs/llms.txt" target="_blank" class="footer__link-item">llms.txt</a> - <a href="/docs/llms-full.txt" target="_blank" class="footer__link-item">llms-full.txt</a>`,
+              html: `<span style="display: flex; gap: 0.5em; align-items: baseline;"><a href="/docs/llms.txt" target="_blank" class="footer__link-item">llms.txt</a>-<a href="/docs/llms-full.txt" target="_blank" class="footer__link-item">llms-full.txt</a></span>`,
             },
           ],
         },
