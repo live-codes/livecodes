@@ -308,7 +308,9 @@ LiveCodes is completely free for unlimited use, with no ads and no account requi
 Its MIT License also permits commercial use.
 
 - [Docs](https://livecodes.io/docs/llms.txt)
-- [Full Docs](https://livecodes.io/docs/llms-full.txt)`,
+- [Full Docs](https://livecodes.io/docs/llms-full.txt)
+- [README](https://raw.githubusercontent.com/live-codes/livecodes/refs/heads/develop/README.md)
+`,
         exportIndividualFiles: true,
         ignoreFiles: [],
         prependFiles: ['../../README.md'],
