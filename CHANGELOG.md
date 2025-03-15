@@ -4,7 +4,25 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
-## [v42](https://github.com/live-codes/livecodes/compare/sdk-v0.8.0...0.0.0) (2025-02-01)
+## [sdk-v0.9.0](https://github.com/live-codes/livecodes/compare/v42...sdk-v0.9.0) (2025-03-15)
+
+### Highlights for this release
+
+In this release of SDK, the following changes were made:
+
+- The React component type was changed from `JSX.Element` to `React.ReactElement<Props>` for compatibility with React 19 (which removed the `JSX` type).
+- The editor (`markup`, `style`, `script`) order in the UI can now be set using a new `order` option in the [editor configuration](https://livecodes.io/docs/configuration/configuration-object#markup). (e.g. `config.markup.order`). This can be useful, specially after adding support for Vue and Svelte in the markup editor, for example to have components followed by the styles. (see [example](https://livecodes.io/docs/languages/vue#multiple-components))
+- A new `daisyui` starter template was added.
+
+### Features
+
+- **SDK:** Change SDK react component type from `JSX.Element` to `React.ReactElement<Props>` ([962d4da](https://github.com/live-codes/livecodes/commit/962d4da47f8b5ec6fd56c7ca0ede2ed40bffeb70))
+- **Config:** allow re-ordering code editors ([5d73064](https://github.com/live-codes/livecodes/commit/5d730648da5061011d2150d0995e8ede94515972))
+- **Templates:** add daisyUI starter template ([c24fc56](https://github.com/live-codes/livecodes/commit/c24fc56978ea8f5ba6d401c0cf57d527c76e6dd8))
+
+---
+
+## [v42](https://github.com/live-codes/livecodes/compare/v41...v42) (2025-02-01)
 
 ### Highlights for this release
 
