@@ -15,6 +15,7 @@ This release added multiple new features and fixes, including:
 - The editor (`markup`, `style`, `script`) order in the UI can now be set using a new `order` option in the [editor configuration](https://livecodes.io/docs/configuration/configuration-object#markup). (e.g. `config.markup.order`). This can be useful, specially after adding support for Vue and Svelte in the markup editor, for example to have components followed by the styles. (see [example](https://livecodes.io/docs/languages/vue#multiple-components)).
 - Tailwind CSS plugins: In addition to allowing importing plugins from URLs, now plugins can be imported as bare modules (from npm) e.g. `@plugin "daisyui"{ /* ... */ }`.
 - A new `daisyui` starter template was added (https://livecodes.io/?template=daisyui).
+- Significant improvements in docs website, including a dark mode, changing the default theme color used for demo playgrounds, and adding support for [llms.txt files](https://llmstxt.org/).
 - Multiple fixes, notably, avoiding autofocus in embeds, fixing preact module resolution and type fixes.
 
 ### Credits
