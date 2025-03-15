@@ -20,7 +20,7 @@ true
 
 #### Defined in
 
-[models.ts:828](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L828)
+[models.ts:828](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L828)
 
 ***
 
@@ -38,7 +38,7 @@ false
 
 #### Defined in
 
-[models.ts:833](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L833)
+[models.ts:833](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L833)
 
 ***
 
@@ -56,7 +56,7 @@ The number of spaces per indentation-level.
 
 #### Defined in
 
-[models.ts:822](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L822)
+[models.ts:822](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L822)
 
 ***
 
@@ -74,7 +74,7 @@ true
 
 #### Defined in
 
-[models.ts:839](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L839)
+[models.ts:839](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L839)
 
 ***
 
@@ -92,4 +92,4 @@ false
 
 #### Defined in
 
-[models.ts:816](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L816)
+[models.ts:816](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L816)
