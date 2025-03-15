@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { User } from '../models';
 import type { Storage, SimpleStorage, ProjectStorage, Stores } from '../storage';
 import { createStores, getStoreKey, initializeStores } from '../storage/stores';

@@ -1,3 +1,3 @@
 export * from './diff';
 export * from './sync';
-export * from './models';
+export type * from './models';

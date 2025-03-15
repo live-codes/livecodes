@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { CDN, CompilerFunction } from '../../models';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
 import { modulesService } from '../../services/modules';

@@ -40,7 +40,7 @@
     "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1>は、<tag-3>オープンソース</tag-3>で<tag-4>機能豊富</tag-4>な<tag-5>クライアントサイド</tag-5>のコードプレイグラウンドです。現在、<tag-6>90以上の言語/<tag-7></tag-7>フレームワーク</tag-6>をサポートしています。スタンドアロンアプリとして使用することも、任意のWebページに<tag-8>埋め込む</tag-8>こともできます。プレイグラウンドに<tag-9>コードをプリフィル</tag-9>する方法は多数あります。"
   },
   "about.livecodes.para2": {
-    "translation": "幅広い<tag-1>設定オプション</tag-1>により、非常に柔軟性があります。強力な<tag-2>SDK</tag-2>（<tag-3>JS/TS</tag-3>、<tag-4>React</tag-4>、<tag-5>Vue</tag-5>、<tag-6>Svelte</tag-6>用）により、プレイグラウンドの<tag-7>埋め込み</tag-7>と<tag-8>通信</tag-8>が容易になります。コードサンプル、ライブデモ、スクリーンショットを含む<tag-9>包括的なドキュメント</tag-9>が利用可能です。"
+    "translation": "強力な SDK により、プレイグラウンドとの統合や通信が簡単になります。コード例、ライブ デモ、スクリーンショットを含む詳細なドキュメントもご利用いただけます。"
   },
   "about.sdk": {
     "translation": "LiveCodes SDK"
@@ -136,13 +136,13 @@
     "translation": "やり直し (Ctrl/Cmd + Shift + Z)"
   },
   "app.result.hint": {
-    "translation": "結果を表示"
+    "translation": "結果を表示 (Ctrl/⌘ + Alt + R)"
   },
   "app.run.hint": {
     "translation": "実行 (Shift + Enter)"
   },
   "app.share.hint": {
-    "translation": "共有"
+    "translation": "リンクを共有 (Ctrl/⌘ + Alt + S)"
   },
   "app.themeColors.custom": {
     "translation": "カスタム"
@@ -907,13 +907,13 @@
     "translation": "括弧と引用符を自動的に閉じる"
   },
   "editorSettings.codeJarDesc": {
-    "translation": "* マークされた機能はCodeJarでは利用できません。"
+    "translation": "<tag-1></tag-1> * マークされた機能はCodeJarでは利用できません。"
   },
   "editorSettings.default": {
     "translation": "デフォルト"
   },
   "editorSettings.desc": {
-    "translation": "詳細については<tag-1>ドキュメント</tag-1>をご確認ください。"
+    "translation": "<tag-1></tag-1> 詳細については<tag-2>ドキュメント</tag-2>をご確認ください。"
   },
   "editorSettings.editor.codejar": {
     "translation": "CodeJar"
@@ -1324,7 +1324,7 @@
     "translation": "リポジトリ"
   },
   "menu.about": {
-    "translation": "概要"
+    "translation": "について..."
   },
   "menu.appHelp.heading": {
     "translation": "ヘルプ"
@@ -1947,6 +1947,9 @@
   "templates.starter.cpp": {
     "translation": "C++スターター"
   },
+  "templates.starter.daisyui": {
+    "translation": "daisyUIスターター"
+  },
   "templates.starter.diagrams": {
     "translation": "ダイアグラムスターター"
   },
@@ -2086,7 +2089,7 @@
     "translation": "TypeScriptスターター"
   },
   "templates.starter.vue": {
-    "translation": "Vue 3 SFCスターター"
+    "translation": "Vue スターター"
   },
   "templates.starter.vue2": {
     "translation": "Vue 2スターター"
@@ -2188,7 +2191,7 @@
     "translation": "復元"
   },
   "welcome.recover.lastModified": {
-    "translation": "最終更新: <tag-1></tag-1>"
+    "translation": "最終更新:"
   },
   "welcome.recover.recover": {
     "translation": "復元"

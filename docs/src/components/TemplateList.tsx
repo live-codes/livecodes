@@ -1,4 +1,3 @@
-import React from 'react';
 import { appUrl } from '../utils';
 import styles from './TemplateList.module.css';
 
@@ -19,6 +18,7 @@ const templates = [
   { name: 'mdx', title: 'MDX Starter', thumbnail: 'mdx.svg' },
   { name: 'tailwindcss', title: 'Tailwind CSS Starter', thumbnail: 'tailwindcss.svg' },
   { name: 'shadcn-ui', title: 'shadcn/ui Starter', thumbnail: 'shadcn-ui.svg' },
+  { name: 'daisyui', title: 'daisyUI Starter', thumbnail: 'daisyui.svg' },
   { name: 'bootstrap', title: 'Bootstrap Starter', thumbnail: 'bootstrap.svg' },
   { name: 'astro', title: 'Astro Starter', thumbnail: 'astro.svg' },
   { name: 'riot', title: 'Riot.js Starter', thumbnail: 'riot.svg' },

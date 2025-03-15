@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
 import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
@@ -12,6 +11,7 @@ import { getLanguageByAlias } from '../utils';
 
 (self as any).createVueCompiler = (): CompilerFunction => {
   const MAIN_FILE = 'App.vue';
+  const SECONDARY_FILE = 'Component.vue';
   const COMP_IDENTIFIER = '__sfc__';
   let errors: string | any[] = [];
   let css = '';
@@ -284,8 +284,10 @@ import { getLanguageByAlias } from '../utils';
     return { content, cssModules };
   }
 
-  return async (code, { config }) => {
-    const result = await compileVueSFC(code, { config });
+  return async (code, { config, language }) => {
+    const isMainFile = config.markup.language !== 'vue-app' || language === 'vue-app';
+    const filename = isMainFile ? MAIN_FILE : SECONDARY_FILE;
+    const result = await compileVueSFC(code, { config, filename });
 
     if (result) {
       const { css, js } = result;
@@ -298,9 +300,11 @@ document.head.insertBefore(
   document.head.getElementsByTagName('style')[0]
 );
 `;
+      const compiledCode = js + injectCSS;
 
       return {
-        code: js + injectCSS,
+        code:
+          language === 'vue-app' ? `<script type="module">${compiledCode}</script>` : compiledCode,
         info: { importedContent, imports: createImportMap(importedContent, config) },
       };
     }

@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-internal-modules
 import { loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
 import type { ContentConfig } from '../models';

@@ -483,9 +483,9 @@ const translation: I18nTranslation = {
   },
   editorSettings: {
     closeBrackets: 'Chiudi automaticamente parentesi e virgolette',
-    codeJarDesc: '* Le funzionalità contrassegnate non sono disponibili in CodeJar.',
+    codeJarDesc: '<1></1> * Le funzioni contrassegnate non sono disponibili in CodeJar.',
     default: 'Predefinito',
-    desc: 'Si prega di consultare la <1>documentazione</1> per i dettagli.',
+    desc: '<1></1>Si prega di consultare la <2>documentazione</2> per i dettagli.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -989,6 +989,7 @@ const translation: I18nTranslation = {
       coffeescript: 'Starter CoffeeScript',
       commonlisp: 'Starter Common Lisp',
       cpp: 'Starter C++',
+      daisyui: 'Starter daisyUI',
       diagrams: 'Starter Diagrammi',
       fennel: 'Starter Fennel',
       gleam: 'Starter Gleam',
@@ -1035,7 +1036,7 @@ const translation: I18nTranslation = {
       tcl: 'Starter Tcl',
       teal: 'Starter Teal',
       typescript: 'Starter TypeScript',
-      vue: 'Starter Vue 3 SFC',
+      vue: 'Starter Vue',
       vue2: 'Starter Vue 2',
       wat: 'Starter WebAssembly Text',
     },
@@ -1097,7 +1098,7 @@ const translation: I18nTranslation = {
     recover: {
       cancel: 'Annulla',
       heading: 'Recupera',
-      lastModified: 'Ultima modifica: <1></1>',
+      lastModified: 'Ultima modifica:',
       recover: 'Recupera',
       save: 'Salva',
       unsavedChanges: 'Il tuo ultimo progetto aveva modifiche non salvate:',

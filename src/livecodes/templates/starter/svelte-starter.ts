@@ -6,8 +6,14 @@ export const svelteStarter: Template = {
   thumbnail: 'assets/templates/svelte.svg',
   activeEditor: 'script',
   markup: {
-    language: 'html',
-    content: '',
+    language: 'svelte',
+    content: `
+<script>
+import Counter from "./Component.svelte";
+</script>
+
+<Counter title="Svelte" />
+`.trimStart(),
   },
   style: {
     language: 'css',
@@ -17,7 +23,7 @@ export const svelteStarter: Template = {
     language: 'svelte',
     content: `
 <script>
-  let title = "Svelte";
+  let { title = "World" } = $props();
   let counter = $state(0);
   function increment() {
     counter += 1;
@@ -39,7 +45,7 @@ export const svelteStarter: Template = {
   <h1>Hello, {title}!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/svelte.svg" />
   <p>You clicked {counter} times.</p>
-  <button on:click="{increment}">Click me</button>
+  <button on:click={increment}>Click me</button>
 </div>
 `.trimStart(),
   },

@@ -483,9 +483,9 @@ const translation: I18nTranslation = {
   },
   editorSettings: {
     closeBrackets: 'Fechar automaticamente colchetes e aspas',
-    codeJarDesc: '* Os recursos marcados não estão disponíveis no CodeJar.',
+    codeJarDesc: '<1> </1> * Os recursos marcados não estão disponíveis no CodeJar.',
     default: 'Padrão',
-    desc: 'Por favor, consulte a <1>documentação</1> para detalhes.',
+    desc: '<1></1>Por favor, consulte a <2>documentação</2> para detalhes.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -989,6 +989,7 @@ const translation: I18nTranslation = {
       coffeescript: 'Iniciante CoffeeScript',
       commonlisp: 'Iniciante Common Lisp',
       cpp: 'Iniciante C++',
+      daisyui: 'Iniciante daisyUI',
       diagrams: 'Iniciante Diagrams',
       fennel: 'Iniciante Fennel',
       gleam: 'Iniciante Gleam',
@@ -1035,7 +1036,7 @@ const translation: I18nTranslation = {
       tcl: 'Iniciante Tcl',
       teal: 'Iniciante Teal',
       typescript: 'Iniciante TypeScript',
-      vue: 'Iniciante Vue 3 SFC',
+      vue: 'Iniciante Vue',
       vue2: 'Iniciante Vue 2',
       wat: 'Iniciante WebAssembly Text',
     },
@@ -1097,7 +1098,7 @@ const translation: I18nTranslation = {
     recover: {
       cancel: 'Cancelar',
       heading: 'Recuperar',
-      lastModified: 'Última modificação: <1></1>',
+      lastModified: 'Última modificação:',
       recover: 'Recuperar',
       save: 'Salvar',
       unsavedChanges: 'O último projeto tem alterações não salvas:',

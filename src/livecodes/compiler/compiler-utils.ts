@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { proxyConsole } from '../result/utils';
 import { getAppCDN } from '../services/modules';
 import { createWorkerFromContent } from '../utils/utils';

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { ctrl } from '../utils/utils';
 
 document.addEventListener('keydown', function (e) {

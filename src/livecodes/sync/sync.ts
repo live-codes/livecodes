@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { createStores, initializeSimpleStores, type Stores } from '../storage';
 import { getAppCDN } from '../services/modules';
 import { callWorker } from '../utils/utils';

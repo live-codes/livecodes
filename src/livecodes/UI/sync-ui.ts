@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { EventsManager, Modal, Notifications, User, UserData } from '../models';
 import { syncScreen } from '../html';
 import { autoCompleteUrl } from '../vendors';

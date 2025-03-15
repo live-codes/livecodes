@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-/* eslint-disable import/no-extraneous-dependencies */
+
 // @ts-ignore
 import { LanguageSupport, StreamLanguage, type StreamParser } from '@codemirror/language';
 // @ts-ignore

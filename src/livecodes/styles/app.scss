@@ -1575,13 +1575,11 @@ a.editor-title {
     .toolbar-app {
       justify-content: flex-start;
 
-      #app-menu-button-project,
-      #app-menu-button-settings,
-      #app-menu-button-help,
-      #app-menu-button-i18n,
+      [id^='app-menu-container-'],
+      [id^='app-menu-button-'],
       #light-theme-button,
       #dark-theme-button {
-        display: none;
+        display: none !important;
       }
 
       .menu {

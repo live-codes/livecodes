@@ -40,7 +40,7 @@
     "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> एक <tag-3>ओपन-सोर्स</tag-3>, <tag-4>सुविधा-संपन्न</tag-4>, <tag-5>क्लाइंट-साइड</tag-5> कोड प्लेग्राउंड है। वर्तमान में, <tag-6>90+ भाषाओं/<tag-7></tag-7>फ्रेमवर्क</tag-6> समर्थित हैं। इसका उपयोग एक स्टैंडअलोन ऐप के रूप में किया जा सकता है या किसी भी वेब पेज में <tag-8>एम्बेड</tag-8> किया जा सकता है। कोड के साथ प्लेग्राउंड को <tag-9>पूर्व-भरने</tag-9> के कई तरीके हैं।"
   },
   "about.livecodes.para2": {
-    "translation": "विस्तृत <tag-1>कॉन्फ़िगरेशन विकल्प</tag-1> इसे बहुत लचीला बनाते हैं। एक शक्तिशाली <tag-2>SDK</tag-2> (<tag-3>JS/TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> और <tag-6>Svelte</tag-6> के लिए) प्लेग्राउंड को <tag-7>एम्बेड करने</tag-7> और उनके साथ <tag-8>संवाद करने</tag-8> की सुविधा प्रदान करता है। कोड नमूनों, लाइव डेमो और स्क्रीनशॉट के साथ <tag-9>व्यापक दस्तावेज़ीकरण</tag-9> उपलब्ध हैं।"
+    "translation": "एक शक्तिशाली SDK प्लेग्राउंड के साथ एकीकृत करना और संवाद करना आसान बनाता है। कोड उदाहरणों, लाइव डेमो और स्क्रीनशॉट के साथ व्यापक दस्तावेज़ उपलब्ध हैं।"
   },
   "about.sdk": {
     "translation": "LiveCodes SDK"
@@ -907,13 +907,13 @@
     "translation": "कोष्ठक और उद्धरण चिह्न स्वचालित रूप से बंद करें"
   },
   "editorSettings.codeJarDesc": {
-    "translation": "* चिह्नित सुविधाएँ CodeJar में उपलब्ध नहीं हैं।"
+    "translation": "<tag-1> </tag-1> * चिह्नित विशेषताएँ CodeJar में उपलब्ध नहीं हैं।"
   },
   "editorSettings.default": {
     "translation": "डिफ़ॉल्ट"
   },
   "editorSettings.desc": {
-    "translation": "कृपया विवरण के लिए <tag-1>दस्तावेज़ीकरण</tag-1> देखें।"
+    "translation": "<tag-1></tag-1>कृपया विवरण के लिए <tag-2>दस्तावेज़ीकरण</tag-2> देखें।"
   },
   "editorSettings.editor.codejar": {
     "translation": "CodeJar"
@@ -1947,6 +1947,9 @@
   "templates.starter.cpp": {
     "translation": "C++ स्टार्टर"
   },
+  "templates.starter.daisyui": {
+    "translation": "daisyUI स्टार्टर"
+  },
   "templates.starter.diagrams": {
     "translation": "आरेख स्टार्टर"
   },
@@ -2086,7 +2089,7 @@
     "translation": "TypeScript स्टार्टर"
   },
   "templates.starter.vue": {
-    "translation": "Vue 3 SFC स्टार्टर"
+    "translation": "Vue स्टार्टर"
   },
   "templates.starter.vue2": {
     "translation": "Vue 2 स्टार्टर"
@@ -2188,7 +2191,7 @@
     "translation": "पुनर्प्राप्त करें"
   },
   "welcome.recover.lastModified": {
-    "translation": "अंतिम संशोधित: <tag-1></tag-1>"
+    "translation": "अंतिम संशोधित:"
   },
   "welcome.recover.recover": {
     "translation": "पुनर्प्राप्त करें"

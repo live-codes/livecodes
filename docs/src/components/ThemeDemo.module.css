@@ -1,0 +1,14 @@
+.form {
+  margin-bottom: 3em;
+
+  input,
+  select {
+    margin-left: 1em;
+  }
+}
+
+.colorValue {
+  color: var(--ifm-color-content-secondary);
+  font-size: smaller;
+  margin-left: 1em;
+}

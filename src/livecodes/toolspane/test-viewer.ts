@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { Config, Editors, EventsManager, TestResult, TestViewer } from '../models';
 import { sandboxService } from '../services/sandbox';
 import { getToolspaneElement } from '../UI';

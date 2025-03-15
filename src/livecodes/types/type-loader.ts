@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { EditorLibrary, Types } from '../models';
 import { getImports, hasUrlImportsOrExports } from '../compiler/import-map';
 import { typesService } from '../services/types';
@@ -94,10 +93,11 @@ export const createTypeLoader = (baseUrl: string) => {
     if (!code?.trim()) {
       return [];
     }
-    const types: EditorLibrary[] = await (window as any).compiler.typescriptFeatures({
-      feature: 'ata',
-      payload: code,
-    });
+    const types: EditorLibrary[] =
+      (await (window as any).compiler?.typescriptFeatures?.({
+        feature: 'ata',
+        payload: code,
+      })) ?? [];
     libs.push(...types);
     if (typeof callback === 'function') {
       types.forEach((type) => {

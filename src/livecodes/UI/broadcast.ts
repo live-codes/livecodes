@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { AppData, EventsManager, Modal, Notifications } from '../models';
 import { broadcastScreen } from '../html';
 import { broadcastService } from '../services/broadcast';

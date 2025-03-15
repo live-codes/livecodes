@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { CompileInfo, Config, Language } from '../models';
 import { modulesService } from '../services/modules';
 import {
@@ -134,6 +133,17 @@ export const replaceImports = (
   });
 };
 
+export const isScriptImport = (mod: string) =>
+  mod.toLowerCase().startsWith('./script') ||
+  mod.toLowerCase().startsWith('./component') ||
+  (mod.startsWith('./') &&
+    (mod.toLowerCase().endsWith('.js') ||
+      mod.toLowerCase().endsWith('.ts') ||
+      mod.toLowerCase().endsWith('.jsx') ||
+      mod.toLowerCase().endsWith('.tsx') ||
+      mod.toLowerCase().endsWith('.vue') ||
+      mod.toLowerCase().endsWith('.svelte')));
+
 export const replaceSFCImports = async (
   code: string,
   {
@@ -165,6 +175,12 @@ export const replaceSFCImports = async (
   const importMap: Record<string, string> = {};
   await Promise.all(
     sfcImports.map(async (mod) => {
+      if (
+        !(filename.startsWith('https://') || filename.startsWith('http://')) &&
+        isScriptImport(mod)
+      ) {
+        return;
+      }
       // convert extensionless, relative URL to absolute URL and find in import map
       const urlInMap =
         isExtensionless(mod) &&

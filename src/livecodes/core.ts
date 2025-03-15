@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { createEditor, createCustomEditors, getFontFamily } from './editor';
 import {
   languages,
@@ -20,7 +19,7 @@ import {
   type Stores,
   type StorageItem,
 } from './storage';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+
 import type {
   API,
   Cache,
@@ -164,6 +163,7 @@ import { appLanguages } from './i18n/app-languages';
 import { themeColors } from './UI/theme-colors';
 import { getCommandMenuActions } from './UI/command-menu-actions';
 import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
+import { hasJsx } from './editor/ts-compiler-options';
 
 // declare global dependencies
 declare global {
@@ -363,6 +363,10 @@ const loadModuleTypes = async (
   if (typeof editors?.script?.addTypes !== 'function') return;
   const scriptLanguage = config.script.language;
   if (['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) || force) {
+    if (compiler.isFake) {
+      // we need the real compiler for types
+      await reloadCompiler({ ...config, mode: 'full' });
+    }
     const configTypes = {
       ...getLanguageCompiler(config.markup.language)?.types,
       ...getLanguageCompiler(config.script.language)?.types,
@@ -370,8 +374,9 @@ const loadModuleTypes = async (
       ...config.types,
       ...config.customSettings.types,
     };
+    const reactImport = hasJsx.includes(scriptLanguage) ? `import React from 'react';\n` : '';
     const libs = await typeLoader.load(
-      getConfig().script.content + '\n' + getConfig().markup.content,
+      reactImport + getConfig().script.content + '\n' + getConfig().markup.content,
       configTypes,
       loadAll,
       force,
@@ -405,6 +410,7 @@ const setEditorTitle = (editorId: EditorId, title: string) => {
     return;
   }
   editorTitleContainer.style.display = '';
+  editorTitleContainer.style.order = String(config[editorId].order ?? 0);
   highlightSelectedLanguage(editorId, language);
   const shortcut = ` (Ctrl/⌘ + Alt + ${editorIds.indexOf(editorId) + 1})`;
   const customTitle = config[editorId].title;
@@ -447,7 +453,9 @@ const createCopyButtons = () => {
 };
 
 const createEditors = async (config: Config) => {
+  let isReload = false;
   if (editors) {
+    isReload = true;
     Object.values(editors).forEach((editor: CodeEditor) => editor.destroy());
     resetEditorModeStatus();
   }
@@ -536,6 +544,10 @@ const createEditors = async (config: Config) => {
 
   if (config.mode === 'codeblock') {
     createCopyButtons();
+  }
+
+  if (isReload) {
+    loadModuleTypes(editors, config, /* loadAll = */ true);
   }
 };
 
@@ -649,6 +661,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   document.body.classList.toggle('focus-mode', mode === 'focus');
   document.body.classList.toggle('lite-mode', mode === 'lite');
   document.body.classList.toggle('result', mode === 'result');
+  document.body.classList.toggle('no-result', mode === 'editor' || mode === 'codeblock');
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
   }
@@ -762,10 +775,8 @@ const configureEditorTools = (language: Language) => {
   return true;
 };
 
-const addPhpToken = (code: string) => (code.trim().startsWith('<?php') ? code : '<?php\n' + code);
-
-const removePhpToken = (code: string) =>
-  code.trim().startsWith('<?php') ? code.replace('<?php', '') : code;
+const addPhpToken = (code: string) =>
+  code.includes('<?php') || code.includes('<?=') ? code : '<?php\n' + code;
 
 const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => {
   if (code?.trim()) {
@@ -893,21 +904,15 @@ const getResultPage = async ({
   const contentConfig = getContentConfig(config);
 
   const getContent = (editor: Partial<Editor> | undefined) => {
-    if (!editor?.hiddenContent) {
-      return editor?.content ?? '';
+    const editorContent = editor?.content ?? '';
+    const hiddenContent = editor?.hiddenContent ?? '';
+    if (!hiddenContent) {
+      return editorContent;
     }
-    const editorContent = editor.language?.startsWith('php')
-      ? removePhpToken(editor.content ?? '')
-      : editor.content ?? '';
-    const hiddenContent = editor.language?.startsWith('php')
-      ? removePhpToken(editor.hiddenContent ?? '')
-      : editor.hiddenContent ?? '';
-    const token = editor.language?.startsWith('php') ? '<?php\n' : '';
     const placeholder = '{{__livecodes_editor_content__}}';
-    if (hiddenContent.includes(placeholder)) {
-      return token + hiddenContent.replace(placeholder, editorContent);
-    }
-    return `${token}${hiddenContent}\n${editorContent}`;
+    return hiddenContent.includes(placeholder)
+      ? hiddenContent.replace(placeholder, editorContent)
+      : `${hiddenContent}\n${editorContent}`;
   };
 
   const markupContent = getContent(config.markup);
@@ -938,11 +943,19 @@ const getResultPage = async ({
     toolsPane?.tests?.showResults({ results: [] });
   }
 
-  const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {});
+  const forceCompileSFC =
+    (config.markup.language === config.script.language + '-app' ||
+      getCache().markup.language === getCache().script.language + '-app') &&
+    (config.markup.language !== getCache().markup.language ||
+      config.script.language !== getCache().script.language);
+
+  const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {
+    forceCompile: forceCompileSFC,
+  });
   let compiledMarkup = markupCompileResult.code;
 
   const scriptCompileResult = await compiler.compile(scriptContent, scriptLanguage, config, {
-    forceCompile: forceCompileStyles,
+    forceCompile: forceCompileStyles || forceCompileSFC,
     blockly:
       scriptLanguage === 'blockly'
         ? ((await customEditors.blockly?.getContent({
@@ -1052,6 +1065,17 @@ const getResultPage = async ({
   }
 
   return result;
+};
+
+const reloadCompiler = async (config: Config, force = false) => {
+  if (!compiler.isFake && !force) return;
+  compiler = (window as any).compiler = await getCompiler({
+    config,
+    baseUrl,
+    eventsManager,
+  });
+  setCache();
+  await getResultPage({});
 };
 
 const setLoading = (status: boolean) => {
@@ -4790,7 +4814,7 @@ const handleDropFiles = () => {
   });
 };
 
-const handleResultMode = () => {
+const handleResultModeDrawer = () => {
   const drawer = UI.getResultModeDrawer();
   const drawerLink = drawer.querySelector('a') as HTMLAnchorElement;
   const closeBtn = drawer.querySelector('#drawer-close') as HTMLButtonElement;
@@ -4979,7 +5003,15 @@ const changeAppLanguage = async (appLanguage: AppLanguage) => {
 
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal({ translate: translateElement, onClose: () => getActiveEditor().focus() });
+  modal = createModal({
+    translate: translateElement,
+    isEmbed,
+    onClose: () => {
+      if (!isEmbed) {
+        getActiveEditor().focus();
+      }
+    },
+  });
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
@@ -5051,15 +5083,9 @@ const extraHandlers = async () => {
   showConsoleMessage();
 };
 
-const configureEmbed = (config: Config, eventsManager: EventsManager) => {
+const configureEmbed = (eventsManager: EventsManager) => {
   document.body.classList.add('embed');
-  if (config.mode === 'result') {
-    document.body.classList.add('result');
-    handleResultMode();
-  }
-  if (config.mode === 'editor' || config.mode === 'codeblock') {
-    document.body.classList.add('no-result');
-  }
+  handleResultModeDrawer();
 
   const logoLink = UI.getLogoLink();
   logoLink.title = window.deps.translateString('generic.embed.logoHint', 'Edit on LiveCodes 🡕');
@@ -5114,7 +5140,7 @@ const configureModes = ({
     configureLite();
   }
   if (isEmbed || config.mode === 'result') {
-    configureEmbed(config, eventsManager);
+    configureEmbed(eventsManager);
   }
   if (config.mode === 'simple') {
     configureSimpleMode(config);
@@ -5397,8 +5423,11 @@ const initializePlayground = async (
   loadUserConfig(/* updateUI = */ false);
   setConfig(buildConfig({ ...getConfig(), ...appConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
-  compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
-  (window as any).compiler = compiler;
+  compiler = (window as any).compiler = await getCompiler({
+    config: getConfig(),
+    baseUrl,
+    eventsManager,
+  });
   formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
   await loadI18n(getConfig().appLanguage);
@@ -5451,16 +5480,17 @@ const createApi = (): API => {
     const newAppConfig = buildConfig({ ...currentConfig, ...newConfig });
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
-    const reloadCompiler =
-      (currentConfig.mode === 'editor' || currentConfig.mode === 'codeblock') &&
-      newConfig.mode !== 'editor' &&
-      newConfig.mode !== 'codeblock' &&
-      compiler.isFake;
-    const reloadCodeEditors =
-      newConfig.mode != null &&
-      newConfig.mode !== currentConfig.mode &&
-      (['codeblock', 'result'].includes(currentConfig.mode) ||
-        ['codeblock', 'result'].includes(newConfig.mode!));
+    const shouldRun =
+      newConfig.mode != null && newConfig.mode !== 'editor' && newConfig.mode !== 'codeblock';
+    const shouldReloadCompiler = shouldRun && compiler.isFake;
+    const shouldReloadCodeEditors = (() => {
+      if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
+      if (newConfig.mode != null) {
+        if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
+        if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
+      }
+      return false;
+    })();
 
     setConfig(newAppConfig);
 
@@ -5468,11 +5498,10 @@ const createApi = (): API => {
       changeAppLanguage(newConfig.appLanguage!);
       return newAppConfig;
     }
-    if (reloadCompiler) {
-      compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
-      await run();
+    if (shouldReloadCompiler) {
+      await reloadCompiler(newAppConfig);
     }
-    if (reloadCodeEditors) {
+    if (shouldReloadCodeEditors) {
       await createEditors(newAppConfig);
     }
     await applyConfig(newConfig);
@@ -5480,6 +5509,8 @@ const createApi = (): API => {
     const hasContent = Object.values(content).some((value) => value != null);
     if (hasContent) {
       await loadConfig(newAppConfig);
+    } else if (shouldRun) {
+      await run();
     }
     return newAppConfig;
   };
@@ -5653,6 +5684,7 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   });
   return createApi();
 };
+
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode: () => undefined,

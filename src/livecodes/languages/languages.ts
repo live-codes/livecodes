@@ -11,10 +11,10 @@ import { markdown } from './markdown';
 import { mdx } from './mdx';
 import { pug } from './pug';
 import { scss, sass } from './scss';
-import { svelte } from './svelte';
+import { svelte, svelteApp } from './svelte';
 import { stylus } from './stylus';
 import { typescript } from './typescript';
-import { vue } from './vue';
+import { vue, vueApp } from './vue';
 import { vue2 } from './vue2';
 import { stencil } from './stencil';
 import { coffeescript } from './coffeescript';
@@ -117,7 +117,9 @@ export const languages: LanguageSpecs[] = [
   reactNativeTsx,
   vue,
   vue2,
+  vueApp,
   svelte,
+  svelteApp,
   stencil,
   solid,
   solidTsx,

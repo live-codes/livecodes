@@ -1,5 +1,4 @@
 import type { ContentConfig, EditorId, Config, User, Language } from '../models';
-// eslint-disable-next-line import/no-internal-modules
 import { replaceImports } from '../compiler/import-map';
 import type {
   getLanguageCompiler as getLanguageCompilerFn,

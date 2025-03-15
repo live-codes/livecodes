@@ -22,7 +22,7 @@ export const ruby: LanguageSpecs = {
     url: opalBaseUrl + 'opal.min.js',
     factory: () => {
       importScripts(opalBaseUrl + 'opal-parser.min.js');
-      // eslint-disable-next-line camelcase
+
       (self as any).Opal.config.unsupported_features_severity = 'ignore';
       (self as any).Opal.load('opal-parser');
       return async (code, { config }) => {

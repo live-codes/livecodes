@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { APIError, CDNService, PkgInfo } from '../models';
 import { isFirefox } from '../utils/utils';
 import { removeCDNPrefix, removeSpecifier } from './utils';

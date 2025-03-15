@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 /* eslint-disable no-console */
 import { createWorkerFromContent } from '../../utils/utils';
 import { cppWasmBaseUrl } from '../../vendors';

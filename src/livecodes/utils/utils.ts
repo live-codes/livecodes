@@ -36,7 +36,6 @@ export const escapeCode = /* @__PURE__ */ (code: string, slash = true) =>
     .replace(/`/g, '\\`')
     .replace(/<\/script>/g, '<\\/script>');
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export const pipe = /* @__PURE__ */ (...fns: Function[]) =>
   fns.reduce(
     (f, g) =>

@@ -1,5 +1,5 @@
-import React from 'react';
-/* eslint-disable import/no-internal-modules */
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useColorMode } from '@docusaurus/theme-common';
 import type { EmbedOptions } from '../../../src/sdk';
 import LiveCodesReact from '../../../src/sdk/react';
 import { appUrl } from '../utils';
@@ -13,8 +13,9 @@ export default function LiveCodes(
     showCode?: boolean;
     height?: string;
   },
-): JSX.Element {
+) {
   const { className, style, showCode, height, ...options } = props;
+  const { colorMode } = useColorMode();
 
   const stringify = (obj: EmbedOptions) => JSON.stringify(obj, null, 2);
 
@@ -83,10 +84,11 @@ onMount(() => {
         appUrl={appUrl}
         {...props}
         config={{
-          themeColor: 'hsl(180, 60%, 60%)',
+          theme: colorMode,
+          themeColor: 'hsl(215, 8%, 60%)',
           ...(typeof props.config === 'object' ? props.config : {}),
         }}
-      ></LiveCodesReact>
+      />
       {props.showCode !== false && (
         <ShowCode
           js={jsCode}

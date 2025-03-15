@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-internal-modules
 import { compress, decompress } from '../utils/compression';
 import type { Storage } from './models';
 import { createStorage } from './storage';

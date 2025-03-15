@@ -2596,6 +2596,10 @@
     "notes": "",
     "translation": "C++ Starter"
   },
+  "templates.starter.daisyui": {
+    "notes": "",
+    "translation": "daisyUI Starter"
+  },
   "templates.starter.diagrams": {
     "notes": "",
     "translation": "Diagrams Starter"
@@ -2782,7 +2786,7 @@
   },
   "templates.starter.vue": {
     "notes": "",
-    "translation": "Vue 3 SFC Starter"
+    "translation": "Vue SFC Starter"
   },
   "templates.starter.vue2": {
     "notes": "",

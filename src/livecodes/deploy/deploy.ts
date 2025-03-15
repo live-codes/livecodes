@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { ContentConfig, User } from '../models';
 import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
 import { getDescriptionFile, getFilesFromConfig } from '../export/utils';

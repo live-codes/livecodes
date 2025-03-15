@@ -1,10 +1,8 @@
 /* eslint-disable import/no-unresolved */
 
-// eslint-disable-next-line import/no-internal-modules
 import { predefinedValues } from '../utils/utils';
 
 // @ts-ignore
-// eslint-disable-next-line import/no-internal-modules
 import resultTemplateRaw from './sandbox/v8/index.html?raw';
 // @ts-ignore
 import appHTMLRaw from './app.html?raw';

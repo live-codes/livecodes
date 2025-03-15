@@ -1,8 +1,6 @@
 /* eslint-disable import/no-unresolved */
-import React from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import CodeBlock from '@theme/CodeBlock';
-/* eslint-disable import/no-internal-modules */
 import { getPlaygroundUrl, type EmbedOptions } from '../../../src/sdk';
 import { appUrl } from '../utils';
 
@@ -17,7 +15,7 @@ export default function RunInLiveCodes(props: {
   linkText?: string;
   style?: Record<string, string>;
   className?: string;
-}): JSX.Element {
+}) {
   const {
     params,
     config,

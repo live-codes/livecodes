@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 export { initializeApp, getApp } from 'firebase/app';
 export type { User as FirebaseUser } from 'firebase/auth';
 export { getAuth, signInWithPopup, signOut, GithubAuthProvider } from 'firebase/auth';

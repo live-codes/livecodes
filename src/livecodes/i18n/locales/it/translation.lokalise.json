@@ -40,7 +40,7 @@
     "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> è un playground di codice <tag-3>open-source</tag-3>, <tag-4>ricco di funzionalità</tag-4>, <tag-5>lato client</tag-5>. Attualmente, sono supportati <tag-6>oltre 90 linguaggi/<tag-7></tag-7>framework</tag-6>. Può essere utilizzato come app autonoma o può essere <tag-8>incorporato</tag-8> in qualsiasi pagina web. Ci sono molti modi per <tag-9>precompilare i playground</tag-9> con il codice."
   },
   "about.livecodes.para2": {
-    "translation": "Un'ampia gamma di <tag-1>opzioni di configurazione</tag-1> lo rende molto flessibile. Un potente <tag-2>SDK</tag-2> (per <tag-3>JS/TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> e <tag-6>Svelte</tag-6>) facilita l'<tag-7>incorporazione</tag-7> e la <tag-8>comunicazione</tag-8> con i playground. È disponibile una <tag-9>documentazione completa</tag-9> con esempi di codice, demo dal vivo e screenshot."
+    "translation": "Un potente SDK semplifica l'integrazione e la comunicazione con i playground. È disponibile un'ampia documentazione con esempi di codice, demo dal vivo e schermate."
   },
   "about.sdk": {
     "translation": "LiveCodes SDK"
@@ -133,7 +133,7 @@
     "translation": "Informazioni progetto"
   },
   "app.redo.hint": {
-    "translation": "Ripeti (Ctrl/Cmd + Shift + Z)"
+    "translation": "Rifare (Ctrl/Cmd + Shift + Z)"
   },
   "app.result.hint": {
     "translation": "Mostra risultato"
@@ -907,13 +907,13 @@
     "translation": "Chiudi automaticamente parentesi e virgolette"
   },
   "editorSettings.codeJarDesc": {
-    "translation": "* Le funzionalità contrassegnate non sono disponibili in CodeJar."
+    "translation": "<tag-1></tag-1> * Le funzioni contrassegnate non sono disponibili in CodeJar."
   },
   "editorSettings.default": {
     "translation": "Predefinito"
   },
   "editorSettings.desc": {
-    "translation": "Si prega di consultare la <tag-1>documentazione</tag-1> per i dettagli."
+    "translation": "<tag-1></tag-1>Si prega di consultare la <tag-2>documentazione</tag-2> per i dettagli."
   },
   "editorSettings.editor.codejar": {
     "translation": "CodeJar"
@@ -1324,7 +1324,7 @@
     "translation": "Repository"
   },
   "menu.about": {
-    "translation": "Informazioni"
+    "translation": "Informazioni ..."
   },
   "menu.appHelp.heading": {
     "translation": "Aiuto"
@@ -1432,7 +1432,7 @@
     "translation": "Licenza"
   },
   "menu.login": {
-    "translation": "Accedi …"
+    "translation": "Registrarsi …"
   },
   "menu.logout": {
     "translation": "Esci"
@@ -1947,6 +1947,9 @@
   "templates.starter.cpp": {
     "translation": "Starter C++"
   },
+  "templates.starter.daisyui": {
+    "translation": "Starter daisyUI"
+  },
   "templates.starter.diagrams": {
     "translation": "Starter Diagrammi"
   },
@@ -2086,7 +2089,7 @@
     "translation": "Starter TypeScript"
   },
   "templates.starter.vue": {
-    "translation": "Starter Vue 3 SFC"
+    "translation": "Starter Vue"
   },
   "templates.starter.vue2": {
     "translation": "Starter Vue 2"
@@ -2188,7 +2191,7 @@
     "translation": "Recupera"
   },
   "welcome.recover.lastModified": {
-    "translation": "Ultima modifica: <tag-1></tag-1>"
+    "translation": "Ultima modifica:"
   },
   "welcome.recover.recover": {
     "translation": "Recupera"

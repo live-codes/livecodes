@@ -1,5 +1,3 @@
-/* eslint-disable import/no-internal-modules */
-// eslint-disable-next-line import/no-unresolved
 import type * as Monaco from 'monaco-editor';
 
 import type {
@@ -83,7 +81,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ? 'coffeescript'
       : ['rescript', 'reason', 'ocaml'].includes(language)
         ? 'csharp'
-        : mapLanguage(language);
+        : ['vue', 'svelte', 'malina', 'riot'].includes(language)
+          ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
+          : mapLanguage(language);
 
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;
@@ -143,7 +143,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     lineNumbersMinChars: 3,
     minimap: { enabled: false },
     scrollbar: { useShadows: false },
-    mouseWheelZoom: true,
+    mouseWheelZoom: false,
     automaticLayout: true,
     readOnly: readonly,
     fixedOverflowWidgets: true,

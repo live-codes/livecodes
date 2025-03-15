@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 /* eslint-disable no-console */
 import { decode } from 'js-base64';
 import type { Config, CompilerFunction } from '../../models';
@@ -445,7 +444,6 @@ export const diagramsCompiler: CompilerFunction = async (code: string, { config 
     .then(run(compileCytoscape))
     .then(run((src) => compilePintora(src, config)))
     .catch((err) => {
-      // eslint-disable-next-line no-console
       console.error(err);
       return code;
     });

@@ -273,7 +273,6 @@ export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) ex
 
 export type Prettify<T> = {
   [K in keyof T]: T[K] extends object ? Prettify<T[K]> : T[K];
-  // eslint-disable-next-line @typescript-eslint/ban-types
 } & {};
 
 export type WatchFn = UnionToIntersection<WatchFns>;
@@ -379,7 +378,7 @@ export interface EmbedOptions {
 
   /**
    * A [starter template](https://livecodes.io/docs/features/templates) to load.
-   * Allowed valued can be found [here](https://livecodes.io/docs/api/modules/internal#templatename).
+   * Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-aliases/TemplateName).
    */
   template?: TemplateName;
 
@@ -505,7 +504,7 @@ export interface ContentConfig {
   /**
    * List of enabled [CSS processors](https://livecodes.io/docs/features/css/#css-processors).
    *
-   * For the list of available processors, see [Processor](https://livecodes.io/docs/api/modules/internal/#processor)
+   * For the list of available processors, see [Processor](https://livecodes.io/docs/api/internal/type-aliases/Processor)
    */
   processors: Processor[];
 
@@ -944,7 +943,11 @@ export type Language =
   | 'vue'
   | 'vue3'
   | 'vue2'
+  | 'vue-app'
+  | 'app.vue'
   | 'svelte'
+  | 'svelte-app'
+  | 'app.svelte'
   | 'stencil'
   | 'stencil.tsx'
   | 'solid'
@@ -1070,7 +1073,7 @@ export interface Editor {
   /**
    * A language name, extension or alias (as defined in [language documentations](https://livecodes.io/docs/languages/)).
    *
-   * For the list of supported values, see [Language](https://livecodes.io/docs/api/modules#language)
+   * For the list of supported values, see [Language](https://livecodes.io/docs/api/type-aliases/Language)
    */
   language: Language;
 
@@ -1114,6 +1117,12 @@ export interface Editor {
    * This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
    */
   hideTitle?: boolean;
+
+  /**
+   * The order of the editor in the UI.
+   * @default 0
+   */
+  order?: number;
 
   /**
    * A CSS selector to load content from [DOM import](https://livecodes.io/docs/features/import#import-code-from-dom).
@@ -1363,6 +1372,7 @@ export type TemplateName =
   | 'bootstrap'
   | 'tailwindcss'
   | 'shadcn-ui'
+  | 'daisyui'
   | 'd3'
   | 'phaser'
   | 'coffeescript'

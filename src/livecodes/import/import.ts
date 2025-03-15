@@ -1,5 +1,4 @@
 import type { Config, User } from '../models';
-// eslint-disable-next-line import/no-internal-modules
 import { getValidUrl } from '../utils/utils';
 import { importCompressedCode } from './code';
 import { importProject } from './project-id';

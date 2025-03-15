@@ -1947,6 +1947,9 @@
   "templates.starter.cpp": {
     "translation": "C++ 启动模板"
   },
+  "templates.starter.daisyui": {
+    "translation": "daisyUI 启动模板"
+  },
   "templates.starter.diagrams": {
     "translation": "图表启动模板"
   },
@@ -2086,7 +2089,7 @@
     "translation": "TypeScript 启动模板"
   },
   "templates.starter.vue": {
-    "translation": "Vue 3 单文件组件启动模板"
+    "translation": "Vue 单文件组件启动模板"
   },
   "templates.starter.vue2": {
     "translation": "Vue 2 启动模板"

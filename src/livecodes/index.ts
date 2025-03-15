@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import type { I18nKeyType } from './i18n';
 import type { Config, CustomEvents } from './models';
 import { livecodes, params, isEmbed, clickToLoad, loading } from './main';
