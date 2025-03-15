@@ -1,0 +1,270 @@
+# LiveCodes
+
+> LiveCodes is a feature-rich, open-source, client-side code playground that supports React, Vue, Svelte, Solid, JavaScript, TypeScript, CSS, Sass, Tailwind CSS, Python, Go, Ruby, PHP, and 90+ languages/frameworks.
+
+A large number of starter templates are available to help you get started quickly.
+Projects can be saved, shared, exported (e.g. to GitHub Gists), deployed (e.g. to GitHub Pages), or embedded in web pages.
+A powerful yet easy-to-use SDK enables the creation of and communication with embedded playgrounds.
+
+With extensive language support and high configurability, LiveCodes can easily adapt to your needs.
+It offers excellent mobile support, featuring a responsive layout and a touch-friendly code editor.
+
+LiveCodes is an outstanding tool for learning, teaching, prototyping, sharing, and testing code.
+It can be easily self-hosted, if needed, on any static file server.
+
+LiveCodes is completely free for unlimited use, with no ads and no account required.
+Its MIT License also permits commercial use.
+
+- [Docs](https://livecodes.io/docs/llms.txt)
+- [Full Docs](https://livecodes.io/docs/llms-full.txt)
+- [README](https://raw.githubusercontent.com/live-codes/livecodes/refs/heads/develop/README.md)
+
+
+
+## Docs
+
+- [Overview](/livecodes/docs/overview.html.md)
+- [Why Another Playground?](/livecodes/docs/why.html.md)
+- [Getting Started](/livecodes/docs/getting-started.html.md)
+
+## Features
+
+- [Features](/livecodes/docs/features/index.html.md)
+- [Projects](/livecodes/docs/features/projects.html.md)
+- [Templates](/livecodes/docs/features/templates.html.md)
+- [CSS](/livecodes/docs/features/css.html.md)
+- [Result Page](/livecodes/docs/features/result.html.md)
+- [External Resources](/livecodes/docs/features/external-resources.html.md)
+- [Tools Pane](/livecodes/docs/features/tools-pane.html.md)
+- [Console](/livecodes/docs/features/console.html.md)
+- [Compiled Code](/livecodes/docs/features/compiled-code.html.md)
+- [Tests](/livecodes/docs/features/tests.html.md)
+- [Module Resolution](/livecodes/docs/features/module-resolution.html.md)
+- [IntelliSense](/livecodes/docs/features/intellisense.html.md)
+- [AI Code Assistant 🪄](/livecodes/docs/features/ai.html.md)
+- [Code Format](/livecodes/docs/features/code-format.html.md)
+- [Command Menu](/livecodes/docs/features/command-menu.html.md)
+- [Keyboard Shortcuts](/livecodes/docs/features/keyboard-shortcuts.html.md)
+- [User Settings](/livecodes/docs/features/user-settings.html.md)
+- [Editor Settings](/livecodes/docs/features/editor-settings.html.md)
+- [Internationalization (i18n)](/livecodes/docs/features/i18n.html.md)
+- [Default Template/Language](/livecodes/docs/features/default-template-language.html.md)
+- [Assets](/livecodes/docs/features/assets.html.md)
+- [Code Snippets](/livecodes/docs/features/snippets.html.md)
+- [Import](/livecodes/docs/features/import.html.md)
+- [Export](/livecodes/docs/features/export.html.md)
+- [Share](/livecodes/docs/features/share.html.md)
+- [Welcome Screen](/livecodes/docs/features/welcome.html.md)
+- [Recover Unsaved](/livecodes/docs/features/recover.html.md)
+- [Code to Image](/livecodes/docs/features/code-to-image.html.md)
+- [Display Modes](/livecodes/docs/features/display-modes.html.md)
+- [Default View](/livecodes/docs/features/default-view.html.md)
+- [Themes](/livecodes/docs/features/themes.html.md)
+- [Mobile Support](/livecodes/docs/features/mobile.html.md)
+- [Embedded Playgrounds](/livecodes/docs/features/embeds.html.md)
+- [Lite Mode](/livecodes/docs/features/lite.html.md)
+- [Read-Only](/livecodes/docs/features/read-only.html.md)
+- [Permanent URL](/livecodes/docs/features/permanent-url.html.md)
+- [Code Prefill](/livecodes/docs/features/code-prefill.html.md)
+- [Data URLs](/livecodes/docs/features/data-urls.html.md)
+- [Deploy](/livecodes/docs/features/deploy.html.md)
+- [Sync](/livecodes/docs/features/sync.html.md)
+- [Broadcast](/livecodes/docs/features/broadcast.html.md)
+- [Backup / Restore](/livecodes/docs/features/backup-restore.html.md)
+- [GitHub Integration](/livecodes/docs/features/github-integration.html.md)
+- [Integrations](/livecodes/docs/features/integrations.html.md)
+- [User Management](/livecodes/docs/features/user-management.html.md)
+- [Security](/livecodes/docs/features/security.html.md)
+- [Self-Hosting](/livecodes/docs/features/self-hosting.html.md)
+
+## Configuration
+
+- [Configuration](/livecodes/docs/configuration/index.html.md)
+- [Configuration Object](/livecodes/docs/configuration/configuration-object.html.md)
+- [Query Parameters](/livecodes/docs/configuration/query-params.html.md)
+
+## SDK
+
+- [LiveCodes SDK](/livecodes/docs/sdk/index.html.md)
+- [JavaScript/TypeScript SDK](/livecodes/docs/sdk/js-ts.html.md)
+- [React SDK](/livecodes/docs/sdk/react.html.md)
+- [Vue SDK](/livecodes/docs/sdk/vue.html.md)
+- [Svelte](/livecodes/docs/sdk/svelte.html.md)
+- [Headless Mode](/livecodes/docs/sdk/headless.html.md)
+
+## Advanced
+
+- [Advanced Topics](/livecodes/docs/advanced/index.html.md)
+- [Custom Settings](/livecodes/docs/advanced/custom-settings.html.md)
+- [Services](/livecodes/docs/advanced/services.html.md)
+
+## Languages
+
+- [Languages](/livecodes/docs/languages/index.html.md)
+- [art-template](/livecodes/docs/languages/art-template.html.md)
+- [AsciiDoc](/livecodes/docs/languages/asciidoc.html.md)
+- [AssemblyScript](/livecodes/docs/languages/assemblyscript.html.md)
+- [Astro](/livecodes/docs/languages/astro.html.md)
+- [Autoprefixer](/livecodes/docs/languages/autoprefixer.html.md)
+- [Babel](/livecodes/docs/languages/babel.html.md)
+- [BBCode](/livecodes/docs/languages/bbcode.html.md)
+- [Blockly](/livecodes/docs/languages/blockly.html.md)
+- [Civet](/livecodes/docs/languages/civet.html.md)
+- [Clio](/livecodes/docs/languages/clio.html.md)
+- [ClojureScript](/livecodes/docs/languages/clojurescript.html.md)
+- [CoffeeScript](/livecodes/docs/languages/coffeescript.html.md)
+- [Common Lisp](/livecodes/docs/languages/commonlisp.html.md)
+- [C/C++ (Wasm)](/livecodes/docs/languages/cpp-wasm.html.md)
+- [C++](/livecodes/docs/languages/cpp.html.md)
+- [CSS](/livecodes/docs/languages/css.html.md)
+- [CSS Modules](/livecodes/docs/languages/cssmodules.html.md)
+- [cssnano](/livecodes/docs/languages/cssnano.html.md)
+- [Diagrams](/livecodes/docs/languages/diagrams.html.md)
+- [doT](/livecodes/docs/languages/dot.html.md)
+- [EJS](/livecodes/docs/languages/ejs.html.md)
+- [Eta](/livecodes/docs/languages/eta.html.md)
+- [Fennel](/livecodes/docs/languages/fennel.html.md)
+- [Flow](/livecodes/docs/languages/flow.html.md)
+- [Gleam](/livecodes/docs/languages/gleam.html.md)
+- [Go (Golang)](/livecodes/docs/languages/go.html.md)
+- [Haml](/livecodes/docs/languages/haml.html.md)
+- [Handlebars](/livecodes/docs/languages/handlebars.html.md)
+- [HTML](/livecodes/docs/languages/html.html.md)
+- [Imba](/livecodes/docs/languages/imba.html.md)
+- [Languages](/livecodes/docs/languages/index.html.md)
+- [JavaScript](/livecodes/docs/languages/javascript.html.md)
+- [JSX](/livecodes/docs/languages/jsx.html.md)
+- [Julia](/livecodes/docs/languages/julia.html.md)
+- [Less](/livecodes/docs/languages/less.html.md)
+- [Lightning CSS](/livecodes/docs/languages/lightningcss.html.md)
+- [Liquid](/livecodes/docs/languages/liquid.html.md)
+- [LiveScript](/livecodes/docs/languages/livescript.html.md)
+- [Lua (Wasm)](/livecodes/docs/languages/lua-wasm.html.md)
+- [Lua](/livecodes/docs/languages/lua.html.md)
+- [Malina.js](/livecodes/docs/languages/malina.html.md)
+- [Markdown](/livecodes/docs/languages/markdown.html.md)
+- [MDX](/livecodes/docs/languages/mdx.html.md)
+- [MJML](/livecodes/docs/languages/mjml.html.md)
+- [Mustache](/livecodes/docs/languages/mustache.html.md)
+- [Nunjucks](/livecodes/docs/languages/nunjucks.html.md)
+- [OCaml](/livecodes/docs/languages/ocaml.html.md)
+- [Perl](/livecodes/docs/languages/perl.html.md)
+- [PHP (Wasm)](/livecodes/docs/languages/php-wasm.html.md)
+- [PHP](/livecodes/docs/languages/php.html.md)
+- [PostCSS](/livecodes/docs/languages/postcss.html.md)
+- [Import Url](/livecodes/docs/languages/postcssImportUrl.html.md)
+- [Preset Env](/livecodes/docs/languages/postcssPresetEnv.html.md)
+- [PostgreSQL](/livecodes/docs/languages/postgresql.html.md)
+- [Prolog](/livecodes/docs/languages/prolog.html.md)
+- [Pug](/livecodes/docs/languages/pug.html.md)
+- [PurgeCSS](/livecodes/docs/languages/purgecss.html.md)
+- [Python (Wasm)](/livecodes/docs/languages/python-wasm.html.md)
+- [Python](/livecodes/docs/languages/python.html.md)
+- [R](/livecodes/docs/languages/r.html.md)
+- [React Native (TSX)](/livecodes/docs/languages/react-native-tsx.html.md)
+- [React Native](/livecodes/docs/languages/react-native.html.md)
+- [React (TSX)](/livecodes/docs/languages/react-tsx.html.md)
+- [React](/livecodes/docs/languages/react.html.md)
+- [Reason](/livecodes/docs/languages/reason.html.md)
+- [ReScript](/livecodes/docs/languages/rescript.html.md)
+- [Rich Text Editor](/livecodes/docs/languages/richtext.html.md)
+- [Riot.js](/livecodes/docs/languages/riot.html.md)
+- [Ruby (Wasm)](/livecodes/docs/languages/ruby-wasm.html.md)
+- [Ruby](/livecodes/docs/languages/ruby.html.md)
+- [Sass](/livecodes/docs/languages/sass.html.md)
+- [Scheme](/livecodes/docs/languages/scheme.html.md)
+- [SCSS](/livecodes/docs/languages/scss.html.md)
+- [Solid](/livecodes/docs/languages/solid.html.md)
+- [Solid (TS)](/livecodes/docs/languages/solid.tsx.html.md)
+- [SQL (SQLite)](/livecodes/docs/languages/sql.html.md)
+- [Stencil](/livecodes/docs/languages/stencil.html.md)
+- [Stylis](/livecodes/docs/languages/stylis.html.md)
+- [Stylus](/livecodes/docs/languages/stylus.html.md)
+- [Sucrase](/livecodes/docs/languages/sucrase.html.md)
+- [Svelte](/livecodes/docs/languages/svelte.html.md)
+- [Tailwind CSS](/livecodes/docs/languages/tailwindcss.html.md)
+- [Tcl](/livecodes/docs/languages/tcl.html.md)
+- [Teal](/livecodes/docs/languages/teal.html.md)
+- [Token CSS](/livecodes/docs/languages/tokencss.html.md)
+- [TSX](/livecodes/docs/languages/tsx.html.md)
+- [Twig](/livecodes/docs/languages/twig.html.md)
+- [TypeScript](/livecodes/docs/languages/typescript.html.md)
+- [UnoCSS](/livecodes/docs/languages/unocss.html.md)
+- [Vento](/livecodes/docs/languages/vento.html.md)
+- [Vue SFC](/livecodes/docs/languages/vue.html.md)
+- [Vue 2 SFC](/livecodes/docs/languages/vue2.html.md)
+- [WebAssembly Text](/livecodes/docs/languages/wat.html.md)
+- [Windi CSS](/livecodes/docs/languages/windicss.html.md)
+
+## Docs
+
+- [Bookmarklet](/livecodes/docs/bookmarklet.html.md)
+- [GitHub Action ⚡](/livecodes/docs/gh-action.html.md)
+- [Contribution](/livecodes/docs/contribution.html.md)
+- [Credits](/livecodes/docs/credits.html.md)
+- [License](/livecodes/docs/license.html.md)
+- [Sponsor LiveCodes](/livecodes/docs/sponsor.html.md)
+- [Contact](/livecodes/docs/contact.html.md)
+- [About us](/livecodes/docs/about.html.md)
+
+## Display Modes
+
+- [Display Modes](/livecodes/docs/examples/display-modes/index.html.md)
+- [Display Mode: full](/livecodes/docs/examples/display-modes/full.html.md)
+- [Display Mode: editor](/livecodes/docs/examples/display-modes/editor.html.md)
+- [Display Mode: codeblock](/livecodes/docs/examples/display-modes/codeblock.html.md)
+- [Display Mode: result](/livecodes/docs/examples/display-modes/result.html.md)
+
+## Internal
+
+- [\_internal](/livecodes/docs/api/internal/index.html.md)
+
+## Interfaces
+
+- [Interface: API](/livecodes/docs/api/internal/interfaces/API.html.md)
+- [Interface: AppConfig](/livecodes/docs/api/internal/interfaces/AppConfig.html.md)
+- [Interface: ContentConfig](/livecodes/docs/api/internal/interfaces/ContentConfig.html.md)
+- [Interface: EditorConfig](/livecodes/docs/api/internal/interfaces/EditorConfig.html.md)
+- [Interface: EditorPosition](/livecodes/docs/api/internal/interfaces/EditorPosition.html.md)
+- [Interface: FormatterConfig](/livecodes/docs/api/internal/interfaces/FormatterConfig.html.md)
+- [Interface: TestResult](/livecodes/docs/api/internal/interfaces/TestResult.html.md)
+- [Interface: Types](/livecodes/docs/api/internal/interfaces/Types.html.md)
+- [Interface: UserConfig](/livecodes/docs/api/internal/interfaces/UserConfig.html.md)
+
+## Type Aliases
+
+- [Type Alias: APICommands](/livecodes/docs/api/internal/type-aliases/APICommands.html.md)
+- [Type Alias: AppLanguage](/livecodes/docs/api/internal/type-aliases/AppLanguage.html.md)
+- [Type Alias: CDN](/livecodes/docs/api/internal/type-aliases/CDN.html.md)
+- [Type Alias: CodejarTheme](/livecodes/docs/api/internal/type-aliases/CodejarTheme.html.md)
+- [Type Alias: CodemirrorTheme](/livecodes/docs/api/internal/type-aliases/CodemirrorTheme.html.md)
+- [Type Alias: CssPresetId](/livecodes/docs/api/internal/type-aliases/CssPresetId.html.md)
+- [Type Alias: EditorId](/livecodes/docs/api/internal/type-aliases/EditorId.html.md)
+- [Type Alias: EditorTheme](/livecodes/docs/api/internal/type-aliases/EditorTheme.html.md)
+- [Type Alias: MonacoTheme](/livecodes/docs/api/internal/type-aliases/MonacoTheme.html.md)
+- [Type Alias: Processor](/livecodes/docs/api/internal/type-aliases/Processor.html.md)
+- [Type Alias: TemplateName](/livecodes/docs/api/internal/type-aliases/TemplateName.html.md)
+- [Type Alias: Theme](/livecodes/docs/api/internal/type-aliases/Theme.html.md)
+- [Type Alias: ToolsPaneStatus](/livecodes/docs/api/internal/type-aliases/ToolsPaneStatus.html.md)
+- [Type Alias: WatchCode()](/livecodes/docs/api/internal/type-aliases/WatchCode.html.md)
+- [Type Alias: WatchConsole()](/livecodes/docs/api/internal/type-aliases/WatchConsole.html.md)
+- [Type Alias: WatchDestroy()](/livecodes/docs/api/internal/type-aliases/WatchDestroy.html.md)
+- [Type Alias: WatchLoad()](/livecodes/docs/api/internal/type-aliases/WatchLoad.html.md)
+- [Type Alias: WatchReady()](/livecodes/docs/api/internal/type-aliases/WatchReady.html.md)
+- [Type Alias: WatchTests()](/livecodes/docs/api/internal/type-aliases/WatchTests.html.md)
+
+## Interfaces
+
+- [Interface: Code](/livecodes/docs/api/interfaces/Code.html.md)
+- [Interface: Config](/livecodes/docs/api/interfaces/Config.html.md)
+- [Interface: EmbedOptions](/livecodes/docs/api/interfaces/EmbedOptions.html.md)
+- [Interface: Playground](/livecodes/docs/api/interfaces/Playground.html.md)
+
+## Type Aliases
+
+- [Type Alias: Language](/livecodes/docs/api/type-aliases/Language.html.md)
+
+## Functions
+
+- [Function: createPlayground()](/livecodes/docs/api/functions/createPlayground.html.md)
+- [Function: getPlaygroundUrl()](/livecodes/docs/api/functions/getPlaygroundUrl.html.md)

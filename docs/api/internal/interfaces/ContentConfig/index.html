@@ -1,0 +1,1265 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-api/internal/interfaces/ContentConfig" data-has-hydrated=false><meta charset=UTF-8><meta name=generator content="Docusaurus v3.7.0"><title data-rh=true>Interface: ContentConfig | LiveCodes</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"><meta data-rh=true name=twitter:card content=summary_large_image><meta data-rh=true property=og:url content=https://livecodes.io/livecodes/docs/api/internal/interfaces/ContentConfig><meta data-rh=true property=og:locale content=en><meta data-rh=true name=docusaurus_locale content=en><meta data-rh=true name=docsearch:language content=en><meta data-rh=true name=docusaurus_version content=current><meta data-rh=true name=docusaurus_tag content=docs-default-current><meta data-rh=true name=docsearch:version content=current><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-current><meta data-rh=true property=og:title content="Interface: ContentConfig | LiveCodes"><meta data-rh=true name=description content="The properties that define the content of the current project."><meta data-rh=true property=og:description content="The properties that define the content of the current project."><link data-rh=true rel=icon href=/livecodes/docs/img/favicon.ico><link data-rh=true rel=canonical href=https://livecodes.io/livecodes/docs/api/internal/interfaces/ContentConfig><link data-rh=true rel=alternate href=https://livecodes.io/livecodes/docs/api/internal/interfaces/ContentConfig hreflang=en><link data-rh=true rel=alternate href=https://livecodes.io/livecodes/docs/api/internal/interfaces/ContentConfig hreflang=x-default><link data-rh=true rel=preconnect href=https://H9Z2PKYS80-dsn.algolia.net crossorigin=anonymous><link rel=search type=application/opensearchdescription+xml title=LiveCodes href=/livecodes/docs/opensearch.xml><script type=ea-placeholder id=ea-placeholder data-ea-publisher=livecodesio data-ea-manual=true></script><script src=https://unpkg.com/prettier@2.4.1/standalone.js async></script><script src=https://unpkg.com/prettier@2.4.1/parser-babel.js async></script><script src=https://unpkg.com/prettier@2.4.1/parser-html.js async></script><script src=https://media.ethicalads.io/media/client/ethicalads.min.js async defer></script><link rel=stylesheet href=/livecodes/docs/assets/css/styles.232eb97c.css><script src=/livecodes/docs/assets/js/runtime~main.f880f958.js defer></script><script src=/livecodes/docs/assets/js/main.9a771208.js defer></script><body class=navigation-with-keyboard><script>!function(){var t,e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t=null!==e?e:"light",document.documentElement.setAttribute("data-theme",t)}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/livecodes/docs/img/livecodes-logo.svg><div role=region aria-label="Skip to main content"><a class=skipToContent_fXgn href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="navbar navbar--fixed-top"><div class=navbar__inner><div class=navbar__items><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/livecodes/docs/><div class=navbar__logo><img src=/livecodes/docs/img/livecodes-logo.svg alt="LiveCodes Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src=/livecodes/docs/img/livecodes-logo.svg alt="LiveCodes Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">LiveCodes</b></a><a class="navbar__item navbar__link" href=/livecodes/docs/overview>Docs</a><a class="navbar__item navbar__link" href=/livecodes/docs/sdk>SDK</a><a href=https://blog.livecodes.io target=_self rel="noopener noreferrer" class="navbar__item navbar__link">Blog<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><a href=/livecodes/docs/../stories target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">Storybook<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a></div><div class="navbar__items navbar__items--right"><a href=/livecodes/docs/../ target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">App<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><a href=https://twitter.com/livecodes_io target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">𝕏<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><a href=https://github.com/live-codes/livecodes target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type=button disabled title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live=polite aria-pressed=false><svg viewBox="0 0 24 24" width=24 height=24 class=lightToggleIcon_pyhR><path fill=currentColor d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 class=darkToggleIcon_wfgR><path fill=currentColor d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/></svg></button></div><div class=navbarSearchContainer_Bca1><button type=button class="DocSearch DocSearch-Button" aria-label="Search (Command+K)"><span class=DocSearch-Button-Container><svg width=20 height=20 class=DocSearch-Search-Icon viewBox="0 0 20 20" aria-hidden=true><path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke=currentColor fill=none fill-rule=evenodd stroke-linecap=round stroke-linejoin=round /></svg><span class=DocSearch-Button-Placeholder>Search</span></span><span class=DocSearch-Button-Keys></span></button></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="main-wrapper mainWrapper_z2l0"><div class=docsWrapper_hBAB><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type=button></button><div class=docRoot_UBD9><main class="docMainContainer_TBSr docMainContainerEnhanced_lQrH"><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_z5aJ"><div class=docItemContainer_c0TR><article><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type=button class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Interface: ContentConfig</h1><div class="custom-content custom-content-header content_lMOZ undefined"><div data-ea-publisher=livecodesio data-ea-type=image class=horizontal data-ea-manual=true></div></div></header>
+<p>The properties that define the content of the current <a href=https://livecodes.io/docs/features/projects target=_blank rel="noopener noreferrer">project</a>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id=extended-by>Extended by<a href=#extended-by class=hash-link aria-label="Direct link to Extended by" title="Direct link to Extended by">​</a></h2>
+<ul>
+<li><a href=/livecodes/docs/api/interfaces/Config><code>Config</code></a></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id=properties>Properties<a href=#properties class=hash-link aria-label="Direct link to Properties" title="Direct link to Properties">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=activeeditor>activeEditor<a href=#activeeditor class=hash-link aria-label="Direct link to activeEditor" title="Direct link to activeEditor">​</a></h3>
+<blockquote>
+<p><strong>activeEditor</strong>: <code>undefined</code> | <a href=/livecodes/docs/api/internal/type-aliases/EditorId><code>EditorId</code></a></p>
+</blockquote>
+<p>Selects the active editor to show.</p>
+<p>Defaults to the last used editor for user, otherwise <code>"markup"</code></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in>Defined in<a href=#defined-in class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L455 target=_blank rel="noopener noreferrer">models.ts:455</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=csspreset>cssPreset<a href=#csspreset class=hash-link aria-label="Direct link to cssPreset" title="Direct link to cssPreset">​</a></h3>
+<blockquote>
+<p><strong>cssPreset</strong>: <a href=/livecodes/docs/api/internal/type-aliases/CssPresetId><code>CssPresetId</code></a></p>
+</blockquote>
+<p><a href=https://livecodes.io/docs/features/external-resources#css-presets target=_blank rel="noopener noreferrer">CSS Preset</a> to use.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-1>Defined in<a href=#defined-in-1 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L502 target=_blank rel="noopener noreferrer">models.ts:502</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=customsettings>customSettings<a href=#customsettings class=hash-link aria-label="Direct link to customSettings" title="Direct link to customSettings">​</a></h3>
+<blockquote>
+<p><strong>customSettings</strong>: <code>object</code></p>
+</blockquote>
+<p>Defines <a href=https://livecodes.io/docs/advanced/custom-settings target=_blank rel="noopener noreferrer">custom settings</a> for the current project.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=adoc>adoc<a href=#adoc class=hash-link aria-label="Direct link to adoc" title="Direct link to adoc">​</a></h4>
+<blockquote>
+<p><strong>adoc</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=appsvelte>app.svelte<a href=#appsvelte class=hash-link aria-label="Direct link to app.svelte" title="Direct link to app.svelte">​</a></h4>
+<blockquote>
+<p><strong>svelte</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=appvue>app.vue<a href=#appvue class=hash-link aria-label="Direct link to app.vue" title="Direct link to app.vue">​</a></h4>
+<blockquote>
+<p><strong>vue</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=art>art<a href=#art class=hash-link aria-label="Direct link to art" title="Direct link to art">​</a></h4>
+<blockquote>
+<p><strong>art</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=art-template>art-template<a href=#art-template class=hash-link aria-label="Direct link to art-template" title="Direct link to art-template">​</a></h4>
+<blockquote>
+<p><strong>art-template</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=as>as<a href=#as class=hash-link aria-label="Direct link to as" title="Direct link to as">​</a></h4>
+<blockquote>
+<p><strong>as</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=asc>asc<a href=#asc class=hash-link aria-label="Direct link to asc" title="Direct link to asc">​</a></h4>
+<blockquote>
+<p><strong>asc</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=asciidoc>asciidoc<a href=#asciidoc class=hash-link aria-label="Direct link to asciidoc" title="Direct link to asciidoc">​</a></h4>
+<blockquote>
+<p><strong>asciidoc</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=assemblyscript>assemblyscript<a href=#assemblyscript class=hash-link aria-label="Direct link to assemblyscript" title="Direct link to assemblyscript">​</a></h4>
+<blockquote>
+<p><strong>assemblyscript</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=astro>astro<a href=#astro class=hash-link aria-label="Direct link to astro" title="Direct link to astro">​</a></h4>
+<blockquote>
+<p><strong>astro</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=autoprefixer>autoprefixer<a href=#autoprefixer class=hash-link aria-label="Direct link to autoprefixer" title="Direct link to autoprefixer">​</a></h4>
+<blockquote>
+<p><strong>autoprefixer</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=babel>babel<a href=#babel class=hash-link aria-label="Direct link to babel" title="Direct link to babel">​</a></h4>
+<blockquote>
+<p><strong>babel</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=bb>bb<a href=#bb class=hash-link aria-label="Direct link to bb" title="Direct link to bb">​</a></h4>
+<blockquote>
+<p><strong>bb</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=bbcode>bbcode<a href=#bbcode class=hash-link aria-label="Direct link to bbcode" title="Direct link to bbcode">​</a></h4>
+<blockquote>
+<p><strong>bbcode</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=binary>Binary<a href=#binary class=hash-link aria-label="Direct link to Binary" title="Direct link to Binary">​</a></h4>
+<blockquote>
+<p><strong>Binary</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=blockly>blockly<a href=#blockly class=hash-link aria-label="Direct link to blockly" title="Direct link to blockly">​</a></h4>
+<blockquote>
+<p><strong>blockly</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=blocklyxml>blockly.xml<a href=#blocklyxml class=hash-link aria-label="Direct link to blockly.xml" title="Direct link to blockly.xml">​</a></h4>
+<blockquote>
+<p><strong>xml</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=c>c<a href=#c class=hash-link aria-label="Direct link to c" title="Direct link to c">​</a></h4>
+<blockquote>
+<p><strong>c</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=c-1>C<a href=#c-1 class=hash-link aria-label="Direct link to C" title="Direct link to C">​</a></h4>
+<blockquote>
+<p><strong>C</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=c-2>c++<a href=#c-2 class=hash-link aria-label="Direct link to c++" title="Direct link to c++">​</a></h4>
+<blockquote>
+<p><strong>c++</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=civet>civet<a href=#civet class=hash-link aria-label="Direct link to civet" title="Direct link to civet">​</a></h4>
+<blockquote>
+<p><strong>civet</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=clang>clang<a href=#clang class=hash-link aria-label="Direct link to clang" title="Direct link to clang">​</a></h4>
+<blockquote>
+<p><strong>clang</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=clangcpp>clang.cpp<a href=#clangcpp class=hash-link aria-label="Direct link to clang.cpp" title="Direct link to clang.cpp">​</a></h4>
+<blockquote>
+<p><strong>cpp</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=clio>clio<a href=#clio class=hash-link aria-label="Direct link to clio" title="Direct link to clio">​</a></h4>
+<blockquote>
+<p><strong>clio</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=clj>clj<a href=#clj class=hash-link aria-label="Direct link to clj" title="Direct link to clj">​</a></h4>
+<blockquote>
+<p><strong>clj</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cljc>cljc<a href=#cljc class=hash-link aria-label="Direct link to cljc" title="Direct link to cljc">​</a></h4>
+<blockquote>
+<p><strong>cljc</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cljs>cljs<a href=#cljs class=hash-link aria-label="Direct link to cljs" title="Direct link to cljs">​</a></h4>
+<blockquote>
+<p><strong>cljs</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=clojure>clojure<a href=#clojure class=hash-link aria-label="Direct link to clojure" title="Direct link to clojure">​</a></h4>
+<blockquote>
+<p><strong>clojure</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=clojurescript>clojurescript<a href=#clojurescript class=hash-link aria-label="Direct link to clojurescript" title="Direct link to clojurescript">​</a></h4>
+<blockquote>
+<p><strong>clojurescript</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=coffee>coffee<a href=#coffee class=hash-link aria-label="Direct link to coffee" title="Direct link to coffee">​</a></h4>
+<blockquote>
+<p><strong>coffee</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=coffeescript>coffeescript<a href=#coffeescript class=hash-link aria-label="Direct link to coffeescript" title="Direct link to coffeescript">​</a></h4>
+<blockquote>
+<p><strong>coffeescript</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=common-lisp>common-lisp<a href=#common-lisp class=hash-link aria-label="Direct link to common-lisp" title="Direct link to common-lisp">​</a></h4>
+<blockquote>
+<p><strong>common-lisp</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=commonlisp>commonlisp<a href=#commonlisp class=hash-link aria-label="Direct link to commonlisp" title="Direct link to commonlisp">​</a></h4>
+<blockquote>
+<p><strong>commonlisp</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=convertcommonjs>convertCommonjs?<a href=#convertcommonjs class=hash-link aria-label="Direct link to convertCommonjs?" title="Direct link to convertCommonjs?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>convertCommonjs</strong>: <code>boolean</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cp>cp<a href=#cp class=hash-link aria-label="Direct link to cp" title="Direct link to cp">​</a></h4>
+<blockquote>
+<p><strong>cp</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cpp>cpp<a href=#cpp class=hash-link aria-label="Direct link to cpp" title="Direct link to cpp">​</a></h4>
+<blockquote>
+<p><strong>cpp</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cpp-wasm>cpp-wasm<a href=#cpp-wasm class=hash-link aria-label="Direct link to cpp-wasm" title="Direct link to cpp-wasm">​</a></h4>
+<blockquote>
+<p><strong>cpp-wasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cppm>cppm<a href=#cppm class=hash-link aria-label="Direct link to cppm" title="Direct link to cppm">​</a></h4>
+<blockquote>
+<p><strong>cppm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cppwasm>cppwasm<a href=#cppwasm class=hash-link aria-label="Direct link to cppwasm" title="Direct link to cppwasm">​</a></h4>
+<blockquote>
+<p><strong>cppwasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=csharp>csharp<a href=#csharp class=hash-link aria-label="Direct link to csharp" title="Direct link to csharp">​</a></h4>
+<blockquote>
+<p><strong>csharp</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=css>css<a href=#css class=hash-link aria-label="Direct link to css" title="Direct link to css">​</a></h4>
+<blockquote>
+<p><strong>css</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cssmodules>cssmodules<a href=#cssmodules class=hash-link aria-label="Direct link to cssmodules" title="Direct link to cssmodules">​</a></h4>
+<blockquote>
+<p><strong>cssmodules</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cssnano>cssnano<a href=#cssnano class=hash-link aria-label="Direct link to cssnano" title="Direct link to cssnano">​</a></h4>
+<blockquote>
+<p><strong>cssnano</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cwasm>cwasm<a href=#cwasm class=hash-link aria-label="Direct link to cwasm" title="Direct link to cwasm">​</a></h4>
+<blockquote>
+<p><strong>cwasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=cxx>cxx<a href=#cxx class=hash-link aria-label="Direct link to cxx" title="Direct link to cxx">​</a></h4>
+<blockquote>
+<p><strong>cxx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defaultcdn>defaultCDN?<a href=#defaultcdn class=hash-link aria-label="Direct link to defaultCDN?" title="Direct link to defaultCDN?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>defaultCDN</strong>: <a href=/livecodes/docs/api/internal/type-aliases/CDN><code>CDN</code></a></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=diagram>diagram<a href=#diagram class=hash-link aria-label="Direct link to diagram" title="Direct link to diagram">​</a></h4>
+<blockquote>
+<p><strong>diagram</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=diagrams>diagrams<a href=#diagrams class=hash-link aria-label="Direct link to diagrams" title="Direct link to diagrams">​</a></h4>
+<blockquote>
+<p><strong>diagrams</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=dot>dot<a href=#dot class=hash-link aria-label="Direct link to dot" title="Direct link to dot">​</a></h4>
+<blockquote>
+<p><strong>dot</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=edn>edn<a href=#edn class=hash-link aria-label="Direct link to edn" title="Direct link to edn">​</a></h4>
+<blockquote>
+<p><strong>edn</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=ejs>ejs<a href=#ejs class=hash-link aria-label="Direct link to ejs" title="Direct link to ejs">​</a></h4>
+<blockquote>
+<p><strong>ejs</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=es>es<a href=#es class=hash-link aria-label="Direct link to es" title="Direct link to es">​</a></h4>
+<blockquote>
+<p><strong>es</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=eta>eta<a href=#eta class=hash-link aria-label="Direct link to eta" title="Direct link to eta">​</a></h4>
+<blockquote>
+<p><strong>eta</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=fennel>fennel<a href=#fennel class=hash-link aria-label="Direct link to fennel" title="Direct link to fennel">​</a></h4>
+<blockquote>
+<p><strong>fennel</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=flow>flow<a href=#flow class=hash-link aria-label="Direct link to flow" title="Direct link to flow">​</a></h4>
+<blockquote>
+<p><strong>flow</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=fnl>fnl<a href=#fnl class=hash-link aria-label="Direct link to fnl" title="Direct link to fnl">​</a></h4>
+<blockquote>
+<p><strong>fnl</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=gleam>gleam<a href=#gleam class=hash-link aria-label="Direct link to gleam" title="Direct link to gleam">​</a></h4>
+<blockquote>
+<p><strong>gleam</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=go>go<a href=#go class=hash-link aria-label="Direct link to go" title="Direct link to go">​</a></h4>
+<blockquote>
+<p><strong>go</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=golang>golang<a href=#golang class=hash-link aria-label="Direct link to golang" title="Direct link to golang">​</a></h4>
+<blockquote>
+<p><strong>golang</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=graph>graph<a href=#graph class=hash-link aria-label="Direct link to graph" title="Direct link to graph">​</a></h4>
+<blockquote>
+<p><strong>graph</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=h>h<a href=#h class=hash-link aria-label="Direct link to h" title="Direct link to h">​</a></h4>
+<blockquote>
+<p><strong>h</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=haml>haml<a href=#haml class=hash-link aria-label="Direct link to haml" title="Direct link to haml">​</a></h4>
+<blockquote>
+<p><strong>haml</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=handlebars>handlebars<a href=#handlebars class=hash-link aria-label="Direct link to handlebars" title="Direct link to handlebars">​</a></h4>
+<blockquote>
+<p><strong>handlebars</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hbs>hbs<a href=#hbs class=hash-link aria-label="Direct link to hbs" title="Direct link to hbs">​</a></h4>
+<blockquote>
+<p><strong>hbs</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hpp>hpp<a href=#hpp class=hash-link aria-label="Direct link to hpp" title="Direct link to hpp">​</a></h4>
+<blockquote>
+<p><strong>hpp</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=htm>htm<a href=#htm class=hash-link aria-label="Direct link to htm" title="Direct link to htm">​</a></h4>
+<blockquote>
+<p><strong>htm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=html>html<a href=#html class=hash-link aria-label="Direct link to html" title="Direct link to html">​</a></h4>
+<blockquote>
+<p><strong>html</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=ii>ii<a href=#ii class=hash-link aria-label="Direct link to ii" title="Direct link to ii">​</a></h4>
+<blockquote>
+<p><strong>ii</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=imba>imba<a href=#imba class=hash-link aria-label="Direct link to imba" title="Direct link to imba">​</a></h4>
+<blockquote>
+<p><strong>imba</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=imports>imports?<a href=#imports class=hash-link aria-label="Direct link to imports?" title="Direct link to imports?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>imports</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code>></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=ixx>ixx<a href=#ixx class=hash-link aria-label="Direct link to ixx" title="Direct link to ixx">​</a></h4>
+<blockquote>
+<p><strong>ixx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=jade>jade<a href=#jade class=hash-link aria-label="Direct link to jade" title="Direct link to jade">​</a></h4>
+<blockquote>
+<p><strong>jade</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=javascript>javascript<a href=#javascript class=hash-link aria-label="Direct link to javascript" title="Direct link to javascript">​</a></h4>
+<blockquote>
+<p><strong>javascript</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=jl>jl<a href=#jl class=hash-link aria-label="Direct link to jl" title="Direct link to jl">​</a></h4>
+<blockquote>
+<p><strong>jl</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=js>js<a href=#js class=hash-link aria-label="Direct link to js" title="Direct link to js">​</a></h4>
+<blockquote>
+<p><strong>js</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=json>json<a href=#json class=hash-link aria-label="Direct link to json" title="Direct link to json">​</a></h4>
+<blockquote>
+<p><strong>json</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=jsx>jsx<a href=#jsx class=hash-link aria-label="Direct link to jsx" title="Direct link to jsx">​</a></h4>
+<blockquote>
+<p><strong>jsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=julia>julia<a href=#julia class=hash-link aria-label="Direct link to julia" title="Direct link to julia">​</a></h4>
+<blockquote>
+<p><strong>julia</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=less>less<a href=#less class=hash-link aria-label="Direct link to less" title="Direct link to less">​</a></h4>
+<blockquote>
+<p><strong>less</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=lightningcss>lightningcss<a href=#lightningcss class=hash-link aria-label="Direct link to lightningcss" title="Direct link to lightningcss">​</a></h4>
+<blockquote>
+<p><strong>lightningcss</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=liquid>liquid<a href=#liquid class=hash-link aria-label="Direct link to liquid" title="Direct link to liquid">​</a></h4>
+<blockquote>
+<p><strong>liquid</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=liquidjs>liquidjs<a href=#liquidjs class=hash-link aria-label="Direct link to liquidjs" title="Direct link to liquidjs">​</a></h4>
+<blockquote>
+<p><strong>liquidjs</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=lisp>lisp<a href=#lisp class=hash-link aria-label="Direct link to lisp" title="Direct link to lisp">​</a></h4>
+<blockquote>
+<p><strong>lisp</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=livescript>livescript<a href=#livescript class=hash-link aria-label="Direct link to livescript" title="Direct link to livescript">​</a></h4>
+<blockquote>
+<p><strong>livescript</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=ls>ls<a href=#ls class=hash-link aria-label="Direct link to ls" title="Direct link to ls">​</a></h4>
+<blockquote>
+<p><strong>ls</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=lua>lua<a href=#lua class=hash-link aria-label="Direct link to lua" title="Direct link to lua">​</a></h4>
+<blockquote>
+<p><strong>lua</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=lua-wasm>lua-wasm<a href=#lua-wasm class=hash-link aria-label="Direct link to lua-wasm" title="Direct link to lua-wasm">​</a></h4>
+<blockquote>
+<p><strong>lua-wasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=luawasm>luawasm<a href=#luawasm class=hash-link aria-label="Direct link to luawasm" title="Direct link to luawasm">​</a></h4>
+<blockquote>
+<p><strong>luawasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=malina>malina<a href=#malina class=hash-link aria-label="Direct link to malina" title="Direct link to malina">​</a></h4>
+<blockquote>
+<p><strong>malina</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=malinajs>malinajs<a href=#malinajs class=hash-link aria-label="Direct link to malinajs" title="Direct link to malinajs">​</a></h4>
+<blockquote>
+<p><strong>malinajs</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=mapimports>mapImports?<a href=#mapimports class=hash-link aria-label="Direct link to mapImports?" title="Direct link to mapImports?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>mapImports</strong>: <code>boolean</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=markdown>markdown<a href=#markdown class=hash-link aria-label="Direct link to markdown" title="Direct link to markdown">​</a></h4>
+<blockquote>
+<p><strong>markdown</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=md>md<a href=#md class=hash-link aria-label="Direct link to md" title="Direct link to md">​</a></h4>
+<blockquote>
+<p><strong>md</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=mdown>mdown<a href=#mdown class=hash-link aria-label="Direct link to mdown" title="Direct link to mdown">​</a></h4>
+<blockquote>
+<p><strong>mdown</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=mdx>mdx<a href=#mdx class=hash-link aria-label="Direct link to mdx" title="Direct link to mdx">​</a></h4>
+<blockquote>
+<p><strong>mdx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=mjml>mjml<a href=#mjml class=hash-link aria-label="Direct link to mjml" title="Direct link to mjml">​</a></h4>
+<blockquote>
+<p><strong>mjml</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=mkdn>mkdn<a href=#mkdn class=hash-link aria-label="Direct link to mkdn" title="Direct link to mkdn">​</a></h4>
+<blockquote>
+<p><strong>mkdn</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=ml>ml<a href=#ml class=hash-link aria-label="Direct link to ml" title="Direct link to ml">​</a></h4>
+<blockquote>
+<p><strong>ml</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=mli>mli<a href=#mli class=hash-link aria-label="Direct link to mli" title="Direct link to mli">​</a></h4>
+<blockquote>
+<p><strong>mli</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=mustache>mustache<a href=#mustache class=hash-link aria-label="Direct link to mustache" title="Direct link to mustache">​</a></h4>
+<blockquote>
+<p><strong>mustache</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=njk>njk<a href=#njk class=hash-link aria-label="Direct link to njk" title="Direct link to njk">​</a></h4>
+<blockquote>
+<p><strong>njk</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=nunjucks>nunjucks<a href=#nunjucks class=hash-link aria-label="Direct link to nunjucks" title="Direct link to nunjucks">​</a></h4>
+<blockquote>
+<p><strong>nunjucks</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=ocaml>ocaml<a href=#ocaml class=hash-link aria-label="Direct link to ocaml" title="Direct link to ocaml">​</a></h4>
+<blockquote>
+<p><strong>ocaml</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=perl>perl<a href=#perl class=hash-link aria-label="Direct link to perl" title="Direct link to perl">​</a></h4>
+<blockquote>
+<p><strong>perl</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pg>pg<a href=#pg class=hash-link aria-label="Direct link to pg" title="Direct link to pg">​</a></h4>
+<blockquote>
+<p><strong>pg</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pgsql>pg.sql<a href=#pgsql class=hash-link aria-label="Direct link to pg.sql" title="Direct link to pg.sql">​</a></h4>
+<blockquote>
+<p><strong>sql</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pglite>pglite<a href=#pglite class=hash-link aria-label="Direct link to pglite" title="Direct link to pglite">​</a></h4>
+<blockquote>
+<p><strong>pglite</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pglitesql>pglite.sql<a href=#pglitesql class=hash-link aria-label="Direct link to pglite.sql" title="Direct link to pglite.sql">​</a></h4>
+<blockquote>
+<p><strong>sql</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pgsql-1>pgsql<a href=#pgsql-1 class=hash-link aria-label="Direct link to pgsql" title="Direct link to pgsql">​</a></h4>
+<blockquote>
+<p><strong>pgsql</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pgsqlsql>pgsql.sql<a href=#pgsqlsql class=hash-link aria-label="Direct link to pgsql.sql" title="Direct link to pgsql.sql">​</a></h4>
+<blockquote>
+<p><strong>sql</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=php>php<a href=#php class=hash-link aria-label="Direct link to php" title="Direct link to php">​</a></h4>
+<blockquote>
+<p><strong>php</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=php-wasm>php-wasm<a href=#php-wasm class=hash-link aria-label="Direct link to php-wasm" title="Direct link to php-wasm">​</a></h4>
+<blockquote>
+<p><strong>php-wasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=phpwasm>phpwasm<a href=#phpwasm class=hash-link aria-label="Direct link to phpwasm" title="Direct link to phpwasm">​</a></h4>
+<blockquote>
+<p><strong>phpwasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pintora>pintora<a href=#pintora class=hash-link aria-label="Direct link to pintora" title="Direct link to pintora">​</a></h4>
+<blockquote>
+<p><strong>pintora</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pl>pl<a href=#pl class=hash-link aria-label="Direct link to pl" title="Direct link to pl">​</a></h4>
+<blockquote>
+<p><strong>pl</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=plt>plt<a href=#plt class=hash-link aria-label="Direct link to plt" title="Direct link to plt">​</a></h4>
+<blockquote>
+<p><strong>plt</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pm>pm<a href=#pm class=hash-link aria-label="Direct link to pm" title="Direct link to pm">​</a></h4>
+<blockquote>
+<p><strong>pm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=postcss>postcss<a href=#postcss class=hash-link aria-label="Direct link to postcss" title="Direct link to postcss">​</a></h4>
+<blockquote>
+<p><strong>postcss</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=postcssimporturl>postcssImportUrl<a href=#postcssimporturl class=hash-link aria-label="Direct link to postcssImportUrl" title="Direct link to postcssImportUrl">​</a></h4>
+<blockquote>
+<p><strong>postcssImportUrl</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=postcsspresetenv>postcssPresetEnv<a href=#postcsspresetenv class=hash-link aria-label="Direct link to postcssPresetEnv" title="Direct link to postcssPresetEnv">​</a></h4>
+<blockquote>
+<p><strong>postcssPresetEnv</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=postgresql>postgre.sql<a href=#postgresql class=hash-link aria-label="Direct link to postgre.sql" title="Direct link to postgre.sql">​</a></h4>
+<blockquote>
+<p><strong>sql</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=postgres>postgres<a href=#postgres class=hash-link aria-label="Direct link to postgres" title="Direct link to postgres">​</a></h4>
+<blockquote>
+<p><strong>postgres</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=postgresql-1>postgresql<a href=#postgresql-1 class=hash-link aria-label="Direct link to postgresql" title="Direct link to postgresql">​</a></h4>
+<blockquote>
+<p><strong>postgresql</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=postgresqlsql>postgresql.sql<a href=#postgresqlsql class=hash-link aria-label="Direct link to postgresql.sql" title="Direct link to postgresql.sql">​</a></h4>
+<blockquote>
+<p><strong>sql</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=prolog>prolog<a href=#prolog class=hash-link aria-label="Direct link to prolog" title="Direct link to prolog">​</a></h4>
+<blockquote>
+<p><strong>prolog</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=prologpl>prolog.pl<a href=#prologpl class=hash-link aria-label="Direct link to prolog.pl" title="Direct link to prolog.pl">​</a></h4>
+<blockquote>
+<p><strong>pl</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pug>pug<a href=#pug class=hash-link aria-label="Direct link to pug" title="Direct link to pug">​</a></h4>
+<blockquote>
+<p><strong>pug</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=purgecss>purgecss<a href=#purgecss class=hash-link aria-label="Direct link to purgecss" title="Direct link to purgecss">​</a></h4>
+<blockquote>
+<p><strong>purgecss</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=py>py<a href=#py class=hash-link aria-label="Direct link to py" title="Direct link to py">​</a></h4>
+<blockquote>
+<p><strong>py</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=py-wasm>py-wasm<a href=#py-wasm class=hash-link aria-label="Direct link to py-wasm" title="Direct link to py-wasm">​</a></h4>
+<blockquote>
+<p><strong>py-wasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=py3>py3<a href=#py3 class=hash-link aria-label="Direct link to py3" title="Direct link to py3">​</a></h4>
+<blockquote>
+<p><strong>py3</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pyodide>pyodide<a href=#pyodide class=hash-link aria-label="Direct link to pyodide" title="Direct link to pyodide">​</a></h4>
+<blockquote>
+<p><strong>pyodide</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=python>python<a href=#python class=hash-link aria-label="Direct link to python" title="Direct link to python">​</a></h4>
+<blockquote>
+<p><strong>python</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=python-wasm>python-wasm<a href=#python-wasm class=hash-link aria-label="Direct link to python-wasm" title="Direct link to python-wasm">​</a></h4>
+<blockquote>
+<p><strong>python-wasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pythonwasm>pythonwasm<a href=#pythonwasm class=hash-link aria-label="Direct link to pythonwasm" title="Direct link to pythonwasm">​</a></h4>
+<blockquote>
+<p><strong>pythonwasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=pywasm>pywasm<a href=#pywasm class=hash-link aria-label="Direct link to pywasm" title="Direct link to pywasm">​</a></h4>
+<blockquote>
+<p><strong>pywasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=r>r<a href=#r class=hash-link aria-label="Direct link to r" title="Direct link to r">​</a></h4>
+<blockquote>
+<p><strong>r</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=r-wasm>r-wasm<a href=#r-wasm class=hash-link aria-label="Direct link to r-wasm" title="Direct link to r-wasm">​</a></h4>
+<blockquote>
+<p><strong>r-wasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=rb>rb<a href=#rb class=hash-link aria-label="Direct link to rb" title="Direct link to rb">​</a></h4>
+<blockquote>
+<p><strong>rb</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=re>re<a href=#re class=hash-link aria-label="Direct link to re" title="Direct link to re">​</a></h4>
+<blockquote>
+<p><strong>re</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=react>react<a href=#react class=hash-link aria-label="Direct link to react" title="Direct link to react">​</a></h4>
+<blockquote>
+<p><strong>react</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=react-jsx>react-jsx<a href=#react-jsx class=hash-link aria-label="Direct link to react-jsx" title="Direct link to react-jsx">​</a></h4>
+<blockquote>
+<p><strong>react-jsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=react-native>react-native<a href=#react-native class=hash-link aria-label="Direct link to react-native" title="Direct link to react-native">​</a></h4>
+<blockquote>
+<p><strong>react-native</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=react-native-tsx>react-native-tsx<a href=#react-native-tsx class=hash-link aria-label="Direct link to react-native-tsx" title="Direct link to react-native-tsx">​</a></h4>
+<blockquote>
+<p><strong>react-native-tsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=react-nativejsx>react-native.jsx<a href=#react-nativejsx class=hash-link aria-label="Direct link to react-native.jsx" title="Direct link to react-native.jsx">​</a></h4>
+<blockquote>
+<p><strong>jsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=react-nativetsx>react-native.tsx<a href=#react-nativetsx class=hash-link aria-label="Direct link to react-native.tsx" title="Direct link to react-native.tsx">​</a></h4>
+<blockquote>
+<p><strong>tsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=react-tsx>react-tsx<a href=#react-tsx class=hash-link aria-label="Direct link to react-tsx" title="Direct link to react-tsx">​</a></h4>
+<blockquote>
+<p><strong>react-tsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=reactjsx>react.jsx<a href=#reactjsx class=hash-link aria-label="Direct link to react.jsx" title="Direct link to react.jsx">​</a></h4>
+<blockquote>
+<p><strong>jsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=reacttsx>react.tsx<a href=#reacttsx class=hash-link aria-label="Direct link to react.tsx" title="Direct link to react.tsx">​</a></h4>
+<blockquote>
+<p><strong>tsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=reason>reason<a href=#reason class=hash-link aria-label="Direct link to reason" title="Direct link to reason">​</a></h4>
+<blockquote>
+<p><strong>reason</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=rei>rei<a href=#rei class=hash-link aria-label="Direct link to rei" title="Direct link to rei">​</a></h4>
+<blockquote>
+<p><strong>rei</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=res>res<a href=#res class=hash-link aria-label="Direct link to res" title="Direct link to res">​</a></h4>
+<blockquote>
+<p><strong>res</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=rescript>rescript<a href=#rescript class=hash-link aria-label="Direct link to rescript" title="Direct link to rescript">​</a></h4>
+<blockquote>
+<p><strong>rescript</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=resi>resi<a href=#resi class=hash-link aria-label="Direct link to resi" title="Direct link to resi">​</a></h4>
+<blockquote>
+<p><strong>resi</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=rich>rich<a href=#rich class=hash-link aria-label="Direct link to rich" title="Direct link to rich">​</a></h4>
+<blockquote>
+<p><strong>rich</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=richtext>richtext<a href=#richtext class=hash-link aria-label="Direct link to richtext" title="Direct link to richtext">​</a></h4>
+<blockquote>
+<p><strong>richtext</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=riot>riot<a href=#riot class=hash-link aria-label="Direct link to riot" title="Direct link to riot">​</a></h4>
+<blockquote>
+<p><strong>riot</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=riotjs>riotjs<a href=#riotjs class=hash-link aria-label="Direct link to riotjs" title="Direct link to riotjs">​</a></h4>
+<blockquote>
+<p><strong>riotjs</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=rlang>rlang<a href=#rlang class=hash-link aria-label="Direct link to rlang" title="Direct link to rlang">​</a></h4>
+<blockquote>
+<p><strong>rlang</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=rstats>rstats<a href=#rstats class=hash-link aria-label="Direct link to rstats" title="Direct link to rstats">​</a></h4>
+<blockquote>
+<p><strong>rstats</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=rte>rte<a href=#rte class=hash-link aria-label="Direct link to rte" title="Direct link to rte">​</a></h4>
+<blockquote>
+<p><strong>rte</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=rtehtml>rte.html<a href=#rtehtml class=hash-link aria-label="Direct link to rte.html" title="Direct link to rte.html">​</a></h4>
+<blockquote>
+<p><strong>html</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=ruby>ruby<a href=#ruby class=hash-link aria-label="Direct link to ruby" title="Direct link to ruby">​</a></h4>
+<blockquote>
+<p><strong>ruby</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=ruby-wasm>ruby-wasm<a href=#ruby-wasm class=hash-link aria-label="Direct link to ruby-wasm" title="Direct link to ruby-wasm">​</a></h4>
+<blockquote>
+<p><strong>ruby-wasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=rubywasm>rubywasm<a href=#rubywasm class=hash-link aria-label="Direct link to rubywasm" title="Direct link to rubywasm">​</a></h4>
+<blockquote>
+<p><strong>rubywasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=sass>sass<a href=#sass class=hash-link aria-label="Direct link to sass" title="Direct link to sass">​</a></h4>
+<blockquote>
+<p><strong>sass</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=scheme>scheme<a href=#scheme class=hash-link aria-label="Direct link to scheme" title="Direct link to scheme">​</a></h4>
+<blockquote>
+<p><strong>scheme</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=scm>scm<a href=#scm class=hash-link aria-label="Direct link to scm" title="Direct link to scm">​</a></h4>
+<blockquote>
+<p><strong>scm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=scripttype>scriptType?<a href=#scripttype class=hash-link aria-label="Direct link to scriptType?" title="Direct link to scriptType?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>scriptType</strong>: <code>""</code> | <code>"module"</code> | <code>"text/liquid"</code> | <code>"text/python"</code> | <code>"text/r"</code> | <code>"text/ruby-wasm"</code> | <code>"text/x-uniter-php"</code> | <code>"text/php-wasm"</code> | <code>"text/cpp"</code> | <code>"text/perl"</code> | <code>"text/julia"</code> | <code>"text/biwascheme"</code> | <code>"text/commonlisp"</code> | <code>"text/tcl"</code> | <code>"text/prolog"</code> | <code>"application/json"</code> | <code>"application/lua"</code> | <code>"text/fennel"</code> | <code>"application/wasm-uint8"</code> | <code>"application/javascript"</code> | <code>"application/ecmascript"</code> | <code>"text/javascript"</code> | <code>"text/ecmascript"</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=scss>scss<a href=#scss class=hash-link aria-label="Direct link to scss" title="Direct link to scss">​</a></h4>
+<blockquote>
+<p><strong>scss</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=solid>solid<a href=#solid class=hash-link aria-label="Direct link to solid" title="Direct link to solid">​</a></h4>
+<blockquote>
+<p><strong>solid</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=solidjsx>solid.jsx<a href=#solidjsx class=hash-link aria-label="Direct link to solid.jsx" title="Direct link to solid.jsx">​</a></h4>
+<blockquote>
+<p><strong>jsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=solidtsx>solid.tsx<a href=#solidtsx class=hash-link aria-label="Direct link to solid.tsx" title="Direct link to solid.tsx">​</a></h4>
+<blockquote>
+<p><strong>tsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=sql>sql<a href=#sql class=hash-link aria-label="Direct link to sql" title="Direct link to sql">​</a></h4>
+<blockquote>
+<p><strong>sql</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=sqlite>sqlite<a href=#sqlite class=hash-link aria-label="Direct link to sqlite" title="Direct link to sqlite">​</a></h4>
+<blockquote>
+<p><strong>sqlite</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=sqlite3>sqlite3<a href=#sqlite3 class=hash-link aria-label="Direct link to sqlite3" title="Direct link to sqlite3">​</a></h4>
+<blockquote>
+<p><strong>sqlite3</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=stencil>stencil<a href=#stencil class=hash-link aria-label="Direct link to stencil" title="Direct link to stencil">​</a></h4>
+<blockquote>
+<p><strong>stencil</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=stenciltsx>stencil.tsx<a href=#stenciltsx class=hash-link aria-label="Direct link to stencil.tsx" title="Direct link to stencil.tsx">​</a></h4>
+<blockquote>
+<p><strong>tsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=styl>styl<a href=#styl class=hash-link aria-label="Direct link to styl" title="Direct link to styl">​</a></h4>
+<blockquote>
+<p><strong>styl</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=stylis>stylis<a href=#stylis class=hash-link aria-label="Direct link to stylis" title="Direct link to stylis">​</a></h4>
+<blockquote>
+<p><strong>stylis</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=stylus>stylus<a href=#stylus class=hash-link aria-label="Direct link to stylus" title="Direct link to stylus">​</a></h4>
+<blockquote>
+<p><strong>stylus</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=sucrase>sucrase<a href=#sucrase class=hash-link aria-label="Direct link to sucrase" title="Direct link to sucrase">​</a></h4>
+<blockquote>
+<p><strong>sucrase</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=svelte>svelte<a href=#svelte class=hash-link aria-label="Direct link to svelte" title="Direct link to svelte">​</a></h4>
+<blockquote>
+<p><strong>svelte</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=svelte-app>svelte-app<a href=#svelte-app class=hash-link aria-label="Direct link to svelte-app" title="Direct link to svelte-app">​</a></h4>
+<blockquote>
+<p><strong>svelte-app</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=tailwindcss>tailwindcss<a href=#tailwindcss class=hash-link aria-label="Direct link to tailwindcss" title="Direct link to tailwindcss">​</a></h4>
+<blockquote>
+<p><strong>tailwindcss</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=tcl>tcl<a href=#tcl class=hash-link aria-label="Direct link to tcl" title="Direct link to tcl">​</a></h4>
+<blockquote>
+<p><strong>tcl</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=teal>teal<a href=#teal class=hash-link aria-label="Direct link to teal" title="Direct link to teal">​</a></h4>
+<blockquote>
+<p><strong>teal</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=template>template?<a href=#template class=hash-link aria-label="Direct link to template?" title="Direct link to template?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>template</strong>: <code>object</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=templatedata>template.data?<a href=#templatedata class=hash-link aria-label="Direct link to template.data?" title="Direct link to template.data?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>data</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=templateprerender>template.prerender?<a href=#templateprerender class=hash-link aria-label="Direct link to template.prerender?" title="Direct link to template.prerender?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>prerender</strong>: <code>boolean</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=tl>tl<a href=#tl class=hash-link aria-label="Direct link to tl" title="Direct link to tl">​</a></h4>
+<blockquote>
+<p><strong>tl</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=tokencss>tokencss<a href=#tokencss class=hash-link aria-label="Direct link to tokencss" title="Direct link to tokencss">​</a></h4>
+<blockquote>
+<p><strong>tokencss</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=ts>ts<a href=#ts class=hash-link aria-label="Direct link to ts" title="Direct link to ts">​</a></h4>
+<blockquote>
+<p><strong>ts</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=tsx>tsx<a href=#tsx class=hash-link aria-label="Direct link to tsx" title="Direct link to tsx">​</a></h4>
+<blockquote>
+<p><strong>tsx</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=twig>twig<a href=#twig class=hash-link aria-label="Direct link to twig" title="Direct link to twig">​</a></h4>
+<blockquote>
+<p><strong>twig</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=types>types?<a href=#types class=hash-link aria-label="Direct link to types?" title="Direct link to types?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>types</strong>: <a href=/livecodes/docs/api/internal/interfaces/Types><code>Types</code></a></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=typescript>typescript<a href=#typescript class=hash-link aria-label="Direct link to typescript" title="Direct link to typescript">​</a></h4>
+<blockquote>
+<p><strong>typescript</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=unocss>unocss<a href=#unocss class=hash-link aria-label="Direct link to unocss" title="Direct link to unocss">​</a></h4>
+<blockquote>
+<p><strong>unocss</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=vento>vento<a href=#vento class=hash-link aria-label="Direct link to vento" title="Direct link to vento">​</a></h4>
+<blockquote>
+<p><strong>vento</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=vto>vto<a href=#vto class=hash-link aria-label="Direct link to vto" title="Direct link to vto">​</a></h4>
+<blockquote>
+<p><strong>vto</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=vue>vue<a href=#vue class=hash-link aria-label="Direct link to vue" title="Direct link to vue">​</a></h4>
+<blockquote>
+<p><strong>vue</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=vue-app>vue-app<a href=#vue-app class=hash-link aria-label="Direct link to vue-app" title="Direct link to vue-app">​</a></h4>
+<blockquote>
+<p><strong>vue-app</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=vue2>vue2<a href=#vue2 class=hash-link aria-label="Direct link to vue2" title="Direct link to vue2">​</a></h4>
+<blockquote>
+<p><strong>vue2</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=vue3>vue3<a href=#vue3 class=hash-link aria-label="Direct link to vue3" title="Direct link to vue3">​</a></h4>
+<blockquote>
+<p><strong>vue3</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=wasm>wasm<a href=#wasm class=hash-link aria-label="Direct link to wasm" title="Direct link to wasm">​</a></h4>
+<blockquote>
+<p><strong>wasm</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=wasmcpp>wasm.cpp<a href=#wasmcpp class=hash-link aria-label="Direct link to wasm.cpp" title="Direct link to wasm.cpp">​</a></h4>
+<blockquote>
+<p><strong>cpp</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=wasmlua>wasm.lua<a href=#wasmlua class=hash-link aria-label="Direct link to wasm.lua" title="Direct link to wasm.lua">​</a></h4>
+<blockquote>
+<p><strong>lua</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=wasmphp>wasm.php<a href=#wasmphp class=hash-link aria-label="Direct link to wasm.php" title="Direct link to wasm.php">​</a></h4>
+<blockquote>
+<p><strong>php</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=wasmpy>wasm.py<a href=#wasmpy class=hash-link aria-label="Direct link to wasm.py" title="Direct link to wasm.py">​</a></h4>
+<blockquote>
+<p><strong>py</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=wasmrb>wasm.rb<a href=#wasmrb class=hash-link aria-label="Direct link to wasm.rb" title="Direct link to wasm.rb">​</a></h4>
+<blockquote>
+<p><strong>rb</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=wast>wast<a href=#wast class=hash-link aria-label="Direct link to wast" title="Direct link to wast">​</a></h4>
+<blockquote>
+<p><strong>wast</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=wat>wat<a href=#wat class=hash-link aria-label="Direct link to wat" title="Direct link to wat">​</a></h4>
+<blockquote>
+<p><strong>wat</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=webassembly>webassembly<a href=#webassembly class=hash-link aria-label="Direct link to webassembly" title="Direct link to webassembly">​</a></h4>
+<blockquote>
+<p><strong>webassembly</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=windicss>windicss<a href=#windicss class=hash-link aria-label="Direct link to windicss" title="Direct link to windicss">​</a></h4>
+<blockquote>
+<p><strong>windicss</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=xht>xht<a href=#xht class=hash-link aria-label="Direct link to xht" title="Direct link to xht">​</a></h4>
+<blockquote>
+<p><strong>xht</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=xml>xml<a href=#xml class=hash-link aria-label="Direct link to xml" title="Direct link to xml">​</a></h4>
+<blockquote>
+<p><strong>xml</strong>: <code>any</code></p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-2>Defined in<a href=#defined-in-2 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L514 target=_blank rel="noopener noreferrer">models.ts:514</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=description>description<a href=#description class=hash-link aria-label="Direct link to description" title="Direct link to description">​</a></h3>
+<blockquote>
+<p><strong>description</strong>: <code>string</code></p>
+</blockquote>
+<p>Project description. Used in <a href=https://livecodes.io/docs/features/projects target=_blank rel="noopener noreferrer">project</a> search
+and <a href=https://livecodes.io/docs/features/result target=_blank rel="noopener noreferrer">result page</a> description meta tag.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=default>Default<a href=#default class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h4>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token string" style=color:#e3116c>""</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-3>Defined in<a href=#defined-in-3 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L425 target=_blank rel="noopener noreferrer">models.ts:425</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=head>head<a href=#head class=hash-link aria-label="Direct link to head" title="Direct link to head">​</a></h3>
+<blockquote>
+<p><strong>head</strong>: <code>string</code></p>
+</blockquote>
+<p>Content added to the <a href=https://livecodes.io/docs/features/result target=_blank rel="noopener noreferrer">result page</a> <code>&lt;head></code> element.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=default-1>Default<a href=#default-1 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h4>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token string" style=color:#e3116c>'&lt;meta charset="UTF-8" />\n&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" />'</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-4>Defined in<a href=#defined-in-4 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L431 target=_blank rel="noopener noreferrer">models.ts:431</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=htmlattrs>htmlAttrs<a href=#htmlattrs class=hash-link aria-label="Direct link to htmlAttrs" title="Direct link to htmlAttrs">​</a></h3>
+<blockquote>
+<p><strong>htmlAttrs</strong>: <code>string</code> | <code>Record</code>&lt;<code>string</code>, <code>string</code>></p>
+</blockquote>
+<p>Attributes added to the <a href=https://livecodes.io/docs/features/result target=_blank rel="noopener noreferrer">result page</a> <code>&lt;html></code> element.
+It can be an object or a string.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=example>Example<a href=#example class=hash-link aria-label="Direct link to Example" title="Direct link to Example">​</a></h4>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token punctuation" style=color:#393A34>{</span><span class="token plain"> lang</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>"en"</span><span class="token punctuation" style=color:#393A34>,</span><span class="token plain"> </span><span class="token keyword" style=color:#00009f>class</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>"dark"</span><span class="token plain"> </span><span class="token punctuation" style=color:#393A34>}</span><span class="token plain"></span><br></span><span class=token-line style=color:#393A34><span class="token plain"></span><span class="token string" style=color:#e3116c>'lang="en" class="dark"'</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-5>Defined in<a href=#defined-in-5 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L440 target=_blank rel="noopener noreferrer">models.ts:440</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=imports-1>imports<a href=#imports-1 class=hash-link aria-label="Direct link to imports" title="Direct link to imports">​</a></h3>
+<blockquote>
+<p><strong>imports</strong>: <code>object</code></p>
+</blockquote>
+<p>Allows specifying custom <a href=https://github.com/WICG/import-maps target=_blank rel="noopener noreferrer">import maps</a> for <a href=https://livecodes.io/docs/features/module-resolution#custom-module-resolution target=_blank rel="noopener noreferrer">module imports</a>.</p>
+<p><strong>Example</strong></p>
+<p>Setting <code>imports</code> like this:</p>
+<div class="language-js codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-js codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token string-property property" style=color:#36acaa>"imports"</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token punctuation" style=color:#393A34>{</span><span class="token plain"></span><br></span><span class=token-line style=color:#393A34><span class="token plain">  </span><span class="token string-property property" style=color:#36acaa>"moment"</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>"https://cdn.jsdelivr.net/npm/moment@2.29.4/dist/moment.js"</span><span class="token plain"></span><br></span><span class=token-line style=color:#393A34><span class="token plain"></span><span class="token punctuation" style=color:#393A34>}</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<p>results in the following import map:</p>
+<div class="language-html codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-html codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token tag punctuation" style=color:#393A34>&lt;</span><span class="token tag" style=color:#00009f>script</span><span class="token tag" style=color:#00009f> </span><span class="token tag attr-name" style=color:#00a4db>type</span><span class="token tag attr-value punctuation attr-equals" style=color:#393A34>=</span><span class="token tag attr-value punctuation" style=color:#393A34>"</span><span class="token tag attr-value" style=color:#e3116c>importmap</span><span class="token tag attr-value punctuation" style=color:#393A34>"</span><span class="token tag punctuation" style=color:#393A34>></span><span class="token script language-javascript"></span><br></span><span class=token-line style=color:#393A34><span class="token script language-javascript">  </span><span class="token script language-javascript punctuation" style=color:#393A34>{</span><span class="token script language-javascript"></span><br></span><span class=token-line style=color:#393A34><span class="token script language-javascript">    </span><span class="token script language-javascript string-property property" style=color:#36acaa>"imports"</span><span class="token script language-javascript operator" style=color:#393A34>:</span><span class="token script language-javascript"> </span><span class="token script language-javascript punctuation" style=color:#393A34>{</span><span class="token script language-javascript"></span><br></span><span class=token-line style=color:#393A34><span class="token script language-javascript">      </span><span class="token script language-javascript string-property property" style=color:#36acaa>"moment"</span><span class="token script language-javascript operator" style=color:#393A34>:</span><span class="token script language-javascript"> </span><span class="token script language-javascript string" style=color:#e3116c>"https://cdn.jsdelivr.net/npm/moment@2.29.4/dist/moment.js"</span><span class="token script language-javascript"></span><br></span><span class=token-line style=color:#393A34><span class="token script language-javascript">    </span><span class="token script language-javascript punctuation" style=color:#393A34>}</span><span class="token script language-javascript"></span><br></span><span class=token-line style=color:#393A34><span class="token script language-javascript">  </span><span class="token script language-javascript punctuation" style=color:#393A34>}</span><span class="token script language-javascript"></span><br></span><span class=token-line style=color:#393A34><span class="token script language-javascript"></span><span class="token tag punctuation" style=color:#393A34>&lt;/</span><span class="token tag" style=color:#00009f>script</span><span class="token tag punctuation" style=color:#393A34>></span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<p>See docs for <a href=https://livecodes.io/docs/configuration/configuration-object#imports target=_blank rel="noopener noreferrer">Imports</a>
+and <a href=https://livecodes.io/docs/features/module-resolution/#custom-module-resolution target=_blank rel="noopener noreferrer">Custom Module Resolution</a></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=index-signature>Index Signature<a href=#index-signature class=hash-link aria-label="Direct link to Index Signature" title="Direct link to Index Signature">​</a></h4>
+<p>[<code>key</code>: <code>string</code>]: <code>string</code></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-6>Defined in<a href=#defined-in-6 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L540 target=_blank rel="noopener noreferrer">models.ts:540</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=languages>languages<a href=#languages class=hash-link aria-label="Direct link to languages" title="Direct link to languages">​</a></h3>
+<blockquote>
+<p><strong>languages</strong>: <code>undefined</code> | (<code>"reason"</code> | <code>"stylus"</code> | <code>"r"</code> | <code>"html"</code> | <code>"ruby"</code> | <code>"rb"</code> | <code>"json"</code> | <code>"teal"</code> | <code>"solid"</code> | <code>"flow"</code> | <code>"dot"</code> | <code>"as"</code> | <code>"go"</code> | <code>"htm"</code> | <code>"markdown"</code> | <code>"md"</code> | <code>"mdown"</code> | <code>"mkdn"</code> | <code>"mdx"</code> | <code>"astro"</code> | <code>"pug"</code> | <code>"jade"</code> | <code>"haml"</code> | <code>"asciidoc"</code> | <code>"adoc"</code> | <code>"asc"</code> | <code>"mustache"</code> | <code>"handlebars"</code> | <code>"hbs"</code> | <code>"ejs"</code> | <code>"eta"</code> | <code>"nunjucks"</code> | <code>"njk"</code> | <code>"liquid"</code> | <code>"liquidjs"</code> | <code>"twig"</code> | <code>"vento"</code> | <code>"vto"</code> | <code>"art-template"</code> | <code>"art"</code> | <code>"bbcode"</code> | <code>"bb"</code> | <code>"mjml"</code> | <code>"diagrams"</code> | <code>"diagram"</code> | <code>"graph"</code> | <code>"plt"</code> | <code>"richtext"</code> | <code>"rte"</code> | <code>"rich"</code> | <code>"rte.html"</code> | <code>"css"</code> | <code>"scss"</code> | <code>"sass"</code> | <code>"less"</code> | <code>"styl"</code> | <code>"stylis"</code> | <code>"postcss"</code> | <code>"javascript"</code> | <code>"js"</code> | <code>"babel"</code> | <code>"es"</code> | <code>"sucrase"</code> | <code>"typescript"</code> | <code>"ts"</code> | <code>"jsx"</code> | <code>"tsx"</code> | <code>"react"</code> | <code>"react-jsx"</code> | <code>"react.jsx"</code> | <code>"react-tsx"</code> | <code>"react.tsx"</code> | <code>"react-native"</code> | <code>"react-native.jsx"</code> | <code>"react-native-tsx"</code> | <code>"react-native.tsx"</code> | <code>"vue"</code> | <code>"vue3"</code> | <code>"vue2"</code> | <code>"vue-app"</code> | <code>"app.vue"</code> | <code>"svelte"</code> | <code>"svelte-app"</code> | <code>"app.svelte"</code> | <code>"stencil"</code> | <code>"stencil.tsx"</code> | <code>"solid.jsx"</code> | <code>"solid.tsx"</code> | <code>"riot"</code> | <code>"riotjs"</code> | <code>"malina"</code> | <code>"malinajs"</code> | <code>"xht"</code> | <code>"coffeescript"</code> | <code>"coffee"</code> | <code>"livescript"</code> | <code>"ls"</code> | <code>"civet"</code> | <code>"clio"</code> | <code>"imba"</code> | <code>"assemblyscript"</code> | <code>"python"</code> | <code>"py"</code> | <code>"pyodide"</code> | <code>"python-wasm"</code> | <code>"py-wasm"</code> | <code>"pythonwasm"</code> | <code>"pywasm"</code> | <code>"py3"</code> | <code>"wasm.py"</code> | <code>"rlang"</code> | <code>"rstats"</code> | <code>"r-wasm"</code> | <code>"ruby-wasm"</code> | <code>"wasm.rb"</code> | <code>"rubywasm"</code> | <code>"golang"</code> | <code>"php"</code> | <code>"php-wasm"</code> | <code>"phpwasm"</code> | <code>"wasm.php"</code> | <code>"cpp"</code> | <code>"c"</code> | <code>"C"</code> | <code>"cp"</code> | <code>"cxx"</code> | <code>"c++"</code> | <code>"cppm"</code> | <code>"ixx"</code> | <code>"ii"</code> | <code>"hpp"</code> | <code>"h"</code> | <code>"cpp-wasm"</code> | <code>"cppwasm"</code> | <code>"cwasm"</code> | <code>"wasm.cpp"</code> | <code>"clang"</code> | <code>"clang.cpp"</code> | <code>"perl"</code> | <code>"pl"</code> | <code>"pm"</code> | <code>"lua"</code> | <code>"lua-wasm"</code> | <code>"luawasm"</code> | <code>"wasm.lua"</code> | <code>"tl"</code> | <code>"fennel"</code> | <code>"fnl"</code> | <code>"julia"</code> | <code>"jl"</code> | <code>"scheme"</code> | <code>"scm"</code> | <code>"commonlisp"</code> | <code>"common-lisp"</code> | <code>"lisp"</code> | <code>"clojurescript"</code> | <code>"clojure"</code> | <code>"cljs"</code> | <code>"clj"</code> | <code>"cljc"</code> | <code>"edn"</code> | <code>"gleam"</code> | <code>"rescript"</code> | <code>"res"</code> | <code>"resi"</code> | <code>"re"</code> | <code>"rei"</code> | <code>"ocaml"</code> | <code>"ml"</code> | <code>"mli"</code> | <code>"tcl"</code> | <code>"wat"</code> | <code>"wast"</code> | <code>"webassembly"</code> | <code>"wasm"</code> | <code>"Binary"</code> | <code>"csharp"</code> | <code>"sql"</code> | <code>"sqlite"</code> | <code>"sqlite3"</code> | <code>"pg.sql"</code> | <code>"pgsql.sql"</code> | <code>"pgsql"</code> | <code>"pg"</code> | <code>"pglite"</code> | <code>"pglite.sql"</code> | <code>"postgresql"</code> | <code>"postgres"</code> | <code>"postgre.sql"</code> | <code>"postgresql.sql"</code> | <code>"prolog.pl"</code> | <code>"prolog"</code> | <code>"blockly"</code> | <code>"blockly.xml"</code> | <code>"xml"</code> | <code>"pintora"</code> | <code>"tailwindcss"</code> | <code>"postcssImportUrl"</code> | <code>"windicss"</code> | <code>"unocss"</code> | <code>"tokencss"</code> | <code>"lightningcss"</code> | <code>"autoprefixer"</code> | <code>"postcssPresetEnv"</code> | <code>"cssmodules"</code> | <code>"purgecss"</code> | <code>"cssnano"</code>)[]</p>
+</blockquote>
+<p>List of enabled languages.</p>
+<p>Defaults to all supported languages in full app and only current editor languages in <a href=https://livecodes.io/docs/features/embeds target=_blank rel="noopener noreferrer">embeds</a>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-7>Defined in<a href=#defined-in-7 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L462 target=_blank rel="noopener noreferrer">models.ts:462</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=markup>markup<a href=#markup class=hash-link aria-label="Direct link to markup" title="Direct link to markup">​</a></h3>
+<blockquote>
+<p><strong>markup</strong>: <code>object</code></p>
+</blockquote>
+<p>An object that configures the language and content of the markup editor.</p>
+<p>See <a href=https://livecodes.io/docs/configuration/configuration-object/#markup target=_blank rel="noopener noreferrer">docs</a> for details.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=content>content?<a href=#content class=hash-link aria-label="Direct link to content?" title="Direct link to content?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>content</strong>: <code>string</code></p>
+</blockquote>
+<p>The initial content of the code editor.</p>
+<h5 class="anchor anchorWithStickyNavbar_LWe7" id=default-2>Default<a href=#default-2 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h5>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token string" style=color:#e3116c>""</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=contenturl>contentUrl?<a href=#contenturl class=hash-link aria-label="Direct link to contentUrl?" title="Direct link to contentUrl?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>contentUrl</strong>: <code>string</code></p>
+</blockquote>
+<p>A URL to load <code>content</code> from. It has to be a valid URL that is CORS-enabled.</p>
+<p>The URL is only fetched if <code>content</code> property had no value.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hiddencontent>hiddenContent?<a href=#hiddencontent class=hash-link aria-label="Direct link to hiddenContent?" title="Direct link to hiddenContent?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>hiddenContent</strong>: <code>string</code></p>
+</blockquote>
+<p>Hidden content that gets evaluated without being visible in the code editor.</p>
+<p>This can be useful in embedded playgrounds (e.g. for adding helper functions, utilities or tests)</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hiddencontenturl>hiddenContentUrl?<a href=#hiddencontenturl class=hash-link aria-label="Direct link to hiddenContentUrl?" title="Direct link to hiddenContentUrl?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>hiddenContentUrl</strong>: <code>string</code></p>
+</blockquote>
+<p>A URL to load <code>hiddenContent</code> from. It has to be a valid URL that is CORS-enabled.</p>
+<p>The URL is only fetched if <code>hiddenContent</code> property had no value.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hidetitle>hideTitle?<a href=#hidetitle class=hash-link aria-label="Direct link to hideTitle?" title="Direct link to hideTitle?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>hideTitle</strong>: <code>boolean</code></p>
+</blockquote>
+<p>If <code>true</code>, the title of the code editor is hidden, however its code is still evaluated.</p>
+<p>This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=language>language<a href=#language class=hash-link aria-label="Direct link to language" title="Direct link to language">​</a></h4>
+<blockquote>
+<p><strong>language</strong>: <a href=/livecodes/docs/api/type-aliases/Language><code>Language</code></a></p>
+</blockquote>
+<p>A language name, extension or alias (as defined in <a href=https://livecodes.io/docs/languages/ target=_blank rel="noopener noreferrer">language documentations</a>).</p>
+<p>For the list of supported values, see <a href=https://livecodes.io/docs/api/type-aliases/Language target=_blank rel="noopener noreferrer">Language</a></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=order>order?<a href=#order class=hash-link aria-label="Direct link to order?" title="Direct link to order?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>order</strong>: <code>number</code></p>
+</blockquote>
+<p>The order of the editor in the UI.</p>
+<h5 class="anchor anchorWithStickyNavbar_LWe7" id=default-3>Default<a href=#default-3 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h5>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token number" style=color:#36acaa>0</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=position>position?<a href=#position class=hash-link aria-label="Direct link to position?" title="Direct link to position?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>position</strong>: <a href=/livecodes/docs/api/internal/interfaces/EditorPosition><code>EditorPosition</code></a></p>
+</blockquote>
+<p>The initial position of the cursor in the code editor.</p>
+<h5 class="anchor anchorWithStickyNavbar_LWe7" id=example-1>Example<a href=#example-1 class=hash-link aria-label="Direct link to Example" title="Direct link to Example">​</a></h5>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token punctuation" style=color:#393A34>{</span><span class="token plain">lineNumber</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token number" style=color:#36acaa>5</span><span class="token punctuation" style=color:#393A34>,</span><span class="token plain"> column</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token number" style=color:#36acaa>10</span><span class="token punctuation" style=color:#393A34>}</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=selector>selector?<a href=#selector class=hash-link aria-label="Direct link to selector?" title="Direct link to selector?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>selector</strong>: <code>string</code></p>
+</blockquote>
+<p>A CSS selector to load content from <a href=https://livecodes.io/docs/features/import#import-code-from-dom target=_blank rel="noopener noreferrer">DOM import</a>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=title>title?<a href=#title class=hash-link aria-label="Direct link to title?" title="Direct link to title?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>title</strong>: <code>string</code></p>
+</blockquote>
+<p>If set, this is used as the title of the editor in the UI,
+overriding the default title set to the language name
+(e.g. <code>"Python"</code> can be used instead of <code>"Py (Wasm)"</code>).</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=default-4>Default<a href=#default-4 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h4>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token punctuation" style=color:#393A34>{</span><span class="token plain"> language</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>"html"</span><span class="token punctuation" style=color:#393A34>,</span><span class="token plain"> content</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>""</span><span class="token plain"> </span><span class="token punctuation" style=color:#393A34>}</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-8>Defined in<a href=#defined-in-8 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L470 target=_blank rel="noopener noreferrer">models.ts:470</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=processors>processors<a href=#processors class=hash-link aria-label="Direct link to processors" title="Direct link to processors">​</a></h3>
+<blockquote>
+<p><strong>processors</strong>: <a href=/livecodes/docs/api/internal/type-aliases/Processor><code>Processor</code></a>[]</p>
+</blockquote>
+<p>List of enabled <a href=https://livecodes.io/docs/features/css/#css-processors target=_blank rel="noopener noreferrer">CSS processors</a>.</p>
+<p>For the list of available processors, see <a href=https://livecodes.io/docs/api/internal/type-aliases/Processor target=_blank rel="noopener noreferrer">Processor</a></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-9>Defined in<a href=#defined-in-9 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L509 target=_blank rel="noopener noreferrer">models.ts:509</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=script>script<a href=#script class=hash-link aria-label="Direct link to script" title="Direct link to script">​</a></h3>
+<blockquote>
+<p><strong>script</strong>: <code>object</code></p>
+</blockquote>
+<p>An object that configures the language and content of the script editor.</p>
+<p>See <a href=https://livecodes.io/docs/configuration/configuration-object/#markup target=_blank rel="noopener noreferrer">docs</a> for details.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=content-1>content?<a href=#content-1 class=hash-link aria-label="Direct link to content?" title="Direct link to content?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>content</strong>: <code>string</code></p>
+</blockquote>
+<p>The initial content of the code editor.</p>
+<h5 class="anchor anchorWithStickyNavbar_LWe7" id=default-5>Default<a href=#default-5 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h5>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token string" style=color:#e3116c>""</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=contenturl-1>contentUrl?<a href=#contenturl-1 class=hash-link aria-label="Direct link to contentUrl?" title="Direct link to contentUrl?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>contentUrl</strong>: <code>string</code></p>
+</blockquote>
+<p>A URL to load <code>content</code> from. It has to be a valid URL that is CORS-enabled.</p>
+<p>The URL is only fetched if <code>content</code> property had no value.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hiddencontent-1>hiddenContent?<a href=#hiddencontent-1 class=hash-link aria-label="Direct link to hiddenContent?" title="Direct link to hiddenContent?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>hiddenContent</strong>: <code>string</code></p>
+</blockquote>
+<p>Hidden content that gets evaluated without being visible in the code editor.</p>
+<p>This can be useful in embedded playgrounds (e.g. for adding helper functions, utilities or tests)</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hiddencontenturl-1>hiddenContentUrl?<a href=#hiddencontenturl-1 class=hash-link aria-label="Direct link to hiddenContentUrl?" title="Direct link to hiddenContentUrl?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>hiddenContentUrl</strong>: <code>string</code></p>
+</blockquote>
+<p>A URL to load <code>hiddenContent</code> from. It has to be a valid URL that is CORS-enabled.</p>
+<p>The URL is only fetched if <code>hiddenContent</code> property had no value.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hidetitle-1>hideTitle?<a href=#hidetitle-1 class=hash-link aria-label="Direct link to hideTitle?" title="Direct link to hideTitle?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>hideTitle</strong>: <code>boolean</code></p>
+</blockquote>
+<p>If <code>true</code>, the title of the code editor is hidden, however its code is still evaluated.</p>
+<p>This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=language-1>language<a href=#language-1 class=hash-link aria-label="Direct link to language" title="Direct link to language">​</a></h4>
+<blockquote>
+<p><strong>language</strong>: <a href=/livecodes/docs/api/type-aliases/Language><code>Language</code></a></p>
+</blockquote>
+<p>A language name, extension or alias (as defined in <a href=https://livecodes.io/docs/languages/ target=_blank rel="noopener noreferrer">language documentations</a>).</p>
+<p>For the list of supported values, see <a href=https://livecodes.io/docs/api/type-aliases/Language target=_blank rel="noopener noreferrer">Language</a></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=order-1>order?<a href=#order-1 class=hash-link aria-label="Direct link to order?" title="Direct link to order?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>order</strong>: <code>number</code></p>
+</blockquote>
+<p>The order of the editor in the UI.</p>
+<h5 class="anchor anchorWithStickyNavbar_LWe7" id=default-6>Default<a href=#default-6 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h5>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token number" style=color:#36acaa>0</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=position-1>position?<a href=#position-1 class=hash-link aria-label="Direct link to position?" title="Direct link to position?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>position</strong>: <a href=/livecodes/docs/api/internal/interfaces/EditorPosition><code>EditorPosition</code></a></p>
+</blockquote>
+<p>The initial position of the cursor in the code editor.</p>
+<h5 class="anchor anchorWithStickyNavbar_LWe7" id=example-2>Example<a href=#example-2 class=hash-link aria-label="Direct link to Example" title="Direct link to Example">​</a></h5>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token punctuation" style=color:#393A34>{</span><span class="token plain">lineNumber</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token number" style=color:#36acaa>5</span><span class="token punctuation" style=color:#393A34>,</span><span class="token plain"> column</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token number" style=color:#36acaa>10</span><span class="token punctuation" style=color:#393A34>}</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=selector-1>selector?<a href=#selector-1 class=hash-link aria-label="Direct link to selector?" title="Direct link to selector?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>selector</strong>: <code>string</code></p>
+</blockquote>
+<p>A CSS selector to load content from <a href=https://livecodes.io/docs/features/import#import-code-from-dom target=_blank rel="noopener noreferrer">DOM import</a>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=title-1>title?<a href=#title-1 class=hash-link aria-label="Direct link to title?" title="Direct link to title?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>title</strong>: <code>string</code></p>
+</blockquote>
+<p>If set, this is used as the title of the editor in the UI,
+overriding the default title set to the language name
+(e.g. <code>"Python"</code> can be used instead of <code>"Py (Wasm)"</code>).</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=default-7>Default<a href=#default-7 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h4>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token punctuation" style=color:#393A34>{</span><span class="token plain"> language</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>"javascript"</span><span class="token punctuation" style=color:#393A34>,</span><span class="token plain"> content</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>""</span><span class="token plain"> </span><span class="token punctuation" style=color:#393A34>}</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-10>Defined in<a href=#defined-in-10 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L486 target=_blank rel="noopener noreferrer">models.ts:486</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=scripts>scripts<a href=#scripts class=hash-link aria-label="Direct link to scripts" title="Direct link to scripts">​</a></h3>
+<blockquote>
+<p><strong>scripts</strong>: <code>string</code>[]</p>
+</blockquote>
+<p>List of URLs for <a href=https://livecodes.io/docs/features/external-resources target=_blank rel="noopener noreferrer">external scripts</a> to add to the <a href=https://livecodes.io/docs/features/result target=_blank rel="noopener noreferrer">result page</a>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-11>Defined in<a href=#defined-in-11 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L496 target=_blank rel="noopener noreferrer">models.ts:496</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=style>style<a href=#style class=hash-link aria-label="Direct link to style" title="Direct link to style">​</a></h3>
+<blockquote>
+<p><strong>style</strong>: <code>object</code></p>
+</blockquote>
+<p>An object that configures the language and content of the style editor.</p>
+<p>See <a href=https://livecodes.io/docs/configuration/configuration-object/#markup target=_blank rel="noopener noreferrer">docs</a> for details.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=content-2>content?<a href=#content-2 class=hash-link aria-label="Direct link to content?" title="Direct link to content?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>content</strong>: <code>string</code></p>
+</blockquote>
+<p>The initial content of the code editor.</p>
+<h5 class="anchor anchorWithStickyNavbar_LWe7" id=default-8>Default<a href=#default-8 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h5>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token string" style=color:#e3116c>""</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=contenturl-2>contentUrl?<a href=#contenturl-2 class=hash-link aria-label="Direct link to contentUrl?" title="Direct link to contentUrl?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>contentUrl</strong>: <code>string</code></p>
+</blockquote>
+<p>A URL to load <code>content</code> from. It has to be a valid URL that is CORS-enabled.</p>
+<p>The URL is only fetched if <code>content</code> property had no value.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hiddencontent-2>hiddenContent?<a href=#hiddencontent-2 class=hash-link aria-label="Direct link to hiddenContent?" title="Direct link to hiddenContent?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>hiddenContent</strong>: <code>string</code></p>
+</blockquote>
+<p>Hidden content that gets evaluated without being visible in the code editor.</p>
+<p>This can be useful in embedded playgrounds (e.g. for adding helper functions, utilities or tests)</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hiddencontenturl-2>hiddenContentUrl?<a href=#hiddencontenturl-2 class=hash-link aria-label="Direct link to hiddenContentUrl?" title="Direct link to hiddenContentUrl?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>hiddenContentUrl</strong>: <code>string</code></p>
+</blockquote>
+<p>A URL to load <code>hiddenContent</code> from. It has to be a valid URL that is CORS-enabled.</p>
+<p>The URL is only fetched if <code>hiddenContent</code> property had no value.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=hidetitle-2>hideTitle?<a href=#hidetitle-2 class=hash-link aria-label="Direct link to hideTitle?" title="Direct link to hideTitle?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>hideTitle</strong>: <code>boolean</code></p>
+</blockquote>
+<p>If <code>true</code>, the title of the code editor is hidden, however its code is still evaluated.</p>
+<p>This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=language-2>language<a href=#language-2 class=hash-link aria-label="Direct link to language" title="Direct link to language">​</a></h4>
+<blockquote>
+<p><strong>language</strong>: <a href=/livecodes/docs/api/type-aliases/Language><code>Language</code></a></p>
+</blockquote>
+<p>A language name, extension or alias (as defined in <a href=https://livecodes.io/docs/languages/ target=_blank rel="noopener noreferrer">language documentations</a>).</p>
+<p>For the list of supported values, see <a href=https://livecodes.io/docs/api/type-aliases/Language target=_blank rel="noopener noreferrer">Language</a></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=order-2>order?<a href=#order-2 class=hash-link aria-label="Direct link to order?" title="Direct link to order?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>order</strong>: <code>number</code></p>
+</blockquote>
+<p>The order of the editor in the UI.</p>
+<h5 class="anchor anchorWithStickyNavbar_LWe7" id=default-9>Default<a href=#default-9 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h5>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token number" style=color:#36acaa>0</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=position-2>position?<a href=#position-2 class=hash-link aria-label="Direct link to position?" title="Direct link to position?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>position</strong>: <a href=/livecodes/docs/api/internal/interfaces/EditorPosition><code>EditorPosition</code></a></p>
+</blockquote>
+<p>The initial position of the cursor in the code editor.</p>
+<h5 class="anchor anchorWithStickyNavbar_LWe7" id=example-3>Example<a href=#example-3 class=hash-link aria-label="Direct link to Example" title="Direct link to Example">​</a></h5>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token punctuation" style=color:#393A34>{</span><span class="token plain">lineNumber</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token number" style=color:#36acaa>5</span><span class="token punctuation" style=color:#393A34>,</span><span class="token plain"> column</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token number" style=color:#36acaa>10</span><span class="token punctuation" style=color:#393A34>}</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=selector-2>selector?<a href=#selector-2 class=hash-link aria-label="Direct link to selector?" title="Direct link to selector?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>selector</strong>: <code>string</code></p>
+</blockquote>
+<p>A CSS selector to load content from <a href=https://livecodes.io/docs/features/import#import-code-from-dom target=_blank rel="noopener noreferrer">DOM import</a>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=title-2>title?<a href=#title-2 class=hash-link aria-label="Direct link to title?" title="Direct link to title?">​</a></h4>
+<blockquote>
+<p><code>optional</code> <strong>title</strong>: <code>string</code></p>
+</blockquote>
+<p>If set, this is used as the title of the editor in the UI,
+overriding the default title set to the language name
+(e.g. <code>"Python"</code> can be used instead of <code>"Py (Wasm)"</code>).</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=default-10>Default<a href=#default-10 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h4>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token punctuation" style=color:#393A34>{</span><span class="token plain"> language</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>"css"</span><span class="token punctuation" style=color:#393A34>,</span><span class="token plain"> content</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>""</span><span class="token plain"> </span><span class="token punctuation" style=color:#393A34>}</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-12>Defined in<a href=#defined-in-12 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L478 target=_blank rel="noopener noreferrer">models.ts:478</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=stylesheets>stylesheets<a href=#stylesheets class=hash-link aria-label="Direct link to stylesheets" title="Direct link to stylesheets">​</a></h3>
+<blockquote>
+<p><strong>stylesheets</strong>: <code>string</code>[]</p>
+</blockquote>
+<p>List of URLs for <a href=https://livecodes.io/docs/features/external-resources target=_blank rel="noopener noreferrer">external stylesheets</a> to add to the <a href=https://livecodes.io/docs/features/result target=_blank rel="noopener noreferrer">result page</a>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-13>Defined in<a href=#defined-in-13 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L491 target=_blank rel="noopener noreferrer">models.ts:491</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=tags>tags<a href=#tags class=hash-link aria-label="Direct link to tags" title="Direct link to tags">​</a></h3>
+<blockquote>
+<p><strong>tags</strong>: <code>string</code>[]</p>
+</blockquote>
+<p>Project tags.
+Used in <a href=https://livecodes.io/docs/features/projects target=_blank rel="noopener noreferrer">project</a> filter and search.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=default-11>Default<a href=#default-11 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h4>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token punctuation" style=color:#393A34>[</span><span class="token punctuation" style=color:#393A34>]</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-14>Defined in<a href=#defined-in-14 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L447 target=_blank rel="noopener noreferrer">models.ts:447</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=tests>tests<a href=#tests class=hash-link aria-label="Direct link to tests" title="Direct link to tests">​</a></h3>
+<blockquote>
+<p><strong>tests</strong>: <code>undefined</code> | <code>object</code></p>
+</blockquote>
+<p>Configures the <a href=https://livecodes.io/docs/features/tests#supported-languages target=_blank rel="noopener noreferrer">language</a>
+and content of <a href=https://livecodes.io/docs/features/tests target=_blank rel="noopener noreferrer">tests</a>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-15>Defined in<a href=#defined-in-15 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L576 target=_blank rel="noopener noreferrer">models.ts:576</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=title-3>title<a href=#title-3 class=hash-link aria-label="Direct link to title" title="Direct link to title">​</a></h3>
+<blockquote>
+<p><strong>title</strong>: <code>string</code></p>
+</blockquote>
+<p>Project title.
+This is used as <a href=https://livecodes.io/docs/features/result target=_blank rel="noopener noreferrer">result page</a> title and title meta tag.
+Also used in project search.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=default-12>Default<a href=#default-12 class=hash-link aria-label="Direct link to Default" title="Direct link to Default">​</a></h4>
+<div class="language-ts codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-ts codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token string" style=color:#e3116c>"Untitled Project"</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-16>Defined in<a href=#defined-in-16 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L418 target=_blank rel="noopener noreferrer">models.ts:418</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=types-1>types<a href=#types-1 class=hash-link aria-label="Direct link to types" title="Direct link to types">​</a></h3>
+<blockquote>
+<p><strong>types</strong>: <code>object</code></p>
+</blockquote>
+<p>Allows providing custom TypeScript type declarations for better <a href=https://livecodes.io/docs/features/intellisense target=_blank rel="noopener noreferrer">editor intellisense</a>.</p>
+<p>It is an object where each key represents module name and value represents the types.</p>
+<p>See docs for <a href=https://livecodes.io/docs/configuration/configuration-object#types target=_blank rel="noopener noreferrer">Types</a>
+and <a href=https://livecodes.io/docs/features/intellisense#custom-types target=_blank rel="noopener noreferrer">Custom Types</a></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=examples>Examples<a href=#examples class=hash-link aria-label="Direct link to Examples" title="Direct link to Examples">​</a></h4>
+<div class="language-js codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-js codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token punctuation" style=color:#393A34>{</span><span class="token plain"></span><br></span><span class=token-line style=color:#393A34><span class="token plain">  </span><span class="token string-property property" style=color:#36acaa>"types"</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token punctuation" style=color:#393A34>{</span><span class="token plain"></span><br></span><span class=token-line style=color:#393A34><span class="token plain">    </span><span class="token string-property property" style=color:#36acaa>"my-demo-lib"</span><span class="token operator" style=color:#393A34>:</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>"https://my-custom-domain/my-type-declarations.d.ts"</span><span class="token plain"></span><br></span><span class=token-line style=color:#393A34><span class="token plain">  </span><span class="token punctuation" style=color:#393A34>}</span><span class="token plain"></span><br></span><span class=token-line style=color:#393A34><span class="token plain"></span><span class="token punctuation" style=color:#393A34>}</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_biex><pre tabindex=0 class="prism-code language-text codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><span class=token-line style=color:#393A34><span class="token plain">{</span><br></span><span class=token-line style=color:#393A34><span class="token plain">  "types": {</span><br></span><span class=token-line style=color:#393A34><span class="token plain">    "my-demo-lib": {</span><br></span><span class=token-line style=color:#393A34><span class="token plain">      "url": "https://my-custom-domain/types.d.ts",</span><br></span><span class=token-line style=color:#393A34><span class="token plain">      "autoload": true,</span><br></span><span class=token-line style=color:#393A34><span class="token plain">      "declareAsModule": true</span><br></span><span class=token-line style=color:#393A34><span class="token plain">    }</span><br></span><span class=token-line style=color:#393A34><span class="token plain">}</span><br></span></code></pre><div class=buttonGroup__atx><button type=button aria-label="Copy code to clipboard" title=Copy class=clean-btn><span class=copyButtonIcons_eSgA aria-hidden=true><svg viewBox="0 0 24 24" class=copyButtonIcon_y97N><path fill=currentColor d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></svg><svg viewBox="0 0 24 24" class=copyButtonSuccessIcon_LjdS><path fill=currentColor d=M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z /></svg></span></button></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-17>Defined in<a href=#defined-in-17 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L570 target=_blank rel="noopener noreferrer">models.ts:570</a></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id=version>version<a href=#version class=hash-link aria-label="Direct link to version" title="Direct link to version">​</a></h3>
+<blockquote>
+<p><code>readonly</code> <strong>version</strong>: <code>string</code></p>
+</blockquote>
+<p>This is a read-only property which specifies the current LiveCodes version.</p>
+<p>Version specified in <a href=https://livecodes.io/docs/features/export target=_blank rel="noopener noreferrer">exported</a> projects allows automatically upgrading the project configuration when imported by an app with a newer version.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id=defined-in-18>Defined in<a href=#defined-in-18 class=hash-link aria-label="Direct link to Defined in" title="Direct link to Defined in">​</a></h4>
+<p><a href=https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L583 target=_blank rel="noopener noreferrer">models.ts:583</a></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class=col><a href=https://github.com/live-codes/livecodes/tree/develop/docs/docs/api/internal/interfaces/ContentConfig.md target=_blank rel="noopener noreferrer" class=theme-edit-this-page><svg fill=currentColor height=20 width=20 viewBox="0 0 40 40" class=iconEdit_Z9Sw aria-hidden=true><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"/></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#extended-by class="table-of-contents__link toc-highlight">Extended by</a><li><a href=#properties class="table-of-contents__link toc-highlight">Properties</a><ul><li><a href=#activeeditor class="table-of-contents__link toc-highlight">activeEditor</a><li><a href=#csspreset class="table-of-contents__link toc-highlight">cssPreset</a><li><a href=#customsettings class="table-of-contents__link toc-highlight">customSettings</a><li><a href=#description class="table-of-contents__link toc-highlight">description</a><li><a href=#head class="table-of-contents__link toc-highlight">head</a><li><a href=#htmlattrs class="table-of-contents__link toc-highlight">htmlAttrs</a><li><a href=#imports-1 class="table-of-contents__link toc-highlight">imports</a><li><a href=#languages class="table-of-contents__link toc-highlight">languages</a><li><a href=#markup class="table-of-contents__link toc-highlight">markup</a><li><a href=#processors class="table-of-contents__link toc-highlight">processors</a><li><a href=#script class="table-of-contents__link toc-highlight">script</a><li><a href=#scripts class="table-of-contents__link toc-highlight">scripts</a><li><a href=#style class="table-of-contents__link toc-highlight">style</a><li><a href=#stylesheets class="table-of-contents__link toc-highlight">stylesheets</a><li><a href=#tags class="table-of-contents__link toc-highlight">tags</a><li><a href=#tests class="table-of-contents__link toc-highlight">tests</a><li><a href=#title-3 class="table-of-contents__link toc-highlight">title</a><li><a href=#types-1 class="table-of-contents__link toc-highlight">types</a><li><a href=#version class="table-of-contents__link toc-highlight">version</a></ul></ul><div class="custom-content custom-content-toc content_kfNa">
+<div class=sponsors>
+  <div class=sponsors-title>Sponsors</div>
+  <ul>
+    
+    <li><a href=https://livecodes.io/docs/sponsor title="Become a sponsor">Your Logo</a></li>
+  </ul>
+</div>
+</div></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class=footer__title>Docs</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/livecodes/docs/overview>Overview</a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/why>Why Another Playground?</a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/getting-started>Getting Started</a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/features>Features</a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/languages>Languages</a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/sdk>SDK</a></ul></div><div class="col footer__col"><div class=footer__title>LiveCodes</div><ul class="footer__items clean-list"><li class=footer__item><a href=/livecodes/docs/../ target=_blank rel="noopener noreferrer" class=footer__link-item>App<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><li class=footer__item><a href=/livecodes/docs/../?new target=_blank rel="noopener noreferrer" class=footer__link-item>Starter Templates<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><li class=footer__item><a href="/livecodes/docs/../?screen=import" target=_blank rel="noopener noreferrer" class=footer__link-item>Import...<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/features/ai>AI Code Assistant 🪄</a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/bookmarklet>Bookmarklet</a><li class=footer__item><span style="display: flex; gap: 0.5em; align-items: baseline;"><a href=/docs/llms.txt target=_blank class=footer__link-item>llms.txt</a>-<a href=/docs/llms-full.txt target=_blank class=footer__link-item>llms-full.txt</a></span></ul></div><div class="col footer__col"><div class=footer__title>Info</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/livecodes/docs/credits>Credits</a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/license>License</a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/sponsor>Sponsor 💚</a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/contact>Contact</a><li class=footer__item><a class=footer__link-item href=/livecodes/docs/about>About us</a></ul></div><div class="col footer__col"><div class=footer__title>More</div><ul class="footer__items clean-list"><li class=footer__item><a href=https://blog.livecodes.io target=_self rel="noopener noreferrer" class=footer__link-item>Blog<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><li class=footer__item><a href=https://github.com/live-codes/livecodes target=_blank rel="noopener noreferrer" class=footer__link-item>GitHub<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><li class=footer__item><a href=https://twitter.com/livecodes_io target=_blank rel="noopener noreferrer" class=footer__link-item>𝕏 / Twitter<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><li class=footer__item><a href=https://dev.to/livecodes_io target=_blank rel="noopener noreferrer" class=footer__link-item>Dev<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><li class=footer__item><a href=https://www.npmjs.com/package/livecodes target=_blank rel="noopener noreferrer" class=footer__link-item>npm<svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24" class=iconExternalLink_nPIU><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a><li class=footer__item><a href=https://status.livecodes.io target=_blank rel="noopener noreferrer" class="footer__link-item status-link"><span>Status</span><svg width=13.5 height=13.5 aria-hidden=true viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg></a></ul></div></div><div class="footer__bottom text--center"><div class=footer__copyright><br> Released under the MIT License <br>
+        Copyright © 2025
+        <a href=https://github.com/hatemhosny target=_blank rel="noopener noreferrer">Hatem Hosny</a></div></div></div></footer></div>

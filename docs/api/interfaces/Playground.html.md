@@ -1,0 +1,492 @@
+# Interface: Playground
+
+An object that represents the LiveCodes playground instance.
+
+The object exposes multiple [methods](https://livecodes.io/docs/sdk/js-ts/#sdk-methods) that can be used to interact with the playground.
+
+See [docs](https://livecodes.io/docs/sdk/js-ts) for details.
+
+## Extends
+
+- [`API`](../internal/interfaces/API.md)
+
+## Properties
+
+### destroy()
+
+> **destroy**: () => `Promise`\<`void`\>
+
+Destroys the playground instance, and removes event listeners.
+
+Further call to any SDK methods throws an error.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Example
+
+```ts
+import { createPlayground } from "livecodes";
+
+createPlayground("#container").then(async (playground) => {
+  await playground.destroy();
+  // playground destroyed
+  // any further SDK call throws an error
+});
+```
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`destroy`](../internal/interfaces/API.md#destroy)
+
+#### Defined in
+
+[models.ts:211](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L211)
+
+***
+
+### exec()
+
+> **exec**: (`command`, ...`args`) => `Promise`\<`object` \| `object`\>
+
+Executes custom commands, including: `"setBroadcastToken"` and `"showVersion"`.
+
+See [docs](https://livecodes.io/docs/sdk/js-ts#exec) for details.
+
+#### Parameters
+
+• **command**: [`APICommands`](../internal/type-aliases/APICommands.md)
+
+• ...**args**: `any`[]
+
+#### Returns
+
+`Promise`\<`object` \| `object`\>
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`exec`](../internal/interfaces/API.md#exec)
+
+#### Defined in
+
+[models.ts:194](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L194)
+
+***
+
+### format()
+
+> **format**: (`allEditors`?) => `Promise`\<`void`\>
+
+Formats the code.
+
+By default, the code in all editors (markup, style and script) is formatted.
+To format only the active editor, the value `false` should be passed as an argument.
+
+#### Parameters
+
+• **allEditors?**: `boolean`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Example
+
+```ts
+import { createPlayground } from "livecodes";
+
+createPlayground("#container").then(async (playground) => {
+  await playground.format();
+  // code in editors is formatted
+});
+```
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`format`](../internal/interfaces/API.md#format)
+
+#### Defined in
+
+[models.ts:31](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L31)
+
+***
+
+### getCode()
+
+> **getCode**: () => `Promise`\<[`Code`](Code.md)\>
+
+Gets the playground code (including source code, source language and compiled code) for each editor (markup, style, script), in addition to result page HTML.
+
+See [Code](https://livecodes.io/docs/api/interfaces/Code) for the structure of the returned object.
+
+#### Returns
+
+`Promise`\<[`Code`](Code.md)\>
+
+#### Example
+
+```ts
+import { createPlayground } from "livecodes";
+
+createPlayground("#container").then(async (playground) => {
+  const code = await playground.getCode();
+
+  // source code, language and compiled code for the script editor
+  const { content, language, compiled } = code.script;
+
+  // result page HTML
+  const result = code.result;
+});
+```
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`getCode`](../internal/interfaces/API.md#getcode)
+
+#### Defined in
+
+[models.ts:105](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L105)
+
+***
+
+### getConfig()
+
+> **getConfig**: (`contentOnly`?) => `Promise`\<[`Config`](Config.md)\>
+
+Gets a [configuration object](https://livecodes.io/docs/configuration/configuration-object) representing the playground state.
+
+This can be used to restore state if passed as an [EmbedOptions](https://livecodes.io/docs/sdk/js-ts#embed-options) property when [creating playgrounds](https://livecodes.io/docs/sdk/js-ts/#createplayground),
+or can be manipulated and loaded in run-time using [`setConfig`](https://livecodes.io/docs/sdk/js-ts#setconfig) method.
+
+#### Parameters
+
+• **contentOnly?**: `boolean`
+
+#### Returns
+
+`Promise`\<[`Config`](Config.md)\>
+
+#### Example
+
+```ts
+import { createPlayground } from "livecodes";
+
+createPlayground("#container").then(async (playground) => {
+  const config = await playground.getConfig();
+});
+```
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`getConfig`](../internal/interfaces/API.md#getconfig)
+
+#### Defined in
+
+[models.ts:64](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L64)
+
+***
+
+### getShareUrl()
+
+> **getShareUrl**: (`shortUrl`?) => `Promise`\<`string`\>
+
+Gets a [share url](https://livecodes.io/docs/features/share) for the current project.
+
+By default, the url has a long query string representing the compressed encoded config object.
+If the argument `shortUrl` was set to `true`, a short url is generated.
+
+#### Parameters
+
+• **shortUrl?**: `boolean`
+
+#### Returns
+
+`Promise`\<`string`\>
+
+#### Example
+
+```ts
+import { createPlayground } from "livecodes";
+
+createPlayground("#container").then(async (playground) => {
+  const longUrl = await playground.getShareUrl();
+  const shortUrl = await playground.getShareUrl(true);
+});
+```
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`getShareUrl`](../internal/interfaces/API.md#getshareurl)
+
+#### Defined in
+
+[models.ts:48](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L48)
+
+***
+
+### load()
+
+> **load**: () => `Promise`\<`void`\>
+
+Loads the playground, if not already loaded.
+
+When the embed option [loading](https://livecodes.io/docs/sdk/js-ts#loading) is set to `"click"`, the playground is not loaded automatically.
+Instead, a screen is shown with "Click to load" button. Calling the SDK method `load()` allows loading the playground.
+
+If the playground was not loaded, calling any other method will load the playground first before executing.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Defined in
+
+[models.ts:298](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L298)
+
+***
+
+### ~~onChange()~~
+
+> **onChange**: (`fn`) => `object`
+
+Runs a callback function when code changes.
+
+#### Parameters
+
+• **fn**
+
+#### Returns
+
+`object`
+
+##### ~~remove()~~
+
+> **remove**: () => `void`
+
+###### Returns
+
+`void`
+
+#### Deprecated
+
+Use [`watch`](https://livecodes.io/docs/sdk/js-ts#watch) method instead.
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`onChange`](../internal/interfaces/API.md#onchange)
+
+#### Defined in
+
+[models.ts:142](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L142)
+
+***
+
+### run()
+
+> **run**: () => `Promise`\<`void`\>
+
+Runs the [result page](https://livecodes.io/docs/features/result) (after any required compilation for code).
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Example
+
+```ts
+import { createPlayground } from "livecodes";
+
+createPlayground("#container").then(async (playground) => {
+  await playground.run();
+  // new result page is displayed
+});
+```
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`run`](../internal/interfaces/API.md#run)
+
+#### Defined in
+
+[models.ts:14](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L14)
+
+***
+
+### runTests()
+
+> **runTests**: () => `Promise`\<`object`\>
+
+Runs project [tests](https://livecodes.io/docs/features/tests) (if present) and gets test results.
+
+#### Returns
+
+`Promise`\<`object`\>
+
+##### results
+
+> **results**: [`TestResult`](../internal/interfaces/TestResult.md)[]
+
+#### Example
+
+```ts
+import { createPlayground } from "livecodes";
+
+createPlayground("#container").then(async (playground) => {
+  const { results } = await playground.runTests();
+});
+```
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`runTests`](../internal/interfaces/API.md#runtests)
+
+#### Defined in
+
+[models.ts:135](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L135)
+
+***
+
+### setConfig()
+
+> **setConfig**: (`config`) => `Promise`\<[`Config`](Config.md)\>
+
+Loads a new project using the passed configuration object.
+
+#### Parameters
+
+• **config**: `Partial`\<[`Config`](Config.md)\>
+
+#### Returns
+
+`Promise`\<[`Config`](Config.md)\>
+
+#### Example
+
+```ts
+import { createPlayground } from "livecodes";
+
+createPlayground("#container").then(async (playground) => {
+  const config = {
+    markup: {
+      language: "html",
+      content: "Hello World!",
+    },
+  };
+  const newConfig = await playground.setConfig(config);
+  // new project loaded
+});
+```
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`setConfig`](../internal/interfaces/API.md#setconfig)
+
+#### Defined in
+
+[models.ts:84](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L84)
+
+***
+
+### show()
+
+> **show**: (`panel`, `options`?) => `Promise`\<`void`\>
+
+Shows the selected panel.
+
+See [docs](https://livecodes.io/docs/sdk/js-ts#show) for details.
+
+#### Parameters
+
+• **panel**: `"result"` \| [`EditorId`](../internal/type-aliases/EditorId.md) \| `"console"` \| `"compiled"` \| `"tests"` \| `"editor"` \| `"toggle-result"`
+
+• **options?**
+
+• **options.column?**: `number`
+
+• **options.full?**: `boolean`
+
+• **options.line?**: `number`
+
+• **options.zoom?**: `1` \| `0.5` \| `0.25`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Example
+
+```ts
+await playground.show("style");
+await playground.show("toggle-result");
+await playground.show("result", { full: true });
+await playground.show("script");
+await playground.show("result", { zoom: 0.5 });
+await playground.show("console", { full: true });
+```
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`show`](../internal/interfaces/API.md#show)
+
+#### Defined in
+
+[models.ts:119](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L119)
+
+***
+
+### watch
+
+> **watch**: [`WatchLoad`](../internal/type-aliases/WatchLoad.md) & [`WatchReady`](../internal/type-aliases/WatchReady.md) & [`WatchCode`](../internal/type-aliases/WatchCode.md) & [`WatchConsole`](../internal/type-aliases/WatchConsole.md) & [`WatchTests`](../internal/type-aliases/WatchTests.md) & [`WatchDestroy`](../internal/type-aliases/WatchDestroy.md)
+
+Allows to watch for various playground events.
+It takes 2 arguments: event name and a callback function that will be called on every event.
+
+event name can be one of: `"load" | "ready" | "code" | "console" | "tests" | "destroy"`
+
+In some events, the callback function will be called with an object that supplies relevant data to the callback function (e.g. code, console output, test results).
+
+The watch method returns an object with a single method (`remove`), which when called will remove the callback from watching further events.
+
+See [docs](https://livecodes.io/docs/sdk/js-ts#watch) for details.
+
+#### Example
+
+```ts
+import { createPlayground } from "livecodes";
+
+createPlayground("#container").then((playground) => {
+  const codeWatcher = playground.watch("code", ({ code, config }) => {
+    // this will run on every code change
+    console.log("code:", code);
+    console.log("config:", config);
+  });
+
+  const consoleWatcher = playground.watch("console", ({ method, args }) => {
+    // this will run on every console output
+    console[method](...args);
+  });
+
+  const testsWatcher = playground.watch("tests", ({ results }) => {
+    // this will run when tests run
+    results.forEach((testResult) => {
+      console.log("status:", testResult.status); // "pass", "fail" or "skip"
+      console.log(testResult.errors); // array of errors as strings
+    });
+  });
+
+  // then later
+  codeWatcher.remove();
+  consoleWatcher.remove();
+  testsWatcher.remove();
+  // events are no longer watched
+});
+```
+
+#### Inherited from
+
+[`API`](../internal/interfaces/API.md).[`watch`](../internal/interfaces/API.md#watch)
+
+#### Defined in
+
+[models.ts:187](https://github.com/live-codes/livecodes/blob/b06e53d11f89bb42b0b22b8d86e82047ad153098/src/sdk/models.ts#L187)

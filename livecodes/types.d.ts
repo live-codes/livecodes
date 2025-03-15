@@ -361,7 +361,7 @@ declare module "sdk/models" {
         loading?: 'lazy' | 'click' | 'eager';
         /**
          * A [starter template](https://livecodes.io/docs/features/templates) to load.
-         * Allowed valued can be found [here](https://livecodes.io/docs/api/modules/internal#templatename).
+         * Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-aliases/TemplateName).
          */
         template?: TemplateName;
         /**
@@ -472,7 +472,7 @@ declare module "sdk/models" {
         /**
          * List of enabled [CSS processors](https://livecodes.io/docs/features/css/#css-processors).
          *
-         * For the list of available processors, see [Processor](https://livecodes.io/docs/api/modules/internal/#processor)
+         * For the list of available processors, see [Processor](https://livecodes.io/docs/api/internal/type-aliases/Processor)
          */
         processors: Processor[];
         /**
@@ -806,12 +806,12 @@ declare module "sdk/models" {
     /**
      * Language name, alias or extension.
      */
-    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react' | 'react-jsx' | 'react.jsx' | 'react-tsx' | 'react.tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
+    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react' | 'react-jsx' | 'react.jsx' | 'react-tsx' | 'react.tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'vue-app' | 'app.vue' | 'svelte' | 'svelte-app' | 'app.svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
     export interface Editor {
         /**
          * A language name, extension or alias (as defined in [language documentations](https://livecodes.io/docs/languages/)).
          *
-         * For the list of supported values, see [Language](https://livecodes.io/docs/api/modules#language)
+         * For the list of supported values, see [Language](https://livecodes.io/docs/api/type-aliases/Language)
          */
         language: Language;
         /**
@@ -849,6 +849,11 @@ declare module "sdk/models" {
          * This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
          */
         hideTitle?: boolean;
+        /**
+         * The order of the editor in the UI.
+         * @default 0
+         */
+        order?: number;
         /**
          * A CSS selector to load content from [DOM import](https://livecodes.io/docs/features/import#import-code-from-dom).
          */
@@ -1001,7 +1006,7 @@ declare module "sdk/models" {
         tools?: Config['tools'];
         autotest?: Config['autotest'];
     };
-    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'shadcn-ui' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
+    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'shadcn-ui' | 'daisyui' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
         name: 'console' | 'compiled' | 'tests';
         title: string;
@@ -1320,7 +1325,7 @@ declare module "sdk/models" {
     }
 }
 declare module "livecodes/models" {
-    export * from "sdk/models";
+    export type * from "sdk/models";
     export interface ModalOptions {
         size?: 'large' | 'small' | 'full';
         closeButton?: boolean;
@@ -1871,6 +1876,7 @@ declare module "livecodes/languages/scss/index" {
 declare module "livecodes/languages/svelte/lang-svelte" {
     import type { LanguageSpecs } from "livecodes/models";
     export const svelte: LanguageSpecs;
+    export const svelteApp: LanguageSpecs;
 }
 declare module "livecodes/languages/svelte/index" {
     export * from "livecodes/languages/svelte/lang-svelte";
@@ -1899,6 +1905,7 @@ declare module "livecodes/languages/typescript/index" {
 declare module "livecodes/languages/vue/lang-vue" {
     import type { LanguageSpecs } from "livecodes/models";
     export const vue: LanguageSpecs;
+    export const vueApp: LanguageSpecs;
 }
 declare module "livecodes/languages/vue/index" {
     export * from "livecodes/languages/vue/lang-vue";
@@ -2460,7 +2467,7 @@ declare module "livecodes/sync/sync" {
 declare module "livecodes/sync/index" {
     export * from "livecodes/sync/diff";
     export * from "livecodes/sync/sync";
-    export * from "livecodes/sync/models";
+    export type * from "livecodes/sync/models";
 }
 declare module "livecodes/storage/models" {
     import type { AppData, Asset, ContentConfig, Language, Snippet, Subscribable, UserConfig, UserData } from "livecodes/models";
@@ -2543,8 +2550,8 @@ declare module "livecodes/storage/index" {
     export * from "livecodes/storage/simple-storage";
     export * from "livecodes/storage/fake-storage";
     export * from "livecodes/storage/stores";
-    export * from "livecodes/storage/models";
     export * from "livecodes/storage/encrypt";
+    export type { Storage, ProjectStorage, StorageItem, RecoverItem, SavedProject, SimpleStorage, Stores, StorageData, StoreName, } from "livecodes/storage/models";
 }
 declare module "livecodes/services/auth" {
     import type { GithubScope, User } from "livecodes/models";
@@ -2608,6 +2615,7 @@ declare module "livecodes/compiler/import-map" {
         importMap?: Record<string, string>;
         external?: string;
     }) => string;
+    export const isScriptImport: (mod: string) => boolean;
     export const replaceSFCImports: (code: string, { filename, config, sfcExtension, getLanguageByAlias, compileSFC, external, }: {
         config: Config;
         filename: string;
@@ -3448,6 +3456,7 @@ declare module "livecodes/UI/modal" {
     import type { Modal } from "livecodes/models";
     export const createModal: (deps: {
         translate: (container: HTMLElement) => void;
+        isEmbed: boolean;
         onClose: () => void;
     }) => Modal;
 }
@@ -3904,7 +3913,7 @@ declare module "livecodes/_modules" {
     export * as import from "livecodes/import/index";
     export * as languages from "livecodes/languages/index";
     export * as modal from "livecodes/UI/modal";
-    export * as models from "livecodes/models";
+    export type * as models from "livecodes/models";
     export * as notifications from "livecodes/notifications/index";
     export * as result from "livecodes/result/index";
     export * as services from "livecodes/services/index";
@@ -5109,6 +5118,7 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly coffeescript: "CoffeeScript Starter";
                 readonly commonlisp: "Common Lisp Starter";
                 readonly cpp: "C++ Starter";
+                readonly daisyui: "daisyUI Starter";
                 readonly diagrams: "Diagrams Starter";
                 readonly fennel: "Fennel Starter";
                 readonly gleam: "Gleam Starter";
@@ -5155,7 +5165,7 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly tcl: "Tcl Starter";
                 readonly teal: "Teal Starter";
                 readonly typescript: "TypeScript Starter";
-                readonly vue: "Vue 3 SFC Starter";
+                readonly vue: "Vue SFC Starter";
                 readonly vue2: "Vue 2 Starter";
                 readonly wat: "WebAssembly Text Starter";
             };
@@ -5678,8 +5688,8 @@ declare module "livecodes/i18n/locales/models" {
 }
 declare module "livecodes/i18n/index" {
     export * from "livecodes/i18n/i18n";
-    export * from "livecodes/i18n/models";
-    export * from "livecodes/i18n/locales/models";
+    export type * from "livecodes/i18n/models";
+    export type * from "livecodes/i18n/locales/models";
 }
 declare module "livecodes/i18n/app-languages" {
     import type { AppLanguage } from "livecodes/models";
@@ -5742,6 +5752,13 @@ declare module "livecodes/UI/create-language-menus" {
         name: string;
         title: string;
     }) => HTMLLIElement;
+}
+declare module "livecodes/editor/ts-compiler-options" {
+    import type * as Monaco from 'monaco-editor';
+    import type { Language } from "livecodes/models";
+    type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
+    export const hasJsx: string[];
+    export const getCompilerOptions: (language: Language) => CompilerOptions;
 }
 declare module "livecodes/UI/sync-ui" {
     import type { EventsManager, Modal, Notifications, User, UserData } from "livecodes/models";
@@ -6070,13 +6087,6 @@ declare module "livecodes/main" {
 declare module "livecodes/index" { }
 declare module "livecodes/cache/__tests__/cache.spec" { }
 declare module "livecodes/compiler/compile.page" { }
-declare module "livecodes/editor/ts-compiler-options" {
-    import type * as Monaco from 'monaco-editor';
-    import type { Language } from "livecodes/models";
-    type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
-    export const hasJsx: string[];
-    export const getCompilerOptions: (language: Language) => CompilerOptions;
-}
 declare module "livecodes/compiler/compile.worker" { }
 declare module "livecodes/compiler/compiler-utils" { }
 declare module "livecodes/compiler/__tests__/import-map.spec" { }
@@ -7676,6 +7686,10 @@ declare module "livecodes/templates/starter/cpp-wasm-starter" {
 declare module "livecodes/templates/starter/d3-starter" {
     import type { Template } from "livecodes/models";
     export const d3Starter: Template;
+}
+declare module "livecodes/templates/starter/daisyui-starter" {
+    import type { Template } from "livecodes/models";
+    export const daisyuiStarter: Template;
 }
 declare module "livecodes/templates/starter/diagrams-starter" {
     import type { Template } from "livecodes/models";
