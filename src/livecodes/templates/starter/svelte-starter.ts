@@ -45,7 +45,7 @@ import Counter from "./Component.svelte";
   <h1>Hello, {title}!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/svelte.svg" />
   <p>You clicked {counter} times.</p>
-  <button on:click="{increment}">Click me</button>
+  <button on:click={increment}>Click me</button>
 </div>
 `.trimStart(),
   },
