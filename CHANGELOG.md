@@ -4,6 +4,53 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v43](https://github.com/live-codes/livecodes/compare/sdk-v0.9.0...0.0.0) (2025-03-15)
+
+### Highlights for this release
+
+This release added multiple new features and fixes, including:
+
+- Vue and Svelte can now be used in the markup editor, in addition to the script editor. This allows having 2 components in a single project. (see [docs](https://livecodes.io/docs/languages/vue#multiple-components)).
+- Vue and Svelte starter templates were updated to use multiple components.
+- The editor (`markup`, `style`, `script`) order in the UI can now be set using a new `order` option in the [editor configuration](https://livecodes.io/docs/configuration/configuration-object#markup). (e.g. `config.markup.order`). This can be useful, specially after adding support for Vue and Svelte in the markup editor, for example to have components followed by the styles. (see [example](https://livecodes.io/docs/languages/vue#multiple-components)).
+- Tailwind CSS plugins: In addition to allowing importing plugins from URLs, now plugins can be imported as bare modules (from npm) e.g. `@plugin "daisyui"{ /* ... */ }`.
+- A new `daisyui` starter template was added (https://livecodes.io/?template=daisyui).
+- Significant improvements in docs website, including a dark mode, changing the default theme color used for demo playgrounds, and adding support for [llms.txt files](https://llmstxt.org/).
+- Multiple fixes, notably, avoiding autofocus in embeds, fixing preact module resolution and type fixes.
+
+### Credits
+
+- @logaretm suggested having multiple Vue components.
+- @jcubic reported the conflicting modules in preact.
+
+Thank you ❤️
+
+This is the full list of changes:
+
+### Features
+
+- **Compilers:** add svelte to markup languages ([16e5091](https://github.com/live-codes/livecodes/commit/16e509129148106d7e272ecf4c1716bece8e4fa0))
+- **Compilers:** add vue to markup languages ([70f5b33](https://github.com/live-codes/livecodes/commit/70f5b33bf59a79dea172799276e6e6795a3f7cf2))
+- **Compilers:** allow bare module tailwindcss plugins ([c9e156c](https://github.com/live-codes/livecodes/commit/c9e156ce8b55dae24a906c59caa8c96ec4c27670))
+- **Config:** allow re-ordering code editors ([5d73064](https://github.com/live-codes/livecodes/commit/5d730648da5061011d2150d0995e8ede94515972))
+- **Import-maps:** allow using custom file names to import from script editor ([4499458](https://github.com/live-codes/livecodes/commit/44994582cba40697a314c71e4a7322084e10262b))
+- **SDK:** Change SDK react component type from `JSX.Element` to `React.ReactElement<Props>` ([962d4da](https://github.com/live-codes/livecodes/commit/962d4da47f8b5ec6fd56c7ca0ede2ed40bffeb70))
+- **Templates:** add daisyUI starter template ([c24fc56](https://github.com/live-codes/livecodes/commit/c24fc56978ea8f5ba6d401c0cf57d527c76e6dd8))
+- **Templates:** update vue and svelte templates to use multiple SFCs ([3c42c61](https://github.com/live-codes/livecodes/commit/3c42c610f41bffe1422568d9f6a5ffaf5eca097a))
+
+### Bug Fixes
+
+- **App:** avoid autofocusing embeds ([cd33134](https://github.com/live-codes/livecodes/commit/cd331343ebb1344eb10677c90cf586c2f3c3da77))
+- **App:** fix changing modes ([84cf763](https://github.com/live-codes/livecodes/commit/84cf763aae07ccf31821d92b088804ba027e8ea2))
+- **App:** fix loading types in embeds ([d5f727c](https://github.com/live-codes/livecodes/commit/d5f727c51b126383da44ab02c4a874ee99924485))
+- **ci:** update output variable for skip condition in `i18n-update-scheduled` ([dc2b625](https://github.com/live-codes/livecodes/commit/dc2b625315ea45a1cbdfd6cc481a278e5bca8b68))
+- **Editor:** disable monaco mouse wheel zoom ([b1596ef](https://github.com/live-codes/livecodes/commit/b1596ef98d44cc57d440ceff7976f05953e9271c))
+- **Import-maps:** fix importing duplicate instances of vue ([ceb2868](https://github.com/live-codes/livecodes/commit/ceb28688a21e1018a97a3397a7d0e44220bbfc27))
+- **Import-maps:** fix preact module resolution ([198becf](https://github.com/live-codes/livecodes/commit/198becf98383d1ed205c78634a6d2a49674eb3d9)), closes [#752](https://github.com/live-codes/livecodes/issues/752)
+- **Types:** fix importing react types in jsx/tsx ([db605d3](https://github.com/live-codes/livecodes/commit/db605d352f208dc9b477603bf80ea1e47d8af3e7))
+
+---
+
 ## [sdk-v0.9.0](https://github.com/live-codes/livecodes/compare/v42...sdk-v0.9.0) (2025-03-15)
 
 ### Highlights for this release
