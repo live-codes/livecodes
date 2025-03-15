@@ -180,10 +180,9 @@ export default function (
             contentArray.push(`- [${title}](${url})\n`);
           }
 
-          // full content (llms-full.txt)
-          fullContentArray.push(
-            `<!-- Source: ${baseUrl}${fileNameWithPath} -->\n\n${cleanContent(content)}`,
-          );
+          const sourceLink =
+            fileNameWithPath === '' ? '' : `<!-- Source: ${baseUrl}${fileNameWithPath} -->\n\n`;
+          fullContentArray.push(`${sourceLink}${cleanContent(content)}`);
         }
       });
       fs.writeFileSync(outputFile, header + contentArray.join(''));
