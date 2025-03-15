@@ -4,17 +4,7 @@
   "description": "Code Playground That Just Works!",
   "author": "Hatem Hosny",
   "license": "MIT",
-  "keywords": [
-    "playground",
-    "code",
-    "client",
-    "sdk",
-    "react",
-    "vue",
-    "svelte",
-    "solid",
-    "python"
-  ],
+  "keywords": ["playground", "code", "client", "sdk", "react", "vue", "svelte", "solid", "python"],
   "private": false,
   "repository": {
     "url": "https://github.com/live-codes/livecodes"
