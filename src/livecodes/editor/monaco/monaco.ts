@@ -143,7 +143,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     lineNumbersMinChars: 3,
     minimap: { enabled: false },
     scrollbar: { useShadows: false },
-    mouseWheelZoom: true,
+    mouseWheelZoom: false,
     automaticLayout: true,
     readOnly: readonly,
     fixedOverflowWidgets: true,

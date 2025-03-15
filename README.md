@@ -15,6 +15,8 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 [![LiveCodes: jsdelivr downloads](https://data.jsdelivr.com/v1/package/npm/livecodes/badge?style=rounded)](https://www.jsdelivr.com/package/npm/livecodes)
 [![LiveCodes: languages](https://img.shields.io/badge/languages-93-blue)](https://livecodes.io/docs/languages/)
 [![LiveCodes: docs](https://img.shields.io/badge/Documentation-575757?logo=gitbook&logoColor=white)](https://livecodes.io/docs/)
+[![LiveCodes: llms.txt](https://img.shields.io/badge/llms.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms.txt)
+[![LiveCodes: llms-full.txt](https://img.shields.io/badge/llms--full.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms-full.txt)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://www.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade)
 [![Lokalise: translated](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/translated.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
 [![Lokalise: UI languages](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/languages.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)

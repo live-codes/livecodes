@@ -154,7 +154,7 @@ const config: Config = {
               to: '/bookmarklet',
             },
             {
-              html: `<a href="/docs/llms.txt" target="_blank" class="footer__link-item">llms.txt</a> - <a href="/docs/llms-full.txt" target="_blank" class="footer__link-item">llms-full.txt</a>`,
+              html: `<span style="display: flex; gap: 0.5em; align-items: baseline;"><a href="/docs/llms.txt" target="_blank" class="footer__link-item">llms.txt</a>-<a href="/docs/llms-full.txt" target="_blank" class="footer__link-item">llms-full.txt</a></span>`,
             },
           ],
         },
@@ -308,7 +308,9 @@ LiveCodes is completely free for unlimited use, with no ads and no account requi
 Its MIT License also permits commercial use.
 
 - [Docs](https://livecodes.io/docs/llms.txt)
-- [Full Docs](https://livecodes.io/docs/llms-full.txt)`,
+- [Full Docs](https://livecodes.io/docs/llms-full.txt)
+- [README](https://raw.githubusercontent.com/live-codes/livecodes/refs/heads/develop/README.md)
+`,
         exportIndividualFiles: true,
         ignoreFiles: [],
         prependFiles: ['../../README.md'],
