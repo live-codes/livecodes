@@ -4,6 +4,8 @@ import conventionalChangelog from 'conventional-changelog';
 import fs from 'fs';
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
+import prettier from 'prettier';
+
 const require = createRequire(import.meta.url);
 const appPkgPath = '../package.json';
 const sdkPkgPath = '../src/sdk/package.sdk.json';
@@ -13,11 +15,18 @@ const appPkg = require(appPkgPath);
 const originalAppVersion = appPkg.appVersion;
 const sdkPkg = require(sdkPkgPath);
 const originalSDKVersion = sdkPkg.version;
+const prettierConfig = appPkg.prettier;
 
 let releaseTarget;
 
-const stringify = (obj) => JSON.stringify(obj, null, 2) + '\n';
-
+const stringify = async (obj) => {
+  const str = JSON.stringify(obj, null, 2) + '\n';
+  const formatted = await prettier.format(str, {
+    parser: 'json',
+    ...prettierConfig,
+  });
+  return formatted;
+};
 const confirmCancel = async (continueFn) => {
   if (await confirm({ message: 'Do you want to cancel release and discard all changes?' })) {
     execSync(`git reset --hard`);
@@ -201,7 +210,7 @@ const changeAppVersion = async (releaseNotes) => {
   if (!(await confirm({ message: `Creating App version: ${versionName}\nProceed?` }))) {
     return confirmCancel(() => changeAppVersion(releaseNotes));
   }
-  fs.writeFileSync(new URL(appPkgPath, import.meta.url), stringify(appPkg), 'utf8');
+  fs.writeFileSync(new URL(appPkgPath, import.meta.url), await stringify(appPkg), 'utf8');
   return releaseNotes;
 };
 
@@ -219,7 +228,7 @@ const changeSDKVersion = async (releaseNotes) => {
   if (!(await confirm({ message: `Creating SDK version: ${versionName}\nProceed?` }))) {
     return confirmCancel(() => changeSDKVersion(releaseNotes));
   }
-  fs.writeFileSync(new URL(sdkPkgPath, import.meta.url), stringify(sdkPkg), 'utf8');
+  fs.writeFileSync(new URL(sdkPkgPath, import.meta.url), await stringify(sdkPkg), 'utf8');
   return releaseNotes;
 };
 
