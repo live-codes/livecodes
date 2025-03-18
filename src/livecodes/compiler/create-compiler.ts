@@ -237,6 +237,7 @@ export const createCompiler = async ({
   };
 
   const postProcess: CompilerFunction = async (content, { config, language, baseUrl, options }) => {
+    // also in compile-blocks
     let code = content;
     let info: CompileInfo = {};
     let postcssRequired = false;
