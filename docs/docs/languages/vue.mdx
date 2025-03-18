@@ -57,10 +57,6 @@ export const cssModulesDemo = {
 
 See [example below](#multiple-components).
 
-Please note that the SFC style block can use any of the supported languages that compile to CSS (e.g. SCSS, Stylus, etc),
-but currently is not processed by [CSS processors](../features/css.mdx#css-processors) (e.g. Tailwind CSS, Autoprefixer, etc).
-See [limitations](#limitations).
-
 ### Languages and Pre-Processors
 
 > Blocks can declare pre-processor languages using the `lang` attribute.
@@ -358,7 +354,6 @@ Currently, Vue support has the following limitations:
 
 - SSR is not supported.
 - The [`defineProps()`](https://vuejs.org/guide/components/props#props-declaration) macro cannot infer props from TypeScript types. Props have to be explicitly declared.
-- Code in style blocks are not currently processed by enabled [CSS processors](../features/css.mdx#css-processors). This is already [discouraged by Tailwind CSS](https://tailwindcss.com/docs/compatibility#vue-svelte-and-astro).
 
 [PRs are welcome](https://github.com/live-codes/livecodes/issues/757).
 
