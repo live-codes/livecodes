@@ -96,7 +96,13 @@ const writeTranslation = async (namespace, tmpMode) => {
     // Save structured JSON for lokalise
     fs.promises.writeFile(
       path.join(outDir, namespace + '.lokalise.json'),
-      sortedJSONify(structuredJSON[namespace]).replace(/<(\/?)(\d+)>/g, '<$1tag-$2>'),
+      await prettier.format(
+        sortedJSONify(structuredJSON[namespace]).replace(/<(\/?)(\d+)>/g, '<$1tag-$2>'),
+        {
+          parser: 'json',
+          ...prettierConfig,
+        },
+      ),
     ),
   ]);
 

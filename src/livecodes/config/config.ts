@@ -80,6 +80,7 @@ export const getEditorConfig = (config: Config | UserConfig): EditorConfig =>
     lineNumbers: config.lineNumbers,
     wordWrap: config.wordWrap,
     closeBrackets: config.closeBrackets,
+    foldRegions: config.foldRegions,
     emmet: config.emmet,
     enableAI: config.enableAI,
     editorMode: config.editorMode,
