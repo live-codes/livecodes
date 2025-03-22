@@ -503,6 +503,7 @@ const translation: I18nTranslation = {
       heading: 'KI-Code-Assistent aktivieren',
       note: 'Unterstützt von <1><2></2></1>',
     },
+    foldRegions: 'Falten (kollabieren) von Regionen *',
     fontFamily: 'Schriftart',
     fontSize: 'Schriftgröße',
     format: 'Format',

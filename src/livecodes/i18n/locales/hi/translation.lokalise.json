@@ -948,6 +948,9 @@
   "editorSettings.enableAI.note": {
     "translation": "<tag-1><tag-2></tag-2></tag-1> द्वारा संचालित"
   },
+  "editorSettings.foldRegions": {
+    "translation": "मोड़ो (संकुचित) क्षेत्र *"
+  },
   "editorSettings.fontFamily": {
     "translation": "फ़ॉन्ट परिवार"
   },

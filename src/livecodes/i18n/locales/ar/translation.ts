@@ -503,6 +503,7 @@ const translation: I18nTranslation = {
       heading: 'تفعيل مساعد الكود الذكي',
       note: 'مدعوم بواسطة <1><2></2></1>',
     },
+    foldRegions: 'طيّ المناطق*',
     fontFamily: 'عائلة الخط',
     fontSize: 'حجم الخط',
     format: 'تنسيق',
