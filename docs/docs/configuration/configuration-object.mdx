@@ -153,6 +153,12 @@ An object that configures the language and content of the markup editor. This ca
   A URL to load `hiddenContent` from. It has to be a valid URL that is CORS-enabled.
   The URL is only fetched if `hiddenContent` property had no value.
 
+- `foldedLines`:
+  Type: [`Array<{ from: number; to: number }> | undefined`](../api/interfaces/Config.md#foldedlines)
+  Default: `undefined`
+  Lines that get folded when the editor loads. The code can be unfolded by clicking on arrow beside the line.
+  This can be useful for less relevant code in embedded playgrounds.
+
 - `title`:
   Type: [`string | undefined`](../api/interfaces/Config.md#title)
   Default: `""`
@@ -660,6 +666,14 @@ Type: [`boolean`](../api/interfaces/Config.md#closebrackets)
 Default: `true`
 
 Use auto-complete to close brackets and quotes.
+
+### `foldRegions`
+
+Type: [`boolean`](../api/interfaces/Config.md#foldregions)
+
+Default: `false`
+
+When set to `true`, regions marked by `#region` and `#endregion` comments are folded when the project is loaded.
 
 ### `emmet`
 
