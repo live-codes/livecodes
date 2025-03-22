@@ -502,6 +502,7 @@ const translation: I18nTranslation = {
       heading: '启用 AI 代码助手',
       note: '由 <1> <2> </2> </1> 提供支持',
     },
+    foldRegions: '折叠（收起）区域 *',
     fontFamily: '字体',
     fontSize: '字体大小',
     format: '格式化',

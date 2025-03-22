@@ -503,6 +503,7 @@ const translation: I18nTranslation = {
       heading: 'AIコードアシスタントを有効化',
       note: '提供： <1><2></2></1>',
     },
+    foldRegions: '折りたたみ領域',
     fontFamily: 'フォントファミリー',
     fontSize: 'フォントサイズ',
     format: 'フォーマット',
