@@ -239,10 +239,7 @@ export const createEditorSettingsUI = async ({
       options: [{ value: 'true' }],
     },
     {
-      title: window.deps.translateString(
-        'editorSettings.foldRegions',
-        'Fold (collapse) regions *',
-      ),
+      title: window.deps.translateString('editorSettings.foldRegions', 'Fold (collapse) regions *'),
       name: 'foldRegions',
       options: [{ value: 'true' }],
       help: `${process.env.DOCS_BASE_URL}configuration/configuration-object#foldregions`,
