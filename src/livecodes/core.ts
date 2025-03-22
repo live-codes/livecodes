@@ -566,6 +566,14 @@ const updateEditors = async (editors: Editors, config: Config) => {
     if (language) {
       await changeLanguage(language, config[editorId].content, true);
     }
+    const editor = editors[editorId];
+    if (config.foldRegions) {
+      await editor.foldRegions?.();
+    }
+    const foldedLines = config[editorId].foldedLines;
+    if (foldedLines?.length) {
+      await editor.foldLines?.(foldedLines);
+    }
   }
 };
 
@@ -1218,10 +1226,20 @@ const updateUrl = (url: string, push = false) => {
 
 const format = async (allEditors = true) => {
   if (allEditors) {
-    await Promise.all([editors.markup.format(), editors.style.format(), editors.script.format()]);
+    await Promise.all(
+      (Object.values(editors) as CodeEditor[]).map(async (editor) => {
+        await editor.format();
+        if (getConfig().foldRegions) {
+          await editor.foldRegions?.();
+        }
+      }),
+    );
   } else {
     const activeEditor = getActiveEditor();
     await activeEditor.format();
+    if (getConfig().foldRegions) {
+      await activeEditor.foldRegions?.();
+    }
     activeEditor.focus();
   }
   updateConfig();

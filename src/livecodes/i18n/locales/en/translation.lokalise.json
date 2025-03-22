@@ -1264,6 +1264,10 @@
     "notes": "### <tag-1> ###\n<a href=\"https://codeium.com\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img src=\"{{baseUrl}}assets/images/codeium.svg\" style=\"height: 1.2em; vertical-align: bottom;\" alt=\"Codeium\" />\n\n",
     "translation": "Powered by <tag-1><tag-2></tag-2></tag-1>"
   },
+  "editorSettings.foldRegions": {
+    "notes": "",
+    "translation": "Fold (collapse) regions *"
+  },
   "editorSettings.fontFamily": {
     "notes": "",
     "translation": "Font Family"
