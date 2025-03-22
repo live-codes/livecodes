@@ -785,6 +785,12 @@ export interface EditorConfig {
   wordWrap: boolean;
 
   /**
+   * When set to `true`, regions marked by `#region` and `#endregion` comments are folded when the project is loaded.
+   * @default false
+   */
+  foldRegions: boolean;
+
+  /**
    * Use auto-complete to close brackets and quotes.
    * @default true
    */
@@ -1103,6 +1109,14 @@ export interface Editor {
    * The URL is only fetched if `hiddenContent` property had no value.
    */
   hiddenContentUrl?: string;
+
+  /**
+   * Lines that get folded when the editor loads.
+   *
+   * This can be used for less relevant content.
+   * @example [{ from: 5, to: 8 }, { from: 15, to: 20 }]
+   */
+  foldedLines?: Array<{ from: number; to: number }>;
 
   /**
    * If set, this is used as the title of the editor in the UI,
@@ -1490,6 +1504,8 @@ export interface CodeEditor {
   focus: () => void;
   getPosition: () => EditorPosition;
   setPosition: (position: EditorPosition) => void;
+  foldRegions?: () => void | Promise<void>;
+  foldLines?: (linesToFold: Array<{ from: number; to: number }>) => void | Promise<void>;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary, force?: boolean) => any;
   onContentChanged: (callback: () => void) => void;
