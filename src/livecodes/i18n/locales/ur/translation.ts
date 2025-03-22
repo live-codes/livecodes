@@ -503,6 +503,7 @@ const translation: I18nTranslation = {
       heading: 'اے آئی کوڈ اسسٹنٹ فعال کریں',
       note: '<1><2></2></1> کی طرف سے طاقت یافتہ',
     },
+    foldRegions: 'فولڈ (سخت) علاقوں *',
     fontFamily: 'فونٹ فیملی',
     fontSize: 'فونٹ سائز',
     format: 'فارمیٹ',

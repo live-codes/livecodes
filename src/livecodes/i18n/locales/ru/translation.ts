@@ -503,6 +503,7 @@ const translation: I18nTranslation = {
       heading: 'Включить AI-помощник для кода',
       note: 'Работает на <1><2></2></1>',
     },
+    foldRegions: 'Складывать (сворачивать) регионы',
     fontFamily: 'Семейство шрифтов',
     fontSize: 'Размер шрифта',
     format: 'Форматирование',
