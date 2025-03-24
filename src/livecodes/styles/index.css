@@ -99,9 +99,11 @@ body,
 .B {
   stroke: none;
 }
+
 .C {
-  fill: url(#C);
+  fill: url('#C');
 }
+
 .E {
   fill-rule: nonzero;
 }
@@ -111,6 +113,7 @@ body,
   100% {
     opacity: 0;
   }
+
   50% {
     opacity: 1;
   }
@@ -121,6 +124,7 @@ body,
   100% {
     opacity: 0.9;
   }
+
   50% {
     opacity: 1;
   }
@@ -131,6 +135,7 @@ body,
   100% {
     stop-color: #d7d7d7;
   }
+
   50% {
     stop-color: #b0b0b0;
   }
@@ -141,8 +146,9 @@ body,
   100% {
     stop-color: #626262;
   }
+
   50% {
-    stop-color: #444444;
+    stop-color: #444;
   }
 }
 
