@@ -121,7 +121,7 @@
     "cross-env": "7.0.3",
     "dts-bundle": "0.7.3",
     "esbuild": "0.20.2",
-    "esbuild-plugin-minify-html": "0.1.1",
+    "esbuild-plugin-minify-html": "0.1.2",
     "esbuild-plugin-replace": "1.4.0",
     "eslint": "9.20.1",
     "eslint-config-prettier": "10.0.1",
