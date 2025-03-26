@@ -712,6 +712,10 @@
     "notes": "",
     "translation": "Disable Vim Mode"
   },
+  "commandMenu.editorTheme": {
+    "notes": "",
+    "translation": "Editor theme"
+  },
   "commandMenu.enableAI": {
     "notes": "",
     "translation": "Enable AI Code Assistant"
@@ -811,10 +815,6 @@
   "commandMenu.selectLanguage": {
     "notes": "",
     "translation": "Select Language"
-  },
-  "commandMenu.editorTheme": {
-    "notes": "",
-    "translation": "Editor Theme"
   },
   "commandMenu.show.compiled": {
     "notes": "",
