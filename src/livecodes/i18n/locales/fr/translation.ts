@@ -503,6 +503,7 @@ const translation: I18nTranslation = {
       heading: "Activer l'assistant de code AI",
       note: 'Propulsé par <1><2></2></1>',
     },
+    foldRegions: 'Plier (réduire) les régions *',
     fontFamily: 'Famille de police',
     fontSize: 'Taille de la police',
     format: 'Format',

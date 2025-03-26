@@ -511,6 +511,7 @@ const translation = {
       heading: 'Enable AI Code Assistant',
       note: 'Powered by <1><2></2></1>',
     },
+    foldRegions: 'Fold (collapse) regions *',
     fontFamily: 'Font Family',
     fontSize: 'Font Size',
     format: 'Format',

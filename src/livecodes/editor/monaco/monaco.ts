@@ -614,6 +614,29 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setTimeout(() => editor.revealPositionInCenter(newPosition, 0), 50);
   };
 
+  const foldRegions = async () => {
+    const model = editor.getModel();
+    if (!model) return;
+    const regionRegExp = /\/\/#region[\s\S]*?\/\/#endregion/g;
+    let matches: RegExpExecArray | null;
+    while ((matches = regionRegExp.exec(model.getValue())) !== null) {
+      const startLineNumber = model.getPositionAt(matches.index).lineNumber;
+      const endLineNumber = model.getPositionAt(matches.index + matches[0].length).lineNumber;
+      editor.setSelection(new monaco.Selection(startLineNumber, 1, endLineNumber + 1, 1));
+      await editor.getAction('editor.createFoldingRangeFromSelection')?.run();
+    }
+  };
+
+  const foldLines = async (linesToFold: Array<{ from?: number; to?: number }>) => {
+    for (const lines of linesToFold) {
+      const startLine = lines.from ?? 0;
+      const endLine = lines.to ?? editor.getModel()!.getLineCount();
+      if (startLine < 0 || endLine < 0 || startLine > endLine) continue;
+      editor.setSelection(new monaco.Selection(startLine, 1, endLine + 1, 1));
+      await editor.getAction('editor.createFoldingRangeFromSelection')?.run();
+    }
+  };
+
   const configureCodeium = (enabled: boolean) => {
     if (!enabled) {
       codeiumProvider?.dispose();
@@ -830,6 +853,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     focus,
     getPosition,
     setPosition,
+    foldRegions,
+    foldLines,
     layout,
     addTypes,
     changeSettings,

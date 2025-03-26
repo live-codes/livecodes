@@ -503,6 +503,7 @@ const translation: I18nTranslation = {
       heading: 'AI कोड सहायक सक्षम करें',
       note: '<1><2></2></1> द्वारा संचालित',
     },
+    foldRegions: 'मोड़ो (संकुचित) क्षेत्र *',
     fontFamily: 'फ़ॉन्ट परिवार',
     fontSize: 'फ़ॉन्ट आकार',
     format: 'प्रारूप',

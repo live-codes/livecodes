@@ -951,6 +951,9 @@
   "editorSettings.enableAI.note": {
     "translation": "<tag-1><tag-2></tag-2></tag-1> کی طرف سے طاقت یافتہ"
   },
+  "editorSettings.foldRegions": {
+    "translation": "فولڈ (سخت) علاقوں *"
+  },
   "editorSettings.fontFamily": {
     "translation": "فونٹ فیملی"
   },
