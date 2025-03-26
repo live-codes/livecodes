@@ -609,6 +609,9 @@
   "commandMenu.selectLanguage": {
     "translation": "اختر اللغة"
   },
+  "commandMenu.editorTheme": {
+    "translation": "تعيين سمة المحرر"
+  },
   "commandMenu.show.compiled": {
     "translation": "تبديل الكود المُترجم"
   },

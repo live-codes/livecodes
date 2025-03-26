@@ -201,6 +201,17 @@ export const getCommandMenuActions = ({
       ],
     },
     {
+      id: 'editor theme',
+      title: window.deps.translateString('commandMenu.editorTheme', 'Editor theme'),
+      content: getContent('Editor theme'),
+      mdIcon: 'palette',
+      handler: () => {
+        UI.getEditorSettingsLink()?.click();
+        const themeSelector = document.querySelector('label[data-name="editorTheme"]');
+        themeSelector?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      },
+    },
+    {
       id: 'Select Language',
       title: window.deps.translateString('commandMenu.selectLanguage', 'Select Language'),
       content: getContent('Select Language'),

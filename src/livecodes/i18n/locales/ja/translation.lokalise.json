@@ -609,6 +609,9 @@
   "commandMenu.selectLanguage": {
     "translation": "言語選択"
   },
+  "commandMenu.editorTheme": {
+    "translation": "エディタテーマ"
+  },
   "commandMenu.show.compiled": {
     "translation": "コンパイル済みコードの切り替え"
   },
