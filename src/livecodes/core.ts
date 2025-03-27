@@ -2665,6 +2665,7 @@ const handleKeyboardShortcutsScreen = () => {
       loadStarterTemplate,
       changeEditorSettings,
       changeLayout: changeAndSaveLayout,
+      showScreen,
     },
   });
 
@@ -2738,6 +2739,7 @@ const handleCommandMenu = async () => {
         loadStarterTemplate,
         changeEditorSettings,
         changeLayout: changeAndSaveLayout,
+        showScreen,
       },
     });
     const authAction = authService?.isLoggedIn() ? logoutAction : loginAction;

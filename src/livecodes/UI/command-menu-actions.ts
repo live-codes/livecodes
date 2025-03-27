@@ -1,4 +1,4 @@
-import type { Config, INinjaAction, TemplateName } from '../models';
+import type { Config, INinjaAction, Screen, TemplateName } from '../models';
 import { appLanguages } from '../i18n/app-languages';
 import { languageIsEnabled, languages, processorIsEnabled, processors } from '../languages';
 import { isMac, predefinedValues, stringUnionToArray } from '../utils/utils';
@@ -12,6 +12,7 @@ export const getCommandMenuActions = ({
     loadStarterTemplate: (templateName: TemplateName) => Promise<void>;
     changeEditorSettings: (config: Partial<Config>) => void;
     changeLayout: (layout: Config['layout']) => void;
+    showScreen: (screen: Screen['screen'], options?: any) => Promise<void>;
   };
 }) => {
   const { getConfig, loadStarterTemplate, changeEditorSettings, changeLayout } = deps;
@@ -945,6 +946,17 @@ export const getCommandMenuActions = ({
           mdIcon: 'palette',
           handler: () => {
             UI.getThemeColorContainer()?.querySelector('input')?.click();
+          },
+        },
+        {
+          id: 'editor theme',
+          title: window.deps.translateString('editorSettings.editorTheme', 'Editor Theme'),
+          content: getContent('Editor Theme'),
+          mdIcon: 'palette',
+          handler: () => {
+            deps.showScreen('editor-settings', {
+              scrollToSelector: ':has(+ label[data-name^="editorTheme"])',
+            });
           },
         },
       ],
