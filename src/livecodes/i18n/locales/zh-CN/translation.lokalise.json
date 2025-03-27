@@ -609,9 +609,6 @@
   "commandMenu.selectLanguage": {
     "translation": "选择语言"
   },
-  "commandMenu.editorTheme": {
-    "translation": "编辑器主题"
-  },
   "commandMenu.show.compiled": {
     "translation": "切换编译结果页面显示"
   },

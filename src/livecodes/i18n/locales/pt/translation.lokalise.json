@@ -609,9 +609,6 @@
   "commandMenu.selectLanguage": {
     "translation": "Selecionar idioma"
   },
-  "commandMenu.editorTheme": {
-    "translation": "Tema do editor"
-  },
   "commandMenu.show.compiled": {
     "translation": "Alternar código compilado"
   },

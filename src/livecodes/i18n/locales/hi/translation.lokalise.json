@@ -609,9 +609,6 @@
   "commandMenu.selectLanguage": {
     "translation": "भाषा चुने"
   },
-  "commandMenu.editorTheme": {
-    "translation": "एडिटर थीम"
-  },
   "commandMenu.show.compiled": {
     "translation": "संकलित कोड टॉगल करें"
   },

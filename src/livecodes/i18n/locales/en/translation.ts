@@ -311,7 +311,6 @@ const translation = {
     disableRecoverUnsaved: 'Disable Recover Unsaved',
     disableVim: 'Disable Vim Mode',
     enableAI: 'Enable AI Code Assistant',
-    editorTheme: 'Editor theme',
     enableAutoSave: 'Enable Auto Save',
     enableAutoUpdate: 'Enable Auto Update',
     enableEmacs: 'Enable Emacs Mode',
