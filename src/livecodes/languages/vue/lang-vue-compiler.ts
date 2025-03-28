@@ -37,11 +37,14 @@ import { getLanguageByAlias } from '../utils';
     }
     if (!code.trim()) return;
 
+    const isSfc = (mod: string) =>
+      mod.toLowerCase().endsWith('.vue') || mod.toLowerCase().startsWith('data:text/vue');
+
     code = await replaceSFCImports(code, {
       filename,
       config,
-      sfcExtension: '.vue',
       getLanguageByAlias,
+      isSfc,
       compileSFC: async (code, { filename, config }) => {
         const compiled = (await compileVueSFC(code, { filename, config }))?.js || '';
         importedContent += `\n${filename}\n\n${compiled}\n`;

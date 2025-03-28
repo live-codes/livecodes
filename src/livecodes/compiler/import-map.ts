@@ -144,25 +144,35 @@ export const isScriptImport = (mod: string) =>
       mod.toLowerCase().endsWith('.vue') ||
       mod.toLowerCase().endsWith('.svelte')));
 
+const modulesCache: Record<string, string> = {};
+const fetchModule = async (mod: string) => {
+  if (modulesCache[mod]) {
+    return modulesCache[mod];
+  }
+  const res = await fetch(mod);
+  const content = await res.text();
+  modulesCache[mod] = content;
+  return content;
+};
+
 export const replaceSFCImports = async (
   code: string,
   {
     filename,
     config,
-    sfcExtension,
+    isSfc,
     getLanguageByAlias,
     compileSFC,
     external,
   }: {
     config: Config;
     filename: string;
-    sfcExtension: string;
+    isSfc: (mod: string) => boolean;
     getLanguageByAlias: (alias: string) => Language | undefined;
     compileSFC: (code: string, options: { filename: string; config: Config }) => Promise<string>;
     external?: string;
   },
 ) => {
-  const isSfc = (mod: string) => mod.toLowerCase().endsWith(sfcExtension);
   const isExtensionless = (mod: string) =>
     mod.startsWith('.') && !mod.split('/')[mod.split('/').length - 1].includes('.');
   const sfcImports = getImports(code).filter(
@@ -196,8 +206,7 @@ export const replaceSFCImports = async (
             ? new URL(mod, filename).href
             : modulesService.getUrl(mod));
 
-      const res = await fetch(url);
-      const content = await res.text();
+      const content = await fetchModule(url);
       const compiled = isSfc(mod)
         ? await compileSFC(content, { filename: url, config })
         : await replaceSFCImports(
@@ -208,7 +217,7 @@ export const replaceSFCImports = async (
                 config,
               )
             ).code,
-            { filename: url, config, sfcExtension, getLanguageByAlias, compileSFC, external },
+            { filename: url, config, isSfc, getLanguageByAlias, compileSFC, external },
           );
       if (!compiled) return;
       const dataUrl = toDataUrl(compiled);
