@@ -430,12 +430,16 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const setLanguage = (lang: Language, value?: string) => {
     language = lang;
     clearTypes(false);
-    if (monacoMapLanguage(lang) !== 'vue') {
-      setModel(editor, value ?? editor.getValue(), language);
+    const valueToIsert = value ?? editor.getValue();
+    if (monacoMapLanguage(lang) === 'vue') {
+      // avoid race condition of value changing while valor is loading
+      setValue(valueToIsert);
+    } else {
+      setModel(editor, valueToIsert, language);
     }
     loadMonacoLanguage(lang).then(() => {
       if (monacoMapLanguage(lang) === 'vue') {
-        setModel(editor, value ?? editor.getValue(), language);
+        setModel(editor, editor.getValue(), language);
       }
     });
   };
