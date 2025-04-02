@@ -34,7 +34,7 @@ import Counter from './Component.vue';
   const align = 'center';
 
   // define inline component
-  function Greeting(props: {name: string}) {
+  function Greeting(props: {name?: string}) {
     return <h1>Hello, { props.name || 'World' }!</h1>
   }
 </script>
