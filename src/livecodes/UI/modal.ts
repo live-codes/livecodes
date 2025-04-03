@@ -61,7 +61,6 @@ export const createModal = (deps: {
       modal.showModal();
     }
     overlay.classList.remove('hidden');
-
     setTimeout(() => {
       if (scrollToSelector) {
         const target = container.querySelector<HTMLElement>(scrollToSelector);

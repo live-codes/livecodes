@@ -3455,7 +3455,7 @@ const handleOpen = () => {
 
 const handleImport = () => {
   const createImportUI = async () => {
-    modal.show(loadingMessage(), { size: 'small' });
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     importModule.createImportUI({
       baseUrl,
@@ -3639,7 +3639,7 @@ const handleDeploy = () => {
       );
       return;
     }
-    modal.show(loadingMessage(), { size: 'small' });
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
 
     const getProjectDeployRepo = async () => {
       if (!projectId) return;
@@ -3690,7 +3690,7 @@ const handleSync = () => {
       );
       return;
     }
-    modal.show(loadingMessage(), { size: 'small' });
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
 
     const syncUIModule: typeof import('./UI/sync-ui') = await import(
       baseUrl + '{{hash:sync-ui.js}}'
@@ -4374,7 +4374,7 @@ const handleExternalResources = () => {
       dispatchChangeEvent();
     };
 
-    modal.show(loadingMessage(), { size: 'small' });
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
     const resourcesModule: typeof import('./UI/resources') = await import(
       baseUrl + '{{hash:resources.js}}'
     );
