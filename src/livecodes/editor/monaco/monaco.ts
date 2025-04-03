@@ -280,6 +280,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   });
   setModel(editor, options.value, language);
 
+  const getOrCreateModel = (value: string, lang: string | undefined, uri: Monaco.Uri) => {
+    const model = monaco.editor.getModel(uri);
+    if (model) {
+      model.setValue(value);
+      return model;
+    }
+    return monaco.editor.createModel(value, lang, uri);
+  };
+
   const contentEditors: Array<EditorOptions['editorId']> = ['markup', 'style', 'script', 'tests'];
   if (contentEditors.includes(editorId)) {
     editors.push(editor);
@@ -393,23 +402,23 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
     if (!scriptEditor) return;
     const ext = scriptLanguage === 'typescript' ? 'tsx' : 'jsx';
-    const createModel = () => {
-      scriptModel = monaco.editor.createModel(
-        scriptEditor.getValue(),
-        scriptLanguage,
-        monaco.Uri.parse('script.' + ext),
-      );
-    };
-    if (scriptModel) {
-      scriptModel.dispose();
-      setTimeout(() => {
-        createModel();
-      }, 300);
-    } else {
-      createModel();
-    }
+    scriptModel = getOrCreateModel(
+      scriptEditor.getValue(),
+      scriptLanguage,
+      monaco.Uri.parse('script.' + ext),
+    );
   };
   createScriptModel();
+
+  const addDeclarations = () => {
+    if (editorId !== 'script') return;
+    const declarations = `
+    declare module 'https://*';
+    declare module './*';
+    `;
+    getOrCreateModel(declarations, undefined, monaco.Uri.parse('file:///declarations.d.ts'));
+  };
+  addDeclarations();
 
   const clearTypes = (allTypes = true) => {
     scriptModel?.dispose();
