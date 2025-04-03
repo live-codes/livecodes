@@ -579,7 +579,7 @@ const updateEditors = async (editors: Editors, config: Config) => {
 
 const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   if (!mode) {
-    mode = 'full';
+    mode = getConfig().mode;
   }
   if (!view) {
     view = getConfig().view;
@@ -1404,7 +1404,7 @@ const applyConfig = async (newConfig: Partial<Config>) => {
     loadSettings(currentConfig);
   }
   if (newConfig.mode || newConfig.view) {
-    window.deps.showMode(
+    window.deps?.showMode?.(
       newConfig.mode ?? currentConfig.mode,
       newConfig.view ?? currentConfig.view,
     );
@@ -2877,7 +2877,7 @@ const handleEditorTools = () => {
     if (newMode === 'focus' && consoleIsEnabled) {
       toolsPane?.setActiveTool('console');
     }
-    showMode(newMode, config.view);
+    window.deps?.showMode?.(newMode, config.view);
   });
 
   eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
