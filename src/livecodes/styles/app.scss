@@ -1274,6 +1274,7 @@ a.tools-pane-title {
   color: var(--link);
   display: flex !important;
   justify-content: center;
+  overflow: hidden;
   position: relative;
 
   &.gutter-vertical {
