@@ -13,15 +13,17 @@ export const hasJsx = [
   'flow',
   'solid',
   'solid.tsx',
+  'stencil',
   'react-native',
   'react-native-tsx',
+  'vue',
 ];
 
 export const getCompilerOptions = (language: Language): CompilerOptions => {
   const JSLangs = ['javascript', 'jsx', 'react', 'flow', 'solid', 'react-native'];
   const isJSLang = JSLangs.includes(language);
   const isJsx = hasJsx.includes(language);
-  const nonReactJsx = ['solid', 'solid.tsx', 'stencil'].includes(language);
+  const nonReactJsx = ['solid', 'solid.tsx', 'stencil', 'vue'].includes(language);
 
   const settings: CompilerOptions = {
     allowJs: true,
