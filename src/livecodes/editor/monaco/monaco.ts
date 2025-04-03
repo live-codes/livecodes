@@ -414,6 +414,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     if (editorId !== 'script') return;
     const declarations = `
     declare module 'https://*';
+    declare module 'data:*';
     declare module './*';
     `;
     getOrCreateModel(declarations, undefined, monaco.Uri.parse('file:///declarations.d.ts'));
