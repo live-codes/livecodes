@@ -20,11 +20,14 @@ import { getCompileResult } from '../../compiler';
     }
     if (!code) return getCompileResult('');
 
+    const isSfc = (mod: string) =>
+      mod.toLowerCase().endsWith('.svelte') || mod.toLowerCase().startsWith('data:text/svelte');
+
     const fullCode = await replaceSFCImports(code, {
       config,
       filename,
       getLanguageByAlias,
-      sfcExtension: '.svelte',
+      isSfc,
       compileSFC: async (
         code: string,
         { config, filename }: { config: Config; filename: string },

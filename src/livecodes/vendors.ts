@@ -293,6 +293,10 @@ export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/t
 
 export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.1/dist/monaco-vim.js');
 
+export const monacoVolarUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/monaco-volar@0.1.0/dist/index.js',
+);
+
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
 
 export const ninjaKeysUrl = /* @__PURE__ */ getUrl('@hatemhosny/ninja-keys@1.14.0/bundle/index.js');
