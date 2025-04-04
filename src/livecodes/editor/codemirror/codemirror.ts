@@ -79,6 +79,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const mapLanguage = (lang: Language) => {
     if (lang.startsWith('vue')) return 'vue';
+    if (lang.startsWith('svelte')) return 'svelte';
+    if (lang === 'liquid') return 'liquid';
     return options.mapLanguage?.(lang) || lang;
   };
 
