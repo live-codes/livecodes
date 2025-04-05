@@ -1,8 +1,9 @@
+import type { CompilerFunction, Config } from '../../models';
+import type { LanguageOrProcessor } from '../../compiler/models';
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
-import { compileAllBlocks } from '../../compiler/compile-blocks';
+import { compileAllBlocks, exportDefaultImports } from '../../compiler/compile-blocks';
 import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
 import { getRandomString, replaceAsync } from '../../utils/utils';
-import type { CompilerFunction, Config } from '../../models';
 import { getLanguageByAlias } from '../utils';
 
 // based on:
@@ -13,7 +14,7 @@ import { getLanguageByAlias } from '../utils';
   const MAIN_FILE = 'App.vue';
   const SECONDARY_FILE = 'Component.vue';
   const COMP_IDENTIFIER = '__sfc__';
-  let errors: string | any[] = [];
+  let errors: any[] = [];
   let css = '';
   const ids: Record<string, string> = {};
   let importedContent = '';
@@ -39,6 +40,10 @@ import { getLanguageByAlias } from '../utils';
 
     const isSfc = (mod: string) =>
       mod.toLowerCase().endsWith('.vue') || mod.toLowerCase().startsWith('data:text/vue');
+    const testTs = (filename: string) =>
+      !!(filename && /(\.|\b)(tsx?|typescript)$/.test(filename.toLowerCase()));
+    const testJsx = (filename: string) =>
+      !!(filename && /(\.|\b)[jt]sx$/.test(filename.toLowerCase()));
 
     code = await replaceSFCImports(code, {
       filename,
@@ -52,7 +57,10 @@ import { getLanguageByAlias } from '../utils';
       },
     });
 
-    const compiledBlocks = await compileBlocks(code, { config });
+    const compiledBlocks = await compileBlocks(code, {
+      config,
+      skipCompilers: ['typescript', 'jsx', 'tsx', 'babel', 'sucrase'],
+    });
     const cssModules = compiledBlocks.cssModules;
     code = compiledBlocks.content;
 
@@ -62,18 +70,27 @@ import { getLanguageByAlias } from '../utils';
     }
     const id = ids[filename];
 
-    const { errors: err, descriptor } = SFCCompiler.parse(code, { filename, sourceMap: false });
+    const { errors: err, descriptor } = SFCCompiler.parse(code, {
+      filename,
+      sourceMap: false,
+      // templateParseOptions: store.sfcOptions?.template?.compilerOptions,
+    });
 
     if (err.length) {
-      errors = err;
+      errors.push(...err);
       return;
     }
+
+    const scriptLang = descriptor.script?.lang || descriptor.scriptSetup?.lang;
+    const isTS = testTs(scriptLang);
+    const isJSX = testJsx(scriptLang);
 
     const hasScoped = descriptor.styles.some((s: any) => s.scoped);
     let clientCode = '';
 
     for (const style of descriptor.styles) {
       const styleResult = await SFCCompiler.compileStyleAsync({
+        // ...store.sfcOptions?.style,
         source: style.content,
         filename,
         id,
@@ -83,10 +100,10 @@ import { getLanguageByAlias } from '../utils';
       if (styleResult.errors.length) {
         // postcss uses pathToFileURL which isn't polyfilled in the browser
         // ignore these errors for now
-        if (!styleResult.errors[0].message.includes('pathToFileURL')) {
-          errors = styleResult.errors;
-        }
-
+        // if (!styleResult.errors[0].message.includes('pathToFileURL')) {
+        //   errors.push(...styleResult.errors);
+        // }
+        errors.push(...styleResult.errors);
         // proceed even if css compile errors
       } else {
         css += `${styleResult.code}\n`;
@@ -101,19 +118,30 @@ import { getLanguageByAlias } from '../utils';
       clientCode += code;
     };
 
-    const clientScriptResult = doCompileScript(descriptor, id, false);
-    if (!clientScriptResult) return;
+    const [compiledScript, bindings] = await doCompileScript(descriptor, id, false, isTS, isJSX);
 
-    const [clientScript, bindings] = clientScriptResult;
-    clientCode += clientScript;
+    const clientScript =
+      isTS || isJSX ? await compileTypescript(compiledScript, { config }) : compiledScript;
+
+    appendSharedCode(clientScript);
 
     // template
     // only need dedicated compilation if not using <script setup>
     if (descriptor.template && !descriptor.scriptSetup) {
-      const clientTemplateResult = doCompileTemplate(descriptor, id, bindings, false);
+      const clientTemplateResult = await doCompileTemplate(
+        descriptor,
+        id,
+        bindings,
+        false,
+        isTS,
+        isJSX,
+      );
       if (!clientTemplateResult) return;
-
-      clientCode += clientTemplateResult;
+      const templateCode =
+        isTS || isJSX
+          ? await compileTypescript(clientTemplateResult, { config })
+          : clientTemplateResult;
+      appendSharedCode(templateCode);
     }
 
     if (hasScoped) {
@@ -147,38 +175,70 @@ import { getLanguageByAlias } from '../utils';
     return compiled;
   }
 
-  function doCompileScript(
+  async function doCompileScript(
     descriptor: /* SFCDescriptor */ any,
     id: string,
     ssr: boolean,
-  ): [string, /* BindingMetadata | undefined */ any] | undefined {
+    isTS: boolean,
+    isJSX: boolean,
+  ): Promise<[string, /* BindingMetadata | undefined */ any]> {
     if (descriptor.script || descriptor.scriptSetup) {
-      try {
-        const compiledScript = SFCCompiler.compileScript(descriptor, {
-          id,
-          refSugar: true,
-          inlineTemplate: true,
-          templateOptions: {
-            ssr,
-            ssrCssVars: descriptor.cssVars,
-          },
-        });
-        const code = '\n' + SFCCompiler.rewriteDefault(compiledScript.content, COMP_IDENTIFIER);
-        return [code, compiledScript.bindings];
-      } catch (e) {
-        errors = [e];
+      const expressionPlugins = [];
+      if (isTS) {
+        expressionPlugins.push('typescript');
       }
+      if (isJSX) {
+        expressionPlugins.push('jsx');
+      }
+
+      const compiledScript = SFCCompiler.compileScript(descriptor, {
+        inlineTemplate: true,
+        // ...store.sfcOptions?.script,
+        id,
+        genDefaultAs: COMP_IDENTIFIER,
+        templateOptions: {
+          // ...store.sfcOptions?.template,
+          ssr,
+          ssrCssVars: descriptor.cssVars,
+          compilerOptions: {
+            // ...store.sfcOptions?.template?.compilerOptions,
+            expressionPlugins,
+          },
+        },
+      });
+      let code = compiledScript.content;
+      if (compiledScript.bindings) {
+        code =
+          `/* Analyzed bindings: ${JSON.stringify(compiledScript.bindings, null, 2)} */\n` + code;
+      }
+      return [code, compiledScript.bindings];
+    } else {
+      const vaporFlag = descriptor.vapor ? '__vapor: true' : '';
+      return [`\nconst ${COMP_IDENTIFIER} = { ${vaporFlag} }`, undefined];
     }
-    return [`\nconst ${COMP_IDENTIFIER} = {}`, undefined];
   }
 
-  function doCompileTemplate(
+  async function doCompileTemplate(
     descriptor: /* SFCDescriptor */ any,
     id: string,
     bindingMetadata: /* BindingMetadata | undefined */ any,
     ssr: boolean,
+    isTS: boolean,
+    isJSX: boolean,
   ) {
+    const expressionPlugins = [];
+    if (isTS) {
+      expressionPlugins.push('typescript');
+    }
+    if (isJSX) {
+      expressionPlugins.push('jsx');
+    }
+
     const templateResult = SFCCompiler.compileTemplate({
+      isProd: false,
+      // ...store.sfcOptions?.template,
+      vapor: descriptor.vapor,
+      ast: descriptor.template!.ast,
       source: descriptor.template!.content,
       filename: descriptor.filename,
       id,
@@ -186,13 +246,14 @@ import { getLanguageByAlias } from '../utils';
       slotted: descriptor.slotted,
       ssr,
       ssrCssVars: descriptor.cssVars,
-      isProd: false,
       compilerOptions: {
+        // ...store.sfcOptions?.template?.compilerOptions,
         bindingMetadata,
+        expressionPlugins,
       },
     });
     if (templateResult.errors.length) {
-      errors = templateResult.errors;
+      errors.push(...templateResult.errors);
       return;
     }
 
@@ -224,7 +285,10 @@ import { getLanguageByAlias } from '../utils';
     }
   }
 
-  async function compileBlocks(code: string, { config }: { config: Config }) {
+  async function compileBlocks(
+    code: string,
+    { config, skipCompilers }: { config: Config; skipCompilers?: LanguageOrProcessor[] },
+  ) {
     let content = code;
     const scriptPattern = /<script([\s\S]*?)>([\s\S]*?)<\/script>/g;
     const stylePattern = /<style([\s\S]*?)>([\s\S]*?)<\/style>/g;
@@ -239,17 +303,19 @@ import { getLanguageByAlias } from '../utils';
           // allow jsx by default
           attrs += ' lang="jsx"';
         }
+        const jsxImports = 'import { h, Fragment } from "vue";\n';
         if (
-          attrs.toLowerCase().includes('"ts"') ||
-          attrs.toLowerCase().includes('"typescript"') ||
-          attrs.toLowerCase().includes('"jsx"') ||
-          attrs.toLowerCase().includes('"tsx"') ||
-          attrs.toLowerCase().includes("'ts'") ||
-          attrs.toLowerCase().includes("'typescript'") ||
-          attrs.toLowerCase().includes("'jsx'") ||
-          attrs.toLowerCase().includes("'tsx'")
+          !scriptContent.includes(jsxImports) &&
+          (attrs.toLowerCase().includes('"ts"') ||
+            attrs.toLowerCase().includes('"typescript"') ||
+            attrs.toLowerCase().includes('"jsx"') ||
+            attrs.toLowerCase().includes('"tsx"') ||
+            attrs.toLowerCase().includes("'ts'") ||
+            attrs.toLowerCase().includes("'typescript'") ||
+            attrs.toLowerCase().includes("'jsx'") ||
+            attrs.toLowerCase().includes("'tsx'"))
         ) {
-          scriptContent = 'import { h, Fragment } from "vue";\n' + scriptContent;
+          scriptContent = jsxImports + scriptContent;
         }
         return `<script ${attrs}>${scriptContent}</script>`;
       });
@@ -260,7 +326,7 @@ import { getLanguageByAlias } from '../utils';
       jsxFragmentFactory: 'Fragment',
     };
 
-    content = await compileAllBlocks(content, config, { prepareFn });
+    content = await compileAllBlocks(content, config, { prepareFn, skipCompilers });
 
     // CSS Modules
     let cssModules: Record<string, string> | undefined;
@@ -285,6 +351,15 @@ import { getLanguageByAlias } from '../utils';
       },
     );
     return { content, cssModules };
+  }
+
+  async function compileTypescript(content: string, { config }: { config: Config }) {
+    const exports = exportDefaultImports(content);
+    let compiled = (await compileInCompiler(content + exports, 'tsx', config)).code || content;
+    if (exports) {
+      compiled = compiled.replace(exports, '');
+    }
+    return compiled;
   }
 
   return async (code, { config, language }) => {
