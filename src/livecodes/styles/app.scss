@@ -2213,11 +2213,11 @@ body {
   }
 
   #editor-container {
-    z-index: 100;
+    z-index: 45;
   }
 
   #editor-tools {
-    z-index: 200;
+    z-index: 49; // keep under monaco hover menu
   }
 
   #toolbar {
