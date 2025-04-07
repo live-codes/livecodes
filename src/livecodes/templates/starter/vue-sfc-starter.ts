@@ -27,14 +27,15 @@ import Counter from './Component.vue';
 <script setup lang="tsx">
   import { ref } from 'vue';
 
-  const props = defineProps({
-    name: String
-  })
+  interface Props {
+    name?: string
+  }
+  const props = defineProps<Props>();
   const count = ref(0);
   const align = 'center';
 
   // define inline component
-  function Greeting(props: {name?: string}) {
+  function Greeting(props: Props) {
     return <h1>Hello, { props.name || 'World' }!</h1>
   }
 </script>
