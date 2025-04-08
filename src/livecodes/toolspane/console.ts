@@ -133,6 +133,7 @@ export const createConsole = (
       mode: config.mode,
       editorId: 'console',
       isEmbed,
+      isLite: false,
       isHeadless: false,
       mapLanguage,
       getLanguageExtension,

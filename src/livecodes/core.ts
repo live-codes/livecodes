@@ -478,12 +478,14 @@ const createEditors = async (config: Config) => {
     ...getEditorConfig(config),
     activeEditor: findActiveEditor(),
     isEmbed,
+    isLite,
     isHeadless,
     mapLanguage,
     getLanguageExtension,
     getFormatterConfig: () => getFormatterConfig(getConfig()),
     getFontFamily,
   };
+
   const markupOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getMarkupElement(),
@@ -4087,6 +4089,7 @@ const handleEmbed = () => {
       editorId: 'embed',
       getLanguageExtension,
       isEmbed,
+      isLite,
       isHeadless,
       language: 'html',
       mapLanguage,
@@ -4202,6 +4205,7 @@ const handleCodeToImage = () => {
         readonly: false,
         editorId: 'codeToImage',
         isEmbed: false,
+        isLite,
         isHeadless: false,
         getLanguageExtension,
         mapLanguage,
@@ -4314,6 +4318,7 @@ const handleSnippets = () => {
       editorId: 'snippet',
       getLanguageExtension,
       isEmbed,
+      isLite,
       isHeadless,
       language: 'html',
       value: '',
@@ -4421,6 +4426,7 @@ const handleCustomSettings = () => {
       language: 'json' as Language,
       value: stringify({ imports: {}, ...config.customSettings }, true),
       isEmbed,
+      isLite,
       isHeadless,
       mapLanguage,
       getLanguageExtension,
@@ -4597,6 +4603,7 @@ const handleTestEditor = () => {
       language: editorLanguage,
       value: config.tests?.content || '',
       isEmbed,
+      isLite,
       isHeadless,
       mapLanguage,
       getLanguageExtension,
@@ -5122,7 +5129,6 @@ const configureEmbed = (eventsManager: EventsManager) => {
 const configureLite = () => {
   setConfig({
     ...getConfig(),
-    editor: 'codejar',
     emmet: false,
     tools: {
       enabled: [],
