@@ -27,7 +27,8 @@ const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: Ed
 };
 
 const selectEditor = (options: EditorOptions & { activeEditor?: Config['activeEditor'] }) => {
-  const { editor, mode, editorId, activeEditor, isHeadless } = options;
+  const { editor, mode, editorId, activeEditor, isLite, isHeadless } = options;
+  const auto = isMobile() ? 'codemirror' : 'monaco';
   return (
     (isHeadless
       ? 'fake'
@@ -37,13 +38,13 @@ const selectEditor = (options: EditorOptions & { activeEditor?: Config['activeEd
           ? 'fake'
           : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
             ? editor
-            : mode === 'simple' && editorId === activeEditor
-              ? 'codemirror'
-              : mode === 'codeblock'
-                ? 'codejar'
-                : isMobile()
-                  ? 'codemirror'
-                  : 'monaco') || 'monaco'
+            : editor === 'auto'
+              ? auto
+              : mode === 'simple' && editorId === activeEditor
+                ? 'codemirror'
+                : mode === 'codeblock' || isLite
+                  ? 'codejar'
+                  : auto) || 'monaco'
   );
 };
 

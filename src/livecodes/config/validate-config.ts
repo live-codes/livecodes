@@ -39,7 +39,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const editorModes: Array<Config['editorMode']> = ['vim', 'emacs'];
   const tools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
   const toolsPaneStatus: ToolsPaneStatus[] = ['', 'full', 'closed', 'open', 'none'];
-  const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar'];
+  const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar', 'auto'];
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const zoomLevels: Array<Config['zoom']> = [1, 0.5, 0.25];
 
