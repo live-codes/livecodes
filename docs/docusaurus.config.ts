@@ -35,6 +35,12 @@ const config: Config = {
             const sidebarItems = await defaultSidebarItemsGenerator(args);
             return excludeSidebarItems(sidebarItems);
           },
+          remarkPlugins: [
+            [
+              require('@docusaurus/remark-plugin-npm2yarn'),
+              { sync: true, converters: ['yarn', 'pnpm', 'bun'] },
+            ],
+          ],
         },
         blog: false,
         theme: {
@@ -220,6 +226,7 @@ const config: Config = {
     prism: {
       theme: lightCodeTheme,
       darkTheme: darkCodeTheme,
+      additionalLanguages: ['bash'],
     },
     algolia: {
       appId: 'H9Z2PKYS80',
