@@ -4,7 +4,17 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
-## [v43](https://github.com/live-codes/livecodes/compare/sdk-v0.9.0...0.0.0) (2025-03-15)
+## [sdk-v0.9.1](https://github.com/live-codes/livecodes/compare/v43...sdk-v0.9.1) (2025-04-10)
+
+### Features
+
+- **Config:** add the value `"auto"` to `config.editor` options ([0f62de8](https://github.com/live-codes/livecodes/commit/0f62de8891ca221c035a2a0e8e3cbfcc9133f2a0))
+
+  If set to `auto`, Monaco editor is used on desktop and CodeMirror is used on mobile regardless of other settings. This can be useful in `"simple"` mode.
+
+---
+
+## [v43](https://github.com/live-codes/livecodes/compare/sdk-v0.9.0...v43) (2025-03-15)
 
 ### Highlights for this release
 
