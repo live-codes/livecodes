@@ -1,7 +1,7 @@
 {
   "name": "livecodes",
   "version": "0.0.0",
-  "appVersion": "43",
+  "appVersion": "44",
   "description": "Code Playground That Just Works!",
   "author": "Hatem Hosny",
   "license": "MIT",
@@ -159,24 +159,9 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
-    "setupFiles": [
-      "<rootDir>/.jest/setup.js"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
-      "/src/modules/"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.ts",
-      "!**/build/**",
-      "!**/vendor/**",
-      "!src/modules/**"
-    ],
-    "coverageReporters": [
-      "json",
-      "html",
-      "lcov"
-    ]
+    "setupFiles": ["<rootDir>/.jest/setup.js"],
+    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/src/modules/"],
+    "collectCoverageFrom": ["src/**/*.ts", "!**/build/**", "!**/vendor/**", "!src/modules/**"],
+    "coverageReporters": ["json", "html", "lcov"]
   }
 }
