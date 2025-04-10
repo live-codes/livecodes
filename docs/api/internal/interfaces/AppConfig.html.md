@@ -22,7 +22,7 @@ true
 
 #### Defined in
 
-[models.ts:603](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L603)
+[models.ts:603](https://github.com/live-codes/livecodes/blob/cb27ceefa2a66654546a0dff30f283a321a06684/src/sdk/models.ts#L603)
 
 ***
 
@@ -40,7 +40,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### Defined in
 
-[models.ts:615](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L615)
+[models.ts:615](https://github.com/live-codes/livecodes/blob/cb27ceefa2a66654546a0dff30f283a321a06684/src/sdk/models.ts#L615)
 
 ***
 
@@ -61,7 +61,7 @@ false
 
 #### Defined in
 
-[models.ts:597](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L597)
+[models.ts:597](https://github.com/live-codes/livecodes/blob/cb27ceefa2a66654546a0dff30f283a321a06684/src/sdk/models.ts#L597)
 
 ***
 
@@ -105,7 +105,7 @@ Sets enabled and active tools and status of [tools pane](https://livecodes.io/do
 
 #### Defined in
 
-[models.ts:631](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L631)
+[models.ts:631](https://github.com/live-codes/livecodes/blob/cb27ceefa2a66654546a0dff30f283a321a06684/src/sdk/models.ts#L631)
 
 ***
 
@@ -123,7 +123,7 @@ Sets the [default view](https://livecodes.io/docs/features/default-view) for the
 
 #### Defined in
 
-[models.ts:609](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L609)
+[models.ts:609](https://github.com/live-codes/livecodes/blob/cb27ceefa2a66654546a0dff30f283a321a06684/src/sdk/models.ts#L609)
 
 ***
 
@@ -135,4 +135,4 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[models.ts:640](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L640)
+[models.ts:640](https://github.com/live-codes/livecodes/blob/cb27ceefa2a66654546a0dff30f283a321a06684/src/sdk/models.ts#L640)
