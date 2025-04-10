@@ -8,7 +8,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-- **Config:** add the value `"auto"` to `config.editor` options ([0f62de8](https://github.com/live-codes/livecodes/commit/0f62de8891ca221c035a2a0e8e3cbfcc9133f2a0))
+- **Editor:** allow folding lines and regions ([984c913](https://github.com/live-codes/livecodes/commit/984c913bcebcc8d0a2f872df1076311d039e65a1))
+
+  A new config option `foldRegions` was added. When set to `true`, regions marked by `#region` and `#endregion` comments are folded when the project is loaded.
+
+  In addition, editor configurations (`config.markup`, `config.style`, `config.script`) have a new property `foldLines` that accepts an array of objects (e.g. `[{ from: 1, to: 5 }]`) that indicates which lines to fold. This can be useful for less relevant code in embedded playgrounds.
+
+* **Config:** add the value `"auto"` to `config.editor` options ([0f62de8](https://github.com/live-codes/livecodes/commit/0f62de8891ca221c035a2a0e8e3cbfcc9133f2a0))
 
   If set to `auto`, Monaco editor is used on desktop and CodeMirror is used on mobile regardless of other settings. This can be useful in `"simple"` mode.
 
