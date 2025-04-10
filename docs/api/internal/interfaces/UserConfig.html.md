@@ -18,7 +18,7 @@ Sets the app UI language used.
 
 #### Defined in
 
-[models.ts:707](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L707)
+[models.ts:707](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L707)
 
 ***
 
@@ -37,7 +37,7 @@ false
 
 #### Defined in
 
-[models.ts:656](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L656)
+[models.ts:656](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L656)
 
 ***
 
@@ -55,7 +55,7 @@ false
 
 #### Defined in
 
-[models.ts:662](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L662)
+[models.ts:662](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L662)
 
 ***
 
@@ -74,7 +74,7 @@ true
 
 #### Defined in
 
-[models.ts:649](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L649)
+[models.ts:649](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L649)
 
 ***
 
@@ -96,7 +96,7 @@ true
 
 #### Defined in
 
-[models.ts:791](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L791)
+[models.ts:801](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L801)
 
 ***
 
@@ -116,18 +116,21 @@ and/or the project is saved (if [`autosave`](https://livecodes.io/docs/configura
 
 #### Defined in
 
-[models.ts:670](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L670)
+[models.ts:670](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L670)
 
 ***
 
 ### editor
 
-> **editor**: `undefined` \| `"monaco"` \| `"codemirror"` \| `"codejar"`
+> **editor**: `undefined` \| `"auto"` \| `"monaco"` \| `"codemirror"` \| `"codejar"`
 
 Selects the [code editor](https://livecodes.io/docs/features/editor-settings#code-editor) to use.
 
-If `undefined` (the default), Monaco editor is used on desktop, CodeMirror is used on mobile
-and CodeJar is used in codeblocks, in lite mode and in readonly playgrounds.
+If `undefined` (the default), Monaco editor is used on desktop,
+CodeMirror is used on mobile and in `simple` mode,
+while CodeJar is used in `codeblock` mode, in `lite` mode and in `readonly` playgrounds.
+
+If set to `auto`, Monaco editor is used on desktop and CodeMirror is used on mobile regardless of other settings.
 
 #### Default
 
@@ -141,7 +144,7 @@ undefined
 
 #### Defined in
 
-[models.ts:718](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L718)
+[models.ts:722](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L722)
 
 ***
 
@@ -157,7 +160,7 @@ Sets [editor mode](https://livecodes.io/docs/features/editor-settings#editor-mod
 
 #### Defined in
 
-[models.ts:802](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L802)
+[models.ts:812](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L812)
 
 ***
 
@@ -197,7 +200,7 @@ See docs for [editor themes](https://livecodes.io/docs/configuration/configurati
 
 #### Defined in
 
-[models.ts:744](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L744)
+[models.ts:748](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L748)
 
 ***
 
@@ -219,7 +222,7 @@ true
 
 #### Defined in
 
-[models.ts:797](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L797)
+[models.ts:807](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L807)
 
 ***
 
@@ -241,7 +244,29 @@ false
 
 #### Defined in
 
-[models.ts:808](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L808)
+[models.ts:818](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L818)
+
+***
+
+### foldRegions
+
+> **foldRegions**: `boolean`
+
+When set to `true`, regions marked by `#region` and `#endregion` comments are folded when the project is loaded.
+
+#### Default
+
+```ts
+false
+```
+
+#### Inherited from
+
+[`EditorConfig`](EditorConfig.md).[`foldRegions`](EditorConfig.md#foldregions)
+
+#### Defined in
+
+[models.ts:795](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L795)
 
 ***
 
@@ -257,7 +282,7 @@ Sets the [code editor](https://livecodes.io/docs/features/editor-settings) font 
 
 #### Defined in
 
-[models.ts:749](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L749)
+[models.ts:753](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L753)
 
 ***
 
@@ -281,7 +306,7 @@ undefined
 
 #### Defined in
 
-[models.ts:757](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L757)
+[models.ts:761](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L761)
 
 ***
 
@@ -299,7 +324,7 @@ false
 
 #### Defined in
 
-[models.ts:676](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L676)
+[models.ts:676](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L676)
 
 ***
 
@@ -320,7 +345,7 @@ otherwise horizontal.
 
 #### Defined in
 
-[models.ts:685](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L685)
+[models.ts:685](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L685)
 
 ***
 
@@ -342,7 +367,7 @@ true
 
 #### Defined in
 
-[models.ts:779](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L779)
+[models.ts:783](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L783)
 
 ***
 
@@ -360,7 +385,7 @@ true
 
 #### Defined in
 
-[models.ts:691](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L691)
+[models.ts:691](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L691)
 
 ***
 
@@ -382,7 +407,7 @@ true
 
 #### Defined in
 
-[models.ts:828](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L828)
+[models.ts:838](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L838)
 
 ***
 
@@ -400,7 +425,7 @@ false
 
 #### Defined in
 
-[models.ts:697](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L697)
+[models.ts:697](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L697)
 
 ***
 
@@ -422,7 +447,7 @@ false
 
 #### Defined in
 
-[models.ts:833](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L833)
+[models.ts:843](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L843)
 
 ***
 
@@ -446,7 +471,7 @@ Also used in [code formatting](https://livecodes.io/docs/features/code-format).
 
 #### Defined in
 
-[models.ts:773](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L773)
+[models.ts:777](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L777)
 
 ***
 
@@ -468,7 +493,7 @@ Sets the app [theme](https://livecodes.io/docs/features/themes) to light/dark mo
 
 #### Defined in
 
-[models.ts:724](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L724)
+[models.ts:728](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L728)
 
 ***
 
@@ -491,7 +516,7 @@ undefined
 
 #### Defined in
 
-[models.ts:731](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L731)
+[models.ts:735](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L735)
 
 ***
 
@@ -513,7 +538,7 @@ true
 
 #### Defined in
 
-[models.ts:839](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L839)
+[models.ts:849](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L849)
 
 ***
 
@@ -537,7 +562,7 @@ false
 
 #### Defined in
 
-[models.ts:765](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L765)
+[models.ts:769](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L769)
 
 ***
 
@@ -549,7 +574,7 @@ If `true`, the [welcome screen](https://livecodes.io/docs/features/welcome) is d
 
 #### Defined in
 
-[models.ts:702](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L702)
+[models.ts:702](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L702)
 
 ***
 
@@ -571,4 +596,4 @@ false
 
 #### Defined in
 
-[models.ts:785](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L785)
+[models.ts:789](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L789)

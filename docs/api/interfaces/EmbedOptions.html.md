@@ -23,7 +23,7 @@ If supplied with an invalid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:314](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L314)
+[models.ts:314](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L314)
 
 ***
 
@@ -43,7 +43,7 @@ If supplied and is not an object or a valid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:346](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L346)
+[models.ts:346](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L346)
 
 ***
 
@@ -61,7 +61,7 @@ false
 
 #### Defined in
 
-[models.ts:352](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L352)
+[models.ts:352](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L352)
 
 ***
 
@@ -73,7 +73,7 @@ A resource to [import](https://livecodes.io/docs/features/import) (from any of t
 
 #### Defined in
 
-[models.ts:357](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L357)
+[models.ts:357](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L357)
 
 ***
 
@@ -95,7 +95,7 @@ false
 
 #### Defined in
 
-[models.ts:367](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L367)
+[models.ts:367](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L367)
 
 ***
 
@@ -117,7 +117,7 @@ Sets how the playground loads:
 
 #### Defined in
 
-[models.ts:377](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L377)
+[models.ts:377](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L377)
 
 ***
 
@@ -1520,12 +1520,15 @@ and [result page](https://livecodes.io/docs/features/result) description meta ta
 
 #### editor?
 
-> `optional` **editor**: `"monaco"` \| `"codemirror"` \| `"codejar"`
+> `optional` **editor**: `"auto"` \| `"monaco"` \| `"codemirror"` \| `"codejar"`
 
 Selects the [code editor](https://livecodes.io/docs/features/editor-settings#code-editor) to use.
 
-If `undefined` (the default), Monaco editor is used on desktop, CodeMirror is used on mobile
-and CodeJar is used in codeblocks, in lite mode and in readonly playgrounds.
+If `undefined` (the default), Monaco editor is used on desktop,
+CodeMirror is used on mobile and in `simple` mode,
+while CodeJar is used in `codeblock` mode, in `lite` mode and in `readonly` playgrounds.
+
+If set to `auto`, Monaco editor is used on desktop and CodeMirror is used on mobile regardless of other settings.
 
 ##### Default
 
@@ -1656,6 +1659,18 @@ false
 #### fnl-selector
 
 > **fnl-selector**: `undefined` \| `string`
+
+#### foldRegions?
+
+> `optional` **foldRegions**: `boolean`
+
+When set to `true`, regions marked by `#region` and `#endregion` comments are folded when the project is loaded.
+
+##### Default
+
+```ts
+false
+```
 
 #### fontFamily?
 
@@ -2133,6 +2148,20 @@ A URL to load `content` from. It has to be a valid URL that is CORS-enabled.
 
 The URL is only fetched if `content` property had no value.
 
+#### markup.foldedLines?
+
+> `optional` **foldedLines**: `object`[]
+
+Lines that get folded when the editor loads.
+
+This can be used for less relevant content.
+
+##### Example
+
+```ts
+[{ from: 5, to: 8 }, { from: 15, to: 20 }]
+```
+
 #### markup.hiddenContent?
 
 > `optional` **hiddenContent**: `string`
@@ -2313,7 +2342,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### params?
 
-> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 461 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
+> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 462 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
 
 An object that represents the [URL Query parameters](https://livecodes.io/docs/configuration/query-params), that can be used to configure the playground.
 
@@ -2909,6 +2938,20 @@ A URL to load `content` from. It has to be a valid URL that is CORS-enabled.
 
 The URL is only fetched if `content` property had no value.
 
+#### script.foldedLines?
+
+> `optional` **foldedLines**: `object`[]
+
+Lines that get folded when the editor loads.
+
+This can be used for less relevant content.
+
+##### Example
+
+```ts
+[{ from: 5, to: 8 }, { from: 15, to: 20 }]
+```
+
 #### script.hiddenContent?
 
 > `optional` **hiddenContent**: `string`
@@ -3137,6 +3180,20 @@ A URL to load `content` from. It has to be a valid URL that is CORS-enabled.
 
 The URL is only fetched if `content` property had no value.
 
+#### style.foldedLines?
+
+> `optional` **foldedLines**: `object`[]
+
+Lines that get folded when the editor loads.
+
+This can be used for less relevant content.
+
+##### Example
+
+```ts
+[{ from: 5, to: 8 }, { from: 15, to: 20 }]
+```
+
 #### style.hiddenContent?
 
 > `optional` **hiddenContent**: `string`
@@ -3294,7 +3351,7 @@ Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-a
 
 #### tests?
 
-> `optional` **tests**: (\{ language?: Language \| undefined; content?: string \| undefined; contentUrl?: string \| undefined; hiddenContent?: string \| undefined; hiddenContentUrl?: string \| undefined; ... 4 more ...; position?: EditorPosition \| undefined; \} \| undefined) & ("" \| ... 4 more ... \| "full")
+> `optional` **tests**: (\{ language?: Language \| undefined; content?: string \| undefined; contentUrl?: string \| undefined; hiddenContent?: string \| undefined; hiddenContentUrl?: string \| undefined; ... 5 more ...; position?: EditorPosition \| undefined; \} \| undefined) & ("" \| ... 4 more ... \| "full")
 
 Configures the [language](https://livecodes.io/docs/features/tests#supported-languages)
 and content of [tests](https://livecodes.io/docs/features/tests).
@@ -3633,7 +3690,7 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[models.ts:338](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L338)
+[models.ts:338](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L338)
 
 ***
 
@@ -3646,7 +3703,7 @@ Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-a
 
 #### Defined in
 
-[models.ts:383](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L383)
+[models.ts:383](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L383)
 
 ***
 
@@ -3671,4 +3728,4 @@ When set to `"headless"`, the playground is loaded in [headless mode](https://li
 
 #### Defined in
 
-[models.ts:396](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L396)
+[models.ts:396](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L396)

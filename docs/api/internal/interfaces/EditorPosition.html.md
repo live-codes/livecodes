@@ -8,7 +8,7 @@
 
 #### Defined in
 
-[models.ts:1141](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L1141)
+[models.ts:1159](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L1159)
 
 ***
 
@@ -18,4 +18,4 @@
 
 #### Defined in
 
-[models.ts:1140](https://github.com/live-codes/livecodes/blob/74dabade5b38ddc0aa3c7fcab9dac740d9af1548/src/sdk/models.ts#L1140)
+[models.ts:1158](https://github.com/live-codes/livecodes/blob/3629bdf11c8b4252ba01b0fee8642e1c5812cc70/src/sdk/models.ts#L1158)

@@ -684,11 +684,15 @@ declare module 'livecodes/models' {
             /**
                 * Selects the [code editor](https://livecodes.io/docs/features/editor-settings#code-editor) to use.
                 *
-                * If `undefined` (the default), Monaco editor is used on desktop, CodeMirror is used on mobile
-                * and CodeJar is used in codeblocks, in lite mode and in readonly playgrounds.
+                * If `undefined` (the default), Monaco editor is used on desktop,
+                * CodeMirror is used on mobile and in `simple` mode,
+                * while CodeJar is used in `codeblock` mode, in `lite` mode and in `readonly` playgrounds.
+                *
+                * If set to `auto`, Monaco editor is used on desktop and CodeMirror is used on mobile regardless of other settings.
+                *
                 * @default undefined
                 */
-            editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
+            editor: 'monaco' | 'codemirror' | 'codejar' | 'auto' | undefined;
             /**
                 * Sets the app [theme](https://livecodes.io/docs/features/themes) to light/dark mode.
                 * @default "dark"
@@ -747,6 +751,11 @@ declare module 'livecodes/models' {
                 * @default false
                 */
             wordWrap: boolean;
+            /**
+                * When set to `true`, regions marked by `#region` and `#endregion` comments are folded when the project is loaded.
+                * @default false
+                */
+            foldRegions: boolean;
             /**
                 * Use auto-complete to close brackets and quotes.
                 * @default true
@@ -862,6 +871,16 @@ declare module 'livecodes/models' {
                 * The URL is only fetched if `hiddenContent` property had no value.
                 */
             hiddenContentUrl?: string;
+            /**
+                * Lines that get folded when the editor loads.
+                *
+                * This can be used for less relevant content.
+                * @example [{ from: 5, to: 8 }, { from: 15, to: 20 }]
+                */
+            foldedLines?: Array<{
+                    from: number;
+                    to: number;
+            }>;
             /**
                 * If set, this is used as the title of the editor in the UI,
                 * overriding the default title set to the language name
@@ -1095,6 +1114,11 @@ declare module 'livecodes/models' {
             focus: () => void;
             getPosition: () => EditorPosition;
             setPosition: (position: EditorPosition) => void;
+            foldRegions?: () => void | Promise<void>;
+            foldLines?: (linesToFold: Array<{
+                    from: number;
+                    to: number;
+            }>) => void | Promise<void>;
             layout?: () => void;
             addTypes?: (lib: EditorLibrary, force?: boolean) => any;
             onContentChanged: (callback: () => void) => void;
@@ -1132,6 +1156,7 @@ declare module 'livecodes/models' {
             editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'editorSettings' | 'codeToImage' | 'tests' | 'embed' | 'snippet' | 'add-snippet';
             theme: Theme;
             isEmbed: boolean;
+            isLite: boolean;
             isHeadless: boolean;
             getLanguageExtension: (alias: string) => Language | undefined;
             mapLanguage: (language: Language) => Language;

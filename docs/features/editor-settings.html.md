@@ -46,6 +46,7 @@ These include:
 - [Line numbers](../configuration/configuration-object.html.md)#linenumbers)
 - [Word-wrap](../configuration/configuration-object.html.md)#wordwrap)
 - [Auto-close brackets and quotes](../configuration/configuration-object.html.md)#closebrackets)
+- [Fold (collapse) regions](../configuration/configuration-object.html.md)#foldregions)
 
 ### Emmet
 

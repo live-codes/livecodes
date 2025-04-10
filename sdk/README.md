@@ -22,6 +22,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 [![Lokalise: UI languages](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/languages.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
 [![license - MIT](https://img.shields.io/github/license/live-codes/livecodes)](https://github.com/live-codes/livecodes/blob/develop/LICENSE)
 [![LiveCodes: GitHub repo](https://img.shields.io/github/stars/live-codes/livecodes?style=flat&logo=github)](https://github.com/live-codes/livecodes)
+[![LiveCodes: GitHub repo](https://img.shields.io/github/forks/live-codes/livecodes?style=flat&logo=github)](https://github.com/live-codes/livecodes)
 [![Follow us on X (formerly Twitter)](https://img.shields.io/badge/Follow%20@livecodes__io-575757?logo=x)](https://x.com/livecodes_io)
 
 [Try it now on livecodes.io](https://livecodes.io)

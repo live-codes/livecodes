@@ -27,8 +27,8 @@ LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.html.m
 
 Install from npm.
 
-```shell
-npm i livecodes
+```bash npm2yarn
+npm install livecodes
 ```
 
 then you can use it like that:

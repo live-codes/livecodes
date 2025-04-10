@@ -27,8 +27,8 @@ This is an example of an editable embedded playground using the SDK.
 This is a single npm package for the SDK which supports JavaScript/TypeScript, React, Vue and Svelte.
 Install the library from npm:
 
-```sh
-npm i livecodes
+```bash npm2yarn
+npm install livecodes
 ```
 
 then it can be used like that:
@@ -112,6 +112,6 @@ A demo page that shows the usage of the SDK can be [found here](https://live-cod
 
 Or edit the SDK playground in LiveCodes. How meta! :)
 
-<LiveCodes import="id/nqdxpnj6uvg" view="result" height="80vh" showCode={false} />
+<LiveCodes import="id/8k6vbxitvb9" config={{ view: 'result' }} height="80vh" showCode={false} />
 
 P.S. You may want to use the "Full Screen" button!

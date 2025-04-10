@@ -659,11 +659,15 @@ declare module "sdk/models" {
         /**
          * Selects the [code editor](https://livecodes.io/docs/features/editor-settings#code-editor) to use.
          *
-         * If `undefined` (the default), Monaco editor is used on desktop, CodeMirror is used on mobile
-         * and CodeJar is used in codeblocks, in lite mode and in readonly playgrounds.
+         * If `undefined` (the default), Monaco editor is used on desktop,
+         * CodeMirror is used on mobile and in `simple` mode,
+         * while CodeJar is used in `codeblock` mode, in `lite` mode and in `readonly` playgrounds.
+         *
+         * If set to `auto`, Monaco editor is used on desktop and CodeMirror is used on mobile regardless of other settings.
+         *
          * @default undefined
          */
-        editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
+        editor: 'monaco' | 'codemirror' | 'codejar' | 'auto' | undefined;
         /**
          * Sets the app [theme](https://livecodes.io/docs/features/themes) to light/dark mode.
          * @default "dark"
@@ -722,6 +726,11 @@ declare module "sdk/models" {
          * @default false
          */
         wordWrap: boolean;
+        /**
+         * When set to `true`, regions marked by `#region` and `#endregion` comments are folded when the project is loaded.
+         * @default false
+         */
+        foldRegions: boolean;
         /**
          * Use auto-complete to close brackets and quotes.
          * @default true
@@ -837,6 +846,16 @@ declare module "sdk/models" {
          * The URL is only fetched if `hiddenContent` property had no value.
          */
         hiddenContentUrl?: string;
+        /**
+         * Lines that get folded when the editor loads.
+         *
+         * This can be used for less relevant content.
+         * @example [{ from: 5, to: 8 }, { from: 15, to: 20 }]
+         */
+        foldedLines?: Array<{
+            from: number;
+            to: number;
+        }>;
         /**
          * If set, this is used as the title of the editor in the UI,
          * overriding the default title set to the language name
@@ -1070,6 +1089,11 @@ declare module "sdk/models" {
         focus: () => void;
         getPosition: () => EditorPosition;
         setPosition: (position: EditorPosition) => void;
+        foldRegions?: () => void | Promise<void>;
+        foldLines?: (linesToFold: Array<{
+            from: number;
+            to: number;
+        }>) => void | Promise<void>;
         layout?: () => void;
         addTypes?: (lib: EditorLibrary, force?: boolean) => any;
         onContentChanged: (callback: () => void) => void;
@@ -1107,6 +1131,7 @@ declare module "sdk/models" {
         editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'editorSettings' | 'codeToImage' | 'tests' | 'embed' | 'snippet' | 'add-snippet';
         theme: Theme;
         isEmbed: boolean;
+        isLite: boolean;
         isHeadless: boolean;
         getLanguageExtension: (alias: string) => Language | undefined;
         mapLanguage: (language: Language) => Language;
@@ -1495,6 +1520,7 @@ declare module "livecodes/vendors" {
     export const monacoEmacsUrl: string;
     export const monacoThemesBaseUrl: string;
     export const monacoVimUrl: string;
+    export const monacoVolarUrl: string;
     export const mustacheUrl: string;
     export const ninjaKeysUrl: string;
     export const nomnomlCdnUrl: string;
@@ -1838,13 +1864,105 @@ declare module "livecodes/languages/markdown/lang-markdown" {
 declare module "livecodes/languages/markdown/index" {
     export * from "livecodes/languages/markdown/lang-markdown";
 }
+declare module "livecodes/compiler/models" {
+    import type { Language, Config, Processor, CompileOptions, CompileResult } from "livecodes/models";
+    export interface Compiler {
+        load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
+        compile: (content: string, language: Language, config: Config, options: CompileOptions) => Promise<CompileResult>;
+        clearCache: () => void;
+        typescriptFeatures: (options: {
+            feature: TypescriptFeatures;
+            payload: any;
+        }) => Promise<unknown>;
+        isFake: boolean;
+    }
+    export type LanguageOrProcessor = Language | Processor;
+    export type TypescriptFeatures = 'getOptionDeclarations' | 'ata' | 'initCodeMirrorTS' | 'changeCodeMirrorLanguage' | 'addTypes';
+    export interface CompilerMessageEvent extends MessageEvent {
+        data: CompilerMessage;
+    }
+    export type CompilerMessage = {
+        from?: 'compiler';
+    } & (InitMessage | InitSuccessMessage | LoadMessage | LoadedMessage | LoadFailedMessage | CompileMessage | CompileInCompilerMessage | CompiledMessage | CompileFailedMessage | TypeScriptMessage);
+    export interface InitMessage {
+        type: 'init';
+        payload: Config;
+        baseUrl: string;
+        scriptUrl: string;
+    }
+    export interface InitSuccessMessage {
+        type: 'init-success';
+    }
+    export interface LoadMessage {
+        type: 'load';
+        payload: {
+            language: LanguageOrProcessor;
+            config: Config;
+        };
+    }
+    export interface LoadedMessage {
+        type: 'loaded';
+        payload: LanguageOrProcessor;
+    }
+    export interface LoadFailedMessage {
+        type: 'load-failed';
+        payload: LanguageOrProcessor;
+    }
+    export interface CompileMessage {
+        type: 'compile';
+        payload: {
+            content: string;
+            language: LanguageOrProcessor;
+            config: Config;
+            options: any;
+        };
+    }
+    export interface CompileInCompilerMessage {
+        type: 'compileInCompiler';
+        payload: {
+            content: string;
+            language: LanguageOrProcessor;
+            config: Config;
+            options: any;
+        };
+    }
+    export interface CompiledMessage {
+        type: 'compiled';
+        trigger: 'compile' | 'compileInCompiler';
+        payload: {
+            content: string;
+            language: LanguageOrProcessor;
+            compiled: string | CompileResult;
+            config: Config;
+            options: any;
+        };
+    }
+    export interface CompileFailedMessage {
+        type: 'compile-failed';
+        trigger: 'compile' | 'compileInCompiler';
+        payload: {
+            content: string;
+            language: LanguageOrProcessor;
+            error: string;
+        };
+    }
+    export interface TypeScriptMessage {
+        type: 'ts-features';
+        payload: {
+            id: string;
+            feature: TypescriptFeatures;
+            data: any;
+        };
+    }
+}
 declare module "livecodes/compiler/utils" {
     import type { CompileResult, CompilerFunction } from "livecodes/models";
     export const getCompileResult: (result: Awaited<ReturnType<CompilerFunction>>) => CompileResult;
 }
 declare module "livecodes/compiler/compile-in-compiler" {
-    import type { Config, Language, CompileOptions, CompileResult } from "livecodes/models";
-    export const compileInCompiler: (content: string, language: Language | undefined, config: Config, options?: CompileOptions, worker?: Worker) => Promise<CompileResult>;
+    import type { Config, CompileOptions, CompileResult } from "livecodes/models";
+    import type { LanguageOrProcessor } from "livecodes/compiler/models";
+    export const compileInCompiler: (content: string, language: LanguageOrProcessor | undefined, config: Config, options?: CompileOptions, worker?: Worker) => Promise<CompileResult>;
 }
 declare module "livecodes/languages/mdx/lang-mdx" {
     import type { CompilerFunction, LanguageSpecs } from "livecodes/models";
@@ -2290,13 +2408,70 @@ declare module "livecodes/languages/eta/lang-eta" {
 declare module "livecodes/languages/eta/index" {
     export * from "livecodes/languages/eta/lang-eta";
 }
+declare module "livecodes/compiler/import-map" {
+    import type { CompileInfo, Config, Language } from "livecodes/models";
+    export const importsPattern: RegExp;
+    export const dynamicImportsPattern: RegExp;
+    export const getImports: (code: string, removeSpecifier?: boolean) => string[];
+    export const isBare: (mod: string) => boolean;
+    export const findImportMapKey: (mod: string, importmap: Record<string, string>) => string | undefined;
+    export const createImportMap: (code: string, config: Config, { fallbackToCdn, external }?: {
+        fallbackToCdn?: boolean;
+        external?: string;
+    }) => {
+        [x: string]: string;
+    };
+    export const hasImports: (code: string) => boolean;
+    export const hasExports: (code: string) => boolean;
+    export const hasDefaultExport: (code: string) => boolean;
+    export const hasUrlImportsOrExports: (code: string) => boolean;
+    export const hasAwait: (code: string) => boolean;
+    export const isModuleScript: (code: string) => boolean;
+    export const replaceImports: (code: string, config: Config, { importMap, external }?: {
+        importMap?: Record<string, string>;
+        external?: string;
+    }) => string;
+    export const isScriptImport: (mod: string) => boolean;
+    export const replaceSFCImports: (code: string, { filename, config, isSfc, getLanguageByAlias, compileSFC, external, }: {
+        config: Config;
+        filename: string;
+        isSfc: (mod: string) => boolean;
+        getLanguageByAlias: (alias: string) => Language | undefined;
+        compileSFC: (code: string, options: {
+            filename: string;
+            config: Config;
+        }) => Promise<string>;
+        external?: string;
+    }) => Promise<string>;
+    export const removeImports: (code: string, mods: string[]) => string;
+    export const styleimportsPattern: RegExp;
+    export const hasStyleImports: (code: string) => boolean;
+    export const replaceStyleImports: (code: string, exceptions?: string[] | RegExp[]) => string;
+    export const cjs2esm: (code: string) => string;
+    export const createCSSModulesImportMap: (compiledScript: string, compiledStyle: string, cssTokens?: CompileInfo['cssModules'], extension?: Language) => {
+        [x: string]: string;
+    };
+}
 declare module "livecodes/compiler/compile-blocks" {
     import type { Config } from "livecodes/models";
+    import type { LanguageOrProcessor } from "livecodes/compiler/models";
     interface CompileBlocksOptions {
         removeEnclosingTemplate?: boolean;
         languageAttribute?: 'lang' | 'type';
         prepareFn?: (code: string, config: Config) => Promise<string>;
+        skipCompilers?: LanguageOrProcessor[];
     }
+    /**
+     * This is a workaround to prevent typescript removing default imports (components)
+     * that are not used in the typescript code but are used in the template
+     * by exporting them
+     * e.g.
+     * <script setup>
+     * import Counter from './App.vue';
+     * </script>
+     * <template><Counter /></template>
+     */
+    export const exportDefaultImports: (code: string) => string;
     export const fetchBlocksSource: (code: string, blockElement: 'template' | 'style' | 'script') => Promise<string>;
     export const compileBlocks: (code: string, blockElement: 'template' | 'style' | 'script', config: Config, options?: CompileBlocksOptions) => Promise<string>;
     export const compileAllBlocks: (code: string, config: Config, options?: CompileBlocksOptions) => Promise<string>;
@@ -2592,50 +2767,6 @@ declare module "livecodes/services/share" {
     }
     export const shareService: ShareService;
 }
-declare module "livecodes/compiler/import-map" {
-    import type { CompileInfo, Config, Language } from "livecodes/models";
-    export const importsPattern: RegExp;
-    export const dynamicImportsPattern: RegExp;
-    export const getImports: (code: string, removeSpecifier?: boolean) => string[];
-    export const isBare: (mod: string) => boolean;
-    export const findImportMapKey: (mod: string, importmap: Record<string, string>) => string | undefined;
-    export const createImportMap: (code: string, config: Config, { fallbackToCdn, external }?: {
-        fallbackToCdn?: boolean;
-        external?: string;
-    }) => {
-        [x: string]: string;
-    };
-    export const hasImports: (code: string) => boolean;
-    export const hasExports: (code: string) => boolean;
-    export const hasDefaultExport: (code: string) => boolean;
-    export const hasUrlImportsOrExports: (code: string) => boolean;
-    export const hasAwait: (code: string) => boolean;
-    export const isModuleScript: (code: string) => boolean;
-    export const replaceImports: (code: string, config: Config, { importMap, external }?: {
-        importMap?: Record<string, string>;
-        external?: string;
-    }) => string;
-    export const isScriptImport: (mod: string) => boolean;
-    export const replaceSFCImports: (code: string, { filename, config, sfcExtension, getLanguageByAlias, compileSFC, external, }: {
-        config: Config;
-        filename: string;
-        sfcExtension: string;
-        getLanguageByAlias: (alias: string) => Language | undefined;
-        compileSFC: (code: string, options: {
-            filename: string;
-            config: Config;
-        }) => Promise<string>;
-        external?: string;
-    }) => Promise<string>;
-    export const removeImports: (code: string, mods: string[]) => string;
-    export const styleimportsPattern: RegExp;
-    export const hasStyleImports: (code: string) => boolean;
-    export const replaceStyleImports: (code: string, exceptions?: string[] | RegExp[]) => string;
-    export const cjs2esm: (code: string) => string;
-    export const createCSSModulesImportMap: (compiledScript: string, compiledStyle: string, cssTokens?: CompileInfo['cssModules'], extension?: Language) => {
-        [x: string]: string;
-    };
-}
 declare module "livecodes/services/utils" {
     export const removeCDNPrefix: (url: string) => string;
     export const removeSpecifier: (type: string) => string;
@@ -2659,97 +2790,6 @@ declare module "livecodes/services/index" {
 }
 declare module "livecodes/compiler/compiler-sandbox" {
     export const createCompilerSandbox: (sandboxUrl: string) => Promise<Window>;
-}
-declare module "livecodes/compiler/models" {
-    import type { Language, Config, Processor, CompileOptions, CompileResult } from "livecodes/models";
-    export interface Compiler {
-        load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
-        compile: (content: string, language: Language, config: Config, options: CompileOptions) => Promise<CompileResult>;
-        clearCache: () => void;
-        typescriptFeatures: (options: {
-            feature: TypescriptFeatures;
-            payload: any;
-        }) => Promise<unknown>;
-        isFake: boolean;
-    }
-    export type LanguageOrProcessor = Language | Processor;
-    export type TypescriptFeatures = 'getOptionDeclarations' | 'ata' | 'initCodeMirrorTS' | 'changeCodeMirrorLanguage' | 'addTypes';
-    export interface CompilerMessageEvent extends MessageEvent {
-        data: CompilerMessage;
-    }
-    export type CompilerMessage = {
-        from?: 'compiler';
-    } & (InitMessage | InitSuccessMessage | LoadMessage | LoadedMessage | LoadFailedMessage | CompileMessage | CompileInCompilerMessage | CompiledMessage | CompileFailedMessage | TypeScriptMessage);
-    export interface InitMessage {
-        type: 'init';
-        payload: Config;
-        baseUrl: string;
-        scriptUrl: string;
-    }
-    export interface InitSuccessMessage {
-        type: 'init-success';
-    }
-    export interface LoadMessage {
-        type: 'load';
-        payload: {
-            language: LanguageOrProcessor;
-            config: Config;
-        };
-    }
-    export interface LoadedMessage {
-        type: 'loaded';
-        payload: LanguageOrProcessor;
-    }
-    export interface LoadFailedMessage {
-        type: 'load-failed';
-        payload: LanguageOrProcessor;
-    }
-    export interface CompileMessage {
-        type: 'compile';
-        payload: {
-            content: string;
-            language: LanguageOrProcessor;
-            config: Config;
-            options: any;
-        };
-    }
-    export interface CompileInCompilerMessage {
-        type: 'compileInCompiler';
-        payload: {
-            content: string;
-            language: LanguageOrProcessor;
-            config: Config;
-            options: any;
-        };
-    }
-    export interface CompiledMessage {
-        type: 'compiled';
-        trigger: 'compile' | 'compileInCompiler';
-        payload: {
-            content: string;
-            language: LanguageOrProcessor;
-            compiled: string | CompileResult;
-            config: Config;
-            options: any;
-        };
-    }
-    export interface CompileFailedMessage {
-        type: 'compile-failed';
-        trigger: 'compile' | 'compileInCompiler';
-        payload: {
-            content: string;
-            language: LanguageOrProcessor;
-            error: string;
-        };
-    }
-    export interface TypeScriptMessage {
-        type: 'ts-features';
-        payload: {
-            id: string;
-            feature: TypescriptFeatures;
-            data: any;
-        };
-    }
 }
 declare module "livecodes/compiler/create-compiler" {
     import type { Config } from "livecodes/models";
@@ -4634,6 +4674,7 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly heading: "Enable AI Code Assistant";
                 readonly note: "Powered by <1><2></2></1>";
             };
+            readonly foldRegions: "Fold (collapse) regions *";
             readonly fontFamily: "Font Family";
             readonly fontSize: "Font Size";
             readonly format: "Format";
@@ -5725,13 +5766,14 @@ declare module "livecodes/UI/theme-colors" {
     }];
 }
 declare module "livecodes/UI/command-menu-actions" {
-    import type { Config, INinjaAction, TemplateName } from "livecodes/models";
+    import type { Config, INinjaAction, Screen, TemplateName } from "livecodes/models";
     export const getCommandMenuActions: ({ deps, }: {
         deps: {
             getConfig: () => Config;
             loadStarterTemplate: (templateName: TemplateName) => Promise<void>;
             changeEditorSettings: (config: Partial<Config>) => void;
             changeLayout: (layout: Config['layout']) => void;
+            showScreen: (screen: Screen['screen'], options?: any) => Promise<void>;
         };
     }) => {
         actions: INinjaAction[];
