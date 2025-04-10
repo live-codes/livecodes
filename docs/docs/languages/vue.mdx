@@ -257,7 +257,7 @@ import Counter from 'https://raw.githubusercontent.com/hatemhosny/simple-vue-cou
 
 Please note that extensionless imports are not supported. However, you may customize the import URL using import maps as described in [module resolution](../features/module-resolution.mdx#custom-module-resolution) section.
 
-This is an example of importing a Vue SFC, which in turn imports other Vue SFCs and extensionless imports, that are customized using importmap:
+Example:
 
 ```json title="Custom Settings"
 {
@@ -298,7 +298,62 @@ import App from 'https://raw.githubusercontent.com/hatemhosny/vue3-samples/maste
   </a>
 </div>
 
-<LiveCodes config={importExternalWithImportMap}></LiveCodes>
+### Importing Data URLs
+
+You may want to import other SFCs without having to host them on a server.
+These components can be encoded as [data URLs](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Schemes/data) and imported as usual.
+
+The data URL has to start with `data:text/vue` to be recognized as a Vue SFC. Any imports in the imported URLs (even if they are also data URLs) are resolved and compiled recursively.
+
+:::info
+
+The code in any code editor can be encoded as data URL from the LiveCodes UI using the "Copy code as data URL" button below the code editor.
+
+:::
+
+This is the previous demo that uses data URLs (with nested imports) instead of external URLs:
+
+export const importDataUrls = {
+  activeEditor: 'script',
+  script: {
+    language: 'vue',
+    content: `<script setup>
+import Counter from 'data:text/vue;charset=UTF-8;base64,PHNjcmlwdCBzZXR1cCBsYW5nPSJ0cyI+DQppbXBvcnQgeyByZWYgfSBmcm9tICJ2dWUiOw0KaW1wb3J0IFByaW1hcnlCdXR0b24gZnJvbSAiZGF0YTp0ZXh0L3Z1ZTtjaGFyc2V0PVVURi04O2Jhc2U2NCxQSE5qY21sd2RDQnpaWFIxY0NCc1lXNW5QU0owY3lJK0RRcGtaV1pwYm1WUWNtOXdjeWg3RFFvZ0lIUnBkR3hsT2lCN0RRb2dJQ0FnZEhsd1pUb2dVM1J5YVc1bkxBMEtJQ0FnSUdSbFptRjFiSFE2SUNKQ2RYUjBiMjRpTEEwS0lDQjlMQTBLZlNrN0RRbzhMM05qY21sd2RENE5DZzBLUEhSbGJYQnNZWFJsUGcwS0lDQThZblYwZEc5dURRb2dJQ0FnWTJ4aGMzTTlJblJsZUhRdGJXUWdabTl1ZEMxdFpXUnBkVzBnWW1jdFozSmhlUzAxTURBZ2FHOTJaWEk2WW1jdFozSmhlUzAyTURBZ2RISmhibk5wZEdsdmJpQndlUzB4SUhCNExUUWdkR1Y0ZEMxM2FHbDBaU0J5YjNWdVpHVmtJR1J5YjNBdGMyaGhaRzkzTFhoc0lnMEtJQ0ErRFFvZ0lDQWdlM3NnZEdsMGJHVWdmWDBOQ2lBZ1BDOWlkWFIwYjI0K0RRbzhMM1JsYlhCc1lYUmxQZz09IjsNCmltcG9ydCBEYW5nZXJCdXR0b24gZnJvbSAiZGF0YTp0ZXh0L3Z1ZTtjaGFyc2V0PVVURi04O2Jhc2U2NCxQSE5qY21sd2RDQnpaWFIxY0NCc1lXNW5QU0owY3lJK0RRcGtaV1pwYm1WUWNtOXdjeWg3RFFvZ0lIUnBkR3hsT2lCN0RRb2dJQ0FnZEhsd1pUb2dVM1J5YVc1bkxBMEtJQ0FnSUdSbFptRjFiSFE2SUNKQ2RYUjBiMjRpTEEwS0lDQjlMQTBLZlNrN0RRbzhMM05qY21sd2RENE5DZzBLUEhSbGJYQnNZWFJsUGcwS0lDQThZblYwZEc5dURRb2dJQ0FnWTJ4aGMzTTlJblJsZUhRdGJXUWdabTl1ZEMxdFpXUnBkVzBnWW1jdGNtVmtMVFV3TUNCb2IzWmxjanBpWnkxeVpXUXROakF3SUhSeVlXNXphWFJwYjI0Z2NIa3RNU0J3ZUMwMElIUmxlSFF0ZDJocGRHVWdjbTkxYm1SbFpDQmtjbTl3TFhOb1lXUnZkeTE0YkNJTkNpQWdQZzBLSUNBZ0lIdDdJSFJwZEd4bElIMTlEUW9nSUR3dlluVjBkRzl1UGcwS1BDOTBaVzF3YkdGMFpUND0iOw0KDQpjb25zdCBjb3VudCA9IHJlZigwKTsNCjwvc2NyaXB0Pg0KDQo8dGVtcGxhdGU+DQogIDxkaXYgY2xhc3M9InctZnVsbCBtdC04IGZsZXgganVzdGlmeS1jZW50ZXIiPg0KICAgIDxzcGFuIHJlZj0iY291bnRlciIgY2xhc3M9InRleHQtM3hsIGZvbnQtYm9sZCI+e3sgY291bnQgfX08L3NwYW4+DQogIDwvZGl2Pg0KICA8ZGl2IGNsYXNzPSJ3LWZ1bGwgbXQtNCBmbGV4IGZsZXgtcm93IHNwYWNlLXgtNCBqdXN0aWZ5LWNlbnRlciI+DQogICAgPHByaW1hcnktYnV0dG9uIHJlZj0iZGVjcmVtZW50QnV0dG9uIiB0aXRsZT0iLSIgQGNsaWNrPSJjb3VudC0tIiAvPg0KICAgIDxwcmltYXJ5LWJ1dHRvbiByZWY9ImluY3JlbWVudEJ1dHRvbiIgdGl0bGU9IisiIEBjbGljaz0iY291bnQrKyIgLz4NCiAgPC9kaXY+DQogIDxkaXYgY2xhc3M9InctZnVsbCBtdC00IGZsZXggZmxleC1yb3cgc3BhY2UteC00IGp1c3RpZnktY2VudGVyIj4NCiAgICA8ZGFuZ2VyLWJ1dHRvbiByZWY9InJlc2V0QnV0dG9uIiB0aXRsZT0iUmVzZXQiIEBjbGljaz0iY291bnQgPSAwIiAvPg0KICA8L2Rpdj4NCjwvdGVtcGxhdGU+';
+</script>
+
+<template>
+  <Counter />
+</template>
+`
+  },
+  style: {
+    language: 'css',
+    content: '@import "tailwindcss";\n',
+  },
+  processors: ['tailwindcss'],
+}
+
+<div style={{ marginBottom: '1em' }}>
+  <RunInLiveCodes config={importDataUrls} style={{ display: 'inline' }}></RunInLiveCodes>
+</div>
+
+<LiveCodes config={importDataUrls}></LiveCodes>
+
+In the above demo, this component is imported:
+
+```
+data:text/vue;charset=UTF-8;base64,PHNjcmlwdCBzZXR1cCBsYW5nPSJ0cyI+DQppbXBvcnQgeyByZWYgfSBmcm9tICJ2dWUiOw0KaW1wb3J0IFByaW1hcnlCdXR0b24gZnJvbSAiZGF0YTp0ZXh0L3Z1ZTtjaGFyc2V0PVVURi04O2Jhc2U2NCxQSE5qY21sd2RDQnpaWFIxY0NCc1lXNW5QU0owY3lJK0RRcGtaV1pwYm1WUWNtOXdjeWg3RFFvZ0lIUnBkR3hsT2lCN0RRb2dJQ0FnZEhsd1pUb2dVM1J5YVc1bkxBMEtJQ0FnSUdSbFptRjFiSFE2SUNKQ2RYUjBiMjRpTEEwS0lDQjlMQTBLZlNrN0RRbzhMM05qY21sd2RENE5DZzBLUEhSbGJYQnNZWFJsUGcwS0lDQThZblYwZEc5dURRb2dJQ0FnWTJ4aGMzTTlJblJsZUhRdGJXUWdabTl1ZEMxdFpXUnBkVzBnWW1jdFozSmhlUzAxTURBZ2FHOTJaWEk2WW1jdFozSmhlUzAyTURBZ2RISmhibk5wZEdsdmJpQndlUzB4SUhCNExUUWdkR1Y0ZEMxM2FHbDBaU0J5YjNWdVpHVmtJR1J5YjNBdGMyaGhaRzkzTFhoc0lnMEtJQ0ErRFFvZ0lDQWdlM3NnZEdsMGJHVWdmWDBOQ2lBZ1BDOWlkWFIwYjI0K0RRbzhMM1JsYlhCc1lYUmxQZz09IjsNCmltcG9ydCBEYW5nZXJCdXR0b24gZnJvbSAiZGF0YTp0ZXh0L3Z1ZTtjaGFyc2V0PVVURi04O2Jhc2U2NCxQSE5qY21sd2RDQnpaWFIxY0NCc1lXNW5QU0owY3lJK0RRcGtaV1pwYm1WUWNtOXdjeWg3RFFvZ0lIUnBkR3hsT2lCN0RRb2dJQ0FnZEhsd1pUb2dVM1J5YVc1bkxBMEtJQ0FnSUdSbFptRjFiSFE2SUNKQ2RYUjBiMjRpTEEwS0lDQjlMQTBLZlNrN0RRbzhMM05qY21sd2RENE5DZzBLUEhSbGJYQnNZWFJsUGcwS0lDQThZblYwZEc5dURRb2dJQ0FnWTJ4aGMzTTlJblJsZUhRdGJXUWdabTl1ZEMxdFpXUnBkVzBnWW1jdGNtVmtMVFV3TUNCb2IzWmxjanBpWnkxeVpXUXROakF3SUhSeVlXNXphWFJwYjI0Z2NIa3RNU0J3ZUMwMElIUmxlSFF0ZDJocGRHVWdjbTkxYm1SbFpDQmtjbTl3TFhOb1lXUnZkeTE0YkNJTkNpQWdQZzBLSUNBZ0lIdDdJSFJwZEd4bElIMTlEUW9nSUR3dlluVjBkRzl1UGcwS1BDOTBaVzF3YkdGMFpUND0iOw0KDQpjb25zdCBjb3VudCA9IHJlZigwKTsNCjwvc2NyaXB0Pg0KDQo8dGVtcGxhdGU+DQogIDxkaXYgY2xhc3M9InctZnVsbCBtdC04IGZsZXgganVzdGlmeS1jZW50ZXIiPg0KICAgIDxzcGFuIHJlZj0iY291bnRlciIgY2xhc3M9InRleHQtM3hsIGZvbnQtYm9sZCI+e3sgY291bnQgfX08L3NwYW4+DQogIDwvZGl2Pg0KICA8ZGl2IGNsYXNzPSJ3LWZ1bGwgbXQtNCBmbGV4IGZsZXgtcm93IHNwYWNlLXgtNCBqdXN0aWZ5LWNlbnRlciI+DQogICAgPHByaW1hcnktYnV0dG9uIHJlZj0iZGVjcmVtZW50QnV0dG9uIiB0aXRsZT0iLSIgQGNsaWNrPSJjb3VudC0tIiAvPg0KICAgIDxwcmltYXJ5LWJ1dHRvbiByZWY9ImluY3JlbWVudEJ1dHRvbiIgdGl0bGU9IisiIEBjbGljaz0iY291bnQrKyIgLz4NCiAgPC9kaXY+DQogIDxkaXYgY2xhc3M9InctZnVsbCBtdC00IGZsZXggZmxleC1yb3cgc3BhY2UteC00IGp1c3RpZnktY2VudGVyIj4NCiAgICA8ZGFuZ2VyLWJ1dHRvbiByZWY9InJlc2V0QnV0dG9uIiB0aXRsZT0iUmVzZXQiIEBjbGljaz0iY291bnQgPSAwIiAvPg0KICA8L2Rpdj4NCjwvdGVtcGxhdGU+
+```
+
+which imports these:
+
+```
+data:text/vue;charset=UTF-8;base64,PHNjcmlwdCBzZXR1cCBsYW5nPSJ0cyI+DQpkZWZpbmVQcm9wcyh7DQogIHRpdGxlOiB7DQogICAgdHlwZTogU3RyaW5nLA0KICAgIGRlZmF1bHQ6ICJCdXR0b24iLA0KICB9LA0KfSk7DQo8L3NjcmlwdD4NCg0KPHRlbXBsYXRlPg0KICA8YnV0dG9uDQogICAgY2xhc3M9InRleHQtbWQgZm9udC1tZWRpdW0gYmctZ3JheS01MDAgaG92ZXI6YmctZ3JheS02MDAgdHJhbnNpdGlvbiBweS0xIHB4LTQgdGV4dC13aGl0ZSByb3VuZGVkIGRyb3Atc2hhZG93LXhsIg0KICA+DQogICAge3sgdGl0bGUgfX0NCiAgPC9idXR0b24+DQo8L3RlbXBsYXRlPg==
+```
+
+```
+data:text/vue;charset=UTF-8;base64,PHNjcmlwdCBzZXR1cCBsYW5nPSJ0cyI+DQpkZWZpbmVQcm9wcyh7DQogIHRpdGxlOiB7DQogICAgdHlwZTogU3RyaW5nLA0KICAgIGRlZmF1bHQ6ICJCdXR0b24iLA0KICB9LA0KfSk7DQo8L3NjcmlwdD4NCg0KPHRlbXBsYXRlPg0KICA8YnV0dG9uDQogICAgY2xhc3M9InRleHQtbWQgZm9udC1tZWRpdW0gYmctcmVkLTUwMCBob3ZlcjpiZy1yZWQtNjAwIHRyYW5zaXRpb24gcHktMSBweC00IHRleHQtd2hpdGUgcm91bmRlZCBkcm9wLXNoYWRvdy14bCINCiAgPg0KICAgIHt7IHRpdGxlIH19DQogIDwvYnV0dG9uPg0KPC90ZW1wbGF0ZT4=
+```
 
 ### Root Element
 
@@ -342,7 +397,7 @@ The official [@vue/compiler-sfc](https://github.com/vuejs/core/tree/main/package
 
 ### Version
 
-`@vue/compiler-sfc`: v3.4.31
+`@vue/compiler-sfc`: v3.5.13
 
 ## Code Formatting
 
@@ -353,7 +408,7 @@ Using [Prettier](https://prettier.io/).
 Currently, Vue support has the following limitations:
 
 - SSR is not supported.
-- The [`defineProps()`](https://vuejs.org/guide/components/props#props-declaration) macro cannot infer props from TypeScript types. Props have to be explicitly declared.
+- The [`defineProps()`](https://vuejs.org/guide/components/props#props-declaration) macro cannot infer props from TypeScript types not defined in the same file.
 
 [PRs are welcome](https://github.com/live-codes/livecodes/issues/757).
 

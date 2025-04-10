@@ -202,7 +202,7 @@ export const createSyncUI = async ({
     updateSyncStatus({ inProgress: false, lastSync });
   });
 
-  modal.show(syncContainer, { isAsync: true });
+  modal.show(syncContainer, { isAsync: true, autoFocus: false });
   newRepoNameInput.focus();
 
   if (!user) return;

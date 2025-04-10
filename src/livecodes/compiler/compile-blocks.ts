@@ -17,6 +17,7 @@ interface CompileBlocksOptions {
   removeEnclosingTemplate?: boolean;
   languageAttribute?: 'lang' | 'type';
   prepareFn?: (code: string, config: Config) => Promise<string>;
+  skipCompilers?: LanguageOrProcessor[];
 }
 
 /**
@@ -29,7 +30,7 @@ interface CompileBlocksOptions {
  * </script>
  * <template><Counter /></template>
  */
-const exportDefaultImports = (code: string) => {
+export const exportDefaultImports = (code: string) => {
   const defaultImportPattern =
     /(?:import\s+?(?:(?:(\w*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
 
@@ -132,7 +133,8 @@ export const compileBlocks = async (
     fullCode = await options.prepareFn(fullCode, config);
   }
 
-  const hasProcessors = config.processors.length > 0;
+  const hasProcessors =
+    config.processors.filter((p) => !options.skipCompilers?.includes(p)).length > 0;
 
   const getBlockPattern = (el: typeof blockElement, langAttr = 'lang') =>
     `(<${el}\\s*)(?:([\\s\\S]*?)${langAttr}\\s*=\\s*["']([A-Za-z0-9 _]*)["'])?((?:[^>]*)>)([\\s\\S]*?)(<\\/${el}>)`;
@@ -146,12 +148,15 @@ export const compileBlocks = async (
       continue;
     }
     const lang = getLanguageByAlias(language);
-    if (!lang && (blockElement !== 'style' || !hasProcessors)) {
+    if (
+      (!lang || options.skipCompilers?.includes(lang)) &&
+      (blockElement !== 'style' || !hasProcessors)
+    ) {
       blocks.push(element);
       continue;
     }
     let exports = '';
-    if (['typescript', 'babel', 'sucrase', 'jsx', 'tsx'].includes(lang || '')) {
+    if (['typescript', 'jsx', 'tsx', 'babel', 'sucrase'].includes(lang || '')) {
       exports = exportDefaultImports(content);
     }
     let compiled = (await compileInCompiler(content + exports, lang, config)).code || content;

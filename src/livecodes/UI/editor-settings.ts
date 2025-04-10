@@ -291,6 +291,7 @@ export const createEditorSettingsUI = async ({
     editorId: 'editorSettings',
     getLanguageExtension: () => 'jsx',
     isEmbed: false,
+    isLite: false,
     isHeadless: false,
     language: 'jsx',
     mapLanguage: () => 'javascript',
@@ -538,7 +539,7 @@ export const createEditorSettingsUI = async ({
 
     const prefix = 'editor-settings-editorTheme-';
     const editorThemes: Record<
-      `${Exclude<Config['editor'], undefined>}-${Config['theme']}`,
+      `${Exclude<Config['editor'], 'auto' | undefined>}-${Config['theme']}`,
       HTMLElement | null
     > = {
       'monaco-dark': form.querySelector(`[name="${prefix}monaco-dark"]`),

@@ -711,11 +711,15 @@ export interface EditorConfig {
   /**
    * Selects the [code editor](https://livecodes.io/docs/features/editor-settings#code-editor) to use.
    *
-   * If `undefined` (the default), Monaco editor is used on desktop, CodeMirror is used on mobile
-   * and CodeJar is used in codeblocks, in lite mode and in readonly playgrounds.
+   * If `undefined` (the default), Monaco editor is used on desktop,
+   * CodeMirror is used on mobile and in `simple` mode,
+   * while CodeJar is used in `codeblock` mode, in `lite` mode and in `readonly` playgrounds.
+   *
+   * If set to `auto`, Monaco editor is used on desktop and CodeMirror is used on mobile regardless of other settings.
+   *
    * @default undefined
    */
-  editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
+  editor: 'monaco' | 'codemirror' | 'codejar' | 'auto' | undefined;
 
   /**
    * Sets the app [theme](https://livecodes.io/docs/features/themes) to light/dark mode.
@@ -1558,6 +1562,7 @@ export interface EditorOptions extends EditorConfig {
     | 'add-snippet';
   theme: Theme;
   isEmbed: boolean;
+  isLite: boolean;
   isHeadless: boolean;
   getLanguageExtension: (alias: string) => Language | undefined;
   mapLanguage: (language: Language) => Language;

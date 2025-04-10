@@ -478,12 +478,14 @@ const createEditors = async (config: Config) => {
     ...getEditorConfig(config),
     activeEditor: findActiveEditor(),
     isEmbed,
+    isLite,
     isHeadless,
     mapLanguage,
     getLanguageExtension,
     getFormatterConfig: () => getFormatterConfig(getConfig()),
     getFontFamily,
   };
+
   const markupOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getMarkupElement(),
@@ -579,7 +581,7 @@ const updateEditors = async (editors: Editors, config: Config) => {
 
 const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   if (!mode) {
-    mode = 'full';
+    mode = getConfig().mode;
   }
   if (!view) {
     view = getConfig().view;
@@ -1404,7 +1406,7 @@ const applyConfig = async (newConfig: Partial<Config>) => {
     loadSettings(currentConfig);
   }
   if (newConfig.mode || newConfig.view) {
-    window.deps.showMode(
+    window.deps?.showMode?.(
       newConfig.mode ?? currentConfig.mode,
       newConfig.view ?? currentConfig.view,
     );
@@ -2877,7 +2879,7 @@ const handleEditorTools = () => {
     if (newMode === 'focus' && consoleIsEnabled) {
       toolsPane?.setActiveTool('console');
     }
-    showMode(newMode, config.view);
+    window.deps?.showMode?.(newMode, config.view);
   });
 
   eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
@@ -3455,7 +3457,7 @@ const handleOpen = () => {
 
 const handleImport = () => {
   const createImportUI = async () => {
-    modal.show(loadingMessage(), { size: 'small' });
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     importModule.createImportUI({
       baseUrl,
@@ -3639,7 +3641,7 @@ const handleDeploy = () => {
       );
       return;
     }
-    modal.show(loadingMessage(), { size: 'small' });
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
 
     const getProjectDeployRepo = async () => {
       if (!projectId) return;
@@ -3690,7 +3692,7 @@ const handleSync = () => {
       );
       return;
     }
-    modal.show(loadingMessage(), { size: 'small' });
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
 
     const syncUIModule: typeof import('./UI/sync-ui') = await import(
       baseUrl + '{{hash:sync-ui.js}}'
@@ -4087,6 +4089,7 @@ const handleEmbed = () => {
       editorId: 'embed',
       getLanguageExtension,
       isEmbed,
+      isLite,
       isHeadless,
       language: 'html',
       mapLanguage,
@@ -4202,6 +4205,7 @@ const handleCodeToImage = () => {
         readonly: false,
         editorId: 'codeToImage',
         isEmbed: false,
+        isLite,
         isHeadless: false,
         getLanguageExtension,
         mapLanguage,
@@ -4314,6 +4318,7 @@ const handleSnippets = () => {
       editorId: 'snippet',
       getLanguageExtension,
       isEmbed,
+      isLite,
       isHeadless,
       language: 'html',
       value: '',
@@ -4374,7 +4379,7 @@ const handleExternalResources = () => {
       dispatchChangeEvent();
     };
 
-    modal.show(loadingMessage(), { size: 'small' });
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
     const resourcesModule: typeof import('./UI/resources') = await import(
       baseUrl + '{{hash:resources.js}}'
     );
@@ -4421,6 +4426,7 @@ const handleCustomSettings = () => {
       language: 'json' as Language,
       value: stringify({ imports: {}, ...config.customSettings }, true),
       isEmbed,
+      isLite,
       isHeadless,
       mapLanguage,
       getLanguageExtension,
@@ -4597,6 +4603,7 @@ const handleTestEditor = () => {
       language: editorLanguage,
       value: config.tests?.content || '',
       isEmbed,
+      isLite,
       isHeadless,
       mapLanguage,
       getLanguageExtension,
@@ -5122,7 +5129,6 @@ const configureEmbed = (eventsManager: EventsManager) => {
 const configureLite = () => {
   setConfig({
     ...getConfig(),
-    editor: 'codejar',
     emmet: false,
     tools: {
       enabled: [],

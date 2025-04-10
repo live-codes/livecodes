@@ -31,7 +31,7 @@ export const createExternalResourcesUI = ({
   const div = document.createElement('div');
   div.innerHTML = resourcesScreen;
   const resourcesContainer = div.firstChild as HTMLElement;
-  modal.show(resourcesContainer, { onClose: () => updateResources() });
+  modal.show(resourcesContainer, { onClose: () => updateResources(), autoFocus: false });
 
   const externalResources = getExternalResourcesTextareas();
   externalResources.forEach((textarea) => {

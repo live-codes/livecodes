@@ -268,6 +268,6 @@ export const createImportUI = ({
     showScreen('open');
   });
 
-  modal.show(importContainer, { isAsync: true });
+  modal.show(importContainer, { isAsync: true, autoFocus: false });
   getUrlImportInput(importContainer).focus();
 };

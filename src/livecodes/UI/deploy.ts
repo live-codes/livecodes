@@ -222,7 +222,7 @@ export const createDeployUI = async ({
     await publish(user, name, message, commitSource, newRepo);
   });
 
-  modal.show(deployContainer, { isAsync: true });
+  modal.show(deployContainer, { isAsync: true, autoFocus: false });
   newRepoNameInput.focus();
 
   if (!user) return;

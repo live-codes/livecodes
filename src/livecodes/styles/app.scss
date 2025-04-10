@@ -887,6 +887,7 @@ a#result-button {
   display: flex;
   flex-direction: column;
   height: 100%;
+  justify-content: flex-end;
   overflow: hidden;
   position: relative;
   top: 0;
@@ -981,9 +982,8 @@ a#result-button {
 
   &#editor-tools {
     align-items: center;
-    bottom: 0;
     display: flex;
-    position: absolute;
+    flex-grow: 0;
 
     #editor-status {
       background-color: transparent;
@@ -1274,6 +1274,7 @@ a.tools-pane-title {
   color: var(--link);
   display: flex !important;
   justify-content: center;
+  overflow: hidden;
   position: relative;
 
   &.gutter-vertical {
@@ -2212,11 +2213,11 @@ body {
   }
 
   #editor-container {
-    z-index: 100;
+    z-index: 45;
   }
 
   #editor-tools {
-    z-index: 200;
+    z-index: 49; // keep under monaco hover menu
   }
 
   #toolbar {
