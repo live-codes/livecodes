@@ -103,6 +103,7 @@ export default function Sliders() {
       { name: 'postgresql', title: 'PostgreSQL' },
       { name: 'prolog', title: 'Prolog' },
       { name: 'blockly', title: 'Blockly' },
+      { name: 'java', title: 'Java' },
     ],
   };
   const slides = ['markup', 'style', 'script'];

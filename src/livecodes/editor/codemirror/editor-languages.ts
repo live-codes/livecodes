@@ -44,6 +44,7 @@ const moduleUrls = {
   stylus: getPath('codemirror-lang-stylus.js'),
   rust: getPath('codemirror-lang-rust.js'),
   swift: getPath('codemirror-lang-swift.js'),
+  java: getPath('codemirror-lang-java.js'),
 };
 
 export const editorLanguages: Partial<{ [key in Language]: () => Promise<LanguageSupport> }> = {
@@ -79,4 +80,5 @@ export const editorLanguages: Partial<{ [key in Language]: () => Promise<Languag
   // @ts-ignore
   rust: async () => legacy((await import(moduleUrls.rust)).rust),
   swift: async () => legacy((await import(moduleUrls.swift)).swift),
+  java: async () => legacy((await import(moduleUrls.java)).java),
 };

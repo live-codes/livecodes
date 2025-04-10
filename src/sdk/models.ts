@@ -1073,7 +1073,8 @@ export type Language =
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
-  | 'pintora';
+  | 'pintora'
+  | 'java';
 
 export interface Editor {
   /**
@@ -1238,7 +1239,8 @@ export type ParserName =
   | 'scss'
   | 'less'
   | 'php'
-  | 'pug';
+  | 'pug'
+  | 'java';
 
 export interface Parser {
   name: ParserName;
@@ -1339,7 +1341,8 @@ export interface Compiler {
     | 'application/json'
     | 'application/lua'
     | 'text/fennel'
-    | 'application/wasm-uint8';
+    | 'application/wasm-uint8'
+    | 'text/java';
   liveReload?: boolean;
   aliasTo?: Language;
   compiledCodeLanguage?: Language;
@@ -1427,7 +1430,8 @@ export type TemplateName =
   | 'postgresql'
   | 'prolog'
   | 'blockly'
-  | 'diagrams';
+  | 'diagrams'
+  | 'java';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';

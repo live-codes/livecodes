@@ -95,6 +95,16 @@ export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 
 export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/');
 
+export const javaDoppiojvmUrl = /* @__PURE__ */ getUrl(
+  'https://unpkg.com/@seth0x41/doppio@1.0.0/doppio.js',
+);
+
+export const javaDoppiojvmJarsUrl = /* @__PURE__ */ getUrl(
+  'https://unpkg.com/@seth0x41/doppio@1.0.0/java_home/',
+);
+
+export const browserfsUrl = /* @__PURE__ */ getUrl('browserfs@1.4.3/dist/browserfs.min.js');
+
 export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@2.3.1/dist/csstree.js');
 
 export const cytoscapeSvgUrl = /* @__PURE__ */ getUrl('cytoscape-svg@0.4.0/cytoscape-svg.js');
@@ -324,6 +334,7 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
 export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
 
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.22.2/standalone.js');
+export const prettierJavaUrl = /* @__PURE__ */ getUrl('prettier-plugin-java@2.6.7/dist/index.js');
 
 export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/components/');
 

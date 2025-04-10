@@ -1046,6 +1046,7 @@ const translation = {
       vue: 'Vue SFC Starter',
       vue2: 'Vue 2 Starter',
       wat: 'WebAssembly Text Starter',
+      java: 'Java Starter',
     },
     user: {
       heading: 'My Templates',

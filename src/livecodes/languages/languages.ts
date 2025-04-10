@@ -75,7 +75,7 @@ import { postgresql } from './postgresql';
 import { gleam } from './gleam';
 import { vento } from './vento';
 import { react, reactTsx } from './react';
-
+import { java } from './java';
 export const languages: LanguageSpecs[] = [
   html,
   markdown,
@@ -160,4 +160,5 @@ export const languages: LanguageSpecs[] = [
   postgresql,
   prolog,
   blockly,
+  java,
 ];

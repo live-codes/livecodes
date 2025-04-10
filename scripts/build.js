@@ -173,6 +173,7 @@ const esmBuild = () =>
       'languages/r/lang-r-script-esm.ts',
       'languages/rescript/lang-rescript-compiler-esm.ts',
       'i18n/i18n.ts',
+      'languages/java/lang-java-script.ts',
     ]
       .map((x) => 'src/livecodes/' + x)
       .reduce(arrToObj, {}),
@@ -236,6 +237,7 @@ const iifeBuild = () =>
       'languages/unocss/processor-unocss-compiler.ts',
       'languages/lightningcss/processor-lightningcss-compiler.ts',
       'languages/postcss/processor-postcss-compiler.ts',
+      'languages/java/lang-java-script.ts',
     ]
       .map((x) => 'src/livecodes/' + x)
       .reduce(arrToObj, {}),
