@@ -62,6 +62,7 @@ export const defaultConfig: Config = {
   lineNumbers: true,
   wordWrap: false,
   closeBrackets: true,
+  foldRegions: false,
   semicolons: true,
   singleQuote: false,
   trailingComma: true,

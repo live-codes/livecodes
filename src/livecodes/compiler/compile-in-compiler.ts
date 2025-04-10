@@ -1,9 +1,10 @@
-import type { Config, Language, CompileOptions, CompileResult } from '../models';
+import type { Config, CompileOptions, CompileResult } from '../models';
+import type { LanguageOrProcessor } from './models';
 import { getCompileResult } from './utils';
 
 export const compileInCompiler = async (
   content: string,
-  language: Language | undefined,
+  language: LanguageOrProcessor | undefined,
   config: Config,
   options: CompileOptions = {},
   worker: Worker = self as unknown as Worker,

@@ -1,5 +1,5 @@
 const esbuild = require('esbuild');
-const minifyHTML = require('esbuild-plugin-minify-html').default;
+const { minify: minifyHTML, default: minifyHTMLPlugin } = require('esbuild-plugin-minify-html');
 const fs = require('fs');
 const path = require('path');
 
@@ -11,7 +11,27 @@ const { arrToObj, mkdir, uint8arrayToString, iife, getFileNames, getEnvVars } = 
 
 const args = process.argv.slice(2);
 const devMode = args.includes('--dev');
-const outDir = path.resolve(__dirname + '/../build');
+const root = path.resolve(__dirname + '/..');
+const outDir = path.resolve(root, 'build');
+
+const minifyHTMLOptions = {
+  collapseWhitespace: true,
+  collapseBooleanAttributes: true,
+  minifyJS: true,
+  minifyCSS: true,
+  processScripts: ['importmap'],
+};
+
+const copyFile = async (filePath, outputName) => {
+  const src = path.resolve(root, filePath);
+  const dist = path.resolve(outDir, outputName);
+  if (devMode || !filePath.endsWith('.html')) {
+    return fs.promises.copyFile(src, dist);
+  }
+  const content = await fs.promises.readFile(src, 'utf8');
+  const minified = await minifyHTML(content, minifyHTMLOptions);
+  fs.writeFileSync(dist, minified, 'utf8');
+};
 
 const prepareDir = async () => {
   mkdir(outDir);
@@ -22,30 +42,14 @@ const prepareDir = async () => {
   }
   const fileNames = await getFileNames(outDir + '/livecodes/');
   await Promise.all(fileNames.map(async (f) => fs.promises.unlink(outDir + '/livecodes/' + f)));
-
-  if (process.env.CF_PAGES) {
+  await Promise.all([
     // add headers in Cloudflare
-    await fs.promises.copyFile(
-      path.resolve(__dirname + '/../src/_headers'),
-      path.resolve(outDir + '/_headers'),
-    );
-  }
-  await fs.promises.copyFile(
-    path.resolve(__dirname + '/../src/favicon.ico'),
-    path.resolve(outDir + '/favicon.ico'),
-  );
-  await fs.promises.copyFile(
-    path.resolve(__dirname + '/../src/404.html'),
-    path.resolve(outDir + '/404.html'),
-  );
-  await fs.promises.copyFile(
-    path.resolve(__dirname + '/../src/index.html'),
-    path.resolve(outDir + '/index.html'),
-  );
-  await fs.promises.copyFile(
-    path.resolve(__dirname + '/../src/livecodes/html/app-base.html'),
-    path.resolve(outDir + '/app.html'),
-  );
+    process.env.CF_PAGES ? copyFile('src/_headers', '_headers') : Promise.resolve(),
+    copyFile('src/favicon.ico', 'favicon.ico'),
+    copyFile('src/404.html', '404.html'),
+    copyFile('src/index.html', 'index.html'),
+    copyFile('src/livecodes/html/app-base.html', 'app.html'),
+  ]);
 };
 
 /** @type {Partial<esbuild.BuildOptions>} */
@@ -63,32 +67,19 @@ const baseOptions = {
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
   external: ['codemirror', '@codemirror/*', '@lezer/*', '@replit/codemirror-*'],
-  plugins: [
-    ...(devMode
-      ? []
-      : [
-          minifyHTML({
-            collapseWhitespace: true,
-            collapseBooleanAttributes: true,
-            minifyJS: true,
-            minifyCSS: true,
-            processScripts: ['importmap'],
-          }),
-        ]),
-  ],
+  plugins: [...(devMode ? [] : [minifyHTMLPlugin(minifyHTMLOptions)])],
 };
 
-const sdkBuild = () => {
+const sdkBuild = async () => {
   const sdkSrcDir = 'src/sdk/';
   const sdkSrcMod = sdkSrcDir + 'index.ts';
-  const sdkOutDir = 'build/sdk/';
+  const sdkOutDir = 'sdk/';
 
-  fs.copyFileSync(path.resolve('LICENSE'), path.resolve(sdkOutDir + 'LICENSE'));
-  fs.copyFileSync(path.resolve('README.md'), path.resolve(sdkOutDir + 'README.md'));
-  fs.copyFileSync(
-    path.resolve(sdkSrcDir + 'package.sdk.json'),
-    path.resolve(sdkOutDir + 'package.json'),
-  );
+  await Promise.all([
+    copyFile('LICENSE', sdkOutDir + 'LICENSE'),
+    copyFile('README.md', sdkOutDir + 'README.md'),
+    copyFile(sdkSrcDir + 'package.sdk.json', sdkOutDir + 'package.json'),
+  ]);
 
   const sdkOptions = {
     ...baseOptions,
@@ -101,20 +92,20 @@ const sdkBuild = () => {
       ...sdkOptions,
       entryPoints: [sdkSrcMod],
       outdir: undefined,
-      outfile: sdkOutDir + 'livecodes.js',
+      outfile: path.resolve(outDir, sdkOutDir, 'livecodes.js'),
     }),
     esbuild.build({
       ...sdkOptions,
       entryPoints: [sdkSrcMod],
       outdir: undefined,
-      outfile: sdkOutDir + 'livecodes.cjs',
+      outfile: path.resolve(outDir, sdkOutDir, 'livecodes.cjs'),
       format: 'cjs',
     }),
     esbuild.build({
       ...sdkOptions,
       entryPoints: [sdkSrcMod],
       outdir: undefined,
-      outfile: sdkOutDir + 'livecodes.umd.js',
+      outfile: path.resolve(outDir, sdkOutDir, 'livecodes.umd.js'),
       format: 'iife',
       globalName: 'livecodes',
     }),
@@ -122,7 +113,7 @@ const sdkBuild = () => {
       ...sdkOptions,
       entryPoints: [sdkSrcDir + 'react.tsx'],
       outdir: undefined,
-      outfile: sdkOutDir + 'react.js',
+      outfile: path.resolve(outDir, sdkOutDir, 'react.js'),
       external: ['react'],
       jsx: 'automatic',
     }),
@@ -130,7 +121,7 @@ const sdkBuild = () => {
       ...sdkOptions,
       entryPoints: [sdkSrcDir + 'vue.ts'],
       outdir: undefined,
-      outfile: sdkOutDir + 'vue.js',
+      outfile: path.resolve(outDir, sdkOutDir, 'vue.js'),
       external: ['vue'],
       alias: {
         '@vue/runtime-core': 'vue',

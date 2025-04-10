@@ -57,6 +57,7 @@ export const createCompiledCodeViewer = (
       mode: config.mode,
       editorId: 'compiled',
       isEmbed,
+      isLite: false,
       isHeadless: false,
       mapLanguage,
       getLanguageExtension,

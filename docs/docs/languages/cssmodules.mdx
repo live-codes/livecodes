@@ -183,7 +183,7 @@ The CSS Modules processor is provided using [postcss-modules](https://github.com
 
 ### Version
 
-`postcss-modules`: v6.0.0
+`postcss-modules`: v6.0.1
 
 ## Custom Settings
 

@@ -36,7 +36,7 @@ import { getLanguageCustomSettings } from '../../utils';
       userConfig.presets = loadPresets(presets);
     }
 
-    const uno = createGenerator(userConfig, defaultConfig);
+    const uno = await createGenerator(userConfig, defaultConfig);
     const { css: generatedStyles } = await uno.generate(html);
     return generatedStyles.trim() ? generatedStyles + '\n\n' + css : css;
   };

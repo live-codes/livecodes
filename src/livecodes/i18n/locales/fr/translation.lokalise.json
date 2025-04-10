@@ -948,6 +948,9 @@
   "editorSettings.enableAI.note": {
     "translation": "Propulsé par <tag-1><tag-2></tag-2></tag-1>"
   },
+  "editorSettings.foldRegions": {
+    "translation": "Plier (réduire) les régions *"
+  },
   "editorSettings.fontFamily": {
     "translation": "Famille de police"
   },

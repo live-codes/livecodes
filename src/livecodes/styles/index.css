@@ -62,12 +62,6 @@ body,
   padding-right: 0.5em;
 }
 
-#loading-text svg {
-  height: 1em;
-  left: -1.5em;
-  position: absolute;
-}
-
 .embed #loading > * {
   transform: scale(0.8);
 }
@@ -91,15 +85,75 @@ body,
 }
 
 @keyframes pulsate {
-  0% {
+  0%,
+  100% {
     opacity: 0.2;
   }
 
   50% {
     opacity: 1;
   }
+}
 
+@keyframes pulse {
+  0%,
   100% {
-    opacity: 0.2;
+    transform: scale(0.8) translateY(-4%) translateX(-7%);
   }
+
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes colorPulse {
+  0%,
+  100% {
+    stop-color: #8a8a8a;
+  }
+
+  50% {
+    stop-color: #d7d7d7;
+  }
+}
+
+@keyframes colorPulse2 {
+  0%,
+  100% {
+    stop-color: #444;
+  }
+
+  50% {
+    stop-color: #626262;
+  }
+}
+
+svg .B {
+  stroke: none;
+}
+
+svg .C {
+  fill: url('#C');
+}
+
+svg .E {
+  fill-rule: nonzero;
+}
+
+#loading:not(.click-to-load) svg #cube-container {
+  animation: pulsate 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#loading:not(.click-to-load) svg #inner-cube {
+  animation: pulse 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+#loading:not(.click-to-load) svg #gradient-stop-1 {
+  animation: colorPulse 1s ease-in-out infinite;
+}
+
+#loading:not(.click-to-load) svg #gradient-stop-2 {
+  animation: colorPulse2 1s ease-in-out infinite;
 }

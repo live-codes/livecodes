@@ -29,7 +29,7 @@ export const createProjectInfoUI = async (
   const div = document.createElement('div');
   div.innerHTML = infoScreen;
   const projectInfoContainer = div.firstChild as HTMLElement;
-  modal.show(projectInfoContainer, { onClose: () => updateInfo() });
+  modal.show(projectInfoContainer, { onClose: () => updateInfo(), autoFocus: false });
 
   const titleInput = UI.getInfoTitleInput();
   titleInput.value = config.title;

@@ -39,7 +39,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const editorModes: Array<Config['editorMode']> = ['vim', 'emacs'];
   const tools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
   const toolsPaneStatus: ToolsPaneStatus[] = ['', 'full', 'closed', 'open', 'none'];
-  const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar'];
+  const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar', 'auto'];
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const zoomLevels: Array<Config['zoom']> = [1, 0.5, 0.25];
 
@@ -51,8 +51,11 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
       is(x.contentUrl, 'string') ||
       is(x.hiddenContent, 'string') ||
       is(x.hiddenContentUrl, 'string') ||
+      is(x.foldedLines, 'array', 'object') ||
       is(x.order, 'number') ||
       is(x.selector, 'string'));
+
+  const isFoldedLines = (x: any) => is(x, 'object') && (is(x.from, 'number') || is(x.to, 'number'));
 
   const fixSfcLanguage = (lang: Language, editorId: EditorId) =>
     editorId !== 'markup'
@@ -76,6 +79,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.hideTitle, 'boolean') ? { hideTitle: x.hideTitle } : {}),
     ...(is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),
     ...(is(x.hiddenContentUrl, 'string') ? { hiddenContentUrl: x.hiddenContentUrl } : {}),
+    ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
+      ? { foldedLines: x.foldedLines }
+      : {}),
     ...(is(x.order, 'number') ? { order: x.order } : {}),
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
     ...(is(x.position, 'object') ? { position: x.position } : {}),
@@ -181,6 +187,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
       : {}),
     ...(is(config.wordWrap, 'boolean') ? { wordWrap: config.wordWrap } : {}),
     ...(is(config.closeBrackets, 'boolean') ? { closeBrackets: config.closeBrackets } : {}),
+    ...(is(config.foldRegions, 'boolean') ? { foldRegions: config.foldRegions } : {}),
     ...(is(config.semicolons, 'boolean') ? { semicolons: config.semicolons } : {}),
     ...(is(config.singleQuote, 'boolean') ? { singleQuote: config.singleQuote } : {}),
     ...(is(config.trailingComma, 'boolean') ? { trailingComma: config.trailingComma } : {}),

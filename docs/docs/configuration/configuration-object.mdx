@@ -153,6 +153,12 @@ An object that configures the language and content of the markup editor. This ca
   A URL to load `hiddenContent` from. It has to be a valid URL that is CORS-enabled.
   The URL is only fetched if `hiddenContent` property had no value.
 
+- `foldedLines`:
+  Type: [`Array<{ from: number; to: number }> | undefined`](../api/interfaces/Config.md#foldedlines)
+  Default: `undefined`
+  Lines that get folded when the editor loads. The code can be unfolded by clicking on arrow beside the line.
+  This can be useful for less relevant code in embedded playgrounds.
+
 - `title`:
   Type: [`string | undefined`](../api/interfaces/Config.md#title)
   Default: `""`
@@ -594,13 +600,18 @@ Enables [showing element spacing](../features/result.mdx#show-spacings) in the r
 
 ### `editor`
 
-Type: [`"monaco" | "codemirror" | "codejar" | undefined`](../api/interfaces/Config.md#editor)
+Type: [`"monaco" | "codemirror" | "codejar" | "auto" | undefined`](../api/interfaces/Config.md#editor)
 
 Default: `undefined`
 
 Selects the [code editor](../features/editor-settings.mdx#code-editor) to use.
 
-If `undefined` (the default), Monaco editor is used on desktop, CodeMirror is used on mobile and CodeJar is used in [codeblocks](../features/display-modes.mdx#codeblock), in [lite mode](../features/lite.mdx) and in [readonly](#readonly) playgrounds.
+If `undefined` (the default):<br />
+Monaco editor is used on desktop,<br />
+CodeMirror is used on mobile and in `simple` mode,<br />
+while CodeJar is used in [`codeblock` mode](../features/display-modes.mdx#codeblock), in [`lite` mode](../features/lite.mdx) and in [`readonly`](#readonly) playgrounds.
+
+If set to `auto`, Monaco editor is used on desktop and CodeMirror is used on mobile regardless of other settings.
 
 ### `fontFamily`
 
@@ -660,6 +671,14 @@ Type: [`boolean`](../api/interfaces/Config.md#closebrackets)
 Default: `true`
 
 Use auto-complete to close brackets and quotes.
+
+### `foldRegions`
+
+Type: [`boolean`](../api/interfaces/Config.md#foldregions)
+
+Default: `false`
+
+When set to `true`, regions marked by `#region` and `#endregion` comments are folded when the project is loaded.
 
 ### `emmet`
 

@@ -1,13 +1,23 @@
-import type { Config } from '../models';
-import { getLanguageByAlias } from '../languages';
+import type { CompileInfo, Config } from '../models';
+import {
+  getLanguageByAlias,
+  getLanguageEditorId,
+  processorIsActivated,
+  processorIsEnabled,
+  processors,
+} from '../languages';
 import { modulesService } from '../services/modules';
 import { getFileExtension } from '../utils/utils';
 import { compileInCompiler } from './compile-in-compiler';
+import { hasStyleImports } from './import-map';
+import { getCompileResult } from './utils';
+import type { LanguageOrProcessor } from './models';
 
 interface CompileBlocksOptions {
   removeEnclosingTemplate?: boolean;
   languageAttribute?: 'lang' | 'type';
   prepareFn?: (code: string, config: Config) => Promise<string>;
+  skipCompilers?: LanguageOrProcessor[];
 }
 
 /**
@@ -20,7 +30,7 @@ interface CompileBlocksOptions {
  * </script>
  * <template><Counter /></template>
  */
-const exportDefaultImports = (code: string) => {
+export const exportDefaultImports = (code: string) => {
   const defaultImportPattern =
     /(?:import\s+?(?:(?:(\w*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
 
@@ -64,6 +74,53 @@ export const fetchBlocksSource = async (
   return code.replace(new RegExp(pattern, 'g'), () => blocks.pop() || '');
 };
 
+const postProcess = async (content: string, config: Config, language: LanguageOrProcessor) => {
+  // also in create-compiler
+  let code = content;
+  let info: CompileInfo = {};
+  let postcssRequired = false;
+
+  const editorId = getLanguageEditorId(language) || 'markup';
+  // let tailwindcss handle style imports if activated, otherwise use postcss
+  const tailwindcssIsActive =
+    processorIsEnabled('tailwindcss', config) && processorIsActivated('tailwindcss', config);
+  if (editorId === 'style' && hasStyleImports(code) && !tailwindcssIsActive) {
+    postcssRequired = true;
+  }
+
+  for (const processor of processors) {
+    if (
+      (processorIsEnabled(processor.name, config) &&
+        processorIsActivated(processor.name, config) &&
+        processor.editor === editorId) ||
+      (editorId === 'style' && processor.name === 'postcss')
+    ) {
+      if (processor.isPostcssPlugin) {
+        postcssRequired = true;
+      } else {
+        if (processor.name === 'postcss' && !postcssRequired) continue;
+        const tailwindcssReference =
+          tailwindcssIsActive && processor.name === 'tailwindcss'
+            ? '@reference "tailwindcss";\n'
+            : '';
+        const processResult = await compileInCompiler(
+          tailwindcssReference + code,
+          processor.name,
+          config,
+        );
+        const result = getCompileResult(processResult);
+        code = result.code;
+        info = {
+          ...info,
+          ...result.info,
+        };
+      }
+    }
+  }
+
+  return { code, info };
+};
+
 export const compileBlocks = async (
   code: string,
   blockElement: 'template' | 'style' | 'script',
@@ -76,35 +133,45 @@ export const compileBlocks = async (
     fullCode = await options.prepareFn(fullCode, config);
   }
 
+  const hasProcessors =
+    config.processors.filter((p) => !options.skipCompilers?.includes(p)).length > 0;
+
   const getBlockPattern = (el: typeof blockElement, langAttr = 'lang') =>
-    `(<${el}(?:[^(?:${langAttr})]*))(?:\\s${langAttr}=["']([A-Za-z0-9 _]*)["'])((?:[^>]*)>)([\\s\\S]*?)(<\\/${el}>)`;
+    `(<${el}\\s*)(?:([\\s\\S]*?)${langAttr}\\s*=\\s*["']([A-Za-z0-9 _]*)["'])?((?:[^>]*)>)([\\s\\S]*?)(<\\/${el}>)`;
+
   const pattern = getBlockPattern(blockElement, options.languageAttribute);
   const blocks: string[] = [];
   for (const arr of [...fullCode.matchAll(new RegExp(pattern, 'g'))]) {
-    const [element, opentagPre, language, opentagPost, content, closetag] = arr;
-    if (!language || !content) {
+    const [element, opentag, opentagPre = '', language = '', opentagPost, content, closetag] = arr;
+    if ((!language || !content) && (blockElement !== 'style' || !hasProcessors)) {
       blocks.push(element);
       continue;
     }
     const lang = getLanguageByAlias(language);
-    if (!lang) {
+    if (
+      (!lang || options.skipCompilers?.includes(lang)) &&
+      (blockElement !== 'style' || !hasProcessors)
+    ) {
       blocks.push(element);
       continue;
     }
     let exports = '';
-    if (['typescript', 'babel', 'sucrase', 'jsx', 'tsx'].includes(lang)) {
+    if (['typescript', 'jsx', 'tsx', 'babel', 'sucrase'].includes(lang || '')) {
       exports = exportDefaultImports(content);
     }
-    let compiled = (await compileInCompiler(content + exports, lang, config)).code;
+    let compiled = (await compileInCompiler(content + exports, lang, config)).code || content;
     if (exports) {
       compiled = compiled.replace(exports, '');
+    }
+    if (hasProcessors) {
+      compiled = getCompileResult(await postProcess(compiled, config, lang ?? 'css')).code;
     }
     blocks.push(
       element.replace(
         new RegExp(pattern, 'g'),
         blockElement === 'template' && options.removeEnclosingTemplate
           ? compiled
-          : opentagPre + opentagPost + compiled + closetag,
+          : opentag + opentagPre + opentagPost + compiled + closetag,
       ),
     );
   }

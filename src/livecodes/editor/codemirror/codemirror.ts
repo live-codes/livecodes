@@ -20,6 +20,7 @@ import {
   syntaxHighlighting,
   indentUnit,
   HighlightStyle,
+  foldEffect,
   type LanguageSupport,
   // @ts-ignore
 } from '@codemirror/language';
@@ -77,7 +78,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editorLanguages[language]?.() || (editorLanguages.html?.() as Promise<LanguageSupport>);
 
   const mapLanguage = (lang: Language) => {
-    if (['vue', 'vue3', 'vue2'].includes(lang)) return 'vue';
+    if (lang.startsWith('vue')) return 'vue';
+    if (lang.startsWith('svelte')) return 'svelte';
+    if (lang === 'liquid') return 'liquid';
     return options.mapLanguage?.(lang) || lang;
   };
 
@@ -479,6 +482,42 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  const foldRegions = () => {
+    const code = view.state.doc.toString();
+    const regionRegExp = /\/\/#region[\s\S]*?\/\/#endregion/g;
+    let matches;
+    while ((matches = regionRegExp.exec(code)) !== null) {
+      const start = matches.index + code.slice(matches.index).indexOf('\n');
+      const end = matches.index + matches[0].length;
+      view.dispatch({
+        effects: foldEffect.of({ from: start, to: end }),
+      });
+    }
+  };
+
+  const foldLines = (linesToFold: Array<{ from: number; to: number }>) => {
+    linesToFold.forEach((line) => {
+      let start = 0;
+      let end = view.state.doc.length;
+      if (line.from < 0 || line.to < 0 || line.from > line.to) return;
+      try {
+        if (line.from) {
+          const startLineInfo = view.state.doc.line(line.from);
+          start = startLineInfo.from;
+        }
+        if (line.to) {
+          const endLineInfo = view.state.doc.line(line.to);
+          end = endLineInfo.from + endLineInfo.length;
+        }
+        view.dispatch({
+          effects: foldEffect.of({ from: start, to: end }),
+        });
+      } catch (e) {
+        //
+      }
+    });
+  };
+
   const destroy = () => {
     listeners.length = 0;
     keyBindings.length = 0;
@@ -497,6 +536,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     focus,
     getPosition,
     setPosition,
+    foldRegions,
+    foldLines,
     addTypes,
     onContentChanged,
     keyCodes,
