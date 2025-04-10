@@ -4,6 +4,58 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v44](https://github.com/live-codes/livecodes/compare/v43...v44) (2025-04-10)
+
+### Highlights for this release
+
+This release adds multiple new features and fixes, including:
+
+- Significant improvements in editor support for Vue (e.g. auto-complete, hover info, `defineProps` can now infer props from locally declared types, and more).
+- Vue and Svelte single file components can import (and recursively compile) other components encoded as data URLs ([docs](https://livecodes.io/docs/languages/vue#importing-data-urls)).
+- CSS processors (e.g. Tailwind CSS) can now process style blocks (e.g. `@apply`) in Vue and Svelete SFCs.
+- ESM imports for full, relative and data URLs no longer show typescript error.
+- React native now uses React v19 (see [starter template](https://livecodes.io/?template=react-native)).
+- A new config option [`foldRegions`](https://livecodes.io/docs/configuration/configuration-object#foldregions) was added. When set to `true`, regions marked by `#region` and `#endregion` comments are folded when the project is loaded.
+- [Editor configurations](https://livecodes.io/docs/configuration/configuration-object#markup) (`config.markup`, `config.style`, `config.script`) have a new property `foldLines` that accepts an array of objects (e.g. `[{ from: 1, to: 5 }]`) that indicates which lines to fold. This can be useful for less relevant code in embedded playgrounds.
+- [`config.editor`](https://livecodes.io/docs/configuration/configuration-object#editor) now supports the value `"auto"`, which indicates that Monaco editor is used on desktop and CodeMirror is used on mobile regardless of other settings. This can be useful in `"simple"` mode.
+- The loading screen now uses an animated logo.
+- A new command menu action was added for selecting editor theme.
+- Various UI improvements and fixes.
+
+### Credits
+
+- @FathyMuhamed added the [animated loading logo](https://github.com/live-codes/livecodes/pull/768) and [command menu action](https://github.com/live-codes/livecodes/pull/775) for editor theme.
+- @logaretm and @ismail9k guided [Vue improvements](https://github.com/live-codes/livecodes/issues/757).
+
+Thank you ❤️
+
+### Features
+
+- **Command Menu:** add editor theme option with translations ([314b97c](https://github.com/live-codes/livecodes/commit/314b97cfba7c1f04f328a68c93aa85a8b5dba829))
+- **CommandMenu:** add editor theme action to command menu ([88b67e3](https://github.com/live-codes/livecodes/commit/88b67e332978b422d03076dd4dc532e6ff663525))
+- **Compilers:** allow SFC to import other SFCs encoded as data URLs ([11cef05](https://github.com/live-codes/livecodes/commit/11cef058daaa907d6bb61cf1873952dd9c934e01))
+- **Compilers:** run processors on SFC blocks ([7208924](https://github.com/live-codes/livecodes/commit/7208924d01130c9babbdf264fbae3612a796fa05))
+- **Compilers:** vue, infer props from types ([af91b7d](https://github.com/live-codes/livecodes/commit/af91b7d2b8151b61faeaf65b337026d63c0702b6))
+- **Config:** add the value `"auto"` to `config.editor` options ([0f62de8](https://github.com/live-codes/livecodes/commit/0f62de8891ca221c035a2a0e8e3cbfcc9133f2a0))
+- **Editor:** add monaco-volar to improve Vue editor experience ([badaf6a](https://github.com/live-codes/livecodes/commit/badaf6a9288b8b4a8eb2eeee1a5258e780925574))
+- **Editor:** allow folding lines and regions ([984c913](https://github.com/live-codes/livecodes/commit/984c913bcebcc8d0a2f872df1076311d039e65a1))
+- **Loading:** replace logo with loading animation SVG in index.html ([d8254f4](https://github.com/live-codes/livecodes/commit/d8254f4aaa29463b6a5de2a1b77e75c50d1e13ff))
+- **Templates:** edit Vue template to infer props from types ([9269d30](https://github.com/live-codes/livecodes/commit/9269d303853367ba2e4e8e6071e59c490e1e3b82))
+- **Translations:** add editor theme translation to command menu ([04fb14a](https://github.com/live-codes/livecodes/commit/04fb14ae82f61c14d52f8d1f2e243c8a57aab190))
+- **UI:** pulsating loading logo ([9c62d48](https://github.com/live-codes/livecodes/commit/9c62d48e2b25afc085aba659ef8c0f1d9c8c561f))
+
+### Bug Fixes
+
+- **Build:** fix incrementing release version ([b12c8f9](https://github.com/live-codes/livecodes/commit/b12c8f959c9883c3c0d6445d9a1f7b83fc81a12a))
+- **Compilers:** fix react native (support react v19) ([ed3a533](https://github.com/live-codes/livecodes/commit/ed3a533db1854dc6e928fd76df509b433c8f946c))
+- **Editor:** fix TS errors for data url imports ([60d9563](https://github.com/live-codes/livecodes/commit/60d9563631a2e66b93b68f93c75cf2424dfb04b8))
+- **Editor:** fix TS errors for http & relative imports ([f6943cd](https://github.com/live-codes/livecodes/commit/f6943cd87cd905621a78ccaa80b26ce059138a1a))
+- **UI:** fix gutter overflow ([9c48c05](https://github.com/live-codes/livecodes/commit/9c48c05a18c0d2b2de775a7e4d1b9aa3791ea41a))
+- **UI:** fix hidden editor horizontal scroll bar ([f368f1b](https://github.com/live-codes/livecodes/commit/f368f1bed3ed974c1fffdde82a8e6f1c3d509d68))
+- **UI:** fix modal focus in inputs ([92f9416](https://github.com/live-codes/livecodes/commit/92f94162d04bf6c3c02209752a999f02e764fab1))
+
+---
+
 ## [sdk-v0.9.1](https://github.com/live-codes/livecodes/compare/v43...sdk-v0.9.1) (2025-04-10)
 
 ### Features
