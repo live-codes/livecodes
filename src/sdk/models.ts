@@ -1001,6 +1001,7 @@ export type Language =
   | 'php-wasm'
   | 'phpwasm'
   | 'wasm.php'
+  | 'java'
   | 'cpp'
   | 'c'
   | 'C'
@@ -1077,8 +1078,7 @@ export type Language =
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
-  | 'pintora'
-  | 'java';
+  | 'pintora';
 
 export interface Editor {
   /**
@@ -1335,6 +1335,7 @@ export interface Compiler {
     | 'text/ruby-wasm'
     | 'text/x-uniter-php'
     | 'text/php-wasm'
+    | 'text/java'
     | 'text/cpp'
     | 'text/perl'
     | 'text/julia'
@@ -1345,8 +1346,7 @@ export interface Compiler {
     | 'application/json'
     | 'application/lua'
     | 'text/fennel'
-    | 'application/wasm-uint8'
-    | 'text/java';
+    | 'application/wasm-uint8';
   liveReload?: boolean;
   aliasTo?: Language;
   compiledCodeLanguage?: Language;
@@ -1413,6 +1413,7 @@ export type TemplateName =
   | 'go'
   | 'php'
   | 'php-wasm'
+  | 'java'
   | 'cpp'
   | 'clang'
   | 'cpp-wasm'
@@ -1434,8 +1435,7 @@ export type TemplateName =
   | 'postgresql'
   | 'prolog'
   | 'blockly'
-  | 'diagrams'
-  | 'java';
+  | 'diagrams';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';

@@ -69,6 +69,9 @@ function loadParser(language: Language): Parser | undefined {
         if (!prettierPlugins.pug && (self as any).pluginPug) {
           prettierPlugins.pug = (self as any).pluginPug;
         }
+        if (!prettierPlugins.java && (self as any).pluginJava?.default) {
+          prettierPlugins.java = (self as any).pluginJava.default;
+        }
         return true;
       } catch (err) {
         // eslint-disable-next-line no-console

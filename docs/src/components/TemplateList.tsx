@@ -44,6 +44,7 @@ const templates = [
   { name: 'go', title: 'Go Starter', thumbnail: 'go.svg' },
   { name: 'php', title: 'PHP Starter', thumbnail: 'php.svg' },
   { name: 'php-wasm', title: 'PHP (Wasm) Starter', thumbnail: 'php.svg' },
+  { name: 'java', title: 'Java Starter', thumbnail: 'java.svg' },
   { name: 'cpp', title: 'C++ Starter', thumbnail: 'cpp.svg' },
   { name: 'cpp-wasm', title: 'C++ (Wasm) Starter', thumbnail: 'cpp.svg' },
   { name: 'perl', title: 'Perl Starter', thumbnail: 'perl.svg' },
@@ -65,7 +66,6 @@ const templates = [
   { name: 'prolog', title: 'Prolog Starter', thumbnail: 'tau-prolog.svg' },
   { name: 'blockly', title: 'Blockly Starter', thumbnail: 'blockly.svg' },
   { name: 'diagrams', title: 'Diagrams Starter', thumbnail: 'diagrams.svg' },
-  { name: 'java', title: 'Java Starter', thumbnail: 'java.svg' },
 ];
 
 export default function TemplateList() {

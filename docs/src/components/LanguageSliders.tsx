@@ -84,6 +84,7 @@ export default function Sliders() {
       { name: 'go', title: 'Go' },
       { name: 'php', title: 'PHP' },
       { name: 'php-wasm', title: 'PHP (Wasm)' },
+      { name: 'java', title: 'Java' },
       { name: 'cpp', title: 'C++' },
       { name: 'cpp-wasm', title: 'C++ (Wasm)' },
       { name: 'perl', title: 'Perl' },
@@ -103,7 +104,6 @@ export default function Sliders() {
       { name: 'postgresql', title: 'PostgreSQL' },
       { name: 'prolog', title: 'Prolog' },
       { name: 'blockly', title: 'Blockly' },
-      { name: 'java', title: 'Java' },
     ],
   };
   const slides = ['markup', 'style', 'script'];

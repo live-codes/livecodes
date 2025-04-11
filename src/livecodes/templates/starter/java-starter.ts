@@ -53,8 +53,6 @@ export const javaStarter: Template = {
     }
   });
 </script>
-
-
 `.trimStart(),
   },
   style: {
@@ -74,21 +72,23 @@ export const javaStarter: Template = {
     language: 'java',
     content: `
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        String title = "Java";
-        System.out.println(title);
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int count = Integer.parseInt(reader.readLine());
-        count += 1;
-        System.out.println(count);
-    }
+  public static void main(String[] args) throws IOException {
+    String title = "Java";
+    System.out.println(title);
+
+    BufferedReader reader = new BufferedReader(
+      new InputStreamReader(System.in)
+    );
+    int count = Integer.parseInt(reader.readLine());
+    count += 1;
+    System.out.println(count);
+  }
 }
-
 `.trimStart(),
   },
 };

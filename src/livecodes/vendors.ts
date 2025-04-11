@@ -3,7 +3,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.0/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.1/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -32,6 +32,8 @@ export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.26.4/babel.j
 export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
 export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@11.1.1/');
+
+export const browserfsUrl = /* @__PURE__ */ getUrl('browserfs@1.4.3/dist/browserfs.min.js');
 
 export const browserJestUrl = /* @__PURE__ */ getUrl(
   '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',
@@ -83,7 +85,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.0/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.1/build/');
 
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
@@ -95,16 +97,6 @@ export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 
 export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/');
 
-export const javaDoppiojvmUrl = /* @__PURE__ */ getUrl(
-  'https://unpkg.com/@seth0x41/doppio@1.0.0/doppio.js',
-);
-
-export const javaDoppiojvmJarsUrl = /* @__PURE__ */ getUrl(
-  'https://unpkg.com/@seth0x41/doppio@1.0.0/java_home/',
-);
-
-export const browserfsUrl = /* @__PURE__ */ getUrl('browserfs@1.4.3/dist/browserfs.min.js');
-
 export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@2.3.1/dist/csstree.js');
 
 export const cytoscapeSvgUrl = /* @__PURE__ */ getUrl('cytoscape-svg@0.4.0/cytoscape-svg.js');
@@ -114,6 +106,8 @@ export const cytoscapeUrl = /* @__PURE__ */ getUrl('cytoscape@3.25.0/dist/cytosc
 export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
   '@ddietr/codemirror-themes@1.4.2/dist/theme/',
 );
+
+export const doppioJvmBaseUrl = 'https://unpkg.com/@seth0x41/doppio@1.0.0/';
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
@@ -338,7 +332,6 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
 export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
 
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.22.2/standalone.js');
-export const prettierJavaUrl = /* @__PURE__ */ getUrl('prettier-plugin-java@2.6.7/dist/index.js');
 
 export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/components/');
 

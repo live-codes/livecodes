@@ -27,6 +27,7 @@ const moduleUrls = {
   markdown: getPath('codemirror-lang-markdown.js'),
   python: getPath('codemirror-lang-python.js'),
   php: getPath('codemirror-lang-php.js'),
+  java: getPath('codemirror-lang-java.js'),
   cpp: getPath('codemirror-lang-cpp.js'),
   sql: getPath('codemirror-lang-sql.js'),
   wast: getPath('codemirror-lang-wast.js'),
@@ -46,7 +47,6 @@ const moduleUrls = {
   stylus: getPath('codemirror-lang-stylus.js'),
   rust: getPath('codemirror-lang-rust.js'),
   swift: getPath('codemirror-lang-swift.js'),
-  java: getPath('codemirror-lang-java.js'),
 };
 
 export const editorLanguages: Partial<{ [key in Language]: () => Promise<LanguageSupport> }> = {
@@ -64,6 +64,7 @@ export const editorLanguages: Partial<{ [key in Language]: () => Promise<Languag
   python: async () => (await import(moduleUrls.python)).python(),
   php: async () => (await import(moduleUrls.php)).php(),
   go: async () => (await import(moduleUrls.go)).go(),
+  java: async () => (await import(moduleUrls.java)).java(),
   cpp: async () => (await import(moduleUrls.cpp)).cpp(),
   sql: async () => (await import(moduleUrls.sql)).sql(),
   wat: async () => (await import(moduleUrls.wast)).wast(),
@@ -84,5 +85,4 @@ export const editorLanguages: Partial<{ [key in Language]: () => Promise<Languag
   // @ts-ignore
   rust: async () => legacy((await import(moduleUrls.rust)).rust),
   swift: async () => legacy((await import(moduleUrls.swift)).swift),
-  java: async () => legacy((await import(moduleUrls.java)).java),
 };

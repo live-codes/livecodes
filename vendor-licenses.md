@@ -28,6 +28,8 @@ BiwaScheme: [MIT License](https://github.com/biwascheme/biwascheme/blob/7a95e757
 
 Blockly: [Apache-2.0 License](https://github.com/google/blockly/blob/3ae4a618429c87fc002e512e5a2504af382325fd/LICENSE)
 
+BrowserFS: [MIT License](https://github.com/jvilk/BrowserFS/blob/76fd5122fcf3ad6bff3315550aafb041cfb6a72e/license.md)
+
 brython: [BSD-3-Clause license](https://github.com/brython-dev/brython/blob/c579e26d7e24c37c77f00fc345af0248ca6be8eb/LICENCE.txt)
 
 chai: [MIT License](https://github.com/chaijs/chai/blob/1a8247f30dbe0f54268a9748ae673caec75d6bfe/LICENSE)
@@ -57,6 +59,8 @@ Cytoscape.js: [MIT License](https://github.com/cytoscape/cytoscape.js/blob/f2b06
 dot: [MIT License](https://github.com/olado/doT/blob/031d3bb7520eed6b93886df2b650b7fce12a7007/LICENSE-DOT.txt)
 
 dart-sass: [MIT License](https://github.com/sass/dart-sass/blob/e3bf3eb3a3a8708877a86a08c7e3bee92160ac1f/LICENSE)
+
+DoppioJVM: [MIT License](https://github.com/plasma-umass/doppio/blob/9a8bcf705c74f91301a542abfe8b7175ca757259/LICENSE)
 
 dts-bundle: [MIT License](https://github.com/TypeStrong/dts-bundle/blob/2ca1591e890dc4276efc4bb0893367e6ff32a039/LICENSE-MIT)
 
@@ -303,5 +307,3 @@ WebR: [License](https://github.com/r-wasm/webr/blob/e47ab9854c9306c410f302579c66
 Whirl: [MIT License](https://github.com/jh3y/whirl/tree/8de79b76a13200ccbd8b0b75b4f79978ef1ee890)
 
 Windi CSS: [MIT License](https://github.com/windicss/windicss/blob/bcd50d877e62630f191602ddeabd9f677cc6d90c/LICENSE)
-
-DoppioJVM: [MIT License](https://github.com/plasma-umass/doppio/blob/9a8bcf705c74f91301a542abfe8b7175ca757259/LICENSE)

@@ -144,6 +144,11 @@ const languageInfo = {
     link: '<1><2>Official website</2></1>',
     name: 'Imba',
   },
+  java: {
+    desc: 'JVM running in the browser using DoppioJVM.',
+    link: '<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'Java',
+  },
   jsx: {
     desc: 'JSX is compiled to JavaScript in LiveCodes using the TypeScript Compiler.  By default it uses React as the JSX runtime.',
     link: '<1> <2>React official website</2> </1> <3> <4>JSX in React documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>',

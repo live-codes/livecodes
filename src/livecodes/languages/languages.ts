@@ -141,6 +141,7 @@ export const languages: LanguageSpecs[] = [
   go,
   php,
   phpWasm,
+  java,
   cpp,
   cppWasm,
   perl,
@@ -160,5 +161,4 @@ export const languages: LanguageSpecs[] = [
   postgresql,
   prolog,
   blockly,
-  java,
 ];

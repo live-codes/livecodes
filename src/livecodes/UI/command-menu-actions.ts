@@ -300,6 +300,7 @@ export const getCommandMenuActions = ({
         'go',
         'php',
         'php-wasm',
+        'java',
         'cpp',
         'clang',
         'cpp-wasm',
@@ -322,7 +323,6 @@ export const getCommandMenuActions = ({
         'prolog',
         'blockly',
         'diagrams',
-        'java',
       ).map((template) => ({
         id: 'Starter template: ' + template,
         title: window.deps.translateString('commandMenu.template', 'Template') + ': ' + template,
