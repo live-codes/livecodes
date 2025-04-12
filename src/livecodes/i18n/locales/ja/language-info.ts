@@ -137,6 +137,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>公式ウェブサイト</2></1>',
     name: 'Imba',
   },
+  java: {
+    desc: 'DoppioJVMを使ってブラウザで動作するJVM。',
+    link: '<1> <2>Java公式サイト    DoppioJVM    XをY分で学ぶ、X=Java    スターターテンプレートのロード</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
+    name: 'Java',
+  },
   jsx: {
     desc: 'JSX は LiveCodes で TypeScript コンパイラを使用して JavaScript にコンパイルされます。デフォルトでは React を JSX ランタイムとして使用します。',
     link: '<1> <2>React 公式ウェブサイト</2> </1> <3> <4>React ドキュメントの JSX</4> </3> <5> <6>LiveCodes ドキュメント</6> </5>',

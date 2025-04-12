@@ -240,6 +240,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "java.desc": {
+    "translation": "使用 DoppioJVM 在浏览器中运行的 JVM。"
+  },
+  "java.link": {
+    "translation": "<tag-1> <tag-2>Java 官方网站    DoppioJVM    在 Y 分钟内学习 X，其中 X=java    加载启动模板</tag-2> </tag-1> <tag-3> <tag-4></tag-4> </tag-3> <tag-5> <tag-6></tag-6> </tag-5> <tag-7> <tag-8></tag-8> </tag-7>"
+  },
+  "java.name": {
+    "translation": "Java"
+  },
   "jsx.desc": {
     "translation": "在 LiveCodes 中，JSX 使用 TypeScript 编译器编译为 JavaScript。默认情况下，React 将作为 JSX 运行时。"
   },

@@ -240,6 +240,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "java.desc": {
+    "translation": "JVM em execução no navegador usando DoppioJVM."
+  },
+  "java.link": {
+    "translation": "<tag-1> <tag-2>Sítio Web oficial de Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Aprender X em Y minutos, onde X=java</tag-6> </tag-5> <tag-7> <tag-8> Carregar modelo inicial</tag-8> </tag-7>"
+  },
+  "java.name": {
+    "translation": "Java"
+  },
   "jsx.desc": {
     "translation": "JSX é compilado para JavaScript no LiveCodes usando o Compilador TypeScript. Por padrão, ele usa React como o runtime JSX."
   },

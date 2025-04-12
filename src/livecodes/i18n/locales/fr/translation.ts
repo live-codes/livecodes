@@ -998,6 +998,7 @@ const translation: I18nTranslation = {
       go: 'Démarrage Go',
       heading: 'Modèles de Démarrage',
       imba: 'Démarrage Imba',
+      java: 'Démarrage Java',
       javascript: 'Démarrage JavaScript',
       jest: 'Démarrage Jest',
       'jest-react': 'Démarrage Jest/React',

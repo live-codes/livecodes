@@ -1971,6 +1971,9 @@
   "templates.starter.imba": {
     "translation": "Starter Imba"
   },
+  "templates.starter.java": {
+    "translation": "Starter Java"
+  },
   "templates.starter.javascript": {
     "translation": "Starter JavaScript"
   },
