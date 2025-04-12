@@ -1971,6 +1971,9 @@
   "templates.starter.imba": {
     "translation": "قالب Imba"
   },
+  "templates.starter.java": {
+    "translation": "قالب Java"
+  },
   "templates.starter.javascript": {
     "translation": "قالب JavaScript"
   },

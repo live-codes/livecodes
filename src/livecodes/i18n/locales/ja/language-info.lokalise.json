@@ -240,6 +240,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "java.desc": {
+    "translation": "DoppioJVMを使ってブラウザで動作するJVM。"
+  },
+  "java.link": {
+    "translation": "<tag-1> <tag-2>Java公式サイト    DoppioJVM    XをY分で学ぶ、X=Java    スターターテンプレートのロード</tag-2> </tag-1> <tag-3> <tag-4></tag-4> </tag-3> <tag-5> <tag-6></tag-6> </tag-5> <tag-7> <tag-8></tag-8> </tag-7>"
+  },
+  "java.name": {
+    "translation": "Java"
+  },
   "jsx.desc": {
     "translation": "JSX は LiveCodes で TypeScript コンパイラを使用して JavaScript にコンパイルされます。デフォルトでは React を JSX ランタイムとして使用します。"
   },

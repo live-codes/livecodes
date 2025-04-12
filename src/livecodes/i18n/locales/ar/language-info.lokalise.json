@@ -240,6 +240,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "java.desc": {
+    "translation": "JVM يعمل في المتصفح باستخدام DoppioJVM."
+  },
+  "java.link": {
+    "translation": "<tag-1> <tag-2>موقع جافا الرسمي</tag-2> </tag-1>   <tag-3>  <tag-4> DoppioJVM</tag-4> </tag-3>  <tag-5> <tag-6> تعلم X في دقائق Y، حيث X = جافا</tag-6> </tag-5>   <tag-7> <tag-8> تحميل قالب البدء</tag-8> </tag-7>"
+  },
+  "java.name": {
+    "translation": "Java"
+  },
   "jsx.desc": {
     "translation": "يتم ترجمة JSX إلى جافا سكريبت في LiveCodes باستخدام مترجم TypeScript. افتراضيًا، يستخدم React كبيئة تشغيل JSX."
   },

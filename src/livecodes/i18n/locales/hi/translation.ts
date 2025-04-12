@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       go: 'Go स्टार्टर',
       heading: 'स्टार्टर टेम्पलेट्स',
       imba: 'Imba स्टार्टर',
+      java: 'Java स्टार्टर',
       javascript: 'JavaScript स्टार्टर',
       jest: 'Jest स्टार्टर',
       'jest-react': 'Jest/React स्टार्टर',

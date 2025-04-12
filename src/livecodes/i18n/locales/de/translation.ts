@@ -998,6 +998,7 @@ const translation: I18nTranslation = {
       go: 'Go-Starter',
       heading: 'Starter-Vorlagen',
       imba: 'Imba-Starter',
+      java: 'Java-Starter',
       javascript: 'JavaScript-Starter',
       jest: 'Jest-Starter',
       'jest-react': 'Jest/React-Starter',
