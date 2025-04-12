@@ -6,7 +6,7 @@ In LiveCodes, Java runs in the browser using [DoppioJVM](https://github.com/plas
 
 ## Usage
 
-Demo: (from [ultimate-design-patterns](https://github.com/mahyoussef/ultimate-design-patterns))
+Demo:
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
@@ -14,69 +14,45 @@ export const javaConfig = {
   activeEditor: 'script',
   script: {
     language: 'java',
-    content: `// from https://github.com/mahyoussef/ultimate-design-patterns/tree/main/java/singleton
-{/* prettier-ignore */}
-enum LogLevel {
-    DEBUG,
-    INFO,
-    WARN,
-    ERROR
+    content: `public class BinarySearchSnippet {
+  /**
+   * Search an item with binarySearch algorithm.
+   *
+   * @param arr sorted array to search
+   * @param item an item to search
+   * @return if item is found, return the index position of the array item otherwise return -1
+   */
+
+  public static int binarySearch(int[] arr, int left, int right, int item) {
+    if (right >= left) {
+      int mid = left + (right - left) / 2;
+      if (arr[mid] == item) {
+        return mid;
+      }
+
+      if (arr[mid] > item) {
+        return binarySearch(arr, left, mid - 1, item);
+      }
+
+      return binarySearch(arr, mid + 1, right, item);
+    }
+    return -1;
+  }
+
+  public static void main(String[] args) {
+    int[] sortedArray = {1, 3, 5, 7, 9, 11, 13, 15};
+    int itemToSearch = 7;
+
+    int result = binarySearch(sortedArray, 0, sortedArray.length - 1, itemToSearch);
+
+    if (result == -1) {
+      System.out.println("Result: Item not found in the array.");
+    } else {
+      System.out.println("Result: Item found at index -> " + result);
+    }
+  }
 }
-
-class Logger {
-
-    private static Logger instance;
-    private LogLevel logLevel = LogLevel.INFO;
-    private Logger(){}
-    public void setLogLevel(LogLevel logLevel) {
-        this.logLevel = logLevel;
-    }
-
-    public void logDebug(String message) {
-        if(logLevel.ordinal() <= LogLevel.DEBUG.ordinal()) {
-            System.out.println("DEBUG: " + message);
-        }
-    }
-    public void logInfo(String message) {
-        if(logLevel.ordinal() <= LogLevel.INFO.ordinal()) {
-            System.out.println("INFO: " + message);
-        }
-    }
-    public void logWarn(String message) {
-        if(logLevel.ordinal() <= LogLevel.WARN.ordinal()) {
-            System.out.println("WARN: " + message);
-        }
-    }
-    public void logError(String message) {
-        if(logLevel.ordinal() <= LogLevel.ERROR.ordinal()) {
-            System.out.println("ERROR: " + message);
-        }
-    }
-
-    public static Logger getInstance() {
-        if (instance == null) {
-            synchronized (Logger.class) {
-                if(instance == null) {
-                    instance = new Logger();
-                }
-            }
-        }
-        return instance;
-    }
-
-}
-{/* prettier-ignore */}
-public class Main {
-    public static void main(String[] args) {
-        Logger logger = Logger.getInstance();
-        logger.setLogLevel(LogLevel.WARN);
-        logger.logDebug("Debug message");
-        logger.logInfo("Info message");
-        logger.logWarn("Warn message");
-        logger.logError("Error message");
-    }
-}
-`.replace(/\{\/\* prettier-ignore \*\/\}/g, ''),
+`,
   },
   mode: 'simple',
   editor: 'auto',
