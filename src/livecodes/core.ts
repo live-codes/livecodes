@@ -293,8 +293,12 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
 
     const scriptLang = getEditorLanguage('script') || 'javascript';
     const compilers = getAllCompilers(languages, getConfig(), baseUrl);
-    const editorsText = `${getConfig().markup.content}
+    const editorsText = `
+      ${getConfig().markup.hiddenContent || ''}
+      ${getConfig().markup.content}
+      ${getConfig().style.hiddenContent || ''}
       ${getConfig().style.content}
+      ${getConfig().script.hiddenContent || ''}
       ${getConfig().script.content}
       `;
     const iframeIsPlaced = iframe.parentElement === container;

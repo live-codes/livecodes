@@ -2628,6 +2628,10 @@
     "notes": "",
     "translation": "Imba Starter"
   },
+  "templates.starter.java": {
+    "notes": "",
+    "translation": "Java Starter"
+  },
   "templates.starter.javascript": {
     "notes": "",
     "translation": "JavaScript Starter"
