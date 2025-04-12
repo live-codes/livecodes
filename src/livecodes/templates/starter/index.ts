@@ -65,6 +65,7 @@ import { phaserStarter } from './phaser-starter';
 import { d3Starter } from './d3-starter';
 import { shadcnuiStarter } from './shadcn-ui-starter';
 import { daisyuiStarter } from './daisyui-starter';
+import { javaStarter } from './java-starter';
 
 export const starterTemplates = [
   blank,
@@ -111,6 +112,7 @@ export const starterTemplates = [
   goStarter,
   phpStarter,
   phpWasmStarter,
+  javaStarter,
   cppStarter,
   cppWasmStarter,
   perlStarter,

@@ -1003,6 +1003,7 @@ const translation = {
       go: 'Go Starter',
       heading: 'Starter Templates',
       imba: 'Imba Starter',
+      java: 'Java Starter',
       javascript: 'JavaScript Starter',
       jest: 'Jest Starter',
       'jest-react': 'Jest/React Starter',

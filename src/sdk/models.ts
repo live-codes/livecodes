@@ -1001,6 +1001,7 @@ export type Language =
   | 'php-wasm'
   | 'phpwasm'
   | 'wasm.php'
+  | 'java'
   | 'cpp'
   | 'c'
   | 'C'
@@ -1242,7 +1243,8 @@ export type ParserName =
   | 'scss'
   | 'less'
   | 'php'
-  | 'pug';
+  | 'pug'
+  | 'java';
 
 export interface Parser {
   name: ParserName;
@@ -1333,6 +1335,7 @@ export interface Compiler {
     | 'text/ruby-wasm'
     | 'text/x-uniter-php'
     | 'text/php-wasm'
+    | 'text/java'
     | 'text/cpp'
     | 'text/perl'
     | 'text/julia'
@@ -1410,6 +1413,7 @@ export type TemplateName =
   | 'go'
   | 'php'
   | 'php-wasm'
+  | 'java'
   | 'cpp'
   | 'clang'
   | 'cpp-wasm'

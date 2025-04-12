@@ -28,6 +28,8 @@ BiwaScheme: [MIT License](https://github.com/biwascheme/biwascheme/blob/7a95e757
 
 Blockly: [Apache-2.0 License](https://github.com/google/blockly/blob/3ae4a618429c87fc002e512e5a2504af382325fd/LICENSE)
 
+BrowserFS: [MIT License](https://github.com/jvilk/BrowserFS/blob/76fd5122fcf3ad6bff3315550aafb041cfb6a72e/license.md)
+
 brython: [BSD-3-Clause license](https://github.com/brython-dev/brython/blob/c579e26d7e24c37c77f00fc345af0248ca6be8eb/LICENCE.txt)
 
 chai: [MIT License](https://github.com/chaijs/chai/blob/1a8247f30dbe0f54268a9748ae673caec75d6bfe/LICENSE)
@@ -57,6 +59,8 @@ Cytoscape.js: [MIT License](https://github.com/cytoscape/cytoscape.js/blob/f2b06
 dot: [MIT License](https://github.com/olado/doT/blob/031d3bb7520eed6b93886df2b650b7fce12a7007/LICENSE-DOT.txt)
 
 dart-sass: [MIT License](https://github.com/sass/dart-sass/blob/e3bf3eb3a3a8708877a86a08c7e3bee92160ac1f/LICENSE)
+
+DoppioJVM: [MIT License](https://github.com/plasma-umass/doppio/blob/9a8bcf705c74f91301a542abfe8b7175ca757259/LICENSE)
 
 dts-bundle: [MIT License](https://github.com/TypeStrong/dts-bundle/blob/2ca1591e890dc4276efc4bb0893367e6ff32a039/LICENSE-MIT)
 
@@ -197,6 +201,8 @@ posthtml-css-modules: [MIT License](https://github.com/posthtml/posthtml-css-mod
 prelude<span>.ls</span>: [MIT License](https://github.com/gkz/prelude-ls/blob/41d048799bdd063e0592c1413d238ad95ceda1d9/LICENSE)
 
 Prettier: [MIT License](https://github.com/prettier/prettier/blob/2c1b8f6fab1f9c63ab5d937908d090d8e75e8072/LICENSE)
+
+Prettier Java: [Apache-2.0 license](https://github.com/jhipster/prettier-java/blob/841de42f1d8dd815bbfaa14696569259258f9a02/LICENSE)
 
 Prettier Pug Plugin: [MIT License](https://github.com/prettier/plugin-pug/blob/27ab92b27a062bb187fc33f82b2fad436ec31c25/LICENSE)
 

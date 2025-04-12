@@ -300,6 +300,7 @@ export const getCommandMenuActions = ({
         'go',
         'php',
         'php-wasm',
+        'java',
         'cpp',
         'clang',
         'cpp-wasm',
