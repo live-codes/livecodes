@@ -202,6 +202,8 @@ prelude<span>.ls</span>: [MIT License](https://github.com/gkz/prelude-ls/blob/41
 
 Prettier: [MIT License](https://github.com/prettier/prettier/blob/2c1b8f6fab1f9c63ab5d937908d090d8e75e8072/LICENSE)
 
+Prettier Java: [Apache-2.0 license](https://github.com/jhipster/prettier-java/blob/841de42f1d8dd815bbfaa14696569259258f9a02/LICENSE)
+
 Prettier Pug Plugin: [MIT License](https://github.com/prettier/plugin-pug/blob/27ab92b27a062bb187fc33f82b2fad436ec31c25/LICENSE)
 
 Prism themes: [MIT License](https://github.com/PrismJS/prism-themes/blob/447479fc7b2be2051fe27e561aceed7cc87a589f/LICENSE)

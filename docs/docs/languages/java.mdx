@@ -1,3 +1,146 @@
 # Java
 
-TODO...
+Java is a high-level, general-purpose, memory-safe, object-oriented programming language.
+
+In LiveCodes, Java runs in the browser using [DoppioJVM](https://github.com/plasma-umass/doppio).
+
+## Usage
+
+Demo: (from [ultimate-design-patterns](https://github.com/mahyoussef/ultimate-design-patterns))
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const javaConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'java',
+    content: `// from https://github.com/mahyoussef/ultimate-design-patterns/tree/main/java/singleton
+{/* prettier-ignore */}
+enum LogLevel {
+    DEBUG,
+    INFO,
+    WARN,
+    ERROR
+}
+
+class Logger {
+
+    private static Logger instance;
+    private LogLevel logLevel = LogLevel.INFO;
+    private Logger(){}
+    public void setLogLevel(LogLevel logLevel) {
+        this.logLevel = logLevel;
+    }
+
+    public void logDebug(String message) {
+        if(logLevel.ordinal() <= LogLevel.DEBUG.ordinal()) {
+            System.out.println("DEBUG: " + message);
+        }
+    }
+    public void logInfo(String message) {
+        if(logLevel.ordinal() <= LogLevel.INFO.ordinal()) {
+            System.out.println("INFO: " + message);
+        }
+    }
+    public void logWarn(String message) {
+        if(logLevel.ordinal() <= LogLevel.WARN.ordinal()) {
+            System.out.println("WARN: " + message);
+        }
+    }
+    public void logError(String message) {
+        if(logLevel.ordinal() <= LogLevel.ERROR.ordinal()) {
+            System.out.println("ERROR: " + message);
+        }
+    }
+
+    public static Logger getInstance() {
+        if (instance == null) {
+            synchronized (Logger.class) {
+                if(instance == null) {
+                    instance = new Logger();
+                }
+            }
+        }
+        return instance;
+    }
+
+}
+{/* prettier-ignore */}
+public class Main {
+    public static void main(String[] args) {
+        Logger logger = Logger.getInstance();
+        logger.setLogLevel(LogLevel.WARN);
+        logger.logDebug("Debug message");
+        logger.logInfo("Info message");
+        logger.logWarn("Warn message");
+        logger.logError("Error message");
+    }
+}
+`.replace(/\{\/\* prettier-ignore \*\/\}/g, ''),
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+},
+};
+
+<LiveCodes config={javaConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The Java code runs in the context of the [result page](../features/result.mdx).
+A few helper properties and methods are available in the browser global `livecodes.java` object:
+
+- `livecodes.java.input`: the initial standard input that is passed to the Java code.
+- `livecodes.java.loaded`: A promise that resolves when the Java environment is loaded. Any other helpers should be used after this promise resolves.
+- `livecodes.java.output`: the standard output.
+- `livecodes.java.error`: the standard error.
+- `livecodes.java.exitCode`: the exit code.
+- `livecodes.java.run`: a function that runs the Java code with new input. This function takes a string as input and returns a promise that resolves when the Java code is done running. The promise resolves with an object containing the `input`, `output`, `error`, and `exitCode` properties.
+
+Example:
+
+<LiveCodes template="java" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`java`
+
+### Extension
+
+`.java`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[DoppioJVM](https://github.com/plasma-umass/doppio)
+
+### Version
+
+`DoppioJVM`: v0.5.0, which runs Java 8 JDK.
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io) with the [Prettier Java plugin](https://github.com/jhipster/prettier-java).
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, to avoid the need to reload the Java environment.
+
+This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the code, which will force a full page reload.
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Starter Template
+
+https://livecodes.io/?template=java
+
+## Links
+
+- [Java](https://www.java.com/)
+- [DoppioJVM](https://github.com/plasma-umass/doppio)

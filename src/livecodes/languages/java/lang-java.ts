@@ -3,7 +3,7 @@ import { parserPlugins } from '../prettier';
 
 export const java: LanguageSpecs = {
   name: 'java',
-  title: 'java',
+  title: 'Java',
   parser: {
     name: 'java',
     pluginUrls: [parserPlugins.java],
