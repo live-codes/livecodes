@@ -997,6 +997,7 @@ const translation: I18nTranslation = {
       go: 'Starter Go',
       heading: 'Modelli di Partenza',
       imba: 'Starter Imba',
+      java: 'Starter Java',
       javascript: 'Starter JavaScript',
       jest: 'Starter Jest',
       'jest-react': 'Starter Jest/React',

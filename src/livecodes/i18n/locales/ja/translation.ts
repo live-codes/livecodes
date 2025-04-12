@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       go: 'Goスターター',
       heading: 'スターターテンプレート',
       imba: 'Imbaスターター',
+      java: 'Javaスターター',
       javascript: 'JavaScriptスターター',
       jest: 'Jestスターター',
       'jest-react': 'Jest/Reactスターター',

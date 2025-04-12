@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       go: 'Inicio Go',
       heading: 'Plantillas de Inicio',
       imba: 'Inicio Imba',
+      java: 'Inicio Java',
       javascript: 'Inicio JavaScript',
       jest: 'Inicio Jest',
       'jest-react': 'Inicio Jest/React',
