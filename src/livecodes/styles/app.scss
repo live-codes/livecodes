@@ -1137,14 +1137,6 @@ a.tools-pane-title {
     overflow: hidden;
   }
 
-  .luna-console-input pre.luna-console-code {
-    visibility: hidden;
-
-    &.visible {
-      visibility: visible;
-    }
-  }
-
   .luna-console-log-item .luna-console-icon-container .luna-console-icon {
     color: #03a9f4;
   }
