@@ -184,19 +184,6 @@ export const createConsole = (
 
     if (editor) return consoleEditor;
 
-    // workaround to remove 'luna-console-' added to variable names called by console input
-    const observer = new MutationObserver(() => {
-      const newLogs = consoleElement.querySelectorAll(
-        '.luna-console-input pre.luna-console-code:not(.visible)',
-      );
-      if (newLogs.length === 0) return;
-      newLogs.forEach((log) => {
-        const pattern = /(luna-console-)(?!keyword|string|operator|number|json|hidden)/g;
-        log.innerHTML = log.innerHTML.replace(pattern, '');
-        log.classList.add('visible');
-      });
-    });
-    observer.observe(consoleElement, { subtree: true, childList: true, attributes: true });
     preventFocus(container);
 
     const gutterSelector = consoleEditor.monaco ? '.glyph-margin' : '.cm-gutters';
