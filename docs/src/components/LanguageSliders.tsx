@@ -104,6 +104,7 @@ export default function Sliders() {
       { name: 'postgresql', title: 'PostgreSQL' },
       { name: 'prolog', title: 'Prolog' },
       { name: 'blockly', title: 'Blockly' },
+      { name: 'csharp-wasm', title: 'C# (Wasm)' },
     ],
   };
   const slides = ['markup', 'style', 'script'];

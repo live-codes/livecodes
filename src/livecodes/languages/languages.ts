@@ -76,6 +76,7 @@ import { gleam } from './gleam';
 import { vento } from './vento';
 import { react, reactTsx } from './react';
 import { java } from './java';
+import { csharpWasm } from './csharp-wasm';
 export const languages: LanguageSpecs[] = [
   html,
   markdown,
@@ -161,4 +162,5 @@ export const languages: LanguageSpecs[] = [
   postgresql,
   prolog,
   blockly,
+  csharpWasm,
 ];
