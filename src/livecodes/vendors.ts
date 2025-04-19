@@ -108,6 +108,7 @@ export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
 );
 
 export const doppioJvmBaseUrl = 'https://unpkg.com/@seth0x41/doppio@1.0.0/';
+export const csharpWasm = getUrl('@seth0x41/csharp-wasm@1.0.3/');
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 

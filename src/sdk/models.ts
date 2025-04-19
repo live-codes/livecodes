@@ -1003,6 +1003,7 @@ export type Language =
   | 'wasm.php'
   | 'java'
   | 'cpp'
+  | 'csharp-wasm'
   | 'c'
   | 'C'
   | 'cp'
@@ -1059,7 +1060,8 @@ export type Language =
   | 'webassembly'
   | 'wasm'
   | 'Binary'
-  | 'csharp'
+  | 'csharp-wasm'
+  | 'cs'
   | 'sql'
   | 'sqlite'
   | 'sqlite3'
@@ -1337,6 +1339,7 @@ export interface Compiler {
     | 'text/php-wasm'
     | 'text/java'
     | 'text/cpp'
+    | 'text/csharp-wasm'
     | 'text/perl'
     | 'text/julia'
     | 'text/biwascheme'
@@ -1435,7 +1438,8 @@ export type TemplateName =
   | 'postgresql'
   | 'prolog'
   | 'blockly'
-  | 'diagrams';
+  | 'diagrams'
+  | 'csharp-wasm';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';

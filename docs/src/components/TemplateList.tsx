@@ -66,6 +66,7 @@ const templates = [
   { name: 'prolog', title: 'Prolog Starter', thumbnail: 'tau-prolog.svg' },
   { name: 'blockly', title: 'Blockly Starter', thumbnail: 'blockly.svg' },
   { name: 'diagrams', title: 'Diagrams Starter', thumbnail: 'diagrams.svg' },
+  { name: 'csharp-wasm', title: 'C# (Wasm)', thumbnail: 'csharp.svg' },
 ];
 
 export default function TemplateList() {
