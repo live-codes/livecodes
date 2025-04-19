@@ -98,7 +98,7 @@
     "@eslint/js": "9.20.0",
     "@inquirer/prompts": "1.0.3",
     "@istanbuljs/nyc-config-typescript": "1.0.1",
-    "@lokalise/node-api": "12.7.0",
+    "@lokalise/node-api": "14.4.0",
     "@playwright/test": "1.32.3",
     "@types/jest": "25.2.3",
     "@types/live-server": "1.2.0",
