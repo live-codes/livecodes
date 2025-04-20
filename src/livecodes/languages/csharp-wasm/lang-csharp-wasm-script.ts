@@ -1,55 +1,16 @@
-import { csharpWasm } from '../../vendors';
-
-interface BlazorAPI {
-  [key: string]: any;
-  start: (options: any) => Promise<void>;
-}
+import { csharpWasmBaseUrl } from '../../vendors';
 
 declare global {
   interface Window {
     DotNet: any;
-    Blazor: BlazorAPI;
-    livecodes: any;
-    csharpInitialized?: boolean;
+    Blazor: { start: (options: any) => Promise<void> };
   }
 }
 
-// simple logger impl to avoid eslint issues
-class LogService {
-  public warn(...args: any[]): void { window.console.warn(...args); }
-  public info(...args: any[]): void { window.console.log(...args); }
-  public error(...args: any[]): void { window.console.error(...args); }
-}
-const logger = new LogService();
+livecodes.csharp ??= {};
 
-if (!window.livecodes) window.livecodes = {};
-
-livecodes.csharp = livecodes.csharp || {};
-livecodes.csharp.blazorReady = false;
-livecodes.csharp.initializationPromise = null;
-livecodes.csharp.loadedResources = [];
-livecodes.csharp.input = '';
-livecodes.csharp.output = null;
-
-const INIT_FLAG_KEY = 'csharp_wasm_initialized';
-const hasInitializedBefore = () => {
-  try {
-    return localStorage.getItem(INIT_FLAG_KEY) === 'true';
-  } catch (e) {
-    return window.csharpInitialized === true;
-  }
-};
-
-const markAsInitialized = () => {
-  try {
-    localStorage.setItem(INIT_FLAG_KEY, 'true');
-  } catch (e) {
-    window.csharpInitialized = true;
-  }
-};
-
-function waitFor(condition: () => boolean, timeout = 10000): Promise<boolean> {
-  return new Promise((resolve) => {
+const waitFor = (condition: () => boolean, timeout = 30_000) =>
+  new Promise<boolean>((resolve) => {
     const startTime = Date.now();
     const check = () => {
       if (condition()) resolve(true);
@@ -58,147 +19,126 @@ function waitFor(condition: () => boolean, timeout = 10000): Promise<boolean> {
     };
     check();
   });
-}
 
-// check if blazor is started
-function isBlazorStarted(): boolean {
-  if (!window.Blazor) return false;
-  
-  try {
-    const internal = window.Blazor.internal || 
-      window.Blazor[Object.getOwnPropertyNames(window.Blazor)
-        .find(p => p === 'internal' || p === '_internal') || ''];
-        
-    return !!(internal && (
-      typeof internal.invokeJSFromDotNet === 'function' || 
-      typeof internal.attachDispatcher === 'function'
-    ));
-  } catch {
-    return false;
-  }
-}
-
-async function initializeBlazor() {
-  if (livecodes.csharp.initializationPromise) {
-    return livecodes.csharp.initializationPromise;
-  }
-
-  const isFirstInit = !hasInitializedBefore();
-  livecodes.csharp.initializationPromise = (async () => {
-    if (livecodes.csharp.blazorReady) return;
-
-    try {
-      if (isFirstInit) {
-        logger.info('Initializing C# environment...');
-      }
-
-      const originalFetch = window.fetch;
-      window.fetch = (resource, init = {}) => 
-        originalFetch(resource, { ...init, credentials: 'omit' as RequestCredentials });
-
-      if (!window.Blazor) {
-        await loadBlazorScript();
-      }
-      
-      if (!window.Blazor) {
-        throw new Error('Blazor failed to load properly');
-      }
-
-
-      if (!isBlazorStarted()) {
-        try {
-          await window.Blazor.start({
-            loadBootResource(_type: string, name: string) {
-              const resourceUrl = `${csharpWasm}_framework/${name}`;
-              livecodes.csharp.loadedResources.push({ name, url: resourceUrl });
-              return resourceUrl;
-            },
-          });
-        } catch (err) {
-          if (!((err as Error).message || '').includes('already started')) {
-            throw err;
-          }
-        }
-      }
-
-      // wait for DOTNET
-      if (!await waitFor(() => window.DotNet && typeof window.DotNet.invokeMethodAsync === 'function')) {
-        throw new Error('Timeout waiting for DotNet to be ready');
-      }
-
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      if (isFirstInit) {
-        logger.info('C# environment initialized successfully');
-      }
-      
-      livecodes.csharp.blazorReady = true;
-      markAsInitialized();
-    } catch (err) {
-      logger.error('Failed to initialize C# environment:', err);
-      livecodes.csharp.blazorReady = false;
-      livecodes.csharp.initializationPromise = null;
-      throw err;
+/**
+ * Only patches Blazor's fetches with `credentials: 'omit'`
+ */
+const patchFetch = () => {
+  const originalFetch = window.fetch;
+  window.fetch = (resource: string | Request | URL, init = {}) => {
+    const url =
+      typeof resource === 'string'
+        ? resource
+        : 'url' in resource // Request
+          ? resource.url
+          : resource.href; // URL
+    if (url.startsWith(csharpWasmBaseUrl)) {
+      return originalFetch(resource, { ...init, credentials: 'omit' as RequestCredentials });
     }
-  })();
+    return originalFetch(resource, init);
+  };
+};
 
-  return livecodes.csharp.initializationPromise;
-}
-
-function loadBlazorScript(): Promise<void> {
-  return new Promise((resolve, reject) => {
-    if (document.querySelector('script[src*="blazor.webassembly.js"]')) {
+const loadBlazorScript = () =>
+  new Promise<void>((resolve, reject) => {
+    const scriptSrc = `${csharpWasmBaseUrl}_framework/blazor.webassembly.js`;
+    if (document.querySelector(`script[src="${scriptSrc}"]`)) {
       resolve();
       return;
     }
-
     const script = document.createElement('script');
-    script.src = `${csharpWasm}_framework/blazor.webassembly.js`;
+    script.src = scriptSrc;
     script.setAttribute('autostart', 'false');
     script.onload = () => resolve();
     script.onerror = (err) => reject(new Error(`Failed to load Blazor script: ${err}`));
     document.head.appendChild(script);
   });
-}
 
-async function runCSharpCode(code: string, input = '') {
+livecodes.csharp.init ??= (async () => {
+  if (livecodes.csharp.ready) return;
+
+  // eslint-disable-next-line no-console
+  console.log('Initializing C# environment...');
   try {
-    await initializeBlazor();
-    if (!livecodes.csharp.blazorReady) {
+    await loadBlazorScript();
+
+    if (!window.Blazor) throw new Error('Blazor failed to load properly');
+
+    patchFetch();
+    await window.Blazor.start({
+      loadBootResource: (_type: string, name: string) => `${csharpWasmBaseUrl}_framework/${name}`,
+    });
+
+    if (
+      !(await waitFor(() => window.DotNet && typeof window.DotNet.invokeMethodAsync === 'function'))
+    ) {
+      throw new Error('Timeout waiting for DotNet to be ready');
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    // eslint-disable-next-line no-console
+    console.log('C# environment initialized successfully');
+    livecodes.csharp.ready = true;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to initialize C# environment:', err);
+    livecodes.csharp.ready = false;
+    livecodes.csharp.init = null;
+    throw err;
+  }
+})();
+
+const runCSharpCode = async (
+  code: string,
+  input = '',
+): Promise<{ output: string | null; error: string | null }> => {
+  await livecodes.csharp.init;
+  try {
+    if (!livecodes.csharp.ready) {
       throw new Error('C# environment is not ready yet');
     }
-    
-    const result = await window.DotNet.invokeMethodAsync('MyRunnyApp', 'RunCode', code, input);
-    const output = result.output || result.errors || '';
-    
-    if (output) {
-      logger.info(output);
-    }
-    
-    livecodes.csharp.output = output;
-    return output;
+    const { output, errors } = await window.DotNet.invokeMethodAsync(
+      'MyRunnyApp',
+      'RunCode',
+      code,
+      input,
+    );
+    return { output, error: errors || null };
   } catch (err) {
-    const errorMsg = 'Error: ' + (err as Error).message;
-    logger.error('Error running C# code:', errorMsg);
-    return errorMsg;
+    const error = 'Error: ' + (err as Error).message;
+    return { output: null, error };
   }
-}
-
-livecodes.csharp.run = async (customInput?: string) => {
-  let code = '';
-  document.querySelectorAll('script[type="text/csharp-wasm"]')
-    .forEach(script => code += script.innerHTML + '\n');
-
-  const input = customInput !== undefined ? customInput : livecodes.csharp.input;
-  const result = await runCSharpCode(code, input);
-  
-  return { output: result, error: null, exitCode: 0 };
 };
 
-// tracking loaded state
-livecodes.csharp.loaded = new Promise<void>(resolve => {
+livecodes.csharp.run ??= async (input?: string) => {
+  let code = '';
+  livecodes.csharp.input = input;
+  livecodes.csharp.output = null;
+  const scripts = document.querySelectorAll('script[type="text/csharp-wasm"]');
+  scripts.forEach((script) => (code += script.innerHTML + '\n'));
+
+  const { output, error } = !code.trim()
+    ? { output: null, error: null }
+    : await runCSharpCode(code, input);
+
+  if (error != null) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } else if (output != null) {
+    // eslint-disable-next-line no-console
+    console.log(output);
+  }
+
+  livecodes.csharp.output = output;
+  livecodes.csharp.error = error;
+  livecodes.csharp.exitCode = error ? 1 : 0;
+  return { output, error, exitCode: 0 };
+};
+
+livecodes.csharp.loaded = new Promise<void>((resolve) => {
   const interval = setInterval(() => {
-    if (livecodes.csharp.blazorReady) {
+    if (livecodes.csharp.ready) {
       clearInterval(interval);
       resolve();
     }
@@ -207,19 +147,6 @@ livecodes.csharp.loaded = new Promise<void>(resolve => {
 
 window.addEventListener('load', async () => {
   parent.postMessage({ type: 'loading', payload: true }, '*');
-  
-  try {
-    let code = '';
-    document.querySelectorAll('script[type="text/csharp-wasm"]')
-      .forEach(script => code += script.innerHTML + '\n');
-      
-    if (code.trim()) {
-      await livecodes.csharp.run(livecodes.csharp.input);
-      livecodes.csharp.ready = true;
-    }
-  } catch (err) {
-    logger.error('Error running C# code:', err);
-  } finally {
-    parent.postMessage({ type: 'loading', payload: false }, '*');
-  }
+  await livecodes.csharp.run(livecodes.csharp.input);
+  parent.postMessage({ type: 'loading', payload: false }, '*');
 });
