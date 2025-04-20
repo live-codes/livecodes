@@ -113,9 +113,10 @@ export const starterTemplates = [
   goStarter,
   phpStarter,
   phpWasmStarter,
-  javaStarter,
   cppStarter,
   cppWasmStarter,
+  javaStarter,
+  csharpWasmStarter,
   perlStarter,
   luaStarter,
   luaWasmStarter,
@@ -135,5 +136,4 @@ export const starterTemplates = [
   prologStarter,
   blocklyStarter,
   diagramsStarter,
-  csharpWasmStarter,
 ];

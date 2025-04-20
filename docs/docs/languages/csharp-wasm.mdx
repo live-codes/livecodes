@@ -1,4 +1,4 @@
-# C#
+# C# (Wasm)
 
 C# is a high-level, general-purpose, object-oriented programming language developed by Microsoft.
 
@@ -13,7 +13,7 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 export const csharpConfig = {
   activeEditor: 'script',
   script: {
-    language: 'csharp-wasm', 
+    language: 'csharp-wasm',
     content: `using System;
 
 public class Program
@@ -74,8 +74,6 @@ The C# code runs in the context of the result page. A few helper properties and 
 - `livecodes.csharp.loaded`: A promise that resolves when the C# environment (Blazor WebAssembly) is fully loaded. Other helpers should be used after this promise resolves.
 - `livecodes.csharp.output`: The standard output from the C# code execution.
 - `livecodes.csharp.run`: A function that runs the C# code with new input. This function takes a string as input and returns a promise that resolves with an object containing the `output`, `error`, and `exitCode` properties.
-- `livecodes.csharp.blazorReady`: A boolean indicating whether the Blazor environment is initialized.
-- `livecodes.csharp.loadedResources`: An array tracking resources loaded during initialization (e.g., WebAssembly modules).
 
 Example:
 
@@ -87,15 +85,11 @@ Example:
 
 ### Name
 
-`csharp`
+`csharp-wasm`
 
-### Aliases
+### Aliases / Extensions
 
-`c#`, `cs`
-
-### Extension
-
-`.cs`
+`cs`, `csharp`, `wasm.cs`, `cs-wasm`
 
 ### Editor
 
@@ -111,40 +105,13 @@ Blazor WebAssembly with .NET WebAssembly runtime.
 
 ## Code Formatting
 
-
-## Custom Settings
-
-Custom settings added to the property `csharp` are passed as a JSON object to the Blazor runtime during compilation. Please check the Blazor documentation for full reference.
-
-Please note that custom settings should be valid JSON (i.e., functions are not allowed).
-
-**Example:**
-
-```json
-{
-  "csharp": {}
-}
-```
-
-## Helper Methods
-
-- `runCSharpCode(code: string, input: string)`: Internal method to execute C# code with the provided input, invoked via `window.DotNet.invokeMethodAsync`.
-- `initializeBlazor()`: Initializes the Blazor WebAssembly environment, loading necessary scripts and resources.
-- `loadBlazorScript()`: Loads the `blazor.webassembly.js` script dynamically.
+using [Prettier](https://prettier.io/)
 
 ## Live Reload
 
 By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the Blazor environment. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the C# code, which forces a full page reload.
 
 This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
-
-## Limitations
-
-- **Initialization Time**: The Blazor WebAssembly environment may take a few seconds to initialize, especially on first load, due to the loading of WebAssembly modules and the .NET runtime.
-- **Browser Compatibility**: Requires modern browsers supporting WebAssembly.
-- **Resource Loading**: All resources (e.g., `blazor.webassembly.js`, framework files) are loaded from a CDN or specified path, which may impact performance depending on network conditions.
-- **Standard Input/Output**: Limited to string-based input/output via the `livecodes.csharp.input` and `livecodes.csharp.output` properties.
-- **Error Handling**: Errors during initialization or execution are logged to the console and returned as part of the `livecodes.csharp.run` promise.
 
 ## Example Usage
 
@@ -162,14 +129,9 @@ public class Program
 
 ## Starter Template
 
-https://livecodes.io/?template=csharp
+https://livecodes.io/?template=csharp-wasm
 
 ## Links
 
 - [C#](https://learn.microsoft.com/en-us/dotnet/csharp/)
 - [Blazor WebAssembly](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor)
-
-
-## .NET Version Update
-
-Run `dotnet publish` on [this code](https://github.com/Seth0x41/csharpBlazorWasmGenerator) and upload the WebAssembly files from the publish/wwwroot/_framework directory to a CDN.

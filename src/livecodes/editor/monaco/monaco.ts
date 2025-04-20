@@ -87,7 +87,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     language === 'livescript'
       ? 'coffeescript'
       : ['rescript', 'reason', 'ocaml'].includes(language)
-        ? 'csharp-wasm'
+        ? 'csharp'
         : language.startsWith('vue')
           ? 'vue'
           : ['svelte', 'malina', 'riot'].includes(language)
