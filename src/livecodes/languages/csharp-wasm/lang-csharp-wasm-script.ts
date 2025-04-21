@@ -10,14 +10,14 @@ declare global {
 livecodes.csharp ??= {};
 
 const waitFor = (condition: () => boolean | Promise<boolean>, timeout = 30_000) =>
-  new Promise<boolean>(async (resolve) => {
+  new Promise<boolean>((resolve) => {
     const startTime = Date.now();
     const check = async () => {
       if (await condition()) resolve(true);
       else if (Date.now() - startTime > timeout) resolve(false);
       else setTimeout(check, 100);
     };
-    await check();
+    check();
   });
 
 /**
