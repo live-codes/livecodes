@@ -28,6 +28,8 @@ const moduleUrls = {
   python: getPath('codemirror-lang-python.js'),
   php: getPath('codemirror-lang-php.js'),
   java: getPath('codemirror-lang-java.js'),
+  clike: getPath('codemirror-lang-clike.js'),
+  mllike: getPath('codemirror-lang-mllike.js'),
   cpp: getPath('codemirror-lang-cpp.js'),
   sql: getPath('codemirror-lang-sql.js'),
   wast: getPath('codemirror-lang-wast.js'),
@@ -82,6 +84,9 @@ export const editorLanguages: Partial<{ [key in Language]: () => Promise<Languag
   tcl: async () => legacy((await import(moduleUrls.tcl)).tcl),
   less: async () => legacy((await import(moduleUrls.less)).less),
   stylus: async () => legacy((await import(moduleUrls.stylus)).stylus),
+  csharp: async () => legacy((await import(moduleUrls.clike)).csharp),
+  ocaml: async () => legacy((await import(moduleUrls.mllike)).oCaml),
+  // fsharp: async () => legacy((await import(moduleUrls.mllike)).fSharp),
   // @ts-ignore
   rust: async () => legacy((await import(moduleUrls.rust)).rust),
   swift: async () => legacy((await import(moduleUrls.swift)).swift),
