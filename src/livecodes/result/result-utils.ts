@@ -12,7 +12,7 @@ import { handleEval, handleResize, handleScrollPosition, proxyConsole } from './
   handleScrollPosition();
 
   window.addEventListener('message', function (event) {
-    if (event.data.styles) {
+    if (event.data.styles != null) {
       const styles = document.querySelector('#__livecodes_styles__');
       if (!styles) return;
       styles.innerHTML = event.data.styles;
