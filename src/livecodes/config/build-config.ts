@@ -9,6 +9,7 @@ import type {
 } from '../models';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { cloneObject, decodeHTML, removeDuplicates } from '../utils';
+import { decompress } from '../utils/compression';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
@@ -80,13 +81,23 @@ const fixLanguageNames = (config: Config): Config => ({
 });
 
 export const getParams = (queryParams = parent.location.search): UrlQueryParams => {
-  const params = Object.fromEntries(new URLSearchParams(queryParams) as unknown as Iterable<any>);
+  let params: { [key: string]: string | boolean } = Object.fromEntries(
+    new URLSearchParams(queryParams),
+  );
+  let encodedParams = {};
   Object.keys(params).forEach((key) => {
     try {
-      params[key] = decodeURIComponent(params[key]);
+      const value = params[key] as string;
+      if (key === 'params') {
+        encodedParams = JSON.parse(decompress(value) || '{}');
+        if (!encodedParams || typeof encodedParams !== 'object') encodedParams = {};
+      } else {
+        params[key] = decodeURIComponent(value);
+      }
     } catch {
       //
     }
+    params = { ...encodedParams, ...params };
     if (params[key] === '') params[key] = true;
     if (params[key] === 'true') params[key] = true;
     if (params[key] === 'false') params[key] = false;
