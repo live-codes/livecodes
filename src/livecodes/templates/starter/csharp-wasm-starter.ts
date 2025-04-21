@@ -36,7 +36,7 @@ export const csharpWasmStarter: Template = {
       update(output);
     };
 
-    function update(output = '') {
+    function update(output) {
       const counter = document.querySelector("#counter");
       const name = document.querySelector("#name");
 

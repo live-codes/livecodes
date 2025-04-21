@@ -9,15 +9,15 @@ declare global {
 
 livecodes.csharp ??= {};
 
-const waitFor = (condition: () => boolean, timeout = 30_000) =>
-  new Promise<boolean>((resolve) => {
+const waitFor = (condition: () => boolean | Promise<boolean>, timeout = 30_000) =>
+  new Promise<boolean>(async (resolve) => {
     const startTime = Date.now();
-    const check = () => {
-      if (condition()) resolve(true);
+    const check = async () => {
+      if (await condition()) resolve(true);
       else if (Date.now() - startTime > timeout) resolve(false);
       else setTimeout(check, 100);
     };
-    check();
+    await check();
   });
 
 /**
@@ -54,6 +54,34 @@ const loadBlazorScript = () =>
     document.head.appendChild(script);
   });
 
+const isReady = async () => {
+  try {
+    await window.DotNet.invokeMethodAsync('MyRunnyApp', 'RunCode', 'int x = 1 + 1;', '');
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
+const runCSharpCode = async (
+  code: string,
+  input = '',
+): Promise<{ output: string | null; error: string | null }> => {
+  await livecodes.csharp.init;
+  try {
+    const { output, errors } = await window.DotNet.invokeMethodAsync(
+      'MyRunnyApp',
+      'RunCode',
+      code,
+      input,
+    );
+    return { output, error: errors || null };
+  } catch (err) {
+    const error = 'Error: ' + (err as Error).message;
+    return { output: null, error };
+  }
+};
+
 livecodes.csharp.init ??= (async () => {
   if (livecodes.csharp.ready) return;
 
@@ -69,17 +97,12 @@ livecodes.csharp.init ??= (async () => {
       loadBootResource: (_type: string, name: string) => `${csharpWasmBaseUrl}_framework/${name}`,
     });
 
-    if (
-      !(await waitFor(() => window.DotNet && typeof window.DotNet.invokeMethodAsync === 'function'))
-    ) {
+    if (!(await waitFor(isReady))) {
       throw new Error('Timeout waiting for DotNet to be ready');
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
     // eslint-disable-next-line no-console
     console.log('C# environment initialized successfully');
-    livecodes.csharp.ready = true;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('Failed to initialize C# environment:', err);
@@ -89,32 +112,11 @@ livecodes.csharp.init ??= (async () => {
   }
 })();
 
-const runCSharpCode = async (
-  code: string,
-  input = '',
-): Promise<{ output: string | null; error: string | null }> => {
-  await livecodes.csharp.init;
-  try {
-    if (!livecodes.csharp.ready) {
-      throw new Error('C# environment is not ready yet');
-    }
-    const { output, errors } = await window.DotNet.invokeMethodAsync(
-      'MyRunnyApp',
-      'RunCode',
-      code,
-      input,
-    );
-    return { output, error: errors || null };
-  } catch (err) {
-    const error = 'Error: ' + (err as Error).message;
-    return { output: null, error };
-  }
-};
-
 livecodes.csharp.run ??= async (input?: string) => {
   let code = '';
   livecodes.csharp.input = input;
   livecodes.csharp.output = null;
+  livecodes.csharp.ready = false;
   const scripts = document.querySelectorAll('script[type="text/csharp-wasm"]');
   scripts.forEach((script) => (code += script.innerHTML + '\n'));
 
@@ -133,6 +135,7 @@ livecodes.csharp.run ??= async (input?: string) => {
   livecodes.csharp.output = output;
   livecodes.csharp.error = error;
   livecodes.csharp.exitCode = error ? 1 : 0;
+  livecodes.csharp.ready = true;
   return { output, error, exitCode: 0 };
 };
 
