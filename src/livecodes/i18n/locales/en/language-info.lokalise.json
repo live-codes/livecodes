@@ -172,6 +172,18 @@
     "notes": "",
     "translation": "C/C++ (Wasm)"
   },
+  "csharpWasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "C# compiler running on WebAssembly, using <tag-1>Blazor</tag-1>"
+  },
+  "csharpWasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://learn.microsoft.com/en-us/dotnet/csharp/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learnxinyminutes.com/docs/csharp/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/csharp-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=csharp-wasm\" class=\"button\" target=\"_parent\" data-template=\"csharp-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>C# language documentation</tag-2> </tag-1> <tag-3> <tag-4>Learn X in Y minutes, where X=C#</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentation</tag-6> </tag-5> <tag-7> <tag-8>Load starter template</tag-8> </tag-7>"
+  },
+  "csharpWasm.name": {
+    "notes": "",
+    "translation": "C# (Wasm)"
+  },
   "diagrams.desc1": {
     "notes": "",
     "translation": "(Experimental)"
@@ -325,8 +337,8 @@
     "translation": "JVM running in the browser using DoppioJVM."
   },
   "java.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.java.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/plasma-umass/doppio\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/java/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=java\" class=\"button\" target=\"_parent\" data-template=\"java\" />\n\n",
-    "translation": "<tag-1> <tag-2>Java official website</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=java</tag-6> </tag-5> <tag-7> <tag-8>Load starter template</tag-8> </tag-7>"
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.java.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/plasma-umass/doppio\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/java/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/java\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=java\" class=\"button\" target=\"_parent\" data-template=\"java\" />\n\n",
+    "translation": "<tag-1> <tag-2>Java official website</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
   },
   "java.name": {
     "notes": "",
