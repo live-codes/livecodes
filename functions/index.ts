@@ -58,10 +58,10 @@ export const onRequest: PgFunction = async function (context) {
         }"`,
       )
       .replace(
-        /content="Code Playground That Just Works!"/g,
+        /content="A Code Playground That Just Works!"/g,
         `content="${
           !title && !description
-            ? 'Code Playground That Just Works!'
+            ? 'A Code Playground That Just Works!'
             : description || 'A project on LiveCodes.'
         }"`,
       )
