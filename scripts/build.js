@@ -275,11 +275,31 @@ const workersBuild = () =>
   });
 
 const functionsBuild = () =>
-  esbuild.build({
-    ...baseOptions,
-    outdir: 'functions/build',
-    entryPoints: ['src/livecodes/utils/compression.ts'],
-  });
+  Promise.all([
+    esbuild.build({
+      ...baseOptions,
+      outdir: 'functions/vendors',
+      entryPoints: ['src/livecodes/utils/compression.ts'],
+    }),
+    esbuild
+      .build({
+        ...baseOptions,
+        outdir: undefined,
+        outfile: 'functions/vendors/templates.js',
+        entryPoints: ['src/livecodes/templates/starter/index.ts'],
+        define: {
+          ...baseOptions.define,
+          'window.deps.translateString': 'getTemplateName',
+        },
+      })
+      .then(() => {
+        fs.writeFileSync(
+          'functions/vendors/templates.js',
+          `var getTemplateName = (_, templateName) => templateName;\n${fs.readFileSync('functions/vendors/templates.js', 'utf8')}`,
+          'utf8',
+        );
+      }),
+  ]);
 
 const stylesBuild = () => buildStyles(devMode);
 
