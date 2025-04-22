@@ -137,7 +137,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'JVM يعمل في المتصفح باستخدام DoppioJVM.',
-    link: '<1> <2>موقع جافا الرسمي</2> </1>   <3>  <4> DoppioJVM</4> </3>  <5> <6> تعلم X في دقائق Y، حيث X = جافا</6> </5>   <7> <8> تحميل قالب البدء</8> </7>',
     name: 'Java',
   },
   jsx: {

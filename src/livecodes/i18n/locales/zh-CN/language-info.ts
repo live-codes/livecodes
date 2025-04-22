@@ -136,7 +136,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: '使用 DoppioJVM 在浏览器中运行的 JVM。',
-    link: '<1> <2>Java 官方网站    DoppioJVM    在 Y 分钟内学习 X，其中 X=java    加载启动模板</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
     name: 'Java',
   },
   jsx: {
