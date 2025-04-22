@@ -139,7 +139,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'JVM em execução no navegador usando DoppioJVM.',
-    link: '<1> <2>Sítio Web oficial de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Aprender X em Y minutos, onde X=java</6> </5> <7> <8> Carregar modelo inicial</8> </7>',
     name: 'Java',
   },
   jsx: {

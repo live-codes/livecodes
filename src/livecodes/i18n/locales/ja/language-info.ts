@@ -139,7 +139,6 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'DoppioJVMを使ってブラウザで動作するJVM。',
-    link: '<1> <2>Java公式サイト    DoppioJVM    XをY分で学ぶ、X=Java    スターターテンプレートのロード</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
     name: 'Java',
   },
   jsx: {
