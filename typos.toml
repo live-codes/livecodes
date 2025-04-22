@@ -7,6 +7,7 @@ extend-exclude = [
   "src/livecodes/i18n/locales/**/*.lokalise.json",      # Ignore locale files
   "src/livecodes/services/google-fonts.ts",             # Font name
   "src/livecodes/templates/starter/blockly-starter.ts", # Random string id
+  "functions/vendors/*.js",                             # Built files
 ]
 
 [default]
