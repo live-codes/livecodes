@@ -1,5 +1,5 @@
-// eslint-disable-next-line import/no-unresolved, import/no-internal-modules
-import { decompress } from './build/compression';
+import { decompress } from './vendors/compression';
+import { starterTemplates } from './vendors/templates';
 
 interface ProjectInfo {
   title?: string;
@@ -36,8 +36,6 @@ const importProject = async (url: string): Promise<ProjectInfo> => {
   }
 };
 
-const capitalize = (word: string) => word[0].toUpperCase() + word.slice(1).toLowerCase();
-
 export const getProjectInfo = async (url: URL): Promise<ProjectInfo> => {
   const imports = url.searchParams.get('x') || url.hash.slice(1);
   if (isCompressedCode(imports)) {
@@ -55,11 +53,11 @@ export const getProjectInfo = async (url: URL): Promise<ProjectInfo> => {
     };
   }
   const template = url.searchParams.get('template');
-  if (template) {
-    const templateName = capitalize(template);
+  const templateName = template ? starterTemplates.find((t) => t.name === template)?.title : '';
+  if (templateName) {
     return {
-      title: templateName + ' Starter',
-      description: templateName + ' starter template on LiveCodes',
+      title: templateName,
+      description: templateName + ' Template on LiveCodes',
     };
   }
   return {
