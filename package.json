@@ -89,6 +89,7 @@
     "monaco-editor": "0.48.0",
     "patch-package": "7.0.2",
     "prismjs": "1.29.0",
+    "sanitize-html": "2.16.0",
     "split.js": "1.6.5",
     "yjs": "13.5.40"
   },
@@ -159,9 +160,24 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
-    "setupFiles": ["<rootDir>/.jest/setup.js"],
-    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/src/modules/"],
-    "collectCoverageFrom": ["src/**/*.ts", "!**/build/**", "!**/vendor/**", "!src/modules/**"],
-    "coverageReporters": ["json", "html", "lcov"]
+    "setupFiles": [
+      "<rootDir>/.jest/setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/build/",
+      "/src/modules/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!**/build/**",
+      "!**/vendor/**",
+      "!src/modules/**"
+    ],
+    "coverageReporters": [
+      "json",
+      "html",
+      "lcov"
+    ]
   }
 }

@@ -268,11 +268,19 @@ const workersBuild = () =>
   });
 
 const functionsBuild = () =>
-  esbuild.build({
-    ...baseOptions,
-    outdir: 'functions/vendors',
-    entryPoints: ['src/livecodes/utils/compression.ts'],
-  });
+  Promise.all([
+    esbuild.build({
+      ...baseOptions,
+      outdir: 'functions/vendors',
+      entryPoints: ['src/livecodes/utils/compression.ts'],
+    }),
+    esbuild.build({
+      ...baseOptions,
+      outdir: undefined,
+      outfile: 'functions/vendors/sanitize-html.js',
+      entryPoints: ['node_modules/sanitize-html/index.js'],
+    }),
+  ]);
 
 const stylesBuild = () => buildStyles(devMode);
 

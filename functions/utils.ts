@@ -1,4 +1,5 @@
 import { decompress } from './vendors/compression';
+import sanitizeHtml from './vendors/sanitize-html';
 
 interface ProjectInfo {
   title?: string;
@@ -55,7 +56,7 @@ export const getProjectInfo = async (url: URL): Promise<ProjectInfo> => {
   }
   const template = url.searchParams.get('template');
   if (template) {
-    const templateName = capitalize(template);
+    const templateName = sanitizeHtml(capitalize(template));
     return {
       title: templateName + ' Starter',
       description: templateName + ' starter template on LiveCodes',
