@@ -629,7 +629,7 @@ a#result-button {
   display: none !important;
 }
 
-@media only screen and (max-width: 1179px) {
+@media only screen and (max-width: 1024px) {
   #toolbar {
     .menu {
       justify-content: center;
@@ -649,19 +649,15 @@ a#result-button {
     .dropdown-menu {
       font-size: var(--s14);
     }
-  }
 
-  #custom-settings-btn {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 1024px) {
-  #toolbar {
     .toolbar-render .button {
       margin: 0;
       width: 24px;
     }
+  }
+
+  #custom-settings-btn {
+    display: none;
   }
 }
 
@@ -1526,7 +1522,7 @@ a.editor-title {
 
   a {
     display: block !important;
-    max-width: 135px;
+    max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap !important;

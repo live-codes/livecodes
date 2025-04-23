@@ -5194,13 +5194,8 @@ const importExternalContent = async (options: {
 
   if (!configUrl && !template && !url && !hasContentUrls(config)) return false;
 
-  const loadingMessage = document.createElement('div');
-  loadingMessage.classList.add('modal-message');
-  loadingMessage.innerHTML = window.deps.translateString(
-    'core.import.loading',
-    'Loading Project...',
-  );
-  modal.show(loadingMessage, { size: 'small', isAsync: true });
+  const loadingMessage = window.deps.translateString('core.import.loading', 'Loading Project...');
+  notifications.info(loadingMessage);
 
   let templateConfig: Partial<Config> = {};
   let urlConfig: Partial<Config> = {};
@@ -5302,10 +5297,7 @@ const importExternalContent = async (options: {
     false,
   );
 
-  const screenLoaded = loadSelectedScreen();
-  if (!screenLoaded) {
-    modal.close();
-  }
+  loadSelectedScreen();
 
   return true;
 };
