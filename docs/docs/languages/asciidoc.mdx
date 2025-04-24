@@ -1,3 +1,90 @@
-# AsciiDoc
+## Usage
 
-TODO...
+AsciiDoc lets you write technical docs using plain-text syntax. It's used for books, guides, and software docs.
+
+## Language Info
+
+### Name
+AsciiDoc
+
+### Aliases
+asciidoc, adoc
+
+### Extensions
+.adoc
+
+## Editor
+
+```js
+script: {
+  language: "asciidoc",
+  extension: "adoc"
+}
+```
+
+## Compiler
+AsciiDoctor (via WASM)
+
+### Version
+2.x (via AsciiDoctor.js)
+
+## Code Formatting
+Not supported directly — formatting is manual.
+
+## Custom Settings
+
+```json
+{
+  "asciidoc": {
+    "attributes": {
+      "source-highlighter": "highlight.js",
+      "icons": "font"
+    }
+  }
+}
+```
+
+## Helper Methods
+N/A
+
+## Live Reload
+✅ Supported — updates render on change.
+
+## Limitations
+
+- No server-side rendering
+- Some advanced extensions may not work (e.g., diagrams)
+
+## Example Usage
+
+```asciidoc
+= LiveCodes AsciiDoc Demo
+
+== Features
+
+* Simple
+* Clean
+* Dev-friendly
+
+[source, js]
+----
+console.log("Hello from AsciiDoc!")
+----
+```
+
+## Starter Template
+
+```asciidoc
+= My Document
+
+== Intro
+
+This is **AsciiDoc** on LiveCodes!
+```
+
+## Links
+
+- [AsciiDoc Guide](https://asciidoc.org)
+- [AsciiDoctor.js](https://docs.asciidoctor.org/asciidoctor.js/latest/)
+- [Live Demo on LiveCodes](https://livecodes.io/?language=asciidoc)
+
