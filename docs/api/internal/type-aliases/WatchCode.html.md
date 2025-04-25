@@ -34,4 +34,4 @@ This includes changes in:
 
 ## Defined in
 
-[models.ts:248](https://github.com/live-codes/livecodes/blob/a7b343163bdd0ffec4d5243db8fcc29a67767ee9/src/sdk/models.ts#L248)
+[models.ts:248](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L248)
