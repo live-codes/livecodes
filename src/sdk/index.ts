@@ -423,14 +423,26 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
   const configParam =
     typeof config === 'string'
       ? { config }
-      : typeof config === 'object'
+      : config && typeof config === 'object' && Object.keys(config).length
         ? { x: 'code/' + compressToEncodedURIComponent(JSON.stringify(config)) }
         : {};
+
+  let encodedParams;
+  if (params && typeof params === 'object') {
+    try {
+      encodedParams = compressToEncodedURIComponent(JSON.stringify(params));
+    } catch {
+      (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
+        (params as any)[param] = encodeURIComponent(String(params[param]));
+      });
+    }
+  }
+
   const allParams = new URLSearchParams(
     JSON.parse(
       JSON.stringify({
         ...otherOptions,
-        ...params,
+        ...(encodedParams ? { params: encodedParams } : params),
         ...{ x },
         ...configParam,
       }),
