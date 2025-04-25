@@ -1,37 +1,63 @@
+# AsciiDoc
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[AsciiDoc](https://asciidoc.org) is a plain text markup language for writing technical content. It’s packed with semantic elements and equipped with features to modularize and reuse content. AsciiDoc content can be composed using a text editor, managed in a version control system, and published to multiple output formats.
+
+In LiveCodes, AsciiDoc is compiled to HTML using [Asciidoctor](https://asciidoctor.org/).
+
 ## Usage
 
-AsciiDoc lets you write technical docs using plain-text syntax. It's used for books, guides, and software docs.
+### Demo
+
+export const asciidocConfig = {
+  markup: {
+    language: 'asciidoc',
+    content: `= AsciiDoc Demo
+
+== Features
+
+* Simple
+* Clean
+* Dev-friendly
+`,
+  },
+}
+
+<LiveCodes config={asciidocConfig} height='70vh' />
 
 ## Language Info
 
 ### Name
-AsciiDoc
 
-### Aliases
-asciidoc, adoc
+`asciidoc`
 
 ### Extensions
-.adoc
+
+`adoc`, `asc`
 
 ## Editor
 
-```js
-script: {
-  language: "asciidoc",
-  extension: "adoc"
-}
-```
+`script`
 
 ## Compiler
-AsciiDoctor (via WASM)
+
+[Asciidoctor.js](https://docs.asciidoctor.org/asciidoctor.js/latest/)
 
 ### Version
-2.x (via AsciiDoctor.js)
+
+Asciidoctor.js: `v2.2.8`
 
 ## Code Formatting
-Not supported directly — formatting is manual.
+
+Not supported.
 
 ## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `asciidoc` are passed as a JSON object to the [`convert()`](https://docs.asciidoctor.org/asciidoctor.js/latest/setup/quick-tour/#your-first-conversion) function during compile.
+Please check the [documentation](https://docs.asciidoctor.org/asciidoctor.js/latest/processor/convert-options/) and [document attributes](https://docs.asciidoctor.org/asciidoc/latest/attributes/document-attributes-ref/) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
 
 ```json
 {
@@ -44,47 +70,12 @@ Not supported directly — formatting is manual.
 }
 ```
 
-## Helper Methods
-N/A
-
-## Live Reload
-✅ Supported — updates render on change.
-
 ## Limitations
 
-- No server-side rendering
-- Some advanced extensions may not work (e.g., diagrams)
-
-## Example Usage
-
-```asciidoc
-= LiveCodes AsciiDoc Demo
-
-== Features
-
-* Simple
-* Clean
-* Dev-friendly
-
-[source, js]
-----
-console.log("Hello from AsciiDoc!")
-----
-```
-
-## Starter Template
-
-```asciidoc
-= My Document
-
-== Intro
-
-This is **AsciiDoc** on LiveCodes!
-```
+- Some advanced extensions may not work (e.g. diagrams)
 
 ## Links
 
-- [AsciiDoc Guide](https://asciidoc.org)
+- [AsciiDoc](https://asciidoc.org)
+- [Asciidoctor](https://asciidoctor.org/)
 - [AsciiDoctor.js](https://docs.asciidoctor.org/asciidoctor.js/latest/)
-- [Live Demo on LiveCodes](https://livecodes.io/?language=asciidoc)
-
