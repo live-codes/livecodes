@@ -4,6 +4,43 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v45](https://github.com/live-codes/livecodes/compare/sdk-v0.10.0...v45) (2025-04-25)
+
+### Highlights for this release
+
+- This release adds support for [csharp-wasm](https://livecodes.io/docs/languages/csharp-wasm) and [java](https://livecodes.io/docs/languages/java) languages.
+- The SDK now compresses and encodes SDK params.
+- In addition to some UI changes and bug fixes.
+
+### Credits
+
+- @Seth0x41 added [csharp-wasm](https://github.com/live-codes/livecodes/pull/798) and [java](https://github.com/live-codes/livecodes/pull/794) support
+
+Thank you ❤️
+
+### Features
+
+- add Csharp-Wasm support ([63164e8](https://github.com/live-codes/livecodes/commit/63164e8eda6336434e2240e06f0b7fecc3cef4d8))
+- add Java language support with DoppioJVM ([0ecb6b3](https://github.com/live-codes/livecodes/commit/0ecb6b378b1f302794b32b2991015013936f31b3))
+- **UI:** make the script language menu wider with more columns ([2b3c2eb](https://github.com/live-codes/livecodes/commit/2b3c2eba59c43d93342a094d6e68041606367712))
+
+### Bug Fixes
+
+- **Editor:** fix Vue editor TS compiler options ([23b55ef](https://github.com/live-codes/livecodes/commit/23b55ef61f911b69fa056d6f9012ff0a3ddcdf07))
+- **Result:** fix clearing styles ([c5957ee](https://github.com/live-codes/livecodes/commit/c5957ee699814c7d0f23edd2fa4bde1a5696fd7b))
+- **ToolsPane:** fix console: copy errors, added string to variable names ([d858e4f](https://github.com/live-codes/livecodes/commit/d858e4f350766c1d653bd466d4f09f06de163d85))
+- **UI:** use notifications for loading message ([c5c49a2](https://github.com/live-codes/livecodes/commit/c5c49a2441e12ae8a4bd2e92ac2e1b9abf232792))
+
+---
+
+## [sdk-v0.10.0](https://github.com/live-codes/livecodes/compare/sdk-v0.9.1...sdk-v0.10.0) (2025-04-25)
+
+- encode & compress sdk params ([b49c1cb](https://github.com/live-codes/livecodes/commit/b49c1cb13642ce95f8d5a01214891b01261fc067))
+- add `csharp-wasm` language ([63164e8](https://github.com/live-codes/livecodes/commit/63164e8eda6336434e2240e06f0b7fecc3cef4d8))
+- add `java` language ([0ecb6b3](https://github.com/live-codes/livecodes/commit/0ecb6b378b1f302794b32b2991015013936f31b3))
+
+---
+
 ## [v44](https://github.com/live-codes/livecodes/compare/v43...v44) (2025-04-10)
 
 ### Highlights for this release
