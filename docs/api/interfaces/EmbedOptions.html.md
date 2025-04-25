@@ -23,7 +23,7 @@ If supplied with an invalid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:314](https://github.com/live-codes/livecodes/blob/293a641ef31e2acbb9a8e15b2e613a1991bbd2a2/src/sdk/models.ts#L314)
+[models.ts:314](https://github.com/live-codes/livecodes/blob/a7b343163bdd0ffec4d5243db8fcc29a67767ee9/src/sdk/models.ts#L314)
 
 ***
 
@@ -43,7 +43,7 @@ If supplied and is not an object or a valid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:346](https://github.com/live-codes/livecodes/blob/293a641ef31e2acbb9a8e15b2e613a1991bbd2a2/src/sdk/models.ts#L346)
+[models.ts:346](https://github.com/live-codes/livecodes/blob/a7b343163bdd0ffec4d5243db8fcc29a67767ee9/src/sdk/models.ts#L346)
 
 ***
 
@@ -61,7 +61,7 @@ false
 
 #### Defined in
 
-[models.ts:352](https://github.com/live-codes/livecodes/blob/293a641ef31e2acbb9a8e15b2e613a1991bbd2a2/src/sdk/models.ts#L352)
+[models.ts:352](https://github.com/live-codes/livecodes/blob/a7b343163bdd0ffec4d5243db8fcc29a67767ee9/src/sdk/models.ts#L352)
 
 ***
 
@@ -73,7 +73,7 @@ A resource to [import](https://livecodes.io/docs/features/import) (from any of t
 
 #### Defined in
 
-[models.ts:357](https://github.com/live-codes/livecodes/blob/293a641ef31e2acbb9a8e15b2e613a1991bbd2a2/src/sdk/models.ts#L357)
+[models.ts:357](https://github.com/live-codes/livecodes/blob/a7b343163bdd0ffec4d5243db8fcc29a67767ee9/src/sdk/models.ts#L357)
 
 ***
 
@@ -95,7 +95,7 @@ false
 
 #### Defined in
 
-[models.ts:367](https://github.com/live-codes/livecodes/blob/293a641ef31e2acbb9a8e15b2e613a1991bbd2a2/src/sdk/models.ts#L367)
+[models.ts:367](https://github.com/live-codes/livecodes/blob/a7b343163bdd0ffec4d5243db8fcc29a67767ee9/src/sdk/models.ts#L367)
 
 ***
 
@@ -117,7 +117,7 @@ Sets how the playground loads:
 
 #### Defined in
 
-[models.ts:377](https://github.com/live-codes/livecodes/blob/293a641ef31e2acbb9a8e15b2e613a1991bbd2a2/src/sdk/models.ts#L377)
+[models.ts:377](https://github.com/live-codes/livecodes/blob/a7b343163bdd0ffec4d5243db8fcc29a67767ee9/src/sdk/models.ts#L377)
 
 ***
 
@@ -555,6 +555,22 @@ If supplied and is not an object or a valid URL, an error is thrown.
 
 > **cppwasm-selector**: `undefined` \| `string`
 
+#### cs
+
+> **cs**: `undefined` \| `string`
+
+#### cs-selector
+
+> **cs-selector**: `undefined` \| `string`
+
+#### cs-wasm
+
+> **cs-wasm**: `undefined` \| `string`
+
+#### cs-wasm-selector
+
+> **cs-wasm-selector**: `undefined` \| `string`
+
 #### csharp
 
 > **csharp**: `undefined` \| `string`
@@ -562,6 +578,14 @@ If supplied and is not an object or a valid URL, an error is thrown.
 #### csharp-selector
 
 > **csharp-selector**: `undefined` \| `string`
+
+#### csharp-wasm
+
+> **csharp-wasm**: `undefined` \| `string`
+
+#### csharp-wasm-selector
+
+> **csharp-wasm-selector**: `undefined` \| `string`
 
 #### css
 
@@ -739,9 +763,21 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **cppwasm**: `any`
 
+#### customSettings.cs
+
+> **cs**: `any`
+
+#### customSettings.cs-wasm
+
+> **cs-wasm**: `any`
+
 #### customSettings.csharp
 
 > **csharp**: `any`
+
+#### customSettings.csharp-wasm
+
+> **csharp-wasm**: `any`
 
 #### customSettings.css
 
@@ -870,6 +906,10 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 #### customSettings.jade
 
 > **jade**: `any`
+
+#### customSettings.java
+
+> **java**: `any`
 
 #### customSettings.javascript
 
@@ -1257,7 +1297,7 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 #### customSettings.scriptType?
 
-> `optional` **scriptType**: `""` \| `"module"` \| `"text/liquid"` \| `"text/python"` \| `"text/r"` \| `"text/ruby-wasm"` \| `"text/x-uniter-php"` \| `"text/php-wasm"` \| `"text/cpp"` \| `"text/perl"` \| `"text/julia"` \| `"text/biwascheme"` \| `"text/commonlisp"` \| `"text/tcl"` \| `"text/prolog"` \| `"application/json"` \| `"application/lua"` \| `"text/fennel"` \| `"application/wasm-uint8"` \| `"application/javascript"` \| `"application/ecmascript"` \| `"text/javascript"` \| `"text/ecmascript"`
+> `optional` **scriptType**: `""` \| `"module"` \| `"text/liquid"` \| `"text/python"` \| `"text/r"` \| `"text/ruby-wasm"` \| `"text/x-uniter-php"` \| `"text/php-wasm"` \| `"text/cpp"` \| `"text/java"` \| `"text/csharp-wasm"` \| `"text/perl"` \| `"text/julia"` \| `"text/biwascheme"` \| `"text/commonlisp"` \| `"text/tcl"` \| `"text/prolog"` \| `"application/json"` \| `"application/lua"` \| `"text/fennel"` \| `"application/wasm-uint8"` \| `"application/javascript"` \| `"application/ecmascript"` \| `"text/javascript"` \| `"text/ecmascript"`
 
 #### customSettings.scss
 
@@ -1406,6 +1446,10 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 #### customSettings.wasm.cpp
 
 > **cpp**: `any`
+
+#### customSettings.wasm.cs
+
+> **cs**: `any`
 
 #### customSettings.wasm.lua
 
@@ -1899,6 +1943,14 @@ and [Custom Module Resolution](https://livecodes.io/docs/features/module-resolut
 
 > **jade-selector**: `undefined` \| `string`
 
+#### java
+
+> **java**: `undefined` \| `string`
+
+#### java-selector
+
+> **java-selector**: `undefined` \| `string`
+
 #### javascript
 
 > **javascript**: `undefined` \| `string`
@@ -2342,7 +2394,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### params?
 
-> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 462 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
+> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 472 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
 
 An object that represents the [URL Query parameters](https://livecodes.io/docs/configuration/query-params), that can be used to configure the playground.
 
@@ -3588,6 +3640,14 @@ When set to `"headless"`, the playground is loaded in [headless mode](https://li
 
 > **cpp-selector**: `undefined` \| `string`
 
+#### wasm.cs
+
+> **cs**: `undefined` \| `string`
+
+#### wasm.cs-selector
+
+> **cs-selector**: `undefined` \| `string`
+
 #### wasm.lua
 
 > **lua**: `undefined` \| `string`
@@ -3690,7 +3750,7 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[models.ts:338](https://github.com/live-codes/livecodes/blob/293a641ef31e2acbb9a8e15b2e613a1991bbd2a2/src/sdk/models.ts#L338)
+[models.ts:338](https://github.com/live-codes/livecodes/blob/a7b343163bdd0ffec4d5243db8fcc29a67767ee9/src/sdk/models.ts#L338)
 
 ***
 
@@ -3703,7 +3763,7 @@ Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-a
 
 #### Defined in
 
-[models.ts:383](https://github.com/live-codes/livecodes/blob/293a641ef31e2acbb9a8e15b2e613a1991bbd2a2/src/sdk/models.ts#L383)
+[models.ts:383](https://github.com/live-codes/livecodes/blob/a7b343163bdd0ffec4d5243db8fcc29a67767ee9/src/sdk/models.ts#L383)
 
 ***
 
@@ -3728,4 +3788,4 @@ When set to `"headless"`, the playground is loaded in [headless mode](https://li
 
 #### Defined in
 
-[models.ts:396](https://github.com/live-codes/livecodes/blob/293a641ef31e2acbb9a8e15b2e613a1991bbd2a2/src/sdk/models.ts#L396)
+[models.ts:396](https://github.com/live-codes/livecodes/blob/a7b343163bdd0ffec4d5243db8fcc29a67767ee9/src/sdk/models.ts#L396)

@@ -815,7 +815,7 @@ declare module "sdk/models" {
     /**
      * Language name, alias or extension.
      */
-    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react' | 'react-jsx' | 'react.jsx' | 'react-tsx' | 'react.tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'vue-app' | 'app.vue' | 'svelte' | 'svelte-app' | 'app.svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
+    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react' | 'react-jsx' | 'react.jsx' | 'react-tsx' | 'react.tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'vue-app' | 'app.vue' | 'svelte' | 'svelte-app' | 'app.svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'java' | 'csharp' | 'csharp-wasm' | 'cs' | 'cs-wasm' | 'wasm.cs' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
     export interface Editor {
         /**
          * A language name, extension or alias (as defined in [language documentations](https://livecodes.io/docs/languages/)).
@@ -935,7 +935,7 @@ declare module "sdk/models" {
         hidden?: boolean;
     }
     export type Processor = 'postcss' | 'postcssImportUrl' | 'tailwindcss' | 'windicss' | 'unocss' | 'tokencss' | 'lightningcss' | 'autoprefixer' | 'postcssPresetEnv' | 'cssmodules' | 'purgecss' | 'cssnano';
-    export type ParserName = 'babel' | 'babel-ts' | 'babel-flow' | 'glimmer' | 'html' | 'markdown' | 'css' | 'scss' | 'less' | 'php' | 'pug';
+    export type ParserName = 'babel' | 'babel-ts' | 'babel-flow' | 'glimmer' | 'html' | 'markdown' | 'css' | 'scss' | 'less' | 'php' | 'pug' | 'java';
     export interface Parser {
         name: ParserName;
         plugins?: any[];
@@ -1006,7 +1006,7 @@ declare module "sdk/models" {
             baseUrl: string;
         }) => Promise<string>);
         loadAsExternalModule?: boolean;
-        scriptType?: 'module' | 'text/liquid' | 'text/python' | 'text/r' | 'text/ruby-wasm' | 'text/x-uniter-php' | 'text/php-wasm' | 'text/cpp' | 'text/perl' | 'text/julia' | 'text/biwascheme' | 'text/commonlisp' | 'text/tcl' | 'text/prolog' | 'application/json' | 'application/lua' | 'text/fennel' | 'application/wasm-uint8';
+        scriptType?: 'module' | 'text/liquid' | 'text/python' | 'text/r' | 'text/ruby-wasm' | 'text/x-uniter-php' | 'text/php-wasm' | 'text/cpp' | 'text/java' | 'text/csharp-wasm' | 'text/perl' | 'text/julia' | 'text/biwascheme' | 'text/commonlisp' | 'text/tcl' | 'text/prolog' | 'application/json' | 'application/lua' | 'text/fennel' | 'application/wasm-uint8';
         liveReload?: boolean;
         aliasTo?: Language;
         compiledCodeLanguage?: Language;
@@ -1025,7 +1025,7 @@ declare module "sdk/models" {
         tools?: Config['tools'];
         autotest?: Config['autotest'];
     };
-    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'shadcn-ui' | 'daisyui' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
+    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'shadcn-ui' | 'daisyui' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'java' | 'csharp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
         name: 'console' | 'compiled' | 'tests';
         title: string;
@@ -1424,6 +1424,7 @@ declare module "livecodes/vendors" {
     export const babelUrl: string;
     export const biwaschemeUrl: string;
     export const blocklyCdnBaseUrl: string;
+    export const browserfsUrl: string;
     export const browserJestUrl: string;
     export const brythonBaseUrl: string;
     export const chaiUrl: string;
@@ -1444,10 +1445,12 @@ declare module "livecodes/vendors" {
     export const colorisBaseUrl: string;
     export const comlinkBaseUrl: string;
     export const cppWasmBaseUrl: string;
+    export const csharpWasmBaseUrl: string;
     export const csstreeUrl: string;
     export const cytoscapeSvgUrl: string;
     export const cytoscapeUrl: string;
     export const ddietrCmThemesBaseUrl: string;
+    export const doppioJvmBaseUrl = "https://unpkg.com/@seth0x41/doppio@1.0.0/";
     export const dotUrl: string;
     export const ejsUrl: string;
     export const elkjsBaseUrl: string;
@@ -1801,6 +1804,7 @@ declare module "livecodes/languages/prettier" {
         postcss: string;
         php: string;
         pug: string;
+        java: string;
     };
 }
 declare module "livecodes/languages/babel/lang-babel" {
@@ -2885,6 +2889,20 @@ declare module "livecodes/languages/react/lang-react-tsx" {
 declare module "livecodes/languages/react/index" {
     export * from "livecodes/languages/react/lang-react";
     export * from "livecodes/languages/react/lang-react-tsx";
+}
+declare module "livecodes/languages/java/lang-java" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const java: LanguageSpecs;
+}
+declare module "livecodes/languages/java/index" {
+    export * from "livecodes/languages/java/lang-java";
+}
+declare module "livecodes/languages/csharp-wasm/lang-csharp-wasm" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const csharpWasm: LanguageSpecs;
+}
+declare module "livecodes/languages/csharp-wasm/index" {
+    export * from "livecodes/languages/csharp-wasm/lang-csharp-wasm";
 }
 declare module "livecodes/languages/languages" {
     import type { LanguageSpecs } from "livecodes/models";
@@ -5166,6 +5184,7 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly go: "Go Starter";
                 readonly heading: "Starter Templates";
                 readonly imba: "Imba Starter";
+                readonly java: "Java Starter";
                 readonly javascript: "JavaScript Starter";
                 readonly jest: "Jest Starter";
                 readonly 'jest-react': "Jest/React Starter";
@@ -5362,6 +5381,11 @@ declare module "livecodes/i18n/locales/en/language-info" {
             readonly link: "<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang official website</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>Load starter template</8> </7>";
             readonly name: "C/C++ (Wasm)";
         };
+        readonly csharpWasm: {
+            readonly desc: "C# compiler running on WebAssembly, using <1>Blazor</1>";
+            readonly link: "<1> <2>C# language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=C#</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "C# (Wasm)";
+        };
         readonly diagrams: {
             readonly desc1: "(Experimental)";
             readonly desc2: "Diagrams-as-code. Supports:";
@@ -5420,6 +5444,11 @@ declare module "livecodes/i18n/locales/en/language-info" {
             readonly desc: "The friendly full-stack language.";
             readonly link: "<1><2>Official website</2></1>";
             readonly name: "Imba";
+        };
+        readonly java: {
+            readonly desc: "JVM running in the browser using DoppioJVM.";
+            readonly link: "<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "Java";
         };
         readonly jsx: {
             readonly desc: "JSX is compiled to JavaScript in LiveCodes using the TypeScript Compiler.  By default it uses React as the JSX runtime.";
@@ -7552,6 +7581,16 @@ declare module "livecodes/languages/astro/lang-astro-compiler" { }
 declare module "livecodes/languages/clio/lang-clio-compiler" { }
 declare module "livecodes/languages/cpp/lang-cpp-script" { }
 declare module "livecodes/languages/cpp-wasm/lang-cpp-wasm-script" { }
+declare module "livecodes/languages/csharp-wasm/lang-csharp-wasm-script" {
+    global {
+        interface Window {
+            DotNet: any;
+            Blazor: {
+                start: (options: any) => Promise<void>;
+            };
+        }
+    }
+}
 declare module "livecodes/languages/diagrams/lang-diagrams-compiler-esm" {
     import type { CompilerFunction } from "livecodes/models";
     export const diagramsCompiler: CompilerFunction;
@@ -7574,6 +7613,7 @@ declare module "livecodes/languages/gleam/lang-gleam-compiler" { }
 declare module "livecodes/languages/haml/lang-haml-compiler" { }
 declare module "livecodes/languages/handlebars/lang-handlebars-compiler" { }
 declare module "livecodes/languages/imba/lang-imba-compiler" { }
+declare module "livecodes/languages/java/lang-java-script" { }
 declare module "livecodes/languages/julia/lang-julia-script" { }
 declare module "livecodes/languages/lightningcss/processor-lightningcss-compiler" {
     export const lightningcssFeatures: {
@@ -7724,6 +7764,10 @@ declare module "livecodes/templates/starter/cpp-starter" {
 declare module "livecodes/templates/starter/cpp-wasm-starter" {
     import type { Template } from "livecodes/models";
     export const cppWasmStarter: Template;
+}
+declare module "livecodes/templates/starter/csharp-wasm-starter" {
+    import type { Template } from "livecodes/models";
+    export const csharpWasmStarter: Template;
 }
 declare module "livecodes/templates/starter/d3-starter" {
     import type { Template } from "livecodes/models";
@@ -7928,6 +7972,10 @@ declare module "livecodes/templates/starter/phaser-starter" {
 declare module "livecodes/templates/starter/shadcn-ui-starter" {
     import type { Template } from "livecodes/models";
     export const shadcnuiStarter: Template;
+}
+declare module "livecodes/templates/starter/java-starter" {
+    import type { Template } from "livecodes/models";
+    export const javaStarter: Template;
 }
 declare module "livecodes/templates/starter/index" {
     export const starterTemplates: import("sdk/models").Template[];

@@ -113,6 +113,8 @@ By default, when code is updated, the Pyodide environment is re-used while the g
 
 Think of this like restarting the kernel in Jupyter notebooks.
 
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.html.md)#markup) for embedded playgrounds.
+
 ## Example Usage
 
 <!-- prettier-ignore -->
