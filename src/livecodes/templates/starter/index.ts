@@ -65,6 +65,8 @@ import { phaserStarter } from './phaser-starter';
 import { d3Starter } from './d3-starter';
 import { shadcnuiStarter } from './shadcn-ui-starter';
 import { daisyuiStarter } from './daisyui-starter';
+import { javaStarter } from './java-starter';
+import { csharpWasmStarter } from './csharp-wasm-starter';
 
 export const starterTemplates = [
   blank,
@@ -113,6 +115,8 @@ export const starterTemplates = [
   phpWasmStarter,
   cppStarter,
   cppWasmStarter,
+  javaStarter,
+  csharpWasmStarter,
   perlStarter,
   luaStarter,
   luaWasmStarter,

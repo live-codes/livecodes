@@ -10,4 +10,5 @@ export const parserPlugins = {
   postcss: prettierBaseUrl + 'plugins/postcss.js',
   php: prettierPhpUrl,
   pug: vendorsBaseUrl + 'prettier/parser-pug.js',
+  java: vendorsBaseUrl + 'prettier/parser-java.js',
 };

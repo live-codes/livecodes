@@ -1971,6 +1971,9 @@
   "templates.starter.imba": {
     "translation": "امبا شروعاتی"
   },
+  "templates.starter.java": {
+    "translation": "جاوا شروعاتی"
+  },
   "templates.starter.javascript": {
     "translation": "جاوا اسکرپٹ شروعاتی"
   },

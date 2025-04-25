@@ -38,6 +38,7 @@ export const getCompilerOptions = (language: Language): CompilerOptions => {
     target: 7, // monaco.languages.typescript.ScriptTarget.ES2020,
     module: 99, // monaco.languages.typescript.ModuleKind.ESNext,
     moduleResolution: 2, // monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+    lib: ['es2021', 'dom', 'dom.iterable'],
   };
 
   const jsxSettings: CompilerOptions = {

@@ -293,8 +293,12 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
 
     const scriptLang = getEditorLanguage('script') || 'javascript';
     const compilers = getAllCompilers(languages, getConfig(), baseUrl);
-    const editorsText = `${getConfig().markup.content}
+    const editorsText = `
+      ${getConfig().markup.hiddenContent || ''}
+      ${getConfig().markup.content}
+      ${getConfig().style.hiddenContent || ''}
       ${getConfig().style.content}
+      ${getConfig().script.hiddenContent || ''}
       ${getConfig().script.content}
       `;
     const iframeIsPlaced = iframe.parentElement === container;
@@ -5190,13 +5194,8 @@ const importExternalContent = async (options: {
 
   if (!configUrl && !template && !url && !hasContentUrls(config)) return false;
 
-  const loadingMessage = document.createElement('div');
-  loadingMessage.classList.add('modal-message');
-  loadingMessage.innerHTML = window.deps.translateString(
-    'core.import.loading',
-    'Loading Project...',
-  );
-  modal.show(loadingMessage, { size: 'small', isAsync: true });
+  const loadingMessage = window.deps.translateString('core.import.loading', 'Loading Project...');
+  notifications.info(loadingMessage);
 
   let templateConfig: Partial<Config> = {};
   let urlConfig: Partial<Config> = {};
@@ -5298,10 +5297,7 @@ const importExternalContent = async (options: {
     false,
   );
 
-  const screenLoaded = loadSelectedScreen();
-  if (!screenLoaded) {
-    modal.close();
-  }
+  loadSelectedScreen();
 
   return true;
 };

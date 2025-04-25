@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       go: 'قالب Go',
       heading: 'قوالب البداية',
       imba: 'قالب Imba',
+      java: 'قالب Java',
       javascript: 'قالب JavaScript',
       jest: 'قالب Jest',
       'jest-react': 'قالب Jest/React',

@@ -1018,6 +1018,12 @@ export type Language =
   | 'wasm.cpp'
   | 'clang'
   | 'clang.cpp'
+  | 'java'
+  | 'csharp'
+  | 'csharp-wasm'
+  | 'cs'
+  | 'cs-wasm'
+  | 'wasm.cs'
   | 'perl'
   | 'pl'
   | 'pm'
@@ -1058,7 +1064,6 @@ export type Language =
   | 'webassembly'
   | 'wasm'
   | 'Binary'
-  | 'csharp'
   | 'sql'
   | 'sqlite'
   | 'sqlite3'
@@ -1242,7 +1247,8 @@ export type ParserName =
   | 'scss'
   | 'less'
   | 'php'
-  | 'pug';
+  | 'pug'
+  | 'java';
 
 export interface Parser {
   name: ParserName;
@@ -1334,6 +1340,8 @@ export interface Compiler {
     | 'text/x-uniter-php'
     | 'text/php-wasm'
     | 'text/cpp'
+    | 'text/java'
+    | 'text/csharp-wasm'
     | 'text/perl'
     | 'text/julia'
     | 'text/biwascheme'
@@ -1413,6 +1421,8 @@ export type TemplateName =
   | 'cpp'
   | 'clang'
   | 'cpp-wasm'
+  | 'java'
+  | 'csharp-wasm'
   | 'perl'
   | 'lua'
   | 'lua-wasm'

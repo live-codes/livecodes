@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       go: 'گو شروعاتی',
       heading: 'شروعاتی سانچے',
       imba: 'امبا شروعاتی',
+      java: 'جاوا شروعاتی',
       javascript: 'جاوا اسکرپٹ شروعاتی',
       jest: 'جیسٹ شروعاتی',
       'jest-react': 'جیسٹ/ری ایکٹ شروعاتی',

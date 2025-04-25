@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.10.0](https://github.com/live-codes/livecodes/compare/sdk-v0.9.1...sdk-v0.10.0) (2025-04-25)
+
+- encode & compress sdk params ([b49c1cb](https://github.com/live-codes/livecodes/commit/b49c1cb13642ce95f8d5a01214891b01261fc067))
+- add `csharp-wasm` language ([63164e8](https://github.com/live-codes/livecodes/commit/63164e8eda6336434e2240e06f0b7fecc3cef4d8))
+- add `java` language ([0ecb6b3](https://github.com/live-codes/livecodes/commit/0ecb6b378b1f302794b32b2991015013936f31b3))
+
+---
+
 ## [v44](https://github.com/live-codes/livecodes/compare/v43...v44) (2025-04-10)
 
 ### Highlights for this release

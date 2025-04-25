@@ -137,6 +137,10 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>आधिकारिक वेबसाइट</2></1>',
     name: 'Imba',
   },
+  java: {
+    desc: 'DoppioJVM का उपयोग करके ब्राउज़र में JVM चल रहा है।',
+    name: 'Java',
+  },
   jsx: {
     desc: 'LiveCodes में JSX को TypeScript कंपाइलर का उपयोग करके JavaScript में कंपाइल किया जाता है। डिफ़ॉल्ट रूप से यह JSX रनटाइम के रूप में React का उपयोग करता है।',
     link: '<1> <2>React आधिकारिक वेबसाइट</2> </1> <3> <4>React दस्तावेज़ीकरण में JSX</4> </3> <5> <6>LiveCodes दस्तावेज़ीकरण</6> </5>',

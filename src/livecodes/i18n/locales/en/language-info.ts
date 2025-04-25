@@ -82,6 +82,11 @@ const languageInfo = {
     link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang official website</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'C/C++ (Wasm)',
   },
+  csharpWasm: {
+    desc: 'C# compiler running on WebAssembly, using <1>Blazor</1>',
+    link: '<1> <2>C# language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=C#</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'C# (Wasm)',
+  },
   diagrams: {
     desc1: '(Experimental)',
     desc2: 'Diagrams-as-code. Supports:',
@@ -143,6 +148,11 @@ const languageInfo = {
     desc: 'The friendly full-stack language.',
     link: '<1><2>Official website</2></1>',
     name: 'Imba',
+  },
+  java: {
+    desc: 'JVM running in the browser using DoppioJVM.',
+    link: '<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Java',
   },
   jsx: {
     desc: 'JSX is compiled to JavaScript in LiveCodes using the TypeScript Compiler.  By default it uses React as the JSX runtime.',

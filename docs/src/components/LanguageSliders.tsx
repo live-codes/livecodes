@@ -86,6 +86,8 @@ export default function Sliders() {
       { name: 'php-wasm', title: 'PHP (Wasm)' },
       { name: 'cpp', title: 'C++' },
       { name: 'cpp-wasm', title: 'C++ (Wasm)' },
+      { name: 'java', title: 'Java' },
+      { name: 'csharp-wasm', title: 'C# (Wasm)' },
       { name: 'perl', title: 'Perl' },
       { name: 'lua', title: 'Lua' },
       { name: 'lua-wasm', title: 'Lua (Wasm)' },

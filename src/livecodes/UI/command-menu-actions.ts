@@ -303,6 +303,8 @@ export const getCommandMenuActions = ({
         'cpp',
         'clang',
         'cpp-wasm',
+        'java',
+        'csharp-wasm',
         'perl',
         'lua',
         'lua-wasm',

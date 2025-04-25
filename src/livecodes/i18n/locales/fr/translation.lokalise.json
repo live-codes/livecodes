@@ -1971,6 +1971,9 @@
   "templates.starter.imba": {
     "translation": "Démarrage Imba"
   },
+  "templates.starter.java": {
+    "translation": "Démarrage Java"
+  },
   "templates.starter.javascript": {
     "translation": "Démarrage JavaScript"
   },

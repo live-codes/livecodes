@@ -134,6 +134,10 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>官方网站</2></1>',
     name: 'Imba',
   },
+  java: {
+    desc: '使用 DoppioJVM 在浏览器中运行的 JVM。',
+    name: 'Java',
+  },
   jsx: {
     desc: '在 LiveCodes 中，JSX 使用 TypeScript 编译器编译为 JavaScript。默认情况下，React 将作为 JSX 运行时。',
     link: '<1> <2>React 官方网站</2> </1> <3> <4>React 文档中的 JSX</4> </3> <5> <6>LiveCodes 文档</6> </5>',

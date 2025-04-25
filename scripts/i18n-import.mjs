@@ -63,17 +63,44 @@ const importFromLokalise = async () => {
   if (!useLocalResourcesMode) {
     console.log('Fetching translations from Lokalise...');
 
-    const response = await api.files().download(`${projectID}:${branchName}`, {
+    const fullProjectId = `${projectID}:${branchName}`;
+    const process = await api.files().async_download(fullProjectId, {
       format: 'json',
       original_filenames: true,
       json_unescaped_slashes: true,
       replace_breaks: false,
       placeholder_format: 'i18n',
     });
-    console.log(`Downloading zip file from ${response.bundle_url}`);
+
+    // Wait until process is finished
+    const timeout = 60000;
+    const delay = 2500;
+    const startTime = Date.now();
+
+    /** @type {import("@lokalise/node-api").DownloadedFileProcessDetails} */
+    let response;
+
+    while (true) {
+      const processInfo = await api.queuedProcesses()
+        .get(process.process_id, { project_id: fullProjectId });
+
+      if (processInfo.status === 'finished') {
+        response = processInfo.details;
+        break;
+      }
+
+      if (Date.now() - startTime > timeout) {
+        console.error('Timeout exceeded. Aborting...');
+        exit(1);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+
+    console.log(`Downloading zip file from ${response.download_url}`);
 
     const zipPath = path.join(lokaliseTempDir, 'locales.zip');
-    const zipFile = await fetch(response.bundle_url);
+    const zipFile = await fetch(response.download_url);
     await fs.promises.writeFile(zipPath, Buffer.from(await zipFile.arrayBuffer()));
 
     console.log(`Extracting zip file to ${lokaliseTempDir}...`);

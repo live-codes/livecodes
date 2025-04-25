@@ -86,16 +86,20 @@ export async function createPlayground(
 
   const origin = url.origin;
 
-  if (typeof params === 'object') {
-    (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
-      url.searchParams.set(param, String(params[param]));
-    });
+  if (params && typeof params === 'object') {
+    try {
+      url.searchParams.set('params', compressToEncodedURIComponent(JSON.stringify(params)));
+    } catch {
+      (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
+        url.searchParams.set(param, encodeURIComponent(String(params[param])));
+      });
+    }
   }
   if (template) {
     url.searchParams.set('template', template);
   }
   if (importFrom) {
-    url.searchParams.set('x', importFrom);
+    url.searchParams.set('x', encodeURIComponent(importFrom));
   }
   if (isHeadless) {
     url.searchParams.set('headless', 'true');
@@ -125,7 +129,7 @@ export async function createPlayground(
   if (typeof config === 'string') {
     try {
       new URL(config);
-      url.searchParams.set('config', config);
+      url.searchParams.set('config', encodeURIComponent(config));
     } catch {
       throw new Error(`"config" is not a valid URL or configuration object.`);
     }
@@ -419,14 +423,26 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
   const configParam =
     typeof config === 'string'
       ? { config }
-      : typeof config === 'object'
+      : config && typeof config === 'object' && Object.keys(config).length
         ? { x: 'code/' + compressToEncodedURIComponent(JSON.stringify(config)) }
         : {};
+
+  let encodedParams;
+  if (params && typeof params === 'object') {
+    try {
+      encodedParams = compressToEncodedURIComponent(JSON.stringify(params));
+    } catch {
+      (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
+        (params as any)[param] = encodeURIComponent(String(params[param]));
+      });
+    }
+  }
+
   const allParams = new URLSearchParams(
     JSON.parse(
       JSON.stringify({
         ...otherOptions,
-        ...params,
+        ...(encodedParams ? { params: encodedParams } : params),
         ...{ x },
         ...configParam,
       }),

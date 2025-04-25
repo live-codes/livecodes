@@ -138,6 +138,10 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Sitio web oficial</2></1>',
     name: 'Imba',
   },
+  java: {
+    desc: 'JVM ejecutándose en el navegador utilizando DoppioJVM.',
+    name: 'Java',
+  },
   jsx: {
     desc: 'JSX se compila a JavaScript en LiveCodes usando el Compilador de TypeScript. Por defecto, utiliza React como el tiempo de ejecución de JSX.',
     link: '<1> <2>Sitio web oficial de React</2> </1> <3> <4>Documentación de JSX en React</4> </3> <5> <6>Documentación de LiveCodes</6> </5>',

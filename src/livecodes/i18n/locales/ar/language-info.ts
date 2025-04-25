@@ -135,6 +135,10 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>الموقع الرسمي</2></1>',
     name: 'Imba',
   },
+  java: {
+    desc: 'JVM يعمل في المتصفح باستخدام DoppioJVM.',
+    name: 'Java',
+  },
   jsx: {
     desc: 'يتم ترجمة JSX إلى جافا سكريبت في LiveCodes باستخدام مترجم TypeScript. افتراضيًا، يستخدم React كبيئة تشغيل JSX.',
     link: '<1> <2>الموقع الرسمي لـ React</2> </1> <3> <4>وثائق JSX في React</4> </3> <5> <6>وثائق LiveCodes</6> </5>',
