@@ -19,4 +19,4 @@ The [options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playgro
 
 ## Defined in
 
-[index.ts:421](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/index.ts#L421)
+[index.ts:421](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/index.ts#L421)

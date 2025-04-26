@@ -25,7 +25,7 @@ The [embed options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the p
 
 ### Defined in
 
-[index.ts:26](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/index.ts#L26)
+[index.ts:26](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/index.ts#L26)
 
 ## createPlayground(options)
 
@@ -41,4 +41,4 @@ The [embed options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the p
 
 ### Defined in
 
-[index.ts:30](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/index.ts#L30)
+[index.ts:30](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/index.ts#L30)

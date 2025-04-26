@@ -20,7 +20,7 @@ true
 
 #### Defined in
 
-[models.ts:801](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L801)
+[models.ts:801](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L801)
 
 ***
 
@@ -44,7 +44,7 @@ undefined
 
 #### Defined in
 
-[models.ts:722](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L722)
+[models.ts:722](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L722)
 
 ***
 
@@ -56,7 +56,7 @@ Sets [editor mode](https://livecodes.io/docs/features/editor-settings#editor-mod
 
 #### Defined in
 
-[models.ts:812](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L812)
+[models.ts:812](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L812)
 
 ***
 
@@ -92,7 +92,7 @@ See docs for [editor themes](https://livecodes.io/docs/configuration/configurati
 
 #### Defined in
 
-[models.ts:748](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L748)
+[models.ts:748](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L748)
 
 ***
 
@@ -110,7 +110,7 @@ true
 
 #### Defined in
 
-[models.ts:807](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L807)
+[models.ts:807](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L807)
 
 ***
 
@@ -128,7 +128,7 @@ false
 
 #### Defined in
 
-[models.ts:818](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L818)
+[models.ts:818](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L818)
 
 ***
 
@@ -146,7 +146,7 @@ false
 
 #### Defined in
 
-[models.ts:795](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L795)
+[models.ts:795](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L795)
 
 ***
 
@@ -158,7 +158,7 @@ Sets the [code editor](https://livecodes.io/docs/features/editor-settings) font 
 
 #### Defined in
 
-[models.ts:753](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L753)
+[models.ts:753](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L753)
 
 ***
 
@@ -178,7 +178,7 @@ undefined
 
 #### Defined in
 
-[models.ts:761](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L761)
+[models.ts:761](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L761)
 
 ***
 
@@ -196,7 +196,7 @@ true
 
 #### Defined in
 
-[models.ts:783](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L783)
+[models.ts:783](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L783)
 
 ***
 
@@ -216,7 +216,7 @@ Also used in [code formatting](https://livecodes.io/docs/features/code-format).
 
 #### Defined in
 
-[models.ts:777](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L777)
+[models.ts:777](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L777)
 
 ***
 
@@ -234,7 +234,7 @@ Sets the app [theme](https://livecodes.io/docs/features/themes) to light/dark mo
 
 #### Defined in
 
-[models.ts:728](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L728)
+[models.ts:728](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L728)
 
 ***
 
@@ -253,7 +253,7 @@ undefined
 
 #### Defined in
 
-[models.ts:735](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L735)
+[models.ts:735](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L735)
 
 ***
 
@@ -273,7 +273,7 @@ false
 
 #### Defined in
 
-[models.ts:769](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L769)
+[models.ts:769](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L769)
 
 ***
 
@@ -291,4 +291,4 @@ false
 
 #### Defined in
 
-[models.ts:789](https://github.com/live-codes/livecodes/blob/bee85b9d53399ef60fcc2e01c3d8b1862b2acaee/src/sdk/models.ts#L789)
+[models.ts:789](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L789)
