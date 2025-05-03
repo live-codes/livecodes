@@ -137,7 +137,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
     const editorId = getLanguageEditorId(language);
     if (editorId && !paramsConfig[editorId]) {
       const value = params[key];
-      const content = typeof value === 'string' ? decodeHTML(decodeURIComponent(value)) : '';
+      const content = typeof value === 'string' ? decodeHTML(value) : '';
       paramsConfig[editorId] = { language, content };
       if (!paramsConfig.activeEditor) {
         paramsConfig.activeEditor = editorId;
