@@ -112,6 +112,7 @@ const sidebars: SidebarsConfig = {
         },
         'bookmarklet',
         'gh-action',
+        'markdown-to-livecodes',
         'contribution',
         'credits',
         'license',
