@@ -40,6 +40,7 @@ const config: Config = {
               require('@docusaurus/remark-plugin-npm2yarn'),
               { sync: true, converters: ['yarn', 'pnpm', 'bun'] },
             ],
+            require('remark-livecodes'),
           ],
         },
         blog: false,
@@ -226,7 +227,7 @@ const config: Config = {
     prism: {
       theme: lightCodeTheme,
       darkTheme: darkCodeTheme,
-      additionalLanguages: ['bash', 'csharp', 'java'],
+      additionalLanguages: ['bash', 'csharp', 'java', 'markdown'],
     },
     algolia: {
       appId: 'H9Z2PKYS80',
