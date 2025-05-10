@@ -93,7 +93,7 @@ import {
   getContentConfig,
   getEditorConfig,
   getFormatterConfig,
-  getParams,
+  getHashParams,
   getUserConfig,
   setConfig,
   upgradeAndValidate,
@@ -194,7 +194,8 @@ let i18n: Await<ReturnType<typeof import('./i18n').init>> | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
-const params = getParams(); // query string params
+// const params = getParams(); // query string params
+const params = getHashParams();
 const iframeScrollPosition = { x: 0, y: 0 };
 
 let baseUrl: string;
@@ -1318,13 +1319,16 @@ const share = async (
         },
       }
     : config;
+  
+  const serverContent = { title: content.title, description: content.description }
+  
   const contentParam = shortUrl
     ? '?x=id/' +
       (await shareService.shareProject({
         ...content,
         result: includeResult ? getCache().result : undefined,
       }))
-    : '?x=code/' + compress(JSON.stringify(content));
+    : '?x=/' +compress(JSON.stringify(serverContent)) +'#x=code/' + compress(JSON.stringify(content)); // TODO choose a meaningful name for the param
 
   const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
 
@@ -5236,7 +5240,14 @@ const importExternalContent = async (options: {
     }
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
-    urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
+    // urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
+    urlConfig = await importModule.importCode(
+      validUrl,
+      getHashParams(),
+      getConfig(),
+      user,
+      baseUrl,
+    );
 
     if (Object.keys(urlConfig).length === 0) {
       notifications.error(
