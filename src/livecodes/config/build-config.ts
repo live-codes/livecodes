@@ -27,7 +27,8 @@ export const buildConfig = (appConfig: Partial<Config>) => {
   };
 
   // get query string params
-  const params = getParams();
+  // const params = getParams();
+  const params = getHashParams();
 
   const { version, ...paramsConfig } = upgradeAndValidate(loadParamConfig(config, params));
 
@@ -83,6 +84,31 @@ const fixLanguageNames = (config: Config): Config => ({
 export const getParams = (queryParams = parent.location.search): UrlQueryParams => {
   let params: { [key: string]: string | boolean } = Object.fromEntries(
     new URLSearchParams(queryParams),
+  );
+  let encodedParams = {};
+  Object.keys(params).forEach((key) => {
+    try {
+      const value = params[key] as string;
+      if (key === 'params') {
+        encodedParams = JSON.parse(decompress(value) || '{}');
+        if (!encodedParams || typeof encodedParams !== 'object') encodedParams = {};
+      } else {
+        params[key] = decodeURIComponent(value);
+      }
+    } catch {
+      //
+    }
+    params = { ...encodedParams, ...params };
+    if (params[key] === '') params[key] = true;
+    if (params[key] === 'true') params[key] = true;
+    if (params[key] === 'false') params[key] = false;
+  });
+  return params;
+};
+
+export const getHashParams = (queryParams = parent.location.hash): UrlQueryParams => {
+  let params: { [key: string]: string | boolean } = Object.fromEntries(
+    new URLSearchParams(queryParams.replace('#', '?')),
   );
   let encodedParams = {};
   Object.keys(params).forEach((key) => {
