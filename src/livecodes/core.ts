@@ -1328,7 +1328,7 @@ const share = async (
         ...content,
         result: includeResult ? getCache().result : undefined,
       }))
-    : '?x=/' +compress(JSON.stringify(serverContent)) +'#x=code/' + compress(JSON.stringify(content)); // TODO choose a meaningful name for the param
+    : '?x=code/' +compress(JSON.stringify(serverContent)) +'#x=code/' + compress(JSON.stringify(content)); // TODO choose a meaningful name for the param
 
   const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
 
