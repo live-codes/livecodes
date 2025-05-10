@@ -1397,39 +1397,96 @@ const loadConfig = async (
   iframeScrollPosition.x = 0;
   iframeScrollPosition.y = 0;
 
-  // load config
-  await bootstrap(true);
-  await applyConfig(config);
+  await applyConfig(config, /* reload= */ true);
 
   changingContent = false;
 };
 
-const applyConfig = async (newConfig: Partial<Config>) => {
+const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
   const currentConfig = getConfig();
+  const combinedConfig: Config = { ...currentConfig, ...newConfig };
+  if (reload) {
+    await updateEditors(editors, getConfig());
+  }
+  phpHelper({ editor: editors.script });
+  setLoading(true);
+  await setActiveEditor(combinedConfig);
+
   if (!isEmbed) {
-    loadSettings(currentConfig);
+    loadSettings(combinedConfig);
   }
   if (newConfig.mode || newConfig.view) {
-    window.deps?.showMode?.(
-      newConfig.mode ?? currentConfig.mode,
-      newConfig.view ?? currentConfig.view,
-    );
+    window.deps?.showMode?.(combinedConfig.mode, combinedConfig.view);
   }
   if (newConfig.tools) {
-    configureToolsPane(newConfig.tools, newConfig.mode);
+    configureToolsPane(newConfig.tools, combinedConfig.mode);
   }
   if (newConfig.zoom) {
     zoom(newConfig.zoom);
   }
   if (newConfig.theme || newConfig.editorTheme || newConfig.themeColor || newConfig.fontSize) {
-    setTheme(
-      newConfig.theme || currentConfig.theme,
-      newConfig.editorTheme || currentConfig.editorTheme,
-    );
+    setTheme(combinedConfig.theme, combinedConfig.editorTheme);
   }
   if (newConfig.autotest) {
     UI.getWatchTestsButton()?.classList.remove('disabled');
   }
+  toolsPane?.console?.clear(/* silent= */ true);
+
+  setConfig(combinedConfig);
+
+  if (!isEmbed) {
+    setTimeout(() => getActiveEditor().focus());
+  }
+  setExternalResourcesMark();
+  setCustomSettingsMark();
+  updateCompiledCode();
+  loadModuleTypes(editors, combinedConfig, /* loadAll = */ true);
+  compiler.load(getEditorLanguages(), combinedConfig).then(() => {
+    if (!combinedConfig.autoupdate) {
+      setLoading(false);
+      return;
+    }
+    setTimeout(() => {
+      if (
+        toolsPane?.getActiveTool() === 'tests' &&
+        ['open', 'full'].includes(toolsPane?.getStatus())
+      ) {
+        run(undefined, true);
+      } else {
+        run();
+      }
+    });
+  });
+  if (!isEmbed) {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(
+        () => {
+          formatter.load(getEditorLanguages());
+        },
+        { timeout: 15_000 },
+      );
+    } else {
+      setTimeout(() => {
+        formatter.load(getEditorLanguages());
+      }, 10_000);
+    }
+  }
+  if (isEmbed && !combinedConfig.tests?.content?.trim()) {
+    toolsPane?.disableTool('tests');
+  } else {
+    toolsPane?.enableTool('tests');
+  }
+
+  if (!reload) {
+    await loadDefaults();
+
+    // re-run changing theme color after the UI is ready
+    // in case the previous one failed (e.g. in firefox)
+    requestAnimationFrame(() => {
+      changeThemeColor();
+    });
+  }
+
   let shouldReloadEditors = false;
   const editorConfig = {
     ...getEditorConfig(newConfig as Config),
@@ -1461,8 +1518,10 @@ const applyConfig = async (newConfig: Partial<Config>) => {
     }
   }
   if (shouldReloadEditors) {
-    await reloadEditors({ ...currentConfig, ...newConfig });
+    await reloadEditors(combinedConfig);
   }
+
+  parent.dispatchEvent(new Event(customEvents.ready));
 };
 
 const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
@@ -5347,75 +5406,6 @@ const loadDefaults = async () => {
   setProjectRecover(/* reset = */ true);
 };
 
-const bootstrap = async (reload = false) => {
-  if (reload) {
-    await updateEditors(editors, getConfig());
-  }
-  phpHelper({ editor: editors.script });
-  setLoading(true);
-  window.deps?.showMode?.(getConfig().mode, getConfig().view);
-  zoom(getConfig().zoom);
-  await setActiveEditor(getConfig());
-  loadSettings(getConfig());
-  // TODO: Fix
-  toolsPane?.console?.clear(/* silent= */ true);
-  if (!isEmbed) {
-    setTimeout(() => getActiveEditor().focus());
-  }
-  setExternalResourcesMark();
-  setCustomSettingsMark();
-  updateCompiledCode();
-  loadModuleTypes(editors, getConfig(), /* loadAll = */ true);
-  compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
-    if (!getConfig().autoupdate) {
-      setLoading(false);
-      return;
-    }
-    setTimeout(() => {
-      if (
-        toolsPane?.getActiveTool() === 'tests' &&
-        ['open', 'full'].includes(toolsPane?.getStatus())
-      ) {
-        run(undefined, true);
-      } else {
-        run();
-      }
-    });
-  });
-  if (!isEmbed) {
-    // @ts-ignore
-    if (window.requestIdleCallback) {
-      requestIdleCallback(
-        () => {
-          formatter.load(getEditorLanguages());
-        },
-        { timeout: 15_000 },
-      );
-    } else {
-      setTimeout(() => {
-        formatter.load(getEditorLanguages());
-      }, 10_000);
-    }
-  }
-  if (isEmbed && !getConfig().tests?.content?.trim()) {
-    toolsPane?.disableTool('tests');
-  } else {
-    toolsPane?.enableTool('tests');
-  }
-
-  if (!reload) {
-    await loadDefaults();
-
-    // re-run changing theme color after the UI is ready
-    // in case the previous one failed (e.g. in firefox)
-    requestAnimationFrame(() => {
-      changeThemeColor();
-    });
-  }
-
-  parent.dispatchEvent(new Event(customEvents.ready));
-};
-
 const initializePlayground = async (
   options?: {
     config?: Partial<Config>;
@@ -5480,7 +5470,7 @@ const initializePlayground = async (
   }).then(async (contentImported) => {
     if (!contentImported) {
       loadSelectedScreen();
-      await bootstrap();
+      await applyConfig(getConfig(), /* reload = */ false);
     }
     initialized = true;
   });
@@ -5526,7 +5516,7 @@ const createApi = (): API => {
     if (shouldReloadCodeEditors) {
       await createEditors(newAppConfig);
     }
-    await applyConfig(newConfig);
+    await applyConfig(newConfig, /* reload = */ true);
     const content = getContentConfig(newConfig as Config);
     const hasContent = Object.values(content).some((value) => value != null);
     if (hasContent) {
