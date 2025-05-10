@@ -93,7 +93,7 @@ import {
   getContentConfig,
   getEditorConfig,
   getFormatterConfig,
-  getHashParams,
+  getParams,
   getUserConfig,
   setConfig,
   upgradeAndValidate,
@@ -194,8 +194,8 @@ let i18n: Await<ReturnType<typeof import('./i18n').init>> | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
-// const params = getParams(); // query string params
-const params = getHashParams();
+const params = getParams(); // query string params
+
 const iframeScrollPosition = { x: 0, y: 0 };
 
 let baseUrl: string;
@@ -1320,31 +1320,39 @@ const share = async (
       }
     : config;
   
-  const serverContent = { title: content.title, description: content.description }
-  
-  const contentParam = shortUrl
-    ? '?x=id/' +
-      (await shareService.shareProject({
-        ...content,
-        result: includeResult ? getCache().result : undefined,
-      }))
-    : '?x=code/' +compress(JSON.stringify(serverContent)) +'#x=code/' + compress(JSON.stringify(content)); // TODO choose a meaningful name for the param
-
   const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
-
   const url = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
+  const shareURL = new URL(url)
+  if (shortUrl) {
+    shareURL.search = 'x=id/' +
+    (await shareService.shareProject({
+      ...content,
+      result: includeResult ? getCache().result : undefined,
+    }))
 
-  const shareURL = url + contentParam;
+  } else {
+    const hashParams = compress(JSON.stringify(content))
+    shareURL.hash = 'x=code/' +  hashParams;
 
+    const searchParams = new URLSearchParams();
+    if (content.title && content.title != defaultConfig.title) {
+      searchParams.set('title', content.title);
+    }
+    if (content.description && content.description != defaultConfig.description) {  
+      searchParams.set('description', content.description);
+    }
+    shareURL.search = searchParams.toString();
+  }
+      
   if (urlUpdate) {
-    updateUrl(currentUrl + contentParam, true);
+    updateUrl(shareURL.href, true);
   }
 
   const projectTitle = content.title !== defaultConfig.title ? content.title + ' - ' : '';
 
   return {
     title: projectTitle + 'LiveCodes',
-    url: shareURL,
+    url: shareURL.href,
   };
 };
 
@@ -5243,7 +5251,7 @@ const importExternalContent = async (options: {
     // urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
     urlConfig = await importModule.importCode(
       validUrl,
-      getHashParams(),
+      getParams(),
       getConfig(),
       user,
       baseUrl,

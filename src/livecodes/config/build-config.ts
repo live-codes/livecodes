@@ -27,8 +27,7 @@ export const buildConfig = (appConfig: Partial<Config>) => {
   };
 
   // get query string params
-  // const params = getParams();
-  const params = getHashParams();
+  const params = getParams();
 
   const { version, ...paramsConfig } = upgradeAndValidate(loadParamConfig(config, params));
 
@@ -81,35 +80,15 @@ const fixLanguageNames = (config: Config): Config => ({
     : {}),
 });
 
-export const getParams = (queryParams = parent.location.search): UrlQueryParams => {
+export const getParams = (queryParams = parent.location.search, hashParams = parent.location.hash): UrlQueryParams => {
   let params: { [key: string]: string | boolean } = Object.fromEntries(
     new URLSearchParams(queryParams),
   );
-  let encodedParams = {};
-  Object.keys(params).forEach((key) => {
-    try {
-      const value = params[key] as string;
-      if (key === 'params') {
-        encodedParams = JSON.parse(decompress(value) || '{}');
-        if (!encodedParams || typeof encodedParams !== 'object') encodedParams = {};
-      } else {
-        params[key] = decodeURIComponent(value);
-      }
-    } catch {
-      //
-    }
-    params = { ...encodedParams, ...params };
-    if (params[key] === '') params[key] = true;
-    if (params[key] === 'true') params[key] = true;
-    if (params[key] === 'false') params[key] = false;
-  });
-  return params;
-};
+  if (hashParams) { // overwrite params with hash params if they exist
+    hashParams = hashParams.replace('#', '?');
+    params = Object.fromEntries(new URLSearchParams(hashParams));
 
-export const getHashParams = (queryParams = parent.location.hash): UrlQueryParams => {
-  let params: { [key: string]: string | boolean } = Object.fromEntries(
-    new URLSearchParams(queryParams.replace('#', '?')),
-  );
+  }
   let encodedParams = {};
   Object.keys(params).forEach((key) => {
     try {

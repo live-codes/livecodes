@@ -37,6 +37,14 @@ const importProject = async (url: string): Promise<ProjectInfo> => {
 };
 
 export const getProjectInfo = async (url: URL): Promise<ProjectInfo> => {
+  let title = url.searchParams.get('title')
+  let description = url.searchParams.get('description');
+  if (title || description) {
+    return {
+      title: title || '',
+      description: description || '',
+    };
+  }
   const imports = url.searchParams.get('x') || url.hash.slice(1);
   if (isCompressedCode(imports)) {
     const config = importCompressedCode(imports);
