@@ -1319,31 +1319,31 @@ const share = async (
         },
       }
     : config;
-  
+
   const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
   const url = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
-  const shareURL = new URL(url)
+  const shareURL = new URL(url);
   if (shortUrl) {
-    shareURL.search = 'x=id/' +
-    (await shareService.shareProject({
-      ...content,
-      result: includeResult ? getCache().result : undefined,
-    }))
-
+    shareURL.search =
+      'x=id/' +
+      (await shareService.shareProject({
+        ...content,
+        result: includeResult ? getCache().result : undefined,
+      }));
   } else {
-    const hashParams = compress(JSON.stringify(content))
-    shareURL.hash = 'x=code/' +  hashParams;
+    const hashParams = compress(JSON.stringify(content));
+    shareURL.hash = 'x=code/' + hashParams;
 
     const searchParams = new URLSearchParams();
     if (content.title && content.title != defaultConfig.title) {
       searchParams.set('title', content.title);
     }
-    if (content.description && content.description != defaultConfig.description) {  
+    if (content.description && content.description != defaultConfig.description) {
       searchParams.set('description', content.description);
     }
     shareURL.search = searchParams.toString();
   }
-      
+
   if (urlUpdate) {
     updateUrl(shareURL.href, true);
   }
@@ -5249,13 +5249,7 @@ const importExternalContent = async (options: {
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     // urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
-    urlConfig = await importModule.importCode(
-      validUrl,
-      getParams(),
-      getConfig(),
-      user,
-      baseUrl,
-    );
+    urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
 
     if (Object.keys(urlConfig).length === 0) {
       notifications.error(

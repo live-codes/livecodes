@@ -80,14 +80,20 @@ const fixLanguageNames = (config: Config): Config => ({
     : {}),
 });
 
-export const getParams = (queryParams = parent.location.search, hashParams = parent.location.hash): UrlQueryParams => {
+export const getParams = (
+  queryParams = parent.location.search,
+  hashParams = parent.location.hash,
+): UrlQueryParams => {
   let params: { [key: string]: string | boolean } = Object.fromEntries(
     new URLSearchParams(queryParams),
   );
-  if (hashParams) { // overwrite params with hash params if they exist
+  if (hashParams) {
+    // overwrite params with hash params if they exist
     hashParams = hashParams.replace('#', '?');
-    params = Object.fromEntries(new URLSearchParams(hashParams));
-
+    params = {
+      ...params,
+      ...Object.fromEntries(new URLSearchParams(hashParams)),
+    };
   }
   let encodedParams = {};
   Object.keys(params).forEach((key) => {
