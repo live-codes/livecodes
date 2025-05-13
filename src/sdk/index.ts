@@ -343,11 +343,10 @@ export async function createPlayground(
  * @return {string} - The URL of the playground (as a string).
  */
 export function getPlaygroundUrl(options: EmbedOptions = {}): string {
-  console.log('test');
   const {
     appUrl = 'https://livecodes.io',
-    params,
-    config,
+    params = {},
+    config = {},
     headless,
     import: importFrom,
     lite,
@@ -359,6 +358,35 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
 
   const playgroundUrl = new URL(appUrl);
   const searchParams = new URLSearchParams();
+
+  if (lite) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Deprecation notice: "lite" option is deprecated. Use "config: { mode: 'lite' }" instead.`,
+    );
+    if (typeof config === 'object' && config.mode == null) {
+      config.mode = 'lite';
+    } else {
+      playgroundUrl.searchParams.set('lite', 'true');
+    }
+  }
+  if (view) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Deprecation notice: The "view" option has been moved to "config.view". For headless mode use "headless: true".`,
+    );
+    if (typeof config === 'object' && config.view == null && view !== 'headless') {
+      config.view = view;
+    } else {
+      playgroundUrl.searchParams.set('view', view);
+    }
+  } else if (typeof config === 'object') {
+    if (Object.keys(config).length > 0) {
+      playgroundUrl.searchParams.set('config', 'sdk');
+    }
+  } else {
+    throw new Error(`"config" is not a valid URL or configuration object.`);
+  }
 
   if (typeof config === 'string') {
     try {
@@ -400,34 +428,6 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
   }
   if (isHeadless) {
     playgroundUrl.searchParams.set('headless', 'true');
-  }
-  if (lite) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Deprecation notice: "lite" option is deprecated. Use "config: { mode: 'lite' }" instead.`,
-    );
-    if (typeof config === 'object' && config.mode == null) {
-      config.mode = 'lite';
-    } else {
-      playgroundUrl.searchParams.set('lite', 'true');
-    }
-  }
-  if (view) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Deprecation notice: The "view" option has been moved to "config.view". For headless mode use "headless: true".`,
-    );
-    if (typeof config === 'object' && config.view == null && view !== 'headless') {
-      config.view = view;
-    } else {
-      playgroundUrl.searchParams.set('view', view);
-    }
-  } else if (typeof config === 'object') {
-    if (Object.keys(config).length > 0) {
-      playgroundUrl.searchParams.set('config', 'sdk');
-    }
-  } else {
-    throw new Error(`"config" is not a valid URL or configuration object.`);
   }
 
   playgroundUrl.searchParams.set('embed', 'true');
