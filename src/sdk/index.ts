@@ -4,13 +4,13 @@ import type {
   API,
   Code,
   Config,
+  CustomEvents,
   EmbedOptions,
   Language,
   Playground,
-  UrlQueryParams,
-  CustomEvents,
   SDKEvent,
   SDKEventHandler,
+  UrlQueryParams,
 } from './models';
 
 export type { Code, Config, EmbedOptions, Language, Playground };
@@ -44,18 +44,7 @@ export async function createPlayground(
     container = null as any;
   }
 
-  const {
-    appUrl = 'https://livecodes.io/',
-    params = {},
-    config = {},
-    import: importFrom,
-    headless,
-    lite,
-    loading = 'lazy',
-    template,
-    view,
-  } = options;
-
+  const { config = {}, headless, loading = 'lazy', view } = options;
   const isHeadless = headless || view === 'headless'; // for backwards compatibility;
 
   let containerElement: HTMLElement | null = null;
@@ -77,72 +66,7 @@ export async function createPlayground(
     }
   }
 
-  let url: URL;
-  try {
-    url = new URL(appUrl);
-  } catch {
-    throw new Error(`"${appUrl}" is not a valid URL.`);
-  }
-
-  const origin = url.origin;
-
-  if (params && typeof params === 'object') {
-    try {
-      url.searchParams.set('params', compressToEncodedURIComponent(JSON.stringify(params)));
-    } catch {
-      (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
-        url.searchParams.set(param, encodeURIComponent(String(params[param])));
-      });
-    }
-  }
-  if (template) {
-    url.searchParams.set('template', template);
-  }
-  if (importFrom) {
-    url.searchParams.set('x', encodeURIComponent(importFrom));
-  }
-  if (isHeadless) {
-    url.searchParams.set('headless', 'true');
-  }
-  if (lite) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Deprecation notice: "lite" option is deprecated. Use "config: { mode: 'lite' }" instead.`,
-    );
-    if (typeof config === 'object' && config.mode == null) {
-      config.mode = 'lite';
-    } else {
-      url.searchParams.set('lite', 'true');
-    }
-  }
-  if (view) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Deprecation notice: The "view" option has been moved to "config.view". For headless mode use "headless: true".`,
-    );
-    if (typeof config === 'object' && config.view == null && view !== 'headless') {
-      config.view = view;
-    } else {
-      url.searchParams.set('view', view);
-    }
-  }
-  if (typeof config === 'string') {
-    try {
-      new URL(config);
-      url.searchParams.set('config', encodeURIComponent(config));
-    } catch {
-      throw new Error(`"config" is not a valid URL or configuration object.`);
-    }
-  } else if (typeof config === 'object') {
-    if (Object.keys(config).length > 0) {
-      url.searchParams.set('config', 'sdk');
-    }
-  } else {
-    throw new Error(`"config" is not a valid URL or configuration object.`);
-  }
-
-  url.searchParams.set('embed', 'true');
-  url.searchParams.set('loading', isHeadless ? 'eager' : loading);
+  const playgroundUrl = new URL(getPlaygroundUrl(options));
 
   let destroyed = false;
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
@@ -216,7 +140,7 @@ export async function createPlayground(
       frame.onload = () => {
         resolve(frame);
       };
-      frame.src = url.href;
+      frame.src = playgroundUrl.href;
       if (!preExistingIframe) {
         containerElement.appendChild(frame);
       }
@@ -419,36 +343,97 @@ export async function createPlayground(
  * @return {string} - The URL of the playground (as a string).
  */
 export function getPlaygroundUrl(options: EmbedOptions = {}): string {
-  const { appUrl, params, config, import: x, ...otherOptions } = options;
-  const configParam =
-    typeof config === 'string'
-      ? { config }
-      : config && typeof config === 'object' && Object.keys(config).length
-        ? { x: 'code/' + compressToEncodedURIComponent(JSON.stringify(config)) }
-        : {};
+  console.log('test');
+  const {
+    appUrl = 'https://livecodes.io',
+    params,
+    config,
+    headless,
+    import: importFrom,
+    lite,
+    loading = 'lazy',
+    template,
+    view,
+  } = options;
+  const isHeadless = options.view === 'headless' || headless; // for backwards compatibility;
 
-  let encodedParams;
-  if (params && typeof params === 'object') {
+  const playgroundUrl = new URL(appUrl);
+  const searchParams = new URLSearchParams();
+
+  if (typeof config === 'string') {
     try {
-      encodedParams = compressToEncodedURIComponent(JSON.stringify(params));
+      new URL(config);
+      playgroundUrl.searchParams.set('config', encodeURIComponent(config));
+    } catch {
+      throw new Error(`"config" is not a valid URL or configuration object.`);
+    }
+  } else if (config && typeof config === 'object' && Object.keys(config).length > 0) {
+    playgroundUrl.searchParams.set('config', 'sdk'); // fixme: not sure of this one
+    if (config.title && config.title !== 'Untitled Project') {
+      playgroundUrl.searchParams.set('title', config.title);
+    }
+    if (config.description && config.description.length > 0) {
+      playgroundUrl.searchParams.set('description', config.description);
+    }
+    const hashParams = new URLSearchParams();
+    hashParams.set('x', 'code/' + compressToEncodedURIComponent(JSON.stringify(config)));
+    playgroundUrl.hash = hashParams.toString();
+  }
+
+  // handle params
+  if (params && typeof params === 'object') {
+    // TODO: maybe store these in hash if they have an x param?
+    try {
+      searchParams.set('params', compressToEncodedURIComponent(JSON.stringify(params)));
     } catch {
       (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
-        (params as any)[param] = encodeURIComponent(String(params[param]));
+        searchParams.set(param, encodeURIComponent(String(params[param])));
       });
     }
   }
 
-  const allParams = new URLSearchParams(
-    JSON.parse(
-      JSON.stringify({
-        ...otherOptions,
-        ...(encodedParams ? { params: encodedParams } : params),
-        ...{ x },
-        ...configParam,
-      }),
-    ),
-  ).toString();
-  return (appUrl || 'https://livecodes.io') + (allParams ? '?' + allParams : '');
+  if (template) {
+    playgroundUrl.searchParams.set('template', template);
+  }
+  if (importFrom) {
+    playgroundUrl.searchParams.set('x', encodeURIComponent(importFrom)); // TODO: how do we handle both a config and an importFrom
+  }
+  if (isHeadless) {
+    playgroundUrl.searchParams.set('headless', 'true');
+  }
+  if (lite) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Deprecation notice: "lite" option is deprecated. Use "config: { mode: 'lite' }" instead.`,
+    );
+    if (typeof config === 'object' && config.mode == null) {
+      config.mode = 'lite';
+    } else {
+      playgroundUrl.searchParams.set('lite', 'true');
+    }
+  }
+  if (view) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Deprecation notice: The "view" option has been moved to "config.view". For headless mode use "headless: true".`,
+    );
+    if (typeof config === 'object' && config.view == null && view !== 'headless') {
+      config.view = view;
+    } else {
+      playgroundUrl.searchParams.set('view', view);
+    }
+  } else if (typeof config === 'object') {
+    if (Object.keys(config).length > 0) {
+      playgroundUrl.searchParams.set('config', 'sdk');
+    }
+  } else {
+    throw new Error(`"config" is not a valid URL or configuration object.`);
+  }
+
+  playgroundUrl.searchParams.set('embed', 'true');
+  playgroundUrl.searchParams.set('loading', isHeadless ? 'eager' : loading);
+
+  return playgroundUrl.href;
 }
 
 if (
