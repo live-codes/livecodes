@@ -1,3 +1,136 @@
 # HTML
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+HTML (HyperText Markup Language) is the standard markup language for creating web pages and web applications. It defines the structure and content, forming the backbone of most of what you see on the internet.
+
+## Usage
+
+HTML is rendered directly by the web browser. In LiveCodes, you write your HTML in the markup editor, and it's displayed in the result pane.
+
+### Basic Example
+
+Here's a simple HTML document:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Hello, LiveCodes!</h1>
+  <p>This is a paragraph in HTML.</p>
+  <button onclick="greet()">Click Me</button>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+You can run this snippet directly in LiveCodes:
+
+export const htmlOnlyConfig = {
+  markup: {
+    language: 'html',
+    content: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Demo</title>
+</head>
+<body>
+  <h1>Hello, LiveCodes!</h1>
+  <p>This is a paragraph in HTML.</p>
+  <ul>
+    <li>Simple</li>
+    <li>Structured</li>
+    <li>Semantic</li>
+  </ul>
+</body>
+</html>`,
+  },
+}
+
+<LiveCodes config={htmlOnlyConfig} height="400px" />
+
+### Try a Small Snippet
+
+For quick tests, you can use `RunInLiveCodes`:
+
+export const smallHtmlSnippet = {
+  html: `<h2>A Small HTML Snippet</h2>\n<p>Rendered with RunInLiveCodes.</p>`
+};
+
+<RunInLiveCodes
+  params={smallHtmlSnippet}
+  code={smallHtmlSnippet.html}
+  language="html"
+  formatCode={false}
+></RunInLiveCodes>
+
+## Features in LiveCodes
+
+### Code Formatting
+HTML code written in the markup editor can be formatted using the built-in Prettier formatter. You can trigger formatting manually (often via a keyboard shortcut like Alt+Shift+F or through a command palette) or configure format-on-save if available in your LiveCodes setup.
+
+### Linking CSS
+You can style your HTML content using CSS.
+- **Style Editor:** CSS written in the LiveCodes style editor (or any of its supported preprocessors like SCSS, Less, etc.) is automatically applied to your HTML output.
+- **`<link>` tag:** You can link to external stylesheets using `<link rel="stylesheet" href="url/to/your/stylesheet.css">` in your HTML's `<head>`.
+- **`<style>` tag:** You can embed CSS directly within your HTML using `<style>` tags, typically in the `<head>`.
+
+Example using the style editor (content in the CSS panel will apply):
+
+export const htmlWithCssConfig = {
+  markup: {
+    language: 'html',
+    content: `<h1>Styled Heading</h1>\n<p>This paragraph will also be styled.</p>`,
+  },
+  style: {
+    language: 'css',
+    content: `h1 {\n  color: steelblue;\n}\np {\n  font-family: sans-serif;\n  color: #333;\n}`
+  }
+}
+
+<LiveCodes config={htmlWithCssConfig} height="300px" />
+
+### Embedding JavaScript
+You can add interactivity to your HTML using JavaScript.
+- **Script Editor:** JavaScript written in the LiveCodes script editor is executed in the context of your HTML page.
+- **`<script>` tag:** You can include external JavaScript files using `<script src="url/to/your/script.js"></script>` or embed JavaScript directly using `<script>// your code here</script>`, usually placed before the closing `</body>` tag or in the `<head>` with the `defer` attribute.
+
+Example using the script editor (content in the JS panel will run):
+
+export const htmlWithJsConfig = {
+  markup: {
+    language: 'html',
+    content: `<button id="myButton">Click Me!</button>\n<p id="message"></p>`,
+  },
+  script: {
+    language: 'javascript',
+    content: `const button = document.getElementById('myButton');\nconst message = document.getElementById('message');\nbutton.addEventListener('click', () => {\n  message.textContent = 'Button clicked at ' + new Date().toLocaleTimeString();\n});`
+  }
+}
+
+<LiveCodes config={htmlWithJsConfig} height="300px" />
+
+## Language Details
+- **Name:** `html`
+- **Extensions:** `.html`, `.htm`
+- **Editor:** `markup` (refers to the editor panel typically used for HTML, XML, Markdown, etc.)
+
+## Custom Settings
+There are no HTML-specific custom settings in LiveCodes. HTML rendering and behavior are standard to web browsers. Configuration for related tools like CSS preprocessors or JavaScript features would be under their respective settings.
+
+## Notes
+- HTML is the foundation of web content. While LiveCodes supports many languages that compile to or manipulate HTML (like Markdown, Pug, JSX), the `html` language option provides direct authoring.
+- For complex applications, you might explore component-based frameworks (e.g., React with JSX, Vue, Svelte) also supported in LiveCodes, which offer more structured ways to manage HTML generation.
+
+## Pages you might want to explore:
+- [HTML Tutorial (W3Schools)](https://www.w3schools.com/html/)
+- [HTML: HyperText Markup Language (MDN)](https://developer.mozilla.org/en-US/docs/Web/HTML)
