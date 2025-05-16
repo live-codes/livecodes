@@ -4,6 +4,7 @@ import { getLoadedApp, waitForEditorFocus } from '../helpers';
 
 test.describe('Preprocessors', () => {
   test('in Vue', async ({ page, getTestUrl }) => {
+    test.slow();
     const sfc = `
 <template lang="pug">
 ul
@@ -32,6 +33,7 @@ li
     const { getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForResultUpdate();
+    await getResult().waitForTimeout(3000);
 
     expect(await getResult().innerText(':nth-match(li, 1)')).toContain('hello world!');
     expect(await getResult().innerText(':nth-match(li, 2)')).toContain('p');

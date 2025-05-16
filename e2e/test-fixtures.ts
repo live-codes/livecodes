@@ -13,6 +13,7 @@ export const test = base.extend<{
         editor,
         autoupdate: false,
         enableRestore: false,
+        recoverUnsaved: false,
         'no-defaults': true,
         closeBrackets: false,
         ...config,
