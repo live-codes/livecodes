@@ -195,7 +195,6 @@ let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
 const params = getParams(); // query string params
-
 const iframeScrollPosition = { x: 0, y: 0 };
 
 let baseUrl: string;
@@ -1335,10 +1334,10 @@ const share = async (
     shareURL.hash = 'x=code/' + hashParams;
 
     const searchParams = new URLSearchParams();
-    if (content.title && content.title != defaultConfig.title) {
+    if (content.title && content.title !== defaultConfig.title) {
       searchParams.set('title', content.title);
     }
-    if (content.description && content.description != defaultConfig.description) {
+    if (content.description && content.description !== defaultConfig.description) {
       searchParams.set('description', content.description);
     }
     shareURL.search = searchParams.toString();
@@ -5307,7 +5306,6 @@ const importExternalContent = async (options: {
     }
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
-    // urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
     urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
 
     if (Object.keys(urlConfig).length === 0) {

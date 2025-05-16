@@ -59,7 +59,7 @@ test('empty config object should return appUrl', () => {
   expect(hashParams).toBe('');
 });
 
-test('non-empty config object stores compressed config in x hashParam', () => {
+test('non-empty config object stores compressed config in config hashParam', () => {
   const config: Partial<Config> = {
     view: 'split',
   };
@@ -73,19 +73,19 @@ test('non-empty config object stores compressed config in x hashParam', () => {
   expect(url.href).toMatch(`${new URL(appUrl).href}`);
   const hashParams = url.hash;
   expect(hashParams).not.toBe('');
-  expect(new URLSearchParams(hashParams.slice(1)).get('x')).toBe(
+  expect(new URLSearchParams(hashParams.slice(1)).get('config')).toBe(
     'code/' + compressToEncodedURIComponent(JSON.stringify(config)),
   );
 });
 
-test('deprecated options like lite and view update the config object stored in hash params', () => {
+test('deprecated options like lite and view update the config object stored in hash', () => {
   const url = new URL(getPlaygroundUrl({ lite: true, view: 'result' }));
   const searchParams = url.searchParams;
   expect(searchParams.get('lite')).toBeNull();
   expect(searchParams.get('view')).toBeNull();
 
   const hashParams = new URLSearchParams(url.hash.slice(1));
-  expect(hashParams.get('x')).toBe(
+  expect(hashParams.get('config')).toBe(
     'code/' + compressToEncodedURIComponent(JSON.stringify({ mode: 'lite', view: 'result' })),
   );
 });
