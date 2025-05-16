@@ -77,6 +77,7 @@ import { vento } from './vento';
 import { react, reactTsx } from './react';
 import { java } from './java';
 import { csharpWasm } from './csharp-wasm';
+import { jinja } from './jinja';
 export const languages: LanguageSpecs[] = [
   html,
   markdown,
@@ -95,6 +96,7 @@ export const languages: LanguageSpecs[] = [
   twig,
   vento,
   artTemplate,
+  jinja,
   bbcode,
   mjml,
   diagrams,
