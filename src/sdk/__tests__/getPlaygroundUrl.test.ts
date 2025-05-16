@@ -1,6 +1,6 @@
 import { compressToEncodedURIComponent } from 'lz-string';
 import { getPlaygroundUrl } from '../index';
-import { Config, UrlQueryParams } from '../models';
+import type { Config, UrlQueryParams } from '../models';
 
 test('empty options object', () => {
   const url = new URL(getPlaygroundUrl());
@@ -27,14 +27,13 @@ test('passing some params, they should be stored in hash params', () => {
 });
 
 test('appUrl', () => {
-  const appUrl = 'https://example.com';
-  const url = getPlaygroundUrl({ appUrl: appUrl });
+  const url = getPlaygroundUrl({ appUrl: 'https://example.com' });
   expect(url).toBe(new URL(url).href);
 });
 
 test('headless and appUrl', () => {
   const appUrl = 'https://example.com';
-  const url = getPlaygroundUrl({ appUrl: appUrl, headless: true });
+  const url = getPlaygroundUrl({ appUrl, headless: true });
   expect(url).toMatch(`${new URL(appUrl).href}`);
   expect(new URL(url).searchParams.get('headless')).toBe('true');
 });
@@ -50,7 +49,7 @@ test('empty config object should return appUrl', () => {
   const appUrl = 'https://example.com';
   const url = new URL(
     getPlaygroundUrl({
-      appUrl: appUrl,
+      appUrl,
       config: {},
     }),
   );
@@ -66,8 +65,8 @@ test('non-empty config object stores compressed config in config hashParam', () 
   const appUrl = 'https://example.com';
   const url = new URL(
     getPlaygroundUrl({
-      appUrl: appUrl,
-      config: config,
+      appUrl,
+      config,
     }),
   );
   expect(url.href).toMatch(`${new URL(appUrl).href}`);
