@@ -911,6 +911,7 @@ export type Language =
   | 'vto'
   | 'art-template'
   | 'art'
+  | 'jinja'
   | 'bbcode'
   | 'bb'
   | 'mjml'

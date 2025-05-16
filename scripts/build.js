@@ -204,6 +204,7 @@ const iifeBuild = () =>
       'languages/haml/lang-haml-compiler.ts',
       'languages/handlebars/lang-handlebars-compiler.ts',
       'languages/imba/lang-imba-compiler.ts',
+      'languages/jinja/lang-jinja-compiler.ts',
       'languages/julia/lang-julia-script.ts',
       'languages/liquid/lang-liquid-compiler.ts',
       'languages/lua-wasm/lang-lua-wasm-script.ts',
