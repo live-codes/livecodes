@@ -29,6 +29,7 @@ export default function Sliders() {
       { name: 'twig', title: 'Twig' },
       { name: 'vento', title: 'Vento' },
       { name: 'art-template', title: 'art-template' },
+      { name: 'jinja', title: 'Jinja' },
       { name: 'bbcode', title: 'BBCode' },
       { name: 'mjml', title: 'MJML' },
       { name: 'diagrams', title: 'Diagrams' },

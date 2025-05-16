@@ -104,6 +104,8 @@ Hint.css: [MIT License](https://github.com/chinchang/hint.css/blob/e4b0f0afc79fe
 
 hpcc-js/wasm: [Apache-2.0 license](https://github.com/hpcc-systems/hpcc-js-wasm/blob/58b1d7cc1ac1d7c6e42afd3ae70085425177d6e2/LICENSE)
 
+@huggingface/jinja: [MIT License](https://github.com/huggingface/huggingface.js/blob/70b41a6490d10e60e11cc75a378c6cb9a7409423/LICENSE)
+
 i18next: [MIT License](https://github.com/i18next/i18next/blob/v23.15.1/LICENSE)
 
 i18next-http-backend: [MIT License](https://github.com/i18next/i18next-http-backend/blob/v2.6.1/licence)
