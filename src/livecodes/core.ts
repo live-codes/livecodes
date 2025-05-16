@@ -5306,7 +5306,7 @@ const importExternalContent = async (options: {
     }
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
-    urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
+    urlConfig = await importModule.importCode(validUrl, params, getConfig(), user, baseUrl);
 
     if (Object.keys(urlConfig).length === 0) {
       notifications.error(

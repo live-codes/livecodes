@@ -108,6 +108,7 @@ export const getParams = (
     } catch {
       //
     }
+
     params = { ...encodedParams, ...params };
     if (params[key] === '') params[key] = true;
     if (params[key] === 'true') params[key] = true;

@@ -67,6 +67,8 @@ export async function createPlayground(
   }
 
   const playgroundUrl = new URL(getPlaygroundUrl(options));
+  playgroundUrl.searchParams.set('embed', 'true');
+  playgroundUrl.searchParams.set('loading', isHeadless ? 'eager' : loading);
 
   let destroyed = false;
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
@@ -341,6 +343,9 @@ export async function createPlayground(
  *
  * @param {EmbedOptions} options - The [options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playground.
  * @return {string} - The URL of the playground (as a string).
+ *
+ * large objects like config and params are store in the url hash params while the rest are in the search params
+ * unless config is a string in which case it is stored in searchParams
  */
 export function getPlaygroundUrl(options: EmbedOptions = {}): string {
   const {
@@ -348,16 +353,23 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
     params = {},
     config = {},
     headless,
-    import: importFrom,
+    import: importId,
     lite,
-    loading = 'lazy',
-    template,
     view,
+    ...otherOptions
   } = options;
-  const isHeadless = options.view === 'headless' || headless; // for backwards compatibility;
 
   const playgroundUrl = new URL(appUrl);
-  const searchParams = new URLSearchParams();
+  const hashParams = new URLSearchParams();
+
+  // Add other options to search params
+  Object.entries(otherOptions).forEach(([key, value]) => {
+    if (value !== undefined) {
+      playgroundUrl.searchParams.set(key, String(value));
+    }
+  });
+
+  const isHeadless = options.view === 'headless' || headless; // for backwards compatibility;
 
   if (lite) {
     // eslint-disable-next-line no-console
@@ -370,6 +382,7 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
       playgroundUrl.searchParams.set('lite', 'true');
     }
   }
+
   if (view) {
     // eslint-disable-next-line no-console
     console.warn(
@@ -380,12 +393,6 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
     } else {
       playgroundUrl.searchParams.set('view', view);
     }
-  } else if (typeof config === 'object') {
-    if (Object.keys(config).length > 0) {
-      playgroundUrl.searchParams.set('config', 'sdk');
-    }
-  } else {
-    throw new Error(`"config" is not a valid URL or configuration object.`);
   }
 
   if (typeof config === 'string') {
@@ -396,43 +403,34 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
       throw new Error(`"config" is not a valid URL or configuration object.`);
     }
   } else if (config && typeof config === 'object' && Object.keys(config).length > 0) {
-    playgroundUrl.searchParams.set('config', 'sdk'); // fixme: not sure of this one
     if (config.title && config.title !== 'Untitled Project') {
       playgroundUrl.searchParams.set('title', config.title);
     }
     if (config.description && config.description.length > 0) {
       playgroundUrl.searchParams.set('description', config.description);
     }
-    const hashParams = new URLSearchParams();
-    hashParams.set('x', 'code/' + compressToEncodedURIComponent(JSON.stringify(config)));
-    playgroundUrl.hash = hashParams.toString();
+    hashParams.set('config', 'code/' + compressToEncodedURIComponent(JSON.stringify(config)));
   }
 
   // handle params
-  if (params && typeof params === 'object') {
-    // TODO: maybe store these in hash if they have an x param?
+  if (params && typeof params === 'object' && Object.keys(params).length > 0) {
     try {
-      searchParams.set('params', compressToEncodedURIComponent(JSON.stringify(params)));
+      hashParams.set('params', compressToEncodedURIComponent(JSON.stringify(params)));
     } catch {
       (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
-        searchParams.set(param, encodeURIComponent(String(params[param])));
+        playgroundUrl.searchParams.set(param, encodeURIComponent(String(params[param]))); // TODO: should this be in hash as well? what kind of error is thrown here
       });
     }
   }
 
-  if (template) {
-    playgroundUrl.searchParams.set('template', template);
-  }
-  if (importFrom) {
-    playgroundUrl.searchParams.set('x', encodeURIComponent(importFrom)); // TODO: how do we handle both a config and an importFrom
+  if (importId) {
+    playgroundUrl.searchParams.set('x', encodeURIComponent(importId)); // TODO: handle both a config and an importFrom
   }
   if (isHeadless) {
     playgroundUrl.searchParams.set('headless', 'true');
   }
 
-  playgroundUrl.searchParams.set('embed', 'true');
-  playgroundUrl.searchParams.set('loading', isHeadless ? 'eager' : loading);
-
+  playgroundUrl.hash = hashParams.toString();
   return playgroundUrl.href;
 }
 
