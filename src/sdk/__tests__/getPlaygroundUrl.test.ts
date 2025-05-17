@@ -94,6 +94,7 @@ test('all non-deprecated fields defined', () => {
     appUrl: 'https://example.com',
     params: { title: 'example title', description: 'this is a project description' },
     config: {
+      tags: ['tag1', 'tag2'],
       markup: {
         language: 'markdown',
         content: '#this is md code',

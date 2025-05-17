@@ -125,20 +125,7 @@ export async function createPlayground(
         frame.style.border = '0';
         frame.style.borderRadius = containerElement.style.borderRadius;
       }
-      addEventListener(
-        'message',
-        function configHandler(e: MessageEventInit<{ type: CustomEvents['getConfig'] }>) {
-          if (
-            e.source !== frame.contentWindow ||
-            e.origin !== origin ||
-            e.data?.type !== 'livecodes-get-config'
-          ) {
-            return;
-          }
-          removeEventListener('message', configHandler);
-          frame.contentWindow?.postMessage({ type: 'livecodes-config', payload: config }, origin);
-        },
-      );
+
       frame.onload = () => {
         resolve(frame);
       };

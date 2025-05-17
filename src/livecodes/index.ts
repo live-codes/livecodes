@@ -1,7 +1,6 @@
-import type { I18nKeyType } from './i18n';
-import type { Config, CustomEvents } from './models';
-import { livecodes, params, isEmbed, clickToLoad, loading } from './main';
 import { customEvents } from './events/custom-events';
+import type { I18nKeyType } from './i18n';
+import { clickToLoad, isEmbed, livecodes, loading } from './main';
 
 const rootSelector = '#livecodes';
 const loadingEl = document.querySelector<HTMLElement>('#loading')!;
@@ -107,18 +106,4 @@ window.addEventListener(customEvents.destroy, () => {
   document.head.innerHTML = '';
 });
 
-if (isEmbed && params.get('config') === 'sdk') {
-  addEventListener(
-    'message',
-    function configHandler(
-      e: MessageEventInit<{ type: CustomEvents['config']; payload: Partial<Config> }>,
-    ) {
-      if (e.source !== parent || e.data?.type !== customEvents.config) return;
-      removeEventListener('message', configHandler);
-      livecodes('#livecodes', e.data.payload).then(loaded);
-    },
-  );
-  parent.postMessage({ type: customEvents.getConfig }, '*');
-} else {
-  livecodes('#livecodes').then(loaded);
-}
+livecodes('#livecodes').then(loaded);
