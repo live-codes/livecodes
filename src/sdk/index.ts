@@ -44,7 +44,7 @@ export async function createPlayground(
     container = null as any;
   }
 
-  const { config = {}, headless, loading = 'lazy', view } = options;
+  const { headless, loading = 'lazy', view } = options;
   const isHeadless = headless || view === 'headless'; // for backwards compatibility;
 
   let containerElement: HTMLElement | null = null;
