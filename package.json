@@ -46,7 +46,6 @@
     "test:unit": "jest src",
     "test:bundlewatch": "bundlewatch --config .bundlewatch.config.js",
     "test:broken-links": "node ./scripts/test-filenames.js",
-    "test:sdk": "jest src/sdk",
     "lint:prettier": "prettier src --list-different",
     "lint:eslint": "eslint",
     "lint:stylelint": "stylelint \"src/livecodes/styles/*\"",

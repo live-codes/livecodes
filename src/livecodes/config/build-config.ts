@@ -13,9 +13,21 @@ import { decompress } from '../utils/compression';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
-export const buildConfig = (appConfig: Partial<Config>) => {
+/**
+ * Builds and validates a configuration object by merging default config with user config and URL params
+ *
+ * @param appConfig - Partial configuration object provided by user
+ * @returns Complete validated configuration object
+ *
+ * The function:
+ * 1. Merges default config with user provided config
+ * 2. Handles special case for 'result' mode tools
+ * 3. Processes URL query parameters
+ * 4. Sets active editor
+ * 5. Fixes language names in final config
+ */
+export const buildConfig = (appConfig: Partial<Config>): Config => {
   if (!appConfig) return { ...defaultConfig };
-
   const userConfig = upgradeAndValidate(appConfig);
 
   let config: Config = {
@@ -35,14 +47,12 @@ export const buildConfig = (appConfig: Partial<Config>) => {
     ...config,
     ...paramsConfig,
   };
-
   const activeEditor = config.activeEditor || 'markup';
 
   config = fixLanguageNames({
     ...config,
     activeEditor,
   });
-
   return config;
 };
 
@@ -80,6 +90,23 @@ const fixLanguageNames = (config: Config): Config => ({
     : {}),
 });
 
+/**
+ * Extracts and processes URL query parameters and hash parameters, converting them into a structured object
+ *
+ * @param queryParams - The URL search query string. Defaults to parent.location.search
+ * @param hashParams - The URL hash string. Defaults to parent.location.hash
+ * @returns {UrlQueryParams} An object containing processed URL parameters where:
+ *
+ * - Values 'true' and 'false' are converted to boolean
+ * - Empty string values are converted to true
+ * - URL encoded values are decoded
+ * - Special 'params' key content is decompressed and parsed as JSON
+ * - Hash parameters take precedence over query parameters with the same key
+ *
+ * @example
+ * // For URL: http://example.com?foo=bar&empty=&isTrue=true#param=value
+ * getParams() // Returns: { foo: "bar", empty: true, isTrue: true, param: "value" }
+ */
 export const getParams = (
   queryParams = parent.location.search,
   hashParams = parent.location.hash,
@@ -109,13 +136,6 @@ export const getParams = (
       //
     }
     params = { ...encodedParams, ...params };
-
-    if (typeof params.config === 'string' && params.config.startsWith('code')) {
-      const configString = params.config.replace('code/', '');
-      const config = JSON.parse(decompress(configString) || '');
-      params.config = config;
-    }
-
     if (params[key] === '') params[key] = true;
     if (params[key] === 'true') params[key] = true;
     if (params[key] === 'false') params[key] = false;
@@ -145,7 +165,6 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
       }),
       {} as Partial<Config>,
     );
-
   // populate params config from query string params
 
   // ?html=hi&scss&ts
@@ -332,6 +351,5 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   if (params.lite) {
     paramsConfig.mode = 'lite';
   }
-
   return paramsConfig;
 };
