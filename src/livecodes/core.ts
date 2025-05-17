@@ -5513,8 +5513,9 @@ const createApi = (): API => {
 
     if (isContentOnlyChange) {
       for (const key of ['markup', 'style', 'script'] as const) {
-        if (newConfig[key]) {
-          editors[key].setValue(newConfig[key].content);
+        const content = newConfig[key]?.content;
+        if (content != null) {
+          editors[key].setValue(content);
         }
       }
       return newAppConfig;
