@@ -617,6 +617,32 @@ export const isFocusable = /* @__PURE__ */ (item: any | null): boolean => {
   }
 };
 
+/**
+ * Compares two objects and returns a list of keys of source object
+ * whose values are different from the destination object.
+ */
+export const compareObjects = /* @__PURE__ */ (
+  srcObj: Record<string, unknown>,
+  dstObj: Record<string, unknown>,
+) => {
+  const diff: string[] = [];
+  for (const key of Object.keys(srcObj)) {
+    if (typeof srcObj[key] === 'function') {
+      continue;
+    } else if (!(key in dstObj)) {
+      diff.push(key);
+    } else if (srcObj[key] !== null && typeof srcObj[key] === 'object') {
+      const objDiff = compareObjects(srcObj[key] as any, dstObj[key] as any).map(
+        (k) => `${key}.${k}`,
+      );
+      diff.push(...objDiff);
+    } else if (srcObj[key] !== dstObj[key]) {
+      diff.push(key);
+    }
+  }
+  return diff;
+};
+
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
   SDK_VERSION: process.env.SDK_VERSION || '',

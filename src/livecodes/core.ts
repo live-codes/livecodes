@@ -114,6 +114,7 @@ import {
   capitalize,
   isMac,
   ctrl,
+  compareObjects,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -5514,8 +5515,22 @@ const createApi = (): API => {
       }
       return false;
     })();
+    const isContentOnlyChange = compareObjects(
+      newConfig,
+      currentConfig as Record<string, any>,
+    ).every((k) => ['markup.content', 'style.content', 'script.content'].includes(k));
 
     setConfig(newAppConfig);
+
+    if (isContentOnlyChange) {
+      for (const key of ['markup', 'style', 'script'] as const) {
+        const content = newConfig[key]?.content;
+        if (content != null) {
+          editors[key].setValue(content);
+        }
+      }
+      return newAppConfig;
+    }
 
     if (hasNewAppLanguage) {
       changeAppLanguage(newConfig.appLanguage!);
@@ -5532,7 +5547,7 @@ const createApi = (): API => {
     const hasContent = Object.values(content).some((value) => value != null);
     if (hasContent) {
       await loadConfig(newAppConfig);
-    } else if (shouldRun) {
+    } else if (shouldRun && newAppConfig.autoupdate === true) {
       await run();
     }
     return newAppConfig;
