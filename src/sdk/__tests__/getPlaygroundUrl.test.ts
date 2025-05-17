@@ -1,6 +1,6 @@
 import { compressToEncodedURIComponent } from 'lz-string';
 import { getPlaygroundUrl } from '../index';
-import type { Config, UrlQueryParams } from '../models';
+import type { Config, EmbedOptions, UrlQueryParams } from '../models';
 
 test('empty options object', () => {
   const url = new URL(getPlaygroundUrl());
@@ -86,5 +86,42 @@ test('deprecated options like lite and view update the config object stored in h
   const hashParams = new URLSearchParams(url.hash.slice(1));
   expect(hashParams.get('config')).toBe(
     'code/' + compressToEncodedURIComponent(JSON.stringify({ mode: 'lite', view: 'result' })),
+  );
+});
+
+test('all non-deprecated fields defined', () => {
+  const options: EmbedOptions = {
+    appUrl: 'https://example.com',
+    params: { title: 'example title', description: 'this is a project description' },
+    config: {
+      markup: {
+        language: 'markdown',
+        content: '#this is md code',
+      },
+      activeEditor: 'markup',
+    },
+    headless: true,
+    import: 'id/8k6vbxitvb9',
+    loading: 'eager',
+    template: 'blank',
+  };
+  const url = new URL(getPlaygroundUrl(options));
+
+  // Check base URL
+  expect(url.href).toMatch(`${new URL(options.appUrl!).href}`);
+
+  // Check search params
+  expect(url.searchParams.get('headless')).toBe('true');
+  expect(url.searchParams.get('loading')).toBe('eager');
+  expect(url.searchParams.get('template')).toBe('blank');
+  expect(url.searchParams.get('x')).toBe(encodeURIComponent('id/8k6vbxitvb9'));
+
+  // Check hash params
+  const hashParams = new URLSearchParams(url.hash.slice(1));
+  expect(hashParams.get('params')).toBe(
+    compressToEncodedURIComponent(JSON.stringify(options.params)),
+  );
+  expect(hashParams.get('config')).toBe(
+    'code/' + compressToEncodedURIComponent(JSON.stringify(options.config)),
   );
 });
