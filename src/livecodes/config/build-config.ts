@@ -108,8 +108,14 @@ export const getParams = (
     } catch {
       //
     }
-
     params = { ...encodedParams, ...params };
+
+    if (typeof params.config === 'string' && params.config.startsWith('code')) {
+      const configString = params.config.replace('code/', '');
+      const config = JSON.parse(decompress(configString) || '');
+      params.config = config;
+    }
+
     if (params[key] === '') params[key] = true;
     if (params[key] === 'true') params[key] = true;
     if (params[key] === 'false') params[key] = false;

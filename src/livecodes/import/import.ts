@@ -25,7 +25,7 @@ export const importCode = async (
   user: User | null | void,
   baseUrl: string,
 ): Promise<Partial<Config>> => {
-  //the url is config=code/...
+  // the url is config=code/...
   const searchParams = new URLSearchParams(url);
   if (searchParams.get('config') && isCompressedCode(searchParams.get('config') || '')) {
     return importCompressedCode(searchParams.get('config')!);
