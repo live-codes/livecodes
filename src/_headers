@@ -1,3 +1,6 @@
+/*
+  access-control-allow-origin: *
+
 /assets/*
   cache-control: public, max-age=31536000, s-maxage=31536000, immutable
 
