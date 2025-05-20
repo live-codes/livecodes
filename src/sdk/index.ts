@@ -44,7 +44,7 @@ export async function createPlayground(
     container = null as any;
   }
 
-  const { config = {}, params = {}, headless, loading = 'lazy', view } = options;
+  const { config = {}, headless, loading = 'lazy', view } = options;
   const isHeadless = headless || view === 'headless'; // for backwards compatibility;
 
   let containerElement: HTMLElement | null = null;
@@ -77,6 +77,7 @@ export async function createPlayground(
   if (typeof config === 'object' && Object.keys(config).length > 0) {
     playgroundUrl.searchParams.set('config', 'sdk');
   }
+  // const params = options.params;
   // if (
   //   typeof params === 'object' &&
   //   Object.keys(params).length > 0 &&
