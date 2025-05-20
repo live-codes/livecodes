@@ -45,7 +45,7 @@ const prepareDir = async () => {
   await Promise.all([
     // add headers
     process.env.CF_PAGES ? copyFile('src/_headers', '_headers') : Promise.resolve(),
-    process.env.NETLIFY ? copyFile('src/netlify.toml', 'netlify.toml') : Promise.resolve(),
+    copyFile('src/netlify.toml', 'netlify.toml'),
     copyFile('src/favicon.ico', 'favicon.ico'),
     copyFile('src/404.html', '404.html'),
     copyFile('src/index.html', 'index.html'),
