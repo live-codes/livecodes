@@ -428,38 +428,40 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
   return playgroundUrl.href;
 }
 
-if (
-  globalThis.document && // to escape SSG in docusaurus
-  document.currentScript &&
-  'prefill' in document.currentScript?.dataset
-) {
-  window.addEventListener('load', () => {
-    document.querySelectorAll<HTMLElement>('.livecodes').forEach((codeblock) => {
-      let options: EmbedOptions | undefined;
-      const optionsStr = codeblock.dataset.options;
-      if (optionsStr) {
-        try {
-          options = JSON.parse(optionsStr);
-        } catch {
-          //
+/* @__PURE__ */ (() => {
+  if (
+    globalThis.document && // to escape SSG in docusaurus
+    document.currentScript &&
+    'prefill' in document.currentScript?.dataset
+  ) {
+    window.addEventListener('load', () => {
+      document.querySelectorAll<HTMLElement>('.livecodes').forEach((codeblock) => {
+        let options: EmbedOptions | undefined;
+        const optionsStr = codeblock.dataset.options;
+        if (optionsStr) {
+          try {
+            options = JSON.parse(optionsStr);
+          } catch {
+            //
+          }
         }
-      }
-      let config: Config | undefined;
-      const configStr = codeblock.dataset.config || codeblock.dataset.prefill;
-      if (configStr) {
-        try {
-          config = JSON.parse(configStr);
-        } catch {
-          //
+        let config: Config | undefined;
+        const configStr = codeblock.dataset.config || codeblock.dataset.prefill;
+        if (configStr) {
+          try {
+            config = JSON.parse(configStr);
+          } catch {
+            //
+          }
         }
-      }
-      const dom = encodeURIComponent(codeblock.outerHTML);
-      codeblock.innerHTML = '';
-      createPlayground(codeblock, {
-        import: 'dom/' + dom,
-        ...options,
-        ...(config ? { config } : {}),
+        const dom = encodeURIComponent(codeblock.outerHTML);
+        codeblock.innerHTML = '';
+        createPlayground(codeblock, {
+          import: 'dom/' + dom,
+          ...options,
+          ...(config ? { config } : {}),
+        });
       });
     });
-  });
-}
+  }
+})();
