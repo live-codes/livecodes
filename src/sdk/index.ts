@@ -77,15 +77,15 @@ export async function createPlayground(
   if (typeof config === 'object' && Object.keys(config).length > 0) {
     playgroundUrl.searchParams.set('config', 'sdk');
   }
-  if (
-    typeof params === 'object' &&
-    Object.keys(params).length > 0 &&
-    JSON.stringify(params).length < 1800
-  ) {
-    (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
-      playgroundUrl.searchParams.set(param, encodeURIComponent(String(params[param])));
-    });
-  }
+  // if (
+  //   typeof params === 'object' &&
+  //   Object.keys(params).length > 0 &&
+  //   JSON.stringify(params).length < 1800
+  // ) {
+  //   (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
+  //     playgroundUrl.searchParams.set(param, encodeURIComponent(String(params[param])));
+  //   });
+  // }
 
   let destroyed = false;
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
