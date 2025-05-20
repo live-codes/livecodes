@@ -38,16 +38,17 @@ export async function createPlayground(
   if (
     typeof container === 'object' &&
     !(container instanceof HTMLElement) &&
-    (container as any).view === 'headless'
+    ((container as any).headless || (container as any).view === 'headless')
   ) {
     options = container;
     container = null as any;
   }
 
-  const { headless, loading = 'lazy', view } = options;
+  const { config = {}, params = {}, headless, loading = 'lazy', view } = options;
   const isHeadless = headless || view === 'headless'; // for backwards compatibility;
 
   let containerElement: HTMLElement | null = null;
+  let appVersion: number | null = null;
 
   if (typeof container === 'string') {
     containerElement = document.querySelector(container);
@@ -67,9 +68,24 @@ export async function createPlayground(
   }
 
   const playgroundUrl = new URL(getPlaygroundUrl(options));
-  playgroundUrl.searchParams.set('embed', 'true');
-  playgroundUrl.searchParams.set('loading', isHeadless ? 'eager' : loading);
   const origin = playgroundUrl.origin;
+  playgroundUrl.searchParams.set('embed', 'true');
+  playgroundUrl.searchParams.set('sdkVersion', (process as any).env.SDK_VERSION);
+  playgroundUrl.searchParams.set('loading', isHeadless ? 'eager' : loading);
+
+  // for backward-compatibility
+  if (typeof config === 'object' && Object.keys(config).length > 0) {
+    playgroundUrl.searchParams.set('config', 'sdk');
+  }
+  if (
+    typeof params === 'object' &&
+    Object.keys(params).length > 0 &&
+    JSON.stringify(params).length < 1800
+  ) {
+    (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
+      playgroundUrl.searchParams.set(param, encodeURIComponent(String(params[param])));
+    });
+  }
 
   let destroyed = false;
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
@@ -126,7 +142,40 @@ export async function createPlayground(
         frame.style.border = '0';
         frame.style.borderRadius = containerElement.style.borderRadius;
       }
+      addEventListener(
+        'message',
+        function initHandler(
+          e: MessageEventInit<{ type: CustomEvents['init']; payload: { appVersion: string } }>,
+        ) {
+          if (
+            e.source !== frame.contentWindow ||
+            e.origin !== origin ||
+            e.data?.type !== 'livecodes-init'
+          ) {
+            return;
+          }
+          removeEventListener('message', initHandler);
+          appVersion = Number(e.data.payload.appVersion.replace(/^v/, ''));
+        },
+      );
 
+      // for backward-compatibility
+      if (!appVersion || appVersion < 46) {
+        addEventListener(
+          'message',
+          function configHandler(e: MessageEventInit<{ type: CustomEvents['getConfig'] }>) {
+            if (
+              e.source !== frame.contentWindow ||
+              e.origin !== origin ||
+              e.data?.type !== 'livecodes-get-config'
+            ) {
+              return;
+            }
+            removeEventListener('message', configHandler);
+            frame.contentWindow?.postMessage({ type: 'livecodes-config', payload: config }, origin);
+          },
+        );
+      }
       frame.onload = () => {
         resolve(frame);
       };
