@@ -1,91 +1,28 @@
-import { createEditor, createCustomEditors, getFontFamily } from './editor';
+import { getPlaygroundUrl } from '../sdk';
+import { createCustomEditors, createEditor, getFontFamily } from './editor';
 import {
-  languages,
-  getLanguageEditorId,
-  getLanguageCompiler,
-  languageIsEnabled,
-  processors,
-  processorIsEnabled,
   getLanguageByAlias,
-  mapLanguage,
-  getLanguageTitle,
-  getLanguageSpecs,
+  getLanguageCompiler,
+  getLanguageEditorId,
   getLanguageExtension,
+  getLanguageSpecs,
+  getLanguageTitle,
+  languageIsEnabled,
+  languages,
+  mapLanguage,
+  processorIsEnabled,
+  processors,
 } from './languages';
 import {
-  fakeStorage,
   createStores,
+  fakeStorage,
   initializeStores,
-  type Stores,
   type StorageItem,
+  type Stores,
 } from './storage';
 
-import type {
-  API,
-  Cache,
-  CodeEditor,
-  EditorId,
-  EditorLanguages,
-  EditorOptions,
-  Editors,
-  GithubScope,
-  Language,
-  Config,
-  Screen,
-  ShareData,
-  Template,
-  User,
-  ContentConfig,
-  Theme,
-  UserConfig,
-  Await,
-  Code,
-  CustomEditors,
-  BlocklyContent,
-  CustomSettings,
-  Types,
-  TestResult,
-  ToolsPane,
-  UserData,
-  AppData,
-  Processor,
-  APICommands,
-  CompileInfo,
-  SDKEvent,
-  Editor,
-  AppLanguage,
-  Modal,
-  Notifications,
-  EventsManager,
-} from './models';
-import type { GitHubFile } from './services/github';
-import type {
-  BroadcastData,
-  BroadcastInfo,
-  BroadcastResponseData,
-  BroadcastResponseError,
-} from './UI/broadcast';
-import type { Formatter } from './formatter/models';
-import { getFormatter } from './formatter';
-import { createNotifications } from './notifications';
-import { createModal } from './UI/modal';
-import {
-  menuProjectHTML,
-  menuSettingsHTML,
-  menuHelpHTML,
-  resultTemplate,
-  customSettingsScreen,
-  testEditorScreen,
-  savePromptScreen,
-  recoverPromptScreen,
-  resultPopupHTML,
-  welcomeScreen,
-  aboutScreen,
-  keyboardShortcutsScreen,
-} from './html';
-import { exportJSON } from './export/export-json';
-import { createEventsManager, createPub } from './events';
-import { getStarterTemplates, getTemplate } from './templates';
+import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
+import { cjs2esm, getAllCompilers, getCompiler, getCompileResult } from './compiler';
 import {
   buildConfig,
   defaultConfig,
@@ -98,31 +35,124 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
-import { isGithub } from './import/check-src';
+import { hasJsx } from './editor/ts-compiler-options';
+import { createEventsManager, createPub } from './events';
+import { customEvents } from './events/custom-events';
+import { exportJSON } from './export/export-json';
+import { getFormatter } from './formatter';
+import type { Formatter } from './formatter/models';
 import {
+  aboutScreen,
+  customSettingsScreen,
+  keyboardShortcutsScreen,
+  menuHelpHTML,
+  menuProjectHTML,
+  menuSettingsHTML,
+  recoverPromptScreen,
+  resultPopupHTML,
+  resultTemplate,
+  savePromptScreen,
+  testEditorScreen,
+  welcomeScreen,
+} from './html';
+import type {
+  I18nInterpolationType,
+  I18nKeyType,
+  I18nTranslationTemplate,
+  I18nValueType,
+} from './i18n';
+import { appLanguages } from './i18n/app-languages';
+import { isGithub, isCompressedCode } from './import/check-src';
+import { importFromFiles } from './import/files';
+import { populateConfig } from './import/utils';
+import type {
+  API,
+  APICommands,
+  AppData,
+  AppLanguage,
+  Await,
+  BlocklyContent,
+  Cache,
+  Code,
+  CodeEditor,
+  CompileInfo,
+  Config,
+  ContentConfig,
+  CustomEditors,
+  CustomSettings,
+  Editor,
+  EditorId,
+  EditorLanguages,
+  EditorOptions,
+  Editors,
+  EventsManager,
+  GithubScope,
+  Language,
+  Modal,
+  Notifications,
+  Processor,
+  Screen,
+  SDKEvent,
+  ShareData,
+  Template,
+  TestResult,
+  Theme,
+  ToolsPane,
+  Types,
+  User,
+  UserConfig,
+  UserData,
+} from './models';
+import { createNotifications } from './notifications';
+import { cleanResultFromDev, createResultPage } from './result';
+import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
+import type { GitHubFile } from './services/github';
+import { permanentUrlService } from './services/permanent-url';
+import { getStarterTemplates, getTemplate } from './templates';
+import { createToolsPane } from './toolspane';
+import { createTypeLoader, getDefaultTypes } from './types';
+import {
+  createLoginContainer,
+  createOpenItem,
+  createProjectInfoUI,
+  createSplitPanes,
+  createStarterTemplateLink,
+  createTemplatesContainer,
+  displayLoggedIn,
+  displayLoggedOut,
+  getFullscreenButton,
+  getResultElement,
+  loadingMessage,
+  noUserTemplates,
+} from './UI';
+import type {
+  BroadcastData,
+  BroadcastInfo,
+  BroadcastResponseData,
+  BroadcastResponseError,
+} from './UI/broadcast';
+import { getCommandMenuActions } from './UI/command-menu-actions';
+import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
+import { createModal } from './UI/modal';
+import * as UI from './UI/selectors';
+import { themeColors } from './UI/theme-colors';
+import {
+  capitalize,
+  colorToHex,
   colorToHsla,
+  compareObjects,
   copyToClipboard,
+  ctrl,
   debounce,
   getValidUrl,
+  isMac,
   loadStylesheet,
+  predefinedValues,
   safeName,
   stringify,
   stringToValidJson,
   toDataUrl,
-  predefinedValues,
-  colorToHex,
-  capitalize,
-  isMac,
-  ctrl,
-  compareObjects,
 } from './utils';
-import { compress } from './utils/compression';
-import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
-import { createTypeLoader, getDefaultTypes } from './types';
-import { cleanResultFromDev, createResultPage } from './result';
-import * as UI from './UI/selectors';
-import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
-import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   fontInterUrl,
   fontMaterialIconsUrl,
@@ -135,36 +165,8 @@ import {
   ninjaKeysUrl,
   snackbarUrl,
 } from './vendors';
-import { createToolsPane } from './toolspane';
-import {
-  createOpenItem,
-  createProjectInfoUI,
-  createSplitPanes,
-  createStarterTemplateLink,
-  displayLoggedIn,
-  displayLoggedOut,
-  getResultElement,
-  loadingMessage,
-  noUserTemplates,
-  createLoginContainer,
-  createTemplatesContainer,
-  getFullscreenButton,
-} from './UI';
-import { customEvents } from './events/custom-events';
-import { populateConfig } from './import/utils';
-import { permanentUrlService } from './services/permanent-url';
-import { importFromFiles } from './import/files';
-import type {
-  I18nKeyType,
-  I18nValueType,
-  I18nInterpolationType,
-  I18nTranslationTemplate,
-} from './i18n';
-import { appLanguages } from './i18n/app-languages';
-import { themeColors } from './UI/theme-colors';
-import { getCommandMenuActions } from './UI/command-menu-actions';
-import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
-import { hasJsx } from './editor/ts-compiler-options';
+
+import { importCompressedCode } from './import/code';
 
 // declare global dependencies
 declare global {
@@ -197,6 +199,7 @@ let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
 const params = getParams(); // query string params
 const iframeScrollPosition = { x: 0, y: 0 };
+const editorIds: EditorId[] = ['markup', 'style', 'script'];
 
 let baseUrl: string;
 let isEmbed: boolean;
@@ -404,7 +407,6 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 };
 
 const setEditorTitle = (editorId: EditorId, title: string) => {
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
   const editorTitleContainer = document.querySelector(`#${editorId}-selector`) as HTMLElement;
   const language = getLanguageByAlias(title);
@@ -434,7 +436,6 @@ const setEditorTitle = (editorId: EditorId, title: string) => {
 };
 
 const createCopyButtons = () => {
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const copyImgHtml = `<span><i class="icon-copy" alt="copy"></i></span>`;
   editorIds.forEach((editorId) => {
     const copyButton = document.createElement('div');
@@ -688,7 +689,6 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
 
 const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   const config = getConfig();
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const allHidden = editorIds.every((editor) => config[editor].hideTitle);
   if (config[editorId].hideTitle && !allHidden) return;
   const titles = UI.getEditorTitles();
@@ -1321,8 +1321,8 @@ const share = async (
     : config;
 
   const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
-  const url = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
-  const shareURL = new URL(url);
+  const appUrl = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
+  let shareURL = new URL(appUrl);
   if (shortUrl) {
     shareURL.search =
       'x=id/' +
@@ -1331,17 +1331,8 @@ const share = async (
         result: includeResult ? getCache().result : undefined,
       }));
   } else {
-    const hashParams = compress(JSON.stringify(content));
-    shareURL.hash = 'x=code/' + hashParams;
-
-    const searchParams = new URLSearchParams();
-    if (content.title && content.title !== defaultConfig.title) {
-      searchParams.set('title', content.title);
-    }
-    if (content.description && content.description !== defaultConfig.description) {
-      searchParams.set('description', content.description);
-    }
-    shareURL.search = searchParams.toString();
+    const playgroundUrl = getPlaygroundUrl({ appUrl, config: content });
+    shareURL = new URL(playgroundUrl);
   }
 
   if (urlUpdate) {
@@ -1357,7 +1348,6 @@ const share = async (
 };
 
 const updateConfig = () => {
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   editorIds.forEach((editorId) => {
     setConfig({
       ...getConfig(),
@@ -5255,7 +5245,6 @@ const importExternalContent = async (options: {
   url?: string;
 }): Promise<boolean> => {
   const { config = defaultConfig, configUrl, template, url } = options;
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const hasContentUrls = (conf: Partial<Config>) =>
     editorIds.filter(
       (editorId) =>
@@ -5289,7 +5278,6 @@ const importExternalContent = async (options: {
       );
     }
   }
-
   if (url) {
     let validUrl = url;
     if (url.startsWith('http') || url.startsWith('data')) {
@@ -5308,12 +5296,6 @@ const importExternalContent = async (options: {
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     urlConfig = await importModule.importCode(validUrl, params, getConfig(), user, baseUrl);
-
-    if (Object.keys(urlConfig).length === 0) {
-      notifications.error(
-        window.deps.translateString('core.error.invalidImport', 'Invalid import URL'),
-      );
-    }
   }
 
   if (hasContentUrls(config)) {
@@ -5351,9 +5333,21 @@ const importExternalContent = async (options: {
         .then((res) => res.json())
         .catch(() => ({})),
     );
-    if (hasContentUrls(configUrlConfig)) {
-      return importExternalContent({ config: { ...config, ...configUrlConfig } });
+  } else {
+    // the url is config=code/...
+    const searchParams = new URLSearchParams(url);
+    if (searchParams.get('config') && isCompressedCode(searchParams.get('config') ?? '')) {
+      configUrlConfig = importCompressedCode(searchParams.get('config')!);
     }
+  }
+  if (configUrlConfig && hasContentUrls(configUrlConfig)) {
+    return importExternalContent({ config: { ...config, ...configUrlConfig } });
+  }
+
+  if (Object.keys(urlConfig).length === 0 && !configUrlConfig) {
+    notifications.error(
+      window.deps.translateString('core.error.invalidImport', 'Invalid import URL'),
+    );
   }
 
   await loadConfig(

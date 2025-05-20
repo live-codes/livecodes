@@ -69,6 +69,7 @@ export async function createPlayground(
   const playgroundUrl = new URL(getPlaygroundUrl(options));
   playgroundUrl.searchParams.set('embed', 'true');
   playgroundUrl.searchParams.set('loading', isHeadless ? 'eager' : loading);
+  const origin = playgroundUrl.origin;
 
   let destroyed = false;
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
@@ -346,7 +347,13 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
     ...otherOptions
   } = options;
 
-  const playgroundUrl = new URL(appUrl);
+  let playgroundUrl: URL;
+  try {
+    playgroundUrl = new URL(appUrl);
+  } catch {
+    throw new Error(`${appUrl} is not a valid URL.`);
+  }
+
   const hashParams = new URLSearchParams();
 
   // Add other options to search params
@@ -405,13 +412,13 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
       hashParams.set('params', compressToEncodedURIComponent(JSON.stringify(params)));
     } catch {
       (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
-        playgroundUrl.searchParams.set(param, encodeURIComponent(String(params[param]))); // TODO: should this be in hash as well? what kind of error is thrown here
+        playgroundUrl.searchParams.set(param, encodeURIComponent(String(params[param])));
       });
     }
   }
 
   if (importId) {
-    playgroundUrl.searchParams.set('x', encodeURIComponent(importId)); // TODO: handle both a config and an importFrom
+    playgroundUrl.searchParams.set('x', encodeURIComponent(importId));
   }
   if (isHeadless) {
     playgroundUrl.searchParams.set('headless', 'true');
