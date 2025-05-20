@@ -70,8 +70,10 @@ export async function createPlayground(
   const playgroundUrl = new URL(getPlaygroundUrl(options));
   const origin = playgroundUrl.origin;
   playgroundUrl.searchParams.set('embed', 'true');
-  playgroundUrl.searchParams.set('sdkVersion', (process as any).env.SDK_VERSION);
   playgroundUrl.searchParams.set('loading', isHeadless ? 'eager' : loading);
+
+  const process = (globalThis as any).process; // avoid failing in docs & storybook
+  playgroundUrl.searchParams.set('sdkVersion', process?.env?.SDK_VERSION || 'latest');
 
   // for backward-compatibility
   if (typeof config === 'object' && Object.keys(config).length > 0) {
