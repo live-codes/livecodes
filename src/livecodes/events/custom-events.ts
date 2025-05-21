@@ -1,6 +1,7 @@
 import type { CustomEvents } from '../models';
 
 export const customEvents: CustomEvents = {
+  init: 'livecodes-init',
   getConfig: 'livecodes-get-config',
   config: 'livecodes-config',
   load: 'livecodes-load',
