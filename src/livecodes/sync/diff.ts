@@ -1,7 +1,7 @@
-import * as Y from 'yjs';
 import * as DeepDiff from 'deep-diff';
+import * as Y from 'yjs';
 
-export { Y, DeepDiff };
+export { DeepDiff, Y };
 
 export function toJSON<T>(source: unknown): T {
   if (source instanceof Y.AbstractType) {

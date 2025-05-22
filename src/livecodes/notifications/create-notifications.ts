@@ -1,21 +1,21 @@
 import {
   createSnackbar,
   destroyAllSnackbars,
+  type Action,
   type Message,
   type SnackOptions,
-  type Action,
 } from '@snackbar/core';
 import { getConfig } from '../config';
 import type { Notifications } from '../models';
 import {
+  acceptButton,
+  closeButton,
+  dangerTheme,
+  darkTheme,
   infoTheme,
+  lightTheme,
   successTheme,
   warningTheme,
-  dangerTheme,
-  closeButton,
-  acceptButton,
-  lightTheme,
-  darkTheme,
 } from './snackbar';
 
 export const hasOpenNotifications = () => document.querySelectorAll('.snackbar').length > 0;

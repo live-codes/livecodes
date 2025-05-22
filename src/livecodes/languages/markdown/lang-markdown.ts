@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
-import { markedUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
+import { markedUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const markdown: LanguageSpecs = {

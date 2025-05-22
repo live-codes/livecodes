@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
-import { opalBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
+import { opalBaseUrl } from '../../vendors';
 
 declare const importScripts: (...args: string[]) => void;
 

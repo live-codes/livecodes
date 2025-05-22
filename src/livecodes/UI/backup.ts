@@ -1,6 +1,6 @@
+import { backupScreen } from '../html';
 import type { EventsManager, Modal, Notifications } from '../models';
 import type { Stores } from '../storage';
-import { backupScreen } from '../html';
 import { base64ToUint8Array, downloadFile, getDate, loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
 import {

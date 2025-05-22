@@ -1,10 +1,10 @@
 /* eslint-disable no-bitwise */
-import type { CompilerFunction, Config, Language } from '../../models';
 import { compileInCompiler, isBare, replaceStyleImports } from '../../compiler';
+import type { CompilerFunction, Config, Language } from '../../models';
+import { modulesService } from '../../services';
 import { getLanguageCustomSettings } from '../../utils/utils';
 import { tailwindcss3Url, tailwindcssBaseUrl, vendorsBaseUrl } from '../../vendors';
 import { lightningcssFeatures } from '../lightningcss/processor-lightningcss-compiler';
-import { modulesService } from '../../services';
 
 declare const self: any;
 

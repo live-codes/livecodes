@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
-import { useEffect, useState } from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import Link from '@docusaurus/Link';
+import { useEffect, useState } from 'react';
 import styles from './LanguageSliders.module.css';
 
 const getRandomItem = (list: any[]) => ({

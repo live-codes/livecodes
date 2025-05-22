@@ -1,15 +1,15 @@
-import type {
-  EditorId,
-  Config,
-  Language,
-  Processor,
-  LanguageSpecs,
-  Template,
-  EventsManager,
-} from '../models';
 import { languages } from '../languages/languages';
 import { processors } from '../languages/processors';
 import { languageIsEnabled, processorIsEnabled } from '../languages/utils';
+import type {
+  Config,
+  EditorId,
+  EventsManager,
+  Language,
+  LanguageSpecs,
+  Processor,
+  Template,
+} from '../models';
 
 export const createLanguageMenus = (
   config: Config,

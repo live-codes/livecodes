@@ -1,9 +1,9 @@
-import { infoScreen } from '../html';
 import * as UI from '../UI';
-import { loadStylesheet, removeDuplicates } from '../utils/utils';
-import { tagifyBaseUrl } from '../vendors';
+import { infoScreen } from '../html';
 import type { Config, Modal } from '../models';
 import type { ProjectStorage } from '../storage';
+import { loadStylesheet, removeDuplicates } from '../utils/utils';
+import { tagifyBaseUrl } from '../vendors';
 
 export const getTags = (value: string): string[] => {
   try {

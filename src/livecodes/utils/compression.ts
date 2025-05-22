@@ -1,7 +1,7 @@
 import {
   compressToEncodedURIComponent,
-  decompressFromEncodedURIComponent,
   decompressFromBase64,
+  decompressFromEncodedURIComponent,
 } from 'lz-string';
 
 export const compress = compressToEncodedURIComponent;

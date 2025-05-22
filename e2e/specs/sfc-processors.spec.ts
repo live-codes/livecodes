@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
+import { test } from '../test-fixtures';
 
 test.describe('Preprocessors', () => {
   test('in Vue', async ({ page, getTestUrl }) => {

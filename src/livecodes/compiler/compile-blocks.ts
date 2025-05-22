@@ -1,4 +1,3 @@
-import type { CompileInfo, Config } from '../models';
 import {
   getLanguageByAlias,
   getLanguageEditorId,
@@ -6,12 +5,13 @@ import {
   processorIsEnabled,
   processors,
 } from '../languages';
+import type { CompileInfo, Config } from '../models';
 import { modulesService } from '../services/modules';
 import { getFileExtension } from '../utils/utils';
 import { compileInCompiler } from './compile-in-compiler';
 import { hasStyleImports } from './import-map';
-import { getCompileResult } from './utils';
 import type { LanguageOrProcessor } from './models';
+import { getCompileResult } from './utils';
 
 interface CompileBlocksOptions {
   removeEnclosingTemplate?: boolean;

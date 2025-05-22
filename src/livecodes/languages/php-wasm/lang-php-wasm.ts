@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
-import { parserPlugins } from '../prettier';
 import { vendorsBaseUrl } from '../../vendors';
+import { parserPlugins } from '../prettier';
 
 export const phpWasm: LanguageSpecs = {
   name: 'php-wasm',

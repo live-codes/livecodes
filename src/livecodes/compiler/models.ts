@@ -1,4 +1,4 @@
-import type { Language, Config, Processor, CompileOptions, CompileResult } from '../models';
+import type { CompileOptions, CompileResult, Config, Language, Processor } from '../models';
 
 export interface Compiler {
   load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;

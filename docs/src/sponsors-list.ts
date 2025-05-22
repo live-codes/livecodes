@@ -19,8 +19,8 @@ export const createSponsorsList = (sponsors: Sponsor[]) => `
 const createSponsorItem = (sponsor: Sponsor) => `
 <li>
   <a href="${sponsor.url}" target="_blank" rel="noopener" ${
-  sponsor.style ? 'style="' + sponsor.style + '"' : ''
-} ${sponsor.title ? 'title="' + sponsor.title + '"' : ''}>
+    sponsor.style ? 'style="' + sponsor.style + '"' : ''
+  } ${sponsor.title ? 'title="' + sponsor.title + '"' : ''}>
     ${
       sponsor.image
         ? '<img loading="lazy" alt="' + sponsor.title + '" src="' + sponsor.image + '">'

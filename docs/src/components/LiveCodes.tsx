@@ -3,8 +3,8 @@ import { useColorMode } from '@docusaurus/theme-common';
 import type { EmbedOptions } from '../../../src/sdk';
 import LiveCodesReact from '../../../src/sdk/react';
 import { appUrl } from '../utils';
-import ShowCode from './ShowCode';
 import styles from './LiveCodes.module.css';
+import ShowCode from './ShowCode';
 
 export default function LiveCodes(
   props: EmbedOptions & {

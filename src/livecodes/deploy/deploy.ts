@@ -1,10 +1,10 @@
-import type { ContentConfig, User } from '../models';
-import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
+import { defaultConfig } from '../config/default-config';
 import { getDescriptionFile, getFilesFromConfig } from '../export/utils';
+import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
+import type { ContentConfig, User } from '../models';
+import { commitFile, commitFiles, type GitHubFile } from '../services/github';
 import { generateId } from '../storage/storage';
 import { safeName } from '../utils/utils';
-import { commitFile, commitFiles, type GitHubFile } from '../services/github';
-import { defaultConfig } from '../config/default-config';
 
 const prepareFiles = ({
   config,

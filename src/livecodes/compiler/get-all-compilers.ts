@@ -1,10 +1,10 @@
 import { languageIsEnabled, processors } from '../languages';
 import type {
-  Language,
-  LanguageSpecs,
-  Config,
   Compiler,
   Compilers,
+  Config,
+  Language,
+  LanguageSpecs,
   ProcessorSpecs,
 } from '../models';
 import { isRelativeUrl } from '../utils';

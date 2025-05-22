@@ -1,6 +1,6 @@
+import type { ContentConfig } from '../models';
 import { loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
-import type { ContentConfig } from '../models';
 import type { populateConfig as populateConfigFn, SourceFile } from './utils';
 
 export const importFromZip = async (blob: Blob, populateConfig: typeof populateConfigFn) =>

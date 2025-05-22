@@ -1,14 +1,14 @@
 /* eslint-disable import/no-unresolved */
 import Link from '@docusaurus/Link';
-import CodeBlock from '@theme/CodeBlock';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import CodeBlock from '@theme/CodeBlock';
 
-import type { ReactNode } from 'react';
 import clsx from 'clsx';
-import styles from './HomepageFeatures.module.css';
-import LiveCodes from './LiveCodes';
-import Sliders from './LanguageSliders';
+import type { ReactNode } from 'react';
 import HomepageCarousel from './HomepageCarousel';
+import styles from './HomepageFeatures.module.css';
+import Sliders from './LanguageSliders';
+import LiveCodes from './LiveCodes';
 
 interface FeatureItem {
   title: string;

@@ -1,8 +1,8 @@
-import type { Config, EditorId, Language } from '../models';
 import type {
   getLanguageCompiler as getLanguageCompilerFn,
   getLanguageExtension as getLanguageExtensionFn,
 } from '../languages';
+import type { Config, EditorId, Language } from '../models';
 import { getCompilerScripts, getContent } from './utils';
 
 export const exportJsfiddle = (

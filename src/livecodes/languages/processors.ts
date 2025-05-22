@@ -1,14 +1,14 @@
 import type { ProcessorSpecs } from '../models';
 import { lightningcss } from './lightningcss';
 import {
-  postcss,
   autoprefixer,
-  postcssPresetEnv,
-  postcssImportUrl,
-  tokencss,
-  purgecss,
-  cssnano,
   cssModules,
+  cssnano,
+  postcss,
+  postcssImportUrl,
+  postcssPresetEnv,
+  purgecss,
+  tokencss,
 } from './postcss';
 import { tailwindcss } from './tailwindcss';
 import { unocss } from './unocss';

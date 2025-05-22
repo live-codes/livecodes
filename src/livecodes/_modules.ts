@@ -8,6 +8,8 @@
  * @module
  */
 
+export * as UI from './UI';
+export * as modal from './UI/modal';
 export * as cache from './cache';
 export * as compiler from './compiler';
 export * as config from './config';
@@ -19,7 +21,6 @@ export * as formatter from './formatter';
 export * as html from './html';
 export * as import from './import';
 export * as languages from './languages';
-export * as modal from './UI/modal';
 export type * as models from './models';
 export * as notifications from './notifications';
 export * as result from './result';
@@ -29,6 +30,5 @@ export * as sync from './sync';
 export * as templates from './templates';
 export * as toolspane from './toolspane';
 export * as types from './types';
-export * as UI from './UI';
 export * as utils from './utils';
 export * as vendors from './vendors';

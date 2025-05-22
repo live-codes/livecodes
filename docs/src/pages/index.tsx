@@ -1,9 +1,9 @@
 /* eslint-disable import/no-unresolved */
-import { useEffect } from 'react';
-import clsx from 'clsx';
-import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Layout from '@theme/Layout';
+import clsx from 'clsx';
+import { useEffect } from 'react';
 import HomepageFeatures from '../components/HomepageFeatures';
 import { loadAds } from '../custom-content';
 import styles from './index.module.css';

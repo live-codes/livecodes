@@ -1,3 +1,4 @@
+import { importsPattern } from '../../compiler/import-map';
 import type { CompilerFunction, Language } from '../../models';
 import { getAbsoluteUrl, loadScript } from '../../utils';
 import {
@@ -8,7 +9,6 @@ import {
   rescriptCdnBaseUrl,
   rescriptStdLibBaseUrl,
 } from '../../vendors';
-import { importsPattern } from '../../compiler/import-map';
 
 declare const window: Window & {
   require: any;

@@ -1,6 +1,6 @@
 import type { RequireAtLeastOne, UnAsConst } from '../models';
-import type Translation from './en/translation';
 import type LangInfoTranslation from './en/language-info';
+import type Translation from './en/translation';
 
 /**
  * Add new translatable attributes here.

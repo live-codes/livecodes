@@ -1,5 +1,5 @@
-import type { EditorId, Config } from '../models';
 import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
+import type { Config, EditorId } from '../models';
 import { downloadFile, loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
 import { getFilesFromConfig } from './utils';

@@ -4,10 +4,10 @@
 // '@vue/runtime-core' is used for generating type definitions,
 // and is replaced by external dependency 'vue' during build
 import type {
-  DefineComponent,
   AllowedComponentProps,
   ComponentCustomProps,
   ComponentOptionsMixin,
+  DefineComponent,
   ExtractPropTypes,
   RendererElement,
   RendererNode,
@@ -16,8 +16,9 @@ import type {
 } from '@vue/runtime-core';
 import { h, onMounted, onUnmounted, ref, watch } from '@vue/runtime-core';
 
-import type { Playground, EmbedOptions } from './models';
 import { createPlayground } from './index';
+// eslint-disable-next-line import/order
+import type { EmbedOptions, Playground } from './models';
 
 export interface Props extends EmbedOptions {
   height?: string;

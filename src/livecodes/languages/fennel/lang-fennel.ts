@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
-import { parenFormatter } from '../commonlisp';
 import { luaUrl } from '../../vendors';
+import { parenFormatter } from '../commonlisp';
 
 export const fennel: LanguageSpecs = {
   name: 'fennel',

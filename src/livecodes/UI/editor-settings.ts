@@ -1,3 +1,12 @@
+import { getEditorConfig, getFormatterConfig } from '../config/config';
+import { defaultConfig } from '../config/default-config';
+import { prismThemes } from '../editor/codejar/prism-themes';
+import { codemirrorThemes } from '../editor/codemirror/codemirror-themes';
+import type { createEditor } from '../editor/create-editor';
+import { fonts, getFontFamily } from '../editor/fonts';
+import { monacoThemes } from '../editor/monaco/monaco-themes';
+import { getEditorTheme } from '../editor/themes';
+import { editorSettingsScreen } from '../html';
 import type {
   Config,
   EditorLibrary,
@@ -7,15 +16,6 @@ import type {
   Modal,
   UserConfig,
 } from '../models';
-import type { createEditor } from '../editor/create-editor';
-import { editorSettingsScreen } from '../html';
-import { getEditorConfig, getFormatterConfig } from '../config/config';
-import { defaultConfig } from '../config/default-config';
-import { fonts, getFontFamily } from '../editor/fonts';
-import { getEditorTheme } from '../editor/themes';
-import { monacoThemes } from '../editor/monaco/monaco-themes';
-import { codemirrorThemes } from '../editor/codemirror/codemirror-themes';
-import { prismThemes } from '../editor/codejar/prism-themes';
 import { preventFocus } from '../utils/utils';
 import { getEditorSettingsFormatLink } from './selectors';
 

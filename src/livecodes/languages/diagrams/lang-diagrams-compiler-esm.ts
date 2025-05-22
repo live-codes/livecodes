@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
 import { decode } from 'js-base64';
-import type { Config, CompilerFunction } from '../../models';
+import type { CompilerFunction, Config } from '../../models';
 import {
   blobToBase64,
+  getLanguageCustomSettings,
   getWorkerDataURL,
   loadScript,
-  stringToValidJson,
-  getLanguageCustomSettings,
   removeComments,
   runOrContinue,
+  stringToValidJson,
   toDataUrl,
 } from '../../utils/utils';
 import {

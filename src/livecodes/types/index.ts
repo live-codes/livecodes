@@ -1,2 +1,2 @@
-export * from './type-loader';
 export * from './default-types';
+export * from './type-loader';

@@ -1,5 +1,5 @@
 import { getCustomSettings } from '../../languages';
-import type { BlocklyContent, CustomEditorOptions, Theme, Config } from '../../models';
+import type { BlocklyContent, Config, CustomEditorOptions, Theme } from '../../models';
 import { sandboxService } from '../../services';
 import { debounce } from '../../utils/utils';
 import { blocklyCdnBaseUrl } from '../../vendors';

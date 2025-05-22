@@ -1,16 +1,16 @@
+/* eslint-disable import/order */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
-
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { fixupConfigRules } from '@eslint/compat';
-import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import jsdoc from 'eslint-plugin-jsdoc';
 import noOnlyTests from 'eslint-plugin-no-only-tests';
 import globals from 'globals';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

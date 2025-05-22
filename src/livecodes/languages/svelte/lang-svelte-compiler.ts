@@ -1,8 +1,8 @@
-import type { CompilerFunction, Config, Language } from '../../models';
+import { getCompileResult } from '../../compiler';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
 import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
-import { getLanguageCustomSettings, getLanguageByAlias } from '../utils';
-import { getCompileResult } from '../../compiler';
+import type { CompilerFunction, Config, Language } from '../../models';
+import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
 
 (self as any).createSvelteCompiler = (): CompilerFunction => {
   const MAIN_FILE = '__LiveCodes_App__.svelte';

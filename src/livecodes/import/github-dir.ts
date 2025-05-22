@@ -1,8 +1,8 @@
 import { decode } from 'js-base64';
 import type { User } from '../models';
 import { getGithubHeaders } from '../services/github';
-import { populateConfig } from './utils';
 import { addBaseTag } from './github';
+import { populateConfig } from './utils';
 
 export const importFromGithubDir = async (
   url: string,

@@ -2,13 +2,13 @@ import { getEditorConfig } from '../config';
 import { createEditor, getFontFamily } from '../editor';
 import { getLanguageExtension, languages, mapLanguage } from '../languages';
 import type {
-  Editors,
-  Config,
   CodeEditor,
-  EditorOptions,
-  Language,
   CompiledCodeViewer,
+  Config,
+  EditorOptions,
+  Editors,
   EventsManager,
+  Language,
 } from '../models';
 import { getToolspaneButtons, getToolspaneElement } from '../UI';
 

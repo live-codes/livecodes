@@ -1,8 +1,8 @@
 import type { LanguageSpecs } from '../../models';
 import { vendorsBaseUrl } from '../../vendors';
+import { parserPlugins } from '../prettier';
 import { typescriptOptions } from '../typescript';
 import { getLanguageCustomSettings } from '../utils';
-import { parserPlugins } from '../prettier';
 
 const reactNativeWebUrl = vendorsBaseUrl + 'react-native-web/react-native-web.js';
 

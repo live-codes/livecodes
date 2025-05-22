@@ -37,7 +37,7 @@ const importProject = async (url: string): Promise<ProjectInfo> => {
 };
 
 export const getProjectInfo = async (url: URL): Promise<ProjectInfo> => {
-  const title = url.searchParams.get('title')
+  const title = url.searchParams.get('title');
   const description = url.searchParams.get('description');
   if (title || description) {
     return {

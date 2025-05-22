@@ -1,3 +1,5 @@
+import { defaultConfig } from '../config/default-config';
+import { embedScreen } from '../html';
 import type {
   CodeEditor,
   ContentConfig,
@@ -7,10 +9,8 @@ import type {
   Modal,
   Notifications,
 } from '../models';
-import { defaultConfig } from '../config/default-config';
-import { embedScreen } from '../html';
-import { cloneObject, copyToClipboard, encodeHTML, escapeCode, indentCode } from '../utils/utils';
 import { permanentUrlService } from '../services/permanent-url';
+import { cloneObject, copyToClipboard, encodeHTML, escapeCode, indentCode } from '../utils/utils';
 
 export const createEmbedUI = async ({
   config,

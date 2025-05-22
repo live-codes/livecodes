@@ -1,6 +1,6 @@
 import { createPub } from '../events';
-import type { SimpleStorage, StoreName } from './models';
 import { fakeSimpleStorage } from './fake-storage';
+import type { SimpleStorage, StoreName } from './models';
 
 /**
  * Creates a simple synchronous key/value data store using localstorage

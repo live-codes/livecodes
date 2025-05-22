@@ -1,8 +1,8 @@
 import { confirm, input, select } from '@inquirer/prompts';
 import conventionalChangelog from 'conventional-changelog';
 
-import fs from 'fs';
 import { execSync } from 'child_process';
+import fs from 'fs';
 import { createRequire } from 'module';
 import prettier from 'prettier';
 
