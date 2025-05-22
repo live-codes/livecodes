@@ -1,25 +1,25 @@
 import { CodeJar, type Position } from 'codejar';
 import 'prismjs';
-import 'prismjs/plugins/autoloader/prism-autoloader';
-import 'prismjs/plugins/line-numbers/prism-line-numbers';
-import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-tsx';
 import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-markup';
+import 'prismjs/components/prism-tsx';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/plugins/autoloader/prism-autoloader';
+import 'prismjs/plugins/line-numbers/prism-line-numbers';
 
 import type {
+  CodeEditor,
+  CodejarTheme,
+  Config,
+  EditorConfig,
+  EditorOptions,
+  EditorPosition,
   FormatFn,
   Language,
-  CodeEditor,
-  EditorOptions,
   Theme,
-  EditorPosition,
-  EditorConfig,
-  Config,
-  CodejarTheme,
 } from '../../models';
 import { debounce, encodeHTML } from '../../utils/utils';
 import { prismBaseUrl } from '../../vendors';

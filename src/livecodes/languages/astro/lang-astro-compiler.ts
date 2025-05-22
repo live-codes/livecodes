@@ -1,8 +1,8 @@
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { replaceImports } from '../../compiler/import-map';
 import type { CompilerFunction, Config } from '../../models';
-import { astroBaseUrl, astroWasmURL } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
+import { astroBaseUrl, astroWasmURL } from '../../vendors';
 
 const internalURL = astroBaseUrl + 'index.min.js';
 

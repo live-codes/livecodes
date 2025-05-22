@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
-import { test } from '../test-fixtures';
-import { getLoadedApp } from '../helpers';
 import type { AppLanguage, UrlQueryParams } from '../../src/livecodes/models';
+import { getLoadedApp } from '../helpers';
+import { test } from '../test-fixtures';
 
 type TestParams = Parameters<Parameters<typeof test>[1]>[0];
 

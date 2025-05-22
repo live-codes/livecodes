@@ -1,5 +1,5 @@
-import type { AppData, EventsManager, Modal, Notifications } from '../models';
 import { broadcastScreen } from '../html';
+import type { AppData, EventsManager, Modal, Notifications } from '../models';
 import { broadcastService } from '../services/broadcast';
 import {
   getBroadcastBtn,

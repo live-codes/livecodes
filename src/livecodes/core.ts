@@ -62,7 +62,7 @@ import type {
   I18nValueType,
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
-import { isGithub, isCompressedCode } from './import/check-src';
+import { isCompressedCode, isGithub } from './import/check-src';
 import { importFromFiles } from './import/files';
 import { populateConfig } from './import/utils';
 import type {

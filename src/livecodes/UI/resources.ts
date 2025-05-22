@@ -1,5 +1,5 @@
-import type { Config, CssPresetId, EventsManager, Modal, PkgInfo } from '../models';
 import { resourcesScreen } from '../html';
+import type { Config, CssPresetId, EventsManager, Modal, PkgInfo } from '../models';
 import { pkgInfoService } from '../services/pkgInfo';
 import { debounce, hideOnClickOutside } from '../utils/utils';
 import { getExternalResourcesCssPresetInputs, getExternalResourcesTextareas } from './selectors';

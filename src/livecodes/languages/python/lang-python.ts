@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
-import { brythonBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils/utils';
+import { brythonBaseUrl } from '../../vendors';
 
 const brythonUrl = brythonBaseUrl + 'brython.min.js';
 const stdlibUrl = brythonBaseUrl + 'brython_stdlib.js';

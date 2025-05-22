@@ -1,5 +1,5 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import type { Editor, Config, ToolsPaneStatus, EditorId, Tool, Language } from '../models';
+import type { Config, Editor, EditorId, Language, Tool, ToolsPaneStatus } from '../models';
 import { removeDuplicates } from '../utils';
 import { defaultConfig } from './default-config';
 

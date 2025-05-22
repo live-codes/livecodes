@@ -1,14 +1,14 @@
 import Split from 'split.js';
-import type {
-  Editors,
-  Config,
-  ToolList,
-  ToolsPaneStatus,
-  EventsManager,
-  ToolsPane,
-  Tool,
-} from '../models';
 import { getResultElement, getToolspaneBar } from '../UI';
+import type {
+  Config,
+  Editors,
+  EventsManager,
+  Tool,
+  ToolList,
+  ToolsPane,
+  ToolsPaneStatus,
+} from '../models';
 import { evaluateCssCalc } from '../utils';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';

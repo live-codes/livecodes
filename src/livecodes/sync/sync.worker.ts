@@ -1,10 +1,10 @@
 import type { User } from '../models';
-import type { Storage, SimpleStorage, ProjectStorage, Stores } from '../storage';
-import { createStores, getStoreKey, initializeStores } from '../storage/stores';
 import { commitFile, getContent, type GitHubFile } from '../services/github';
-import { callWorker, loadScript, typedArraysAreEqual, Uint8ArrayToBase64 } from '../utils/utils';
+import type { ProjectStorage, SimpleStorage, Storage, Stores } from '../storage';
+import { createStores, getStoreKey, initializeStores } from '../storage/stores';
+import { Uint8ArrayToBase64, callWorker, loadScript, typedArraysAreEqual } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
-import { Y, DeepDiff, applyChange, toJSON } from './diff';
+import { DeepDiff, Y, applyChange, toJSON } from './diff';
 import type { StoredSyncData, SyncMessageEvent } from './models';
 
 const storesToSync: Array<keyof Stores> = ['projects', 'templates', 'assets', 'snippets'];

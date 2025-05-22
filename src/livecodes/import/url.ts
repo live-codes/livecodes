@@ -2,8 +2,8 @@ import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { Config } from '../models';
 import { corsService } from '../services';
 import { importFromDom } from './dom';
-import { importFromZip } from './zip';
 import { populateConfig } from './utils';
+import { importFromZip } from './zip';
 
 const getRawCode = (content: string, lang: string): Partial<Config> => {
   const language = getLanguageByAlias(lang) || 'html';

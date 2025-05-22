@@ -1,11 +1,11 @@
 import type TS from 'typescript';
-import type { Compilers, Config, CompileOptions, EditorLibrary, Language } from '../models';
-import { languages, processors } from '../languages';
-import { codeMirrorBaseUrl, comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
-import { doOnce, objectFilter } from '../utils/utils';
 import { getCompilerOptions } from '../editor/ts-compiler-options';
-import type { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
+import { languages, processors } from '../languages';
+import type { CompileOptions, Compilers, Config, EditorLibrary, Language } from '../models';
+import { doOnce, objectFilter } from '../utils/utils';
+import { codeMirrorBaseUrl, comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
 import { getAllCompilers } from './get-all-compilers';
+import type { CompilerMessage, CompilerMessageEvent, LanguageOrProcessor } from './models';
 declare const importScripts: (...args: string[]) => void;
 
 const typescriptAtaUrl = vendorsBaseUrl + 'typescript-ata/typescript-ata.js';

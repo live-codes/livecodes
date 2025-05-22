@@ -4,7 +4,7 @@
 import type { CompilerFunction } from '../../models';
 import { gleamBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../utils';
-import { type Modules, modules } from './gleam-modules';
+import { modules, type Modules } from './gleam-modules';
 
 (self as any).createGleamCompiler = (): CompilerFunction => {
   const compilerUrl = gleamBaseUrl + 'compiler/v1.3.0-rc1/gleam_wasm.js';

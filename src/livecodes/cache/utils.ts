@@ -1,4 +1,4 @@
-import type { ContentConfig, Cache, EditorCache } from '../models';
+import type { Cache, ContentConfig, EditorCache } from '../models';
 
 const removeExtra = <T>(editor: T, keys: Array<keyof T>) => {
   const contentEditor = { ...editor };

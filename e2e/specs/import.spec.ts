@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
+import { test } from '../test-fixtures';
 
 const sources = {
   'GitHub gist': 'https://gist.github.com/hatemhosny/406b6775436e136cb913ad3376f411b2',

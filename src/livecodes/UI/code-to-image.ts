@@ -1,3 +1,6 @@
+import { prismThemes } from '../editor/codejar/prism-themes';
+import { fonts } from '../editor/fonts';
+import { codeToImageScreen } from '../html';
 import type {
   CodeEditor,
   CodejarTheme,
@@ -9,9 +12,6 @@ import type {
   Modal,
   Notifications,
 } from '../models';
-import { codeToImageScreen } from '../html';
-import { fonts } from '../editor/fonts';
-import { prismThemes } from '../editor/codejar/prism-themes';
 import {
   colorToRgba,
   copyImage,

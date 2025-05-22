@@ -1,10 +1,10 @@
+import { iconDelete as deleteIcon } from '../UI/icons';
 import type { DeployResult } from '../deploy';
+import { addAssetScreen, assetsScreen } from '../html';
 import type { Asset, EventsManager, FileType, Modal, Notifications, Screen, User } from '../models';
 import type { GitHubFile } from '../services/github';
 import { generateId, type Storage } from '../storage';
-import { addAssetScreen, assetsScreen } from '../html';
 import { copyToClipboard, isMobile, loadScript } from '../utils/utils';
-import { iconDelete as deleteIcon } from '../UI/icons';
 import { flexSearchUrl } from '../vendors';
 import {
   getAddAssetButton,

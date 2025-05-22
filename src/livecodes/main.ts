@@ -1,11 +1,11 @@
+import { customEvents } from './events/custom-events';
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
-import { customEvents } from './events/custom-events';
 import type { API, CDN, Config, CustomEvents, EmbedOptions } from './models';
+import { modulesService } from './services/modules';
 import { isInIframe } from './utils/utils';
 import { codeMirrorBaseUrl, esModuleShimsPath } from './vendors';
-import { modulesService } from './services/modules';
 
 export type { API, Config };
 

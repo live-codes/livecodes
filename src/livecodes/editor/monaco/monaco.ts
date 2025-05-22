@@ -1,19 +1,22 @@
 import type * as Monaco from 'monaco-editor';
 
+import { getEditorModeNode } from '../../UI/selectors';
+import { getImports } from '../../compiler/import-map';
 import type {
+  APIError,
+  CodeEditor,
+  Config,
+  EditorConfig,
   EditorLibrary,
+  EditorOptions,
+  EditorPosition,
   FormatFn,
   Language,
-  CodeEditor,
-  EditorOptions,
-  Theme,
-  EditorPosition,
-  EditorConfig,
-  PkgInfo,
-  APIError,
   MonacoTheme,
-  Config,
+  PkgInfo,
+  Theme,
 } from '../../models';
+import { pkgInfoService } from '../../services/pkgInfo';
 import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
 import {
   codeiumProviderUrl,
@@ -24,9 +27,6 @@ import {
   monacoVolarUrl,
   vendorsBaseUrl,
 } from '../../vendors';
-import { getImports } from '../../compiler/import-map';
-import { getEditorModeNode } from '../../UI/selectors';
-import { pkgInfoService } from '../../services/pkgInfo';
 import { getEditorTheme } from '../themes';
 import { getCompilerOptions, hasJsx } from '../ts-compiler-options';
 import { customThemes, monacoThemes } from './monaco-themes';

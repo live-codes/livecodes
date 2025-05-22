@@ -1,8 +1,8 @@
-import type { CompilerFunction, Config } from '../../models';
-import type { LanguageOrProcessor } from '../../compiler/models';
-import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { compileAllBlocks, exportDefaultImports } from '../../compiler/compile-blocks';
+import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
+import type { LanguageOrProcessor } from '../../compiler/models';
+import type { CompilerFunction, Config } from '../../models';
 import { getRandomString, replaceAsync } from '../../utils/utils';
 import { getLanguageByAlias } from '../utils';
 

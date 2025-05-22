@@ -1,4 +1,4 @@
-import type { Config, CompileOptions, CompileResult } from '../models';
+import type { CompileOptions, CompileResult, Config } from '../models';
 import type { LanguageOrProcessor } from './models';
 import { getCompileResult } from './utils';
 

@@ -1,4 +1,4 @@
-import type { Language, Config } from '../models';
+import type { Config, Language } from '../models';
 import { createFormatter } from './formatter';
 import type { Formatter } from './models';
 

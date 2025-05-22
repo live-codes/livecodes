@@ -1,6 +1,6 @@
 import type { Config, LanguageSpecs } from '../../models';
-import { typescriptUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
+import { typescriptUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const hasCustomJsxRuntime = (code: string, config: Config) => {

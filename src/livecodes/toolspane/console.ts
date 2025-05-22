@@ -1,19 +1,19 @@
 import LunaConsole from 'luna-console';
+import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '../UI';
+import { getEditorConfig } from '../config';
 import { createEditor, getFontFamily } from '../editor';
+import { getLanguageExtension, mapLanguage } from '../languages';
 import type {
-  Editors,
+  CodeEditor,
   Config,
   Console,
-  CodeEditor,
   EditorOptions,
-  Theme,
+  Editors,
   EventsManager,
+  Theme,
 } from '../models';
-import { isMobile, preventFocus } from '../utils';
 import { sandboxService } from '../services';
-import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '../UI';
-import { getLanguageExtension, mapLanguage } from '../languages';
-import { getEditorConfig } from '../config';
+import { isMobile, preventFocus } from '../utils';
 
 export const createConsole = (
   config: Config,

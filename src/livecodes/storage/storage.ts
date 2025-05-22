@@ -1,8 +1,8 @@
-import { localforageUrl } from '../vendors';
 import { createPub } from '../events';
 import { loadScript } from '../utils/utils';
-import type { Storage, StoreName } from './models';
+import { localforageUrl } from '../vendors';
 import { fakeStorage } from './fake-storage';
+import type { Storage, StoreName } from './models';
 
 type LocalForage = typeof import('localforage');
 let localforage: LocalForage;

@@ -1,7 +1,7 @@
-import type { CompilerFunction } from '../../models';
 import { compileAllBlocks } from '../../compiler';
-import { acornUrl, astringUrl, cjs2esUrl, csstreeUrl, malinaBaseUrl } from '../../vendors';
+import type { CompilerFunction } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
+import { acornUrl, astringUrl, cjs2esUrl, csstreeUrl, malinaBaseUrl } from '../../vendors';
 
 (self as any).createMalinaCompiler = (): CompilerFunction => {
   (self as any).importScripts(acornUrl, astringUrl, csstreeUrl, cjs2esUrl);

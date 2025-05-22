@@ -1,14 +1,14 @@
-import { createStores, initializeSimpleStores, type Stores } from '../storage';
-import { getAppCDN } from '../services/modules';
-import { callWorker } from '../utils/utils';
 import type { WorkerMessageEvent } from '../models';
+import { getAppCDN } from '../services/modules';
+import { createStores, initializeSimpleStores, type Stores } from '../storage';
+import { callWorker } from '../utils/utils';
 import type { SyncMessageEvent } from './models';
 import type {
-  workerSync,
-  workerExportToLocalSync,
   workerExportStoreAsBase64Update,
-  workerRestoreFromUpdate,
+  workerExportToLocalSync,
   workerRestoreFromLocalSync,
+  workerRestoreFromUpdate,
+  workerSync,
 } from './sync.worker';
 
 type SyncMethod = SyncMessageEvent['data']['method'];

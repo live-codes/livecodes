@@ -140,6 +140,7 @@
     "postcss": "8.4.6",
     "postcss-cli": "9.1.0",
     "prettier": "3.2.5",
+    "prettier-plugin-organize-imports": "4.1.0",
     "recursive-fs": "2.1.0",
     "sass": "1.49.7",
     "stylelint": "14.5.0",
@@ -154,7 +155,8 @@
     "semi": true,
     "singleQuote": true,
     "trailingComma": "all",
-    "printWidth": 100
+    "printWidth": 100,
+    "plugins": ["prettier-plugin-organize-imports"]
   },
   "jest": {
     "preset": "ts-jest",

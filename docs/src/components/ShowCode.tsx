@@ -1,12 +1,12 @@
 /* eslint-disable import/no-unresolved */
 
-import { useState, useRef, useEffect, type ReactNode } from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import CodeBlock from '@theme/CodeBlock';
-import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import detailsStyles from '../../node_modules/@docusaurus/theme-common/src/components/Details/styles.module.css';
+import Tabs from '@theme/Tabs';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import detailsStyles2 from '../../node_modules/@docusaurus/theme-classic/src/theme/Details/styles.module.css';
+import detailsStyles from '../../node_modules/@docusaurus/theme-common/src/components/Details/styles.module.css';
 
 export default function ShowCode(props: {
   js: string;

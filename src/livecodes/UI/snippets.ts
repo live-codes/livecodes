@@ -1,20 +1,20 @@
-import type {
-  Snippet,
-  CodeEditor,
-  EditorOptions,
-  Modal,
-  Screen,
-  Language,
-  AppData,
-  Notifications,
-  EventsManager,
-} from '../models';
-import { generateId, type Storage } from '../storage';
 import { addSnippetScreen, snippetsScreen } from '../html';
 import { getLanguageTitle, languages } from '../languages';
+import type {
+  AppData,
+  CodeEditor,
+  EditorOptions,
+  EventsManager,
+  Language,
+  Modal,
+  Notifications,
+  Screen,
+  Snippet,
+} from '../models';
+import { generateId, type Storage } from '../storage';
+import { copy as copyIcon, iconDelete as deleteIcon, edit as editIcon } from '../UI/icons';
 import { copyToClipboard, isMobile, loadScript } from '../utils';
 import { flexSearchUrl } from '../vendors';
-import { edit as editIcon, copy as copyIcon, iconDelete as deleteIcon } from '../UI/icons';
 
 import {
   getAddSnippetButton,

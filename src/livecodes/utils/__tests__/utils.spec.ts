@@ -1,6 +1,6 @@
 import { debounce, decodeHTML, encodeHTML, safeName, toCamelCase } from '..';
-import { compress, decompress } from '../compression';
 import { defaultConfig } from '../../config';
+import { compress, decompress } from '../compression';
 
 describe('utils', () => {
   test('debounce', async () => {

@@ -1,17 +1,17 @@
+import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type {
+  Config,
   EditorId,
   Language,
-  Config,
+  Processor,
   Tool,
   ToolsPaneStatus,
   UrlQueryParams,
-  Processor,
 } from '../models';
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { cloneObject, decodeHTML, removeDuplicates } from '../utils';
 import { decompress } from '../utils/compression';
 import { defaultConfig } from './default-config';
-import { upgradeAndValidate } from '.';
+import { upgradeAndValidate } from './index';
 
 /**
  * Builds and validates a configuration object by merging default config with user config and URL params
