@@ -15,14 +15,9 @@ import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView, keymap, type KeyBinding, type ViewUpdate } from '@codemirror/view';
 // @ts-ignore
 import { redo, undo } from '@codemirror/commands';
-import {
-  HighlightStyle,
-  defaultHighlightStyle,
-  foldEffect,
-  indentUnit,
-  syntaxHighlighting,
-  type LanguageSupport,
-} from '@codemirror/language';
+// prettier-ignore
+// @ts-ignore
+import { HighlightStyle,defaultHighlightStyle,foldEffect,indentUnit,syntaxHighlighting,type LanguageSupport } from '@codemirror/language';
 // @ts-ignore
 import { tags } from '@lezer/highlight';
 // @ts-ignore
