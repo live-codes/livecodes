@@ -1,28 +1,31 @@
 import { getPlaygroundUrl } from '../sdk';
-import { createCustomEditors, createEditor, getFontFamily } from './editor';
 import {
-  getLanguageByAlias,
-  getLanguageCompiler,
-  getLanguageEditorId,
-  getLanguageExtension,
-  getLanguageSpecs,
-  getLanguageTitle,
-  languageIsEnabled,
-  languages,
-  mapLanguage,
-  processorIsEnabled,
-  processors,
-} from './languages';
-import {
-  createStores,
-  fakeStorage,
-  initializeStores,
-  type StorageItem,
-  type Stores,
-} from './storage';
-
+  createLoginContainer,
+  createOpenItem,
+  createProjectInfoUI,
+  createSplitPanes,
+  createStarterTemplateLink,
+  createTemplatesContainer,
+  displayLoggedIn,
+  displayLoggedOut,
+  getFullscreenButton,
+  getResultElement,
+  loadingMessage,
+  noUserTemplates,
+} from './UI';
+import type {
+  BroadcastData,
+  BroadcastInfo,
+  BroadcastResponseData,
+  BroadcastResponseError,
+} from './UI/broadcast';
+import { getCommandMenuActions } from './UI/command-menu-actions';
+import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
+import { createModal } from './UI/modal';
+import * as UI from './UI/selectors';
+import { themeColors } from './UI/theme-colors';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
-import { cjs2esm, getAllCompilers, getCompiler, getCompileResult } from './compiler';
+import { cjs2esm, getAllCompilers, getCompileResult, getCompiler } from './compiler';
 import {
   buildConfig,
   defaultConfig,
@@ -35,6 +38,7 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
+import { createCustomEditors, createEditor, getFontFamily } from './editor';
 import { hasJsx } from './editor/ts-compiler-options';
 import { createEventsManager, createPub } from './events';
 import { customEvents } from './events/custom-events';
@@ -63,8 +67,22 @@ import type {
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
 import { isGithub } from './import/check-src';
+import { importCompressedCode } from './import/code';
 import { importFromFiles } from './import/files';
 import { populateConfig } from './import/utils';
+import {
+  getLanguageByAlias,
+  getLanguageCompiler,
+  getLanguageEditorId,
+  getLanguageExtension,
+  getLanguageSpecs,
+  getLanguageTitle,
+  languageIsEnabled,
+  languages,
+  mapLanguage,
+  processorIsEnabled,
+  processors,
+} from './languages';
 import type {
   API,
   APICommands,
@@ -91,8 +109,8 @@ import type {
   Modal,
   Notifications,
   Processor,
-  Screen,
   SDKEvent,
+  Screen,
   ShareData,
   Template,
   TestResult,
@@ -108,34 +126,16 @@ import { cleanResultFromDev, createResultPage } from './result';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import type { GitHubFile } from './services/github';
 import { permanentUrlService } from './services/permanent-url';
+import {
+  createStores,
+  fakeStorage,
+  initializeStores,
+  type StorageItem,
+  type Stores,
+} from './storage';
 import { getStarterTemplates, getTemplate } from './templates';
 import { createToolsPane } from './toolspane';
 import { createTypeLoader, getDefaultTypes } from './types';
-import {
-  createLoginContainer,
-  createOpenItem,
-  createProjectInfoUI,
-  createSplitPanes,
-  createStarterTemplateLink,
-  createTemplatesContainer,
-  displayLoggedIn,
-  displayLoggedOut,
-  getFullscreenButton,
-  getResultElement,
-  loadingMessage,
-  noUserTemplates,
-} from './UI';
-import type {
-  BroadcastData,
-  BroadcastInfo,
-  BroadcastResponseData,
-  BroadcastResponseError,
-} from './UI/broadcast';
-import { getCommandMenuActions } from './UI/command-menu-actions';
-import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
-import { createModal } from './UI/modal';
-import * as UI from './UI/selectors';
-import { themeColors } from './UI/theme-colors';
 import {
   capitalize,
   colorToHex,
@@ -149,8 +149,8 @@ import {
   loadStylesheet,
   predefinedValues,
   safeName,
-  stringify,
   stringToValidJson,
+  stringify,
   toDataUrl,
 } from './utils';
 import {
@@ -165,8 +165,6 @@ import {
   ninjaKeysUrl,
   snackbarUrl,
 } from './vendors';
-
-import { importCompressedCode } from './import/code';
 
 // declare global dependencies
 declare global {
