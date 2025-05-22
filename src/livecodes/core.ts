@@ -62,7 +62,7 @@ import type {
   I18nValueType,
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
-import { isCompressedCode, isGithub } from './import/check-src';
+import { isGithub } from './import/check-src';
 import { importFromFiles } from './import/files';
 import { populateConfig } from './import/utils';
 import type {
@@ -5240,19 +5240,21 @@ const configureModes = ({
 
 const importExternalContent = async (options: {
   config?: Config;
+  sdkConfig?: Partial<Config>;
   configUrl?: string;
   template?: string;
-  url?: string;
+  importUrl?: string;
 }): Promise<boolean> => {
-  const { config = defaultConfig, configUrl, template, url } = options;
+  const { config = defaultConfig, sdkConfig, configUrl, template, importUrl } = options;
   const hasContentUrls = (conf: Partial<Config>) =>
     editorIds.filter(
       (editorId) =>
         (conf[editorId]?.contentUrl && !conf[editorId]?.content) ||
         (conf[editorId]?.hiddenContentUrl && !conf[editorId]?.hiddenContent),
     ).length > 0;
+  const validConfigUrl = getValidUrl(configUrl);
 
-  if (!configUrl && !template && !url && !hasContentUrls(config)) return false;
+  if (!validConfigUrl && !template && !importUrl && !hasContentUrls(config)) return false;
 
   const loadingMessage = window.deps.translateString('core.import.loading', 'Loading Project...');
   notifications.info(loadingMessage);
@@ -5278,16 +5280,16 @@ const importExternalContent = async (options: {
       );
     }
   }
-  if (url) {
-    let validUrl = url;
-    if (url.startsWith('http') || url.startsWith('data')) {
+  if (importUrl) {
+    let validUrl = importUrl;
+    if (importUrl.startsWith('http') || importUrl.startsWith('data')) {
       try {
-        validUrl = new URL(url).href;
+        validUrl = new URL(importUrl).href;
       } catch {
-        validUrl = decodeURIComponent(url);
+        validUrl = decodeURIComponent(importUrl);
       }
     }
-    // import code from hash: code / github / github gist / url html / ...etc
+    // import code from hash: github / github gist / url html / ...etc
     let user;
     if (isGithub(validUrl) && !isEmbed) {
       await initializeAuth();
@@ -5296,6 +5298,12 @@ const importExternalContent = async (options: {
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     urlConfig = await importModule.importCode(validUrl, params, getConfig(), user, baseUrl);
+
+    if (Object.keys(urlConfig).length === 0) {
+      notifications.error(
+        window.deps.translateString('core.error.invalidImport', 'Invalid import URL'),
+      );
+    }
   }
 
   if (hasContentUrls(config)) {
@@ -5326,34 +5334,22 @@ const importExternalContent = async (options: {
     };
   }
 
-  const validConfigUrl = getValidUrl(configUrl);
   if (validConfigUrl) {
     configUrlConfig = upgradeAndValidate(
       await fetch(validConfigUrl)
         .then((res) => res.json())
         .catch(() => ({})),
     );
-  } else {
-    // the url is config=code/...
-    const searchParams = new URLSearchParams(url);
-    if (searchParams.get('config') && isCompressedCode(searchParams.get('config') ?? '')) {
-      configUrlConfig = importCompressedCode(searchParams.get('config')!);
+    if (hasContentUrls(configUrlConfig)) {
+      return importExternalContent({ ...options, config: { ...config, ...configUrlConfig } });
     }
-  }
-  if (configUrlConfig && hasContentUrls(configUrlConfig)) {
-    return importExternalContent({ config: { ...config, ...configUrlConfig } });
-  }
-
-  if (Object.keys(urlConfig).length === 0 && !configUrlConfig) {
-    notifications.error(
-      window.deps.translateString('core.error.invalidImport', 'Invalid import URL'),
-    );
   }
 
   await loadConfig(
     buildConfig({
       ...config,
       ...templateConfig,
+      ...sdkConfig,
       ...urlConfig,
       ...contentUrlConfig,
       ...configUrlConfig,
@@ -5422,24 +5418,27 @@ const initializePlayground = async (
   initializeFn?: () => void | Promise<void>,
 ) => {
   const appConfig = options?.config ?? {};
+  const codeImportConfig = importCompressedCode(params.x ?? '');
+  const sdkConfig = importCompressedCode(params.config ?? '');
+  const initialConfig = { ...codeImportConfig, ...appConfig, ...sdkConfig };
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isHeadless = options?.isHeadless ?? false;
   isLite =
     params.mode === 'lite' ||
     (params.lite != null && params.lite !== false) || // for backward compatibility
-    appConfig.mode === 'lite' ||
+    initialConfig.mode === 'lite' ||
     false;
   isEmbed =
     isHeadless ||
     isLite ||
     (options?.isEmbed ?? false) ||
-    appConfig.mode === 'simple' ||
+    initialConfig.mode === 'simple' ||
     params.mode === 'simple';
 
   window.history.replaceState(null, '', './'); // fix URL from "/app" to "/"
   await initializeStores(stores, isEmbed);
-  loadUserConfig(/* updateUI = */ false);
-  setConfig(buildConfig({ ...getConfig(), ...appConfig }));
+  const userConfig = stores.userConfig?.getValue() ?? {};
+  setConfig(buildConfig({ ...getConfig(), ...userConfig, ...initialConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = (window as any).compiler = await getCompiler({
     config: getConfig(),
@@ -5470,9 +5469,10 @@ const initializePlayground = async (
   }
   importExternalContent({
     config: getConfig(),
+    sdkConfig,
     configUrl: params.config,
     template: params.template,
-    url: params.x || parent.location.hash.substring(1),
+    importUrl: Object.keys(codeImportConfig).length > 0 ? '' : params.x, // do not re-import compressed code
   }).then(async (contentImported) => {
     if (!contentImported) {
       loadSelectedScreen();
