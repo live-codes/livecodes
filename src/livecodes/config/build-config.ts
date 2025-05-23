@@ -140,6 +140,7 @@ export const getParams = (
     if (params[key] === 'true') params[key] = true;
     if (params[key] === 'false') params[key] = false;
   });
+  params.x ??= params.import;
   return params;
 };
 
