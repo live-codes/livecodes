@@ -5253,7 +5253,7 @@ const importExternalContent = async (options: {
     ).length > 0;
   const validConfigUrl = getValidUrl(configUrl);
   if (importUrl?.startsWith('config') || importUrl?.startsWith('params')) {
-    importUrl = ''; // // do not re-import compressed code and hash params
+    importUrl = ''; // ignore hash params
   }
 
   if (!validConfigUrl && !template && !importUrl && !hasContentUrls(config)) return false;
@@ -5262,7 +5262,7 @@ const importExternalContent = async (options: {
   notifications.info(loadingMessage);
 
   let templateConfig: Partial<Config> = {};
-  let urlConfig: Partial<Config> = {};
+  let importUrlConfig: Partial<Config> = {};
   let contentUrlConfig: Partial<Config> = {};
   let configUrlConfig: Partial<Config> = {};
 
@@ -5283,25 +5283,25 @@ const importExternalContent = async (options: {
     }
   }
   if (importUrl) {
-    let validUrl = importUrl;
+    let validImportUrl = importUrl;
     if (importUrl.startsWith('http') || importUrl.startsWith('data')) {
       try {
-        validUrl = new URL(importUrl).href;
+        validImportUrl = new URL(importUrl).href;
       } catch {
-        validUrl = decodeURIComponent(importUrl);
+        validImportUrl = decodeURIComponent(importUrl);
       }
     }
     // import code from hash: github / github gist / url html / ...etc
     let user;
-    if (isGithub(validUrl) && !isEmbed) {
+    if (isGithub(validImportUrl) && !isEmbed) {
       await initializeAuth();
       user = await authService?.getUser();
     }
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
-    urlConfig = await importModule.importCode(validUrl, params, getConfig(), user, baseUrl);
+    importUrlConfig = await importModule.importCode(validImportUrl, params, config, user, baseUrl);
 
-    if (Object.keys(urlConfig).length === 0) {
+    if (Object.keys(importUrlConfig).length === 0) {
       notifications.error(
         window.deps.translateString('core.error.invalidImport', 'Invalid import URL'),
       );
@@ -5351,10 +5351,10 @@ const importExternalContent = async (options: {
     buildConfig({
       ...config,
       ...templateConfig,
-      ...sdkConfig,
-      ...urlConfig,
-      ...contentUrlConfig,
+      ...importUrlConfig,
       ...configUrlConfig,
+      ...sdkConfig,
+      ...contentUrlConfig,
     }),
     parent.location.href,
     false,
