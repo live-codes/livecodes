@@ -5243,7 +5243,8 @@ const importExternalContent = async (options: {
   template?: string;
   importUrl?: string;
 }): Promise<boolean> => {
-  const { config = defaultConfig, sdkConfig, configUrl, template, importUrl } = options;
+  const { config = defaultConfig, sdkConfig, configUrl, template } = options;
+  let importUrl = options.importUrl;
   const hasContentUrls = (conf: Partial<Config>) =>
     editorIds.filter(
       (editorId) =>
@@ -5251,6 +5252,9 @@ const importExternalContent = async (options: {
         (conf[editorId]?.hiddenContentUrl && !conf[editorId]?.hiddenContent),
     ).length > 0;
   const validConfigUrl = getValidUrl(configUrl);
+  if (importUrl?.startsWith('config') || importUrl?.startsWith('params')) {
+    importUrl = ''; // // do not re-import compressed code and hash params
+  }
 
   if (!validConfigUrl && !template && !importUrl && !hasContentUrls(config)) return false;
 
@@ -5415,8 +5419,9 @@ const initializePlayground = async (
   },
   initializeFn?: () => void | Promise<void>,
 ) => {
+  const importUrl = params.x || parent.location.hash.substring(1); // for backward compatibility
   const appConfig = options?.config ?? {};
-  const codeImportConfig = importCompressedCode(params.x ?? '');
+  const codeImportConfig = importCompressedCode(importUrl);
   const sdkConfig = importCompressedCode(params.config ?? '');
   const initialConfig = { ...codeImportConfig, ...appConfig, ...sdkConfig };
   baseUrl = options?.baseUrl ?? '/livecodes/';
@@ -5470,7 +5475,7 @@ const initializePlayground = async (
     sdkConfig,
     configUrl: params.config,
     template: params.template,
-    importUrl: Object.keys(codeImportConfig).length > 0 ? '' : params.x, // do not re-import compressed code
+    importUrl: Object.keys(codeImportConfig).length > 0 ? '' : importUrl, // do not re-import compressed code
   }).then(async (contentImported) => {
     if (!contentImported) {
       loadSelectedScreen();
