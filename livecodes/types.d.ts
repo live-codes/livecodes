@@ -815,7 +815,7 @@ declare module "sdk/models" {
     /**
      * Language name, alias or extension.
      */
-    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react' | 'react-jsx' | 'react.jsx' | 'react-tsx' | 'react.tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'vue-app' | 'app.vue' | 'svelte' | 'svelte-app' | 'app.svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'java' | 'csharp' | 'csharp-wasm' | 'cs' | 'cs-wasm' | 'wasm.cs' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
+    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'jinja' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react' | 'react-jsx' | 'react.jsx' | 'react-tsx' | 'react.tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'vue-app' | 'app.vue' | 'svelte' | 'svelte-app' | 'app.svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'java' | 'csharp' | 'csharp-wasm' | 'cs' | 'cs-wasm' | 'wasm.cs' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
     export interface Editor {
         /**
          * A language name, extension or alias (as defined in [language documentations](https://livecodes.io/docs/languages/)).
@@ -1276,6 +1276,7 @@ declare module "sdk/models" {
     } & {
         [key in languageSelector]: string;
     } & {
+        sdkVersion: string;
         config: string;
         embed: boolean;
         preview: boolean;
@@ -1300,7 +1301,10 @@ declare module "sdk/models" {
         [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none' | '' | 'true';
     }>;
     export interface CustomEvents {
+        init: 'livecodes-init';
+        /** @deprecated config is sent in hash params */
         getConfig: 'livecodes-get-config';
+        /** @deprecated config is sent in hash params */
         config: 'livecodes-config';
         load: 'livecodes-load';
         appLoaded: 'livecodes-app-loaded';
@@ -1393,6 +1397,176 @@ declare module "livecodes/models" {
         keepOpen?: boolean;
     }
 }
+declare module "livecodes/utils/utils" {
+    import type { Config, Language, Processor } from "livecodes/models";
+    export const debounce: (fn: (...x: any[]) => any, delay: number | (() => number)) => (...args: unknown[]) => void;
+    export const decodeHTML: (html: string) => string;
+    export const encodeHTML: (html: string) => string;
+    export const escapeScript: (code: string) => string;
+    export const escapeCode: (code: string, slash?: boolean) => string;
+    export const pipe: (...fns: Function[]) => Function;
+    export const safeName: (name: string, symbol?: string) => string;
+    export const isMobile: () => boolean;
+    export const isMac: () => boolean;
+    export const ctrl: (e: KeyboardEvent) => boolean;
+    export const isFirefox: () => boolean;
+    export const isRelativeUrl: (url?: string) => boolean;
+    export const getAbsoluteUrl: (url: string, baseUrl?: string) => string;
+    export const cloneObject: <T>(x: Record<string, any>) => T;
+    export const objectMap: (obj: Record<string, any>, fn: (value: any, key: string, index: number) => any) => {
+        [k: string]: any;
+    };
+    export const objectFilter: (obj: Record<string, any>, predicate: (value: any, key: string, index: number) => any) => {
+        [k: string]: any;
+    };
+    export const copyToClipboard: (text: string) => boolean | Promise<void>;
+    export const copyImage: (image: Blob, type: 'png' | 'jpg' | 'svg') => Promise<boolean>;
+    export const stringToValidJson: (str: string) => string;
+    export const stringify: (obj: any, pretty?: boolean) => string;
+    export const getRandomString: () => string;
+    export const downloadFile: (filename: string, extension: string, content: string) => void;
+    export const loadScript: (url: string, name?: string) => Promise<unknown>;
+    export const loadStylesheet: (url: string, id?: string, insertBefore?: string) => void;
+    export const typedArrayToBuffer: (array: Uint8Array) => ArrayBuffer;
+    export const getDate: () => string;
+    export const handleFetchError: (res: Response) => Response | Promise<never>;
+    export const fetchWithHandler: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+    export const blobToBase64: (file: Blob) => Promise<string>;
+    export const Uint8ArrayToBase64: (u8: Uint8Array) => string;
+    export const base64ToUint8Array: (str: string) => Uint8Array;
+    export const typedArraysAreEqual: (a: Uint8Array, b: Uint8Array) => boolean;
+    export const toDataUrl: (content: string, type?: string) => string;
+    export const getWorkerDataURL: (url: string) => string;
+    export const createWorkerFromContent: (content: string) => Worker;
+    export const removeComments: (src: string) => string;
+    export const removeStrings: (src: string) => string;
+    export const removeCommentsAndStrings: (src: string) => string;
+    export const getLanguageCustomSettings: (language: Language | Processor, config: Config) => any;
+    export const getValidUrl: (url?: string) => string | null;
+    export const runOrContinue: <T>(fn: (x: T) => Promise<T>, catchFn?: (err: unknown) => void) => (x: T) => Promise<T>;
+    export const getFileExtension: (file: string) => string;
+    export const isInIframe: () => boolean;
+    export const indentCode: (code: string, spaces: number, skipFirstLine?: boolean) => string;
+    export const hideOnClickOutside: (element: HTMLElement) => {
+        clear: () => void;
+    };
+    export const callWorker: <T = string, K = unknown>(worker: Worker, message: {
+        method: T;
+        args?: any;
+    }) => Promise<K>;
+    export const capitalize: (str: string) => string;
+    export const toCamelCase: (str: string) => string;
+    export const removeDuplicates: (arr: any[] | undefined) => any[];
+    export const replaceAsync: (str: string, regexp: RegExp, asyncFn: (...args: any) => Promise<string>) => Promise<string>;
+    export const addAttrs: (el: HTMLElement, attributes: Record<string, string> | string) => void;
+    /**
+     * Bypasses the AMD module definition system by temporarily disabling it while executing the given function.
+     *
+     * @param fn - The function to execute.
+     * @return The result of executing the function.
+     */
+    export const bypassAMD: <T = any>(fn: () => Promise<T>) => Promise<T>;
+    /**
+     * Returns an async function that ensures the given asynchronous function is executed only once and awaits the previous executions.
+     *
+     * @param {() => Promise<void>} fn - The asynchronous function to be executed once.
+     * @return {() => Promise<void>} An async function that, when called multiple times, executes the given function if it hasn't been executed before or awaits the previous execution.
+     */
+    export const doOnce: (fn: () => Promise<void>) => () => Promise<void>;
+    export const evaluateCssCalc: (expression: string) => string;
+    export const colorToRgba: (name: string) => {
+        r: number;
+        g: number;
+        b: number;
+        a: number;
+    };
+    export const colorToHsla: (color: string) => {
+        h: number;
+        s: number;
+        l: number;
+        a: number;
+    };
+    export const colorToHex: (color: string) => string;
+    type ValueOf<T> = T[keyof T];
+    type NonEmptyArray<T> = [T, ...T[]];
+    type MustInclude<T, U extends T[]> = [T] extends [ValueOf<U>] ? U : never;
+    /**
+     * converts TypeScript string union to array
+     * see https://stackoverflow.com/a/70694878/5054774
+     */
+    export const stringUnionToArray: <T>() => <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) => MustInclude<T, U>;
+    export const preventFocus: (container: HTMLElement) => void;
+    export const findFirstFocusableElement: (container: HTMLElement) => Element | undefined;
+    export const isFocusable: (item: any | null) => boolean;
+    /**
+     * Compares two objects and returns a list of keys of source object
+     * whose values are different from the destination object.
+     */
+    export const compareObjects: (srcObj: Record<string, unknown>, dstObj: Record<string, unknown>) => string[];
+    export const predefinedValues: {
+        readonly APP_VERSION: string;
+        readonly SDK_VERSION: string;
+        readonly COMMIT_SHA: string;
+        readonly REPO_URL: string;
+        readonly DOCS_BASE_URL: string;
+    };
+}
+declare module "livecodes/html/index" {
+    const resultTemplate: string;
+    const appHTML: string;
+    const menuProjectHTML: string;
+    const menuSettingsHTML: string;
+    const menuHelpHTML: string;
+    const languageInfo: string;
+    const customSettingsScreen: string;
+    const testEditorScreen: string;
+    const importScreen: string;
+    const deployScreen: string;
+    const syncScreen: string;
+    const backupScreen: string;
+    const broadcastScreen: string;
+    const welcomeScreen: string;
+    const aboutScreen: string;
+    const infoScreen: string;
+    const resourcesScreen: string;
+    const keyboardShortcutsScreen: string;
+    const loginScreen: string;
+    const savePromptScreen: string;
+    const recoverPromptScreen: string;
+    const templatesScreen: string;
+    const openScreen: string;
+    const assetsScreen: string;
+    const addAssetScreen: string;
+    const snippetsScreen: string;
+    const addSnippetScreen: string;
+    const shareScreen: string;
+    const embedScreen: string;
+    const editorSettingsScreen: string;
+    const codeToImageScreen: string;
+    const resultPopupHTML: string;
+    export { aboutScreen, addAssetScreen, addSnippetScreen, appHTML, assetsScreen, backupScreen, broadcastScreen, codeToImageScreen, customSettingsScreen, deployScreen, editorSettingsScreen, embedScreen, importScreen, infoScreen, keyboardShortcutsScreen, languageInfo, loginScreen, menuHelpHTML, menuProjectHTML, menuSettingsHTML, openScreen, recoverPromptScreen, resourcesScreen, resultPopupHTML, resultTemplate, savePromptScreen, shareScreen, snippetsScreen, syncScreen, templatesScreen, testEditorScreen, welcomeScreen, };
+}
+declare module "livecodes/utils/compression" {
+    export const compress: (uncompressed: string) => string;
+    export const decompress: (compressed: string, isJSON?: boolean) => string | null;
+}
+declare module "livecodes/sync/diff" {
+    import * as DeepDiff from 'deep-diff';
+    import * as Y from 'yjs';
+    export { DeepDiff, Y };
+    export function toJSON<T>(source: unknown): T;
+    export function applyChange<LHS = any, RHS = any>(target: any, change: DeepDiff.Diff<LHS, RHS>): void;
+}
+declare module "livecodes/sync/models" {
+    import type { WorkerMessageEvent } from "livecodes/models";
+    export type SyncMethod = 'sync' | 'exportToLocalSync' | 'exportStoreAsBase64Update' | 'restoreFromUpdate' | 'restoreFromLocalSync';
+    export type SyncMessageEvent = WorkerMessageEvent<SyncMethod>;
+    export interface StoredSyncData {
+        lastModified: number;
+        data: Uint8Array;
+        lastSyncSha: string;
+    }
+}
 declare module "livecodes/services/modules" {
     import type { CDN } from "livecodes/models";
     export const modulesService: {
@@ -1410,6 +1584,78 @@ declare module "livecodes/services/modules" {
         checkCDNs: (testModule: string, preferredCDN?: CDN) => Promise<CDN>;
     };
     export const getAppCDN: () => CDN;
+}
+declare module "livecodes/services/github" {
+    import type { User } from "livecodes/models";
+    export interface GitHubFile {
+        path: string;
+        content: string;
+    }
+    export const getGithubHeaders: (user: User, mediaType?: 'object' | 'raw') => {
+        Accept: string;
+        'Content-Type': string;
+        Authorization: string;
+    };
+    export const repoExists: (user: User, repo: string) => Promise<boolean>;
+    export const getContent: ({ user, repo, branch, path, }: {
+        user: User;
+        repo: string;
+        branch?: string;
+        path: string;
+    }) => Promise<any>;
+    export const commitFiles: ({ files, user, repo, branch, message, newRepo, privateRepo, description, readmeContent, clearPrevious, }: {
+        files: GitHubFile[];
+        user: User;
+        repo: string;
+        branch: string;
+        message: string;
+        newRepo?: boolean;
+        privateRepo?: boolean;
+        description?: string;
+        readmeContent?: string;
+        clearPrevious?: boolean;
+    }) => Promise<{
+        tree: string;
+        commit: string;
+    } | null>;
+    export const commitFile: ({ file, user, repo, branch, message, newRepo, privateRepo, description, readmeContent, }: {
+        file: GitHubFile;
+        user: User;
+        repo: string;
+        branch: string;
+        message: string;
+        newRepo?: boolean;
+        privateRepo?: boolean;
+        description?: string;
+        readmeContent?: string;
+    }) => Promise<{
+        tree: any;
+        commit: any;
+    } | null>;
+    export const getUserRepos: (user: User, reposType?: 'all' | 'owner' | 'public' | 'private' | 'member') => Promise<any[]>;
+}
+declare module "livecodes/events/custom-events" {
+    import type { CustomEvents } from "livecodes/models";
+    export const customEvents: CustomEvents;
+}
+declare module "livecodes/events/events" {
+    import type { EventsManager } from "livecodes/models";
+    export const createEventsManager: () => EventsManager;
+}
+declare module "livecodes/events/pub" {
+    export const createPub: <T>() => {
+        subscribe: (fn: (data: T) => void) => {
+            unsubscribe: () => void;
+        };
+        notify: (data: T) => void;
+        hasSubscribers: () => boolean;
+        unsubscribeAll: () => void;
+    };
+}
+declare module "livecodes/events/index" {
+    export * from "livecodes/events/custom-events";
+    export * from "livecodes/events/events";
+    export * from "livecodes/events/pub";
 }
 declare module "livecodes/vendors" {
     export const vendorsBaseUrl: string;
@@ -1590,954 +1836,24 @@ declare module "livecodes/vendors" {
     export const waveDromBaseUrl: string;
     export const webRBaseUrl: string;
 }
-declare module "livecodes/languages/css-presets" {
-    import type { CssPreset } from "livecodes/models";
-    export const cssPresets: CssPreset[];
-}
-declare module "livecodes/utils/utils" {
-    import type { Config, Language, Processor } from "livecodes/models";
-    export const debounce: (fn: (...x: any[]) => any, delay: number | (() => number)) => (...args: unknown[]) => void;
-    export const decodeHTML: (html: string) => string;
-    export const encodeHTML: (html: string) => string;
-    export const escapeScript: (code: string) => string;
-    export const escapeCode: (code: string, slash?: boolean) => string;
-    export const pipe: (...fns: Function[]) => Function;
-    export const safeName: (name: string, symbol?: string) => string;
-    export const isMobile: () => boolean;
-    export const isMac: () => boolean;
-    export const ctrl: (e: KeyboardEvent) => boolean;
-    export const isFirefox: () => boolean;
-    export const isRelativeUrl: (url?: string) => boolean;
-    export const getAbsoluteUrl: (url: string, baseUrl?: string) => string;
-    export const cloneObject: <T>(x: Record<string, any>) => T;
-    export const objectMap: (obj: Record<string, any>, fn: (value: any, key: string, index: number) => any) => {
-        [k: string]: any;
-    };
-    export const objectFilter: (obj: Record<string, any>, predicate: (value: any, key: string, index: number) => any) => {
-        [k: string]: any;
-    };
-    export const copyToClipboard: (text: string) => boolean | Promise<void>;
-    export const copyImage: (image: Blob, type: 'png' | 'jpg' | 'svg') => Promise<boolean>;
-    export const stringToValidJson: (str: string) => string;
-    export const stringify: (obj: any, pretty?: boolean) => string;
-    export const getRandomString: () => string;
-    export const downloadFile: (filename: string, extension: string, content: string) => void;
-    export const loadScript: (url: string, name?: string) => Promise<unknown>;
-    export const loadStylesheet: (url: string, id?: string, insertBefore?: string) => void;
-    export const typedArrayToBuffer: (array: Uint8Array) => ArrayBuffer;
-    export const getDate: () => string;
-    export const handleFetchError: (res: Response) => Response | Promise<never>;
-    export const fetchWithHandler: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
-    export const blobToBase64: (file: Blob) => Promise<string>;
-    export const Uint8ArrayToBase64: (u8: Uint8Array) => string;
-    export const base64ToUint8Array: (str: string) => Uint8Array;
-    export const typedArraysAreEqual: (a: Uint8Array, b: Uint8Array) => boolean;
-    export const toDataUrl: (content: string, type?: string) => string;
-    export const getWorkerDataURL: (url: string) => string;
-    export const createWorkerFromContent: (content: string) => Worker;
-    export const removeComments: (src: string) => string;
-    export const removeStrings: (src: string) => string;
-    export const removeCommentsAndStrings: (src: string) => string;
-    export const getLanguageCustomSettings: (language: Language | Processor, config: Config) => any;
-    export const getValidUrl: (url?: string) => string | null;
-    export const runOrContinue: <T>(fn: (x: T) => Promise<T>, catchFn?: (err: unknown) => void) => (x: T) => Promise<T>;
-    export const getFileExtension: (file: string) => string;
-    export const isInIframe: () => boolean;
-    export const indentCode: (code: string, spaces: number, skipFirstLine?: boolean) => string;
-    export const hideOnClickOutside: (element: HTMLElement) => {
-        clear: () => void;
-    };
-    export const callWorker: <T = string, K = unknown>(worker: Worker, message: {
-        method: T;
-        args?: any;
-    }) => Promise<K>;
-    export const capitalize: (str: string) => string;
-    export const toCamelCase: (str: string) => string;
-    export const removeDuplicates: (arr: any[] | undefined) => any[];
-    export const replaceAsync: (str: string, regexp: RegExp, asyncFn: (...args: any) => Promise<string>) => Promise<string>;
-    export const addAttrs: (el: HTMLElement, attributes: Record<string, string> | string) => void;
-    /**
-     * Bypasses the AMD module definition system by temporarily disabling it while executing the given function.
-     *
-     * @param fn - The function to execute.
-     * @return The result of executing the function.
-     */
-    export const bypassAMD: <T = any>(fn: () => Promise<T>) => Promise<T>;
-    /**
-     * Returns an async function that ensures the given asynchronous function is executed only once and awaits the previous executions.
-     *
-     * @param {() => Promise<void>} fn - The asynchronous function to be executed once.
-     * @return {() => Promise<void>} An async function that, when called multiple times, executes the given function if it hasn't been executed before or awaits the previous execution.
-     */
-    export const doOnce: (fn: () => Promise<void>) => () => Promise<void>;
-    export const evaluateCssCalc: (expression: string) => string;
-    export const colorToRgba: (name: string) => {
-        r: number;
-        g: number;
-        b: number;
-        a: number;
-    };
-    export const colorToHsla: (color: string) => {
-        h: number;
-        s: number;
-        l: number;
-        a: number;
-    };
-    export const colorToHex: (color: string) => string;
-    type ValueOf<T> = T[keyof T];
-    type NonEmptyArray<T> = [T, ...T[]];
-    type MustInclude<T, U extends T[]> = [T] extends [ValueOf<U>] ? U : never;
-    /**
-     * converts TypeScript string union to array
-     * see https://stackoverflow.com/a/70694878/5054774
-     */
-    export const stringUnionToArray: <T>() => <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) => MustInclude<T, U>;
-    export const preventFocus: (container: HTMLElement) => void;
-    export const findFirstFocusableElement: (container: HTMLElement) => Element | undefined;
-    export const isFocusable: (item: any | null) => boolean;
-    export const predefinedValues: {
-        readonly APP_VERSION: string;
-        readonly SDK_VERSION: string;
-        readonly COMMIT_SHA: string;
-        readonly REPO_URL: string;
-        readonly DOCS_BASE_URL: string;
-    };
-}
-declare module "livecodes/languages/lightningcss/processor-lightningcss" {
-    import type { ProcessorSpecs } from "livecodes/models";
-    export const lightningcss: ProcessorSpecs;
-}
-declare module "livecodes/languages/lightningcss/index" {
-    export * from "livecodes/languages/lightningcss/processor-lightningcss";
-}
-declare module "livecodes/languages/postcss/processor-postcss" {
-    import type { ProcessorSpecs } from "livecodes/models";
-    export const postcss: ProcessorSpecs;
-}
-declare module "livecodes/utils/get-import-instance" {
-    export function getImportInstance(url: string): any;
-}
-declare module "livecodes/utils/index" {
-    export * from "livecodes/utils/utils";
-    export * from "livecodes/utils/get-import-instance";
-}
-declare module "livecodes/languages/postcss/postcss-plugins" {
-    import type { ProcessorSpecs } from "livecodes/models";
-    export const autoprefixer: ProcessorSpecs;
-    export const cssnano: ProcessorSpecs;
-    export const postcssImportUrl: ProcessorSpecs;
-    export const postcssPresetEnv: ProcessorSpecs;
-    export const purgecss: ProcessorSpecs;
-    export const tokencss: ProcessorSpecs;
-    export const cssModules: ProcessorSpecs;
-}
-declare module "livecodes/languages/postcss/index" {
-    export * from "livecodes/languages/postcss/processor-postcss";
-    export * from "livecodes/languages/postcss/postcss-plugins";
-}
-declare module "livecodes/languages/tailwindcss/processor-tailwindcss" {
-    import type { ProcessorSpecs } from "livecodes/models";
-    export const tailwindcss: ProcessorSpecs;
-}
-declare module "livecodes/languages/tailwindcss/index" {
-    export * from "livecodes/languages/tailwindcss/processor-tailwindcss";
-}
-declare module "livecodes/languages/unocss/processor-unocss" {
-    import type { ProcessorSpecs } from "livecodes/models";
-    export const unocss: ProcessorSpecs;
-}
-declare module "livecodes/languages/unocss/index" {
-    export * from "livecodes/languages/unocss/processor-unocss";
-}
-declare module "livecodes/languages/windicss/processor-windicss" {
-    import type { ProcessorSpecs } from "livecodes/models";
-    export const windicss: ProcessorSpecs;
-}
-declare module "livecodes/languages/windicss/index" {
-    export * from "livecodes/languages/windicss/processor-windicss";
-}
-declare module "livecodes/languages/processors" {
-    import type { ProcessorSpecs } from "livecodes/models";
-    export const processors: ProcessorSpecs[];
-}
-declare module "livecodes/languages/utils" {
-    import type { Compiler, Language, CustomSettings, Config, Processor } from "livecodes/models";
-    import { getLanguageCustomSettings } from "livecodes/utils/utils";
-    export const getLanguageByAlias: (alias?: string) => Language | undefined;
-    export const getLanguageTitle: (language: Language) => string;
-    export const getLanguageEditorId: (alias?: string) => import("sdk/models").EditorId | undefined;
-    export const getLanguageExtension: (alias?: string) => Language | undefined;
-    export const getLanguageSpecs: (alias?: string) => import("sdk/models").LanguageSpecs | undefined;
-    export const getLanguageCompiler: (alias?: string) => Compiler | undefined;
-    export const mapLanguage: (language: Language) => Language;
-    export const languageIsEnabled: (language: Language, config: Config) => boolean;
-    export const processorIsEnabled: (processor: Processor, config: Config) => boolean;
-    export const processorIsActivated: (processor: Processor, config: Config) => boolean;
-    /**
-     * returns a string with names of enabled processors/postcss plugins
-     * for the supplied language (separated by hyphens)
-     */
-    export const getActivatedProcessors: (language: Language, config: Config) => string;
-    export const escapeCode: (code: string, slash?: boolean) => string;
-    export const getCustomSettings: (language: Language | Processor, config: Config) => CustomSettings;
-    export const detectLanguage: (code: string, languages: Language[]) => Promise<{
-        language: Language;
-        secondBest: Language;
-    }>;
-    export { getLanguageCustomSettings };
-}
-declare module "livecodes/languages/asciidoc/lang-asciidoc" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const asciidoc: LanguageSpecs;
-}
-declare module "livecodes/languages/asciidoc/index" {
-    export * from "livecodes/languages/asciidoc/lang-asciidoc";
-}
-declare module "livecodes/languages/prettier" {
-    export const prettierUrl: string;
-    export const parserPlugins: {
-        babel: string;
-        estree: string;
-        glimmer: string;
-        html: string;
-        markdown: string;
-        postcss: string;
-        php: string;
-        pug: string;
-        java: string;
-    };
-}
-declare module "livecodes/languages/babel/lang-babel" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const babel: LanguageSpecs;
-}
-declare module "livecodes/languages/babel/index" {
-    export * from "livecodes/languages/babel/lang-babel";
-}
-declare module "livecodes/languages/css/lang-css" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const css: LanguageSpecs;
-}
-declare module "livecodes/languages/css/index" {
-    export * from "livecodes/languages/css/lang-css";
-}
-declare module "livecodes/languages/haml/lang-haml" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const haml: LanguageSpecs;
-}
-declare module "livecodes/languages/haml/index" {
-    export * from "livecodes/languages/haml/lang-haml";
-}
-declare module "livecodes/languages/html/lang-html" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const html: LanguageSpecs;
-}
-declare module "livecodes/languages/html/index" {
-    export * from "livecodes/languages/html/lang-html";
-}
-declare module "livecodes/languages/javascript/lang-javascript" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const javascript: LanguageSpecs;
-}
-declare module "livecodes/languages/javascript/index" {
-    export * from "livecodes/languages/javascript/lang-javascript";
-}
-declare module "livecodes/languages/jsx/lang-jsx" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const jsx: LanguageSpecs;
-}
-declare module "livecodes/languages/jsx/lang-tsx" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const tsx: LanguageSpecs;
-}
-declare module "livecodes/languages/jsx/index" {
-    export * from "livecodes/languages/jsx/lang-jsx";
-    export * from "livecodes/languages/jsx/lang-tsx";
-}
-declare module "livecodes/languages/less/lang-less" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const less: LanguageSpecs;
-}
-declare module "livecodes/languages/less/index" {
-    export * from "livecodes/languages/less/lang-less";
-}
-declare module "livecodes/languages/markdown/lang-markdown" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const markdown: LanguageSpecs;
-}
-declare module "livecodes/languages/markdown/index" {
-    export * from "livecodes/languages/markdown/lang-markdown";
-}
-declare module "livecodes/compiler/models" {
-    import type { Language, Config, Processor, CompileOptions, CompileResult } from "livecodes/models";
-    export interface Compiler {
-        load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
-        compile: (content: string, language: Language, config: Config, options: CompileOptions) => Promise<CompileResult>;
-        clearCache: () => void;
-        typescriptFeatures: (options: {
-            feature: TypescriptFeatures;
-            payload: any;
-        }) => Promise<unknown>;
-        isFake: boolean;
-    }
-    export type LanguageOrProcessor = Language | Processor;
-    export type TypescriptFeatures = 'getOptionDeclarations' | 'ata' | 'initCodeMirrorTS' | 'changeCodeMirrorLanguage' | 'addTypes';
-    export interface CompilerMessageEvent extends MessageEvent {
-        data: CompilerMessage;
-    }
-    export type CompilerMessage = {
-        from?: 'compiler';
-    } & (InitMessage | InitSuccessMessage | LoadMessage | LoadedMessage | LoadFailedMessage | CompileMessage | CompileInCompilerMessage | CompiledMessage | CompileFailedMessage | TypeScriptMessage);
-    export interface InitMessage {
-        type: 'init';
-        payload: Config;
-        baseUrl: string;
-        scriptUrl: string;
-    }
-    export interface InitSuccessMessage {
-        type: 'init-success';
-    }
-    export interface LoadMessage {
-        type: 'load';
-        payload: {
-            language: LanguageOrProcessor;
-            config: Config;
-        };
-    }
-    export interface LoadedMessage {
-        type: 'loaded';
-        payload: LanguageOrProcessor;
-    }
-    export interface LoadFailedMessage {
-        type: 'load-failed';
-        payload: LanguageOrProcessor;
-    }
-    export interface CompileMessage {
-        type: 'compile';
-        payload: {
-            content: string;
-            language: LanguageOrProcessor;
-            config: Config;
-            options: any;
-        };
-    }
-    export interface CompileInCompilerMessage {
-        type: 'compileInCompiler';
-        payload: {
-            content: string;
-            language: LanguageOrProcessor;
-            config: Config;
-            options: any;
-        };
-    }
-    export interface CompiledMessage {
-        type: 'compiled';
-        trigger: 'compile' | 'compileInCompiler';
-        payload: {
-            content: string;
-            language: LanguageOrProcessor;
-            compiled: string | CompileResult;
-            config: Config;
-            options: any;
-        };
-    }
-    export interface CompileFailedMessage {
-        type: 'compile-failed';
-        trigger: 'compile' | 'compileInCompiler';
-        payload: {
-            content: string;
-            language: LanguageOrProcessor;
-            error: string;
-        };
-    }
-    export interface TypeScriptMessage {
-        type: 'ts-features';
-        payload: {
-            id: string;
-            feature: TypescriptFeatures;
-            data: any;
-        };
-    }
-}
-declare module "livecodes/compiler/utils" {
-    import type { CompileResult, CompilerFunction } from "livecodes/models";
-    export const getCompileResult: (result: Awaited<ReturnType<CompilerFunction>>) => CompileResult;
-}
-declare module "livecodes/compiler/compile-in-compiler" {
-    import type { Config, CompileOptions, CompileResult } from "livecodes/models";
-    import type { LanguageOrProcessor } from "livecodes/compiler/models";
-    export const compileInCompiler: (content: string, language: LanguageOrProcessor | undefined, config: Config, options?: CompileOptions, worker?: Worker) => Promise<CompileResult>;
-}
-declare module "livecodes/languages/mdx/lang-mdx" {
-    import type { CompilerFunction, LanguageSpecs } from "livecodes/models";
-    export const runOutsideWorker: CompilerFunction;
-    export const mdx: LanguageSpecs;
-}
-declare module "livecodes/languages/mdx/index" {
-    export * from "livecodes/languages/mdx/lang-mdx";
-}
-declare module "livecodes/languages/pug/lang-pug" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const pug: LanguageSpecs;
-}
-declare module "livecodes/languages/pug/index" {
-    export * from "livecodes/languages/pug/lang-pug";
-}
-declare module "livecodes/languages/scss/lang-scss" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const scss: LanguageSpecs;
-}
-declare module "livecodes/languages/scss/lang-sass" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const sass: LanguageSpecs;
-}
-declare module "livecodes/languages/scss/index" {
-    export * from "livecodes/languages/scss/lang-scss";
-    export * from "livecodes/languages/scss/lang-sass";
-}
-declare module "livecodes/languages/svelte/lang-svelte" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const svelte: LanguageSpecs;
-    export const svelteApp: LanguageSpecs;
-}
-declare module "livecodes/languages/svelte/index" {
-    export * from "livecodes/languages/svelte/lang-svelte";
-}
-declare module "livecodes/languages/stylus/lang-stylus" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const stylus: LanguageSpecs;
-}
-declare module "livecodes/languages/stylus/index" {
-    export * from "livecodes/languages/stylus/lang-stylus";
-}
-declare module "livecodes/languages/typescript/lang-typescript" {
-    import type { Config, LanguageSpecs } from "livecodes/models";
-    export const hasCustomJsxRuntime: (code: string, config: Config) => boolean;
-    export const typescriptOptions: {
-        target: string;
-        jsx: string;
-        allowUmdGlobalAccess: boolean;
-        esModuleInterop: boolean;
-    };
-    export const typescript: LanguageSpecs;
-}
-declare module "livecodes/languages/typescript/index" {
-    export * from "livecodes/languages/typescript/lang-typescript";
-}
-declare module "livecodes/languages/vue/lang-vue" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const vue: LanguageSpecs;
-    export const vueApp: LanguageSpecs;
-}
-declare module "livecodes/languages/vue/index" {
-    export * from "livecodes/languages/vue/lang-vue";
-}
-declare module "livecodes/languages/vue2/lang-vue2" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const vue2: LanguageSpecs;
-}
-declare module "livecodes/languages/vue2/index" {
-    export * from "livecodes/languages/vue2/lang-vue2";
-}
-declare module "livecodes/languages/stencil/lang-stencil" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const stencil: LanguageSpecs;
-}
-declare module "livecodes/languages/stencil/index" {
-    export * from "livecodes/languages/stencil/lang-stencil";
-}
-declare module "livecodes/languages/coffeescript/lang-coffeescript" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const coffeescript: LanguageSpecs;
-}
-declare module "livecodes/languages/coffeescript/index" {
-    export * from "livecodes/languages/coffeescript/lang-coffeescript";
-}
-declare module "livecodes/languages/livescript/lang-livescript" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const livescript: LanguageSpecs;
-}
-declare module "livecodes/languages/livescript/index" {
-    export * from "livecodes/languages/livescript/lang-livescript";
-}
-declare module "livecodes/languages/assemblyscript/lang-assemblyscript" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const assemblyscript: LanguageSpecs;
-}
-declare module "livecodes/languages/assemblyscript/index" {
-    export * from "livecodes/languages/assemblyscript/lang-assemblyscript";
-}
-declare module "livecodes/languages/python/lang-python" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const python: LanguageSpecs;
-}
-declare module "livecodes/languages/python/index" {
-    export * from "livecodes/languages/python/lang-python";
-}
-declare module "livecodes/languages/ruby/lang-ruby" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const ruby: LanguageSpecs;
-}
-declare module "livecodes/languages/ruby/index" {
-    export * from "livecodes/languages/ruby/lang-ruby";
-}
-declare module "livecodes/languages/php/lang-php" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const php: LanguageSpecs;
-}
-declare module "livecodes/languages/php/index" {
-    export * from "livecodes/languages/php/lang-php";
-}
-declare module "livecodes/languages/perl/lang-perl" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const perl: LanguageSpecs;
-}
-declare module "livecodes/languages/perl/index" {
-    export * from "livecodes/languages/perl/lang-perl";
-}
-declare module "livecodes/languages/lua/lang-lua" {
-    import type { LanguageFormatter, LanguageSpecs } from "livecodes/models";
-    export const luaFormatter: LanguageFormatter;
-    export const lua: LanguageSpecs;
-}
-declare module "livecodes/languages/lua/index" {
-    export * from "livecodes/languages/lua/lang-lua";
-}
-declare module "livecodes/languages/commonlisp/lang-commonlisp" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const parenFormatter: () => (value: string) => Promise<{
-        formatted: any;
-        cursorOffset: number;
-    }>;
-    export const commonlisp: LanguageSpecs;
-}
-declare module "livecodes/languages/commonlisp/index" {
-    export * from "livecodes/languages/commonlisp/lang-commonlisp";
-}
-declare module "livecodes/languages/scheme/lang-scheme" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const scheme: LanguageSpecs;
-}
-declare module "livecodes/languages/scheme/index" {
-    export * from "livecodes/languages/scheme/lang-scheme";
-}
-declare module "livecodes/languages/solid/lang-solid" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const solid: LanguageSpecs;
-}
-declare module "livecodes/languages/solid/lang-solid-tsx" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const solidTsx: LanguageSpecs;
-}
-declare module "livecodes/languages/solid/index" {
-    export * from "livecodes/languages/solid/lang-solid";
-    export * from "livecodes/languages/solid/lang-solid-tsx";
-}
-declare module "livecodes/languages/python-wasm/lang-python-wasm" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const pythonWasm: LanguageSpecs;
-}
-declare module "livecodes/languages/python-wasm/index" {
-    export * from "livecodes/languages/python-wasm/lang-python-wasm";
-}
-declare module "livecodes/languages/liquid/lang-liquid" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const liquid: LanguageSpecs;
-}
-declare module "livecodes/languages/liquid/index" {
-    export * from "livecodes/languages/liquid/lang-liquid";
-}
-declare module "livecodes/languages/ejs/lang-ejs" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const ejs: LanguageSpecs;
-}
-declare module "livecodes/languages/ejs/index" {
-    export * from "livecodes/languages/ejs/lang-ejs";
-}
-declare module "livecodes/languages/handlebars/lang-handlebars" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const runtimeUrl: string;
-    export const handlebars: LanguageSpecs;
-}
-declare module "livecodes/languages/handlebars/index" {
-    export * from "livecodes/languages/handlebars/lang-handlebars";
-}
-declare module "livecodes/languages/dot/lang-dot" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const dot: LanguageSpecs;
-}
-declare module "livecodes/languages/dot/index" {
-    export * from "livecodes/languages/dot/lang-dot";
-}
-declare module "livecodes/languages/nunjucks/lang-nunjucks" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const runtimeUrl: string;
-    export const nunjucks: LanguageSpecs;
-}
-declare module "livecodes/languages/nunjucks/index" {
-    export * from "livecodes/languages/nunjucks/lang-nunjucks";
-}
-declare module "livecodes/languages/go/lang-go" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const go: LanguageSpecs;
-}
-declare module "livecodes/languages/go/index" {
-    export * from "livecodes/languages/go/lang-go";
-}
-declare module "livecodes/languages/rescript/lang-rescript" {
-    import type { CompilerFunction, LanguageFormatter, LanguageSpecs } from "livecodes/models";
-    export const runOutsideWorker: CompilerFunction;
-    export const formatterFactory: LanguageFormatter['factory'];
-    export const rescript: LanguageSpecs;
-}
-declare module "livecodes/languages/rescript/index" {
-    export * from "livecodes/languages/rescript/lang-rescript";
-}
-declare module "livecodes/languages/reason/lang-reason" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const reason: LanguageSpecs;
-}
-declare module "livecodes/languages/reason/index" {
-    export * from "livecodes/languages/reason/lang-reason";
-}
-declare module "livecodes/languages/ocaml/lang-ocaml" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const ocaml: LanguageSpecs;
-}
-declare module "livecodes/languages/ocaml/index" {
-    export * from "livecodes/languages/ocaml/lang-ocaml";
-}
-declare module "livecodes/languages/wat/lang-wat" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const scriptType = "application/wasm-uint8";
-    export const wat: LanguageSpecs;
-}
-declare module "livecodes/languages/wat/index" {
-    export * from "livecodes/languages/wat/lang-wat";
-}
-declare module "livecodes/languages/riot/lang-riot" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const riot: LanguageSpecs;
-}
-declare module "livecodes/languages/riot/index" {
-    export * from "livecodes/languages/riot/lang-riot";
-}
-declare module "livecodes/languages/sql/lang-sql" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const scriptType = "application/json";
-    export const sql: LanguageSpecs;
-}
-declare module "livecodes/languages/sql/index" {
-    export * from "livecodes/languages/sql/lang-sql";
-}
-declare module "livecodes/languages/react-native/lang-react-native" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const reactNative: LanguageSpecs;
-}
-declare module "livecodes/languages/react-native/lang-react-native-tsx" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const reactNativeTsx: LanguageSpecs;
-}
-declare module "livecodes/languages/react-native/index" {
-    export * from "livecodes/languages/react-native/lang-react-native";
-    export * from "livecodes/languages/react-native/lang-react-native-tsx";
-}
-declare module "livecodes/languages/blockly/lang-blockly" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const blockly: LanguageSpecs;
-}
-declare module "livecodes/languages/blockly/index" {
-    export * from "livecodes/languages/blockly/lang-blockly";
-}
-declare module "livecodes/languages/twig/lang-twig" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const twig: LanguageSpecs;
-}
-declare module "livecodes/languages/twig/index" {
-    export * from "livecodes/languages/twig/lang-twig";
-}
-declare module "livecodes/languages/astro/lang-astro" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const astro: LanguageSpecs;
-}
-declare module "livecodes/languages/astro/index" {
-    export * from "livecodes/languages/astro/lang-astro";
-}
-declare module "livecodes/languages/malina/lang-malina" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const malina: LanguageSpecs;
-}
-declare module "livecodes/languages/malina/index" {
-    export * from "livecodes/languages/malina/lang-malina";
-}
-declare module "livecodes/languages/cpp/lang-cpp" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const cdnUrl: string;
-    export const cpp: LanguageSpecs;
-}
-declare module "livecodes/languages/cpp/index" {
-    export * from "livecodes/languages/cpp/lang-cpp";
-}
-declare module "livecodes/languages/julia/lang-julia" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const julia: LanguageSpecs;
-}
-declare module "livecodes/languages/julia/index" {
-    export * from "livecodes/languages/julia/lang-julia";
-}
-declare module "livecodes/languages/cpp-wasm/lang-cpp-wasm" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const cppWasm: LanguageSpecs;
-}
-declare module "livecodes/languages/cpp-wasm/index" {
-    export * from "livecodes/languages/cpp-wasm/lang-cpp-wasm";
-}
-declare module "livecodes/languages/tcl/lang-tcl" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const tcl: LanguageSpecs;
-}
-declare module "livecodes/languages/tcl/index" {
-    export * from "livecodes/languages/tcl/lang-tcl";
-}
-declare module "livecodes/languages/prolog/lang-prolog" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const prolog: LanguageSpecs;
-}
-declare module "livecodes/languages/prolog/index" {
-    export * from "livecodes/languages/prolog/lang-prolog";
-}
-declare module "livecodes/languages/clio/lang-clio" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const clio: LanguageSpecs;
-}
-declare module "livecodes/languages/clio/index" {
-    export * from "livecodes/languages/clio/lang-clio";
-}
-declare module "livecodes/languages/richtext/lang-richtext" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const richtext: LanguageSpecs;
-}
-declare module "livecodes/languages/richtext/index" {
-    export * from "livecodes/languages/richtext/lang-richtext";
-}
-declare module "livecodes/languages/diagrams/lang-diagrams" {
-    import type { CompilerFunction, LanguageSpecs } from "livecodes/models";
-    export const runOutsideWorker: CompilerFunction;
-    export const diagrams: LanguageSpecs;
-}
-declare module "livecodes/languages/diagrams/index" {
-    export * from "livecodes/languages/diagrams/lang-diagrams";
-}
-declare module "livecodes/languages/imba/lang-imba" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const imba: LanguageSpecs;
-}
-declare module "livecodes/languages/imba/index" {
-    export * from "livecodes/languages/imba/lang-imba";
-}
-declare module "livecodes/languages/mustache/lang-mustache" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const mustache: LanguageSpecs;
-}
-declare module "livecodes/languages/mustache/index" {
-    export * from "livecodes/languages/mustache/lang-mustache";
-}
-declare module "livecodes/languages/art-template/lang-art-template" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const artTemplate: LanguageSpecs;
-}
-declare module "livecodes/languages/art-template/index" {
-    export * from "livecodes/languages/art-template/lang-art-template";
-}
-declare module "livecodes/languages/r/lang-r" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const r: LanguageSpecs;
-}
-declare module "livecodes/languages/r/index" {
-    export * from "livecodes/languages/r/lang-r";
-}
-declare module "livecodes/languages/civet/lang-civet" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const civet: LanguageSpecs;
-}
-declare module "livecodes/languages/civet/index" {
-    export * from "livecodes/languages/civet/lang-civet";
-}
-declare module "livecodes/languages/fennel/lang-fennel" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const fennel: LanguageSpecs;
-}
-declare module "livecodes/languages/fennel/index" {
-    export * from "livecodes/languages/fennel/lang-fennel";
-}
-declare module "livecodes/languages/teal/lang-teal" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const teal: LanguageSpecs;
-}
-declare module "livecodes/languages/teal/index" {
-    export * from "livecodes/languages/teal/lang-teal";
-}
-declare module "livecodes/languages/stylis/lang-stylis" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const stylis: LanguageSpecs;
-}
-declare module "livecodes/languages/stylis/index" {
-    export * from "livecodes/languages/stylis/lang-stylis";
-}
-declare module "livecodes/languages/flow/lang-flow" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const flow: LanguageSpecs;
-}
-declare module "livecodes/languages/flow/index" {
-    export * from "livecodes/languages/flow/lang-flow";
-}
-declare module "livecodes/languages/mjml/lang-mjml" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const mjml: LanguageSpecs;
-}
-declare module "livecodes/languages/mjml/index" {
-    export * from "livecodes/languages/mjml/lang-mjml";
-}
-declare module "livecodes/languages/sucrase/lang-sucrase" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const sucrase: LanguageSpecs;
-}
-declare module "livecodes/languages/sucrase/index" {
-    export * from "livecodes/languages/sucrase/lang-sucrase";
-}
-declare module "livecodes/languages/eta/lang-eta" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const eta: LanguageSpecs;
-}
-declare module "livecodes/languages/eta/index" {
-    export * from "livecodes/languages/eta/lang-eta";
-}
-declare module "livecodes/compiler/import-map" {
-    import type { CompileInfo, Config, Language } from "livecodes/models";
-    export const importsPattern: RegExp;
-    export const dynamicImportsPattern: RegExp;
-    export const getImports: (code: string, removeSpecifier?: boolean) => string[];
-    export const isBare: (mod: string) => boolean;
-    export const findImportMapKey: (mod: string, importmap: Record<string, string>) => string | undefined;
-    export const createImportMap: (code: string, config: Config, { fallbackToCdn, external }?: {
-        fallbackToCdn?: boolean;
-        external?: string;
-    }) => {
-        [x: string]: string;
-    };
-    export const hasImports: (code: string) => boolean;
-    export const hasExports: (code: string) => boolean;
-    export const hasDefaultExport: (code: string) => boolean;
-    export const hasUrlImportsOrExports: (code: string) => boolean;
-    export const hasAwait: (code: string) => boolean;
-    export const isModuleScript: (code: string) => boolean;
-    export const replaceImports: (code: string, config: Config, { importMap, external }?: {
-        importMap?: Record<string, string>;
-        external?: string;
-    }) => string;
-    export const isScriptImport: (mod: string) => boolean;
-    export const replaceSFCImports: (code: string, { filename, config, isSfc, getLanguageByAlias, compileSFC, external, }: {
-        config: Config;
-        filename: string;
-        isSfc: (mod: string) => boolean;
-        getLanguageByAlias: (alias: string) => Language | undefined;
-        compileSFC: (code: string, options: {
-            filename: string;
-            config: Config;
-        }) => Promise<string>;
-        external?: string;
-    }) => Promise<string>;
-    export const removeImports: (code: string, mods: string[]) => string;
-    export const styleimportsPattern: RegExp;
-    export const hasStyleImports: (code: string) => boolean;
-    export const replaceStyleImports: (code: string, exceptions?: string[] | RegExp[]) => string;
-    export const cjs2esm: (code: string) => string;
-    export const createCSSModulesImportMap: (compiledScript: string, compiledStyle: string, cssTokens?: CompileInfo['cssModules'], extension?: Language) => {
-        [x: string]: string;
-    };
-}
-declare module "livecodes/compiler/compile-blocks" {
-    import type { Config } from "livecodes/models";
-    import type { LanguageOrProcessor } from "livecodes/compiler/models";
-    interface CompileBlocksOptions {
-        removeEnclosingTemplate?: boolean;
-        languageAttribute?: 'lang' | 'type';
-        prepareFn?: (code: string, config: Config) => Promise<string>;
-        skipCompilers?: LanguageOrProcessor[];
-    }
-    /**
-     * This is a workaround to prevent typescript removing default imports (components)
-     * that are not used in the typescript code but are used in the template
-     * by exporting them
-     * e.g.
-     * <script setup>
-     * import Counter from './App.vue';
-     * </script>
-     * <template><Counter /></template>
-     */
-    export const exportDefaultImports: (code: string) => string;
-    export const fetchBlocksSource: (code: string, blockElement: 'template' | 'style' | 'script') => Promise<string>;
-    export const compileBlocks: (code: string, blockElement: 'template' | 'style' | 'script', config: Config, options?: CompileBlocksOptions) => Promise<string>;
-    export const compileAllBlocks: (code: string, config: Config, options?: CompileBlocksOptions) => Promise<string>;
-}
-declare module "livecodes/compiler/get-all-compilers" {
-    import type { LanguageSpecs, Config, Compilers, ProcessorSpecs } from "livecodes/models";
-    export const getAllCompilers: (languages: Array<LanguageSpecs | ProcessorSpecs>, config: Config, baseUrl: string) => Compilers;
-}
-declare module "livecodes/services/allowed-origin" {
-    export const allowedOrigin: (origin?: string) => boolean;
-    export const whitelistTarget: (url: string) => boolean;
-}
-declare module "livecodes/events/events" {
-    import type { EventsManager } from "livecodes/models";
-    export const createEventsManager: () => EventsManager;
-}
-declare module "livecodes/events/custom-events" {
-    import type { CustomEvents } from "livecodes/models";
-    export const customEvents: CustomEvents;
-}
-declare module "livecodes/events/pub" {
-    export const createPub: <T>() => {
-        subscribe: (fn: (data: T) => void) => {
-            unsubscribe: () => void;
-        };
-        notify: (data: T) => void;
-        hasSubscribers: () => boolean;
-        unsubscribeAll: () => void;
-    };
-}
-declare module "livecodes/events/index" {
-    export * from "livecodes/events/events";
-    export * from "livecodes/events/custom-events";
-    export * from "livecodes/events/pub";
-}
-declare module "livecodes/sync/diff" {
-    import * as Y from 'yjs';
-    import * as DeepDiff from 'deep-diff';
-    export { Y, DeepDiff };
-    export function toJSON<T>(source: unknown): T;
-    export function applyChange<LHS = any, RHS = any>(target: any, change: DeepDiff.Diff<LHS, RHS>): void;
-}
-declare module "livecodes/sync/models" {
-    import type { WorkerMessageEvent } from "livecodes/models";
-    export type SyncMethod = 'sync' | 'exportToLocalSync' | 'exportStoreAsBase64Update' | 'restoreFromUpdate' | 'restoreFromLocalSync';
-    export type SyncMessageEvent = WorkerMessageEvent<SyncMethod>;
-    export interface StoredSyncData {
-        lastModified: number;
-        data: Uint8Array;
-        lastSyncSha: string;
-    }
-}
-declare module "livecodes/storage/project-storage" {
-    import type { ProjectStorage, StoreName } from "livecodes/storage/models";
-    export const createProjectStorage: (name: StoreName, isEmbed: boolean) => Promise<ProjectStorage>;
-}
 declare module "livecodes/storage/fake-storage" {
     import type { SimpleStorage, Storage } from "livecodes/storage/models";
     export const fakeStorage: Omit<Storage<any>, 'getList'> & {
         getList: () => Promise<[]>;
     };
     export const fakeSimpleStorage: SimpleStorage<any>;
+}
+declare module "livecodes/storage/storage" {
+    import type { Storage, StoreName } from "livecodes/storage/models";
+    export const generateId: () => string;
+    /**
+     * Creates asynchronous data store using localforage
+     */
+    export const createStorage: <T>(name: StoreName, isEmbed: boolean) => Promise<Storage<T>>;
+}
+declare module "livecodes/storage/project-storage" {
+    import type { ProjectStorage, StoreName } from "livecodes/storage/models";
+    export const createProjectStorage: (name: StoreName, isEmbed: boolean) => Promise<ProjectStorage>;
 }
 declare module "livecodes/storage/simple-storage" {
     import type { SimpleStorage, StoreName } from "livecodes/storage/models";
@@ -2547,60 +1863,11 @@ declare module "livecodes/storage/simple-storage" {
     export const createSimpleStorage: <T>(name: StoreName, isEmbed: boolean) => SimpleStorage<T>;
 }
 declare module "livecodes/storage/stores" {
-    import type { Storage, ProjectStorage, SimpleStorage, Stores } from "livecodes/storage/models";
+    import type { ProjectStorage, SimpleStorage, Storage, Stores } from "livecodes/storage/models";
     export const createStores: () => Stores;
     export const initializeStores: (stores: Stores, isEmbed: boolean) => Promise<void>;
     export const initializeSimpleStores: (stores: Stores, isEmbed: boolean) => Promise<void>;
     export const getStoreKey: (store: SimpleStorage<any> | Storage<any> | ProjectStorage, stores: Stores) => string | null;
-}
-declare module "livecodes/services/github" {
-    import type { User } from "livecodes/models";
-    export interface GitHubFile {
-        path: string;
-        content: string;
-    }
-    export const getGithubHeaders: (user: User, mediaType?: 'object' | 'raw') => {
-        Accept: string;
-        'Content-Type': string;
-        Authorization: string;
-    };
-    export const repoExists: (user: User, repo: string) => Promise<boolean>;
-    export const getContent: ({ user, repo, branch, path, }: {
-        user: User;
-        repo: string;
-        branch?: string;
-        path: string;
-    }) => Promise<any>;
-    export const commitFiles: ({ files, user, repo, branch, message, newRepo, privateRepo, description, readmeContent, clearPrevious, }: {
-        files: GitHubFile[];
-        user: User;
-        repo: string;
-        branch: string;
-        message: string;
-        newRepo?: boolean;
-        privateRepo?: boolean;
-        description?: string;
-        readmeContent?: string;
-        clearPrevious?: boolean;
-    }) => Promise<{
-        tree: string;
-        commit: string;
-    } | null>;
-    export const commitFile: ({ file, user, repo, branch, message, newRepo, privateRepo, description, readmeContent, }: {
-        file: GitHubFile;
-        user: User;
-        repo: string;
-        branch: string;
-        message: string;
-        newRepo?: boolean;
-        privateRepo?: boolean;
-        description?: string;
-        readmeContent?: string;
-    }) => Promise<{
-        tree: any;
-        commit: any;
-    } | null>;
-    export const getUserRepos: (user: User, reposType?: 'all' | 'owner' | 'public' | 'private' | 'member') => Promise<any[]>;
 }
 declare module "livecodes/sync/sync.worker" {
     import type { User } from "livecodes/models";
@@ -2635,7 +1902,7 @@ declare module "livecodes/sync/sync.worker" {
     export type workerRestoreFromLocalSync = typeof restoreFromLocalSync;
 }
 declare module "livecodes/sync/sync" {
-    import type { workerSync, workerExportToLocalSync, workerExportStoreAsBase64Update, workerRestoreFromUpdate, workerRestoreFromLocalSync } from "livecodes/sync/sync.worker";
+    import type { workerExportStoreAsBase64Update, workerExportToLocalSync, workerRestoreFromLocalSync, workerRestoreFromUpdate, workerSync } from "livecodes/sync/sync.worker";
     export const init: (baseUrl: string) => void;
     export const sync: workerSync;
     export const exportToLocalSync: workerExportToLocalSync;
@@ -2645,8 +1912,8 @@ declare module "livecodes/sync/sync" {
 }
 declare module "livecodes/sync/index" {
     export * from "livecodes/sync/diff";
-    export * from "livecodes/sync/sync";
     export type * from "livecodes/sync/models";
+    export * from "livecodes/sync/sync";
 }
 declare module "livecodes/storage/models" {
     import type { AppData, Asset, ContentConfig, Language, Snippet, Subscribable, UserConfig, UserData } from "livecodes/models";
@@ -2707,876 +1974,18 @@ declare module "livecodes/storage/models" {
     };
     export type StoreName = '__livecodes_data__' | '__livecodes_templates__' | '__livecodes_assets__' | '__livecodes_snippets__' | '__livecodes_project_recover__' | '__livecodes_user_config__' | '__livecodes_user_data__' | '__livecodes_app_data__' | '__livecodes_sync_data__' | '__livecodes_key__';
 }
-declare module "livecodes/storage/storage" {
-    import type { Storage, StoreName } from "livecodes/storage/models";
-    export const generateId: () => string;
-    /**
-     * Creates asynchronous data store using localforage
-     */
-    export const createStorage: <T>(name: StoreName, isEmbed: boolean) => Promise<Storage<T>>;
-}
-declare module "livecodes/utils/compression" {
-    export const compress: (uncompressed: string) => string;
-    export const decompress: (compressed: string, isJSON?: boolean) => string | null;
-}
 declare module "livecodes/storage/encrypt" {
     export const encrypt: (text: string) => Promise<string>;
     export const decrypt: (encrypted: string) => Promise<string | null>;
 }
 declare module "livecodes/storage/index" {
-    export * from "livecodes/storage/storage";
+    export * from "livecodes/storage/encrypt";
+    export * from "livecodes/storage/fake-storage";
+    export type { ProjectStorage, RecoverItem, SavedProject, SimpleStorage, Storage, StorageData, StorageItem, StoreName, Stores, } from "livecodes/storage/models";
     export * from "livecodes/storage/project-storage";
     export * from "livecodes/storage/simple-storage";
-    export * from "livecodes/storage/fake-storage";
+    export * from "livecodes/storage/storage";
     export * from "livecodes/storage/stores";
-    export * from "livecodes/storage/encrypt";
-    export type { Storage, ProjectStorage, StorageItem, RecoverItem, SavedProject, SimpleStorage, Stores, StorageData, StoreName, } from "livecodes/storage/models";
-}
-declare module "livecodes/services/auth" {
-    import type { GithubScope, User } from "livecodes/models";
-    interface AuthService {
-        load(): Promise<void>;
-        getUser(): Promise<User | void>;
-        signIn(scopes?: GithubScope[]): Promise<User | void>;
-        signOut(): Promise<void>;
-        isLoggedIn(): boolean;
-    }
-    export const createAuthService: (isEmbed: boolean) => AuthService;
-}
-declare module "livecodes/services/broadcast" {
-    export const broadcastService: {
-        getUrl: () => string;
-    };
-}
-declare module "livecodes/services/cors" {
-    export const corsService: {
-        fetch: (url: string, options?: RequestInit) => Promise<Response>;
-    };
-}
-declare module "livecodes/services/sandbox" {
-    export const sandboxService: {
-        getResultUrl: () => string;
-        getCompilerUrl: () => string;
-        getOrigin: () => string;
-    };
-}
-declare module "livecodes/services/share" {
-    import type { Config } from "livecodes/models";
-    type ConfigWithResult = Partial<Config & {
-        result: string;
-    }>;
-    interface ShareService {
-        getProject: (id: string) => Promise<ConfigWithResult>;
-        shareProject: (config: ConfigWithResult) => Promise<string>;
-    }
-    export const shareService: ShareService;
-}
-declare module "livecodes/services/utils" {
-    export const removeCDNPrefix: (url: string) => string;
-    export const removeSpecifier: (type: string) => string;
-}
-declare module "livecodes/services/types" {
-    import type { Types } from "livecodes/models";
-    export const typesService: {
-        getTypeUrls: (types: string[]) => Promise<Types>;
-        getTypesAsImports: (types: string[]) => string;
-    };
-}
-declare module "livecodes/services/index" {
-    export * from "livecodes/services/allowed-origin";
-    export * from "livecodes/services/auth";
-    export * from "livecodes/services/broadcast";
-    export * from "livecodes/services/cors";
-    export * from "livecodes/services/modules";
-    export * from "livecodes/services/sandbox";
-    export * from "livecodes/services/share";
-    export * from "livecodes/services/types";
-}
-declare module "livecodes/compiler/compiler-sandbox" {
-    export const createCompilerSandbox: (sandboxUrl: string) => Promise<Window>;
-}
-declare module "livecodes/compiler/create-compiler" {
-    import type { Config } from "livecodes/models";
-    import type { Compiler } from "livecodes/compiler/models";
-    export const createCompiler: ({ config, baseUrl, eventsManager, }: {
-        config: Config;
-        baseUrl: string;
-        eventsManager: any;
-    }) => Promise<Compiler>;
-}
-declare module "livecodes/compiler/get-compiler" {
-    import type { Config, EventsManager } from "livecodes/models";
-    import type { Compiler } from "livecodes/compiler/models";
-    export const getCompiler: (options: {
-        config: Config;
-        baseUrl: string;
-        eventsManager: EventsManager;
-    }) => Promise<Compiler>;
-}
-declare module "livecodes/compiler/index" {
-    export * from "livecodes/compiler/compile-blocks";
-    export * from "livecodes/compiler/compile-in-compiler";
-    export * from "livecodes/compiler/get-all-compilers";
-    export * from "livecodes/compiler/get-compiler";
-    export * from "livecodes/compiler/import-map";
-    export * from "livecodes/compiler/utils";
-}
-declare module "livecodes/languages/clojurescript/lang-clojurescript" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const clojurescript: LanguageSpecs;
-}
-declare module "livecodes/languages/clojurescript/index" {
-    export * from "livecodes/languages/clojurescript/lang-clojurescript";
-}
-declare module "livecodes/languages/ruby-wasm/lang-ruby-wasm" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const rubyWasm: LanguageSpecs;
-}
-declare module "livecodes/languages/ruby-wasm/index" {
-    export * from "livecodes/languages/ruby-wasm/lang-ruby-wasm";
-}
-declare module "livecodes/languages/lua-wasm/lang-lua-wasm" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const luaWasm: LanguageSpecs;
-}
-declare module "livecodes/languages/lua-wasm/index" {
-    export * from "livecodes/languages/lua-wasm/lang-lua-wasm";
-}
-declare module "livecodes/languages/php-wasm/lang-php-wasm" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const phpWasm: LanguageSpecs;
-}
-declare module "livecodes/languages/php-wasm/index" {
-    export * from "livecodes/languages/php-wasm/lang-php-wasm";
-}
-declare module "livecodes/languages/bbcode/lang-bbcode" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const bbcode: LanguageSpecs;
-}
-declare module "livecodes/languages/bbcode/index" {
-    export * from "livecodes/languages/bbcode/lang-bbcode";
-}
-declare module "livecodes/languages/postgresql/lang-postgresql" {
-    import type { CompilerFunction, LanguageSpecs } from "livecodes/models";
-    export const runOutsideWorker: CompilerFunction;
-    export const postgresql: LanguageSpecs;
-}
-declare module "livecodes/languages/postgresql/index" {
-    export * from "livecodes/languages/postgresql/lang-postgresql";
-}
-declare module "livecodes/languages/gleam/lang-gleam" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const gleam: LanguageSpecs;
-}
-declare module "livecodes/languages/gleam/index" {
-    export * from "livecodes/languages/gleam/lang-gleam";
-}
-declare module "livecodes/languages/vento/lang-vento" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const vento: LanguageSpecs;
-}
-declare module "livecodes/languages/vento/index" {
-    export * from "livecodes/languages/vento/lang-vento";
-}
-declare module "livecodes/languages/react/lang-react" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const react: LanguageSpecs;
-}
-declare module "livecodes/languages/react/lang-react-tsx" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const reactTsx: LanguageSpecs;
-}
-declare module "livecodes/languages/react/index" {
-    export * from "livecodes/languages/react/lang-react";
-    export * from "livecodes/languages/react/lang-react-tsx";
-}
-declare module "livecodes/languages/java/lang-java" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const java: LanguageSpecs;
-}
-declare module "livecodes/languages/java/index" {
-    export * from "livecodes/languages/java/lang-java";
-}
-declare module "livecodes/languages/csharp-wasm/lang-csharp-wasm" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const csharpWasm: LanguageSpecs;
-}
-declare module "livecodes/languages/csharp-wasm/index" {
-    export * from "livecodes/languages/csharp-wasm/lang-csharp-wasm";
-}
-declare module "livecodes/languages/languages" {
-    import type { LanguageSpecs } from "livecodes/models";
-    export const languages: LanguageSpecs[];
-}
-declare module "livecodes/languages/index" {
-    export * from "livecodes/languages/css-presets";
-    export * from "livecodes/languages/languages";
-    export * from "livecodes/languages/postcss/index";
-    export * from "livecodes/languages/prettier";
-    export * from "livecodes/languages/processors";
-    export * from "livecodes/languages/utils";
-}
-declare module "livecodes/config/default-config" {
-    import type { Config } from "livecodes/models";
-    export const defaultConfig: Config;
-}
-declare module "livecodes/config/build-config" {
-    import type { Config, UrlQueryParams } from "livecodes/models";
-    export const buildConfig: (appConfig: Partial<Config>) => Config;
-    export const getParams: (queryParams?: string) => UrlQueryParams;
-    export const loadParamConfig: (config: Config, params: UrlQueryParams) => Partial<Config>;
-}
-declare module "livecodes/config/upgrade-config" {
-    import type { Config } from "livecodes/models";
-    interface genericConfig extends Config {
-        [x: string]: any;
-    }
-    export const upgradeConfig: (oldConfig: genericConfig) => genericConfig;
-    export const isEarlier: ({ version, comparedTo }: {
-        version: string;
-        comparedTo: string;
-    }) => boolean;
-}
-declare module "livecodes/config/validate-config" {
-    import type { Config } from "livecodes/models";
-    export const validateConfig: (config: Partial<Config>) => Partial<Config>;
-}
-declare module "livecodes/config/config" {
-    import type { ContentConfig, Config, UserConfig, EditorConfig, FormatterConfig, AppConfig } from "livecodes/models";
-    export const getConfig: () => Config;
-    export const setConfig: (newConfig: Config) => void;
-    export const getContentConfig: (config: Config | ContentConfig) => ContentConfig;
-    export const getAppConfig: (config: Config | AppConfig) => AppConfig;
-    export const getUserConfig: (config: Config | UserConfig) => UserConfig;
-    export const getEditorConfig: (config: Config | UserConfig) => EditorConfig;
-    export const getFormatterConfig: (config: Config | UserConfig) => FormatterConfig;
-    export const upgradeAndValidate: (config: Partial<Config>) => Partial<Config>;
-}
-declare module "livecodes/config/index" {
-    export * from "livecodes/config/build-config";
-    export * from "livecodes/config/config";
-    export * from "livecodes/config/default-config";
-}
-declare module "livecodes/cache/cache" {
-    import type { Cache, Code, EditorId, Language } from "livecodes/models";
-    export const getCache: () => Cache;
-    export const setCache: (newCache?: Cache) => void;
-    export const updateCache: (editorId: EditorId, language: Language, modified: string) => void;
-    export const getCachedCode: () => Code;
-}
-declare module "livecodes/cache/utils" {
-    import type { ContentConfig, Cache } from "livecodes/models";
-    export const cacheIsValid: (cache: Cache, config: ContentConfig) => boolean;
-}
-declare module "livecodes/cache/index" {
-    export * from "livecodes/cache/cache";
-    export * from "livecodes/cache/utils";
-}
-declare module "livecodes/export/utils" {
-    import type { ContentConfig, EditorId, Config, User, Language } from "livecodes/models";
-    import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
-    export interface Files {
-        [key: string]: {
-            content: string;
-        };
-    }
-    export const getFilesFromConfig: (config: Config | ContentConfig, { getLanguageExtension, }: {
-        getLanguageExtension: typeof getLanguageExtensionFn;
-    }) => Files;
-    export const getDescriptionFile: (config: ContentConfig, user?: User, url?: string, gist?: boolean) => {
-        [x: string]: {
-            content: string;
-        };
-    };
-    export const getCompilerScripts: ({ baseUrl, editorId, config, compiled, supportedLanguages, getLanguageCompiler, }: {
-        baseUrl: string;
-        editorId: EditorId;
-        config: Config;
-        compiled: {
-            script: string;
-            style: string;
-            markup: string;
-        };
-        supportedLanguages: {
-            script: Language[];
-            style: Language[];
-            markup: Language[];
-        };
-        getLanguageCompiler: typeof getLanguageCompilerFn;
-    }) => string[];
-    export const getContent: ({ editorId, config, compiled, supportedLanguages, getLanguageCompiler, }: {
-        editorId: EditorId;
-        config: Config;
-        compiled: {
-            script: string;
-            style: string;
-            markup: string;
-        };
-        supportedLanguages: {
-            script: Language[];
-            style: Language[];
-            markup: Language[];
-        };
-        getLanguageCompiler: typeof getLanguageCompilerFn;
-    }) => string;
-}
-declare module "livecodes/deploy/deploy" {
-    import type { ContentConfig, User } from "livecodes/models";
-    import type { getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
-    import { type GitHubFile } from "livecodes/services/github";
-    export interface DeployResult {
-        url: string;
-        username: string;
-        repo: string;
-        tree: string;
-        commit: string;
-    }
-    export const deploy: ({ user, repo, config, content, message, commitSource, singleFile, newRepo, deps, }: {
-        user: User;
-        repo: string;
-        config: ContentConfig;
-        content: {
-            resultPage: string;
-            style: string;
-            script: string;
-        };
-        message: string;
-        commitSource: boolean;
-        singleFile: boolean;
-        newRepo: boolean;
-        deps: {
-            getLanguageExtension: typeof getLanguageExtensionFn;
-        };
-    }) => Promise<DeployResult | null>;
-    export const deployFile: ({ file, user, repo, branch, message, description, readmeContent, }: {
-        file: GitHubFile;
-        user: User;
-        repo: string;
-        branch: string;
-        message: string;
-        description?: string;
-        readmeContent?: string;
-    }) => Promise<DeployResult | null>;
-    export const deployedConfirmation: (deployResult: DeployResult, sourcePublished: boolean) => HTMLDivElement;
-}
-declare module "livecodes/deploy/index" {
-    export * from "livecodes/deploy/deploy";
-}
-declare module "livecodes/editor/fake-editor" {
-    import type { CodeEditor, EditorOptions } from "livecodes/models";
-    export const createFakeEditor: (options: EditorOptions) => CodeEditor;
-}
-declare module "livecodes/editor/fonts" {
-    export interface Font {
-        id: string;
-        name: string;
-        label?: string;
-        url: string;
-    }
-    export const fonts: Font[];
-    export const getFontFamily: (font: string | undefined) => string;
-}
-declare module "livecodes/editor/create-editor" {
-    import type { CodeEditor, Config, EditorOptions } from "livecodes/models";
-    export const createEditor: (options: EditorOptions & {
-        activeEditor?: Config['activeEditor'];
-    }) => Promise<CodeEditor>;
-}
-declare module "livecodes/editor/custom-editor-commands" {
-    import type { EventsManager } from "livecodes/models";
-    export const registerEditorCommands: (enable: boolean, eventsManager: EventsManager) => void;
-}
-declare module "livecodes/editor/blockly/blockly" {
-    import type { BlocklyContent, CustomEditorOptions, Theme } from "livecodes/models";
-    export const showBlockly: ({ baseUrl, editors, config, html, eventsManager, }: CustomEditorOptions) => Promise<void>;
-    export const getBlocklyContent: ({ baseUrl, editors, config, html, eventsManager, }: CustomEditorOptions) => Promise<BlocklyContent>;
-    export const setBlocklyTheme: (theme: Theme) => void;
-}
-declare module "livecodes/editor/blockly/blockly-editor" {
-    import type { CustomEditor, EventsManager } from "livecodes/models";
-    export const createBlocklyEditor: ({ baseUrl, eventsManager, }: {
-        baseUrl: string;
-        eventsManager: EventsManager;
-    }) => CustomEditor;
-}
-declare module "livecodes/editor/blockly/index" {
-    export * from "livecodes/editor/blockly/blockly-editor";
-}
-declare module "livecodes/editor/quill/quill" {
-    import type { CustomEditorOptions, Theme } from "livecodes/models";
-    export const showQuillEditor: ({ baseUrl, config, editors, eventsManager, }: CustomEditorOptions) => Promise<void>;
-    export const getQuillEditorContent: ({ baseUrl, editors, config, html, eventsManager, }: CustomEditorOptions) => Promise<{
-        html?: string;
-    }>;
-    export const setQuillEditorTheme: (theme: Theme) => void;
-}
-declare module "livecodes/editor/quill/quill-editor" {
-    import type { CustomEditor, EventsManager } from "livecodes/models";
-    export const createQuillEditor: ({ baseUrl, eventsManager, }: {
-        baseUrl: string;
-        eventsManager: EventsManager;
-    }) => CustomEditor;
-}
-declare module "livecodes/editor/quill/index" {
-    export * from "livecodes/editor/quill/quill-editor";
-}
-declare module "livecodes/editor/custom-editors" {
-    import type { CustomEditors, EventsManager } from "livecodes/models";
-    export const createCustomEditors: (options: {
-        baseUrl: string;
-        eventsManager: EventsManager;
-    }) => CustomEditors;
-}
-declare module "livecodes/editor/index" {
-    export * from "livecodes/editor/create-editor";
-    export * from "livecodes/editor/custom-editors";
-    export * from "livecodes/editor/fonts";
-}
-declare module "livecodes/export/export-codepen" {
-    import type { Config, EditorId } from "livecodes/models";
-    import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
-    export const exportCodepen: (config: Config, { baseUrl, compiled, deps, }: {
-        baseUrl: string;
-        compiled: {
-            script: string;
-            style: string;
-            markup: string;
-        };
-        deps: {
-            getLanguageExtension: typeof getLanguageExtensionFn;
-            getLanguageCompiler: typeof getLanguageCompilerFn;
-        };
-    }) => void;
-}
-declare module "livecodes/export/export-github-gist" {
-    import type { getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
-    import type { Config, User } from "livecodes/models";
-    export const exportGithubGist: (config: Config, { user, deps, }: {
-        user: User;
-        deps: {
-            getLanguageExtension: typeof getLanguageExtensionFn;
-        };
-    }) => Promise<void>;
-}
-declare module "livecodes/export/export-html" {
-    import type { Config } from "livecodes/models";
-    export const exportHTML: (config: Config, html: string) => void;
-}
-declare module "livecodes/export/export-jsfiddle" {
-    import type { Config, EditorId } from "livecodes/models";
-    import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
-    export const exportJsfiddle: (config: Config, { baseUrl, compiled, deps, }: {
-        baseUrl: string;
-        compiled: {
-            script: string;
-            style: string;
-            markup: string;
-        };
-        deps: {
-            getLanguageExtension: typeof getLanguageExtensionFn;
-            getLanguageCompiler: typeof getLanguageCompilerFn;
-        };
-    }) => void;
-}
-declare module "livecodes/export/export-json" {
-    import type { Config } from "livecodes/models";
-    export const exportJSON: (config: Config) => void;
-}
-declare module "livecodes/export/export-src" {
-    import type { Config } from "livecodes/models";
-    import type { getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
-    export const exportSrc: (config: Config, { html, deps, }: {
-        html: string;
-        deps: {
-            getLanguageExtension: typeof getLanguageExtensionFn;
-        };
-    }, _baseUrl?: string) => Promise<void>;
-}
-declare module "livecodes/export/export" {
-    import type { Config } from "livecodes/models";
-    export type ExportType = 'json' | 'src' | 'html' | 'codepen' | 'jsfiddle' | 'githubGist';
-    export const exportConfig: (config: Config, baseUrl: string, type: ExportType, payload?: any) => void;
-}
-declare module "livecodes/export/index" {
-    export * from "livecodes/export/export";
-    export * from "livecodes/export/utils";
-}
-declare module "livecodes/formatter/models" {
-    import type { FormatFn, FormatterConfig, Language } from "livecodes/models";
-    export interface Formatter {
-        load: (languages: Language[]) => Promise<string>;
-        getFormatFn: (language: Language) => Promise<FormatFn>;
-        destroy: () => void;
-    }
-    export interface FormatterMessageEvent extends MessageEvent {
-        data: FormatterMessage;
-    }
-    export type FormatterMessage = InitMessage | LoadMessage | LoadedMessage | LoadFailedMessage | FormatMessage | FormattedMessage | FormatFailedMessage;
-    export interface InitMessage {
-        type: 'init';
-        baseUrl: string;
-    }
-    export interface LoadMessage {
-        type: 'load';
-        payload: Language[];
-    }
-    export interface LoadedMessage {
-        type: 'loaded';
-        payload: Language[];
-    }
-    export interface LoadFailedMessage {
-        type: 'load-failed';
-        payload: Language[];
-    }
-    export interface FormatMessage {
-        type: 'format';
-        payload: {
-            language: Language;
-            value: string;
-            cursorOffset: number;
-            formatterConfig: Partial<FormatterConfig>;
-        };
-    }
-    export interface FormattedMessage {
-        type: 'formatted';
-        payload: {
-            language: Language;
-            value: string;
-            cursorOffset: number;
-            formatted: string;
-            formattedCursorOffset: number;
-        };
-    }
-    export interface FormatFailedMessage {
-        type: 'format-failed';
-        payload: {
-            language: Language;
-            value: string;
-            cursorOffset: number;
-            error: string;
-        };
-    }
-}
-declare module "livecodes/formatter/formatter" {
-    import type { Formatter } from "livecodes/formatter/models";
-    export const createFormatter: (baseUrl: string) => Formatter;
-}
-declare module "livecodes/formatter/get-formatter" {
-    import type { Config } from "livecodes/models";
-    import type { Formatter } from "livecodes/formatter/models";
-    export const getFormatter: (config: Config, baseUrl: string, lazy: boolean) => Formatter;
-}
-declare module "livecodes/formatter/index" {
-    export * from "livecodes/formatter/get-formatter";
-}
-declare module "livecodes/html/index" {
-    const resultTemplate: string;
-    const appHTML: string;
-    const menuProjectHTML: string;
-    const menuSettingsHTML: string;
-    const menuHelpHTML: string;
-    const languageInfo: string;
-    const customSettingsScreen: string;
-    const testEditorScreen: string;
-    const importScreen: string;
-    const deployScreen: string;
-    const syncScreen: string;
-    const backupScreen: string;
-    const broadcastScreen: string;
-    const welcomeScreen: string;
-    const aboutScreen: string;
-    const infoScreen: string;
-    const resourcesScreen: string;
-    const keyboardShortcutsScreen: string;
-    const loginScreen: string;
-    const savePromptScreen: string;
-    const recoverPromptScreen: string;
-    const templatesScreen: string;
-    const openScreen: string;
-    const assetsScreen: string;
-    const addAssetScreen: string;
-    const snippetsScreen: string;
-    const addSnippetScreen: string;
-    const shareScreen: string;
-    const embedScreen: string;
-    const editorSettingsScreen: string;
-    const codeToImageScreen: string;
-    const resultPopupHTML: string;
-    export { resultTemplate, appHTML, menuProjectHTML, menuSettingsHTML, menuHelpHTML, languageInfo, customSettingsScreen, testEditorScreen, importScreen, deployScreen, syncScreen, backupScreen, broadcastScreen, welcomeScreen, aboutScreen, infoScreen, resourcesScreen, keyboardShortcutsScreen, loginScreen, savePromptScreen, recoverPromptScreen, templatesScreen, openScreen, assetsScreen, addAssetScreen, snippetsScreen, addSnippetScreen, shareScreen, embedScreen, editorSettingsScreen, codeToImageScreen, resultPopupHTML, };
-}
-declare module "livecodes/import/code" {
-    import type { Config } from "livecodes/models";
-    export const importCompressedCode: (url: string) => Partial<Config>;
-}
-declare module "livecodes/import/project-id" {
-    export const importProject: (url: string) => Promise<Partial<import("sdk").Config & {
-        result: string;
-    }>>;
-}
-declare module "livecodes/import/check-src" {
-    export const getValidUrl: (url: string) => URL | undefined;
-    export const hostPatterns: {
-        github: RegExp;
-        githubGist: RegExp;
-        gitlab: RegExp;
-        codepen: RegExp;
-        jsbin: RegExp;
-        typescriptPlayground: RegExp;
-        vuePlayground: RegExp;
-        sveltePlayground: RegExp;
-    };
-    export const isCompressedCode: (url: string) => boolean;
-    export const isCodepen: (url: string, pattern?: RegExp) => boolean;
-    export const isDom: (url: string) => boolean;
-    export const isGithubUrl: (url: string, pattern?: RegExp) => boolean | undefined;
-    export const isGithub: (url: string) => boolean | undefined;
-    export const isGithubDir: (url: string, pattern?: RegExp) => boolean | undefined;
-    export const isGithubGist: (url: string, pattern?: RegExp) => boolean;
-    export const isGitlabUrl: (url: string, pattern?: RegExp) => boolean | undefined;
-    export const isGitlabDir: (url: string, pattern?: RegExp) => boolean | undefined;
-    export const isGitlabSnippet: (url: string, pattern?: RegExp) => boolean | undefined;
-    export const isJsbin: (url: string, pattern?: RegExp) => boolean;
-    export const isProjectId: (url: string) => boolean;
-    export const isTypescriptPlayground: (url: string, pattern?: RegExp) => boolean;
-    export const isVuePlayground: (url: string, pattern?: RegExp) => boolean;
-    export const isSveltePlayground: (url: string, pattern?: RegExp) => boolean;
-}
-declare module "livecodes/import/codepen" {
-    import type { Config } from "livecodes/models";
-    export const importFromCodepen: (url: string) => Promise<Partial<Config>>;
-}
-declare module "livecodes/import/dom" {
-    import type { EditorId, Language, Config } from "livecodes/models";
-    type Selectors = {
-        [key in EditorId]: {
-            language: Language;
-            selector: string;
-        };
-    };
-    export const getLanguageSelectors: (params: {
-        [key: string]: string;
-    }) => Partial<Selectors>;
-    export const importFromDom: (html: string, params: {
-        [key: string]: string;
-    }, config: Config) => Promise<Partial<Config>>;
-}
-declare module "livecodes/import/github" {
-    import type { Config, User } from "livecodes/models";
-    export const importFromGithub: (url: string, loggedInUser: User | null | void) => Promise<Partial<Config>>;
-    export const addBaseTag: (config: Partial<Config>, files: Array<{
-        user: string;
-        repo: string;
-        ref: string;
-        path: string;
-    }>) => Partial<Config>;
-}
-declare module "livecodes/import/utils" {
-    import type { EditorId, Language, Config } from "livecodes/models";
-    export interface SourceFile {
-        filename: string;
-        content: string;
-        language?: Language;
-        editorId?: EditorId;
-    }
-    export const populateConfig: (files: SourceFile[], params: {
-        [key: string]: string;
-    }) => Partial<Config>;
-}
-declare module "livecodes/import/github-dir" {
-    import type { User } from "livecodes/models";
-    export const importFromGithubDir: (url: string, params: {
-        [key: string]: string;
-    }, loggedInUser: User | null | void) => Promise<Partial<import("sdk/models").Config>>;
-}
-declare module "livecodes/import/github-gist" {
-    export const importFromGithubGist: (url: string, params: {
-        [key: string]: string;
-    }) => Promise<{}>;
-}
-declare module "livecodes/import/gitlab" {
-    import type { Language, Config } from "livecodes/models";
-    export interface FileData {
-        rawURL: string;
-        filename: string;
-        extension: Language;
-        startLine: number;
-        endLine: number;
-    }
-    export const importFromGitlab: (url: string) => Promise<Partial<Config>>;
-}
-declare module "livecodes/import/gitlab-dir" {
-    export const importFromGitlabDir: (url: string, params: {
-        [key: string]: string;
-    }) => Promise<Partial<import("sdk").Config>>;
-}
-declare module "livecodes/import/gitlab-snippet" {
-    export const importFromGitlabSnippet: (url: string, params: {
-        [key: string]: string;
-    }) => Promise<{}>;
-}
-declare module "livecodes/import/jsbin" {
-    import type { Config } from "livecodes/models";
-    export const importFromJsbin: (url: string) => Promise<Partial<Config>>;
-}
-declare module "livecodes/import/typescript-playground" {
-    import type { Config } from "livecodes/models";
-    export const importTypescriptPlayground: (url: string) => Promise<Partial<Config>>;
-}
-declare module "livecodes/import/vue-playground" {
-    import type { Config } from "livecodes/models";
-    export const importVuePlayground: (url: string) => Promise<Partial<Config>>;
-}
-declare module "livecodes/import/zip" {
-    import type { ContentConfig } from "livecodes/models";
-    import type { populateConfig as populateConfigFn } from "livecodes/import/utils";
-    export const importFromZip: (blob: Blob, populateConfig: typeof populateConfigFn) => Promise<Partial<ContentConfig>>;
-}
-declare module "livecodes/import/url" {
-    import type { Config } from "livecodes/models";
-    export const importFromUrl: (url: string, params: {
-        [key: string]: string;
-    }, config: Config) => Promise<Partial<Config>>;
-}
-declare module "livecodes/import/import-src" {
-    export { importFromCodepen } from "livecodes/import/codepen";
-    export { importFromDom } from "livecodes/import/dom";
-    export { importFromGithub } from "livecodes/import/github";
-    export { importFromGithubDir } from "livecodes/import/github-dir";
-    export { importFromGithubGist } from "livecodes/import/github-gist";
-    export { importFromGitlab } from "livecodes/import/gitlab";
-    export { importFromGitlabDir } from "livecodes/import/gitlab-dir";
-    export { importFromGitlabSnippet } from "livecodes/import/gitlab-snippet";
-    export { importFromJsbin } from "livecodes/import/jsbin";
-    export { importTypescriptPlayground } from "livecodes/import/typescript-playground";
-    export { importVuePlayground } from "livecodes/import/vue-playground";
-    export { importFromUrl } from "livecodes/import/url";
-}
-declare module "livecodes/import/import" {
-    import type { Config, User } from "livecodes/models";
-    export const importCode: (url: string, params: {
-        [key: string]: any;
-    }, config: Config, user: User | null | void, baseUrl: string) => Promise<Partial<Config>>;
-}
-declare module "livecodes/import/index" {
-    export * from "livecodes/import/import";
-}
-declare module "livecodes/notifications/snackbar" {
-    import type { Action } from '@snackbar/core';
-    export const darkTheme: {
-        textColor: string;
-        actionColor: string;
-        backgroundColor: string;
-    };
-    export const lightTheme: {
-        textColor: string;
-        actionColor: string;
-        backgroundColor: string;
-    };
-    export const infoTheme: {
-        textColor: string;
-        actionColor: string;
-        backgroundColor: string;
-    };
-    export const successTheme: {
-        textColor: string;
-        actionColor: string;
-        backgroundColor: string;
-    };
-    export const warningTheme: {
-        textColor: string;
-        actionColor: string;
-        backgroundColor: string;
-    };
-    export const dangerTheme: {
-        textColor: string;
-        actionColor: string;
-        backgroundColor: string;
-    };
-    export const closeButton: Action;
-    export const acceptButton: Action;
-}
-declare module "livecodes/notifications/create-notifications" {
-    import type { Notifications } from "livecodes/models";
-    export const hasOpenNotifications: () => boolean;
-    export const createNotifications: () => Notifications;
-}
-declare module "livecodes/notifications/index" {
-    export * from "livecodes/notifications/create-notifications";
-}
-declare module "livecodes/UI/accordion" {
-    export const createAccordion: ({ container, single, open, }: {
-        container: HTMLElement | Document;
-        single?: boolean;
-        open?: boolean;
-    }) => void;
-}
-declare module "livecodes/UI/modal" {
-    import type { Modal } from "livecodes/models";
-    export const createModal: (deps: {
-        translate: (container: HTMLElement) => void;
-        isEmbed: boolean;
-        onClose: () => void;
-    }) => Modal;
-}
-declare module "livecodes/languages/jsx/react-runtime" {
-    export const reactRuntime = "\nimport { jsx as _jsx } from \"react/jsx-runtime\";\nimport { createRoot } from \"react-dom/client\";\nimport App from \"./script\";\n(() => {\n  if (typeof App !== \"function\") return;\n  const root = createRoot(document.querySelector(\"#livecodes-app\") || document.body.appendChild(document.createElement(\"div\")));\n  root.render(_jsx(App, {}));\n})();\n";
-}
-declare module "livecodes/languages/react-native/react-native-runtime" {
-    export const reactNativeRuntime = "\nimport { AppRegistry } from \"react-native\";\nimport App from \"./script\";\n(() => {\n  if (typeof App !== \"function\") return;\n  const rootTag = document.querySelector(\"#livecodes-app\") || document.body.appendChild(document.createElement(\"div\"));\n  AppRegistry.registerComponent(\"App\", () => App);\n  AppRegistry.runApplication(\"App\", { rootTag });\n})();\n";
-}
-declare module "livecodes/languages/solid/solid-runtime" {
-    export const solidRuntime = "\nimport { render, createComponent } from \"solid-js/web\";\nimport App from \"./script\";\n(() => {\n  if (typeof App !== \"function\") return;\n  const root = document.querySelector(\"#livecodes-app\") || document.body.appendChild(document.createElement(\"div\"));\n  render(() => createComponent(App, {}), root);\n})();\n";
-}
-declare module "livecodes/toolspane/test-imports" {
-    export const testImports: {
-        react: string;
-        'react/jsx-runtime': string;
-        'react-dom': string;
-        'react-dom/client': string;
-        'react-dom/test-utils': string;
-        '@testing-library/dom': string;
-        '@testing-library/jest-dom': string;
-        '@testing-library/react': string;
-        '@testing-library/react/pure': string;
-        '@testing-library/user-event': string;
-        chai: string;
-    };
-}
-declare module "livecodes/result/result-page" {
-    import type { Cache, Config, CompileInfo } from "livecodes/models";
-    export const createResultPage: ({ code, config, forExport, template, baseUrl, singleFile, runTests, compileInfo, }: {
-        code: Cache;
-        config: Config;
-        forExport: boolean;
-        template: string;
-        baseUrl: string;
-        singleFile: boolean;
-        runTests: boolean;
-        compileInfo: CompileInfo;
-    }) => Promise<string>;
-    export const cleanResultFromDev: (result: string) => string;
-}
-declare module "livecodes/result/utils" {
-    export const typeOf: (obj: any) => string;
-    export const proxyConsole: () => void;
-    export const handleEval: () => void;
-    export const handleResize: () => void;
-    export const handleScrollPosition: () => void;
-}
-declare module "livecodes/result/index" {
-    export * from "livecodes/result/result-page";
-    export * from "livecodes/result/utils";
-}
-declare module "livecodes/templates/get-starter-templates" {
-    import type { Config, Template } from "livecodes/models";
-    /**
-     * get starter templates with languages that are enabled in the current config
-     */
-    export const getStarterTemplates: (config: Config, baseUrl: string) => Promise<Template[]>;
-    export const getTemplate: (name: string, config: Config, baseUrl: string) => Promise<Template>;
-}
-declare module "livecodes/templates/index" {
-    export * from "livecodes/templates/get-starter-templates";
 }
 declare module "livecodes/UI/info" {
     import type { Config, Modal } from "livecodes/models";
@@ -3810,9 +2219,16 @@ declare module "livecodes/UI/login" {
     export const displayLoggedIn: (user: User) => void;
     export const displayLoggedOut: () => void;
 }
+declare module "livecodes/utils/get-import-instance" {
+    export function getImportInstance(url: string): any;
+}
+declare module "livecodes/utils/index" {
+    export * from "livecodes/utils/get-import-instance";
+    export * from "livecodes/utils/utils";
+}
 declare module "livecodes/UI/open" {
     import type { Config, ContentConfig, EventsManager, Language, LanguageSpecs, Modal, Notifications, Screen } from "livecodes/models";
-    import type { SavedProject, ProjectStorage } from "livecodes/storage/index";
+    import type { ProjectStorage, SavedProject } from "livecodes/storage/index";
     export const createOpenItem: (item: SavedProject, list: HTMLElement, getLanguageTitle: (language: Language) => string, getLanguageByAlias: (alias?: string) => Language | undefined, isTemplate?: boolean) => {
         link: HTMLAnchorElement;
         deleteButton: HTMLButtonElement;
@@ -3857,12 +2273,1643 @@ declare module "livecodes/UI/index" {
     export * from "livecodes/UI/split-panes";
     export * from "livecodes/UI/templates";
 }
+declare module "livecodes/languages/css-presets" {
+    import type { CssPreset } from "livecodes/models";
+    export const cssPresets: CssPreset[];
+}
+declare module "livecodes/languages/prettier" {
+    export const prettierUrl: string;
+    export const parserPlugins: {
+        babel: string;
+        estree: string;
+        glimmer: string;
+        html: string;
+        markdown: string;
+        postcss: string;
+        php: string;
+        pug: string;
+        java: string;
+    };
+}
+declare module "livecodes/languages/art-template/lang-art-template" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const artTemplate: LanguageSpecs;
+}
+declare module "livecodes/languages/art-template/index" {
+    export * from "livecodes/languages/art-template/lang-art-template";
+}
+declare module "livecodes/languages/lightningcss/processor-lightningcss" {
+    import type { ProcessorSpecs } from "livecodes/models";
+    export const lightningcss: ProcessorSpecs;
+}
+declare module "livecodes/languages/lightningcss/index" {
+    export * from "livecodes/languages/lightningcss/processor-lightningcss";
+}
+declare module "livecodes/languages/postcss/postcss-plugins" {
+    import type { ProcessorSpecs } from "livecodes/models";
+    export const autoprefixer: ProcessorSpecs;
+    export const cssnano: ProcessorSpecs;
+    export const postcssImportUrl: ProcessorSpecs;
+    export const postcssPresetEnv: ProcessorSpecs;
+    export const purgecss: ProcessorSpecs;
+    export const tokencss: ProcessorSpecs;
+    export const cssModules: ProcessorSpecs;
+}
+declare module "livecodes/languages/postcss/processor-postcss" {
+    import type { ProcessorSpecs } from "livecodes/models";
+    export const postcss: ProcessorSpecs;
+}
+declare module "livecodes/languages/postcss/index" {
+    export * from "livecodes/languages/postcss/postcss-plugins";
+    export * from "livecodes/languages/postcss/processor-postcss";
+}
+declare module "livecodes/languages/tailwindcss/processor-tailwindcss" {
+    import type { ProcessorSpecs } from "livecodes/models";
+    export const tailwindcss: ProcessorSpecs;
+}
+declare module "livecodes/languages/tailwindcss/index" {
+    export * from "livecodes/languages/tailwindcss/processor-tailwindcss";
+}
+declare module "livecodes/languages/unocss/processor-unocss" {
+    import type { ProcessorSpecs } from "livecodes/models";
+    export const unocss: ProcessorSpecs;
+}
+declare module "livecodes/languages/unocss/index" {
+    export * from "livecodes/languages/unocss/processor-unocss";
+}
+declare module "livecodes/languages/windicss/processor-windicss" {
+    import type { ProcessorSpecs } from "livecodes/models";
+    export const windicss: ProcessorSpecs;
+}
+declare module "livecodes/languages/windicss/index" {
+    export * from "livecodes/languages/windicss/processor-windicss";
+}
+declare module "livecodes/languages/processors" {
+    import type { ProcessorSpecs } from "livecodes/models";
+    export const processors: ProcessorSpecs[];
+}
+declare module "livecodes/languages/utils" {
+    import type { Compiler, Config, CustomSettings, Language, Processor } from "livecodes/models";
+    import { getLanguageCustomSettings } from "livecodes/utils/utils";
+    export const getLanguageByAlias: (alias?: string) => Language | undefined;
+    export const getLanguageTitle: (language: Language) => string;
+    export const getLanguageEditorId: (alias?: string) => import("sdk/models").EditorId | undefined;
+    export const getLanguageExtension: (alias?: string) => Language | undefined;
+    export const getLanguageSpecs: (alias?: string) => import("sdk/models").LanguageSpecs | undefined;
+    export const getLanguageCompiler: (alias?: string) => Compiler | undefined;
+    export const mapLanguage: (language: Language) => Language;
+    export const languageIsEnabled: (language: Language, config: Config) => boolean;
+    export const processorIsEnabled: (processor: Processor, config: Config) => boolean;
+    export const processorIsActivated: (processor: Processor, config: Config) => boolean;
+    /**
+     * returns a string with names of enabled processors/postcss plugins
+     * for the supplied language (separated by hyphens)
+     */
+    export const getActivatedProcessors: (language: Language, config: Config) => string;
+    export const escapeCode: (code: string, slash?: boolean) => string;
+    export const getCustomSettings: (language: Language | Processor, config: Config) => CustomSettings;
+    export const detectLanguage: (code: string, languages: Language[]) => Promise<{
+        language: Language;
+        secondBest: Language;
+    }>;
+    export { getLanguageCustomSettings };
+}
+declare module "livecodes/languages/asciidoc/lang-asciidoc" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const asciidoc: LanguageSpecs;
+}
+declare module "livecodes/languages/asciidoc/index" {
+    export * from "livecodes/languages/asciidoc/lang-asciidoc";
+}
+declare module "livecodes/languages/assemblyscript/lang-assemblyscript" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const assemblyscript: LanguageSpecs;
+}
+declare module "livecodes/languages/assemblyscript/index" {
+    export * from "livecodes/languages/assemblyscript/lang-assemblyscript";
+}
+declare module "livecodes/languages/astro/lang-astro" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const astro: LanguageSpecs;
+}
+declare module "livecodes/languages/astro/index" {
+    export * from "livecodes/languages/astro/lang-astro";
+}
+declare module "livecodes/languages/babel/lang-babel" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const babel: LanguageSpecs;
+}
+declare module "livecodes/languages/babel/index" {
+    export * from "livecodes/languages/babel/lang-babel";
+}
+declare module "livecodes/languages/bbcode/lang-bbcode" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const bbcode: LanguageSpecs;
+}
+declare module "livecodes/languages/bbcode/index" {
+    export * from "livecodes/languages/bbcode/lang-bbcode";
+}
+declare module "livecodes/languages/blockly/lang-blockly" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const blockly: LanguageSpecs;
+}
+declare module "livecodes/languages/blockly/index" {
+    export * from "livecodes/languages/blockly/lang-blockly";
+}
+declare module "livecodes/languages/civet/lang-civet" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const civet: LanguageSpecs;
+}
+declare module "livecodes/languages/civet/index" {
+    export * from "livecodes/languages/civet/lang-civet";
+}
+declare module "livecodes/languages/clio/lang-clio" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const clio: LanguageSpecs;
+}
+declare module "livecodes/languages/clio/index" {
+    export * from "livecodes/languages/clio/lang-clio";
+}
+declare module "livecodes/compiler/models" {
+    import type { CompileOptions, CompileResult, Config, Language, Processor } from "livecodes/models";
+    export interface Compiler {
+        load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
+        compile: (content: string, language: Language, config: Config, options: CompileOptions) => Promise<CompileResult>;
+        clearCache: () => void;
+        typescriptFeatures: (options: {
+            feature: TypescriptFeatures;
+            payload: any;
+        }) => Promise<unknown>;
+        isFake: boolean;
+    }
+    export type LanguageOrProcessor = Language | Processor;
+    export type TypescriptFeatures = 'getOptionDeclarations' | 'ata' | 'initCodeMirrorTS' | 'changeCodeMirrorLanguage' | 'addTypes';
+    export interface CompilerMessageEvent extends MessageEvent {
+        data: CompilerMessage;
+    }
+    export type CompilerMessage = {
+        from?: 'compiler';
+    } & (InitMessage | InitSuccessMessage | LoadMessage | LoadedMessage | LoadFailedMessage | CompileMessage | CompileInCompilerMessage | CompiledMessage | CompileFailedMessage | TypeScriptMessage);
+    export interface InitMessage {
+        type: 'init';
+        payload: Config;
+        baseUrl: string;
+        scriptUrl: string;
+    }
+    export interface InitSuccessMessage {
+        type: 'init-success';
+    }
+    export interface LoadMessage {
+        type: 'load';
+        payload: {
+            language: LanguageOrProcessor;
+            config: Config;
+        };
+    }
+    export interface LoadedMessage {
+        type: 'loaded';
+        payload: LanguageOrProcessor;
+    }
+    export interface LoadFailedMessage {
+        type: 'load-failed';
+        payload: LanguageOrProcessor;
+    }
+    export interface CompileMessage {
+        type: 'compile';
+        payload: {
+            content: string;
+            language: LanguageOrProcessor;
+            config: Config;
+            options: any;
+        };
+    }
+    export interface CompileInCompilerMessage {
+        type: 'compileInCompiler';
+        payload: {
+            content: string;
+            language: LanguageOrProcessor;
+            config: Config;
+            options: any;
+        };
+    }
+    export interface CompiledMessage {
+        type: 'compiled';
+        trigger: 'compile' | 'compileInCompiler';
+        payload: {
+            content: string;
+            language: LanguageOrProcessor;
+            compiled: string | CompileResult;
+            config: Config;
+            options: any;
+        };
+    }
+    export interface CompileFailedMessage {
+        type: 'compile-failed';
+        trigger: 'compile' | 'compileInCompiler';
+        payload: {
+            content: string;
+            language: LanguageOrProcessor;
+            error: string;
+        };
+    }
+    export interface TypeScriptMessage {
+        type: 'ts-features';
+        payload: {
+            id: string;
+            feature: TypescriptFeatures;
+            data: any;
+        };
+    }
+}
+declare module "livecodes/compiler/utils" {
+    import type { CompileResult, CompilerFunction } from "livecodes/models";
+    export const getCompileResult: (result: Awaited<ReturnType<CompilerFunction>>) => CompileResult;
+}
+declare module "livecodes/compiler/compile-in-compiler" {
+    import type { CompileOptions, CompileResult, Config } from "livecodes/models";
+    import type { LanguageOrProcessor } from "livecodes/compiler/models";
+    export const compileInCompiler: (content: string, language: LanguageOrProcessor | undefined, config: Config, options?: CompileOptions, worker?: Worker) => Promise<CompileResult>;
+}
+declare module "livecodes/compiler/import-map" {
+    import type { CompileInfo, Config, Language } from "livecodes/models";
+    export const importsPattern: RegExp;
+    export const dynamicImportsPattern: RegExp;
+    export const getImports: (code: string, removeSpecifier?: boolean) => string[];
+    export const isBare: (mod: string) => boolean;
+    export const findImportMapKey: (mod: string, importmap: Record<string, string>) => string | undefined;
+    export const createImportMap: (code: string, config: Config, { fallbackToCdn, external }?: {
+        fallbackToCdn?: boolean;
+        external?: string;
+    }) => {
+        [x: string]: string;
+    };
+    export const hasImports: (code: string) => boolean;
+    export const hasExports: (code: string) => boolean;
+    export const hasDefaultExport: (code: string) => boolean;
+    export const hasUrlImportsOrExports: (code: string) => boolean;
+    export const hasAwait: (code: string) => boolean;
+    export const isModuleScript: (code: string) => boolean;
+    export const replaceImports: (code: string, config: Config, { importMap, external }?: {
+        importMap?: Record<string, string>;
+        external?: string;
+    }) => string;
+    export const isScriptImport: (mod: string) => boolean;
+    export const replaceSFCImports: (code: string, { filename, config, isSfc, getLanguageByAlias, compileSFC, external, }: {
+        config: Config;
+        filename: string;
+        isSfc: (mod: string) => boolean;
+        getLanguageByAlias: (alias: string) => Language | undefined;
+        compileSFC: (code: string, options: {
+            filename: string;
+            config: Config;
+        }) => Promise<string>;
+        external?: string;
+    }) => Promise<string>;
+    export const removeImports: (code: string, mods: string[]) => string;
+    export const styleimportsPattern: RegExp;
+    export const hasStyleImports: (code: string) => boolean;
+    export const replaceStyleImports: (code: string, exceptions?: string[] | RegExp[]) => string;
+    export const cjs2esm: (code: string) => string;
+    export const createCSSModulesImportMap: (compiledScript: string, compiledStyle: string, cssTokens?: CompileInfo['cssModules'], extension?: Language) => {
+        [x: string]: string;
+    };
+}
+declare module "livecodes/compiler/compile-blocks" {
+    import type { Config } from "livecodes/models";
+    import type { LanguageOrProcessor } from "livecodes/compiler/models";
+    interface CompileBlocksOptions {
+        removeEnclosingTemplate?: boolean;
+        languageAttribute?: 'lang' | 'type';
+        prepareFn?: (code: string, config: Config) => Promise<string>;
+        skipCompilers?: LanguageOrProcessor[];
+    }
+    /**
+     * This is a workaround to prevent typescript removing default imports (components)
+     * that are not used in the typescript code but are used in the template
+     * by exporting them
+     * e.g.
+     * <script setup>
+     * import Counter from './App.vue';
+     * </script>
+     * <template><Counter /></template>
+     */
+    export const exportDefaultImports: (code: string) => string;
+    export const fetchBlocksSource: (code: string, blockElement: 'template' | 'style' | 'script') => Promise<string>;
+    export const compileBlocks: (code: string, blockElement: 'template' | 'style' | 'script', config: Config, options?: CompileBlocksOptions) => Promise<string>;
+    export const compileAllBlocks: (code: string, config: Config, options?: CompileBlocksOptions) => Promise<string>;
+}
+declare module "livecodes/compiler/get-all-compilers" {
+    import type { Compilers, Config, LanguageSpecs, ProcessorSpecs } from "livecodes/models";
+    export const getAllCompilers: (languages: Array<LanguageSpecs | ProcessorSpecs>, config: Config, baseUrl: string) => Compilers;
+}
+declare module "livecodes/services/allowed-origin" {
+    export const allowedOrigin: (origin?: string) => boolean;
+    export const whitelistTarget: (url: string) => boolean;
+}
+declare module "livecodes/services/auth" {
+    import type { GithubScope, User } from "livecodes/models";
+    interface AuthService {
+        load(): Promise<void>;
+        getUser(): Promise<User | void>;
+        signIn(scopes?: GithubScope[]): Promise<User | void>;
+        signOut(): Promise<void>;
+        isLoggedIn(): boolean;
+    }
+    export const createAuthService: (isEmbed: boolean) => AuthService;
+}
+declare module "livecodes/services/broadcast" {
+    export const broadcastService: {
+        getUrl: () => string;
+    };
+}
+declare module "livecodes/services/cors" {
+    export const corsService: {
+        fetch: (url: string, options?: RequestInit) => Promise<Response>;
+    };
+}
+declare module "livecodes/services/sandbox" {
+    export const sandboxService: {
+        getResultUrl: () => string;
+        getCompilerUrl: () => string;
+        getOrigin: () => string;
+    };
+}
+declare module "livecodes/services/share" {
+    import type { Config } from "livecodes/models";
+    type ConfigWithResult = Partial<Config & {
+        result: string;
+    }>;
+    interface ShareService {
+        getProject: (id: string) => Promise<ConfigWithResult>;
+        shareProject: (config: ConfigWithResult) => Promise<string>;
+    }
+    export const shareService: ShareService;
+}
+declare module "livecodes/services/utils" {
+    export const removeCDNPrefix: (url: string) => string;
+    export const removeSpecifier: (type: string) => string;
+}
+declare module "livecodes/services/types" {
+    import type { Types } from "livecodes/models";
+    export const typesService: {
+        getTypeUrls: (types: string[]) => Promise<Types>;
+        getTypesAsImports: (types: string[]) => string;
+    };
+}
+declare module "livecodes/services/index" {
+    export * from "livecodes/services/allowed-origin";
+    export * from "livecodes/services/auth";
+    export * from "livecodes/services/broadcast";
+    export * from "livecodes/services/cors";
+    export * from "livecodes/services/modules";
+    export * from "livecodes/services/sandbox";
+    export * from "livecodes/services/share";
+    export * from "livecodes/services/types";
+}
+declare module "livecodes/compiler/compiler-sandbox" {
+    export const createCompilerSandbox: (sandboxUrl: string) => Promise<Window>;
+}
+declare module "livecodes/compiler/create-compiler" {
+    import type { Config } from "livecodes/models";
+    import type { Compiler } from "livecodes/compiler/models";
+    export const createCompiler: ({ config, baseUrl, eventsManager, }: {
+        config: Config;
+        baseUrl: string;
+        eventsManager: any;
+    }) => Promise<Compiler>;
+}
+declare module "livecodes/compiler/get-compiler" {
+    import type { Config, EventsManager } from "livecodes/models";
+    import type { Compiler } from "livecodes/compiler/models";
+    export const getCompiler: (options: {
+        config: Config;
+        baseUrl: string;
+        eventsManager: EventsManager;
+    }) => Promise<Compiler>;
+}
+declare module "livecodes/compiler/index" {
+    export * from "livecodes/compiler/compile-blocks";
+    export * from "livecodes/compiler/compile-in-compiler";
+    export * from "livecodes/compiler/get-all-compilers";
+    export * from "livecodes/compiler/get-compiler";
+    export * from "livecodes/compiler/import-map";
+    export * from "livecodes/compiler/utils";
+}
+declare module "livecodes/languages/commonlisp/lang-commonlisp" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const parenFormatter: () => (value: string) => Promise<{
+        formatted: any;
+        cursorOffset: number;
+    }>;
+    export const commonlisp: LanguageSpecs;
+}
+declare module "livecodes/languages/commonlisp/index" {
+    export * from "livecodes/languages/commonlisp/lang-commonlisp";
+}
+declare module "livecodes/languages/clojurescript/lang-clojurescript" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const clojurescript: LanguageSpecs;
+}
+declare module "livecodes/languages/clojurescript/index" {
+    export * from "livecodes/languages/clojurescript/lang-clojurescript";
+}
+declare module "livecodes/languages/coffeescript/lang-coffeescript" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const coffeescript: LanguageSpecs;
+}
+declare module "livecodes/languages/coffeescript/index" {
+    export * from "livecodes/languages/coffeescript/lang-coffeescript";
+}
+declare module "livecodes/languages/cpp/lang-cpp" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const cdnUrl: string;
+    export const cpp: LanguageSpecs;
+}
+declare module "livecodes/languages/cpp/index" {
+    export * from "livecodes/languages/cpp/lang-cpp";
+}
+declare module "livecodes/languages/cpp-wasm/lang-cpp-wasm" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const cppWasm: LanguageSpecs;
+}
+declare module "livecodes/languages/cpp-wasm/index" {
+    export * from "livecodes/languages/cpp-wasm/lang-cpp-wasm";
+}
+declare module "livecodes/languages/csharp-wasm/lang-csharp-wasm" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const csharpWasm: LanguageSpecs;
+}
+declare module "livecodes/languages/csharp-wasm/index" {
+    export * from "livecodes/languages/csharp-wasm/lang-csharp-wasm";
+}
+declare module "livecodes/languages/css/lang-css" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const css: LanguageSpecs;
+}
+declare module "livecodes/languages/css/index" {
+    export * from "livecodes/languages/css/lang-css";
+}
+declare module "livecodes/languages/diagrams/lang-diagrams" {
+    import type { CompilerFunction, LanguageSpecs } from "livecodes/models";
+    export const runOutsideWorker: CompilerFunction;
+    export const diagrams: LanguageSpecs;
+}
+declare module "livecodes/languages/diagrams/index" {
+    export * from "livecodes/languages/diagrams/lang-diagrams";
+}
+declare module "livecodes/languages/dot/lang-dot" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const dot: LanguageSpecs;
+}
+declare module "livecodes/languages/dot/index" {
+    export * from "livecodes/languages/dot/lang-dot";
+}
+declare module "livecodes/languages/ejs/lang-ejs" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const ejs: LanguageSpecs;
+}
+declare module "livecodes/languages/ejs/index" {
+    export * from "livecodes/languages/ejs/lang-ejs";
+}
+declare module "livecodes/languages/eta/lang-eta" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const eta: LanguageSpecs;
+}
+declare module "livecodes/languages/eta/index" {
+    export * from "livecodes/languages/eta/lang-eta";
+}
+declare module "livecodes/languages/fennel/lang-fennel" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const fennel: LanguageSpecs;
+}
+declare module "livecodes/languages/fennel/index" {
+    export * from "livecodes/languages/fennel/lang-fennel";
+}
+declare module "livecodes/languages/flow/lang-flow" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const flow: LanguageSpecs;
+}
+declare module "livecodes/languages/flow/index" {
+    export * from "livecodes/languages/flow/lang-flow";
+}
+declare module "livecodes/languages/gleam/lang-gleam" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const gleam: LanguageSpecs;
+}
+declare module "livecodes/languages/gleam/index" {
+    export * from "livecodes/languages/gleam/lang-gleam";
+}
+declare module "livecodes/languages/go/lang-go" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const go: LanguageSpecs;
+}
+declare module "livecodes/languages/go/index" {
+    export * from "livecodes/languages/go/lang-go";
+}
+declare module "livecodes/languages/haml/lang-haml" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const haml: LanguageSpecs;
+}
+declare module "livecodes/languages/haml/index" {
+    export * from "livecodes/languages/haml/lang-haml";
+}
+declare module "livecodes/languages/handlebars/lang-handlebars" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const runtimeUrl: string;
+    export const handlebars: LanguageSpecs;
+}
+declare module "livecodes/languages/handlebars/index" {
+    export * from "livecodes/languages/handlebars/lang-handlebars";
+}
+declare module "livecodes/languages/html/lang-html" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const html: LanguageSpecs;
+}
+declare module "livecodes/languages/html/index" {
+    export * from "livecodes/languages/html/lang-html";
+}
+declare module "livecodes/languages/imba/lang-imba" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const imba: LanguageSpecs;
+}
+declare module "livecodes/languages/imba/index" {
+    export * from "livecodes/languages/imba/lang-imba";
+}
+declare module "livecodes/languages/java/lang-java" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const java: LanguageSpecs;
+}
+declare module "livecodes/languages/java/index" {
+    export * from "livecodes/languages/java/lang-java";
+}
+declare module "livecodes/languages/javascript/lang-javascript" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const javascript: LanguageSpecs;
+}
+declare module "livecodes/languages/javascript/index" {
+    export * from "livecodes/languages/javascript/lang-javascript";
+}
+declare module "livecodes/languages/jinja/lang-jinja" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const jinjaUrl: string;
+    export const jinja: LanguageSpecs;
+}
+declare module "livecodes/languages/jinja/index" {
+    export * from "livecodes/languages/jinja/lang-jinja";
+}
+declare module "livecodes/languages/jsx/lang-jsx" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const jsx: LanguageSpecs;
+}
+declare module "livecodes/languages/jsx/lang-tsx" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const tsx: LanguageSpecs;
+}
+declare module "livecodes/languages/jsx/index" {
+    export * from "livecodes/languages/jsx/lang-jsx";
+    export * from "livecodes/languages/jsx/lang-tsx";
+}
+declare module "livecodes/languages/julia/lang-julia" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const julia: LanguageSpecs;
+}
+declare module "livecodes/languages/julia/index" {
+    export * from "livecodes/languages/julia/lang-julia";
+}
+declare module "livecodes/languages/less/lang-less" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const less: LanguageSpecs;
+}
+declare module "livecodes/languages/less/index" {
+    export * from "livecodes/languages/less/lang-less";
+}
+declare module "livecodes/languages/liquid/lang-liquid" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const liquid: LanguageSpecs;
+}
+declare module "livecodes/languages/liquid/index" {
+    export * from "livecodes/languages/liquid/lang-liquid";
+}
+declare module "livecodes/languages/livescript/lang-livescript" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const livescript: LanguageSpecs;
+}
+declare module "livecodes/languages/livescript/index" {
+    export * from "livecodes/languages/livescript/lang-livescript";
+}
+declare module "livecodes/languages/lua/lang-lua" {
+    import type { LanguageFormatter, LanguageSpecs } from "livecodes/models";
+    export const luaFormatter: LanguageFormatter;
+    export const lua: LanguageSpecs;
+}
+declare module "livecodes/languages/lua/index" {
+    export * from "livecodes/languages/lua/lang-lua";
+}
+declare module "livecodes/languages/lua-wasm/lang-lua-wasm" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const luaWasm: LanguageSpecs;
+}
+declare module "livecodes/languages/lua-wasm/index" {
+    export * from "livecodes/languages/lua-wasm/lang-lua-wasm";
+}
+declare module "livecodes/languages/malina/lang-malina" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const malina: LanguageSpecs;
+}
+declare module "livecodes/languages/malina/index" {
+    export * from "livecodes/languages/malina/lang-malina";
+}
+declare module "livecodes/languages/markdown/lang-markdown" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const markdown: LanguageSpecs;
+}
+declare module "livecodes/languages/markdown/index" {
+    export * from "livecodes/languages/markdown/lang-markdown";
+}
+declare module "livecodes/languages/mdx/lang-mdx" {
+    import type { CompilerFunction, LanguageSpecs } from "livecodes/models";
+    export const runOutsideWorker: CompilerFunction;
+    export const mdx: LanguageSpecs;
+}
+declare module "livecodes/languages/mdx/index" {
+    export * from "livecodes/languages/mdx/lang-mdx";
+}
+declare module "livecodes/languages/mjml/lang-mjml" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const mjml: LanguageSpecs;
+}
+declare module "livecodes/languages/mjml/index" {
+    export * from "livecodes/languages/mjml/lang-mjml";
+}
+declare module "livecodes/languages/mustache/lang-mustache" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const mustache: LanguageSpecs;
+}
+declare module "livecodes/languages/mustache/index" {
+    export * from "livecodes/languages/mustache/lang-mustache";
+}
+declare module "livecodes/languages/nunjucks/lang-nunjucks" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const runtimeUrl: string;
+    export const nunjucks: LanguageSpecs;
+}
+declare module "livecodes/languages/nunjucks/index" {
+    export * from "livecodes/languages/nunjucks/lang-nunjucks";
+}
+declare module "livecodes/languages/ocaml/lang-ocaml" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const ocaml: LanguageSpecs;
+}
+declare module "livecodes/languages/ocaml/index" {
+    export * from "livecodes/languages/ocaml/lang-ocaml";
+}
+declare module "livecodes/languages/perl/lang-perl" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const perl: LanguageSpecs;
+}
+declare module "livecodes/languages/perl/index" {
+    export * from "livecodes/languages/perl/lang-perl";
+}
+declare module "livecodes/languages/php/lang-php" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const php: LanguageSpecs;
+}
+declare module "livecodes/languages/php/index" {
+    export * from "livecodes/languages/php/lang-php";
+}
+declare module "livecodes/languages/php-wasm/lang-php-wasm" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const phpWasm: LanguageSpecs;
+}
+declare module "livecodes/languages/php-wasm/index" {
+    export * from "livecodes/languages/php-wasm/lang-php-wasm";
+}
+declare module "livecodes/languages/postgresql/lang-postgresql" {
+    import type { CompilerFunction, LanguageSpecs } from "livecodes/models";
+    export const runOutsideWorker: CompilerFunction;
+    export const postgresql: LanguageSpecs;
+}
+declare module "livecodes/languages/postgresql/index" {
+    export * from "livecodes/languages/postgresql/lang-postgresql";
+}
+declare module "livecodes/languages/prolog/lang-prolog" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const prolog: LanguageSpecs;
+}
+declare module "livecodes/languages/prolog/index" {
+    export * from "livecodes/languages/prolog/lang-prolog";
+}
+declare module "livecodes/languages/pug/lang-pug" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const pug: LanguageSpecs;
+}
+declare module "livecodes/languages/pug/index" {
+    export * from "livecodes/languages/pug/lang-pug";
+}
+declare module "livecodes/languages/python/lang-python" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const python: LanguageSpecs;
+}
+declare module "livecodes/languages/python/index" {
+    export * from "livecodes/languages/python/lang-python";
+}
+declare module "livecodes/languages/python-wasm/lang-python-wasm" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const pythonWasm: LanguageSpecs;
+}
+declare module "livecodes/languages/python-wasm/index" {
+    export * from "livecodes/languages/python-wasm/lang-python-wasm";
+}
+declare module "livecodes/languages/r/lang-r" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const r: LanguageSpecs;
+}
+declare module "livecodes/languages/r/index" {
+    export * from "livecodes/languages/r/lang-r";
+}
+declare module "livecodes/languages/react/lang-react" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const react: LanguageSpecs;
+}
+declare module "livecodes/languages/react/lang-react-tsx" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const reactTsx: LanguageSpecs;
+}
+declare module "livecodes/languages/react/index" {
+    export * from "livecodes/languages/react/lang-react";
+    export * from "livecodes/languages/react/lang-react-tsx";
+}
+declare module "livecodes/languages/typescript/lang-typescript" {
+    import type { Config, LanguageSpecs } from "livecodes/models";
+    export const hasCustomJsxRuntime: (code: string, config: Config) => boolean;
+    export const typescriptOptions: {
+        target: string;
+        jsx: string;
+        allowUmdGlobalAccess: boolean;
+        esModuleInterop: boolean;
+    };
+    export const typescript: LanguageSpecs;
+}
+declare module "livecodes/languages/typescript/index" {
+    export * from "livecodes/languages/typescript/lang-typescript";
+}
+declare module "livecodes/languages/react-native/lang-react-native" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const reactNative: LanguageSpecs;
+}
+declare module "livecodes/languages/react-native/lang-react-native-tsx" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const reactNativeTsx: LanguageSpecs;
+}
+declare module "livecodes/languages/react-native/index" {
+    export * from "livecodes/languages/react-native/lang-react-native";
+    export * from "livecodes/languages/react-native/lang-react-native-tsx";
+}
+declare module "livecodes/languages/rescript/lang-rescript" {
+    import type { CompilerFunction, LanguageFormatter, LanguageSpecs } from "livecodes/models";
+    export const runOutsideWorker: CompilerFunction;
+    export const formatterFactory: LanguageFormatter['factory'];
+    export const rescript: LanguageSpecs;
+}
+declare module "livecodes/languages/rescript/index" {
+    export * from "livecodes/languages/rescript/lang-rescript";
+}
+declare module "livecodes/languages/reason/lang-reason" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const reason: LanguageSpecs;
+}
+declare module "livecodes/languages/reason/index" {
+    export * from "livecodes/languages/reason/lang-reason";
+}
+declare module "livecodes/languages/richtext/lang-richtext" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const richtext: LanguageSpecs;
+}
+declare module "livecodes/languages/richtext/index" {
+    export * from "livecodes/languages/richtext/lang-richtext";
+}
+declare module "livecodes/languages/riot/lang-riot" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const riot: LanguageSpecs;
+}
+declare module "livecodes/languages/riot/index" {
+    export * from "livecodes/languages/riot/lang-riot";
+}
+declare module "livecodes/languages/ruby/lang-ruby" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const ruby: LanguageSpecs;
+}
+declare module "livecodes/languages/ruby/index" {
+    export * from "livecodes/languages/ruby/lang-ruby";
+}
+declare module "livecodes/languages/ruby-wasm/lang-ruby-wasm" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const rubyWasm: LanguageSpecs;
+}
+declare module "livecodes/languages/ruby-wasm/index" {
+    export * from "livecodes/languages/ruby-wasm/lang-ruby-wasm";
+}
+declare module "livecodes/languages/scheme/lang-scheme" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const scheme: LanguageSpecs;
+}
+declare module "livecodes/languages/scheme/index" {
+    export * from "livecodes/languages/scheme/lang-scheme";
+}
+declare module "livecodes/languages/scss/lang-sass" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const sass: LanguageSpecs;
+}
+declare module "livecodes/languages/scss/lang-scss" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const scss: LanguageSpecs;
+}
+declare module "livecodes/languages/scss/index" {
+    export * from "livecodes/languages/scss/lang-sass";
+    export * from "livecodes/languages/scss/lang-scss";
+}
+declare module "livecodes/languages/solid/lang-solid" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const solid: LanguageSpecs;
+}
+declare module "livecodes/languages/solid/lang-solid-tsx" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const solidTsx: LanguageSpecs;
+}
+declare module "livecodes/languages/solid/index" {
+    export * from "livecodes/languages/solid/lang-solid";
+    export * from "livecodes/languages/solid/lang-solid-tsx";
+}
+declare module "livecodes/languages/sql/lang-sql" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const scriptType = "application/json";
+    export const sql: LanguageSpecs;
+}
+declare module "livecodes/languages/sql/index" {
+    export * from "livecodes/languages/sql/lang-sql";
+}
+declare module "livecodes/languages/stencil/lang-stencil" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const stencil: LanguageSpecs;
+}
+declare module "livecodes/languages/stencil/index" {
+    export * from "livecodes/languages/stencil/lang-stencil";
+}
+declare module "livecodes/languages/stylis/lang-stylis" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const stylis: LanguageSpecs;
+}
+declare module "livecodes/languages/stylis/index" {
+    export * from "livecodes/languages/stylis/lang-stylis";
+}
+declare module "livecodes/languages/stylus/lang-stylus" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const stylus: LanguageSpecs;
+}
+declare module "livecodes/languages/stylus/index" {
+    export * from "livecodes/languages/stylus/lang-stylus";
+}
+declare module "livecodes/languages/sucrase/lang-sucrase" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const sucrase: LanguageSpecs;
+}
+declare module "livecodes/languages/sucrase/index" {
+    export * from "livecodes/languages/sucrase/lang-sucrase";
+}
+declare module "livecodes/languages/svelte/lang-svelte" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const svelte: LanguageSpecs;
+    export const svelteApp: LanguageSpecs;
+}
+declare module "livecodes/languages/svelte/index" {
+    export * from "livecodes/languages/svelte/lang-svelte";
+}
+declare module "livecodes/languages/tcl/lang-tcl" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const tcl: LanguageSpecs;
+}
+declare module "livecodes/languages/tcl/index" {
+    export * from "livecodes/languages/tcl/lang-tcl";
+}
+declare module "livecodes/languages/teal/lang-teal" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const teal: LanguageSpecs;
+}
+declare module "livecodes/languages/teal/index" {
+    export * from "livecodes/languages/teal/lang-teal";
+}
+declare module "livecodes/languages/twig/lang-twig" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const twig: LanguageSpecs;
+}
+declare module "livecodes/languages/twig/index" {
+    export * from "livecodes/languages/twig/lang-twig";
+}
+declare module "livecodes/languages/vento/lang-vento" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const vento: LanguageSpecs;
+}
+declare module "livecodes/languages/vento/index" {
+    export * from "livecodes/languages/vento/lang-vento";
+}
+declare module "livecodes/languages/vue/lang-vue" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const vue: LanguageSpecs;
+    export const vueApp: LanguageSpecs;
+}
+declare module "livecodes/languages/vue/index" {
+    export * from "livecodes/languages/vue/lang-vue";
+}
+declare module "livecodes/languages/vue2/lang-vue2" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const vue2: LanguageSpecs;
+}
+declare module "livecodes/languages/vue2/index" {
+    export * from "livecodes/languages/vue2/lang-vue2";
+}
+declare module "livecodes/languages/wat/lang-wat" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const scriptType = "application/wasm-uint8";
+    export const wat: LanguageSpecs;
+}
+declare module "livecodes/languages/wat/index" {
+    export * from "livecodes/languages/wat/lang-wat";
+}
+declare module "livecodes/languages/languages" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const languages: LanguageSpecs[];
+}
+declare module "livecodes/languages/index" {
+    export * from "livecodes/languages/css-presets";
+    export * from "livecodes/languages/languages";
+    export * from "livecodes/languages/postcss/index";
+    export * from "livecodes/languages/prettier";
+    export * from "livecodes/languages/processors";
+    export * from "livecodes/languages/utils";
+}
+declare module "livecodes/config/default-config" {
+    import type { Config } from "livecodes/models";
+    export const defaultConfig: Config;
+}
+declare module "livecodes/config/build-config" {
+    import type { Config, UrlQueryParams } from "livecodes/models";
+    /**
+     * Builds and validates a configuration object by merging default config with user config and URL params
+     *
+     * @param appConfig - Partial configuration object provided by user
+     * @returns Complete validated configuration object
+     *
+     * The function:
+     * 1. Merges default config with user provided config
+     * 2. Handles special case for 'result' mode tools
+     * 3. Processes URL query parameters
+     * 4. Sets active editor
+     * 5. Fixes language names in final config
+     */
+    export const buildConfig: (appConfig: Partial<Config>) => Config;
+    /**
+     * Extracts and processes URL query parameters and hash parameters, converting them into a structured object
+     *
+     * @param queryParams - The URL search query string. Defaults to parent.location.search
+     * @param hashParams - The URL hash string. Defaults to parent.location.hash
+     * @returns {UrlQueryParams} An object containing processed URL parameters where:
+     *
+     * - Values 'true' and 'false' are converted to boolean
+     * - Empty string values are converted to true
+     * - URL encoded values are decoded
+     * - Special 'params' key content is decompressed and parsed as JSON
+     * - Hash parameters take precedence over query parameters with the same key
+     *
+     * @example
+     * // For URL: http://example.com?foo=bar&empty=&isTrue=true#param=value
+     * getParams() // Returns: { foo: "bar", empty: true, isTrue: true, param: "value" }
+     */
+    export const getParams: (queryParams?: string, hashParams?: string) => UrlQueryParams;
+    export const loadParamConfig: (config: Config, params: UrlQueryParams) => Partial<Config>;
+}
+declare module "livecodes/config/upgrade-config" {
+    import type { Config } from "livecodes/models";
+    interface genericConfig extends Config {
+        [x: string]: any;
+    }
+    export const upgradeConfig: (oldConfig: genericConfig) => genericConfig;
+    export const isEarlier: ({ version, comparedTo }: {
+        version: string;
+        comparedTo: string;
+    }) => boolean;
+}
+declare module "livecodes/config/validate-config" {
+    import type { Config } from "livecodes/models";
+    export const validateConfig: (config: Partial<Config>) => Partial<Config>;
+}
+declare module "livecodes/config/config" {
+    import type { AppConfig, Config, ContentConfig, EditorConfig, FormatterConfig, UserConfig } from "livecodes/models";
+    export const getConfig: () => Config;
+    export const setConfig: (newConfig: Config) => void;
+    export const getContentConfig: (config: Config | ContentConfig) => ContentConfig;
+    export const getAppConfig: (config: Config | AppConfig) => AppConfig;
+    export const getUserConfig: (config: Config | UserConfig) => UserConfig;
+    export const getEditorConfig: (config: Config | UserConfig) => EditorConfig;
+    export const getFormatterConfig: (config: Config | UserConfig) => FormatterConfig;
+    export const upgradeAndValidate: (config: Partial<Config>) => Partial<Config>;
+}
+declare module "livecodes/config/index" {
+    export * from "livecodes/config/build-config";
+    export * from "livecodes/config/config";
+    export * from "livecodes/config/default-config";
+}
+declare module "livecodes/notifications/snackbar" {
+    import type { Action } from '@snackbar/core';
+    export const darkTheme: {
+        textColor: string;
+        actionColor: string;
+        backgroundColor: string;
+    };
+    export const lightTheme: {
+        textColor: string;
+        actionColor: string;
+        backgroundColor: string;
+    };
+    export const infoTheme: {
+        textColor: string;
+        actionColor: string;
+        backgroundColor: string;
+    };
+    export const successTheme: {
+        textColor: string;
+        actionColor: string;
+        backgroundColor: string;
+    };
+    export const warningTheme: {
+        textColor: string;
+        actionColor: string;
+        backgroundColor: string;
+    };
+    export const dangerTheme: {
+        textColor: string;
+        actionColor: string;
+        backgroundColor: string;
+    };
+    export const closeButton: Action;
+    export const acceptButton: Action;
+}
+declare module "livecodes/notifications/create-notifications" {
+    import type { Notifications } from "livecodes/models";
+    export const hasOpenNotifications: () => boolean;
+    export const createNotifications: () => Notifications;
+}
+declare module "livecodes/notifications/index" {
+    export * from "livecodes/notifications/create-notifications";
+}
+declare module "livecodes/UI/accordion" {
+    export const createAccordion: ({ container, single, open, }: {
+        container: HTMLElement | Document;
+        single?: boolean;
+        open?: boolean;
+    }) => void;
+}
+declare module "livecodes/UI/modal" {
+    import type { Modal } from "livecodes/models";
+    export const createModal: (deps: {
+        translate: (container: HTMLElement) => void;
+        isEmbed: boolean;
+        onClose: () => void;
+    }) => Modal;
+}
+declare module "livecodes/cache/cache" {
+    import type { Cache, Code, EditorId, Language } from "livecodes/models";
+    export const getCache: () => Cache;
+    export const setCache: (newCache?: Cache) => void;
+    export const updateCache: (editorId: EditorId, language: Language, modified: string) => void;
+    export const getCachedCode: () => Code;
+}
+declare module "livecodes/cache/utils" {
+    import type { Cache, ContentConfig } from "livecodes/models";
+    export const cacheIsValid: (cache: Cache, config: ContentConfig) => boolean;
+}
+declare module "livecodes/cache/index" {
+    export * from "livecodes/cache/cache";
+    export * from "livecodes/cache/utils";
+}
+declare module "livecodes/export/utils" {
+    import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
+    import type { Config, ContentConfig, EditorId, Language, User } from "livecodes/models";
+    export interface Files {
+        [key: string]: {
+            content: string;
+        };
+    }
+    export const getFilesFromConfig: (config: Config | ContentConfig, { getLanguageExtension, }: {
+        getLanguageExtension: typeof getLanguageExtensionFn;
+    }) => Files;
+    export const getDescriptionFile: (config: ContentConfig, user?: User, url?: string, gist?: boolean) => {
+        [x: string]: {
+            content: string;
+        };
+    };
+    export const getCompilerScripts: ({ baseUrl, editorId, config, compiled, supportedLanguages, getLanguageCompiler, }: {
+        baseUrl: string;
+        editorId: EditorId;
+        config: Config;
+        compiled: {
+            script: string;
+            style: string;
+            markup: string;
+        };
+        supportedLanguages: {
+            script: Language[];
+            style: Language[];
+            markup: Language[];
+        };
+        getLanguageCompiler: typeof getLanguageCompilerFn;
+    }) => string[];
+    export const getContent: ({ editorId, config, compiled, supportedLanguages, getLanguageCompiler, }: {
+        editorId: EditorId;
+        config: Config;
+        compiled: {
+            script: string;
+            style: string;
+            markup: string;
+        };
+        supportedLanguages: {
+            script: Language[];
+            style: Language[];
+            markup: Language[];
+        };
+        getLanguageCompiler: typeof getLanguageCompilerFn;
+    }) => string;
+}
+declare module "livecodes/deploy/deploy" {
+    import type { getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
+    import type { ContentConfig, User } from "livecodes/models";
+    import { type GitHubFile } from "livecodes/services/github";
+    export interface DeployResult {
+        url: string;
+        username: string;
+        repo: string;
+        tree: string;
+        commit: string;
+    }
+    export const deploy: ({ user, repo, config, content, message, commitSource, singleFile, newRepo, deps, }: {
+        user: User;
+        repo: string;
+        config: ContentConfig;
+        content: {
+            resultPage: string;
+            style: string;
+            script: string;
+        };
+        message: string;
+        commitSource: boolean;
+        singleFile: boolean;
+        newRepo: boolean;
+        deps: {
+            getLanguageExtension: typeof getLanguageExtensionFn;
+        };
+    }) => Promise<DeployResult | null>;
+    export const deployFile: ({ file, user, repo, branch, message, description, readmeContent, }: {
+        file: GitHubFile;
+        user: User;
+        repo: string;
+        branch: string;
+        message: string;
+        description?: string;
+        readmeContent?: string;
+    }) => Promise<DeployResult | null>;
+    export const deployedConfirmation: (deployResult: DeployResult, sourcePublished: boolean) => HTMLDivElement;
+}
+declare module "livecodes/deploy/index" {
+    export * from "livecodes/deploy/deploy";
+}
+declare module "livecodes/editor/fake-editor" {
+    import type { CodeEditor, EditorOptions } from "livecodes/models";
+    export const createFakeEditor: (options: EditorOptions) => CodeEditor;
+}
+declare module "livecodes/editor/fonts" {
+    export interface Font {
+        id: string;
+        name: string;
+        label?: string;
+        url: string;
+    }
+    export const fonts: Font[];
+    export const getFontFamily: (font: string | undefined) => string;
+}
+declare module "livecodes/editor/create-editor" {
+    import type { CodeEditor, Config, EditorOptions } from "livecodes/models";
+    export const createEditor: (options: EditorOptions & {
+        activeEditor?: Config['activeEditor'];
+    }) => Promise<CodeEditor>;
+}
+declare module "livecodes/editor/custom-editor-commands" {
+    import type { EventsManager } from "livecodes/models";
+    export const registerEditorCommands: (enable: boolean, eventsManager: EventsManager) => void;
+}
+declare module "livecodes/editor/blockly/blockly" {
+    import type { BlocklyContent, CustomEditorOptions, Theme } from "livecodes/models";
+    export const showBlockly: ({ baseUrl, editors, config, html, eventsManager, }: CustomEditorOptions) => Promise<void>;
+    export const getBlocklyContent: ({ baseUrl, editors, config, html, eventsManager, }: CustomEditorOptions) => Promise<BlocklyContent>;
+    export const setBlocklyTheme: (theme: Theme) => void;
+}
+declare module "livecodes/editor/blockly/blockly-editor" {
+    import type { CustomEditor, EventsManager } from "livecodes/models";
+    export const createBlocklyEditor: ({ baseUrl, eventsManager, }: {
+        baseUrl: string;
+        eventsManager: EventsManager;
+    }) => CustomEditor;
+}
+declare module "livecodes/editor/blockly/index" {
+    export * from "livecodes/editor/blockly/blockly-editor";
+}
+declare module "livecodes/editor/quill/quill" {
+    import type { CustomEditorOptions, Theme } from "livecodes/models";
+    export const showQuillEditor: ({ baseUrl, config, editors, eventsManager, }: CustomEditorOptions) => Promise<void>;
+    export const getQuillEditorContent: ({ baseUrl, editors, config, html, eventsManager, }: CustomEditorOptions) => Promise<{
+        html?: string;
+    }>;
+    export const setQuillEditorTheme: (theme: Theme) => void;
+}
+declare module "livecodes/editor/quill/quill-editor" {
+    import type { CustomEditor, EventsManager } from "livecodes/models";
+    export const createQuillEditor: ({ baseUrl, eventsManager, }: {
+        baseUrl: string;
+        eventsManager: EventsManager;
+    }) => CustomEditor;
+}
+declare module "livecodes/editor/quill/index" {
+    export * from "livecodes/editor/quill/quill-editor";
+}
+declare module "livecodes/editor/custom-editors" {
+    import type { CustomEditors, EventsManager } from "livecodes/models";
+    export const createCustomEditors: (options: {
+        baseUrl: string;
+        eventsManager: EventsManager;
+    }) => CustomEditors;
+}
+declare module "livecodes/editor/index" {
+    export * from "livecodes/editor/create-editor";
+    export * from "livecodes/editor/custom-editors";
+    export * from "livecodes/editor/fonts";
+}
+declare module "livecodes/export/export-codepen" {
+    import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
+    import type { Config, EditorId } from "livecodes/models";
+    export const exportCodepen: (config: Config, { baseUrl, compiled, deps, }: {
+        baseUrl: string;
+        compiled: {
+            script: string;
+            style: string;
+            markup: string;
+        };
+        deps: {
+            getLanguageExtension: typeof getLanguageExtensionFn;
+            getLanguageCompiler: typeof getLanguageCompilerFn;
+        };
+    }) => void;
+}
+declare module "livecodes/export/export-github-gist" {
+    import type { getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
+    import type { Config, User } from "livecodes/models";
+    export const exportGithubGist: (config: Config, { user, deps, }: {
+        user: User;
+        deps: {
+            getLanguageExtension: typeof getLanguageExtensionFn;
+        };
+    }) => Promise<void>;
+}
+declare module "livecodes/export/export-html" {
+    import type { Config } from "livecodes/models";
+    export const exportHTML: (config: Config, html: string) => void;
+}
+declare module "livecodes/export/export-jsfiddle" {
+    import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
+    import type { Config, EditorId } from "livecodes/models";
+    export const exportJsfiddle: (config: Config, { baseUrl, compiled, deps, }: {
+        baseUrl: string;
+        compiled: {
+            script: string;
+            style: string;
+            markup: string;
+        };
+        deps: {
+            getLanguageExtension: typeof getLanguageExtensionFn;
+            getLanguageCompiler: typeof getLanguageCompilerFn;
+        };
+    }) => void;
+}
+declare module "livecodes/export/export-json" {
+    import type { Config } from "livecodes/models";
+    export const exportJSON: (config: Config) => void;
+}
+declare module "livecodes/export/export-src" {
+    import type { getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
+    import type { Config } from "livecodes/models";
+    export const exportSrc: (config: Config, { html, deps, }: {
+        html: string;
+        deps: {
+            getLanguageExtension: typeof getLanguageExtensionFn;
+        };
+    }, _baseUrl?: string) => Promise<void>;
+}
+declare module "livecodes/export/export" {
+    import type { Config } from "livecodes/models";
+    export type ExportType = 'json' | 'src' | 'html' | 'codepen' | 'jsfiddle' | 'githubGist';
+    export const exportConfig: (config: Config, baseUrl: string, type: ExportType, payload?: any) => void;
+}
+declare module "livecodes/export/index" {
+    export * from "livecodes/export/export";
+    export * from "livecodes/export/utils";
+}
+declare module "livecodes/formatter/models" {
+    import type { FormatFn, FormatterConfig, Language } from "livecodes/models";
+    export interface Formatter {
+        load: (languages: Language[]) => Promise<string>;
+        getFormatFn: (language: Language) => Promise<FormatFn>;
+        destroy: () => void;
+    }
+    export interface FormatterMessageEvent extends MessageEvent {
+        data: FormatterMessage;
+    }
+    export type FormatterMessage = InitMessage | LoadMessage | LoadedMessage | LoadFailedMessage | FormatMessage | FormattedMessage | FormatFailedMessage;
+    export interface InitMessage {
+        type: 'init';
+        baseUrl: string;
+    }
+    export interface LoadMessage {
+        type: 'load';
+        payload: Language[];
+    }
+    export interface LoadedMessage {
+        type: 'loaded';
+        payload: Language[];
+    }
+    export interface LoadFailedMessage {
+        type: 'load-failed';
+        payload: Language[];
+    }
+    export interface FormatMessage {
+        type: 'format';
+        payload: {
+            language: Language;
+            value: string;
+            cursorOffset: number;
+            formatterConfig: Partial<FormatterConfig>;
+        };
+    }
+    export interface FormattedMessage {
+        type: 'formatted';
+        payload: {
+            language: Language;
+            value: string;
+            cursorOffset: number;
+            formatted: string;
+            formattedCursorOffset: number;
+        };
+    }
+    export interface FormatFailedMessage {
+        type: 'format-failed';
+        payload: {
+            language: Language;
+            value: string;
+            cursorOffset: number;
+            error: string;
+        };
+    }
+}
+declare module "livecodes/formatter/formatter" {
+    import type { Formatter } from "livecodes/formatter/models";
+    export const createFormatter: (baseUrl: string) => Formatter;
+}
+declare module "livecodes/formatter/get-formatter" {
+    import type { Config } from "livecodes/models";
+    import type { Formatter } from "livecodes/formatter/models";
+    export const getFormatter: (config: Config, baseUrl: string, lazy: boolean) => Formatter;
+}
+declare module "livecodes/formatter/index" {
+    export * from "livecodes/formatter/get-formatter";
+}
+declare module "livecodes/import/check-src" {
+    export const getValidUrl: (url: string) => URL | undefined;
+    export const hostPatterns: {
+        github: RegExp;
+        githubGist: RegExp;
+        gitlab: RegExp;
+        codepen: RegExp;
+        jsbin: RegExp;
+        typescriptPlayground: RegExp;
+        vuePlayground: RegExp;
+        sveltePlayground: RegExp;
+    };
+    export const isCompressedCode: (url: string) => boolean;
+    export const isCodepen: (url: string, pattern?: RegExp) => boolean;
+    export const isDom: (url: string) => boolean;
+    export const isGithubUrl: (url: string, pattern?: RegExp) => boolean | undefined;
+    export const isGithub: (url: string) => boolean | undefined;
+    export const isGithubDir: (url: string, pattern?: RegExp) => boolean | undefined;
+    export const isGithubGist: (url: string, pattern?: RegExp) => boolean;
+    export const isGitlabUrl: (url: string, pattern?: RegExp) => boolean | undefined;
+    export const isGitlabDir: (url: string, pattern?: RegExp) => boolean | undefined;
+    export const isGitlabSnippet: (url: string, pattern?: RegExp) => boolean | undefined;
+    export const isJsbin: (url: string, pattern?: RegExp) => boolean;
+    export const isProjectId: (url: string) => boolean;
+    export const isTypescriptPlayground: (url: string, pattern?: RegExp) => boolean;
+    export const isVuePlayground: (url: string, pattern?: RegExp) => boolean;
+    export const isSveltePlayground: (url: string, pattern?: RegExp) => boolean;
+}
+declare module "livecodes/import/code" {
+    import type { Config } from "livecodes/models";
+    export const importCompressedCode: (url: string) => Partial<Config>;
+}
+declare module "livecodes/import/project-id" {
+    export const importProject: (url: string) => Promise<Partial<import("sdk").Config & {
+        result: string;
+    }>>;
+}
+declare module "livecodes/import/codepen" {
+    import type { Config } from "livecodes/models";
+    export const importFromCodepen: (url: string) => Promise<Partial<Config>>;
+}
+declare module "livecodes/import/dom" {
+    import type { Config, EditorId, Language } from "livecodes/models";
+    type Selectors = {
+        [key in EditorId]: {
+            language: Language;
+            selector: string;
+        };
+    };
+    export const getLanguageSelectors: (params: {
+        [key: string]: string;
+    }) => Partial<Selectors>;
+    export const importFromDom: (html: string, params: {
+        [key: string]: string;
+    }, config: Config) => Promise<Partial<Config>>;
+}
+declare module "livecodes/import/github" {
+    import type { Config, User } from "livecodes/models";
+    export const importFromGithub: (url: string, loggedInUser: User | null | void) => Promise<Partial<Config>>;
+    export const addBaseTag: (config: Partial<Config>, files: Array<{
+        user: string;
+        repo: string;
+        ref: string;
+        path: string;
+    }>) => Partial<Config>;
+}
+declare module "livecodes/import/utils" {
+    import type { Config, EditorId, Language } from "livecodes/models";
+    export interface SourceFile {
+        filename: string;
+        content: string;
+        language?: Language;
+        editorId?: EditorId;
+    }
+    export const populateConfig: (files: SourceFile[], params: {
+        [key: string]: string;
+    }) => Partial<Config>;
+}
+declare module "livecodes/import/github-dir" {
+    import type { User } from "livecodes/models";
+    export const importFromGithubDir: (url: string, params: {
+        [key: string]: string;
+    }, loggedInUser: User | null | void) => Promise<Partial<import("sdk/models").Config>>;
+}
+declare module "livecodes/import/github-gist" {
+    export const importFromGithubGist: (url: string, params: {
+        [key: string]: string;
+    }) => Promise<{}>;
+}
+declare module "livecodes/import/gitlab" {
+    import type { Config, Language } from "livecodes/models";
+    export interface FileData {
+        rawURL: string;
+        filename: string;
+        extension: Language;
+        startLine: number;
+        endLine: number;
+    }
+    export const importFromGitlab: (url: string) => Promise<Partial<Config>>;
+}
+declare module "livecodes/import/gitlab-dir" {
+    export const importFromGitlabDir: (url: string, params: {
+        [key: string]: string;
+    }) => Promise<Partial<import("sdk").Config>>;
+}
+declare module "livecodes/import/gitlab-snippet" {
+    export const importFromGitlabSnippet: (url: string, params: {
+        [key: string]: string;
+    }) => Promise<{}>;
+}
+declare module "livecodes/import/jsbin" {
+    import type { Config } from "livecodes/models";
+    export const importFromJsbin: (url: string) => Promise<Partial<Config>>;
+}
+declare module "livecodes/import/typescript-playground" {
+    import type { Config } from "livecodes/models";
+    export const importTypescriptPlayground: (url: string) => Promise<Partial<Config>>;
+}
+declare module "livecodes/import/zip" {
+    import type { ContentConfig } from "livecodes/models";
+    import type { populateConfig as populateConfigFn } from "livecodes/import/utils";
+    export const importFromZip: (blob: Blob, populateConfig: typeof populateConfigFn) => Promise<Partial<ContentConfig>>;
+}
+declare module "livecodes/import/url" {
+    import type { Config } from "livecodes/models";
+    export const importFromUrl: (url: string, params: {
+        [key: string]: string;
+    }, config: Config) => Promise<Partial<Config>>;
+}
+declare module "livecodes/import/vue-playground" {
+    import type { Config } from "livecodes/models";
+    export const importVuePlayground: (url: string) => Promise<Partial<Config>>;
+}
+declare module "livecodes/import/import-src" {
+    export { importFromCodepen } from "livecodes/import/codepen";
+    export { importFromDom } from "livecodes/import/dom";
+    export { importFromGithub } from "livecodes/import/github";
+    export { importFromGithubDir } from "livecodes/import/github-dir";
+    export { importFromGithubGist } from "livecodes/import/github-gist";
+    export { importFromGitlab } from "livecodes/import/gitlab";
+    export { importFromGitlabDir } from "livecodes/import/gitlab-dir";
+    export { importFromGitlabSnippet } from "livecodes/import/gitlab-snippet";
+    export { importFromJsbin } from "livecodes/import/jsbin";
+    export { importTypescriptPlayground } from "livecodes/import/typescript-playground";
+    export { importFromUrl } from "livecodes/import/url";
+    export { importVuePlayground } from "livecodes/import/vue-playground";
+}
+declare module "livecodes/import/import" {
+    import type { Config, User } from "livecodes/models";
+    export const importCode: (url: string, params: {
+        [key: string]: any;
+    }, config: Config, user: User | null | void, baseUrl: string) => Promise<Partial<Config>>;
+}
+declare module "livecodes/import/index" {
+    export * from "livecodes/import/import";
+}
+declare module "livecodes/languages/jsx/react-runtime" {
+    export const reactRuntime = "\nimport { jsx as _jsx } from \"react/jsx-runtime\";\nimport { createRoot } from \"react-dom/client\";\nimport App from \"./script\";\n(() => {\n  if (typeof App !== \"function\") return;\n  const root = createRoot(document.querySelector(\"#livecodes-app\") || document.body.appendChild(document.createElement(\"div\")));\n  root.render(_jsx(App, {}));\n})();\n";
+}
+declare module "livecodes/languages/react-native/react-native-runtime" {
+    export const reactNativeRuntime = "\nimport { AppRegistry } from \"react-native\";\nimport App from \"./script\";\n(() => {\n  if (typeof App !== \"function\") return;\n  const rootTag = document.querySelector(\"#livecodes-app\") || document.body.appendChild(document.createElement(\"div\"));\n  AppRegistry.registerComponent(\"App\", () => App);\n  AppRegistry.runApplication(\"App\", { rootTag });\n})();\n";
+}
+declare module "livecodes/languages/solid/solid-runtime" {
+    export const solidRuntime = "\nimport { render, createComponent } from \"solid-js/web\";\nimport App from \"./script\";\n(() => {\n  if (typeof App !== \"function\") return;\n  const root = document.querySelector(\"#livecodes-app\") || document.body.appendChild(document.createElement(\"div\"));\n  render(() => createComponent(App, {}), root);\n})();\n";
+}
+declare module "livecodes/toolspane/test-imports" {
+    export const testImports: {
+        react: string;
+        'react/jsx-runtime': string;
+        'react-dom': string;
+        'react-dom/client': string;
+        'react-dom/test-utils': string;
+        '@testing-library/dom': string;
+        '@testing-library/jest-dom': string;
+        '@testing-library/react': string;
+        '@testing-library/react/pure': string;
+        '@testing-library/user-event': string;
+        chai: string;
+    };
+}
+declare module "livecodes/result/result-page" {
+    import type { Cache, CompileInfo, Config } from "livecodes/models";
+    export const createResultPage: ({ code, config, forExport, template, baseUrl, singleFile, runTests, compileInfo, }: {
+        code: Cache;
+        config: Config;
+        forExport: boolean;
+        template: string;
+        baseUrl: string;
+        singleFile: boolean;
+        runTests: boolean;
+        compileInfo: CompileInfo;
+    }) => Promise<string>;
+    export const cleanResultFromDev: (result: string) => string;
+}
+declare module "livecodes/result/utils" {
+    export const typeOf: (obj: any) => string;
+    export const proxyConsole: () => void;
+    export const handleEval: () => void;
+    export const handleResize: () => void;
+    export const handleScrollPosition: () => void;
+}
+declare module "livecodes/result/index" {
+    export * from "livecodes/result/result-page";
+    export * from "livecodes/result/utils";
+}
+declare module "livecodes/templates/get-starter-templates" {
+    import type { Config, Template } from "livecodes/models";
+    /**
+     * get starter templates with languages that are enabled in the current config
+     */
+    export const getStarterTemplates: (config: Config, baseUrl: string) => Promise<Template[]>;
+    export const getTemplate: (name: string, config: Config, baseUrl: string) => Promise<Template>;
+}
+declare module "livecodes/templates/index" {
+    export * from "livecodes/templates/get-starter-templates";
+}
 declare module "livecodes/toolspane/compiled-code-viewer" {
-    import type { Editors, Config, CompiledCodeViewer, EventsManager } from "livecodes/models";
+    import type { CompiledCodeViewer, Config, Editors, EventsManager } from "livecodes/models";
     export const createCompiledCodeViewer: (config: Config, baseUrl: string, _editors: Editors, _eventsManager: EventsManager, isEmbed: boolean, _runTests: () => Promise<void>) => CompiledCodeViewer;
 }
 declare module "livecodes/toolspane/console" {
-    import type { Editors, Config, Console, EventsManager } from "livecodes/models";
+    import type { Config, Console, Editors, EventsManager } from "livecodes/models";
     export const createConsole: (config: Config, baseUrl: string, _editors: Editors, eventsManager: EventsManager, isEmbed: boolean, _runTests: () => Promise<void>) => Console;
 }
 declare module "livecodes/UI/icons" {
@@ -3879,7 +3926,7 @@ declare module "livecodes/toolspane/test-viewer" {
     export const createTestViewer: (_config: Config, _baseUrl: string, _editors: Editors, eventsManager: EventsManager, isEmbed: boolean, runTests: () => Promise<void>) => TestViewer;
 }
 declare module "livecodes/toolspane/tools" {
-    import type { Editors, Config, EventsManager, ToolsPane } from "livecodes/models";
+    import type { Config, Editors, EventsManager, ToolsPane } from "livecodes/models";
     export const createToolsPane: (config: Config, baseUrl: string, editors: Editors, eventsManager: EventsManager, isEmbed: boolean, runTests: () => Promise<void>, setTools: (tools: Config['tools']) => void) => ToolsPane;
 }
 declare module "livecodes/toolspane/index" {
@@ -3887,6 +3934,10 @@ declare module "livecodes/toolspane/index" {
     export * from "livecodes/toolspane/console";
     export * from "livecodes/toolspane/test-viewer";
     export * from "livecodes/toolspane/tools";
+}
+declare module "livecodes/types/default-types" {
+    import type { Types } from "livecodes/models";
+    export const getDefaultTypes: () => Types;
 }
 declare module "livecodes/types/bundle-types" {
     export interface Options {
@@ -3941,13 +3992,9 @@ declare module "livecodes/types/type-loader" {
         load: (code: string, configTypes: Types, loadAll?: boolean, forceLoad?: boolean, callback?: (type: EditorLibrary) => void) => Promise<EditorLibrary[]>;
     };
 }
-declare module "livecodes/types/default-types" {
-    import type { Types } from "livecodes/models";
-    export const getDefaultTypes: () => Types;
-}
 declare module "livecodes/types/index" {
-    export * from "livecodes/types/type-loader";
     export * from "livecodes/types/default-types";
+    export * from "livecodes/types/type-loader";
 }
 declare module "livecodes/_modules" {
     /**
@@ -3959,6 +4006,8 @@ declare module "livecodes/_modules" {
      *
      * @module
      */
+    export * as UI from "livecodes/UI/index";
+    export * as modal from "livecodes/UI/modal";
     export * as cache from "livecodes/cache/index";
     export * as compiler from "livecodes/compiler/index";
     export * as config from "livecodes/config/index";
@@ -3970,7 +4019,6 @@ declare module "livecodes/_modules" {
     export * as html from "livecodes/html/index";
     export * as import from "livecodes/import/index";
     export * as languages from "livecodes/languages/index";
-    export * as modal from "livecodes/UI/modal";
     export type * as models from "livecodes/models";
     export * as notifications from "livecodes/notifications/index";
     export * as result from "livecodes/result/index";
@@ -3980,9 +4028,35 @@ declare module "livecodes/_modules" {
     export * as templates from "livecodes/templates/index";
     export * as toolspane from "livecodes/toolspane/index";
     export * as types from "livecodes/types/index";
-    export * as UI from "livecodes/UI/index";
     export * as utils from "livecodes/utils/index";
     export * as vendors from "livecodes/vendors";
+}
+declare module "sdk/index" {
+    import type { Code, Config, EmbedOptions, Language, Playground } from "sdk/models";
+    export type { Code, Config, EmbedOptions, Language, Playground };
+    /**
+     * Creates a LiveCodes playground.
+     *
+     * @param {string | HTMLElement} container - `HTMLElement` or a string representing a CSS selector. This is the container where the playground is rendered.
+      If not found, an error is thrown (except in [headless mode](https://livecodes.io/docs/sdk/headless), in which this parameter is optional and can be omitted).
+     * @param {EmbedOptions} options - The [embed options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playground (optional).
+     * @return {Promise<Playground>} - A promise that resolves to a [`Playground`](https://livecodes.io/docs/api/interfaces/Playground/) object which exposes many [SDK methods](https://livecodes.io/docs/sdk/js-ts/#sdk-methods) that can be used to interact with the playground.
+     */
+    export function createPlayground(container: string | HTMLElement, options?: EmbedOptions): Promise<Playground>;
+    export function createPlayground(options: EmbedOptions & {
+        view: 'headless';
+    }): Promise<Playground>;
+    /**
+     * Gets the URL to a LiveCodes playground (as a string) from the provided [options](https://livecodes.io/docs/sdk/js-ts#embed-options).
+     * This can be useful for providing links to run code in playgrounds.
+     *
+     * @param {EmbedOptions} options - The [options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playground.
+     * @return {string} - The URL of the playground (as a string).
+     *
+     * large objects like config and params are store in the url hash params while the rest are in the search params
+     * unless config is a string in which case it is stored in searchParams
+     */
+    export function getPlaygroundUrl(options?: EmbedOptions): string;
 }
 declare module "livecodes/UI/broadcast" {
     import type { AppData, EventsManager, Modal, Notifications } from "livecodes/models";
@@ -4013,17 +4087,75 @@ declare module "livecodes/UI/broadcast" {
         };
     }) => Promise<void>;
 }
-declare module "livecodes/services/permanent-url" {
-    type SDKFile = 'esm' | 'umd' | 'react' | 'vue' | 'types';
-    export const permanentUrlService: {
-        getAppUrl: () => string;
-        getSDKUrl: (file?: SDKFile) => string;
+declare module "livecodes/i18n/app-languages" {
+    import type { AppLanguage } from "livecodes/models";
+    export const appLanguages: {
+        [key in Exclude<AppLanguage, 'auto'>]: string;
     };
 }
-declare module "livecodes/import/files" {
-    import type { ContentConfig, EventsManager } from "livecodes/models";
-    import type { populateConfig as populateConfigFn } from "livecodes/import/utils";
-    export const importFromFiles: (files: FileList, populateConfig: typeof populateConfigFn, eventsManager: EventsManager) => Promise<Partial<ContentConfig>>;
+declare module "livecodes/UI/command-menu-actions" {
+    import type { Config, INinjaAction, Screen, TemplateName } from "livecodes/models";
+    export const getCommandMenuActions: ({ deps, }: {
+        deps: {
+            getConfig: () => Config;
+            loadStarterTemplate: (templateName: TemplateName) => Promise<void>;
+            changeEditorSettings: (config: Partial<Config>) => void;
+            changeLayout: (layout: Config['layout']) => void;
+            showScreen: (screen: Screen['screen'], options?: any) => Promise<void>;
+        };
+    }) => {
+        actions: INinjaAction[];
+        keyboardShortcuts: {
+            title: string;
+            hotkey: string;
+        }[];
+        loginAction: INinjaAction;
+        logoutAction: INinjaAction;
+    };
+}
+declare module "livecodes/UI/create-language-menus" {
+    import type { Config, EventsManager, Template } from "livecodes/models";
+    export const createLanguageMenus: (config: Config, baseUrl: string, eventsManager: EventsManager, showLanguageInfo: (languageInfo: HTMLElement) => void, loadStarterTemplate: (templateName: Template['name']) => void, importCode: (options: {
+        importUrl: string;
+    }) => Promise<boolean>, registerMenuButton: (menu: HTMLElement, button: HTMLElement) => void) => void;
+    export const createProcessorItem: (processor: {
+        name: string;
+        title: string;
+    }) => HTMLLIElement;
+}
+declare module "livecodes/UI/theme-colors" {
+    export const themeColors: readonly [{
+        readonly name: "blue";
+        readonly themeColor: "hsl(214, 40%, 50%)";
+    }, {
+        readonly name: "cyan";
+        readonly themeColor: "hsl(192, 40%, 50%)";
+    }, {
+        readonly name: "green";
+        readonly themeColor: "hsl(142, 40%, 50%)";
+    }, {
+        readonly name: "amber";
+        readonly themeColor: "hsl(38, 40%, 50%)";
+    }, {
+        readonly name: "red";
+        readonly themeColor: "hsl(0, 40%, 50%)";
+    }, {
+        readonly name: "violet";
+        readonly themeColor: "hsl(262, 40%, 50%)";
+    }, {
+        readonly name: "slate";
+        readonly themeColor: "hsl(220, 20%, 50%)";
+    }, {
+        readonly name: "custom";
+        readonly themeColor: undefined;
+    }];
+}
+declare module "livecodes/editor/ts-compiler-options" {
+    import type * as Monaco from 'monaco-editor';
+    import type { Language } from "livecodes/models";
+    type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
+    export const hasJsx: string[];
+    export const getCompilerOptions: (language: Language) => CompilerOptions;
 }
 declare module "livecodes/i18n/locale-paths" {
     export const pathLoader: (baseUrl: string) => (lngs: string[], nss: string[]) => string | false;
@@ -4192,6 +4324,425 @@ declare module "livecodes/i18n/i18n" {
         changeLanguage: (lng?: string | undefined, callback?: import("i18next").Callback | undefined) => Promise<import("i18next").TFunction<"translation", undefined>>;
         loadNamespaces: (ns: string | readonly string[], callback?: import("i18next").Callback | undefined) => Promise<void>;
     }>;
+}
+declare module "livecodes/i18n/locales/en/language-info" {
+    const languageInfo: {
+        readonly artTemplate: {
+            readonly desc: "High performance JavaScript templating engine.";
+            readonly link: "<1> <2>art-template official website</2> </1> <3> <4>art-template documentation</4> </3>";
+            readonly name: "art-template";
+        };
+        readonly asciidoc: {
+            readonly desc: "AsciiDoc compiled to HTML using Asciidoctor.";
+            readonly link: "<1> <2>AsciiDoc official website</2> </1> <3> <4>Asciidoctor official website</4> </3> <5> <6>Asciidoctor documentation</6> </5> <7> <8>Learn X in Y minutes, where X=asciidoc</8> </7>";
+            readonly name: "AsciiDoc";
+        };
+        readonly assemblyscript: {
+            readonly desc: "A TypeScript-like language for WebAssembly.";
+            readonly link: "<1> <2>AssemblyScript official website</2> </1> <3> <4>AssemblyScript documentation</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "AssemblyScript";
+        };
+        readonly astro: {
+            readonly desc: "Build faster websites with less client-side Javascript. (Still in Beta)";
+            readonly link: "<1> <2>Astro official website</2> </1> <3> <4>Astro documentation</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "Astro";
+        };
+        readonly babel: {
+            readonly desc: "The JavaScript compiler";
+            readonly link: "<1><2>Official website</2></1> <3> <4>Babel documentation</4> </3>";
+            readonly name: "Babel";
+        };
+        readonly bbcode: {
+            readonly desc: "BBCode (\"Bulletin Board Code\") is a lightweight markup language used to format messages in many Internet forum software.";
+            readonly link: "<1><2>bbcode.org</2></1> <3> <4>BBCode guide</4> </3> <5> <6>BBCode on Wikipedia</6> </5>";
+            readonly name: "BBCode";
+        };
+        readonly blockly: {
+            readonly desc: "A JavaScript library for building visual programming editors.";
+            readonly link: "<1> <2>Official website</2> </1> <3> <4>Guides</4> </3> <5> <6>Reference</6> </5> <7> <8>Samples</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "Blockly";
+        };
+        readonly civet: {
+            readonly desc: "Civet is a programming language that compiles to TypeScript or JavaScript, so you can use existing tooling but enable concise and powerful syntax.";
+            readonly link: "<1> <2>Civet official website</2> </1> <3> <4>Civet cheatsheet</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "Civet";
+        };
+        readonly clio: {
+            readonly desc: "Clio is a fast, distributed, functional programming language that compiles to JavaScript.";
+            readonly link: "<1> <2>Clio official website</2> </1> <3> <4>Clio documentation</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "Clio";
+        };
+        readonly clojurescript: {
+            readonly desc: "ClojureScript is a compiler for <1>Clojure</1> that targets JavaScript. <2></2>In LiveCodes, it runs in the browser using <3>Cherry</3>";
+            readonly link: "<1> <2>ClojureScript official website</2> </1> <3> <4>Clojure official website</4> </3> <5> <6>Cherry repo</6> </5> <7> <8>Learn X in Y minutes, where X=clojure</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
+            readonly name: "ClojureScript (CLJS)";
+        };
+        readonly coffeescript: {
+            readonly desc: "Unfancy JavaScript.";
+            readonly link: "<1> <2>CoffeeScript official website</2> </1> <3> <4>Learn X in Y minutes, where X=coffeescript</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "CoffeeScript";
+        };
+        readonly commonlisp: {
+            readonly desc: "A Common Lisp implementation on Javascript using JSCL (a Lisp-to-Javascript compiler bootstrapped from Common Lisp).";
+            readonly link: "<1> <2>Common-Lisp.net</2> </1> <3> <4>JSCL Project</4> </3> <5> <6>Common Lisp Resources</6> </5> <7> <8>Learn X in Y minutes, where X=Common Lisp</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "Common Lisp";
+        };
+        readonly cpp: {
+            readonly desc1: "C++ support using JSCPP (a simple C++ interpreter written in JavaScript).";
+            readonly desc2: "It is not a complete implementation of C++. Please refer to <1>JSCPP documentation</1> for details.";
+            readonly link: "<1> <2>Standard C++ Foundation</2> </1> <3> <4>JSCPP</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "C++";
+        };
+        readonly cppWasm: {
+            readonly desc: "Clang C/C++ compiler running on WebAssembly, using <1>wasm-clang</1> adapted by <2>polylang.io</2>";
+            readonly link: "<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang official website</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "C/C++ (Wasm)";
+        };
+        readonly csharpWasm: {
+            readonly desc: "C# compiler running on WebAssembly, using <1>Blazor</1>";
+            readonly link: "<1> <2>C# language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=C#</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "C# (Wasm)";
+        };
+        readonly diagrams: {
+            readonly desc1: "(Experimental)";
+            readonly desc2: "Diagrams-as-code. Supports:";
+            readonly desc3: "<1> <2>Cytoscape</2> </1> <3> <4>ELK</4> (using <5>elkjs</5>) </3> <6> <7>Gnuplot</7> (using <8>gnuplot-JS</8>) </6> <9> <10>Graphviz</10> (using <11>@hpcc-js/wasm</11>) </9> <12> <13>Mermaid</13> </12> <14> <15>Nomnoml</15> </14> <16> <17>Pintora</17> </16> <18> <19>Plotly</19> </18> <20> <21>Svgbob</21> </20> <22> <23>Vega</23> </22> <24> <25>VegaLite</25> </24> <26> <27>WaveDrom</27> </26>";
+            readonly link: "<1> <2>Load starter template</2> </1> <3> <4>LiveCodes Documentation</4> </3>";
+            readonly name: "Diagrams";
+        };
+        readonly dot: {
+            readonly desc: "The fastest + concise javascript template engine for Node.js and browsers.";
+            readonly link: "<1> <2>Official website</2> </1> <3> <4>LiveCodes Documentations</4> </3>";
+            readonly name: "doT.js";
+        };
+        readonly ejs: {
+            readonly desc: "Embedded JavaScript templating.";
+            readonly link: "<1><2>Official website</2></1> <3> <4>LiveCodes Documentations</4> </3>";
+            readonly name: "EJS";
+        };
+        readonly eta: {
+            readonly desc: "Embedded JS template engine for Node, Deno, and the browser. Lighweight, fast, and pluggable. Written in TypeScript.";
+            readonly link: "<1><2>Official website</2></1> <3> <4>Documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
+            readonly name: "Eta";
+        };
+        readonly fennel: {
+            readonly desc: "Fennel is a programming language that brings together the speed, simplicity, and reach of Lua with the flexibility of a lisp syntax and macro system.";
+            readonly link: "<1> <2>Fennel official website</2> </1> <3> <4>Getting Started with Fennel</4> </3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "Fennel";
+        };
+        readonly flow: {
+            readonly desc: "Flow is a static type checker for JavaScript.";
+            readonly link: "<1> <2>Flow official website</2> </1> <3> <4>Flow documentation</4> </3>";
+            readonly name: "Flow";
+        };
+        readonly gleam: {
+            readonly desc1: "Gleam is a friendly language for building type-safe systems that scale!";
+            readonly desc2: "Gleam is a statically-typed functional programming language, which compiles to Erlang or JavaScript.";
+            readonly link: "<1><2>Gleam website</2></1> <3> <4>Gleam documentation</4> </3> <5> <6>Gleam language tour</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "Gleam";
+        };
+        readonly go: {
+            readonly desc1: "Go (Golang) is an open source programming language that makes it easy to build simple, reliable, and efficient software.";
+            readonly desc2: "Here, it is compiled to JavaScript using GopherJS.";
+            readonly link: "<1><2>Go website</2></1> <3><4>Go documentation</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Learn X in Y minutes, where X=Go</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "Go";
+        };
+        readonly haml: {
+            readonly desc: "Haml compiler for client side javascript view templates using clientside-haml-js.";
+            readonly link: "<1><2>Haml official website</2></1> <3> <4>Haml documentation</4> </3> <5> <6>clientside-haml-js GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=haml</8> </7> <9> <10>LiveCodes Documentations</10> </9>";
+            readonly name: "Haml";
+        };
+        readonly handlebars: {
+            readonly desc: "Minimal templating on steroids.";
+            readonly link: "<1><2>Official website</2></1> <3> <4>LiveCodes Documentations</4> </3>";
+            readonly name: "Handlebars";
+        };
+        readonly imba: {
+            readonly desc: "The friendly full-stack language.";
+            readonly link: "<1><2>Official website</2></1>";
+            readonly name: "Imba";
+        };
+        readonly java: {
+            readonly desc: "JVM running in the browser using DoppioJVM.";
+            readonly link: "<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "Java";
+        };
+        readonly jinja: {
+            readonly desc: "Jinja is a fast, expressive, extensible templating engine.";
+            readonly link: "<1> <2>Official website</2> </1> <3> <4>Template documentation</4> </3> <5> <6>JavaScript implementation</6> </5> <7> <8>LiveCodes Documentations</8> </7>";
+            readonly name: "Jinja";
+        };
+        readonly jsx: {
+            readonly desc: "JSX is compiled to JavaScript in LiveCodes using the TypeScript Compiler.  By default it uses React as the JSX runtime.";
+            readonly link: "<1> <2>React official website</2> </1> <3> <4>JSX in React documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
+            readonly name: "JSX";
+        };
+        readonly julia: {
+            readonly desc1: "Julia language support in LiveCodes is still experimental";
+            readonly desc2: "Julia compiler and Julia Base running on WASM, using <1>julia-wasm</1> adapted by <2>polylang.io</2>";
+            readonly link: "<1> <2>Julia official website</2> </1> <3> <4>Julia documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Julia</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "Julia";
+        };
+        readonly less: {
+            readonly desc: "It's CSS, with just a little more.";
+            readonly link: "<1><2>Less official website</2></1> <3> <4>Learn X in Y minutes, where X=less</4> </3>";
+            readonly name: "Less";
+        };
+        readonly liquid: {
+            readonly desc: "A simple, expressive and safe template engine.";
+            readonly link: "<1> <2>LiquidJS official website</2> </1> <3> <4>LiquidJS documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
+            readonly name: "LiquidJS";
+        };
+        readonly livescript: {
+            readonly desc: "A language which compiles to JavaScript.";
+            readonly link: "<1> <2>LiveScript official website</2> </1> <3> <4>Learn X in Y minutes, where X=LiveScript</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "LiveScript";
+        };
+        readonly lua: {
+            readonly desc: "Lua running in the browser using fengari-web.";
+            readonly link: "<1><2>Lua official website</2></1> <3> <4>Lua documentation</4> </3> <5> <6>Fengari official website</6> </5> <7> <8>fengari-web GitHub repo</8> </7> <9> <10>Learn X in Y minutes, where X=Lua</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>";
+            readonly name: "Lua";
+        };
+        readonly luaWasm: {
+            readonly desc: "Lua running in the browser using Wasmoon, a real lua 5.4 VM with JS bindings made with WebAssembly.";
+            readonly link: "<1><2>Lua official website</2></1> <3> <4>Lua documentation</4> </3> <5> <6>Wasmoon GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=Lua</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
+            readonly name: "Lua (Wasm)";
+        };
+        readonly malina: {
+            readonly desc: "Frontend compiler, inspired by Svelte.";
+            readonly link: "<1> <2>Malina.js repo</2> </1> <3> <4>Malina.js documentation</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "Malina.js";
+        };
+        readonly markdown: {
+            readonly desc: "Markdown compiled to HTML using Marked.";
+            readonly link: "<1> <2>Markdown official website</2> </1> <3> <4>Marked documentation</4> </3> <5> <6>Learn X in Y minutes, where X=markdown</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "Markdown";
+        };
+        readonly mdx: {
+            readonly desc: "Markdown for the component era. <1></1>MDX lets you seamlessly write JSX in your Markdown documents.";
+            readonly link: "<1><2>MDX documentation</2></1> <3> <4>Load starter template</4> </3>";
+            readonly name: "MDX";
+        };
+        readonly mjml: {
+            readonly desc: "MJML is a markup language designed to reduce the pain of coding a responsive email.";
+            readonly link: "<1><2>MJML official website</2></1> <3> <4>MJML documentation</4> </3> <5> <6>MJML official templates</6> </5> <7> <8>LiveCodes Documentations</8> </7>";
+            readonly name: "MJML";
+        };
+        readonly mustache: {
+            readonly desc: "Logic-less templates.";
+            readonly link: "<1> <2>Official website</2> </1> <3> <4>mustache(5) manual</4> </3> <5> <6>JavaScript implementation</6> </5> <7> <8>LiveCodes Documentations</8> </7>";
+            readonly name: "Mustache";
+        };
+        readonly nunjucks: {
+            readonly desc: "A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <1>jinja2</1>";
+            readonly link: "<1> <2>Official website</2> </1> <3> <4>LiveCodes Documentations</4> </3>";
+            readonly name: "Nunjucks";
+        };
+        readonly ocaml: {
+            readonly desc1: "OCaml is an industrial-strength programming language supporting functional, imperative and object-oriented styles.";
+            readonly desc2: "ReScript compiler is used here to compile OCaml to JavaScript.";
+            readonly link: "<1><2>OCaml website</2></1> <3> <4>OCaml documentation</4> </3> <5> <6>ReScript website</6> </5> <7> <8>Learn X in Y minutes, where X=OCaml</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "OCaml";
+        };
+        readonly perl: {
+            readonly desc: "Perl running in the browser using Perlito.";
+            readonly link: "<1> <2>Perl official website</2> </1> <3> <4>Perl documentation</4> </3> <5> <6>Perlito5 Readme</6> </5> <7> <8>Learn X in Y minutes, where X=perl</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "Perl";
+        };
+        readonly php: {
+            readonly desc: "PHP running in the browser using Uniter.";
+            readonly link: "<1><2>PHP official website</2></1> <3> <4>PHP documentation</4> </3> <5> <6>Uniter GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=PHP</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
+            readonly name: "PHP";
+        };
+        readonly phpWasm: {
+            readonly desc: "PHP in Browser, powered by WebAssembly, using php-wasm.";
+            readonly link: "<1><2>PHP official website</2></1> <3> <4>PHP documentation</4> </3> <5> <6>php-wasm GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=PHP</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
+            readonly name: "PHP (Wasm)";
+        };
+        readonly postgresql: {
+            readonly desc: "PostgreSQL packaged as WASM using PGlite";
+            readonly link: "<1> <2>PostgreSQL official website</2> </1> <3> <4>PostgreSQL documentation</4> </3> <5> <6>PGlite GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=SQL</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "PostgreSQL";
+        };
+        readonly prolog: {
+            readonly desc: "An open source Prolog interpreter in JavaScript.";
+            readonly link: "<1> <2>Tau Prolog official website</2> </1> <3> <4>Tau Prolog documentation</4> </3> <5> <6>SWI-Prolog</6> </5> <7> <8>Learn X in Y minutes, where X=Prolog</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "Tau Prolog";
+        };
+        readonly pug: {
+            readonly desc: "Robust, elegant, feature rich template engine.";
+            readonly link: "<1> <2>Pug documentation</2> </1> <3> <4>Learn X in Y minutes, where X=Pug</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
+            readonly name: "Pug";
+        };
+        readonly python: {
+            readonly desc: "Python running in the browser using Brython.";
+            readonly link: "<1> <2>Python official website</2> </1> <3> <4>Python documentation</4> </3> <5> <6>Brython documentation</6> </5> <7> <8>Learn X in Y minutes, where X=Python</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
+            readonly name: "Python";
+        };
+        readonly pythonWasm: {
+            readonly desc1: "Python with the scientific stack, compiled to WebAssembly using Pyodide.";
+            readonly desc2: "Pyodide allows using Python scientific stack including NumPy, Pandas, Matplotlib, SciPy, scikit-learn and many more. In addition it’s possible to install pure Python wheels from PyPi.";
+            readonly link: "<1> <2>Python official website</2> </1> <3> <4>Python documentation</4> </3> <5><6>Pyodide documentation</6></5> <7> <8>Learn X in Y minutes, where X=Python</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
+            readonly name: "Python (Wasm)";
+        };
+        readonly r: {
+            readonly desc: "R running in the browser using WebR.";
+            readonly link: "<1> <2>R project official website</2> </1> <3> <4>The R Manuals</4> </3> <5> <6>R for Data Science (2e)</6> </5> <7> <8>WebR documentation</8> </7> <9> <10>Learn X in Y minutes, where X=R</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>";
+            readonly name: "R";
+        };
+        readonly react: {
+            readonly desc: "React Compiler is a build-time only tool that automatically optimizes React apps.";
+            readonly link: "<1> <2>React official website</2> </1> <3> <4>React Compiler</4> </3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "React Compiler";
+        };
+        readonly reactNative: {
+            readonly desc: "React Native for Web is an accessible implementation of React Native's Components and APIs that is interoperable with React DOM.";
+            readonly link: "<1> <2>React official website</2> </1> <3> <4>React Native website</4> </3> <5> <6>React Native for Web website</6> </5> <7> <8>React Native documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
+            readonly name: "React Native for Web";
+        };
+        readonly reactNativeTsx: {
+            readonly desc: "React Native for Web is an accessible implementation of React Native's Components and APIs that is interoperable with React DOM.";
+            readonly link: "<1> <2>React official website</2> </1> <3> <4>React Native website</4> </3> <5> <6>React Native for Web website</6> </5> <7> <8>React Native documentation</8> </7> <9> <10>TypeScript website</10> </9> <11> <12>TypeScript documentation</12> </11> <13> <14>LiveCodes Documentations</14> </13> <15> <16>Load starter template (JSX)</16> </15>";
+            readonly name: "React Native for Web (with TypeScript)";
+        };
+        readonly reactTsx: {
+            readonly desc: "React Compiler is a build-time only tool that automatically optimizes React apps.";
+            readonly link: "<1> <2>React official website</2> </1> <3> <4>React Compiler</4> </3> <5> <6>TypeScript website</6> </5> <7> <8>TypeScript documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template (JSX)</12> </11>";
+            readonly name: "React Compiler (with TypeScript)";
+        };
+        readonly reason: {
+            readonly desc1: "Reason lets you write simple, fast and quality type safe code while leveraging both the JavaScript & OCaml ecosystems.";
+            readonly desc2: "ReScript compiler is used here to compile Reason to JavaScript.";
+            readonly link: "<1><2>Reason website</2></1> <3> <4>Reason documentation</4> </3> <5> <6>ReasonReact</6> </5> <7> <8>ReScript website</8> </7> <9> <10>Learn X in Y minutes, where X=reason</10> </9> <11> <12>Load starter template</12> </11>";
+            readonly name: "Reason";
+        };
+        readonly rescript: {
+            readonly desc: "ReScript is a robustly typed language that compiles to efficient and human-readable JavaScript.";
+            readonly link: "<1> <2>ReScript website</2> </1> <3> <4>ReScript / React</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "ReScript";
+        };
+        readonly richtext: {
+            readonly desc1: "Using Quill:";
+            readonly desc2: "Your powerful rich text editor.";
+            readonly link: "<1> <2>Quill official website</2> </1>";
+            readonly name: "Rich Text Editor";
+        };
+        readonly riot: {
+            readonly desc: "Simple and elegant component-based UI library.";
+            readonly link: "<1> <2>Riot.js official website</2> </1> <3> <4>Riot.js documentation</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "Riot.js";
+        };
+        readonly ruby: {
+            readonly desc: "Ruby running in the browser using Opal.";
+            readonly link: "<1> <2>Ruby official website</2> </1> <3> <4>Ruby documentation</4> </3> <5><6>Opal official website</6></5> <7> <8>Opal standard library CDN</8> </7> <9> <10>Learn X in Y minutes, where X=ruby</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>";
+            readonly name: "Ruby";
+        };
+        readonly rubyWasm: {
+            readonly desc: "Ruby running in the browser using ruby-wasm (a collection of WebAssembly ports of the CRuby).";
+            readonly link: "<1> <2>Ruby official website</2> </1> <3> <4>Ruby documentation</4> </3> <5> <6>ruby.wasm website</6> </5> <7><8>CRuby</8></7> <9> <10>Learn X in Y minutes, where X=ruby</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>";
+            readonly name: "Ruby (WASM)";
+        };
+        readonly sass: {
+            readonly desc: "Syntactically Awesome Style Sheets.";
+            readonly link: "<1> <2>Sass official website</2> </1> <3> <4>Sass documentation</4> </3> <5> <6>Sass (the indented) syntax</6> </5> <7> <8>Learn X in Y minutes, where X=sass</8> </7>";
+            readonly name: "Sass";
+        };
+        readonly scheme: {
+            readonly desc: "Scheme running in the browser using biwascheme.";
+            readonly link: "<1> <2>The Scheme Programming Language</2> </1> <3> <4>BiwaScheme official website</4> </3> <5> <6>BiwaScheme reference</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "Scheme";
+        };
+        readonly scss: {
+            readonly desc: "Syntactically Awesome Style Sheets.";
+            readonly link: "<1> <2>Sass official website</2> </1> <3> <4>Sass documentation</4> </3> <5> <6>SCSS syntax</6> </5> <7> <8>Learn X in Y minutes, where X=sass</8> </7>";
+            readonly name: "SCSS";
+        };
+        readonly solid: {
+            readonly desc: "A declarative, efficient and flexible JavaScript library for building user interfaces.";
+            readonly link: "<1><2>Official website</2></1> <3><4>Documentation</4></3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template (TSX)</8> </7>";
+            readonly name: "Solid";
+            readonly tsx: {
+                readonly desc: "A declarative, efficient and flexible JavaScript library for building user interfaces.";
+                readonly link: "<1><2>Official website</2></1> <3> <4>Solid documentation</4> </3> <5> <6>TypeScript website</6> </5> <7> <8>TypeScript documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
+                readonly name: "Solid (with TypeScript)";
+            };
+        };
+        readonly sql: {
+            readonly desc: "SQLite compiled to JavaScript using SQL.js";
+            readonly link: "<1> <2>SQLite official website</2> </1> <3> <4>SQLite syntax documentation</4> </3> <5> <6>SQL.js official website</6> </5> <7> <8>Learn X in Y minutes, where X=SQL</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "SQLite";
+        };
+        readonly stencil: {
+            readonly desc: "A Compiler for Web Components and High Performance Web Apps.";
+            readonly link: "<1> <2>Stencil official website</2> </1> <3> <4>Stencil documentation</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "Stencil";
+        };
+        readonly styleProcessors: {
+            readonly link: "<1> <2>Tailwind CSS</2> </1> <3> <4>Windi CSS</4> </3> <5> <6>UnoCSS</6> </5> <7> <8>Lightning CSS</8> </7> <9> <10>PostCSS</10> Plugins: <11> <12> <13>Autoprefixer</13> </12> <14> <15>postcss-preset-env</15> </14> <16> <17>postcss-import-url</17> </16> <18> <19>postcss-modules</19> </18> </11> </9>";
+            readonly name: "CSS Frameworks and Processors";
+        };
+        readonly stylis: {
+            readonly desc: "Light-weight css preprocessor.";
+            readonly link: "<1> <2>Stylis official website</2> </1>";
+            readonly name: "Stylis";
+        };
+        readonly stylus: {
+            readonly desc: "Expressive, Dynamic, Robust CSS.";
+            readonly link: "<1> <2>Stylus official website</2> </1> <3> <4>Learn X in Y minutes, where X=stylus</4> </3>";
+            readonly name: "Stylus";
+        };
+        readonly sucrase: {
+            readonly desc: "Super-fast alternative to Babel for when you can target modern JS runtimes.";
+            readonly link: "<1> <2>Sucrase official website</2> </1> <3> <4>Sucrase GitHub Repo</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
+            readonly name: "Sucrase";
+        };
+        readonly svelte: {
+            readonly desc: "Cybernetically enhanced web apps.";
+            readonly link: "<1> <2>Svelte official website</2> </1> <3> <4>Svelte documentation</4> </3> <5> <6>Load starter template</6> </5>";
+            readonly name: "Svelte";
+        };
+        readonly tcl: {
+            readonly desc: "Tcl running in the browser, using <1>wacl</1>.";
+            readonly link: "<1> <2>Tcl official website</2> </1> <3> <4>wacl repo</4> </3> <5> <6>Learn X in Y minutes, where X=Tcl</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "Tcl (Tool Command Language)";
+        };
+        readonly teal: {
+            readonly desc: "A typed dialect of Lua.";
+            readonly link: "<1> <2>Teal GitHub repo</2> </1> <3> <4>Teal docs</4> </3> <5> <6>Teal tutorial</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "Teal";
+        };
+        readonly tsx: {
+            readonly desc: "TypeScript in JSX. TSX is compiled to JavaScript in LiveCodes using the TypeScript Compiler. By default it uses React as the JSX runtime.";
+            readonly link: "<1> <2>React official website</2> </1> <3> <4>JSX in React documentation</4> </3> <5> <6>Typescript documentation</6> </5> <7> <8>LiveCodes Documentations</8> </7>";
+            readonly name: "TSX";
+        };
+        readonly twig: {
+            readonly desc: "A JavaScript implementation of the <1>Twig</1> PHP templating language by <2>Twig.js</2>";
+            readonly link: "<1> <2>Twig official website</2> </1> <3> <4>Twig Documentation</4> </3> <5> <6>Twig.js Repo</6> </5> <7> <8>Twig.js Documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9>";
+            readonly name: "Twig";
+        };
+        readonly typescript: {
+            readonly desc: "A Typed Superset of JavaScript.";
+            readonly link: "<1> <2>Official website</2> </1> <3> <4>TypeScript documentation</4> </3> <5> <6>Learn X in Y minutes, where X=TypeScript</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "TypeScript";
+        };
+        readonly vue: {
+            readonly link: "<1> <2>Vue.js v3 official website</2> </1> <3> <4>Vue3 documentation</4> </3> <5> <6>Vue3 single file components</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "Vue3 Single File Components";
+        };
+        readonly vue2: {
+            readonly desc: "Loaded using vue3-sfc-loader.";
+            readonly link: "<1><2>Vue.js official website</2></1> <3> <4>Vue2 documentation</4> </3> <5> <6>Vue2 single file components</6> </5> <7> <8>vue3-sfc-loader GitHub repo</8> </7> <9> <10>LiveCodes Documentations</10> </9>";
+            readonly name: "Vue2 Single File Components";
+        };
+        readonly wat: {
+            readonly desc1: "Low-level textual representation of the WebAssembly (wasm) binary format.";
+            readonly desc2: "It is converted to wasm using wabt.js.";
+            readonly link: "<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Text Specs</4> </3> <5> <6>WebAssembly on MDN</6> </5> <7> <8>Understanding WebAssembly text format</8> </7> <9> <10>wabt.js documentation</10> </9> <11> <12>Learn X in Y minutes, where X=WebAssembly</12> </11> <13> <14>Load starter template</14> </13>";
+            readonly name: "WebAssembly Text Format";
+        };
+    };
+    export default languageInfo;
 }
 declare module "livecodes/i18n/locales/en/translation" {
     const translation: {
@@ -5308,424 +5859,10 @@ declare module "livecodes/i18n/locales/en/translation" {
     };
     export default translation;
 }
-declare module "livecodes/i18n/locales/en/language-info" {
-    const languageInfo: {
-        readonly artTemplate: {
-            readonly desc: "High performance JavaScript templating engine.";
-            readonly link: "<1> <2>art-template official website</2> </1> <3> <4>art-template documentation</4> </3>";
-            readonly name: "art-template";
-        };
-        readonly asciidoc: {
-            readonly desc: "AsciiDoc compiled to HTML using Asciidoctor.";
-            readonly link: "<1> <2>AsciiDoc official website</2> </1> <3> <4>Asciidoctor official website</4> </3> <5> <6>Asciidoctor documentation</6> </5> <7> <8>Learn X in Y minutes, where X=asciidoc</8> </7>";
-            readonly name: "AsciiDoc";
-        };
-        readonly assemblyscript: {
-            readonly desc: "A TypeScript-like language for WebAssembly.";
-            readonly link: "<1> <2>AssemblyScript official website</2> </1> <3> <4>AssemblyScript documentation</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "AssemblyScript";
-        };
-        readonly astro: {
-            readonly desc: "Build faster websites with less client-side Javascript. (Still in Beta)";
-            readonly link: "<1> <2>Astro official website</2> </1> <3> <4>Astro documentation</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "Astro";
-        };
-        readonly babel: {
-            readonly desc: "The JavaScript compiler";
-            readonly link: "<1><2>Official website</2></1> <3> <4>Babel documentation</4> </3>";
-            readonly name: "Babel";
-        };
-        readonly bbcode: {
-            readonly desc: "BBCode (\"Bulletin Board Code\") is a lightweight markup language used to format messages in many Internet forum software.";
-            readonly link: "<1><2>bbcode.org</2></1> <3> <4>BBCode guide</4> </3> <5> <6>BBCode on Wikipedia</6> </5>";
-            readonly name: "BBCode";
-        };
-        readonly blockly: {
-            readonly desc: "A JavaScript library for building visual programming editors.";
-            readonly link: "<1> <2>Official website</2> </1> <3> <4>Guides</4> </3> <5> <6>Reference</6> </5> <7> <8>Samples</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "Blockly";
-        };
-        readonly civet: {
-            readonly desc: "Civet is a programming language that compiles to TypeScript or JavaScript, so you can use existing tooling but enable concise and powerful syntax.";
-            readonly link: "<1> <2>Civet official website</2> </1> <3> <4>Civet cheatsheet</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "Civet";
-        };
-        readonly clio: {
-            readonly desc: "Clio is a fast, distributed, functional programming language that compiles to JavaScript.";
-            readonly link: "<1> <2>Clio official website</2> </1> <3> <4>Clio documentation</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "Clio";
-        };
-        readonly clojurescript: {
-            readonly desc: "ClojureScript is a compiler for <1>Clojure</1> that targets JavaScript. <2></2>In LiveCodes, it runs in the browser using <3>Cherry</3>";
-            readonly link: "<1> <2>ClojureScript official website</2> </1> <3> <4>Clojure official website</4> </3> <5> <6>Cherry repo</6> </5> <7> <8>Learn X in Y minutes, where X=clojure</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
-            readonly name: "ClojureScript (CLJS)";
-        };
-        readonly coffeescript: {
-            readonly desc: "Unfancy JavaScript.";
-            readonly link: "<1> <2>CoffeeScript official website</2> </1> <3> <4>Learn X in Y minutes, where X=coffeescript</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "CoffeeScript";
-        };
-        readonly commonlisp: {
-            readonly desc: "A Common Lisp implementation on Javascript using JSCL (a Lisp-to-Javascript compiler bootstrapped from Common Lisp).";
-            readonly link: "<1> <2>Common-Lisp.net</2> </1> <3> <4>JSCL Project</4> </3> <5> <6>Common Lisp Resources</6> </5> <7> <8>Learn X in Y minutes, where X=Common Lisp</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "Common Lisp";
-        };
-        readonly cpp: {
-            readonly desc1: "C++ support using JSCPP (a simple C++ interpreter written in JavaScript).";
-            readonly desc2: "It is not a complete implementation of C++. Please refer to <1>JSCPP documentation</1> for details.";
-            readonly link: "<1> <2>Standard C++ Foundation</2> </1> <3> <4>JSCPP</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "C++";
-        };
-        readonly cppWasm: {
-            readonly desc: "Clang C/C++ compiler running on WebAssembly, using <1>wasm-clang</1> adapted by <2>polylang.io</2>";
-            readonly link: "<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang official website</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "C/C++ (Wasm)";
-        };
-        readonly csharpWasm: {
-            readonly desc: "C# compiler running on WebAssembly, using <1>Blazor</1>";
-            readonly link: "<1> <2>C# language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=C#</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "C# (Wasm)";
-        };
-        readonly diagrams: {
-            readonly desc1: "(Experimental)";
-            readonly desc2: "Diagrams-as-code. Supports:";
-            readonly desc3: "<1> <2>Cytoscape</2> </1> <3> <4>ELK</4> (using <5>elkjs</5>) </3> <6> <7>Gnuplot</7> (using <8>gnuplot-JS</8>) </6> <9> <10>Graphviz</10> (using <11>@hpcc-js/wasm</11>) </9> <12> <13>Mermaid</13> </12> <14> <15>Nomnoml</15> </14> <16> <17>Pintora</17> </16> <18> <19>Plotly</19> </18> <20> <21>Svgbob</21> </20> <22> <23>Vega</23> </22> <24> <25>VegaLite</25> </24> <26> <27>WaveDrom</27> </26>";
-            readonly link: "<1> <2>Load starter template</2> </1> <3> <4>LiveCodes Documentation</4> </3>";
-            readonly name: "Diagrams";
-        };
-        readonly dot: {
-            readonly desc: "The fastest + concise javascript template engine for Node.js and browsers.";
-            readonly link: "<1> <2>Official website</2> </1> <3> <4>LiveCodes Documentations</4> </3>";
-            readonly name: "doT.js";
-        };
-        readonly ejs: {
-            readonly desc: "Embedded JavaScript templating.";
-            readonly link: "<1><2>Official website</2></1> <3> <4>LiveCodes Documentations</4> </3>";
-            readonly name: "EJS";
-        };
-        readonly eta: {
-            readonly desc: "Embedded JS template engine for Node, Deno, and the browser. Lighweight, fast, and pluggable. Written in TypeScript.";
-            readonly link: "<1><2>Official website</2></1> <3> <4>Documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
-            readonly name: "Eta";
-        };
-        readonly fennel: {
-            readonly desc: "Fennel is a programming language that brings together the speed, simplicity, and reach of Lua with the flexibility of a lisp syntax and macro system.";
-            readonly link: "<1> <2>Fennel official website</2> </1> <3> <4>Getting Started with Fennel</4> </3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "Fennel";
-        };
-        readonly flow: {
-            readonly desc: "Flow is a static type checker for JavaScript.";
-            readonly link: "<1> <2>Flow official website</2> </1> <3> <4>Flow documentation</4> </3>";
-            readonly name: "Flow";
-        };
-        readonly gleam: {
-            readonly desc1: "Gleam is a friendly language for building type-safe systems that scale!";
-            readonly desc2: "Gleam is a statically-typed functional programming language, which compiles to Erlang or JavaScript.";
-            readonly link: "<1><2>Gleam website</2></1> <3> <4>Gleam documentation</4> </3> <5> <6>Gleam language tour</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "Gleam";
-        };
-        readonly go: {
-            readonly desc1: "Go (Golang) is an open source programming language that makes it easy to build simple, reliable, and efficient software.";
-            readonly desc2: "Here, it is compiled to JavaScript using GopherJS.";
-            readonly link: "<1><2>Go website</2></1> <3><4>Go documentation</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Learn X in Y minutes, where X=Go</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "Go";
-        };
-        readonly haml: {
-            readonly desc: "Haml compiler for client side javascript view templates using clientside-haml-js.";
-            readonly link: "<1><2>Haml official website</2></1> <3> <4>Haml documentation</4> </3> <5> <6>clientside-haml-js GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=haml</8> </7> <9> <10>LiveCodes Documentations</10> </9>";
-            readonly name: "Haml";
-        };
-        readonly handlebars: {
-            readonly desc: "Minimal templating on steroids.";
-            readonly link: "<1><2>Official website</2></1> <3> <4>LiveCodes Documentations</4> </3>";
-            readonly name: "Handlebars";
-        };
-        readonly imba: {
-            readonly desc: "The friendly full-stack language.";
-            readonly link: "<1><2>Official website</2></1>";
-            readonly name: "Imba";
-        };
-        readonly java: {
-            readonly desc: "JVM running in the browser using DoppioJVM.";
-            readonly link: "<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "Java";
-        };
-        readonly jsx: {
-            readonly desc: "JSX is compiled to JavaScript in LiveCodes using the TypeScript Compiler.  By default it uses React as the JSX runtime.";
-            readonly link: "<1> <2>React official website</2> </1> <3> <4>JSX in React documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
-            readonly name: "JSX";
-        };
-        readonly julia: {
-            readonly desc1: "Julia language support in LiveCodes is still experimental";
-            readonly desc2: "Julia compiler and Julia Base running on WASM, using <1>julia-wasm</1> adapted by <2>polylang.io</2>";
-            readonly link: "<1> <2>Julia official website</2> </1> <3> <4>Julia documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Julia</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "Julia";
-        };
-        readonly less: {
-            readonly desc: "It's CSS, with just a little more.";
-            readonly link: "<1><2>Less official website</2></1> <3> <4>Learn X in Y minutes, where X=less</4> </3>";
-            readonly name: "Less";
-        };
-        readonly liquid: {
-            readonly desc: "A simple, expressive and safe template engine.";
-            readonly link: "<1> <2>LiquidJS official website</2> </1> <3> <4>LiquidJS documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
-            readonly name: "LiquidJS";
-        };
-        readonly livescript: {
-            readonly desc: "A language which compiles to JavaScript.";
-            readonly link: "<1> <2>LiveScript official website</2> </1> <3> <4>Learn X in Y minutes, where X=LiveScript</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "LiveScript";
-        };
-        readonly lua: {
-            readonly desc: "Lua running in the browser using fengari-web.";
-            readonly link: "<1><2>Lua official website</2></1> <3> <4>Lua documentation</4> </3> <5> <6>Fengari official website</6> </5> <7> <8>fengari-web GitHub repo</8> </7> <9> <10>Learn X in Y minutes, where X=Lua</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>";
-            readonly name: "Lua";
-        };
-        readonly luaWasm: {
-            readonly desc: "Lua running in the browser using Wasmoon, a real lua 5.4 VM with JS bindings made with WebAssembly.";
-            readonly link: "<1><2>Lua official website</2></1> <3> <4>Lua documentation</4> </3> <5> <6>Wasmoon GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=Lua</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
-            readonly name: "Lua (Wasm)";
-        };
-        readonly malina: {
-            readonly desc: "Frontend compiler, inspired by Svelte.";
-            readonly link: "<1> <2>Malina.js repo</2> </1> <3> <4>Malina.js documentation</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "Malina.js";
-        };
-        readonly markdown: {
-            readonly desc: "Markdown compiled to HTML using Marked.";
-            readonly link: "<1> <2>Markdown official website</2> </1> <3> <4>Marked documentation</4> </3> <5> <6>Learn X in Y minutes, where X=markdown</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "Markdown";
-        };
-        readonly mdx: {
-            readonly desc: "Markdown for the component era. <1></1>MDX lets you seamlessly write JSX in your Markdown documents.";
-            readonly link: "<1><2>MDX documentation</2></1> <3> <4>Load starter template</4> </3>";
-            readonly name: "MDX";
-        };
-        readonly mjml: {
-            readonly desc: "MJML is a markup language designed to reduce the pain of coding a responsive email.";
-            readonly link: "<1><2>MJML official website</2></1> <3> <4>MJML documentation</4> </3> <5> <6>MJML official templates</6> </5> <7> <8>LiveCodes Documentations</8> </7>";
-            readonly name: "MJML";
-        };
-        readonly mustache: {
-            readonly desc: "Logic-less templates.";
-            readonly link: "<1> <2>Official website</2> </1> <3> <4>mustache(5) manual</4> </3> <5> <6>JavaScript implementation</6> </5> <7> <8>LiveCodes Documentations</8> </7>";
-            readonly name: "Mustache";
-        };
-        readonly nunjucks: {
-            readonly desc: "A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <1>jinja2</1>";
-            readonly link: "<1> <2>Official website</2> </1> <3> <4>LiveCodes Documentations</4> </3>";
-            readonly name: "Nunjucks";
-        };
-        readonly ocaml: {
-            readonly desc1: "OCaml is an industrial-strength programming language supporting functional, imperative and object-oriented styles.";
-            readonly desc2: "ReScript compiler is used here to compile OCaml to JavaScript.";
-            readonly link: "<1><2>OCaml website</2></1> <3> <4>OCaml documentation</4> </3> <5> <6>ReScript website</6> </5> <7> <8>Learn X in Y minutes, where X=OCaml</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "OCaml";
-        };
-        readonly perl: {
-            readonly desc: "Perl running in the browser using Perlito.";
-            readonly link: "<1> <2>Perl official website</2> </1> <3> <4>Perl documentation</4> </3> <5> <6>Perlito5 Readme</6> </5> <7> <8>Learn X in Y minutes, where X=perl</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "Perl";
-        };
-        readonly php: {
-            readonly desc: "PHP running in the browser using Uniter.";
-            readonly link: "<1><2>PHP official website</2></1> <3> <4>PHP documentation</4> </3> <5> <6>Uniter GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=PHP</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
-            readonly name: "PHP";
-        };
-        readonly phpWasm: {
-            readonly desc: "PHP in Browser, powered by WebAssembly, using php-wasm.";
-            readonly link: "<1><2>PHP official website</2></1> <3> <4>PHP documentation</4> </3> <5> <6>php-wasm GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=PHP</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
-            readonly name: "PHP (Wasm)";
-        };
-        readonly postgresql: {
-            readonly desc: "PostgreSQL packaged as WASM using PGlite";
-            readonly link: "<1> <2>PostgreSQL official website</2> </1> <3> <4>PostgreSQL documentation</4> </3> <5> <6>PGlite GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=SQL</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "PostgreSQL";
-        };
-        readonly prolog: {
-            readonly desc: "An open source Prolog interpreter in JavaScript.";
-            readonly link: "<1> <2>Tau Prolog official website</2> </1> <3> <4>Tau Prolog documentation</4> </3> <5> <6>SWI-Prolog</6> </5> <7> <8>Learn X in Y minutes, where X=Prolog</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "Tau Prolog";
-        };
-        readonly pug: {
-            readonly desc: "Robust, elegant, feature rich template engine.";
-            readonly link: "<1> <2>Pug documentation</2> </1> <3> <4>Learn X in Y minutes, where X=Pug</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
-            readonly name: "Pug";
-        };
-        readonly python: {
-            readonly desc: "Python running in the browser using Brython.";
-            readonly link: "<1> <2>Python official website</2> </1> <3> <4>Python documentation</4> </3> <5> <6>Brython documentation</6> </5> <7> <8>Learn X in Y minutes, where X=Python</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
-            readonly name: "Python";
-        };
-        readonly pythonWasm: {
-            readonly desc1: "Python with the scientific stack, compiled to WebAssembly using Pyodide.";
-            readonly desc2: "Pyodide allows using Python scientific stack including NumPy, Pandas, Matplotlib, SciPy, scikit-learn and many more. In addition it’s possible to install pure Python wheels from PyPi.";
-            readonly link: "<1> <2>Python official website</2> </1> <3> <4>Python documentation</4> </3> <5><6>Pyodide documentation</6></5> <7> <8>Learn X in Y minutes, where X=Python</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
-            readonly name: "Python (Wasm)";
-        };
-        readonly r: {
-            readonly desc: "R running in the browser using WebR.";
-            readonly link: "<1> <2>R project official website</2> </1> <3> <4>The R Manuals</4> </3> <5> <6>R for Data Science (2e)</6> </5> <7> <8>WebR documentation</8> </7> <9> <10>Learn X in Y minutes, where X=R</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>";
-            readonly name: "R";
-        };
-        readonly react: {
-            readonly desc: "React Compiler is a build-time only tool that automatically optimizes React apps.";
-            readonly link: "<1> <2>React official website</2> </1> <3> <4>React Compiler</4> </3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "React Compiler";
-        };
-        readonly reactNative: {
-            readonly desc: "React Native for Web is an accessible implementation of React Native's Components and APIs that is interoperable with React DOM.";
-            readonly link: "<1> <2>React official website</2> </1> <3> <4>React Native website</4> </3> <5> <6>React Native for Web website</6> </5> <7> <8>React Native documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
-            readonly name: "React Native for Web";
-        };
-        readonly reactNativeTsx: {
-            readonly desc: "React Native for Web is an accessible implementation of React Native's Components and APIs that is interoperable with React DOM.";
-            readonly link: "<1> <2>React official website</2> </1> <3> <4>React Native website</4> </3> <5> <6>React Native for Web website</6> </5> <7> <8>React Native documentation</8> </7> <9> <10>TypeScript website</10> </9> <11> <12>TypeScript documentation</12> </11> <13> <14>LiveCodes Documentations</14> </13> <15> <16>Load starter template (JSX)</16> </15>";
-            readonly name: "React Native for Web (with TypeScript)";
-        };
-        readonly reactTsx: {
-            readonly desc: "React Compiler is a build-time only tool that automatically optimizes React apps.";
-            readonly link: "<1> <2>React official website</2> </1> <3> <4>React Compiler</4> </3> <5> <6>TypeScript website</6> </5> <7> <8>TypeScript documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template (JSX)</12> </11>";
-            readonly name: "React Compiler (with TypeScript)";
-        };
-        readonly reason: {
-            readonly desc1: "Reason lets you write simple, fast and quality type safe code while leveraging both the JavaScript & OCaml ecosystems.";
-            readonly desc2: "ReScript compiler is used here to compile Reason to JavaScript.";
-            readonly link: "<1><2>Reason website</2></1> <3> <4>Reason documentation</4> </3> <5> <6>ReasonReact</6> </5> <7> <8>ReScript website</8> </7> <9> <10>Learn X in Y minutes, where X=reason</10> </9> <11> <12>Load starter template</12> </11>";
-            readonly name: "Reason";
-        };
-        readonly rescript: {
-            readonly desc: "ReScript is a robustly typed language that compiles to efficient and human-readable JavaScript.";
-            readonly link: "<1> <2>ReScript website</2> </1> <3> <4>ReScript / React</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "ReScript";
-        };
-        readonly richtext: {
-            readonly desc1: "Using Quill:";
-            readonly desc2: "Your powerful rich text editor.";
-            readonly link: "<1> <2>Quill official website</2> </1>";
-            readonly name: "Rich Text Editor";
-        };
-        readonly riot: {
-            readonly desc: "Simple and elegant component-based UI library.";
-            readonly link: "<1> <2>Riot.js official website</2> </1> <3> <4>Riot.js documentation</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "Riot.js";
-        };
-        readonly ruby: {
-            readonly desc: "Ruby running in the browser using Opal.";
-            readonly link: "<1> <2>Ruby official website</2> </1> <3> <4>Ruby documentation</4> </3> <5><6>Opal official website</6></5> <7> <8>Opal standard library CDN</8> </7> <9> <10>Learn X in Y minutes, where X=ruby</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>";
-            readonly name: "Ruby";
-        };
-        readonly rubyWasm: {
-            readonly desc: "Ruby running in the browser using ruby-wasm (a collection of WebAssembly ports of the CRuby).";
-            readonly link: "<1> <2>Ruby official website</2> </1> <3> <4>Ruby documentation</4> </3> <5> <6>ruby.wasm website</6> </5> <7><8>CRuby</8></7> <9> <10>Learn X in Y minutes, where X=ruby</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>";
-            readonly name: "Ruby (WASM)";
-        };
-        readonly sass: {
-            readonly desc: "Syntactically Awesome Style Sheets.";
-            readonly link: "<1> <2>Sass official website</2> </1> <3> <4>Sass documentation</4> </3> <5> <6>Sass (the indented) syntax</6> </5> <7> <8>Learn X in Y minutes, where X=sass</8> </7>";
-            readonly name: "Sass";
-        };
-        readonly scheme: {
-            readonly desc: "Scheme running in the browser using biwascheme.";
-            readonly link: "<1> <2>The Scheme Programming Language</2> </1> <3> <4>BiwaScheme official website</4> </3> <5> <6>BiwaScheme reference</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "Scheme";
-        };
-        readonly scss: {
-            readonly desc: "Syntactically Awesome Style Sheets.";
-            readonly link: "<1> <2>Sass official website</2> </1> <3> <4>Sass documentation</4> </3> <5> <6>SCSS syntax</6> </5> <7> <8>Learn X in Y minutes, where X=sass</8> </7>";
-            readonly name: "SCSS";
-        };
-        readonly solid: {
-            readonly desc: "A declarative, efficient and flexible JavaScript library for building user interfaces.";
-            readonly link: "<1><2>Official website</2></1> <3><4>Documentation</4></3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template (TSX)</8> </7>";
-            readonly name: "Solid";
-            readonly tsx: {
-                readonly desc: "A declarative, efficient and flexible JavaScript library for building user interfaces.";
-                readonly link: "<1><2>Official website</2></1> <3> <4>Solid documentation</4> </3> <5> <6>TypeScript website</6> </5> <7> <8>TypeScript documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>";
-                readonly name: "Solid (with TypeScript)";
-            };
-        };
-        readonly sql: {
-            readonly desc: "SQLite compiled to JavaScript using SQL.js";
-            readonly link: "<1> <2>SQLite official website</2> </1> <3> <4>SQLite syntax documentation</4> </3> <5> <6>SQL.js official website</6> </5> <7> <8>Learn X in Y minutes, where X=SQL</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "SQLite";
-        };
-        readonly stencil: {
-            readonly desc: "A Compiler for Web Components and High Performance Web Apps.";
-            readonly link: "<1> <2>Stencil official website</2> </1> <3> <4>Stencil documentation</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "Stencil";
-        };
-        readonly styleProcessors: {
-            readonly link: "<1> <2>Tailwind CSS</2> </1> <3> <4>Windi CSS</4> </3> <5> <6>UnoCSS</6> </5> <7> <8>Lightning CSS</8> </7> <9> <10>PostCSS</10> Plugins: <11> <12> <13>Autoprefixer</13> </12> <14> <15>postcss-preset-env</15> </14> <16> <17>postcss-import-url</17> </16> <18> <19>postcss-modules</19> </18> </11> </9>";
-            readonly name: "CSS Frameworks and Processors";
-        };
-        readonly stylis: {
-            readonly desc: "Light-weight css preprocessor.";
-            readonly link: "<1> <2>Stylis official website</2> </1>";
-            readonly name: "Stylis";
-        };
-        readonly stylus: {
-            readonly desc: "Expressive, Dynamic, Robust CSS.";
-            readonly link: "<1> <2>Stylus official website</2> </1> <3> <4>Learn X in Y minutes, where X=stylus</4> </3>";
-            readonly name: "Stylus";
-        };
-        readonly sucrase: {
-            readonly desc: "Super-fast alternative to Babel for when you can target modern JS runtimes.";
-            readonly link: "<1> <2>Sucrase official website</2> </1> <3> <4>Sucrase GitHub Repo</4> </3> <5> <6>LiveCodes Documentations</6> </5>";
-            readonly name: "Sucrase";
-        };
-        readonly svelte: {
-            readonly desc: "Cybernetically enhanced web apps.";
-            readonly link: "<1> <2>Svelte official website</2> </1> <3> <4>Svelte documentation</4> </3> <5> <6>Load starter template</6> </5>";
-            readonly name: "Svelte";
-        };
-        readonly tcl: {
-            readonly desc: "Tcl running in the browser, using <1>wacl</1>.";
-            readonly link: "<1> <2>Tcl official website</2> </1> <3> <4>wacl repo</4> </3> <5> <6>Learn X in Y minutes, where X=Tcl</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "Tcl (Tool Command Language)";
-        };
-        readonly teal: {
-            readonly desc: "A typed dialect of Lua.";
-            readonly link: "<1> <2>Teal GitHub repo</2> </1> <3> <4>Teal docs</4> </3> <5> <6>Teal tutorial</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "Teal";
-        };
-        readonly tsx: {
-            readonly desc: "TypeScript in JSX. TSX is compiled to JavaScript in LiveCodes using the TypeScript Compiler. By default it uses React as the JSX runtime.";
-            readonly link: "<1> <2>React official website</2> </1> <3> <4>JSX in React documentation</4> </3> <5> <6>Typescript documentation</6> </5> <7> <8>LiveCodes Documentations</8> </7>";
-            readonly name: "TSX";
-        };
-        readonly twig: {
-            readonly desc: "A JavaScript implementation of the <1>Twig</1> PHP templating language by <2>Twig.js</2>";
-            readonly link: "<1> <2>Twig official website</2> </1> <3> <4>Twig Documentation</4> </3> <5> <6>Twig.js Repo</6> </5> <7> <8>Twig.js Documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9>";
-            readonly name: "Twig";
-        };
-        readonly typescript: {
-            readonly desc: "A Typed Superset of JavaScript.";
-            readonly link: "<1> <2>Official website</2> </1> <3> <4>TypeScript documentation</4> </3> <5> <6>Learn X in Y minutes, where X=TypeScript</6> </5> <7> <8>Load starter template</8> </7>";
-            readonly name: "TypeScript";
-        };
-        readonly vue: {
-            readonly link: "<1> <2>Vue.js v3 official website</2> </1> <3> <4>Vue3 documentation</4> </3> <5> <6>Vue3 single file components</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>";
-            readonly name: "Vue3 Single File Components";
-        };
-        readonly vue2: {
-            readonly desc: "Loaded using vue3-sfc-loader.";
-            readonly link: "<1><2>Vue.js official website</2></1> <3> <4>Vue2 documentation</4> </3> <5> <6>Vue2 single file components</6> </5> <7> <8>vue3-sfc-loader GitHub repo</8> </7> <9> <10>LiveCodes Documentations</10> </9>";
-            readonly name: "Vue2 Single File Components";
-        };
-        readonly wat: {
-            readonly desc1: "Low-level textual representation of the WebAssembly (wasm) binary format.";
-            readonly desc2: "It is converted to wasm using wabt.js.";
-            readonly link: "<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Text Specs</4> </3> <5> <6>WebAssembly on MDN</6> </5> <7> <8>Understanding WebAssembly text format</8> </7> <9> <10>wabt.js documentation</10> </9> <11> <12>Learn X in Y minutes, where X=WebAssembly</12> </11> <13> <14>Load starter template</14> </13>";
-            readonly name: "WebAssembly Text Format";
-        };
-    };
-    export default languageInfo;
-}
 declare module "livecodes/i18n/locales/models" {
     import type { RequireAtLeastOne, UnAsConst } from "livecodes/i18n/models";
-    import type Translation from "livecodes/i18n/locales/en/translation";
     import type LangInfoTranslation from "livecodes/i18n/locales/en/language-info";
+    import type Translation from "livecodes/i18n/locales/en/translation";
     /**
      * Add new translatable attributes here.
      *
@@ -5758,78 +5895,20 @@ declare module "livecodes/i18n/locales/models" {
 }
 declare module "livecodes/i18n/index" {
     export * from "livecodes/i18n/i18n";
-    export type * from "livecodes/i18n/models";
     export type * from "livecodes/i18n/locales/models";
+    export type * from "livecodes/i18n/models";
 }
-declare module "livecodes/i18n/app-languages" {
-    import type { AppLanguage } from "livecodes/models";
-    export const appLanguages: {
-        [key in Exclude<AppLanguage, 'auto'>]: string;
+declare module "livecodes/import/files" {
+    import type { ContentConfig, EventsManager } from "livecodes/models";
+    import type { populateConfig as populateConfigFn } from "livecodes/import/utils";
+    export const importFromFiles: (files: FileList, populateConfig: typeof populateConfigFn, eventsManager: EventsManager) => Promise<Partial<ContentConfig>>;
+}
+declare module "livecodes/services/permanent-url" {
+    type SDKFile = 'esm' | 'umd' | 'react' | 'vue' | 'types';
+    export const permanentUrlService: {
+        getAppUrl: () => string;
+        getSDKUrl: (file?: SDKFile) => string;
     };
-}
-declare module "livecodes/UI/theme-colors" {
-    export const themeColors: readonly [{
-        readonly name: "blue";
-        readonly themeColor: "hsl(214, 40%, 50%)";
-    }, {
-        readonly name: "cyan";
-        readonly themeColor: "hsl(192, 40%, 50%)";
-    }, {
-        readonly name: "green";
-        readonly themeColor: "hsl(142, 40%, 50%)";
-    }, {
-        readonly name: "amber";
-        readonly themeColor: "hsl(38, 40%, 50%)";
-    }, {
-        readonly name: "red";
-        readonly themeColor: "hsl(0, 40%, 50%)";
-    }, {
-        readonly name: "violet";
-        readonly themeColor: "hsl(262, 40%, 50%)";
-    }, {
-        readonly name: "slate";
-        readonly themeColor: "hsl(220, 20%, 50%)";
-    }, {
-        readonly name: "custom";
-        readonly themeColor: undefined;
-    }];
-}
-declare module "livecodes/UI/command-menu-actions" {
-    import type { Config, INinjaAction, Screen, TemplateName } from "livecodes/models";
-    export const getCommandMenuActions: ({ deps, }: {
-        deps: {
-            getConfig: () => Config;
-            loadStarterTemplate: (templateName: TemplateName) => Promise<void>;
-            changeEditorSettings: (config: Partial<Config>) => void;
-            changeLayout: (layout: Config['layout']) => void;
-            showScreen: (screen: Screen['screen'], options?: any) => Promise<void>;
-        };
-    }) => {
-        actions: INinjaAction[];
-        keyboardShortcuts: {
-            title: string;
-            hotkey: string;
-        }[];
-        loginAction: INinjaAction;
-        logoutAction: INinjaAction;
-    };
-}
-declare module "livecodes/UI/create-language-menus" {
-    import type { Config, Template, EventsManager } from "livecodes/models";
-    export const createLanguageMenus: (config: Config, baseUrl: string, eventsManager: EventsManager, showLanguageInfo: (languageInfo: HTMLElement) => void, loadStarterTemplate: (templateName: Template['name']) => void, importCode: (options: {
-        url: string;
-    }) => Promise<boolean>, registerMenuButton: (menu: HTMLElement, button: HTMLElement) => void) => void;
-    export const createProcessorItem: (processor: {
-        name: string;
-        title: string;
-    }) => HTMLLIElement;
-}
-declare module "livecodes/editor/ts-compiler-options" {
-    import type * as Monaco from 'monaco-editor';
-    import type { Language } from "livecodes/models";
-    type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
-    export const hasJsx: string[];
-    export const getCompilerOptions: (language: Language) => CompilerOptions;
 }
 declare module "livecodes/UI/sync-ui" {
     import type { EventsManager, Modal, Notifications, User, UserData } from "livecodes/models";
@@ -5852,10 +5931,10 @@ declare module "livecodes/UI/sync-ui" {
     }) => Promise<void>;
 }
 declare module "livecodes/UI/import" {
-    import type { populateConfig as populateConfigFn } from "livecodes/import/utils";
-    import type { ContentConfig, Modal, Notifications, User, Screen, EventsManager } from "livecodes/models";
-    import type { ProjectStorage } from "livecodes/storage/index";
     import { importCode } from "livecodes/import/import";
+    import type { populateConfig as populateConfigFn } from "livecodes/import/utils";
+    import type { ContentConfig, EventsManager, Modal, Notifications, Screen, User } from "livecodes/models";
+    import type { ProjectStorage } from "livecodes/storage/index";
     export { importCode };
     export const createImportUI: ({ baseUrl, modal, notifications, eventsManager, getUser, loadConfig, populateConfig, projectStorage, showScreen, }: {
         baseUrl: string;
@@ -5882,9 +5961,9 @@ declare module "livecodes/UI/share" {
     export const createShareContainer: (shareFn: (shortUrl: boolean, permanentUrl: boolean) => Promise<ShareData>, baseUrl: string, eventsManager: EventsManager) => Promise<HTMLElement>;
 }
 declare module "livecodes/UI/deploy" {
-    import type { Config, ContentConfig, Cache, Modal, Notifications, User, EventsManager } from "livecodes/models";
-    import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
     import { deployFile } from "livecodes/deploy/deploy";
+    import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
+    import type { Cache, Config, ContentConfig, EventsManager, Modal, Notifications, User } from "livecodes/models";
     export { deployFile };
     export const createDeployUI: ({ modal, notifications, eventsManager, user, deployRepo, deps, }: {
         modal: Modal;
@@ -5942,23 +6021,13 @@ declare module "livecodes/UI/embed-ui" {
         getUrlFn: (permanentUrl?: boolean) => Promise<string>;
     }) => Promise<void>;
 }
-declare module "livecodes/editor/themes" {
-    import type { CodejarTheme, CodemirrorTheme, Config, MonacoTheme } from "livecodes/models";
-    export const getEditorTheme: ({ editor, editorTheme, theme, editorThemes, }: Pick<Config, 'editorTheme' | 'editor' | 'theme'> & {
-        editorThemes: Array<MonacoTheme | CodemirrorTheme | CodejarTheme>;
-    }) => "idle" | "lazy" | "dark" | "active4d" | "all-hallows-eve" | "amy" | "birds-of-paradise" | "blackboard" | "brilliance-black" | "brilliance-dull" | "catppuccin-latte" | "catppuccin-frappe" | "catppuccin-macchiato" | "catppuccin-mocha" | "chrome-devtools" | "clouds-midnight" | "clouds" | "cobalt" | "cobalt2" | "custom-vs-light" | "custom-vs-dark" | "dawn" | "dracula" | "dreamweaver" | "eiffel" | "espresso-libre" | "github" | "github-dark" | "github-light" | "hc-black" | "hc-light" | "idlefingers" | "iplastic" | "katzenmilch" | "krtheme" | "kuroir" | "magicwb-amiga" | "merbivore-soft" | "merbivore" | "monochrome" | "monochrome-dark" | "monokai" | "monokai-bright" | "monoindustrial" | "night-owl" | "nord" | "oceanic-next" | "pastels-on-dark" | "slush-and-poppies" | "solarized-dark" | "solarized-light" | "spacecadet" | "sunburst" | "textmate-mac-classic" | "tomorrow" | "tomorrow-night" | "tomorrow-night-blue" | "tomorrow-night-bright" | "tomorrow-night-eighties" | "twilight" | "upstream-sunburst" | "vibrant-ink" | "vs" | "vs-dark" | "xcode-default" | "zenburnesque" | "aura" | "ayu-light" | "barf" | "basic-light" | "basic-dark" | "bespin" | "boys-and-girls" | "cm-light" | "cool-glow" | "espresso" | "gruvbox-dark" | "gruvbox-light" | "material-dark" | "material-light" | "noctis-lilac" | "one-dark" | "rose-pine-dawn" | "smoothy" | "tokyo-night" | "tokyo-night-day" | "tokyo-night-storm" | "a11y-dark" | "atom-dark" | "base16-ateliersulphurpool-light" | "cb" | "coldark-cold" | "coldark-dark" | "coy" | "coy-without-shadows" | "darcula" | "duotone-dark" | "duotone-earth" | "duotone-forest" | "duotone-light" | "duotone-sea" | "duotone-space" | "funky" | "ghcolors" | "holi-theme" | "hopscotch" | "laserwave" | "lucario" | "material-oceanic" | "nord-2" | "okaidia" | "one-light" | "pojoaque" | "shades-of-purple" | "solarized-dark-atom" | "synthwave84" | "vsc-dark-plus" | "xonokai" | "z-touchs" | null;
-}
-declare module "livecodes/editor/monaco/monaco-themes" {
-    import type * as Monaco from 'monaco-editor';
-    import type { MonacoTheme } from "livecodes/models";
-    export const monacoThemes: Array<{
-        name: MonacoTheme;
+declare module "livecodes/editor/codejar/prism-themes" {
+    import type { CodejarTheme } from "livecodes/models";
+    export const prismThemes: Array<{
+        name: CodejarTheme;
         title: string;
-        url?: string;
-    }>;
-    export const customThemes: Array<{
-        name: MonacoTheme;
-        theme: Monaco.editor.IStandaloneThemeData;
+        url: string;
+        overrideCSS?: string;
     }>;
 }
 declare module "livecodes/editor/codemirror/codemirror-themes" {
@@ -5974,18 +6043,28 @@ declare module "livecodes/editor/codemirror/codemirror-themes" {
         'monochrome-dark': any[];
     };
 }
-declare module "livecodes/editor/codejar/prism-themes" {
-    import type { CodejarTheme } from "livecodes/models";
-    export const prismThemes: Array<{
-        name: CodejarTheme;
+declare module "livecodes/editor/monaco/monaco-themes" {
+    import type * as Monaco from 'monaco-editor';
+    import type { MonacoTheme } from "livecodes/models";
+    export const monacoThemes: Array<{
+        name: MonacoTheme;
         title: string;
-        url: string;
-        overrideCSS?: string;
+        url?: string;
+    }>;
+    export const customThemes: Array<{
+        name: MonacoTheme;
+        theme: Monaco.editor.IStandaloneThemeData;
     }>;
 }
+declare module "livecodes/editor/themes" {
+    import type { CodejarTheme, CodemirrorTheme, Config, MonacoTheme } from "livecodes/models";
+    export const getEditorTheme: ({ editor, editorTheme, theme, editorThemes, }: Pick<Config, 'editorTheme' | 'editor' | 'theme'> & {
+        editorThemes: Array<MonacoTheme | CodemirrorTheme | CodejarTheme>;
+    }) => "idle" | "lazy" | "dark" | "active4d" | "all-hallows-eve" | "amy" | "birds-of-paradise" | "blackboard" | "brilliance-black" | "brilliance-dull" | "catppuccin-latte" | "catppuccin-frappe" | "catppuccin-macchiato" | "catppuccin-mocha" | "chrome-devtools" | "clouds-midnight" | "clouds" | "cobalt" | "cobalt2" | "custom-vs-light" | "custom-vs-dark" | "dawn" | "dracula" | "dreamweaver" | "eiffel" | "espresso-libre" | "github" | "github-dark" | "github-light" | "hc-black" | "hc-light" | "idlefingers" | "iplastic" | "katzenmilch" | "krtheme" | "kuroir" | "magicwb-amiga" | "merbivore-soft" | "merbivore" | "monochrome" | "monochrome-dark" | "monokai" | "monokai-bright" | "monoindustrial" | "night-owl" | "nord" | "oceanic-next" | "pastels-on-dark" | "slush-and-poppies" | "solarized-dark" | "solarized-light" | "spacecadet" | "sunburst" | "textmate-mac-classic" | "tomorrow" | "tomorrow-night" | "tomorrow-night-blue" | "tomorrow-night-bright" | "tomorrow-night-eighties" | "twilight" | "upstream-sunburst" | "vibrant-ink" | "vs" | "vs-dark" | "xcode-default" | "zenburnesque" | "aura" | "ayu-light" | "barf" | "basic-light" | "basic-dark" | "bespin" | "boys-and-girls" | "cm-light" | "cool-glow" | "espresso" | "gruvbox-dark" | "gruvbox-light" | "material-dark" | "material-light" | "noctis-lilac" | "one-dark" | "rose-pine-dawn" | "smoothy" | "tokyo-night" | "tokyo-night-day" | "tokyo-night-storm" | "a11y-dark" | "atom-dark" | "base16-ateliersulphurpool-light" | "cb" | "coldark-cold" | "coldark-dark" | "coy" | "coy-without-shadows" | "darcula" | "duotone-dark" | "duotone-earth" | "duotone-forest" | "duotone-light" | "duotone-sea" | "duotone-space" | "funky" | "ghcolors" | "holi-theme" | "hopscotch" | "laserwave" | "lucario" | "material-oceanic" | "nord-2" | "okaidia" | "one-light" | "pojoaque" | "shades-of-purple" | "solarized-dark-atom" | "synthwave84" | "vsc-dark-plus" | "xonokai" | "z-touchs" | null;
+}
 declare module "livecodes/UI/editor-settings" {
-    import type { EditorLibrary, EventsManager, FormatFn, Modal, UserConfig } from "livecodes/models";
     import type { createEditor } from "livecodes/editor/create-editor";
+    import type { EditorLibrary, EventsManager, FormatFn, Modal, UserConfig } from "livecodes/models";
     export const createEditorSettingsUI: ({ baseUrl, modal, eventsManager, scrollToSelector, deps, }: {
         baseUrl: string;
         modal: Modal;
@@ -6062,7 +6141,7 @@ declare module "livecodes/UI/assets" {
     }) => HTMLElement;
 }
 declare module "livecodes/UI/snippets" {
-    import type { Snippet, CodeEditor, EditorOptions, Modal, Screen, AppData, Notifications, EventsManager } from "livecodes/models";
+    import type { AppData, CodeEditor, EditorOptions, EventsManager, Modal, Notifications, Screen, Snippet } from "livecodes/models";
     import { type Storage } from "livecodes/storage/index";
     export const createSnippetsList: ({ snippetsStorage, eventsManager, notifications, modal, deps, }: {
         snippetsStorage: Storage<Snippet>;
@@ -6111,9 +6190,9 @@ declare module "livecodes/UI/resources" {
     }) => void;
 }
 declare module "livecodes/core" {
+    import type { I18nInterpolationType, I18nKeyType, I18nValueType } from "livecodes/i18n/index";
     import type { API, Config } from "livecodes/models";
     import { createAuthService } from "livecodes/services/index";
-    import type { I18nKeyType, I18nValueType, I18nInterpolationType } from "livecodes/i18n/index";
     global {
         interface Window {
             deps: {
@@ -6168,15 +6247,15 @@ declare module "livecodes/config/__tests__/validate-config.spec" { }
 declare module "livecodes/editor/custom-editor-utils" { }
 declare module "livecodes/editor/codejar/codejar" {
     import 'prismjs';
-    import 'prismjs/plugins/autoloader/prism-autoloader';
-    import 'prismjs/plugins/line-numbers/prism-line-numbers';
-    import 'prismjs/components/prism-markup';
     import 'prismjs/components/prism-css';
     import 'prismjs/components/prism-javascript';
-    import 'prismjs/components/prism-typescript';
-    import 'prismjs/components/prism-jsx';
-    import 'prismjs/components/prism-tsx';
     import 'prismjs/components/prism-json';
+    import 'prismjs/components/prism-jsx';
+    import 'prismjs/components/prism-markup';
+    import 'prismjs/components/prism-tsx';
+    import 'prismjs/components/prism-typescript';
+    import 'prismjs/plugins/autoloader/prism-autoloader';
+    import 'prismjs/plugins/line-numbers/prism-line-numbers';
     import type { CodeEditor, EditorOptions } from "livecodes/models";
     export const createEditor: (options: EditorOptions) => Promise<CodeEditor>;
 }
@@ -7614,6 +7693,7 @@ declare module "livecodes/languages/haml/lang-haml-compiler" { }
 declare module "livecodes/languages/handlebars/lang-handlebars-compiler" { }
 declare module "livecodes/languages/imba/lang-imba-compiler" { }
 declare module "livecodes/languages/java/lang-java-script" { }
+declare module "livecodes/languages/jinja/lang-jinja-compiler" { }
 declare module "livecodes/languages/julia/lang-julia-script" { }
 declare module "livecodes/languages/lightningcss/processor-lightningcss-compiler" {
     export const lightningcssFeatures: {
@@ -7695,9 +7775,9 @@ declare module "livecodes/notifications/__tests__/create-notifications.spec" { }
 declare module "livecodes/result/result-utils" { }
 declare module "livecodes/result/__tests__/type-of.spec" { }
 declare module "livecodes/services/firebase" {
-    export { initializeApp, getApp } from 'firebase/app';
+    export { getApp, initializeApp } from 'firebase/app';
+    export { GithubAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
     export type { User as FirebaseUser } from 'firebase/auth';
-    export { getAuth, signInWithPopup, signOut, GithubAuthProvider } from 'firebase/auth';
     export const firebaseConfig: {
         apiKey: string;
         authDomain: string;
@@ -7797,13 +7877,37 @@ declare module "livecodes/templates/starter/imba-starter" {
     import type { Template } from "livecodes/models";
     export const imbaStarter: Template;
 }
+declare module "livecodes/templates/starter/java-starter" {
+    import type { Template } from "livecodes/models";
+    export const javaStarter: Template;
+}
+declare module "livecodes/templates/starter/javascript-starter" {
+    import type { Template } from "livecodes/models";
+    export const javascriptStarter: Template;
+}
+declare module "livecodes/templates/starter/jest-react-starter" {
+    import type { Template } from "livecodes/models";
+    export const jestReactStarter: Template;
+}
+declare module "livecodes/templates/starter/jest-starter" {
+    import type { Template } from "livecodes/models";
+    export const jestStarter: Template;
+}
 declare module "livecodes/templates/starter/jquery-starter" {
     import type { Template } from "livecodes/models";
     export const jqueryStarter: Template;
 }
+declare module "livecodes/templates/starter/julia-starter" {
+    import type { Template } from "livecodes/models";
+    export const juliaStarter: Template;
+}
 declare module "livecodes/templates/starter/knockout-starter" {
     import type { Template } from "livecodes/models";
     export const knockoutStarter: Template;
+}
+declare module "livecodes/templates/starter/lit-starter" {
+    import type { Template } from "livecodes/models";
+    export const litStarter: Template;
 }
 declare module "livecodes/templates/starter/livescript-starter" {
     import type { Template } from "livecodes/models";
@@ -7813,29 +7917,65 @@ declare module "livecodes/templates/starter/lua-starter" {
     import type { Template } from "livecodes/models";
     export const luaStarter: Template;
 }
+declare module "livecodes/templates/starter/lua-wasm-starter" {
+    import type { Template } from "livecodes/models";
+    export const luaWasmStarter: Template;
+}
+declare module "livecodes/templates/starter/malina-starter" {
+    import type { Template } from "livecodes/models";
+    export const malinaStarter: Template;
+}
+declare module "livecodes/templates/starter/markdown-starter" {
+    import type { Template } from "livecodes/models";
+    export const markdownStarter: Template;
+}
 declare module "livecodes/templates/starter/mdx-starter" {
     import type { Template } from "livecodes/models";
     export const mdxStarter: Template;
+}
+declare module "livecodes/templates/starter/ocaml-starter" {
+    import type { Template } from "livecodes/models";
+    export const ocamlStarter: Template;
 }
 declare module "livecodes/templates/starter/perl-starter" {
     import type { Template } from "livecodes/models";
     export const perlStarter: Template;
 }
+declare module "livecodes/templates/starter/phaser-starter" {
+    import type { Template } from "livecodes/models";
+    export const phaserStarter: Template;
+}
 declare module "livecodes/templates/starter/php-starter" {
     import type { Template } from "livecodes/models";
     export const phpStarter: Template;
+}
+declare module "livecodes/templates/starter/php-wasm-starter" {
+    import type { Template } from "livecodes/models";
+    export const phpWasmStarter: Template;
+}
+declare module "livecodes/templates/starter/postgresql-starter" {
+    import type { Template } from "livecodes/models";
+    export const postgresqlStarter: Template;
 }
 declare module "livecodes/templates/starter/preact-starter" {
     import type { Template } from "livecodes/models";
     export const preactStarter: Template;
 }
-declare module "livecodes/templates/starter/python-wasm-starter" {
+declare module "livecodes/templates/starter/prolog-starter" {
     import type { Template } from "livecodes/models";
-    export const pythonWasmStarter: Template;
+    export const prologStarter: Template;
 }
 declare module "livecodes/templates/starter/python-starter" {
     import type { Template } from "livecodes/models";
     export const pythonStarter: Template;
+}
+declare module "livecodes/templates/starter/python-wasm-starter" {
+    import type { Template } from "livecodes/models";
+    export const pythonWasmStarter: Template;
+}
+declare module "livecodes/templates/starter/r-starter" {
+    import type { Template } from "livecodes/models";
+    export const rStarter: Template;
 }
 declare module "livecodes/templates/starter/react-native-starter" {
     import type { Template } from "livecodes/models";
@@ -7845,21 +7985,13 @@ declare module "livecodes/templates/starter/react-starter" {
     import type { Template } from "livecodes/models";
     export const reactStarter: Template;
 }
-declare module "livecodes/templates/starter/markdown-starter" {
-    import type { Template } from "livecodes/models";
-    export const markdownStarter: Template;
-}
-declare module "livecodes/templates/starter/rescript-starter" {
-    import type { Template } from "livecodes/models";
-    export const rescriptStarter: Template;
-}
 declare module "livecodes/templates/starter/reason-starter" {
     import type { Template } from "livecodes/models";
     export const reasonStarter: Template;
 }
-declare module "livecodes/templates/starter/ocaml-starter" {
+declare module "livecodes/templates/starter/rescript-starter" {
     import type { Template } from "livecodes/models";
-    export const ocamlStarter: Template;
+    export const rescriptStarter: Template;
 }
 declare module "livecodes/templates/starter/riot-starter" {
     import type { Template } from "livecodes/models";
@@ -7869,9 +8001,17 @@ declare module "livecodes/templates/starter/ruby-starter" {
     import type { Template } from "livecodes/models";
     export const rubyStarter: Template;
 }
+declare module "livecodes/templates/starter/ruby-wasm-starter" {
+    import type { Template } from "livecodes/models";
+    export const rubyWasmStarter: Template;
+}
 declare module "livecodes/templates/starter/scheme-starter" {
     import type { Template } from "livecodes/models";
     export const schemeStarter: Template;
+}
+declare module "livecodes/templates/starter/shadcn-ui-starter" {
+    import type { Template } from "livecodes/models";
+    export const shadcnuiStarter: Template;
 }
 declare module "livecodes/templates/starter/solid-starter" {
     import type { Template } from "livecodes/models";
@@ -7893,6 +8033,14 @@ declare module "livecodes/templates/starter/tailwindcss-starter" {
     import type { Template } from "livecodes/models";
     export const tailwindcssStarter: Template;
 }
+declare module "livecodes/templates/starter/tcl-starter" {
+    import type { Template } from "livecodes/models";
+    export const tclStarter: Template;
+}
+declare module "livecodes/templates/starter/teal-starter" {
+    import type { Template } from "livecodes/models";
+    export const tealStarter: Template;
+}
 declare module "livecodes/templates/starter/typescript-starter" {
     import type { Template } from "livecodes/models";
     export const typescriptStarter: Template;
@@ -7909,107 +8057,15 @@ declare module "livecodes/templates/starter/wat-starter" {
     import type { Template } from "livecodes/models";
     export const watStarter: Template;
 }
-declare module "livecodes/templates/starter/malina-starter" {
-    import type { Template } from "livecodes/models";
-    export const malinaStarter: Template;
-}
-declare module "livecodes/templates/starter/julia-starter" {
-    import type { Template } from "livecodes/models";
-    export const juliaStarter: Template;
-}
-declare module "livecodes/templates/starter/tcl-starter" {
-    import type { Template } from "livecodes/models";
-    export const tclStarter: Template;
-}
-declare module "livecodes/templates/starter/prolog-starter" {
-    import type { Template } from "livecodes/models";
-    export const prologStarter: Template;
-}
-declare module "livecodes/templates/starter/jest-starter" {
-    import type { Template } from "livecodes/models";
-    export const jestStarter: Template;
-}
-declare module "livecodes/templates/starter/jest-react-starter" {
-    import type { Template } from "livecodes/models";
-    export const jestReactStarter: Template;
-}
-declare module "livecodes/templates/starter/javascript-starter" {
-    import type { Template } from "livecodes/models";
-    export const javascriptStarter: Template;
-}
-declare module "livecodes/templates/starter/r-starter" {
-    import type { Template } from "livecodes/models";
-    export const rStarter: Template;
-}
-declare module "livecodes/templates/starter/teal-starter" {
-    import type { Template } from "livecodes/models";
-    export const tealStarter: Template;
-}
-declare module "livecodes/templates/starter/ruby-wasm-starter" {
-    import type { Template } from "livecodes/models";
-    export const rubyWasmStarter: Template;
-}
-declare module "livecodes/templates/starter/lua-wasm-starter" {
-    import type { Template } from "livecodes/models";
-    export const luaWasmStarter: Template;
-}
-declare module "livecodes/templates/starter/php-wasm-starter" {
-    import type { Template } from "livecodes/models";
-    export const phpWasmStarter: Template;
-}
-declare module "livecodes/templates/starter/lit-starter" {
-    import type { Template } from "livecodes/models";
-    export const litStarter: Template;
-}
-declare module "livecodes/templates/starter/postgresql-starter" {
-    import type { Template } from "livecodes/models";
-    export const postgresqlStarter: Template;
-}
-declare module "livecodes/templates/starter/phaser-starter" {
-    import type { Template } from "livecodes/models";
-    export const phaserStarter: Template;
-}
-declare module "livecodes/templates/starter/shadcn-ui-starter" {
-    import type { Template } from "livecodes/models";
-    export const shadcnuiStarter: Template;
-}
-declare module "livecodes/templates/starter/java-starter" {
-    import type { Template } from "livecodes/models";
-    export const javaStarter: Template;
-}
 declare module "livecodes/templates/starter/index" {
     export const starterTemplates: import("sdk/models").Template[];
 }
 declare module "livecodes/utils/__tests__/object-filter.spec" { }
 declare module "livecodes/utils/__tests__/object-map.spec" { }
 declare module "livecodes/utils/__tests__/utils.spec" { }
-declare module "sdk/index" {
-    import type { Code, Config, EmbedOptions, Language, Playground } from "sdk/models";
-    export type { Code, Config, EmbedOptions, Language, Playground };
-    /**
-     * Creates a LiveCodes playground.
-     *
-     * @param {string | HTMLElement} container - `HTMLElement` or a string representing a CSS selector. This is the container where the playground is rendered.
-      If not found, an error is thrown (except in [headless mode](https://livecodes.io/docs/sdk/headless), in which this parameter is optional and can be omitted).
-     * @param {EmbedOptions} options - The [embed options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playground (optional).
-     * @return {Promise<Playground>} - A promise that resolves to a [`Playground`](https://livecodes.io/docs/api/interfaces/Playground/) object which exposes many [SDK methods](https://livecodes.io/docs/sdk/js-ts/#sdk-methods) that can be used to interact with the playground.
-     */
-    export function createPlayground(container: string | HTMLElement, options?: EmbedOptions): Promise<Playground>;
-    export function createPlayground(options: EmbedOptions & {
-        view: 'headless';
-    }): Promise<Playground>;
-    /**
-     * Gets the URL to a LiveCodes playground (as a string) from the provided [options](https://livecodes.io/docs/sdk/js-ts#embed-options).
-     * This can be useful for providing links to run code in playgrounds.
-     *
-     * @param {EmbedOptions} options - The [options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playground.
-     * @return {string} - The URL of the playground (as a string).
-     */
-    export function getPlaygroundUrl(options?: EmbedOptions): string;
-}
 declare module "sdk/vue" {
-    import type { DefineComponent, AllowedComponentProps, ComponentCustomProps, ComponentOptionsMixin, ExtractPropTypes, RendererElement, RendererNode, VNode, VNodeProps } from '@vue/runtime-core';
-    import type { Playground, EmbedOptions } from "sdk/models";
+    import type { AllowedComponentProps, ComponentCustomProps, ComponentOptionsMixin, DefineComponent, ExtractPropTypes, RendererElement, RendererNode, VNode, VNodeProps } from '@vue/runtime-core';
+    import type { EmbedOptions, Playground } from "sdk/models";
     export interface Props extends EmbedOptions {
         height?: string;
     }
@@ -8052,3 +8108,4 @@ declare module "sdk/vue" {
         onSdkReady?: (sdk: Playground) => void;
     }, {}>;
 }
+declare module "sdk/__tests__/getPlaygroundUrl.test" { }

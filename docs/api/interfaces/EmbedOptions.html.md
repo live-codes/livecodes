@@ -23,7 +23,7 @@ If supplied with an invalid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:314](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L314)
+[models.ts:314](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/models.ts#L314)
 
 ***
 
@@ -43,7 +43,7 @@ If supplied and is not an object or a valid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:346](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L346)
+[models.ts:346](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/models.ts#L346)
 
 ***
 
@@ -61,7 +61,7 @@ false
 
 #### Defined in
 
-[models.ts:352](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L352)
+[models.ts:352](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/models.ts#L352)
 
 ***
 
@@ -73,7 +73,7 @@ A resource to [import](https://livecodes.io/docs/features/import) (from any of t
 
 #### Defined in
 
-[models.ts:357](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L357)
+[models.ts:357](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/models.ts#L357)
 
 ***
 
@@ -95,7 +95,7 @@ false
 
 #### Defined in
 
-[models.ts:367](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L367)
+[models.ts:367](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/models.ts#L367)
 
 ***
 
@@ -117,7 +117,7 @@ Sets how the playground loads:
 
 #### Defined in
 
-[models.ts:377](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L377)
+[models.ts:377](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/models.ts#L377)
 
 ***
 
@@ -914,6 +914,10 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 #### customSettings.javascript
 
 > **javascript**: `any`
+
+#### customSettings.jinja
+
+> **jinja**: `any`
 
 #### customSettings.jl
 
@@ -1959,6 +1963,14 @@ and [Custom Module Resolution](https://livecodes.io/docs/features/module-resolut
 
 > **javascript-selector**: `undefined` \| `string`
 
+#### jinja
+
+> **jinja**: `undefined` \| `string`
+
+#### jinja-selector
+
+> **jinja-selector**: `undefined` \| `string`
+
 #### jl
 
 > **jl**: `undefined` \| `string`
@@ -2394,7 +2406,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### params?
 
-> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 472 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
+> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 475 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
 
 An object that represents the [URL Query parameters](https://livecodes.io/docs/configuration/query-params), that can be used to configure the playground.
 
@@ -3090,6 +3102,10 @@ overriding the default title set to the language name
 
 > **scss-selector**: `undefined` \| `string`
 
+#### sdkVersion?
+
+> `optional` **sdkVersion**: `string`
+
 #### semicolons?
 
 > `optional` **semicolons**: `boolean`
@@ -3750,7 +3766,7 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[models.ts:338](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L338)
+[models.ts:338](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/models.ts#L338)
 
 ***
 
@@ -3763,7 +3779,7 @@ Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-a
 
 #### Defined in
 
-[models.ts:383](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L383)
+[models.ts:383](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/models.ts#L383)
 
 ***
 
@@ -3788,4 +3804,4 @@ When set to `"headless"`, the playground is loaded in [headless mode](https://li
 
 #### Defined in
 
-[models.ts:396](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/models.ts#L396)
+[models.ts:396](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/models.ts#L396)

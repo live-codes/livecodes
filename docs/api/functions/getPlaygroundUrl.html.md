@@ -17,6 +17,9 @@ The [options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playgro
 
 - The URL of the playground (as a string).
 
+large objects like config and params are store in the url hash params while the rest are in the search params
+unless config is a string in which case it is stored in searchParams
+
 ## Defined in
 
-[index.ts:421](https://github.com/live-codes/livecodes/blob/870dbc3ade068368e560b53c5658cb1fbf40ada3/src/sdk/index.ts#L421)
+[index.ts:391](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/index.ts#L391)

@@ -67,6 +67,15 @@ The `createPlayground` function throws an error (promise is rejected) in any of 
 
 :::
 
+### Multiple Sources
+
+When multiple sources are provided in the [embed options](#embed-options), each is converted to a [configuration object](../configuration/configuration-object.html.md) and the properties are merged.
+In case there are conflicts between the properties of the configurations, they are overridden in the following order:
+- [`template`](#template) (lowest precedence)
+- [`import`](#import)
+- [`config`](#config)
+- [`params`](#params) (highest precedence)
+
 ## `getPlaygroundUrl`
 
 Type: [`(options?: EmbedOptions) => string`](../api/functions/getPlaygroundUrl.md)

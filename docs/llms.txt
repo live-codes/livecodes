@@ -135,6 +135,7 @@ Its MIT License also permits commercial use.
 - [Languages](/livecodes/docs/languages/index.html.md)
 - [Java](/livecodes/docs/languages/java.html.md)
 - [JavaScript](/livecodes/docs/languages/javascript.html.md)
+- [Jinja](/livecodes/docs/languages/jinja.html.md)
 - [JSX](/livecodes/docs/languages/jsx.html.md)
 - [Julia](/livecodes/docs/languages/julia.html.md)
 - [Less](/livecodes/docs/languages/less.html.md)
@@ -202,6 +203,7 @@ Its MIT License also permits commercial use.
 
 - [Bookmarklet](/livecodes/docs/bookmarklet.html.md)
 - [GitHub Action ⚡](/livecodes/docs/gh-action.html.md)
+- [Markdown to LiveCodes](/livecodes/docs/markdown-to-livecodes.html.md)
 - [Contribution](/livecodes/docs/contribution.html.md)
 - [Credits](/livecodes/docs/credits.html.md)
 - [License](/livecodes/docs/license.html.md)
