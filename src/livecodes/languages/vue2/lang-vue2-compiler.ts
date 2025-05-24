@@ -1,5 +1,5 @@
-import type { CDN, CompilerFunction } from '../../models';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
+import type { CDN, CompilerFunction } from '../../models';
 import { modulesService } from '../../services/modules';
 import { escapeCode } from '../../utils';
 

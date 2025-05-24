@@ -1,6 +1,6 @@
 import type { ProcessorSpecs } from '../../models';
-import { postcssImportUrlUrl, vendorsBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
+import { postcssImportUrlUrl, vendorsBaseUrl } from '../../vendors';
 
 export const autoprefixer: ProcessorSpecs = {
   name: 'autoprefixer',

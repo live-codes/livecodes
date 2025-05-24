@@ -1,22 +1,22 @@
 import type { Config, User } from '../models';
 import { getValidUrl } from '../utils/utils';
-import { importCompressedCode } from './code';
-import { importProject } from './project-id';
 import {
-  isCompressedCode,
   isCodepen,
+  isCompressedCode,
   isDom,
-  isGithubUrl,
   isGithubDir,
   isGithubGist,
-  isGitlabUrl,
+  isGithubUrl,
   isGitlabDir,
   isGitlabSnippet,
+  isGitlabUrl,
   isJsbin,
   isProjectId,
   isTypescriptPlayground,
   isVuePlayground,
 } from './check-src';
+import { importCompressedCode } from './code';
+import { importProject } from './project-id';
 
 export const importCode = async (
   url: string,

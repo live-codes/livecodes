@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.11.0](https://github.com/live-codes/livecodes/compare/sdk-v0.10.0...sdk-v0.11.0) (2025-05-24)
+
+- This release enables the SDK to create playgrounds and generate URLs for much bigger projects, by encoding data in URL hash instead of query params, while maintaining backwards compatibility.
+
+- Adds support for Jinja templating engine.
+
+### Credits
+
+- @BassemHalim did a lot of work on this release. Thank you ❤️
+
+---
+
 ## [v45](https://github.com/live-codes/livecodes/compare/sdk-v0.10.0...v45) (2025-04-25)
 
 ### Highlights for this release

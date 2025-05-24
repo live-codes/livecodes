@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
+import { vendorsBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const less: LanguageSpecs = {

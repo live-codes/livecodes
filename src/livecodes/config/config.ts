@@ -1,10 +1,10 @@
 import type {
-  ContentConfig,
+  AppConfig,
   Config,
-  UserConfig,
+  ContentConfig,
   EditorConfig,
   FormatterConfig,
-  AppConfig,
+  UserConfig,
 } from '../models';
 import { cloneObject } from '../utils';
 import { defaultConfig } from './default-config';

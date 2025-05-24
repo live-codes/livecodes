@@ -1,10 +1,10 @@
 import {
-  isGithubUrl,
   isGithubDir,
   isGithubGist,
-  isGitlabUrl,
+  isGithubUrl,
   isGitlabDir,
   isGitlabSnippet,
+  isGitlabUrl,
   isJsbin,
 } from '../check-src';
 

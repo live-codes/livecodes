@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
+import { test } from '../test-fixtures';
 
 test.describe('Custom Settings', () => {
   test('asciidoctor', async ({ page, getTestUrl }) => {
@@ -13,7 +13,7 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
-    await page.keyboard.type(`{"asciidoc": { standalone: true }}`);
+    await page.keyboard.type(`{"asciidoc": { standalone: true, attributes: { nofooter: false } }}`);
     await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="Change Language"], 1)');

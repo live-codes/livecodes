@@ -1,7 +1,7 @@
-import type { EventsManager, Modal, Notifications, User, UserData } from '../models';
 import { syncScreen } from '../html';
-import { autoCompleteUrl } from '../vendors';
+import type { EventsManager, Modal, Notifications, User, UserData } from '../models';
 import { getUserRepos } from '../services/github';
+import { autoCompleteUrl } from '../vendors';
 import {
   getExistingRepoAutoSync,
   getExistingRepoForm,

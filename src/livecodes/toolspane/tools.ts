@@ -1,14 +1,14 @@
 import Split from 'split.js';
-import type {
-  Editors,
-  Config,
-  ToolList,
-  ToolsPaneStatus,
-  EventsManager,
-  ToolsPane,
-  Tool,
-} from '../models';
 import { getResultElement, getToolspaneBar } from '../UI';
+import type {
+  Config,
+  Editors,
+  EventsManager,
+  Tool,
+  ToolList,
+  ToolsPane,
+  ToolsPaneStatus,
+} from '../models';
 import { evaluateCssCalc } from '../utils';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';
@@ -93,7 +93,7 @@ export const createToolsPane = (
 
   const setHidden = (hide: boolean) => {
     if (hide) {
-      toolsSplit.collapse(1);
+      toolsSplit.setSizes(sizes.none);
       result.style.minHeight = '100%';
     } else {
       result.style.minHeight = 'unset';
@@ -162,7 +162,7 @@ export const createToolsPane = (
 
   const open = (toolId: number, maximize = false) => {
     if (maximize) {
-      toolsSplit.collapse(0);
+      toolsSplit.setSizes(sizes.full);
       status = 'full';
     } else {
       toolsSplit.setSizes(sizes.open);
@@ -173,7 +173,7 @@ export const createToolsPane = (
   };
 
   const close = () => {
-    toolsSplit.collapse(1);
+    toolsSplit.setSizes(sizes.closed);
     status = 'closed';
     sizeChanged();
     tools.forEach((tool) => tool.onDeactivate());

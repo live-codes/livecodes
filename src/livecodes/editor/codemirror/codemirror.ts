@@ -6,7 +6,7 @@
 // @ts-ignore
 import { autocompletion } from '@codemirror/autocomplete';
 // @ts-ignore
-import { basicSetup, lineNumbers, closeBrackets } from 'codemirror';
+import { basicSetup, closeBrackets, lineNumbers } from 'codemirror';
 // @ts-ignore
 import { Compartment, EditorState, type Extension } from '@codemirror/state';
 // @ts-ignore
@@ -14,16 +14,10 @@ import { oneDark } from '@codemirror/theme-one-dark';
 // @ts-ignore
 import { EditorView, keymap, type KeyBinding, type ViewUpdate } from '@codemirror/view';
 // @ts-ignore
-import { undo, redo } from '@codemirror/commands';
-import {
-  defaultHighlightStyle,
-  syntaxHighlighting,
-  indentUnit,
-  HighlightStyle,
-  foldEffect,
-  type LanguageSupport,
-  // @ts-ignore
-} from '@codemirror/language';
+import { redo, undo } from '@codemirror/commands';
+// prettier-ignore
+// @ts-ignore
+import { HighlightStyle,defaultHighlightStyle,foldEffect,indentUnit,syntaxHighlighting,type LanguageSupport } from '@codemirror/language';
 // @ts-ignore
 import { tags } from '@lezer/highlight';
 // @ts-ignore
@@ -34,24 +28,24 @@ import { vscodeKeymap } from '@replit/codemirror-vscode-keymap';
 import { colorPicker } from '@replit/codemirror-css-color-picker';
 
 // these are imported normally
+import { getEditorModeNode } from '../../UI/selectors';
 import type {
+  CodeEditor,
+  CodemirrorTheme,
+  Config,
+  EditorConfig,
+  EditorLibrary,
+  EditorOptions,
+  EditorPosition,
   FormatFn,
   Language,
-  CodeEditor,
-  EditorOptions,
   Theme,
-  EditorPosition,
-  EditorConfig,
-  Config,
-  CodemirrorTheme,
-  EditorLibrary,
 } from '../../models';
-import { getEditorModeNode } from '../../UI/selectors';
 import { ctrl, debounce, getRandomString } from '../../utils/utils';
 import { codeMirrorBaseUrl, comlinkBaseUrl } from '../../vendors';
 import { getEditorTheme } from '../themes';
-import { editorLanguages } from './editor-languages';
 import { codemirrorThemes, customThemes } from './codemirror-themes';
+import { editorLanguages } from './editor-languages';
 
 export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
   editorId: EditorOptions['editorId'];

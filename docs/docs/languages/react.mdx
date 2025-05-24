@@ -256,7 +256,7 @@ export const styledComponentsDemo = {
 
 ### Version
 
-`babel-plugin-react-compiler`: v19.0.0-beta-e993439-20250405
+`babel-plugin-react-compiler`: v19.1.0-rc.1
 
 ## Code Formatting
 

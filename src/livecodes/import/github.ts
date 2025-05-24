@@ -1,6 +1,6 @@
 import { decode } from 'js-base64';
-import type { Language, Config, User, EditorId } from '../models';
 import { getLanguageByAlias, getLanguageEditorId, getLanguageExtension } from '../languages/utils';
+import type { Config, EditorId, Language, User } from '../models';
 import { getGithubHeaders } from '../services/github';
 import { modulesService } from '../services/modules';
 

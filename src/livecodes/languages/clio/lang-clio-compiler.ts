@@ -1,6 +1,6 @@
 import type { CompilerFunction } from '../../models';
-import { clioBaseUrl } from '../../vendors';
 import { escapeCode } from '../../utils';
+import { clioBaseUrl } from '../../vendors';
 
 (self as any).createClioCompiler = (): CompilerFunction => async (code) => {
   if (!code) return '';

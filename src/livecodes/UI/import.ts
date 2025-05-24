@@ -1,19 +1,19 @@
+import { defaultConfig } from '../config/default-config';
+import { importScreen } from '../html';
+import { importFromFiles } from '../import/files';
+import { importCode } from '../import/import';
 import type { populateConfig as populateConfigFn } from '../import/utils';
 import type {
   Config,
   ContentConfig,
+  EventsManager,
   Modal,
   Notifications,
-  User,
   Screen,
-  EventsManager,
+  User,
 } from '../models';
 import type { ProjectStorage, StorageItem } from '../storage';
-import { defaultConfig } from '../config/default-config';
-import { importScreen } from '../html';
 import { fetchWithHandler } from '../utils/utils';
-import { importCode } from '../import/import';
-import { importFromFiles } from '../import/files';
 import {
   getBulkImportFileInput,
   getBulkImportJsonUrlButton,

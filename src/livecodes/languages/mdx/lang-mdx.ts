@@ -1,5 +1,5 @@
-import type { CompilerFunction, LanguageSpecs } from '../../models';
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
+import type { CompilerFunction, LanguageSpecs } from '../../models';
 import { escapeCode, getLanguageCustomSettings } from '../../utils';
 import { vendorsBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';

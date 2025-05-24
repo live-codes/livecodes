@@ -1,5 +1,5 @@
-import type { Language, Config } from '../models';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import type { Config, Language } from '../models';
 import { pipe } from '../utils';
 import { getValidUrl } from './check-src';
 

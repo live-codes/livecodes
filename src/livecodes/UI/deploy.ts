@@ -1,20 +1,20 @@
-import type {
-  Config,
-  ContentConfig,
-  Cache,
-  Modal,
-  Notifications,
-  User,
-  EventsManager,
-} from '../models';
+import { deploy, deployFile, deployedConfirmation } from '../deploy/deploy';
+import { deployScreen, resultTemplate } from '../html';
 import type {
   getLanguageCompiler as getLanguageCompilerFn,
   getLanguageExtension as getLanguageExtensionFn,
 } from '../languages';
-import { deployScreen, resultTemplate } from '../html';
-import { autoCompleteUrl } from '../vendors';
-import { deploy, deployFile, deployedConfirmation } from '../deploy/deploy';
+import type {
+  Cache,
+  Config,
+  ContentConfig,
+  EventsManager,
+  Modal,
+  Notifications,
+  User,
+} from '../models';
 import { getUserRepos } from '../services/github';
+import { autoCompleteUrl } from '../vendors';
 import { generateQrCode } from './qrcode';
 import {
   getExistingRepoButton,

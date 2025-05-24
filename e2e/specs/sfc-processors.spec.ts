@@ -1,9 +1,10 @@
 import { expect } from '@playwright/test';
-import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
+import { test } from '../test-fixtures';
 
 test.describe('Preprocessors', () => {
   test('in Vue', async ({ page, getTestUrl }) => {
+    test.slow();
     const sfc = `
 <template lang="pug">
 ul
@@ -32,6 +33,7 @@ li
     const { getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForResultUpdate();
+    await getResult().waitForTimeout(3000);
 
     expect(await getResult().innerText(':nth-match(li, 1)')).toContain('hello world!');
     expect(await getResult().innerText(':nth-match(li, 2)')).toContain('p');
@@ -46,6 +48,7 @@ li
   });
 
   test('in Svelte', async ({ page, getTestUrl }) => {
+    test.slow();
     //     const sfc = `
     // <script lang="ts">
     //   export const msg: string = 'world!';
@@ -71,6 +74,7 @@ li
     const { getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForResultUpdate({ timeout: 20000 });
+    await getResult().waitForTimeout(3000);
 
     expect(await getResult().innerText(':nth-match(li, 1)')).toContain('hello world!');
     expect(await getResult().innerText(':nth-match(li, 2)')).toContain('p');

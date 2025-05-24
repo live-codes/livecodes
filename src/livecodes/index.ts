@@ -1,14 +1,20 @@
-import type { I18nKeyType } from './i18n';
-import type { Config, CustomEvents } from './models';
-import { livecodes, params, isEmbed, clickToLoad, loading } from './main';
 import { customEvents } from './events/custom-events';
+import type { I18nKeyType } from './i18n';
+import { clickToLoad, isEmbed, livecodes, loading, params } from './main';
+import type { Config, CustomEvents } from './models';
 
+const sdkVersion = params.get('sdkVersion');
 const rootSelector = '#livecodes';
 const loadingEl = document.querySelector<HTMLElement>('#loading')!;
 const loadingText = document.querySelector<HTMLElement>('#loading-text')!;
 const loadingHTML = loadingEl.innerHTML;
 
 if (isEmbed) {
+  parent.postMessage(
+    { type: customEvents.init, payload: { appVersion: process.env.VERSION } },
+    '*',
+  );
+
   document.body.classList.add('embed');
   if (clickToLoad) {
     loadingEl.classList.add('click-to-load');
@@ -107,7 +113,8 @@ window.addEventListener(customEvents.destroy, () => {
   document.head.innerHTML = '';
 });
 
-if (isEmbed && params.get('config') === 'sdk') {
+// for backward-compatibility
+if (isEmbed && params.get('config') === 'sdk' && !sdkVersion) {
   addEventListener(
     'message',
     function configHandler(

@@ -1,8 +1,8 @@
 import { cloneObject } from '../utils/utils';
+import type { ProjectStorage, SimpleStorage, Storage, Stores } from './models';
 import { createProjectStorage } from './project-storage';
 import { createSimpleStorage } from './simple-storage';
 import { createStorage } from './storage';
-import type { Storage, ProjectStorage, SimpleStorage, Stores } from './models';
 
 export const createStores = (): Stores =>
   cloneObject({

@@ -1,6 +1,6 @@
 import { defaultConfig } from '../config/default-config';
-import type { FormatFn, FormatterConfig, Language, Parser } from '../models';
 import { languages, parserPlugins, prettierUrl } from '../languages';
+import type { FormatFn, FormatterConfig, Language, Parser } from '../models';
 import type { FormatterMessage, FormatterMessageEvent } from './models';
 
 const worker: Worker = self as any;

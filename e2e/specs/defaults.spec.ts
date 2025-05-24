@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { test } from '../test-fixtures';
 import { getLoadedApp } from '../helpers';
+import { test } from '../test-fixtures';
 
 test.describe('App Defaults', () => {
   test('Title', async ({ page, getTestUrl }) => {

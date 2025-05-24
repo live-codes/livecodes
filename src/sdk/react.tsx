@@ -1,8 +1,9 @@
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import React, { useEffect, useRef, useState } from 'react';
-import type { EmbedOptions, Playground } from './models';
 import { createPlayground } from './index';
+// eslint-disable-next-line import/order
+import type { EmbedOptions, Playground } from './models';
 
 export interface Props extends EmbedOptions {
   className?: string;

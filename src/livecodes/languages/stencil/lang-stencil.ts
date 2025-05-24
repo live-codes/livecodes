@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
-import { stencilUrl, vendorsBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
+import { stencilUrl, vendorsBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const stencil: LanguageSpecs = {

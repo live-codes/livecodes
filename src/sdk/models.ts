@@ -911,6 +911,7 @@ export type Language =
   | 'vto'
   | 'art-template'
   | 'art'
+  | 'jinja'
   | 'bbcode'
   | 'bb'
   | 'mjml'
@@ -2002,6 +2003,7 @@ export type UrlQueryParams = Partial<
     Pick<Screen, 'screen'> & { new: '' } & { [key in Language]: string } & {
       [key in languageSelector]: string;
     } & {
+      sdkVersion: string;
       config: string;
       embed: boolean;
       preview: boolean;
@@ -2028,7 +2030,10 @@ export type UrlQueryParams = Partial<
 >;
 
 export interface CustomEvents {
+  init: 'livecodes-init';
+  /** @deprecated config is sent in hash params */
   getConfig: 'livecodes-get-config';
+  /** @deprecated config is sent in hash params */
   config: 'livecodes-config';
   load: 'livecodes-load';
   appLoaded: 'livecodes-app-loaded';

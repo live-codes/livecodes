@@ -1,9 +1,9 @@
-import type { ContentConfig, EditorId, Config, User, Language } from '../models';
 import { replaceImports } from '../compiler/import-map';
 import type {
   getLanguageCompiler as getLanguageCompilerFn,
   getLanguageExtension as getLanguageExtensionFn,
 } from '../languages';
+import type { Config, ContentConfig, EditorId, Language, User } from '../models';
 import { escapeScript, safeName } from '../utils';
 
 export interface Files {

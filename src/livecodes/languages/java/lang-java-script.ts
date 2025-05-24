@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 import { createWorkerFromContent } from '../../utils/utils';
-import { doppioJvmBaseUrl, browserfsUrl } from '../../vendors';
+import { browserfsUrl, doppioJvmBaseUrl } from '../../vendors';
 
 const doppioJvmUrl = doppioJvmBaseUrl + 'doppio.js';
 const doppioJvmJarsUrl = doppioJvmBaseUrl + 'java_home/';

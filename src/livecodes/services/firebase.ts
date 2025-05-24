@@ -1,6 +1,6 @@
-export { initializeApp, getApp } from 'firebase/app';
+export { getApp, initializeApp } from 'firebase/app';
+export { GithubAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
 export type { User as FirebaseUser } from 'firebase/auth';
-export { getAuth, signInWithPopup, signOut, GithubAuthProvider } from 'firebase/auth';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyB352dJ_NKCZ43G5kv9Lt-sb5nMXTJRONQ',

@@ -1,6 +1,6 @@
-import type { Config, INinjaAction, Screen, TemplateName } from '../models';
 import { appLanguages } from '../i18n/app-languages';
 import { languageIsEnabled, languages, processorIsEnabled, processors } from '../languages';
+import type { Config, INinjaAction, Screen, TemplateName } from '../models';
 import { isMac, predefinedValues, stringUnionToArray } from '../utils/utils';
 import * as UI from './selectors';
 

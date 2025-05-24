@@ -1,8 +1,8 @@
-import React, { type ReactNode, useContext } from 'react';
+import type { WrapperProps } from '@docusaurus/types';
+import { useContext, type ReactNode } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import TOCItems from '@theme-original/TOCItems';
 import type TOCItemsType from '@theme/TOCItems';
-import type { WrapperProps } from '@docusaurus/types';
 import { CustomContentContext } from '../../custom-content';
 import styles from './styles.module.css';
 

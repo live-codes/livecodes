@@ -58,11 +58,16 @@ The tests panel and the test editor are always shown in the [full standalone app
 ## Supported Languages
 
 The testing code can be written using JavaScript, TypeScript, JSX or TSX.
-However, since the tests are run against the result web page, they can test projects that use any language/framework.
+However, since the tests run against the result web page, they can test projects that use any language/framework.
 
-This is <a href="https://livecodes.io/?x=id/3i8wrwcwhud&tests" target="_blank">a demo</a> for running tests against a Python project.
+This is [a demo](https://livecodes.io/?x=id/xyi6usem2sf&tests) for running tests against a Ruby project.
 
-<LiveCodes import="id/3i8wrwcwhud" params={{tests: "open"}}></LiveCodes>
+<LiveCodes import="id/xyi6usem2sf" params={{tests: "open"}} height="80vh"></LiveCodes>
+
+Languages may have test modules. This is [an example](https://livecodes.io/?x=id/665ar3bpqka&console=full) of running [Python doctest](https://docs.python.org/3/library/doctest.html) tests:
+
+<LiveCodes import="id/665ar3bpqka" params={{console: "full"}} height="80vh"></LiveCodes>
+
 
 ## Importing Code
 

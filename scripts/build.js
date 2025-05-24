@@ -43,8 +43,9 @@ const prepareDir = async () => {
   const fileNames = await getFileNames(outDir + '/livecodes/');
   await Promise.all(fileNames.map(async (f) => fs.promises.unlink(outDir + '/livecodes/' + f)));
   await Promise.all([
-    // add headers in Cloudflare
+    // add headers
     process.env.CF_PAGES ? copyFile('src/_headers', '_headers') : Promise.resolve(),
+    copyFile('src/netlify.toml', 'netlify.toml'),
     copyFile('src/favicon.ico', 'favicon.ico'),
     copyFile('src/404.html', '404.html'),
     copyFile('src/index.html', 'index.html'),
@@ -204,6 +205,7 @@ const iifeBuild = () =>
       'languages/haml/lang-haml-compiler.ts',
       'languages/handlebars/lang-handlebars-compiler.ts',
       'languages/imba/lang-imba-compiler.ts',
+      'languages/jinja/lang-jinja-compiler.ts',
       'languages/julia/lang-julia-script.ts',
       'languages/liquid/lang-liquid-compiler.ts',
       'languages/lua-wasm/lang-lua-wasm-script.ts',

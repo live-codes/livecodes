@@ -1,19 +1,19 @@
 import {
-  createImportMap,
   createCSSModulesImportMap,
+  createImportMap,
   getImports,
+  hasDefaultExport,
   hasImports,
   isModuleScript,
-  hasDefaultExport,
-  replaceImports,
   isScriptImport,
+  replaceImports,
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
-import { hasCustomJsxRuntime } from '../languages/typescript';
 import { reactRuntime } from '../languages/jsx/react-runtime';
 import { reactNativeRuntime } from '../languages/react-native/react-native-runtime';
 import { solidRuntime } from '../languages/solid/solid-runtime';
-import type { Cache, EditorId, Config, CompileInfo, Language } from '../models';
+import { hasCustomJsxRuntime } from '../languages/typescript';
+import type { Cache, CompileInfo, Config, EditorId, Language } from '../models';
 import { getAppCDN, modulesService } from '../services';
 import { testImports } from '../toolspane/test-imports';
 import {
@@ -25,7 +25,7 @@ import {
   objectMap,
   toDataUrl,
 } from '../utils';
-import { esModuleShimsPath, browserJestUrl, spacingJsUrl } from '../vendors';
+import { browserJestUrl, esModuleShimsPath, spacingJsUrl } from '../vendors';
 
 export const createResultPage = async ({
   code,

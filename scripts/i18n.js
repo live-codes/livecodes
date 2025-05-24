@@ -9,8 +9,8 @@ const i18nDir = path.resolve('src/livecodes/i18n/');
 const srcDir = path.join(i18nDir, 'locales');
 
 /**
- * @param {string} locale 
- * @param {string} ns 
+ * @param {string} locale
+ * @param {string} ns
  * @returns string
  */
 const i18nFile = (locale, ns) => `i18n-${locale}-${ns}.json`;
@@ -19,10 +19,8 @@ const buildI18n = async () => {
   const getFilePaths = async (dir = srcDir) => {
     let i18nFiles = [];
     const locales = (await fs.promises.readdir(dir))
-      .filter((name) =>
-        fs.statSync(path.join(dir, name)).isDirectory(),
-      )
-      .filter((name) => name !== 'tmp');  // Skip tmp directory
+      .filter((name) => fs.statSync(path.join(dir, name)).isDirectory())
+      .filter((name) => name !== 'tmp'); // Skip tmp directory
     await Promise.all(
       locales.map(async (locale) => {
         const localeDir = path.join(dir, locale);
@@ -78,8 +76,8 @@ const buildI18n = async () => {
 };
 
 const buildLocalePathLoader = async () => {
-  const locales = (await fs.promises.readdir(srcDir)).filter((name) =>
-    fs.statSync(path.join(srcDir, name)).isDirectory() && name !== 'tmp'
+  const locales = (await fs.promises.readdir(srcDir)).filter(
+    (name) => fs.statSync(path.join(srcDir, name)).isDirectory() && name !== 'tmp',
   );
   const namespaces = (await fs.promises.readdir(path.join(srcDir, 'en')))
     .filter((name) => name.endsWith('.ts'))
@@ -94,17 +92,20 @@ const buildLocalePathLoader = async () => {
     }
   }
 
-  const loader = await prettier.format(`// ATTENTION: This file is auto-generated. Do not edit manually!
+  const loader = await prettier.format(
+    `// ATTENTION: This file is auto-generated. Do not edit manually!
 
     export const pathLoader = (baseUrl: string) => (lngs: string[], nss: string[]) => {
       const lng = lngs[0];
       const ns = nss[0];
       ${ifStatements}return false;
     };
-  `, {
-    parser: 'typescript',
-    ...prettierConfig,
-  });
+  `,
+    {
+      parser: 'typescript',
+      ...prettierConfig,
+    },
+  );
   await fs.promises.writeFile(path.join(i18nDir, 'locale-paths.ts'), loader, 'utf8');
 };
 

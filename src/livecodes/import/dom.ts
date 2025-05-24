@@ -1,5 +1,5 @@
 import { getLanguageByAlias, getLanguageEditorId, languages } from '../languages';
-import type { EditorId, Language, Config } from '../models';
+import type { Config, EditorId, Language } from '../models';
 import { decodeHTML } from '../utils';
 
 type Selectors = {

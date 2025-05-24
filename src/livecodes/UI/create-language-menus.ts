@@ -1,15 +1,15 @@
-import type {
-  EditorId,
-  Config,
-  Language,
-  Processor,
-  LanguageSpecs,
-  Template,
-  EventsManager,
-} from '../models';
 import { languages } from '../languages/languages';
 import { processors } from '../languages/processors';
 import { languageIsEnabled, processorIsEnabled } from '../languages/utils';
+import type {
+  Config,
+  EditorId,
+  EventsManager,
+  Language,
+  LanguageSpecs,
+  Processor,
+  Template,
+} from '../models';
 
 export const createLanguageMenus = (
   config: Config,
@@ -17,7 +17,7 @@ export const createLanguageMenus = (
   eventsManager: EventsManager,
   showLanguageInfo: (languageInfo: HTMLElement) => void,
   loadStarterTemplate: (templateName: Template['name']) => void,
-  importCode: (options: { url: string }) => Promise<boolean>,
+  importCode: (options: { importUrl: string }) => Promise<boolean>,
   registerMenuButton: (menu: HTMLElement, button: HTMLElement) => void,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
@@ -143,7 +143,7 @@ export const createLanguageMenus = (
                 'click',
                 async (event) => {
                   event.preventDefault();
-                  importCode({ url: codeUrl });
+                  importCode({ importUrl: codeUrl });
                 },
                 false,
               );

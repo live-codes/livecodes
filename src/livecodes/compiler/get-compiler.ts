@@ -1,4 +1,4 @@
-import type { Language, Config, EventsManager } from '../models';
+import type { Config, EventsManager, Language } from '../models';
 import { createCompiler } from './create-compiler';
 import type { Compiler, LanguageOrProcessor } from './models';
 import { getCompileResult } from './utils';

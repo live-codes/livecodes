@@ -1,3 +1,4 @@
+import { openScreen } from '../html';
 import type {
   Config,
   ContentConfig,
@@ -8,9 +9,8 @@ import type {
   Notifications,
   Screen,
 } from '../models';
-import type { SavedProject, ProjectStorage } from '../storage';
-import { openScreen } from '../html';
-import { getDate, isMobile, downloadFile, loadScript, loadStylesheet } from '../utils';
+import type { ProjectStorage, SavedProject } from '../storage';
+import { downloadFile, getDate, isMobile, loadScript, loadStylesheet } from '../utils';
 import { flexSearchUrl, tagifyBaseUrl } from '../vendors';
 import { getTags } from './info';
 import { getBulkImportButton, getDeleteAllButton, getExportAllButton } from './selectors';

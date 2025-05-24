@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
+import { test } from '../test-fixtures';
 
 test.describe('CSS Modules', () => {
   test('Default import', async ({ page, getTestUrl }) => {

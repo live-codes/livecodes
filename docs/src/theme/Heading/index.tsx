@@ -1,8 +1,8 @@
-import React, { type ReactNode, useContext, useEffect } from 'react';
+import type { WrapperProps } from '@docusaurus/types';
+import { useContext, useEffect, type ReactNode } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import Heading from '@theme-original/Heading';
 import type HeadingType from '@theme/Heading';
-import type { WrapperProps } from '@docusaurus/types';
 import { CustomContentContext, loadAds } from '../../custom-content';
 import styles from './styles.module.css';
 

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
-import { useEffect, useState } from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import Link from '@docusaurus/Link';
+import { useEffect, useState } from 'react';
 import styles from './LanguageSliders.module.css';
 
 const getRandomItem = (list: any[]) => ({
@@ -29,6 +29,7 @@ export default function Sliders() {
       { name: 'twig', title: 'Twig' },
       { name: 'vento', title: 'Vento' },
       { name: 'art-template', title: 'art-template' },
+      { name: 'jinja', title: 'Jinja' },
       { name: 'bbcode', title: 'BBCode' },
       { name: 'mjml', title: 'MJML' },
       { name: 'diagrams', title: 'Diagrams' },

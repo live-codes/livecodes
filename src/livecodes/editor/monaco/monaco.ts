@@ -1,19 +1,22 @@
 import type * as Monaco from 'monaco-editor';
 
+import { getEditorModeNode } from '../../UI/selectors';
+import { getImports } from '../../compiler/import-map';
 import type {
+  APIError,
+  CodeEditor,
+  Config,
+  EditorConfig,
   EditorLibrary,
+  EditorOptions,
+  EditorPosition,
   FormatFn,
   Language,
-  CodeEditor,
-  EditorOptions,
-  Theme,
-  EditorPosition,
-  EditorConfig,
-  PkgInfo,
-  APIError,
   MonacoTheme,
-  Config,
+  PkgInfo,
+  Theme,
 } from '../../models';
+import { pkgInfoService } from '../../services/pkgInfo';
 import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
 import {
   codeiumProviderUrl,
@@ -24,9 +27,6 @@ import {
   monacoVolarUrl,
   vendorsBaseUrl,
 } from '../../vendors';
-import { getImports } from '../../compiler/import-map';
-import { getEditorModeNode } from '../../UI/selectors';
-import { pkgInfoService } from '../../services/pkgInfo';
 import { getEditorTheme } from '../themes';
 import { getCompilerOptions, hasJsx } from '../ts-compiler-options';
 import { customThemes, monacoThemes } from './monaco-themes';
@@ -249,62 +249,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     listeners.forEach((fn) => editor.getModel()?.onDidChangeContent(fn));
   };
 
-  let modelUri = '';
-  const setModel = (
-    editor: Monaco.editor.IStandaloneCodeEditor,
-    value: string,
-    language: Language,
-  ) => {
-    const random = getRandomString();
-    const ext = getLanguageExtension(language);
-    const extension =
-      monacoMapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
-        ? ext + '.tsx'
-        : ext;
-    modelUri = `file:///${editorId}.${random}.${extension}`;
-    const oldModel = editor.getModel();
-    const model = monaco.editor.createModel(
-      value || '',
-      monacoMapLanguage(language),
-      monaco.Uri.parse(modelUri),
-    );
-    editor.setModel(model);
-    setTimeout(() => oldModel?.dispose(), 1000); // avoid race https://github.com/microsoft/monaco-editor/issues/1715
-    updateListeners();
-    configureTypeScriptFeatures();
-  };
-
-  const editor = monaco.editor.create(container, {
-    ...editorOptions,
-    language: monacoMapLanguage(language),
-  });
-  setModel(editor, options.value, language);
-
-  const getOrCreateModel = (value: string, lang: string | undefined, uri: Monaco.Uri) => {
-    const model = monaco.editor.getModel(uri);
-    if (model) {
-      model.setValue(value);
-      return model;
-    }
-    return monaco.editor.createModel(value, lang, uri);
-  };
-
-  const contentEditors: Array<EditorOptions['editorId']> = ['markup', 'style', 'script', 'tests'];
-  if (contentEditors.includes(editorId)) {
-    editors.push(editor);
-  }
-
-  if (editorOptions.theme === 'vs-light') container.style.backgroundColor = '#fff';
-  if (editorOptions.theme?.startsWith('http') || editorOptions.theme?.startsWith('./')) {
-    fetch(editorOptions.theme)
-      .then((res) => res.json())
-      .then((data) => {
-        monaco.editor.defineTheme('theme', data);
-        monaco.editor.setTheme('theme');
-        container.style.backgroundColor = data.colors['editor.background'];
-      });
-  }
-
   const customLanguages: Partial<Record<Language, string>> = {
     astro: baseUrl + '{{hash:monaco-lang-astro.js}}',
     clio: baseUrl + '{{hash:monaco-lang-clio.js}}',
@@ -347,6 +291,70 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       }
     }
   };
+
+  let modelUri = '';
+  const setModel = (
+    editor: Monaco.editor.IStandaloneCodeEditor,
+    value: string,
+    language: Language,
+  ) => {
+    const random = getRandomString();
+    const ext = getLanguageExtension(language);
+    const extension =
+      monacoMapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
+        ? ext + '.tsx'
+        : ext;
+    modelUri = `file:///${editorId}.${random}.${extension}`;
+    const oldModel = editor.getModel();
+    const model = monaco.editor.createModel(
+      value || '',
+      monacoMapLanguage(language),
+      monaco.Uri.parse(modelUri),
+    );
+    editor.setModel(model);
+    setTimeout(() => oldModel?.dispose(), 1000); // avoid race https://github.com/microsoft/monaco-editor/issues/1715
+    updateListeners();
+    configureTypeScriptFeatures();
+  };
+
+  const editor = monaco.editor.create(container, {
+    ...editorOptions,
+    language: language.startsWith('vue') ? 'html' : monacoMapLanguage(language),
+  });
+  setModel(editor, options.value, language.startsWith('vue') ? 'html' : language);
+  loadMonacoLanguage(language);
+
+  // avoid a race condition that prevents loading vue worker
+  if (language.startsWith('vue')) {
+    setTimeout(() => {
+      setLanguage(language);
+    }, 50);
+  }
+
+  const getOrCreateModel = (value: string, lang: string | undefined, uri: Monaco.Uri) => {
+    const model = monaco.editor.getModel(uri);
+    if (model) {
+      model.setValue(value);
+      return model;
+    }
+    return monaco.editor.createModel(value, lang, uri);
+  };
+
+  const contentEditors: Array<EditorOptions['editorId']> = ['markup', 'style', 'script', 'tests'];
+  if (contentEditors.includes(editorId)) {
+    editors.push(editor);
+  }
+
+  if (editorOptions.theme === 'vs-light') container.style.backgroundColor = '#fff';
+  if (editorOptions.theme?.startsWith('http') || editorOptions.theme?.startsWith('./')) {
+    fetch(editorOptions.theme)
+      .then((res) => res.json())
+      .then((data) => {
+        monaco.editor.defineTheme('theme', data);
+        monaco.editor.setTheme('theme');
+        container.style.backgroundColor = data.colors['editor.background'];
+      });
+  }
 
   const getEditorId = () => editorId;
   const getValue = () => editor.getValue();
@@ -440,12 +448,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const setLanguage = (lang: Language, value?: string) => {
     language = lang;
     clearTypes(false);
-    const valueToIsert = value ?? editor.getValue();
+    const valueToInsert = value ?? editor.getValue();
     if (monacoMapLanguage(lang) === 'vue') {
       // avoid race condition of value changing while valor is loading
-      setValue(valueToIsert);
+      setValue(valueToInsert);
     } else {
-      setModel(editor, valueToIsert, language);
+      setModel(editor, valueToInsert, language);
     }
     loadMonacoLanguage(lang).then(() => {
       if (monacoMapLanguage(lang) === 'vue') {

@@ -1,2 +1,2 @@
-export * from './processor-postcss';
 export * from './postcss-plugins';
+export * from './processor-postcss';

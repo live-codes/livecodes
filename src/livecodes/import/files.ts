@@ -1,5 +1,5 @@
 import type { ContentConfig, EventsManager } from '../models';
-import type { populateConfig as populateConfigFn, SourceFile } from './utils';
+import type { SourceFile, populateConfig as populateConfigFn } from './utils';
 import { importFromZip } from './zip';
 
 export const importFromFiles = async (

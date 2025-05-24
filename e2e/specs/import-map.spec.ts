@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
+import { test } from '../test-fixtures';
 
 test.describe.skip('Import maps', () => {
   // TODO: this started timing out on CI

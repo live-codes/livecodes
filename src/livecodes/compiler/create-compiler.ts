@@ -1,20 +1,20 @@
 import {
   getActivatedProcessors,
-  getLanguageEditorId,
   getCustomSettings,
+  getLanguageEditorId,
   languages,
   processorIsActivated,
   processorIsEnabled,
   processors,
 } from '../languages';
 import type {
-  Language,
-  Config,
-  Compilers,
-  CompilerFunction,
+  CompileInfo,
   CompileOptions,
   CompileResult,
-  CompileInfo,
+  CompilerFunction,
+  Compilers,
+  Config,
+  Language,
 } from '../models';
 import { getAppCDN, sandboxService } from '../services';
 import { getRandomString, stringify } from '../utils';
@@ -22,10 +22,10 @@ import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
 import { hasStyleImports } from './import-map';
 import type {
-  LanguageOrProcessor,
+  Compiler,
   CompilerMessage,
   CompilerMessageEvent,
-  Compiler,
+  LanguageOrProcessor,
   TypescriptFeatures,
 } from './models';
 import { getCompileResult } from './utils';

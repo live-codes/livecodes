@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
+import { test } from '../test-fixtures';
 
 test.describe('Compiler Results', () => {
   test('HTML/CSS/JS', async ({ page, getTestUrl }) => {
@@ -690,6 +690,60 @@ const title = "World";
     const resultText = await getResult().innerHTML('h1');
 
     expect(resultText).toContain('Welcome to art-template');
+  });
+
+  test('jinja', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "jinja"}}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([title="Change Language"], 1)');
+    await app.click('text="Jinja"');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{ name }}</h1>`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to jinja');
+  });
+
+  test('jinja dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'jinja' };`);
+
+    await app.click(':nth-match([title="Change Language"], 1)');
+    await app.click('text="Jinja"');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{ name }}</h1>`);
+
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to jinja');
   });
 
   test('BBCode', async ({ page, getTestUrl }) => {

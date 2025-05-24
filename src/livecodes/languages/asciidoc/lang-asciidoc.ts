@@ -11,6 +11,8 @@ export const asciidoc: LanguageSpecs = {
       const asciidoctor = (window as any).Asciidoctor();
       return async (code, { config }) =>
         asciidoctor.convert(code, {
+          standalone: true,
+          attributes: { nofooter: true },
           ...getLanguageCustomSettings('asciidoc', config),
         });
     },

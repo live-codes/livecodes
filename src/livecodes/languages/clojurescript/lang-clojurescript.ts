@@ -1,5 +1,5 @@
-import type { LanguageSpecs } from '../../models';
 import { compileInCompiler } from '../../compiler';
+import type { LanguageSpecs } from '../../models';
 import { cherryCljsBaseUrl, squintCljsBaseUrl } from '../../vendors';
 import { parenFormatter } from '../commonlisp';
 

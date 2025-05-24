@@ -4,13 +4,13 @@ import type {
   API,
   Code,
   Config,
+  CustomEvents,
   EmbedOptions,
   Language,
   Playground,
-  UrlQueryParams,
-  CustomEvents,
   SDKEvent,
   SDKEventHandler,
+  UrlQueryParams,
 } from './models';
 
 export type { Code, Config, EmbedOptions, Language, Playground };
@@ -38,27 +38,17 @@ export async function createPlayground(
   if (
     typeof container === 'object' &&
     !(container instanceof HTMLElement) &&
-    (container as any).view === 'headless'
+    ((container as any).headless || (container as any).view === 'headless')
   ) {
     options = container;
     container = null as any;
   }
 
-  const {
-    appUrl = 'https://livecodes.io/',
-    params = {},
-    config = {},
-    import: importFrom,
-    headless,
-    lite,
-    loading = 'lazy',
-    template,
-    view,
-  } = options;
-
+  const { config = {}, headless, loading = 'lazy', view } = options;
   const isHeadless = headless || view === 'headless'; // for backwards compatibility;
 
   let containerElement: HTMLElement | null = null;
+  let appVersion: number | null = null;
 
   if (typeof container === 'string') {
     containerElement = document.querySelector(container);
@@ -77,72 +67,29 @@ export async function createPlayground(
     }
   }
 
-  let url: URL;
-  try {
-    url = new URL(appUrl);
-  } catch {
-    throw new Error(`"${appUrl}" is not a valid URL.`);
-  }
+  const playgroundUrl = new URL(getPlaygroundUrl(options));
+  const origin = playgroundUrl.origin;
+  playgroundUrl.searchParams.set('embed', 'true');
+  playgroundUrl.searchParams.set('loading', isHeadless ? 'eager' : loading);
 
-  const origin = url.origin;
+  const process = (globalThis as any).process; // avoid failing in docs & storybook
+  playgroundUrl.searchParams.set('sdkVersion', process?.env?.SDK_VERSION || 'latest');
 
-  if (params && typeof params === 'object') {
-    try {
-      url.searchParams.set('params', compressToEncodedURIComponent(JSON.stringify(params)));
-    } catch {
-      (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
-        url.searchParams.set(param, encodeURIComponent(String(params[param])));
-      });
-    }
+  // for backward-compatibility
+  if (typeof config === 'object' && Object.keys(config).length > 0) {
+    playgroundUrl.searchParams.set('config', 'sdk');
   }
-  if (template) {
-    url.searchParams.set('template', template);
+  // for backward-compatibility
+  const params = options.params;
+  if (
+    typeof params === 'object' &&
+    Object.keys(params).length > 0 &&
+    JSON.stringify(params).length < 1800
+  ) {
+    (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
+      playgroundUrl.searchParams.set(param, encodeURIComponent(String(params[param])));
+    });
   }
-  if (importFrom) {
-    url.searchParams.set('x', encodeURIComponent(importFrom));
-  }
-  if (isHeadless) {
-    url.searchParams.set('headless', 'true');
-  }
-  if (lite) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Deprecation notice: "lite" option is deprecated. Use "config: { mode: 'lite' }" instead.`,
-    );
-    if (typeof config === 'object' && config.mode == null) {
-      config.mode = 'lite';
-    } else {
-      url.searchParams.set('lite', 'true');
-    }
-  }
-  if (view) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Deprecation notice: The "view" option has been moved to "config.view". For headless mode use "headless: true".`,
-    );
-    if (typeof config === 'object' && config.view == null && view !== 'headless') {
-      config.view = view;
-    } else {
-      url.searchParams.set('view', view);
-    }
-  }
-  if (typeof config === 'string') {
-    try {
-      new URL(config);
-      url.searchParams.set('config', encodeURIComponent(config));
-    } catch {
-      throw new Error(`"config" is not a valid URL or configuration object.`);
-    }
-  } else if (typeof config === 'object') {
-    if (Object.keys(config).length > 0) {
-      url.searchParams.set('config', 'sdk');
-    }
-  } else {
-    throw new Error(`"config" is not a valid URL or configuration object.`);
-  }
-
-  url.searchParams.set('embed', 'true');
-  url.searchParams.set('loading', isHeadless ? 'eager' : loading);
 
   let destroyed = false;
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
@@ -201,22 +148,42 @@ export async function createPlayground(
       }
       addEventListener(
         'message',
-        function configHandler(e: MessageEventInit<{ type: CustomEvents['getConfig'] }>) {
+        function initHandler(
+          e: MessageEventInit<{ type: CustomEvents['init']; payload: { appVersion: string } }>,
+        ) {
           if (
             e.source !== frame.contentWindow ||
             e.origin !== origin ||
-            e.data?.type !== 'livecodes-get-config'
+            e.data?.type !== 'livecodes-init'
           ) {
             return;
           }
-          removeEventListener('message', configHandler);
-          frame.contentWindow?.postMessage({ type: 'livecodes-config', payload: config }, origin);
+          removeEventListener('message', initHandler);
+          appVersion = Number(e.data.payload.appVersion.replace(/^v/, ''));
         },
       );
+
+      // for backward-compatibility
+      if (!appVersion || appVersion < 46) {
+        addEventListener(
+          'message',
+          function configHandler(e: MessageEventInit<{ type: CustomEvents['getConfig'] }>) {
+            if (
+              e.source !== frame.contentWindow ||
+              e.origin !== origin ||
+              e.data?.type !== 'livecodes-get-config'
+            ) {
+              return;
+            }
+            removeEventListener('message', configHandler);
+            frame.contentWindow?.postMessage({ type: 'livecodes-config', payload: config }, origin);
+          },
+        );
+      }
       frame.onload = () => {
         resolve(frame);
       };
-      frame.src = url.href;
+      frame.src = playgroundUrl.href;
       if (!preExistingIframe) {
         containerElement.appendChild(frame);
       }
@@ -417,72 +384,137 @@ export async function createPlayground(
  *
  * @param {EmbedOptions} options - The [options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playground.
  * @return {string} - The URL of the playground (as a string).
+ *
+ * large objects like config and params are store in the url hash params while the rest are in the search params
+ * unless config is a string in which case it is stored in searchParams
  */
 export function getPlaygroundUrl(options: EmbedOptions = {}): string {
-  const { appUrl, params, config, import: x, ...otherOptions } = options;
-  const configParam =
-    typeof config === 'string'
-      ? { config }
-      : config && typeof config === 'object' && Object.keys(config).length
-        ? { x: 'code/' + compressToEncodedURIComponent(JSON.stringify(config)) }
-        : {};
+  const {
+    appUrl = 'https://livecodes.io',
+    params = {},
+    config = {},
+    headless,
+    import: importId,
+    lite,
+    view,
+    ...otherOptions
+  } = options;
 
-  let encodedParams;
-  if (params && typeof params === 'object') {
+  let playgroundUrl: URL;
+  try {
+    playgroundUrl = new URL(appUrl);
+  } catch {
+    throw new Error(`${appUrl} is not a valid URL.`);
+  }
+
+  const hashParams = new URLSearchParams();
+
+  // Add other options to search params
+  Object.entries(otherOptions).forEach(([key, value]) => {
+    if (value !== undefined) {
+      playgroundUrl.searchParams.set(key, String(value));
+    }
+  });
+
+  const isHeadless = options.view === 'headless' || headless; // for backwards compatibility;
+
+  if (lite) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Deprecation notice: "lite" option is deprecated. Use "config: { mode: 'lite' }" instead.`,
+    );
+    if (typeof config === 'object' && config.mode == null) {
+      config.mode = 'lite';
+    } else {
+      playgroundUrl.searchParams.set('lite', 'true');
+    }
+  }
+
+  if (view) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Deprecation notice: The "view" option has been moved to "config.view". For headless mode use "headless: true".`,
+    );
+    if (typeof config === 'object' && config.view == null && view !== 'headless') {
+      config.view = view;
+    } else {
+      playgroundUrl.searchParams.set('view', view);
+    }
+  }
+
+  if (typeof config === 'string') {
     try {
-      encodedParams = compressToEncodedURIComponent(JSON.stringify(params));
+      new URL(config);
+      playgroundUrl.searchParams.set('config', encodeURIComponent(config));
+    } catch {
+      throw new Error(`"config" is not a valid URL or configuration object.`);
+    }
+  } else if (config && typeof config === 'object' && Object.keys(config).length > 0) {
+    if (config.title && config.title !== 'Untitled Project') {
+      playgroundUrl.searchParams.set('title', config.title);
+    }
+    if (config.description && config.description.length > 0) {
+      playgroundUrl.searchParams.set('description', config.description);
+    }
+    hashParams.set('config', 'code/' + compressToEncodedURIComponent(JSON.stringify(config)));
+  }
+
+  // handle params
+  if (params && typeof params === 'object' && Object.keys(params).length > 0) {
+    try {
+      hashParams.set('params', compressToEncodedURIComponent(JSON.stringify(params)));
     } catch {
       (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
-        (params as any)[param] = encodeURIComponent(String(params[param]));
+        playgroundUrl.searchParams.set(param, encodeURIComponent(String(params[param])));
       });
     }
   }
 
-  const allParams = new URLSearchParams(
-    JSON.parse(
-      JSON.stringify({
-        ...otherOptions,
-        ...(encodedParams ? { params: encodedParams } : params),
-        ...{ x },
-        ...configParam,
-      }),
-    ),
-  ).toString();
-  return (appUrl || 'https://livecodes.io') + (allParams ? '?' + allParams : '');
+  if (importId) {
+    playgroundUrl.searchParams.set('x', encodeURIComponent(importId));
+  }
+  if (isHeadless) {
+    playgroundUrl.searchParams.set('headless', 'true');
+  }
+
+  playgroundUrl.hash = hashParams.toString();
+  return playgroundUrl.href;
 }
 
-if (
-  globalThis.document && // to escape SSG in docusaurus
-  document.currentScript &&
-  'prefill' in document.currentScript?.dataset
-) {
-  window.addEventListener('load', () => {
-    document.querySelectorAll<HTMLElement>('.livecodes').forEach((codeblock) => {
-      let options: EmbedOptions | undefined;
-      const optionsStr = codeblock.dataset.options;
-      if (optionsStr) {
-        try {
-          options = JSON.parse(optionsStr);
-        } catch {
-          //
+/* @__PURE__ */ (() => {
+  if (
+    globalThis.document && // to escape SSG in docusaurus
+    document.currentScript &&
+    'prefill' in document.currentScript?.dataset
+  ) {
+    window.addEventListener('load', () => {
+      document.querySelectorAll<HTMLElement>('.livecodes').forEach((codeblock) => {
+        let options: EmbedOptions | undefined;
+        const optionsStr = codeblock.dataset.options;
+        if (optionsStr) {
+          try {
+            options = JSON.parse(optionsStr);
+          } catch {
+            //
+          }
         }
-      }
-      let config: Config | undefined;
-      const configStr = codeblock.dataset.config || codeblock.dataset.prefill;
-      if (configStr) {
-        try {
-          config = JSON.parse(configStr);
-        } catch {
-          //
+        let config: Config | undefined;
+        const configStr = codeblock.dataset.config || codeblock.dataset.prefill;
+        if (configStr) {
+          try {
+            config = JSON.parse(configStr);
+          } catch {
+            //
+          }
         }
-      }
-      const dom = encodeURIComponent(codeblock.outerHTML);
-      codeblock.innerHTML = '';
-      createPlayground(codeblock, {
-        import: 'dom/' + dom,
-        ...options,
-        ...(config ? { config } : {}),
+        const dom = encodeURIComponent(codeblock.outerHTML);
+        codeblock.innerHTML = '';
+        createPlayground(codeblock, {
+          import: 'dom/' + dom,
+          ...options,
+          ...(config ? { config } : {}),
+        });
       });
     });
-  });
-}
+  }
+})();

@@ -1,91 +1,31 @@
-import { createEditor, createCustomEditors, getFontFamily } from './editor';
+import { getPlaygroundUrl } from '../sdk';
 import {
-  languages,
-  getLanguageEditorId,
-  getLanguageCompiler,
-  languageIsEnabled,
-  processors,
-  processorIsEnabled,
-  getLanguageByAlias,
-  mapLanguage,
-  getLanguageTitle,
-  getLanguageSpecs,
-  getLanguageExtension,
-} from './languages';
-import {
-  fakeStorage,
-  createStores,
-  initializeStores,
-  type Stores,
-  type StorageItem,
-} from './storage';
-
-import type {
-  API,
-  Cache,
-  CodeEditor,
-  EditorId,
-  EditorLanguages,
-  EditorOptions,
-  Editors,
-  GithubScope,
-  Language,
-  Config,
-  Screen,
-  ShareData,
-  Template,
-  User,
-  ContentConfig,
-  Theme,
-  UserConfig,
-  Await,
-  Code,
-  CustomEditors,
-  BlocklyContent,
-  CustomSettings,
-  Types,
-  TestResult,
-  ToolsPane,
-  UserData,
-  AppData,
-  Processor,
-  APICommands,
-  CompileInfo,
-  SDKEvent,
-  Editor,
-  AppLanguage,
-  Modal,
-  Notifications,
-  EventsManager,
-} from './models';
-import type { GitHubFile } from './services/github';
+  createLoginContainer,
+  createOpenItem,
+  createProjectInfoUI,
+  createSplitPanes,
+  createStarterTemplateLink,
+  createTemplatesContainer,
+  displayLoggedIn,
+  displayLoggedOut,
+  getFullscreenButton,
+  getResultElement,
+  loadingMessage,
+  noUserTemplates,
+} from './UI';
 import type {
   BroadcastData,
   BroadcastInfo,
   BroadcastResponseData,
   BroadcastResponseError,
 } from './UI/broadcast';
-import type { Formatter } from './formatter/models';
-import { getFormatter } from './formatter';
-import { createNotifications } from './notifications';
+import { getCommandMenuActions } from './UI/command-menu-actions';
+import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
 import { createModal } from './UI/modal';
-import {
-  menuProjectHTML,
-  menuSettingsHTML,
-  menuHelpHTML,
-  resultTemplate,
-  customSettingsScreen,
-  testEditorScreen,
-  savePromptScreen,
-  recoverPromptScreen,
-  resultPopupHTML,
-  welcomeScreen,
-  aboutScreen,
-  keyboardShortcutsScreen,
-} from './html';
-import { exportJSON } from './export/export-json';
-import { createEventsManager, createPub } from './events';
-import { getStarterTemplates, getTemplate } from './templates';
+import * as UI from './UI/selectors';
+import { themeColors } from './UI/theme-colors';
+import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
+import { cjs2esm, getAllCompilers, getCompileResult, getCompiler } from './compiler';
 import {
   buildConfig,
   defaultConfig,
@@ -98,30 +38,121 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
-import { isGithub } from './import/check-src';
+import { createCustomEditors, createEditor, getFontFamily } from './editor';
+import { hasJsx } from './editor/ts-compiler-options';
+import { createEventsManager, createPub } from './events';
+import { customEvents } from './events/custom-events';
+import { exportJSON } from './export/export-json';
+import { getFormatter } from './formatter';
+import type { Formatter } from './formatter/models';
 import {
+  aboutScreen,
+  customSettingsScreen,
+  keyboardShortcutsScreen,
+  menuHelpHTML,
+  menuProjectHTML,
+  menuSettingsHTML,
+  recoverPromptScreen,
+  resultPopupHTML,
+  resultTemplate,
+  savePromptScreen,
+  testEditorScreen,
+  welcomeScreen,
+} from './html';
+import type {
+  I18nInterpolationType,
+  I18nKeyType,
+  I18nTranslationTemplate,
+  I18nValueType,
+} from './i18n';
+import { appLanguages } from './i18n/app-languages';
+import { isGithub } from './import/check-src';
+import { importCompressedCode } from './import/code';
+import { importFromFiles } from './import/files';
+import { populateConfig } from './import/utils';
+import {
+  getLanguageByAlias,
+  getLanguageCompiler,
+  getLanguageEditorId,
+  getLanguageExtension,
+  getLanguageSpecs,
+  getLanguageTitle,
+  languageIsEnabled,
+  languages,
+  mapLanguage,
+  processorIsEnabled,
+  processors,
+} from './languages';
+import type {
+  API,
+  APICommands,
+  AppData,
+  AppLanguage,
+  Await,
+  BlocklyContent,
+  Cache,
+  Code,
+  CodeEditor,
+  CompileInfo,
+  Config,
+  ContentConfig,
+  CustomEditors,
+  CustomSettings,
+  Editor,
+  EditorId,
+  EditorLanguages,
+  EditorOptions,
+  Editors,
+  EventsManager,
+  GithubScope,
+  Language,
+  Modal,
+  Notifications,
+  Processor,
+  SDKEvent,
+  Screen,
+  ShareData,
+  Template,
+  TestResult,
+  Theme,
+  ToolsPane,
+  Types,
+  User,
+  UserConfig,
+  UserData,
+} from './models';
+import { createNotifications } from './notifications';
+import { cleanResultFromDev, createResultPage } from './result';
+import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
+import type { GitHubFile } from './services/github';
+import { permanentUrlService } from './services/permanent-url';
+import {
+  createStores,
+  fakeStorage,
+  initializeStores,
+  type StorageItem,
+  type Stores,
+} from './storage';
+import { getStarterTemplates, getTemplate } from './templates';
+import { createToolsPane } from './toolspane';
+import { createTypeLoader, getDefaultTypes } from './types';
+import {
+  capitalize,
+  colorToHex,
   colorToHsla,
+  compareObjects,
   copyToClipboard,
+  ctrl,
   debounce,
   getValidUrl,
-  loadStylesheet,
-  safeName,
-  stringify,
-  stringToValidJson,
-  toDataUrl,
-  predefinedValues,
-  colorToHex,
-  capitalize,
   isMac,
-  ctrl,
+  loadStylesheet,
+  predefinedValues,
+  safeName,
+  stringToValidJson,
+  stringify,
+  toDataUrl,
 } from './utils';
-import { compress } from './utils/compression';
-import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
-import { createTypeLoader, getDefaultTypes } from './types';
-import { cleanResultFromDev, createResultPage } from './result';
-import * as UI from './UI/selectors';
-import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
-import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   fontInterUrl,
   fontMaterialIconsUrl,
@@ -134,36 +165,6 @@ import {
   ninjaKeysUrl,
   snackbarUrl,
 } from './vendors';
-import { createToolsPane } from './toolspane';
-import {
-  createOpenItem,
-  createProjectInfoUI,
-  createSplitPanes,
-  createStarterTemplateLink,
-  displayLoggedIn,
-  displayLoggedOut,
-  getResultElement,
-  loadingMessage,
-  noUserTemplates,
-  createLoginContainer,
-  createTemplatesContainer,
-  getFullscreenButton,
-} from './UI';
-import { customEvents } from './events/custom-events';
-import { populateConfig } from './import/utils';
-import { permanentUrlService } from './services/permanent-url';
-import { importFromFiles } from './import/files';
-import type {
-  I18nKeyType,
-  I18nValueType,
-  I18nInterpolationType,
-  I18nTranslationTemplate,
-} from './i18n';
-import { appLanguages } from './i18n/app-languages';
-import { themeColors } from './UI/theme-colors';
-import { getCommandMenuActions } from './UI/command-menu-actions';
-import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
-import { hasJsx } from './editor/ts-compiler-options';
 
 // declare global dependencies
 declare global {
@@ -196,6 +197,7 @@ let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
 const params = getParams(); // query string params
 const iframeScrollPosition = { x: 0, y: 0 };
+const editorIds: EditorId[] = ['markup', 'style', 'script'];
 
 let baseUrl: string;
 let isEmbed: boolean;
@@ -403,7 +405,6 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 };
 
 const setEditorTitle = (editorId: EditorId, title: string) => {
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
   const editorTitleContainer = document.querySelector(`#${editorId}-selector`) as HTMLElement;
   const language = getLanguageByAlias(title);
@@ -433,7 +434,6 @@ const setEditorTitle = (editorId: EditorId, title: string) => {
 };
 
 const createCopyButtons = () => {
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const copyImgHtml = `<span><i class="icon-copy" alt="copy"></i></span>`;
   editorIds.forEach((editorId) => {
     const copyButton = document.createElement('div');
@@ -687,7 +687,6 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
 
 const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   const config = getConfig();
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const allHidden = editorIds.every((editor) => config[editor].hideTitle);
   if (config[editorId].hideTitle && !allHidden) return;
   const titles = UI.getEditorTitles();
@@ -1318,34 +1317,35 @@ const share = async (
         },
       }
     : config;
-  const contentParam = shortUrl
-    ? '?x=id/' +
+
+  const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+  const appUrl = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
+  let shareURL = new URL(appUrl);
+  if (shortUrl) {
+    shareURL.search =
+      'x=id/' +
       (await shareService.shareProject({
         ...content,
         result: includeResult ? getCache().result : undefined,
-      }))
-    : '?x=code/' + compress(JSON.stringify(content));
-
-  const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
-
-  const url = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
-
-  const shareURL = url + contentParam;
+      }));
+  } else {
+    const playgroundUrl = getPlaygroundUrl({ appUrl, config: content });
+    shareURL = new URL(playgroundUrl);
+  }
 
   if (urlUpdate) {
-    updateUrl(currentUrl + contentParam, true);
+    updateUrl(shareURL.href, true);
   }
 
   const projectTitle = content.title !== defaultConfig.title ? content.title + ' - ' : '';
 
   return {
     title: projectTitle + 'LiveCodes',
-    url: shareURL,
+    url: shareURL.href,
   };
 };
 
 const updateConfig = () => {
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   editorIds.forEach((editorId) => {
     setConfig({
       ...getConfig(),
@@ -1397,39 +1397,96 @@ const loadConfig = async (
   iframeScrollPosition.x = 0;
   iframeScrollPosition.y = 0;
 
-  // load config
-  await bootstrap(true);
-  await applyConfig(config);
+  await applyConfig(config, /* reload= */ true);
 
   changingContent = false;
 };
 
-const applyConfig = async (newConfig: Partial<Config>) => {
+const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
   const currentConfig = getConfig();
+  const combinedConfig: Config = { ...currentConfig, ...newConfig };
+  if (reload) {
+    await updateEditors(editors, getConfig());
+  }
+  phpHelper({ editor: editors.script });
+  setLoading(true);
+  await setActiveEditor(combinedConfig);
+
   if (!isEmbed) {
-    loadSettings(currentConfig);
+    loadSettings(combinedConfig);
   }
   if (newConfig.mode || newConfig.view) {
-    window.deps?.showMode?.(
-      newConfig.mode ?? currentConfig.mode,
-      newConfig.view ?? currentConfig.view,
-    );
+    window.deps?.showMode?.(combinedConfig.mode, combinedConfig.view);
   }
   if (newConfig.tools) {
-    configureToolsPane(newConfig.tools, newConfig.mode);
+    configureToolsPane(newConfig.tools, combinedConfig.mode);
   }
   if (newConfig.zoom) {
     zoom(newConfig.zoom);
   }
   if (newConfig.theme || newConfig.editorTheme || newConfig.themeColor || newConfig.fontSize) {
-    setTheme(
-      newConfig.theme || currentConfig.theme,
-      newConfig.editorTheme || currentConfig.editorTheme,
-    );
+    setTheme(combinedConfig.theme, combinedConfig.editorTheme);
   }
   if (newConfig.autotest) {
     UI.getWatchTestsButton()?.classList.remove('disabled');
   }
+  toolsPane?.console?.clear(/* silent= */ true);
+
+  setConfig(combinedConfig);
+
+  if (!isEmbed) {
+    setTimeout(() => getActiveEditor().focus());
+  }
+  setExternalResourcesMark();
+  setCustomSettingsMark();
+  updateCompiledCode();
+  loadModuleTypes(editors, combinedConfig, /* loadAll = */ true);
+  compiler.load(getEditorLanguages(), combinedConfig).then(() => {
+    if (!combinedConfig.autoupdate) {
+      setLoading(false);
+      return;
+    }
+    setTimeout(() => {
+      if (
+        toolsPane?.getActiveTool() === 'tests' &&
+        ['open', 'full'].includes(toolsPane?.getStatus())
+      ) {
+        run(undefined, true);
+      } else {
+        run();
+      }
+    });
+  });
+  if (!isEmbed) {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(
+        () => {
+          formatter.load(getEditorLanguages());
+        },
+        { timeout: 15_000 },
+      );
+    } else {
+      setTimeout(() => {
+        formatter.load(getEditorLanguages());
+      }, 10_000);
+    }
+  }
+  if (isEmbed && !combinedConfig.tests?.content?.trim()) {
+    toolsPane?.disableTool('tests');
+  } else {
+    toolsPane?.enableTool('tests');
+  }
+
+  if (!reload) {
+    await loadDefaults();
+
+    // re-run changing theme color after the UI is ready
+    // in case the previous one failed (e.g. in firefox)
+    requestAnimationFrame(() => {
+      changeThemeColor();
+    });
+  }
+
   let shouldReloadEditors = false;
   const editorConfig = {
     ...getEditorConfig(newConfig as Config),
@@ -1461,8 +1518,10 @@ const applyConfig = async (newConfig: Partial<Config>) => {
     }
   }
   if (shouldReloadEditors) {
-    await reloadEditors({ ...currentConfig, ...newConfig });
+    await reloadEditors(combinedConfig);
   }
+
+  parent.dispatchEvent(new Event(customEvents.ready));
 };
 
 const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
@@ -5179,26 +5238,31 @@ const configureModes = ({
 
 const importExternalContent = async (options: {
   config?: Config;
+  sdkConfig?: Partial<Config>;
   configUrl?: string;
   template?: string;
-  url?: string;
+  importUrl?: string;
 }): Promise<boolean> => {
-  const { config = defaultConfig, configUrl, template, url } = options;
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
+  const { config = defaultConfig, sdkConfig, configUrl, template } = options;
+  let importUrl = options.importUrl;
   const hasContentUrls = (conf: Partial<Config>) =>
     editorIds.filter(
       (editorId) =>
         (conf[editorId]?.contentUrl && !conf[editorId]?.content) ||
         (conf[editorId]?.hiddenContentUrl && !conf[editorId]?.hiddenContent),
     ).length > 0;
+  const validConfigUrl = getValidUrl(configUrl);
+  if (importUrl?.startsWith('config') || importUrl?.startsWith('params')) {
+    importUrl = ''; // ignore hash params
+  }
 
-  if (!configUrl && !template && !url && !hasContentUrls(config)) return false;
+  if (!validConfigUrl && !template && !importUrl && !hasContentUrls(config)) return false;
 
   const loadingMessage = window.deps.translateString('core.import.loading', 'Loading Project...');
   notifications.info(loadingMessage);
 
   let templateConfig: Partial<Config> = {};
-  let urlConfig: Partial<Config> = {};
+  let importUrlConfig: Partial<Config> = {};
   let contentUrlConfig: Partial<Config> = {};
   let configUrlConfig: Partial<Config> = {};
 
@@ -5218,27 +5282,26 @@ const importExternalContent = async (options: {
       );
     }
   }
-
-  if (url) {
-    let validUrl = url;
-    if (url.startsWith('http') || url.startsWith('data')) {
+  if (importUrl) {
+    let validImportUrl = importUrl;
+    if (importUrl.startsWith('http') || importUrl.startsWith('data')) {
       try {
-        validUrl = new URL(url).href;
+        validImportUrl = new URL(importUrl).href;
       } catch {
-        validUrl = decodeURIComponent(url);
+        validImportUrl = decodeURIComponent(importUrl);
       }
     }
-    // import code from hash: code / github / github gist / url html / ...etc
+    // import code from hash: github / github gist / url html / ...etc
     let user;
-    if (isGithub(validUrl) && !isEmbed) {
+    if (isGithub(validImportUrl) && !isEmbed) {
       await initializeAuth();
       user = await authService?.getUser();
     }
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
-    urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
+    importUrlConfig = await importModule.importCode(validImportUrl, params, config, user, baseUrl);
 
-    if (Object.keys(urlConfig).length === 0) {
+    if (Object.keys(importUrlConfig).length === 0) {
       notifications.error(
         window.deps.translateString('core.error.invalidImport', 'Invalid import URL'),
       );
@@ -5273,7 +5336,6 @@ const importExternalContent = async (options: {
     };
   }
 
-  const validConfigUrl = getValidUrl(configUrl);
   if (validConfigUrl) {
     configUrlConfig = upgradeAndValidate(
       await fetch(validConfigUrl)
@@ -5281,7 +5343,7 @@ const importExternalContent = async (options: {
         .catch(() => ({})),
     );
     if (hasContentUrls(configUrlConfig)) {
-      return importExternalContent({ config: { ...config, ...configUrlConfig } });
+      return importExternalContent({ ...options, config: { ...config, ...configUrlConfig } });
     }
   }
 
@@ -5289,9 +5351,10 @@ const importExternalContent = async (options: {
     buildConfig({
       ...config,
       ...templateConfig,
-      ...urlConfig,
-      ...contentUrlConfig,
+      ...importUrlConfig,
       ...configUrlConfig,
+      ...sdkConfig,
+      ...contentUrlConfig,
     }),
     parent.location.href,
     false,
@@ -5347,75 +5410,6 @@ const loadDefaults = async () => {
   setProjectRecover(/* reset = */ true);
 };
 
-const bootstrap = async (reload = false) => {
-  if (reload) {
-    await updateEditors(editors, getConfig());
-  }
-  phpHelper({ editor: editors.script });
-  setLoading(true);
-  window.deps?.showMode?.(getConfig().mode, getConfig().view);
-  zoom(getConfig().zoom);
-  await setActiveEditor(getConfig());
-  loadSettings(getConfig());
-  // TODO: Fix
-  toolsPane?.console?.clear(/* silent= */ true);
-  if (!isEmbed) {
-    setTimeout(() => getActiveEditor().focus());
-  }
-  setExternalResourcesMark();
-  setCustomSettingsMark();
-  updateCompiledCode();
-  loadModuleTypes(editors, getConfig(), /* loadAll = */ true);
-  compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
-    if (!getConfig().autoupdate) {
-      setLoading(false);
-      return;
-    }
-    setTimeout(() => {
-      if (
-        toolsPane?.getActiveTool() === 'tests' &&
-        ['open', 'full'].includes(toolsPane?.getStatus())
-      ) {
-        run(undefined, true);
-      } else {
-        run();
-      }
-    });
-  });
-  if (!isEmbed) {
-    // @ts-ignore
-    if (window.requestIdleCallback) {
-      requestIdleCallback(
-        () => {
-          formatter.load(getEditorLanguages());
-        },
-        { timeout: 15_000 },
-      );
-    } else {
-      setTimeout(() => {
-        formatter.load(getEditorLanguages());
-      }, 10_000);
-    }
-  }
-  if (isEmbed && !getConfig().tests?.content?.trim()) {
-    toolsPane?.disableTool('tests');
-  } else {
-    toolsPane?.enableTool('tests');
-  }
-
-  if (!reload) {
-    await loadDefaults();
-
-    // re-run changing theme color after the UI is ready
-    // in case the previous one failed (e.g. in firefox)
-    requestAnimationFrame(() => {
-      changeThemeColor();
-    });
-  }
-
-  parent.dispatchEvent(new Event(customEvents.ready));
-};
-
 const initializePlayground = async (
   options?: {
     config?: Partial<Config>;
@@ -5425,25 +5419,29 @@ const initializePlayground = async (
   },
   initializeFn?: () => void | Promise<void>,
 ) => {
+  const importUrl = params.x || parent.location.hash.substring(1); // for backward compatibility
   const appConfig = options?.config ?? {};
+  const codeImportConfig = importCompressedCode(importUrl);
+  const sdkConfig = importCompressedCode(params.config ?? '');
+  const initialConfig = { ...codeImportConfig, ...appConfig, ...sdkConfig };
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isHeadless = options?.isHeadless ?? false;
   isLite =
     params.mode === 'lite' ||
     (params.lite != null && params.lite !== false) || // for backward compatibility
-    appConfig.mode === 'lite' ||
+    initialConfig.mode === 'lite' ||
     false;
   isEmbed =
     isHeadless ||
     isLite ||
     (options?.isEmbed ?? false) ||
-    appConfig.mode === 'simple' ||
+    initialConfig.mode === 'simple' ||
     params.mode === 'simple';
 
   window.history.replaceState(null, '', './'); // fix URL from "/app" to "/"
   await initializeStores(stores, isEmbed);
-  loadUserConfig(/* updateUI = */ false);
-  setConfig(buildConfig({ ...getConfig(), ...appConfig }));
+  const userConfig = stores.userConfig?.getValue() ?? {};
+  setConfig(buildConfig({ ...getConfig(), ...userConfig, ...initialConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = (window as any).compiler = await getCompiler({
     config: getConfig(),
@@ -5474,13 +5472,14 @@ const initializePlayground = async (
   }
   importExternalContent({
     config: getConfig(),
+    sdkConfig,
     configUrl: params.config,
     template: params.template,
-    url: params.x || parent.location.hash.substring(1),
+    importUrl: Object.keys(codeImportConfig).length > 0 ? '' : importUrl, // do not re-import compressed code
   }).then(async (contentImported) => {
     if (!contentImported) {
       loadSelectedScreen();
-      await bootstrap();
+      await applyConfig(getConfig(), /* reload = */ false);
     }
     initialized = true;
   });
@@ -5513,8 +5512,22 @@ const createApi = (): API => {
       }
       return false;
     })();
+    const isContentOnlyChange = compareObjects(
+      newConfig,
+      currentConfig as Record<string, any>,
+    ).every((k) => ['markup.content', 'style.content', 'script.content'].includes(k));
 
     setConfig(newAppConfig);
+
+    if (isContentOnlyChange) {
+      for (const key of ['markup', 'style', 'script'] as const) {
+        const content = newConfig[key]?.content;
+        if (content != null) {
+          editors[key].setValue(content);
+        }
+      }
+      return newAppConfig;
+    }
 
     if (hasNewAppLanguage) {
       changeAppLanguage(newConfig.appLanguage!);
@@ -5526,12 +5539,12 @@ const createApi = (): API => {
     if (shouldReloadCodeEditors) {
       await createEditors(newAppConfig);
     }
-    await applyConfig(newConfig);
+    await applyConfig(newConfig, /* reload = */ true);
     const content = getContentConfig(newConfig as Config);
     const hasContent = Object.values(content).some((value) => value != null);
     if (hasContent) {
       await loadConfig(newAppConfig);
-    } else if (shouldRun) {
+    } else if (shouldRun && newAppConfig.autoupdate === true) {
       await run();
     }
     return newAppConfig;
