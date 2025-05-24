@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.11.1](https://github.com/live-codes/livecodes/compare/v46...sdk-v0.11.1) (2025-05-24)
+
+### Bug Fixes
+
+- **SDK:** fix sdk build (sdkVersion) ([c383d26](https://github.com/live-codes/livecodes/commit/c383d26b8358a374de1ebe7073d2a38a27b7ede1))
+
+---
+
 ## [v46](https://github.com/live-codes/livecodes/compare/v45...v46) (2025-05-24)
 
 ### Highlights for this release
