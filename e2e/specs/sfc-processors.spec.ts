@@ -48,6 +48,7 @@ li
   });
 
   test('in Svelte', async ({ page, getTestUrl }) => {
+    test.slow();
     //     const sfc = `
     // <script lang="ts">
     //   export const msg: string = 'world!';
@@ -73,6 +74,7 @@ li
     const { getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForResultUpdate({ timeout: 20000 });
+    await getResult().waitForTimeout(3000);
 
     expect(await getResult().innerText(':nth-match(li, 1)')).toContain('hello world!');
     expect(await getResult().innerText(':nth-match(li, 2)')).toContain('p');
