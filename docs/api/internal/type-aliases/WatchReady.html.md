@@ -24,4 +24,4 @@ Called when a new project is loaded (including when [imported](https://livecodes
 
 ## Defined in
 
-[models.ts:230](https://github.com/live-codes/livecodes/blob/ca3a38602cd90e12413c6333c1e0e06995427bd0/src/sdk/models.ts#L230)
+[models.ts:230](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L230)
