@@ -26,7 +26,7 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-responsive-carousel": "3.2.22",
-    "remark-livecodes": "0.2.1"
+    "remark-livecodes": "0.4.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.7.0",
