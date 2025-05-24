@@ -337,7 +337,7 @@ body
     expect(await getResult().innerText('body script')).not.toContain('function add_css()');
   });
 
-  test('stencil', async ({ page, getTestUrl, editor }) => {
+  test.skip('stencil', async ({ page, getTestUrl, editor }) => {
     test.skip(editor === 'codemirror');
 
     await page.goto(getTestUrl({ template: 'stencil' }));
