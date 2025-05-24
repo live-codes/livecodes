@@ -403,6 +403,27 @@ export default {
 };
 ```
 
+### Eleventy
+
+([demo](https://markdown-to-livecodes-11ty.pages.dev/) - [code on GitHub](https://github.com/hatemhosny/markdown-to-livecodes-11ty))
+
+Install the `markdown-it-livecodes` plugin:
+
+```bash npm2yarn
+npm install -D markdown-it-livecodes
+```
+
+This is an example for adding the `markdown-it-livecodes` plugin to `eleventy.config.js` file:
+
+```js title="eleventy.config.js"
+import markdownItLivecodes from "markdown-it-livecodes";
+
+export default async function (eleventyConfig) {
+	eleventyConfig.amendLibrary("md", (mdLib) => mdLib.use(markdownItLivecodes, { /* options */ }));
+  // ...
+}
+```
+
 ### Gatsby
 
 ([demo](https://markdown-to-livecodes-gatsby.pages.dev/markdown-to-livecodes/) - [code on GitHub](https://github.com/hatemhosny/markdown-to-livecodes-gatsby))
