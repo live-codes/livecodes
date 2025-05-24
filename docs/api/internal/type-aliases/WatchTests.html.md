@@ -22,4 +22,4 @@
 
 ## Defined in
 
-[models.ts:258](https://github.com/live-codes/livecodes/blob/3e7aef0c363460d29f213f8fa921bf547b974365/src/sdk/models.ts#L258)
+[models.ts:258](https://github.com/live-codes/livecodes/blob/ca3a38602cd90e12413c6333c1e0e06995427bd0/src/sdk/models.ts#L258)
