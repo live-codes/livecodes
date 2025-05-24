@@ -419,7 +419,9 @@ This is an example for adding the `markdown-it-livecodes` plugin to `eleventy.co
 import markdownItLivecodes from "markdown-it-livecodes";
 
 export default async function (eleventyConfig) {
-  eleventyConfig.amendLibrary("md", (mdLib) => mdLib.use(markdownItLivecodes, { /* options */ }));
+  eleventyConfig.amendLibrary("md", (mdLib) =>
+    mdLib.use(markdownItLivecodes, { /* options */ }),
+  );
   // ...
 }
 ```
