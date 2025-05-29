@@ -25,11 +25,11 @@ const cleanUpCode = async (code: string) => {
   if (!code?.trim()) return '';
   const lines = code.trim().split('\n');
   const [firstLine, ...rest] = lines;
-  const lastLine = lines.at(-1) ?? '';
+  const lastLines = lines.slice(-2).join('\n');
 
   // detect images created by LiveCodes "Code to Image" with share URL
   const shareUrlPattern = /\?x=(id\/\S{11,20})/g;
-  let projectId = [...lastLine.matchAll(new RegExp(shareUrlPattern))].at(-1)?.[1];
+  let projectId = [...lastLines.matchAll(new RegExp(shareUrlPattern))].at(-1)?.[1];
   if (projectId) {
     projectId = projectId.replace(/]/g, 'j');
     const alphabet = '23456789abcdefghijkmnpqrstuvwxyz';
