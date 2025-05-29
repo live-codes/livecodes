@@ -28,7 +28,7 @@ const cleanUpCode = async (code: string) => {
   const lastLine = lines.at(-1) ?? '';
 
   // detect images created by LiveCodes "Code to Image" with share URL
-  const shareUrlPattern = /livecodes\.io\/\?x=(id\/\S{11,20})/g;
+  const shareUrlPattern = /\?x=(id\/\S{11,20})/g;
   let projectId = [...lastLine.matchAll(new RegExp(shareUrlPattern))].at(-1)?.[1];
   if (projectId) {
     projectId = projectId.replace(/]/g, 'j');
