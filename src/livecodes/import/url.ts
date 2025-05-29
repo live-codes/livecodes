@@ -2,6 +2,7 @@ import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { Config } from '../models';
 import { corsService } from '../services';
 import { importFromDom } from './dom';
+import { importFromImage } from './image';
 import { populateConfig } from './utils';
 import { importFromZip } from './zip';
 
@@ -42,6 +43,21 @@ export const importFromUrl = async (
   ) {
     const zip = await res.blob();
     return importFromZip(zip, populateConfig);
+  }
+
+  // image
+  if (
+    res.headers.get('Content-Type')?.startsWith('image/') ||
+    url.endsWith('.png') ||
+    url.endsWith('.jpg') ||
+    url.endsWith('.jpeg') ||
+    url.endsWith('.bmp') ||
+    url.endsWith('.webp') ||
+    url.endsWith('.pbm') ||
+    url.startsWith('data:image/')
+  ) {
+    const image = await res.blob();
+    return importFromImage(image);
   }
 
   const fetchedContent = await res.text();

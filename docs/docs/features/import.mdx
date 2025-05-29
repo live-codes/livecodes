@@ -78,9 +78,10 @@ Import is supported from any of the following:
 - [Shared projects](./share.mdx)
 - Raw code
 - Code in web page DOM
-- Projects shared in official playgrounds of [TypeScript](https://www.typescriptlang.org/play) and [Vue](https://play.vuejs.org/)
 - Local file(s)
 - Code in zip file (Local or URL)
+- Code in image - OCR (Local or URL)
+- Projects shared in official playgrounds of [TypeScript](https://www.typescriptlang.org/play) and [Vue](https://play.vuejs.org/)
 - [Exported project JSON](./export.mdx) (single project and bulk import)
 
 Import sources are identified by URL patterns (e.g. origin, pathname and extension).
@@ -174,6 +175,14 @@ Alternatively, the language of raw code can be specified using [query params](..
 Currently, CodePen API does not allow directly importing code from Pens. However, you can export any saved Pen as a [zip file](https://blog.codepen.io/documentation/exporting-pens/#export-zip-1) or [Github gist](https://blog.codepen.io/documentation/exporting-pens/#save-as-github-gist-2) and then import it to LiveCodes. The format that Codepen exports is well understood by LiveCodes. Most Pens can be imported with no or minimal changes.
 
 **Note:** External resources (styles/scripts) are not exported with source code in zip file export of CodePen. However, export to GitHub gist does export these. So if a Pen with external resources exported as zip file is not imported properly, try exporting to GitHub gist or manually add the [external resources](./external-resources.mdx).
+
+## Import Code from Image (OCR)
+
+Code can be extracted from images (local or via URL) using [Tesseract.js](https://github.com/naptha/tesseract.js), a library for Optical Character Recognition (OCR).
+To ensure accurate identification, the text in the image should be clear, have high contrast against the background, and be free from unrelated text.
+Language detection is performed using [highlight.js](https://highlightjs.readthedocs.io/en/latest/api.html#highlightauto), which makes its best guess based on the content.
+
+Best results are obtained when the image is generated using LiveCodes "[Code to Image](./code-to-image.mdx)" feature, with a share URL added to the image.
 
 ## Import Exported LiveCodes Projects
 

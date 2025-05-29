@@ -245,7 +245,7 @@ export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.
 
 export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.8/dist/');
 
-export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.5.1');
+export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.11.1');
 
 export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 
@@ -428,6 +428,8 @@ export const tealUrl = /* @__PURE__ */ getUrl(
 );
 
 export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist/themes/');
+
+export const tesseractUrl = /* @__PURE__ */ getUrl('tesseract.js@6.0.1/dist/tesseract.esm.min.js');
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 

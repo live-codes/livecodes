@@ -268,6 +268,8 @@ svgbob: [Apache License 2.0](https://github.com/ivanceras/svgbob/blob/277f28b337
 
 Tagify: [MIT License](https://github.com/yairEO/tagify/blob/1edeb579b18ea61693e0116281584fa5543f1b18/LICENSE)
 
+tesseract.js: [Apache License 2.0](https://github.com/naptha/tesseract.js/blob/f9dac0742374940f88100eb47838e902e3b51eb8/LICENSE.md)
+
 Tailwind CSS: [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/6acb051f67e72a8061ad306a7fa385c36d955fb9/LICENSE)
 
 Tau Prolog: [BSD 3-Clause License](https://github.com/tau-prolog/tau-prolog/blob/5bd606a255910d8e34ff1d721e80969af294b64c/LICENSE)
