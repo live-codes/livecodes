@@ -23,7 +23,7 @@ const ocr = async (image: Blob) => {
 
 const cleanUpCode = async (code: string) => {
   if (!code?.trim()) return '';
-  const lines = code.trim().split('\n');
+  let lines = code.trim().split('\n');
   const [firstLine, ...rest] = lines;
   const lastLines = lines.slice(-2).join('\n');
 
@@ -52,6 +52,13 @@ const cleanUpCode = async (code: string) => {
       .filter((c) => buttonCharacters.includes(c)).length > 2;
   if (hasButtons) {
     code = rest.join('\n');
+  }
+
+  lines = code.trim().split('\n');
+
+  // remove line numbers
+  if (lines.filter((l) => l.match(/^[0-9]{1,4}\s?/)).length / lines.length > 0.7) {
+    code = lines.map((l) => l.replace(/^\S{1,4}\s?/, '')).join('\n');
   }
 
   code = code.replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
