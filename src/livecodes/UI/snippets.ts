@@ -376,7 +376,7 @@ export const createSnippetsList = async ({
   modal: Modal;
   deps: {
     createEditorFn: (options: Partial<EditorOptions>) => Promise<CodeEditor>;
-    showScreen: (screen: Screen['screen']) => void;
+    showScreen: (screen: Screen['screen']) => Promise<void>;
   };
 }) => {
   const div = document.createElement('div');

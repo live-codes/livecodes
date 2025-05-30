@@ -2570,13 +2570,7 @@ const handleCommandMenu = async () => {
         loadStarterTemplate,
         changeEditorSettings,
         changeLayout: changeAndSaveLayout,
-        showScreen: async (screen: Screen['screen'], options?: any) => {
-          const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
-          if (!foundScreen) return;
-          await foundScreen.show(options);
-          const modalElement = document.querySelector('#modal') as HTMLElement;
-          (modalElement.firstElementChild as HTMLElement)?.click();
-        },
+        showScreen,
       },
     });
     const authAction = authService?.isLoggedIn() ? logoutAction : loginAction;
@@ -3964,13 +3958,7 @@ const handleAssets = () => {
         eventsManager,
         notifications,
         assetsStorage: stores.assets || fakeStorage,
-        showScreen: async (screen: Screen['screen'], options?: any) => {
-          const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
-          if (!foundScreen) return;
-          await foundScreen.show(options);
-          const modalElement = document.querySelector('#modal') as HTMLElement;
-          (modalElement.firstElementChild as HTMLElement)?.click();
-        },
+        showScreen,
         deployAsset,
         getUser,
         baseUrl,
@@ -4024,13 +4012,7 @@ const handleSnippets = () => {
       snippetsStorage: stores.snippets || fakeStorage,
       deps: {
         createEditorFn,
-        showScreen: async (screen: Screen['screen'], options?: any) => {
-          const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
-          if (!foundScreen) return;
-          await foundScreen.show(options);
-          const modalElement = document.querySelector('#modal') as HTMLElement;
-          (modalElement.firstElementChild as HTMLElement)?.click();
-        },
+        showScreen,
       },
     });
   };
