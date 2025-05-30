@@ -10,7 +10,6 @@ import {
   languageIsEnabled,
   languages,
   mapLanguage,
-  processorIsEnabled,
   processors,
 } from './languages';
 import {
@@ -103,13 +102,13 @@ import type {
   UserConfig,
   UserData,
 } from './models';
-import { createNotifications } from './notifications';
 import { cleanResultFromDev, createResultPage } from './result';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import type { GitHubFile } from './services/github';
 import { permanentUrlService } from './services/permanent-url';
 import { getStarterTemplates, getTemplate } from './templates';
 import { createToolsPane } from './toolspane';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { createTypeLoader, getDefaultTypes } from './types';
 import {
   createLoginContainer,
@@ -120,7 +119,6 @@ import {
   createTemplatesContainer,
   displayLoggedIn,
   displayLoggedOut,
-  getFullscreenButton,
   getResultElement,
   loadingMessage,
   noUserTemplates,
@@ -132,8 +130,7 @@ import type {
   BroadcastResponseError,
 } from './UI/broadcast';
 import { getCommandMenuActions } from './UI/command-menu-actions';
-import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
-import { createModal } from './UI/modal';
+import { createLanguageMenus } from './UI/create-language-menus';
 import * as UI from './UI/selectors';
 import { themeColors } from './UI/theme-colors';
 import {
@@ -151,12 +148,10 @@ import {
   safeName,
   stringify,
   stringToValidJson,
-  toDataUrl,
 } from './utils';
 import {
   fontInterUrl,
   fontMaterialIconsUrl,
-  fscreenUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
   lunaDataGridStylesUrl,
@@ -166,7 +161,9 @@ import {
   snackbarUrl,
 } from './vendors';
 
+import initBasicHandlers from './handlers/basicHandlers';
 import { importCompressedCode } from './import/code';
+import { translateElement, translateStringMock } from './utils/translation';
 
 // declare global dependencies
 declare global {
@@ -241,6 +238,37 @@ const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[e
 const getEditorLanguages = () => Object.values(editorLanguages || {});
 const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
 const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
+
+const getNotifications = (): Notifications => notifications;
+const setNotifications = (newNotifications: Notifications): void => {
+  notifications = newNotifications;
+};
+const setModal = (newModal: Modal): void => {
+  modal = newModal;
+};
+const setSplit = (newSplit: ReturnType<typeof createSplitPanes> | null): void => {
+  split = newSplit;
+};
+const getSplit = (): ReturnType<typeof createSplitPanes> | null => split;
+
+const setTypeLoader = (newTypeLoader: ReturnType<typeof createTypeLoader>): void => {
+  typeLoader = newTypeLoader;
+};
+const getEditors = (): Editors => editors;
+const getToolsPane = (): ToolsPane | undefined => toolsPane;
+// Screens
+const showScreen = async (screen: Screen['screen'], options?: any) => {
+  const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
+  if (!foundScreen) return;
+  await foundScreen.show(options);
+  const modalElement = document.querySelector('#modal') as HTMLElement;
+  (modalElement.firstElementChild as HTMLElement)?.click();
+};
+
+const setIframeScrollPosition = (x: number, y: number) => {
+  iframeScrollPosition.x = x;
+  iframeScrollPosition.y = y;
+};
 
 const loadStyles = () =>
   isHeadless
@@ -1915,14 +1943,6 @@ const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
   }
 };
 
-const showScreen = async (screen: Screen['screen'], options?: any) => {
-  const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
-  if (!foundScreen) return;
-  await foundScreen.show(options);
-  const modalElement = document.querySelector('#modal') as HTMLElement;
-  (modalElement.firstElementChild as HTMLElement)?.click();
-};
-
 const loadSelectedScreen = () => {
   const params = Object.fromEntries(
     new URLSearchParams(parent.location.search) as unknown as Iterable<any>,
@@ -1930,7 +1950,13 @@ const loadSelectedScreen = () => {
   // ?new or ?screen=<screen_name>
   const screen = params.new === '' ? 'new' : params.screen;
   if (screen) {
-    showScreen(screen);
+    (async (screen: Screen['screen'], options?: any) => {
+      const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
+      if (!foundScreen) return;
+      await foundScreen.show(options);
+      const modalElement = document.querySelector('#modal') as HTMLElement;
+      (modalElement.firstElementChild as HTMLElement)?.click();
+    })(screen);
     return true;
   }
   return false;
@@ -2350,16 +2376,6 @@ const showConsoleMessage = () => {
   parent.postMessage({ args: 'console-message', payload: message }, location.origin);
 };
 
-const resizeEditors = () => {
-  Object.values(editors).forEach((editor: CodeEditor) => {
-    setTimeout(() => {
-      if (editor.layout) {
-        editor.layout(); // resize monaco editor
-      }
-    });
-  });
-};
-
 const handleTitleEdit = () => {
   const projectTitle = UI.getProjectTitleElement();
   if (!projectTitle) return;
@@ -2385,15 +2401,6 @@ const handleTitleEdit = () => {
   eventsManager.addEventListener(projectTitle, 'blur', () => setProjectTitle(true), false);
   eventsManager.addEventListener(projectTitle, 'keypress', blurOnEnter as any, false);
   eventsManager.addEventListener(projectTitle, 'paste', removeFormatting, false);
-};
-
-const handleResize = () => {
-  resizeEditors();
-  setLayout(getConfig().layout);
-
-  eventsManager.addEventListener(window, 'resize', () => setLayout(getConfig().layout), false);
-  eventsManager.addEventListener(window, 'resize', resizeEditors, false);
-  eventsManager.addEventListener(window, customEvents.resizeEditor, resizeEditors, false);
 };
 
 const handleIframeResize = () => {
@@ -2430,56 +2437,6 @@ const handleIframeResize = () => {
     sizeLabel.classList.add('visible');
     hideLabel();
   });
-};
-
-const handleIframeScroll = () => {
-  eventsManager.addEventListener(window, 'message', (event: any) => {
-    const iframe = UI.getResultIFrameElement();
-    if (!iframe || event.source !== iframe.contentWindow || event.data.type !== 'scroll') {
-      return;
-    }
-
-    const position = event.data.position;
-    iframeScrollPosition.x = Number(position.x) || 0;
-    iframeScrollPosition.y = Number(position.y) || 0;
-  });
-};
-
-const handleSelectEditor = () => {
-  UI.getEditorTitles().forEach((title) => {
-    eventsManager.addEventListener(
-      title,
-      'click',
-      (ev) => {
-        ev.preventDefault();
-        showEditor(title.dataset.editor as EditorId);
-        setAppData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
-        setProjectRecover();
-      },
-      false,
-    );
-  });
-};
-
-const handleChangeLanguage = () => {
-  if (getConfig().allowLangChange) {
-    UI.getLanguageMenuLinks().forEach((menuItem) => {
-      eventsManager.addEventListener(
-        menuItem,
-        'click',
-        async () => {
-          menuItem.closest('.menu-scroller')?.classList.add('hidden');
-          await changeLanguage(menuItem.dataset.lang as Language);
-          setAppData({ language: menuItem.dataset.lang as Language });
-        },
-        false,
-      );
-    });
-  } else {
-    UI.getLanguageMenuButtons().forEach((menuButton) => {
-      menuButton.style.display = 'none';
-    });
-  }
 };
 
 const handleChangeContent = () => {
@@ -2528,199 +2485,6 @@ const handleChangeContent = () => {
     editors[editorId].onContentChanged(debouncecontentChanged(editorId));
     editors[editorId].onContentChanged(setSavedStatus);
   });
-};
-
-const handleKeyboardShortcuts = () => {
-  let lastkeys = '';
-
-  const hotKeys = async (e: KeyboardEvent) => {
-    // Ctrl + P opens the command palette
-    const activeEditor = getActiveEditor();
-    if (ctrl(e) && e.code === 'KeyP' && activeEditor.monaco) {
-      e.preventDefault();
-      activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
-      lastkeys = 'Ctrl + P';
-      return;
-    }
-
-    // Ctrl + D prevents browser bookmark dialog
-    if (ctrl(e) && e.code === 'KeyD') {
-      e.preventDefault();
-      lastkeys = 'Ctrl + D';
-      return;
-    }
-
-    // Ctrl + Alt + C: toggle console
-    if (ctrl(e) && e.altKey && e.code === 'KeyC') {
-      e.preventDefault();
-      lastkeys = 'Ctrl + Alt + C';
-      UI.getConsoleButton()?.dispatchEvent(new Event('touchstart'));
-      return;
-    }
-
-    // Ctrl + Alt + C, F: maximize console
-    if (ctrl(e) && e.altKey && e.code === 'KeyF' && lastkeys === 'Ctrl + Alt + C') {
-      e.preventDefault();
-      lastkeys = 'Ctrl + Alt + C, F';
-      UI.getConsoleButton()?.dispatchEvent(new Event('dblclick'));
-      return;
-    }
-
-    // Ctrl + Alt + T runs tests
-    if (ctrl(e) && e.altKey && e.code === 'KeyT') {
-      e.preventDefault();
-      UI.getRunTestsButton()?.click();
-      lastkeys = 'Ctrl + Alt + T';
-      return;
-    }
-
-    // Shift + Enter triggers run
-    if (e.shiftKey && e.key === 'Enter') {
-      e.preventDefault();
-      UI.getRunButton()?.click();
-      lastkeys = 'Shift + Enter';
-      return;
-    }
-
-    // Ctrl + Alt + R toggles result page
-    if (ctrl(e) && e.altKey && e.code === 'KeyR') {
-      e.preventDefault();
-      UI.getResultButton()?.click();
-      lastkeys = 'Ctrl + Alt + R';
-      return;
-    }
-
-    // Ctrl + Alt + Z toggles result zoom
-    if (ctrl(e) && e.altKey && e.code === 'KeyZ') {
-      e.preventDefault();
-      UI.getZoomButton()?.click();
-      lastkeys = 'Ctrl + Alt + Z';
-      return;
-    }
-
-    // Ctrl + Alt + E focuses active editor
-    if (ctrl(e) && e.altKey && e.code === 'KeyE') {
-      e.preventDefault();
-      getActiveEditor().focus();
-      lastkeys = 'Ctrl + Alt + E';
-      return;
-    }
-
-    // Esc closes dropdown menus
-    // Esc + Esc moves focus out of editor
-    // Esc + Esc + Esc moves focus to logo
-    if (e.code === 'Escape') {
-      document.querySelectorAll('.menu-scroller').forEach((el) => el.classList.add('hidden'));
-      if (lastkeys === 'Esc') {
-        e.preventDefault();
-        if (
-          (toolsPane?.getStatus() === 'open' || toolsPane?.getStatus() === 'full') &&
-          toolsPane.getActiveTool() === 'console'
-        ) {
-          UI.getConsoleButton()?.focus();
-        } else {
-          UI.getFocusButton()?.focus();
-        }
-        lastkeys = 'Esc + Esc';
-        return;
-      }
-      if (lastkeys === 'Esc + Esc') {
-        e.preventDefault();
-        UI.getLogoLink()?.focus();
-        lastkeys = 'Esc + Esc + Esc';
-        return;
-      }
-      lastkeys = 'Esc';
-      return;
-    }
-
-    // Ctrl + Alt + (1-3) activates editor 1-3
-    // Ctrl + Alt + (ArrowLeft/ArrowRight) activates previous/next editor
-    const editorIds = (['markup', 'style', 'script'] as EditorId[]).filter(
-      (id) => getConfig()[id].hideTitle !== true,
-    );
-    if (ctrl(e) && e.altKey && ['1', '2', '3', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-      e.preventDefault();
-      split?.show('code');
-      const index = ['1', '2', '3'].includes(e.key)
-        ? Number(e.key) - 1
-        : e.key === 'ArrowLeft'
-          ? editorIds.findIndex((id) => id === getConfig().activeEditor) - 1 || 0
-          : e.key === 'ArrowRight'
-            ? editorIds.findIndex((id) => id === getConfig().activeEditor) + 1 || 0
-            : 0;
-      const editorIndex =
-        index === editorIds.length ? 0 : index === -1 ? editorIds.length - 1 : index;
-      showEditor(editorIds[editorIndex] as EditorId);
-      lastkeys = 'Ctrl + Alt + ' + e.key;
-      return;
-    }
-
-    if (isEmbed) return;
-
-    // Ctrl + Alt + N: new project
-    if (ctrl(e) && e.altKey && e.code === 'KeyN') {
-      e.preventDefault();
-      UI.getNewLink()?.click();
-      lastkeys = 'Ctrl + Alt + N';
-      return;
-    }
-
-    // Ctrl + O: open project
-    if (ctrl(e) && e.code === 'KeyO') {
-      e.preventDefault();
-      UI.getOpenLink()?.click();
-      lastkeys = 'Ctrl + O';
-      return;
-    }
-
-    // Ctrl + Alt + I: import
-    if (ctrl(e) && e.altKey && e.code === 'KeyI') {
-      e.preventDefault();
-      UI.getImportLink()?.click();
-      lastkeys = 'Ctrl + Alt + I';
-      return;
-    }
-
-    // Ctrl + Alt + S: share
-    if (ctrl(e) && e.altKey && e.code === 'KeyS') {
-      e.preventDefault();
-      UI.getShareLink()?.click();
-      lastkeys = 'Ctrl + Alt + S';
-      return;
-    }
-
-    // Ctrl + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.code === 'KeyS') {
-      e.preventDefault();
-      UI.getForkLink()?.click();
-      lastkeys = 'Ctrl + Shift + S';
-      return;
-    }
-
-    // Ctrl + S saves the project
-    if (ctrl(e) && e.code === 'KeyS') {
-      e.preventDefault();
-      UI.getSaveLink()?.click();
-      lastkeys = 'Ctrl + S';
-      return;
-    }
-
-    // Ctrl + Alt + F toggles focus mode
-    if (ctrl(e) && e.altKey && e.code === 'KeyF') {
-      e.preventDefault();
-      UI.getFocusButton()?.click();
-      lastkeys = 'Ctrl + Alt + F';
-      return;
-    }
-
-    if (!ctrl(e) && !e.altKey && !e.shiftKey) {
-      lastkeys = e.key;
-      return;
-    }
-  };
-
-  eventsManager.addEventListener(window, 'keydown', hotKeys, true);
 };
 
 const handleKeyboardShortcutsScreen = () => {
@@ -2806,7 +2570,13 @@ const handleCommandMenu = async () => {
         loadStarterTemplate,
         changeEditorSettings,
         changeLayout: changeAndSaveLayout,
-        showScreen,
+        showScreen: async (screen: Screen['screen'], options?: any) => {
+          const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
+          if (!foundScreen) return;
+          await foundScreen.show(options);
+          const modalElement = document.querySelector('#modal') as HTMLElement;
+          (modalElement.firstElementChild as HTMLElement)?.click();
+        },
       },
     });
     const authAction = authService?.isLoggedIn() ? logoutAction : loginAction;
@@ -2847,31 +2617,6 @@ const handleCommandMenu = async () => {
 
   eventsManager.addEventListener(window, 'keydown', onHotkey, true);
   eventsManager.addEventListener(UI.getCommandMenuLink(), 'click', () => openCommandMenu(), true);
-};
-
-const handleLogoLink = () => {
-  if (isEmbed || getConfig().mode === 'result') return;
-  const logoLink = UI.getLogoLink();
-  eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
-    event.preventDefault();
-    parent.postMessage({ args: 'home' }, location.origin);
-  });
-};
-
-const handleRunButton = () => {
-  const handleRun = async () => {
-    split?.show('output');
-    await run();
-  };
-  eventsManager.addEventListener(UI.getRunButton(), 'click', handleRun);
-};
-
-const handleResultButton = () => {
-  eventsManager.addEventListener(UI.getResultButton(), 'click', () => split?.show('toggle', true));
-};
-
-const handleShareButton = () => {
-  eventsManager.addEventListener(UI.getShareButton(), 'click', () => showScreen('share'));
 };
 
 const handleI18nMenu = () => {
@@ -2924,145 +2669,6 @@ const handleI18nMenu = () => {
   menuContainer.appendChild(i18nMenu);
   adjustFontSize(menuContainer);
   registerMenuButton(menuContainer, UI.getI18nMenuButton());
-};
-
-const handleEditorTools = () => {
-  if (!configureEditorTools(getActiveEditor().getLanguage())) return;
-  const originalMode = getConfig().mode;
-  eventsManager.addEventListener(UI.getFocusButton(), 'click', () => {
-    const config = getConfig();
-    const currentMode = config.mode;
-    const newMode = currentMode === originalMode ? 'focus' : originalMode;
-    setConfig({
-      ...config,
-      mode: newMode,
-    });
-    const consoleIsEnabled =
-      config.tools.enabled?.includes('console') ||
-      config.tools.enabled === 'all' ||
-      config.tools.enabled == null;
-    if (newMode === 'focus' && consoleIsEnabled) {
-      toolsPane?.setActiveTool('console');
-    }
-    window.deps?.showMode?.(newMode, config.view);
-  });
-
-  eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
-    if (copyToClipboard(getActiveEditor().getValue())) {
-      notifications.success(
-        window.deps.translateString('core.copy.copied', 'Code copied to clipboard'),
-      );
-    } else {
-      notifications.error(
-        window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
-      );
-    }
-  });
-
-  eventsManager.addEventListener(UI.getUndoButton(), 'click', () => {
-    const activeEditor = getActiveEditor();
-    activeEditor.undo();
-    activeEditor.focus();
-  });
-
-  eventsManager.addEventListener(UI.getRedoButton(), 'click', () => {
-    const activeEditor = getActiveEditor();
-    activeEditor.redo();
-    activeEditor.focus();
-  });
-
-  eventsManager.addEventListener(UI.getFormatButton(), 'click', async () => {
-    await format(false);
-  });
-
-  eventsManager.addEventListener(UI.getCopyAsUrlButton(), 'click', () => {
-    const currentEditor = getActiveEditor();
-    const mimeType = 'text/' + currentEditor.getLanguage();
-    const dataUrl = toDataUrl(currentEditor.getValue(), mimeType);
-    if (copyToClipboard(dataUrl)) {
-      notifications.success(
-        window.deps.translateString('core.copy.copiedAsDataURL', 'Code copied as data URL'),
-      );
-    } else {
-      notifications.error(
-        window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
-      );
-    }
-  });
-
-  eventsManager.addEventListener(UI.getCodeToImageButton(), 'click', () => {
-    showScreen('code-to-image');
-  });
-
-  eventsManager.addEventListener(UI.getEditorStatus(), 'click', () => {
-    showScreen('editor-settings', { scrollToSelector: 'label[data-name="editorMode"]' });
-  });
-
-  eventsManager.addEventListener(UI.getExternalResourcesBtn(), 'click', () => {
-    showScreen('resources');
-  });
-
-  eventsManager.addEventListener(UI.getProjectInfoBtn(), 'click', () => {
-    showScreen('info');
-  });
-
-  eventsManager.addEventListener(UI.getCustomSettingsBtn(), 'click', () => {
-    showScreen('custom-settings');
-  });
-
-  eventsManager.addEventListener(UI.getEditorSettingsBtn(), 'click', () => {
-    showScreen('editor-settings');
-  });
-};
-
-const handleProcessors = () => {
-  const styleMenu = UI.getstyleMenu();
-  const processorList = processors
-    .filter((p) => processorIsEnabled(p.name, getConfig()))
-    .filter((p) => !p.hidden)
-    .map((p) => ({ name: p.name, title: p.title }));
-
-  if (!styleMenu || processorList.length === 0) {
-    return;
-  }
-
-  processorList.forEach((processor) => {
-    const processorItem = createProcessorItem(processor);
-    styleMenu.append(processorItem);
-    eventsManager.addEventListener(
-      processorItem.firstElementChild as HTMLElement,
-      'click',
-      async (event) => {
-        event.preventDefault();
-        const toggle = processorItem.querySelector<HTMLInputElement>('input');
-        if (!toggle) return;
-        toggle.checked = !toggle.checked;
-        const processorName = toggle.dataset.processor as Processor;
-        if (!processorName || !processorList.find((p) => p.name === processorName)) return;
-        setConfig({
-          ...getConfig(),
-          processors: [
-            ...(toggle.checked
-              ? [...getConfig().processors, processorName]
-              : getConfig().processors.filter((p) => p !== processorName)),
-          ],
-        });
-        if (processorName === 'tailwindcss' && 'configureTailwindcss' in editors.markup) {
-          if (toggle.checked) {
-            editors.markup.configureTailwindcss?.(true);
-          } else {
-            editors.markup.configureTailwindcss?.(false);
-            await reloadEditors(getConfig());
-          }
-        }
-        if (getConfig().autoupdate) {
-          await run();
-        }
-        dispatchChangeEvent();
-      },
-      false,
-    );
-  });
 };
 
 const registerMenuButton = (menu: HTMLElement, button: HTMLElement) => {
@@ -3212,7 +2818,15 @@ const handleSettings = () => {
         }
         if (toggle.checked && !syncData?.repo) {
           toggle.checked = false;
-          await showScreen('sync');
+          await (async (screen: Screen['screen'], options?: any) => {
+            const foundScreen = screens.find(
+              (s) => s.screen.toLowerCase() === screen.toLowerCase(),
+            );
+            if (!foundScreen) return;
+            await foundScreen.show(options);
+            const modalElement = document.querySelector('#modal') as HTMLElement;
+            (modalElement.firstElementChild as HTMLElement)?.click();
+          })('sync');
         }
       } else {
         setConfig({ ...getConfig(), [configKey]: toggle.checked });
@@ -4350,7 +3964,13 @@ const handleAssets = () => {
         eventsManager,
         notifications,
         assetsStorage: stores.assets || fakeStorage,
-        showScreen,
+        showScreen: async (screen: Screen['screen'], options?: any) => {
+          const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
+          if (!foundScreen) return;
+          await foundScreen.show(options);
+          const modalElement = document.querySelector('#modal') as HTMLElement;
+          (modalElement.firstElementChild as HTMLElement)?.click();
+        },
         deployAsset,
         getUser,
         baseUrl,
@@ -4402,7 +4022,16 @@ const handleSnippets = () => {
       modal,
       notifications,
       snippetsStorage: stores.snippets || fakeStorage,
-      deps: { createEditorFn, showScreen },
+      deps: {
+        createEditorFn,
+        showScreen: async (screen: Screen['screen'], options?: any) => {
+          const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
+          if (!foundScreen) return;
+          await foundScreen.show(options);
+          const modalElement = document.querySelector('#modal') as HTMLElement;
+          (modalElement.firstElementChild as HTMLElement)?.click();
+        },
+      },
     });
   };
 
@@ -4847,43 +4476,17 @@ const handleBroadcastStatus = () => {
   broadcastStatusBtn.innerHTML = `<button id="broadcast-status">${iconCSS}<span class="mark"></span></button>`;
 
   const showBroadcast = () => {
-    showScreen('broadcast');
+    (async (screen: Screen['screen'], options?: any) => {
+      const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
+      if (!foundScreen) return;
+      await foundScreen.show(options);
+      const modalElement = document.querySelector('#modal') as HTMLElement;
+      (modalElement.firstElementChild as HTMLElement)?.click();
+    })('broadcast');
   };
   eventsManager.addEventListener(broadcastStatusBtn, 'click', showBroadcast);
   eventsManager.addEventListener(broadcastStatusBtn, 'touchstart', showBroadcast);
   UI.getToolspaneTitles()?.appendChild(broadcastStatusBtn);
-};
-
-const handleFullscreen = async () => {
-  const fullscreenButton = getFullscreenButton();
-  const buttonImg = fullscreenButton.querySelector('img');
-  const fscreen = (await import(fscreenUrl)).default;
-  if (!fscreen.fullscreenEnabled) {
-    fullscreenButton.style.visibility = 'hidden';
-    return;
-  }
-
-  eventsManager.addEventListener(fscreen, 'fullscreenchange', async () => {
-    if (!buttonImg) return;
-    if (!fscreen.fullscreenElement) {
-      buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
-      fullscreenButton.title = window.deps.translateString('core.fullScreen.enter', 'Full Screen');
-      return;
-    }
-    buttonImg.src = buttonImg.src.replace('expand.svg', 'collapse.svg');
-    fullscreenButton.title = window.deps.translateString(
-      'core.fullScreen.exit',
-      'Exit Full Screen',
-    );
-  });
-
-  eventsManager.addEventListener(fullscreenButton, 'click', async () => {
-    if (fscreen.fullscreenElement) {
-      await fscreen.exitFullscreen();
-      return;
-    }
-    await fscreen.requestFullscreen(document.body);
-  });
 };
 
 const handleDropFiles = () => {
@@ -5010,38 +4613,6 @@ const loadI18n = async (appLanguage: AppLanguage | undefined) => {
   window.deps.translateString = i18n.translateString;
 };
 
-const handleI18n = () => {
-  if (!i18n) return;
-  eventsManager.addEventListener(document.body, customEvents.i18n, (e) => {
-    const elem = e.target as HTMLElement;
-    i18n?.translate(elem);
-  });
-  translateElement(document.body);
-};
-
-/**
- * Dispatch a translation event to the given element.
- * @param elem The element to dispatch the event to.
- */
-const translateElement = (elem: HTMLElement) => {
-  elem.dispatchEvent(new CustomEvent(customEvents.i18n, { bubbles: true }));
-};
-
-const translateStringMock = <Key extends I18nKeyType, Value extends string>(
-  _key: Key,
-  value: I18nValueType<Key, Value>,
-  ...args: I18nInterpolationType<I18nValueType<Key, Value>>
-) => {
-  const rawInterpolation = args[0];
-  const { isHTML, ...interpolation } = rawInterpolation ?? {};
-  if (!interpolation) return value as string;
-  let result: string = value as string;
-  for (const [k, v] of Object.entries({ ...interpolation, ...predefinedValues })) {
-    result = result.replaceAll(`{{${k}}}`, v as string);
-  }
-  return result;
-};
-
 const setAppLanguage = ({
   appLanguage,
   reload = false,
@@ -5091,43 +4662,6 @@ const changeAppLanguage = async (appLanguage: AppLanguage) => {
   const url = (await share(/* shortUrl = */ false, /* contentOnly = */ false)).url;
   isSaved = true;
   setAppLanguage({ appLanguage, reload: true, url });
-};
-
-const basicHandlers = () => {
-  notifications = createNotifications();
-  modal = createModal({
-    translate: translateElement,
-    isEmbed,
-    onClose: () => {
-      if (!isEmbed) {
-        getActiveEditor().focus();
-      }
-    },
-  });
-  split = createSplitPanes();
-  typeLoader = createTypeLoader(baseUrl);
-
-  handleLogoLink();
-  handleResize();
-  handleIframeResize();
-  handleIframeScroll();
-  handleSelectEditor();
-  handleChangeLanguage();
-  handleChangeContent();
-  handleKeyboardShortcuts();
-  handleRunButton();
-  handleResultButton();
-  handleShareButton();
-  handleEditorTools();
-  handleProcessors();
-  handleResultLoading();
-  handleTestResults();
-  handleConsole();
-  handleI18n();
-  handleFullscreen();
-  if (isEmbed) {
-    handleExternalResources();
-  }
 };
 
 const extraHandlers = async () => {
@@ -5390,7 +4924,13 @@ const loadDefaults = async () => {
     (getConfig().welcome && !params.screen && getConfig().mode === 'full') ||
     params.screen === 'welcome'
   ) {
-    showScreen('welcome');
+    (async (screen: Screen['screen'], options?: any) => {
+      const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
+      if (!foundScreen) return;
+      await foundScreen.show(options);
+      const modalElement = document.querySelector('#modal') as HTMLElement;
+      (modalElement.firstElementChild as HTMLElement)?.click();
+    })('welcome');
     return;
   }
 
@@ -5696,7 +5236,41 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
     translateString: translateStringMock,
   };
   await initializePlayground({ config, baseUrl }, async () => {
-    basicHandlers();
+    initBasicHandlers({
+      setNotifications,
+      setModal,
+      setSplit,
+      setTypeLoader,
+      setLayout,
+      setAppData,
+      setIframeScrollPosition,
+      getNotifications,
+      getActiveEditor,
+      getEditors,
+      showEditor,
+      showScreen,
+      getToolsPane,
+      getSplit,
+      addEventListener: eventsManager.addEventListener,
+      removeEventListener: eventsManager.removeEventListener,
+      isEmbed,
+      baseUrl,
+      i18n,
+      getEditorLanguage,
+      setProjectRecover,
+      handleConsole,
+      handleTestResults,
+      handleExternalResources,
+      handleChangeContent,
+      handleIframeResize,
+      format,
+      run,
+      configureEditorTools,
+      handleResultLoading,
+      reloadEditors,
+      dispatchChangeEvent,
+    });
+
     await loadToolsPane();
     await extraHandlers();
   });
@@ -5709,7 +5283,40 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
     translateString: translateStringMock,
   };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
-    basicHandlers();
+    initBasicHandlers({
+      setNotifications,
+      setModal,
+      setSplit,
+      setTypeLoader,
+      setLayout,
+      setAppData,
+      setIframeScrollPosition,
+      getNotifications,
+      getActiveEditor,
+      getEditors,
+      showEditor,
+      showScreen,
+      getToolsPane,
+      getSplit,
+      addEventListener: eventsManager.addEventListener,
+      removeEventListener: eventsManager.removeEventListener,
+      isEmbed,
+      baseUrl,
+      i18n,
+      getEditorLanguage,
+      setProjectRecover,
+      handleConsole,
+      handleTestResults,
+      handleExternalResources,
+      handleChangeContent,
+      handleIframeResize,
+      format,
+      run,
+      configureEditorTools,
+      handleResultLoading,
+      reloadEditors,
+      dispatchChangeEvent,
+    });
     if (config.mode !== 'lite') {
       await loadToolsPane();
     }
