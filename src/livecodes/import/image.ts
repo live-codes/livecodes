@@ -57,7 +57,7 @@ const cleanUpCode = async (code: string) => {
   lines = code.trim().split('\n');
 
   // remove line numbers
-  if (lines.filter((l) => l.match(/^[0-9]{1,4}\s?/)).length / lines.length > 0.7) {
+  if (lines.filter((l) => l.match(/^[0-9]{1,4}\s?/)).length / lines.length > 0.3) {
     code = lines.map((l) => l.replace(/^\S{1,4}\s?/, '')).join('\n');
   }
 
