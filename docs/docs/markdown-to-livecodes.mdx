@@ -187,7 +187,7 @@ See the section "[Using with Frameworks](#using-with-frameworks)" for using the 
 
 To use the `markdown-it-livecodes` plugin, first install it:
 
-```bash
+```bash npm2yarn
 npm install markdown-it markdown-it-livecodes
 ```
 
@@ -212,7 +212,7 @@ console.log(output); // <iframe ...></iframe>
 
 To use the `marked-livecodes` plugin, first install it:
 
-```bash
+```bash npm2yarn
 npm install marked marked-livecodes
 ```
 
@@ -237,7 +237,7 @@ console.log(output); // <iframe ...></iframe>
 
 To use the `remark-livecodes` plugin, first install it:
 
-```bash
+```bash npm2yarn
 npm install remark remark-livecodes
 ```
 
@@ -348,6 +348,12 @@ This guide shows how to use the suitable plugin in different frameworks.
 
 ([demo](https://markdown-to-livecodes-astro.pages.dev/) - [code on GitHub](https://github.com/hatemhosny/markdown-to-livecodes-astro))
 
+Install the `remark-livecodes` plugin:
+
+```bash npm2yarn
+npm install -D remark-livecodes
+```
+
 This is an example for adding the `remark-livecodes` plugin to `astro.config.mjs` file:
 
 ```js title="astro.config.js"
@@ -360,12 +366,7 @@ export default defineConfig({
   integrations: [mdx()],
   markdown: {
     remarkPlugins: [
-      [
-        remarkLivecodes,
-        {
-          /* options */
-        },
-      ],
+      [remarkLivecodes, { /* options */ }],
     ],
   },
 });
@@ -374,6 +375,12 @@ export default defineConfig({
 ### Docusaurus
 
 ([demo](https://markdown-to-livecodes-docusaurus.pages.dev/) - [code on GitHub](https://github.com/hatemhosny/markdown-to-livecodes-docusaurus))
+
+Install the `remark-livecodes` plugin:
+
+```bash npm2yarn
+npm install -D remark-livecodes
+```
 
 This is an example for adding the `remark-livecodes` plugin to `docusaurus.config.js` file:
 
@@ -396,9 +403,38 @@ export default {
 };
 ```
 
+### Eleventy
+
+([demo](https://markdown-to-livecodes-11ty.pages.dev/) - [code on GitHub](https://github.com/hatemhosny/markdown-to-livecodes-11ty))
+
+Install the `markdown-it-livecodes` plugin:
+
+```bash npm2yarn
+npm install -D markdown-it-livecodes
+```
+
+This is an example for adding the `markdown-it-livecodes` plugin to `eleventy.config.js` file:
+
+```js title="eleventy.config.js"
+import markdownItLivecodes from "markdown-it-livecodes";
+
+export default async function (eleventyConfig) {
+  eleventyConfig.amendLibrary("md", (mdLib) =>
+    mdLib.use(markdownItLivecodes, { /* options */ }),
+  );
+  // ...
+}
+```
+
 ### Gatsby
 
 ([demo](https://markdown-to-livecodes-gatsby.pages.dev/markdown-to-livecodes/) - [code on GitHub](https://github.com/hatemhosny/markdown-to-livecodes-gatsby))
+
+Install the `gatsby-remark-livecodes` plugin:
+
+```bash npm2yarn
+npm install -D gatsby-remark-livecodes
+```
 
 This is an example for adding the `gatsby-remark-livecodes` plugin to `gatsby-config.js` file:
 
@@ -428,10 +464,17 @@ module.exports = {
 
 See [Next.js docs](https://nextjs.org/docs/app/guides/mdx) for using markdown and MDX in Next.js.
 
+Install the `remark-livecodes` plugin:
+
+```bash npm2yarn
+npm install -D remark-livecodes
+```
+
 This is an example for adding the `remark-livecodes` plugin to `next.config.js` file:
 
 ```js title="next.config.js"
 import createMDX from "@next/mdx";
+import remarkLivecodes from "remark-livecodes";
 
 const nextConfig = {
   // ...
@@ -441,7 +484,7 @@ const nextConfig = {
 const withMDX = createMDX({
   options: {
     remarkPlugins: [
-      ['remark-livecodes', { /* other options */ }],
+      [remarkLivecodes, { /* other options */ }],
     ],
   },
 });
@@ -457,6 +500,12 @@ When using Turbopack for local development, check the guide for [using plugins w
 
 This is an example for using the `remark-livecodes` plugin with `react-markdown`:
 
+Install the `remark-livecodes` plugin:
+
+```bash npm2yarn
+npm install remark-livecodes
+```
+
 ```jsx title="App.jsx" livecodes render=button
 import Markdown from 'react-markdown';
 import remarkLivecodes from 'remark-livecodes';
@@ -465,14 +514,21 @@ const markdown =
   '```jsx livecodes\nexport default () => <h1>Hello World</h1>\n```';
 
 export default () => (
-  <Markdown remarkPlugins={[remarkLivecodes]}>{markdown}</Markdown>
+  <Markdown remarkPlugins={[[remarkLivecodes, { /* options */ }]]}>
+    {markdown}
+  </Markdown>
 );
 ```
-
 
 ### Storybook
 
 ([demo](https://markdown-to-livecodes-storybook.pages.dev/) - [code on GitHub](https://github.com/hatemhosny/markdown-to-livecodes-storybook))
+
+Install the `remark-livecodes` plugin:
+
+```bash npm2yarn
+npm install -D remark-livecodes
+```
 
 This is an example for adding the `remark-livecodes` plugin to `storybook/main.js` file:
 
@@ -503,6 +559,12 @@ export default {
 
 ([demo](https://markdown-to-livecodes-vitepress.pages.dev/) - [code on GitHub](https://github.com/hatemhosny/markdown-to-livecodes-vitepress))
 
+Install the `markdown-it-livecodes` plugin:
+
+```bash npm2yarn
+npm install -D markdown-it-livecodes
+```
+
 This is an example for adding the `markdown-it-livecodes` plugin to `vitepress.config.js` file:
 
 ```js title=".vitepress/config.js"
@@ -513,7 +575,7 @@ export default defineConfig({
   // ...
   markdown: {
     config: (md) => {
-      md.use(markDownItLivecodes);
+      md.use(markDownItLivecodes, { /* options */ });
     },
   },
 });

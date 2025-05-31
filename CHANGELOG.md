@@ -4,6 +4,61 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.11.1](https://github.com/live-codes/livecodes/compare/v46...sdk-v0.11.1) (2025-05-24)
+
+### Bug Fixes
+
+- **SDK:** fix sdk build (sdkVersion) ([c383d26](https://github.com/live-codes/livecodes/commit/c383d26b8358a374de1ebe7073d2a38a27b7ede1))
+
+---
+
+## [v46](https://github.com/live-codes/livecodes/compare/v45...v46) (2025-05-24)
+
+### Highlights for this release
+
+- This release refactors how LiveCodes loads the projects which makes it more performant, more consistent and supports loading much bigger projects.
+- Support for Jinja templating language was added.
+- Upgraded [React Compiler to RC](https://react.dev/blog/2025/04/21/react-compiler-rc).
+- Added docs for the new [Markdown-to-LiveCodes](https://livecodes.io/docs/markdown-to-livecodes) feature.
+- Allowed SDK to update editor content only with `setConfig` without reloading the project or editor language. This is useful for streaming content (e.g. from LLM). Demo: https://livecodes.io/?x=id/vya9n6jbuvq&mode=result
+
+### Features
+
+- **Compilers:** add Jinja template support ([9e15076](https://github.com/live-codes/livecodes/commit/9e15076da00c23250c9db90128ac3681e4353aac))
+- encode minimal data in url search params and the rest in hash params to allow for longer urls while still maintaining server analytics feature ([80efa44](https://github.com/live-codes/livecodes/commit/80efa446f821ca037369053f8f51a821a50bdd68))
+- **SDK:** allow sdk `setConfig` to just update editor content ([282824c](https://github.com/live-codes/livecodes/commit/282824c51d8d49beff16e3bed68aa51333da9f8f))
+- **SDK:** communicate sdk and app versions ([63e7db2](https://github.com/live-codes/livecodes/commit/63e7db2f9b4ce3ea1bec89d4461352ce3992166b))
+- sort imports with prettier ([7f1145c](https://github.com/live-codes/livecodes/commit/7f1145c7e5d67b57462826c8f6473c06d956bb80))
+
+### Bug Fixes
+
+- **Compilers:** compile asciidoc as standalone ([7ae4220](https://github.com/live-codes/livecodes/commit/7ae4220f7a4e6f45875e78c8331d409449e85612))
+- **Config:** fix decoding params ([3494e58](https://github.com/live-codes/livecodes/commit/3494e587d14253284388e058a394b2492a82f252))
+- **Editor:** fix loading vue & custom languages in monaco ([b7bbb80](https://github.com/live-codes/livecodes/commit/b7bbb80356b8bc019eb66cd8951b9bc91c62f122))
+- fixed self-hosted deployments to GitHub Pages ([9859940](https://github.com/live-codes/livecodes/commit/9859940cd2348858f8f176deefa344942ed1e151))
+
+### Credits
+
+- @BassemHalim refactored the app and SDK to allow for the new project loading feature.
+- @tarekwfa0110 added HTML language docs.
+- @ahmadalfy , @zyf722 and @Seth0x41 reviewed the Markdown-to-LiveCodes feature.
+
+Thank you ❤️
+
+---
+
+## [sdk-v0.11.0](https://github.com/live-codes/livecodes/compare/sdk-v0.10.0...sdk-v0.11.0) (2025-05-24)
+
+- This release enables the SDK to create playgrounds and generate URLs for much bigger projects, by encoding data in URL hash instead of query params, while maintaining backwards compatibility.
+
+- Adds support for Jinja templating engine.
+
+### Credits
+
+- @BassemHalim did a lot of work on this release. Thank you ❤️
+
+---
+
 ## [v45](https://github.com/live-codes/livecodes/compare/sdk-v0.10.0...v45) (2025-04-25)
 
 ### Highlights for this release

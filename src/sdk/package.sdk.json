@@ -1,10 +1,10 @@
 {
   "name": "livecodes",
-  "version": "0.10.0",
-  "description": "Code Playground That Just Works!",
+  "version": "0.11.1",
+  "description": "A Code Playground That Just Works!",
   "author": "Hatem Hosny",
   "license": "MIT",
-  "keywords": ["playground", "code", "client", "sdk", "react", "vue", "svelte", "solid", "python"],
+  "keywords": ["playground", "code", "repl", "client", "sdk", "react", "vue", "svelte", "python"],
   "private": false,
   "repository": {
     "url": "https://github.com/live-codes/livecodes"

@@ -1,5 +1,4 @@
 import { getPlaygroundUrl } from '../sdk';
-import { createCustomEditors, createEditor, getFontFamily } from './editor';
 import {
   getLanguageByAlias,
   getLanguageCompiler,
@@ -19,9 +18,8 @@ import {
   type StorageItem,
   type Stores,
 } from './storage';
-
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
-import { cjs2esm, getAllCompilers, getCompiler, getCompileResult } from './compiler';
+import { cjs2esm, getAllCompilers, getCompileResult, getCompiler } from './compiler';
 import {
   buildConfig,
   defaultConfig,
@@ -34,6 +32,7 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
+import { createCustomEditors, createEditor, getFontFamily } from './editor';
 import { hasJsx } from './editor/ts-compiler-options';
 import { createEventsManager, createPub } from './events';
 import { customEvents } from './events/custom-events';
@@ -61,9 +60,23 @@ import type {
   I18nValueType,
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
-import { isCompressedCode, isGithub } from './import/check-src';
+import { isGithub } from './import/check-src';
+import { importCompressedCode } from './import/code';
 import { importFromFiles } from './import/files';
 import { populateConfig } from './import/utils';
+import {
+  getLanguageByAlias,
+  getLanguageCompiler,
+  getLanguageEditorId,
+  getLanguageExtension,
+  getLanguageSpecs,
+  getLanguageTitle,
+  languageIsEnabled,
+  languages,
+  mapLanguage,
+  processorIsEnabled,
+  processors,
+} from './languages';
 import type {
   API,
   APICommands,
@@ -90,8 +103,8 @@ import type {
   Modal,
   Notifications,
   Processor,
-  Screen,
   SDKEvent,
+  Screen,
   ShareData,
   Template,
   TestResult,
@@ -106,6 +119,13 @@ import { cleanResultFromDev, createResultPage } from './result';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import type { GitHubFile } from './services/github';
 import { permanentUrlService } from './services/permanent-url';
+import {
+  createStores,
+  fakeStorage,
+  initializeStores,
+  type StorageItem,
+  type Stores,
+} from './storage';
 import { getStarterTemplates, getTemplate } from './templates';
 import { createToolsPane } from './toolspane';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
@@ -146,7 +166,6 @@ import {
   loadStylesheet,
   predefinedValues,
   safeName,
-  stringify,
   stringToValidJson,
 } from './utils';
 import {
@@ -160,7 +179,6 @@ import {
   ninjaKeysUrl,
   snackbarUrl,
 } from './vendors';
-
 import initBasicHandlers from './handlers/basicHandlers';
 import { importCompressedCode } from './import/code';
 import { translateElement, translateStringMock } from './utils/translation';
@@ -4756,25 +4774,31 @@ const configureModes = ({
 
 const importExternalContent = async (options: {
   config?: Config;
+  sdkConfig?: Partial<Config>;
   configUrl?: string;
   template?: string;
-  url?: string;
+  importUrl?: string;
 }): Promise<boolean> => {
-  const { config = defaultConfig, configUrl, template, url } = options;
+  const { config = defaultConfig, sdkConfig, configUrl, template } = options;
+  let importUrl = options.importUrl;
   const hasContentUrls = (conf: Partial<Config>) =>
     editorIds.filter(
       (editorId) =>
         (conf[editorId]?.contentUrl && !conf[editorId]?.content) ||
         (conf[editorId]?.hiddenContentUrl && !conf[editorId]?.hiddenContent),
     ).length > 0;
+  const validConfigUrl = getValidUrl(configUrl);
+  if (importUrl?.startsWith('config') || importUrl?.startsWith('params')) {
+    importUrl = ''; // ignore hash params
+  }
 
-  if (!configUrl && !template && !url && !hasContentUrls(config)) return false;
+  if (!validConfigUrl && !template && !importUrl && !hasContentUrls(config)) return false;
 
   const loadingMessage = window.deps.translateString('core.import.loading', 'Loading Project...');
   notifications.info(loadingMessage);
 
   let templateConfig: Partial<Config> = {};
-  let urlConfig: Partial<Config> = {};
+  let importUrlConfig: Partial<Config> = {};
   let contentUrlConfig: Partial<Config> = {};
   let configUrlConfig: Partial<Config> = {};
 
@@ -4794,24 +4818,30 @@ const importExternalContent = async (options: {
       );
     }
   }
-  if (url) {
-    let validUrl = url;
-    if (url.startsWith('http') || url.startsWith('data')) {
+  if (importUrl) {
+    let validImportUrl = importUrl;
+    if (importUrl.startsWith('http') || importUrl.startsWith('data')) {
       try {
-        validUrl = new URL(url).href;
+        validImportUrl = new URL(importUrl).href;
       } catch {
-        validUrl = decodeURIComponent(url);
+        validImportUrl = decodeURIComponent(importUrl);
       }
     }
-    // import code from hash: code / github / github gist / url html / ...etc
+    // import code from hash: github / github gist / url html / ...etc
     let user;
-    if (isGithub(validUrl) && !isEmbed) {
+    if (isGithub(validImportUrl) && !isEmbed) {
       await initializeAuth();
       user = await authService?.getUser();
     }
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
-    urlConfig = await importModule.importCode(validUrl, params, getConfig(), user, baseUrl);
+    importUrlConfig = await importModule.importCode(validImportUrl, params, config, user, baseUrl);
+
+    if (Object.keys(importUrlConfig).length === 0) {
+      notifications.error(
+        window.deps.translateString('core.error.invalidImport', 'Invalid import URL'),
+      );
+    }
   }
 
   if (hasContentUrls(config)) {
@@ -4842,37 +4872,25 @@ const importExternalContent = async (options: {
     };
   }
 
-  const validConfigUrl = getValidUrl(configUrl);
   if (validConfigUrl) {
     configUrlConfig = upgradeAndValidate(
       await fetch(validConfigUrl)
         .then((res) => res.json())
         .catch(() => ({})),
     );
-  } else {
-    // the url is config=code/...
-    const searchParams = new URLSearchParams(url);
-    if (searchParams.get('config') && isCompressedCode(searchParams.get('config') ?? '')) {
-      configUrlConfig = importCompressedCode(searchParams.get('config')!);
+    if (hasContentUrls(configUrlConfig)) {
+      return importExternalContent({ ...options, config: { ...config, ...configUrlConfig } });
     }
-  }
-  if (configUrlConfig && hasContentUrls(configUrlConfig)) {
-    return importExternalContent({ config: { ...config, ...configUrlConfig } });
-  }
-
-  if (Object.keys(urlConfig).length === 0 && !configUrlConfig) {
-    notifications.error(
-      window.deps.translateString('core.error.invalidImport', 'Invalid import URL'),
-    );
   }
 
   await loadConfig(
     buildConfig({
       ...config,
       ...templateConfig,
-      ...urlConfig,
-      ...contentUrlConfig,
+      ...importUrlConfig,
       ...configUrlConfig,
+      ...sdkConfig,
+      ...contentUrlConfig,
     }),
     parent.location.href,
     false,
@@ -4943,25 +4961,29 @@ const initializePlayground = async (
   },
   initializeFn?: () => void | Promise<void>,
 ) => {
+  const importUrl = params.x || parent.location.hash.substring(1); // for backward compatibility
   const appConfig = options?.config ?? {};
+  const codeImportConfig = importCompressedCode(importUrl);
+  const sdkConfig = importCompressedCode(params.config ?? '');
+  const initialConfig = { ...codeImportConfig, ...appConfig, ...sdkConfig };
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isHeadless = options?.isHeadless ?? false;
   isLite =
     params.mode === 'lite' ||
     (params.lite != null && params.lite !== false) || // for backward compatibility
-    appConfig.mode === 'lite' ||
+    initialConfig.mode === 'lite' ||
     false;
   isEmbed =
     isHeadless ||
     isLite ||
     (options?.isEmbed ?? false) ||
-    appConfig.mode === 'simple' ||
+    initialConfig.mode === 'simple' ||
     params.mode === 'simple';
 
   window.history.replaceState(null, '', './'); // fix URL from "/app" to "/"
   await initializeStores(stores, isEmbed);
-  loadUserConfig(/* updateUI = */ false);
-  setConfig(buildConfig({ ...getConfig(), ...appConfig }));
+  const userConfig = stores.userConfig?.getValue() ?? {};
+  setConfig(buildConfig({ ...getConfig(), ...userConfig, ...initialConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = (window as any).compiler = await getCompiler({
     config: getConfig(),
@@ -4992,9 +5014,10 @@ const initializePlayground = async (
   }
   importExternalContent({
     config: getConfig(),
+    sdkConfig,
     configUrl: params.config,
     template: params.template,
-    url: params.x || parent.location.hash.substring(1),
+    importUrl: Object.keys(codeImportConfig).length > 0 ? '' : importUrl, // do not re-import compressed code
   }).then(async (contentImported) => {
     if (!contentImported) {
       loadSelectedScreen();
