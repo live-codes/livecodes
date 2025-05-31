@@ -1,23 +1,27 @@
 import { getPlaygroundUrl } from '../sdk';
 import {
-  getLanguageByAlias,
-  getLanguageCompiler,
-  getLanguageEditorId,
-  getLanguageExtension,
-  getLanguageSpecs,
-  getLanguageTitle,
-  languageIsEnabled,
-  languages,
-  mapLanguage,
-  processors,
-} from './languages';
-import {
-  createStores,
-  fakeStorage,
-  initializeStores,
-  type StorageItem,
-  type Stores,
-} from './storage';
+  createLoginContainer,
+  createOpenItem,
+  createProjectInfoUI,
+  createSplitPanes,
+  createStarterTemplateLink,
+  createTemplatesContainer,
+  displayLoggedIn,
+  displayLoggedOut,
+  getResultElement,
+  loadingMessage,
+  noUserTemplates,
+} from './UI';
+import type {
+  BroadcastData,
+  BroadcastInfo,
+  BroadcastResponseData,
+  BroadcastResponseError,
+} from './UI/broadcast';
+import { getCommandMenuActions } from './UI/command-menu-actions';
+import { createLanguageMenus } from './UI/create-language-menus';
+import * as UI from './UI/selectors';
+import { themeColors } from './UI/theme-colors';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import { cjs2esm, getAllCompilers, getCompileResult, getCompiler } from './compiler';
 import {
@@ -39,6 +43,7 @@ import { customEvents } from './events/custom-events';
 import { exportJSON } from './export/export-json';
 import { getFormatter } from './formatter';
 import type { Formatter } from './formatter/models';
+import initBasicHandlers from './handlers/basicHandlers';
 import {
   aboutScreen,
   customSettingsScreen,
@@ -74,7 +79,6 @@ import {
   languageIsEnabled,
   languages,
   mapLanguage,
-  processorIsEnabled,
   processors,
 } from './languages';
 import type {
@@ -128,31 +132,7 @@ import {
 } from './storage';
 import { getStarterTemplates, getTemplate } from './templates';
 import { createToolsPane } from './toolspane';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { createTypeLoader, getDefaultTypes } from './types';
-import {
-  createLoginContainer,
-  createOpenItem,
-  createProjectInfoUI,
-  createSplitPanes,
-  createStarterTemplateLink,
-  createTemplatesContainer,
-  displayLoggedIn,
-  displayLoggedOut,
-  getResultElement,
-  loadingMessage,
-  noUserTemplates,
-} from './UI';
-import type {
-  BroadcastData,
-  BroadcastInfo,
-  BroadcastResponseData,
-  BroadcastResponseError,
-} from './UI/broadcast';
-import { getCommandMenuActions } from './UI/command-menu-actions';
-import { createLanguageMenus } from './UI/create-language-menus';
-import * as UI from './UI/selectors';
-import { themeColors } from './UI/theme-colors';
+import { getDefaultTypes, type createTypeLoader } from './types';
 import {
   capitalize,
   colorToHex,
@@ -167,7 +147,9 @@ import {
   predefinedValues,
   safeName,
   stringToValidJson,
+  stringify,
 } from './utils';
+import { translateElement, translateStringMock } from './utils/translation';
 import {
   fontInterUrl,
   fontMaterialIconsUrl,
@@ -179,9 +161,6 @@ import {
   ninjaKeysUrl,
   snackbarUrl,
 } from './vendors';
-import initBasicHandlers from './handlers/basicHandlers';
-import { importCompressedCode } from './import/code';
-import { translateElement, translateStringMock } from './utils/translation';
 
 // declare global dependencies
 declare global {
