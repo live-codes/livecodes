@@ -289,6 +289,8 @@ export const markedUrl = /* @__PURE__ */ getUrl('marked@13.0.2/marked.min.js');
 
 export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
 
+export const metaPngUrl = /* @__PURE__ */ getUrl('meta-png@1.0.6/dist/meta-png.umd.js');
+
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
 export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.3.0/');

@@ -4279,9 +4279,12 @@ const handleCodeToImage = () => {
 
     const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/');
 
-    const getShareUrl = async (config: Partial<Config>) => {
-      const param = '/?x=id/' + (await shareService.shareProject(config));
-      return currentUrl + param;
+    const getShareUrl = async (config: Partial<Config>, shortUrl = true) => {
+      if (shortUrl) {
+        const param = '/?x=id/' + (await shareService.shareProject(config));
+        return currentUrl + param;
+      }
+      return getPlaygroundUrl({ appUrl: currentUrl, config });
     };
 
     const codeToImageModule: typeof import('./UI/code-to-image') = await import(

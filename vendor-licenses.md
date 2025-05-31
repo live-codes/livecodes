@@ -142,6 +142,8 @@ Marked: [MIT License](https://github.com/markedjs/marked/blob/57d41b88801566eb06
 
 Mermaid: [MIT License](https://github.com/mermaid-js/mermaid/blob/1b40f552b20df4ab99a986dd58c9d254b3bfd7bc/LICENSE)
 
+meta-png: [ISC License](https://github.com/lucach/meta-png/blob/b9a79d98157af06875c3355f4c460ffb2963c25c/package.json#L27)
+
 mhsdesign/jit-browser-tailwindcss: [MIT License](https://github.com/mhsdesign/jit-browser-tailwindcss/blob/60fccdfbbd4e7c816a97e4627d070dd8ec19d415/package.json#L30)
 
 MDX: [MIT License](https://github.com/mdx-js/mdx/blob/7fd1d9a4272754951e70dbaecff07a0ae402e13e/license)
