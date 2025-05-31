@@ -383,7 +383,6 @@ const handleShareButton = (
   addEventListener(UI.getShareButton(), 'click', () => showScreen('share'));
 };
 
-
 const handleEditorTools = (
   addEventListener: EventsManager['addEventListener'],
   showScreen: basicHandlersType['showScreen'],
