@@ -4,7 +4,7 @@ import { createProcessorItem } from '../UI/create-language-menus';
 import { createModal } from '../UI/modal';
 import * as UI from '../UI/selectors';
 import { getConfig, setConfig } from '../config';
-import { customEvents } from '../events';
+import { customEvents, getEventsManager } from '../events';
 import { processorIsEnabled, processors } from '../languages';
 import type {
   AppData,
@@ -16,26 +16,23 @@ import type {
   EventsManager,
   Language,
   Modal,
-  Notifications,
   Processor,
   Screen,
   ToolsPane,
 } from '../models';
-import { createNotifications } from '../notifications';
 import { createTypeLoader } from '../types';
 import { copyToClipboard, ctrl, toDataUrl } from '../utils';
 import { translateElement } from '../utils/translation';
 import { fscreenUrl } from '../vendors';
+import { getNotifications } from '../notifications';
 
 interface basicHandlersType {
-  setNotifications: (notifications: Notifications) => void;
   setModal: (modal: Modal) => void;
   setSplit: (newSplit: ReturnType<typeof createSplitPanes> | null) => void;
   setTypeLoader: (typeLoader: ReturnType<typeof createTypeLoader>) => void;
   setLayout: (layout: Config['layout']) => void;
   setAppData: (data: AppData) => void;
   setIframeScrollPosition: (x: number, y: number) => void;
-  getNotifications: () => Notifications;
   getActiveEditor: () => CodeEditor;
   getEditors: () => Editors;
   getToolsPane: () => ToolsPane | undefined;
@@ -45,8 +42,6 @@ interface basicHandlersType {
   i18n: Await<ReturnType<typeof import('../i18n').init>> | undefined;
   getEditorLanguage: (editorId?: EditorId) => Language | undefined;
   setProjectRecover: (reset?: boolean) => void;
-  addEventListener: EventsManager['addEventListener'];
-  removeEventListener: EventsManager['removeEventListener'];
   isEmbed: boolean;
   baseUrl: string;
   handleConsole: () => void;
@@ -386,13 +381,13 @@ const handleShareButton = (
 const handleEditorTools = (
   addEventListener: EventsManager['addEventListener'],
   showScreen: basicHandlersType['showScreen'],
-  notifications: Notifications,
   getActiveEditor: basicHandlersType['getActiveEditor'],
   toolsPane: ToolsPane | undefined = undefined,
   configureEditorTools: basicHandlersType['configureEditorTools'],
   format: basicHandlersType['format'],
 ) => {
   if (!configureEditorTools(getActiveEditor().getLanguage())) return;
+  const notifications = getNotifications()
   const originalMode = getConfig().mode;
   addEventListener(UI.getFocusButton(), 'click', () => {
     const config = getConfig();
@@ -581,21 +576,18 @@ const handleFullscreen = async (addEventListener: EventsManager['addEventListene
 };
 
 const initBasicHandlers = ({
-  setNotifications,
   setModal,
   isEmbed,
   setSplit,
   setLayout,
   baseUrl,
   setTypeLoader,
-  addEventListener,
   setAppData,
   setIframeScrollPosition,
   showEditor,
   showScreen,
   getActiveEditor,
   getEditors,
-  getNotifications,
   getToolsPane,
   getSplit,
   getEditorLanguage,
@@ -613,7 +605,6 @@ const initBasicHandlers = ({
   dispatchChangeEvent,
   handleResultLoading,
 }: basicHandlersType) => {
-  setNotifications(createNotifications());
   setModal(
     createModal({
       translate: translateElement,
@@ -626,8 +617,7 @@ const initBasicHandlers = ({
     }),
   );
   setSplit(createSplitPanes());
-
-  const notifications = getNotifications();
+  const {addEventListener} = getEventsManager()
   const editors = getEditors();
   const split = getSplit();
   setTypeLoader(createTypeLoader(baseUrl));
@@ -651,7 +641,6 @@ const initBasicHandlers = ({
   handleEditorTools(
     addEventListener,
     showScreen,
-    notifications,
     getActiveEditor,
     getToolsPane(),
     configureEditorTools,

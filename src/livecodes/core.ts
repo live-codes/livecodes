@@ -38,7 +38,7 @@ import {
 } from './config';
 import { createCustomEditors, createEditor, getFontFamily } from './editor';
 import { hasJsx } from './editor/ts-compiler-options';
-import { createEventsManager, createPub } from './events';
+import { createPub, getEventsManager } from './events';
 import { customEvents } from './events/custom-events';
 import { exportJSON } from './export/export-json';
 import { getFormatter } from './formatter';
@@ -105,7 +105,6 @@ import type {
   GithubScope,
   Language,
   Modal,
-  Notifications,
   Processor,
   SDKEvent,
   Screen,
@@ -119,6 +118,7 @@ import type {
   UserConfig,
   UserData,
 } from './models';
+import { getNotifications } from './notifications';
 import { cleanResultFromDev, createResultPage } from './result';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import type { GitHubFile } from './services/github';
@@ -184,9 +184,9 @@ declare global {
 }
 
 const stores: Stores = createStores();
-const eventsManager = createEventsManager();
-let notifications: Notifications;
+const eventsManager = getEventsManager();
 let modal: Modal;
+let notifications = getNotifications();
 let i18n: Await<ReturnType<typeof import('./i18n').init>> | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
@@ -236,10 +236,6 @@ const getEditorLanguages = () => Object.values(editorLanguages || {});
 const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
 const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
 
-const getNotifications = (): Notifications => notifications;
-const setNotifications = (newNotifications: Notifications): void => {
-  notifications = newNotifications;
-};
 const setModal = (newModal: Modal): void => {
   modal = newModal;
 };
@@ -5221,22 +5217,18 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
   };
   await initializePlayground({ config, baseUrl }, async () => {
     initBasicHandlers({
-      setNotifications,
       setModal,
       setSplit,
       setTypeLoader,
       setLayout,
       setAppData,
       setIframeScrollPosition,
-      getNotifications,
       getActiveEditor,
       getEditors,
       showEditor,
       showScreen,
       getToolsPane,
       getSplit,
-      addEventListener: eventsManager.addEventListener,
-      removeEventListener: eventsManager.removeEventListener,
       isEmbed,
       baseUrl,
       i18n,
@@ -5268,22 +5260,18 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     initBasicHandlers({
-      setNotifications,
       setModal,
       setSplit,
       setTypeLoader,
       setLayout,
       setAppData,
       setIframeScrollPosition,
-      getNotifications,
       getActiveEditor,
       getEditors,
       showEditor,
       showScreen,
       getToolsPane,
       getSplit,
-      addEventListener: eventsManager.addEventListener,
-      removeEventListener: eventsManager.removeEventListener,
       isEmbed,
       baseUrl,
       i18n,

@@ -1,11 +1,12 @@
 import type { EventsManager } from '../models';
 
-export const createEventsManager = (): EventsManager => {
-  const events: Array<{
-    element: HTMLElement | Document | Window | FileReader;
-    eventType: string;
-    fn: (event: Event) => void;
-  }> = [];
+const events: Array<{
+  element: HTMLElement | Document | Window | FileReader;
+  eventType: string;
+  fn: (event: Event) => void;
+}> = [];
+
+export const getEventsManager = (): EventsManager => {
 
   const addEventListener = <T extends Event>(
     element: HTMLElement | Document | Window | FileReader | null,
