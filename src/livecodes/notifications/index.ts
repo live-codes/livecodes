@@ -1,2 +1,2 @@
-export * from "./notifications-manager"
-export * from './create-notifications'
+export * from './create-notifications';
+export * from './notifications-manager';

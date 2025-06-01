@@ -1,7 +1,6 @@
 import { changeLanguage } from 'i18next';
 import { createSplitPanes } from '../UI';
 import { createProcessorItem } from '../UI/create-language-menus';
-import { createModal } from '../UI/modal';
 import * as UI from '../UI/selectors';
 import { getConfig, setConfig } from '../config';
 import { customEvents, getEventsManager } from '../events';
@@ -15,19 +14,17 @@ import type {
   Editors,
   EventsManager,
   Language,
-  Modal,
   Processor,
   Screen,
   ToolsPane,
 } from '../models';
+import { getNotifications } from '../notifications';
 import { createTypeLoader } from '../types';
 import { copyToClipboard, ctrl, toDataUrl } from '../utils';
 import { translateElement } from '../utils/translation';
 import { fscreenUrl } from '../vendors';
-import { getNotifications } from '../notifications';
 
 interface basicHandlersType {
-  setModal: (modal: Modal) => void;
   setSplit: (newSplit: ReturnType<typeof createSplitPanes> | null) => void;
   setTypeLoader: (typeLoader: ReturnType<typeof createTypeLoader>) => void;
   setLayout: (layout: Config['layout']) => void;
@@ -387,7 +384,7 @@ const handleEditorTools = (
   format: basicHandlersType['format'],
 ) => {
   if (!configureEditorTools(getActiveEditor().getLanguage())) return;
-  const notifications = getNotifications()
+  const notifications = getNotifications();
   const originalMode = getConfig().mode;
   addEventListener(UI.getFocusButton(), 'click', () => {
     const config = getConfig();
@@ -576,7 +573,6 @@ const handleFullscreen = async (addEventListener: EventsManager['addEventListene
 };
 
 const initBasicHandlers = ({
-  setModal,
   isEmbed,
   setSplit,
   setLayout,
@@ -605,19 +601,8 @@ const initBasicHandlers = ({
   dispatchChangeEvent,
   handleResultLoading,
 }: basicHandlersType) => {
-  setModal(
-    createModal({
-      translate: translateElement,
-      isEmbed,
-      onClose: () => {
-        if (!isEmbed) {
-          getActiveEditor().focus();
-        }
-      },
-    }),
-  );
   setSplit(createSplitPanes());
-  const {addEventListener} = getEventsManager()
+  const { addEventListener } = getEventsManager();
   const editors = getEditors();
   const split = getSplit();
   setTypeLoader(createTypeLoader(baseUrl));

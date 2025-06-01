@@ -1,13 +1,12 @@
-import type { Modal, ModalOptions } from '../models';
+import type { Modal, ModalDeps, ModalOptions } from '../models';
 import { hasOpenNotifications } from '../notifications';
 import { isFocusable } from '../utils';
 import { createAccordion } from './accordion';
 
-export const createModal = (deps: {
-  translate: (container: HTMLElement) => void;
-  isEmbed: boolean;
-  onClose: () => void;
-}): Modal => {
+let modalInstance: Modal | null = null;
+let configuredDeps: ModalDeps | null = null;
+
+const createModal = (deps: ModalDeps): Modal => {
   const overlay = document.querySelector('#overlay') as HTMLElement;
   const modalContainer = document.querySelector('#modal-container') as HTMLElement;
   const modal = document.querySelector('#modal') as HTMLDialogElement;
@@ -138,3 +137,16 @@ export const createModal = (deps: {
     close,
   };
 };
+
+export function configureModal(deps: ModalDeps) {
+  configuredDeps = deps;
+}
+export function getModal() {
+  if (!modalInstance) {
+    if (!configuredDeps) {
+      throw new Error('Modal dependencies not configured. Call configureModal() first');
+    }
+    modalInstance = createModal(configuredDeps);
+  }
+  return modalInstance;
+}

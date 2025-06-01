@@ -8,6 +8,11 @@ export interface ModalOptions {
   scrollToSelector?: string;
   autoFocus?: boolean;
 }
+export interface ModalDeps {
+  translate: (container: HTMLElement) => void;
+  isEmbed: boolean;
+  onClose: () => void;
+}
 
 export interface Modal {
   show: (container: HTMLElement, options?: ModalOptions) => void;

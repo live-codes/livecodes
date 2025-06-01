@@ -7,7 +7,6 @@ const events: Array<{
 }> = [];
 
 export const getEventsManager = (): EventsManager => {
-
   const addEventListener = <T extends Event>(
     element: HTMLElement | Document | Window | FileReader | null,
     eventType: string,

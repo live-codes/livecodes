@@ -20,6 +20,7 @@ import type {
 } from './UI/broadcast';
 import { getCommandMenuActions } from './UI/command-menu-actions';
 import { createLanguageMenus } from './UI/create-language-menus';
+import { configureModal, getModal } from './UI/modal';
 import * as UI from './UI/selectors';
 import { themeColors } from './UI/theme-colors';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
@@ -236,9 +237,6 @@ const getEditorLanguages = () => Object.values(editorLanguages || {});
 const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
 const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
 
-const setModal = (newModal: Modal): void => {
-  modal = newModal;
-};
 const setSplit = (newSplit: ReturnType<typeof createSplitPanes> | null): void => {
   split = newSplit;
 };
@@ -5217,7 +5215,6 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
   };
   await initializePlayground({ config, baseUrl }, async () => {
     initBasicHandlers({
-      setModal,
       setSplit,
       setTypeLoader,
       setLayout,
@@ -5246,7 +5243,16 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
       reloadEditors,
       dispatchChangeEvent,
     });
-
+    configureModal({
+      translate: translateElement,
+      isEmbed,
+      onClose: () => {
+        if (!isEmbed) {
+          getActiveEditor().focus();
+        }
+      },
+    });
+    modal = getModal();
     await loadToolsPane();
     await extraHandlers();
   });
@@ -5260,7 +5266,6 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     initBasicHandlers({
-      setModal,
       setSplit,
       setTypeLoader,
       setLayout,
