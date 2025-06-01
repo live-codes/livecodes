@@ -51,7 +51,7 @@ export const importFromFiles = async (
       ? loadFiles
       : files[0].name.endsWith('.zip')
         ? loadZipFile
-        : files[0].type.startsWith('image/')
+        : files[0].type.startsWith('image/') && files[0].type !== 'image/svg+xml'
           ? loadImage
           : loadFiles;
 

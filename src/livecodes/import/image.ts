@@ -1,6 +1,6 @@
 import { detectLanguage, getLanguageByAlias, getLanguageEditorId, languages } from '../languages';
 import type { ContentConfig } from '../models';
-import { loadScript } from '../utils/utils';
+import { blobToBase64, loadScript } from '../utils/utils';
 import { metaPngUrl, tesseractUrl } from '../vendors';
 import { importCompressedCode } from './code';
 import { importProject } from './project-id';
@@ -107,34 +107,47 @@ export const importFromImage = async (blob: Blob): Promise<Partial<ContentConfig
       // config from share url
       return content;
     }
-    const langs = languages.map((lang) => lang.name);
-    const detected = await detectLanguage(content, langs);
-    detected.language = getLanguageByAlias(detected.language) || detected.language;
-    detected.secondBest = getLanguageByAlias(detected.secondBest) || detected.secondBest;
-    // language name or filename with extension in image
-    const langNamesInCode = languages
-      .filter(
-        (lang) =>
-          content.search(new RegExp(`\\b${lang.name}\\b`, 'i')) !== -1 ||
-          content.search(new RegExp(`\\b${lang.extensions[0]}\\b`, 'i')) !== -1,
-      )
-      .map((lang) => lang.name);
-    const language =
-      langNamesInCode.find((lang) => lang === detected.language || lang === detected.secondBest) ??
-      langNamesInCode[0] ??
-      detected.language ??
-      detected.secondBest ??
-      'html';
 
-    const editorId = getLanguageEditorId(language) ?? 'markup';
-    return {
-      activeEditor: editorId,
-      [editorId]: {
-        language,
-        content,
-      },
-    };
-  } catch (error) {
-    return {};
+    if (content.trim().length > 3) {
+      const langs = languages.map((lang) => lang.name);
+      const detected = await detectLanguage(content, langs);
+      detected.language = getLanguageByAlias(detected.language) || detected.language;
+      detected.secondBest = getLanguageByAlias(detected.secondBest) || detected.secondBest;
+      // language name or filename with extension in image
+      const langNamesInCode = languages
+        .filter(
+          (lang) =>
+            content.search(new RegExp(`\\b${lang.name}\\b`, 'i')) !== -1 ||
+            content.search(new RegExp(`\\b${lang.extensions[0]}\\b`, 'i')) !== -1,
+        )
+        .map((lang) => lang.name);
+      const language =
+        langNamesInCode.find(
+          (lang) => lang === detected.language || lang === detected.secondBest,
+        ) ??
+        langNamesInCode[0] ??
+        detected.language ??
+        detected.secondBest ??
+        'html';
+
+      const editorId = getLanguageEditorId(language) ?? 'markup';
+      return {
+        activeEditor: editorId,
+        [editorId]: {
+          language,
+          content,
+        },
+      };
+    }
+  } catch {
+    //
   }
+
+  // fallback
+  return {
+    markup: {
+      language: 'html',
+      content: `<img src="${await blobToBase64(blob)}" alt="image" />`,
+    },
+  };
 };

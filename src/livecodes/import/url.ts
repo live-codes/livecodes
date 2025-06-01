@@ -45,16 +45,17 @@ export const importFromUrl = async (
     return importFromZip(zip, populateConfig);
   }
 
-  // image
+  // image (svg is handled as text - opens in html editor)
   if (
-    res.headers.get('Content-Type')?.startsWith('image/') ||
+    (res.headers.get('Content-Type')?.startsWith('image/') &&
+      !res.headers.get('Content-Type')?.includes('svg')) ||
     url.endsWith('.png') ||
     url.endsWith('.jpg') ||
     url.endsWith('.jpeg') ||
     url.endsWith('.bmp') ||
     url.endsWith('.webp') ||
     url.endsWith('.pbm') ||
-    url.startsWith('data:image/')
+    (url.startsWith('data:image/') && !url.startsWith('data:image/svg+xml'))
   ) {
     const image = await res.blob();
     return importFromImage(image);
