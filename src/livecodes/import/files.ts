@@ -1,4 +1,5 @@
 import type { ContentConfig, EventsManager } from '../models';
+import { importFromImage } from './image';
 import type { SourceFile, populateConfig as populateConfigFn } from './utils';
 import { importFromZip } from './zip';
 
@@ -41,11 +42,18 @@ export const importFromFiles = async (
     });
 
   const loadZipFile = (files: FileList) => importFromZip(files[0], populateConfig);
+  const loadImage = (files: FileList) => importFromImage(files[0]);
 
   if (!files?.length) return {};
 
   const getConfigFromFiles =
-    files?.length === 1 && files[0].name.endsWith('.zip') ? loadZipFile : loadFiles;
+    files?.length > 1
+      ? loadFiles
+      : files[0].name.endsWith('.zip')
+        ? loadZipFile
+        : files[0].type.startsWith('image/') && files[0].type !== 'image/svg+xml'
+          ? loadImage
+          : loadFiles;
 
   return getConfigFromFiles(files);
 };

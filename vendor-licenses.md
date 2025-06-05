@@ -142,6 +142,8 @@ Marked: [MIT License](https://github.com/markedjs/marked/blob/57d41b88801566eb06
 
 Mermaid: [MIT License](https://github.com/mermaid-js/mermaid/blob/1b40f552b20df4ab99a986dd58c9d254b3bfd7bc/LICENSE)
 
+meta-png: [ISC License](https://github.com/lucach/meta-png/blob/b9a79d98157af06875c3355f4c460ffb2963c25c/package.json#L27)
+
 mhsdesign/jit-browser-tailwindcss: [MIT License](https://github.com/mhsdesign/jit-browser-tailwindcss/blob/60fccdfbbd4e7c816a97e4627d070dd8ec19d415/package.json#L30)
 
 MDX: [MIT License](https://github.com/mdx-js/mdx/blob/7fd1d9a4272754951e70dbaecff07a0ae402e13e/license)
@@ -267,6 +269,8 @@ svgbob-wasm: [Apache License 2.0](https://github.com/agoose77/svgbob-wasm/blob/4
 svgbob: [Apache License 2.0](https://github.com/ivanceras/svgbob/blob/277f28b337a2d00a61cf342247060cf5fbf88d50/LICENSE)
 
 Tagify: [MIT License](https://github.com/yairEO/tagify/blob/1edeb579b18ea61693e0116281584fa5543f1b18/LICENSE)
+
+tesseract.js: [Apache License 2.0](https://github.com/naptha/tesseract.js/blob/f9dac0742374940f88100eb47838e902e3b51eb8/LICENSE.md)
 
 Tailwind CSS: [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/6acb051f67e72a8061ad306a7fa385c36d955fb9/LICENSE)
 

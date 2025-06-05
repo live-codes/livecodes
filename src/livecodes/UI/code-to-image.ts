@@ -21,7 +21,7 @@ import {
   loadScript,
   loadStylesheet,
 } from '../utils';
-import { colorisBaseUrl, htmlToImageUrl } from '../vendors';
+import { colorisBaseUrl, htmlToImageUrl, metaPngUrl } from '../vendors';
 
 type PreviewEditorOptions = Pick<
   EditorOptions,
@@ -75,7 +75,7 @@ export const createCodeToImageUI = async ({
   deps: {
     createEditor: (options: PreviewEditorOptions) => Promise<CodeEditor>;
     getFormatFn: () => Promise<FormatFn>;
-    getShareUrl: (config: Partial<Config>) => Promise<string>;
+    getShareUrl: (config: Partial<Config>, shortUrl?: boolean) => Promise<string>;
     getSavedPreset: () => Partial<Preset> | undefined;
     savePreset: (preset: Partial<Preset>) => void;
   };
@@ -214,6 +214,7 @@ export const createCodeToImageUI = async ({
   const initializeEditor = async (options: Preset) => {
     const ed = await deps.createEditor(getEditorOptions(options));
     if (ed.getValue().trim() === '') {
+      editorId = 'script';
       ed.setLanguage('tsx', defaultCode);
     }
     deps.getFormatFn().then((fn) => {
@@ -306,17 +307,14 @@ export const createCodeToImageUI = async ({
   };
   updateWatermark(currentUrl);
 
-  const getCodeConfig = (): Partial<Config> => {
-    const language = editor.getLanguage();
-    return {
-      title: windowControls.querySelector('#code-to-img-title')!.textContent || '',
-      activeEditor: editorId,
-      [editorId]: {
-        language,
-        content: editor.getValue(),
-      },
-    };
-  };
+  const getCodeConfig = (): Partial<Config> => ({
+    title: windowControls.querySelector('#code-to-img-title')!.textContent || '',
+    activeEditor: editorId,
+    [editorId]: {
+      language: editor.getLanguage(),
+      content: editor.getValue(),
+    },
+  });
   let cachedConfig: Partial<Config> | undefined;
 
   let formData: Preset;
@@ -424,7 +422,7 @@ export const createCodeToImageUI = async ({
     const newConfig = getCodeConfig();
     if (formData.watermark && JSON.stringify(cachedConfig) !== JSON.stringify(newConfig)) {
       cachedConfig = newConfig;
-      const url = await deps.getShareUrl(newConfig);
+      const url = await deps.getShareUrl(newConfig, /* shortUrl = */ true);
       updateWatermark(url);
     }
   };
@@ -449,6 +447,7 @@ export const createCodeToImageUI = async ({
   eventsManager.addEventListener(window, 'resize', () => adjustSize(getFormData(), true));
 
   const htmlToImagePromise = loadScript(htmlToImageUrl, 'htmlToImage');
+  const metaPngPromise = loadScript(metaPngUrl, 'MetaPNG');
 
   const getImageUrl = async () => {
     const htmlToImage: any = await htmlToImagePromise;
@@ -465,7 +464,7 @@ export const createCodeToImageUI = async ({
       svg: 'toSvg',
     };
 
-    return htmlToImage[methodNames[formData.format] || 'toPng'](container, {
+    let dataUrl = await htmlToImage[methodNames[formData.format] || 'toPng'](container, {
       quality: 1,
       width: width * scale,
       height: height * scale,
@@ -477,6 +476,24 @@ export const createCodeToImageUI = async ({
         height: `${height}px`,
       },
     });
+
+    if (formData.format === 'png') {
+      try {
+        const metaPng: any = await metaPngPromise;
+        const newConfig = getCodeConfig();
+        let url: string | undefined;
+        if (formData.watermark && JSON.stringify(cachedConfig) === JSON.stringify(newConfig)) {
+          url = watermark.innerText.trim();
+        } else {
+          url = await deps.getShareUrl(newConfig, formData.watermark);
+        }
+        dataUrl = metaPng.addMetadataFromBase64DataURI(dataUrl, 'LiveCodes URL', url);
+      } catch {
+        // could not add PNG metadata
+      }
+    }
+
+    return dataUrl;
   };
 
   const saveBtn = codeToImageContainer.querySelector<HTMLButtonElement>('#code-to-img-save-btn')!;
