@@ -544,7 +544,7 @@ await livecodes.exec('showVersion');
 
 ### `destroy`
 
-Type: [`() => Promise<void>`](../api/interfaces/Playground.md#destroy)
+Type: [`(opts?: { force?: boolean }) => Promise<void>`](../api/interfaces/Playground.md#destroy)
 
 Destroys the playground instance, and removes event listeners. Further call to any SDK methods throws an error.
 
