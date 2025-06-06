@@ -129,6 +129,15 @@
   "cppWasm.name": {
     "translation": "C/C++（WASM）"
   },
+  "csharpWasm.desc": {
+    "translation": "在 WebAssembly 上运行的 C# 编译器，使用<tag-1>Blazor</tag-1>"
+  },
+  "csharpWasm.link": {
+    "translation": "<tag-1> <tag-2> C# 语言文档</tag-2> </tag-1> <tag-3> <tag-4>在 Y 分钟内学习 X，其中 X=C# </tag-4> </tag-3> <tag-5> <tag-6> LiveCodes 文档</tag-6> </tag-5> <tag-7> <tag-8>加载入门模板</tag-8> </tag-7>"
+  },
+  "csharpWasm.name": {
+    "translation": "C# (Wasm)"
+  },
   "diagrams.desc1": {
     "translation": "（实验性）"
   },
@@ -248,6 +257,15 @@
   },
   "java.name": {
     "translation": "Java"
+  },
+  "jinja.desc": {
+    "translation": "Jinja 是一个快速、富有表现力、可扩展的模板引擎。"
+  },
+  "jinja.link": {
+    "translation": "<tag-1> <tag-2>官方网站</tag-2> </tag-1> <tag-3> <tag-4>模板文档</tag-4> </tag-3> <tag-5> <tag-6> JavaScript 实现</tag-6> </tag-5> <tag-7> <tag-8> LiveCodes 文档</tag-8> </tag-7>"
+  },
+  "jinja.name": {
+    "translation": "Jinja"
   },
   "jsx.desc": {
     "translation": "在 LiveCodes 中，JSX 使用 TypeScript 编译器编译为 JavaScript。默认情况下，React 将作为 JSX 运行时。"
