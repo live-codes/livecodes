@@ -1243,7 +1243,7 @@
     "translation": "सामूहिक आयात शुरू हुआ..."
   },
   "import.code.desc": {
-    "translation": "समर्थित स्रोत: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHub फ़ाइल</tag-3> <tag-4>GitHub रेपो में निर्देशिका</tag-4> <tag-5>Gitlab स्निपेट</tag-5> <tag-6>Gitlab फ़ाइल</tag-6> <tag-7>Gitlab रेपो में निर्देशिका</tag-7> <tag-8>JS Bin</tag-8> <tag-9>कच्चा कोड</tag-9> <tag-10>वेब पेज DOM में कोड</tag-10> <tag-11>ज़िप फ़ाइल में कोड</tag-11> <tag-12>आधिकारिक प्लेग्राउंड<tag-13></tag-13>(TypeScript और Vue)</tag-12> </tag-1> कृपया विवरण के लिए <tag-14>दस्तावेज़ीकरण</tag-14> देखें।"
+    "translation": "समर्थित स्रोत: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHub फ़ाइल</tag-3> <tag-4>GitHub रेपो में निर्देशिका</tag-4> <tag-5>Gitlab स्निपेट</tag-5> <tag-6>Gitlab फ़ाइल</tag-6> <tag-7>Gitlab रेपो में निर्देशिका</tag-7> <tag-8>JS Bin</tag-8> <tag-9>कच्चा कोड</tag-9> <tag-10>वेब पेज DOM में कोड</tag-10> <tag-11>ज़िप फ़ाइल में कोड</tag-11> <tag-12>छवि में कोड (OCR)</tag-12> <tag-13>आधिकारिक प्लेग्राउंड<tag-14></tag-14>(TypeScript और Vue)</tag-13> </tag-1> कृपया विवरण के लिए <tag-15>दस्तावेज़ीकरण</tag-15> देखें।"
   },
   "import.code.fromFile": {
     "translation": "स्थानीय फ़ाइलें आयात करें"

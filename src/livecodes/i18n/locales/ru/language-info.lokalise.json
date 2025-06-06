@@ -129,6 +129,15 @@
   "cppWasm.name": {
     "translation": "C/C++ (Wasm)"
   },
+  "csharpWasm.desc": {
+    "translation": "Компилятор C#, работающий на WebAssembly, с использованием <tag-1>Blazor</tag-1>"
+  },
+  "csharpWasm.link": {
+    "translation": "<tag-1> <tag-2>Документация по языку C#</tag-2> </tag-1> <tag-3> <tag-4> Узнайте X за Y минут, где X=C#</tag-4> </tag-3> <tag-5> <tag-6> Документация LiveCodes</tag-6> </tag-5> <tag-7> <tag-8> Загрузите стартовый шаблон</tag-8> </tag-7>"
+  },
+  "csharpWasm.name": {
+    "translation": "C# (Wasm)"
+  },
   "diagrams.desc1": {
     "translation": "(Экспериментально)"
   },
@@ -248,6 +257,15 @@
   },
   "java.name": {
     "translation": "Java"
+  },
+  "jinja.desc": {
+    "translation": "Jinja - это быстрый, выразительный и расширяемый шаблонизатор."
+  },
+  "jinja.link": {
+    "translation": "<tag-1> <tag-2>Официальный сайт</tag-2> </tag-1> <tag-3> <tag-4> Документация по шаблонам</tag-4> </tag-3> <tag-5> <tag-6> Реализация JavaScript</tag-6> </tag-5> <tag-7> <tag-8> Документация LiveCodes</tag-8> </tag-7>"
+  },
+  "jinja.name": {
+    "translation": "Jinja"
   },
   "jsx.desc": {
     "translation": "JSX компилируется в JavaScript в LiveCodes с использованием компилятора TypeScript. По умолчанию он использует React в качестве среды выполнения JSX."

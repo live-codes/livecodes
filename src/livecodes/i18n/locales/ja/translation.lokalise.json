@@ -1243,7 +1243,7 @@
     "translation": "一括インポートを開始しました..."
   },
   "import.code.desc": {
-    "translation": "サポートされているソース：<tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHubファイル</tag-3> <tag-4>GitHubリポジトリ内のディレクトリ</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlabファイル</tag-6> <tag-7>Gitlabリポジトリ内のディレクトリ</tag-7> <tag-8>JS Bin</tag-8> <tag-9>生のコード</tag-9> <tag-10>Webページ内のDOM内のコード</tag-10> <tag-11>ZIPファイル内のコード</tag-11> <tag-12>公式プレイグラウンド<tag-13></tag-13>（TypeScript、Vue）</tag-12> </tag-1> 詳細については<tag-14>ドキュメント</tag-14>をご覧ください。"
+    "translation": "サポートされているソース：<tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHubファイル</tag-3> <tag-4>GitHubリポジトリ内のディレクトリ</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlabファイル</tag-6> <tag-7>Gitlabリポジトリ内のディレクトリ</tag-7> <tag-8>JS Bin</tag-8> <tag-9>生のコード</tag-9> <tag-10>Webページ内のDOM内のコード</tag-10> <tag-11>ZIPファイル内のコード</tag-11> <tag-12>画像内のコード（OCR）</tag-12> <tag-13>公式プレイグラウンド<tag-14></tag-14>（TypeScript、Vue）</tag-13> </tag-1> 詳細については<tag-15>ドキュメント</tag-15>をご覧ください。"
   },
   "import.code.fromFile": {
     "translation": "ローカルファイルをインポート"

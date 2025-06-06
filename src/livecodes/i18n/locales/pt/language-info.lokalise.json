@@ -129,6 +129,15 @@
   "cppWasm.name": {
     "translation": "C/C++ (Wasm)"
   },
+  "csharpWasm.desc": {
+    "translation": "Compilador C# executado no WebAssembly, usando <tag-1>Blazor</tag-1>"
+  },
+  "csharpWasm.link": {
+    "translation": "<tag-1> <tag-2>Documentação da linguagem C#</tag-2> </tag-1> <tag-3> <tag-4> Aprenda X em Y minutos, onde X=C#</tag-4> </tag-3> <tag-5> <tag-6> Documentação LiveCodes</tag-6> </tag-5> <tag-7> <tag-8> Carregar modelo inicial</tag-8> </tag-7>"
+  },
+  "csharpWasm.name": {
+    "translation": "C# (Wasm)"
+  },
   "diagrams.desc1": {
     "translation": "(Experimental)"
   },
@@ -248,6 +257,15 @@
   },
   "java.name": {
     "translation": "Java"
+  },
+  "jinja.desc": {
+    "translation": "Jinja é um motor de criação de modelos rápido, expressivo e extensível."
+  },
+  "jinja.link": {
+    "translation": "<tag-1> <tag-2>Sítio Web oficial</tag-2> </tag-1> <tag-3> <tag-4> Documentação do modelo</tag-4> </tag-3> <tag-5> <tag-6> Implementação do JavaScript</tag-6> </tag-5> <tag-7> <tag-8> Documentações LiveCodes</tag-8> </tag-7>"
+  },
+  "jinja.name": {
+    "translation": "Jinja"
   },
   "jsx.desc": {
     "translation": "JSX é compilado para JavaScript no LiveCodes usando o Compilador TypeScript. Por padrão, ele usa React como o runtime JSX."
