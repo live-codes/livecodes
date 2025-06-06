@@ -75,6 +75,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Fundação C++ Padrão</2> </1> <3> <4>Site oficial do Clang</4> </3> <5> <6>Aprenda X em Y minutos, onde X=C++</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
     name: 'C/C++ (Wasm)',
   },
+  csharpWasm: {
+    desc: 'Compilador C# executado no WebAssembly, usando <1>Blazor</1>',
+    link: '<1> <2>Documentação da linguagem C#</2> </1> <3> <4> Aprenda X em Y minutos, onde X=C#</4> </3> <5> <6> Documentação LiveCodes</6> </5> <7> <8> Carregar modelo inicial</8> </7>',
+    name: 'C# (Wasm)',
+  },
   diagrams: {
     desc1: '(Experimental)',
     desc2: 'Diagramas como código. Suporta:',
@@ -139,7 +144,13 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'JVM em execução no navegador usando DoppioJVM.',
+    link: '<1> <2>Sítio Web oficial de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Aprender X em Y minutos, onde X=java</6> </5> <7> <8> Carregar modelo inicial</8> </7>',
     name: 'Java',
+  },
+  jinja: {
+    desc: 'Jinja é um motor de criação de modelos rápido, expressivo e extensível.',
+    link: '<1> <2>Sítio Web oficial</2> </1> <3> <4> Documentação do modelo</4> </3> <5> <6> Implementação do JavaScript</6> </5> <7> <8> Documentações LiveCodes</8> </7>',
+    name: 'Jinja',
   },
   jsx: {
     desc: 'JSX é compilado para JavaScript no LiveCodes usando o Compilador TypeScript. Por padrão, ele usa React como o runtime JSX.',

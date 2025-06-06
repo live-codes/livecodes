@@ -74,6 +74,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>标准 C++ 基金会</2> </1> <3> <4>Clang 官网</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=C++</6> </5> <7> <8>加载启动模板</8> </7>',
     name: 'C/C++（WASM）',
   },
+  csharpWasm: {
+    desc: '在 WebAssembly 上运行的 C# 编译器，使用<1>Blazor</1>',
+    link: '<1> <2> C# 语言文档</2> </1> <3> <4>在 Y 分钟内学习 X，其中 X=C# </4> </3> <5> <6> LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
+    name: 'C# (Wasm)',
+  },
   diagrams: {
     desc1: '（实验性）',
     desc2: '使用代码绘制图表。支持：',
@@ -136,7 +141,13 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: '使用 DoppioJVM 在浏览器中运行的 JVM。',
+    link: '<1> <2>Java 官方网站    DoppioJVM    在 Y 分钟内学习 X，其中 X=java    加载启动模板</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
     name: 'Java',
+  },
+  jinja: {
+    desc: 'Jinja 是一个快速、富有表现力、可扩展的模板引擎。',
+    link: '<1> <2>官方网站</2> </1> <3> <4>模板文档</4> </3> <5> <6> JavaScript 实现</6> </5> <7> <8> LiveCodes 文档</8> </7>',
+    name: 'Jinja',
   },
   jsx: {
     desc: '在 LiveCodes 中，JSX 使用 TypeScript 编译器编译为 JavaScript。默认情况下，React 将作为 JSX 运行时。',
