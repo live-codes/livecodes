@@ -76,6 +76,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang offizielle Website</4> </3> <5> <6>Lerne X in Y Minuten, wobei X=C++</6> </5> <7> <8>Starter-Vorlage laden</8> </7>',
     name: 'C/C++ (Wasm)',
   },
+  csharpWasm: {
+    desc: 'C#-Compiler, der auf WebAssembly läuft, unter Verwendung von <1>Blazor</1>',
+    link: '<1> <2>Dokumentation der Sprache C#</2> </1> <3> <4> Lernen Sie X in Y Minuten, wobei X=C#</4> </3> <5> <6> LiveCodes Dokumentation</6> </5> <7> <8> Laden Sie die Startvorlage</8> </7>',
+    name: 'C# (Wasm)',
+  },
   diagrams: {
     desc1: '(Experimentell)',
     desc2: 'Diagramme als Code. Unterstützt:',
@@ -140,7 +145,13 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'JVM läuft im Browser mit DoppioJVM.',
+    link: '<1> <2>Offizielle Java-Website</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Lernen Sie X in Y Minuten, wobei X=java</6> </5> <7> <8> Laden Sie die Startvorlage</8> </7>',
     name: 'Java',
+  },
+  jinja: {
+    desc: 'Jinja ist eine schnelle, ausdrucksstarke und erweiterbare Template-Engine.',
+    link: '<1> <2>Offizielle Website</2> </1> <3> <4> Template-Dokumentation</4> </3> <5> <6> JavaScript-Implementierung</6> </5> <7> <8> LiveCodes Dokumentationen</8> </7>',
+    name: 'Jinja',
   },
   jsx: {
     desc: 'JSX wird in LiveCodes mit dem TypeScript-Compiler zu JavaScript kompiliert. Standardmäßig verwendet es React als JSX-Laufzeitumgebung.',
