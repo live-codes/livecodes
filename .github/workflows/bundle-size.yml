@@ -13,5 +13,5 @@ jobs:
           build-script: 'build:app'
           pattern: './build/**/*.{js,css,html,json}'
           strip-hash: "\\b\\w{32}\\."
-          minimum-change-threshold: 150
+          minimum-change-threshold: 200
           compression: 'brotli'
