@@ -363,19 +363,12 @@ export async function createPlayground(
     onChange: (fn) => watch('code', fn),
     watch,
     exec: (command, ...args) => callAPI('exec', [command, ...args]),
-    destroy: (opts: { force?: boolean } = {}) => {
-      if (!livecodesReady.settled) {
-        if (destroyed) {
-          return Promise.reject(alreadyDestroyedMessage);
-        }
-        destroy();
-        return Promise.resolve();
+    destroy: () => {
+      if (destroyed) {
+        return Promise.reject(alreadyDestroyedMessage);
       }
-      if (opts.force) {
-        destroy();
-        return Promise.resolve();
-      }
-      return callAPI('destroy').then(destroy);
+      destroy();
+      return Promise.resolve();
     },
   };
 }
