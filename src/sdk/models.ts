@@ -208,7 +208,7 @@ export interface API {
    * });
    * ```
    */
-  destroy: (opts?: { force?: boolean }) => Promise<void>;
+  destroy: () => Promise<void>;
 }
 
 export type WatchFns =
