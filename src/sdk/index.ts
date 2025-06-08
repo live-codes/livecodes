@@ -364,14 +364,11 @@ export async function createPlayground(
     watch,
     exec: (command, ...args) => callAPI('exec', [command, ...args]),
     destroy: () => {
-      if (!livecodesReady.settled) {
-        if (destroyed) {
-          return Promise.reject(alreadyDestroyedMessage);
-        }
-        destroy();
-        return Promise.resolve();
+      if (destroyed) {
+        return Promise.reject(alreadyDestroyedMessage);
       }
-      return callAPI('destroy').then(destroy);
+      destroy();
+      return Promise.resolve();
     },
   };
 }
