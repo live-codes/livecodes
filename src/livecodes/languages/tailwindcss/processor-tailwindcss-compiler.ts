@@ -1,5 +1,6 @@
 /* eslint-disable no-bitwise */
-import { compileInCompiler, isBare, replaceStyleImports } from '../../compiler';
+import { compileInCompiler } from '../../compiler/compile-in-compiler';
+import { isBare, replaceStyleImports } from '../../compiler/import-map';
 import type { CompilerFunction, Config, Language } from '../../models';
 import { modulesService } from '../../services';
 import { getLanguageCustomSettings } from '../../utils/utils';

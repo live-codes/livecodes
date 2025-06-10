@@ -1,6 +1,6 @@
 import { getEditorConfig } from '../config';
 import { createEditor, getFontFamily } from '../editor';
-import { getLanguageExtension, languages, mapLanguage } from '../languages';
+import { getLanguageExtension, mapLanguage } from '../languages';
 import type {
   CodeEditor,
   CompiledCodeViewer,
@@ -91,7 +91,7 @@ export const createCompiledCodeViewer = (
     }
     fixTypes(language, content);
     if (languageLabel) {
-      const compiledLanguage = languages.find((lang) => lang.name === label);
+      const compiledLanguage = window.deps.languages.find((lang) => lang.name === label);
       const title = compiledLanguage?.longTitle || compiledLanguage?.title || label || '';
       languageLabel.innerHTML = title;
     }

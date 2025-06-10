@@ -1,6 +1,6 @@
-import { compileAllBlocks } from '../../compiler';
+import { compileAllBlocks } from '../../compiler/compile-blocks';
 import type { CompilerFunction } from '../../models';
-import { getLanguageCustomSettings } from '../../utils';
+import { getLanguageCustomSettings } from '../../utils/utils';
 
 (self as any).createRiotCompiler =
   (): CompilerFunction =>

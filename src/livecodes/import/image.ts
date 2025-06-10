@@ -1,4 +1,4 @@
-import { detectLanguage, getLanguageByAlias, getLanguageEditorId, languages } from '../languages';
+import { detectLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { ContentConfig } from '../models';
 import { blobToBase64, loadScript } from '../utils/utils';
 import { metaPngUrl, tesseractUrl } from '../vendors';
@@ -109,12 +109,12 @@ export const importFromImage = async (blob: Blob): Promise<Partial<ContentConfig
     }
 
     if (content.trim().length > 3) {
-      const langs = languages.map((lang) => lang.name);
+      const langs = window.deps.languages.map((lang) => lang.name);
       const detected = await detectLanguage(content, langs);
       detected.language = getLanguageByAlias(detected.language) || detected.language;
       detected.secondBest = getLanguageByAlias(detected.secondBest) || detected.secondBest;
       // language name or filename with extension in image
-      const langNamesInCode = languages
+      const langNamesInCode = window.deps.languages
         .filter(
           (lang) =>
             content.search(new RegExp(`\\b${lang.name}\\b`, 'i')) !== -1 ||

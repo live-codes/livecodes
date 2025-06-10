@@ -1,13 +1,11 @@
 import type { Compiler, Config, CustomSettings, Language, Processor } from '../models';
 import { getLanguageCustomSettings } from '../utils/utils';
 import { highlightjsUrl } from '../vendors';
-import { languages } from './languages';
-import { processors } from './processors';
 
 export const getLanguageByAlias = (alias: string = ''): Language | undefined => {
   if (!alias) return;
   const aliasLowerCase = alias?.toLowerCase();
-  return languages.find(
+  return window.deps.languages.find(
     (language) =>
       language.name === aliasLowerCase ||
       language.title.toLowerCase() === aliasLowerCase ||
@@ -16,18 +14,18 @@ export const getLanguageByAlias = (alias: string = ''): Language | undefined => 
 };
 
 export const getLanguageTitle = (language: Language) => {
-  const languageSpecs = languages.find((lang) => lang.name === language);
+  const languageSpecs = window.deps.languages.find((lang) => lang.name === language);
   return languageSpecs?.longTitle || languageSpecs?.title || language.toUpperCase();
 };
 
 export const getLanguageEditorId = (alias: string = '') =>
-  languages.find((lang) => lang.name === getLanguageByAlias(alias))?.editor;
+  window.deps.languages.find((lang) => lang.name === getLanguageByAlias(alias))?.editor;
 
 export const getLanguageExtension = (alias: string = '') =>
-  languages.find((lang) => lang.name === getLanguageByAlias(alias))?.extensions[0];
+  window.deps.languages.find((lang) => lang.name === getLanguageByAlias(alias))?.extensions[0];
 
 export const getLanguageSpecs = (alias: string = '') =>
-  languages.find((lang) => lang.name === getLanguageByAlias(alias));
+  window.deps.languages.find((lang) => lang.name === getLanguageByAlias(alias));
 
 export const getLanguageCompiler = (alias: string = ''): Compiler | undefined => {
   const languageSpecs = getLanguageSpecs(alias);
@@ -55,7 +53,7 @@ export const languageIsEnabled = (language: Language, config: Config) => {
 };
 
 export const processorIsEnabled = (processor: Processor, config: Config) => {
-  if (!processors.map((p) => p.name).includes(processor)) return false;
+  if (!window.deps.processors.map((p) => p.name).includes(processor)) return false;
   if (!config.languages) return true;
   return config.languages.includes(processor);
 };
@@ -70,7 +68,7 @@ export const processorIsActivated = (processor: Processor, config: Config) =>
 export const getActivatedProcessors = (language: Language, config: Config) => {
   const editorId = getLanguageEditorId(language);
   if (!editorId) return '';
-  return processors
+  return window.deps.processors
     .filter((p) => p.editor === editorId)
     .map((p) => p.name)
     .filter((p) => processorIsEnabled(p, config))
