@@ -1,4 +1,4 @@
-import { compileAllBlocks } from '../../compiler';
+import { compileAllBlocks } from '../../compiler/compile-blocks';
 import type { CompilerFunction } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 import { acornUrl, astringUrl, cjs2esUrl, csstreeUrl, malinaBaseUrl } from '../../vendors';

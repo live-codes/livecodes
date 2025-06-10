@@ -1,4 +1,4 @@
-import { getLanguageByAlias, getLanguageEditorId, languages } from '../languages';
+import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { Config, EditorId, Language } from '../models';
 
 export interface SourceFile {
@@ -130,8 +130,8 @@ export const populateConfig = (
       }
       return (
         // then sort by language
-        languages.findIndex((language) => language.name === a.language) -
-        languages.findIndex((language) => language.name === b.language)
+        window.deps.languages.findIndex((language) => language.name === a.language) -
+        window.deps.languages.findIndex((language) => language.name === b.language)
       );
     })
     .reduce((output: Partial<Config>, file) => {

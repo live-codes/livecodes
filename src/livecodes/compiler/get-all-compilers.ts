@@ -1,4 +1,4 @@
-import { languageIsEnabled, processors } from '../languages';
+import { languageIsEnabled } from '../languages';
 import type {
   Compiler,
   Compilers,
@@ -17,7 +17,7 @@ export const getAllCompilers = (
   languages
     .filter(
       (language) =>
-        processors.includes(language as ProcessorSpecs) ||
+        window.deps.processors.includes(language as ProcessorSpecs) ||
         languageIsEnabled((language as LanguageSpecs).name, config),
     )
     .reduce((compilers, language) => {

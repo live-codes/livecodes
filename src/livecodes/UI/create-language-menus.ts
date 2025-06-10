@@ -1,5 +1,3 @@
-import { languages } from '../languages/languages';
-import { processors } from '../languages/processors';
 import { languageIsEnabled, processorIsEnabled } from '../languages/utils';
 import type {
   Config,
@@ -56,7 +54,7 @@ export const createLanguageMenus = (
     languageMenu.classList.add('dropdown-menu-' + editorId);
     menuScroller.appendChild(languageMenu);
 
-    const editorLanguages = [...languages]
+    const editorLanguages = [...window.deps.languages]
       .filter((language) => language.editor === editorId)
       .filter((language) => languageIsEnabled(language.name, config));
 
@@ -71,7 +69,7 @@ export const createLanguageMenus = (
       }
     }
 
-    const enabledProcessors = processors.filter(
+    const enabledProcessors = window.deps.processors.filter(
       (p) => p.editor === editorId && processorIsEnabled(p.name, config),
     );
     const processorsHeader =
