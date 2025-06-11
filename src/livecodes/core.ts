@@ -180,6 +180,8 @@ declare global {
         value: I18nValueType<Key, Value>,
         ...args: I18nInterpolationType<I18nValueType<Key, Value>>
       ) => string;
+      languages: typeof languages;
+      processors: typeof processors;
     };
   }
 }
@@ -5215,6 +5217,8 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode,
     translateString: translateStringMock,
+    languages,
+    processors,
   };
   await initializePlayground({ config, baseUrl }, async () => {
     initBasicHandlers({
@@ -5266,6 +5270,8 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode,
     translateString: translateStringMock,
+    languages,
+    processors,
   };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     initBasicHandlers({
@@ -5308,6 +5314,8 @@ const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode: () => undefined,
     translateString: translateStringMock,
+    languages,
+    processors,
   };
   await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true }, () => {
     notifications = {

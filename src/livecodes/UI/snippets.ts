@@ -1,5 +1,5 @@
 import { addSnippetScreen, snippetsScreen } from '../html';
-import { getLanguageTitle, languages } from '../languages';
+import { getLanguageTitle } from '../languages/utils';
 import type {
   AppData,
   CodeEditor,
@@ -11,7 +11,8 @@ import type {
   Screen,
   Snippet,
 } from '../models';
-import { generateId, type Storage } from '../storage';
+import type { Storage } from '../storage/models';
+import { generateId } from '../storage/storage';
 import { copy as copyIcon, iconDelete as deleteIcon, edit as editIcon } from '../UI/icons';
 import { copyToClipboard, isMobile, loadScript } from '../utils';
 import { flexSearchUrl } from '../vendors';
@@ -527,7 +528,7 @@ export const createAddSnippetContainer = async ({
   const selectedLanguage =
     loadedSnippet?.language || deps.getAppData()?.snippets?.language || 'javascript';
 
-  [...languages, textLanguage]
+  [...window.deps.languages, textLanguage]
     .filter(
       (lang) =>
         ['jsx', 'tsx', 'rescript', 'reason', 'ocaml'].includes(lang.name) ||
