@@ -80,7 +80,7 @@ export const createEditorSettingsUI = async ({
       help: `${process.env.DOCS_BASE_URL}features/ai`,
       note: window.deps.translateString(
         'editorSettings.enableAI.note',
-        'Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="{{baseUrl}}assets/images/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>',
+        'Powered by <a href="https://windsurf.com/" rel="noopener noreferrer" target="_blank"><img id="windsurf-logo" src="{{baseUrl}}assets/images/windsurf.svg" style="height: 3em; translate: 0 40%; margin-top: -2em;" alt="Windsurf" /></a>',
         {
           isHTML: true,
           baseUrl,
@@ -530,6 +530,13 @@ export const createEditorSettingsUI = async ({
         ...getEditorConfig(formData as any),
         value,
       });
+    }
+
+    const windsurfLogo = document.getElementById('windsurf-logo')!;
+    if (formData.theme === 'light') {
+      windsurfLogo.style.filter = 'invert(1)';
+    } else {
+      windsurfLogo.style.filter = 'unset';
     }
 
     if (!init) {
