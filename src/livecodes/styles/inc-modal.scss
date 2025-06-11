@@ -1763,7 +1763,7 @@
       }
 
       .panel {
-        input {
+        input:not([type='radio']) {
           margin-bottom: 0;
         }
 
