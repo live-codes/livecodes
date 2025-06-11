@@ -14,7 +14,7 @@ module.exports = {
     },
     {
       path: './build/livecodes/lang-*.js',
-      maxSize: '20kB',
+      maxSize: '10kB',
     },
     {
       path: './build/livecodes/*.css',
