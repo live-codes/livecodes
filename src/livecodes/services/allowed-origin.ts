@@ -5,7 +5,8 @@ export const allowedOrigin = (origin = location.origin) =>
         origin.endsWith('livecodes.pages.dev') ||
         origin.endsWith('localpen.pages.dev') ||
         origin.startsWith('http://127.0.0.1') ||
-        origin.startsWith('http://localhost')),
+        origin.startsWith('http://localhost') ||
+        origin.endsWith('.test')),
   );
 
 export const whitelistTarget = (url: string) =>

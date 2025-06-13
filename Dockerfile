@@ -1,18 +1,31 @@
-FROM node:24.1.0-alpine3.21 AS build-stage
+FROM node:24.1.0-alpine3.21 AS builder
+
 RUN apk update && apk add git
 
-# set the working directory
 WORKDIR /app
-# Copy the working directory in the container
+
+COPY package*.json ./
+COPY docs/package*.json docs/
+COPY storybook/package*.json storybook/
+
+RUN npm ci
+
 COPY . .
-# Install the project dependencies
-RUN npm install
-# Build the application to the production mode to dist folder
+
 RUN npm run build
 
 
-# Use a lightweight web server to serve the built application
-FROM httpd:2.4 AS production-stage
-# Copy the build application from the previous stage to the Nginx container
-COPY --from=build-stage /app/build /usr/local/apache2/htdocs/
-CMD ["httpd-foreground"]
+FROM node:24.1.0-alpine3.21 AS server
+
+WORKDIR /srv
+
+COPY server/package.json package.json
+COPY server/package-lock.json package-lock.json
+
+RUN npm ci
+
+COPY --from=builder /app/build /srv/build/
+
+COPY server/server.js server/server.js
+
+CMD ["node", "server/server.js"]

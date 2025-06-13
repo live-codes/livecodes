@@ -1,0 +1,21 @@
+{
+  # Global options block. Entirely optional, https is on by default
+  # Optional email key for lets encrypt
+  # email youremail@domain.com
+  # Optional staging lets encrypt for testing. Comment out for production.
+  # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+
+  {$DEFAULT_SNI}
+}
+{$HOST_NAME} {
+  root * /srv/{$FRONTEND_DIST_DIR}
+  encode
+  file_server
+}
+www.{$HOST_NAME} {
+  redir https://{$HOST_NAME}{uri}
+}
+{$BACKEND_HOST_NAME}:{$BACKEND_PORT} {
+  reverse_proxy server:{$BACKEND_PORT}
+  encode
+}
