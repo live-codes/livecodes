@@ -1,1011 +1,759 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
   "artTemplate.desc": {
-    "notes": "",
     "translation": "موتور قالب‌ساز JavaScript با کارایی بالا."
   },
   "artTemplate.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://aui.github.io/art-template/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://aui.github.io/art-template/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی art-template</tag-2> </tag-1> <tag-3> <tag-4>مستندات art-template</tag-4> </tag-3>"
   },
   "artTemplate.name": {
-    "notes": "",
     "translation": "art-template"
   },
   "asciidoc.desc": {
-    "notes": "",
     "translation": "AsciiDoc که با استفاده از Asciidoctor به HTML تبدیل می‌شود."
   },
   "asciidoc.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://asciidoc.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://asciidoctor.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://asciidoctor.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/asciidoc/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی AsciiDoc</tag-2> </tag-1> <tag-3> <tag-4>وب‌سایت رسمی Asciidoctor</tag-4> </tag-3> <tag-5> <tag-6>مستندات Asciidoctor</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=asciidoc</tag-8> </tag-7>"
   },
   "asciidoc.name": {
-    "notes": "",
     "translation": "AsciiDoc"
   },
   "assemblyscript.desc": {
-    "notes": "",
     "translation": "یک زبان شبیه به TypeScript برای WebAssembly."
   },
   "assemblyscript.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.assemblyscript.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.assemblyscript.org/introduction.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=assemblyscript\" class=\"button\" target=\"_parent\" data-template=\"assemblyscript\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی AssemblyScript</tag-2> </tag-1> <tag-3> <tag-4>مستندات AssemblyScript</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "assemblyscript.name": {
-    "notes": "",
     "translation": "AssemblyScript"
   },
   "astro.desc": {
-    "notes": "",
     "translation": "ساخت وب‌سایت‌های سریع‌تر با JavaScript کمتر در سمت کلاینت. (هنوز در نسخه بتا)"
   },
   "astro.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://astro.build/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://docs.astro.build/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=astro\" class=\"button\" target=\"_parent\" data-template=\"astro\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Astro</tag-2> </tag-1> <tag-3> <tag-4>مستندات Astro</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "astro.name": {
-    "notes": "",
     "translation": "Astro"
   },
   "babel.desc": {
-    "notes": "",
     "translation": "کامپایلر JavaScript"
   },
   "babel.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://babeljs.io/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://babeljs.io/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی</tag-2></tag-1> <tag-3> <tag-4>مستندات Babel</tag-4> </tag-3>"
   },
   "babel.name": {
-    "notes": "",
     "translation": "Babel"
   },
   "bbcode.desc": {
-    "notes": "",
     "translation": "BBCode (\"کد تابلو اعلانات\") یک زبان نشانه‌گذاری سبک است که برای قالب‌بندی پیام‌ها در بسیاری از نرم‌افزارهای انجمن اینترنتی استفاده می‌شود."
   },
   "bbcode.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.bbcode.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.phpbb.com/community/help/bbcode\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://en.wikipedia.org/wiki/BBCode\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>bbcode.org</tag-2></tag-1> <tag-3> <tag-4>راهنمای BBCode</tag-4> </tag-3> <tag-5> <tag-6>BBCode در ویکی‌پدیا</tag-6> </tag-5>"
   },
   "bbcode.name": {
-    "notes": "",
     "translation": "BBCode"
   },
   "blockly.desc": {
-    "notes": "",
     "translation": "یک کتابخانه JavaScript برای ساخت ویرایشگرهای برنامه‌نویسی بصری."
   },
   "blockly.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://developers.google.com/blockly\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://developers.google.com/blockly/guides/overview\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://developers.google.com/blockly/reference/overview\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://google.github.io/blockly-samples/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=blockly\" class=\"button\" target=\"_parent\" data-template=\"blockly\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی</tag-2> </tag-1> <tag-3> <tag-4>راهنماها</tag-4> </tag-3> <tag-5> <tag-6>مرجع</tag-6> </tag-5> <tag-7> <tag-8>نمونه‌ها</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "blockly.name": {
-    "notes": "",
     "translation": "Blockly"
   },
   "civet.desc": {
-    "notes": "",
     "translation": "Civet یک زبان برنامه‌نویسی است که به TypeScript یا JavaScript کامپایل می‌شود، بنابراین می‌توانید از ابزارهای موجود استفاده کنید اما از نحو مختصر و قدرتمند بهره‌مند شوید."
   },
   "civet.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://civet.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://civet.dev/cheatsheet/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=civet\" class=\"button\" target=\"_parent\" data-template=\"civet\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Civet</tag-2> </tag-1> <tag-3> <tag-4>راهنمای خلاصه Civet</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "civet.name": {
-    "notes": "",
     "translation": "Civet"
   },
   "clio.desc": {
-    "notes": "",
     "translation": "Clio یک زبان برنامه‌نویسی توزیع‌شده، سریع و تابعی است که به JavaScript کامپایل می‌شود."
   },
   "clio.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://clio-lang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://docs.clio-lang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=clio\" class=\"button\" target=\"_parent\" data-template=\"clio\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Clio</tag-2> </tag-1> <tag-3> <tag-4>مستندات Clio</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "clio.name": {
-    "notes": "",
     "translation": "Clio"
   },
   "clojurescript.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"https://clojure.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<br  />\n\n### <tag-3> ###\n<a href=\"https://github.com/squint-cljs/cherry\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "ClojureScript یک کامپایلر برای <tag-1>Clojure</tag-1> است که JavaScript را هدف قرار می‌دهد. <tag-2></tag-2>در LiveCodes، با استفاده از <tag-3>Cherry</tag-3> در مرورگر اجرا می‌شود"
   },
   "clojurescript.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://clojurescript.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://clojure.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/squint-cljs/cherry\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/clojure/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/clojurescript\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=clojurescript\" class=\"button\" target=\"_parent\" data-template=\"clojurescript\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>وب‌سایت رسمی Clojure</tag-4> </tag-3> <tag-5> <tag-6>مخزن Cherry</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=clojure</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
   "clojurescript.name": {
-    "notes": "",
     "translation": "ClojureScript (CLJS)"
   },
   "coffeescript.desc": {
-    "notes": "",
     "translation": "جاوااسکریپت ساده."
   },
   "coffeescript.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://coffeescript.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learnxinyminutes.com/docs/coffeescript/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=coffeescript\" class=\"button\" target=\"_parent\" data-template=\"coffeescript\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی CoffeeScript</tag-2> </tag-1> <tag-3> <tag-4>یادگیری X در Y دقیقه، جایی که X=coffeescript</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "coffeescript.name": {
-    "notes": "",
     "translation": "CoffeeScript"
   },
   "commonlisp.desc": {
-    "notes": "",
     "translation": "یک پیاده‌سازی Common Lisp روی JavaScript با استفاده از JSCL (یک کامپایلر Lisp به JavaScript که از Common Lisp بوت‌استرپ شده است)."
   },
   "commonlisp.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://common-lisp.net/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/jscl-project/jscl\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://common-lisp.net/documentation\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/common-lisp/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=commonlisp\" class=\"button\" target=\"_parent\" data-template=\"commonlisp\" />\n\n",
     "translation": "<tag-1> <tag-2>Common-Lisp.net</tag-2> </tag-1> <tag-3> <tag-4>پروژه JSCL</tag-4> </tag-3> <tag-5> <tag-6>منابع Common Lisp</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=Common Lisp</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "commonlisp.name": {
-    "notes": "",
     "translation": "Common Lisp"
   },
   "cpp.desc1": {
-    "notes": "",
     "translation": "پشتیبانی از ++C با استفاده از JSCPP (یک مفسر ساده ++C نوشته شده در JavaScript)."
   },
   "cpp.desc2": {
-    "notes": "### <tag-1> ###\n<a href=\"https://github.com/felixhao28/JSCPP\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "این یک پیاده‌سازی کامل از ++C نیست. لطفاً برای جزئیات به <tag-1>مستندات JSCPP</tag-1> مراجعه کنید."
   },
   "cpp.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://isocpp.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/felixhao28/JSCPP\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/c++/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=cpp\" class=\"button\" target=\"_parent\" data-template=\"cpp\" />\n\n",
     "translation": "<tag-1> <tag-2>بنیاد استاندارد ++C</tag-2> </tag-1> <tag-3> <tag-4>JSCPP</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، جایی که X=C++</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "cpp.name": {
-    "notes": "",
     "translation": "C++"
   },
   "cppWasm.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"https://github.com/binji/wasm-clang\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://github.com/chris-koch-penn/polylang.io\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "کامپایلر Clang C/C++ که روی WebAssembly اجرا می‌شود، با استفاده از <tag-1>wasm-clang</tag-1> که توسط <tag-2>polylang.io</tag-2> تطبیق داده شده است"
   },
   "cppWasm.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://isoclang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://clang.llvm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/c++/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=cpp-wasm\" class=\"button\" target=\"_parent\" data-template=\"cpp-wasm\" />\n\n",
     "translation": "<tag-1> <tag-2>بنیاد استاندارد ++C</tag-2> </tag-1> <tag-3> <tag-4>وب‌سایت رسمی Clang</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، جایی که X=C++</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "cppWasm.name": {
-    "notes": "",
     "translation": "C/C++ (Wasm)"
   },
   "csharpWasm.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "کامپایلر #C که روی WebAssembly اجرا می‌شود، با استفاده از <tag-1>Blazor</tag-1>"
   },
   "csharpWasm.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://learn.microsoft.com/en-us/dotnet/csharp/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learnxinyminutes.com/docs/csharp/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/csharp-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=csharp-wasm\" class=\"button\" target=\"_parent\" data-template=\"csharp-wasm\" />\n\n",
     "translation": "<tag-1> <tag-2>مستندات زبان #C</tag-2> </tag-1> <tag-3> <tag-4>یادگیری X در Y دقیقه، جایی که X=C#</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "csharpWasm.name": {
-    "notes": "",
     "translation": "C# (Wasm)"
   },
   "diagrams.desc1": {
-    "notes": "",
     "translation": "(آزمایشی)"
   },
   "diagrams.desc2": {
-    "notes": "",
     "translation": "نمودارها به صورت کد. پشتیبانی از:"
   },
   "diagrams.desc3": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://js.cytoscape.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.eclipse.org/elk/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<a href=\"https://github.com/kieler/elkjs\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-6> ###\n<li  />\n\n### <tag-7> ###\n<a href=\"http://www.gnuplot.info/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-8> ###\n<a href=\"https://github.com/chhu/gnuplot-JS\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"https://graphviz.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<a href=\"https://github.com/hpcc-systems/hpcc-js-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-12> ###\n<li  />\n\n### <tag-13> ###\n<a href=\"https://mermaid-js.github.io/mermaid/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-14> ###\n<li  />\n\n### <tag-15> ###\n<a href=\"https://nomnoml.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-16> ###\n<li  />\n\n### <tag-17> ###\n<a href=\"https://pintorajs.vercel.app/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-18> ###\n<li  />\n\n### <tag-19> ###\n<a href=\"https://plotly.com/graphing-libraries/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-20> ###\n<li  />\n\n### <tag-21> ###\n<a href=\"https://github.com/ivanceras/svgbob\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-22> ###\n<li  />\n\n### <tag-23> ###\n<a href=\"https://vega.github.io/vega/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-24> ###\n<li  />\n\n### <tag-25> ###\n<a href=\"https://vega.github.io/vega-lite/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-26> ###\n<li  />\n\n### <tag-27> ###\n<a href=\"https://wavedrom.com/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>Cytoscape</tag-2> </tag-1> <tag-3> <tag-4>ELK</tag-4> (با استفاده از <tag-5>elkjs</tag-5>) </tag-3> <tag-6> <tag-7>Gnuplot</tag-7> (با استفاده از <tag-8>gnuplot-JS</tag-8>) </tag-6> <tag-9> <tag-10>Graphviz</tag-10> (با استفاده از <tag-11>@hpcc-js/wasm</tag-11>) </tag-9> <tag-12> <tag-13>Mermaid</tag-13> </tag-12> <tag-14> <tag-15>Nomnoml</tag-15> </tag-14> <tag-16> <tag-17>Pintora</tag-17> </tag-16> <tag-18> <tag-19>Plotly</tag-19> </tag-18> <tag-20> <tag-21>Svgbob</tag-21> </tag-20> <tag-22> <tag-23>Vega</tag-23> </tag-22> <tag-24> <tag-25>VegaLite</tag-25> </tag-24> <tag-26> <tag-27>WaveDrom</tag-27> </tag-26>"
   },
   "diagrams.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"?template=diagrams\" class=\"button\" target=\"_parent\" data-template=\"diagrams\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}languages/diagrams\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>بارگذاری قالب شروع کننده</tag-2> </tag-1> <tag-3> <tag-4>مستندات LiveCodes</tag-4> </tag-3>"
   },
   "diagrams.name": {
-    "notes": "",
     "translation": "نمودارها"
   },
   "dot.desc": {
-    "notes": "",
     "translation": "سریع‌ترین + مختصرترین موتور قالب جاوااسکریپت برای Node.js و مرورگرها."
   },
   "dot.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://olado.github.io/doT/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}languages/dot\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی</tag-2> </tag-1> <tag-3> <tag-4>مستندات LiveCodes</tag-4> </tag-3>"
   },
   "dot.name": {
-    "notes": "",
     "translation": "doT.js"
   },
   "ejs.desc": {
-    "notes": "",
     "translation": "قالب‌سازی جاواسکریپت تعبیه شده."
   },
   "ejs.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://ejs.co/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}languages/ejs\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی</tag-2></tag-1> <tag-3> <tag-4>مستندات LiveCodes</tag-4> </tag-3>"
   },
   "ejs.name": {
-    "notes": "",
     "translation": "EJS"
   },
   "eta.desc": {
-    "notes": "",
     "translation": "موتور قالب JS تعبیه شده برای Node، Deno و مرورگر. سبک، سریع و قابل توسعه. نوشته شده در TypeScript."
   },
   "eta.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://eta.js.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://eta.js.org/docs/learn\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/eta\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی</tag-2></tag-1> <tag-3> <tag-4>مستندات</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5>"
   },
   "eta.name": {
-    "notes": "",
     "translation": "Eta"
   },
   "fennel.desc": {
-    "notes": "",
     "translation": "Fennel یک زبان برنامه‌نویسی است که سرعت، سادگی و دسترسی Lua را با انعطاف‌پذیری نحو لیسپ و سیستم ماکرو ترکیب می‌کند."
   },
   "fennel.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://fennel-lang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://fennel-lang.org/tutorial\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/fennel\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=fennel\" class=\"button\" target=\"_parent\" data-template=\"fennel\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Fennel</tag-2> </tag-1> <tag-3> <tag-4>شروع کار با Fennel</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "fennel.name": {
-    "notes": "",
     "translation": "Fennel"
   },
   "flow.desc": {
-    "notes": "",
     "translation": "Flow یک بررسی‌کننده نوع ایستا برای JavaScript است."
   },
   "flow.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://flow.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://flow.org/en/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Flow</tag-2> </tag-1> <tag-3> <tag-4>مستندات Flow</tag-4> </tag-3>"
   },
   "flow.name": {
-    "notes": "",
     "translation": "Flow"
   },
   "gleam.desc1": {
-    "notes": "",
     "translation": "Gleam یک زبان دوستانه برای ساخت سیستم‌های مقیاس‌پذیر با امنیت نوع است!"
   },
   "gleam.desc2": {
-    "notes": "",
     "translation": "Gleam یک زبان برنامه‌نویسی تابعی با نوع ایستا است که به Erlang یا JavaScript کامپایل می‌شود."
   },
   "gleam.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://gleam.run/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://gleam.run/documentation/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://tour.gleam.run/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=gleam\" class=\"button\" target=\"_parent\" data-template=\"gleam\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت Gleam</tag-2></tag-1> <tag-3> <tag-4>مستندات Gleam</tag-4> </tag-3> <tag-5> <tag-6>تور زبان Gleam</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "gleam.name": {
-    "notes": "",
     "translation": "Gleam"
   },
   "go.desc1": {
-    "notes": "",
     "translation": "Go (Golang) یک زبان برنامه‌نویسی متن‌باز است که ساخت نرم‌افزارهای ساده، قابل اعتماد و کارآمد را آسان می‌کند."
   },
   "go.desc2": {
-    "notes": "",
     "translation": "در اینجا، با استفاده از GopherJS به JavaScript کامپایل می‌شود."
   },
   "go.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://golang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://golang.org/doc/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/gopherjs/gopherjs\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/go/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=go\" class=\"button\" target=\"_parent\" data-template=\"go\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت Go</tag-2></tag-1> <tag-3><tag-4>مستندات Go</tag-4></tag-3> <tag-5> <tag-6>مخزن GopherJS</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=Go</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "go.name": {
-    "notes": "",
     "translation": "Go"
   },
   "haml.desc": {
-    "notes": "",
     "translation": "کامپایلر Haml برای قالب‌های نما جاوااسکریپت سمت کلاینت با استفاده از clientside-haml-js."
   },
   "haml.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://haml.info/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://haml.info/docs.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/uglyog/clientside-haml-js\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/haml/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/haml\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی Haml</tag-2></tag-1> <tag-3> <tag-4>مستندات Haml</tag-4> </tag-3> <tag-5> <tag-6>مخزن GitHub clientside-haml-js</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=haml</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9>"
   },
   "haml.name": {
-    "notes": "",
     "translation": "Haml"
   },
   "handlebars.desc": {
-    "notes": "",
     "translation": "قالب‌سازی حداقلی با قدرت زیاد."
   },
   "handlebars.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://handlebarsjs.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}languages/handlebars\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی</tag-2></tag-1> <tag-3> <tag-4>مستندات LiveCodes</tag-4> </tag-3>"
   },
   "handlebars.name": {
-    "notes": "",
     "translation": "Handlebars"
   },
   "imba.desc": {
-    "notes": "",
     "translation": "زبان full-stack دوستانه."
   },
   "imba.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://imba.io/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی</tag-2></tag-1>"
   },
   "imba.name": {
-    "notes": "",
     "translation": "Imba"
   },
   "java.desc": {
-    "notes": "",
     "translation": "اجرای JVM در مرورگر با استفاده از DoppioJVM."
   },
   "java.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.java.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/plasma-umass/doppio\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/java/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/java\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=java\" class=\"button\" target=\"_parent\" data-template=\"java\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی جاوا</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، جایی که X=java</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "java.name": {
-    "notes": "",
     "translation": "Java"
   },
   "jinja.desc": {
-    "notes": "",
     "translation": "Jinja یک موتور قالب‌ساز سریع، بیانگر و قابل گسترش است."
   },
   "jinja.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://jinja.palletsprojects.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://jinja.palletsprojects.com/en/stable/templates/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/huggingface/huggingface.js/tree/main/packages/jinja\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/jinja\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی</tag-2> </tag-1> <tag-3> <tag-4>مستندات قالب</tag-4> </tag-3> <tag-5> <tag-6>پیاده‌سازی JavaScript</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7>"
   },
   "jinja.name": {
-    "notes": "",
     "translation": "Jinja"
   },
   "jsx.desc": {
-    "notes": "",
     "translation": "JSX در LiveCodes با استفاده از کامپایلر TypeScript به JavaScript تبدیل می‌شود. به طور پیش‌فرض از React به عنوان اجراکننده JSX استفاده می‌کند."
   },
   "jsx.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://react.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://react.dev/learn/writing-markup-with-jsx\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/jsx\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی React</tag-2> </tag-1> <tag-3> <tag-4>JSX در مستندات React</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5>"
   },
   "jsx.name": {
-    "notes": "",
     "translation": "JSX"
   },
   "julia.desc1": {
-    "notes": "",
     "translation": "پشتیبانی از زبان Julia در LiveCodes هنوز آزمایشی است"
   },
   "julia.desc2": {
-    "notes": "### <tag-1> ###\n<a href=\"https://github.com/Keno/julia-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://github.com/chris-koch-penn/polylang.io\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "کامپایلر Julia و Julia Base که روی WASM اجرا می‌شود، با استفاده از <tag-1>julia-wasm</tag-1> که توسط <tag-2>polylang.io</tag-2> تطبیق داده شده است"
   },
   "julia.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://julialang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://docs.julialang.org/en/v1/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/julia/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=julia\" class=\"button\" target=\"_parent\" data-template=\"julia\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Julia</tag-2> </tag-1> <tag-3> <tag-4>مستندات Julia</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، جایی که X=Julia</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "julia.name": {
-    "notes": "",
     "translation": "Julia"
   },
   "less.desc": {
-    "notes": "",
     "translation": "CSS است، فقط با کمی بیشتر."
   },
   "less.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://lesscss.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learnxinyminutes.com/docs/less/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی Less</tag-2></tag-1> <tag-3> <tag-4>یادگیری X در Y دقیقه، جایی که X=less</tag-4> </tag-3>"
   },
   "less.name": {
-    "notes": "",
     "translation": "Less"
   },
   "liquid.desc": {
-    "notes": "",
     "translation": "یک موتور قالب ساده، بیانگر و امن."
   },
   "liquid.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://liquidjs.com\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://liquidjs.com/tutorials/intro-to-liquid.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/liquid\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی LiquidJS</tag-2> </tag-1> <tag-3> <tag-4>مستندات LiquidJS</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5>"
   },
   "liquid.name": {
-    "notes": "",
     "translation": "LiquidJS"
   },
   "livescript.desc": {
-    "notes": "",
     "translation": "زبانی که به JavaScript کامپایل می‌شود."
   },
   "livescript.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://livescript.net/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learnxinyminutes.com/docs/livescript/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=livescript\" class=\"button\" target=\"_parent\" data-template=\"livescript\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی LiveScript</tag-2> </tag-1> <tag-3> <tag-4>یادگیری X در Y دقیقه، جایی که X=LiveScript</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "livescript.name": {
-    "notes": "",
     "translation": "LiveScript"
   },
   "lua.desc": {
-    "notes": "",
     "translation": "Lua که با استفاده از fengari-web در مرورگر اجرا می‌شود."
   },
   "lua.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.lua.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.lua.org/manual/5.4/manual.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://fengari.io/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://github.com/fengari-lua/fengari-web\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"https://learnxinyminutes.com/docs/lua/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"{{DOCS_BASE_URL}}languages/lua\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-13> ###\n<li  />\n\n### <tag-14> ###\n<a href=\"?template=lua\" class=\"button\" target=\"_parent\" data-template=\"lua\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی Lua</tag-2></tag-1> <tag-3> <tag-4>مستندات Lua</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت رسمی Fengari</tag-6> </tag-5> <tag-7> <tag-8>مخزن GitHub فنگاری-وب</tag-8> </tag-7> <tag-9> <tag-10>یادگیری X در Y دقیقه، جایی که X=Lua</tag-10> </tag-9> <tag-11> <tag-12>مستندات LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>بارگذاری قالب شروع کننده</tag-14> </tag-13>"
   },
   "lua.name": {
-    "notes": "",
     "translation": "Lua"
   },
   "luaWasm.desc": {
-    "notes": "",
     "translation": "Lua که با استفاده از Wasmoon در مرورگر اجرا می‌شود، یک ماشین مجازی واقعی lua 5.4 با اتصالات JS که با WebAssembly ساخته شده است."
   },
   "luaWasm.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.lua.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.lua.org/manual/5.4/manual.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/ceifa/wasmoon\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/lua/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/lua-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=lua-wasm\" class=\"button\" target=\"_parent\" data-template=\"lua-wasm\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی Lua</tag-2></tag-1> <tag-3> <tag-4>مستندات Lua</tag-4> </tag-3> <tag-5> <tag-6>مخزن GitHub Wasmoon</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=Lua</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
   "luaWasm.name": {
-    "notes": "",
     "translation": "Lua (Wasm)"
   },
   "malina.desc": {
-    "notes": "",
     "translation": "کامپایلر فرانت‌اند، الهام گرفته از Svelte."
   },
   "malina.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://github.com/malinajs/malinajs\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://malinajs.github.io/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=malina\" class=\"button\" target=\"_parent\" data-template=\"malina\" />\n\n",
     "translation": "<tag-1> <tag-2>مخزن Malina.js</tag-2> </tag-1> <tag-3> <tag-4>مستندات Malina.js</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "malina.name": {
-    "notes": "",
     "translation": "Malina.js"
   },
   "markdown.desc": {
-    "notes": "",
     "translation": "مارک‌داون که با استفاده از Marked به HTML تبدیل می‌شود."
   },
   "markdown.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://daringfireball.net/projects/markdown/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://marked.js.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/markdown/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=markdown\" class=\"button\" target=\"_parent\" data-template=\"markdown\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی مارک‌داون</tag-2> </tag-1> <tag-3> <tag-4>مستندات Marked</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، جایی که X=markdown</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "markdown.name": {
-    "notes": "",
     "translation": "مارک‌داون"
   },
   "mdx.desc": {
-    "notes": "### <tag-1> ###\n<br  />\n\n",
     "translation": "مارک‌داون برای عصر کامپوننت. <tag-1></tag-1>MDX به شما امکان می‌دهد بدون مشکل JSX را در اسناد مارک‌داون خود بنویسید."
   },
   "mdx.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://mdxjs.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"?template=mdx\" class=\"button\" target=\"_parent\" data-template=\"mdx\" />\n\n",
     "translation": "<tag-1><tag-2>مستندات MDX</tag-2></tag-1> <tag-3> <tag-4>بارگذاری قالب شروع کننده</tag-4> </tag-3>"
   },
   "mdx.name": {
-    "notes": "",
     "translation": "MDX"
   },
   "mjml.desc": {
-    "notes": "",
     "translation": "MJML یک زبان نشانه‌گذاری است که برای کاهش درد کدنویسی ایمیل‌های واکنش‌گرا طراحی شده است."
   },
   "mjml.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://mjml.io/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://documentation.mjml.io/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://mjml.io/templates\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/mjml\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی MJML</tag-2></tag-1> <tag-3> <tag-4>مستندات MJML</tag-4> </tag-3> <tag-5> <tag-6>قالب‌های رسمی MJML</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7>"
   },
   "mjml.name": {
-    "notes": "",
     "translation": "MJML"
   },
   "mustache.desc": {
-    "notes": "",
     "translation": "قالب‌های بدون منطق."
   },
   "mustache.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://mustache.github.io/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://mustache.github.io/mustache.5.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/janl/mustache.js\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/mustache\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی</tag-2> </tag-1> <tag-3> <tag-4>راهنمای mustache(5)</tag-4> </tag-3> <tag-5> <tag-6>پیاده‌سازی JavaScript</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7>"
   },
   "mustache.name": {
-    "notes": "",
     "translation": "Mustache"
   },
   "nunjucks.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"http://jinja.pocoo.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "یک زبان قالب‌ساز غنی و قدرتمند برای JavaScript. Nunjucks اساساً یک پورت از <tag-1>jinja2</tag-1> است"
   },
   "nunjucks.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://mozilla.github.io/nunjucks/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}languages/nunjucks\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی</tag-2> </tag-1> <tag-3> <tag-4>مستندات LiveCodes</tag-4> </tag-3>"
   },
   "nunjucks.name": {
-    "notes": "",
     "translation": "Nunjucks"
   },
   "ocaml.desc1": {
-    "notes": "",
     "translation": "OCaml یک زبان برنامه‌نویسی با قدرت صنعتی است که از سبک‌های تابعی، دستوری و شی‌گرا پشتیبانی می‌کند."
   },
   "ocaml.desc2": {
-    "notes": "",
     "translation": "کامپایلر ReScript در اینجا برای کامپایل OCaml به JavaScript استفاده می‌شود."
   },
   "ocaml.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://ocaml.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://ocaml.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://rescript-lang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/ocaml/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=ocaml\" class=\"button\" target=\"_parent\" data-template=\"ocaml\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت OCaml</tag-2></tag-1> <tag-3> <tag-4>مستندات OCaml</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت ReScript</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=OCaml</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "ocaml.name": {
-    "notes": "",
     "translation": "OCaml"
   },
   "perl.desc": {
-    "notes": "",
     "translation": "Perl که با استفاده از Perlito در مرورگر اجرا می‌شود."
   },
   "perl.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.perl.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://perldoc.perl.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/fglock/Perlito/blob/master/README-perlito5.md\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/perl/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=perl\" class=\"button\" target=\"_parent\" data-template=\"perl\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Perl</tag-2> </tag-1> <tag-3> <tag-4>مستندات Perl</tag-4> </tag-3> <tag-5> <tag-6>فایل Readme پرلیتو5</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=perl</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "perl.name": {
-    "notes": "",
     "translation": "Perl"
   },
   "php.desc": {
-    "notes": "",
     "translation": "PHP که با استفاده از Uniter در مرورگر اجرا می‌شود."
   },
   "php.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.php.net/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.php.net/manual/en/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/asmblah/uniter\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/php/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/php\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=php\" class=\"button\" target=\"_parent\" data-template=\"php\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی PHP</tag-2></tag-1> <tag-3> <tag-4>مستندات PHP</tag-4> </tag-3> <tag-5> <tag-6>مخزن GitHub یونیتر</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=PHP</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
   "php.name": {
-    "notes": "",
     "translation": "PHP"
   },
   "phpWasm.desc": {
-    "notes": "",
     "translation": "PHP در مرورگر، با قدرت WebAssembly، با استفاده از php-wasm."
   },
   "phpWasm.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.php.net/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.php.net/manual/en/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/seanmorris/php-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/php/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/php-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=php-wasm\" class=\"button\" target=\"_parent\" data-template=\"php-wasm\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی PHP</tag-2></tag-1> <tag-3> <tag-4>مستندات PHP</tag-4> </tag-3> <tag-5> <tag-6>مخزن GitHub php-wasm</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=PHP</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
   "phpWasm.name": {
-    "notes": "",
     "translation": "PHP (Wasm)"
   },
   "postgresql.desc": {
-    "notes": "",
     "translation": "PostgreSQL بسته‌بندی شده به صورت WASM با استفاده از PGlite"
   },
   "postgresql.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.postgresql.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.postgresql.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/electric-sql/pglite\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/sql/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=postgresql\" class=\"button\" target=\"_parent\" data-template=\"postgresql\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی PostgreSQL</tag-2> </tag-1> <tag-3> <tag-4>مستندات PostgreSQL</tag-4> </tag-3> <tag-5> <tag-6>مخزن GitHub PGlite</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=SQL</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "postgresql.name": {
-    "notes": "",
     "translation": "PostgreSQL"
   },
   "prolog.desc": {
-    "notes": "",
     "translation": "یک مفسر پرولوگ متن‌باز در JavaScript."
   },
   "prolog.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"http://tau-prolog.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"http://tau-prolog.org/documentation\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://www.swi-prolog.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/prolog/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=prolog\" class=\"button\" target=\"_parent\" data-template=\"prolog\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Tau Prolog</tag-2> </tag-1> <tag-3> <tag-4>مستندات Tau Prolog</tag-4> </tag-3> <tag-5> <tag-6>SWI-Prolog</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=Prolog</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "prolog.name": {
-    "notes": "",
     "translation": "Tau Prolog"
   },
   "pug.desc": {
-    "notes": "",
     "translation": "موتور قالب قدرتمند، زیبا و با ویژگی‌های غنی."
   },
   "pug.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://pugjs.org/api/getting-started.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learnxinyminutes.com/docs/pug/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/pug\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>مستندات Pug</tag-2> </tag-1> <tag-3> <tag-4>یادگیری X در Y دقیقه، جایی که X=Pug</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5>"
   },
   "pug.name": {
-    "notes": "",
     "translation": "Pug"
   },
   "python.desc": {
-    "notes": "",
     "translation": "پایتون که با استفاده از Brython در مرورگر اجرا می‌شود."
   },
   "python.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.python.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.python.org/doc/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://brython.info/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/python/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/python\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=python\" class=\"button\" target=\"_parent\" data-template=\"python\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی پایتون</tag-2> </tag-1> <tag-3> <tag-4>مستندات پایتون</tag-4> </tag-3> <tag-5> <tag-6>مستندات Brython</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=Python</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
   "python.name": {
-    "notes": "",
     "translation": "پایتون"
   },
   "pythonWasm.desc1": {
-    "notes": "",
     "translation": "پایتون با پشته علمی، کامپایل شده به WebAssembly با استفاده از Pyodide."
   },
   "pythonWasm.desc2": {
-    "notes": "",
     "translation": "Pyodide امکان استفاده از پشته علمی پایتون شامل NumPy، Pandas، Matplotlib، SciPy، scikit-learn و بسیاری موارد دیگر را فراهم می‌کند. علاوه بر این، نصب بسته‌های خالص پایتون از PyPi امکان‌پذیر است."
   },
   "pythonWasm.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.python.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.python.org/doc/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://pyodide.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/python/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/python-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=python-wasm\" class=\"button\" target=\"_parent\" data-template=\"python-wasm\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی پایتون</tag-2> </tag-1> <tag-3> <tag-4>مستندات پایتون</tag-4> </tag-3> <tag-5><tag-6>مستندات Pyodide</tag-6></tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=Python</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
   "pythonWasm.name": {
-    "notes": "",
     "translation": "پایتون (Wasm)"
   },
   "r.desc": {
-    "notes": "",
     "translation": "R که با استفاده از WebR در مرورگر اجرا می‌شود."
   },
   "r.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.r-project.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://cran.r-project.org/manuals.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://r4ds.hadley.nz/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://docs.r-wasm.org/webr/latest/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"https://learnxinyminutes.com/docs/r/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"{{DOCS_BASE_URL}}languages/r\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-13> ###\n<li  />\n\n### <tag-14> ###\n<a href=\"?template=r\" class=\"button\" target=\"_parent\" data-template=\"r\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی پروژه R</tag-2> </tag-1> <tag-3> <tag-4>راهنماهای R</tag-4> </tag-3> <tag-5> <tag-6>R برای علم داده (نسخه ۲)</tag-6> </tag-5> <tag-7> <tag-8>مستندات WebR</tag-8> </tag-7> <tag-9> <tag-10>یادگیری X در Y دقیقه، جایی که X=R</tag-10> </tag-9> <tag-11> <tag-12>مستندات LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>بارگذاری قالب شروع کننده</tag-14> </tag-13>"
   },
   "r.name": {
-    "notes": "",
     "translation": "R"
   },
   "react.desc": {
-    "notes": "",
     "translation": "کامپایلر React یک ابزار فقط برای زمان ساخت است که به صورت خودکار برنامه‌های React را بهینه می‌کند."
   },
   "react.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://react.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://react.dev/learn/react-compiler\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/react\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=react\" class=\"button\" target=\"_parent\" data-template=\"react\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی React</tag-2> </tag-1> <tag-3> <tag-4>کامپایلر React</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "react.name": {
-    "notes": "",
     "translation": "کامپایلر React"
   },
   "reactNative.desc": {
-    "notes": "",
     "translation": "React Native for Web یک پیاده‌سازی قابل دسترس از کامپوننت‌ها و API های React Native است که با React DOM قابل همکاری است."
   },
   "reactNative.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://react.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://reactnative.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://necolas.github.io/react-native-web/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://reactnative.dev/docs/getting-started\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/react-native\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=react-native\" class=\"button\" target=\"_parent\" data-template=\"react-native\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی React</tag-2> </tag-1> <tag-3> <tag-4>وب‌سایت React Native</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت React Native for Web</tag-6> </tag-5> <tag-7> <tag-8>مستندات React Native</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
   "reactNative.name": {
-    "notes": "",
     "translation": "React Native for Web"
   },
   "reactNativeTsx.desc": {
-    "notes": "",
     "translation": "React Native for Web یک پیاده‌سازی قابل دسترس از کامپوننت‌ها و API های React Native است که با React DOM قابل همکاری است."
   },
   "reactNativeTsx.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://react.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://reactnative.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://necolas.github.io/react-native-web/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://reactnative.dev/docs/getting-started\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"https://www.typescriptlang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"https://www.typescriptlang.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-13> ###\n<li  />\n\n### <tag-14> ###\n<a href=\"{{DOCS_BASE_URL}}languages/react-native-tsx\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-15> ###\n<li  />\n\n### <tag-16> ###\n<a href=\"?template=react-native\" class=\"button\" target=\"_parent\" data-template=\"react-native\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی React</tag-2> </tag-1> <tag-3> <tag-4>وب‌سایت React Native</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت React Native for Web</tag-6> </tag-5> <tag-7> <tag-8>مستندات React Native</tag-8> </tag-7> <tag-9> <tag-10>وب‌سایت TypeScript</tag-10> </tag-9> <tag-11> <tag-12>مستندات TypeScript</tag-12> </tag-11> <tag-13> <tag-14>مستندات LiveCodes</tag-14> </tag-13> <tag-15> <tag-16>بارگذاری قالب شروع کننده (JSX)</tag-16> </tag-15>"
   },
   "reactNativeTsx.name": {
-    "notes": "",
     "translation": "React Native for Web (با TypeScript)"
   },
   "reactTsx.desc": {
-    "notes": "",
     "translation": "کامپایلر React یک ابزار فقط برای زمان ساخت است که به صورت خودکار برنامه‌های React را بهینه می‌کند."
   },
   "reactTsx.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://react.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://react.dev/learn/react-compiler\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://www.typescriptlang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://www.typescriptlang.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/react-tsx\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=react\" class=\"button\" target=\"_parent\" data-template=\"react-tsx\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی React</tag-2> </tag-1> <tag-3> <tag-4>کامپایلر React</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت TypeScript</tag-6> </tag-5> <tag-7> <tag-8>مستندات TypeScript</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده (JSX)</tag-12> </tag-11>"
   },
   "reactTsx.name": {
-    "notes": "",
     "translation": "کامپایلر React (با TypeScript)"
   },
   "reason.desc1": {
-    "notes": "",
     "translation": "Reason به شما امکان می‌دهد کد ساده، سریع و با کیفیت با امنیت نوع بنویسید و در عین حال از هر دو اکوسیستم JavaScript و OCaml بهره ببرید."
   },
   "reason.desc2": {
-    "notes": "",
     "translation": "کامپایلر ReScript در اینجا برای کامپایل Reason به JavaScript استفاده می‌شود."
   },
   "reason.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://reasonml.github.io/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://reasonml.github.io/docs/en/what-and-why\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://reasonml.github.io/reason-react/en/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://rescript-lang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"https://learnxinyminutes.com/docs/reason/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=reason\" class=\"button\" target=\"_parent\" data-template=\"reason\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت Reason</tag-2></tag-1> <tag-3> <tag-4>مستندات Reason</tag-4> </tag-3> <tag-5> <tag-6>ReasonReact</tag-6> </tag-5> <tag-7> <tag-8>وب‌سایت ReScript</tag-8> </tag-7> <tag-9> <tag-10>یادگیری X در Y دقیقه، جایی که X=reason</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
   "reason.name": {
-    "notes": "",
     "translation": "Reason"
   },
   "rescript.desc": {
-    "notes": "",
     "translation": "ReScript یک زبان با نوع قوی است که به JavaScript کارآمد و خوانا برای انسان کامپایل می‌شود."
   },
   "rescript.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://rescript-lang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://rescript-lang.org/docs/react/latest/introduction\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=rescript\" class=\"button\" target=\"_parent\" data-template=\"rescript\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت ReScript</tag-2> </tag-1> <tag-3> <tag-4>ReScript / React</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "rescript.name": {
-    "notes": "",
     "translation": "ReScript"
   },
   "richtext.desc1": {
-    "notes": "",
     "translation": "با استفاده از Quill:"
   },
   "richtext.desc2": {
-    "notes": "",
     "translation": "ویرایشگر متن غنی قدرتمند شما."
   },
   "richtext.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://quilljs.com/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Quill</tag-2> </tag-1>"
   },
   "richtext.name": {
-    "notes": "",
     "translation": "ویرایشگر متن غنی"
   },
   "riot.desc": {
-    "notes": "",
     "translation": "کتابخانه رابط کاربری مبتنی بر کامپوننت ساده و زیبا."
   },
   "riot.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://riot.js.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://riot.js.org/documentation/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=riot\" class=\"button\" target=\"_parent\" data-template=\"riot\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Riot.js</tag-2> </tag-1> <tag-3> <tag-4>مستندات Riot.js</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "riot.name": {
-    "notes": "",
     "translation": "Riot.js"
   },
   "ruby.desc": {
-    "notes": "",
     "translation": "Ruby که با استفاده از Opal در مرورگر اجرا می‌شود."
   },
   "ruby.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.ruby-lang.org/en/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.ruby-lang.org/en/documentation/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://opalrb.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://cdn.opalrb.com/opal/1.0.0/index.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"https://learnxinyminutes.com/docs/ruby/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"{{DOCS_BASE_URL}}languages/ruby\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-13> ###\n<li  />\n\n### <tag-14> ###\n<a href=\"?template=ruby\" class=\"button\" target=\"_parent\" data-template=\"ruby\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Ruby</tag-2> </tag-1> <tag-3> <tag-4>مستندات Ruby</tag-4> </tag-3> <tag-5><tag-6>وب‌سایت رسمی Opal</tag-6></tag-5> <tag-7> <tag-8>CDN کتابخانه استاندارد Opal</tag-8> </tag-7> <tag-9> <tag-10>یادگیری X در Y دقیقه، جایی که X=ruby</tag-10> </tag-9> <tag-11> <tag-12>مستندات LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>بارگذاری قالب شروع کننده</tag-14> </tag-13>"
   },
   "ruby.name": {
-    "notes": "",
     "translation": "Ruby"
   },
   "rubyWasm.desc": {
-    "notes": "",
     "translation": "Ruby که با استفاده از ruby-wasm (مجموعه‌ای از پورت‌های WebAssembly از CRuby) در مرورگر اجرا می‌شود."
   },
   "rubyWasm.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.ruby-lang.org/en/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.ruby-lang.org/en/documentation/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://ruby.github.io/ruby.wasm/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://github.com/ruby/ruby\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"https://learnxinyminutes.com/docs/ruby/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"{{DOCS_BASE_URL}}languages/ruby-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-13> ###\n<li  />\n\n### <tag-14> ###\n<a href=\"?template=ruby-wasm\" class=\"button\" target=\"_parent\" data-template=\"ruby-wasm\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Ruby</tag-2> </tag-1> <tag-3> <tag-4>مستندات Ruby</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت ruby.wasm</tag-6> </tag-5> <tag-7><tag-8>CRuby</tag-8></tag-7> <tag-9> <tag-10>یادگیری X در Y دقیقه، جایی که X=ruby</tag-10> </tag-9> <tag-11> <tag-12>مستندات LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>بارگذاری قالب شروع کننده</tag-14> </tag-13>"
   },
   "rubyWasm.name": {
-    "notes": "",
     "translation": "Ruby (WASM)"
   },
   "sass.desc": {
-    "notes": "",
     "translation": "شیوه‌نامه‌های شگفت انگیز از نظر نحوی."
   },
   "sass.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://sass-lang.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://sass-lang.com/documentation\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://sass-lang.com/documentation/syntax#the-indented-syntax\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/sass/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Sass</tag-2> </tag-1> <tag-3> <tag-4>مستندات Sass</tag-4> </tag-3> <tag-5> <tag-6>نحو Sass (نحو تو رفته)</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=sass</tag-8> </tag-7>"
   },
   "sass.name": {
-    "notes": "",
     "translation": "Sass"
   },
   "scheme.desc": {
-    "notes": "",
     "translation": "Scheme که با استفاده از biwascheme در مرورگر اجرا می‌شود."
   },
   "scheme.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.scheme.com/tspl4/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.biwascheme.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://www.biwascheme.org/doc/reference.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=scheme\" class=\"button\" target=\"_parent\" data-template=\"scheme\" />\n\n",
     "translation": "<tag-1> <tag-2>زبان برنامه‌نویسی Scheme</tag-2> </tag-1> <tag-3> <tag-4>وب‌سایت رسمی BiwaScheme</tag-4> </tag-3> <tag-5> <tag-6>مرجع BiwaScheme</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "scheme.name": {
-    "notes": "",
     "translation": "Scheme"
   },
   "scss.desc": {
-    "notes": "",
     "translation": "شیوه‌نامه‌های شگفت انگیز از نظر نحوی."
   },
   "scss.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://sass-lang.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://sass-lang.com/documentation\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://sass-lang.com/documentation/syntax#scss\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/sass/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Sass</tag-2> </tag-1> <tag-3> <tag-4>مستندات Sass</tag-4> </tag-3> <tag-5> <tag-6>نحو SCSS</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=sass</tag-8> </tag-7>"
   },
   "scss.name": {
-    "notes": "",
     "translation": "SCSS"
   },
   "solid.desc": {
-    "notes": "",
     "translation": "یک کتابخانه جاوااسکریپت اعلامی، کارآمد و انعطاف‌پذیر برای ساخت رابط‌های کاربری."
   },
   "solid.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.solidjs.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.solidjs.com/docs\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/solid\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=solid\" class=\"button\" target=\"_parent\" data-template=\"solid\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی</tag-2></tag-1> <tag-3><tag-4>مستندات</tag-4></tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده (TSX)</tag-8> </tag-7>"
   },
   "solid.name": {
-    "notes": "",
     "translation": "Solid"
   },
   "solid.tsx.desc": {
-    "notes": "",
     "translation": "یک کتابخانه جاوااسکریپت اعلامی، کارآمد و انعطاف‌پذیر برای ساخت رابط‌های کاربری."
   },
   "solid.tsx.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.solidjs.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.solidjs.com/docs\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://www.typescriptlang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://www.typescriptlang.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/solid.tsx\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=solid\" class=\"button\" target=\"_parent\" data-template=\"solid\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی</tag-2></tag-1> <tag-3> <tag-4>مستندات Solid</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت TypeScript</tag-6> </tag-5> <tag-7> <tag-8>مستندات TypeScript</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
   "solid.tsx.name": {
-    "notes": "",
     "translation": "Solid (با TypeScript)"
   },
   "sql.desc": {
-    "notes": "",
     "translation": "SQLite کامپایل شده به JavaScript با استفاده از SQL.js"
   },
   "sql.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.sqlite.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.sqlite.org/lang.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://sql.js.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/sql/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=sql\" class=\"button\" target=\"_parent\" data-template=\"sql\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی SQLite</tag-2> </tag-1> <tag-3> <tag-4>مستندات نحو SQLite</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت رسمی SQL.js</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=SQL</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "sql.name": {
-    "notes": "",
     "translation": "SQLite"
   },
   "stencil.desc": {
-    "notes": "",
     "translation": "یک کامپایلر برای اجزای وب و برنامه‌های وب با کارایی بالا."
   },
   "stencil.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://stenciljs.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://stenciljs.com/docs/introduction\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=stencil\" class=\"button\" target=\"_parent\" data-template=\"stencil\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Stencil</tag-2> </tag-1> <tag-3> <tag-4>مستندات Stencil</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "stencil.name": {
-    "notes": "",
     "translation": "Stencil"
   },
   "styleProcessors.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://tailwindcss.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://windicss.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://uno.antfu.me/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://lightningcss.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"https://postcss.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<ul  />\n\n### <tag-12> ###\n<li  />\n\n### <tag-13> ###\n<a href=\"https://github.com/postcss/autoprefixer\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-14> ###\n<li  />\n\n### <tag-15> ###\n<a href=\"https://preset-env.cssdb.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-16> ###\n<li  />\n\n### <tag-17> ###\n<a href=\"https://github.com/unlight/postcss-import-url\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-18> ###\n<li  />\n\n### <tag-19> ###\n<a href=\"https://github.com/madyankin/postcss-modules\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>Tailwind CSS</tag-2> </tag-1> <tag-3> <tag-4>Windi CSS</tag-4> </tag-3> <tag-5> <tag-6>UnoCSS</tag-6> </tag-5> <tag-7> <tag-8>Lightning CSS</tag-8> </tag-7> <tag-9> <tag-10>PostCSS</tag-10> افزونه‌ها: <tag-11> <tag-12> <tag-13>Autoprefixer</tag-13> </tag-12> <tag-14> <tag-15>postcss-preset-env</tag-15> </tag-14> <tag-16> <tag-17>postcss-import-url</tag-17> </tag-16> <tag-18> <tag-19>postcss-modules</tag-19> </tag-18> </tag-11> </tag-9>"
   },
   "styleProcessors.name": {
-    "notes": "",
     "translation": "فریم‌ورک‌ها و پردازشگرهای CSS"
   },
   "stylis.desc": {
-    "notes": "",
     "translation": "پیش‌پردازشگر CSS سبک‌وزن."
   },
   "stylis.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://stylis.js.org/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Stylis</tag-2> </tag-1>"
   },
   "stylis.name": {
-    "notes": "",
     "translation": "Stylis"
   },
   "stylus.desc": {
-    "notes": "",
     "translation": "CSS بیانگر، پویا و قدرتمند."
   },
   "stylus.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://stylus-lang.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learnxinyminutes.com/docs/stylus/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Stylus</tag-2> </tag-1> <tag-3> <tag-4>یادگیری X در Y دقیقه، جایی که X=stylus</tag-4> </tag-3>"
   },
   "stylus.name": {
-    "notes": "",
     "translation": "Stylus"
   },
   "sucrase.desc": {
-    "notes": "",
     "translation": "جایگزین فوق‌العاده سریع برای Babel زمانی که می‌توانید موتورهای اجرایی JS مدرن را هدف قرار دهید."
   },
   "sucrase.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://sucrase.io/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/alangpierce/sucrase\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/sucrase\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Sucrase</tag-2> </tag-1> <tag-3> <tag-4>مخزن گیت‌هاب Sucrase</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5>"
   },
   "sucrase.name": {
-    "notes": "",
     "translation": "Sucrase"
   },
   "svelte.desc": {
-    "notes": "",
     "translation": "برنامه‌های وب با ارتقای سایبرنتیکی."
   },
   "svelte.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://svelte.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://svelte.dev/docs\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"?template=svelte\" class=\"button\" target=\"_parent\" data-template=\"svelte\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Svelte</tag-2> </tag-1> <tag-3> <tag-4>مستندات Svelte</tag-4> </tag-3> <tag-5> <tag-6>بارگذاری قالب شروع کننده</tag-6> </tag-5>"
   },
   "svelte.name": {
-    "notes": "",
     "translation": "Svelte"
   },
   "tcl.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"https://github.com/ecky-l/wacl/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Tcl که در مرورگر اجرا می‌شود، با استفاده از <tag-1>wacl</tag-1>."
   },
   "tcl.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.tcl.tk/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/ecky-l/wacl/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/tcl/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=tcl\" class=\"button\" target=\"_parent\" data-template=\"tcl\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Tcl</tag-2> </tag-1> <tag-3> <tag-4>مخزن wacl</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، جایی که X=Tcl</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "tcl.name": {
-    "notes": "",
     "translation": "Tcl (زبان فرمان ابزار)"
   },
   "teal.desc": {
-    "notes": "",
     "translation": "یک گویش دارای نوع از Lua."
   },
   "teal.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://github.com/teal-language/tl\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/teal-language/tl/tree/master/docs\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/teal-language/tl/blob/master/docs/tutorial.md\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/teal\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=teal\" class=\"button\" target=\"_parent\" data-template=\"teal\" />\n\n",
     "translation": "<tag-1> <tag-2>مخزن گیت‌هاب Teal</tag-2> </tag-1> <tag-3> <tag-4>مستندات Teal</tag-4> </tag-3> <tag-5> <tag-6>آموزش Teal</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "teal.name": {
-    "notes": "",
     "translation": "Teal"
   },
   "tsx.desc": {
-    "notes": "",
     "translation": "تایپ‌اسکریپت در JSX. TSX در LiveCodes با استفاده از کامپایلر TypeScript به JavaScript تبدیل می‌شود. به طور پیش‌فرض از React به عنوان اجراکننده JSX استفاده می‌کند."
   },
   "tsx.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://react.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://react.dev/learn/writing-markup-with-jsx\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://www.typescriptlang.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/tsx\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی React</tag-2> </tag-1> <tag-3> <tag-4>JSX در مستندات React</tag-4> </tag-3> <tag-5> <tag-6>مستندات TypeScript</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7>"
   },
   "tsx.name": {
-    "notes": "",
     "translation": "TSX"
   },
   "twig.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"https://twig.symfony.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://github.com/twigjs/twig.js\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "یک پیاده‌سازی جاوااسکریپت از زبان قالب‌سازی PHP <tag-1>Twig</tag-1> توسط <tag-2>Twig.js</tag-2>"
   },
   "twig.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://twig.symfony.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://twig.symfony.com/doc/3.x/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/twigjs/twig.js\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://github.com/twigjs/twig.js/wiki\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/twig\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Twig</tag-2> </tag-1> <tag-3> <tag-4>مستندات Twig</tag-4> </tag-3> <tag-5> <tag-6>مخزن Twig.js</tag-6> </tag-5> <tag-7> <tag-8>مستندات Twig.js</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9>"
   },
   "twig.name": {
-    "notes": "",
     "translation": "Twig"
   },
   "typescript.desc": {
-    "notes": "",
     "translation": "یک مجموعه بالاتر با نوع برای JavaScript."
   },
   "typescript.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.typescriptlang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.typescriptlang.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/typescript/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=typescript\" class=\"button\" target=\"_parent\" data-template=\"typescript\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی</tag-2> </tag-1> <tag-3> <tag-4>مستندات TypeScript</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، جایی که X=TypeScript</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
   },
   "typescript.name": {
-    "notes": "",
     "translation": "TypeScript"
   },
   "vue.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://vuejs.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://vuejs.org/guide/introduction.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://vuejs.org/api/sfc-spec.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/vue\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=vue\" class=\"button\" target=\"_parent\" data-template=\"vue\" />\n\n",
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی Vue.js v3</tag-2> </tag-1> <tag-3> <tag-4>مستندات Vue3</tag-4> </tag-3> <tag-5> <tag-6>کامپوننت‌های تک فایلی Vue3</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "vue.name": {
-    "notes": "",
     "translation": "کامپوننت‌های تک فایلی Vue3"
   },
   "vue2.desc": {
-    "notes": "",
     "translation": "بارگذاری شده با استفاده از vue3-sfc-loader."
   },
   "vue2.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://vuejs.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://v2.vuejs.org/v2/guide/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://v2.vuejs.org/v2/guide/single-file-components.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://github.com/FranckFreiburger/vue3-sfc-loader\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/vue2\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>وب‌سایت رسمی Vue.js</tag-2></tag-1> <tag-3> <tag-4>مستندات Vue2</tag-4> </tag-3> <tag-5> <tag-6>کامپوننت‌های تک فایلی Vue2</tag-6> </tag-5> <tag-7> <tag-8>مخزن گیت‌هاب vue3-sfc-loader</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9>"
   },
   "vue2.name": {
-    "notes": "",
     "translation": "کامپوننت‌های تک فایلی Vue2"
   },
   "wat.desc1": {
-    "notes": "",
     "translation": "نمایش متنی سطح پایین از فرمت باینری WebAssembly (wasm)."
   },
   "wat.desc2": {
-    "notes": "",
     "translation": "با استفاده از wabt.js به wasm تبدیل می‌شود."
   },
   "wat.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://webassembly.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://webassembly.github.io/spec/core/text/index.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://developer.mozilla.org/en-US/docs/WebAssembly\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"https://github.com/AssemblyScript/wabt.js\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"https://learnxinyminutes.com/docs/wasm/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-13> ###\n<li  />\n\n### <tag-14> ###\n<a href=\"?template=wat\" class=\"button\" target=\"_parent\" data-template=\"wat\" />\n\n",
     "translation": "<tag-1><tag-2>WebAssembly.org</tag-2></tag-1> <tag-3> <tag-4>مشخصات متنی WebAssembly</tag-4> </tag-3> <tag-5> <tag-6>WebAssembly در MDN</tag-6> </tag-5> <tag-7> <tag-8>درک فرمت متنی WebAssembly</tag-8> </tag-7> <tag-9> <tag-10>مستندات wabt.js</tag-10> </tag-9> <tag-11> <tag-12>یادگیری X در Y دقیقه، جایی که X=WebAssembly</tag-12> </tag-11> <tag-13> <tag-14>بارگذاری قالب شروع کننده</tag-14> </tag-13>"
   },
   "wat.name": {
-    "notes": "",
     "translation": "فرمت متنی WebAssembly"
   }
 }
