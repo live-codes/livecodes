@@ -4,30 +4,33 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - DOCS_BASE_URL=${DOCS_BASE_URL:-null}
+        # - DOCS_BASE_URL=${DOCS_BASE_URL:-/livecodes/docs/}
     image: livecodes/latest
     restart: unless-stopped
-    ports:
-      - 8080:9000
+    environment:
+      - HOST_NAME=${HOST_NAME:-localhost}
+      - PORT=${PORT:-8080}
+      - DOCS_BASE_URL=${DOCS_BASE_URL:-null}
+      # - DOCS_BASE_URL=${DOCS_BASE_URL:-/livecodes/docs/}
 
-  # caddy:
-  #   image: caddy:2-alpine
-  #   entrypoint: ['/bin/sh', './entrypoint.sh']
-  #   command: ['caddy', 'run', '--config', '/etc/caddy/Caddyfile', '--adapter', 'caddyfile']
-  #   restart: unless-stopped
-  #   ports:
-  #     - '80:80'
-  #     - '443:443'
-  #   environment:
-  #     - HOST_NAME=${HOST_NAME:-localhost}
-  #     - BACKEND_HOST_NAME
-  #     - BACKEND_PORT
-  #     - FRONTEND_DIST_DIR=${FRONTEND_DIST_DIR:-dist}
-  #     - FRONTEND_DEV_SERVER_PORT=${FRONTEND_DEV_SERVER_PORT:-1234}
-  #   volumes:
-  #     - ./server/entrypoint.sh:/srv/entrypoint.sh
-  #     - ./server/Caddyfile:/etc/caddy/Caddyfile
-  #     - ./${DATA_DIR:-data}/caddy/data:/data
-  #     - ./${DATA_DIR:-data}/caddy/config:/config
-  #     - ./${FRONTEND_SRC_DIR:-frontend}/${FRONTEND_DIST_DIR:-dist}:/srv/${FRONTEND_DIST_DIR:-dist}
-  #   depends_on:
-  #     - livecodes
+  caddy:
+    image: caddy:2-alpine
+    entrypoint: ['/bin/sh', './entrypoint.sh']
+    command: ['caddy', 'run', '--config', '/etc/caddy/Caddyfile', '--adapter', 'caddyfile']
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '${PORT:-8080}:${PORT:-8080}'
+    environment:
+      - HOST_NAME=${HOST_NAME:-localhost}
+      - PORT=${PORT:-8080}
+    volumes:
+      - ./server/entrypoint.sh:/srv/entrypoint.sh
+      - ./server/Caddyfile:/etc/caddy/Caddyfile
+      - ./server/.caddy/data:/data
+      - ./server/.caddy/config:/config
+    depends_on:
+      - livecodes

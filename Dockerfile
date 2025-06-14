@@ -12,20 +12,24 @@ RUN npm ci
 
 COPY . .
 
-RUN npm run build
+ARG DOCS_BASE_URL
 
+RUN if [ "$DOCS_BASE_URL" == "null" ]; \
+  then npm run build:app; \
+  else npm run build; \
+  fi
 
 FROM node:24.1.0-alpine3.21 AS server
 
 WORKDIR /srv
 
-COPY server/package.json package.json
-COPY server/package-lock.json package-lock.json
+COPY server/package*.json ./
 
 RUN npm ci
 
-COPY --from=builder /app/build /srv/build/
+COPY --from=builder /app/build/ /srv/build/
 
-COPY server/server.js server/server.js
+COPY functions/ functions/
+COPY server/*.ts server/
 
-CMD ["node", "server/server.js"]
+CMD ["node", "server/server.ts"]

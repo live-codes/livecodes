@@ -1,11 +1,4 @@
-/// <reference path="../node_modules/@cloudflare/workers-types/index.d.ts" />
-
-import { getProjectInfo } from './utils';
-
-type Env = Record<'API_TOKEN', string>;
-type Data = Record<string, unknown>;
-type PgFunction = PagesFunction<Env, 'id', Data>;
-type Context = EventContext<Env, 'id', Data>;
+import { getProjectInfo, type Context, type PgFunction } from './utils.ts';
 
 export const onRequest: PgFunction = async function (context) {
   const { request, env } = context;
@@ -46,6 +39,9 @@ export const onRequest: PgFunction = async function (context) {
     const url = new URL(request.url);
     const oembedUrl = encodeURIComponent(url.href);
     const { title, description } = await getProjectInfo(url);
+    console.log(url.href);
+    console.log(url.origin);
+    console.log(oembedUrl);
     const modifiedBody = (await originalResponse.text())
       .replace(
         `href="oembed?url=https%3A%2F%2Flivecodes.io&format=json"`,

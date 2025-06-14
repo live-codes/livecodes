@@ -7,15 +7,17 @@
 
   {$DEFAULT_SNI}
 }
-{$HOST_NAME} {
-  root * /srv/{$FRONTEND_DIST_DIR}
-  encode
-  file_server
+
+(common) {
+  header -Server
 }
-www.{$HOST_NAME} {
-  redir https://{$HOST_NAME}{uri}
-}
-{$BACKEND_HOST_NAME}:{$BACKEND_PORT} {
-  reverse_proxy server:{$BACKEND_PORT}
+
+{$HOST_NAME}:{$PORT} {
+  import common
+  reverse_proxy livecodes:{$PORT}
   encode
+}
+www.{$HOST_NAME}:{$PORT} {
+  import common
+  redir https://{$HOST_NAME}:{$PORT}{uri} permanent
 }
