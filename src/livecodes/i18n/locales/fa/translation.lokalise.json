@@ -1,0 +1,2979 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "about.blog.text": {
+    "notes": "",
+    "translation": "وبلاگ"
+  },
+  "about.blog.title": {
+    "notes": "",
+    "translation": "وبلاگ LiveCodes"
+  },
+  "about.configuration": {
+    "notes": "",
+    "translation": "پیکربندی"
+  },
+  "about.credits.heading": {
+    "notes": "",
+    "translation": "اعتبارات"
+  },
+  "about.credits.para1": {
+    "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}credits\" target=\"_blank\" />\n\n",
+    "translation": "LiveCodes با کمک پروژه‌های متن‌باز، سرویس‌های وب و مشارکت‌کنندگان امکان‌پذیر شده است. <tag-1>مشاهده اعتبارات</tag-1>"
+  },
+  "about.credits.para2": {
+    "notes": "",
+    "translation": "© 2024 حاتم حسنی. LiveCodes تحت مجوز MIT لایسنس شده است."
+  },
+  "about.documentations.heading": {
+    "notes": "",
+    "translation": "مستندات"
+  },
+  "about.gettingStarted": {
+    "notes": "",
+    "translation": "شروع به کار"
+  },
+  "about.github.text": {
+    "notes": "",
+    "translation": "گیت‌هاب"
+  },
+  "about.github.title": {
+    "notes": "",
+    "translation": "گیت‌هاب"
+  },
+  "about.heading": {
+    "notes": "",
+    "translation": "درباره LiveCodes"
+  },
+  "about.livecodes.aboutUs": {
+    "notes": "",
+    "translation": "درباره LiveCodes"
+  },
+  "about.livecodes.para1": {
+    "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<em  />\n\n",
+    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> یک محیط برنامه‌نویسی متن‌باز، پر امکانات و سمت مرورگر است. در حال حاضر، بیش از ۹۰ زبان و فریم‌ورک پشتیبانی می‌شود. می‌تواند به عنوان یک برنامه مستقل یا تعبیه‌شده در هر صفحه وب استفاده شود."
+  },
+  "about.livecodes.para2": {
+    "notes": "",
+    "translation": "یک SDK قدرتمند، یکپارچه‌سازی و ارتباط با محیط‌های برنامه‌نویسی را آسان می‌کند. مستندات گسترده با نمونه‌های کد، نمایش‌های زنده و تصاویر در دسترس است."
+  },
+  "about.sdk": {
+    "notes": "",
+    "translation": "LiveCodes SDK"
+  },
+  "about.sponsor.text": {
+    "notes": "",
+    "translation": "حمایت مالی"
+  },
+  "about.sponsor.title": {
+    "notes": "",
+    "translation": "حمایت مالی از LiveCodes"
+  },
+  "about.twitter.text": {
+    "notes": "",
+    "translation": "𝕏 / توییتر"
+  },
+  "about.twitter.title": {
+    "notes": "",
+    "translation": "𝕏 / توییتر"
+  },
+  "about.version.app": {
+    "notes": "### <tag-1> ###\n<span class=\"version\" />\n\n",
+    "translation": "نسخه برنامه: <tag-1>{{APP_VERSION}}</tag-1>"
+  },
+  "about.version.appPermanentUrl": {
+    "notes": "",
+    "translation": "آدرس دائمی برنامه"
+  },
+  "about.version.commit": {
+    "notes": "### <tag-1> ###\n<a href=\"{{COMMIT_URL}}\" target=\"_blank\" rel=\"noopener\" class=\"version\" />\n\n",
+    "translation": "کامیت گیت: <tag-1>{{COMMIT_SHA}}</tag-1>"
+  },
+  "about.version.heading": {
+    "notes": "",
+    "translation": "نسخه"
+  },
+  "about.version.sdk": {
+    "notes": "### <tag-1> ###\n<span class=\"version\" />\n\n",
+    "translation": "نسخه SDK: <tag-1>{{SDK_VERSION}}</tag-1>"
+  },
+  "about.version.sdkPermanentUrl": {
+    "notes": "",
+    "translation": "آدرس دائمی SDK"
+  },
+  "app.changeTheme.hint": {
+    "notes": "",
+    "translation": "تغییر تم"
+  },
+  "app.codeToImage.hint": {
+    "notes": "",
+    "translation": "تبدیل کد به تصویر"
+  },
+  "app.consoleMessage.appVersion": {
+    "notes": "",
+    "translation": "نسخه برنامه: {{APP_VERSION}}"
+  },
+  "app.consoleMessage.commit": {
+    "notes": "",
+    "translation": "کامیت گیت: {{COMMIT_SHA}}"
+  },
+  "app.consoleMessage.learnMore": {
+    "notes": "",
+    "translation": "بیشتر بیاموزید! {{docsUrl}} 🚀"
+  },
+  "app.consoleMessage.sdkVersion": {
+    "notes": "",
+    "translation": "نسخه SDK: {{SDK_VERSION}}"
+  },
+  "app.copy.hint": {
+    "notes": "",
+    "translation": "کپی (Ctrl/⌘ + A, Ctrl/⌘ + C)"
+  },
+  "app.copyAsUrl.hint": {
+    "notes": "",
+    "translation": "کپی کد به صورت آدرس داده"
+  },
+  "app.customSettings.hint": {
+    "notes": "",
+    "translation": "تنظیمات سفارشی"
+  },
+  "app.editorSettings.hint": {
+    "notes": "",
+    "translation": "تنظیمات ویرایشگر"
+  },
+  "app.externalResources.hint": {
+    "notes": "",
+    "translation": "منابع خارجی"
+  },
+  "app.focus.hint": {
+    "notes": "",
+    "translation": "تغییر حالت تمرکز (Ctrl/⌘ + K, Z)"
+  },
+  "app.format.hint": {
+    "notes": "",
+    "translation": "قالب‌بندی (Alt + Shift + F)"
+  },
+  "app.fullscreen.hint": {
+    "notes": "",
+    "translation": "تمام صفحه"
+  },
+  "app.i18nButton.hint": {
+    "notes": "",
+    "translation": "زبان رابط کاربری"
+  },
+  "app.i18nMenu.docs": {
+    "notes": "",
+    "translation": "مستندات i18n"
+  },
+  "app.i18nMenu.helpTranslate": {
+    "notes": "",
+    "translation": "به ما در ترجمه کمک کنید"
+  },
+  "app.logo.title": {
+    "notes": "",
+    "translation": "LiveCodes: یک محیط برنامه‌نویسی که به سادگی کار می‌کند!"
+  },
+  "app.projectInfo.hint": {
+    "notes": "",
+    "translation": "اطلاعات پروژه"
+  },
+  "app.redo.hint": {
+    "notes": "",
+    "translation": "انجام دوباره (Ctrl/⌘ + Shift + Z)"
+  },
+  "app.result.hint": {
+    "notes": "",
+    "translation": "نتیجه (Ctrl/⌘ + Alt + R)"
+  },
+  "app.run.hint": {
+    "notes": "",
+    "translation": "اجرا (Shift + Enter)"
+  },
+  "app.share.hint": {
+    "notes": "",
+    "translation": "اشتراک‌گذاری (Ctrl/⌘ + Alt + S)"
+  },
+  "app.themeColors.custom": {
+    "notes": "",
+    "translation": "سفارشی"
+  },
+  "app.undo.hint": {
+    "notes": "",
+    "translation": "بازگشت (Ctrl/⌘ + Z)"
+  },
+  "app.untitledProject": {
+    "notes": "",
+    "translation": "پروژه بدون عنوان"
+  },
+  "assets.action.delete": {
+    "notes": "",
+    "translation": "حذف"
+  },
+  "assets.add.dataURL.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "افزودن دارایی به صورت <tag-1>آدرس داده</tag-1> کدگذاری شده با base64."
+  },
+  "assets.add.dataURL.heading": {
+    "notes": "",
+    "translation": "آدرس داده"
+  },
+  "assets.add.dataURL.label": {
+    "notes": "",
+    "translation": "افزودن فایل"
+  },
+  "assets.add.githubPages.desc": {
+    "notes": "### <tag-1> ###\n<span class=\"code\" />\n\n### <tag-2> ###\n<span class=\"code\" />\n\n",
+    "translation": "انتشار دارایی در گیت‌هاب پیجز. فایل به شاخه <tag-1>gh-pages</tag-1> در مخزن <tag-2>livecodes-assets</tag-2> در حساب گیت‌هاب شما ارسال می‌شود. اگر مخزن از قبل وجود نداشته باشد، یک مخزن عمومی ایجاد خواهد شد."
+  },
+  "assets.add.githubPages.heading": {
+    "notes": "",
+    "translation": "گیت‌هاب پیجز"
+  },
+  "assets.add.githubPages.label": {
+    "notes": "",
+    "translation": "آپلود فایل"
+  },
+  "assets.add.heading": {
+    "notes": "",
+    "translation": "افزودن دارایی"
+  },
+  "assets.delete.all": {
+    "notes": "",
+    "translation": "حذف {{assets}} دارایی؟"
+  },
+  "assets.delete.one": {
+    "notes": "",
+    "translation": "حذف دارایی: {{asset}}؟"
+  },
+  "assets.deleteAll": {
+    "notes": "",
+    "translation": "حذف همه"
+  },
+  "assets.generic.clickToCopyURL": {
+    "notes": "",
+    "translation": "برای کپی آدرس کلیک کنید"
+  },
+  "assets.heading": {
+    "notes": "",
+    "translation": "دارایی‌ها"
+  },
+  "assets.link.date": {
+    "notes": "",
+    "translation": "تاریخ: {{modified}}"
+  },
+  "assets.link.type": {
+    "notes": "",
+    "translation": "نوع: {{type}}"
+  },
+  "assets.link.url": {
+    "notes": "",
+    "translation": "آدرس: {{url}}"
+  },
+  "assets.loadFile.error.failedToUpload": {
+    "notes": "",
+    "translation": "خطا: آپلود فایل ناموفق بود"
+  },
+  "assets.loadFile.error.unauthenticated": {
+    "notes": "",
+    "translation": "خطا: کاربر احراز هویت نشده"
+  },
+  "assets.loadFile.upload": {
+    "notes": "",
+    "translation": "آپلود فایل"
+  },
+  "assets.loadFile.uploading": {
+    "notes": "",
+    "translation": "در حال آپلود..."
+  },
+  "assets.noMatch": {
+    "notes": "",
+    "translation": "هیچ دارایی با این فیلترها مطابقت ندارد."
+  },
+  "assets.noSavedAssets": {
+    "notes": "",
+    "translation": "شما هیچ دارایی ذخیره‌شده‌ای ندارید."
+  },
+  "assets.processAsset.addFile": {
+    "notes": "",
+    "translation": "فایل اضافه شد: "
+  },
+  "assets.processAsset.deployNotice": {
+    "notes": "",
+    "translation": "دارایی به زودی (حدود ۱ دقیقه) در این آدرس در دسترس خواهد بود."
+  },
+  "assets.processAsset.success": {
+    "notes": "",
+    "translation": "فایل به دارایی‌ها اضافه شد!"
+  },
+  "assets.processAsset.urlLabel": {
+    "notes": "",
+    "translation": "آدرس: "
+  },
+  "assets.resetFilters": {
+    "notes": "",
+    "translation": "بازنشانی"
+  },
+  "assets.search": {
+    "notes": "",
+    "translation": "جستجو"
+  },
+  "assets.sort.date": {
+    "notes": "",
+    "translation": "تاریخ"
+  },
+  "assets.sort.fileName": {
+    "notes": "",
+    "translation": "نام فایل"
+  },
+  "assets.sort.heading": {
+    "notes": "",
+    "translation": "مرتب‌سازی براساس:"
+  },
+  "assets.type.archive": {
+    "notes": "",
+    "translation": "آرشیو"
+  },
+  "assets.type.audio": {
+    "notes": "",
+    "translation": "صوت"
+  },
+  "assets.type.csv": {
+    "notes": "",
+    "translation": "CSV"
+  },
+  "assets.type.font": {
+    "notes": "",
+    "translation": "فونت"
+  },
+  "assets.type.html": {
+    "notes": "",
+    "translation": "HTML"
+  },
+  "assets.type.icon": {
+    "notes": "",
+    "translation": "آیکون"
+  },
+  "assets.type.image": {
+    "notes": "",
+    "translation": "تصویر"
+  },
+  "assets.type.json": {
+    "notes": "",
+    "translation": "JSON"
+  },
+  "assets.type.other": {
+    "notes": "",
+    "translation": "سایر"
+  },
+  "assets.type.script": {
+    "notes": "",
+    "translation": "اسکریپت"
+  },
+  "assets.type.stylesheet": {
+    "notes": "",
+    "translation": "استایل‌شیت"
+  },
+  "assets.type.text": {
+    "notes": "",
+    "translation": "متن"
+  },
+  "assets.type.video": {
+    "notes": "",
+    "translation": "ویدیو"
+  },
+  "assets.type.xml": {
+    "notes": "",
+    "translation": "XML"
+  },
+  "assets.types.all": {
+    "notes": "",
+    "translation": "همه انواع"
+  },
+  "assets.url.fail": {
+    "notes": "",
+    "translation": "کپی آدرس ناموفق بود."
+  },
+  "assets.url.success": {
+    "notes": "",
+    "translation": "آدرس در کلیپ‌بورد کپی شد."
+  },
+  "backup.backup.assets": {
+    "notes": "",
+    "translation": "دارایی‌ها"
+  },
+  "backup.backup.button": {
+    "notes": "",
+    "translation": "پشتیبان‌گیری"
+  },
+  "backup.backup.desc": {
+    "notes": "### <tag-1> ###\n<br  />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}features/backup-restore\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "از داده‌های LiveCodes پشتیبان بگیرید تا بتوانید بعداً آن‌ها را در این دستگاه یا دستگاه‌های دیگر بازیابی کنید. <tag-1></tag-1> لطفاً برای جزئیات بیشتر به <tag-2>مستندات</tag-2> مراجعه کنید."
+  },
+  "backup.backup.heading": {
+    "notes": "",
+    "translation": "پشتیبان‌گیری"
+  },
+  "backup.backup.projects": {
+    "notes": "",
+    "translation": "پروژه‌ها"
+  },
+  "backup.backup.settings": {
+    "notes": "",
+    "translation": "تنظیمات کاربر"
+  },
+  "backup.backup.snippets": {
+    "notes": "",
+    "translation": "قطعات کد"
+  },
+  "backup.backup.templates": {
+    "notes": "",
+    "translation": "قالب‌های کاربر"
+  },
+  "backup.backupBtn": {
+    "notes": "",
+    "translation": "پشتیبان‌گیری"
+  },
+  "backup.error.atLeastOneStore": {
+    "notes": "",
+    "translation": "لطفاً حداقل یک منبع را برای پشتیبان‌گیری انتخاب کنید"
+  },
+  "backup.error.incorrectFileType": {
+    "notes": "",
+    "translation": "خطا: نوع فایل نادرست است"
+  },
+  "backup.fileInputLabel": {
+    "notes": "",
+    "translation": "بازیابی از فایل"
+  },
+  "backup.heading": {
+    "notes": "",
+    "translation": "پشتیبان‌گیری / بازیابی"
+  },
+  "backup.inProgress": {
+    "notes": "",
+    "translation": "در حال انجام..."
+  },
+  "backup.restore.desc": {
+    "notes": "### <tag-1> ###\n<br  />\n\n### <tag-2> ###\n<br  />\n\n### <tag-3> ###\n<a href=\"{{DOCS_BASE_URL}}features/backup-restore\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "بازیابی داده‌های LiveCodes که قبلاً پشتیبان‌گیری شده‌اند. <tag-1></tag-1> اگر می‌خواهید محتوای فعلی را جایگزین کنید، ممکن است ابتدا بخواهید از آن پشتیبان بگیرید. <tag-2></tag-2> لطفاً برای جزئیات بیشتر به <tag-3>مستندات</tag-3> مراجعه کنید."
+  },
+  "backup.restore.fromFile": {
+    "notes": "",
+    "translation": "بازیابی از فایل"
+  },
+  "backup.restore.heading": {
+    "notes": "",
+    "translation": "بازیابی"
+  },
+  "backup.restore.mode.merge": {
+    "notes": "",
+    "translation": "ادغام با محتوای فعلی"
+  },
+  "backup.restore.mode.replace": {
+    "notes": "",
+    "translation": "جایگزینی محتوای فعلی"
+  },
+  "backup.restore.success": {
+    "notes": "",
+    "translation": "بازیابی با موفقیت انجام شد!"
+  },
+  "broadcast.broadcastBtn.start": {
+    "notes": "",
+    "translation": "پخش"
+  },
+  "broadcast.broadcastBtn.stop": {
+    "notes": "",
+    "translation": "توقف پخش"
+  },
+  "broadcast.broadcasting": {
+    "notes": "",
+    "translation": "در حال پخش..."
+  },
+  "broadcast.channelURL": {
+    "notes": "",
+    "translation": "آدرس کانال"
+  },
+  "broadcast.connecting": {
+    "notes": "",
+    "translation": "در حال اتصال..."
+  },
+  "broadcast.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}features/broadcast\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "صفحه نتیجه را به صورت زنده به مرورگرها/دستگاه‌های دیگر پخش کنید. لطفاً برای جزئیات بیشتر به <tag-1>مستندات</tag-1> مراجعه کنید."
+  },
+  "broadcast.error.generic": {
+    "notes": "",
+    "translation": "پخش ناموفق بود!"
+  },
+  "broadcast.error.serverURLRequired": {
+    "notes": "",
+    "translation": "آدرس سرور الزامی است!"
+  },
+  "broadcast.heading": {
+    "notes": "",
+    "translation": "پخش"
+  },
+  "broadcast.includeSourceCode": {
+    "notes": "",
+    "translation": "شامل کد منبع"
+  },
+  "broadcast.serverURL.heading": {
+    "notes": "",
+    "translation": "آدرس سرور"
+  },
+  "codeToImage.background": {
+    "notes": "",
+    "translation": "پس‌زمینه"
+  },
+  "codeToImage.borderRadius": {
+    "notes": "",
+    "translation": "شعاع حاشیه"
+  },
+  "codeToImage.code": {
+    "notes": "",
+    "translation": "کد"
+  },
+  "codeToImage.copyCode": {
+    "notes": "",
+    "translation": "کپی کد"
+  },
+  "codeToImage.copyImage": {
+    "notes": "",
+    "translation": "کپی تصویر"
+  },
+  "codeToImage.default": {
+    "notes": "",
+    "translation": "پیش‌فرض"
+  },
+  "codeToImage.direction": {
+    "notes": "",
+    "translation": "جهت"
+  },
+  "codeToImage.fileName": {
+    "notes": "",
+    "translation": "نام فایل"
+  },
+  "codeToImage.fontFamily": {
+    "notes": "",
+    "translation": "خانواده فونت"
+  },
+  "codeToImage.fontSize": {
+    "notes": "",
+    "translation": "اندازه فونت"
+  },
+  "codeToImage.heading": {
+    "notes": "",
+    "translation": "تبدیل کد به تصویر"
+  },
+  "codeToImage.image": {
+    "notes": "",
+    "translation": "تصویر"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "notes": "",
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "notes": "",
+    "translation": "فرمت تصویر"
+  },
+  "codeToImage.imageFormat.png": {
+    "notes": "",
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "notes": "",
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "notes": "",
+    "translation": "چیدمان"
+  },
+  "codeToImage.opacity": {
+    "notes": "",
+    "translation": "شفافیت"
+  },
+  "codeToImage.padding": {
+    "notes": "",
+    "translation": "حاشیه داخلی"
+  },
+  "codeToImage.presets": {
+    "notes": "",
+    "translation": "پیش‌تنظیمات"
+  },
+  "codeToImage.preview": {
+    "notes": "",
+    "translation": "پیش‌نمایش"
+  },
+  "codeToImage.save": {
+    "notes": "",
+    "translation": "ذخیره تصویر"
+  },
+  "codeToImage.scale": {
+    "notes": "",
+    "translation": "مقیاس تصویر"
+  },
+  "codeToImage.shadow": {
+    "notes": "",
+    "translation": "سایه"
+  },
+  "codeToImage.shareImage": {
+    "notes": "",
+    "translation": "اشتراک‌گذاری تصویر"
+  },
+  "codeToImage.shareTitle": {
+    "notes": "",
+    "translation": "اشتراک‌گذاری"
+  },
+  "codeToImage.shareUrl": {
+    "notes": "",
+    "translation": "اشتراک‌گذاری آدرس"
+  },
+  "codeToImage.theme": {
+    "notes": "",
+    "translation": "تم"
+  },
+  "codeToImage.width": {
+    "notes": "",
+    "translation": "عرض"
+  },
+  "codeToImage.windowStyle.label": {
+    "notes": "",
+    "translation": "سبک پنجره"
+  },
+  "codeToImage.windowStyle.mac": {
+    "notes": "",
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "notes": "",
+    "translation": "هیچ‌کدام"
+  },
+  "codeToImage.windowStyle.windows": {
+    "notes": "",
+    "translation": "ویندوز"
+  },
+  "commandMenu.changeTheme.dark": {
+    "notes": "",
+    "translation": "تغییر به تم تیره"
+  },
+  "commandMenu.changeTheme.light": {
+    "notes": "",
+    "translation": "تغییر به تم روشن"
+  },
+  "commandMenu.changeTheme.title": {
+    "notes": "",
+    "translation": "تغییر تم"
+  },
+  "commandMenu.changeUILanguage": {
+    "notes": "",
+    "translation": "تغییر زبان رابط کاربری"
+  },
+  "commandMenu.closeModalMenu": {
+    "notes": "",
+    "translation": "بستن پنجره/منو"
+  },
+  "commandMenu.contribute": {
+    "notes": "",
+    "translation": "مشارکت"
+  },
+  "commandMenu.copy": {
+    "notes": "",
+    "translation": "کپی کد"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "notes": "",
+    "translation": "کپی کد به صورت آدرس داده"
+  },
+  "commandMenu.disableAI": {
+    "notes": "",
+    "translation": "غیرفعال‌سازی دستیار کد هوش مصنوعی"
+  },
+  "commandMenu.disableAutoSave": {
+    "notes": "",
+    "translation": "غیرفعال‌سازی ذخیره خودکار"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "notes": "",
+    "translation": "غیرفعال‌سازی به‌روزرسانی خودکار"
+  },
+  "commandMenu.disableEmacs": {
+    "notes": "",
+    "translation": "غیرفعال‌سازی حالت Emacs"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "notes": "",
+    "translation": "غیرفعال‌سازی قالب‌بندی هنگام ذخیره"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "notes": "",
+    "translation": "غیرفعال‌سازی بازیابی ذخیره‌نشده‌ها"
+  },
+  "commandMenu.disableVim": {
+    "notes": "",
+    "translation": "غیرفعال‌سازی حالت Vim"
+  },
+  "commandMenu.enableAI": {
+    "notes": "",
+    "translation": "فعال‌سازی دستیار کد هوش مصنوعی"
+  },
+  "commandMenu.enableAutoSave": {
+    "notes": "",
+    "translation": "فعال‌سازی ذخیره خودکار"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "notes": "",
+    "translation": "فعال‌سازی به‌روزرسانی خودکار"
+  },
+  "commandMenu.enableEmacs": {
+    "notes": "",
+    "translation": "فعال‌سازی حالت Emacs"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "notes": "",
+    "translation": "فعال‌سازی قالب‌بندی هنگام ذخیره"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "notes": "",
+    "translation": "فعال‌سازی بازیابی ذخیره‌نشده‌ها"
+  },
+  "commandMenu.enableVim": {
+    "notes": "",
+    "translation": "فعال‌سازی حالت Vim"
+  },
+  "commandMenu.focus.editor": {
+    "notes": "",
+    "translation": "تمرکز بر ویرایشگر"
+  },
+  "commandMenu.focus.home": {
+    "notes": "",
+    "translation": "انتقال تمرکز به خانه"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "notes": "",
+    "translation": "انتقال تمرکز به خارج از ویرایشگر"
+  },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "notes": "",
+    "translation": "تغییر حالت تمرکز تب"
+  },
+  "commandMenu.formatCode": {
+    "notes": "",
+    "translation": "قالب‌بندی کد"
+  },
+  "commandMenu.home": {
+    "notes": "",
+    "translation": "خانه"
+  },
+  "commandMenu.horizontalLayout": {
+    "notes": "",
+    "translation": "چیدمان افقی"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "notes": "",
+    "translation": "میانبرهای صفحه‌کلید"
+  },
+  "commandMenu.login": {
+    "notes": "",
+    "translation": "ورود"
+  },
+  "commandMenu.logout": {
+    "notes": "",
+    "translation": "خروج"
+  },
+  "commandMenu.moveToParent": {
+    "notes": "",
+    "translation": "رفتن به والد"
+  },
+  "commandMenu.placeholder": {
+    "notes": "",
+    "translation": "یک دستور تایپ کنید یا جستجو کنید..."
+  },
+  "commandMenu.processors": {
+    "notes": "",
+    "translation": "پردازنده‌ها"
+  },
+  "commandMenu.responsiveLayout": {
+    "notes": "",
+    "translation": "چیدمان واکنش‌گرا"
+  },
+  "commandMenu.run": {
+    "notes": "",
+    "translation": "اجرا"
+  },
+  "commandMenu.saveAsFork": {
+    "notes": "",
+    "translation": "ذخیره به عنوان انشعاب (پروژه جدید)"
+  },
+  "commandMenu.saveAsTemplate": {
+    "notes": "",
+    "translation": "ذخیره به عنوان قالب"
+  },
+  "commandMenu.selectLanguage": {
+    "notes": "",
+    "translation": "انتخاب زبان"
+  },
+  "commandMenu.show.compiled": {
+    "notes": "",
+    "translation": "تغییر نمایش کد کامپایل شده"
+  },
+  "commandMenu.show.console": {
+    "notes": "",
+    "translation": "تغییر نمایش کنسول"
+  },
+  "commandMenu.show.focusMode": {
+    "notes": "",
+    "translation": "تغییر حالت تمرکز"
+  },
+  "commandMenu.show.fullscreen": {
+    "notes": "",
+    "translation": "تغییر حالت تمام صفحه"
+  },
+  "commandMenu.show.markup": {
+    "notes": "",
+    "translation": "نمایش ویرایشگر نشانه‌گذاری"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "notes": "",
+    "translation": "بزرگنمایی کد کامپایل شده"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "notes": "",
+    "translation": "بزرگنمایی کنسول"
+  },
+  "commandMenu.show.maximizeTests": {
+    "notes": "",
+    "translation": "بزرگنمایی آزمون‌ها"
+  },
+  "commandMenu.show.next": {
+    "notes": "",
+    "translation": "نمایش ویرایشگر بعدی"
+  },
+  "commandMenu.show.previous": {
+    "notes": "",
+    "translation": "نمایش ویرایشگر قبلی"
+  },
+  "commandMenu.show.result": {
+    "notes": "",
+    "translation": "تغییر نمایش نتیجه"
+  },
+  "commandMenu.show.runTests": {
+    "notes": "",
+    "translation": "اجرای آزمون‌ها"
+  },
+  "commandMenu.show.script": {
+    "notes": "",
+    "translation": "نمایش ویرایشگر اسکریپت"
+  },
+  "commandMenu.show.style": {
+    "notes": "",
+    "translation": "نمایش ویرایشگر استایل"
+  },
+  "commandMenu.show.tests": {
+    "notes": "",
+    "translation": "تغییر نمایش آزمون‌ها"
+  },
+  "commandMenu.show.title": {
+    "notes": "",
+    "translation": "نمایش …"
+  },
+  "commandMenu.show.zoom": {
+    "notes": "",
+    "translation": "تغییر بزرگنمایی نتیجه"
+  },
+  "commandMenu.starterTemplates": {
+    "notes": "",
+    "translation": "قالب‌های شروع کننده"
+  },
+  "commandMenu.sync": {
+    "notes": "",
+    "translation": "همگام‌سازی (بتا) …"
+  },
+  "commandMenu.template": {
+    "notes": "",
+    "translation": "قالب"
+  },
+  "commandMenu.theme.color": {
+    "notes": "",
+    "translation": "تنظیم رنگ تم"
+  },
+  "commandMenu.theme.defaultColor": {
+    "notes": "",
+    "translation": "تنظیم رنگ پیش‌فرض تم"
+  },
+  "commandMenu.title": {
+    "notes": "",
+    "translation": "منوی دستورات"
+  },
+  "commandMenu.toClose": {
+    "notes": "",
+    "translation": "برای بستن"
+  },
+  "commandMenu.toNavigate": {
+    "notes": "",
+    "translation": "برای پیمایش"
+  },
+  "commandMenu.toSelect": {
+    "notes": "",
+    "translation": "برای انتخاب"
+  },
+  "commandMenu.toggle": {
+    "notes": "",
+    "translation": "تغییر وضعیت: "
+  },
+  "commandMenu.verticalLayout": {
+    "notes": "",
+    "translation": "چیدمان عمودی"
+  },
+  "core.broadcast.heading": {
+    "notes": "",
+    "translation": "پخش"
+  },
+  "core.broadcast.successSetToken": {
+    "notes": "",
+    "translation": "توکن کاربر پخش با موفقیت تنظیم شد"
+  },
+  "core.changeLanguage.hint": {
+    "notes": "",
+    "translation": "تغییر زبان"
+  },
+  "core.changeLanguage.message": {
+    "notes": "",
+    "translation": "در حال بارگذاری {{lang}}. این ممکن است مدتی طول بکشد!"
+  },
+  "core.copy.copied": {
+    "notes": "",
+    "translation": "کد در کلیپ‌بورد کپی شد"
+  },
+  "core.copy.copiedAsDataURL": {
+    "notes": "",
+    "translation": "کد به صورت آدرس داده کپی شد"
+  },
+  "core.copy.copiedImage": {
+    "notes": "",
+    "translation": "تصویر در کلیپ‌بورد کپی شد."
+  },
+  "core.copy.hint": {
+    "notes": "",
+    "translation": "کپی شد!"
+  },
+  "core.copy.title": {
+    "notes": "",
+    "translation": "کپی"
+  },
+  "core.error.couldNotLoadTemplate": {
+    "notes": "",
+    "translation": "بارگذاری قالب ناموفق بود: {{template}}"
+  },
+  "core.error.failedToCopyCode": {
+    "notes": "",
+    "translation": "کپی کد ناموفق بود"
+  },
+  "core.error.failedToCopyImage": {
+    "notes": "",
+    "translation": "کپی تصویر ناموفق بود"
+  },
+  "core.error.failedToLoadTemplate": {
+    "notes": "",
+    "translation": "بارگذاری قالب ناموفق بود"
+  },
+  "core.error.failedToLoadTemplates": {
+    "notes": "",
+    "translation": "بارگذاری قالب‌های شروع کننده ناموفق بود"
+  },
+  "core.error.failedToParseSettings": {
+    "notes": "",
+    "translation": "تجزیه تنظیمات به عنوان JSON ناموفق بود"
+  },
+  "core.error.failedToSaveImage": {
+    "notes": "",
+    "translation": "ذخیره تصویر ناموفق بود"
+  },
+  "core.error.failedToShareImage": {
+    "notes": "",
+    "translation": "اشتراک‌گذاری تصویر ناموفق بود"
+  },
+  "core.error.invalidCommand": {
+    "notes": "",
+    "translation": "دستور نامعتبر!"
+  },
+  "core.error.invalidImport": {
+    "notes": "",
+    "translation": "آدرس وارداتی نامعتبر است"
+  },
+  "core.error.invalidPanelId": {
+    "notes": "",
+    "translation": "شناسه پنل نامعتبر است"
+  },
+  "core.error.invalidToken": {
+    "notes": "",
+    "translation": "توکن نامعتبر!"
+  },
+  "core.error.login": {
+    "notes": "",
+    "translation": "خطای ورود!"
+  },
+  "core.error.logout": {
+    "notes": "",
+    "translation": "خطای خروج!"
+  },
+  "core.error.noResultContainer": {
+    "notes": "",
+    "translation": "ظرف نتیجه یافت نشد"
+  },
+  "core.error.unavailable": {
+    "notes": "",
+    "translation": "دستور در دسترس نیست"
+  },
+  "core.error.unavailableForEmbeds": {
+    "notes": "",
+    "translation": "دستور برای تعبیه‌ها در دسترس نیست"
+  },
+  "core.export.gist": {
+    "notes": "",
+    "translation": "در حال ایجاد گیست عمومی گیت‌هاب..."
+  },
+  "core.fork.success": {
+    "notes": "",
+    "translation": "به عنوان یک پروژه جدید منشعب شد"
+  },
+  "core.fullScreen.enter": {
+    "notes": "",
+    "translation": "تمام صفحه"
+  },
+  "core.fullScreen.exit": {
+    "notes": "",
+    "translation": "خروج از تمام صفحه"
+  },
+  "core.generating": {
+    "notes": "",
+    "translation": "در حال تولید..."
+  },
+  "core.import.loading": {
+    "notes": "",
+    "translation": "در حال بارگذاری پروژه..."
+  },
+  "core.layout.horizontal": {
+    "notes": "",
+    "translation": "چیدمان افقی"
+  },
+  "core.layout.responsive": {
+    "notes": "",
+    "translation": "چیدمان واکنش‌گرا"
+  },
+  "core.layout.vertical": {
+    "notes": "",
+    "translation": "چیدمان عمودی"
+  },
+  "core.loadDefaults.template": {
+    "notes": "",
+    "translation": "بارگذاری قالب پیش‌فرض"
+  },
+  "core.login.success": {
+    "notes": "",
+    "translation": "ورود با موفقیت انجام شد"
+  },
+  "core.login.successWithName": {
+    "notes": "",
+    "translation": "وارد شده به عنوان: {{name}}"
+  },
+  "core.logout.success": {
+    "notes": "",
+    "translation": "خروج با موفقیت انجام شد"
+  },
+  "core.result.hint": {
+    "notes": "",
+    "translation": "نمایش نتیجه در پنجره جدید"
+  },
+  "core.save.success": {
+    "notes": "",
+    "translation": "پروژه به صورت محلی در دستگاه ذخیره شد!"
+  },
+  "core.save.successWithName": {
+    "notes": "",
+    "translation": "پروژه \"{{name}}\" در دستگاه ذخیره شد."
+  },
+  "core.template.blank": {
+    "notes": "",
+    "translation": "پروژه خالی"
+  },
+  "core.template.delete": {
+    "notes": "",
+    "translation": "حذف قالب \"{{item}}\"؟"
+  },
+  "core.template.javascript": {
+    "notes": "",
+    "translation": "شروع کننده جاوااسکریپت"
+  },
+  "core.template.react": {
+    "notes": "",
+    "translation": "شروع کننده ری‌اکت"
+  },
+  "core.template.saved": {
+    "notes": "",
+    "translation": "به عنوان قالب جدید ذخیره شد"
+  },
+  "core.template.typescript": {
+    "notes": "",
+    "translation": "شروع کننده تایپ‌اسکریپت"
+  },
+  "core.template.vue": {
+    "notes": "",
+    "translation": "شروع کننده Vue 3"
+  },
+  "core.unload.notSaved": {
+    "notes": "",
+    "translation": "تغییراتی که ایجاد کرده‌اید ممکن است ذخیره نشده باشند."
+  },
+  "core.zoom.hint": {
+    "notes": "",
+    "translation": "بزرگنمایی"
+  },
+  "customSettings.JSON": {
+    "notes": "",
+    "translation": "JSON تنظیمات سفارشی"
+  },
+  "customSettings.desc": {
+    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}advanced/custom-settings\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "<tag-1></tag-1> برای جزئیات بیشتر، لطفاً به <tag-2>مستندات</tag-2> مراجعه کنید"
+  },
+  "customSettings.heading": {
+    "notes": "",
+    "translation": "تنظیمات سفارشی"
+  },
+  "customSettings.load": {
+    "notes": "",
+    "translation": "بارگذاری"
+  },
+  "deploy.create.desc": {
+    "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<span class=\"code\" />\n\n",
+    "translation": "یک مخزن <tag-1>عمومی</tag-1> جدید ایجاد خواهد شد. صفحه نتیجه به شاخه <tag-2>gh-pages</tag-2> ارسال خواهد شد."
+  },
+  "deploy.create.heading": {
+    "notes": "",
+    "translation": "ایجاد مخزن جدید"
+  },
+  "deploy.create.repoName": {
+    "notes": "### <tag-1> ###\n<span id=\"new-repo-name-error\" class=\"error\" />\n\n",
+    "translation": "نام مخزن <tag-1></tag-1>"
+  },
+  "deploy.error.generic": {
+    "notes": "",
+    "translation": "استقرار ناموفق بود!"
+  },
+  "deploy.error.repoNameExists": {
+    "notes": "",
+    "translation": "نام مخزن از قبل وجود دارد"
+  },
+  "deploy.error.repoNameRequired": {
+    "notes": "",
+    "translation": "نام مخزن الزامی است"
+  },
+  "deploy.existing.desc": {
+    "notes": "### <tag-1> ###\n<span class=\"code\" />\n\n",
+    "translation": "یک کامیت جدید به شاخه <tag-1>gh-pages</tag-1> اضافه خواهد شد."
+  },
+  "deploy.existing.heading": {
+    "notes": "",
+    "translation": "مخزن موجود"
+  },
+  "deploy.existing.repoName": {
+    "notes": "",
+    "translation": "نام مخزن"
+  },
+  "deploy.generic.commitMessage": {
+    "notes": "",
+    "translation": "پیام کامیت"
+  },
+  "deploy.generic.commitSourceCodePublic": {
+    "notes": "",
+    "translation": "کامیت کد منبع (عمومی)"
+  },
+  "deploy.generic.deployBtn": {
+    "notes": "",
+    "translation": "استقرار"
+  },
+  "deploy.generic.deploying": {
+    "notes": "",
+    "translation": "در حال استقرار..."
+  },
+  "deploy.heading": {
+    "notes": "",
+    "translation": "استقرار در گیت‌هاب پیجز"
+  },
+  "deploy.searchRepo": {
+    "notes": "",
+    "translation": "جستجو در مخازن عمومی شما..."
+  },
+  "editorSettings.closeBrackets": {
+    "notes": "",
+    "translation": "بستن خودکار براکت‌ها و نقل‌قول‌ها"
+  },
+  "editorSettings.codeJarDesc": {
+    "notes": "### <tag-1> ###\n<i class=\"icon-alert\" />\n\n",
+    "translation": "<tag-1></tag-1> * ویژگی‌های علامت‌گذاری شده در CodeJar در دسترس نیستند."
+  },
+  "editorSettings.default": {
+    "notes": "",
+    "translation": "پیش‌فرض"
+  },
+  "editorSettings.desc": {
+    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}features/editor-settings\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "<tag-1></tag-1> لطفاً برای جزئیات بیشتر <tag-2>مستندات</tag-2> را بررسی کنید."
+  },
+  "editorSettings.editor.codejar": {
+    "notes": "",
+    "translation": "CodeJar"
+  },
+  "editorSettings.editor.codemirror": {
+    "notes": "",
+    "translation": "CodeMirror"
+  },
+  "editorSettings.editor.heading": {
+    "notes": "",
+    "translation": "ویرایشگر"
+  },
+  "editorSettings.editor.monaco": {
+    "notes": "",
+    "translation": "Monaco"
+  },
+  "editorSettings.editorMode.emacs": {
+    "notes": "",
+    "translation": "Emacs"
+  },
+  "editorSettings.editorMode.heading": {
+    "notes": "",
+    "translation": "حالت ویرایشگر *"
+  },
+  "editorSettings.editorMode.vim": {
+    "notes": "",
+    "translation": "Vim"
+  },
+  "editorSettings.editorTheme": {
+    "notes": "",
+    "translation": "تم ویرایشگر"
+  },
+  "editorSettings.emmet": {
+    "notes": "",
+    "translation": "فعال‌سازی Emmet *"
+  },
+  "editorSettings.enableAI.heading": {
+    "notes": "",
+    "translation": "فعال‌سازی دستیار کد هوش مصنوعی"
+  },
+  "editorSettings.enableAI.note": {
+    "notes": "### <tag-1> ###\n<a href=\"https://windsurf.com/\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img id=\"windsurf-logo\" src=\"{{baseUrl}}assets/images/windsurf.svg\" style=\"height: 3em; translate: 0 40%; margin-top: -2em;\" alt=\"Windsurf\" />\n\n",
+    "translation": "قدرت گرفته از <tag-1><tag-2></tag-2></tag-1>"
+  },
+  "editorSettings.foldRegions": {
+    "notes": "",
+    "translation": "تا کردن (جمع کردن) مناطق *"
+  },
+  "editorSettings.fontFamily": {
+    "notes": "",
+    "translation": "خانواده فونت"
+  },
+  "editorSettings.fontSize": {
+    "notes": "",
+    "translation": "اندازه فونت"
+  },
+  "editorSettings.format": {
+    "notes": "",
+    "translation": "قالب‌بندی"
+  },
+  "editorSettings.heading": {
+    "notes": "",
+    "translation": "تنظیمات ویرایشگر"
+  },
+  "editorSettings.lineNumbers": {
+    "notes": "",
+    "translation": "نمایش شماره خطوط"
+  },
+  "editorSettings.lineNumbersRelative": {
+    "notes": "",
+    "translation": "شماره خطوط نسبی *"
+  },
+  "editorSettings.notAvailableInCodeJar": {
+    "notes": "",
+    "translation": "در CodeJar در دسترس نیست"
+  },
+  "editorSettings.preview": {
+    "notes": "",
+    "translation": "پیش‌نمایش"
+  },
+  "editorSettings.semicolons": {
+    "notes": "",
+    "translation": "قالب‌بندی: استفاده از نقطه‌ویرگول"
+  },
+  "editorSettings.singleQuote": {
+    "notes": "",
+    "translation": "قالب‌بندی: استفاده از نقل‌قول تکی"
+  },
+  "editorSettings.tabSize": {
+    "notes": "",
+    "translation": "اندازه تب"
+  },
+  "editorSettings.theme": {
+    "notes": "",
+    "translation": "حالت تیره"
+  },
+  "editorSettings.trailingComma": {
+    "notes": "",
+    "translation": "قالب‌بندی: استفاده از کاما انتهایی"
+  },
+  "editorSettings.useTabs.heading": {
+    "notes": "",
+    "translation": "تورفتگی"
+  },
+  "editorSettings.useTabs.spaces": {
+    "notes": "",
+    "translation": "فاصله"
+  },
+  "editorSettings.useTabs.tabs": {
+    "notes": "",
+    "translation": "تب"
+  },
+  "editorSettings.wordWrap": {
+    "notes": "",
+    "translation": "شکستن خطوط"
+  },
+  "embed.activeEditor.heading": {
+    "notes": "",
+    "translation": "ویرایشگر فعال"
+  },
+  "embed.activeEditor.markup": {
+    "notes": "",
+    "translation": "{{markup}}"
+  },
+  "embed.activeEditor.script": {
+    "notes": "",
+    "translation": "{{script}}"
+  },
+  "embed.activeEditor.style": {
+    "notes": "",
+    "translation": "{{style}}"
+  },
+  "embed.activeTool.compiled": {
+    "notes": "",
+    "translation": "کامپایل شده"
+  },
+  "embed.activeTool.console": {
+    "notes": "",
+    "translation": "کنسول"
+  },
+  "embed.activeTool.heading": {
+    "notes": "",
+    "translation": "ابزار فعال"
+  },
+  "embed.activeTool.tests": {
+    "notes": "",
+    "translation": "آزمون‌ها"
+  },
+  "embed.code.copy": {
+    "notes": "",
+    "translation": "کپی کد"
+  },
+  "embed.code.heading": {
+    "notes": "",
+    "translation": "کد"
+  },
+  "embed.codeEditor.codeJar": {
+    "notes": "",
+    "translation": "CodeJar"
+  },
+  "embed.codeEditor.codeMirror": {
+    "notes": "",
+    "translation": "CodeMirror"
+  },
+  "embed.codeEditor.default": {
+    "notes": "",
+    "translation": "پیش‌فرض"
+  },
+  "embed.codeEditor.heading": {
+    "notes": "",
+    "translation": "ویرایشگر کد"
+  },
+  "embed.codeEditor.monaco": {
+    "notes": "",
+    "translation": "Monaco"
+  },
+  "embed.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}configuration/\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "لطفاً برای پیکربندی‌های پیشرفته <tag-1>مستندات</tag-1> را بررسی کنید."
+  },
+  "embed.embedType.cdn": {
+    "notes": "",
+    "translation": "اسکریپت (CDN)"
+  },
+  "embed.embedType.heading": {
+    "notes": "",
+    "translation": "نوع تعبیه"
+  },
+  "embed.embedType.html": {
+    "notes": "",
+    "translation": "HTML"
+  },
+  "embed.embedType.iframe": {
+    "notes": "",
+    "translation": "آی‌فریم"
+  },
+  "embed.embedType.npm": {
+    "notes": "",
+    "translation": "JS (npm)"
+  },
+  "embed.embedType.react": {
+    "notes": "",
+    "translation": "ری‌اکت"
+  },
+  "embed.embedType.svelte": {
+    "notes": "",
+    "translation": "Svelte"
+  },
+  "embed.embedType.vue": {
+    "notes": "",
+    "translation": "Vue"
+  },
+  "embed.heading": {
+    "notes": "",
+    "translation": "تعبیه پروژه"
+  },
+  "embed.layout.heading": {
+    "notes": "",
+    "translation": "چیدمان"
+  },
+  "embed.layout.horizontal": {
+    "notes": "",
+    "translation": "افقی"
+  },
+  "embed.layout.responsive": {
+    "notes": "",
+    "translation": "واکنش‌گرا"
+  },
+  "embed.layout.vertical": {
+    "notes": "",
+    "translation": "عمودی"
+  },
+  "embed.lite": {
+    "notes": "",
+    "translation": "حالت سبک"
+  },
+  "embed.loading.click": {
+    "notes": "",
+    "translation": "با کلیک"
+  },
+  "embed.loading.eager": {
+    "notes": "",
+    "translation": "فوری"
+  },
+  "embed.loading.heading": {
+    "notes": "",
+    "translation": "بارگذاری"
+  },
+  "embed.loading.lazy": {
+    "notes": "",
+    "translation": "تنبل"
+  },
+  "embed.mode.codeblock": {
+    "notes": "",
+    "translation": "بلوک کد"
+  },
+  "embed.mode.editor": {
+    "notes": "",
+    "translation": "ویرایشگر"
+  },
+  "embed.mode.full": {
+    "notes": "",
+    "translation": "کامل"
+  },
+  "embed.mode.heading": {
+    "notes": "",
+    "translation": "حالت نمایش"
+  },
+  "embed.mode.result": {
+    "notes": "",
+    "translation": "نتیجه"
+  },
+  "embed.mode.simple": {
+    "notes": "",
+    "translation": "ساده"
+  },
+  "embed.permanentUrl": {
+    "notes": "",
+    "translation": "آدرس دائمی"
+  },
+  "embed.preview": {
+    "notes": "",
+    "translation": "پیش‌نمایش"
+  },
+  "embed.previewLoading": {
+    "notes": "",
+    "translation": "در حال بارگذاری پیش‌نمایش..."
+  },
+  "embed.readonly": {
+    "notes": "",
+    "translation": "فقط خواندنی"
+  },
+  "embed.theme.dark": {
+    "notes": "",
+    "translation": "تیره"
+  },
+  "embed.theme.heading": {
+    "notes": "",
+    "translation": "تم"
+  },
+  "embed.theme.light": {
+    "notes": "",
+    "translation": "روشن"
+  },
+  "embed.tools.closed": {
+    "notes": "",
+    "translation": "بسته"
+  },
+  "embed.tools.full": {
+    "notes": "",
+    "translation": "کامل"
+  },
+  "embed.tools.heading": {
+    "notes": "",
+    "translation": "ابزارها"
+  },
+  "embed.tools.none": {
+    "notes": "",
+    "translation": "هیچ‌کدام"
+  },
+  "embed.tools.open": {
+    "notes": "",
+    "translation": "باز"
+  },
+  "embed.view.editor": {
+    "notes": "",
+    "translation": "ویرایشگر"
+  },
+  "embed.view.heading": {
+    "notes": "",
+    "translation": "نمای پیش‌فرض"
+  },
+  "embed.view.result": {
+    "notes": "",
+    "translation": "نتیجه"
+  },
+  "embed.view.split": {
+    "notes": "",
+    "translation": "تقسیم شده"
+  },
+  "generic.about.blog": {
+    "notes": "",
+    "translation": "وبلاگ"
+  },
+  "generic.about.configuration": {
+    "notes": "",
+    "translation": "پیکربندی"
+  },
+  "generic.about.gettingStarted": {
+    "notes": "",
+    "translation": "شروع به کار"
+  },
+  "generic.about.github": {
+    "notes": "",
+    "translation": "گیت‌هاب"
+  },
+  "generic.about.sdk": {
+    "notes": "",
+    "translation": "LiveCodes SDK"
+  },
+  "generic.about.sponsor": {
+    "notes": "",
+    "translation": "حمایت مالی"
+  },
+  "generic.about.twitter": {
+    "notes": "",
+    "translation": "𝕏 / توییتر"
+  },
+  "generic.clickForInfo": {
+    "notes": "",
+    "translation": "برای اطلاعات کلیک کنید..."
+  },
+  "generic.close": {
+    "notes": "",
+    "translation": "بستن"
+  },
+  "generic.custom": {
+    "notes": "",
+    "translation": "سفارشی"
+  },
+  "generic.embed.logoHint": {
+    "notes": "",
+    "translation": "ویرایش در LiveCodes 🡕"
+  },
+  "generic.error.authentication": {
+    "notes": "",
+    "translation": "خطای احراز هویت!"
+  },
+  "generic.error.exceededSize": {
+    "notes": "",
+    "translation": "خطا: از اندازه {{size}} مگابایت فراتر رفت"
+  },
+  "generic.error.failedToReadFile": {
+    "notes": "",
+    "translation": "خطا: خواندن فایل ناموفق بود"
+  },
+  "generic.loading": {
+    "notes": "",
+    "translation": "در حال بارگذاری..."
+  },
+  "generic.more": {
+    "notes": "",
+    "translation": "بیشتر..."
+  },
+  "generic.optional": {
+    "notes": "",
+    "translation": "اختیاری"
+  },
+  "generic.required": {
+    "notes": "",
+    "translation": "الزامی"
+  },
+  "generic.tagline": {
+    "notes": "",
+    "translation": "یک محیط برنامه‌نویسی که به سادگی کار می‌کند!"
+  },
+  "import.bulk.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"#\" id=\"link-to-saved-projects\" />\n\n",
+    "translation": "وارد کردن گروهی چندین پروژه به پروژه‌های ذخیره شده شما. پروژه‌ها را می‌توان از صفحه <tag-1>پروژه‌های ذخیره شده</tag-1> صادر کرد."
+  },
+  "import.bulk.fromFile": {
+    "notes": "",
+    "translation": "وارد کردن گروهی از فایل محلی"
+  },
+  "import.bulk.fromURL": {
+    "notes": "",
+    "translation": "وارد کردن گروهی از آدرس"
+  },
+  "import.bulk.heading": {
+    "notes": "",
+    "translation": "وارد کردن گروهی"
+  },
+  "import.bulk.started": {
+    "notes": "",
+    "translation": "وارد کردن گروهی آغاز شد..."
+  },
+  "import.code.desc": {
+    "notes": "### <tag-1> ###\n<ul  />\n\n### <tag-2> ###\n<li  />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<li  />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<li  />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<li  />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<li  />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<li  />\n\n### <tag-13> ###\n<li  />\n\n### <tag-14> ###\n<br  />\n\n### <tag-15> ###\n<a href=\"{{DOCS_BASE_URL}}features/import\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "منابع پشتیبانی شده: <tag-1> <tag-2>گیست گیت‌هاب</tag-2> <tag-3>فایل گیت‌هاب</tag-3> <tag-4>دایرکتوری در مخزن گیت‌هاب</tag-4> <tag-5>اسنیپت گیت‌لب</tag-5> <tag-6>فایل گیت‌لب</tag-6> <tag-7>دایرکتوری در مخزن گیت‌لب</tag-7> <tag-8>JS Bin</tag-8> <tag-9>کد خام</tag-9> <tag-10>کد در DOM صفحه وب</tag-10> <tag-11>کد در فایل zip</tag-11> <tag-12>کد در تصویر (OCR)</tag-12> <tag-13>محیط‌های برنامه‌نویسی رسمی<tag-14></tag-14>(تایپ‌اسکریپت و Vue)</tag-13> </tag-1> لطفاً برای جزئیات بیشتر به <tag-15>مستندات</tag-15> مراجعه کنید."
+  },
+  "import.code.fromFile": {
+    "notes": "",
+    "translation": "وارد کردن فایل‌های محلی"
+  },
+  "import.code.fromURL": {
+    "notes": "",
+    "translation": "وارد کردن از آدرس"
+  },
+  "import.code.heading": {
+    "notes": "",
+    "translation": "وارد کردن کد"
+  },
+  "import.error.failedToLoadURL": {
+    "notes": "",
+    "translation": "خطا: بارگذاری آدرس ناموفق بود"
+  },
+  "import.error.invalidConfigFile": {
+    "notes": "",
+    "translation": "فایل پیکربندی نامعتبر"
+  },
+  "import.error.invalidFile": {
+    "notes": "",
+    "translation": "خطا: فایل نامعتبر"
+  },
+  "import.generic.file": {
+    "notes": "",
+    "translation": "فایل محلی"
+  },
+  "import.generic.url": {
+    "notes": "",
+    "translation": "آدرس"
+  },
+  "import.heading": {
+    "notes": "",
+    "translation": "وارد کردن"
+  },
+  "import.json.desc": {
+    "notes": "",
+    "translation": "وارد کردن یک JSON پروژه منفرد به ویرایشگر. یک پروژه را می‌توان از منوی برنامه&nbsp;→ صادر&nbsp;→ صادر&nbsp;پروژه&nbsp;(JSON) صادر کرد."
+  },
+  "import.json.fromFile": {
+    "notes": "",
+    "translation": "وارد کردن پروژه از فایل محلی"
+  },
+  "import.json.fromURL": {
+    "notes": "",
+    "translation": "وارد کردن پروژه از آدرس"
+  },
+  "import.json.heading": {
+    "notes": "",
+    "translation": "وارد کردن JSON پروژه"
+  },
+  "import.success": {
+    "notes": "",
+    "translation": "وارد کردن با موفقیت انجام شد!"
+  },
+  "keyboardShortcuts.command": {
+    "notes": "",
+    "translation": "دستور"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "notes": "### <tag-1> ###\n<a href=\"https://code.visualstudio.com/docs/getstarted/keybindings#_basic-editing\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "برای مشاهده لیست میانبرهای صفحه‌کلید ویرایشگر کد، <tag-1>میانبرهای VS Code</tag-1> را ببینید"
+  },
+  "keyboardShortcuts.heading": {
+    "notes": "",
+    "translation": "میانبرهای صفحه‌کلید"
+  },
+  "keyboardShortcuts.key": {
+    "notes": "",
+    "translation": "کلید"
+  },
+  "login.accessAllowed": {
+    "notes": "",
+    "translation": "اجازه دسترسی به:"
+  },
+  "login.desc": {
+    "notes": "### <tag-1> ###\n<p  />\n\n### <tag-2> ###\n<strong  />\n\n### <tag-3> ###\n<p  />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}features/github-integration#features-that-require-github-account\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<p  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}features/github-integration#setting-permissions\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "<tag-1>با ورود، شما موافقت می‌کنید که <tag-2>کوکی‌ها</tag-2> ممکن است در دستگاه شما ذخیره شوند.</tag-1> <tag-3> <tag-4>چرا این مجوزها لازم هستند؟</tag-4> </tag-3> <tag-5> <tag-6>چگونه مجوزها را تغییر/لغو کنیم؟</tag-6> </tag-5>"
+  },
+  "login.gist": {
+    "notes": "",
+    "translation": "گیست‌ها"
+  },
+  "login.heading": {
+    "notes": "",
+    "translation": "ورود با گیت‌هاب"
+  },
+  "login.loginAs": {
+    "notes": "",
+    "translation": "وارد شده به عنوان {{name}}"
+  },
+  "login.loginBtn": {
+    "notes": "",
+    "translation": "ورود"
+  },
+  "login.logout": {
+    "notes": "",
+    "translation": "خروج"
+  },
+  "login.privateRepo": {
+    "notes": "",
+    "translation": "مخازن خصوصی"
+  },
+  "login.publicRepo": {
+    "notes": "",
+    "translation": "مخازن"
+  },
+  "menu.about": {
+    "notes": "",
+    "translation": "درباره ..."
+  },
+  "menu.appHelp.heading": {
+    "notes": "",
+    "translation": "راهنما"
+  },
+  "menu.appHelp.hint": {
+    "notes": "",
+    "translation": "راهنما"
+  },
+  "menu.appProject.heading": {
+    "notes": "",
+    "translation": "پروژه"
+  },
+  "menu.appProject.hint": {
+    "notes": "",
+    "translation": "پروژه"
+  },
+  "menu.appSettings.heading": {
+    "notes": "",
+    "translation": "تنظیمات"
+  },
+  "menu.appSettings.hint": {
+    "notes": "",
+    "translation": "تنظیمات برنامه"
+  },
+  "menu.assets": {
+    "notes": "",
+    "translation": "دارایی‌ها …"
+  },
+  "menu.autoSave": {
+    "notes": "",
+    "translation": "ذخیره خودکار"
+  },
+  "menu.autoUpdate": {
+    "notes": "",
+    "translation": "به‌روزرسانی خودکار"
+  },
+  "menu.backup": {
+    "notes": "",
+    "translation": "پشتیبان‌گیری / بازیابی …"
+  },
+  "menu.blog": {
+    "notes": "",
+    "translation": "وبلاگ LiveCodes"
+  },
+  "menu.broadcast": {
+    "notes": "",
+    "translation": "پخش …"
+  },
+  "menu.commandMenu": {
+    "notes": "",
+    "translation": "منوی دستورات"
+  },
+  "menu.config": {
+    "notes": "",
+    "translation": "پیکربندی"
+  },
+  "menu.customSettings": {
+    "notes": "",
+    "translation": "تنظیمات سفارشی …"
+  },
+  "menu.delay.heading": {
+    "notes": "### <tag-1> ###\n<span id=\"delay-value\" />\n\n",
+    "translation": "تاخیر: <tag-1>1.5</tag-1>ثانیه"
+  },
+  "menu.delay.hint": {
+    "notes": "",
+    "translation": "تاخیر قبل از به‌روزرسانی خودکار"
+  },
+  "menu.deploy": {
+    "notes": "",
+    "translation": "استقرار …"
+  },
+  "menu.docs": {
+    "notes": "",
+    "translation": "مستندات"
+  },
+  "menu.editorSettings": {
+    "notes": "",
+    "translation": "تنظیمات ویرایشگر …"
+  },
+  "menu.embed": {
+    "notes": "",
+    "translation": "تعبیه …"
+  },
+  "menu.export.codepen": {
+    "notes": "",
+    "translation": "ویرایش در CodePen"
+  },
+  "menu.export.gist": {
+    "notes": "",
+    "translation": "صادر به گیست گیت‌هاب"
+  },
+  "menu.export.heading": {
+    "notes": "",
+    "translation": "صادر"
+  },
+  "menu.export.jsfiddle": {
+    "notes": "",
+    "translation": "ویرایش در JSFiddle"
+  },
+  "menu.export.json": {
+    "notes": "",
+    "translation": "صادر پروژه (JSON)"
+  },
+  "menu.export.result": {
+    "notes": "",
+    "translation": "صادر نتیجه (HTML)"
+  },
+  "menu.export.src": {
+    "notes": "",
+    "translation": "صادر منبع (ZIP)"
+  },
+  "menu.features": {
+    "notes": "",
+    "translation": "ویژگی‌ها"
+  },
+  "menu.formatOnsave": {
+    "notes": "",
+    "translation": "قالب‌بندی هنگام ذخیره"
+  },
+  "menu.getstart": {
+    "notes": "",
+    "translation": "شروع به کار"
+  },
+  "menu.import": {
+    "notes": "",
+    "translation": "وارد کردن …"
+  },
+  "menu.keyboardShortcuts": {
+    "notes": "",
+    "translation": "میانبرهای صفحه‌کلید"
+  },
+  "menu.layout": {
+    "notes": "",
+    "translation": "چیدمان عمودی"
+  },
+  "menu.license": {
+    "notes": "",
+    "translation": "مجوز"
+  },
+  "menu.login": {
+    "notes": "",
+    "translation": "ورود"
+  },
+  "menu.logout": {
+    "notes": "",
+    "translation": "خروج"
+  },
+  "menu.new": {
+    "notes": "",
+    "translation": "جدید …"
+  },
+  "menu.open": {
+    "notes": "",
+    "translation": "باز کردن …"
+  },
+  "menu.project": {
+    "notes": "",
+    "translation": "اطلاعات پروژه …"
+  },
+  "menu.recoverUnsaved": {
+    "notes": "",
+    "translation": "بازیابی ذخیره‌نشده‌ها"
+  },
+  "menu.report": {
+    "notes": "",
+    "translation": "گزارش یک مشکل"
+  },
+  "menu.resources": {
+    "notes": "",
+    "translation": "منابع خارجی …"
+  },
+  "menu.save": {
+    "notes": "",
+    "translation": "ذخیره"
+  },
+  "menu.saveAs.fork": {
+    "notes": "",
+    "translation": "انشعاب (پروژه جدید)"
+  },
+  "menu.saveAs.heading": {
+    "notes": "",
+    "translation": "ذخیره به عنوان …"
+  },
+  "menu.saveAs.template": {
+    "notes": "",
+    "translation": "قالب"
+  },
+  "menu.sdk": {
+    "notes": "",
+    "translation": "SDK"
+  },
+  "menu.share": {
+    "notes": "",
+    "translation": "اشتراک‌گذاری …"
+  },
+  "menu.showSpacing.heading": {
+    "notes": "",
+    "translation": "نمایش فاصله‌گذاری"
+  },
+  "menu.showSpacing.hint": {
+    "notes": "",
+    "translation": "دکمه Alt/Option را فشار دهید و نشانگر خود را روی صفحه نتیجه حرکت دهید"
+  },
+  "menu.showWelcome.title": {
+    "notes": "",
+    "translation": "نمایش صفحه خوش‌آمدگویی در هنگام راه‌اندازی"
+  },
+  "menu.snippets": {
+    "notes": "",
+    "translation": "قطعات کد …"
+  },
+  "menu.source": {
+    "notes": "",
+    "translation": "کد منبع در گیت‌هاب"
+  },
+  "menu.sync": {
+    "notes": "### <tag-1> ###\n<span id=\"sync-indicator\" class=\"smaller hidden\" />\n\n",
+    "translation": "همگام‌سازی (بتا) … <tag-1> ⏳</tag-1>"
+  },
+  "menu.theme": {
+    "notes": "",
+    "translation": "تم تیره"
+  },
+  "menu.themeColor": {
+    "notes": "",
+    "translation": "رنگ"
+  },
+  "menu.welcome.heading": {
+    "notes": "",
+    "translation": "خوش‌آمدگویی …"
+  },
+  "open.action.delete": {
+    "notes": "",
+    "translation": "حذف"
+  },
+  "open.defaultTemplate": {
+    "notes": "",
+    "translation": "قالب پیش‌فرض "
+  },
+  "open.delete.all": {
+    "notes": "",
+    "translation": "حذف {{projects}} پروژه؟"
+  },
+  "open.delete.deleting": {
+    "notes": "",
+    "translation": "در حال حذف پروژه‌ها..."
+  },
+  "open.delete.one": {
+    "notes": "",
+    "translation": "حذف پروژه: {{project}}؟"
+  },
+  "open.deleteAll": {
+    "notes": "",
+    "translation": "حذف همه"
+  },
+  "open.exportAll": {
+    "notes": "",
+    "translation": "صادر همه"
+  },
+  "open.filter.language": {
+    "notes": "",
+    "translation": "فیلتر بر اساس زبان"
+  },
+  "open.filter.tag": {
+    "notes": "",
+    "translation": "فیلتر بر اساس برچسب"
+  },
+  "open.heading": {
+    "notes": "",
+    "translation": "پروژه‌های ذخیره شده"
+  },
+  "open.import": {
+    "notes": "",
+    "translation": "وارد کردن"
+  },
+  "open.lastModified": {
+    "notes": "",
+    "translation": "آخرین تغییر: {{modified}}"
+  },
+  "open.noData.desc": {
+    "notes": "",
+    "translation": "شما می‌توانید یک پروژه را از (منوی&nbsp;تنظیمات&nbsp;&gt;&nbsp;ذخیره) یا با میانبر صفحه‌کلید (Ctrl/⌘&nbsp;+&nbsp;S) ذخیره کنید."
+  },
+  "open.noData.heading": {
+    "notes": "",
+    "translation": "شما هیچ پروژه ذخیره‌شده‌ای ندارید."
+  },
+  "open.noMatch": {
+    "notes": "",
+    "translation": "هیچ پروژه‌ای با این فیلترها مطابقت ندارد."
+  },
+  "open.placeholder.allLanguages": {
+    "notes": "",
+    "translation": "همه زبان‌ها"
+  },
+  "open.placeholder.filterByTags": {
+    "notes": "",
+    "translation": "فیلتر بر اساس برچسب‌ها"
+  },
+  "open.placeholder.search": {
+    "notes": "",
+    "translation": "جستجو"
+  },
+  "open.removeDefault": {
+    "notes": "",
+    "translation": "(لغو تنظیم)"
+  },
+  "open.reset": {
+    "notes": "",
+    "translation": "بازنشانی"
+  },
+  "open.setAsDefault": {
+    "notes": "",
+    "translation": "تنظیم به عنوان پیش‌فرض"
+  },
+  "open.sort.heading": {
+    "notes": "",
+    "translation": "مرتب‌سازی بر اساس:"
+  },
+  "open.sort.lastModified": {
+    "notes": "",
+    "translation": "آخرین تغییر"
+  },
+  "open.sort.title": {
+    "notes": "",
+    "translation": "عنوان"
+  },
+  "project.desc": {
+    "notes": "",
+    "translation": "توضیحات"
+  },
+  "project.head": {
+    "notes": "",
+    "translation": "افزودن به &lt;head&gt;"
+  },
+  "project.heading": {
+    "notes": "",
+    "translation": "اطلاعات پروژه"
+  },
+  "project.htmlAttr": {
+    "notes": "",
+    "translation": "ویژگی‌ها برای &lt;html&gt;"
+  },
+  "project.tags": {
+    "notes": "",
+    "translation": "برچسب‌ها"
+  },
+  "project.title": {
+    "notes": "",
+    "translation": "عنوان پروژه"
+  },
+  "recoverPrompt.desc": {
+    "notes": "",
+    "translation": "آخرین پروژه شما تغییرات ذخیره‌نشده دارد!"
+  },
+  "recoverPrompt.heading": {
+    "notes": "",
+    "translation": "بازیابی پروژه ذخیره‌نشده؟"
+  },
+  "recoverPrompt.meta": {
+    "notes": "### <tag-1> ###\n<strong id=\"unsaved-project-name\" />\n\n### <tag-2> ###\n<br  />\n\n### <tag-3> ###\n<span id=\"unsaved-project-last-modified\" />\n\n",
+    "translation": "عنوان: <tag-1></tag-1> <tag-2></tag-2> آخرین تغییر: <tag-3></tag-3>"
+  },
+  "recoverPrompt.notShowAgain": {
+    "notes": "",
+    "translation": "این را دوباره نشان نده."
+  },
+  "recoverPrompt.prompt.discard": {
+    "notes": "",
+    "translation": "دور انداختن پروژه ذخیره‌نشده"
+  },
+  "recoverPrompt.prompt.heading": {
+    "notes": "### <tag-1> ###\n<br  />\n\n",
+    "translation": "<tag-1></tag-1>آیا می‌خواهید آن را اکنون بازیابی کنید؟"
+  },
+  "recoverPrompt.prompt.recover": {
+    "notes": "",
+    "translation": "بازیابی پروژه به ویرایشگر"
+  },
+  "recoverPrompt.prompt.save": {
+    "notes": "",
+    "translation": "ذخیره در دستگاه و ادامه"
+  },
+  "resources.browseOnJsDelivr": {
+    "notes": "",
+    "translation": "مرور فایل‌های بسته در jsDelivr"
+  },
+  "resources.cssPresets.heading": {
+    "notes": "",
+    "translation": "پیش‌تنظیمات CSS"
+  },
+  "resources.cssPresets.none": {
+    "notes": "",
+    "translation": "هیچ‌کدام"
+  },
+  "resources.cssPresets.normalizeCss": {
+    "notes": "",
+    "translation": "Normalize.css"
+  },
+  "resources.cssPresets.resetCss": {
+    "notes": "",
+    "translation": "Reset CSS"
+  },
+  "resources.error.failedToLoadResults": {
+    "notes": "",
+    "translation": "بارگذاری نتایج ناموفق بود!"
+  },
+  "resources.error.noResultsFound": {
+    "notes": "",
+    "translation": "نتیجه‌ای یافت نشد برای: "
+  },
+  "resources.fonts.add": {
+    "notes": "",
+    "translation": "افزودن"
+  },
+  "resources.fonts.heading": {
+    "notes": "### <tag-1> ###\n<span class=\"nowrap label-description\" />\n\n",
+    "translation": "فونت‌ها <tag-1>(با پشتیبانی گوگل فونتز)</tag-1>"
+  },
+  "resources.fonts.select": {
+    "notes": "",
+    "translation": "انتخاب فونت ..."
+  },
+  "resources.heading": {
+    "notes": "",
+    "translation": "منابع خارجی"
+  },
+  "resources.scripts": {
+    "notes": "",
+    "translation": "اسکریپت‌های خارجی"
+  },
+  "resources.search.heading": {
+    "notes": "### <tag-1> ###\n<span class=\"nowrap label-description\" />\n\n",
+    "translation": "جستجوی بسته‌ها <tag-1>(با پشتیبانی jsDelivr)</tag-1>"
+  },
+  "resources.search.placeholder": {
+    "notes": "",
+    "translation": "مثلاً jquery, lodash@4, bootstrap@5.2.3, ..."
+  },
+  "resources.stylesheets": {
+    "notes": "",
+    "translation": "استایل‌شیت‌های خارجی"
+  },
+  "resources.urlDesc": {
+    "notes": "",
+    "translation": "افزودن آدرس‌های استایل‌شیت/اسکریپت. هر آدرس باید در یک خط جداگانه باشد."
+  },
+  "resultMode.linkText": {
+    "notes": "",
+    "translation": "ویرایش در LiveCodes"
+  },
+  "savePrompt.heading": {
+    "notes": "",
+    "translation": "تغییرات ذخیره‌نشده"
+  },
+  "savePrompt.prompt.cancel": {
+    "notes": "",
+    "translation": "لغو"
+  },
+  "savePrompt.prompt.discard": {
+    "notes": "",
+    "translation": "ذخیره نکن"
+  },
+  "savePrompt.prompt.heading": {
+    "notes": "### <tag-1> ###\n<br  />\n\n",
+    "translation": "تغییراتی که ایجاد کرده‌اید ممکن است ذخیره نشده باشند. <tag-1></tag-1> آیا اکنون می‌خواهید ذخیره کنید؟"
+  },
+  "savePrompt.prompt.save": {
+    "notes": "",
+    "translation": "ذخیره"
+  },
+  "share.characters": {
+    "notes": "",
+    "translation": "{{urlLength}} کاراکتر"
+  },
+  "share.copy.clickToCopy": {
+    "notes": "",
+    "translation": "برای کپی کلیک کنید"
+  },
+  "share.copy.copied": {
+    "notes": "",
+    "translation": "آدرس در کلیپ‌بورد کپی شد"
+  },
+  "share.encodedURL": {
+    "notes": "",
+    "translation": "دریافت آدرس کدگذاری شده"
+  },
+  "share.error.failedToCopy": {
+    "notes": "",
+    "translation": "کپی به کلیپ‌بورد ناموفق بود!"
+  },
+  "share.error.failedToGenerateURL": {
+    "notes": "",
+    "translation": "تولید آدرس کوتاه ناموفق بود!"
+  },
+  "share.expireInOneYear": {
+    "notes": "",
+    "translation": "در ۱ سال منقضی می‌شود"
+  },
+  "share.generateURL": {
+    "notes": "",
+    "translation": "در حال تولید آدرس …"
+  },
+  "share.heading": {
+    "notes": "",
+    "translation": "اشتراک‌گذاری"
+  },
+  "share.permanentURL": {
+    "notes": "",
+    "translation": "آدرس دائمی"
+  },
+  "share.qrcode.clickToDownload": {
+    "notes": "",
+    "translation": "برای دانلود کلیک کنید"
+  },
+  "share.qrcode.generating": {
+    "notes": "",
+    "translation": "در حال تولید..."
+  },
+  "share.services.devTo": {
+    "notes": "",
+    "translation": "Dev.to"
+  },
+  "share.services.email": {
+    "notes": "",
+    "translation": "ایمیل"
+  },
+  "share.services.facebook": {
+    "notes": "",
+    "translation": "فیسبوک"
+  },
+  "share.services.hackerNews": {
+    "notes": "",
+    "translation": "هکر نیوز"
+  },
+  "share.services.linkedIn": {
+    "notes": "",
+    "translation": "لینکدین"
+  },
+  "share.services.pinterest": {
+    "notes": "",
+    "translation": "پینترست"
+  },
+  "share.services.pocket": {
+    "notes": "",
+    "translation": "پاکت"
+  },
+  "share.services.qrCode": {
+    "notes": "",
+    "translation": "کد QR"
+  },
+  "share.services.reddit": {
+    "notes": "",
+    "translation": "ردیت"
+  },
+  "share.services.share": {
+    "notes": "",
+    "translation": "اشتراک‌گذاری از طریق …"
+  },
+  "share.services.telegram": {
+    "notes": "",
+    "translation": "تلگرام"
+  },
+  "share.services.tumblr": {
+    "notes": "",
+    "translation": "تامبلر"
+  },
+  "share.services.twitter": {
+    "notes": "",
+    "translation": "𝕏 / توییتر"
+  },
+  "share.services.whatsApp": {
+    "notes": "",
+    "translation": "واتس‌اپ"
+  },
+  "share.shortURL": {
+    "notes": "",
+    "translation": "دریافت آدرس کوتاه"
+  },
+  "snippets.action.copy": {
+    "notes": "",
+    "translation": "کپی"
+  },
+  "snippets.action.delete": {
+    "notes": "",
+    "translation": "حذف"
+  },
+  "snippets.action.edit": {
+    "notes": "",
+    "translation": "ویرایش"
+  },
+  "snippets.add.code": {
+    "notes": "",
+    "translation": "کد"
+  },
+  "snippets.add.desc": {
+    "notes": "",
+    "translation": "توضیحات"
+  },
+  "snippets.add.heading": {
+    "notes": "",
+    "translation": "افزودن قطعه کد"
+  },
+  "snippets.add.language": {
+    "notes": "",
+    "translation": "زبان"
+  },
+  "snippets.add.save": {
+    "notes": "",
+    "translation": "ذخیره"
+  },
+  "snippets.add.snippets": {
+    "notes": "",
+    "translation": "قطعات کد"
+  },
+  "snippets.add.title": {
+    "notes": "",
+    "translation": "عنوان"
+  },
+  "snippets.copy.clickToCopySnippet": {
+    "notes": "",
+    "translation": "برای کپی قطعه کد کلیک کنید"
+  },
+  "snippets.copy.copied": {
+    "notes": "",
+    "translation": "قطعه کد در کلیپ‌بورد کپی شد."
+  },
+  "snippets.delete.all": {
+    "notes": "",
+    "translation": "حذف {{snippets}} قطعه کد؟"
+  },
+  "snippets.delete.one": {
+    "notes": "",
+    "translation": "حذف قطعه کد: {{snippet}}؟"
+  },
+  "snippets.deleteAll": {
+    "notes": "",
+    "translation": "حذف همه"
+  },
+  "snippets.error.failedToCopy": {
+    "notes": "",
+    "translation": "کپی آدرس ناموفق بود."
+  },
+  "snippets.error.noTitle": {
+    "notes": "",
+    "translation": "لطفاً عنوان قطعه کد را اضافه کنید."
+  },
+  "snippets.filter.language": {
+    "notes": "",
+    "translation": "فیلتر بر اساس زبان"
+  },
+  "snippets.heading": {
+    "notes": "",
+    "translation": "قطعات کد"
+  },
+  "snippets.lastModified": {
+    "notes": "",
+    "translation": "آخرین تغییر: {{modified}}"
+  },
+  "snippets.noMatch": {
+    "notes": "",
+    "translation": "هیچ قطعه کدی با این فیلترها مطابقت ندارد."
+  },
+  "snippets.noSavedSnippets": {
+    "notes": "",
+    "translation": "شما هیچ قطعه کد ذخیره‌شده‌ای ندارید."
+  },
+  "snippets.placeholder.allLanguages": {
+    "notes": "",
+    "translation": "همه زبان‌ها"
+  },
+  "snippets.placeholder.search": {
+    "notes": "",
+    "translation": "جستجو"
+  },
+  "snippets.reset": {
+    "notes": "",
+    "translation": "بازنشانی"
+  },
+  "snippets.save.success": {
+    "notes": "",
+    "translation": "قطعه کد به صورت محلی در دستگاه ذخیره شد!"
+  },
+  "snippets.sort.date": {
+    "notes": "",
+    "translation": "تاریخ"
+  },
+  "snippets.sort.heading": {
+    "notes": "",
+    "translation": "مرتب‌سازی بر اساس:"
+  },
+  "snippets.sort.title": {
+    "notes": "",
+    "translation": "عنوان"
+  },
+  "snippets.text": {
+    "notes": "",
+    "translation": "متن ساده"
+  },
+  "splash.loading": {
+    "notes": "",
+    "translation": "در حال بارگذاری LiveCodes…"
+  },
+  "sync.autoSync": {
+    "notes": "",
+    "translation": "همگام‌سازی خودکار"
+  },
+  "sync.create.desc": {
+    "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<span class=\"code\" />\n\n",
+    "translation": "یک مخزن <tag-1>خصوصی</tag-1> جدید ایجاد خواهد شد. داده‌های محلی LiveCodes شما با شاخه <tag-2>main</tag-2> همگام‌سازی خواهد شد."
+  },
+  "sync.create.heading": {
+    "notes": "",
+    "translation": "ایجاد مخزن جدید"
+  },
+  "sync.create.repoName": {
+    "notes": "",
+    "translation": "نام مخزن"
+  },
+  "sync.error.generic": {
+    "notes": "",
+    "translation": "همگام‌سازی ناموفق بود!"
+  },
+  "sync.error.repoNameRequired": {
+    "notes": "",
+    "translation": "نام مخزن الزامی است"
+  },
+  "sync.existing.desc": {
+    "notes": "### <tag-1> ###\n<span class=\"code\" />\n\n",
+    "translation": "داده‌های محلی LiveCodes شما با شاخه <tag-1>main</tag-1> همگام‌سازی خواهد شد."
+  },
+  "sync.existing.heading": {
+    "notes": "",
+    "translation": "مخزن موجود"
+  },
+  "sync.existing.repoName": {
+    "notes": "",
+    "translation": "نام مخزن"
+  },
+  "sync.heading": {
+    "notes": "",
+    "translation": "همگام‌سازی با مخزن گیت‌هاب"
+  },
+  "sync.searchRepos": {
+    "notes": "",
+    "translation": "جستجو در مخازن شما..."
+  },
+  "sync.success": {
+    "notes": "",
+    "translation": "همگام‌سازی کامل شد!"
+  },
+  "sync.syncBtn": {
+    "notes": "",
+    "translation": "همگام‌سازی"
+  },
+  "sync.syncInProgress": {
+    "notes": "",
+    "translation": "همگام‌سازی در حال انجام..."
+  },
+  "sync.syncStarted": {
+    "notes": "",
+    "translation": "همگام‌سازی آغاز شد..."
+  },
+  "templates.heading": {
+    "notes": "",
+    "translation": "پروژه جدید"
+  },
+  "templates.noUserTemplates.desc": {
+    "notes": "### <tag-1> ###\n<wbr  />\n\n",
+    "translation": "شما می‌توانید یک پروژه را به عنوان قالب از <tag-1></tag-1>(منوی&nbsp;برنامه&nbsp;&gt;&nbsp;ذخیره&nbsp;به&nbsp;عنوان&nbsp;&gt; قالب) ذخیره کنید."
+  },
+  "templates.noUserTemplates.heading": {
+    "notes": "",
+    "translation": "شما هیچ قالب ذخیره‌شده‌ای ندارید."
+  },
+  "templates.starter.angular": {
+    "notes": "",
+    "translation": "شروع کننده انگولار"
+  },
+  "templates.starter.assemblyscript": {
+    "notes": "",
+    "translation": "شروع کننده AssemblyScript"
+  },
+  "templates.starter.astro": {
+    "notes": "",
+    "translation": "شروع کننده Astro"
+  },
+  "templates.starter.backbone": {
+    "notes": "",
+    "translation": "شروع کننده Backbone"
+  },
+  "templates.starter.blank": {
+    "notes": "",
+    "translation": "پروژه خالی"
+  },
+  "templates.starter.blockly": {
+    "notes": "",
+    "translation": "شروع کننده Blockly"
+  },
+  "templates.starter.bootstrap": {
+    "notes": "",
+    "translation": "شروع کننده Bootstrap"
+  },
+  "templates.starter.civet": {
+    "notes": "",
+    "translation": "شروع کننده Civet"
+  },
+  "templates.starter.clio": {
+    "notes": "",
+    "translation": "شروع کننده Clio"
+  },
+  "templates.starter.clojurescript": {
+    "notes": "",
+    "translation": "شروع کننده ClojureScript"
+  },
+  "templates.starter.coffeescript": {
+    "notes": "",
+    "translation": "شروع کننده CoffeeScript"
+  },
+  "templates.starter.commonlisp": {
+    "notes": "",
+    "translation": "شروع کننده Common Lisp"
+  },
+  "templates.starter.cpp": {
+    "notes": "",
+    "translation": "شروع کننده C++"
+  },
+  "templates.starter.daisyui": {
+    "notes": "",
+    "translation": "شروع کننده daisyUI"
+  },
+  "templates.starter.diagrams": {
+    "notes": "",
+    "translation": "شروع کننده نمودارها"
+  },
+  "templates.starter.fennel": {
+    "notes": "",
+    "translation": "شروع کننده Fennel"
+  },
+  "templates.starter.gleam": {
+    "notes": "",
+    "translation": "شروع کننده Gleam"
+  },
+  "templates.starter.go": {
+    "notes": "",
+    "translation": "شروع کننده Go"
+  },
+  "templates.starter.heading": {
+    "notes": "",
+    "translation": "قالب‌های شروع کننده"
+  },
+  "templates.starter.imba": {
+    "notes": "",
+    "translation": "شروع کننده Imba"
+  },
+  "templates.starter.java": {
+    "notes": "",
+    "translation": "شروع کننده جاوا"
+  },
+  "templates.starter.javascript": {
+    "notes": "",
+    "translation": "شروع کننده جاوااسکریپت"
+  },
+  "templates.starter.jest": {
+    "notes": "",
+    "translation": "شروع کننده Jest"
+  },
+  "templates.starter.jest-react": {
+    "notes": "",
+    "translation": "شروع کننده Jest/React"
+  },
+  "templates.starter.jquery": {
+    "notes": "",
+    "translation": "شروع کننده jQuery"
+  },
+  "templates.starter.julia": {
+    "notes": "",
+    "translation": "شروع کننده Julia"
+  },
+  "templates.starter.knockout": {
+    "notes": "",
+    "translation": "شروع کننده Knockout"
+  },
+  "templates.starter.lit": {
+    "notes": "",
+    "translation": "شروع کننده Lit"
+  },
+  "templates.starter.livescript": {
+    "notes": "",
+    "translation": "شروع کننده LiveScript"
+  },
+  "templates.starter.loading": {
+    "notes": "",
+    "translation": "در حال بارگذاری قالب‌های شروع کننده..."
+  },
+  "templates.starter.lua": {
+    "notes": "",
+    "translation": "شروع کننده Lua"
+  },
+  "templates.starter.lua-wasm": {
+    "notes": "",
+    "translation": "شروع کننده Lua (Wasm)"
+  },
+  "templates.starter.malina": {
+    "notes": "",
+    "translation": "شروع کننده Malina.js"
+  },
+  "templates.starter.markdown": {
+    "notes": "",
+    "translation": "شروع کننده Markdown"
+  },
+  "templates.starter.mdx": {
+    "notes": "",
+    "translation": "شروع کننده MDX"
+  },
+  "templates.starter.ocaml": {
+    "notes": "",
+    "translation": "شروع کننده Ocaml"
+  },
+  "templates.starter.perl": {
+    "notes": "",
+    "translation": "شروع کننده Perl"
+  },
+  "templates.starter.php": {
+    "notes": "",
+    "translation": "شروع کننده PHP"
+  },
+  "templates.starter.php-wasm": {
+    "notes": "",
+    "translation": "شروع کننده PHP (Wasm)"
+  },
+  "templates.starter.postgresql": {
+    "notes": "",
+    "translation": "شروع کننده PostgreSQL"
+  },
+  "templates.starter.preact": {
+    "notes": "",
+    "translation": "شروع کننده Preact"
+  },
+  "templates.starter.prolog": {
+    "notes": "",
+    "translation": "شروع کننده Prolog"
+  },
+  "templates.starter.python": {
+    "notes": "",
+    "translation": "شروع کننده پایتون"
+  },
+  "templates.starter.r": {
+    "notes": "",
+    "translation": "شروع کننده R"
+  },
+  "templates.starter.react": {
+    "notes": "",
+    "translation": "شروع کننده ری‌اکت"
+  },
+  "templates.starter.react-native": {
+    "notes": "",
+    "translation": "شروع کننده React Native"
+  },
+  "templates.starter.reason": {
+    "notes": "",
+    "translation": "شروع کننده Reason"
+  },
+  "templates.starter.rescript": {
+    "notes": "",
+    "translation": "شروع کننده ReScript"
+  },
+  "templates.starter.riot": {
+    "notes": "",
+    "translation": "شروع کننده Riot.js"
+  },
+  "templates.starter.ruby": {
+    "notes": "",
+    "translation": "شروع کننده Ruby"
+  },
+  "templates.starter.ruby-wasm": {
+    "notes": "",
+    "translation": "شروع کننده Ruby (Wasm)"
+  },
+  "templates.starter.scheme": {
+    "notes": "",
+    "translation": "شروع کننده Scheme"
+  },
+  "templates.starter.shadcnui": {
+    "notes": "",
+    "translation": "شروع کننده shadcn/ui"
+  },
+  "templates.starter.solid": {
+    "notes": "",
+    "translation": "شروع کننده Solid"
+  },
+  "templates.starter.sql": {
+    "notes": "",
+    "translation": "شروع کننده SQL"
+  },
+  "templates.starter.stencil": {
+    "notes": "",
+    "translation": "شروع کننده Stencil"
+  },
+  "templates.starter.svelte": {
+    "notes": "",
+    "translation": "شروع کننده Svelte"
+  },
+  "templates.starter.tailwindcss": {
+    "notes": "",
+    "translation": "شروع کننده Tailwind CSS"
+  },
+  "templates.starter.tcl": {
+    "notes": "",
+    "translation": "شروع کننده Tcl"
+  },
+  "templates.starter.teal": {
+    "notes": "",
+    "translation": "شروع کننده Teal"
+  },
+  "templates.starter.typescript": {
+    "notes": "",
+    "translation": "شروع کننده تایپ‌اسکریپت"
+  },
+  "templates.starter.vue": {
+    "notes": "",
+    "translation": "شروع کننده Vue SFC"
+  },
+  "templates.starter.vue2": {
+    "notes": "",
+    "translation": "شروع کننده Vue 2"
+  },
+  "templates.starter.wat": {
+    "notes": "",
+    "translation": "شروع کننده WebAssembly Text"
+  },
+  "templates.user.heading": {
+    "notes": "",
+    "translation": "قالب‌های من"
+  },
+  "templates.user.loading": {
+    "notes": "",
+    "translation": "در حال بارگذاری قالب‌های کاربر..."
+  },
+  "testEditor.heading": {
+    "notes": "",
+    "translation": "ویرایش آزمون‌ها"
+  },
+  "testEditor.load": {
+    "notes": "",
+    "translation": "بارگذاری"
+  },
+  "testEditor.tests": {
+    "notes": "",
+    "translation": "آزمون‌ها"
+  },
+  "testSettings.desc": {
+    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"https://livecodes.io/docs/features/tests/\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "<tag-1></tag-1> برای جزئیات بیشتر، لطفاً به <tag-2>مستندات</tag-2> مراجعه کنید"
+  },
+  "toolspane.close": {
+    "notes": "",
+    "translation": "بستن"
+  },
+  "toolspane.compiled.title": {
+    "notes": "",
+    "translation": "کامپایل شده"
+  },
+  "toolspane.console.clear": {
+    "notes": "",
+    "translation": "پاک کردن کنسول"
+  },
+  "toolspane.console.title": {
+    "notes": "",
+    "translation": "کنسول"
+  },
+  "toolspane.test.edit": {
+    "notes": "",
+    "translation": "ویرایش"
+  },
+  "toolspane.test.error": {
+    "notes": "### <tag-1> ###\n<div class=\"no-tests\" />\n\n### <tag-2> ###\n<span class=\"fail\" />\n\n",
+    "translation": "<tag-1><tag-2>خطای آزمون!</tag-2></tag-1>"
+  },
+  "toolspane.test.loading": {
+    "notes": "### <tag-1> ###\n<div class=\"test-summary\" />\n\n",
+    "translation": "<tag-1>در حال بارگذاری آزمون‌ها...</tag-1>"
+  },
+  "toolspane.test.noTest": {
+    "notes": "### <tag-1> ###\n<div class=\"no-tests\" />\n\n",
+    "translation": "<tag-1>این پروژه هیچ آزمونی ندارد!</tag-1>"
+  },
+  "toolspane.test.reset": {
+    "notes": "",
+    "translation": "بازنشانی"
+  },
+  "toolspane.test.run.desc": {
+    "notes": "",
+    "translation": "Ctrl/⌘ + Alt + T"
+  },
+  "toolspane.test.run.heading": {
+    "notes": "",
+    "translation": "اجرا"
+  },
+  "toolspane.test.summary.desc": {
+    "notes": "### <tag-1> ###\n<br  />\n\n",
+    "translation": "آزمون‌ها: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<tag-1></tag-1>\nزمان: {{duration}} ثانیه"
+  },
+  "toolspane.test.summary.failed": {
+    "notes": "",
+    "translation": "{{failedNum}} ناموفق"
+  },
+  "toolspane.test.summary.passed": {
+    "notes": "",
+    "translation": "{{passedNum}} موفق"
+  },
+  "toolspane.test.summary.skipped": {
+    "notes": "",
+    "translation": "{{skippedNum}} رد شده"
+  },
+  "toolspane.test.summary.total": {
+    "notes": "",
+    "translation": "{{totalNum}} کل"
+  },
+  "toolspane.test.title": {
+    "notes": "",
+    "translation": "آزمون‌ها"
+  },
+  "toolspane.test.watch.desc": {
+    "notes": "",
+    "translation": "اجرای آزمون‌ها هنگام تغییر کد"
+  },
+  "toolspane.test.watch.heading": {
+    "notes": "",
+    "translation": "مشاهده"
+  },
+  "welcome.about.documentation": {
+    "notes": "",
+    "translation": "مستندات"
+  },
+  "welcome.about.heading": {
+    "notes": "",
+    "translation": "درباره LiveCodes"
+  },
+  "welcome.heading": {
+    "notes": "",
+    "translation": "خوش آمدید"
+  },
+  "welcome.recent.heading": {
+    "notes": "",
+    "translation": "اخیر"
+  },
+  "welcome.recover.cancel": {
+    "notes": "",
+    "translation": "لغو"
+  },
+  "welcome.recover.heading": {
+    "notes": "",
+    "translation": "بازیابی"
+  },
+  "welcome.recover.lastModified": {
+    "notes": "",
+    "translation": "آخرین تغییر:"
+  },
+  "welcome.recover.recover": {
+    "notes": "",
+    "translation": "بازیابی"
+  },
+  "welcome.recover.save": {
+    "notes": "",
+    "translation": "ذخیره"
+  },
+  "welcome.recover.unsavedChanges": {
+    "notes": "",
+    "translation": "آخرین پروژه شما تغییرات ذخیره‌نشده داشت:"
+  },
+  "welcome.showOnStartup": {
+    "notes": "",
+    "translation": "نمایش در هنگام راه‌اندازی"
+  },
+  "welcome.start.heading": {
+    "notes": "",
+    "translation": "شروع"
+  },
+  "welcome.start.import": {
+    "notes": "",
+    "translation": "وارد کردن..."
+  },
+  "welcome.start.loadDefaultTemplate": {
+    "notes": "",
+    "translation": "بارگذاری قالب پیش‌فرض"
+  },
+  "welcome.start.new": {
+    "notes": "",
+    "translation": "جدید..."
+  },
+  "welcome.start.noDefaultTemplate": {
+    "notes": "",
+    "translation": "بدون قالب پیش‌فرض"
+  },
+  "welcome.start.open": {
+    "notes": "",
+    "translation": "باز کردن..."
+  },
+  "welcome.templates.heading": {
+    "notes": "",
+    "translation": "قالب‌های شروع کننده"
+  }
+}
