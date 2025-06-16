@@ -67,6 +67,7 @@ import { typescriptStarter } from './typescript-starter';
 import { vueSfcStarter } from './vue-sfc-starter';
 import { vue2Starter } from './vue2-starter';
 import { watStarter } from './wat-starter';
+import { zigWasmStarter } from './zig-wasm-starter';
 
 export const starterTemplates = [
   blank,
@@ -136,4 +137,5 @@ export const starterTemplates = [
   prologStarter,
   blocklyStarter,
   diagramsStarter,
+  zigWasmStarter,
 ];

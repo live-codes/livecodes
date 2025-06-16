@@ -324,6 +324,7 @@ export const getCommandMenuActions = ({
         'prolog',
         'blockly',
         'diagrams',
+        'zig-wasm',
       ).map((template) => ({
         id: 'Starter template: ' + template,
         title: window.deps.translateString('commandMenu.template', 'Template') + ': ' + template,
