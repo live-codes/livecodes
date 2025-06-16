@@ -3802,7 +3802,9 @@ new Vue({
   <img class="logo" alt="logo" src="http://127.0.0.1:8080/livecodes/assets/templates/zig.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button" disabled>Loading...</button>
-</div><script>
+</div>
+
+<script>
   // set initial input
   livecodes.zig.input = "-1";
 
@@ -3812,16 +3814,14 @@ new Vue({
     // wait till loaded
     await livecodes.zig.loaded;
 
-    // get initial output, fallback to "Zig
-0" if undefined or invalid
-    const initialOutput = typeof livecodes.zig.output === 'string' && livecodes.zig.output ? livecodes.zig.output : "Zig
-0";
+    // get initial output
+    const initialOutput = livecodes.zig.output;
     update(initialOutput);
 
     button.onclick = async () => {
       button.disabled = true;
-      // run with new input, fallback to "-1" if window.count is undefined
-      const { output, error, exitCode } = await livecodes.zig.run(window.count ?? "-1");
+      // run with new input
+      const {output, error, exitCode} = await livecodes.zig.run(window.count);
       update(output);
     };
 
@@ -3829,37 +3829,21 @@ new Vue({
       const counter = document.querySelector("#counter");
       const name = document.querySelector("#name");
 
-      // Ensure output is a string, fallback to "Zig
-0" if invalid
-      const validOutput = typeof output === 'string' && output ? output : "Zig
-0";
-      if (typeof output !== 'string' || !output) {
-        console.warn("No valid output received, using fallback:", validOutput);
-      }
+      const [title, count] = output.split('\\n');
 
-      const [title, count] = validOutput.split('
-');
-
-      // Update counter only if count is a valid number
-      if (count && !isNaN(parseInt(count))) {
+      if (parseInt(count) !== NaN) {
         window.count = count;
-        counter.innerText = count;
-      } else {
-        console.warn("Invalid count, setting default:", count);
-        window.count = "0";
-        counter.innerText = "0";
+        counter.innerText = window.count;
       }
-
-      // Update title if present
       if (title) {
         name.innerText = title;
       }
-
       button.innerText = "Click me";
       button.disabled = false;
     }
   });
 <\/script>
+
 `.trimStart()},style:{language:"css",content:`
 .container,
 .container button {
@@ -3877,15 +3861,12 @@ pub fn main() !void {
     const stdin = std.io.getStdIn().reader();
 
     const title = "Zig";
-    try stdout.print("{s}
-", .{title});
+    try stdout.print("{s}\\n", .{title});
 
     var buf: [100]u8 = undefined;
-    const input = try stdin.readUntilDelimiterOrEof(&buf, '
-');
+    const input = try stdin.readUntilDelimiterOrEof(&buf, '\\n');
     const count = try std.fmt.parseInt(i32, input.?, 10);
-    try stdout.print("{}
-", .{count + 1});
+    try stdout.print("{}\\n", .{count + 1});
 
 }
 `.trimStart()}};var uo=[b,W,jt,pt,ct,Tt,d,nt,wt,vt,z,xt,Z,St,ft,U,v,g,ut,F,D,h,A,I,O,C,tt,Ct,S,G,y,x,R,dt,mt,K,at,it,lt,gt,ht,N,et,st,_,j,H,T,Q,V,X,_t,q,Y,bt,k,w,P,kt,J,u,Ut,yt,ot,rt,f,E,Et];export{uo as starterTemplates};

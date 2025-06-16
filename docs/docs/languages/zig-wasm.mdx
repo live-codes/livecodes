@@ -1,0 +1,124 @@
+# Zig (Wasm)
+
+Zig is a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software.
+
+In LiveCodes, Zig runs in the browser using WebAssembly with a WASI-compatible runtime environment.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+export const zigConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'zig-wasm',
+    content: `const std = @import("std");
+
+pub fn main() !void {
+    const stdout = std.io.getStdOut().writer();
+    
+    const sorted_array = [_]i32{ 1, 3, 5, 7, 9, 11, 13, 15 };
+    const item_to_search: i32 = 7;
+
+    const result = binarySearch(i32, &sorted_array, item_to_search);
+
+    if (result == -1) {
+        try stdout.print("Result: Item not found in the array.\\n", .{});
+    } else {
+        try stdout.print("Result: Item found at index -> {}\\n", .{result});
+    }
+}
+
+fn binarySearch(comptime T: type, arr: []const T, item: T) i32 {
+    var left: usize = 0;
+    var right: usize = arr.len;
+    
+    while (left < right) {
+        const mid = left + (right - left) / 2;
+        
+        if (arr[mid] == item) {
+            return @intCast(mid);
+        }
+        
+        if (arr[mid] > item) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+    
+    return -1;
+}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={zigConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The Zig code runs in the context of the result page. A few helper properties and methods are available in the browser global `livecodes.zig` object:
+
+- `livecodes.zig.input`: The initial standard input passed to the Zig code.
+- `livecodes.zig.loaded`: A promise that resolves when the Zig environment (WebAssembly runtime) is fully loaded. Other helpers should be used after this promise resolves.
+- `livecodes.zig.output`: The standard output from the Zig code execution.
+- `livecodes.zig.run`: A function that runs the Zig code with new input. This function takes a string as input and returns a promise that resolves with an object containing the `output`, `error`, and `exitCode` properties.
+
+Example:
+
+<LiveCodes template="zig-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`zig-wasm`
+
+### Aliases / Extensions
+
+`zig`, `zig-wasm`
+
+### Editor
+
+`script`
+
+## Compiler
+
+Zig compiler in WebAssembly.
+
+### Version
+
+Zig 0.14.0
+
+## Code Formatting
+
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the Zig WebAssembly environment. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the Zig code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Example Usage
+
+```zig
+const std = @import("std");
+
+pub fn main() !void {
+    const stdout = std.io.getStdOut().writer();
+    try stdout.print("Hello, LiveCodes Zig!\\n", .{});
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=zig-wasm
+
+## Links
+
+- [Zig](https://ziglang.org/)
