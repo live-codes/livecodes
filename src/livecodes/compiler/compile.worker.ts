@@ -24,6 +24,7 @@ const worker: Worker & {
   CodemirrorTsWorker?: any;
 } = self as any;
 (self as any).window = self;
+(self as any).deps = { languages, processors };
 
 const loadLanguageCompiler = async (
   language: LanguageOrProcessor,

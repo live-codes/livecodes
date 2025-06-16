@@ -27,6 +27,12 @@ export const pathLoader = (baseUrl: string) => (lngs: string[], nss: string[]) =
   if (lng === 'es' && ns === 'translation') {
     return baseUrl + '{{hash:i18n-es-translation.json}}';
   }
+  if (lng === 'fa' && ns === 'language-info') {
+    return baseUrl + '{{hash:i18n-fa-language-info.json}}';
+  }
+  if (lng === 'fa' && ns === 'translation') {
+    return baseUrl + '{{hash:i18n-fa-translation.json}}';
+  }
   if (lng === 'fr' && ns === 'language-info') {
     return baseUrl + '{{hash:i18n-fr-language-info.json}}';
   }

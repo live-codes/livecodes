@@ -1,0 +1,9 @@
+services:
+  live-codes:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: result/latest
+    restart: unless-stopped
+    ports:
+      - 8080:80

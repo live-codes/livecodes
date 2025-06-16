@@ -129,6 +129,15 @@
   "cppWasm.name": {
     "translation": "سی/سی++ (ڈبلیو اے ایس ایم)"
   },
+  "csharpWasm.desc": {
+    "translation": "سی # کمپائلر ویب اسمبلی پر چل رہا ہے، استعمال کر رہا ہے <tag-1>Blazor</tag-1>"
+  },
+  "csharpWasm.link": {
+    "translation": "<tag-1> <tag-2> C# زبان کی دستاویزات </tag-2> </tag-1> <tag-3> <tag-4> Y منٹوں میں X سیکھیں، جہاں X=C# </tag-4> </tag-3> <tag-5> <tag-6> LiveCodes ڈاکومینٹیشن </tag-6> </tag-5> <tag-7> <tag-8> </tag-8> شروع کریں </tag-7>"
+  },
+  "csharpWasm.name": {
+    "translation": "C# (Wasm)"
+  },
   "diagrams.desc1": {
     "translation": "(تجرباتی)"
   },
@@ -248,6 +257,15 @@
   },
   "java.name": {
     "translation": "Java"
+  },
+  "jinja.desc": {
+    "translation": "جنجا ایک تیز، اظہار خیال، توسیع پذیر ٹیمپلیٹنگ انجن ہے."
+  },
+  "jinja.link": {
+    "translation": "<tag-1> <tag-2> آفیشل ویب سائٹ </tag-2> </tag-1> <tag-3> <tag-4> ٹیمپلیٹ دستاویزات </tag-4> </tag-3> <tag-5> <tag-6> JavaScript کا نفاذ </tag-6> </tag-5> <tag-7> <tag-8> LiveCodes Dog- </tag-7> > </tag-8>"
+  },
+  "jinja.name": {
+    "translation": "Jinja"
   },
   "jsx.desc": {
     "translation": "جے ایس ایکس کو لائیو کوڈز میں ٹائپ اسکرپٹ کمپائلر کا استعمال کرتے ہوئے جاوا اسکرپٹ میں کمپائل کیا جاتا ہے۔ ڈیفالٹ طور پر یہ جے ایس ایکس رن ٹائم کے طور پر ری ایکٹ کا استعمال کرتا ہے۔"

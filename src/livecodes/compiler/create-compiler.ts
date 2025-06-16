@@ -2,10 +2,8 @@ import {
   getActivatedProcessors,
   getCustomSettings,
   getLanguageEditorId,
-  languages,
   processorIsActivated,
   processorIsEnabled,
-  processors,
 } from '../languages';
 import type {
   CompileInfo,
@@ -48,7 +46,11 @@ export const createCompiler = async ({
 
   const initialize = async () =>
     new Promise(async (resolve) => {
-      compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
+      compilers = getAllCompilers(
+        [...window.deps.languages, ...window.deps.processors],
+        config,
+        baseUrl,
+      );
       const compilerUrl = sandboxService.getCompilerUrl() + '?appCDN=' + getAppCDN();
       compilerSandbox = await createCompilerSandbox(compilerUrl);
 
@@ -250,7 +252,7 @@ export const createCompiler = async ({
       postcssRequired = true;
     }
 
-    for (const processor of processors) {
+    for (const processor of window.deps.processors) {
       if (
         (processorIsEnabled(processor.name, config) &&
           processorIsActivated(processor.name, config) &&

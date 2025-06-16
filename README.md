@@ -17,7 +17,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 [![LiveCodes: docs](https://img.shields.io/badge/Documentation-575757?logo=gitbook&logoColor=white)](https://livecodes.io/docs/)
 [![LiveCodes: llms.txt](https://img.shields.io/badge/llms.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms.txt)
 [![LiveCodes: llms-full.txt](https://img.shields.io/badge/llms--full.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms-full.txt)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://www.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://app.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Lokalise: translated](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/translated.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
 [![Lokalise: UI languages](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/languages.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
 [![license - MIT](https://img.shields.io/github/license/live-codes/livecodes)](https://github.com/live-codes/livecodes/blob/develop/LICENSE)
@@ -270,8 +270,8 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://codeium.com/" target="_blank" title="Codeium">
-  <img alt="Codeium" width="200" src="https://dev.livecodes.io/docs/img/credits/codeium.svg">
+<a href="https://windsurf.com/" target="_blank" title="Windsurf">
+  <img alt="Windsurf" width="200" src="https://dev.livecodes.io/docs/img/credits/windsurf.svg">
 </img></a><br /><br />
 </p>
 <p>

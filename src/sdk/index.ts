@@ -91,6 +91,12 @@ export async function createPlayground(
 
   let destroyed = false;
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
+  type EventHandler = (event: MessageEventInit<any>) => void | Promise<void>;
+  const eventHandlers: EventHandler[] = [];
+  const registerEventHandler = (handler: EventHandler, eventType = 'message') => {
+    addEventListener(eventType, handler);
+    eventHandlers.push(handler);
+  };
 
   const createIframe = () =>
     new Promise<HTMLIFrameElement>((resolve) => {
@@ -144,39 +150,35 @@ export async function createPlayground(
         frame.style.border = '0';
         frame.style.borderRadius = containerElement.style.borderRadius;
       }
-      addEventListener(
-        'message',
-        function initHandler(
-          e: MessageEventInit<{ type: CustomEvents['init']; payload: { appVersion: string } }>,
+      registerEventHandler(function initHandler(
+        e: MessageEventInit<{ type: CustomEvents['init']; payload: { appVersion: string } }>,
+      ) {
+        if (
+          e.source !== frame.contentWindow ||
+          e.origin !== origin ||
+          e.data?.type !== 'livecodes-init'
+        ) {
+          return;
+        }
+        removeEventListener('message', initHandler);
+        appVersion = Number(e.data.payload.appVersion.replace(/^v/, ''));
+      });
+
+      // for backward-compatibility
+      if (!appVersion || appVersion < 46) {
+        registerEventHandler(function configHandler(
+          e: MessageEventInit<{ type: CustomEvents['getConfig'] }>,
         ) {
           if (
             e.source !== frame.contentWindow ||
             e.origin !== origin ||
-            e.data?.type !== 'livecodes-init'
+            e.data?.type !== 'livecodes-get-config'
           ) {
             return;
           }
-          removeEventListener('message', initHandler);
-          appVersion = Number(e.data.payload.appVersion.replace(/^v/, ''));
-        },
-      );
-
-      // for backward-compatibility
-      if (!appVersion || appVersion < 46) {
-        addEventListener(
-          'message',
-          function configHandler(e: MessageEventInit<{ type: CustomEvents['getConfig'] }>) {
-            if (
-              e.source !== frame.contentWindow ||
-              e.origin !== origin ||
-              e.data?.type !== 'livecodes-get-config'
-            ) {
-              return;
-            }
-            removeEventListener('message', configHandler);
-            frame.contentWindow?.postMessage({ type: 'livecodes-config', payload: config }, origin);
-          },
-        );
+          removeEventListener('message', configHandler);
+          frame.contentWindow?.postMessage({ type: 'livecodes-config', payload: config }, origin);
+        });
       }
       frame.onload = () => {
         resolve(frame);
@@ -190,21 +192,20 @@ export async function createPlayground(
   const iframe = await createIframe();
 
   const livecodesReady: Promise<void> & { settled?: boolean } = new Promise((resolve) => {
-    addEventListener(
-      'message',
-      function readyHandler(e: MessageEventInit<{ type: CustomEvents['ready'] }>) {
-        if (
-          e.source !== iframe.contentWindow ||
-          e.origin !== origin ||
-          e.data?.type !== 'livecodes-ready'
-        ) {
-          return;
-        }
-        removeEventListener('message', readyHandler);
-        resolve();
-        livecodesReady.settled = true;
-      },
-    );
+    registerEventHandler(function readyHandler(
+      e: MessageEventInit<{ type: CustomEvents['ready'] }>,
+    ) {
+      if (
+        e.source !== iframe.contentWindow ||
+        e.origin !== origin ||
+        e.data?.type !== 'livecodes-ready'
+      ) {
+        return;
+      }
+      removeEventListener('message', readyHandler);
+      resolve();
+      livecodesReady.settled = true;
+    });
   });
 
   const loadLivecodes = () =>
@@ -226,36 +227,33 @@ export async function createPlayground(
       await loadLivecodes();
       const id = getRandomString();
 
-      addEventListener(
-        'message',
-        function handler(
-          e: MessageEventInit<{
-            type: CustomEvents['apiResponse'];
-            method: keyof API;
-            id: string;
-            payload?: any;
-          }>,
+      registerEventHandler(function handler(
+        e: MessageEventInit<{
+          type: CustomEvents['apiResponse'];
+          method: keyof API;
+          id: string;
+          payload?: any;
+        }>,
+      ) {
+        if (
+          e.source !== iframe.contentWindow ||
+          e.origin !== origin ||
+          e.data?.type !== 'livecodes-api-response' ||
+          e.data?.id !== id
         ) {
-          if (
-            e.source !== iframe.contentWindow ||
-            e.origin !== origin ||
-            e.data?.type !== 'livecodes-api-response' ||
-            e.data?.id !== id
-          ) {
-            return;
-          }
+          return;
+        }
 
-          if (e.data.method === method) {
-            removeEventListener('message', handler);
-            const payload = e.data.payload;
-            if (payload?.error) {
-              reject(payload.error);
-            } else {
-              resolve(payload);
-            }
+        if (e.data.method === method) {
+          removeEventListener('message', handler);
+          const payload = e.data.payload;
+          if (payload?.error) {
+            reject(payload.error);
+          } else {
+            resolve(payload);
           }
-        },
-      );
+        }
+      });
       iframe.contentWindow?.postMessage({ method, id, args }, origin);
     });
 
@@ -294,45 +292,48 @@ export async function createPlayground(
       'livecodes-destroy': 'destroy',
     })[event] as SDKEvent | undefined;
 
-  addEventListener(
-    'message',
-    async (
-      e: MessageEventInit<{
-        type: CustomEvents[keyof CustomEvents];
-        payload?: any;
-      }>,
-    ) => {
-      const sdkEvent = mapEvent(e.data?.type ?? '');
-      if (
-        e.source !== iframe.contentWindow ||
-        e.origin !== origin ||
-        !sdkEvent ||
-        !watchers[sdkEvent]
-      ) {
-        return;
-      }
-      const data = e.data?.payload;
-      watchers[sdkEvent]?.forEach((fn) => {
-        fn(data);
-      });
-    },
-  );
+  registerEventHandler(async function watchHandler(
+    e: MessageEventInit<{
+      type: CustomEvents[keyof CustomEvents];
+      payload?: any;
+    }>,
+  ) {
+    const sdkEvent = mapEvent(e.data?.type ?? '');
+    if (
+      e.source !== iframe.contentWindow ||
+      e.origin !== origin ||
+      !sdkEvent ||
+      !watchers[sdkEvent]
+    ) {
+      return;
+    }
+    const data = e.data?.payload;
+    watchers[sdkEvent]?.forEach((fn) => {
+      fn(data);
+    });
+  });
 
   const destroy = () => {
+    iframe?.remove?.();
     Object.values(watchers).forEach((watcher) => {
       watcher.length = 0;
     });
-    iframe?.remove?.();
+    eventHandlers.forEach((handler) => removeEventListener('message', handler));
+    eventHandlers.length = 0;
+    if (observer && containerElement) {
+      observer.unobserve(containerElement);
+    }
     destroyed = true;
   };
 
+  let observer: IntersectionObserver | undefined;
   if (loading === 'lazy' && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
+    observer = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach(async (entry) => {
           if (entry.isIntersecting) {
             await loadLivecodes();
-            observer.unobserve(containerElement!);
+            observer.unobserve(containerElement);
           }
         });
       },
@@ -364,14 +365,11 @@ export async function createPlayground(
     watch,
     exec: (command, ...args) => callAPI('exec', [command, ...args]),
     destroy: () => {
-      if (!livecodesReady.settled) {
-        if (destroyed) {
-          return Promise.reject(alreadyDestroyedMessage);
-        }
-        destroy();
-        return Promise.resolve();
+      if (destroyed) {
+        return Promise.reject(alreadyDestroyedMessage);
       }
-      return callAPI('destroy').then(destroy);
+      destroy();
+      return Promise.resolve();
     },
   };
 }

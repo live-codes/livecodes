@@ -1786,6 +1786,7 @@ export type AppLanguage =
   | 'de'
   | 'en'
   | 'es'
+  | 'fa'
   | 'fr'
   | 'hi'
   | 'it'

@@ -1243,7 +1243,7 @@
     "translation": "Importación masiva iniciada..."
   },
   "import.code.desc": {
-    "translation": "Fuentes compatibles: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>Archivo de GitHub</tag-3> <tag-4>Directorio en un repositorio de GitHub</tag-4> <tag-5>Fragmento de Gitlab</tag-5> <tag-6>Archivo de Gitlab</tag-6> <tag-7>Directorio en un repositorio de Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Código en bruto</tag-9> <tag-10>Código en el DOM de la página web</tag-10> <tag-11>Código en archivo zip</tag-11> <tag-12>Entornos oficiales<tag-13></tag-13>(TypeScript y Vue)</tag-12> </tag-1> Por favor, visita la <tag-14>documentación</tag-14> para más detalles."
+    "translation": "Fuentes compatibles: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>Archivo de GitHub</tag-3> <tag-4>Directorio en un repositorio de GitHub</tag-4> <tag-5>Fragmento de Gitlab</tag-5> <tag-6>Archivo de Gitlab</tag-6> <tag-7>Directorio en un repositorio de Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Código en bruto</tag-9> <tag-10>Código en el DOM de la página web</tag-10> <tag-11>Código en archivo zip</tag-11> <tag-12>Código en imagen (OCR)</tag-12> <tag-13>Entornos oficiales<tag-14></tag-14>(TypeScript y Vue)</tag-13> </tag-1> Por favor, visita la <tag-15>documentación</tag-15> para más detalles."
   },
   "import.code.fromFile": {
     "translation": "Importar archivos locales"

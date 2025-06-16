@@ -183,6 +183,8 @@ declare global {
         value: I18nValueType<Key, Value>,
         ...args: I18nInterpolationType<I18nValueType<Key, Value>>
       ) => string;
+      languages: typeof languages;
+      processors: typeof processors;
     };
   }
 }
@@ -4279,9 +4281,12 @@ const handleCodeToImage = () => {
 
     const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/');
 
-    const getShareUrl = async (config: Partial<Config>) => {
-      const param = '/?x=id/' + (await shareService.shareProject(config));
-      return currentUrl + param;
+    const getShareUrl = async (config: Partial<Config>, shortUrl = true) => {
+      if (shortUrl) {
+        const param = '/?x=id/' + (await shareService.shareProject(config));
+        return currentUrl + param;
+      }
+      return getPlaygroundUrl({ appUrl: currentUrl, config });
     };
 
     const codeToImageModule: typeof import('./UI/code-to-image') = await import(
@@ -5697,6 +5702,8 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode,
     translateString: translateStringMock,
+    languages,
+    processors,
   };
   await initializePlayground({ config, baseUrl }, async () => {
     basicHandlers();
@@ -5710,6 +5717,8 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode,
     translateString: translateStringMock,
+    languages,
+    processors,
   };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     basicHandlers();
@@ -5724,6 +5733,8 @@ const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode: () => undefined,
     translateString: translateStringMock,
+    languages,
+    processors,
   };
   await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true }, () => {
     notifications = {
