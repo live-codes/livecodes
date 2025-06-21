@@ -1,14 +1,13 @@
 /* eslint-disable import/order */
-/* eslint-disable no-underscore-dangle */
 import type express from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { Context, PgFunction } from '../functions/utils.ts';
+import type { Context, PgFunction } from '../../functions/utils.ts';
 
-export const getDirname = (metaUrl: string) => path.dirname(fileURLToPath(metaUrl));
-
+const getDirname = (metaUrl: string) => path.dirname(fileURLToPath(metaUrl));
 const dirname = getDirname(import.meta.url);
+export const appDir = path.resolve(dirname, '../../build/');
 
 const getFileContent = async (fullUrl: string) => {
   let pathname: string;
@@ -21,9 +20,9 @@ const getFileContent = async (fullUrl: string) => {
   if (!pathname.trim()) {
     pathname = 'index.html';
   }
-  let filePath = path.resolve(dirname, '../build/', pathname);
+  let filePath = path.resolve(appDir, pathname);
   if (!fs.existsSync(filePath)) {
-    filePath = path.resolve(dirname, '../build/', '404.html');
+    filePath = path.resolve(appDir, '404.html');
   }
   return fs.promises.readFile(filePath, 'utf8');
 };

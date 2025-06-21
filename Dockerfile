@@ -27,9 +27,9 @@ COPY server/package*.json ./
 
 RUN npm ci
 
-COPY --from=builder /app/build/ /srv/build/
+COPY --from=builder /app/build/ build/
 
 COPY functions/ functions/
-COPY server/*.ts server/
+COPY server/src/ server/src/
 
-CMD ["node", "server/server.ts"]
+CMD ["node", "server/src/app.ts"]

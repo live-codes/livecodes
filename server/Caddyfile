@@ -14,7 +14,7 @@
 
 {$HOST_NAME}:{$PORT} {
   import common
-  reverse_proxy livecodes:{$PORT}
+  reverse_proxy app:{$PORT}
   encode
 }
 www.{$HOST_NAME}:{$PORT} {

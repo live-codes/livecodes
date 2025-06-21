@@ -1,21 +1,18 @@
-version: '3.8'
 services:
-  livecodes:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
       args:
         - DOCS_BASE_URL=${DOCS_BASE_URL:-null}
-        # - DOCS_BASE_URL=${DOCS_BASE_URL:-/livecodes/docs/}
     image: livecodes/latest
     restart: unless-stopped
     environment:
       - HOST_NAME=${HOST_NAME:-localhost}
       - PORT=${PORT:-8080}
       - DOCS_BASE_URL=${DOCS_BASE_URL:-null}
-      # - DOCS_BASE_URL=${DOCS_BASE_URL:-/livecodes/docs/}
 
-  caddy:
+  server:
     image: caddy:2-alpine
     entrypoint: ['/bin/sh', './entrypoint.sh']
     command: ['caddy', 'run', '--config', '/etc/caddy/Caddyfile', '--adapter', 'caddyfile']
@@ -33,4 +30,4 @@ services:
       - ./server/.caddy/data:/data
       - ./server/.caddy/config:/config
     depends_on:
-      - livecodes
+      - app
