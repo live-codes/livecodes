@@ -4,6 +4,7 @@ import { allowedOrigin } from './allowed-origin';
 const dpasteGetUrl = 'https://dpaste.com/';
 const dpastePostUrl = 'https://dpaste.com/api/v2/';
 const apiUrl = 'https://api2.livecodes.io/share';
+const selfHostedUrl = './share';
 
 type ConfigWithResult = Partial<Config & { result: string }>;
 interface ShareService {
@@ -73,4 +74,34 @@ const apiService = {
   },
 };
 
-export const shareService: ShareService = allowedOrigin() ? apiService : dpasteService;
+const selfHostedService = {
+  getProject: async (id: string): Promise<ConfigWithResult> => {
+    try {
+      const res = await fetch(selfHostedUrl + '?id=' + id);
+      if (!res.ok) return {};
+      return res.json();
+    } catch (error) {
+      return {};
+    }
+  },
+  shareProject: async (config: ConfigWithResult): Promise<string> => {
+    try {
+      const res = await fetch(selfHostedUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(config),
+      });
+      if (!res.ok) return '';
+      return res.text();
+    } catch (error) {
+      return '';
+    }
+  },
+};
+
+export const shareService: ShareService =
+  String(process.env.SELF_HOSTED_SHARE) === 'true'
+    ? selfHostedService
+    : allowedOrigin()
+      ? apiService
+      : dpasteService;

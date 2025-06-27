@@ -5,15 +5,24 @@ services:
       dockerfile: Dockerfile
       args:
         - DOCS_BASE_URL=${DOCS_BASE_URL:-null}
+        - SELF_HOSTED_SHARE=${SELF_HOSTED_SHARE:-true}
     image: livecodes/latest
     restart: unless-stopped
     environment:
       - HOST_NAME=${HOST_NAME:-localhost}
       - PORT=${PORT:-8080}
-      - DOCS_BASE_URL=${DOCS_BASE_URL:-null}
+      - VALKEY_HOST=valkey
+      - VALKEY_PORT=6379
+
+  valkey:
+    image: valkey/valkey:8.1.2-alpine3.22
+    restart: unless-stopped
+    volumes:
+      - ./server/data/valkey:/data
+    command: ['valkey-server', '--save', '60', '1', '--loglevel', 'warning']
 
   server:
-    image: caddy:2-alpine
+    image: caddy:2.10.0-alpine
     entrypoint: ['/bin/sh', './entrypoint.sh']
     command: ['caddy', 'run', '--config', '/etc/caddy/Caddyfile', '--adapter', 'caddyfile']
     restart: unless-stopped
@@ -27,7 +36,7 @@ services:
     volumes:
       - ./server/entrypoint.sh:/srv/entrypoint.sh
       - ./server/Caddyfile:/etc/caddy/Caddyfile
-      - ./server/.caddy/data:/data
-      - ./server/.caddy/config:/config
+      - ./server/data/caddy/data:/data
+      - ./server/data/caddy/config:/config
     depends_on:
       - app

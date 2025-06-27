@@ -13,4 +13,4 @@ docs/static/llms-full.txt
 /playwright/.cache/
 src/livecodes/i18n/locales/tmp/
 lokalise_tmp
-.caddy
+server/data

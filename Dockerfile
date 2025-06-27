@@ -13,6 +13,7 @@ RUN npm ci
 COPY . .
 
 ARG DOCS_BASE_URL
+ARG SELF_HOSTED_SHARE
 
 RUN if [ "$DOCS_BASE_URL" == "null" ]; \
   then npm run build:app; \

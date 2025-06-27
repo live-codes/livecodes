@@ -4,6 +4,7 @@ import express from 'express';
 import path from 'node:path';
 import { onRequest as index } from '../../functions/index.ts';
 import { onRequest as oembed } from '../../functions/oembed.ts';
+import { share } from './share.ts';
 import { appDir, handleRequest } from './utils.ts';
 
 const app = express();
@@ -11,11 +12,15 @@ const hostname = process.env.HOST_NAME || 'localhost';
 const port = process.env.PORT || 8080;
 
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.disable('x-powered-by');
 
 app.use('/oembed', async (req, res) => {
   handleRequest(oembed, req, res);
 });
+
+app.use('/share', share);
 
 app.use('/', (req, res, next) => {
   if (req.path === '/' || req.path === '/index.html') {

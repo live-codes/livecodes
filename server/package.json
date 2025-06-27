@@ -12,7 +12,9 @@
   "description": "",
   "dependencies": {
     "cors": "2.8.5",
-    "express": "5.1.0"
+    "express": "5.1.0",
+    "iovalkey": "0.3.3",
+    "nanoid": "5.1.5"
   },
   "devDependencies": {
     "@types/cors": "2.8.19",

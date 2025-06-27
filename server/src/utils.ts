@@ -1,5 +1,6 @@
 /* eslint-disable import/order */
 import type express from 'express';
+import { customAlphabet } from 'nanoid';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -95,4 +96,10 @@ export const handleRequest = async (
 ) => {
   const response = await getWebResponse(fn, req);
   sendExpressResponse(res, response);
+};
+
+export const generateId = (length = 11) => {
+  const alphabet = '23456789abcdefghijkmnpqrstuvwxyz';
+  const nanoid = customAlphabet(alphabet, length);
+  return nanoid();
 };

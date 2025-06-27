@@ -54,6 +54,7 @@ const getVars = (/** @type {boolean} */ devMode) => {
     process.env.DOCS_BASE_URL === 'null'
       ? 'https://livecodes.io/docs/'
       : process.env.DOCS_BASE_URL || (devMode ? 'http://localhost:3000/docs/' : '/docs/');
+  const selfHostedShare = String(process.env.SELF_HOSTED_SHARE) === 'true' ? 'true' : 'false';
 
   return {
     appVersion,
@@ -61,11 +62,13 @@ const getVars = (/** @type {boolean} */ devMode) => {
     gitCommit,
     repoUrl,
     docsBaseUrl,
+    selfHostedShare,
   };
 };
 
 const getEnvVars = (/** @type {boolean} */ devMode) => {
-  const { appVersion, sdkVersion, gitCommit, repoUrl, docsBaseUrl } = getVars(devMode);
+  const { appVersion, sdkVersion, gitCommit, repoUrl, docsBaseUrl, selfHostedShare } =
+    getVars(devMode);
   return {
     'process.env.VERSION': `"${appVersion || ''}"`,
     'process.env.SDK_VERSION': `"${sdkVersion || ''}"`,
@@ -73,6 +76,7 @@ const getEnvVars = (/** @type {boolean} */ devMode) => {
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
     'process.env.DOCS_BASE_URL': `"${docsBaseUrl}"`,
     'process.env.CI': `${process.env.CI || false}`,
+    'process.env.SELF_HOSTED_SHARE': `${selfHostedShare}`,
     define: 'undefined', // prevent using AMD (e.g. in lz-string),
   };
 };
