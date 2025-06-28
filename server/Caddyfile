@@ -10,6 +10,9 @@
 
 (common) {
   header -Server
+  log {
+    level warn
+  }
 }
 
 {$HOST_NAME}:{$PORT} {
@@ -20,4 +23,14 @@
 www.{$HOST_NAME}:{$PORT} {
   import common
   redir https://{$HOST_NAME}:{$PORT}{uri} permanent
+}
+{$HOST_NAME}:{$BROADCAST_PORT} {
+  import common
+  reverse_proxy app:{$BROADCAST_PORT}
+  encode
+}
+{$SANDBOX_HOST_NAME}:{$SANDBOX_PORT} {
+  import common
+  reverse_proxy app:{$SANDBOX_PORT}
+  encode
 }

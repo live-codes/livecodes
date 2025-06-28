@@ -2,7 +2,17 @@ export { getApp, initializeApp } from 'firebase/app';
 export { GithubAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth';
 export type { User as FirebaseUser } from 'firebase/auth';
 
-export const firebaseConfig = {
+let selfHostedConfig: any;
+if (process.env.FIREBASE_CONFIG) {
+  try {
+    selfHostedConfig = JSON.parse(process.env.FIREBASE_CONFIG);
+  } catch {
+    // eslint-disable-next-line no-console
+    console.warn('Failed to parse FIREBASE_CONFIG. Falling back to defaults');
+  }
+}
+
+export const firebaseConfig = selfHostedConfig || {
   apiKey: 'AIzaSyB352dJ_NKCZ43G5kv9Lt-sb5nMXTJRONQ',
   authDomain: 'livecodes-io.firebaseapp.com',
   projectId: 'livecodes-io',

@@ -54,29 +54,61 @@ const getVars = (/** @type {boolean} */ devMode) => {
     process.env.DOCS_BASE_URL === 'null'
       ? 'https://livecodes.io/docs/'
       : process.env.DOCS_BASE_URL || (devMode ? 'http://localhost:3000/docs/' : '/docs/');
-  const selfHostedShare = String(process.env.SELF_HOSTED_SHARE) === 'true' ? 'true' : 'false';
-
+  const CI = process.env.CI || false;
+  const selfHosted = String(process.env.SELF_HOSTED) === 'true';
+  const selfHostedShare = String(process.env.SELF_HOSTED_SHARE) === 'true';
+  const selfHostedBroadcast = String(process.env.SELF_HOSTED_BROADCAST) === 'true';
+  const selfHostedBroadcastPort = Number(process.env.BROADCAST_PORT) || 3030;
+  const selfHostedSandboxHostName = process.env.SANDBOX_HOST_NAME || 'localhost';
+  const selfHostedSandboxPort = Number(process.env.SANDBOX_PORT) || 8090;
+  const firebaseConfig = process.env.FIREBASE_CONFIG || 'null';
   return {
     appVersion,
     sdkVersion,
     gitCommit,
     repoUrl,
     docsBaseUrl,
+    CI,
+    selfHosted,
     selfHostedShare,
+    selfHostedBroadcast,
+    selfHostedBroadcastPort,
+    firebaseConfig,
+    selfHostedSandboxHostName,
+    selfHostedSandboxPort,
   };
 };
 
 const getEnvVars = (/** @type {boolean} */ devMode) => {
-  const { appVersion, sdkVersion, gitCommit, repoUrl, docsBaseUrl, selfHostedShare } =
-    getVars(devMode);
+  const {
+    appVersion,
+    sdkVersion,
+    gitCommit,
+    repoUrl,
+    docsBaseUrl,
+    CI,
+    selfHosted,
+    selfHostedShare,
+    selfHostedBroadcast,
+    selfHostedBroadcastPort,
+    firebaseConfig,
+    selfHostedSandboxHostName,
+    selfHostedSandboxPort,
+  } = getVars(devMode);
   return {
     'process.env.VERSION': `"${appVersion || ''}"`,
     'process.env.SDK_VERSION': `"${sdkVersion || ''}"`,
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
     'process.env.DOCS_BASE_URL': `"${docsBaseUrl}"`,
-    'process.env.CI': `${process.env.CI || false}`,
+    'process.env.CI': `${CI}`,
+    'process.env.SELF_HOSTED': `${selfHosted}`,
     'process.env.SELF_HOSTED_SHARE': `${selfHostedShare}`,
+    'process.env.SELF_HOSTED_BROADCAST': `${selfHostedBroadcast}`,
+    'process.env.BROADCAST_PORT': `${selfHostedBroadcastPort}`,
+    'process.env.SANDBOX_HOST_NAME': `"${selfHostedSandboxHostName}"`,
+    'process.env.SANDBOX_PORT': `${selfHostedSandboxPort}`,
+    'process.env.FIREBASE_CONFIG': `${firebaseConfig}`,
     define: 'undefined', // prevent using AMD (e.g. in lz-string),
   };
 };

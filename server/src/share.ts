@@ -14,7 +14,7 @@ const getProject = async (req: ExpressRequest, res: ExpressResponse) => {
     return;
   }
 
-  const value = await valkey.get(String(id));
+  const value = await valkey.get(String(id).toLowerCase());
   if (!value) {
     res.status(404).send('Not Found!');
     return;
@@ -43,10 +43,12 @@ const saveProject = async (req: ExpressRequest, res: ExpressResponse) => {
     return;
   }
 
-  let id = generateId();
+  // note: dpaste id length: 9, API id length: 11, self-hosted id length: 14
+  const idLength = 14;
+  let id = generateId(idLength);
   // avoid collision
   while (await valkey.get(id)) {
-    id = generateId();
+    id = generateId(idLength);
   }
 
   await valkey.set(id, value);

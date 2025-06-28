@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import type { Context, PgFunction } from '../../functions/utils.ts';
 
 const getDirname = (metaUrl: string) => path.dirname(fileURLToPath(metaUrl));
-const dirname = getDirname(import.meta.url);
+export const dirname = getDirname(import.meta.url);
 export const appDir = path.resolve(dirname, '../../build/');
 
 const getFileContent = async (fullUrl: string) => {

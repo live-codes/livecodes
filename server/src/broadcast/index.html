@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <title>LiveCodes Broadcast</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        font: 0.9em sans-serif;
+        justify-content: center;
+        overflow: hidden;
+      }
+      h1 {
+        text-align: center;
+        font-size: 1.5em;
+        color: rgb(72, 72, 72);
+      }
+      a {
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      #container {
+        visibility: hidden;
+        height: 80vh;
+        width: 80%;
+        margin: auto;
+        text-align: center;
+      }
+      #container a {
+        color: rgb(100, 149, 237);
+        font-size: 1em;
+        margin: 1em;
+        display: inline-block;
+      }
+      #footer {
+        margin: 1em;
+        text-align: center;
+      }
+      #footer a {
+        color: rgb(72, 72, 72);
+        font-size: 0.9em;
+        margin: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>LiveCodes Broadcast</h1>
+    <div id="container">
+      <a href="?view=result">Result</a>
+      <a href="?view=code">Code</a>
+    </div>
+    <div id="footer">
+      <a target="_blank" href="https://livecodes.io">LiveCodes</a>
+      <a target="_blank" href="https://livecodes.io/docs/features/broadcast">Broadcast docs</a>
+    </div>
+    <script>
+      const links = document.querySelector('#container');
+      if (location.pathname.includes('channels/')) {
+        links.style.visibility = 'visible';
+      }
+    </script>
+  </body>
+</html>

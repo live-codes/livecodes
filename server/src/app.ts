@@ -4,12 +4,16 @@ import express from 'express';
 import path from 'node:path';
 import { onRequest as index } from '../../functions/index.ts';
 import { onRequest as oembed } from '../../functions/oembed.ts';
+import { broadcast } from './broadcast/index.ts';
+import { corsProxy } from './cors.ts';
+import { sandbox } from './sandbox.ts';
 import { share } from './share.ts';
 import { appDir, handleRequest } from './utils.ts';
 
-const app = express();
+export const app = express();
 const hostname = process.env.HOST_NAME || 'localhost';
-const port = process.env.PORT || 8080;
+const port = Number(process.env.PORT) || 8080;
+const appUrl = `https://${hostname}${port !== 443 ? ':' + port : ''}`;
 
 app.use(cors());
 app.use(express.json());
@@ -19,8 +23,8 @@ app.disable('x-powered-by');
 app.use('/oembed', async (req, res) => {
   handleRequest(oembed, req, res);
 });
-
-app.use('/share', share);
+app.use('/api/cors', corsProxy);
+app.use('/api/share', share);
 
 app.use('/', (req, res, next) => {
   if (req.path === '/' || req.path === '/index.html') {
@@ -57,5 +61,21 @@ app.use((req, res) => {
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
-  console.log(`App is running on https://${hostname}${port !== '443' ? ':' + port : ''}`);
+  console.log(`App is running on `);
 });
+
+// sandbox - needs to be on a different origin
+sandbox({
+  hostname: process.env.SANDBOX_HOST_NAME || 'localhost',
+  port: Number(process.env.SANDBOX_PORT) || 8090,
+});
+
+// broadcast
+if (process.env.SELF_HOSTED_BROADCAST) {
+  broadcast({
+    hostname,
+    port: Number(process.env.BROADCAST_PORT) || 3030,
+    appUrl,
+    userTokens: process.env.BROADCAST_TOKENS || '',
+  });
+}

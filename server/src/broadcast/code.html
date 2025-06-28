@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiveCodes Broadcast</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        font: 0.9em sans-serif;
+        justify-content: center;
+        overflow: hidden;
+      }
+      h1 {
+        text-align: center;
+        font-size: 1.5em;
+        color: rgb(72, 72, 72);
+      }
+      #container {
+        border: 1px solid black;
+        border-radius: 5px;
+        height: 80vh;
+        min-height: 250px;
+        width: 80%;
+        margin: auto;
+      }
+
+      #container iframe {
+        border: 0;
+        border-radius: 5px;
+        height: 100%;
+        width: 100%;
+      }
+      #footer {
+        margin: 1em;
+        text-align: center;
+      }
+      #footer a {
+        color: rgb(72, 72, 72);
+        font-size: 0.9em;
+        margin: 1em;
+        text-decoration: none;
+      }
+      #footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.5.1/dist/socket.io.min.js"></script>
+  </head>
+  <body>
+    <h1>LiveCodes Broadcast</h1>
+    <div id="container" data-height="80vh"></div>
+    <div id="footer">
+      <a target="_blank" href="https://livecodes.io">LiveCodes</a>
+      <a target="_blank" href="https://livecodes.io/docs/features/broadcast">Broadcast docs</a>
+    </div>
+    <script type="module">
+      import { createPlayground } from '{{AppUrl}}/sdk/livecodes.js';
+      const options = {
+        appUrl: '{{AppUrl}}',
+        config: {
+          markup: {
+            language: 'html',
+            content: 'Loading...',
+          },
+          readonly: true,
+        },
+      };
+      createPlayground('#container', options).then(async (playground) => {
+        const loadConfig = async (_result, config) => {
+          await playground.setConfig({
+            ...config,
+            readonly: true,
+          });
+          if (config.activeEditor) {
+            const { lineNumber = 1, column = 1 } = config[config.activeEditor]?.position;
+            await playground.show(config.activeEditor, {
+              line: lineNumber,
+              column,
+            });
+          }
+        };
+        const socket = io();
+        socket.on('receive', loadConfig);
+        window.playground = playground;
+        socket.on('disconnect', async () => {
+          await playground.destroy();
+          document.querySelector('#container').innerHTML =
+            '<div style="text-align: center; padding: 2em;">Broadcast Disconnected!</div>';
+        });
+        const channel = location.pathname.split('/').slice(-1)[0];
+        socket.emit('join', channel);
+      });
+    </script>
+  </body>
+</html>

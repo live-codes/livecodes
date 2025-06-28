@@ -4,7 +4,9 @@ import { allowedOrigin } from './allowed-origin';
 const dpasteGetUrl = 'https://dpaste.com/';
 const dpastePostUrl = 'https://dpaste.com/api/v2/';
 const apiUrl = 'https://api2.livecodes.io/share';
-const selfHostedUrl = './share';
+const selfHostedUrl = './api/share';
+
+// note: dpaste id length: 9, api id length: 11, self-hosted id length: 14
 
 type ConfigWithResult = Partial<Config & { result: string }>;
 interface ShareService {
@@ -48,8 +50,6 @@ const apiService = {
   getProject: async (id: string): Promise<ConfigWithResult> => {
     // for backward compatibility
     if (id.length < 11) return dpasteService.getProject(id);
-
-    if (!allowedOrigin()) return {};
     try {
       const res = await fetch(apiUrl + '?id=' + id);
       if (!res.ok) return {};
@@ -76,6 +76,8 @@ const apiService = {
 
 const selfHostedService = {
   getProject: async (id: string): Promise<ConfigWithResult> => {
+    // allow getting projects shared from api service on hosted app
+    if (id.length < 14) return apiService.getProject(id);
     try {
       const res = await fetch(selfHostedUrl + '?id=' + id);
       if (!res.ok) return {};
@@ -99,9 +101,8 @@ const selfHostedService = {
   },
 };
 
-export const shareService: ShareService =
-  String(process.env.SELF_HOSTED_SHARE) === 'true'
-    ? selfHostedService
-    : allowedOrigin()
-      ? apiService
-      : dpasteService;
+export const shareService: ShareService = process.env.SELF_HOSTED_SHARE
+  ? selfHostedService
+  : allowedOrigin()
+    ? apiService
+    : dpasteService;

@@ -12,8 +12,14 @@ RUN npm ci
 
 COPY . .
 
-ARG DOCS_BASE_URL
+ARG SELF_HOSTED
 ARG SELF_HOSTED_SHARE
+ARG SELF_HOSTED_BROADCAST
+ARG BROADCAST_PORT
+ARG SANDBOX_HOST_NAME
+ARG SANDBOX_PORT
+ARG FIREBASE_CONFIG
+ARG DOCS_BASE_URL
 
 RUN if [ "$DOCS_BASE_URL" == "null" ]; \
   then npm run build:app; \
@@ -32,5 +38,6 @@ COPY --from=builder /app/build/ build/
 
 COPY functions/ functions/
 COPY server/src/ server/src/
+COPY src/livecodes/html/sandbox/ server/src/sandbox/
 
 CMD ["node", "server/src/app.ts"]
