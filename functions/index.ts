@@ -91,7 +91,16 @@ export const onRequest: PgFunction = async function (context) {
 
 export const logToAPI = (context: Context) => {
   const { data, env } = context;
-  return fetch('https://api2.livecodes.io/log', {
+  let logUrl = 'https://api2.livecodes.io/log';
+  const customLogUrl = (env as any).LOG_URL;
+  if (customLogUrl && typeof customLogUrl === 'string') {
+    try {
+      logUrl = new URL(customLogUrl).href;
+    } catch {
+      //
+    }
+  }
+  return fetch(logUrl, {
     method: 'POST',
     headers: {
       'API-Token': env.API_TOKEN,

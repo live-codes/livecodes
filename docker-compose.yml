@@ -23,6 +23,7 @@ services:
       - BROADCAST_TOKENS=${BROADCAST_TOKENS:-}
       - SANDBOX_HOST_NAME=${SANDBOX_HOST_NAME:-localhost}
       - SANDBOX_PORT=${SANDBOX_PORT:-8090}
+      - LOG_URL=${LOG_URL:-}
       - VALKEY_HOST=valkey
       - VALKEY_PORT=6379
 

@@ -8,7 +8,7 @@ if (process.env.FIREBASE_CONFIG) {
     selfHostedConfig = JSON.parse(process.env.FIREBASE_CONFIG);
   } catch {
     // eslint-disable-next-line no-console
-    console.warn('Failed to parse FIREBASE_CONFIG. Falling back to defaults');
+    console.warn('Failed to parse FIREBASE_CONFIG. Falling back to default config.');
   }
 }
 

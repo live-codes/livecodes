@@ -10,9 +10,6 @@
 
 (common) {
   header -Server
-  log {
-    level warn
-  }
 }
 
 {$HOST_NAME}:{$PORT} {
