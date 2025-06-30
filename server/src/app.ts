@@ -12,7 +12,7 @@ import { appDir, handleRequest } from './utils.ts';
 
 export const app = express();
 const hostname = process.env.HOST_NAME || 'localhost';
-const port = Number(process.env.PORT) || 8080;
+const port = Number(process.env.PORT) || 443;
 const appUrl = `https://${hostname}${port !== 443 ? ':' + port : ''}`;
 
 app.use(cors());
@@ -61,7 +61,7 @@ app.use((req, res) => {
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
-  console.log(`App is running on `);
+  console.log(`App is running on ${appUrl}`);
 });
 
 // sandbox - needs to be on a different origin

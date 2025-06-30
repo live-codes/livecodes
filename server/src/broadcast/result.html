@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>LiveCodes Broadcast</title>
@@ -32,20 +32,20 @@
       sandbox="allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"
     ></iframe>
     <script>
-      const iframe = document.getElementById("result");
+      const iframe = document.getElementById('result');
       const showResult = (result) => {
         iframe.srcdoc = result;
       };
       const socket = io();
-      socket.on("receive", (result) => {
+      socket.on('receive', (result) => {
         iframe.srcdoc = result;
       });
-      socket.on("disconnect", () => {
+      socket.on('disconnect', () => {
         iframe.srcdoc =
-          '<div style="text-align: center; padding: 2em;">Broadcast Diconnected!</div>';
+          '<div style="text-align: center; padding: 2em;">Broadcast disconnected!</div>';
       });
-      const channel = location.pathname.split("/").slice(-1)[0];
-      socket.emit("join", channel);
+      const channel = location.pathname.split('/').slice(-1)[0];
+      socket.emit('join', channel);
     </script>
   </body>
 </html>
