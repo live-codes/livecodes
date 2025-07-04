@@ -82,19 +82,12 @@ jobs:
           CF_ZONE: ${{ secrets.CF_ZONE }}
           CF_TOKEN: ${{ secrets.CF_TOKEN }}
 
-      - name: Login to Docker Hub
-        if: startsWith(github.head_ref, 'releases/v')
-        uses: docker/login-action@v3
-        with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and Push to Docker Hub
-        if: startsWith(github.head_ref, 'releases/v')
-        uses: docker/build-push-action@v6
-        with:
-          push: true
-          tags: hatemhosny/livecodes:latest,hatemhosny/livecodes:${{steps.vars.outputs.version}}
+      # - name: Build and Push to Docker Hub
+      #   run: |
+      #     echo ${{secrets.DOCKERHUB_TOKEN}} | docker login --username ${{ vars.DOCKERHUB_USERNAME }} --password-stdin
+      #     docker build -t ${{ vars.DOCKERHUB_USERNAME }}/livecodes:latest -t ${{ vars.DOCKERHUB_USERNAME }}/livecodes:${{steps.vars.outputs.version}} .
+      #     docker push ${{ vars.DOCKERHUB_USERNAME }}/livecodes:latest
+      #     docker push ${{ vars.DOCKERHUB_USERNAME }}/livecodes:${{steps.vars.outputs.version}}
 
       - name: Publish SDK to NPM
         if: startsWith(github.head_ref, 'releases/sdk-v')
