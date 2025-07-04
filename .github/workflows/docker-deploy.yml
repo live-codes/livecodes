@@ -3,7 +3,7 @@ name: Docker Deploy
 on:
   push:
     branches:
-      - docker
+      - main
 
 jobs:
   deploy:
@@ -17,8 +17,10 @@ jobs:
           password: ${{ secrets.VPS_PASS }}
           script: |
             cd livecodes
-            git pull origin docker
+            git checkout main
+            git pull origin main
             echo "${{ vars.VPS_ENV }}" > .env
             docker compose build
             docker compose up -d
-            docker system prune
+            docker container prune -f
+            docker image prune -a -f
