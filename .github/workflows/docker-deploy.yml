@@ -18,7 +18,7 @@ jobs:
           script: |
             cd livecodes
             git pull origin docker
-            echo "${{ secrets.VPS_ENV }}" > .env
+            echo "${{ vars.VPS_ENV }}" > .env
             docker compose build
             docker compose up -d
             docker system prune
