@@ -1,0 +1,194 @@
+# Docker Setup
+
+LiveCodes is a [client-side app](../why.mdx#client-side). It can be easily self-hosted on any static file server or CDN (See [Self-Hosting guide](../features/self-hosting.mdx)).
+
+LiveCodes core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser. However, some features require [external services](./services.mdx) which depend on server-side implementations.
+This docker setup provides an easy out-of-the-box implementations for self-hosting these services.
+
+## Example
+
+This is an example of a self-hosted deployment, that was deployed to a VPS using the included docker setup:
+
+https://vps.livecodes.io/
+
+This is the command used to build and run the app:
+
+```sh
+HOST_NAME=vps.livecodes.io docker compose up --build -d
+```
+
+## Requirements
+
+- Docker
+- Docker Compose
+- Git (optional): for pulling updates.
+
+<details>
+<summary>
+Install Git, Docker and Docker Compose on Ubuntu
+</summary>
+
+This script installs git, docker, and docker compose on Ubuntu:
+
+```sh
+#!/bin/bash
+
+# Update package lists
+sudo apt update
+
+# Install Git
+sudo apt install -y git
+
+# Install Docker
+sudo apt install -y ca-certificates curl gnupg lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io
+
+# Add current user to docker group
+sudo usermod -aG docker $USER
+newgrp docker # Apply group changes immediately
+
+# Install Docker Compose
+sudo apt install -y docker-compose
+```
+
+To use this script:
+
+**Save**
+
+Save the script to a file, for example: `install_docker_ubuntu.sh`.
+
+**Make Executable**
+
+Make the script executable with:
+
+```sh
+chmod +x install_docker_ubuntu.sh
+```
+
+**Run**
+
+Execute the script using:
+```sh
+sudo ./install_docker_ubuntu.sh
+```
+
+It's recommended to run it with `sudo` to ensure all necessary permissions are granted.
+
+**Verify**
+
+Verify the installations with:
+
+```sh
+git --version
+docker --version
+docker compose version
+```
+</details>
+
+## Getting Started
+
+Clone the repo:
+
+```sh
+git clone https://github.com/live-codes/livecodes.git
+```
+
+Enter the directory:
+
+```sh
+cd livecodes
+```
+
+Optionally, checkout a specific branch:
+
+```sh
+git checkout main
+```
+
+Run docker compose:
+
+```sh
+docker compose up -d
+```
+
+By default, the app is served at https://livecodes.localhost
+
+The hostname and many other options can be set using [environment variables](#environment-variables).
+
+## Features
+
+- Automatic HTTPS
+
+  This is provided by [Caddy server](https://caddyserver.com), which automatically obtains and renews TLS certificates.
+  Local addresses (e.g. `localhost`, `livecodes.localhost`) are served over HTTPS using locally-trusted certificates.
+
+- [Open Graph meta tags](https://ogp.me/)
+
+  Provide project-specific meta tags, that show projects title and description on social media cards.
+
+- [oEmbed](https://oembed.com/)
+
+  Allows embedded representations on third party sites.
+
+- [Short-URL share service](../features/share.mdx)
+
+  Generates a short URL that can be shared. The project config is stored in a [Valkey](https://valkey.io/) store (a Redis fork with a permissive open-source license).
+  Data is persisted to disk every 60 seconds (See [Volumes](#volumes) section below).
+
+- [Broadcast server](../features/broadcast.mdx)
+
+  Broadcasts updates to connected clients.
+
+- CORS proxy
+
+  Allows [importing content](../features/import.mdx) from external URLs.
+
+- Separate origin sandbox
+
+  Runs code in a separate origin [sandboxed iframe](https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/) to prevent cross-site scripting.
+
+
+## Environment Variables
+
+The app can be customized by setting different environment variables.
+
+
+Environment variables can be defined in the `.env` file in the root of the repository (on the same level as `docker-compose.yml`).
+
+```txt title=".env"
+HOST_NAME=playground.website.com
+```
+
+Please note that some variables are used **during build**. So after setting environment variables, the app needs to be rebuilt. e.g.:
+
+```sh
+docker compose up --build -d
+```
+
+The following environment variables are supported:
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `HOST_NAME` | Hostname of the app | `livecodes.localhost` |
+| `PORT` | Port of the app | `443` |
+| `SELF_HOSTED_SHARE` | Enable [share service](../features/share.mdx) | `true` |
+| `SELF_HOSTED_BROADCAST` | Enable [broadcast server](../features/broadcast.mdx) | `true` |
+| `BROADCAST_PORT` | Port of the broadcast server | `3030` |
+| `BROADCAST_TOKENS` | Comma-separated list of broadcast [user tokens](../features/broadcast.mdx#technical-details) | |
+| `SANDBOX_HOST_NAME` | Hostname of the sandbox | `$HOST_NAME` |
+| `SANDBOX_PORT` | Port of the sandbox | `8090` |
+| `FIREBASE_CONFIG` | [Firebase config object](https://firebase.google.com/docs/web/learn-more#config-object) (JSON), used for [authentication](../features/github-integration.mdx) | |
+| `DOCS_BASE_URL` | [Base URL](../features/self-hosting.mdx#custom-build) of the documentation | `null` |
+| `LOG_URL` | URL to send server-side analytics | `null` |
+
+## Volumes
+
+The following directories are mounted as volumes:
+
+- `/data` - Persistent data is stored here (e.g. for Valkey and Caddy). Make sure to **backup** this.
+- `/assets` - Static assets saved here are served on the app URL (`/assets/`). This can be used to serve images, stylesheets, [custom modules](../features/module-resolution.mdx#custom-module-resolution), [custom types](../features/intellisense.mdx#custom-types), etc.
+
+## Deployment

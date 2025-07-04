@@ -1,0 +1,24 @@
+name: Docker Deploy
+
+on:
+  push:
+    branches:
+      - docker
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH to server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASS }}
+          script: |
+            cd livecodes
+            git pull origin docker
+            echo "${{ secrets.VPS_ENV }}" > .env
+            docker compose build
+            docker compose up -d
+            docker system prune

@@ -1,13 +1,21 @@
 # Self-Hosting
 
-The LiveCodes app can be self-hosted on any static file server or CDN.
+LiveCodes is a [client-side app](../why.mdx#client-side). It can be easily self-hosted on any static file server or CDN.
+
+All core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser. However, some minor features require [external services](../advanced/services.mdx) (e.g. [sharing](./share.mdx) short URLs, [broadcast](./broadcast.mdx), etc).
+If you also want to self-host these services, you can use the [docker setup](../advanced/docker-setup.mdx).
 
 ## Guide
 
-The built app can be obtained by **one of the following** ways:
+The built app can be obtained using **any of the following** ways:
 
-- Download the app from the [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
-- Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. You may wish to use the included setup to deploy to [GitHub Pages](https://pages.github.com/):
+### Download a release
+
+Download the app from the [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
+
+### Build from source
+
+Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. You may wish to use the included setup to deploy to [GitHub Pages](https://pages.github.com/):
 
   ```shell
   git clone https://github.com/{your-username}/livecodes
@@ -23,7 +31,21 @@ The built app can be obtained by **one of the following** ways:
   npm start          # start local development with code watch, rebuild and live-reload
   ```
 
-- Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Vercel](https://vercel.com/docs/concepts/git), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration)). When prompted, the build command is `npm run build` and the build output directory is `build`.
+### Git integration
+
+Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration), [Vercel](https://vercel.com/docs/concepts/git), etc.). When prompted, the build command is `npm run build` and the build output directory is `build`.
+
+### Docker setup
+
+The included docker setup provides alternative implementations for server-side features available in the [hosted app](https://livecodes.io), e.g. automatic HTTPS, [Open Graph meta tags](https://ogp.me/), [oEmbed](https://oembed.com/), [broadcast server](./broadcast.mdx), [short-URL share](./share.mdx), separate origin sandbox to run code, etc.
+
+```sh
+docker-compose up -d
+```
+
+By default, the app is served at https://livecodes.localhost.
+
+For customization and detailed guide, see [Docker setup](../advanced/docker-setup.mdx) docs.
 
 ## Custom Build
 
@@ -55,11 +77,19 @@ LiveCodes [sponsors](../sponsor.mdx) (Bronze sponsors and above) get access to m
 
 :::
 
-## Example
+## Examples
 
-This is an example of a self-hosted deployment, that was deployed to [GitHub Pages](https://pages.github.com/) using the [built-in setup](#guide):
+### GitHub Pages
+
+This is an example of a self-hosted deployment, that was deployed to [GitHub Pages](https://pages.github.com/) using the [built-in setup](#build-from-source):
 
 https://live-codes.github.io/livecodes/
+
+### Docker
+
+This is an example of a self-hosted deployment, that was deployed to a VPS using the included [docker setup](../advanced/docker-setup.mdx):
+
+https://vps.livecodes.io
 
 ## SDK Usage
 

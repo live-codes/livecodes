@@ -93,11 +93,11 @@ export const logToAPI = (context: Context) => {
   const { data, env } = context;
   let logUrl = 'https://api2.livecodes.io/log';
   const customLogUrl = (env as any).LOG_URL;
-  if (customLogUrl && typeof customLogUrl === 'string') {
+  if (customLogUrl) {
     try {
       logUrl = new URL(customLogUrl).href;
     } catch {
-      //
+      return Promise.resolve();
     }
   }
   return fetch(logUrl, {

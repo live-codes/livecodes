@@ -7,6 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY docs/package*.json docs/
 COPY storybook/package*.json storybook/
+COPY server/package*.json server/
 
 RUN npm ci
 
