@@ -2,16 +2,16 @@
 
 LiveCodes is a [client-side app](../why.mdx#client-side). It can be easily self-hosted on any static file server or CDN (See [Self-Hosting guide](../features/self-hosting.mdx)).
 
-LiveCodes core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser. However, some features require [external services](./services.mdx) which depend on server-side implementations.
-This docker setup provides an easy out-of-the-box implementations for self-hosting these services.
+All core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser. However, some features require [external services](./services.mdx) which depend on server-side implementations.
+The docker setup described here provides out-of-the-box implementations for self-hosting these services.
 
 ## Example
 
-This is an example of a self-hosted deployment, that was deployed to a VPS using the included docker setup:
+This is an example of a self-hosted instance, that was deployed to a VPS using the included docker setup:
 
 https://vps.livecodes.io/
 
-This is the command used to build and run the app:
+This can be as easy as running the following command:
 
 ```sh
 HOST_NAME=vps.livecodes.io docker compose up --build -d
@@ -114,7 +114,8 @@ Run docker compose:
 docker compose up -d
 ```
 
-By default, the app is served at https://livecodes.localhost
+By default, the app is served at https://livecodes.localhost <br />
+(Yes, `localhost` can be served on https and have subdomains!).
 
 The hostname and many other options can be set using [environment variables](#environment-variables).
 
@@ -181,8 +182,8 @@ The following environment variables are supported:
 | `SANDBOX_HOST_NAME` | Hostname of the sandbox | `$HOST_NAME` |
 | `SANDBOX_PORT` | Port of the sandbox | `8090` |
 | `FIREBASE_CONFIG` | [Firebase config object](https://firebase.google.com/docs/web/learn-more#config-object) (JSON), used for [authentication](../features/github-integration.mdx) | |
-| `DOCS_BASE_URL` | [Base URL](../features/self-hosting.mdx#custom-build) of the documentation | `null` |
-| `LOG_URL` | URL to send server-side analytics | `null` |
+| `DOCS_BASE_URL` | [Base URL](../features/self-hosting.mdx#custom-build) of the documentation (e.g. `/docs/`) | `null` |
+| `LOG_URL` | Full URL to send server-side analytics (e.g. `https://api.website.com/log`) | `null` |
 
 ## Volumes
 
@@ -192,3 +193,9 @@ The following directories are mounted as volumes:
 - `/assets` - Static assets saved here are served on the app URL (`/assets/`). This can be used to serve images, stylesheets, [custom modules](../features/module-resolution.mdx#custom-module-resolution), [custom types](../features/intellisense.mdx#custom-types), etc.
 
 ## Deployment
+
+For continuous deployment, you can use the included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/b97b35bfc1ce5adf25ef167e3500fd7e1350058c/.github/workflows/docker-deploy.yml) to deploy to a VPS when a new commit is pushed (e.g. to the `main` branch).
+
+This assumses that you have followed the [Getting Started](#getting-started) instructions and have cloned the repo to your VPS.
+
+The workflow uses secrets and variables from your [GitHub repo settings](https://github.com/live-codes/livecodes/settings/secrets) for SSH access and environment variables.
