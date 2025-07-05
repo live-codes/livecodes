@@ -111,8 +111,9 @@ export const broadcast = ({
     if (channels[channel]) {
       channels[channel].lastAccessed = Date.now();
       const hasData = Object.keys(channels[channel].data || {}).length > 0;
+      const views = ['index', 'code', 'result'] as const;
       const view = req.query.view;
-      const file = view || (hasData ? 'index' : 'result');
+      const file = views.find((v) => v === view) || (hasData ? 'index' : 'result');
       const fileContent = fs
         .readFileSync(path.join(broadcastDir, `/${file}.html`), 'utf-8')
         .replaceAll('{{AppUrl}}', appUrl);
