@@ -29,6 +29,9 @@ RUN if [ "$DOCS_BASE_URL" == "null" ]; \
 
 FROM node:24.1.0-alpine3.21 AS server
 
+RUN useradd -m appuser
+USER appuser
+
 WORKDIR /srv
 
 COPY server/package*.json ./
