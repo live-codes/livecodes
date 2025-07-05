@@ -50,10 +50,20 @@ const getVars = (/** @type {boolean} */ devMode) => {
   if (repoUrl.endsWith('/')) {
     repoUrl = repoUrl.slice(0, -1);
   }
+  let baseUrl = process.env.BASE_URL || '/';
+  if (!baseUrl.endsWith('/')) {
+    baseUrl = baseUrl + '/';
+  }
   const docsBaseUrl =
     process.env.DOCS_BASE_URL === 'null'
       ? 'https://livecodes.io/docs/'
-      : process.env.DOCS_BASE_URL || (devMode ? 'http://localhost:3000/docs/' : '/docs/');
+      : process.env.DOCS_BASE_URL != null
+        ? process.env.DOCS_BASE_URL
+        : process.env.BASE_URL != null
+          ? baseUrl + 'docs/'
+          : devMode
+            ? 'http://localhost:3000/docs/'
+            : '/docs/';
   const CI = process.env.CI || false;
   const selfHosted = String(process.env.SELF_HOSTED) === 'true';
   const selfHostedShare = String(process.env.SELF_HOSTED_SHARE) === 'true';

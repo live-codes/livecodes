@@ -1,9 +1,22 @@
 # Docker Setup
 
-LiveCodes is a [client-side app](../why.mdx#client-side). It can be easily self-hosted on any static file server or CDN (See [Self-Hosting guide](../features/self-hosting.mdx)).
+This guide makes it easy to set up a self-hosted instance of LiveCodes on a <acronym title="Virtual Private Server">VPS</acronym> using Docker.
 
-All core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser. However, some features require [external services](./services.mdx) which depend on server-side implementations.
+## Why?
+
+LiveCodes is a [client-side app](../why.mdx#client-side). It can be easily self-hosted on any static file server or <acronym title="Content Delivery Network">CDN</acronym> (See [Self-Hosting guide](../features/self-hosting.mdx)).
+
+All core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser.
+However, some features require [external services](./services.mdx) which depend on server-side implementations (e.g. [sharing](../features/share.mdx) short URLs, [broadcast server](../features/broadcast.mdx), etc).
 The docker setup described here provides out-of-the-box implementations for self-hosting these services.
+See below for the list of provided [services](#services).
+
+This allows self-hosted instances to have the same features as the [hosted app](https://livecodes.io).
+
+:::warning Note
+Most self-hosted instances will not require this setup. The static app should work just fine using other simpler [self-hosting methods](../features/self-hosting.mdx#guide).
+Only use the docker setup if you need to self-host [these services](#services).
+:::
 
 ## Example
 
@@ -21,7 +34,7 @@ HOST_NAME=vps.livecodes.io docker compose up --build -d
 
 - Docker
 - Docker Compose
-- Git (optional): for pulling updates.
+- Git (optional - for pulling updates)
 
 <details>
 <summary>
@@ -115,11 +128,11 @@ docker compose up -d
 ```
 
 By default, the app is served at https://livecodes.localhost <br />
-(Yes, `localhost` can be served on https and have subdomains!).
+(Yes, `localhost` can be served over HTTPS and have subdomains!).
 
 The hostname and many other options can be set using [environment variables](#environment-variables).
 
-## Features
+## Services
 
 - Automatic HTTPS
 
@@ -128,11 +141,15 @@ The hostname and many other options can be set using [environment variables](#en
 
 - [Open Graph meta tags](https://ogp.me/)
 
-  Provide project-specific meta tags, that show projects title and description on social media cards.
+  Provide project-specific meta tags, for social media cards.
 
 - [oEmbed](https://oembed.com/)
 
   Allows embedded representations on third party sites.
+
+- Adding [headers](https://github.com/live-codes/livecodes/blob/develop/src/_headers)
+
+  e.g. aggressive caching of static assets for improved performance.
 
 - [Short-URL share service](../features/share.mdx)
 
@@ -151,13 +168,16 @@ The hostname and many other options can be set using [environment variables](#en
 
   Runs code in a separate origin [sandboxed iframe](https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/) to prevent cross-site scripting.
 
+- [404 page](https://livecodes.io/404)
+
+  Custom 404 page for resources that are not found.
 
 ## Environment Variables
 
 The app can be customized by setting different environment variables.
 
 
-Environment variables can be defined in the `.env` file in the root of the repository (on the same level as `docker-compose.yml`).
+Environment variables can be defined in a `.env` file in the root of the repository (on the same level as `docker-compose.yml`).
 
 ```txt title=".env"
 HOST_NAME=playground.website.com
@@ -187,10 +207,10 @@ The following environment variables are supported:
 
 ## Volumes
 
-The following directories are mounted as volumes:
+The following directories are mounted as docker [volumes](https://docs.docker.com/engine/storage/volumes/):
 
-- `/data` - Persistent data is stored here (e.g. for Valkey and Caddy). Make sure to **backup** this.
-- `/assets` - Static assets saved here are served on the app URL (`/assets/`). This can be used to serve images, stylesheets, [custom modules](../features/module-resolution.mdx#custom-module-resolution), [custom types](../features/intellisense.mdx#custom-types), etc.
+- `./data` - Persistent data is stored here (e.g. for Valkey and Caddy). Make sure to **backup** this.
+- `./assets` - Static assets saved here are served on the app URL (`/assets/`). This can be used to serve images, stylesheets, [custom modules](../features/module-resolution.mdx#custom-module-resolution), [custom types](../features/intellisense.mdx#custom-types), etc.
 
 ## Deployment
 
@@ -198,4 +218,4 @@ For continuous deployment, you can use the included [GitHub Actions workflow](ht
 
 This assumses that you have followed the [Getting Started](#getting-started) instructions and have cloned the repo to your VPS.
 
-The workflow uses secrets and variables from your [GitHub repo settings](https://github.com/live-codes/livecodes/settings/secrets) for SSH access and environment variables.
+The workflow uses [secrets](https://docs.github.com/en/actions/how-tos/security-for-github-actions/security-guides/using-secrets-in-github-actions) and [variables](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) from your GitHub repo settings for SSH access and environment variables.
