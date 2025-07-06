@@ -16,6 +16,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASS }}
           script: |
+            set -e
             cd livecodes
             git checkout main
             git pull origin main
