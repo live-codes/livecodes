@@ -38,7 +38,7 @@ services:
       [
         'sh',
         '-c',
-        'if [ "$SELF_HOSTED_SHARE" == "" -o "$SELF_HOSTED_SHARE" == "true" ]; then valkey-server --save 60 1 --loglevel warning; fi',
+        'if [ "$SELF_HOSTED_SHARE" != "false" ]; then valkey-server --save 60 1 --loglevel warning; fi',
       ]
 
   server:
