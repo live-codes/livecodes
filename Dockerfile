@@ -29,7 +29,11 @@ RUN if [ "$DOCS_BASE_URL" == "null" ]; \
 
 FROM node:24.1.0-alpine3.21 AS server
 
-RUN useradd -m appuser
+RUN addgroup -S appgroup
+RUN adduser -S appuser -G appgroup
+
+RUN mkdir -p /srv && chown -R appuser:appgroup /srv
+
 USER appuser
 
 WORKDIR /srv
