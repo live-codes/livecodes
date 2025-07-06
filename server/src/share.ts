@@ -2,12 +2,17 @@ import type { Request as ExpressRequest, Response as ExpressResponse } from 'exp
 import Valkey from 'iovalkey';
 import { generateId } from './utils.ts';
 
-const valkey = new Valkey(
-  Number(process.env.VALKEY_PORT || 6379),
-  process.env.VALKEY_HOST || 'valkey',
-);
+const valkey =
+  process.env.SELF_HOSTED_SHARE !== 'true'
+    ? null
+    : new Valkey(Number(process.env.VALKEY_PORT || 6379), process.env.VALKEY_HOST || 'valkey');
 
 const getProject = async (req: ExpressRequest, res: ExpressResponse) => {
+  if (!valkey) {
+    res.status(400).send('Share service is disabled!');
+    return;
+  }
+
   const id = req.query.id;
   if (!id) {
     res.status(400).send('Bad Request!');
@@ -32,6 +37,11 @@ const getProject = async (req: ExpressRequest, res: ExpressResponse) => {
 };
 
 const saveProject = async (req: ExpressRequest, res: ExpressResponse) => {
+  if (!valkey) {
+    res.status(400).send('Share service is disabled!');
+    return;
+  }
+
   if (req.method !== 'POST') {
     res.status(405).send('Method Not Allowed!');
     return;

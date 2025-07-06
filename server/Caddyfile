@@ -1,33 +1,36 @@
 {
-  # Global options block. Entirely optional, https is on by default
-  # Optional email key for lets encrypt
-  # email youremail@domain.com
-  # Optional staging lets encrypt for testing. Comment out for production.
-  # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+	# Global options block. Entirely optional, https is on by default
+	# Optional email key for lets encrypt
+	# email youremail@domain.com
+	# Optional staging lets encrypt for testing. Comment out for production.
+	# acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 
-  {$DEFAULT_SNI}
+	log {
+		level WARN
+	}
+	{$DEFAULT_SNI}
 }
 
 (common) {
-  header -Server
+	header -Server
 }
 
 {$HOST_NAME}:{$PORT} {
-  import common
-  reverse_proxy app:{$PORT}
-  encode
+	import common
+	reverse_proxy app:{$PORT}
+	encode
 }
 www.{$HOST_NAME}:{$PORT} {
-  import common
-  redir https://{$HOST_NAME}:{$PORT}{uri} permanent
+	import common
+	redir https://{$HOST_NAME}:{$PORT}{uri} permanent
 }
 {$HOST_NAME}:{$BROADCAST_PORT} {
-  import common
-  reverse_proxy app:{$BROADCAST_PORT}
-  encode
+	import common
+	reverse_proxy app:{$BROADCAST_PORT}
+	encode
 }
 {$SANDBOX_HOST_NAME}:{$SANDBOX_PORT} {
-  import common
-  reverse_proxy app:{$SANDBOX_PORT}
-  encode
+	import common
+	reverse_proxy app:{$SANDBOX_PORT}
+	encode
 }
