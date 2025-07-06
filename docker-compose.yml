@@ -48,7 +48,6 @@ services:
     restart: unless-stopped
     ports:
       - '80:80'
-      - '443:443'
       - '${PORT:-443}:${PORT:-443}'
       - '${SANDBOX_PORT:-8090}:${SANDBOX_PORT:-8090}'
       - '${BROADCAST_PORT:-3030}:${BROADCAST_PORT:-3030}'
