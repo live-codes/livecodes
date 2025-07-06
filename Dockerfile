@@ -1,6 +1,6 @@
 FROM node:24.1.0-alpine3.21 AS builder
 
-RUN apk update && apk add git
+RUN apk update --no-cache && apk add --no-cache git
 
 WORKDIR /app
 
