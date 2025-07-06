@@ -101,10 +101,11 @@ const selfHostedService = {
   },
 };
 
-export const shareService: ShareService = process.env.SELF_HOSTED
-  ? process.env.SELF_HOSTED_SHARE
-    ? selfHostedService
-    : dpasteService
-  : allowedOrigin()
-    ? apiService
-    : dpasteService;
+export const shareService: ShareService =
+  process.env.SELF_HOSTED === 'true'
+    ? process.env.SELF_HOSTED_SHARE === 'true'
+      ? selfHostedService
+      : dpasteService
+    : allowedOrigin()
+      ? apiService
+      : dpasteService;

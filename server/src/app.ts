@@ -71,7 +71,7 @@ sandbox({
 });
 
 // broadcast
-if (process.env.SELF_HOSTED_BROADCAST) {
+if (process.env.SELF_HOSTED_BROADCAST === 'true') {
   broadcast({
     hostname,
     port: Number(process.env.BROADCAST_PORT) || 3030,

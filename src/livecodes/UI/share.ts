@@ -190,7 +190,7 @@ export const createShareContainer = async (
   ];
 
   const useExternalShare =
-    (process.env.SELF_HOSTED === true && process.env.SELF_HOSTED_SHARE !== true) ||
+    (process.env.SELF_HOSTED === 'true' && process.env.SELF_HOSTED_SHARE !== 'true') ||
     !allowedOrigin();
   const div = document.createElement('div');
 
