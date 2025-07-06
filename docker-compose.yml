@@ -28,12 +28,14 @@ services:
       - VALKEY_PORT=6379
     volumes:
       - ./assets:/srv/build/assets
+    depends_on:
+      - valkey
 
   valkey:
     image: valkey/valkey:8.1.2-alpine3.22
     restart: on-failure
     volumes:
-      - ./data/valkey:/data
+      - valkey-data:/data
     command:
       [
         'sh',
@@ -60,7 +62,12 @@ services:
     volumes:
       - ./server/entrypoint.sh:/srv/entrypoint.sh
       - ./server/Caddyfile:/etc/caddy/Caddyfile
-      - ./data/caddy/data:/data
-      - ./data/caddy/config:/config
+      - caddy-data:/data
+      - caddy-config:/config
     depends_on:
       - app
+
+volumes:
+  caddy-data:
+  caddy-config:
+  valkey-data:
