@@ -60,14 +60,13 @@ services:
       - SANDBOX_PORT=${SANDBOX_PORT:-8090}
       - BROADCAST_PORT=${BROADCAST_PORT:-3030}
     volumes:
-      - ./server/entrypoint.sh:/srv/entrypoint.sh
-      - ./server/Caddyfile:/etc/caddy/Caddyfile
-      - caddy-data:/data
-      - caddy-config:/config
+      - ./server/caddy/entrypoint.sh:/srv/entrypoint.sh
+      - ./server/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./server/data/caddy/data:/data
+      - ./server/data/caddy/config:/config
     depends_on:
       - app
 
 volumes:
-  caddy-data:
-  caddy-config:
   valkey-data:
+    name: livecodes-valkey-data

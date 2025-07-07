@@ -4,6 +4,8 @@ dist
 .cache
 **/*.log
 .env
+/ignore
+*.ignore.*
 docs/docs/api
 docs/static/**/*.html.md
 docs/static/llms.txt
@@ -13,4 +15,4 @@ docs/static/llms-full.txt
 /playwright/.cache/
 src/livecodes/i18n/locales/tmp/
 lokalise_tmp
-/data
+/server/data
