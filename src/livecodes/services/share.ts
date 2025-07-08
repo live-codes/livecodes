@@ -20,7 +20,7 @@ const dpasteService = {
       const res = await fetch(dpasteGetUrl + id + '.txt');
       if (!res.ok) return {};
       return JSON.parse(await res.text());
-    } catch (error) {
+    } catch {
       return {};
     }
   },
@@ -40,7 +40,7 @@ const dpasteService = {
       if (!res.ok) return '';
       const url = await res.text();
       return url.replace(dpasteGetUrl, '');
-    } catch (error) {
+    } catch {
       return '';
     }
   },
@@ -54,7 +54,7 @@ const apiService = {
       const res = await fetch(apiUrl + '?id=' + id);
       if (!res.ok) return {};
       return JSON.parse(await res.text());
-    } catch (error) {
+    } catch {
       return {};
     }
   },
@@ -68,7 +68,7 @@ const apiService = {
       });
       if (!res.ok) return '';
       return res.text();
-    } catch (error) {
+    } catch {
       return '';
     }
   },
@@ -82,7 +82,7 @@ const selfHostedService = {
       const res = await fetch(selfHostedUrl + '?id=' + id);
       if (!res.ok) return {};
       return res.json();
-    } catch (error) {
+    } catch {
       return {};
     }
   },
@@ -95,7 +95,7 @@ const selfHostedService = {
       });
       if (!res.ok) return '';
       return res.text();
-    } catch (error) {
+    } catch {
       return '';
     }
   },

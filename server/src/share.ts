@@ -28,7 +28,7 @@ const getProject = async (req: ExpressRequest, res: ExpressResponse) => {
   let content: any;
   try {
     content = JSON.parse(value);
-  } catch (error) {
+  } catch {
     res.status(500).send('Server Error!');
     return;
   }
