@@ -40,7 +40,7 @@ HOST_NAME=vps.livecodes.io docker compose up --build -d
 Example script to install Docker, Docker Compose and Git on Ubuntu
 </summary>
 
-```sh
+```sh title="install-docker-ubuntu.sh"
 #!/bin/bash
 
 # Update package lists
@@ -222,42 +222,44 @@ The following directories are mounted as docker [volumes](https://docs.docker.co
 
 <details>
 <summary>
-Example scripts to backup and restore the docker named volume
+Example scripts to backup and restore Docker named volumes
 </summary>
 
-```sh title="backup-volume.sh"
+```sh title="backup-volumes.sh"
 #!/bin/bash
 
-VOLUME="livecodes-share-data"
-BACKUP_DIR="./backup"
+VOLUMES=("livecodes-share-data")
+BACKUP_DIR="./backups"
 
 mkdir -p $BACKUP_DIR
 
-echo "Backing up $VOLUME..."
+for VOLUME in "${VOLUMES[@]}"; do
+  echo "Backing up $VOLUME..."
+  docker run --rm \
+    -v $VOLUME:/data \
+    -v $(pwd)/$BACKUP_DIR:/backup \
+    alpine \
+    tar cvf /backup/$VOLUME.tar /data
+done
 
-docker run --rm \
-  -v $VOLUME:/data \
-  -v $(pwd)/$BACKUP_DIR:/backup \
-  alpine \
-  tar cvf /backup/$VOLUME.tar /data
-
-echo "Backup complete. File is in $BACKUP_DIR."
+echo "Backup complete. Files are in $BACKUP_DIR."
 ```
 
-```sh title="restore-volume.sh"
+```sh title="restore-volumes.sh"
 #!/bin/bash
 
-VOLUME="livecodes-share-data"
-BACKUP_DIR="./backup"
+VOLUMES=("livecodes-share-data")
+BACKUP_DIR="./backups"
 
-echo "Restoring $VOLUME..."
-
-docker volume create $VOLUME
-docker run --rm \
-  -v $VOLUME:/data \
-  -v $(pwd)/$BACKUP_DIR:/backup \
-  alpine \
-  tar xvf /backup/$VOLUME.tar -C /data --strip 1
+for VOLUME in "${VOLUMES[@]}"; do
+  echo "Restoring $VOLUME..."
+  docker volume create $VOLUME
+  docker run --rm \
+    -v $VOLUME:/data \
+    -v $(pwd)/$BACKUP_DIR:/backup \
+    alpine \
+    tar xvf /backup/$VOLUME.tar -C /data --strip 1
+done
 
 echo "Restore complete."
 ```
