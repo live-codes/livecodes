@@ -19,8 +19,8 @@ jobs:
           script: |
             set -e
             cd livecodes
-            git checkout main
-            git pull origin main
+            git checkout docker
+            git pull origin docker
             echo "${{ vars.VPS_ENV }}" > .env
             docker compose build
             docker compose up -d
