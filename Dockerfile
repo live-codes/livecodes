@@ -21,10 +21,11 @@ ARG SANDBOX_HOST_NAME
 ARG SANDBOX_PORT
 ARG FIREBASE_CONFIG
 ARG DOCS_BASE_URL
+ARG NODE_OPTIONS
 
 RUN if [ "$DOCS_BASE_URL" == "null" ]; \
   then npm run build:app; \
-  else NODE_OPTIONS="--max-old-space-size=4096" npm run build; \
+  else npm run build; \
   fi
 
 FROM node:24.1.0-alpine3.21 AS server
