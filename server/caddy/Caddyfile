@@ -24,6 +24,10 @@
 	import common
 	reverse_proxy app:{$PORT}
 }
+www.{$HOST_NAME}:{$PORT} {
+	import common
+	reverse_proxy app:{$PORT}
+}
 {$HOST_NAME}:{$BROADCAST_PORT} {
 	import common
 	reverse_proxy app:{$BROADCAST_PORT}
