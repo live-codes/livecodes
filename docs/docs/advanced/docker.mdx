@@ -32,25 +32,19 @@ HOST_NAME=vps.livecodes.io docker compose up --build -d
 
 ## Requirements
 
-- Docker
-- Docker Compose
-- Git (optional - for pulling updates)
+- Docker and Docker Compose ([installation guide](https://docs.docker.com/engine/install/))
+- Git: optional - for pulling updates ([installation guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
 
 <details>
 <summary>
-Install Git, Docker and Docker Compose on Ubuntu
+Example script to install Docker, Docker Compose and Git on Ubuntu
 </summary>
-
-This script installs git, docker, and docker compose on Ubuntu:
 
 ```sh
 #!/bin/bash
 
 # Update package lists
 sudo apt update
-
-# Install Git
-sudo apt install -y git
 
 # Install Docker
 sudo apt install -y ca-certificates curl gnupg lsb-release
@@ -65,6 +59,9 @@ newgrp docker # Apply group changes immediately
 
 # Install Docker Compose
 sudo apt install -y docker-compose
+
+# Install Git
+sudo apt install -y git
 ```
 
 To use this script:
@@ -102,6 +99,12 @@ docker compose version
 </details>
 
 ## Getting Started
+
+:::info note
+When running in a non-local environment (e.g. VPS),
+make sure your domain's A/AAAA DNS records properly point to the machine public IP **before** running the docker containers.
+The hostname should be set using [environment variables](#environment-variables).
+:::
 
 Clone the repo:
 
@@ -205,12 +208,62 @@ The following environment variables are supported:
 | `DOCS_BASE_URL` | [Base URL](../features/self-hosting.mdx#custom-build) of the documentation (e.g. `/docs/`) | `null` |
 | `LOG_URL` | Full URL to send server-side analytics (e.g. `https://api.website.com/log`) | `null` |
 
+:::info note
+When running in a non-local environment (e.g. VPS),
+setting the `HOST_NAME` environment variable is required. It should match the domain name set in [DNS records](#getting-started).
+:::
+
 ## Volumes
 
 The following directories are mounted as docker [volumes](https://docs.docker.com/engine/storage/volumes/):
 
-- `./data` - Persistent data is stored here (e.g. for Valkey and Caddy). Make sure to **backup** this.
-- `./assets` - Static assets saved here are served on the app URL (`/assets/`). This can be used to serve images, stylesheets, [custom modules](../features/module-resolution.mdx#custom-module-resolution), [custom types](../features/intellisense.mdx#custom-types), etc.
+- `./assets` - A [bind mount](https://docs.docker.com/engine/storage/bind-mounts/) for static assets that get served under the app URL (`/assets/`). This can be used to serve images, stylesheets, [custom modules](../features/module-resolution.mdx#custom-module-resolution), [custom types](../features/intellisense.mdx#custom-types), etc.
+- `livecodes-share-data` - A [named volume](https://docs.docker.com/engine/storage/volumes/) where persistent data for the share service is saved. Make sure to **backup** this.
+
+<details>
+<summary>
+Example scripts to backup and restore the docker named volume
+</summary>
+
+```sh title="backup-volume.sh"
+#!/bin/bash
+
+VOLUME="livecodes-share-data"
+BACKUP_DIR="./backup"
+
+mkdir -p $BACKUP_DIR
+
+echo "Backing up $VOLUME..."
+
+docker run --rm \
+  -v $VOLUME:/data \
+  -v $(pwd)/$BACKUP_DIR:/backup \
+  alpine \
+  tar cvf /backup/$VOLUME.tar /data
+
+echo "Backup complete. File is in $BACKUP_DIR."
+```
+
+```sh title="restore-volume.sh"
+#!/bin/bash
+
+VOLUME="livecodes-share-data"
+BACKUP_DIR="./backup"
+
+echo "Restoring $VOLUME..."
+
+docker volume create $VOLUME
+docker run --rm \
+  -v $VOLUME:/data \
+  -v $(pwd)/$BACKUP_DIR:/backup \
+  alpine \
+  tar xvf /backup/$VOLUME.tar -C /data --strip 1
+
+echo "Restore complete."
+```
+
+
+</details>
 
 ## Deployment
 

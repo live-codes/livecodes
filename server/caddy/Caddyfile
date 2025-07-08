@@ -13,24 +13,30 @@
 
 (common) {
 	header -Server
+	encode
 }
 
 {$HOST_NAME}:{$PORT} {
 	import common
 	reverse_proxy app:{$PORT}
-	encode
 }
-www.{$HOST_NAME}:{$PORT} {
+:{$PORT} {
 	import common
-	redir https://{$HOST_NAME}:{$PORT}{uri} permanent
+	reverse_proxy app:{$PORT}
 }
 {$HOST_NAME}:{$BROADCAST_PORT} {
 	import common
 	reverse_proxy app:{$BROADCAST_PORT}
-	encode
+}
+:{$BROADCAST_PORT} {
+	import common
+	reverse_proxy app:{$BROADCAST_PORT}
 }
 {$SANDBOX_HOST_NAME}:{$SANDBOX_PORT} {
 	import common
 	reverse_proxy app:{$SANDBOX_PORT}
-	encode
+}
+:{$SANDBOX_PORT} {
+	import common
+	reverse_proxy app:{$SANDBOX_PORT}
 }

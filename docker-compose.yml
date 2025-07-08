@@ -69,4 +69,4 @@ services:
 
 volumes:
   valkey-data:
-    name: livecodes-valkey-data
+    name: livecodes-share-data
