@@ -3,7 +3,7 @@ name: Docker Deploy
 on:
   push:
     branches:
-      - main
+      - docker
 
 jobs:
   deploy:
@@ -14,7 +14,8 @@ jobs:
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
-          password: ${{ secrets.VPS_PASS }}
+          key: ${{ secrets.VPS_KEY }}
+          passphrase: ${{ secrets.VPS_PASSPHRASE }}
           script: |
             set -e
             cd livecodes
