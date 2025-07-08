@@ -23,8 +23,8 @@ ARG FIREBASE_CONFIG
 ARG DOCS_BASE_URL
 
 RUN if [ "$DOCS_BASE_URL" == "null" ]; \
-  then npm run build:app; \
-  else timeout 600 npm run build; \
+  then timeout 1200 npm run build:app; \
+  else timeout 1200 npm run build; \
   fi
 
 FROM node:24.1.0-alpine3.21 AS server
