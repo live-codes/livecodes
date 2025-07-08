@@ -11,7 +11,7 @@ However, some features require [external services](./services.mdx) which depend 
 The docker setup described here provides out-of-the-box implementations for self-hosting these services.
 See below for the list of provided [services](#services).
 
-This allows self-hosted instances to have the same features as the [hosted app](https://livecodes.io).
+This allows self-hosted instances to have the same features as the hosted app ([livecodes.io](https://livecodes.io)).
 
 :::warning Note
 Most self-hosted instances will not require this setup. The static app should work just fine using other simpler [self-hosting methods](../features/self-hosting.mdx#guide).
@@ -85,16 +85,14 @@ Execute the script using:
 sudo ./install_docker_ubuntu.sh
 ```
 
-It's recommended to run it with `sudo` to ensure all necessary permissions are granted.
-
 **Verify**
 
 Verify the installations with:
 
 ```sh
-git --version
 docker --version
 docker compose version
+git --version
 ```
 </details>
 
@@ -206,16 +204,16 @@ The following environment variables are supported:
 | `SANDBOX_PORT` | Port of the sandbox | `8090` |
 | `FIREBASE_CONFIG` | [Firebase config object](https://firebase.google.com/docs/web/learn-more#config-object) (JSON), used for [authentication](../features/github-integration.mdx) | |
 | `DOCS_BASE_URL` | [Base URL](../features/self-hosting.mdx#custom-build) of the documentation (e.g. `/docs/`) | `null` |
-| `LOG_URL` | Full URL to send server-side analytics (e.g. `https://api.website.com/log`) | `null` |
+| `LOG_URL` | Full URL to send [server-side analytics](https://github.com/live-codes/livecodes/blob/develop/functions/index.ts) (e.g. `https://api.website.com/log`) | `null` |
 
 :::info note
 When running in a non-local environment (e.g. VPS),
-setting the `HOST_NAME` environment variable is required. It should match the domain name set in [DNS records](#getting-started).
+setting the `HOST_NAME` environment variable is **required**. It should match the domain name set in [DNS records](#getting-started).
 :::
 
 ## Volumes
 
-The following directories are mounted as docker [volumes](https://docs.docker.com/engine/storage/volumes/):
+The following docker [volumes](https://docs.docker.com/engine/storage/volumes/) are used:
 
 - `./assets` - A [bind mount](https://docs.docker.com/engine/storage/bind-mounts/) for static assets that get served under the app URL (`/assets/`). This can be used to serve images, stylesheets, [custom modules](../features/module-resolution.mdx#custom-module-resolution), [custom types](../features/intellisense.mdx#custom-types), etc.
 - `livecodes-share-data` - A [named volume](https://docs.docker.com/engine/storage/volumes/) where persistent data for the share service is saved. Make sure to **backup** this.
@@ -269,8 +267,8 @@ echo "Restore complete."
 
 ## Deployment
 
-For continuous deployment, you can use the included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/b97b35bfc1ce5adf25ef167e3500fd7e1350058c/.github/workflows/docker-deploy.yml) to deploy to a VPS when a new commit is pushed (e.g. to the `main` branch).
+For continuous deployment, you can use the included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/develop/.github/workflows/docker-deploy.yml) to deploy to a VPS when a new commit is pushed (e.g. to the `main` branch).
 
 This assumses that you have followed the [Getting Started](#getting-started) instructions and have cloned the repo to your VPS.
 
-The workflow uses [secrets](https://docs.github.com/en/actions/how-tos/security-for-github-actions/security-guides/using-secrets-in-github-actions) and [variables](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) from your GitHub repo settings for SSH access and environment variables.
+The workflow uses [secrets](https://docs.github.com/en/actions/how-tos/security-for-github-actions/security-guides/using-secrets-in-github-actions) and [variables](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) from your GitHub repo settings for SSH access and setting required [environment variables](#environment-variables).
