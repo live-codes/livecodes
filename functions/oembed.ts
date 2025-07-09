@@ -1,10 +1,4 @@
-/// <reference path="../node_modules/@cloudflare/workers-types/index.d.ts" />
-
-import { getProjectInfo } from './utils';
-
-type Env = Record<'API_TOKEN', string>;
-type Data = Record<string, unknown>;
-type PgFunction = PagesFunction<Env, 'id', Data>;
+import { getProjectInfo, type PgFunction } from './utils.ts';
 
 export const onRequest: PgFunction = async function (context) {
   const request = context.request;

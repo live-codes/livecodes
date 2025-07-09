@@ -275,6 +275,11 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
+<a href="https://m.do.co/c/fb8c00b45b91" target="_blank" title="DigitalOcean">
+  <img alt="DigitalOcean" width="200" src="https://dev.livecodes.io/docs/img/credits/digital-ocean.svg">
+</img></a><br /><br />
+</p>
+<p>
 <a href="https://bundlejs.com/" target="_blank" title="bundlejs">
   <img alt="bundlejs" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlejs.jpg">
 </img></a><br /><br />
