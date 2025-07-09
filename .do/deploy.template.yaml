@@ -5,8 +5,8 @@ spec:
       git:
         branch: docker
         repo_clone_url: https://github.com/live-codes/livecodes
-      build_command: docker compose build
-      run_command: docker compose up -d
+      build_command: chmod +x ./server/scripts/install_docker_ubuntu.sh && ./server/scripts/install_docker_ubuntu.sh
+      run_command: docker compose up --build -d
       http_port: 443
       health_check:
         http_path: /
