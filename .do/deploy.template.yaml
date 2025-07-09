@@ -7,7 +7,7 @@ spec:
         repo_clone_url: https://github.com/live-codes/livecodes
       build_command: docker compose build
       run_command: docker compose up -d
-      # http_port: 443
+      http_port: 443
       health_check:
         http_path: /
       instance_count: 1
