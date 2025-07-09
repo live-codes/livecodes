@@ -1,13 +1,21 @@
 # Self-Hosting
 
-The LiveCodes app can be self-hosted on any static file server or CDN.
+LiveCodes is a [client-side app](../why.mdx#client-side). It can be easily self-hosted on any static file server or CDN.
+
+All core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser. However, some minor features require [external services](../advanced/services.mdx) (e.g. [sharing](./share.mdx) short URLs, [broadcast](./broadcast.mdx), etc).
+If you also want to self-host these services, you can use the [docker setup](../advanced/docker.mdx).
 
 ## Guide
 
-The built app can be obtained by **one of the following** ways:
+The built app can be obtained using **any of the following** methods:
 
-- Download the app from the [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
-- Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. You may wish to use the included setup to deploy to [GitHub Pages](https://pages.github.com/):
+### Download a Release
+
+Download the app from the [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
+
+### Build from Source
+
+Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. You may wish to use the included setup to deploy to [GitHub Pages](https://pages.github.com/):
 
   ```shell
   git clone https://github.com/{your-username}/livecodes
@@ -17,27 +25,42 @@ The built app can be obtained by **one of the following** ways:
   npm run serve      # locally serve to http://localhost:8080
 
   # deploy
-  npm run deploy     # build and deploy to github pages
+  npm run deploy     # build and deploy to GitHub Pages
 
   # for development
   npm start          # start local development with code watch, rebuild and live-reload
   ```
 
-- Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Vercel](https://vercel.com/docs/concepts/git), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration)). When prompted, the build command is `npm run build` and the build output directory is `build`.
+### Git Integration
+
+Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration), [Vercel](https://vercel.com/docs/concepts/git), etc.). When prompted, the build command is `npm run build` and the build output directory is `build`.
+
+### Docker Setup
+
+In addition to the _static_ app provided by the previous methods, the included [docker setup](../advanced/docker.mdx) provides alternative implementations for server-side features available in the [hosted app](https://livecodes.io),
+e.g. automatic HTTPS, [Open Graph meta tags](https://ogp.me/), [oEmbed](https://oembed.com/), custom headers, [short-URL share](./share.mdx), [broadcast server](./broadcast.mdx), separate origin sandbox to run code, custom 404 page, etc.
+
+```sh
+docker-compose up -d
+```
+
+By default, the app is served at https://livecodes.localhost.
+
+For customization and detailed guide, see [docker setup](../advanced/docker.mdx) docs.
 
 ## Custom Build
 
-By default, when building the app, it is expected to be hosted on the root of the domain/subdomain (e.g. `https://my-website.com` or `https://playground.my-website.com`). The documentation is also hosted in the `/docs/` directory (e.g. `https://my-website.com/docs`).
+By default, when building the app, it is expected to be hosted on the root of the domain/subdomain (e.g. `https://my-website.com` or `https://playground.my-website.com`). The documentation is also hosted in the `/docs/` directory (e.g. `https://my-website.com/docs/`).
 
-If you wish to host the app in a subdirectory (e.g. `https://my-username.github.io/playground/`), the base URL of the documentation directory needs to be supplied by the environment variable `DOCS_BASE_URL` during build.
+If you wish to host the app in a subdirectory (e.g. `https://my-username.github.io/playground/`), the base URL of the app needs to be supplied by the environment variable `BASE_URL` during build.
 
 Example:
 
 ```shell
-npx cross-env DOCS_BASE_URL="/playground/docs/" npm run build
+npx cross-env BASE_URL="/playground/" npm run build
 ```
 
-If you do not want to build documentations and direct all links to documentations to https://livecodes.io/docs/, use the following command:
+If you do not want to build documentations and instead direct all documentation links to https://livecodes.io/docs/, use the following command:
 
 ```shell
 npx cross-env DOCS_BASE_URL=null npm run build:app
@@ -45,21 +68,29 @@ npx cross-env DOCS_BASE_URL=null npm run build:app
 
 ## Services
 
-Some of the [services](../advanced/services.mdx) used by the app are not supported on [self-hosted](../features/self-hosting.mdx) deploys and are either replaced by other compatible services (e.g. the [share](../features/share.mdx) service uses [dpaste](https://dpaste.com/) for short URLs, which are [**deleted after 365 days**](https://dpaste.com/help)) or require you to provide an alternative service (e.g. [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication).
+Some of the [services](../advanced/services.mdx) used by the app are not supported on _static_ [self-hosted](../features/self-hosting.mdx) deploys and are either replaced by other compatible services (e.g. the [share](../features/share.mdx) service uses [dpaste](https://dpaste.com/) for short URLs, which are [**deleted after 365 days**](https://dpaste.com/help)) or require you to provide an alternative service (e.g. [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication).
 
-You may wish to edit one or more of the used [services](../advanced/services.mdx) to use your own.
+You may wish to use the included [docker setup](../advanced/docker.mdx) to self-host these services.
 
 :::info
 
-LiveCodes [sponsors](../sponsor.mdx) (Bronze sponsors and above) get access to managed custom services.
+LiveCodes [sponsors](../sponsor.mdx) (Bronze sponsors and above) get access to a hosted [docker setup](../advanced/docker.mdx) with managed [services](../advanced/docker.mdx#services).
 
 :::
 
-## Example
+## Examples
 
-This is an example of a self-hosted deployment, that was deployed to [GitHub Pages](https://pages.github.com/) using the [built-in setup](#guide):
+### Static App on GitHub Pages
+
+This is an example of a self-hosted deployment, that was deployed to [GitHub Pages](https://pages.github.com/) using the [built-in setup](#build-from-source):
 
 https://live-codes.github.io/livecodes/
+
+### Docker Setup on VPS
+
+This is an example of a self-hosted deployment, that was deployed to a VPS using the included [docker setup](../advanced/docker.mdx):
+
+https://vps.livecodes.io
 
 ## SDK Usage
 

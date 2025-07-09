@@ -2902,7 +2902,7 @@ const handleI18nMenu = () => {
   const contributeSpan = document.createElement('span');
   const contributeLink = document.createElement('a');
   contributeLink.href =
-    'https://github.com/live-codes/livecodes/blob/develop/docs/docs/contribution/i18n.md';
+    'https://github.com/live-codes/livecodes/blob/develop/docs/docs/contribution/i18n.mdx';
   contributeLink.textContent = window.deps.translateString(
     'app.i18nMenu.helpTranslate',
     'Help Us Translate',
