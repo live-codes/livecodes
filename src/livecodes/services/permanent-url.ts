@@ -11,7 +11,10 @@ const sdkFiles: Record<SDKFile, string> = {
 };
 
 export const permanentUrlService = {
-  getAppUrl: () => `https://v${process.env.VERSION}.livecodes.io/`,
+  getAppUrl: () =>
+    process.env.SELF_HOSTED === 'true'
+      ? `${location.origin}/`
+      : `https://v${process.env.VERSION}.livecodes.io/`,
   getSDKUrl: (file: SDKFile = 'esm') =>
     modulesService.getUrl(`livecodes@${process.env.SDK_VERSION}/${sdkFiles[file]}`),
 };

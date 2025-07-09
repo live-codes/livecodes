@@ -1,18 +1,51 @@
-FROM node:24.1.0-alpine3.21 AS build-stage
-RUN apk update && apk add git
+FROM node:24.1.0-alpine3.21 AS builder
 
-# set the working directory
+RUN apk update --no-cache && apk add --no-cache git
+
 WORKDIR /app
-# Copy the working directory in the container
+
+COPY package*.json ./
+COPY docs/package*.json docs/
+COPY storybook/package*.json storybook/
+COPY server/package*.json server/
+
+RUN npm ci
+
 COPY . .
-# Install the project dependencies
-RUN npm install
-# Build the application to the production mode to dist folder
-RUN npm run build
 
+ARG SELF_HOSTED
+ARG SELF_HOSTED_SHARE
+ARG SELF_HOSTED_BROADCAST
+ARG BROADCAST_PORT
+ARG SANDBOX_HOST_NAME
+ARG SANDBOX_PORT
+ARG FIREBASE_CONFIG
+ARG DOCS_BASE_URL
 
-# Use a lightweight web server to serve the built application
-FROM httpd:2.4 AS production-stage
-# Copy the build application from the previous stage to the Nginx container
-COPY --from=build-stage /app/build /usr/local/apache2/htdocs/
-CMD ["httpd-foreground"]
+RUN if [ "$DOCS_BASE_URL" == "null" ]; \
+  then npm run build:app; \
+  else npm run build; \
+  fi
+
+FROM node:24.1.0-alpine3.21 AS server
+
+RUN addgroup -S appgroup
+RUN adduser -S appuser -G appgroup
+
+RUN mkdir -p /srv && chown -R appuser:appgroup /srv
+
+USER appuser
+
+WORKDIR /srv
+
+COPY server/package*.json ./
+
+RUN npm ci
+
+COPY --from=builder /app/build/ build/
+
+COPY functions/ functions/
+COPY server/src/ server/src/
+COPY src/livecodes/html/sandbox/ server/src/sandbox/
+
+CMD ["node", "server/src/app.ts"]

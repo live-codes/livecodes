@@ -22,15 +22,32 @@ const minifyHTMLOptions = {
   processScripts: ['importmap'],
 };
 
-const copyFile = async (filePath, outputName) => {
+const copyFile = async (filePath, outputName, replace) => {
   const src = path.resolve(root, filePath);
   const dist = path.resolve(outDir, outputName);
   if (devMode || !filePath.endsWith('.html')) {
     return fs.promises.copyFile(src, dist);
   }
-  const content = await fs.promises.readFile(src, 'utf8');
+  let content = await fs.promises.readFile(src, 'utf8');
+  if (typeof replace === 'function') {
+    content = replace(content);
+  }
   const minified = await minifyHTML(content, minifyHTMLOptions);
   fs.writeFileSync(dist, minified, 'utf8');
+};
+
+const addBaseUrl = (content) => {
+  let baseUrl = process.env.BASE_URL;
+  if (baseUrl && baseUrl !== '/') {
+    if (!baseUrl.startsWith('/') && !baseUrl.startsWith('http')) {
+      baseUrl = `/${baseUrl}`;
+    }
+    if (!baseUrl.endsWith('/')) {
+      baseUrl = baseUrl + '/';
+    }
+    return content.replaceAll('"/', `"${baseUrl}`);
+  }
+  return content;
 };
 
 const prepareDir = async () => {
@@ -47,7 +64,7 @@ const prepareDir = async () => {
     process.env.CF_PAGES ? copyFile('src/_headers', '_headers') : Promise.resolve(),
     copyFile('src/netlify.toml', 'netlify.toml'),
     copyFile('src/favicon.ico', 'favicon.ico'),
-    copyFile('src/404.html', '404.html'),
+    copyFile('src/404.html', '404.html', addBaseUrl),
     copyFile('src/index.html', 'index.html'),
     copyFile('src/livecodes/html/app-base.html', 'app.html'),
   ]);

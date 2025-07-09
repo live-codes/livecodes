@@ -8,11 +8,18 @@ import sdkPkg from '../src/sdk/package.sdk.json';
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.dracula;
 
+const baseUrl =
+  process.env.DOCS_BASE_URL != null && process.env.DOCS_BASE_URL !== 'null'
+    ? process.env.DOCS_BASE_URL
+    : process.env.BASE_URL != null
+      ? process.env.BASE_URL + 'docs/'
+      : '/docs/';
+
 const config: Config = {
   title: 'LiveCodes',
   tagline: 'A Code Playground That Just Works!',
   url: 'https://livecodes.io/',
-  baseUrl: process.env.DOCS_BASE_URL || '/docs/',
+  baseUrl,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',

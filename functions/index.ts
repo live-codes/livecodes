@@ -1,11 +1,4 @@
-/// <reference path="../node_modules/@cloudflare/workers-types/index.d.ts" />
-
-import { getProjectInfo } from './utils';
-
-type Env = Record<'API_TOKEN', string>;
-type Data = Record<string, unknown>;
-type PgFunction = PagesFunction<Env, 'id', Data>;
-type Context = EventContext<Env, 'id', Data>;
+import { getProjectInfo, type Context, type PgFunction } from './utils.ts';
 
 export const onRequest: PgFunction = async function (context) {
   const { request, env } = context;
@@ -46,6 +39,7 @@ export const onRequest: PgFunction = async function (context) {
     const url = new URL(request.url);
     const oembedUrl = encodeURIComponent(url.href);
     const { title, description } = await getProjectInfo(url);
+
     const modifiedBody = (await originalResponse.text())
       .replace(
         `href="oembed?url=https%3A%2F%2Flivecodes.io&format=json"`,
@@ -97,7 +91,16 @@ export const onRequest: PgFunction = async function (context) {
 
 export const logToAPI = (context: Context) => {
   const { data, env } = context;
-  return fetch('https://api2.livecodes.io/log', {
+  let logUrl = 'https://api2.livecodes.io/log';
+  const customLogUrl = (env as any).LOG_URL;
+  if (customLogUrl) {
+    try {
+      logUrl = new URL(customLogUrl).href;
+    } catch {
+      return Promise.resolve();
+    }
+  }
+  return fetch(logUrl, {
     method: 'POST',
     headers: {
       'API-Token': env.API_TOKEN,

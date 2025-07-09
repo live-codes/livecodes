@@ -132,7 +132,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     value = getValue();
   };
   codejar?.onUpdate(handleUpdate);
-  codejar?.onPaste(handleUpdate);
+  // codejar?.onPaste(handleUpdate);
 
   const getEditorId = () => editorId;
   const getValue = () => (codejar ? codejar.toString() : value);
@@ -339,7 +339,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   changeSettings(options);
 
   const undo = () => {
-    codejar?.handleUndoRedo(
+    (codejar as any)?.handleUndoRedo(
       new KeyboardEvent('keydown', {
         key: 'Z',
         [ctrl]: true,
@@ -348,7 +348,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const redo = () => {
-    codejar?.handleUndoRedo(
+    (codejar as any)?.handleUndoRedo(
       new KeyboardEvent('keydown', {
         key: 'Z',
         [ctrl]: true,

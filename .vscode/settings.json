@@ -24,7 +24,8 @@
     "Build",
     "services",
     "CommandMenu",
-    "Accessibility"
+    "Accessibility",
+    "self-hosting"
   ],
   "html.customData": ["./.vscode/html.html-data.json"]
 }
