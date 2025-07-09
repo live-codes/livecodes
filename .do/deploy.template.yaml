@@ -16,3 +16,22 @@ spec:
         - path: /
       envs:
         - key: HOST_NAME
+        - key: PORT
+          value: '443'
+        - key: SELF_HOSTED_SHARE
+          value: true
+        - key: SELF_HOSTED_BROADCAST
+          value: true
+        - key: BROADCAST_PORT
+          value: '3030'
+        - key: BROADCAST_TOKENS
+        - key: SANDBOX_HOST_NAME
+        - key: SANDBOX_PORT
+          value: '8090'
+        - key: BROADCAST_PORT
+          value: '3030'
+        - key: FIREBASE_CONFIG
+        - key: DOCS_BASE_URL
+          value: null
+        - key: LOG_URL
+          value: null
