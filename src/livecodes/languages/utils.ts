@@ -1,6 +1,6 @@
 import type { Compiler, Config, CustomSettings, Language, Processor } from '../models';
 import { getLanguageCustomSettings } from '../utils/utils';
-import { highlightjsUrl } from '../vendors';
+import { vendorsBaseUrl } from '../vendors';
 
 export const getLanguageByAlias = (alias: string = ''): Language | undefined => {
   if (!alias) return;
@@ -97,7 +97,8 @@ export const getCustomSettings = (
 
 export const detectLanguage = async (code: string, languages: Language[]) => {
   (window as any).HighlightJS =
-    (window as any).HighlightJS || (await import(highlightjsUrl)).default;
+    (window as any).HighlightJS ||
+    (await import(vendorsBaseUrl + 'highlight.js/highlight.js')).default;
   const result = (window as any).HighlightJS.highlightAuto(code, languages);
   return {
     language: result.language as Language,
