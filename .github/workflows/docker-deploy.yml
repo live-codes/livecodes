@@ -3,7 +3,7 @@ name: Docker Deploy
 on:
   push:
     branches:
-      - docker
+      - main
 
 jobs:
   deploy:
@@ -19,8 +19,8 @@ jobs:
           script: |
             set -e
             cd livecodes
-            git checkout docker
-            git pull origin docker
+            git checkout main
+            git pull origin main
             echo "${{ vars.VPS_ENV }}" > .env
             docker compose build
             docker compose up -d
