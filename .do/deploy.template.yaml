@@ -19,9 +19,9 @@ spec:
         - key: PORT
           value: '443'
         - key: SELF_HOSTED_SHARE
-          value: true
+          value: 'true'
         - key: SELF_HOSTED_BROADCAST
-          value: true
+          value: 'true'
         - key: BROADCAST_PORT
           value: '3030'
         - key: BROADCAST_TOKENS
@@ -32,6 +32,6 @@ spec:
           value: '3030'
         - key: FIREBASE_CONFIG
         - key: DOCS_BASE_URL
-          value: null
+          value: 'null'
         - key: LOG_URL
-          value: null
+          value: 'null'
