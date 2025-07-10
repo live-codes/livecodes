@@ -133,49 +133,43 @@ export const fflateUrl = /* @__PURE__ */ getUrl('fflate@0.8.1/esm/browser.js');
 
 export const flexSearchUrl = /* @__PURE__ */ getUrl('flexsearch@0.7.21/dist/flexsearch.bundle.js');
 
-export const fontAnonymousProUrl = /* @__PURE__ */ getUrl(
-  '@fontsource/anonymous-pro@4.5.9/index.css',
+export const fontAnonymousProBaseUrl = /* @__PURE__ */ getUrl('@fontsource/anonymous-pro@4.5.9/');
+
+export const fontAstigmataBaseUrl = /* @__PURE__ */ getUrl(
+  'gh:hatemhosny/astigmata-font@6d0ee00a07fb1932902f0b81a504d075d47bd52f/',
 );
 
-export const fontAstigmataUrl = /* @__PURE__ */ getUrl(
-  'gh:hatemhosny/astigmata-font@6d0ee00a07fb1932902f0b81a504d075d47bd52f/index.css',
-);
+export const fontAwesomeBaseUrl = /* @__PURE__ */ getUrl('font-awesome@4.7.0/');
 
-export const fontAwesomeUrl = /* @__PURE__ */ getUrl('font-awesome@4.7.0/css/font-awesome.min.css');
-
-export const fontCascadiaCodeUrl = /* @__PURE__ */ getUrl(
-  '@fontsource/cascadia-code@4.2.1/index.css',
-);
+export const fontCascadiaCodeBaseUrl = /* @__PURE__ */ getUrl('@fontsource/cascadia-code@4.2.1/');
 
 export const fontCodeNewRomanUrl = /* @__PURE__ */ getUrl(
   'https://fonts.cdnfonts.com/css/code-new-roman-2?style.css',
 );
 
-export const fontComicMonoUrl = /* @__PURE__ */ getUrl('comic-mono@0.0.1/index.css');
+export const fontComicMonoBaseUrl = /* @__PURE__ */ getUrl('comic-mono@0.0.1/');
 
-export const fontCourierPrimeUrl = /* @__PURE__ */ getUrl(
-  '@fontsource/courier-prime@4.5.9/index.css',
-);
+export const fontCourierPrimeBaseUrl = /* @__PURE__ */ getUrl('@fontsource/courier-prime@4.5.9/');
 
 export const fontDECTerminalModernUrl = /* @__PURE__ */ getUrl(
   'https://fonts.cdnfonts.com/css/dec-terminal-modern?style.css',
 );
 
-export const fontDejaVuMonoUrl = /* @__PURE__ */ getUrl('@fontsource/dejavu-mono@4.5.4/index.css');
+export const fontDejaVuMonoBaseUrl = /* @__PURE__ */ getUrl('@fontsource/dejavu-mono@4.5.4/');
 
-export const fontFantasqueUrl = /* @__PURE__ */ getUrl(
-  '@typopro/web-fantasque-sans-mono@3.7.5/TypoPRO-FantasqueSansMono.css',
+export const fontFantasqueBaseUrl = /* @__PURE__ */ getUrl(
+  '@typopro/web-fantasque-sans-mono@3.7.5/',
 );
 
-export const fontFiraCodeUrl = /* @__PURE__ */ getUrl('firacode@6.2.0/distr/fira_code.css');
+export const fontFiraCodeBaseUrl = /* @__PURE__ */ getUrl('firacode@6.2.0/distr/');
 
 export const fontFixedsysUrl = /* @__PURE__ */ getUrl(
   'https://fonts.cdnfonts.com/css/fixedsys-62?style.css',
 );
 
-export const fontHackUrl = /* @__PURE__ */ getUrl('hack-font@3.3.0/build/web/hack.css');
+export const fontHackBaseUrl = /* @__PURE__ */ getUrl('hack-font@3.3.0/build/web/');
 
-export const fontHermitUrl = /* @__PURE__ */ getUrl('typeface-hermit@0.0.44/index.css');
+export const fontHermitBaseUrl = /* @__PURE__ */ getUrl('typeface-hermit@0.0.44/');
 
 export const fontIBMPlexMonoUrl = /* @__PURE__ */ getUrl(
   'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap&style.css',
@@ -189,10 +183,10 @@ export const fontInterUrl = /* @__PURE__ */ getUrl(
   'https://fonts.googleapis.com/css?family=Inter:300,400,500&style.css',
 );
 
-export const fontIosevkaUrl = /* @__PURE__ */ getUrl('@fontsource/iosevka@4.5.4/index.css');
+export const fontIosevkaBaseUrl = /* @__PURE__ */ getUrl('@fontsource/iosevka@4.5.4/');
 
-export const fontJetbrainsMonoUrl = /* @__PURE__ */ getUrl(
-  '@fontsource/jetbrains-mono@4.5.11/index.css',
+export const fontJetbrainsMonoBaseUrl = /* @__PURE__ */ getUrl(
+  '@fontsource/jetbrains-mono@4.5.11/',
 );
 
 export const fontMaterialIconsUrl = /* @__PURE__ */ getUrl(
@@ -209,7 +203,7 @@ export const fontMonofurUrl = /* @__PURE__ */ getUrl(
   'https://fonts.cdnfonts.com/css/monofur?style.css',
 );
 
-export const fontMonoidUrl = /* @__PURE__ */ getUrl('@typopro/web-monoid@3.7.5/TypoPRO-Monoid.css');
+export const fontMonoidBaseUrl = /* @__PURE__ */ getUrl('@typopro/web-monoid@3.7.5/');
 
 export const fontNotoUrl = /* @__PURE__ */ getUrl(
   'https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap&style.css',
@@ -219,33 +213,31 @@ export const fontNovaMonoUrl = /* @__PURE__ */ getUrl(
   'https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap&style.css',
 );
 
-export const fontOpenDyslexicUrl = /* @__PURE__ */ getUrl(
-  '@fontsource/opendyslexic@4.5.4/index.css',
-);
+export const fontOpenDyslexicBaseUrl = /* @__PURE__ */ getUrl('@fontsource/opendyslexic@4.5.4/');
 
 export const fontProFontWindowsUrl = /* @__PURE__ */ getUrl(
   'https://fonts.cdnfonts.com/css/profontwindows?style.css',
 );
 
-export const fontRobotoMonoUrl = /* @__PURE__ */ getUrl('@fontsource/roboto-mono@4.5.8/index.css');
+export const fontRobotoMonoBaseUrl = /* @__PURE__ */ getUrl('@fontsource/roboto-mono@4.5.8/');
 
 export const fontSFMonoUrl = /* @__PURE__ */ getUrl(
   'https://fonts.cdnfonts.com/css/sf-mono?style.css',
 );
 
-export const fontSourceCodeProUrl = /* @__PURE__ */ getUrl(
-  '@fontsource/source-code-pro@4.5.12/index.css',
+export const fontSourceCodeProBaseUrl = /* @__PURE__ */ getUrl(
+  '@fontsource/source-code-pro@4.5.12/',
 );
 
-export const fontSpaceMonoUrl = /* @__PURE__ */ getUrl('@fontsource/space-mono@4.5.10/index.css');
+export const fontSpaceMonoBaseUrl = /* @__PURE__ */ getUrl('@fontsource/space-mono@4.5.10/');
 
 export const fontSudoVarUrl = /* @__PURE__ */ getUrl(
   'https://fonts.cdnfonts.com/css/sudo-var?style.css',
 );
 
-export const fontUbuntuMonoUrl = /* @__PURE__ */ getUrl('@fontsource/ubuntu-mono@4.5.11/index.css');
+export const fontUbuntuMonoBaseUrl = /* @__PURE__ */ getUrl('@fontsource/ubuntu-mono@4.5.11/');
 
-export const fontVictorMonoUrl = /* @__PURE__ */ getUrl('victormono@1.5.4/dist/index.css');
+export const fontVictorMonoBaseUrl = /* @__PURE__ */ getUrl('victormono@1.5.4/dist/');
 
 export const fscreenUrl = /* @__PURE__ */ getUrl('fscreen@1.2.0/dist/fscreen.esm.js');
 

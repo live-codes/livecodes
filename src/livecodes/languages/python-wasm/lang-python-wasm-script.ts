@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { fontAwesomeUrl, pyodideBaseUrl } from '../../vendors';
+import { fontAwesomeBaseUrl, pyodideBaseUrl } from '../../vendors';
 
 declare const loadPyodide: any;
 
@@ -53,7 +53,7 @@ window.addEventListener('load', async () => {
     // needed for matplotlib icons
     const stylesheet = document.createElement('link');
     stylesheet.rel = 'stylesheet';
-    stylesheet.href = fontAwesomeUrl;
+    stylesheet.href = fontAwesomeBaseUrl + 'css/font-awesome.min.css';
     document.head.append(stylesheet);
 
     await pyodideReady;
