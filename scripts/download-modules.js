@@ -123,7 +123,7 @@ const downloadModules = async ({ dryRun = false } = {}) => {
    */
   function shouldExclude(module) {
     const includePackages = ['@live-codes/browser-compilers'];
-    const excludeExtensions = ['.map', '.md', '.txt', '.d.ts', 'package.json', 'package-lock.json'];
+    const excludeExtensions = ['.map', '.md', '.d.ts', 'package.json', 'package-lock.json'];
     for (const pkg of includePackages) {
       if (module.includes(pkg)) return false;
     }
