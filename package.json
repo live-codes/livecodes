@@ -121,6 +121,8 @@
     "comlink": "4.4.1",
     "conventional-changelog": "3.1.25",
     "cross-env": "7.0.3",
+    "decompress": "4.2.1",
+    "decompress-tarbz2": "4.1.1",
     "dts-bundle": "0.7.3",
     "esbuild": "0.20.2",
     "esbuild-plugin-minify-html": "0.1.2",
@@ -158,15 +160,32 @@
     "singleQuote": true,
     "trailingComma": "all",
     "printWidth": 100,
-    "plugins": ["prettier-plugin-organize-imports"]
+    "plugins": [
+      "prettier-plugin-organize-imports"
+    ]
   },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
-    "setupFiles": ["<rootDir>/.jest/setup.ts"],
-    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/src/modules/"],
-    "collectCoverageFrom": ["src/**/*.ts", "!**/build/**", "!**/vendor/**", "!src/modules/**"],
-    "coverageReporters": ["json", "html", "lcov"],
+    "setupFiles": [
+      "<rootDir>/.jest/setup.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/build/",
+      "/src/modules/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!**/build/**",
+      "!**/vendor/**",
+      "!src/modules/**"
+    ],
+    "coverageReporters": [
+      "json",
+      "html",
+      "lcov"
+    ],
     "resolveJsonModule": true
   }
 }

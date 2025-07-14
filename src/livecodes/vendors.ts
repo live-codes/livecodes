@@ -1,6 +1,7 @@
 import { modulesService } from './services/modules';
 
 // - only use `getUrl` or full URL (not `getModuleUrl`)
+// - only use `gh:` or `unpkg: prefixes if required
 // - always add full version and file extension
 // - minimize usage of baseUrls if possible
 // - if es module imports others, use baseUrl instead
@@ -116,7 +117,7 @@ export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
   '@ddietr/codemirror-themes@1.4.2/dist/theme/',
 );
 
-export const doppioJvmBaseUrl = 'https://unpkg.com/@seth0x41/doppio@1.0.0/';
+export const doppioJvmBaseUrl = /* @__PURE__ */ getUrl('unpkg:@seth0x41/doppio@1.0.0/');
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
