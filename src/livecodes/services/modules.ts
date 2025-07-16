@@ -68,9 +68,9 @@ export const modulesService = {
   checkCDNs: async (testModule: string, preferredCDN?: CDN) => {
     const modulesBaseUrl = new URL('./modules/', location.href).href as CDN;
     const localCDN = localModules ? modulesBaseUrl : undefined;
-    const cdns: CDN[] = [preferredCDN, localCDN, ...modulesService.cdnLists.npm].filter(
+    const cdns = [preferredCDN, localCDN, ...modulesService.cdnLists.npm].filter(
       (x) => x != null,
-    );
+    ) as CDN[];
     for (const cdn of cdns) {
       try {
         const res = await fetch(modulesService.getUrl(testModule, cdn), {
