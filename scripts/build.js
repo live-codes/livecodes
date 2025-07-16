@@ -36,7 +36,7 @@ const copyFile = async (filePath, outputName, replace) => {
   fs.writeFileSync(dist, minified, 'utf8');
 };
 
-const addBaseUrl = (content) => {
+const addBaseUrl = (/** @type {string} */ content) => {
   let baseUrl = process.env.BASE_URL;
   if (baseUrl && baseUrl !== '/') {
     if (!baseUrl.startsWith('/') && !baseUrl.startsWith('http')) {
@@ -48,6 +48,14 @@ const addBaseUrl = (content) => {
     return content.replaceAll('"/', `"${baseUrl}`);
   }
   return content;
+};
+
+const useSelfHostedURL = (/** @type {string} */ content) => {
+  if (!process.env.HOST_NAME) return content;
+  const hostname = process.env.HOST_NAME;
+  const port = Number(process.env.PORT) || 443;
+  const appUrl = `https://${hostname}${port !== 443 ? ':' + port : ''}`;
+  return content.replaceAll('https://livecodes.io', `${appUrl}`);
 };
 
 const prepareDir = async () => {
@@ -65,9 +73,18 @@ const prepareDir = async () => {
     copyFile('src/netlify.toml', 'netlify.toml'),
     copyFile('src/favicon.ico', 'favicon.ico'),
     copyFile('src/404.html', '404.html', addBaseUrl),
-    copyFile('src/index.html', 'index.html'),
+    copyFile('src/index.html', 'index.html', useSelfHostedURL),
     copyFile('src/livecodes/html/app-base.html', 'app.html'),
   ]);
+  await fs.promises
+    .readFile(path.resolve(root, 'src/livecodes/assets/site.webmanifest'), 'utf8')
+    .then((siteWebManifest) =>
+      fs.promises.writeFile(
+        path.resolve(outDir, 'livecodes/assets/site.webmanifest'),
+        useSelfHostedURL(siteWebManifest),
+        'utf8',
+      ),
+    );
 };
 
 /** @type {Partial<esbuild.BuildOptions>} */
