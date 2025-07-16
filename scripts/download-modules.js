@@ -5,13 +5,24 @@ const path = require('path');
 const stream = require('stream');
 const sdkPkg = require('../src/sdk/package.sdk.json');
 
-const downloadModules = async ({ dryRun = false } = {}) => {
-  console.log(`Downloading modules...`);
+const cacheDir = '.cache/';
+const modulesDir = cacheDir + '/modules/';
+const srcVendorsModule = 'src/livecodes/vendors.ts';
+const cacheVendorsModule = cacheDir + 'vendors.js';
 
-  const vendorsModule = 'src/livecodes/vendors.ts';
-  const tempDir = '.cache/';
-  const modulesDir = tempDir + '/modules/';
-  const outputDir = 'build/modules/';
+const transformVendorsModule = (/** @type {string} */ content) =>
+  'const modulesService = { getUrl: (mod) => mod };\n' +
+  content.replace('import', '// import').replace('process.env.SDK_VERSION', `"${sdkPkg.version}"`);
+
+const downloadModules = async ({ dryRun = false } = {}) => {
+  const srcVendorsContent = fs.readFileSync(srcVendorsModule, 'utf-8');
+  const cacheVendorsContent = fs.existsSync(cacheVendorsModule)
+    ? fs.readFileSync(cacheVendorsModule, 'utf-8')
+    : '';
+
+  if (srcVendorsContent === cacheVendorsContent) return;
+
+  console.log(`Downloading modules...`);
 
   /** @type {string[]} */
   const modules = [];
@@ -25,15 +36,9 @@ const downloadModules = async ({ dryRun = false } = {}) => {
 
   fs.mkdirSync(modulesDir, { recursive: true });
 
-  const verdorModulesContent =
-    'const modulesService = { getUrl: (mod) => mod };\n' +
-    fs
-      .readFileSync(vendorsModule, 'utf8')
-      .replace('import', '// import')
-      .replace('process.env.SDK_VERSION', `"${sdkPkg.version}"`);
-  fs.writeFileSync(tempDir + 'vendors.js', verdorModulesContent, 'utf8');
-
-  const vendorUrls = require('../' + tempDir + 'vendors.js');
+  const verdorModulesContent = transformVendorsModule(fs.readFileSync(srcVendorsModule, 'utf8'));
+  fs.writeFileSync(cacheVendorsModule, verdorModulesContent, 'utf8');
+  const vendorUrls = require('../' + cacheVendorsModule);
 
   // modules vs baseUrls
   for (const [key, value] of Object.entries(vendorUrls)) {
@@ -178,16 +183,16 @@ const downloadModules = async ({ dryRun = false } = {}) => {
       `static-libraries-${pyodideVersion}.tar.bz2`,
       `xbuildenv-${pyodideVersion}.tar.bz2`,
     ];
-    fs.mkdirSync(`${tempDir}pyodide/v${pyodideVersion}`, { recursive: true });
+    fs.mkdirSync(`${cacheDir}pyodide/v${pyodideVersion}`, { recursive: true });
     await Promise.all(
       pyodideFiles.map((file) =>
         (async () => {
-          const downloadPath = `${tempDir}pyodide/v${pyodideVersion}/${file}`;
+          const downloadPath = `${cacheDir}pyodide/v${pyodideVersion}/${file}`;
           const url = `https://github.com/pyodide/pyodide/releases/download/${pyodideVersion}/${file}`;
           if (!fs.existsSync(downloadPath)) {
             await fetchAndSaveFile(url, downloadPath);
           }
-          await decompress(downloadPath, `${outputDir}pyodide/v${pyodideVersion}/full`, {
+          await decompress(downloadPath, `${modulesDir}pyodide/v${pyodideVersion}/full`, {
             plugins: [decompressTarbz()],
             map: (file) => {
               file.path = file.path.split('/').slice(1).join('/');
@@ -199,15 +204,8 @@ const downloadModules = async ({ dryRun = false } = {}) => {
     );
   }
 
-  // copy to build directory
-  fs.mkdirSync(outputDir, { recursive: true });
-  await fs.promises.cp(modulesDir, outputDir, { recursive: true });
-
-  // cleanup
-  fs.rmSync(tempDir + 'vendors.js');
-
   // log
-  console.log(`Modules downloaded to: ${outputDir}`);
+  console.log(`Modules downloaded to: ${modulesDir}`);
   if (failedModuleUrls.length) {
     console.log(`Failed to download ${failedModuleUrls.length} modules.`);
   }

@@ -29,7 +29,6 @@ services:
       - VALKEY_PORT=6379
     volumes:
       - ./assets:/srv/build/assets
-      - ./.cache:/srv/.cache
     depends_on:
       - valkey
 
