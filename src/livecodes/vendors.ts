@@ -1,6 +1,6 @@
 import { modulesService } from './services/modules';
 
-// - only use `getUrl` or full URL (not `getModuleUrl`)
+// - only use `getUrl` (not `getModuleUrl` or plain URLs) - except `es-module-shims` and `codeMirrorBasePath`
 // - only use `gh:` or `unpkg: prefixes if required
 // - always add full version and file extension
 // - minimize usage of baseUrls if possible
@@ -93,7 +93,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.2/build/');
+export const codeMirrorBasePath = '@live-codes/codemirror@0.3.2/build/';
 
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',

@@ -21,6 +21,7 @@ ARG SANDBOX_HOST_NAME
 ARG SANDBOX_PORT
 ARG FIREBASE_CONFIG
 ARG DOCS_BASE_URL
+ARG LOCAL_MODULES
 
 RUN if [ "$DOCS_BASE_URL" == "null" ]; \
   then npm run build:app; \
@@ -42,6 +43,7 @@ COPY server/package*.json ./
 
 RUN npm ci
 
+COPY --from=builder /app/.cache/ tmp/
 COPY --from=builder /app/build/ build/
 
 COPY functions/ functions/
