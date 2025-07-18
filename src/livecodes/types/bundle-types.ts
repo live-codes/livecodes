@@ -61,6 +61,14 @@ export interface BundleResult {
   options: Options;
 }
 
+/**
+ * Bundles TypeScript declaration files into a single output string.
+ *
+ * Recursively parses the main `.d.ts` file and its dependencies, resolves imports and references, applies exclusion and formatting options, and emits a bundled declaration file as a string. Handles external dependencies, module name rewriting, and error conditions based on provided options.
+ *
+ * @param options - Configuration for the bundling process, including entry file, output name, formatting, dependency handling, and error emission behavior.
+ * @returns The bundled TypeScript declaration content as a string.
+ */
 export async function bundle(options: Options): Promise<string> {
   const path = (await import(vendorsBaseUrl + 'path-browserify/path-browserify.js')).default;
   assert(typeof options === 'object' && options, 'options must be an object');

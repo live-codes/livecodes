@@ -223,7 +223,14 @@ const downloadModules = async ({ dryRun = false } = {}) => {
 
 // utils
 /**
- * @param {string} module
+ * Extracts the base package name from a module identifier.
+ * 
+ * For GitHub modules (prefixed with 'gh:'), returns the owner and repository.
+ * For scoped npm packages (starting with '@'), returns the scope and package name.
+ * For unscoped packages, returns the first path segment.
+ * 
+ * @param {string} module - The module identifier string.
+ * @return {string} The extracted base module name.
  */
 function getModuleName(module) {
   if (module.startsWith('gh:')) {
@@ -237,7 +244,10 @@ function getModuleName(module) {
   }
 }
 /**
- * @param {string} module
+ * Determines whether a module path should be excluded from downloads based on its extension or filename.
+ * Always includes certain whitelisted packages regardless of extension.
+ * @param {string} module - The module path or filename to check.
+ * @return {boolean} True if the module should be excluded; otherwise, false.
  */
 function shouldExclude(module) {
   const includePackages = ['@live-codes/browser-compilers'];
@@ -254,8 +264,15 @@ function shouldExclude(module) {
 }
 
 /**
- * @param {string | URL | Request} url
- * @param {any} filePath
+ * Downloads a file from the specified URL and saves it to the given file path.
+ *
+ * If the HTTP response is unsuccessful or the response body is empty, an error is thrown.
+ * Creates necessary directories for the file path if they do not exist.
+ * Returns an error object if the download or save operation fails.
+ *
+ * @param {string | URL | Request} url - The URL to fetch the file from.
+ * @param {any} filePath - The destination file path for saving the downloaded file.
+ * @returns {Promise<void | Error>} Resolves when the file is saved, or returns an error object on failure.
  */
 async function fetchAndSaveFile(url, filePath) {
   try {

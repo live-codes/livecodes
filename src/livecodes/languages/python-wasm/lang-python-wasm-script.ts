@@ -34,6 +34,9 @@ window.addEventListener('load', async () => {
     livecodes.resolveLoading?.();
   }
 
+  /**
+   * Restores the Pyodide interpreter state from a saved snapshot, reloading Pyodide if restoration fails.
+   */
   async function cleanUp() {
     if (!livecodes.pyodideState) return;
     try {
@@ -49,6 +52,11 @@ window.addEventListener('load', async () => {
     }
   }
 
+  /**
+   * Prepares the Pyodide environment by patching the Python `input` function to use the browser's `prompt` dialog.
+   *
+   * Waits for Pyodide to be ready before applying the patch.
+   */
   async function prepareEnv() {
     await pyodideReady;
     const patchInput = `
