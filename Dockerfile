@@ -22,6 +22,7 @@ ARG SANDBOX_PORT
 ARG FIREBASE_CONFIG
 ARG DOCS_BASE_URL
 ARG LOCAL_MODULES
+ARG NODE_OPTIONS
 
 COPY scripts/download-modules.js scripts/
 COPY src/livecodes/vendors.ts src/livecodes/
