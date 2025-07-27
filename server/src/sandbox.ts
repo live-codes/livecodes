@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { dirname } from './utils.ts';
 
-export const sandbox = ({ hostname, port }: { hostname: string; port: number }) => {
+export const sandbox = async ({ hostname, port }: { hostname: string; port: number }) => {
   const app = express();
 
   app.use(cors());
@@ -13,11 +13,12 @@ export const sandbox = ({ hostname, port }: { hostname: string; port: number }) 
 
   const sandboxDir = path.resolve(dirname, 'sandbox');
   let sandboxVersionDir = path.resolve(sandboxDir, 'v8');
-  fs.readdirSync(sandboxDir).forEach((v) => {
-    if (fs.statSync(path.resolve(sandboxDir, v)).isDirectory()) {
+  const dirs = await fs.promises.readdir(sandboxDir);
+  for (const v of dirs) {
+    if ((await fs.promises.stat(path.resolve(sandboxDir, v))).isDirectory()) {
       sandboxVersionDir = path.resolve(sandboxDir, v);
     }
-  });
+  }
 
   app.use('/', (req, res) => {
     if (req.path === '/') {
@@ -32,11 +33,8 @@ export const sandbox = ({ hostname, port }: { hostname: string; port: number }) 
         : req.path;
     res.set('Content-Type', 'text/html');
     const filePath = path.resolve(dirname, 'sandbox' + reqPath);
-    if (fs.existsSync(filePath)) {
-      res.status(200).sendFile(filePath);
-      return;
-    }
-    res.status(404).sendFile(path.resolve(sandboxVersionDir, 'index.html'));
+    const onError = () => res.status(404).sendFile(path.resolve(sandboxVersionDir, 'index.html'));
+    res.status(200).sendFile(filePath, onError);
   });
 
   app.listen(port, () => {
