@@ -20,7 +20,8 @@ const downloadModules = async ({ dryRun = false } = {}) => {
     ? fs.readFileSync(cacheVendorsModule, 'utf-8')
     : '';
 
-  if (srcVendorsContent === cacheVendorsContent) return;
+  const transformedSrcContent = transformVendorsModule(srcVendorsContent);
+  if (transformedSrcContent === cacheVendorsContent) return;
 
   console.log(`Downloading modules...`);
 
@@ -40,8 +41,8 @@ const downloadModules = async ({ dryRun = false } = {}) => {
 
   fs.mkdirSync(modulesDir, { recursive: true });
 
-  const verdorModulesContent = transformVendorsModule(fs.readFileSync(srcVendorsModule, 'utf8'));
-  fs.writeFileSync(cacheVendorsModule, verdorModulesContent, 'utf8');
+  const vendorModulesContent = transformVendorsModule(fs.readFileSync(srcVendorsModule, 'utf8'));
+  fs.writeFileSync(cacheVendorsModule, vendorModulesContent, 'utf8');
   const vendorUrls = require('../' + cacheVendorsModule);
 
   // modules vs baseUrls
@@ -73,7 +74,12 @@ const downloadModules = async ({ dryRun = false } = {}) => {
       const mod = getModuleName(baseUrl);
       const type = baseUrl.startsWith('gh:') ? 'gh' : 'npm';
       const modInfoUrl = `https://data.jsdelivr.com/v1/package/${type}/${mod}/flat`;
-      const modInfo = await fetch(modInfoUrl).then((res) => res.json());
+      const response = await fetch(modInfoUrl);
+      if (!response.ok) {
+        console.warn(`Failed to fetch module info for ${mod}: ${response.status}`);
+        return;
+      }
+      const modInfo = await response.json();
       const files = modInfo.files;
       if (Array.isArray(files)) {
         for (const file of files) {
@@ -85,7 +91,12 @@ const downloadModules = async ({ dryRun = false } = {}) => {
         // use GitHub API when jsDelivr errors: Package size exceeded the configured limit of 50 MB (e.g. opal).
         const [repo, version] = mod.split('@');
         const filesUrl = `https://api.github.com/repos/${repo}/git/trees/${version}?recursive=1`;
-        const repoInfo = await fetch(filesUrl).then((res) => res.json());
+        const response = await fetch(filesUrl);
+        if (!response.ok) {
+          console.warn(`Failed to fetch repo info for ${repo}: ${response.status}`);
+          return;
+        }
+        const repoInfo = await response.json();
         const files = repoInfo.tree;
         if (Array.isArray(files)) {
           const basePath = baseUrl.split(mod + '/')[1];
