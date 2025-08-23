@@ -21,7 +21,7 @@ const getFileContent = (fullUrl: string): Promise<string> => {
   if (!pathname.trim()) {
     pathname = 'index.html';
   }
-  let filePath = path.resolve(appDir, pathname);
+  const filePath = path.resolve(appDir, pathname);
   return fs.promises
     .readFile(filePath, 'utf8')
     .catch(() => fs.promises.readFile(path.resolve(appDir, '404.html'), 'utf8'));
