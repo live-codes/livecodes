@@ -2800,6 +2800,7 @@ const handleCommandMenu = async () => {
   const openCommandMenu = () => {
     modal.close();
     ninja.close();
+    UI.getAppMenuHelpScroller()?.classList.add('hidden');
     const { actions, loginAction, logoutAction } = getCommandMenuActions({
       deps: {
         getConfig,
@@ -2834,11 +2835,7 @@ const handleCommandMenu = async () => {
     setTimeout(async () => {
       if (anotherShortcut) return;
       // eslint-disable-next-line no-underscore-dangle
-      if (ninja.__visible == null) {
-        await loadNinjaKeys();
-      }
-      // eslint-disable-next-line no-underscore-dangle
-      if (ninja.__visible === false) {
+      if (ninja?.__visible === false || ninja?.data?.length === 0) {
         ninja.focus();
         requestAnimationFrame(() => openCommandMenu());
       }
