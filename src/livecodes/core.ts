@@ -2834,12 +2834,10 @@ const handleCommandMenu = async () => {
     anotherShortcut = false;
     setTimeout(async () => {
       if (anotherShortcut) return;
-      // eslint-disable-next-line no-underscore-dangle
-      if (ninja.__visible == null) {
-        await loadNinjaKeys();
+      if (ninja.__visible === false || ninja.data.length === 0) {
+        ninja.focus();
+        requestAnimationFrame(() => openCommandMenu());
       }
-      ninja.focus();
-      requestAnimationFrame(() => openCommandMenu());
     }, 500);
   };
 
