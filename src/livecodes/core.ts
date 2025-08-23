@@ -2834,7 +2834,8 @@ const handleCommandMenu = async () => {
     anotherShortcut = false;
     setTimeout(async () => {
       if (anotherShortcut) return;
-      if (ninja.__visible === false || ninja.data.length === 0) {
+      // eslint-disable-next-line no-underscore-dangle
+      if (ninja?.__visible === false || ninja?.data?.length === 0) {
         ninja.focus();
         requestAnimationFrame(() => openCommandMenu());
       }
