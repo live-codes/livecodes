@@ -214,9 +214,10 @@ export const getCommandMenuActions = ({
           title: lang.longTitle ?? lang.title,
           keywords: [lang.name, lang.title, lang.longTitle, ...lang.extensions].join(', '),
           handler: async () => {
+            console.log(lang.name);
             document
               .querySelector<HTMLAnchorElement>('a[data-editor][data-lang="' + lang.name + '"]')
-              ?.dispatchEvent(new Event('mousedown'));
+              ?.click();
           },
         })),
     },
@@ -245,7 +246,7 @@ export const getCommandMenuActions = ({
               .querySelector<HTMLAnchorElement>(
                 '.processor-item input[data-processor="' + processor.name + '"]',
               )
-              ?.dispatchEvent(new Event('mousedown', { bubbles: true }));
+              ?.dispatchEvent(new Event('click', { bubbles: true }));
           },
         })),
     },
