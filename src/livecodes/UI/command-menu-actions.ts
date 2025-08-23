@@ -214,7 +214,6 @@ export const getCommandMenuActions = ({
           title: lang.longTitle ?? lang.title,
           keywords: [lang.name, lang.title, lang.longTitle, ...lang.extensions].join(', '),
           handler: async () => {
-            console.log(lang.name);
             document
               .querySelector<HTMLAnchorElement>('a[data-editor][data-lang="' + lang.name + '"]')
               ?.click();
