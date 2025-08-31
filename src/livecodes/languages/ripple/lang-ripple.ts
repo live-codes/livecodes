@@ -27,5 +27,4 @@ export const ripple: LanguageSpecs = {
   },
   extensions: ['ripple'],
   editor: 'script',
-  editorLanguage: 'typescript',
 };
