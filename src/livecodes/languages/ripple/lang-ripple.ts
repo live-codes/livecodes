@@ -1,15 +1,15 @@
 import type { LanguageSpecs } from '../../models';
 import { rippleUrl } from '../../vendors';
-import { parserPlugins } from '../prettier';
+// import { parserPlugins } from '../prettier';
 
 export const ripple: LanguageSpecs = {
   name: 'ripple',
   title: 'Ripple',
   info: false,
-  parser: {
-    name: 'babel-ts',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
-  },
+  // parser: {
+  //   name: 'ripple',
+  //   pluginUrls: [parserPlugins.ripple],
+  // },
   compiler: {
     factory: async () => {
       // TODO: convert to UMD
