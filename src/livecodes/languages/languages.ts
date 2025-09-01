@@ -23,6 +23,7 @@ import { fennel } from './fennel';
 import { flow } from './flow';
 import { gleam } from './gleam';
 import { go } from './go';
+import { goWasm } from './go-wasm';
 import { haml } from './haml';
 import { handlebars } from './handlebars';
 import { html } from './html';
@@ -142,6 +143,7 @@ export const languages: LanguageSpecs[] = [
   ruby,
   rubyWasm,
   go,
+  goWasm,
   php,
   phpWasm,
   cpp,
