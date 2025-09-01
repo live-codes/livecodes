@@ -82,7 +82,6 @@ addEventListener('message', async (e) => {
        if (window.yaegi) {
          try {
            const result = await window.yaegi.eval(code);
-
          } catch (err) {
            console.error('Yaegi execution error:', err);
            throw err;
