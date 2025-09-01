@@ -295,12 +295,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     await loadWASM(onigasmWasmUrl);
 
     const registry = new Registry({
-      getGrammarDefinition: async (scopeName: string) => {
-        return {
-          format: 'json',
-          content: langs.find((l) => l.scopeName === scopeName)?.syntax ?? '',
-        };
-      },
+      getGrammarDefinition: async (scopeName: string) => ({
+        format: 'json',
+        content: langs.find((l) => l.scopeName === scopeName)?.syntax ?? '',
+      }),
     });
 
     const grammars = new Map();
