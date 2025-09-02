@@ -9,6 +9,10 @@ export const ripple: LanguageSpecs = {
   parser: {
     name: 'ripple',
     pluginUrls: [parserPlugins.ripple],
+    postFormat: async (parsed: { formatted: string; cursorOffset: number }) => ({
+      formatted: parsed.formatted.replace(/,?\[object Object\],?/g, ''),
+      cursorOffset: parsed.cursorOffset,
+    }),
   },
   compiler: {
     factory: async () => {

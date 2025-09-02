@@ -1257,6 +1257,10 @@ export interface Parser {
   name: ParserName;
   plugins?: any[];
   pluginUrls: string[];
+  postFormat?: (parsed: {
+    formatted: string;
+    cursorOffset: number;
+  }) => Promise<{ formatted: string; cursorOffset: number }>;
 }
 export type FormatFn = (
   value: string,

@@ -116,14 +116,16 @@ const format = async (
       singleQuote: formatterConfig.singleQuote ?? defaultConfig.singleQuote,
       trailingComma: formatterConfig.trailingComma === false ? 'none' : 'all',
     };
-    return (
-      (await (self as any).prettier.formatWithCursor(value, {
-        parser: parser?.name,
-        plugins: prettierPlugins,
-        cursorOffset,
-        ...options,
-      })) || unFormatted
-    );
+    let formatted = await (self as any).prettier.formatWithCursor(value, {
+      parser: parser?.name,
+      plugins: prettierPlugins,
+      cursorOffset,
+      ...options,
+    });
+    if (typeof parser?.postFormat === 'function') {
+      formatted = await parser.postFormat(formatted);
+    }
+    return formatted || unFormatted;
   }
   if (getFormatter(language) != null) {
     const formatFn = loadFormatter(language);
