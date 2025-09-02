@@ -116,20 +116,14 @@ const format = async (
       singleQuote: formatterConfig.singleQuote ?? defaultConfig.singleQuote,
       trailingComma: formatterConfig.trailingComma === false ? 'none' : 'all',
     };
-    const formatted = await (self as any).prettier.formatWithCursor(value, {
-      parser: parser?.name,
-      plugins: prettierPlugins,
-      cursorOffset,
-      ...options,
-    });
-
-    // TODO: remove when ripple plugin is fixed
-    if (formatted && language === 'ripple') {
-      formatted.formatted = formatted.formatted.replace(/,?\[object Object\],?/g, '');
-      if (formatted.cursorOffset < 1) formatted.cursorOffset = 1;
-    }
-
-    return formatted || unFormatted;
+    return (
+      (await (self as any).prettier.formatWithCursor(value, {
+        parser: parser?.name,
+        plugins: prettierPlugins,
+        cursorOffset,
+        ...options,
+      })) || unFormatted
+    );
   }
   if (getFormatter(language) != null) {
     const formatFn = loadFormatter(language);
