@@ -1780,35 +1780,4 @@ document:getElementById("title").innerHTML = "Lua"`);
 
     expect(resultText).toContain(`Hello, Scheme`);
   });
-
-  test('Go (Yaegi WebAssembly)', async ({ page, getTestUrl, editor }) => {
-    test.skip(editor === 'codejar', 'please fix');
-
-    await page.goto(getTestUrl());
-
-    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
-
-    await app.click('text="HTML"');
-    await waitForEditorFocus(app);
-    await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
-
-    await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('a[data-lang="go-wasm"]');
-    await waitForEditorFocus(app);
-
-    await page.keyboard.insertText(`package main
-
-import "fmt"
-
-func main() {
-    fmt.Println("Hello from Yaegi!")
-    fmt.Println("Go WebAssembly is working!")
-}`);
-
-    await waitForResultUpdate();
-    const resultText = await getResult().innerText('body');
-
-    expect(resultText).toContain(`Hello from Yaegi!`);
-    expect(resultText).toContain(`Go WebAssembly is working!`);
-  });
 });

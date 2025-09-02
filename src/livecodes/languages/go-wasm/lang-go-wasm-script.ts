@@ -25,14 +25,21 @@ const initYaegi = async () => {
   
   try {
     // Load the Yaegi WASM file
+
     const wasmUrl = '${baseUrl}yaegi-browser.wasm';
     const go = new Go();
-    const wasmResponse = await fetch(wasmUrl);
-    const wasmBytes = await wasmResponse.arrayBuffer();
-    
-    const { instance } = await WebAssembly.instantiate(wasmBytes, go.importObject);
-    go.run(instance);
-    
+    let instance;
+    try {
+      const streaming = await WebAssembly.instantiateStreaming(fetch(wasmUrl), go.importObject);
+      instance = streaming.instance;
+    } catch (_) {
+      const resp = await fetch(wasmUrl);
+     if (!resp.ok) throw new Error('Failed to fetch yaegi-browser.wasm: ' + resp.status);
+      const bytes = await resp.arrayBuffer();
+      const res = await WebAssembly.instantiate(bytes, go.importObject);
+      instance = res.instance;
+    }
+   go.run(instance);
     // Wait for Yaegi to be ready
     yaegiInstance = instance;
     yaegiReady = true;
@@ -138,7 +145,7 @@ livecodes.goWasm.run =
       livecodes.goWasm.input = input;
       livecodes.goWasm.output = null;
       const scripts = document.querySelectorAll('script[type="text/go-wasm"]');
-      scripts.forEach((script) => (code += script.innerHTML + '\n'));
+      scripts.forEach((script) => (code += (script.textContent ?? '') + '\n'));
       livecodes.goWasm.worker.onmessage = function (e: MessageEvent) {
         if (e.data.loaded) {
           console.log('Yaegi WebAssembly loaded!');
@@ -147,6 +154,14 @@ livecodes.goWasm.run =
         }
         if (e.data.error) {
           console.error('Yaegi initialization error:', e.data.error);
+          const result = {
+            input: String(livecodes.goWasm.input ?? ''),
+            output: null,
+            error: e.data.error,
+            exitCode: 1,
+          };
+          livecodes.goWasm.ready = true;
+          resolve(result);
           return;
         }
         const result = e.data;
