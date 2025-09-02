@@ -1793,7 +1793,7 @@ document:getElementById("title").innerHTML = "Lua"`);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=Go (Wasm)');
+    await app.click('a[data-lang="go-wasm"]');
     await waitForEditorFocus(app);
 
     await page.keyboard.insertText(`package main
