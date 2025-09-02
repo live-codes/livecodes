@@ -24,10 +24,18 @@ Yaegi is a Go interpreter that can be compiled to WebAssembly, allowing Go code 
 
 ## Configuration
 
-The integration uses the following CDN URLs:
+The integration loads assets from a configurable base URL:
 
-- WASM file: `https://cdn.jsdelivr.net/npm/yaegi-wasm@1.0.1/src/yaegi-browser.wasm`
-- Support script: `https://cdn.jsdelivr.net/npm/yaegi-wasm@1.0.1/src/wasm_exec.js`
+Base URL: `yaegiWasmBaseUrl` (see `src/livecodes/vendors.ts`)
+Defaults (pinned): `https://cdn.jsdelivr.net/npm/yaegi-wasm@1.0.1/src/`
+
+- WASM: `${yaegiWasmBaseUrl}/yaegi-browser.wasm`
+- Support script: `${yaegiWasmBaseUrl}/wasm_exec.js`
+
+Security/ops notes:
+Keep versions pinned (no unqualified `@latest`).
+Prefer self-hosting or a private mirror for stability.
+If you fetch then `importScripts`/instantiate, verify a SHA-256 checksum of the fetched response before executing.
 
 ## Usage
 

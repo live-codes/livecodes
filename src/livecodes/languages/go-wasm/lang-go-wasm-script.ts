@@ -166,7 +166,7 @@ livecodes.goWasm.run =
       livecodes.goWasm.worker.postMessage({ code, input: `${String(input ?? '')}` });
     }));
 
-livecodes.goWasm.loaded = new Promise<void>(async function (resolve) {
+livecodes.goWasm.loaded = new Promise<void>(function (resolve) {
   const i = setInterval(() => {
     if (livecodes.goWasm.ready) {
       clearInterval(i);
@@ -177,7 +177,20 @@ livecodes.goWasm.loaded = new Promise<void>(async function (resolve) {
 
 window.addEventListener('load', async () => {
   livecodes.goWasm.ready = false;
-  parent.postMessage({ type: 'loading', payload: true }, '*');
+  const getParentOrigin = (): string => {
+    try {
+      const referrer = document.referrer;
+      if (referrer) {
+        const url = new URL(referrer);
+        if (url.origin && url.origin !== 'null') return url.origin;
+      }
+    } catch (e) {
+      // ignore parsing errors and fall back
+    }
+    return window.location.origin;
+  };
+  const targetOrigin = getParentOrigin();
+  parent.postMessage({ type: 'loading', payload: true }, targetOrigin);
   const workerSrc = await getWorkerSrc(yaegiWasmBaseUrl);
   const init = () => {
     if (livecodes.goWasm.worker) return;
@@ -186,5 +199,5 @@ window.addEventListener('load', async () => {
   };
   init();
   await livecodes.goWasm.run(livecodes.goWasm.input);
-  parent.postMessage({ type: 'loading', payload: false }, '*');
+  parent.postMessage({ type: 'loading', payload: false }, targetOrigin);
 });
