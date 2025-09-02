@@ -94,9 +94,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         ? 'csharp'
         : language.startsWith('vue')
           ? 'vue'
-          : ['svelte', 'malina', 'riot'].includes(language)
-            ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
-            : mapLanguage(language);
+          : language === 'ripple'
+            ? 'ripple'
+            : ['svelte', 'malina', 'riot'].includes(language)
+              ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
+              : mapLanguage(language);
 
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;
