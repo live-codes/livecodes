@@ -216,7 +216,10 @@ window.addEventListener('load', async () => {
       }
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.debug('go-wasm: failed to determine parent origin, falling back to location.origin', e);
+      console.debug(
+        'go-wasm: failed to determine parent origin, falling back to location.origin',
+        e,
+      );
     }
     return window.location.origin;
   };
