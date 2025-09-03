@@ -144,6 +144,20 @@ livecodes.goWasm.run =
       let code = '';
       livecodes.goWasm.input = input;
       livecodes.goWasm.output = null;
+      // ensure fresh state per run
+      livecodes.goWasm.ready = false;
+      // re-create worker each run to avoid stale state
+      try {
+        if (livecodes.goWasm.worker) {
+          livecodes.goWasm.worker.terminate?.();
+          livecodes.goWasm.worker = undefined as any;
+        }
+        if (livecodes.goWasm.workerSrc) {
+          livecodes.goWasm.worker = createWorkerFromContent(livecodes.goWasm.workerSrc);
+        }
+      } catch (_) {
+        // ignore and continue
+      }
       const scripts = document.querySelectorAll('script[type="text/go-wasm"]');
       scripts.forEach((script) => (code += (script.textContent ?? '') + '\n'));
       livecodes.goWasm.worker.onmessage = function (e: MessageEvent) {
@@ -192,27 +206,17 @@ livecodes.goWasm.loaded = new Promise<void>(function (resolve) {
 
 window.addEventListener('load', async () => {
   livecodes.goWasm.ready = false;
-  const getParentOrigin = (): string => {
-    try {
-      const referrer = document.referrer;
-      if (referrer) {
-        const url = new URL(referrer);
-        if (url.origin && url.origin !== 'null') return url.origin;
-      }
-    } catch (e) {
-      // ignore parsing errors and fall back
-    }
-    return window.location.origin;
-  };
-  const targetOrigin = getParentOrigin();
-  parent.postMessage({ type: 'loading', payload: true }, targetOrigin);
+  // use wildcard origin similar to cpp-wasm to avoid mismatches on reruns
+  parent.postMessage({ type: 'loading', payload: true }, '*');
   const workerSrc = await getWorkerSrc(yaegiWasmBaseUrl);
   const init = () => {
     if (livecodes.goWasm.worker) return;
     console.log('Loading Yaegi WebAssembly...');
     livecodes.goWasm.worker = createWorkerFromContent(workerSrc);
+    // keep a copy to allow recreating worker on subsequent runs
+    (livecodes.goWasm as any).workerSrc = workerSrc;
   };
   init();
   await livecodes.goWasm.run(livecodes.goWasm.input);
-  parent.postMessage({ type: 'loading', payload: false }, targetOrigin);
+  parent.postMessage({ type: 'loading', payload: false }, '*');
 });
