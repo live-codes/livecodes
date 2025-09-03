@@ -1,9 +1,10 @@
 import type { LanguageSpecs } from '../../models';
+import { go } from '../go/lang-go';
 
 export const goWasm: LanguageSpecs = {
   name: 'go-wasm',
   title: 'Go (Wasm)',
-  longTitle: 'Go (Yaegi WebAssembly)',
+  formatter: go.formatter,
   compiler: {
     factory: () => async (code) => code,
     scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-go-wasm-script.js}}'],
