@@ -155,8 +155,9 @@ livecodes.goWasm.run =
         if (livecodes.goWasm.workerSrc) {
           livecodes.goWasm.worker = createWorkerFromContent(livecodes.goWasm.workerSrc);
         }
-      } catch (_) {
-        // ignore and continue
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.debug('go-wasm: failed to recreate worker (continuing with fresh init)', err);
       }
       const scripts = document.querySelectorAll('script[type="text/go-wasm"]');
       scripts.forEach((script) => (code += (script.textContent ?? '') + '\n'));
@@ -206,17 +207,30 @@ livecodes.goWasm.loaded = new Promise<void>(function (resolve) {
 
 window.addEventListener('load', async () => {
   livecodes.goWasm.ready = false;
-  // use wildcard origin similar to cpp-wasm to avoid mismatches on reruns
-  parent.postMessage({ type: 'loading', payload: true }, '*');
+  const getParentOrigin = (): string => {
+    try {
+      const referrer = document.referrer;
+      if (referrer) {
+        const url = new URL(referrer);
+        if (url.origin && url.origin !== 'null') return url.origin;
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.debug('go-wasm: failed to determine parent origin, falling back to location.origin', e);
+    }
+    return window.location.origin;
+  };
+  const targetOrigin = getParentOrigin();
+  parent.postMessage({ type: 'loading', payload: true }, targetOrigin);
   const workerSrc = await getWorkerSrc(yaegiWasmBaseUrl);
   const init = () => {
     if (livecodes.goWasm.worker) return;
     console.log('Loading Yaegi WebAssembly...');
     livecodes.goWasm.worker = createWorkerFromContent(workerSrc);
     // keep a copy to allow recreating worker on subsequent runs
-    (livecodes.goWasm as any).workerSrc = workerSrc;
+    livecodes.goWasm.workerSrc = workerSrc;
   };
   init();
   await livecodes.goWasm.run(livecodes.goWasm.input);
-  parent.postMessage({ type: 'loading', payload: false }, '*');
+  parent.postMessage({ type: 'loading', payload: false }, targetOrigin);
 });
