@@ -1,5 +1,4 @@
 import type { LanguageSpecs } from '../../models';
-import { rippleUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const ripple: LanguageSpecs = {
@@ -11,18 +10,9 @@ export const ripple: LanguageSpecs = {
     pluginUrls: [parserPlugins.ripple],
   },
   compiler: {
-    factory: async () => {
-      // TODO: convert to UMD
-      const { compile } = await import(rippleUrl);
-      return async (code) => {
-        if (!code.trim()) return '';
-        const { js, css } = await compile(code, './src/App.ripple');
-        const cssCode =
-          css === ''
-            ? ''
-            : `\n\nconst styles = document.createElement('style');\nstyles.innerHTML = ${JSON.stringify(css)};\ndocument.head.appendChild(styles);\n`;
-        return `${js.code}${cssCode}`;
-      };
+    factory: (config, baseUrl) => {
+      (self as any).importScripts(baseUrl + '{{hash:lang-ripple-compiler.js}}');
+      return (self as any).createRippleCompiler(config);
     },
   },
   extensions: ['ripple'],

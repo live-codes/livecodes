@@ -237,6 +237,7 @@ const iifeBuild = () =>
       'languages/python-wasm/lang-python-wasm-script.ts',
       'languages/rescript/lang-rescript-formatter.ts',
       'languages/riot/lang-riot-compiler.ts',
+      'languages/ripple/lang-ripple-compiler.ts',
       'languages/ruby-wasm/lang-ruby-wasm-script.ts',
       'languages/scss/lang-scss-compiler.ts',
       'languages/solid/lang-solid-compiler.ts',
