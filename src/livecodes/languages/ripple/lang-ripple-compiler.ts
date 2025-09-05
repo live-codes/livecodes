@@ -1,5 +1,8 @@
+import { compileBlocks } from '../../compiler';
 import type { CompilerFunction, Config } from '../../models';
 import { modulesService } from '../../services/modules';
+
+// TODO: recursively compile imported Ripple components
 
 (self as any).createRippleCompiler = async (initialConfig: Config): Promise<CompilerFunction> => {
   let version = initialConfig.customSettings.ripple?.version || 'latest';
@@ -19,6 +22,8 @@ import { modulesService } from '../../services/modules';
 
     const newVersion = config.customSettings.ripple?.version || version;
     await updateCompiler(newVersion);
+
+    code = await compileBlocks(code, 'style', config);
 
     const { js, css } = await compile(code, './App.ripple');
 
