@@ -52,6 +52,7 @@ import { reactStarter } from './react-starter';
 import { reasonStarter } from './reason-starter';
 import { rescriptStarter } from './rescript-starter';
 import { riotStarter } from './riot-starter';
+import { rippleStarter } from './ripple-starter';
 import { rubyStarter } from './ruby-starter';
 import { rubyWasmStarter } from './ruby-wasm-starter';
 import { schemeStarter } from './scheme-starter';
@@ -79,6 +80,7 @@ export const starterTemplates = [
   preactStarter,
   svelteStarter,
   solidStarter,
+  rippleStarter,
   litStarter,
   stencilStarter,
   mdxStarter,
