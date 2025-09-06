@@ -144,6 +144,14 @@ export const isScriptImport = (mod: string) =>
       mod.toLowerCase().endsWith('.vue') ||
       mod.toLowerCase().endsWith('.svelte')));
 
+const isStyleImport = (mod: string) =>
+  mod.toLowerCase().startsWith('./style') ||
+  mod.toLowerCase().endsWith('.css') ||
+  mod.toLowerCase().endsWith('.scss') ||
+  mod.toLowerCase().endsWith('.sass') ||
+  mod.toLowerCase().endsWith('.less') ||
+  mod.toLowerCase().endsWith('.styl');
+
 const modulesCache: Record<string, string> = {};
 const fetchModule = async (mod: string) => {
   if (modulesCache[mod]) {
@@ -176,7 +184,7 @@ export const replaceSFCImports = async (
   const isExtensionless = (mod: string) =>
     mod.startsWith('.') && !mod.split('/')[mod.split('/').length - 1].includes('.');
   const sfcImports = getImports(code).filter(
-    (mod) => isSfc(mod) || isExtensionless(mod) || mod.startsWith('.'),
+    (mod) => !isStyleImport(mod) && (isSfc(mod) || isExtensionless(mod) || mod.startsWith('.')),
   );
   const projectImportMap = {
     ...config.imports,
