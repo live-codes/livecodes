@@ -344,7 +344,7 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
 export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
 
 export const prettierRippleUrl = /* @__PURE__ */ getUrl(
-  '@hatemhosny/prettier-plugin-ripple@0.0.2/build/parser-ripple.js',
+  '@hatemhosny/prettier-plugin-ripple@0.0.3/build/parser-ripple.js',
 );
 
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.22.2/standalone.js');
@@ -401,7 +401,7 @@ export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
 export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.2/');
 
-export const rippleUrl = /* @__PURE__ */ getModuleUrl('ripple/compiler'); // TODO: pin version
+export const rippleUrl = /* @__PURE__ */ getModuleUrl('ripple@0.2.7/compiler'); // TODO: pin version
 
 export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.3-wasm-wasi@2.6.2/dist/');
 
