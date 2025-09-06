@@ -1,4 +1,4 @@
-import { compileBlocks } from '../../compiler';
+import { compileBlocks } from '../../compiler/compile-blocks';
 import type { CompilerFunction, Config } from '../../models';
 import { modulesService } from '../../services/modules';
 
