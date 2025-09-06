@@ -6,11 +6,9 @@ toc_max_heading_level: 4
 
 [Ripple](https://www.ripplejs.com/) is a TypeScript UI framework that takes the best parts of React, Solid and Svelte and combines them into one package.
 
-## Usage
-
 Ripple components can be used in LiveCodes as documented in the [Ripple docs](https://github.com/trueadm/ripple). See below for usage.
 
-### Demo
+## Demo
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
@@ -57,6 +55,9 @@ export const demo = {
 
 <LiveCodes config={demo} />
 
+
+## Mounting
+
 ### Auto-rendering
 
 A component is mounted and rendered automatically as a Ripple component (without having to [manually mount](#manual-mount) it) if the following conditions are met:
@@ -68,6 +69,7 @@ A component is mounted and rendered automatically as a Ripple component (without
 ### Root Element
 
 To mount the application instance to a specific DOM element use `"livecodes-app"` as the element `id` in the HTML. Otherwise, if that element is not found, a new `div` element is added to `document.body` and is used to mount the instance.
+In case you need more control, you can [manually mount](#manual-mount) the instance.
 
 Example:
 
@@ -152,9 +154,11 @@ To disable [auto-rendering](#auto-rendering), set the [custom settings](#custom-
 }
 ```
 
-### Module Imports
+## Importing Modules
 
-npm modules can be imported as described in the section about [module resolution](../features/module-resolution.mdx), including bare module imports and importing from different CDNs. Stylesheets imported in the `script` block are added as `<link rel="stylesheet">` tags in the page `head`.
+### NPM Modules
+
+npm modules can be imported as described in the section about [module resolution](../features/module-resolution.mdx), including bare module imports and importing from different CDNs. Stylesheets imported in the `script` block are added as `<link rel="stylesheet">` tags in the page `head` (see [below](#importing-stylesheets)).
 
 Module imports can be customized using import maps as described in [module resolution](../features/module-resolution.mdx#custom-module-resolution) documentations.
 
@@ -192,22 +196,44 @@ export default component App() {
 
 <LiveCodes  params={importsDemo}  formatCode={false} />
 
+### External Components
 
-{/*
-### Importing External Components
+External Ripple components can be imported.
+The import URL can be either:
+- An absolute URL ending with `.ripple` extension.
+- A [bare module import](../features/module-resolution.mdx#bare-module-imports) for a published npm module with full path to the component with extension.
+- A [data URL](../features/data-urls.mdx) starting with `data:text/ripple`.
 
-External Svelte components can be imported. The import URL has to be an absolute URL ending with `.svelte` extension. Any bare or relative imports in the imported files are resolved and compiled recursively.
+Any bare or relative imports in the imported files are resolved and compiled recursively.
+If a processor is enabled (e.g. Tailwind CSS), classes in the imported files are detected and used in the generated CSS (see [CSS Frameworks](#css-frameworks) section below).
 
-Example:
+Example: ([source](https://github.com/hatemhosny/ripple-tailwind-counter-demo))
 
-```html
-<script>
-  import Counter from 'https://raw.githubusercontent.com/user/repo/main/src/Counter.svelte';
-</script>
+export const externalComponents = {
+  activeEditor: 'script',
+  script: {
+    language: 'ripple',
+    content: `// import from npm modules
+import Counter from 'ripple-tailwind-counter-demo/src/Counter.ripple';
+// alternatively use absolute URLs
+// import Counter from 'https://raw.githubusercontent.com/hatemhosny/ripple-tailwind-counter-demo/refs/heads/main/src/Counter.ripple';
 
-<Counter />
-```
- */}
+
+export default component App() {
+  let $name = "World";
+
+  setTimeout(() => {
+    $name = "Ripple + Tailwind!";
+  }, 2000);
+
+ <Counter $name={$name} />
+}
+`,
+  },
+  processors: ['tailwindcss'],
+}
+
+<LiveCodes config={externalComponents} />
 
 ### Exports
 
@@ -221,11 +247,11 @@ When values are imported from `"./script"`, [auto-rendering](#auto-rendering) is
 
 :::
 
-### Styles
+## Styles
 
 CSS can be applied to the component using various ways:
 
-#### Component Styles
+### Component Styles
 
 Styles in a `style` tag in a Ripple component are applied to that component only.
 
@@ -255,13 +281,13 @@ export const styleTag = {
 ></RunInLiveCodes>
 
 
-#### Style Editor
+### Style Editor
 
 Styles added in the [style editor](../features/projects.mdx#style-editor) are applied globally to the [result page](../features/result.mdx). This can use different **languages/processors** supported in LiveCodes including CSS, SCSS, Less, Stylus, ..etc. See [style documentation](../features/css.mdx) for more details.
 
 And of course, styles and stylesheets added in [markup editor](../features/projects.mdx#markup-editor) are also applied globally.
 
-#### Importing Stylesheets
+### Importing Stylesheets
 
 Stylesheets imported in [script editor](../features/projects.mdx#script-editor) are added as `<link rel="stylesheet">` tags in the page `head`.
 The stylesheet URL can be an absolute URL or a path in the npm package. The URL has to end with `".css"`.
@@ -279,7 +305,7 @@ export const stylesDemo = {
   formatCode={false}
 ></RunInLiveCodes>
 
-#### CSS Modules
+### CSS Modules
 
 CSS modules are supported and are [documented separately](./cssmodules.mdx). Make sure to enable CSS modules (from style editor menu or in [`processors`](../configuration/configuration-object.mdx#processors) property of [configuration object](../configuration/configuration-object.mdx)).
 
@@ -297,7 +323,7 @@ export const cssModulesDemo = {
 
 <LiveCodes config={cssModulesDemo}></LiveCodes>
 
-#### CSS Frameworks
+### CSS Frameworks
 
 [CSS Frameworks](../features/css.mdx#css-processors) supported in LiveCodes (e.g. [Tailwind CSS](./tailwindcss.mdx), [UnoCSS](./unocss.mdx), [WindiCSS](./windicss.mdx)) can detect class names added in Ripple components.
 Make sure that the required utility is enabled (from style editor menu or in `processors` property of [configuration object](../configuration/configuration-object.mdx#processors)).
