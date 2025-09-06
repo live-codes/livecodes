@@ -1,5 +1,6 @@
-import { createImportMap, getCompileResult, replaceSFCImports } from '../../compiler';
 import { compileBlocks } from '../../compiler/compile-blocks';
+import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
+import { getCompileResult } from '../../compiler/utils';
 import type { CompilerFunction, Config } from '../../models';
 import { modulesService } from '../../services/modules';
 import { getLanguageByAlias } from '../utils';
