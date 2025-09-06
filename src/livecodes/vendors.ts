@@ -344,7 +344,7 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
 export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
 
 export const prettierRippleUrl = /* @__PURE__ */ getUrl(
-  '@hatemhosny/prettier-plugin-ripple@0.0.6/build/parser-ripple.js',
+  '@hatemhosny/prettier-plugin-ripple@0.0.5/build/parser-ripple.js',
 );
 
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.22.2/standalone.js');
