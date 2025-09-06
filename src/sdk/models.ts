@@ -1391,6 +1391,7 @@ export type TemplateName =
   | 'preact'
   | 'svelte'
   | 'solid'
+  | 'ripple'
   | 'lit'
   | 'stencil'
   | 'mdx'
