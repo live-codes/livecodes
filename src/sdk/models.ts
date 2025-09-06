@@ -1243,6 +1243,7 @@ export type ParserName =
   | 'babel-ts'
   | 'babel-flow'
   | 'glimmer'
+  | 'ripple'
   | 'html'
   | 'markdown'
   | 'css'
