@@ -46,7 +46,7 @@ const load = (languages: Language[]) => {
   }
 };
 
-function loadParser(language: Language): Parser | undefined {
+async function loadParser(language: Language): Promise<Parser | undefined> {
   if (!(self as any).prettier) {
     loadPrettier();
   }
@@ -60,26 +60,33 @@ function loadParser(language: Language): Parser | undefined {
   if (!(self as any).prettierPlugins) {
     (self as any).prettierPlugins = {};
   }
-  parser.plugins = parser.pluginUrls
-    .map((pluginUrl) => {
-      if (plugins[pluginUrl]) return true;
-      try {
-        importScripts(pluginUrl);
-        plugins[pluginUrl] = true;
-        if (!prettierPlugins.pug && (self as any).pluginPug) {
-          prettierPlugins.pug = (self as any).pluginPug;
+  parser.plugins = (
+    await Promise.all(
+      parser.pluginUrls.map(async (pluginUrl) => {
+        if (plugins[pluginUrl]) return true;
+        if (language === 'ripple') {
+          const p = await import(pluginUrl);
+          prettierPlugins[language] = p;
+          return true;
         }
-        if (!prettierPlugins.java && (self as any).pluginJava?.default) {
-          prettierPlugins.java = (self as any).pluginJava.default;
+        try {
+          importScripts(pluginUrl);
+          plugins[pluginUrl] = true;
+          if (!prettierPlugins.pug && (self as any).pluginPug) {
+            prettierPlugins.pug = (self as any).pluginPug;
+          }
+          if (!prettierPlugins.java && (self as any).pluginJava?.default) {
+            prettierPlugins.java = (self as any).pluginJava.default;
+          }
+          return true;
+        } catch {
+          // eslint-disable-next-line no-console
+          console.warn('Failed to load formatter for: ' + language);
+          return false;
         }
-        return true;
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn('Failed to load formatter for: ' + language);
-        return false;
-      }
-    })
-    .filter(Boolean);
+      }),
+    )
+  ).filter(Boolean);
 
   if (parser.plugins.length > 0) {
     parsers[language] = parser;
@@ -108,7 +115,7 @@ const format = async (
   const unFormatted = { formatted: value, cursorOffset };
 
   if (getParser(language) != null) {
-    const parser = loadParser(language);
+    const parser = await loadParser(language);
     const options = {
       useTabs: formatterConfig.useTabs ?? defaultConfig.useTabs,
       tabWidth: formatterConfig.tabSize ?? defaultConfig.tabSize,
