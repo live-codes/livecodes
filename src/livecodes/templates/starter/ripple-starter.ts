@@ -33,7 +33,7 @@ component Counter(props: { $name: string }) {
       font: 1em sans-serif;
     }
     .logo {
-      width: 150px;
+      width: 100px;
     }
   </style>
 }
