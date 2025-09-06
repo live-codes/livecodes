@@ -295,7 +295,11 @@ export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js'
 
 export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.3.0/');
 
+export const monacoEditorTextmateUrl = /* @__PURE__ */ getModuleUrl('monaco-editor-textmate@4.0.0');
+
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
+
+export const monacoTextmateUrl = /* @__PURE__ */ getModuleUrl('monaco-textmate@3.0.1');
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
 
@@ -314,6 +318,10 @@ export const nomnomlCdnUrl = /* @__PURE__ */ getUrl('nomnoml@1.6.1/dist/nomnoml.
 export const normalizeCssUrl = /* @__PURE__ */ getUrl('normalize.css@8.0.1/normalize.css');
 
 export const nunjucksBaseUrl = /* @__PURE__ */ getUrl('nunjucks@3.2.4/browser/');
+
+export const onigasmUrl = /* @__PURE__ */ getModuleUrl('onigasm@2.2.5');
+
+export const onigasmWasmUrl = /* @__PURE__ */ getUrl('onigasm@2.2.5/lib/onigasm.wasm');
 
 export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1.8.2/');
 
@@ -389,7 +397,7 @@ export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
 export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.2/');
 
-export const rippleUrl = /* @__PURE__ */ getModuleUrl('ripple@0.2.5/compiler');
+export const rippleUrl = /* @__PURE__ */ getModuleUrl('ripple@0.2.6/compiler');
 
 export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.3-wasm-wasi@2.6.2/dist/');
 

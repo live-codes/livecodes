@@ -22,9 +22,13 @@ import {
   codeiumProviderUrl,
   emmetMonacoUrl,
   monacoBaseUrl,
+  monacoEditorTextmateUrl,
   monacoEmacsUrl,
+  monacoTextmateUrl,
   monacoVimUrl,
   monacoVolarUrl,
+  onigasmUrl,
+  onigasmWasmUrl,
   vendorsBaseUrl,
 } from '../../vendors';
 import { getEditorTheme } from '../themes';
@@ -253,6 +257,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     astro: baseUrl + '{{hash:monaco-lang-astro.js}}',
     clio: baseUrl + '{{hash:monaco-lang-clio.js}}',
     imba: baseUrl + '{{hash:monaco-lang-imba.js}}',
+    ripple: baseUrl + '{{hash:monaco-lang-ripple.js}}',
     // sql: baseUrl + '{{hash:monaco-lang-sql.js}}', // TODO: add autocomplete
     wat: baseUrl + '{{hash:monaco-lang-wat.js}}',
   };
@@ -260,6 +265,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   interface CustomLanguageDefinition {
     config?: Monaco.languages.LanguageConfiguration;
     tokens?: Monaco.languages.IMonarchLanguage;
+    syntax?: Record<string, unknown>;
   }
 
   const addVueSupport = async () => {
@@ -272,6 +278,46 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     shikiThemes['custom-vs-light'] = shikiThemes.vs;
     shikiThemes['custom-vs-dark'] = shikiThemes['vs-dark'];
     setTheme(currentTheme, currentEditorTheme);
+  };
+
+  async function registerFromTextMate({
+    name,
+    scopeName,
+    syntax,
+  }: {
+    name: string;
+    scopeName: string;
+    syntax: string;
+  }) {
+    await addVueSupport(); // a workaround for TextMate syntax
+
+    const { loadWASM } = await import(onigasmUrl);
+    const { Registry } = await import(monacoTextmateUrl);
+    const { wireTmGrammars } = await import(monacoEditorTextmateUrl);
+
+    await loadWASM(onigasmWasmUrl);
+
+    const registry = new Registry({
+      getGrammarDefinition: async (_scopeName: string) => {
+        return {
+          format: 'json',
+          content: syntax,
+        };
+      },
+    });
+
+    const grammars = new Map();
+    grammars.set(name, scopeName);
+    monaco.languages.register({ id: name });
+    await wireTmGrammars(monaco, registry, grammars, editor);
+  }
+
+  const addRippleSupport = async (syntax: CustomLanguageDefinition['syntax']) => {
+    await registerFromTextMate({
+      name: 'ripple',
+      scopeName: 'source.ripple',
+      syntax: JSON.stringify(syntax, null, 2).replace('"name": "Ripple"', '"name": "ripple"'),
+    });
   };
 
   const loadMonacoLanguage = async (lang: Language) => {
@@ -288,6 +334,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       }
       if (mod.tokens) {
         monaco.languages.setMonarchTokensProvider(lang, mod.tokens);
+      }
+      if (lang === 'ripple') {
+        await addRippleSupport(mod.syntax);
+        return;
       }
     }
   };
