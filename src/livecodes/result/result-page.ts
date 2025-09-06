@@ -221,7 +221,7 @@ export const createResultPage = async ({
   const shouldInsertJsxRuntime =
     Object.keys(jsxRuntimes).includes(code.script.language) &&
     !config.customSettings[code.script.language]?.disableAutoRender &&
-    (hasDefaultExport(code.script.compiled) || code.script.language === 'ripple') && // FIXME: ripple default export
+    hasDefaultExport(code.script.compiled) &&
     !hasCustomJsxRuntime(code.script.content || '', config) &&
     !importFromScript;
   const hasPreact = getImports(code.script.compiled).find((mod) => mod === 'preact');
