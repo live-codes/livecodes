@@ -968,6 +968,7 @@ export type Language =
   | 'riotjs'
   | 'malina'
   | 'malinajs'
+  | 'ripple'
   | 'xht'
   | 'coffeescript'
   | 'coffee'
