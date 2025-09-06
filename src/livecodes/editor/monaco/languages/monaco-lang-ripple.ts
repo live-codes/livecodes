@@ -1157,7 +1157,7 @@ export default {
             ],
           },
           {
-            name: 'meta.paramter.array-binding-pattern.js',
+            name: 'meta.parameter.array-binding-pattern.js',
             begin: '(?<!=|:)\\s*(?:(\\.\\.\\.)\\s*)?(\\[)',
             beginCaptures: {
               '1': {
@@ -3235,7 +3235,7 @@ export default {
           {
             name: 'meta.object.member.js meta.object-literal.key.js',
             begin: '(?=[\\\'\\"\\`])',
-            end: '(?=:)|((?<=[\\\'\\"\\`])(?=((\\s*[\\(\\<,}])|(\\s+(as|satisifies)\\s+))))',
+            end: '(?=:)|((?<=[\\\'\\"\\`])(?=((\\s*[\\(\\<,}])|(\\s+(as|satisfies)\\s+))))',
             patterns: [
               {
                 include: '#comment',
@@ -3249,7 +3249,7 @@ export default {
             name: 'meta.object.member.js meta.object-literal.key.js',
             begin:
               '(?x)(?=(\\b(?<!\\$)0(?:x|X)[0-9a-fA-F][0-9a-fA-F_]*(n)?\\b(?!\\$))|(\\b(?<!\\$)0(?:b|B)[01][01_]*(n)?\\b(?!\\$))|(\\b(?<!\\$)0(?:o|O)?[0-7][0-7_]*(n)?\\b(?!\\$))|((?<!\\$)(?:\n  (?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)| # 1.1E+3\n  (?:\\b[0-9][0-9_]*(\\.)[eE][+-]?[0-9][0-9_]*(n)?\\b)|             # 1.E+3\n  (?:\\B(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|             # .1E+3\n  (?:\\b[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|                 # 1E+3\n  (?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b)|                      # 1.1\n  (?:\\b[0-9][0-9_]*(\\.)(n)?\\B)|                                  # 1.\n  (?:\\B(\\.)[0-9][0-9_]*(n)?\\b)|                                  # .1\n  (?:\\b[0-9][0-9_]*(n)?\\b(?!\\.))                                 # 1\n)(?!\\$)))',
-            end: '(?=:)|(?=\\s*([\\(\\<,}])|(\\s+as|satisifies\\s+))',
+            end: '(?=:)|(?=\\s*([\\(\\<,}])|(\\s+as|satisfies\\s+))',
             patterns: [
               {
                 include: '#comment',
@@ -3352,7 +3352,7 @@ export default {
                 name: 'keyword.control.satisfies.js',
               },
             },
-            end: '(?=[;),}\\]:?\\-\\+\\>]|\\|\\||\\&\\&|\\!\\=\\=|$|^|((?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(as|satisifies)\\s+))',
+            end: '(?=[;),}\\]:?\\-\\+\\>]|\\|\\||\\&\\&|\\!\\=\\=|$|^|((?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(as|satisfies)\\s+))',
             patterns: [
               {
                 include: '#type',
