@@ -1547,15 +1547,17 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
 const loadUserConfig = (updateUI = true) => {
   if (isEmbed) return;
   const userConfig = stores.userConfig?.getValue();
+  const currentConfig = getConfig();
   setConfig(
     buildConfig({
-      ...getConfig(),
-      ...userConfig,
+      ...currentConfig,
+      ...getUserConfig(userConfig || currentConfig),
     }),
   );
   if (!updateUI) return;
-  loadSettings(getConfig());
-  setTheme(getConfig().theme, getConfig().editorTheme);
+  const newConfig = getConfig();
+  loadSettings(newConfig);
+  setTheme(newConfig.theme, newConfig.editorTheme);
   showSyncStatus(true);
 };
 
