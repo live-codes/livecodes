@@ -1423,6 +1423,7 @@ export type TemplateName =
   | 'ruby'
   | 'ruby-wasm'
   | 'go'
+  | 'go-wasm'
   | 'php'
   | 'php-wasm'
   | 'cpp'
