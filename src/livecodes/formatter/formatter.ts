@@ -1,14 +1,14 @@
-import type { FormatFn, Language } from '../models';
+import type { Config, FormatFn, Language } from '../models';
 import { getAppCDN } from '../services/modules';
 import type { Formatter, FormatterMessage, FormatterMessageEvent } from './models';
 
-export const createFormatter = (baseUrl: string): Formatter => {
+export const createFormatter = (baseUrl: string, config: Config): Formatter => {
   let worker: Worker | undefined;
 
   const initWorker = () => {
     if (worker) return;
     worker = new Worker(baseUrl + '{{hash:format.worker.js}}' + '?appCDN=' + getAppCDN());
-    const configMessage: FormatterMessage = { type: 'init', baseUrl };
+    const configMessage: FormatterMessage = { type: 'init', payload: { baseUrl, config } };
     worker.postMessage(configMessage);
   };
 

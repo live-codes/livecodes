@@ -8,13 +8,13 @@ export const getFormatter = (config: Config, baseUrl: string, lazy: boolean): Fo
   if (readonly || mode === 'codeblock' || mode === 'result') {
     return createFakeFormatter();
   } else if (lazy) {
-    return createLazyFormatter(baseUrl);
+    return createLazyFormatter(baseUrl, config);
   } else {
-    return createFormatter(baseUrl);
+    return createFormatter(baseUrl, config);
   }
 };
 
-const createLazyFormatter = (baseUrl: string) => {
+const createLazyFormatter = (baseUrl: string, config: Config) => {
   const fakeFormatter = createFakeFormatter();
   let formatter = fakeFormatter;
 
@@ -34,7 +34,7 @@ const createLazyFormatter = (baseUrl: string) => {
   };
 
   const loadFormatter = function () {
-    formatter = createFormatter(baseUrl);
+    formatter = createFormatter(baseUrl, config);
     lazyFormatter.load = formatter.load;
     lazyFormatter.getFormatFn = formatter.getFormatFn;
     lazyFormatter.destroy = formatter.destroy;

@@ -3,28 +3,26 @@ import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
 import { getCompileResult } from '../../compiler/utils';
 import type { CompilerFunction, Config } from '../../models';
 import { modulesService } from '../../services/modules';
+import { pkgInfoService } from '../../services/pkgInfo';
 import { getLanguageByAlias } from '../utils';
-
-const getLatestVersion = async () => {
-  const pkg = await fetch('https://data.jsdelivr.com/v1/packages/npm/ripple')
-    .then((res) => res.json())
-    .catch(() => ({}));
-  return pkg.tags?.latest || 'latest';
-};
 
 (self as any).createRippleCompiler = async (initialConfig: Config): Promise<CompilerFunction> => {
   const MAIN_FILE = '__LiveCodes_App__.ripple';
   let importedContent = '';
   let imports: Record<string, string> = {};
 
-  let version: string = initialConfig.customSettings.ripple?.version || (await getLatestVersion());
+  let version: string =
+    initialConfig.customSettings.ripple?.version ||
+    (await pkgInfoService.getPkgLatestVersion('ripple'));
   let compile: (code: string, filename: string) => Promise<{ js: { code: string }; css: string }>;
 
   const updateCompiler = async (currentVersion: string) => {
     if (typeof compile === 'function' && currentVersion === version) return;
-    const mod = await import(
-      /* @__PURE__ */ modulesService.getModuleUrl(`ripple@${currentVersion}/compiler`)
-    );
+    const modName =
+      currentVersion.startsWith('pr:ripple@') || currentVersion.startsWith('pkg.pr.new:ripple@')
+        ? `${currentVersion}/compiler` // 'pr:ripple@f8bdb34'
+        : `ripple@${currentVersion}/compiler`; // '0.2.25'
+    const mod = await import(modulesService.getModuleUrl(modName));
     compile = mod.compile;
     version = currentVersion;
   };
@@ -72,7 +70,7 @@ document.head.appendChild(styles);
 `;
 
     if (filename === MAIN_FILE) {
-      const moduleUrl = /* @__PURE__ */ modulesService.getModuleUrl(`ripple@${version}`);
+      const moduleUrl = modulesService.getModuleUrl(`ripple@${version}`);
       imports = {
         ...createImportMap(importedContent, config),
         ripple: moduleUrl,

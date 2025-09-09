@@ -1,13 +1,14 @@
 import type { LanguageSpecs } from '../../models';
-import { parserPlugins } from '../prettier';
 
 export const ripple: LanguageSpecs = {
   name: 'ripple',
   title: 'Ripple',
   info: false,
-  parser: {
-    name: 'ripple',
-    pluginUrls: [parserPlugins.ripple],
+  formatter: {
+    factory: async (baseUrl, _language, config) => {
+      (self as any).importScripts(baseUrl + '{{hash:lang-ripple-formatter.js}}');
+      return (self as any).createRippleFormatter(config);
+    },
   },
   compiler: {
     factory: (config, baseUrl) => {

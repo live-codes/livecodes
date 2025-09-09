@@ -1,6 +1,6 @@
 import { defaultConfig } from '../config/default-config';
 import { languages, parserPlugins, prettierUrl } from '../languages';
-import type { FormatFn, FormatterConfig, Language, Parser } from '../models';
+import type { Config, FormatFn, FormatterConfig, Language, Parser } from '../models';
 import type { FormatterMessage, FormatterMessageEvent } from './models';
 
 const worker: Worker = self as any;
@@ -9,6 +9,7 @@ declare const prettierPlugins: { [key: string]: { parsers: any } };
 declare const importScripts: (...args: string[]) => void;
 
 let baseUrl: string;
+let initialConfig: Config;
 const parsers: { [key: string]: Parser } = {};
 const plugins: { [key: string]: any } = {};
 const formatters: { [key: string]: FormatFn } = {};
@@ -94,7 +95,7 @@ async function loadParser(language: Language): Promise<Parser | undefined> {
   return parser;
 }
 
-const loadFormatter = (language: Language): FormatFn | undefined => {
+const loadFormatter = async (language: Language): Promise<FormatFn | undefined> => {
   if (language in formatters) {
     return formatters[language];
   }
@@ -102,7 +103,7 @@ const loadFormatter = (language: Language): FormatFn | undefined => {
   const formatter = getFormatter(language);
   if (!formatter) return;
 
-  formatters[language] = formatter.factory(baseUrl, language);
+  formatters[language] = await formatter.factory(baseUrl, language, initialConfig);
   return formatters[language];
 };
 
@@ -135,7 +136,7 @@ const format = async (
     return formatted || unFormatted;
   }
   if (getFormatter(language) != null) {
-    const formatFn = loadFormatter(language);
+    const formatFn = await loadFormatter(language);
     const result = await formatFn?.(value, cursorOffset);
     return result || unFormatted;
   }
@@ -148,7 +149,8 @@ worker.addEventListener(
     const message = event.data;
 
     if (message.type === 'init') {
-      baseUrl = message.baseUrl;
+      baseUrl = message.payload.baseUrl;
+      initialConfig = message.payload.config;
     }
 
     if (message.type === 'load') {

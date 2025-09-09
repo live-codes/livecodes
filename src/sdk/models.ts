@@ -1269,7 +1269,7 @@ export type FormatFn = (
 ) => Promise<{ formatted: string; cursorOffset: number }>;
 
 export interface LanguageFormatter {
-  factory: (baseUrl: string, language: Language) => FormatFn;
+  factory: (baseUrl: string, language: Language, config: Config) => FormatFn | Promise<FormatFn>;
 }
 
 export type CssPresetId = '' | 'normalize.css' | 'reset-css';
@@ -2077,6 +2077,7 @@ export interface CDNService {
   getPkgInfo: (pkgName: string) => Promise<PkgInfo | APIError>;
   getPkgFiles: (pkgName: string) => Promise<{ default?: string; files: string[] } | APIError>;
   getPkgDefaultFiles: (pkgName: string) => Promise<{ js?: string; css?: string } | APIError>;
+  getPkgLatestVersion: (pkgName: string) => Promise<string>;
 }
 
 export interface WorkerMessageEvent<T, K = unknown> extends MessageEvent {
