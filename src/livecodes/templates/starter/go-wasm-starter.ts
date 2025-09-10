@@ -45,10 +45,13 @@ export const goWasmStarter: Template = {
     const greetBtn = document.querySelector("#greet-btn");
     const calculateBtn = document.querySelector("#calculate-btn");
 
-    // Enable buttons
+    // Enable buttons and update text
     incrementBtn.disabled = false;
+    incrementBtn.textContent = "Increment";
     greetBtn.disabled = false;
+    greetBtn.textContent = "Greet";
     calculateBtn.disabled = false;
+    calculateBtn.textContent = "Calculate";
 
     // Counter demo
     incrementBtn.onclick = async () => {
