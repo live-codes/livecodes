@@ -54,10 +54,8 @@ const workerSrc = `
         };
 
         // Set up stdin if input is provided
-        if (input) {
-          // This would need to be implemented based on how Yaegi handles stdin
-          // For now, we'll just log the input
-          originalConsoleLog('Input:', input);
+        if (input && globalThis.setStdin) {
+          globalThis.setStdin(input);
         }
 
         if (self.yaegi) {
