@@ -53,9 +53,8 @@ export const goWasmStarter: Template = {
     // Counter demo
     incrementBtn.onclick = async () => {
       const currentCount = parseInt(document.querySelector("#counter").textContent);
-      const newCount = currentCount + 1;
       
-      const {output, error} = await livecodes.goWasm.run(newCount.toString());
+      const {output, error} = await livecodes.goWasm.run(currentCount.toString());
       if (error) {
         console.error('Error:', error);
       } else {
@@ -194,8 +193,9 @@ func main() {
         
         // Try to parse as number (for counter demo)
         if count, err := strconv.Atoi(input); err == nil {
-            // Counter demo - just return the number
-            fmt.Println(count)
+            // Counter demo - increment and return the new number
+            newCount := count + 1
+            fmt.Println(newCount)
             return
         }
         
