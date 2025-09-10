@@ -26,14 +26,7 @@ export const goWasmStarter: Template = {
     <p id="greeting"></p>
   </div>
 
-  <div class="demo-section">
-    <h2>Math Operations</h2>
-    <p>Enter two numbers:</p>
-    <input type="number" id="num1" placeholder="First number" />
-    <input type="number" id="num2" placeholder="Second number" />
-    <button id="calculate-btn" disabled>Loading...</button>
-    <p id="result"></p>
-  </div>
+
 </div>
 
 <script>
@@ -43,15 +36,12 @@ export const goWasmStarter: Template = {
 
     const incrementBtn = document.querySelector("#increment-btn");
     const greetBtn = document.querySelector("#greet-btn");
-    const calculateBtn = document.querySelector("#calculate-btn");
 
     // Enable buttons and update text
     incrementBtn.disabled = false;
     incrementBtn.textContent = "Increment";
     greetBtn.disabled = false;
     greetBtn.textContent = "Greet";
-    calculateBtn.disabled = false;
-    calculateBtn.textContent = "Calculate";
 
     // Counter demo
     incrementBtn.onclick = async () => {
@@ -81,24 +71,6 @@ export const goWasmStarter: Template = {
       }
     };
 
-    // Math demo
-    calculateBtn.onclick = async () => {
-      const num1 = document.querySelector("#num1").value;
-      const num2 = document.querySelector("#num2").value;
-      
-      if (!num1 || !num2) {
-        alert('Please enter both numbers');
-        return;
-      }
-      
-      const input = num1 + "\\n" + num2;
-      const {output, error} = await livecodes.goWasm.run(input);
-      if (error) {
-        console.error('Error:', error);
-      } else {
-        document.querySelector("#result").textContent = output.trim();
-      }
-    };
   });
 </script>
 `.trimStart(),
@@ -202,22 +174,7 @@ func main() {
             return
         }
         
-        // Try to parse as two numbers separated by newline (for math demo)
-        if strings.Contains(input, "\\n") {
-            parts := strings.Split(input, "\\n")
-            if len(parts) == 2 {
-                if num1, err1 := strconv.Atoi(parts[0]); err1 == nil {
-                    if num2, err2 := strconv.Atoi(parts[1]); err2 == nil {
-                        // Math demo
-                        sum := num1 + num2
-                        product := num1 * num2
-                        fmt.Printf("Sum: %d + %d = %d\\n", num1, num2, sum)
-                        fmt.Printf("Product: %d × %d = %d\\n", num1, num2, product)
-                        return
-                    }
-                }
-            }
-        }
+       
         
         // Greeting demo - treat as name
         fmt.Printf("Hello, %s! Welcome to Go WebAssembly!\\n", input)
