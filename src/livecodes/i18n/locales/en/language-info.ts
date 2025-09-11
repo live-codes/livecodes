@@ -134,6 +134,11 @@ const languageInfo = {
     link: '<1><2>Go website</2></1> <3><4>Go documentation</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Learn X in Y minutes, where X=Go</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Go',
   },
+  goWasm: {
+    desc: 'Go compiler running on WebAssembly, using <1>Yaegi</1>',
+    link: '<1> <2>Go official website</2> </1> <3> <4>Yaegi</4> </3> <5> <6>Learn X in Y minutes, where X=Go</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: 'Haml compiler for client side javascript view templates using clientside-haml-js.',
     link: '<1><2>Haml official website</2></1> <3> <4>Haml documentation</4> </3> <5> <6>clientside-haml-js GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=haml</8> </7> <9> <10>LiveCodes Documentations</10> </9>',

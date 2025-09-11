@@ -1029,7 +1029,7 @@ svg
 .container h3:not(:nth-child(1)) {
   margin-top: 3em;
 }
-`.trimStart()},script:{language:"javascript",content:""},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var $={name:"fennel",title:getTemplateName("templates.starter.fennel","Fennel Starter"),thumbnail:"assets/templates/fennel.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},script:{language:"javascript",content:""},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var q={name:"fennel",title:getTemplateName("templates.starter.fennel","Fennel Starter"),thumbnail:"assets/templates/fennel.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/fennel.svg" />
@@ -1063,7 +1063,7 @@ svg
 (global counter (Counter:new nil))
 (global button (document:querySelector "#counter-button"))
 (button:addEventListener :click (fn [] (counter:increment) (counter:show)))
-`.trimStart()}};var L=["esm.sh","skypack","esm.run","jsdelivr.esm","fastly.jsdelivr.esm","gcore.jsdelivr.esm","testingcf.jsdelivr.esm","jsdelivr.b-cdn.esm","jspm"],B=["jsdelivr","fastly.jsdelivr","unpkg","gcore.jsdelivr","testingcf.jsdelivr","jsdelivr.b-cdn","npmcdn"],M=["jsdelivr.gh","fastly.jsdelivr.gh","statically","gcore.jsdelivr.gh","testingcf.jsdelivr.gh","jsdelivr.b-cdn.gh"],r={getModuleUrl:(e,{isModule:s=!0,defaultCDN:i="esm.sh",external:o}={})=>{e=e.replace(/#nobundle/g,"");let a=n=>!o||!n.includes("https://esm.sh")?n:n.includes("?")?`${n}&external=${o}`:`${n}?external=${o}`,l=q(e,s,i);return l?a(l):s?a("https://esm.sh/"+e):"https://cdn.jsdelivr.net/npm/"+e},getUrl:(e,s)=>e.startsWith("http")||e.startsWith("data:")?e:q(e,!1,s||$t())||e,cdnLists:{npm:B,module:L,gh:M},checkCDNs:async(e,s)=>{let i=[s,...r.cdnLists.npm].filter(Boolean);for(let o of i)try{if((await fetch(r.getUrl(e,o),{method:"HEAD"})).ok)return o}catch{}return r.cdnLists.npm[0]}},$t=()=>{if(globalThis.appCDN)return globalThis.appCDN;try{return new URL(location.href).searchParams.get("appCDN")||r.cdnLists.npm[0]}catch{return r.cdnLists.npm[0]}},q=(e,s,i)=>{let o=s&&e.startsWith("unpkg:")?"?module":"";e.startsWith("gh:")?e=e.replace("gh",M[0]):e.includes(":")||(e=(i||(s?L[0]:B[0]))+":"+e);for(let a of qt){let[l,n]=a;if(l.test(e))return e.replace(l,n)+o}return null},qt=[[/^(esm\.sh:)(.+)/i,"https://esm.sh/$2"],[/^(npm:)(.+)/i,"https://esm.sh/$2"],[/^(node:)(.+)/i,"https://esm.sh/$2"],[/^(jsr:)(.+)/i,"https://esm.sh/jsr/$2"],[/^(pr:)(.+)/i,"https://esm.sh/pr/$2"],[/^(pkg\.pr\.new:)(.+)/i,"https://esm.sh/pkg.pr.new/$2"],[/^(skypack:)(.+)/i,"https://cdn.skypack.dev/$2"],[/^(jsdelivr:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2"],[/^(fastly\.jsdelivr:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2"],[/^(gcore\.jsdelivr:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2"],[/^(testingcf\.jsdelivr:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2"],[/^(jsdelivr\.b-cdn:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2"],[/^(jsdelivr\.gh:)(.+)/i,"https://cdn.jsdelivr.net/gh/$2"],[/^(fastly\.jsdelivr\.gh:)(.+)/i,"https://fastly.jsdelivr.net/gh/$2"],[/^(gcore\.jsdelivr\.gh:)(.+)/i,"https://gcore.jsdelivr.net/gh/$2"],[/^(testingcf\.jsdelivr\.gh:)(.+)/i,"https://testingcf.jsdelivr.net/gh/$2"],[/^(jsdelivr\.b-cdn\.gh:)(.+)/i,"https://jsdelivr.b-cdn.net/gh/$2"],[/^(statically:)(.+)/i,"https://cdn.statically.io/gh/$2"],[/^(esm\.run:)(.+)/i,"https://esm.run/$2"],[/^(jsdelivr\.esm:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2/+esm"],[/^(fastly\.jsdelivr\.esm:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2/+esm"],[/^(gcore\.jsdelivr\.esm:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2/+esm"],[/^(testingcf\.jsdelivr\.esm:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2/+esm"],[/^(jsdelivr\.b-cdn\.esm:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2/+esm"],[/^(jspm:)(.+)/i,"https://jspm.dev/$2"],[/^(esbuild:)(.+)/i,"https://esbuild.vercel.app/$2"],[/^(bundle\.run:)(.+)/i,"https://bundle.run/$2"],[/^(unpkg:)(.+)/i,"https://unpkg.com/$2"],[/^(npmcdn:)(.+)/i,"https://npmcdn.com/$2"],[/^(bundlejs:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(bundle:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(deno:)(.+)/i,"https://deno.bundlejs.com/?file&q=https://deno.land/x/$2/mod.ts"],[/^(https:\/\/deno\.land\/.+)/i,"https://deno.bundlejs.com/?file&q=$1"],[/^(github:|https:\/\/github\.com\/)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,"https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/$2/$3@$4"],[/^(gist\.github:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(gitlab:|https:\/\/gitlab\.com\/)([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://gl.githack.com/$2/raw/$3"],[/^(bitbucket:|https:\/\/bitbucket\.org\/)([^\/]+\/[^\/]+)\/(?:raw|src)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://bb.githack.com/$2/raw/$3"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/]+)\/revisions\/([^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/$3/files/$4"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/HEAD/files/$3"],[/^(bitbucket:)\!api\/2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(api\.bitbucket:)2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(rawgit:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(rawgit:|https:\/\/raw\.githubusercontent\.com)(\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,"https://deno.bundlejs.com/?file&q=https://raw.githack.com/$2/$3"]];var{getUrl:Lt,getModuleUrl:te}=r;var c=Lt("gh:live-codes/gleam-precompiled@v0.5.0/");var p=c+"build/packages/plinth/src/plinth/",m=c+"build/dev/javascript/plinth/plinth/",P={name:"gleam",title:getTemplateName("templates.starter.gleam","Gleam Starter"),thumbnail:"assets/templates/gleam.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var L=["esm.sh","skypack","esm.run","jsdelivr.esm","fastly.jsdelivr.esm","gcore.jsdelivr.esm","testingcf.jsdelivr.esm","jsdelivr.b-cdn.esm","jspm"],B=["jsdelivr","fastly.jsdelivr","unpkg","gcore.jsdelivr","testingcf.jsdelivr","jsdelivr.b-cdn","npmcdn"],M=["jsdelivr.gh","fastly.jsdelivr.gh","statically","gcore.jsdelivr.gh","testingcf.jsdelivr.gh","jsdelivr.b-cdn.gh"],r={getModuleUrl:(e,{isModule:s=!0,defaultCDN:i="esm.sh",external:o}={})=>{e=e.replace(/#nobundle/g,"");let a=n=>!o||!n.includes("https://esm.sh")?n:n.includes("?")?`${n}&external=${o}`:`${n}?external=${o}`,l=$(e,s,i);return l?a(l):s?a("https://esm.sh/"+e):"https://cdn.jsdelivr.net/npm/"+e},getUrl:(e,s)=>e.startsWith("http")||e.startsWith("data:")?e:$(e,!1,s||qt())||e,cdnLists:{npm:B,module:L,gh:M},checkCDNs:async(e,s)=>{let i=[s,...r.cdnLists.npm].filter(Boolean);for(let o of i)try{if((await fetch(r.getUrl(e,o),{method:"HEAD"})).ok)return o}catch{}return r.cdnLists.npm[0]}},qt=()=>{if(globalThis.appCDN)return globalThis.appCDN;try{return new URL(location.href).searchParams.get("appCDN")||r.cdnLists.npm[0]}catch{return r.cdnLists.npm[0]}},$=(e,s,i)=>{let o=s&&e.startsWith("unpkg:")?"?module":"";e.startsWith("gh:")?e=e.replace("gh",M[0]):e.includes(":")||(e=(i||(s?L[0]:B[0]))+":"+e);for(let a of $t){let[l,n]=a;if(l.test(e))return e.replace(l,n)+o}return null},$t=[[/^(esm\.sh:)(.+)/i,"https://esm.sh/$2"],[/^(npm:)(.+)/i,"https://esm.sh/$2"],[/^(node:)(.+)/i,"https://esm.sh/$2"],[/^(jsr:)(.+)/i,"https://esm.sh/jsr/$2"],[/^(pr:)(.+)/i,"https://esm.sh/pr/$2"],[/^(pkg\.pr\.new:)(.+)/i,"https://esm.sh/pkg.pr.new/$2"],[/^(skypack:)(.+)/i,"https://cdn.skypack.dev/$2"],[/^(jsdelivr:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2"],[/^(fastly\.jsdelivr:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2"],[/^(gcore\.jsdelivr:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2"],[/^(testingcf\.jsdelivr:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2"],[/^(jsdelivr\.b-cdn:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2"],[/^(jsdelivr\.gh:)(.+)/i,"https://cdn.jsdelivr.net/gh/$2"],[/^(fastly\.jsdelivr\.gh:)(.+)/i,"https://fastly.jsdelivr.net/gh/$2"],[/^(gcore\.jsdelivr\.gh:)(.+)/i,"https://gcore.jsdelivr.net/gh/$2"],[/^(testingcf\.jsdelivr\.gh:)(.+)/i,"https://testingcf.jsdelivr.net/gh/$2"],[/^(jsdelivr\.b-cdn\.gh:)(.+)/i,"https://jsdelivr.b-cdn.net/gh/$2"],[/^(statically:)(.+)/i,"https://cdn.statically.io/gh/$2"],[/^(esm\.run:)(.+)/i,"https://esm.run/$2"],[/^(jsdelivr\.esm:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2/+esm"],[/^(fastly\.jsdelivr\.esm:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2/+esm"],[/^(gcore\.jsdelivr\.esm:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2/+esm"],[/^(testingcf\.jsdelivr\.esm:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2/+esm"],[/^(jsdelivr\.b-cdn\.esm:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2/+esm"],[/^(jspm:)(.+)/i,"https://jspm.dev/$2"],[/^(esbuild:)(.+)/i,"https://esbuild.vercel.app/$2"],[/^(bundle\.run:)(.+)/i,"https://bundle.run/$2"],[/^(unpkg:)(.+)/i,"https://unpkg.com/$2"],[/^(npmcdn:)(.+)/i,"https://npmcdn.com/$2"],[/^(bundlejs:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(bundle:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(deno:)(.+)/i,"https://deno.bundlejs.com/?file&q=https://deno.land/x/$2/mod.ts"],[/^(https:\/\/deno\.land\/.+)/i,"https://deno.bundlejs.com/?file&q=$1"],[/^(github:|https:\/\/github\.com\/)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,"https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/$2/$3@$4"],[/^(gist\.github:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(gitlab:|https:\/\/gitlab\.com\/)([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://gl.githack.com/$2/raw/$3"],[/^(bitbucket:|https:\/\/bitbucket\.org\/)([^\/]+\/[^\/]+)\/(?:raw|src)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://bb.githack.com/$2/raw/$3"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/]+)\/revisions\/([^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/$3/files/$4"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/HEAD/files/$3"],[/^(bitbucket:)\!api\/2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(api\.bitbucket:)2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(rawgit:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(rawgit:|https:\/\/raw\.githubusercontent\.com)(\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,"https://deno.bundlejs.com/?file&q=https://raw.githack.com/$2/$3"]];var{getUrl:Lt,getModuleUrl:te}=r;var c=Lt("gh:live-codes/gleam-precompiled@v0.5.0/");var p=c+"build/packages/plinth/src/plinth/",m=c+"build/dev/javascript/plinth/plinth/",P={name:"gleam",title:getTemplateName("templates.starter.gleam","Gleam Starter"),thumbnail:"assets/templates/gleam.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1 id="title">Hello, World!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/gleam.svg" />
@@ -1131,7 +1131,7 @@ pub fn hello(str: String) -> String
 // npm module
 @external(javascript, "npm:cowsay2", "say")
 pub fn cowsay(str: String) -> String
-`.trimStart()},customSettings:{imports:{"my_pkg/greet.js":c+"demo/greet.js"},gleam:{modules:{"plinth/browser/document":{srcUrl:p+"browser/document.gleam",compiledUrl:m+"browser/document.mjs"},"plinth/browser/element":{srcUrl:p+"browser/element.gleam",compiledUrl:m+"browser/element.mjs"},"plinth/browser/event":{srcUrl:p+"browser/event.gleam",compiledUrl:m+"browser/event.mjs"}}}}};var N={name:"go",title:getTemplateName("templates.starter.go","Go Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},customSettings:{imports:{"my_pkg/greet.js":c+"demo/greet.js"},gleam:{modules:{"plinth/browser/document":{srcUrl:p+"browser/document.gleam",compiledUrl:m+"browser/document.mjs"},"plinth/browser/element":{srcUrl:p+"browser/element.gleam",compiledUrl:m+"browser/element.mjs"},"plinth/browser/event":{srcUrl:p+"browser/event.gleam",compiledUrl:m+"browser/event.mjs"}}}}};var R={name:"go",title:getTemplateName("templates.starter.go","Go Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/go.svg" />
@@ -1194,72 +1194,175 @@ func greet() {
 		fmt.Println("Good evening")
 	}
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var R={name:"go-wasm",title:"C++ (Wasm) Starter",thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var N={name:"go-wasm",title:"Go (Wasm) Starter",thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
-  <h1>Hello, <span id="name">World</span>!</h1>
-  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/go.svg" />
-  <p>You clicked <span id="counter">0</span> times.</p>
-  <button id="counter-button" disabled>Loading...</button>
+  <h1>Go WebAssembly Demo</h1>
+  <img class="logo" alt="Go logo" src="{{ __livecodes_baseUrl__ }}assets/templates/go.svg" />
+  
+  <div class="demo-section">
+    <h2>Interactive Counter</h2>
+    <p>Current count: <span id="counter">0</span></p>
+    <button id="increment-btn" disabled>Loading...</button>
+  </div>
+
+  <div class="demo-section">
+    <h2>Stdin Input Demo</h2>
+    <p>Enter your name:</p>
+    <input type="text" id="name-input" placeholder="Your name" />
+    <button id="greet-btn" disabled>Loading...</button>
+    <p id="greeting"></p>
+  </div>
+
+
 </div>
 
 <script>
-  // set initial input
-  livecodes.goWasm.input = "-1";
-
   addEventListener('load', async () => {
-    const button = document.querySelector("#counter-button");
-
-    // wait till loaded
+    // Wait for Go WASM to load
     await livecodes.goWasm.loaded;
 
-    // get initial output
-    const initialOutput = livecodes.goWasm.output;
-    update(initialOutput);
+    const incrementBtn = document.querySelector("#increment-btn");
+    const greetBtn = document.querySelector("#greet-btn");
 
-    button.onclick = async () => {
-      button.disabled = true;
-      // run with new input
-      const {output, error, exitCode} = await livecodes.goWasm.run(window.count);
-      update(output);
+    // Enable buttons and update text
+    incrementBtn.disabled = false;
+    incrementBtn.textContent = "Increment";
+    greetBtn.disabled = false;
+    greetBtn.textContent = "Greet";
+
+    // Counter demo
+    incrementBtn.onclick = async () => {
+      const currentCount = parseInt(document.querySelector("#counter").textContent);
+      
+      const {output, error} = await livecodes.goWasm.run(currentCount.toString());
+      if (error) {
+        console.error('Error:', error);
+      } else {
+        document.querySelector("#counter").textContent = output.trim();
+      }
     };
 
-    function update(output) {
-      const counter = document.querySelector("#counter");
-      const name = document.querySelector("#name");
-
-      const [title, count] = output.split('\\n');
-
-      if (parseInt(count) !== NaN) {
-        window.count = count;
-        counter.innerText = window.count;
+    // Greeting demo
+    greetBtn.onclick = async () => {
+      const name = document.querySelector("#name-input").value;
+      if (!name) {
+        alert('Please enter your name');
+        return;
       }
-      if (title) {
-        name.innerText = title;
+      
+      const {output, error} = await livecodes.goWasm.run(name);
+      if (error) {
+        console.error('Error:', error);
+      } else {
+        document.querySelector("#greeting").textContent = output.trim();
       }
-      button.innerText = "Click me";
-      button.disabled = false;
-    }
+    };
+
   });
 <\/script>
 `.trimStart()},style:{language:"css",content:`
-.container,
-.container button {
-  text-align: center;
-  font: 1em sans-serif;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
+
 .logo {
   width: 150px;
+  display: block;
+  margin: 20px auto;
+}
+
+.demo-section {
+  background: #f5f5f5;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  border-left: 4px solid #00add8;
+}
+
+.demo-section h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+button {
+  background: #00add8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px 5px;
+}
+
+button:hover:not(:disabled) {
+  background: #0099c7;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+input[type="text"], input[type="number"] {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  margin: 5px;
+  width: 200px;
+}
+
+#counter {
+  font-weight: bold;
+  color: #00add8;
+  font-size: 24px;
+}
+
+#greeting, #result {
+  font-weight: bold;
+  color: #333;
+  margin-top: 10px;
 }
 `.trimStart()},script:{language:"go-wasm",content:`
 package main
 
-import "fmt"
+import (
+    "bufio"
+    "fmt"
+    "os"
+    "strconv"
+    "strings"
+)
 
 func main() {
-    fmt.Println("Go (Wasm)")
-
-    // we need to read stdin and increment count
-    fmt.Println("0")
+    // Read input from stdin
+    scanner := bufio.NewScanner(os.Stdin)
+    
+    if scanner.Scan() {
+        input := strings.TrimSpace(scanner.Text())
+        
+        // Try to parse as number (for counter demo)
+        if count, err := strconv.Atoi(input); err == nil {
+            // Counter demo - increment and return the new number
+            newCount := count + 1
+            fmt.Println(newCount)
+            return
+        }
+        
+       
+        
+        // Greeting demo - treat as name
+        fmt.Printf("Hello, %s! Welcome to Go WebAssembly!\\n", input)
+        fmt.Println("This is running in your browser using Go compiled to WebAssembly.")
+    } else {
+        // No input provided
+        fmt.Println("Hello from Go WebAssembly!")
+        fmt.Println("This program demonstrates stdin handling in Go WASM.")
+    }
 }
 `.trimStart()}};var H={name:"imba",title:getTemplateName("templates.starter.imba","Imba Starter"),thumbnail:"assets/templates/imba.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"imba",content:`
 tag app-counter
@@ -1353,7 +1456,7 @@ public class Main {
     System.out.println(count);
   }
 }
-`.trimStart()}};var O={name:"javascript",title:getTemplateName("templates.starter.javascript","JavaScript Starter"),thumbnail:"assets/templates/javascript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var I={name:"javascript",title:getTemplateName("templates.starter.javascript","JavaScript Starter"),thumbnail:"assets/templates/javascript.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/javascript.svg" />
@@ -1381,7 +1484,7 @@ button.addEventListener("click", () => {
   count++;
   counter.innerText = count;
 });
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var I={name:"jest-react",title:getTemplateName("templates.starter.jest-react","Jest/React Starter"),thumbnail:"assets/templates/jest.svg",activeEditor:"script",autotest:!0,markup:{language:"html",content:""},style:{language:"css",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var A={name:"jest-react",title:getTemplateName("templates.starter.jest-react","Jest/React Starter"),thumbnail:"assets/templates/jest.svg",activeEditor:"script",autotest:!0,markup:{language:"html",content:""},style:{language:"css",content:`
 .container,
 .container button {
   text-align: center;
@@ -1553,7 +1656,7 @@ describe("Page", () => {
     );
   });
 });
-`.trimStart()},tools:{enabled:"all",active:"tests",status:"open"}};var Y={name:"jquery",title:getTemplateName("templates.starter.jquery","jQuery Starter"),thumbnail:"assets/templates/jquery.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},tools:{enabled:"all",active:"tests",status:"open"}};var O={name:"jquery",title:getTemplateName("templates.starter.jquery","jQuery Starter"),thumbnail:"assets/templates/jquery.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/jquery.svg" />
@@ -1579,7 +1682,7 @@ $("#counter-button").click(() => {
   count += 1;
   $("#counter").text(count);
 });
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var A={name:"julia",title:getTemplateName("templates.starter.julia","Julia Starter"),thumbnail:"assets/templates/julia.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Y={name:"julia",title:getTemplateName("templates.starter.julia","Julia Starter"),thumbnail:"assets/templates/julia.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/julia.svg" />
@@ -3863,4 +3966,4 @@ new Vue({
     (i32.add (local.get $0) (i32.const 1))
   )
 )
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var uo=[b,O,Tt,mt,pt,Ct,d,rt,St,yt,G,wt,K,kt,vt,U,v,g,gt,J,Y,h,z,D,I,C,et,Ut,S,V,y,x,H,ut,dt,Q,it,lt,ct,ht,bt,N,R,st,ot,_,j,W,T,tt,X,F,jt,$,A,ft,k,w,P,_t,Z,u,Et,xt,nt,at,f,E];export{uo as starterTemplates};
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var uo=[b,I,Tt,mt,pt,Ct,d,rt,St,yt,G,wt,K,kt,vt,U,v,g,gt,J,O,h,z,D,A,C,et,Ut,S,V,y,x,H,ut,dt,Q,it,lt,ct,ht,bt,R,N,st,ot,_,j,W,T,tt,X,F,jt,q,Y,ft,k,w,P,_t,Z,u,Et,xt,nt,at,f,E];export{uo as starterTemplates};
