@@ -6,7 +6,7 @@ import { prettierEsmUrl, prettierRippleUrl } from '../../vendors';
 
 (self as any).createRippleFormatter = async (initialConfig: Config): Promise<FormatFn> => {
   const version =
-    initialConfig.customSettings.ripple?.version ||
+    initialConfig.customSettings?.ripple?.version ||
     (await pkgInfoService.getPkgLatestVersion('ripple'));
   const pluginUrl =
     version.startsWith('pr:ripple@') || version.startsWith('pkg.pr.new:ripple@')
