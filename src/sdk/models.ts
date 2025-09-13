@@ -1291,6 +1291,7 @@ export interface CompileInfo {
   modifiedHTML?: string;
   importedContent?: string;
   imports?: Record<string, string>;
+  errors?: string[];
 }
 
 export interface CompileResult {

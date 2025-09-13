@@ -1,8 +1,15 @@
 import type TS from 'typescript';
 import { getCompilerOptions } from '../editor/ts-compiler-options';
 import { languages, processors } from '../languages';
-import type { CompileOptions, Compilers, Config, EditorLibrary, Language } from '../models';
-import { doOnce, objectFilter } from '../utils/utils';
+import type {
+  CompileOptions,
+  CompileResult,
+  Compilers,
+  Config,
+  EditorLibrary,
+  Language,
+} from '../models';
+import { doOnce, getErrorMessage, objectFilter } from '../utils/utils';
 import { codeMirrorBaseUrl, comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
 import { getAllCompilers } from './get-all-compilers';
 import type { CompilerMessage, CompilerMessageEvent, LanguageOrProcessor } from './models';
@@ -98,15 +105,18 @@ const compile = async (
     throw new Error('Failed to load compiler for: ' + language);
   }
 
-  let value;
+  let value: string | CompileResult = '';
   try {
     value = await compiler(content, { config, language, baseUrl, options });
-  } catch (err) {
+  } catch (err: any) {
     // eslint-disable-next-line no-console
     console.error('Failed compiling: ' + language, err);
-    value = content;
+    value = {
+      code: '',
+      info: { errors: [getErrorMessage(err)] },
+    };
   }
-  return value || '';
+  return value;
 };
 
 const loadTypeScript = async () => {

@@ -996,7 +996,7 @@ const getResultPage = async ({
     },
   };
 
-  const compileResults = await Promise.all([
+  const [styleCompileResult, testsCompileResult] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: `${compiledMarkup}<script type="script-for-styles">${compiledScript}</script>
         <script type="script-for-styles">${compileInfo.importedContent}</script>`,
@@ -1008,8 +1008,7 @@ const getResultPage = async ({
         : compiler.compile(testsContent, testsLanguage, config, {})
       : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')),
   ]);
-
-  const [compiledStyle, compiledTests] = compileResults.map((result) => {
+  const [compiledStyle, compiledTests] = [styleCompileResult, testsCompileResult].map((result) => {
     const { code, info } = getCompileResult(result);
     compileInfo = {
       ...compileInfo,
@@ -1062,6 +1061,14 @@ const getResultPage = async ({
   });
 
   const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
+
+  const compileErrors = [
+    ...(markupCompileResult.info?.errors ?? []),
+    ...(styleCompileResult.info?.errors ?? []),
+    ...(scriptCompileResult.info?.errors ?? []),
+    ...(getCompileResult(testsCompileResult).info?.errors ?? []),
+  ];
+  compileErrors.forEach((err) => toolsPane?.console?.error(err));
 
   if (singleFile) {
     setCache({
