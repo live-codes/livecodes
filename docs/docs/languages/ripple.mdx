@@ -102,7 +102,7 @@ export const customRoot = {
 
 ### Manual Mount
 
-Exports from Ripple code can be imported in [markup editor](../features/projects.mdx#markup-editor) from `"./script"` and used to mount the application instance manually.
+Exports from Ripple code can be imported in [markup editor](../features/projects.mdx#markup-editor) from `"./Component.ripple"` and used to mount the application instance manually.
 See [Exports](#exports) for details.
 
 Example:
@@ -116,7 +116,7 @@ export const manualMount = {
 
 <script type="module">
   import { mount } from 'ripple';
-  import { App } from "./script";
+  import { App } from "./Component.ripple";
 
   mount(App, {
     props: { name: 'Ripple' },

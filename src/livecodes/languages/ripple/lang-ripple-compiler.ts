@@ -7,7 +7,7 @@ import { pkgInfoService } from '../../services/pkgInfo';
 import { getLanguageByAlias } from '../utils';
 
 (self as any).createRippleCompiler = async (initialConfig: Config): Promise<CompilerFunction> => {
-  const MAIN_FILE = '__LiveCodes_App__.ripple';
+  const MAIN_FILE = 'Component.ripple';
   let importedContent = '';
   let imports: Record<string, string> = {};
 
