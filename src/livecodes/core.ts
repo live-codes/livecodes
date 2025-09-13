@@ -1070,6 +1070,9 @@ const getResultPage = async ({
       result: cleanResultFromDev(result),
       styleOnlyUpdate,
     });
+    updateCache('markup', markupLanguage, compiledMarkup);
+    updateCache('style', styleLanguage, compiledStyle);
+    updateCache('script', scriptLanguage, compiledScript);
 
     if (broadcastInfo.isBroadcasting) {
       broadcast();
@@ -1124,17 +1127,9 @@ const flushResult = () => {
     wat: ';; loading',
   };
 
-  updateCache(
-    'markup',
-    compiledLanguages.markup,
-    loadingComments[compiledLanguages.markup] || 'html',
-  );
-  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] || 'css');
-  updateCache(
-    'script',
-    compiledLanguages.script,
-    loadingComments[compiledLanguages.script] || 'javascript',
-  );
+  updateCache('markup', compiledLanguages.markup, loadingComments[compiledLanguages.markup] ?? '');
+  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] ?? '');
+  updateCache('script', compiledLanguages.script, loadingComments[compiledLanguages.script] ?? '');
   setCache({
     ...getCache(),
     tests: {
