@@ -58,10 +58,9 @@ import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
       });
       js = result.js;
     } catch (err) {
-      const empty = `export default () => {}`;
       errors.push(getErrorMessage(err));
       return {
-        code: language === 'svelte-app' ? `<script type="module">${empty}</script>` : empty,
+        code: '',
         info: { errors },
       };
     }

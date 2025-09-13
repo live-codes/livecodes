@@ -1065,13 +1065,13 @@ const getResultPage = async ({
 
   const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
 
-  const compileErrors = [
-    ...(markupCompileResult.info?.errors ?? []),
-    ...(styleCompileResult.info?.errors ?? []),
-    ...(scriptCompileResult.info?.errors ?? []),
-    ...(getCompileResult(testsCompileResult).info?.errors ?? []),
-  ];
-  compileErrors.forEach((err) => toolsPane?.console?.error(err));
+  const logError = (language: Language, errors: string[] = []) => {
+    errors.forEach((err) => toolsPane?.console?.error(`[${getLanguageTitle(language)}] ${err}`));
+  };
+  logError(markupLanguage, markupCompileResult.info?.errors);
+  logError(styleLanguage, styleCompileResult.info?.errors);
+  logError(scriptLanguage, scriptCompileResult.info?.errors);
+  logError(testsLanguage, getCompileResult(testsCompileResult).info?.errors);
 
   if (singleFile) {
     setCache({
