@@ -2,6 +2,7 @@
 
 /* eslint-disable max-classes-per-file */
 import type { CompilerFunction } from '../../models';
+import { getErrorMessage } from '../../utils/utils';
 import { gleamBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../utils';
 import { modules, type Modules } from './gleam-modules';
@@ -193,7 +194,10 @@ import { modules, type Modules } from './gleam-modules';
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn(error);
-      return '';
+      return {
+        code: '',
+        info: { errors: [getErrorMessage(error)] },
+      };
     } finally {
       project.delete();
     }
