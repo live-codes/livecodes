@@ -996,7 +996,7 @@ const getResultPage = async ({
     },
   };
 
-  const compileResults = await Promise.all([
+  const [styleCompileResult, testsCompileResult] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: `${compiledMarkup}<script type="script-for-styles">${compiledScript}</script>
         <script type="script-for-styles">${compileInfo.importedContent}</script>`,
@@ -1008,8 +1008,7 @@ const getResultPage = async ({
         : compiler.compile(testsContent, testsLanguage, config, {})
       : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')),
   ]);
-
-  const [compiledStyle, compiledTests] = compileResults.map((result) => {
+  const [compiledStyle, compiledTests] = [styleCompileResult, testsCompileResult].map((result) => {
     const { code, info } = getCompileResult(result);
     compileInfo = {
       ...compileInfo,
@@ -1027,10 +1026,12 @@ const getResultPage = async ({
     markup: {
       ...contentConfig.markup,
       compiled: compiledMarkup,
+      modified: compiledMarkup,
     },
     style: {
       ...contentConfig.style,
       compiled: compiledStyle,
+      modified: compiledStyle,
     },
     script: {
       ...contentConfig.script,
@@ -1045,6 +1046,7 @@ const getResultPage = async ({
       compiled: compiledTests,
     },
   };
+  compiledCode.script.modified = compiledCode.script.compiled;
 
   if (scriptType != null && scriptType !== 'module') {
     singleFile = true;
@@ -1062,6 +1064,14 @@ const getResultPage = async ({
   });
 
   const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
+
+  const logError = (language: Language, errors: string[] = []) => {
+    errors.forEach((err) => toolsPane?.console?.error(`[${getLanguageTitle(language)}] ${err}`));
+  };
+  logError(markupLanguage, markupCompileResult.info?.errors);
+  logError(styleLanguage, styleCompileResult.info?.errors);
+  logError(scriptLanguage, scriptCompileResult.info?.errors);
+  logError(testsLanguage, getCompileResult(testsCompileResult).info?.errors);
 
   if (singleFile) {
     setCache({
@@ -1124,17 +1134,9 @@ const flushResult = () => {
     wat: ';; loading',
   };
 
-  updateCache(
-    'markup',
-    compiledLanguages.markup,
-    loadingComments[compiledLanguages.markup] || 'html',
-  );
-  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] || 'css');
-  updateCache(
-    'script',
-    compiledLanguages.script,
-    loadingComments[compiledLanguages.script] || 'javascript',
-  );
+  updateCache('markup', compiledLanguages.markup, loadingComments[compiledLanguages.markup] ?? '');
+  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] ?? '');
+  updateCache('script', compiledLanguages.script, loadingComments[compiledLanguages.script] ?? '');
   setCache({
     ...getCache(),
     tests: {
