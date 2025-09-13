@@ -643,6 +643,15 @@ export const compareObjects = /* @__PURE__ */ (
   return diff;
 };
 
+export const getErrorMessage = /* @__PURE__ */ (err: unknown): string => {
+  if (err == null) return '';
+  if (err instanceof Error) return err.message;
+  if (err && typeof err === 'object' && 'message' in err && typeof err.message === 'string') {
+    return err.message;
+  }
+  return String(err);
+};
+
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
   SDK_VERSION: process.env.SDK_VERSION || '',
