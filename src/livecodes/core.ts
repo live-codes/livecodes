@@ -1026,10 +1026,12 @@ const getResultPage = async ({
     markup: {
       ...contentConfig.markup,
       compiled: compiledMarkup,
+      modified: compiledMarkup,
     },
     style: {
       ...contentConfig.style,
       compiled: compiledStyle,
+      modified: compiledStyle,
     },
     script: {
       ...contentConfig.script,
@@ -1044,6 +1046,7 @@ const getResultPage = async ({
       compiled: compiledTests,
     },
   };
+  compiledCode.script.modified = compiledCode.script.compiled;
 
   if (scriptType != null && scriptType !== 'module') {
     singleFile = true;
@@ -1077,9 +1080,6 @@ const getResultPage = async ({
       result: cleanResultFromDev(result),
       styleOnlyUpdate,
     });
-    updateCache('markup', markupLanguage, compiledMarkup);
-    updateCache('style', styleLanguage, compiledStyle);
-    updateCache('script', scriptLanguage, compiledScript);
 
     if (broadcastInfo.isBroadcasting) {
       broadcast();

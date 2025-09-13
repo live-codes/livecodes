@@ -643,7 +643,9 @@ export const compareObjects = /* @__PURE__ */ (
   return diff;
 };
 
-export const getErrorMessage = /* @__PURE__ */ (err: unknown) => {
+export const getErrorMessage = /* @__PURE__ */ (err: unknown): string => {
+  if (err == null) return '';
+  if (err instanceof Error) return err.message;
   if (err && typeof err === 'object' && 'message' in err && typeof err.message === 'string') {
     return err.message;
   }

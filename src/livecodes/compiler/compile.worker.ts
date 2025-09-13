@@ -108,7 +108,7 @@ const compile = async (
   let value: string | CompileResult = '';
   try {
     value = await compiler(content, { config, language, baseUrl, options });
-  } catch (err: any) {
+  } catch (err: unknown) {
     // eslint-disable-next-line no-console
     console.error('Failed compiling: ' + language, err);
     value = {
