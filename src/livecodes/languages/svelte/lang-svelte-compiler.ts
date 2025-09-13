@@ -2,6 +2,7 @@ import { compileAllBlocks } from '../../compiler/compile-blocks';
 import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
 import { getCompileResult } from '../../compiler/utils';
 import type { CompilerFunction, Config, Language } from '../../models';
+import { getErrorMessage } from '../../utils/utils';
 import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
 
 (self as any).createSvelteCompiler = (): CompilerFunction => {
@@ -9,6 +10,7 @@ import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
   const SECONDARY_FILE = '__LiveCodes_Component__.svelte';
   let importedContent = '';
   let imports: Record<string, string> = {};
+  let errors: string[] = [];
 
   const compileSvelteSFC = async (
     code: string,
@@ -42,21 +44,33 @@ import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
     });
     const customSettings = getLanguageCustomSettings('svelte', config);
 
-    const { js } = (window as any).svelte.compile(processedCode, {
-      css: 'injected',
-      filename,
-      ...customSettings,
-    });
-
     if (filename === MAIN_FILE || filename === SECONDARY_FILE) {
       imports = createImportMap(importedContent, config);
+      errors = [];
+    }
+
+    let js: { code: string };
+    try {
+      const result = (window as any).svelte.compile(processedCode, {
+        css: 'injected',
+        filename,
+        ...customSettings,
+      });
+      js = result.js;
+    } catch (err) {
+      const empty = `export default () => {}`;
+      errors.push(getErrorMessage(err));
+      return {
+        code: language === 'svelte-app' ? `<script type="module">${empty}</script>` : empty,
+        info: { errors },
+      };
     }
 
     const compiledCode = filename === MAIN_FILE ? getMountCode(js.code) : js.code;
     return {
       code:
         language === 'svelte-app' ? `<script type="module">${compiledCode}</script>` : compiledCode,
-      info: { importedContent, imports },
+      info: { importedContent, imports, errors },
     };
   };
 
