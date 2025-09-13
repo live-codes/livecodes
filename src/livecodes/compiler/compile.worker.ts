@@ -116,7 +116,7 @@ const compile = async (
       info: { errors: [getErrorMessage(err)] },
     };
   }
-  return value;
+  return value || '';
 };
 
 const loadTypeScript = async () => {
