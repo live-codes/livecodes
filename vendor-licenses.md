@@ -315,3 +315,7 @@ WebR: [License](https://github.com/r-wasm/webr/blob/e47ab9854c9306c410f302579c66
 Whirl: [MIT License](https://github.com/jh3y/whirl/tree/8de79b76a13200ccbd8b0b75b4f79978ef1ee890)
 
 Windi CSS: [MIT License](https://github.com/windicss/windicss/blob/bcd50d877e62630f191602ddeabd9f677cc6d90c/LICENSE)
+
+Yaegi: [Apache License 2.0](https://github.com/traefik/yaegi/blob/d93266d013f393a20122ef0dd3f579d411a066be/LICENSE)
+
+yaegi-wasm: [ISC](https://www.npmjs.com/package/yaegi-wasm)
