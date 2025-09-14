@@ -3,7 +3,7 @@ import type { Template } from '../../models';
 export const cppWasmStarter: Template = {
   name: 'cpp-wasm',
   aliases: ['clang'],
-  title: 'C++ (Wasm) Starter',
+  title: window.deps.translateString('templates.starter.cpp-wasm', 'C++ (Wasm) Starter'),
   thumbnail: 'assets/templates/cpp.svg',
   activeEditor: 'script',
   markup: {

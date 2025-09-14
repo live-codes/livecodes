@@ -135,8 +135,8 @@ const languageInfo = {
     name: 'Go',
   },
   goWasm: {
-    desc: 'Go compiler running on WebAssembly, using <1>Yaegi</1>',
-    link: '<1> <2>Go official website</2> </1> <3> <4>Yaegi</4> </3> <5> <6>Learn X in Y minutes, where X=Go</6> </5> <7> <8>Load starter template</8> </7>',
+    desc: 'Go interpreter running on WebAssembly, using Yaegi',
+    link: '<1><2>Go official website</2></1> <3><4>Yaegi</4></3> <5> <6>Learn X in Y minutes, where X=Go</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'Go (Wasm)',
   },
   haml: {

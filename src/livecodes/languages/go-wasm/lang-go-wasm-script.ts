@@ -156,7 +156,7 @@ livecodes.goWasm.run =
       worker.postMessage({ code, input: `${String(input ?? '')}` });
     }));
 
-livecodes.goWasm.loaded = new Promise<void>(async (resolve) => {
+livecodes.goWasm.loaded = new Promise<void>((resolve) => {
   const i = setInterval(() => {
     if (livecodes.goWasm.ready) {
       clearInterval(i);
