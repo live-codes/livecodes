@@ -12,7 +12,7 @@ export const goWasm: LanguageSpecs = {
     scriptType: 'text/go-wasm',
     compiledCodeLanguage: 'go',
   },
-  extensions: ['wasm.go', 'yaegi', 'go-wasm', 'gowasm', 'goyae'],
+  extensions: ['wasm.go', 'go-wasm', 'gowasm'],
   editor: 'script',
   editorLanguage: 'go',
   largeDownload: true,

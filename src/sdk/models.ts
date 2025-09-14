@@ -1003,8 +1003,6 @@ export type Language =
   | 'go-wasm'
   | 'wasm.go'
   | 'gowasm'
-  | 'goyae'
-  | 'yaegi'
   | 'php'
   | 'php-wasm'
   | 'phpwasm'
