@@ -68,8 +68,7 @@
     "i18n-update-push": "node ./scripts/i18n-upload.mjs",
     "i18n-update-pull": "node ./scripts/i18n-import.mjs",
     "i18n-exclude": "node ./scripts/i18n-exclude.js",
-    "i18n-lokalise-json": "node ./scripts/i18n-lokalise-json.mjs",
-    "check-types": "tsc -p tsconfig.full.json --noEmit"
+    "i18n-lokalise-json": "node ./scripts/i18n-lokalise-json.mjs"
   },
   "dependencies": {
     "@eslint/compat": "1.2.6",
