@@ -5,7 +5,7 @@ import type Translation from './en/translation';
 /**
  * Add new translatable attributes here.
  *
- * To add new custom data attributes for HTML intellisense, see `script/vscode-intellisense.js`.
+ * To add new custom data attributes for HTML intellisense, see `scripts/vscode-intellisense.js`.
  */
 type I18nAttributes = RequireAtLeastOne<{
   textContent?: string;
@@ -26,11 +26,11 @@ export interface I18nTranslationTemplate {
 
 /**
  * Maps a nested object structure to a structure where all leaf nodes are strings.
- * 
+ *
  * Use to keep the same structure as the `en` i18n object for other languages.
  */
 export type I18nStructure<T> = {
-    readonly [K in keyof T]: T[K] extends Record<string, any> ? I18nStructure<T[K]> : string;
+  readonly [K in keyof T]: T[K] extends Record<string, unknown> ? I18nStructure<T[K]> : string;
 };
 
 /**
