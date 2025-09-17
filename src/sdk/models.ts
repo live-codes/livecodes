@@ -1022,6 +1022,8 @@ export type Language =
   | 'java'
   | 'csharp'
   | 'csharp-wasm'
+  | 'zig'
+  | 'zig-wasm'
   | 'cs'
   | 'cs-wasm'
   | 'wasm.cs'
@@ -1249,7 +1251,8 @@ export type ParserName =
   | 'less'
   | 'php'
   | 'pug'
-  | 'java';
+  | 'java'
+  | 'zig';
 
 export interface Parser {
   name: ParserName;
@@ -1344,6 +1347,7 @@ export interface Compiler {
     | 'text/cpp'
     | 'text/java'
     | 'text/csharp-wasm'
+    | 'text/zig-wasm'
     | 'text/perl'
     | 'text/julia'
     | 'text/biwascheme'
@@ -1443,7 +1447,8 @@ export type TemplateName =
   | 'postgresql'
   | 'prolog'
   | 'blockly'
-  | 'diagrams';
+  | 'diagrams'
+  | 'zig-wasm';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';

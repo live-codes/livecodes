@@ -67,6 +67,7 @@ const templates = [
   { name: 'prolog', title: 'Prolog Starter', thumbnail: 'tau-prolog.svg' },
   { name: 'blockly', title: 'Blockly Starter', thumbnail: 'blockly.svg' },
   { name: 'diagrams', title: 'Diagrams Starter', thumbnail: 'diagrams.svg' },
+  { name: 'zig-wasm', title: 'Zig (Wasm)', thumbnail: 'zig.svg' },
 ];
 
 export default function TemplateList() {

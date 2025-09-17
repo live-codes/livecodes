@@ -78,6 +78,8 @@ import { vento } from './vento';
 import { vue, vueApp } from './vue';
 import { vue2 } from './vue2';
 import { wat } from './wat';
+import { zigWasm } from './zig-wasm';
+
 export const languages: LanguageSpecs[] = [
   html,
   markdown,
@@ -165,4 +167,5 @@ export const languages: LanguageSpecs[] = [
   postgresql,
   prolog,
   blockly,
+  zigWasm,
 ];

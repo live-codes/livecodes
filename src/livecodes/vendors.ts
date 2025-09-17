@@ -98,6 +98,7 @@ export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/');
 
 export const csharpWasmBaseUrl = /* @__PURE__ */ getUrl('@seth0x41/csharp-wasm@1.0.3/');
+export const zigWasmBaseUrl = /* @__PURE__ */ getUrl('@seth0x41/zig-wasm@1.0.0/');
 
 export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@2.3.1/dist/csstree.js');
 
