@@ -473,7 +473,11 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
     playgroundUrl.searchParams.set('headless', 'true');
   }
 
-  playgroundUrl.hash = hashParams.toString();
+  // only override appUrl hash if hashParams is not empty
+  if (hashParams.toString().length > 0) {
+    playgroundUrl.hash = hashParams.toString();
+  }
+
   return playgroundUrl.href;
 }
 
