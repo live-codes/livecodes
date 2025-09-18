@@ -289,8 +289,8 @@
     "translation": "Here, it is compiled to JavaScript using GopherJS."
   },
   "go.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://golang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://golang.org/doc/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/gopherjs/gopherjs\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/go/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=go\" class=\"button\" target=\"_parent\" data-template=\"go\" />\n\n",
-    "translation": "<tag-1><tag-2>Go website</tag-2></tag-1> <tag-3><tag-4>Go documentation</tag-4></tag-3> <tag-5> <tag-6>GopherJS repo</tag-6> </tag-5> <tag-7> <tag-8>Learn X in Y minutes, where X=Go</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://golang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://golang.org/doc/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/gopherjs/gopherjs\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/go/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/go\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=go\" class=\"button\" target=\"_parent\" data-template=\"go\" />\n\n",
+    "translation": "<tag-1><tag-2>Go website</tag-2></tag-1> <tag-3><tag-4>Go documentation</tag-4></tag-3> <tag-5> <tag-6>GopherJS repo</tag-6> </tag-5> <tag-7> <tag-8>Learn X in Y minutes, where X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentations</tag-10> </tag-9> <tag-11> <tag-12>Load starter template</tag-12> </tag-11>"
   },
   "go.name": {
     "notes": "",
@@ -301,8 +301,8 @@
     "translation": "Go interpreter running on WebAssembly, using Yaegi"
   },
   "goWasm.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://golang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://yaegi.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/go/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=go-wasm\" class=\"button\" target=\"_parent\" data-template=\"go-wasm\" />\n\n",
-    "translation": "<tag-1><tag-2>Go official website</tag-2></tag-1> <tag-3><tag-4>Yaegi</tag-4></tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=Go</tag-6> </tag-5> <tag-7> <tag-8>Load starter template</tag-8> </tag-7>"
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://golang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://yaegi.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/go/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/go-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=go-wasm\" class=\"button\" target=\"_parent\" data-template=\"go-wasm\" />\n\n",
+    "translation": "<tag-1><tag-2>Go official website</tag-2></tag-1> <tag-3><tag-4>Yaegi</tag-4></tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=Go</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentations</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
   },
   "goWasm.name": {
     "notes": "",

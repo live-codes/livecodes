@@ -131,12 +131,12 @@ const languageInfo = {
     desc1:
       'Go (Golang) is an open source programming language that makes it easy to build simple, reliable, and efficient software.',
     desc2: 'Here, it is compiled to JavaScript using GopherJS.',
-    link: '<1><2>Go website</2></1> <3><4>Go documentation</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Learn X in Y minutes, where X=Go</8> </7> <9> <10>Load starter template</10> </9>',
+    link: '<1><2>Go website</2></1> <3><4>Go documentation</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Learn X in Y minutes, where X=Go</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
     name: 'Go',
   },
   goWasm: {
     desc: 'Go interpreter running on WebAssembly, using Yaegi',
-    link: '<1><2>Go official website</2></1> <3><4>Yaegi</4></3> <5> <6>Learn X in Y minutes, where X=Go</6> </5> <7> <8>Load starter template</8> </7>',
+    link: '<1><2>Go official website</2></1> <3><4>Yaegi</4></3> <5> <6>Learn X in Y minutes, where X=Go</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Go (Wasm)',
   },
   haml: {
