@@ -318,4 +318,4 @@ Windi CSS: [MIT License](https://github.com/windicss/windicss/blob/bcd50d877e626
 
 Yaegi: [Apache License 2.0](https://github.com/traefik/yaegi/blob/d93266d013f393a20122ef0dd3f579d411a066be/LICENSE)
 
-yaegi-wasm: [ISC](https://www.npmjs.com/package/yaegi-wasm)
+yaegi-wasm: [Apache License 2.0](https://github.com/Muhammad-Ayman/yaegi-wasm/blob/528a6bbac7464dc8911e50e0d617512f3e247e8c/LICENSE)
