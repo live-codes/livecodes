@@ -145,7 +145,8 @@ export const stringToValidJson = /* @__PURE__ */ (str: string) =>
       return '"' + matchedStr.substring(1, matchedStr.length - 1) + '"';
     })
     .replace(
-      /(\w+(?=([^"\\]*(\\.|"([^"\\]*\\.)*[^"\\]*"))*[^"]*$))(\s*:)(?!(\w*)(?:"))/gm,
+      // /(\w+(?=([^"\\]*(\\.|"([^"\\]*\\.)*[^"\\]*"))*[^"]*$))(\s*:)(?!(\w*)(?:"))/gm,
+      /(\w+(?=([^"\\]*(\\.|"([^"\\]*\\.)*[^"\\]*"))*[^"]*$))(\s*:)/gm,
       function quoteNonQuoted(matchedStr) {
         return '"' + matchedStr.substring(0, matchedStr.length - 1).trimEnd() + '":';
       },
@@ -650,6 +651,22 @@ export const getErrorMessage = /* @__PURE__ */ (err: unknown): string => {
     return err.message;
   }
   return String(err);
+};
+
+// addProp({a: {b: 1}}, 'a.c', 2);
+export const addProp = /* @__PURE__ */ (
+  obj: Record<string, unknown>,
+  key: string,
+  value: unknown,
+) => {
+  const keys = key.split('.');
+  if (keys.length === 1) {
+    obj[key] = value;
+    return;
+  }
+  const [first, ...rest] = keys;
+  if (!obj[first]) obj[first] = {};
+  addProp(obj[first] as Record<string, unknown>, rest.join('.'), value);
 };
 
 export const predefinedValues = {

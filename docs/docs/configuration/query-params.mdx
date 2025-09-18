@@ -91,7 +91,19 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
   Example:
 
   ```
-  ?languages=html,md,css,ts
+  ?processors=tailwindcss,autoprefixer
+  ```
+
+- Custom Settings can be set like this:
+
+  ```
+  ?customSettings={template:{prerender:false}}
+  ```
+
+  or this:
+
+  ```
+  ?customSettings.template.prerender=false
   ```
 
 - Values set in the URL query parameters override those set in [configuration object](./configuration-object.mdx).
@@ -160,4 +172,4 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 For usage examples, check [storybook](pathname:///../stories/?path=/story/embed-options-params--select-language) and [unit tests](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/config/__tests__/build-config.spec.ts).
 :::
 
-<!-- TODO: add docs for languageSelector and ToolsStatus -->
+{/* TODO: add docs for languageSelector and ToolsStatus */}
