@@ -85,7 +85,7 @@ const getContent = async (
       },
       activeEditor: editorId,
     };
-    return addBaseTag(config, [fileData]);
+    return modifyMarkup(config, [fileData]);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Cannot fetch: ' + apiUrl);
@@ -102,7 +102,12 @@ export const importFromGithub = (
   return getContent(fileData, loggedInUser);
 };
 
-export const addBaseTag = (
+/**
+ * Adds base tag for relative links.
+ * Removes <!DOCTYPE html>, <html>, <link> and <script> tags.
+ * Extracts html attributes.
+ */
+export const modifyMarkup = (
   config: Partial<Config>,
   files: Array<{ user: string; repo: string; ref: string; path: string }>,
 ): Partial<Config> => {
@@ -128,12 +133,13 @@ export const addBaseTag = (
   const { user, repo, ref, path } = markupFile;
   const baseUrl = modulesService.getUrl(`gh:${user}/${repo}@${ref}/${path}`);
   const baseTag = `<base href="${baseUrl}">`;
+  let htmlAttrs = '';
 
-  const removeTags = (markupContent: string, tag: 'link' | 'script') => {
+  const removeTags = (markupContent: string, tag: 'html' | 'link' | 'script') => {
     const file = tag === 'link' ? styleFile : scriptFile;
-    if (!file) return markupContent;
-    const filename = file.path.split('/')[file.path.split('/').length - 1];
-    if (!markupContent.includes(filename)) return markupContent;
+    if (!file && tag !== 'html') return markupContent;
+    const filename = file?.path.split('/')[file.path.split('/').length - 1];
+    if (filename && !markupContent.includes(filename)) return markupContent;
     const linkPattern = new RegExp(
       `<link[^>]{1,200}?href=["']((?!http(s)?:\\/\\/).){0,200}?${filename}["'][^>]{0,200}?>`,
       'g',
@@ -142,15 +148,29 @@ export const addBaseTag = (
       `<script[\\s\\S]{1,200}?src=["']((?!http(s)?:\\/\\/).){0,200}?${filename}["'][\\s\\S]{0,200}?</script>`,
       'g',
     );
-    const pattern = tag === 'link' ? linkPattern : scriptPattern;
+    const htmlTagPattern = new RegExp(
+      `(?:<!DOCTYPE\\s+html>\\s*?[\\n\\r]*)|(?:<html([^>]{1,200}?)>\\s*?[\\n\\r]*)|(?:\\s*<\/html>)`,
+      'g',
+    );
+    if (tag === 'html') {
+      const result = [...markupContent.matchAll(htmlTagPattern)];
+      for (const match of result) {
+        if (match[1]) {
+          htmlAttrs = match[1];
+        }
+      }
+    }
+    const pattern = tag === 'html' ? htmlTagPattern : tag === 'link' ? linkPattern : scriptPattern;
     return markupContent.replace(pattern, '');
   };
 
-  let content = removeTags(config.markup.content || '', 'link');
+  let content = removeTags(config.markup.content || '', 'html');
+  content = removeTags(content, 'link');
   content = removeTags(content, 'script');
 
   return {
     ...config,
+    ...(htmlAttrs ? { htmlAttrs } : {}),
     head: `${baseTag}\n${config.head || ''}`,
     markup: {
       ...config.markup,

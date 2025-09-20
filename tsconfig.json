@@ -49,5 +49,5 @@
   },
   "compileOnSave": true,
   "include": ["src/**/*.ts"],
-  "exclude": ["**/node_modules/**", "src/livecodes/i18n/locales/**"]
+  "exclude": ["**/node_modules/**"]
 }

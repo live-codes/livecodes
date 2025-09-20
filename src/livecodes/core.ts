@@ -996,7 +996,7 @@ const getResultPage = async ({
     },
   };
 
-  const compileResults = await Promise.all([
+  const [styleCompileResult, testsCompileResult] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: `${compiledMarkup}<script type="script-for-styles">${compiledScript}</script>
         <script type="script-for-styles">${compileInfo.importedContent}</script>`,
@@ -1008,8 +1008,7 @@ const getResultPage = async ({
         : compiler.compile(testsContent, testsLanguage, config, {})
       : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')),
   ]);
-
-  const [compiledStyle, compiledTests] = compileResults.map((result) => {
+  const [compiledStyle, compiledTests] = [styleCompileResult, testsCompileResult].map((result) => {
     const { code, info } = getCompileResult(result);
     compileInfo = {
       ...compileInfo,
@@ -1027,10 +1026,12 @@ const getResultPage = async ({
     markup: {
       ...contentConfig.markup,
       compiled: compiledMarkup,
+      modified: compiledMarkup,
     },
     style: {
       ...contentConfig.style,
       compiled: compiledStyle,
+      modified: compiledStyle,
     },
     script: {
       ...contentConfig.script,
@@ -1045,6 +1046,7 @@ const getResultPage = async ({
       compiled: compiledTests,
     },
   };
+  compiledCode.script.modified = compiledCode.script.compiled;
 
   if (scriptType != null && scriptType !== 'module') {
     singleFile = true;
@@ -1062,6 +1064,14 @@ const getResultPage = async ({
   });
 
   const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
+
+  const logError = (language: Language, errors: string[] = []) => {
+    errors.forEach((err) => toolsPane?.console?.error(`[${getLanguageTitle(language)}] ${err}`));
+  };
+  logError(markupLanguage, markupCompileResult.info?.errors);
+  logError(styleLanguage, styleCompileResult.info?.errors);
+  logError(scriptLanguage, scriptCompileResult.info?.errors);
+  logError(testsLanguage, getCompileResult(testsCompileResult).info?.errors);
 
   if (singleFile) {
     setCache({
@@ -1124,17 +1134,9 @@ const flushResult = () => {
     wat: ';; loading',
   };
 
-  updateCache(
-    'markup',
-    compiledLanguages.markup,
-    loadingComments[compiledLanguages.markup] || 'html',
-  );
-  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] || 'css');
-  updateCache(
-    'script',
-    compiledLanguages.script,
-    loadingComments[compiledLanguages.script] || 'javascript',
-  );
+  updateCache('markup', compiledLanguages.markup, loadingComments[compiledLanguages.markup] ?? '');
+  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] ?? '');
+  updateCache('script', compiledLanguages.script, loadingComments[compiledLanguages.script] ?? '');
   setCache({
     ...getCache(),
     tests: {
@@ -1184,6 +1186,28 @@ const setExternalResourcesMark = () => {
   const btn = UI.getExternalResourcesBtn();
   const config = getConfig();
   if (config.scripts.length > 0 || config.stylesheets.length > 0 || config.cssPreset) {
+    btn.classList.add('active');
+    btn.style.display = 'unset';
+  } else {
+    btn.classList.remove('active');
+    if (isEmbed) {
+      btn.style.display = 'none';
+    }
+  }
+};
+
+const setProjectInfoMark = () => {
+  const btn = UI.getProjectInfoBtn();
+  const config = getConfig();
+  if (
+    (typeof config.htmlAttrs === 'string' &&
+      config.htmlAttrs !== defaultConfig.htmlAttrs &&
+      config.htmlAttrs.trim().length > 0) ||
+    (typeof config.htmlAttrs === 'object' &&
+      config.htmlAttrs &&
+      Object.entries(config.htmlAttrs).length > 0) ||
+    (config.head !== defaultConfig.head && config.head.trim().length > 0)
+  ) {
     btn.classList.add('active');
     btn.style.display = 'unset';
   } else {
@@ -1440,6 +1464,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
     setTimeout(() => getActiveEditor().focus());
   }
   setExternalResourcesMark();
+  setProjectInfoMark();
   setCustomSettingsMark();
   updateCompiledCode();
   loadModuleTypes(editors, combinedConfig, /* loadAll = */ true);
@@ -1547,15 +1572,17 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
 const loadUserConfig = (updateUI = true) => {
   if (isEmbed) return;
   const userConfig = stores.userConfig?.getValue();
+  const currentConfig = getConfig();
   setConfig(
     buildConfig({
-      ...getConfig(),
-      ...userConfig,
+      ...currentConfig,
+      ...getUserConfig(userConfig || currentConfig),
     }),
   );
   if (!updateUI) return;
-  loadSettings(getConfig());
-  setTheme(getConfig().theme, getConfig().editorTheme);
+  const newConfig = getConfig();
+  loadSettings(newConfig);
+  setTheme(newConfig.theme, newConfig.editorTheme);
   showSyncStatus(true);
 };
 
@@ -4119,6 +4146,7 @@ const handleProjectInfo = () => {
       htmlAttrs: attrs,
       tags,
     });
+    setProjectInfoMark();
     if (getConfig().autoupdate) {
       await run();
     }

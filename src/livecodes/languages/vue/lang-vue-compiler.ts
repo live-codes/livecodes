@@ -3,7 +3,7 @@ import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
 import type { LanguageOrProcessor } from '../../compiler/models';
 import type { CompilerFunction, Config } from '../../models';
-import { getRandomString, replaceAsync } from '../../utils/utils';
+import { getErrorMessage, getRandomString, replaceAsync } from '../../utils/utils';
 import { getLanguageByAlias } from '../utils';
 
 // based on:
@@ -363,35 +363,48 @@ import { getLanguageByAlias } from '../utils';
   }
 
   return async (code, { config, language }) => {
-    const isMainFile = config.markup.language !== 'vue-app' || language === 'vue-app';
-    const filename = isMainFile ? MAIN_FILE : SECONDARY_FILE;
-    const result = await compileVueSFC(code, { config, filename });
+    try {
+      const isMainFile = config.markup.language !== 'vue-app' || language === 'vue-app';
+      const filename = isMainFile ? MAIN_FILE : SECONDARY_FILE;
+      const result = await compileVueSFC(code, { config, filename });
 
-    if (result) {
-      const { css, js } = result;
+      if (result) {
+        const { css, js } = result;
 
-      const injectCSS = !css.trim()
-        ? ''
-        : `
+        const injectCSS = !css.trim()
+          ? ''
+          : `
 document.head.insertBefore(
   Object.assign(document.createElement('style'), { textContent: ${JSON.stringify(css)} }),
   document.head.getElementsByTagName('style')[0]
 );
 `;
-      const compiledCode = js + injectCSS;
+        const compiledCode = js + injectCSS;
 
+        return {
+          code:
+            language === 'vue-app'
+              ? `<script type="module">${compiledCode}</script>`
+              : compiledCode,
+          info: { importedContent, imports: createImportMap(importedContent, config), errors },
+        };
+      }
+
+      if (errors.length) {
+        // eslint-disable-next-line no-console
+        console.error(...errors);
+      }
+
+      const empty = `export default () => {}`;
       return {
-        code:
-          language === 'vue-app' ? `<script type="module">${compiledCode}</script>` : compiledCode,
-        info: { importedContent, imports: createImportMap(importedContent, config) },
+        code: language === 'vue-app' ? `<script type="module">${empty}</script>` : empty,
+        info: { errors },
+      };
+    } catch (err) {
+      return {
+        code: '',
+        info: { errors: [...errors, getErrorMessage(err)] },
       };
     }
-
-    if (errors.length) {
-      // eslint-disable-next-line no-console
-      console.error(...errors);
-    }
-
-    return '';
   };
 };

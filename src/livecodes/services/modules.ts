@@ -141,6 +141,10 @@ const TEMPLATES: Array<[RegExp, string]> = [
 
   [/^(jsr:)(.+)/i, 'https://esm.sh/jsr/$2'],
 
+  [/^(pr:)(.+)/i, 'https://esm.sh/pr/$2'],
+
+  [/^(pkg\.pr\.new:)(.+)/i, 'https://esm.sh/pkg.pr.new/$2'],
+
   [/^(skypack:)(.+)/i, 'https://cdn.skypack.dev/$2'],
 
   [/^(jsdelivr:)(.+)/i, 'https://cdn.jsdelivr.net/npm/$2'],

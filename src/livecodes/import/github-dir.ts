@@ -1,7 +1,7 @@
 import { decode } from 'js-base64';
 import type { User } from '../models';
 import { getGithubHeaders } from '../services/github';
-import { addBaseTag } from './github';
+import { modifyMarkup } from './github';
 import { populateConfig } from './utils';
 
 export const importFromGithubDir = async (
@@ -79,7 +79,7 @@ export const importFromGithubDir = async (
 
     const config = populateConfig(files, params);
 
-    return addBaseTag(
+    return modifyMarkup(
       config,
       files
         .filter((f) =>
