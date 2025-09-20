@@ -135,8 +135,8 @@ export const createResultPage = async ({
     ...userDefinedImportmap.imports,
   };
 
-  // stylesheets imported in script editor
-  const stylesheetImports = getImports(code.script.compiled).filter(
+  // stylesheets imported in scripts
+  const stylesheetImports = getImports(code.markup.compiled + '\n' + code.script.compiled).filter(
     (mod) =>
       mod.startsWith('data:text/css') ||
       (mod.endsWith('.css') && (Object.keys(configImports).includes(mod) || !mod.startsWith('.'))),
