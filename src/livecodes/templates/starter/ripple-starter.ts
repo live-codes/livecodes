@@ -16,14 +16,16 @@ export const rippleStarter: Template = {
   script: {
     language: 'ripple',
     content: `
-component Counter(props: { $name: string }) {
+import { track } from 'ripple';
+
+component Counter(props: { name: string }) {
   <div class="container">
-    <h1>{\`Hello, \${props.\$name}!\`}</h1>
+    <h1>{\`Hello, \${props.@name}!\`}</h1>
     <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/ripple-0.png" />
 
-    let \$count = 0;
-    <p>{\`You clicked \${\$count} times.\`}</p>
-    <button onClick={() => \$count++}>{'Click me'}</button>
+    const count = track(0);
+    <p>{\`You clicked \${@count} times.\`}</p>
+    <button onClick={() => @count++}>{'Click me'}</button>
   </div>
 
   <style>
@@ -39,7 +41,9 @@ component Counter(props: { $name: string }) {
 }
 
 export default component App() {
-  <Counter \$name="Ripple" />
+  const name = track("World");
+  setTimeout(() => @name = "Ripple", 2000);
+  <Counter {name} />
 }
 `.trimStart(),
   },
