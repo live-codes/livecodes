@@ -1196,6 +1196,28 @@ const setExternalResourcesMark = () => {
   }
 };
 
+const setProjectInfoMark = () => {
+  const btn = UI.getProjectInfoBtn();
+  const config = getConfig();
+  if (
+    (typeof config.htmlAttrs === 'string' &&
+      config.htmlAttrs !== defaultConfig.htmlAttrs &&
+      config.htmlAttrs.trim().length > 0) ||
+    (typeof config.htmlAttrs === 'object' &&
+      config.htmlAttrs &&
+      Object.entries(config.htmlAttrs).length > 0) ||
+    (config.head !== defaultConfig.head && config.head.trim().length > 0)
+  ) {
+    btn.classList.add('active');
+    btn.style.display = 'unset';
+  } else {
+    btn.classList.remove('active');
+    if (isEmbed) {
+      btn.style.display = 'none';
+    }
+  }
+};
+
 const setCustomSettingsMark = () => {
   const btn = UI.getCustomSettingsBtn();
   if (isEmbed) {
@@ -1442,6 +1464,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
     setTimeout(() => getActiveEditor().focus());
   }
   setExternalResourcesMark();
+  setProjectInfoMark();
   setCustomSettingsMark();
   updateCompiledCode();
   loadModuleTypes(editors, combinedConfig, /* loadAll = */ true);
@@ -4123,6 +4146,7 @@ const handleProjectInfo = () => {
       htmlAttrs: attrs,
       tags,
     });
+    setProjectInfoMark();
     if (getConfig().autoupdate) {
       await run();
     }
