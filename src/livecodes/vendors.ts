@@ -99,6 +99,8 @@ export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/
 
 export const csharpWasmBaseUrl = /* @__PURE__ */ getUrl('@seth0x41/csharp-wasm@1.0.3/');
 
+export const yaegiWasmBaseUrl = /* @__PURE__ */ getUrl('yaegi-wasm@1.0.2/src/');
+
 export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@2.3.1/dist/csstree.js');
 
 export const cytoscapeSvgUrl = /* @__PURE__ */ getUrl('cytoscape-svg@0.4.0/cytoscape-svg.js');

@@ -2600,6 +2600,10 @@
     "notes": "",
     "translation": "C++ Starter"
   },
+  "templates.starter.cpp-wasm": {
+    "notes": "",
+    "translation": "C++ (Wasm) Starter"
+  },
   "templates.starter.daisyui": {
     "notes": "",
     "translation": "daisyUI Starter"
@@ -2619,6 +2623,10 @@
   "templates.starter.go": {
     "notes": "",
     "translation": "Go Starter"
+  },
+  "templates.starter.go-wasm": {
+    "notes": "",
+    "translation": "Go (Wasm) Starter"
   },
   "templates.starter.heading": {
     "notes": "",
