@@ -43,18 +43,6 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const zoomLevels: Array<Config['zoom']> = [1, 0.5, 0.25];
 
-  const isEditor = (x: any) =>
-    is(x, 'object') &&
-    (is(x.language, 'string') ||
-      is(x.title, 'string') ||
-      is(x.content, 'string') ||
-      is(x.contentUrl, 'string') ||
-      is(x.hiddenContent, 'string') ||
-      is(x.hiddenContentUrl, 'string') ||
-      is(x.foldedLines, 'array', 'object') ||
-      is(x.order, 'number') ||
-      is(x.selector, 'string'));
-
   const isFoldedLines = (x: any) => is(x, 'object') && (is(x.from, 'number') || is(x.to, 'number'));
 
   const fixSfcLanguage = (lang: Language, editorId: EditorId) =>
@@ -150,13 +138,13 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.languages, 'array', 'string')
       ? { languages: removeDuplicates(config.languages) }
       : {}),
-    ...(isEditor(config.markup)
+    ...(is(config.markup, 'object')
       ? { markup: validateEditorProps(config.markup as Editor, 'markup') }
       : {}),
-    ...(isEditor(config.style)
+    ...(is(config.style, 'object')
       ? { style: validateEditorProps(config.style as Editor, 'style') }
       : {}),
-    ...(isEditor(config.script)
+    ...(is(config.script, 'object')
       ? { script: validateEditorProps(config.script as Editor, 'script') }
       : {}),
     ...(is(config.tools, 'object')
