@@ -121,7 +121,6 @@ const languageInfo: I18nLangInfoTranslation = {
   go: {
     desc1: 'Go（Golang）是一种开源编程语言，可以轻松构建简单、可靠、高效的软件。',
     desc2: '此处使用 GopherJS 将其编译为 JavaScript。',
-    link: '<1><2>Go 官方网站</2></1> <3><4>Go 文档</4></3> <5> <6>GopherJS 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=Go</8> </7> <9><10>加载启动模板</10></9>',
     name: 'Go',
   },
   haml: {
