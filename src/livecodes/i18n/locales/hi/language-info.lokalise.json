@@ -222,6 +222,15 @@
   "go.name": {
     "translation": "Go"
   },
+  "goWasm.desc": {
+    "translation": "Yaegi का उपयोग करके WebAssembly पर चलने वाले दुभाषिया पर जाएं"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>आधिकारिक वेबसाइट पर जाएं</tag-2></tag-1> <tag-3><tag-4>यागी</tag-4></tag-3> <tag-5> <tag-6>Y मिनट में X जानें, जहां X=Go</tag-6> </tag-5> <tag-7> <tag-8>लाइवकोड्स दस्तावेज़ीकरण</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
   "haml.desc": {
     "translation": "क्लाइंटसाइड-haml-js का उपयोग करके क्लाइंट साइड जावास्क्रिप्ट व्यू टेम्प्लेट्स के लिए Haml कंपाइलर।"
   },

@@ -222,6 +222,15 @@
   "go.name": {
     "translation": "Go"
   },
+  "goWasm.desc": {
+    "translation": "Go-Interpreter, der auf WebAssembly läuft, unter Verwendung von Yaegi"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>Go offizielle Website</tag-2></tag-1> <tag-3><tag-4>Yaegi</tag-4></tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=Go</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokumentationen</tag-8> </tag-7> <tag-9> <tag-10>Lade Startvorlage</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
   "haml.desc": {
     "translation": "Haml-Compiler für clientseitige JavaScript-View-Templates unter Verwendung von clientside-haml-js."
   },

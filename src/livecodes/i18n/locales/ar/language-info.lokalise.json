@@ -222,6 +222,15 @@
   "go.name": {
     "translation": "Go"
   },
+  "goWasm.desc": {
+    "translation": "مترجم Go يعمل على WebAssembly، باستخدام Yaegi"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>اذهب إلى الموقع الرسمي</tag-2></tag-1> <tag-3><tag-4>يايجي</tag-4></tag-3> <tag-5> <tag-6>تعلم X في دقائق Y، حيث X = اذهب</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البداية تحميل قالب البداية</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
   "haml.desc": {
     "translation": "مترجم Haml لقوالب العرض في جافا سكريبت على جانب العميل باستخدام clientside-haml-js."
   },
