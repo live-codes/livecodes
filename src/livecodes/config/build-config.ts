@@ -367,18 +367,17 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
 
   // ?markup.hideTitle=true&script.title=App.jsx
   // ?customSettings.template.prerender=false
-  const objectKeys = [
-    'markup',
-    'style',
-    'script',
-    'tests',
-    'customSettings',
-    'imports',
-    'types',
-    'tools',
-  ];
   Object.keys(params).forEach((k) => {
-    if (objectKeys.some((key) => k.startsWith(key)) + '.') {
+    if (
+      k.startsWith('markup.') ||
+      k.startsWith('style.') ||
+      k.startsWith('script.') ||
+      k.startsWith('tests.') ||
+      k.startsWith('customSettings.') ||
+      k.startsWith('imports.') ||
+      k.startsWith('types.') ||
+      k.startsWith('tools.')
+    ) {
       addProp(paramsConfig, k, (params as any)[k]);
     }
   });
