@@ -1950,6 +1950,9 @@
   "templates.starter.cpp": {
     "translation": "Стартер C++"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "Стартер C++ (Wasm)"
+  },
   "templates.starter.daisyui": {
     "translation": "Стартер daisyUI"
   },
@@ -1964,6 +1967,9 @@
   },
   "templates.starter.go": {
     "translation": "Стартер Go"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Стартер Go (Wasm)"
   },
   "templates.starter.heading": {
     "translation": "Стартовые шаблоны"

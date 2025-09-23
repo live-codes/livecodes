@@ -1950,6 +1950,9 @@
   "templates.starter.cpp": {
     "translation": "Inicio C++"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "Inicio C++ (Wasm)"
+  },
   "templates.starter.daisyui": {
     "translation": "Inicio daisyUI"
   },
@@ -1964,6 +1967,9 @@
   },
   "templates.starter.go": {
     "translation": "Inicio Go"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Inicio Go (Wasm)"
   },
   "templates.starter.heading": {
     "translation": "Plantillas de Inicio"

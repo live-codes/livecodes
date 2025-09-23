@@ -222,6 +222,15 @@
   "go.name": {
     "translation": "Go"
   },
+  "goWasm.desc": {
+    "translation": "WebAssembly上で動作するGoインタプリタ、Yaegiを使用"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>囲碁公式サイト</tag-2></tag-1> <tag-3><tag-4>八重垣</tag-4></tag-3> <tag-5> <tag-6>XをY分で学ぶ、X=囲碁</tag-6> </tag-5> <tag-7> <tag-8>LiveCodesドキュメンテーション</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートの読み込み</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
   "haml.desc": {
     "translation": "clientside-haml-js を使用したクライアントサイド JavaScript ビューテンプレート用の Haml コンパイラ。"
   },
