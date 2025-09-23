@@ -299,6 +299,7 @@ export const getCommandMenuActions = ({
         'ruby',
         'ruby-wasm',
         'go',
+        'go-wasm',
         'php',
         'php-wasm',
         'cpp',

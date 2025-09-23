@@ -43,6 +43,7 @@ const templates = [
   { name: 'ruby', title: 'Ruby Starter', thumbnail: 'ruby.svg' },
   { name: 'ruby-wasm', title: 'Ruby (Wasm) Starter', thumbnail: 'ruby.svg' },
   { name: 'go', title: 'Go Starter', thumbnail: 'go.svg' },
+  { name: 'go-wasm', title: 'Go (Wasm) Starter', thumbnail: 'go.svg' },
   { name: 'php', title: 'PHP Starter', thumbnail: 'php.svg' },
   { name: 'php-wasm', title: 'PHP (Wasm) Starter', thumbnail: 'php.svg' },
   { name: 'cpp', title: 'C++ Starter', thumbnail: 'cpp.svg' },

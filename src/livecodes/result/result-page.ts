@@ -136,12 +136,19 @@ export const createResultPage = async ({
     ...userDefinedImportmap.imports,
   };
 
-  // stylesheets imported in script editor
-  const stylesheetImports = getImports(code.script.compiled).filter(
-    (mod) =>
-      mod.startsWith('data:text/css') ||
-      (mod.endsWith('.css') && (Object.keys(configImports).includes(mod) || !mod.startsWith('.'))),
-  );
+  const markupImports = getImports(code.markup.compiled);
+  const scriptImports = getImports(code.script.compiled);
+
+  // imported stylesheets
+  const stylesheetImports = [
+    ...new Set(
+      [...markupImports, ...scriptImports].filter((mod) => {
+        const isCss = mod.startsWith('data:text/css') || /\.css(\?|#|$)/i.test(mod);
+        const isRelative = mod.startsWith('.');
+        return isCss && (Object.keys(configImports).includes(mod) || !isRelative);
+      }),
+    ),
+  ];
   stylesheetImports.forEach((mod) => {
     const url = configImports[mod] || modulesService.getUrl(mod);
     const stylesheet = dom.createElement('link');
@@ -193,7 +200,7 @@ export const createResultPage = async ({
 
   const scriptCompiler = getLanguageCompiler(code.script.language);
 
-  const scriptImportsInMarkup = getImports(markup).filter(isScriptImport);
+  const scriptImportsInMarkup = markupImports.filter(isScriptImport);
   const scriptImportsInTests =
     runTests && !forExport ? getImports(compiledTests).filter(isScriptImport) : [];
   const importFromScript = Boolean(
@@ -224,7 +231,7 @@ export const createResultPage = async ({
     hasDefaultExport(code.script.compiled) &&
     !hasCustomJsxRuntime(code.script.content || '', config) &&
     !importFromScript;
-  const hasPreact = getImports(code.script.compiled).find((mod) => mod === 'preact');
+  const hasPreact = scriptImports.find((mod) => mod === 'preact');
 
   let compilerImports = {};
 
@@ -263,7 +270,7 @@ export const createResultPage = async ({
           baseUrl,
         });
       }
-      const inlineScript = document.createElement('script');
+      const inlineScript = dom.createElement('script');
       inlineScript.innerHTML = compiler.inlineScript;
       dom.head.appendChild(inlineScript);
     }
@@ -410,7 +417,7 @@ export const createResultPage = async ({
         baseUrl,
       });
     }
-    const inlineModule = document.createElement('script');
+    const inlineModule = dom.createElement('script');
     inlineModule.innerHTML = scriptCompiler.inlineModule;
     inlineModule.type = 'module';
     dom.head.appendChild(inlineModule);

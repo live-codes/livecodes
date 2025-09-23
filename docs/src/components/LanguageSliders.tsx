@@ -84,6 +84,7 @@ export default function Sliders() {
       { name: 'ruby', title: 'Ruby' },
       { name: 'ruby-wasm', title: 'Ruby (Wasm)' },
       { name: 'go', title: 'Go' },
+      { name: 'go-wasm', title: 'Go (Wasm)' },
       { name: 'php', title: 'PHP' },
       { name: 'php-wasm', title: 'PHP (Wasm)' },
       { name: 'cpp', title: 'C++' },
