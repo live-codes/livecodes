@@ -1526,7 +1526,11 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
       ...getFormatterConfig(currentConfig),
     };
     for (const key in editorConfig) {
-      if ((editorConfig as any)[key] !== (currentEditorConfig as any)[key]) {
+      if (
+        (editorConfig as any)[key] != null &&
+        (editorConfig as any)[key] !== (currentEditorConfig as any)[key] &&
+        !key.includes('theme')
+      ) {
         shouldReloadEditors = true;
         break;
       }

@@ -145,7 +145,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       currentTheme = theme;
       currentEditorTheme = editorTheme;
     });
-    refreshTextmate();
   };
 
   // https://github.com/microsoft/TypeScript-Website/blob/eaa8205658445d4df6c0ca04e42fab1019f71df0/packages/sandbox/src/index.ts#L59-L62
@@ -311,12 +310,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
     await wireTmGrammars(monaco, registry, grammars, editor);
   }
-
-  const refreshTextmate = async () => {
-    if (['vue', 'vue-app', 'ripple'].includes(language)) {
-      await addVueSupport(); // a workaround for TextMate syntax
-    }
-  };
 
   const addRippleSupport = async (syntaxes: {
     ripple: Record<string, unknown>;
@@ -526,7 +519,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         setModel(editor, editor.getValue(), language);
       }
     });
-    refreshTextmate();
   };
 
   const focus = () => editor.focus();
