@@ -1950,6 +1950,9 @@
   "templates.starter.cpp": {
     "translation": "شروع کننده C++"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "شروع کننده Go (Wasm)"
+  },
   "templates.starter.daisyui": {
     "translation": "شروع کننده daisyUI"
   },
@@ -1964,6 +1967,9 @@
   },
   "templates.starter.go": {
     "translation": "شروع کننده Go"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "شروع کننده Go (Wasm)"
   },
   "templates.starter.heading": {
     "translation": "قالب‌های شروع کننده"

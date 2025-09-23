@@ -222,6 +222,15 @@
   "go.name": {
     "translation": "Go"
   },
+  "goWasm.desc": {
+    "translation": "Go interpreter در حال اجرا در WebAssembly، با استفاده از Yaegi"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>برو وب سایت رسمی</tag-2></tag-1> <tag-3><tag-4>یاگی</tag-4></tag-3> <tag-5> <tag-6>X را در دقیقه Y یاد بگیرید، جایی که X=Go</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>قالب استارت را بارگذاری کنید</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
   "haml.desc": {
     "translation": "کامپایلر Haml برای قالب‌های نما جاوااسکریپت سمت کلاینت با استفاده از clientside-haml-js."
   },

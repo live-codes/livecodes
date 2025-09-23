@@ -128,6 +128,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc2: 'Здесь он компилируется в JavaScript с помощью GopherJS.',
     name: 'Go',
   },
+  goWasm: {
+    desc: 'Интерпретатор Go, работающий на WebAssembly, с использованием Yaegi',
+    link: '<1><2>Официальный сайт Go</2></1> <3><4>Yaegi</4></3> <5> <6>Узнайте X за Y минут, где X=Go</6> </5> <7> <8>Документация LiveCodes</8> </7> <9> <10>Загрузите стартовый шаблон</10> </9>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: 'Компилятор Haml для клиентских шаблонов JavaScript с использованием clientside-haml-js.',
     link: '<1><2>Официальный сайт Haml</2></1> <3> <4>Документация Haml</4> </3> <5> <6>GitHub-репозиторий clientside-haml-js</6> </5> <7> <8>Изучите X за Y минут, где X=haml</8> </7> <9> <10>Документация LiveCodes</10> </9>',

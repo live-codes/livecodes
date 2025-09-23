@@ -1950,6 +1950,9 @@
   "templates.starter.cpp": {
     "translation": "سی++ شروعاتی"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "سی++ (واسم) شروعاتی"
+  },
   "templates.starter.daisyui": {
     "translation": "daisyUI شروعاتی"
   },
@@ -1964,6 +1967,9 @@
   },
   "templates.starter.go": {
     "translation": "گو شروعاتی"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "گو (واسم) شروعاتی"
   },
   "templates.starter.heading": {
     "translation": "شروعاتی سانچے"
