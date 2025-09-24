@@ -1950,6 +1950,9 @@
   "templates.starter.cpp": {
     "translation": "Démarrage C++"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "Démarrage C++ (Wasm)"
+  },
   "templates.starter.daisyui": {
     "translation": "Démarrage daisyUI"
   },
@@ -1964,6 +1967,9 @@
   },
   "templates.starter.go": {
     "translation": "Démarrage Go"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Démarrage Go (Wasm)"
   },
   "templates.starter.heading": {
     "translation": "Modèles de Démarrage"

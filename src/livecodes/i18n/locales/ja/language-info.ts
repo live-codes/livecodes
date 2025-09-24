@@ -127,6 +127,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Go ウェブサイト</2></1> <3><4>Go ドキュメント</4></3> <5> <6>GopherJS リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=Go</8> </7> <9><10>スターターテンプレートを読み込む</10></9>',
     name: 'Go',
   },
+  goWasm: {
+    desc: 'WebAssembly上で動作するGoインタプリタ、Yaegiを使用',
+    link: '<1><2>囲碁公式サイト</2></1> <3><4>八重垣</4></3> <5> <6>XをY分で学ぶ、X=囲碁</6> </5> <7> <8>LiveCodesドキュメンテーション</8> </7> <9> <10>スターターテンプレートの読み込み</10> </9>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: 'clientside-haml-js を使用したクライアントサイド JavaScript ビューテンプレート用の Haml コンパイラ。',
     link: '<1><2>Haml 公式ウェブサイト</2></1> <3> <4>Haml ドキュメント</4> </3> <5> <6>clientside-haml-js GitHub リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=haml</8> </7> <9> <10>LiveCodes ドキュメント</10> </9>',

@@ -1950,6 +1950,9 @@
   "templates.starter.cpp": {
     "translation": "قالب C++"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "قالب C++ (Wasm)"
+  },
   "templates.starter.daisyui": {
     "translation": "قالب daisyUI"
   },
@@ -1964,6 +1967,9 @@
   },
   "templates.starter.go": {
     "translation": "قالب Go"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "قالب Go (Wasm)"
   },
   "templates.starter.heading": {
     "translation": "قوالب البداية"

@@ -124,6 +124,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Go 官方网站</2></1> <3><4>Go 文档</4></3> <5> <6>GopherJS 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=Go</8> </7> <9><10>加载启动模板</10></9>',
     name: 'Go',
   },
+  goWasm: {
+    desc: '使用 Yaegi 在 WebAssembly 上运行 Go 解释器',
+    link: '<1><2>围棋官方网站</2></1> <3><4>Yaegi</4></3> <5> <6>在 Y 分钟内学会 X，其中 X=Go</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: '使用 clientside-haml-js 的 Haml 编译器，用于编写客户端侧 JavaScript 视图模板。',
     link: '<1><2>Haml 官网</2></1> <3> <4>Haml 文档</4> </3> <5> <6>clientside-haml-js GitHub 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=haml</8> </7> <9> <10>LiveCodes 文档</10> </9>',

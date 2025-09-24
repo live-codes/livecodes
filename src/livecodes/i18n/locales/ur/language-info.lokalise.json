@@ -222,6 +222,15 @@
   "go.name": {
     "translation": "گو"
   },
+  "goWasm.desc": {
+    "translation": "Yaegi کا استعمال کرتے ہوئے WebAssembly پر چلنے والے مترجم پر جائیں۔"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>سرکاری ویب سائٹ پر جائیں</tag-2></tag-1> <tag-3><tag-4>یگی</tag-4></tag-3> <tag-5> <tag-6>Y منٹ میں X سیکھیں ، جہاں X = Go</tag-6> </tag-5> <tag-7> <tag-8>لائیو کوڈز دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>لوڈ اسٹارٹر سانچہ</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
   "haml.desc": {
     "translation": "کلائنٹ سائیڈ جاوا اسکرپٹ ویو ٹیمپلیٹس کے لیے کلائنٹ سائیڈ-ہیمل-جے ایس کا استعمال کرتے ہوئے ہیمل کمپائلر۔"
   },

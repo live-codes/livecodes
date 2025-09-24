@@ -88,6 +88,9 @@ const postProcess = async (content: string, config: Config, language: LanguageOr
   }
 
   for (const processor of window.deps.processors) {
+    // do not place compiled css for tailwind and similar in style blocks
+    if (['tailwindcss', 'unocss', 'windicss'].includes(processor.name)) continue;
+
     if (
       (processorIsEnabled(processor.name, config) &&
         processorIsActivated(processor.name, config) &&
