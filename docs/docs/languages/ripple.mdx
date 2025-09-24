@@ -338,7 +338,7 @@ export const tailwindDemo = {
   let $count = 0;
 
   <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-    <h1 class="text-2xl font-bold text-gray-800 mb-4">{'Ripple + Tailwind CSS'}</h1>
+    <h1 class="header">{'Ripple + Tailwind CSS'}</h1>
     <div class="flex items-center space-x-4 mb-4">
       <button
         onClick={() => $count--}
@@ -361,6 +361,12 @@ export const tailwindDemo = {
       {'Reset'}
     </button>
   </div>
+
+  <style>
+    .header {
+      @apply text-2xl font-bold text-gray-800 mb-4;
+    }
+  </style>
 }
 `,
   },

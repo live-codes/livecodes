@@ -3,7 +3,6 @@ import type { LanguageSpecs } from '../../models';
 export const ripple: LanguageSpecs = {
   name: 'ripple',
   title: 'Ripple',
-  info: false,
   formatter: {
     factory: async (baseUrl, _language, config) => {
       (self as any).importScripts(baseUrl + '{{hash:lang-ripple-formatter.js}}');
