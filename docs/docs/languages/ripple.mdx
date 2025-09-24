@@ -17,39 +17,41 @@ export const demo = {
   activeEditor: 'script',
   script: {
     language: 'ripple',
-    content: ` export default component Counter() {
-   let \$count = 0;
-   let \$doubled = \$count * 2;
+    content: `import { track } from 'ripple';
 
-   <div class='container'>
-     <h2>{'Counter'}</h2>
-     <p>{\`Count: \${\$count}\`}</p>
-     <p>{\`Doubled: \${\$doubled}\`}</p>
+export default component Counter() {
+  let count = track(0);
+  let doubled = track(() => @count * 2);
 
-     <button onClick={() => \$count++}>{'Increment'}</button>
-     <button onClick={() => \$count = 0}>{'Reset'} </button>
-   </div>
+  <div class='container'>
+    <h2>{'Counter'}</h2>
+    <p>{\`Count: \${@count}\`}</p>
+    <p>{\`Doubled: \${@doubled}\`}</p>
 
-   <style>
-    .container {
-      text-align: center;
-      font-family: "Arial", sans-serif;
-    }
+    <button onClick={() => @count++}>{'Increment'}</button>
+    <button onClick={() => @count = 0}>{'Reset'} </button>
+  </div>
 
-    button {
-      font-size: 1em;
-      padding: 6px 12px;
-      margin: 0 6px;
-      cursor: pointer;
-      border: none;
-      font-family: "Courier New", monospace;
-    }
+  <style>
+  .container {
+    text-align: center;
+    font-family: "Arial", sans-serif;
+  }
 
-    button:hover {
-      background-color: #e0e0e0;
-    }
-   </style>
- }`,
+  button {
+    font-size: 1em;
+    padding: 6px 12px;
+    margin: 0 6px;
+    cursor: pointer;
+    border: none;
+    font-family: "Courier New", monospace;
+  }
+
+  button:hover {
+    background-color: #e0e0e0;
+  }
+  </style>
+}`,
   },
 }
 
@@ -83,9 +85,11 @@ export const customRoot = {
   },
   script: {
     language: 'ripple',
-    content: `export default component App() {
-  let \$name = 'Ripple';
-  <div>{\`I'm a \${\$name} component\`}</div>
+    content: `import { track } from 'ripple';
+
+export default component App() {
+  let name = track('Ripple');
+  <div>{\`I'm a \${@name} component\`}</div>
   <style>
     div {
       color: #0e5ca3;
@@ -165,20 +169,20 @@ Module imports can be customized using import maps as described in [module resol
 Example:
 
 export const importsDemo = {
-  ripple: `import { effect } from "ripple";
+  ripple: `import { track, effect } from "ripple";
 import confetti from "canvas-confetti";
 
 export default component App() {
   <div class="container">
-    let $count = 0;
+    let count = track(0);
 
     effect(() => {
-      if ($count === 2) confetti();
+      if (@count === 2) confetti();
     });
 
-    <button onClick={() => $count++}>{$count}</button>
+    <button onClick={() => @count++}>{@count}</button>
 
-    if ($count > 1) {
+    if (@count > 1) {
       <div>{'Greater than 1!'}</div>
     }
   </div>
@@ -214,19 +218,19 @@ export const externalComponents = {
   script: {
     language: 'ripple',
     content: `// import from npm modules
-import Counter from 'ripple-tailwind-counter-demo/src/Counter.ripple';
+import { track } from 'ripple';
+import { Counter } from 'ripple-tailwind-counter-demo/src/Counter.ripple';
 // alternatively use absolute URLs
-// import Counter from 'https://raw.githubusercontent.com/hatemhosny/ripple-tailwind-counter-demo/refs/heads/main/src/Counter.ripple';
-
+// import { Counter } from 'https://raw.githubusercontent.com/hatemhosny/ripple-tailwind-counter-demo/refs/heads/main/src/Counter.ripple';
 
 export default component App() {
-  let $name = "World";
+  let name = track("World");
 
   setTimeout(() => {
-    $name = "Ripple + Tailwind!";
+    @name = "Ripple + Tailwind!";
   }, 2000);
 
- <Counter $name={$name} />
+ <Counter {name} />
 }
 `,
   },
@@ -334,28 +338,30 @@ export const tailwindDemo = {
   activeEditor: 'script',
   script: {
     language: 'ripple',
-  content: `export default component Counter() {
-  let $count = 0;
+  content: `import { track } from 'ripple';
+
+export default component Counter() {
+  let count = track(0);
 
   <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
     <h1 class="header">{'Ripple + Tailwind CSS'}</h1>
     <div class="flex items-center space-x-4 mb-4">
       <button
-        onClick={() => $count--}
+        onClick={() => @count--}
         class="w-12 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition cursor-pointer"
       >
         {'-'}
       </button>
-      <span class="text-3xl font-semibold text-gray-800">{$count}</span>
+      <span class="text-3xl font-semibold text-gray-800">{@count}</span>
       <button
-        onClick={() => $count++}
+        onClick={() => @count++}
         class="w-12 px-4 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 transition cursor-pointer"
       >
         {'+'}
       </button>
     </div>
     <button
-      onClick={() => $count = 0}
+      onClick={() => @count = 0}
       class="px-6 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition cursor-pointer"
     >
       {'Reset'}
