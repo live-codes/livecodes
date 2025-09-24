@@ -125,7 +125,7 @@ const LiveCodes: LiveCodesComponent = {
         'div',
         {
           ref: containerRef,
-          'data-height': height,
+          'data-height': height.value,
         },
         ctx.slots.default?.() || '',
       );
