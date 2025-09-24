@@ -99,6 +99,7 @@ import type {
   CustomEditors,
   CustomSettings,
   Editor,
+  EditorConfig,
   EditorId,
   EditorLanguages,
   EditorOptions,
@@ -209,6 +210,7 @@ let compiler: Await<ReturnType<typeof getCompiler>>;
 let formatter: Formatter;
 let editors: Editors;
 let customEditors: CustomEditors;
+let currentEditorConfig: EditorConfig;
 let toolsPane: ToolsPane | undefined;
 export let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
@@ -526,6 +528,8 @@ const createEditors = async (config: Config) => {
   const markupEditor = await createEditor(markupOptions);
   const styleEditor = await createEditor(styleOptions);
   const scriptEditor = await createEditor(scriptOptions);
+
+  currentEditorConfig = { ...getEditorConfig(config), ...getFormatterConfig(config) };
 
   setEditorTitle('markup', markupOptions.language);
   setEditorTitle('style', styleOptions.language);
@@ -1521,12 +1525,12 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
   };
   const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
   if (hasEditorConfig) {
-    const currentEditorConfig = {
-      ...getEditorConfig(currentConfig),
-      ...getFormatterConfig(currentConfig),
-    };
     for (const key in editorConfig) {
-      if ((editorConfig as any)[key] !== (currentEditorConfig as any)[key]) {
+      if (
+        key in newConfig &&
+        (editorConfig as any)[key] !== (currentEditorConfig as any)[key] &&
+        !key.toLowerCase().includes('theme')
+      ) {
         shouldReloadEditors = true;
         break;
       }
