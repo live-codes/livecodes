@@ -1523,18 +1523,10 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
     ...getEditorConfig(newConfig as Config),
     ...getFormatterConfig(newConfig as Config),
   };
+
   const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
-  if (hasEditorConfig) {
-    for (const key in editorConfig) {
-      if (
-        key in newConfig &&
-        (editorConfig as any)[key] !== (currentEditorConfig as any)[key] &&
-        !key.toLowerCase().includes('theme')
-      ) {
-        shouldReloadEditors = true;
-        break;
-      }
-    }
+  if (hasEditorConfig && newConfig.editor && newConfig.editor !== currentEditorConfig.editor) {
+    shouldReloadEditors = true;
   }
   if ('configureTailwindcss' in editors.markup) {
     if (newConfig.processors?.includes('tailwindcss')) {
@@ -1550,6 +1542,12 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
   }
   if (shouldReloadEditors) {
     await reloadEditors(combinedConfig);
+  } else if (hasEditorConfig) {
+    currentEditorConfig = {
+      ...getEditorConfig(combinedConfig),
+      ...getFormatterConfig(combinedConfig),
+    };
+    getAllEditors().forEach((editor) => editor.changeSettings(currentEditorConfig));
   }
 
   parent.dispatchEvent(new Event(customEvents.ready));
