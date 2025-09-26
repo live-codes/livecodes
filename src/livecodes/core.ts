@@ -1524,7 +1524,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
     ...getFormatterConfig(newConfig as Config),
   };
 
-  const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
+  const hasEditorConfig = Object.keys(editorConfig).some((k) => k in newConfig);
   if (hasEditorConfig && newConfig.editor && newConfig.editor !== currentEditorConfig.editor) {
     shouldReloadEditors = true;
   }
