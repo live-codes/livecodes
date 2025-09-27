@@ -633,10 +633,24 @@ export const compareObjects = /* @__PURE__ */ (
     } else if (!(key in dstObj)) {
       diff.push(key);
     } else if (srcObj[key] !== null && typeof srcObj[key] === 'object') {
-      const objDiff = compareObjects(srcObj[key] as any, dstObj[key] as any).map(
-        (k) => `${key}.${k}`,
-      );
-      diff.push(...objDiff);
+      if (Array.isArray(srcObj[key])) {
+        if (!Array.isArray(dstObj[key])) {
+          diff.push(key);
+        } else if (srcObj[key].length !== dstObj[key].length) {
+          diff.push(key);
+        } else {
+          for (let i = 0; i < srcObj[key].length; i++) {
+            if (srcObj[key][i] !== dstObj[key][i]) {
+              diff.push(`${key}[${i}]`);
+            }
+          }
+        }
+      } else {
+        const objDiff = compareObjects(srcObj[key] as any, dstObj[key] as any).map(
+          (k) => `${key}.${k}`,
+        );
+        diff.push(...objDiff);
+      }
     } else if (srcObj[key] !== dstObj[key]) {
       diff.push(key);
     }

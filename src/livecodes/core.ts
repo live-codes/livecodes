@@ -1432,8 +1432,8 @@ const loadConfig = async (
   changingContent = false;
 };
 
-const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
-  const currentConfig = getConfig();
+const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig?: Config) => {
+  const currentConfig = oldConfig || getConfig();
   const combinedConfig: Config = { ...currentConfig, ...newConfig };
   if (reload) {
     await updateEditors(editors, getConfig());
@@ -1518,16 +1518,20 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
     });
   }
 
-  let shouldReloadEditors = false;
   const editorConfig = {
     ...getEditorConfig(newConfig as Config),
     ...getFormatterConfig(newConfig as Config),
   };
 
   const hasEditorConfig = Object.keys(editorConfig).some((k) => k in newConfig);
-  if (hasEditorConfig && newConfig.editor && newConfig.editor !== currentEditorConfig.editor) {
-    shouldReloadEditors = true;
-  }
+  let shouldReloadEditors = (() => {
+    if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
+    if (newConfig.mode != null) {
+      if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
+      if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
+    }
+    return false;
+  })();
   if ('configureTailwindcss' in editors.markup) {
     if (newConfig.processors?.includes('tailwindcss')) {
       editors.markup.configureTailwindcss?.(true);
@@ -5536,14 +5540,6 @@ const createApi = (): API => {
     const shouldRun =
       newConfig.mode != null && newConfig.mode !== 'editor' && newConfig.mode !== 'codeblock';
     const shouldReloadCompiler = shouldRun && compiler.isFake;
-    const shouldReloadCodeEditors = (() => {
-      if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
-      if (newConfig.mode != null) {
-        if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
-        if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
-      }
-      return false;
-    })();
     const isContentOnlyChange = compareObjects(
       newConfig,
       currentConfig as Record<string, any>,
@@ -5568,10 +5564,7 @@ const createApi = (): API => {
     if (shouldReloadCompiler) {
       await reloadCompiler(newAppConfig);
     }
-    if (shouldReloadCodeEditors) {
-      await createEditors(newAppConfig);
-    }
-    await applyConfig(newConfig, /* reload = */ true);
+    await applyConfig(newConfig, /* reload = */ true, currentConfig);
     const content = getContentConfig(newConfig as Config);
     const hasContent = Object.values(content).some((value) => value != null);
     if (hasContent) {
