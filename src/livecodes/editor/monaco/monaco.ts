@@ -195,6 +195,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     glyphMargin: true,
     folding: false,
     lineDecorationsWidth: 0,
+    lineNumbers: 'off',
     lineNumbersMinChars: 0,
     scrollbar: {
       vertical: 'auto',
