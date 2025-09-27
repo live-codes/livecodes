@@ -104,6 +104,9 @@ export default {
             include: '#var-expr',
           },
           {
+            include: '#server-block',
+          },
+          {
             include: '#component-declaration',
           },
           {
@@ -229,7 +232,7 @@ export default {
           {
             name: 'keyword.control.trycatch.js',
             match:
-              '(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(catch|finally|async|throw|try)(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))',
+              '(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(catch|finally|pending|throw|try)(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))',
           },
           {
             match:
@@ -328,6 +331,24 @@ export default {
       expression: {
         patterns: [
           {
+            name: 'meta.identifier.tracked.js',
+            match: '(@)([_$[:alpha:]][_$[:alnum:]]*)',
+            captures: {
+              '1': {
+                name: 'punctuation.section.embedded.begin.js',
+              },
+              '2': {
+                name: 'variable.other.js',
+              },
+            },
+          },
+          {
+            include: '#server-member-expression',
+          },
+          {
+            include: '#jsx-ref-modifier',
+          },
+          {
             include: '#expressionWithoutIdentifiers',
           },
           {
@@ -380,6 +401,12 @@ export default {
             include: '#object-literal',
           },
           {
+            include: '#tuple-literal',
+          },
+          {
+            include: '#record-literal',
+          },
+          {
             include: '#expression-operators',
           },
           {
@@ -407,17 +434,33 @@ export default {
         ],
       },
       decorator: {
-        name: 'meta.decorator.js',
-        begin: '(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))\\@',
-        beginCaptures: {
-          '0': {
-            name: 'punctuation.decorator.js',
-          },
-        },
-        end: '(?=\\s)',
         patterns: [
           {
-            include: '#expression',
+            name: 'meta.identifier.tracked.js',
+            match: '(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(@)([_$[:alpha:]][_$[:alnum:]]*)',
+            captures: {
+              '1': {
+                name: 'punctuation.section.embedded.begin.js',
+              },
+              '2': {
+                name: 'variable.other.js',
+              },
+            },
+          },
+          {
+            name: 'meta.decorator.js',
+            begin: '(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))\\@(?![_$[:alpha:]])',
+            beginCaptures: {
+              '0': {
+                name: 'punctuation.decorator.js',
+              },
+            },
+            end: '(?=\\s)',
+            patterns: [
+              {
+                include: '#expression',
+              },
+            ],
           },
         ],
       },
@@ -427,7 +470,7 @@ export default {
             name: 'meta.var.expr.js',
             begin:
               '(?=(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(\\bexport)\\s+)?(?:(\\bdeclare)\\s+)?\\b(var|let)(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))',
-            end: '(?!(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(\\bexport)\\s+)?(?:(\\bdeclare)\\s+)?\\b(var|let)(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))((?=^|;|}|((?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|;|^\\s*$|(?:^\\s*(?:abstract|async|(?:\\bawait\\s+(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)\\b)|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)|var|while)\\b))|((?<!^let|[^\\._$[:alnum:]]let|^var|[^\\._$[:alnum:]]var)(?=\\s*$)))',
+            end: '(?!(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(\\bexport)\\s+)?(?:(\\bdeclare)\\s+)?\\b(var|let)(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))((?=^|;|}|((?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|;|^\\s*$|(?:^\\s*(?:abstract|async|(?:\\bawait\\s+(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)\\b)|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)|var|while)\\b))|(?=\\s*$))',
             patterns: [
               {
                 begin:
@@ -503,7 +546,7 @@ export default {
                 name: 'storage.type.js',
               },
             },
-            end: '(?!(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(\\bexport)\\s+)?(?:(\\bdeclare)\\s+)?\\b(const(?!\\s+enum\\b))(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))((?=^|;|}|((?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|;|^\\s*$|(?:^\\s*(?:abstract|async|(?:\\bawait\\s+(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)\\b)|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)|var|while)\\b))|((?<!^const|[^\\._$[:alnum:]]const)(?=\\s*$)))',
+            end: '(?!(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(\\bexport)\\s+)?(?:(\\bdeclare)\\s+)?\\b(const(?!\\s+enum\\b))(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))((?=^|;|}|((?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|;|^\\s*$|(?:^\\s*(?:abstract|async|(?:\\bawait\\s+(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)\\b)|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)|var|while)\\b))|(?=\\s*$))',
             patterns: [
               {
                 begin:
@@ -579,7 +622,7 @@ export default {
                 name: 'storage.type.js',
               },
             },
-            end: '(?!(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(\\bexport)\\s+)?(?:(\\bdeclare)\\s+)?\\b((?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)|(?:\\bawait\\s+(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)\\b))(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))((?=;|}|((?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|;|^\\s*$|(?:^\\s*(?:abstract|async|(?:\\bawait\\s+(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)\\b)|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)|var|while)\\b))|((?<!^using|[^\\._$[:alnum:]]using|^await\\s+using|[^\\._$[:alnum:]]await\\s+using)(?=\\s*$)))',
+            end: '(?!(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(\\bexport)\\s+)?(?:(\\bdeclare)\\s+)?\\b((?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)|(?:\\bawait\\s+(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)\\b))(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.)))((?=;|}|((?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(of|in)\\s+)|;|^\\s*$|(?:^\\s*(?:abstract|async|(?:\\bawait\\s+(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)\\b)|break|case|catch|class|const|continue|declare|do|else|enum|export|finally|function|for|goto|if|import|interface|let|module|namespace|switch|return|throw|try|type|(?:\\busing(?=\\s+(?!in\\b|of\\b(?!\\s*(?:of\\b|=)))[_$[:alpha:]])\\b)|var|while)\\b))|(?=\\s*$))',
             patterns: [
               {
                 begin:
@@ -894,6 +937,9 @@ export default {
           },
           {
             include: '#array-literal',
+          },
+          {
+            include: '#tuple-literal',
           },
           {
             include: '#numeric-literal',
@@ -1329,6 +1375,9 @@ export default {
             include: '#array-literal',
           },
           {
+            include: '#tuple-literal',
+          },
+          {
             include: '#numeric-literal',
           },
           {
@@ -1743,6 +1792,9 @@ export default {
           },
           {
             include: '#array-literal',
+          },
+          {
+            include: '#tuple-literal',
           },
           {
             include: '#numeric-literal',
@@ -2286,6 +2338,9 @@ export default {
                   },
                   {
                     include: '#array-literal',
+                  },
+                  {
+                    include: '#tuple-literal',
                   },
                   {
                     include: '#comment',
@@ -2978,6 +3033,31 @@ export default {
             match: 'await',
           },
           {
+            name: 'meta.for-of-with-index.ripple',
+            match:
+              '\\(\\s*(let|const|var)\\s+([_$[:alpha:]][_$[:alnum:]]*)\\s+(of)\\s+([^;]+)\\s*;\\s*(index)\\s+([_$[:alpha:]][_$[:alnum:]]*)\\s*\\)',
+            captures: {
+              '1': {
+                name: 'storage.type.js',
+              },
+              '2': {
+                name: 'variable.other.readwrite.js',
+              },
+              '3': {
+                name: 'keyword.operator.of.js',
+              },
+              '4': {
+                name: 'variable.other.object.js',
+              },
+              '5': {
+                name: 'keyword.keyword.index.ripple',
+              },
+              '6': {
+                name: 'variable.other.readwrite.js',
+              },
+            },
+          },
+          {
             begin: '\\(',
             beginCaptures: {
               '0': {
@@ -3229,6 +3309,9 @@ export default {
               },
               {
                 include: '#array-literal',
+              },
+              {
+                include: '#tuple-literal',
               },
             ],
           },
@@ -4043,6 +4126,12 @@ export default {
             include: '#array-literal',
           },
           {
+            include: '#tuple-literal',
+          },
+          {
+            include: '#record-literal',
+          },
+          {
             include: '#this-literal',
           },
           {
@@ -4070,6 +4159,55 @@ export default {
           },
           {
             include: '#punctuation-comma',
+          },
+        ],
+      },
+      'tuple-literal': {
+        name: 'meta.tuple.literal.js',
+        begin: '(#)(\\[)',
+        beginCaptures: {
+          '1': {
+            name: 'keyword.control.tuple.js',
+          },
+          '2': {
+            name: 'meta.brace.square.js',
+          },
+        },
+        end: '\\]',
+        endCaptures: {
+          '0': {
+            name: 'meta.brace.square.js',
+          },
+        },
+        patterns: [
+          {
+            include: '#expression',
+          },
+          {
+            include: '#punctuation-comma',
+          },
+        ],
+      },
+      'record-literal': {
+        name: 'meta.record.literal.js',
+        begin: '(#)(\\{)',
+        beginCaptures: {
+          '1': {
+            name: 'keyword.control.record.js',
+          },
+          '2': {
+            name: 'punctuation.definition.block.js',
+          },
+        },
+        end: '\\}',
+        endCaptures: {
+          '0': {
+            name: 'punctuation.definition.block.js',
+          },
+        },
+        patterns: [
+          {
+            include: '#object-member',
           },
         ],
       },
@@ -6269,8 +6407,8 @@ export default {
       },
       'jsx-tag-without-attributes-in-expression': {
         begin:
-          '(?<!\\+\\+|--)(?<=[({\\[,?=>:*]|&&|\\|\\||\\?|\\*\\/|^await|[^\\._$[:alnum:]]await|^return|[^\\._$[:alnum:]]return|^default|[^\\._$[:alnum:]]default|^yield|[^\\._$[:alnum:]]yield|^)\\s*(?=(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?![sS][tT][yY][lL][eE]\\b)(?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\\.|-))?\\s*(>))',
-        end: '(?!(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?![sS][tT][yY][lL][eE]\\b)(?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\\.|-))?\\s*(>))',
+          '(?<!\\+\\+|--)(?<=[({\\[,?=>:*]|&&|\\|\\||\\?|\\*\\/|^await|[^\\._$[:alnum:]]await|^return|[^\\._$[:alnum:]]return|^default|[^\\._$[:alnum:]]default|^yield|[^\\._$[:alnum:]]yield|^)\\s*(?=(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?![sS][tT][yY][lL][eE]\\b)(?:(?!children)[a-z][a-z0-9]*|(?:children|(@?[_$[:alpha:]][-_$[:alnum:]]*(?:\\.@?[_$[:alpha:]][-_$[:alnum:]]*)*)))(?<!-))?\\s*(>))',
+        end: '(?!(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?![sS][tT][yY][lL][eE]\\b)(?:(?!children)[a-z][a-z0-9]*|(?:children|(@?[_$[:alpha:]][-_$[:alnum:]]*(?:\\.@?[_$[:alpha:]][-_$[:alnum:]]*)*)))(?<!-))?\\s*(>))',
         patterns: [
           {
             include: '#jsx-tag-without-attributes',
@@ -6280,8 +6418,8 @@ export default {
       'jsx-tag-without-attributes': {
         name: 'meta.tag.without-attributes.js',
         begin:
-          '(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\\.|-))?\\s*(>)',
-        end: '(</)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\\.|-))?\\s*(>)',
+          '(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?:(?!children)[a-z][a-z0-9]*|(?:children|(@?[_$[:alpha:]][-_$[:alnum:]]*(?:\\.@?[_$[:alpha:]][-_$[:alnum:]]*)*)))(?<!-))?\\s*(>)',
+        end: '(</)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?:(?!children)[a-z][a-z0-9]*|(?:children|(@?[_$[:alpha:]][-_$[:alnum:]]*(?:\\.@?[_$[:alpha:]][-_$[:alnum:]]*)*)))(?<!-))?\\s*(>)',
         beginCaptures: {
           '1': {
             name: 'punctuation.definition.tag.begin.js',
@@ -6331,8 +6469,8 @@ export default {
       },
       'jsx-tag-in-expression': {
         begin:
-          '(?x)\n  (?<!\\+\\+|--)(?<=[({\\[,?=>:*]|&&|\\|\\||\\?|\\*\\/|^await|[^\\._$[:alnum:]]await|^return|[^\\._$[:alnum:]]return|^default|[^\\._$[:alnum:]]default|^yield|[^\\._$[:alnum:]]yield|^)\\s*\n  (?!<\\s*[_$[:alpha:]][_$[:alnum:]]*((\\s+extends\\s+[^=>])|,)) # look ahead is not type parameter of arrow\n  (?=(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?![sS][tT][yY][lL][eE]\\b)(?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\\.|-))(?=((<\\s*)|(\\s+))(?!\\?)|\\/?>))',
-        end: '(?!(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?![sS][tT][yY][lL][eE]\\b)(?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\\.|-))(?=((<\\s*)|(\\s+))(?!\\?)|\\/?>))',
+          '(?x)\n  (?<!\\+\\+|--)(?<=[({\\[,?=>:*]|&&|\\|\\||\\?|\\*\\/|^await|[^\\._$[:alnum:]]await|^return|[^\\._$[:alnum:]]return|^default|[^\\._$[:alnum:]]default|^yield|[^\\._$[:alnum:]]yield|^)\\s*\n  (?!<\\s*[_$[:alpha:]][_$[:alnum:]]*((\\s+extends\\s+[^=>])|,)) # look ahead is not type parameter of arrow\n  (?=(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?![sS][tT][yY][lL][eE]\\b)(?:(?!children)[a-z][a-z0-9]*|(?:children|(@?[_$[:alpha:]][-_$[:alnum:]]*(?:\\.@?[_$[:alpha:]][-_$[:alnum:]]*)*)))(?<!-))(?=((<\\s*)|(\\s+))(?!\\?)|\\/?>))',
+        end: '(?!(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?![sS][tT][yY][lL][eE]\\b)(?:(?!children)[a-z][a-z0-9]*|(?:children|(@?[_$[:alpha:]][-_$[:alnum:]]*(?:\\.@?[_$[:alpha:]][-_$[:alnum:]]*)*)))(?<!-))(?=((<\\s*)|(\\s+))(?!\\?)|\\/?>))',
         patterns: [
           {
             include: '#jsx-tag',
@@ -6392,8 +6530,8 @@ export default {
       'jsx-tag': {
         name: 'meta.tag.js',
         begin:
-          '(?=(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\\.|-))(?=((<\\s*)|(\\s+))(?!\\?)|\\/?>))',
-        end: '(/>)|(?:(</)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\\.|-))?\\s*(>))',
+          '(?=(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?:(?!children)[a-z][a-z0-9]*|(?:children|(@?[_$[:alpha:]][-_$[:alnum:]]*(?:\\.@?[_$[:alpha:]][-_$[:alnum:]]*)*)))(?<!-))(?=((<\\s*)|(\\s+))(?!\\?)|\\/?>))',
+        end: '(/>)|(?:(</)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?:(?!children)[a-z][a-z0-9]*|(?:children|(@?[_$[:alpha:]][-_$[:alnum:]]*(?:\\.@?[_$[:alpha:]][-_$[:alnum:]]*)*)))(?<!-))?\\s*(>))',
         endCaptures: {
           '1': {
             name: 'punctuation.definition.tag.end.js',
@@ -6420,7 +6558,7 @@ export default {
         patterns: [
           {
             begin:
-              '(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\\.|-))(?=((<\\s*)|(\\s+))(?!\\?)|\\/?>)',
+              '(<)\\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\\.|-)(:))?((?:(?!children)[a-z][a-z0-9]*|(?:children|(@?[_$[:alpha:]][-_$[:alnum:]]*(?:\\.@?[_$[:alpha:]][-_$[:alnum:]]*)*)))(?<!-))(?=((<\\s*)|(\\s+))(?!\\?)|\\/?>)',
             beginCaptures: {
               '1': {
                 name: 'punctuation.definition.tag.begin.js',
@@ -6530,14 +6668,6 @@ export default {
         },
         patterns: [
           {
-            match: '(\\@use)\\b\\s*',
-            captures: {
-              '1': {
-                name: 'storage.modifier.js',
-              },
-            },
-          },
-          {
             include: '#expression',
           },
         ],
@@ -6645,6 +6775,53 @@ export default {
           },
         ],
       },
+      'server-block': {
+        name: 'meta.server-block.js',
+        begin: '(#server)\\s*(\\{)',
+        beginCaptures: {
+          '1': {
+            name: 'storage.type.server.js',
+          },
+          '2': {
+            name: 'punctuation.definition.block.js',
+          },
+        },
+        end: '\\}',
+        endCaptures: {
+          '0': {
+            name: 'punctuation.definition.block.js',
+          },
+        },
+        patterns: [
+          {
+            include: '#statements',
+          },
+        ],
+      },
+      'server-member-expression': {
+        name: 'meta.server-member-expression.js',
+        match: '(#server)(\\.)([_$[:alpha:]][_$[:alnum:]]*)',
+        captures: {
+          '1': {
+            name: 'storage.type.server.js',
+          },
+          '2': {
+            name: 'punctuation.accessor.js',
+          },
+          '3': {
+            name: 'entity.name.function.js',
+          },
+        },
+      },
+      'jsx-ref-modifier': {
+        name: 'storage.modifier.js',
+        match: '\\b(ref)(?=\\s+[_$[:alpha:]])',
+        captures: {
+          '1': {
+            name: 'storage.modifier.js',
+          },
+        },
+      },
       'jsx-tag-attributes-illegal': {
         name: 'invalid.illegal.attribute.js',
         match: '\\S+',
@@ -6654,7 +6831,6 @@ export default {
 
   config: {
     // Note that this file should stay in sync with 'typescript-language-basics/language-configuration.json'
-    // onEnterRules cause errors - currently disabled
     comments: {
       lineComment: '//',
       blockComment: ['/*', '*/'],
@@ -6735,124 +6911,124 @@ export default {
         pattern: '^((.*=>\\s*)|((.*[^\\w]+|\\s*)(if|while|for)\\s*\\(.*\\)\\s*))$',
       },
     },
-    // onEnterRules: [
-    //   {
-    //     // e.g. /** | */
-    //     beforeText: {
-    //       pattern: '^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$',
-    //     },
-    //     afterText: {
-    //       pattern: '^\\s*\\*/$',
-    //     },
-    //     action: {
-    //       indent: 'indentOutdent',
-    //       appendText: ' * ',
-    //     },
-    //   },
-    //   {
-    //     // e.g. /** ...|
-    //     beforeText: {
-    //       pattern: '^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$',
-    //     },
-    //     action: {
-    //       indent: 'none',
-    //       appendText: ' * ',
-    //     },
-    //   },
-    //   {
-    //     // e.g.  * ...|
-    //     beforeText: {
-    //       pattern: '^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$',
-    //     },
-    //     previousLineText: {
-    //       pattern: '(?=^(\\s*(/\\*\\*|\\*)).*)(?=(?!(\\s*\\*/)))',
-    //     },
-    //     action: {
-    //       indent: 'none',
-    //       appendText: '* ',
-    //     },
-    //   },
-    //   {
-    //     // e.g.  */|
-    //     beforeText: {
-    //       pattern: '^(\\t|[ ])*[ ]\\*/\\s*$',
-    //     },
-    //     action: {
-    //       indent: 'none',
-    //       removeText: 1,
-    //     },
-    //   },
-    //   {
-    //     // e.g.  *-----*/|
-    //     beforeText: {
-    //       pattern: '^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$',
-    //     },
-    //     action: {
-    //       indent: 'none',
-    //       removeText: 1,
-    //     },
-    //   },
-    //   {
-    //     beforeText: {
-    //       pattern: '^\\s*(\\bcase\\s.+:|\\bdefault:)$',
-    //     },
-    //     afterText: {
-    //       pattern: '^(?!\\s*(\\bcase\\b|\\bdefault\\b))',
-    //     },
-    //     action: {
-    //       indent: 'indent',
-    //     },
-    //   },
-    //   {
-    //     // Decrease indentation after single line if/else if/else, for, or while
-    //     previousLineText: '^\\s*(((else ?)?if|for|while)\\s*\\(.*\\)\\s*|else\\s*)$',
-    //     // But make sure line doesn't have braces or is not another if statement
-    //     beforeText: '^\\s+([^{i\\s]|i(?!f\\b))',
-    //     action: {
-    //       indent: 'outdent',
-    //     },
-    //   },
-    //   // Indent when pressing enter from inside ()
-    //   {
-    //     beforeText: '^.*\\([^\\)]*$',
-    //     afterText: '^\\s*\\).*$',
-    //     action: {
-    //       indent: 'indentOutdent',
-    //       appendText: '\t',
-    //     },
-    //   },
-    //   // Indent when pressing enter from inside {}
-    //   {
-    //     beforeText: '^.*\\{[^\\}]*$',
-    //     afterText: '^\\s*\\}.*$',
-    //     action: {
-    //       indent: 'indentOutdent',
-    //       appendText: '\t',
-    //     },
-    //   },
-    //   // Indent when pressing enter from inside []
-    //   {
-    //     beforeText: '^.*\\[[^\\]]*$',
-    //     afterText: '^\\s*\\].*$',
-    //     action: {
-    //       indent: 'indentOutdent',
-    //       appendText: '\t',
-    //     },
-    //   },
-    //   // Add // when pressing enter from inside line comment
-    //   {
-    //     beforeText: {
-    //       pattern: '(?<!\\w:)//.*',
-    //     },
-    //     afterText: {
-    //       pattern: '^(?!\\s*$).+',
-    //     },
-    //     action: {
-    //       indent: 'none',
-    //       appendText: '// ',
-    //     },
-    //   },
-    // ],
+    onEnterRules: [
+      {
+        // e.g. /** | */
+        beforeText: {
+          pattern: '^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$',
+        },
+        afterText: {
+          pattern: '^\\s*\\*/$',
+        },
+        action: {
+          indent: 'indentOutdent',
+          appendText: ' * ',
+        },
+      },
+      {
+        // e.g. /** ...|
+        beforeText: {
+          pattern: '^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$',
+        },
+        action: {
+          indent: 'none',
+          appendText: ' * ',
+        },
+      },
+      {
+        // e.g.  * ...|
+        beforeText: {
+          pattern: '^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$',
+        },
+        previousLineText: {
+          pattern: '(?=^(\\s*(/\\*\\*|\\*)).*)(?=(?!(\\s*\\*/)))',
+        },
+        action: {
+          indent: 'none',
+          appendText: '* ',
+        },
+      },
+      {
+        // e.g.  */|
+        beforeText: {
+          pattern: '^(\\t|[ ])*[ ]\\*/\\s*$',
+        },
+        action: {
+          indent: 'none',
+          removeText: 1,
+        },
+      },
+      {
+        // e.g.  *-----*/|
+        beforeText: {
+          pattern: '^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$',
+        },
+        action: {
+          indent: 'none',
+          removeText: 1,
+        },
+      },
+      {
+        beforeText: {
+          pattern: '^\\s*(\\bcase\\s.+:|\\bdefault:)$',
+        },
+        afterText: {
+          pattern: '^(?!\\s*(\\bcase\\b|\\bdefault\\b))',
+        },
+        action: {
+          indent: 'indent',
+        },
+      },
+      {
+        // Decrease indentation after single line if/else if/else, for, or while
+        previousLineText: '^\\s*(((else ?)?if|for|while)\\s*\\(.*\\)\\s*|else\\s*)$',
+        // But make sure line doesn't have braces or is not another if statement
+        beforeText: '^\\s+([^{i\\s]|i(?!f\\b))',
+        action: {
+          indent: 'outdent',
+        },
+      },
+      // Indent when pressing enter from inside ()
+      {
+        beforeText: '^.*\\([^\\)]*$',
+        afterText: '^\\s*\\).*$',
+        action: {
+          indent: 'indentOutdent',
+          appendText: '\t',
+        },
+      },
+      // Indent when pressing enter from inside {}
+      {
+        beforeText: '^.*\\{[^\\}]*$',
+        afterText: '^\\s*\\}.*$',
+        action: {
+          indent: 'indentOutdent',
+          appendText: '\t',
+        },
+      },
+      // Indent when pressing enter from inside []
+      {
+        beforeText: '^.*\\[[^\\]]*$',
+        afterText: '^\\s*\\].*$',
+        action: {
+          indent: 'indentOutdent',
+          appendText: '\t',
+        },
+      },
+      // Add // when pressing enter from inside line comment
+      {
+        beforeText: {
+          pattern: '(?<!\\w:)//.*',
+        },
+        afterText: {
+          pattern: '^(?!\\s*$).+',
+        },
+        action: {
+          indent: 'none',
+          appendText: '// ',
+        },
+      },
+    ],
   },
 
   cssSyntax: {
