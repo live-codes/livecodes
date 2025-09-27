@@ -1,6 +1,8 @@
 // from https://github.com/trueadm/ripple/blob/main/packages/ripple-vscode-plugin/syntaxes/ripple.tmLanguage.json
 // and https://github.com/trueadm/ripple/blob/main/packages/ripple-vscode-plugin/language-configuration.json
 // and 'https://cdn.jsdelivr.net/gh/zikaari/monaco-textmate-languages@master/grammars/css/css.tmLanguage.json'
+// Config onEnterRules cause errors - currently disabled
+
 export default {
   syntax: {
     information_for_contributors: [
@@ -6831,6 +6833,7 @@ export default {
 
   config: {
     // Note that this file should stay in sync with 'typescript-language-basics/language-configuration.json'
+    // onEnterRules cause errors - currently disabled
     comments: {
       lineComment: '//',
       blockComment: ['/*', '*/'],
@@ -6911,124 +6914,124 @@ export default {
         pattern: '^((.*=>\\s*)|((.*[^\\w]+|\\s*)(if|while|for)\\s*\\(.*\\)\\s*))$',
       },
     },
-    onEnterRules: [
-      {
-        // e.g. /** | */
-        beforeText: {
-          pattern: '^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$',
-        },
-        afterText: {
-          pattern: '^\\s*\\*/$',
-        },
-        action: {
-          indent: 'indentOutdent',
-          appendText: ' * ',
-        },
-      },
-      {
-        // e.g. /** ...|
-        beforeText: {
-          pattern: '^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$',
-        },
-        action: {
-          indent: 'none',
-          appendText: ' * ',
-        },
-      },
-      {
-        // e.g.  * ...|
-        beforeText: {
-          pattern: '^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$',
-        },
-        previousLineText: {
-          pattern: '(?=^(\\s*(/\\*\\*|\\*)).*)(?=(?!(\\s*\\*/)))',
-        },
-        action: {
-          indent: 'none',
-          appendText: '* ',
-        },
-      },
-      {
-        // e.g.  */|
-        beforeText: {
-          pattern: '^(\\t|[ ])*[ ]\\*/\\s*$',
-        },
-        action: {
-          indent: 'none',
-          removeText: 1,
-        },
-      },
-      {
-        // e.g.  *-----*/|
-        beforeText: {
-          pattern: '^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$',
-        },
-        action: {
-          indent: 'none',
-          removeText: 1,
-        },
-      },
-      {
-        beforeText: {
-          pattern: '^\\s*(\\bcase\\s.+:|\\bdefault:)$',
-        },
-        afterText: {
-          pattern: '^(?!\\s*(\\bcase\\b|\\bdefault\\b))',
-        },
-        action: {
-          indent: 'indent',
-        },
-      },
-      {
-        // Decrease indentation after single line if/else if/else, for, or while
-        previousLineText: '^\\s*(((else ?)?if|for|while)\\s*\\(.*\\)\\s*|else\\s*)$',
-        // But make sure line doesn't have braces or is not another if statement
-        beforeText: '^\\s+([^{i\\s]|i(?!f\\b))',
-        action: {
-          indent: 'outdent',
-        },
-      },
-      // Indent when pressing enter from inside ()
-      {
-        beforeText: '^.*\\([^\\)]*$',
-        afterText: '^\\s*\\).*$',
-        action: {
-          indent: 'indentOutdent',
-          appendText: '\t',
-        },
-      },
-      // Indent when pressing enter from inside {}
-      {
-        beforeText: '^.*\\{[^\\}]*$',
-        afterText: '^\\s*\\}.*$',
-        action: {
-          indent: 'indentOutdent',
-          appendText: '\t',
-        },
-      },
-      // Indent when pressing enter from inside []
-      {
-        beforeText: '^.*\\[[^\\]]*$',
-        afterText: '^\\s*\\].*$',
-        action: {
-          indent: 'indentOutdent',
-          appendText: '\t',
-        },
-      },
-      // Add // when pressing enter from inside line comment
-      {
-        beforeText: {
-          pattern: '(?<!\\w:)//.*',
-        },
-        afterText: {
-          pattern: '^(?!\\s*$).+',
-        },
-        action: {
-          indent: 'none',
-          appendText: '// ',
-        },
-      },
-    ],
+    // onEnterRules: [
+    //   {
+    //     // e.g. /** | */
+    //     beforeText: {
+    //       pattern: '^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$',
+    //     },
+    //     afterText: {
+    //       pattern: '^\\s*\\*/$',
+    //     },
+    //     action: {
+    //       indent: 'indentOutdent',
+    //       appendText: ' * ',
+    //     },
+    //   },
+    //   {
+    //     // e.g. /** ...|
+    //     beforeText: {
+    //       pattern: '^\\s*/\\*\\*(?!/)([^\\*]|\\*(?!/))*$',
+    //     },
+    //     action: {
+    //       indent: 'none',
+    //       appendText: ' * ',
+    //     },
+    //   },
+    //   {
+    //     // e.g.  * ...|
+    //     beforeText: {
+    //       pattern: '^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$',
+    //     },
+    //     previousLineText: {
+    //       pattern: '(?=^(\\s*(/\\*\\*|\\*)).*)(?=(?!(\\s*\\*/)))',
+    //     },
+    //     action: {
+    //       indent: 'none',
+    //       appendText: '* ',
+    //     },
+    //   },
+    //   {
+    //     // e.g.  */|
+    //     beforeText: {
+    //       pattern: '^(\\t|[ ])*[ ]\\*/\\s*$',
+    //     },
+    //     action: {
+    //       indent: 'none',
+    //       removeText: 1,
+    //     },
+    //   },
+    //   {
+    //     // e.g.  *-----*/|
+    //     beforeText: {
+    //       pattern: '^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$',
+    //     },
+    //     action: {
+    //       indent: 'none',
+    //       removeText: 1,
+    //     },
+    //   },
+    //   {
+    //     beforeText: {
+    //       pattern: '^\\s*(\\bcase\\s.+:|\\bdefault:)$',
+    //     },
+    //     afterText: {
+    //       pattern: '^(?!\\s*(\\bcase\\b|\\bdefault\\b))',
+    //     },
+    //     action: {
+    //       indent: 'indent',
+    //     },
+    //   },
+    //   {
+    //     // Decrease indentation after single line if/else if/else, for, or while
+    //     previousLineText: '^\\s*(((else ?)?if|for|while)\\s*\\(.*\\)\\s*|else\\s*)$',
+    //     // But make sure line doesn't have braces or is not another if statement
+    //     beforeText: '^\\s+([^{i\\s]|i(?!f\\b))',
+    //     action: {
+    //       indent: 'outdent',
+    //     },
+    //   },
+    //   // Indent when pressing enter from inside ()
+    //   {
+    //     beforeText: '^.*\\([^\\)]*$',
+    //     afterText: '^\\s*\\).*$',
+    //     action: {
+    //       indent: 'indentOutdent',
+    //       appendText: '\t',
+    //     },
+    //   },
+    //   // Indent when pressing enter from inside {}
+    //   {
+    //     beforeText: '^.*\\{[^\\}]*$',
+    //     afterText: '^\\s*\\}.*$',
+    //     action: {
+    //       indent: 'indentOutdent',
+    //       appendText: '\t',
+    //     },
+    //   },
+    //   // Indent when pressing enter from inside []
+    //   {
+    //     beforeText: '^.*\\[[^\\]]*$',
+    //     afterText: '^\\s*\\].*$',
+    //     action: {
+    //       indent: 'indentOutdent',
+    //       appendText: '\t',
+    //     },
+    //   },
+    //   // Add // when pressing enter from inside line comment
+    //   {
+    //     beforeText: {
+    //       pattern: '(?<!\\w:)//.*',
+    //     },
+    //     afterText: {
+    //       pattern: '^(?!\\s*$).+',
+    //     },
+    //     action: {
+    //       indent: 'none',
+    //       appendText: '// ',
+    //     },
+    //   },
+    // ],
   },
 
   cssSyntax: {
