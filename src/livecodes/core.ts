@@ -1969,11 +1969,12 @@ const loadSelectedScreen = () => {
   return false;
 };
 
-const getAllEditors = (): CodeEditor[] => [
-  ...Object.values(editors),
-  ...[toolsPane?.console?.getEditor?.()],
-  ...[toolsPane?.compiled?.getEditor?.()],
-];
+const getAllEditors = (): CodeEditor[] =>
+  [
+    ...Object.values(editors),
+    toolsPane?.console?.getEditor?.(),
+    toolsPane?.compiled?.getEditor?.(),
+  ].filter((x) => x != null);
 
 const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];
