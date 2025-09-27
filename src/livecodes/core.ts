@@ -1432,8 +1432,8 @@ const loadConfig = async (
   changingContent = false;
 };
 
-const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
-  const currentConfig = getConfig();
+const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig?: Config) => {
+  const currentConfig = oldConfig || getConfig();
   const combinedConfig: Config = { ...currentConfig, ...newConfig };
   if (reload) {
     await updateEditors(editors, getConfig());
@@ -1518,24 +1518,20 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
     });
   }
 
-  let shouldReloadEditors = false;
   const editorConfig = {
     ...getEditorConfig(newConfig as Config),
     ...getFormatterConfig(newConfig as Config),
   };
-  const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
-  if (hasEditorConfig) {
-    for (const key in editorConfig) {
-      if (
-        key in newConfig &&
-        (editorConfig as any)[key] !== (currentEditorConfig as any)[key] &&
-        !key.toLowerCase().includes('theme')
-      ) {
-        shouldReloadEditors = true;
-        break;
-      }
+
+  const hasEditorConfig = Object.keys(editorConfig).some((k) => k in newConfig);
+  let shouldReloadEditors = (() => {
+    if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
+    if (newConfig.mode != null) {
+      if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
+      if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
     }
-  }
+    return false;
+  })();
   if ('configureTailwindcss' in editors.markup) {
     if (newConfig.processors?.includes('tailwindcss')) {
       editors.markup.configureTailwindcss?.(true);
@@ -1550,6 +1546,12 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
   }
   if (shouldReloadEditors) {
     await reloadEditors(combinedConfig);
+  } else if (hasEditorConfig) {
+    currentEditorConfig = {
+      ...getEditorConfig(combinedConfig),
+      ...getFormatterConfig(combinedConfig),
+    };
+    getAllEditors().forEach((editor) => editor.changeSettings(currentEditorConfig));
   }
 
   parent.dispatchEvent(new Event(customEvents.ready));
@@ -5538,14 +5540,6 @@ const createApi = (): API => {
     const shouldRun =
       newConfig.mode != null && newConfig.mode !== 'editor' && newConfig.mode !== 'codeblock';
     const shouldReloadCompiler = shouldRun && compiler.isFake;
-    const shouldReloadCodeEditors = (() => {
-      if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
-      if (newConfig.mode != null) {
-        if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
-        if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
-      }
-      return false;
-    })();
     const isContentOnlyChange = compareObjects(
       newConfig,
       currentConfig as Record<string, any>,
@@ -5570,10 +5564,7 @@ const createApi = (): API => {
     if (shouldReloadCompiler) {
       await reloadCompiler(newAppConfig);
     }
-    if (shouldReloadCodeEditors) {
-      await createEditors(newAppConfig);
-    }
-    await applyConfig(newConfig, /* reload = */ true);
+    await applyConfig(newConfig, /* reload = */ true, currentConfig);
     const content = getContentConfig(newConfig as Config);
     const hasContent = Object.values(content).some((value) => value != null);
     if (hasContent) {
