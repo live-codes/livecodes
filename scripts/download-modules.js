@@ -36,7 +36,7 @@ const downloadModules = async ({ dryRun = false } = {}) => {
   const failedModuleUrls = [];
   let pyodideBaseUrl = '';
 
-  const downloadQueue = createAsyncQueue(5);
+  const downloadQueue = createAsyncQueue(10);
 
   fs.mkdirSync(modulesDir, { recursive: true });
 
@@ -196,7 +196,7 @@ const downloadModules = async ({ dryRun = false } = {}) => {
           fetchAndSaveFile(url, downloadPath).then((result) => {
             if (result instanceof Error) {
               failedModuleUrls.push({ module: file, url, error: result.message });
-              console.error(`Failed to download module (${module}): ${result.message}`);
+              console.error(`Failed to download module (${file}): ${result.message}`);
               return;
             }
             return decompress(downloadPath, `${modulesDir}pyodide/v${pyodideVersion}/full`, {

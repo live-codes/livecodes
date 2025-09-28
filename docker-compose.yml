@@ -15,7 +15,7 @@ services:
         - FIREBASE_CONFIG=${FIREBASE_CONFIG:-}
         - DOCS_BASE_URL=${DOCS_BASE_URL:-null}
         - LOCAL_MODULES=${LOCAL_MODULES:-false}
-        - NODE_OPTIONS="--max-old-space-size=4096"
+        - NODE_OPTIONS=--max-old-space-size=4096
     restart: unless-stopped
     environment:
       - SELF_HOSTED=true
@@ -30,7 +30,7 @@ services:
       - LOG_URL=${LOG_URL:-null}
       - VALKEY_HOST=valkey
       - VALKEY_PORT=6379
-      - NODE_OPTIONS="--max-old-space-size=4096"
+      - NODE_OPTIONS=--max-old-space-size=4096
     volumes:
       - ./assets:/srv/build/assets
     depends_on:
