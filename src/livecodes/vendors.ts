@@ -4,12 +4,13 @@ import { modulesService } from './services/modules';
 // - always add full version and file extension
 // - minimize usage of baseUrls if possible
 // - if es module imports others, use baseUrl instead
-// - after `vendorBaseUrl` the file is sorted alphabetically
+// - excluding `vendorsBaseUrl`, the file is sorted alphabetically
+// see scripts/download-modules.js
 
 const { getUrl } = modulesService;
 
-export const vendorsBaseUrl = 'http://127.0.0.1:8081/';
-// /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.4/dist/');
+export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.4/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 

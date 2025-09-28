@@ -3,6 +3,7 @@ const { minify: minifyHTML, default: minifyHTMLPlugin } = require('esbuild-plugi
 const fs = require('fs');
 const path = require('path');
 
+const { downloadModules } = require('./download-modules');
 const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
 const { buildStyles } = require('./styles');
@@ -11,6 +12,7 @@ const { arrToObj, mkdir, uint8arrayToString, iife, getFileNames, getEnvVars } = 
 
 const args = process.argv.slice(2);
 const devMode = args.includes('--dev');
+const localModules = args.includes('--download-modules') || process.env.LOCAL_MODULES === 'true';
 const root = path.resolve(__dirname + '/..');
 const outDir = path.resolve(root, 'build');
 
@@ -317,6 +319,9 @@ const functionsBuild = () =>
 const stylesBuild = () => buildStyles(devMode);
 
 prepareDir().then(async () => {
+  if (localModules) {
+    downloadModules();
+  }
   await buildLocalePathLoader();
   Promise.all([
     esmBuild(),
