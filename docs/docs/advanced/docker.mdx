@@ -169,9 +169,55 @@ The hostname and many other options can be set using [environment variables](#en
 
   Runs code in a separate origin [sandboxed iframe](https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/) to prevent cross-site scripting.
 
+- Local modules
+
+  See [Local Modules](#local-modules) section for details.
+
 - [404 page](https://livecodes.io/404)
 
   Custom 404 page for resources that are not found.
+
+## Local Modules
+
+(EXPERIMENTAL)
+
+LiveCodes depends on a large number of external modules to support a wide range of features (e.g. code editors, compilers, formatters, etc).
+These modules are loaded from CDNs (e.g. [jsDelivr](https://www.jsdelivr.com/), [unpkg](https://unpkg.com/), etc).
+So, in spite of being a client-side app, LiveCodes requires an internet connection to load these modules.
+
+However, if you want to be able to run LiveCodes without an internet connection, you can download all these modules locally by setting the [environment variable](#environment-variables) `LOCAL_MODULES=true` (it is set to `false` by default).
+In this case, all modules are downloaded during build (~ 1.5 GB), and are served locally.
+
+When working without internet connection, all resources have to be available locally. So, automatic [module resolution](../features/module-resolution.mdx) (e.g. of npm modules imported in user code) and loading type definitions for [intellisense](../features/intellisense.mdx) and auto-complete will not work out of the box.
+However, you can provide the list of modules to load using the [`imports`](../configuration/configuration-object.mdx#imports) property of the [config](../configuration/configuration-object.mdx) object (see [Custom Module Resolution](../features/module-resolution.mdx#custom-module-resolution)).
+Similarly, you can also provide the list of type definitions to load using the [`types`](../configuration/configuration-object.mdx#types) property (see [Custom Types](../features/intellisense.mdx#custom-types)).
+These modules and type definitions should be prepared in advance and made available to the running app (e.g. in the `/assets` directory - see [Volumes](#volumes)).
+
+Example:
+
+To run [React starter template](https://livecodes.io/?template=react) locally without internet connection, you need to:
+
+(assuming that the app is running on this URL: https://livecodes.localhost/)
+
+- Add [these files](https://github.com/hatemhosny/custom-modules-demo/tree/main/modules) to the [`/assets` directory](#volumes).
+- Open React starter template: https://livecodes.localhost/?template=react
+- Add this code to custom settings (Project menu → Custom Settings):
+
+```json
+{
+  "imports": {
+    "react": "https://livecodes.localhost/assets/react.js",
+    "react/compiler-runtime": "https://livecodes.localhost/assets/react-compiler-runtime.js",
+    "react/jsx-runtime": "https://livecodes.localhost/assets/react-jsx-runtime.js",
+    "react-dom": "https://livecodes.localhost/assets/react-dom.js",
+    "react-dom/client": "https://livecodes.localhost/assets/react-dom-client.js",
+    "scheduler": "https://livecodes.localhost/assets/scheduler.js"
+  },
+  "types": {
+    "react": "https://livecodes.localhost/assets/react.d.ts"
+  }
+}
+```
 
 ## Environment Variables
 
@@ -205,6 +251,7 @@ The following environment variables are supported:
 | `FIREBASE_CONFIG` | [Firebase config object](https://firebase.google.com/docs/web/learn-more#config-object) (JSON), used for [authentication](../features/github-integration.mdx) | |
 | `DOCS_BASE_URL` | [Base URL](../features/self-hosting.mdx#custom-build) of the documentation (e.g. `/docs/`) | `null` |
 | `LOG_URL` | Full URL to send [server-side analytics](https://github.com/live-codes/livecodes/blob/develop/functions/index.ts) (e.g. `https://api.website.com/log`) | `null` |
+| `LOCAL_MODULES` | Download and use all modules locally (see [Local Modules](#local-modules)) | `false` |
 
 :::info note
 When running in a non-local environment (e.g. VPS),
