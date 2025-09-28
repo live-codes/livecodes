@@ -23,9 +23,9 @@ export const clojurescript: LanguageSpecs = {
     imports: {
       'cherry-cljs': cherryCljsBaseUrl + 'index.js',
       'cherry-cljs/cljs.core.js': cherryCljsBaseUrl + 'cljs.core.js',
-      'cherry-cljs/lib/clojure.string.js': 'lib/clojure.string.js',
-      'cherry-cljs/lib/clojure.set.js': 'lib/clojure.set.js',
-      'cherry-cljs/lib/clojure.walk.js': 'lib/clojure.walk.js',
+      'cherry-cljs/lib/clojure.string.js': cherryCljsBaseUrl + 'lib/clojure.string.js',
+      'cherry-cljs/lib/clojure.set.js': cherryCljsBaseUrl + 'lib/clojure.set.js',
+      'cherry-cljs/lib/clojure.walk.js': cherryCljsBaseUrl + 'lib/clojure.walk.js',
       'squint-cljs': squintCljsBaseUrl + 'index.js',
       'squint-cljs/core.js': squintCljsBaseUrl + 'core.js',
       'squint-cljs/string.js': squintCljsBaseUrl + 'string.js',
