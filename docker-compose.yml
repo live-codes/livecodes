@@ -14,7 +14,7 @@ services:
         - SANDBOX_PORT=${SANDBOX_PORT:-8090}
         - FIREBASE_CONFIG=${FIREBASE_CONFIG:-}
         - DOCS_BASE_URL=${DOCS_BASE_URL:-null}
-        - LOCAL_MODULES=${LOCAL_MODULES:-true}
+        - LOCAL_MODULES=${LOCAL_MODULES:-false}
     restart: unless-stopped
     environment:
       - SELF_HOSTED=true
