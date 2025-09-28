@@ -1,36 +1,36 @@
 import {
-  fontAnonymousProUrl,
-  fontAstigmataUrl,
-  fontCascadiaCodeUrl,
+  fontAnonymousProBaseUrl,
+  fontAstigmataBaseUrl,
+  fontCascadiaCodeBaseUrl,
   fontCodeNewRomanUrl,
-  fontComicMonoUrl,
-  fontCourierPrimeUrl,
+  fontComicMonoBaseUrl,
+  fontCourierPrimeBaseUrl,
   fontDECTerminalModernUrl,
-  fontDejaVuMonoUrl,
-  fontFantasqueUrl,
-  fontFiraCodeUrl,
+  fontDejaVuMonoBaseUrl,
+  fontFantasqueBaseUrl,
+  fontFiraCodeBaseUrl,
   fontFixedsysUrl,
-  fontHackUrl,
-  fontHermitUrl,
+  fontHackBaseUrl,
+  fontHermitBaseUrl,
   fontIBMPlexMonoUrl,
   fontInconsolataUrl,
-  fontIosevkaUrl,
-  fontJetbrainsMonoUrl,
+  fontIosevkaBaseUrl,
+  fontJetbrainsMonoBaseUrl,
   fontMenloUrl,
   fontMonaspaceBaseUrl,
   fontMonofurUrl,
-  fontMonoidUrl,
+  fontMonoidBaseUrl,
   fontNotoUrl,
   fontNovaMonoUrl,
-  fontOpenDyslexicUrl,
+  fontOpenDyslexicBaseUrl,
   fontProFontWindowsUrl,
-  fontRobotoMonoUrl,
+  fontRobotoMonoBaseUrl,
   fontSFMonoUrl,
-  fontSourceCodeProUrl,
-  fontSpaceMonoUrl,
+  fontSourceCodeProBaseUrl,
+  fontSpaceMonoBaseUrl,
   fontSudoVarUrl,
-  fontUbuntuMonoUrl,
-  fontVictorMonoUrl,
+  fontUbuntuMonoBaseUrl,
+  fontVictorMonoBaseUrl,
 } from '../vendors';
 
 export interface Font {
@@ -44,17 +44,17 @@ export const fonts: Font[] = [
   {
     id: 'anonymous-pro',
     name: 'Anonymous Pro',
-    url: fontAnonymousProUrl,
+    url: fontAnonymousProBaseUrl + 'index.css',
   },
   {
     id: 'astigmata',
     name: 'Astigmata',
-    url: fontAstigmataUrl,
+    url: fontAstigmataBaseUrl + 'index.css',
   },
   {
     id: 'cascadia-code',
     name: 'Cascadia Code',
-    url: fontCascadiaCodeUrl,
+    url: fontCascadiaCodeBaseUrl + 'index.css',
   },
   {
     id: 'comic-mono',
@@ -64,12 +64,12 @@ export const fonts: Font[] = [
   {
     id: 'comic-mono',
     name: 'Comic Mono',
-    url: fontComicMonoUrl,
+    url: fontComicMonoBaseUrl + 'index.css',
   },
   {
     id: 'courier-prime',
     name: 'Courier Prime',
-    url: fontCourierPrimeUrl,
+    url: fontCourierPrimeBaseUrl + 'index.css',
   },
   {
     id: 'dec-terminal-modern',
@@ -79,18 +79,18 @@ export const fonts: Font[] = [
   {
     id: 'dejavu-mono',
     name: 'DejaVu Mono',
-    url: fontDejaVuMonoUrl,
+    url: fontDejaVuMonoBaseUrl + 'index.css',
   },
   {
     id: 'fantasque-sans-mono',
     name: 'TypoPRO Fantasque Sans Mono',
     label: 'Fantasque Sans Mono',
-    url: fontFantasqueUrl,
+    url: fontFantasqueBaseUrl + 'TypoPRO-FantasqueSansMono.css',
   },
   {
     id: 'fira-code',
     name: 'Fira Code',
-    url: fontFiraCodeUrl,
+    url: fontFiraCodeBaseUrl + 'fira_code.css',
   },
   {
     id: 'fixedsys',
@@ -101,12 +101,12 @@ export const fonts: Font[] = [
   {
     id: 'hack',
     name: 'Hack',
-    url: fontHackUrl,
+    url: fontHackBaseUrl + 'hack.css',
   },
   {
     id: 'hermit',
     name: 'Hermit',
-    url: fontHermitUrl,
+    url: fontHermitBaseUrl + 'index.css',
   },
   {
     id: 'ibm-plex-mono',
@@ -121,12 +121,12 @@ export const fonts: Font[] = [
   {
     id: 'iosevka',
     name: 'Iosevka',
-    url: fontIosevkaUrl,
+    url: fontIosevkaBaseUrl + 'index.css',
   },
   {
     id: 'jetbrains-mono',
     name: 'JetBrains Mono',
-    url: fontJetbrainsMonoUrl,
+    url: fontJetbrainsMonoBaseUrl + 'index.css',
   },
   {
     id: 'menlo',
@@ -167,7 +167,7 @@ export const fonts: Font[] = [
     id: 'monoid',
     name: 'TypoPRO Monoid',
     label: 'Monoid',
-    url: fontMonoidUrl,
+    url: fontMonoidBaseUrl + 'TypoPRO-Monoid.css',
   },
   {
     id: 'noto-sans-mono',
@@ -182,7 +182,7 @@ export const fonts: Font[] = [
   {
     id: 'opendyslexic',
     name: 'OpenDyslexic',
-    url: fontOpenDyslexicUrl,
+    url: fontOpenDyslexicBaseUrl + 'index.css',
   },
   {
     id: 'profontwindows',
@@ -193,7 +193,7 @@ export const fonts: Font[] = [
   {
     id: 'roboto-mono',
     name: 'Roboto Mono',
-    url: fontRobotoMonoUrl,
+    url: fontRobotoMonoBaseUrl + 'index.css',
   },
   {
     id: 'sf-mono',
@@ -203,12 +203,12 @@ export const fonts: Font[] = [
   {
     id: 'source-code-pro',
     name: 'Source Code Pro',
-    url: fontSourceCodeProUrl,
+    url: fontSourceCodeProBaseUrl + 'index.css',
   },
   {
     id: 'space-mono',
     name: 'Space Mono',
-    url: fontSpaceMonoUrl,
+    url: fontSpaceMonoBaseUrl + 'index.css',
   },
   {
     id: 'sudo-var',
@@ -218,12 +218,12 @@ export const fonts: Font[] = [
   {
     id: 'ubuntu-mono',
     name: 'Ubuntu Mono',
-    url: fontUbuntuMonoUrl,
+    url: fontUbuntuMonoBaseUrl + 'index.css',
   },
   {
     id: 'victor-mono',
     name: 'Victor Mono',
-    url: fontVictorMonoUrl,
+    url: fontVictorMonoBaseUrl + 'index.css',
   },
 ];
 
