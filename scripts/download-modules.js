@@ -1,5 +1,8 @@
+const decompress = require('decompress');
+const decompressTarbz = require('decompress-tarbz2');
 const fs = require('fs');
 const path = require('path');
+const stream = require('stream');
 const sdkPkg = require('../src/sdk/package.sdk.json');
 
 const downloadModules = async ({ dryRun = false } = {}) => {
@@ -16,6 +19,7 @@ const downloadModules = async ({ dryRun = false } = {}) => {
   const baseUrls = [];
   /** @type {Array<{module: string; url: string}>} */
   const moduleUrls = [];
+  let pyodideBaseUrl = '';
 
   fs.mkdirSync(modulesDir, { recursive: true });
 
@@ -39,21 +43,40 @@ const downloadModules = async ({ dryRun = false } = {}) => {
   }
 
   // get modules from baseUrls
-  for (const baseUrl of baseUrls) {
-    // https://unpkg.com/@seth0x41/doppio@1.0.0/
-    if (baseUrl.startsWith('https://unpkg.com/')) {
-      baseUrl.replace('https://unpkg.com/', '');
+  for (let baseUrl of baseUrls) {
+    if (baseUrl.includes('@seth0x41/doppio')) {
+      baseUrl = baseUrl.replace('https://unpkg.com/', '').replace('unpkg:', '');
     }
-    if (baseUrl.startsWith('https://')) continue;
+    if (baseUrl.includes('pyodide')) {
+      pyodideBaseUrl = baseUrl;
+    }
+    if (baseUrl.startsWith('https://')) {
+      continue;
+    }
     const mod = getModuleName(baseUrl);
     const type = baseUrl.startsWith('gh:') ? 'gh' : 'npm';
     const modInfoUrl = `https://data.jsdelivr.com/v1/package/${type}/${mod}/flat`;
     const modInfo = await fetch(modInfoUrl).then((res) => res.json());
     const files = modInfo.files;
-    if (!Array.isArray(files)) continue;
-    for (const file of files) {
-      if ((mod + file.name).includes(baseUrl) && !shouldExclude(mod + file.name)) {
-        modules.push(mod + file.name);
+    if (Array.isArray(files)) {
+      for (const file of files) {
+        if ((mod + file.name).includes(baseUrl) && !shouldExclude(mod + file.name)) {
+          modules.push(mod + file.name);
+        }
+      }
+    } else if (type === 'gh') {
+      // use GitHub API when jsDelivr errors: Package size exceeded the configured limit of 50 MB.
+      const [repo, version] = mod.split('@');
+      const filesUrl = `https://api.github.com/repos/${repo}/git/trees/${version}?recursive=1`;
+      const repoInfo = await fetch(filesUrl).then((res) => res.json());
+      const files = repoInfo.tree;
+      if (Array.isArray(files)) {
+        const basePath = baseUrl.split(mod + '/')[1];
+        for (const file of files) {
+          if (file.path.includes(basePath) && !shouldExclude(mod + '/' + file.path)) {
+            modules.push('gh:' + mod + '/' + file.path);
+          }
+        }
       }
     }
   }
@@ -71,8 +94,6 @@ const downloadModules = async ({ dryRun = false } = {}) => {
       // use unpkg - no restriction on file types (e.g. jar)
       moduleUrls.push({ module, url: `https://unpkg.com/${module}` });
     }
-    // TODO: handle modules hosted elsewhere:
-    //   - https://cdn.jsdelivr.net/pyodide/v0.25.1/full/ -> https://pyodide.org/en/stable/usage/downloading-and-deploying.html#github-releases
     // TODO: handle font absolute urls in css (in font CDNs)
   }
 
@@ -116,6 +137,36 @@ const downloadModules = async ({ dryRun = false } = {}) => {
     }
   }
 
+  // download Pyodide
+  if (pyodideBaseUrl) {
+    const pyodideVersion = pyodideBaseUrl.split('/v')[1].split('/')[0] || '0.28.0';
+    const pyodideFiles = [
+      `pyodide-${pyodideVersion}.tar.bz2`,
+      `pyodide-core-${pyodideVersion}.tar.bz2`,
+      `static-libraries-${pyodideVersion}.tar.bz2`,
+      `xbuildenv-${pyodideVersion}.tar.bz2`,
+    ];
+    fs.mkdirSync(`${tempDir}pyodide/v${pyodideVersion}`, { recursive: true });
+    await Promise.all(
+      pyodideFiles.map((file) =>
+        (async () => {
+          const downloadPath = `${tempDir}pyodide/v${pyodideVersion}/${file}`;
+          const url = `https://github.com/pyodide/pyodide/releases/download/${pyodideVersion}/${file}`;
+          if (!fs.existsSync(downloadPath)) {
+            await fetchAndSaveFile(url, downloadPath);
+          }
+          await decompress(downloadPath, `${outputDir}pyodide/v${pyodideVersion}/full`, {
+            plugins: [decompressTarbz()],
+            map: (file) => {
+              file.path = file.path.split('/').slice(1).join('/');
+              return file;
+            },
+          });
+        })(),
+      ),
+    );
+  }
+
   // copy to build directory
   fs.mkdirSync(outputDir, { recursive: true });
   fs.promises.cp(modulesDir, outputDir, { recursive: true });
@@ -124,7 +175,7 @@ const downloadModules = async ({ dryRun = false } = {}) => {
   fs.rmSync(tempDir + 'vendors.js');
 
   // log
-  console.log(`Downloaded ${moduleUrls.length - failedModuleUrls.length} modules.`);
+  console.log(`Modules downloaded to: ${outputDir}`);
   if (failedModuleUrls.length) {
     console.log(`Failed to download ${failedModuleUrls.length} modules.`);
   }
@@ -135,7 +186,7 @@ const downloadModules = async ({ dryRun = false } = {}) => {
    */
   function getModuleName(module) {
     if (module.startsWith('gh:')) {
-      return module.replace('gh:', '');
+      return module.replace('gh:', '').split('/').slice(0, 2).join('/');
     }
     const parts = module.split('/');
     if (parts[0].startsWith('@')) {
@@ -159,6 +210,34 @@ const downloadModules = async ({ dryRun = false } = {}) => {
       }
     }
     return false;
+  }
+
+  /**
+   * @param {string | URL | Request} url
+   * @param {any} filePath
+   */
+  async function fetchAndSaveFile(url, filePath) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      if (!response.body) {
+        throw new Error('Response body is empty.');
+      }
+      const writer = fs.createWriteStream(filePath);
+      // @ts-ignore
+      const readableStream = stream.Readable.fromWeb(response.body);
+      readableStream.pipe(writer);
+      return /** @type {Promise<void>} */ (
+        new Promise((resolve, reject) => {
+          writer.on('finish', resolve);
+          writer.on('error', reject);
+        })
+      );
+    } catch (error) {
+      console.error(`Error fetching or saving file: ${error.message}`);
+    }
   }
 };
 
