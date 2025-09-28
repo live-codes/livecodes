@@ -106,7 +106,7 @@ export const broadcast = ({
     });
   });
 
-  app.get('/channels/:id', (req, res) => {
+  app.get('/channels/:id', async (req, res) => {
     const channel = req.params.id;
     if (channels[channel]) {
       channels[channel].lastAccessed = Date.now();
@@ -114,9 +114,9 @@ export const broadcast = ({
       const views = ['index', 'code', 'result'] as const;
       const view = req.query.view;
       const file = views.find((v) => v === view) || (hasData ? 'index' : 'result');
-      const fileContent = fs
-        .readFileSync(path.join(broadcastDir, `/${file}.html`), 'utf-8')
-        .replaceAll('{{AppUrl}}', appUrl);
+      const fileContent = (
+        await fs.promises.readFile(path.join(broadcastDir, `/${file}.html`), 'utf-8')
+      ).replaceAll('{{AppUrl}}', appUrl);
       res.status(200).send(fileContent);
     } else {
       res.status(404).send('Channel not found!');
