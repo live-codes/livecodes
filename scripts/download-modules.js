@@ -17,6 +17,8 @@ const downloadModules = async ({ dryRun = false } = {}) => {
   const modules = [];
   /** @type {string[]} */
   const baseUrls = [];
+  /** @type {string[]} */
+  const fontStylSheets = [];
   /** @type {Array<{module: string; url: string}>} */
   const moduleUrls = [];
   let pyodideBaseUrl = '';
@@ -35,10 +37,16 @@ const downloadModules = async ({ dryRun = false } = {}) => {
 
   // modules vs baseUrls
   for (const [key, value] of Object.entries(vendorUrls)) {
-    if (key.includes('BaseUrl')) {
+    if (key.includes('BaseUrl') || key.includes('codeMirrorBasePath')) {
       baseUrls.push(value);
     } else {
       modules.push(value);
+    }
+    if (
+      value.includes('https://fonts.googleapis.com/') ||
+      value.includes('https://fonts.cdnfonts.com/css')
+    ) {
+      fontStylSheets.push(value);
     }
   }
 
@@ -65,7 +73,7 @@ const downloadModules = async ({ dryRun = false } = {}) => {
         }
       }
     } else if (type === 'gh') {
-      // use GitHub API when jsDelivr errors: Package size exceeded the configured limit of 50 MB.
+      // use GitHub API when jsDelivr errors: Package size exceeded the configured limit of 50 MB (e.g. opal).
       const [repo, version] = mod.split('@');
       const filesUrl = `https://api.github.com/repos/${repo}/git/trees/${version}?recursive=1`;
       const repoInfo = await fetch(filesUrl).then((res) => res.json());
@@ -73,7 +81,11 @@ const downloadModules = async ({ dryRun = false } = {}) => {
       if (Array.isArray(files)) {
         const basePath = baseUrl.split(mod + '/')[1];
         for (const file of files) {
-          if (file.path.includes(basePath) && !shouldExclude(mod + '/' + file.path)) {
+          if (
+            file.type === 'blob' &&
+            file.path.includes(basePath) &&
+            !shouldExclude(mod + '/' + file.path)
+          ) {
             modules.push('gh:' + mod + '/' + file.path);
           }
         }
@@ -111,18 +123,38 @@ const downloadModules = async ({ dryRun = false } = {}) => {
       let text = '';
       if (dryRun) {
         text = url;
+        fs.mkdirSync(dirPath, { recursive: true });
+        fs.writeFileSync(fullPath, text);
       } else {
-        const res = await fetch(url);
-        if (!res.ok) {
-          failedModuleUrls.push({ module, url, error: res.statusText });
+        const result = await fetchAndSaveFile(url, fullPath);
+        if (result instanceof Error) {
+          failedModuleUrls.push({ module, url, error: result.message });
           continue;
         }
-        text = await res.text();
-      }
-      fs.mkdirSync(dirPath, { recursive: true });
-      fs.writeFileSync(fullPath, text);
-    }
+        const urlPattern = /https:\/\/[^'"\)]*/g;
 
+        if (fullPath.includes('fonts.googleapis.com/css')) {
+          const content = fs.readFileSync(fullPath, 'utf8');
+          const fontUrls = Array.from(content.matchAll(new RegExp(urlPattern))).flat();
+          for (const fontUrl of fontUrls) {
+            const fontPath = fontUrl.replace('https://', modulesDir);
+            await fetchAndSaveFile(fontUrl, fontPath);
+          }
+          const patched = content.replaceAll('https://fonts.gstatic.com/', '../fonts.gstatic.com/');
+          fs.writeFileSync(fullPath, patched);
+        }
+        if (fullPath.includes('fonts.cdnfonts.com/css')) {
+          const content = fs.readFileSync(fullPath, 'utf8');
+          const fontUrls = Array.from(content.matchAll(new RegExp(urlPattern))).flat();
+          for (const fontUrl of fontUrls) {
+            const fontPath = fontUrl.replace('https://', modulesDir);
+            await fetchAndSaveFile(fontUrl, fontPath);
+          }
+          const patched = content.replaceAll('https://fonts.cdnfonts.com/', '../');
+          fs.writeFileSync(fullPath, patched);
+        }
+      }
+    }
     return failedModuleUrls;
   };
 
@@ -169,7 +201,7 @@ const downloadModules = async ({ dryRun = false } = {}) => {
 
   // copy to build directory
   fs.mkdirSync(outputDir, { recursive: true });
-  fs.promises.cp(modulesDir, outputDir, { recursive: true });
+  await fs.promises.cp(modulesDir, outputDir, { recursive: true });
 
   // cleanup
   fs.rmSync(tempDir + 'vendors.js');
@@ -225,6 +257,7 @@ const downloadModules = async ({ dryRun = false } = {}) => {
       if (!response.body) {
         throw new Error('Response body is empty.');
       }
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
       const writer = fs.createWriteStream(filePath);
       // @ts-ignore
       const readableStream = stream.Readable.fromWeb(response.body);
@@ -236,7 +269,8 @@ const downloadModules = async ({ dryRun = false } = {}) => {
         })
       );
     } catch (error) {
-      console.error(`Error fetching or saving file: ${error.message}`);
+      console.error(`Error downloading file (${url}): ${error.message}`);
+      return error;
     }
   }
 };

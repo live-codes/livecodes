@@ -12,6 +12,7 @@ services:
         - SANDBOX_PORT=${SANDBOX_PORT:-8090}
         - FIREBASE_CONFIG=${FIREBASE_CONFIG:-}
         - DOCS_BASE_URL=${DOCS_BASE_URL:-null}
+        - LOCAL_MODULES=${LOCAL_MODULES:-true}
     restart: unless-stopped
     environment:
       - SELF_HOSTED=true
@@ -28,6 +29,7 @@ services:
       - VALKEY_PORT=6379
     volumes:
       - ./assets:/srv/build/assets
+      - ./.cache:/srv/.cache
     depends_on:
       - valkey
 

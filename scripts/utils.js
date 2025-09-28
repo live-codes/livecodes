@@ -72,6 +72,7 @@ const getVars = (/** @type {boolean} */ devMode) => {
   const selfHostedSandboxHostName = process.env.SANDBOX_HOST_NAME || 'localhost';
   const selfHostedSandboxPort = Number(process.env.SANDBOX_PORT) || 8090;
   const firebaseConfig = process.env.FIREBASE_CONFIG || 'null';
+  const localModules = String(process.env.LOCAL_MODULES) === 'true';
   return {
     appVersion,
     sdkVersion,
@@ -86,6 +87,7 @@ const getVars = (/** @type {boolean} */ devMode) => {
     firebaseConfig,
     selfHostedSandboxHostName,
     selfHostedSandboxPort,
+    localModules,
   };
 };
 
@@ -104,6 +106,7 @@ const getEnvVars = (/** @type {boolean} */ devMode) => {
     firebaseConfig,
     selfHostedSandboxHostName,
     selfHostedSandboxPort,
+    localModules,
   } = getVars(devMode);
   return {
     'process.env.VERSION': `"${appVersion || ''}"`,
@@ -119,8 +122,55 @@ const getEnvVars = (/** @type {boolean} */ devMode) => {
     'process.env.SANDBOX_HOST_NAME': `"${selfHostedSandboxHostName}"`,
     'process.env.SANDBOX_PORT': `"${selfHostedSandboxPort}"`,
     'process.env.FIREBASE_CONFIG': `"${firebaseConfig}"`,
+    'process.env.LOCAL_MODULES': `"${localModules}"`,
     define: 'undefined', // prevent using AMD (e.g. in lz-string),
   };
 };
 
-module.exports = { arrToObj, mkdir, uint8arrayToString, iife, getFileNames, getEnvVars };
+const createAsyncQueue = (concurrency = 1) => {
+  /** @typedef {(() => Promise<void> | void) | Promise<unknown>} Task */
+
+  /** @type {Task[]} */
+  const queue = [];
+  let running = 0;
+
+  const add = (/** @type {Task} */ task) => {
+    queue.push(task);
+    processQueue();
+  };
+
+  const processQueue = async () => {
+    if (running >= concurrency || queue.length === 0) {
+      return;
+    }
+
+    running++;
+    const task = queue.shift();
+
+    try {
+      if (typeof task === 'function') {
+        await task();
+      } else if (typeof task === 'object' && 'then' in task) {
+        await task;
+      }
+    } catch (error) {
+      console.error('Task failed:', error);
+    } finally {
+      running--;
+      processQueue();
+    }
+  };
+  return {
+    add,
+  };
+};
+
+module.exports = {
+  arrToObj,
+  mkdir,
+  uint8arrayToString,
+  iife,
+  getFileNames,
+  getEnvVars,
+  createAsyncQueue,
+};

@@ -41,11 +41,14 @@ import type {
   Language,
   Theme,
 } from '../../models';
+import { getAppCDN, modulesService } from '../../services';
 import { ctrl, debounce, getRandomString } from '../../utils/utils';
-import { codeMirrorBaseUrl, comlinkBaseUrl } from '../../vendors';
+import { codeMirrorBasePath, comlinkBaseUrl } from '../../vendors';
 import { getEditorTheme } from '../themes';
 import { codemirrorThemes, customThemes } from './codemirror-themes';
 import { editorLanguages } from './editor-languages';
+
+const codeMirrorBaseUrl = modulesService.getUrl(codeMirrorBasePath, getAppCDN());
 
 export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
   editorId: EditorOptions['editorId'];

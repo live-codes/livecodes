@@ -5,6 +5,7 @@ import path from 'node:path';
 import { onRequest as index } from '../../functions/index.ts';
 import { onRequest as oembed } from '../../functions/oembed.ts';
 import { broadcast } from './broadcast/index.ts';
+import { saveCache } from './cache.ts';
 import { corsProxy } from './cors.ts';
 import { sandbox } from './sandbox.ts';
 import { share } from './share.ts';
@@ -40,7 +41,7 @@ app.use(
     setHeaders(res) {
       // match headers in: src/_headers
       const reqPath = res.req.path;
-      if (reqPath.startsWith('/assets/')) {
+      if (reqPath.startsWith('/modules/')) {
         res.set('Cache-Control', 'public, max-age=31536000, s-maxage=31536000, immutable');
       }
       if (reqPath.startsWith('/livecodes/')) {
@@ -79,3 +80,6 @@ if (process.env.SELF_HOSTED_BROADCAST === 'true') {
     userTokens: process.env.BROADCAST_TOKENS || '',
   });
 }
+
+// save local modules cache to host
+saveCache();
