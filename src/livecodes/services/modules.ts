@@ -100,7 +100,7 @@ const getCdnUrl = (modName: string, isModule: boolean, defaultCDN?: CDN) => {
   if (localModules && !isModule) {
     return getLocalUrl(modName, defaultCDN);
   }
-  if (modName.startsWith('http') || modName.startsWith('data:')) return modName;
+  if (modName.startsWith('data:')) return modName;
   const post = isModule && modName.startsWith('unpkg:') ? '?module' : '';
   if (modName.startsWith('gh:')) {
     modName = modName.replace('gh', ghCDNs[0]);
@@ -114,6 +114,7 @@ const getCdnUrl = (modName: string, isModule: boolean, defaultCDN?: CDN) => {
       return modName.replace(pattern, template) + post;
     }
   }
+  if (modName.startsWith('http')) return modName;
   return null;
 };
 
