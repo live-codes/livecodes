@@ -1,4 +1,4 @@
-FROM node:24.1.0-alpine3.21 AS builder
+FROM node:24.4.1-alpine3.22 AS builder
 
 RUN apk update --no-cache && apk add --no-cache git
 
@@ -27,7 +27,7 @@ RUN if [ "$DOCS_BASE_URL" == "null" ]; \
   else npm run build; \
   fi
 
-FROM node:24.1.0-alpine3.21 AS server
+FROM node:24.4.1-alpine3.22 AS server
 
 RUN addgroup -S appgroup
 RUN adduser -S appuser -G appgroup
