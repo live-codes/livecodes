@@ -127,44 +127,6 @@ const getEnvVars = (/** @type {boolean} */ devMode) => {
   };
 };
 
-const createAsyncQueue = (concurrency = 1) => {
-  /** @typedef {(() => Promise<void> | void) | Promise<unknown>} Task */
-
-  /** @type {Task[]} */
-  const queue = [];
-  let running = 0;
-
-  const add = (/** @type {Task} */ task) => {
-    queue.push(task);
-    processQueue();
-  };
-
-  const processQueue = async () => {
-    if (running >= concurrency || queue.length === 0) {
-      return;
-    }
-
-    running++;
-    const task = queue.shift();
-
-    try {
-      if (typeof task === 'function') {
-        await task();
-      } else if (typeof task === 'object' && 'then' in task) {
-        await task;
-      }
-    } catch (error) {
-      console.error('Task failed:', error);
-    } finally {
-      running--;
-      processQueue();
-    }
-  };
-  return {
-    add,
-  };
-};
-
 module.exports = {
   arrToObj,
   mkdir,
@@ -172,5 +134,4 @@ module.exports = {
   iife,
   getFileNames,
   getEnvVars,
-  createAsyncQueue,
 };
