@@ -3,6 +3,8 @@ const path = require('path');
 const sdkPkg = require('../src/sdk/package.sdk.json');
 
 const downloadModules = async ({ dryRun = false } = {}) => {
+  console.log(`Downloading modules...`);
+
   const vendorsModule = 'src/livecodes/vendors.ts';
   const tempDir = '.cache/';
   const modulesDir = tempDir + '/modules/';
@@ -75,25 +77,43 @@ const downloadModules = async ({ dryRun = false } = {}) => {
   }
 
   // download modules
-  for (const { module, url } of moduleUrls) {
-    const fullPath =
-      modulesDir + module.replaceAll('https://', '').replaceAll(':', '_').replaceAll('?', '_');
-    const dirPath = path.dirname(fullPath);
-    if (fs.existsSync(fullPath)) continue;
+  const download = async (/** @type {Array<{module: string; url: string}>} */ moduleUrls) => {
+    /** @type {Array<{module: string; url: string; error: string}>} */
+    const failedModuleUrls = [];
 
-    let text = '';
-    if (dryRun) {
-      text = url;
-    } else {
-      const res = await fetch(url);
-      if (!res.ok) {
-        console.warn(`Failed to fetch ${module}: ${res.statusText}`);
-        continue;
+    for (const { module, url } of moduleUrls) {
+      const fullPath =
+        modulesDir + module.replaceAll('https://', '').replaceAll(':', '_').replaceAll('?', '_');
+      const dirPath = path.dirname(fullPath);
+      if (fs.existsSync(fullPath)) continue;
+
+      let text = '';
+      if (dryRun) {
+        text = url;
+      } else {
+        const res = await fetch(url);
+        if (!res.ok) {
+          failedModuleUrls.push({ module, url, error: res.statusText });
+          continue;
+        }
+        text = await res.text();
       }
-      text = await res.text();
+      fs.mkdirSync(dirPath, { recursive: true });
+      fs.writeFileSync(fullPath, text);
     }
-    fs.mkdirSync(dirPath, { recursive: true });
-    fs.writeFileSync(fullPath, text);
+
+    return failedModuleUrls;
+  };
+
+  let failedModuleUrls = await download(moduleUrls);
+  if (failedModuleUrls.length) {
+    // retry
+    failedModuleUrls = await download(failedModuleUrls);
+    if (failedModuleUrls.length) {
+      for (const { module, error } of failedModuleUrls) {
+        console.error(`Failed to download module (${module}): ${error}`);
+      }
+    }
   }
 
   // copy to build directory
@@ -102,6 +122,12 @@ const downloadModules = async ({ dryRun = false } = {}) => {
 
   // cleanup
   fs.rmSync(tempDir + 'vendors.js');
+
+  // log
+  console.log(`Downloaded ${moduleUrls.length - failedModuleUrls.length} modules.`);
+  if (failedModuleUrls.length) {
+    console.log(`Failed to download ${failedModuleUrls.length} modules.`);
+  }
 
   // utils
   /**
