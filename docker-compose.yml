@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
       args:
         - SELF_HOSTED=true
+        - HOST_NAME=${HOST_NAME:-livecodes.localhost}
+        - PORT=${PORT:-443}
         - SELF_HOSTED_SHARE=${SELF_HOSTED_SHARE:-true}
         - SELF_HOSTED_BROADCAST=${SELF_HOSTED_BROADCAST:-true}
         - BROADCAST_PORT=${BROADCAST_PORT:-3030}
