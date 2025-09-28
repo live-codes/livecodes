@@ -311,9 +311,7 @@ export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/t
 
 export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.1/dist/monaco-vim.js');
 
-export const monacoVolarUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-volar@0.1.0/dist/index.js',
-);
+export const monacoVolarBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-volar@0.1.0/dist/');
 
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
 
