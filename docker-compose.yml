@@ -12,6 +12,8 @@ services:
         - SANDBOX_PORT=${SANDBOX_PORT:-8090}
         - FIREBASE_CONFIG=${FIREBASE_CONFIG:-}
         - DOCS_BASE_URL=${DOCS_BASE_URL:-null}
+        - LOCAL_MODULES=${LOCAL_MODULES:-false}
+        - NODE_OPTIONS=--max-old-space-size=4096
     restart: unless-stopped
     environment:
       - SELF_HOSTED=true
@@ -26,6 +28,7 @@ services:
       - LOG_URL=${LOG_URL:-null}
       - VALKEY_HOST=valkey
       - VALKEY_PORT=6379
+      - NODE_OPTIONS=--max-old-space-size=4096
     volumes:
       - ./assets:/srv/build/assets
     depends_on:
@@ -38,21 +41,29 @@ services:
       - valkey-data:/data
     command:
       [
-        'sh',
-        '-c',
+        "sh",
+        "-c",
         'if [ "$SELF_HOSTED_SHARE" != "false" ]; then valkey-server --save 60 1 --loglevel warning; fi',
       ]
 
   server:
     image: caddy:2.10.0-alpine
-    entrypoint: ['/bin/sh', './entrypoint.sh']
-    command: ['caddy', 'run', '--config', '/etc/caddy/Caddyfile', '--adapter', 'caddyfile']
+    entrypoint: ["/bin/sh", "./entrypoint.sh"]
+    command:
+      [
+        "caddy",
+        "run",
+        "--config",
+        "/etc/caddy/Caddyfile",
+        "--adapter",
+        "caddyfile",
+      ]
     restart: unless-stopped
     ports:
-      - '80:80'
-      - '${PORT:-443}:${PORT:-443}'
-      - '${SANDBOX_PORT:-8090}:${SANDBOX_PORT:-8090}'
-      - '${BROADCAST_PORT:-3030}:${BROADCAST_PORT:-3030}'
+      - "80:80"
+      - "${PORT:-443}:${PORT:-443}"
+      - "${SANDBOX_PORT:-8090}:${SANDBOX_PORT:-8090}"
+      - "${BROADCAST_PORT:-3030}:${BROADCAST_PORT:-3030}"
     environment:
       - HOST_NAME=${HOST_NAME:-livecodes.localhost}
       - PORT=${PORT:-443}
