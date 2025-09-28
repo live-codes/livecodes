@@ -1,6 +1,6 @@
 // based on dts-bundle
 
-import { pathBrowserifyUrl } from '../vendors';
+import { vendorsBaseUrl } from '../vendors';
 
 // const dtsExp = /\.d\.ts$/;
 const bomOptExp = /^\uFEFF?/;
@@ -62,7 +62,7 @@ export interface BundleResult {
 }
 
 export async function bundle(options: Options): Promise<string> {
-  const path = await import(pathBrowserifyUrl);
+  const path = (await import(vendorsBaseUrl + 'path-browserify/path-browserify.js')).default;
   assert(typeof options === 'object' && options, 'options must be an object');
 
   // option parsing & validation

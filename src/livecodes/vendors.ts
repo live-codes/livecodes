@@ -1,9 +1,15 @@
 import { modulesService } from './services/modules';
 
-const { getUrl, getModuleUrl } = modulesService;
+// - only use `getUrl` or full URL (not `getModuleUrl`)
+// - always add full version and file extension
+// - minimize usage of baseUrls if possible
+// - if es module imports others, use baseUrl instead
+// - after `vendorBaseUrl` the file is sorted alphabetically
 
-export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.3/dist/');
+const { getUrl } = modulesService;
+
+export const vendorsBaseUrl = 'http://127.0.0.1:8081/';
+// /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.3/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -41,7 +47,7 @@ export const browserJestUrl = /* @__PURE__ */ getUrl(
 
 export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.12.4/');
 
-export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@5.1.2');
+export const chaiUrl = /* @__PURE__ */ getUrl('chai@5.2.1/chai.js');
 
 export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.2.19/');
 
@@ -144,7 +150,7 @@ export const fontCascadiaCodeUrl = /* @__PURE__ */ getUrl(
 );
 
 export const fontCodeNewRomanUrl = /* @__PURE__ */ getUrl(
-  'https://fonts.cdnfonts.com/css/code-new-roman-2',
+  'https://fonts.cdnfonts.com/css/code-new-roman-2?style.css',
 );
 
 export const fontComicMonoUrl = /* @__PURE__ */ getUrl('comic-mono@0.0.1/index.css');
@@ -154,7 +160,7 @@ export const fontCourierPrimeUrl = /* @__PURE__ */ getUrl(
 );
 
 export const fontDECTerminalModernUrl = /* @__PURE__ */ getUrl(
-  'https://fonts.cdnfonts.com/css/dec-terminal-modern',
+  'https://fonts.cdnfonts.com/css/dec-terminal-modern?style.css',
 );
 
 export const fontDejaVuMonoUrl = /* @__PURE__ */ getUrl('@fontsource/dejavu-mono@4.5.4/index.css');
@@ -165,22 +171,24 @@ export const fontFantasqueUrl = /* @__PURE__ */ getUrl(
 
 export const fontFiraCodeUrl = /* @__PURE__ */ getUrl('firacode@6.2.0/distr/fira_code.css');
 
-export const fontFixedsysUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/fixedsys-62');
+export const fontFixedsysUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.cdnfonts.com/css/fixedsys-62?style.css',
+);
 
 export const fontHackUrl = /* @__PURE__ */ getUrl('hack-font@3.3.0/build/web/hack.css');
 
 export const fontHermitUrl = /* @__PURE__ */ getUrl('typeface-hermit@0.0.44/index.css');
 
 export const fontIBMPlexMonoUrl = /* @__PURE__ */ getUrl(
-  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap',
+  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap&style.css',
 );
 
 export const fontInconsolataUrl = /* @__PURE__ */ getUrl(
-  'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap',
+  'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap&style.css',
 );
 
 export const fontInterUrl = /* @__PURE__ */ getUrl(
-  'https://fonts.googleapis.com/css?family=Inter:300,400,500',
+  'https://fonts.googleapis.com/css?family=Inter:300,400,500&style.css',
 );
 
 export const fontIosevkaUrl = /* @__PURE__ */ getUrl('@fontsource/iosevka@4.5.4/index.css');
@@ -190,23 +198,27 @@ export const fontJetbrainsMonoUrl = /* @__PURE__ */ getUrl(
 );
 
 export const fontMaterialIconsUrl = /* @__PURE__ */ getUrl(
-  'https://fonts.googleapis.com/css?family=Material+Icons&display=swap',
+  'https://fonts.googleapis.com/css?family=Material+Icons&display=swap&style.css',
 );
 
-export const fontMenloUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/menlo');
+export const fontMenloUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.cdnfonts.com/css/menlo?style.css',
+);
 
 export const fontMonaspaceBaseUrl = /* @__PURE__ */ getUrl('monaspace-font@0.0.2/');
 
-export const fontMonofurUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/monofur');
+export const fontMonofurUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.cdnfonts.com/css/monofur?style.css',
+);
 
 export const fontMonoidUrl = /* @__PURE__ */ getUrl('@typopro/web-monoid@3.7.5/TypoPRO-Monoid.css');
 
 export const fontNotoUrl = /* @__PURE__ */ getUrl(
-  'https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap',
+  'https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap&style.css',
 );
 
 export const fontNovaMonoUrl = /* @__PURE__ */ getUrl(
-  'https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap',
+  'https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap&style.css',
 );
 
 export const fontOpenDyslexicUrl = /* @__PURE__ */ getUrl(
@@ -214,12 +226,14 @@ export const fontOpenDyslexicUrl = /* @__PURE__ */ getUrl(
 );
 
 export const fontProFontWindowsUrl = /* @__PURE__ */ getUrl(
-  'https://fonts.cdnfonts.com/css/profontwindows',
+  'https://fonts.cdnfonts.com/css/profontwindows?style.css',
 );
 
 export const fontRobotoMonoUrl = /* @__PURE__ */ getUrl('@fontsource/roboto-mono@4.5.8/index.css');
 
-export const fontSFMonoUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/sf-mono');
+export const fontSFMonoUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.cdnfonts.com/css/sf-mono?style.css',
+);
 
 export const fontSourceCodeProUrl = /* @__PURE__ */ getUrl(
   '@fontsource/source-code-pro@4.5.12/index.css',
@@ -227,7 +241,9 @@ export const fontSourceCodeProUrl = /* @__PURE__ */ getUrl(
 
 export const fontSpaceMonoUrl = /* @__PURE__ */ getUrl('@fontsource/space-mono@4.5.10/index.css');
 
-export const fontSudoVarUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/sudo-var');
+export const fontSudoVarUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.cdnfonts.com/css/sudo-var?style.css',
+);
 
 export const fontUbuntuMonoUrl = /* @__PURE__ */ getUrl('@fontsource/ubuntu-mono@4.5.11/index.css');
 
@@ -246,8 +262,6 @@ export const go2jsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/go2js@0.5.0/buil
 export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.js');
 
 export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.8/dist/');
-
-export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.11.1');
 
 export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 
@@ -320,8 +334,6 @@ export const nunjucksBaseUrl = /* @__PURE__ */ getUrl('nunjucks@3.2.4/browser/')
 export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1.8.2/');
 
 export const parinferUrl = /* @__PURE__ */ getUrl('parinfer@3.13.1/parinfer.js');
-
-export const pathBrowserifyUrl = /* @__PURE__ */ getModuleUrl('path-browserify@1.0.1');
 
 export const pgliteUrl = /* @__PURE__ */ getUrl('@electric-sql/pglite@0.1.5/dist/index.js');
 
@@ -447,9 +459,9 @@ export const vegaCdnUrl = /* @__PURE__ */ getUrl('vega@5.25.0/build/vega.js');
 
 export const vegaLiteCdnUrl = /* @__PURE__ */ getUrl('vega-lite@5.9.3/build/vega-lite.js');
 
-export const vue3CdnUrl = /* @__PURE__ */ getUrl('vue@3');
+export const vue3CdnUrl = /* @__PURE__ */ getUrl('vue@3.5.17/dist/vue.global.js');
 
-export const vue2CdnUrl = /* @__PURE__ */ getUrl('vue@2');
+export const vue2CdnUrl = /* @__PURE__ */ getUrl('vue@2.7.16/dist/vue.js');
 
 export const vueRuntimeUrl = /* @__PURE__ */ getUrl('vue@3/dist/vue.runtime.esm-browser.prod.js');
 
