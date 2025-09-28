@@ -11,8 +11,6 @@ COPY server/package*.json server/
 
 RUN npm ci
 
-COPY . .
-
 ARG SELF_HOSTED
 ARG SELF_HOSTED_SHARE
 ARG SELF_HOSTED_BROADCAST
@@ -22,6 +20,16 @@ ARG SANDBOX_PORT
 ARG FIREBASE_CONFIG
 ARG DOCS_BASE_URL
 ARG LOCAL_MODULES
+
+COPY scripts/download-modules.js scripts/
+COPY src/livecodes/vendors.ts src/livecodes/
+COPY src/sdk/package.sdk.json src/sdk/
+
+RUN if [ "$LOCAL_MODULES" == "true" ]; \
+  then npm run download-modules; \
+  fi
+
+COPY . .
 
 RUN if [ "$DOCS_BASE_URL" == "null" ]; \
   then npm run build:app; \
@@ -43,7 +51,6 @@ COPY server/package*.json ./
 
 RUN npm ci
 
-COPY --from=builder /app/.cache/ tmp/
 COPY --from=builder /app/build/ build/
 
 COPY functions/ functions/

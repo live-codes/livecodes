@@ -6,6 +6,7 @@ docs/.docusaurus
 .jest
 build
 dist
+.cache
 **/*.log
 .env
 docs/docs/api
