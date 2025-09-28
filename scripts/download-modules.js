@@ -36,7 +36,7 @@ const downloadModules = async ({ dryRun = false } = {}) => {
   const failedModuleUrls = [];
   let pyodideBaseUrl = '';
 
-  const downloadQueue = createAsyncQueue(10);
+  const downloadQueue = createAsyncQueue(5);
 
   fs.mkdirSync(modulesDir, { recursive: true });
 
