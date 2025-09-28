@@ -2,7 +2,7 @@ import { defaultConfig } from '../../config/default-config';
 import type { Config, FormatFn } from '../../models';
 import { modulesService } from '../../services/modules';
 import { pkgInfoService } from '../../services/pkgInfo';
-import { prettierEsmUrl, prettierRippleUrl } from '../../vendors';
+import { prettierEsmUrl } from '../../vendors';
 
 (self as any).createRippleFormatter = async (initialConfig: Config): Promise<FormatFn> => {
   const version =
@@ -11,7 +11,7 @@ import { prettierEsmUrl, prettierRippleUrl } from '../../vendors';
   const pluginUrl =
     version.startsWith('pr:ripple@') || version.startsWith('pkg.pr.new:ripple@')
       ? modulesService.getModuleUrl(version.replace('ripple', 'prettier-plugin-ripple'))
-      : prettierRippleUrl;
+      : modulesService.getModuleUrl('prettier-plugin-ripple@' + version);
 
   const [prettier, ripplePlugin] = await Promise.all([import(prettierEsmUrl), import(pluginUrl)]);
   return async (code, cursorOffset, formatterConfig) =>
