@@ -9,7 +9,7 @@ import { modulesService } from './services/modules';
 const { getUrl } = modulesService;
 
 export const vendorsBaseUrl = 'http://127.0.0.1:8081/';
-// /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.3/dist/');
+// /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.4/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -263,7 +263,7 @@ export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.
 
 export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.8/dist/');
 
-export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
+export const hpccJsCdnBaseUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/');
 
 export const htmlToImageUrl = /* @__PURE__ */ getUrl('html-to-image@1.11.11/dist/html-to-image.js');
 
@@ -299,11 +299,11 @@ export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
   'luna-object-viewer@0.2.4/luna-object-viewer.css',
 );
 
-export const malinaBaseUrl = /* @__PURE__ */ getUrl(`malinajs@0.7.19/`);
+export const malinaBaseUrl = /* @__PURE__ */ getUrl('malinajs@0.7.19/');
 
 export const markedUrl = /* @__PURE__ */ getUrl('marked@13.0.2/marked.min.js');
 
-export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
+export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.min.js');
 
 export const metaPngUrl = /* @__PURE__ */ getUrl('meta-png@1.0.6/dist/meta-png.umd.js');
 
@@ -335,7 +335,7 @@ export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1
 
 export const parinferUrl = /* @__PURE__ */ getUrl('parinfer@3.13.1/parinfer.js');
 
-export const pgliteUrl = /* @__PURE__ */ getUrl('@electric-sql/pglite@0.1.5/dist/index.js');
+export const pgliteBaseUrl = /* @__PURE__ */ getUrl('@electric-sql/pglite@0.1.5/dist/');
 
 export const pintoraUrl = /* @__PURE__ */ getUrl(
   '@pintora/standalone@0.6.2/lib/pintora-standalone.umd.js',
@@ -395,7 +395,18 @@ export const reasonReactUrl = /* @__PURE__ */ getUrl(
 
 export const reasonStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@9.1.3/lib/es6/');
 
-export const rescriptCdnBaseUrl = /* @__PURE__ */ getUrl('https://cdn.rescript-lang.org/v11.1.2/');
+export const rescriptCdnUrl1 = /* @__PURE__ */ getUrl(
+  'https://cdn.rescript-lang.org/v11.1.2/compiler.js',
+);
+export const rescriptCdnUrl2 = /* @__PURE__ */ getUrl(
+  'https://cdn.rescript-lang.org/v11.1.2/compiler-builtins/cmij.js',
+);
+export const rescriptCdnUrl3 = /* @__PURE__ */ getUrl(
+  'https://cdn.rescript-lang.org/v11.1.2/%40rescript/react/cmij.js',
+);
+export const rescriptCdnUrl4 = /* @__PURE__ */ getUrl(
+  'https://cdn.rescript-lang.org/v11.1.2/%40rescript/core/cmij.js',
+);
 
 export const rescriptStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@11.1.2/lib/es6/');
 
@@ -449,19 +460,19 @@ export const tesseractUrl = /* @__PURE__ */ getUrl('tesseract.js@6.0.1/dist/tess
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
-export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.6.2/lib/typescript.js`);
+export const typescriptUrl = /* @__PURE__ */ getUrl('typescript@5.6.2/lib/typescript.js');
 
 export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.3/dist/vfs.esm.js');
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 
-export const vegaCdnUrl = /* @__PURE__ */ getUrl('vega@5.25.0/build/vega.js');
+export const vegaCdnUrl = /* @__PURE__ */ getUrl('vega@5.25.0/build/vega.min.js');
 
-export const vegaLiteCdnUrl = /* @__PURE__ */ getUrl('vega-lite@5.9.3/build/vega-lite.js');
+export const vegaLiteCdnUrl = /* @__PURE__ */ getUrl('vega-lite@5.9.3/build/vega-lite.min.js');
 
-export const vue3CdnUrl = /* @__PURE__ */ getUrl('vue@3.5.17/dist/vue.global.js');
+export const vue3CdnUrl = /* @__PURE__ */ getUrl('vue@3.5.17/dist/vue.global.prod.js');
 
-export const vue2CdnUrl = /* @__PURE__ */ getUrl('vue@2.7.16/dist/vue.js');
+export const vue2CdnUrl = /* @__PURE__ */ getUrl('vue@2.7.16/dist/vue.min.js');
 
 export const vueRuntimeUrl = /* @__PURE__ */ getUrl('vue@3/dist/vue.runtime.esm-browser.prod.js');
 

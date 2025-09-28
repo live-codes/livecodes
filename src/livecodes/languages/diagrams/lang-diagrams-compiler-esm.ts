@@ -16,7 +16,7 @@ import {
   cytoscapeUrl,
   elkjsBaseUrl,
   graphreCdnUrl,
-  hpccJsCdnUrl,
+  hpccJsCdnBaseUrl,
   mermaidCdnUrl,
   nomnomlCdnUrl,
   pintoraUrl,
@@ -180,7 +180,7 @@ const compileGnuplot = async (code: string) => {
 const compileMermaid = async (code: string) => {
   let mermaid: any;
   const load = async () => {
-    mermaid = (await import(mermaidCdnUrl)).default;
+    mermaid = await loadScript(mermaidCdnUrl, 'mermaid');
     mermaid.initialize({
       startOnLoad: false,
     });
@@ -201,7 +201,7 @@ const compileMermaid = async (code: string) => {
 const compileGraphviz = async (code: string) => {
   let graphviz: any;
   const load = async () => {
-    const hpccWasm = await import(hpccJsCdnUrl);
+    const hpccWasm = await import(hpccJsCdnBaseUrl + 'index.js');
     graphviz = await hpccWasm.Graphviz.load();
   };
   const render = (src: string, script: HTMLScriptElement) => {

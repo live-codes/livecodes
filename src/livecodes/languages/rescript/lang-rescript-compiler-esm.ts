@@ -6,7 +6,10 @@ import {
   reasonReactUrl,
   reasonStdLibBaseUrl,
   requireUrl,
-  rescriptCdnBaseUrl,
+  rescriptCdnUrl1,
+  rescriptCdnUrl2,
+  rescriptCdnUrl3,
+  rescriptCdnUrl4,
   rescriptStdLibBaseUrl,
 } from '../../vendors';
 
@@ -57,12 +60,7 @@ const loadCompiler = async (language: Language) => {
       );
     } else {
       window.require(
-        [
-          rescriptCdnBaseUrl + 'compiler.js',
-          rescriptCdnBaseUrl + 'compiler-builtins/cmij.js',
-          rescriptCdnBaseUrl + '%40rescript/react/cmij.js',
-          rescriptCdnBaseUrl + '%40rescript/core/cmij.js',
-        ],
+        [rescriptCdnUrl1, rescriptCdnUrl2, rescriptCdnUrl3, rescriptCdnUrl4],
         () => {
           window.rescript_ocaml_compiler = window.rescript_compiler;
           window.rescript_compiler = undefined;
