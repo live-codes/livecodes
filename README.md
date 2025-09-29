@@ -85,7 +85,7 @@ Add this code to your page:
 #### Self-hosted
 
 1. Download a [release](https://github.com/live-codes/livecodes/releases)
-2. Put it on a static file server (for free!) <sup><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">1</a>, <a href="https://vercel.com/" target="_blank" rel="noopener">2</a>, <a href="https://www.netlify.com/" target="_blank" rel="noopener">3</a>, <a href="https://firebase.google.com/" target="_blank" rel="noopener">4</a>, <a href="https://pages.github.com/" target="_blank" rel="noopener">5</a></sup>
+2. Put it on a static file server (for free!) <sup><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">1</a>, <a href="https://www.netlify.com/" target="_blank" rel="noopener">2</a>, <a href="https://firebase.google.com/" target="_blank" rel="noopener">3</a>, <a href="https://pages.github.com/" target="_blank" rel="noopener">4</a></sup>
 
    <sup>Check the guide for <a href="https://livecodes.io/docs/features/self-hosting" target="_blank" rel="noopener">self-hosting</a> (including the built-in setup to deploy to GitHub Pages).</sup>
 
