@@ -27,6 +27,8 @@
     "build:docs": "cd docs && npm run build",
     "build:storybook": "cd storybook && npm run build",
     "copy:assets": "recursive-delete build/livecodes/assets && mkdirp build/livecodes/assets && recursive-copy src/livecodes/assets build/livecodes/assets",
+    "copy:modules": "recursive-delete build/modules && mkdirp .cache/modules && mkdirp build/modules && recursive-copy .cache/modules build/modules",
+    "download-modules": "node ./scripts/download-modules.js",
     "typedocs": "run-s typedocs:*",
     "typedocs:livecodes": "typedoc src/livecodes/main.ts src/livecodes/app.ts src/livecodes/embed.ts src/livecodes/_modules.ts --out build/typedocs/livecodes --exclude **/*.spec.ts --excludeExternals",
     "typedocs:sdk": "typedoc src/sdk/livecodes.ts --out build/typedocs/sdk --exclude **/*.spec.ts --excludeExternals",
@@ -119,6 +121,8 @@
     "comlink": "4.4.1",
     "conventional-changelog": "3.1.25",
     "cross-env": "7.0.3",
+    "decompress": "4.2.1",
+    "decompress-tarbz2": "4.1.1",
     "dts-bundle": "0.7.3",
     "esbuild": "0.20.2",
     "esbuild-plugin-minify-html": "0.1.2",
@@ -156,15 +160,32 @@
     "singleQuote": true,
     "trailingComma": "all",
     "printWidth": 100,
-    "plugins": ["prettier-plugin-organize-imports"]
+    "plugins": [
+      "prettier-plugin-organize-imports"
+    ]
   },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
-    "setupFiles": ["<rootDir>/.jest/setup.ts"],
-    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/src/modules/"],
-    "collectCoverageFrom": ["src/**/*.ts", "!**/build/**", "!**/vendor/**", "!src/modules/**"],
-    "coverageReporters": ["json", "html", "lcov"],
+    "setupFiles": [
+      "<rootDir>/.jest/setup.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/build/",
+      "/src/modules/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!**/build/**",
+      "!**/vendor/**",
+      "!src/modules/**"
+    ],
+    "coverageReporters": [
+      "json",
+      "html",
+      "lcov"
+    ],
     "resolveJsonModule": true
   }
 }

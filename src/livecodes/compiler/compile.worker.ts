@@ -9,8 +9,9 @@ import type {
   EditorLibrary,
   Language,
 } from '../models';
+import { getAppCDN, modulesService } from '../services';
 import { doOnce, getErrorMessage, objectFilter } from '../utils/utils';
-import { codeMirrorBaseUrl, comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
+import { codeMirrorBasePath, comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
 import { getAllCompilers } from './get-all-compilers';
 import type { CompilerMessage, CompilerMessageEvent, LanguageOrProcessor } from './models';
 declare const importScripts: (...args: string[]) => void;
@@ -276,7 +277,7 @@ const initCodemirrorTS = doOnce(async () => {
   await loadTypeScript();
   importScripts(comlinkBaseUrl + 'umd/comlink.js');
   importScripts(typescriptVfsUrl);
-  importScripts(codeMirrorBaseUrl + 'codemirror-ts.worker.js');
+  importScripts(modulesService.getUrl(codeMirrorBasePath, getAppCDN()) + 'codemirror-ts.worker.js');
   const { createWorker } = worker.CodemirrorTsWorker;
   const { createDefaultMapFromCDN, createSystem, createVirtualTypeScriptEnvironment } =
     worker.typescriptVFS;

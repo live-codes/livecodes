@@ -1,6 +1,7 @@
 import type { CDN } from '../models';
 
 declare const globalThis: { appCDN: CDN };
+const localModules = process.env.LOCAL_MODULES === 'true';
 
 const moduleCDNs: CDN[] = [
   'esm.sh',
@@ -60,14 +61,16 @@ export const modulesService = {
   },
 
   getUrl: (path: string, cdn?: CDN) =>
-    path.startsWith('http') || path.startsWith('data:')
-      ? path
-      : getCdnUrl(path, false, cdn || getAppCDN()) || path,
+    path.startsWith('data:') ? path : getCdnUrl(path, false, cdn || getAppCDN()) || path,
 
   cdnLists: { npm: npmCDNs, module: moduleCDNs, gh: ghCDNs },
 
   checkCDNs: async (testModule: string, preferredCDN?: CDN) => {
-    const cdns: CDN[] = [preferredCDN, ...modulesService.cdnLists.npm].filter(Boolean) as CDN[];
+    const modulesBaseUrl = new URL('./modules/', location.href).href as CDN;
+    const localCDN = localModules ? modulesBaseUrl : undefined;
+    const cdns = [preferredCDN, localCDN, ...modulesService.cdnLists.npm].filter(
+      (x) => x != null,
+    ) as CDN[];
     for (const cdn of cdns) {
       try {
         const res = await fetch(modulesService.getUrl(testModule, cdn), {
@@ -94,6 +97,10 @@ export const getAppCDN = (): CDN => {
 };
 
 const getCdnUrl = (modName: string, isModule: boolean, defaultCDN?: CDN) => {
+  if (localModules && !isModule) {
+    return getLocalUrl(modName, defaultCDN);
+  }
+  if (modName.startsWith('data:')) return modName;
   const post = isModule && modName.startsWith('unpkg:') ? '?module' : '';
   if (modName.startsWith('gh:')) {
     modName = modName.replace('gh', ghCDNs[0]);
@@ -107,7 +114,21 @@ const getCdnUrl = (modName: string, isModule: boolean, defaultCDN?: CDN) => {
       return modName.replace(pattern, template) + post;
     }
   }
+  if (modName.startsWith('http')) return modName;
   return null;
+};
+
+const getLocalUrl = (modName: string, modulesBaseUrl = '/modules/') => {
+  modName = modName
+    .replace('https://unpkg.com/', '')
+    .replace('unpkg:', '')
+    .replaceAll('https://', '')
+    .replaceAll(':', '_')
+    .replaceAll('?', '_');
+  if (modName.includes('pyodide')) {
+    modName = modName.replace('cdn.jsdelivr.net/', '');
+  }
+  return `${modulesBaseUrl}${modName}`;
 };
 
 // based on https://github.com/neoascetic/rawgithack/blob/master/web/rawgithack.js

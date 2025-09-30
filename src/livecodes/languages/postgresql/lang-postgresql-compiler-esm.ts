@@ -1,6 +1,6 @@
 import type { CompilerFunction } from '../../models';
 import { getLanguageCustomSettings, safeName } from '../../utils/utils';
-import { pgliteUrl } from '../../vendors';
+import { pgliteBaseUrl } from '../../vendors';
 
 declare global {
   interface Window {
@@ -11,7 +11,7 @@ declare global {
 
 export const pgSqlCompiler: CompilerFunction = async (code, { config }) => {
   if (!code.trim()) return '{ data: [] }';
-  window.PGlite = window.PGlite || (await import(pgliteUrl)).PGlite;
+  window.PGlite = window.PGlite || (await import(pgliteBaseUrl + 'index.js')).PGlite;
 
   const options = getLanguageCustomSettings('pgsql', config);
   const { dbName, scriptURLs, ...pgliteOptions } = options;

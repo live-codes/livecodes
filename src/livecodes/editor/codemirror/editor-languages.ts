@@ -12,11 +12,13 @@ import { javascript } from '@codemirror/lang-javascript';
 import { json } from '@codemirror/lang-json';
 
 import type { Language } from '../../models';
-import { codeMirrorBaseUrl } from '../../vendors';
+import { getAppCDN, modulesService } from '../../services';
+import { codeMirrorBasePath } from '../../vendors';
 
 const legacy = (parser: StreamParser<unknown>) =>
   new LanguageSupport(StreamLanguage.define(parser));
 
+const codeMirrorBaseUrl = modulesService.getUrl(codeMirrorBasePath, getAppCDN());
 const getPath = (mod: string) => codeMirrorBaseUrl + mod;
 
 const moduleUrls = {

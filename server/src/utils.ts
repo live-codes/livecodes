@@ -10,7 +10,7 @@ const getDirname = (metaUrl: string) => path.dirname(fileURLToPath(metaUrl));
 export const dirname = getDirname(import.meta.url);
 export const appDir = path.resolve(dirname, '../../build/');
 
-const getFileContent = async (fullUrl: string) => {
+const getFileContent = (fullUrl: string): Promise<string> => {
   let pathname: string;
   try {
     const url = new URL(fullUrl);
@@ -21,11 +21,10 @@ const getFileContent = async (fullUrl: string) => {
   if (!pathname.trim()) {
     pathname = 'index.html';
   }
-  let filePath = path.resolve(appDir, pathname);
-  if (!fs.existsSync(filePath)) {
-    filePath = path.resolve(appDir, '404.html');
-  }
-  return fs.promises.readFile(filePath, 'utf8');
+  const filePath = path.resolve(appDir, pathname);
+  return fs.promises
+    .readFile(filePath, 'utf8')
+    .catch(() => fs.promises.readFile(path.resolve(appDir, '404.html'), 'utf8'));
 };
 
 const convertToWebRequest = (req: express.Request) => {

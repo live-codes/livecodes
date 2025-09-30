@@ -40,7 +40,7 @@ app.use(
     setHeaders(res) {
       // match headers in: src/_headers
       const reqPath = res.req.path;
-      if (reqPath.startsWith('/assets/')) {
+      if (reqPath.startsWith('/modules/')) {
         res.set('Cache-Control', 'public, max-age=31536000, s-maxage=31536000, immutable');
       }
       if (reqPath.startsWith('/livecodes/')) {

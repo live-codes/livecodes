@@ -1,4 +1,4 @@
-FROM node:24.1.0-alpine3.21 AS builder
+FROM node:24.4.1-alpine3.22 AS builder
 
 RUN apk update --no-cache && apk add --no-cache git
 
@@ -11,9 +11,9 @@ COPY server/package*.json server/
 
 RUN npm ci
 
-COPY . .
-
 ARG SELF_HOSTED
+ARG HOST_NAME
+ARG PORT
 ARG SELF_HOSTED_SHARE
 ARG SELF_HOSTED_BROADCAST
 ARG BROADCAST_PORT
@@ -21,13 +21,25 @@ ARG SANDBOX_HOST_NAME
 ARG SANDBOX_PORT
 ARG FIREBASE_CONFIG
 ARG DOCS_BASE_URL
+ARG LOCAL_MODULES
+ARG NODE_OPTIONS
+
+COPY scripts/download-modules.js scripts/
+COPY src/livecodes/vendors.ts src/livecodes/
+COPY src/sdk/package.sdk.json src/sdk/
+
+RUN if [ "$LOCAL_MODULES" == "true" ]; \
+  then npm run download-modules; \
+  fi
+
+COPY . .
 
 RUN if [ "$DOCS_BASE_URL" == "null" ]; \
   then npm run build:app; \
   else npm run build; \
   fi
 
-FROM node:24.1.0-alpine3.21 AS server
+FROM node:24.4.1-alpine3.22 AS server
 
 RUN addgroup -S appgroup
 RUN adduser -S appuser -G appgroup

@@ -24,7 +24,7 @@ import {
   monacoBaseUrl,
   monacoEmacsUrl,
   monacoVimUrl,
-  monacoVolarUrl,
+  monacoVolarBaseUrl,
   vendorsBaseUrl,
 } from '../../vendors';
 import { getEditorTheme } from '../themes';
@@ -266,7 +266,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const addVueSupport = async () => {
     if (vueRegistered) return;
     vueRegistered = true;
-    const { registerVue, registerHighlighter } = await import(monacoVolarUrl);
+    const { registerVue, registerHighlighter } = await import(monacoVolarBaseUrl + 'index.js');
     const tsCompilerOptions = { ...getCompilerOptions('vue'), jsx: 'preserve' };
     await registerVue({ editor, monaco, tsCompilerOptions, silent: true });
     shikiThemes = registerHighlighter(monaco);

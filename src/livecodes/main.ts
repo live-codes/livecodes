@@ -5,7 +5,7 @@ import appHTML from './html/app.html?raw';
 import type { API, CDN, Config, CustomEvents, EmbedOptions } from './models';
 import { modulesService } from './services/modules';
 import { isInIframe } from './utils/utils';
-import { codeMirrorBaseUrl, esModuleShimsPath } from './vendors';
+import { codeMirrorBasePath, esModuleShimsPath } from './vendors';
 
 export type { API, Config };
 
@@ -77,7 +77,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
 
     const loadApp = async () => {
       const appCDN = await modulesService.checkCDNs(esModuleShimsPath, params.get('appCDN') as CDN);
-
+      const codeMirrorBaseUrl = modulesService.getUrl(codeMirrorBasePath, appCDN as CDN);
       const supportsImportMaps = HTMLScriptElement.supports
         ? HTMLScriptElement.supports('importmap')
         : false;
@@ -104,6 +104,17 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
       import * as mod from '${baseUrl}{{hash:codemirror.js}}';
       window['${baseUrl}{{hash:codemirror.js}}'] = mod;
     </script>
+    `,
+          )
+          .replace(
+            /{{polyfillScript}}/g,
+            process.env.LOCAL_MODULES === 'true'
+              ? ''
+              : `
+    <script
+      src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js"
+      crossorigin="anonymous"
+    ></script>
     `,
           )
           .replace(/{{codemirrorCoreUrl}}/g, `${codeMirrorBaseUrl}codemirror-core.js`)
