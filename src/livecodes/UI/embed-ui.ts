@@ -418,7 +418,7 @@ export const createEmbedUI = async ({
     return decodeURIComponent(iframeUrl.href);
   };
 
-  const codeTemlates = {
+  const codeTemplates = {
     cdn: (data: FormData) => {
       const containerId = getContainerId();
       const containerHtml = `<div id="${containerId}"></div>`;
@@ -654,7 +654,7 @@ export default function App() {
 
     previewIframe.src = getIframeUrl(formData);
     const embedType = (formData as any).type;
-    const code = (codeTemlates as any)[embedType]?.(formData);
+    const code = (codeTemplates as any)[embedType]?.(formData);
     const embedTypeLanguages: Record<string, Language> = {
       npm: 'javascript',
       react: 'jsx',

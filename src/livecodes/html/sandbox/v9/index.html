@@ -5,6 +5,7 @@
       window.addEventListener('message', function (event) {
         var html = event.data.result || event.data.html;
         if (html) {
+          document.open();
           document.write(html);
           document.close();
         }

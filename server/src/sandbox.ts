@@ -3,6 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
+import { sandboxVersion } from '../../src/livecodes/html/sandbox/index.ts';
 import { dirname } from './utils.ts';
 
 export const sandbox = ({ hostname, port }: { hostname: string; port: number }) => {
@@ -12,7 +13,7 @@ export const sandbox = ({ hostname, port }: { hostname: string; port: number }) 
   app.disable('x-powered-by');
 
   const sandboxDir = path.resolve(dirname, 'sandbox');
-  let sandboxVersionDir = path.resolve(sandboxDir, 'v8');
+  let sandboxVersionDir = path.resolve(sandboxDir, sandboxVersion);
   fs.readdirSync(sandboxDir).forEach((v) => {
     if (fs.statSync(path.resolve(sandboxDir, v)).isDirectory()) {
       sandboxVersionDir = path.resolve(sandboxDir, v);

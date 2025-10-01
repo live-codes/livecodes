@@ -3,7 +3,7 @@
 import { predefinedValues } from '../utils/utils';
 
 // @ts-ignore
-import resultTemplateRaw from './sandbox/v8/index.html?raw';
+import resultTemplateRaw from './sandbox/v9/index.html?raw';
 // @ts-ignore
 import appHTMLRaw from './app.html?raw';
 // @ts-ignore
