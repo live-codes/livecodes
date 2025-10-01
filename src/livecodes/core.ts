@@ -5566,13 +5566,6 @@ const createApi = (): API => {
       await reloadCompiler(newAppConfig);
     }
     await applyConfig(newConfig, /* reload = */ true, currentConfig);
-    const content = getContentConfig(newConfig as Config);
-    const hasContent = Object.values(content).some((value) => value != null);
-    if (hasContent) {
-      await loadConfig(newAppConfig);
-    } else if (shouldRun && newAppConfig.autoupdate === true) {
-      await run();
-    }
     return newAppConfig;
   };
 

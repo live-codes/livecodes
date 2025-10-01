@@ -230,7 +230,7 @@
   },
   "eta.desc": {
     "notes": "",
-    "translation": "Embedded JS template engine for Node, Deno, and the browser. Lighweight, fast, and pluggable. Written in TypeScript."
+    "translation": "Embedded JS template engine for Node, Deno, and the browser. Lightweight, fast, and pluggable. Written in TypeScript."
   },
   "eta.link": {
     "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://eta.js.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://eta.js.org/docs/learn\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/eta\" target=\"_blank\" rel=\"noopener\" />\n\n",
