@@ -106,7 +106,7 @@ const languageInfo = {
     name: 'EJS',
   },
   eta: {
-    desc: 'Embedded JS template engine for Node, Deno, and the browser. Lighweight, fast, and pluggable. Written in TypeScript.',
+    desc: 'Embedded JS template engine for Node, Deno, and the browser. Lightweight, fast, and pluggable. Written in TypeScript.',
     link: '<1><2>Official website</2></1> <3> <4>Documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>',
     name: 'Eta',
   },
