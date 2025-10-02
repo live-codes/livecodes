@@ -11,17 +11,18 @@ import { getLanguageByAlias } from '../utils';
   let importedContent = '';
   let imports: Record<string, string> = {};
 
+  const getModuleName = (v: string) =>
+    v.startsWith('pr:ripple@') || v.startsWith('pkg.pr.new:ripple@')
+      ? v // 'pr:ripple@f8bdb34'
+      : `ripple@${v}`; // '0.2.25'
+
   let version: string =
     initialConfig.customSettings.ripple?.version ||
     (await pkgInfoService.getPkgLatestVersion('ripple'));
   let compile: (code: string, filename: string) => Promise<{ js: { code: string }; css: string }>;
-
   const updateCompiler = async (currentVersion: string) => {
     if (typeof compile === 'function' && currentVersion === version) return;
-    const modName =
-      currentVersion.startsWith('pr:ripple@') || currentVersion.startsWith('pkg.pr.new:ripple@')
-        ? `${currentVersion}/compiler` // 'pr:ripple@f8bdb34'
-        : `ripple@${currentVersion}/compiler`; // '0.2.25'
+    const modName = getModuleName(currentVersion + '/compiler');
     const mod = await import(modulesService.getModuleUrl(modName));
     compile = mod.compile;
     version = currentVersion;
@@ -70,7 +71,7 @@ document.head.appendChild(styles);
 `;
 
     if (filename === MAIN_FILE) {
-      const moduleUrl = modulesService.getModuleUrl(`ripple@${version}`);
+      const moduleUrl = modulesService.getModuleUrl(getModuleName(version));
       imports = {
         ...createImportMap(importedContent, config),
         ripple: moduleUrl,
