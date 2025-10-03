@@ -74,8 +74,7 @@ __builtins__.input = input
       try {
         await livecodes.micropip.install(pkg);
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log(err);
+        //
       }
     }
   }
