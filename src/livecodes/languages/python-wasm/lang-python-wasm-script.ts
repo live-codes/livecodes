@@ -74,7 +74,7 @@ __builtins__.input = input
       try {
         await livecodes.micropip.install(pkg);
       } catch (err) {
-        //
+        // livecodes.excludedPackages.push(pkg);
       }
     }
   }
