@@ -18,7 +18,7 @@ export const sandbox = async ({ hostname, port }: { hostname: string; port: numb
       .filter((v) => v.startsWith('v'))
       .map((v) => Number(v.slice(1)))
       .filter((v) => !Number.isNaN(v))
-      .sort((a, b) => b - a)
+      .sort((a, b) => a - b)
       .map((v) => 'v' + v)
       .pop() || '';
   const sandboxVersionDir = path.resolve(sandboxDir, version);
