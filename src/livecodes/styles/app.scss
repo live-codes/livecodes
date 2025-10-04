@@ -2174,6 +2174,7 @@ pre[class*='language-'].line-numbers > code {
 
   input[type='radio'] {
     border-radius: 50%;
+    margin-bottom: var(--s8);
 
     &::after {
       background: var(--inner-active);

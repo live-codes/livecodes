@@ -75,6 +75,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Standard C++ 財団</2> </1> <3> <4>Clang 公式ウェブサイト</4> </3> <5> <6>X分でYを学ぶ、X=C++</6> </5> <7> <8>スターターテンプレートを読み込む</8> </7>',
     name: 'C/C++ (Wasm)',
   },
+  csharpWasm: {
+    desc: 'WebAssembly 上で動作する C# コンパイラ。<1>Blazor を使用。</1>',
+    link: '<1> <2>C# 言語のドキュメント</2> </1> <3> <4>X を Y 分で学習します (X=C の場合)#</4> </3> <5> <6>LiveCodesドキュメンテーション</6> </5> <7> <8>スターターテンプレートをロードする</8> </7>',
+    name: 'C# (Wasm)',
+  },
   diagrams: {
     desc1: '（実験的）',
     desc2: 'コードとしての図表。サポート：',
@@ -122,6 +127,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Go ウェブサイト</2></1> <3><4>Go ドキュメント</4></3> <5> <6>GopherJS リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=Go</8> </7> <9><10>スターターテンプレートを読み込む</10></9>',
     name: 'Go',
   },
+  goWasm: {
+    desc: 'WebAssembly上で動作するGoインタプリタ、Yaegiを使用',
+    link: '<1><2>囲碁公式サイト</2></1> <3><4>八重垣</4></3> <5> <6>XをY分で学ぶ、X=囲碁</6> </5> <7> <8>LiveCodesドキュメンテーション</8> </7> <9> <10>スターターテンプレートの読み込み</10> </9>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: 'clientside-haml-js を使用したクライアントサイド JavaScript ビューテンプレート用の Haml コンパイラ。',
     link: '<1><2>Haml 公式ウェブサイト</2></1> <3> <4>Haml ドキュメント</4> </3> <5> <6>clientside-haml-js GitHub リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=haml</8> </7> <9> <10>LiveCodes ドキュメント</10> </9>',
@@ -139,7 +149,13 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'DoppioJVMを使ってブラウザで動作するJVM。',
+    link: '<1> <2>Java公式サイト    DoppioJVM    XをY分で学ぶ、X=Java    スターターテンプレートのロード</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
     name: 'Java',
+  },
+  jinja: {
+    desc: 'Jinjaは高速で、表現力があり、拡張可能なテンプレートエンジンです。',
+    link: '<1> <2>公式ウェブサイト    テンプレートドキュメント    JavaScript実装    LiveCodesドキュメント</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
+    name: 'Jinja',
   },
   jsx: {
     desc: 'JSX は LiveCodes で TypeScript コンパイラを使用して JavaScript にコンパイルされます。デフォルトでは React を JSX ランタイムとして使用します。',

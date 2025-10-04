@@ -129,6 +129,15 @@
   "cppWasm.name": {
     "translation": "C/C++ (Wasm)"
   },
+  "csharpWasm.desc": {
+    "translation": "WebAssembly 上で動作する C# コンパイラ。<tag-1>Blazor を使用。</tag-1>"
+  },
+  "csharpWasm.link": {
+    "translation": "<tag-1> <tag-2>C# 言語のドキュメント</tag-2> </tag-1> <tag-3> <tag-4>X を Y 分で学習します (X=C の場合)#</tag-4> </tag-3> <tag-5> <tag-6>LiveCodesドキュメンテーション</tag-6> </tag-5> <tag-7> <tag-8>スターターテンプレートをロードする</tag-8> </tag-7>"
+  },
+  "csharpWasm.name": {
+    "translation": "C# (Wasm)"
+  },
   "diagrams.desc1": {
     "translation": "（実験的）"
   },
@@ -213,6 +222,15 @@
   "go.name": {
     "translation": "Go"
   },
+  "goWasm.desc": {
+    "translation": "WebAssembly上で動作するGoインタプリタ、Yaegiを使用"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>囲碁公式サイト</tag-2></tag-1> <tag-3><tag-4>八重垣</tag-4></tag-3> <tag-5> <tag-6>XをY分で学ぶ、X=囲碁</tag-6> </tag-5> <tag-7> <tag-8>LiveCodesドキュメンテーション</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートの読み込み</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
   "haml.desc": {
     "translation": "clientside-haml-js を使用したクライアントサイド JavaScript ビューテンプレート用の Haml コンパイラ。"
   },
@@ -248,6 +266,15 @@
   },
   "java.name": {
     "translation": "Java"
+  },
+  "jinja.desc": {
+    "translation": "Jinjaは高速で、表現力があり、拡張可能なテンプレートエンジンです。"
+  },
+  "jinja.link": {
+    "translation": "<tag-1> <tag-2>公式ウェブサイト    テンプレートドキュメント    JavaScript実装    LiveCodesドキュメント</tag-2> </tag-1> <tag-3> <tag-4></tag-4> </tag-3> <tag-5> <tag-6></tag-6> </tag-5> <tag-7> <tag-8></tag-8> </tag-7>"
+  },
+  "jinja.name": {
+    "translation": "Jinja"
   },
   "jsx.desc": {
     "translation": "JSX は LiveCodes で TypeScript コンパイラを使用して JavaScript にコンパイルされます。デフォルトでは React を JSX ランタイムとして使用します。"

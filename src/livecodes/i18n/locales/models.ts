@@ -1,11 +1,11 @@
-import type { RequireAtLeastOne, UnAsConst } from '../models';
+import type { RequireAtLeastOne } from '../models';
 import type LangInfoTranslation from './en/language-info';
 import type Translation from './en/translation';
 
 /**
  * Add new translatable attributes here.
  *
- * To add new custom data attributes for HTML intellisense, see `script/vscode-intellisense.js`.
+ * To add new custom data attributes for HTML intellisense, see `scripts/vscode-intellisense.js`.
  */
 type I18nAttributes = RequireAtLeastOne<{
   textContent?: string;
@@ -21,17 +21,24 @@ type I18nAttributes = RequireAtLeastOne<{
  * Only use in `en` language with `as const satisfies`.
  */
 export interface I18nTranslationTemplate {
-  [key: string]: ValidI18nTypes | string;
+  [key: string]: I18nAttributes | string | I18nTranslationTemplate;
 }
 
-type ValidI18nTypes = I18nAttributes | I18nTranslationTemplate;
+/**
+ * Maps a nested object structure to a structure where all leaf nodes are strings.
+ *
+ * Use to keep the same structure as the `en` i18n object for other languages.
+ */
+export type I18nStructure<T> = {
+  readonly [K in keyof T]: T[K] extends Record<string, unknown> ? I18nStructure<T[K]> : string;
+};
 
 /**
  * Type for all i18n object of namespace `translation` other than `en`.
  */
-export type I18nTranslation = UnAsConst<typeof Translation, ValidI18nTypes, string>;
+export type I18nTranslation = I18nStructure<typeof Translation>;
 
 /**
  * Type for all i18n object of namespace `language-info` other than `en`.
  */
-export type I18nLangInfoTranslation = UnAsConst<typeof LangInfoTranslation, ValidI18nTypes, string>;
+export type I18nLangInfoTranslation = I18nStructure<typeof LangInfoTranslation>;

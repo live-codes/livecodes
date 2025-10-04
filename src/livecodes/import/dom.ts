@@ -1,4 +1,4 @@
-import { getLanguageByAlias, getLanguageEditorId, languages } from '../languages';
+import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { Config, EditorId, Language } from '../models';
 import { decodeHTML } from '../utils';
 
@@ -50,7 +50,7 @@ export const importFromDom = async (
   const dom = domparser.parseFromString(html, 'text/html');
   const activeEditor = config.activeEditor;
 
-  const defaultParams = languages
+  const defaultParams = window.deps.languages
     .map((lang) => lang.name)
     .reduce(
       (acc, langName) => ({

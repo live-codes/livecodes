@@ -1,5 +1,5 @@
 import { appLanguages } from '../i18n/app-languages';
-import { languageIsEnabled, languages, processorIsEnabled, processors } from '../languages';
+import { languageIsEnabled, processorIsEnabled } from '../languages';
 import type { Config, INinjaAction, Screen, TemplateName } from '../models';
 import { isMac, predefinedValues, stringUnionToArray } from '../utils/utils';
 import * as UI from './selectors';
@@ -206,7 +206,7 @@ export const getCommandMenuActions = ({
       title: window.deps.translateString('commandMenu.selectLanguage', 'Select Language'),
       content: getContent('Select Language'),
       mdIcon: 'code',
-      children: languages
+      children: window.deps.languages
         .filter((l) => languageIsEnabled(l.name, getConfig()))
         .sort((a, b) => a.title.localeCompare(b.title))
         .map((lang) => ({
@@ -216,7 +216,7 @@ export const getCommandMenuActions = ({
           handler: async () => {
             document
               .querySelector<HTMLAnchorElement>('a[data-editor][data-lang="' + lang.name + '"]')
-              ?.dispatchEvent(new Event('mousedown'));
+              ?.click();
           },
         })),
     },
@@ -226,7 +226,7 @@ export const getCommandMenuActions = ({
       content: getContent('Processors'),
       // mdIcon: 'manufacturing',
       icon: icons.manufacturing,
-      children: processors
+      children: window.deps.processors
         .filter((p) => !p.hidden && processorIsEnabled(p.name, getConfig()))
         .map((processor) => ({
           id: 'Processor: ' + processor.title,
@@ -245,7 +245,7 @@ export const getCommandMenuActions = ({
               .querySelector<HTMLAnchorElement>(
                 '.processor-item input[data-processor="' + processor.name + '"]',
               )
-              ?.dispatchEvent(new Event('mousedown', { bubbles: true }));
+              ?.dispatchEvent(new Event('click', { bubbles: true }));
           },
         })),
     },
@@ -298,6 +298,7 @@ export const getCommandMenuActions = ({
         'ruby',
         'ruby-wasm',
         'go',
+        'go-wasm',
         'php',
         'php-wasm',
         'cpp',

@@ -142,6 +142,8 @@ Marked: [MIT License](https://github.com/markedjs/marked/blob/57d41b88801566eb06
 
 Mermaid: [MIT License](https://github.com/mermaid-js/mermaid/blob/1b40f552b20df4ab99a986dd58c9d254b3bfd7bc/LICENSE)
 
+meta-png: [ISC License](https://github.com/lucach/meta-png/blob/b9a79d98157af06875c3355f4c460ffb2963c25c/package.json#L27)
+
 mhsdesign/jit-browser-tailwindcss: [MIT License](https://github.com/mhsdesign/jit-browser-tailwindcss/blob/60fccdfbbd4e7c816a97e4627d070dd8ec19d415/package.json#L30)
 
 MDX: [MIT License](https://github.com/mdx-js/mdx/blob/7fd1d9a4272754951e70dbaecff07a0ae402e13e/license)
@@ -268,6 +270,8 @@ svgbob: [Apache License 2.0](https://github.com/ivanceras/svgbob/blob/277f28b337
 
 Tagify: [MIT License](https://github.com/yairEO/tagify/blob/1edeb579b18ea61693e0116281584fa5543f1b18/LICENSE)
 
+tesseract.js: [Apache License 2.0](https://github.com/naptha/tesseract.js/blob/f9dac0742374940f88100eb47838e902e3b51eb8/LICENSE.md)
+
 Tailwind CSS: [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/6acb051f67e72a8061ad306a7fa385c36d955fb9/LICENSE)
 
 Tau Prolog: [BSD 3-Clause License](https://github.com/tau-prolog/tau-prolog/blob/5bd606a255910d8e34ff1d721e80969af294b64c/LICENSE)
@@ -311,3 +315,7 @@ WebR: [License](https://github.com/r-wasm/webr/blob/e47ab9854c9306c410f302579c66
 Whirl: [MIT License](https://github.com/jh3y/whirl/tree/8de79b76a13200ccbd8b0b75b4f79978ef1ee890)
 
 Windi CSS: [MIT License](https://github.com/windicss/windicss/blob/bcd50d877e62630f191602ddeabd9f677cc6d90c/LICENSE)
+
+Yaegi: [Apache License 2.0](https://github.com/traefik/yaegi/blob/d93266d013f393a20122ef0dd3f579d411a066be/LICENSE)
+
+yaegi-wasm: [Apache License 2.0](https://github.com/Muhammad-Ayman/yaegi-wasm/blob/528a6bbac7464dc8911e50e0d617512f3e247e8c/LICENSE)

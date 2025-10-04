@@ -1243,7 +1243,7 @@
     "translation": "Начат массовый импорт..."
   },
   "import.code.desc": {
-    "translation": "Поддерживаемые источники: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>Файл GitHub</tag-3> <tag-4>Директория в репозитории GitHub</tag-4> <tag-5>Сниппет Gitlab</tag-5> <tag-6>Файл Gitlab</tag-6> <tag-7>Директория в репозитории Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Сырой код</tag-9> <tag-10>Код в DOM веб-страницы</tag-10> <tag-11>Код в zip-файле</tag-11> <tag-12>Официальные площадки<tag-13></tag-13>(TypeScript и Vue)</tag-12> </tag-1> Пожалуйста, посетите <tag-14>документацию</tag-14> для подробностей."
+    "translation": "Поддерживаемые источники: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>Файл GitHub</tag-3> <tag-4>Директория в репозитории GitHub</tag-4> <tag-5>Сниппет Gitlab</tag-5> <tag-6>Файл Gitlab</tag-6> <tag-7>Директория в репозитории Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Сырой код</tag-9> <tag-10>Код в DOM веб-страницы</tag-10> <tag-11>Код в zip-файле</tag-11> <tag-12>Код в изображении (OCR)</tag-12> <tag-13>Официальные площадки<tag-14></tag-14>(TypeScript и Vue)</tag-13> </tag-1> Пожалуйста, посетите <tag-15>документацию</tag-15> для подробностей."
   },
   "import.code.fromFile": {
     "translation": "Импорт локальных файлов"
@@ -1950,6 +1950,9 @@
   "templates.starter.cpp": {
     "translation": "Стартер C++"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "Стартер C++ (Wasm)"
+  },
   "templates.starter.daisyui": {
     "translation": "Стартер daisyUI"
   },
@@ -1964,6 +1967,9 @@
   },
   "templates.starter.go": {
     "translation": "Стартер Go"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Стартер Go (Wasm)"
   },
   "templates.starter.heading": {
     "translation": "Стартовые шаблоны"

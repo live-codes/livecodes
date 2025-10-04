@@ -76,6 +76,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang offizielle Website</4> </3> <5> <6>Lerne X in Y Minuten, wobei X=C++</6> </5> <7> <8>Starter-Vorlage laden</8> </7>',
     name: 'C/C++ (Wasm)',
   },
+  csharpWasm: {
+    desc: 'C#-Compiler, der auf WebAssembly läuft, unter Verwendung von <1>Blazor</1>',
+    link: '<1> <2>Dokumentation der Sprache C#</2> </1> <3> <4> Lernen Sie X in Y Minuten, wobei X=C#</4> </3> <5> <6> LiveCodes Dokumentation</6> </5> <7> <8> Laden Sie die Startvorlage</8> </7>',
+    name: 'C# (Wasm)',
+  },
   diagrams: {
     desc1: '(Experimentell)',
     desc2: 'Diagramme als Code. Unterstützt:',
@@ -123,6 +128,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Go Website</2></1> <3><4>Go Dokumentation</4></3> <5> <6>GopherJS Repository</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=Go</8> </7> <9><10>Starter-Vorlage laden</10></9>',
     name: 'Go',
   },
+  goWasm: {
+    desc: 'Go-Interpreter, der auf WebAssembly läuft, unter Verwendung von Yaegi',
+    link: '<1><2>Go offizielle Website</2></1> <3><4>Yaegi</4></3> <5> <6>Lerne X in Y Minuten, wobei X=Go</6> </5> <7> <8>LiveCodes Dokumentationen</8> </7> <9> <10>Lade Startvorlage</10> </9>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: 'Haml-Compiler für clientseitige JavaScript-View-Templates unter Verwendung von clientside-haml-js.',
     link: '<1><2>Haml offizielle Website</2></1> <3> <4>Haml Dokumentation</4> </3> <5> <6>clientside-haml-js GitHub Repository</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=haml</8> </7> <9> <10>LiveCodes Dokumentation</10> </9>',
@@ -140,7 +150,13 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'JVM läuft im Browser mit DoppioJVM.',
+    link: '<1> <2>Offizielle Java-Website</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Lernen Sie X in Y Minuten, wobei X=java</6> </5> <7> <8> Laden Sie die Startvorlage</8> </7>',
     name: 'Java',
+  },
+  jinja: {
+    desc: 'Jinja ist eine schnelle, ausdrucksstarke und erweiterbare Template-Engine.',
+    link: '<1> <2>Offizielle Website</2> </1> <3> <4> Template-Dokumentation</4> </3> <5> <6> JavaScript-Implementierung</6> </5> <7> <8> LiveCodes Dokumentationen</8> </7>',
+    name: 'Jinja',
   },
   jsx: {
     desc: 'JSX wird in LiveCodes mit dem TypeScript-Compiler zu JavaScript kompiliert. Standardmäßig verwendet es React als JSX-Laufzeitumgebung.',

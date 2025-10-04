@@ -84,6 +84,7 @@ export const createImportUI = ({
     e.preventDefault();
     const buttonText = importButton.innerHTML;
     importButton.innerHTML = window.deps.translateString('generic.loading', 'Loading...');
+    notifications.info(window.deps.translateString('generic.loading', 'Loading...'));
     importButton.disabled = true;
     const importInput = getUrlImportInput(importContainer);
     const url = importInput.value;
@@ -111,7 +112,7 @@ export const createImportUI = ({
   const codeImportInput = getCodeImportInput(importContainer);
   eventsManager.addEventListener(codeImportInput, 'change', () => {
     if (!codeImportInput.files?.length) return;
-
+    notifications.info(window.deps.translateString('generic.loading', 'Loading...'));
     importFromFiles(codeImportInput.files, populateConfig, eventsManager)
       .then(loadConfig)
       .then(modal.close)
@@ -126,6 +127,7 @@ export const createImportUI = ({
     e.preventDefault();
     const buttonText = importJsonUrlButton.innerHTML;
     importJsonUrlButton.innerHTML = window.deps.translateString('generic.loading', 'Loading...');
+    notifications.info(window.deps.translateString('generic.loading', 'Loading...'));
     importJsonUrlButton.disabled = true;
     const importInput = getImportJsonUrlInput(importContainer);
     const url = importInput.value;
@@ -242,6 +244,7 @@ export const createImportUI = ({
 
   const fileInput = getImportFileInput(importContainer);
   eventsManager.addEventListener(fileInput, 'change', () => {
+    notifications.info(window.deps.translateString('generic.loading', 'Loading...'));
     loadFile<Config>(fileInput)
       .then(loadConfig)
       .then(modal.close)

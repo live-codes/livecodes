@@ -1,4 +1,4 @@
-import { replaceStyleImports } from '../../compiler';
+import { replaceStyleImports } from '../../compiler/import-map';
 import type {
   CompileOptions,
   CompilerFunction,
@@ -7,10 +7,10 @@ import type {
   ProcessorSpecs,
 } from '../../models';
 import { escapeCode, getAbsoluteUrl } from '../../utils';
-import { processors } from '../processors';
 import { processorIsEnabled } from '../utils';
 
-const getSpecs = (pluginName: Processor) => processors.find((specs) => specs.name === pluginName);
+const getSpecs = (pluginName: Processor) =>
+  window.deps.processors.find((specs) => specs.name === pluginName);
 
 (self as any).createPostcssCompiler = (): CompilerFunction => {
   const postCssOptions = { from: undefined };
@@ -34,13 +34,13 @@ const getSpecs = (pluginName: Processor) => processors.find((specs) => specs.nam
     const configPlugins = config.processors.filter((p) => getSpecs(p)?.isPostcssPlugin);
     const isEnabled = (pluginName: Processor) =>
       processorIsEnabled(pluginName, config) && configPlugins.includes(pluginName);
-    return processors.map((plugin) => plugin.name).filter(isEnabled);
+    return window.deps.processors.map((plugin) => plugin.name).filter(isEnabled);
   };
 
   const getPlugins = (config: Config, baseUrl: string, options: CompileOptions) => {
     const pluginNames = getEnabledPluginNames(config);
     pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
-    return processors
+    return window.deps.processors
       .filter((specs) => pluginNames.includes(specs.name))
       .map((specs) => loadedPlugins[specs.name]?.(config, baseUrl, options))
       .flat(); // allow plugins to have arrays of plugins

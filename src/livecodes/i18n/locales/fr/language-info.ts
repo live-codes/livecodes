@@ -75,6 +75,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Fondation Standard C++</2> </1> <3> <4>Site officiel de Clang</4> </3> <5> <6>Apprenez X en Y minutes, où X=C++</6> </5> <7> <8>Charger le modèle de démarrage</8> </7>',
     name: 'C/C++ (Wasm)',
   },
+  csharpWasm: {
+    desc: 'Compilateur C# fonctionnant sur WebAssembly, utilisant <1>Blazor</1>',
+    link: '<1> <2>Documentation sur le langage C#</2> </1> <3> <4> Apprenez X en Y minutes, où X=C#</4> </3> <5> <6> Documentation LiveCodes</6> </5> <7> <8> Charger le modèle de démarrage</8> </7>',
+    name: 'C# (Wasm)',
+  },
   diagrams: {
     desc1: '(Expérimental)',
     desc2: 'Diagrammes sous forme de code. Prend en charge :',
@@ -123,6 +128,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Site web de Go</2></1> <3><4>Documentation de Go</4></3> <5> <6>Dépôt GopherJS</6> </5> <7> <8>Apprenez X en Y minutes, où X=Go</8> </7> <9><10>Charger le modèle de démarrage</10></9>',
     name: 'Go',
   },
+  goWasm: {
+    desc: 'Interpréteur Go fonctionnant sur WebAssembly, utilisant Yaegi',
+    link: '<1><2>Site officiel de Go</2></1> <3><4>Yaegi</4></3> <5> <6>Apprendre X en Y minutes, où X=Go</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Charger un modèle de démarrage</10> </9>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: 'Compilateur Haml pour les modèles de vue JavaScript côté client utilisant clientside-haml-js.',
     link: '<1><2>Site officiel de Haml</2></1> <3> <4>Documentation de Haml</4> </3> <5> <6>Dépôt GitHub de clientside-haml-js</6> </5> <7> <8>Apprenez X en Y minutes, où X=haml</8> </7> <9> <10>Documentation LiveCodes</10> </9>',
@@ -140,7 +150,13 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: "JVM fonctionnant dans le navigateur à l'aide de DoppioJVM.",
+    link: '<1> <2>Site officiel de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Apprendre X en Y minutes, où X=java</6> </5> <7> <8> Charger le modèle de démarrage</8> </7>',
     name: 'Java',
+  },
+  jinja: {
+    desc: 'Jinja est un moteur de création de modèles rapide, expressif et extensible.',
+    link: '<1> <2>Site officiel</2> </1> <3> <4> Documentation sur les modèles</4> </3> <5> <6> Implémentation JavaScript</6> </5> <7> <8> Documentations LiveCodes</8> </7>',
+    name: 'Jinja',
   },
   jsx: {
     desc: 'JSX est compilé en JavaScript dans LiveCodes en utilisant le compilateur TypeScript. Par défaut, il utilise React comme runtime JSX.',

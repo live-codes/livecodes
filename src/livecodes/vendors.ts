@@ -99,6 +99,8 @@ export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/
 
 export const csharpWasmBaseUrl = /* @__PURE__ */ getUrl('@seth0x41/csharp-wasm@1.0.3/');
 
+export const yaegiWasmBaseUrl = /* @__PURE__ */ getUrl('yaegi-wasm@1.0.2/src/');
+
 export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@2.3.1/dist/csstree.js');
 
 export const cytoscapeSvgUrl = /* @__PURE__ */ getUrl('cytoscape-svg@0.4.0/cytoscape-svg.js');
@@ -245,7 +247,7 @@ export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.
 
 export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.8/dist/');
 
-export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.5.1');
+export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.11.1');
 
 export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 
@@ -288,6 +290,8 @@ export const malinaBaseUrl = /* @__PURE__ */ getUrl(`malinajs@0.7.19/`);
 export const markedUrl = /* @__PURE__ */ getUrl('marked@13.0.2/marked.min.js');
 
 export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
+
+export const metaPngUrl = /* @__PURE__ */ getUrl('meta-png@1.0.6/dist/meta-png.umd.js');
 
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
@@ -350,7 +354,7 @@ export const prismThemesLaserWaveUrl = /* @__PURE__ */ getUrl(
 );
 
 export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.jsdelivr.net/pyodide/v0.25.1/full/',
+  'https://cdn.jsdelivr.net/pyodide/v0.28.3/full/',
 );
 
 export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.6.1/dist/easy.qrcode.min.js');
@@ -428,6 +432,8 @@ export const tealUrl = /* @__PURE__ */ getUrl(
 );
 
 export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist/themes/');
+
+export const tesseractUrl = /* @__PURE__ */ getUrl('tesseract.js@6.0.1/dist/tesseract.esm.min.js');
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 

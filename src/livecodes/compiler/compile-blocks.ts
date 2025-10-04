@@ -3,8 +3,7 @@ import {
   getLanguageEditorId,
   processorIsActivated,
   processorIsEnabled,
-  processors,
-} from '../languages';
+} from '../languages/utils';
 import type { CompileInfo, Config } from '../models';
 import { modulesService } from '../services/modules';
 import { getFileExtension } from '../utils/utils';
@@ -88,7 +87,10 @@ const postProcess = async (content: string, config: Config, language: LanguageOr
     postcssRequired = true;
   }
 
-  for (const processor of processors) {
+  for (const processor of window.deps.processors) {
+    // do not place compiled css for tailwind and similar in style blocks
+    if (['tailwindcss', 'unocss', 'windicss'].includes(processor.name)) continue;
+
     if (
       (processorIsEnabled(processor.name, config) &&
         processorIsActivated(processor.name, config) &&

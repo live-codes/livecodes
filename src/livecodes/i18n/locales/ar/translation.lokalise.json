@@ -1243,7 +1243,7 @@
     "translation": "بدأ الاستيراد بالجملة..."
   },
   "import.code.desc": {
-    "translation": "المصادر المدعومة: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>ملف GitHub</tag-3> <tag-4>دليل في مستودع GitHub</tag-4> <tag-5>مقتطف Gitlab</tag-5> <tag-6>ملف Gitlab</tag-6> <tag-7>دليل في مستودع Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>كود خام</tag-9> <tag-10>كود في DOM صفحة الويب</tag-10> <tag-11>كود في ملف مضغوط</tag-11> <tag-12>الملاعب الرسمية<tag-13></tag-13>(TypeScript و Vue)</tag-12> </tag-1> يرجى زيارة <tag-14>الوثائق</tag-14> للتفاصيل."
+    "translation": "المصادر المدعومة: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>ملف GitHub</tag-3> <tag-4>دليل في مستودع GitHub</tag-4> <tag-5>مقتطف Gitlab</tag-5> <tag-6>ملف Gitlab</tag-6> <tag-7>دليل في مستودع Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>كود خام</tag-9> <tag-10>كود في DOM صفحة الويب</tag-10> <tag-11>كود في ملف مضغوط</tag-11> <tag-12>كود في صورة (OCR)</tag-12> <tag-13>الملاعب الرسمية<tag-14></tag-14>(TypeScript و Vue)</tag-13> </tag-1> يرجى زيارة <tag-15>الوثائق</tag-15> للتفاصيل."
   },
   "import.code.fromFile": {
     "translation": "استيراد ملفات محلية"
@@ -1950,6 +1950,9 @@
   "templates.starter.cpp": {
     "translation": "قالب C++"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "قالب C++ (Wasm)"
+  },
   "templates.starter.daisyui": {
     "translation": "قالب daisyUI"
   },
@@ -1964,6 +1967,9 @@
   },
   "templates.starter.go": {
     "translation": "قالب Go"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "قالب Go (Wasm)"
   },
   "templates.starter.heading": {
     "translation": "قوالب البداية"

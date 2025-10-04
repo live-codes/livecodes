@@ -1243,7 +1243,7 @@
     "translation": "Massen-Import gestartet..."
   },
   "import.code.desc": {
-    "translation": "Unterstützte Quellen: <tag-1> <tag-2>GitHub Gist</tag-2> <tag-3>GitHub-Datei</tag-3> <tag-4>Verzeichnis in einem GitHub-Repository</tag-4> <tag-5>Gitlab-Snippet</tag-5> <tag-6>Gitlab-Datei</tag-6> <tag-7>Verzeichnis in einem Gitlab-Repository</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Rohcode</tag-9> <tag-10>Code im Webseiten-DOM</tag-10> <tag-11>Code in ZIP-Datei</tag-11> <tag-12>Offizielle Playgrounds<tag-13></tag-13>(TypeScript und Vue)</tag-12> </tag-1> Bitte besuchen Sie die <tag-14>Dokumentation</tag-14> für Details."
+    "translation": "Unterstützte Quellen: <tag-1> <tag-2>GitHub Gist</tag-2> <tag-3>GitHub-Datei</tag-3> <tag-4>Verzeichnis in einem GitHub-Repository</tag-4> <tag-5>Gitlab-Snippet</tag-5> <tag-6>Gitlab-Datei</tag-6> <tag-7>Verzeichnis in einem Gitlab-Repository</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Rohcode</tag-9> <tag-10>Code im Webseiten-DOM</tag-10> <tag-11>Code in ZIP-Datei</tag-11> <tag-12>Code in Bildern (OCR)</tag-12> <tag-13>Offizielle Playgrounds<tag-14></tag-14>(TypeScript und Vue)</tag-13> </tag-1> Bitte besuchen Sie die <tag-15>Dokumentation</tag-15> für Details."
   },
   "import.code.fromFile": {
     "translation": "Lokale Dateien importieren"
@@ -1950,6 +1950,9 @@
   "templates.starter.cpp": {
     "translation": "C++-Starter"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "C++ (Wasm)-Starter"
+  },
   "templates.starter.daisyui": {
     "translation": "daisyUI-Starter"
   },
@@ -1964,6 +1967,9 @@
   },
   "templates.starter.go": {
     "translation": "Go-Starter"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Go (Wasm)-Starter"
   },
   "templates.starter.heading": {
     "translation": "Starter-Vorlagen"

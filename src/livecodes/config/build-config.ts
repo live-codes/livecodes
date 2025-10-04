@@ -8,7 +8,7 @@ import type {
   ToolsPaneStatus,
   UrlQueryParams,
 } from '../models';
-import { cloneObject, decodeHTML, removeDuplicates } from '../utils';
+import { addProp, cloneObject, decodeHTML, removeDuplicates, stringToValidJson } from '../utils';
 import { decompress } from '../utils/compression';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from './index';
@@ -157,7 +157,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   // ?lite
 
   // initialize paramsConfig with defaultConfig keys and params values
-  const paramsConfig = ([...Object.keys(defaultConfig), ...[]] as Array<keyof Config>)
+  const paramsConfig = ([...Object.keys(defaultConfig)] as Array<keyof Config>)
     .filter((key) => key !== 'version')
     .reduce(
       (acc, key) => ({
@@ -352,5 +352,35 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   if (params.lite) {
     paramsConfig.mode = 'lite';
   }
+
+  // ?customSettings={template:{prerender:false}}
+  if (
+    typeof params.customSettings === 'string' &&
+    (params.customSettings as string).trim().startsWith('{')
+  ) {
+    try {
+      paramsConfig.customSettings = JSON.parse(stringToValidJson(params.customSettings));
+    } catch {
+      // ignore
+    }
+  }
+
+  // ?markup.hideTitle=true&script.title=App.jsx
+  // ?customSettings.template.prerender=false
+  Object.keys(params).forEach((k) => {
+    if (
+      k.startsWith('markup.') ||
+      k.startsWith('style.') ||
+      k.startsWith('script.') ||
+      k.startsWith('tests.') ||
+      k.startsWith('customSettings.') ||
+      k.startsWith('imports.') ||
+      k.startsWith('types.') ||
+      k.startsWith('tools.')
+    ) {
+      addProp(paramsConfig, k, (params as any)[k]);
+    }
+  });
+
   return paramsConfig;
 };

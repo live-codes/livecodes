@@ -968,6 +968,8 @@ export type Language =
   | 'riotjs'
   | 'malina'
   | 'malinajs'
+  | 'ripple'
+  | 'ripplejs'
   | 'xht'
   | 'coffeescript'
   | 'coffee'
@@ -998,6 +1000,9 @@ export type Language =
   | 'rubywasm'
   | 'go'
   | 'golang'
+  | 'go-wasm'
+  | 'wasm.go'
+  | 'gowasm'
   | 'php'
   | 'php-wasm'
   | 'phpwasm'
@@ -1291,6 +1296,7 @@ export interface CompileInfo {
   modifiedHTML?: string;
   importedContent?: string;
   imports?: Record<string, string>;
+  errors?: string[];
 }
 
 export interface CompileResult {
@@ -1349,6 +1355,7 @@ export interface Compiler {
     | 'text/commonlisp'
     | 'text/tcl'
     | 'text/prolog'
+    | 'text/go-wasm'
     | 'application/json'
     | 'application/lua'
     | 'text/fennel'
@@ -1417,6 +1424,7 @@ export type TemplateName =
   | 'ruby'
   | 'ruby-wasm'
   | 'go'
+  | 'go-wasm'
   | 'php'
   | 'php-wasm'
   | 'cpp'
@@ -1781,6 +1789,7 @@ export type AppLanguage =
   | 'de'
   | 'en'
   | 'es'
+  | 'fa'
   | 'fr'
   | 'hi'
   | 'it'

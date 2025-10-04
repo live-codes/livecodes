@@ -391,20 +391,16 @@ export default function HomepageFeatures(): ReactNode {
                           1
                         </a>
                         ,{' '}
-                        <a href="https://vercel.com/" target="_blank" rel="noopener">
+                        <a href="https://www.netlify.com/" target="_blank" rel="noopener">
                           2
                         </a>
                         ,{' '}
-                        <a href="https://www.netlify.com/" target="_blank" rel="noopener">
+                        <a href="https://firebase.google.com/" target="_blank" rel="noopener">
                           3
                         </a>
                         ,{' '}
-                        <a href="https://firebase.google.com/" target="_blank" rel="noopener">
-                          4
-                        </a>
-                        ,{' '}
                         <a href="https://pages.github.com/" target="_blank" rel="noopener">
-                          5
+                          4
                         </a>
                       </sup>
                     </li>

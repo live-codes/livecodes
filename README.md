@@ -13,11 +13,11 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 [![LiveCodes: npm version](https://img.shields.io/npm/v/livecodes)](https://www.npmjs.com/package/livecodes)
 [![LiveCodes: npm downloads](https://img.shields.io/npm/dm/livecodes)](https://www.npmjs.com/package/livecodes)
 [![LiveCodes: jsdelivr downloads](https://data.jsdelivr.com/v1/package/npm/livecodes/badge?style=rounded)](https://www.jsdelivr.com/package/npm/livecodes)
-[![LiveCodes: languages](https://img.shields.io/badge/languages-96-blue)](https://livecodes.io/docs/languages/)
+[![LiveCodes: languages](https://img.shields.io/badge/languages-97-blue)](https://livecodes.io/docs/languages/)
 [![LiveCodes: docs](https://img.shields.io/badge/Documentation-575757?logo=gitbook&logoColor=white)](https://livecodes.io/docs/)
 [![LiveCodes: llms.txt](https://img.shields.io/badge/llms.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms.txt)
 [![LiveCodes: llms-full.txt](https://img.shields.io/badge/llms--full.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms-full.txt)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://www.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://app.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Lokalise: translated](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/translated.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
 [![Lokalise: UI languages](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/languages.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
 [![license - MIT](https://img.shields.io/github/license/live-codes/livecodes)](https://github.com/live-codes/livecodes/blob/develop/LICENSE)
@@ -85,7 +85,7 @@ Add this code to your page:
 #### Self-hosted
 
 1. Download a [release](https://github.com/live-codes/livecodes/releases)
-2. Put it on a static file server (for free!) <sup><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">1</a>, <a href="https://vercel.com/" target="_blank" rel="noopener">2</a>, <a href="https://www.netlify.com/" target="_blank" rel="noopener">3</a>, <a href="https://firebase.google.com/" target="_blank" rel="noopener">4</a>, <a href="https://pages.github.com/" target="_blank" rel="noopener">5</a></sup>
+2. Put it on a static file server (for free!) <sup><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">1</a>, <a href="https://www.netlify.com/" target="_blank" rel="noopener">2</a>, <a href="https://firebase.google.com/" target="_blank" rel="noopener">3</a>, <a href="https://pages.github.com/" target="_blank" rel="noopener">4</a></sup>
 
    <sup>Check the guide for <a href="https://livecodes.io/docs/features/self-hosting" target="_blank" rel="noopener">self-hosting</a> (including the built-in setup to deploy to GitHub Pages).</sup>
 
@@ -270,8 +270,13 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://codeium.com/" target="_blank" title="Codeium">
-  <img alt="Codeium" width="200" src="https://dev.livecodes.io/docs/img/credits/codeium.svg">
+<a href="https://windsurf.com/" target="_blank" title="Windsurf">
+  <img alt="Windsurf" width="200" src="https://dev.livecodes.io/docs/img/credits/windsurf.svg">
+</img></a><br /><br />
+</p>
+<p>
+<a href="https://m.do.co/c/fb8c00b45b91" target="_blank" title="DigitalOcean">
+  <img alt="DigitalOcean" width="200" src="https://dev.livecodes.io/docs/img/credits/digital-ocean.svg">
 </img></a><br /><br />
 </p>
 <p>

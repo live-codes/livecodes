@@ -129,6 +129,15 @@
   "cppWasm.name": {
     "translation": "C/C++ (Wasm)"
   },
+  "csharpWasm.desc": {
+    "translation": "Compilateur C# fonctionnant sur WebAssembly, utilisant <tag-1>Blazor</tag-1>"
+  },
+  "csharpWasm.link": {
+    "translation": "<tag-1> <tag-2>Documentation sur le langage C#</tag-2> </tag-1> <tag-3> <tag-4> Apprenez X en Y minutes, où X=C#</tag-4> </tag-3> <tag-5> <tag-6> Documentation LiveCodes</tag-6> </tag-5> <tag-7> <tag-8> Charger le modèle de démarrage</tag-8> </tag-7>"
+  },
+  "csharpWasm.name": {
+    "translation": "C# (Wasm)"
+  },
   "diagrams.desc1": {
     "translation": "(Expérimental)"
   },
@@ -213,6 +222,15 @@
   "go.name": {
     "translation": "Go"
   },
+  "goWasm.desc": {
+    "translation": "Interpréteur Go fonctionnant sur WebAssembly, utilisant Yaegi"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>Site officiel de Go</tag-2></tag-1> <tag-3><tag-4>Yaegi</tag-4></tag-3> <tag-5> <tag-6>Apprendre X en Y minutes, où X=Go</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentations</tag-8> </tag-7> <tag-9> <tag-10>Charger un modèle de démarrage</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
   "haml.desc": {
     "translation": "Compilateur Haml pour les modèles de vue JavaScript côté client utilisant clientside-haml-js."
   },
@@ -248,6 +266,15 @@
   },
   "java.name": {
     "translation": "Java"
+  },
+  "jinja.desc": {
+    "translation": "Jinja est un moteur de création de modèles rapide, expressif et extensible."
+  },
+  "jinja.link": {
+    "translation": "<tag-1> <tag-2>Site officiel</tag-2> </tag-1> <tag-3> <tag-4> Documentation sur les modèles</tag-4> </tag-3> <tag-5> <tag-6> Implémentation JavaScript</tag-6> </tag-5> <tag-7> <tag-8> Documentations LiveCodes</tag-8> </tag-7>"
+  },
+  "jinja.name": {
+    "translation": "Jinja"
   },
   "jsx.desc": {
     "translation": "JSX est compilé en JavaScript dans LiveCodes en utilisant le compilateur TypeScript. Par défaut, il utilise React comme runtime JSX."

@@ -189,7 +189,9 @@ export const createShareContainer = async (
     },
   ];
 
-  const selfHosted = !allowedOrigin();
+  const useExternalShare =
+    (process.env.SELF_HOSTED === 'true' && process.env.SELF_HOSTED_SHARE !== 'true') ||
+    !allowedOrigin();
   const div = document.createElement('div');
 
   let shareData = await shareFn(false, false);
@@ -202,7 +204,7 @@ export const createShareContainer = async (
     .replace(/{{warnClass}}/g, urlLength > 2048 ? 'danger' : 'warn');
 
   const shareContainer = div.firstChild as HTMLElement;
-  if (selfHosted) {
+  if (useExternalShare) {
     (shareContainer.querySelector('#share-expiry') as HTMLElement).outerHTML = '';
   } else {
     (shareContainer.querySelector('#share-expiry-self-hosted') as HTMLElement).outerHTML = '';

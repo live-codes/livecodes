@@ -99,6 +99,7 @@ import type {
   CustomEditors,
   CustomSettings,
   Editor,
+  EditorConfig,
   EditorId,
   EditorLanguages,
   EditorOptions,
@@ -183,6 +184,8 @@ declare global {
         value: I18nValueType<Key, Value>,
         ...args: I18nInterpolationType<I18nValueType<Key, Value>>
       ) => string;
+      languages: typeof languages;
+      processors: typeof processors;
     };
   }
 }
@@ -207,6 +210,7 @@ let compiler: Await<ReturnType<typeof getCompiler>>;
 let formatter: Formatter;
 let editors: Editors;
 let customEditors: CustomEditors;
+let currentEditorConfig: EditorConfig;
 let toolsPane: ToolsPane | undefined;
 export let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
@@ -524,6 +528,8 @@ const createEditors = async (config: Config) => {
   const markupEditor = await createEditor(markupOptions);
   const styleEditor = await createEditor(styleOptions);
   const scriptEditor = await createEditor(scriptOptions);
+
+  currentEditorConfig = { ...getEditorConfig(config), ...getFormatterConfig(config) };
 
   setEditorTitle('markup', markupOptions.language);
   setEditorTitle('style', styleOptions.language);
@@ -994,7 +1000,7 @@ const getResultPage = async ({
     },
   };
 
-  const compileResults = await Promise.all([
+  const [styleCompileResult, testsCompileResult] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: `${compiledMarkup}<script type="script-for-styles">${compiledScript}</script>
         <script type="script-for-styles">${compileInfo.importedContent}</script>`,
@@ -1006,8 +1012,7 @@ const getResultPage = async ({
         : compiler.compile(testsContent, testsLanguage, config, {})
       : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')),
   ]);
-
-  const [compiledStyle, compiledTests] = compileResults.map((result) => {
+  const [compiledStyle, compiledTests] = [styleCompileResult, testsCompileResult].map((result) => {
     const { code, info } = getCompileResult(result);
     compileInfo = {
       ...compileInfo,
@@ -1025,10 +1030,12 @@ const getResultPage = async ({
     markup: {
       ...contentConfig.markup,
       compiled: compiledMarkup,
+      modified: compiledMarkup,
     },
     style: {
       ...contentConfig.style,
       compiled: compiledStyle,
+      modified: compiledStyle,
     },
     script: {
       ...contentConfig.script,
@@ -1043,6 +1050,7 @@ const getResultPage = async ({
       compiled: compiledTests,
     },
   };
+  compiledCode.script.modified = compiledCode.script.compiled;
 
   if (scriptType != null && scriptType !== 'module') {
     singleFile = true;
@@ -1060,6 +1068,14 @@ const getResultPage = async ({
   });
 
   const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
+
+  const logError = (language: Language, errors: string[] = []) => {
+    errors.forEach((err) => toolsPane?.console?.error(`[${getLanguageTitle(language)}] ${err}`));
+  };
+  logError(markupLanguage, markupCompileResult.info?.errors);
+  logError(styleLanguage, styleCompileResult.info?.errors);
+  logError(scriptLanguage, scriptCompileResult.info?.errors);
+  logError(testsLanguage, getCompileResult(testsCompileResult).info?.errors);
 
   if (singleFile) {
     setCache({
@@ -1122,17 +1138,9 @@ const flushResult = () => {
     wat: ';; loading',
   };
 
-  updateCache(
-    'markup',
-    compiledLanguages.markup,
-    loadingComments[compiledLanguages.markup] || 'html',
-  );
-  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] || 'css');
-  updateCache(
-    'script',
-    compiledLanguages.script,
-    loadingComments[compiledLanguages.script] || 'javascript',
-  );
+  updateCache('markup', compiledLanguages.markup, loadingComments[compiledLanguages.markup] ?? '');
+  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] ?? '');
+  updateCache('script', compiledLanguages.script, loadingComments[compiledLanguages.script] ?? '');
   setCache({
     ...getCache(),
     tests: {
@@ -1182,6 +1190,28 @@ const setExternalResourcesMark = () => {
   const btn = UI.getExternalResourcesBtn();
   const config = getConfig();
   if (config.scripts.length > 0 || config.stylesheets.length > 0 || config.cssPreset) {
+    btn.classList.add('active');
+    btn.style.display = 'unset';
+  } else {
+    btn.classList.remove('active');
+    if (isEmbed) {
+      btn.style.display = 'none';
+    }
+  }
+};
+
+const setProjectInfoMark = () => {
+  const btn = UI.getProjectInfoBtn();
+  const config = getConfig();
+  if (
+    (typeof config.htmlAttrs === 'string' &&
+      config.htmlAttrs !== defaultConfig.htmlAttrs &&
+      config.htmlAttrs.trim().length > 0) ||
+    (typeof config.htmlAttrs === 'object' &&
+      config.htmlAttrs &&
+      Object.entries(config.htmlAttrs).length > 0) ||
+    (config.head !== defaultConfig.head && config.head.trim().length > 0)
+  ) {
     btn.classList.add('active');
     btn.style.display = 'unset';
   } else {
@@ -1402,8 +1432,8 @@ const loadConfig = async (
   changingContent = false;
 };
 
-const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
-  const currentConfig = getConfig();
+const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig?: Config) => {
+  const currentConfig = oldConfig || getConfig();
   const combinedConfig: Config = { ...currentConfig, ...newConfig };
   if (reload) {
     await updateEditors(editors, getConfig());
@@ -1438,6 +1468,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
     setTimeout(() => getActiveEditor().focus());
   }
   setExternalResourcesMark();
+  setProjectInfoMark();
   setCustomSettingsMark();
   updateCompiledCode();
   loadModuleTypes(editors, combinedConfig, /* loadAll = */ true);
@@ -1487,24 +1518,20 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
     });
   }
 
-  let shouldReloadEditors = false;
   const editorConfig = {
     ...getEditorConfig(newConfig as Config),
     ...getFormatterConfig(newConfig as Config),
   };
-  const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
-  if (hasEditorConfig) {
-    const currentEditorConfig = {
-      ...getEditorConfig(currentConfig),
-      ...getFormatterConfig(currentConfig),
-    };
-    for (const key in editorConfig) {
-      if ((editorConfig as any)[key] !== (currentEditorConfig as any)[key]) {
-        shouldReloadEditors = true;
-        break;
-      }
+
+  const hasEditorConfig = Object.keys(editorConfig).some((k) => k in newConfig);
+  let shouldReloadEditors = (() => {
+    if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
+    if (newConfig.mode != null) {
+      if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
+      if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
     }
-  }
+    return false;
+  })();
   if ('configureTailwindcss' in editors.markup) {
     if (newConfig.processors?.includes('tailwindcss')) {
       editors.markup.configureTailwindcss?.(true);
@@ -1519,6 +1546,12 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
   }
   if (shouldReloadEditors) {
     await reloadEditors(combinedConfig);
+  } else if (hasEditorConfig) {
+    currentEditorConfig = {
+      ...getEditorConfig(combinedConfig),
+      ...getFormatterConfig(combinedConfig),
+    };
+    getAllEditors().forEach((editor) => editor.changeSettings(currentEditorConfig));
   }
 
   parent.dispatchEvent(new Event(customEvents.ready));
@@ -1545,15 +1578,17 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
 const loadUserConfig = (updateUI = true) => {
   if (isEmbed) return;
   const userConfig = stores.userConfig?.getValue();
+  const currentConfig = getConfig();
   setConfig(
     buildConfig({
-      ...getConfig(),
-      ...userConfig,
+      ...currentConfig,
+      ...getUserConfig(userConfig || currentConfig),
     }),
   );
   if (!updateUI) return;
-  loadSettings(getConfig());
-  setTheme(getConfig().theme, getConfig().editorTheme);
+  const newConfig = getConfig();
+  loadSettings(newConfig);
+  setTheme(newConfig.theme, newConfig.editorTheme);
   showSyncStatus(true);
 };
 
@@ -1934,11 +1969,12 @@ const loadSelectedScreen = () => {
   return false;
 };
 
-const getAllEditors = (): CodeEditor[] => [
-  ...Object.values(editors),
-  ...[toolsPane?.console?.getEditor?.()],
-  ...[toolsPane?.compiled?.getEditor?.()],
-];
+const getAllEditors = (): CodeEditor[] =>
+  [
+    ...Object.values(editors),
+    toolsPane?.console?.getEditor?.(),
+    toolsPane?.compiled?.getEditor?.(),
+  ].filter((x) => x != null);
 
 const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];
@@ -2798,6 +2834,7 @@ const handleCommandMenu = async () => {
   const openCommandMenu = () => {
     modal.close();
     ninja.close();
+    UI.getAppMenuHelpScroller()?.classList.add('hidden');
     const { actions, loginAction, logoutAction } = getCommandMenuActions({
       deps: {
         getConfig,
@@ -2832,11 +2869,7 @@ const handleCommandMenu = async () => {
     setTimeout(async () => {
       if (anotherShortcut) return;
       // eslint-disable-next-line no-underscore-dangle
-      if (ninja.__visible == null) {
-        await loadNinjaKeys();
-      }
-      // eslint-disable-next-line no-underscore-dangle
-      if (ninja.__visible === false) {
+      if (ninja?.__visible === false || ninja?.data?.length === 0) {
         ninja.focus();
         requestAnimationFrame(() => openCommandMenu());
       }
@@ -2900,7 +2933,7 @@ const handleI18nMenu = () => {
   const contributeSpan = document.createElement('span');
   const contributeLink = document.createElement('a');
   contributeLink.href =
-    'https://github.com/live-codes/livecodes/blob/develop/docs/docs/contribution/i18n.md';
+    'https://github.com/live-codes/livecodes/blob/develop/docs/docs/contribution/i18n.mdx';
   contributeLink.textContent = window.deps.translateString(
     'app.i18nMenu.helpTranslate',
     'Help Us Translate',
@@ -4120,6 +4153,7 @@ const handleProjectInfo = () => {
       htmlAttrs: attrs,
       tags,
     });
+    setProjectInfoMark();
     if (getConfig().autoupdate) {
       await run();
     }
@@ -4279,9 +4313,12 @@ const handleCodeToImage = () => {
 
     const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/');
 
-    const getShareUrl = async (config: Partial<Config>) => {
-      const param = '/?x=id/' + (await shareService.shareProject(config));
-      return currentUrl + param;
+    const getShareUrl = async (config: Partial<Config>, shortUrl = true) => {
+      if (shortUrl) {
+        const param = '/?x=id/' + (await shareService.shareProject(config));
+        return currentUrl + param;
+      }
+      return getPlaygroundUrl({ appUrl: currentUrl, config });
     };
 
     const codeToImageModule: typeof import('./UI/code-to-image') = await import(
@@ -5504,14 +5541,6 @@ const createApi = (): API => {
     const shouldRun =
       newConfig.mode != null && newConfig.mode !== 'editor' && newConfig.mode !== 'codeblock';
     const shouldReloadCompiler = shouldRun && compiler.isFake;
-    const shouldReloadCodeEditors = (() => {
-      if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
-      if (newConfig.mode != null) {
-        if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
-        if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
-      }
-      return false;
-    })();
     const isContentOnlyChange = compareObjects(
       newConfig,
       currentConfig as Record<string, any>,
@@ -5536,17 +5565,7 @@ const createApi = (): API => {
     if (shouldReloadCompiler) {
       await reloadCompiler(newAppConfig);
     }
-    if (shouldReloadCodeEditors) {
-      await createEditors(newAppConfig);
-    }
-    await applyConfig(newConfig, /* reload = */ true);
-    const content = getContentConfig(newConfig as Config);
-    const hasContent = Object.values(content).some((value) => value != null);
-    if (hasContent) {
-      await loadConfig(newAppConfig);
-    } else if (shouldRun && newAppConfig.autoupdate === true) {
-      await run();
-    }
+    await applyConfig(newConfig, /* reload = */ true, currentConfig);
     return newAppConfig;
   };
 
@@ -5697,6 +5716,8 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode,
     translateString: translateStringMock,
+    languages,
+    processors,
   };
   await initializePlayground({ config, baseUrl }, async () => {
     basicHandlers();
@@ -5710,6 +5731,8 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode,
     translateString: translateStringMock,
+    languages,
+    processors,
   };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     basicHandlers();
@@ -5724,6 +5747,8 @@ const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode: () => undefined,
     translateString: translateStringMock,
+    languages,
+    processors,
   };
   await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true }, () => {
     notifications = {
