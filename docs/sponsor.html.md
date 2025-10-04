@@ -51,7 +51,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### 🥉 Bronze Sponsors (USD$100/mo):
 
-- Access to a hosted (always-on) [broadcast API](./features/broadcast.html.md) and [custom services](./advanced/services.html.md).
+- Access to a hosted [docker setup](./advanced/docker.html.md) with managed [services](./advanced/docker.html.md)#services).
 - Small logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Small logo placement in [this page](#livecodes-sponsors).
 - Small logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
@@ -59,7 +59,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### 🥈 Silver Sponsors (USD$250/mo):
 
-- Access to a hosted (always-on) [broadcast API](./features/broadcast.html.md) and [custom services](./advanced/services.html.md).
+- Access to a hosted [docker setup](./advanced/docker.html.md) with managed [services](./advanced/docker.html.md)#services).
 - Medium logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Logo placement in sidebar of all content pages.
 - Medium logo placement in [this page](#livecodes-sponsors).
@@ -68,7 +68,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### 🥇 Gold Sponsors (USD$500/mo):
 
-- Access to a hosted (always-on) [broadcast API](./features/broadcast.html.md) and [custom services](./advanced/services.html.md).
+- Access to a hosted [docker setup](./advanced/docker.html.md) with managed [services](./advanced/docker.html.md)#services).
 - Large logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Logo placement in sidebar of all content pages.
 - Large logo placement in [this page](#livecodes-sponsors).
@@ -77,7 +77,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### 🏆 Platinum Sponsors (USD$1,000/mo):
 
-- Access to a hosted (always-on) [broadcast API](./features/broadcast.html.md) and [custom services](./advanced/services.html.md).
+- Access to a hosted [docker setup](./advanced/docker.html.md) with managed [services](./advanced/docker.html.md)#services).
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Prominent logo placement in sidebar of all content pages.
 - Prominent logo placement at the top of [this page](#).
@@ -87,7 +87,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 #### 💎 Diamond Sponsors (USD$2,000/mo):
 
 - **Custom build** of the playground with your **logo and brand**. The custom build is maintained and receives new updates.
-- Access to a hosted (always-on) [broadcast API](./features/broadcast.html.md) and [custom services](./advanced/services.html.md).
+- Access to a hosted [docker setup](./advanced/docker.html.md) with managed [services](./advanced/docker.html.md)#services).
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Prominent logo placement in sidebar of all content pages.
 - Prominent logo placement at the top of [this page](#).

@@ -35,11 +35,11 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 [![LiveCodes: npm version](https://img.shields.io/npm/v/livecodes)](https://www.npmjs.com/package/livecodes)
 [![LiveCodes: npm downloads](https://img.shields.io/npm/dm/livecodes)](https://www.npmjs.com/package/livecodes)
 [![LiveCodes: jsdelivr downloads](https://data.jsdelivr.com/v1/package/npm/livecodes/badge?style=rounded)](https://www.jsdelivr.com/package/npm/livecodes)
-[![LiveCodes: languages](https://img.shields.io/badge/languages-96-blue)](https://livecodes.io/docs/languages/)
+[![LiveCodes: languages](https://img.shields.io/badge/languages-97-blue)](https://livecodes.io/docs/languages/)
 [![LiveCodes: docs](https://img.shields.io/badge/Documentation-575757?logo=gitbook&logoColor=white)](https://livecodes.io/docs/)
 [![LiveCodes: llms.txt](https://img.shields.io/badge/llms.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms.txt)
 [![LiveCodes: llms-full.txt](https://img.shields.io/badge/llms--full.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms-full.txt)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://www.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://app.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Lokalise: translated](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/translated.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
 [![Lokalise: UI languages](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/languages.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
 [![license - MIT](https://img.shields.io/github/license/live-codes/livecodes)](https://github.com/live-codes/livecodes/blob/develop/LICENSE)
@@ -107,7 +107,7 @@ Add this code to your page:
 #### Self-hosted
 
 1. Download a [release](https://github.com/live-codes/livecodes/releases)
-2. Put it on a static file server (for free!) <sup><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">1</a>, <a href="https://vercel.com/" target="_blank" rel="noopener">2</a>, <a href="https://www.netlify.com/" target="_blank" rel="noopener">3</a>, <a href="https://firebase.google.com/" target="_blank" rel="noopener">4</a>, <a href="https://pages.github.com/" target="_blank" rel="noopener">5</a></sup>
+2. Put it on a static file server (for free!) <sup><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">1</a>, <a href="https://www.netlify.com/" target="_blank" rel="noopener">2</a>, <a href="https://firebase.google.com/" target="_blank" rel="noopener">3</a>, <a href="https://pages.github.com/" target="_blank" rel="noopener">4</a></sup>
 
    <sup>Check the guide for <a href="https://livecodes.io/docs/features/self-hosting" target="_blank" rel="noopener">self-hosting</a> (including the built-in setup to deploy to GitHub Pages).</sup>
 
@@ -292,8 +292,13 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://codeium.com/" target="_blank" title="Codeium">
-  <img alt="Codeium" width="200" src="https://dev.livecodes.io/docs/img/credits/codeium.svg">
+<a href="https://windsurf.com/" target="_blank" title="Windsurf">
+  <img alt="Windsurf" width="200" src="https://dev.livecodes.io/docs/img/credits/windsurf.svg">
+</img></a><br /><br />
+</p>
+<p>
+<a href="https://m.do.co/c/fb8c00b45b91" target="_blank" title="DigitalOcean">
+  <img alt="DigitalOcean" width="200" src="https://dev.livecodes.io/docs/img/credits/digital-ocean.svg">
 </img></a><br /><br />
 </p>
 <p>
@@ -360,7 +365,7 @@ Please consider [becoming a sponsor](https://livecodes.io/docs/sponsor).
 
 ---
 
-<!-- Source: /livecodes/docs/overview -->
+<!-- Source: https://livecodes.io/livecodes/docs/overview -->
 
 # Overview
 
@@ -377,7 +382,7 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 ---
 
-<!-- Source: /livecodes/docs/why -->
+<!-- Source: https://livecodes.io/livecodes/docs/why -->
 
 # Why Another Playground?
 
@@ -458,7 +463,7 @@ Enough talk, let's get started.
 
 ---
 
-<!-- Source: /livecodes/docs/getting-started -->
+<!-- Source: https://livecodes.io/livecodes/docs/getting-started -->
 
 # Getting Started
 
@@ -607,7 +612,7 @@ Please check the section on [self-hosting](./features/self-hosting.html.md) for 
 
 ---
 
-<!-- Source: /livecodes/docs/features/index -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/index -->
 
 # Features
 
@@ -629,7 +634,7 @@ The default code editor is the powerful editor that powers [VS Code](https://cod
 
 ## AI Code Assistant
 
-LiveCodes supports AI-powered code completion, totally for **free**, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative. Install the [Codeium chrome extension](https://codeium.com/chrome_tutorial) and enjoy the magic!
+LiveCodes supports AI-powered code completion, totally for **free**, using [Windsurf](https://windsurf.com/). No account or tokens required. Enable from [editor settings](./ai.html.md)#ui) and enjoy the magic!
 
 ## Mobile-friendly
 
@@ -711,7 +716,7 @@ This was a quick overview of the important features of LiveCodes. A more detaile
 
 ---
 
-<!-- Source: /livecodes/docs/features/projects -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/projects -->
 
 # Projects
 
@@ -779,7 +784,7 @@ Projects can be [imported](./import.html.md), [exported](./export.html.md), [syn
 
 ---
 
-<!-- Source: /livecodes/docs/features/templates -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/templates -->
 
 # Templates
 
@@ -833,7 +838,7 @@ User templates are scoped to the currently [logged-in user](./user-management.ht
 
 ---
 
-<!-- Source: /livecodes/docs/features/css -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/css -->
 
 # CSS
 
@@ -981,7 +986,7 @@ Of course, styles and stylesheets can still be added as usual in markup and scri
 
 ---
 
-<!-- Source: /livecodes/docs/features/result -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/result -->
 
 # Result Page
 
@@ -1093,7 +1098,7 @@ Example:
 
 ---
 
-<!-- Source: /livecodes/docs/features/external-resources -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/external-resources -->
 
 # External Resources
 
@@ -1149,7 +1154,7 @@ CSS presets currently include [Normalize.css](https://necolas.github.io/normaliz
 
 ---
 
-<!-- Source: /livecodes/docs/features/tools-pane -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/tools-pane -->
 
 # Tools Pane
 
@@ -1188,7 +1193,7 @@ Demo: (console=full)
 
 ---
 
-<!-- Source: /livecodes/docs/features/console -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/console -->
 
 # Console
 
@@ -1229,7 +1234,7 @@ Demo: (Python - print to console)
 
 ---
 
-<!-- Source: /livecodes/docs/features/compiled-code -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/compiled-code -->
 
 # Compiled Code
 
@@ -1253,7 +1258,7 @@ This demo shows TypeScript code along with the compiled Javascript code, similar
 
 ---
 
-<!-- Source: /livecodes/docs/features/tests -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/tests -->
 
 # Tests
 
@@ -1276,7 +1281,7 @@ Screenshots:
 - Automated tests increase the confidence in the code and can improve the quality of projects.
 - Allows <a href="https://en.wikipedia.org/wiki/Test-driven_development" target="_blank">Test-driven development (TDD)</a>.
 - Can be used for education and training by preparing projects with tests that are required to pass by the students' implementation (similar to <a href="https://www.freecodecamp.org/learn" target="_blank">freeCodeCamp</a>).
-- Can be used by wesites that offer coding challenges (similar to <a href="https://www.codewars.com/" target="_blank">Codewars</a>).
+- Can be used by websites that offer coding challenges (similar to <a href="https://www.codewars.com/" target="_blank">Codewars</a>).
 
 ## Demos
 
@@ -1436,7 +1441,7 @@ The [SDK](../sdk/index.html.md) allows [running tests](../sdk/js-ts.html.md)#run
 
 ---
 
-<!-- Source: /livecodes/docs/features/module-resolution -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/module-resolution -->
 
 # Module Resolution
 
@@ -1575,6 +1580,20 @@ If you want to bundle (and transpile) any import URL, prefix it with `bundle:` (
 
 :::
 
+## pkg.pr.new
+
+Unpublished npm packages can be imported while still under development using the [pkg.pr.new](https://pkg.pr.new/) service.
+
+Use the prefix `pr:` or `pkg.pr.new:`.
+
+Example:
+
+```js
+import { Bench } from 'pr:tinybench@a832a55';
+// or
+// import { Bench } from 'pr:tinylibs/tinybench/tinybench@a832a55';
+```
+
 ## CDN Providers
 
 By default, npm modules are imported from [esm.sh](https://esm.sh/). You may choose another provider by using a CDN prefix. These are examples of importing the library `uuid`:
@@ -1604,6 +1623,10 @@ By default, npm modules are imported from [esm.sh](https://esm.sh/). You may cho
 `node:uuid` → https://esm.sh/uuid ([info](https://esm.sh))
 
 `jsr:@std/uuid` → https://esm.sh/jsr/@std/uuid ([info](https://esm.sh))
+
+`pr:tinybench@a832a55` → https://esm.sh/pr/tinybench@a832a55 ([info](https://esm.sh))
+
+`pkg.pr.new:tinybench@a832a55` → https://esm.sh/pkg.pr.new/tinybench@a832a55 ([info](https://esm.sh))
 
 `jspm:uuid` → https://jspm.dev/uuid ([info](https://jspm.org) - [DEPRECATED](https://jspm.org/jspm-dev-deprecation))
 
@@ -1706,7 +1729,7 @@ Please note that you may also provide [custom type definitions](./intellisense.h
 
 ---
 
-<!-- Source: /livecodes/docs/features/intellisense -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/intellisense -->
 
 # IntelliSense
 
@@ -1876,22 +1899,17 @@ export const customModules = {
 
 ---
 
-<!-- Source: /livecodes/docs/features/ai -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/ai -->
 
 # AI Code Assistant 🪄
 
-LiveCodes supports AI-powered code completion, totally for **free** with **no account or API token required**, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative. This can be easily enabled from the UI (as easy as [flipping a switch](#ui)!)
+LiveCodes supports AI-powered code completion, totally for **free** with **no account or API token required**, using [Windsurf](https://windsurf.com/). This can be easily enabled from the UI (as easy as [flipping a switch](#ui)!)
 
 The large generative machine learning model is capable of understanding the context of your code and comments (across the [3 code editors](./projects#markup-editor)) in order to generate suggestions on what you might want to type next.
 
 It has a wide range of language support, and it works everywhere (in the [standalone app](../getting-started.html.md)#standalone-app), [embedded playgrounds](./embeds.html.md) and [self-hosted](./self-hosting.html.md) apps).
 
-Powered by:
-
-<a href="https://codeium.com/">
-  <img width="300px" src="/docs/img/credits/codeium.svg" alt="Codeium logo" />
-</a>
-.
+Powered by: <a href="https://windsurf.com/" target="_blank" title="Windsurf" rel='noopener noreferrer'><img style={{height: "3em", translate: "0 40%", marginTop: "-2em"}} src="/docs/img/credits/windsurf.svg" alt="Windsurf logo" /></a>
 
 ## Examples:
 
@@ -1954,13 +1972,13 @@ On mobile, tap on the suggestion to accept it, or continue typing to reject.
 
 :::caution Note
 
-Please note that when using Codeium AI assistant, your code is sent to Codeium servers for code completion. However, your code is not used for training their model. Check Codeium [FAQ](https://codeium.com/faq#Will-Codeium-regurgitate-private-code%3F) and [privacy policy](https://codeium.com/privacy-policy) for more details.
+Please note that when using Windsurf AI assistant, your code is sent to Windsurf servers for code completion. However, your code is not used for training their model. Check Windsurf [FAQ](https://windsurf.com/faq#will-windsurf-regurgitate-private-code) and [privacy policy](https://windsurf.com/privacy-policy) for more details.
 
 :::
 
 ---
 
-<!-- Source: /livecodes/docs/features/code-format -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/code-format -->
 
 # Code Format
 
@@ -2017,7 +2035,7 @@ The code format can be programmatically triggered by the [SDK](../sdk/index.html
 
 ---
 
-<!-- Source: /livecodes/docs/features/command-menu -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/command-menu -->
 
 # Command Menu
 
@@ -2056,7 +2074,7 @@ If a command has a keyboard shortcut, it will be shown in the command menu. In a
 
 ---
 
-<!-- Source: /livecodes/docs/features/keyboard-shortcuts -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/keyboard-shortcuts -->
 
 # Keyboard Shortcuts
 
@@ -2068,7 +2086,7 @@ The code editor shortcuts are the same as VS Code, which can be found [here](htt
 
 ---
 
-<!-- Source: /livecodes/docs/features/user-settings -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/user-settings -->
 
 # User Settings
 
@@ -2103,7 +2121,7 @@ User settings are scoped to the currently [logged-in user](./user-management.htm
 
 ---
 
-<!-- Source: /livecodes/docs/features/editor-settings -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/editor-settings -->
 
 # Editor Settings
 
@@ -2179,7 +2197,7 @@ In addition to those specified in [Editor Options](#editor-options), the followi
 
 ---
 
-<!-- Source: /livecodes/docs/features/i18n -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/i18n -->
 
 # Internationalization (i18n)
 
@@ -2224,7 +2242,7 @@ https://livecodes.io?template=javascript&appLanguage=fr
 
 ---
 
-<!-- Source: /livecodes/docs/features/default-template-language -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/default-template-language -->
 
 # Default Template/Language
 
@@ -2251,7 +2269,7 @@ Example: https://livecodes.io?no-defaults
 
 ---
 
-<!-- Source: /livecodes/docs/features/assets -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/assets -->
 
 # Assets
 
@@ -2282,7 +2300,7 @@ When an asset item is clicked, the URL is copied to clipboard. The URL can then 
 
 ---
 
-<!-- Source: /livecodes/docs/features/snippets -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/snippets -->
 
 # Code Snippets
 
@@ -2315,7 +2333,7 @@ Code snippets can then be copied to clipboard and pasted in projects.
 
 ---
 
-<!-- Source: /livecodes/docs/features/import -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/import -->
 
 # Import
 
@@ -2397,9 +2415,10 @@ Import is supported from any of the following:
 - [Shared projects](./share.html.md)
 - Raw code
 - Code in web page DOM
-- Projects shared in official playgrounds of [TypeScript](https://www.typescriptlang.org/play) and [Vue](https://play.vuejs.org/)
 - Local file(s)
 - Code in zip file (Local or URL)
+- Code in image - OCR (Local or URL)
+- Projects shared in official playgrounds of [TypeScript](https://www.typescriptlang.org/play) and [Vue](https://play.vuejs.org/)
 - [Exported project JSON](./export.html.md) (single project and bulk import)
 
 Import sources are identified by URL patterns (e.g. origin, pathname and extension).
@@ -2494,6 +2513,14 @@ Currently, CodePen API does not allow directly importing code from Pens. However
 
 **Note:** External resources (styles/scripts) are not exported with source code in zip file export of CodePen. However, export to GitHub gist does export these. So if a Pen with external resources exported as zip file is not imported properly, try exporting to GitHub gist or manually add the [external resources](./external-resources.html.md).
 
+## Import Code from Image (OCR)
+
+Code can be extracted from images (local or via URL) using [Tesseract.js](https://github.com/naptha/tesseract.js), a library for Optical Character Recognition (OCR).
+To ensure accurate identification, the text in the image should be clear, have high contrast against the background, and be free from unrelated text.
+Language detection is performed using [highlight.js](https://highlightjs.readthedocs.io/en/latest/api.html#highlightauto), which makes its best guess based on the content.
+
+Best results are obtained when the image is generated using LiveCodes "[Code to Image](./code-to-image.html.md)" feature.
+
 ## Import Exported LiveCodes Projects
 
 A [single project exported as JSON](./export.html.md)#exporting-a-single-project) can be imported in the same or a different device from the import screen under the tab "Import Project JSON". The JSON file can be supplied as a local file upload or from a URL.
@@ -2510,7 +2537,7 @@ Similarly, [multiple projects exported in bulk](./export.html.md)#exporting-mult
 
 ---
 
-<!-- Source: /livecodes/docs/features/export -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/export -->
 
 # Export
 
@@ -2560,7 +2587,7 @@ All the currently visible projects will be exported. If projects are filtered (e
 
 ---
 
-<!-- Source: /livecodes/docs/features/share -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/share -->
 
 # Share
 
@@ -2588,9 +2615,9 @@ Generating a short URL for sharing requires sending the project configuration (*
 
 The app hosted on [`https://livecodes.io`](https://livecodes.io) uses an API endpoint specifically provided to generate short URLs for LiveCodes share service. We will make every effort to keep that online and available for free use, so long as it is not abused. Please help keep it available by not abusing it and by [sponsoring the project](../sponsor.html.md).
 
-Short URLs generated by LiveCodes share service are **private** by default and are not listed or indexed.
+Short URLs generated by LiveCodes share service are **private** — the links are not published anywhere on the site, and the IDs are non-sequential.
 
-However, [**self-hosted apps**](./self-hosting.html.md) use the free service [dpaste](https://dpaste.com/) for short URLs which are [**deleted after 365 days**](https://dpaste.com/help). You may want to use a [custom service](../advanced/services.html.md) instead. LiveCodes [sponsors](../sponsor.html.md) (Bronze sponsors and above) get access to managed custom services.
+However, _static_ [**self-hosted apps**](./self-hosting.html.md) use the free service [dpaste](https://dpaste.com/) for short URLs which are [**deleted after 365 days**](https://dpaste.com/help). If this is a significant issue for you, you may want to use the [docker setup](../advanced/docker.html.md) instead, which provides a self-hosted implementation for the share service among other features. LiveCodes [sponsors](../sponsor.html.md) (Bronze sponsors and above) get access to a hosted implementation.
 
 :::
 
@@ -2610,19 +2637,19 @@ QR code can be generated for the share URL. This can then be scanned by any QR c
 
 ---
 
-<!-- Source: /livecodes/docs/features/welcome -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/welcome -->
 
 # Welcome Screen
 
 ---
 
-<!-- Source: /livecodes/docs/features/recover -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/recover -->
 
 # Recover Unsaved
 
 ---
 
-<!-- Source: /livecodes/docs/features/code-to-image -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/code-to-image -->
 
 # Code to Image
 
@@ -2650,7 +2677,7 @@ There are multiple presets that can be used or the options can be manually confi
 
 ---
 
-<!-- Source: /livecodes/docs/features/display-modes -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/display-modes -->
 
 # Display Modes
 
@@ -2789,7 +2816,7 @@ The same applies for `result` display mode and default view.
 
 ---
 
-<!-- Source: /livecodes/docs/features/default-view -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/default-view -->
 
 # Default View
 
@@ -2841,7 +2868,7 @@ The same applies for `result` display mode and default view.
 
 ---
 
-<!-- Source: /livecodes/docs/features/themes -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/themes -->
 
 # Themes
 
@@ -2899,7 +2926,7 @@ Please note that editor themes can be set in the [editor settings](./editor-sett
 
 ---
 
-<!-- Source: /livecodes/docs/features/mobile -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/mobile -->
 
 # Mobile Support
 
@@ -2913,7 +2940,7 @@ By default, LiveCodes uses the touch-friendly [CodeMirror 6](https://codemirror.
 
 ---
 
-<!-- Source: /livecodes/docs/features/embeds -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/embeds -->
 
 # Embedded Playgrounds
 
@@ -3019,7 +3046,7 @@ Some of the features of the full standalone app are not available or shown by de
 
 ---
 
-<!-- Source: /livecodes/docs/features/lite -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/lite -->
 
 # Lite Mode
 
@@ -3055,7 +3082,7 @@ https://livecodes.io?mode=lite
 
 ---
 
-<!-- Source: /livecodes/docs/features/read-only -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/read-only -->
 
 # Read-Only
 
@@ -3094,7 +3121,7 @@ https://livecodes.io?template=javascript&readonly
 
 ---
 
-<!-- Source: /livecodes/docs/features/permanent-url -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/permanent-url -->
 
 # Permanent URL
 
@@ -3230,7 +3257,7 @@ ${'  '}});
 
 ---
 
-<!-- Source: /livecodes/docs/features/code-prefill -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/code-prefill -->
 
 # Code Prefill
 
@@ -3306,7 +3333,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/features/data-urls -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/data-urls -->
 
 # Data URLs
 
@@ -3381,7 +3408,7 @@ console.log(sayHello('Ali'));
 
 ---
 
-<!-- Source: /livecodes/docs/features/deploy -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/deploy -->
 
 # Deploy
 
@@ -3414,7 +3441,7 @@ The LiveCodes app will remember the repo used to deploy each project, so that la
 
 ---
 
-<!-- Source: /livecodes/docs/features/sync -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/sync -->
 
 # Sync
 
@@ -3447,7 +3474,7 @@ The sync can be manually triggered at any time from the Sync UI. Information reg
 
 ---
 
-<!-- Source: /livecodes/docs/features/broadcast -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/broadcast -->
 
 # Broadcast
 
@@ -3467,46 +3494,34 @@ import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 <RunInLiveCodes params={{ screen: 'broadcast' }} linkText="direct link" />
 
-![Broadcast UI](./../../static/img/screenshots/broadcast-1.jpg)
+![Broadcast UI](./../../static/img/screenshots/broadcast-1a.jpg)
 
 On connecting to the server, the channel URL returned by the server is displayed. The channel URL can be shared to different clients (browsers on same or different devices) to view result page or code updates in real-time.
 
 If the option `Include source code` is enabled, the source and compiled code together with the current project configuration are also posted to the server with each update.
 
-![Broadcast UI - broadcasting](./../../static/img/screenshots/broadcast-2.jpg)
+![Broadcast UI - broadcasting](./../../static/img/screenshots/broadcast-2a.jpg)
 
-The Broadcast icon (in tools pane), shows the broadcast status. Clicking the icon, opens the broadcast UI, where the channel URL is displayed and the broadcast can be stopped.
+The Broadcast icon (in tools pane, below result page), shows the broadcast status. Clicking the icon, opens the broadcast UI, where the channel URL is displayed and the broadcast can be stopped.
 
 ![Broadcast icon - broadcasting](./../../static/img/screenshots/broadcast-3.jpg)
 
 :::info Server
 
-An open-source example implementation of an API server is available on: [live-codes/broadcast](https://github.com/live-codes/broadcast).
+An example implementation of the broadcast server is available [here](https://github.com/live-codes/livecodes/tree/docker/server/src/broadcast).
 
-It is a [simple implementation](https://github.com/live-codes/broadcast/blob/main/index.js), which you can use or extend. It makes use of LiveCodes [Embeds](./embeds.html.md) and [SDK](../sdk/index.html.md) for code broadcasting.
+It is a [simple implementation](https://github.com/live-codes/livecodes/blob/docker/server/src/broadcast/index.ts), which you can use or extend. It makes use of LiveCodes [Embeds](./embeds.html.md) and [SDK](../sdk/index.html.md) for code broadcasting.
 
 A demo, free-to-test, instance is hosted on:
-https://livecodes-broadcast.onrender.com/ (low resources - sleeps after 15 minutes of inactivity)
+https://vps.livecodes.io:3030/
 
-You can use one of these links to self-host it:
-
-<a href="https://render.com/deploy?repo=https://github.com/live-codes/broadcast">
-  <img
-    src="https://render.com/images/deploy-to-render-button.svg"
-    alt="Deploy to Render"
-    width="150"
-  />
-</a>
-&nbsp;&nbsp;&nbsp;
-<a href="https://heroku.com/deploy?template=https://github.com/live-codes/broadcast/tree/main">
-  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" width="150" />
-</a>
+You can use the [docker setup](../advanced/docker.html.md) to self-host it.
 
 :::
 
-:::tip Hosted API
+:::tip Managed Server
 
-[LiveCodes sponsors](../sponsor.html.md) (bronze sponsors and above) get access to a hosted (always-on) API, which they can use without having to manage their own server.
+[LiveCodes sponsors](../sponsor.html.md) (bronze sponsors and above) get access to a hosted [docker setup](../advanced/docker.html.md) with managed [services](../advanced/docker.html.md)#services). This includes a broadcast server, which they can use without having to manage their own servers.
 
 :::
 
@@ -3546,7 +3561,7 @@ This value is saved for the current user across app reloads.
 
 ---
 
-<!-- Source: /livecodes/docs/features/backup-restore -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/backup-restore -->
 
 # Backup / Restore
 
@@ -3589,7 +3604,7 @@ When restoring a backup, there are 2 options for managing the current data:
 
 ---
 
-<!-- Source: /livecodes/docs/features/github-integration -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/github-integration -->
 
 # GitHub Integration
 
@@ -3637,13 +3652,13 @@ To change previously set permissions:
 
 ---
 
-<!-- Source: /livecodes/docs/features/integrations -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/integrations -->
 
 # Integrations
 
 ---
 
-<!-- Source: /livecodes/docs/features/user-management -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/user-management -->
 
 # User Management
 
@@ -3685,7 +3700,7 @@ All user management features, including ability to login/logout, access to user 
 
 ---
 
-<!-- Source: /livecodes/docs/features/security -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/security -->
 
 # Security
 
@@ -3702,48 +3717,71 @@ For other non-security-related bugs, please report them in the [repo issues](htt
 
 ---
 
-<!-- Source: /livecodes/docs/features/self-hosting -->
+<!-- Source: https://livecodes.io/livecodes/docs/features/self-hosting -->
 
 # Self-Hosting
 
-The LiveCodes app can be self-hosted on any static file server or CDN.
+LiveCodes is a [client-side app](../why.html.md)#client-side). It can be easily self-hosted on any static file server or CDN.
+
+All core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser. However, some minor features require [external services](../advanced/services.html.md) (e.g. [sharing](./share.html.md) short URLs, [broadcast](./broadcast.html.md), etc).
+If you also want to self-host these services, you can use the [docker setup](../advanced/docker.html.md).
 
 ## Guide
 
-The built app can be obtained by **one of the following** ways:
+The built app can be obtained using **any of the following** methods:
 
-- Download the app from the [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
-- Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. You may wish to use the included setup to deploy to [GitHub Pages](https://pages.github.com/):
+### Download a Release
+
+Download the app from the [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
+
+### Build from Source
+
+Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. You may wish to use the included setup to deploy to [GitHub Pages](https://pages.github.com/):
 
   ```shell
   git clone https://github.com/{your-username}/livecodes
   cd livecodes
   npm install
-  npm build          # build the app to "build" directory
+  npm run build      # build the app to "build" directory
   npm run serve      # locally serve to http://localhost:8080
 
   # deploy
-  npm run deploy     # build and deploy to github pages
+  npm run deploy     # build and deploy to GitHub Pages
 
   # for development
   npm start          # start local development with code watch, rebuild and live-reload
   ```
 
-- Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Vercel](https://vercel.com/docs/concepts/git), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration)). When prompted, the build command is `npm run build` and the build output directory is `build`.
+### Git Integration
+
+Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration), etc.). When prompted, the build command is `npm run build` and the build output directory is `build`.
+
+### Docker Setup
+
+In addition to the _static_ app provided by the previous methods, the included [docker setup](../advanced/docker.html.md) provides alternative implementations for server-side features available in the [hosted app](https://livecodes.io),
+e.g. automatic HTTPS, [Open Graph meta tags](https://ogp.me/), [oEmbed](https://oembed.com/), custom headers, [short-URL share](./share.html.md), [broadcast server](./broadcast.html.md), separate origin sandbox to run code, custom 404 page, etc.
+
+```sh
+docker-compose up -d
+```
+
+By default, the app is served at https://livecodes.localhost.
+
+For customization and detailed guide, see [docker setup](../advanced/docker.html.md) docs.
 
 ## Custom Build
 
-By default, when building the app, it is expected to be hosted on the root of the domain/subdomain (e.g. `https://my-website.com` or `https://playground.my-website.com`). The documentation is also hosted in the `/docs/` directory (e.g. `https://my-website.com/docs`).
+By default, when building the app, it is expected to be hosted on the root of the domain/subdomain (e.g. `https://my-website.com` or `https://playground.my-website.com`). The documentation is also hosted in the `/docs/` directory (e.g. `https://my-website.com/docs/`).
 
-If you wish to host the app in a subdirectory (e.g. `https://my-username.github.io/playground/`), the base URL of the documentation directory needs to be supplied by the environment variable `DOCS_BASE_URL` during build.
+If you wish to host the app in a subdirectory (e.g. `https://my-username.github.io/playground/`), the base URL of the app needs to be supplied by the environment variable `BASE_URL` during build.
 
 Example:
 
 ```shell
-npx cross-env DOCS_BASE_URL="/playground/docs/" npm run build
+npx cross-env BASE_URL="/playground/" npm run build
 ```
 
-If you do not want to build documentations and direct all links to documentations to https://livecodes.io/docs/, use the following command:
+If you do not want to build documentations and instead direct all documentation links to https://livecodes.io/docs/, use the following command:
 
 ```shell
 npx cross-env DOCS_BASE_URL=null npm run build:app
@@ -3751,21 +3789,29 @@ npx cross-env DOCS_BASE_URL=null npm run build:app
 
 ## Services
 
-Some of the [services](../advanced/services.html.md) used by the app are not supported on [self-hosted](../features/self-hosting.html.md) deploys and are either replaced by other compatible services (e.g. the [share](../features/share.html.md) service uses [dpaste](https://dpaste.com/) for short URLs, which are [**deleted after 365 days**](https://dpaste.com/help)) or require you to provide an alternative service (e.g. [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication).
+Some of the [services](../advanced/services.html.md) used by the app are not supported on _static_ [self-hosted](../features/self-hosting.html.md) deploys and are either replaced by other compatible services (e.g. the [share](../features/share.html.md) service uses [dpaste](https://dpaste.com/) for short URLs, which are [**deleted after 365 days**](https://dpaste.com/help)) or require you to provide an alternative service (e.g. [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication).
 
-You may wish to edit one or more of the used [services](../advanced/services.html.md) to use your own.
+You may wish to use the included [docker setup](../advanced/docker.html.md) to self-host these services.
 
 :::info
 
-LiveCodes [sponsors](../sponsor.html.md) (Bronze sponsors and above) get access to managed custom services.
+LiveCodes [sponsors](../sponsor.html.md) (Bronze sponsors and above) get access to a hosted [docker setup](../advanced/docker.html.md) with managed [services](../advanced/docker.html.md)#services).
 
 :::
 
-## Example
+## Examples
 
-This is an example of a self-hosted deployment, that was deployed to [GitHub Pages](https://pages.github.com/) using the [built-in setup](#guide):
+### Static App on GitHub Pages
+
+This is an example of a self-hosted deployment, that was deployed to [GitHub Pages](https://pages.github.com/) using the [built-in setup](#build-from-source):
 
 https://live-codes.github.io/livecodes/
+
+### Docker Setup on VPS
+
+This is an example of a self-hosted deployment, that was deployed to a VPS using the included [docker setup](../advanced/docker.html.md):
+
+https://vps.livecodes.io
 
 ## SDK Usage
 
@@ -3784,7 +3830,7 @@ createPlayground('#container', options);
 
 ---
 
-<!-- Source: /livecodes/docs/configuration/index -->
+<!-- Source: https://livecodes.io/livecodes/docs/configuration/index -->
 
 # Configuration
 
@@ -3802,7 +3848,7 @@ A flexible and convenient way to configure the app using URL query parameters
 
 ---
 
-<!-- Source: /livecodes/docs/configuration/configuration-object -->
+<!-- Source: https://livecodes.io/livecodes/docs/configuration/configuration-object -->
 
 # Configuration Object
 
@@ -4528,7 +4574,7 @@ Configures Prettier [code formatter](../features/code-format.html.md) to use [tr
 
 ---
 
-<!-- Source: /livecodes/docs/configuration/query-params -->
+<!-- Source: https://livecodes.io/livecodes/docs/configuration/query-params -->
 
 # Query Parameters
 
@@ -4623,7 +4669,19 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
   Example:
 
   ```
-  ?languages=html,md,css,ts
+  ?processors=tailwindcss,autoprefixer
+  ```
+
+- Custom Settings can be set like this:
+
+  ```
+  ?customSettings={template:{prerender:false}}
+  ```
+
+  or this:
+
+  ```
+  ?customSettings.template.prerender=false
   ```
 
 - Values set in the URL query parameters override those set in [configuration object](./configuration-object.html.md).
@@ -4692,11 +4750,11 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 For usage examples, check [storybook](pathname:///../stories/?path=/story/embed-options-params--select-language) and [unit tests](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/config/__tests__/build-config.spec.ts).
 :::
 
-<!-- TODO: add docs for languageSelector and ToolsStatus -->
+{/* TODO: add docs for languageSelector and ToolsStatus */}
 
 ---
 
-<!-- Source: /livecodes/docs/sdk/index -->
+<!-- Source: https://livecodes.io/livecodes/docs/sdk/index -->
 
 # LiveCodes SDK
 
@@ -4818,7 +4876,7 @@ P.S. You may want to use the "Full Screen" button!
 
 ---
 
-<!-- Source: /livecodes/docs/sdk/js-ts -->
+<!-- Source: https://livecodes.io/livecodes/docs/sdk/js-ts -->
 
 # JavaScript/<wbr />TypeScript SDK
 
@@ -5424,7 +5482,7 @@ export const sdkDemo = {
 
 ---
 
-<!-- Source: /livecodes/docs/sdk/react -->
+<!-- Source: https://livecodes.io/livecodes/docs/sdk/react -->
 
 # React SDK
 
@@ -5580,7 +5638,7 @@ export const reactSDKDemo = {
 
 ---
 
-<!-- Source: /livecodes/docs/sdk/vue -->
+<!-- Source: https://livecodes.io/livecodes/docs/sdk/vue -->
 
 # Vue SDK
 
@@ -5751,7 +5809,7 @@ export const vueSDKDemo = {
 
 ---
 
-<!-- Source: /livecodes/docs/sdk/svelte -->
+<!-- Source: https://livecodes.io/livecodes/docs/sdk/svelte -->
 
 # Svelte
 
@@ -5856,7 +5914,7 @@ However, it is recommended to cleanup when the node is unmounted, like that:
 
 ---
 
-<!-- Source: /livecodes/docs/sdk/headless -->
+<!-- Source: https://livecodes.io/livecodes/docs/sdk/headless -->
 
 # Headless Mode
 
@@ -5939,7 +5997,7 @@ export const pyDemo = { markup: { language: 'html', content: `<textarea id="edit
 
 ---
 
-<!-- Source: /livecodes/docs/advanced/index -->
+<!-- Source: https://livecodes.io/livecodes/docs/advanced/index -->
 
 # Advanced Topics {#advanced-topics-custom-content-top}
 
@@ -5952,48 +6010,321 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 ---
 
-<!-- Source: /livecodes/docs/advanced/custom-settings -->
+<!-- Source: https://livecodes.io/livecodes/docs/advanced/custom-settings -->
 
 # Custom Settings
 
 ---
 
-<!-- Source: /livecodes/docs/advanced/services -->
+<!-- Source: https://livecodes.io/livecodes/docs/advanced/services -->
 
 # Services
 
-LiveCodes (being a client-side app) uses multiple services (for example for authentication, sharing, module resolution, etc).
+LiveCodes (being a [client-side](../why.html.md)#client-side) app) uses multiple services (for example for short-URL [sharing](../features/share.html.md), [broadcast server](../features/broadcast.html.md), authentication, module resolution, etc).
 
-These services are [defined here](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services).
-
-Some of the services are not supported on [self-hosted](../features/self-hosting.html.md) deploys and are either replaced by other compatible services or require you to provide an alternative service.
+Some of these services are not supported on _static_ [self-hosted](../features/self-hosting.html.md) deploys and are either replaced by other compatible services or require you to provide alternative ones.
 
 Examples:
 
 - The [share](../features/share.html.md) service in [self-hosted](../features/self-hosting.html.md) apps uses [dpaste](https://dpaste.com/) for short URLs, which are [**deleted after 365 days**](https://dpaste.com/help).
 - [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication.
 
+Demo for a static self-hosted app (on GitHub Pages): https://live-codes.github.io/livecodes
+
+Most likely, you will not need to provide these services yourself, and the app will work just fine using the other compatible services (e.g. dpaste).
+However, if you do need to provide them, you may wish to use the included [docker setup](../advanced/docker.html.md) which provides a self-hosted implementation for these services, very similar to the official [hosted app](https://livecodes.io).
+You can find the list of provided services [here](../advanced/docker.html.md)#services).
+
+Demo for a self-hosted app that uses the [docker setup](../advanced/docker.html.md) (on a VPS): https://vps.livecodes.io
+
 :::info
 
-LiveCodes [sponsors](../sponsor.html.md) (Bronze sponsors and above) get access to managed custom services.
+LiveCodes [sponsors](../sponsor.html.md) (Bronze sponsors and above) get access to a hosted [docker setup](../advanced/docker.html.md) with managed [services](../advanced/docker.html.md)#services).
 
 :::
 
-If you [self-host](../features/self-hosting.html.md) your app and need to change any of these services, start by following the [guide described there](../features/self-hosting.html.md).
+---
 
-Then, edit the services you want (in [`src/livecodes/services`](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services)). The used services need to have the same interface.
+<!-- Source: https://livecodes.io/livecodes/docs/advanced/docker -->
 
-The app then needs to be re-built using the command:
+# Docker Setup
 
-```shell
-npm run build
+This guide makes it easy to set up a self-hosted instance of LiveCodes on a <acronym title="Virtual Private Server">VPS</acronym> using Docker.
+
+## Why?
+
+LiveCodes is a [client-side app](../why.html.md)#client-side). It can be easily self-hosted on any static file server or <acronym title="Content Delivery Network">CDN</acronym> (See [Self-Hosting guide](../features/self-hosting.html.md)).
+
+All core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser.
+However, some features require [external services](./services.html.md) which depend on server-side implementations (e.g. [sharing](../features/share.html.md) short URLs, [broadcast server](../features/broadcast.html.md), etc).
+The docker setup described here provides out-of-the-box implementations for self-hosting these services.
+See below for the list of provided [services](#services).
+
+This allows self-hosted instances to have the same features as the hosted app ([livecodes.io](https://livecodes.io)).
+
+:::warning Note
+Most self-hosted instances will not require this setup. The static app should work just fine using other simpler [self-hosting methods](../features/self-hosting.html.md)#guide).
+Only use the docker setup if you need to self-host [these services](#services).
+:::
+
+## Example
+
+This is an example of a self-hosted instance deployed to a VPS using the included Docker setup:
+
+https://vps.livecodes.io/
+
+Setting it up can be as simple as running the following command:
+
+```sh
+HOST_NAME=vps.livecodes.io docker compose up --build -d
 ```
 
-The built app is in `build` directory. This can be hosted on any static file server.
+## Requirements
+
+- Docker and Docker Compose ([installation guide](https://docs.docker.com/engine/install/))
+- Git: optional - for pulling updates ([installation guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
+
+<details>
+<summary>
+Example script to install Docker, Docker Compose and Git on Ubuntu
+</summary>
+
+```sh title="install_docker_ubuntu.sh"
+#!/bin/bash
+
+# Update package lists
+sudo apt update
+
+# Install Docker
+sudo apt install -y ca-certificates curl gnupg lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io
+
+# Add current user to docker group
+sudo usermod -aG docker $USER
+newgrp docker # Apply group changes immediately
+
+# Install Docker Compose
+sudo apt install -y docker-compose
+
+# Install Git
+sudo apt install -y git
+```
+
+To use this script:
+
+**Save**
+
+Save the script to a file, for example: `install_docker_ubuntu.sh`.
+
+**Make Executable**
+
+Make the script executable with:
+
+```sh
+chmod +x install_docker_ubuntu.sh
+```
+
+**Run**
+
+Execute the script using:
+```sh
+sudo ./install_docker_ubuntu.sh
+```
+
+**Verify**
+
+Verify the installations with:
+
+```sh
+docker --version
+docker compose version
+git --version
+```
+</details>
+
+## Getting Started
+
+:::info note
+When running in a non-local environment (e.g. VPS),
+make sure your domain's A/AAAA DNS records properly point to the machine public IP **before** running the docker containers.
+The hostname should be set using [environment variables](#environment-variables).
+:::
+
+Clone the repo:
+
+```sh
+git clone https://github.com/live-codes/livecodes.git
+```
+
+Enter the directory:
+
+```sh
+cd livecodes
+```
+
+Optionally, checkout a specific branch:
+
+```sh
+git checkout main
+```
+
+Run docker compose:
+
+```sh
+docker compose up -d
+```
+
+By default, the app is served at https://livecodes.localhost <br />
+(Yes, `localhost` can be served over HTTPS and have subdomains!).
+
+The hostname and many other options can be set using [environment variables](#environment-variables).
+
+## Services
+
+- Automatic HTTPS
+
+  This is provided by [Caddy server](https://caddyserver.com), which automatically obtains and renews TLS certificates.
+  Local addresses (e.g. `localhost`, `livecodes.localhost`) are served over HTTPS using locally-trusted certificates.
+
+- [Open Graph meta tags](https://ogp.me/)
+
+  Provide project-specific meta tags, for social media cards.
+
+- [oEmbed](https://oembed.com/)
+
+  Allows embedded representations on third party sites.
+
+- Adding [headers](https://github.com/live-codes/livecodes/blob/develop/src/_headers)
+
+  e.g. aggressive caching of static assets for improved performance.
+
+- [Short-URL share service](../features/share.html.md)
+
+  Generates a short URL that can be shared. The project config is stored in a [Valkey](https://valkey.io/) store (a Redis fork with a permissive open-source license).
+  Data is persisted to disk every 60 seconds (See [Volumes](#volumes) section below).
+
+- [Broadcast server](../features/broadcast.html.md)
+
+  Broadcasts updates to connected clients.
+
+- CORS proxy
+
+  Allows [importing content](../features/import.html.md) from external URLs.
+
+- Separate origin sandbox
+
+  Runs code in a separate origin [sandboxed iframe](https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/) to prevent cross-site scripting.
+
+- [404 page](https://livecodes.io/404)
+
+  Custom 404 page for resources that are not found.
+
+## Environment Variables
+
+The app can be customized by setting different environment variables.
+
+
+Environment variables can be defined in a `.env` file in the root of the repository (on the same level as `docker-compose.yml`).
+
+```txt title=".env"
+HOST_NAME=playground.website.com
+```
+
+Please note that some variables are used **during build**. So after setting environment variables, the app needs to be rebuilt. e.g.:
+
+```sh
+docker compose up --build -d
+```
+
+The following environment variables are supported:
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `HOST_NAME` | Hostname of the app | `livecodes.localhost` |
+| `PORT` | Port of the app | `443` |
+| `SELF_HOSTED_SHARE` | Enable [share service](../features/share.html.md) | `true` |
+| `SELF_HOSTED_BROADCAST` | Enable [broadcast server](../features/broadcast.html.md) | `true` |
+| `BROADCAST_PORT` | Port of the broadcast server | `3030` |
+| `BROADCAST_TOKENS` | Comma-separated list of broadcast [user tokens](../features/broadcast.html.md)#technical-details) | |
+| `SANDBOX_HOST_NAME` | Hostname of the sandbox | `$HOST_NAME` |
+| `SANDBOX_PORT` | Port of the sandbox | `8090` |
+| `FIREBASE_CONFIG` | [Firebase config object](https://firebase.google.com/docs/web/learn-more#config-object) (JSON), used for [authentication](../features/github-integration.html.md) | |
+| `DOCS_BASE_URL` | [Base URL](../features/self-hosting.html.md)#custom-build) of the documentation (e.g. `/docs/`) | `null` |
+| `LOG_URL` | Full URL to send [server-side analytics](https://github.com/live-codes/livecodes/blob/develop/functions/index.ts) (e.g. `https://api.website.com/log`) | `null` |
+
+:::info note
+When running in a non-local environment (e.g. VPS),
+setting the `HOST_NAME` environment variable is **required**. It should match the domain name set in [DNS records](#getting-started).
+:::
+
+## Volumes
+
+The following docker [volumes](https://docs.docker.com/engine/storage/volumes/) are used:
+
+- `./assets` - A [bind mount](https://docs.docker.com/engine/storage/bind-mounts/) for static assets that get served under the app URL (`/assets/`). This can be used to serve images, stylesheets, [custom modules](../features/module-resolution.html.md)#custom-module-resolution), [custom types](../features/intellisense.html.md)#custom-types), etc.
+- `livecodes-share-data` - A [named volume](https://docs.docker.com/engine/storage/volumes/) where persistent data for the share service is saved. Make sure to **backup** this.
+
+<details>
+<summary>
+Example scripts to backup and restore Docker named volumes
+</summary>
+
+```sh title="backup-volumes.sh"
+#!/bin/bash
+
+VOLUMES=("livecodes-share-data")
+BACKUP_DIR="./backups"
+
+mkdir -p $BACKUP_DIR
+
+for VOLUME in "${VOLUMES[@]}"; do
+  echo "Backing up $VOLUME..."
+  docker run --rm \
+    -v $VOLUME:/data \
+    -v $(pwd)/$BACKUP_DIR:/backup \
+    alpine \
+    tar cvf /backup/$VOLUME.tar /data
+done
+
+echo "Backup complete. Files are in $BACKUP_DIR."
+```
+
+```sh title="restore-volumes.sh"
+#!/bin/bash
+
+VOLUMES=("livecodes-share-data")
+BACKUP_DIR="./backups"
+
+for VOLUME in "${VOLUMES[@]}"; do
+  echo "Restoring $VOLUME..."
+  docker volume create $VOLUME
+  docker run --rm \
+    -v $VOLUME:/data \
+    -v $(pwd)/$BACKUP_DIR:/backup \
+    alpine \
+    tar xvf /backup/$VOLUME.tar -C /data --strip 1
+done
+
+echo "Restore complete."
+```
+
+
+</details>
+
+## Deployment
+
+For continuous deployment, you can use the included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/develop/.github/workflows/docker-deploy.yml) to deploy to a VPS when a new commit is pushed (e.g. to the `main` branch).
+
+This assumses that you have followed the [Getting Started](#getting-started) instructions and have cloned the repo to your VPS.
+
+The workflow uses [secrets](https://docs.github.com/en/actions/how-tos/security-for-github-actions/security-guides/using-secrets-in-github-actions) and [variables](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) from your GitHub repo settings for SSH access and setting required [environment variables](#environment-variables).
 
 ---
 
-<!-- Source: /livecodes/docs/languages/index -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/index -->
 
 # Languages
 
@@ -6028,7 +6359,7 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 ---
 
-<!-- Source: /livecodes/docs/languages/art-template -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/art-template -->
 
 # art-template
 
@@ -6164,7 +6495,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/asciidoc -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/asciidoc -->
 
 # AsciiDoc
 
@@ -6250,7 +6581,7 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 
 ---
 
-<!-- Source: /livecodes/docs/languages/assemblyscript -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/assemblyscript -->
 
 # AssemblyScript
 
@@ -6258,7 +6589,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/astro -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/astro -->
 
 # Astro
 
@@ -6266,7 +6597,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/autoprefixer -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/autoprefixer -->
 
 # Autoprefixer
 
@@ -6274,7 +6605,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/babel -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/babel -->
 
 # Babel
 
@@ -6335,7 +6666,7 @@ export const params = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/bbcode -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/bbcode -->
 
 # BBCode
 
@@ -6381,7 +6712,7 @@ export const params = {compiled: 'open'};
 
 ---
 
-<!-- Source: /livecodes/docs/languages/blockly -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/blockly -->
 
 # Blockly
 
@@ -6389,7 +6720,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/civet -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/civet -->
 
 # Civet
 
@@ -6397,7 +6728,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/clio -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/clio -->
 
 # Clio
 
@@ -6405,7 +6736,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/clojurescript -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/clojurescript -->
 
 # ClojureScript
 
@@ -6477,7 +6808,7 @@ https://livecodes.io/?template=clojurescript
 
 ---
 
-<!-- Source: /livecodes/docs/languages/coffeescript -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/coffeescript -->
 
 # CoffeeScript
 
@@ -6529,7 +6860,7 @@ https://livecodes.io/?template=coffeescript
 
 ---
 
-<!-- Source: /livecodes/docs/languages/commonlisp -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/commonlisp -->
 
 # Common Lisp
 
@@ -6596,7 +6927,7 @@ https://livecodes.io/?template=commonlisp
 
 ---
 
-<!-- Source: /livecodes/docs/languages/cpp-wasm -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/cpp-wasm -->
 
 # C/C++ (Wasm)
 
@@ -6604,7 +6935,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/cpp -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/cpp -->
 
 # C++
 
@@ -6612,7 +6943,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/csharp-wasm -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/csharp-wasm -->
 
 # C# (Wasm)
 
@@ -6754,7 +7085,7 @@ https://livecodes.io/?template=csharp-wasm
 
 ---
 
-<!-- Source: /livecodes/docs/languages/css -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/css -->
 
 # CSS
 
@@ -6762,7 +7093,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/cssmodules -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/cssmodules -->
 
 # CSS Modules
 
@@ -7019,7 +7350,7 @@ export const params = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/cssnano -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/cssnano -->
 
 # cssnano
 
@@ -7027,7 +7358,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/diagrams -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/diagrams -->
 
 # Diagrams
 
@@ -7613,7 +7944,7 @@ Example: (<OpenCode id="ey74x6q6cq3"></OpenCode>)
 
 ---
 
-<!-- Source: /livecodes/docs/languages/dot -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/dot -->
 
 # doT
 
@@ -7748,7 +8079,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/ejs -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/ejs -->
 
 # EJS
 
@@ -7883,11 +8214,11 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/eta -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/eta -->
 
 # Eta
 
-[Eta](https://eta.js.org/) is an embedded JS template engine for Node, Deno, and the browser. Lighweight, fast, and pluggable. Written in TypeScript.
+[Eta](https://eta.js.org/) is an embedded JS template engine for Node, Deno, and the browser. Lightweight, fast, and pluggable. Written in TypeScript.
 
 ## Usage
 
@@ -8008,7 +8339,7 @@ export const config2 = {markup: {language: 'eta', content: 'Hello <%= it.name %>
 
 ---
 
-<!-- Source: /livecodes/docs/languages/fennel -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/fennel -->
 
 # Fennel
 
@@ -8073,7 +8404,7 @@ https://livecodes.io/?template=fennel
 
 ---
 
-<!-- Source: /livecodes/docs/languages/flow -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/flow -->
 
 # Flow
 
@@ -8081,7 +8412,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/gleam -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/gleam -->
 
 # Gleam
 
@@ -8343,15 +8674,182 @@ https://livecodes.io/?template=gleam
 
 ---
 
-<!-- Source: /livecodes/docs/languages/go -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/go-wasm -->
 
-# Go (Golang)
+# Go (Wasm)
 
-TODO...
+[Go](https://go.dev/) (Golang), is an open-source, statically typed, and compiled programming language developed by Google. It is designed for simplicity, efficiency, and strong support for concurrency, making it well-suited for building scalable and high-performance applications.
+
+LiveCodes uses [Yaegi](https://github.com/traefik/yaegi), the Go interpreter (running on WebAssembly), to run Go in the browser.
+
+:::info Note
+
+LiveCodes also supports running Go using [GopherJS](https://github.com/gopherjs/gopherjs) which is a Go to JavaScript compiler. Read documentation [here](./go.html.md).
+
+:::
+
+## Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const params = {
+  'go-wasm': 'package main\n\nimport "fmt"\n\nfunc main() {\n\tfmt.Println("Hello, World!")\n}\n',
+  console: 'full',
+};
+
+<LiveCodes params={params}></LiveCodes>
+
+## Usage
+
+LiveCodes runs Go in the browser, including the [standard library](https://pkg.go.dev/std).
+
+
+### Communication with JavaScript
+
+The Go code runs in the context of the [result page](../features/result.html.md).
+A few helper properties and methods are available in the browser global `livecodes.goWasm` object:
+
+- `livecodes.goWasm.input`: the initial standard input that is passed to the Go code.
+- `livecodes.goWasm.loaded`: A promise that resolves when the Go environment is loaded. Any other helpers should be used after this promise resolves.
+- `livecodes.goWasm.output`: the standard output.
+- `livecodes.goWasm.error`: the standard error.
+- `livecodes.goWasm.exitCode`: the exit code.
+- `livecodes.goWasm.run`: a function that runs the Go code with new input. This function takes a string as input and returns a promise that resolves when the Go code is done running. The promise resolves with an object containing the `input`, `output`, `error`, and `exitCode` properties.
+
+See the [example below](#example-usage) for more details.
+
+## Language Info
+
+### Name
+
+`go-wasm`
+
+### Extensions
+
+`wasm.go`, `go-wasm`, `gowasm`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Yaegi](https://github.com/traefik/yaegi), compiled to WebAssembly ([yaegi-wasm](https://github.com/Muhammad-Ayman/yaegi-wasm))
+
+### Version
+
+Yaegi v0.16.1, running go1.25.0
+
+## Code Formatting
+
+Using [GopherJS](https://github.com/gopherjs/gopherjs)
+
+## Example Usage
+
+This example demonstrates standard library usage and JavaScript interoperability (also check the code in the HTML editor):
+
+<LiveCodes template="go-wasm" height="80vh"></LiveCodes>
+
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, to avoid the need to reload the Go environment.
+
+This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the code, which will force a full page reload.
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.html.md)#markup) for embedded playgrounds.
+
+## Starter Template
+
+https://livecodes.io/?template=go-wasm
+
+## Links
+
+- [Go](https://go.dev/)
+- [Go documentation](https://go.dev/doc/)
+- [Go standard library](https://pkg.go.dev/std)
+- [Yaegi](https://github.com/traefik/yaegi)
+- [Go using GopherJS](./go.html.md) in LiveCodes
 
 ---
 
-<!-- Source: /livecodes/docs/languages/haml -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/go -->
+
+# Go (Golang)
+
+[Go](https://go.dev/) (Golang), is an open-source, statically typed, and compiled programming language developed by Google. It is designed for simplicity, efficiency, and strong support for concurrency, making it well-suited for building scalable and high-performance applications.
+
+LiveCodes uses [GopherJS](https://github.com/gopherjs/gopherjs) which is a Go to JavaScript compiler, to run Go in the browser.
+
+:::info Note
+
+LiveCodes also supports running Go using [Yaegi](https://github.com/traefik/yaegi), the Go interpreter (running on WebAssembly). Read documentation [here](./go-wasm.html.md).
+
+:::
+
+## Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const params = {
+  'go': 'package main\n\nimport "fmt"\n\nfunc main() {\n\tfmt.Println("Hello, World!")\n}\n',
+  console: 'full',
+};
+
+<LiveCodes params={params}></LiveCodes>
+
+## Usage
+
+LiveCodes runs Go in the browser, including the [standard library](https://pkg.go.dev/std).
+
+JavaScript interoperability and DOM access is achieved using [package `js`](https://pkg.go.dev/syscall/js) (see the [example below](#example-usage)).
+
+## Language Info
+
+### Name
+
+`go`
+
+### Extensions
+
+`go`, `golang`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[GopherJS](https://github.com/gopherjs/gopherjs), the Go to JavaScript compiler.
+
+### Version
+
+GopherJS v1.19.0 beta1, running Go 1.19.13
+
+## Code Formatting
+
+Using [GopherJS](https://github.com/gopherjs/gopherjs)
+
+## Example Usage
+
+This example demonstrates standard library usage, JavaScript interoperability and DOM access:
+
+<LiveCodes template="go" height="80vh"></LiveCodes>
+
+## Starter Template
+
+https://livecodes.io/?template=go
+
+## Links
+
+- [Go](https://go.dev/)
+- [Go documentation](https://go.dev/doc/)
+- [Go standard library](https://pkg.go.dev/std)
+- [GopherJS](https://github.com/gopherjs/gopherjs)
+- [Go using Yaegi](./go-wasm.html.md) in LiveCodes
+
+---
+
+<!-- Source: https://livecodes.io/livecodes/docs/languages/haml -->
 
 # Haml
 
@@ -8477,7 +8975,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/handlebars -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/handlebars -->
 
 # Handlebars
 
@@ -8613,7 +9111,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/html -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/html -->
 
 # HTML
 
@@ -8686,7 +9184,7 @@ Using [Prettier](https://prettier.io/).
 
 ---
 
-<!-- Source: /livecodes/docs/languages/imba -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/imba -->
 
 # Imba
 
@@ -8694,7 +9192,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/index -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/index -->
 
 # Languages
 
@@ -8729,7 +9227,7 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 ---
 
-<!-- Source: /livecodes/docs/languages/java -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/java -->
 
 # Java
 
@@ -8856,7 +9354,7 @@ https://livecodes.io/?template=java
 
 ---
 
-<!-- Source: /livecodes/docs/languages/javascript -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/javascript -->
 
 # JavaScript
 
@@ -8864,7 +9362,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/jinja -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/jinja -->
 
 # Jinja
 
@@ -9019,7 +9517,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/jsx -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/jsx -->
 
 # JSX
 
@@ -9336,7 +9834,7 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 
 ---
 
-<!-- Source: /livecodes/docs/languages/julia -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/julia -->
 
 # Julia
 
@@ -9344,7 +9842,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/less -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/less -->
 
 # Less
 
@@ -9352,7 +9850,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/lightningcss -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/lightningcss -->
 
 # Lightning CSS
 
@@ -9360,7 +9858,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/liquid -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/liquid -->
 
 # Liquid
 
@@ -9497,7 +9995,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/livescript -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/livescript -->
 
 # LiveScript
 
@@ -9505,7 +10003,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/lua-wasm -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/lua-wasm -->
 
 # Lua (Wasm)
 
@@ -9576,7 +10074,7 @@ https://livecodes.io/?template=lua-wasm
 
 ---
 
-<!-- Source: /livecodes/docs/languages/lua -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/lua -->
 
 # Lua
 
@@ -9643,7 +10141,7 @@ https://livecodes.io/?template=lua
 
 ---
 
-<!-- Source: /livecodes/docs/languages/malina -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/malina -->
 
 # Malina.js
 
@@ -9651,23 +10149,283 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/markdown -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/markdown -->
 
 # Markdown
 
-TODO...
+[Markdown](https://daringfireball.net/projects/markdown/) is a text-to-HTML conversion tool for web writers.
+Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid HTML.
+
+Markdown is now one of the world's most popular markup languages.
+
+:::info Note
+
+Please note that MDX is also supported in LiveCodes and is [documented here](./mdx.html.md).
+
+:::
+
+## Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const markdownConfig = {
+  markup: {
+    language: 'markdown',
+    content: `## Markdown
+
+_Hello_ **World**
+
+Ordered List:
+
+1. item
+2. item
+3. item
+
+Unordered list:
+
+- item
+- item
+- item
+
+Link:
+
+[link](https://livecodes.io)
+
+Image:
+
+![image](https://placehold.co/300x200)
+
+Table:
+
+| header 1 | header 2 |
+| -------- | -------- |
+| cell 1   | cell 2   |
+| cell 3   | cell 4   |
+
+Quote:
+
+> blockquote
+
+Code:
+
+\`\`\`python
+print("Hello, World!")
+\`\`\`
+`
+  },
+}
+
+<LiveCodes config={markdownConfig}></LiveCodes>
+
+## Styles
+
+By default, no styes are added. Only HTML output is generated from the Markdown code.
+
+If you want to style the result page similar to GitHub Markdown, you can use [`github-markdown-css`](https://github.com/sindresorhus/github-markdown-css).
+Note that the body needs to have a `class="markdown-body"` for the styles to be applied.
+
+```js title="Script Editor (JS)"
+document.body.classList.add('markdown-body');
+```
+
+Example:
+
+export const styledMarkdownParams = {
+  template: 'markdown',
+  activeEditor: 'style',
+  css: `@import 'github-markdown-css';
+
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+}
+
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px;
+  }
+}
+`,
+}
+
+<LiveCodes params={styledMarkdownParams} height='80vh'></LiveCodes>
+
+## Language Info
+
+### Name
+
+`markdown`
+
+### Aliases
+
+`md`, `mdown`, `mkdn`
+
+### Extension
+
+`.md`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Marked](https://marked.js.org/)
+
+### Version
+
+`marked`: v13.0.2
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.html.md) added to the property `markdown` are passed as a JSON object to [`marked.parse`](https://marked.js.org/using_advanced). Please check the [documentation](https://marked.js.org/using_advanced#options) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "markdown": {
+    "gfm": true,
+    "breaks": true
+  }
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=markdown
+
+## Links
+
+- [Markdown](https://daringfireball.net/projects/markdown/)
+- [Marked](https://marked.js.org/)
+- [The Markdown Guide](https://www.markdownguide.org/)
+- [MDX support in LiveCodes](./mdx.html.md)
 
 ---
 
-<!-- Source: /livecodes/docs/languages/mdx -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/mdx -->
 
 # MDX
 
-TODO...
+[MDX](https://mdxjs.com/) allows using JSX in [Markdown](./markdown.html.md), creating dynamic and component-driven content for websites, documentation, and applications.
+
+:::info Note
+
+Please note that Markdown is also supported in LiveCodes and is [documented here](./markdown.html.md).
+
+:::
+
+## Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const mdxConfig = {
+  markup: {
+    language: 'mdx',
+    content: `import { Counter } from './script';
+
+# Counter
+
+<Counter />
+`,},
+  style: {
+    language: 'css',
+    content: `body, body button {
+  text-align: center;
+  font: 1em sans-serif;
+}
+`,
+  },
+  script: {
+    language: 'jsx',
+    content: `import { useState } from "react";
+
+export function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <p>You clicked {count} times.</p>
+      <button onClick={() => setCount(count + 1)}>
+        click me
+      </button>
+    </div>
+  );
+}
+`,
+  },
+}
+
+<LiveCodes config={mdxConfig}></LiveCodes>
+
+## Usage
+
+Components can be imported from the script editor that uses [JSX](./jsx.html.md) or [React](./react.html.md) by importing from `'./script'` (with no extension).
+
+Example:
+
+```js
+import { ComponentName } from './script';
+```
+
+## Language Info
+
+### Name
+
+`mdx`
+
+### Extension
+
+`.html.md)`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[MDX](https://mdxjs.com/)
+
+### Version
+
+`@mdx-js/mdx`: v3.1.0
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.html.md) added to the property `mdx` are passed as a JSON object to [`mdx.compile`](https://mdxjs.com/packages/mdx/#compilefile-options). Please check the [documentation](https://mdxjs.com/packages/mdx/#compileoptions) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+
+## Starter Template
+
+https://livecodes.io/?template=mdx
+
+## Links
+
+- [MDX](https://mdxjs.com/)
+- [JSX](https://react.dev/learn/writing-markup-with-jsx)
+- [React](https://react.dev/)
+- [Markdown support in LiveCodes](./markdown.html.md)
+- [JSX support in LiveCodes](./jsx.html.md)
+- [React support in LiveCodes](./react.html.md)
 
 ---
 
-<!-- Source: /livecodes/docs/languages/mjml -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/mjml -->
 
 # MJML
 
@@ -9739,7 +10497,7 @@ This playground loads a template from the official MJML [email templates](https:
 
 ---
 
-<!-- Source: /livecodes/docs/languages/mustache -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/mustache -->
 
 # Mustache
 
@@ -9859,7 +10617,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/nunjucks -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/nunjucks -->
 
 # Nunjucks
 
@@ -9979,7 +10737,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/ocaml -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/ocaml -->
 
 # OCaml
 
@@ -9987,7 +10745,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/perl -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/perl -->
 
 # Perl
 
@@ -9995,7 +10753,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/php-wasm -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/php-wasm -->
 
 # PHP (Wasm)
 
@@ -10091,7 +10849,7 @@ https://livecodes.io/?template=php-wasm
 
 ---
 
-<!-- Source: /livecodes/docs/languages/php -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/php -->
 
 # PHP
 
@@ -10156,7 +10914,7 @@ https://livecodes.io/?template=php
 
 ---
 
-<!-- Source: /livecodes/docs/languages/postcss -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/postcss -->
 
 # PostCSS
 
@@ -10164,7 +10922,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/postcssImportUrl -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/postcssImportUrl -->
 
 # Import Url
 
@@ -10172,7 +10930,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/postcssPresetEnv -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/postcssPresetEnv -->
 
 # Preset Env
 
@@ -10180,7 +10938,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/postgresql -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/postgresql -->
 
 # PostgreSQL
 
@@ -10351,7 +11109,7 @@ https://livecodes.io/?template=postgresql
 
 ---
 
-<!-- Source: /livecodes/docs/languages/prolog -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/prolog -->
 
 # Prolog
 
@@ -10359,7 +11117,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/pug -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/pug -->
 
 # Pug
 
@@ -10495,7 +11253,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/purgecss -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/purgecss -->
 
 # PurgeCSS
 
@@ -10503,7 +11261,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/python-wasm -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/python-wasm -->
 
 # Python (Wasm)
 
@@ -10604,7 +11362,7 @@ Check the [starter template](#starter-template) for an example.
 
 ### Version
 
-Pyodide v0.25.1, running Python v3.11.3
+Pyodide v0.28.3, running Python v3.13.2
 
 ## Code Formatting
 
@@ -10642,7 +11400,7 @@ https://livecodes.io/?template=python-wasm
 
 ---
 
-<!-- Source: /livecodes/docs/languages/python -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/python -->
 
 # Python
 
@@ -10717,7 +11475,7 @@ https://livecodes.io/?template=python
 
 ---
 
-<!-- Source: /livecodes/docs/languages/r -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/r -->
 
 # R
 
@@ -10907,7 +11665,7 @@ https://livecodes.io/?template=r
 
 ---
 
-<!-- Source: /livecodes/docs/languages/react-native-tsx -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/react-native-tsx -->
 
 # React Native (TSX)
 
@@ -10976,7 +11734,7 @@ https://livecodes.io/?template=react-native (uses JSX)
 
 ---
 
-<!-- Source: /livecodes/docs/languages/react-native -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/react-native -->
 
 # React Native
 
@@ -11051,7 +11809,7 @@ https://livecodes.io/?template=react-native
 
 ---
 
-<!-- Source: /livecodes/docs/languages/react-tsx -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/react-tsx -->
 
 # React (TSX)
 
@@ -11124,7 +11882,7 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 
 ---
 
-<!-- Source: /livecodes/docs/languages/react -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/react -->
 
 # React
 
@@ -11431,7 +12189,7 @@ https://livecodes.io/?template=react
 
 ---
 
-<!-- Source: /livecodes/docs/languages/reason -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/reason -->
 
 # Reason
 
@@ -11439,7 +12197,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/rescript -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/rescript -->
 
 # ReScript
 
@@ -11447,7 +12205,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/richtext -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/richtext -->
 
 # Rich Text Editor
 
@@ -11455,7 +12213,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/riot -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/riot -->
 
 # Riot.js
 
@@ -11463,7 +12221,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/ruby-wasm -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/ruby-wasm -->
 
 # Ruby (Wasm)
 
@@ -11545,7 +12303,7 @@ https://livecodes.io/?template=ruby-wasm
 
 ---
 
-<!-- Source: /livecodes/docs/languages/ruby -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/ruby -->
 
 # Ruby
 
@@ -11625,7 +12383,7 @@ https://livecodes.io/?template=ruby
 
 ---
 
-<!-- Source: /livecodes/docs/languages/sass -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/sass -->
 
 # Sass
 
@@ -11633,7 +12391,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/scheme -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/scheme -->
 
 # Scheme
 
@@ -11750,7 +12508,7 @@ https://livecodes.io/?template=scheme
 
 ---
 
-<!-- Source: /livecodes/docs/languages/scss -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/scss -->
 
 # SCSS
 
@@ -11758,7 +12516,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/solid -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/solid -->
 
 # Solid
 
@@ -11832,7 +12590,7 @@ https://livecodes.io/?template=solid (uses TSX)
 
 ---
 
-<!-- Source: /livecodes/docs/languages/solid.tsx -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/solid.tsx -->
 
 # Solid (TS)
 
@@ -11906,7 +12664,7 @@ https://livecodes.io/?template=solid
 
 ---
 
-<!-- Source: /livecodes/docs/languages/sql -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/sql -->
 
 # SQL (SQLite)
 
@@ -12069,7 +12827,7 @@ https://livecodes.io/?template=sql
 
 ---
 
-<!-- Source: /livecodes/docs/languages/stencil -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/stencil -->
 
 # Stencil
 
@@ -12077,7 +12835,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/stylis -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/stylis -->
 
 # Stylis
 
@@ -12085,7 +12843,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/stylus -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/stylus -->
 
 # Stylus
 
@@ -12093,7 +12851,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/sucrase -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/sucrase -->
 
 # Sucrase
 
@@ -12155,7 +12913,7 @@ export const params = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/svelte -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/svelte -->
 
 # Svelte
 
@@ -12378,7 +13136,7 @@ https://livecodes.io/?template=svelte
 
 ---
 
-<!-- Source: /livecodes/docs/languages/tailwindcss -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/tailwindcss -->
 
 # Tailwind CSS
 
@@ -12386,7 +13144,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/tcl -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/tcl -->
 
 # Tcl
 
@@ -12394,7 +13152,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/teal -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/teal -->
 
 # Teal
 
@@ -12455,7 +13213,7 @@ https://livecodes.io/?template=teal
 
 ---
 
-<!-- Source: /livecodes/docs/languages/tokencss -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/tokencss -->
 
 # Token CSS
 
@@ -12463,7 +13221,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/tsx -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/tsx -->
 
 # TSX
 
@@ -12529,7 +13287,7 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 
 ---
 
-<!-- Source: /livecodes/docs/languages/twig -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/twig -->
 
 # Twig
 
@@ -12657,7 +13415,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/typescript -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/typescript -->
 
 # TypeScript
 
@@ -12665,7 +13423,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/unocss -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/unocss -->
 
 # UnoCSS
 
@@ -12673,7 +13431,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/vento -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/vento -->
 
 # Vento
 
@@ -12798,7 +13556,7 @@ export const config2 = {
 
 ---
 
-<!-- Source: /livecodes/docs/languages/vue -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/vue -->
 
 # Vue SFC
 
@@ -13226,7 +13984,7 @@ https://livecodes.io/?template=vue
 
 ---
 
-<!-- Source: /livecodes/docs/languages/vue2 -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/vue2 -->
 
 # Vue 2 SFC
 
@@ -13286,7 +14044,7 @@ Using [Prettier](https://prettier.io/).
 
 ---
 
-<!-- Source: /livecodes/docs/languages/wat -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/wat -->
 
 # WebAssembly Text
 
@@ -13294,7 +14052,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/languages/windicss -->
+<!-- Source: https://livecodes.io/livecodes/docs/languages/windicss -->
 
 # Windi CSS
 
@@ -13302,7 +14060,7 @@ TODO...
 
 ---
 
-<!-- Source: /livecodes/docs/bookmarklet -->
+<!-- Source: https://livecodes.io/livecodes/docs/bookmarklet -->
 
 # Bookmarklet
 
@@ -13341,7 +14099,7 @@ LiveCodes playground should open in a new window and [import](./features/import.
 
 ---
 
-<!-- Source: /livecodes/docs/gh-action -->
+<!-- Source: https://livecodes.io/livecodes/docs/gh-action -->
 
 # GitHub Action ⚡
 
@@ -13357,7 +14115,7 @@ For usage and more information, see the [action docs](https://github.com/live-co
 
 ---
 
-<!-- Source: /livecodes/docs/markdown-to-livecodes -->
+<!-- Source: https://livecodes.io/livecodes/docs/markdown-to-livecodes -->
 
 # Markdown to LiveCodes
 
@@ -13944,14 +14702,14 @@ export default defineConfig({
 
 ---
 
-<!-- Source: /livecodes/docs/contribution -->
+<!-- Source: https://livecodes.io/livecodes/docs/contribution -->
 
 # Contribution
 
 Contributions are always welcome, no matter how large or small. Before contributing,
-please read the [code of conduct](https://github.com/live-codes/livecodes/blob/HEAD/CODE_OF_CONDUCT.html.md).
+please read the [code of conduct](https://github.com/live-codes/livecodes/blob/HEAD/CODE_OF_CONDUCT.md).
 
-For code contribution, please refer to the [contribution guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.html.md)
+For code contribution, please refer to the [contribution guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md)
 .
 
 For financial and in-kind contributions, please refer to the [sponsor page](./sponsor.html.md).
@@ -13962,7 +14720,7 @@ Thank you :)
 
 ---
 
-<!-- Source: /livecodes/docs/credits -->
+<!-- Source: https://livecodes.io/livecodes/docs/credits -->
 
 # Credits
 
@@ -13977,6 +14735,7 @@ LiveCodes uses services that are generously provided by:
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
+    alignItems: 'center',
   }}
 >
   <p>
@@ -13984,7 +14743,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="Cloudflare Pages"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/cloudflare-pages.svg"
       ></img>
     </a>
@@ -13994,7 +14752,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="jsDelivr"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/jsdelivr.svg"
       ></img>
     </a>
@@ -14004,7 +14761,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="esm.sh"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/esm.sh.png"
       ></img>
     </a>
@@ -14014,18 +14770,25 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="unpkg"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/unpkg.png"
       ></img>
     </a>
   </p>
   <p>
-    <a href="https://codeium.com/" target="_blank" title="Codeium">
+    <a href="https://windsurf.com/" target="_blank" title="Windsurf">
       <img
-        alt="Codeium"
+        alt="Windsurf"
         width="200"
-        style={{ margin: '0.5em' }}
-        src="/docs/img/credits/codeium.svg"
+        src="/docs/img/credits/windsurf.svg"
+      ></img>
+    </a>
+  </p>
+  <p>
+    <a href="https://m.do.co/c/fb8c00b45b91" target="_blank" title="DigitalOcean">
+      <img
+        alt="DigitalOcean"
+        width="200"
+        src="/docs/img/credits/digital-ocean.svg"
       ></img>
     </a>
   </p>
@@ -14034,7 +14797,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="bundlejs"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/bundlejs.jpg"
       ></img>
     </a>
@@ -14044,7 +14806,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="dpaste"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/dpaste.png"
       ></img>
     </a>
@@ -14054,7 +14815,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="GitHub"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/github.png"
       ></img>
     </a>
@@ -14064,7 +14824,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="Netlify"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/netlify.svg"
       ></img>
     </a>
@@ -14074,7 +14833,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="SonarCloud"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/sonarcloud.svg"
       ></img>
     </a>
@@ -14084,7 +14842,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="Codacy"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/codacy.svg"
       ></img>
     </a>
@@ -14094,7 +14851,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="BundleWatch"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/bundlewatch.svg"
       ></img>
     </a>
@@ -14104,7 +14860,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="BrowserStack"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/browserstack.svg"
       ></img>
     </a>
@@ -14114,7 +14869,6 @@ LiveCodes uses services that are generously provided by:
       <img
         alt="Lokalise"
         width="200"
-        style={{ margin: '0.5em' }}
         src="/docs/img/credits/lokalise.png"
       ></img>
     </a>
@@ -14141,13 +14895,13 @@ Thank you ❤️
 
 ---
 
-<!-- Source: /livecodes/docs/license -->
+<!-- Source: https://livecodes.io/livecodes/docs/license -->
 
 # License
 
 LiveCodes is released under the permissive [MIT License](https://github.com/live-codes/livecodes/blob/develop/LICENSE) © [Hatem Hosny](https://github.com/hatemhosny).
 
-Third party packages used in LiveCodes and their licenses are [listed here](https://github.com/live-codes/livecodes/blob/develop/vendor-licenses.html.md).
+Third party packages used in LiveCodes and their licenses are [listed here](https://github.com/live-codes/livecodes/blob/develop/vendor-licenses.md).
 
 The source code is available on [GitHub](https://github.com/live-codes/livecodes).
 
@@ -14155,7 +14909,7 @@ Please consider [sponsoring LiveCodes](./sponsor.html.md) to support its mainten
 
 ---
 
-<!-- Source: /livecodes/docs/sponsor -->
+<!-- Source: https://livecodes.io/livecodes/docs/sponsor -->
 
 import MailLink from '../src/components/MailLink.tsx';
 
@@ -14210,7 +14964,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### 🥉 Bronze Sponsors (USD$100/mo):
 
-- Access to a hosted (always-on) [broadcast API](./features/broadcast.html.md) and [custom services](./advanced/services.html.md).
+- Access to a hosted [docker setup](./advanced/docker.html.md) with managed [services](./advanced/docker.html.md)#services).
 - Small logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Small logo placement in [this page](#livecodes-sponsors).
 - Small logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
@@ -14218,7 +14972,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### 🥈 Silver Sponsors (USD$250/mo):
 
-- Access to a hosted (always-on) [broadcast API](./features/broadcast.html.md) and [custom services](./advanced/services.html.md).
+- Access to a hosted [docker setup](./advanced/docker.html.md) with managed [services](./advanced/docker.html.md)#services).
 - Medium logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Logo placement in sidebar of all content pages.
 - Medium logo placement in [this page](#livecodes-sponsors).
@@ -14227,7 +14981,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### 🥇 Gold Sponsors (USD$500/mo):
 
-- Access to a hosted (always-on) [broadcast API](./features/broadcast.html.md) and [custom services](./advanced/services.html.md).
+- Access to a hosted [docker setup](./advanced/docker.html.md) with managed [services](./advanced/docker.html.md)#services).
 - Large logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Logo placement in sidebar of all content pages.
 - Large logo placement in [this page](#livecodes-sponsors).
@@ -14236,7 +14990,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### 🏆 Platinum Sponsors (USD$1,000/mo):
 
-- Access to a hosted (always-on) [broadcast API](./features/broadcast.html.md) and [custom services](./advanced/services.html.md).
+- Access to a hosted [docker setup](./advanced/docker.html.md) with managed [services](./advanced/docker.html.md)#services).
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Prominent logo placement in sidebar of all content pages.
 - Prominent logo placement at the top of [this page](#).
@@ -14246,7 +15000,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 #### 💎 Diamond Sponsors (USD$2,000/mo):
 
 - **Custom build** of the playground with your **logo and brand**. The custom build is maintained and receives new updates.
-- Access to a hosted (always-on) [broadcast API](./features/broadcast.html.md) and [custom services](./advanced/services.html.md).
+- Access to a hosted [docker setup](./advanced/docker.html.md) with managed [services](./advanced/docker.html.md)#services).
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Prominent logo placement in sidebar of all content pages.
 - Prominent logo placement at the top of [this page](#).
@@ -14283,7 +15037,7 @@ If you are interested in becoming a sponsor of LiveCodes, please don't hesitate 
 
 ---
 
-<!-- Source: /livecodes/docs/contact -->
+<!-- Source: https://livecodes.io/livecodes/docs/contact -->
 
 # Contact {#contact-custom-content-none}
 
@@ -14306,7 +15060,7 @@ Please follow the twitter account: [@livecodes_io](https://twitter.com/livecodes
 
 ---
 
-<!-- Source: /livecodes/docs/about -->
+<!-- Source: https://livecodes.io/livecodes/docs/about -->
 
 # About us
 
@@ -14322,7 +15076,7 @@ Please consider [sponsoring LiveCodes](./sponsor.html.md) to support its mainten
 
 ---
 
-<!-- Source: /livecodes/docs/examples/display-modes/index -->
+<!-- Source: https://livecodes.io/livecodes/docs/examples/display-modes/index -->
 
 # Display Modes
 
@@ -14333,7 +15087,7 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 ---
 
-<!-- Source: /livecodes/docs/examples/display-modes/full -->
+<!-- Source: https://livecodes.io/livecodes/docs/examples/display-modes/full -->
 
 # Display Mode: full
 
@@ -14343,7 +15097,7 @@ import LiveCodes from '../../../src/components/LiveCodes.tsx';
 
 ---
 
-<!-- Source: /livecodes/docs/examples/display-modes/editor -->
+<!-- Source: https://livecodes.io/livecodes/docs/examples/display-modes/editor -->
 
 # Display Mode: editor
 
@@ -14353,7 +15107,7 @@ import LiveCodes from '../../../src/components/LiveCodes.tsx';
 
 ---
 
-<!-- Source: /livecodes/docs/examples/display-modes/codeblock -->
+<!-- Source: https://livecodes.io/livecodes/docs/examples/display-modes/codeblock -->
 
 # Display Mode: codeblock
 
@@ -14363,7 +15117,7 @@ import LiveCodes from '../../../src/components/LiveCodes.tsx';
 
 ---
 
-<!-- Source: /livecodes/docs/examples/display-modes/result -->
+<!-- Source: https://livecodes.io/livecodes/docs/examples/display-modes/result -->
 
 # Display Mode: result
 
@@ -14373,7 +15127,7 @@ import LiveCodes from '../../../src/components/LiveCodes.tsx';
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/index -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/index -->
 
 # \_internal
 
@@ -14415,7 +15169,7 @@ import LiveCodes from '../../../src/components/LiveCodes.tsx';
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/interfaces/API -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/interfaces/API -->
 
 # Interface: API
 
@@ -14451,7 +15205,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:211](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L211)
+[models.ts:211](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L211)
 
 ***
 
@@ -14475,7 +15229,7 @@ See [docs](https://livecodes.io/docs/sdk/js-ts#exec) for details.
 
 #### Defined in
 
-[models.ts:194](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L194)
+[models.ts:194](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L194)
 
 ***
 
@@ -14509,7 +15263,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:31](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L31)
+[models.ts:31](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L31)
 
 ***
 
@@ -14543,7 +15297,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:105](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L105)
+[models.ts:105](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L105)
 
 ***
 
@@ -14576,7 +15330,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:64](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L64)
+[models.ts:64](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L64)
 
 ***
 
@@ -14610,7 +15364,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:48](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L48)
+[models.ts:48](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L48)
 
 ***
 
@@ -14642,7 +15396,7 @@ Use [`watch`](https://livecodes.io/docs/sdk/js-ts#watch) method instead.
 
 #### Defined in
 
-[models.ts:142](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L142)
+[models.ts:142](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L142)
 
 ***
 
@@ -14669,7 +15423,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:14](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L14)
+[models.ts:14](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L14)
 
 ***
 
@@ -14699,7 +15453,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:135](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L135)
+[models.ts:135](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L135)
 
 ***
 
@@ -14736,7 +15490,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:84](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L84)
+[models.ts:84](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L84)
 
 ***
 
@@ -14779,7 +15533,7 @@ await playground.show("console", { full: true });
 
 #### Defined in
 
-[models.ts:119](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L119)
+[models.ts:119](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L119)
 
 ***
 
@@ -14833,11 +15587,11 @@ createPlayground("#container").then((playground) => {
 
 #### Defined in
 
-[models.ts:187](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L187)
+[models.ts:187](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L187)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/interfaces/AppConfig -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/interfaces/AppConfig -->
 
 # Interface: AppConfig
 
@@ -14863,7 +15617,7 @@ true
 
 #### Defined in
 
-[models.ts:603](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L603)
+[models.ts:603](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L603)
 
 ***
 
@@ -14881,7 +15635,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### Defined in
 
-[models.ts:615](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L615)
+[models.ts:615](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L615)
 
 ***
 
@@ -14902,7 +15656,7 @@ false
 
 #### Defined in
 
-[models.ts:597](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L597)
+[models.ts:597](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L597)
 
 ***
 
@@ -14946,7 +15700,7 @@ Sets enabled and active tools and status of [tools pane](https://livecodes.io/do
 
 #### Defined in
 
-[models.ts:631](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L631)
+[models.ts:631](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L631)
 
 ***
 
@@ -14964,7 +15718,7 @@ Sets the [default view](https://livecodes.io/docs/features/default-view) for the
 
 #### Defined in
 
-[models.ts:609](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L609)
+[models.ts:609](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L609)
 
 ***
 
@@ -14976,11 +15730,11 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[models.ts:640](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L640)
+[models.ts:640](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L640)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/interfaces/ContentConfig -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/interfaces/ContentConfig -->
 
 # Interface: ContentConfig
 
@@ -15002,7 +15756,7 @@ Defaults to the last used editor for user, otherwise `"markup"`
 
 #### Defined in
 
-[models.ts:455](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L455)
+[models.ts:455](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L455)
 
 ***
 
@@ -15014,7 +15768,7 @@ Defaults to the last used editor for user, otherwise `"markup"`
 
 #### Defined in
 
-[models.ts:502](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L502)
+[models.ts:502](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L502)
 
 ***
 
@@ -15268,9 +16022,17 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **go**: `any`
 
+#### go-wasm
+
+> **go-wasm**: `any`
+
 #### golang
 
 > **golang**: `any`
+
+#### gowasm
+
+> **gowasm**: `any`
 
 #### graph
 
@@ -15676,6 +16438,14 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **riotjs**: `any`
 
+#### ripple
+
+> **ripple**: `any`
+
+#### ripplejs
+
+> **ripplejs**: `any`
+
 #### rlang
 
 > **rlang**: `any`
@@ -15718,7 +16488,7 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 #### scriptType?
 
-> `optional` **scriptType**: `""` \| `"module"` \| `"text/liquid"` \| `"text/python"` \| `"text/r"` \| `"text/ruby-wasm"` \| `"text/x-uniter-php"` \| `"text/php-wasm"` \| `"text/cpp"` \| `"text/java"` \| `"text/csharp-wasm"` \| `"text/perl"` \| `"text/julia"` \| `"text/biwascheme"` \| `"text/commonlisp"` \| `"text/tcl"` \| `"text/prolog"` \| `"application/json"` \| `"application/lua"` \| `"text/fennel"` \| `"application/wasm-uint8"` \| `"application/javascript"` \| `"application/ecmascript"` \| `"text/javascript"` \| `"text/ecmascript"`
+> `optional` **scriptType**: `""` \| `"module"` \| `"text/liquid"` \| `"text/python"` \| `"text/r"` \| `"text/ruby-wasm"` \| `"text/x-uniter-php"` \| `"text/php-wasm"` \| `"text/cpp"` \| `"text/java"` \| `"text/csharp-wasm"` \| `"text/perl"` \| `"text/julia"` \| `"text/biwascheme"` \| `"text/commonlisp"` \| `"text/tcl"` \| `"text/prolog"` \| `"text/go-wasm"` \| `"application/json"` \| `"application/lua"` \| `"text/fennel"` \| `"application/wasm-uint8"` \| `"application/javascript"` \| `"application/ecmascript"` \| `"text/javascript"` \| `"text/ecmascript"`
 
 #### scss
 
@@ -15872,6 +16642,10 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **cs**: `any`
 
+#### wasm.go
+
+> **go**: `any`
+
 #### wasm.lua
 
 > **lua**: `any`
@@ -15914,7 +16688,7 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 #### Defined in
 
-[models.ts:514](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L514)
+[models.ts:514](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L514)
 
 ***
 
@@ -15933,7 +16707,7 @@ and [result page](https://livecodes.io/docs/features/result) description meta ta
 
 #### Defined in
 
-[models.ts:425](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L425)
+[models.ts:425](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L425)
 
 ***
 
@@ -15951,7 +16725,7 @@ Content added to the [result page](https://livecodes.io/docs/features/result) `<
 
 #### Defined in
 
-[models.ts:431](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L431)
+[models.ts:431](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L431)
 
 ***
 
@@ -15971,7 +16745,7 @@ It can be an object or a string.
 
 #### Defined in
 
-[models.ts:440](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L440)
+[models.ts:440](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L440)
 
 ***
 
@@ -16008,13 +16782,13 @@ and [Custom Module Resolution](https://livecodes.io/docs/features/module-resolut
 
 #### Defined in
 
-[models.ts:540](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L540)
+[models.ts:540](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L540)
 
 ***
 
 ### languages
 
-> **languages**: `undefined` \| (`"reason"` \| `"stylus"` \| `"r"` \| `"html"` \| `"ruby"` \| `"rb"` \| `"json"` \| `"teal"` \| `"solid"` \| `"flow"` \| `"dot"` \| `"as"` \| `"go"` \| `"htm"` \| `"markdown"` \| `"md"` \| `"mdown"` \| `"mkdn"` \| `"mdx"` \| `"astro"` \| `"pug"` \| `"jade"` \| `"haml"` \| `"asciidoc"` \| `"adoc"` \| `"asc"` \| `"mustache"` \| `"handlebars"` \| `"hbs"` \| `"ejs"` \| `"eta"` \| `"nunjucks"` \| `"njk"` \| `"liquid"` \| `"liquidjs"` \| `"twig"` \| `"vento"` \| `"vto"` \| `"art-template"` \| `"art"` \| `"jinja"` \| `"bbcode"` \| `"bb"` \| `"mjml"` \| `"diagrams"` \| `"diagram"` \| `"graph"` \| `"plt"` \| `"richtext"` \| `"rte"` \| `"rich"` \| `"rte.html"` \| `"css"` \| `"scss"` \| `"sass"` \| `"less"` \| `"styl"` \| `"stylis"` \| `"postcss"` \| `"javascript"` \| `"js"` \| `"babel"` \| `"es"` \| `"sucrase"` \| `"typescript"` \| `"ts"` \| `"jsx"` \| `"tsx"` \| `"react"` \| `"react-jsx"` \| `"react.jsx"` \| `"react-tsx"` \| `"react.tsx"` \| `"react-native"` \| `"react-native.jsx"` \| `"react-native-tsx"` \| `"react-native.tsx"` \| `"vue"` \| `"vue3"` \| `"vue2"` \| `"vue-app"` \| `"app.vue"` \| `"svelte"` \| `"svelte-app"` \| `"app.svelte"` \| `"stencil"` \| `"stencil.tsx"` \| `"solid.jsx"` \| `"solid.tsx"` \| `"riot"` \| `"riotjs"` \| `"malina"` \| `"malinajs"` \| `"xht"` \| `"coffeescript"` \| `"coffee"` \| `"livescript"` \| `"ls"` \| `"civet"` \| `"clio"` \| `"imba"` \| `"assemblyscript"` \| `"python"` \| `"py"` \| `"pyodide"` \| `"python-wasm"` \| `"py-wasm"` \| `"pythonwasm"` \| `"pywasm"` \| `"py3"` \| `"wasm.py"` \| `"rlang"` \| `"rstats"` \| `"r-wasm"` \| `"ruby-wasm"` \| `"wasm.rb"` \| `"rubywasm"` \| `"golang"` \| `"php"` \| `"php-wasm"` \| `"phpwasm"` \| `"wasm.php"` \| `"cpp"` \| `"c"` \| `"C"` \| `"cp"` \| `"cxx"` \| `"c++"` \| `"cppm"` \| `"ixx"` \| `"ii"` \| `"hpp"` \| `"h"` \| `"cpp-wasm"` \| `"cppwasm"` \| `"cwasm"` \| `"wasm.cpp"` \| `"clang"` \| `"clang.cpp"` \| `"java"` \| `"csharp"` \| `"csharp-wasm"` \| `"cs"` \| `"cs-wasm"` \| `"wasm.cs"` \| `"perl"` \| `"pl"` \| `"pm"` \| `"lua"` \| `"lua-wasm"` \| `"luawasm"` \| `"wasm.lua"` \| `"tl"` \| `"fennel"` \| `"fnl"` \| `"julia"` \| `"jl"` \| `"scheme"` \| `"scm"` \| `"commonlisp"` \| `"common-lisp"` \| `"lisp"` \| `"clojurescript"` \| `"clojure"` \| `"cljs"` \| `"clj"` \| `"cljc"` \| `"edn"` \| `"gleam"` \| `"rescript"` \| `"res"` \| `"resi"` \| `"re"` \| `"rei"` \| `"ocaml"` \| `"ml"` \| `"mli"` \| `"tcl"` \| `"wat"` \| `"wast"` \| `"webassembly"` \| `"wasm"` \| `"Binary"` \| `"sql"` \| `"sqlite"` \| `"sqlite3"` \| `"pg.sql"` \| `"pgsql.sql"` \| `"pgsql"` \| `"pg"` \| `"pglite"` \| `"pglite.sql"` \| `"postgresql"` \| `"postgres"` \| `"postgre.sql"` \| `"postgresql.sql"` \| `"prolog.pl"` \| `"prolog"` \| `"blockly"` \| `"blockly.xml"` \| `"xml"` \| `"pintora"` \| `"tailwindcss"` \| `"postcssImportUrl"` \| `"windicss"` \| `"unocss"` \| `"tokencss"` \| `"lightningcss"` \| `"autoprefixer"` \| `"postcssPresetEnv"` \| `"cssmodules"` \| `"purgecss"` \| `"cssnano"`)[]
+> **languages**: `undefined` \| (`"reason"` \| `"stylus"` \| `"r"` \| `"html"` \| `"ruby"` \| `"rb"` \| `"json"` \| `"teal"` \| `"solid"` \| `"flow"` \| `"dot"` \| `"as"` \| `"go"` \| `"htm"` \| `"markdown"` \| `"md"` \| `"mdown"` \| `"mkdn"` \| `"mdx"` \| `"astro"` \| `"pug"` \| `"jade"` \| `"haml"` \| `"asciidoc"` \| `"adoc"` \| `"asc"` \| `"mustache"` \| `"handlebars"` \| `"hbs"` \| `"ejs"` \| `"eta"` \| `"nunjucks"` \| `"njk"` \| `"liquid"` \| `"liquidjs"` \| `"twig"` \| `"vento"` \| `"vto"` \| `"art-template"` \| `"art"` \| `"jinja"` \| `"bbcode"` \| `"bb"` \| `"mjml"` \| `"diagrams"` \| `"diagram"` \| `"graph"` \| `"plt"` \| `"richtext"` \| `"rte"` \| `"rich"` \| `"rte.html"` \| `"css"` \| `"scss"` \| `"sass"` \| `"less"` \| `"styl"` \| `"stylis"` \| `"postcss"` \| `"javascript"` \| `"js"` \| `"babel"` \| `"es"` \| `"sucrase"` \| `"typescript"` \| `"ts"` \| `"jsx"` \| `"tsx"` \| `"react"` \| `"react-jsx"` \| `"react.jsx"` \| `"react-tsx"` \| `"react.tsx"` \| `"react-native"` \| `"react-native.jsx"` \| `"react-native-tsx"` \| `"react-native.tsx"` \| `"vue"` \| `"vue3"` \| `"vue2"` \| `"vue-app"` \| `"app.vue"` \| `"svelte"` \| `"svelte-app"` \| `"app.svelte"` \| `"stencil"` \| `"stencil.tsx"` \| `"solid.jsx"` \| `"solid.tsx"` \| `"riot"` \| `"riotjs"` \| `"malina"` \| `"malinajs"` \| `"ripple"` \| `"ripplejs"` \| `"xht"` \| `"coffeescript"` \| `"coffee"` \| `"livescript"` \| `"ls"` \| `"civet"` \| `"clio"` \| `"imba"` \| `"assemblyscript"` \| `"python"` \| `"py"` \| `"pyodide"` \| `"python-wasm"` \| `"py-wasm"` \| `"pythonwasm"` \| `"pywasm"` \| `"py3"` \| `"wasm.py"` \| `"rlang"` \| `"rstats"` \| `"r-wasm"` \| `"ruby-wasm"` \| `"wasm.rb"` \| `"rubywasm"` \| `"golang"` \| `"go-wasm"` \| `"wasm.go"` \| `"gowasm"` \| `"php"` \| `"php-wasm"` \| `"phpwasm"` \| `"wasm.php"` \| `"cpp"` \| `"c"` \| `"C"` \| `"cp"` \| `"cxx"` \| `"c++"` \| `"cppm"` \| `"ixx"` \| `"ii"` \| `"hpp"` \| `"h"` \| `"cpp-wasm"` \| `"cppwasm"` \| `"cwasm"` \| `"wasm.cpp"` \| `"clang"` \| `"clang.cpp"` \| `"java"` \| `"csharp"` \| `"csharp-wasm"` \| `"cs"` \| `"cs-wasm"` \| `"wasm.cs"` \| `"perl"` \| `"pl"` \| `"pm"` \| `"lua"` \| `"lua-wasm"` \| `"luawasm"` \| `"wasm.lua"` \| `"tl"` \| `"fennel"` \| `"fnl"` \| `"julia"` \| `"jl"` \| `"scheme"` \| `"scm"` \| `"commonlisp"` \| `"common-lisp"` \| `"lisp"` \| `"clojurescript"` \| `"clojure"` \| `"cljs"` \| `"clj"` \| `"cljc"` \| `"edn"` \| `"gleam"` \| `"rescript"` \| `"res"` \| `"resi"` \| `"re"` \| `"rei"` \| `"ocaml"` \| `"ml"` \| `"mli"` \| `"tcl"` \| `"wat"` \| `"wast"` \| `"webassembly"` \| `"wasm"` \| `"Binary"` \| `"sql"` \| `"sqlite"` \| `"sqlite3"` \| `"pg.sql"` \| `"pgsql.sql"` \| `"pgsql"` \| `"pg"` \| `"pglite"` \| `"pglite.sql"` \| `"postgresql"` \| `"postgres"` \| `"postgre.sql"` \| `"postgresql.sql"` \| `"prolog.pl"` \| `"prolog"` \| `"blockly"` \| `"blockly.xml"` \| `"xml"` \| `"pintora"` \| `"tailwindcss"` \| `"postcssImportUrl"` \| `"windicss"` \| `"unocss"` \| `"tokencss"` \| `"lightningcss"` \| `"autoprefixer"` \| `"postcssPresetEnv"` \| `"cssmodules"` \| `"purgecss"` \| `"cssnano"`)[]
 
 List of enabled languages.
 
@@ -16022,7 +16796,7 @@ Defaults to all supported languages in full app and only current editor language
 
 #### Defined in
 
-[models.ts:462](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L462)
+[models.ts:462](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L462)
 
 ***
 
@@ -16146,7 +16920,7 @@ overriding the default title set to the language name
 
 #### Defined in
 
-[models.ts:470](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L470)
+[models.ts:470](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L470)
 
 ***
 
@@ -16160,7 +16934,7 @@ For the list of available processors, see [Processor](https://livecodes.io/docs/
 
 #### Defined in
 
-[models.ts:509](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L509)
+[models.ts:509](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L509)
 
 ***
 
@@ -16284,7 +17058,7 @@ overriding the default title set to the language name
 
 #### Defined in
 
-[models.ts:486](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L486)
+[models.ts:486](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L486)
 
 ***
 
@@ -16296,7 +17070,7 @@ List of URLs for [external scripts](https://livecodes.io/docs/features/external-
 
 #### Defined in
 
-[models.ts:496](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L496)
+[models.ts:496](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L496)
 
 ***
 
@@ -16420,7 +17194,7 @@ overriding the default title set to the language name
 
 #### Defined in
 
-[models.ts:478](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L478)
+[models.ts:478](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L478)
 
 ***
 
@@ -16432,7 +17206,7 @@ List of URLs for [external stylesheets](https://livecodes.io/docs/features/exter
 
 #### Defined in
 
-[models.ts:491](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L491)
+[models.ts:491](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L491)
 
 ***
 
@@ -16451,7 +17225,7 @@ Used in [project](https://livecodes.io/docs/features/projects) filter and search
 
 #### Defined in
 
-[models.ts:447](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L447)
+[models.ts:447](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L447)
 
 ***
 
@@ -16464,7 +17238,7 @@ and content of [tests](https://livecodes.io/docs/features/tests).
 
 #### Defined in
 
-[models.ts:576](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L576)
+[models.ts:576](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L576)
 
 ***
 
@@ -16484,7 +17258,7 @@ Also used in project search.
 
 #### Defined in
 
-[models.ts:418](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L418)
+[models.ts:418](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L418)
 
 ***
 
@@ -16522,7 +17296,7 @@ and [Custom Types](https://livecodes.io/docs/features/intellisense#custom-types)
 
 #### Defined in
 
-[models.ts:570](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L570)
+[models.ts:570](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L570)
 
 ***
 
@@ -16536,11 +17310,11 @@ Version specified in [exported](https://livecodes.io/docs/features/export) proje
 
 #### Defined in
 
-[models.ts:583](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L583)
+[models.ts:583](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L583)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/interfaces/EditorConfig -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/interfaces/EditorConfig -->
 
 # Interface: EditorConfig
 
@@ -16564,7 +17338,7 @@ true
 
 #### Defined in
 
-[models.ts:801](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L801)
+[models.ts:801](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L801)
 
 ***
 
@@ -16588,7 +17362,7 @@ undefined
 
 #### Defined in
 
-[models.ts:722](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L722)
+[models.ts:722](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L722)
 
 ***
 
@@ -16600,7 +17374,7 @@ Sets [editor mode](https://livecodes.io/docs/features/editor-settings#editor-mod
 
 #### Defined in
 
-[models.ts:812](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L812)
+[models.ts:812](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L812)
 
 ***
 
@@ -16636,7 +17410,7 @@ See docs for [editor themes](https://livecodes.io/docs/configuration/configurati
 
 #### Defined in
 
-[models.ts:748](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L748)
+[models.ts:748](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L748)
 
 ***
 
@@ -16654,7 +17428,7 @@ true
 
 #### Defined in
 
-[models.ts:807](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L807)
+[models.ts:807](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L807)
 
 ***
 
@@ -16672,7 +17446,7 @@ false
 
 #### Defined in
 
-[models.ts:818](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L818)
+[models.ts:818](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L818)
 
 ***
 
@@ -16690,7 +17464,7 @@ false
 
 #### Defined in
 
-[models.ts:795](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L795)
+[models.ts:795](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L795)
 
 ***
 
@@ -16702,7 +17476,7 @@ Sets the [code editor](https://livecodes.io/docs/features/editor-settings) font 
 
 #### Defined in
 
-[models.ts:753](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L753)
+[models.ts:753](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L753)
 
 ***
 
@@ -16722,7 +17496,7 @@ undefined
 
 #### Defined in
 
-[models.ts:761](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L761)
+[models.ts:761](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L761)
 
 ***
 
@@ -16740,7 +17514,7 @@ true
 
 #### Defined in
 
-[models.ts:783](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L783)
+[models.ts:783](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L783)
 
 ***
 
@@ -16760,7 +17534,7 @@ Also used in [code formatting](https://livecodes.io/docs/features/code-format).
 
 #### Defined in
 
-[models.ts:777](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L777)
+[models.ts:777](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L777)
 
 ***
 
@@ -16778,7 +17552,7 @@ Sets the app [theme](https://livecodes.io/docs/features/themes) to light/dark mo
 
 #### Defined in
 
-[models.ts:728](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L728)
+[models.ts:728](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L728)
 
 ***
 
@@ -16797,7 +17571,7 @@ undefined
 
 #### Defined in
 
-[models.ts:735](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L735)
+[models.ts:735](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L735)
 
 ***
 
@@ -16817,7 +17591,7 @@ false
 
 #### Defined in
 
-[models.ts:769](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L769)
+[models.ts:769](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L769)
 
 ***
 
@@ -16835,11 +17609,11 @@ false
 
 #### Defined in
 
-[models.ts:789](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L789)
+[models.ts:789](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L789)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/interfaces/EditorPosition -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/interfaces/EditorPosition -->
 
 # Interface: EditorPosition
 
@@ -16851,7 +17625,7 @@ false
 
 #### Defined in
 
-[models.ts:1165](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1165)
+[models.ts:1170](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1170)
 
 ***
 
@@ -16861,11 +17635,11 @@ false
 
 #### Defined in
 
-[models.ts:1164](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1164)
+[models.ts:1169](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1169)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/interfaces/FormatterConfig -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/interfaces/FormatterConfig -->
 
 # Interface: FormatterConfig
 
@@ -16889,7 +17663,7 @@ true
 
 #### Defined in
 
-[models.ts:838](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L838)
+[models.ts:838](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L838)
 
 ***
 
@@ -16907,7 +17681,7 @@ false
 
 #### Defined in
 
-[models.ts:843](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L843)
+[models.ts:843](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L843)
 
 ***
 
@@ -16925,7 +17699,7 @@ The number of spaces per indentation-level.
 
 #### Defined in
 
-[models.ts:832](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L832)
+[models.ts:832](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L832)
 
 ***
 
@@ -16943,7 +17717,7 @@ true
 
 #### Defined in
 
-[models.ts:849](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L849)
+[models.ts:849](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L849)
 
 ***
 
@@ -16961,11 +17735,11 @@ false
 
 #### Defined in
 
-[models.ts:826](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L826)
+[models.ts:826](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L826)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/interfaces/TestResult -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/interfaces/TestResult -->
 
 # Interface: TestResult
 
@@ -16977,7 +17751,7 @@ false
 
 #### Defined in
 
-[models.ts:1979](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1979)
+[models.ts:1988](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1988)
 
 ***
 
@@ -16987,7 +17761,7 @@ false
 
 #### Defined in
 
-[models.ts:1980](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1980)
+[models.ts:1989](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1989)
 
 ***
 
@@ -16997,7 +17771,7 @@ false
 
 #### Defined in
 
-[models.ts:1981](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1981)
+[models.ts:1990](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1990)
 
 ***
 
@@ -17007,11 +17781,11 @@ false
 
 #### Defined in
 
-[models.ts:1982](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1982)
+[models.ts:1991](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1991)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/interfaces/Types -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/interfaces/Types -->
 
 # Interface: Types
 
@@ -17021,7 +17795,7 @@ false
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/interfaces/UserConfig -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/interfaces/UserConfig -->
 
 # Interface: UserConfig
 
@@ -17043,7 +17817,7 @@ Sets the app UI language used.
 
 #### Defined in
 
-[models.ts:707](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L707)
+[models.ts:707](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L707)
 
 ***
 
@@ -17062,7 +17836,7 @@ false
 
 #### Defined in
 
-[models.ts:656](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L656)
+[models.ts:656](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L656)
 
 ***
 
@@ -17080,7 +17854,7 @@ false
 
 #### Defined in
 
-[models.ts:662](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L662)
+[models.ts:662](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L662)
 
 ***
 
@@ -17099,7 +17873,7 @@ true
 
 #### Defined in
 
-[models.ts:649](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L649)
+[models.ts:649](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L649)
 
 ***
 
@@ -17121,7 +17895,7 @@ true
 
 #### Defined in
 
-[models.ts:801](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L801)
+[models.ts:801](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L801)
 
 ***
 
@@ -17141,7 +17915,7 @@ and/or the project is saved (if [`autosave`](https://livecodes.io/docs/configura
 
 #### Defined in
 
-[models.ts:670](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L670)
+[models.ts:670](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L670)
 
 ***
 
@@ -17169,7 +17943,7 @@ undefined
 
 #### Defined in
 
-[models.ts:722](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L722)
+[models.ts:722](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L722)
 
 ***
 
@@ -17185,7 +17959,7 @@ Sets [editor mode](https://livecodes.io/docs/features/editor-settings#editor-mod
 
 #### Defined in
 
-[models.ts:812](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L812)
+[models.ts:812](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L812)
 
 ***
 
@@ -17225,7 +17999,7 @@ See docs for [editor themes](https://livecodes.io/docs/configuration/configurati
 
 #### Defined in
 
-[models.ts:748](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L748)
+[models.ts:748](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L748)
 
 ***
 
@@ -17247,7 +18021,7 @@ true
 
 #### Defined in
 
-[models.ts:807](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L807)
+[models.ts:807](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L807)
 
 ***
 
@@ -17269,7 +18043,7 @@ false
 
 #### Defined in
 
-[models.ts:818](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L818)
+[models.ts:818](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L818)
 
 ***
 
@@ -17291,7 +18065,7 @@ false
 
 #### Defined in
 
-[models.ts:795](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L795)
+[models.ts:795](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L795)
 
 ***
 
@@ -17307,7 +18081,7 @@ Sets the [code editor](https://livecodes.io/docs/features/editor-settings) font 
 
 #### Defined in
 
-[models.ts:753](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L753)
+[models.ts:753](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L753)
 
 ***
 
@@ -17331,7 +18105,7 @@ undefined
 
 #### Defined in
 
-[models.ts:761](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L761)
+[models.ts:761](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L761)
 
 ***
 
@@ -17349,7 +18123,7 @@ false
 
 #### Defined in
 
-[models.ts:676](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L676)
+[models.ts:676](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L676)
 
 ***
 
@@ -17370,7 +18144,7 @@ otherwise horizontal.
 
 #### Defined in
 
-[models.ts:685](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L685)
+[models.ts:685](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L685)
 
 ***
 
@@ -17392,7 +18166,7 @@ true
 
 #### Defined in
 
-[models.ts:783](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L783)
+[models.ts:783](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L783)
 
 ***
 
@@ -17410,7 +18184,7 @@ true
 
 #### Defined in
 
-[models.ts:691](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L691)
+[models.ts:691](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L691)
 
 ***
 
@@ -17432,7 +18206,7 @@ true
 
 #### Defined in
 
-[models.ts:838](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L838)
+[models.ts:838](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L838)
 
 ***
 
@@ -17450,7 +18224,7 @@ false
 
 #### Defined in
 
-[models.ts:697](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L697)
+[models.ts:697](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L697)
 
 ***
 
@@ -17472,7 +18246,7 @@ false
 
 #### Defined in
 
-[models.ts:843](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L843)
+[models.ts:843](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L843)
 
 ***
 
@@ -17496,7 +18270,7 @@ Also used in [code formatting](https://livecodes.io/docs/features/code-format).
 
 #### Defined in
 
-[models.ts:777](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L777)
+[models.ts:777](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L777)
 
 ***
 
@@ -17518,7 +18292,7 @@ Sets the app [theme](https://livecodes.io/docs/features/themes) to light/dark mo
 
 #### Defined in
 
-[models.ts:728](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L728)
+[models.ts:728](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L728)
 
 ***
 
@@ -17541,7 +18315,7 @@ undefined
 
 #### Defined in
 
-[models.ts:735](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L735)
+[models.ts:735](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L735)
 
 ***
 
@@ -17563,7 +18337,7 @@ true
 
 #### Defined in
 
-[models.ts:849](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L849)
+[models.ts:849](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L849)
 
 ***
 
@@ -17587,7 +18361,7 @@ false
 
 #### Defined in
 
-[models.ts:769](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L769)
+[models.ts:769](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L769)
 
 ***
 
@@ -17599,7 +18373,7 @@ If `true`, the [welcome screen](https://livecodes.io/docs/features/welcome) is d
 
 #### Defined in
 
-[models.ts:702](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L702)
+[models.ts:702](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L702)
 
 ***
 
@@ -17621,11 +18395,11 @@ false
 
 #### Defined in
 
-[models.ts:789](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L789)
+[models.ts:789](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L789)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/APICommands -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/APICommands -->
 
 # Type Alias: APICommands
 
@@ -17633,23 +18407,23 @@ false
 
 ## Defined in
 
-[models.ts:280](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L280)
+[models.ts:280](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L280)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/AppLanguage -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/AppLanguage -->
 
 # Type Alias: AppLanguage
 
-> **AppLanguage**: `"auto"` \| `"ar"` \| `"de"` \| `"en"` \| `"es"` \| `"fr"` \| `"hi"` \| `"it"` \| `"ja"` \| `"pt"` \| `"ru"` \| `"ur"` \| `"zh-CN"`
+> **AppLanguage**: `"auto"` \| `"ar"` \| `"de"` \| `"en"` \| `"es"` \| `"fa"` \| `"fr"` \| `"hi"` \| `"it"` \| `"ja"` \| `"pt"` \| `"ru"` \| `"ur"` \| `"zh-CN"`
 
 ## Defined in
 
-[models.ts:1778](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1778)
+[models.ts:1786](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1786)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/CDN -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/CDN -->
 
 # Type Alias: CDN
 
@@ -17657,11 +18431,11 @@ false
 
 ## Defined in
 
-[models.ts:1861](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1861)
+[models.ts:1870](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1870)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/CodejarTheme -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/CodejarTheme -->
 
 # Type Alias: CodejarTheme
 
@@ -17669,11 +18443,11 @@ false
 
 ## Defined in
 
-[models.ts:1687](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1687)
+[models.ts:1695](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1695)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/CodemirrorTheme -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/CodemirrorTheme -->
 
 # Type Alias: CodemirrorTheme
 
@@ -17681,11 +18455,11 @@ false
 
 ## Defined in
 
-[models.ts:1647](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1647)
+[models.ts:1655](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1655)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/CssPresetId -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/CssPresetId -->
 
 # Type Alias: CssPresetId
 
@@ -17693,11 +18467,11 @@ false
 
 ## Defined in
 
-[models.ts:1269](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1269)
+[models.ts:1274](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1274)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/EditorId -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/EditorId -->
 
 # Type Alias: EditorId
 
@@ -17705,11 +18479,11 @@ false
 
 ## Defined in
 
-[models.ts:1168](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1168)
+[models.ts:1173](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1173)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/EditorTheme -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/EditorTheme -->
 
 # Type Alias: EditorTheme
 
@@ -17717,11 +18491,11 @@ false
 
 ## Defined in
 
-[models.ts:1740](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1740)
+[models.ts:1748](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1748)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/MonacoTheme -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/MonacoTheme -->
 
 # Type Alias: MonacoTheme
 
@@ -17729,11 +18503,11 @@ false
 
 ## Defined in
 
-[models.ts:1580](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1580)
+[models.ts:1588](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1588)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/Processor -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/Processor -->
 
 # Type Alias: Processor
 
@@ -17741,23 +18515,23 @@ false
 
 ## Defined in
 
-[models.ts:1226](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1226)
+[models.ts:1231](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1231)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/TemplateName -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/TemplateName -->
 
 # Type Alias: TemplateName
 
-> **TemplateName**: `"blank"` \| `"javascript"` \| `"typescript"` \| `"react"` \| `"react-native"` \| `"vue2"` \| `"vue"` \| `"angular"` \| `"preact"` \| `"svelte"` \| `"solid"` \| `"lit"` \| `"stencil"` \| `"mdx"` \| `"astro"` \| `"riot"` \| `"malina"` \| `"jquery"` \| `"backbone"` \| `"knockout"` \| `"jest"` \| `"jest-react"` \| `"bootstrap"` \| `"tailwindcss"` \| `"shadcn-ui"` \| `"daisyui"` \| `"d3"` \| `"phaser"` \| `"coffeescript"` \| `"livescript"` \| `"civet"` \| `"clio"` \| `"imba"` \| `"rescript"` \| `"reason"` \| `"ocaml"` \| `"python"` \| `"pyodide"` \| `"python-wasm"` \| `"r"` \| `"ruby"` \| `"ruby-wasm"` \| `"go"` \| `"php"` \| `"php-wasm"` \| `"cpp"` \| `"clang"` \| `"cpp-wasm"` \| `"java"` \| `"csharp-wasm"` \| `"perl"` \| `"lua"` \| `"lua-wasm"` \| `"teal"` \| `"fennel"` \| `"julia"` \| `"scheme"` \| `"commonlisp"` \| `"clojurescript"` \| `"gleam"` \| `"tcl"` \| `"markdown"` \| `"assemblyscript"` \| `"wat"` \| `"sql"` \| `"postgresql"` \| `"prolog"` \| `"blockly"` \| `"diagrams"`
+> **TemplateName**: `"blank"` \| `"javascript"` \| `"typescript"` \| `"react"` \| `"react-native"` \| `"vue2"` \| `"vue"` \| `"angular"` \| `"preact"` \| `"svelte"` \| `"solid"` \| `"lit"` \| `"stencil"` \| `"mdx"` \| `"astro"` \| `"riot"` \| `"malina"` \| `"jquery"` \| `"backbone"` \| `"knockout"` \| `"jest"` \| `"jest-react"` \| `"bootstrap"` \| `"tailwindcss"` \| `"shadcn-ui"` \| `"daisyui"` \| `"d3"` \| `"phaser"` \| `"coffeescript"` \| `"livescript"` \| `"civet"` \| `"clio"` \| `"imba"` \| `"rescript"` \| `"reason"` \| `"ocaml"` \| `"python"` \| `"pyodide"` \| `"python-wasm"` \| `"r"` \| `"ruby"` \| `"ruby-wasm"` \| `"go"` \| `"go-wasm"` \| `"php"` \| `"php-wasm"` \| `"cpp"` \| `"clang"` \| `"cpp-wasm"` \| `"java"` \| `"csharp-wasm"` \| `"perl"` \| `"lua"` \| `"lua-wasm"` \| `"teal"` \| `"fennel"` \| `"julia"` \| `"scheme"` \| `"commonlisp"` \| `"clojurescript"` \| `"gleam"` \| `"tcl"` \| `"markdown"` \| `"assemblyscript"` \| `"wat"` \| `"sql"` \| `"postgresql"` \| `"prolog"` \| `"blockly"` \| `"diagrams"`
 
 ## Defined in
 
-[models.ts:1376](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1376)
+[models.ts:1383](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1383)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/Theme -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/Theme -->
 
 # Type Alias: Theme
 
@@ -17765,11 +18539,11 @@ false
 
 ## Defined in
 
-[models.ts:1926](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1926)
+[models.ts:1935](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1935)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/ToolsPaneStatus -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/ToolsPaneStatus -->
 
 # Type Alias: ToolsPaneStatus
 
@@ -17777,11 +18551,11 @@ false
 
 ## Defined in
 
-[models.ts:1456](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1456)
+[models.ts:1464](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1464)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/WatchCode -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/WatchCode -->
 
 # Type Alias: WatchCode()
 
@@ -17819,11 +18593,11 @@ This includes changes in:
 
 ## Defined in
 
-[models.ts:248](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L248)
+[models.ts:248](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L248)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/WatchConsole -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/WatchConsole -->
 
 # Type Alias: WatchConsole()
 
@@ -17849,11 +18623,11 @@ This includes changes in:
 
 ## Defined in
 
-[models.ts:253](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L253)
+[models.ts:253](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L253)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/WatchDestroy -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/WatchDestroy -->
 
 # Type Alias: WatchDestroy()
 
@@ -17879,11 +18653,11 @@ This includes changes in:
 
 ## Defined in
 
-[models.ts:263](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L263)
+[models.ts:263](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L263)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/WatchLoad -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/WatchLoad -->
 
 # Type Alias: WatchLoad()
 
@@ -17911,11 +18685,11 @@ Called when the playground first loads.
 
 ## Defined in
 
-[models.ts:225](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L225)
+[models.ts:225](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L225)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/WatchReady -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/WatchReady -->
 
 # Type Alias: WatchReady()
 
@@ -17943,11 +18717,11 @@ Called when a new project is loaded (including when [imported](https://livecodes
 
 ## Defined in
 
-[models.ts:230](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L230)
+[models.ts:230](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L230)
 
 ---
 
-<!-- Source: /livecodes/docs/api/internal/type-aliases/WatchTests -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/internal/type-aliases/WatchTests -->
 
 # Type Alias: WatchTests()
 
@@ -17973,11 +18747,11 @@ Called when a new project is loaded (including when [imported](https://livecodes
 
 ## Defined in
 
-[models.ts:258](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L258)
+[models.ts:258](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L258)
 
 ---
 
-<!-- Source: /livecodes/docs/api/interfaces/Code -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/interfaces/Code -->
 
 # Interface: Code
 
@@ -18006,7 +18780,7 @@ See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
 
 #### Defined in
 
-[models.ts:1908](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1908)
+[models.ts:1917](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1917)
 
 ***
 
@@ -18016,7 +18790,7 @@ See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
 
 #### Defined in
 
-[models.ts:1923](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1923)
+[models.ts:1932](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1932)
 
 ***
 
@@ -18038,7 +18812,7 @@ See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
 
 #### Defined in
 
-[models.ts:1918](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1918)
+[models.ts:1927](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1927)
 
 ***
 
@@ -18060,11 +18834,11 @@ See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
 
 #### Defined in
 
-[models.ts:1913](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1913)
+[models.ts:1922](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1922)
 
 ---
 
-<!-- Source: /livecodes/docs/api/interfaces/Config -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/interfaces/Config -->
 
 # Interface: Config
 
@@ -18094,7 +18868,7 @@ Defaults to the last used editor for user, otherwise `"markup"`
 
 #### Defined in
 
-[models.ts:455](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L455)
+[models.ts:455](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L455)
 
 ***
 
@@ -18116,7 +18890,7 @@ true
 
 #### Defined in
 
-[models.ts:603](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L603)
+[models.ts:603](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L603)
 
 ***
 
@@ -18132,7 +18906,7 @@ Sets the app UI language used.
 
 #### Defined in
 
-[models.ts:707](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L707)
+[models.ts:707](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L707)
 
 ***
 
@@ -18155,7 +18929,7 @@ false
 
 #### Defined in
 
-[models.ts:656](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L656)
+[models.ts:656](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L656)
 
 ***
 
@@ -18177,7 +18951,7 @@ false
 
 #### Defined in
 
-[models.ts:662](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L662)
+[models.ts:662](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L662)
 
 ***
 
@@ -18200,7 +18974,7 @@ true
 
 #### Defined in
 
-[models.ts:649](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L649)
+[models.ts:649](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L649)
 
 ***
 
@@ -18222,7 +18996,7 @@ true
 
 #### Defined in
 
-[models.ts:801](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L801)
+[models.ts:801](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L801)
 
 ***
 
@@ -18238,7 +19012,7 @@ true
 
 #### Defined in
 
-[models.ts:502](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L502)
+[models.ts:502](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L502)
 
 ***
 
@@ -18492,9 +19266,17 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **go**: `any`
 
+#### go-wasm
+
+> **go-wasm**: `any`
+
 #### golang
 
 > **golang**: `any`
+
+#### gowasm
+
+> **gowasm**: `any`
 
 #### graph
 
@@ -18900,6 +19682,14 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **riotjs**: `any`
 
+#### ripple
+
+> **ripple**: `any`
+
+#### ripplejs
+
+> **ripplejs**: `any`
+
 #### rlang
 
 > **rlang**: `any`
@@ -18942,7 +19732,7 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 #### scriptType?
 
-> `optional` **scriptType**: `""` \| `"module"` \| `"text/liquid"` \| `"text/python"` \| `"text/r"` \| `"text/ruby-wasm"` \| `"text/x-uniter-php"` \| `"text/php-wasm"` \| `"text/cpp"` \| `"text/java"` \| `"text/csharp-wasm"` \| `"text/perl"` \| `"text/julia"` \| `"text/biwascheme"` \| `"text/commonlisp"` \| `"text/tcl"` \| `"text/prolog"` \| `"application/json"` \| `"application/lua"` \| `"text/fennel"` \| `"application/wasm-uint8"` \| `"application/javascript"` \| `"application/ecmascript"` \| `"text/javascript"` \| `"text/ecmascript"`
+> `optional` **scriptType**: `""` \| `"module"` \| `"text/liquid"` \| `"text/python"` \| `"text/r"` \| `"text/ruby-wasm"` \| `"text/x-uniter-php"` \| `"text/php-wasm"` \| `"text/cpp"` \| `"text/java"` \| `"text/csharp-wasm"` \| `"text/perl"` \| `"text/julia"` \| `"text/biwascheme"` \| `"text/commonlisp"` \| `"text/tcl"` \| `"text/prolog"` \| `"text/go-wasm"` \| `"application/json"` \| `"application/lua"` \| `"text/fennel"` \| `"application/wasm-uint8"` \| `"application/javascript"` \| `"application/ecmascript"` \| `"text/javascript"` \| `"text/ecmascript"`
 
 #### scss
 
@@ -19096,6 +19886,10 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **cs**: `any`
 
+#### wasm.go
+
+> **go**: `any`
+
 #### wasm.lua
 
 > **lua**: `any`
@@ -19142,7 +19936,7 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 #### Defined in
 
-[models.ts:514](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L514)
+[models.ts:514](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L514)
 
 ***
 
@@ -19166,7 +19960,7 @@ and/or the project is saved (if [`autosave`](https://livecodes.io/docs/configura
 
 #### Defined in
 
-[models.ts:670](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L670)
+[models.ts:670](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L670)
 
 ***
 
@@ -19189,7 +19983,7 @@ and [result page](https://livecodes.io/docs/features/result) description meta ta
 
 #### Defined in
 
-[models.ts:425](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L425)
+[models.ts:425](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L425)
 
 ***
 
@@ -19217,7 +20011,7 @@ undefined
 
 #### Defined in
 
-[models.ts:722](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L722)
+[models.ts:722](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L722)
 
 ***
 
@@ -19233,7 +20027,7 @@ Sets [editor mode](https://livecodes.io/docs/features/editor-settings#editor-mod
 
 #### Defined in
 
-[models.ts:812](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L812)
+[models.ts:812](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L812)
 
 ***
 
@@ -19273,7 +20067,7 @@ See docs for [editor themes](https://livecodes.io/docs/configuration/configurati
 
 #### Defined in
 
-[models.ts:748](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L748)
+[models.ts:748](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L748)
 
 ***
 
@@ -19295,7 +20089,7 @@ true
 
 #### Defined in
 
-[models.ts:807](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L807)
+[models.ts:807](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L807)
 
 ***
 
@@ -19317,7 +20111,7 @@ false
 
 #### Defined in
 
-[models.ts:818](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L818)
+[models.ts:818](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L818)
 
 ***
 
@@ -19339,7 +20133,7 @@ false
 
 #### Defined in
 
-[models.ts:795](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L795)
+[models.ts:795](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L795)
 
 ***
 
@@ -19355,7 +20149,7 @@ Sets the [code editor](https://livecodes.io/docs/features/editor-settings) font 
 
 #### Defined in
 
-[models.ts:753](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L753)
+[models.ts:753](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L753)
 
 ***
 
@@ -19379,7 +20173,7 @@ undefined
 
 #### Defined in
 
-[models.ts:761](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L761)
+[models.ts:761](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L761)
 
 ***
 
@@ -19401,7 +20195,7 @@ false
 
 #### Defined in
 
-[models.ts:676](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L676)
+[models.ts:676](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L676)
 
 ***
 
@@ -19423,7 +20217,7 @@ Content added to the [result page](https://livecodes.io/docs/features/result) `<
 
 #### Defined in
 
-[models.ts:431](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L431)
+[models.ts:431](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L431)
 
 ***
 
@@ -19447,7 +20241,7 @@ It can be an object or a string.
 
 #### Defined in
 
-[models.ts:440](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L440)
+[models.ts:440](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L440)
 
 ***
 
@@ -19488,13 +20282,13 @@ and [Custom Module Resolution](https://livecodes.io/docs/features/module-resolut
 
 #### Defined in
 
-[models.ts:540](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L540)
+[models.ts:540](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L540)
 
 ***
 
 ### languages
 
-> **languages**: `undefined` \| (`"reason"` \| `"stylus"` \| `"r"` \| `"html"` \| `"ruby"` \| `"rb"` \| `"json"` \| `"teal"` \| `"solid"` \| `"flow"` \| `"dot"` \| `"as"` \| `"go"` \| `"htm"` \| `"markdown"` \| `"md"` \| `"mdown"` \| `"mkdn"` \| `"mdx"` \| `"astro"` \| `"pug"` \| `"jade"` \| `"haml"` \| `"asciidoc"` \| `"adoc"` \| `"asc"` \| `"mustache"` \| `"handlebars"` \| `"hbs"` \| `"ejs"` \| `"eta"` \| `"nunjucks"` \| `"njk"` \| `"liquid"` \| `"liquidjs"` \| `"twig"` \| `"vento"` \| `"vto"` \| `"art-template"` \| `"art"` \| `"jinja"` \| `"bbcode"` \| `"bb"` \| `"mjml"` \| `"diagrams"` \| `"diagram"` \| `"graph"` \| `"plt"` \| `"richtext"` \| `"rte"` \| `"rich"` \| `"rte.html"` \| `"css"` \| `"scss"` \| `"sass"` \| `"less"` \| `"styl"` \| `"stylis"` \| `"postcss"` \| `"javascript"` \| `"js"` \| `"babel"` \| `"es"` \| `"sucrase"` \| `"typescript"` \| `"ts"` \| `"jsx"` \| `"tsx"` \| `"react"` \| `"react-jsx"` \| `"react.jsx"` \| `"react-tsx"` \| `"react.tsx"` \| `"react-native"` \| `"react-native.jsx"` \| `"react-native-tsx"` \| `"react-native.tsx"` \| `"vue"` \| `"vue3"` \| `"vue2"` \| `"vue-app"` \| `"app.vue"` \| `"svelte"` \| `"svelte-app"` \| `"app.svelte"` \| `"stencil"` \| `"stencil.tsx"` \| `"solid.jsx"` \| `"solid.tsx"` \| `"riot"` \| `"riotjs"` \| `"malina"` \| `"malinajs"` \| `"xht"` \| `"coffeescript"` \| `"coffee"` \| `"livescript"` \| `"ls"` \| `"civet"` \| `"clio"` \| `"imba"` \| `"assemblyscript"` \| `"python"` \| `"py"` \| `"pyodide"` \| `"python-wasm"` \| `"py-wasm"` \| `"pythonwasm"` \| `"pywasm"` \| `"py3"` \| `"wasm.py"` \| `"rlang"` \| `"rstats"` \| `"r-wasm"` \| `"ruby-wasm"` \| `"wasm.rb"` \| `"rubywasm"` \| `"golang"` \| `"php"` \| `"php-wasm"` \| `"phpwasm"` \| `"wasm.php"` \| `"cpp"` \| `"c"` \| `"C"` \| `"cp"` \| `"cxx"` \| `"c++"` \| `"cppm"` \| `"ixx"` \| `"ii"` \| `"hpp"` \| `"h"` \| `"cpp-wasm"` \| `"cppwasm"` \| `"cwasm"` \| `"wasm.cpp"` \| `"clang"` \| `"clang.cpp"` \| `"java"` \| `"csharp"` \| `"csharp-wasm"` \| `"cs"` \| `"cs-wasm"` \| `"wasm.cs"` \| `"perl"` \| `"pl"` \| `"pm"` \| `"lua"` \| `"lua-wasm"` \| `"luawasm"` \| `"wasm.lua"` \| `"tl"` \| `"fennel"` \| `"fnl"` \| `"julia"` \| `"jl"` \| `"scheme"` \| `"scm"` \| `"commonlisp"` \| `"common-lisp"` \| `"lisp"` \| `"clojurescript"` \| `"clojure"` \| `"cljs"` \| `"clj"` \| `"cljc"` \| `"edn"` \| `"gleam"` \| `"rescript"` \| `"res"` \| `"resi"` \| `"re"` \| `"rei"` \| `"ocaml"` \| `"ml"` \| `"mli"` \| `"tcl"` \| `"wat"` \| `"wast"` \| `"webassembly"` \| `"wasm"` \| `"Binary"` \| `"sql"` \| `"sqlite"` \| `"sqlite3"` \| `"pg.sql"` \| `"pgsql.sql"` \| `"pgsql"` \| `"pg"` \| `"pglite"` \| `"pglite.sql"` \| `"postgresql"` \| `"postgres"` \| `"postgre.sql"` \| `"postgresql.sql"` \| `"prolog.pl"` \| `"prolog"` \| `"blockly"` \| `"blockly.xml"` \| `"xml"` \| `"pintora"` \| `"tailwindcss"` \| `"postcssImportUrl"` \| `"windicss"` \| `"unocss"` \| `"tokencss"` \| `"lightningcss"` \| `"autoprefixer"` \| `"postcssPresetEnv"` \| `"cssmodules"` \| `"purgecss"` \| `"cssnano"`)[]
+> **languages**: `undefined` \| (`"reason"` \| `"stylus"` \| `"r"` \| `"html"` \| `"ruby"` \| `"rb"` \| `"json"` \| `"teal"` \| `"solid"` \| `"flow"` \| `"dot"` \| `"as"` \| `"go"` \| `"htm"` \| `"markdown"` \| `"md"` \| `"mdown"` \| `"mkdn"` \| `"mdx"` \| `"astro"` \| `"pug"` \| `"jade"` \| `"haml"` \| `"asciidoc"` \| `"adoc"` \| `"asc"` \| `"mustache"` \| `"handlebars"` \| `"hbs"` \| `"ejs"` \| `"eta"` \| `"nunjucks"` \| `"njk"` \| `"liquid"` \| `"liquidjs"` \| `"twig"` \| `"vento"` \| `"vto"` \| `"art-template"` \| `"art"` \| `"jinja"` \| `"bbcode"` \| `"bb"` \| `"mjml"` \| `"diagrams"` \| `"diagram"` \| `"graph"` \| `"plt"` \| `"richtext"` \| `"rte"` \| `"rich"` \| `"rte.html"` \| `"css"` \| `"scss"` \| `"sass"` \| `"less"` \| `"styl"` \| `"stylis"` \| `"postcss"` \| `"javascript"` \| `"js"` \| `"babel"` \| `"es"` \| `"sucrase"` \| `"typescript"` \| `"ts"` \| `"jsx"` \| `"tsx"` \| `"react"` \| `"react-jsx"` \| `"react.jsx"` \| `"react-tsx"` \| `"react.tsx"` \| `"react-native"` \| `"react-native.jsx"` \| `"react-native-tsx"` \| `"react-native.tsx"` \| `"vue"` \| `"vue3"` \| `"vue2"` \| `"vue-app"` \| `"app.vue"` \| `"svelte"` \| `"svelte-app"` \| `"app.svelte"` \| `"stencil"` \| `"stencil.tsx"` \| `"solid.jsx"` \| `"solid.tsx"` \| `"riot"` \| `"riotjs"` \| `"malina"` \| `"malinajs"` \| `"ripple"` \| `"ripplejs"` \| `"xht"` \| `"coffeescript"` \| `"coffee"` \| `"livescript"` \| `"ls"` \| `"civet"` \| `"clio"` \| `"imba"` \| `"assemblyscript"` \| `"python"` \| `"py"` \| `"pyodide"` \| `"python-wasm"` \| `"py-wasm"` \| `"pythonwasm"` \| `"pywasm"` \| `"py3"` \| `"wasm.py"` \| `"rlang"` \| `"rstats"` \| `"r-wasm"` \| `"ruby-wasm"` \| `"wasm.rb"` \| `"rubywasm"` \| `"golang"` \| `"go-wasm"` \| `"wasm.go"` \| `"gowasm"` \| `"php"` \| `"php-wasm"` \| `"phpwasm"` \| `"wasm.php"` \| `"cpp"` \| `"c"` \| `"C"` \| `"cp"` \| `"cxx"` \| `"c++"` \| `"cppm"` \| `"ixx"` \| `"ii"` \| `"hpp"` \| `"h"` \| `"cpp-wasm"` \| `"cppwasm"` \| `"cwasm"` \| `"wasm.cpp"` \| `"clang"` \| `"clang.cpp"` \| `"java"` \| `"csharp"` \| `"csharp-wasm"` \| `"cs"` \| `"cs-wasm"` \| `"wasm.cs"` \| `"perl"` \| `"pl"` \| `"pm"` \| `"lua"` \| `"lua-wasm"` \| `"luawasm"` \| `"wasm.lua"` \| `"tl"` \| `"fennel"` \| `"fnl"` \| `"julia"` \| `"jl"` \| `"scheme"` \| `"scm"` \| `"commonlisp"` \| `"common-lisp"` \| `"lisp"` \| `"clojurescript"` \| `"clojure"` \| `"cljs"` \| `"clj"` \| `"cljc"` \| `"edn"` \| `"gleam"` \| `"rescript"` \| `"res"` \| `"resi"` \| `"re"` \| `"rei"` \| `"ocaml"` \| `"ml"` \| `"mli"` \| `"tcl"` \| `"wat"` \| `"wast"` \| `"webassembly"` \| `"wasm"` \| `"Binary"` \| `"sql"` \| `"sqlite"` \| `"sqlite3"` \| `"pg.sql"` \| `"pgsql.sql"` \| `"pgsql"` \| `"pg"` \| `"pglite"` \| `"pglite.sql"` \| `"postgresql"` \| `"postgres"` \| `"postgre.sql"` \| `"postgresql.sql"` \| `"prolog.pl"` \| `"prolog"` \| `"blockly"` \| `"blockly.xml"` \| `"xml"` \| `"pintora"` \| `"tailwindcss"` \| `"postcssImportUrl"` \| `"windicss"` \| `"unocss"` \| `"tokencss"` \| `"lightningcss"` \| `"autoprefixer"` \| `"postcssPresetEnv"` \| `"cssmodules"` \| `"purgecss"` \| `"cssnano"`)[]
 
 List of enabled languages.
 
@@ -19506,7 +20300,7 @@ Defaults to all supported languages in full app and only current editor language
 
 #### Defined in
 
-[models.ts:462](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L462)
+[models.ts:462](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L462)
 
 ***
 
@@ -19531,7 +20325,7 @@ otherwise horizontal.
 
 #### Defined in
 
-[models.ts:685](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L685)
+[models.ts:685](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L685)
 
 ***
 
@@ -19553,7 +20347,7 @@ true
 
 #### Defined in
 
-[models.ts:783](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L783)
+[models.ts:783](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L783)
 
 ***
 
@@ -19681,7 +20475,7 @@ overriding the default title set to the language name
 
 #### Defined in
 
-[models.ts:470](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L470)
+[models.ts:470](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L470)
 
 ***
 
@@ -19703,7 +20497,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### Defined in
 
-[models.ts:615](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L615)
+[models.ts:615](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L615)
 
 ***
 
@@ -19721,7 +20515,7 @@ For the list of available processors, see [Processor](https://livecodes.io/docs/
 
 #### Defined in
 
-[models.ts:509](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L509)
+[models.ts:509](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L509)
 
 ***
 
@@ -19746,7 +20540,7 @@ false
 
 #### Defined in
 
-[models.ts:597](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L597)
+[models.ts:597](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L597)
 
 ***
 
@@ -19768,7 +20562,7 @@ true
 
 #### Defined in
 
-[models.ts:691](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L691)
+[models.ts:691](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L691)
 
 ***
 
@@ -19896,7 +20690,7 @@ overriding the default title set to the language name
 
 #### Defined in
 
-[models.ts:486](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L486)
+[models.ts:486](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L486)
 
 ***
 
@@ -19912,7 +20706,7 @@ List of URLs for [external scripts](https://livecodes.io/docs/features/external-
 
 #### Defined in
 
-[models.ts:496](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L496)
+[models.ts:496](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L496)
 
 ***
 
@@ -19934,7 +20728,7 @@ true
 
 #### Defined in
 
-[models.ts:838](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L838)
+[models.ts:838](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L838)
 
 ***
 
@@ -19956,7 +20750,7 @@ false
 
 #### Defined in
 
-[models.ts:697](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L697)
+[models.ts:697](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L697)
 
 ***
 
@@ -19978,7 +20772,7 @@ false
 
 #### Defined in
 
-[models.ts:843](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L843)
+[models.ts:843](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L843)
 
 ***
 
@@ -20106,7 +20900,7 @@ overriding the default title set to the language name
 
 #### Defined in
 
-[models.ts:478](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L478)
+[models.ts:478](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L478)
 
 ***
 
@@ -20122,7 +20916,7 @@ List of URLs for [external stylesheets](https://livecodes.io/docs/features/exter
 
 #### Defined in
 
-[models.ts:491](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L491)
+[models.ts:491](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L491)
 
 ***
 
@@ -20146,7 +20940,7 @@ Also used in [code formatting](https://livecodes.io/docs/features/code-format).
 
 #### Defined in
 
-[models.ts:777](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L777)
+[models.ts:777](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L777)
 
 ***
 
@@ -20169,7 +20963,7 @@ Used in [project](https://livecodes.io/docs/features/projects) filter and search
 
 #### Defined in
 
-[models.ts:447](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L447)
+[models.ts:447](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L447)
 
 ***
 
@@ -20186,7 +20980,7 @@ and content of [tests](https://livecodes.io/docs/features/tests).
 
 #### Defined in
 
-[models.ts:576](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L576)
+[models.ts:576](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L576)
 
 ***
 
@@ -20208,7 +21002,7 @@ Sets the app [theme](https://livecodes.io/docs/features/themes) to light/dark mo
 
 #### Defined in
 
-[models.ts:728](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L728)
+[models.ts:728](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L728)
 
 ***
 
@@ -20231,7 +21025,7 @@ undefined
 
 #### Defined in
 
-[models.ts:735](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L735)
+[models.ts:735](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L735)
 
 ***
 
@@ -20255,7 +21049,7 @@ Also used in project search.
 
 #### Defined in
 
-[models.ts:418](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L418)
+[models.ts:418](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L418)
 
 ***
 
@@ -20303,7 +21097,7 @@ Sets enabled and active tools and status of [tools pane](https://livecodes.io/do
 
 #### Defined in
 
-[models.ts:631](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L631)
+[models.ts:631](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L631)
 
 ***
 
@@ -20325,7 +21119,7 @@ true
 
 #### Defined in
 
-[models.ts:849](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L849)
+[models.ts:849](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L849)
 
 ***
 
@@ -20367,7 +21161,7 @@ and [Custom Types](https://livecodes.io/docs/features/intellisense#custom-types)
 
 #### Defined in
 
-[models.ts:570](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L570)
+[models.ts:570](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L570)
 
 ***
 
@@ -20391,7 +21185,7 @@ false
 
 #### Defined in
 
-[models.ts:769](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L769)
+[models.ts:769](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L769)
 
 ***
 
@@ -20409,7 +21203,7 @@ Version specified in [exported](https://livecodes.io/docs/features/export) proje
 
 #### Defined in
 
-[models.ts:583](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L583)
+[models.ts:583](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L583)
 
 ***
 
@@ -20431,7 +21225,7 @@ Sets the [default view](https://livecodes.io/docs/features/default-view) for the
 
 #### Defined in
 
-[models.ts:609](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L609)
+[models.ts:609](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L609)
 
 ***
 
@@ -20447,7 +21241,7 @@ If `true`, the [welcome screen](https://livecodes.io/docs/features/welcome) is d
 
 #### Defined in
 
-[models.ts:702](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L702)
+[models.ts:702](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L702)
 
 ***
 
@@ -20469,7 +21263,7 @@ false
 
 #### Defined in
 
-[models.ts:789](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L789)
+[models.ts:789](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L789)
 
 ***
 
@@ -20485,11 +21279,11 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[models.ts:640](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L640)
+[models.ts:640](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L640)
 
 ---
 
-<!-- Source: /livecodes/docs/api/interfaces/EmbedOptions -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/interfaces/EmbedOptions -->
 
 # Interface: EmbedOptions
 
@@ -20516,7 +21310,7 @@ If supplied with an invalid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:314](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L314)
+[models.ts:314](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L314)
 
 ***
 
@@ -20536,7 +21330,7 @@ If supplied and is not an object or a valid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:346](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L346)
+[models.ts:346](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L346)
 
 ***
 
@@ -20554,7 +21348,7 @@ false
 
 #### Defined in
 
-[models.ts:352](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L352)
+[models.ts:352](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L352)
 
 ***
 
@@ -20566,7 +21360,7 @@ A resource to [import](https://livecodes.io/docs/features/import) (from any of t
 
 #### Defined in
 
-[models.ts:357](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L357)
+[models.ts:357](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L357)
 
 ***
 
@@ -20588,7 +21382,7 @@ false
 
 #### Defined in
 
-[models.ts:367](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L367)
+[models.ts:367](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L367)
 
 ***
 
@@ -20610,7 +21404,7 @@ Sets how the playground loads:
 
 #### Defined in
 
-[models.ts:377](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L377)
+[models.ts:377](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L377)
 
 ***
 
@@ -21344,9 +22138,17 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **go**: `any`
 
+#### customSettings.go-wasm
+
+> **go-wasm**: `any`
+
 #### customSettings.golang
 
 > **golang**: `any`
+
+#### customSettings.gowasm
+
+> **gowasm**: `any`
 
 #### customSettings.graph
 
@@ -21752,6 +22554,14 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **riotjs**: `any`
 
+#### customSettings.ripple
+
+> **ripple**: `any`
+
+#### customSettings.ripplejs
+
+> **ripplejs**: `any`
+
 #### customSettings.rlang
 
 > **rlang**: `any`
@@ -21794,7 +22604,7 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 #### customSettings.scriptType?
 
-> `optional` **scriptType**: `""` \| `"module"` \| `"text/liquid"` \| `"text/python"` \| `"text/r"` \| `"text/ruby-wasm"` \| `"text/x-uniter-php"` \| `"text/php-wasm"` \| `"text/cpp"` \| `"text/java"` \| `"text/csharp-wasm"` \| `"text/perl"` \| `"text/julia"` \| `"text/biwascheme"` \| `"text/commonlisp"` \| `"text/tcl"` \| `"text/prolog"` \| `"application/json"` \| `"application/lua"` \| `"text/fennel"` \| `"application/wasm-uint8"` \| `"application/javascript"` \| `"application/ecmascript"` \| `"text/javascript"` \| `"text/ecmascript"`
+> `optional` **scriptType**: `""` \| `"module"` \| `"text/liquid"` \| `"text/python"` \| `"text/r"` \| `"text/ruby-wasm"` \| `"text/x-uniter-php"` \| `"text/php-wasm"` \| `"text/cpp"` \| `"text/java"` \| `"text/csharp-wasm"` \| `"text/perl"` \| `"text/julia"` \| `"text/biwascheme"` \| `"text/commonlisp"` \| `"text/tcl"` \| `"text/prolog"` \| `"text/go-wasm"` \| `"application/json"` \| `"application/lua"` \| `"text/fennel"` \| `"application/wasm-uint8"` \| `"application/javascript"` \| `"application/ecmascript"` \| `"text/javascript"` \| `"text/ecmascript"`
 
 #### customSettings.scss
 
@@ -21947,6 +22757,10 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 #### customSettings.wasm.cs
 
 > **cs**: `any`
+
+#### customSettings.wasm.go
+
+> **go**: `any`
 
 #### customSettings.wasm.lua
 
@@ -22261,6 +23075,14 @@ false
 
 > **go-selector**: `undefined` \| `string`
 
+#### go-wasm
+
+> **go-wasm**: `undefined` \| `string`
+
+#### go-wasm-selector
+
+> **go-wasm-selector**: `undefined` \| `string`
+
 #### golang
 
 > **golang**: `undefined` \| `string`
@@ -22268,6 +23090,14 @@ false
 #### golang-selector
 
 > **golang-selector**: `undefined` \| `string`
+
+#### gowasm
+
+> **gowasm**: `undefined` \| `string`
+
+#### gowasm-selector
+
+> **gowasm-selector**: `undefined` \| `string`
 
 #### graph
 
@@ -22899,7 +23729,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### params?
 
-> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 475 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
+> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 485 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
 
 An object that represents the [URL Query parameters](https://livecodes.io/docs/configuration/query-params), that can be used to configure the playground.
 
@@ -23376,6 +24206,22 @@ true
 #### riotjs-selector
 
 > **riotjs-selector**: `undefined` \| `string`
+
+#### ripple
+
+> **ripple**: `undefined` \| `string`
+
+#### ripple-selector
+
+> **ripple-selector**: `undefined` \| `string`
+
+#### ripplejs
+
+> **ripplejs**: `undefined` \| `string`
+
+#### ripplejs-selector
+
+> **ripplejs-selector**: `undefined` \| `string`
 
 #### rlang
 
@@ -24157,6 +25003,14 @@ When set to `"headless"`, the playground is loaded in [headless mode](https://li
 
 > **cs-selector**: `undefined` \| `string`
 
+#### wasm.go
+
+> **go**: `undefined` \| `string`
+
+#### wasm.go-selector
+
+> **go-selector**: `undefined` \| `string`
+
 #### wasm.lua
 
 > **lua**: `undefined` \| `string`
@@ -24259,7 +25113,7 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[models.ts:338](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L338)
+[models.ts:338](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L338)
 
 ***
 
@@ -24272,7 +25126,7 @@ Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-a
 
 #### Defined in
 
-[models.ts:383](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L383)
+[models.ts:383](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L383)
 
 ***
 
@@ -24297,11 +25151,11 @@ When set to `"headless"`, the playground is loaded in [headless mode](https://li
 
 #### Defined in
 
-[models.ts:396](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L396)
+[models.ts:396](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L396)
 
 ---
 
-<!-- Source: /livecodes/docs/api/interfaces/Playground -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/interfaces/Playground -->
 
 # Interface: Playground
 
@@ -24347,7 +25201,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:211](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L211)
+[models.ts:211](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L211)
 
 ***
 
@@ -24375,7 +25229,7 @@ See [docs](https://livecodes.io/docs/sdk/js-ts#exec) for details.
 
 #### Defined in
 
-[models.ts:194](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L194)
+[models.ts:194](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L194)
 
 ***
 
@@ -24413,7 +25267,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:31](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L31)
+[models.ts:31](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L31)
 
 ***
 
@@ -24451,7 +25305,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:105](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L105)
+[models.ts:105](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L105)
 
 ***
 
@@ -24488,7 +25342,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:64](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L64)
+[models.ts:64](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L64)
 
 ***
 
@@ -24526,7 +25380,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:48](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L48)
+[models.ts:48](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L48)
 
 ***
 
@@ -24547,7 +25401,7 @@ If the playground was not loaded, calling any other method will load the playgro
 
 #### Defined in
 
-[models.ts:298](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L298)
+[models.ts:298](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L298)
 
 ***
 
@@ -24583,7 +25437,7 @@ Use [`watch`](https://livecodes.io/docs/sdk/js-ts#watch) method instead.
 
 #### Defined in
 
-[models.ts:142](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L142)
+[models.ts:142](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L142)
 
 ***
 
@@ -24614,7 +25468,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:14](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L14)
+[models.ts:14](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L14)
 
 ***
 
@@ -24648,7 +25502,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:135](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L135)
+[models.ts:135](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L135)
 
 ***
 
@@ -24689,7 +25543,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[models.ts:84](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L84)
+[models.ts:84](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L84)
 
 ***
 
@@ -24736,7 +25590,7 @@ await playground.show("console", { full: true });
 
 #### Defined in
 
-[models.ts:119](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L119)
+[models.ts:119](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L119)
 
 ***
 
@@ -24794,25 +25648,25 @@ createPlayground("#container").then((playground) => {
 
 #### Defined in
 
-[models.ts:187](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L187)
+[models.ts:187](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L187)
 
 ---
 
-<!-- Source: /livecodes/docs/api/type-aliases/Language -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/type-aliases/Language -->
 
 # Type Alias: Language
 
-> **Language**: `"html"` \| `"htm"` \| `"markdown"` \| `"md"` \| `"mdown"` \| `"mkdn"` \| `"mdx"` \| `"astro"` \| `"pug"` \| `"jade"` \| `"haml"` \| `"asciidoc"` \| `"adoc"` \| `"asc"` \| `"mustache"` \| `"handlebars"` \| `"hbs"` \| `"ejs"` \| `"eta"` \| `"nunjucks"` \| `"njk"` \| `"liquid"` \| `"liquidjs"` \| `"dot"` \| `"twig"` \| `"vento"` \| `"vto"` \| `"art-template"` \| `"art"` \| `"jinja"` \| `"bbcode"` \| `"bb"` \| `"mjml"` \| `"diagrams"` \| `"diagram"` \| `"graph"` \| `"plt"` \| `"richtext"` \| `"rte"` \| `"rich"` \| `"rte.html"` \| `"css"` \| `"scss"` \| `"sass"` \| `"less"` \| `"stylus"` \| `"styl"` \| `"stylis"` \| `"postcss"` \| `"javascript"` \| `"js"` \| `"json"` \| `"babel"` \| `"es"` \| `"sucrase"` \| `"typescript"` \| `"flow"` \| `"ts"` \| `"jsx"` \| `"tsx"` \| `"react"` \| `"react-jsx"` \| `"react.jsx"` \| `"react-tsx"` \| `"react.tsx"` \| `"react-native"` \| `"react-native.jsx"` \| `"react-native-tsx"` \| `"react-native.tsx"` \| `"vue"` \| `"vue3"` \| `"vue2"` \| `"vue-app"` \| `"app.vue"` \| `"svelte"` \| `"svelte-app"` \| `"app.svelte"` \| `"stencil"` \| `"stencil.tsx"` \| `"solid"` \| `"solid.jsx"` \| `"solid.tsx"` \| `"riot"` \| `"riotjs"` \| `"malina"` \| `"malinajs"` \| `"xht"` \| `"coffeescript"` \| `"coffee"` \| `"livescript"` \| `"ls"` \| `"civet"` \| `"clio"` \| `"imba"` \| `"assemblyscript"` \| `"as"` \| `"python"` \| `"py"` \| `"pyodide"` \| `"python-wasm"` \| `"py-wasm"` \| `"pythonwasm"` \| `"pywasm"` \| `"py3"` \| `"wasm.py"` \| `"r"` \| `"rlang"` \| `"rstats"` \| `"r-wasm"` \| `"ruby"` \| `"rb"` \| `"ruby-wasm"` \| `"wasm.rb"` \| `"rubywasm"` \| `"go"` \| `"golang"` \| `"php"` \| `"php-wasm"` \| `"phpwasm"` \| `"wasm.php"` \| `"cpp"` \| `"c"` \| `"C"` \| `"cp"` \| `"cxx"` \| `"c++"` \| `"cppm"` \| `"ixx"` \| `"ii"` \| `"hpp"` \| `"h"` \| `"cpp-wasm"` \| `"cppwasm"` \| `"cwasm"` \| `"wasm.cpp"` \| `"clang"` \| `"clang.cpp"` \| `"java"` \| `"csharp"` \| `"csharp-wasm"` \| `"cs"` \| `"cs-wasm"` \| `"wasm.cs"` \| `"perl"` \| `"pl"` \| `"pm"` \| `"lua"` \| `"lua-wasm"` \| `"luawasm"` \| `"wasm.lua"` \| `"teal"` \| `"tl"` \| `"fennel"` \| `"fnl"` \| `"julia"` \| `"jl"` \| `"scheme"` \| `"scm"` \| `"commonlisp"` \| `"common-lisp"` \| `"lisp"` \| `"clojurescript"` \| `"clojure"` \| `"cljs"` \| `"clj"` \| `"cljc"` \| `"edn"` \| `"gleam"` \| `"rescript"` \| `"res"` \| `"resi"` \| `"reason"` \| `"re"` \| `"rei"` \| `"ocaml"` \| `"ml"` \| `"mli"` \| `"tcl"` \| `"wat"` \| `"wast"` \| `"webassembly"` \| `"wasm"` \| `"Binary"` \| `"sql"` \| `"sqlite"` \| `"sqlite3"` \| `"pg.sql"` \| `"pgsql.sql"` \| `"pgsql"` \| `"pg"` \| `"pglite"` \| `"pglite.sql"` \| `"postgresql"` \| `"postgres"` \| `"postgre.sql"` \| `"postgresql.sql"` \| `"prolog.pl"` \| `"prolog"` \| `"blockly"` \| `"blockly.xml"` \| `"xml"` \| `"pintora"`
+> **Language**: `"html"` \| `"htm"` \| `"markdown"` \| `"md"` \| `"mdown"` \| `"mkdn"` \| `"mdx"` \| `"astro"` \| `"pug"` \| `"jade"` \| `"haml"` \| `"asciidoc"` \| `"adoc"` \| `"asc"` \| `"mustache"` \| `"handlebars"` \| `"hbs"` \| `"ejs"` \| `"eta"` \| `"nunjucks"` \| `"njk"` \| `"liquid"` \| `"liquidjs"` \| `"dot"` \| `"twig"` \| `"vento"` \| `"vto"` \| `"art-template"` \| `"art"` \| `"jinja"` \| `"bbcode"` \| `"bb"` \| `"mjml"` \| `"diagrams"` \| `"diagram"` \| `"graph"` \| `"plt"` \| `"richtext"` \| `"rte"` \| `"rich"` \| `"rte.html"` \| `"css"` \| `"scss"` \| `"sass"` \| `"less"` \| `"stylus"` \| `"styl"` \| `"stylis"` \| `"postcss"` \| `"javascript"` \| `"js"` \| `"json"` \| `"babel"` \| `"es"` \| `"sucrase"` \| `"typescript"` \| `"flow"` \| `"ts"` \| `"jsx"` \| `"tsx"` \| `"react"` \| `"react-jsx"` \| `"react.jsx"` \| `"react-tsx"` \| `"react.tsx"` \| `"react-native"` \| `"react-native.jsx"` \| `"react-native-tsx"` \| `"react-native.tsx"` \| `"vue"` \| `"vue3"` \| `"vue2"` \| `"vue-app"` \| `"app.vue"` \| `"svelte"` \| `"svelte-app"` \| `"app.svelte"` \| `"stencil"` \| `"stencil.tsx"` \| `"solid"` \| `"solid.jsx"` \| `"solid.tsx"` \| `"riot"` \| `"riotjs"` \| `"malina"` \| `"malinajs"` \| `"ripple"` \| `"ripplejs"` \| `"xht"` \| `"coffeescript"` \| `"coffee"` \| `"livescript"` \| `"ls"` \| `"civet"` \| `"clio"` \| `"imba"` \| `"assemblyscript"` \| `"as"` \| `"python"` \| `"py"` \| `"pyodide"` \| `"python-wasm"` \| `"py-wasm"` \| `"pythonwasm"` \| `"pywasm"` \| `"py3"` \| `"wasm.py"` \| `"r"` \| `"rlang"` \| `"rstats"` \| `"r-wasm"` \| `"ruby"` \| `"rb"` \| `"ruby-wasm"` \| `"wasm.rb"` \| `"rubywasm"` \| `"go"` \| `"golang"` \| `"go-wasm"` \| `"wasm.go"` \| `"gowasm"` \| `"php"` \| `"php-wasm"` \| `"phpwasm"` \| `"wasm.php"` \| `"cpp"` \| `"c"` \| `"C"` \| `"cp"` \| `"cxx"` \| `"c++"` \| `"cppm"` \| `"ixx"` \| `"ii"` \| `"hpp"` \| `"h"` \| `"cpp-wasm"` \| `"cppwasm"` \| `"cwasm"` \| `"wasm.cpp"` \| `"clang"` \| `"clang.cpp"` \| `"java"` \| `"csharp"` \| `"csharp-wasm"` \| `"cs"` \| `"cs-wasm"` \| `"wasm.cs"` \| `"perl"` \| `"pl"` \| `"pm"` \| `"lua"` \| `"lua-wasm"` \| `"luawasm"` \| `"wasm.lua"` \| `"teal"` \| `"tl"` \| `"fennel"` \| `"fnl"` \| `"julia"` \| `"jl"` \| `"scheme"` \| `"scm"` \| `"commonlisp"` \| `"common-lisp"` \| `"lisp"` \| `"clojurescript"` \| `"clojure"` \| `"cljs"` \| `"clj"` \| `"cljc"` \| `"edn"` \| `"gleam"` \| `"rescript"` \| `"res"` \| `"resi"` \| `"reason"` \| `"re"` \| `"rei"` \| `"ocaml"` \| `"ml"` \| `"mli"` \| `"tcl"` \| `"wat"` \| `"wast"` \| `"webassembly"` \| `"wasm"` \| `"Binary"` \| `"sql"` \| `"sqlite"` \| `"sqlite3"` \| `"pg.sql"` \| `"pgsql.sql"` \| `"pgsql"` \| `"pg"` \| `"pglite"` \| `"pglite.sql"` \| `"postgresql"` \| `"postgres"` \| `"postgre.sql"` \| `"postgresql.sql"` \| `"prolog.pl"` \| `"prolog"` \| `"blockly"` \| `"blockly.xml"` \| `"xml"` \| `"pintora"`
 
 Language name, alias or extension.
 
 ## Defined in
 
-[models.ts:884](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L884)
+[models.ts:884](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L884)
 
 ---
 
-<!-- Source: /livecodes/docs/api/functions/createPlayground -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/functions/createPlayground -->
 
 # Function: createPlayground()
 
@@ -24841,7 +25695,7 @@ The [embed options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the p
 
 ### Defined in
 
-[index.ts:26](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/index.ts#L26)
+[index.ts:26](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/index.ts#L26)
 
 ## createPlayground(options)
 
@@ -24857,11 +25711,11 @@ The [embed options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the p
 
 ### Defined in
 
-[index.ts:30](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/index.ts#L30)
+[index.ts:30](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/index.ts#L30)
 
 ---
 
-<!-- Source: /livecodes/docs/api/functions/getPlaygroundUrl -->
+<!-- Source: https://livecodes.io/livecodes/docs/api/functions/getPlaygroundUrl -->
 
 # Function: getPlaygroundUrl()
 
@@ -24887,4 +25741,4 @@ unless config is a string in which case it is stored in searchParams
 
 ## Defined in
 
-[index.ts:389](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/index.ts#L389)
+[index.ts:387](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/index.ts#L387)

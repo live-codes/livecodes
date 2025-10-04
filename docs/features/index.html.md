@@ -18,7 +18,7 @@ The default code editor is the powerful editor that powers [VS Code](https://cod
 
 ## AI Code Assistant
 
-LiveCodes supports AI-powered code completion, totally for **free**, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative. Install the [Codeium chrome extension](https://codeium.com/chrome_tutorial) and enjoy the magic!
+LiveCodes supports AI-powered code completion, totally for **free**, using [Windsurf](https://windsurf.com/). No account or tokens required. Enable from [editor settings](./ai.html.md)#ui) and enjoy the magic!
 
 ## Mobile-friendly
 

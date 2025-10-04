@@ -1,7 +1,7 @@
 # Type Alias: AppLanguage
 
-> **AppLanguage**: `"auto"` \| `"ar"` \| `"de"` \| `"en"` \| `"es"` \| `"fr"` \| `"hi"` \| `"it"` \| `"ja"` \| `"pt"` \| `"ru"` \| `"ur"` \| `"zh-CN"`
+> **AppLanguage**: `"auto"` \| `"ar"` \| `"de"` \| `"en"` \| `"es"` \| `"fa"` \| `"fr"` \| `"hi"` \| `"it"` \| `"ja"` \| `"pt"` \| `"ru"` \| `"ur"` \| `"zh-CN"`
 
 ## Defined in
 
-[models.ts:1778](https://github.com/live-codes/livecodes/blob/a00c38a6cc2a8843798f549e6bbda8c428cdf714/src/sdk/models.ts#L1778)
+[models.ts:1786](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1786)
