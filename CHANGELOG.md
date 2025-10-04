@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.12.0](https://github.com/live-codes/livecodes/compare/sdk-v0.11.1...sdk-v0.12.0) (2025-10-04)
+
+### Features
+
+- **SDK:** allow return value of `getShareUrl()` to be used as `appUrl` ([1294cb9](https://github.com/live-codes/livecodes/commit/1294cb97a82c5c01ee6685e2c7acbdfc37f61e12))
+
+### Bug Fixes
+
+- **SDK:** clean-up SDK event handlers ([3c1184f](https://github.com/live-codes/livecodes/commit/3c1184f9555e609ab757ab66ba4162a2f33e4f7d))
+- **SDK:** fix `height` in Vue SDK ([79b4a70](https://github.com/live-codes/livecodes/commit/79b4a70629c34497bc5cff78e0acacc90e0d5e00))
+- **SDK:** force destroy playground even if stuck (e.g. in infinite loop) ([c44fe3e](https://github.com/live-codes/livecodes/commit/c44fe3ecaf069cccb7711028664bcd89a79ef824))
+
+### Credits
+
+- @felixhuttmann added force destroying playground even if stuck
+
+Thank you ❤️
+
+---
+
 ## [sdk-v0.11.1](https://github.com/live-codes/livecodes/compare/v46...sdk-v0.11.1) (2025-05-24)
 
 ### Bug Fixes
