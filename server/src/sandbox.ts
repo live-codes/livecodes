@@ -3,7 +3,6 @@ import cors from 'cors';
 import express from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
-import { sandboxVersion } from '../../src/livecodes/html/sandbox/index.ts';
 import { dirname } from './utils.ts';
 
 export const sandbox = async ({ hostname, port }: { hostname: string; port: number }) => {
@@ -13,13 +12,16 @@ export const sandbox = async ({ hostname, port }: { hostname: string; port: numb
   app.disable('x-powered-by');
 
   const sandboxDir = path.resolve(dirname, 'sandbox');
-  let sandboxVersionDir = path.resolve(sandboxDir, sandboxVersion);
   const dirs = await fs.promises.readdir(sandboxDir);
-  for (const v of dirs) {
-    if ((await fs.promises.stat(path.resolve(sandboxDir, v))).isDirectory()) {
-      sandboxVersionDir = path.resolve(sandboxDir, v);
-    }
-  }
+  const version =
+    dirs
+      .filter((v) => v.startsWith('v'))
+      .map((v) => Number(v.slice(1)))
+      .filter((v) => !Number.isNaN(v))
+      .sort((a, b) => b - a)
+      .map((v) => 'v' + v)
+      .pop() || '';
+  const sandboxVersionDir = path.resolve(sandboxDir, version);
 
   app.use('/', (req, res) => {
     if (req.path === '/') {
@@ -27,14 +29,20 @@ export const sandbox = async ({ hostname, port }: { hostname: string; port: numb
       res.status(200).sendFile(path.resolve(sandboxVersionDir, 'index.html'));
       return;
     }
-    const reqPath = req.path.endsWith('/')
+    let reqPath = req.path.endsWith('/')
       ? req.path + 'index.html'
       : !req.path.split('/').pop()?.includes('.')
         ? req.path + '.html'
         : req.path;
+    if (reqPath.startsWith('/')) {
+      reqPath = reqPath.slice(1);
+    }
+    const filePath = path.resolve(sandboxDir, reqPath);
+    const onError = (_err: unknown) => {
+      if (res.headersSent) return;
+      res.status(404).sendFile(path.resolve(sandboxVersionDir, 'index.html'));
+    };
     res.set('Content-Type', 'text/html');
-    const filePath = path.resolve(dirname, 'sandbox' + reqPath);
-    const onError = () => res.status(404).sendFile(path.resolve(sandboxVersionDir, 'index.html'));
     res.status(200).sendFile(filePath, onError);
   });
 
