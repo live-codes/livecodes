@@ -4,4 +4,4 @@
 
 ## Defined in
 
-[models.ts:1748](https://github.com/live-codes/livecodes/blob/dd47937033b0f6a7246cbcc91dba5ba09e233513/src/sdk/models.ts#L1748)
+[models.ts:1748](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L1748)
