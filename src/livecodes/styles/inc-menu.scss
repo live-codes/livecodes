@@ -570,7 +570,7 @@ i.arrow {
       width: var(--s16);
 
       &[for='theme-color-custom'] {
-        background: conic-gradient(in hsl longer hue, red 0 0);
+        background: conic-gradient(in hsl longer hue, red 0 100%);
         filter: contrast(0.5);
       }
 
