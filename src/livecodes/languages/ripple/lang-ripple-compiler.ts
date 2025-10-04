@@ -75,8 +75,10 @@ document.head.appendChild(styles);
       imports = {
         ...createImportMap(importedContent, config),
         ripple: moduleUrl,
-        'ripple/internal': `${moduleUrl}/internal`,
         'ripple/internal/client': `${moduleUrl}/internal/client`,
+        'ripple/jsx-runtime': `${moduleUrl}/internal/client`,
+        clsx: modulesService.getModuleUrl('clsx'),
+        'esm-env': modulesService.getModuleUrl('esm-env'),
       };
     }
 
