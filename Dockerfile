@@ -1,4 +1,4 @@
-FROM node:24.1.0-alpine3.21 AS builder
+FROM node:24.4.1-alpine3.22 AS builder
 
 RUN apk update --no-cache && apk add --no-cache git
 
@@ -21,13 +21,14 @@ ARG SANDBOX_HOST_NAME
 ARG SANDBOX_PORT
 ARG FIREBASE_CONFIG
 ARG DOCS_BASE_URL
+ARG NODE_OPTIONS
 
 RUN if [ "$DOCS_BASE_URL" == "null" ]; \
   then npm run build:app; \
   else npm run build; \
   fi
 
-FROM node:24.1.0-alpine3.21 AS server
+FROM node:24.4.1-alpine3.22 AS server
 
 RUN addgroup -S appgroup
 RUN adduser -S appuser -G appgroup
