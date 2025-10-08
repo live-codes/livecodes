@@ -74,12 +74,11 @@ onMount(() => {
 `.trimStart();
 
   const rippleCode = `
-import { track } from 'ripple';
 import { createPlayground, type EmbedOptions } from 'livecodes';
 
 export default component App() {
   const options: EmbedOptions = ${stringify(options).split('\n').join('\n  ')};
-  const onMount = (container) => {
+  const onMount = (container: HTMLElement) => {
     createPlayground(container, options);
   };
 

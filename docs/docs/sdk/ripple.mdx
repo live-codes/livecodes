@@ -14,8 +14,7 @@ Please refer to the [SDK installation](./index.mdx#installation) section.
 This is an example of using the LiveCodes JS SDK in a Ripple component:
 
 ```jsx title="App.ripple"
-import { track } from 'ripple';
-import { createPlayground, type EmbedOptions } from 'livecodes';
+import { createPlayground, type EmbedOptions, type Playground } from 'livecodes';
 
 export default component App() {
   const options: EmbedOptions = {
@@ -27,12 +26,12 @@ export default component App() {
     },
   };
 
-  const playground = track(null);
-  const onMount = (container) => {
+  let playground: Playground | null = null;
+  const onMount = (container: HTMLElement) => {
     createPlayground(container, options).then((sdk) => {
-      @playground = sdk; // now the SDK is available
+      playground = sdk; // now the SDK is available
     });
-    return () => @playground?.destroy().then(() => @playground = null);
+    return () => playground?.destroy();
   };
 
   <div {ref onMount}></div>
@@ -40,8 +39,7 @@ export default component App() {
 ```
 
 export const rippleSDKDemo = {
-  ripple: `import { track } from 'ripple';
-import { createPlayground, type EmbedOptions } from 'livecodes';
+  ripple: `import { createPlayground, type EmbedOptions, type Playground } from 'livecodes';
 
 export default component App() {
   const options: EmbedOptions = {
@@ -53,12 +51,12 @@ export default component App() {
     },
   };
 
-  const playground = track(null);
-  const onMount = (container) => {
+  let playground: Playground | null = null;
+  const onMount = (container: HTMLElement) => {
     createPlayground(container, options).then((sdk) => {
-      @playground = sdk; // now the SDK is available
+      playground = sdk; // now the SDK is available
     });
-    return () => @playground?.destroy().then(() => @playground = null);
+    return () => playground?.destroy();
   };
 
   <div {ref onMount}></div>
