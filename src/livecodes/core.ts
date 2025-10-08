@@ -261,6 +261,7 @@ const loadStyles = () =>
         ].map((url) => loadStylesheet(url, undefined, '#app-styles')),
       );
 
+let lastRun = { time: 0, result: '' };
 const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>
   new Promise((resolve, reject) => {
     if (!container) {
@@ -337,12 +338,13 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       eventsManager.addEventListener(iframe, 'load', function onload() {
         eventsManager.removeEventListener(iframe, 'load', onload);
 
-        if (!result || loaded) {
+        if (!result || loaded || (lastRun.result === result && Date.now() - lastRun.time < 500)) {
           resolve('loaded');
           return; // prevent infinite loop
         }
 
         iframe.contentWindow?.postMessage({ result }, service.getOrigin());
+        lastRun = { time: Date.now(), result };
         loaded = true;
         resolve('loaded');
       });
