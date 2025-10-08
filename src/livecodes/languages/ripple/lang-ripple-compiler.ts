@@ -75,6 +75,7 @@ document.head.appendChild(styles);
       imports = {
         ...createImportMap(importedContent, config),
         ripple: moduleUrl,
+        'ripple/bind': `${moduleUrl}/bind`,
         'ripple/internal/client': `${moduleUrl}/internal/client`,
         'ripple/jsx-runtime': `${moduleUrl}/internal/client`,
         clsx: modulesService.getModuleUrl('clsx'),
