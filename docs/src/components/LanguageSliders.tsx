@@ -69,6 +69,7 @@ export default function Sliders() {
       { name: 'solid.tsx', title: 'Solid (TS)' },
       { name: 'riot', title: 'Riot.js' },
       { name: 'malina', title: 'Malina.js' },
+      { name: 'ripple', title: 'Ripple' },
       { name: 'coffeescript', title: 'CoffeeScript' },
       { name: 'livescript', title: 'LiveScript' },
       { name: 'civet', title: 'Civet' },

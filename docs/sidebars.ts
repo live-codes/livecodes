@@ -85,7 +85,15 @@ const sidebars: SidebarsConfig = {
             type: 'doc',
             id: 'sdk/index',
           },
-          items: ['sdk/js-ts', 'sdk/react', 'sdk/vue', 'sdk/svelte', 'sdk/solid', 'sdk/headless'],
+          items: [
+            'sdk/js-ts',
+            'sdk/react',
+            'sdk/vue',
+            'sdk/svelte',
+            'sdk/solid',
+            'sdk/ripple',
+            'sdk/headless',
+          ],
         },
         {
           type: 'category',

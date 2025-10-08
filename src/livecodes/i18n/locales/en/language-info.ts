@@ -328,6 +328,11 @@ const languageInfo = {
     link: '<1> <2>Riot.js official website</2> </1> <3> <4>Riot.js documentation</4> </3> <5> <6>Load starter template</6> </5>',
     name: 'Riot.js',
   },
+  ripple: {
+    desc: 'the elegant TypeScript UI framework',
+    link: '<1> <2>Ripple official website</2> </1> <3> <4>Ripple documentation</4> </3> <5> <6>LiveCodes documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'Ripple',
+  },
   ruby: {
     desc: 'Ruby running in the browser using Opal.',
     link: '<1> <2>Ruby official website</2> </1> <3> <4>Ruby documentation</4> </3> <5><6>Opal official website</6></5> <7> <8>Opal standard library CDN</8> </7> <9> <10>Learn X in Y minutes, where X=ruby</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>',

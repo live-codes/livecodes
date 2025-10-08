@@ -1034,6 +1034,7 @@ const translation = {
       reason: 'Reason Starter',
       rescript: 'ReScript Starter',
       riot: 'Riot.js Starter',
+      ripple: 'Ripple Starter',
       ruby: 'Ruby Starter',
       'ruby-wasm': 'Ruby (Wasm) Starter',
       scheme: 'Scheme Starter',

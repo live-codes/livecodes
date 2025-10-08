@@ -119,7 +119,7 @@ Add this code to your page:
 - [Client-side!](https://livecodes.io/docs/why#client-side)
 - Very [configurable](https://livecodes.io/docs/configuration/)
 - Developer-friendly build-free environment
-- Powerful [SDK](https://livecodes.io/docs/sdk/) (available for [vanilla JavaScript, TypeScript](https://livecodes.io/docs/sdk/js-ts), [React](https://livecodes.io/docs/sdk/react), [Vue](https://livecodes.io/docs/sdk/vue), [Svelte](https://livecodes.io/docs/sdk/svelte) and [Solid](https://livecodes.io/docs/sdk/solid))
+- Powerful [SDK](https://livecodes.io/docs/sdk/) (available for [vanilla JavaScript, TypeScript](https://livecodes.io/docs/sdk/js-ts), [React](https://livecodes.io/docs/sdk/react), [Vue](https://livecodes.io/docs/sdk/vue), [Svelte](https://livecodes.io/docs/sdk/svelte), [Solid](https://livecodes.io/docs/sdk/solid) and [Ripple](https://livecodes.io/docs/sdk/ripple))
 - Comprehensive [Documentations](https://livecodes.io/docs/)
 - Focused on [privacy and security](https://livecodes.io/docs/features/security)
 - Free and [Open-Source](https://livecodes.io/docs/license)
@@ -156,7 +156,7 @@ createPlayground('#container', {
 });
 ```
 
-The [JavaScript SDK](https://livecodes.io/docs/sdk/js-ts) is framework/library agnostic. However, wrapper components are also provided for popular libraries (currently [React](https://livecodes.io/docs/sdk/react) and [Vue](https://livecodes.io/docs/sdk/vue)). The SDK can be used in [Svelte](https://livecodes.io/docs/sdk/svelte) and [Solid](https://livecodes.io/docs/sdk/solid) directly without wrappers. [TypeScript support](https://livecodes.io/docs/sdk/js-ts#typescript-types) provides type-safety and a great developer experience.
+The [JavaScript SDK](https://livecodes.io/docs/sdk/js-ts) is framework/library agnostic. However, wrapper components are also provided for popular libraries (currently [React](https://livecodes.io/docs/sdk/react) and [Vue](https://livecodes.io/docs/sdk/vue)). The SDK can be used in [Svelte](https://livecodes.io/docs/sdk/svelte), [Solid](https://livecodes.io/docs/sdk/solid) and [Ripple](https://livecodes.io/docs/sdk/ripple) directly without wrappers. [TypeScript support](https://livecodes.io/docs/sdk/js-ts#typescript-types) provides type-safety and a great developer experience.
 
 React SDK example: ([open in LiveCodes](https://livecodes.io/?x=code/N4IgLglmA2CmIC4QBkIDdYGED2ATWAzgAQBKsAhgMZhEDKAIgNJH4C22IANCPgZQE4QADpGwA7RCC4gAFhVySAPK1hhyRSjPL8CqgLwAdEAFUAKgDEAtAA4jRAPQA+A2OWr1Y8isMg0EWADuQtj8YHaU4mCwYmA+ARC4YDJ6+H6UsJbxiTKcRBBiUBDk0JZ8xbB6AIwAdAAMdk7SMmCs0ACCYGA6ktDkYgDmPtHhvQQEPkbSav0EiADaALrcVJAYAKK4UCGSfIIi0qzaANYArkKIoL0DJ+T98EjNrdIRMdFgkiAAvtwEYACecAuICu-Rud0klDGz0ibw+3xAu2E7wQlz6oNu9xAACsCAAPaGvGKSCCsYKhIioDA4XhEABm-GwrCIAHJoOhYBFePZ+BRqMyANwGfguIUuF6-DTiWkQfpEPREYCisREIiHfinIQIBVKlUqkFg2Ba5lqo64bABMTMzg63UvKIxI0AYiIAAlYNBoNgiAB1ELQXAAQitNu+Ss+guFYnFNAACr0-v0GScxLg5UQABQASjljiIikpWDwhElYmlg2ALzLnyIfkCPh5BBO0DCIAcjgjLlguLJNHwtPITdj8cT2GTuA7EnhvwBhDkqlmCEWPwESIXS5AkIIMYbqg+3CEDPSYxCa6WG5Ov0ZtFUkAGC+A8JJPfv8P+QkIF1fhDA9+BaINkhvoQK77NwdqwkgXzcBgOgQOIkgAMwIVM2DYNAv7ROQABGcAKEgxTQNIKzshC4gEGh8A-GoYAXhCnq6AonyfEAA))
 
