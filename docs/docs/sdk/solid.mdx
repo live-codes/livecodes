@@ -1,0 +1,86 @@
+# Solid
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+The [JS/TS SDK](js-ts.mdx) can be used directly in [Solid](https://www.solidjs.com/) components without the need for any wrappers.
+
+## Installation
+
+Please refer to the [SDK installation](./index.mdx#installation) section.
+
+## Usage
+
+This is an example of using the LiveCodes TS SDK in a Solid component:
+
+```tsx title="App.tsx"
+import { onCleanup } from 'solid-js';
+import { createPlayground, type Playground, type EmbedOptions } from 'livecodes';
+
+export default function App() {
+  let playground: Playground | null = null;
+
+  const options: EmbedOptions = {
+    params: {
+      html: '<h1>Hello World!</h1>',
+      css: 'h1 {color: blue;}',
+      js: 'console.log("Hello, Solid!")',
+      console: 'open',
+    },
+  };
+
+  const onMounted = (container: HTMLElement) => {
+    createPlayground(container, options).then((sdk) => {
+      playground = sdk; // now the SDK is available
+    });
+  };
+  onCleanup(() => playground?.destroy());
+
+  return <div ref={onMounted}></div>;
+}
+```
+
+export const solidSDKDemo = {
+  "solid.tsx": `import { onCleanup } from 'solid-js';
+import { createPlayground, type Playground, type EmbedOptions } from 'livecodes';
+
+export default function App() {
+  let playground: Playground | null = null;
+
+  const options: EmbedOptions = {
+    params: {
+      html: '<h1>Hello World!</h1>',
+      css: 'h1 {color: blue;}',
+      js: 'console.log("Hello, Solid!")',
+      console: 'open',
+    },
+  };
+
+  const onMounted = (container: HTMLElement) => {
+    createPlayground(container, options).then((sdk) => {
+      playground = sdk; // now the SDK is available
+    });
+  };
+  onCleanup(() => playground?.destroy());
+
+  return <div ref={onMounted}></div>;
+}
+`,
+};
+
+<RunInLiveCodes params={solidSDKDemo}></RunInLiveCodes>
+
+[Embed options](./js-ts.mdx#embed-options), [SDK methods](./js-ts.mdx#sdk-methods) and [TypeScript types](./js-ts.mdx#typescript-types) are available as described in the [JS/TS SDK documentations](./js-ts.mdx).
+
+## Demo
+
+<LiveCodes params={solidSDKDemo} height="80vh" />
+
+## Related
+
+- [SDK Installation](./index.mdx#installation)
+- [JS/TS SDK](./js-ts.mdx)
+- [React SDK](./react.mdx)
+- [Vue SDK](./vue.mdx)
+- [Using SDK in Svelte](./svelte.mdx)
+- [Embedded Playgrounds](../features/embeds.mdx)
