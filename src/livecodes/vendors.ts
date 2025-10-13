@@ -401,10 +401,10 @@ export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
 export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.2/');
 
-export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.3-wasm-wasi@2.6.2/dist/');
+export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.4-wasm-wasi@2.7.2/dist/');
 
 export const rubyWasmScriptUrl = /* @__PURE__ */ getUrl(
-  '@ruby/wasm-wasi@2.6.2/dist/browser.umd.js',
+  '@ruby/wasm-wasi@2.7.2/dist/browser.umd.js',
 );
 
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
