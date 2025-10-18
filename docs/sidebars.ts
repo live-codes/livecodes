@@ -15,6 +15,18 @@ const sidebars: SidebarsConfig = {
         'getting-started',
         {
           type: 'category',
+          label: 'Guides & Tutorials',
+          link: {
+            type: 'doc',
+            id: 'tutorials/index',
+          },
+          items: [
+            'tutorials/getting-started-guide',
+            'tutorials/building-your-first-app',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Features',
           link: {
             type: 'doc',
