@@ -10,6 +10,10 @@
       <li>
         <a href="#" data-target="templates-user" data-i18n="templates.user.heading">My Templates</a>
       </li>
+      <li class="templates-search">
+        <label for="templates-search-input" class="visually-hidden" data-i18n="templates.search.label">Search templates</label>
+        <input id="templates-search-input" type="search" placeholder="Filter languages..." aria-label="Filter templates by language" />
+      </li>
     </ul>
 
     <div id="templates-starter" class="tab-content active">
@@ -28,3 +32,24 @@
     </div>
   </div>
 </div>
+
+<!-- Inline: emit a "templates:filter" event with the current query so other scripts can perform filtering -->
+<script>
+  (function () {
+    var input = document.getElementById('templates-search-input');
+    if (!input) return;
+
+    var emit = function (value) {
+      var ev = new CustomEvent('templates:filter', { detail: { query: value } });
+      document.getElementById('templates-container').dispatchEvent(ev);
+    };
+
+    var timeout = null;
+    input.addEventListener('input', function (e) {
+      var val = e.target.value || '';
+      // debounce to avoid excessive events while typing
+      clearTimeout(timeout);
+      timeout = setTimeout(function () { emit(val.trim()); }, 150);
+    });
+  })();
+</script>
