@@ -12,6 +12,7 @@ export const appLanguages: { [key in Exclude<AppLanguage, 'auto'>]: string } = {
   ja: '日本語',
   pt: 'Português',
   ru: 'Ру́сский',
+  tr: 'Türkçe',
   ur: 'اردو',
   'zh-CN': '中文（简体）',
 };
