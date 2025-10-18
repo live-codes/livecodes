@@ -1,3 +1,5 @@
+# Astro
+
 Astro is a modern static site builder focused on delivering fast, content-driven websites. It uses a “zero JavaScript by default” approach and supports multiple frameworks like React, Vue, and Svelte through an islands architecture.
 
 ## Usage
@@ -29,7 +31,6 @@ In this mode, values can be provided dynamically during request handling.
 **Example:** Create a server-side API endpoint:
 
 ```js
-// src/pages/api/hello.js
 export async function GET() {
   return new Response(JSON.stringify({ name: 'LiveCodes' }), {
     headers: { 'Content-Type': 'application/json' },
@@ -41,7 +42,7 @@ Then fetch and render it dynamically in Astro:
 
 ```astro
 ---
-const res = await fetch('/api/hello');
+const res = await fetch('https://jsonplaceholder.typicode.com/users/1');
 const data = await res.json();
 ---
 <h1>Hello {data.name}!</h1>
@@ -56,6 +57,8 @@ const data = await res.json();
 * **Editor:** HTML / JSX-like
 * **Compiler:** Astro Compiler
 * **Version:** Latest (v4.x and above)
+
+⚠️ LiveCodes currently uses Astro v0.9.2, so some latest features may not be available.
 
 ---
 
@@ -105,6 +108,7 @@ const data = await res.json();
 <p>{data.title}</p>
 ```
 
+
 ---
 
 ## Official Resources
@@ -114,5 +118,6 @@ const data = await res.json();
 * 🧪 [Astro Playground](https://stackblitz.com/github/withastro/astro/tree/latest/examples/hello-world)
 * 📰 [Astro Blog](https://astro.build/blog)
 * 💬 [Astro Discord Community](https://astro.build/chat)
+* 🌐 [Astro Starter Template](https://livecodes.io/?template=astro)
 
 
