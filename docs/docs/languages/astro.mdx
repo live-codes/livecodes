@@ -16,7 +16,7 @@ All data must be available during the build process and can be supplied through 
 const name = "LiveCodes";
 ---
 <h1>Hello {name}!</h1>
-````
+```
 
 ---
 
@@ -30,7 +30,7 @@ In this mode, values can be provided dynamically during request handling.
 
 ```js
 // src/pages/api/hello.js
-export async function get() {
+export async function GET() {
   return new Response(JSON.stringify({ name: 'LiveCodes' }), {
     headers: { 'Content-Type': 'application/json' },
   });
