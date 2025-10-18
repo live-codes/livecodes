@@ -1,2987 +1,2241 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
   "about.blog.text": {
-    "notes": "",
     "translation": "Blog"
   },
   "about.blog.title": {
-    "notes": "",
     "translation": "LiveCodes Blog"
   },
   "about.configuration": {
-    "notes": "",
     "translation": "Yapılandırma"
   },
   "about.credits.heading": {
-    "notes": "",
     "translation": "Katkıda Bulunanlar"
   },
   "about.credits.para1": {
-    "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}credits\" target=\"_blank\" />\n\n",
     "translation": "LiveCodes, açık kaynak projeler, web servisleri ve katkıda bulunanlar sayesinde mümkün olmuştur. <tag-1>Katkıda Bulunanları Görüntüle</tag-1>"
   },
   "about.credits.para2": {
-    "notes": "",
     "translation": "© 2024 Hatem Hosny. LiveCodes, MIT Lisansı altında lisanslanmıştır."
   },
   "about.documentations.heading": {
-    "notes": "",
     "translation": "Dokümantasyon"
   },
   "about.gettingStarted": {
-    "notes": "",
     "translation": "Başlangıç"
   },
   "about.github.text": {
-    "notes": "",
     "translation": "GitHub"
   },
   "about.github.title": {
-    "notes": "",
     "translation": "GitHub"
   },
   "about.heading": {
-    "notes": "",
     "translation": "LiveCodes Hakkında"
   },
   "about.livecodes.aboutUs": {
-    "notes": "",
     "translation": "LiveCodes Hakkında"
   },
   "about.livecodes.para1": {
-    "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<em  />\n\n",
     "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1>, açık kaynaklı, zengin özelliklere sahip, istemci taraflı bir kod alanıdır. Şu anda 90+ dil ve framework desteklenmektedir. Bağımsız bir uygulama olarak veya herhangi bir web sayfasına gömülü olarak kullanılabilir."
   },
   "about.livecodes.para2": {
-    "notes": "",
     "translation": "Güçlü bir SDK, kod alanlarıyla entegrasyon ve iletişimi kolaylaştırır. Kod örnekleri, canlı demolar ve ekran görüntüleri ile kapsamlı dokümantasyon mevcuttur."
   },
   "about.sdk": {
-    "notes": "",
     "translation": "LiveCodes SDK"
   },
   "about.sponsor.text": {
-    "notes": "",
     "translation": "Sponsor Ol"
   },
   "about.sponsor.title": {
-    "notes": "",
     "translation": "LiveCodes'a Sponsor Ol"
   },
   "about.twitter.text": {
-    "notes": "",
     "translation": "𝕏 / Twitter"
   },
   "about.twitter.title": {
-    "notes": "",
     "translation": "𝕏 / Twitter"
   },
   "about.version.app": {
-    "notes": "### <tag-1> ###\n<span class=\"version\" />\n\n",
     "translation": "Uygulama sürümü: <tag-1>{{APP_VERSION}}</tag-1>"
   },
   "about.version.appPermanentUrl": {
-    "notes": "",
     "translation": "Kalıcı Uygulama URL'si"
   },
   "about.version.commit": {
-    "notes": "### <tag-1> ###\n<a href=\"{{COMMIT_URL}}\" target=\"_blank\" rel=\"noopener\" class=\"version\" />\n\n",
     "translation": "Git commit: <tag-1>{{COMMIT_SHA}}</tag-1>"
   },
   "about.version.heading": {
-    "notes": "",
     "translation": "Sürüm"
   },
   "about.version.sdk": {
-    "notes": "### <tag-1> ###\n<span class=\"version\" />\n\n",
     "translation": "SDK sürümü: <tag-1>{{SDK_VERSION}}</tag-1>"
   },
   "about.version.sdkPermanentUrl": {
-    "notes": "",
     "translation": "Kalıcı SDK URL'si"
   },
   "app.changeTheme.hint": {
-    "notes": "",
     "translation": "Temayı Değiştir"
   },
   "app.codeToImage.hint": {
-    "notes": "",
     "translation": "Kodu Resme Çevir"
   },
   "app.consoleMessage.appVersion": {
-    "notes": "",
     "translation": "Uygulama sürümü: {{APP_VERSION}}"
   },
   "app.consoleMessage.commit": {
-    "notes": "",
     "translation": "Git commit: {{COMMIT_SHA}}"
   },
   "app.consoleMessage.learnMore": {
-    "notes": "",
     "translation": "Daha fazla bilgi edinin! {{docsUrl}} 🚀"
   },
   "app.consoleMessage.sdkVersion": {
-    "notes": "",
     "translation": "SDK sürümü: {{SDK_VERSION}}"
   },
   "app.copy.hint": {
-    "notes": "",
     "translation": "Kopyala (Ctrl/⌘ + A, Ctrl/⌘ + C)"
   },
   "app.copyAsUrl.hint": {
-    "notes": "",
     "translation": "Kodu veri URL'si olarak kopyala"
   },
   "app.customSettings.hint": {
-    "notes": "",
     "translation": "Özel Ayarlar"
   },
   "app.editorSettings.hint": {
-    "notes": "",
     "translation": "Düzenleyici Ayarları"
   },
   "app.externalResources.hint": {
-    "notes": "",
     "translation": "Harici Kaynaklar"
   },
   "app.focus.hint": {
-    "notes": "",
     "translation": "Odak modunu aç/kapat (Ctrl/⌘ + K, Z)"
   },
   "app.format.hint": {
-    "notes": "",
     "translation": "Biçimlendir (Alt + Shift + F)"
   },
   "app.fullscreen.hint": {
-    "notes": "",
     "translation": "Tam Ekran"
   },
   "app.i18nButton.hint": {
-    "notes": "",
     "translation": "Arayüz Dili"
   },
   "app.i18nMenu.docs": {
-    "notes": "",
     "translation": "i18n Dokümantasyonu"
   },
   "app.i18nMenu.helpTranslate": {
-    "notes": "",
     "translation": "Çeviride Bize Yardım Edin"
   },
   "app.logo.title": {
-    "notes": "",
     "translation": "LiveCodes: Sorunsuz Çalışan Bir Kod Alanı!"
   },
   "app.projectInfo.hint": {
-    "notes": "",
     "translation": "Proje Bilgisi"
   },
   "app.redo.hint": {
-    "notes": "",
     "translation": "Yinele (Ctrl/⌘ + Shift + Z)"
   },
   "app.result.hint": {
-    "notes": "",
     "translation": "Sonuç (Ctrl/⌘ + Alt + R)"
   },
   "app.run.hint": {
-    "notes": "",
     "translation": "Çalıştır (Shift + Enter)"
   },
   "app.share.hint": {
-    "notes": "",
     "translation": "Paylaş (Ctrl/⌘ + Alt + S)"
   },
   "app.themeColors.custom": {
-    "notes": "",
     "translation": "Özel"
   },
   "app.undo.hint": {
-    "notes": "",
     "translation": "Geri Al (Ctrl/⌘ + Z)"
   },
   "app.untitledProject": {
-    "notes": "",
     "translation": "İsimsiz Proje"
   },
   "assets.action.delete": {
-    "notes": "",
     "translation": "Sil"
   },
   "assets.add.dataURL.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Varlığı base64 kodlu <tag-1>veri url'si</tag-1> olarak ekle."
   },
   "assets.add.dataURL.heading": {
-    "notes": "",
     "translation": "Veri URL'si"
   },
   "assets.add.dataURL.label": {
-    "notes": "",
     "translation": "Dosya ekle"
   },
   "assets.add.githubPages.desc": {
-    "notes": "### <tag-1> ###\n<span class=\"code\" />\n\n### <tag-2> ###\n<span class=\"code\" />\n\n",
     "translation": "Varlığı GitHub Pages'e dağıt. Dosya, GitHub hesabınızdaki <tag-2>livecodes-assets</tag-2> deposunun <tag-1>gh-pages</tag-1> dalına itilecektir. Depo mevcut değilse, genel bir depo oluşturulacaktır."
   },
   "assets.add.githubPages.heading": {
-    "notes": "",
     "translation": "GitHub Pages"
   },
   "assets.add.githubPages.label": {
-    "notes": "",
     "translation": "Dosya yükle"
   },
   "assets.add.heading": {
-    "notes": "",
     "translation": "Varlık Ekle"
   },
   "assets.delete.all": {
-    "notes": "",
     "translation": "{{assets}} varlık silinsin mi?"
   },
   "assets.delete.one": {
-    "notes": "",
     "translation": "Varlık silinsin mi: {{asset}}?"
   },
   "assets.deleteAll": {
-    "notes": "",
     "translation": "Tümünü Sil"
   },
   "assets.generic.clickToCopyURL": {
-    "notes": "",
     "translation": "URL'yi kopyalamak için tıklayın"
   },
   "assets.heading": {
-    "notes": "",
     "translation": "Varlıklar"
   },
   "assets.link.date": {
-    "notes": "",
     "translation": "Tarih: {{modified}}"
   },
   "assets.link.type": {
-    "notes": "",
     "translation": "Tür: {{type}}"
   },
   "assets.link.url": {
-    "notes": "",
     "translation": "URL: {{url}}"
   },
   "assets.loadFile.error.failedToUpload": {
-    "notes": "",
     "translation": "Hata: Dosya yüklenemedi"
   },
   "assets.loadFile.error.unauthenticated": {
-    "notes": "",
     "translation": "Hata: Kimliği doğrulanmamış kullanıcı"
   },
   "assets.loadFile.upload": {
-    "notes": "",
     "translation": "Dosya yükle"
   },
   "assets.loadFile.uploading": {
-    "notes": "",
     "translation": "Yükleniyor..."
   },
   "assets.noMatch": {
-    "notes": "",
     "translation": "Bu filtrelere uyan varlık yok."
   },
   "assets.noSavedAssets": {
-    "notes": "",
     "translation": "Kaydedilmiş varlığınız yok."
   },
   "assets.processAsset.addFile": {
-    "notes": "",
     "translation": "Dosya eklendi: "
   },
   "assets.processAsset.deployNotice": {
-    "notes": "",
     "translation": "Varlık yakında bu URL'de mevcut olacaktır (~1 dk)."
   },
   "assets.processAsset.success": {
-    "notes": "",
     "translation": "Dosya varlıklara eklendi!"
   },
   "assets.processAsset.urlLabel": {
-    "notes": "",
     "translation": "URL: "
   },
   "assets.resetFilters": {
-    "notes": "",
     "translation": "Sıfırla"
   },
   "assets.search": {
-    "notes": "",
     "translation": "Ara"
   },
   "assets.sort.date": {
-    "notes": "",
     "translation": "Tarih"
   },
   "assets.sort.fileName": {
-    "notes": "",
     "translation": "Dosya Adı"
   },
   "assets.sort.heading": {
-    "notes": "",
     "translation": "Sıralama Kriteri:"
   },
   "assets.type.archive": {
-    "notes": "",
     "translation": "Arşiv"
   },
   "assets.type.audio": {
-    "notes": "",
     "translation": "Ses"
   },
   "assets.type.csv": {
-    "notes": "",
     "translation": "CSV"
   },
   "assets.type.font": {
-    "notes": "",
     "translation": "Yazı Tipi"
   },
   "assets.type.html": {
-    "notes": "",
     "translation": "HTML"
   },
   "assets.type.icon": {
-    "notes": "",
     "translation": "İkon"
   },
   "assets.type.image": {
-    "notes": "",
     "translation": "Resim"
   },
   "assets.type.json": {
-    "notes": "",
     "translation": "JSON"
   },
   "assets.type.other": {
-    "notes": "",
     "translation": "Diğer"
   },
   "assets.type.script": {
-    "notes": "",
     "translation": "Betik"
   },
   "assets.type.stylesheet": {
-    "notes": "",
     "translation": "Stil Sayfası"
   },
   "assets.type.text": {
-    "notes": "",
     "translation": "Metin"
   },
   "assets.type.video": {
-    "notes": "",
     "translation": "Video"
   },
   "assets.type.xml": {
-    "notes": "",
     "translation": "XML"
   },
   "assets.types.all": {
-    "notes": "",
     "translation": "Tüm türler"
   },
   "assets.url.fail": {
-    "notes": "",
     "translation": "URL kopyalanamadı."
   },
   "assets.url.success": {
-    "notes": "",
     "translation": "URL panoya kopyalandı."
   },
   "backup.backup.assets": {
-    "notes": "",
     "translation": "Varlıklar"
   },
   "backup.backup.button": {
-    "notes": "",
     "translation": "Yedekle"
   },
   "backup.backup.desc": {
-    "notes": "### <tag-1> ###\n<br  />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}features/backup-restore\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "LiveCodes verilerini yedekleyin, böylece daha sonra bu cihazda veya diğer cihazlarda geri yüklenebilir. <tag-1></tag-1> Ayrıntılar için lütfen <tag-2>dokümantasyonu</tag-2> ziyaret edin."
   },
   "backup.backup.heading": {
-    "notes": "",
     "translation": "Yedekleme"
   },
   "backup.backup.projects": {
-    "notes": "",
     "translation": "Projeler"
   },
   "backup.backup.settings": {
-    "notes": "",
     "translation": "Kullanıcı Ayarları"
   },
   "backup.backup.snippets": {
-    "notes": "",
     "translation": "Kod Parçacıkları"
   },
   "backup.backup.templates": {
-    "notes": "",
     "translation": "Kullanıcı Şablonları"
   },
   "backup.backupBtn": {
-    "notes": "",
     "translation": "Yedekle"
   },
   "backup.error.atLeastOneStore": {
-    "notes": "",
     "translation": "Lütfen yedeklemek için en az bir depo seçin"
   },
   "backup.error.incorrectFileType": {
-    "notes": "",
     "translation": "Hata: Yanlış dosya türü"
   },
   "backup.fileInputLabel": {
-    "notes": "",
     "translation": "Dosyadan geri yükle"
   },
   "backup.heading": {
-    "notes": "",
     "translation": "Yedekleme / Geri Yükleme"
   },
   "backup.inProgress": {
-    "notes": "",
     "translation": "İşlem devam ediyor..."
   },
   "backup.restore.desc": {
-    "notes": "### <tag-1> ###\n<br  />\n\n### <tag-2> ###\n<br  />\n\n### <tag-3> ###\n<a href=\"{{DOCS_BASE_URL}}features/backup-restore\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Daha önce yedeklenen LiveCodes verilerini geri yükleyin. <tag-1></tag-1> Mevcut içeriği değiştirmeyi seçerseniz, önce yedeklemek isteyebilirsiniz. <tag-2></tag-2> Ayrıntılar için lütfen <tag-3>dokümantasyonu</tag-3> ziyaret edin."
   },
   "backup.restore.fromFile": {
-    "notes": "",
     "translation": "Dosyadan geri yükle"
   },
   "backup.restore.heading": {
-    "notes": "",
     "translation": "Geri Yükle"
   },
   "backup.restore.mode.merge": {
-    "notes": "",
     "translation": "Mevcut içerikle birleştir"
   },
   "backup.restore.mode.replace": {
-    "notes": "",
     "translation": "Mevcut içeriği değiştir"
   },
   "backup.restore.success": {
-    "notes": "",
     "translation": "Başarıyla Geri Yüklendi!"
   },
   "broadcast.broadcastBtn.start": {
-    "notes": "",
     "translation": "Yayınla"
   },
   "broadcast.broadcastBtn.stop": {
-    "notes": "",
     "translation": "Yayını durdur"
   },
   "broadcast.broadcasting": {
-    "notes": "",
     "translation": "Yayınlanıyor..."
   },
   "broadcast.channelURL": {
-    "notes": "",
     "translation": "Kanal URL'si"
   },
   "broadcast.connecting": {
-    "notes": "",
     "translation": "Bağlanıyor..."
   },
   "broadcast.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}features/broadcast\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Sonuç sayfasını diğer tarayıcılara/cihazlara gerçek zamanlı olarak yayınlayın. Ayrıntılar için lütfen <tag-1>dokümantasyonu</tag-1> ziyaret edin."
   },
   "broadcast.error.generic": {
-    "notes": "",
     "translation": "Yayın başarısız oldu!"
   },
   "broadcast.error.serverURLRequired": {
-    "notes": "",
     "translation": "Sunucu URL'si gereklidir!"
   },
   "broadcast.heading": {
-    "notes": "",
     "translation": "Yayın"
   },
   "broadcast.includeSourceCode": {
-    "notes": "",
     "translation": "Kaynak kodunu dahil et"
   },
   "broadcast.serverURL.heading": {
-    "notes": "",
     "translation": "Sunucu URL'si"
   },
   "codeToImage.background": {
-    "notes": "",
     "translation": "Arka Plan"
   },
   "codeToImage.borderRadius": {
-    "notes": "",
     "translation": "Kenarlık Yarıçapı"
   },
   "codeToImage.code": {
-    "notes": "",
     "translation": "Kod"
   },
   "codeToImage.copyCode": {
-    "notes": "",
     "translation": "Kodu Kopyala"
   },
   "codeToImage.copyImage": {
-    "notes": "",
     "translation": "Resmi Kopyala"
   },
   "codeToImage.default": {
-    "notes": "",
     "translation": "Varsayılan"
   },
   "codeToImage.direction": {
-    "notes": "",
     "translation": "Yön"
   },
   "codeToImage.fileName": {
-    "notes": "",
     "translation": "Dosya Adı"
   },
   "codeToImage.fontFamily": {
-    "notes": "",
     "translation": "Yazı Tipi Ailesi"
   },
   "codeToImage.fontSize": {
-    "notes": "",
     "translation": "Yazı Tipi Boyutu"
   },
   "codeToImage.heading": {
-    "notes": "",
     "translation": "Kodu Resme Çevir"
   },
   "codeToImage.image": {
-    "notes": "",
     "translation": "Resim"
   },
   "codeToImage.imageFormat.jpg": {
-    "notes": "",
     "translation": "JPEG"
   },
   "codeToImage.imageFormat.label": {
-    "notes": "",
     "translation": "Resim Formatı"
   },
   "codeToImage.imageFormat.png": {
-    "notes": "",
     "translation": "PNG"
   },
   "codeToImage.imageFormat.svg": {
-    "notes": "",
     "translation": "SVG"
   },
   "codeToImage.layout": {
-    "notes": "",
     "translation": "Düzen"
   },
   "codeToImage.opacity": {
-    "notes": "",
     "translation": "Opaklık"
   },
   "codeToImage.padding": {
-    "notes": "",
     "translation": "İç Boşluk"
   },
   "codeToImage.presets": {
-    "notes": "",
     "translation": "Ön Ayarlar"
   },
   "codeToImage.preview": {
-    "notes": "",
     "translation": "Önizleme"
   },
   "codeToImage.save": {
-    "notes": "",
     "translation": "Resmi Kaydet"
   },
   "codeToImage.scale": {
-    "notes": "",
     "translation": "Resim Ölçeği"
   },
   "codeToImage.shadow": {
-    "notes": "",
     "translation": "Gölge"
   },
   "codeToImage.shareImage": {
-    "notes": "",
     "translation": "Resmi Paylaş"
   },
   "codeToImage.shareTitle": {
-    "notes": "",
     "translation": "Paylaş"
   },
   "codeToImage.shareUrl": {
-    "notes": "",
     "translation": "URL'yi Paylaş"
   },
   "codeToImage.theme": {
-    "notes": "",
     "translation": "Tema"
   },
   "codeToImage.width": {
-    "notes": "",
     "translation": "Genişlik"
   },
   "codeToImage.windowStyle.label": {
-    "notes": "",
     "translation": "Pencere Stili"
   },
   "codeToImage.windowStyle.mac": {
-    "notes": "",
     "translation": "macOS"
   },
   "codeToImage.windowStyle.none": {
-    "notes": "",
     "translation": "Yok"
   },
   "codeToImage.windowStyle.windows": {
-    "notes": "",
     "translation": "Windows"
   },
   "commandMenu.changeTheme.dark": {
-    "notes": "",
     "translation": "Koyu Temaya Geç"
   },
   "commandMenu.changeTheme.light": {
-    "notes": "",
     "translation": "Açık Temaya Geç"
   },
   "commandMenu.changeTheme.title": {
-    "notes": "",
     "translation": "Temayı Değiştir"
   },
   "commandMenu.changeUILanguage": {
-    "notes": "",
     "translation": "Arayüz Dilini Değiştir"
   },
   "commandMenu.closeModalMenu": {
-    "notes": "",
     "translation": "Modal/Menüyü Kapat"
   },
   "commandMenu.contribute": {
-    "notes": "",
     "translation": "Katkıda Bulun"
   },
   "commandMenu.copy": {
-    "notes": "",
     "translation": "Kodu Kopyala"
   },
   "commandMenu.copyAsDataUrl": {
-    "notes": "",
     "translation": "Kodu Veri URL'si Olarak Kopyala"
   },
   "commandMenu.disableAI": {
-    "notes": "",
     "translation": "AI Kod Asistanını Devre Dışı Bırak"
   },
   "commandMenu.disableAutoSave": {
-    "notes": "",
     "translation": "Otomatik Kaydetmeyi Devre Dışı Bırak"
   },
   "commandMenu.disableAutoUpdate": {
-    "notes": "",
     "translation": "Otomatik Güncellemeyi Devre Dışı Bırak"
   },
   "commandMenu.disableEmacs": {
-    "notes": "",
     "translation": "Emacs Modunu Devre Dışı Bırak"
   },
   "commandMenu.disableFormatOnSave": {
-    "notes": "",
     "translation": "Kaydederken Biçimlendirmeyi Devre Dışı Bırak"
   },
   "commandMenu.disableRecoverUnsaved": {
-    "notes": "",
     "translation": "Kaydedilmemiş Kurtarmayı Devre Dışı Bırak"
   },
   "commandMenu.disableVim": {
-    "notes": "",
     "translation": "Vim Modunu Devre Dışı Bırak"
   },
   "commandMenu.enableAI": {
-    "notes": "",
     "translation": "AI Kod Asistanını Etkinleştir"
   },
   "commandMenu.enableAutoSave": {
-    "notes": "",
     "translation": "Otomatik Kaydetmeyi Etkinleştir"
   },
   "commandMenu.enableAutoUpdate": {
-    "notes": "",
     "translation": "Otomatik Güncellemeyi Etkinleştir"
   },
   "commandMenu.enableEmacs": {
-    "notes": "",
     "translation": "Emacs Modunu Etkinleştir"
   },
   "commandMenu.enableFormatOnSave": {
-    "notes": "",
     "translation": "Kaydederken Biçimlendirmeyi Etkinleştir"
   },
   "commandMenu.enableRecoverUnsaved": {
-    "notes": "",
     "translation": "Kaydedilmemiş Kurtarmayı Etkinleştir"
   },
   "commandMenu.enableVim": {
-    "notes": "",
     "translation": "Vim Modunu Etkinleştir"
   },
   "commandMenu.focus.editor": {
-    "notes": "",
     "translation": "Düzenleyiciye Odaklan"
   },
   "commandMenu.focus.home": {
-    "notes": "",
     "translation": "Ana Sayfaya Git"
   },
   "commandMenu.focus.outOfEditor": {
-    "notes": "",
     "translation": "Düzenleyiciden Çık"
   },
   "commandMenu.focus.toggleTabFocusMode": {
-    "notes": "",
     "translation": "Sekme Odak Modunu Değiştir"
   },
   "commandMenu.formatCode": {
-    "notes": "",
     "translation": "Kodu Biçimlendir"
   },
   "commandMenu.home": {
-    "notes": "",
     "translation": "Ana Sayfa"
   },
   "commandMenu.horizontalLayout": {
-    "notes": "",
     "translation": "Yatay Düzen"
   },
   "commandMenu.keyboardShortcuts": {
-    "notes": "",
     "translation": "Klavye Kısayolları"
   },
   "commandMenu.login": {
-    "notes": "",
     "translation": "Giriş Yap"
   },
   "commandMenu.logout": {
-    "notes": "",
     "translation": "Çıkış Yap"
   },
   "commandMenu.moveToParent": {
-    "notes": "",
     "translation": "üst öğeye git"
   },
   "commandMenu.placeholder": {
-    "notes": "",
     "translation": "Bir komut yazın veya arayın..."
   },
   "commandMenu.processors": {
-    "notes": "",
     "translation": "İşlemciler"
   },
   "commandMenu.responsiveLayout": {
-    "notes": "",
     "translation": "Duyarlı Düzen"
   },
   "commandMenu.run": {
-    "notes": "",
     "translation": "Çalıştır"
   },
   "commandMenu.saveAsFork": {
-    "notes": "",
     "translation": "Fork Olarak Kaydet (Yeni Proje)"
   },
   "commandMenu.saveAsTemplate": {
-    "notes": "",
     "translation": "Şablon Olarak Kaydet"
   },
   "commandMenu.selectLanguage": {
-    "notes": "",
     "translation": "Dil Seç"
   },
   "commandMenu.show.compiled": {
-    "notes": "",
     "translation": "Derlenmiş Kodu Göster/Gizle"
   },
   "commandMenu.show.console": {
-    "notes": "",
     "translation": "Konsolu Göster/Gizle"
   },
   "commandMenu.show.focusMode": {
-    "notes": "",
     "translation": "Odak Modunu Değiştir"
   },
   "commandMenu.show.fullscreen": {
-    "notes": "",
     "translation": "Tam Ekranı Değiştir"
   },
   "commandMenu.show.markup": {
-    "notes": "",
     "translation": "İşaretleme Düzenleyicisini Göster"
   },
   "commandMenu.show.maximizeCompiled": {
-    "notes": "",
     "translation": "Derlenmiş Kodu Büyüt"
   },
   "commandMenu.show.maximizeConsole": {
-    "notes": "",
     "translation": "Konsolu Büyüt"
   },
   "commandMenu.show.maximizeTests": {
-    "notes": "",
     "translation": "Testleri Büyüt"
   },
   "commandMenu.show.next": {
-    "notes": "",
     "translation": "Sonraki Düzenleyiciyi Göster"
   },
   "commandMenu.show.previous": {
-    "notes": "",
     "translation": "Önceki Düzenleyiciyi Göster"
   },
   "commandMenu.show.result": {
-    "notes": "",
     "translation": "Sonucu Göster/Gizle"
   },
   "commandMenu.show.runTests": {
-    "notes": "",
     "translation": "Testleri Çalıştır"
   },
   "commandMenu.show.script": {
-    "notes": "",
     "translation": "Betik Düzenleyicisini Göster"
   },
   "commandMenu.show.style": {
-    "notes": "",
     "translation": "Stil Düzenleyicisini Göster"
   },
   "commandMenu.show.tests": {
-    "notes": "",
     "translation": "Testleri Göster/Gizle"
   },
   "commandMenu.show.title": {
-    "notes": "",
     "translation": "Göster …"
   },
   "commandMenu.show.zoom": {
-    "notes": "",
     "translation": "Sonuç Zum Değiştir"
   },
   "commandMenu.starterTemplates": {
-    "notes": "",
     "translation": "Başlangıç Şablonları"
   },
   "commandMenu.sync": {
-    "notes": "",
     "translation": "Senkronize Et (beta) …"
   },
   "commandMenu.template": {
-    "notes": "",
     "translation": "Şablon"
   },
   "commandMenu.theme.color": {
-    "notes": "",
     "translation": "Tema Rengini Ayarla"
   },
   "commandMenu.theme.defaultColor": {
-    "notes": "",
     "translation": "Varsayılan Tema Rengini Ayarla"
   },
   "commandMenu.title": {
-    "notes": "",
     "translation": "Komut Menüsü"
   },
   "commandMenu.toClose": {
-    "notes": "",
     "translation": "kapatmak için"
   },
   "commandMenu.toNavigate": {
-    "notes": "",
     "translation": "gezinmek için"
   },
   "commandMenu.toSelect": {
-    "notes": "",
     "translation": "seçmek için"
   },
   "commandMenu.toggle": {
-    "notes": "",
     "translation": "Değiştir: "
   },
   "commandMenu.verticalLayout": {
-    "notes": "",
     "translation": "Dikey Düzen"
   },
   "core.broadcast.heading": {
-    "notes": "",
     "translation": "Yayın"
   },
   "core.broadcast.successSetToken": {
-    "notes": "",
     "translation": "Yayın kullanıcı jetonu başarıyla ayarlandı"
   },
   "core.changeLanguage.hint": {
-    "notes": "",
     "translation": "Dili Değiştir"
   },
   "core.changeLanguage.message": {
-    "notes": "",
     "translation": "{{lang}} yükleniyor. Bu biraz zaman alabilir!"
   },
   "core.copy.copied": {
-    "notes": "",
     "translation": "Kod panoya kopyalandı"
   },
   "core.copy.copiedAsDataURL": {
-    "notes": "",
     "translation": "Kod veri URL'si olarak kopyalandı"
   },
   "core.copy.copiedImage": {
-    "notes": "",
     "translation": "Resim panoya kopyalandı."
   },
   "core.copy.hint": {
-    "notes": "",
     "translation": "Kopyalandı!"
   },
   "core.copy.title": {
-    "notes": "",
     "translation": "Kopyala"
   },
   "core.error.couldNotLoadTemplate": {
-    "notes": "",
     "translation": "Şablon yüklenemedi: {{template}}"
   },
   "core.error.failedToCopyCode": {
-    "notes": "",
     "translation": "Kod kopyalanamadı"
   },
   "core.error.failedToCopyImage": {
-    "notes": "",
     "translation": "Resim kopyalanamadı"
   },
   "core.error.failedToLoadTemplate": {
-    "notes": "",
     "translation": "Şablon yüklenemedi"
   },
   "core.error.failedToLoadTemplates": {
-    "notes": "",
     "translation": "Başlangıç şablonları yüklenemedi"
   },
   "core.error.failedToParseSettings": {
-    "notes": "",
     "translation": "Ayarlar JSON olarak ayrıştırılamadı"
   },
   "core.error.failedToSaveImage": {
-    "notes": "",
     "translation": "Resim kaydedilemedi"
   },
   "core.error.failedToShareImage": {
-    "notes": "",
     "translation": "Resim paylaşılamadı"
   },
   "core.error.invalidCommand": {
-    "notes": "",
     "translation": "Geçersiz komut!"
   },
   "core.error.invalidImport": {
-    "notes": "",
     "translation": "Geçersiz içe aktarma URL'si"
   },
   "core.error.invalidPanelId": {
-    "notes": "",
     "translation": "Geçersiz panel kimliği"
   },
   "core.error.invalidToken": {
-    "notes": "",
     "translation": "Geçersiz jeton!"
   },
   "core.error.login": {
-    "notes": "",
     "translation": "Giriş hatası!"
   },
   "core.error.logout": {
-    "notes": "",
     "translation": "Çıkış hatası!"
   },
   "core.error.noResultContainer": {
-    "notes": "",
     "translation": "Sonuç konteyneri bulunamadı"
   },
   "core.error.unavailable": {
-    "notes": "",
     "translation": "Komut kullanılamıyor"
   },
   "core.error.unavailableForEmbeds": {
-    "notes": "",
     "translation": "Gömülü öğeler için komut kullanılamıyor"
   },
   "core.export.gist": {
-    "notes": "",
     "translation": "Genel bir GitHub gist oluşturuluyor..."
   },
   "core.fork.success": {
-    "notes": "",
     "translation": "Yeni bir proje olarak fork edildi"
   },
   "core.fullScreen.enter": {
-    "notes": "",
     "translation": "Tam Ekran"
   },
   "core.fullScreen.exit": {
-    "notes": "",
     "translation": "Tam Ekrandan Çık"
   },
   "core.generating": {
-    "notes": "",
     "translation": "Oluşturuluyor..."
   },
   "core.import.loading": {
-    "notes": "",
     "translation": "Proje Yükleniyor..."
   },
   "core.layout.horizontal": {
-    "notes": "",
     "translation": "Yatay düzen"
   },
   "core.layout.responsive": {
-    "notes": "",
     "translation": "Duyarlı düzen"
   },
   "core.layout.vertical": {
-    "notes": "",
     "translation": "Dikey düzen"
   },
   "core.loadDefaults.template": {
-    "notes": "",
     "translation": "Varsayılan şablon yükleniyor"
   },
   "core.login.success": {
-    "notes": "",
     "translation": "Başarıyla giriş yapıldı"
   },
   "core.login.successWithName": {
-    "notes": "",
     "translation": "{{name}} olarak giriş yapıldı"
   },
   "core.logout.success": {
-    "notes": "",
     "translation": "Başarıyla çıkış yapıldı"
   },
   "core.result.hint": {
-    "notes": "",
     "translation": "Sonucu yeni pencerede göster"
   },
   "core.save.success": {
-    "notes": "",
     "translation": "Proje yerel olarak cihaza kaydedildi!"
   },
   "core.save.successWithName": {
-    "notes": "",
     "translation": "\"{{name}}\" projesi cihaza kaydedildi."
   },
   "core.template.blank": {
-    "notes": "",
     "translation": "Boş Proje"
   },
   "core.template.delete": {
-    "notes": "",
     "translation": "\"{{item}}\" şablonu silinsin mi?"
   },
   "core.template.javascript": {
-    "notes": "",
     "translation": "JavaScript Başlangıç"
   },
   "core.template.react": {
-    "notes": "",
     "translation": "React Başlangıç"
   },
   "core.template.saved": {
-    "notes": "",
     "translation": "Yeni bir şablon olarak kaydedildi"
   },
   "core.template.typescript": {
-    "notes": "",
     "translation": "TypeScript Başlangıç"
   },
   "core.template.vue": {
-    "notes": "",
     "translation": "Vue 3 Başlangıç"
   },
   "core.unload.notSaved": {
-    "notes": "",
     "translation": "Yaptığınız değişiklikler kaydedilmemiş olabilir."
   },
   "core.zoom.hint": {
-    "notes": "",
     "translation": "Yakınlaştır"
   },
   "customSettings.JSON": {
-    "notes": "",
     "translation": "Özel Ayarlar JSON"
   },
   "customSettings.desc": {
-    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}advanced/custom-settings\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1></tag-1> Daha fazla ayrıntı için lütfen <tag-2>dokümantasyona</tag-2> bakın"
   },
   "customSettings.heading": {
-    "notes": "",
     "translation": "Özel Ayarlar"
   },
   "customSettings.load": {
-    "notes": "",
     "translation": "Yükle"
   },
   "deploy.create.desc": {
-    "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<span class=\"code\" />\n\n",
     "translation": "Yeni bir <tag-1>genel</tag-1> depo oluşturulacaktır. Sonuç sayfası <tag-2>gh-pages</tag-2> dalına itilecektir."
   },
   "deploy.create.heading": {
-    "notes": "",
     "translation": "Yeni Depo Oluştur"
   },
   "deploy.create.repoName": {
-    "notes": "### <tag-1> ###\n<span id=\"new-repo-name-error\" class=\"error\" />\n\n",
     "translation": "Depo Adı <tag-1></tag-1>"
   },
   "deploy.error.generic": {
-    "notes": "",
     "translation": "Dağıtım başarısız oldu!"
   },
   "deploy.error.repoNameExists": {
-    "notes": "",
     "translation": "Depo adı zaten mevcut"
   },
   "deploy.error.repoNameRequired": {
-    "notes": "",
     "translation": "Depo adı gereklidir"
   },
   "deploy.existing.desc": {
-    "notes": "### <tag-1> ###\n<span class=\"code\" />\n\n",
     "translation": "<tag-1>gh-pages</tag-1> dalına yeni bir commit eklenecektir."
   },
   "deploy.existing.heading": {
-    "notes": "",
     "translation": "Mevcut Depo"
   },
   "deploy.existing.repoName": {
-    "notes": "",
     "translation": "Depo Adı"
   },
   "deploy.generic.commitMessage": {
-    "notes": "",
     "translation": "Commit Mesajı"
   },
   "deploy.generic.commitSourceCodePublic": {
-    "notes": "",
     "translation": "Kaynak kodunu commit et (genel)"
   },
   "deploy.generic.deployBtn": {
-    "notes": "",
     "translation": "Dağıt"
   },
   "deploy.generic.deploying": {
-    "notes": "",
     "translation": "Dağıtılıyor..."
   },
   "deploy.heading": {
-    "notes": "",
     "translation": "GitHub Pages'e Dağıt"
   },
   "deploy.searchRepo": {
-    "notes": "",
     "translation": "Genel depolarınızı arayın..."
   },
   "editorSettings.closeBrackets": {
-    "notes": "",
     "translation": "Parantezleri ve tırnak işaretlerini otomatik kapat"
   },
   "editorSettings.codeJarDesc": {
-    "notes": "### <tag-1> ###\n<i class=\"icon-alert\" />\n\n",
     "translation": "<tag-1></tag-1> * İşaretli özellikler CodeJar'da mevcut değildir."
   },
   "editorSettings.default": {
-    "notes": "",
     "translation": "Varsayılan"
   },
   "editorSettings.desc": {
-    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}features/editor-settings\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1></tag-1> Ayrıntılar için lütfen <tag-2>dokümantasyonu</tag-2> kontrol edin."
   },
   "editorSettings.editor.codejar": {
-    "notes": "",
     "translation": "CodeJar"
   },
   "editorSettings.editor.codemirror": {
-    "notes": "",
     "translation": "CodeMirror"
   },
   "editorSettings.editor.heading": {
-    "notes": "",
     "translation": "Düzenleyici"
   },
   "editorSettings.editor.monaco": {
-    "notes": "",
     "translation": "Monaco"
   },
   "editorSettings.editorMode.emacs": {
-    "notes": "",
     "translation": "Emacs"
   },
   "editorSettings.editorMode.heading": {
-    "notes": "",
     "translation": "Düzenleyici Modu *"
   },
   "editorSettings.editorMode.vim": {
-    "notes": "",
     "translation": "Vim"
   },
   "editorSettings.editorTheme": {
-    "notes": "",
     "translation": "Düzenleyici Teması"
   },
   "editorSettings.emmet": {
-    "notes": "",
     "translation": "Emmet'i Etkinleştir *"
   },
   "editorSettings.enableAI.heading": {
-    "notes": "",
     "translation": "AI Kod Asistanını Etkinleştir"
   },
   "editorSettings.enableAI.note": {
-    "notes": "### <tag-1> ###\n<a href=\"https://windsurf.com/\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img id=\"windsurf-logo\" src=\"{{baseUrl}}assets/images/windsurf.svg\" style=\"height: 3em; translate: 0 40%; margin-top: -2em;\" alt=\"Windsurf\" />\n\n",
     "translation": "<tag-1><tag-2></tag-2></tag-1> tarafından desteklenmektedir"
   },
   "editorSettings.foldRegions": {
-    "notes": "",
     "translation": "Bölgeleri katla (daralt) *"
   },
   "editorSettings.fontFamily": {
-    "notes": "",
     "translation": "Yazı Tipi Ailesi"
   },
   "editorSettings.fontSize": {
-    "notes": "",
     "translation": "Yazı Tipi Boyutu"
   },
   "editorSettings.format": {
-    "notes": "",
     "translation": "Biçim"
   },
   "editorSettings.heading": {
-    "notes": "",
     "translation": "Düzenleyici Ayarları"
   },
   "editorSettings.lineNumbers": {
-    "notes": "",
     "translation": "Satır numaralarını göster"
   },
   "editorSettings.lineNumbersRelative": {
-    "notes": "",
     "translation": "Göreceli satır numaraları *"
   },
   "editorSettings.notAvailableInCodeJar": {
-    "notes": "",
     "translation": "CodeJar'da mevcut değil"
   },
   "editorSettings.preview": {
-    "notes": "",
     "translation": "Önizleme"
   },
   "editorSettings.semicolons": {
-    "notes": "",
     "translation": "Biçim: Noktalı Virgül Kullan"
   },
   "editorSettings.singleQuote": {
-    "notes": "",
     "translation": "Biçim: Tek Tırnak Kullan"
   },
   "editorSettings.tabSize": {
-    "notes": "",
     "translation": "Sekme Boyutu"
   },
   "editorSettings.theme": {
-    "notes": "",
     "translation": "Koyu Mod"
   },
   "editorSettings.trailingComma": {
-    "notes": "",
     "translation": "Biçim: Sonda Virgül Kullan"
   },
   "editorSettings.useTabs.heading": {
-    "notes": "",
     "translation": "Girinti"
   },
   "editorSettings.useTabs.spaces": {
-    "notes": "",
     "translation": "Boşluklar"
   },
   "editorSettings.useTabs.tabs": {
-    "notes": "",
     "translation": "Sekmeler"
   },
   "editorSettings.wordWrap": {
-    "notes": "",
     "translation": "Kelime kaydırma"
   },
   "embed.activeEditor.heading": {
-    "notes": "",
     "translation": "Aktif Düzenleyici"
   },
   "embed.activeEditor.markup": {
-    "notes": "",
     "translation": "{{markup}}"
   },
   "embed.activeEditor.script": {
-    "notes": "",
     "translation": "{{script}}"
   },
   "embed.activeEditor.style": {
-    "notes": "",
     "translation": "{{style}}"
   },
   "embed.activeTool.compiled": {
-    "notes": "",
     "translation": "Derlenmiş"
   },
   "embed.activeTool.console": {
-    "notes": "",
     "translation": "Konsol"
   },
   "embed.activeTool.heading": {
-    "notes": "",
     "translation": "Aktif Araç"
   },
   "embed.activeTool.tests": {
-    "notes": "",
     "translation": "Testler"
   },
   "embed.code.copy": {
-    "notes": "",
     "translation": "Kodu Kopyala"
   },
   "embed.code.heading": {
-    "notes": "",
     "translation": "Kod"
   },
   "embed.codeEditor.codeJar": {
-    "notes": "",
     "translation": "CodeJar"
   },
   "embed.codeEditor.codeMirror": {
-    "notes": "",
     "translation": "CodeMirror"
   },
   "embed.codeEditor.default": {
-    "notes": "",
     "translation": "Varsayılan"
   },
   "embed.codeEditor.heading": {
-    "notes": "",
     "translation": "Kod Düzenleyici"
   },
   "embed.codeEditor.monaco": {
-    "notes": "",
     "translation": "Monaco"
   },
   "embed.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}configuration/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Gelişmiş yapılandırmalar için lütfen <tag-1>dokümantasyonu</tag-1> kontrol edin."
   },
   "embed.embedType.cdn": {
-    "notes": "",
     "translation": "Betik (CDN)"
   },
   "embed.embedType.heading": {
-    "notes": "",
     "translation": "Gömme Türü"
   },
   "embed.embedType.html": {
-    "notes": "",
     "translation": "HTML"
   },
   "embed.embedType.iframe": {
-    "notes": "",
     "translation": "Iframe"
   },
   "embed.embedType.npm": {
-    "notes": "",
     "translation": "JS (npm)"
   },
   "embed.embedType.react": {
-    "notes": "",
     "translation": "React"
   },
   "embed.embedType.svelte": {
-    "notes": "",
     "translation": "Svelte"
   },
   "embed.embedType.vue": {
-    "notes": "",
     "translation": "Vue"
   },
   "embed.heading": {
-    "notes": "",
     "translation": "Projeyi Göm"
   },
   "embed.layout.heading": {
-    "notes": "",
     "translation": "Düzen"
   },
   "embed.layout.horizontal": {
-    "notes": "",
     "translation": "Yatay"
   },
   "embed.layout.responsive": {
-    "notes": "",
     "translation": "Duyarlı"
   },
   "embed.layout.vertical": {
-    "notes": "",
     "translation": "Dikey"
   },
   "embed.lite": {
-    "notes": "",
     "translation": "Hafif Mod"
   },
   "embed.loading.click": {
-    "notes": "",
     "translation": "Tıklamayla"
   },
   "embed.loading.eager": {
-    "notes": "",
     "translation": "Hevesli"
   },
   "embed.loading.heading": {
-    "notes": "",
     "translation": "Yükleme"
   },
   "embed.loading.lazy": {
-    "notes": "",
     "translation": "Tembel"
   },
   "embed.mode.codeblock": {
-    "notes": "",
     "translation": "Kod Bloğu"
   },
   "embed.mode.editor": {
-    "notes": "",
     "translation": "Düzenleyici"
   },
   "embed.mode.full": {
-    "notes": "",
     "translation": "Tam"
   },
   "embed.mode.heading": {
-    "notes": "",
     "translation": "Görüntüleme Modu"
   },
   "embed.mode.result": {
-    "notes": "",
     "translation": "Sonuç"
   },
   "embed.mode.simple": {
-    "notes": "",
     "translation": "Basit"
   },
   "embed.permanentUrl": {
-    "notes": "",
     "translation": "Kalıcı URL"
   },
   "embed.preview": {
-    "notes": "",
     "translation": "Önizleme"
   },
   "embed.previewLoading": {
-    "notes": "",
     "translation": "Önizleme Yükleniyor..."
   },
   "embed.readonly": {
-    "notes": "",
     "translation": "Salt okunur"
   },
   "embed.theme.dark": {
-    "notes": "",
     "translation": "Koyu"
   },
   "embed.theme.heading": {
-    "notes": "",
     "translation": "Tema"
   },
   "embed.theme.light": {
-    "notes": "",
     "translation": "Açık"
   },
   "embed.tools.closed": {
-    "notes": "",
     "translation": "Kapalı"
   },
   "embed.tools.full": {
-    "notes": "",
     "translation": "Tam"
   },
   "embed.tools.heading": {
-    "notes": "",
     "translation": "Araçlar"
   },
   "embed.tools.none": {
-    "notes": "",
     "translation": "Yok"
   },
   "embed.tools.open": {
-    "notes": "",
     "translation": "Açık"
   },
   "embed.view.editor": {
-    "notes": "",
     "translation": "Düzenleyici"
   },
   "embed.view.heading": {
-    "notes": "",
     "translation": "Varsayılan Görünüm"
   },
   "embed.view.result": {
-    "notes": "",
     "translation": "Sonuç"
   },
   "embed.view.split": {
-    "notes": "",
     "translation": "Bölünmüş"
   },
   "generic.about.blog": {
-    "notes": "",
     "translation": "Blog"
   },
   "generic.about.configuration": {
-    "notes": "",
     "translation": "Yapılandırma"
   },
   "generic.about.gettingStarted": {
-    "notes": "",
     "translation": "Başlangıç"
   },
   "generic.about.github": {
-    "notes": "",
     "translation": "GitHub"
   },
   "generic.about.sdk": {
-    "notes": "",
     "translation": "LiveCodes SDK"
   },
   "generic.about.sponsor": {
-    "notes": "",
     "translation": "Sponsor"
   },
   "generic.about.twitter": {
-    "notes": "",
     "translation": "𝕏 / Twitter"
   },
   "generic.clickForInfo": {
-    "notes": "",
     "translation": "Bilgi için tıklayın..."
   },
   "generic.close": {
-    "notes": "",
     "translation": "Kapat"
   },
   "generic.custom": {
-    "notes": "",
     "translation": "Özel"
   },
   "generic.embed.logoHint": {
-    "notes": "",
     "translation": "LiveCodes'ta Düzenle 🡕"
   },
   "generic.error.authentication": {
-    "notes": "",
     "translation": "Kimlik doğrulama hatası!"
   },
   "generic.error.exceededSize": {
-    "notes": "",
     "translation": "Hata: {{size}} MB boyutu aşıldı"
   },
   "generic.error.failedToReadFile": {
-    "notes": "",
     "translation": "Hata: Dosya okunamadı"
   },
   "generic.loading": {
-    "notes": "",
     "translation": "Yükleniyor..."
   },
   "generic.more": {
-    "notes": "",
     "translation": "Daha Fazla..."
   },
   "generic.optional": {
-    "notes": "",
     "translation": "İsteğe Bağlı"
   },
   "generic.required": {
-    "notes": "",
     "translation": "Gerekli"
   },
   "generic.tagline": {
-    "notes": "",
     "translation": "Sorunsuz Çalışan Bir Kod Alanı!"
   },
   "import.bulk.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"#\" id=\"link-to-saved-projects\" />\n\n",
     "translation": "Kaydedilmiş projelerinize birden fazla projeyi toplu olarak içe aktarın. Projeler <tag-1>Kaydedilmiş Projeler</tag-1> ekranından dışa aktarılabilir."
   },
   "import.bulk.fromFile": {
-    "notes": "",
     "translation": "Yerel dosyadan toplu içe aktarma"
   },
   "import.bulk.fromURL": {
-    "notes": "",
     "translation": "URL'den toplu içe aktarma"
   },
   "import.bulk.heading": {
-    "notes": "",
     "translation": "Toplu İçe Aktarma"
   },
   "import.bulk.started": {
-    "notes": "",
     "translation": "Toplu içe aktarma başlatıldı..."
   },
   "import.code.desc": {
-    "notes": "### <tag-1> ###\n<ul  />\n\n### <tag-2> ###\n<li  />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<li  />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<li  />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<li  />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<li  />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<li  />\n\n### <tag-13> ###\n<li  />\n\n### <tag-14> ###\n<br  />\n\n### <tag-15> ###\n<a href=\"{{DOCS_BASE_URL}}features/import\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Desteklenen Kaynaklar: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHub dosyası</tag-3> <tag-4>GitHub deposundaki dizin</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlab dosyası</tag-6> <tag-7>Gitlab deposundaki dizin</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Ham kod</tag-9> <tag-10>Web sayfası DOM'undaki kod</tag-10> <tag-11>Zip dosyasındaki kod</tag-11> <tag-12>Resimdeki kod (OCR)</tag-12> <tag-13>Resmi kod alanları<tag-14></tag-14>(TypeScript ve Vue)</tag-13> </tag-1> Ayrıntılar için lütfen <tag-15>dokümantasyonu</tag-15> ziyaret edin."
   },
   "import.code.fromFile": {
-    "notes": "",
     "translation": "Yerel dosyaları içe aktar"
   },
   "import.code.fromURL": {
-    "notes": "",
     "translation": "URL'den içe aktar"
   },
   "import.code.heading": {
-    "notes": "",
     "translation": "Kodu İçe Aktar"
   },
   "import.error.failedToLoadURL": {
-    "notes": "",
     "translation": "Hata: URL yüklenemedi"
   },
   "import.error.invalidConfigFile": {
-    "notes": "",
     "translation": "Geçersiz yapılandırma dosyası"
   },
   "import.error.invalidFile": {
-    "notes": "",
     "translation": "Hata: Geçersiz dosya"
   },
   "import.generic.file": {
-    "notes": "",
     "translation": "Yerel dosya"
   },
   "import.generic.url": {
-    "notes": "",
     "translation": "URL"
   },
   "import.heading": {
-    "notes": "",
     "translation": "İçe Aktar"
   },
   "import.json.desc": {
-    "notes": "",
     "translation": "Tek bir proje JSON'unu düzenleyiciye içe aktarın. Bir proje, uygulama&nbsp;menüsü&nbsp;→ Dışa&nbsp;Aktar&nbsp;→ Projeyi&nbsp;Dışa&nbsp;Aktar&nbsp;(JSON) yoluyla dışa aktarılabilir."
   },
   "import.json.fromFile": {
-    "notes": "",
     "translation": "Projeyi yerel dosyadan içe aktar"
   },
   "import.json.fromURL": {
-    "notes": "",
     "translation": "Projeyi URL'den içe aktar"
   },
   "import.json.heading": {
-    "notes": "",
     "translation": "Proje JSON'unu İçe Aktar"
   },
   "import.success": {
-    "notes": "",
     "translation": "İçe Aktarma Başarılı!"
   },
   "keyboardShortcuts.command": {
-    "notes": "",
     "translation": "Komut"
   },
   "keyboardShortcuts.editorShortcuts": {
-    "notes": "### <tag-1> ###\n<a href=\"https://code.visualstudio.com/docs/getstarted/keybindings#_basic-editing\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Kod düzenleyici klavye kısayollarının listesi için, <tag-1>VS Code kısayollarına</tag-1> bakın"
   },
   "keyboardShortcuts.heading": {
-    "notes": "",
     "translation": "Klavye Kısayolları"
   },
   "keyboardShortcuts.key": {
-    "notes": "",
     "translation": "Tuş"
   },
   "login.accessAllowed": {
-    "notes": "",
     "translation": "Erişime izin ver:"
   },
   "login.desc": {
-    "notes": "### <tag-1> ###\n<p  />\n\n### <tag-2> ###\n<strong  />\n\n### <tag-3> ###\n<p  />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}features/github-integration#features-that-require-github-account\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<p  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}features/github-integration#setting-permissions\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1>Giriş yaparak, <tag-2>çerezlerin</tag-2> cihazınızda saklanabileceğini kabul etmiş olursunuz.</tag-1> <tag-3> <tag-4>Bu izinler neden gereklidir?</tag-4> </tag-3> <tag-5> <tag-6>İzinler nasıl değiştirilir/iptal edilir?</tag-6> </tag-5>"
   },
   "login.gist": {
-    "notes": "",
     "translation": "Gist'ler"
   },
   "login.heading": {
-    "notes": "",
     "translation": "GitHub ile Giriş Yap"
   },
   "login.loginAs": {
-    "notes": "",
     "translation": "{{name}} olarak giriş yapıldı"
   },
   "login.loginBtn": {
-    "notes": "",
     "translation": "Giriş Yap"
   },
   "login.logout": {
-    "notes": "",
     "translation": "Çıkış Yap"
   },
   "login.privateRepo": {
-    "notes": "",
     "translation": "Özel Depolar"
   },
   "login.publicRepo": {
-    "notes": "",
     "translation": "Depolar"
   },
   "menu.about": {
-    "notes": "",
     "translation": "Hakkında ..."
   },
   "menu.appHelp.heading": {
-    "notes": "",
     "translation": "Yardım"
   },
   "menu.appHelp.hint": {
-    "notes": "",
     "translation": "Yardım"
   },
   "menu.appProject.heading": {
-    "notes": "",
     "translation": "Proje"
   },
   "menu.appProject.hint": {
-    "notes": "",
     "translation": "Proje"
   },
   "menu.appSettings.heading": {
-    "notes": "",
     "translation": "Ayarlar"
   },
   "menu.appSettings.hint": {
-    "notes": "",
     "translation": "Uygulama Ayarları"
   },
   "menu.assets": {
-    "notes": "",
     "translation": "Varlıklar …"
   },
   "menu.autoSave": {
-    "notes": "",
     "translation": "Otomatik Kaydetme"
   },
   "menu.autoUpdate": {
-    "notes": "",
     "translation": "Otomatik Güncelleme"
   },
   "menu.backup": {
-    "notes": "",
     "translation": "Yedekleme / Geri Yükleme …"
   },
   "menu.blog": {
-    "notes": "",
-    "translation": "LiveCodes Blog"
+    "translation": "LiveCodes Blogu"
   },
   "menu.broadcast": {
-    "notes": "",
     "translation": "Yayın …"
   },
   "menu.commandMenu": {
-    "notes": "",
     "translation": "Komut Menüsü"
   },
   "menu.config": {
-    "notes": "",
     "translation": "Yapılandırma"
   },
   "menu.customSettings": {
-    "notes": "",
     "translation": "Özel Ayarlar …"
   },
   "menu.delay.heading": {
-    "notes": "### <tag-1> ###\n<span id=\"delay-value\" />\n\n",
     "translation": "Gecikme: <tag-1>1.5</tag-1>s"
   },
   "menu.delay.hint": {
-    "notes": "",
     "translation": "Otomatik güncelleme öncesi gecikme"
   },
   "menu.deploy": {
-    "notes": "",
     "translation": "Dağıt …"
   },
   "menu.docs": {
-    "notes": "",
     "translation": "Dokümantasyon"
   },
   "menu.editorSettings": {
-    "notes": "",
     "translation": "Düzenleyici Ayarları …"
   },
   "menu.embed": {
-    "notes": "",
     "translation": "Göm …"
   },
   "menu.export.codepen": {
-    "notes": "",
     "translation": "CodePen'de Düzenle"
   },
   "menu.export.gist": {
-    "notes": "",
     "translation": "GitHub Gist'e Dışa Aktar"
   },
   "menu.export.heading": {
-    "notes": "",
     "translation": "Dışa Aktar"
   },
   "menu.export.jsfiddle": {
-    "notes": "",
     "translation": "JSFiddle'da Düzenle"
   },
   "menu.export.json": {
-    "notes": "",
     "translation": "Projeyi Dışa Aktar (JSON)"
   },
   "menu.export.result": {
-    "notes": "",
     "translation": "Sonucu Dışa Aktar (HTML)"
   },
   "menu.export.src": {
-    "notes": "",
     "translation": "Kaynağı Dışa Aktar (ZIP)"
   },
   "menu.features": {
-    "notes": "",
     "translation": "Özellikler"
   },
   "menu.formatOnsave": {
-    "notes": "",
     "translation": "Kaydederken Biçimlendir"
   },
   "menu.getstart": {
-    "notes": "",
     "translation": "Başlangıç"
   },
   "menu.import": {
-    "notes": "",
     "translation": "İçe Aktar …"
   },
   "menu.keyboardShortcuts": {
-    "notes": "",
     "translation": "Klavye Kısayolları"
   },
   "menu.layout": {
-    "notes": "",
     "translation": "Dikey Düzen"
   },
   "menu.license": {
-    "notes": "",
     "translation": "Lisans"
   },
   "menu.login": {
-    "notes": "",
     "translation": "Giriş Yap"
   },
   "menu.logout": {
-    "notes": "",
     "translation": "Çıkış Yap"
   },
   "menu.new": {
-    "notes": "",
     "translation": "Yeni …"
   },
   "menu.open": {
-    "notes": "",
     "translation": "Aç …"
   },
   "menu.project": {
-    "notes": "",
     "translation": "Proje Bilgisi …"
   },
   "menu.recoverUnsaved": {
-    "notes": "",
     "translation": "Kaydedilmemiş Olanı Kurtar"
   },
   "menu.report": {
-    "notes": "",
     "translation": "Bir sorun bildir"
   },
   "menu.resources": {
-    "notes": "",
     "translation": "Harici Kaynaklar …"
   },
   "menu.save": {
-    "notes": "",
     "translation": "Kaydet"
   },
   "menu.saveAs.fork": {
-    "notes": "",
     "translation": "Fork (Yeni Proje)"
   },
   "menu.saveAs.heading": {
-    "notes": "",
     "translation": "Farklı Kaydet …"
   },
   "menu.saveAs.template": {
-    "notes": "",
     "translation": "Şablon"
   },
   "menu.sdk": {
-    "notes": "",
     "translation": "SDK"
   },
   "menu.share": {
-    "notes": "",
     "translation": "Paylaş …"
   },
   "menu.showSpacing.heading": {
-    "notes": "",
     "translation": "Boşluğu Göster"
   },
   "menu.showSpacing.hint": {
-    "notes": "",
     "translation": "Alt/Option tuşuna basın ve imlecinizi sonuç sayfası üzerinde hareket ettirin"
   },
   "menu.showWelcome.title": {
-    "notes": "",
     "translation": "Başlangıçta Hoş Geldin ekranını göster"
   },
   "menu.snippets": {
-    "notes": "",
     "translation": "Kod Parçacıkları …"
   },
   "menu.source": {
-    "notes": "",
     "translation": "GitHub'da kaynak kodu"
   },
   "menu.sync": {
-    "notes": "### <tag-1> ###\n<span id=\"sync-indicator\" class=\"smaller hidden\" />\n\n",
     "translation": "Senkronize Et (beta) … <tag-1> ⏳</tag-1>"
   },
   "menu.theme": {
-    "notes": "",
     "translation": "Koyu Tema"
   },
   "menu.themeColor": {
-    "notes": "",
     "translation": "Renk"
   },
   "menu.welcome.heading": {
-    "notes": "",
     "translation": "Hoş Geldiniz …"
   },
   "open.action.delete": {
-    "notes": "",
     "translation": "Sil"
   },
   "open.defaultTemplate": {
-    "notes": "",
     "translation": "Varsayılan şablon "
   },
   "open.delete.all": {
-    "notes": "",
     "translation": "{{projects}} proje silinsin mi?"
   },
   "open.delete.deleting": {
-    "notes": "",
     "translation": "Projeler siliniyor..."
   },
   "open.delete.one": {
-    "notes": "",
     "translation": "Proje silinsin mi: {{project}}?"
   },
   "open.deleteAll": {
-    "notes": "",
     "translation": "Tümünü Sil"
   },
   "open.exportAll": {
-    "notes": "",
     "translation": "Tümünü Dışa Aktar"
   },
   "open.filter.language": {
-    "notes": "",
     "translation": "dile göre filtrele"
   },
   "open.filter.tag": {
-    "notes": "",
     "translation": "etikete göre filtrele"
   },
   "open.heading": {
-    "notes": "",
     "translation": "Kaydedilmiş Projeler"
   },
   "open.import": {
-    "notes": "",
     "translation": "İçe Aktar"
   },
   "open.lastModified": {
-    "notes": "",
     "translation": "Son değiştirilme: {{modified}}"
   },
   "open.noData.desc": {
-    "notes": "",
     "translation": "Bir projeyi (ayarlar&nbsp;menüsü&nbsp;&gt;&nbsp;Kaydet) veya klavye kısayolu (Ctrl/⌘&nbsp;+&nbsp;S) ile kaydedebilirsiniz."
   },
   "open.noData.heading": {
-    "notes": "",
     "translation": "Kaydedilmiş projeniz yok."
   },
   "open.noMatch": {
-    "notes": "",
     "translation": "Bu filtrelere uyan proje yok."
   },
   "open.placeholder.allLanguages": {
-    "notes": "",
     "translation": "Tüm diller"
   },
   "open.placeholder.filterByTags": {
-    "notes": "",
     "translation": "Etiketlere göre filtrele"
   },
   "open.placeholder.search": {
-    "notes": "",
     "translation": "Ara"
   },
   "open.removeDefault": {
-    "notes": "",
     "translation": "(kaldır)"
   },
   "open.reset": {
-    "notes": "",
     "translation": "Sıfırla"
   },
   "open.setAsDefault": {
-    "notes": "",
     "translation": "Varsayılan olarak ayarla"
   },
   "open.sort.heading": {
-    "notes": "",
     "translation": "Sıralama Kriteri:"
   },
   "open.sort.lastModified": {
-    "notes": "",
     "translation": "Son Değiştirilme"
   },
   "open.sort.title": {
-    "notes": "",
     "translation": "Başlık"
   },
   "project.desc": {
-    "notes": "",
     "translation": "Açıklama"
   },
   "project.head": {
-    "notes": "",
     "translation": "&lt;head&gt;'e ekle"
   },
   "project.heading": {
-    "notes": "",
     "translation": "Proje Bilgisi"
   },
   "project.htmlAttr": {
-    "notes": "",
     "translation": "&lt;html&gt; için öznitelikler"
   },
   "project.tags": {
-    "notes": "",
     "translation": "Etiketler"
   },
   "project.title": {
-    "notes": "",
     "translation": "Proje Başlığı"
   },
   "recoverPrompt.desc": {
-    "notes": "",
     "translation": "Son projenizde kaydedilmemiş değişiklikler var!"
   },
   "recoverPrompt.heading": {
-    "notes": "",
     "translation": "Kaydedilmemiş proje kurtarılsın mı?"
   },
   "recoverPrompt.meta": {
-    "notes": "### <tag-1> ###\n<strong id=\"unsaved-project-name\" />\n\n### <tag-2> ###\n<br  />\n\n### <tag-3> ###\n<span id=\"unsaved-project-last-modified\" />\n\n",
     "translation": "Başlık: <tag-1></tag-1> <tag-2></tag-2> Son değiştirilme: <tag-3></tag-3>"
   },
   "recoverPrompt.notShowAgain": {
-    "notes": "",
     "translation": "Bunu bir daha gösterme."
   },
   "recoverPrompt.prompt.discard": {
-    "notes": "",
     "translation": "Kaydedilmemiş projeyi sil"
   },
   "recoverPrompt.prompt.heading": {
-    "notes": "### <tag-1> ###\n<br  />\n\n",
     "translation": "<tag-1></tag-1>Şimdi kurtarmak ister misiniz?"
   },
   "recoverPrompt.prompt.recover": {
-    "notes": "",
     "translation": "Projeyi düzenleyiciye kurtar"
   },
   "recoverPrompt.prompt.save": {
-    "notes": "",
     "translation": "Cihaza kaydet ve devam et"
   },
   "resources.browseOnJsDelivr": {
-    "notes": "",
     "translation": "Paket dosyalarını jsDelivr'de göz atın"
   },
   "resources.cssPresets.heading": {
-    "notes": "",
     "translation": "CSS Ön Ayarları"
   },
   "resources.cssPresets.none": {
-    "notes": "",
     "translation": "Yok"
   },
   "resources.cssPresets.normalizeCss": {
-    "notes": "",
     "translation": "Normalize.css"
   },
   "resources.cssPresets.resetCss": {
-    "notes": "",
     "translation": "Reset CSS"
   },
   "resources.error.failedToLoadResults": {
-    "notes": "",
     "translation": "Sonuçlar yüklenemedi!"
   },
   "resources.error.noResultsFound": {
-    "notes": "",
     "translation": "Şunun için sonuç bulunamadı: "
   },
   "resources.fonts.add": {
-    "notes": "",
     "translation": "Ekle"
   },
   "resources.fonts.heading": {
-    "notes": "### <tag-1> ###\n<span class=\"nowrap label-description\" />\n\n",
     "translation": "Yazı Tipleri <tag-1>(Google Fonts tarafından desteklenmektedir)</tag-1>"
   },
   "resources.fonts.select": {
-    "notes": "",
     "translation": "Yazı tipi seçin ..."
   },
   "resources.heading": {
-    "notes": "",
     "translation": "Harici Kaynaklar"
   },
   "resources.scripts": {
-    "notes": "",
     "translation": "Harici Betikler"
   },
   "resources.search.heading": {
-    "notes": "### <tag-1> ###\n<span class=\"nowrap label-description\" />\n\n",
     "translation": "Paketleri Ara <tag-1>(jsDelivr tarafından desteklenmektedir)</tag-1>"
   },
   "resources.search.placeholder": {
-    "notes": "",
     "translation": "örn. jquery, lodash@4, bootstrap@5.2.3, ..."
   },
   "resources.stylesheets": {
-    "notes": "",
     "translation": "Harici Stil Sayfaları"
   },
   "resources.urlDesc": {
-    "notes": "",
     "translation": "Stil sayfası/betik URL'leri ekleyin. Her URL ayrı bir satırda olmalıdır."
   },
   "resultMode.linkText": {
-    "notes": "",
     "translation": "LiveCodes'ta Düzenle"
   },
   "savePrompt.heading": {
-    "notes": "",
     "translation": "Kaydedilmemiş değişiklikler"
   },
   "savePrompt.prompt.cancel": {
-    "notes": "",
     "translation": "İptal"
   },
   "savePrompt.prompt.discard": {
-    "notes": "",
     "translation": "Kaydetme"
   },
   "savePrompt.prompt.heading": {
-    "notes": "### <tag-1> ###\n<br  />\n\n",
     "translation": "Yaptığınız değişiklikler kaydedilmemiş olabilir. <tag-1></tag-1> Şimdi kaydetmek ister misiniz?"
   },
   "savePrompt.prompt.save": {
-    "notes": "",
     "translation": "Kaydet"
   },
   "share.characters": {
-    "notes": "",
     "translation": "{{urlLength}} karakter"
   },
   "share.copy.clickToCopy": {
-    "notes": "",
     "translation": "Kopyalamak için tıklayın"
   },
   "share.copy.copied": {
-    "notes": "",
     "translation": "URL panoya kopyalandı"
   },
   "share.encodedURL": {
-    "notes": "",
     "translation": "Kodlanmış URL al"
   },
   "share.error.failedToCopy": {
-    "notes": "",
     "translation": "Panoya kopyalama başarısız oldu!"
   },
   "share.error.failedToGenerateURL": {
-    "notes": "",
     "translation": "Kısa URL oluşturulamadı!"
   },
   "share.expireInOneYear": {
-    "notes": "",
     "translation": "1 yılda sona erer"
   },
   "share.generateURL": {
-    "notes": "",
     "translation": "URL oluşturuluyor …"
   },
   "share.heading": {
-    "notes": "",
     "translation": "Paylaş"
   },
   "share.permanentURL": {
-    "notes": "",
     "translation": "Kalıcı URL"
   },
   "share.qrcode.clickToDownload": {
-    "notes": "",
     "translation": "İndirmek için tıklayın"
   },
   "share.qrcode.generating": {
-    "notes": "",
     "translation": "Oluşturuluyor..."
   },
   "share.services.devTo": {
-    "notes": "",
     "translation": "Dev.to"
   },
   "share.services.email": {
-    "notes": "",
     "translation": "E-posta"
   },
   "share.services.facebook": {
-    "notes": "",
     "translation": "Facebook"
   },
   "share.services.hackerNews": {
-    "notes": "",
     "translation": "Hacker News"
   },
   "share.services.linkedIn": {
-    "notes": "",
     "translation": "LinkedIn"
   },
   "share.services.pinterest": {
-    "notes": "",
     "translation": "Pinterest"
   },
   "share.services.pocket": {
-    "notes": "",
     "translation": "Pocket"
   },
   "share.services.qrCode": {
-    "notes": "",
     "translation": "QR kod"
   },
   "share.services.reddit": {
-    "notes": "",
     "translation": "Reddit"
   },
   "share.services.share": {
-    "notes": "",
     "translation": "Şununla paylaş …"
   },
   "share.services.telegram": {
-    "notes": "",
     "translation": "Telegram"
   },
   "share.services.tumblr": {
-    "notes": "",
     "translation": "Tumblr"
   },
   "share.services.twitter": {
-    "notes": "",
     "translation": "𝕏 / Twitter"
   },
   "share.services.whatsApp": {
-    "notes": "",
     "translation": "WhatsApp"
   },
   "share.shortURL": {
-    "notes": "",
     "translation": "Kısa URL al"
   },
   "snippets.action.copy": {
-    "notes": "",
     "translation": "Kopyala"
   },
   "snippets.action.delete": {
-    "notes": "",
     "translation": "Sil"
   },
   "snippets.action.edit": {
-    "notes": "",
     "translation": "Düzenle"
   },
   "snippets.add.code": {
-    "notes": "",
     "translation": "Kod"
   },
   "snippets.add.desc": {
-    "notes": "",
     "translation": "Açıklama"
   },
   "snippets.add.heading": {
-    "notes": "",
     "translation": "Kod Parçacığı Ekle"
   },
   "snippets.add.language": {
-    "notes": "",
     "translation": "Dil"
   },
   "snippets.add.save": {
-    "notes": "",
     "translation": "Kaydet"
   },
   "snippets.add.snippets": {
-    "notes": "",
     "translation": "Kod Parçacıkları"
   },
   "snippets.add.title": {
-    "notes": "",
     "translation": "Başlık"
   },
   "snippets.copy.clickToCopySnippet": {
-    "notes": "",
     "translation": "Kod parçacığını kopyalamak için tıklayın"
   },
   "snippets.copy.copied": {
-    "notes": "",
     "translation": "Kod parçacığı panoya kopyalandı."
   },
   "snippets.delete.all": {
-    "notes": "",
     "translation": "{{snippets}} kod parçacığı silinsin mi?"
   },
   "snippets.delete.one": {
-    "notes": "",
     "translation": "Kod parçacığı silinsin mi: {{snippet}}?"
   },
   "snippets.deleteAll": {
-    "notes": "",
     "translation": "Tümünü Sil"
   },
   "snippets.error.failedToCopy": {
-    "notes": "",
     "translation": "URL kopyalanamadı."
   },
   "snippets.error.noTitle": {
-    "notes": "",
     "translation": "Lütfen kod parçacığı başlığı ekleyin."
   },
   "snippets.filter.language": {
-    "notes": "",
     "translation": "dile göre filtrele"
   },
   "snippets.heading": {
-    "notes": "",
     "translation": "Kod Parçacıkları"
   },
   "snippets.lastModified": {
-    "notes": "",
     "translation": "Son değiştirilme: {{modified}}"
   },
   "snippets.noMatch": {
-    "notes": "",
     "translation": "Bu filtrelere uyan kod parçacığı yok."
   },
   "snippets.noSavedSnippets": {
-    "notes": "",
     "translation": "Kaydedilmiş kod parçacığınız yok."
   },
   "snippets.placeholder.allLanguages": {
-    "notes": "",
     "translation": "Tüm diller"
   },
   "snippets.placeholder.search": {
-    "notes": "",
     "translation": "Ara"
   },
   "snippets.reset": {
-    "notes": "",
     "translation": "Sıfırla"
   },
   "snippets.save.success": {
-    "notes": "",
     "translation": "Kod parçacığı yerel olarak cihaza kaydedildi!"
   },
   "snippets.sort.date": {
-    "notes": "",
     "translation": "Tarih"
   },
   "snippets.sort.heading": {
-    "notes": "",
     "translation": "Sıralama Kriteri:"
   },
   "snippets.sort.title": {
-    "notes": "",
     "translation": "Başlık"
   },
   "snippets.text": {
-    "notes": "",
     "translation": "Düz Metin"
   },
   "splash.loading": {
-    "notes": "",
     "translation": "LiveCodes Yükleniyor…"
   },
   "sync.autoSync": {
-    "notes": "",
     "translation": "Otomatik senkronizasyon"
   },
   "sync.create.desc": {
-    "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<span class=\"code\" />\n\n",
     "translation": "Yeni bir <tag-1>özel</tag-1> depo oluşturulacaktır. LiveCodes yerel verileriniz <tag-2>main</tag-2> dalı ile senkronize edilecektir."
   },
   "sync.create.heading": {
-    "notes": "",
     "translation": "Yeni Depo Oluştur"
   },
   "sync.create.repoName": {
-    "notes": "",
     "translation": "Depo Adı"
   },
   "sync.error.generic": {
-    "notes": "",
     "translation": "Senkronizasyon başarısız oldu!"
   },
   "sync.error.repoNameRequired": {
-    "notes": "",
     "translation": "Depo adı gereklidir"
   },
   "sync.existing.desc": {
-    "notes": "### <tag-1> ###\n<span class=\"code\" />\n\n",
     "translation": "LiveCodes yerel verileriniz <tag-1>main</tag-1> dalı ile senkronize edilecektir."
   },
   "sync.existing.heading": {
-    "notes": "",
     "translation": "Mevcut Depo"
   },
   "sync.existing.repoName": {
-    "notes": "",
     "translation": "Depo Adı"
   },
   "sync.heading": {
-    "notes": "",
     "translation": "GitHub Deposuna Senkronize Et"
   },
   "sync.searchRepos": {
-    "notes": "",
     "translation": "Depolarınızı arayın..."
   },
   "sync.success": {
-    "notes": "",
     "translation": "Senkronizasyon tamamlandı!"
   },
   "sync.syncBtn": {
-    "notes": "",
     "translation": "Senkronize Et"
   },
   "sync.syncInProgress": {
-    "notes": "",
     "translation": "Senkronizasyon devam ediyor..."
   },
   "sync.syncStarted": {
-    "notes": "",
     "translation": "Senkronizasyon başlatıldı..."
   },
   "templates.heading": {
-    "notes": "",
     "translation": "Yeni Proje"
   },
   "templates.noUserTemplates.desc": {
-    "notes": "### <tag-1> ###\n<wbr  />\n\n",
     "translation": "Bir projeyi <tag-1></tag-1>(Uygulama&nbsp;menüsü&nbsp;&gt;&nbsp;Farklı&nbsp;Kaydet&nbsp;&gt; Şablon) yoluyla şablon olarak kaydedebilirsiniz."
   },
   "templates.noUserTemplates.heading": {
-    "notes": "",
     "translation": "Kaydedilmiş şablonunuz yok."
   },
   "templates.starter.angular": {
-    "notes": "",
     "translation": "Angular Başlangıç"
   },
   "templates.starter.assemblyscript": {
-    "notes": "",
     "translation": "AssemblyScript Başlangıç"
   },
   "templates.starter.astro": {
-    "notes": "",
     "translation": "Astro Başlangıç"
   },
   "templates.starter.backbone": {
-    "notes": "",
     "translation": "Backbone Başlangıç"
   },
   "templates.starter.blank": {
-    "notes": "",
     "translation": "Boş Proje"
   },
   "templates.starter.blockly": {
-    "notes": "",
     "translation": "Blockly Başlangıç"
   },
   "templates.starter.bootstrap": {
-    "notes": "",
     "translation": "Bootstrap Başlangıç"
   },
   "templates.starter.civet": {
-    "notes": "",
     "translation": "Civet Başlangıç"
   },
   "templates.starter.clio": {
-    "notes": "",
     "translation": "Clio Başlangıç"
   },
   "templates.starter.clojurescript": {
-    "notes": "",
     "translation": "ClojureScript Başlangıç"
   },
   "templates.starter.coffeescript": {
-    "notes": "",
     "translation": "CoffeeScript Başlangıç"
   },
   "templates.starter.commonlisp": {
-    "notes": "",
     "translation": "Common Lisp Başlangıç"
   },
   "templates.starter.cpp": {
-    "notes": "",
     "translation": "C++ Başlangıç"
   },
   "templates.starter.cpp-wasm": {
-    "notes": "",
     "translation": "C++ (Wasm) Başlangıç"
   },
   "templates.starter.daisyui": {
-    "notes": "",
     "translation": "daisyUI Başlangıç"
   },
   "templates.starter.diagrams": {
-    "notes": "",
     "translation": "Diyagramlar Başlangıç"
   },
   "templates.starter.fennel": {
-    "notes": "",
     "translation": "Fennel Başlangıç"
   },
   "templates.starter.gleam": {
-    "notes": "",
     "translation": "Gleam Başlangıç"
   },
   "templates.starter.go": {
-    "notes": "",
     "translation": "Go Başlangıç"
   },
   "templates.starter.go-wasm": {
-    "notes": "",
     "translation": "Go (Wasm) Başlangıç"
   },
   "templates.starter.heading": {
-    "notes": "",
     "translation": "Başlangıç Şablonları"
   },
   "templates.starter.imba": {
-    "notes": "",
     "translation": "Imba Başlangıç"
   },
   "templates.starter.java": {
-    "notes": "",
     "translation": "Java Başlangıç"
   },
   "templates.starter.javascript": {
-    "notes": "",
     "translation": "JavaScript Başlangıç"
   },
   "templates.starter.jest": {
-    "notes": "",
     "translation": "Jest Başlangıç"
   },
   "templates.starter.jest-react": {
-    "notes": "",
     "translation": "Jest/React Başlangıç"
   },
   "templates.starter.jquery": {
-    "notes": "",
     "translation": "jQuery Başlangıç"
   },
   "templates.starter.julia": {
-    "notes": "",
     "translation": "Julia Başlangıç"
   },
   "templates.starter.knockout": {
-    "notes": "",
     "translation": "Knockout Başlangıç"
   },
   "templates.starter.lit": {
-    "notes": "",
     "translation": "Lit Başlangıç"
   },
   "templates.starter.livescript": {
-    "notes": "",
     "translation": "LiveScript Başlangıç"
   },
   "templates.starter.loading": {
-    "notes": "",
     "translation": "Başlangıç şablonları yükleniyor..."
   },
   "templates.starter.lua": {
-    "notes": "",
     "translation": "Lua Başlangıç"
   },
   "templates.starter.lua-wasm": {
-    "notes": "",
     "translation": "Lua (Wasm) Başlangıç"
   },
   "templates.starter.malina": {
-    "notes": "",
     "translation": "Malina.js Başlangıç"
   },
   "templates.starter.markdown": {
-    "notes": "",
     "translation": "Markdown Başlangıç"
   },
   "templates.starter.mdx": {
-    "notes": "",
     "translation": "MDX Başlangıç"
   },
   "templates.starter.ocaml": {
-    "notes": "",
     "translation": "Ocaml Başlangıç"
   },
   "templates.starter.perl": {
-    "notes": "",
     "translation": "Perl Başlangıç"
   },
   "templates.starter.php": {
-    "notes": "",
     "translation": "PHP Başlangıç"
   },
   "templates.starter.php-wasm": {
-    "notes": "",
     "translation": "PHP (Wasm) Başlangıç"
   },
   "templates.starter.postgresql": {
-    "notes": "",
     "translation": "PostgreSQL Başlangıç"
   },
   "templates.starter.preact": {
-    "notes": "",
     "translation": "Preact Başlangıç"
   },
   "templates.starter.prolog": {
-    "notes": "",
     "translation": "Prolog Başlangıç"
   },
   "templates.starter.python": {
-    "notes": "",
     "translation": "Python Başlangıç"
   },
   "templates.starter.r": {
-    "notes": "",
     "translation": "R Başlangıç"
   },
   "templates.starter.react": {
-    "notes": "",
     "translation": "React Başlangıç"
   },
   "templates.starter.react-native": {
-    "notes": "",
     "translation": "React Native Başlangıç"
   },
   "templates.starter.reason": {
-    "notes": "",
     "translation": "Reason Başlangıç"
   },
   "templates.starter.rescript": {
-    "notes": "",
     "translation": "ReScript Başlangıç"
   },
   "templates.starter.riot": {
-    "notes": "",
     "translation": "Riot.js Başlangıç"
   },
   "templates.starter.ruby": {
-    "notes": "",
     "translation": "Ruby Başlangıç"
   },
   "templates.starter.ruby-wasm": {
-    "notes": "",
     "translation": "Ruby (Wasm) Başlangıç"
   },
   "templates.starter.scheme": {
-    "notes": "",
     "translation": "Scheme Başlangıç"
   },
   "templates.starter.shadcnui": {
-    "notes": "",
     "translation": "shadcn/ui Başlangıç"
   },
   "templates.starter.solid": {
-    "notes": "",
     "translation": "Solid Başlangıç"
   },
   "templates.starter.sql": {
-    "notes": "",
     "translation": "SQL Başlangıç"
   },
   "templates.starter.stencil": {
-    "notes": "",
     "translation": "Stencil Başlangıç"
   },
   "templates.starter.svelte": {
-    "notes": "",
     "translation": "Svelte Başlangıç"
   },
   "templates.starter.tailwindcss": {
-    "notes": "",
     "translation": "Tailwind CSS Başlangıç"
   },
   "templates.starter.tcl": {
-    "notes": "",
     "translation": "Tcl Başlangıç"
   },
   "templates.starter.teal": {
-    "notes": "",
     "translation": "Teal Başlangıç"
   },
   "templates.starter.typescript": {
-    "notes": "",
     "translation": "TypeScript Başlangıç"
   },
   "templates.starter.vue": {
-    "notes": "",
     "translation": "Vue SFC Başlangıç"
   },
   "templates.starter.vue2": {
-    "notes": "",
     "translation": "Vue 2 Başlangıç"
   },
   "templates.starter.wat": {
-    "notes": "",
     "translation": "WebAssembly Text Başlangıç"
   },
   "templates.user.heading": {
-    "notes": "",
     "translation": "Şablonlarım"
   },
   "templates.user.loading": {
-    "notes": "",
     "translation": "Kullanıcı şablonları yükleniyor..."
   },
   "testEditor.heading": {
-    "notes": "",
     "translation": "Testleri Düzenle"
   },
   "testEditor.load": {
-    "notes": "",
     "translation": "Yükle"
   },
   "testEditor.tests": {
-    "notes": "",
     "translation": "Testler"
   },
   "testSettings.desc": {
-    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"https://livecodes.io/docs/features/tests/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1></tag-1> Daha fazla ayrıntı için lütfen <tag-2>dokümantasyona</tag-2> bakın"
   },
   "toolspane.close": {
-    "notes": "",
     "translation": "Kapat"
   },
   "toolspane.compiled.title": {
-    "notes": "",
     "translation": "Derlenmiş"
   },
   "toolspane.console.clear": {
-    "notes": "",
     "translation": "Konsolu temizle"
   },
   "toolspane.console.title": {
-    "notes": "",
     "translation": "Konsol"
   },
   "toolspane.test.edit": {
-    "notes": "",
     "translation": "Düzenle"
   },
   "toolspane.test.error": {
-    "notes": "### <tag-1> ###\n<div class=\"no-tests\" />\n\n### <tag-2> ###\n<span class=\"fail\" />\n\n",
     "translation": "<tag-1><tag-2>Test hatası!</tag-2></tag-1>"
   },
   "toolspane.test.loading": {
-    "notes": "### <tag-1> ###\n<div class=\"test-summary\" />\n\n",
     "translation": "<tag-1>Testler yükleniyor...</tag-1>"
   },
   "toolspane.test.noTest": {
-    "notes": "### <tag-1> ###\n<div class=\"no-tests\" />\n\n",
     "translation": "<tag-1>Bu projenin testi yok!</tag-1>"
   },
   "toolspane.test.reset": {
-    "notes": "",
     "translation": "Sıfırla"
   },
   "toolspane.test.run.desc": {
-    "notes": "",
     "translation": "Ctrl/⌘ + Alt + T"
   },
   "toolspane.test.run.heading": {
-    "notes": "",
     "translation": "Çalıştır"
   },
   "toolspane.test.summary.desc": {
-    "notes": "### <tag-1> ###\n<br  />\n\n",
     "translation": "Testler: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<tag-1></tag-1>\nSüre: {{duration}}s"
   },
   "toolspane.test.summary.failed": {
-    "notes": "",
     "translation": "{{failedNum}} başarısız"
   },
   "toolspane.test.summary.passed": {
-    "notes": "",
     "translation": "{{passedNum}} başarılı"
   },
   "toolspane.test.summary.skipped": {
-    "notes": "",
     "translation": "{{skippedNum}} atlandı"
   },
   "toolspane.test.summary.total": {
-    "notes": "",
     "translation": "{{totalNum}} toplam"
   },
   "toolspane.test.title": {
-    "notes": "",
     "translation": "Testler"
   },
   "toolspane.test.watch.desc": {
-    "notes": "",
     "translation": "Kod değiştiğinde testleri çalıştır"
   },
   "toolspane.test.watch.heading": {
-    "notes": "",
     "translation": "İzle"
   },
   "welcome.about.documentation": {
-    "notes": "",
     "translation": "Dokümantasyon"
   },
   "welcome.about.heading": {
-    "notes": "",
     "translation": "LiveCodes Hakkında"
   },
   "welcome.heading": {
-    "notes": "",
     "translation": "Hoş Geldiniz"
   },
   "welcome.recent.heading": {
-    "notes": "",
     "translation": "Son Kullanılanlar"
   },
   "welcome.recover.cancel": {
-    "notes": "",
     "translation": "İptal"
   },
   "welcome.recover.heading": {
-    "notes": "",
     "translation": "Kurtar"
   },
   "welcome.recover.lastModified": {
-    "notes": "",
     "translation": "Son değiştirilme:"
   },
   "welcome.recover.recover": {
-    "notes": "",
     "translation": "Kurtar"
   },
   "welcome.recover.save": {
-    "notes": "",
     "translation": "Kaydet"
   },
   "welcome.recover.unsavedChanges": {
-    "notes": "",
     "translation": "Son projenizde kaydedilmemiş değişiklikler vardı:"
   },
   "welcome.showOnStartup": {
-    "notes": "",
     "translation": "Başlangıçta göster"
   },
   "welcome.start.heading": {
-    "notes": "",
     "translation": "Başla"
   },
   "welcome.start.import": {
-    "notes": "",
     "translation": "İçe Aktar..."
   },
   "welcome.start.loadDefaultTemplate": {
-    "notes": "",
     "translation": "Varsayılan şablonu yükle"
   },
   "welcome.start.new": {
-    "notes": "",
     "translation": "Yeni..."
   },
   "welcome.start.noDefaultTemplate": {
-    "notes": "",
     "translation": "Varsayılan şablon yok"
   },
   "welcome.start.open": {
-    "notes": "",
     "translation": "Aç..."
   },
   "welcome.templates.heading": {
-    "notes": "",
     "translation": "Başlangıç Şablonları"
   }
 }
