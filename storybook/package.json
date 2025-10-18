@@ -3,32 +3,36 @@
   "version": "1.0.0",
   "description": "Stories for LiveCodes",
   "scripts": {
-    "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider build-storybook -o ../build/stories",
+    "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider storybook dev -p 6006",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider storybook build -o ../build/stories",
     "typecheck": "tsc --noEmit"
   },
   "author": "Hatem Hosny",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.20.12",
-    "@storybook/addon-actions": "6.5.15",
-    "@storybook/addon-essentials": "6.5.15",
-    "@storybook/addon-interactions": "6.5.15",
-    "@storybook/addon-links": "6.5.15",
-    "@storybook/addon-storysource": "6.5.15",
-    "@storybook/builder-webpack4": "6.5.15",
-    "@storybook/html": "6.5.15",
-    "@storybook/manager-webpack4": "6.5.15",
-    "@storybook/testing-library": "0.0.13",
+    "@chromatic-com/storybook": "^3.2.7",
+    "@storybook/addon-actions": "8.6.14",
+    "@storybook/addon-essentials": "8.6.14",
+    "@storybook/addon-interactions": "8.6.14",
+    "@storybook/addon-links": "8.6.14",
+    "@storybook/addon-storysource": "8.6.14",
+    "@storybook/html": "8.6.14",
+    "@storybook/html-webpack5": "^8.6.14",
+    "@storybook/test": "^8.6.14",
+    "@storybook/theming": "8.6.14",
     "@types/dedent": "0.7.0",
     "@types/flat": "5.0.2",
     "@types/react": "18.3.18",
     "babel-loader": "8.3.0",
     "cross-env": "7.0.3",
+    "storybook": "^8.6.14",
     "typescript": "5.4.5"
   },
   "dependencies": {
     "dedent": "0.7.0",
-    "flat": "5.0.2"
+    "flat": "5.0.2",
+    "js-base64": "^3.7.8",
+    "lz-string": "^1.5.0"
   }
 }
