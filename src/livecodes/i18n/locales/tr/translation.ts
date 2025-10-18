@@ -1,19 +1,8 @@
-// @ts-nocheck
-// This comment is added by i18n-exclude script and should be automatically removed after build.
-// If you see this comment in the file, it means there is something wrong during the build process.
-
 // ATTENTION: This file is auto-generated from source code. Do not edit manually!
 
-import type { I18nTranslationTemplate } from '../models';
+import type { I18nTranslation } from '../models';
 
-// This is used as a template for other translations.
-// Other translations should be typed like this:
-// const translation: I18nTranslation = { /* translation here */ };
-
-// Since we allow nested objects, it is important to distinguish I18nTranslationTemplate from I18nAttributes.
-// In view of this, properties declared in I18nAttributes (and those attributes might be used in future) shall not be used as a nested key.
-
-const translation = {
+const translation: I18nTranslation = {
   about: {
     blog: {
       text: 'Blog',
@@ -710,7 +699,7 @@ const translation = {
     autoSave: 'Otomatik Kaydetme',
     autoUpdate: 'Otomatik Güncelleme',
     backup: 'Yedekleme / Geri Yükleme …',
-    blog: 'LiveCodes Blog',
+    blog: 'LiveCodes Blogu',
     broadcast: 'Yayın …',
     commandMenu: 'Komut Menüsü',
     config: 'Yapılandırma',
@@ -1131,6 +1120,6 @@ const translation = {
       heading: 'Başlangıç Şablonları',
     },
   },
-} as const satisfies I18nTranslationTemplate;
+};
 
 export default translation;
