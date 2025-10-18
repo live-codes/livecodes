@@ -1,21 +1,10 @@
-// @ts-nocheck
-// This comment is added by i18n-exclude script and should be automatically removed after build.
-// If you see this comment in the file, it means there is something wrong during the build process.
+// ATTENTION: This file is auto-generated from source code. Do not edit manually!
 
-// DİKKAT: Bu dosya kaynak kodundan otomatik olarak oluşturulmuştur. Manuel olarak düzenlemeyin!
+import type { I18nLangInfoTranslation } from '../models';
 
-import type { I18nTranslationTemplate } from '../models';
-
-// Bu, diğer çeviriler için bir şablon olarak kullanılır.
-// Diğer çeviriler şu şekilde yazılmalıdır:
-// const languageInfo: I18nLangInfoTranslation = { /* çeviri burada */ };
-
-// İç içe nesnelere izin verdiğimiz için, I18nTranslationTemplate'i I18nAttributes'tan ayırmak önemlidir.
-// Bu nedenle, I18nAttributes'ta bildirilen özellikler (ve bu özellikler gelecekte kullanılabilir) iç içe bir anahtar olarak kullanılmamalıdır.
-
-const languageInfo = {
+const languageInfo: I18nLangInfoTranslation = {
   artTemplate: {
-    desc: 'Yüksek performanslı JavaScript şablon motoru.',
+    desc: 'Yüksek performanslı JavaScript şablonlama motoru.',
     link: '<1> <2>art-template resmi web sitesi</2> </1> <3> <4>art-template dokümantasyonu</4> </3>',
     name: 'art-template',
   },
@@ -35,7 +24,7 @@ const languageInfo = {
     name: 'Astro',
   },
   babel: {
-    desc: 'JavaScript derleyicisi.',
+    desc: 'JavaScript derleyicisi',
     link: '<1><2>Resmi web sitesi</2></1> <3> <4>Babel dokümantasyonu</4> </3>',
     name: 'Babel',
   },
@@ -60,7 +49,7 @@ const languageInfo = {
     name: 'Clio',
   },
   clojurescript: {
-    desc: "ClojureScript, JavaScript'i hedefleyen bir <1>Clojure</1> derleyicisidir. <2></2>LiveCodes'ta, tarayıcıda <3>Cherry</3> kullanılarak çalışır.",
+    desc: "ClojureScript, JavaScript'i hedefleyen bir <1>Clojure</1> derleyicisidir. <2></2>LiveCodes'ta, tarayıcıda <3>Cherry</3> kullanarak çalışır.",
     link: "<1> <2>ClojureScript resmi web sitesi</2> </1> <3> <4>Clojure resmi web sitesi</4> </3> <5> <6>Cherry repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=clojure</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
     name: 'ClojureScript (CLJS)',
   },
@@ -97,7 +86,7 @@ const languageInfo = {
     desc3:
       '<1> <2>Cytoscape</2> </1> <3> <4>ELK</4> (<5>elkjs</5> kullanarak) </3> <6> <7>Gnuplot</7> (<8>gnuplot-JS</8> kullanarak) </6> <9> <10>Graphviz</10> (<11>@hpcc-js/wasm</11> kullanarak) </9> <12> <13>Mermaid</13> </12> <14> <15>Nomnoml</15> </14> <16> <17>Pintora</17> </16> <18> <19>Plotly</19> </18> <20> <21>Svgbob</21> </20> <22> <23>Vega</23> </22> <24> <25>VegaLite</25> </24> <26> <27>WaveDrom</27> </26>',
     link: '<1> <2>Başlangıç şablonunu yükle</2> </1> <3> <4>LiveCodes Dokümantasyonu</4> </3>',
-    name: 'Diyagramlar',
+    name: 'Diagrams',
   },
   dot: {
     desc: 'Node.js ve tarayıcılar için en hızlı ve öz javascript şablon motoru.',
@@ -126,7 +115,7 @@ const languageInfo = {
   },
   gleam: {
     desc1:
-      'Gleam, ölçeklenebilen, tip-güvenli sistemler oluşturmak için kullanımı kolay bir dildir!',
+      'Gleam, ölçeklenebilen, tür-güvenli sistemler oluşturmak için kullanımı kolay bir dildir!',
     desc2:
       "Gleam, Erlang veya JavaScript'e derlenen statik tipli bir fonksiyonel programlama dilidir.",
     link: '<1><2>Gleam web sitesi</2></1> <3> <4>Gleam dokümantasyonu</4> </3> <5> <6>Gleam dil turu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
@@ -312,7 +301,7 @@ const languageInfo = {
   },
   reason: {
     desc1:
-      'Reason, hem JavaScript hem de OCaml ekosistemlerinden yararlanırken basit, hızlı ve kaliteli, tip-güvenli kod yazmanıza olanak tanır.',
+      'Reason, hem JavaScript hem de OCaml ekosistemlerinden yararlanırken basit, hızlı ve kaliteli, tür-güvenli kod yazmanıza olanak tanır.',
     desc2: "Reason'ı JavaScript'e derlemek için burada ReScript derleyicisi kullanılır.",
     link: '<1><2>Reason web sitesi</2></1> <3> <4>Reason dokümantasyonu</4> </3> <5> <6>ReasonReact</6> </5> <7> <8>ReScript web sitesi</8> </7> <9> <10>Y Dakikada X Öğrenin, X=reason</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>',
     name: 'Reason',
@@ -442,6 +431,6 @@ const languageInfo = {
     link: "<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Metin Özellikleri</4> </3> <5> <6>MDN'de WebAssembly</6> </5> <7> <8>WebAssembly metin formatını anlama</8> </7> <9> <10>wabt.js dokümantasyonu</10> </9> <11> <12>Y Dakikada X Öğrenin, X=WebAssembly</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>",
     name: 'WebAssembly Metin Formatı',
   },
-} as const satisfies I18nTranslationTemplate;
+};
 
 export default languageInfo;
