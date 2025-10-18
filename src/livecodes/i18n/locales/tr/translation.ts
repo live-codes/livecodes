@@ -45,7 +45,7 @@ const translation = {
     sdk: 'LiveCodes SDK',
     sponsor: {
       text: 'Sponsor Ol',
-      title: 'LiveCodes\'a Sponsor Ol',
+      title: "LiveCodes'a Sponsor Ol",
     },
     twitter: {
       text: '𝕏 / Twitter',
@@ -53,11 +53,11 @@ const translation = {
     },
     version: {
       app: 'Uygulama sürümü: <1>{{APP_VERSION}}</1>',
-      appPermanentUrl: 'Kalıcı Uygulama URL\'si',
+      appPermanentUrl: "Kalıcı Uygulama URL'si",
       commit: 'Git commit: <1>{{COMMIT_SHA}}</1>',
       heading: 'Sürüm',
       sdk: 'SDK sürümü: <1>{{SDK_VERSION}}</1>',
-      sdkPermanentUrl: 'Kalıcı SDK URL\'si',
+      sdkPermanentUrl: "Kalıcı SDK URL'si",
     },
   },
   app: {
@@ -77,7 +77,7 @@ const translation = {
       hint: 'Kopyala (Ctrl/⌘ + A, Ctrl/⌘ + C)',
     },
     copyAsUrl: {
-      hint: 'Kodu veri URL\'si olarak kopyala',
+      hint: "Kodu veri URL'si olarak kopyala",
     },
     customSettings: {
       hint: 'Özel Ayarlar',
@@ -136,12 +136,12 @@ const translation = {
     },
     add: {
       dataURL: {
-        desc: 'Varlığı base64 kodlu <1>veri url\'si</1> olarak ekle.',
-        heading: 'Veri URL\'si',
+        desc: "Varlığı base64 kodlu <1>veri url'si</1> olarak ekle.",
+        heading: "Veri URL'si",
         label: 'Dosya ekle',
       },
       githubPages: {
-        desc: 'Varlığı GitHub Pages\'e dağıt. Dosya, GitHub hesabınızdaki <2>livecodes-assets</2> deposunun <1>gh-pages</1> dalına itilecektir. Depo mevcut değilse, genel bir depo oluşturulacaktır.',
+        desc: "Varlığı GitHub Pages'e dağıt. Dosya, GitHub hesabınızdaki <2>livecodes-assets</2> deposunun <1>gh-pages</1> dalına itilecektir. Depo mevcut değilse, genel bir depo oluşturulacaktır.",
         heading: 'GitHub Pages',
         label: 'Dosya yükle',
       },
@@ -153,7 +153,7 @@ const translation = {
     },
     deleteAll: 'Tümünü Sil',
     generic: {
-      clickToCopyURL: 'URL\'yi kopyalamak için tıklayın',
+      clickToCopyURL: "URL'yi kopyalamak için tıklayın",
     },
     heading: 'Varlıklar',
     link: {
@@ -173,7 +173,7 @@ const translation = {
     noSavedAssets: 'Kaydedilmiş varlığınız yok.',
     processAsset: {
       addFile: 'Dosya eklendi: ',
-      deployNotice: 'Varlık yakında bu URL\'de mevcut olacaktır (~1 dk).',
+      deployNotice: "Varlık yakında bu URL'de mevcut olacaktır (~1 dk).",
       success: 'Dosya varlıklara eklendi!',
       urlLabel: 'URL: ',
     },
@@ -244,17 +244,17 @@ const translation = {
       stop: 'Yayını durdur',
     },
     broadcasting: 'Yayınlanıyor...',
-    channelURL: 'Kanal URL\'si',
+    channelURL: "Kanal URL'si",
     connecting: 'Bağlanıyor...',
     desc: 'Sonuç sayfasını diğer tarayıcılara/cihazlara gerçek zamanlı olarak yayınlayın. Ayrıntılar için lütfen <1>dokümantasyonu</1> ziyaret edin.',
     error: {
       generic: 'Yayın başarısız oldu!',
-      serverURLRequired: 'Sunucu URL\'si gereklidir!',
+      serverURLRequired: "Sunucu URL'si gereklidir!",
     },
     heading: 'Yayın',
     includeSourceCode: 'Kaynak kodunu dahil et',
     serverURL: {
-      heading: 'Sunucu URL\'si',
+      heading: "Sunucu URL'si",
     },
   },
   codeToImage: {
@@ -286,7 +286,7 @@ const translation = {
     shadow: 'Gölge',
     shareImage: 'Resmi Paylaş',
     shareTitle: 'Paylaş',
-    shareUrl: 'URL\'yi Paylaş',
+    shareUrl: "URL'yi Paylaş",
     theme: 'Tema',
     width: 'Genişlik',
     windowStyle: {
@@ -306,7 +306,7 @@ const translation = {
     closeModalMenu: 'Modal/Menüyü Kapat',
     contribute: 'Katkıda Bulun',
     copy: 'Kodu Kopyala',
-    copyAsDataUrl: 'Kodu Veri URL\'si Olarak Kopyala',
+    copyAsDataUrl: "Kodu Veri URL'si Olarak Kopyala",
     disableAI: 'AI Kod Asistanını Devre Dışı Bırak',
     disableAutoSave: 'Otomatik Kaydetmeyi Devre Dışı Bırak',
     disableAutoUpdate: 'Otomatik Güncellemeyi Devre Dışı Bırak',
@@ -385,7 +385,7 @@ const translation = {
     },
     copy: {
       copied: 'Kod panoya kopyalandı',
-      copiedAsDataURL: 'Kod veri URL\'si olarak kopyalandı',
+      copiedAsDataURL: "Kod veri URL'si olarak kopyalandı",
       copiedImage: 'Resim panoya kopyalandı.',
       hint: 'Kopyalandı!',
       title: 'Kopyala',
@@ -400,7 +400,7 @@ const translation = {
       failedToSaveImage: 'Resim kaydedilemedi',
       failedToShareImage: 'Resim paylaşılamadı',
       invalidCommand: 'Geçersiz komut!',
-      invalidImport: 'Geçersiz içe aktarma URL\'si',
+      invalidImport: "Geçersiz içe aktarma URL'si",
       invalidPanelId: 'Geçersiz panel kimliği',
       invalidToken: 'Geçersiz jeton!',
       login: 'Giriş hatası!',
@@ -489,12 +489,12 @@ const translation = {
       deployBtn: 'Dağıt',
       deploying: 'Dağıtılıyor...',
     },
-    heading: 'GitHub Pages\'e Dağıt',
+    heading: "GitHub Pages'e Dağıt",
     searchRepo: 'Genel depolarınızı arayın...',
   },
   editorSettings: {
     closeBrackets: 'Parantezleri ve tırnak işaretlerini otomatik kapat',
-    codeJarDesc: '<1></1> * İşaretli özellikler CodeJar\'da mevcut değildir.',
+    codeJarDesc: "<1></1> * İşaretli özellikler CodeJar'da mevcut değildir.",
     default: 'Varsayılan',
     desc: '<1></1> Ayrıntılar için lütfen <2>dokümantasyonu</2> kontrol edin.',
     editor: {
@@ -509,7 +509,7 @@ const translation = {
       vim: 'Vim',
     },
     editorTheme: 'Düzenleyici Teması',
-    emmet: 'Emmet\'i Etkinleştir *',
+    emmet: "Emmet'i Etkinleştir *",
     enableAI: {
       heading: 'AI Kod Asistanını Etkinleştir',
       note: '<1><2></2></1> tarafından desteklenmektedir',
@@ -521,7 +521,7 @@ const translation = {
     heading: 'Düzenleyici Ayarları',
     lineNumbers: 'Satır numaralarını göster',
     lineNumbersRelative: 'Göreceli satır numaraları *',
-    notAvailableInCodeJar: 'CodeJar\'da mevcut değil',
+    notAvailableInCodeJar: "CodeJar'da mevcut değil",
     preview: 'Önizleme',
     semicolons: 'Biçim: Noktalı Virgül Kullan',
     singleQuote: 'Biçim: Tek Tırnak Kullan',
@@ -629,7 +629,7 @@ const translation = {
     close: 'Kapat',
     custom: 'Özel',
     embed: {
-      logoHint: 'LiveCodes\'ta Düzenle 🡕',
+      logoHint: "LiveCodes'ta Düzenle 🡕",
     },
     error: {
       authentication: 'Kimlik doğrulama hatası!',
@@ -646,14 +646,14 @@ const translation = {
     bulk: {
       desc: 'Kaydedilmiş projelerinize birden fazla projeyi toplu olarak içe aktarın. Projeler <1>Kaydedilmiş Projeler</1> ekranından dışa aktarılabilir.',
       fromFile: 'Yerel dosyadan toplu içe aktarma',
-      fromURL: 'URL\'den toplu içe aktarma',
+      fromURL: "URL'den toplu içe aktarma",
       heading: 'Toplu İçe Aktarma',
       started: 'Toplu içe aktarma başlatıldı...',
     },
     code: {
-      desc: 'Desteklenen Kaynaklar: <1> <2>GitHub gist</2> <3>GitHub dosyası</3> <4>GitHub deposundaki dizin</4> <5>Gitlab snippet</5> <6>Gitlab dosyası</6> <7>Gitlab deposundaki dizin</7> <8>JS Bin</8> <9>Ham kod</9> <10>Web sayfası DOM\'undaki kod</10> <11>Zip dosyasındaki kod</11> <12>Resimdeki kod (OCR)</12> <13>Resmi kod alanları<14></14>(TypeScript ve Vue)</13> </1> Ayrıntılar için lütfen <15>dokümantasyonu</15> ziyaret edin.',
+      desc: "Desteklenen Kaynaklar: <1> <2>GitHub gist</2> <3>GitHub dosyası</3> <4>GitHub deposundaki dizin</4> <5>Gitlab snippet</5> <6>Gitlab dosyası</6> <7>Gitlab deposundaki dizin</7> <8>JS Bin</8> <9>Ham kod</9> <10>Web sayfası DOM'undaki kod</10> <11>Zip dosyasındaki kod</11> <12>Resimdeki kod (OCR)</12> <13>Resmi kod alanları<14></14>(TypeScript ve Vue)</13> </1> Ayrıntılar için lütfen <15>dokümantasyonu</15> ziyaret edin.",
       fromFile: 'Yerel dosyaları içe aktar',
-      fromURL: 'URL\'den içe aktar',
+      fromURL: "URL'den içe aktar",
       heading: 'Kodu İçe Aktar',
     },
     error: {
@@ -667,10 +667,10 @@ const translation = {
     },
     heading: 'İçe Aktar',
     json: {
-      desc: 'Tek bir proje JSON\'unu düzenleyiciye içe aktarın. Bir proje, uygulama&nbsp;menüsü&nbsp;→ Dışa&nbsp;Aktar&nbsp;→ Projeyi&nbsp;Dışa&nbsp;Aktar&nbsp;(JSON) yoluyla dışa aktarılabilir.',
+      desc: "Tek bir proje JSON'unu düzenleyiciye içe aktarın. Bir proje, uygulama&nbsp;menüsü&nbsp;→ Dışa&nbsp;Aktar&nbsp;→ Projeyi&nbsp;Dışa&nbsp;Aktar&nbsp;(JSON) yoluyla dışa aktarılabilir.",
       fromFile: 'Projeyi yerel dosyadan içe aktar',
-      fromURL: 'Projeyi URL\'den içe aktar',
-      heading: 'Proje JSON\'unu İçe Aktar',
+      fromURL: "Projeyi URL'den içe aktar",
+      heading: "Proje JSON'unu İçe Aktar",
     },
     success: 'İçe Aktarma Başarılı!',
   },
@@ -684,7 +684,7 @@ const translation = {
   login: {
     accessAllowed: 'Erişime izin ver:',
     desc: '<1>Giriş yaparak, <2>çerezlerin</2> cihazınızda saklanabileceğini kabul etmiş olursunuz.</1> <3> <4>Bu izinler neden gereklidir?</4> </3> <5> <6>İzinler nasıl değiştirilir/iptal edilir?</6> </5>',
-    gist: 'Gist\'ler',
+    gist: "Gist'ler",
     heading: 'GitHub ile Giriş Yap',
     loginAs: '{{name}} olarak giriş yapıldı',
     loginBtn: 'Giriş Yap',
@@ -724,10 +724,10 @@ const translation = {
     editorSettings: 'Düzenleyici Ayarları …',
     embed: 'Göm …',
     export: {
-      codepen: 'CodePen\'de Düzenle',
-      gist: 'GitHub Gist\'e Dışa Aktar',
+      codepen: "CodePen'de Düzenle",
+      gist: "GitHub Gist'e Dışa Aktar",
       heading: 'Dışa Aktar',
-      jsfiddle: 'JSFiddle\'da Düzenle',
+      jsfiddle: "JSFiddle'da Düzenle",
       json: 'Projeyi Dışa Aktar (JSON)',
       result: 'Sonucu Dışa Aktar (HTML)',
       src: 'Kaynağı Dışa Aktar (ZIP)',
@@ -763,7 +763,7 @@ const translation = {
       title: 'Başlangıçta Hoş Geldin ekranını göster',
     },
     snippets: 'Kod Parçacıkları …',
-    source: 'GitHub\'da kaynak kodu',
+    source: "GitHub'da kaynak kodu",
     sync: 'Senkronize Et (beta) … <1> ⏳</1>',
     theme: 'Koyu Tema',
     themeColor: 'Renk',
@@ -811,7 +811,7 @@ const translation = {
   },
   project: {
     desc: 'Açıklama',
-    head: '&lt;head&gt;\'e ekle',
+    head: "&lt;head&gt;'e ekle",
     heading: 'Proje Bilgisi',
     htmlAttr: '&lt;html&gt; için öznitelikler',
     tags: 'Etiketler',
@@ -830,7 +830,7 @@ const translation = {
     },
   },
   resources: {
-    browseOnJsDelivr: 'Paket dosyalarını jsDelivr\'de göz atın',
+    browseOnJsDelivr: "Paket dosyalarını jsDelivr'de göz atın",
     cssPresets: {
       heading: 'CSS Ön Ayarları',
       none: 'Yok',
@@ -853,17 +853,18 @@ const translation = {
       placeholder: 'örn. jquery, lodash@4, bootstrap@5.2.3, ...',
     },
     stylesheets: 'Harici Stil Sayfaları',
-    urlDesc: 'Stil sayfası/betik URL\'leri ekleyin. Her URL ayrı bir satırda olmalıdır.',
+    urlDesc: "Stil sayfası/betik URL'leri ekleyin. Her URL ayrı bir satırda olmalıdır.",
   },
   resultMode: {
-    linkText: 'LiveCodes\'ta Düzenle',
+    linkText: "LiveCodes'ta Düzenle",
   },
   savePrompt: {
     heading: 'Kaydedilmemiş değişiklikler',
     prompt: {
       cancel: 'İptal',
       discard: 'Kaydetme',
-      heading: 'Yaptığınız değişiklikler kaydedilmemiş olabilir. <1></1> Şimdi kaydetmek ister misiniz?',
+      heading:
+        'Yaptığınız değişiklikler kaydedilmemiş olabilir. <1></1> Şimdi kaydetmek ister misiniz?',
       save: 'Kaydet',
     },
   },

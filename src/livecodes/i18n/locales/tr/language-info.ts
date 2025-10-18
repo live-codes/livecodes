@@ -41,7 +41,7 @@ const languageInfo = {
   },
   bbcode: {
     desc: 'BBCode ("Bulletin Board Code"), birçok internet forum yazılımında mesajları biçimlendirmek için kullanılan hafif bir işaretleme dilidir.',
-    link: '<1><2>bbcode.org</2></1> <3> <4>BBCode rehberi</4> </3> <5> <6>Wikipedia\'da BBCode</6> </5>',
+    link: "<1><2>bbcode.org</2></1> <3> <4>BBCode rehberi</4> </3> <5> <6>Wikipedia'da BBCode</6> </5>",
     name: 'BBCode',
   },
   blockly: {
@@ -61,7 +61,7 @@ const languageInfo = {
   },
   clojurescript: {
     desc: "ClojureScript, JavaScript'i hedefleyen bir <1>Clojure</1> derleyicisidir. <2></2>LiveCodes'ta, tarayıcıda <3>Cherry</3> kullanılarak çalışır.",
-    link: '<1> <2>ClojureScript resmi web sitesi</2> </1> <3> <4>Clojure resmi web sitesi</4> </3> <5> <6>Cherry repo\'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=clojure</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>',
+    link: "<1> <2>ClojureScript resmi web sitesi</2> </1> <3> <4>Clojure resmi web sitesi</4> </3> <5> <6>Cherry repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=clojure</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
     name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
@@ -75,8 +75,9 @@ const languageInfo = {
     name: 'Common Lisp',
   },
   cpp: {
-    desc1: "JSCPP (JavaScript ile yazılmış basit bir C++ yorumlayıcısı) kullanılarak C++ desteği.",
-    desc2: 'Bu, C++\'ın tam bir uygulaması değildir. Detaylar için lütfen <1>JSCPP dokümantasyonuna</1> bakın.',
+    desc1: 'JSCPP (JavaScript ile yazılmış basit bir C++ yorumlayıcısı) kullanılarak C++ desteği.',
+    desc2:
+      "Bu, C++'ın tam bir uygulaması değildir. Detaylar için lütfen <1>JSCPP dokümantasyonuna</1> bakın.",
     link: '<1> <2>Standart C++ Vakfı</2> </1> <3> <4>JSCPP</4> </3> <5> <6>Y Dakikada X Öğrenin, X=C++</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
     name: 'C++',
   },
@@ -93,7 +94,8 @@ const languageInfo = {
   diagrams: {
     desc1: '(Deneysel)',
     desc2: 'Kod olarak diyagramlar. Destekledikleri:',
-    desc3: '<1> <2>Cytoscape</2> </1> <3> <4>ELK</4> (<5>elkjs</5> kullanarak) </3> <6> <7>Gnuplot</7> (<8>gnuplot-JS</8> kullanarak) </6> <9> <10>Graphviz</10> (<11>@hpcc-js/wasm</11> kullanarak) </9> <12> <13>Mermaid</13> </12> <14> <15>Nomnoml</15> </14> <16> <17>Pintora</17> </16> <18> <19>Plotly</19> </18> <20> <21>Svgbob</21> </20> <22> <23>Vega</23> </22> <24> <25>VegaLite</25> </24> <26> <27>WaveDrom</27> </26>',
+    desc3:
+      '<1> <2>Cytoscape</2> </1> <3> <4>ELK</4> (<5>elkjs</5> kullanarak) </3> <6> <7>Gnuplot</7> (<8>gnuplot-JS</8> kullanarak) </6> <9> <10>Graphviz</10> (<11>@hpcc-js/wasm</11> kullanarak) </9> <12> <13>Mermaid</13> </12> <14> <15>Nomnoml</15> </14> <16> <17>Pintora</17> </16> <18> <19>Plotly</19> </18> <20> <21>Svgbob</21> </20> <22> <23>Vega</23> </22> <24> <25>VegaLite</25> </24> <26> <27>WaveDrom</27> </26>',
     link: '<1> <2>Başlangıç şablonunu yükle</2> </1> <3> <4>LiveCodes Dokümantasyonu</4> </3>',
     name: 'Diyagramlar',
   },
@@ -114,7 +116,7 @@ const languageInfo = {
   },
   fennel: {
     desc: "Fennel, Lua'nın hızını, basitliğini ve erişimini bir lisp sözdizimi ve makro sisteminin esnekliğiyle birleştiren bir programlama dilidir.",
-    link: '<1> <2>Fennel resmi web sitesi</2> </1> <3> <4>Fennel\'e Başlarken</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
+    link: "<1> <2>Fennel resmi web sitesi</2> </1> <3> <4>Fennel'e Başlarken</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
     name: 'Fennel',
   },
   flow: {
@@ -123,15 +125,18 @@ const languageInfo = {
     name: 'Flow',
   },
   gleam: {
-    desc1: 'Gleam, ölçeklenebilen, tip-güvenli sistemler oluşturmak için kullanımı kolay bir dildir!',
-    desc2: "Gleam, Erlang veya JavaScript'e derlenen statik tipli bir fonksiyonel programlama dilidir.",
+    desc1:
+      'Gleam, ölçeklenebilen, tip-güvenli sistemler oluşturmak için kullanımı kolay bir dildir!',
+    desc2:
+      "Gleam, Erlang veya JavaScript'e derlenen statik tipli bir fonksiyonel programlama dilidir.",
     link: '<1><2>Gleam web sitesi</2></1> <3> <4>Gleam dokümantasyonu</4> </3> <5> <6>Gleam dil turu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
     name: 'Gleam',
   },
   go: {
-    desc1: 'Go (Golang), basit, güvenilir ve verimli yazılımlar oluşturmayı kolaylaştıran açık kaynaklı bir programlama dilidir.',
+    desc1:
+      'Go (Golang), basit, güvenilir ve verimli yazılımlar oluşturmayı kolaylaştıran açık kaynaklı bir programlama dilidir.',
     desc2: "Burada, GopherJS kullanılarak JavaScript'e derlenir.",
-    link: '<1><2>Go web sitesi</2></1> <3><4>Go dokümantasyonu</4></3> <5> <6>GopherJS repo\'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=Go</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>',
+    link: "<1><2>Go web sitesi</2></1> <3><4>Go dokümantasyonu</4></3> <5> <6>GopherJS repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=Go</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
     name: 'Go',
   },
   goWasm: {
@@ -141,7 +146,7 @@ const languageInfo = {
   },
   haml: {
     desc: 'clientside-haml-js kullanılarak istemci tarafı javascript görünüm şablonları için Haml derleyicisi.',
-    link: '<1><2>Haml resmi web sitesi</2></1> <3> <4>Haml dokümantasyonu</4> </3> <5> <6>clientside-haml-js GitHub repo\'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=haml</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9>',
+    link: "<1><2>Haml resmi web sitesi</2></1> <3> <4>Haml dokümantasyonu</4> </3> <5> <6>clientside-haml-js GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=haml</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9>",
     name: 'Haml',
   },
   handlebars: {
@@ -171,7 +176,8 @@ const languageInfo = {
   },
   julia: {
     desc1: "LiveCodes'taki Julia dil desteği hala deneyseldir.",
-    desc2: 'WASM üzerinde çalışan Julia derleyicisi ve Julia Base, <2>polylang.io</2> tarafından uyarlanmış <1>julia-wasm</1> kullanılarak.',
+    desc2:
+      'WASM üzerinde çalışan Julia derleyicisi ve Julia Base, <2>polylang.io</2> tarafından uyarlanmış <1>julia-wasm</1> kullanılarak.',
     link: '<1> <2>Julia resmi web sitesi</2> </1> <3> <4>Julia dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Julia</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
     name: 'Julia',
   },
@@ -192,17 +198,17 @@ const languageInfo = {
   },
   lua: {
     desc: 'fengari-web kullanılarak tarayıcıda çalışan Lua.',
-    link: '<1><2>Lua resmi web sitesi</2></1> <3> <4>Lua dokümantasyonu</4> </3> <5> <6>Fengari resmi web sitesi</6> </5> <7> <8>fengari-web GitHub repo\'su</8> </7> <9> <10>Y Dakikada X Öğrenin, X=Lua</10> </9> <11> <12>LiveCodes Dokümantasyonu</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>',
+    link: "<1><2>Lua resmi web sitesi</2></1> <3> <4>Lua dokümantasyonu</4> </3> <5> <6>Fengari resmi web sitesi</6> </5> <7> <8>fengari-web GitHub repo'su</8> </7> <9> <10>Y Dakikada X Öğrenin, X=Lua</10> </9> <11> <12>LiveCodes Dokümantasyonu</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>",
     name: 'Lua',
   },
   luaWasm: {
-    desc: "Tarayıcıda Wasmoon kullanılarak çalışan Lua, WebAssembly ile yapılmış JS bağlamaları olan gerçek bir lua 5.4 sanal makinesidir.",
-    link: '<1><2>Lua resmi web sitesi</2></1> <3> <4>Lua dokümantasyonu</4> </3> <5> <6>Wasmoon GitHub repo\'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=Lua</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>',
+    desc: 'Tarayıcıda Wasmoon kullanılarak çalışan Lua, WebAssembly ile yapılmış JS bağlamaları olan gerçek bir lua 5.4 sanal makinesidir.',
+    link: "<1><2>Lua resmi web sitesi</2></1> <3> <4>Lua dokümantasyonu</4> </3> <5> <6>Wasmoon GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=Lua</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
     name: 'Lua (Wasm)',
   },
   malina: {
     desc: "Svelte'den ilham alan frontend derleyicisi.",
-    link: '<1> <2>Malina.js repo\'su</2> </1> <3> <4>Malina.js dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>',
+    link: "<1> <2>Malina.js repo'su</2> </1> <3> <4>Malina.js dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
     name: 'Malina.js',
   },
   markdown: {
@@ -231,7 +237,8 @@ const languageInfo = {
     name: 'Nunjucks',
   },
   ocaml: {
-    desc1: 'OCaml, fonksiyonel, zorunlu ve nesne yönelimli stilleri destekleyen endüstriyel güçte bir programlama dilidir.',
+    desc1:
+      'OCaml, fonksiyonel, zorunlu ve nesne yönelimli stilleri destekleyen endüstriyel güçte bir programlama dilidir.',
     desc2: "OCaml'ı JavaScript'e derlemek için burada ReScript derleyicisi kullanılır.",
     link: '<1><2>OCaml web sitesi</2></1> <3> <4>OCaml dokümantasyonu</4> </3> <5> <6>ReScript web sitesi</6> </5> <7> <8>Y Dakikada X Öğrenin, X=OCaml</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
     name: 'OCaml',
@@ -243,17 +250,17 @@ const languageInfo = {
   },
   php: {
     desc: 'Uniter kullanılarak tarayıcıda çalışan PHP.',
-    link: '<1><2>PHP resmi web sitesi</2></1> <3> <4>PHP dokümantasyonu</4> </3> <5> <6>Uniter GitHub repo\'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=PHP</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>',
+    link: "<1><2>PHP resmi web sitesi</2></1> <3> <4>PHP dokümantasyonu</4> </3> <5> <6>Uniter GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=PHP</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
     name: 'PHP',
   },
   phpWasm: {
     desc: 'Tarayıcıda PHP, WebAssembly tarafından desteklenir ve php-wasm kullanır.',
-    link: '<1><2>PHP resmi web sitesi</2></1> <3> <4>PHP dokümantasyonu</4> </3> <5> <6>php-wasm GitHub repo\'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=PHP</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>',
+    link: "<1><2>PHP resmi web sitesi</2></1> <3> <4>PHP dokümantasyonu</4> </3> <5> <6>php-wasm GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=PHP</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
     name: 'PHP (Wasm)',
   },
   postgresql: {
     desc: 'PGlite kullanılarak WASM olarak paketlenmiş PostgreSQL.',
-    link: '<1> <2>PostgreSQL resmi web sitesi</2> </1> <3> <4>PostgreSQL dokümantasyonu</4> </3> <5> <6>PGlite GitHub repo\'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=SQL</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    link: "<1> <2>PostgreSQL resmi web sitesi</2> </1> <3> <4>PostgreSQL dokümantasyonu</4> </3> <5> <6>PGlite GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=SQL</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
     name: 'PostgreSQL',
   },
   prolog: {
@@ -273,7 +280,8 @@ const languageInfo = {
   },
   pythonWasm: {
     desc1: "Bilimsel yığın ile Python, Pyodide kullanılarak WebAssembly'e derlenmiştir.",
-    desc2: 'Pyodide, NumPy, Pandas, Matplotlib, SciPy, scikit-learn ve daha fazlasını içeren Python bilimsel yığınını kullanmaya olanak tanır. Ek olarak, PyPi\'den saf Python wheel\'leri yüklemek mümkündür.',
+    desc2:
+      "Pyodide, NumPy, Pandas, Matplotlib, SciPy, scikit-learn ve daha fazlasını içeren Python bilimsel yığınını kullanmaya olanak tanır. Ek olarak, PyPi'den saf Python wheel'leri yüklemek mümkündür.",
     link: '<1> <2>Python resmi web sitesi</2> </1> <3> <4>Python dokümantasyonu</4> </3> <5><6>Pyodide dokümantasyonu</6></5> <7> <8>Y Dakikada X Öğrenin, X=Python</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>',
     name: 'Python (Wasm)',
   },
@@ -303,7 +311,8 @@ const languageInfo = {
     name: 'React Compiler (TypeScript ile)',
   },
   reason: {
-    desc1: 'Reason, hem JavaScript hem de OCaml ekosistemlerinden yararlanırken basit, hızlı ve kaliteli, tip-güvenli kod yazmanıza olanak tanır.',
+    desc1:
+      'Reason, hem JavaScript hem de OCaml ekosistemlerinden yararlanırken basit, hızlı ve kaliteli, tip-güvenli kod yazmanıza olanak tanır.',
     desc2: "Reason'ı JavaScript'e derlemek için burada ReScript derleyicisi kullanılır.",
     link: '<1><2>Reason web sitesi</2></1> <3> <4>Reason dokümantasyonu</4> </3> <5> <6>ReasonReact</6> </5> <7> <8>ReScript web sitesi</8> </7> <9> <10>Y Dakikada X Öğrenin, X=reason</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>',
     name: 'Reason',
@@ -326,7 +335,7 @@ const languageInfo = {
   },
   ruby: {
     desc: 'Opal kullanılarak tarayıcıda çalışan Ruby.',
-    link: '<1> <2>Ruby resmi web sitesi</2> </1> <3> <4>Ruby dokümantasyonu</4> </3> <5><6>Opal resmi web sitesi</6></5> <7> <8>Opal standart kütüphane CDN\'i</8> </7> <9> <10>Y Dakikada X Öğrenin, X=ruby</10> </9> <11> <12>LiveCodes Dokümantasyonu</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>',
+    link: "<1> <2>Ruby resmi web sitesi</2> </1> <3> <4>Ruby dokümantasyonu</4> </3> <5><6>Opal resmi web sitesi</6></5> <7> <8>Opal standart kütüphane CDN'i</8> </7> <9> <10>Y Dakikada X Öğrenin, X=ruby</10> </9> <11> <12>LiveCodes Dokümantasyonu</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>",
     name: 'Ruby',
   },
   rubyWasm: {
@@ -385,7 +394,7 @@ const languageInfo = {
   },
   sucrase: {
     desc: "Modern JS çalışma zamanlarını hedefleyebildiğinizde Babel'e süper hızlı bir alternatif.",
-    link: '<1> <2>Sucrase resmi web sitesi</2> </1> <3> <4>Sucrase GitHub Repo\'su</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5>',
+    link: "<1> <2>Sucrase resmi web sitesi</2> </1> <3> <4>Sucrase GitHub Repo'su</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5>",
     name: 'Sucrase',
   },
   svelte: {
@@ -395,12 +404,12 @@ const languageInfo = {
   },
   tcl: {
     desc: 'Tarayıcıda, <1>wacl</1> kullanılarak çalışan Tcl.',
-    link: '<1> <2>Tcl resmi web sitesi</2> </1> <3> <4>wacl repo\'su</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Tcl</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
+    link: "<1> <2>Tcl resmi web sitesi</2> </1> <3> <4>wacl repo'su</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Tcl</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
     name: 'Tcl (Tool Command Language)',
   },
   teal: {
     desc: "Lua'nın tipli bir diyalekti.",
-    link: '<1> <2>Teal GitHub repo\'su</2> </1> <3> <4>Teal dokümanları</4> </3> <5> <6>Teal eğitimi</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    link: "<1> <2>Teal GitHub repo'su</2> </1> <3> <4>Teal dokümanları</4> </3> <5> <6>Teal eğitimi</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
     name: 'Teal',
   },
   tsx: {
@@ -410,7 +419,7 @@ const languageInfo = {
   },
   twig: {
     desc: '<1>Twig</1> PHP şablonlama dilinin <2>Twig.js</2> tarafından bir JavaScript uygulaması.',
-    link: '<1> <2>Twig resmi web sitesi</2> </1> <3> <4>Twig Dokümantasyonu</4> </3> <5> <6>Twig.js Repo\'su</6> </5> <7> <8>Twig.js Dokümantasyonu</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9>',
+    link: "<1> <2>Twig resmi web sitesi</2> </1> <3> <4>Twig Dokümantasyonu</4> </3> <5> <6>Twig.js Repo'su</6> </5> <7> <8>Twig.js Dokümantasyonu</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9>",
     name: 'Twig',
   },
   typescript: {
@@ -424,13 +433,13 @@ const languageInfo = {
   },
   vue2: {
     desc: 'vue3-sfc-loader kullanılarak yüklendi.',
-    link: '<1><2>Vue.js resmi web sitesi</2></1> <3> <4>Vue2 dokümantasyonu</4> </3> <5> <6>Vue2 tek dosya bileşenleri</6> </5> <7> <8>vue3-sfc-loader GitHub repo\'su</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9>',
+    link: "<1><2>Vue.js resmi web sitesi</2></1> <3> <4>Vue2 dokümantasyonu</4> </3> <5> <6>Vue2 tek dosya bileşenleri</6> </5> <7> <8>vue3-sfc-loader GitHub repo'su</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9>",
     name: 'Vue2 Tek Dosya Bileşenleri',
   },
   wat: {
     desc1: 'WebAssembly (wasm) ikili formatının düşük seviyeli metinsel gösterimi.',
     desc2: "wabt.js kullanılarak wasm'a dönüştürülür.",
-    link: '<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Metin Özellikleri</4> </3> <5> <6>MDN\'de WebAssembly</6> </5> <7> <8>WebAssembly metin formatını anlama</8> </7> <9> <10>wabt.js dokümantasyonu</10> </9> <11> <12>Y Dakikada X Öğrenin, X=WebAssembly</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>',
+    link: "<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Metin Özellikleri</4> </3> <5> <6>MDN'de WebAssembly</6> </5> <7> <8>WebAssembly metin formatını anlama</8> </7> <9> <10>wabt.js dokümantasyonu</10> </9> <11> <12>Y Dakikada X Öğrenin, X=WebAssembly</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>",
     name: 'WebAssembly Metin Formatı',
   },
 } as const satisfies I18nTranslationTemplate;
