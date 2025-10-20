@@ -2,32 +2,12 @@
 title: Building Your First App
 ---
 
-# Building Your First App
+import CodeBlock from '@theme/CodeBlock';
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
-Learn how to build a simple color generator app using LiveCodes. This app will let users click a button to generate random background colors.
-
-Try the completed project below, or [open it in a new tab](https://livecodes.io/?x=id/v9dmx2p9z8w).
-
-<iframe src="https://livecodes.io/?x=id/v9dmx2p9z8w" width="100%" height="400px"></iframe>
-
-## What We'll Build
-
-A fun color generator with:
-- Random color generation
-- Display the color code
-- Simple, clean interface
-
-## Project Setup
-
-1. Open [LiveCodes](https://livecodes.io)
-2. We'll use HTML, CSS, and JavaScript
-
-## Implementation
-
-### HTML Structure
-
-```html
-<div class="container">
+export const colorGeneratorParams = {
+  html: `<div class="container">
   <h1>Color Generator</h1>
   <div class="color-display" id="colorDisplay">
     <span id="colorCode">#3498db</span>
@@ -35,12 +15,8 @@ A fun color generator with:
   <button id="generateBtn">Generate Color</button>
   <p class="hint">Click the button to generate a random color!</p>
 </div>
-```
-
-### Styling
-
-```css
-body {
+`,
+  css: `body {
   margin: 0;
   font-family: Arial, sans-serif;
   display: flex;
@@ -102,12 +78,8 @@ h1 {
   color: #666;
   font-size: 0.9rem;
 }
-```
-
-### JavaScript Logic
-
-```javascript
-const colorDisplay = document.getElementById('colorDisplay');
+`,
+  js: `const colorDisplay = document.getElementById('colorDisplay');
 const colorCode = document.getElementById('colorCode');
 const generateBtn = document.getElementById('generateBtn');
 
@@ -130,7 +102,42 @@ generateBtn.addEventListener('click', updateColor);
 
 // Generate a color on page load
 updateColor();
-```
+`,
+};
+
+# Building Your First App
+
+Learn how to build a simple color generator app using LiveCodes. This app will let users click a button to generate random background colors.
+
+Try the completed project below, or <RunInLiveCodes linkText="open it in a new tab" params={colorGeneratorParams}></RunInLiveCodes>.
+
+<LiveCodes params={colorGeneratorParams}></LiveCodes>
+
+## What We'll Build
+
+A fun color generator with:
+- Random color generation
+- Display the color code
+- Simple, clean interface
+
+## Project Setup
+
+1. Open [LiveCodes](https://livecodes.io)
+2. We'll use HTML, CSS, and JavaScript
+
+## Implementation
+
+### HTML Structure
+
+<CodeBlock language="html">{colorGeneratorParams.html}</CodeBlock>
+
+### Styling
+
+<CodeBlock language="css">{colorGeneratorParams.css}</CodeBlock>
+
+### JavaScript Logic
+
+<CodeBlock language="js">{colorGeneratorParams.js}</CodeBlock>
 
 ## How It Works
 
@@ -163,13 +170,15 @@ You've just built your color generator app with LiveCodes!
 
 Compare your version with the completed project above. Did you add any personal touches?
 
-**[View the completed project](https://livecodes.io/?x=id/v9dmx2p9z8w)**
+<RunInLiveCodes linkText="View the completed project" params={colorGeneratorParams}></RunInLiveCodes>
 
 ## Next Steps
 
 - [External Resources](/docs/features/external-resources) - Add libraries like color manipulation tools
+- [Getting Started Guide](getting-started) - Review the basics
 
 ## Complete Code Summary
 
 **Concepts Covered**: DOM manipulation, events, random generation, CSS transitions
+
 **Time to Build**: 10-15 minutes

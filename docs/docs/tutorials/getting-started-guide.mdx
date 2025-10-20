@@ -2,44 +2,18 @@
 title: Getting Started Guide
 ---
 
-# Getting Started Guide
+import CodeBlock from '@theme/CodeBlock';
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
-This guide will walk you through creating your first project in LiveCodes.
-
-Try the completed project below, or [open it in a new tab](https://livecodes.io/?x=id/q6k8itvp2dv).
-
-<iframe src="https://livecodes.io/?x=id/q6k8itvp2dv" width="100%" height="400px"></iframe>
-
-## Prerequisites
-
-- A web browser (Chrome, Firefox, Safari, or Edge)
-- Basic knowledge of HTML, CSS, and JavaScript
-
-## Step 1: Open LiveCodes
-
-1. Navigate to [livecodes.io](https://livecodes.io)
-2. You'll see the editor interface with three panels:
-   - **HTML**
-   - **CSS**
-   - **JavaScript**
-   - **Result**
-
-## Step 2: Create a Simple Page
-
-Let's create a simple interactive greeting card.
-
-### HTML Panel
-```html
-<div class="container">
+export const gettingStartedParams = {
+  html: `<div class="container">
   <h1 id="greeting">Hello, World!</h1>
   <input type="text" id="nameInput" placeholder="Enter your name">
   <button id="greetBtn">Greet Me!</button>
 </div>
-```
-
-### CSS Panel
-```css
-.container {
+`,
+  css: `.container {
   max-width: 600px;
   margin: 50px auto;
   text-align: center;
@@ -72,23 +46,58 @@ button {
 button:hover {
   background-color: #0056b3;
 }
-```
-
-### JavaScript Panel
-```javascript
-const greeting = document.getElementById('greeting');
+`,
+  js: `const greeting = document.getElementById('greeting');
 const nameInput = document.getElementById('nameInput');
 const greetBtn = document.getElementById('greetBtn');
 
 greetBtn.addEventListener('click', () => {
   const name = nameInput.value.trim();
   if (name) {
-    greeting.textContent = `Hello, ${name}!`;
+    greeting.textContent = \`Hello, \${name}!\`;
   } else {
     greeting.textContent = 'Hello, World!';
   }
 });
-```
+`,
+};
+
+# Getting Started Guide
+
+This guide will walk you through creating your first project in LiveCodes.
+
+Try the completed project below, or <RunInLiveCodes linkText="open it in a new tab" params={gettingStartedParams}></RunInLiveCodes>.
+
+<LiveCodes params={gettingStartedParams}></LiveCodes>
+
+## Prerequisites
+
+- A web browser (Chrome, Firefox, Safari, or Edge)
+- Basic knowledge of HTML, CSS, and JavaScript
+
+## Step 1: Open LiveCodes
+
+1. Navigate to [livecodes.io](https://livecodes.io)
+2. You'll see the editor interface with three panels:
+   - **HTML**
+   - **CSS**
+   - **JavaScript**
+
+## Step 2: Create a Simple Page
+
+Let's create a simple interactive greeting card.
+
+### HTML Panel
+
+<CodeBlock language="html">{gettingStartedParams.html}</CodeBlock>
+
+### CSS Panel
+
+<CodeBlock language="css">{gettingStartedParams.css}</CodeBlock>
+
+### JavaScript Panel
+
+<CodeBlock language="js">{gettingStartedParams.js}</CodeBlock>
 
 ## Step 3: See Your Results
 
@@ -99,10 +108,10 @@ The result panel automatically updates as you type. Try:
 
 ## Step 4: Save Your Project
 
-1. Click on the "Project" menu button in the toolbar.
-2. Click Save to save the project (on this device).
-3. You can open it later from "Project menu > Open".
-4. Use "Project menu > Share" to get a permanent URL to your project that you can share.
+1. Click on the "**Project**" menu button in the toolbar
+2. Click "**Save**" to save the project (on this device)
+3. You can open it later from "**Project menu > Open**"
+4. Use "**Project menu > Share**" to get a permanent URL to your project that you can share
 
 ## Congratulations!
 
@@ -110,7 +119,7 @@ You've just built your first interactive app with LiveCodes!
 
 Compare your version with the completed project above. Did you add any personal touches?
 
-**[View the completed project](https://livecodes.io/?x=id/q6k8itvp2dv)**
+<RunInLiveCodes linkText="View the completed project" params={gettingStartedParams}></RunInLiveCodes>
 
 ## Next Steps
 
