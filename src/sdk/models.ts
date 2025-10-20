@@ -1795,6 +1795,7 @@ export type AppLanguage =
   | 'it'
   | 'ja'
   | 'pt'
+  | 'tr'
   | 'ru'
   | 'ur'
   | 'zh-CN';
