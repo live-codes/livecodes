@@ -69,6 +69,12 @@ export const pathLoader = (baseUrl: string) => (lngs: string[], nss: string[]) =
   if (lng === 'ru' && ns === 'translation') {
     return baseUrl + '{{hash:i18n-ru-translation.json}}';
   }
+  if (lng === 'tr' && ns === 'language-info') {
+    return baseUrl + '{{hash:i18n-tr-language-info.json}}';
+  }
+  if (lng === 'tr' && ns === 'translation') {
+    return baseUrl + '{{hash:i18n-tr-translation.json}}';
+  }
   if (lng === 'ur' && ns === 'language-info') {
     return baseUrl + '{{hash:i18n-ur-language-info.json}}';
   }
