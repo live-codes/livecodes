@@ -8,7 +8,7 @@ There are **two primary modes** for building and rendering Astro pages:
 
 ### Static (Default)
 
-In this mode, pages are fully pre-rendered at build time.  
+In this mode, pages are fully pre-rendered at build time.
 All data must be available during the build process and can be supplied through **frontmatter**, **data fetching functions**, or **integrations**.
 
 **Example:** Provide data to a page using frontmatter.
@@ -52,38 +52,29 @@ const data = await res.json();
 
 ## Language Info
 
-* **Name:** Astro
-* **Extensions:** `.astro`
-* **Editor:** HTML / JSX-like
-* **Compiler:** Astro Compiler
-* **Version:** Latest (v4.x and above)
+### Name
 
-⚠️ LiveCodes currently uses Astro v0.9.2, so some latest features may not be available.
+`astro`
 
----
+### Extension
+
+`astro`
+
+## Editor
+
+`markup`
+
+## Compiler
+
+Astro compiler
+
+### Version
+
+`@astrojs/compiler`: `v2.2.8`
 
 ## Code Formatting
 
-Astro uses **Prettier** by default with the official Astro plugin.
-
----
-
-## Custom Settings
-
-Custom settings can be passed in the `astro.config.mjs` file.
-
-**Example:**
-
-```js
-// astro.config.mjs
-export default {
-  site: 'https://example.com',
-  integrations: [],
-  output: 'static', // or 'server'
-};
-```
-
-> Please ensure that all configuration values are valid JavaScript or JSON.
+Using [Prettier](https://prettier.io/).
 
 ---
 
@@ -108,16 +99,9 @@ const data = await res.json();
 <p>{data.title}</p>
 ```
 
+## Links
 
----
-
-## Official Resources
-
-* 🌐 [Astro Documentation](https://docs.astro.build)
-* 💻 [Astro GitHub Repository](https://github.com/withastro/astro)
-* 🧪 [Astro Playground](https://stackblitz.com/github/withastro/astro/tree/latest/examples/hello-world)
-* 📰 [Astro Blog](https://astro.build/blog)
-* 💬 [Astro Discord Community](https://astro.build/chat)
-* 🌐 [Astro Starter Template](https://livecodes.io/?template=astro)
+- [Astro Documentation](https://docs.astro.build)
+- [Astro Starter Template](https://livecodes.io/?template=astro)
 
 
