@@ -439,8 +439,6 @@ export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
 export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.9.3/lib/typescript.js`);
 
-export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.6.1/dist/vfs.esm.js');
-
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 
 export const vegaCdnUrl = /* @__PURE__ */ getUrl('vega@5.25.0/build/vega.js');
