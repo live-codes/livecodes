@@ -693,7 +693,7 @@ int main() {
 
     return 0;
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var j={name:"cpp-wasm",aliases:["clang"],title:"C++ (Wasm) Starter",thumbnail:"assets/templates/cpp.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var j={name:"cpp-wasm",aliases:["clang"],title:getTemplateName("templates.starter.cpp-wasm","C++ (Wasm) Starter"),thumbnail:"assets/templates/cpp.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/cpp.svg" />
@@ -1194,11 +1194,11 @@ func greet() {
 		fmt.Println("Good evening")
 	}
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var N={name:"go-wasm",title:"Go (Wasm) Starter",thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var N={name:"go-wasm",title:getTemplateName("templates.starter.go-wasm","Go (Wasm) Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
-  <h1>Go WebAssembly Demo</h1>
+  <h1>Go (Wasm)</h1>
   <img class="logo" alt="Go logo" src="{{ __livecodes_baseUrl__ }}assets/templates/go.svg" />
-  
+
   <div class="demo-section">
     <h2>Interactive Counter</h2>
     <p>Current count: <span id="counter">0</span></p>
@@ -1224,37 +1224,32 @@ func greet() {
     const incrementBtn = document.querySelector("#increment-btn");
     const greetBtn = document.querySelector("#greet-btn");
 
-    // Enable buttons and update text
     incrementBtn.disabled = false;
     incrementBtn.textContent = "Increment";
     greetBtn.disabled = false;
     greetBtn.textContent = "Greet";
 
-    // Counter demo
     incrementBtn.onclick = async () => {
-      const currentCount = parseInt(document.querySelector("#counter").textContent);
-      
-      const {output, error} = await livecodes.goWasm.run(currentCount.toString());
+      const currentCount = document.querySelector("#counter").textContent;
+      const {output, error} = await livecodes.goWasm.run(currentCount);
       if (error) {
         console.error('Error:', error);
       } else {
-        document.querySelector("#counter").textContent = output.trim();
+        document.querySelector("#counter").textContent = output;
       }
     };
 
-    // Greeting demo
     greetBtn.onclick = async () => {
       const name = document.querySelector("#name-input").value;
-      if (!name) {
+      if (!name.trim()) {
         alert('Please enter your name');
         return;
       }
-      
       const {output, error} = await livecodes.goWasm.run(name);
       if (error) {
         console.error('Error:', error);
       } else {
-        document.querySelector("#greeting").textContent = output.trim();
+        document.querySelector("#greeting").textContent = output;
       }
     };
 
@@ -1331,38 +1326,30 @@ input[type="text"], input[type="number"] {
 package main
 
 import (
-    "bufio"
-    "fmt"
-    "os"
-    "strconv"
-    "strings"
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
 )
 
 func main() {
-    // Read input from stdin
-    scanner := bufio.NewScanner(os.Stdin)
-    
-    if scanner.Scan() {
-        input := strings.TrimSpace(scanner.Text())
-        
-        // Try to parse as number (for counter demo)
-        if count, err := strconv.Atoi(input); err == nil {
-            // Counter demo - increment and return the new number
-            newCount := count + 1
-            fmt.Println(newCount)
-            return
-        }
-        
-       
-        
-        // Greeting demo - treat as name
-        fmt.Printf("Hello, %s! Welcome to Go WebAssembly!\\n", input)
-        fmt.Println("This is running in your browser using Go compiled to WebAssembly.")
-    } else {
-        // No input provided
-        fmt.Println("Hello from Go WebAssembly!")
-        fmt.Println("This program demonstrates stdin handling in Go WASM.")
-    }
+	// Read input from stdin
+	scanner := bufio.NewScanner(os.Stdin)
+
+	if scanner.Scan() {
+		input := strings.TrimSpace(scanner.Text())
+
+		if count, err := strconv.Atoi(input); err == nil {
+			newCount := count + 1
+			fmt.Println(newCount)
+			return
+		}
+
+		fmt.Printf("Hello, %s!\\n", input)
+	} else {
+		fmt.Println("Hello from Go WebAssembly!")
+	}
 }
 `.trimStart()}};var H={name:"imba",title:getTemplateName("templates.starter.imba","Imba Starter"),thumbnail:"assets/templates/imba.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"imba",content:`
 tag app-counter
@@ -1484,7 +1471,7 @@ button.addEventListener("click", () => {
   count++;
   counter.innerText = count;
 });
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var A={name:"jest-react",title:getTemplateName("templates.starter.jest-react","Jest/React Starter"),thumbnail:"assets/templates/jest.svg",activeEditor:"script",autotest:!0,markup:{language:"html",content:""},style:{language:"css",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var O={name:"jest-react",title:getTemplateName("templates.starter.jest-react","Jest/React Starter"),thumbnail:"assets/templates/jest.svg",activeEditor:"script",autotest:!0,markup:{language:"html",content:""},style:{language:"css",content:`
 .container,
 .container button {
   text-align: center;
@@ -1656,7 +1643,7 @@ describe("Page", () => {
     );
   });
 });
-`.trimStart()},tools:{enabled:"all",active:"tests",status:"open"}};var O={name:"jquery",title:getTemplateName("templates.starter.jquery","jQuery Starter"),thumbnail:"assets/templates/jquery.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},tools:{enabled:"all",active:"tests",status:"open"}};var Y={name:"jquery",title:getTemplateName("templates.starter.jquery","jQuery Starter"),thumbnail:"assets/templates/jquery.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/jquery.svg" />
@@ -1682,7 +1669,7 @@ $("#counter-button").click(() => {
   count += 1;
   $("#counter").text(count);
 });
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Y={name:"julia",title:getTemplateName("templates.starter.julia","Julia Starter"),thumbnail:"assets/templates/julia.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var A={name:"julia",title:getTemplateName("templates.starter.julia","Julia Starter"),thumbnail:"assets/templates/julia.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/julia.svg" />
@@ -3966,4 +3953,4 @@ new Vue({
     (i32.add (local.get $0) (i32.const 1))
   )
 )
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var uo=[b,I,Tt,mt,pt,Ct,d,rt,St,yt,G,wt,K,kt,vt,U,v,g,gt,J,O,h,z,D,A,C,et,Ut,S,V,y,x,H,ut,dt,Q,it,lt,ct,ht,bt,R,N,st,ot,_,j,W,T,tt,X,F,jt,q,Y,ft,k,w,P,_t,Z,u,Et,xt,nt,at,f,E];export{uo as starterTemplates};
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var uo=[b,I,Tt,mt,pt,Ct,d,rt,St,yt,G,wt,K,kt,vt,U,v,g,gt,J,Y,h,z,D,O,C,et,Ut,S,V,y,x,H,ut,dt,Q,it,lt,ct,ht,bt,R,N,st,ot,_,j,W,T,tt,X,F,jt,q,A,ft,k,w,P,_t,Z,u,Et,xt,nt,at,f,E];export{uo as starterTemplates};

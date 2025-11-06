@@ -1,5 +1,6 @@
 import { templatesScreen } from '../html';
 import type { EventsManager, Template } from '../models';
+import { debounce } from '../utils/utils';
 
 export const createTemplatesContainer = (
   eventsManager: EventsManager,
@@ -27,6 +28,23 @@ export const createTemplatesContainer = (
       }
     });
   });
+
+  // Setup search input: emit a "templates:filter" event with the current query
+  const searchInput = templatesContainer.querySelector<HTMLInputElement>('#templates-search-input');
+  if (searchInput) {
+    const emit = (value: string) => {
+      const ev = new CustomEvent('templates:filter', { detail: { query: value } });
+      templatesContainer.dispatchEvent(ev);
+    };
+
+    const debouncedEmit = debounce(emit, 150);
+
+    eventsManager.addEventListener(searchInput, 'input', (e: Event) => {
+      const val = (e.target as HTMLInputElement).value || '';
+      debouncedEmit(val.trim());
+    });
+  }
+
   return templatesContainer;
 };
 

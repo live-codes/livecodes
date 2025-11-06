@@ -2548,6 +2548,10 @@
     "notes": "",
     "translation": "You have no saved templates."
   },
+  "templates.search.label": {
+    "notes": "",
+    "translation": "Search templates"
+  },
   "templates.starter.angular": {
     "notes": "",
     "translation": "Angular Starter"
