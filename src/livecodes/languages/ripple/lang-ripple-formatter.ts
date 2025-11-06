@@ -10,8 +10,8 @@ import { prettierEsmUrl } from '../../vendors';
     (await pkgInfoService.getPkgLatestVersion('ripple'));
   const pluginUrl =
     version.startsWith('pr:ripple@') || version.startsWith('pkg.pr.new:ripple@')
-      ? modulesService.getModuleUrl(version.replace('ripple', 'prettier-plugin-ripple'))
-      : modulesService.getModuleUrl('prettier-plugin-ripple@' + version);
+      ? modulesService.getModuleUrl(version.replace('ripple', '@ripple-ts/prettier-plugin'))
+      : modulesService.getModuleUrl('@ripple-ts/prettier-plugin@' + version);
 
   const [prettier, ripplePlugin] = await Promise.all([import(prettierEsmUrl), import(pluginUrl)]);
   return async (code, cursorOffset, formatterConfig) =>
