@@ -71,14 +71,16 @@ document.head.appendChild(styles);
 `;
 
     if (filename === MAIN_FILE) {
-      const moduleUrl = modulesService.getModuleUrl(getModuleName(version));
+      const moduleUrl = modulesService.getUrl(getModuleName(version));
       imports = {
         ...createImportMap(importedContent, config),
-        ripple: moduleUrl,
-        'ripple/bind': `${moduleUrl}/bind`,
-        'ripple/internal/client': `${moduleUrl}/internal/client`,
-        'ripple/jsx-runtime': `${moduleUrl}/internal/client`,
+        ripple: `${moduleUrl}/src/runtime/index-client.js`,
+        'ripple/internal/client': `${moduleUrl}/src/runtime/internal/client/index.js`,
+        'ripple/jsx-runtime': `${moduleUrl}/src/jsx-runtime.js`,
+        [`${moduleUrl}/src/runtime/internal/client/constants`]: `${moduleUrl}/src/runtime/internal/client/constants.js`,
+        [`${moduleUrl}/src/runtime/internal/client/runtime`]: `${moduleUrl}/src/runtime/internal/client/runtime.js`,
         clsx: modulesService.getModuleUrl('clsx'),
+        devalue: modulesService.getModuleUrl('devalue'),
         'esm-env': modulesService.getModuleUrl('esm-env'),
       };
     }
