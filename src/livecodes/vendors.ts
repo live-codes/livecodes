@@ -2,8 +2,8 @@ import { modulesService } from './services/modules';
 
 const { getUrl, getModuleUrl } = modulesService;
 
-export const vendorsBaseUrl = 'http://127.0.0.1:8081/';
-// /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.3/dist/');
+export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.5/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -28,6 +28,11 @@ export const autoCompleteUrl = /* @__PURE__ */ getUrl(
 );
 
 export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.26.4/babel.js');
+
+export const bbobHtmlUrl = /* @__PURE__ */ getUrl('@bbob/html@4.3.1/dist/index.min.js');
+export const bbobPresetHtmlUrl = /* @__PURE__ */ getUrl(
+  '@bbob/preset-html5@4.3.1/dist/index.min.js',
+);
 
 export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
