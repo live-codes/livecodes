@@ -397,7 +397,7 @@ The official [@vue/compiler-sfc](https://github.com/vuejs/core/tree/main/package
 
 ### Version
 
-`@vue/compiler-sfc`: v3.5.13
+`@vue/compiler-sfc`: v3.5.22
 
 ## Code Formatting
 
