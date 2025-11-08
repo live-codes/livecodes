@@ -43,6 +43,7 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
+import { getSource, isEditorId } from './config/utils';
 import { createCustomEditors, createEditor, getFontFamily } from './editor';
 import { createFakeEditor } from './editor/fake-editor';
 import { hasJsx } from './editor/ts-compiler-options';
@@ -251,7 +252,6 @@ const sdkWatchers = {
 const getEditorLanguage = (editorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
 const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
-const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
 
 const loadStyles = () =>
   isHeadless
@@ -420,6 +420,7 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 };
 
 export const setEditorTitle = (editorId: EditorId, title: string) => {
+  if (!isEditorId(editorId)) return;
   const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
   const editorTitleContainer = document.querySelector(`#${editorId}-selector`) as HTMLElement;
   const language = getLanguageByAlias(title);
@@ -505,6 +506,10 @@ const renameFile = (filename: string, newName: string) => {
     editors[newName] = editors[filename];
     delete editors[filename];
   }
+  const id = editorIds.findIndex((editorId) => editorId === filename);
+  if (id > -1) {
+    editorIds[id] = newName;
+  }
   changeLanguage(language, undefined, false, newName);
 };
 
@@ -513,6 +518,22 @@ const deleteFile = (filename: string) => {
   setConfig({
     ...config,
     files: config.files.filter((f) => f.filename !== filename),
+  });
+  if (editorLanguages && editorLanguages[filename]) {
+    delete editorLanguages[filename];
+  }
+  if (editors[filename]) {
+    editors[filename].destroy();
+    delete editors[filename];
+  }
+  const id = editorIds.findIndex((editorId) => editorId === filename);
+  if (id > -1) {
+    editorIds.splice(id, 1);
+  }
+  UI.getEditorDivs().forEach((editorDiv) => {
+    if (editorDiv.dataset.editorId === filename) {
+      editorDiv.remove();
+    }
   });
   if (config.autoupdate) {
     run();
@@ -624,12 +645,13 @@ const createEditors = async (config: Config) => {
           const editor = await createEditor({
             ...baseOptions,
             container: createEditorUI(newName, true),
-            editorId: newName as EditorId,
+            editorId: newName,
             language: fileLanguage,
             value: '',
           });
           editorLanguages![newName] = fileLanguage;
           editors[newName] = editor;
+          editorIds.push(newName);
         },
         deleteFile,
         isMainFile: false,
@@ -711,17 +733,23 @@ const reloadEditors = async (config: Config) => {
 const updateEditors = async (editors: Editors, config: Config) => {
   const editorIds = Object.keys(editors) as Array<keyof Editors>;
   for (const editorId of editorIds) {
-    const source =
-      config[editorId as EditorId] || config.files.find((f) => f.filename === editorId);
+    if (typeof editorId !== 'string') {
+      continue;
+    }
+    const source = getSource(editorId, config);
+    if (!source) {
+      continue;
+    }
     const language = getLanguageByAlias(source.language);
     if (language) {
-      await changeLanguage(language, source.content || '', true);
+      const filename = 'filename' in source ? source.filename : undefined;
+      await changeLanguage(language, source.content || '', true, filename);
     }
     const editor = editors[editorId];
     if (config.foldRegions) {
       await editor.foldRegions?.();
     }
-    const foldedLines = source.foldedLines;
+    const foldedLines = 'foldedLines' in source ? source.foldedLines : undefined;
     if (foldedLines?.length) {
       await editor.foldLines?.(foldedLines);
     }
@@ -833,7 +861,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
 const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = false) => {
   const config = getConfig();
   if (
-    config[editorId as EditorId]?.hideTitle ||
+    (isEditorId(editorId) && config[editorId].hideTitle) ||
     config.files.find((f) => f.filename === editorId)?.hidden
   ) {
     return;
@@ -1013,9 +1041,12 @@ const changeLanguage = async (
     );
   }
   const editor = editors[editorId];
+  if (filename) {
+    editor.setEditorId(filename);
+  }
   editor.setLanguage(
     language,
-    filename ? undefined : value ?? (getConfig()[editorId as EditorId]?.content || ''),
+    value ?? (filename ? undefined : getSource(editorId, getConfig())?.content || ''),
   );
   if (editorLanguages) {
     editorLanguages[editorId] = language;
@@ -1059,10 +1090,18 @@ const updateCompiledCode = () => {
       style: 'css',
       script: 'javascript',
     };
-    const lang = getLanguageCompiler(getConfig()[editorId].language)?.compiledCodeLanguage;
+    const srcLang = getSource(editorId, getConfig())?.language;
+    const lang = getLanguageCompiler(srcLang)?.compiledCodeLanguage;
     return {
-      language: lang || defaultLang[editorId],
-      label: lang === 'json' ? 'JSON' : getLanguageByAlias(lang) || lang || defaultLang[editorId],
+      language: lang || defaultLang[editorId] || getFileLanguage(editorId) || 'html',
+      label:
+        lang === 'json'
+          ? 'JSON'
+          : getLanguageByAlias(lang) ||
+            lang ||
+            defaultLang[editorId] ||
+            getFileLanguage(editorId) ||
+            'html',
     };
   };
   const compiledLanguages: { [key in EditorId]: { language: Language; label: string } } = {
@@ -1754,7 +1793,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
   }
   phpHelper({ editor: editors.script });
   setLoading(true);
-  await setActiveEditor(combinedConfig);
+  showEditor(combinedConfig.activeEditor);
 
   if (!isEmbed) {
     loadSettings(combinedConfig);
@@ -2844,8 +2883,10 @@ const handleChangeContent = () => {
       await getResultPage({ sourceEditor: editorId });
     }
 
+    const lang = getSource(editorId, config)?.language;
+
     for (const key of Object.keys(customEditors)) {
-      if (config[editorId]?.language === key) {
+      if (lang === key) {
         await customEditors[key]?.show(true, {
           baseUrl,
           editors,
@@ -2984,22 +3025,32 @@ const handleKeyboardShortcuts = () => {
 
     // Ctrl + Alt + (1-3) activates editor 1-3
     // Ctrl + Alt + (ArrowLeft/ArrowRight) activates previous/next editor
-    const editorIds = (['markup', 'style', 'script'] as EditorId[]).filter(
-      (id) => getConfig()[id].hideTitle !== true,
-    );
-    if (ctrl(e) && e.altKey && ['1', '2', '3', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+    const config = getConfig();
+    const editorIds = (
+      config.files.length
+        ? config.files.map((f) => f.filename)
+        : (['markup', 'style', 'script'] as EditorId[])
+    ).filter((id) => {
+      const src = getSource(id, config);
+      if (!src) return false;
+      if ('hideTitle' in src) return src.hideTitle !== true;
+      if ('hidden' in src) return src.hidden !== true;
+      return true;
+    });
+    const editorNumbers = editorIds.map((_, id) => String(id + 1));
+    if (ctrl(e) && e.altKey && [...editorNumbers, 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
       e.preventDefault();
       split?.show('code');
-      const index = ['1', '2', '3'].includes(e.key)
+      const index = editorNumbers.includes(e.key)
         ? Number(e.key) - 1
         : e.key === 'ArrowLeft'
-          ? editorIds.findIndex((id) => id === getConfig().activeEditor) - 1 || 0
+          ? editorIds.findIndex((id) => id === config.activeEditor) - 1 || 0
           : e.key === 'ArrowRight'
-            ? editorIds.findIndex((id) => id === getConfig().activeEditor) + 1 || 0
+            ? editorIds.findIndex((id) => id === config.activeEditor) + 1 || 0
             : 0;
       const editorIndex =
         index === editorIds.length ? 0 : index === -1 ? editorIds.length - 1 : index;
-      showEditor(editorIds[editorIndex] as EditorId);
+      showEditor(editorIds[editorIndex]);
       lastkeys = 'Ctrl + Alt + ' + e.key;
       return;
     }
@@ -5664,8 +5715,8 @@ const importExternalContent = async (options: {
     // load content from config contentUrl
     const editorsContent = await Promise.all(
       editorIds.map(async (editorId) => {
-        if (!['markup', 'style', 'script'].includes(editorId)) return;
-        const src = config[editorId as EditorId];
+        if (!isEditorId(editorId)) return;
+        const src = config[editorId];
         const contentUrl = src.contentUrl;
         const hiddenContentUrl = src.hiddenContentUrl;
         const [content, hiddenContent] = await Promise.all([
@@ -5916,7 +5967,7 @@ const createApi = (): API => {
       split?.show('code', full);
     } else if (panel === 'console' || panel === 'compiled' || panel === 'tests') {
       split?.show('output');
-      toolsPane?.setActiveTool(panel);
+      toolsPane?.setActiveTool(panel as 'console' | 'compiled' | 'tests');
       if (full) {
         toolsPane?.maximize();
       } else {

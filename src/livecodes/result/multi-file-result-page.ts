@@ -6,6 +6,7 @@ import {
   replaceImports,
   resolvePath,
 } from '../compiler/import-map';
+import { getMainFile } from '../config/utils';
 import { getLanguageByAlias, getLanguageCompiler, getLanguageEditorId } from '../languages/utils';
 import type { CompileInfo, Config, SourceFile } from '../models';
 import { getAppCDN, modulesService } from '../services/modules';
@@ -432,11 +433,3 @@ window.browserJest.run().then(results => {
 
   return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
 };
-
-export const getMainFile = (config: Config) =>
-  config.mainFile && config.files.find((f) => f.filename === config.mainFile)
-    ? config.mainFile
-    : config.files.find((f) => f.filename === 'index.html')
-      ? 'index.html'
-      : config.files.find((f) => getLanguageEditorId(f.language) === 'markup')?.filename ||
-        'index.html';

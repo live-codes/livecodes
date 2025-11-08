@@ -1,4 +1,4 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type {
   Config,
   Editor,
@@ -11,6 +11,7 @@ import type {
 } from '../models';
 import { getFileExtension, removeDuplicates } from '../utils';
 import { defaultConfig } from './default-config';
+import { isEditorId } from './utils';
 
 export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   type types = 'array' | 'boolean' | 'object' | 'number' | 'string' | 'undefined';
@@ -63,7 +64,8 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
           ? 'vue-app'
           : lang;
 
-  const getEditorDefaultLanguage = (editorId: EditorId) => defaultConfig[editorId].language;
+  const getEditorDefaultLanguage = (editorId: EditorId) =>
+    (isEditorId(editorId) ? defaultConfig[editorId].language : getFileLanguage(editorId)) || 'html';
 
   const validateEditorProps = (x: Editor, editorId: EditorId): Editor => ({
     language:
@@ -96,6 +98,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
           hidden: is(x.hidden, 'boolean') ? x.hidden ?? false : false,
         }
       : null;
+
+  const validateActiveEditor = (config: Partial<Config>) =>
+    includes([...editorIds, ...(config.files || []).map((f) => f.filename)], config.activeEditor);
 
   const validateTestsProps = (x: Partial<Config['tests']>): Partial<Config['tests']> => ({
     ...(x && is(x.language, 'string') ? { language: x.language } : {}),
@@ -156,7 +161,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.showSpacing, 'boolean') ? { showSpacing: config.showSpacing } : {}),
     ...(is(config.readonly, 'boolean') ? { readonly: config.readonly } : {}),
     ...(is(config.allowLangChange, 'boolean') ? { allowLangChange: config.allowLangChange } : {}),
-    ...(includes(editorIds, config.activeEditor) ? { activeEditor: config.activeEditor } : {}),
+    ...(validateActiveEditor(config) ? { activeEditor: config.activeEditor } : {}),
     ...(is(config.languages, 'array', 'string')
       ? { languages: removeDuplicates(config.languages) }
       : {}),

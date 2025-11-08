@@ -29,6 +29,7 @@ import { colorPicker } from '@replit/codemirror-css-color-picker';
 
 // these are imported normally
 import { getEditorModeNode } from '../../UI/selectors';
+import { getFileLanguage } from '../../languages';
 import type {
   CodeEditor,
   CodemirrorTheme,
@@ -56,15 +57,9 @@ let tabFocusMode = false;
 const changeTabFocusMode = debounce(() => (tabFocusMode = !tabFocusMode), 50);
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const {
-    container,
-    readonly,
-    isEmbed,
-    editorId,
-    getFormatterConfig,
-    getFontFamily,
-    getLanguageExtension,
-  } = options;
+  const { container, readonly, isEmbed, getFormatterConfig, getFontFamily, getLanguageExtension } =
+    options;
+  let editorId = options.editorId;
   let editorSettings: EditorConfig = { ...options };
   if (!container) throw new Error('editor container not found');
 
@@ -308,6 +303,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   showEditorMode(options.editorMode);
 
   const getEditorId = () => editorId;
+  const setEditorId = (filename: string) => {
+    editorId = filename;
+    language = getFileLanguage(filename) || language;
+  };
   const getValue = () => view.state.doc.toString();
   const setValue = (value = '', newState = true) => {
     if (newState) {
@@ -527,6 +526,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getLanguage,
     setLanguage,
     getEditorId,
+    setEditorId,
     focus,
     getPosition,
     setPosition,

@@ -2,6 +2,7 @@ import type * as Monaco from 'monaco-editor';
 
 import { getEditorModeNode } from '../../UI/selectors';
 import { getImports } from '../../compiler/import-map';
+import { getFileLanguage } from '../../languages/utils';
 import type {
   APIError,
   CodeEditor,
@@ -202,7 +203,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     ...consoleOptions,
   };
 
-  const editorId = options.editorId;
+  let editorId = options.editorId;
   const initOptions =
     editorId === 'console'
       ? consoleOptions
@@ -219,7 +220,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const JSLangs = ['javascript', 'jsx', 'react', 'flow', 'solid', 'react-native'];
     const isJSLang = JSLangs.includes(language);
     if (
-      !['script', 'tests', 'editorSettings'].includes(editorId) ||
+      // !['script', 'tests', 'editorSettings'].includes(editorId) ||
       !['javascript', 'typescript'].includes(monacoMapLanguage(language))
     ) {
       return;
@@ -300,12 +301,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     language: Language,
   ) => {
     const random = getRandomString();
-    const ext = editorId.split('.').pop() || getLanguageExtension(language);
+    const ext = getLanguageExtension(language);
     const extension =
       monacoMapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
         ? ext + '.tsx'
         : ext;
-    modelUri = `file:///${editorId}.${random}.${extension}`;
+    modelUri = editorId.includes('.')
+      ? `file:///${editorId}`
+      : `file:///${editorId}.${random}.${extension}`;
     const oldModel = editor.getModel();
     const model = monaco.editor.createModel(
       value || '',
@@ -358,6 +361,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   }
 
   const getEditorId = () => editorId;
+  const setEditorId = (filename: string) => {
+    editorId = filename;
+    language = getFileLanguage(filename) || language;
+    setModel(editor, editor.getValue(), language);
+  };
   const getValue = () => editor.getValue();
   const setValue = (value = '') => {
     editor.getModel()?.setValue(value);
@@ -905,6 +913,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getLanguage,
     setLanguage,
     getEditorId,
+    setEditorId,
     focus,
     getPosition,
     setPosition,

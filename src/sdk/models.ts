@@ -1218,7 +1218,7 @@ export interface EditorPosition {
   column?: number;
 }
 
-export type EditorId = 'markup' | 'style' | 'script';
+export type EditorId = 'markup' | 'style' | 'script' | (string & {});
 
 export interface Editors {
   [key: string]: CodeEditor;
@@ -1574,6 +1574,7 @@ export interface CodeEditor {
   getLanguage: () => Language;
   setLanguage: (language: Language, value?: string) => void;
   getEditorId: () => string;
+  setEditorId: (filename: string) => void;
   focus: () => void;
   getPosition: () => EditorPosition;
   setPosition: (position: EditorPosition) => void;
