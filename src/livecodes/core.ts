@@ -576,15 +576,23 @@ const reloadEditors = async (config: Config) => {
 const updateEditors = async (editors: Editors, config: Config) => {
   const editorIds = Object.keys(editors) as Array<keyof Editors>;
   for (const editorId of editorIds) {
-    const language = getLanguageByAlias(config[editorId].language);
+    const language = getLanguageByAlias(
+      config[editorId as EditorId]?.language ||
+        config.files.find((f) => f.filename === editorId)?.language,
+    );
     if (language) {
-      await changeLanguage(language, config[editorId].content, true);
+      await changeLanguage(
+        language,
+        config[editorId as EditorId]?.content ||
+          config.files.find((f) => f.filename === editorId)?.content,
+        true,
+      );
     }
     const editor = editors[editorId];
     if (config.foldRegions) {
       await editor.foldRegions?.();
     }
-    const foldedLines = config[editorId].foldedLines;
+    const foldedLines = config[editorId as EditorId]?.foldedLines;
     if (foldedLines?.length) {
       await editor.foldLines?.(foldedLines);
     }
@@ -693,10 +701,16 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
 
-const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
+const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = false) => {
   const config = getConfig();
   const allHidden = editorIds.every((editor) => config[editor].hideTitle);
-  if (config[editorId].hideTitle && !allHidden) return;
+  if (
+    (config[editorId as EditorId]?.hideTitle ||
+      config.files.find((f) => f.filename === editorId)?.hidden) &&
+    !allHidden
+  ) {
+    return;
+  }
   const titles = UI.getEditorTitles();
   const editorIsVisible = () =>
     Array.from(titles)
@@ -731,7 +745,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   showEditorModeStatus(editorId);
 };
 
-const showEditorModeStatus = (editorId: EditorId) => {
+const showEditorModeStatus = (editorId: EditorId | (string & {})) => {
   const editorStatusNodes = document.querySelectorAll<HTMLElement>(
     '#editor-status > span[data-status]',
   );
@@ -1976,7 +1990,7 @@ const getAllEditors = (): CodeEditor[] =>
     ...Object.values(editors),
     toolsPane?.console?.getEditor?.(),
     toolsPane?.compiled?.getEditor?.(),
-  ].filter((x) => x != null);
+  ].filter((x) => x != null) as CodeEditor[];
 
 const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];

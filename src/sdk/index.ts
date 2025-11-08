@@ -3,7 +3,7 @@ import { compressToEncodedURIComponent } from 'lz-string';
 import type {
   API,
   Code,
-  Config,
+  SDKConfig as Config,
   CustomEvents,
   EmbedOptions,
   Language,

@@ -4,6 +4,8 @@ import type {
   ContentConfig,
   EditorConfig,
   FormatterConfig,
+  MultiFileConfig,
+  SingleFileConfig,
   UserConfig,
 } from '../models';
 import { cloneObject } from '../utils';
@@ -94,6 +96,26 @@ export const getFormatterConfig = (config: Config | UserConfig): FormatterConfig
     singleQuote: config.singleQuote,
     trailingComma: config.trailingComma,
   });
+
+export const getSingleFileConfig = (config: Config): SingleFileConfig => {
+  const { files, mainFile, ...SingleFileConfig } = config;
+  return cloneObject(SingleFileConfig);
+};
+
+export const getMultiFileConfig = (config: Config): MultiFileConfig => {
+  const {
+    markup,
+    style,
+    script,
+    stylesheets,
+    scripts,
+    cssPreset,
+    htmlAttrs,
+    head,
+    ...multiFileConfig
+  } = config;
+  return cloneObject(multiFileConfig);
+};
 
 export const upgradeAndValidate = (config: Partial<Config>) =>
   validateConfig(upgradeConfig(config as any));

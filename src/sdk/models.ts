@@ -343,7 +343,7 @@ export interface EmbedOptions {
    * If supplied and is not an object or a valid URL, an error is thrown.
    * @default {}
    */
-  config?: Partial<Config> | string;
+  config?: Partial<SDKConfig> | string;
 
   /**
    * If `true`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
@@ -405,6 +405,20 @@ export interface EmbedOptions {
  */
 export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
+export interface SingleFileConfig
+  extends Omit<ContentConfig, 'files' | 'mainFile'>,
+    AppConfig,
+    UserConfig {}
+
+export interface MultiFileConfig
+  extends Omit<MultiFileContentConfig, 'files'>,
+    AppConfig,
+    UserConfig {
+  files: Array<{ filename: string } & Partial<SourceFile>>;
+}
+
+export type SDKConfig = SingleFileConfig | MultiFileConfig;
+
 /**
  * The properties that define the content of the current [project](https://livecodes.io/docs/features/projects).
  */
@@ -450,9 +464,9 @@ export interface ContentConfig {
    * Selects the active editor to show.
    *
    * Defaults to the last used editor for user, otherwise `"markup"`
-   * @type {`"markup"` | `"style"` | `"script"` | `undefined`}
+   * @type {`"markup"` | `"style"` | `"script"` | `string` | `undefined`}
    */
-  activeEditor: EditorId | undefined;
+  activeEditor: EditorId | (string & {}) | undefined;
 
   /**
    * List of enabled languages.
@@ -484,6 +498,16 @@ export interface ContentConfig {
    * @default { language: "javascript", content: "" }
    */
   script: Prettify<Editor>;
+
+  /**
+   * List of source files.
+   */
+  files: SourceFile[];
+  /**
+   * The name of the main markup file.
+   * @default "index.html"
+   */
+  mainFile?: string;
 
   /**
    * List of URLs for [external stylesheets](https://livecodes.io/docs/features/external-resources) to add to the [result page](https://livecodes.io/docs/features/result).
@@ -581,6 +605,30 @@ export interface ContentConfig {
    * Version specified in [exported](https://livecodes.io/docs/features/export) projects allows automatically upgrading the project configuration when imported by an app with a newer version.
    */
   readonly version: string;
+}
+
+export type MultiFileContentConfig = Pick<
+  ContentConfig,
+  | 'title'
+  | 'description'
+  | 'tags'
+  | 'activeEditor'
+  | 'files'
+  | 'mainFile'
+  | 'languages'
+  | 'processors'
+  | 'customSettings'
+  | 'imports'
+  | 'types'
+  | 'tests'
+  | 'version'
+>;
+
+export interface SourceFile {
+  filename: string;
+  content: string;
+  language: Language;
+  hidden: boolean;
 }
 
 /**
@@ -1173,6 +1221,7 @@ export interface EditorPosition {
 export type EditorId = 'markup' | 'style' | 'script';
 
 export interface Editors {
+  [key: string]: CodeEditor;
   markup: CodeEditor;
   style: CodeEditor;
   script: CodeEditor;
