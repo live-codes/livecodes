@@ -135,9 +135,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   // codejar?.onPaste(handleUpdate);
 
   const getEditorId = () => editorId;
-  const setEditorId = (filename: string) => {
+  const setEditorId = (filename: string, lang?: Language) => {
     editorId = filename;
-    language = getFileLanguage(filename) || language;
+    const newLang = lang || getFileLanguage(filename);
+    if (newLang && newLang !== language) {
+      setLanguage(newLang);
+    }
   };
   const getValue = () => (codejar ? codejar.toString() : value);
   const setValue = (newValue = '\n') => {

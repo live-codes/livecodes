@@ -380,7 +380,7 @@ const translation = {
       message: 'Loading {{lang}}. This may take a while!',
     },
     confirm: {
-      deleteFile: 'Delete file: {{title}}?',
+      deleteFile: 'Delete file: {{filename}}?',
     },
     copy: {
       copied: 'Code copied to clipboard',
@@ -410,6 +410,10 @@ const translation = {
     },
     export: {
       gist: 'Creating a public GitHub gist...',
+    },
+    file: {
+      exists: 'File already exists!',
+      invalidName: 'Invalid file type!',
     },
     fork: {
       success: 'Forked as a new project',

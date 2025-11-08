@@ -942,7 +942,7 @@
   },
   "core.confirm.deleteFile": {
     "notes": "",
-    "translation": "Delete file: {{title}}?"
+    "translation": "Delete file: {{filename}}?"
   },
   "core.copy.copied": {
     "notes": "",
@@ -1035,6 +1035,14 @@
   "core.export.gist": {
     "notes": "",
     "translation": "Creating a public GitHub gist..."
+  },
+  "core.file.exists": {
+    "notes": "",
+    "translation": "File already exists!"
+  },
+  "core.file.invalidName": {
+    "notes": "",
+    "translation": "Invalid file type!"
   },
   "core.fork.success": {
     "notes": "",

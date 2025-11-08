@@ -165,6 +165,7 @@ export const createLanguageMenus = (
 export const createMultiFileEditorTab = ({
   title,
   showEditor,
+  addFile,
   renameFile,
   deleteFile,
   isMainFile,
@@ -172,23 +173,24 @@ export const createMultiFileEditorTab = ({
 }: {
   title: string;
   showEditor: (filename: string) => void;
-  renameFile: (filename: string, newName: string) => void;
+  addFile?: (filename: string) => Promise<boolean>;
+  renameFile: (filename: string, newName: string) => boolean;
   deleteFile: (filename: string) => void;
   isMainFile: boolean;
   isNewFile: boolean;
 }) => {
   let currentFileName = title;
-  const selector = document.querySelector(`.editor-title[data-editor="${title}"]`);
+  const selector = document.querySelector(`.editor-title[data-editor="${currentFileName}"]`);
   if (selector) return;
   const editorSelector = document.createElement('a');
   editorSelector.href = '#';
   editorSelector.classList.add('editor-title', 'noselect');
-  editorSelector.dataset.editor = title;
+  editorSelector.dataset.editor = currentFileName;
   editorSelector.dataset.multiFile = 'true';
   editorSelector.addEventListener('click', () => showEditor(currentFileName));
 
   const label = document.createElement('span');
-  label.innerHTML = title;
+  label.innerHTML = currentFileName;
   editorSelector.appendChild(label);
 
   if (!isMainFile) {
@@ -198,12 +200,12 @@ export const createMultiFileEditorTab = ({
     deleteButton.addEventListener('click', () => {
       if (
         confirm(
-          window.deps.translateString('core.confirm.deleteFile', 'Delete file: {{title}}?', {
-            title,
+          window.deps.translateString('core.confirm.deleteFile', 'Delete file: {{filename}}?', {
+            filename: currentFileName,
           }),
         )
       ) {
-        deleteFile(label.innerText);
+        deleteFile(currentFileName);
         editorSelector.remove();
       }
     });
@@ -218,19 +220,20 @@ export const createMultiFileEditorTab = ({
     selection?.addRange(range);
   };
 
-  const accept = () => {
-    renameFile(currentFileName, label.innerText);
+  const accept = async () => {
+    const success =
+      isNewFile && typeof addFile === 'function'
+        ? await addFile(label.innerText)
+        : renameFile(currentFileName, label.innerText);
+    if (!success) {
+      onDblClick();
+      return;
+    }
     label.contentEditable = 'false';
     currentFileName = label.innerText;
+    isNewFile = false;
     showEditor(currentFileName);
-    window.removeEventListener('click', onClick);
     window.removeEventListener('keydown', onEnter);
-  };
-
-  const onClick = (event: MouseEvent) => {
-    if (event.target !== editorSelector.querySelector('span')) {
-      accept();
-    }
   };
 
   const onEnter = (event: KeyboardEvent) => {
@@ -245,7 +248,6 @@ export const createMultiFileEditorTab = ({
     label.contentEditable = 'true';
     requestAnimationFrame(() => label.focus());
     selectAll(label);
-    window.addEventListener('click', onClick, { capture: true });
     window.addEventListener('keydown', onEnter);
   };
 
@@ -260,13 +262,14 @@ export const createMultiFileEditorTab = ({
   }
 };
 
-export const createAddFileButton = (addFile: () => void) => {
+export const createAddFileButton = ({ onclick: handleAddFileClick }: { onclick: () => void }) => {
   if (!document.querySelector('#add-file-button')) {
     const addFileButton = document.createElement('button');
     addFileButton.id = 'add-file-button';
     addFileButton.classList.add('app-menu-button', 'menu');
-    addFileButton.innerHTML = '<i class="icon-add" alt="add file"></i>';
-    addFileButton.addEventListener('click', addFile);
+    addFileButton.innerHTML =
+      '<i class="icon-add" title="Add file" data-i18n="core.addFile" data-i18n-prop="title"></i>';
+    addFileButton.addEventListener('click', handleAddFileClick);
     document.querySelector('#select-editor')?.appendChild(addFileButton);
 
     const scrollTo = document.createElement('div');

@@ -12,7 +12,7 @@ const upgradeSteps = [
     upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
       const config: genericConfig = clone(oldConfig);
       ['markup', 'style', 'script'].forEach((prop) => {
-        if ((config[prop] as any)?.hideTitle) {
+        if (config[prop] && 'hideTitle' in config[prop] && !('hidden' in config[prop])) {
           config[prop] = renameProperty(config[prop], 'hideTitle', 'hidden');
         }
       });

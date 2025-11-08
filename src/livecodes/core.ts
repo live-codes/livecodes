@@ -43,7 +43,7 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
-import { getSource, isEditorId } from './config/utils';
+import { getMainFile, getSource, isEditorId, validateFileName } from './config/utils';
 import { createCustomEditors, createEditor, getFontFamily } from './editor';
 import { createFakeEditor } from './editor/fake-editor';
 import { hasJsx } from './editor/ts-compiler-options';
@@ -475,8 +475,40 @@ const createCopyButtons = () => {
   });
 };
 
+const checkFileName = (filename: string, config: Config) => {
+  if (!validateFileName(filename, config)) {
+    alert(window.deps.translateString('core.file.invalidName', 'Invalid file type!'));
+    return false;
+  }
+  if (config.files?.some((f) => f.filename === filename)) {
+    alert(window.deps.translateString('core.file.exists', 'File already exists!'));
+    return false;
+  }
+  return true;
+};
+
+const addFile = async (
+  filename: string,
+  editorOptions: Omit<EditorOptions, 'container' | 'editorId' | 'language' | 'value'>,
+) => {
+  if (!checkFileName(filename, getConfig())) return false;
+  const fileLanguage = getFileLanguage(filename) || 'javascript';
+  const editor = await createEditor({
+    ...editorOptions,
+    container: createEditorUI(filename, true),
+    editorId: filename,
+    language: fileLanguage,
+    value: '',
+  });
+  editorLanguages![filename] = fileLanguage;
+  editors[filename] = editor;
+  editorIds.push(filename);
+  return true;
+};
+
 const renameFile = (filename: string, newName: string) => {
-  // TODO: validate newName (existing file, extension, valid name)
+  if (filename === newName) return true;
+  if (!checkFileName(newName, getConfig())) return false;
   const language = getFileLanguage(newName)!;
   const config = getConfig();
   setConfig({
@@ -511,6 +543,7 @@ const renameFile = (filename: string, newName: string) => {
     editorIds[id] = newName;
   }
   changeLanguage(language, undefined, false, newName);
+  return true;
 };
 
 const deleteFile = (filename: string) => {
@@ -549,18 +582,12 @@ const createEditorUI = (title: string, addTab = false) => {
   container.classList.add('editor');
   editorsElement.insertBefore(container, UI.getEditorToolbar());
   if (addTab) {
-    const config = getConfig();
-    const isMainFile = config.mainFile
-      ? config.mainFile === title
-      : title === 'index.html' ||
-        config.files.find((f) => getLanguageEditorId(f.language) === 'markup')?.filename === title;
-
     createMultiFileEditorTab({
       title,
       showEditor,
       renameFile,
       deleteFile,
-      isMainFile,
+      isMainFile: title === getMainFile(getConfig()),
       isNewFile: false,
     });
   }
@@ -635,28 +662,17 @@ const createEditors = async (config: Config) => {
   };
 
   if (config.files?.length) {
-    createAddFileButton(() => {
-      createMultiFileEditorTab({
-        title: 'script.js',
-        showEditor,
-        renameFile: async (filename: string, newName: string) => {
-          renameFile(filename, newName);
-          const fileLanguage = getFileLanguage(filename) || 'javascript';
-          const editor = await createEditor({
-            ...baseOptions,
-            container: createEditorUI(newName, true),
-            editorId: newName,
-            language: fileLanguage,
-            value: '',
-          });
-          editorLanguages![newName] = fileLanguage;
-          editors[newName] = editor;
-          editorIds.push(newName);
-        },
-        deleteFile,
-        isMainFile: false,
-        isNewFile: true,
-      });
+    createAddFileButton({
+      onclick: () =>
+        createMultiFileEditorTab({
+          title: '        ',
+          showEditor,
+          addFile: async (filename: string) => addFile(filename, baseOptions),
+          renameFile,
+          deleteFile,
+          isMainFile: false,
+          isNewFile: true,
+        }),
     });
 
     editorLanguages = { markup: 'html', style: 'css', script: 'javascript' };
@@ -866,19 +882,23 @@ const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = fa
     // select first visible editor instead
     editorId = (titles[0]?.dataset.editor as EditorId) || 'markup';
   }
-  titles.forEach((selector) => selector.classList.remove('active'));
-  const activeTitle = titles.find((title) => title.dataset.editor === editorId);
-  activeTitle?.classList.add('active');
-  activeTitle?.scrollIntoView({ behavior: 'smooth' });
-  const editorDivs = [...UI.getEditorDivs()];
-  editorDivs.forEach((editor) => (editor.style.display = 'none'));
-  const activeEditor = editorDivs.find(
-    (editor) => editor.id === editorId || editor.dataset.editorId === editorId,
-  ) as HTMLElement;
-  if (activeEditor) {
-    activeEditor.style.display = 'block';
-    activeEditor.style.visibility = 'visible';
-  }
+  titles.forEach((title) => {
+    if (title.dataset.editor === editorId) {
+      title.classList.add('active');
+      title.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      title.classList.remove('active');
+    }
+  });
+  UI.getEditorDivs().forEach((editorDiv) => {
+    if (editorDiv.dataset.editorId === editorId || editorDiv.id === editorId) {
+      editorDiv.style.display = 'block';
+      editorDiv.style.visibility = 'visible';
+    } else {
+      editorDiv.style.display = 'none';
+      editorDiv.style.visibility = 'hidden';
+    }
+  });
   if (!isEmbed && !isUpdate) {
     editors[editorId]?.focus();
   }
@@ -1034,19 +1054,17 @@ const changeLanguage = async (
       ),
     );
   }
-  const editor = editors[editorId];
-  if (filename) {
-    editor.setEditorId(filename);
-  }
-  editor.setLanguage(
-    language,
-    value ?? (filename ? undefined : getSource(editorId, getConfig())?.content || ''),
-  );
   if (editorLanguages) {
     editorLanguages[editorId] = language;
   }
-  setEditorTitle(editorId as EditorId, language);
-  showEditor(editorId, isUpdate);
+  const editor = editors[editorId];
+  if (filename) {
+    editor.setEditorId(filename, language);
+  } else {
+    editor.setLanguage(language, value ?? (getSource(editorId, getConfig())?.content || ''));
+    setEditorTitle(editorId as EditorId, language);
+    showEditor(editorId, isUpdate);
+  }
   phpHelper({ editor: editors.script });
   if (!isEmbed && !isUpdate) {
     setTimeout(() => editor.focus());
@@ -1872,10 +1890,11 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
 
   const hasEditorConfig = Object.keys(editorConfig).some((k) => k in newConfig);
   let shouldReloadEditors = (() => {
-    if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
+    const activeEditor = getActiveEditor();
+    if (newConfig.editor != null && newConfig.editor in activeEditor) return true;
     if (newConfig.mode != null) {
-      if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
-      if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
+      if (newConfig.mode !== 'result' && activeEditor.isFake) return true;
+      if (newConfig.mode !== 'codeblock' && activeEditor.codejar) return true;
     }
     return false;
   })();

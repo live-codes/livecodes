@@ -303,9 +303,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   showEditorMode(options.editorMode);
 
   const getEditorId = () => editorId;
-  const setEditorId = (filename: string) => {
+  const setEditorId = (filename: string, lang?: Language) => {
     editorId = filename;
-    language = getFileLanguage(filename) || language;
+    const newLang = lang || getFileLanguage(filename);
+    if (newLang && newLang !== language) {
+      setLanguage(newLang);
+    }
   };
   const getValue = () => view.state.doc.toString();
   const setValue = (value = '', newState = true) => {

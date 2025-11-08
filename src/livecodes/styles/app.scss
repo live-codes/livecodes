@@ -1378,6 +1378,7 @@ a.editor-title {
   > span {
     display: inline-block;
     flex-grow: 1;
+    min-width: 3em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
