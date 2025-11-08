@@ -300,7 +300,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     language: Language,
   ) => {
     const random = getRandomString();
-    const ext = getLanguageExtension(language);
+    const ext = editorId.split('.').pop() || getLanguageExtension(language);
     const extension =
       monacoMapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
         ? ext + '.tsx'

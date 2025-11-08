@@ -21,6 +21,7 @@ import type {
 } from './UI/broadcast';
 import { getCommandMenuActions } from './UI/command-menu-actions';
 import {
+  createAddFileButton,
   createLanguageMenus,
   createMultiFileEditorTab,
   createProcessorItem,
@@ -76,6 +77,7 @@ import { importCompressedCode } from './import/code';
 import { importFromFiles } from './import/files';
 import { populateConfig } from './import/utils';
 import {
+  getFileLanguage,
   getLanguageByAlias,
   getLanguageCompiler,
   getLanguageEditorId,
@@ -207,7 +209,7 @@ let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
 const params = getParams(); // query string params
 const iframeScrollPosition = { x: 0, y: 0 };
-const editorIds: EditorId[] = ['markup', 'style', 'script'];
+const editorIds = ['markup', 'style', 'script'];
 
 let baseUrl: string;
 let isEmbed: boolean;
@@ -417,7 +419,7 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
   });
 };
 
-const setEditorTitle = (editorId: EditorId, title: string) => {
+export const setEditorTitle = (editorId: EditorId, title: string) => {
   const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
   const editorTitleContainer = document.querySelector(`#${editorId}-selector`) as HTMLElement;
   const language = getLanguageByAlias(title);
@@ -453,7 +455,10 @@ const createCopyButtons = () => {
     copyButton.innerHTML = copyImgHtml;
     copyButton.classList.add('copy-button', 'tool-buttons');
     copyButton.title = window.deps.translateString('core.copy.title', 'Copy');
-    document.getElementById(editorId)?.appendChild(copyButton);
+    (
+      document.getElementById(editorId) ||
+      document.querySelector(`div[data-editor-id="${editorId}"]`)
+    )?.appendChild(copyButton);
     eventsManager.addEventListener(copyButton, 'click', () => {
       if (copyToClipboard(editors?.[editorId]?.getValue())) {
         copyButton.innerHTML = `<span><img src="${baseUrl}assets/images/tick.svg" alt="copied"></span>`;
@@ -469,47 +474,75 @@ const createCopyButtons = () => {
   });
 };
 
-const createEditorUI = (title: string) => {
-  const editorsElement = UI.getEditorsElement();
-  let container = editorsElement.querySelector<HTMLElement>(`[data-editor-id="${title}"]`);
-  if (!container) {
-    container = document.createElement('div');
-    container.setAttribute('data-editor-id', title);
-    container.classList.add('editor');
-    editorsElement.insertBefore(container, UI.getEditorToolbar());
-  }
-  const editFileName = (filename: string) => {
-    const config = getConfig();
-    setConfig({
-      ...config,
-      files: config.files.map((f) => ({
-        ...f,
-        filename: f.filename === title ? filename : f.filename,
-      })),
-    });
-    if (config.autoupdate) {
-      run();
-    }
-  };
-  const deleteFile = (filename: string) => {
-    const config = getConfig();
-    setConfig({
-      ...config,
-      files: config.files.filter((f) => f.filename !== filename),
-    });
-    if (config.autoupdate) {
-      run();
-    }
-  };
-
+const renameFile = (filename: string, newName: string) => {
+  // TODO: validate newName (existing file, extension, valid name)
+  const language = getFileLanguage(newName)!;
   const config = getConfig();
-  const isMainFile = config.mainFile
-    ? config.mainFile === title
-    : title === 'index.html' ||
-      config.files.find((f) => getLanguageEditorId(f.language) === 'markup')?.filename === title;
+  setConfig({
+    ...config,
+    activeEditor: newName,
+    files: config.files.map((f) => ({
+      ...f,
+      language: f.filename === filename ? language : f.language,
+      filename: f.filename === filename ? newName : f.filename,
+    })),
+  });
+  UI.getEditorDivs().forEach((editorDiv) => {
+    if (editorDiv.dataset.editorId === filename) {
+      editorDiv.dataset.editorId = newName;
+    }
+  });
+  UI.getEditorTitles().forEach((editorTitle) => {
+    if (editorTitle.dataset.editor === filename) {
+      editorTitle.dataset.editor = newName;
+    }
+  });
+  if (editorLanguages && editorLanguages[filename]) {
+    editorLanguages[newName] = editorLanguages[filename];
+    delete editorLanguages[filename];
+  }
+  if (editors[filename]) {
+    editors[newName] = editors[filename];
+    delete editors[filename];
+  }
+  changeLanguage(language, undefined, false, newName);
+};
 
-  createMultiFileEditorTab({ title, editFileName, deleteFile, isMainFile });
+const deleteFile = (filename: string) => {
+  const config = getConfig();
+  setConfig({
+    ...config,
+    files: config.files.filter((f) => f.filename !== filename),
+  });
+  if (config.autoupdate) {
+    run();
+  }
+};
 
+const createEditorUI = (title: string, addTab = false) => {
+  const editorsElement = UI.getEditorsElement();
+  editorsElement.querySelector(`.editor[data-editor-id="${title}"]`)?.remove();
+  const container = document.createElement('div');
+  container.dataset.editorId = title;
+  container.dataset.multiFile = 'true';
+  container.classList.add('editor');
+  editorsElement.insertBefore(container, UI.getEditorToolbar());
+  if (addTab) {
+    const config = getConfig();
+    const isMainFile = config.mainFile
+      ? config.mainFile === title
+      : title === 'index.html' ||
+        config.files.find((f) => getLanguageEditorId(f.language) === 'markup')?.filename === title;
+
+    createMultiFileEditorTab({
+      title,
+      showEditor,
+      renameFile,
+      deleteFile,
+      isMainFile,
+      isNewFile: false,
+    });
+  }
   return container;
 };
 
@@ -581,6 +614,29 @@ const createEditors = async (config: Config) => {
   };
 
   if (config.files?.length) {
+    createAddFileButton(() => {
+      createMultiFileEditorTab({
+        title: 'script.js',
+        showEditor,
+        renameFile: async (filename: string, newName: string) => {
+          renameFile(filename, newName);
+          const fileLanguage = getFileLanguage(filename) || 'javascript';
+          const editor = await createEditor({
+            ...baseOptions,
+            container: createEditorUI(newName, true),
+            editorId: newName as EditorId,
+            language: fileLanguage,
+            value: '',
+          });
+          editorLanguages![newName] = fileLanguage;
+          editors[newName] = editor;
+        },
+        deleteFile,
+        isMainFile: false,
+        isNewFile: true,
+      });
+    });
+
     editorLanguages = { markup: 'html', style: 'css', script: 'javascript' };
     editors = {
       markup: createFakeEditor(markupOptions),
@@ -588,9 +644,10 @@ const createEditors = async (config: Config) => {
       script: createFakeEditor(scriptOptions),
     };
 
+    editorIds.length = 0;
     for (const file of config.files) {
-      const editorId = file.filename;
-      const container = createEditorUI(file.filename);
+      const editorId = file.filename as EditorId;
+      const container = createEditorUI(file.filename, /* addTab */ true);
       const editorOptions = {
         ...baseOptions,
         container,
@@ -601,6 +658,7 @@ const createEditors = async (config: Config) => {
       const editor = await createEditor(editorOptions);
       editorLanguages[editorId] = file.language;
       editors[editorId] = editor;
+      editorIds.push(editorId);
     }
   } else {
     const markupEditor = await createEditor(markupOptions);
@@ -653,23 +711,17 @@ const reloadEditors = async (config: Config) => {
 const updateEditors = async (editors: Editors, config: Config) => {
   const editorIds = Object.keys(editors) as Array<keyof Editors>;
   for (const editorId of editorIds) {
-    const language = getLanguageByAlias(
-      config[editorId as EditorId]?.language ||
-        config.files.find((f) => f.filename === editorId)?.language,
-    );
+    const source =
+      config[editorId as EditorId] || config.files.find((f) => f.filename === editorId);
+    const language = getLanguageByAlias(source.language);
     if (language) {
-      await changeLanguage(
-        language,
-        config[editorId as EditorId]?.content ||
-          config.files.find((f) => f.filename === editorId)?.content,
-        true,
-      );
+      await changeLanguage(language, source.content || '', true);
     }
     const editor = editors[editorId];
     if (config.foldRegions) {
       await editor.foldRegions?.();
     }
-    const foldedLines = config[editorId as EditorId]?.foldedLines;
+    const foldedLines = source.foldedLines;
     if (foldedLines?.length) {
       await editor.foldLines?.(foldedLines);
     }
@@ -795,6 +847,7 @@ const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = fa
   titles.forEach((selector) => selector.classList.remove('active'));
   const activeTitle = titles.find((title) => title.dataset.editor === editorId);
   activeTitle?.classList.add('active');
+  activeTitle?.scrollIntoView({ behavior: 'smooth' });
   const editorDivs = [...UI.getEditorDivs()];
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
   const activeEditor = editorDivs.find(
@@ -817,7 +870,7 @@ const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = fa
   if (initialized || config.view !== 'result') {
     split?.show('code');
   }
-  configureEditorTools(getActiveEditor().getLanguage());
+  configureEditorTools(getActiveEditor()?.getLanguage());
   showEditorModeStatus(editorId);
 };
 
@@ -893,16 +946,19 @@ const configureMultiFile = (config: Config) => {
   ];
   const multiFileTabs = [...editorTabsContainer.querySelectorAll<HTMLElement>('[data-multi-file]')];
   const isMultiFile = config.files.length > 0;
+
   singleFileTabs.forEach((tab) => {
     tab.classList.toggle('hidden', isMultiFile);
   });
+  multiFileTabs.forEach((tab) => {
+    tab.classList.toggle('hidden', !isMultiFile);
+  });
+  document.documentElement.classList.toggle('multi-file', isMultiFile);
+
+  // clean up
   if (!isMultiFile) {
-    document.documentElement.classList.remove('multi-file');
     multiFileTabs.forEach((tab) => tab.remove());
-    UI.getEditorDivs().forEach((editor) => editor.remove());
-  }
-  if (isMultiFile) {
-    document.documentElement.classList.add('multi-file');
+    UI.getMultiFileEditorDivs().forEach((editor) => editor.remove());
   }
 };
 
@@ -937,8 +993,13 @@ const applyLanguageConfigs = async (language: Language) => {
   });
 };
 
-const changeLanguage = async (language: Language, value?: string, isUpdate = false) => {
-  const editorId = getLanguageEditorId(language);
+const changeLanguage = async (
+  language: Language,
+  value?: string,
+  isUpdate = false,
+  filename?: string,
+) => {
+  const editorId = filename || getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
   if (getLanguageSpecs(language)?.largeDownload) {
     notifications.info(
@@ -952,11 +1013,14 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
     );
   }
   const editor = editors[editorId];
-  editor.setLanguage(language, value ?? (getConfig()[editorId].content || ''));
+  editor.setLanguage(
+    language,
+    filename ? undefined : value ?? (getConfig()[editorId as EditorId]?.content || ''),
+  );
   if (editorLanguages) {
     editorLanguages[editorId] = language;
   }
-  setEditorTitle(editorId, language);
+  setEditorTitle(editorId as EditorId, language);
   showEditor(editorId, isUpdate);
   phpHelper({ editor: editors.script });
   if (!isEmbed && !isUpdate) {
@@ -1621,16 +1685,18 @@ const share = async (
 const updateConfig = () => {
   const newConfig = getConfig();
   editorIds.forEach((editorId) => {
-    newConfig[editorId] = {
-      ...newConfig[editorId],
-      language: getEditorLanguage(editorId) as Language,
-      content: editors[editorId].getValue(),
-    };
+    if (editorId === 'markup' || editorId === 'style' || editorId === 'script') {
+      newConfig[editorId] = {
+        ...newConfig[editorId],
+        language: getEditorLanguage(editorId) as Language,
+        content: editors[editorId]?.getValue(),
+      };
+    }
   });
   newConfig.files = newConfig.files.map((file) => ({
     ...file,
     language: getEditorLanguage(file.filename) as Language,
-    content: editors[file.filename].getValue(),
+    content: editors[file.filename]?.getValue(),
   }));
   setConfig(newConfig);
 };
@@ -1682,12 +1748,12 @@ const loadConfig = async (
 const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig?: Config) => {
   const currentConfig = oldConfig || getConfig();
   const combinedConfig: Config = { ...currentConfig, ...newConfig };
+  configureMultiFile(combinedConfig);
   if (reload) {
     await updateEditors(editors, getConfig());
   }
   phpHelper({ editor: editors.script });
   setLoading(true);
-  configureMultiFile(combinedConfig);
   await setActiveEditor(combinedConfig);
 
   if (!isEmbed) {
@@ -5533,8 +5599,9 @@ const importExternalContent = async (options: {
   const hasContentUrls = (conf: Partial<Config>) =>
     editorIds.filter(
       (editorId) =>
-        (conf[editorId]?.contentUrl && !conf[editorId]?.content) ||
-        (conf[editorId]?.hiddenContentUrl && !conf[editorId]?.hiddenContent),
+        (editorId === 'markup' || editorId === 'style' || editorId === 'script') &&
+        ((conf[editorId]?.contentUrl && !conf[editorId]?.content) ||
+          (conf[editorId]?.hiddenContentUrl && !conf[editorId]?.hiddenContent)),
     ).length > 0;
   const validConfigUrl = getValidUrl(configUrl);
   if (importUrl?.startsWith('config') || importUrl?.startsWith('params')) {
@@ -5597,27 +5664,30 @@ const importExternalContent = async (options: {
     // load content from config contentUrl
     const editorsContent = await Promise.all(
       editorIds.map(async (editorId) => {
-        const contentUrl = config[editorId].contentUrl;
-        const hiddenContentUrl = config[editorId].hiddenContentUrl;
+        if (!['markup', 'style', 'script'].includes(editorId)) return;
+        const src = config[editorId as EditorId];
+        const contentUrl = src.contentUrl;
+        const hiddenContentUrl = src.hiddenContentUrl;
         const [content, hiddenContent] = await Promise.all([
-          contentUrl && getValidUrl(contentUrl) && !config[editorId].content
+          contentUrl && getValidUrl(contentUrl) && !src.content
             ? fetch(contentUrl).then((res) => res.text())
             : Promise.resolve(''),
-          hiddenContentUrl && getValidUrl(hiddenContentUrl) && !config[editorId].hiddenContent
+          hiddenContentUrl && getValidUrl(hiddenContentUrl) && !src.hiddenContent
             ? fetch(hiddenContentUrl).then((res) => res.text())
             : Promise.resolve(''),
         ]);
         return {
-          ...config[editorId],
+          ...src,
           ...(content ? { content } : {}),
           ...(hiddenContent ? { hiddenContent } : {}),
         };
       }),
     );
+    // TODO: handle files
     contentUrlConfig = {
-      markup: editorsContent[0],
-      style: editorsContent[1],
-      script: editorsContent[2],
+      markup: editorsContent[0] || config.markup,
+      style: editorsContent[1] || config.style,
+      script: editorsContent[2] || config.script,
     };
   }
 

@@ -164,15 +164,20 @@ export const createLanguageMenus = (
 
 export const createMultiFileEditorTab = ({
   title,
-  editFileName,
+  showEditor,
+  renameFile,
   deleteFile,
   isMainFile,
+  isNewFile = false,
 }: {
   title: string;
-  editFileName: (title: string) => void;
-  deleteFile: (title: string) => void;
+  showEditor: (filename: string) => void;
+  renameFile: (filename: string, newName: string) => void;
+  deleteFile: (filename: string) => void;
   isMainFile: boolean;
+  isNewFile: boolean;
 }) => {
+  let currentFileName = title;
   const selector = document.querySelector(`.editor-title[data-editor="${title}"]`);
   if (selector) return;
   const editorSelector = document.createElement('a');
@@ -180,6 +185,7 @@ export const createMultiFileEditorTab = ({
   editorSelector.classList.add('editor-title', 'noselect');
   editorSelector.dataset.editor = title;
   editorSelector.dataset.multiFile = 'true';
+  editorSelector.addEventListener('click', () => showEditor(currentFileName));
 
   const label = document.createElement('span');
   label.innerHTML = title;
@@ -213,26 +219,29 @@ export const createMultiFileEditorTab = ({
   };
 
   const accept = () => {
-    editFileName(label.innerText);
+    renameFile(currentFileName, label.innerText);
     label.contentEditable = 'false';
+    currentFileName = label.innerText;
+    showEditor(currentFileName);
     window.removeEventListener('click', onClick);
     window.removeEventListener('keydown', onEnter);
-    isEditing = false;
   };
+
   const onClick = (event: MouseEvent) => {
     if (event.target !== editorSelector.querySelector('span')) {
       accept();
     }
   };
+
   const onEnter = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
+      event.preventDefault();
       accept();
     }
   };
 
-  let isEditing = false;
-  editorSelector.ondblclick = () => {
-    isEditing = true;
+  const onDblClick = () => {
+    currentFileName = label.innerText;
     label.contentEditable = 'true';
     requestAnimationFrame(() => label.focus());
     selectAll(label);
@@ -240,7 +249,30 @@ export const createMultiFileEditorTab = ({
     window.addEventListener('keydown', onEnter);
   };
 
-  document.querySelector('#select-editor > div')?.appendChild(editorSelector);
+  editorSelector.ondblclick = onDblClick;
+
+  const scrollTo = document.querySelector('#multi-file-scroll-to');
+  document.querySelector('#select-editor > div')?.insertBefore(editorSelector, scrollTo);
+
+  if (isNewFile) {
+    scrollTo?.scrollIntoView({ behavior: 'smooth', inline: 'end' });
+    onDblClick();
+  }
+};
+
+export const createAddFileButton = (addFile: () => void) => {
+  if (!document.querySelector('#add-file-button')) {
+    const addFileButton = document.createElement('button');
+    addFileButton.id = 'add-file-button';
+    addFileButton.classList.add('app-menu-button', 'menu');
+    addFileButton.innerHTML = '<i class="icon-add" alt="add file"></i>';
+    addFileButton.addEventListener('click', addFile);
+    document.querySelector('#select-editor')?.appendChild(addFileButton);
+
+    const scrollTo = document.createElement('div');
+    scrollTo.id = 'multi-file-scroll-to';
+    document.querySelector('#select-editor > div')?.appendChild(scrollTo);
+  }
 };
 
 export const createProcessorItem = (processor: { name: string; title: string }) => {

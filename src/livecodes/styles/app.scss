@@ -642,10 +642,23 @@ a#result-button {
     }
 
     #select-editor {
-      width: calc(50vw - 200px);
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: none;
+      display: flex;
+
+      & > div {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        width: calc(50vw - 262px);
+      }
+    }
+
+    #add-file-button {
+      align-items: center;
+      border: 0;
+      cursor: pointer;
+      display: flex;
+      margin-inline-end: 0;
+      margin-top: -1px;
     }
   }
 }

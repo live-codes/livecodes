@@ -116,6 +116,9 @@ export const getEditorTitles = /* @__PURE__ */ () =>
 export const getEditorDivs = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLElement>('#editors > .editor');
 
+export const getMultiFileEditorDivs = /* @__PURE__ */ () =>
+  document.querySelectorAll<HTMLElement>('#editors > .editor[data-multi-file]');
+
 export const getToolspaneElement = /* @__PURE__ */ () =>
   document.querySelector('#output #tools-pane') as HTMLElement;
 
