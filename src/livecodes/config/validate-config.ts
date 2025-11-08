@@ -9,9 +9,9 @@ import type {
   Tool,
   ToolsPaneStatus,
 } from '../models';
-import { getFileExtension, removeDuplicates } from '../utils';
+import { getFileExtension, removeDuplicates, removeLeadingSlash } from '../utils';
 import { defaultConfig } from './default-config';
-import { isEditorId } from './utils';
+import { isEditorId, validateFileName } from './utils';
 
 export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   type types = 'array' | 'boolean' | 'object' | 'number' | 'string' | 'undefined';
@@ -88,17 +88,6 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
     ...(is(x.position, 'object') ? { position: x.position } : {}),
   });
-
-  const removeLeadingSlash = (x: string) =>
-    x.startsWith('/')
-      ? x.slice(1)
-      : x.startsWith('./')
-        ? x.slice(2)
-        : x.startsWith('../')
-          ? x.slice(3)
-          : x.startsWith('~/')
-            ? x.slice(2)
-            : x;
 
   const validateFileProps = (x: Partial<SourceFile>): SourceFile | undefined =>
     x.filename && is(x.filename, 'string') && removeLeadingSlash(x.filename).includes('.')
@@ -194,7 +183,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
           files:
             (config.files
               ?.map((f) => validateFileProps(f))
-              .filter((f) => f != null) as Config['files']) || [],
+              .filter(
+                (f) => f != null && validateFileName(f.filename, config),
+              ) as Config['files']) || [],
         }
       : {}),
     ...(is(config.mainFile, 'string') ? { mainFile: config.mainFile } : {}),

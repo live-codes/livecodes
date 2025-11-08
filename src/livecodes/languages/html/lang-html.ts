@@ -14,4 +14,5 @@ export const html: LanguageSpecs = {
   },
   extensions: ['html', 'htm'],
   editor: 'markup',
+  multiFileSupport: true,
 };

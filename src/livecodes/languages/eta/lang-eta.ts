@@ -19,4 +19,5 @@ export const eta: LanguageSpecs = {
   extensions: ['eta'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

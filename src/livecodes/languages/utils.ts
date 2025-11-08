@@ -15,6 +15,9 @@ export const getLanguageByAlias = (alias: string = ''): Language | undefined => 
 
 export const getFileLanguage = (filename: string) => getLanguageByAlias(filename.split('.').pop());
 
+export const supportsMultiFile = (language: Language) =>
+  window.deps.languages.find((l) => l.name === language)?.multiFileSupport === true;
+
 export const getLanguageTitle = (language: Language) => {
   const languageSpecs = window.deps.languages.find((lang) => lang.name === language);
   return languageSpecs?.longTitle || languageSpecs?.title || language.toUpperCase();

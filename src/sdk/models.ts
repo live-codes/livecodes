@@ -417,7 +417,7 @@ export interface MultiFileConfig
   files: Array<{ filename: string } & Partial<SourceFile>>;
 }
 
-export type SDKConfig = SingleFileConfig | MultiFileConfig;
+export type SDKConfig = Prettify<SingleFileConfig> | Prettify<MultiFileConfig>;
 
 /**
  * The properties that define the content of the current [project](https://livecodes.io/docs/features/projects).
@@ -1015,6 +1015,7 @@ export type Language =
   | 'solid'
   | 'solid.jsx'
   | 'solid.tsx'
+  | 'solid-tsx'
   | 'riot'
   | 'riotjs'
   | 'malina'
@@ -1270,6 +1271,7 @@ export interface LanguageSpecs {
   editorLanguage?: Language;
   preset?: CssPresetId;
   largeDownload?: boolean;
+  multiFileSupport?: boolean;
 }
 
 export interface ProcessorSpecs {
@@ -1587,7 +1589,7 @@ export interface CodeEditor {
   getLanguage: () => Language;
   setLanguage: (language: Language, value?: string) => void;
   getEditorId: () => string;
-  setEditorId: (filename: string) => void;
+  setEditorId: (filename: string, language?: Language) => void;
   focus: () => void;
   getPosition: () => EditorPosition;
   setPosition: (position: EditorPosition) => void;

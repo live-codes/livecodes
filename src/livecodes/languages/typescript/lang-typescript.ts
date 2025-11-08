@@ -46,4 +46,5 @@ export const typescript: LanguageSpecs = {
   },
   extensions: ['ts', 'typescript'],
   editor: 'script',
+  multiFileSupport: true,
 };

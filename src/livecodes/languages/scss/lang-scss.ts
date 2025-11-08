@@ -18,4 +18,5 @@ export const scss: LanguageSpecs = {
   },
   extensions: ['scss'],
   editor: 'style',
+  multiFileSupport: true,
 };
