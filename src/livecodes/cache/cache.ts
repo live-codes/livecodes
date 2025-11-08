@@ -8,6 +8,8 @@ const initialCache: Cache = {
   style: { ...defaultContentConfig.style, compiled: '', modified: '' },
   script: { ...defaultContentConfig.script, compiled: '', modified: '' },
   tests: { language: 'javascript', ...defaultContentConfig.tests, compiled: '' },
+  files: [],
+  mainFile: undefined,
   result: '',
   styleOnlyUpdate: false,
 };

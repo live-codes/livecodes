@@ -118,6 +118,7 @@ import type {
   SDKEvent,
   Screen,
   ShareData,
+  SourceFile,
   Template,
   TestResult,
   Theme,
@@ -129,6 +130,7 @@ import type {
 } from './models';
 import { createNotifications } from './notifications';
 import { cleanResultFromDev, createResultPage } from './result';
+import { createMultiFileResultPage } from './result/multi-file-result-page';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import type { GitHubFile } from './services/github';
 import { permanentUrlService } from './services/permanent-url';
@@ -244,7 +246,7 @@ const sdkWatchers = {
   destroy: createPub<void>(),
 } as const satisfies Record<SDKEvent, ReturnType<typeof createPub<any>>>;
 
-const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
+const getEditorLanguage = (editorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
 const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
 const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
@@ -1021,12 +1023,22 @@ const getResultPage = async ({
   sourceEditor = undefined as EditorId | undefined,
   forExport = false,
   template = resultTemplate,
-  singleFile = true,
+  singleFileResult = true,
   runTests = false,
 }) => {
   updateConfig();
   const config = getConfig();
   const contentConfig = getContentConfig(config);
+
+  if (config.files.length > 0) {
+    return getMultiFileResultPage({
+      sourceEditor,
+      forExport,
+      template,
+      singleFileResult,
+      runTests,
+    });
+  }
 
   const getContent = (editor: Partial<Editor> | undefined) => {
     const editorContent = editor?.content ?? '';
@@ -1094,17 +1106,10 @@ const getResultPage = async ({
   });
   const compiledScript = scriptCompileResult.code;
 
-  let compileInfo: CompileInfo = {
-    ...markupCompileResult.info,
-    ...scriptCompileResult.info,
-    importedContent:
-      (markupCompileResult.info.importedContent || '') +
-      (scriptCompileResult.info.importedContent || ''),
-    imports: {
-      ...scriptCompileResult.info.imports,
-      ...markupCompileResult.info.imports,
-    },
-  };
+  let compileInfo: CompileInfo = mergeCompileInfo(
+    markupCompileResult.info,
+    scriptCompileResult.info,
+  );
 
   const [styleCompileResult, testsCompileResult] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
@@ -1120,10 +1125,7 @@ const getResultPage = async ({
   ]);
   const [compiledStyle, compiledTests] = [styleCompileResult, testsCompileResult].map((result) => {
     const { code, info } = getCompileResult(result);
-    compileInfo = {
-      ...compileInfo,
-      ...info,
-    };
+    compileInfo = mergeCompileInfo(compileInfo, info);
     return code;
   });
 
@@ -1155,11 +1157,13 @@ const getResultPage = async ({
       ...contentConfig.tests,
       compiled: compiledTests,
     },
+    files: [],
+    mainFile: undefined,
   };
   compiledCode.script.modified = compiledCode.script.compiled;
 
   if (scriptType != null && scriptType !== 'module') {
-    singleFile = true;
+    singleFileResult = true;
   }
 
   const result = await createResultPage({
@@ -1168,7 +1172,7 @@ const getResultPage = async ({
     forExport,
     template,
     baseUrl,
-    singleFile,
+    singleFileResult,
     runTests,
     compileInfo,
   });
@@ -1183,7 +1187,7 @@ const getResultPage = async ({
   logError(scriptLanguage, scriptCompileResult.info?.errors);
   logError(testsLanguage, getCompileResult(testsCompileResult).info?.errors);
 
-  if (singleFile) {
+  if (singleFileResult) {
     setCache({
       ...getCache(),
       ...compiledCode,
@@ -1201,6 +1205,135 @@ const getResultPage = async ({
 
   return result;
 };
+
+const getMultiFileResultPage = async ({
+  sourceEditor = undefined as EditorId | undefined,
+  forExport = false,
+  template = resultTemplate,
+  singleFileResult = true,
+  runTests = false,
+}) => {
+  const config = getConfig();
+  const cache = getCache();
+
+  const forceCompileStyles = [...config.processors, ...cache.processors].some((name) =>
+    processors.find((p) => name === p.name && p.needsHTML),
+  );
+
+  const testsNotChanged =
+    (!config.tests?.content && !cache.tests?.content) ||
+    (config.tests?.language === cache.tests?.language &&
+      config.tests?.content === cache.tests?.content &&
+      cache.tests?.compiled);
+
+  if (testsNotChanged && !config.tests?.content) {
+    toolsPane?.tests?.showResults({ results: [] });
+  }
+
+  const compiledFiles: Array<SourceFile & { compiled: string }> = [];
+  let compileInfo: CompileInfo = {};
+  const errors: Array<{ language: Language; filename: string; errors: string[] }> = [];
+
+  for (const file of config.files) {
+    const { filename, language, content } = file;
+    if (getLanguageEditorId(language) === 'style') continue;
+    const compileResult = await compiler.compile(content, language, config, { compileInfo });
+    compiledFiles.push({ ...file, compiled: compileResult.code });
+    compileInfo = mergeCompileInfo(compileInfo, compileResult.info);
+    if (compileInfo.errors?.length) {
+      errors.push({ language, filename, errors: compileInfo.errors || [] });
+    }
+  }
+
+  const compiledContent = compiledFiles.map((file) => file.compiled).join('\n');
+  for (const file of config.files) {
+    const { filename, language, content } = file;
+    if (getLanguageEditorId(language) !== 'style') continue;
+    const compileResult = await compiler.compile(content, language, config, {
+      compileInfo,
+      forceCompile: forceCompileStyles,
+      html: `${compiledContent}<script type="script-for-styles">${compileInfo.importedContent}</script>`,
+    });
+    compiledFiles.push({ ...file, compiled: compileResult.code });
+    compileInfo = mergeCompileInfo(compileInfo, compileResult.info);
+    if (compileInfo.errors?.length) {
+      errors.push({ language, filename, errors: compileInfo.errors || [] });
+    }
+  }
+
+  const testsCompileResult = await (runTests
+    ? testsNotChanged
+      ? Promise.resolve(getCache().tests?.compiled || '')
+      : compiler.compile(
+          config.tests?.content || '',
+          config.tests?.language || 'javascript',
+          config,
+          {},
+        )
+    : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')));
+  const { code: compiledTests, info: testsCompileInfo } = getCompileResult(testsCompileResult);
+  if (testsCompileInfo?.errors?.length) {
+    errors.push({
+      language: config.tests?.language || 'javascript',
+      filename: 'tests',
+      errors: testsCompileInfo.errors || [],
+    });
+  }
+
+  // TODO: handle modified HTML
+
+  const result = await createMultiFileResultPage({
+    compiledFiles,
+    compiledTests,
+    config,
+    forExport,
+    template,
+    baseUrl,
+    singleFileResult,
+    runTests,
+    compileInfo,
+  });
+
+  const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
+
+  const logError = (language: Language, errors: string[] = []) => {
+    errors.forEach((err) => toolsPane?.console?.error(`[${getLanguageTitle(language)}] ${err}`));
+  };
+  errors.forEach(({ language, errors }) => logError(language, errors));
+
+  if (singleFileResult) {
+    setCache({
+      ...getCache(),
+      files: compiledFiles,
+      mainFile: config.mainFile,
+      result: cleanResultFromDev(result),
+      styleOnlyUpdate,
+    });
+
+    if (broadcastInfo.isBroadcasting) {
+      broadcast();
+    }
+    if (resultPopup && !resultPopup.closed) {
+      resultPopup?.postMessage({ result }, location.origin);
+    }
+  }
+
+  return result;
+};
+
+const mergeCompileInfo = (compileInfo: CompileInfo, newCompileInfo: CompileInfo) => ({
+  ...compileInfo,
+  ...newCompileInfo,
+  cssModules: {
+    ...compileInfo.cssModules,
+    ...newCompileInfo.cssModules,
+  },
+  importedContent: (compileInfo.importedContent || '') + (newCompileInfo.importedContent || ''),
+  imports: {
+    ...compileInfo.imports,
+    ...newCompileInfo.imports,
+  },
+});
 
 const reloadCompiler = async (config: Config, force = false) => {
   if (!compiler.isFake && !force) return;
@@ -1482,16 +1615,20 @@ const share = async (
 };
 
 const updateConfig = () => {
+  const newConfig = getConfig();
   editorIds.forEach((editorId) => {
-    setConfig({
-      ...getConfig(),
-      [editorId]: {
-        ...getConfig()[editorId],
-        language: getEditorLanguage(editorId),
-        content: editors[editorId].getValue(),
-      },
-    });
+    newConfig[editorId] = {
+      ...newConfig[editorId],
+      language: getEditorLanguage(editorId) as Language,
+      content: editors[editorId].getValue(),
+    };
   });
+  newConfig.files = newConfig.files.map((file) => ({
+    ...file,
+    language: getEditorLanguage(file.filename) as Language,
+    content: editors[file.filename].getValue(),
+  }));
+  setConfig(newConfig);
 };
 
 const loadConfig = async (
@@ -2638,7 +2775,7 @@ const handleChangeContent = () => {
     }
 
     for (const key of Object.keys(customEditors)) {
-      if (config[editorId].language === key) {
+      if (config[editorId]?.language === key) {
         await customEditors[key]?.show(true, {
           baseUrl,
           editors,
@@ -4939,7 +5076,7 @@ const handleResultPopup = () => {
       }
       if (ev.data.type === 'ready') {
         resultPopup?.postMessage(
-          { result: await getResultPage({ singleFile: true }) },
+          { result: await getResultPage({ singleFileResult: true }) },
           location.origin,
         );
       }

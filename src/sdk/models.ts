@@ -1954,6 +1954,8 @@ export type Cache = ContentConfig & {
   style: EditorCache;
   script: EditorCache;
   tests?: EditorCache;
+  files?: Array<SourceFile & { compiled: string }>;
+  mainFile?: string;
   result?: string;
   styleOnlyUpdate?: boolean;
 };
