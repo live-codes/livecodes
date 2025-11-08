@@ -78,7 +78,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.title, 'string') ? { title: x.title } : {}),
     ...(is(x.content, 'string') ? { content: x.content } : {}),
     ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
-    ...(is(x.hideTitle, 'boolean') ? { hideTitle: x.hideTitle } : {}),
+    ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
     ...(is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),
     ...(is(x.hiddenContentUrl, 'string') ? { hiddenContentUrl: x.hiddenContentUrl } : {}),
     ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
@@ -89,15 +89,30 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.position, 'object') ? { position: x.position } : {}),
   });
 
-  const validateFileProps = (x: Partial<SourceFile>): Required<SourceFile> | null =>
-    x.filename && is(x.filename, 'string') && x.filename.includes('.')
+  const removeLeadingSlash = (x: string) =>
+    x.startsWith('/')
+      ? x.slice(1)
+      : x.startsWith('./')
+        ? x.slice(2)
+        : x.startsWith('../')
+          ? x.slice(3)
+          : x.startsWith('~/')
+            ? x.slice(2)
+            : x;
+
+  const validateFileProps = (x: Partial<SourceFile>): SourceFile | undefined =>
+    x.filename && is(x.filename, 'string') && removeLeadingSlash(x.filename).includes('.')
       ? {
-          filename: x.filename,
+          filename: removeLeadingSlash(x.filename),
           content: is(x.content, 'string') ? x.content ?? '' : '',
           language: getLanguageByAlias(x.language || getFileExtension(x.filename)) || 'html',
-          hidden: is(x.hidden, 'boolean') ? x.hidden ?? false : false,
+          ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
+          ...(is(x.position, 'object') ? { position: x.position } : {}),
+          ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
+            ? { foldedLines: x.foldedLines }
+            : {}),
         }
-      : null;
+      : undefined;
 
   const validateActiveEditor = (config: Partial<Config>) =>
     includes([...editorIds, ...(config.files || []).map((f) => f.filename)], config.activeEditor);
@@ -176,11 +191,13 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
       : {}),
     ...(is((config as MultiFileConfig).files, 'array', 'object')
       ? {
-          files: (config as MultiFileConfig).files
-            .map((f) => validateFileProps(f))
-            .filter((f) => f != null) as SourceFile[],
+          files:
+            (config.files
+              ?.map((f) => validateFileProps(f))
+              .filter((f) => f != null) as Config['files']) || [],
         }
       : {}),
+    ...(is(config.mainFile, 'string') ? { mainFile: config.mainFile } : {}),
     ...(is(config.tools, 'object')
       ? { tools: validateToolsProps(config.tools as Config['tools']) }
       : {}),

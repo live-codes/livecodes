@@ -426,7 +426,7 @@ export const setEditorTitle = (editorId: EditorId, title: string) => {
   const language = getLanguageByAlias(title);
   if (!editorTitle || !language) return;
   const config = getConfig();
-  if (config[editorId].hideTitle) {
+  if (config[editorId].hidden) {
     editorTitleContainer.style.display = 'none';
     return;
   }
@@ -674,11 +674,11 @@ const createEditors = async (config: Config) => {
         ...baseOptions,
         container,
         editorId,
-        language: file.language,
-        value: file.content,
+        language: file.language!,
+        value: file.content || '',
       };
       const editor = await createEditor(editorOptions);
-      editorLanguages[editorId] = file.language;
+      editorLanguages[editorId] = file.language!;
       editors[editorId] = editor;
       editorIds.push(editorId);
     }
@@ -749,9 +749,8 @@ const updateEditors = async (editors: Editors, config: Config) => {
     if (config.foldRegions) {
       await editor.foldRegions?.();
     }
-    const foldedLines = 'foldedLines' in source ? source.foldedLines : undefined;
-    if (foldedLines?.length) {
-      await editor.foldLines?.(foldedLines);
+    if (source.foldedLines?.length) {
+      await editor.foldLines?.(source.foldedLines);
     }
   }
 };
@@ -860,12 +859,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
 
 const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = false) => {
   const config = getConfig();
-  if (
-    (isEditorId(editorId) && config[editorId].hideTitle) ||
-    config.files.find((f) => f.filename === editorId)?.hidden
-  ) {
-    return;
-  }
+  if (getSource(editorId, config)?.hidden) return;
   const titles = [...UI.getEditorTitles()];
   const editorIsVisible = () => titles.map((title) => title.dataset.editor).includes(editorId);
   if (!editorIsVisible()) {
@@ -1674,17 +1668,17 @@ const share = async (
         markup: {
           ...config.markup,
           title: undefined,
-          hideTitle: undefined,
+          hidden: undefined,
         },
         style: {
           ...config.style,
           title: undefined,
-          hideTitle: undefined,
+          hidden: undefined,
         },
         script: {
           ...config.script,
           title: undefined,
-          hideTitle: undefined,
+          hidden: undefined,
         },
         tools: {
           ...config.tools,
@@ -2517,6 +2511,7 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
 };
 
 const getPlaygroundState = (): Config & Code => {
+  // TODO: handle files
   const config = getConfig();
   const cachedCode = getCachedCode();
   return {
@@ -3030,13 +3025,7 @@ const handleKeyboardShortcuts = () => {
       config.files.length
         ? config.files.map((f) => f.filename)
         : (['markup', 'style', 'script'] as EditorId[])
-    ).filter((id) => {
-      const src = getSource(id, config);
-      if (!src) return false;
-      if ('hideTitle' in src) return src.hideTitle !== true;
-      if ('hidden' in src) return src.hidden !== true;
-      return true;
-    });
+    ).filter((id) => getSource(id, config)?.hidden !== true);
     const editorNumbers = editorIds.map((_, id) => String(id + 1));
     if (ctrl(e) && e.altKey && [...editorNumbers, 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
       e.preventDefault();

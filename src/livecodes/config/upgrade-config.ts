@@ -8,6 +8,21 @@ interface genericConfig extends Config {
 
 const upgradeSteps = [
   {
+    to: '48',
+    upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
+      const config: genericConfig = clone(oldConfig);
+      ['markup', 'style', 'script'].forEach((prop) => {
+        if ((config[prop] as any)?.hideTitle) {
+          config[prop] = renameProperty(config[prop], 'hideTitle', 'hidden');
+        }
+      });
+      return {
+        ...config,
+        version,
+      };
+    },
+  },
+  {
     to: '18',
     upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
       const config: genericConfig = clone(oldConfig);

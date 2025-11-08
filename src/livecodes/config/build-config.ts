@@ -10,9 +10,8 @@ import type {
 } from '../models';
 import { addProp, cloneObject, decodeHTML, removeDuplicates, stringToValidJson } from '../utils';
 import { decompress } from '../utils/compression';
+import { upgradeAndValidate } from './config';
 import { defaultConfig } from './default-config';
-import { upgradeAndValidate } from './index';
-// eslint-disable-next-line import/order
 import { getMainFile, isEditorId } from './utils';
 
 /**
@@ -370,7 +369,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
     }
   }
 
-  // ?markup.hideTitle=true&script.title=App.jsx
+  // ?markup.hidden=true&script.title=App.jsx
   // ?customSettings.template.prerender=false
   Object.keys(params).forEach((k) => {
     if (

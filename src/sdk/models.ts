@@ -624,12 +624,15 @@ export type MultiFileContentConfig = Pick<
   | 'version'
 >;
 
-export interface SourceFile {
-  filename: string;
-  content: string;
-  language: Language;
-  hidden: boolean;
-}
+export type SourceFile = Prettify<
+  {
+    /**
+     * Name of the file with extension, including path (e.g. `index.html` or `components/Counter.jsx`).
+     */
+    filename: string;
+  } & Required<Pick<Editor, 'content' | 'language'>> &
+    Partial<Pick<Editor, 'hidden' | 'position' | 'foldedLines'>>
+>;
 
 /**
  * These are properties that define how the app behaves.
@@ -1160,6 +1163,13 @@ export interface Editor {
   contentUrl?: string;
 
   /**
+   * If `true`, the code editor is hidden, however its code is still evaluated.
+   *
+   * This can be useful in embedded playgrounds (e.g. for hiding irrelevant code).
+   */
+  hidden?: boolean;
+
+  /**
    * Hidden content that gets evaluated without being visible in the code editor.
    *
    * This can be useful in embedded playgrounds (e.g. for adding helper functions, utilities or tests)
@@ -1174,14 +1184,6 @@ export interface Editor {
   hiddenContentUrl?: string;
 
   /**
-   * Lines that get folded when the editor loads.
-   *
-   * This can be used for less relevant content.
-   * @example [{ from: 5, to: 8 }, { from: 15, to: 20 }]
-   */
-  foldedLines?: Array<{ from: number; to: number }>;
-
-  /**
    * If set, this is used as the title of the editor in the UI,
    * overriding the default title set to the language name
    * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
@@ -1189,6 +1191,9 @@ export interface Editor {
   title?: string;
 
   /**
+   * @deprecated
+   * Use `hidden` instead.
+   *
    * If `true`, the title of the code editor is hidden, however its code is still evaluated.
    *
    * This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
@@ -1205,6 +1210,14 @@ export interface Editor {
    * A CSS selector to load content from [DOM import](https://livecodes.io/docs/features/import#import-code-from-dom).
    */
   selector?: string;
+
+  /**
+   * Lines that get folded when the editor loads.
+   *
+   * This can be used for less relevant content.
+   * @example [{ from: 5, to: 8 }, { from: 15, to: 20 }]
+   */
+  foldedLines?: Array<{ from: number; to: number }>;
 
   /**
    * The initial position of the cursor in the code editor.
