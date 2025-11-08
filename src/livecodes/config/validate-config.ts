@@ -87,8 +87,8 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.position, 'object') ? { position: x.position } : {}),
   });
 
-  const validateFileProps = (x: SourceFile): Required<SourceFile> | null =>
-    is(x.filename, 'string') && x.filename.trim() !== ''
+  const validateFileProps = (x: Partial<SourceFile>): Required<SourceFile> | null =>
+    x.filename && is(x.filename, 'string') && x.filename.includes('.')
       ? {
           filename: x.filename,
           content: is(x.content, 'string') ? x.content ?? '' : '',

@@ -19,7 +19,7 @@ export const createLanguageMenus = (
   registerMenuButton: (menu: HTMLElement, button: HTMLElement) => void,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
-  const rootList = document.createElement('ul');
+  const rootList = document.createElement('div');
   document.querySelector('#select-editor')?.appendChild(rootList);
 
   let editorsNumber = editorIds.length;
@@ -30,6 +30,7 @@ export const createLanguageMenus = (
     editorSelector.id = editorId + '-selector';
     editorSelector.classList.add('editor-title', 'noselect');
     editorSelector.dataset.editor = editorId;
+    editorSelector.dataset.singleFile = 'true';
     editorSelector.innerHTML = `
       <span></span>
       <a
@@ -159,6 +160,87 @@ export const createLanguageMenus = (
       editorSelector.classList.add('half-width');
     });
   }
+};
+
+export const createMultiFileEditorTab = ({
+  title,
+  editFileName,
+  deleteFile,
+  isMainFile,
+}: {
+  title: string;
+  editFileName: (title: string) => void;
+  deleteFile: (title: string) => void;
+  isMainFile: boolean;
+}) => {
+  const selector = document.querySelector(`.editor-title[data-editor="${title}"]`);
+  if (selector) return;
+  const editorSelector = document.createElement('a');
+  editorSelector.href = '#';
+  editorSelector.classList.add('editor-title', 'noselect');
+  editorSelector.dataset.editor = title;
+  editorSelector.dataset.multiFile = 'true';
+
+  const label = document.createElement('span');
+  label.innerHTML = title;
+  editorSelector.appendChild(label);
+
+  if (!isMainFile) {
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-file-button');
+    deleteButton.innerHTML = '&times;';
+    deleteButton.addEventListener('click', () => {
+      if (
+        confirm(
+          window.deps.translateString('core.confirm.deleteFile', 'Delete file: {{title}}?', {
+            title,
+          }),
+        )
+      ) {
+        deleteFile(label.innerText);
+        editorSelector.remove();
+      }
+    });
+    editorSelector.appendChild(deleteButton);
+  }
+
+  const selectAll = (element: HTMLElement) => {
+    const range = document.createRange();
+    range.selectNodeContents(element);
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+  };
+
+  const accept = () => {
+    editFileName(label.innerText);
+    label.contentEditable = 'false';
+    window.removeEventListener('click', onClick);
+    window.removeEventListener('keydown', onEnter);
+    isEditing = false;
+  };
+  const onClick = (event: MouseEvent) => {
+    if (event.target !== editorSelector.querySelector('span')) {
+      accept();
+    }
+  };
+  const onEnter = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      accept();
+    }
+  };
+
+  let isEditing = false;
+  editorSelector.ondblclick = () => {
+    isEditing = true;
+    label.contentEditable = 'true';
+    requestAnimationFrame(() => label.focus());
+    selectAll(label);
+    window.addEventListener('click', onClick, { capture: true });
+    window.addEventListener('keydown', onEnter);
+  };
+
+  document.querySelector('#select-editor > div')?.appendChild(editorSelector);
 };
 
 export const createProcessorItem = (processor: { name: string; title: string }) => {

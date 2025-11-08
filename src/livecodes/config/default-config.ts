@@ -37,7 +37,26 @@ export const defaultConfig: Config = {
     language: 'javascript',
     content: '',
   },
-  files: [],
+  files: [
+    {
+      filename: 'index.html',
+      content: '<h1>hello world</h1>',
+      language: 'html',
+      hidden: false,
+    },
+    {
+      filename: 'style.css',
+      content: 'body{ color: blue; }',
+      language: 'css',
+      hidden: false,
+    },
+    {
+      filename: 'script.js',
+      content: 'console.log("hi");',
+      language: 'javascript',
+      hidden: false,
+    },
+  ],
   stylesheets: [],
   scripts: [],
   cssPreset: '',

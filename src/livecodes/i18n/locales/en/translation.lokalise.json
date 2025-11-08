@@ -940,6 +940,10 @@
     "notes": "",
     "translation": "Loading {{lang}}. This may take a while!"
   },
+  "core.confirm.deleteFile": {
+    "notes": "",
+    "translation": "Delete file: {{title}}?"
+  },
   "core.copy.copied": {
     "notes": "",
     "translation": "Code copied to clipboard"

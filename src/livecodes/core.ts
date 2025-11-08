@@ -20,7 +20,11 @@ import type {
   BroadcastResponseError,
 } from './UI/broadcast';
 import { getCommandMenuActions } from './UI/command-menu-actions';
-import { createLanguageMenus, createProcessorItem } from './UI/create-language-menus';
+import {
+  createLanguageMenus,
+  createMultiFileEditorTab,
+  createProcessorItem,
+} from './UI/create-language-menus';
 import { createModal } from './UI/modal';
 import * as UI from './UI/selectors';
 import { themeColors } from './UI/theme-colors';
@@ -39,6 +43,7 @@ import {
   upgradeAndValidate,
 } from './config';
 import { createCustomEditors, createEditor, getFontFamily } from './editor';
+import { createFakeEditor } from './editor/fake-editor';
 import { hasJsx } from './editor/ts-compiler-options';
 import { createEventsManager, createPub } from './events';
 import { customEvents } from './events/custom-events';
@@ -462,6 +467,50 @@ const createCopyButtons = () => {
   });
 };
 
+const createEditorUI = (title: string) => {
+  const editorsElement = UI.getEditorsElement();
+  let container = editorsElement.querySelector<HTMLElement>(`[data-editor-id="${title}"]`);
+  if (!container) {
+    container = document.createElement('div');
+    container.setAttribute('data-editor-id', title);
+    container.classList.add('editor');
+    editorsElement.insertBefore(container, UI.getEditorToolbar());
+  }
+  const editFileName = (filename: string) => {
+    const config = getConfig();
+    setConfig({
+      ...config,
+      files: config.files.map((f) => ({
+        ...f,
+        filename: f.filename === title ? filename : f.filename,
+      })),
+    });
+    if (config.autoupdate) {
+      run();
+    }
+  };
+  const deleteFile = (filename: string) => {
+    const config = getConfig();
+    setConfig({
+      ...config,
+      files: config.files.filter((f) => f.filename !== filename),
+    });
+    if (config.autoupdate) {
+      run();
+    }
+  };
+
+  const config = getConfig();
+  const isMainFile = config.mainFile
+    ? config.mainFile === title
+    : title === 'index.html' ||
+      config.files.find((f) => getLanguageEditorId(f.language) === 'markup')?.filename === title;
+
+  createMultiFileEditorTab({ title, editFileName, deleteFile, isMainFile });
+
+  return container;
+};
+
 const createEditors = async (config: Config) => {
   let isReload = false;
   if (editors) {
@@ -479,7 +528,9 @@ const createEditors = async (config: Config) => {
         ? 'style'
         : config.script.content
           ? 'script'
-          : 'markup');
+          : config.files?.length
+            ? config.files[0].filename
+            : 'markup');
 
   const baseOptions = {
     baseUrl,
@@ -527,27 +578,51 @@ const createEditors = async (config: Config) => {
     value: languageIsEnabled(config.script.language, config) ? config.script.content || '' : '',
   };
 
-  const markupEditor = await createEditor(markupOptions);
-  const styleEditor = await createEditor(styleOptions);
-  const scriptEditor = await createEditor(scriptOptions);
+  if (config.files?.length) {
+    editorLanguages = { markup: 'html', style: 'css', script: 'javascript' };
+    editors = {
+      markup: createFakeEditor(markupOptions),
+      style: createFakeEditor(styleOptions),
+      script: createFakeEditor(scriptOptions),
+    };
+
+    for (const file of config.files) {
+      const editorId = file.filename;
+      const container = createEditorUI(file.filename);
+      const editorOptions = {
+        ...baseOptions,
+        container,
+        editorId,
+        language: file.language,
+        value: file.content,
+      };
+      const editor = await createEditor(editorOptions);
+      editorLanguages[editorId] = file.language;
+      editors[editorId] = editor;
+    }
+  } else {
+    const markupEditor = await createEditor(markupOptions);
+    const styleEditor = await createEditor(styleOptions);
+    const scriptEditor = await createEditor(scriptOptions);
+
+    setEditorTitle('markup', markupOptions.language);
+    setEditorTitle('style', styleOptions.language);
+    setEditorTitle('script', scriptOptions.language);
+
+    editorLanguages = {
+      markup: markupOptions.language,
+      style: styleOptions.language,
+      script: scriptOptions.language,
+    };
+
+    editors = {
+      markup: markupEditor,
+      style: styleEditor,
+      script: scriptEditor,
+    };
+  }
 
   currentEditorConfig = { ...getEditorConfig(config), ...getFormatterConfig(config) };
-
-  setEditorTitle('markup', markupOptions.language);
-  setEditorTitle('style', styleOptions.language);
-  setEditorTitle('script', scriptOptions.language);
-
-  editorLanguages = {
-    markup: markupOptions.language,
-    style: styleOptions.language,
-    script: scriptOptions.language,
-  };
-
-  editors = {
-    markup: markupEditor,
-    style: styleEditor,
-    script: scriptEditor,
-  };
 
   (Object.keys(editors) as EditorId[]).forEach((editorId) => {
     const language = editorLanguages?.[editorId] || 'html';
@@ -703,31 +778,30 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
 
 const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = false) => {
   const config = getConfig();
-  const allHidden = editorIds.every((editor) => config[editor].hideTitle);
   if (
-    (config[editorId as EditorId]?.hideTitle ||
-      config.files.find((f) => f.filename === editorId)?.hidden) &&
-    !allHidden
+    config[editorId as EditorId]?.hideTitle ||
+    config.files.find((f) => f.filename === editorId)?.hidden
   ) {
     return;
   }
-  const titles = UI.getEditorTitles();
-  const editorIsVisible = () =>
-    Array.from(titles)
-      .map((title) => title.dataset.editor)
-      .includes(editorId);
+  const titles = [...UI.getEditorTitles()];
+  const editorIsVisible = () => titles.map((title) => title.dataset.editor).includes(editorId);
   if (!editorIsVisible()) {
     // select first visible editor instead
-    editorId = (titles[0].dataset.editor as EditorId) || 'markup';
+    editorId = (titles[0]?.dataset.editor as EditorId) || 'markup';
   }
   titles.forEach((selector) => selector.classList.remove('active'));
-  const activeTitle = document.getElementById(editorId + '-selector');
+  const activeTitle = titles.find((title) => title.dataset.editor === editorId);
   activeTitle?.classList.add('active');
-  const editorDivs = UI.getEditorDivs();
+  const editorDivs = [...UI.getEditorDivs()];
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
-  const activeEditor = document.getElementById(editorId) as HTMLElement;
-  activeEditor.style.display = 'block';
-  activeEditor.style.visibility = 'visible';
+  const activeEditor = editorDivs.find(
+    (editor) => editor.id === editorId || editor.dataset.editorId === editorId,
+  ) as HTMLElement;
+  if (activeEditor) {
+    activeEditor.style.display = 'block';
+    activeEditor.style.visibility = 'visible';
+  }
   if (!isEmbed && !isUpdate) {
     editors[editorId]?.focus();
   }
@@ -808,6 +882,22 @@ const configureEditorTools = (language: Language) => {
     UI.getFormatButton().classList.add('disabled');
   }
   return true;
+};
+
+const configureMultiFile = (config: Config) => {
+  const editorTabsContainer = document.querySelector<HTMLElement>('#select-editor > div')!;
+  const singleFileTabs = [
+    ...editorTabsContainer.querySelectorAll<HTMLElement>('[data-single-file]'),
+  ];
+  const multiFileTabs = [...editorTabsContainer.querySelectorAll<HTMLElement>('[data-multi-file]')];
+  const isMultiFile = config.files.length > 0;
+  singleFileTabs.forEach((tab) => {
+    tab.classList.toggle('hidden', isMultiFile);
+  });
+  if (!isMultiFile) {
+    multiFileTabs.forEach((tab) => tab.remove());
+    UI.getEditorDivs().forEach((editor) => editor.remove());
+  }
 };
 
 const addPhpToken = (code: string) =>
@@ -1456,6 +1546,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
   }
   phpHelper({ editor: editors.script });
   setLoading(true);
+  configureMultiFile(combinedConfig);
   await setActiveEditor(combinedConfig);
 
   if (!isEmbed) {

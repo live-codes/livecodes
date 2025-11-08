@@ -1311,7 +1311,7 @@ a.tools-pane-title {
   margin: 0 0 calc(-1 * var(--s2)) var(--s8);
   position: relative;
 
-  > ul {
+  > div {
     display: flex;
     height: 100%;
   }
@@ -1396,6 +1396,29 @@ a.editor-title {
     .dropdown-menu {
       animation: fadeIn 0.4s forwards;
       display: block;
+    }
+  }
+
+  &[data-multi-file='true'] {
+    width: fit-content;
+
+    > span {
+      padding: 0 4px;
+    }
+  }
+
+  .delete-file-button {
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    color: var(--editor-title-color);
+    cursor: pointer;
+    height: 12px;
+    margin-inline-end: -3px;
+    margin-inline-start: 3px;
+
+    &:hover {
+      color: var(--editor-title-active);
     }
   }
 }

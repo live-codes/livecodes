@@ -1227,6 +1227,7 @@ export interface Editors {
   script: CodeEditor;
 }
 export interface EditorLanguages {
+  [key: string]: Language;
   markup: Language;
   style: Language;
   script: Language;

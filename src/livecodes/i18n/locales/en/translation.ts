@@ -379,6 +379,9 @@ const translation = {
       hint: 'Change Language',
       message: 'Loading {{lang}}. This may take a while!',
     },
+    confirm: {
+      deleteFile: 'Delete file: {{title}}?',
+    },
     copy: {
       copied: 'Code copied to clipboard',
       copiedAsDataURL: 'Code copied as data URL',
