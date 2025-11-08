@@ -12,4 +12,5 @@ export const jsx: LanguageSpecs = {
   extensions: ['jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  multiFileSupport: true,
 };

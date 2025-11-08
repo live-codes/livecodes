@@ -3,7 +3,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.3/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.5/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -28,6 +28,11 @@ export const autoCompleteUrl = /* @__PURE__ */ getUrl(
 );
 
 export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.26.4/babel.js');
+
+export const bbobHtmlUrl = /* @__PURE__ */ getUrl('@bbob/html@4.3.1/dist/index.min.js');
+export const bbobPresetHtmlUrl = /* @__PURE__ */ getUrl(
+  '@bbob/preset-html5@4.3.1/dist/index.min.js',
+);
 
 export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
@@ -295,7 +300,7 @@ export const metaPngUrl = /* @__PURE__ */ getUrl('meta-png@1.0.6/dist/meta-png.u
 
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
-export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.3.0/');
+export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.3.1/');
 
 export const monacoEditorTextmateUrl = /* @__PURE__ */ getModuleUrl('monaco-editor-textmate@4.0.0');
 
@@ -364,7 +369,7 @@ export const prismThemesLaserWaveUrl = /* @__PURE__ */ getUrl(
 );
 
 export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.jsdelivr.net/pyodide/v0.28.3/full/',
+  'https://cdn.jsdelivr.net/pyodide/v0.29.0/full/',
 );
 
 export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.6.1/dist/easy.qrcode.min.js');
@@ -423,7 +428,7 @@ export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/s
 
 export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.3.2/dist/umd/stylis.js');
 
-export const svelteBaseUrl = /* @__PURE__ */ getUrl('svelte@5.12.0/');
+export const svelteBaseUrl = /* @__PURE__ */ getUrl('svelte@5.39.12/');
 
 export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm');
 
@@ -447,9 +452,7 @@ export const tesseractUrl = /* @__PURE__ */ getUrl('tesseract.js@6.0.1/dist/tess
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
-export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.6.2/lib/typescript.js`);
-
-export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.3/dist/vfs.esm.js');
+export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.9.3/lib/typescript.js`);
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 

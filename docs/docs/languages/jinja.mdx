@@ -76,7 +76,7 @@ window.livecodes.templateData = { name: 'LiveCodes' };
 
 ### Version
 
-`@huggingface/jinja`: v0.5.0
+`@huggingface/jinja`: v0.5.1
 
 ## Code Formatting
 

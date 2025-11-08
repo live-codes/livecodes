@@ -2,6 +2,7 @@ import type * as Monaco from 'monaco-editor';
 
 import { getEditorModeNode } from '../../UI/selectors';
 import { getImports } from '../../compiler/import-map';
+import { getFileLanguage } from '../../languages/utils';
 import type {
   APIError,
   CodeEditor,
@@ -208,7 +209,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     ...consoleOptions,
   };
 
-  const editorId = options.editorId;
+  let editorId = options.editorId;
   const initOptions =
     editorId === 'console'
       ? consoleOptions
@@ -225,7 +226,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const JSLangs = ['javascript', 'jsx', 'react', 'flow', 'solid', 'react-native'];
     const isJSLang = JSLangs.includes(language);
     if (
-      !['script', 'tests', 'editorSettings'].includes(editorId) ||
+      // !['script', 'tests', 'editorSettings'].includes(editorId) ||
       !['javascript', 'typescript'].includes(monacoMapLanguage(language))
     ) {
       return;
@@ -352,6 +353,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
+  const getOrCreateModel = (value: string, lang: string | undefined, uri: Monaco.Uri) => {
+    const model = monaco.editor.getModel(uri);
+    if (model) {
+      if (model.getLanguageId() === monacoMapLanguage(lang as Language)) {
+        model.setValue(value);
+        return model;
+      }
+      model.dispose();
+    }
+    return monaco.editor.createModel(value, lang, uri);
+  };
+
   let modelUri = '';
   const setModel = (
     editor: Monaco.editor.IStandaloneCodeEditor,
@@ -364,9 +377,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       monacoMapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
         ? ext + '.tsx'
         : ext;
-    modelUri = `file:///${editorId}.${random}.${extension}`;
+    modelUri = editorId.includes('.')
+      ? `file:///${editorId}`
+      : `file:///${editorId}.${random}.${extension}`;
     const oldModel = editor.getModel();
-    const model = monaco.editor.createModel(
+    const model = getOrCreateModel(
       value || '',
       monacoMapLanguage(language),
       monaco.Uri.parse(modelUri),
@@ -391,15 +406,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }, 50);
   }
 
-  const getOrCreateModel = (value: string, lang: string | undefined, uri: Monaco.Uri) => {
-    const model = monaco.editor.getModel(uri);
-    if (model) {
-      model.setValue(value);
-      return model;
-    }
-    return monaco.editor.createModel(value, lang, uri);
-  };
-
   const contentEditors: Array<EditorOptions['editorId']> = ['markup', 'style', 'script', 'tests'];
   if (contentEditors.includes(editorId)) {
     editors.push(editor);
@@ -417,6 +423,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   }
 
   const getEditorId = () => editorId;
+  const setEditorId = (filename: string, lang?: Language) => {
+    editorId = filename;
+    language = lang || getFileLanguage(filename) || language;
+    setModel(editor, editor.getValue(), language);
+  };
   const getValue = () => editor.getValue();
   const setValue = (value = '') => {
     editor.getModel()?.setValue(value);
@@ -964,6 +975,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getLanguage,
     setLanguage,
     getEditorId,
+    setEditorId,
     focus,
     getPosition,
     setPosition,

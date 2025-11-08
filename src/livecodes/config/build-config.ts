@@ -10,8 +10,9 @@ import type {
 } from '../models';
 import { addProp, cloneObject, decodeHTML, removeDuplicates, stringToValidJson } from '../utils';
 import { decompress } from '../utils/compression';
+import { upgradeAndValidate } from './config';
 import { defaultConfig } from './default-config';
-import { upgradeAndValidate } from './index';
+import { getMainFile, isEditorId } from './utils';
 
 /**
  * Builds and validates a configuration object by merging default config with user config and URL params
@@ -47,11 +48,14 @@ export const buildConfig = (appConfig: Partial<Config>): Config => {
     ...config,
     ...paramsConfig,
   };
-  const activeEditor = config.activeEditor || 'markup';
+
+  const activeEditor = config.activeEditor || config.files[0]?.filename || 'markup';
+  const mainFile = getMainFile(config);
 
   config = fixLanguageNames({
     ...config,
     activeEditor,
+    mainFile,
   });
   return config;
 };
@@ -173,7 +177,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
     const language = getLanguageByAlias(key);
     if (!language) return;
     const editorId = getLanguageEditorId(language);
-    if (editorId && !paramsConfig[editorId]) {
+    if (editorId && isEditorId(editorId) && !paramsConfig[editorId]) {
       const value = params[key];
       const content = typeof value === 'string' ? decodeHTML(value) : '';
       paramsConfig[editorId] = { language, content };
@@ -186,7 +190,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   // ?lang=js
   const lang: any = getLanguageByAlias(params.language || params.lang);
   const editorId = getLanguageEditorId(lang);
-  if (editorId) {
+  if (editorId && isEditorId(editorId)) {
     if (paramsConfig[editorId]?.language === lang) {
       paramsConfig.activeEditor = editorId;
     } else if (!paramsConfig[editorId]?.content && config[editorId]?.language === lang) {
@@ -365,7 +369,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
     }
   }
 
-  // ?markup.hideTitle=true&script.title=App.jsx
+  // ?markup.hidden=true&script.title=App.jsx
   // ?customSettings.template.prerender=false
   Object.keys(params).forEach((k) => {
     if (

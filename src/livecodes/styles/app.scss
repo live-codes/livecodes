@@ -629,6 +629,40 @@ a#result-button {
   display: none !important;
 }
 
+.multi-file {
+  #toolbar {
+    .menu {
+      justify-content: center;
+      min-width: 32px;
+      padding: 0;
+    }
+
+    .menu-text {
+      display: none;
+    }
+
+    #select-editor {
+      display: flex;
+
+      & > div {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        width: calc(50vw - 262px);
+      }
+    }
+
+    #add-file-button {
+      align-items: center;
+      border: 0;
+      cursor: pointer;
+      display: flex;
+      margin-inline-end: 0;
+      margin-top: -1px;
+    }
+  }
+}
+
 @media only screen and (max-width: 1024px) {
   #toolbar {
     .menu {
@@ -1311,7 +1345,7 @@ a.tools-pane-title {
   margin: 0 0 calc(-1 * var(--s2)) var(--s8);
   position: relative;
 
-  > ul {
+  > div {
     display: flex;
     height: 100%;
   }
@@ -1344,6 +1378,7 @@ a.editor-title {
   > span {
     display: inline-block;
     flex-grow: 1;
+    min-width: 3em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1396,6 +1431,33 @@ a.editor-title {
     .dropdown-menu {
       animation: fadeIn 0.4s forwards;
       display: block;
+    }
+  }
+
+  &[data-multi-file='true'] {
+    width: fit-content;
+
+    > span {
+      padding: 0 4px;
+    }
+  }
+
+  .delete-file-button {
+    background: transparent;
+    border: 0;
+    color: var(--editor-title-color);
+    cursor: pointer;
+    height: 100%;
+    margin-inline-end: -7px;
+    margin-inline-start: 0;
+    width: var(--s16);
+
+    i {
+      font-size: var(--s10);
+    }
+
+    &:hover {
+      color: var(--editor-title-active);
     }
   }
 }

@@ -11,25 +11,29 @@ import {
 } from '../utils/utils';
 import { compileInCompiler } from './compile-in-compiler';
 
-// https://regexr.com/8a2j7
+// https://regexr.com/8hs1i
 export const importsPattern =
-  /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
+  /((?:im|ex)port\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
 
 // https://regexr.com/8a2ja
 export const dynamicImportsPattern = /(import\s*?\(\s*?((?:".*?")|(?:'.*?'))\s*?\))/g;
 
 export const getImports = (code: string, removeSpecifier = false) =>
-  [
-    ...[...removeComments(code).matchAll(new RegExp(importsPattern))],
-    ...[...removeComments(code).matchAll(new RegExp(dynamicImportsPattern))],
-  ]
-    .map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''))
-    .map((mod) => {
-      if (!removeSpecifier || !isBare(mod) || !mod.includes(':')) {
-        return mod;
-      }
-      return mod.split(':')[1];
-    });
+  Array.from(
+    new Set(
+      [
+        ...[...removeComments(code).matchAll(new RegExp(importsPattern))],
+        ...[...removeComments(code).matchAll(new RegExp(dynamicImportsPattern))],
+      ]
+        .map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''))
+        .map((mod) => {
+          if (!removeSpecifier || !isBare(mod) || !mod.includes(':')) {
+            return mod;
+          }
+          return mod.split(':')[1];
+        }),
+    ),
+  );
 
 const needsBundler = /* @__PURE__ */ (mod: string) =>
   !mod.startsWith('https://deno.bundlejs.com/') &&
@@ -61,6 +65,9 @@ const isStylesheet = /* @__PURE__ */ (mod: string) =>
     mod.endsWith('.styl')) &&
   !mod.startsWith('./style');
 
+const isRelative = /* @__PURE__ */ (mod: string) =>
+  mod.startsWith('./') || mod.startsWith('../') || mod.startsWith('/');
+
 export const findImportMapKey = /* @__PURE__ */ (mod: string, importmap: Record<string, string>) =>
   Object.keys(importmap).find((key) => key === mod || mod.startsWith(key + '/'));
 
@@ -71,7 +78,11 @@ export const createImportMap = (
 ) =>
   getImports(code)
     .map((libName) => {
-      if ((!needsBundler(libName) && !isBare(libName)) || isStylesheet(libName)) {
+      if (
+        isRelative(libName) ||
+        (!needsBundler(libName) && !isBare(libName)) ||
+        isStylesheet(libName)
+      ) {
         return {};
       } else {
         const imports = { ...config.imports, ...config.customSettings?.imports };
@@ -116,12 +127,13 @@ export const replaceImports = (
   { importMap, external }: { importMap?: Record<string, string>; external?: string } = {},
 ) => {
   importMap = importMap || createImportMap(code, config, { external });
-  return code.replace(new RegExp(importsPattern), (statement) => {
+
+  const replaceFn = (pattern: RegExp) => (statement: string) => {
     if (!importMap) {
       return statement;
     }
     const libName = statement
-      .replace(new RegExp(importsPattern), '$2')
+      .replace(new RegExp(pattern), '$2')
       .replace(/"/g, '')
       .replace(/'/g, '');
 
@@ -130,7 +142,11 @@ export const replaceImports = (
       return statement;
     }
     return statement.replace(key, importMap[key]);
-  });
+  };
+
+  return code
+    .replace(new RegExp(importsPattern), replaceFn(importsPattern))
+    .replace(new RegExp(dynamicImportsPattern), replaceFn(dynamicImportsPattern));
 };
 
 export const isScriptImport = (mod: string) =>
@@ -244,12 +260,40 @@ export const removeImports = (code: string, mods: string[]) =>
     return mods.includes(libName) ? '' : statement;
   });
 
+export const resolvePath = (path: string, currentPath = './index.html') => {
+  if (!path.startsWith('.') && !path.startsWith('/')) return path;
+  const baseUrl = 'https://localhost';
+  const basePath = new URL(currentPath, baseUrl).href;
+  try {
+    const url = new URL(path, basePath).href;
+    return url.replace(baseUrl, '.');
+  } catch {
+    return null;
+  }
+};
+
+// https://regexr.com/8hrlf
 export const styleimportsPattern =
-  /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('.*?'\))|(?:url\(".*?"\)))(.*)?;/g;
+  /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('?.*?'?\))|(?:url\(".*?"\)))(.*)?;/g;
 
 export const hasStyleImports = (code: string) => new RegExp(styleimportsPattern).test(code);
 
-export const replaceStyleImports = (code: string, exceptions?: string[] | RegExp[]) =>
+export const getStyleImports = (code: string) =>
+  Array.from(
+    new Set(
+      [...removeComments(code).matchAll(new RegExp(styleimportsPattern))].map((arr) =>
+        arr[1].replace(/url\(/g, '').replace(/\)/g, '').replace(/"/g, '').replace(/'/g, ''),
+      ),
+    ),
+  );
+
+export const replaceStyleImports = (
+  code: string,
+  {
+    exceptions,
+    stylesImportMap,
+  }: { exceptions?: string[] | RegExp[]; stylesImportMap?: Record<string, string> } = {},
+) =>
   code.replace(new RegExp(styleimportsPattern), (statement, match, media) => {
     if (
       exceptions?.some(
@@ -265,7 +309,7 @@ export const replaceStyleImports = (code: string, exceptions?: string[] | RegExp
       .replace(/'/g, '')
       .replace(/url\(/g, '')
       .replace(/\)/g, '');
-    const modified = '@import "' + modulesService.getUrl(url) + '";';
+    const modified = '@import "' + stylesImportMap?.[url] || modulesService.getUrl(url) + '";';
     const mediaQuery = media?.trim();
     return !isBare(url)
       ? statement

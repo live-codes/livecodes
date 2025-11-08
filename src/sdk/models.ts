@@ -343,7 +343,7 @@ export interface EmbedOptions {
    * If supplied and is not an object or a valid URL, an error is thrown.
    * @default {}
    */
-  config?: Partial<Config> | string;
+  config?: Partial<SDKConfig> | string;
 
   /**
    * If `true`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
@@ -405,6 +405,20 @@ export interface EmbedOptions {
  */
 export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
+export interface SingleFileConfig
+  extends Omit<ContentConfig, 'files' | 'mainFile'>,
+    AppConfig,
+    UserConfig {}
+
+export interface MultiFileConfig
+  extends Omit<MultiFileContentConfig, 'files'>,
+    AppConfig,
+    UserConfig {
+  files: Array<{ filename: string } & Partial<SourceFile>>;
+}
+
+export type SDKConfig = Prettify<SingleFileConfig> | Prettify<MultiFileConfig>;
+
 /**
  * The properties that define the content of the current [project](https://livecodes.io/docs/features/projects).
  */
@@ -450,9 +464,9 @@ export interface ContentConfig {
    * Selects the active editor to show.
    *
    * Defaults to the last used editor for user, otherwise `"markup"`
-   * @type {`"markup"` | `"style"` | `"script"` | `undefined`}
+   * @type {`"markup"` | `"style"` | `"script"` | `string` | `undefined`}
    */
-  activeEditor: EditorId | undefined;
+  activeEditor: EditorId | (string & {}) | undefined;
 
   /**
    * List of enabled languages.
@@ -484,6 +498,16 @@ export interface ContentConfig {
    * @default { language: "javascript", content: "" }
    */
   script: Prettify<Editor>;
+
+  /**
+   * List of source files.
+   */
+  files: SourceFile[];
+  /**
+   * The name of the main markup file.
+   * @default "index.html"
+   */
+  mainFile?: string;
 
   /**
    * List of URLs for [external stylesheets](https://livecodes.io/docs/features/external-resources) to add to the [result page](https://livecodes.io/docs/features/result).
@@ -582,6 +606,33 @@ export interface ContentConfig {
    */
   readonly version: string;
 }
+
+export type MultiFileContentConfig = Pick<
+  ContentConfig,
+  | 'title'
+  | 'description'
+  | 'tags'
+  | 'activeEditor'
+  | 'files'
+  | 'mainFile'
+  | 'languages'
+  | 'processors'
+  | 'customSettings'
+  | 'imports'
+  | 'types'
+  | 'tests'
+  | 'version'
+>;
+
+export type SourceFile = Prettify<
+  {
+    /**
+     * Name of the file with extension, including path (e.g. `index.html` or `components/Counter.jsx`).
+     */
+    filename: string;
+  } & Required<Pick<Editor, 'content' | 'language'>> &
+    Partial<Pick<Editor, 'hidden' | 'position' | 'foldedLines'>>
+>;
 
 /**
  * These are properties that define how the app behaves.
@@ -964,6 +1015,7 @@ export type Language =
   | 'solid'
   | 'solid.jsx'
   | 'solid.tsx'
+  | 'solid-tsx'
   | 'riot'
   | 'riotjs'
   | 'malina'
@@ -1112,6 +1164,13 @@ export interface Editor {
   contentUrl?: string;
 
   /**
+   * If `true`, the code editor is hidden, however its code is still evaluated.
+   *
+   * This can be useful in embedded playgrounds (e.g. for hiding irrelevant code).
+   */
+  hidden?: boolean;
+
+  /**
    * Hidden content that gets evaluated without being visible in the code editor.
    *
    * This can be useful in embedded playgrounds (e.g. for adding helper functions, utilities or tests)
@@ -1126,14 +1185,6 @@ export interface Editor {
   hiddenContentUrl?: string;
 
   /**
-   * Lines that get folded when the editor loads.
-   *
-   * This can be used for less relevant content.
-   * @example [{ from: 5, to: 8 }, { from: 15, to: 20 }]
-   */
-  foldedLines?: Array<{ from: number; to: number }>;
-
-  /**
    * If set, this is used as the title of the editor in the UI,
    * overriding the default title set to the language name
    * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
@@ -1141,6 +1192,9 @@ export interface Editor {
   title?: string;
 
   /**
+   * @deprecated
+   * Use `hidden` instead.
+   *
    * If `true`, the title of the code editor is hidden, however its code is still evaluated.
    *
    * This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
@@ -1159,6 +1213,14 @@ export interface Editor {
   selector?: string;
 
   /**
+   * Lines that get folded when the editor loads.
+   *
+   * This can be used for less relevant content.
+   * @example [{ from: 5, to: 8 }, { from: 15, to: 20 }]
+   */
+  foldedLines?: Array<{ from: number; to: number }>;
+
+  /**
    * The initial position of the cursor in the code editor.
    * @example  {lineNumber: 5, column: 10}
    */
@@ -1170,14 +1232,16 @@ export interface EditorPosition {
   column?: number;
 }
 
-export type EditorId = 'markup' | 'style' | 'script';
+export type EditorId = 'markup' | 'style' | 'script' | (string & {});
 
 export interface Editors {
+  [key: string]: CodeEditor;
   markup: CodeEditor;
   style: CodeEditor;
   script: CodeEditor;
 }
 export interface EditorLanguages {
+  [key: string]: Language;
   markup: Language;
   style: Language;
   script: Language;
@@ -1207,6 +1271,7 @@ export interface LanguageSpecs {
   editorLanguage?: Language;
   preset?: CssPresetId;
   largeDownload?: boolean;
+  multiFileSupport?: boolean;
 }
 
 export interface ProcessorSpecs {
@@ -1530,6 +1595,7 @@ export interface CodeEditor {
   getLanguage: () => Language;
   setLanguage: (language: Language, value?: string) => void;
   getEditorId: () => string;
+  setEditorId: (filename: string, language?: Language) => void;
   focus: () => void;
   getPosition: () => EditorPosition;
   setPosition: (position: EditorPosition) => void;
@@ -1801,6 +1867,7 @@ export type AppLanguage =
   | 'it'
   | 'ja'
   | 'pt'
+  | 'tr'
   | 'ru'
   | 'ur'
   | 'zh-CN';
@@ -1909,6 +1976,8 @@ export type Cache = ContentConfig & {
   style: EditorCache;
   script: EditorCache;
   tests?: EditorCache;
+  files?: Array<SourceFile & { compiled: string }>;
+  mainFile?: string;
   result?: string;
   styleOnlyUpdate?: boolean;
 };

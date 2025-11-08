@@ -13,4 +13,5 @@ export const reactNativeTsx: LanguageSpecs = {
   extensions: ['react-native.tsx'],
   editor: 'script',
   editorLanguage: 'typescript',
+  multiFileSupport: true,
 };

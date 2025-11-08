@@ -33,4 +33,5 @@ export const babel: LanguageSpecs = {
   extensions: ['es', 'babel'],
   editor: 'script',
   editorLanguage: 'typescript',
+  multiFileSupport: true,
 };

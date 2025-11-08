@@ -50,4 +50,5 @@ export const mdx: LanguageSpecs = {
   extensions: ['mdx'],
   editor: 'markup',
   editorLanguage: 'markdown',
+  multiFileSupport: true,
 };

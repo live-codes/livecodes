@@ -1,9 +1,11 @@
 import type { Config } from '../../models';
 import {
   createImportMap,
+  getStyleImports,
   hasStyleImports,
   replaceImports,
   replaceStyleImports,
+  resolvePath,
 } from '../import-map';
 
 describe('Import map', () => {
@@ -179,5 +181,138 @@ body {
 
     const processedCode = replaceStyleImports(code);
     expect(processedCode).toEqual(expectedCode);
+  });
+
+  test('get style imports', () => {
+    const code = `
+@import "github-markdown-css-1";
+@import "jsdelivr:github-markdown-css-2";
+@import "https://cdn.jsdelivr.net/npm/github-markdown-css-3";
+@import 'https://cdn.jsdelivr.net/npm/github-markdown-css-4';
+@import url("https://cdn.jsdelivr.net/npm/github-markdown-css-5");
+@import url('https://cdn.jsdelivr.net/npm/github-markdown-css-6');
+@import url(https://cdn.jsdelivr.net/npm/github-markdown-css-7);
+@import url(https://cdn.jsdelivr.net/npm/github-markdown-css-8) print;
+@import "github-markdown-css-9" print;
+@import "github-markdown-css-10" screen and (orientation:landscape);
+@import "github-markdown-css-11" layer(layer-name);
+@import "github-markdown-css-12" layer(layer-name) supports(supports-condition);
+@import "github-markdown-css-13" layer(layer-name) supports(supports-condition) list-of-media-queries;
+@import "github-markdown-css-14" layer(layer-name) list-of-media-queries;
+@import "github-markdown-css-15" supports(supports-condition);
+@import "github-markdown-css-16" supports(supports-condition) list-of-media-queries;
+@import "github-markdown-css-17" list-of-media-queries;
+@import "./styles.css";
+
+body {
+  color: blue;
+}    `;
+
+    const expectedImports = [
+      'github-markdown-css-1',
+      'jsdelivr:github-markdown-css-2',
+      'https://cdn.jsdelivr.net/npm/github-markdown-css-3',
+      'https://cdn.jsdelivr.net/npm/github-markdown-css-4',
+      'https://cdn.jsdelivr.net/npm/github-markdown-css-5',
+      'https://cdn.jsdelivr.net/npm/github-markdown-css-6',
+      'https://cdn.jsdelivr.net/npm/github-markdown-css-7',
+      'https://cdn.jsdelivr.net/npm/github-markdown-css-8',
+      'github-markdown-css-9',
+      'github-markdown-css-10',
+      'github-markdown-css-11',
+      'github-markdown-css-12',
+      'github-markdown-css-13',
+      'github-markdown-css-14',
+      'github-markdown-css-15',
+      'github-markdown-css-16',
+      'github-markdown-css-17',
+      './styles.css',
+    ];
+
+    const imports = getStyleImports(code);
+    expect(imports).toEqual(expectedImports);
+  });
+
+  test('get style imports (deduped)', () => {
+    const code = `
+@import "github-markdown-css";
+@import "jsdelivr:github-markdown-css";
+@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
+@import 'https://cdn.jsdelivr.net/npm/github-markdown-css';
+@import url("https://cdn.jsdelivr.net/npm/github-markdown-css");
+@import url('https://cdn.jsdelivr.net/npm/github-markdown-css');
+@import url(https://cdn.jsdelivr.net/npm/github-markdown-css);
+@import url(https://cdn.jsdelivr.net/npm/github-markdown-css) print;
+@import "github-markdown-css" print;
+@import "github-markdown-css" screen and (orientation:landscape);
+@import "github-markdown-css" layer(layer-name);
+@import "github-markdown-css" layer(layer-name) supports(supports-condition);
+@import "github-markdown-css" layer(layer-name) supports(supports-condition) list-of-media-queries;
+@import "github-markdown-css" layer(layer-name) list-of-media-queries;
+@import "github-markdown-css" supports(supports-condition);
+@import "github-markdown-css" supports(supports-condition) list-of-media-queries;
+@import "github-markdown-css" list-of-media-queries;
+@import "./styles.css";
+
+body {
+  color: blue;
+}    `;
+
+    const expectedImports = [
+      'github-markdown-css',
+      'jsdelivr:github-markdown-css',
+      'https://cdn.jsdelivr.net/npm/github-markdown-css',
+      './styles.css',
+    ];
+
+    const imports = getStyleImports(code);
+    expect(imports).toEqual(expectedImports);
+  });
+
+  test('resolve path', () => {
+    expect(resolvePath('https://someurl/path', './script.js')).toEqual('https://someurl/path');
+    expect(resolvePath('https://someurl/path', 'script.js')).toEqual('https://someurl/path');
+    expect(resolvePath('https://someurl/path', './deep/script.js')).toEqual('https://someurl/path');
+    expect(resolvePath('https://someurl/path', 'deep/script.js')).toEqual('https://someurl/path');
+    expect(resolvePath('https://someurl/path')).toEqual('https://someurl/path');
+
+    const dataUrl =
+      'data:text/javascript;charset=UTF-8;base64,Y29uc29sZS5sb2coIkhlbGxvLCBXb3JsZCEiKTs=';
+    expect(resolvePath(dataUrl, './script.js')).toEqual(dataUrl);
+    expect(resolvePath(dataUrl, 'script.js')).toEqual(dataUrl);
+    expect(resolvePath(dataUrl, './deep/script.js')).toEqual(dataUrl);
+    expect(resolvePath(dataUrl, 'deep/script.js')).toEqual(dataUrl);
+    expect(resolvePath(dataUrl)).toEqual(dataUrl);
+
+    expect(resolvePath('my-lib', './script.js')).toEqual('my-lib');
+    expect(resolvePath('my-lib', 'script.js')).toEqual('my-lib');
+    expect(resolvePath('my-lib', './deep/script.js')).toEqual('my-lib');
+    expect(resolvePath('my-lib', 'deep/script.js')).toEqual('my-lib');
+    expect(resolvePath('my-lib')).toEqual('my-lib');
+
+    expect(resolvePath('/utils.js', './script.js')).toEqual('./utils.js');
+    expect(resolvePath('/utils.js', 'script.js')).toEqual('./utils.js');
+    expect(resolvePath('/utils.js', './deep/script.js')).toEqual('./utils.js');
+    expect(resolvePath('/utils.js', 'deep/script.js')).toEqual('./utils.js');
+    expect(resolvePath('/utils.js')).toEqual('./utils.js');
+
+    expect(resolvePath('./utils.js', './script.js')).toEqual('./utils.js');
+    expect(resolvePath('./utils.js', 'script.js')).toEqual('./utils.js');
+    expect(resolvePath('./utils.js', './deep/script.js')).toEqual('./deep/utils.js');
+    expect(resolvePath('./utils.js', 'deep/script.js')).toEqual('./deep/utils.js');
+    expect(resolvePath('./utils.js')).toEqual('./utils.js');
+
+    expect(resolvePath('../utils.js', './script.js')).toEqual('./utils.js');
+    expect(resolvePath('../utils.js', 'script.js')).toEqual('./utils.js');
+    expect(resolvePath('../utils.js', './deep/script.js')).toEqual('./utils.js');
+    expect(resolvePath('../utils.js', 'deep/script.js')).toEqual('./utils.js');
+    expect(resolvePath('../utils.js')).toEqual('./utils.js');
+
+    expect(resolvePath('../path/utils.js', './script.js')).toEqual('./path/utils.js');
+    expect(resolvePath('../path/utils.js', 'script.js')).toEqual('./path/utils.js');
+    expect(resolvePath('../path/utils.js', './deep/script.js')).toEqual('./path/utils.js');
+    expect(resolvePath('../path/utils.js', 'deep/script.js')).toEqual('./path/utils.js');
+    expect(resolvePath('../path/utils.js', 'very/deep/script.js')).toEqual('./very/path/utils.js');
+    expect(resolvePath('../path/utils.js')).toEqual('./path/utils.js');
   });
 });

@@ -19,7 +19,7 @@ export const createLanguageMenus = (
   registerMenuButton: (menu: HTMLElement, button: HTMLElement) => void,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
-  const rootList = document.createElement('ul');
+  const rootList = document.createElement('div');
   document.querySelector('#select-editor')?.appendChild(rootList);
 
   let editorsNumber = editorIds.length;
@@ -30,6 +30,7 @@ export const createLanguageMenus = (
     editorSelector.id = editorId + '-selector';
     editorSelector.classList.add('editor-title', 'noselect');
     editorSelector.dataset.editor = editorId;
+    editorSelector.dataset.singleFile = 'true';
     editorSelector.innerHTML = `
       <span></span>
       <a
@@ -161,6 +162,122 @@ export const createLanguageMenus = (
   }
 };
 
+export const createMultiFileEditorTab = ({
+  title,
+  showEditor,
+  addFile,
+  renameFile,
+  deleteFile,
+  isMainFile,
+  isNewFile = false,
+}: {
+  title: string;
+  showEditor: (filename: string) => void;
+  addFile?: (filename: string) => Promise<boolean>;
+  renameFile: (filename: string, newName: string) => boolean;
+  deleteFile: (filename: string) => void;
+  isMainFile: boolean;
+  isNewFile: boolean;
+}) => {
+  let currentFileName = title;
+  const selector = document.querySelector(`.editor-title[data-editor="${currentFileName}"]`);
+  if (selector) return;
+  const editorSelector = document.createElement('a');
+  editorSelector.href = '#';
+  editorSelector.classList.add('editor-title', 'noselect');
+  editorSelector.dataset.editor = currentFileName;
+  editorSelector.dataset.multiFile = 'true';
+  editorSelector.addEventListener('click', () => showEditor(currentFileName));
+
+  const label = document.createElement('span');
+  label.innerHTML = currentFileName;
+  editorSelector.appendChild(label);
+
+  if (!isMainFile) {
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-file-button');
+    deleteButton.innerHTML = deleteIcon;
+    deleteButton.addEventListener('click', () => {
+      if (
+        confirm(
+          window.deps.translateString('core.confirm.deleteFile', 'Delete file: {{filename}}?', {
+            filename: currentFileName,
+          }),
+        )
+      ) {
+        deleteFile(currentFileName);
+        editorSelector.remove();
+      }
+    });
+    editorSelector.appendChild(deleteButton);
+  }
+
+  const selectAll = (element: HTMLElement) => {
+    const range = document.createRange();
+    range.selectNodeContents(element);
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+  };
+
+  const accept = async () => {
+    const success =
+      isNewFile && typeof addFile === 'function'
+        ? await addFile(label.innerText)
+        : renameFile(currentFileName, label.innerText);
+    if (!success) {
+      onDblClick();
+      return;
+    }
+    label.contentEditable = 'false';
+    currentFileName = label.innerText;
+    isNewFile = false;
+    showEditor(currentFileName);
+    window.removeEventListener('keydown', onEnter);
+  };
+
+  const onEnter = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      accept();
+    }
+  };
+
+  const onDblClick = () => {
+    currentFileName = label.innerText;
+    label.contentEditable = 'true';
+    requestAnimationFrame(() => label.focus());
+    selectAll(label);
+    window.addEventListener('keydown', onEnter);
+  };
+
+  editorSelector.ondblclick = onDblClick;
+
+  const scrollTo = document.querySelector('#multi-file-scroll-to');
+  document.querySelector('#select-editor > div')?.insertBefore(editorSelector, scrollTo);
+
+  if (isNewFile) {
+    scrollTo?.scrollIntoView({ behavior: 'smooth', inline: 'end' });
+    onDblClick();
+  }
+};
+
+export const createAddFileButton = ({ onclick: handleAddFileClick }: { onclick: () => void }) => {
+  if (!document.querySelector('#add-file-button')) {
+    const addFileButton = document.createElement('button');
+    addFileButton.id = 'add-file-button';
+    addFileButton.classList.add('app-menu-button', 'menu');
+    addFileButton.innerHTML =
+      '<i class="icon-add" title="Add file" data-i18n="core.addFile" data-i18n-prop="title"></i>';
+    addFileButton.addEventListener('click', handleAddFileClick);
+    document.querySelector('#select-editor')?.appendChild(addFileButton);
+
+    const scrollTo = document.createElement('div');
+    scrollTo.id = 'multi-file-scroll-to';
+    document.querySelector('#select-editor > div')?.appendChild(scrollTo);
+  }
+};
+
 export const createProcessorItem = (processor: { name: string; title: string }) => {
   const processorItem = document.createElement('li');
   processorItem.classList.add('language-item', 'processor-item');
@@ -189,3 +306,4 @@ const getLanguageInfo = async (language: Language | Processor, baseUrl: string) 
 };
 
 const infoIcon = '<i class="icon-info"></i>';
+const deleteIcon = '<i class="icon-close"></i>';

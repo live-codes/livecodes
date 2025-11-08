@@ -18,4 +18,5 @@ export const livescript: LanguageSpecs = {
   },
   extensions: ['ls'],
   editor: 'script',
+  multiFileSupport: true,
 };

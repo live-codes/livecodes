@@ -20,4 +20,5 @@ export const solid: LanguageSpecs = {
   extensions: ['solid.jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  multiFileSupport: true,
 };

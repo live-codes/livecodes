@@ -6,4 +6,5 @@ export const sass: LanguageSpecs = {
   compiler: 'scss',
   extensions: ['sass'],
   editor: 'style',
+  multiFileSupport: true,
 };

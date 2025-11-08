@@ -32,4 +32,5 @@ export const mjml: LanguageSpecs = {
   extensions: ['mjml'],
   editor: 'markup',
   editorLanguage: 'xml',
+  multiFileSupport: true,
 };

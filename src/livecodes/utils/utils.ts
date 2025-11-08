@@ -230,7 +230,7 @@ export const loadStylesheet = (url: string, id?: string, insertBefore?: string) 
 };
 
 export const typedArrayToBuffer = /* @__PURE__ */ (array: Uint8Array): ArrayBuffer =>
-  array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset);
+  array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset) as ArrayBuffer;
 
 export const getDate = /* @__PURE__ */ () => {
   let date = new Date();
@@ -684,6 +684,17 @@ export const addProp = /* @__PURE__ */ (
   if (!obj[first]) obj[first] = {};
   addProp(obj[first] as Record<string, unknown>, rest.join('.'), value);
 };
+
+export const removeLeadingSlash = /* @__PURE__ */ (x: string) =>
+  x.startsWith('/')
+    ? x.slice(1)
+    : x.startsWith('./')
+      ? x.slice(2)
+      : x.startsWith('../')
+        ? x.slice(3)
+        : x.startsWith('~/')
+          ? x.slice(2)
+          : x;
 
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',

@@ -23,4 +23,5 @@ export const sucrase: LanguageSpecs = {
   extensions: ['sucrase'],
   editor: 'script',
   editorLanguage: 'typescript',
+  multiFileSupport: true,
 };

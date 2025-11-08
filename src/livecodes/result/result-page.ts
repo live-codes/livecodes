@@ -34,7 +34,7 @@ export const createResultPage = async ({
   forExport,
   template,
   baseUrl,
-  singleFile,
+  singleFileResult,
   runTests,
   compileInfo,
 }: {
@@ -43,7 +43,7 @@ export const createResultPage = async ({
   forExport: boolean;
   template: string;
   baseUrl: string;
-  singleFile: boolean;
+  singleFileResult: boolean;
   runTests: boolean;
   compileInfo: CompileInfo;
 }): Promise<string> => {
@@ -163,7 +163,7 @@ export const createResultPage = async ({
   });
 
   // editor styles
-  if (singleFile) {
+  if (singleFileResult) {
     const style = code.style.compiled;
     const styleElement = dom.createElement('style');
     styleElement.id = '__livecodes_styles__';
@@ -427,7 +427,7 @@ export const createResultPage = async ({
     // editor script
     const script = code.script.compiled;
     const scriptElement = dom.createElement('script');
-    if (singleFile) {
+    if (singleFileResult) {
       scriptElement.innerHTML = escapeScript(script);
     } else {
       scriptElement.src = './script.js';

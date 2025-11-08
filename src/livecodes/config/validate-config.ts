@@ -1,7 +1,17 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import type { Config, Editor, EditorId, Language, Tool, ToolsPaneStatus } from '../models';
-import { removeDuplicates } from '../utils';
+import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
+import type {
+  Config,
+  Editor,
+  EditorId,
+  Language,
+  MultiFileConfig,
+  SourceFile,
+  Tool,
+  ToolsPaneStatus,
+} from '../models';
+import { getFileExtension, removeDuplicates, removeLeadingSlash } from '../utils';
 import { defaultConfig } from './default-config';
+import { isEditorId, validateFileName } from './utils';
 
 export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   type types = 'array' | 'boolean' | 'object' | 'number' | 'string' | 'undefined';
@@ -45,7 +55,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
 
   const isFoldedLines = (x: any) => is(x, 'object') && (is(x.from, 'number') || is(x.to, 'number'));
 
-  const fixSfcLanguage = (lang: Language, editorId: EditorId) =>
+  const fixSfcLanguage = (lang: Language | undefined, editorId: EditorId) =>
     editorId !== 'markup'
       ? lang
       : lang === 'svelte'
@@ -54,17 +64,21 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
           ? 'vue-app'
           : lang;
 
+  const getEditorDefaultLanguage = (editorId: EditorId) =>
+    (isEditorId(editorId) ? defaultConfig[editorId].language : getFileLanguage(editorId)) || 'html';
+
   const validateEditorProps = (x: Editor, editorId: EditorId): Editor => ({
-    language: fixSfcLanguage(
-      getLanguageEditorId(fixSfcLanguage(x.language, editorId)) === editorId
-        ? getLanguageByAlias(x.language) || defaultConfig[editorId].language
-        : defaultConfig[editorId].language,
-      editorId,
-    ),
+    language:
+      fixSfcLanguage(
+        getLanguageEditorId(fixSfcLanguage(x.language, editorId)) === editorId
+          ? getLanguageByAlias(x.language) || getEditorDefaultLanguage(editorId)
+          : getEditorDefaultLanguage(editorId),
+        editorId,
+      ) || getEditorDefaultLanguage(editorId),
     ...(is(x.title, 'string') ? { title: x.title } : {}),
     ...(is(x.content, 'string') ? { content: x.content } : {}),
     ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
-    ...(is(x.hideTitle, 'boolean') ? { hideTitle: x.hideTitle } : {}),
+    ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
     ...(is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),
     ...(is(x.hiddenContentUrl, 'string') ? { hiddenContentUrl: x.hiddenContentUrl } : {}),
     ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
@@ -74,6 +88,23 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
     ...(is(x.position, 'object') ? { position: x.position } : {}),
   });
+
+  const validateFileProps = (x: Partial<SourceFile>): SourceFile | undefined =>
+    x.filename && is(x.filename, 'string') && removeLeadingSlash(x.filename).includes('.')
+      ? {
+          filename: removeLeadingSlash(x.filename),
+          content: is(x.content, 'string') ? x.content ?? '' : '',
+          language: getLanguageByAlias(x.language || getFileExtension(x.filename)) || 'html',
+          ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
+          ...(is(x.position, 'object') ? { position: x.position } : {}),
+          ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
+            ? { foldedLines: x.foldedLines }
+            : {}),
+        }
+      : undefined;
+
+  const validateActiveEditor = (config: Partial<Config>) =>
+    includes([...editorIds, ...(config.files || []).map((f) => f.filename)], config.activeEditor);
 
   const validateTestsProps = (x: Partial<Config['tests']>): Partial<Config['tests']> => ({
     ...(x && is(x.language, 'string') ? { language: x.language } : {}),
@@ -134,7 +165,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.showSpacing, 'boolean') ? { showSpacing: config.showSpacing } : {}),
     ...(is(config.readonly, 'boolean') ? { readonly: config.readonly } : {}),
     ...(is(config.allowLangChange, 'boolean') ? { allowLangChange: config.allowLangChange } : {}),
-    ...(includes(editorIds, config.activeEditor) ? { activeEditor: config.activeEditor } : {}),
+    ...(validateActiveEditor(config) ? { activeEditor: config.activeEditor } : {}),
     ...(is(config.languages, 'array', 'string')
       ? { languages: removeDuplicates(config.languages) }
       : {}),
@@ -147,6 +178,17 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.script, 'object')
       ? { script: validateEditorProps(config.script as Editor, 'script') }
       : {}),
+    ...(is((config as MultiFileConfig).files, 'array', 'object')
+      ? {
+          files:
+            (config.files
+              ?.map((f) => validateFileProps(f))
+              .filter(
+                (f) => f != null && validateFileName(f.filename, config),
+              ) as Config['files']) || [],
+        }
+      : {}),
+    ...(is(config.mainFile, 'string') ? { mainFile: config.mainFile } : {}),
     ...(is(config.tools, 'object')
       ? { tools: validateToolsProps(config.tools as Config['tools']) }
       : {}),

@@ -19,4 +19,5 @@ export const dot: LanguageSpecs = {
   extensions: ['dot'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

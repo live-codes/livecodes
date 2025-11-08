@@ -19,4 +19,5 @@ export const liquid: LanguageSpecs = {
   extensions: ['liquid', 'liquidjs'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

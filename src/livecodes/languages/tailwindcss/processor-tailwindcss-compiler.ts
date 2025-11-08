@@ -193,7 +193,7 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
 
   const tailwind4: CompilerFunction = async (code, { config, options }) => {
     const prepareCode = (css: string, html: string) => {
-      let result = replaceStyleImports(css, [/tailwindcss/g]);
+      let result = replaceStyleImports(css, { exceptions: [/tailwindcss/g] });
       if (!result.includes('@import')) {
         result = `@import "tailwindcss";${result}`;
       }

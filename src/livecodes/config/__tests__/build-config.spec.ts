@@ -505,12 +505,12 @@ describe('loadParamConfig', () => {
     expect(output.customSettings).toEqual({ template: { prerender: false } });
   });
 
-  test('?markup.hideTitle=true&script.title=App.jsx', () => {
+  test('?markup.hidden=true&script.title=App.jsx', () => {
     const output: Partial<Config> = loadParamConfig(defaultConfig, {
-      'markup.hideTitle': true,
+      'markup.hidden': true,
       'script.title': 'App.jsx',
     });
-    expect(output.markup?.hideTitle).toEqual(true);
+    expect(output.markup?.hidden).toEqual(true);
     expect(output.script?.title).toEqual('App.jsx');
   });
 });
