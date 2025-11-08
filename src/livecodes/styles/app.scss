@@ -629,6 +629,27 @@ a#result-button {
   display: none !important;
 }
 
+.multi-file {
+  #toolbar {
+    .menu {
+      justify-content: center;
+      min-width: 32px;
+      padding: 0;
+    }
+
+    .menu-text {
+      display: none;
+    }
+
+    #select-editor {
+      width: calc(50vw - 200px);
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+    }
+  }
+}
+
 @media only screen and (max-width: 1024px) {
   #toolbar {
     .menu {
@@ -1410,12 +1431,16 @@ a.editor-title {
   .delete-file-button {
     background: transparent;
     border: 0;
-    border-radius: 50%;
     color: var(--editor-title-color);
     cursor: pointer;
-    height: 12px;
-    margin-inline-end: -3px;
-    margin-inline-start: 3px;
+    height: 100%;
+    margin-inline-end: -7px;
+    margin-inline-start: 0;
+    width: var(--s16);
+
+    i {
+      font-size: var(--s10);
+    }
 
     &:hover {
       color: var(--editor-title-active);

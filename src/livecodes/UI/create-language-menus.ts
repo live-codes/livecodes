@@ -188,7 +188,7 @@ export const createMultiFileEditorTab = ({
   if (!isMainFile) {
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-file-button');
-    deleteButton.innerHTML = '&times;';
+    deleteButton.innerHTML = deleteIcon;
     deleteButton.addEventListener('click', () => {
       if (
         confirm(
@@ -271,3 +271,4 @@ const getLanguageInfo = async (language: Language | Processor, baseUrl: string) 
 };
 
 const infoIcon = '<i class="icon-info"></i>';
+const deleteIcon = '<i class="icon-close"></i>';

@@ -897,8 +897,12 @@ const configureMultiFile = (config: Config) => {
     tab.classList.toggle('hidden', isMultiFile);
   });
   if (!isMultiFile) {
+    document.documentElement.classList.remove('multi-file');
     multiFileTabs.forEach((tab) => tab.remove());
     UI.getEditorDivs().forEach((editor) => editor.remove());
+  }
+  if (isMultiFile) {
+    document.documentElement.classList.add('multi-file');
   }
 };
 
