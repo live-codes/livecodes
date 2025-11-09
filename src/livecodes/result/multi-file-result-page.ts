@@ -107,7 +107,7 @@ export const createMultiFileResultPage = async ({
     return dataUrl;
   };
 
-  const externalModules = 'react,react-dom,preact,vue';
+  const externalModules = 'react,react-dom,preact,vue,ripple';
 
   // handle imports
   const stylesImportMap: Record<string, string> = {};
