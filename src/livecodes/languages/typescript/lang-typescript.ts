@@ -34,14 +34,14 @@ export const typescript: LanguageSpecs = {
     url: typescriptUrl,
     factory:
       () =>
-      async (code, { config }) =>
+      async (code, { config, language }) =>
         (window as any).ts.transpile(code, {
           ...typescriptOptions,
-          ...(['jsx', 'tsx'].includes(config.script.language) && !hasCustomJsxRuntime(code, config)
+          ...(['jsx', 'tsx', 'typescript'].includes(language) && !hasCustomJsxRuntime(code, config)
             ? { jsx: 'react-jsx' }
             : {}),
           ...getLanguageCustomSettings('typescript', config),
-          ...getLanguageCustomSettings(config.script.language, config),
+          ...getLanguageCustomSettings(language, config),
         }),
   },
   extensions: ['ts', 'typescript'],
