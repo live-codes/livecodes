@@ -118,6 +118,7 @@ import type {
   Modal,
   Notifications,
   Processor,
+  SDKConfig,
   SDKEvent,
   Screen,
   ShareData,
@@ -5910,9 +5911,9 @@ const createApi = (): API => {
     return JSON.parse(JSON.stringify(config));
   };
 
-  const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
+  const apiSetConfig = async (newConfig: Partial<SDKConfig>): Promise<Config> => {
     const currentConfig = getConfig();
-    const newAppConfig = buildConfig({ ...currentConfig, ...newConfig });
+    const newAppConfig = buildConfig({ ...currentConfig, ...(newConfig as Partial<Config>) });
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
     const shouldRun =
@@ -5927,7 +5928,7 @@ const createApi = (): API => {
 
     if (isContentOnlyChange) {
       for (const key of ['markup', 'style', 'script'] as const) {
-        const content = newConfig[key]?.content;
+        const content = (newConfig as Partial<Config>)[key]?.content;
         if (content != null) {
           editors[key].setValue(content);
         }
@@ -5942,7 +5943,7 @@ const createApi = (): API => {
     if (shouldReloadCompiler) {
       await reloadCompiler(newAppConfig);
     }
-    await applyConfig(newConfig, /* reload = */ true, currentConfig);
+    await applyConfig(newConfig as Partial<Config>, /* reload = */ true, currentConfig);
     return newAppConfig;
   };
 
