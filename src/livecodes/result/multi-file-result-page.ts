@@ -111,7 +111,7 @@ export const createMultiFileResultPage = async ({
 
   // handle imports
   const stylesImportMap: Record<string, string> = {};
-  const getStylesheetWithImports = (file: SourceFile & { compiled: string }) => {
+  const getStylesheetWithImports = (file: SourceFile & { compiled: string }): string => {
     if (stylesImportMap[file.filename]) return file.compiled;
     const styleImports = getStyleImports(file.compiled)
       .filter((mod) => {

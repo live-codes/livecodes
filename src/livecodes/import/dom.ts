@@ -1,3 +1,4 @@
+import { isEditorId } from '../config/utils';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { Config, EditorId, Language } from '../models';
 import { decodeHTML } from '../utils';
@@ -70,7 +71,7 @@ export const importFromDom = async (
       {} as { [key: string]: string },
     );
 
-  const configSelectors = (['markup', 'style', 'script'] as EditorId[]).reduce(
+  const configSelectors = (['markup', 'style', 'script'] as const).reduce(
     (selectors: Selectors, editorId) => {
       if (config[editorId].language && config[editorId].selector) {
         return {
@@ -89,11 +90,11 @@ export const importFromDom = async (
 
   const defaultSelectors = getLanguageSelectors(defaultParams);
   const paramSelectors = getLanguageSelectors(selectorParams);
-  const languageSelectors: Selectors = {
+  const languageSelectors = {
     ...defaultSelectors,
     ...configSelectors,
     ...paramSelectors,
-  };
+  } as Selectors;
 
   const selectedCode = (Object.keys(languageSelectors) as EditorId[]).reduce(
     (selectedCodeConfig: Partial<Config>, editorId) => {
@@ -119,7 +120,7 @@ export const importFromDom = async (
   const defaults = Object.keys(defaultParams).reduce(
     (defaultsConfig: Partial<Config>, language: string) => {
       const editorId = getLanguageEditorId(language as Language);
-      if (!editorId || selectedCode[editorId]) return defaultsConfig;
+      if (!editorId || !isEditorId(editorId) || selectedCode[editorId]) return defaultsConfig;
       const code = extractCodeFromHTML(dom, defaultParams[language]);
       if (code === undefined) return defaultsConfig;
 

@@ -14,7 +14,7 @@ import { reactNativeRuntime } from '../languages/react-native/react-native-runti
 import { rippleRuntime } from '../languages/ripple/ripple-runtime';
 import { solidRuntime } from '../languages/solid/solid-runtime';
 import { hasCustomJsxRuntime } from '../languages/typescript';
-import type { Cache, CompileInfo, Config, EditorId, Language } from '../models';
+import type { Cache, CompileInfo, Config, Language } from '../models';
 import { getAppCDN, modulesService } from '../services';
 import { testImports } from '../toolspane/test-imports';
 import {
@@ -189,12 +189,10 @@ export const createResultPage = async ({
   }
 
   // runtime styles & scripts
-  const runtimeDependencies = (['markup', 'style', 'script'] as EditorId[]).map(
-    (editorId: EditorId) => ({
-      language: code[editorId].language,
-      compiled: code[editorId].compiled,
-    }),
-  );
+  const runtimeDependencies = (['markup', 'style', 'script'] as const).map((editorId) => ({
+    language: code[editorId].language,
+    compiled: code[editorId].compiled,
+  }));
 
   const compiledTests = runTests ? code.tests?.compiled || '' : '';
 

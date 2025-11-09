@@ -1,3 +1,4 @@
+import { isEditorId } from '../config/utils';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { Config, EditorId, Language } from '../models';
 
@@ -41,7 +42,7 @@ export const populateConfig = (
         if (!file) return output;
 
         const editorId = getLanguageEditorId(language);
-        if (!editorId || output[editorId]) return output;
+        if (!editorId || !isEditorId(editorId) || output[editorId]) return output;
 
         return {
           ...output,
@@ -148,7 +149,7 @@ export const populateConfig = (
       }
 
       // code
-      if (!file.editorId || output[file.editorId]) return output;
+      if (!file.editorId || !isEditorId(file.editorId) || output[file.editorId]) return output;
       return {
         ...output,
         [file.editorId]: {
