@@ -1,4 +1,5 @@
 import { defaultConfig, getContentConfig } from '../config';
+import { getSource } from '../config/utils';
 import type { Cache, Code, EditorId, Language } from '../models';
 
 const defaultContentConfig = getContentConfig(defaultConfig);
@@ -43,8 +44,9 @@ export const setCache = (newCache = initialCache) => {
 };
 
 export const updateCache = (editorId: EditorId, language: Language, modified: string) => {
-  if (cache[editorId].language === language) {
-    cache[editorId].modified = modified;
+  const src: any = getSource(editorId, cache as any);
+  if (src && src.language === language) {
+    src.modified = modified;
   }
 };
 
