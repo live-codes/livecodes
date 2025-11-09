@@ -61,7 +61,7 @@ export interface API {
    * });
    * ```
    */
-  getConfig: (contentOnly?: boolean) => Promise<Config>;
+  getConfig: (contentOnly?: boolean) => Promise<SDKConfig>;
 
   /**
    * Loads a new project using the passed configuration object.
@@ -81,7 +81,7 @@ export interface API {
    * });
    * ```
    */
-  setConfig: (config: Partial<Config>) => Promise<Config>;
+  setConfig: (config: Partial<SDKConfig>) => Promise<SDKConfig>;
 
   /**
    * Gets the playground code (including source code, source language and compiled code) for each editor (markup, style, script), in addition to result page HTML.
