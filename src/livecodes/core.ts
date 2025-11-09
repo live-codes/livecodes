@@ -149,6 +149,7 @@ import { createToolsPane } from './toolspane';
 import { createTypeLoader, getDefaultTypes } from './types';
 import {
   capitalize,
+  cloneObject,
   colorToHex,
   colorToHsla,
   compareObjects,
@@ -1797,7 +1798,7 @@ const loadConfig = async (
 };
 
 const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig?: Config) => {
-  const currentConfig = oldConfig || getConfig();
+  const currentConfig: Config = cloneObject(oldConfig || getConfig());
   const combinedConfig: Config = { ...currentConfig, ...newConfig };
   configureMultiFile(combinedConfig);
   if (reload) {
@@ -1891,13 +1892,21 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
   const hasEditorConfig = Object.keys(editorConfig).some((k) => k in newConfig);
   let shouldReloadEditors = (() => {
     const activeEditor = getActiveEditor();
+    if (!activeEditor) return true;
     if (newConfig.editor != null && newConfig.editor in activeEditor) return true;
     if (newConfig.mode != null) {
       if (newConfig.mode !== 'result' && activeEditor.isFake) return true;
       if (newConfig.mode !== 'codeblock' && activeEditor.codejar) return true;
     }
+    if (
+      (oldConfig?.files.length && !newConfig.files?.length) ||
+      (!oldConfig?.files.length && newConfig.files?.length)
+    ) {
+      return true;
+    }
     return false;
   })();
+
   if ('configureTailwindcss' in editors.markup) {
     if (newConfig.processors?.includes('tailwindcss')) {
       editors.markup.configureTailwindcss?.(true);
@@ -1912,6 +1921,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
   }
   if (shouldReloadEditors) {
     await reloadEditors(combinedConfig);
+    showEditor(getActiveEditor().getEditorId());
   } else if (hasEditorConfig) {
     currentEditorConfig = {
       ...getEditorConfig(combinedConfig),
@@ -5884,8 +5894,9 @@ const initializePlayground = async (
     initializeAuth().then(() => showSyncStatus());
     checkRecoverStatus();
   }
+  const oldConfig = getConfig();
   importExternalContent({
-    config: getConfig(),
+    config: oldConfig,
     sdkConfig,
     configUrl: params.config,
     template: params.template,
@@ -5893,7 +5904,7 @@ const initializePlayground = async (
   }).then(async (contentImported) => {
     if (!contentImported) {
       loadSelectedScreen();
-      await applyConfig(getConfig(), /* reload = */ false);
+      await applyConfig(getConfig(), /* reload = */ false, oldConfig);
     }
     initialized = true;
   });

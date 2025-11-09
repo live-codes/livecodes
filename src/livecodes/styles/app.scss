@@ -648,7 +648,8 @@ a#result-button {
         overflow-x: auto;
         overflow-y: hidden;
         scrollbar-width: none;
-        width: calc(50vw - 262px);
+        // width: calc(50vw - 262px);
+        width: calc(50vw - 222px);
       }
     }
 
@@ -656,6 +657,7 @@ a#result-button {
       align-items: center;
       border: 0;
       cursor: pointer;
+      visibility: hidden; // hide for now
       display: flex;
       margin-inline-end: 0;
       margin-top: -1px;
@@ -1648,6 +1650,11 @@ a.editor-title {
 
       #select-editor {
         position: unset;
+
+        & > div {
+          // TODO: revise this
+          width: 70vw;
+        }
       }
 
       .language-menu-button {

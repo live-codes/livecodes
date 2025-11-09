@@ -32,7 +32,9 @@ import { getLanguageByAlias } from '../utils';
     code: string,
     { config, filename }: { config: Config; filename: string },
   ) => {
-    if (filename === MAIN_FILE) {
+    const isMultiFile = config.files.length > 0;
+
+    if (filename === MAIN_FILE || isMultiFile) {
       importedContent = '';
       imports = {};
     }
@@ -42,7 +44,8 @@ import { getLanguageByAlias } from '../utils';
     await updateCompiler(newVersion);
 
     const isRipple = (mod: string) =>
-      mod.toLowerCase().endsWith('.ripple') || mod.toLowerCase().startsWith('data:text/ripple');
+      !isMultiFile &&
+      (mod.toLowerCase().endsWith('.ripple') || mod.toLowerCase().startsWith('data:text/ripple'));
 
     const fullCode = await replaceSFCImports(code, {
       config,
@@ -70,7 +73,7 @@ styles.innerHTML = ${JSON.stringify(css)};
 document.head.appendChild(styles);
 `;
 
-    if (filename === MAIN_FILE) {
+    if (filename === MAIN_FILE || isMultiFile) {
       const moduleUrl = modulesService.getUrl(getModuleName(version));
       imports = {
         ...createImportMap(importedContent, config),
