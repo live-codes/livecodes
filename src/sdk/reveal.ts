@@ -2,13 +2,18 @@ import type Reveal from 'reveal.js';
 import type { EmbedOptions, Playground } from './models';
 import { createPlayground } from './index';
 
-interface LiveOptions extends EmbedOptions {
+export interface LiveOptions extends EmbedOptions {
     sdkReady?: (sdk: Playground) => void;
 }
 
-interface GlobalLiveCodesOptions extends Reveal.Options {
+export interface GlobalLiveCodesOptions extends Reveal.Options {
     livecodes?: LiveOptions;
     customStyle?: Partial<CSSStyleDeclaration>;
+}
+
+export interface LiveCodesInstance {
+    id: string;
+    init(deck: InstanceType<typeof Reveal>): void;
 }
 
 const initIframeStyle = (iframe: HTMLIFrameElement, styles: Partial<CSSStyleDeclaration>) => {
@@ -22,7 +27,7 @@ export const LiveCodes = {
     id: "LiveCodes",
     init(deck: InstanceType<typeof Reveal>) {
         const ContainerList = document.querySelectorAll<HTMLElement>("[data-livecodes]");
-        if (ContainerList.length <= 1) {
+        if (ContainerList.length < 1) {
             return;
         }
         const containers = Array.from(ContainerList);
