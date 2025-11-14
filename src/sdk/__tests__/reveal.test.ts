@@ -18,6 +18,10 @@ function createContainer(config: string = "") {
   document.body.appendChild(container);
 }
 
+function getIframe() {
+  return document.querySelector<HTMLIFrameElement>('.livecodes');
+}
+
 jest.mock('../index', () => ({
   createPlayground: jest.fn().mockImplementation((container) => {
     const iframe = document.createElement('iframe');
@@ -54,7 +58,7 @@ test('should initializes playground and triggers sdkReady when a livecodes conta
   await new Promise(process.nextTick);
   expectCreatePlaygroundAndSdkFn(sdkReady);
   const calledWith = (createPlayground as jest.Mock).mock.calls[0][1];
-  const iframe = document.querySelector('.livecodes') as HTMLIFrameElement | null;
+  const iframe = getIframe();
   expect(calledWith.config.script.language).toBe('javascript');
   expect(calledWith.config.script.content).toBe('console.log(123)');
   expectIframeDefaultStyle(iframe);
@@ -77,7 +81,7 @@ test('should initializes playground and triggers sdkReady when a livecodes conta
   await new Promise(process.nextTick);
   expectCreatePlaygroundAndSdkFn(sdkReady);
   const calledWith = (createPlayground as jest.Mock).mock.calls[0][1];
-  const iframe = document.querySelector('.livecodes') as HTMLIFrameElement | null;
+  const iframe = getIframe();
   expect(calledWith.config.script.language).toBe('javascript');
   expect(calledWith.config.script.content).toBe('console.log(456)');
   expectIframeDefaultStyle(iframe);
@@ -93,7 +97,7 @@ test('should initializes playground and triggers sdkReady when a livecodes conta
   await new Promise(process.nextTick);
   expect(createPlayground).toHaveBeenCalledTimes(1);
   const calledWith = (createPlayground as jest.Mock).mock.calls[0][1];
-  const iframe = document.querySelector('.livecodes') as HTMLIFrameElement | null;
+  const iframe = getIframe();
   expect(calledWith.config.script.language).toBe('javascript');
   expect(calledWith.config.script.content).toBe('console.log(123)');
   expectIframeDefaultStyle(iframe);
@@ -115,7 +119,7 @@ test('should Apply Custom Config Over Global Config And Trigger Sdk Ready', asyn
   await new Promise(process.nextTick);
   expectCreatePlaygroundAndSdkFn(sdkReady);
   const calledWith = (createPlayground as jest.Mock).mock.calls[0][1];
-  const iframe = document.querySelector('.livecodes') as HTMLIFrameElement | null;
+  const iframe = getIframe();
   expect(calledWith.config.script.language).toBe('javascript');
   expect(calledWith.config.script.content).toBe('console.log(123)');
   expectIframeDefaultStyle(iframe);
