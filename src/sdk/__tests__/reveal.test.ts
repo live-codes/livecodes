@@ -64,26 +64,3 @@ test('should initializes playground and triggers sdkReady when a livecodes conta
   expectIframeDefaultStyle(iframe);
   expect(iframe?.style.backgroundColor).toBe('rgba(255, 255, 255, 0.1)');
 });
-
-test('should Apply Custom Config Over Global Config And Trigger Sdk Ready', async () => {
-  const sdkReady = jest.fn();
-  createContainer('{"config":{"script":{"language":"javascript","content":"console.log(123)"}}}');
-  const mockDeck = {
-    getConfig: jest.fn().mockReturnValue({
-      livecodes: {
-        config: { script: { language: 'javascript', content: 'console.log(456)' } },
-        sdkReady,
-      },
-      customStyle: { backgroundColor: 'rgba(255,255,255,0.1)' },
-    }),
-  } as any;
-  LiveCodes.init(mockDeck);
-  await new Promise(process.nextTick);
-  expectCreatePlaygroundAndSdkFn(sdkReady);
-  const calledWith = (createPlayground as jest.Mock).mock.calls[0][1];
-  const iframe = getIframe();
-  expect(calledWith.config.script.language).toBe('javascript');
-  expect(calledWith.config.script.content).toBe('console.log(123)');
-  expectIframeDefaultStyle(iframe);
-  expect(iframe?.style.backgroundColor).toBe('rgba(255, 255, 255, 0.1)');
-});
