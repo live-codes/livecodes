@@ -87,10 +87,12 @@ import { LiveCodes } from 'livecodes';
 const deck = new Reveal({
   plugins: [LiveCodes, Markdown],
   livecodes: {
-    markup: {
-      language: "markdown",
-      content: "# hello World!",
-    },
+    config:{
+      markup: {
+        language: "markdown",
+        content: "# hello World!",
+      },
+    }
     sdkReady: (item) => {
       console.log(item);
     },
@@ -112,10 +114,12 @@ import { LiveCodes } from 'livecodes';
 const deck = new Reveal({
   plugins: [LiveCodes, Markdown],
   livecodes: {
-    markup: {
-      language: "markdown",
-      content: "# hello World!",
-    },
+    config:{
+      markup: {
+        language: "markdown",
+        content: "# hello World!",
+      },
+    }
   },
   customStyle: { border: "5px solid pink", borderRadius: "8px" },
 });
@@ -137,7 +141,7 @@ Example:
   Slide 1
   <div
     data-livecodes
-    data-config='{"script":{"language":"javascript","content":"console.log(123)"}}'
+    data-config='{"config":{"script":{"language":"javascript","content":"console.log(123)"}}}'
   ></div>
 </section>
 ```
@@ -145,7 +149,7 @@ Example:
 ## Demo
 
 export const sdkDemo = {
-  html:'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>\n<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css"/>\n<div class="reveal">\n  <div class="slides">\n    <section>Slide 1\n        <div data-livecodes data-config=\'{"script":{"language":"javascript","content":"console.log(123)"}}\'></div>\n    </section>\n    <section>Slide 2\n      <div data-livecodes></div>\n    </section>\n  </div>\n</div>\n<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>\n<script src="https://cdn.jsdelivr.net/npm/livecodes@0.12.0/reveal.umd.js"></script>\n<script>\n  async function init() {\n    const res = await Reveal.initialize({\n      plugins: [LiveCodes],\n      livecodes: {\n        markup: {\n          language: "markdown",\n          content: "# Hello World!",\n        },\n      },\n      customStyle: {\n        backgroundColor: "rgba(255, 255, 255, 0.1)",\n      },\n   });\n  }\n  init();\n</script>'
+  html:'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>\n<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css"/>\n<div class="reveal">\n  <div class="slides">\n    <section>Slide 1\n        <div data-livecodes data-config=\'{"config":{"script":{"language":"javascript","content":"console.log(123)"}}}\'></div>\n    </section>\n    <section>Slide 2\n      <div data-livecodes></div>\n    </section>\n  </div>\n</div>\n<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>\n<script src="https://cdn.jsdelivr.net/npm/livecodes@0.12.0/reveal.umd.js"></script>\n<script>\n  async function init() {\n    const res = await Reveal.initialize({\n      plugins: [LiveCodes],\n      livecodes: {\n        config:{\n          markup: {\n            language: "markdown",\n            content: "# Hello World!",\n          },\n        }},\n      customStyle: {\n        backgroundColor: "rgba(255, 255, 255, 0.1)",\n      },\n   });\n  }\n  init();\n</script>'
 };
 
 <LiveCodes params={sdkDemo} height="80vh"/>
