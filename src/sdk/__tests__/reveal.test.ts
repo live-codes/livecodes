@@ -11,7 +11,7 @@ function expectCreatePlaygroundAndSdkFn(sdkReady: jest.MockedFunction<() => void
   expect(sdkReady).toHaveBeenCalledTimes(1);
 }
 
-function createContainer(config: string = "") {
+function createContainer(config: string = '') {
   const container = document.createElement('div');
   container.dataset.livecodes = '';
   if (config.length > 0) container.dataset.config = config;
