@@ -14,7 +14,7 @@
   "module": "./livecodes.js",
   "browser": "./livecodes.js",
   "types": "./livecodes.d.ts",
-  "jsdelivr": "./dist/reveal.umd.js",
+  "jsdelivr": "./livecodes.js",
   "exports": {
     ".": {
       "import": "./livecodes.js",

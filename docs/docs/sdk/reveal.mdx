@@ -56,7 +56,7 @@ TypeScript types are exported from this module.
 This allows TypeScript projects to import these types directly for full type safety and autocompletion:
 
 ```ts
-import type { LiveOptions, GlobalLiveCodesOptions, LiveCodesInstance } from '.livecodes/reveal.js';
+import type { LiveOptions, GlobalLiveCodesOptions, LiveCodesInstance } from './node_modules/livecodes/reveal.js';
 const myPlaygroundOptions: LiveOptions = {
   sdkReady: (sdk) => {
     console.log("Playground initialized:", sdk);
@@ -82,7 +82,7 @@ All [embed options](js-ts.mdx#embed-options) are available as config object with
 Example:
 
 ```js
-import { LiveCodes } from "./node_modules/mylpk/reveal.js";
+import { LiveCodes } from "./node_modules/livecodes/reveal.js";
 
 const deck = new Reveal({
   plugins: [LiveCodes, Markdown],
@@ -107,7 +107,7 @@ In addition, you can also pass a CSS object `customStyle` to specify the CSS pro
 Example:
 
 ```js
-import { LiveCodes } from "./node_modules/mylpk/reveal.js";
+import { LiveCodes } from "./node_modules/livecodes"/reveal.js";
 
 const deck = new Reveal({
   plugins: [LiveCodes, Markdown],
