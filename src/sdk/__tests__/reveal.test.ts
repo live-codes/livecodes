@@ -21,19 +21,21 @@ test('should do nothing when no [data-livecodes] element exists', async () => {
   expect(createPlayground).not.toHaveBeenCalled();
 });
 
-test('should initializes playground and triggers sdkReady when a livecodes container with config exists', async () => {
+test('should initializes playground and triggers sdkReady when a livecodes container with all configs exists', async () => {
   const sdkReady = jest.fn();
   const container = document.createElement('div');
   container.dataset.livecodes = '';
-  container.dataset.config = '{"script":{"language":"javascript","content":"console.log(123)"}}';
+  container.dataset.config =
+    '{"config":{"script":{"language":"javascript","content":"console.log(123)"}}}';
   document.body.appendChild(container);
   const mockDeck = {
-    getConfig: jest
-      .fn()
-      .mockReturnValue({
-        livecodes: { markup: { language: 'markdown', content: '# Hello world' }, sdkReady },
-        customStyle: { backgroundColor: 'rgba(255,255,255,0.1)' },
-      }),
+    getConfig: jest.fn().mockReturnValue({
+      livecodes: {
+        config: { script: { language: 'javascript', content: 'console.log(456)' } },
+        sdkReady,
+      },
+      customStyle: { backgroundColor: 'rgba(255,255,255,0.1)' },
+    }),
   } as any;
   LiveCodes.init(mockDeck);
   await new Promise(process.nextTick);
@@ -43,9 +45,98 @@ test('should initializes playground and triggers sdkReady when a livecodes conta
   const iframe = document.querySelector('.livecodes') as HTMLIFrameElement | null;
   expect(calledWith.config.script.language).toBe('javascript');
   expect(calledWith.config.script.content).toBe('console.log(123)');
-  expect(calledWith.config.markup.language).toBe('markdown');
-  expect(calledWith.config.markup.content).toBe('# Hello world');
   expect(iframe?.style.maxWidth).toBe('100%');
   expect(iframe?.style.maxHeight).toBe('100%');
   expect(iframe?.style.backgroundColor).toBe('rgba(255, 255, 255, 0.1)');
+});
+
+test('should initializes playground and triggers sdkReady when a livecodes container with global config exists', async () => {
+  const sdkReady = jest.fn();
+  const container = document.createElement('div');
+  container.dataset.livecodes = '';
+  document.body.appendChild(container);
+  const mockDeck = {
+    getConfig: jest.fn().mockReturnValue({
+      livecodes: {
+        config: { script: { language: 'javascript', content: 'console.log(456)' } },
+        sdkReady,
+      },
+      customStyle: { backgroundColor: 'rgba(255,255,255,0.1)' },
+    }),
+  } as any;
+  LiveCodes.init(mockDeck);
+  await new Promise(process.nextTick);
+  expect(createPlayground).toHaveBeenCalledTimes(1);
+  expect(sdkReady).toHaveBeenCalledTimes(1);
+  const calledWith = (createPlayground as jest.Mock).mock.calls[0][1];
+  const iframe = document.querySelector('.livecodes') as HTMLIFrameElement | null;
+  expect(calledWith.config.script.language).toBe('javascript');
+  expect(calledWith.config.script.content).toBe('console.log(456)');
+  expect(iframe?.style.maxWidth).toBe('100%');
+  expect(iframe?.style.maxHeight).toBe('100%');
+  expect(iframe?.style.backgroundColor).toBe('rgba(255, 255, 255, 0.1)');
+});
+
+test('should initializes playground and triggers sdkReady when a livecodes container with custom config exists', async () => {
+  const container = document.createElement('div');
+  container.dataset.livecodes = '';
+  container.dataset.config =
+    '{"config":{"script":{"language":"javascript","content":"console.log(123)"}}}';
+  document.body.appendChild(container);
+  const mockDeck = {
+    getConfig: jest.fn().mockReturnValue({}),
+  } as any;
+  LiveCodes.init(mockDeck);
+  await new Promise(process.nextTick);
+  expect(createPlayground).toHaveBeenCalledTimes(1);
+  const calledWith = (createPlayground as jest.Mock).mock.calls[0][1];
+  const iframe = document.querySelector('.livecodes') as HTMLIFrameElement | null;
+  expect(calledWith.config.script.language).toBe('javascript');
+  expect(calledWith.config.script.content).toBe('console.log(123)');
+  expect(iframe?.style.maxWidth).toBe('100%');
+  expect(iframe?.style.maxHeight).toBe('100%');
+});
+
+test('should Apply Custom Config Over Global Config And Trigger Sdk Ready', async () => {
+  const sdkReady = jest.fn();
+  const container = document.createElement('div');
+  container.dataset.livecodes = '';
+  container.dataset.config =
+    '{"config":{"script":{"language":"javascript","content":"console.log(123)"}}}';
+  document.body.appendChild(container);
+  const mockDeck = {
+    getConfig: jest.fn().mockReturnValue({
+      livecodes: {
+        config: { script: { language: 'javascript', content: 'console.log(456)' } },
+        sdkReady,
+      },
+      customStyle: { backgroundColor: 'rgba(255,255,255,0.1)' },
+    }),
+  } as any;
+  LiveCodes.init(mockDeck);
+  await new Promise(process.nextTick);
+  expect(createPlayground).toHaveBeenCalledTimes(1);
+  expect(sdkReady).toHaveBeenCalledTimes(1);
+  const calledWith = (createPlayground as jest.Mock).mock.calls[0][1];
+  const iframe = document.querySelector('.livecodes') as HTMLIFrameElement | null;
+  expect(calledWith.config.script.language).toBe('javascript');
+  expect(calledWith.config.script.content).toBe('console.log(123)');
+  expect(iframe?.style.maxWidth).toBe('100%');
+  expect(iframe?.style.maxHeight).toBe('100%');
+  expect(iframe?.style.backgroundColor).toBe('rgba(255, 255, 255, 0.1)');
+});
+
+test('should initializes playground and triggers sdkReady when a livecodes container with no config', async () => {
+  const container = document.createElement('div');
+  container.dataset.livecodes = '';
+  document.body.appendChild(container);
+  const mockDeck = {
+    getConfig: jest.fn().mockReturnValue({}),
+  } as any;
+  LiveCodes.init(mockDeck);
+  await new Promise(process.nextTick);
+  expect(createPlayground).toHaveBeenCalledTimes(1);
+  const iframe = document.querySelector('.livecodes') as HTMLIFrameElement | null;
+  expect(iframe?.style.maxWidth).toBe('100%');
+  expect(iframe?.style.maxHeight).toBe('100%');
 });
