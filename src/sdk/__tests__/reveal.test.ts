@@ -64,3 +64,20 @@ test('should initializes playground and triggers sdkReady when a livecodes conta
   expectIframeDefaultStyle(iframe);
   expect(iframe?.style.backgroundColor).toBe('rgba(255, 255, 255, 0.1)');
 });
+
+test('should initialize multiple playgrounds when multiple livecodes containers exist', async () => {
+  const sdkReady = jest.fn();
+  createContainer('{"config":{"script":{"language":"javascript","content":"console.log(1)"}}}');
+  createContainer('{"config":{"script":{"language":"javascript","content":"console.log(2)"}}}');
+  const mockDeck = {
+    getConfig: jest.fn().mockReturnValue({
+      livecodes: { sdkReady },
+    }),
+  } as any;
+  LiveCodes.init(mockDeck);
+  await new Promise(process.nextTick);
+  expect(createPlayground).toHaveBeenCalledTimes(2);
+  expect(sdkReady).toHaveBeenCalledTimes(2);
+  const iframes = document.querySelectorAll('.livecodes');
+  expect(iframes.length).toBe(2);
+});
