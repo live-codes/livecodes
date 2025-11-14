@@ -1,7 +1,7 @@
 import type Reveal from 'reveal.js';
 import { createPlayground } from './index';
 // eslint-disable-next-line import/order
-import type { EmbedOptions, Playground } from './models';
+import type { Config, EmbedOptions, Playground } from './models';
 
 export interface LiveOptions extends EmbedOptions {
   sdkReady?: (sdk: Playground) => void;
@@ -24,6 +24,21 @@ const initIframeStyle = (iframe: HTMLIFrameElement, styles: Partial<CSSStyleDecl
   }
 };
 
+const applyConfigAndSdkFn = async function (
+  sdkItem: Playground,
+  sdkReadyfn?: (sdk: Playground) => void,
+  config?: string | Partial<Config>,
+) {
+  if (typeof config === 'string') {
+    await fetch(config)
+      .then((res) => res.json())
+      .then((json) => sdkItem.setConfig(json));
+  }
+  if (typeof sdkReadyfn === 'function') {
+    sdkReadyfn(sdkItem);
+  }
+};
+
 export const LiveCodes = {
   id: 'LiveCodes',
   init(deck: InstanceType<typeof Reveal>) {
@@ -38,7 +53,32 @@ export const LiveCodes = {
     const customStyle = config.customStyle || {};
     const promises = containers.map((container) => {
       const localOptions = container.dataset.config || '{}';
-      const finalOptions = { config: { ...globalOptions, ...JSON.parse(localOptions) } };
+      const parsedLocalOptions = JSON.parse(localOptions);
+      let finalOptions: EmbedOptions;
+      if (typeof globalOptions.config === 'string') {
+        finalOptions = {
+          ...globalOptions,
+          ...parsedLocalOptions,
+          config: {
+            ...parsedLocalOptions.config,
+          },
+        };
+      } else {
+        finalOptions = {
+          ...globalOptions,
+          ...parsedLocalOptions,
+          config: {
+            ...globalOptions.config,
+            ...parsedLocalOptions.config,
+          },
+        };
+      }
+      if (
+        typeof finalOptions.config === 'object' &&
+        Object.keys(finalOptions.config).length === 0
+      ) {
+        delete finalOptions.config;
+      }
       return createPlayground(container, finalOptions);
     });
     Promise.all(promises).then((sdk) => {
@@ -46,8 +86,8 @@ export const LiveCodes = {
       iframes.forEach((iframe) =>
         initIframeStyle(iframe, { maxWidth: '100%', maxHeight: '100%', ...customStyle }),
       );
-      if (typeof sdkReadyfn === 'function') {
-        sdk.forEach((itemSdk) => sdkReadyfn(itemSdk));
+      for (const sdkItem of sdk) {
+        applyConfigAndSdkFn(sdkItem, sdkReadyfn, globalOptions.config);
       }
     });
   },
