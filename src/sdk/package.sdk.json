@@ -27,6 +27,9 @@
     "./vue": {
       "import": "./vue.js"
     },
+    "./reveal": {
+      "import": "./dist/reveal.umd.js"
+    },
     "./package.json": "./package.json"
   }
 }
