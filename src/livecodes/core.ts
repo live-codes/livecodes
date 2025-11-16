@@ -2857,8 +2857,9 @@ const handleCommandMenu = async () => {
   let anotherShortcut = false;
   const onHotkey = async (e: KeyboardEvent) => {
     // Ctrl+K opens the command menu
+    // do not open the menu if shortcut is Ctrl+Shift+K
     // wait for 500ms to allow other shortcuts like Ctrl+K Ctrl+0
-    if (!ctrl(e)) {
+    if (!ctrl(e) || e.shiftKey) {
       anotherShortcut = false;
       return;
     }
