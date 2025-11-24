@@ -1,0 +1,439 @@
+---
+toc_max_heading_level: 4
+---
+
+# Ripple
+
+[Ripple](https://www.ripplejs.com/) is a TypeScript UI framework that takes the best parts of React, Solid and Svelte and combines them into one package.
+
+Ripple components can be used in LiveCodes as documented in the [Ripple docs](https://github.com/trueadm/ripple). See below for usage.
+
+## Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+export const demo = {
+  activeEditor: 'script',
+  script: {
+    language: 'ripple',
+    content: `import { track } from 'ripple';
+
+export default component Counter() {
+  let count = track(0);
+  let doubled = track(() => @count * 2);
+
+  <div class='container'>
+    <h2>{'Counter'}</h2>
+    <p>{\`Count: \${@count}\`}</p>
+    <p>{\`Doubled: \${@doubled}\`}</p>
+
+    <button onClick={() => @count++}>{'Increment'}</button>
+    <button onClick={() => @count = 0}>{'Reset'} </button>
+  </div>
+
+  <style>
+  .container {
+    text-align: center;
+    font-family: "Arial", sans-serif;
+  }
+
+  button {
+    font-size: 1em;
+    padding: 6px 12px;
+    margin: 0 6px;
+    cursor: pointer;
+    border: none;
+    font-family: "Courier New", monospace;
+  }
+
+  button:hover {
+    background-color: #e0e0e0;
+  }
+  </style>
+}`,
+  },
+}
+
+<LiveCodes config={demo} />
+
+
+## Mounting
+
+### Auto-rendering
+
+A component is mounted and rendered automatically as a Ripple component (without having to [manually mount](#manual-mount) it) if the following conditions are met:
+
+- The component is exported as the default export.
+- No [imports from `"./script"`](#exports) in markup editor.
+- Auto-rendering is not [disabled](#disabling-auto-rendering).
+
+### Root Element
+
+To mount the application instance to a specific DOM element use `"livecodes-app"` as the element `id` in the HTML. Otherwise, if that element is not found, a new `div` element is added to `document.body` and is used to mount the instance.
+In case you need more control, you can [manually mount](#manual-mount) the instance.
+
+Example:
+
+export const customRoot = {
+  markup: {
+    language: 'html',
+    content: `<h1>Custom Root Element</h1>
+<div id="livecodes-app"></div>
+<div>...other page content</div>
+`,
+  },
+  script: {
+    language: 'ripple',
+    content: `import { track } from 'ripple';
+
+export default component App() {
+  let name = track('Ripple');
+  <div>{\`I'm a \${@name} component\`}</div>
+  <style>
+    div {
+      color: #0e5ca3;
+      margin-bottom: 1em;
+    }
+  </style>
+}
+`,
+  },
+};
+
+<LiveCodes config={customRoot} />
+
+
+### Manual Mount
+
+Exports from Ripple code can be imported in [markup editor](../features/projects.mdx#markup-editor) from `"./Component.ripple"` and used to mount the application instance manually.
+See [Exports](#exports) for details.
+
+Example:
+
+export const manualMount = {
+  markup: {
+    language: 'html',
+    content: `<h1>Manual Mount</h1>
+<div id="root"></div>
+<div>...other page content</div>
+
+<script type="module">
+  import { mount } from 'ripple';
+  import { App } from "./Component.ripple";
+
+  mount(App, {
+    props: { name: 'Ripple' },
+    target: document.getElementById('root'),
+  });
+</script>
+`,
+  },
+  script: {
+    language: 'ripple',
+    content: `export component App(props: { name: string }) {
+  <div>{\`I'm a \${props.name} component\`}</div>
+  <style>
+    div {
+      color: #0e5ca3;
+      margin-bottom: 1em;
+    }
+  </style>
+}
+`,
+  },
+};
+
+<LiveCodes config={manualMount} />
+
+### Disabling Auto-rendering
+
+To disable [auto-rendering](#auto-rendering), set the [custom settings](#custom-settings) `disableAutoRender` property to `true`.
+
+```json title="Custom Settings"
+{
+  "ripple": {
+    "disableAutoRender": true
+  }
+}
+```
+
+## Importing Modules
+
+### NPM Modules
+
+npm modules can be imported as described in the section about [module resolution](../features/module-resolution.mdx), including bare module imports and importing from different CDNs. Stylesheets imported in the `script` block are added as `<link rel="stylesheet">` tags in the page `head` (see [below](#importing-stylesheets)).
+
+Module imports can be customized using import maps as described in [module resolution](../features/module-resolution.mdx#custom-module-resolution) documentations.
+
+Example:
+
+export const importsDemo = {
+  ripple: `import { track, effect } from "ripple";
+import confetti from "canvas-confetti";
+
+export default component App() {
+  <div class="container">
+    let count = track(0);
+
+    effect(() => {
+      if (@count === 2) confetti();
+    });
+
+    <button onClick={() => @count++}>{@count}</button>
+
+    if (@count > 1) {
+      <div>{'Greater than 1!'}</div>
+    }
+  </div>
+
+  <style>
+    button {
+      padding: 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+}
+`,
+};
+
+<LiveCodes  params={importsDemo}  formatCode={false} />
+
+### External Components
+
+External Ripple components can be imported.
+The import URL can be either:
+- An absolute URL ending with `.ripple` extension.
+- A [bare module import](../features/module-resolution.mdx#bare-module-imports) for a published npm module with full path to the component with extension.
+- A [data URL](../features/data-urls.mdx) starting with `data:text/ripple`.
+
+Any bare or relative imports in the imported files are resolved and compiled recursively.
+If a processor is enabled (e.g. Tailwind CSS), classes in the imported files are detected and used in the generated CSS (see [CSS Frameworks](#css-frameworks) section below).
+
+Example: ([source](https://github.com/hatemhosny/ripple-tailwind-counter-demo))
+
+export const externalComponents = {
+  activeEditor: 'script',
+  script: {
+    language: 'ripple',
+    content: `// import from npm modules
+import { track } from 'ripple';
+import { Counter } from 'ripple-tailwind-counter-demo/src/Counter.ripple';
+// alternatively use absolute URLs
+// import { Counter } from 'https://raw.githubusercontent.com/hatemhosny/ripple-tailwind-counter-demo/refs/heads/main/src/Counter.ripple';
+
+export default component App() {
+  let name = track("World");
+
+  setTimeout(() => {
+    @name = "Ripple + Tailwind!";
+  }, 2000);
+
+ <Counter {name} />
+}
+`,
+  },
+  processors: ['tailwindcss'],
+}
+
+<LiveCodes config={externalComponents} />
+
+### Exports
+
+Values exported from [script editor](../features/projects.mdx#script-editor) (default or named) can be imported in the [markup editor](../features/projects.mdx#markup-editor) by importing from `"./script"` (with no extension).
+
+This can be useful, for example, for [manually mounting](#manual-mount) components in the markup editor.
+
+:::info note
+
+When values are imported from `"./script"`, [auto-rendering](#auto-rendering) is disabled, because it is assumed that you want to take control over component rendering.
+
+:::
+
+## Styles
+
+CSS can be applied to the component using various ways:
+
+### Component Styles
+
+Styles in a `style` tag in a Ripple component are applied to that component only.
+
+CSS processors (e.g. SCSS, Stylus) can be used by specifying a `lang` attribute for the `style` tag.
+
+Example:
+
+export const styleTag = {
+  ripple: `export default component App() {
+  <h1>{'Hello World!'}</h1>
+
+  <style lang="scss">
+    $primary-color: #348734;
+    h1 {
+      color: $primary-color;
+    }
+  </style>
+}
+`
+}
+
+<RunInLiveCodes
+  params={styleTag}
+  code={styleTag.ripple}
+  language="jsx"
+  formatCode={false}
+></RunInLiveCodes>
+
+
+### Style Editor
+
+Styles added in the [style editor](../features/projects.mdx#style-editor) are applied globally to the [result page](../features/result.mdx). This can use different **languages/processors** supported in LiveCodes including CSS, SCSS, Less, Stylus, ..etc. See [style documentation](../features/css.mdx) for more details.
+
+And of course, styles and stylesheets added in [markup editor](../features/projects.mdx#markup-editor) are also applied globally.
+
+### Importing Stylesheets
+
+Stylesheets imported in [script editor](../features/projects.mdx#script-editor) are added as `<link rel="stylesheet">` tags in the page `head`.
+The stylesheet URL can be an absolute URL or a path in the npm package. The URL has to end with `".css"`.
+
+example:
+
+export const stylesDemo = {
+  ripple: `import "bootstrap/dist/css/bootstrap.css";\n\nexport default component App() {\n  <h1 class="m-5 text-center">{'Hello World!'}</h1>\n}\n`,
+};
+
+<RunInLiveCodes
+  params={stylesDemo}
+  code={stylesDemo.ripple}
+  language="jsx"
+  formatCode={false}
+></RunInLiveCodes>
+
+### CSS Modules
+
+CSS modules are supported and are [documented separately](./cssmodules.mdx). Make sure to enable CSS modules (from style editor menu or in [`processors`](../configuration/configuration-object.mdx#processors) property of [configuration object](../configuration/configuration-object.mdx)).
+
+Demo:
+
+export const cssModulesDemo = {
+  activeEditor: 'script',
+  style: { language: 'css', content: `.title {\n  color: green;\n  font-family: sans-serif;\n}\n` },
+  script: {
+    language: 'ripple',
+    content: `import classes from './style.module.css';\n\nexport default component() {\n  <h1 class={classes.title}>\n    {'Hello, CSS Modules!'}\n  </h1>\n}\n`,
+  },
+  processors: ['cssmodules'],
+};
+
+<LiveCodes config={cssModulesDemo}></LiveCodes>
+
+### CSS Frameworks
+
+[CSS Frameworks](../features/css.mdx#css-processors) supported in LiveCodes (e.g. [Tailwind CSS](./tailwindcss.mdx), [UnoCSS](./unocss.mdx), [WindiCSS](./windicss.mdx)) can detect class names added in Ripple components.
+Make sure that the required utility is enabled (from style editor menu or in `processors` property of [configuration object](../configuration/configuration-object.mdx#processors)).
+
+Example:
+
+export const tailwindDemo = {
+  activeEditor: 'script',
+  script: {
+    language: 'ripple',
+  content: `import { track } from 'ripple';
+
+export default component Counter() {
+  let count = track(0);
+
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <h1 class="header">{'Ripple + Tailwind CSS'}</h1>
+    <div class="flex items-center space-x-4 mb-4">
+      <button
+        onClick={() => @count--}
+        class="w-12 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition cursor-pointer"
+      >
+        {'-'}
+      </button>
+      <span class="text-3xl font-semibold text-gray-800">{@count}</span>
+      <button
+        onClick={() => @count++}
+        class="w-12 px-4 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 transition cursor-pointer"
+      >
+        {'+'}
+      </button>
+    </div>
+    <button
+      onClick={() => @count = 0}
+      class="px-6 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition cursor-pointer"
+    >
+      {'Reset'}
+    </button>
+  </div>
+
+  <style>
+    .header {
+      @apply text-2xl font-bold text-gray-800 mb-4;
+    }
+  </style>
+}
+`,
+  },
+  processors: ['tailwindcss'],
+};
+
+<LiveCodes config={tailwindDemo} />
+
+## Language Info
+
+### Name
+
+`ripple`
+
+### Extensions
+
+`.ripple`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The official [Ripple compiler](https://github.com/trueadm/ripple).
+
+### Version
+
+`ripple`: v0.2.15
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) can be added to the property `ripple`.
+These include:
+
+- `"disableAutoRender"` - [disables auto-rendering](#disabling-auto-rendering) (default: `false`).
+- `"version"` - specifies the version of Ripple compiler (default: `"latest"`).
+
+Example:
+
+```json title="Custom Settings"
+{
+  "ripple": {
+    "version": "0.2.15"
+  }
+}
+```
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+## Starter Template
+
+https://livecodes.io/?template=ripple
+
+<LiveCodes template="ripple" height="400"></LiveCodes>
+
+## Links
+
+- [Ripple](https://ripplejs.com/)
+- [Ripple documentations](https://github.com/trueadm/ripple)

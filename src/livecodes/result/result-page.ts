@@ -11,6 +11,7 @@ import {
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import { reactRuntime } from '../languages/jsx/react-runtime';
 import { reactNativeRuntime } from '../languages/react-native/react-native-runtime';
+import { rippleRuntime } from '../languages/ripple/ripple-runtime';
 import { solidRuntime } from '../languages/solid/solid-runtime';
 import { hasCustomJsxRuntime } from '../languages/typescript';
 import type { Cache, CompileInfo, Config, EditorId, Language } from '../models';
@@ -217,6 +218,7 @@ export const createResultPage = async ({
     'react-native-tsx': reactNativeRuntime,
     solid: solidRuntime,
     'solid.tsx': solidRuntime,
+    ripple: rippleRuntime,
   };
   const jsxRuntime = jsxRuntimes[code.script.language] || '';
   const reactImport =
@@ -446,7 +448,7 @@ export const createResultPage = async ({
     }
   }
 
-  // React JSX runtime
+  // JSX runtime
   if (shouldInsertJsxRuntime) {
     const jsxRuntimeScript = dom.createElement('script');
     jsxRuntimeScript.type = 'module';

@@ -1,0 +1,82 @@
+# Ripple
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+The [JS/TS SDK](js-ts.mdx) can be used directly in [Ripple](https://ripplejs.com) components without the need for any wrappers.
+
+## Installation
+
+Please refer to the [SDK installation](./index.mdx#installation) section.
+
+## Usage
+
+This is an example of using the LiveCodes JS SDK in a Ripple component:
+
+```jsx title="App.ripple"
+import { createPlayground, type EmbedOptions, type Playground } from 'livecodes';
+
+export default component App() {
+  const options: EmbedOptions = {
+    params: {
+      html: '<h1>Hello World!</h1>',
+      css: 'h1 {color: blue;}',
+      js: 'console.log("Hello, Ripple!")',
+      console: 'open',
+    },
+  };
+
+  let playground: Playground | null = null;
+  const onMount = (container: HTMLElement) => {
+    createPlayground(container, options).then((sdk) => {
+      playground = sdk; // now the SDK is available
+    });
+    return () => playground?.destroy();
+  };
+
+  <div {ref onMount}></div>
+}
+```
+
+export const rippleSDKDemo = {
+  ripple: `import { createPlayground, type EmbedOptions, type Playground } from 'livecodes';
+
+export default component App() {
+  const options: EmbedOptions = {
+    params: {
+      html: '<h1>Hello World!</h1>',
+      css: 'h1 {color: blue;}',
+      js: 'console.log("Hello, Ripple!")',
+      console: 'open',
+    },
+  };
+
+  let playground: Playground | null = null;
+  const onMount = (container: HTMLElement) => {
+    createPlayground(container, options).then((sdk) => {
+      playground = sdk; // now the SDK is available
+    });
+    return () => playground?.destroy();
+  };
+
+  <div {ref onMount}></div>
+}
+`,
+};
+
+<RunInLiveCodes params={rippleSDKDemo}></RunInLiveCodes>
+
+[Embed options](./js-ts.mdx#embed-options), [SDK methods](./js-ts.mdx#sdk-methods) and [TypeScript types](./js-ts.mdx#typescript-types) are available as described in the [JS/TS SDK documentations](./js-ts.mdx).
+
+## Demo
+
+<LiveCodes params={rippleSDKDemo} height="80vh" />
+
+## Related
+
+- [SDK Installation](./index.mdx#installation)
+- [JS/TS SDK](./js-ts.mdx)
+- [React SDK](./react.mdx)
+- [Vue SDK](./vue.mdx)
+- [Using SDK in Svelte](./svelte.mdx)
+- [Embedded Playgrounds](../features/embeds.mdx)

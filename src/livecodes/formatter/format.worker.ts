@@ -1,6 +1,6 @@
 import { defaultConfig } from '../config/default-config';
 import { languages, parserPlugins, prettierUrl } from '../languages';
-import type { FormatFn, FormatterConfig, Language, Parser } from '../models';
+import type { Config, FormatFn, FormatterConfig, Language, Parser } from '../models';
 import type { FormatterMessage, FormatterMessageEvent } from './models';
 
 const worker: Worker = self as any;
@@ -9,6 +9,7 @@ declare const prettierPlugins: { [key: string]: { parsers: any } };
 declare const importScripts: (...args: string[]) => void;
 
 let baseUrl: string;
+let initialConfig: Config;
 const parsers: { [key: string]: Parser } = {};
 const plugins: { [key: string]: any } = {};
 const formatters: { [key: string]: FormatFn } = {};
@@ -46,7 +47,7 @@ const load = (languages: Language[]) => {
   }
 };
 
-function loadParser(language: Language): Parser | undefined {
+async function loadParser(language: Language): Promise<Parser | undefined> {
   if (!(self as any).prettier) {
     loadPrettier();
   }
@@ -60,26 +61,33 @@ function loadParser(language: Language): Parser | undefined {
   if (!(self as any).prettierPlugins) {
     (self as any).prettierPlugins = {};
   }
-  parser.plugins = parser.pluginUrls
-    .map((pluginUrl) => {
-      if (plugins[pluginUrl]) return true;
-      try {
-        importScripts(pluginUrl);
-        plugins[pluginUrl] = true;
-        if (!prettierPlugins.pug && (self as any).pluginPug) {
-          prettierPlugins.pug = (self as any).pluginPug;
+  parser.plugins = (
+    await Promise.all(
+      parser.pluginUrls.map(async (pluginUrl) => {
+        if (plugins[pluginUrl]) return true;
+        if (language === 'ripple') {
+          const p = await import(pluginUrl);
+          prettierPlugins[language] = p;
+          return true;
         }
-        if (!prettierPlugins.java && (self as any).pluginJava?.default) {
-          prettierPlugins.java = (self as any).pluginJava.default;
+        try {
+          importScripts(pluginUrl);
+          plugins[pluginUrl] = true;
+          if (!prettierPlugins.pug && (self as any).pluginPug) {
+            prettierPlugins.pug = (self as any).pluginPug;
+          }
+          if (!prettierPlugins.java && (self as any).pluginJava?.default) {
+            prettierPlugins.java = (self as any).pluginJava.default;
+          }
+          return true;
+        } catch {
+          // eslint-disable-next-line no-console
+          console.warn('Failed to load formatter for: ' + language);
+          return false;
         }
-        return true;
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn('Failed to load formatter for: ' + language);
-        return false;
-      }
-    })
-    .filter(Boolean);
+      }),
+    )
+  ).filter(Boolean);
 
   if (parser.plugins.length > 0) {
     parsers[language] = parser;
@@ -87,7 +95,7 @@ function loadParser(language: Language): Parser | undefined {
   return parser;
 }
 
-const loadFormatter = (language: Language): FormatFn | undefined => {
+const loadFormatter = async (language: Language): Promise<FormatFn | undefined> => {
   if (language in formatters) {
     return formatters[language];
   }
@@ -95,7 +103,7 @@ const loadFormatter = (language: Language): FormatFn | undefined => {
   const formatter = getFormatter(language);
   if (!formatter) return;
 
-  formatters[language] = formatter.factory(baseUrl, language);
+  formatters[language] = await formatter.factory(baseUrl, language, initialConfig);
   return formatters[language];
 };
 
@@ -108,7 +116,7 @@ const format = async (
   const unFormatted = { formatted: value, cursorOffset };
 
   if (getParser(language) != null) {
-    const parser = loadParser(language);
+    const parser = await loadParser(language);
     const options = {
       useTabs: formatterConfig.useTabs ?? defaultConfig.useTabs,
       tabWidth: formatterConfig.tabSize ?? defaultConfig.tabSize,
@@ -116,17 +124,19 @@ const format = async (
       singleQuote: formatterConfig.singleQuote ?? defaultConfig.singleQuote,
       trailingComma: formatterConfig.trailingComma === false ? 'none' : 'all',
     };
-    return (
-      (await (self as any).prettier.formatWithCursor(value, {
-        parser: parser?.name,
-        plugins: prettierPlugins,
-        cursorOffset,
-        ...options,
-      })) || unFormatted
-    );
+    let formatted = await (self as any).prettier.formatWithCursor(value, {
+      parser: parser?.name,
+      plugins: prettierPlugins,
+      cursorOffset,
+      ...options,
+    });
+    if (typeof parser?.postFormat === 'function') {
+      formatted = await parser.postFormat(formatted);
+    }
+    return formatted || unFormatted;
   }
   if (getFormatter(language) != null) {
-    const formatFn = loadFormatter(language);
+    const formatFn = await loadFormatter(language);
     const result = await formatFn?.(value, cursorOffset);
     return result || unFormatted;
   }
@@ -139,7 +149,8 @@ worker.addEventListener(
     const message = event.data;
 
     if (message.type === 'init') {
-      baseUrl = message.baseUrl;
+      baseUrl = message.payload.baseUrl;
+      initialConfig = message.payload.config;
     }
 
     if (message.type === 'load') {

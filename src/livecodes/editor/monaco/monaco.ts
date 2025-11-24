@@ -22,9 +22,13 @@ import {
   codeiumProviderUrl,
   emmetMonacoUrl,
   monacoBaseUrl,
+  monacoEditorTextmateUrl,
   monacoEmacsUrl,
+  monacoTextmateUrl,
   monacoVimUrl,
   monacoVolarUrl,
+  onigasmUrl,
+  onigasmWasmUrl,
   vendorsBaseUrl,
 } from '../../vendors';
 import { getEditorTheme } from '../themes';
@@ -90,9 +94,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         ? 'csharp'
         : language.startsWith('vue')
           ? 'vue'
-          : ['svelte', 'malina', 'riot'].includes(language)
-            ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
-            : mapLanguage(language);
+          : language === 'ripple'
+            ? 'ripple'
+            : ['svelte', 'malina', 'riot'].includes(language)
+              ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
+              : mapLanguage(language);
 
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;
@@ -254,6 +260,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     astro: baseUrl + '{{hash:monaco-lang-astro.js}}',
     clio: baseUrl + '{{hash:monaco-lang-clio.js}}',
     imba: baseUrl + '{{hash:monaco-lang-imba.js}}',
+    ripple: baseUrl + '{{hash:monaco-lang-ripple.js}}',
     // sql: baseUrl + '{{hash:monaco-lang-sql.js}}', // TODO: add autocomplete
     wat: baseUrl + '{{hash:monaco-lang-wat.js}}',
   };
@@ -275,6 +282,54 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setTheme(currentTheme, currentEditorTheme);
   };
 
+  async function registerFromTextMate(
+    langs: Array<{
+      name: string;
+      scopeName: string;
+      syntax: string;
+    }>,
+  ) {
+    await addVueSupport(); // a workaround for TextMate syntax
+
+    const { loadWASM } = await import(onigasmUrl);
+    const { Registry } = await import(monacoTextmateUrl);
+    const { wireTmGrammars } = await import(monacoEditorTextmateUrl);
+
+    await loadWASM(onigasmWasmUrl);
+
+    const registry = new Registry({
+      getGrammarDefinition: async (scopeName: string) => ({
+        format: 'json',
+        content: langs.find((l) => l.scopeName === scopeName)?.syntax ?? '',
+      }),
+    });
+
+    const grammars = new Map();
+    for (const { name, scopeName } of langs) {
+      grammars.set(name, scopeName);
+      monaco.languages.register({ id: name });
+    }
+    await wireTmGrammars(monaco, registry, grammars, editor);
+  }
+
+  const addRippleSupport = async (syntaxes: {
+    ripple: Record<string, unknown>;
+    css: Record<string, unknown>;
+  }) => {
+    await registerFromTextMate([
+      {
+        name: 'ripple',
+        scopeName: 'source.ripple',
+        syntax: JSON.stringify(syntaxes.ripple),
+      },
+      {
+        name: 'CSS',
+        scopeName: 'source.css',
+        syntax: JSON.stringify(syntaxes.css),
+      },
+    ]);
+  };
+
   const loadMonacoLanguage = async (lang: Language) => {
     if (monacoMapLanguage(lang) === 'vue') {
       await addVueSupport();
@@ -289,6 +344,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       }
       if (mod.tokens) {
         monaco.languages.setMonarchTokensProvider(lang, mod.tokens);
+      }
+      if (lang === 'ripple') {
+        await addRippleSupport({ ripple: (mod as any).syntax, css: (mod as any).cssSyntax });
+        return;
       }
     }
   };

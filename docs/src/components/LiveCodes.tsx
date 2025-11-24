@@ -87,6 +87,20 @@ export default function App() {
 
 `.trimStart();
 
+  const rippleCode = `
+import { createPlayground, type EmbedOptions } from 'livecodes';
+
+export default component App() {
+  const options: EmbedOptions = ${stringify(options).split('\n').join('\n  ')};
+  const onMount = (container: HTMLElement) => {
+    createPlayground(container, options);
+  };
+
+  <div {ref onMount}></div>
+}
+
+`.trimStart();
+
   return (
     <>
       <LiveCodesReact
@@ -111,6 +125,7 @@ export default function App() {
           vue={vueCode}
           svelte={svelteCode}
           solid={solidCode}
+          ripple={rippleCode}
         ></ShowCode>
       )}
     </>

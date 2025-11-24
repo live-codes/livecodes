@@ -60,6 +60,7 @@ import { reason } from './reason';
 import { rescript } from './rescript';
 import { richtext } from './richtext';
 import { riot } from './riot';
+import { ripple } from './ripple';
 import { ruby } from './ruby';
 import { rubyWasm } from './ruby-wasm';
 import { scheme } from './scheme';
@@ -129,6 +130,7 @@ export const languages: LanguageSpecs[] = [
   solidTsx,
   riot,
   malina,
+  ripple,
   coffeescript,
   livescript,
   civet,

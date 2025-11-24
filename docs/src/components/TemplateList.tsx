@@ -23,6 +23,7 @@ const templates = [
   { name: 'astro', title: 'Astro Starter', thumbnail: 'astro.svg' },
   { name: 'riot', title: 'Riot.js Starter', thumbnail: 'riot.svg' },
   { name: 'malina', title: 'Malina.js Starter', thumbnail: 'malina.svg' },
+  { name: 'ripple', title: 'Ripple Starter', thumbnail: 'ripple-0.png' },
   { name: 'jquery', title: 'jQuery Starter', thumbnail: 'jquery.svg' },
   { name: 'backbone', title: 'Backbone Starter', thumbnail: 'backbone.svg' },
   { name: 'knockout', title: 'Knockout Starter', thumbnail: 'knockout.svg' },

@@ -302,7 +302,11 @@ export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js'
 
 export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.3.1/');
 
+export const monacoEditorTextmateUrl = /* @__PURE__ */ getModuleUrl('monaco-editor-textmate@4.0.0');
+
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
+
+export const monacoTextmateUrl = /* @__PURE__ */ getModuleUrl('monaco-textmate@3.0.1');
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
 
@@ -321,6 +325,10 @@ export const nomnomlCdnUrl = /* @__PURE__ */ getUrl('nomnoml@1.6.1/dist/nomnoml.
 export const normalizeCssUrl = /* @__PURE__ */ getUrl('normalize.css@8.0.1/normalize.css');
 
 export const nunjucksBaseUrl = /* @__PURE__ */ getUrl('nunjucks@3.2.4/browser/');
+
+export const onigasmUrl = /* @__PURE__ */ getModuleUrl('onigasm@2.2.5');
+
+export const onigasmWasmUrl = /* @__PURE__ */ getUrl('onigasm@2.2.5/lib/onigasm.wasm');
 
 export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1.8.2/');
 
@@ -341,6 +349,8 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
 );
 
 export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
+
+export const prettierEsmUrl = /* @__PURE__ */ getModuleUrl('prettier@3.3.2/standalone');
 
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.22.2/standalone.js');
 

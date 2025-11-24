@@ -8,6 +8,7 @@ extend-exclude = [
   "src/livecodes/services/google-fonts.ts",             # Font name
   "src/livecodes/templates/starter/blockly-starter.ts", # Random string id
   "functions/vendors/*.js",                             # Built files
+  "src/livecodes/editor/monaco/languages/monaco-lang-ripple.ts"
 ]
 
 [default]

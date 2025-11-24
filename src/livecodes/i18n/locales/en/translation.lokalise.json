@@ -2752,6 +2752,10 @@
     "notes": "",
     "translation": "Riot.js Starter"
   },
+  "templates.starter.ripple": {
+    "notes": "",
+    "translation": "Ripple Starter"
+  },
   "templates.starter.ruby": {
     "notes": "",
     "translation": "Ruby Starter"

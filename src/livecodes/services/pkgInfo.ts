@@ -217,9 +217,17 @@ const getPkgDefaultFiles = async (
   };
 };
 
+const getPkgLatestVersion = async (pkgName: string): Promise<string> => {
+  const pkg = await fetch(`${apiEndpoint}/packages/npm/${pkgName}`, { headers: jsDelivrHeaders })
+    .then((res) => res.json())
+    .catch(() => ({}));
+  return pkg.tags?.latest || 'latest';
+};
+
 export const pkgInfoService: CDNService = {
   search,
   getPkgInfo,
   getPkgFiles,
   getPkgDefaultFiles,
+  getPkgLatestVersion,
 };

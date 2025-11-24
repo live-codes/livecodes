@@ -32,6 +32,7 @@ export default [
       '**/.jest',
       '**/.storybook',
       'functions/vendors',
+      'src/livecodes/editor/monaco/languages/monaco-lang-ripple.ts',
     ],
   },
   ...fixupConfigRules(

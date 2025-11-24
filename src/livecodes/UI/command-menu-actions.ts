@@ -266,6 +266,7 @@ export const getCommandMenuActions = ({
         'preact',
         'svelte',
         'solid',
+        'ripple',
         'lit',
         'stencil',
         'mdx',

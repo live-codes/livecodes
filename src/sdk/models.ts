@@ -1247,6 +1247,7 @@ export type ParserName =
   | 'babel-ts'
   | 'babel-flow'
   | 'glimmer'
+  | 'ripple'
   | 'html'
   | 'markdown'
   | 'css'
@@ -1260,6 +1261,10 @@ export interface Parser {
   name: ParserName;
   plugins?: any[];
   pluginUrls: string[];
+  postFormat?: (parsed: {
+    formatted: string;
+    cursorOffset: number;
+  }) => Promise<{ formatted: string; cursorOffset: number }>;
 }
 export type FormatFn = (
   value: string,
@@ -1268,7 +1273,7 @@ export type FormatFn = (
 ) => Promise<{ formatted: string; cursorOffset: number }>;
 
 export interface LanguageFormatter {
-  factory: (baseUrl: string, language: Language) => FormatFn;
+  factory: (baseUrl: string, language: Language, config: Config) => FormatFn | Promise<FormatFn>;
 }
 
 export type CssPresetId = '' | 'normalize.css' | 'reset-css';
@@ -1392,6 +1397,7 @@ export type TemplateName =
   | 'preact'
   | 'svelte'
   | 'solid'
+  | 'ripple'
   | 'lit'
   | 'stencil'
   | 'mdx'
@@ -2082,6 +2088,7 @@ export interface CDNService {
   getPkgInfo: (pkgName: string) => Promise<PkgInfo | APIError>;
   getPkgFiles: (pkgName: string) => Promise<{ default?: string; files: string[] } | APIError>;
   getPkgDefaultFiles: (pkgName: string) => Promise<{ js?: string; css?: string } | APIError>;
+  getPkgLatestVersion: (pkgName: string) => Promise<string>;
 }
 
 export interface WorkerMessageEvent<T, K = unknown> extends MessageEvent {

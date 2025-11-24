@@ -152,8 +152,9 @@ const FeatureList3: FeatureItem[] = [
         playgrounds and allows easy <Link to="./sdk/js-ts#sdk-methods">communication</Link> with
         them. The SDK is available for <Link to="./sdk/js-ts">vanilla JS/TS</Link>,{' '}
         <Link to="./sdk/react">React</Link>, <Link to="./sdk/vue">Vue</Link>,{' '}
-        <Link to="./sdk/svelte">Svelte</Link> and <Link to="./sdk/solid">Solid</Link>. There is also
-        a <Link to="./sdk/headless">headless mode</Link> for full control over the UI.
+        <Link to="./sdk/svelte">Svelte</Link>, <Link to="./sdk/solid">Solid</Link> and{' '}
+        <Link to="./sdk/ripple">Ripple</Link>. There is also a{' '}
+        <Link to="./sdk/headless">headless mode</Link> for full control over the UI.
       </>
     ),
   },
