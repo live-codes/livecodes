@@ -7,13 +7,13 @@ on:
       - main
 
 env:
-  NODE_VERSION: 18.x
+  NODE_VERSION: 24.x
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      NODE_OPTIONS: '--max_old_space_size=4096'
+      NODE_OPTIONS: "--max_old_space_size=4096"
     steps:
       - name: Generate Github Token for CI Bot
         uses: actions/create-github-app-token@v1
@@ -31,8 +31,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
 
       - name: Install dependencies
         run: npm ci
