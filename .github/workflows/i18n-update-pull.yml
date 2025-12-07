@@ -7,7 +7,7 @@ on:
 env:
   LOKALISE_PROJECT_ID: ${{ vars.LOKALISE_PROJECT_ID }}
   LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
-  NODE_VERSION: 18.x
+  NODE_VERSION: 24.x
   CI: true
 
 jobs:
@@ -91,8 +91,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
 
       - name: Install dependencies
         run: npm ci
