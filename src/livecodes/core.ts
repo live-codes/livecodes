@@ -3155,7 +3155,7 @@ const setupAppMenu = (
 ) => {
   if (!container || !button) return;
 
-  const html = isMac() ? menuHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>') : menuHTML;
+  const html = isMac() ? menuHTML.replaceAll('<kbd>Ctrl</kbd>', '<kbd>⌘</kbd>') : menuHTML;
 
   container.innerHTML = html;
   translateElement(container);
