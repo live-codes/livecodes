@@ -3131,45 +3131,40 @@ const registerMenuButton = (menu: HTMLElement, button: HTMLElement) => {
 };
 
 const handleAppMenuProject = () => {
-  const menuProjectContainer = UI.getAppMenuProjectScroller();
-  const menuProjectButton = UI.getAppMenuProjectButton();
-  if (!menuProjectContainer || !menuProjectButton) return;
-
-  const html = isMac()
-    ? menuProjectHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>')
-    : menuProjectHTML;
-  menuProjectContainer.innerHTML = html;
-  translateElement(menuProjectContainer);
-  // adjustFontSize(menuProjectContainer);
-  registerMenuButton(menuProjectContainer, menuProjectButton);
+  setupAppMenu(UI.getAppMenuProjectScroller(), UI.getAppMenuProjectButton(), menuProjectHTML);
 };
 
 const handleAppMenuSettings = () => {
-  const menuSettingsContainer = UI.getAppMenuSettingsScroller();
-  const menuSettingsButton = UI.getAppMenuSettingsButton();
-  if (!menuSettingsContainer || !menuSettingsButton) return;
-
-  const html = isMac()
-    ? menuSettingsHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>')
-    : menuSettingsHTML;
-  menuSettingsContainer.innerHTML = html;
-
-  translateElement(menuSettingsContainer);
-  adjustFontSize(menuSettingsContainer);
-  registerMenuButton(menuSettingsContainer, menuSettingsButton);
+  setupAppMenu(
+    UI.getAppMenuSettingsScroller(),
+    UI.getAppMenuSettingsButton(),
+    menuSettingsHTML,
+    true,
+  );
 };
 
 const handleAppMenuHelp = () => {
-  const menuHelpContainer = UI.getAppMenuHelpScroller();
-  const menuHelpButton = UI.getAppMenuHelpButton();
-  if (!menuHelpContainer || !menuHelpButton) return;
+  setupAppMenu(UI.getAppMenuHelpScroller(), UI.getAppMenuHelpButton(), menuHelpHTML);
+};
 
-  const html = isMac() ? menuHelpHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>') : menuHelpHTML;
-  menuHelpContainer.innerHTML = html;
-  menuHelpContainer.classList.add('hidden');
-  translateElement(menuHelpContainer);
-  // adjustFontSize(menuHelpContainer);
-  registerMenuButton(menuHelpContainer, menuHelpButton);
+const setupAppMenu = (
+  container: HTMLElement | null,
+  button: HTMLElement | null,
+  menuHTML: string,
+  shouldAdjustFontSize = false,
+) => {
+  if (!container || !button) return;
+
+  const html = isMac() ? menuHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>') : menuHTML;
+
+  container.innerHTML = html;
+  translateElement(container);
+
+  if (shouldAdjustFontSize) {
+    adjustFontSize(container);
+  }
+
+  registerMenuButton(container, button);
 };
 
 /**
