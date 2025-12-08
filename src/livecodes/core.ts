@@ -4803,14 +4803,23 @@ const handleResultLoading = () => {
   eventsManager.addEventListener(window, 'message', showResultModeDrawer);
 };
 
+const createToolButton = (id: string, title: string, innerHTML: string) => {
+  const btn = document.createElement('div');
+  btn.id = id;
+  btn.classList.add('tool-buttons');
+  btn.title = title;
+  btn.style.pointerEvents = 'all'; // override setting to 'none' on toolspane bar
+  btn.innerHTML = innerHTML;
+  UI.getToolspaneTitles()?.appendChild(btn);
+  return btn;
+};
+
 const handleResultPopup = () => {
-  const popupBtn = document.createElement('div');
-  popupBtn.id = 'result-popup-btn';
-  popupBtn.classList.add('tool-buttons');
-  popupBtn.title = window.deps.translateString('core.result.hint', 'Show result in new window');
-  popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const iconCSS = '<i class="icon-window-new"></i>';
-  popupBtn.innerHTML = `<button id="show-result">${iconCSS}</button>`;
+  const popupBtn = createToolButton(
+    'result-popup-btn',
+    window.deps.translateString('core.result.hint', 'Show result in new window'),
+    `<button id="show-result"><i class="icon-window-new"></i></button>`,
+  );
   let url: string | undefined;
   const openWindow = async () => {
     if (resultPopup && !resultPopup.closed) {
@@ -4843,17 +4852,14 @@ const handleResultPopup = () => {
 };
 
 const handleResultZoom = () => {
-  const zoomBtn = document.createElement('div');
-  zoomBtn.id = 'zoom-button';
-  zoomBtn.classList.add('tool-buttons');
-  zoomBtn.title = window.deps.translateString('core.zoom.hint', 'Zoom') + ' (Ctrl/Cmd + Alt + Z)';
-  zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  zoomBtn.innerHTML = `
-  <button class="text">
-    <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
-    &times;
-  </button>`;
-
+  const zoomBtn = createToolButton(
+    'zoom-button',
+    window.deps.translateString('core.zoom.hint', 'Zoom') + ' (Ctrl/Cmd + Alt + Z)',
+    `<button class="text">
+      <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
+      &times;
+    </button>`,
+  );
   const toggleZoom = () => {
     const config = getConfig();
     const currentZoom = config.zoom;
@@ -4871,13 +4877,11 @@ const handleResultZoom = () => {
 };
 
 const handleBroadcastStatus = () => {
-  const broadcastStatusBtn = document.createElement('div');
-  broadcastStatusBtn.id = 'broadcast-status-btn';
-  broadcastStatusBtn.classList.add('tool-buttons');
-  broadcastStatusBtn.title = window.deps.translateString('core.broadcast.heading', 'Broadcast');
-  broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const iconCSS = '<i class="icon-broadcast"></i>';
-  broadcastStatusBtn.innerHTML = `<button id="broadcast-status">${iconCSS}<span class="mark"></span></button>`;
+  const broadcastStatusBtn = createToolButton(
+    'broadcast-status-btn',
+    window.deps.translateString('core.broadcast.heading', 'Broadcast'),
+    `<button id="broadcast-status"><i class="icon-broadcast"></i><span class="mark"></span></button>`,
+  );
 
   const showBroadcast = () => {
     showScreen('broadcast');
