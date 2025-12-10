@@ -9,6 +9,12 @@ export const pathLoader = (baseUrl: string) => (lngs: string[], nss: string[]) =
   if (lng === 'ar' && ns === 'translation') {
     return baseUrl + '{{hash:i18n-ar-translation.json}}';
   }
+  if (lng === 'bn' && ns === 'language-info') {
+    return baseUrl + '{{hash:i18n-bn-language-info.json}}';
+  }
+  if (lng === 'bn' && ns === 'translation') {
+    return baseUrl + '{{hash:i18n-bn-translation.json}}';
+  }
   if (lng === 'de' && ns === 'language-info') {
     return baseUrl + '{{hash:i18n-de-language-info.json}}';
   }
@@ -45,6 +51,12 @@ export const pathLoader = (baseUrl: string) => (lngs: string[], nss: string[]) =
   if (lng === 'hi' && ns === 'translation') {
     return baseUrl + '{{hash:i18n-hi-translation.json}}';
   }
+  if (lng === 'id' && ns === 'language-info') {
+    return baseUrl + '{{hash:i18n-id-language-info.json}}';
+  }
+  if (lng === 'id' && ns === 'translation') {
+    return baseUrl + '{{hash:i18n-id-translation.json}}';
+  }
   if (lng === 'it' && ns === 'language-info') {
     return baseUrl + '{{hash:i18n-it-language-info.json}}';
   }
@@ -56,6 +68,12 @@ export const pathLoader = (baseUrl: string) => (lngs: string[], nss: string[]) =
   }
   if (lng === 'ja' && ns === 'translation') {
     return baseUrl + '{{hash:i18n-ja-translation.json}}';
+  }
+  if (lng === 'nl' && ns === 'language-info') {
+    return baseUrl + '{{hash:i18n-nl-language-info.json}}';
+  }
+  if (lng === 'nl' && ns === 'translation') {
+    return baseUrl + '{{hash:i18n-nl-translation.json}}';
   }
   if (lng === 'pt' && ns === 'language-info') {
     return baseUrl + '{{hash:i18n-pt-language-info.json}}';
