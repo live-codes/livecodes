@@ -1,3 +1,4 @@
+import type { createSplitPanes } from '../UI';
 import * as UI from '../UI/selectors';
 import type { CodeEditor, Config, EditorId, EventsManager, ToolsPane } from '../models';
 import { ctrl } from '../utils';
@@ -11,9 +12,8 @@ export interface KeyboardShortcutDeps {
   getConfig: () => Config;
   showEditor: (editorId: EditorId) => void;
   run: () => Promise<void>;
-  showScreen: any;
   toolsPane?: ToolsPane;
-  split?: any;
+  split?: ReturnType<typeof createSplitPanes>;
   isEmbed: boolean;
 }
 
@@ -32,7 +32,7 @@ const createCommandPaletteHandler = (deps: KeyboardShortcutDeps) => (e: Keyboard
 
 const createPreventBookmarkHandler = () => (e: KeyboardEvent) => {
   if (ctrl(e) && e.code === 'KeyD') {
-    e.preventDefault?.();
+    e.preventDefault();
     return true;
   }
   return false;
@@ -227,7 +227,7 @@ const createFocusModeHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent
 export const setupKeyboardShortcuts = (deps: KeyboardShortcutDeps): void => {
   let lastkeys = '';
 
-  const hotKeys = async (e: KeyboardEvent) => {
+  const hotKeys = (e: KeyboardEvent) => {
     // Command palette handler
     if (createCommandPaletteHandler(deps)(e)) {
       lastkeys = 'Ctrl + P';

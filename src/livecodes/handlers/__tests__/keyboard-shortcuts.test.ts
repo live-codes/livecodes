@@ -84,7 +84,6 @@ describe('Keyboard Shortcuts Handler', () => {
       getConfig: jest.fn().mockReturnValue(mockConfig),
       showEditor: jest.fn(),
       run: jest.fn(),
-      showScreen: jest.fn(),
       toolsPane: mockToolsPane,
       split: mockSplit,
       isEmbed: false,

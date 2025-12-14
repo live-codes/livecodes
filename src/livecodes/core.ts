@@ -4966,7 +4966,6 @@ const basicHandlers = () => {
     getConfig,
     showEditor,
     run,
-    showScreen,
     toolsPane,
     split,
     isEmbed,
