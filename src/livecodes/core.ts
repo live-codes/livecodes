@@ -45,6 +45,7 @@ import { customEvents } from './events/custom-events';
 import { exportJSON } from './export/export-json';
 import { getFormatter } from './formatter';
 import type { Formatter } from './formatter/models';
+import { setupKeyboardShortcuts } from './handlers/keyboard-shortcuts';
 import {
   aboutScreen,
   customSettingsScreen,
@@ -2566,199 +2567,6 @@ const handleChangeContent = () => {
   });
 };
 
-const handleKeyboardShortcuts = () => {
-  let lastkeys = '';
-
-  const hotKeys = async (e: KeyboardEvent) => {
-    // Ctrl + P opens the command palette
-    const activeEditor = getActiveEditor();
-    if (ctrl(e) && e.code === 'KeyP' && activeEditor.monaco) {
-      e.preventDefault();
-      activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
-      lastkeys = 'Ctrl + P';
-      return;
-    }
-
-    // Ctrl + D prevents browser bookmark dialog
-    if (ctrl(e) && e.code === 'KeyD') {
-      e.preventDefault();
-      lastkeys = 'Ctrl + D';
-      return;
-    }
-
-    // Ctrl + Alt + C: toggle console
-    if (ctrl(e) && e.altKey && e.code === 'KeyC') {
-      e.preventDefault();
-      lastkeys = 'Ctrl + Alt + C';
-      UI.getConsoleButton()?.dispatchEvent(new Event('touchstart'));
-      return;
-    }
-
-    // Ctrl + Alt + C, F: maximize console
-    if (ctrl(e) && e.altKey && e.code === 'KeyF' && lastkeys === 'Ctrl + Alt + C') {
-      e.preventDefault();
-      lastkeys = 'Ctrl + Alt + C, F';
-      UI.getConsoleButton()?.dispatchEvent(new Event('dblclick'));
-      return;
-    }
-
-    // Ctrl + Alt + T runs tests
-    if (ctrl(e) && e.altKey && e.code === 'KeyT') {
-      e.preventDefault();
-      UI.getRunTestsButton()?.click();
-      lastkeys = 'Ctrl + Alt + T';
-      return;
-    }
-
-    // Shift + Enter triggers run
-    if (e.shiftKey && e.key === 'Enter') {
-      e.preventDefault();
-      UI.getRunButton()?.click();
-      lastkeys = 'Shift + Enter';
-      return;
-    }
-
-    // Ctrl + Alt + R toggles result page
-    if (ctrl(e) && e.altKey && e.code === 'KeyR') {
-      e.preventDefault();
-      UI.getResultButton()?.click();
-      lastkeys = 'Ctrl + Alt + R';
-      return;
-    }
-
-    // Ctrl + Alt + Z toggles result zoom
-    if (ctrl(e) && e.altKey && e.code === 'KeyZ') {
-      e.preventDefault();
-      UI.getZoomButton()?.click();
-      lastkeys = 'Ctrl + Alt + Z';
-      return;
-    }
-
-    // Ctrl + Alt + E focuses active editor
-    if (ctrl(e) && e.altKey && e.code === 'KeyE') {
-      e.preventDefault();
-      getActiveEditor().focus();
-      lastkeys = 'Ctrl + Alt + E';
-      return;
-    }
-
-    // Esc closes dropdown menus
-    // Esc + Esc moves focus out of editor
-    // Esc + Esc + Esc moves focus to logo
-    if (e.code === 'Escape') {
-      document.querySelectorAll('.menu-scroller').forEach((el) => el.classList.add('hidden'));
-      if (lastkeys === 'Esc') {
-        e.preventDefault();
-        if (
-          (toolsPane?.getStatus() === 'open' || toolsPane?.getStatus() === 'full') &&
-          toolsPane.getActiveTool() === 'console'
-        ) {
-          UI.getConsoleButton()?.focus();
-        } else {
-          UI.getFocusButton()?.focus();
-        }
-        lastkeys = 'Esc + Esc';
-        return;
-      }
-      if (lastkeys === 'Esc + Esc') {
-        e.preventDefault();
-        UI.getLogoLink()?.focus();
-        lastkeys = 'Esc + Esc + Esc';
-        return;
-      }
-      lastkeys = 'Esc';
-      return;
-    }
-
-    // Ctrl + Alt + (1-3) activates editor 1-3
-    // Ctrl + Alt + (ArrowLeft/ArrowRight) activates previous/next editor
-    const editorIds = (['markup', 'style', 'script'] as EditorId[]).filter(
-      (id) => getConfig()[id].hideTitle !== true,
-    );
-    if (ctrl(e) && e.altKey && ['1', '2', '3', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-      e.preventDefault();
-      split?.show('code');
-      const index = ['1', '2', '3'].includes(e.key)
-        ? Number(e.key) - 1
-        : e.key === 'ArrowLeft'
-          ? editorIds.findIndex((id) => id === getConfig().activeEditor) - 1 || 0
-          : e.key === 'ArrowRight'
-            ? editorIds.findIndex((id) => id === getConfig().activeEditor) + 1 || 0
-            : 0;
-      const editorIndex =
-        index === editorIds.length ? 0 : index === -1 ? editorIds.length - 1 : index;
-      showEditor(editorIds[editorIndex] as EditorId);
-      lastkeys = 'Ctrl + Alt + ' + e.key;
-      return;
-    }
-
-    if (isEmbed) return;
-
-    // Ctrl + Alt + N: new project
-    if (ctrl(e) && e.altKey && e.code === 'KeyN') {
-      e.preventDefault();
-      UI.getNewLink()?.click();
-      lastkeys = 'Ctrl + Alt + N';
-      return;
-    }
-
-    // Ctrl + O: open project
-    if (ctrl(e) && e.code === 'KeyO') {
-      e.preventDefault();
-      UI.getOpenLink()?.click();
-      lastkeys = 'Ctrl + O';
-      return;
-    }
-
-    // Ctrl + Alt + I: import
-    if (ctrl(e) && e.altKey && e.code === 'KeyI') {
-      e.preventDefault();
-      UI.getImportLink()?.click();
-      lastkeys = 'Ctrl + Alt + I';
-      return;
-    }
-
-    // Ctrl + Alt + S: share
-    if (ctrl(e) && e.altKey && e.code === 'KeyS') {
-      e.preventDefault();
-      UI.getShareLink()?.click();
-      lastkeys = 'Ctrl + Alt + S';
-      return;
-    }
-
-    // Ctrl + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.code === 'KeyS') {
-      e.preventDefault();
-      UI.getForkLink()?.click();
-      lastkeys = 'Ctrl + Shift + S';
-      return;
-    }
-
-    // Ctrl + S saves the project
-    if (ctrl(e) && e.code === 'KeyS') {
-      e.preventDefault();
-      UI.getSaveLink()?.click();
-      lastkeys = 'Ctrl + S';
-      return;
-    }
-
-    // Ctrl + Alt + F toggles focus mode
-    if (ctrl(e) && e.altKey && e.code === 'KeyF') {
-      e.preventDefault();
-      UI.getFocusButton()?.click();
-      lastkeys = 'Ctrl + Alt + F';
-      return;
-    }
-
-    if (!ctrl(e) && !e.altKey && !e.shiftKey) {
-      lastkeys = e.key;
-      return;
-    }
-  };
-
-  eventsManager.addEventListener(window, 'keydown', hotKeys, true);
-};
-
 const handleKeyboardShortcutsScreen = () => {
   if (isEmbed) return;
 
@@ -5151,7 +4959,18 @@ const basicHandlers = () => {
   handleSelectEditor();
   handleChangeLanguage();
   handleChangeContent();
-  handleKeyboardShortcuts();
+  // Setup keyboard shortcuts with dependency injection
+  setupKeyboardShortcuts({
+    eventsManager,
+    getActiveEditor,
+    getConfig,
+    showEditor,
+    run,
+    showScreen,
+    toolsPane,
+    split,
+    isEmbed,
+  });
   handleRunButton();
   handleResultButton();
   handleShareButton();
