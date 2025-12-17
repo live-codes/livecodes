@@ -1,3 +1,5 @@
+/* eslint-disable id-blacklist */
+/* eslint-disable no-template-curly-in-string */
 export default {
   config: {
     comments: {
