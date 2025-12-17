@@ -2,14 +2,14 @@ import type { Template } from '../../models';
 
 export const minizincStarter: Template = {
   name: 'minizinc',
-  title: window.deps.translateString('templates.starter.minizinc', 'Minizinc Starter'),
+  title: window.deps.translateString('templates.starter.minizinc', 'MiniZinc Starter'),
   thumbnail: 'assets/templates/minizinc.png',
   activeEditor: 'script',
   markup: {
     language: 'html',
     content: `
 <div class="container">
-  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/minizinc.png" title="Tau Prolog" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/minizinc.png" title="MiniZinc" />
   <button id="button" onclick="run()">Run</button>
   <label for="data" class="label">Data:</label>
   <textarea id="data">flour = 8000;

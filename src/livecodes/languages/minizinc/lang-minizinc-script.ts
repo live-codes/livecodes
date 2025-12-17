@@ -17,7 +17,13 @@ declare const livecodes: {
 };
 
 let hasRun = false;
-const pageLoaded = new Promise((resolve) => window.addEventListener('load', resolve));
+const pageLoaded = new Promise((resolve) => {
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    resolve(undefined);
+  } else {
+    window.addEventListener('load', resolve);
+  }
+});
 
 livecodes.minizinc = {
   run: async (data: { dzn: string; json: string } | 'init') => {
@@ -86,6 +92,10 @@ livecodes.minizinc = {
   },
 };
 
-window.addEventListener('load', () => {
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
   livecodes.minizinc.run('init');
-});
+} else {
+  window.addEventListener('load', () => {
+    livecodes.minizinc.run('init');
+  });
+}
