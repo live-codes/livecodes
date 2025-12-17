@@ -22,7 +22,7 @@ const pageLoaded = new Promise((resolve) => window.addEventListener('load', reso
 livecodes.minizinc = {
   run: async (data: { dzn: string; json: string } | 'init') => {
     if (data === 'init' && hasRun) return;
-    const { dzn, json } = data === 'init' ? {} : data;
+    const { dzn = '', json = '' } = data === 'init' ? {} : data;
     hasRun = true;
     await pageLoaded;
     let code = '';
