@@ -1020,6 +1020,7 @@ const translation = {
       malina: 'Malina.js Starter',
       markdown: 'Markdown Starter',
       mdx: 'MDX Starter',
+      minizinc: 'Minizinc Starter',
       ocaml: 'Ocaml Starter',
       perl: 'Perl Starter',
       php: 'PHP Starter',

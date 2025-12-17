@@ -3,7 +3,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.5/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.6/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -90,7 +90,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.2/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.4/build/');
 
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
@@ -297,6 +297,8 @@ export const markedUrl = /* @__PURE__ */ getUrl('marked@13.0.2/marked.min.js');
 export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
 
 export const metaPngUrl = /* @__PURE__ */ getUrl('meta-png@1.0.6/dist/meta-png.umd.js');
+
+export const minizincUrl = /* @__PURE__ */ getUrl('minizinc@4.4.4/dist/minizinc.mjs');
 
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
