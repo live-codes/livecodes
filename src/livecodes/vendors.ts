@@ -344,6 +344,10 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
 
 export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
 
+export const prettierMinizincUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/prettier-plugin-minizinc@0.2.0/dist/standalone.js',
+);
+
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.22.2/standalone.js');
 
 export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/components/');
