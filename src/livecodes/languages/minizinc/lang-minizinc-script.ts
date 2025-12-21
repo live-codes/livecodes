@@ -13,6 +13,7 @@ declare const livecodes: {
       };
     };
     run: (data: { dzn: string; json: string } | 'init') => Promise<any>;
+    getSolvers: () => Promise<string[]>;
   };
 };
 
@@ -25,6 +26,8 @@ const pageLoaded = new Promise((resolve) => {
   }
 });
 
+const modPromise = import(minizincUrl);
+
 livecodes.minizinc = {
   run: async (data: { dzn: string; json: string } | 'init') => {
     if (data === 'init' && hasRun) return;
@@ -35,60 +38,84 @@ livecodes.minizinc = {
     const scripts = document.querySelectorAll('script[type="text/minizinc"]');
     scripts.forEach((script) => (code += script.innerHTML + '\n'));
 
-    const { Model } = await import(minizincUrl);
+    const MiniZinc = await modPromise;
     return new Promise((resolve) => {
-      const minizincConfig = livecodes.minizinc.config ?? {};
-      const model = new Model();
-      model.addFile('playground.mzn', code);
-      if (dzn) model.addFile('playground.dzn', dzn);
-      if (json) model.addFile('playground.json', json);
+      try {
+        const minizincConfig = livecodes.minizinc.config ?? {};
+        const model = new MiniZinc.Model();
+        model.addFile('playground.mzn', code);
+        if (dzn) model.addFile('playground.dzn', dzn);
+        if (json) model.addFile('playground.json', json);
 
-      const solve = model.solve({
-        jsonOutput: minizincConfig.jsonOutput ?? false,
-        options: {
-          solver: 'gecode',
-          'time-limit': 10000,
-          ...minizincConfig.options,
-        },
-      });
+        const solve = model.solve({
+          jsonOutput: minizincConfig.jsonOutput ?? false,
+          options: {
+            solver: 'gecode',
+            'time-limit': 10000,
+            ...minizincConfig.options,
+          },
+        });
 
-      const errors: any[] = [];
-      solve.on('error', (error: any) => {
+        const errors: any[] = [];
+        solve.on('error', (error: any) => {
+          // eslint-disable-next-line no-console
+          console.error(error);
+          errors.push(error);
+        });
+        solve.on('exit', (msg: any) => {
+          if (msg.code === 0) return;
+          if (errors.length) {
+            resolve({
+              status: 'ERROR',
+              errors,
+            });
+          } else {
+            resolve({
+              status: 'ERROR',
+              errors: [
+                {
+                  type: 'error',
+                  message: `Process finished with non-zero exit code ${msg.code}.`,
+                },
+              ],
+            });
+          }
+        });
+        solve.then((result: any) => {
+          const statusMap: any = {
+            ALL_SOLUTIONS: '==========',
+            OPTIMAL_SOLUTION: '==========',
+            UNSATISFIABLE: '=====UNSATISFIABLE=====',
+            UNSAT_OR_UNBOUNDED: '=====UNSATorUNBOUNDED=====',
+            UNBOUNDED: '=====UNBOUNDED=====',
+            UNKNOWN: '=====UNKNOWN=====',
+            ERROR: '=====ERROR=====',
+          };
+          const status = statusMap[result.status] || '';
+          const output =
+            result.solution.output.default ??
+            result.solution.output.dzn ??
+            result.solution.output.json ??
+            result.solution.output.raw ??
+            result.solution.output;
+          const msg = typeof output === 'string' ? output + status : output;
+          // eslint-disable-next-line no-console
+          console.log(msg);
+          resolve(result);
+        });
+      } catch (err) {
         // eslint-disable-next-line no-console
-        console.error(error);
-        errors.push(error);
-      });
-      solve.on('exit', (_msg: any) => {
-        if (errors.length) {
-          resolve({
-            status: 'ERROR',
-            errors,
-          });
-        }
-      });
-      solve.then((result: any) => {
-        const statusMap: any = {
-          ALL_SOLUTIONS: '==========',
-          OPTIMAL_SOLUTION: '==========',
-          UNSATISFIABLE: '=====UNSATISFIABLE=====',
-          UNSAT_OR_UNBOUNDED: '=====UNSATorUNBOUNDED=====',
-          UNBOUNDED: '=====UNBOUNDED=====',
-          UNKNOWN: '=====UNKNOWN=====',
-          ERROR: '=====ERROR=====',
-        };
-        const status = statusMap[result.status] || '';
-        const output =
-          result.solution.output.default ??
-          result.solution.output.dzn ??
-          result.solution.output.json ??
-          result.solution.output.raw ??
-          result.solution.output;
-        const msg = typeof output === 'string' ? output + status : output;
-        // eslint-disable-next-line no-console
-        console.log(msg);
-        resolve(result);
-      });
+        console.error(err);
+        resolve({
+          status: 'ERROR',
+          errors: [err],
+        });
+      }
     });
+  },
+  getSolvers: async () => {
+    const MiniZinc = await modPromise;
+    return MiniZinc.solvers();
   },
 };
 

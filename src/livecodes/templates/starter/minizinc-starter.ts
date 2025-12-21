@@ -11,6 +11,10 @@ export const minizincStarter: Template = {
 <div class="container">
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/minizinc.png" title="MiniZinc" />
   <button id="button" onclick="run()">Run</button>
+  <div class="solver">
+    <label for="solver" class="label">Solver:</label>
+    <select id="solvers" hidden></select>
+  </div>
   <label for="data" class="label">Data:</label>
   <textarea id="data">flour = 8000;
 banana = 11;
@@ -28,17 +32,34 @@ cocoa = 500;
     options: {},
   };
 
+  const btn = document.getElementById('button');
+  const menu = document.getElementById('solvers');
+  const data = document.getElementById('data');
+  const output = document.getElementById('output');
+
+  const defaultSolver = 'Gecode';
+  livecodes.minizinc.getSolvers().then((solvers) => {
+    solvers.forEach((solver) => {
+      const option = document.createElement('option');
+      option.innerText = solver.name;
+      if (solver.name === defaultSolver) {
+        option.selected = true;
+      }
+      menu.append(option);
+    })
+    menu.hidden = false;
+  });
+
   async function run() {
-    const btn = document.getElementById('button');
-    const data = document.getElementById('data').value;
-    const output = document.getElementById('output');
 
     btn.disabled = true;
     btn.innerText = 'Running...';
     output.innerHTML = 'Loading...';
     output.classList.remove('error');
 
-    const result = await livecodes.minizinc.run({ dzn: data });
+    livecodes.minizinc.config.options.solver = menu.value || defaultSolver;
+
+    const result = await livecodes.minizinc.run({ dzn: data.value });
 
     if (result.status === 'ERROR') {
       output.classList.add('error');
@@ -68,6 +89,7 @@ cocoa = 500;
 * {
   box-sizing: border-box;
 }
+
 .container {
   text-align: center;
   font: 1em sans-serif;
@@ -75,9 +97,11 @@ cocoa = 500;
   margin: 1em auto;
   padding: 0 2em;
 }
+
 .logo {
   width: 100px;
 }
+
 .label {
   display: block;
   text-align: left;
@@ -96,17 +120,26 @@ cocoa = 500;
   color: #fff;
   font-size: 1em;
   cursor: pointer;
-  &:hover {
-    background-color: #1180cf;
-  }
-  &:disabled {
-    background-color: #6a9bbe;
-  }
 }
+
+#button:hover {
+  background-color: #1180cf;
+}
+
+#button:disabled {
+  background-color: #6a9bbe;
+}
+
+.solver {
+  display: flex;
+  gap: 1em;
+}
+
 #data {
   height: 9em;
   resize: vertical;
 }
+
 #data, #output {
   background-color: #fafafa;
   border: 1px solid #ddd;
@@ -117,6 +150,7 @@ cocoa = 500;
   text-align: left;
   width: 100%;
 }
+
 #output.error {
   color: red;
 }
