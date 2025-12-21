@@ -27,11 +27,6 @@ cocoa = 500;
 </div>
 
 <script>
-  livecodes.minizinc.config = {
-    jsonOutput: false,
-    options: {},
-  };
-
   const btn = document.getElementById('button');
   const menu = document.getElementById('solvers');
   const data = document.getElementById('data');
@@ -57,19 +52,22 @@ cocoa = 500;
     output.innerHTML = 'Loading...';
     output.classList.remove('error');
 
-    livecodes.minizinc.config.options.solver = menu.value || defaultSolver;
+    const config = {
+      jsonOutput: false,
+      options: { solver: menu.value || defaultSolver },
+    };
 
-    const result = await livecodes.minizinc.run({ dzn: data.value });
+    const result = await livecodes.minizinc.run({ dzn: data.value, config });
 
     if (result.status === 'ERROR') {
       output.classList.add('error');
       output.innerHTML = result.errors.map((err) => err.message).join('<br>');
     } else {
       output.innerHTML =
-        result.solution.output.default ??
-        result.solution.output.dzn ??
+        result.solution?.output?.default ??
+        result.solution?.output?.dzn ??
         JSON.stringify(
-          result.solution.output.json ?? result.solution.output,
+          result.solution?.output?.json ?? result.solution?.output ?? '',
           null,
           2,
         );

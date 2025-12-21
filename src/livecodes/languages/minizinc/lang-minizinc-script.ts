@@ -2,20 +2,21 @@ import { minizincUrl } from '../../vendors';
 
 declare const livecodes: {
   minizinc: {
-    config?: {
-      jsonOutput?: boolean;
-      options?: {
-        solver?: string;
-        'time-limit'?: number;
-        statistics?: boolean;
-        'all-solutions'?: boolean;
-        // ...
-      };
-    };
-    run: (data: { dzn: string; json: string } | 'init') => Promise<any>;
+    run: (data: { dzn?: string; json?: string; config?: MiniZincConfig } | 'init') => Promise<any>;
     getSolvers: () => Promise<string[]>;
   };
 };
+
+interface MiniZincConfig {
+  jsonOutput?: boolean;
+  options?: {
+    solver?: string;
+    'time-limit'?: number;
+    statistics?: boolean;
+    'all-solutions'?: boolean;
+    // ...
+  };
+}
 
 let hasRun = false;
 const pageLoaded = new Promise((resolve) => {
@@ -29,9 +30,9 @@ const pageLoaded = new Promise((resolve) => {
 const modPromise = import(minizincUrl);
 
 livecodes.minizinc = {
-  run: async (data: { dzn: string; json: string } | 'init') => {
+  run: async (data: { dzn?: string; json?: string; config?: MiniZincConfig } | 'init' = {}) => {
     if (data === 'init' && hasRun) return;
-    const { dzn = '', json = '' } = data === 'init' ? {} : data;
+    const { dzn = '', json = '', config = {} } = data === 'init' ? {} : data;
     hasRun = true;
     await pageLoaded;
     let code = '';
@@ -41,7 +42,7 @@ livecodes.minizinc = {
     const MiniZinc = await modPromise;
     return new Promise((resolve) => {
       try {
-        const minizincConfig = livecodes.minizinc.config ?? {};
+        const minizincConfig = config;
         const model = new MiniZinc.Model();
         model.addFile('playground.mzn', code);
         if (dzn) model.addFile('playground.dzn', dzn);
@@ -93,11 +94,12 @@ livecodes.minizinc = {
           };
           const status = statusMap[result.status] || '';
           const output =
-            result.solution.output.default ??
-            result.solution.output.dzn ??
-            result.solution.output.json ??
-            result.solution.output.raw ??
-            result.solution.output;
+            result.solution?.output?.default ??
+            result.solution?.output?.dzn ??
+            result.solution?.output?.json ??
+            result.solution?.output?.raw ??
+            result.solution?.output ??
+            '';
           const msg = typeof output === 'string' ? output + status : output;
           // eslint-disable-next-line no-console
           console.log(msg);
