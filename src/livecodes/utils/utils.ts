@@ -689,7 +689,7 @@ export const onLoad = /* @__PURE__ */ (fn: (...args: any[]) => any) => {
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     fn();
   } else {
-    window.addEventListener('load', fn);
+    window.addEventListener('load', fn, { once: true });
   }
 };
 

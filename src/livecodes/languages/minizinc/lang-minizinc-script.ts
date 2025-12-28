@@ -32,6 +32,14 @@ let hasRun = false;
 const pageLoaded = new Promise((resolve) => onLoad(resolve));
 const modPromise = import(minizincUrl);
 
+const getOutput = (solution: any) =>
+  solution?.output?.default ??
+  solution?.output?.dzn ??
+  solution?.output?.json ??
+  solution?.output?.raw ??
+  solution?.output ??
+  '';
+
 const run = (data: MiniZincData = {}) => {
   if (!MiniZinc) {
     throw new Error('MiniZinc is not initialized. await livecodes.minizinc.init() first.');
@@ -67,11 +75,21 @@ livecodes.minizinc = {
     await livecodes.minizinc.init();
     return new Promise((resolve) => {
       const solve = run(data);
+      let lastOutput = '';
       const errors: any[] = [];
       solve.on('error', (error: any) => {
+        const msg = `MiniZinc: ${error?.what ?? 'Error'}: ${error.message}`;
         // eslint-disable-next-line no-console
-        console.error(error);
+        console.error(msg);
         errors.push(error);
+      });
+      solve.on('solution', (solution: any) => {
+        const output = getOutput(solution);
+        const line = '----------';
+        const msg = typeof output === 'string' ? output + line : output;
+        // eslint-disable-next-line no-console
+        console.log(msg);
+        lastOutput = output;
       });
       solve.on('exit', (msg: any) => {
         if (msg.code === 0) return;
@@ -103,13 +121,8 @@ livecodes.minizinc = {
           ERROR: '=====ERROR=====',
         };
         const status = statusMap[result.status] || '';
-        const output =
-          result.solution?.output?.default ??
-          result.solution?.output?.dzn ??
-          result.solution?.output?.json ??
-          result.solution?.output?.raw ??
-          result.solution?.output ??
-          '';
+        const resultOutput = getOutput(result.solution);
+        const output = lastOutput === resultOutput ? '' : resultOutput;
         const msg = typeof output === 'string' ? output + status : output;
         // eslint-disable-next-line no-console
         console.log(msg);

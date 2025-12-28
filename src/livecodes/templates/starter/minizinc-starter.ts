@@ -156,7 +156,7 @@ cocoa = 500;
   },
   script: {
     language: 'minizinc',
-    content: `
+    content: String.raw`
 % from https://docs.minizinc.dev/en/stable/part_2_tutorial.html
 % Baking cakes for the school fete (with data file)
 
@@ -195,8 +195,8 @@ constraint 75 * c <= cocoa;
 solve maximize 400 * b + 450 * c;
 
 output [
-  "no. of banana cakes = \\(b)\\n",
-  "no. of chocolate cakes = \\(c)\\n"];
+  "no. of banana cakes = \(b)\n",
+  "no. of chocolate cakes = \(c)\n"];
 `.trimStart(),
   },
 };
