@@ -290,6 +290,7 @@ const config: Config = {
         plugin: ['typedoc-plugin-missing-exports'],
         excludeExternals: true,
         internalModule: '_internal',
+        skipErrorChecking: true,
       },
     ],
     [
