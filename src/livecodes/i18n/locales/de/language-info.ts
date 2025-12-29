@@ -153,6 +153,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Offizielle Java-Website</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Lernen Sie X in Y Minuten, wobei X=java</6> </5> <7> <8> Laden Sie die Startvorlage</8> </7>',
     name: 'Java',
   },
+  javascript: {
+    desc: 'Die Skriptsprache des Webs.',
+    link: '<1> <2>JavaScript auf MDN</2> </1> <3> <4>Lernen Sie X in Y Minuten, wobei X=JavaScript</4> </3> <5> <6>LiveCodes Dokumentation</6> </5> <7> <8>Laden Sie eine Startvorlage</8> </7>',
+    name: 'JavaScript',
+  },
   jinja: {
     desc: 'Jinja ist eine schnelle, ausdrucksstarke und erweiterbare Template-Engine.',
     link: '<1> <2>Offizielle Website</2> </1> <3> <4> Template-Dokumentation</4> </3> <5> <6> JavaScript-Implementierung</6> </5> <7> <8> LiveCodes Dokumentationen</8> </7>',
