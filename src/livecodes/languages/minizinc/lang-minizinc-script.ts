@@ -125,7 +125,7 @@ livecodes.minizinc = {
         const output = lastOutput === resultOutput ? '' : resultOutput;
         const msg = typeof output === 'string' ? output + status : output;
         // eslint-disable-next-line no-console
-        console.log(msg);
+        if (msg) console.log(msg);
         resolve(result);
       });
     });

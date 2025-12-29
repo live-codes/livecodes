@@ -218,7 +218,7 @@ const languageInfo = {
   },
   minizinc: {
     desc: 'MiniZinc is a high-level constraint modelling language that allows you to easily express and solve discrete optimisation problems.',
-    link: '<1> <2>MiniZinc official website</2> </1> <3> <4>MiniZinc documentation</4> </3> <5> <6>MiniZinc tutorial</6> </5> <7> <8>Load starter template</8> </7>',
+    link: '<1> <2>MiniZinc official website</2> </1> <3> <4>MiniZinc documentation</4> </3> <5> <6>MiniZinc tutorial</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'MiniZinc',
   },
   mjml: {
