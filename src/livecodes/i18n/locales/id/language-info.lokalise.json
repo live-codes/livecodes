@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "Bahasa skrip web."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>JavaScript di MDN</tag-2> </tag-1> <tag-3> <tag-4>Belajar X dalam Y menit, di mana X = JavaScript</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat templat pemula</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja adalah mesin templating yang cepat, ekspresif, dan dapat diperluas."
   },

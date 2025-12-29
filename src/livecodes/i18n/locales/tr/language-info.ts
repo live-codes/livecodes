@@ -153,6 +153,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Java resmi web sitesi</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Y Dakikada X Öğrenin, X=java</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
     name: 'Java',
   },
+  javascript: {
+    desc: "Web'in komut dosyası dili.",
+    link: "<1> <2>MDN'de JavaScript</2> </1> <3> <4>Y dakikada X öğrenin, burada X=JavaScript</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükleyin</8> </7>",
+    name: 'JavaScript',
+  },
   jinja: {
     desc: 'Jinja, hızlı, etkileyici, genişletilebilir bir şablon motorudur.',
     link: '<1> <2>Resmi web sitesi</2> </1> <3> <4>Şablon dokümantasyonu</4> </3> <5> <6>JavaScript uygulaması</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7>',

@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "ওয়েবের স্ক্রিপ্টিং ভাষা।"
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>MDN-এ জাভাস্ক্রিপ্ট</tag-2> </tag-1> <tag-3> <tag-4>Y মিনিটে X শিখুন, যেখানে X=জাভাস্ক্রিপ্ট</tag-4> </tag-3> <tag-5> <tag-6>লাইভকোডস ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja একটি দ্রুত, প্রকাশক, এক্সটেনসিবল টেমপ্লেটিং ইঞ্জিন।"
   },
