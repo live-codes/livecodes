@@ -1,59 +1,60 @@
 # JavaScript
 
-[JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) is a versatile, interpreted programming language that powers the dynamic behavior on most websites. 
-
-LiveCodes runs JavaScript natively in the browser. Since JavaScript runs in the browser, it has a host environment with access to the DOM and other Web APIs, but it does not have Node.js features such as the file system or process information.
+LiveCodes runs [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript) (JS) in the browser.
+Accordingly, it has access to the DOM and other Web APIs, but it does not have access to Node.js APIs such as the file system or process information.
 
 ## Demo
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-export const params = {
-  template:"Javascript",
-  console:"open"
-};
-
-<LiveCodes params={params}></LiveCodes>
+<LiveCodes template="javascript" height="60vh"></LiveCodes>
 
 ## Usage
 
-LiveCodes executes JavaScript directly in the browser.
+The JavaScript code is added as-is without any transformations to the [result page](../features/result.mdx) inside a `<script>` tag.
 
-You can use it to test and demonstrate JavaScript code that interacts with the DOM, fetch APIs, or manipulate HTML elements dynamically.
+If the code has imports or exports, the `<script>` tag will have `type="module"` attribute.
 
-### Loading Modules
+The only case where the code is modified is when CommonJS `require`s are used to import external dependencies (not recommended - use ESM imports instead).
+These `require`s are converted to ESM imports with some glue code to make them work.
 
-Most of the core functionality in JavaScript is available directly in the browser without any additional installation.
+Example:
 
-#### Standard Library
+export const commonjs = `const { v4 } = require('uuid');
 
-JavaScript provides a standard set of built-in objects and functions which are available directly in the browser.
+document.body.innerHTML = v4();`;
 
-#### External Packages
-To use additional functionality not included in the core language, you can import external packages (libraries) from CDN links.
+<LiveCodes params={{ activeEditor: 'script', js: commonjs, compiled: 'open' }}></LiveCodes>
 
-```js
-import _ from 'https://cdn.jsdelivr.net/npm/lodash-es@4.17.21/lodash.min.js';
+### External Modules
+
+Modules can be imported from various sources (e.g. npm, deno.land/x, jsr, CDNs, GitHub, etc.) including bare module imports.
+The modules are loaded from CDNs using importmaps (see [module resolution](../features/module-resolution.mdx) for details).
+
+Example:
+
+export const esm = `import _ from 'lodash';
 
 const arr = [1, 2, 3, 4, 5];
 console.log(_.shuffle(arr)); // shuffle the array
-```
+`;
 
-If you use JavaScript syntax extensions like JSX or JavaScript libraries/frameworks, you can select them directly in the programming language selection.
+<LiveCodes params={{ activeEditor: 'script', js: esm, console: 'open' }}></LiveCodes>
+
 
 ## Language Info
 
 ### Name
 
-`Javascript`
+`javascript`
 
-### Aliases
+### Alias
 
-`js`, `node`, `ecmascript`
+`js`
 
 ### Extensions
 
-`js`
+`js`, `mjs`
 
 ### Editor
 
@@ -61,19 +62,11 @@ If you use JavaScript syntax extensions like JSX or JavaScript libraries/framewo
 
 ### Compiler
 
-JavaScript runs natively in the browser — no compilation is required.
-
-### Version
-
-Depends on the browser's JavaScript engine and its supported ECMAScript features.
+JavaScript runs natively in the browser without compilation.
 
 ## Code Formatting
 
-Using [Prettier](https://prettier.io/) for code Formatting. You can format your code when saving the project, but you need to manually enable "Format on Save" in the settings.
-
-## Live Reload
-
-JavaScript code automatically reloads and executes when edited, allowing for real-time feedback.
+Using [Prettier](https://prettier.io/).
 
 ## Starter Template
 
@@ -81,5 +74,5 @@ https://livecodes.io/?template=Javascript
 
 ## Links
 
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [JavaScript Reference on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [Web API](https://developer.mozilla.org/en-US/docs/Web/API)
