@@ -152,6 +152,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Java officiële website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Leer X in Y minuten, waarbij X=java</6> </5> <7> <8>LiveCodes Documentatie</8> </7> <9> <10>Startsjabloon laden</10> </9>',
     name: 'Java',
   },
+  javascript: {
+    desc: 'De scripttaal van het web.',
+    link: '<1> <2>JavaScript op MDN</2> </1> <3> <4>Leer X in Y minuten, waarbij X=JavaScript</4> </3> <5> <6>LiveCodes Documentatie</6> </5> <7> <8>Starterssjabloon laden</8> </7>',
+    name: 'JavaScript',
+  },
   jinja: {
     desc: 'Jinja is een snelle, expressieve, uitbreidbare sjabloonengine.',
     link: '<1> <2>Officiële website</2> </1> <3> <4>Sjabloondocumentatie</4> </3> <5> <6>JavaScript-implementatie</6> </5> <7> <8>LiveCodes Documentatie</8> </7>',

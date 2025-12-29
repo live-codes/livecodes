@@ -153,6 +153,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi Java</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=java</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
     name: 'Java',
   },
+  javascript: {
+    desc: 'Bahasa skrip web.',
+    link: '<1> <2>JavaScript di MDN</2> </1> <3> <4>Belajar X dalam Y menit, di mana X = JavaScript</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat templat pemula</8> </7>',
+    name: 'JavaScript',
+  },
   jinja: {
     desc: 'Jinja adalah mesin templating yang cepat, ekspresif, dan dapat diperluas.',
     link: '<1> <2>Situs web resmi</2> </1> <3> <4>Dokumentasi template</4> </3> <5> <6>Implementasi JavaScript</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7>',
