@@ -2857,8 +2857,9 @@ const handleCommandMenu = async () => {
   let anotherShortcut = false;
   const onHotkey = async (e: KeyboardEvent) => {
     // Ctrl+K opens the command menu
+    // do not open the menu if shortcut is Ctrl+Shift+K
     // wait for 500ms to allow other shortcuts like Ctrl+K Ctrl+0
-    if (!ctrl(e)) {
+    if (!ctrl(e) || e.shiftKey || e.altKey) {
       anotherShortcut = false;
       return;
     }
@@ -3130,45 +3131,40 @@ const registerMenuButton = (menu: HTMLElement, button: HTMLElement) => {
 };
 
 const handleAppMenuProject = () => {
-  const menuProjectContainer = UI.getAppMenuProjectScroller();
-  const menuProjectButton = UI.getAppMenuProjectButton();
-  if (!menuProjectContainer || !menuProjectButton) return;
-
-  const html = isMac()
-    ? menuProjectHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>')
-    : menuProjectHTML;
-  menuProjectContainer.innerHTML = html;
-  translateElement(menuProjectContainer);
-  // adjustFontSize(menuProjectContainer);
-  registerMenuButton(menuProjectContainer, menuProjectButton);
+  setupAppMenu(UI.getAppMenuProjectScroller(), UI.getAppMenuProjectButton(), menuProjectHTML);
 };
 
 const handleAppMenuSettings = () => {
-  const menuSettingsContainer = UI.getAppMenuSettingsScroller();
-  const menuSettingsButton = UI.getAppMenuSettingsButton();
-  if (!menuSettingsContainer || !menuSettingsButton) return;
-
-  const html = isMac()
-    ? menuSettingsHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>')
-    : menuSettingsHTML;
-  menuSettingsContainer.innerHTML = html;
-
-  translateElement(menuSettingsContainer);
-  adjustFontSize(menuSettingsContainer);
-  registerMenuButton(menuSettingsContainer, menuSettingsButton);
+  setupAppMenu(
+    UI.getAppMenuSettingsScroller(),
+    UI.getAppMenuSettingsButton(),
+    menuSettingsHTML,
+    true,
+  );
 };
 
 const handleAppMenuHelp = () => {
-  const menuHelpContainer = UI.getAppMenuHelpScroller();
-  const menuHelpButton = UI.getAppMenuHelpButton();
-  if (!menuHelpContainer || !menuHelpButton) return;
+  setupAppMenu(UI.getAppMenuHelpScroller(), UI.getAppMenuHelpButton(), menuHelpHTML);
+};
 
-  const html = isMac() ? menuHelpHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>') : menuHelpHTML;
-  menuHelpContainer.innerHTML = html;
-  menuHelpContainer.classList.add('hidden');
-  translateElement(menuHelpContainer);
-  // adjustFontSize(menuHelpContainer);
-  registerMenuButton(menuHelpContainer, menuHelpButton);
+const setupAppMenu = (
+  container: HTMLElement | null,
+  button: HTMLElement | null,
+  menuHTML: string,
+  shouldAdjustFontSize = false,
+) => {
+  if (!container || !button) return;
+
+  const html = isMac() ? menuHTML.replaceAll('<kbd>Ctrl</kbd>', '<kbd>⌘</kbd>') : menuHTML;
+
+  container.innerHTML = html;
+  translateElement(container);
+
+  if (shouldAdjustFontSize) {
+    adjustFontSize(container);
+  }
+
+  registerMenuButton(container, button);
 };
 
 /**
@@ -4807,14 +4803,23 @@ const handleResultLoading = () => {
   eventsManager.addEventListener(window, 'message', showResultModeDrawer);
 };
 
+const createToolButton = (id: string, title: string, innerHTML: string) => {
+  const btn = document.createElement('div');
+  btn.id = id;
+  btn.classList.add('tool-buttons');
+  btn.title = title;
+  btn.style.pointerEvents = 'all'; // override setting to 'none' on toolspane bar
+  btn.innerHTML = innerHTML;
+  UI.getToolspaneTitles()?.appendChild(btn);
+  return btn;
+};
+
 const handleResultPopup = () => {
-  const popupBtn = document.createElement('div');
-  popupBtn.id = 'result-popup-btn';
-  popupBtn.classList.add('tool-buttons');
-  popupBtn.title = window.deps.translateString('core.result.hint', 'Show result in new window');
-  popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const iconCSS = '<i class="icon-window-new"></i>';
-  popupBtn.innerHTML = `<button id="show-result">${iconCSS}</button>`;
+  const popupBtn = createToolButton(
+    'result-popup-btn',
+    window.deps.translateString('core.result.hint', 'Show result in new window'),
+    `<button id="show-result"><i class="icon-window-new"></i></button>`,
+  );
   let url: string | undefined;
   const openWindow = async () => {
     if (resultPopup && !resultPopup.closed) {
@@ -4847,17 +4852,14 @@ const handleResultPopup = () => {
 };
 
 const handleResultZoom = () => {
-  const zoomBtn = document.createElement('div');
-  zoomBtn.id = 'zoom-button';
-  zoomBtn.classList.add('tool-buttons');
-  zoomBtn.title = window.deps.translateString('core.zoom.hint', 'Zoom') + ' (Ctrl/Cmd + Alt + Z)';
-  zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  zoomBtn.innerHTML = `
-  <button class="text">
-    <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
-    &times;
-  </button>`;
-
+  const zoomBtn = createToolButton(
+    'zoom-button',
+    window.deps.translateString('core.zoom.hint', 'Zoom') + ' (Ctrl/Cmd + Alt + Z)',
+    `<button class="text">
+      <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
+      &times;
+    </button>`,
+  );
   const toggleZoom = () => {
     const config = getConfig();
     const currentZoom = config.zoom;
@@ -4875,13 +4877,11 @@ const handleResultZoom = () => {
 };
 
 const handleBroadcastStatus = () => {
-  const broadcastStatusBtn = document.createElement('div');
-  broadcastStatusBtn.id = 'broadcast-status-btn';
-  broadcastStatusBtn.classList.add('tool-buttons');
-  broadcastStatusBtn.title = window.deps.translateString('core.broadcast.heading', 'Broadcast');
-  broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const iconCSS = '<i class="icon-broadcast"></i>';
-  broadcastStatusBtn.innerHTML = `<button id="broadcast-status">${iconCSS}<span class="mark"></span></button>`;
+  const broadcastStatusBtn = createToolButton(
+    'broadcast-status-btn',
+    window.deps.translateString('core.broadcast.heading', 'Broadcast'),
+    `<button id="broadcast-status"><i class="icon-broadcast"></i><span class="mark"></span></button>`,
+  );
 
   const showBroadcast = () => {
     showScreen('broadcast');
