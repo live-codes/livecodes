@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "A linguagem de script da Web."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>JavaScript na MDN</tag-2> </tag-1> <tag-3> <tag-4>Aprenda X em Y minutos, onde X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>Documentação LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Carregar modelo inicial</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja é um motor de criação de modelos rápido, expressivo e extensível."
   },

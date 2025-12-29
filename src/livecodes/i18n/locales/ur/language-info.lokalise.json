@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "ویب کی سکرپٹ کی زبان۔"
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>MDN پر جاوا اسکرپٹ</tag-2> </tag-1> <tag-3> <tag-4>Y منٹ میں X سیکھیں، جہاں X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes دستاویزی</tag-6> </tag-5> <tag-7> <tag-8>اسٹارٹر ٹیمپلیٹ لوڈ کریں۔</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "جنجا ایک تیز، اظہار خیال، توسیع پذیر ٹیمپلیٹنگ انجن ہے."
   },

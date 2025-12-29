@@ -152,6 +152,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Java公式サイト    DoppioJVM    XをY分で学ぶ、X=Java    スターターテンプレートのロード</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
     name: 'Java',
   },
+  javascript: {
+    desc: 'ウェブのスクリプト言語。',
+    link: '<1> <2>JavaScript on MDN</2> </1> <3> <4>Learn X in Y minutes, where X=JavaScript</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'JavaScript',
+  },
   jinja: {
     desc: 'Jinjaは高速で、表現力があり、拡張可能なテンプレートエンジンです。',
     link: '<1> <2>公式ウェブサイト    テンプレートドキュメント    JavaScript実装    LiveCodesドキュメント</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',

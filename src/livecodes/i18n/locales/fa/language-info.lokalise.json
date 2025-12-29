@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "زبان اسکریپت نویسی وب."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>جاوا اسکریپت روی MDN</tag-2> </tag-1> <tag-3> <tag-4>X را در Y دقیقه یاد بگیرید، که در آن X = جاوا اسکریپت</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری الگوی آغازین</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja یک موتور قالب‌ساز سریع، بیانگر و قابل گسترش است."
   },
