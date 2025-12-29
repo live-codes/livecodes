@@ -44,6 +44,6 @@ export const typescript: LanguageSpecs = {
           ...getLanguageCustomSettings(config.script.language, config),
         }),
   },
-  extensions: ['ts', 'typescript'],
+  extensions: ['ts', 'mts', 'typescript'],
   editor: 'script',
 };
