@@ -5,7 +5,6 @@ export const javascript: LanguageSpecs = {
   name: 'javascript',
   title: 'JS',
   longTitle: 'JavaScript',
-  info: false,
   parser: {
     name: 'babel',
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
@@ -13,7 +12,7 @@ export const javascript: LanguageSpecs = {
   compiler: {
     factory: () => async (code) => code,
   },
-  extensions: ['js'],
+  extensions: ['js', 'mjs'],
   editor: 'script',
   multiFileSupport: true,
 };

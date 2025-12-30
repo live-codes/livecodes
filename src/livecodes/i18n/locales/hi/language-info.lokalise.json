@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "वेब की स्क्रिप्टिंग भाषा।"
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>MDN पर जावास्क्रिप्ट</tag-2> </tag-1> <tag-3> <tag-4>X को Y मिनट में सीखें, जहाँ X = जावास्क्रिप्ट है।</tag-4> </tag-3> <tag-5> <tag-6>लाइवकोड दस्तावेज़ीकरण</tag-6> </tag-5> <tag-7> <tag-8>स्टार्टर टेम्पलेट लोड करें</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "जिंजा एक तेज, अभिव्यंजक, विस्तारयोग्य टेम्प्लेटिंग इंजन है।"
   },

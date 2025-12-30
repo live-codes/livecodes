@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "De scripttaal van het web."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>JavaScript op MDN</tag-2> </tag-1> <tag-3> <tag-4>Leer X in Y minuten, waarbij X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5> <tag-7> <tag-8>Starterssjabloon laden</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja is een snelle, expressieve, uitbreidbare sjabloonengine."
   },

@@ -152,6 +152,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sítio Web oficial de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Aprender X em Y minutos, onde X=java</6> </5> <7> <8> Carregar modelo inicial</8> </7>',
     name: 'Java',
   },
+  javascript: {
+    desc: 'A linguagem de script da Web.',
+    link: '<1> <2>JavaScript na MDN</2> </1> <3> <4>Aprenda X em Y minutos, onde X=JavaScript</4> </3> <5> <6>Documentação LiveCodes</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
+    name: 'JavaScript',
+  },
   jinja: {
     desc: 'Jinja é um motor de criação de modelos rápido, expressivo e extensível.',
     link: '<1> <2>Sítio Web oficial</2> </1> <3> <4> Documentação do modelo</4> </3> <5> <6> Implementação do JavaScript</6> </5> <7> <8> Documentações LiveCodes</8> </7>',
