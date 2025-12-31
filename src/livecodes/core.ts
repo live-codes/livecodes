@@ -494,9 +494,10 @@ const addFile = async (
 ) => {
   if (!checkFileName(filename, getConfig())) return false;
   const fileLanguage = getFileLanguage(filename) || 'javascript';
+  const container = createEditorUI(filename);
   const editor = await createEditor({
     ...editorOptions,
-    container: createEditorUI(filename, true),
+    container,
     editorId: filename,
     language: fileLanguage,
     value: '',
@@ -574,7 +575,7 @@ const deleteFile = (filename: string) => {
   }
 };
 
-const createEditorUI = (title: string, addTab = false) => {
+const createEditorUI = (title: string) => {
   const editorsElement = UI.getEditorsElement();
   editorsElement.querySelector(`.editor[data-editor-id="${title}"]`)?.remove();
   const container = document.createElement('div');
@@ -582,16 +583,14 @@ const createEditorUI = (title: string, addTab = false) => {
   container.dataset.multiFile = 'true';
   container.classList.add('editor');
   editorsElement.insertBefore(container, UI.getEditorToolbar());
-  if (addTab) {
-    createMultiFileEditorTab({
-      title,
-      showEditor,
-      renameFile,
-      deleteFile,
-      isMainFile: title === getMainFile(getConfig()),
-      isNewFile: false,
-    });
-  }
+  createMultiFileEditorTab({
+    title,
+    showEditor,
+    renameFile,
+    deleteFile,
+    isMainFile: title === getMainFile(getConfig()),
+    isNewFile: false,
+  });
   return container;
 };
 
@@ -686,7 +685,7 @@ const createEditors = async (config: Config) => {
     editorIds.length = 0;
     for (const file of config.files) {
       const editorId = file.filename as EditorId;
-      const container = createEditorUI(file.filename, /* addTab */ true);
+      const container = createEditorUI(file.filename);
       const editorOptions = {
         ...baseOptions,
         container,

@@ -231,16 +231,19 @@ export const createMultiFileEditorTab = ({
     }
     label.contentEditable = 'false';
     currentFileName = label.innerText;
-    isNewFile = false;
     showEditor(currentFileName);
     window.removeEventListener('keydown', onEnter);
+    if (isNewFile) {
+      // a new tab is created. remove this one
+      editorSelector.remove();
+    }
+    isNewFile = false;
   };
 
   const onEnter = (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      accept();
-    }
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    accept();
   };
 
   const onDblClick = () => {
@@ -263,19 +266,18 @@ export const createMultiFileEditorTab = ({
 };
 
 export const createAddFileButton = ({ onclick: handleAddFileClick }: { onclick: () => void }) => {
-  if (!document.querySelector('#add-file-button')) {
-    const addFileButton = document.createElement('button');
-    addFileButton.id = 'add-file-button';
-    addFileButton.classList.add('app-menu-button', 'menu');
-    addFileButton.innerHTML =
-      '<i class="icon-add" title="Add file" data-i18n="core.addFile" data-i18n-prop="title"></i>';
-    addFileButton.addEventListener('click', handleAddFileClick);
-    document.querySelector('#select-editor')?.appendChild(addFileButton);
+  if (document.querySelector('#add-file-button')) return;
+  const addFileButton = document.createElement('button');
+  addFileButton.id = 'add-file-button';
+  addFileButton.classList.add('app-menu-button', 'menu');
+  addFileButton.innerHTML =
+    '<i class="icon-add" title="Add file" data-i18n="core.addFile" data-i18n-prop="title"></i>';
+  addFileButton.addEventListener('click', handleAddFileClick);
+  document.querySelector('#select-editor')?.appendChild(addFileButton);
 
-    const scrollTo = document.createElement('div');
-    scrollTo.id = 'multi-file-scroll-to';
-    document.querySelector('#select-editor > div')?.appendChild(scrollTo);
-  }
+  const scrollTo = document.createElement('div');
+  scrollTo.id = 'multi-file-scroll-to';
+  document.querySelector('#select-editor > div')?.appendChild(scrollTo);
 };
 
 export const createProcessorItem = (processor: { name: string; title: string }) => {
