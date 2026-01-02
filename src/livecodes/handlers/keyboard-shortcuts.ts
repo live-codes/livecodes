@@ -18,6 +18,11 @@ export interface KeyboardShortcutDeps {
 }
 
 /**
+ * Module-level state for tracking key sequences
+ */
+let lastkeys = '';
+
+/**
  * Creates individual shortcut handlers as pure functions
  */
 const createCommandPaletteHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) => {
@@ -25,6 +30,7 @@ const createCommandPaletteHandler = (deps: KeyboardShortcutDeps) => (e: Keyboard
   if (ctrl(e) && e.code === 'KeyP' && activeEditor.monaco) {
     e.preventDefault();
     activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
+    lastkeys = 'Ctrl + P';
     return true;
   }
   return false;
@@ -33,6 +39,7 @@ const createCommandPaletteHandler = (deps: KeyboardShortcutDeps) => (e: Keyboard
 const createPreventBookmarkHandler = () => (e: KeyboardEvent) => {
   if (ctrl(e) && e.code === 'KeyD') {
     e.preventDefault();
+    lastkeys = 'Ctrl + D';
     return true;
   }
   return false;
@@ -42,15 +49,17 @@ const createConsoleToggleHandler = () => (e: KeyboardEvent) => {
   if (ctrl(e) && e.altKey && e.code === 'KeyC') {
     e.preventDefault();
     UI.getConsoleButton()?.dispatchEvent(new Event('touchstart'));
+    lastkeys = 'Ctrl + Alt + C';
     return true;
   }
   return false;
 };
 
-const createConsoleMaximizeHandler = (lastkeys: string) => (e: KeyboardEvent) => {
+const createConsoleMaximizeHandler = () => (e: KeyboardEvent) => {
   if (ctrl(e) && e.altKey && e.code === 'KeyF' && lastkeys === 'Ctrl + Alt + C') {
     e.preventDefault();
     UI.getConsoleButton()?.dispatchEvent(new Event('dblclick'));
+    lastkeys = 'Ctrl + Alt + C, F';
     return true;
   }
   return false;
@@ -60,6 +69,7 @@ const createRunTestsHandler = () => (e: KeyboardEvent) => {
   if (ctrl(e) && e.altKey && e.code === 'KeyT') {
     e.preventDefault();
     UI.getRunTestsButton()?.click();
+    lastkeys = 'Ctrl + Alt + T';
     return true;
   }
   return false;
@@ -69,6 +79,7 @@ const createRunHandler = () => (e: KeyboardEvent) => {
   if (e.shiftKey && e.key === 'Enter') {
     e.preventDefault();
     UI.getRunButton()?.click();
+    lastkeys = 'Shift + Enter';
     return true;
   }
   return false;
@@ -78,6 +89,7 @@ const createResultToggleHandler = () => (e: KeyboardEvent) => {
   if (ctrl(e) && e.altKey && e.code === 'KeyR') {
     e.preventDefault();
     UI.getResultButton()?.click();
+    lastkeys = 'Ctrl + Alt + R';
     return true;
   }
   return false;
@@ -87,6 +99,7 @@ const createZoomToggleHandler = () => (e: KeyboardEvent) => {
   if (ctrl(e) && e.altKey && e.code === 'KeyZ') {
     e.preventDefault();
     UI.getZoomButton()?.click();
+    lastkeys = 'Ctrl + Alt + Z';
     return true;
   }
   return false;
@@ -96,6 +109,7 @@ const createFocusEditorHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEve
   if (ctrl(e) && e.altKey && e.code === 'KeyE') {
     e.preventDefault();
     deps.getActiveEditor().focus();
+    lastkeys = 'Ctrl + Alt + E';
     return true;
   }
   return false;
@@ -104,31 +118,33 @@ const createFocusEditorHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEve
 // Esc closes dropdown menus
 // Esc + Esc moves focus out of editor
 // Esc + Esc + Esc moves focus to logo
-const createEscapeHandler =
-  (deps: KeyboardShortcutDeps, lastkeys: string) => (e: KeyboardEvent) => {
-    if (e.code === 'Escape') {
-      document.querySelectorAll('.menu-scroller').forEach((el) => el.classList.add('hidden'));
-      if (lastkeys === 'Esc') {
-        e.preventDefault();
-        if (
-          (deps.toolsPane?.getStatus() === 'open' || deps.toolsPane?.getStatus() === 'full') &&
-          deps.toolsPane.getActiveTool() === 'console'
-        ) {
-          UI.getConsoleButton()?.focus();
-        } else {
-          UI.getFocusButton()?.focus();
-        }
-        return 'Esc + Esc';
+const createEscapeHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) => {
+  if (e.code === 'Escape') {
+    document.querySelectorAll('.menu-scroller').forEach((el) => el.classList.add('hidden'));
+    if (lastkeys === 'Esc') {
+      e.preventDefault();
+      if (
+        (deps.toolsPane?.getStatus() === 'open' || deps.toolsPane?.getStatus() === 'full') &&
+        deps.toolsPane.getActiveTool() === 'console'
+      ) {
+        UI.getConsoleButton()?.focus();
+      } else {
+        UI.getFocusButton()?.focus();
       }
-      if (lastkeys === 'Esc + Esc') {
-        e.preventDefault();
-        UI.getLogoLink()?.focus();
-        return 'Esc + Esc + Esc';
-      }
-      return 'Esc';
+      lastkeys = 'Esc + Esc';
+      return true;
     }
-    return false;
-  };
+    if (lastkeys === 'Esc + Esc') {
+      e.preventDefault();
+      UI.getLogoLink()?.focus();
+      lastkeys = 'Esc + Esc + Esc';
+      return true;
+    }
+    lastkeys = 'Esc';
+    return true;
+  }
+  return false;
+};
 
 // Ctrl + Alt + (1-3) activates editor 1-3
 // Ctrl + Alt + (ArrowLeft/ArrowRight) activates previous/next editor
@@ -153,6 +169,7 @@ const createEditorSwitchHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEv
       index === editorIds.length ? 0 : index === -1 ? editorIds.length - 1 : index;
 
     deps.showEditor(editorIds[editorIndex]);
+    lastkeys = 'Ctrl + Alt + ' + e.key;
     return true;
   }
   return false;
@@ -162,6 +179,7 @@ const createNewProjectHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEven
   if (!deps.isEmbed && ctrl(e) && e.altKey && e.code === 'KeyN') {
     e.preventDefault();
     UI.getNewLink()?.click();
+    lastkeys = 'Ctrl + Alt + N';
     return true;
   }
   return false;
@@ -171,6 +189,7 @@ const createOpenProjectHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEve
   if (!deps.isEmbed && ctrl(e) && e.code === 'KeyO') {
     e.preventDefault();
     UI.getOpenLink()?.click();
+    lastkeys = 'Ctrl + O';
     return true;
   }
   return false;
@@ -180,6 +199,7 @@ const createImportHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) =
   if (!deps.isEmbed && ctrl(e) && e.altKey && e.code === 'KeyI') {
     e.preventDefault();
     UI.getImportLink()?.click();
+    lastkeys = 'Ctrl + Alt + I';
     return true;
   }
   return false;
@@ -189,6 +209,7 @@ const createShareHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) =>
   if (!deps.isEmbed && ctrl(e) && e.altKey && e.code === 'KeyS') {
     e.preventDefault();
     UI.getShareLink()?.click();
+    lastkeys = 'Ctrl + Alt + S';
     return true;
   }
   return false;
@@ -198,6 +219,7 @@ const createForkHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) => 
   if (!deps.isEmbed && ctrl(e) && e.shiftKey && e.code === 'KeyS') {
     e.preventDefault();
     UI.getForkLink()?.click();
+    lastkeys = 'Ctrl + Shift + S';
     return true;
   }
   return false;
@@ -207,6 +229,7 @@ const createSaveHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) => 
   if (!deps.isEmbed && ctrl(e) && e.code === 'KeyS') {
     e.preventDefault();
     UI.getSaveLink()?.click();
+    lastkeys = 'Ctrl + S';
     return true;
   }
   return false;
@@ -216,120 +239,64 @@ const createFocusModeHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent
   if (!deps.isEmbed && ctrl(e) && e.altKey && e.code === 'KeyF') {
     e.preventDefault();
     UI.getFocusButton()?.click();
+    lastkeys = 'Ctrl + Alt + F';
     return true;
   }
   return false;
 };
 
 /**
- * Sets up all keyboard shortcuts and event listeners
+ * Handles all keyboard shortcuts and event listeners
  */
-export const setupKeyboardShortcuts = (deps: KeyboardShortcutDeps): void => {
-  let lastkeys = '';
-
+export const handleKeyboardShortcuts = (deps: KeyboardShortcutDeps): void => {
   const hotKeys = (e: KeyboardEvent) => {
     // Command palette handler
-    if (createCommandPaletteHandler(deps)(e)) {
-      lastkeys = 'Ctrl + P';
-      return;
-    }
+    if (createCommandPaletteHandler(deps)(e)) return;
 
     // Prevent bookmark dialog
-    if (createPreventBookmarkHandler()(e)) {
-      lastkeys = 'Ctrl + D';
-      return;
-    }
+    if (createPreventBookmarkHandler()(e)) return;
 
     // Console toggle
-    if (createConsoleToggleHandler()(e)) {
-      lastkeys = 'Ctrl + Alt + C';
-      return;
-    }
+    if (createConsoleToggleHandler()(e)) return;
 
     // Console maximize (depends on previous key)
-    if (createConsoleMaximizeHandler(lastkeys)(e)) {
-      lastkeys = 'Ctrl + Alt + C, F';
-      return;
-    }
+    if (createConsoleMaximizeHandler()(e)) return;
 
     // Run tests
-    if (createRunTestsHandler()(e)) {
-      lastkeys = 'Ctrl + Alt + T';
-      return;
-    }
+    if (createRunTestsHandler()(e)) return;
 
     // Run code
-    if (createRunHandler()(e)) {
-      lastkeys = 'Shift + Enter';
-      return;
-    }
+    if (createRunHandler()(e)) return;
 
     // Result toggle
-    if (createResultToggleHandler()(e)) {
-      lastkeys = 'Ctrl + Alt + R';
-      return;
-    }
+    if (createResultToggleHandler()(e)) return;
 
     // Zoom toggle
-    if (createZoomToggleHandler()(e)) {
-      lastkeys = 'Ctrl + Alt + Z';
-      return;
-    }
+    if (createZoomToggleHandler()(e)) return;
 
     // Focus editor
-    if (createFocusEditorHandler(deps)(e)) {
-      lastkeys = 'Ctrl + Alt + E';
-      return;
-    }
+    if (createFocusEditorHandler(deps)(e)) return;
 
     // Escape handling
-    const escapeResult = createEscapeHandler(deps, lastkeys)(e);
-    if (escapeResult) {
-      lastkeys = typeof escapeResult === 'string' ? escapeResult : 'Esc';
-      return;
-    }
+    if (createEscapeHandler(deps)(e)) return;
 
     // Editor switching
-    if (createEditorSwitchHandler(deps)(e)) {
-      lastkeys = 'Ctrl + Alt + ' + e.key;
-      return;
-    }
+    if (createEditorSwitchHandler(deps)(e)) return;
 
     // Project management shortcuts (only if not embed)
-    if (createNewProjectHandler(deps)(e)) {
-      lastkeys = 'Ctrl + Alt + N';
-      return;
-    }
+    if (createNewProjectHandler(deps)(e)) return;
 
-    if (createOpenProjectHandler(deps)(e)) {
-      lastkeys = 'Ctrl + O';
-      return;
-    }
+    if (createOpenProjectHandler(deps)(e)) return;
 
-    if (createImportHandler(deps)(e)) {
-      lastkeys = 'Ctrl + Alt + I';
-      return;
-    }
+    if (createImportHandler(deps)(e)) return;
 
-    if (createShareHandler(deps)(e)) {
-      lastkeys = 'Ctrl + Alt + S';
-      return;
-    }
+    if (createShareHandler(deps)(e)) return;
 
-    if (createForkHandler(deps)(e)) {
-      lastkeys = 'Ctrl + Shift + S';
-      return;
-    }
+    if (createForkHandler(deps)(e)) return;
 
-    if (createSaveHandler(deps)(e)) {
-      lastkeys = 'Ctrl + S';
-      return;
-    }
+    if (createSaveHandler(deps)(e)) return;
 
-    if (createFocusModeHandler(deps)(e)) {
-      lastkeys = 'Ctrl + Alt + F';
-      return;
-    }
+    if (createFocusModeHandler(deps)(e)) return;
 
     // Update lastkeys for non-modifier keys
     if (!ctrl(e) && !e.altKey && !e.shiftKey) {

@@ -1,6 +1,6 @@
 import * as UI from '../../UI/selectors';
 import { ctrl } from '../../utils';
-import { setupKeyboardShortcuts, type KeyboardShortcutDeps } from '../keyboard-shortcuts';
+import { handleKeyboardShortcuts, type KeyboardShortcutDeps } from '../keyboard-shortcuts';
 
 // Mock the UI selectors module
 jest.mock('../../UI/selectors', () => ({
@@ -96,9 +96,9 @@ describe('Keyboard Shortcuts Handler', () => {
     document.querySelectorAll = jest.fn().mockReturnValue([{ classList: { add: jest.fn() } }]);
   });
 
-  describe('setupKeyboardShortcuts', () => {
+  describe('handleKeyboardShortcuts', () => {
     it('should add event listener to window', () => {
-      setupKeyboardShortcuts(mockDeps);
+      handleKeyboardShortcuts(mockDeps);
 
       expect(mockEventsManager.addEventListener).toHaveBeenCalledWith(
         window,
@@ -109,13 +109,13 @@ describe('Keyboard Shortcuts Handler', () => {
     });
 
     it('should handle keyboard events and update lastkeys', () => {
-      setupKeyboardShortcuts(mockDeps);
+      handleKeyboardShortcuts(mockDeps);
       simulateKeydown({ ctrlKey: true, code: 'KeyP' });
       expect(mockActiveEditor.monaco.trigger).toHaveBeenCalled();
     });
 
     it('should handle non-modifier keys by updating lastkeys', () => {
-      setupKeyboardShortcuts(mockDeps);
+      handleKeyboardShortcuts(mockDeps);
       // Should not throw
       expect(() => {
         simulateKeydown({ key: 'a' });
@@ -124,7 +124,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Command Palette (Ctrl+P)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should trigger Monaco command palette on Ctrl+P', () => {
       const event = simulateKeydown({ ctrlKey: true, code: 'KeyP' });
@@ -150,7 +150,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Prevent Bookmark (Ctrl+D)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should prevent default on Ctrl+D', () => {
       const event = simulateKeydown({ ctrlKey: true, code: 'KeyD' });
@@ -164,7 +164,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Console Toggle (Ctrl+Alt+C)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should toggle console on Ctrl+Alt+C', () => {
       const mockConsoleButton = { dispatchEvent: jest.fn() };
@@ -186,7 +186,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Console Maximize (Ctrl+Alt+F after Ctrl+Alt+C)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should maximize console on Ctrl+Alt+F after Ctrl+Alt+C', () => {
       const mockConsoleButton = { dispatchEvent: jest.fn() };
@@ -211,7 +211,7 @@ describe('Keyboard Shortcuts Handler', () => {
 
       // Press Ctrl+Alt+F without prior Ctrl+Alt+C (in non-embed mode, this triggers focus mode)
       mockDeps.isEmbed = false;
-      setupKeyboardShortcuts(mockDeps);
+      handleKeyboardShortcuts(mockDeps);
       simulateKeydown({ ctrlKey: true, altKey: true, code: 'KeyF' });
 
       // Console maximize should not be triggered (dblclick event)
@@ -223,7 +223,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Run Tests (Ctrl+Alt+T)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should run tests on Ctrl+Alt+T', () => {
       const mockRunTestsButton = { click: jest.fn() };
@@ -245,7 +245,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Run Code (Shift+Enter)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should run code on Shift+Enter', () => {
       const mockRunButton = { click: jest.fn() };
@@ -267,7 +267,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Result Toggle (Ctrl+Alt+R)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should toggle result on Ctrl+Alt+R', () => {
       const mockResultButton = { click: jest.fn() };
@@ -281,7 +281,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Zoom Toggle (Ctrl+Alt+Z)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should toggle zoom on Ctrl+Alt+Z', () => {
       const mockZoomButton = { click: jest.fn() };
@@ -295,7 +295,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Focus Editor (Ctrl+Alt+E)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should focus editor on Ctrl+Alt+E', () => {
       const event = simulateKeydown({ ctrlKey: true, altKey: true, code: 'KeyE' });
@@ -306,7 +306,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Escape Key Handling', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should hide menus and return "Esc" on first escape', () => {
       simulateKeydown({ code: 'Escape' });
@@ -364,7 +364,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Editor Switching (Ctrl+Alt+1/2/3/Arrow)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should switch to editor 1 on Ctrl+Alt+1', () => {
       const event = simulateKeydown({ ctrlKey: true, altKey: true, key: '1' });
@@ -416,7 +416,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Project Management Shortcuts (non-embed only)', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should create new project on Ctrl+Alt+N when not embed', () => {
       const mockNewLink = { click: jest.fn() };
@@ -478,7 +478,7 @@ describe('Keyboard Shortcuts Handler', () => {
   describe('Embed Mode Restrictions', () => {
     beforeEach(() => {
       mockDeps.isEmbed = true;
-      setupKeyboardShortcuts(mockDeps);
+      handleKeyboardShortcuts(mockDeps);
     });
 
     it('should return false for new project when in embed mode', () => {
@@ -539,7 +539,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Edge Cases and Error Handling', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should handle missing UI elements gracefully', () => {
       (UI.getConsoleButton as jest.Mock).mockReturnValue(null);
@@ -554,7 +554,7 @@ describe('Keyboard Shortcuts Handler', () => {
 
     it('should handle missing split gracefully', () => {
       mockDeps.split = undefined;
-      setupKeyboardShortcuts(mockDeps);
+      handleKeyboardShortcuts(mockDeps);
 
       expect(() => {
         simulateKeydown({ ctrlKey: true, altKey: true, key: '1' });
@@ -567,7 +567,7 @@ describe('Keyboard Shortcuts Handler', () => {
         getActiveEditor: jest.fn().mockReturnValue({}),
         toolsPane: undefined,
       };
-      setupKeyboardShortcuts(incompleteDeps);
+      handleKeyboardShortcuts(incompleteDeps);
 
       // Should not throw even with missing toolsPane
       expect(() => {
@@ -578,7 +578,7 @@ describe('Keyboard Shortcuts Handler', () => {
   });
 
   describe('Key Combination Validation', () => {
-    beforeEach(() => setupKeyboardShortcuts(mockDeps));
+    beforeEach(() => handleKeyboardShortcuts(mockDeps));
 
     it('should correctly identify Ctrl key combinations', () => {
       const event1 = simulateKeydown({ ctrlKey: true, code: 'KeyD' });

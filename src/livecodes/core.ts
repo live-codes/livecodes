@@ -45,7 +45,7 @@ import { customEvents } from './events/custom-events';
 import { exportJSON } from './export/export-json';
 import { getFormatter } from './formatter';
 import type { Formatter } from './formatter/models';
-import { setupKeyboardShortcuts } from './handlers/keyboard-shortcuts';
+import { handleKeyboardShortcuts } from './handlers';
 import {
   aboutScreen,
   customSettingsScreen,
@@ -4960,7 +4960,7 @@ const basicHandlers = () => {
   handleChangeLanguage();
   handleChangeContent();
   // Setup keyboard shortcuts with dependency injection
-  setupKeyboardShortcuts({
+  handleKeyboardShortcuts({
     eventsManager,
     getActiveEditor,
     getConfig,
