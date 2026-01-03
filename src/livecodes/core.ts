@@ -760,6 +760,19 @@ const createEditors = async (config: Config) => {
   if (isReload) {
     loadModuleTypes(editors, config, /* loadAll = */ true);
   }
+
+  // TODO: fix this
+  // workaround for reloading types for file models (e.g. `import { msg } from './msg.ts'`)
+  if (config.files?.length) {
+    for (const file of config.files) {
+      const editorId = file.filename as EditorId;
+      if (getLanguageEditorId(file.language!) !== 'script') continue;
+      const editor = editors[editorId];
+      setTimeout(() => {
+        editor.setValue(editor.getValue());
+      }, 50);
+    }
+  }
 };
 
 const reloadEditors = async (config: Config) => {
