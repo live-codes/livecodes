@@ -503,6 +503,19 @@ const addFile = async (
     language: fileLanguage,
     value: '',
   });
+  const config = getConfig();
+  setConfig({
+    ...config,
+    activeEditor: filename,
+    files: [
+      ...config.files,
+      {
+        filename,
+        language: fileLanguage,
+        content: '',
+      },
+    ],
+  });
   editorLanguages![filename] = fileLanguage;
   editors[filename] = editor;
   editorIds.push(filename);
