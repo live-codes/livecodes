@@ -8,6 +8,7 @@ import type {
   Processor,
   Template,
 } from '../models';
+import { handleSlash } from '../utils';
 
 export const createLanguageMenus = (
   config: Config,
@@ -230,6 +231,7 @@ export const createMultiFileEditorTab = ({
       return;
     }
     label.contentEditable = 'false';
+    label.innerText = handleSlash(label.innerText);
     currentFileName = label.innerText;
     showEditor(currentFileName);
     window.removeEventListener('keydown', onEnter);
@@ -247,7 +249,6 @@ export const createMultiFileEditorTab = ({
   };
 
   const onDblClick = () => {
-    currentFileName = label.innerText;
     label.contentEditable = 'true';
     requestAnimationFrame(() => label.focus());
     selectAll(label);

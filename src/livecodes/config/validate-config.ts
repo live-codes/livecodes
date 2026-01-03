@@ -9,9 +9,9 @@ import type {
   Tool,
   ToolsPaneStatus,
 } from '../models';
-import { getFileExtension, removeDuplicates, removeLeadingSlash } from '../utils';
+import { getFileExtension, handleSlash, removeDuplicates } from '../utils';
 import { defaultConfig } from './default-config';
-import { isEditorId, validateFileName } from './utils';
+import { getValidFileName, isEditorId } from './utils';
 
 export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   type types = 'array' | 'boolean' | 'object' | 'number' | 'string' | 'undefined';
@@ -89,10 +89,16 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.position, 'object') ? { position: x.position } : {}),
   });
 
-  const validateFileProps = (x: Partial<SourceFile>): SourceFile | undefined =>
-    x.filename && is(x.filename, 'string') && removeLeadingSlash(x.filename).includes('.')
+  const validateFileProps = (
+    x: Partial<SourceFile>,
+    config: Partial<Config>,
+  ): SourceFile | undefined =>
+    x.filename && is(x.filename, 'string') && handleSlash(x.filename).includes('.')
       ? {
-          filename: removeLeadingSlash(x.filename),
+          filename: (() => {
+            const name = getValidFileName(x.filename, config);
+            return typeof name === 'string' ? name : '';
+          })(),
           content: is(x.content, 'string') ? x.content ?? '' : '',
           language: getLanguageByAlias(x.language || getFileExtension(x.filename)) || 'html',
           ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
@@ -182,10 +188,8 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
       ? {
           files:
             (config.files
-              ?.map((f) => validateFileProps(f))
-              .filter(
-                (f) => f != null && validateFileName(f.filename, config),
-              ) as Config['files']) || [],
+              ?.map((f) => validateFileProps(f, config))
+              .filter((f) => Boolean(f?.filename)) as Config['files']) || [],
         }
       : {}),
     ...(is(config.mainFile, 'string') ? { mainFile: config.mainFile } : {}),

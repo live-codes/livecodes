@@ -685,8 +685,10 @@ export const addProp = /* @__PURE__ */ (
   addProp(obj[first] as Record<string, unknown>, rest.join('.'), value);
 };
 
-export const removeLeadingSlash = /* @__PURE__ */ (x: string) =>
-  x.startsWith('/')
+export const handleSlash = /* @__PURE__ */ (x: string) => {
+  if (!x) return '';
+  x = x.replaceAll('\\', '/');
+  return x.startsWith('/')
     ? x.slice(1)
     : x.startsWith('./')
       ? x.slice(2)
@@ -695,6 +697,7 @@ export const removeLeadingSlash = /* @__PURE__ */ (x: string) =>
         : x.startsWith('~/')
           ? x.slice(2)
           : x;
+};
 
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',

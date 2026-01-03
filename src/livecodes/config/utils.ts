@@ -5,7 +5,7 @@ import {
   supportsMultiFile,
 } from '../languages/utils';
 import type { Config, EditorId } from '../models';
-import { removeLeadingSlash } from '../utils/utils';
+import { handleSlash } from '../utils/utils';
 
 export const isEditorId = (editorId: string): editorId is 'markup' | 'style' | 'script' =>
   editorId === 'markup' || editorId === 'style' || editorId === 'script';
@@ -23,13 +23,21 @@ export const getMainFile = (config: Config) =>
         : config.files.find((f) => getLanguageEditorId(f.language) === 'markup')?.filename ||
           'index.html';
 
-export const validateFileName = (filename: string, config: Partial<Config>) => {
-  filename = removeLeadingSlash(filename);
-  if (!filename) return false;
-  if (filename[0] >= '0' && filename[0] <= '9') return false;
-  const language = getFileLanguage(filename);
-  if (!language || !supportsMultiFile(language) || !languageIsEnabled(language, config as Config)) {
-    return false;
+export const getValidFileName = (
+  filename: string,
+  config: Partial<Config>,
+): string | { error: 'invalid name' | 'invalid type' } => {
+  const name = handleSlash(filename.trim() || '');
+  if (name === '') return { error: 'invalid name' };
+  if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(name[0])) {
+    return { error: 'invalid name' };
   }
-  return true;
+  if ([':', '*', '?', '"', '<', '>', '|'].some((c) => name.includes(c))) {
+    return { error: 'invalid name' };
+  }
+  const language = getFileLanguage(name);
+  if (!language || !supportsMultiFile(language) || !languageIsEnabled(language, config as Config)) {
+    return { error: 'invalid type' };
+  }
+  return name;
 };

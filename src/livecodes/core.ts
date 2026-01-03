@@ -43,7 +43,7 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
-import { getMainFile, getSource, isEditorId, validateFileName } from './config/utils';
+import { getMainFile, getSource, getValidFileName, isEditorId } from './config/utils';
 import { createCustomEditors, createEditor, getFontFamily } from './editor';
 import { createFakeEditor } from './editor/fake-editor';
 import { hasJsx } from './editor/ts-compiler-options';
@@ -477,88 +477,98 @@ const createCopyButtons = () => {
   });
 };
 
-const checkFileName = (filename: string, config: Config) => {
-  if (!validateFileName(filename, config)) {
-    alert(window.deps.translateString('core.file.invalidName', 'Invalid file type!'));
-    return false;
+const checkFileName = (filename: string, config: Config, currentName?: string) => {
+  const name = getValidFileName(filename, config);
+  if (typeof name === 'string') {
+    if (name !== currentName && config.files?.some((f) => f.filename === name)) {
+      alert(window.deps.translateString('core.file.exists', 'File already exists!'));
+      return null;
+    }
+    return name;
   }
-  if (config.files?.some((f) => f.filename === filename)) {
-    alert(window.deps.translateString('core.file.exists', 'File already exists!'));
-    return false;
+  if (name.error === 'invalid name') {
+    alert(window.deps.translateString('core.file.invalidName', 'Invalid file name!'));
+    return null;
   }
-  return true;
+  if (name.error === 'invalid type') {
+    alert(window.deps.translateString('core.file.invalidType', 'Invalid file type!'));
+    return null;
+  }
+  return null;
 };
 
 const addFile = async (
   filename: string,
   editorOptions: Omit<EditorOptions, 'container' | 'editorId' | 'language' | 'value'>,
 ) => {
-  if (!checkFileName(filename, getConfig())) return false;
-  const fileLanguage = getFileLanguage(filename) || 'javascript';
-  const container = createEditorUI(filename);
+  const validName = checkFileName(filename, getConfig());
+  if (!validName) return false;
+  const fileLanguage = getFileLanguage(validName) || 'javascript';
+  const container = createEditorUI(validName);
   const editor = await createEditor({
     ...editorOptions,
     container,
-    editorId: filename,
+    editorId: validName,
     language: fileLanguage,
     value: '',
   });
   const config = getConfig();
   setConfig({
     ...config,
-    activeEditor: filename,
+    activeEditor: validName,
     files: [
       ...config.files,
       {
-        filename,
+        filename: validName,
         language: fileLanguage,
         content: '',
       },
     ],
   });
-  editorLanguages![filename] = fileLanguage;
-  editors[filename] = editor;
-  editorIds.push(filename);
+  editorLanguages![validName] = fileLanguage;
+  editors[validName] = editor;
+  editorIds.push(validName);
   return true;
 };
 
 const renameFile = (filename: string, newName: string) => {
-  if (filename === newName) return true;
-  if (!checkFileName(newName, getConfig())) return false;
-  const language = getFileLanguage(newName)!;
+  const validName = checkFileName(newName, getConfig(), filename);
+  if (!validName) return false;
+  if (filename === validName) return true;
+  const language = getFileLanguage(validName)!;
   const config = getConfig();
   setConfig({
     ...config,
-    activeEditor: newName,
+    activeEditor: validName,
     files: config.files.map((f) => ({
       ...f,
       language: f.filename === filename ? language : f.language,
-      filename: f.filename === filename ? newName : f.filename,
+      filename: f.filename === filename ? validName : f.filename,
     })),
   });
   UI.getEditorDivs().forEach((editorDiv) => {
     if (editorDiv.dataset.editorId === filename) {
-      editorDiv.dataset.editorId = newName;
+      editorDiv.dataset.editorId = validName;
     }
   });
   UI.getEditorTitles().forEach((editorTitle) => {
     if (editorTitle.dataset.editor === filename) {
-      editorTitle.dataset.editor = newName;
+      editorTitle.dataset.editor = validName;
     }
   });
   if (editorLanguages && editorLanguages[filename]) {
-    editorLanguages[newName] = editorLanguages[filename];
+    editorLanguages[validName] = editorLanguages[filename];
     delete editorLanguages[filename];
   }
   if (editors[filename]) {
-    editors[newName] = editors[filename];
+    editors[validName] = editors[filename];
     delete editors[filename];
   }
   const id = editorIds.findIndex((editorId) => editorId === filename);
   if (id > -1) {
-    editorIds[id] = newName;
+    editorIds[id] = validName;
   }
-  changeLanguage(language, undefined, false, newName);
+  changeLanguage(language, undefined, false, validName);
   return true;
 };
 

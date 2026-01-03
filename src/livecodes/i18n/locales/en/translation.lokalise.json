@@ -1042,6 +1042,10 @@
   },
   "core.file.invalidName": {
     "notes": "",
+    "translation": "Invalid file name!"
+  },
+  "core.file.invalidType": {
+    "notes": "",
     "translation": "Invalid file type!"
   },
   "core.fork.success": {

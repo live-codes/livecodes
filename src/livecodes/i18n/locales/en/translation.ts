@@ -413,7 +413,8 @@ const translation = {
     },
     file: {
       exists: 'File already exists!',
-      invalidName: 'Invalid file type!',
+      invalidName: 'Invalid file name!',
+      invalidType: 'Invalid file type!',
     },
     fork: {
       success: 'Forked as a new project',
