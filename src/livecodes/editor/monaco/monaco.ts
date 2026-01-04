@@ -255,6 +255,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     astro: baseUrl + '{{hash:monaco-lang-astro.js}}',
     clio: baseUrl + '{{hash:monaco-lang-clio.js}}',
     imba: baseUrl + '{{hash:monaco-lang-imba.js}}',
+    minizinc: baseUrl + '{{hash:monaco-lang-minizinc.js}}',
+    prolog: baseUrl + '{{hash:monaco-lang-prolog.js}}',
     // sql: baseUrl + '{{hash:monaco-lang-sql.js}}', // TODO: add autocomplete
     wat: baseUrl + '{{hash:monaco-lang-wat.js}}',
   };
@@ -262,6 +264,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   interface CustomLanguageDefinition {
     config?: Monaco.languages.LanguageConfiguration;
     tokens?: Monaco.languages.IMonarchLanguage;
+    completions?: Monaco.languages.CompletionItemProvider;
   }
 
   const addVueSupport = async () => {
@@ -290,6 +293,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       }
       if (mod.tokens) {
         monaco.languages.setMonarchTokensProvider(lang, mod.tokens);
+      }
+      if (mod.completions) {
+        monaco.languages.registerCompletionItemProvider(lang, mod.completions);
       }
     }
   };
