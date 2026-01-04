@@ -685,6 +685,14 @@ export const addProp = /* @__PURE__ */ (
   addProp(obj[first] as Record<string, unknown>, rest.join('.'), value);
 };
 
+export const onLoad = /* @__PURE__ */ (fn: (...args: any[]) => any) => {
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    fn();
+  } else {
+    window.addEventListener('load', fn, { once: true });
+  }
+};
+
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
   SDK_VERSION: process.env.SDK_VERSION || '',

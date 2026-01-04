@@ -221,6 +221,11 @@ const languageInfo = {
     link: '<1><2>MDX documentation</2></1> <3> <4>Load starter template</4> </3>',
     name: 'MDX',
   },
+  minizinc: {
+    desc: 'MiniZinc is a high-level constraint modelling language that allows you to easily express and solve discrete optimisation problems.',
+    link: '<1> <2>MiniZinc official website</2> </1> <3> <4>MiniZinc documentation</4> </3> <5> <6>MiniZinc tutorial</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'MiniZinc',
+  },
   mjml: {
     desc: 'MJML is a markup language designed to reduce the pain of coding a responsive email.',
     link: '<1><2>MJML official website</2></1> <3> <4>MJML documentation</4> </3> <5> <6>MJML official templates</6> </5> <7> <8>LiveCodes Documentations</8> </7>',
