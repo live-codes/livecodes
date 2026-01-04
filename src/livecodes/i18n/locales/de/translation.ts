@@ -1015,6 +1015,7 @@ const translation: I18nTranslation = {
       malina: 'Malina.js-Starter',
       markdown: 'Markdown-Starter',
       mdx: 'MDX-Starter',
+      minizinc: 'MiniZink-Starter',
       ocaml: 'OCaml-Starter',
       perl: 'Perl-Starter',
       php: 'PHP-Starter',

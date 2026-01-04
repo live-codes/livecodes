@@ -1013,6 +1013,7 @@ const translation: I18nTranslation = {
       malina: 'Inicio Malina.js',
       markdown: 'Inicio Markdown',
       mdx: 'Inicio MDX',
+      minizinc: 'Inicio MiniZinc',
       ocaml: 'Inicio Ocaml',
       perl: 'Inicio Perl',
       php: 'Inicio PHP',

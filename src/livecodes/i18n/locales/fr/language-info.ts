@@ -215,6 +215,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Documentation MDX</2></1> <3><4>Charger le modèle de démarrage</4></3>',
     name: 'MDX',
   },
+  minizinc: {
+    desc: "MiniZinc est un langage de modélisation des contraintes de haut niveau qui permet d'exprimer et de résoudre facilement des problèmes d'optimisation discrets.",
+    link: '<1> <2>Site officiel de MiniZinc</2> </1> <3> <4>Documentation de MiniZinc</4> </3> <5> <6>Tutoriel de MiniZinc</6> </5> <7> <8>Documentations de LiveCodes</8> </7> <9> <10>Modèle de démarrage de charge</10> </9>',
+    name: 'MiniZinc',
+  },
   mjml: {
     desc: "MJML est un langage de balisage conçu pour réduire la difficulté de codage d'un e-mail responsive.",
     link: '<1><2>Site officiel de MJML</2></1> <3> <4>Documentation MJML</4> </3> <5> <6>Modèles officiels MJML</6> </5> <7> <8>Documentation LiveCodes</8> </7>',
