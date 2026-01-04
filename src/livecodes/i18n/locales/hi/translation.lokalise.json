@@ -2022,6 +2022,9 @@
   "templates.starter.mdx": {
     "translation": "MDX स्टार्टर"
   },
+  "templates.starter.minizinc": {
+    "translation": "MiniZinc स्टार्टर"
+  },
   "templates.starter.ocaml": {
     "translation": "OCaml स्टार्टर"
   },

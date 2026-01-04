@@ -1013,6 +1013,7 @@ const translation: I18nTranslation = {
       malina: 'قالب Malina.js',
       markdown: 'قالب Markdown',
       mdx: 'قالب MDX',
+      minizinc: 'قالب MiniZinc',
       ocaml: 'قالب Ocaml',
       perl: 'قالب Perl',
       php: 'قالب PHP',

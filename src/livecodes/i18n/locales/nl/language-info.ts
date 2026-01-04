@@ -214,6 +214,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>MDX documentatie</2></1> <3> <4>Startsjabloon laden</4> </3>',
     name: 'MDX',
   },
+  minizinc: {
+    desc: 'MiniZinc is een modelleertaal voor beperkingen op hoog niveau waarmee je eenvoudig discrete optimalisatieproblemen kunt uitdrukken en oplossen.',
+    link: '<1> <2>De officiële website van MiniZinc</2> </1> <3> <4>MiniZinc documentatie</4> </3> <5> <6>MiniZinc handleiding</6> </5> <7> <8>LiveCodes documentatie</8> </7> <9> <10>Starterssjabloon laden</10> </9>',
+    name: 'MiniZinc',
+  },
   mjml: {
     desc: 'MJML is een opmaaktaal ontworpen om de pijn van het coderen van een responsieve e-mail te verminderen.',
     link: '<1><2>MJML officiële website</2></1> <3> <4>MJML documentatie</4> </3> <5> <6>MJML officiële sjablonen</6> </5> <7> <8>LiveCodes Documentatie</8> </7>',

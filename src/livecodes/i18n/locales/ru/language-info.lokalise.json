@@ -378,6 +378,15 @@
   "mdx.name": {
     "translation": "MDX"
   },
+  "minizinc.desc": {
+    "translation": "MiniZinc - это высокоуровневый язык моделирования ограничений, который позволяет легко выражать и решать дискретные оптимизационные задачи."
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>Официальный сайт MiniZinc</tag-2> </tag-1> <tag-3> <tag-4>Документация MiniZinc</tag-4> </tag-3> <tag-5> <tag-6>Учебник MiniZinc</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Стартовый шаблон Load</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
+  },
   "mjml.desc": {
     "translation": "MJML - это язык разметки, разработанный для уменьшения сложности кодирования адаптивных электронных писем."
   },

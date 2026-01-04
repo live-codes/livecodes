@@ -378,6 +378,15 @@
   "mdx.name": {
     "translation": "MDX"
   },
+  "minizinc.desc": {
+    "translation": "MiniZinc is een modelleertaal voor beperkingen op hoog niveau waarmee je eenvoudig discrete optimalisatieproblemen kunt uitdrukken en oplossen."
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>De officiële website van MiniZinc</tag-2> </tag-1> <tag-3> <tag-4>MiniZinc documentatie</tag-4> </tag-3> <tag-5> <tag-6>MiniZinc handleiding</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
+  },
   "mjml.desc": {
     "translation": "MJML is een opmaaktaal ontworpen om de pijn van het coderen van een responsieve e-mail te verminderen."
   },
