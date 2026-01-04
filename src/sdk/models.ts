@@ -1087,6 +1087,9 @@ export type Language =
   | 'postgresql.sql'
   | 'prolog.pl'
   | 'prolog'
+  | 'minizinc'
+  | 'mzn'
+  | 'dzn'
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
@@ -1256,7 +1259,8 @@ export type ParserName =
   | 'less'
   | 'php'
   | 'pug'
-  | 'java';
+  | 'java'
+  | 'minizinc';
 
 export interface Parser {
   name: ParserName;
@@ -1357,6 +1361,7 @@ export interface Compiler {
     | 'text/commonlisp'
     | 'text/tcl'
     | 'text/prolog'
+    | 'text/minizinc'
     | 'text/go-wasm'
     | 'application/json'
     | 'application/lua'
@@ -1451,6 +1456,7 @@ export type TemplateName =
   | 'sql'
   | 'postgresql'
   | 'prolog'
+  | 'minizinc'
   | 'blockly'
   | 'diagrams';
 

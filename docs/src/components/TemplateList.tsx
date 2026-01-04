@@ -66,6 +66,7 @@ const templates = [
   { name: 'sql', title: 'SQL Starter', thumbnail: 'sqlite.svg' },
   { name: 'postgresql', title: 'PostgreSQL Starter', thumbnail: 'postgresql.svg' },
   { name: 'prolog', title: 'Prolog Starter', thumbnail: 'tau-prolog.svg' },
+  { name: 'minizinc', title: 'MiniZinc Starter', thumbnail: 'minizinc.png' },
   { name: 'blockly', title: 'Blockly Starter', thumbnail: 'blockly.svg' },
   { name: 'diagrams', title: 'Diagrams Starter', thumbnail: 'diagrams.svg' },
 ];
