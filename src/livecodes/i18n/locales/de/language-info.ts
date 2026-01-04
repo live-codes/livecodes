@@ -215,6 +215,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>MDX Dokumentation</2></1> <3><4>Starter-Vorlage laden</4></3>',
     name: 'MDX',
   },
+  minizinc: {
+    desc: 'MiniZinc ist eine hochentwickelte Sprache zur Modellierung von Nebenbedingungen, mit der Sie diskrete Optimierungsprobleme leicht ausdrücken und lösen können.',
+    link: '<1> <2>Offizielle MiniZinc-Website</2> </1> <3> <4>MiniZinc-Dokumentation</4> </3> <5> <6>MiniZinc-Tutorial</6> </5> <7> <8>LiveCodes-Dokumentationen</8> </7> <9> <10>Startvorlage laden</10> </9>',
+    name: 'MiniZinc',
+  },
   mjml: {
     desc: 'MJML ist eine Auszeichnungssprache, die entwickelt wurde, um den Aufwand beim Codieren einer responsiven E-Mail zu reduzieren.',
     link: '<1><2>MJML offizielle Website</2></1> <3> <4>MJML Dokumentation</4> </3> <5> <6>MJML offizielle Vorlagen</6> </5> <7> <8>LiveCodes Dokumentation</8> </7>',

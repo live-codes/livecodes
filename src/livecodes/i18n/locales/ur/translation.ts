@@ -1013,6 +1013,7 @@ const translation: I18nTranslation = {
       malina: 'ملینا.جے ایس شروعاتی',
       markdown: 'مارک ڈاؤن شروعاتی',
       mdx: 'ایم ڈی ایکس شروعاتی',
+      minizinc: 'MiniZinc شروعاتی',
       ocaml: 'اوکامل شروعاتی',
       perl: 'پرل شروعاتی',
       php: 'پی ایچ پی شروعاتی',

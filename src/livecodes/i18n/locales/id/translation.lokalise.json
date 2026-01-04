@@ -2022,6 +2022,9 @@
   "templates.starter.mdx": {
     "translation": "Pemula MDX"
   },
+  "templates.starter.minizinc": {
+    "translation": "Pemula MiniZinc"
+  },
   "templates.starter.ocaml": {
     "translation": "Pemula Ocaml"
   },

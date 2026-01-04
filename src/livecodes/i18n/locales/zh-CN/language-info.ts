@@ -211,6 +211,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>MDX 文档</2></1> <3><4>加载启动模板</4> </3>',
     name: 'MDX',
   },
+  minizinc: {
+    desc: 'MiniZinc 是一种高级约束建模语言，可让您轻松表达和解决离散优化问题。',
+    link: '<1> <2>MiniZinc 官方网站</2> </1> <3> <4>MiniZinc 文档</4> </3> <5> <6>MiniZinc 教程</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
+    name: 'MiniZinc',
+  },
   mjml: {
     desc: 'MJML 是一种标记语言，旨在减轻编写响应式电子邮件的痛苦。',
     link: '<1><2>MJML 官方网站</2></1> <3> <4>MJML 文档</4> </3> <5> <6>MJML 官方模板</6> </5> <7> <8>LiveCodes 文档</8> </7>',

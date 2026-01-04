@@ -215,6 +215,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Documentación de MDX</2></1> <3><4>Cargar plantilla inicial</4></3>',
     name: 'MDX',
   },
+  minizinc: {
+    desc: 'MiniZinc es un lenguaje de modelado de restricciones de alto nivel que permite expresar y resolver fácilmente problemas de optimización discretos.',
+    link: '<1> <2>Página web oficial de MiniZinc</2> </1> <3> <4>Documentación de MiniZinc</4> </3> <5> <6>Tutorial de MiniZinc</6> </5> <7> <8>Documentación de LiveCodes</8> </7> <9> <10>Cargar plantilla de inicio</10> </9>',
+    name: 'MiniZinc',
+  },
   mjml: {
     desc: 'MJML es un lenguaje de marcado diseñado para reducir el dolor de codificar un correo electrónico responsive.',
     link: '<1><2>Sitio web oficial de MJML</2></1> <3> <4>Documentación de MJML</4> </3> <5> <6>Plantillas oficiales de MJML</6> </5> <7> <8>Documentación de LiveCodes</8> </7>',
