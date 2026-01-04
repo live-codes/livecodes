@@ -215,6 +215,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>MDX dokümantasyonu</2></1> <3> <4>Başlangıç şablonunu yükle</4> </3>',
     name: 'MDX',
   },
+  minizinc: {
+    desc: 'MiniZinc, ayrık optimizasyon problemlerini kolayca ifade etmenizi ve çözmenizi sağlayan yüksek seviyeli bir kısıt modelleme dilidir.',
+    link: '<1> <2>MiniZinc resmi web sitesi</2> </1> <3> <4>MiniZinc belgeleri</4> </3> <5> <6>MiniZinc eğitimi</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'MiniZinc',
+  },
   mjml: {
     desc: 'MJML, duyarlı bir e-posta kodlamanın zorluğunu azaltmak için tasarlanmış bir işaretleme dilidir.',
     link: '<1><2>MJML resmi web sitesi</2></1> <3> <4>MJML dokümantasyonu</4> </3> <5> <6>MJML resmi şablonları</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7>',

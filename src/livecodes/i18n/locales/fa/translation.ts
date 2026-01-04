@@ -1014,6 +1014,7 @@ const translation: I18nTranslation = {
       malina: 'شروع کننده Malina.js',
       markdown: 'شروع کننده Markdown',
       mdx: 'شروع کننده MDX',
+      minizinc: 'شروع کننده MiniZinc',
       ocaml: 'شروع کننده Ocaml',
       perl: 'شروع کننده Perl',
       php: 'شروع کننده PHP',

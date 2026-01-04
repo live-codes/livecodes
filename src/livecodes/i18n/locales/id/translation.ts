@@ -1013,6 +1013,7 @@ const translation: I18nTranslation = {
       malina: 'Pemula Malina.js',
       markdown: 'Pemula Markdown',
       mdx: 'Pemula MDX',
+      minizinc: 'Pemula MiniZinc',
       ocaml: 'Pemula Ocaml',
       perl: 'Pemula Perl',
       php: 'Pemula PHP',

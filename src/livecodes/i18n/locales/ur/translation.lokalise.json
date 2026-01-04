@@ -2022,6 +2022,9 @@
   "templates.starter.mdx": {
     "translation": "ایم ڈی ایکس شروعاتی"
   },
+  "templates.starter.minizinc": {
+    "translation": "MiniZinc شروعاتی"
+  },
   "templates.starter.ocaml": {
     "translation": "اوکامل شروعاتی"
   },

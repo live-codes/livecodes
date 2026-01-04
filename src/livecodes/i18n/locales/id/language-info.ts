@@ -215,6 +215,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Dokumentasi MDX</2></1> <3> <4>Muat template pemula</4> </3>',
     name: 'MDX',
   },
+  minizinc: {
+    desc: 'MiniZinc adalah bahasa pemodelan batasan tingkat tinggi yang memungkinkan Anda mengekspresikan dan memecahkan masalah optimasi diskrit dengan mudah.',
+    link: '<1> <2>Situs web resmi MiniZinc</2> </1> <3> <4>Dokumentasi MiniZinc</4> </3> <5> <6>Tutorial MiniZinc</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
+    name: 'MiniZinc',
+  },
   mjml: {
     desc: 'MJML adalah bahasa markup yang dirancang untuk mengurangi kesulitan dalam mengkode email responsif.',
     link: '<1><2>Situs web resmi MJML</2></1> <3> <4>Dokumentasi MJML</4> </3> <5> <6>Template resmi MJML</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7>',
