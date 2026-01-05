@@ -529,6 +529,11 @@ const addFile = async (
   editorLanguages![validName] = fileLanguage;
   editors[validName] = editor;
   editorIds.push(validName);
+  if (config.autoupdate) {
+    run();
+  }
+  setSavedStatus();
+  dispatchChangeEvent();
   return true;
 };
 
@@ -598,6 +603,8 @@ const deleteFile = (filename: string) => {
   if (config.autoupdate) {
     run();
   }
+  setSavedStatus();
+  dispatchChangeEvent();
 };
 
 const createEditorUI = (title: string) => {
@@ -707,6 +714,7 @@ const createEditors = async (config: Config) => {
       script: createFakeEditor(scriptOptions),
     };
 
+    changingContent = true;
     editorIds.length = 0;
     for (const file of config.files) {
       const editorId = file.filename as EditorId;
@@ -723,6 +731,10 @@ const createEditors = async (config: Config) => {
       editors[editorId] = editor;
       editorIds.push(editorId);
     }
+    setTimeout(() => {
+      setSavedStatus();
+      changingContent = false;
+    }, 300);
   } else {
     const markupEditor = await createEditor(markupOptions);
     const styleEditor = await createEditor(styleOptions);
@@ -1115,7 +1127,7 @@ const changeLanguage = async (
       activeEditor: editorId,
     });
     if (getConfig().autoupdate) {
-      await run();
+      run();
     }
   }
   await setSavedStatus();
