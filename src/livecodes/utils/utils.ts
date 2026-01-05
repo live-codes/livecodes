@@ -707,6 +707,12 @@ export const onLoad = /* @__PURE__ */ (fn: (...args: any[]) => any) => {
   }
 };
 
+export const removeFormatting = (e: any) => {
+  e.preventDefault();
+  const text = e.clipboardData.getData('text/plain');
+  document.execCommand('insertHTML', false, text);
+};
+
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
   SDK_VERSION: process.env.SDK_VERSION || '',

@@ -24,6 +24,10 @@
         scrollbar-width: none;
         width: unset;
       }
+
+      .editor-title > span {
+        max-width: 13em;
+      }
     }
 
     #add-file-button {
@@ -67,6 +71,16 @@
   .embed {
     #toolbar #select-editor {
       width: calc(100vw - 120px);
+    }
+
+    #toolbar .toolbar-render a#result-button {
+      display: none !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+      #toolbar #select-editor {
+        width: calc(100vw - 80px);
+      }
     }
   }
 }

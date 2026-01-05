@@ -8,7 +8,7 @@ import type {
   Processor,
   Template,
 } from '../models';
-import { handleSlash } from '../utils';
+import { handleSlash, removeFormatting } from '../utils';
 
 export const createLanguageMenus = (
   config: Config,
@@ -192,6 +192,8 @@ export const createMultiFileEditorTab = ({
 
   const label = document.createElement('span');
   label.innerHTML = currentFileName;
+  label.title = currentFileName;
+  label.addEventListener('paste', removeFormatting, false);
   editorSelector.appendChild(label);
 
   if (!isMainFile) {
@@ -231,8 +233,10 @@ export const createMultiFileEditorTab = ({
       return;
     }
     label.contentEditable = 'false';
-    label.innerText = handleSlash(label.innerText);
-    currentFileName = label.innerText;
+    currentFileName = handleSlash(label.innerText);
+    label.title = currentFileName;
+    label.innerText = currentFileName;
+    label.style.maxWidth = '';
     showEditor(currentFileName);
     window.removeEventListener('keydown', onEnter);
     if (isNewFile) {
@@ -250,6 +254,7 @@ export const createMultiFileEditorTab = ({
 
   const onDblClick = () => {
     label.contentEditable = 'true';
+    label.style.maxWidth = 'unset';
     requestAnimationFrame(() => label.focus());
     selectAll(label);
     window.addEventListener('keydown', onEnter);

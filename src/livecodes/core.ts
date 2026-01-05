@@ -161,6 +161,7 @@ import {
   isMac,
   loadStylesheet,
   predefinedValues,
+  removeFormatting,
   safeName,
   stringToValidJson,
   stringify,
@@ -2811,12 +2812,6 @@ const handleTitleEdit = () => {
       e.preventDefault();
       projectTitle.blur();
     }
-  };
-
-  const removeFormatting = (e: any) => {
-    e.preventDefault();
-    const text = e.clipboardData.getData('text/plain');
-    document.execCommand('insertHTML', false, text);
   };
 
   eventsManager.addEventListener(projectTitle, 'input', () => setProjectTitle(), false);
