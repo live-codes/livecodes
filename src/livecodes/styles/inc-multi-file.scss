@@ -18,7 +18,7 @@
       display: flex;
       width: calc(70vw - 252px);
 
-      & > div {
+      > div {
         overflow-x: auto;
         overflow-y: hidden;
         scrollbar-width: none;

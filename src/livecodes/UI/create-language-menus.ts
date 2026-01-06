@@ -9,6 +9,7 @@ import type {
   Template,
 } from '../models';
 import { handleSlash, removeFormatting } from '../utils';
+import { getResultElement } from './selectors';
 
 export const createLanguageMenus = (
   config: Config,
@@ -224,6 +225,7 @@ export const createMultiFileEditorTab = ({
   };
 
   const accept = async () => {
+    cleanup();
     const success =
       isNewFile && typeof addFile === 'function'
         ? await addFile(label.innerText)
@@ -238,7 +240,6 @@ export const createMultiFileEditorTab = ({
     label.innerText = currentFileName;
     label.style.maxWidth = '';
     showEditor(currentFileName);
-    window.removeEventListener('keydown', onEnter);
     if (isNewFile) {
       // a new tab is created. remove this one
       editorSelector.remove();
@@ -252,15 +253,40 @@ export const createMultiFileEditorTab = ({
     accept();
   };
 
+  const onClickOutside = (event: MouseEvent) => {
+    if (!label.contains(event.target as Node)) {
+      accept();
+    }
+  };
+
+  // covers the sandboxed iframe to allow capturing clicks
+  const createResultCover = () => {
+    const cover = document.createElement('div');
+    cover.classList.add('result-cover');
+    getResultElement().appendChild(cover);
+  };
+
+  const removeResultCover = () => {
+    document.querySelector('.result-cover')?.remove();
+  };
+
   const onDblClick = () => {
     label.contentEditable = 'true';
     label.style.maxWidth = 'unset';
     requestAnimationFrame(() => label.focus());
     selectAll(label);
+    createResultCover();
     window.addEventListener('keydown', onEnter);
+    window.addEventListener('click', onClickOutside, { once: true });
   };
 
-  editorSelector.ondblclick = onDblClick;
+  const cleanup = () => {
+    window.removeEventListener('keydown', onEnter);
+    window.removeEventListener('click', onClickOutside);
+    removeResultCover();
+  };
+
+  editorSelector.addEventListener('dblclick', onDblClick);
 
   const scrollTo = document.querySelector('#multi-file-scroll-to');
   document.querySelector('#select-editor > div')?.insertBefore(editorSelector, scrollTo);
