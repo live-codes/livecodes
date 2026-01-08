@@ -573,25 +573,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   configureEditorMode(options.editorMode);
 
   const registerFormatter = (formatFn: FormatFn | undefined) => {
-    let editorModel = editor.getModel();
-    if (!formatFn || !editorModel) return;
-
+    if (!formatFn) return;
     monaco.languages.registerDocumentFormattingEditProvider(monacoMapLanguage(language), {
-      provideDocumentFormattingEdits: async () => {
-        let currentEditor = editor;
-        // avoid referring to editors destroyed after closing modals
-        if (!editor.getModel()) {
-          currentEditor =
-            editors.find((ed) => ed.getModel()?.getLanguageId() === monacoMapLanguage(language)) ||
-            editor;
-        }
-        editorModel = currentEditor.getModel();
-        if (!editorModel) return [];
-        const val = currentEditor.getValue() || '';
+      provideDocumentFormattingEdits: async (model) => {
+        if (!model || model.isDisposed()) return [];
+        const val = model.getValue() || '';
         const prettyVal = await formatFn(val, 0, getFormatterConfig());
         return [
           {
-            range: editorModel.getFullModelRange(),
+            range: model.getFullModelRange(),
             text: prettyVal.formatted,
           },
         ];
