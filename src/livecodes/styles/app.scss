@@ -1071,16 +1071,6 @@ a#result-button {
       width: 400%;
     }
   }
-
-  // covers the sandboxed iframe to allow capturing clicks (e.g. on click outside)
-  .result-cover {
-    height: 100%;
-    left: 0;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
 }
 
 #tools-pane-bar {
@@ -2288,9 +2278,5 @@ body {
   .snackbars-left,
   .snackbars-right {
     z-index: 3000;
-  }
-
-  .result-cover {
-    z-index: 4000;
   }
 }

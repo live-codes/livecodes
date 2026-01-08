@@ -179,6 +179,11 @@ export const getModalUnsavedLastModified = /* @__PURE__ */ () =>
 export const getModalDisableRecoverCheckbox = /* @__PURE__ */ () =>
   document.querySelector('#modal #disable-recover-checkbox') as HTMLInputElement;
 
+export const getEditorSelector = /* @__PURE__ */ () => document.querySelector('#select-editor');
+
+export const getEditorSelectorDiv = /* @__PURE__ */ () =>
+  document.querySelector('#select-editor > div');
+
 export const getLanguageMenuLinks = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLElement>('#select-editor .language-item a');
 

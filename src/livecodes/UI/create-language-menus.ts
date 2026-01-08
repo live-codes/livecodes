@@ -9,7 +9,7 @@ import type {
   Template,
 } from '../models';
 import { handleSlash, removeFormatting } from '../utils';
-import { getResultElement } from './selectors';
+import { getEditorSelector, getEditorSelectorDiv } from './selectors';
 
 export const createLanguageMenus = (
   config: Config,
@@ -225,7 +225,9 @@ export const createMultiFileEditorTab = ({
   };
 
   const accept = async () => {
-    cleanup();
+    label.contentEditable = 'false';
+    eventAttached = false;
+    label.innerText = label.innerText.trim().replaceAll('\n', '');
     const success =
       isNewFile && typeof addFile === 'function'
         ? await addFile(label.innerText)
@@ -234,7 +236,6 @@ export const createMultiFileEditorTab = ({
       onDblClick();
       return;
     }
-    label.contentEditable = 'false';
     currentFileName = handleSlash(label.innerText);
     label.title = currentFileName;
     label.innerText = currentFileName;
@@ -247,49 +248,57 @@ export const createMultiFileEditorTab = ({
     isNewFile = false;
   };
 
-  const onEnter = (event: KeyboardEvent) => {
-    if (event.key !== 'Enter') return;
-    event.preventDefault();
-    accept();
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      accept();
+    }
+    if (e.key === 'Tab') {
+      accept();
+    }
+    if (e.key === 'Escape') {
+      label.contentEditable = 'false';
+      if (isNewFile) {
+        editorSelector.remove();
+      } else {
+        label.innerText = currentFileName;
+      }
+    }
   };
 
-  const onClickOutside = (event: MouseEvent) => {
-    if (!label.contains(event.target as Node)) {
+  const onBlur = () => {
+    if (label.contentEditable === 'true') {
       accept();
     }
   };
 
-  // covers the sandboxed iframe to allow capturing clicks
-  const createResultCover = () => {
-    const cover = document.createElement('div');
-    cover.classList.add('result-cover');
-    getResultElement().appendChild(cover);
-  };
-
-  const removeResultCover = () => {
-    document.querySelector('.result-cover')?.remove();
-  };
-
+  let eventAttached = false;
   const onDblClick = () => {
+    if (!getEditorSelector()?.contains(label)) return;
     label.contentEditable = 'true';
     label.style.maxWidth = 'unset';
-    requestAnimationFrame(() => label.focus());
-    selectAll(label);
-    createResultCover();
-    window.addEventListener('keydown', onEnter);
-    window.addEventListener('click', onClickOutside, { once: true });
+    requestAnimationFrame(() => {
+      label.focus();
+      selectAll(label);
+      if (!eventAttached) {
+        label.addEventListener('blur', onBlur);
+        eventAttached = true;
+      }
+    });
   };
 
-  const cleanup = () => {
-    window.removeEventListener('keydown', onEnter);
-    window.removeEventListener('click', onClickOutside);
-    removeResultCover();
+  const onF2 = (ev: KeyboardEventInit) => {
+    if (ev.key === 'F2') {
+      onDblClick();
+    }
   };
 
   editorSelector.addEventListener('dblclick', onDblClick);
+  editorSelector.addEventListener('keydown', onF2);
+  label.addEventListener('keydown', onKeyDown);
 
   const scrollTo = document.querySelector('#multi-file-scroll-to');
-  document.querySelector('#select-editor > div')?.insertBefore(editorSelector, scrollTo);
+  getEditorSelectorDiv()?.insertBefore(editorSelector, scrollTo);
 
   if (isNewFile) {
     scrollTo?.scrollIntoView({ behavior: 'smooth', inline: 'end' });
@@ -305,11 +314,11 @@ export const createAddFileButton = ({ onclick: handleAddFileClick }: { onclick: 
   addFileButton.innerHTML =
     '<i class="icon-add" title="Add file" data-i18n="core.addFile" data-i18n-prop="title"></i>';
   addFileButton.addEventListener('click', handleAddFileClick);
-  document.querySelector('#select-editor')?.appendChild(addFileButton);
+  getEditorSelector()?.appendChild(addFileButton);
 
   const scrollTo = document.createElement('div');
   scrollTo.id = 'multi-file-scroll-to';
-  document.querySelector('#select-editor > div')?.appendChild(scrollTo);
+  getEditorSelectorDiv()?.appendChild(scrollTo);
 };
 
 export const createProcessorItem = (processor: { name: string; title: string }) => {
