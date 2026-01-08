@@ -1356,6 +1356,7 @@ export interface EditorLibrary {
 }
 
 export interface CompileOptions {
+  filename: string;
   html?: string;
   blockly?: BlocklyContent;
   forceCompile?: boolean;
@@ -1978,12 +1979,12 @@ export type EditorCache = Editor & {
   modified?: string;
 };
 
-export type Cache = ContentConfig & {
+export type Cache = Omit<ContentConfig, 'files'> & {
   markup: EditorCache;
   style: EditorCache;
   script: EditorCache;
   tests?: EditorCache;
-  files?: Array<SourceFile & { compiled: string }>;
+  files: Array<SourceFile & { compiled: string; modified?: string }>;
   mainFile?: string;
   result?: string;
   styleOnlyUpdate?: boolean;
@@ -2011,6 +2012,13 @@ export interface Code {
     content: string;
     compiled: string;
   };
+  files: Array<{
+    filename: string;
+    language: Language;
+    content: string;
+    compiled: string;
+  }>;
+  mainFile: string;
   result: string;
 }
 

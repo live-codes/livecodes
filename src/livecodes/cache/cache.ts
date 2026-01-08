@@ -1,5 +1,5 @@
 import { defaultConfig, getContentConfig } from '../config';
-import { getSource } from '../config/utils';
+import { getMainFile, getSource } from '../config/utils';
 import type { Cache, Code, EditorId, Language } from '../models';
 
 const defaultContentConfig = getContentConfig(defaultConfig);
@@ -39,13 +39,20 @@ export const setCache = (newCache = initialCache) => {
       compiled: '',
       ...newCache.tests,
     },
+    files: newCache.files.map((f) => {
+      const cacheFile = cache.files.find((ff) => ff.filename === f.filename);
+      return {
+        modified: cacheFile?.compiled === f.compiled ? f.modified : '',
+        ...f,
+      };
+    }),
     result: newCache.result || '',
   };
 };
 
 export const updateCache = (editorId: EditorId, language: Language, modified: string) => {
-  const src: any = getSource(editorId, cache as any);
-  if (src && src.language === language) {
+  const src: any = getSource(editorId, cache);
+  if (src?.language === language) {
     src.modified = modified;
   }
 };
@@ -66,5 +73,12 @@ export const getCachedCode = (): Code => ({
     content: cache.script.content || '',
     compiled: cache.script.modified || cache.script.compiled || '',
   },
+  files: cache.files.map((f) => ({
+    filename: f.filename,
+    language: f.language,
+    content: f.content || '',
+    compiled: f.modified || f.compiled || '',
+  })),
+  mainFile: getMainFile(cache) || 'index.html',
   result: cache.result || '',
 });

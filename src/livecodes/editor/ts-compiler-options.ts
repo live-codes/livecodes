@@ -26,6 +26,7 @@ export const getCompilerOptions = (language: Language): CompilerOptions => {
   const nonReactJsx = ['solid', 'solid.tsx', 'stencil', 'vue'].includes(language);
 
   const settings: CompilerOptions = {
+    noEmit: true,
     allowJs: true,
     checkJs: !isJSLang,
     strictNullChecks: !isJSLang,

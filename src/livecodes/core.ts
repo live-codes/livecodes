@@ -1267,11 +1267,13 @@ const getResultPage = async ({
       config.script.language !== getCache().script.language);
 
   const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {
+    filename: 'markup',
     forceCompile: forceCompileSFC,
   });
   let compiledMarkup = markupCompileResult.code;
 
   const scriptCompileResult = await compiler.compile(scriptContent, scriptLanguage, config, {
+    filename: 'script',
     forceCompile: forceCompileStyles || forceCompileSFC,
     blockly:
       scriptLanguage === 'blockly'
@@ -1293,6 +1295,7 @@ const getResultPage = async ({
 
   const [styleCompileResult, testsCompileResult] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
+      filename: 'style',
       html: `${compiledMarkup}<script type="script-for-styles">${compiledScript}</script>
         <script type="script-for-styles">${compileInfo.importedContent}</script>`,
       forceCompile: forceCompileStyles,
@@ -1300,7 +1303,7 @@ const getResultPage = async ({
     runTests
       ? testsNotChanged
         ? Promise.resolve(getCache().tests?.compiled || '')
-        : compiler.compile(testsContent, testsLanguage, config, {})
+        : compiler.compile(testsContent, testsLanguage, config, { filename: 'tests' })
       : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')),
   ]);
   const [compiledStyle, compiledTests] = [styleCompileResult, testsCompileResult].map((result) => {
@@ -1417,7 +1420,10 @@ const getMultiFileResultPage = async ({
   for (const file of config.files) {
     const { filename, language, content } = file;
     if (getLanguageEditorId(language) === 'style') continue;
-    const compileResult = await compiler.compile(content, language, config, { compileInfo });
+    const compileResult = await compiler.compile(content, language, config, {
+      filename,
+      compileInfo,
+    });
     compiledFiles.push({ ...file, compiled: compileResult.code });
     compileInfo = mergeCompileInfo(compileInfo, compileResult.info);
     if (compileInfo.errors?.length) {
@@ -1430,6 +1436,7 @@ const getMultiFileResultPage = async ({
     const { filename, language, content } = file;
     if (getLanguageEditorId(language) !== 'style') continue;
     const compileResult = await compiler.compile(content, language, config, {
+      filename,
       compileInfo,
       forceCompile: forceCompileStyles,
       html: `${compiledContent}<script type="script-for-styles">${compileInfo.importedContent}</script>`,
@@ -1448,7 +1455,7 @@ const getMultiFileResultPage = async ({
           config.tests?.content || '',
           config.tests?.language || 'javascript',
           config,
-          {},
+          { filename: 'tests' },
         )
     : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')));
   const { code: compiledTests, info: testsCompileInfo } = getCompileResult(testsCompileResult);
@@ -1567,6 +1574,8 @@ const flushResult = () => {
       content: '',
       compiled: '',
     },
+    files: [],
+    mainFile: undefined,
   });
 
   updateCompiledCode();
@@ -1893,9 +1902,6 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
 
   setConfig(combinedConfig);
 
-  if (!isEmbed) {
-    setTimeout(() => getActiveEditor().focus());
-  }
   setExternalResourcesMark();
   setProjectInfoMark();
   setCustomSettingsMark();
@@ -1986,7 +1992,9 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
     getAllEditors().forEach((editor) => editor.changeSettings(currentEditorConfig));
   }
   showEditor(combinedConfig.activeEditor);
-
+  if (!isEmbed) {
+    setTimeout(() => getActiveEditor().focus());
+  }
   parent.dispatchEvent(new Event(customEvents.ready));
 };
 

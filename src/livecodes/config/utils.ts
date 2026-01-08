@@ -4,16 +4,16 @@ import {
   languageIsEnabled,
   supportsMultiFile,
 } from '../languages/utils';
-import type { Config, EditorId } from '../models';
+import type { Cache, Config, EditorId } from '../models';
 import { handleSlash } from '../utils/utils';
 
 export const isEditorId = (editorId: string): editorId is 'markup' | 'style' | 'script' =>
   editorId === 'markup' || editorId === 'style' || editorId === 'script';
 
-export const getSource = (editorId: EditorId, config: Config) =>
+export const getSource = (editorId: EditorId, config: Config | Cache) =>
   isEditorId(editorId) ? config[editorId] : config.files.find((f) => f.filename === editorId);
 
-export const getMainFile = (config: Config) =>
+export const getMainFile = (config: Config | Cache) =>
   !config.files?.length
     ? undefined
     : config.mainFile && config.files.find((f) => f.filename === config.mainFile)
