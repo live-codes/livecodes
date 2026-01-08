@@ -157,6 +157,7 @@ import {
   copyToClipboard,
   ctrl,
   debounce,
+  getRandomString,
   getValidUrl,
   isMac,
   loadStylesheet,
@@ -229,6 +230,7 @@ export let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
 let resultLanguages: Language[] = [];
 let projectId: string;
+let projectDir: string | undefined;
 let isSaved = true;
 let changingContent = false;
 let consoleInputCodeCompletion: any;
@@ -498,6 +500,13 @@ const checkFileName = (filename: string, config: Config, currentName?: string) =
   return null;
 };
 
+const getProjectDir = (createNew = false) => {
+  if (!projectDir || createNew) {
+    projectDir = getRandomString().replace('0.', 'p').slice(0, 10);
+  }
+  return projectDir;
+};
+
 const addFile = async (
   filename: string,
   editorOptions: Omit<EditorOptions, 'container' | 'editorId' | 'language' | 'value'>,
@@ -508,6 +517,7 @@ const addFile = async (
   const container = createEditorUI(validName);
   const editor = await createEditor({
     ...editorOptions,
+    projectDir: getProjectDir(),
     container,
     editorId: validName,
     language: fileLanguage,
@@ -652,6 +662,7 @@ const createEditors = async (config: Config) => {
     mode: config.mode,
     readonly: config.readonly,
     ...getEditorConfig(config),
+    projectDir: getProjectDir(),
     activeEditor: findActiveEditor(),
     isEmbed,
     isLite,
@@ -776,14 +787,14 @@ const createEditors = async (config: Config) => {
 
   // TODO: fix this
   // workaround for reloading types for file models (e.g. `import { msg } from './msg.ts'`)
-  if (config.files?.length) {
+  if (config.files?.length && editors[config.files[0].filename as EditorId].monaco) {
     for (const file of config.files) {
       const editorId = file.filename as EditorId;
       if (getLanguageEditorId(file.language!) !== 'script') continue;
       const editor = editors[editorId];
       setTimeout(() => {
         editor.setValue(editor.getValue());
-      }, 50);
+      }, 100);
     }
   }
 };
@@ -1032,7 +1043,7 @@ const configureEditorTools = (language: Language) => {
 };
 
 const configureMultiFile = (config: Config) => {
-  const editorTabsContainer = document.querySelector<HTMLElement>('#select-editor > div')!;
+  const editorTabsContainer = UI.getEditorSelectorDiv()!;
   const singleFileTabs = [
     ...editorTabsContainer.querySelectorAll<HTMLElement>('[data-single-file]'),
   ];
@@ -1808,6 +1819,7 @@ const loadConfig = async (
   flush = true,
 ) => {
   changingContent = true;
+  const currentConfig = getConfig();
   const validConfig = upgradeAndValidate(newConfig);
   const content = getContentConfig({
     ...defaultConfig,
@@ -1841,7 +1853,7 @@ const loadConfig = async (
   iframeScrollPosition.x = 0;
   iframeScrollPosition.y = 0;
 
-  await applyConfig(config, /* reload= */ true);
+  await applyConfig(config, /* reload= */ true, currentConfig);
 
   changingContent = false;
 };
@@ -1849,6 +1861,9 @@ const loadConfig = async (
 const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig?: Config) => {
   const currentConfig = oldConfig || getConfig();
   const combinedConfig: Config = { ...currentConfig, ...newConfig };
+  for (const file of oldConfig?.files || []) {
+    deleteFile(file.filename);
+  }
   configureMultiFile(combinedConfig);
   if (reload) {
     await updateEditors(editors, getConfig());
@@ -1940,6 +1955,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
 
   const hasEditorConfig = Object.keys(editorConfig).some((k) => k in newConfig);
   let shouldReloadEditors = (() => {
+    if (oldConfig?.files?.length || newConfig.files?.length) return true;
     const activeEditor = getActiveEditor();
     if (newConfig.editor != null && newConfig.editor in activeEditor) return true;
     if (newConfig.mode != null) {
@@ -1961,6 +1977,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
     }
   }
   if (shouldReloadEditors) {
+    getProjectDir(true);
     await reloadEditors(combinedConfig);
   } else if (hasEditorConfig) {
     currentEditorConfig = {

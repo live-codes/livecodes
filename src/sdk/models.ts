@@ -1598,6 +1598,7 @@ export interface CodeEditor {
   setLanguage: (language: Language, value?: string) => void;
   getEditorId: () => string;
   setEditorId: (filename: string, language?: Language) => void;
+  setProjectDir?: (dir: string) => void;
   focus: () => void;
   getPosition: () => EditorPosition;
   setPosition: (position: EditorPosition) => void;
@@ -1649,6 +1650,7 @@ export interface EditorOptions extends EditorConfig {
     | 'embed'
     | 'snippet'
     | 'add-snippet';
+  projectDir?: string;
   theme: Theme;
   isEmbed: boolean;
   isLite: boolean;
