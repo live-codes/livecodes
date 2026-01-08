@@ -386,7 +386,8 @@ const loadModuleTypes = async (
   loadAll = false,
   force = false,
 ) => {
-  if (typeof editors?.script?.addTypes !== 'function') return;
+  const addTypes = editors?.[config.files?.[0]?.filename || 'script']?.addTypes;
+  if (typeof addTypes !== 'function') return;
   const scriptLanguage = config.script.language;
   if (['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) || force) {
     if (compiler.isFake) {
@@ -401,13 +402,17 @@ const loadModuleTypes = async (
       ...config.customSettings.types,
     };
     const reactImport = hasJsx.includes(scriptLanguage) ? `import React from 'react';\n` : '';
-    const libs = await typeLoader.load(
-      reactImport + getConfig().script.content + '\n' + getConfig().markup.content,
-      configTypes,
-      loadAll,
-      force,
-    );
-    libs.forEach((lib) => editors.script.addTypes?.(lib, force));
+    const content = !config.files.length
+      ? config.script.content + '\n' + config.markup.content
+      : config.files.reduce(
+          (acc, file) =>
+            ['script', 'markup'].includes(getLanguageEditorId(file.language) || '')
+              ? acc + file.content + '\n'
+              : acc,
+          '',
+        );
+    const libs = await typeLoader.load(reactImport + content, configTypes, loadAll, force);
+    libs.forEach((lib) => addTypes(lib, force));
   }
 };
 
