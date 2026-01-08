@@ -1870,7 +1870,6 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
   }
   phpHelper({ editor: editors.script });
   setLoading(true);
-  showEditor(combinedConfig.activeEditor);
 
   if (!isEmbed) {
     loadSettings(combinedConfig);
@@ -1986,6 +1985,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
     };
     getAllEditors().forEach((editor) => editor.changeSettings(currentEditorConfig));
   }
+  showEditor(combinedConfig.activeEditor);
 
   parent.dispatchEvent(new Event(customEvents.ready));
 };
