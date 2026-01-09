@@ -10,7 +10,10 @@ import { handleSlash } from '../utils/utils';
 export const isEditorId = (editorId: string): editorId is 'markup' | 'style' | 'script' =>
   editorId === 'markup' || editorId === 'style' || editorId === 'script';
 
-export const getSource = (editorId: EditorId, config: Config | Cache) =>
+export const getSource = <T extends Config | Cache>(
+  editorId: EditorId,
+  config: T,
+): T['markup'] | T['files'][0] | undefined =>
   isEditorId(editorId) ? config[editorId] : config.files.find((f) => f.filename === editorId);
 
 export const getMainFile = (config: Config | Cache) =>

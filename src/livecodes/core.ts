@@ -1162,46 +1162,49 @@ const registerRun = (editorId: EditorId, editors: Editors) => {
 };
 
 const updateCompiledCode = () => {
+  const cache = getCache();
   const getCompiledLanguage = (editorId: EditorId) => {
     const defaultLang: { [key in EditorId]: Language } = {
       markup: 'html',
       style: 'css',
       script: 'javascript',
     };
-    const srcLang = getSource(editorId, getConfig())?.language;
-    const lang = getLanguageCompiler(srcLang)?.compiledCodeLanguage;
+    const srcLang = getSource(editorId, cache)?.language;
+    const lang =
+      getLanguageCompiler(srcLang)?.compiledCodeLanguage ||
+      defaultLang[editorId] ||
+      defaultLang[getLanguageSpecs(srcLang)?.editor || ''] ||
+      getFileLanguage(editorId) ||
+      'html';
     return {
-      language: lang || defaultLang[editorId] || getFileLanguage(editorId) || 'html',
-      label:
-        lang === 'json'
-          ? 'JSON'
-          : getLanguageByAlias(lang) ||
-            lang ||
-            defaultLang[editorId] ||
-            getFileLanguage(editorId) ||
-            'html',
+      language: lang,
+      label: lang === 'json' ? 'JSON' : getLanguageByAlias(lang) || lang,
     };
   };
   const compiledLanguages: { [key in EditorId]: { language: Language; label: string } } = {
     markup: getCompiledLanguage('markup'),
     style: getCompiledLanguage('style'),
     script: getCompiledLanguage('script'),
+    ...cache.files.reduce(
+      (acc, f) => ({ ...acc, [f.filename]: getCompiledLanguage(f.filename) }),
+      {},
+    ),
   };
-  if (toolsPane && toolsPane.compiled) {
-    const cache = getCache();
-    Object.keys(cache).forEach((editorId) => {
-      if (editorId !== getConfig().activeEditor) return;
-      let compiledCode = cache[editorId].modified || cache[editorId].compiled || '';
-      if (editorId === 'script' && getConfig().script.language.startsWith('php')) {
-        compiledCode = phpHelper({ code: compiledCode });
-      }
-      toolsPane?.compiled?.update(
-        compiledLanguages[editorId].language,
-        compiledCode,
-        compiledLanguages[editorId].label,
-      );
-    });
+  if (!toolsPane || !toolsPane.compiled) return;
+  const editorId = getConfig().activeEditor;
+  const active = compiledLanguages[editorId || ''];
+  if (!editorId || !active) return;
+  const src = getSource(editorId, cache);
+  if (!src) return;
+  let compiledCode = src.modified || src.compiled || '';
+  if (editorId === 'script' && getConfig().script.language.startsWith('php')) {
+    compiledCode = phpHelper({ code: compiledCode });
   }
+  toolsPane?.compiled?.update(
+    compiledLanguages[editorId].language,
+    compiledCode,
+    compiledLanguages[editorId].label,
+  );
 };
 
 const getResultPage = async ({
