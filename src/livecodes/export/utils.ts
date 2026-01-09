@@ -25,7 +25,13 @@ export const getFilesFromConfig = (
   };
   const codeFiles =
     config.files.length > 0
-      ? config.files
+      ? config.files.reduce(
+          (files, file) => ({
+            ...files,
+            [file.filename]: { content: file.content },
+          }),
+          {},
+        )
       : (Object.keys(filenames) as EditorId[]).reduce((files, editorId) => {
           if (!isEditorId(editorId)) {
             return files;
