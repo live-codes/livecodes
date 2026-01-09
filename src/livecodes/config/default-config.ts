@@ -50,6 +50,10 @@ export const defaultConfig: Config = {
     {
       filename: 'styles.css',
       content: `@import "./middle.css";
+
+    h1 {
+      color: blue;
+    }
     `,
       language: 'css',
       hidden: false,
@@ -57,6 +61,10 @@ export const defaultConfig: Config = {
     {
       filename: 'middle.css',
       content: `@import "./colors.css";
+
+    h1 {
+      color: green;
+    }
     `,
       language: 'css',
       hidden: false,

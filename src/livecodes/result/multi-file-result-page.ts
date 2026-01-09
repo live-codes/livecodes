@@ -3,6 +3,7 @@ import {
   getImports,
   getStyleImports,
   hasImports,
+  inlineStyleImports,
   replaceImports,
   resolvePath,
 } from '../compiler/import-map';
@@ -11,7 +12,14 @@ import { getLanguageByAlias, getLanguageCompiler, getLanguageEditorId } from '..
 import type { CompileInfo, Config, SourceFile } from '../models';
 import { getAppCDN, modulesService } from '../services/modules';
 import { testImports } from '../toolspane/test-imports';
-import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap, toDataUrl } from '../utils/utils';
+import {
+  cloneObject,
+  escapeScript,
+  getAbsoluteUrl,
+  isRelativeUrl,
+  objectMap,
+  toDataUrl,
+} from '../utils/utils';
 import { browserJestUrl, esModuleShimsPath, spacingJsUrl } from '../vendors';
 
 export const createMultiFileResultPage = async ({
@@ -36,7 +44,7 @@ export const createMultiFileResultPage = async ({
   compileInfo: CompileInfo;
 }): Promise<string> => {
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
-
+  compiledFiles = cloneObject(compiledFiles); // avoid mutation
   const mainFile = getMainFile(config);
   const mainFileHTML = compiledFiles.find((f) => f.filename === mainFile)?.compiled || '';
 
@@ -112,18 +120,23 @@ export const createMultiFileResultPage = async ({
   // handle imports
   const stylesImportMap: Record<string, string> = {};
   const getStylesheetWithImports = (file: SourceFile & { compiled: string }): string => {
+    // TODO handle directory imports
+    // (e.g. import "./styles/a.css"; import "./b.css"; import "../c.css";)
     if (stylesImportMap[file.filename]) return file.compiled;
-    const styleImports = getStyleImports(file.compiled)
-      .filter((mod) => {
-        const resolvedImport = resolvePath(mod, './' + file.filename)?.replace('./', '');
-        if (!resolvedImport) return false;
-        return !(resolvedImport in stylesImportMap);
-      })
-      .map((mod) => mod.replace('./', ''));
+    const styleImports = getStyleImports(file.compiled).filter((mod) => {
+      const resolvedImport = resolvePath(mod, './' + file.filename)?.replace('./', '');
+      if (!resolvedImport) return false;
+      return !(resolvedImport in stylesImportMap);
+    });
     if (styleImports.length > 0) {
-      const nextImport = compiledFiles.find((f) => f.filename === styleImports[0]);
+      const nextImport = compiledFiles.find(
+        (f) => f.filename === styleImports[0].replace('./', ''),
+      );
       if (!nextImport) return file.compiled;
-      return getStylesheetWithImports(nextImport);
+      file.compiled = inlineStyleImports(file.compiled, {
+        contentMap: { ['./' + nextImport.filename]: getStylesheetWithImports(nextImport) },
+      });
+      return getStylesheetWithImports(file);
     }
     const dataUrl = fileUrls[file.filename] || getDataUrl(file);
     if (!dataUrl) return 'data:text/css;base64,';

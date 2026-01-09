@@ -310,6 +310,26 @@ export const replaceStyleImports = (
         : modified;
   });
 
+export const inlineStyleImports = (
+  code: string,
+  {
+    exceptions,
+    contentMap,
+  }: { exceptions?: string[] | RegExp[]; contentMap: Record<string, string> },
+) =>
+  code.replace(new RegExp(styleimportsPattern), (statement, match) => {
+    if (
+      exceptions?.some(
+        (e) =>
+          (typeof e === 'string' && e === match) ||
+          (typeof e === 'object' && new RegExp(e).test(match)),
+      )
+    ) {
+      return statement;
+    }
+    return contentMap?.[match.replace(/"/g, '').replace(/'/g, '')] || statement;
+  });
+
 // based on https://github.com/sveltejs/svelte-repl/blob/master/src/workers/bundler/plugins/commonjs.js
 export const cjs2esm = (code: string) => {
   const strippedCode = removeComments(code);
