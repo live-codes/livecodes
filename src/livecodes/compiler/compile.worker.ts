@@ -1,6 +1,6 @@
 import type TS from 'typescript';
 import { getCompilerOptions } from '../editor/ts-compiler-options';
-import { languages, processors } from '../languages';
+import { getLanguageByAlias, languages, processors } from '../languages';
 import type {
   CompileOptions,
   CompileResult,
@@ -9,7 +9,7 @@ import type {
   EditorLibrary,
   Language,
 } from '../models';
-import { doOnce, getErrorMessage, objectFilter } from '../utils/utils';
+import { doOnce, getErrorMessage, getFileExtension, objectFilter } from '../utils/utils';
 import { codeMirrorBaseUrl, comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
 import { getAllCompilers } from './get-all-compilers';
 import type { CompilerMessage, CompilerMessageEvent, LanguageOrProcessor } from './models';
@@ -100,6 +100,8 @@ const compile = async (
   config: Config,
   options: CompileOptions,
 ) => {
+  language ??= getLanguageByAlias(language || getFileExtension(options.filename)) || 'html';
+
   const compiler = compilers[language]?.fn;
   if (!baseUrl || typeof compiler !== 'function') {
     throw new Error('Failed to load compiler for: ' + language);
@@ -277,11 +279,12 @@ const initCodemirrorTS = doOnce(async () => {
   importScripts(comlinkBaseUrl + 'umd/comlink.js');
   importScripts(typescriptVfsUrl);
   importScripts(codeMirrorBaseUrl + 'codemirror-ts.worker.js');
+  const language = codemirrorWorker.language || 'tsx';
   const { createWorker } = worker.CodemirrorTsWorker;
   const { createDefaultMapFromCDN, createSystem, createVirtualTypeScriptEnvironment } =
     worker.typescriptVFS;
   tsvfsMap = await createDefaultMapFromCDN(
-    { target: worker.ts?.ScriptTarget.ES2022 },
+    getCompilerOptions(language),
     worker.ts?.version,
     false,
     worker.ts,
@@ -291,7 +294,6 @@ const initCodemirrorTS = doOnce(async () => {
     const compilerOpts = getCompilerOptions(lang);
     return createVirtualTypeScriptEnvironment(system, [], worker.ts, compilerOpts);
   };
-  const language = codemirrorWorker.language || 'tsx';
   let env = createTypeScriptEnvironment(language);
   codemirrorWorker = createWorker(() => env);
   codemirrorWorker.language = language;

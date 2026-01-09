@@ -59,7 +59,7 @@ const changeTabFocusMode = debounce(() => (tabFocusMode = !tabFocusMode), 50);
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly, isEmbed, getFormatterConfig, getFontFamily, getLanguageExtension } =
     options;
-  let editorId = options.editorId;
+  let { editorId, projectDir } = options;
   let editorSettings: EditorConfig = { ...options };
   if (!container) throw new Error('editor container not found');
 
@@ -153,7 +153,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       mappedLanguage === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
         ? ext + '.tsx'
         : ext;
-    const path = `/${editorId}.${random}.${extension}`;
+    const path = editorId.includes('.')
+      ? `/${projectDir}/${editorId}`
+      : `/${editorId}.${random}.${extension}`;
 
     codemirrorTS = codemirrorTS || [
       tsFacetWorker.of({ worker: tsWorker, path }),
@@ -309,6 +311,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     if (newLang && newLang !== language) {
       setLanguage(newLang);
     }
+    tsLoaded.then(() => loadTS(true));
+  };
+  const setProjectDir = (dir: string) => {
+    if (!codemirrorTS) return;
+    projectDir = dir;
+    tsLoaded.then(() => loadTS(true));
   };
   const getValue = () => view.state.doc.toString();
   const setValue = (value = '', newState = true) => {
@@ -335,9 +343,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         effects: [languageExtension.reconfigure(mappedLanguageSupport)],
       });
     });
-    tsLoaded.then(() => {
-      loadTS(true);
-    });
+    tsLoaded.then(() => loadTS(true));
     if (value != null) {
       setValue(value);
     }
@@ -530,6 +536,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setLanguage,
     getEditorId,
     setEditorId,
+    setProjectDir,
     focus,
     getPosition,
     setPosition,

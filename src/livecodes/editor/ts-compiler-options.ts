@@ -26,7 +26,7 @@ export const getCompilerOptions = (language: Language): CompilerOptions => {
   const nonReactJsx = ['solid', 'solid.tsx', 'stencil', 'vue'].includes(language);
 
   const settings: CompilerOptions = {
-    noEmit: true,
+    noEmit: true, // required for allowImportingTsExtensions
     allowJs: true,
     checkJs: !isJSLang,
     strictNullChecks: !isJSLang,
@@ -38,10 +38,10 @@ export const getCompilerOptions = (language: Language): CompilerOptions => {
     allowSyntheticDefaultImports: true,
     allowUmdGlobalAccess: true,
     esModuleInterop: true,
-    target: 7, // monaco.languages.typescript.ScriptTarget.ES2020,
+    target: 9 as any, // monaco.languages.typescript.ScriptTarget.ES2022,
     module: 99, // monaco.languages.typescript.ModuleKind.ESNext,
     moduleResolution: 2, // monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-    lib: ['es2021', 'dom', 'dom.iterable'],
+    lib: ['es2022', 'dom', 'dom.iterable'],
   };
 
   const jsxSettings: CompilerOptions = {
