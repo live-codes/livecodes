@@ -9,7 +9,7 @@ import { ctrl } from '../utils';
  */
 export interface KeyboardShortcutDeps {
   eventsManager: EventsManager;
-  getActiveEditor: () => CodeEditor;
+  getActiveEditor: () => CodeEditor | undefined;
   getConfig: () => Config;
   showEditor: (editorId: EditorId) => void;
   run: () => Promise<void>;
@@ -28,7 +28,7 @@ let lastkeys = '';
  */
 const createCommandPaletteHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) => {
   const activeEditor = deps.getActiveEditor();
-  if (ctrl(e) && e.code === 'KeyP' && activeEditor.monaco) {
+  if (ctrl(e) && e.code === 'KeyP' && activeEditor?.monaco) {
     e.preventDefault();
     activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
     lastkeys = 'Ctrl + P';
@@ -109,7 +109,7 @@ const createZoomToggleHandler = () => (e: KeyboardEvent) => {
 const createFocusEditorHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) => {
   if (ctrl(e) && e.altKey && e.code === 'KeyE') {
     e.preventDefault();
-    deps.getActiveEditor().focus();
+    deps.getActiveEditor()?.focus();
     lastkeys = 'Ctrl + Alt + E';
     return true;
   }

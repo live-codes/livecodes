@@ -256,7 +256,7 @@ const sdkWatchers = {
 
 const getEditorLanguage = (editorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
-const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
+const getActiveEditor = (): CodeEditor | undefined => editors[getConfig().activeEditor || 'markup'];
 
 const loadStyles = () =>
   isHeadless
@@ -941,7 +941,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
 
 const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = false) => {
   const config = getConfig();
-  if (getSource(editorId, config)?.hidden) return;
+  if (!editors[editorId] || getSource(editorId, config)?.hidden) return;
   const titles = [...UI.getEditorTitles()];
   const editorIsVisible = () => titles.map((title) => title.dataset.editor).includes(editorId);
   if (!editorIsVisible()) {
@@ -1031,7 +1031,8 @@ const addConsoleInputCodeCompletion = () => {
   }
 };
 
-const configureEditorTools = (language: Language) => {
+const configureEditorTools = (language: Language | undefined) => {
+  if (!language) return false;
   if (getConfig().readonly || language === 'blockly' || language === 'richtext') {
     UI.getEditorToolbar().classList.add('hidden');
     return false;
@@ -1707,11 +1708,11 @@ const format = async (allEditors = true) => {
     );
   } else {
     const activeEditor = getActiveEditor();
-    await activeEditor.format();
+    await activeEditor?.format();
     if (getConfig().foldRegions) {
-      await activeEditor.foldRegions?.();
+      await activeEditor?.foldRegions?.();
     }
-    activeEditor.focus();
+    activeEditor?.focus();
   }
   updateConfig();
 };
@@ -1970,6 +1971,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
   let shouldReloadEditors = (() => {
     if (oldConfig?.files?.length || newConfig.files?.length) return true;
     const activeEditor = getActiveEditor();
+    if (activeEditor == null) return false;
     if (newConfig.editor != null && newConfig.editor in activeEditor) return true;
     if (newConfig.mode != null) {
       if (newConfig.mode !== 'result' && activeEditor.isFake) return true;
@@ -2001,7 +2003,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
   }
   showEditor(combinedConfig.activeEditor);
   if (!isEmbed) {
-    setTimeout(() => getActiveEditor().focus());
+    setTimeout(() => getActiveEditor()?.focus());
   }
   parent.dispatchEvent(new Event(customEvents.ready));
 };
@@ -2584,6 +2586,7 @@ const showLanguageInfo = async (languageInfo: HTMLElement) => {
 };
 
 const loadStarterTemplate = async (templateName: Template['name'], checkSaved = true) => {
+  modal.show(loadingMessage(), { size: 'small' });
   const templates = await getTemplates();
   const { title, thumbnail, ...templateConfig } =
     templates.filter((template) => template.name === templateName)?.[0] || {};
@@ -2613,7 +2616,6 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
 };
 
 const getPlaygroundState = (): Config & Code => {
-  // TODO: handle files
   const config = getConfig();
   const cachedCode = getCachedCode();
   return {
@@ -2622,18 +2624,22 @@ const getPlaygroundState = (): Config & Code => {
     markup: {
       ...config.markup,
       ...cachedCode.markup,
-      position: editors.markup.getPosition(),
+      position: editors.markup?.getPosition(),
     },
     style: {
       ...config.style,
       ...cachedCode.style,
-      position: editors.style.getPosition(),
+      position: editors.style?.getPosition(),
     },
     script: {
       ...config.script,
       ...cachedCode.script,
-      position: editors.script.getPosition(),
+      position: editors.script?.getPosition(),
     },
+    files: cachedCode.files.map((file) => ({
+      ...file,
+      position: editors[file.filename]?.getPosition(),
+    })),
     tools: {
       enabled: config.tools.enabled,
       active: toolsPane?.getActiveTool() ?? '',
@@ -3212,7 +3218,7 @@ const handleI18nMenu = () => {
 };
 
 const handleEditorTools = () => {
-  if (!configureEditorTools(getActiveEditor().getLanguage())) return;
+  if (!configureEditorTools(getActiveEditor()?.getLanguage())) return;
   const originalMode = getConfig().mode;
   eventsManager.addEventListener(UI.getFocusButton(), 'click', () => {
     const config = getConfig();
@@ -3233,7 +3239,8 @@ const handleEditorTools = () => {
   });
 
   eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
-    if (copyToClipboard(getActiveEditor().getValue())) {
+    const activeEditor = getActiveEditor();
+    if (activeEditor && copyToClipboard(activeEditor.getValue())) {
       notifications.success(
         window.deps.translateString('core.copy.copied', 'Code copied to clipboard'),
       );
@@ -3246,14 +3253,14 @@ const handleEditorTools = () => {
 
   eventsManager.addEventListener(UI.getUndoButton(), 'click', () => {
     const activeEditor = getActiveEditor();
-    activeEditor.undo();
-    activeEditor.focus();
+    activeEditor?.undo();
+    activeEditor?.focus();
   });
 
   eventsManager.addEventListener(UI.getRedoButton(), 'click', () => {
     const activeEditor = getActiveEditor();
-    activeEditor.redo();
-    activeEditor.focus();
+    activeEditor?.redo();
+    activeEditor?.focus();
   });
 
   eventsManager.addEventListener(UI.getFormatButton(), 'click', async () => {
@@ -3262,9 +3269,9 @@ const handleEditorTools = () => {
 
   eventsManager.addEventListener(UI.getCopyAsUrlButton(), 'click', () => {
     const currentEditor = getActiveEditor();
-    const mimeType = 'text/' + currentEditor.getLanguage();
-    const dataUrl = toDataUrl(currentEditor.getValue(), mimeType);
-    if (copyToClipboard(dataUrl)) {
+    const mimeType = 'text/' + currentEditor?.getLanguage();
+    const dataUrl = toDataUrl(currentEditor?.getValue() || '', mimeType);
+    if (currentEditor && copyToClipboard(dataUrl)) {
       notifications.success(
         window.deps.translateString('core.copy.copiedAsDataURL', 'Code copied as data URL'),
       );
@@ -4496,7 +4503,7 @@ const changeEditorSettings = (newConfig: Partial<UserConfig> | null) => {
     });
   }
   showEditorModeStatus(updatedConfig.activeEditor || 'markup');
-  getActiveEditor().focus();
+  getActiveEditor()?.focus();
 };
 
 const handleEditorSettings = () => {
@@ -4556,8 +4563,8 @@ const handleCodeToImage = () => {
         editor: 'codejar',
         theme: 'dark',
         wordWrap: true,
-        language: activeEditor.getLanguage(),
-        value: activeEditor.getValue(),
+        language: activeEditor?.getLanguage() || 'html',
+        value: activeEditor?.getValue() || '',
         readonly: false,
         editorId: 'codeToImage',
         isEmbed: false,
@@ -4589,13 +4596,13 @@ const handleCodeToImage = () => {
       baseUrl,
       currentUrl,
       fileName: safeName(fileName, '-').toLowerCase(),
-      editorId: getLanguageEditorId(activeEditor.getLanguage()) || 'script',
+      editorId: activeEditor?.getEditorId() || 'script',
       modal,
       notifications,
       eventsManager,
       deps: {
         createEditor: createPreviewEditor,
-        getFormatFn: () => formatter.getFormatFn(activeEditor.getLanguage()),
+        getFormatFn: () => formatter.getFormatFn(activeEditor?.getLanguage() || 'javascript'),
         getShareUrl,
         getSavedPreset,
         savePreset,
@@ -5398,7 +5405,7 @@ const basicHandlers = () => {
     isEmbed,
     onClose: () => {
       if (!isEmbed) {
-        getActiveEditor().focus();
+        getActiveEditor()?.focus();
       }
     },
   });
@@ -5886,8 +5893,8 @@ const createApi = (): API => {
       split?.show('code', full);
       if (typeof line === 'number' && line > 0) {
         const col = typeof column === 'number' && column > -1 ? column : 0;
-        getActiveEditor().setPosition({ lineNumber: line, column: col });
-        getActiveEditor().focus();
+        getActiveEditor()?.setPosition({ lineNumber: line, column: col });
+        getActiveEditor()?.focus();
       }
     } else {
       throw new Error(window.deps.translateString('core.error.invalidPanelId', 'Invalid panel id'));
