@@ -34,10 +34,11 @@ const worker: Worker & {
 (self as any).deps = { languages, processors };
 
 const loadLanguageCompiler = async (
-  language: LanguageOrProcessor,
+  language: LanguageOrProcessor | undefined,
   config: Config,
   baseUrl: string | undefined,
 ) => {
+  if (!language) return;
   if (!baseUrl) {
     throw new Error('baseUrl is not set');
   }

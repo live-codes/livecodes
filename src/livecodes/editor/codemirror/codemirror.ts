@@ -66,7 +66,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getLanguageSupport = async (language: Language): Promise<LanguageSupport> =>
     editorLanguages[language]?.() || (editorLanguages.html?.() as Promise<LanguageSupport>);
 
-  const mapLanguage = (lang: Language) => {
+  const mapLanguage = (lang: Language | undefined) => {
+    if (!lang) return 'html';
     if (lang.startsWith('vue')) return 'vue';
     if (lang.startsWith('svelte')) return 'svelte';
     if (lang === 'liquid') return 'liquid';
@@ -335,6 +336,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const focus = () => view.focus();
   const getLanguage = () => language;
   const setLanguage = (lang: Language, value?: string) => {
+    if (!lang) return;
     language = lang;
     mappedLanguage = mapLanguage(language);
     getLanguageSupport(mappedLanguage).then((langSupport) => {

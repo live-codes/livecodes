@@ -93,6 +93,7 @@ export const createEditor = async (
   if (!options) throw new Error();
 
   const editorOptions = getEditorOptions(options);
+  if (!options.language) return createFakeEditor(editorOptions);
 
   const editorName = selectEditor(editorOptions);
   if (editorName === 'fake') return createFakeEditor(editorOptions);

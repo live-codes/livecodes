@@ -212,7 +212,7 @@ export const createCompiler = async ({
     const compiler = compilers[language]?.fn;
     if (typeof compiler !== 'function') {
       return new Promise<CompileResult>((res) => {
-        if (language !== 'html' && language !== 'css' && language !== 'javascript') {
+        if (language && language !== 'html' && language !== 'css' && language !== 'javascript') {
           // eslint-disable-next-line no-console
           console.error('Failed to load compiler for: ' + language);
         }
