@@ -1444,7 +1444,10 @@ export interface Compilers {
   [language: string]: Compiler;
 }
 
-export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &
+export type Template = (
+  | Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'>
+  | Pick<ContentConfig, 'title' | 'mainFile' | 'files'>
+) &
   Partial<ContentConfig> & {
     name: TemplateName;
     aliases?: TemplateName[];
@@ -1524,7 +1527,8 @@ export type TemplateName =
   | 'prolog'
   | 'minizinc'
   | 'blockly'
-  | 'diagrams';
+  | 'diagrams'
+  | 'multifile-blank';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';

@@ -495,6 +495,9 @@ export const getStarterTemplatesTab = /* @__PURE__ */ (templatesContainer: HTMLE
 export const getStarterTemplatesList = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector<HTMLElement>('#starter-templates-list');
 
+export const getMultifileTemplatesList = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
+  templatesContainer.querySelector<HTMLElement>('#multifile-templates-list');
+
 export const getUserTemplatesScreen = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector('#templates-user .modal-screen') as HTMLElement;
 

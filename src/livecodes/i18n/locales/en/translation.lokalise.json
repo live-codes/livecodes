@@ -2556,6 +2556,18 @@
     "notes": "",
     "translation": "New Project"
   },
+  "templates.multifile.blank": {
+    "notes": "",
+    "translation": "Blank Project"
+  },
+  "templates.multifile.heading": {
+    "notes": "",
+    "translation": "Multi-file Templates"
+  },
+  "templates.multifile.loading": {
+    "notes": "",
+    "translation": "Loading multi-file templates..."
+  },
   "templates.noUserTemplates.desc": {
     "notes": "### <tag-1> ###\n<wbr  />\n\n",
     "translation": "You can save a project as a template from <tag-1></tag-1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template)."

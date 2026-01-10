@@ -986,6 +986,11 @@ const translation = {
   },
   templates: {
     heading: 'New Project',
+    multifile: {
+      blank: 'Blank Project',
+      heading: 'Multi-file Templates',
+      loading: 'Loading multi-file templates...',
+    },
     noUserTemplates: {
       desc: 'You can save a project as a template from <1></1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
       heading: 'You have no saved templates.',

@@ -3698,30 +3698,40 @@ const handleNew = () => {
     });
   };
 
-  let starterTemplatesCache: Template[];
+  let templatesCache: Template[];
   const createTemplatesUI = async () => {
-    const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
+    const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer)!;
+    const multifileTemplatesList = UI.getMultifileTemplatesList(templatesContainer)!;
     const loadingText = starterTemplatesList?.firstElementChild;
-    if (!starterTemplatesCache) {
+    const multifileLoadingText = multifileTemplatesList?.firstElementChild;
+    const createLink = (template: Template, list: HTMLElement) => {
+      const link = createStarterTemplateLink(template, list, baseUrl);
+      eventsManager.addEventListener(
+        link,
+        'click',
+        (event) => {
+          event.preventDefault();
+          loadStarterTemplate(template.name, /* checkSaved= */ false);
+        },
+        false,
+      );
+    };
+    if (!templatesCache) {
       getTemplates()
-        .then((starterTemplates) => {
-          starterTemplatesCache = starterTemplates;
+        .then((allTemplates) => {
+          templatesCache = allTemplates;
           loadingText?.remove();
-          starterTemplates.forEach((template) => {
-            const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
-            eventsManager.addEventListener(
-              link,
-              'click',
-              (event) => {
-                event.preventDefault();
-                loadStarterTemplate(template.name, /* checkSaved= */ false);
-              },
-              false,
-            );
-          });
+          multifileLoadingText?.remove();
+          allTemplates
+            .filter((t) => !t.files?.length)
+            .forEach((template) => createLink(template, starterTemplatesList));
+          allTemplates
+            .filter((t) => t.files?.length)
+            .forEach((template) => createLink(template, multifileTemplatesList));
         })
         .catch(() => {
           loadingText?.remove();
+          multifileLoadingText?.remove();
           notifications.error(
             window.deps.translateString(
               'core.error.failedToLoadTemplates',

@@ -37,70 +37,8 @@ export const defaultConfig: Config = {
     language: 'javascript',
     content: '',
   },
-  files: [
-    {
-      filename: 'index.html',
-      content: `<h1>hello world</h1>
-    <link href="styles.css" rel="stylesheet">
-    <script type="module" src="script.ts"></script>
-    `,
-      language: 'html',
-      hidden: false,
-    },
-    {
-      filename: 'styles.css',
-      content: `@import "./middle.css";
-
-    h1 {
-      color: blue;
-    }
-    `,
-      language: 'css',
-      hidden: false,
-    },
-    {
-      filename: 'middle.css',
-      content: `@import "./colors.css";
-
-    h1 {
-      color: green;
-    }
-    `,
-      language: 'css',
-      hidden: false,
-    },
-    {
-      filename: 'colors.css',
-      content: `h1 {
-      font-family: Arial, Helvetica, sans-serif;
-      color: red;
-    }
-    `,
-      language: 'css',
-      hidden: false,
-    },
-    {
-      filename: 'script.ts',
-      content: `import { v4 } from 'uuid';
-          import { msg } from './middle.ts';
-          console.log(v4());
-          console.log(msg);`,
-      language: 'typescript',
-      hidden: false,
-    },
-    {
-      filename: 'middle.ts',
-      content: `export { msg } from './message.ts';`,
-      language: 'typescript',
-      hidden: false,
-    },
-    {
-      filename: 'message.ts',
-      content: `export const msg: string = 'Hello!';`,
-      language: 'typescript',
-      hidden: false,
-    },
-  ],
+  mainFile: undefined,
+  files: [],
   stylesheets: [],
   scripts: [],
   cssPreset: '',

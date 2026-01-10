@@ -580,6 +580,10 @@ kbd {
     }
   }
 
+  #add-file-button {
+    display: none;
+  }
+
   #project-title {
     align-items: center;
     background: var(--project-title-bg-color);
