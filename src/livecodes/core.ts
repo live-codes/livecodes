@@ -544,6 +544,7 @@ const addFile = async (
   editorLanguages![validName] = fileLanguage;
   editors[validName] = editor;
   editorIds.push(validName);
+  handleChangeContent(validName);
   if (config.autoupdate) {
     run();
   }
@@ -2966,7 +2967,7 @@ const handleChangeLanguage = () => {
   }
 };
 
-const handleChangeContent = () => {
+const handleChangeContent = (editorId?: EditorId) => {
   const contentChanged = async (editorId: EditorId, loading: boolean) => {
     updateConfig();
     const config = getConfig();
@@ -2976,7 +2977,7 @@ const handleChangeContent = () => {
       await run(editorId);
     }
 
-    if (config.markup.content !== getCache().markup.content) {
+    if (getSource(editorId, config)?.content !== getSource(editorId, getCache())?.content) {
       await getResultPage({ sourceEditor: editorId });
     }
 
@@ -2988,7 +2989,11 @@ const handleChangeContent = () => {
           baseUrl,
           editors,
           config,
-          html: getCache().markup.compiled || config.markup.content || '',
+          html:
+            getCache().markup.compiled ||
+            config.markup.content ||
+            getSource(config.mainFile || getMainFile(config) || 'index.html', config)?.content ||
+            '',
           eventsManager,
         });
       }
@@ -3010,10 +3015,19 @@ const handleChangeContent = () => {
       () => getConfig().delay ?? defaultConfig.delay,
     );
 
-  (Object.keys(editors) as EditorId[]).forEach((editorId) => {
+  const subscribeEditor = (editorId: EditorId) => {
+    if (!editorId || !editors?.[editorId]) return;
     editors[editorId].onContentChanged(debouncecontentChanged(editorId));
     editors[editorId].onContentChanged(setSavedStatus);
-  });
+  };
+
+  if (editorId) {
+    subscribeEditor(editorId);
+  } else {
+    Object.keys(editors).forEach((editorId) => {
+      subscribeEditor(editorId);
+    });
+  }
 };
 
 const handleKeyboardShortcutsScreen = () => {
