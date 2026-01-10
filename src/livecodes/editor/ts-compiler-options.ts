@@ -64,5 +64,7 @@ export const getCompilerOptions = (language: Language): CompilerOptions => {
     ...settings,
     ...(isJsx ? jsxSettings : {}),
     ...(nonReactJsx ? nonReactJsxSettings : {}),
+    // TODO: fix (late initialized editors override previous ones)
+    jsx: 1, // monaco.languages.typescript.JsxEmit.Preserve,
   };
 };
