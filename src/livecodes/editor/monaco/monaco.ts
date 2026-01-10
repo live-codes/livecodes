@@ -1,6 +1,6 @@
 import type * as Monaco from 'monaco-editor';
 
-import { getEditorModeNode } from '../../UI/selectors';
+import { getEditorModeNode, getEditorTab } from '../../UI/selectors';
 import { getImports } from '../../compiler/import-map';
 import { getFileLanguage } from '../../languages/utils';
 import type {
@@ -26,6 +26,7 @@ import {
   monacoEmacsUrl,
   monacoVimUrl,
   monacoVolarUrl,
+  typescriptVersion,
   vendorsBaseUrl,
 } from '../../vendors';
 import { getEditorTheme } from '../themes';
@@ -84,16 +85,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const baseOptions = convertOptions(options);
 
-  const monacoMapLanguage = (language: Language): Language =>
-    language === 'livescript'
-      ? 'coffeescript'
-      : ['rescript', 'reason', 'ocaml'].includes(language)
-        ? 'csharp'
-        : language.startsWith('vue')
-          ? 'vue'
-          : ['svelte', 'malina', 'riot'].includes(language)
-            ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
-            : mapLanguage(language);
+  const monacoMapLanguage = (language: Language | undefined): Language =>
+    !language
+      ? 'html'
+      : language === 'livescript'
+        ? 'coffeescript'
+        : ['rescript', 'reason', 'ocaml'].includes(language)
+          ? 'csharp'
+          : language.startsWith('vue')
+            ? 'vue'
+            : ['svelte', 'malina', 'riot'].includes(language)
+              ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
+              : mapLanguage(language);
 
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;
@@ -354,8 +357,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }, 50);
   }
 
-  const contentEditors: Array<EditorOptions['editorId']> = ['markup', 'style', 'script', 'tests'];
-  if (contentEditors.includes(editorId)) {
+  if (editorId.includes('.')) {
     editors.push(editor);
   }
 
@@ -469,6 +471,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const getLanguage = () => language;
   const setLanguage = (lang: Language, value?: string) => {
+    if (!lang) return;
     language = lang;
     clearTypes(false);
     const valueToInsert = value ?? editor.getValue();
@@ -906,8 +909,69 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.languages.registerHoverProvider('html', npmPackageHoverProvider);
   };
 
+  const enableGoToDefinition = () => {
+    // https://github.com/microsoft/vscode/pull/177064
+    monaco.editor.registerEditorOpener({
+      async openCodeEditor(_source, resource, selectionOrPosition) {
+        const lineNumber = !selectionOrPosition
+          ? null
+          : 'lineNumber' in selectionOrPosition
+            ? selectionOrPosition.lineNumber
+            : selectionOrPosition.startLineNumber;
+
+        if (resource.path.startsWith('/lib.')) {
+          const lib = resource.path.replace('/lib.', '');
+          window.open(
+            `https://app.unpkg.com/typescript@${typescriptVersion}/files/lib/lib.${lib}${lineNumber ? '#L' + lineNumber : ''}`,
+            '_blank',
+          );
+          return true;
+        }
+
+        if (resource.path.startsWith('/node_modules/')) {
+          const [part1, part2, ...rest] = resource.path.replace('/node_modules/', '').split('/');
+          const lib = part1.startsWith('@') ? `${part1}/${part2}` : part1;
+          const path = part1.startsWith('@') ? rest.join('/') : `${part2}/${rest.join('/')}`;
+          window.open(
+            `https://app.unpkg.com/${lib}/files/${path}${lineNumber ? '#L' + lineNumber : ''}`,
+            '_blank',
+          );
+          return true;
+        }
+
+        const targetEditor = editors.find((e) => e.getModel()?.uri.path === resource.path);
+        if (targetEditor) {
+          const targetEditorId = resource.path.split('/').splice(2).join('/');
+
+          if (targetEditorId) {
+            const targetEditorTab = getEditorTab(targetEditorId);
+            targetEditorTab?.click();
+
+            if (monaco.Range.isIRange(selectionOrPosition)) {
+              targetEditor?.revealRangeInCenterIfOutsideViewport(
+                selectionOrPosition,
+                monaco.editor.ScrollType.Smooth,
+              );
+              targetEditor?.setSelection(selectionOrPosition);
+            } else if (selectionOrPosition) {
+              targetEditor?.revealPositionInCenterIfOutsideViewport(
+                selectionOrPosition,
+                monaco.editor.ScrollType.Smooth,
+              );
+              targetEditor?.setPosition(selectionOrPosition);
+            }
+            return true;
+          }
+        }
+
+        return false;
+      },
+    });
+  };
+
   if (!monacoGloballyLoaded) {
     registerShowPackageInfo();
+    enableGoToDefinition();
   }
 
   monacoGloballyLoaded = true;
