@@ -5576,8 +5576,7 @@ const importExternalContent = async (options: {
 
   if (!validConfigUrl && !template && !importUrl && !hasContentUrls(config)) return false;
 
-  const loadingMessage = window.deps.translateString('core.import.loading', 'Loading Project...');
-  notifications.info(loadingMessage);
+  modal.show(loadingMessage(), { size: 'small' });
 
   let templateConfig: Partial<Config> = {};
   let importUrlConfig: Partial<Config> = {};
@@ -5681,6 +5680,7 @@ const importExternalContent = async (options: {
     false,
   );
 
+  modal.close();
   loadSelectedScreen();
 
   return true;
