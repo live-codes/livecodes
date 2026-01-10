@@ -935,6 +935,7 @@ export interface AppData {
 export type Language =
   | 'html'
   | 'htm'
+  | 'svg'
   | 'markdown'
   | 'md'
   | 'mdown'

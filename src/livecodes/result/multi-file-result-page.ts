@@ -90,8 +90,13 @@ export const createMultiFileResultPage = async ({
   const isCss = (mod: string, compiledLanguage?: string) =>
     mod.startsWith('data:text/css') || /\.css(\?|#|$)/i.test(mod) || compiledLanguage === 'css';
 
+  const isImage = (mod: string) =>
+    mod.startsWith('data:image') ||
+    /\.(svg|jpg|jpeg|png|gif|ico|webp|avif|apng|bmp|tiff)(\?|#|$)/i.test(mod);
+
   const fileUrls: Record<string, string> = {};
   const stylesheetImports: Record<string, string> = {};
+  const imageImports: Record<string, string> = {};
   let codeImports: Record<string, string> = {};
   const relativeImports: Record<string, string> = {};
 
@@ -160,7 +165,8 @@ export const createMultiFileResultPage = async ({
       if (
         !resolvedImport ||
         resolvedImport.replace('./', '~/') in codeImports ||
-        resolvedImport in stylesheetImports
+        resolvedImport in stylesheetImports ||
+        resolvedImport in imageImports
       ) {
         return;
       }
@@ -176,16 +182,26 @@ export const createMultiFileResultPage = async ({
         if (isCss(resolvedImport)) {
           stylesheetImports[resolvedImport] = resolvedImport;
         }
+        if (isImage(resolvedImport)) {
+          imageImports[resolvedImport] = resolvedImport;
+        }
         return;
       }
       const compiledLanguage =
         getLanguageEditorId(importedFile.language) === 'style' ? 'css' : 'javascript';
+
       // importmaps cannot override relative imports in data URLs
       const convertedImport = resolvedImport.replace('./', '~/');
+
       if (isCss(resolvedImport, compiledLanguage)) {
         const dataUrl = fileUrls[importedFile.filename] || getDataUrl(importedFile);
         if (!dataUrl) return;
         stylesheetImports[convertedImport] = dataUrl;
+        relativeImports[resolvedImport] = convertedImport;
+      } else if (isImage(resolvedImport)) {
+        const dataUrl = fileUrls[importedFile.filename] || getDataUrl(importedFile);
+        if (!dataUrl) return;
+        imageImports[convertedImport] = dataUrl;
         relativeImports[resolvedImport] = convertedImport;
       } else {
         relativeImports[resolvedImport] = convertedImport;
@@ -217,10 +233,17 @@ export const createMultiFileResultPage = async ({
     stylesheet.href = url;
     dom.head.appendChild(stylesheet);
 
+    // map stylesheets in import map to empty script to avoid loading css as js
+    codeImports[mod] = 'data:text/javascript;charset=UTF-8;base64,';
     if (Object.keys(configImports).includes(mod)) {
-      // map stylesheets in import map to empty script to avoid loading css as js
-      configImports[mod] = 'data:text/javascript;charset=UTF-8;base64,';
+      delete configImports[mod];
     }
+  });
+
+  // imported images
+  Object.keys(imageImports).forEach((mod) => {
+    const content = `export default '${imageImports[mod]}'`;
+    codeImports[mod] = toDataUrl(content);
   });
 
   const getRelativePath = (url: string) => url.replace(location.origin + location.pathname, './');
