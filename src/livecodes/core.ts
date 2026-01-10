@@ -616,6 +616,7 @@ const deleteFile = (filename: string) => {
       editorDiv.remove();
     }
   });
+  UI.getEditorTab(filename)?.remove();
   if (config.autoupdate) {
     run();
   }
@@ -1064,12 +1065,6 @@ const configureMultiFile = (config: Config) => {
     tab.classList.toggle('hidden', !isMultiFile);
   });
   document.documentElement.classList.toggle('multi-file', isMultiFile);
-
-  // clean up
-  if (!isMultiFile) {
-    multiFileTabs.forEach((tab) => tab.remove());
-    UI.getMultiFileEditorDivs().forEach((editor) => editor.remove());
-  }
 };
 
 const addPhpToken = (code: string) =>

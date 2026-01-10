@@ -184,6 +184,9 @@ export const getEditorSelector = /* @__PURE__ */ () => document.querySelector('#
 export const getEditorSelectorDiv = /* @__PURE__ */ () =>
   document.querySelector('#select-editor > div');
 
+export const getEditorTab = /* @__PURE__ */ (editorId: string) =>
+  document.querySelector<HTMLElement>(`#select-editor .editor-title[data-editor="${editorId}"]`);
+
 export const getLanguageMenuLinks = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLElement>('#select-editor .language-item a');
 

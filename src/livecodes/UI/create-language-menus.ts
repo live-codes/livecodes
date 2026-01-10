@@ -9,7 +9,7 @@ import type {
   Template,
 } from '../models';
 import { handleSlash, removeFormatting } from '../utils';
-import { getEditorSelector, getEditorSelectorDiv } from './selectors';
+import { getEditorSelector, getEditorSelectorDiv, getEditorTab } from './selectors';
 
 export const createLanguageMenus = (
   config: Config,
@@ -182,8 +182,7 @@ export const createMultiFileEditorTab = ({
   isNewFile: boolean;
 }) => {
   let currentFileName = title;
-  const selector = document.querySelector(`.editor-title[data-editor="${currentFileName}"]`);
-  if (selector) return;
+  if (getEditorTab(currentFileName)) return;
   const editorSelector = document.createElement('a');
   editorSelector.href = '#';
   editorSelector.classList.add('editor-title', 'noselect');
@@ -210,7 +209,6 @@ export const createMultiFileEditorTab = ({
         )
       ) {
         deleteFile(currentFileName);
-        editorSelector.remove();
       }
     });
     editorSelector.appendChild(deleteButton);
