@@ -180,15 +180,17 @@ export const createMultiFileResultPage = async ({
       }
       const compiledLanguage =
         getLanguageEditorId(importedFile.language) === 'style' ? 'css' : 'javascript';
+      // importmaps cannot override relative imports in data URLs
+      const convertedImport = resolvedImport.replace('./', '~/');
       if (isCss(resolvedImport, compiledLanguage)) {
         const dataUrl = fileUrls[importedFile.filename] || getDataUrl(importedFile);
         if (!dataUrl) return;
-        stylesheetImports[resolvedImport] = dataUrl;
+        stylesheetImports[convertedImport] = dataUrl;
+        relativeImports[resolvedImport] = convertedImport;
       } else {
-        // importmaps cannot override relative imports in data URLs
-        relativeImports[resolvedImport] = resolvedImport.replace('./', '~/');
+        relativeImports[resolvedImport] = convertedImport;
         // mark it with null till all relative imports are collected
-        codeImports[resolvedImport.replace('./', '~/')] = null as any;
+        codeImports[convertedImport] = null as any;
       }
     });
   });
