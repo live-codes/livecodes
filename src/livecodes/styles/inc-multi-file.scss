@@ -16,7 +16,7 @@
 
     #select-editor {
       display: flex;
-      width: calc(70vw - 252px);
+      max-width: calc(70vw - 252px);
 
       > div {
         overflow-x: auto;
@@ -43,34 +43,30 @@
       div:first-child {
         width: calc(100% - 32px);
       }
-
-      #project-title {
-        max-width: unset;
-      }
     }
   }
 
   @media only screen and (max-width: 1024px) {
     #toolbar #select-editor {
-      width: calc(70vw - 180px);
+      max-width: calc(70vw - 180px);
     }
   }
 
   @media only screen and (max-width: 768px) {
     #toolbar #select-editor {
-      width: calc(70vw - 100px);
+      max-width: calc(70vw - 100px);
     }
   }
 
   @media only screen and (max-width: 480px) {
     #toolbar #select-editor {
-      width: calc(100% - 8px);
+      max-width: calc(100% - 8px);
     }
   }
 
   .embed {
     #toolbar #select-editor {
-      width: calc(100vw - 120px);
+      max-width: calc(100vw - 120px);
     }
 
     #toolbar .toolbar-render a#result-button {
@@ -79,7 +75,7 @@
 
     @media only screen and (max-width: 768px) {
       #toolbar #select-editor {
-        width: calc(100vw - 80px);
+        max-width: calc(100vw - 80px);
       }
     }
   }
