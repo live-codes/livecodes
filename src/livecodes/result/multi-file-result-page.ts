@@ -149,6 +149,16 @@ export const createMultiFileResultPage = async ({
     return file.compiled;
   };
 
+  const findFile = (filename: string) =>
+    compiledFiles.find(
+      (f) =>
+        './' + f.filename === filename ||
+        './' + f.filename === filename + '.js' ||
+        './' + f.filename === filename + '.ts' ||
+        './' + f.filename === filename + '.jsx' ||
+        './' + f.filename === filename + '.tsx',
+    );
+
   compiledFiles.forEach((file) => {
     if (getLanguageEditorId(file.language) === 'style') {
       file.compiled = getStylesheetWithImports(file);
@@ -170,14 +180,7 @@ export const createMultiFileResultPage = async ({
       ) {
         return;
       }
-      const importedFile = compiledFiles.find(
-        (f) =>
-          './' + f.filename === resolvedImport ||
-          './' + f.filename === resolvedImport + '.js' ||
-          './' + f.filename === resolvedImport + '.ts' ||
-          './' + f.filename === resolvedImport + '.jsx' ||
-          './' + f.filename === resolvedImport + '.tsx',
-      );
+      const importedFile = findFile(resolvedImport);
       if (!importedFile) {
         if (isCss(resolvedImport)) {
           stylesheetImports[resolvedImport] = resolvedImport;
@@ -207,23 +210,25 @@ export const createMultiFileResultPage = async ({
         relativeImports[resolvedImport] = convertedImport;
         // mark it with null till all relative imports are collected
         codeImports[convertedImport] = null as any;
+        file.compiled = replaceImports(file.compiled, config, {
+          importMap: {
+            [mod]: convertedImport,
+          },
+        });
       }
     });
   });
 
-  if (Object.keys(relativeImports).length > 0) {
-    compiledFiles.forEach((file) => {
-      file.compiled = replaceImports(file.compiled, config, {
-        importMap: relativeImports,
-      });
-      if (codeImports['~/' + file.filename] === null) {
-        const dataUrl = getDataUrl(file);
-        if (!dataUrl) return;
-        codeImports['~/' + file.filename] = dataUrl;
-        fileUrls[file.filename] = dataUrl;
-      }
+  Object.keys(codeImports)
+    .filter((mod) => codeImports[mod] === null)
+    .forEach((mod) => {
+      const file = findFile(mod.replace('~/', './'));
+      if (!file) return;
+      const dataUrl = fileUrls[file.filename] || getDataUrl(file);
+      if (!dataUrl) return;
+      codeImports[mod] = dataUrl;
+      fileUrls[file.filename] = dataUrl;
     });
-  }
 
   // imported stylesheets
   Object.keys(stylesheetImports).forEach((mod) => {
@@ -246,12 +251,15 @@ export const createMultiFileResultPage = async ({
     codeImports[mod] = toDataUrl(content);
   });
 
-  const getRelativePath = (url: string) => url.replace(location.origin + location.pathname, './');
-
   // stylesheet files added in markup
   dom.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]').forEach((link) => {
+    let href = link.getAttribute('href');
+    if (!href || !isRelativeUrl(href)) return;
+    if (!href.startsWith('./')) {
+      href = './' + href;
+    }
     const styleFile = compiledFiles.find(
-      (f) => resolvePath(getRelativePath(link.href)) === './' + f.filename,
+      (f) => resolvePath(href, './' + mainFile) === './' + f.filename,
     );
     if (!styleFile) return;
     const dataUrl = fileUrls[styleFile.filename] || getDataUrl(styleFile);
@@ -261,18 +269,38 @@ export const createMultiFileResultPage = async ({
 
   // script added in markup
   dom.querySelectorAll<HTMLScriptElement>('script').forEach((script) => {
-    if (script.src) {
+    let src = script.getAttribute('src'); // avoid getting absolute paths
+    if (src && isRelativeUrl(src)) {
+      if (!src.startsWith('./')) {
+        src = './' + src;
+      }
       const scriptFile = compiledFiles.find(
-        (f) => resolvePath(getRelativePath(script.src), './' + mainFile) === './' + f.filename,
+        (f) => resolvePath(src!, './' + mainFile) === './' + f.filename,
       );
       if (!scriptFile) return;
+      const scriptImports: Record<string, string> = {};
+      getImports(scriptFile.compiled).forEach((mod) => {
+        if (!isRelativeUrl(mod)) return;
+        const relativeImport = resolvePath(mod, './' + scriptFile.filename);
+        if (!relativeImport) return;
+        scriptImports[mod] = relativeImport.replace('./', '~/');
+      });
       const dataUrl = toDataUrl(
         replaceImports(scriptFile.compiled, config, {
-          importMap: relativeImports,
+          importMap: scriptImports,
         }),
       );
-      if (!dataUrl) return;
-      script.src = dataUrl;
+      if (script.type === 'module') {
+        // preserve relative imports (e.g. srcipt.src="js/script.js")
+        let url = src.replace('./', '~/');
+        if (!url.startsWith('~/')) {
+          url = '~/' + url;
+        }
+        codeImports[url] = dataUrl;
+        script.src = toDataUrl(`import '${url}'`);
+      } else {
+        script.src = dataUrl;
+      }
     } else {
       if (hasImports(script.innerHTML)) {
         script.innerHTML = replaceImports(script.innerHTML, config, {
@@ -357,7 +385,7 @@ export const createMultiFileResultPage = async ({
   }
 
   // import maps
-  const userImports =
+  const userImports: Record<string, string> =
     config.customSettings.mapImports === false
       ? {}
       : {
