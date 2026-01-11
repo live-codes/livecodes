@@ -327,7 +327,9 @@ export const inlineStyleImports = (
     ) {
       return statement;
     }
-    return contentMap?.[match.replace(/"/g, '').replace(/'/g, '')] || statement;
+    const dataUrl = contentMap?.[match.replace(/"/g, '').replace(/'/g, '')];
+    if (!dataUrl) return statement;
+    return `@import "${dataUrl}";`;
   });
 
 // based on https://github.com/sveltejs/svelte-repl/blob/master/src/workers/bundler/plugins/commonjs.js

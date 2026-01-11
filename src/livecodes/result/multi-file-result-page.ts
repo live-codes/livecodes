@@ -123,23 +123,31 @@ export const createMultiFileResultPage = async ({
   const externalModules = 'react,react-dom,preact,vue';
 
   // handle imports
-  const stylesImportMap: Record<string, string> = {};
+
+  // CSS imports are recursively inlined with data URLs
+  // (e.g. @import "./css/styles.css"; => @import "data:text/css;base64,...")
+  const stylesImportMap: Record<string, string | null> = {};
   const getStylesheetWithImports = (file: SourceFile & { compiled: string }): string => {
-    // TODO handle directory imports
-    // (e.g. import "./styles/a.css"; import "./b.css"; import "../c.css";)
     if (stylesImportMap[file.filename]) return file.compiled;
-    const styleImports = getStyleImports(file.compiled).filter((mod) => {
-      const resolvedImport = resolvePath(mod, './' + file.filename)?.replace('./', '');
-      if (!resolvedImport) return false;
-      return !(resolvedImport in stylesImportMap);
-    });
-    if (styleImports.length > 0) {
-      const nextImport = compiledFiles.find(
-        (f) => f.filename === styleImports[0].replace('./', ''),
+    const styleImports = getStyleImports(file.compiled)
+      .map((url) => ({ url, resolved: resolvePath(url, './' + file.filename)?.replace('./', '') }))
+      .filter(
+        (resolvedImport) =>
+          resolvedImport.resolved != null &&
+          !resolvedImport.url.startsWith('data:') &&
+          !(resolvedImport.resolved! in stylesImportMap) &&
+          compiledFiles.find((f) => f.filename === resolvedImport.resolved),
       );
-      if (!nextImport) return file.compiled;
+    if (styleImports.length > 0) {
+      const styleImport = styleImports[0];
+      const nextImport = compiledFiles.find((f) => f.filename === styleImport.resolved);
+      if (!nextImport) return file.compiled; // we should not get here
+      getStylesheetWithImports(nextImport);
+      // by then nextImport.filename should be in stylesImportMap
+      const nextImportDataUrl = stylesImportMap[nextImport.filename];
+      if (!nextImportDataUrl) return file.compiled;
       file.compiled = inlineStyleImports(file.compiled, {
-        contentMap: { ['./' + nextImport.filename]: getStylesheetWithImports(nextImport) },
+        contentMap: { [styleImport.url]: nextImportDataUrl },
       });
       return getStylesheetWithImports(file);
     }
@@ -155,6 +163,8 @@ export const createMultiFileResultPage = async ({
         './' + f.filename === filename ||
         './' + f.filename === filename + '.js' ||
         './' + f.filename === filename + '.ts' ||
+        './' + f.filename === filename + '.mjs' ||
+        './' + f.filename === filename + '.mts' ||
         './' + f.filename === filename + '.jsx' ||
         './' + f.filename === filename + '.tsx',
     );
@@ -165,6 +175,7 @@ export const createMultiFileResultPage = async ({
       return;
     }
 
+    // ESM imports are resolved using importmaps to data URLs
     codeImports = {
       ...codeImports,
       ...createImportMap(file.compiled, config, { external: externalModules }),
