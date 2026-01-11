@@ -79,4 +79,21 @@
       }
     }
   }
+
+  #info-container {
+    label[for='head-textarea'],
+    #head-textarea,
+    label[for='html-attrs-textarea'],
+    #html-attrs-textarea {
+      display: none;
+    }
+  }
+
+  #external-resources-btn {
+    display: none;
+  }
+
+  #app-menu-project li:has(#external-resources-link) {
+    display: none;
+  }
 }
