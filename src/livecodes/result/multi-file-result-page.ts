@@ -3,8 +3,8 @@ import {
   getImports,
   getStyleImports,
   hasImports,
-  inlineStyleImports,
   replaceImports,
+  replaceStyleImports,
   resolvePath,
 } from '../compiler/import-map';
 import { getMainFile } from '../config/utils';
@@ -146,8 +146,8 @@ export const createMultiFileResultPage = async ({
       // by then nextImport.filename should be in stylesImportMap
       const nextImportDataUrl = stylesImportMap[nextImport.filename];
       if (!nextImportDataUrl) return file.compiled;
-      file.compiled = inlineStyleImports(file.compiled, {
-        contentMap: { [styleImport.url]: nextImportDataUrl },
+      file.compiled = replaceStyleImports(file.compiled, {
+        stylesImportMap: { [styleImport.url]: nextImportDataUrl },
       });
       return getStylesheetWithImports(file);
     }

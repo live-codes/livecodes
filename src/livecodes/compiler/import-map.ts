@@ -301,35 +301,20 @@ export const replaceStyleImports = (
       .replace(/'/g, '')
       .replace(/url\(/g, '')
       .replace(/\)/g, '');
-    const modified = '@import "' + stylesImportMap?.[url] || modulesService.getUrl(url) + '";';
-    const mediaQuery = media?.trim();
-    return !isBare(url)
-      ? statement
-      : mediaQuery
-        ? `@media ${mediaQuery} {\n${modified}\n}`
-        : modified;
-  });
 
-export const inlineStyleImports = (
-  code: string,
-  {
-    exceptions,
-    contentMap,
-  }: { exceptions?: string[] | RegExp[]; contentMap: Record<string, string> },
-) =>
-  code.replace(new RegExp(styleimportsPattern), (statement, match) => {
-    if (
-      exceptions?.some(
-        (e) =>
-          (typeof e === 'string' && e === match) ||
-          (typeof e === 'object' && new RegExp(e).test(match)),
-      )
-    ) {
-      return statement;
-    }
-    const dataUrl = contentMap?.[match.replace(/"/g, '').replace(/'/g, '')];
-    if (!dataUrl) return statement;
-    return `@import "${dataUrl}";`;
+    if (!url) return statement;
+    const isRelativeUrl = isRelative(url);
+    const modified = `@import "${
+      stylesImportMap?.[url] || (isRelativeUrl ? url : modulesService.getUrl(url))
+    }";`;
+    const mediaQuery = media?.trim();
+    return isRelativeUrl
+      ? modified
+      : !isBare(url)
+        ? statement
+        : mediaQuery
+          ? `@media ${mediaQuery} {\n${modified}\n}`
+          : modified;
   });
 
 // based on https://github.com/sveltejs/svelte-repl/blob/master/src/workers/bundler/plugins/commonjs.js
