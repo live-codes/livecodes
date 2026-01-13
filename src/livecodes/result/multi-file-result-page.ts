@@ -221,12 +221,12 @@ export const createMultiFileResultPage = async ({
         relativeImports[resolvedImport] = convertedImport;
         // mark it with null till all relative imports are collected
         codeImports[convertedImport] = null as any;
-        file.compiled = replaceImports(file.compiled, config, {
-          importMap: {
-            [mod]: convertedImport,
-          },
-        });
       }
+      file.compiled = replaceImports(file.compiled, config, {
+        importMap: {
+          [mod]: convertedImport,
+        },
+      });
     });
   });
 
@@ -282,9 +282,9 @@ export const createMultiFileResultPage = async ({
   dom.querySelectorAll<HTMLScriptElement>('script').forEach((script) => {
     let src = script.getAttribute('src'); // avoid getting absolute paths
     if (src && isRelativeUrl(src)) {
-      if (!src.startsWith('./')) {
-        src = './' + src;
-      }
+      if (src.startsWith('/')) src = '.' + src;
+      if (!src.startsWith('./')) src = './' + src;
+
       const scriptFile = compiledFiles.find(
         (f) => resolvePath(src!, './' + mainFile) === './' + f.filename,
       );
