@@ -181,6 +181,8 @@ export const createMultiFileResultPage = async ({
       ...createImportMap(file.compiled, config, { external: externalModules }),
     };
 
+    const fileImports: Record<string, string> = {};
+
     getImports(file.compiled).forEach((mod) => {
       const resolvedImport = resolvePath(mod, './' + file.filename);
       if (
@@ -222,11 +224,12 @@ export const createMultiFileResultPage = async ({
         // mark it with null till all relative imports are collected
         codeImports[convertedImport] = null as any;
       }
-      file.compiled = replaceImports(file.compiled, config, {
-        importMap: {
-          [mod]: convertedImport,
-        },
-      });
+
+      fileImports[mod] = convertedImport;
+    });
+
+    file.compiled = replaceImports(file.compiled, config, {
+      importMap: fileImports,
     });
   });
 
