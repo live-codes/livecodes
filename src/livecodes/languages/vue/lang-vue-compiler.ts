@@ -362,10 +362,17 @@ import { getLanguageByAlias } from '../utils';
     return compiled;
   }
 
-  return async (code, { config, language }) => {
+  return async (code, { config, language, options }) => {
     try {
-      const isMainFile = config.markup.language !== 'vue-app' || language === 'vue-app';
-      const filename = isMainFile ? MAIN_FILE : SECONDARY_FILE;
+      const isMultiFileProject = Boolean(config.files.length);
+      const isMainFile = isMultiFileProject
+        ? false
+        : config.markup.language !== 'vue-app' || language === 'vue-app';
+      const filename = isMultiFileProject
+        ? options.filename
+        : isMainFile
+          ? MAIN_FILE
+          : SECONDARY_FILE;
       const result = await compileVueSFC(code, { config, filename });
 
       if (result) {

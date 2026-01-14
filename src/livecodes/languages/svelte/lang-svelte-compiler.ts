@@ -73,12 +73,21 @@ import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
     };
   };
 
-  return (code, { config, language }) => {
-    const isMainFile = config.markup.language !== 'svelte-app' || language === 'svelte-app';
+  return (code, { config, language, options }) => {
+    const isMultiFileProject = Boolean(config.files.length);
+    const isMainFile = isMultiFileProject
+      ? false
+      : config.markup.language !== 'svelte-app' || language === 'svelte-app';
+    const filename = isMultiFileProject
+      ? options.filename
+      : isMainFile
+        ? MAIN_FILE
+        : SECONDARY_FILE;
+
     return compileSvelteSFC(code, {
       config,
       language: language as Language,
-      filename: isMainFile ? MAIN_FILE : SECONDARY_FILE,
+      filename,
     });
   };
 };
