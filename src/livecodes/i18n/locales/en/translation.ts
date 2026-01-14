@@ -988,6 +988,8 @@ const translation = {
       heading: 'Multi-file Templates',
       loading: 'Loading multi-file templates...',
       react: 'React Starter',
+      svelte: 'Svelte Starter',
+      vue: 'Vue Starter',
     },
     noUserTemplates: {
       desc: 'You can save a project as a template from <1></1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
