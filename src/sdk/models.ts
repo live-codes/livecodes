@@ -1530,9 +1530,14 @@ export type TemplateName =
   | 'blockly'
   | 'diagrams'
   | 'multifile-blank'
+  | 'multifile-javascript'
+  | 'multifile-typescript'
   | 'multifile-react'
   | 'multifile-vue'
-  | 'multifile-svelte';
+  | 'multifile-preact'
+  | 'multifile-svelte'
+  | 'multifile-solid'
+  | 'multifile-lit';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';

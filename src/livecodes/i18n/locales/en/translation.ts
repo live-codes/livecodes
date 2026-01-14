@@ -986,9 +986,14 @@ const translation = {
     multifile: {
       blank: 'Blank Project',
       heading: 'Multi-file Templates',
+      javascript: 'JavaScript Starter',
+      lit: 'Lit Starter',
       loading: 'Loading multi-file templates...',
+      preact: 'Preact Starter',
       react: 'React Starter',
+      solid: 'Solid Starter',
       svelte: 'Svelte Starter',
+      typescript: 'TypeScript Starter',
       vue: 'Vue Starter',
     },
     noUserTemplates: {

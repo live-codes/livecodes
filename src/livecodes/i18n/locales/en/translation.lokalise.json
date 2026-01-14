@@ -2560,17 +2560,37 @@
     "notes": "",
     "translation": "Multi-file Templates"
   },
+  "templates.multifile.javascript": {
+    "notes": "",
+    "translation": "JavaScript Starter"
+  },
+  "templates.multifile.lit": {
+    "notes": "",
+    "translation": "Lit Starter"
+  },
   "templates.multifile.loading": {
     "notes": "",
     "translation": "Loading multi-file templates..."
+  },
+  "templates.multifile.preact": {
+    "notes": "",
+    "translation": "Preact Starter"
   },
   "templates.multifile.react": {
     "notes": "",
     "translation": "React Starter"
   },
+  "templates.multifile.solid": {
+    "notes": "",
+    "translation": "Solid Starter"
+  },
   "templates.multifile.svelte": {
     "notes": "",
     "translation": "Svelte Starter"
+  },
+  "templates.multifile.typescript": {
+    "notes": "",
+    "translation": "TypeScript Starter"
   },
   "templates.multifile.vue": {
     "notes": "",
