@@ -1,5 +1,10 @@
 import { compileAllBlocks } from '../../compiler/compile-blocks';
-import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
+import {
+  createImportMap,
+  getImports,
+  replaceImports,
+  replaceSFCImports,
+} from '../../compiler/import-map';
 import { getCompileResult } from '../../compiler/utils';
 import type { CompilerFunction, Config, Language } from '../../models';
 import { getErrorMessage } from '../../utils/utils';
@@ -73,7 +78,7 @@ import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
     };
   };
 
-  return (code, { config, language, options }) => {
+  return async (code, { config, language, options }) => {
     const isMultiFileProject = Boolean(config.files.length);
     const isMainFile = isMultiFileProject
       ? false
@@ -84,11 +89,49 @@ import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
         ? MAIN_FILE
         : SECONDARY_FILE;
 
-    return compileSvelteSFC(code, {
+    // handle svg imports
+    // Svelte compiler tries to inline them as dataUrls from file system, resulting in not found error
+    // this workaround converts ./foo.svg to ~/foo.svg, then restores it after compilation
+    let relativeImageImports = {};
+    if (isMultiFileProject) {
+      relativeImageImports = getImports(code)
+        .filter((mod) => (mod.startsWith('.') || mod.startsWith('/')) && mod.endsWith('.svg'))
+        .reduce((acc, mod) => {
+          let converted = mod;
+          if (converted.startsWith('/')) converted = '.' + converted;
+          if (!converted.startsWith('./')) converted = './' + converted; // ../foo -> ./../foo
+          return {
+            ...acc,
+            [mod]: converted.replace('./', '~/'),
+          };
+        }, {});
+    }
+
+    if (Object.keys(relativeImageImports).length) {
+      code = replaceImports(code, config, { importMap: relativeImageImports });
+    }
+
+    const compileResult = await compileSvelteSFC(code, {
       config,
       language: language as Language,
       filename,
     });
+
+    if (Object.keys(relativeImageImports).length) {
+      const restoredImports = Object.keys(relativeImageImports).reduce(
+        (acc, mod) => ({
+          ...acc,
+          [(relativeImageImports as any)[mod]]: mod,
+        }),
+        {},
+      );
+
+      compileResult.code = replaceImports(compileResult.code, config, {
+        importMap: restoredImports,
+      });
+    }
+
+    return compileResult;
   };
 };
 
