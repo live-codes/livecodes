@@ -424,9 +424,6 @@ const translation = {
       exit: 'Exit Full Screen',
     },
     generating: 'Generating...',
-    import: {
-      loading: 'Loading Project...',
-    },
     layout: {
       horizontal: 'Horizontal layout',
       responsive: 'Responsive layout',
@@ -990,6 +987,7 @@ const translation = {
       blank: 'Blank Project',
       heading: 'Multi-file Templates',
       loading: 'Loading multi-file templates...',
+      react: 'React Starter',
     },
     noUserTemplates: {
       desc: 'You can save a project as a template from <1></1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',

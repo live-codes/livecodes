@@ -1,3 +1,4 @@
 import { blank } from './blank';
+import { react } from './react';
 
-export const multifileTemplates = [blank];
+export const multifileTemplates = [blank, react];

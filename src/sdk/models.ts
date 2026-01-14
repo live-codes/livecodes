@@ -1529,7 +1529,8 @@ export type TemplateName =
   | 'minizinc'
   | 'blockly'
   | 'diagrams'
-  | 'multifile-blank';
+  | 'multifile-blank'
+  | 'multifile-react';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';
