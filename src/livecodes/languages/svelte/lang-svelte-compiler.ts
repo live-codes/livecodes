@@ -28,7 +28,8 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
     if (!code) return getCompileResult('');
 
     const isSfc = (mod: string) =>
-      mod.toLowerCase().endsWith('.svelte') || mod.toLowerCase().startsWith('data:text/svelte');
+      (mod.toLowerCase().endsWith('.svelte') && !mod.startsWith('~/')) ||
+      mod.toLowerCase().startsWith('data:text/svelte');
 
     const fullCode = await replaceSFCImports(code, {
       config,
@@ -90,13 +91,14 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
         ? MAIN_FILE
         : SECONDARY_FILE;
 
-    // handle svg imports
-    // Svelte compiler tries to inline them as dataUrls from file system, resulting in not found error
+    // handle relative imports in multi-file projects
+    // Svelte compiler tries to inline svg as dataUrls from file system, resulting in not found error
     // this workaround converts ./foo.svg to ~/foo.svg, then restores it after compilation
-    let relativeImageImports = {};
+    // this also works for imports like './stores.js'
+    let relativeFileImports = {};
     if (isMultiFileProject) {
-      relativeImageImports = getImports(code)
-        .filter((mod) => (mod.startsWith('.') || mod.startsWith('/')) && mod.endsWith('.svg'))
+      relativeFileImports = getImports(code)
+        .filter((mod) => mod.startsWith('.') || mod.startsWith('/'))
         .reduce((acc, mod) => {
           let converted = mod;
           if (converted.startsWith('/')) converted = '.' + converted;
@@ -108,8 +110,8 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
         }, {});
     }
 
-    if (Object.keys(relativeImageImports).length) {
-      code = replaceImports(code, config, { importMap: relativeImageImports });
+    if (Object.keys(relativeFileImports).length) {
+      code = replaceImports(code, config, { importMap: relativeFileImports });
     }
 
     const compileResult = await compileSvelteSFC(code, {
@@ -118,11 +120,11 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
       filename,
     });
 
-    if (Object.keys(relativeImageImports).length) {
-      const restoredImports = Object.keys(relativeImageImports).reduce(
+    if (Object.keys(relativeFileImports).length) {
+      const restoredImports = Object.keys(relativeFileImports).reduce(
         (acc, mod) => ({
           ...acc,
-          [(relativeImageImports as any)[mod]]: mod,
+          [(relativeFileImports as any)[mod]]: mod,
         }),
         {},
       );

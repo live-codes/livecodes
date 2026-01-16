@@ -187,12 +187,20 @@ export const createMultiFileResultPage = async ({
       const resolvedImport = resolvePath(mod, './' + file.filename);
       if (
         !resolvedImport ||
-        resolvedImport.replace('./', '~/') in codeImports ||
         resolvedImport in stylesheetImports ||
         resolvedImport in imageImports
       ) {
         return;
       }
+
+      // importmaps cannot override relative imports in data URLs
+      const convertedImport = resolvedImport.replace('./', '~/');
+
+      if (convertedImport in codeImports) {
+        fileImports[mod] = convertedImport;
+        return;
+      }
+
       const importedFile = findFile(resolvedImport);
       if (!importedFile) {
         if (isCss(resolvedImport)) {
@@ -205,9 +213,6 @@ export const createMultiFileResultPage = async ({
       }
       const compiledLanguage =
         getLanguageEditorId(importedFile.language) === 'style' ? 'css' : 'javascript';
-
-      // importmaps cannot override relative imports in data URLs
-      const convertedImport = resolvedImport.replace('./', '~/');
 
       if (isCss(resolvedImport, compiledLanguage)) {
         const dataUrl = fileUrls[importedFile.filename] || getDataUrl(importedFile);
