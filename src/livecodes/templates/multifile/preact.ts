@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const preact: Template = {
   name: 'multifile-preact',
-  title: window.deps.translateString('templates.multifile.preact', 'Preact Starter'),
+  title: window.deps.translateString('templates.multifile.preact', 'Preact Template'),
   thumbnail: 'assets/templates/preact.svg',
   mainFile: 'index.html',
   activeEditor: 'src/app.jsx',

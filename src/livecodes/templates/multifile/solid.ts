@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const solid: Template = {
   name: 'multifile-solid',
-  title: window.deps.translateString('templates.multifile.solid', 'Solid Starter'),
+  title: window.deps.translateString('templates.multifile.solid', 'Solid Template'),
   thumbnail: 'assets/templates/solid.svg',
   mainFile: 'index.html',
   activeEditor: 'src/App.tsx',

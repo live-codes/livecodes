@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const vue: Template = {
   name: 'multifile-vue',
-  title: window.deps.translateString('templates.multifile.vue', 'Vue Starter'),
+  title: window.deps.translateString('templates.multifile.vue', 'Vue Template'),
   thumbnail: 'assets/templates/vue.svg',
   mainFile: 'index.html',
   activeEditor: 'src/components/HelloWorld.vue',

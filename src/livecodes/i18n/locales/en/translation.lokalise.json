@@ -2554,7 +2554,7 @@
   },
   "templates.multifile.blank": {
     "notes": "",
-    "translation": "Blank Project"
+    "translation": "Blank Template"
   },
   "templates.multifile.heading": {
     "notes": "",
@@ -2562,11 +2562,11 @@
   },
   "templates.multifile.javascript": {
     "notes": "",
-    "translation": "JavaScript Starter"
+    "translation": "JavaScript Template"
   },
   "templates.multifile.lit": {
     "notes": "",
-    "translation": "Lit Starter"
+    "translation": "Lit Template"
   },
   "templates.multifile.loading": {
     "notes": "",
@@ -2574,27 +2574,27 @@
   },
   "templates.multifile.preact": {
     "notes": "",
-    "translation": "Preact Starter"
+    "translation": "Preact Template"
   },
   "templates.multifile.react": {
     "notes": "",
-    "translation": "React Starter"
+    "translation": "React Template"
   },
   "templates.multifile.solid": {
     "notes": "",
-    "translation": "Solid Starter"
+    "translation": "Solid Template"
   },
   "templates.multifile.svelte": {
     "notes": "",
-    "translation": "Svelte Starter"
+    "translation": "Svelte Template"
   },
   "templates.multifile.typescript": {
     "notes": "",
-    "translation": "TypeScript Starter"
+    "translation": "TypeScript Template"
   },
   "templates.multifile.vue": {
     "notes": "",
-    "translation": "Vue Starter"
+    "translation": "Vue Template"
   },
   "templates.noUserTemplates.desc": {
     "notes": "### <tag-1> ###\n<wbr  />\n\n",

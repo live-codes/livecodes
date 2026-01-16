@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const react: Template = {
   name: 'multifile-react',
-  title: window.deps.translateString('templates.multifile.react', 'React Starter'),
+  title: window.deps.translateString('templates.multifile.react', 'React Template'),
   thumbnail: 'assets/templates/react.svg',
   mainFile: 'index.html',
   activeEditor: 'src/App.tsx',

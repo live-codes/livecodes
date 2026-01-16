@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const javascript: Template = {
   name: 'multifile-javascript',
-  title: window.deps.translateString('templates.multifile.javascript', 'JavaScript Starter'),
+  title: window.deps.translateString('templates.multifile.javascript', 'JavaScript Template'),
   thumbnail: 'assets/templates/javascript.svg',
   mainFile: 'index.html',
   activeEditor: 'src/main.js',

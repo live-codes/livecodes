@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const lit: Template = {
   name: 'multifile-lit',
-  title: window.deps.translateString('templates.multifile.lit', 'Lit Starter'),
+  title: window.deps.translateString('templates.multifile.lit', 'Lit Template'),
   thumbnail: 'assets/templates/lit.svg',
   mainFile: 'index.html',
   activeEditor: 'src/my-element.js',

@@ -25,8 +25,8 @@ export const preactStarter: Template = {
   script: {
     language: 'jsx',
     content: `
-/** @jsx h */
-import { h, render } from 'preact';
+/** @jsxImportSource preact */
+import { render } from 'preact';
 import { useSignal } from "@preact/signals";
 
 function App(props) {

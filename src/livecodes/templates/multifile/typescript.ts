@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const typescript: Template = {
   name: 'multifile-typescript',
-  title: window.deps.translateString('templates.multifile.typescript', 'TypeScript Starter'),
+  title: window.deps.translateString('templates.multifile.typescript', 'TypeScript Template'),
   thumbnail: 'assets/templates/typescript.svg',
   mainFile: 'index.html',
   activeEditor: 'src/main.ts',

@@ -326,14 +326,26 @@ export const getCommandMenuActions = ({
         'minizinc',
         'blockly',
         'diagrams',
-      ).map((template) => ({
-        id: 'Starter template: ' + template,
-        title: window.deps.translateString('commandMenu.template', 'Template') + ': ' + template,
-        content: getContent('Template: ' + template),
-        handler: async () => {
-          await loadStarterTemplate(template);
-        },
-      })),
+        'multifile-blank',
+        'multifile-javascript',
+        'multifile-typescript',
+        'multifile-react',
+        'multifile-vue',
+        'multifile-preact',
+        'multifile-svelte',
+        'multifile-solid',
+        'multifile-lit',
+      ).map((template) => {
+        const label = template.startsWith('multifile-') ? template.replace('-', ' ') : template;
+        return {
+          id: 'Starter template: ' + template,
+          title: window.deps.translateString('commandMenu.template', 'Template') + ': ' + label,
+          content: getContent('Template: ' + label),
+          handler: async () => {
+            await loadStarterTemplate(template);
+          },
+        };
+      }),
     },
     {
       id: 'Run',
