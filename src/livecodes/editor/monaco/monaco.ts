@@ -935,7 +935,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
         const targetEditor = editors.find((e) => e.getModel()?.uri.path === resource.path);
         if (targetEditor) {
-          const targetEditorId = resource.path.split('/').splice(2).join('/');
+          const targetEditorId = resource.path.slice(1); // remove leading slash
 
           if (targetEditorId) {
             const targetEditorTab = getEditorTab(targetEditorId);
