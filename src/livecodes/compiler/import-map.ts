@@ -2,7 +2,6 @@ import type { CompileInfo, Config, Language } from '../models';
 import { modulesService } from '../services/modules';
 import {
   escapeCode,
-  getFileExtension,
   getValidUrl,
   removeComments,
   removeCommentsAndStrings,
@@ -178,6 +177,7 @@ export const replaceSFCImports = async (
     config,
     isSfc,
     getLanguageByAlias,
+    getFileExtension,
     compileSFC,
     external,
   }: {
@@ -185,6 +185,7 @@ export const replaceSFCImports = async (
     filename: string;
     isSfc: (mod: string) => boolean;
     getLanguageByAlias: (alias: string) => Language | undefined;
+    getFileExtension: (filename: string) => string;
     compileSFC: (code: string, options: { filename: string; config: Config }) => Promise<string>;
     external?: string;
   },
@@ -229,11 +230,19 @@ export const replaceSFCImports = async (
             (
               await compileInCompiler(
                 content,
-                getLanguageByAlias(getFileExtension(url)) || 'javascript',
+                getLanguageByAlias(getFileExtension(url.split('/').pop() || '')) || 'javascript',
                 config,
               )
             ).code,
-            { filename: url, config, isSfc, getLanguageByAlias, compileSFC, external },
+            {
+              filename: url,
+              config,
+              isSfc,
+              getLanguageByAlias,
+              getFileExtension,
+              compileSFC,
+              external,
+            },
           );
       if (!compiled) return;
       const dataUrl = toDataUrl(compiled);

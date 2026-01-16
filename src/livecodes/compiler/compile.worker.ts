@@ -1,6 +1,6 @@
 import type TS from 'typescript';
 import { getCompilerOptions } from '../editor/ts-compiler-options';
-import { getLanguageByAlias, languages, processors } from '../languages';
+import { getFileExtension, getLanguageByAlias, languages, processors } from '../languages';
 import type {
   CompileOptions,
   CompileResult,
@@ -9,7 +9,7 @@ import type {
   EditorLibrary,
   Language,
 } from '../models';
-import { doOnce, getErrorMessage, getFileExtension, objectFilter } from '../utils/utils';
+import { doOnce, getErrorMessage, objectFilter } from '../utils/utils';
 import { codeMirrorBaseUrl, comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
 import { getAllCompilers } from './get-all-compilers';
 import type { CompilerMessage, CompilerMessageEvent, LanguageOrProcessor } from './models';

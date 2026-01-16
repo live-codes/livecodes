@@ -1,4 +1,5 @@
 import {
+  getFileExtension,
   getLanguageByAlias,
   getLanguageEditorId,
   processorIsActivated,
@@ -6,7 +7,6 @@ import {
 } from '../languages/utils';
 import type { CompileInfo, Config } from '../models';
 import { modulesService } from '../services/modules';
-import { getFileExtension } from '../utils/utils';
 import { compileInCompiler } from './compile-in-compiler';
 import { hasStyleImports } from './import-map';
 import type { LanguageOrProcessor } from './models';

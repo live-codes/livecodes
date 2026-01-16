@@ -1,4 +1,9 @@
-import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
+import {
+  getFileExtension,
+  getFileLanguage,
+  getLanguageByAlias,
+  getLanguageEditorId,
+} from '../languages';
 import type {
   Config,
   Editor,
@@ -9,7 +14,7 @@ import type {
   Tool,
   ToolsPaneStatus,
 } from '../models';
-import { getFileExtension, handleSlash, objectFilter, removeDuplicates } from '../utils';
+import { handleSlash, objectFilter, removeDuplicates } from '../utils';
 import { defaultConfig } from './default-config';
 import { getValidFileName, isEditorId } from './utils';
 

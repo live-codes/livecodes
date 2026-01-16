@@ -8,7 +8,7 @@ import {
 import { getCompileResult } from '../../compiler/utils';
 import type { CompilerFunction, Config, Language } from '../../models';
 import { getErrorMessage } from '../../utils/utils';
-import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
+import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from '../utils';
 
 (self as any).createSvelteCompiler = (): CompilerFunction => {
   const MAIN_FILE = '__LiveCodes_App__.svelte';
@@ -34,6 +34,7 @@ import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
       config,
       filename,
       getLanguageByAlias,
+      getFileExtension,
       isSfc,
       compileSFC: async (
         code: string,

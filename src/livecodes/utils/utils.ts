@@ -348,9 +348,6 @@ export const runOrContinue =
       }
     };
 
-export const getFileExtension = /* @__PURE__ */ (file: string) =>
-  file.split('.')[file.split('.').length - 1];
-
 export const isInIframe = /* @__PURE__ */ () => {
   // TODO allow in storybook
   if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return false;

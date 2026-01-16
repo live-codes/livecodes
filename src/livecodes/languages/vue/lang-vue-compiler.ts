@@ -4,7 +4,7 @@ import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
 import type { LanguageOrProcessor } from '../../compiler/models';
 import type { CompilerFunction, Config } from '../../models';
 import { getErrorMessage, getRandomString, replaceAsync } from '../../utils/utils';
-import { getLanguageByAlias } from '../utils';
+import { getFileExtension, getLanguageByAlias } from '../utils';
 
 // based on:
 // https://github.com/vuejs/repl/blob/main/src/transform.ts
@@ -49,6 +49,7 @@ import { getLanguageByAlias } from '../utils';
       filename,
       config,
       getLanguageByAlias,
+      getFileExtension,
       isSfc,
       compileSFC: async (code, { filename, config }) => {
         const compiled = (await compileVueSFC(code, { filename, config }))?.js || '';
