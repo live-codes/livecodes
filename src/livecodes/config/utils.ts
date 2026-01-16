@@ -38,7 +38,7 @@ export const getValidFileName = (
   if ([':', '*', '?', '"', '<', '>', '|'].some((c) => name.includes(c))) {
     return { error: 'invalid name' };
   }
-  const language = getFileLanguage(name);
+  const language = getFileLanguage(name, config.fileLanguages);
   if (!language || !supportsMultiFile(language) || !languageIsEnabled(language, config as Config)) {
     return { error: 'invalid type' };
   }

@@ -6,6 +6,7 @@ export const solid: Template = {
   thumbnail: 'assets/templates/solid.svg',
   mainFile: 'index.html',
   activeEditor: 'src/App.tsx',
+  fileLanguages: { jsx: 'solid', tsx: 'solid.tsx' },
   files: [
     {
       filename: 'index.html',

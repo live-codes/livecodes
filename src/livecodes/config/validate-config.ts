@@ -9,7 +9,7 @@ import type {
   Tool,
   ToolsPaneStatus,
 } from '../models';
-import { getFileExtension, handleSlash, removeDuplicates } from '../utils';
+import { getFileExtension, handleSlash, objectFilter, removeDuplicates } from '../utils';
 import { defaultConfig } from './default-config';
 import { getValidFileName, isEditorId } from './utils';
 
@@ -100,7 +100,12 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
             return typeof name === 'string' ? name : '';
           })(),
           content: is(x.content, 'string') ? x.content ?? '' : '',
-          language: getLanguageByAlias(x.language || getFileExtension(x.filename)) || 'html',
+          language:
+            getLanguageByAlias(
+              x.language ||
+                (validFileLanguages as any)[getFileExtension(x.filename)] ||
+                getFileExtension(x.filename),
+            ) || 'html',
           ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
           ...(is(x.position, 'object') ? { position: x.position } : {}),
           ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
@@ -108,6 +113,14 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
             : {}),
         }
       : undefined;
+
+  const validatefileLanguages = (fileLanguages: Record<string, string> = {}) =>
+    objectFilter(
+      fileLanguages,
+      (v, k) => getLanguageByAlias(k) != null && getLanguageByAlias(v) != null,
+    ) as Partial<Record<Language, Language>>;
+
+  const validFileLanguages = validatefileLanguages(config.fileLanguages);
 
   const validateActiveEditor = (config: Partial<Config>) =>
     includes([...editorIds, ...(config.files || []).map((f) => f.filename)], config.activeEditor);
@@ -193,6 +206,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
         }
       : {}),
     ...(is(config.mainFile, 'string') ? { mainFile: config.mainFile } : {}),
+    ...(is(config.fileLanguages, 'object') ? { fileLanguages: validFileLanguages } : {}),
     ...(is(config.tools, 'object')
       ? { tools: validateToolsProps(config.tools as Config['tools']) }
       : {}),

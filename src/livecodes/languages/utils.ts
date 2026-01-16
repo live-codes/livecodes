@@ -13,7 +13,10 @@ export const getLanguageByAlias = (alias: string = ''): Language | undefined => 
   )?.name;
 };
 
-export const getFileLanguage = (filename: string) => getLanguageByAlias(filename.split('.').pop());
+export const getFileLanguage = (filename: string, fileLanguages: Record<string, string> = {}) => {
+  const extension = filename.split('.').pop()?.toLowerCase() || '';
+  return getLanguageByAlias(fileLanguages[extension] || extension);
+};
 
 export const supportsMultiFile = (language: Language) =>
   window.deps.languages.find((l) => l.name === language)?.multiFileSupport === true;

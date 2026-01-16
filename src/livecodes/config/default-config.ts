@@ -39,6 +39,7 @@ export const defaultConfig: Config = {
   },
   mainFile: undefined,
   files: [],
+  fileLanguages: {},
   stylesheets: [],
   scripts: [],
   cssPreset: '',

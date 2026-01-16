@@ -516,9 +516,10 @@ const addFile = async (
   filename: string,
   editorOptions: Omit<EditorOptions, 'container' | 'editorId' | 'language' | 'value'>,
 ) => {
-  const validName = checkFileName(filename, getConfig());
+  const config = getConfig();
+  const validName = checkFileName(filename, config);
   if (!validName) return false;
-  const fileLanguage = getFileLanguage(validName) || 'javascript';
+  const fileLanguage = getFileLanguage(validName, config.fileLanguages) || 'javascript';
   const container = createEditorUI(validName);
   const editor = await createEditor({
     ...editorOptions,
@@ -528,7 +529,6 @@ const addFile = async (
     language: fileLanguage,
     value: '',
   });
-  const config = getConfig();
   setConfig({
     ...config,
     activeEditor: validName,
@@ -554,11 +554,11 @@ const addFile = async (
 };
 
 const renameFile = (filename: string, newName: string) => {
-  const validName = checkFileName(newName, getConfig(), filename);
+  const config = getConfig();
+  const validName = checkFileName(newName, config, filename);
   if (!validName) return false;
   if (filename === validName) return true;
-  const language = getFileLanguage(validName)!;
-  const config = getConfig();
+  const language = getFileLanguage(validName, config.fileLanguages)!;
   setConfig({
     ...config,
     activeEditor: validName,
@@ -1158,6 +1158,7 @@ const registerRun = (editorId: EditorId, editors: Editors) => {
 };
 
 const updateCompiledCode = () => {
+  const config = getConfig();
   const cache = getCache();
   const getCompiledLanguage = (editorId: EditorId) => {
     const defaultLang: { [key in EditorId]: Language } = {
@@ -1170,7 +1171,7 @@ const updateCompiledCode = () => {
       getLanguageCompiler(srcLang)?.compiledCodeLanguage ||
       defaultLang[editorId] ||
       defaultLang[getLanguageSpecs(srcLang)?.editor || ''] ||
-      getFileLanguage(editorId) ||
+      getFileLanguage(editorId, config.fileLanguages) ||
       'html';
     return {
       language: lang,
@@ -1187,13 +1188,13 @@ const updateCompiledCode = () => {
     ),
   };
   if (!toolsPane || !toolsPane.compiled) return;
-  const editorId = getConfig().activeEditor;
+  const editorId = config.activeEditor;
   const active = compiledLanguages[editorId || ''];
   if (!editorId || !active) return;
   const src = getSource(editorId, cache);
   if (!src) return;
   let compiledCode = src.modified || src.compiled || '';
-  if (editorId === 'script' && getConfig().script.language.startsWith('php')) {
+  if (editorId === 'script' && config.script.language.startsWith('php')) {
     compiledCode = phpHelper({ code: compiledCode });
   }
   toolsPane?.compiled?.update(

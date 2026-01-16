@@ -406,7 +406,7 @@ export interface EmbedOptions {
 export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
 export interface SingleFileConfig
-  extends Omit<ContentConfig, 'files' | 'mainFile'>,
+  extends Omit<ContentConfig, 'files' | 'mainFile' | 'fileLanguages'>,
     AppConfig,
     UserConfig {}
 
@@ -503,11 +503,21 @@ export interface ContentConfig {
    * List of source files.
    */
   files: SourceFile[];
+
   /**
    * The name of the main markup file.
    * @default "index.html"
    */
   mainFile?: string;
+
+  /**
+   * An object with file extensions and languages to use for them.
+   * This overrides the default mapping of file extensions to languages.
+   * It is ignored for files that have the `language` property explicitly set (see {@link Config.files}).
+   * @example
+   * { jsx: "solid", tsx: "solid.tsx" }
+   */
+  fileLanguages?: Partial<Record<Language, Language>>;
 
   /**
    * List of URLs for [external stylesheets](https://livecodes.io/docs/features/external-resources) to add to the [result page](https://livecodes.io/docs/features/result).
@@ -615,6 +625,7 @@ export type MultiFileContentConfig = Pick<
   | 'activeEditor'
   | 'files'
   | 'mainFile'
+  | 'fileLanguages'
   | 'languages'
   | 'processors'
   | 'customSettings'
@@ -1447,7 +1458,7 @@ export interface Compilers {
 
 export type Template = (
   | Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'>
-  | Pick<ContentConfig, 'title' | 'mainFile' | 'files'>
+  | Pick<ContentConfig, 'title' | 'mainFile' | 'files' | 'fileLanguages'>
 ) &
   Partial<ContentConfig> & {
     name: TemplateName;
