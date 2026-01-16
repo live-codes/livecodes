@@ -64,6 +64,10 @@
     min-height: 60vh;
   }
 
+  &.large-fixed {
+    height: 85vh;
+  }
+
   #modal-container {
     height: 100%;
     margin-top: 2rem;
