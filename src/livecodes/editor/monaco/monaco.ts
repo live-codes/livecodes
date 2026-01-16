@@ -60,7 +60,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getFormatterConfig,
     getFontFamily,
   } = options;
-  let language = options.language;
+  let { editorId, language } = options;
 
   if (!container) throw new Error('editor container not found');
 
@@ -206,8 +206,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     ...consoleOptions,
   };
 
-  let editorId = options.editorId;
-  let projectDir = options.projectDir;
   const initOptions =
     editorId === 'console'
       ? consoleOptions
@@ -329,7 +327,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         ? ext + '.tsx'
         : ext;
     modelUri = editorId.includes('.')
-      ? `file:///${projectDir}/${editorId}`
+      ? `file:///${editorId}`
       : `file:///${editorId}.${random}.${extension}`;
     const oldModel = editor.getModel();
     const model = getOrCreateModel(
@@ -376,10 +374,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const setEditorId = (filename: string, lang?: Language) => {
     editorId = filename;
     language = lang || getFileLanguage(filename) || language;
-    setModel(editor, editor.getValue(), language);
-  };
-  const setProjectDir = (dir: string) => {
-    projectDir = dir;
     setModel(editor, editor.getValue(), language);
   };
   const getValue = () => editor.getValue();
@@ -982,7 +976,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setLanguage,
     getEditorId,
     setEditorId,
-    setProjectDir,
     focus,
     getPosition,
     setPosition,

@@ -1623,7 +1623,6 @@ export interface CodeEditor {
   setLanguage: (language: Language, value?: string) => void;
   getEditorId: () => string;
   setEditorId: (filename: string, language?: Language) => void;
-  setProjectDir?: (dir: string) => void;
   focus: () => void;
   getPosition: () => EditorPosition;
   setPosition: (position: EditorPosition) => void;
