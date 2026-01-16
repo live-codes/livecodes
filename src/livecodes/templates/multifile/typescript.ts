@@ -27,11 +27,11 @@ export const typescript: Template = {
     {
       filename: 'src/main.ts',
       language: 'typescript',
-      content: `import './style.css'
-import typescriptLogo from './typescript.svg'
-import { setupCounter } from './counter.ts'
+      content: `import "./style.css";
+import typescriptLogo from "./typescript.svg";
+import { setupCounter } from "./counter.ts";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = \`
+document.querySelector<HTMLDivElement>("#app")!.innerHTML = \`
   <div>
     <a href="https://www.typescriptlang.org/" target="_blank">
       <img src="\${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
@@ -44,9 +44,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = \`
       Click on the TypeScript logos to learn more
     </p>
   </div>
-\`
+\`;
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
 `,
     },
     {
@@ -154,14 +154,15 @@ button:focus-visible {
       filename: 'src/counter.ts',
       language: 'typescript',
       content: `export function setupCounter(element: HTMLButtonElement) {
-  let counter = 0
+  let counter = 0;
   const setCounter = (count: number) => {
-    counter = count
-    element.innerHTML = \`count is \${counter}\`
-  }
-  element.addEventListener('click', () => setCounter(counter + 1))
-  setCounter(0)
-}`,
+    counter = count;
+    element.innerHTML = \`count is \${counter}\`;
+  };
+  element.addEventListener("click", () => setCounter(counter + 1));
+  setCounter(0);
+}
+`,
     },
     {
       filename: 'src/typescript.svg',

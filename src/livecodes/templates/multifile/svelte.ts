@@ -126,8 +126,8 @@ button:focus-visible {
       filename: 'src/App.svelte',
       language: 'svelte',
       content: `<script lang="ts">
-  import svelteLogo from './assets/svelte.svg';
-  import Counter from './lib/Counter.svelte';
+  import svelteLogo from "./assets/svelte.svg";
+  import Counter from "./lib/Counter.svelte";
 </script>
 
 <main>
@@ -167,10 +167,10 @@ button:focus-visible {
       filename: 'src/lib/Counter.svelte',
       language: 'svelte',
       content: `<script lang="ts">
-  let count: number = $state(0)
+  let count: number = $state(0);
   const increment = () => {
-    count += 1
-  }
+    count += 1;
+  };
 </script>
 
 <button onclick={increment}>

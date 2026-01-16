@@ -28,8 +28,7 @@ export const solid: Template = {
     {
       filename: 'src/index.tsx',
       language: 'solid.tsx',
-      content: `/* @refresh reload */
-import { render } from 'solid-js/web'
+      content: `import { render } from 'solid-js/web'
 import './index.css'
 import App from './App.tsx'
 

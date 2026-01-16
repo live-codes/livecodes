@@ -6,6 +6,7 @@ export const react: Template = {
   thumbnail: 'assets/templates/react.svg',
   mainFile: 'index.html',
   activeEditor: 'src/App.tsx',
+  fileLanguages: { jsx: 'react', tsx: 'react.tsx' },
   files: [
     {
       filename: 'index.html',
@@ -26,17 +27,17 @@ export const react: Template = {
     },
     {
       filename: 'src/main.tsx',
-      language: 'tsx',
-      content: `import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+      language: 'react.tsx',
+      content: `import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
   </StrictMode>,
-)
+);
 `,
     },
     {
@@ -114,13 +115,13 @@ button:focus-visible {
     },
     {
       filename: 'src/App.tsx',
-      language: 'tsx',
-      content: `import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+      language: 'react.tsx',
+      content: `import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -135,14 +136,12 @@ function App() {
           count is {count}
         </button>
       </div>
-      <p className="read-the-docs">
-        Click on the React logo to learn more
-      </p>
+      <p className="read-the-docs">Click on the React logo to learn more</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
 `,
     },
     {

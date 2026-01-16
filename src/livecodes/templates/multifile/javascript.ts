@@ -27,11 +27,11 @@ export const javascript: Template = {
     {
       filename: 'src/main.js',
       language: 'javascript',
-      content: `import './style.css';
-import javascriptLogo from './javascript.svg';
-import { setupCounter } from './counter.js';
+      content: `import "./style.css";
+import javascriptLogo from "./javascript.svg";
+import { setupCounter } from "./counter.js";
 
-document.querySelector('#app').innerHTML = \`
+document.querySelector("#app").innerHTML = \`
   <div>
     <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
       <img src="\${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
@@ -46,7 +46,7 @@ document.querySelector('#app').innerHTML = \`
   </div>
 \`;
 
-setupCounter(document.querySelector('#counter'));
+setupCounter(document.querySelector("#counter"));
 `,
     },
     {
@@ -159,7 +159,7 @@ button:focus-visible {
     counter = count;
     element.innerHTML = \`count is \${counter}\`;
   };
-  element.addEventListener('click', () => setCounter(counter + 1));
+  element.addEventListener("click", () => setCounter(counter + 1));
   setCounter(0);
 }
 `,
