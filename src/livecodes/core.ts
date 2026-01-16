@@ -3758,7 +3758,7 @@ const handleNew = () => {
     }
 
     setTimeout(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
-    modal.show(templatesContainer, { isAsync: true });
+    modal.show(templatesContainer, { isAsync: true, size: 'large-fixed' });
   };
 
   eventsManager.addEventListener(

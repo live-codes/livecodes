@@ -3,7 +3,7 @@ import type { Config, SourceFile } from '../sdk/models';
 export type * from '../sdk/models';
 
 export interface ModalOptions {
-  size?: 'large' | 'small' | 'full';
+  size?: 'large' | 'small' | 'full' | 'large-fixed';
   closeButton?: boolean;
   isAsync?: boolean;
   onClose?: () => void;
