@@ -749,10 +749,6 @@ const createEditors = async (config: Config) => {
       editors[editorId] = editor;
       editorIds.push(editorId);
     }
-    setTimeout(() => {
-      setSavedStatus();
-      changingContent = false;
-    }, 300);
   } else {
     const markupEditor = await createEditor(markupOptions);
     const styleEditor = await createEditor(styleOptions);
@@ -800,8 +796,11 @@ const createEditors = async (config: Config) => {
       if (getLanguageEditorId(file.language!) !== 'script') continue;
       const editor = editors[editorId];
       setTimeout(() => {
+        changingContent = true;
         editor.setValue(editor.getValue());
-      }, 100);
+        setSavedStatus();
+        changingContent = false;
+      }, 200);
     }
   }
 };
@@ -5608,6 +5607,7 @@ const importExternalContent = async (options: {
       );
     }
   }
+
   if (importUrl) {
     let validImportUrl = importUrl;
     if (importUrl.startsWith('http') || importUrl.startsWith('data')) {
