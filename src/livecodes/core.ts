@@ -92,6 +92,7 @@ import {
   processorIsEnabled,
   processors,
 } from './languages';
+import { hasTailwindImport } from './languages/tailwindcss/utils';
 import type {
   API,
   APICommands,
@@ -1204,6 +1205,44 @@ const updateCompiledCode = () => {
   );
 };
 
+const autoEnableProcessors = () => {
+  const config = getConfig();
+  if (!config.files.length) return;
+
+  const shouldEnableTailwind =
+    config.processors.includes('tailwindcss') ||
+    config.files
+      .filter((f) => getLanguageEditorId(f.language) === 'style')
+      .some((f) => hasTailwindImport(f.content));
+
+  const shouldEnableCSSModules =
+    config.processors.includes('cssmodules') ||
+    config.files
+      .filter((f) => getLanguageEditorId(f.language) === 'style')
+      .some((f) => {
+        const [scriptName, ext] = f.filename.split('.module.');
+        if (getLanguageByAlias(ext) !== 'css') return false;
+        return config.files
+          .filter((f) => getLanguageEditorId(f.language) === 'script')
+          .find((f) => f.filename.split('.').slice(0, -1).join('.') === scriptName);
+      });
+
+  const processors: Processor[] = [...config.processors];
+  if (shouldEnableTailwind && !processors.includes('tailwindcss')) {
+    processors.push('tailwindcss');
+  }
+  if (shouldEnableCSSModules && !processors.includes('cssmodules')) {
+    processors.push('cssmodules');
+  }
+
+  if (processors.length !== config.processors.length) {
+    setConfig({
+      ...config,
+      processors,
+    });
+  }
+};
+
 const getResultPage = async ({
   sourceEditor = undefined as EditorId | undefined,
   forExport = false,
@@ -1212,6 +1251,7 @@ const getResultPage = async ({
   runTests = false,
 }) => {
   updateConfig();
+  autoEnableProcessors();
   const config = getConfig();
   const contentConfig = getContentConfig(config);
 
