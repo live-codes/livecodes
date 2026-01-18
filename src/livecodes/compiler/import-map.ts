@@ -1,4 +1,4 @@
-import type { CompileInfo, Config, Language } from '../models';
+import type { Config, Language } from '../models';
 import { modulesService } from '../services/modules';
 import {
   escapeCode,
@@ -371,7 +371,7 @@ export const cjs2esm = (code: string) => {
 export const createCSSModulesImportMap = (
   compiledScript: string,
   compiledStyle: string,
-  cssTokens: CompileInfo['cssModules'] = {},
+  cssTokens: Record<string, string> = {},
   extension: Language = 'css',
 ) => {
   const scriptImports = getImports(compiledScript);

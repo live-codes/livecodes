@@ -1376,7 +1376,7 @@ export interface CompileOptions {
 }
 
 export interface CompileInfo {
-  cssModules?: Record<string, string>;
+  cssModules?: Record<string, Record<string, string>>;
   modifiedHTML?: string;
   importedContent?: string;
   imports?: Record<string, string>;

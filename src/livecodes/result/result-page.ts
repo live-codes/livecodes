@@ -313,13 +313,13 @@ export const createResultPage = async ({
           ...createCSSModulesImportMap(
             code.script.compiled,
             code.style.compiled,
-            compileInfo.cssModules,
+            compileInfo.cssModules?.style,
             styleExtension,
           ),
           ...createCSSModulesImportMap(
             code.markup.compiled,
             code.style.compiled,
-            compileInfo.cssModules,
+            compileInfo.cssModules?.style,
             styleExtension,
           ),
           ...compileInfo.imports,

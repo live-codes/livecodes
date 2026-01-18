@@ -1251,7 +1251,6 @@ const getResultPage = async ({
   runTests = false,
 }) => {
   updateConfig();
-  autoEnableProcessors();
   const config = getConfig();
   const contentConfig = getContentConfig(config);
 
@@ -1441,6 +1440,7 @@ const getMultiFileResultPage = async ({
   singleFileResult = true,
   runTests = false,
 }) => {
+  autoEnableProcessors();
   const config = getConfig();
   const cache = getCache();
 
@@ -1476,16 +1476,31 @@ const getMultiFileResultPage = async ({
     }
   }
 
-  const compiledContent = compiledFiles.map((file) => file.compiled).join('\n');
+  const mainFile = compiledFiles.find((f) => f.filename === getMainFile(config));
+  const compiledContent =
+    compiledFiles
+      .map((file) =>
+        getLanguageEditorId(file.language) === 'markup'
+          ? file.compiled
+          : `<script type="script-for-styles">${file.compiled}</script>`,
+      )
+      .join('\n') + `<script type="script-for-styles">${compileInfo.importedContent}</script>`;
+
   for (const file of config.files) {
     const { filename, language, content } = file;
     if (getLanguageEditorId(language) !== 'style') continue;
     const compileResult = await compiler.compile(content, language, config, {
       filename,
-      compileInfo,
+      compileInfo: {
+        ...compileInfo,
+        modifiedHTML: mainFile?.compiled || '',
+      },
       forceCompile: forceCompileStyles,
-      html: `${compiledContent}<script type="script-for-styles">${compileInfo.importedContent}</script>`,
+      html: compiledContent,
     });
+    if (mainFile && compileResult.info.modifiedHTML) {
+      mainFile.compiled = compileResult.info.modifiedHTML;
+    }
     compiledFiles.push({ ...file, compiled: compileResult.code });
     compileInfo = mergeCompileInfo(compileInfo, compileResult.info);
     if (compileInfo.errors?.length) {

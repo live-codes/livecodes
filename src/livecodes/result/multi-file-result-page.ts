@@ -14,10 +14,12 @@ import { getAppCDN, modulesService } from '../services/modules';
 import { testImports } from '../toolspane/test-imports';
 import {
   cloneObject,
+  escapeCode,
   escapeScript,
   getAbsoluteUrl,
   isRelativeUrl,
   objectMap,
+  toCamelCase,
   toDataUrl,
 } from '../utils/utils';
 import { browserJestUrl, esModuleShimsPath, spacingJsUrl } from '../vendors';
@@ -187,6 +189,7 @@ export const createMultiFileResultPage = async ({
       const resolvedImport = resolvePath(mod, './' + file.filename);
       if (
         !resolvedImport ||
+        resolvedImport in fileImports ||
         resolvedImport in stylesheetImports ||
         resolvedImport in imageImports
       ) {
@@ -202,6 +205,7 @@ export const createMultiFileResultPage = async ({
       }
 
       const importedFile = findFile(resolvedImport);
+      // handle importing external stylesheets or images
       if (!importedFile) {
         if (isCss(resolvedImport)) {
           stylesheetImports[resolvedImport] = resolvedImport;
@@ -211,10 +215,22 @@ export const createMultiFileResultPage = async ({
         }
         return;
       }
+
       const compiledLanguage =
         getLanguageEditorId(importedFile.language) === 'style' ? 'css' : 'javascript';
 
       if (isCss(resolvedImport, compiledLanguage)) {
+        const cssTokens = compileInfo.cssModules?.[resolvedImport.replace('./', '')];
+        if (resolvedImport.includes('.module.') && cssTokens) {
+          // from compiler\import-map.ts#createCSSModulesImportMap
+          const cssModule =
+            `export default ${escapeCode(JSON.stringify(cssTokens))};\n` +
+            Object.keys(cssTokens)
+              .filter((key) => key === toCamelCase(key))
+              .map((key) => `export const ${escapeCode(key)} = "${escapeCode(cssTokens[key])}";`)
+              .join('\n');
+          codeImports[convertedImport] = toDataUrl(cssModule);
+        }
         const dataUrl = fileUrls[importedFile.filename] || getDataUrl(importedFile);
         if (!dataUrl) return;
         stylesheetImports[convertedImport] = dataUrl;
@@ -257,8 +273,6 @@ export const createMultiFileResultPage = async ({
     stylesheet.href = url;
     dom.head.appendChild(stylesheet);
 
-    // map stylesheets in import map to empty script to avoid loading css as js
-    codeImports[mod] = 'data:text/javascript;charset=UTF-8;base64,';
     if (Object.keys(configImports).includes(mod)) {
       delete configImports[mod];
     }
@@ -412,25 +426,15 @@ export const createMultiFileResultPage = async ({
           ...(runTests && !forExport && hasImports(compiledTests)
             ? createImportMap(compiledTests, config, { external: externalModules })
             : {}),
-          ...Object.keys(stylesheetImports).reduce(
-            (acc, url) => ({
-              ...acc,
-              [url]: toDataUrl(''),
-            }),
-            {},
-          ),
-          // ...createCSSModulesImportMap(
-          //   code.script.compiled,
-          //   code.style.compiled,
-          //   compileInfo.cssModules,
-          //   styleExtension,
-          // ),
-          // ...createCSSModulesImportMap(
-          //   code.markup.compiled,
-          //   code.style.compiled,
-          //   compileInfo.cssModules,
-          //   styleExtension,
-          // ),
+          ...Object.keys(stylesheetImports)
+            .filter((s) => !s.includes('.module.'))
+            .reduce(
+              (acc, url) => ({
+                ...acc,
+                [url]: toDataUrl(''),
+              }),
+              {},
+            ),
           ...compileInfo.imports,
         };
 
