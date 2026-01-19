@@ -4,7 +4,7 @@ import { getCompileResult } from '../../compiler/utils';
 import type { CompilerFunction, Config } from '../../models';
 import { modulesService } from '../../services/modules';
 import { pkgInfoService } from '../../services/pkgInfo';
-import { getLanguageByAlias } from '../utils';
+import { getFileExtension, getLanguageByAlias } from '../utils';
 
 (self as any).createRippleCompiler = async (initialConfig: Config): Promise<CompilerFunction> => {
   const MAIN_FILE = 'Component.ripple';
@@ -51,6 +51,7 @@ import { getLanguageByAlias } from '../utils';
       config,
       filename,
       getLanguageByAlias,
+      getFileExtension,
       isSfc: isRipple,
       compileSFC: async (
         code: string,
