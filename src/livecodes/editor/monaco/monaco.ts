@@ -23,13 +23,9 @@ import {
   codeiumProviderUrl,
   emmetMonacoUrl,
   monacoBaseUrl,
-  monacoEditorTextmateUrl,
   monacoEmacsUrl,
-  monacoTextmateUrl,
   monacoVimUrl,
   monacoVolarUrl,
-  onigasmUrl,
-  onigasmWasmUrl,
   typescriptVersion,
   vendorsBaseUrl,
 } from '../../vendors';
@@ -98,11 +94,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           ? 'csharp'
           : language.startsWith('vue')
             ? 'vue'
-            : language === 'ripple'
-              ? 'ripple'
-              : ['svelte', 'malina', 'riot'].includes(language)
-                ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
-                : mapLanguage(language);
+            : ['svelte', 'malina', 'riot'].includes(language)
+              ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
+              : mapLanguage(language);
 
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;
@@ -274,6 +268,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     config?: Monaco.languages.LanguageConfiguration;
     tokens?: Monaco.languages.IMonarchLanguage;
     completions?: Monaco.languages.CompletionItemProvider;
+    hover?: Monaco.languages.HoverProvider;
+    definitions?: Monaco.languages.DefinitionProvider;
   }
 
   const addVueSupport = async () => {
@@ -288,54 +284,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setTheme(currentTheme, currentEditorTheme);
   };
 
-  async function registerFromTextMate(
-    langs: Array<{
-      name: string;
-      scopeName: string;
-      syntax: string;
-    }>,
-  ) {
-    await addVueSupport(); // a workaround for TextMate syntax
-
-    const { loadWASM } = await import(onigasmUrl);
-    const { Registry } = await import(monacoTextmateUrl);
-    const { wireTmGrammars } = await import(monacoEditorTextmateUrl);
-
-    await loadWASM(onigasmWasmUrl);
-
-    const registry = new Registry({
-      getGrammarDefinition: async (scopeName: string) => ({
-        format: 'json',
-        content: langs.find((l) => l.scopeName === scopeName)?.syntax ?? '',
-      }),
-    });
-
-    const grammars = new Map();
-    for (const { name, scopeName } of langs) {
-      grammars.set(name, scopeName);
-      monaco.languages.register({ id: name });
-    }
-    await wireTmGrammars(monaco, registry, grammars, editor);
-  }
-
-  const addRippleSupport = async (syntaxes: {
-    ripple: Record<string, unknown>;
-    css: Record<string, unknown>;
-  }) => {
-    await registerFromTextMate([
-      {
-        name: 'ripple',
-        scopeName: 'source.ripple',
-        syntax: JSON.stringify(syntaxes.ripple),
-      },
-      {
-        name: 'CSS',
-        scopeName: 'source.css',
-        syntax: JSON.stringify(syntaxes.css),
-      },
-    ]);
-  };
-
   const loadMonacoLanguage = async (lang: Language) => {
     if (monacoMapLanguage(lang) === 'vue') {
       await addVueSupport();
@@ -343,8 +291,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
     const langUrl = customLanguages[lang];
     if (langUrl && !monaco.languages.getLanguages().find((l) => l.id === lang)) {
-      const mod: CustomLanguageDefinition = (await import(langUrl)).default;
       monaco.languages.register({ id: lang });
+      const mod: CustomLanguageDefinition = (await import(langUrl)).default;
       if (mod.config) {
         monaco.languages.setLanguageConfiguration(lang, mod.config);
       }
@@ -354,8 +302,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       if (mod.completions) {
         monaco.languages.registerCompletionItemProvider(lang, mod.completions);
       }
-      if (lang === 'ripple') {
-        await addRippleSupport({ ripple: (mod as any).syntax, css: (mod as any).cssSyntax });
+      if (mod.hover) {
+        monaco.languages.registerHoverProvider(lang, mod.hover);
+      }
+      if (mod.definitions) {
+        monaco.languages.registerDefinitionProvider(lang, mod.definitions);
       }
     }
   };

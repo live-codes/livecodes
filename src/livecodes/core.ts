@@ -2073,7 +2073,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
   }
   if (shouldReloadEditors) {
     await reloadEditors(combinedConfig);
-    showEditor(getActiveEditor().getEditorId());
+    showEditor(getActiveEditor()?.getEditorId());
   } else if (hasEditorConfig) {
     currentEditorConfig = {
       ...getEditorConfig(combinedConfig),

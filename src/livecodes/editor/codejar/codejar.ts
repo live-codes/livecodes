@@ -39,7 +39,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let { value, language, editorId } = options;
   let currentPosition: EditorPosition = { lineNumber: 1 };
   const mapLanguage = (lang: Language | undefined) =>
-    !lang ? 'html' : lang === 'wat' ? 'wasm' : options.mapLanguage?.(lang) || lang;
+    !lang
+      ? 'html'
+      : lang === 'wat'
+        ? 'wasm'
+        : lang === 'ripple'
+          ? 'jsx'
+          : options.mapLanguage?.(lang) || lang;
   let mappedLanguage = mapLanguage(language);
   let editorOptions: ReturnType<typeof convertOptions>;
 
