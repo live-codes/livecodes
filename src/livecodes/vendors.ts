@@ -3,7 +3,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.5/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.6/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -90,7 +90,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.2/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.4/build/');
 
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
@@ -119,6 +119,10 @@ export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
 export const doppioJvmBaseUrl = 'https://unpkg.com/@seth0x41/doppio@1.0.0/';
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
+
+export const draggableUrl = /* @__PURE__ */ getUrl(
+  '@shopify/draggable@1.2.1/build/umd/index.min.js',
+);
 
 export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.10/ejs.js');
 
@@ -298,6 +302,8 @@ export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid
 
 export const metaPngUrl = /* @__PURE__ */ getUrl('meta-png@1.0.6/dist/meta-png.umd.js');
 
+export const minizincUrl = /* @__PURE__ */ getUrl('minizinc@4.4.4/dist/minizinc.mjs');
+
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
 export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.3.1/');
@@ -351,6 +357,10 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
 export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
 
 export const prettierEsmUrl = /* @__PURE__ */ getModuleUrl('prettier@3.3.2/standalone');
+
+export const prettierMinizincUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/prettier-plugin-minizinc@0.2.0/dist/standalone.js',
+);
 
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.22.2/standalone.js');
 
@@ -452,7 +462,8 @@ export const tesseractUrl = /* @__PURE__ */ getUrl('tesseract.js@6.0.1/dist/tess
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
-export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.9.3/lib/typescript.js`);
+export const typescriptVersion = '5.9.3';
+export const typescriptUrl = getUrl(`typescript@${typescriptVersion}/lib/typescript.js`);
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 

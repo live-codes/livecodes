@@ -1,6 +1,6 @@
 import type TS from 'typescript';
 import { getCompilerOptions } from '../editor/ts-compiler-options';
-import { languages, processors } from '../languages';
+import { getFileExtension, getLanguageByAlias, languages, processors } from '../languages';
 import type {
   CompileOptions,
   CompileResult,
@@ -34,10 +34,11 @@ const worker: Worker & {
 (self as any).deps = { languages, processors };
 
 const loadLanguageCompiler = async (
-  language: LanguageOrProcessor,
+  language: LanguageOrProcessor | undefined,
   config: Config,
   baseUrl: string | undefined,
 ) => {
+  if (!language) return;
   if (!baseUrl) {
     throw new Error('baseUrl is not set');
   }
@@ -100,6 +101,8 @@ const compile = async (
   config: Config,
   options: CompileOptions,
 ) => {
+  language ??= getLanguageByAlias(language || getFileExtension(options.filename)) || 'html';
+
   const compiler = compilers[language]?.fn;
   if (!baseUrl || typeof compiler !== 'function') {
     throw new Error('Failed to load compiler for: ' + language);
@@ -277,11 +280,12 @@ const initCodemirrorTS = doOnce(async () => {
   importScripts(comlinkBaseUrl + 'umd/comlink.js');
   importScripts(typescriptVfsUrl);
   importScripts(codeMirrorBaseUrl + 'codemirror-ts.worker.js');
+  const language = codemirrorWorker.language || 'tsx';
   const { createWorker } = worker.CodemirrorTsWorker;
   const { createDefaultMapFromCDN, createSystem, createVirtualTypeScriptEnvironment } =
     worker.typescriptVFS;
   tsvfsMap = await createDefaultMapFromCDN(
-    { target: worker.ts?.ScriptTarget.ES2022 },
+    getCompilerOptions(language),
     worker.ts?.version,
     false,
     worker.ts,
@@ -291,7 +295,6 @@ const initCodemirrorTS = doOnce(async () => {
     const compilerOpts = getCompilerOptions(lang);
     return createVirtualTypeScriptEnvironment(system, [], worker.ts, compilerOpts);
   };
-  const language = codemirrorWorker.language || 'tsx';
   let env = createTypeScriptEnvironment(language);
   codemirrorWorker = createWorker(() => env);
   codemirrorWorker.language = language;

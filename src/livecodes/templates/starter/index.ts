@@ -1,5 +1,6 @@
 // this is bundled to build/livecodes/templates.js
 
+import { multifileTemplates } from '../multifile/index';
 import { angularStarter } from './angular-starter';
 import { assemblyscriptStarter } from './assemblyscript-starter';
 import { astroStarter } from './astro-starter';
@@ -37,6 +38,7 @@ import { luaWasmStarter } from './lua-wasm-starter';
 import { malinaStarter } from './malina-starter';
 import { markdownStarter } from './markdown-starter';
 import { mdxStarter } from './mdx-starter';
+import { minizincStarter } from './minizinc-starter';
 import { ocamlStarter } from './ocaml-starter';
 import { perlStarter } from './perl-starter';
 import { phaserStarter } from './phaser-starter';
@@ -138,6 +140,8 @@ export const starterTemplates = [
   sqlStarter,
   postgresqlStarter,
   prologStarter,
+  minizincStarter,
   blocklyStarter,
   diagramsStarter,
+  ...multifileTemplates,
 ];

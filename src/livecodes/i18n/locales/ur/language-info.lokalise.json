@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "ویب کی سکرپٹ کی زبان۔"
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>MDN پر جاوا اسکرپٹ</tag-2> </tag-1> <tag-3> <tag-4>Y منٹ میں X سیکھیں، جہاں X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes دستاویزی</tag-6> </tag-5> <tag-7> <tag-8>اسٹارٹر ٹیمپلیٹ لوڈ کریں۔</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "جنجا ایک تیز، اظہار خیال، توسیع پذیر ٹیمپلیٹنگ انجن ہے."
   },
@@ -368,6 +377,15 @@
   },
   "mdx.name": {
     "translation": "ایم ڈی ایکس"
+  },
+  "minizinc.desc": {
+    "translation": "MiniZinc ایک اعلی سطحی رکاوٹ ماڈلنگ زبان ہے جو آپ کو آسانی سے ظاہر کرنے اور مجرد اصلاحی مسائل کو حل کرنے کی اجازت دیتی ہے۔"
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>MiniZinc آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>MiniZinc دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>MiniZinc ٹیوٹوریل</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>اسٹارٹر ٹیمپلیٹ لوڈ کریں۔</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
   },
   "mjml.desc": {
     "translation": "ایم جے ایم ایل ایک مارک اپ زبان ہے جو ریسپانسیو ای میل کوڈنگ کی تکلیف کو کم کرنے کے لیے ڈیزائن کی گئی ہے۔"

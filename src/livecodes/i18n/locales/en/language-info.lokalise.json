@@ -356,6 +356,18 @@
     "notes": "",
     "translation": "Java"
   },
+  "javascript.desc": {
+    "notes": "",
+    "translation": "The scripting language of the web."
+  },
+  "javascript.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learnxinyminutes.com/docs/javascript/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/javascript\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=javascript\" class=\"button\" target=\"_parent\" data-template=\"javascript\" />\n\n",
+    "translation": "<tag-1> <tag-2>JavaScript on MDN</tag-2> </tag-1> <tag-3> <tag-4>Learn X in Y minutes, where X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentation</tag-6> </tag-5> <tag-7> <tag-8>Load starter template</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "notes": "",
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "notes": "",
     "translation": "Jinja is a fast, expressive, extensible templating engine."
@@ -491,6 +503,18 @@
   "mdx.name": {
     "notes": "",
     "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "notes": "",
+    "translation": "MiniZinc is a high-level constraint modelling language that allows you to easily express and solve discrete optimisation problems."
+  },
+  "minizinc.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.minizinc.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.minizinc.org/resources/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://docs.minizinc.dev/en/stable/part_2_tutorial.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/minizinc\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=minizinc\" class=\"button\" target=\"_parent\" data-template=\"minizinc\" />\n\n",
+    "translation": "<tag-1> <tag-2>MiniZinc official website</tag-2> </tag-1> <tag-3> <tag-4>MiniZinc documentation</tag-4> </tag-3> <tag-5> <tag-6>MiniZinc tutorial</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentations</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "notes": "",
+    "translation": "MiniZinc"
   },
   "mjml.desc": {
     "notes": "",

@@ -1011,6 +1011,7 @@ const translation: I18nTranslation = {
       malina: 'Malina.js 启动模板',
       markdown: 'Markdown 启动模板',
       mdx: 'MDX 启动模板',
+      minizinc: 'MiniZinc 启动模板',
       ocaml: 'Ocaml 启动模板',
       perl: 'Perl 启动模板',
       php: 'PHP 启动模板',

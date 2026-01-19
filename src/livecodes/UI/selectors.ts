@@ -179,6 +179,14 @@ export const getModalUnsavedLastModified = /* @__PURE__ */ () =>
 export const getModalDisableRecoverCheckbox = /* @__PURE__ */ () =>
   document.querySelector('#modal #disable-recover-checkbox') as HTMLInputElement;
 
+export const getEditorSelector = /* @__PURE__ */ () => document.querySelector('#select-editor');
+
+export const getEditorSelectorDiv = /* @__PURE__ */ () =>
+  document.querySelector('#select-editor > div');
+
+export const getEditorTab = /* @__PURE__ */ (editorId: string) =>
+  document.querySelector<HTMLElement>(`#select-editor .editor-title[data-editor="${editorId}"]`);
+
 export const getLanguageMenuLinks = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLElement>('#select-editor .language-item a');
 
@@ -489,6 +497,9 @@ export const getStarterTemplatesTab = /* @__PURE__ */ (templatesContainer: HTMLE
 
 export const getStarterTemplatesList = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector<HTMLElement>('#starter-templates-list');
+
+export const getMultifileTemplatesList = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
+  templatesContainer.querySelector<HTMLElement>('#multifile-templates-list');
 
 export const getUserTemplatesScreen = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector('#templates-user .modal-screen') as HTMLElement;

@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "Web'in komut dosyası dili."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>MDN'de JavaScript</tag-2> </tag-1> <tag-3> <tag-4>Y dakikada X öğrenin, burada X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükleyin</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja, hızlı, etkileyici, genişletilebilir bir şablon motorudur."
   },
@@ -368,6 +377,15 @@
   },
   "mdx.name": {
     "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "MiniZinc, ayrık optimizasyon problemlerini kolayca ifade etmenizi ve çözmenizi sağlayan yüksek seviyeli bir kısıt modelleme dilidir."
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>MiniZinc resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>MiniZinc belgeleri</tag-4> </tag-3> <tag-5> <tag-6>MiniZinc eğitimi</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
   },
   "mjml.desc": {
     "translation": "MJML, duyarlı bir e-posta kodlamanın zorluğunu azaltmak için tasarlanmış bir işaretleme dilidir."

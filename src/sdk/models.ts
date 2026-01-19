@@ -406,7 +406,7 @@ export interface EmbedOptions {
 export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
 export interface SingleFileConfig
-  extends Omit<ContentConfig, 'files' | 'mainFile'>,
+  extends Omit<ContentConfig, 'files' | 'mainFile' | 'fileLanguages'>,
     AppConfig,
     UserConfig {}
 
@@ -503,11 +503,21 @@ export interface ContentConfig {
    * List of source files.
    */
   files: SourceFile[];
+
   /**
    * The name of the main markup file.
    * @default "index.html"
    */
   mainFile?: string;
+
+  /**
+   * An object with file extensions and languages to use for them.
+   * This overrides the default mapping of file extensions to languages.
+   * It is ignored for files that have the `language` property explicitly set (see {@link Config.files}).
+   * @example
+   * { jsx: "solid", tsx: "solid.tsx" }
+   */
+  fileLanguages?: Partial<Record<Language, Language>>;
 
   /**
    * List of URLs for [external stylesheets](https://livecodes.io/docs/features/external-resources) to add to the [result page](https://livecodes.io/docs/features/result).
@@ -615,6 +625,7 @@ export type MultiFileContentConfig = Pick<
   | 'activeEditor'
   | 'files'
   | 'mainFile'
+  | 'fileLanguages'
   | 'languages'
   | 'processors'
   | 'customSettings'
@@ -935,6 +946,7 @@ export interface AppData {
 export type Language =
   | 'html'
   | 'htm'
+  | 'svg'
   | 'markdown'
   | 'md'
   | 'mdown'
@@ -984,6 +996,7 @@ export type Language =
   | 'postcss'
   | 'javascript'
   | 'js'
+  | 'mjs'
   | 'json'
   | 'babel'
   | 'es'
@@ -991,6 +1004,7 @@ export type Language =
   | 'typescript'
   | 'flow'
   | 'ts'
+  | 'mts'
   | 'jsx'
   | 'tsx'
   | 'react'
@@ -1137,6 +1151,9 @@ export type Language =
   | 'postgresql.sql'
   | 'prolog.pl'
   | 'prolog'
+  | 'minizinc'
+  | 'mzn'
+  | 'dzn'
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
@@ -1320,7 +1337,8 @@ export type ParserName =
   | 'less'
   | 'php'
   | 'pug'
-  | 'java';
+  | 'java'
+  | 'minizinc';
 
 export interface Parser {
   name: ParserName;
@@ -1355,6 +1373,7 @@ export interface EditorLibrary {
 }
 
 export interface CompileOptions {
+  filename: string;
   html?: string;
   blockly?: BlocklyContent;
   forceCompile?: boolean;
@@ -1362,7 +1381,7 @@ export interface CompileOptions {
 }
 
 export interface CompileInfo {
-  cssModules?: Record<string, string>;
+  cssModules?: Record<string, Record<string, string>>;
   modifiedHTML?: string;
   importedContent?: string;
   imports?: Record<string, string>;
@@ -1425,6 +1444,7 @@ export interface Compiler {
     | 'text/commonlisp'
     | 'text/tcl'
     | 'text/prolog'
+    | 'text/minizinc'
     | 'text/go-wasm'
     | 'application/json'
     | 'application/lua'
@@ -1441,7 +1461,10 @@ export interface Compilers {
   [language: string]: Compiler;
 }
 
-export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &
+export type Template = (
+  | Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'>
+  | Pick<ContentConfig, 'title' | 'mainFile' | 'files' | 'fileLanguages'>
+) &
   Partial<ContentConfig> & {
     name: TemplateName;
     aliases?: TemplateName[];
@@ -1520,8 +1543,18 @@ export type TemplateName =
   | 'sql'
   | 'postgresql'
   | 'prolog'
+  | 'minizinc'
   | 'blockly'
-  | 'diagrams';
+  | 'diagrams'
+  | 'multifile-blank'
+  | 'multifile-javascript'
+  | 'multifile-typescript'
+  | 'multifile-react'
+  | 'multifile-vue'
+  | 'multifile-preact'
+  | 'multifile-svelte'
+  | 'multifile-solid'
+  | 'multifile-lit';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';
@@ -1858,14 +1891,17 @@ export interface BlocklyContent {
 export type AppLanguage =
   | 'auto'
   | 'ar'
+  | 'bn'
   | 'de'
   | 'en'
   | 'es'
   | 'fa'
   | 'fr'
   | 'hi'
+  | 'id'
   | 'it'
   | 'ja'
+  | 'nl'
   | 'pt'
   | 'tr'
   | 'ru'
@@ -1971,12 +2007,12 @@ export type EditorCache = Editor & {
   modified?: string;
 };
 
-export type Cache = ContentConfig & {
+export type Cache = Omit<ContentConfig, 'files'> & {
   markup: EditorCache;
   style: EditorCache;
   script: EditorCache;
   tests?: EditorCache;
-  files?: Array<SourceFile & { compiled: string }>;
+  files: Array<SourceFile & { compiled: string; modified?: string }>;
   mainFile?: string;
   result?: string;
   styleOnlyUpdate?: boolean;
@@ -2004,6 +2040,13 @@ export interface Code {
     content: string;
     compiled: string;
   };
+  files: Array<{
+    filename: string;
+    language: Language;
+    content: string;
+    compiled: string;
+  }>;
+  mainFile: string;
   result: string;
 }
 

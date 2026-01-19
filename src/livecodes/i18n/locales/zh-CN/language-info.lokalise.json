@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "网络脚本语言"
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>JavaScript on MDN</tag-2> </tag-1> <tag-3> <tag-4>在 Y 分钟内学习 X，其中 X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes 文档</tag-6> </tag-5> <tag-7> <tag-8>加载启动模板</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja 是一个快速、富有表现力、可扩展的模板引擎。"
   },
@@ -368,6 +377,15 @@
   },
   "mdx.name": {
     "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "MiniZinc 是一种高级约束建模语言，可让您轻松表达和解决离散优化问题。"
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>MiniZinc 官方网站</tag-2> </tag-1> <tag-3> <tag-4>MiniZinc 文档</tag-4> </tag-3> <tag-5> <tag-6>MiniZinc 教程</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载启动模板</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
   },
   "mjml.desc": {
     "translation": "MJML 是一种标记语言，旨在减轻编写响应式电子邮件的痛苦。"

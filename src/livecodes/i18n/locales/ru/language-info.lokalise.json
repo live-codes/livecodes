@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "Язык сценариев в Интернете."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>JavaScript на MDN</tag-2> </tag-1> <tag-3> <tag-4>Выучите X за Y минут, где X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>Документация LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Загрузить стартовый шаблон</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja - это быстрый, выразительный и расширяемый шаблонизатор."
   },
@@ -368,6 +377,15 @@
   },
   "mdx.name": {
     "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "MiniZinc - это высокоуровневый язык моделирования ограничений, который позволяет легко выражать и решать дискретные оптимизационные задачи."
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>Официальный сайт MiniZinc</tag-2> </tag-1> <tag-3> <tag-4>Документация MiniZinc</tag-4> </tag-3> <tag-5> <tag-6>Учебник MiniZinc</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Стартовый шаблон Load</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
   },
   "mjml.desc": {
     "translation": "MJML - это язык разметки, разработанный для уменьшения сложности кодирования адаптивных электронных писем."

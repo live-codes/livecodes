@@ -1,9 +1,9 @@
-import type { Cache, ContentConfig, EditorCache } from '../models';
+import type { Cache, ContentConfig } from '../models';
 
-const removeExtra = <T>(editor: T, keys: Array<keyof T>) => {
-  const contentEditor = { ...editor };
-  keys.forEach((key) => delete contentEditor[key]);
-  return contentEditor;
+const removeExtra = <T>(obj: T, keys: Array<keyof T>) => {
+  const newObj = { ...obj };
+  keys.forEach((key) => delete newObj[key]);
+  return newObj;
 };
 export const cacheIsValid = (cache: Cache, config: ContentConfig) => {
   const excludedKeys: Array<keyof ContentConfig> = [
@@ -12,13 +12,14 @@ export const cacheIsValid = (cache: Cache, config: ContentConfig) => {
     'description',
     'tests',
   ];
-  const extraCache: Array<keyof EditorCache> = ['compiled', 'modified'];
+  const extraCache: Array<'compiled' | 'modified'> = ['compiled', 'modified'];
 
   const contentCache = {
     ...removeExtra(cache, ['result', 'styleOnlyUpdate', ...excludedKeys]),
     markup: removeExtra(cache.markup, extraCache),
     style: removeExtra(cache.style, extraCache),
     script: removeExtra(cache.script, extraCache),
+    files: cache.files.map((f) => removeExtra(f, extraCache)),
   };
   const contentConfig = removeExtra(config, excludedKeys);
 

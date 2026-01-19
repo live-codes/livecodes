@@ -167,7 +167,8 @@ export const createCompiler = async ({
     );
 
   const cache: {
-    [key in Language]?: {
+    [key: string]: {
+      language: Language;
       content: string;
       compiled: string;
       info: string;
@@ -188,17 +189,19 @@ export const createCompiler = async ({
 
     const enabledProcessors = getActivatedProcessors(language, config);
     const languageSettings = stringify(getCustomSettings(language, config));
+    const filename = options.filename;
 
     if (
       !options?.forceCompile &&
-      cache[language]?.content === content &&
-      cache[language]?.processors === enabledProcessors &&
-      cache[language]?.languageSettings === languageSettings &&
-      cache[language]?.compiled
+      cache[filename]?.language === language &&
+      cache[filename]?.content === content &&
+      cache[filename]?.processors === enabledProcessors &&
+      cache[filename]?.languageSettings === languageSettings &&
+      cache[filename]?.compiled
     ) {
       return {
-        code: cache[language]?.compiled || '',
-        info: JSON.parse(cache[language]?.info || '{}'),
+        code: cache[filename]?.compiled || '',
+        info: JSON.parse(cache[filename]?.info || '{}'),
       } as CompileResult;
     }
 
@@ -209,7 +212,7 @@ export const createCompiler = async ({
     const compiler = compilers[language]?.fn;
     if (typeof compiler !== 'function') {
       return new Promise<CompileResult>((res) => {
-        if (language !== 'html' && language !== 'css' && language !== 'javascript') {
+        if (language && language !== 'html' && language !== 'css' && language !== 'javascript') {
           // eslint-disable-next-line no-console
           console.error('Failed to load compiler for: ' + language);
         }
@@ -227,14 +230,14 @@ export const createCompiler = async ({
       ...processed.info,
     };
 
-    cache[language] = {
+    cache[filename] = {
+      language,
       content,
       compiled: processed.code,
       info: JSON.stringify(info),
       processors: enabledProcessors,
       languageSettings: stringify(getCustomSettings(language, config)),
     };
-
     return { code: processed.code, info };
   };
 

@@ -8,7 +8,7 @@ The selector names are unique to avoid naming collision. They can then be import
 
 CSS Modules can be enabled from the style editor menu.
 
-Selectors added to the style editor (using any language e.g. CSS, SCSS, Less, etc.) are transformed to unique selectors. The transformed classes are then accessible in the script editor as a JSON object, and are injected into the HTML elements.
+Selectors added to the style editor (using any language e.g. CSS, SCSS, Less, etc.) are transformed to unique selectors. The transformed classes are then accessible in the script editor as a JSON object, and can be injected into the HTML elements.
 
 **Example:**
 
@@ -193,7 +193,7 @@ In addition, the following settings are available:
 
 - `addClassesToHTML`
 
-  Type: `boolean`. Default: `true`.
+  Type: `boolean`. Default: `false`.
 
   The generated classes are injected into the HTML elements, so the styles are applied without having to assign them using JavaScript.
 
@@ -212,7 +212,7 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
   "cssmodules": {
     "exportGlobals": true,
     "localsConvention": "camelCaseOnly",
-    "addClassesToHTML": false
+    "addClassesToHTML": true
   }
 }
 ```
@@ -234,16 +234,30 @@ If you get this working, [please create a pull request](https://github.com/live-
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-export const params = {
+export const config = {
   activeEditor: 'style',
-  html: '<div class="page">\n <h1>Page Title</h1>\n <p class="small-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore earum blanditiis quidem non beatae ipsam autem maiores ut et delectus unde repudiandae, repellendus aut. Aspernatur similique facere facilis minima tempora.</p>\n</div>\n',
-  css: ':global .page {\n padding: 20px;\n}\n\n.text {\n color: black;\n font-family: sans-serif;\n}\n\n.small-text {\n composes: text;\n font-size: 20px;\n}\n\n.large-text {\n composes: text;\n font-size: 40px;\n}\n\n.large-text:hover {\n color: red;\n}\n\n.title {\n composes: large-text;\n color: green;\n}\n',
-  js: "import classes from './style.module.css';\n\ndocument.querySelector('h1').className = classes.title;\nconsole.log(classes);\n",
-  processors: 'cssmodules',
-  compiled: 'open',
-};
+  markup: {
+    language: 'html',
+    content: '<div class="page">\n <h1>Page Title</h1>\n <p class="small-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore earum blanditiis quidem non beatae ipsam autem maiores ut et delectus unde repudiandae, repellendus aut. Aspernatur similique facere facilis minima tempora.</p>\n</div>\n',
+  },
+  style: {
+    language: 'css',
+    content: ':global .page {\n padding: 20px;\n}\n\n.text {\n color: black;\n font-family: sans-serif;\n}\n\n.small-text {\n composes: text;\n font-size: 20px;\n}\n\n.large-text {\n composes: text;\n font-size: 40px;\n}\n\n.large-text:hover {\n color: red;\n}\n\n.title {\n composes: large-text;\n color: green;\n}\n',
+  },
+  script: {
+    language: 'js',
+    content: "import classes from './style.module.css';\n\ndocument.querySelector('h1').className = classes.title;\nconsole.log(classes);\n",
+  },
+  processors: ['cssmodules'],
+  tools: { active: 'compiled' },
+  customSettings: {
+    cssmodules: {
+      addClassesToHTML: true,
+    },
+  }
+}
 
-<LiveCodes params={params} height="400"></LiveCodes>
+<LiveCodes config={config} height="400"></LiveCodes>
 
 ## Links
 

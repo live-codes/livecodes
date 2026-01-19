@@ -12,7 +12,7 @@ export const html: LanguageSpecs = {
   compiler: {
     factory: () => async (code) => code,
   },
-  extensions: ['html', 'htm'],
+  extensions: ['html', 'htm', 'svg'],
   editor: 'markup',
   multiFileSupport: true,
 };

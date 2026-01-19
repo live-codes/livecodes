@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "वेब की स्क्रिप्टिंग भाषा।"
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>MDN पर जावास्क्रिप्ट</tag-2> </tag-1> <tag-3> <tag-4>X को Y मिनट में सीखें, जहाँ X = जावास्क्रिप्ट है।</tag-4> </tag-3> <tag-5> <tag-6>लाइवकोड दस्तावेज़ीकरण</tag-6> </tag-5> <tag-7> <tag-8>स्टार्टर टेम्पलेट लोड करें</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "जिंजा एक तेज, अभिव्यंजक, विस्तारयोग्य टेम्प्लेटिंग इंजन है।"
   },
@@ -368,6 +377,15 @@
   },
   "mdx.name": {
     "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "MiniZinc एक उच्च-स्तरीय बाधा मॉडलिंग भाषा है जो आपको असतत अनुकूलन समस्याओं को आसानी से व्यक्त करने और हल करने की अनुमति देती है।"
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>मिनीजिंक की आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>मिनीजिंक दस्तावेज़ीकरण</tag-4> </tag-3> <tag-5> <tag-6>मिनीजिंक ट्यूटोरियल</tag-6> </tag-5> <tag-7> <tag-8>लाइवकोड दस्तावेज़</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
   },
   "mjml.desc": {
     "translation": "MJML एक मार्कअप भाषा है जिसे प्रतिक्रियाशील ईमेल को कोड करने की पीड़ा को कम करने के लिए डिज़ाइन किया गया है।"

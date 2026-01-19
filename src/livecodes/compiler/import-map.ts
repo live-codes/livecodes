@@ -1,8 +1,7 @@
-import type { CompileInfo, Config, Language } from '../models';
+import type { Config, Language } from '../models';
 import { modulesService } from '../services/modules';
 import {
   escapeCode,
-  getFileExtension,
   getValidUrl,
   removeComments,
   removeCommentsAndStrings,
@@ -186,6 +185,7 @@ export const replaceSFCImports = async (
     config,
     isSfc,
     getLanguageByAlias,
+    getFileExtension,
     compileSFC,
     external,
   }: {
@@ -193,6 +193,7 @@ export const replaceSFCImports = async (
     filename: string;
     isSfc: (mod: string) => boolean;
     getLanguageByAlias: (alias: string) => Language | undefined;
+    getFileExtension: (filename: string) => string;
     compileSFC: (code: string, options: { filename: string; config: Config }) => Promise<string>;
     external?: string;
   },
@@ -237,11 +238,19 @@ export const replaceSFCImports = async (
             (
               await compileInCompiler(
                 content,
-                getLanguageByAlias(getFileExtension(url)) || 'javascript',
+                getLanguageByAlias(getFileExtension(url.split('/').pop() || '')) || 'javascript',
                 config,
               )
             ).code,
-            { filename: url, config, isSfc, getLanguageByAlias, compileSFC, external },
+            {
+              filename: url,
+              config,
+              isSfc,
+              getLanguageByAlias,
+              getFileExtension,
+              compileSFC,
+              external,
+            },
           );
       if (!compiled) return;
       const dataUrl = toDataUrl(compiled);
@@ -309,13 +318,20 @@ export const replaceStyleImports = (
       .replace(/'/g, '')
       .replace(/url\(/g, '')
       .replace(/\)/g, '');
-    const modified = '@import "' + stylesImportMap?.[url] || modulesService.getUrl(url) + '";';
+
+    if (!url) return statement;
+    const isRelativeUrl = isRelative(url);
+    const modified = `@import "${
+      stylesImportMap?.[url] || (isRelativeUrl ? url : modulesService.getUrl(url))
+    }";`;
     const mediaQuery = media?.trim();
-    return !isBare(url)
-      ? statement
-      : mediaQuery
-        ? `@media ${mediaQuery} {\n${modified}\n}`
-        : modified;
+    return isRelativeUrl
+      ? modified
+      : !isBare(url)
+        ? statement
+        : mediaQuery
+          ? `@media ${mediaQuery} {\n${modified}\n}`
+          : modified;
   });
 
 // based on https://github.com/sveltejs/svelte-repl/blob/master/src/workers/bundler/plugins/commonjs.js
@@ -363,7 +379,7 @@ export const cjs2esm = (code: string) => {
 export const createCSSModulesImportMap = (
   compiledScript: string,
   compiledStyle: string,
-  cssTokens: CompileInfo['cssModules'] = {},
+  cssTokens: Record<string, string> = {},
   extension: Language = 'css',
 ) => {
   const scriptImports = getImports(compiledScript);

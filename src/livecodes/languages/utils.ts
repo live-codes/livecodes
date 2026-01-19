@@ -13,7 +13,20 @@ export const getLanguageByAlias = (alias: string = ''): Language | undefined => 
   )?.name;
 };
 
-export const getFileLanguage = (filename: string) => getLanguageByAlias(filename.split('.').pop());
+export const getFileExtension = /* @__PURE__ */ (filename: string) => {
+  const parts = filename.toLowerCase().split('.');
+  if (parts.length === 1) return ''; // e.g. myfile => ''
+  const extension = parts[parts.length - 1];
+  if (parts.length === 2) return extension; // e.g. App.tsx => 'tsx'
+  const lang = parts[parts.length - 2];
+  if (getLanguageByAlias(`${lang}.${extension}`)) return `${lang}.${extension}`; // e.g. App.react.tsx => 'react.tsx'
+  return extension;
+};
+
+export const getFileLanguage = (filename: string, fileLanguages: Record<string, string> = {}) => {
+  const extension = getFileExtension(filename);
+  return getLanguageByAlias(fileLanguages[extension] || extension);
+};
 
 export const supportsMultiFile = (language: Language) =>
   window.deps.languages.find((l) => l.name === language)?.multiFileSupport === true;

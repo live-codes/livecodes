@@ -348,9 +348,6 @@ export const runOrContinue =
       }
     };
 
-export const getFileExtension = /* @__PURE__ */ (file: string) =>
-  file.split('.')[file.split('.').length - 1];
-
 export const isInIframe = /* @__PURE__ */ () => {
   // TODO allow in storybook
   if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return false;
@@ -685,8 +682,10 @@ export const addProp = /* @__PURE__ */ (
   addProp(obj[first] as Record<string, unknown>, rest.join('.'), value);
 };
 
-export const removeLeadingSlash = /* @__PURE__ */ (x: string) =>
-  x.startsWith('/')
+export const handleSlash = /* @__PURE__ */ (x: string) => {
+  if (!x) return '';
+  x = x.replaceAll('\\', '/');
+  return x.startsWith('/')
     ? x.slice(1)
     : x.startsWith('./')
       ? x.slice(2)
@@ -695,6 +694,21 @@ export const removeLeadingSlash = /* @__PURE__ */ (x: string) =>
         : x.startsWith('~/')
           ? x.slice(2)
           : x;
+};
+
+export const onLoad = /* @__PURE__ */ (fn: (...args: any[]) => any) => {
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    fn();
+  } else {
+    window.addEventListener('load', fn, { once: true });
+  }
+};
+
+export const removeFormatting = (e: any) => {
+  e.preventDefault();
+  const text = e.clipboardData.getData('text/plain');
+  document.execCommand('insertHTML', false, text);
+};
 
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',

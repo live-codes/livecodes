@@ -8,6 +8,8 @@ import type {
   Processor,
   Template,
 } from '../models';
+import { handleSlash, removeFormatting } from '../utils';
+import { getEditorSelector, getEditorSelectorDiv, getEditorTab } from './selectors';
 
 export const createLanguageMenus = (
   config: Config,
@@ -180,8 +182,7 @@ export const createMultiFileEditorTab = ({
   isNewFile: boolean;
 }) => {
   let currentFileName = title;
-  const selector = document.querySelector(`.editor-title[data-editor="${currentFileName}"]`);
-  if (selector) return;
+  if (getEditorTab(currentFileName)) return;
   const editorSelector = document.createElement('a');
   editorSelector.href = '#';
   editorSelector.classList.add('editor-title', 'noselect');
@@ -191,6 +192,8 @@ export const createMultiFileEditorTab = ({
 
   const label = document.createElement('span');
   label.innerHTML = currentFileName;
+  label.title = currentFileName;
+  label.addEventListener('paste', removeFormatting, false);
   editorSelector.appendChild(label);
 
   if (!isMainFile) {
@@ -206,7 +209,6 @@ export const createMultiFileEditorTab = ({
         )
       ) {
         deleteFile(currentFileName);
-        editorSelector.remove();
       }
     });
     editorSelector.appendChild(deleteButton);
@@ -221,6 +223,9 @@ export const createMultiFileEditorTab = ({
   };
 
   const accept = async () => {
+    label.contentEditable = 'false';
+    eventAttached = false;
+    label.innerText = label.innerText.trim().replaceAll('\n', '');
     const success =
       isNewFile && typeof addFile === 'function'
         ? await addFile(label.innerText)
@@ -229,32 +234,69 @@ export const createMultiFileEditorTab = ({
       onDblClick();
       return;
     }
-    label.contentEditable = 'false';
-    currentFileName = label.innerText;
-    isNewFile = false;
+    currentFileName = handleSlash(label.innerText);
+    label.title = currentFileName;
+    label.innerText = currentFileName;
+    label.style.maxWidth = '';
     showEditor(currentFileName);
-    window.removeEventListener('keydown', onEnter);
+    if (isNewFile) {
+      // a new tab is created. remove this one
+      editorSelector.remove();
+    }
+    isNewFile = false;
   };
 
-  const onEnter = (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      accept();
+    }
+    if (e.key === 'Tab') {
+      accept();
+    }
+    if (e.key === 'Escape') {
+      label.contentEditable = 'false';
+      if (isNewFile) {
+        editorSelector.remove();
+      } else {
+        label.innerText = currentFileName;
+      }
+    }
+  };
+
+  const onBlur = () => {
+    if (label.contentEditable === 'true') {
       accept();
     }
   };
 
+  let eventAttached = false;
   const onDblClick = () => {
-    currentFileName = label.innerText;
+    if (!getEditorSelector()?.contains(label)) return;
     label.contentEditable = 'true';
-    requestAnimationFrame(() => label.focus());
-    selectAll(label);
-    window.addEventListener('keydown', onEnter);
+    label.style.maxWidth = 'unset';
+    requestAnimationFrame(() => {
+      label.focus();
+      selectAll(label);
+      if (!eventAttached) {
+        label.addEventListener('blur', onBlur);
+        eventAttached = true;
+      }
+    });
   };
 
-  editorSelector.ondblclick = onDblClick;
+  const onF2 = (ev: KeyboardEventInit) => {
+    if (ev.key === 'F2') {
+      onDblClick();
+    }
+  };
+
+  editorSelector.addEventListener('dblclick', onDblClick);
+  editorSelector.addEventListener('keydown', onF2);
+  label.addEventListener('keydown', onKeyDown);
 
   const scrollTo = document.querySelector('#multi-file-scroll-to');
-  document.querySelector('#select-editor > div')?.insertBefore(editorSelector, scrollTo);
+  getEditorSelectorDiv()?.insertBefore(editorSelector, scrollTo);
 
   if (isNewFile) {
     scrollTo?.scrollIntoView({ behavior: 'smooth', inline: 'end' });
@@ -263,19 +305,18 @@ export const createMultiFileEditorTab = ({
 };
 
 export const createAddFileButton = ({ onclick: handleAddFileClick }: { onclick: () => void }) => {
-  if (!document.querySelector('#add-file-button')) {
-    const addFileButton = document.createElement('button');
-    addFileButton.id = 'add-file-button';
-    addFileButton.classList.add('app-menu-button', 'menu');
-    addFileButton.innerHTML =
-      '<i class="icon-add" title="Add file" data-i18n="core.addFile" data-i18n-prop="title"></i>';
-    addFileButton.addEventListener('click', handleAddFileClick);
-    document.querySelector('#select-editor')?.appendChild(addFileButton);
+  if (document.querySelector('#add-file-button')) return;
+  const addFileButton = document.createElement('button');
+  addFileButton.id = 'add-file-button';
+  addFileButton.classList.add('app-menu-button', 'menu');
+  addFileButton.innerHTML =
+    '<i class="icon-add" title="Add file" data-i18n="core.addFile" data-i18n-prop="title"></i>';
+  addFileButton.addEventListener('click', handleAddFileClick);
+  getEditorSelector()?.appendChild(addFileButton);
 
-    const scrollTo = document.createElement('div');
-    scrollTo.id = 'multi-file-scroll-to';
-    document.querySelector('#select-editor > div')?.appendChild(scrollTo);
-  }
+  const scrollTo = document.createElement('div');
+  scrollTo.id = 'multi-file-scroll-to';
+  getEditorSelectorDiv()?.appendChild(scrollTo);
 };
 
 export const createProcessorItem = (processor: { name: string; title: string }) => {

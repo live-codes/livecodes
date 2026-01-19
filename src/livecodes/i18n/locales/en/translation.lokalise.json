@@ -1042,6 +1042,10 @@
   },
   "core.file.invalidName": {
     "notes": "",
+    "translation": "Invalid file name!"
+  },
+  "core.file.invalidType": {
+    "notes": "",
     "translation": "Invalid file type!"
   },
   "core.fork.success": {
@@ -1059,10 +1063,6 @@
   "core.generating": {
     "notes": "",
     "translation": "Generating..."
-  },
-  "core.import.loading": {
-    "notes": "",
-    "translation": "Loading Project..."
   },
   "core.layout.horizontal": {
     "notes": "",
@@ -2552,6 +2552,50 @@
     "notes": "",
     "translation": "New Project"
   },
+  "templates.multifile.blank": {
+    "notes": "",
+    "translation": "Blank Template"
+  },
+  "templates.multifile.heading": {
+    "notes": "",
+    "translation": "Multi-file Templates"
+  },
+  "templates.multifile.javascript": {
+    "notes": "",
+    "translation": "JavaScript Template"
+  },
+  "templates.multifile.lit": {
+    "notes": "",
+    "translation": "Lit Template"
+  },
+  "templates.multifile.loading": {
+    "notes": "",
+    "translation": "Loading multi-file templates..."
+  },
+  "templates.multifile.preact": {
+    "notes": "",
+    "translation": "Preact Template"
+  },
+  "templates.multifile.react": {
+    "notes": "",
+    "translation": "React Template"
+  },
+  "templates.multifile.solid": {
+    "notes": "",
+    "translation": "Solid Template"
+  },
+  "templates.multifile.svelte": {
+    "notes": "",
+    "translation": "Svelte Template"
+  },
+  "templates.multifile.typescript": {
+    "notes": "",
+    "translation": "TypeScript Template"
+  },
+  "templates.multifile.vue": {
+    "notes": "",
+    "translation": "Vue Template"
+  },
   "templates.noUserTemplates.desc": {
     "notes": "### <tag-1> ###\n<wbr  />\n\n",
     "translation": "You can save a project as a template from <tag-1></tag-1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template)."
@@ -2707,6 +2751,10 @@
   "templates.starter.mdx": {
     "notes": "",
     "translation": "MDX Starter"
+  },
+  "templates.starter.minizinc": {
+    "notes": "",
+    "translation": "MiniZinc Starter"
   },
   "templates.starter.ocaml": {
     "notes": "",

@@ -1,0 +1,99 @@
+.multi-file {
+  #toolbar {
+    .toolbar-app {
+      justify-content: unset;
+    }
+
+    .menu {
+      justify-content: center;
+      min-width: 32px;
+      padding: 0;
+    }
+
+    .menu-text {
+      display: none;
+    }
+
+    #select-editor {
+      display: flex;
+      max-width: calc(70vw - 252px);
+
+      > div {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        width: unset;
+      }
+
+      .editor-title > span {
+        max-width: 13em;
+      }
+    }
+
+    #add-file-button {
+      align-items: center;
+      border: 0;
+      cursor: pointer;
+      display: flex;
+      margin-inline-end: 0;
+      margin-top: -1px;
+    }
+
+    .toolbar-render {
+      div:first-child {
+        width: calc(100% - 32px);
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1024px) {
+    #toolbar #select-editor {
+      max-width: calc(70vw - 180px);
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    #toolbar #select-editor {
+      max-width: calc(70vw - 100px);
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    #toolbar #select-editor {
+      max-width: calc(100% - 8px);
+    }
+  }
+
+  .embed {
+    #toolbar #select-editor {
+      max-width: calc(100vw - 120px);
+    }
+
+    #toolbar .toolbar-render a#result-button {
+      display: none !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+      #toolbar #select-editor {
+        max-width: calc(100vw - 80px);
+      }
+    }
+  }
+
+  #info-container {
+    label[for='head-textarea'],
+    #head-textarea,
+    label[for='html-attrs-textarea'],
+    #html-attrs-textarea {
+      display: none;
+    }
+  }
+
+  #external-resources-btn {
+    display: none;
+  }
+
+  #app-menu-project li:has(#external-resources-link) {
+    display: none;
+  }
+}
