@@ -1674,7 +1674,6 @@ export interface EditorOptions extends EditorConfig {
     | 'embed'
     | 'snippet'
     | 'add-snippet';
-  projectDir?: string;
   theme: Theme;
   isEmbed: boolean;
   isLite: boolean;

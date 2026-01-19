@@ -152,15 +152,16 @@ import { createToolsPane } from './toolspane';
 import { createTypeLoader, getDefaultTypes } from './types';
 import {
   capitalize,
+  cloneObject,
   colorToHex,
   colorToHsla,
   compareObjects,
   copyToClipboard,
   ctrl,
   debounce,
-  getRandomString,
   getValidUrl,
   isMac,
+  loadScript,
   loadStylesheet,
   predefinedValues,
   removeFormatting,
@@ -170,6 +171,7 @@ import {
   toDataUrl,
 } from './utils';
 import {
+  draggableUrl,
   fontInterUrl,
   fontMaterialIconsUrl,
   fscreenUrl,
@@ -231,7 +233,6 @@ export let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
 let resultLanguages: Language[] = [];
 let projectId: string;
-let projectDir: string | undefined;
 let isSaved = true;
 let changingContent = false;
 let consoleInputCodeCompletion: any;
@@ -254,6 +255,7 @@ const sdkWatchers = {
   console: createPub<{ method: string; args: any[] }>(),
   destroy: createPub<void>(),
 } as const satisfies Record<SDKEvent, ReturnType<typeof createPub<any>>>;
+let fileSortable: any;
 
 const getEditorLanguage = (editorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -506,13 +508,6 @@ const checkFileName = (filename: string, config: Config, currentName?: string) =
   return null;
 };
 
-const getProjectDir = (createNew = false) => {
-  if (!projectDir || createNew) {
-    projectDir = getRandomString().replace('0.', 'p').slice(0, 10);
-  }
-  return projectDir;
-};
-
 const addFile = async (
   filename: string,
   editorOptions: Omit<EditorOptions, 'container' | 'editorId' | 'language' | 'value'>,
@@ -524,7 +519,6 @@ const addFile = async (
   const container = createEditorUI(validName);
   const editor = await createEditor({
     ...editorOptions,
-    projectDir: getProjectDir(),
     container,
     editorId: validName,
     language: fileLanguage,
@@ -670,7 +664,6 @@ const createEditors = async (config: Config) => {
     mode: config.mode,
     readonly: config.readonly,
     ...getEditorConfig(config),
-    projectDir: getProjectDir(),
     activeEditor: findActiveEditor(),
     isEmbed,
     isLite,
@@ -1065,6 +1058,35 @@ const configureMultiFile = (config: Config) => {
     tab.classList.toggle('hidden', !isMultiFile);
   });
   document.documentElement.classList.toggle('multi-file', isMultiFile);
+
+  // allow re-ordering file tabs by drag and drop
+  fileSortable?.destroy();
+  if (isMultiFile) {
+    loadScript(draggableUrl, 'Draggable').then((Draggable: any) => {
+      fileSortable = new Draggable.Sortable(editorTabsContainer, {
+        draggable: '[data-multi-file]',
+        distance: 5, // The distance the pointer have moved before drag starts. This is useful for clickable draggable elements.
+      });
+      fileSortable.on('sortable:stop', (ev: any) => {
+        const config = getConfig();
+        const tabs = [...editorTabsContainer.querySelectorAll<HTMLElement>('[data-multi-file]')];
+        const files: Config['files'] = cloneObject(config.files);
+        files.sort((a, b) => {
+          const aIndex = tabs.findIndex((t) => t.dataset.editor === a.filename);
+          const bIndex = tabs.findIndex((t) => t.dataset.editor === b.filename);
+          return aIndex - bIndex;
+        });
+        const activeEditor: string =
+          ev.data?.dragEvent?.originalSource?.dataset?.editor || files[0]?.filename;
+        setConfig({
+          ...config,
+          activeEditor,
+          files,
+        });
+        showEditor(activeEditor);
+      });
+    });
+  }
 };
 
 const addPhpToken = (code: string) =>
@@ -2043,7 +2065,6 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
     }
   }
   if (shouldReloadEditors) {
-    getProjectDir(true);
     await reloadEditors(combinedConfig);
   } else if (hasEditorConfig) {
     currentEditorConfig = {

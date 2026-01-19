@@ -120,6 +120,10 @@ export const doppioJvmBaseUrl = 'https://unpkg.com/@seth0x41/doppio@1.0.0/';
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
+export const draggableUrl = /* @__PURE__ */ getUrl(
+  '@shopify/draggable@1.2.1/build/umd/index.min.js',
+);
+
 export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.10/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');

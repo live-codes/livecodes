@@ -242,6 +242,8 @@ ruby.wasm: [MIT License](https://github.com/ruby/ruby.wasm/blob/097b7ca8d2ed2a98
 
 Sass.js: [MIT License](https://github.com/medialize/sass.js/blob/71d9bed2cad10969efda9905aa1bddacc480f372/LICENSE)
 
+@shopify/draggable: [MIT License](https://github.com/Shopify/draggable/blob/8a1eed57f3ab2dff9371e8ce60fb39ac85871e8d/LICENSE.md)
+
 SnackBar: [MIT License](https://github.com/egoist/snackbar/blob/4bc2fb7afd32d53a39661418fa5189dbb6e4aa86/LICENSE)
 
 Solid: [MIT License](https://github.com/solidjs/solid/blob/0d83a1947aab4bea4223460d6756a38374ba391e/LICENSE)
