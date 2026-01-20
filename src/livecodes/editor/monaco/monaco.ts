@@ -24,6 +24,7 @@ import {
   emmetMonacoUrl,
   monacoBaseUrl,
   monacoEmacsUrl,
+  monacoRippleUrl,
   monacoVimUrl,
   monacoVolarUrl,
   typescriptVersion,
@@ -259,7 +260,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     imba: baseUrl + '{{hash:monaco-lang-imba.js}}',
     minizinc: baseUrl + '{{hash:monaco-lang-minizinc.js}}',
     prolog: baseUrl + '{{hash:monaco-lang-prolog.js}}',
-    ripple: baseUrl + '{{hash:monaco-lang-ripple.js}}',
+    ripple: monacoRippleUrl,
     // sql: baseUrl + '{{hash:monaco-lang-sql.js}}', // TODO: add autocomplete
     wat: baseUrl + '{{hash:monaco-lang-wat.js}}',
   };
@@ -270,6 +271,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     completions?: Monaco.languages.CompletionItemProvider;
     hover?: Monaco.languages.HoverProvider;
     definitions?: Monaco.languages.DefinitionProvider;
+    init?: (monaco: typeof Monaco) => void;
   }
 
   const addVueSupport = async () => {
@@ -307,6 +309,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       }
       if (mod.definitions) {
         monaco.languages.registerDefinitionProvider(lang, mod.definitions);
+      }
+      if (typeof mod.init === 'function') {
+        mod.init(monaco);
       }
     }
   };

@@ -162,7 +162,6 @@ const esmBuild = () =>
       'editor/monaco/languages/monaco-lang-imba.ts',
       'editor/monaco/languages/monaco-lang-minizinc.ts',
       'editor/monaco/languages/monaco-lang-prolog.ts',
-      'editor/monaco/languages/monaco-lang-ripple.ts',
       // 'editor/monaco/languages/monaco-lang-sql.ts',
       'editor/monaco/languages/monaco-lang-wat.ts',
       'editor/codemirror/codemirror.ts',

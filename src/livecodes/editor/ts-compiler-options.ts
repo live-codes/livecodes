@@ -17,13 +17,14 @@ export const hasJsx = [
   'react-native',
   'react-native-tsx',
   'vue',
+  'ripple',
 ];
 
 export const getCompilerOptions = (language: Language): CompilerOptions => {
   const JSLangs = ['javascript', 'jsx', 'react', 'flow', 'solid', 'react-native'];
   const isJSLang = JSLangs.includes(language);
   const isJsx = hasJsx.includes(language);
-  const nonReactJsx = ['solid', 'solid.tsx', 'stencil', 'vue'].includes(language);
+  const nonReactJsx = ['solid', 'solid.tsx', 'stencil', 'vue', 'ripple'].includes(language);
 
   const settings: CompilerOptions = {
     noEmit: true, // required for allowImportingTsExtensions

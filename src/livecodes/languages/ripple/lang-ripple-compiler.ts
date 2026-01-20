@@ -33,6 +33,10 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
     { config, filename }: { config: Config; filename: string },
   ) => {
     const isMultiFile = config.files.length > 0;
+    if (filename === 'script') {
+      if (isMultiFile) return getCompileResult('');
+      filename = MAIN_FILE;
+    }
 
     if (filename === MAIN_FILE || isMultiFile) {
       importedContent = '';
@@ -95,9 +99,9 @@ document.head.appendChild(styles);
     };
   };
 
-  return (code, { config }) =>
+  return (code, { config, options: { filename } }) =>
     compileRipple(code, {
       config,
-      filename: MAIN_FILE,
+      filename,
     });
 };

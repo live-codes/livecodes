@@ -81,7 +81,7 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
   };
 
   return async (code, { config, language, options }) => {
-    const isMultiFileProject = Boolean(config.files.length);
+    const isMultiFileProject = config.files.length > 0;
     const isMainFile = isMultiFileProject
       ? false
       : config.markup.language !== 'svelte-app' || language === 'svelte-app';

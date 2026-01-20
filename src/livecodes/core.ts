@@ -391,8 +391,11 @@ const loadModuleTypes = async (
 ) => {
   const addTypes = editors?.[config.files?.[0]?.filename || 'script']?.addTypes;
   if (typeof addTypes !== 'function') return;
-  const scriptLanguage = config.script.language;
-  if (['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) || force) {
+  const scriptLanguages = getEditorLanguages().filter((l) => getLanguageEditorId(l) === 'script');
+  if (
+    scriptLanguages.some((l) => ['typescript', 'javascript', 'ripple'].includes(mapLanguage(l))) ||
+    force
+  ) {
     if (compiler.isFake) {
       // we need the real compiler for types
       await reloadCompiler({ ...config, mode: 'full' });
@@ -400,11 +403,17 @@ const loadModuleTypes = async (
     const configTypes = {
       ...getLanguageCompiler(config.markup.language)?.types,
       ...getLanguageCompiler(config.script.language)?.types,
+      ...config.files.reduce((acc, file) => {
+        const compiler = getLanguageCompiler(file.language);
+        return compiler ? { ...acc, ...compiler.types } : acc;
+      }, {} as Types),
       ...getDefaultTypes(),
       ...config.types,
       ...config.customSettings.types,
     };
-    const reactImport = hasJsx.includes(scriptLanguage) ? `import React from 'react';\n` : '';
+    const reactImport = scriptLanguages.some((l) => hasJsx.includes(l))
+      ? `import React from 'react';\n`
+      : '';
     const content = !config.files.length
       ? config.script.content + '\n' + config.markup.content
       : config.files.reduce(
