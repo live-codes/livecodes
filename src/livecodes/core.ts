@@ -781,22 +781,6 @@ const createEditors = async (config: Config) => {
   if (isReload) {
     loadModuleTypes(editors, config, /* loadAll = */ true);
   }
-
-  // TODO: fix this
-  // workaround for reloading types for file models (e.g. `import { msg } from './msg.ts'`)
-  if (config.files?.length && editors[config.files[0].filename as EditorId].monaco) {
-    for (const file of config.files) {
-      const editorId = file.filename as EditorId;
-      if (getLanguageEditorId(file.language!) !== 'script') continue;
-      const editor = editors[editorId];
-      setTimeout(() => {
-        changingContent = true;
-        editor.setValue(editor.getValue());
-        setSavedStatus();
-        changingContent = false;
-      }, 200);
-    }
-  }
 };
 
 const reloadEditors = async (config: Config) => {
