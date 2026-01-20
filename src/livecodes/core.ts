@@ -1028,7 +1028,7 @@ const configureEditorTools = (language: Language | undefined) => {
 };
 
 const configureMultiFile = (config: Config) => {
-  const editorTabsContainer = UI.getEditorSelectorDiv()!;
+  const editorTabsContainer = UI.getEditorTabScroller()!;
   const singleFileTabs = [
     ...editorTabsContainer.querySelectorAll<HTMLElement>('[data-single-file]'),
   ];

@@ -18,11 +18,15 @@
       display: flex;
       max-width: calc(70vw - 252px);
 
-      > div {
+      > div.editors-scroller {
         overflow-x: auto;
         overflow-y: hidden;
         scrollbar-width: none;
         width: unset;
+      }
+
+      .editor-scroll-btn {
+        display: flex;
       }
 
       .editor-title > span {

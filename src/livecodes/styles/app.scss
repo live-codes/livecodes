@@ -1318,9 +1318,47 @@ a.tools-pane-title {
   margin: 0 0 calc(-1 * var(--s2)) var(--s8);
   position: relative;
 
-  > div {
+  > div.editors-scroller {
     display: flex;
     height: 100%;
+  }
+
+  .editor-scroll-btn {
+    align-items: center;
+    background: var(--editor-title-bg-color);
+    border-inline: 2px solid var(--toolbar-bg-color);
+    border-block: 1px solid var(--editor-title-bg-color);
+    border-top-left-radius: var(--editor-title-border-radius);
+    border-top-right-radius: var(--editor-title-border-radius);
+    color: var(--editor-title-color);
+    cursor: pointer;
+    display: none;
+    font-size: inherit;
+    justify-content: center;
+    margin-right: 2px;
+    top: 1px;
+
+    &:hover {
+      background-color: var(--editor-title-bg-active);
+      border-color: var(--editor-title-bg-active);
+      color: var(--editor-title-active);
+    }
+
+    &.hidden {
+      visibility: hidden;
+    }
+
+    &.editor-scroll-start {
+      i.icon-arrow-down {
+        transform: rotate(90deg);
+      }
+    }
+
+    &.editor-scroll-end {
+      i.icon-arrow-down {
+        transform: rotate(270deg);
+      }
+    }
   }
 }
 

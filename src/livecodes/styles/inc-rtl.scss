@@ -29,6 +29,20 @@ html[dir='rtl'] {
     right: 98%;
   }
 
+  #select-editor .editor-scroll-btn {
+    &.editor-scroll-start {
+      i.icon-arrow-down {
+        transform: rotate(270deg);
+      }
+    }
+
+    &.editor-scroll-end {
+      i.icon-arrow-down {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
   #modal .close-button {
     left: 1.5rem;
     right: unset;
