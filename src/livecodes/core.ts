@@ -249,18 +249,18 @@ const loadStyles = () =>
   isHeadless
     ? Promise.resolve()
     : Promise.all(
-      [
-        snackbarUrl,
-        ...(isLite
-          ? []
-          : [
-            lunaObjViewerStylesUrl,
-            lunaDataGridStylesUrl,
-            lunaDomViewerStylesUrl,
-            lunaConsoleStylesUrl,
-          ]),
-      ].map((url) => loadStylesheet(url, undefined, '#app-styles')),
-    );
+        [
+          snackbarUrl,
+          ...(isLite
+            ? []
+            : [
+                lunaObjViewerStylesUrl,
+                lunaDataGridStylesUrl,
+                lunaDomViewerStylesUrl,
+                lunaConsoleStylesUrl,
+              ]),
+        ].map((url) => loadStylesheet(url, undefined, '#app-styles')),
+      );
 
 let lastRun = { time: 0, result: '' };
 const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>
@@ -352,11 +352,12 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
 
       iframe.remove(); // avoid changing browser history
       const { markup, style, script } = getConfig();
-      const query = `?markup=${markup.language}&style=${style.language}&script=${script.language
-        }&isEmbed=${isEmbed}&isLoggedIn=${Boolean(authService?.isLoggedIn())}&appCDN=${getAppCDN()}`;
+      const query = `?markup=${markup.language}&style=${style.language}&script=${
+        script.language
+      }&isEmbed=${isEmbed}&isLoggedIn=${Boolean(authService?.isLoggedIn())}&appCDN=${getAppCDN()}`;
       const scrollPosition =
         params.scrollPosition === false ||
-          (iframeScrollPosition.x === 0 && iframeScrollPosition.y === 0)
+        (iframeScrollPosition.x === 0 && iframeScrollPosition.y === 0)
           ? ''
           : `#livecodes-scroll-position:${iframeScrollPosition.x},${iframeScrollPosition.y}`;
       iframe.src = service.getResultUrl() + query + scrollPosition;
@@ -503,7 +504,7 @@ const createEditors = async (config: Config) => {
     language: languageIsEnabled(config.markup.language, config)
       ? config.markup.language
       : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') as Language) ||
-      'html',
+        'html',
     value: languageIsEnabled(config.markup.language, config) ? config.markup.content || '' : '',
   };
   const styleOptions: EditorOptions = {
@@ -513,7 +514,7 @@ const createEditors = async (config: Config) => {
     language: languageIsEnabled(config.style.language, config)
       ? config.style.language
       : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') as Language) ||
-      'css',
+        'css',
     value: languageIsEnabled(config.style.language, config) ? config.style.content || '' : '',
   };
   const scriptOptions: EditorOptions = {
@@ -523,7 +524,7 @@ const createEditors = async (config: Config) => {
     language: languageIsEnabled(config.script.language, config)
       ? config.script.language
       : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') as Language) ||
-      'javascript',
+        'javascript',
     value: languageIsEnabled(config.script.language, config) ? config.script.content || '' : '',
   };
 
@@ -980,12 +981,12 @@ const getResultPage = async ({
     blockly:
       scriptLanguage === 'blockly'
         ? ((await customEditors.blockly?.getContent({
-          baseUrl,
-          editors,
-          config: getConfig(),
-          html: compiledMarkup,
-          eventsManager,
-        })) as BlocklyContent)
+            baseUrl,
+            editors,
+            config: getConfig(),
+            html: compiledMarkup,
+            eventsManager,
+          })) as BlocklyContent)
         : {},
   });
   const compiledScript = scriptCompileResult.code;
@@ -1326,28 +1327,28 @@ const share = async (
   const config = getConfig();
   const content = contentOnly
     ? {
-      ...getContentConfig(config),
-      markup: {
-        ...config.markup,
-        title: undefined,
-        hideTitle: undefined,
-      },
-      style: {
-        ...config.style,
-        title: undefined,
-        hideTitle: undefined,
-      },
-      script: {
-        ...config.script,
-        title: undefined,
-        hideTitle: undefined,
-      },
-      tools: {
-        ...config.tools,
-        enabled: defaultConfig.tools.enabled,
-        status: config.tools.status === 'none' ? defaultConfig.tools.status : config.tools.status,
-      },
-    }
+        ...getContentConfig(config),
+        markup: {
+          ...config.markup,
+          title: undefined,
+          hideTitle: undefined,
+        },
+        style: {
+          ...config.style,
+          title: undefined,
+          hideTitle: undefined,
+        },
+        script: {
+          ...config.script,
+          title: undefined,
+          hideTitle: undefined,
+        },
+        tools: {
+          ...config.tools,
+          enabled: defaultConfig.tools.enabled,
+          status: config.tools.status === 'none' ? defaultConfig.tools.status : config.tools.status,
+        },
+      }
     : config;
 
   const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
@@ -1629,7 +1630,7 @@ const setSavedStatus = async () => {
     !!(
       savedConfig &&
       JSON.stringify(getContentConfig(savedConfig)) ===
-      JSON.stringify(getContentConfig(getConfig()))
+        JSON.stringify(getContentConfig(getConfig()))
     );
 
   const projectTitle = UI.getProjectTitleElement();
@@ -1811,12 +1812,12 @@ const login = async () =>
               const displayName = user.displayName || user.username;
               const loginSuccessMessage = displayName
                 ? window.deps.translateString(
-                  'core.login.successWithName',
-                  'Logged in as: {{name}}',
-                  {
-                    name: displayName,
-                  },
-                )
+                    'core.login.successWithName',
+                    'Logged in as: {{name}}',
+                    {
+                      name: displayName,
+                    },
+                  )
                 : window.deps.translateString('core.login.success', 'Logged in successfully');
               notifications.success(loginSuccessMessage);
               displayLoggedIn(user);
@@ -2589,9 +2590,9 @@ const handleKeyboardShortcutsScreen = () => {
       <tr>
         <td>${item.title}</td>
         <td>${item.hotkey
-            ?.split('+')
-            .map((key) => `<kbd>${capitalize(key)}</kbd>`)
-            .join(' ')}</td>
+          ?.split('+')
+          .map((key) => `<kbd>${capitalize(key)}</kbd>`)
+          .join(' ')}</td>
       </tr>
     `,
       )
