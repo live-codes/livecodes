@@ -53,12 +53,12 @@ export const noUserTemplates = () => `
   <div class="description alert">${window.deps.translateString('templates.noUserTemplates.heading', 'You have no saved templates.')}</div>
   <div class="description help">
     ${window.deps.translateString(
-      'templates.noUserTemplates.desc',
-      'You can save a project as a template from <wbr />(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
-      {
-        isHTML: true,
-      },
-    )}
+  'templates.noUserTemplates.desc',
+  'You can save a project as a template from <wbr />(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
+  {
+    isHTML: true,
+  },
+)}
   </div>
 </div>
 `;
@@ -68,7 +68,10 @@ export const setupTemplatesSearch = () => {
   if (!input) return;
 
   const filterTemplates = (query: string) => {
-    const items = document.querySelectorAll('#templates-user li');
+    console.log('Debuounce templates with query:', query);
+    const mainItems = document.querySelectorAll('#templates-starter li');
+    const userItems = document.querySelectorAll('#templates-user li');
+    const items = Array.from(mainItems).concat(Array.from(userItems));
     items.forEach((item) => {
       const text = item.textContent?.toLowerCase() || '';
       const matches = text.includes(query.toLowerCase());
@@ -82,6 +85,7 @@ export const setupTemplatesSearch = () => {
 
   input.addEventListener('input', (e: Event) => {
     const val = (e.target as HTMLInputElement).value || '';
+    console.log('Filtering templates with query:', val);
     debouncedFilter(val);
   });
 };
