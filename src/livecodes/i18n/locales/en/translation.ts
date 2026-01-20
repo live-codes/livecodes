@@ -982,6 +982,9 @@ const translation = {
       desc: 'You can save a project as a template from <1></1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
       heading: 'You have no saved templates.',
     },
+    search: {
+      label: 'Search templates',
+    },
     starter: {
       angular: 'Angular Starter',
       assemblyscript: 'AssemblyScript Starter',

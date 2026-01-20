@@ -1,4 +1,5 @@
 import { templatesScreen } from '../html';
+import { debounce } from '../utils/utils';
 import type { EventsManager, Template } from '../models';
 
 export const createTemplatesContainer = (
@@ -52,12 +53,35 @@ export const noUserTemplates = () => `
   <div class="description alert">${window.deps.translateString('templates.noUserTemplates.heading', 'You have no saved templates.')}</div>
   <div class="description help">
     ${window.deps.translateString(
-      'templates.noUserTemplates.desc',
-      'You can save a project as a template from <wbr />(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
-      {
-        isHTML: true,
-      },
-    )}
+  'templates.noUserTemplates.desc',
+  'You can save a project as a template from <wbr />(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
+  {
+    isHTML: true,
+  },
+)}
   </div>
 </div>
 `;
+
+export const setupTemplatesSearch = () => {
+  const input = document.getElementById('templates-search-input') as HTMLInputElement | null;
+  if (!input) return;
+
+  const filterTemplates = (query: string) => {
+    const items = document.querySelectorAll('#templates-user li');
+    items.forEach((item) => {
+      const text = item.textContent?.toLowerCase() || '';
+      const matches = text.includes(query.toLowerCase());
+      (item as HTMLElement).style.display = matches ? '' : 'none';
+    });
+  };
+
+  const debouncedFilter = debounce((val: string) => {
+    filterTemplates(val.trim());
+  }, 150);
+
+  input.addEventListener('input', (e: Event) => {
+    const val = (e.target as HTMLInputElement).value || '';
+    debouncedFilter(val);
+  });
+};
