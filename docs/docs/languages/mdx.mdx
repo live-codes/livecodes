@@ -80,7 +80,7 @@ import { ComponentName } from './script';
 
 ### Version
 
-`@mdx-js/mdx`: v3.1.0
+`@mdx-js/mdx`: v3.1.1
 
 ## Code Formatting
 

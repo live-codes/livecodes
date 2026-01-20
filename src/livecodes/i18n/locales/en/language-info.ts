@@ -159,6 +159,11 @@ const languageInfo = {
     link: '<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Java',
   },
+  javascript: {
+    desc: 'The scripting language of the web.',
+    link: '<1> <2>JavaScript on MDN</2> </1> <3> <4>Learn X in Y minutes, where X=JavaScript</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'JavaScript',
+  },
   jinja: {
     desc: 'Jinja is a fast, expressive, extensible templating engine.',
     link: '<1> <2>Official website</2> </1> <3> <4>Template documentation</4> </3> <5> <6>JavaScript implementation</6> </5> <7> <8>LiveCodes Documentations</8> </7>',
@@ -215,6 +220,11 @@ const languageInfo = {
     desc: 'Markdown for the component era. <1></1>MDX lets you seamlessly write JSX in your Markdown documents.',
     link: '<1><2>MDX documentation</2></1> <3> <4>Load starter template</4> </3>',
     name: 'MDX',
+  },
+  minizinc: {
+    desc: 'MiniZinc is a high-level constraint modelling language that allows you to easily express and solve discrete optimisation problems.',
+    link: '<1> <2>MiniZinc official website</2> </1> <3> <4>MiniZinc documentation</4> </3> <5> <6>MiniZinc tutorial</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'MiniZinc',
   },
   mjml: {
     desc: 'MJML is a markup language designed to reduce the pain of coding a responsive email.',

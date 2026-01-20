@@ -2022,6 +2022,9 @@
   "templates.starter.mdx": {
     "translation": "شروع کننده MDX"
   },
+  "templates.starter.minizinc": {
+    "translation": "شروع کننده MiniZinc"
+  },
   "templates.starter.ocaml": {
     "translation": "شروع کننده Ocaml"
   },

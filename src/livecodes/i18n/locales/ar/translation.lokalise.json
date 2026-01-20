@@ -2022,6 +2022,9 @@
   "templates.starter.mdx": {
     "translation": "قالب MDX"
   },
+  "templates.starter.minizinc": {
+    "translation": "قالب MiniZinc"
+  },
   "templates.starter.ocaml": {
     "translation": "قالب Ocaml"
   },

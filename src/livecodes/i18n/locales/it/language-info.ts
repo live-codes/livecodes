@@ -152,6 +152,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sito ufficiale di Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Imparare X in Y minuti, dove X=java</6> </5> <7> <8> Caricare il modello iniziale</8> </7>',
     name: 'Java',
   },
+  javascript: {
+    desc: 'Il linguaggio di scripting del web.',
+    link: '<1> <2>JavaScript su MDN</2> </1> <3> <4>Imparare X in Y minuti, dove X=JavaScript</4> </3> <5> <6>Documentazione LiveCodes</6> </5> <7> <8>Caricare il modello di partenza</8> </7>',
+    name: 'JavaScript',
+  },
   jinja: {
     desc: 'Jinja è un motore di template veloce, espressivo ed estensibile.',
     link: '<1> <2>Sito ufficiale</2> </1> <3> <4> Documentazione dei modelli</4> </3> <5> <6> Implementazione di JavaScript</6> </5> <7> <8> Documentazioni LiveCodes</8> </7>',
@@ -208,6 +213,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: "Markdown per l'era dei componenti. <1></1>MDX ti permette di scrivere senza problemi JSX nei tuoi documenti Markdown.",
     link: '<1><2>Documentazione MDX</2></1> <3><4>Carica modello di partenza</4></3>',
     name: 'MDX',
+  },
+  minizinc: {
+    desc: 'MiniZinc è un linguaggio di modellazione dei vincoli di alto livello che consente di esprimere e risolvere facilmente problemi di ottimizzazione discreta.',
+    link: '<1> <2>Sito ufficiale di MiniZinc</2> </1> <3> <4>Documentazione di MiniZinc</4> </3> <5> <6>Tutorial di MiniZinc</6> </5> <7> <8>Documentazione di LiveCodes</8> </7> <9> <10>Modello di avvio del caricamento</10> </9>',
+    name: 'MiniZinc',
   },
   mjml: {
     desc: "MJML è un linguaggio di markup progettato per ridurre la fatica di codifica di un'email responsive.",

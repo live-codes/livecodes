@@ -2696,6 +2696,10 @@
     "notes": "",
     "translation": "MDX Starter"
   },
+  "templates.starter.minizinc": {
+    "notes": "",
+    "translation": "MiniZinc Starter"
+  },
   "templates.starter.ocaml": {
     "notes": "",
     "translation": "Ocaml Starter"

@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "Die Skriptsprache des Webs."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>JavaScript auf MDN</tag-2> </tag-1> <tag-3> <tag-4>Lernen Sie X in Y Minuten, wobei X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokumentation</tag-6> </tag-5> <tag-7> <tag-8>Laden Sie eine Startvorlage</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja ist eine schnelle, ausdrucksstarke und erweiterbare Template-Engine."
   },
@@ -368,6 +377,15 @@
   },
   "mdx.name": {
     "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "MiniZinc ist eine hochentwickelte Sprache zur Modellierung von Nebenbedingungen, mit der Sie diskrete Optimierungsprobleme leicht ausdrücken und lösen können."
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>Offizielle MiniZinc-Website</tag-2> </tag-1> <tag-3> <tag-4>MiniZinc-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>MiniZinc-Tutorial</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-Dokumentationen</tag-8> </tag-7> <tag-9> <tag-10>Startvorlage laden</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
   },
   "mjml.desc": {
     "translation": "MJML ist eine Auszeichnungssprache, die entwickelt wurde, um den Aufwand beim Codieren einer responsiven E-Mail zu reduzieren."

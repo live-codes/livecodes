@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "A linguagem de script da Web."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>JavaScript na MDN</tag-2> </tag-1> <tag-3> <tag-4>Aprenda X em Y minutos, onde X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>Documentação LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Carregar modelo inicial</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja é um motor de criação de modelos rápido, expressivo e extensível."
   },
@@ -368,6 +377,15 @@
   },
   "mdx.name": {
     "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "O MiniZinc é uma linguagem de modelação de restrições de alto nível que permite exprimir e resolver facilmente problemas de otimização discreta."
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>Sítio Web oficial do MiniZinc</tag-2> </tag-1> <tag-3> <tag-4>Documentação do MiniZinc</tag-4> </tag-3> <tag-5> <tag-6>Tutorial do MiniZinc</tag-6> </tag-5> <tag-7> <tag-8>Documentações LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
   },
   "mjml.desc": {
     "translation": "MJML é uma linguagem de marcação projetada para reduzir o trabalho de codificar um e-mail responsivo."

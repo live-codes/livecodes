@@ -323,6 +323,7 @@ export const getCommandMenuActions = ({
         'sql',
         'postgresql',
         'prolog',
+        'minizinc',
         'blockly',
         'diagrams',
       ).map((template) => ({

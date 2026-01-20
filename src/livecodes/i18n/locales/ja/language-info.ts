@@ -152,6 +152,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Java公式サイト    DoppioJVM    XをY分で学ぶ、X=Java    スターターテンプレートのロード</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
     name: 'Java',
   },
+  javascript: {
+    desc: 'ウェブのスクリプト言語。',
+    link: '<1> <2>JavaScript on MDN</2> </1> <3> <4>Learn X in Y minutes, where X=JavaScript</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'JavaScript',
+  },
   jinja: {
     desc: 'Jinjaは高速で、表現力があり、拡張可能なテンプレートエンジンです。',
     link: '<1> <2>公式ウェブサイト    テンプレートドキュメント    JavaScript実装    LiveCodesドキュメント</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
@@ -208,6 +213,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'コンポーネント時代の Markdown。<1></1>MDX を使用すると、Markdown ドキュメント内でシームレスに JSX を記述できます。',
     link: '<1><2>MDX ドキュメント</2></1> <3><4>スターターテンプレートを読み込む</4></3>',
     name: 'MDX',
+  },
+  minizinc: {
+    desc: 'MiniZincは高水準の制約モデリング言語で、離散最適化問題を簡単に表現し、解くことができます。',
+    link: '<1> <2>MiniZinc 公式ウェブサイト</2> </1> <3> <4>MiniZinc ドキュメント</4> </3> <5> <6>MiniZinc チュートリアル</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>ロードスターターテンプレート</10> </9>',
+    name: 'MiniZinc',
   },
   mjml: {
     desc: 'MJML は、レスポンシブなメールのコーディングの苦痛を軽減するために設計されたマークアップ言語です。',

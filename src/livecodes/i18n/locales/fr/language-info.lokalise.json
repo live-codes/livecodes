@@ -267,6 +267,15 @@
   "java.name": {
     "translation": "Java"
   },
+  "javascript.desc": {
+    "translation": "Le langage de script du web."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>JavaScript sur MDN</tag-2> </tag-1> <tag-3> <tag-4>Apprendre X en Y minutes, où X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>Documentation LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Charger le modèle de démarrage</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
   "jinja.desc": {
     "translation": "Jinja est un moteur de création de modèles rapide, expressif et extensible."
   },
@@ -368,6 +377,15 @@
   },
   "mdx.name": {
     "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "MiniZinc est un langage de modélisation des contraintes de haut niveau qui permet d'exprimer et de résoudre facilement des problèmes d'optimisation discrets."
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>Site officiel de MiniZinc</tag-2> </tag-1> <tag-3> <tag-4>Documentation de MiniZinc</tag-4> </tag-3> <tag-5> <tag-6>Tutoriel de MiniZinc</tag-6> </tag-5> <tag-7> <tag-8>Documentations de LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Modèle de démarrage de charge</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
   },
   "mjml.desc": {
     "translation": "MJML est un langage de balisage conçu pour réduire la difficulté de codage d'un e-mail responsive."

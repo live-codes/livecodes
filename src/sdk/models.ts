@@ -933,6 +933,7 @@ export type Language =
   | 'postcss'
   | 'javascript'
   | 'js'
+  | 'mjs'
   | 'json'
   | 'babel'
   | 'es'
@@ -940,6 +941,7 @@ export type Language =
   | 'typescript'
   | 'flow'
   | 'ts'
+  | 'mts'
   | 'jsx'
   | 'tsx'
   | 'react'
@@ -1085,6 +1087,9 @@ export type Language =
   | 'postgresql.sql'
   | 'prolog.pl'
   | 'prolog'
+  | 'minizinc'
+  | 'mzn'
+  | 'dzn'
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
@@ -1254,7 +1259,8 @@ export type ParserName =
   | 'less'
   | 'php'
   | 'pug'
-  | 'java';
+  | 'java'
+  | 'minizinc';
 
 export interface Parser {
   name: ParserName;
@@ -1355,6 +1361,7 @@ export interface Compiler {
     | 'text/commonlisp'
     | 'text/tcl'
     | 'text/prolog'
+    | 'text/minizinc'
     | 'text/go-wasm'
     | 'application/json'
     | 'application/lua'
@@ -1449,6 +1456,7 @@ export type TemplateName =
   | 'sql'
   | 'postgresql'
   | 'prolog'
+  | 'minizinc'
   | 'blockly'
   | 'diagrams';
 
@@ -1786,15 +1794,19 @@ export interface BlocklyContent {
 export type AppLanguage =
   | 'auto'
   | 'ar'
+  | 'bn'
   | 'de'
   | 'en'
   | 'es'
   | 'fa'
   | 'fr'
   | 'hi'
+  | 'id'
   | 'it'
   | 'ja'
+  | 'nl'
   | 'pt'
+  | 'tr'
   | 'ru'
   | 'ur'
   | 'zh-CN';

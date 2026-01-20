@@ -41,6 +41,7 @@ import { luaWasm } from './lua-wasm';
 import { malina } from './malina';
 import { markdown } from './markdown';
 import { mdx } from './mdx';
+import { minizinc } from './minizinc';
 import { mjml } from './mjml';
 import { mustache } from './mustache';
 import { nunjucks } from './nunjucks';
@@ -166,5 +167,6 @@ export const languages: LanguageSpecs[] = [
   sql,
   postgresql,
   prolog,
+  minizinc,
   blockly,
 ];

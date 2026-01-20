@@ -148,6 +148,8 @@ mhsdesign/jit-browser-tailwindcss: [MIT License](https://github.com/mhsdesign/ji
 
 MDX: [MIT License](https://github.com/mdx-js/mdx/blob/7fd1d9a4272754951e70dbaecff07a0ae402e13e/license)
 
+minizinc-js: [MPL-2.0 License](https://github.com/MiniZinc/minizinc-js/blob/3f7c34f0549195e5a66cf0f2d6f34cb5bce867f4/LICENSE)
+
 MJML: [MIT License](https://github.com/mjmlio/mjml/blob/988819de3375867c09585d28f555166b97415200/LICENSE.md)
 
 Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f849d3f2653d1097652a7d9e1d01d242cc225da8/LICENSE.md)
