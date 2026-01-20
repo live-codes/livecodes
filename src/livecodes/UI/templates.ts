@@ -1,6 +1,6 @@
 import { templatesScreen } from '../html';
-import { debounce } from '../utils/utils';
 import type { EventsManager, Template } from '../models';
+import { debounce } from '../utils/utils';
 
 export const createTemplatesContainer = (
   eventsManager: EventsManager,
@@ -53,12 +53,12 @@ export const noUserTemplates = () => `
   <div class="description alert">${window.deps.translateString('templates.noUserTemplates.heading', 'You have no saved templates.')}</div>
   <div class="description help">
     ${window.deps.translateString(
-  'templates.noUserTemplates.desc',
-  'You can save a project as a template from <wbr />(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
-  {
-    isHTML: true,
-  },
-)}
+      'templates.noUserTemplates.desc',
+      'You can save a project as a template from <wbr />(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
+      {
+        isHTML: true,
+      },
+    )}
   </div>
 </div>
 `;
