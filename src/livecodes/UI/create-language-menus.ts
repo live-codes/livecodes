@@ -179,6 +179,7 @@ export const createMultiFileEditorTab = ({
   deleteFile,
   isMainFile,
   isNewFile = false,
+  isHidden = false,
 }: {
   title: string;
   showEditor: (filename: string) => void;
@@ -187,6 +188,7 @@ export const createMultiFileEditorTab = ({
   deleteFile: (filename: string) => void;
   isMainFile: boolean;
   isNewFile: boolean;
+  isHidden?: boolean;
 }) => {
   let currentFileName = title;
   if (getEditorTab(currentFileName)) return;
@@ -308,6 +310,9 @@ export const createMultiFileEditorTab = ({
   if (isNewFile) {
     scrollTo?.scrollIntoView({ behavior: 'smooth', inline: 'end' });
     onDblClick();
+  }
+  if (isHidden) {
+    editorSelector.style.display = 'none';
   }
 };
 

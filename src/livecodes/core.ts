@@ -434,8 +434,10 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 
 export const setEditorTitle = (editorId: EditorId, title: string) => {
   if (!isEditorId(editorId)) return;
-  const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
-  const editorTitleContainer = document.querySelector(`#${editorId}-selector`) as HTMLElement;
+  const editorTitleContainer = document.querySelector(
+    `.editor-title[data-editor="${editorId}"]`,
+  ) as HTMLElement;
+  const editorTitle = editorTitleContainer.querySelector('span') as HTMLElement;
   const language = getLanguageByAlias(title);
   if (!editorTitle || !language) return;
   const config = getConfig();
@@ -604,6 +606,8 @@ const deleteFile = (filename: string) => {
   }
   const id = editorIds.findIndex((editorId) => editorId === filename);
   if (id > -1) {
+    const editorIdToShow = id === 0 ? 1 : id - 1;
+    showEditor(editorIds[editorIdToShow]);
     editorIds.splice(id, 1);
   }
   UI.getEditorDivs().forEach((editorDiv) => {
@@ -619,7 +623,7 @@ const deleteFile = (filename: string) => {
   dispatchChangeEvent();
 };
 
-const createEditorUI = (title: string) => {
+const createEditorUI = (title: string, isHidden = false) => {
   const editorsElement = UI.getEditorsElement();
   editorsElement.querySelector(`.editor[data-editor-id="${title}"]`)?.remove();
   const container = document.createElement('div');
@@ -634,6 +638,7 @@ const createEditorUI = (title: string) => {
     deleteFile,
     isMainFile: title === getMainFile(getConfig()),
     isNewFile: false,
+    isHidden,
   });
   return container;
 };
@@ -730,7 +735,7 @@ const createEditors = async (config: Config) => {
     editorIds.length = 0;
     for (const file of config.files) {
       const editorId = file.filename as EditorId;
-      const container = createEditorUI(file.filename);
+      const container = createEditorUI(file.filename, file.hidden);
       const editorOptions = {
         ...baseOptions,
         container,
@@ -1052,22 +1057,30 @@ const configureMultiFile = (config: Config) => {
         distance: 5, // The distance the pointer have moved before drag starts. This is useful for clickable draggable elements.
       });
       fileSortable.on('sortable:stop', (ev: any) => {
-        const config = getConfig();
-        const tabs = [...editorTabsContainer.querySelectorAll<HTMLElement>('[data-multi-file]')];
-        const files: Config['files'] = cloneObject(config.files);
-        files.sort((a, b) => {
-          const aIndex = tabs.findIndex((t) => t.dataset.editor === a.filename);
-          const bIndex = tabs.findIndex((t) => t.dataset.editor === b.filename);
-          return aIndex - bIndex;
+        // wait till DOM changes
+        requestAnimationFrame(() => {
+          const config = getConfig();
+          const tabs = [...editorTabsContainer.querySelectorAll<HTMLElement>('[data-multi-file]')];
+          const files: Config['files'] = cloneObject(config.files);
+          files.sort((a, b) => {
+            const aIndex = tabs.findIndex((t) => t.dataset.editor === a.filename);
+            const bIndex = tabs.findIndex((t) => t.dataset.editor === b.filename);
+            return aIndex - bIndex;
+          });
+          editorIds.sort((a, b) => {
+            const aIndex = tabs.findIndex((t) => t.dataset.editor === a);
+            const bIndex = tabs.findIndex((t) => t.dataset.editor === b);
+            return aIndex - bIndex;
+          });
+          const activeEditor: string =
+            ev.data?.dragEvent?.originalSource?.dataset?.editor || files[0]?.filename;
+          setConfig({
+            ...config,
+            activeEditor,
+            files,
+          });
+          showEditor(activeEditor);
         });
-        const activeEditor: string =
-          ev.data?.dragEvent?.originalSource?.dataset?.editor || files[0]?.filename;
-        setConfig({
-          ...config,
-          activeEditor,
-          files,
-        });
-        showEditor(activeEditor);
       });
     });
   }
