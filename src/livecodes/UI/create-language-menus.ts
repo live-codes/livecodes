@@ -9,7 +9,13 @@ import type {
   Template,
 } from '../models';
 import { handleSlash, removeFormatting } from '../utils';
-import { getEditorSelector, getEditorSelectorDiv, getEditorTab } from './selectors';
+import {
+  getEditorScrollerEnd,
+  getEditorScrollerStart,
+  getEditorSelector,
+  getEditorTab,
+  getEditorTabScroller,
+} from './selectors';
 
 export const createLanguageMenus = (
   config: Config,
@@ -21,8 +27,7 @@ export const createLanguageMenus = (
   registerMenuButton: (menu: HTMLElement, button: HTMLElement) => void,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
-  const rootList = document.createElement('div');
-  document.querySelector('#select-editor')?.appendChild(rootList);
+  const rootList = getEditorTabScroller()!;
 
   let editorsNumber = editorIds.length;
 
@@ -162,6 +167,8 @@ export const createLanguageMenus = (
       editorSelector.classList.add('half-width');
     });
   }
+
+  handleEditorTabScroll();
 };
 
 export const createMultiFileEditorTab = ({
@@ -172,6 +179,7 @@ export const createMultiFileEditorTab = ({
   deleteFile,
   isMainFile,
   isNewFile = false,
+  isHidden = false,
 }: {
   title: string;
   showEditor: (filename: string) => void;
@@ -180,6 +188,7 @@ export const createMultiFileEditorTab = ({
   deleteFile: (filename: string) => void;
   isMainFile: boolean;
   isNewFile: boolean;
+  isHidden?: boolean;
 }) => {
   let currentFileName = title;
   if (getEditorTab(currentFileName)) return;
@@ -296,12 +305,51 @@ export const createMultiFileEditorTab = ({
   label.addEventListener('keydown', onKeyDown);
 
   const scrollTo = document.querySelector('#multi-file-scroll-to');
-  getEditorSelectorDiv()?.insertBefore(editorSelector, scrollTo);
+  getEditorTabScroller()?.insertBefore(editorSelector, scrollTo);
 
   if (isNewFile) {
     scrollTo?.scrollIntoView({ behavior: 'smooth', inline: 'end' });
     onDblClick();
   }
+  if (isHidden) {
+    editorSelector.style.display = 'none';
+  }
+};
+
+const handleEditorTabScroll = () => {
+  const scroller = getEditorTabScroller();
+  const startBtn = getEditorScrollerStart() as HTMLElement;
+  const endBtn = getEditorScrollerEnd() as HTMLElement;
+  if (!scroller || !startBtn || !endBtn) return;
+  const isRTL = () => document.documentElement.dir === 'rtl';
+
+  // TODO: use CSS @container scroll-state instead when it has better browser support
+  const updateScrollButtons = () => {
+    if (!scroller || !startBtn || !endBtn) return;
+    const canScrollLeft = scroller.scrollLeft > 0;
+    const canScrollRight = scroller.scrollLeft < scroller.scrollWidth - scroller.clientWidth;
+    startBtn.classList.toggle('hidden', !canScrollLeft && !isRTL());
+    endBtn.classList.toggle('hidden', !canScrollRight && !isRTL());
+  };
+
+  startBtn.addEventListener('click', () => {
+    scroller.scrollBy({
+      left: isRTL() ? scroller.clientWidth : -scroller.clientWidth,
+      behavior: 'smooth',
+    });
+    updateScrollButtons();
+  });
+  endBtn.addEventListener('click', () => {
+    scroller.scrollBy({
+      left: isRTL() ? -scroller.clientWidth : scroller.clientWidth,
+      behavior: 'smooth',
+    });
+    updateScrollButtons();
+  });
+
+  scroller.addEventListener('scroll', updateScrollButtons);
+  window.addEventListener('resize', updateScrollButtons);
+  updateScrollButtons();
 };
 
 export const createAddFileButton = ({ onclick: handleAddFileClick }: { onclick: () => void }) => {
@@ -316,7 +364,7 @@ export const createAddFileButton = ({ onclick: handleAddFileClick }: { onclick: 
 
   const scrollTo = document.createElement('div');
   scrollTo.id = 'multi-file-scroll-to';
-  getEditorSelectorDiv()?.appendChild(scrollTo);
+  getEditorTabScroller()?.appendChild(scrollTo);
 };
 
 export const createProcessorItem = (processor: { name: string; title: string }) => {

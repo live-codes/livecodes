@@ -316,6 +316,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
+  await loadMonacoLanguage(language);
+
   const getOrCreateModel = (value: string, lang: string | undefined, uri: Monaco.Uri) => {
     const model = monaco.editor.getModel(uri);
     if (model) {
@@ -360,7 +362,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     language: language.startsWith('vue') ? 'html' : monacoMapLanguage(language),
   });
   setModel(editor, options.value, language.startsWith('vue') ? 'html' : language);
-  loadMonacoLanguage(language);
 
   // avoid a race condition that prevents loading vue worker
   if (language.startsWith('vue')) {

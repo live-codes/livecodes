@@ -181,8 +181,14 @@ export const getModalDisableRecoverCheckbox = /* @__PURE__ */ () =>
 
 export const getEditorSelector = /* @__PURE__ */ () => document.querySelector('#select-editor');
 
-export const getEditorSelectorDiv = /* @__PURE__ */ () =>
-  document.querySelector('#select-editor > div');
+export const getEditorTabScroller = /* @__PURE__ */ () =>
+  document.querySelector('#select-editor > div.editors-scroller');
+
+export const getEditorScrollerStart = /* @__PURE__ */ () =>
+  document.querySelector('#select-editor .editor-scroll-start');
+
+export const getEditorScrollerEnd = /* @__PURE__ */ () =>
+  document.querySelector('#select-editor .editor-scroll-end');
 
 export const getEditorTab = /* @__PURE__ */ (editorId: string) =>
   document.querySelector<HTMLElement>(`#select-editor .editor-title[data-editor="${editorId}"]`);
