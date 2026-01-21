@@ -312,14 +312,13 @@ export const createMultiFileEditorTab = ({
 };
 
 const handleEditorTabScroll = () => {
-  // TODO: use CSS @container scroll-state instead
-
   const scroller = getEditorTabScroller();
   const startBtn = getEditorScrollerStart() as HTMLElement;
   const endBtn = getEditorScrollerEnd() as HTMLElement;
   if (!scroller || !startBtn || !endBtn) return;
   const isRTL = () => document.documentElement.dir === 'rtl';
 
+  // TODO: use CSS @container scroll-state instead when it has better browser support
   const updateScrollButtons = () => {
     if (!scroller || !startBtn || !endBtn) return;
     const canScrollLeft = scroller.scrollLeft > 0;

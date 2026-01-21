@@ -16,7 +16,7 @@
 
     #select-editor {
       display: flex;
-      max-width: calc(70vw - 252px);
+      max-width: calc(100vw - 480px);
 
       > div.editors-scroller {
         overflow-x: auto;
@@ -50,15 +50,18 @@
     }
   }
 
-  @media only screen and (max-width: 1024px) {
-    #toolbar #select-editor {
-      max-width: calc(70vw - 180px);
-    }
-  }
+  @media only screen and (max-width: 768px) and (min-width: 481px) {
+    #toolbar {
+      #app-menu-button-help,
+      #app-menu-button-i18n,
+      #light-theme-button,
+      #dark-theme-button {
+        display: none !important;
+      }
 
-  @media only screen and (max-width: 768px) {
-    #toolbar #select-editor {
-      max-width: calc(70vw - 100px);
+      #select-editor {
+        max-width: calc(100vw - 210px);
+      }
     }
   }
 
@@ -80,6 +83,15 @@
     @media only screen and (max-width: 768px) {
       #toolbar #select-editor {
         max-width: calc(100vw - 80px);
+      }
+    }
+  }
+
+  .simple-mode {
+    #toolbar {
+      #add-file-button,
+      .delete-file-button {
+        display: none;
       }
     }
   }
