@@ -311,7 +311,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoRippleUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-ripple@0.1.0/dist/index.js',
+  '@live-codes/monaco-ripple@0.1.3/dist/index.js',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
