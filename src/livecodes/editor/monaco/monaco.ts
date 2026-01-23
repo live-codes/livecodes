@@ -96,7 +96,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
             ? 'vue'
             : ['svelte', 'malina', 'riot'].includes(language)
               ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
-              : mapLanguage(language);
+              : language === 'json' && (editorId.endsWith('.json5') || editorId.endsWith('.jsonc'))
+                ? 'json5'
+                : mapLanguage(language) === 'text'
+                  ? 'plaintext'
+                  : mapLanguage(language);
 
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;
@@ -257,6 +261,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     astro: baseUrl + '{{hash:monaco-lang-astro.js}}',
     clio: baseUrl + '{{hash:monaco-lang-clio.js}}',
     imba: baseUrl + '{{hash:monaco-lang-imba.js}}',
+    json5: baseUrl + '{{hash:monaco-lang-json5.js}}',
     minizinc: baseUrl + '{{hash:monaco-lang-minizinc.js}}',
     prolog: baseUrl + '{{hash:monaco-lang-prolog.js}}',
     // sql: baseUrl + '{{hash:monaco-lang-sql.js}}', // TODO: add autocomplete
@@ -282,7 +287,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const loadMonacoLanguage = async (lang: Language) => {
-    if (monacoMapLanguage(lang) === 'vue') {
+    lang = monacoMapLanguage(lang);
+    if (lang === 'vue') {
       await addVueSupport();
       return;
     }

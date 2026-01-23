@@ -160,6 +160,7 @@ const esmBuild = () =>
       'editor/monaco/languages/monaco-lang-astro.ts',
       'editor/monaco/languages/monaco-lang-clio.ts',
       'editor/monaco/languages/monaco-lang-imba.ts',
+      'editor/monaco/languages/monaco-lang-json5.ts',
       'editor/monaco/languages/monaco-lang-minizinc.ts',
       'editor/monaco/languages/monaco-lang-prolog.ts',
       // 'editor/monaco/languages/monaco-lang-sql.ts',

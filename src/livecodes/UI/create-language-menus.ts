@@ -62,9 +62,9 @@ export const createLanguageMenus = (
     languageMenu.classList.add('dropdown-menu-' + editorId);
     menuScroller.appendChild(languageMenu);
 
-    const editorLanguages = [...window.deps.languages]
-      .filter((language) => language.editor === editorId)
-      .filter((language) => languageIsEnabled(language.name, config));
+    const editorLanguages = [...window.deps.languages].filter(
+      (language) => language.editor === editorId && languageIsEnabled(language.name, config),
+    );
 
     if (editorLanguages.length === 0) {
       editorSelector.classList.add('hidden');

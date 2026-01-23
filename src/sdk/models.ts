@@ -998,6 +998,8 @@ export type Language =
   | 'js'
   | 'mjs'
   | 'json'
+  | 'json5'
+  | 'jsonc'
   | 'babel'
   | 'es'
   | 'sucrase'
@@ -1157,7 +1159,12 @@ export type Language =
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
-  | 'pintora';
+  | 'pintora'
+  | 'text'
+  | 'txt'
+  | 'csv'
+  | 'tsv'
+  | 'plaintext';
 
 export interface Editor {
   /**

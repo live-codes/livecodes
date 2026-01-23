@@ -8,7 +8,12 @@ import {
   resolvePath,
 } from '../compiler/import-map';
 import { getMainFile } from '../config/utils';
-import { getLanguageByAlias, getLanguageCompiler, getLanguageEditorId } from '../languages/utils';
+import {
+  getLanguageByAlias,
+  getLanguageCompiler,
+  getLanguageEditorId,
+  mapLanguage,
+} from '../languages/utils';
 import type { CompileInfo, Config, SourceFile } from '../models';
 import { getAppCDN, modulesService } from '../services/modules';
 import { testImports } from '../toolspane/test-imports';
@@ -103,22 +108,25 @@ export const createMultiFileResultPage = async ({
   const relativeImports: Record<string, string> = {};
 
   // generate data urls for files
-  const getDataUrl = (file: SourceFile & { compiled: string }) => {
+  const getDataUrl = (file: SourceFile & { compiled: string }, saveToFileUrls = true) => {
     if (file.filename === mainFile) return;
     const content = file.compiled;
-    const mimeType = file.filename.endsWith('.json')
-      ? 'application/json'
-      : file.filename.endsWith('.svg')
-        ? 'image/svg+xml'
-        : getLanguageEditorId(file.language) === 'markup'
-          ? 'text/html'
-          : getLanguageEditorId(file.language) === 'style'
-            ? 'text/css'
-            : getLanguageEditorId(file.language) === 'script'
-              ? 'text/javascript'
-              : 'text/plain';
+    const mimeType =
+      mapLanguage(file.language) === 'json'
+        ? 'application/json'
+        : file.filename.endsWith('.svg')
+          ? 'image/svg+xml'
+          : getLanguageEditorId(file.language) === 'markup'
+            ? 'text/html'
+            : getLanguageEditorId(file.language) === 'style'
+              ? 'text/css'
+              : getLanguageEditorId(file.language) === 'script'
+                ? 'text/javascript'
+                : 'text/plain';
     const dataUrl = toDataUrl(content, mimeType);
-    fileUrls[file.filename] = dataUrl;
+    if (saveToFileUrls) {
+      fileUrls[file.filename] = dataUrl;
+    }
     return dataUrl;
   };
 
@@ -252,6 +260,17 @@ export const createMultiFileResultPage = async ({
     file.compiled = replaceImports(file.compiled, config, {
       importMap: fileImports,
     });
+
+    // replace relative URL access (e.g. img.src="./logo.svg") or fetching files (e.g. fetch("./data.json"))
+    let dataUrl: string | undefined; // cache data url
+    compiledFiles
+      .filter((f) => getLanguageEditorId(f.language) === 'script')
+      .forEach((f) => {
+        f.compiled = f.compiled.replace(
+          new RegExp(`(['"\`])(\\.\\/)?${file.filename}`, 'g'),
+          `$1${(dataUrl ??= getDataUrl(file, /* saveToFileUrls */ false))}`,
+        );
+      });
   });
 
   Object.keys(codeImports)
@@ -259,7 +278,13 @@ export const createMultiFileResultPage = async ({
     .forEach((mod) => {
       const file = findFile(mod.replace('~/', './'));
       if (!file) return;
-      const dataUrl = fileUrls[file.filename] || getDataUrl(file);
+      const dataUrl =
+        fileUrls[file.filename] ||
+        (mapLanguage(file.language) === 'json'
+          ? toDataUrl(`export default ${file.compiled};`)
+          : mapLanguage(file.language) === 'text'
+            ? toDataUrl(`export default \`${escapeCode(file.compiled)}\`;`)
+            : getDataUrl(file));
       if (!dataUrl) return;
       codeImports[mod] = dataUrl;
       fileUrls[file.filename] = dataUrl;

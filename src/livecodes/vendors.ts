@@ -270,6 +270,8 @@ export const jsclUrl = /* @__PURE__ */ getUrl(
   'gh:jscl-project/jscl-project.github.io@058adc599f0d012718ef3ad28e704a92c4dd741e/jscl.js',
 );
 
+export const json5Url = /* @__PURE__ */ getUrl('json5@2.2.3/dist/index.min.js');
+
 export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
