@@ -541,7 +541,7 @@ const addFile = async (
   editorLanguages![validName] = fileLanguage;
   editors[validName] = editor;
   editorIds.push(validName);
-  handleChangeContent(validName);
+  handleChangeContent(editor);
   if (config.autoupdate) {
     run();
   }
@@ -3035,8 +3035,9 @@ const handleChangeLanguage = () => {
   }
 };
 
-const handleChangeContent = (editorId?: EditorId) => {
-  const contentChanged = async (editorId: EditorId, loading: boolean) => {
+const handleChangeContent = (editor?: CodeEditor) => {
+  const contentChanged = async (editor: CodeEditor, loading: boolean) => {
+    const editorId = editor.getEditorId();
     updateConfig();
     const config = getConfig();
     addConsoleInputCodeCompletion();
@@ -3075,25 +3076,25 @@ const handleChangeContent = (editorId?: EditorId) => {
     loadModuleTypes(editors, config);
   };
 
-  const debouncecontentChanged = (editorId: EditorId) =>
+  const debouncecontentChanged = (editor: CodeEditor) =>
     debounce(
       async () => {
-        await contentChanged(editorId, changingContent);
+        await contentChanged(editor, changingContent);
       },
       () => getConfig().delay ?? defaultConfig.delay,
     );
 
-  const subscribeEditor = (editorId: EditorId) => {
-    if (!editorId || !editors?.[editorId]) return;
-    editors[editorId].onContentChanged(debouncecontentChanged(editorId));
-    editors[editorId].onContentChanged(setSavedStatus);
+  const subscribeEditor = (editor: CodeEditor) => {
+    if (!editor) return;
+    editor.onContentChanged(debouncecontentChanged(editor));
+    editor.onContentChanged(setSavedStatus);
   };
 
-  if (editorId) {
-    subscribeEditor(editorId);
+  if (editor) {
+    subscribeEditor(editor);
   } else {
-    Object.keys(editors).forEach((editorId) => {
-      subscribeEditor(editorId);
+    Object.values(editors).forEach((editor) => {
+      subscribeEditor(editor);
     });
   }
 };

@@ -262,6 +262,7 @@ export const createMultiFileResultPage = async ({
     });
 
     // replace relative URL access (e.g. img.src="./logo.svg") or fetching files (e.g. fetch("./data.json"))
+    // note that the URLs should be relative to the main file (e.g. index.html)
     let dataUrl: string | undefined; // cache data url
     compiledFiles
       .filter((f) => getLanguageEditorId(f.language) === 'script')
