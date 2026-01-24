@@ -1,6 +1,7 @@
 import { templatesScreen } from '../html';
 import type { EventsManager, Template } from '../models';
 import { debounce } from '../utils/utils';
+import { getTemplatesSearchInput } from './selectors';
 
 export const createTemplatesContainer = (eventsManager: EventsManager) => {
   const div = document.createElement('div');
@@ -59,7 +60,7 @@ export const noUserTemplates = () => `
 `;
 
 export const setupTemplatesSearch = (container: HTMLElement) => {
-  const input = container.querySelector('#templates-search-input');
+  const input = getTemplatesSearchInput(container);
   if (!input) return;
 
   const filterTemplates = (query: string) => {

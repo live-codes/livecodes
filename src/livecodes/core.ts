@@ -3255,38 +3255,40 @@ const handleNew = () => {
     });
   };
 
-  let starterTemplatesCache: Template[];
   const createTemplatesUI = async () => {
     const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
+    if (!starterTemplatesList) return;
+    starterTemplatesList.innerHTML = '';
+    const searchInput = UI.getTemplatesSearchInput(templatesContainer);
+    if (searchInput) {
+      searchInput.value = '';
+    }
     const loadingText = starterTemplatesList?.firstElementChild;
-    if (!starterTemplatesCache) {
-      getTemplates()
-        .then((starterTemplates) => {
-          starterTemplatesCache = starterTemplates;
-          loadingText?.remove();
-          starterTemplates.forEach((template) => {
-            const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
-            eventsManager.addEventListener(
-              link,
-              'click',
-              (event) => {
-                event.preventDefault();
-                loadStarterTemplate(template.name, /* checkSaved= */ false);
-              },
-              false,
-            );
-          });
-        })
-        .catch(() => {
-          loadingText?.remove();
-          notifications.error(
-            window.deps.translateString(
-              'core.error.failedToLoadTemplates',
-              'Failed loading starter templates',
-            ),
+    getTemplates()
+      .then((starterTemplates) => {
+        loadingText?.remove();
+        starterTemplates.forEach((template) => {
+          const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
+          eventsManager.addEventListener(
+            link,
+            'click',
+            (event) => {
+              event.preventDefault();
+              loadStarterTemplate(template.name, /* checkSaved= */ false);
+            },
+            false,
           );
         });
-    }
+      })
+      .catch(() => {
+        loadingText?.remove();
+        notifications.error(
+          window.deps.translateString(
+            'core.error.failedToLoadTemplates',
+            'Failed loading starter templates',
+          ),
+        );
+      });
 
     loadUserTemplates();
     requestAnimationFrame(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
