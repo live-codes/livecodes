@@ -631,14 +631,16 @@ const createEditorUI = (title: string, isHidden = false) => {
   container.dataset.multiFile = 'true';
   container.classList.add('editor');
   editorsElement.insertBefore(container, UI.getEditorToolbar());
+  const config = getConfig();
   createMultiFileEditorTab({
     title,
     showEditor,
     renameFile,
     deleteFile,
-    isMainFile: title === getMainFile(getConfig()),
+    isMainFile: title === getMainFile(config),
     isNewFile: false,
     isHidden,
+    isLocked: config.lockFiles || config.readonly,
   });
   return container;
 };
@@ -711,18 +713,21 @@ const createEditors = async (config: Config) => {
   };
 
   if (config.files?.length) {
-    createAddFileButton({
-      onclick: () =>
-        createMultiFileEditorTab({
-          title: '        ',
-          showEditor,
-          addFile: async (filename: string) => addFile(filename, baseOptions),
-          renameFile,
-          deleteFile,
-          isMainFile: false,
-          isNewFile: true,
-        }),
-    });
+    if (!config.lockFiles && !config.readonly) {
+      createAddFileButton({
+        onclick: () =>
+          createMultiFileEditorTab({
+            title: '        ',
+            showEditor,
+            addFile: async (filename: string) => addFile(filename, baseOptions),
+            renameFile,
+            deleteFile,
+            isMainFile: false,
+            isNewFile: true,
+            isLocked: false,
+          }),
+      });
+    }
 
     editorLanguages = { markup: 'html', style: 'css', script: 'javascript' };
     editors = {
@@ -1050,7 +1055,7 @@ const configureMultiFile = (config: Config) => {
 
   // allow re-ordering file tabs by drag and drop
   fileSortable?.destroy();
-  if (isMultiFile) {
+  if (isMultiFile && !config.lockFiles && !config.readonly) {
     loadScript(draggableUrl, 'Draggable').then((Draggable: any) => {
       fileSortable = new Draggable.Sortable(editorTabsContainer, {
         draggable: '[data-multi-file]',

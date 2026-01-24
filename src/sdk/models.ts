@@ -406,7 +406,7 @@ export interface EmbedOptions {
 export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
 export interface SingleFileConfig
-  extends Omit<ContentConfig, 'files' | 'mainFile' | 'fileLanguages'>,
+  extends Omit<ContentConfig, 'files' | 'mainFile' | 'fileLanguages' | 'lockFiles'>,
     AppConfig,
     UserConfig {}
 
@@ -520,6 +520,12 @@ export interface ContentConfig {
   fileLanguages?: Partial<Record<Language, Language>>;
 
   /**
+   * When `true`, the user won't be able to add/rename/re-order/delete files. The file content can still be edited.
+   * @default false
+   */
+  lockFiles?: boolean;
+
+  /**
    * List of URLs for [external stylesheets](https://livecodes.io/docs/features/external-resources) to add to the [result page](https://livecodes.io/docs/features/result).
    */
   stylesheets: string[];
@@ -626,6 +632,7 @@ export type MultiFileContentConfig = Pick<
   | 'files'
   | 'mainFile'
   | 'fileLanguages'
+  | 'lockFiles'
   | 'languages'
   | 'processors'
   | 'customSettings'

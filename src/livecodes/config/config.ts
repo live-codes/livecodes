@@ -35,6 +35,7 @@ export const getContentConfig = (config: Config | ContentConfig): ContentConfig 
     files: config.files,
     mainFile: config.mainFile,
     fileLanguages: config.fileLanguages,
+    lockFiles: config.lockFiles,
     stylesheets: config.stylesheets,
     scripts: config.scripts,
     cssPreset: config.cssPreset,
