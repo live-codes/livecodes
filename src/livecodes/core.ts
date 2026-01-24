@@ -3147,10 +3147,10 @@ const handleLogout = () => {
 };
 
 const handleNew = () => {
-  const templatesContainer = createTemplatesContainer(eventsManager, () => loadUserTemplates());
-  const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
+  const templatesContainer = createTemplatesContainer(eventsManager);
 
   const loadUserTemplates = async () => {
+    const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
     const defaultTemplate = getAppData()?.defaultTemplate;
     const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
       a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
@@ -3288,7 +3288,8 @@ const handleNew = () => {
         });
     }
 
-    setTimeout(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
+    loadUserTemplates();
+    requestAnimationFrame(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
     modal.show(templatesContainer, { isAsync: true });
   };
 
