@@ -984,6 +984,7 @@ const translation = {
     },
     search: {
       label: 'Search templates',
+      placeholder: 'Search templates...',
     },
     starter: {
       angular: 'Angular Starter',
