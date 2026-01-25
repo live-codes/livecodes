@@ -22,6 +22,7 @@ import {
   escapeCode,
   escapeScript,
   getAbsoluteUrl,
+  getRandomString,
   isRelativeUrl,
   objectMap,
   toCamelCase,
@@ -36,7 +37,6 @@ export const createMultiFileResultPage = async ({
   forExport,
   template,
   baseUrl,
-  // singleFileResult,
   runTests,
   compileInfo,
 }: {
@@ -51,7 +51,21 @@ export const createMultiFileResultPage = async ({
   compileInfo: CompileInfo;
 }): Promise<string> => {
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
-  compiledFiles = cloneObject(compiledFiles); // avoid mutation
+  const testsFilename = `tests.${getRandomString()}.js`;
+  // avoid mutation
+  compiledFiles = cloneObject(
+    [
+      ...compiledFiles,
+      runTests
+        ? {
+            filename: testsFilename,
+            content: config.tests?.content || '',
+            compiled: compiledTests,
+            language: 'js',
+          }
+        : null,
+    ].filter((x) => x != null),
+  );
   const mainFile = getMainFile(config);
   const mainFileHTML = compiledFiles.find((f) => f.filename === mainFile)?.compiled || '';
 
@@ -535,7 +549,7 @@ export const createMultiFileResultPage = async ({
     testScript.dataset.env = 'development';
     testScript.innerHTML = `
 const {afterAll, afterEach, beforeAll, beforeEach, describe, fdescribe, xdescribe, it, test, fit, xtest, xit, expect, jest} = window.browserJest;
-${escapeScript(compiledTests)}
+${escapeScript(compiledFiles.find((f) => f.filename === testsFilename)?.compiled || '')}
 
 window.browserJest.run().then(results => {
   parent.postMessage({type: 'testResults', payload: {results: results.testResults }}, '*');

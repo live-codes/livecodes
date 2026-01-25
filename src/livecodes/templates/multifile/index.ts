@@ -1,5 +1,6 @@
 import { blank } from './blank';
 import { javascript } from './javascript';
+import { jest } from './jest';
 import { lit } from './lit';
 import { preact } from './preact';
 import { react } from './react';
@@ -18,4 +19,5 @@ export const multifileTemplates = [
   svelte,
   solid,
   lit,
+  jest,
 ];

@@ -1562,7 +1562,8 @@ export type TemplateName =
   | 'multifile-preact'
   | 'multifile-svelte'
   | 'multifile-solid'
-  | 'multifile-lit';
+  | 'multifile-lit'
+  | 'multifile-jest';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';

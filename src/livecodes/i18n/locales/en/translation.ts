@@ -987,6 +987,7 @@ const translation = {
       blank: 'Blank Template',
       heading: 'Multi-file Templates',
       javascript: 'JavaScript Template',
+      jest: 'Jest Template',
       lit: 'Lit Template',
       loading: 'Loading multi-file templates...',
       preact: 'Preact Template',

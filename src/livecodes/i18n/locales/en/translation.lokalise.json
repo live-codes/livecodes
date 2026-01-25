@@ -2564,6 +2564,10 @@
     "notes": "",
     "translation": "JavaScript Template"
   },
+  "templates.multifile.jest": {
+    "notes": "",
+    "translation": "Jest Template"
+  },
   "templates.multifile.lit": {
     "notes": "",
     "translation": "Lit Template"
