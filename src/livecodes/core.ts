@@ -1,5 +1,6 @@
 import { getPlaygroundUrl } from '../sdk';
 import {
+  addTemplateToIndex,
   createLoginContainer,
   createOpenItem,
   createProjectInfoUI,
@@ -10,6 +11,7 @@ import {
   displayLoggedOut,
   getFullscreenButton,
   getResultElement,
+  initTemplatesSearchIndex,
   loadingMessage,
   noUserTemplates,
 } from './UI';
@@ -3174,6 +3176,7 @@ const handleNew = () => {
         getLanguageByAlias,
         true,
       );
+      addTemplateToIndex(item);
 
       if (defaultTemplate === item.id) {
         link.parentElement?.classList.add('selected');
@@ -3256,6 +3259,7 @@ const handleNew = () => {
   };
 
   const createTemplatesUI = async () => {
+    initTemplatesSearchIndex();
     const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
     if (!starterTemplatesList) return;
     starterTemplatesList.innerHTML = '';
@@ -3267,8 +3271,13 @@ const handleNew = () => {
     getTemplates()
       .then((starterTemplates) => {
         loadingText?.remove();
-        starterTemplates.forEach((template) => {
-          const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
+        starterTemplates.forEach((template, id) => {
+          const link = createStarterTemplateLink(
+            { id: String(id), ...template },
+            starterTemplatesList,
+            baseUrl,
+          );
+          addTemplateToIndex({ id: String(id), ...template });
           eventsManager.addEventListener(
             link,
             'click',
