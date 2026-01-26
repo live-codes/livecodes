@@ -2552,6 +2552,10 @@
     "notes": "",
     "translation": "Search templates"
   },
+  "templates.search.placeholder": {
+    "notes": "",
+    "translation": "Search templates..."
+  },
   "templates.starter.angular": {
     "notes": "",
     "translation": "Angular Starter"
@@ -2607,6 +2611,14 @@
   "templates.starter.cpp-wasm": {
     "notes": "",
     "translation": "C++ (Wasm) Starter"
+  },
+  "templates.starter.csharp-wasm": {
+    "notes": "",
+    "translation": "C# (Wasm) Starter"
+  },
+  "templates.starter.d3": {
+    "notes": "",
+    "translation": "D3 Starter"
   },
   "templates.starter.daisyui": {
     "notes": "",
@@ -2712,6 +2724,10 @@
     "notes": "",
     "translation": "Perl Starter"
   },
+  "templates.starter.phaser": {
+    "notes": "",
+    "translation": "Phaser Starter"
+  },
   "templates.starter.php": {
     "notes": "",
     "translation": "PHP Starter"
@@ -2735,6 +2751,10 @@
   "templates.starter.python": {
     "notes": "",
     "translation": "Python Starter"
+  },
+  "templates.starter.python-wasm": {
+    "notes": "",
+    "translation": "Python (Wasm) Starter"
   },
   "templates.starter.r": {
     "notes": "",

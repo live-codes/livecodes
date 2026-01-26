@@ -490,6 +490,9 @@ export const getStarterTemplatesList = /* @__PURE__ */ (templatesContainer: HTML
 export const getUserTemplatesScreen = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector('#templates-user .modal-screen') as HTMLElement;
 
+export const getTemplatesSearchInput = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
+  templatesContainer.querySelector('#templates-search-input') as HTMLInputElement;
+
 export const getBulkImportButton = /* @__PURE__ */ (listContainer: HTMLElement) =>
   listContainer.querySelector('#bulk-import-button') as HTMLElement;
 

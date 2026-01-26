@@ -2,8 +2,8 @@ import type { Template } from '../../models';
 
 export const pythonWasmStarter: Template = {
   name: 'python-wasm',
-  aliases: ['pyodide'],
-  title: 'Python (Wasm) Starter',
+  aliases: ['pyodide', 'py-wasm'],
+  title: window.deps.translateString('templates.starter.python-wasm', 'Python (Wasm) Starter'),
   thumbnail: 'assets/templates/python.svg',
   activeEditor: 'script',
   markup: {

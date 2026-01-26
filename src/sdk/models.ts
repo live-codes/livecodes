@@ -1381,7 +1381,7 @@ export interface Compilers {
 export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &
   Partial<ContentConfig> & {
     name: TemplateName;
-    aliases?: TemplateName[];
+    aliases?: TemplateAlias[];
     thumbnail: string;
     tools?: Config['tools'];
     autotest?: Config['autotest'];
@@ -1425,7 +1425,6 @@ export type TemplateName =
   | 'reason'
   | 'ocaml'
   | 'python'
-  | 'pyodide'
   | 'python-wasm'
   | 'r'
   | 'ruby'
@@ -1435,7 +1434,6 @@ export type TemplateName =
   | 'php'
   | 'php-wasm'
   | 'cpp'
-  | 'clang'
   | 'cpp-wasm'
   | 'java'
   | 'csharp-wasm'
@@ -1459,6 +1457,40 @@ export type TemplateName =
   | 'minizinc'
   | 'blockly'
   | 'diagrams';
+
+export type TemplateAlias =
+  | 'js'
+  | 'ts'
+  | 'ng'
+  | 'bs'
+  | 'tailwind'
+  | 'tw'
+  | 'coffee'
+  | 'ls'
+  | 'py'
+  | 'pyodide'
+  | 'py-wasm'
+  | 'r-lang'
+  | 'rlang'
+  | 'rb'
+  | 'rb-wasm'
+  | 'golang'
+  | 'golang-wasm'
+  | 'c++'
+  | 'clang'
+  | 'c++-wasm'
+  | 'c#-wasm'
+  | 'cs-wasm'
+  | 'pl'
+  | 'lisp'
+  | 'cljs'
+  | 'md'
+  | 'as'
+  | 'postgres'
+  | 'pg'
+  | 'pgsql'
+  | 'prolog'
+  | 'mzn';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';
