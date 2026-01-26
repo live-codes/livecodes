@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const pythonStarter: Template = {
   name: 'python',
+  aliases: ['py'],
   title: window.deps.translateString('templates.starter.python', 'Python Starter'),
   thumbnail: 'assets/templates/python.svg',
   activeEditor: 'script',

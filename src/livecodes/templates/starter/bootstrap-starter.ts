@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const bootstrapStarter: Template = {
   name: 'bootstrap',
+  aliases: ['bs'],
   title: window.deps.translateString('templates.starter.bootstrap', 'Bootstrap Starter'),
   thumbnail: 'assets/templates/bootstrap.svg',
   activeEditor: 'markup',
