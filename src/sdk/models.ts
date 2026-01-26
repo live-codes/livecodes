@@ -1489,7 +1489,6 @@ export type TemplateAlias =
   | 'postgres'
   | 'pg'
   | 'pgsql'
-  | 'prolog'
   | 'mzn';
 
 export interface Tool {

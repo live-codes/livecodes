@@ -124,7 +124,7 @@ export const setupTemplatesSearch = (container: HTMLElement) => {
     filterTemplates(val.trim());
   }, 150);
 
-  input.addEventListener('keyup', (e: Event) => {
+  input.addEventListener('input', (e: Event) => {
     const val = (e.target as HTMLInputElement).value || '';
     debouncedFilter(val);
   });

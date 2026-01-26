@@ -392,7 +392,7 @@ const organizeProjects = (
 
     eventsManager.addEventListener(
       searchProjectsInput,
-      'keyup',
+      'input',
       async () => {
         const result = await index.searchAsync(searchProjectsInput.value);
         searchResults = result.map((field: any) => field.result).flat();
