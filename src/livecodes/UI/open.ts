@@ -23,6 +23,7 @@ export const createOpenItem = (
   isTemplate = false,
 ) => {
   const li = document.createElement('li');
+  li.dataset.id = item.id;
   list.appendChild(li);
 
   const link = document.createElement('a');
@@ -391,7 +392,7 @@ const organizeProjects = (
 
     eventsManager.addEventListener(
       searchProjectsInput,
-      'keyup',
+      'input',
       async () => {
         const result = await index.searchAsync(searchProjectsInput.value);
         searchResults = result.map((field: any) => field.result).flat();

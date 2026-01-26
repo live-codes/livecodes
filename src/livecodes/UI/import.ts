@@ -271,6 +271,6 @@ export const createImportUI = ({
     showScreen('open');
   });
 
-  modal.show(importContainer, { isAsync: true, autoFocus: false });
+  modal.show(importContainer, { isAsync: true, autoFocus: false, size: 'large-fixed' });
   getUrlImportInput(importContainer).focus();
 };

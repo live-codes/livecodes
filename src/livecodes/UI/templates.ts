@@ -1,10 +1,12 @@
 import { templatesScreen } from '../html';
 import type { EventsManager, Template } from '../models';
+import { debounce, loadScript } from '../utils/utils';
+import { flexSearchUrl } from '../vendors';
+import { getTemplatesSearchInput } from './selectors';
 
-export const createTemplatesContainer = (
-  eventsManager: EventsManager,
-  loadUserTemplates: () => void,
-) => {
+let searchIndex: Promise<any> | undefined;
+
+export const createTemplatesContainer = (eventsManager: EventsManager) => {
   const div = document.createElement('div');
   div.innerHTML = templatesScreen;
   const templatesContainer = div.firstChild as HTMLElement;
@@ -22,20 +24,19 @@ export const createTemplatesContainer = (
       });
       const target = templatesContainer.querySelector('#' + link.dataset.target);
       target?.classList.add('active');
-      if (link.dataset.target === 'templates-user') {
-        loadUserTemplates();
-      }
     });
   });
+  setupTemplatesSearch(templatesContainer);
   return templatesContainer;
 };
 
 export const createStarterTemplateLink = (
-  template: Template,
+  template: Template & { id: string },
   starterTemplatesList: HTMLElement | null,
   baseUrl: string,
 ) => {
   const li = document.createElement('li');
+  li.dataset.id = template.id;
   const link = document.createElement('a');
   link.href = '?template=' + template.name;
   link.innerHTML = `
@@ -61,3 +62,70 @@ export const noUserTemplates = () => `
   </div>
 </div>
 `;
+
+export const initTemplatesSearchIndex = () => {
+  searchIndex = loadScript(flexSearchUrl, 'FlexSearch').then(
+    async (FlexSearch: any) =>
+      new FlexSearch.Document({
+        index: ['name', 'title', 'description', 'aliases', 'tags', 'languages'],
+        tokenize: 'full',
+        worker: true,
+      }),
+  );
+};
+
+export const addTemplateToIndex = ({
+  id,
+  title,
+  name = '',
+  description = '',
+  aliases = [],
+  tags = [],
+  languages = [],
+}: {
+  id: string;
+  title: string;
+  name?: string;
+  description?: string;
+  aliases?: string[];
+  tags?: string[];
+  languages?: string[];
+}) => {
+  searchIndex?.then((index) => {
+    index.add({ id, name, title, description, aliases, tags, languages });
+  });
+};
+
+export const setupTemplatesSearch = (container: HTMLElement) => {
+  const input = getTemplatesSearchInput(container);
+  if (!input) return;
+
+  const filterTemplates = (query: string) => {
+    searchIndex?.then(async (index) => {
+      const mainItems = container.querySelectorAll(
+        '#templates-starter li',
+      ) as NodeListOf<HTMLElement>;
+      const userItems = container.querySelectorAll('#templates-user li') as NodeListOf<HTMLElement>;
+      const items = Array.from(mainItems).concat(Array.from(userItems));
+
+      const result =
+        query === ''
+          ? null
+          : (await index.searchAsync(query)).map((field: any) => field.result).flat();
+
+      items.forEach((item) => {
+        (item as HTMLElement).style.display =
+          query === '' || result.includes(item.dataset.id as string) ? '' : 'none';
+      });
+    });
+  };
+
+  const debouncedFilter = debounce((val: string) => {
+    filterTemplates(val.trim());
+  }, 150);
+
+  input.addEventListener('input', (e: Event) => {
+    const val = (e.target as HTMLInputElement).value || '';
+    debouncedFilter(val);
+  });
+};

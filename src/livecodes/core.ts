@@ -1,5 +1,6 @@
 import { getPlaygroundUrl } from '../sdk';
 import {
+  addTemplateToIndex,
   createLoginContainer,
   createOpenItem,
   createProjectInfoUI,
@@ -10,6 +11,7 @@ import {
   displayLoggedOut,
   getFullscreenButton,
   getResultElement,
+  initTemplatesSearchIndex,
   loadingMessage,
   noUserTemplates,
 } from './UI';
@@ -3147,10 +3149,10 @@ const handleLogout = () => {
 };
 
 const handleNew = () => {
-  const templatesContainer = createTemplatesContainer(eventsManager, () => loadUserTemplates());
-  const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
+  const templatesContainer = createTemplatesContainer(eventsManager);
 
   const loadUserTemplates = async () => {
+    const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
     const defaultTemplate = getAppData()?.defaultTemplate;
     const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
       a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
@@ -3174,6 +3176,7 @@ const handleNew = () => {
         getLanguageByAlias,
         true,
       );
+      addTemplateToIndex(item);
 
       if (defaultTemplate === item.id) {
         link.parentElement?.classList.add('selected');
@@ -3255,41 +3258,50 @@ const handleNew = () => {
     });
   };
 
-  let starterTemplatesCache: Template[];
   const createTemplatesUI = async () => {
+    initTemplatesSearchIndex();
     const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
+    if (!starterTemplatesList) return;
+    starterTemplatesList.innerHTML = '';
+    const searchInput = UI.getTemplatesSearchInput(templatesContainer);
+    if (searchInput) {
+      searchInput.value = '';
+    }
     const loadingText = starterTemplatesList?.firstElementChild;
-    if (!starterTemplatesCache) {
-      getTemplates()
-        .then((starterTemplates) => {
-          starterTemplatesCache = starterTemplates;
-          loadingText?.remove();
-          starterTemplates.forEach((template) => {
-            const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
-            eventsManager.addEventListener(
-              link,
-              'click',
-              (event) => {
-                event.preventDefault();
-                loadStarterTemplate(template.name, /* checkSaved= */ false);
-              },
-              false,
-            );
-          });
-        })
-        .catch(() => {
-          loadingText?.remove();
-          notifications.error(
-            window.deps.translateString(
-              'core.error.failedToLoadTemplates',
-              'Failed loading starter templates',
-            ),
+    getTemplates()
+      .then((starterTemplates) => {
+        loadingText?.remove();
+        starterTemplates.forEach((template, id) => {
+          const link = createStarterTemplateLink(
+            { id: String(id), ...template },
+            starterTemplatesList,
+            baseUrl,
+          );
+          addTemplateToIndex({ id: String(id), ...template });
+          eventsManager.addEventListener(
+            link,
+            'click',
+            (event) => {
+              event.preventDefault();
+              loadStarterTemplate(template.name, /* checkSaved= */ false);
+            },
+            false,
           );
         });
-    }
+      })
+      .catch(() => {
+        loadingText?.remove();
+        notifications.error(
+          window.deps.translateString(
+            'core.error.failedToLoadTemplates',
+            'Failed loading starter templates',
+          ),
+        );
+      });
 
-    setTimeout(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
-    modal.show(templatesContainer, { isAsync: true });
+    loadUserTemplates();
+    requestAnimationFrame(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
+    modal.show(templatesContainer, { isAsync: true, size: 'large-fixed' });
   };
 
   eventsManager.addEventListener(

@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const goWasmStarter: Template = {
   name: 'go-wasm',
+  aliases: ['golang-wasm'],
   title: window.deps.translateString('templates.starter.go-wasm', 'Go (Wasm) Starter'),
   thumbnail: 'assets/templates/go.svg',
   activeEditor: 'script',

@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const tailwindcssStarter: Template = {
   name: 'tailwindcss',
+  aliases: ['tw', 'tailwind'],
   title: window.deps.translateString('templates.starter.tailwindcss', 'Tailwind CSS Starter'),
   thumbnail: 'assets/templates/tailwindcss.svg',
   activeEditor: 'markup',
