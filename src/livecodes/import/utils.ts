@@ -1,13 +1,33 @@
-import { isEditorId } from '../config/utils';
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import { getMainFile, isEditorId } from '../config/utils';
+import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { Config, EditorId, Language } from '../models';
 
 export interface SourceFile {
   filename: string;
   content: string;
+  path?: string;
   language?: Language;
   editorId?: EditorId;
 }
+
+const prepareFiles = (config: { files?: Config['files'] }): Partial<Config> => {
+  if (!config.files?.length) return config;
+  const mainFile = getMainFile(config);
+  if (!mainFile || !config.files.find((f) => f.filename === mainFile)) {
+    return config;
+  }
+  const title = config.files
+    .find((f) => f.filename === mainFile)
+    ?.content.match(/<title>(.*?)<\/title>/)?.[1];
+
+  config.files.sort((f1, f2) => (f1.filename === mainFile ? -1 : f2.filename === mainFile ? 1 : 0));
+  return {
+    ...(title ? { title } : {}),
+    mainFile,
+    activeEditor: mainFile,
+    ...config,
+  };
+};
 
 export const populateConfig = (
   files: SourceFile[],
@@ -22,7 +42,16 @@ export const populateConfig = (
   );
   if (configFile) {
     try {
-      return JSON.parse(configFile.content);
+      const obj = JSON.parse(configFile.content);
+      if (
+        // if is LiveCodes config
+        obj.markup?.language ||
+        obj.style?.language ||
+        obj.script?.language ||
+        (obj.files?.[0]?.filename && obj.files?.[0]?.content)
+      ) {
+        return obj;
+      }
     } catch {
       // invalid JSON
     }
@@ -31,28 +60,40 @@ export const populateConfig = (
   // select files in query params (e.g. ?files=index.html,script.js)
   const filesInParams = params.files;
   if (filesInParams) {
-    return filesInParams
+    const config = filesInParams
       .split(',')
       .map((filename) => filename.trim())
       .reduce((output: Partial<Config>, filename: string) => {
-        const extension = filename.split('.')[filename.split('.').length - 1];
-        const language = getLanguageByAlias(extension);
-        if (!language) return output;
         const file = files.find((file) => file.filename === filename);
         if (!file) return output;
-
-        const editorId = getLanguageEditorId(language);
-        if (!editorId || !isEditorId(editorId) || output[editorId]) return output;
-
+        const language = getFileLanguage(file.filename) as Language;
         return {
           ...output,
-          activeEditor: output.activeEditor || editorId, // set first as active editor
-          [editorId]: {
-            language,
-            content: file.content,
-          },
+          files: [
+            ...(output.files || []),
+            {
+              filename: file.path || file.filename,
+              content: file.content,
+              language,
+            },
+          ],
         };
       }, {} as Partial<Config>);
+    return prepareFiles(config);
+  }
+
+  // external styles and scripts (e.g. github gist exported from codepen)
+  const stylesFile = files.find((file) => file.filename === 'styles');
+  const scriptsFile = files.find((file) => file.filename === 'scripts');
+
+  if (!stylesFile && !scriptsFile) {
+    return prepareFiles({
+      files: files.map((file) => ({
+        filename: file.path || file.filename,
+        content: file.content,
+        language: file.language || (getFileLanguage(file.filename) as Language),
+      })),
+    });
   }
 
   // select languages from files
@@ -161,7 +202,6 @@ export const populateConfig = (
 
   // extract external styles and scripts
   const stylesheets: string[] = [];
-  const stylesFile = files.find((file) => file.filename === 'styles');
   if (stylesFile?.content) {
     try {
       const urls: string[] = [];
@@ -191,7 +231,6 @@ export const populateConfig = (
   }
 
   const scripts: string[] = [];
-  const scriptsFile = files.find((file) => file.filename === 'scripts');
   if (scriptsFile?.content) {
     try {
       const urls: string[] = [];

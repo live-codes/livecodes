@@ -1,4 +1,4 @@
-import { getLanguageByAlias } from '../languages';
+import { getFileExtension, getLanguageByAlias } from '../languages';
 import { getValidUrl } from './check-src';
 import { populateConfig } from './utils';
 
@@ -18,7 +18,7 @@ export const importFromGithubGist = async (url: string, params: { [key: string]:
       .then((files) =>
         Object.values(files).map((file: any) => {
           const lang = file.language;
-          const extension = file.filename.split('.')[file.filename.split('.').length - 1];
+          const extension = getFileExtension(file.filename);
           const language = getLanguageByAlias(extension) || getLanguageByAlias(lang);
           return {
             ...file,

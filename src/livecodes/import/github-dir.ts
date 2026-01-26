@@ -1,7 +1,6 @@
 import { decode } from 'js-base64';
 import type { User } from '../models';
 import { getGithubHeaders } from '../services/github';
-import { modifyMarkup } from './github';
 import { populateConfig } from './utils';
 
 export const importFromGithubDir = async (
@@ -68,32 +67,16 @@ export const importFromGithubDir = async (
             })
             .then((data) => data.content),
         );
-
+        const relativePath = dir ? file.path.replace(`${dir}/`, '') : file.path;
         return {
           filename,
           content,
-          path: file.path,
+          path: relativePath,
         };
       }),
     );
 
-    const config = populateConfig(files, params);
-
-    return modifyMarkup(
-      config,
-      files
-        .filter((f) =>
-          [config.markup?.content, config.style?.content, config.script?.content].includes(
-            f.content,
-          ),
-        )
-        .map((f) => ({
-          user,
-          repo: repository,
-          ref: branch,
-          path: f.path,
-        })),
-    );
+    return populateConfig(files, params);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Cannot fetch directory: ' + url);

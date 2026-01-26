@@ -42,10 +42,12 @@ export const importFromGitlabDir = async (url: string, params: { [key: string]: 
           if (!res.ok) throw new Error('Cannot fetch: ' + file.url);
           return res.text();
         });
+        const relativePath = dir ? file.path.replace(`${dir}/`, '') : file.path;
 
         return {
           filename,
           content,
+          path: relativePath,
         };
       }),
     );

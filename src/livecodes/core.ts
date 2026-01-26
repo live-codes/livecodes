@@ -77,7 +77,6 @@ import { appLanguages } from './i18n/app-languages';
 import { isGithub } from './import/check-src';
 import { importCompressedCode } from './import/code';
 import { importFromFiles } from './import/files';
-import { populateConfig } from './import/utils';
 import {
   getFileLanguage,
   getLanguageByAlias,
@@ -3916,7 +3915,7 @@ const handleImport = () => {
       eventsManager,
       getUser: authService?.getUser,
       loadConfig,
-      populateConfig,
+      importFromFiles,
       projectStorage: stores.projects,
       showScreen,
     });
@@ -5284,13 +5283,24 @@ const handleDropFiles = () => {
 
   eventsManager.addEventListener(document, 'drop', (event: DragEvent) => {
     event.preventDefault();
-    const files = event.dataTransfer?.files;
-    if (!files?.length) return;
+    if (!event.dataTransfer) return;
+    // TODO: check saved status
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
+    const files = event.dataTransfer.files;
+    const items = event.dataTransfer.items; // for directories
+    if (!files?.length && !items?.length) return;
+    const entries = { files, items };
 
-    importFromFiles(files, populateConfig, eventsManager)
-      .then(loadConfig)
+    importFromFiles(entries)
+      .then(async (fileConfig) => {
+        if (Object.keys(fileConfig).length === 0) return;
+        await loadConfig(fileConfig);
+      })
       .catch((message) => {
         notifications.error(message);
+      })
+      .finally(() => {
+        modal.close();
       });
   });
 
