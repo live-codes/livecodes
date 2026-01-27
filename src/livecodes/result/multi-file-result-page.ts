@@ -66,6 +66,16 @@ export const createMultiFileResultPage = async ({
         : null,
     ].filter((x) => x != null),
   );
+
+  const publicFiles = compiledFiles
+    .filter(
+      (f) =>
+        f.filename.startsWith('public/') &&
+        !compiledFiles.find((ff) => ff.filename === f.filename.replace('public/', '')),
+    )
+    .map((f) => ({ ...f, filename: f.filename.replace('public/', '') }));
+  compiledFiles.push(...publicFiles);
+
   const mainFile = getMainFile(config);
   const mainFileHTML = compiledFiles.find((f) => f.filename === mainFile)?.compiled || '';
 
