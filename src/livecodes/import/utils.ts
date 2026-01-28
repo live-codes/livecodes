@@ -35,6 +35,11 @@ export const populateConfig = (
 ): Partial<Config> => {
   if (files.length === 0) return {};
 
+  const commonDir = files[0]?.path?.split('/')[0];
+  if (commonDir && files.every((file) => file.path?.startsWith(`${commonDir}/`))) {
+    files = files.map((file) => ({ ...file, path: file.path?.replace(`${commonDir}/`, '') }));
+  }
+
   const configFile = files.find(
     (file) =>
       file.filename.toLowerCase() === 'livecodes.json' ||
