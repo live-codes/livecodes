@@ -1,7 +1,16 @@
 import { decode } from 'js-base64';
 import type { User } from '../models';
 import { getGithubHeaders } from '../services/github';
+import { filterFiles } from './files';
 import { populateConfig } from './utils';
+
+interface GitHubFile {
+  path: string;
+  type: 'blob' | 'tree';
+  size: number;
+  sha: string;
+  url: string;
+}
 
 export const importFromGithubDir = async (
   url: string,
@@ -37,7 +46,7 @@ export const importFromGithubDir = async (
     }
     const apiURL = `https://api.github.com/repos/${user}/${repository}/git/trees/${branch}?recursive=true`;
 
-    const tree = await fetch(apiURL, {
+    const tree: GitHubFile[] = await fetch(apiURL, {
       ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
     })
       .then((res) => {
@@ -46,16 +55,24 @@ export const importFromGithubDir = async (
       })
       .then((data) => data.tree);
 
-    const dirFiles = tree.filter((node: any) =>
-      rootDir
-        ? node.type === 'blob'
-        : node.type === 'blob' &&
-          node.path.startsWith(decodeURIComponent(dir)) &&
-          node.path.split('/').length === dir.split('/').length + 1,
-    );
+    const maxFiles = 20;
+    const dirFiles = filterFiles(
+      tree
+        .filter((node) =>
+          rootDir
+            ? node.type === 'blob'
+            : node.type === 'blob' && node.path.startsWith(decodeURIComponent(dir) + '/'),
+        )
+        // comply to file shape expected by filterFiles
+        .map((file) => ({
+          ...file,
+          filename: file.path.split('/')[file.path.split('/').length - 1],
+          content: '',
+        })),
+    ).filter((_file, index: number) => index < maxFiles);
 
     const files = await Promise.all(
-      Object.values(dirFiles).map(async (file: any) => {
+      dirFiles.map(async (file) => {
         const filename = decodeURIComponent(file.path.split('/')[file.path.split('/').length - 1]);
         const content = decode(
           await fetch(file.url, {

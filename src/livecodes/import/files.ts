@@ -24,7 +24,7 @@ export const importFromFiles = async (
   return populateConfig(localFiles, {});
 };
 
-export const filterFiles = (files: LocalFile[]) => {
+export const filterFiles = <T extends LocalFile>(files: T[]) => {
   const maxSizeAllowed = 100 * 1024 * 1024; // 100 MB
   const localFiles = files.filter(
     (file) =>
