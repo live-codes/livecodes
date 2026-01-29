@@ -5,6 +5,7 @@ import { assemblyscript } from './assemblyscript';
 import { astro } from './astro';
 import { babel } from './babel';
 import { bbcode } from './bbcode';
+import { binary } from './binary';
 import { blockly } from './blockly';
 import { civet } from './civet';
 import { clio } from './clio';
@@ -173,4 +174,5 @@ export const languages: LanguageSpecs[] = [
   blockly,
   text,
   json,
+  binary,
 ];

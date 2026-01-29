@@ -74,16 +74,39 @@ export const importFromGithubDir = async (
     const files = await Promise.all(
       dirFiles.map(async (file) => {
         const filename = decodeURIComponent(file.path.split('/')[file.path.split('/').length - 1]);
-        const content = decode(
-          await fetch(file.url, {
-            ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
+        const encodedContent = await fetch(file.url, {
+          ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error('Cannot fetch: ' + file.url);
+            return res.json();
           })
-            .then((res) => {
-              if (!res.ok) throw new Error('Cannot fetch: ' + file.url);
-              return res.json();
-            })
-            .then((data) => data.content),
-        );
+          .then((data) => {
+            const extension = file.path.split('.')[file.path.split('.').length - 1];
+            if (
+              [
+                'png',
+                'jpg',
+                'jpeg',
+                'gif',
+                'webp',
+                'bmp',
+                'tif',
+                'tiff',
+                'ico',
+                'ttf',
+                'otf',
+                'woff',
+                'woff2',
+              ].includes(extension)
+            ) {
+              return `data:${getBinaryMimeType(extension)};charset=UTF-8;base64,${data.content}`;
+            }
+            return data.content;
+          });
+        const content = encodedContent.startsWith('data:')
+          ? encodedContent.replaceAll('\n', '')
+          : decode(encodedContent);
         const relativePath = dir ? file.path.replace(`${dir}/`, '') : file.path;
         return {
           filename,
@@ -101,4 +124,13 @@ export const importFromGithubDir = async (
     console.error(error);
     return {};
   }
+};
+
+const getBinaryMimeType = (extension: string) => {
+  let type = 'image';
+  if (extension === 'ico') return `${type}/x-icon`;
+  if (extension === 'jpg') return `${type}/jpeg`;
+  if (extension === 'tif') return `${type}/tiff`;
+  if (['ttf', 'otf', 'woff', 'woff2'].includes(extension)) type = 'font';
+  return `${type}/${extension}`;
 };

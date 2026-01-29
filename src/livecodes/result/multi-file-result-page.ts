@@ -135,6 +135,7 @@ export const createMultiFileResultPage = async ({
   const getDataUrl = (file: SourceFile & { compiled: string }, saveToFileUrls = true) => {
     if (file.filename === mainFile) return;
     const content = file.compiled;
+    if (content.startsWith('data:')) return content;
     const mimeType =
       mapLanguage(file.language) === 'json'
         ? 'application/json'
@@ -292,7 +293,7 @@ export const createMultiFileResultPage = async ({
       .filter((f) => getLanguageEditorId(f.language) === 'script')
       .forEach((f) => {
         f.compiled = f.compiled.replace(
-          new RegExp(`(['"\`])(\\.\\/)?${file.filename}`, 'g'),
+          new RegExp(`(['"\`])(\\.?\\/)?${file.filename}`, 'g'),
           `$1${(dataUrl ??= getDataUrl(file, /* saveToFileUrls */ false))}`,
         );
       });

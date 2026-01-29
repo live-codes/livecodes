@@ -1171,7 +1171,21 @@ export type Language =
   | 'txt'
   | 'csv'
   | 'tsv'
-  | 'plaintext';
+  | 'plaintext'
+  | 'binary'
+  | 'png'
+  | 'jpg'
+  | 'jpeg'
+  | 'gif'
+  | 'webp'
+  | 'bmp'
+  | 'tif'
+  | 'tiff'
+  | 'ico'
+  | 'ttf'
+  | 'otf'
+  | 'woff'
+  | 'woff2';
 
 export interface Editor {
   /**

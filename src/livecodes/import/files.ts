@@ -1,4 +1,4 @@
-import { getFileLanguage } from '../languages';
+import { getFileLanguage } from '../languages/utils';
 import { importFromImage } from './image';
 import { populateConfig } from './utils';
 import { importFromZip } from './zip';
@@ -31,7 +31,8 @@ export const filterFiles = <T extends LocalFile>(files: T[]) => {
       !file.path.startsWith('.') && // e.g. .git, .vscode
       !file.path.includes('node_modules') &&
       !file.path.startsWith('dist') &&
-      !file.filename.includes('-lock.json') &&
+      !file.filename.endsWith('-lock.json') &&
+      !file.filename.endsWith('.zip') &&
       (!file.size || file.size <= maxSizeAllowed) &&
       getFileLanguage(file.filename) != null,
   );
