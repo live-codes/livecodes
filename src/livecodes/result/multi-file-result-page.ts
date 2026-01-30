@@ -290,8 +290,22 @@ export const createMultiFileResultPage = async ({
     // note that the URLs should be relative to the main file (e.g. index.html)
     let dataUrl: string | undefined; // cache data url
     compiledFiles
-      .filter((f) => getLanguageEditorId(f.language) === 'script')
+      .filter((f) => getLanguageEditorId(f.language) !== 'style')
       .forEach((f) => {
+        if (f.filename === file.filename) return;
+        // handle svg <use href="./logo.svg#svg-logo"> which does not allow data urls
+        if (file.filename.endsWith('.svg') && f.compiled.includes(`<use `)) {
+          f.compiled = f.compiled.replace(
+            new RegExp(`(['"\`])(\\.?\\/)?${file.filename}#`, 'g'),
+            (_match, $1) => {
+              const div = document.createElement('div');
+              div.style.display = 'none';
+              div.innerHTML = file.compiled;
+              dom.body.append(div);
+              return `${$1}#`;
+            },
+          );
+        }
         f.compiled = f.compiled.replace(
           new RegExp(`(['"\`])(\\.?\\/)?${file.filename}`, 'g'),
           `$1${(dataUrl ??= getDataUrl(file, /* saveToFileUrls */ false))}`,
