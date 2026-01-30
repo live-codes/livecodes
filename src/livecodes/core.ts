@@ -5284,22 +5284,50 @@ const handleDropFiles = () => {
   eventsManager.addEventListener(document, 'drop', (event: DragEvent) => {
     event.preventDefault();
     if (!event.dataTransfer) return;
-    // TODO: check saved status
-    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
     const files = event.dataTransfer.files;
     const items = event.dataTransfer.items; // for directories
     if (!files?.length && !items?.length) return;
     const entries = { files, items };
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
 
     importFromFiles(entries)
       .then(async (fileConfig) => {
+        // if in single file project, load as a new project
+        // otherwise, add files to current project
+        const currentConfig = getConfig();
         if (Object.keys(fileConfig).length === 0) return;
-        await loadConfig(fileConfig);
+        if (!currentConfig.files.length) {
+          checkSavedAndExecute(async () => {
+            await loadConfig(fileConfig);
+            modal.close();
+          })();
+        } else {
+          for (const file of fileConfig.files || []) {
+            if (currentConfig.files.find((f) => f.filename === file.filename)) {
+              editors[file.filename]?.setValue(file.content);
+            } else {
+              await addFile(file.filename, {
+                baseUrl,
+                mode: currentConfig.mode,
+                readonly: currentConfig.readonly,
+                ...getEditorConfig(currentConfig),
+                isEmbed,
+                isLite,
+                isHeadless,
+                mapLanguage,
+                getLanguageExtension,
+                getFormatterConfig: () => getFormatterConfig(currentConfig),
+                getFontFamily,
+              });
+              editors[file.filename]?.setValue(file.content);
+            }
+          }
+          showEditor(fileConfig.activeEditor || getMainFile(fileConfig));
+          modal.close();
+        }
       })
       .catch((message) => {
         notifications.error(message);
-      })
-      .finally(() => {
         modal.close();
       });
   });
