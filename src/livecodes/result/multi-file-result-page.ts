@@ -9,6 +9,7 @@ import {
 } from '../compiler/import-map';
 import { getMainFile } from '../config/utils';
 import {
+  getFileLanguage,
   getLanguageByAlias,
   getLanguageCompiler,
   getLanguageEditorId,
@@ -288,14 +289,14 @@ export const createMultiFileResultPage = async ({
 
     // replace relative URL access (e.g. img.src="./logo.svg") or fetching files (e.g. fetch("./data.json"))
     // note that the URLs should be relative to the main file (e.g. index.html)
-    let dataUrl: string | undefined; // cache data url
-    compiledFiles
-      .filter((f) => getLanguageEditorId(f.language) !== 'style')
-      .forEach((f) => {
-        if (f.filename === file.filename) return;
+    // do that only for static files (binary, json, text, html), other files are handled later
+    if (['binary', 'json', 'text', 'html'].includes(getFileLanguage(file.filename) || '')) {
+      let dataUrl: string | undefined; // cache data url
+      const replaceUrl = (targetFile: (typeof compiledFiles)[number]) => {
+        if (targetFile.filename === file.filename) return;
         // handle svg <use href="./logo.svg#svg-logo"> which does not allow data urls
-        if (file.filename.endsWith('.svg') && f.compiled.includes(`<use `)) {
-          f.compiled = f.compiled.replace(
+        if (file.filename.endsWith('.svg') && targetFile.compiled.includes(`<use `)) {
+          targetFile.compiled = targetFile.compiled.replace(
             new RegExp(`(['"\`])(\\.?\\/)?${file.filename}#`, 'g'),
             (_match, $1) => {
               const div = document.createElement('div');
@@ -306,11 +307,24 @@ export const createMultiFileResultPage = async ({
             },
           );
         }
-        f.compiled = f.compiled.replace(
-          new RegExp(`(['"\`])(\\.?\\/)?${file.filename}`, 'g'),
+        targetFile.compiled = targetFile.compiled.replace(
+          new RegExp(`(['"\`\()])(\\.?\\/)?${file.filename}`, 'g'),
           `$1${(dataUrl ??= getDataUrl(file, /* saveToFileUrls */ false))}`,
         );
-      });
+      };
+      compiledFiles.forEach(replaceUrl);
+
+      const domFile: (typeof compiledFiles)[number] = {
+        filename: mainFile || 'index.html',
+        compiled: dom.documentElement.innerHTML,
+        content: dom.documentElement.innerHTML,
+        language: 'html',
+      };
+      replaceUrl(domFile);
+      if (domFile.compiled !== dom.documentElement.innerHTML) {
+        dom.documentElement.innerHTML = domFile.compiled;
+      }
+    }
   });
 
   Object.keys(codeImports)
