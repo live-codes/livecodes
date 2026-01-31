@@ -987,6 +987,7 @@ const translation = {
   templates: {
     heading: 'New Project',
     multifile: {
+      basic: 'Basic Template',
       blank: 'Blank Template',
       heading: 'Multi-file Templates',
       javascript: 'JavaScript Template',

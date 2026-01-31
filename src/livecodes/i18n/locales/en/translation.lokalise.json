@@ -2556,6 +2556,10 @@
     "notes": "",
     "translation": "New Project"
   },
+  "templates.multifile.basic": {
+    "notes": "",
+    "translation": "Basic Template"
+  },
   "templates.multifile.blank": {
     "notes": "",
     "translation": "Blank Template"

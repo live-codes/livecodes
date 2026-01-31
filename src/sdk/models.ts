@@ -1581,6 +1581,7 @@ export type TemplateName =
   | 'blockly'
   | 'diagrams'
   | 'multifile-blank'
+  | 'multifile-basic'
   | 'multifile-javascript'
   | 'multifile-typescript'
   | 'multifile-react'

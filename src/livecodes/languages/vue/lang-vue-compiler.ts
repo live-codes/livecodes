@@ -330,7 +330,7 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
     content = await compileAllBlocks(content, config, { prepareFn, skipCompilers });
 
     // CSS Modules
-    let cssModules: Record<string, string> | undefined;
+    let cssModules: Record<string, Record<string, string>> | undefined;
     content = await replaceAsync(
       content,
       stylePattern,

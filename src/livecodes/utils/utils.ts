@@ -563,13 +563,10 @@ type MustInclude<T, U extends T[]> = [T] extends [ValueOf<U>] ? U : never;
  * converts TypeScript string union to array
  * see https://stackoverflow.com/a/70694878/5054774
  */
-export const stringUnionToArray =
-  /* @__PURE__ */
-
-
-    <T>() =>
-    <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) =>
-      elements;
+export const stringUnionToArray = /* @__PURE__ */
+  <T>() =>
+  <U extends NonEmptyArray<T>>(...elements: MustInclude<T, U>) =>
+    elements;
 
 export const preventFocus = /* @__PURE__ */ (container: HTMLElement) => {
   // avoid focus on tab
