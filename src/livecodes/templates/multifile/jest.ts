@@ -22,7 +22,7 @@ export const jest: Template = {
   <body>
     <div class="container">
       <h1>Hello, <span id="title">World</span>!</h1>
-      <img class="logo" alt="logo" src="http://127.0.0.1:8080/livecodes/assets/templates/jest.svg" />
+      <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/jest.svg" />
       <p>You clicked <span id="counter">0</span> times.</p>
       <button id="counter-button">Click me</button>
       <p class="info">Run tests in the "Tests" panel below.</p>
