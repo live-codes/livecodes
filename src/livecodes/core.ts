@@ -3356,8 +3356,10 @@ const handleEditorTools = () => {
 
   eventsManager.addEventListener(UI.getCopyAsUrlButton(), 'click', () => {
     const currentEditor = getActiveEditor();
+    const content = currentEditor?.getValue() || '';
+    const language = currentEditor?.getLanguage();
     const mimeType = 'text/' + currentEditor?.getLanguage();
-    const dataUrl = toDataUrl(currentEditor?.getValue() || '', mimeType);
+    const dataUrl = language === 'binary' ? content : toDataUrl(content, mimeType);
     if (currentEditor && copyToClipboard(dataUrl)) {
       notifications.success(
         window.deps.translateString('core.copy.copiedAsDataURL', 'Code copied as data URL'),
