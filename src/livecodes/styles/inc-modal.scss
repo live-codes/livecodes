@@ -1197,10 +1197,9 @@
 
     a::after {
       content: 'Multi-file';
-      display: block;
-      font-size: smaller;
+      font-size: var(--s10);
       opacity: 0.5;
-      padding: 4px;
+      padding: var(--s4);
       position: absolute;
       right: 0;
       top: 0;
