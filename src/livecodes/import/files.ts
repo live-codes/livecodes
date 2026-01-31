@@ -6,10 +6,11 @@ import { importFromZip } from './zip';
 export const importFromFiles = async (
   // Use DataTransferItemList interface for folder support
   entries: { files: FileList; items?: DataTransferItemList | undefined },
+  multiFile = false,
 ) => {
   if (!entries.items?.length && !entries.files?.length) return {};
 
-  if (entries.files?.length === 1) {
+  if (entries.files?.length === 1 && !multiFile) {
     const file = entries.files[0];
     if (file.type.startsWith('image/') && file.type !== 'image/svg+xml') {
       return importFromImage(file);
@@ -219,7 +220,11 @@ export const getLocalFiles = async (
         resolve(content);
       };
       reader.onerror = () => reject(reader.error);
-      reader.readAsText(file);
+      if (getFileLanguage(file.name) === 'binary') {
+        reader.readAsDataURL(file);
+      } else {
+        reader.readAsText(file);
+      }
     });
   }
 

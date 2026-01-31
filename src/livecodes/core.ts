@@ -5290,7 +5290,7 @@ const handleDropFiles = () => {
     const entries = { files, items };
     modal.show(loadingMessage(), { size: 'small', autoFocus: false });
 
-    importFromFiles(entries)
+    importFromFiles(entries, /* multiFile= */ true)
       .then(async (fileConfig) => {
         // if in single file project, load as a new project
         // otherwise, add files to current project
@@ -5322,7 +5322,7 @@ const handleDropFiles = () => {
               editors[file.filename]?.setValue(file.content);
             }
           }
-          showEditor(fileConfig.activeEditor || getMainFile(fileConfig));
+          showEditor(fileConfig.files?.[0].filename);
           modal.close();
         }
       })

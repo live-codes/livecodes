@@ -18,7 +18,9 @@ export const createBinaryFileEditor = (options: EditorOptions): CodeEditor => {
   const setValue = (value: string = '') => {
     editor.setValue(value);
     listeners.forEach((fn) => fn());
-    if (!value) {
+    if (value) {
+      showFile();
+    } else {
       showFileSelector();
     }
   };
