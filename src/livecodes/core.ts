@@ -1,5 +1,6 @@
 import { getPlaygroundUrl } from '../sdk';
 import {
+  addTemplateToIndex,
   createLoginContainer,
   createOpenItem,
   createProjectInfoUI,
@@ -10,6 +11,7 @@ import {
   displayLoggedOut,
   getFullscreenButton,
   getResultElement,
+  initTemplatesSearchIndex,
   loadingMessage,
   noUserTemplates,
 } from './UI';
@@ -3686,10 +3688,10 @@ const handleLogout = () => {
 };
 
 const handleNew = () => {
-  const templatesContainer = createTemplatesContainer(eventsManager, () => loadUserTemplates());
-  const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
+  const templatesContainer = createTemplatesContainer(eventsManager);
 
   const loadUserTemplates = async () => {
+    const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
     const defaultTemplate = getAppData()?.defaultTemplate;
     const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
       a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
@@ -3713,6 +3715,7 @@ const handleNew = () => {
         getLanguageByAlias,
         true,
       );
+      addTemplateToIndex(item);
 
       if (defaultTemplate === item.id) {
         link.parentElement?.classList.add('selected');
@@ -3794,10 +3797,17 @@ const handleNew = () => {
     });
   };
 
-  let templatesCache: Template[];
+  let templatesCache: Template[] | undefined;
   const createTemplatesUI = async () => {
-    const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer)!;
-    const multifileTemplatesList = UI.getMultifileTemplatesList(templatesContainer)!;
+    initTemplatesSearchIndex();
+    const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
+    const multifileTemplatesList = UI.getMultifileTemplatesList(templatesContainer);
+    if (!starterTemplatesList || !multifileTemplatesList) return;
+    starterTemplatesList.innerHTML = '';
+    const searchInput = UI.getTemplatesSearchInput(templatesContainer);
+    if (searchInput) {
+      searchInput.value = '';
+    }
     const loadingText = starterTemplatesList?.firstElementChild;
     const multifileLoadingText = multifileTemplatesList?.firstElementChild;
     const createLink = (template: Template, list: HTMLElement) => {
@@ -3820,10 +3830,34 @@ const handleNew = () => {
           multifileLoadingText?.remove();
           allTemplates
             .filter((t) => !t.files?.length)
-            .forEach((template) => createLink(template, starterTemplatesList));
+            .forEach((template, id) => {
+              const link = createLink(template, starterTemplatesList)!;
+              addTemplateToIndex({ id: String(id), ...template });
+              eventsManager.addEventListener(
+                link,
+                'click',
+                (event) => {
+                  event.preventDefault();
+                  loadStarterTemplate(template.name, /* checkSaved= */ false);
+                },
+                false,
+              );
+            });
           allTemplates
             .filter((t) => t.files?.length)
-            .forEach((template) => createLink(template, multifileTemplatesList));
+            .forEach((template, id) => {
+              const link = createLink(template, multifileTemplatesList)!;
+              addTemplateToIndex({ id: String(id), ...template });
+              eventsManager.addEventListener(
+                link,
+                'click',
+                (event) => {
+                  event.preventDefault();
+                  loadStarterTemplate(template.name, /* checkSaved= */ false);
+                },
+                false,
+              );
+            });
         })
         .catch(() => {
           loadingText?.remove();
@@ -3836,8 +3870,8 @@ const handleNew = () => {
           );
         });
     }
-
-    setTimeout(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
+    loadUserTemplates();
+    requestAnimationFrame(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
     modal.show(templatesContainer, { isAsync: true, size: 'large-fixed' });
   };
 

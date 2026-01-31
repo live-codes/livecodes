@@ -1,6 +1,18 @@
 var getTemplateName = (_, templateName) => templateName;
-var d={name:"angular",title:getTemplateName("templates.starter.angular","Angular Starter"),thumbnail:"assets/templates/angular.svg",activeEditor:"script",markup:{language:"html",content:`<app>Loading...</app>
-`},style:{language:"css",content:""},script:{language:"typescript",content:`
+var d = {
+  name: 'angular',
+  title: getTemplateName('templates.starter.angular', 'Angular Starter'),
+  thumbnail: 'assets/templates/angular.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<app>Loading...</app>
+`,
+  },
+  style: { language: 'css', content: '' },
+  script: {
+    language: 'typescript',
+    content: `
 import { Component, Input, NgModule, enableProdMode } from '@angular/core@12.2.13';
 import { CommonModule } from '@angular/common@12.2.13';
 import { BrowserModule } from '@angular/platform-browser@12.2.13';
@@ -70,7 +82,18 @@ class AppModule {}
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch((err: Error) => console.error(err));
-`.trimStart()},customSettings:{typescript:{experimentalDecorators:!0}}};var u={name:"assemblyscript",title:getTemplateName("templates.starter.assemblyscript","AssemblyScript Starter"),thumbnail:"assets/templates/assemblyscript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  customSettings: { typescript: { experimentalDecorators: !0 } },
+};
+var u = {
+  name: 'assemblyscript',
+  title: getTemplateName('templates.starter.assemblyscript', 'AssemblyScript Starter'),
+  thumbnail: 'assets/templates/assemblyscript.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/assemblyscript.svg" />
@@ -103,7 +126,11 @@ platformBrowserDynamic()
 
   })();
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -112,14 +139,33 @@ platformBrowserDynamic()
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"assemblyscript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'assemblyscript',
+    content: `
 export function getTitle(): string {
   return "AssemblyScript";
 }
 export function increment(num: i32): i32 {
   return num + 1;
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var g={name:"astro",title:getTemplateName("templates.starter.astro","Astro Starter"),thumbnail:"assets/templates/astro.svg",activeEditor:"markup",markup:{language:"astro",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var g = {
+  name: 'astro',
+  title: getTemplateName('templates.starter.astro', 'Astro Starter'),
+  thumbnail: 'assets/templates/astro.svg',
+  activeEditor: 'markup',
+  markup: {
+    language: 'astro',
+    content: `
 ---
 import {format} from 'date-fns';
 
@@ -176,14 +222,35 @@ const builtAtFormatted = format(builtAt, 'MMMM dd, yyyy -- H:mm:ss.SSS');
 </body>
 
 </html>
-`.trimStart()},style:{language:"css",content:""},script:{language:"javascript",content:""},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var h={name:"backbone",title:getTemplateName("templates.starter.backbone","Backbone Starter"),thumbnail:"assets/templates/backbone.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  style: { language: 'css', content: '' },
+  script: { language: 'javascript', content: '' },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var h = {
+  name: 'backbone',
+  title: getTemplateName('templates.starter.backbone', 'Backbone Starter'),
+  thumbnail: 'assets/templates/backbone.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/backbone.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -192,7 +259,11 @@ const builtAtFormatted = format(builtAt, 'MMMM dd, yyyy -- H:mm:ss.SSS');
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"javascript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'javascript',
+    content: `
 var Counter = Backbone.Model.extend({
   defaults: {
     value: 0,
@@ -223,7 +294,40 @@ var AppView = Backbone.View.extend({
   }
 });
 var view = new AppView({ model: counter });
-`.trimStart()},stylesheets:[],scripts:["https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js","https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js","https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"],cssPreset:"",imports:{},types:{}};var b={name:"blank",title:getTemplateName("templates.starter.blank","Blank Project"),thumbnail:"assets/templates/blank.svg",activeEditor:"markup",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"javascript",content:""},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var f={name:"blockly",title:getTemplateName("templates.starter.blockly","Blockly Starter"),thumbnail:"assets/templates/blockly.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [
+    'https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js',
+  ],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var b = {
+  name: 'blank',
+  title: getTemplateName('templates.starter.blank', 'Blank Project'),
+  thumbnail: 'assets/templates/blank.svg',
+  activeEditor: 'markup',
+  markup: { language: 'html', content: '' },
+  style: { language: 'css', content: '' },
+  script: { language: 'javascript', content: '' },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var f = {
+  name: 'blockly',
+  title: getTemplateName('templates.starter.blockly', 'Blockly Starter'),
+  thumbnail: 'assets/templates/blockly.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <xml
   data-src="{{ __CDN_URL__ }}@live-codes/blockly-utils@0.2.0/src/dom-blocks.xml"
   data-type="blockly/xml"
@@ -240,7 +344,11 @@ var view = new AppView({ model: counter });
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -249,7 +357,11 @@ var view = new AppView({ model: counter });
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"blockly",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'blockly',
+    content: `
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
     <variable id="?\`Dl!ysD-zLY64Lpe)c(">count</variable>
@@ -358,7 +470,22 @@ var view = new AppView({ model: counter });
     </statement>
   </block>
 </xml>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var v={name:"bootstrap",title:getTemplateName("templates.starter.bootstrap","Bootstrap Starter"),thumbnail:"assets/templates/bootstrap.svg",activeEditor:"markup",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var v = {
+  name: 'bootstrap',
+  title: getTemplateName('templates.starter.bootstrap', 'Bootstrap Starter'),
+  thumbnail: 'assets/templates/bootstrap.svg',
+  activeEditor: 'markup',
+  markup: {
+    language: 'html',
+    content: `
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -429,7 +556,11 @@ var view = new AppView({ model: counter });
     </p>
   </div>
 </main>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 body {
   padding-top: 5rem;
 }
@@ -447,14 +578,34 @@ body {
     font-size: 3.5rem;
   }
 }
-`.trimStart()},script:{language:"javascript",content:""},stylesheets:["{{ __CDN_URL__ }}bootstrap@5.3.0/dist/css/bootstrap.min.css"],scripts:["{{ __CDN_URL__ }}bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"],cssPreset:"",imports:{},types:{}};var y={name:"civet",title:getTemplateName("templates.starter.civet","Civet Starter"),thumbnail:"assets/templates/civet.png",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  script: { language: 'javascript', content: '' },
+  stylesheets: ['{{ __CDN_URL__ }}bootstrap@5.3.0/dist/css/bootstrap.min.css'],
+  scripts: ['{{ __CDN_URL__ }}bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var y = {
+  name: 'civet',
+  title: getTemplateName('templates.starter.civet', 'Civet Starter'),
+  thumbnail: 'assets/templates/civet.png',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/civet.png" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -463,7 +614,11 @@ body {
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"civet",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'civet',
+    content: `
 titleElement := document.getElementById 'title'
 counterElement := document.getElementById 'counter'
 button := document.getElementById 'counter-button'
@@ -476,14 +631,33 @@ increment := counter 0
 function handleClick: void counterElement.innerText = increment()
 
 button.addEventListener 'click', handleClick
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var x={name:"clio",title:getTemplateName("templates.starter.clio","Clio Starter"),thumbnail:"assets/templates/clio.png",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var x = {
+  name: 'clio',
+  title: getTemplateName('templates.starter.clio', 'Clio Starter'),
+  thumbnail: 'assets/templates/clio.png',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1 id="title">Hello, World!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/clio.png" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button" disabled>Loading...</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -492,7 +666,11 @@ button.addEventListener 'click', handleClick
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"clio",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'clio',
+    content: `
 fn capitalize str:
   (str.charAt 0 -> .toUpperCase) + (str.slice 1 -> .toLowerCase)
 
@@ -520,9 +698,28 @@ export fn main argv:
   document.querySelector "#counter-button"
     -> activateBtn
     -> .addEventListener "click" onBtnClick
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var w={name:"clojurescript",title:getTemplateName("templates.starter.clojurescript","ClojureScript Starter"),thumbnail:"assets/templates/cljs.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var w = {
+  name: 'clojurescript',
+  title: getTemplateName('templates.starter.clojurescript', 'ClojureScript Starter'),
+  thumbnail: 'assets/templates/cljs.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div id="app">Loading...</div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -531,7 +728,11 @@ export fn main argv:
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"clojurescript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'clojurescript',
+    content: `
 (ns react.component
   (:require
     ;; you may use npm packages
@@ -560,14 +761,28 @@ export fn main argv:
 (print (str "Hello, " title "!"))
 (defonce root (createRoot (js/document.querySelector "#app")))
 (.render root #jsx [Counter #js {:name title}])
-`.trimStart()}};var S={name:"coffeescript",title:getTemplateName("templates.starter.coffeescript","CoffeeScript Starter"),thumbnail:"assets/templates/coffeescript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var S = {
+  name: 'coffeescript',
+  title: getTemplateName('templates.starter.coffeescript', 'CoffeeScript Starter'),
+  thumbnail: 'assets/templates/coffeescript.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/coffeescript.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -576,7 +791,11 @@ export fn main argv:
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"coffeescript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'coffeescript',
+    content: `
 titleElement = document.getElementById 'title'
 counterElement = document.getElementById 'counter'
 button = document.getElementById 'counter-button'
@@ -589,14 +808,33 @@ increment = counter 0
 
 button.addEventListener('click',
   -> counterElement.innerText = increment())
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var k={name:"commonlisp",title:getTemplateName("templates.starter.commonlisp","Common Lisp Starter"),thumbnail:"assets/templates/commonlisp.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var k = {
+  name: 'commonlisp',
+  title: getTemplateName('templates.starter.commonlisp', 'Common Lisp Starter'),
+  thumbnail: 'assets/templates/commonlisp.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1 id="title">Hello, World!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/commonlisp.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -605,7 +843,11 @@ button.addEventListener('click',
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"commonlisp",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'commonlisp',
+    content: `
 (defun set-attribute (&key selector attribute value)
   (let ((node
          (#j:document:querySelector selector)))
@@ -625,7 +867,22 @@ button.addEventListener('click',
 
 (#j:console:clear)
 (write "Hello, Common Lisp!")
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var _={name:"cpp",title:getTemplateName("templates.starter.cpp","C++ Starter"),thumbnail:"assets/templates/cpp.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var _ = {
+  name: 'cpp',
+  title: getTemplateName('templates.starter.cpp', 'C++ Starter'),
+  thumbnail: 'assets/templates/cpp.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/cpp.svg" />
@@ -669,7 +926,11 @@ button.addEventListener('click',
     }
   });
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -678,7 +939,11 @@ button.addEventListener('click',
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"cpp",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'cpp',
+    content: `
 #include <iostream>
 using namespace std;
 
@@ -693,7 +958,23 @@ int main() {
 
     return 0;
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var j={name:"cpp-wasm",aliases:["clang"],title:getTemplateName("templates.starter.cpp-wasm","C++ (Wasm) Starter"),thumbnail:"assets/templates/cpp.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var j = {
+  name: 'cpp-wasm',
+  aliases: ['clang'],
+  title: getTemplateName('templates.starter.cpp-wasm', 'C++ (Wasm) Starter'),
+  thumbnail: 'assets/templates/cpp.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/cpp.svg" />
@@ -740,7 +1021,11 @@ int main() {
     }
   });
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -749,7 +1034,11 @@ int main() {
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"cpp-wasm",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'cpp-wasm',
+    content: `
 #include <iostream>
 using namespace std;
 
@@ -764,7 +1053,17 @@ int main() {
 
     return 0;
 }
-`.trimStart()}};var T={name:"csharp-wasm",title:"C# (Wasm) Starter",thumbnail:"assets/templates/csharp.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var T = {
+  name: 'csharp-wasm',
+  title: 'C# (Wasm) Starter',
+  thumbnail: 'assets/templates/csharp.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/csharp.svg" />
@@ -811,7 +1110,11 @@ int main() {
     }
   });
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -820,7 +1123,11 @@ int main() {
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"csharp-wasm",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'csharp-wasm',
+    content: `
 using System;
 
 class Program
@@ -836,8 +1143,22 @@ class Program
         Console.WriteLine(count);
     }
 }
-`.trimStart()}};var C={name:"d3",title:"D3 Starter",thumbnail:"assets/templates/d3.svg",activeEditor:"script",markup:{language:"html",content:`<div id="chart">Loading...</div>
-`},style:{language:"css",content:`
+`.trimStart(),
+  },
+};
+var C = {
+  name: 'd3',
+  title: 'D3 Starter',
+  thumbnail: 'assets/templates/d3.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<div id="chart">Loading...</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `
 .bar {
   fill: steelblue;
 }
@@ -845,7 +1166,11 @@ class Program
 .bar:hover {
   fill: orange;
 }
-`.trimStart()},script:{language:"javascript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'javascript',
+    content: `
 import * as d3 from "d3";
 
 const data = [150, 230, 180, 90];
@@ -867,7 +1192,17 @@ svg
   .attr("height", 40)
   .attr("y", (d, i) => i * 50 + 10)
   .attr("x", 10);
-`.trimStart()}};var U={name:"daisyui",title:getTemplateName("templates.starter.daisyui","daisyUI Starter"),thumbnail:"assets/templates/daisyui.svg",activeEditor:"markup",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var U = {
+  name: 'daisyui',
+  title: getTemplateName('templates.starter.daisyui', 'daisyUI Starter'),
+  thumbnail: 'assets/templates/daisyui.svg',
+  activeEditor: 'markup',
+  markup: {
+    language: 'html',
+    content: `
 <!-- based on https://daisyui.com/tailwindplay/ -->
 
 <!-- buttons -->
@@ -963,7 +1298,11 @@ svg
   </div>
   <div class="chat-bubble">see all components <a class="link" target="_blank" href="https://daisyui.com/components">Here</a></div>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 @import "tailwindcss";
 @plugin "daisyui"{
   themes: light --default, dark --prefersdark, abyss;
@@ -1009,7 +1348,23 @@ svg
   --depth: 1;
   --noise: 1;
 }
-`.trimStart()},script:{language:"javascript",content:""},processors:["tailwindcss"]};var E={name:"diagrams",title:getTemplateName("templates.starter.diagrams","Diagrams Starter"),thumbnail:"assets/templates/diagrams.svg",activeEditor:"markup",markup:{language:"diagrams",contentUrl:"{{ __livecodes_baseUrl__ }}assets/templates/diagrams-starter.html"},style:{language:"css",content:`
+`.trimStart(),
+  },
+  script: { language: 'javascript', content: '' },
+  processors: ['tailwindcss'],
+};
+var E = {
+  name: 'diagrams',
+  title: getTemplateName('templates.starter.diagrams', 'Diagrams Starter'),
+  thumbnail: 'assets/templates/diagrams.svg',
+  activeEditor: 'markup',
+  markup: {
+    language: 'diagrams',
+    contentUrl: '{{ __livecodes_baseUrl__ }}assets/templates/diagrams-starter.html',
+  },
+  style: {
+    language: 'css',
+    content: `
 .container {
   display: flex;
   flex-direction: column;
@@ -1029,14 +1384,34 @@ svg
 .container h3:not(:nth-child(1)) {
   margin-top: 3em;
 }
-`.trimStart()},script:{language:"javascript",content:""},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var q={name:"fennel",title:getTemplateName("templates.starter.fennel","Fennel Starter"),thumbnail:"assets/templates/fennel.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  script: { language: 'javascript', content: '' },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var L = {
+  name: 'fennel',
+  title: getTemplateName('templates.starter.fennel', 'Fennel Starter'),
+  thumbnail: 'assets/templates/fennel.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/fennel.svg" />
   <p id="counter">You clicked 0 times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1045,7 +1420,11 @@ svg
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"fennel",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'fennel',
+    content: `
 (global js (require :js))
 (global window js.global)
 (global document window.document)
@@ -1063,7 +1442,161 @@ svg
 (global counter (Counter:new nil))
 (global button (document:querySelector "#counter-button"))
 (button:addEventListener :click (fn [] (counter:increment) (counter:show)))
-`.trimStart()}};var L=["esm.sh","skypack","esm.run","jsdelivr.esm","fastly.jsdelivr.esm","gcore.jsdelivr.esm","testingcf.jsdelivr.esm","jsdelivr.b-cdn.esm","jspm"],B=["jsdelivr","fastly.jsdelivr","unpkg","gcore.jsdelivr","testingcf.jsdelivr","jsdelivr.b-cdn","npmcdn"],M=["jsdelivr.gh","fastly.jsdelivr.gh","statically","gcore.jsdelivr.gh","testingcf.jsdelivr.gh","jsdelivr.b-cdn.gh"],r={getModuleUrl:(e,{isModule:s=!0,defaultCDN:i="esm.sh",external:o}={})=>{e=e.replace(/#nobundle/g,"");let a=n=>!o||!n.includes("https://esm.sh")?n:n.includes("?")?`${n}&external=${o}`:`${n}?external=${o}`,l=$(e,s,i);return l?a(l):s?a("https://esm.sh/"+e):"https://cdn.jsdelivr.net/npm/"+e},getUrl:(e,s)=>e.startsWith("http")||e.startsWith("data:")?e:$(e,!1,s||qt())||e,cdnLists:{npm:B,module:L,gh:M},checkCDNs:async(e,s)=>{let i=[s,...r.cdnLists.npm].filter(Boolean);for(let o of i)try{if((await fetch(r.getUrl(e,o),{method:"HEAD"})).ok)return o}catch{}return r.cdnLists.npm[0]}},qt=()=>{if(globalThis.appCDN)return globalThis.appCDN;try{return new URL(location.href).searchParams.get("appCDN")||r.cdnLists.npm[0]}catch{return r.cdnLists.npm[0]}},$=(e,s,i)=>{let o=s&&e.startsWith("unpkg:")?"?module":"";e.startsWith("gh:")?e=e.replace("gh",M[0]):e.includes(":")||(e=(i||(s?L[0]:B[0]))+":"+e);for(let a of $t){let[l,n]=a;if(l.test(e))return e.replace(l,n)+o}return null},$t=[[/^(esm\.sh:)(.+)/i,"https://esm.sh/$2"],[/^(npm:)(.+)/i,"https://esm.sh/$2"],[/^(node:)(.+)/i,"https://esm.sh/$2"],[/^(jsr:)(.+)/i,"https://esm.sh/jsr/$2"],[/^(pr:)(.+)/i,"https://esm.sh/pr/$2"],[/^(pkg\.pr\.new:)(.+)/i,"https://esm.sh/pkg.pr.new/$2"],[/^(skypack:)(.+)/i,"https://cdn.skypack.dev/$2"],[/^(jsdelivr:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2"],[/^(fastly\.jsdelivr:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2"],[/^(gcore\.jsdelivr:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2"],[/^(testingcf\.jsdelivr:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2"],[/^(jsdelivr\.b-cdn:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2"],[/^(jsdelivr\.gh:)(.+)/i,"https://cdn.jsdelivr.net/gh/$2"],[/^(fastly\.jsdelivr\.gh:)(.+)/i,"https://fastly.jsdelivr.net/gh/$2"],[/^(gcore\.jsdelivr\.gh:)(.+)/i,"https://gcore.jsdelivr.net/gh/$2"],[/^(testingcf\.jsdelivr\.gh:)(.+)/i,"https://testingcf.jsdelivr.net/gh/$2"],[/^(jsdelivr\.b-cdn\.gh:)(.+)/i,"https://jsdelivr.b-cdn.net/gh/$2"],[/^(statically:)(.+)/i,"https://cdn.statically.io/gh/$2"],[/^(esm\.run:)(.+)/i,"https://esm.run/$2"],[/^(jsdelivr\.esm:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2/+esm"],[/^(fastly\.jsdelivr\.esm:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2/+esm"],[/^(gcore\.jsdelivr\.esm:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2/+esm"],[/^(testingcf\.jsdelivr\.esm:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2/+esm"],[/^(jsdelivr\.b-cdn\.esm:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2/+esm"],[/^(jspm:)(.+)/i,"https://jspm.dev/$2"],[/^(esbuild:)(.+)/i,"https://esbuild.vercel.app/$2"],[/^(bundle\.run:)(.+)/i,"https://bundle.run/$2"],[/^(unpkg:)(.+)/i,"https://unpkg.com/$2"],[/^(npmcdn:)(.+)/i,"https://npmcdn.com/$2"],[/^(bundlejs:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(bundle:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(deno:)(.+)/i,"https://deno.bundlejs.com/?file&q=https://deno.land/x/$2/mod.ts"],[/^(https:\/\/deno\.land\/.+)/i,"https://deno.bundlejs.com/?file&q=$1"],[/^(github:|https:\/\/github\.com\/)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,"https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/$2/$3@$4"],[/^(gist\.github:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(gitlab:|https:\/\/gitlab\.com\/)([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://gl.githack.com/$2/raw/$3"],[/^(bitbucket:|https:\/\/bitbucket\.org\/)([^\/]+\/[^\/]+)\/(?:raw|src)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://bb.githack.com/$2/raw/$3"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/]+)\/revisions\/([^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/$3/files/$4"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/HEAD/files/$3"],[/^(bitbucket:)\!api\/2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(api\.bitbucket:)2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(rawgit:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(rawgit:|https:\/\/raw\.githubusercontent\.com)(\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,"https://deno.bundlejs.com/?file&q=https://raw.githack.com/$2/$3"]];var{getUrl:Lt,getModuleUrl:te}=r;var c=Lt("gh:live-codes/gleam-precompiled@v0.5.0/");var p=c+"build/packages/plinth/src/plinth/",m=c+"build/dev/javascript/plinth/plinth/",P={name:"gleam",title:getTemplateName("templates.starter.gleam","Gleam Starter"),thumbnail:"assets/templates/gleam.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var $ = [
+    'esm.sh',
+    'skypack',
+    'esm.run',
+    'jsdelivr.esm',
+    'fastly.jsdelivr.esm',
+    'gcore.jsdelivr.esm',
+    'testingcf.jsdelivr.esm',
+    'jsdelivr.b-cdn.esm',
+    'jspm',
+  ],
+  B = [
+    'jsdelivr',
+    'fastly.jsdelivr',
+    'unpkg',
+    'gcore.jsdelivr',
+    'testingcf.jsdelivr',
+    'jsdelivr.b-cdn',
+    'npmcdn',
+  ],
+  M = [
+    'jsdelivr.gh',
+    'fastly.jsdelivr.gh',
+    'statically',
+    'gcore.jsdelivr.gh',
+    'testingcf.jsdelivr.gh',
+    'jsdelivr.b-cdn.gh',
+  ],
+  r = {
+    getModuleUrl: (e, { isModule: s = !0, defaultCDN: i = 'esm.sh', external: o } = {}) => {
+      e = e.replace(/#nobundle/g, '');
+      let a = (n) =>
+          !o || !n.includes('https://esm.sh')
+            ? n
+            : n.includes('?')
+              ? `${n}&external=${o}`
+              : `${n}?external=${o}`,
+        l = q(e, s, i);
+      return l ? a(l) : s ? a('https://esm.sh/' + e) : 'https://cdn.jsdelivr.net/npm/' + e;
+    },
+    getUrl: (e, s) =>
+      e.startsWith('http') || e.startsWith('data:') ? e : q(e, !1, s || qt()) || e,
+    cdnLists: { npm: B, module: $, gh: M },
+    checkCDNs: async (e, s) => {
+      let i = [s, ...r.cdnLists.npm].filter(Boolean);
+      for (let o of i)
+        try {
+          if ((await fetch(r.getUrl(e, o), { method: 'HEAD' })).ok) return o;
+        } catch {}
+      return r.cdnLists.npm[0];
+    },
+  },
+  qt = () => {
+    if (globalThis.appCDN) return globalThis.appCDN;
+    try {
+      return new URL(location.href).searchParams.get('appCDN') || r.cdnLists.npm[0];
+    } catch {
+      return r.cdnLists.npm[0];
+    }
+  },
+  q = (e, s, i) => {
+    let o = s && e.startsWith('unpkg:') ? '?module' : '';
+    e.startsWith('gh:')
+      ? (e = e.replace('gh', M[0]))
+      : e.includes(':') || (e = (i || (s ? $[0] : B[0])) + ':' + e);
+    for (let a of $t) {
+      let [l, n] = a;
+      if (l.test(e)) return e.replace(l, n) + o;
+    }
+    return null;
+  },
+  $t = [
+    [/^(esm\.sh:)(.+)/i, 'https://esm.sh/$2'],
+    [/^(npm:)(.+)/i, 'https://esm.sh/$2'],
+    [/^(node:)(.+)/i, 'https://esm.sh/$2'],
+    [/^(jsr:)(.+)/i, 'https://esm.sh/jsr/$2'],
+    [/^(pr:)(.+)/i, 'https://esm.sh/pr/$2'],
+    [/^(pkg\.pr\.new:)(.+)/i, 'https://esm.sh/pkg.pr.new/$2'],
+    [/^(skypack:)(.+)/i, 'https://cdn.skypack.dev/$2'],
+    [/^(jsdelivr:)(.+)/i, 'https://cdn.jsdelivr.net/npm/$2'],
+    [/^(fastly\.jsdelivr:)(.+)/i, 'https://fastly.jsdelivr.net/npm/$2'],
+    [/^(gcore\.jsdelivr:)(.+)/i, 'https://gcore.jsdelivr.net/npm/$2'],
+    [/^(testingcf\.jsdelivr:)(.+)/i, 'https://testingcf.jsdelivr.net/npm/$2'],
+    [/^(jsdelivr\.b-cdn:)(.+)/i, 'https://jsdelivr.b-cdn.net/npm/$2'],
+    [/^(jsdelivr\.gh:)(.+)/i, 'https://cdn.jsdelivr.net/gh/$2'],
+    [/^(fastly\.jsdelivr\.gh:)(.+)/i, 'https://fastly.jsdelivr.net/gh/$2'],
+    [/^(gcore\.jsdelivr\.gh:)(.+)/i, 'https://gcore.jsdelivr.net/gh/$2'],
+    [/^(testingcf\.jsdelivr\.gh:)(.+)/i, 'https://testingcf.jsdelivr.net/gh/$2'],
+    [/^(jsdelivr\.b-cdn\.gh:)(.+)/i, 'https://jsdelivr.b-cdn.net/gh/$2'],
+    [/^(statically:)(.+)/i, 'https://cdn.statically.io/gh/$2'],
+    [/^(esm\.run:)(.+)/i, 'https://esm.run/$2'],
+    [/^(jsdelivr\.esm:)(.+)/i, 'https://cdn.jsdelivr.net/npm/$2/+esm'],
+    [/^(fastly\.jsdelivr\.esm:)(.+)/i, 'https://fastly.jsdelivr.net/npm/$2/+esm'],
+    [/^(gcore\.jsdelivr\.esm:)(.+)/i, 'https://gcore.jsdelivr.net/npm/$2/+esm'],
+    [/^(testingcf\.jsdelivr\.esm:)(.+)/i, 'https://testingcf.jsdelivr.net/npm/$2/+esm'],
+    [/^(jsdelivr\.b-cdn\.esm:)(.+)/i, 'https://jsdelivr.b-cdn.net/npm/$2/+esm'],
+    [/^(jspm:)(.+)/i, 'https://jspm.dev/$2'],
+    [/^(esbuild:)(.+)/i, 'https://esbuild.vercel.app/$2'],
+    [/^(bundle\.run:)(.+)/i, 'https://bundle.run/$2'],
+    [/^(unpkg:)(.+)/i, 'https://unpkg.com/$2'],
+    [/^(npmcdn:)(.+)/i, 'https://npmcdn.com/$2'],
+    [/^(bundlejs:)(.+)/i, 'https://deno.bundlejs.com/?file&q=$2'],
+    [/^(bundle:)(.+)/i, 'https://deno.bundlejs.com/?file&q=$2'],
+    [/^(deno:)(.+)/i, 'https://deno.bundlejs.com/?file&q=https://deno.land/x/$2/mod.ts'],
+    [/^(https:\/\/deno\.land\/.+)/i, 'https://deno.bundlejs.com/?file&q=$1'],
+    [
+      /^(github:|https:\/\/github\.com\/)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,
+      'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/$2/$3@$4',
+    ],
+    [/^(gist\.github:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i, 'https://gist.githack.com/$2'],
+    [
+      /^(gitlab:|https:\/\/gitlab\.com\/)([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,
+      'https://deno.bundlejs.com/?file&q=https://gl.githack.com/$2/raw/$3',
+    ],
+    [
+      /^(bitbucket:|https:\/\/bitbucket\.org\/)([^\/]+\/[^\/]+)\/(?:raw|src)\/(.+?)(?:\?.*)?$/i,
+      'https://deno.bundlejs.com/?file&q=https://bb.githack.com/$2/raw/$3',
+    ],
+    [
+      /^(bitbucket:)snippets\/([^\/]+\/[^\/]+)\/revisions\/([^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,
+      'https://bb.githack.com/!api/2.0/snippets/$2/$3/files/$4',
+    ],
+    [
+      /^(bitbucket:)snippets\/([^\/]+\/[^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,
+      'https://bb.githack.com/!api/2.0/snippets/$2/HEAD/files/$3',
+    ],
+    [
+      /^(bitbucket:)\!api\/2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,
+      'https://bb.githack.com/!api/2.0/snippets/$2/files/$3',
+    ],
+    [
+      /^(api\.bitbucket:)2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,
+      'https://bb.githack.com/!api/2.0/snippets/$2/files/$3',
+    ],
+    [/^(rawgit:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i, 'https://gist.githack.com/$2'],
+    [
+      /^(rawgit:|https:\/\/raw\.githubusercontent\.com)(\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,
+      'https://deno.bundlejs.com/?file&q=https://raw.githack.com/$2/$3',
+    ],
+  ];
+var { getUrl: Bt, getModuleUrl: ee } = r;
+var c = Bt('gh:live-codes/gleam-precompiled@v0.5.0/');
+var m = c + 'build/packages/plinth/src/plinth/',
+  p = c + 'build/dev/javascript/plinth/plinth/',
+  P = {
+    name: 'gleam',
+    title: getTemplateName('templates.starter.gleam', 'Gleam Starter'),
+    thumbnail: 'assets/templates/gleam.svg',
+    activeEditor: 'script',
+    markup: {
+      language: 'html',
+      content: `
 <div class="container">
   <h1 id="title">Hello, World!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/gleam.svg" />
@@ -1071,7 +1604,11 @@ svg
   <button id="counter-button">Click me</button>
 </div>
 
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+    },
+    style: {
+      language: 'css',
+      content: `
 .container,
 .container button {
   text-align: center;
@@ -1080,7 +1617,11 @@ svg
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"gleam",content:`
+`.trimStart(),
+    },
+    script: {
+      language: 'gleam',
+      content: `
 import gleam/int
 import gleam/io
 import gleam/result
@@ -1131,14 +1672,47 @@ pub fn hello(str: String) -> String
 // npm module
 @external(javascript, "npm:cowsay2", "say")
 pub fn cowsay(str: String) -> String
-`.trimStart()},customSettings:{imports:{"my_pkg/greet.js":c+"demo/greet.js"},gleam:{modules:{"plinth/browser/document":{srcUrl:p+"browser/document.gleam",compiledUrl:m+"browser/document.mjs"},"plinth/browser/element":{srcUrl:p+"browser/element.gleam",compiledUrl:m+"browser/element.mjs"},"plinth/browser/event":{srcUrl:p+"browser/event.gleam",compiledUrl:m+"browser/event.mjs"}}}}};var R={name:"go",title:getTemplateName("templates.starter.go","Go Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+    },
+    customSettings: {
+      imports: { 'my_pkg/greet.js': c + 'demo/greet.js' },
+      gleam: {
+        modules: {
+          'plinth/browser/document': {
+            srcUrl: m + 'browser/document.gleam',
+            compiledUrl: p + 'browser/document.mjs',
+          },
+          'plinth/browser/element': {
+            srcUrl: m + 'browser/element.gleam',
+            compiledUrl: p + 'browser/element.mjs',
+          },
+          'plinth/browser/event': {
+            srcUrl: m + 'browser/event.gleam',
+            compiledUrl: p + 'browser/event.mjs',
+          },
+        },
+      },
+    },
+  };
+var R = {
+  name: 'go',
+  title: getTemplateName('templates.starter.go', 'Go Starter'),
+  thumbnail: 'assets/templates/go.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/go.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1147,7 +1721,11 @@ pub fn cowsay(str: String) -> String
 .logo {
   width: 250px;
 }
-`.trimStart()},script:{language:"go",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'go',
+    content: `
 package main
 
 import (
@@ -1194,7 +1772,22 @@ func greet() {
 		fmt.Println("Good evening")
 	}
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var N={name:"go-wasm",title:getTemplateName("templates.starter.go-wasm","Go (Wasm) Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var N = {
+  name: 'go-wasm',
+  title: getTemplateName('templates.starter.go-wasm', 'Go (Wasm) Starter'),
+  thumbnail: 'assets/templates/go.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Go (Wasm)</h1>
   <img class="logo" alt="Go logo" src="{{ __livecodes_baseUrl__ }}assets/templates/go.svg" />
@@ -1255,7 +1848,11 @@ func greet() {
 
   });
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -1322,7 +1919,11 @@ input[type="text"], input[type="number"] {
   color: #333;
   margin-top: 10px;
 }
-`.trimStart()},script:{language:"go-wasm",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'go-wasm',
+    content: `
 package main
 
 import (
@@ -1351,7 +1952,19 @@ func main() {
 		fmt.Println("Hello from Go WebAssembly!")
 	}
 }
-`.trimStart()}};var H={name:"imba",title:getTemplateName("templates.starter.imba","Imba Starter"),thumbnail:"assets/templates/imba.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"imba",content:`
+`.trimStart(),
+  },
+};
+var H = {
+  name: 'imba',
+  title: getTemplateName('templates.starter.imba', 'Imba Starter'),
+  thumbnail: 'assets/templates/imba.svg',
+  activeEditor: 'script',
+  markup: { language: 'html', content: '' },
+  style: { language: 'css', content: '' },
+  script: {
+    language: 'imba',
+    content: `
 tag app-counter
 	prop name = "Imba"
 	prop count = 0
@@ -1369,7 +1982,22 @@ tag app-counter
 		<button.btn @click=count++> "Click me"
 
 imba.mount <app-counter>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var W={name:"java",title:getTemplateName("templates.starter.java","Java Starter"),thumbnail:"assets/templates/java.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var W = {
+  name: 'java',
+  title: getTemplateName('templates.starter.java', 'Java Starter'),
+  thumbnail: 'assets/templates/java.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/java.svg" />
@@ -1415,7 +2043,11 @@ imba.mount <app-counter>
     }
   });
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1424,7 +2056,11 @@ imba.mount <app-counter>
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"java",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'java',
+    content: `
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -1443,14 +2079,28 @@ public class Main {
     System.out.println(count);
   }
 }
-`.trimStart()}};var I={name:"javascript",title:getTemplateName("templates.starter.javascript","JavaScript Starter"),thumbnail:"assets/templates/javascript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var I = {
+  name: 'javascript',
+  title: getTemplateName('templates.starter.javascript', 'JavaScript Starter'),
+  thumbnail: 'assets/templates/javascript.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/javascript.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1459,7 +2109,11 @@ public class Main {
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"javascript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'javascript',
+    content: `
 const title = document.querySelector("#title");
 const counter = document.querySelector("#counter");
 const button = document.querySelector("#counter-button");
@@ -1471,7 +2125,24 @@ button.addEventListener("click", () => {
   count++;
   counter.innerText = count;
 });
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var O={name:"jest-react",title:getTemplateName("templates.starter.jest-react","Jest/React Starter"),thumbnail:"assets/templates/jest.svg",activeEditor:"script",autotest:!0,markup:{language:"html",content:""},style:{language:"css",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var O = {
+  name: 'jest-react',
+  title: getTemplateName('templates.starter.jest-react', 'Jest/React Starter'),
+  thumbnail: 'assets/templates/jest.svg',
+  activeEditor: 'script',
+  autotest: !0,
+  markup: { language: 'html', content: '' },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1485,7 +2156,11 @@ button.addEventListener("click", () => {
   font-size: 0.9em;
   margin: 2em;
 }
-`.trimStart()},script:{language:"jsx",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'jsx',
+    content: `
 import { useState } from "react";
 
 export const increment = (count) => (count ?? 0) + 1;
@@ -1506,7 +2181,11 @@ function Counter(props) {
 export default function App() {
   return <Counter name="Jest with React" />;
 }
-`.trimStart()},tests:{language:"tsx",content:`
+`.trimStart(),
+  },
+  tests: {
+    language: 'tsx',
+    content: `
 import { render, fireEvent, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { assert } from "chai";
@@ -1553,7 +2232,19 @@ describe("Page", () => {
     );
   });
 });
-`.trimStart()},tools:{enabled:"all",active:"tests",status:"open"}};var D={name:"jest",title:getTemplateName("templates.starter.jest","Jest Starter"),thumbnail:"assets/templates/jest.svg",autotest:!0,activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  tools: { enabled: 'all', active: 'tests', status: 'open' },
+};
+var A = {
+  name: 'jest',
+  title: getTemplateName('templates.starter.jest', 'Jest Starter'),
+  thumbnail: 'assets/templates/jest.svg',
+  autotest: !0,
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/jest.svg" />
@@ -1561,7 +2252,11 @@ describe("Page", () => {
   <button id="counter-button">Click me</button>
   <p class="info">Run tests in the "Tests" panel below.</p>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1575,7 +2270,11 @@ describe("Page", () => {
   font-size: 0.9em;
   margin: 2em;
 }
-`.trimStart()},script:{language:"javascript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'javascript',
+    content: `
 export class Counter {
   count;
   constructor() {
@@ -1603,7 +2302,11 @@ button.addEventListener(
   },
   false
 );
-`.trimStart()},tests:{language:"tsx",content:`
+`.trimStart(),
+  },
+  tests: {
+    language: 'tsx',
+    content: `
 import { fireEvent, screen } from "@testing-library/dom";
 import "@testing-library/jest-dom";
 import { assert } from "chai";
@@ -1643,14 +2346,29 @@ describe("Page", () => {
     );
   });
 });
-`.trimStart()},tools:{enabled:"all",active:"tests",status:"open"}};var Y={name:"jquery",title:getTemplateName("templates.starter.jquery","jQuery Starter"),thumbnail:"assets/templates/jquery.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  tools: { enabled: 'all', active: 'tests', status: 'open' },
+};
+var D = {
+  name: 'jquery',
+  title: getTemplateName('templates.starter.jquery', 'jQuery Starter'),
+  thumbnail: 'assets/templates/jquery.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/jquery.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1659,7 +2377,11 @@ describe("Page", () => {
 .logo {
   width: 300px;
 }
-`.trimStart()},script:{language:"javascript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'javascript',
+    content: `
 import $ from "jquery";
 
 $("#title").text('jQuery');
@@ -1669,7 +2391,22 @@ $("#counter-button").click(() => {
   count += 1;
   $("#counter").text(count);
 });
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var A={name:"julia",title:getTemplateName("templates.starter.julia","Julia Starter"),thumbnail:"assets/templates/julia.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var Y = {
+  name: 'julia',
+  title: getTemplateName('templates.starter.julia', 'Julia Starter'),
+  thumbnail: 'assets/templates/julia.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/julia.svg" />
@@ -1719,7 +2456,11 @@ $("#counter-button").click(() => {
     }
   });
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1728,7 +2469,11 @@ $("#counter-button").click(() => {
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"julia",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'julia',
+    content: `
 function increment(x)
     if x == ""
         return 0
@@ -1747,14 +2492,33 @@ function formatOutput(args...)
 end
 
 formatOutput(getTitle(), increment(livecodesInput))
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var z={name:"knockout",title:getTemplateName("templates.starter.knockout","Knockout Starter"),thumbnail:"assets/templates/knockout.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var z = {
+  name: 'knockout',
+  title: getTemplateName('templates.starter.knockout', 'Knockout Starter'),
+  thumbnail: 'assets/templates/knockout.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span data-bind="text: title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/knockout.svg" />
   <p>You clicked <span data-bind="text: numberOfClicks">0</span> times.</p>
   <button data-bind="click: registerClick">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1763,7 +2527,11 @@ formatOutput(getTitle(), increment(livecodesInput))
 .logo {
   width: 250px;
 }
-`.trimStart()},script:{language:"javascript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'javascript',
+    content: `
 import ko from "knockout";
 
 class ClickCounterViewModel {
@@ -1778,9 +2546,29 @@ class ClickCounterViewModel {
 }
 
 ko.applyBindings(new ClickCounterViewModel());
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var G={name:"lit",title:getTemplateName("templates.starter.lit","Lit Starter"),thumbnail:"assets/templates/lit.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var G = {
+  name: 'lit',
+  title: getTemplateName('templates.starter.lit', 'Lit Starter'),
+  thumbnail: 'assets/templates/lit.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <my-counter name="Lit"></my-counter>
-`.trimStart()},style:{language:"css",content:""},script:{language:"typescript",content:`
+`.trimStart(),
+  },
+  style: { language: 'css', content: '' },
+  script: {
+    language: 'typescript',
+    content: `
 import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { SignalWatcher, signal } from "@lit-labs/preact-signals";
@@ -1819,14 +2607,29 @@ export class SignalExample extends SignalWatcher(LitElement) {
     }
   \`;
 }
-`.trimStart()},customSettings:{typescript:{experimentalDecorators:!0,useDefineForClassFields:!1}}};var V={name:"livescript",title:getTemplateName("templates.starter.livescript","LiveScript Starter"),thumbnail:"assets/templates/livescript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  customSettings: { typescript: { experimentalDecorators: !0, useDefineForClassFields: !1 } },
+};
+var V = {
+  name: 'livescript',
+  title: getTemplateName('templates.starter.livescript', 'LiveScript Starter'),
+  thumbnail: 'assets/templates/livescript.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/livescript.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1835,7 +2638,11 @@ export class SignalExample extends SignalWatcher(LitElement) {
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"livescript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'livescript',
+    content: `
 { capitalize, join, map, words } = require 'prelude-ls'
 
 title = 'live script'
@@ -1853,14 +2660,33 @@ button = document.getElementById \\counter-button
 
 button.addEventListener \\click,
   -> counter-element.innerText = counter!
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var X={name:"lua",title:getTemplateName("templates.starter.lua","Lua Starter"),thumbnail:"assets/templates/lua.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var X = {
+  name: 'lua',
+  title: getTemplateName('templates.starter.lua', 'Lua Starter'),
+  thumbnail: 'assets/templates/lua.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/lua.svg" />
   <p id="counter">You clicked 0 times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1869,7 +2695,11 @@ button.addEventListener \\click,
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"lua",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'lua',
+    content: `
 js = require "js"
 window = js.global
 document = window.document
@@ -1907,14 +2737,28 @@ elseif time >= 12 and time < 18 then
 else
   print ("Good evening")
 end
-`.trimStart()}};var F={name:"lua-wasm",title:getTemplateName("templates.starter.lua-wasm","Lua (Wasm) Starter"),thumbnail:"assets/templates/lua.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var F = {
+  name: 'lua-wasm',
+  title: getTemplateName('templates.starter.lua-wasm', 'Lua (Wasm) Starter'),
+  thumbnail: 'assets/templates/lua.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/lua.svg" />
   <p id="counter">You clicked 0 times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -1923,7 +2767,11 @@ end
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"lua-wasm",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'lua-wasm',
+    content: `
 document = window.document
 document:getElementById("title").innerHTML = "Lua"
 
@@ -1958,7 +2806,19 @@ elseif time >= 12 and time < 18 then
 else
   print ("Good evening")
 end
-`.trimStart()}};var J={name:"malina",title:getTemplateName("templates.starter.malina","Malina.js Starter"),thumbnail:"assets/templates/malina.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"malina",content:`
+`.trimStart(),
+  },
+};
+var J = {
+  name: 'malina',
+  title: getTemplateName('templates.starter.malina', 'Malina.js Starter'),
+  thumbnail: 'assets/templates/malina.svg',
+  activeEditor: 'script',
+  markup: { language: 'html', content: '' },
+  style: { language: 'css', content: '' },
+  script: {
+    language: 'malina',
+    content: `
 <script>
   let title = "Malina.js";
   let counter = 0;
@@ -1984,7 +2844,22 @@ end
   <p>You clicked {counter} times.</p>
   <button @click={increment}>Click me</button>
 </div>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Z={name:"markdown",title:getTemplateName("templates.starter.markdown","Markdown Starter"),thumbnail:"assets/templates/markdown.svg",activeEditor:"markup",markup:{language:"markdown",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var Z = {
+  name: 'markdown',
+  title: getTemplateName('templates.starter.markdown', 'Markdown Starter'),
+  thumbnail: 'assets/templates/markdown.svg',
+  activeEditor: 'markup',
+  markup: {
+    language: 'markdown',
+    content: `
 # Project Title
 
 One Paragraph of project description goes here
@@ -2075,7 +2950,11 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 
 Source: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 @import "github-markdown-css";
 
 body {
@@ -2084,8 +2963,27 @@ body {
   padding: 20px;
   margin: 20px !important;
 }
-`.trimStart()},script:{language:"javascript",content:`document.body.classList.add('markdown-body');
-`},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var K={name:"mdx",title:getTemplateName("templates.starter.mdx","MDX Starter"),thumbnail:"assets/templates/mdx.svg",activeEditor:"markup",markup:{language:"mdx",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'javascript',
+    content: `document.body.classList.add('markdown-body');
+`,
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var K = {
+  name: 'mdx',
+  title: getTemplateName('templates.starter.mdx', 'MDX Starter'),
+  thumbnail: 'assets/templates/mdx.svg',
+  activeEditor: 'markup',
+  markup: {
+    language: 'mdx',
+    content: `
 import { Greeting, Counter } from './script';
 
 <Greeting name="MDX" />
@@ -2093,7 +2991,11 @@ import { Greeting, Counter } from './script';
 ![MDX Logo]({{ __livecodes_baseUrl__ }}assets/templates/mdx.svg)
 
 <Counter />
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 body,
 body button {
   text-align: center;
@@ -2102,7 +3004,11 @@ body button {
 img {
   width: 150px;
 }
-`.trimStart()},script:{language:"jsx",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'jsx',
+    content: `
 import { useState } from "react";
 
 export const Greeting = (props) => <h1>Hello, {props.name || "World"}!</h1>;
@@ -2118,8 +3024,222 @@ export function Counter() {
     </div>
   );
 }
-`.trimStart()}};var Q={name:"ocaml",title:getTemplateName("templates.starter.ocaml","Ocaml Starter"),thumbnail:"assets/templates/ocaml.svg",activeEditor:"script",markup:{language:"html",content:`<div id="app">Loading...</div>
-`},style:{language:"css",content:`
+`.trimStart(),
+  },
+};
+var Q = {
+  name: 'minizinc',
+  title: getTemplateName('templates.starter.minizinc', 'MiniZinc Starter'),
+  thumbnail: 'assets/templates/minizinc.png',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
+<div class="container">
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/minizinc.png" title="MiniZinc" />
+  <button id="button" onclick="run()">Run</button>
+  <div class="solver">
+    <label for="solver" class="label">Solver:</label>
+    <select id="solvers" hidden></select>
+  </div>
+  <label for="data" class="label">Data:</label>
+  <textarea id="data">flour = 8000;
+banana = 11;
+sugar = 3000;
+butter = 1500;
+cocoa = 500;
+</textarea>
+  <div class="label">Output:</div>
+  <pre id="output"></pre>
+</div>
+
+<script>
+  const btn = document.getElementById('button');
+  const menu = document.getElementById('solvers');
+  const data = document.getElementById('data');
+  const output = document.getElementById('output');
+
+  const defaultSolver = 'Gecode';
+  livecodes.minizinc.getSolvers().then((solvers) => {
+    solvers.forEach((solver) => {
+      const option = document.createElement('option');
+      option.innerText = solver.name;
+      if (solver.name === defaultSolver) {
+        option.selected = true;
+      }
+      menu.append(option);
+    })
+    menu.hidden = false;
+  });
+
+  async function run() {
+
+    btn.disabled = true;
+    btn.innerText = 'Running...';
+    output.innerHTML = 'Loading...';
+    output.classList.remove('error');
+
+    const config = {
+      jsonOutput: false,
+      options: { solver: menu.value || defaultSolver },
+    };
+
+    const result = await livecodes.minizinc.run({ dzn: data.value, config });
+
+    if (result.status === 'ERROR') {
+      output.classList.add('error');
+      output.innerHTML = result.errors.map((err) => err.message).join('<br>');
+    } else {
+      output.innerHTML =
+        result.solution?.output?.default ??
+        result.solution?.output?.dzn ??
+        JSON.stringify(
+          result.solution?.output?.json ?? result.solution?.output ?? '',
+          null,
+          2,
+        );
+    }
+
+    btn.disabled = false;
+    btn.innerText = 'Run';
+  }
+
+  run();
+<\/script>
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  text-align: center;
+  font: 1em sans-serif;
+  max-width: 900px;
+  margin: 1em auto;
+  padding: 0 2em;
+}
+
+.logo {
+  width: 100px;
+}
+
+.label {
+  display: block;
+  text-align: left;
+  margin: 0.5em 0;
+  font-weight: bold;
+}
+
+#button {
+  display: block;
+  margin: 1em auto;
+  width: 10em;
+  height: 2em;
+  background-color: #1491EB;
+  border: 0;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#button:hover {
+  background-color: #1180cf;
+}
+
+#button:disabled {
+  background-color: #6a9bbe;
+}
+
+.solver {
+  display: flex;
+  gap: 1em;
+}
+
+#data {
+  height: 9em;
+  resize: vertical;
+}
+
+#data, #output {
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #3d3d3d;
+  margin: 1em auto;
+  padding: 0.8em;
+  text-align: left;
+  width: 100%;
+}
+
+#output.error {
+  color: red;
+}
+`.trimStart(),
+  },
+  script: {
+    language: 'minizinc',
+    content: String.raw`
+% from https://docs.minizinc.dev/en/stable/part_2_tutorial.html
+% Baking cakes for the school fete (with data file)
+
+int: flour;  % no. grams of flour available
+int: banana;  % no. of bananas available
+int: sugar;  % no. grams of sugar available
+int: butter;  % no. grams of butter available
+int: cocoa;  % no. grams of cocoa available
+
+constraint assert(flour >= 0,
+  "Invalid datafile: " ++ "Amount of flour should be non-negative");
+constraint assert(banana >= 0,
+  "Invalid datafile: " ++ "Amount of banana should be non-negative");
+constraint assert(sugar >= 0,
+  "Invalid datafile: " ++ "Amount of sugar should be non-negative");
+constraint assert(butter >= 0,
+  "Invalid datafile: " ++ "Amount of butter should be non-negative");
+constraint assert(cocoa >= 0,
+  "Invalid datafile: " ++ "Amount of cocoa should be non-negative");
+
+var 0..100: b;  % no. of banana cakes
+var 0..100: c;  % no. of chocolate cakes
+
+% flour
+constraint 250 * b + 200 * c <= flour;
+% bananas
+constraint 2 * b <= banana;
+% sugar
+constraint 75 * b + 150 * c <= sugar;
+% butter
+constraint 100 * b + 150 * c <= butter;
+% cocoa
+constraint 75 * c <= cocoa;
+
+% maximize our profit
+solve maximize 400 * b + 450 * c;
+
+output [
+  "no. of banana cakes = \(b)\n",
+  "no. of chocolate cakes = \(c)\n"];
+`.trimStart(),
+  },
+};
+var tt = {
+  name: 'ocaml',
+  title: getTemplateName('templates.starter.ocaml', 'Ocaml Starter'),
+  thumbnail: 'assets/templates/ocaml.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<div id="app">Loading...</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -2128,7 +3248,11 @@ export function Counter() {
 .logo {
   width: 250px;
 }
-`.trimStart()},script:{language:"ocaml",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'ocaml',
+    content: `
 module App =
   struct
     let make ~name  =
@@ -2167,14 +3291,35 @@ let _ =
   | None  -> ()
 
 let _ = print_endline "Hello, OCaml!"
-`.trimStart()},customSettings:{imports:{react:"https://esm.sh/react@18.3.1","react/":"https://esm.sh/react@18.3.1/","react-dom":"https://esm.sh/react-dom@18.3.1"}}};var tt={name:"perl",title:getTemplateName("templates.starter.perl","Perl Starter"),thumbnail:"assets/templates/perl.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  customSettings: {
+    imports: {
+      react: 'https://esm.sh/react@18.3.1',
+      'react/': 'https://esm.sh/react@18.3.1/',
+      'react-dom': 'https://esm.sh/react-dom@18.3.1',
+    },
+  },
+};
+var et = {
+  name: 'perl',
+  title: getTemplateName('templates.starter.perl', 'Perl Starter'),
+  thumbnail: 'assets/templates/perl.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/perl.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -2183,7 +3328,11 @@ let _ = print_endline "Hello, OCaml!"
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"perl",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'perl',
+    content: `
 use strict;
 
 my $title = 'Perl';
@@ -2225,11 +3374,30 @@ if ($hour < 12) {
 } else {
   print "Good evening";
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var et={name:"phaser",title:"Phaser Starter",thumbnail:"assets/templates/phaser.png",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var st = {
+  name: 'phaser',
+  title: 'Phaser Starter',
+  thumbnail: 'assets/templates/phaser.png',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div id="app">
   <div id="game-container"></div>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 body {
   margin: 0;
   padding: 0;
@@ -2245,7 +3413,11 @@ body {
   justify-content: center;
   align-items: center;
 }
-`.trimStart()},script:{language:"javascript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'javascript',
+    content: `
 // based on https://github.com/phaserjs/template-vite
 // and https://phaser.io/sandbox/XyqPcjNr
 
@@ -2419,14 +3591,28 @@ const config = {
 };
 
 export default new Phaser.Game(config);
-`.trimStart()}};var st={name:"php",title:getTemplateName("templates.starter.php","PHP Starter"),thumbnail:"assets/templates/php.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var ot = {
+  name: 'php',
+  title: getTemplateName('templates.starter.php', 'PHP Starter'),
+  thumbnail: 'assets/templates/php.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">world</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/php.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -2435,7 +3621,11 @@ export default new Phaser.Game(config);
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"php",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'php',
+    content: `
 <?php
 $title = 'PHP';
 $document->getElementById('title')->innerText = $title;
@@ -2449,12 +3639,26 @@ $document
     $document->getElementById('counter')->innerText = $count;
     echo "count: $count";
   });
-`.trimStart()}};var ot={name:"php-wasm",title:getTemplateName("templates.starter.php-wasm","PHP (Wasm) Starter"),thumbnail:"assets/templates/php.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var nt = {
+  name: 'php-wasm',
+  title: getTemplateName('templates.starter.php-wasm', 'PHP (Wasm) Starter'),
+  thumbnail: 'assets/templates/php.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <p>
   <h1>Hello, <span id="title">world</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/php.svg" />
 </p>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 body {
   text-align: center;
   font: 1em sans-serif;
@@ -2462,7 +3666,11 @@ body {
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"php-wasm",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'php-wasm',
+    content: `
 <?php
 $title = "PHP";
 vrzno_eval('document.getElementById("title").innerText = "' . $title . '"');
@@ -2481,7 +3689,17 @@ if ($time < 12) {
 $date = date("l jS \\of F, Y");
 
 echo $greeting . "<br>Today is:<br>" . $date;
-`.trimStart()}};var nt={name:"postgresql",title:getTemplateName("templates.starter.postgresql","PostgreSQL Starter"),thumbnail:"assets/templates/postgresql.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var rt = {
+  name: 'postgresql',
+  title: getTemplateName('templates.starter.postgresql', 'PostgreSQL Starter'),
+  thumbnail: 'assets/templates/postgresql.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div id="output">
   <details open>
     <summary>Tables</summary>
@@ -2511,7 +3729,11 @@ echo $greeting . "<br>Today is:<br>" . $date;
     document.querySelector('#obj-result').innerHTML = JSON.stringify(results, null, 2);
   }).catch(console.error);
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 #output {
   color: #3d3d3d;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -2550,7 +3772,11 @@ echo $greeting . "<br>Today is:<br>" . $date;
   min-width: 95%;
   padding: 1em;
 }
-`.trimStart()},script:{language:"postgresql",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'postgresql',
+    content: `
 -- based on https://stackoverflow.com/q/7745609
 
 CREATE TABLE IF NOT EXISTS quotes (
@@ -2585,8 +3811,22 @@ SELECT a.id, a.rev, a.quote
                ROW_NUMBER() OVER (PARTITION BY id ORDER BY rev DESC) rank
           FROM quotes) a
   WHERE a.rank = 1;
-`.trimStart()}};var rt={name:"preact",title:getTemplateName("templates.starter.preact","Preact Starter"),thumbnail:"assets/templates/preact.svg",activeEditor:"script",markup:{language:"html",content:`<div id="app"></div>
-`},style:{language:"css",content:`
+`.trimStart(),
+  },
+};
+var at = {
+  name: 'preact',
+  title: getTemplateName('templates.starter.preact', 'Preact Starter'),
+  thumbnail: 'assets/templates/preact.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<div id="app"></div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -2595,7 +3835,11 @@ SELECT a.id, a.rev, a.quote
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"jsx",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'jsx',
+    content: `
 /** @jsx h */
 import { h, render } from 'preact';
 import { useSignal } from "@preact/signals";
@@ -2613,7 +3857,17 @@ function App(props) {
 }
 
 render(<App name="Preact" />, document.body);
-`.trimStart()}};var at={name:"prolog",title:getTemplateName("templates.starter.prolog","Prolog Starter"),thumbnail:"assets/templates/tau-prolog.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var it = {
+  name: 'prolog',
+  title: getTemplateName('templates.starter.prolog', 'Prolog Starter'),
+  thumbnail: 'assets/templates/tau-prolog.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/tau-prolog.svg" title="Tau Prolog" />
@@ -2659,7 +3913,11 @@ render(<App name="Preact" />, document.body);
   getTitle();
   runQuery();
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -2683,7 +3941,11 @@ render(<App name="Preact" />, document.body);
 }
 #result.error {
   color: red;
-}`.trimStart()},script:{language:"prolog",content:`
+}`.trimStart(),
+  },
+  script: {
+    language: 'prolog',
+    content: `
 title('Prolog').
 
 male(john).
@@ -2749,14 +4011,33 @@ aunt(X, Y):- parent(Z, Y),
 ancestor(X, Y):- parent(X, Y).
 ancestor(X, Y):- parent(X, Z),
     ancestor(Z, Y).
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var it={name:"python",title:getTemplateName("templates.starter.python","Python Starter"),thumbnail:"assets/templates/python.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var lt = {
+  name: 'python',
+  title: getTemplateName('templates.starter.python', 'Python Starter'),
+  thumbnail: 'assets/templates/python.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1 id="header">Hello, World!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/python.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -2765,7 +4046,11 @@ ancestor(X, Y):- parent(X, Z),
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"python",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'python',
+    content: `
 from browser import document
 import time
 
@@ -2789,14 +4074,38 @@ elif 12 <= current_time < 18:
       print('Good afternoon')
 else:
       print('Good evening')
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var lt={name:"python-wasm",aliases:["pyodide"],title:"Python (Wasm) Starter",thumbnail:"assets/templates/python.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var ct = {
+  name: 'python-wasm',
+  aliases: ['pyodide'],
+  title: 'Python (Wasm) Starter',
+  thumbnail: 'assets/templates/python.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <h1 id="title">Hello, World!</h1>
 <div id="loading">Loading...</div>
 <div id="plots"></div>
-`.trimStart()},style:{language:"css",content:`h1 {
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `h1 {
   text-align: center;
 }
-`.trimStart()},script:{language:"python-wasm",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'python-wasm',
+    content: `
 from js import document, XMLHttpRequest
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -2852,7 +4161,17 @@ loading.innerHTML = ""
 
 # avoid leaving figures open
 plt.close("all")
-`.trimStart()}};var ct={name:"r",title:getTemplateName("templates.starter.r","R Starter"),thumbnail:"assets/templates/r.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var mt = {
+  name: 'r',
+  title: getTemplateName('templates.starter.r', 'R Starter'),
+  thumbnail: 'assets/templates/r.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div id="output">Loading...</div>
 
 <script>
@@ -2864,7 +4183,12 @@ plt.close("all")
   //   canvasBackground: 'transparent',
   // };
 <\/script>
-`.trimStart()},style:{language:"css",content:""},script:{language:"r",content:`
+`.trimStart(),
+  },
+  style: { language: 'css', content: '' },
+  script: {
+    language: 'r',
+    content: `
 head(iris)
 
 PW <- iris$Petal.Width
@@ -2900,7 +4224,24 @@ legend("topleft",
 #   summarize(mean_price = mean(price)) %>%
 #   ggplot(aes(x = cut, y = mean_price, fill = cut)) +
 #       geom_bar(stat = "identity")
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var pt={name:"react-native",title:getTemplateName("templates.starter.react-native","React Native Starter"),thumbnail:"assets/templates/react.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"react-native",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var pt = {
+  name: 'react-native',
+  title: getTemplateName('templates.starter.react-native', 'React Native Starter'),
+  thumbnail: 'assets/templates/react.svg',
+  activeEditor: 'script',
+  markup: { language: 'html', content: '' },
+  style: { language: 'css', content: '' },
+  script: {
+    language: 'react-native',
+    content: `
 import { useState } from "react";
 import { Button, Image, StyleSheet, Text, View } from "react-native";
 
@@ -2977,7 +4318,18 @@ const styles = StyleSheet.create({
     color: "#1B95E0",
   },
 });
-`.trimStart()}};var mt={name:"react",title:getTemplateName("templates.starter.react","React Starter"),thumbnail:"assets/templates/react.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:`
+`.trimStart(),
+  },
+};
+var dt = {
+  name: 'react',
+  title: getTemplateName('templates.starter.react', 'React Starter'),
+  thumbnail: 'assets/templates/react.svg',
+  activeEditor: 'script',
+  markup: { language: 'html', content: '' },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -2986,7 +4338,11 @@ const styles = StyleSheet.create({
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"react",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'react',
+    content: `
 import { useState } from "react";
 
 function Counter(props) {
@@ -3004,8 +4360,27 @@ function Counter(props) {
 export default function App() {
   return <Counter name="React" />;
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var dt={name:"reason",title:getTemplateName("templates.starter.reason","Reason Starter"),thumbnail:"assets/templates/reason.svg",activeEditor:"script",markup:{language:"html",content:`<div id="app">Loading...</div>
-`},style:{language:"css",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var ut = {
+  name: 'reason',
+  title: getTemplateName('templates.starter.reason', 'Reason Starter'),
+  thumbnail: 'assets/templates/reason.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<div id="app">Loading...</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -3014,7 +4389,11 @@ export default function App() {
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"reason",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'reason',
+    content: `
 module App = {
   [@react.component]
   let make = (~name) => {
@@ -3045,8 +4424,29 @@ switch (ReactDOM.querySelector("#app")) {
 }
 
 Js.log("Hello, Reason!");
-`.trimStart()},customSettings:{imports:{react:"https://esm.sh/react@18.3.1","react/":"https://esm.sh/react@18.3.1/","react-dom":"https://esm.sh/react-dom@18.3.1"}}};var ut={name:"rescript",title:getTemplateName("templates.starter.rescript","ReScript Starter"),thumbnail:"assets/templates/rescript.png",activeEditor:"script",markup:{language:"html",content:`<div id="app">Loading...</div>
-`},style:{language:"css",content:`
+`.trimStart(),
+  },
+  customSettings: {
+    imports: {
+      react: 'https://esm.sh/react@18.3.1',
+      'react/': 'https://esm.sh/react@18.3.1/',
+      'react-dom': 'https://esm.sh/react-dom@18.3.1',
+    },
+  },
+};
+var gt = {
+  name: 'rescript',
+  title: getTemplateName('templates.starter.rescript', 'ReScript Starter'),
+  thumbnail: 'assets/templates/rescript.png',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<div id="app">Loading...</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -3055,7 +4455,11 @@ Js.log("Hello, Reason!");
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"rescript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'rescript',
+    content: `
 // import npm modules
 @module("canvas-confetti") external confetti: () => unit = "default"
 
@@ -3098,7 +4502,22 @@ switch ReactDOM.querySelector("#app") {
 }
 
 Console.log("Hello, ReScript!")
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var gt={name:"riot",title:getTemplateName("templates.starter.riot","Riot.js Starter"),thumbnail:"assets/templates/riot.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var ht = {
+  name: 'riot',
+  title: getTemplateName('templates.starter.riot', 'Riot.js Starter'),
+  thumbnail: 'assets/templates/riot.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <counter title="Riot.js"></counter>
 
 <script>
@@ -3106,7 +4525,12 @@ Console.log("Hello, ReScript!")
     url: 'https://riot.js.org/'
   }
 <\/script>
-`.trimStart()},style:{language:"css",content:""},script:{language:"riot",content:`
+`.trimStart(),
+  },
+  style: { language: 'css', content: '' },
+  script: {
+    language: 'riot',
+    content: `
 <counter>
   <div class="container">
     <h1>Hello, { props.title }!</h1>
@@ -3149,14 +4573,33 @@ Console.log("Hello, ReScript!")
     };
   <\/script>
 </counter>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var ht={name:"ruby",title:getTemplateName("templates.starter.ruby","Ruby Starter"),thumbnail:"assets/templates/ruby.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var bt = {
+  name: 'ruby',
+  title: getTemplateName('templates.starter.ruby', 'Ruby Starter'),
+  thumbnail: 'assets/templates/ruby.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/ruby.svg" />
   <p id="counter">You clicked 0 times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -3165,7 +4608,11 @@ Console.log("Hello, ReScript!")
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"ruby",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'ruby',
+    content: `
 require "date"
 require "native"
 
@@ -3193,14 +4640,33 @@ elsif current_time < 18
 else
     puts "Good evening, " + msg
 end
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var bt={name:"ruby-wasm",title:getTemplateName("templates.starter.ruby-wasm","Ruby (Wasm) Starter"),thumbnail:"assets/templates/ruby.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var ft = {
+  name: 'ruby-wasm',
+  title: getTemplateName('templates.starter.ruby-wasm', 'Ruby (Wasm) Starter'),
+  thumbnail: 'assets/templates/ruby.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/ruby.svg" />
   <p id="counter">You clicked 0 times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -3209,7 +4675,11 @@ end
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"ruby-wasm",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'ruby-wasm',
+    content: `
 require "js"
 require "date"
 
@@ -3237,14 +4707,28 @@ elsif current_time < 18
 else
     puts "Good evening, " + msg
 end
-`.trimStart()}};var ft={name:"scheme",title:getTemplateName("templates.starter.scheme","Scheme Starter"),thumbnail:"assets/templates/scheme.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var vt = {
+  name: 'scheme',
+  title: getTemplateName('templates.starter.scheme', 'Scheme Starter'),
+  thumbnail: 'assets/templates/scheme.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/scheme.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -3253,7 +4737,11 @@ end
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"scheme",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'scheme',
+    content: `
 (let ((title "Scheme"))
   (set-content! "#title" title))
 
@@ -3269,10 +4757,30 @@ end
     (cond ((< time-now 12) "Good morning")
           ((< time-now 18) "Good afternoon")
           (else "Good evening"))))
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var t="https://cdn.jsdelivr.net/npm/@hatemhosny/shadcdn@0.0.14/build/",vt={name:"shadcn-ui",title:getTemplateName("templates.starter.shadcnui","shadcn/ui Starter"),thumbnail:"assets/templates/shadcn-ui.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var t = 'https://cdn.jsdelivr.net/npm/@hatemhosny/shadcdn@0.0.14/build/',
+  yt = {
+    name: 'shadcn-ui',
+    title: getTemplateName('templates.starter.shadcnui', 'shadcn/ui Starter'),
+    thumbnail: 'assets/templates/shadcn-ui.svg',
+    activeEditor: 'script',
+    markup: {
+      language: 'html',
+      content: `
 <link rel="stylesheet" href="${t}shadcdn.css">
 <link rel="stylesheet" href="${t}themes.css">
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+    },
+    style: {
+      language: 'css',
+      content: `
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -3283,7 +4791,11 @@ end
     --radius: 0.5rem;
   }
 }
-`.trimStart()},script:{language:"react-tsx",content:`
+`.trimStart(),
+    },
+    script: {
+      language: 'react-tsx',
+      content: `
 // from https://ui.shadcn.com/blocks/login#login-03
 import { GalleryVerticalEnd } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -3396,7 +4908,81 @@ function LoginForm({
     </div>
   );
 }
-`.trimStart()},processors:["tailwindcss"],imports:{},types:{},customSettings:{imports:{react:"https://esm.sh/react","react/":"https://esm.sh/react/","react-dom":"https://esm.sh/react-dom","react-dom/":"https://esm.sh/react-dom/","@":`${t}shadcdn.js`,"@/lib/utils":`${t}shadcdn.js`,"@/components/ui/accordion":`${t}shadcdn.js`,"@/components/ui/alert-dialog":`${t}shadcdn.js`,"@/components/ui/alert":`${t}shadcdn.js`,"@/components/ui/aspect-ratio":`${t}shadcdn.js`,"@/components/ui/avatar":`${t}shadcdn.js`,"@/components/ui/badge":`${t}shadcdn.js`,"@/components/ui/button":`${t}shadcdn.js`,"@/components/ui/calendar":`${t}shadcdn.js`,"@/components/ui/card":`${t}shadcdn.js`,"@/components/ui/checkbox":`${t}shadcdn.js`,"@/components/ui/collapsible":`${t}shadcdn.js`,"@/components/ui/command":`${t}shadcdn.js`,"@/components/ui/context-menu":`${t}shadcdn.js`,"@/components/ui/dialog":`${t}shadcdn.js`,"@/components/ui/dropdown-menu":`${t}shadcdn.js`,"@/components/ui/form":`${t}shadcdn.js`,"@/components/ui/hover-card":`${t}shadcdn.js`,"@/components/ui/input":`${t}shadcdn.js`,"@/components/ui/label":`${t}shadcdn.js`,"@/components/ui/menubar":`${t}shadcdn.js`,"@/components/ui/navigation-menu":`${t}shadcdn.js`,"@/components/ui/popover":`${t}shadcdn.js`,"@/components/ui/progress":`${t}shadcdn.js`,"@/components/ui/radio-group":`${t}shadcdn.js`,"@/components/ui/scroll-area":`${t}shadcdn.js`,"@/components/ui/select":`${t}shadcdn.js`,"@/components/ui/separator":`${t}shadcdn.js`,"@/components/ui/sheet":`${t}shadcdn.js`,"@/components/ui/skeleton":`${t}shadcdn.js`,"@/components/ui/slider":`${t}shadcdn.js`,"@/components/ui/switch":`${t}shadcdn.js`,"@/components/ui/table":`${t}shadcdn.js`,"@/components/ui/tabs":`${t}shadcdn.js`,"@/components/ui/textarea":`${t}shadcdn.js`,"@/components/ui/toast":`${t}shadcdn.js`,"@/components/ui/toaster":`${t}shadcdn.js`,"@/components/ui/toggle":`${t}shadcdn.js`,"@/components/ui/tooltip":`${t}shadcdn.js`,"@/components/ui/use-toast":`${t}shadcdn.js`,"@/components/ui/resizable":`${t}shadcdn.js`,"@/components/ui/input-otp":`${t}shadcdn.js`,"@/components/ui/breadcrumb":`${t}shadcdn.js`,"@/components/ui/toggle-group":`${t}shadcdn.js`,"@/components/ui/sonner":`${t}shadcdn.js`,"@/components/ui/pagination":`${t}shadcdn.js`,"@/components/ui/drawer":`${t}shadcdn.js`,"@/components/ui/carousel":`${t}shadcdn.js`,"@/components/ui/sidebar":`${t}shadcdn.js`,"@/components/ui/chart":`${t}shadcdn.js`},types:{"@/components":`${t}shadcdn.d.ts`,"@/utils":`${t}shadcdn.d.ts`}}};var yt={name:"solid",title:getTemplateName("templates.starter.solid","Solid Starter"),thumbnail:"assets/templates/solid.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:`
+`.trimStart(),
+    },
+    processors: ['tailwindcss'],
+    imports: {},
+    types: {},
+    customSettings: {
+      imports: {
+        react: 'https://esm.sh/react',
+        'react/': 'https://esm.sh/react/',
+        'react-dom': 'https://esm.sh/react-dom',
+        'react-dom/': 'https://esm.sh/react-dom/',
+        '@': `${t}shadcdn.js`,
+        '@/lib/utils': `${t}shadcdn.js`,
+        '@/components/ui/accordion': `${t}shadcdn.js`,
+        '@/components/ui/alert-dialog': `${t}shadcdn.js`,
+        '@/components/ui/alert': `${t}shadcdn.js`,
+        '@/components/ui/aspect-ratio': `${t}shadcdn.js`,
+        '@/components/ui/avatar': `${t}shadcdn.js`,
+        '@/components/ui/badge': `${t}shadcdn.js`,
+        '@/components/ui/button': `${t}shadcdn.js`,
+        '@/components/ui/calendar': `${t}shadcdn.js`,
+        '@/components/ui/card': `${t}shadcdn.js`,
+        '@/components/ui/checkbox': `${t}shadcdn.js`,
+        '@/components/ui/collapsible': `${t}shadcdn.js`,
+        '@/components/ui/command': `${t}shadcdn.js`,
+        '@/components/ui/context-menu': `${t}shadcdn.js`,
+        '@/components/ui/dialog': `${t}shadcdn.js`,
+        '@/components/ui/dropdown-menu': `${t}shadcdn.js`,
+        '@/components/ui/form': `${t}shadcdn.js`,
+        '@/components/ui/hover-card': `${t}shadcdn.js`,
+        '@/components/ui/input': `${t}shadcdn.js`,
+        '@/components/ui/label': `${t}shadcdn.js`,
+        '@/components/ui/menubar': `${t}shadcdn.js`,
+        '@/components/ui/navigation-menu': `${t}shadcdn.js`,
+        '@/components/ui/popover': `${t}shadcdn.js`,
+        '@/components/ui/progress': `${t}shadcdn.js`,
+        '@/components/ui/radio-group': `${t}shadcdn.js`,
+        '@/components/ui/scroll-area': `${t}shadcdn.js`,
+        '@/components/ui/select': `${t}shadcdn.js`,
+        '@/components/ui/separator': `${t}shadcdn.js`,
+        '@/components/ui/sheet': `${t}shadcdn.js`,
+        '@/components/ui/skeleton': `${t}shadcdn.js`,
+        '@/components/ui/slider': `${t}shadcdn.js`,
+        '@/components/ui/switch': `${t}shadcdn.js`,
+        '@/components/ui/table': `${t}shadcdn.js`,
+        '@/components/ui/tabs': `${t}shadcdn.js`,
+        '@/components/ui/textarea': `${t}shadcdn.js`,
+        '@/components/ui/toast': `${t}shadcdn.js`,
+        '@/components/ui/toaster': `${t}shadcdn.js`,
+        '@/components/ui/toggle': `${t}shadcdn.js`,
+        '@/components/ui/tooltip': `${t}shadcdn.js`,
+        '@/components/ui/use-toast': `${t}shadcdn.js`,
+        '@/components/ui/resizable': `${t}shadcdn.js`,
+        '@/components/ui/input-otp': `${t}shadcdn.js`,
+        '@/components/ui/breadcrumb': `${t}shadcdn.js`,
+        '@/components/ui/toggle-group': `${t}shadcdn.js`,
+        '@/components/ui/sonner': `${t}shadcdn.js`,
+        '@/components/ui/pagination': `${t}shadcdn.js`,
+        '@/components/ui/drawer': `${t}shadcdn.js`,
+        '@/components/ui/carousel': `${t}shadcdn.js`,
+        '@/components/ui/sidebar': `${t}shadcdn.js`,
+        '@/components/ui/chart': `${t}shadcdn.js`,
+      },
+      types: { '@/components': `${t}shadcdn.d.ts`, '@/utils': `${t}shadcdn.d.ts` },
+    },
+  };
+var xt = {
+  name: 'solid',
+  title: getTemplateName('templates.starter.solid', 'Solid Starter'),
+  thumbnail: 'assets/templates/solid.svg',
+  activeEditor: 'script',
+  markup: { language: 'html', content: '' },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -3405,7 +4991,11 @@ function LoginForm({
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"solid.tsx",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'solid.tsx',
+    content: `
 import { createSignal } from "solid-js";
 
 function Counter(props: { name: string }) {
@@ -3424,7 +5014,22 @@ function Counter(props: { name: string }) {
 export default function App() {
   return <Counter name="Solid" />;
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var xt={name:"sql",title:getTemplateName("templates.starter.sql","SQL Starter"),thumbnail:"assets/templates/sqlite.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var wt = {
+  name: 'sql',
+  title: getTemplateName('templates.starter.sql', 'SQL Starter'),
+  thumbnail: 'assets/templates/sqlite.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div id="output">
   <details open>
     <summary>Tables</summary>
@@ -3454,7 +5059,11 @@ export default function App() {
     document.querySelector('#obj-result').innerHTML = JSON.stringify(results, null, 2);
   }).catch(console.error);
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 #output {
   color: #3d3d3d;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -3493,7 +5102,11 @@ export default function App() {
   min-width: 95%;
   padding: 1em;
 }
-`.trimStart()},script:{language:"sql",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'sql',
+    content: `
 -- based on https://stackoverflow.com/q/7745609
 
 CREATE TABLE IF NOT EXISTS quotes (
@@ -3528,8 +5141,23 @@ SELECT a.id, a.rev, a.quote
                ROW_NUMBER() OVER (PARTITION BY id ORDER BY rev DESC) rank
           FROM quotes) a
   WHERE a.rank = 1;
-`.trimStart()}};var wt={name:"stencil",title:getTemplateName("templates.starter.stencil","Stencil Starter"),thumbnail:"assets/templates/stencil.png",activeEditor:"script",markup:{language:"html",content:`<my-app title="Stencil"></my-app>
-`},style:{language:"css",content:""},script:{language:"stencil",content:`
+`.trimStart(),
+  },
+};
+var St = {
+  name: 'stencil',
+  title: getTemplateName('templates.starter.stencil', 'Stencil Starter'),
+  thumbnail: 'assets/templates/stencil.png',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<my-app title="Stencil"></my-app>
+`,
+  },
+  style: { language: 'css', content: '' },
+  script: {
+    language: 'stencil',
+    content: `
 import { Component, Prop, h, State } from "@stencil/core";
 
 @Component({
@@ -3564,13 +5192,33 @@ export class App {
     );
   }
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var St={name:"svelte",title:getTemplateName("templates.starter.svelte","Svelte Starter"),thumbnail:"assets/templates/svelte.svg",activeEditor:"script",markup:{language:"svelte",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var kt = {
+  name: 'svelte',
+  title: getTemplateName('templates.starter.svelte', 'Svelte Starter'),
+  thumbnail: 'assets/templates/svelte.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'svelte',
+    content: `
 <script>
 import Counter from "./Component.svelte";
 <\/script>
 
 <Counter title="Svelte" />
-`.trimStart()},style:{language:"css",content:""},script:{language:"svelte",content:`
+`.trimStart(),
+  },
+  style: { language: 'css', content: '' },
+  script: {
+    language: 'svelte',
+    content: `
 <script>
   let { title = "World" } = $props();
   let counter = $state(0);
@@ -3596,7 +5244,22 @@ import Counter from "./Component.svelte";
   <p>You clicked {counter} times.</p>
   <button on:click={increment}>Click me</button>
 </div>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var kt={name:"tailwindcss",title:getTemplateName("templates.starter.tailwindcss","Tailwind CSS Starter"),thumbnail:"assets/templates/tailwindcss.svg",activeEditor:"markup",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var _t = {
+  name: 'tailwindcss',
+  title: getTemplateName('templates.starter.tailwindcss', 'Tailwind CSS Starter'),
+  thumbnail: 'assets/templates/tailwindcss.svg',
+  activeEditor: 'markup',
+  markup: {
+    language: 'html',
+    content: `
 <div class="relative grid min-h-screen grid-cols-[1fr_2.5rem_auto_2.5rem_1fr] grid-rows-[1fr_1px_auto_1px_1fr] bg-white [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10">
   <div class="col-start-3 row-start-3 flex max-w-lg flex-col bg-gray-100 p-2 dark:bg-white/10">
     <div class="rounded-xl bg-white p-10 text-sm/7 text-gray-700 dark:bg-gray-950 dark:text-gray-300">
@@ -3669,13 +5332,29 @@ import Counter from "./Component.svelte";
   <div class="relative -bottom-px col-span-full col-start-1 row-start-2 h-px bg-(--pattern-fg)"></div>
   <div class="relative -top-px col-span-full col-start-1 row-start-4 h-px bg-(--pattern-fg)"></div>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 @import "tailwindcss";
 
 @theme {
   /* ... */
 }
-`.trimStart()},script:{language:"javascript",content:""},processors:["tailwindcss"]};var _t={name:"tcl",title:getTemplateName("templates.starter.tcl","Tcl Starter"),thumbnail:"assets/templates/tcl.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  script: { language: 'javascript', content: '' },
+  processors: ['tailwindcss'],
+};
+var jt = {
+  name: 'tcl',
+  title: getTemplateName('templates.starter.tcl', 'Tcl Starter'),
+  thumbnail: 'assets/templates/tcl.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/tcl.svg" />
@@ -3699,7 +5378,11 @@ import Counter from "./Component.svelte";
     };
   });
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -3708,7 +5391,11 @@ import Counter from "./Component.svelte";
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"tcl",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'tcl',
+    content: `
 set title "Tcl"
 ::wacl::dom attr "#name" innerText $title
 
@@ -3720,14 +5407,33 @@ if {[info exists count]} {
 }
 ::wacl::dom attr "#counter" innerText $count
 puts $count
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var jt={name:"teal",title:getTemplateName("templates.starter.teal","Teal Starter"),thumbnail:"assets/templates/teal.png",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var Tt = {
+  name: 'teal',
+  title: getTemplateName('templates.starter.teal', 'Teal Starter'),
+  thumbnail: 'assets/templates/teal.png',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/teal.png" />
   <p id="counter">You clicked 0 times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -3736,7 +5442,11 @@ puts $count
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"teal",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'teal',
+    content: `
 global record Js
   record global
     record document
@@ -3769,14 +5479,28 @@ button:addEventListener("click", function()
   count = increment(count)
   counter_el.innerHTML = ("You clicked %d times."):format(count)
 end)
-`.trimStart()}};var Tt={name:"typescript",title:getTemplateName("templates.starter.typescript","TypeScript Starter"),thumbnail:"assets/templates/typescript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+};
+var Ct = {
+  name: 'typescript',
+  title: getTemplateName('templates.starter.typescript', 'TypeScript Starter'),
+  thumbnail: 'assets/templates/typescript.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/typescript.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -3785,7 +5509,11 @@ end)
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"typescript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'typescript',
+    content: `
 class Counter {
   private count: number;
   constructor() {
@@ -3813,7 +5541,22 @@ button.addEventListener(
   },
   false
 );
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Ct={name:"vue",title:getTemplateName("templates.starter.vue","Vue SFC Starter"),thumbnail:"assets/templates/vue.svg",activeEditor:"script",markup:{language:"vue",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var Ut = {
+  name: 'vue',
+  title: getTemplateName('templates.starter.vue', 'Vue SFC Starter'),
+  thumbnail: 'assets/templates/vue.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'vue',
+    content: `
 <script setup lang="tsx">
 import Counter from './Component.vue';
 <\/script>
@@ -3821,7 +5564,12 @@ import Counter from './Component.vue';
 <template>
   <Counter name="Vue" />
 </template>
-`.trimStart()},style:{language:"css",content:""},script:{language:"vue",content:`
+`.trimStart(),
+  },
+  style: { language: 'css', content: '' },
+  script: {
+    language: 'vue',
+    content: `
 <script setup lang="tsx">
   import { ref } from 'vue';
 
@@ -3857,14 +5605,33 @@ import Counter from './Component.vue';
     width: 150px;
   }
 </style>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Ut={name:"vue2",title:getTemplateName("templates.starter.vue2","Vue 2 Starter"),thumbnail:"assets/templates/vue.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var Et = {
+  name: 'vue2',
+  title: getTemplateName('templates.starter.vue2', 'Vue 2 Starter'),
+  thumbnail: 'assets/templates/vue.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div id="app">
   <h1>Hello, Vue!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/vue.svg" />
   <p>You clicked {{ counter }} times.</p>
   <button @click="increment()">Click me</button>
 </div>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 #app,
 #app button {
   text-align: center;
@@ -3873,7 +5640,11 @@ import Counter from './Component.vue';
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"javascript",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'javascript',
+    content: `
 new Vue({
   el: "#app",
   data: {
@@ -3885,7 +5656,22 @@ new Vue({
     },
   },
 });
-`.trimStart()},stylesheets:[],scripts:["{{ __CDN_URL__ }}vue@2"],cssPreset:"",imports:{},types:{}};var Et={name:"wat",title:getTemplateName("templates.starter.wat","WebAssembly Text Starter"),thumbnail:"assets/templates/webassembly.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: ['{{ __CDN_URL__ }}vue@2'],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var Lt = {
+  name: 'wat',
+  title: getTemplateName('templates.starter.wat', 'WebAssembly Text Starter'),
+  thumbnail: 'assets/templates/webassembly.svg',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/webassembly.svg" />
@@ -3929,7 +5715,11 @@ new Vue({
     );
   })();
 <\/script>
-`.trimStart()},style:{language:"css",content:`
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
 .container,
 .container button {
   text-align: center;
@@ -3938,7 +5728,11 @@ new Vue({
 .logo {
   width: 150px;
 }
-`.trimStart()},script:{language:"wat",content:`
+`.trimStart(),
+  },
+  script: {
+    language: 'wat',
+    content: `
 (module
   (import "title" "change" (func $changeTitle (param i32) (param i32)))
   (export "memory" (memory $0))
@@ -3953,4 +5747,83 @@ new Vue({
     (i32.add (local.get $0) (i32.const 1))
   )
 )
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var uo=[b,I,Tt,mt,pt,Ct,d,rt,St,yt,G,wt,K,kt,vt,U,v,g,gt,J,Y,h,z,D,O,C,et,Ut,S,V,y,x,H,ut,dt,Q,it,lt,ct,ht,bt,R,N,st,ot,_,j,W,T,tt,X,F,jt,q,A,ft,k,w,P,_t,Z,u,Et,xt,nt,at,f,E];export{uo as starterTemplates};
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  imports: {},
+  types: {},
+};
+var bo = [
+  b,
+  I,
+  Ct,
+  dt,
+  pt,
+  Ut,
+  d,
+  at,
+  kt,
+  xt,
+  G,
+  St,
+  K,
+  _t,
+  yt,
+  U,
+  v,
+  g,
+  ht,
+  J,
+  D,
+  h,
+  z,
+  A,
+  O,
+  C,
+  st,
+  Et,
+  S,
+  V,
+  y,
+  x,
+  H,
+  gt,
+  ut,
+  tt,
+  lt,
+  ct,
+  mt,
+  bt,
+  ft,
+  R,
+  N,
+  ot,
+  nt,
+  _,
+  j,
+  W,
+  T,
+  et,
+  X,
+  F,
+  Tt,
+  L,
+  Y,
+  vt,
+  k,
+  w,
+  P,
+  jt,
+  Z,
+  u,
+  Lt,
+  wt,
+  rt,
+  it,
+  Q,
+  f,
+  E,
+];
+export { bo as starterTemplates };

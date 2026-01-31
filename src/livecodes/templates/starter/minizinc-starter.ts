@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const minizincStarter: Template = {
   name: 'minizinc',
+  aliases: ['mzn'],
   title: window.deps.translateString('templates.starter.minizinc', 'MiniZinc Starter'),
   thumbnail: 'assets/templates/minizinc.png',
   activeEditor: 'script',

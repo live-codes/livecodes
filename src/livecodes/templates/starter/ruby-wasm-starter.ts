@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const rubyWasmStarter: Template = {
   name: 'ruby-wasm',
+  aliases: ['rb-wasm'],
   title: window.deps.translateString('templates.starter.ruby-wasm', 'Ruby (Wasm) Starter'),
   thumbnail: 'assets/templates/ruby.svg',
   activeEditor: 'script',
