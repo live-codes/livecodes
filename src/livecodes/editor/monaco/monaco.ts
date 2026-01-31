@@ -252,15 +252,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const customLanguages: Partial<Record<Language, string>> = {
-    astro: baseUrl + '{{hash:monaco-lang-astro.js}}',
-    clio: baseUrl + '{{hash:monaco-lang-clio.js}}',
-    imba: baseUrl + '{{hash:monaco-lang-imba.js}}',
-    json5: baseUrl + '{{hash:monaco-lang-json5.js}}',
-    minizinc: baseUrl + '{{hash:monaco-lang-minizinc.js}}',
-    prolog: baseUrl + '{{hash:monaco-lang-prolog.js}}',
-    // sql: baseUrl + '{{hash:monaco-lang-sql.js}}', // TODO: add autocomplete
+    astro: monacoLanguagesBaseUrl + 'astro.js',
+    clio: monacoLanguagesBaseUrl + 'clio.js',
+    imba: monacoLanguagesBaseUrl + 'imba.js',
+    json5: monacoLanguagesBaseUrl + 'json5.js',
+    minizinc: monacoLanguagesBaseUrl + 'minizinc.js',
+    prolog: monacoLanguagesBaseUrl + 'prolog.js',
+    // sql: monacoLanguagesBaseUrl + 'sql.js', // TODO: add autocomplete
     vue: monacoLanguagesBaseUrl + 'vue.js',
-    wat: baseUrl + '{{hash:monaco-lang-wat.js}}',
+    wat: monacoLanguagesBaseUrl + 'wat.js',
   };
 
   interface CustomLanguageDefinition {
@@ -275,8 +275,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     lang = monacoMapLanguage(lang);
     const langUrl = customLanguages[lang];
     if (langUrl && !monaco.languages.getLanguages().find((l) => l.id === lang)) {
-      const mod: CustomLanguageDefinition = (await import(langUrl)).default;
       monaco.languages.register({ id: lang });
+      const mod: CustomLanguageDefinition = (await import(langUrl)).default;
       if (mod.config) {
         monaco.languages.setLanguageConfiguration(lang, mod.config);
       }
