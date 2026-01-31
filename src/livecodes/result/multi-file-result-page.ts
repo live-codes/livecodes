@@ -31,6 +31,9 @@ import {
 } from '../utils/utils';
 import { browserJestUrl, esModuleShimsPath, spacingJsUrl } from '../vendors';
 
+let lastInput = '';
+let lastOutput = '';
+
 export const createMultiFileResultPage = async ({
   compiledFiles,
   compiledTests,
@@ -51,6 +54,19 @@ export const createMultiFileResultPage = async ({
   runTests: boolean;
   compileInfo: CompileInfo;
 }): Promise<string> => {
+  const input = JSON.stringify({
+    compiledFiles,
+    compiledTests,
+    config,
+    forExport,
+    template,
+    baseUrl,
+    runTests,
+    compileInfo,
+  });
+  if (input === lastInput && lastOutput) return lastOutput;
+  lastInput = input;
+
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
   const testsFilename = `tests.${getRandomString()}.js`;
   // avoid mutation
@@ -599,5 +615,6 @@ window.browserJest.run().then(results => {
     dom.body.appendChild(testScript);
   }
 
-  return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+  lastOutput = '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+  return lastOutput;
 };
