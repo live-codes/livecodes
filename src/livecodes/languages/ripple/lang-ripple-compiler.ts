@@ -51,21 +51,23 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
       !isMultiFile &&
       (mod.toLowerCase().endsWith('.ripple') || mod.toLowerCase().startsWith('data:text/ripple'));
 
-    const fullCode = await replaceSFCImports(code, {
-      config,
-      filename,
-      getLanguageByAlias,
-      getFileExtension,
-      isSfc: isRipple,
-      compileSFC: async (
-        code: string,
-        { config, filename }: { config: Config; filename: string },
-      ) => {
-        const compiled = (await compileRipple(code, { config, filename })).code;
-        importedContent += `\n${filename}\n\n${code}\n`;
-        return compiled;
-      },
-    });
+    const fullCode = isMultiFile
+      ? code
+      : await replaceSFCImports(code, {
+          config,
+          filename,
+          getLanguageByAlias,
+          getFileExtension,
+          isSfc: isRipple,
+          compileSFC: async (
+            code: string,
+            { config, filename }: { config: Config; filename: string },
+          ) => {
+            const compiled = (await compileRipple(code, { config, filename })).code;
+            importedContent += `\n${filename}\n\n${code}\n`;
+            return compiled;
+          },
+        });
     const processedCode = await compileBlocks(fullCode, 'style', config);
     const { js, css } = await compile(processedCode, filename);
 

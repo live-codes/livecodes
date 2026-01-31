@@ -352,6 +352,10 @@ export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
 
 export const prettierEsmUrl = /* @__PURE__ */ getModuleUrl('prettier@3.3.2/standalone');
 
+export const prettierEsmPostcssUrl = /* @__PURE__ */ getModuleUrl(
+  'prettier@3.3.2/plugins/postcss.mjs',
+);
+
 export const prettierMinizincUrl = /* @__PURE__ */ getUrl(
   '@live-codes/prettier-plugin-minizinc@0.2.0/dist/standalone.js',
 );
