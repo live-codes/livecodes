@@ -48,7 +48,6 @@ let tailwindcssConfig: any;
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
     container,
-    baseUrl,
     readonly,
     theme,
     editorTheme,
