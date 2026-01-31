@@ -3797,20 +3797,20 @@ const handleNew = () => {
     });
   };
 
-  let templatesCache: Template[] | undefined;
   const createTemplatesUI = async () => {
     initTemplatesSearchIndex();
     const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
     const multifileTemplatesList = UI.getMultifileTemplatesList(templatesContainer);
     if (!starterTemplatesList || !multifileTemplatesList) return;
     starterTemplatesList.innerHTML = '';
+    multifileTemplatesList.innerHTML = '';
     const searchInput = UI.getTemplatesSearchInput(templatesContainer);
     if (searchInput) {
       searchInput.value = '';
     }
     const loadingText = starterTemplatesList?.firstElementChild;
     const multifileLoadingText = multifileTemplatesList?.firstElementChild;
-    const createLink = (template: Template, list: HTMLElement) => {
+    const createLink = (template: Template & { id: string }, list: HTMLElement) => {
       const link = createStarterTemplateLink(template, list, baseUrl);
       eventsManager.addEventListener(
         link,
@@ -3822,54 +3822,37 @@ const handleNew = () => {
         false,
       );
     };
-    if (!templatesCache) {
-      getTemplates()
-        .then((allTemplates) => {
-          templatesCache = allTemplates;
-          loadingText?.remove();
-          multifileLoadingText?.remove();
-          allTemplates
-            .filter((t) => !t.files?.length)
-            .forEach((template, id) => {
-              const link = createLink(template, starterTemplatesList)!;
-              addTemplateToIndex({ id: String(id), ...template });
-              eventsManager.addEventListener(
-                link,
-                'click',
-                (event) => {
-                  event.preventDefault();
-                  loadStarterTemplate(template.name, /* checkSaved= */ false);
-                },
-                false,
-              );
-            });
-          allTemplates
-            .filter((t) => t.files?.length)
-            .forEach((template, id) => {
-              const link = createLink(template, multifileTemplatesList)!;
-              addTemplateToIndex({ id: String(id), ...template });
-              eventsManager.addEventListener(
-                link,
-                'click',
-                (event) => {
-                  event.preventDefault();
-                  loadStarterTemplate(template.name, /* checkSaved= */ false);
-                },
-                false,
-              );
-            });
-        })
-        .catch(() => {
-          loadingText?.remove();
-          multifileLoadingText?.remove();
-          notifications.error(
-            window.deps.translateString(
-              'core.error.failedToLoadTemplates',
-              'Failed loading starter templates',
-            ),
+    getTemplates()
+      .then((allTemplates) => {
+        loadingText?.remove();
+        multifileLoadingText?.remove();
+        allTemplates.forEach((template, id) => {
+          const link = createLink(
+            { id: String(id), ...template },
+            template.files?.length ? multifileTemplatesList : starterTemplatesList,
+          )!;
+          addTemplateToIndex({ id: String(id), ...template });
+          eventsManager.addEventListener(
+            link,
+            'click',
+            (event) => {
+              event.preventDefault();
+              loadStarterTemplate(template.name, /* checkSaved= */ false);
+            },
+            false,
           );
         });
-    }
+      })
+      .catch(() => {
+        loadingText?.remove();
+        multifileLoadingText?.remove();
+        notifications.error(
+          window.deps.translateString(
+            'core.error.failedToLoadTemplates',
+            'Failed loading starter templates',
+          ),
+        );
+      });
     loadUserTemplates();
     requestAnimationFrame(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
     modal.show(templatesContainer, { isAsync: true, size: 'large-fixed' });

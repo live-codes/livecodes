@@ -1621,7 +1621,9 @@ export type TemplateAlias =
   | 'postgres'
   | 'pg'
   | 'pgsql'
-  | 'mzn';
+  | 'mzn'
+  | 'multifile-js'
+  | 'multifile-ts';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';
