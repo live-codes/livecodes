@@ -1326,8 +1326,8 @@ a.tools-pane-title {
   .editor-scroll-btn {
     align-items: center;
     background: var(--editor-title-bg-color);
-    border-inline: 2px solid var(--toolbar-bg-color);
     border-block: 1px solid var(--editor-title-bg-color);
+    border-inline: 2px solid var(--toolbar-bg-color);
     border-top-left-radius: var(--editor-title-border-radius);
     border-top-right-radius: var(--editor-title-border-radius);
     color: var(--editor-title-color);

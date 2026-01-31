@@ -1185,7 +1185,19 @@ export type Language =
   | 'ttf'
   | 'otf'
   | 'woff'
-  | 'woff2';
+  | 'woff2'
+  | 'mp4'
+  | 'mpeg'
+  | 'webm'
+  | 'ogv'
+  | 'ogg'
+  | 'mov'
+  | 'mp3'
+  | 'm4a'
+  | 'wav'
+  | 'oga'
+  | 'mid'
+  | 'midi';
 
 export interface Editor {
   /**

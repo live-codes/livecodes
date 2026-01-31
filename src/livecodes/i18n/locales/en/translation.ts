@@ -57,6 +57,9 @@ const translation = {
     },
   },
   app: {
+    binaryFileEditor: {
+      selectFile: 'Select file',
+    },
     changeTheme: {
       hint: 'Change Theme',
     },

@@ -12,6 +12,14 @@ export const binary: LanguageSpecs = {
         if (extension === 'jpg') return `${type}/jpeg`;
         if (extension === 'tif') return `${type}/tiff`;
         if (['ttf', 'otf', 'woff', 'woff2'].includes(extension)) type = 'font';
+        if (['mp4', 'mpeg', 'webm', 'ogg'].includes(extension)) type = 'video';
+        if (['midi', 'wav'].includes(extension)) type = 'audio';
+        if (extension === 'ogv') return 'video/ogg';
+        if (extension === 'mov') return 'video/quicktime';
+        if (extension === 'oga') return 'audio/ogg';
+        if (extension === 'mp3') return 'audio/mpeg';
+        if (extension === 'mid') return 'audio/midi';
+        if (extension === 'm4a') return 'audio/mp4';
         return `${type}/${extension}`;
       };
 
@@ -33,10 +41,25 @@ export const binary: LanguageSpecs = {
     'tif',
     'tiff',
     'ico',
+
     'ttf',
     'otf',
     'woff',
     'woff2',
+
+    'mp4',
+    'mpeg',
+    'webm',
+    'ogv',
+    'ogg',
+    'mov',
+
+    'mp3',
+    'm4a',
+    'wav',
+    'oga',
+    'mid',
+    'midi',
   ],
   editor: '',
   multiFileSupport: true,

@@ -1,5 +1,7 @@
+import { getFileLanguage } from '../languages/utils';
 import type { CodeEditor, Config, EditorOptions } from '../models';
 import { isMobile, loadStylesheet } from '../utils';
+import { createBinaryFileEditor } from './binary-file-editor';
 import { createFakeEditor } from './fake-editor';
 import { fonts } from './fonts';
 
@@ -30,21 +32,23 @@ const selectEditor = (options: EditorOptions & { activeEditor?: Config['activeEd
   const { editor, mode, editorId, activeEditor, isLite, isHeadless } = options;
   const auto = isMobile() ? 'codemirror' : 'monaco';
   return (
-    (isHeadless
-      ? 'fake'
-      : mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
+    (getFileLanguage(editorId) === 'binary'
+      ? 'binary'
+      : isHeadless
         ? 'fake'
-        : mode === 'simple' && editorId !== activeEditor
+        : mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
           ? 'fake'
-          : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
-            ? editor
-            : editor === 'auto'
-              ? auto
-              : mode === 'simple' && editorId === activeEditor
-                ? 'codemirror'
-                : mode === 'codeblock' || isLite
-                  ? 'codejar'
-                  : auto) || 'monaco'
+          : mode === 'simple' && editorId !== activeEditor
+            ? 'fake'
+            : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
+              ? editor
+              : editor === 'auto'
+                ? auto
+                : mode === 'simple' && editorId === activeEditor
+                  ? 'codemirror'
+                  : mode === 'codeblock' || isLite
+                    ? 'codejar'
+                    : auto) || 'monaco'
   );
 };
 
@@ -97,6 +101,7 @@ export const createEditor = async (
 
   const editorName = selectEditor(editorOptions);
   if (editorName === 'fake') return createFakeEditor(editorOptions);
+  if (editorName === 'binary') return createBinaryFileEditor(editorOptions);
 
   if (editorOptions.fontFamily) {
     loadFont(editorOptions.fontFamily);
