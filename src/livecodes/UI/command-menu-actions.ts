@@ -293,7 +293,6 @@ export const getCommandMenuActions = ({
         'reason',
         'ocaml',
         'python',
-        'pyodide',
         'python-wasm',
         'r',
         'ruby',
@@ -303,7 +302,6 @@ export const getCommandMenuActions = ({
         'php',
         'php-wasm',
         'cpp',
-        'clang',
         'cpp-wasm',
         'java',
         'csharp-wasm',
@@ -328,6 +326,7 @@ export const getCommandMenuActions = ({
         'blockly',
         'diagrams',
         'multifile-blank',
+        'multifile-basic',
         'multifile-javascript',
         'multifile-typescript',
         'multifile-react',
@@ -336,6 +335,7 @@ export const getCommandMenuActions = ({
         'multifile-svelte',
         'multifile-solid',
         'multifile-lit',
+        'multifile-jest',
       ).map((template) => {
         const label = template.startsWith('multifile-') ? template.replace('-', ' ') : template;
         return {

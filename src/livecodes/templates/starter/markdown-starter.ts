@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const markdownStarter: Template = {
   name: 'markdown',
+  aliases: ['md'],
   title: window.deps.translateString('templates.starter.markdown', 'Markdown Starter'),
   thumbnail: 'assets/templates/markdown.svg',
   activeEditor: 'markup',

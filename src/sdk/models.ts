@@ -406,7 +406,7 @@ export interface EmbedOptions {
 export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
 export interface SingleFileConfig
-  extends Omit<ContentConfig, 'files' | 'mainFile' | 'fileLanguages'>,
+  extends Omit<ContentConfig, 'files' | 'mainFile' | 'fileLanguages' | 'lockFiles'>,
     AppConfig,
     UserConfig {}
 
@@ -520,6 +520,12 @@ export interface ContentConfig {
   fileLanguages?: Partial<Record<Language, Language>>;
 
   /**
+   * When `true`, the user won't be able to add/rename/re-order/delete files. The file content can still be edited.
+   * @default false
+   */
+  lockFiles?: boolean;
+
+  /**
    * List of URLs for [external stylesheets](https://livecodes.io/docs/features/external-resources) to add to the [result page](https://livecodes.io/docs/features/result).
    */
   stylesheets: string[];
@@ -626,6 +632,7 @@ export type MultiFileContentConfig = Pick<
   | 'files'
   | 'mainFile'
   | 'fileLanguages'
+  | 'lockFiles'
   | 'languages'
   | 'processors'
   | 'customSettings'
@@ -998,6 +1005,8 @@ export type Language =
   | 'js'
   | 'mjs'
   | 'json'
+  | 'json5'
+  | 'jsonc'
   | 'babel'
   | 'es'
   | 'sucrase'
@@ -1157,7 +1166,38 @@ export type Language =
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
-  | 'pintora';
+  | 'pintora'
+  | 'text'
+  | 'txt'
+  | 'csv'
+  | 'tsv'
+  | 'plaintext'
+  | 'binary'
+  | 'png'
+  | 'jpg'
+  | 'jpeg'
+  | 'gif'
+  | 'webp'
+  | 'bmp'
+  | 'tif'
+  | 'tiff'
+  | 'ico'
+  | 'ttf'
+  | 'otf'
+  | 'woff'
+  | 'woff2'
+  | 'mp4'
+  | 'mpeg'
+  | 'webm'
+  | 'ogv'
+  | 'ogg'
+  | 'mov'
+  | 'mp3'
+  | 'm4a'
+  | 'wav'
+  | 'oga'
+  | 'mid'
+  | 'midi';
 
 export interface Editor {
   /**
@@ -1467,7 +1507,7 @@ export type Template = (
 ) &
   Partial<ContentConfig> & {
     name: TemplateName;
-    aliases?: TemplateName[];
+    aliases?: TemplateAlias[];
     thumbnail: string;
     tools?: Config['tools'];
     autotest?: Config['autotest'];
@@ -1512,7 +1552,6 @@ export type TemplateName =
   | 'reason'
   | 'ocaml'
   | 'python'
-  | 'pyodide'
   | 'python-wasm'
   | 'r'
   | 'ruby'
@@ -1522,7 +1561,6 @@ export type TemplateName =
   | 'php'
   | 'php-wasm'
   | 'cpp'
-  | 'clang'
   | 'cpp-wasm'
   | 'java'
   | 'csharp-wasm'
@@ -1547,6 +1585,7 @@ export type TemplateName =
   | 'blockly'
   | 'diagrams'
   | 'multifile-blank'
+  | 'multifile-basic'
   | 'multifile-javascript'
   | 'multifile-typescript'
   | 'multifile-react'
@@ -1554,7 +1593,43 @@ export type TemplateName =
   | 'multifile-preact'
   | 'multifile-svelte'
   | 'multifile-solid'
-  | 'multifile-lit';
+  | 'multifile-lit'
+  | 'multifile-jest';
+
+export type TemplateAlias =
+  | 'js'
+  | 'ts'
+  | 'ng'
+  | 'bs'
+  | 'tailwind'
+  | 'tw'
+  | 'coffee'
+  | 'ls'
+  | 'py'
+  | 'pyodide'
+  | 'py-wasm'
+  | 'r-lang'
+  | 'rlang'
+  | 'rb'
+  | 'rb-wasm'
+  | 'golang'
+  | 'golang-wasm'
+  | 'c++'
+  | 'clang'
+  | 'c++-wasm'
+  | 'c#-wasm'
+  | 'cs-wasm'
+  | 'pl'
+  | 'lisp'
+  | 'cljs'
+  | 'md'
+  | 'as'
+  | 'postgres'
+  | 'pg'
+  | 'pgsql'
+  | 'mzn'
+  | 'multifile-js'
+  | 'multifile-ts';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';

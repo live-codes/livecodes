@@ -4,6 +4,7 @@ export const javascript: Template = {
   name: 'multifile-javascript',
   title: window.deps.translateString('templates.multifile.javascript', 'JavaScript Template'),
   thumbnail: 'assets/templates/javascript.svg',
+  aliases: ['multifile-js'],
   mainFile: 'index.html',
   activeEditor: 'src/main.js',
   files: [

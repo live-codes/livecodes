@@ -62,9 +62,9 @@ export const createLanguageMenus = (
     languageMenu.classList.add('dropdown-menu-' + editorId);
     menuScroller.appendChild(languageMenu);
 
-    const editorLanguages = [...window.deps.languages]
-      .filter((language) => language.editor === editorId)
-      .filter((language) => languageIsEnabled(language.name, config));
+    const editorLanguages = [...window.deps.languages].filter(
+      (language) => language.editor === editorId && languageIsEnabled(language.name, config),
+    );
 
     if (editorLanguages.length === 0) {
       editorSelector.classList.add('hidden');
@@ -180,6 +180,7 @@ export const createMultiFileEditorTab = ({
   isMainFile,
   isNewFile = false,
   isHidden = false,
+  isLocked = false,
 }: {
   title: string;
   showEditor: (filename: string) => void;
@@ -189,6 +190,7 @@ export const createMultiFileEditorTab = ({
   isMainFile: boolean;
   isNewFile: boolean;
   isHidden?: boolean;
+  isLocked?: boolean;
 }) => {
   let currentFileName = title;
   if (getEditorTab(currentFileName)) return;
@@ -205,7 +207,7 @@ export const createMultiFileEditorTab = ({
   label.addEventListener('paste', removeFormatting, false);
   editorSelector.appendChild(label);
 
-  if (!isMainFile) {
+  if (!isMainFile && !isLocked) {
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-file-button');
     deleteButton.innerHTML = deleteIcon;
@@ -234,6 +236,7 @@ export const createMultiFileEditorTab = ({
   const accept = async () => {
     label.contentEditable = 'false';
     eventAttached = false;
+    if (isLocked) return;
     label.innerText = label.innerText.trim().replaceAll('\n', '');
     const success =
       isNewFile && typeof addFile === 'function'
@@ -281,7 +284,7 @@ export const createMultiFileEditorTab = ({
 
   let eventAttached = false;
   const onDblClick = () => {
-    if (!getEditorSelector()?.contains(label)) return;
+    if (isLocked || !getEditorSelector()?.contains(label)) return;
     label.contentEditable = 'true';
     label.style.maxWidth = 'unset';
     requestAnimationFrame(() => {

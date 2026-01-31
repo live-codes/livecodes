@@ -270,6 +270,8 @@ export const jsclUrl = /* @__PURE__ */ getUrl(
   'gh:jscl-project/jscl-project.github.io@058adc599f0d012718ef3ad28e704a92c4dd741e/jscl.js',
 );
 
+export const json5Url = /* @__PURE__ */ getUrl('json5@2.2.3/dist/index.min.js');
+
 export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
@@ -310,17 +312,13 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
-export const monacoRippleUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-ripple@0.1.3/dist/index.js',
+export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/monaco-languages@0.1.0/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
 
 export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.1/dist/monaco-vim.js');
-
-export const monacoVolarUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-volar@0.1.0/dist/index.js',
-);
 
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
 

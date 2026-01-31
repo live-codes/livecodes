@@ -212,6 +212,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
       : {}),
     ...(is(config.mainFile, 'string') ? { mainFile: config.mainFile } : {}),
     ...(is(config.fileLanguages, 'object') ? { fileLanguages: validFileLanguages } : {}),
+    ...(is(config.lockFiles, 'boolean') ? { lockFiles: config.lockFiles } : {}),
     ...(is(config.tools, 'object')
       ? { tools: validateToolsProps(config.tools as Config['tools']) }
       : {}),

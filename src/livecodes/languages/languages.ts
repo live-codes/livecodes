@@ -5,6 +5,7 @@ import { assemblyscript } from './assemblyscript';
 import { astro } from './astro';
 import { babel } from './babel';
 import { bbcode } from './bbcode';
+import { binary } from './binary';
 import { blockly } from './blockly';
 import { civet } from './civet';
 import { clio } from './clio';
@@ -31,6 +32,7 @@ import { imba } from './imba';
 import { java } from './java';
 import { javascript } from './javascript';
 import { jinja } from './jinja';
+import { json } from './json';
 import { jsx, tsx } from './jsx';
 import { julia } from './julia';
 import { less } from './less';
@@ -75,6 +77,7 @@ import { sucrase } from './sucrase';
 import { svelte, svelteApp } from './svelte';
 import { tcl } from './tcl';
 import { teal } from './teal';
+import { text } from './text';
 import { twig } from './twig';
 import { typescript } from './typescript';
 import { vento } from './vento';
@@ -171,4 +174,7 @@ export const languages: LanguageSpecs[] = [
   prolog,
   minizinc,
   blockly,
+  text,
+  json,
+  binary,
 ];

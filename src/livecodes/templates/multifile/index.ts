@@ -1,5 +1,7 @@
+import { basic } from './basic';
 import { blank } from './blank';
 import { javascript } from './javascript';
+import { jest } from './jest';
 import { lit } from './lit';
 import { preact } from './preact';
 import { react } from './react';
@@ -10,6 +12,7 @@ import { vue } from './vue';
 
 export const multifileTemplates = [
   blank,
+  basic,
   javascript,
   typescript,
   react,
@@ -18,4 +21,5 @@ export const multifileTemplates = [
   svelte,
   solid,
   lit,
+  jest,
 ];

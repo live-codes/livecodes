@@ -16,7 +16,7 @@ export const getSource = <T extends Config | Cache>(
 ): T['markup'] | T['files'][0] | undefined =>
   isEditorId(editorId) ? config[editorId] : config.files.find((f) => f.filename === editorId);
 
-export const getMainFile = (config: Config | Cache) =>
+export const getMainFile = (config: { mainFile?: string; files?: Config['files'] }) =>
   !config.files?.length
     ? undefined
     : config.mainFile && config.files.find((f) => f.filename === config.mainFile)

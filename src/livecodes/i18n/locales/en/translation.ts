@@ -57,6 +57,9 @@ const translation = {
     },
   },
   app: {
+    binaryFileEditor: {
+      selectFile: 'Select file',
+    },
     changeTheme: {
       hint: 'Change Theme',
     },
@@ -984,9 +987,11 @@ const translation = {
   templates: {
     heading: 'New Project',
     multifile: {
+      basic: 'Basic Template',
       blank: 'Blank Template',
       heading: 'Multi-file Templates',
       javascript: 'JavaScript Template',
+      jest: 'Jest Template',
       lit: 'Lit Template',
       loading: 'Loading multi-file templates...',
       preact: 'Preact Template',
@@ -999,6 +1004,10 @@ const translation = {
     noUserTemplates: {
       desc: 'You can save a project as a template from <1></1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
       heading: 'You have no saved templates.',
+    },
+    search: {
+      label: 'Search templates',
+      placeholder: 'Search templates...',
     },
     starter: {
       angular: 'Angular Starter',
@@ -1015,6 +1024,8 @@ const translation = {
       commonlisp: 'Common Lisp Starter',
       cpp: 'C++ Starter',
       'cpp-wasm': 'C++ (Wasm) Starter',
+      'csharp-wasm': 'C# (Wasm) Starter',
+      d3: 'D3 Starter',
       daisyui: 'daisyUI Starter',
       diagrams: 'Diagrams Starter',
       fennel: 'Fennel Starter',
@@ -1041,12 +1052,14 @@ const translation = {
       minizinc: 'MiniZinc Starter',
       ocaml: 'Ocaml Starter',
       perl: 'Perl Starter',
+      phaser: 'Phaser Starter',
       php: 'PHP Starter',
       'php-wasm': 'PHP (Wasm) Starter',
       postgresql: 'PostgreSQL Starter',
       preact: 'Preact Starter',
       prolog: 'Prolog Starter',
       python: 'Python Starter',
+      'python-wasm': 'Python (Wasm) Starter',
       r: 'R Starter',
       react: 'React Starter',
       'react-native': 'React Native Starter',

@@ -1,5 +1,6 @@
 import { getPlaygroundUrl } from '../sdk';
 import {
+  addTemplateToIndex,
   createLoginContainer,
   createOpenItem,
   createProjectInfoUI,
@@ -10,6 +11,7 @@ import {
   displayLoggedOut,
   getFullscreenButton,
   getResultElement,
+  initTemplatesSearchIndex,
   loadingMessage,
   noUserTemplates,
 } from './UI';
@@ -77,7 +79,6 @@ import { appLanguages } from './i18n/app-languages';
 import { isGithub } from './import/check-src';
 import { importCompressedCode } from './import/code';
 import { importFromFiles } from './import/files';
-import { populateConfig } from './import/utils';
 import {
   getFileLanguage,
   getLanguageByAlias,
@@ -550,7 +551,7 @@ const addFile = async (
   editorLanguages![validName] = fileLanguage;
   editors[validName] = editor;
   editorIds.push(validName);
-  handleChangeContent(validName);
+  handleChangeContent(editor);
   if (config.autoupdate) {
     run();
   }
@@ -640,14 +641,16 @@ const createEditorUI = (title: string, isHidden = false) => {
   container.dataset.multiFile = 'true';
   container.classList.add('editor');
   editorsElement.insertBefore(container, UI.getEditorToolbar());
+  const config = getConfig();
   createMultiFileEditorTab({
     title,
     showEditor,
     renameFile,
     deleteFile,
-    isMainFile: title === getMainFile(getConfig()),
+    isMainFile: title === getMainFile(config),
     isNewFile: false,
     isHidden,
+    isLocked: config.lockFiles || config.readonly,
   });
   return container;
 };
@@ -720,18 +723,21 @@ const createEditors = async (config: Config) => {
   };
 
   if (config.files?.length) {
-    createAddFileButton({
-      onclick: () =>
-        createMultiFileEditorTab({
-          title: '        ',
-          showEditor,
-          addFile: async (filename: string) => addFile(filename, baseOptions),
-          renameFile,
-          deleteFile,
-          isMainFile: false,
-          isNewFile: true,
-        }),
-    });
+    if (!config.lockFiles && !config.readonly) {
+      createAddFileButton({
+        onclick: () =>
+          createMultiFileEditorTab({
+            title: '        ',
+            showEditor,
+            addFile: async (filename: string) => addFile(filename, baseOptions),
+            renameFile,
+            deleteFile,
+            isMainFile: false,
+            isNewFile: true,
+            isLocked: false,
+          }),
+      });
+    }
 
     editorLanguages = { markup: 'html', style: 'css', script: 'javascript' };
     editors = {
@@ -1059,7 +1065,7 @@ const configureMultiFile = (config: Config) => {
 
   // allow re-ordering file tabs by drag and drop
   fileSortable?.destroy();
-  if (isMultiFile) {
+  if (isMultiFile && !config.lockFiles && !config.readonly) {
     loadScript(draggableUrl, 'Draggable').then((Draggable: any) => {
       fileSortable = new Draggable.Sortable(editorTabsContainer, {
         draggable: '[data-multi-file]',
@@ -3052,8 +3058,9 @@ const handleChangeLanguage = () => {
   }
 };
 
-const handleChangeContent = (editorId?: EditorId) => {
-  const contentChanged = async (editorId: EditorId, loading: boolean) => {
+const handleChangeContent = (editor?: CodeEditor) => {
+  const contentChanged = async (editor: CodeEditor, loading: boolean) => {
+    const editorId = editor.getEditorId();
     updateConfig();
     const config = getConfig();
     addConsoleInputCodeCompletion();
@@ -3092,25 +3099,25 @@ const handleChangeContent = (editorId?: EditorId) => {
     loadModuleTypes(editors, config);
   };
 
-  const debouncecontentChanged = (editorId: EditorId) =>
+  const debouncecontentChanged = (editor: CodeEditor) =>
     debounce(
       async () => {
-        await contentChanged(editorId, changingContent);
+        await contentChanged(editor, changingContent);
       },
       () => getConfig().delay ?? defaultConfig.delay,
     );
 
-  const subscribeEditor = (editorId: EditorId) => {
-    if (!editorId || !editors?.[editorId]) return;
-    editors[editorId].onContentChanged(debouncecontentChanged(editorId));
-    editors[editorId].onContentChanged(setSavedStatus);
+  const subscribeEditor = (editor: CodeEditor) => {
+    if (!editor) return;
+    editor.onContentChanged(debouncecontentChanged(editor));
+    editor.onContentChanged(setSavedStatus);
   };
 
-  if (editorId) {
-    subscribeEditor(editorId);
+  if (editor) {
+    subscribeEditor(editor);
   } else {
-    Object.keys(editors).forEach((editorId) => {
-      subscribeEditor(editorId);
+    Object.values(editors).forEach((editor) => {
+      subscribeEditor(editor);
     });
   }
 };
@@ -3368,8 +3375,10 @@ const handleEditorTools = () => {
 
   eventsManager.addEventListener(UI.getCopyAsUrlButton(), 'click', () => {
     const currentEditor = getActiveEditor();
+    const content = currentEditor?.getValue() || '';
+    const language = currentEditor?.getLanguage();
     const mimeType = 'text/' + currentEditor?.getLanguage();
-    const dataUrl = toDataUrl(currentEditor?.getValue() || '', mimeType);
+    const dataUrl = language === 'binary' ? content : toDataUrl(content, mimeType);
     if (currentEditor && copyToClipboard(dataUrl)) {
       notifications.success(
         window.deps.translateString('core.copy.copiedAsDataURL', 'Code copied as data URL'),
@@ -3696,10 +3705,10 @@ const handleLogout = () => {
 };
 
 const handleNew = () => {
-  const templatesContainer = createTemplatesContainer(eventsManager, () => loadUserTemplates());
-  const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
+  const templatesContainer = createTemplatesContainer(eventsManager);
 
   const loadUserTemplates = async () => {
+    const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
     const defaultTemplate = getAppData()?.defaultTemplate;
     const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
       a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
@@ -3723,6 +3732,7 @@ const handleNew = () => {
         getLanguageByAlias,
         true,
       );
+      addTemplateToIndex(item);
 
       if (defaultTemplate === item.id) {
         link.parentElement?.classList.add('selected');
@@ -3804,13 +3814,20 @@ const handleNew = () => {
     });
   };
 
-  let templatesCache: Template[];
   const createTemplatesUI = async () => {
-    const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer)!;
-    const multifileTemplatesList = UI.getMultifileTemplatesList(templatesContainer)!;
+    initTemplatesSearchIndex();
+    const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
+    const multifileTemplatesList = UI.getMultifileTemplatesList(templatesContainer);
+    if (!starterTemplatesList || !multifileTemplatesList) return;
+    starterTemplatesList.innerHTML = '';
+    multifileTemplatesList.innerHTML = '';
+    const searchInput = UI.getTemplatesSearchInput(templatesContainer);
+    if (searchInput) {
+      searchInput.value = '';
+    }
     const loadingText = starterTemplatesList?.firstElementChild;
     const multifileLoadingText = multifileTemplatesList?.firstElementChild;
-    const createLink = (template: Template, list: HTMLElement) => {
+    const createLink = (template: Template & { id: string }, list: HTMLElement) => {
       const link = createStarterTemplateLink(template, list, baseUrl);
       eventsManager.addEventListener(
         link,
@@ -3822,32 +3839,39 @@ const handleNew = () => {
         false,
       );
     };
-    if (!templatesCache) {
-      getTemplates()
-        .then((allTemplates) => {
-          templatesCache = allTemplates;
-          loadingText?.remove();
-          multifileLoadingText?.remove();
-          allTemplates
-            .filter((t) => !t.files?.length)
-            .forEach((template) => createLink(template, starterTemplatesList));
-          allTemplates
-            .filter((t) => t.files?.length)
-            .forEach((template) => createLink(template, multifileTemplatesList));
-        })
-        .catch(() => {
-          loadingText?.remove();
-          multifileLoadingText?.remove();
-          notifications.error(
-            window.deps.translateString(
-              'core.error.failedToLoadTemplates',
-              'Failed loading starter templates',
-            ),
+    getTemplates()
+      .then((allTemplates) => {
+        loadingText?.remove();
+        multifileLoadingText?.remove();
+        allTemplates.forEach((template, id) => {
+          const link = createLink(
+            { id: String(id), ...template },
+            template.files?.length ? multifileTemplatesList : starterTemplatesList,
+          )!;
+          addTemplateToIndex({ id: String(id), ...template });
+          eventsManager.addEventListener(
+            link,
+            'click',
+            (event) => {
+              event.preventDefault();
+              loadStarterTemplate(template.name, /* checkSaved= */ false);
+            },
+            false,
           );
         });
-    }
-
-    setTimeout(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
+      })
+      .catch(() => {
+        loadingText?.remove();
+        multifileLoadingText?.remove();
+        notifications.error(
+          window.deps.translateString(
+            'core.error.failedToLoadTemplates',
+            'Failed loading starter templates',
+          ),
+        );
+      });
+    loadUserTemplates();
+    requestAnimationFrame(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
     modal.show(templatesContainer, { isAsync: true, size: 'large-fixed' });
   };
 
@@ -3927,7 +3951,7 @@ const handleImport = () => {
       eventsManager,
       getUser: authService?.getUser,
       loadConfig,
-      populateConfig,
+      importFromFiles,
       projectStorage: stores.projects,
       showScreen,
     });
@@ -5295,13 +5319,52 @@ const handleDropFiles = () => {
 
   eventsManager.addEventListener(document, 'drop', (event: DragEvent) => {
     event.preventDefault();
-    const files = event.dataTransfer?.files;
-    if (!files?.length) return;
+    if (!event.dataTransfer) return;
+    const files = event.dataTransfer.files;
+    const items = event.dataTransfer.items; // for directories
+    if (!files?.length && !items?.length) return;
+    const entries = { files, items };
+    modal.show(loadingMessage(), { size: 'small', autoFocus: false });
 
-    importFromFiles(files, populateConfig, eventsManager)
-      .then(loadConfig)
+    importFromFiles(entries, /* multiFile= */ true)
+      .then(async (fileConfig) => {
+        // if in single file project, load as a new project
+        // otherwise, add files to current project
+        const currentConfig = getConfig();
+        if (Object.keys(fileConfig).length === 0) return;
+        if (!currentConfig.files.length) {
+          checkSavedAndExecute(async () => {
+            await loadConfig(fileConfig);
+            modal.close();
+          })();
+        } else {
+          for (const file of fileConfig.files || []) {
+            if (currentConfig.files.find((f) => f.filename === file.filename)) {
+              editors[file.filename]?.setValue(file.content);
+            } else {
+              await addFile(file.filename, {
+                baseUrl,
+                mode: currentConfig.mode,
+                readonly: currentConfig.readonly,
+                ...getEditorConfig(currentConfig),
+                isEmbed,
+                isLite,
+                isHeadless,
+                mapLanguage,
+                getLanguageExtension,
+                getFormatterConfig: () => getFormatterConfig(currentConfig),
+                getFontFamily,
+              });
+              editors[file.filename]?.setValue(file.content);
+            }
+          }
+          showEditor(fileConfig.files?.[0].filename);
+          modal.close();
+        }
+      })
       .catch((message) => {
         notifications.error(message);
+        modal.close();
       });
   });
 

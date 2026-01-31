@@ -28,6 +28,9 @@ import {
 } from '../utils';
 import { browserJestUrl, esModuleShimsPath, spacingJsUrl } from '../vendors';
 
+let lastInput = '';
+let lastOutput = '';
+
 export const createResultPage = async ({
   code,
   config,
@@ -47,6 +50,19 @@ export const createResultPage = async ({
   runTests: boolean;
   compileInfo: CompileInfo;
 }): Promise<string> => {
+  const input = JSON.stringify({
+    code,
+    config,
+    forExport,
+    template,
+    baseUrl,
+    singleFileResult,
+    runTests,
+    compileInfo,
+  });
+  if (input === lastInput && lastOutput) return lastOutput;
+  lastInput = input;
+
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
   const domParser = new DOMParser();
@@ -485,7 +501,8 @@ window.browserJest.run().then(results => {
     dom.body.appendChild(testScript);
   }
 
-  return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+  lastOutput = '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+  return lastOutput;
 };
 
 export const cleanResultFromDev = (result: string) => {

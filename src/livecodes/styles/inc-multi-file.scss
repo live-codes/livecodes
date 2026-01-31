@@ -112,4 +112,56 @@
   #app-menu-project li:has(#external-resources-link) {
     display: none;
   }
+
+  .binary-file-editor {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+
+    input {
+      display: none;
+    }
+
+    button {
+      background: var(--btn-modal-bg-color);
+      border: 1px solid var(--btn-modal-border-color);
+      border-radius: var(--btn-modal-border-radius);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
+      color: var(--btn-modal-color);
+      cursor: pointer;
+      font-size: var(--btn-modal-font);
+      padding: var(--s12) var(--s24);
+
+      &:hover,
+      &:active {
+        background-color: var(--btn-modal-bg-active);
+        color: var(--btn-modal-active);
+      }
+
+      &:active {
+        transform: translateY(1px);
+      }
+    }
+
+    a {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      width: 100%;
+
+      img,
+      video {
+        max-height: 80%;
+        max-width: 80%;
+
+        &.icon {
+          filter: invert(0.5);
+          min-height: 80px;
+        }
+      }
+    }
+  }
 }
