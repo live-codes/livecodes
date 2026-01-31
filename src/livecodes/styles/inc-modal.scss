@@ -1192,6 +1192,21 @@
     }
   }
 
+  ul#multifile-templates-list li {
+    position: relative;
+
+    a::after {
+      content: 'Multi-file';
+      display: block;
+      font-size: smaller;
+      opacity: 0.5;
+      padding: 4px;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
   #backup-container {
     #backup-stores {
       align-items: center;
