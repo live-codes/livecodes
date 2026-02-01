@@ -38,6 +38,7 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
     }
     if (!code.trim()) return;
 
+    const isMultiFile = config.files.length > 0;
     const isSfc = (mod: string) =>
       mod.toLowerCase().endsWith('.vue') || mod.toLowerCase().startsWith('data:text/vue');
     const testTs = (filename: string) =>
@@ -45,18 +46,20 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
     const testJsx = (filename: string) =>
       !!(filename && /(\.|\b)[jt]sx$/.test(filename.toLowerCase()));
 
-    code = await replaceSFCImports(code, {
-      filename,
-      config,
-      getLanguageByAlias,
-      getFileExtension,
-      isSfc,
-      compileSFC: async (code, { filename, config }) => {
-        const compiled = (await compileVueSFC(code, { filename, config }))?.js || '';
-        importedContent += `\n${filename}\n\n${compiled}\n`;
-        return compiled;
-      },
-    });
+    code = isMultiFile
+      ? code
+      : await replaceSFCImports(code, {
+          filename,
+          config,
+          getLanguageByAlias,
+          getFileExtension,
+          isSfc,
+          compileSFC: async (code, { filename, config }) => {
+            const compiled = (await compileVueSFC(code, { filename, config }))?.js || '';
+            importedContent += `\n${filename}\n\n${compiled}\n`;
+            return compiled;
+          },
+        });
 
     const compiledBlocks = await compileBlocks(code, {
       config,
