@@ -1659,11 +1659,6 @@ a.editor-title {
 
       #select-editor {
         position: unset;
-
-        & > div {
-          // TODO: revise this
-          width: 70vw;
-        }
       }
 
       .language-menu-button {
