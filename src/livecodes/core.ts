@@ -950,7 +950,7 @@ const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = fa
   titles.forEach((title) => {
     if (title.dataset.editor === editorId) {
       title.classList.add('active');
-      title.scrollIntoView({ behavior: 'smooth' });
+      title.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     } else {
       title.classList.remove('active');
     }
@@ -1561,8 +1561,6 @@ const getMultiFileResultPage = async ({
     });
   }
 
-  // TODO: handle modified HTML
-
   const result = await createMultiFileResultPage({
     compiledFiles,
     compiledTests,
@@ -1900,19 +1898,26 @@ const share = async (
 const updateConfig = () => {
   const newConfig = getConfig();
   editorIds.forEach((editorId) => {
-    if (editorId === 'markup' || editorId === 'style' || editorId === 'script') {
+    if (
+      (editorId === 'markup' || editorId === 'style' || editorId === 'script') &&
+      editors[editorId]
+    ) {
       newConfig[editorId] = {
         ...newConfig[editorId],
         language: getEditorLanguage(editorId) as Language,
-        content: editors[editorId]?.getValue(),
+        content: editors[editorId].getValue(),
       };
     }
   });
-  newConfig.files = newConfig.files.map((file) => ({
-    ...file,
-    language: getEditorLanguage(file.filename) as Language,
-    content: editors[file.filename]?.getValue(),
-  }));
+  newConfig.files = newConfig.files.map((file) =>
+    editors[file.filename]
+      ? {
+          ...file,
+          language: getFileLanguage(file.filename) as Language,
+          content: editors[file.filename].getValue(),
+        }
+      : file,
+  );
   setConfig(newConfig);
 };
 
