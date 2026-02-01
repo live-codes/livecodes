@@ -941,7 +941,7 @@ const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = fa
   titles.forEach((title) => {
     if (title.dataset.editor === editorId) {
       title.classList.add('active');
-      title.scrollIntoView({ behavior: 'smooth' });
+      title.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     } else {
       title.classList.remove('active');
     }

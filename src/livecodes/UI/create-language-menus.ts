@@ -311,7 +311,7 @@ export const createMultiFileEditorTab = ({
   getEditorTabScroller()?.insertBefore(editorSelector, scrollTo);
 
   if (isNewFile) {
-    scrollTo?.scrollIntoView({ behavior: 'smooth', inline: 'end' });
+    scrollTo?.scrollIntoView({ behavior: 'smooth', inline: 'end', block: 'end' });
     onDblClick();
   }
   if (isHidden) {
