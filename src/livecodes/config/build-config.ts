@@ -221,7 +221,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
         ? paramsActive
         : paramsActive in editorIds // ?active=1
           ? editorIds[paramsActive]
-          : paramsConfig.activeEditor;
+          : paramsActiveEditor || paramsActive || paramsConfig.activeEditor;
 
   // ?languages=html,md,css,ts
   if (typeof params.languages === 'string') {

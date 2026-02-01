@@ -10,7 +10,10 @@ export interface SourceFile {
   editorId?: EditorId;
 }
 
-const prepareFiles = (config: { files?: Config['files'] }): Partial<Config> => {
+const prepareFiles = (
+  config: { files?: Config['files'] },
+  params: { [key: string]: string },
+): Partial<Config> => {
   if (!config.files?.length) return config;
   const mainFile = getMainFile(config);
   if (!mainFile || !config.files.find((f) => f.filename === mainFile)) {
@@ -24,7 +27,7 @@ const prepareFiles = (config: { files?: Config['files'] }): Partial<Config> => {
   return {
     ...(title ? { title } : {}),
     mainFile,
-    activeEditor: mainFile,
+    activeEditor: String(params.activeEditor || params.active || mainFile),
     ...config,
   };
 };
@@ -84,7 +87,7 @@ export const populateConfig = (
           ],
         };
       }, {} as Partial<Config>);
-    return prepareFiles(config);
+    return prepareFiles(config, params);
   }
 
   // external styles and scripts (e.g. github gist exported from codepen)
@@ -92,13 +95,16 @@ export const populateConfig = (
   const scriptsFile = files.find((file) => file.filename === 'scripts');
 
   if (!stylesFile && !scriptsFile) {
-    return prepareFiles({
-      files: files.map((file) => ({
-        filename: file.path || file.filename,
-        content: file.content,
-        language: file.language || (getFileLanguage(file.filename) as Language),
-      })),
-    });
+    return prepareFiles(
+      {
+        files: files.map((file) => ({
+          filename: file.path || file.filename,
+          content: file.content,
+          language: file.language || (getFileLanguage(file.filename) as Language),
+        })),
+      },
+      params,
+    );
   }
 
   // select languages from files
