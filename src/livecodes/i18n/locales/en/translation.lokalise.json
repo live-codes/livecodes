@@ -684,10 +684,6 @@
     "notes": "",
     "translation": "Copy Code as Data URL"
   },
-  "commandMenu.disableAI": {
-    "notes": "",
-    "translation": "Disable AI Code Assistant"
-  },
   "commandMenu.disableAutoSave": {
     "notes": "",
     "translation": "Disable Auto Save"
@@ -711,10 +707,6 @@
   "commandMenu.disableVim": {
     "notes": "",
     "translation": "Disable Vim Mode"
-  },
-  "commandMenu.enableAI": {
-    "notes": "",
-    "translation": "Enable AI Code Assistant"
   },
   "commandMenu.enableAutoSave": {
     "notes": "",
@@ -1255,14 +1247,6 @@
   "editorSettings.emmet": {
     "notes": "",
     "translation": "Enable Emmet *"
-  },
-  "editorSettings.enableAI.heading": {
-    "notes": "",
-    "translation": "Enable AI Code Assistant"
-  },
-  "editorSettings.enableAI.note": {
-    "notes": "### <tag-1> ###\n<a href=\"https://windsurf.com/\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img id=\"windsurf-logo\" src=\"{{baseUrl}}assets/images/windsurf.svg\" style=\"height: 3em; translate: 0 40%; margin-top: -2em;\" alt=\"Windsurf\" />\n\n",
-    "translation": "Powered by <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.foldRegions": {
     "notes": "",

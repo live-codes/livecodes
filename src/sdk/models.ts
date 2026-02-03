@@ -815,7 +815,7 @@ export interface EditorConfig {
    * If `true`, [AI code assistant](https://livecodes.io/docs/features/ai) is enabled.
    * @default false
    */
-  enableAI: boolean;
+  // enableAI: boolean;
 }
 
 export interface FormatterConfig {

@@ -180,7 +180,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.singleQuote, 'boolean') ? { singleQuote: config.singleQuote } : {}),
     ...(is(config.trailingComma, 'boolean') ? { trailingComma: config.trailingComma } : {}),
     ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),
-    ...(is(config.enableAI, 'boolean') ? { enableAI: config.enableAI } : {}),
+    // ...(is(config.enableAI, 'boolean') ? { enableAI: config.enableAI } : {}),
     ...(includes(editorModes, config.editorMode) ? { editorMode: config.editorMode } : {}),
     ...(is(config.imports, 'object') ? { imports: config.imports } : {}),
     ...(is(config.types, 'object') ? { types: config.types } : {}),
