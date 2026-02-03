@@ -122,7 +122,14 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
       clientCode += code;
     };
 
-    const [compiledScript, bindings] = await doCompileScript(descriptor, id, false, isTS, isJSX);
+    const [compiledScript, bindings] = await doCompileScript(
+      descriptor,
+      id,
+      false,
+      isTS,
+      isJSX,
+      config,
+    );
 
     const clientScript =
       isTS || isJSX ? await compileTypescript(compiledScript, { config }) : compiledScript;
@@ -185,6 +192,7 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
     ssr: boolean,
     isTS: boolean,
     isJSX: boolean,
+    config: Config,
   ): Promise<[string, /* BindingMetadata | undefined */ any]> {
     if (descriptor.script || descriptor.scriptSetup) {
       const expressionPlugins = [];
@@ -194,6 +202,16 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
       if (isJSX) {
         expressionPlugins.push('jsx');
       }
+
+      const findFile = (filename: string) =>
+        config.files?.find(
+          (f) =>
+            filename === f.filename ||
+            filename === f.filename + '.ts' ||
+            filename === f.filename + '.mts' ||
+            filename === f.filename + '.tsx' ||
+            filename === f.filename + '.d.ts',
+        );
 
       const compiledScript = SFCCompiler.compileScript(descriptor, {
         inlineTemplate: true,
@@ -208,6 +226,10 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
             // ...store.sfcOptions?.template?.compilerOptions,
             expressionPlugins,
           },
+        },
+        fs: {
+          fileExists: (file: string) => findFile(file),
+          readFile: (file: string) => findFile(file)?.content || '',
         },
       });
       let code = compiledScript.content;

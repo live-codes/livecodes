@@ -218,7 +218,8 @@ export const createMultiFileResultPage = async ({
         './' + f.filename === filename + '.mjs' ||
         './' + f.filename === filename + '.mts' ||
         './' + f.filename === filename + '.jsx' ||
-        './' + f.filename === filename + '.tsx',
+        './' + f.filename === filename + '.tsx' ||
+        './' + f.filename === filename + '.d.ts',
     );
 
   compiledFiles.forEach((file) => {
