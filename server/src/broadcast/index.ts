@@ -89,6 +89,7 @@ export const broadcast = ({
     if (reducedData.markup) reducedData.markup.compiled = '';
     if (reducedData.style) reducedData.style.compiled = '';
     if (reducedData.script) reducedData.script.compiled = '';
+    reducedData.files?.forEach?.((f: any) => (f.compiled = ''));
 
     channels[channel] = {
       channelToken,
