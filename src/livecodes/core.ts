@@ -1611,6 +1611,8 @@ const reloadCompiler = async (config: Config, force = false) => {
     config,
     baseUrl,
     eventsManager,
+    getTypes: async (code: string) =>
+      typeLoader.load(code, { ...config.types, ...config.customSettings.types }, true),
   });
   setCache();
   await getResultPage({});
@@ -5919,6 +5921,8 @@ const initializePlayground = async (
     config: getConfig(),
     baseUrl,
     eventsManager,
+    getTypes: async (code: string) =>
+      typeLoader.load(code, { ...getConfig().types, ...getConfig().customSettings.types }, true),
   });
   formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
