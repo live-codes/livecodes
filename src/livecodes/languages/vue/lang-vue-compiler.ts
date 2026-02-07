@@ -1,10 +1,16 @@
 import { compileAllBlocks, exportDefaultImports } from '../../compiler/compile-blocks';
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
-import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
-import type { LanguageOrProcessor } from '../../compiler/models';
-import type { CompilerFunction, Config } from '../../models';
+import {
+  createImportMap,
+  getImports,
+  isBare,
+  replaceImports,
+  replaceSFCImports,
+} from '../../compiler/import-map';
+import type { CompilerMessageEvent, LanguageOrProcessor } from '../../compiler/models';
+import type { CompilerFunction, Config, EditorLibrary } from '../../models';
 import { getErrorMessage, getRandomString, replaceAsync } from '../../utils/utils';
-import { getFileExtension, getLanguageByAlias } from '../utils';
+import { getFileExtension, getLanguageByAlias, getLanguageEditorId } from '../utils';
 
 // based on:
 // https://github.com/vuejs/repl/blob/main/src/transform.ts
@@ -160,7 +166,7 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
     }
 
     const createAppCode =
-      filename === MAIN_FILE
+      filename === MAIN_FILE && !isMultiFile
         ? `\nimport { createApp } from 'vue';` +
           `\ncreateApp(${COMP_IDENTIFIER})` +
           `\n  .mount(document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')));\n`
@@ -194,7 +200,8 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
     isJSX: boolean,
     config: Config,
   ): Promise<[string, /* BindingMetadata | undefined */ any]> {
-    if (descriptor.script || descriptor.scriptSetup) {
+    const script = descriptor.script || descriptor.scriptSetup;
+    if (script) {
       const expressionPlugins = [];
       if (isTS) {
         expressionPlugins.push('typescript');
@@ -203,8 +210,11 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
         expressionPlugins.push('jsx');
       }
 
-      const findFile = (filename: string) =>
-        config.files?.find(
+      let types: Record<string, string> = {};
+
+      const findFile = (filename: string) => {
+        filename = filename.replace('/~~~index~~~.d.ts', '');
+        const file = config.files?.find(
           (f) =>
             filename === f.filename ||
             filename === f.filename + '.ts' ||
@@ -212,6 +222,45 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
             filename === f.filename + '.tsx' ||
             filename === f.filename + '.d.ts',
         );
+        if (file) return file;
+
+        const pkgPath = // e.g. '/node_modules/pkg'
+          filename.replace('node_modules/~~/', '/~~/node_modules/').split('/~~').pop() || filename;
+
+        if (types[pkgPath]) {
+          return { filename, content: types[pkgPath] };
+        }
+
+        const packagejson = types[pkgPath + '/package.json'];
+        if (packagejson) {
+          const typesEntry = JSON.parse(packagejson).types?.replace('./', '');
+          if (typesEntry) {
+            return {
+              filename: pkgPath + '/' + typesEntry,
+              content: types[pkgPath + '/' + typesEntry],
+            };
+          }
+        }
+
+        const definitelyTyped =
+          '/node_modules/@types/' + pkgPath.replace('/node_modules/', '/') + 'index.d.ts';
+        const definitelyTypedContent = types[definitelyTyped];
+        if (definitelyTypedContent) {
+          return {
+            filename: definitelyTyped,
+            content: definitelyTypedContent,
+          };
+        }
+        return undefined;
+      };
+
+      const scriptContent: string = script.content;
+      if (hasDefinePropsWithTypes(scriptContent)) {
+        types = (await getTypes(config)).reduce(
+          (acc, t) => ({ ...acc, [t.filename]: t.content }),
+          {},
+        );
+      }
 
       const compiledScript = SFCCompiler.compileScript(descriptor, {
         inlineTemplate: true,
@@ -232,6 +281,7 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
           readFile: (file: string) => findFile(file)?.content || '',
         },
       });
+
       let code = compiledScript.content;
       if (compiledScript.bindings) {
         code =
@@ -388,6 +438,40 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
     return compiled;
   }
 
+  const hasDefinePropsWithTypes = (code: string) => code.match(new RegExp(/defineProps\s*</g));
+
+  async function getTypes(config: Config): Promise<EditorLibrary[]> {
+    const content = !config.files.length
+      ? config.script.content + '\n' + config.markup.content
+      : config.files.reduce(
+          (acc, file) =>
+            ['script', 'markup'].includes(getLanguageEditorId(file.language) || '')
+              ? acc + file.content + '\n'
+              : acc,
+          '',
+        );
+    const id = getRandomString();
+    const type = 'ts-features';
+    const feature = 'getTypes';
+
+    return new Promise((resolve) => {
+      const handler = async (event: CompilerMessageEvent) => {
+        const message = event.data;
+        if (
+          message.type !== type ||
+          message.payload.feature !== feature ||
+          message.payload.id !== id
+        ) {
+          return;
+        }
+        (self as any).removeEventListener('message', handler);
+        resolve(message.payload.data);
+      };
+      (self as any).addEventListener('message', handler);
+      (self as any).postMessage({ type, payload: { id, feature, data: content } });
+    });
+  }
+
   return async (code, { config, language, options }) => {
     try {
       const isMultiFileProject = Boolean(config.files.length);
@@ -399,9 +483,42 @@ import { getFileExtension, getLanguageByAlias } from '../utils';
         : isMainFile
           ? MAIN_FILE
           : SECONDARY_FILE;
+
+      // Vue compiler does not allow importing types from non-relative paths
+      // in addition, the types file lookup fails for bare imports with no file extension!
+      // this workaround converts imports from `lib` to `./node_modules/~~/lib/~~~index~~~.d.ts`, then restores it after compilation
+      let libImports: Record<string, string> = {};
+      const replaceBareImports = (code: string) => {
+        if (!hasDefinePropsWithTypes(code)) return code;
+        libImports = getImports(code)
+          .filter((mod) => isBare(mod))
+          .reduce(
+            (acc, mod) => ({
+              ...acc,
+              [mod]:
+                './node_modules/~~/' +
+                (mod.split('/').pop()?.includes('.') ? mod : mod + '/~~~index~~~.d.ts'),
+            }),
+            {},
+          );
+        if (Object.keys(libImports).length) {
+          code = replaceImports(code, config, { importMap: libImports });
+        }
+        return code;
+      };
+      code = replaceBareImports(code);
+
       const result = await compileVueSFC(code, { config, filename });
 
       if (result) {
+        if (Object.keys(libImports).length) {
+          const restoredImports = Object.keys(libImports).reduce(
+            (acc, mod) => ({ ...acc, [(libImports as any)[mod]]: mod }),
+            {},
+          );
+          result.js = replaceImports(result.js, config, { importMap: restoredImports });
+        }
+
         const { css, js } = result;
 
         const injectCSS = !css.trim()
