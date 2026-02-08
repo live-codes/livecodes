@@ -1,4 +1,4 @@
-import { getProjectInfo, type Context, type PgFunction } from './utils.ts';
+import { encodeHTML, getProjectInfo, type Context, type PgFunction } from './utils.ts';
 
 export const onRequest: PgFunction = async function (context) {
   const { request, env } = context;
@@ -48,7 +48,7 @@ export const onRequest: PgFunction = async function (context) {
       .replace(
         /title" content="LiveCodes"/g,
         `title" content="${
-          !title || title === 'Untitled Project' ? 'LiveCodes' : title + ' - LiveCodes'
+          !title || title === 'Untitled Project' ? 'LiveCodes' : encodeHTML(title) + ' - LiveCodes'
         }"`,
       )
       .replace(
@@ -56,7 +56,7 @@ export const onRequest: PgFunction = async function (context) {
         `content="${
           !title && !description
             ? 'A Code Playground That Just Works!'
-            : description || 'A project on LiveCodes.'
+            : encodeHTML(description || 'A project on LiveCodes.')
         }"`,
       )
       .replace(/content="https:\/\/livecodes.io\/"/g, `content="${request.url}"`)
@@ -77,7 +77,7 @@ export const onRequest: PgFunction = async function (context) {
 
     context.waitUntil(logToAPI(context));
     return response;
-  } catch (err) {
+  } catch (err: any) {
     context.data = {
       ...data,
       ok: false,
