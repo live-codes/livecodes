@@ -82,7 +82,7 @@ export const getEditorConfig = (config: Config | UserConfig): EditorConfig =>
     closeBrackets: config.closeBrackets,
     foldRegions: config.foldRegions,
     emmet: config.emmet,
-    enableAI: config.enableAI,
+    // enableAI: config.enableAI,
     editorMode: config.editorMode,
   });
 

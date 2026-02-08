@@ -42,10 +42,10 @@ const screenshots = [
     label: 'IntelliSense (autocomplete)',
     url: './img/screenshots/intellisense-3.jpg',
   },
-  {
-    label: 'AI Code Assistant',
-    url: './img/screenshots/ai-1.jpg',
-  },
+  // {
+  //   label: 'AI Code Assistant',
+  //   url: './img/screenshots/ai-1.jpg',
+  // },
   {
     label: 'Console for quick inspection',
     url: './img/screenshots/console-1.jpg',
