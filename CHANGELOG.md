@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.13.0](https://github.com/live-codes/livecodes/compare/v47...sdk-v0.13.0) (2026-02-08)
+
+### Highlights for this release
+
+- Add `minizinc` to `Language` (Minizinc language support).
+- Add `bn`, `nl`, `id` and `tr` to `AppLanguage` (Bengali, Dutch, Indonesian and Turkish translations).
+- Remove `enableAI` config option (see [#937](https://github.com/live-codes/livecodes/pull/937))
+
+---
+
 ## [v47](https://github.com/live-codes/livecodes/compare/v46...v47) (2025-10-04)
 
 ### Highlights for this release
