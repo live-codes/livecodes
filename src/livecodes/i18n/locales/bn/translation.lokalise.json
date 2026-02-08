@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "ডেটা URL হিসাবে কোড কপি করুন"
   },
-  "commandMenu.disableAI": {
-    "translation": "AI কোড অ্যাসিস্ট্যান্ট নিষ্ক্রিয় করুন"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "অটো সেভ নিষ্ক্রিয় করুন"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "Vim মোড নিষ্ক্রিয় করুন"
-  },
-  "commandMenu.enableAI": {
-    "translation": "AI কোড অ্যাসিস্ট্যান্ট সক্রিয় করুন"
   },
   "commandMenu.enableAutoSave": {
     "translation": "অটো সেভ সক্রিয় করুন"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "Emmet সক্রিয় করুন *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "AI কোড অ্যাসিস্ট্যান্ট সক্রিয় করুন"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "<tag-1><tag-2></tag-2></tag-1> দ্বারা চালিত"
   },
   "editorSettings.foldRegions": {
     "translation": "অঞ্চলগুলি ভাঁজ করুন (সংকুচিত করুন) *"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "আপনার কোনো সংরক্ষিত টেমপ্লেট নেই।"
   },
+  "templates.search.label": {
+    "translation": "টেমপ্লেটগুলিতে অনুসন্ধান করুন"
+  },
+  "templates.search.placeholder": {
+    "translation": "টেমপ্লেটগুলিতে অনুসন্ধান করুন..."
+  },
   "templates.starter.angular": {
     "translation": "Angular স্টার্টার"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "C++ (Wasm) স্টার্টার"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C# (Wasm) স্টার্টার"
+  },
+  "templates.starter.d3": {
+    "translation": "D3 স্টার্টার"
   },
   "templates.starter.daisyui": {
     "translation": "daisyUI স্টার্টার"
@@ -2031,6 +2031,9 @@
   "templates.starter.perl": {
     "translation": "Perl স্টার্টার"
   },
+  "templates.starter.phaser": {
+    "translation": "Phaser স্টার্টার"
+  },
   "templates.starter.php": {
     "translation": "PHP স্টার্টার"
   },
@@ -2048,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "Python স্টার্টার"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Python (Wasm) স্টার্টার"
   },
   "templates.starter.r": {
     "translation": "R স্টার্টার"
