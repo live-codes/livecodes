@@ -80,3 +80,11 @@ export const getProjectInfo = async (url: URL): Promise<ProjectInfo> => {
     description: '',
   };
 };
+
+export const encodeHTML = (html: string) =>
+  html
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/'/g, '&#39;')
+    .replace(/"/g, '&#34;');
