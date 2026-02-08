@@ -4042,7 +4042,8 @@ const handleEmbed = () => {
 
 const changeEditorSettings = (newConfig: Partial<UserConfig> | null) => {
   if (!newConfig) return;
-  const shouldReload = newConfig.editor != null && newConfig.editor !== getConfig().editor;
+  const shouldReload =
+    newConfig.editor !== getConfig().editor && !((newConfig.editor || '') in getActiveEditor());
 
   setUserConfig(newConfig);
   const updatedConfig = getConfig();
