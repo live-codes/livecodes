@@ -163,4 +163,5 @@ export const vueSDKDemo = {
 - [JS/TS SDK](./js-ts.html.md)
 - [React SDK](./react.html.md)
 - [Using SDK in Svelte](./svelte.html.md)
+- [Using SDK in Solid](./solid.html.md)
 - [Embedded Playgrounds](../features/embeds.html.md)

@@ -97,4 +97,5 @@ However, it is recommended to cleanup when the node is unmounted, like that:
 - [JS/TS SDK](./js-ts.html.md)
 - [React SDK](./react.html.md)
 - [Vue SDK](./vue.html.md)
+- [Using SDK in Solid](./solid.html.md)
 - [Embedded Playgrounds](../features/embeds.html.md)

@@ -1,0 +1,179 @@
+name: i18n-update-scheduled
+
+# Triggered weekly to update source texts and push them to Lokalise, then pull the translations back to Github.
+# Work on i18n/develop branch.
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+env:
+  LOKALISE_PROJECT_ID: ${{ vars.LOKALISE_PROJECT_ID }}
+  LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
+  BRANCH: i18n/develop
+  LOKALISE_BRANCH: master
+  NODE_VERSION: 24.x
+  CI: true
+
+jobs:
+  update:
+    name: Push and Pull
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate Github Token for CI Bot
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Switch to i18n branch
+        run: |
+          git config --global user.name "livecodes-ci[bot]"
+          git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
+
+          if [[ $(git ls-remote --heads origin $BRANCH) ]]; then
+            git config pull.rebase false
+            git fetch origin $BRANCH:$BRANCH
+            git checkout $BRANCH
+          else
+            git checkout -b $BRANCH
+          fi
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # - name: Linting and fixing
+      #   run: npm run fix
+
+      # - name: Commit changes
+      #   run: |
+      #     git add .
+
+      #     # Only commit if there are changes
+      #     git diff-index --quiet HEAD || git commit -m "i18n: update source texts"
+
+      #     # Save SHA of the latest commit to English locale
+      #     echo "LAST_COMMIT_SHA_PUSH=$(git log -n 1 --format="%H" -- src/livecodes/i18n/locales/en)" >> $GITHUB_ENV
+
+      # - name: Push changes
+      #   run: git push origin $BRANCH
+
+      # - name: Push source texts to Lokalise
+      #   run: npm run i18n-update-push -- $LOKALISE_BRANCH
+
+      - name: Import from Lokalise
+        run: |
+          mkdir -p $LOKALISE_TEMP && touch $LOKALISE_TEMP/locales.zip && npm run i18n-update-pull -- $LOKALISE_BRANCH && rm -rf $LOKALISE_TEMP
+        env:
+          LOKALISE_TEMP: lokalise_tmp
+
+      - name: Linting and fixing
+        run: npm run fix
+
+      - name: Commit changes
+        run: |
+          git add .
+
+          # Only commit if there are changes
+          git diff-index --quiet HEAD || git commit -m "i18n: pull translation from Lokalise"
+
+          # Save SHA of the latest commit to locale
+          echo "LAST_COMMIT_SHA_PULL=$(git log -n 1 --format="%H" -- src/livecodes/i18n/locales)" >> $GITHUB_ENV
+
+      - name: Push changes
+        run: |
+
+          git pull origin ${{ github.event.repository.default_branch }} || {
+            echo "Failed to pull from ${{ github.event.repository.default_branch }}."
+            echo "Please manually pull the changes, solve potential conflicts, and re-run the workflow."
+            echo "::error title=Pull failed::Failed to pull from ${{ github.event.repository.default_branch }}."
+            exit 1
+          }
+
+          git push origin $BRANCH
+
+      - name: Check if has differences between ${{ env.BRANCH }} and ${{ github.event.repository.default_branch }}
+        id: check-diff
+        run: |
+          DIFF=$(git diff --name-only $BRANCH origin/${{ github.event.repository.default_branch }})
+          if [[ -z $DIFF ]]; then
+            echo "No difference between $BRANCH and ${{ github.event.repository.default_branch }}."
+            echo "SKIP=true" >> $GITHUB_OUTPUT
+          fi
+
+          echo "LAST_COMMIT_SHA_PUSH=$(git log -n 1 --format="%H" -- src/livecodes/i18n/locales/en)" >> $GITHUB_ENV
+
+      - name: Create a new i18n PR if not exists
+        uses: actions/github-script@v7
+        if: steps.check-diff.outputs.SKIP != 'true'
+        with:
+          github-token: ${{ steps.generate-token.outputs.token }}
+          script: |
+            const prInfo = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head: process.env.BRANCH
+            });
+
+            if (prInfo.data.length > 0) {
+              return;
+            }
+
+            console.log(`Creating a new i18n PR from ${process.env.BRANCH}...`);
+
+            const repoURL = context.payload.repository.html_url;
+            const branchURL = `${repoURL}/tree/${process.env.BRANCH}`;
+            const prTitle = `i18n: scheduled update from ${process.env.BRANCH}`;
+            const prBody = `## What type of PR is this? (check all applicable)
+
+            - [ ] ✨ Feature
+            - [ ] 🐛 Bug Fix
+            - [ ] 📝 Documentation Update
+            - [ ] 🎨 Style
+            - [ ] ♻️ Code Refactor
+            - [ ] 🔥 Performance Improvements
+            - [ ] ✅ Test
+            - [ ] 🤖 Build
+            - [ ] 🔁 CI
+            - [ ] 📦 Chore (Release)
+            - [ ] ⏩ Revert
+            - [x] 🌐 Internationalization / Translation
+
+            ## Description
+            ### i18n Actions: \`.i18n-update-scheduled\`
+            Scheduled update of source texts and translations.
+
+            | Name | Description |
+            | --- | --- |
+            | **Last Commit SHA (Push)** | ${process.env.LAST_COMMIT_SHA_PUSH} |
+            | **Last Commit SHA (Pull)** | ${process.env.LAST_COMMIT_SHA_PULL} |
+            `;
+
+            github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: prTitle,
+              body: prBody,
+              head: process.env.BRANCH,
+              base: '${{ github.event.repository.default_branch }}'
+            });

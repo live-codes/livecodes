@@ -28,6 +28,10 @@ For usage and examples, see documentation for [React](./react.html.md) and [Type
 
 [React compiler](https://react.dev/learn/react-compiler), which is a [babel](./babel.html.md) plugin ([babel-plugin-react-compiler](https://www.npmjs.com/package/babel-plugin-react-compiler)).
 
+### Version
+
+`babel-plugin-react-compiler`: v1.0.0
+
 ## Code Formatting
 
 Using [Prettier](https://prettier.io/).

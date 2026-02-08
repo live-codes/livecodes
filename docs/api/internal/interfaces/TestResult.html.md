@@ -8,7 +8,7 @@
 
 #### Defined in
 
-[models.ts:1988](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L1988)
+[models.ts:2031](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L2031)
 
 ***
 
@@ -18,17 +18,17 @@
 
 #### Defined in
 
-[models.ts:1989](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L1989)
+[models.ts:2032](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L2032)
 
 ***
 
 ### status
 
-> **status**: `"fail"` \| `"pass"` \| `"skip"`
+> **status**: `"pass"` \| `"fail"` \| `"skip"`
 
 #### Defined in
 
-[models.ts:1990](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L1990)
+[models.ts:2033](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L2033)
 
 ***
 
@@ -38,4 +38,4 @@
 
 #### Defined in
 
-[models.ts:1991](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L1991)
+[models.ts:2034](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L2034)

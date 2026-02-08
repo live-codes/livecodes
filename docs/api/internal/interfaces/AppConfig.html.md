@@ -22,13 +22,13 @@ true
 
 #### Defined in
 
-[models.ts:603](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L603)
+[models.ts:603](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L603)
 
 ***
 
 ### mode
 
-> **mode**: `"focus"` \| `"full"` \| `"result"` \| `"editor"` \| `"lite"` \| `"simple"` \| `"codeblock"`
+> **mode**: `"editor"` \| `"result"` \| `"full"` \| `"focus"` \| `"lite"` \| `"simple"` \| `"codeblock"`
 
 Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
@@ -40,7 +40,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### Defined in
 
-[models.ts:615](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L615)
+[models.ts:615](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L615)
 
 ***
 
@@ -61,7 +61,7 @@ false
 
 #### Defined in
 
-[models.ts:597](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L597)
+[models.ts:597](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L597)
 
 ***
 
@@ -79,7 +79,7 @@ Sets enabled and active tools and status of [tools pane](https://livecodes.io/do
 
 ##### enabled
 
-> **enabled**: `"all"` \| (`"console"` \| `"compiled"` \| `"tests"`)[]
+> **enabled**: (`"console"` \| `"compiled"` \| `"tests"`)[] \| `"all"`
 
 ##### status
 
@@ -105,13 +105,13 @@ Sets enabled and active tools and status of [tools pane](https://livecodes.io/do
 
 #### Defined in
 
-[models.ts:631](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L631)
+[models.ts:631](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L631)
 
 ***
 
 ### view?
 
-> `optional` **view**: `"split"` \| `"result"` \| `"editor"`
+> `optional` **view**: `"split"` \| `"editor"` \| `"result"`
 
 Sets the [default view](https://livecodes.io/docs/features/default-view) for the playground.
 
@@ -123,7 +123,7 @@ Sets the [default view](https://livecodes.io/docs/features/default-view) for the
 
 #### Defined in
 
-[models.ts:609](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L609)
+[models.ts:609](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L609)
 
 ***
 
@@ -135,4 +135,4 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[models.ts:640](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L640)
+[models.ts:640](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L640)

@@ -35,7 +35,7 @@ For usage, see documentation for [JSX](./jsx.html.md) and [TypeScript](./typescr
 
 ### Version
 
-`babel-preset-solid`: v1.9.5
+`babel-preset-solid`: v1.9.10
 
 ## Code Formatting
 

@@ -30,6 +30,10 @@ For usage and examples, see documentation for [JSX](./jsx.html.md).
 
 [TypeScript compiler](./typescript.html.md) and [React Native for Web](https://necolas.github.io/react-native-web/)
 
+### Version
+
+`react-native-web`: v0.21.2
+
 ## Code Formatting
 
 Using [Prettier](https://prettier.io/).

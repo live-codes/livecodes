@@ -6,7 +6,7 @@ The Software Development Kit (SDK) provides an easy, yet powerful, interface to 
 
 The SDK is provided as a light-weight ([less than 5kb gzipped](https://bundlephobia.com/package/livecodes)), zero-dependencies [npm package](#npm-package), that is also available from [CDNs](#cdn). It can be used to create playgrounds with a wide variety of [configurations](../configuration/configuration-object.html.md) and [embed options](js-ts.html.md)#embed-options). In addition, [SDK methods](js-ts.html.md)#sdk-methods) allow programmatic communication and control of the playgrounds during runtime.
 
-The [JavaScript SDK](js-ts.html.md) is framework/library agnostic. However, wrapper components are also provided for popular libraries (currently [React](react.html.md) and [Vue](vue.html.md)). The SDK can be used in [Svelte](svelte.html.md) directly without wrappers. [TypeScript support](js-ts.html.md)#typescript-types) provides type-safety and a great developer experience.
+The [JavaScript SDK](js-ts.html.md) is framework/library agnostic. However, wrapper components are also provided for popular libraries (currently [React](react.html.md) and [Vue](vue.html.md)). The SDK can be used in [Svelte](svelte.html.md) and [Solid](solid.html.md) directly without wrappers. [TypeScript support](js-ts.html.md)#typescript-types) provides type-safety and a great developer experience.
 
 ## SDK Demo
 
@@ -101,6 +101,8 @@ The SDK is currently provided in the following variations:
 - [Vue](./vue.html.md)
 
 - [Svelte](./svelte.html.md)
+
+- [Solid](./solid.html.md)
 
 ## Headless Mode
 

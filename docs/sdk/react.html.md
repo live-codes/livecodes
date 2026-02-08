@@ -148,4 +148,5 @@ export const reactSDKDemo = {
 - [JS/TS SDK](./js-ts.html.md)
 - [Vue SDK](./vue.html.md)
 - [Using SDK in Svelte](./svelte.html.md)
+- [Using SDK in Solid](./solid.html.md)
 - [Embedded Playgrounds](../features/embeds.html.md)

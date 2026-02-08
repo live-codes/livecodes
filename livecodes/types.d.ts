@@ -745,11 +745,6 @@ declare module "sdk/models" {
          * Sets [editor mode](https://livecodes.io/docs/features/editor-settings#editor-modes).
          */
         editorMode: 'vim' | 'emacs' | undefined;
-        /**
-         * If `true`, [AI code assistant](https://livecodes.io/docs/features/ai) is enabled.
-         * @default false
-         */
-        enableAI: boolean;
     }
     export interface FormatterConfig {
         /**
@@ -815,7 +810,7 @@ declare module "sdk/models" {
     /**
      * Language name, alias or extension.
      */
-    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'jinja' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react' | 'react-jsx' | 'react.jsx' | 'react-tsx' | 'react.tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'vue-app' | 'app.vue' | 'svelte' | 'svelte-app' | 'app.svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'ripple' | 'ripplejs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'go-wasm' | 'wasm.go' | 'gowasm' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'java' | 'csharp' | 'csharp-wasm' | 'cs' | 'cs-wasm' | 'wasm.cs' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
+    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'jinja' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'mjs' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'mts' | 'jsx' | 'tsx' | 'react' | 'react-jsx' | 'react.jsx' | 'react-tsx' | 'react.tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'vue-app' | 'app.vue' | 'svelte' | 'svelte-app' | 'app.svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'ripple' | 'ripplejs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'go-wasm' | 'wasm.go' | 'gowasm' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'java' | 'csharp' | 'csharp-wasm' | 'cs' | 'cs-wasm' | 'wasm.cs' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'minizinc' | 'mzn' | 'dzn' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
     export interface Editor {
         /**
          * A language name, extension or alias (as defined in [language documentations](https://livecodes.io/docs/languages/)).
@@ -935,7 +930,7 @@ declare module "sdk/models" {
         hidden?: boolean;
     }
     export type Processor = 'postcss' | 'postcssImportUrl' | 'tailwindcss' | 'windicss' | 'unocss' | 'tokencss' | 'lightningcss' | 'autoprefixer' | 'postcssPresetEnv' | 'cssmodules' | 'purgecss' | 'cssnano';
-    export type ParserName = 'babel' | 'babel-ts' | 'babel-flow' | 'glimmer' | 'html' | 'markdown' | 'css' | 'scss' | 'less' | 'php' | 'pug' | 'java';
+    export type ParserName = 'babel' | 'babel-ts' | 'babel-flow' | 'glimmer' | 'html' | 'markdown' | 'css' | 'scss' | 'less' | 'php' | 'pug' | 'java' | 'minizinc';
     export interface Parser {
         name: ParserName;
         plugins?: any[];
@@ -1007,7 +1002,7 @@ declare module "sdk/models" {
             baseUrl: string;
         }) => Promise<string>);
         loadAsExternalModule?: boolean;
-        scriptType?: 'module' | 'text/liquid' | 'text/python' | 'text/r' | 'text/ruby-wasm' | 'text/x-uniter-php' | 'text/php-wasm' | 'text/cpp' | 'text/java' | 'text/csharp-wasm' | 'text/perl' | 'text/julia' | 'text/biwascheme' | 'text/commonlisp' | 'text/tcl' | 'text/prolog' | 'text/go-wasm' | 'application/json' | 'application/lua' | 'text/fennel' | 'application/wasm-uint8';
+        scriptType?: 'module' | 'text/liquid' | 'text/python' | 'text/r' | 'text/ruby-wasm' | 'text/x-uniter-php' | 'text/php-wasm' | 'text/cpp' | 'text/java' | 'text/csharp-wasm' | 'text/perl' | 'text/julia' | 'text/biwascheme' | 'text/commonlisp' | 'text/tcl' | 'text/prolog' | 'text/minizinc' | 'text/go-wasm' | 'application/json' | 'application/lua' | 'text/fennel' | 'application/wasm-uint8';
         liveReload?: boolean;
         aliasTo?: Language;
         compiledCodeLanguage?: Language;
@@ -1021,12 +1016,13 @@ declare module "sdk/models" {
     }
     export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> & Partial<ContentConfig> & {
         name: TemplateName;
-        aliases?: TemplateName[];
+        aliases?: TemplateAlias[];
         thumbnail: string;
         tools?: Config['tools'];
         autotest?: Config['autotest'];
     };
-    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'shadcn-ui' | 'daisyui' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'go-wasm' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'java' | 'csharp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
+    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'shadcn-ui' | 'daisyui' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'go-wasm' | 'php' | 'php-wasm' | 'cpp' | 'cpp-wasm' | 'java' | 'csharp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'minizinc' | 'blockly' | 'diagrams';
+    export type TemplateAlias = 'js' | 'ts' | 'ng' | 'bs' | 'tailwind' | 'tw' | 'coffee' | 'ls' | 'py' | 'pyodide' | 'py-wasm' | 'r-lang' | 'rlang' | 'rb' | 'rb-wasm' | 'golang' | 'golang-wasm' | 'c++' | 'clang' | 'c++-wasm' | 'c#-wasm' | 'cs-wasm' | 'pl' | 'lisp' | 'cljs' | 'md' | 'as' | 'postgres' | 'pg' | 'pgsql' | 'mzn';
     export interface Tool {
         name: 'console' | 'compiled' | 'tests';
         title: string;
@@ -1163,7 +1159,7 @@ declare module "sdk/models" {
         xml?: string;
         js?: string;
     }
-    export type AppLanguage = 'auto' | 'ar' | 'de' | 'en' | 'es' | 'fa' | 'fr' | 'hi' | 'it' | 'ja' | 'pt' | 'ru' | 'ur' | 'zh-CN';
+    export type AppLanguage = 'auto' | 'ar' | 'bn' | 'de' | 'en' | 'es' | 'fa' | 'fr' | 'hi' | 'id' | 'it' | 'ja' | 'nl' | 'pt' | 'tr' | 'ru' | 'ur' | 'zh-CN';
     export interface User {
         uid: string;
         token: string | null;
@@ -1357,7 +1353,7 @@ declare module "sdk/models" {
 declare module "livecodes/models" {
     export type * from "sdk/models";
     export interface ModalOptions {
-        size?: 'large' | 'small' | 'full';
+        size?: 'large' | 'small' | 'full' | 'large-fixed';
         closeButton?: boolean;
         isAsync?: boolean;
         onClose?: () => void;
@@ -1506,6 +1502,7 @@ declare module "livecodes/utils/utils" {
     export const compareObjects: (srcObj: Partial<Record<string, unknown>>, dstObj: Partial<Record<string, unknown>>) => string[];
     export const getErrorMessage: (err: unknown) => string;
     export const addProp: (obj: Record<string, unknown>, key: string, value: unknown) => void;
+    export const onLoad: (fn: (...args: any[]) => any) => void;
     export const predefinedValues: {
         readonly APP_VERSION: string;
         readonly SDK_VERSION: string;
@@ -1671,6 +1668,8 @@ declare module "livecodes/vendors" {
     export const astroWasmURL: string;
     export const autoCompleteUrl: string;
     export const babelUrl: string;
+    export const bbobHtmlUrl: string;
+    export const bbobPresetHtmlUrl: string;
     export const biwaschemeUrl: string;
     export const blocklyCdnBaseUrl: string;
     export const browserfsUrl: string;
@@ -1769,6 +1768,7 @@ declare module "livecodes/vendors" {
     export const markedUrl: string;
     export const mermaidCdnUrl: string;
     export const metaPngUrl: string;
+    export const minizincUrl: string;
     export const mjmlUrl: string;
     export const monacoBaseUrl: string;
     export const monacoEmacsUrl: string;
@@ -1788,6 +1788,7 @@ declare module "livecodes/vendors" {
     export const plotlyCdnUrl: string;
     export const postcssImportUrlUrl: string;
     export const prettierBaseUrl: string;
+    export const prettierMinizincUrl: string;
     export const prettierPhpUrl: string;
     export const prismBaseUrl: string;
     export const prismOfficialThemesBaseUrl: string;
@@ -1828,7 +1829,6 @@ declare module "livecodes/vendors" {
     export const tesseractUrl: string;
     export const twigUrl: string;
     export const typescriptUrl: string;
-    export const typescriptVfsUrl: string;
     export const uniterUrl: string;
     export const vegaCdnUrl: string;
     export const vegaLiteCdnUrl: string;
@@ -2167,6 +2167,7 @@ declare module "livecodes/UI/selectors" {
     export const getStarterTemplatesTab: (templatesContainer: HTMLElement) => HTMLElement | null;
     export const getStarterTemplatesList: (templatesContainer: HTMLElement) => HTMLElement | null;
     export const getUserTemplatesScreen: (templatesContainer: HTMLElement) => HTMLElement;
+    export const getTemplatesSearchInput: (templatesContainer: HTMLElement) => HTMLInputElement;
     export const getBulkImportButton: (listContainer: HTMLElement) => HTMLElement;
     export const getExportAllButton: (listContainer: HTMLElement) => HTMLElement;
     export const getDeleteAllButton: (listContainer: HTMLElement) => HTMLElement;
@@ -2266,9 +2267,22 @@ declare module "livecodes/UI/split-panes" {
 }
 declare module "livecodes/UI/templates" {
     import type { EventsManager, Template } from "livecodes/models";
-    export const createTemplatesContainer: (eventsManager: EventsManager, loadUserTemplates: () => void) => HTMLElement;
-    export const createStarterTemplateLink: (template: Template, starterTemplatesList: HTMLElement | null, baseUrl: string) => HTMLAnchorElement;
+    export const createTemplatesContainer: (eventsManager: EventsManager) => HTMLElement;
+    export const createStarterTemplateLink: (template: Template & {
+        id: string;
+    }, starterTemplatesList: HTMLElement | null, baseUrl: string) => HTMLAnchorElement;
     export const noUserTemplates: () => string;
+    export const initTemplatesSearchIndex: () => void;
+    export const addTemplateToIndex: ({ id, title, name, description, aliases, tags, languages, }: {
+        id: string;
+        title: string;
+        name?: string;
+        description?: string;
+        aliases?: string[];
+        tags?: string[];
+        languages?: string[];
+    }) => void;
+    export const setupTemplatesSearch: (container: HTMLElement) => void;
 }
 declare module "livecodes/UI/index" {
     export * from "livecodes/UI/info";
@@ -2293,6 +2307,7 @@ declare module "livecodes/languages/prettier" {
         markdown: string;
         postcss: string;
         php: string;
+        minizinc: string;
         pug: string;
         java: string;
     };
@@ -2899,6 +2914,13 @@ declare module "livecodes/languages/mdx/lang-mdx" {
 }
 declare module "livecodes/languages/mdx/index" {
     export * from "livecodes/languages/mdx/lang-mdx";
+}
+declare module "livecodes/languages/minizinc/lang-minizinc" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const minizinc: LanguageSpecs;
+}
+declare module "livecodes/languages/minizinc/index" {
+    export * from "livecodes/languages/minizinc/lang-minizinc";
 }
 declare module "livecodes/languages/mjml/lang-mjml" {
     import type { LanguageSpecs } from "livecodes/models";
@@ -4182,6 +4204,30 @@ declare module "livecodes/editor/ts-compiler-options" {
     export const hasJsx: string[];
     export const getCompilerOptions: (language: Language) => CompilerOptions;
 }
+declare module "livecodes/handlers/keyboard-shortcuts" {
+    import type { createSplitPanes } from "livecodes/UI/index";
+    import type { CodeEditor, Config, EditorId, EventsManager, ToolsPane } from "livecodes/models";
+    /**
+     * Keyboard shortcut handler dependencies
+     */
+    export interface KeyboardShortcutDeps {
+        eventsManager: EventsManager;
+        getActiveEditor: () => CodeEditor;
+        getConfig: () => Config;
+        showEditor: (editorId: EditorId) => void;
+        run: () => Promise<void>;
+        toolsPane?: ToolsPane;
+        split?: ReturnType<typeof createSplitPanes>;
+        isEmbed: boolean;
+    }
+    /**
+     * Handles all keyboard shortcuts and event listeners
+     */
+    export const handleKeyboardShortcuts: (deps: KeyboardShortcutDeps) => void;
+}
+declare module "livecodes/handlers/index" {
+    export * from "livecodes/handlers/keyboard-shortcuts";
+}
 declare module "livecodes/i18n/locale-paths" {
     export const pathLoader: (baseUrl: string) => (lngs: string[], nss: string[]) => string | false;
 }
@@ -4487,6 +4533,11 @@ declare module "livecodes/i18n/locales/en/language-info" {
             readonly link: "<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>";
             readonly name: "Java";
         };
+        readonly javascript: {
+            readonly desc: "The scripting language of the web.";
+            readonly link: "<1> <2>JavaScript on MDN</2> </1> <3> <4>Learn X in Y minutes, where X=JavaScript</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>";
+            readonly name: "JavaScript";
+        };
         readonly jinja: {
             readonly desc: "Jinja is a fast, expressive, extensible templating engine.";
             readonly link: "<1> <2>Official website</2> </1> <3> <4>Template documentation</4> </3> <5> <6>JavaScript implementation</6> </5> <7> <8>LiveCodes Documentations</8> </7>";
@@ -4542,6 +4593,11 @@ declare module "livecodes/i18n/locales/en/language-info" {
             readonly desc: "Markdown for the component era. <1></1>MDX lets you seamlessly write JSX in your Markdown documents.";
             readonly link: "<1><2>MDX documentation</2></1> <3> <4>Load starter template</4> </3>";
             readonly name: "MDX";
+        };
+        readonly minizinc: {
+            readonly desc: "MiniZinc is a high-level constraint modelling language that allows you to easily express and solve discrete optimisation problems.";
+            readonly link: "<1> <2>MiniZinc official website</2> </1> <3> <4>MiniZinc documentation</4> </3> <5> <6>MiniZinc tutorial</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>";
+            readonly name: "MiniZinc";
         };
         readonly mjml: {
             readonly desc: "MJML is a markup language designed to reduce the pain of coding a responsive email.";
@@ -5056,14 +5112,12 @@ declare module "livecodes/i18n/locales/en/translation" {
             readonly contribute: "Contribute";
             readonly copy: "Copy Code";
             readonly copyAsDataUrl: "Copy Code as Data URL";
-            readonly disableAI: "Disable AI Code Assistant";
             readonly disableAutoSave: "Disable Auto Save";
             readonly disableAutoUpdate: "Disable Auto Update";
             readonly disableEmacs: "Disable Emacs Mode";
             readonly disableFormatOnSave: "Disable Format On-Save";
             readonly disableRecoverUnsaved: "Disable Recover Unsaved";
             readonly disableVim: "Disable Vim Mode";
-            readonly enableAI: "Enable AI Code Assistant";
             readonly enableAutoSave: "Enable Auto Save";
             readonly enableAutoUpdate: "Enable Auto Update";
             readonly enableEmacs: "Enable Emacs Mode";
@@ -5259,10 +5313,6 @@ declare module "livecodes/i18n/locales/en/translation" {
             };
             readonly editorTheme: "Editor Theme";
             readonly emmet: "Enable Emmet *";
-            readonly enableAI: {
-                readonly heading: "Enable AI Code Assistant";
-                readonly note: "Powered by <1><2></2></1>";
-            };
             readonly foldRegions: "Fold (collapse) regions *";
             readonly fontFamily: "Font Family";
             readonly fontSize: "Font Size";
@@ -5734,6 +5784,10 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly desc: "You can save a project as a template from <1></1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).";
                 readonly heading: "You have no saved templates.";
             };
+            readonly search: {
+                readonly label: "Search templates";
+                readonly placeholder: "Search templates...";
+            };
             readonly starter: {
                 readonly angular: "Angular Starter";
                 readonly assemblyscript: "AssemblyScript Starter";
@@ -5749,6 +5803,8 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly commonlisp: "Common Lisp Starter";
                 readonly cpp: "C++ Starter";
                 readonly 'cpp-wasm': "C++ (Wasm) Starter";
+                readonly 'csharp-wasm': "C# (Wasm) Starter";
+                readonly d3: "D3 Starter";
                 readonly daisyui: "daisyUI Starter";
                 readonly diagrams: "Diagrams Starter";
                 readonly fennel: "Fennel Starter";
@@ -5772,14 +5828,17 @@ declare module "livecodes/i18n/locales/en/translation" {
                 readonly malina: "Malina.js Starter";
                 readonly markdown: "Markdown Starter";
                 readonly mdx: "MDX Starter";
+                readonly minizinc: "MiniZinc Starter";
                 readonly ocaml: "Ocaml Starter";
                 readonly perl: "Perl Starter";
+                readonly phaser: "Phaser Starter";
                 readonly php: "PHP Starter";
                 readonly 'php-wasm': "PHP (Wasm) Starter";
                 readonly postgresql: "PostgreSQL Starter";
                 readonly preact: "Preact Starter";
                 readonly prolog: "Prolog Starter";
                 readonly python: "Python Starter";
+                readonly 'python-wasm': "Python (Wasm) Starter";
                 readonly r: "R Starter";
                 readonly react: "React Starter";
                 readonly 'react-native': "React Native Starter";
@@ -6300,9 +6359,6 @@ declare module "livecodes/editor/codemirror/editor-languages" {
 }
 declare module "livecodes/editor/codemirror/codemirror" {
     import type { CodeEditor, EditorOptions } from "livecodes/models";
-    export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
-        editorId: EditorOptions['editorId'];
-    };
     export const createEditor: (options: EditorOptions) => Promise<CodeEditor>;
 }
 declare module "livecodes/editor/monaco/twoslashSupport" {
@@ -7538,8 +7594,60 @@ declare module "livecodes/editor/monaco/languages/monaco-lang-imba" {
     };
     export default _default_2;
 }
-declare module "livecodes/editor/monaco/languages/monaco-lang-sql" {
+declare module "livecodes/editor/monaco/languages/monaco-lang-minizinc" {
+    import type { languages } from 'monaco-editor';
     const _default_3: {
+        config: languages.LanguageConfiguration;
+        tokens: languages.IMonarchLanguage;
+        completions: languages.CompletionItemProvider;
+    };
+    export default _default_3;
+}
+declare module "livecodes/editor/monaco/languages/monaco-lang-prolog" {
+    const _default_4: {
+        config: {
+            comments: {
+                lineComment: string;
+                blockComment: string[];
+            };
+            brackets: string[][];
+            autoClosingPairs: ({
+                open: string;
+                close: string;
+                notIn?: undefined;
+            } | {
+                open: string;
+                close: string;
+                notIn: string[];
+            })[];
+            surroundingPairs: {
+                open: string;
+                close: string;
+            }[];
+        };
+        tokens: {
+            defaultToken: string;
+            tokenPostfix: string;
+            atom: RegExp;
+            variable: RegExp;
+            builtins: string[];
+            tokenizer: {
+                root: ((string | RegExp)[] | (RegExp | {
+                    cases: {
+                        '@builtins': string;
+                        '@default': string;
+                    };
+                })[])[];
+                commentBlock: (string | RegExp)[][];
+                stringDouble: (string | RegExp)[][];
+                stringSingle: (string | RegExp)[][];
+            };
+        };
+    };
+    export default _default_4;
+}
+declare module "livecodes/editor/monaco/languages/monaco-lang-sql" {
+    const _default_5: {
         config: {
             comments: {
                 lineComment: string;
@@ -7623,10 +7731,10 @@ declare module "livecodes/editor/monaco/languages/monaco-lang-sql" {
             };
         };
     };
-    export default _default_3;
+    export default _default_5;
 }
 declare module "livecodes/editor/monaco/languages/monaco-lang-wat" {
-    const _default_4: {
+    const _default_6: {
         config: {
             brackets: string[][];
             autoClosingPairs: {
@@ -7675,15 +7783,26 @@ declare module "livecodes/editor/monaco/languages/monaco-lang-wat" {
             };
         };
     };
-    export default _default_4;
+    export default _default_6;
 }
 declare module "livecodes/formatter/format.worker" { }
+declare module "livecodes/handlers/__tests__/keyboard-shortcuts.test" { }
 declare module "livecodes/i18n/locales/ar/language-info" {
     import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
     const languageInfo: I18nLangInfoTranslation;
     export default languageInfo;
 }
 declare module "livecodes/i18n/locales/ar/translation" {
+    import type { I18nTranslation } from "livecodes/i18n/locales/models";
+    const translation: I18nTranslation;
+    export default translation;
+}
+declare module "livecodes/i18n/locales/bn/language-info" {
+    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
+    const languageInfo: I18nLangInfoTranslation;
+    export default languageInfo;
+}
+declare module "livecodes/i18n/locales/bn/translation" {
     import type { I18nTranslation } from "livecodes/i18n/locales/models";
     const translation: I18nTranslation;
     export default translation;
@@ -7738,6 +7857,16 @@ declare module "livecodes/i18n/locales/hi/translation" {
     const translation: I18nTranslation;
     export default translation;
 }
+declare module "livecodes/i18n/locales/id/language-info" {
+    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
+    const languageInfo: I18nLangInfoTranslation;
+    export default languageInfo;
+}
+declare module "livecodes/i18n/locales/id/translation" {
+    import type { I18nTranslation } from "livecodes/i18n/locales/models";
+    const translation: I18nTranslation;
+    export default translation;
+}
 declare module "livecodes/i18n/locales/it/language-info" {
     import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
     const languageInfo: I18nLangInfoTranslation;
@@ -7758,6 +7887,16 @@ declare module "livecodes/i18n/locales/ja/translation" {
     const translation: I18nTranslation;
     export default translation;
 }
+declare module "livecodes/i18n/locales/nl/language-info" {
+    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
+    const languageInfo: I18nLangInfoTranslation;
+    export default languageInfo;
+}
+declare module "livecodes/i18n/locales/nl/translation" {
+    import type { I18nTranslation } from "livecodes/i18n/locales/models";
+    const translation: I18nTranslation;
+    export default translation;
+}
 declare module "livecodes/i18n/locales/pt/language-info" {
     import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
     const languageInfo: I18nLangInfoTranslation;
@@ -7774,6 +7913,16 @@ declare module "livecodes/i18n/locales/ru/language-info" {
     export default languageInfo;
 }
 declare module "livecodes/i18n/locales/ru/translation" {
+    import type { I18nTranslation } from "livecodes/i18n/locales/models";
+    const translation: I18nTranslation;
+    export default translation;
+}
+declare module "livecodes/i18n/locales/tr/language-info" {
+    import type { I18nLangInfoTranslation } from "livecodes/i18n/locales/models";
+    const languageInfo: I18nLangInfoTranslation;
+    export default languageInfo;
+}
+declare module "livecodes/i18n/locales/tr/translation" {
     import type { I18nTranslation } from "livecodes/i18n/locales/models";
     const translation: I18nTranslation;
     export default translation;
@@ -7879,6 +8028,7 @@ declare module "livecodes/languages/lightningcss/processor-lightningcss-compiler
 declare module "livecodes/languages/liquid/lang-liquid-compiler" { }
 declare const wasmoon: any;
 declare module "livecodes/languages/malina/lang-malina-compiler" { }
+declare module "livecodes/languages/minizinc/lang-minizinc-script" { }
 declare module "livecodes/languages/mustache/lang-mustache-compiler" { }
 declare module "livecodes/languages/nunjucks/lang-nunjucks-compiler" { }
 declare const p5pkg: any;
@@ -8084,6 +8234,10 @@ declare module "livecodes/templates/starter/markdown-starter" {
 declare module "livecodes/templates/starter/mdx-starter" {
     import type { Template } from "livecodes/models";
     export const mdxStarter: Template;
+}
+declare module "livecodes/templates/starter/minizinc-starter" {
+    import type { Template } from "livecodes/models";
+    export const minizincStarter: Template;
 }
 declare module "livecodes/templates/starter/ocaml-starter" {
     import type { Template } from "livecodes/models";

@@ -16,10 +16,6 @@ In this page, a quick overview of the important features are presented. A more d
 
 The default code editor is the powerful editor that powers [VS Code](https://code.visualstudio.com/), featuring code-completion, go-to-definition, multi-cursor support and other powerful features you got used to. The editor is very [customizable](./editor-settings.html.md). It supports [keyboard shortcuts](./keyboard-shortcuts.html.md), [code formatting](./code-format.html.md), [Emmet abbreviations](./editor-settings.html.md)#emmet) and even [Vim and Emacs bindings](./editor-settings.html.md)#editor-modes).
 
-## AI Code Assistant
-
-LiveCodes supports AI-powered code completion, totally for **free**, using [Windsurf](https://windsurf.com/). No account or tokens required. Enable from [editor settings](./ai.html.md)#ui) and enjoy the magic!
-
 ## Mobile-friendly
 
 The responsive layout allows working on devices with different screen sizes. On mobile, a lighter-weight touch-friendly code editor (CodeMirror 6) is used, so that you can experiment your ideas on the go.

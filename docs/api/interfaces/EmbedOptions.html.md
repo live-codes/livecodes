@@ -23,7 +23,7 @@ If supplied with an invalid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:314](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L314)
+[models.ts:314](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L314)
 
 ***
 
@@ -43,7 +43,7 @@ If supplied and is not an object or a valid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:346](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L346)
+[models.ts:346](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L346)
 
 ***
 
@@ -61,7 +61,7 @@ false
 
 #### Defined in
 
-[models.ts:352](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L352)
+[models.ts:352](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L352)
 
 ***
 
@@ -73,7 +73,7 @@ A resource to [import](https://livecodes.io/docs/features/import) (from any of t
 
 #### Defined in
 
-[models.ts:357](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L357)
+[models.ts:357](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L357)
 
 ***
 
@@ -95,13 +95,13 @@ false
 
 #### Defined in
 
-[models.ts:367](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L367)
+[models.ts:367](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L367)
 
 ***
 
 ### loading?
 
-> `optional` **loading**: `"click"` \| `"eager"` \| `"lazy"`
+> `optional` **loading**: `"lazy"` \| `"click"` \| `"eager"`
 
 Sets how the playground loads:
 
@@ -117,7 +117,7 @@ Sets how the playground loads:
 
 #### Defined in
 
-[models.ts:377](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L377)
+[models.ts:377](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L377)
 
 ***
 
@@ -148,11 +148,11 @@ createPlayground('#container', { params: { md: '# Hello World!' } });
 
 #### active?
 
-> `optional` **active**: `0` \| `2` \| `1` \| [`EditorId`](../internal/type-aliases/EditorId.md)
+> `optional` **active**: `0` \| [`EditorId`](../internal/type-aliases/EditorId.md) \| `1` \| `2`
 
 #### activeEditor?
 
-> `optional` **activeEditor**: `0` \| `2` \| `1` \| [`EditorId`](../internal/type-aliases/EditorId.md)
+> `optional` **activeEditor**: `0` \| [`EditorId`](../internal/type-aliases/EditorId.md) \| `1` \| `2`
 
 #### adoc
 
@@ -495,7 +495,7 @@ true
 
 #### compiled
 
-> **compiled**: `undefined` \| `""` \| `"true"` \| `"none"` \| `"closed"` \| `"open"` \| `"full"`
+> **compiled**: `undefined` \| `""` \| `"full"` \| `"closed"` \| `"open"` \| `"none"` \| `"true"`
 
 #### config?
 
@@ -513,7 +513,7 @@ If supplied and is not an object or a valid URL, an error is thrown.
 
 #### console
 
-> **console**: `undefined` \| `""` \| `"true"` \| `"none"` \| `"closed"` \| `"open"` \| `"full"`
+> **console**: `undefined` \| `""` \| `"full"` \| `"closed"` \| `"open"` \| `"none"` \| `"true"`
 
 #### cp
 
@@ -815,6 +815,10 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **dot**: `any`
 
+#### customSettings.dzn
+
+> **dzn**: `any`
+
 #### customSettings.edn
 
 > **edn**: `any`
@@ -1015,9 +1019,17 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **mdx**: `any`
 
+#### customSettings.minizinc
+
+> **minizinc**: `any`
+
 #### customSettings.mjml
 
 > **mjml**: `any`
+
+#### customSettings.mjs
+
+> **mjs**: `any`
 
 #### customSettings.mkdn
 
@@ -1031,9 +1043,17 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **mli**: `any`
 
+#### customSettings.mts
+
+> **mts**: `any`
+
 #### customSettings.mustache
 
 > **mustache**: `any`
+
+#### customSettings.mzn
+
+> **mzn**: `any`
 
 #### customSettings.njk
 
@@ -1317,7 +1337,7 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 #### customSettings.scriptType?
 
-> `optional` **scriptType**: `""` \| `"module"` \| `"text/liquid"` \| `"text/python"` \| `"text/r"` \| `"text/ruby-wasm"` \| `"text/x-uniter-php"` \| `"text/php-wasm"` \| `"text/cpp"` \| `"text/java"` \| `"text/csharp-wasm"` \| `"text/perl"` \| `"text/julia"` \| `"text/biwascheme"` \| `"text/commonlisp"` \| `"text/tcl"` \| `"text/prolog"` \| `"text/go-wasm"` \| `"application/json"` \| `"application/lua"` \| `"text/fennel"` \| `"application/wasm-uint8"` \| `"application/javascript"` \| `"application/ecmascript"` \| `"text/javascript"` \| `"text/ecmascript"`
+> `optional` **scriptType**: `""` \| `"module"` \| `"application/javascript"` \| `"application/ecmascript"` \| `"text/javascript"` \| `"text/ecmascript"` \| `"text/liquid"` \| `"text/python"` \| `"text/r"` \| `"text/ruby-wasm"` \| `"text/x-uniter-php"` \| `"text/php-wasm"` \| `"text/cpp"` \| `"text/java"` \| `"text/csharp-wasm"` \| `"text/perl"` \| `"text/julia"` \| `"text/biwascheme"` \| `"text/commonlisp"` \| `"text/tcl"` \| `"text/prolog"` \| `"text/minizinc"` \| `"text/go-wasm"` \| `"application/json"` \| `"application/lua"` \| `"text/fennel"` \| `"application/wasm-uint8"`
 
 #### customSettings.scss
 
@@ -1586,6 +1606,14 @@ and [result page](https://livecodes.io/docs/features/result) description meta ta
 
 > **dot-selector**: `undefined` \| `string`
 
+#### dzn
+
+> **dzn**: `undefined` \| `string`
+
+#### dzn-selector
+
+> **dzn-selector**: `undefined` \| `string`
+
 #### editor?
 
 > `optional` **editor**: `"auto"` \| `"monaco"` \| `"codemirror"` \| `"codejar"`
@@ -1670,18 +1698,6 @@ Enables [Emmet](https://livecodes.io/docs/features/editor-settings#emmet).
 
 ```ts
 true
-```
-
-#### enableAI?
-
-> `optional` **enableAI**: `boolean`
-
-If `true`, [AI code assistant](https://livecodes.io/docs/features/ai) is enabled.
-
-##### Default
-
-```ts
-false
 ```
 
 #### es
@@ -2061,7 +2077,7 @@ and [Custom Module Resolution](https://livecodes.io/docs/features/module-resolut
 
 #### layout?
 
-> `optional` **layout**: `"horizontal"` \| `"vertical"` \| `"responsive"`
+> `optional` **layout**: `"responsive"` \| `"horizontal"` \| `"vertical"`
 
 Sets the app layout to horizontal or vertical.
 If set to `"responsive"` (the default) or `undefined`,
@@ -2144,7 +2160,7 @@ false
 
 #### loading?
 
-> `optional` **loading**: `"click"` \| `"eager"` \| `"lazy"`
+> `optional` **loading**: `"lazy"` \| `"click"` \| `"eager"`
 
 Sets how the playground loads:
 
@@ -2356,6 +2372,14 @@ overriding the default title set to the language name
 
 > **mdx-selector**: `undefined` \| `string`
 
+#### minizinc
+
+> **minizinc**: `undefined` \| `string`
+
+#### minizinc-selector
+
+> **minizinc-selector**: `undefined` \| `string`
+
 #### mjml
 
 > **mjml**: `undefined` \| `string`
@@ -2363,6 +2387,14 @@ overriding the default title set to the language name
 #### mjml-selector
 
 > **mjml-selector**: `undefined` \| `string`
+
+#### mjs
+
+> **mjs**: `undefined` \| `string`
+
+#### mjs-selector
+
+> **mjs-selector**: `undefined` \| `string`
 
 #### mkdn
 
@@ -2390,7 +2422,7 @@ overriding the default title set to the language name
 
 #### mode?
 
-> `optional` **mode**: `"focus"` \| `"full"` \| `"result"` \| `"editor"` \| `"lite"` \| `"simple"` \| `"codeblock"`
+> `optional` **mode**: `"editor"` \| `"result"` \| `"full"` \| `"focus"` \| `"lite"` \| `"simple"` \| `"codeblock"`
 
 Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
@@ -2400,6 +2432,14 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 "full"
 ```
 
+#### mts
+
+> **mts**: `undefined` \| `string`
+
+#### mts-selector
+
+> **mts-selector**: `undefined` \| `string`
+
 #### mustache
 
 > **mustache**: `undefined` \| `string`
@@ -2407,6 +2447,14 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 #### mustache-selector
 
 > **mustache-selector**: `undefined` \| `string`
+
+#### mzn
+
+> **mzn**: `undefined` \| `string`
+
+#### mzn-selector
+
+> **mzn-selector**: `undefined` \| `string`
 
 #### new?
 
@@ -2442,7 +2490,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### params?
 
-> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 485 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
+> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 494 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
 
 An object that represents the [URL Query parameters](https://livecodes.io/docs/configuration/query-params), that can be used to configure the playground.
 
@@ -3018,7 +3066,7 @@ true
 
 #### screen?
 
-> `optional` **screen**: `"new"` \| `"open"` \| `"embed"` \| `"sync"` \| `"about"` \| `"welcome"` \| `"add-snippet"` \| `"login"` \| `"info"` \| `"assets"` \| `"add-asset"` \| `"snippets"` \| `"import"` \| `"resources"` \| `"share"` \| `"deploy"` \| `"backup"` \| `"broadcast"` \| `"custom-settings"` \| `"editor-settings"` \| `"code-to-image"` \| `"test-editor"` \| `"keyboard-shortcuts"`
+> `optional` **screen**: `"open"` \| `"welcome"` \| `"import"` \| `"new"` \| `"embed"` \| `"login"` \| `"info"` \| `"assets"` \| `"add-asset"` \| `"snippets"` \| `"add-snippet"` \| `"resources"` \| `"share"` \| `"deploy"` \| `"sync"` \| `"backup"` \| `"broadcast"` \| `"about"` \| `"custom-settings"` \| `"editor-settings"` \| `"code-to-image"` \| `"test-editor"` \| `"keyboard-shortcuts"`
 
 #### script?
 
@@ -3471,7 +3519,7 @@ Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-a
 
 #### tests?
 
-> `optional` **tests**: (\{ language?: Language \| undefined; content?: string \| undefined; contentUrl?: string \| undefined; hiddenContent?: string \| undefined; hiddenContentUrl?: string \| undefined; ... 5 more ...; position?: EditorPosition \| undefined; \} \| undefined) & ("" \| ... 4 more ... \| "full")
+> `optional` **tests**: (\{ language?: Language \| undefined; content?: string \| undefined; contentUrl?: string \| undefined; hiddenContent?: string \| undefined; hiddenContentUrl?: string \| undefined; ... 5 more ...; position?: EditorPosition \| undefined; \} \| undefined) & ("" \| ... 4 more ... \| "true")
 
 Configures the [language](https://livecodes.io/docs/features/tests#supported-languages)
 and content of [tests](https://livecodes.io/docs/features/tests).
@@ -3525,7 +3573,7 @@ Also used in project search.
 
 #### tools?
 
-> `optional` **tools**: `"none"` \| `"closed"` \| `"open"` \| `"full"` \| `"console"` \| `"compiled"` \| `"tests"` \| "console\|undefined" \| "console\|" \| "console\|none" \| "console\|closed" \| "console\|open" \| "console\|full" \| "compiled\|undefined" \| "compiled\|" \| "compiled\|none" \| "compiled\|closed" \| "compiled\|open" \| "compiled\|full" \| "tests\|undefined" \| "tests\|" \| "tests\|none" \| "tests\|closed" \| "tests\|open" \| "tests\|full" \| "console,console\|undefined" \| "console,console\|" \| "console,console\|none" \| "console,console\|closed" \| "console,console\|open" \| "console,console\|full" \| "console,compiled\|undefined" \| "console,compiled\|" \| "console,compiled\|none" \| "console,compiled\|closed" \| "console,compiled\|open" \| "console,compiled\|full" \| "console,tests\|undefined" \| "console,tests\|" \| "console,tests\|none" \| "console,tests\|closed" \| "console,tests\|open" \| "console,tests\|full" \| "compiled,console\|undefined" \| "compiled,console\|" \| "compiled,console\|none" \| "compiled,console\|closed" \| "compiled,console\|open" \| "compiled,console\|full" \| "compiled,compiled\|undefined" \| "compiled,compiled\|" \| "compiled,compiled\|none" \| "compiled,compiled\|closed" \| "compiled,compiled\|open" \| "compiled,compiled\|full" \| "compiled,tests\|undefined" \| "compiled,tests\|" \| "compiled,tests\|none" \| "compiled,tests\|closed" \| "compiled,tests\|open" \| "compiled,tests\|full" \| "tests,console\|undefined" \| "tests,console\|" \| "tests,console\|none" \| "tests,console\|closed" \| "tests,console\|open" \| "tests,console\|full" \| "tests,compiled\|undefined" \| "tests,compiled\|" \| "tests,compiled\|none" \| "tests,compiled\|closed" \| "tests,compiled\|open" \| "tests,compiled\|full" \| "tests,tests\|undefined" \| "tests,tests\|" \| "tests,tests\|none" \| "tests,tests\|closed" \| "tests,tests\|open" \| "tests,tests\|full" \| "console,console,console\|undefined" \| "console,console,console\|" \| "console,console,console\|none" \| "console,console,console\|closed" \| "console,console,console\|open" \| "console,console,console\|full" \| "console,console,compiled\|undefined" \| "console,console,compiled\|" \| "console,console,compiled\|none" \| "console,console,compiled\|closed" \| "console,console,compiled\|open" \| "console,console,compiled\|full" \| "console,console,tests\|undefined" \| "console,console,tests\|" \| "console,console,tests\|none" \| "console,console,tests\|closed" \| "console,console,tests\|open" \| "console,console,tests\|full" \| "console,compiled,console\|undefined" \| "console,compiled,console\|" \| "console,compiled,console\|none" \| "console,compiled,console\|closed" \| "console,compiled,console\|open" \| "console,compiled,console\|full" \| "console,compiled,compiled\|undefined" \| "console,compiled,compiled\|" \| "console,compiled,compiled\|none" \| "console,compiled,compiled\|closed" \| "console,compiled,compiled\|open" \| "console,compiled,compiled\|full" \| "console,compiled,tests\|undefined" \| "console,compiled,tests\|" \| "console,compiled,tests\|none" \| "console,compiled,tests\|closed" \| "console,compiled,tests\|open" \| "console,compiled,tests\|full" \| "console,tests,console\|undefined" \| "console,tests,console\|" \| "console,tests,console\|none" \| "console,tests,console\|closed" \| "console,tests,console\|open" \| "console,tests,console\|full" \| "console,tests,compiled\|undefined" \| "console,tests,compiled\|" \| "console,tests,compiled\|none" \| "console,tests,compiled\|closed" \| "console,tests,compiled\|open" \| "console,tests,compiled\|full" \| "console,tests,tests\|undefined" \| "console,tests,tests\|" \| "console,tests,tests\|none" \| "console,tests,tests\|closed" \| "console,tests,tests\|open" \| "console,tests,tests\|full" \| "compiled,console,console\|undefined" \| "compiled,console,console\|" \| "compiled,console,console\|none" \| "compiled,console,console\|closed" \| "compiled,console,console\|open" \| "compiled,console,console\|full" \| "compiled,console,compiled\|undefined" \| "compiled,console,compiled\|" \| "compiled,console,compiled\|none" \| "compiled,console,compiled\|closed" \| "compiled,console,compiled\|open" \| "compiled,console,compiled\|full" \| "compiled,console,tests\|undefined" \| "compiled,console,tests\|" \| "compiled,console,tests\|none" \| "compiled,console,tests\|closed" \| "compiled,console,tests\|open" \| "compiled,console,tests\|full" \| "compiled,compiled,console\|undefined" \| "compiled,compiled,console\|" \| "compiled,compiled,console\|none" \| "compiled,compiled,console\|closed" \| "compiled,compiled,console\|open" \| "compiled,compiled,console\|full" \| "compiled,compiled,compiled\|undefined" \| "compiled,compiled,compiled\|" \| "compiled,compiled,compiled\|none" \| "compiled,compiled,compiled\|closed" \| "compiled,compiled,compiled\|open" \| "compiled,compiled,compiled\|full" \| "compiled,compiled,tests\|undefined" \| "compiled,compiled,tests\|" \| "compiled,compiled,tests\|none" \| "compiled,compiled,tests\|closed" \| "compiled,compiled,tests\|open" \| "compiled,compiled,tests\|full" \| "compiled,tests,console\|undefined" \| "compiled,tests,console\|" \| "compiled,tests,console\|none" \| "compiled,tests,console\|closed" \| "compiled,tests,console\|open" \| "compiled,tests,console\|full" \| "compiled,tests,compiled\|undefined" \| "compiled,tests,compiled\|" \| "compiled,tests,compiled\|none" \| "compiled,tests,compiled\|closed" \| "compiled,tests,compiled\|open" \| "compiled,tests,compiled\|full" \| "compiled,tests,tests\|undefined" \| "compiled,tests,tests\|" \| "compiled,tests,tests\|none" \| "compiled,tests,tests\|closed" \| "compiled,tests,tests\|open" \| "compiled,tests,tests\|full" \| "tests,console,console\|undefined" \| "tests,console,console\|" \| "tests,console,console\|none" \| "tests,console,console\|closed" \| "tests,console,console\|open" \| "tests,console,console\|full" \| "tests,console,compiled\|undefined" \| "tests,console,compiled\|" \| "tests,console,compiled\|none" \| "tests,console,compiled\|closed" \| "tests,console,compiled\|open" \| "tests,console,compiled\|full" \| "tests,console,tests\|undefined" \| "tests,console,tests\|" \| "tests,console,tests\|none" \| "tests,console,tests\|closed" \| "tests,console,tests\|open" \| "tests,console,tests\|full" \| "tests,compiled,console\|undefined" \| "tests,compiled,console\|" \| "tests,compiled,console\|none" \| "tests,compiled,console\|closed" \| "tests,compiled,console\|open" \| "tests,compiled,console\|full" \| "tests,compiled,compiled\|undefined" \| "tests,compiled,compiled\|" \| "tests,compiled,compiled\|none" \| "tests,compiled,compiled\|closed" \| "tests,compiled,compiled\|open" \| "tests,compiled,compiled\|full" \| "tests,compiled,tests\|undefined" \| "tests,compiled,tests\|" \| "tests,compiled,tests\|none" \| "tests,compiled,tests\|closed" \| "tests,compiled,tests\|open" \| "tests,compiled,tests\|full" \| "tests,tests,console\|undefined" \| "tests,tests,console\|" \| "tests,tests,console\|none" \| "tests,tests,console\|closed" \| "tests,tests,console\|open" \| "tests,tests,console\|full" \| "tests,tests,compiled\|undefined" \| "tests,tests,compiled\|" \| "tests,tests,compiled\|none" \| "tests,tests,compiled\|closed" \| "tests,tests,compiled\|open" \| "tests,tests,compiled\|full" \| "tests,tests,tests\|undefined" \| "tests,tests,tests\|" \| "tests,tests,tests\|none" \| "tests,tests,tests\|closed" \| "tests,tests,tests\|open" \| "tests,tests,tests\|full"
+> `optional` **tools**: `"full"` \| `"console"` \| `"compiled"` \| `"tests"` \| `"closed"` \| `"open"` \| `"none"` \| "console\|undefined" \| "console\|" \| "console\|full" \| "console\|closed" \| "console\|open" \| "console\|none" \| "compiled\|undefined" \| "compiled\|" \| "compiled\|full" \| "compiled\|closed" \| "compiled\|open" \| "compiled\|none" \| "tests\|undefined" \| "tests\|" \| "tests\|full" \| "tests\|closed" \| "tests\|open" \| "tests\|none" \| "console,console\|undefined" \| "console,console\|" \| "console,console\|full" \| "console,console\|closed" \| "console,console\|open" \| "console,console\|none" \| "console,compiled\|undefined" \| "console,compiled\|" \| "console,compiled\|full" \| "console,compiled\|closed" \| "console,compiled\|open" \| "console,compiled\|none" \| "console,tests\|undefined" \| "console,tests\|" \| "console,tests\|full" \| "console,tests\|closed" \| "console,tests\|open" \| "console,tests\|none" \| "compiled,console\|undefined" \| "compiled,console\|" \| "compiled,console\|full" \| "compiled,console\|closed" \| "compiled,console\|open" \| "compiled,console\|none" \| "compiled,compiled\|undefined" \| "compiled,compiled\|" \| "compiled,compiled\|full" \| "compiled,compiled\|closed" \| "compiled,compiled\|open" \| "compiled,compiled\|none" \| "compiled,tests\|undefined" \| "compiled,tests\|" \| "compiled,tests\|full" \| "compiled,tests\|closed" \| "compiled,tests\|open" \| "compiled,tests\|none" \| "tests,console\|undefined" \| "tests,console\|" \| "tests,console\|full" \| "tests,console\|closed" \| "tests,console\|open" \| "tests,console\|none" \| "tests,compiled\|undefined" \| "tests,compiled\|" \| "tests,compiled\|full" \| "tests,compiled\|closed" \| "tests,compiled\|open" \| "tests,compiled\|none" \| "tests,tests\|undefined" \| "tests,tests\|" \| "tests,tests\|full" \| "tests,tests\|closed" \| "tests,tests\|open" \| "tests,tests\|none" \| "console,console,console\|undefined" \| "console,console,console\|" \| "console,console,console\|full" \| "console,console,console\|closed" \| "console,console,console\|open" \| "console,console,console\|none" \| "console,console,compiled\|undefined" \| "console,console,compiled\|" \| "console,console,compiled\|full" \| "console,console,compiled\|closed" \| "console,console,compiled\|open" \| "console,console,compiled\|none" \| "console,console,tests\|undefined" \| "console,console,tests\|" \| "console,console,tests\|full" \| "console,console,tests\|closed" \| "console,console,tests\|open" \| "console,console,tests\|none" \| "console,compiled,console\|undefined" \| "console,compiled,console\|" \| "console,compiled,console\|full" \| "console,compiled,console\|closed" \| "console,compiled,console\|open" \| "console,compiled,console\|none" \| "console,compiled,compiled\|undefined" \| "console,compiled,compiled\|" \| "console,compiled,compiled\|full" \| "console,compiled,compiled\|closed" \| "console,compiled,compiled\|open" \| "console,compiled,compiled\|none" \| "console,compiled,tests\|undefined" \| "console,compiled,tests\|" \| "console,compiled,tests\|full" \| "console,compiled,tests\|closed" \| "console,compiled,tests\|open" \| "console,compiled,tests\|none" \| "console,tests,console\|undefined" \| "console,tests,console\|" \| "console,tests,console\|full" \| "console,tests,console\|closed" \| "console,tests,console\|open" \| "console,tests,console\|none" \| "console,tests,compiled\|undefined" \| "console,tests,compiled\|" \| "console,tests,compiled\|full" \| "console,tests,compiled\|closed" \| "console,tests,compiled\|open" \| "console,tests,compiled\|none" \| "console,tests,tests\|undefined" \| "console,tests,tests\|" \| "console,tests,tests\|full" \| "console,tests,tests\|closed" \| "console,tests,tests\|open" \| "console,tests,tests\|none" \| "compiled,console,console\|undefined" \| "compiled,console,console\|" \| "compiled,console,console\|full" \| "compiled,console,console\|closed" \| "compiled,console,console\|open" \| "compiled,console,console\|none" \| "compiled,console,compiled\|undefined" \| "compiled,console,compiled\|" \| "compiled,console,compiled\|full" \| "compiled,console,compiled\|closed" \| "compiled,console,compiled\|open" \| "compiled,console,compiled\|none" \| "compiled,console,tests\|undefined" \| "compiled,console,tests\|" \| "compiled,console,tests\|full" \| "compiled,console,tests\|closed" \| "compiled,console,tests\|open" \| "compiled,console,tests\|none" \| "compiled,compiled,console\|undefined" \| "compiled,compiled,console\|" \| "compiled,compiled,console\|full" \| "compiled,compiled,console\|closed" \| "compiled,compiled,console\|open" \| "compiled,compiled,console\|none" \| "compiled,compiled,compiled\|undefined" \| "compiled,compiled,compiled\|" \| "compiled,compiled,compiled\|full" \| "compiled,compiled,compiled\|closed" \| "compiled,compiled,compiled\|open" \| "compiled,compiled,compiled\|none" \| "compiled,compiled,tests\|undefined" \| "compiled,compiled,tests\|" \| "compiled,compiled,tests\|full" \| "compiled,compiled,tests\|closed" \| "compiled,compiled,tests\|open" \| "compiled,compiled,tests\|none" \| "compiled,tests,console\|undefined" \| "compiled,tests,console\|" \| "compiled,tests,console\|full" \| "compiled,tests,console\|closed" \| "compiled,tests,console\|open" \| "compiled,tests,console\|none" \| "compiled,tests,compiled\|undefined" \| "compiled,tests,compiled\|" \| "compiled,tests,compiled\|full" \| "compiled,tests,compiled\|closed" \| "compiled,tests,compiled\|open" \| "compiled,tests,compiled\|none" \| "compiled,tests,tests\|undefined" \| "compiled,tests,tests\|" \| "compiled,tests,tests\|full" \| "compiled,tests,tests\|closed" \| "compiled,tests,tests\|open" \| "compiled,tests,tests\|none" \| "tests,console,console\|undefined" \| "tests,console,console\|" \| "tests,console,console\|full" \| "tests,console,console\|closed" \| "tests,console,console\|open" \| "tests,console,console\|none" \| "tests,console,compiled\|undefined" \| "tests,console,compiled\|" \| "tests,console,compiled\|full" \| "tests,console,compiled\|closed" \| "tests,console,compiled\|open" \| "tests,console,compiled\|none" \| "tests,console,tests\|undefined" \| "tests,console,tests\|" \| "tests,console,tests\|full" \| "tests,console,tests\|closed" \| "tests,console,tests\|open" \| "tests,console,tests\|none" \| "tests,compiled,console\|undefined" \| "tests,compiled,console\|" \| "tests,compiled,console\|full" \| "tests,compiled,console\|closed" \| "tests,compiled,console\|open" \| "tests,compiled,console\|none" \| "tests,compiled,compiled\|undefined" \| "tests,compiled,compiled\|" \| "tests,compiled,compiled\|full" \| "tests,compiled,compiled\|closed" \| "tests,compiled,compiled\|open" \| "tests,compiled,compiled\|none" \| "tests,compiled,tests\|undefined" \| "tests,compiled,tests\|" \| "tests,compiled,tests\|full" \| "tests,compiled,tests\|closed" \| "tests,compiled,tests\|open" \| "tests,compiled,tests\|none" \| "tests,tests,console\|undefined" \| "tests,tests,console\|" \| "tests,tests,console\|full" \| "tests,tests,console\|closed" \| "tests,tests,console\|open" \| "tests,tests,console\|none" \| "tests,tests,compiled\|undefined" \| "tests,tests,compiled\|" \| "tests,tests,compiled\|full" \| "tests,tests,compiled\|closed" \| "tests,tests,compiled\|open" \| "tests,tests,compiled\|none" \| "tests,tests,tests\|undefined" \| "tests,tests,tests\|" \| "tests,tests,tests\|full" \| "tests,tests,tests\|closed" \| "tests,tests,tests\|open" \| "tests,tests,tests\|none"
 
 #### trailingComma?
 
@@ -3635,7 +3683,7 @@ Version specified in [exported](https://livecodes.io/docs/features/export) proje
 
 #### ~~view?~~
 
-> `optional` **view**: `"split"` \| `"result"` \| `"editor"`
+> `optional` **view**: `"split"` \| `"editor"` \| `"result"`
 
 ##### Deprecated
 
@@ -3826,7 +3874,7 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[models.ts:338](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L338)
+[models.ts:338](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L338)
 
 ***
 
@@ -3839,13 +3887,13 @@ Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-a
 
 #### Defined in
 
-[models.ts:383](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L383)
+[models.ts:383](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L383)
 
 ***
 
 ### ~~view?~~
 
-> `optional` **view**: `"split"` \| `"result"` \| `"editor"` \| `"headless"`
+> `optional` **view**: `"split"` \| `"editor"` \| `"result"` \| `"headless"`
 
 #### Deprecated
 
@@ -3864,4 +3912,4 @@ When set to `"headless"`, the playground is loaded in [headless mode](https://li
 
 #### Defined in
 
-[models.ts:396](https://github.com/live-codes/livecodes/blob/1f84d1b27bc55a00aefc468ad1efbe0b8a17528c/src/sdk/models.ts#L396)
+[models.ts:396](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L396)

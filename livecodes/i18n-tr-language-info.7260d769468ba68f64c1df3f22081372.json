@@ -1,0 +1,431 @@
+{
+  "artTemplate": {
+    "desc": "Yüksek performanslı JavaScript şablonlama motoru.",
+    "link": "<1> <2>art-template resmi web sitesi</2> </1> <3> <4>art-template dokümantasyonu</4> </3>",
+    "name": "art-template"
+  },
+  "asciidoc": {
+    "desc": "Asciidoctor kullanılarak HTML'e derlenmiş AsciiDoc.",
+    "link": "<1> <2>AsciiDoc resmi web sitesi</2> </1> <3> <4>Asciidoctor resmi web sitesi</4> </3> <5> <6>Asciidoctor dokümantasyonu</6> </5> <7> <8>Y Dakikada X Öğrenin, X=asciidoc</8> </7>",
+    "name": "AsciiDoc"
+  },
+  "assemblyscript": {
+    "desc": "WebAssembly için TypeScript benzeri bir dil.",
+    "link": "<1> <2>AssemblyScript resmi web sitesi</2> </1> <3> <4>AssemblyScript dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "AssemblyScript"
+  },
+  "astro": {
+    "desc": "Daha az istemci taraflı Javascript ile daha hızlı web siteleri oluşturun. (Hala Beta'da)",
+    "link": "<1> <2>Astro resmi web sitesi</2> </1> <3> <4>Astro dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "Astro"
+  },
+  "babel": {
+    "desc": "JavaScript derleyicisi",
+    "link": "<1><2>Resmi web sitesi</2></1> <3> <4>Babel dokümantasyonu</4> </3>",
+    "name": "Babel"
+  },
+  "bbcode": {
+    "desc": "BBCode (\"Bulletin Board Code\"), birçok internet forum yazılımında mesajları biçimlendirmek için kullanılan hafif bir işaretleme dilidir.",
+    "link": "<1><2>bbcode.org</2></1> <3> <4>BBCode rehberi</4> </3> <5> <6>Wikipedia'da BBCode</6> </5>",
+    "name": "BBCode"
+  },
+  "blockly": {
+    "desc": "Görsel programlama düzenleyicileri oluşturmak için bir JavaScript kütüphanesi.",
+    "link": "<1> <2>Resmi web sitesi</2> </1> <3> <4>Rehberler</4> </3> <5> <6>Referans</6> </5> <7> <8>Örnekler</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "Blockly"
+  },
+  "civet": {
+    "desc": "Civet, TypeScript veya JavaScript'e derlenen bir programlama dilidir, böylece mevcut araçları kullanabilir ancak daha kısa ve güçlü bir sözdizimi sağlayabilirsiniz.",
+    "link": "<1> <2>Civet resmi web sitesi</2> </1> <3> <4>Civet kopya kağıdı</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "Civet"
+  },
+  "clio": {
+    "desc": "Clio, JavaScript'e derlenen hızlı, dağıtık, fonksiyonel bir programlama dilidir.",
+    "link": "<1> <2>Clio resmi web sitesi</2> </1> <3> <4>Clio dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "Clio"
+  },
+  "clojurescript": {
+    "desc": "ClojureScript, JavaScript'i hedefleyen bir <1>Clojure</1> derleyicisidir. <2></2>LiveCodes'ta, tarayıcıda <3>Cherry</3> kullanarak çalışır.",
+    "link": "<1> <2>ClojureScript resmi web sitesi</2> </1> <3> <4>Clojure resmi web sitesi</4> </3> <5> <6>Cherry repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=clojure</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    "name": "ClojureScript (CLJS)"
+  },
+  "coffeescript": {
+    "desc": "Sade JavaScript.",
+    "link": "<1> <2>CoffeeScript resmi web sitesi</2> </1> <3> <4>Y Dakikada X Öğrenin, X=coffeescript</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "CoffeeScript"
+  },
+  "commonlisp": {
+    "desc": "JSCL (Common Lisp'ten önyüklemeli bir Lisp'ten Javascript'e derleyici) kullanılarak Javascript üzerinde bir Common Lisp uygulaması.",
+    "link": "<1> <2>Common-Lisp.net</2> </1> <3> <4>JSCL Projesi</4> </3> <5> <6>Common Lisp Kaynakları</6> </5> <7> <8>Y Dakikada X Öğrenin, X=Common Lisp</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "Common Lisp"
+  },
+  "cpp": {
+    "desc1": "JSCPP (JavaScript ile yazılmış basit bir C++ yorumlayıcısı) kullanılarak C++ desteği.",
+    "desc2": "Bu, C++'ın tam bir uygulaması değildir. Detaylar için lütfen <1>JSCPP dokümantasyonuna</1> bakın.",
+    "link": "<1> <2>Standart C++ Vakfı</2> </1> <3> <4>JSCPP</4> </3> <5> <6>Y Dakikada X Öğrenin, X=C++</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "C++"
+  },
+  "cppWasm": {
+    "desc": "WebAssembly üzerinde çalışan, <2>polylang.io</2> tarafından uyarlanmış <1>wasm-clang</1> kullanan Clang C/C++ derleyicisi.",
+    "link": "<1> <2>Standart C++ Vakfı</2> </1> <3> <4>Clang resmi web sitesi</4> </3> <5> <6>Y Dakikada X Öğrenin, X=C++</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "C/C++ (Wasm)"
+  },
+  "csharpWasm": {
+    "desc": "WebAssembly üzerinde çalışan C# derleyicisi, <1>Blazor</1> kullanılarak.",
+    "link": "<1> <2>C# dil dokümantasyonu</2> </1> <3> <4>Y Dakikada X Öğrenin, X=C#</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "C# (Wasm)"
+  },
+  "diagrams": {
+    "desc1": "(Deneysel)",
+    "desc2": "Kod olarak diyagramlar. Destekledikleri:",
+    "desc3": "<1> <2>Cytoscape</2> </1> <3> <4>ELK</4> (<5>elkjs</5> kullanarak) </3> <6> <7>Gnuplot</7> (<8>gnuplot-JS</8> kullanarak) </6> <9> <10>Graphviz</10> (<11>@hpcc-js/wasm</11> kullanarak) </9> <12> <13>Mermaid</13> </12> <14> <15>Nomnoml</15> </14> <16> <17>Pintora</17> </16> <18> <19>Plotly</19> </18> <20> <21>Svgbob</21> </20> <22> <23>Vega</23> </22> <24> <25>VegaLite</25> </24> <26> <27>WaveDrom</27> </26>",
+    "link": "<1> <2>Başlangıç şablonunu yükle</2> </1> <3> <4>LiveCodes Dokümantasyonu</4> </3>",
+    "name": "Diagrams"
+  },
+  "dot": {
+    "desc": "Node.js ve tarayıcılar için en hızlı ve öz javascript şablon motoru.",
+    "link": "<1> <2>Resmi web sitesi</2> </1> <3> <4>LiveCodes Dokümantasyonu</4> </3>",
+    "name": "doT.js"
+  },
+  "ejs": {
+    "desc": "Gömülü JavaScript şablonlama.",
+    "link": "<1><2>Resmi web sitesi</2></1> <3> <4>LiveCodes Dokümantasyonu</4> </3>",
+    "name": "EJS"
+  },
+  "eta": {
+    "desc": "Node, Deno ve tarayıcı için gömülü JS şablon motoru. Hafif, hızlı ve eklenti destekli. TypeScript ile yazılmıştır.",
+    "link": "<1><2>Resmi web sitesi</2></1> <3> <4>Dokümantasyon</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5>",
+    "name": "Eta"
+  },
+  "fennel": {
+    "desc": "Fennel, Lua'nın hızını, basitliğini ve erişimini bir lisp sözdizimi ve makro sisteminin esnekliğiyle birleştiren bir programlama dilidir.",
+    "link": "<1> <2>Fennel resmi web sitesi</2> </1> <3> <4>Fennel'e Başlarken</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "Fennel"
+  },
+  "flow": {
+    "desc": "Flow, JavaScript için statik bir tip denetleyicisidir.",
+    "link": "<1> <2>Flow resmi web sitesi</2> </1> <3> <4>Flow dokümantasyonu</4> </3>",
+    "name": "Flow"
+  },
+  "gleam": {
+    "desc1": "Gleam, ölçeklenebilen, tür-güvenli sistemler oluşturmak için kullanımı kolay bir dildir!",
+    "desc2": "Gleam, Erlang veya JavaScript'e derlenen statik tipli bir fonksiyonel programlama dilidir.",
+    "link": "<1><2>Gleam web sitesi</2></1> <3> <4>Gleam dokümantasyonu</4> </3> <5> <6>Gleam dil turu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "Gleam"
+  },
+  "go": {
+    "desc1": "Go (Golang), basit, güvenilir ve verimli yazılımlar oluşturmayı kolaylaştıran açık kaynaklı bir programlama dilidir.",
+    "desc2": "Burada, GopherJS kullanılarak JavaScript'e derlenir.",
+    "link": "<1><2>Go web sitesi</2></1> <3><4>Go dokümantasyonu</4></3> <5> <6>GopherJS repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=Go</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    "name": "Go"
+  },
+  "goWasm": {
+    "desc": "Yaegi kullanılarak WebAssembly üzerinde çalışan Go yorumlayıcısı.",
+    "link": "<1><2>Go resmi web sitesi</2></1> <3><4>Yaegi</4></3> <5> <6>Y Dakikada X Öğrenin, X=Go</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "Go (Wasm)"
+  },
+  "haml": {
+    "desc": "clientside-haml-js kullanılarak istemci tarafı javascript görünüm şablonları için Haml derleyicisi.",
+    "link": "<1><2>Haml resmi web sitesi</2></1> <3> <4>Haml dokümantasyonu</4> </3> <5> <6>clientside-haml-js GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=haml</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9>",
+    "name": "Haml"
+  },
+  "handlebars": {
+    "desc": "Steroidli minimal şablonlama.",
+    "link": "<1><2>Resmi web sitesi</2></1> <3> <4>LiveCodes Dokümantasyonu</4> </3>",
+    "name": "Handlebars"
+  },
+  "imba": {
+    "desc": "Kullanımı kolay full-stack dil.",
+    "link": "<1><2>Resmi web sitesi</2></1>",
+    "name": "Imba"
+  },
+  "java": {
+    "desc": "DoppioJVM kullanılarak tarayıcıda çalışan JVM.",
+    "link": "<1> <2>Java resmi web sitesi</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Y Dakikada X Öğrenin, X=java</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "Java"
+  },
+  "javascript": {
+    "desc": "Web'in komut dosyası dili.",
+    "link": "<1> <2>MDN'de JavaScript</2> </1> <3> <4>Y dakikada X öğrenin, burada X=JavaScript</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükleyin</8> </7>",
+    "name": "JavaScript"
+  },
+  "jinja": {
+    "desc": "Jinja, hızlı, etkileyici, genişletilebilir bir şablon motorudur.",
+    "link": "<1> <2>Resmi web sitesi</2> </1> <3> <4>Şablon dokümantasyonu</4> </3> <5> <6>JavaScript uygulaması</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7>",
+    "name": "Jinja"
+  },
+  "jsx": {
+    "desc": "JSX, LiveCodes'ta TypeScript Derleyicisi kullanılarak JavaScript'e derlenir. Varsayılan olarak JSX çalışma zamanı olarak React'i kullanır.",
+    "link": "<1> <2>React resmi web sitesi</2> </1> <3> <4>React dokümantasyonunda JSX</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5>",
+    "name": "JSX"
+  },
+  "julia": {
+    "desc1": "LiveCodes'taki Julia dil desteği hala deneyseldir.",
+    "desc2": "WASM üzerinde çalışan Julia derleyicisi ve Julia Base, <2>polylang.io</2> tarafından uyarlanmış <1>julia-wasm</1> kullanılarak.",
+    "link": "<1> <2>Julia resmi web sitesi</2> </1> <3> <4>Julia dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Julia</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "Julia"
+  },
+  "less": {
+    "desc": "Bu CSS, sadece biraz daha fazlasıyla.",
+    "link": "<1><2>Less resmi web sitesi</2></1> <3> <4>Y Dakikada X Öğrenin, X=less</4> </3>",
+    "name": "Less"
+  },
+  "liquid": {
+    "desc": "Basit, etkileyici ve güvenli bir şablon motoru.",
+    "link": "<1> <2>LiquidJS resmi web sitesi</2> </1> <3> <4>LiquidJS dokümantasyonu</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5>",
+    "name": "LiquidJS"
+  },
+  "livescript": {
+    "desc": "JavaScript'e derlenen bir dil.",
+    "link": "<1> <2>LiveScript resmi web sitesi</2> </1> <3> <4>Y Dakikada X Öğrenin, X=LiveScript</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "LiveScript"
+  },
+  "lua": {
+    "desc": "fengari-web kullanılarak tarayıcıda çalışan Lua.",
+    "link": "<1><2>Lua resmi web sitesi</2></1> <3> <4>Lua dokümantasyonu</4> </3> <5> <6>Fengari resmi web sitesi</6> </5> <7> <8>fengari-web GitHub repo'su</8> </7> <9> <10>Y Dakikada X Öğrenin, X=Lua</10> </9> <11> <12>LiveCodes Dokümantasyonu</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>",
+    "name": "Lua"
+  },
+  "luaWasm": {
+    "desc": "Tarayıcıda Wasmoon kullanılarak çalışan Lua, WebAssembly ile yapılmış JS bağlamaları olan gerçek bir lua 5.4 sanal makinesidir.",
+    "link": "<1><2>Lua resmi web sitesi</2></1> <3> <4>Lua dokümantasyonu</4> </3> <5> <6>Wasmoon GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=Lua</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    "name": "Lua (Wasm)"
+  },
+  "malina": {
+    "desc": "Svelte'den ilham alan frontend derleyicisi.",
+    "link": "<1> <2>Malina.js repo'su</2> </1> <3> <4>Malina.js dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "Malina.js"
+  },
+  "markdown": {
+    "desc": "Marked kullanılarak HTML'e derlenmiş Markdown.",
+    "link": "<1> <2>Markdown resmi web sitesi</2> </1> <3> <4>Marked dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=markdown</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "Markdown"
+  },
+  "mdx": {
+    "desc": "Bileşen çağı için Markdown. <1></1>MDX, Markdown belgelerinizde sorunsuzca JSX yazmanıza olanak tanır.",
+    "link": "<1><2>MDX dokümantasyonu</2></1> <3> <4>Başlangıç şablonunu yükle</4> </3>",
+    "name": "MDX"
+  },
+  "minizinc": {
+    "desc": "MiniZinc, ayrık optimizasyon problemlerini kolayca ifade etmenizi ve çözmenizi sağlayan yüksek seviyeli bir kısıt modelleme dilidir.",
+    "link": "<1> <2>MiniZinc resmi web sitesi</2> </1> <3> <4>MiniZinc belgeleri</4> </3> <5> <6>MiniZinc eğitimi</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "MiniZinc"
+  },
+  "mjml": {
+    "desc": "MJML, duyarlı bir e-posta kodlamanın zorluğunu azaltmak için tasarlanmış bir işaretleme dilidir.",
+    "link": "<1><2>MJML resmi web sitesi</2></1> <3> <4>MJML dokümantasyonu</4> </3> <5> <6>MJML resmi şablonları</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7>",
+    "name": "MJML"
+  },
+  "mustache": {
+    "desc": "Mantıksız şablonlar.",
+    "link": "<1> <2>Resmi web sitesi</2> </1> <3> <4>mustache(5) kılavuzu</4> </3> <5> <6>JavaScript uygulaması</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7>",
+    "name": "Mustache"
+  },
+  "nunjucks": {
+    "desc": "JavaScript için zengin ve güçlü bir şablonlama dili. Nunjucks aslında <1>jinja2</1>'nin bir portudur.",
+    "link": "<1> <2>Resmi web sitesi</2> </1> <3> <4>LiveCodes Dokümantasyonu</4> </3>",
+    "name": "Nunjucks"
+  },
+  "ocaml": {
+    "desc1": "OCaml, fonksiyonel, zorunlu ve nesne yönelimli stilleri destekleyen endüstriyel güçte bir programlama dilidir.",
+    "desc2": "OCaml'ı JavaScript'e derlemek için burada ReScript derleyicisi kullanılır.",
+    "link": "<1><2>OCaml web sitesi</2></1> <3> <4>OCaml dokümantasyonu</4> </3> <5> <6>ReScript web sitesi</6> </5> <7> <8>Y Dakikada X Öğrenin, X=OCaml</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "OCaml"
+  },
+  "perl": {
+    "desc": "Perlito kullanılarak tarayıcıda çalışan Perl.",
+    "link": "<1> <2>Perl resmi web sitesi</2> </1> <3> <4>Perl dokümantasyonu</4> </3> <5> <6>Perlito5 Benioku</6> </5> <7> <8>Y Dakikada X Öğrenin, X=perl</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "Perl"
+  },
+  "php": {
+    "desc": "Uniter kullanılarak tarayıcıda çalışan PHP.",
+    "link": "<1><2>PHP resmi web sitesi</2></1> <3> <4>PHP dokümantasyonu</4> </3> <5> <6>Uniter GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=PHP</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    "name": "PHP"
+  },
+  "phpWasm": {
+    "desc": "Tarayıcıda PHP, WebAssembly tarafından desteklenir ve php-wasm kullanır.",
+    "link": "<1><2>PHP resmi web sitesi</2></1> <3> <4>PHP dokümantasyonu</4> </3> <5> <6>php-wasm GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=PHP</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    "name": "PHP (Wasm)"
+  },
+  "postgresql": {
+    "desc": "PGlite kullanılarak WASM olarak paketlenmiş PostgreSQL.",
+    "link": "<1> <2>PostgreSQL resmi web sitesi</2> </1> <3> <4>PostgreSQL dokümantasyonu</4> </3> <5> <6>PGlite GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=SQL</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "PostgreSQL"
+  },
+  "prolog": {
+    "desc": "JavaScript'te açık kaynaklı bir Prolog yorumlayıcısı.",
+    "link": "<1> <2>Tau Prolog resmi web sitesi</2> </1> <3> <4>Tau Prolog dokümantasyonu</4> </3> <5> <6>SWI-Prolog</6> </5> <7> <8>Y Dakikada X Öğrenin, X=Prolog</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "Tau Prolog"
+  },
+  "pug": {
+    "desc": "Sağlam, zarif, zengin özellikli şablon motoru.",
+    "link": "<1> <2>Pug dokümantasyonu</2> </1> <3> <4>Y Dakikada X Öğrenin, X=Pug</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5>",
+    "name": "Pug"
+  },
+  "python": {
+    "desc": "Brython kullanılarak tarayıcıda çalışan Python.",
+    "link": "<1> <2>Python resmi web sitesi</2> </1> <3> <4>Python dokümantasyonu</4> </3> <5> <6>Brython dokümantasyonu</6> </5> <7> <8>Y Dakikada X Öğrenin, X=Python</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    "name": "Python"
+  },
+  "pythonWasm": {
+    "desc1": "Bilimsel yığın ile Python, Pyodide kullanılarak WebAssembly'e derlenmiştir.",
+    "desc2": "Pyodide, NumPy, Pandas, Matplotlib, SciPy, scikit-learn ve daha fazlasını içeren Python bilimsel yığınını kullanmaya olanak tanır. Ek olarak, PyPi'den saf Python wheel'leri yüklemek mümkündür.",
+    "link": "<1> <2>Python resmi web sitesi</2> </1> <3> <4>Python dokümantasyonu</4> </3> <5><6>Pyodide dokümantasyonu</6></5> <7> <8>Y Dakikada X Öğrenin, X=Python</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    "name": "Python (Wasm)"
+  },
+  "r": {
+    "desc": "WebR kullanılarak tarayıcıda çalışan R.",
+    "link": "<1> <2>R projesi resmi web sitesi</2> </1> <3> <4>R Kılavuzları</4> </3> <5> <6>Veri Bilimi için R (2e)</6> </5> <7> <8>WebR dokümantasyonu</8> </7> <9> <10>Y Dakikada X Öğrenin, X=R</10> </9> <11> <12>LiveCodes Dokümantasyonu</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>",
+    "name": "R"
+  },
+  "react": {
+    "desc": "React Derleyicisi, React uygulamalarını otomatik olarak optimize eden, yalnızca derleme zamanında çalışan bir araçtır.",
+    "link": "<1> <2>React resmi web sitesi</2> </1> <3> <4>React Derleyicisi</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "React Compiler"
+  },
+  "reactNative": {
+    "desc": "Web için React Native, React DOM ile birlikte çalışabilen, React Native Bileşenleri ve API'lerinin erişilebilir bir uygulamasıdır.",
+    "link": "<1> <2>React resmi web sitesi</2> </1> <3> <4>React Native web sitesi</4> </3> <5> <6>Web için React Native web sitesi</6> </5> <7> <8>React Native dokümantasyonu</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    "name": "React Native for Web"
+  },
+  "reactNativeTsx": {
+    "desc": "Web için React Native, React DOM ile birlikte çalışabilen, React Native Bileşenleri ve API'lerinin erişilebilir bir uygulamasıdır.",
+    "link": "<1> <2>React resmi web sitesi</2> </1> <3> <4>React Native web sitesi</4> </3> <5> <6>Web için React Native web sitesi</6> </5> <7> <8>React Native dokümantasyonu</8> </7> <9> <10>TypeScript web sitesi</10> </9> <11> <12>TypeScript dokümantasyonu</12> </11> <13> <14>LiveCodes Dokümantasyonu</14> </13> <15> <16>Başlangıç şablonunu yükle (JSX)</16> </15>",
+    "name": "React Native for Web (TypeScript ile)"
+  },
+  "reactTsx": {
+    "desc": "React Derleyicisi, React uygulamalarını otomatik olarak optimize eden, yalnızca derleme zamanında çalışan bir araçtır.",
+    "link": "<1> <2>React resmi web sitesi</2> </1> <3> <4>React Derleyicisi</4> </3> <5> <6>TypeScript web sitesi</6> </5> <7> <8>TypeScript dokümantasyonu</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle (JSX)</12> </11>",
+    "name": "React Compiler (TypeScript ile)"
+  },
+  "reason": {
+    "desc1": "Reason, hem JavaScript hem de OCaml ekosistemlerinden yararlanırken basit, hızlı ve kaliteli, tür-güvenli kod yazmanıza olanak tanır.",
+    "desc2": "Reason'ı JavaScript'e derlemek için burada ReScript derleyicisi kullanılır.",
+    "link": "<1><2>Reason web sitesi</2></1> <3> <4>Reason dokümantasyonu</4> </3> <5> <6>ReasonReact</6> </5> <7> <8>ReScript web sitesi</8> </7> <9> <10>Y Dakikada X Öğrenin, X=reason</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    "name": "Reason"
+  },
+  "rescript": {
+    "desc": "ReScript, verimli ve insan tarafından okunabilir JavaScript'e derlenen, sağlam bir şekilde tiplendirilmiş bir dildir.",
+    "link": "<1> <2>ReScript web sitesi</2> </1> <3> <4>ReScript / React</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "ReScript"
+  },
+  "richtext": {
+    "desc1": "Quill kullanarak:",
+    "desc2": "Güçlü zengin metin düzenleyiciniz.",
+    "link": "<1> <2>Quill resmi web sitesi</2> </1>",
+    "name": "Zengin Metin Düzenleyici"
+  },
+  "riot": {
+    "desc": "Basit ve zarif bileşen tabanlı kullanıcı arayüzü kütüphanesi.",
+    "link": "<1> <2>Riot.js resmi web sitesi</2> </1> <3> <4>Riot.js dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "Riot.js"
+  },
+  "ruby": {
+    "desc": "Opal kullanılarak tarayıcıda çalışan Ruby.",
+    "link": "<1> <2>Ruby resmi web sitesi</2> </1> <3> <4>Ruby dokümantasyonu</4> </3> <5><6>Opal resmi web sitesi</6></5> <7> <8>Opal standart kütüphane CDN'i</8> </7> <9> <10>Y Dakikada X Öğrenin, X=ruby</10> </9> <11> <12>LiveCodes Dokümantasyonu</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>",
+    "name": "Ruby"
+  },
+  "rubyWasm": {
+    "desc": "Tarayıcıda ruby-wasm (CRuby'nin WebAssembly portlarının bir koleksiyonu) kullanılarak çalışan Ruby.",
+    "link": "<1> <2>Ruby resmi web sitesi</2> </1> <3> <4>Ruby dokümantasyonu</4> </3> <5> <6>ruby.wasm web sitesi</6> </5> <7><8>CRuby</8></7> <9> <10>Y Dakikada X Öğrenin, X=ruby</10> </9> <11> <12>LiveCodes Dokümantasyonu</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>",
+    "name": "Ruby (WASM)"
+  },
+  "sass": {
+    "desc": "Sözdizimsel Olarak Harika Stil Sayfaları.",
+    "link": "<1> <2>Sass resmi web sitesi</2> </1> <3> <4>Sass dokümantasyonu</4> </3> <5> <6>Sass (girintili) sözdizimi</6> </5> <7> <8>Y Dakikada X Öğrenin, X=sass</8> </7>",
+    "name": "Sass"
+  },
+  "scheme": {
+    "desc": "biwascheme kullanılarak tarayıcıda çalışan Scheme.",
+    "link": "<1> <2>Scheme Programlama Dili</2> </1> <3> <4>BiwaScheme resmi web sitesi</4> </3> <5> <6>BiwaScheme referansı</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "Scheme"
+  },
+  "scss": {
+    "desc": "Sözdizimsel Olarak Harika Stil Sayfaları.",
+    "link": "<1> <2>Sass resmi web sitesi</2> </1> <3> <4>Sass dokümantasyonu</4> </3> <5> <6>SCSS sözdizimi</6> </5> <7> <8>Y Dakikada X Öğrenin, X=sass</8> </7>",
+    "name": "SCSS"
+  },
+  "solid": {
+    "desc": "Kullanıcı arayüzleri oluşturmak için bildirimsel, verimli ve esnek bir JavaScript kütüphanesi.",
+    "link": "<1><2>Resmi web sitesi</2></1> <3><4>Dokümantasyon</4></3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükle (TSX)</8> </7>",
+    "name": "Solid",
+    "tsx": {
+      "desc": "Kullanıcı arayüzleri oluşturmak için bildirimsel, verimli ve esnek bir JavaScript kütüphanesi.",
+      "link": "<1><2>Resmi web sitesi</2></1> <3> <4>Solid dokümantasyonu</4> </3> <5> <6>TypeScript web sitesi</6> </5> <7> <8>TypeScript dokümantasyonu</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+      "name": "Solid (TypeScript ile)"
+    }
+  },
+  "sql": {
+    "desc": "SQL.js kullanılarak JavaScript'e derlenmiş SQLite.",
+    "link": "<1> <2>SQLite resmi web sitesi</2> </1> <3> <4>SQLite sözdizimi dokümantasyonu</4> </3> <5> <6>SQL.js resmi web sitesi</6> </5> <7> <8>Y Dakikada X Öğrenin, X=SQL</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "SQLite"
+  },
+  "stencil": {
+    "desc": "Web Bileşenleri ve Yüksek Performanslı Web Uygulamaları için bir Derleyici.",
+    "link": "<1> <2>Stencil resmi web sitesi</2> </1> <3> <4>Stencil dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "Stencil"
+  },
+  "styleProcessors": {
+    "link": "<1> <2>Tailwind CSS</2> </1> <3> <4>Windi CSS</4> </3> <5> <6>UnoCSS</6> </5> <7> <8>Lightning CSS</8> </7> <9> <10>PostCSS</10> Eklentileri: <11> <12> <13>Autoprefixer</13> </12> <14> <15>postcss-preset-env</15> </14> <16> <17>postcss-import-url</17> </16> <18> <19>postcss-modules</19> </18> </11> </9>",
+    "name": "CSS Çerçeveleri ve İşlemcileri"
+  },
+  "stylis": {
+    "desc": "Hafif css ön işlemcisi.",
+    "link": "<1> <2>Stylis resmi web sitesi</2> </1>",
+    "name": "Stylis"
+  },
+  "stylus": {
+    "desc": "Etkileyici, Dinamik, Sağlam CSS.",
+    "link": "<1> <2>Stylus resmi web sitesi</2> </1> <3> <4>Y Dakikada X Öğrenin, X=stylus</4> </3>",
+    "name": "Stylus"
+  },
+  "sucrase": {
+    "desc": "Modern JS çalışma zamanlarını hedefleyebildiğinizde Babel'e süper hızlı bir alternatif.",
+    "link": "<1> <2>Sucrase resmi web sitesi</2> </1> <3> <4>Sucrase GitHub Repo'su</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5>",
+    "name": "Sucrase"
+  },
+  "svelte": {
+    "desc": "Sibernetik olarak geliştirilmiş web uygulamaları.",
+    "link": "<1> <2>Svelte resmi web sitesi</2> </1> <3> <4>Svelte dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>",
+    "name": "Svelte"
+  },
+  "tcl": {
+    "desc": "Tarayıcıda, <1>wacl</1> kullanılarak çalışan Tcl.",
+    "link": "<1> <2>Tcl resmi web sitesi</2> </1> <3> <4>wacl repo'su</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Tcl</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "Tcl (Tool Command Language)"
+  },
+  "teal": {
+    "desc": "Lua'nın tipli bir diyalekti.",
+    "link": "<1> <2>Teal GitHub repo'su</2> </1> <3> <4>Teal dokümanları</4> </3> <5> <6>Teal eğitimi</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "Teal"
+  },
+  "tsx": {
+    "desc": "JSX içinde TypeScript. TSX, LiveCodes'ta TypeScript Derleyicisi kullanılarak JavaScript'e derlenir. Varsayılan olarak JSX çalışma zamanı olarak React'i kullanır.",
+    "link": "<1> <2>React resmi web sitesi</2> </1> <3> <4>React dokümantasyonunda JSX</4> </3> <5> <6>Typescript dokümantasyonu</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7>",
+    "name": "TSX"
+  },
+  "twig": {
+    "desc": "<1>Twig</1> PHP şablonlama dilinin <2>Twig.js</2> tarafından bir JavaScript uygulaması.",
+    "link": "<1> <2>Twig resmi web sitesi</2> </1> <3> <4>Twig Dokümantasyonu</4> </3> <5> <6>Twig.js Repo'su</6> </5> <7> <8>Twig.js Dokümantasyonu</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9>",
+    "name": "Twig"
+  },
+  "typescript": {
+    "desc": "JavaScript'in Tipli bir Üst Kümesi.",
+    "link": "<1> <2>Resmi web sitesi</2> </1> <3> <4>TypeScript dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=TypeScript</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    "name": "TypeScript"
+  },
+  "vue": {
+    "link": "<1> <2>Vue.js v3 resmi web sitesi</2> </1> <3> <4>Vue3 dokümantasyonu</4> </3> <5> <6>Vue3 tek dosya bileşenleri</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    "name": "Vue3 Tek Dosya Bileşenleri"
+  },
+  "vue2": {
+    "desc": "vue3-sfc-loader kullanılarak yüklendi.",
+    "link": "<1><2>Vue.js resmi web sitesi</2></1> <3> <4>Vue2 dokümantasyonu</4> </3> <5> <6>Vue2 tek dosya bileşenleri</6> </5> <7> <8>vue3-sfc-loader GitHub repo'su</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9>",
+    "name": "Vue2 Tek Dosya Bileşenleri"
+  },
+  "wat": {
+    "desc1": "WebAssembly (wasm) ikili formatının düşük seviyeli metinsel gösterimi.",
+    "desc2": "wabt.js kullanılarak wasm'a dönüştürülür.",
+    "link": "<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Metin Özellikleri</4> </3> <5> <6>MDN'de WebAssembly</6> </5> <7> <8>WebAssembly metin formatını anlama</8> </7> <9> <10>wabt.js dokümantasyonu</10> </9> <11> <12>Y Dakikada X Öğrenin, X=WebAssembly</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>",
+    "name": "WebAssembly Metin Formatı"
+  }
+}

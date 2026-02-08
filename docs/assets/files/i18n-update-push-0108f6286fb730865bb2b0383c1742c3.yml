@@ -1,0 +1,195 @@
+name: i18n-update-push
+
+on:
+  issue_comment:
+    types: [created]
+
+env:
+  LOKALISE_PROJECT_ID: ${{ vars.LOKALISE_PROJECT_ID }}
+  LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
+  NODE_VERSION: 24.x
+  CI: true
+
+jobs:
+  precheck:
+    name: Pre-check
+    runs-on: ubuntu-latest
+    if: github.event.issue.pull_request && github.event.issue.pull_request.merged_at && github.event.issue.state == 'closed' && github.event.comment.body == '.i18n-update-push' && (github.event.comment.author_association == 'COLLABORATOR' || github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER')
+    outputs:
+      skip: ${{ steps.fetch-pr.outputs.skip }}
+      skipReason: ${{ steps.fetch-pr.outputs.skipReason }}
+      newBranch: ${{ steps.fetch-pr.outputs.newBranch }}
+      branch: ${{ steps.fetch-pr.outputs.branch }}
+
+    steps:
+      - name: Generate Github Token for CI Bot
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Fetch PR details
+        id: fetch-pr
+        run: |
+          PR_DETAILS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "${{ github.event.issue.pull_request.url }}")
+          PR_BRANCH=$(echo "$PR_DETAILS" | jq -r '.head.ref')
+
+          if [[ $PR_BRANCH == "i18n/"* ]]; then
+            SKIP_REASON="Branch \`$PR_BRANCH\` is a i18n branch."
+            echo "$SKIP_REASON Exiting..."
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "skipReason=$SKIP_REASON" >> $GITHUB_OUTPUT
+          fi
+
+          # Use branch name prefixed with owner name
+          PR_BRANCH=$(echo "$PR_DETAILS" | jq -r '.head.label' | sed 's/:/\//g')
+          NEW_BRANCH="i18n/$PR_BRANCH"
+          echo "newBranch=$NEW_BRANCH" >> $GITHUB_OUTPUT
+          echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
+
+          git config --global user.name "livecodes-ci[bot]"
+          git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
+
+          if [[ $(git ls-remote --heads origin $NEW_BRANCH) ]]; then
+            SKIP_REASON="Branch \`$NEW_BRANCH\` already exists."
+            echo "$SKIP_REASON Exiting..."
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "skipReason=$SKIP_REASON" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+
+  runner:
+    name: Runner
+    runs-on: ubuntu-latest
+    needs: precheck
+    if: needs.precheck.outputs.skip != 'true'
+    env:
+      NEW_BRANCH: ${{ needs.precheck.outputs.newBranch }}
+      PR_BRANCH: ${{ needs.precheck.outputs.branch }}
+
+    steps:
+      - name: Generate Github Token for CI Bot
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create new branch
+        run: git checkout -b $NEW_BRANCH
+
+      - name: Linting and fixing
+        run: npm run fix
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "livecodes-ci[bot]"
+          git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
+          git add .
+
+          # Only commit if there are changes
+          git diff-index --quiet HEAD || git commit -m "i18n: update source texts"
+
+          # Save SHA of the latest commit to English locale
+          echo "LAST_COMMIT_SHA=$(git log -n 1 --format="%H" -- src/livecodes/i18n/locales/en)" >> $GITHUB_ENV
+
+      - name: Push changes
+        run: git push origin $NEW_BRANCH
+
+      - name: Push source texts to Lokalise
+        run: npm run i18n-update-push -- $PR_BRANCH
+
+      - name: Create comment and reaction on PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate-token.outputs.token }}
+          script: |
+            const repoURL = context.payload.repository.html_url;
+            const branchURL = `${repoURL}/tree/${process.env.NEW_BRANCH}`;
+            const commentBody = `## i18n Actions: \`.i18n-update-push\`
+            Localization updated and pushed to [Lokalise](https://app.lokalise.com/project/${process.env.LOKALISE_PROJECT_ID}/?branch=${process.env.PR_BRANCH}).
+
+            | Name | Description |
+            | --- | --- |
+            | **New Branch for i18n** | [\`${process.env.NEW_BRANCH}\`](${branchURL}) |
+            | **Last Commit SHA** | ${process.env.LAST_COMMIT_SHA} |
+
+            Maintainers can comment \`.i18n-update-pull\` after translation is done to trigger the i18n pull workflow and pull the changes back to Github.
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody
+            })
+
+            github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: ${{ github.event.comment.id }},
+              content: 'rocket'
+            });
+
+  exception:
+    name: Exception
+    runs-on: ubuntu-latest
+    needs: precheck
+    if: needs.precheck.outputs.skip == 'true'
+    env:
+      SKIP_REASON: ${{ needs.precheck.outputs.skipReason }}
+
+    steps:
+      - name: Generate Github Token for CI Bot
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Create comment and reaction on PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate-token.outputs.token }}
+          script: |
+            const runURL = `${context.payload.repository.html_url}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const commentBody = `## i18n Actions: \`.i18n-update-push\`
+            Failed to perform action due to following reason: **${process.env.SKIP_REASON}**
+
+            Please check [action logs](${runURL}) for more details.
+            `;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody
+            })
+
+            github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: ${{ github.event.comment.id }},
+              content: 'confused'
+            });

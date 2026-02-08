@@ -451,7 +451,7 @@ Sets result page [zoom level](../features/result.html.md)#result-page-zoom).
 ## User Settings
 
 These are properties that define the [user settings](./../features/user-settings.html.md), including [editor settings](../features/editor-settings.html.md).
-
+{/*
 ### `enableAI`
 
 Type: [`boolean`](../api/interfaces/Config.md#enableai)
@@ -459,6 +459,7 @@ Type: [`boolean`](../api/interfaces/Config.md#enableai)
 Default: `false`
 
 If `true`, [AI code assistant](../features/ai.html.md) is enabled.
+ */}
 
 ### `autoupdate`
 

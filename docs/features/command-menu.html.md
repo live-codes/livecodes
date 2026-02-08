@@ -7,7 +7,7 @@ It can be triggered from the keyboard by pressing <kbd>Ctrl</kbd> + <kbd>K</kbd>
 ![Open Command Menu from UI](../../static/img/screenshots/command-menu-1.jpg)
 
 The available commands cover a wide range of functionality, like showing and hiding UI elements (e.g. different editors, the [result page](./result.html.md), [console](./console.html.md), [compiled code viewer](./compiled-code.html.md), and [tests](./tests.html.md)), changing [languages](../languages), loading [starter templates](./templates.html.md), opening different screens (e.g. new project, opening saved projects, [import](./import.html.md), [embeds](./embeds.html.md), [deploy](./deploy.html.md), [share](./share.html.md) and more).
-In addition many commands can be executed from the command menu, such as running code, formatting code, changing settings (e.g. autorun, autosave, [AI code assistant](./ai.html.md), changing [themes](./themes.html.md), [editor settings](./editor-settings.html.md), and more).
+In addition many commands can be executed from the command menu, such as running code, formatting code, changing settings (e.g. autorun, autosave, changing [themes](./themes.html.md), [editor settings](./editor-settings.html.md), and more).
 
 ![LiveCodes Command Menu](../../static/img/screenshots/command-menu-2.jpg)
 

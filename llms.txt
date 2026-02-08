@@ -41,7 +41,6 @@ Its MIT License also permits commercial use.
 - [Tests](https://livecodes.io/livecodes/docs/features/tests.html.md)
 - [Module Resolution](https://livecodes.io/livecodes/docs/features/module-resolution.html.md)
 - [IntelliSense](https://livecodes.io/livecodes/docs/features/intellisense.html.md)
-- [AI Code Assistant 🪄](https://livecodes.io/livecodes/docs/features/ai.html.md)
 - [Code Format](https://livecodes.io/livecodes/docs/features/code-format.html.md)
 - [Command Menu](https://livecodes.io/livecodes/docs/features/command-menu.html.md)
 - [Keyboard Shortcuts](https://livecodes.io/livecodes/docs/features/keyboard-shortcuts.html.md)
@@ -90,6 +89,7 @@ Its MIT License also permits commercial use.
 - [React SDK](https://livecodes.io/livecodes/docs/sdk/react.html.md)
 - [Vue SDK](https://livecodes.io/livecodes/docs/sdk/vue.html.md)
 - [Svelte](https://livecodes.io/livecodes/docs/sdk/svelte.html.md)
+- [Solid](https://livecodes.io/livecodes/docs/sdk/solid.html.md)
 - [Headless Mode](https://livecodes.io/livecodes/docs/sdk/headless.html.md)
 
 ## Advanced
@@ -149,6 +149,7 @@ Its MIT License also permits commercial use.
 - [Malina.js](https://livecodes.io/livecodes/docs/languages/malina.html.md)
 - [Markdown](https://livecodes.io/livecodes/docs/languages/markdown.html.md)
 - [MDX](https://livecodes.io/livecodes/docs/languages/mdx.html.md)
+- [MiniZinc](https://livecodes.io/livecodes/docs/languages/minizinc.html.md)
 - [MJML](https://livecodes.io/livecodes/docs/languages/mjml.html.md)
 - [Mustache](https://livecodes.io/livecodes/docs/languages/mustache.html.md)
 - [Nunjucks](https://livecodes.io/livecodes/docs/languages/nunjucks.html.md)
@@ -200,6 +201,12 @@ Its MIT License also permits commercial use.
 - [Vue 2 SFC](https://livecodes.io/livecodes/docs/languages/vue2.html.md)
 - [WebAssembly Text](https://livecodes.io/livecodes/docs/languages/wat.html.md)
 - [Windi CSS](https://livecodes.io/livecodes/docs/languages/windicss.html.md)
+
+## Tutorials
+
+- [Guides & Tutorials](https://livecodes.io/livecodes/docs/tutorials/index.html.md)
+- [007bff;](https://livecodes.io/livecodes/docs/tutorials/getting-started-guide.html.md)
+- [3498db</span>](https://livecodes.io/livecodes/docs/tutorials/building-your-first-app.html.md)
 
 ## Docs
 

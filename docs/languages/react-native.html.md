@@ -34,7 +34,7 @@ For usage and examples, see documentation for [JSX](./jsx.html.md).
 
 ### Version
 
-`react-native-web`: v0.20.0
+`react-native-web`: v0.21.2
 
 ## Code Formatting
 

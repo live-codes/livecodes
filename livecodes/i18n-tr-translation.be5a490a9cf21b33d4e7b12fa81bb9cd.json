@@ -1,0 +1,1117 @@
+{
+  "about": {
+    "blog": {
+      "text": "Blog",
+      "title": "LiveCodes Blog"
+    },
+    "configuration": "Yapılandırma",
+    "credits": {
+      "heading": "Katkıda Bulunanlar",
+      "para1": "LiveCodes, açık kaynak projeler, web servisleri ve katkıda bulunanlar sayesinde mümkün olmuştur. <1>Katkıda Bulunanları Görüntüle</1>",
+      "para2": "© 2024 Hatem Hosny. LiveCodes, MIT Lisansı altında lisanslanmıştır."
+    },
+    "documentations": {
+      "heading": "Dokümantasyon"
+    },
+    "gettingStarted": "Başlangıç",
+    "github": {
+      "text": "GitHub",
+      "title": "GitHub"
+    },
+    "heading": "LiveCodes Hakkında",
+    "livecodes": {
+      "aboutUs": "LiveCodes Hakkında",
+      "para1": "<1><2>LiveCodes</2></1>, açık kaynaklı, zengin özelliklere sahip, istemci taraflı bir kod alanıdır. Şu anda 90+ dil ve framework desteklenmektedir. Bağımsız bir uygulama olarak veya herhangi bir web sayfasına gömülü olarak kullanılabilir.",
+      "para2": "Güçlü bir SDK, kod alanlarıyla entegrasyon ve iletişimi kolaylaştırır. Kod örnekleri, canlı demolar ve ekran görüntüleri ile kapsamlı dokümantasyon mevcuttur."
+    },
+    "sdk": "LiveCodes SDK",
+    "sponsor": {
+      "text": "Sponsor Ol",
+      "title": "LiveCodes'a Sponsor Ol"
+    },
+    "twitter": {
+      "text": "𝕏 / Twitter",
+      "title": "𝕏 / Twitter"
+    },
+    "version": {
+      "app": "Uygulama sürümü: <1>{{APP_VERSION}}</1>",
+      "appPermanentUrl": "Kalıcı Uygulama URL'si",
+      "commit": "Git commit: <1>{{COMMIT_SHA}}</1>",
+      "heading": "Sürüm",
+      "sdk": "SDK sürümü: <1>{{SDK_VERSION}}</1>",
+      "sdkPermanentUrl": "Kalıcı SDK URL'si"
+    }
+  },
+  "app": {
+    "changeTheme": {
+      "hint": "Temayı Değiştir"
+    },
+    "codeToImage": {
+      "hint": "Kodu Resme Çevir"
+    },
+    "consoleMessage": {
+      "appVersion": "Uygulama sürümü: {{APP_VERSION}}",
+      "commit": "Git commit: {{COMMIT_SHA}}",
+      "learnMore": "Daha fazla bilgi edinin! {{docsUrl}} 🚀",
+      "sdkVersion": "SDK sürümü: {{SDK_VERSION}}"
+    },
+    "copy": {
+      "hint": "Kopyala (Ctrl/⌘ + A, Ctrl/⌘ + C)"
+    },
+    "copyAsUrl": {
+      "hint": "Kodu veri URL'si olarak kopyala"
+    },
+    "customSettings": {
+      "hint": "Özel Ayarlar"
+    },
+    "editorSettings": {
+      "hint": "Düzenleyici Ayarları"
+    },
+    "externalResources": {
+      "hint": "Harici Kaynaklar"
+    },
+    "focus": {
+      "hint": "Odak modunu aç/kapat (Ctrl/⌘ + K, Z)"
+    },
+    "format": {
+      "hint": "Biçimlendir (Alt + Shift + F)"
+    },
+    "fullscreen": {
+      "hint": "Tam Ekran"
+    },
+    "i18nButton": {
+      "hint": "Arayüz Dili"
+    },
+    "i18nMenu": {
+      "docs": "i18n Dokümantasyonu",
+      "helpTranslate": "Çeviride Bize Yardım Edin"
+    },
+    "logo": {
+      "title": "LiveCodes: Sorunsuz Çalışan Bir Kod Alanı!"
+    },
+    "projectInfo": {
+      "hint": "Proje Bilgisi"
+    },
+    "redo": {
+      "hint": "Yinele (Ctrl/⌘ + Shift + Z)"
+    },
+    "result": {
+      "hint": "Sonuç (Ctrl/⌘ + Alt + R)"
+    },
+    "run": {
+      "hint": "Çalıştır (Shift + Enter)"
+    },
+    "share": {
+      "hint": "Paylaş (Ctrl/⌘ + Alt + S)"
+    },
+    "themeColors": {
+      "custom": "Özel"
+    },
+    "undo": {
+      "hint": "Geri Al (Ctrl/⌘ + Z)"
+    },
+    "untitledProject": "İsimsiz Proje"
+  },
+  "assets": {
+    "action": {
+      "delete": "Sil"
+    },
+    "add": {
+      "dataURL": {
+        "desc": "Varlığı base64 kodlu <1>veri url'si</1> olarak ekle.",
+        "heading": "Veri URL'si",
+        "label": "Dosya ekle"
+      },
+      "githubPages": {
+        "desc": "Varlığı GitHub Pages'e dağıt. Dosya, GitHub hesabınızdaki <2>livecodes-assets</2> deposunun <1>gh-pages</1> dalına itilecektir. Depo mevcut değilse, genel bir depo oluşturulacaktır.",
+        "heading": "GitHub Pages",
+        "label": "Dosya yükle"
+      },
+      "heading": "Varlık Ekle"
+    },
+    "delete": {
+      "all": "{{assets}} varlık silinsin mi?",
+      "one": "Varlık silinsin mi: {{asset}}?"
+    },
+    "deleteAll": "Tümünü Sil",
+    "generic": {
+      "clickToCopyURL": "URL'yi kopyalamak için tıklayın"
+    },
+    "heading": "Varlıklar",
+    "link": {
+      "date": "Tarih: {{modified}}",
+      "type": "Tür: {{type}}",
+      "url": "URL: {{url}}"
+    },
+    "loadFile": {
+      "error": {
+        "failedToUpload": "Hata: Dosya yüklenemedi",
+        "unauthenticated": "Hata: Kimliği doğrulanmamış kullanıcı"
+      },
+      "upload": "Dosya yükle",
+      "uploading": "Yükleniyor..."
+    },
+    "noMatch": "Bu filtrelere uyan varlık yok.",
+    "noSavedAssets": "Kaydedilmiş varlığınız yok.",
+    "processAsset": {
+      "addFile": "Dosya eklendi: ",
+      "deployNotice": "Varlık yakında bu URL'de mevcut olacaktır (~1 dk).",
+      "success": "Dosya varlıklara eklendi!",
+      "urlLabel": "URL: "
+    },
+    "resetFilters": "Sıfırla",
+    "search": "Ara",
+    "sort": {
+      "date": "Tarih",
+      "fileName": "Dosya Adı",
+      "heading": "Sıralama Kriteri:"
+    },
+    "type": {
+      "archive": "Arşiv",
+      "audio": "Ses",
+      "csv": "CSV",
+      "font": "Yazı Tipi",
+      "html": "HTML",
+      "icon": "İkon",
+      "image": "Resim",
+      "json": "JSON",
+      "other": "Diğer",
+      "script": "Betik",
+      "stylesheet": "Stil Sayfası",
+      "text": "Metin",
+      "video": "Video",
+      "xml": "XML"
+    },
+    "types": {
+      "all": "Tüm türler"
+    },
+    "url": {
+      "fail": "URL kopyalanamadı.",
+      "success": "URL panoya kopyalandı."
+    }
+  },
+  "backup": {
+    "backup": {
+      "assets": "Varlıklar",
+      "button": "Yedekle",
+      "desc": "LiveCodes verilerini yedekleyin, böylece daha sonra bu cihazda veya diğer cihazlarda geri yüklenebilir. <1></1> Ayrıntılar için lütfen <2>dokümantasyonu</2> ziyaret edin.",
+      "heading": "Yedekleme",
+      "projects": "Projeler",
+      "settings": "Kullanıcı Ayarları",
+      "snippets": "Kod Parçacıkları",
+      "templates": "Kullanıcı Şablonları"
+    },
+    "backupBtn": "Yedekle",
+    "error": {
+      "atLeastOneStore": "Lütfen yedeklemek için en az bir depo seçin",
+      "incorrectFileType": "Hata: Yanlış dosya türü"
+    },
+    "fileInputLabel": "Dosyadan geri yükle",
+    "heading": "Yedekleme / Geri Yükleme",
+    "inProgress": "İşlem devam ediyor...",
+    "restore": {
+      "desc": "Daha önce yedeklenen LiveCodes verilerini geri yükleyin. <1></1> Mevcut içeriği değiştirmeyi seçerseniz, önce yedeklemek isteyebilirsiniz. <2></2> Ayrıntılar için lütfen <3>dokümantasyonu</3> ziyaret edin.",
+      "fromFile": "Dosyadan geri yükle",
+      "heading": "Geri Yükle",
+      "mode": {
+        "merge": "Mevcut içerikle birleştir",
+        "replace": "Mevcut içeriği değiştir"
+      },
+      "success": "Başarıyla Geri Yüklendi!"
+    }
+  },
+  "broadcast": {
+    "broadcastBtn": {
+      "start": "Yayınla",
+      "stop": "Yayını durdur"
+    },
+    "broadcasting": "Yayınlanıyor...",
+    "channelURL": "Kanal URL'si",
+    "connecting": "Bağlanıyor...",
+    "desc": "Sonuç sayfasını diğer tarayıcılara/cihazlara gerçek zamanlı olarak yayınlayın. Ayrıntılar için lütfen <1>dokümantasyonu</1> ziyaret edin.",
+    "error": {
+      "generic": "Yayın başarısız oldu!",
+      "serverURLRequired": "Sunucu URL'si gereklidir!"
+    },
+    "heading": "Yayın",
+    "includeSourceCode": "Kaynak kodunu dahil et",
+    "serverURL": {
+      "heading": "Sunucu URL'si"
+    }
+  },
+  "codeToImage": {
+    "background": "Arka Plan",
+    "borderRadius": "Kenarlık Yarıçapı",
+    "code": "Kod",
+    "copyCode": "Kodu Kopyala",
+    "copyImage": "Resmi Kopyala",
+    "default": "Varsayılan",
+    "direction": "Yön",
+    "fileName": "Dosya Adı",
+    "fontFamily": "Yazı Tipi Ailesi",
+    "fontSize": "Yazı Tipi Boyutu",
+    "heading": "Kodu Resme Çevir",
+    "image": "Resim",
+    "imageFormat": {
+      "jpg": "JPEG",
+      "label": "Resim Formatı",
+      "png": "PNG",
+      "svg": "SVG"
+    },
+    "layout": "Düzen",
+    "opacity": "Opaklık",
+    "padding": "İç Boşluk",
+    "presets": "Ön Ayarlar",
+    "preview": "Önizleme",
+    "save": "Resmi Kaydet",
+    "scale": "Resim Ölçeği",
+    "shadow": "Gölge",
+    "shareImage": "Resmi Paylaş",
+    "shareTitle": "Paylaş",
+    "shareUrl": "URL'yi Paylaş",
+    "theme": "Tema",
+    "width": "Genişlik",
+    "windowStyle": {
+      "label": "Pencere Stili",
+      "mac": "macOS",
+      "none": "Yok",
+      "windows": "Windows"
+    }
+  },
+  "commandMenu": {
+    "changeTheme": {
+      "dark": "Koyu Temaya Geç",
+      "light": "Açık Temaya Geç",
+      "title": "Temayı Değiştir"
+    },
+    "changeUILanguage": "Arayüz Dilini Değiştir",
+    "closeModalMenu": "Modal/Menüyü Kapat",
+    "contribute": "Katkıda Bulun",
+    "copy": "Kodu Kopyala",
+    "copyAsDataUrl": "Kodu Veri URL'si Olarak Kopyala",
+    "disableAutoSave": "Otomatik Kaydetmeyi Devre Dışı Bırak",
+    "disableAutoUpdate": "Otomatik Güncellemeyi Devre Dışı Bırak",
+    "disableEmacs": "Emacs Modunu Devre Dışı Bırak",
+    "disableFormatOnSave": "Kaydederken Biçimlendirmeyi Devre Dışı Bırak",
+    "disableRecoverUnsaved": "Kaydedilmemiş Kurtarmayı Devre Dışı Bırak",
+    "disableVim": "Vim Modunu Devre Dışı Bırak",
+    "enableAutoSave": "Otomatik Kaydetmeyi Etkinleştir",
+    "enableAutoUpdate": "Otomatik Güncellemeyi Etkinleştir",
+    "enableEmacs": "Emacs Modunu Etkinleştir",
+    "enableFormatOnSave": "Kaydederken Biçimlendirmeyi Etkinleştir",
+    "enableRecoverUnsaved": "Kaydedilmemiş Kurtarmayı Etkinleştir",
+    "enableVim": "Vim Modunu Etkinleştir",
+    "focus": {
+      "editor": "Düzenleyiciye Odaklan",
+      "home": "Ana Sayfaya Git",
+      "outOfEditor": "Düzenleyiciden Çık",
+      "toggleTabFocusMode": "Sekme Odak Modunu Değiştir"
+    },
+    "formatCode": "Kodu Biçimlendir",
+    "home": "Ana Sayfa",
+    "horizontalLayout": "Yatay Düzen",
+    "keyboardShortcuts": "Klavye Kısayolları",
+    "login": "Giriş Yap",
+    "logout": "Çıkış Yap",
+    "moveToParent": "üst öğeye git",
+    "placeholder": "Bir komut yazın veya arayın...",
+    "processors": "İşlemciler",
+    "responsiveLayout": "Duyarlı Düzen",
+    "run": "Çalıştır",
+    "saveAsFork": "Fork Olarak Kaydet (Yeni Proje)",
+    "saveAsTemplate": "Şablon Olarak Kaydet",
+    "selectLanguage": "Dil Seç",
+    "show": {
+      "compiled": "Derlenmiş Kodu Göster/Gizle",
+      "console": "Konsolu Göster/Gizle",
+      "focusMode": "Odak Modunu Değiştir",
+      "fullscreen": "Tam Ekranı Değiştir",
+      "markup": "İşaretleme Düzenleyicisini Göster",
+      "maximizeCompiled": "Derlenmiş Kodu Büyüt",
+      "maximizeConsole": "Konsolu Büyüt",
+      "maximizeTests": "Testleri Büyüt",
+      "next": "Sonraki Düzenleyiciyi Göster",
+      "previous": "Önceki Düzenleyiciyi Göster",
+      "result": "Sonucu Göster/Gizle",
+      "runTests": "Testleri Çalıştır",
+      "script": "Betik Düzenleyicisini Göster",
+      "style": "Stil Düzenleyicisini Göster",
+      "tests": "Testleri Göster/Gizle",
+      "title": "Göster …",
+      "zoom": "Sonuç Zum Değiştir"
+    },
+    "starterTemplates": "Başlangıç Şablonları",
+    "sync": "Senkronize Et (beta) …",
+    "template": "Şablon",
+    "theme": {
+      "color": "Tema Rengini Ayarla",
+      "defaultColor": "Varsayılan Tema Rengini Ayarla"
+    },
+    "title": "Komut Menüsü",
+    "toClose": "kapatmak için",
+    "toNavigate": "gezinmek için",
+    "toSelect": "seçmek için",
+    "toggle": "Değiştir: ",
+    "verticalLayout": "Dikey Düzen"
+  },
+  "core": {
+    "broadcast": {
+      "heading": "Yayın",
+      "successSetToken": "Yayın kullanıcı jetonu başarıyla ayarlandı"
+    },
+    "changeLanguage": {
+      "hint": "Dili Değiştir",
+      "message": "{{lang}} yükleniyor. Bu biraz zaman alabilir!"
+    },
+    "copy": {
+      "copied": "Kod panoya kopyalandı",
+      "copiedAsDataURL": "Kod veri URL'si olarak kopyalandı",
+      "copiedImage": "Resim panoya kopyalandı.",
+      "hint": "Kopyalandı!",
+      "title": "Kopyala"
+    },
+    "error": {
+      "couldNotLoadTemplate": "Şablon yüklenemedi: {{template}}",
+      "failedToCopyCode": "Kod kopyalanamadı",
+      "failedToCopyImage": "Resim kopyalanamadı",
+      "failedToLoadTemplate": "Şablon yüklenemedi",
+      "failedToLoadTemplates": "Başlangıç şablonları yüklenemedi",
+      "failedToParseSettings": "Ayarlar JSON olarak ayrıştırılamadı",
+      "failedToSaveImage": "Resim kaydedilemedi",
+      "failedToShareImage": "Resim paylaşılamadı",
+      "invalidCommand": "Geçersiz komut!",
+      "invalidImport": "Geçersiz içe aktarma URL'si",
+      "invalidPanelId": "Geçersiz panel kimliği",
+      "invalidToken": "Geçersiz jeton!",
+      "login": "Giriş hatası!",
+      "logout": "Çıkış hatası!",
+      "noResultContainer": "Sonuç konteyneri bulunamadı",
+      "unavailable": "Komut kullanılamıyor",
+      "unavailableForEmbeds": "Gömülü öğeler için komut kullanılamıyor"
+    },
+    "export": {
+      "gist": "Genel bir GitHub gist oluşturuluyor..."
+    },
+    "fork": {
+      "success": "Yeni bir proje olarak fork edildi"
+    },
+    "fullScreen": {
+      "enter": "Tam Ekran",
+      "exit": "Tam Ekrandan Çık"
+    },
+    "generating": "Oluşturuluyor...",
+    "import": {
+      "loading": "Proje Yükleniyor..."
+    },
+    "layout": {
+      "horizontal": "Yatay düzen",
+      "responsive": "Duyarlı düzen",
+      "vertical": "Dikey düzen"
+    },
+    "loadDefaults": {
+      "template": "Varsayılan şablon yükleniyor"
+    },
+    "login": {
+      "success": "Başarıyla giriş yapıldı",
+      "successWithName": "{{name}} olarak giriş yapıldı"
+    },
+    "logout": {
+      "success": "Başarıyla çıkış yapıldı"
+    },
+    "result": {
+      "hint": "Sonucu yeni pencerede göster"
+    },
+    "save": {
+      "success": "Proje yerel olarak cihaza kaydedildi!",
+      "successWithName": "\"{{name}}\" projesi cihaza kaydedildi."
+    },
+    "template": {
+      "blank": "Boş Proje",
+      "delete": "\"{{item}}\" şablonu silinsin mi?",
+      "javascript": "JavaScript Başlangıç",
+      "react": "React Başlangıç",
+      "saved": "Yeni bir şablon olarak kaydedildi",
+      "typescript": "TypeScript Başlangıç",
+      "vue": "Vue 3 Başlangıç"
+    },
+    "unload": {
+      "notSaved": "Yaptığınız değişiklikler kaydedilmemiş olabilir."
+    },
+    "zoom": {
+      "hint": "Yakınlaştır"
+    }
+  },
+  "customSettings": {
+    "JSON": "Özel Ayarlar JSON",
+    "desc": "<1></1> Daha fazla ayrıntı için lütfen <2>dokümantasyona</2> bakın",
+    "heading": "Özel Ayarlar",
+    "load": "Yükle"
+  },
+  "deploy": {
+    "create": {
+      "desc": "Yeni bir <1>genel</1> depo oluşturulacaktır. Sonuç sayfası <2>gh-pages</2> dalına itilecektir.",
+      "heading": "Yeni Depo Oluştur",
+      "repoName": "Depo Adı <1></1>"
+    },
+    "error": {
+      "generic": "Dağıtım başarısız oldu!",
+      "repoNameExists": "Depo adı zaten mevcut",
+      "repoNameRequired": "Depo adı gereklidir"
+    },
+    "existing": {
+      "desc": "<1>gh-pages</1> dalına yeni bir commit eklenecektir.",
+      "heading": "Mevcut Depo",
+      "repoName": "Depo Adı"
+    },
+    "generic": {
+      "commitMessage": "Commit Mesajı",
+      "commitSourceCodePublic": "Kaynak kodunu commit et (genel)",
+      "deployBtn": "Dağıt",
+      "deploying": "Dağıtılıyor..."
+    },
+    "heading": "GitHub Pages'e Dağıt",
+    "searchRepo": "Genel depolarınızı arayın..."
+  },
+  "editorSettings": {
+    "closeBrackets": "Parantezleri ve tırnak işaretlerini otomatik kapat",
+    "codeJarDesc": "<1></1> * İşaretli özellikler CodeJar'da mevcut değildir.",
+    "default": "Varsayılan",
+    "desc": "<1></1> Ayrıntılar için lütfen <2>dokümantasyonu</2> kontrol edin.",
+    "editor": {
+      "codejar": "CodeJar",
+      "codemirror": "CodeMirror",
+      "heading": "Düzenleyici",
+      "monaco": "Monaco"
+    },
+    "editorMode": {
+      "emacs": "Emacs",
+      "heading": "Düzenleyici Modu *",
+      "vim": "Vim"
+    },
+    "editorTheme": "Düzenleyici Teması",
+    "emmet": "Emmet'i Etkinleştir *",
+    "foldRegions": "Bölgeleri katla (daralt) *",
+    "fontFamily": "Yazı Tipi Ailesi",
+    "fontSize": "Yazı Tipi Boyutu",
+    "format": "Biçim",
+    "heading": "Düzenleyici Ayarları",
+    "lineNumbers": "Satır numaralarını göster",
+    "lineNumbersRelative": "Göreceli satır numaraları *",
+    "notAvailableInCodeJar": "CodeJar'da mevcut değil",
+    "preview": "Önizleme",
+    "semicolons": "Biçim: Noktalı Virgül Kullan",
+    "singleQuote": "Biçim: Tek Tırnak Kullan",
+    "tabSize": "Sekme Boyutu",
+    "theme": "Koyu Mod",
+    "trailingComma": "Biçim: Sonda Virgül Kullan",
+    "useTabs": {
+      "heading": "Girinti",
+      "spaces": "Boşluklar",
+      "tabs": "Sekmeler"
+    },
+    "wordWrap": "Kelime kaydırma"
+  },
+  "embed": {
+    "activeEditor": {
+      "heading": "Aktif Düzenleyici",
+      "markup": "{{markup}}",
+      "script": "{{script}}",
+      "style": "{{style}}"
+    },
+    "activeTool": {
+      "compiled": "Derlenmiş",
+      "console": "Konsol",
+      "heading": "Aktif Araç",
+      "tests": "Testler"
+    },
+    "code": {
+      "copy": "Kodu Kopyala",
+      "heading": "Kod"
+    },
+    "codeEditor": {
+      "codeJar": "CodeJar",
+      "codeMirror": "CodeMirror",
+      "default": "Varsayılan",
+      "heading": "Kod Düzenleyici",
+      "monaco": "Monaco"
+    },
+    "desc": "Gelişmiş yapılandırmalar için lütfen <1>dokümantasyonu</1> kontrol edin.",
+    "embedType": {
+      "cdn": "Betik (CDN)",
+      "heading": "Gömme Türü",
+      "html": "HTML",
+      "iframe": "Iframe",
+      "npm": "JS (npm)",
+      "react": "React",
+      "svelte": "Svelte",
+      "vue": "Vue"
+    },
+    "heading": "Projeyi Göm",
+    "layout": {
+      "heading": "Düzen",
+      "horizontal": "Yatay",
+      "responsive": "Duyarlı",
+      "vertical": "Dikey"
+    },
+    "lite": "Hafif Mod",
+    "loading": {
+      "click": "Tıklamayla",
+      "eager": "Hevesli",
+      "heading": "Yükleme",
+      "lazy": "Tembel"
+    },
+    "mode": {
+      "codeblock": "Kod Bloğu",
+      "editor": "Düzenleyici",
+      "full": "Tam",
+      "heading": "Görüntüleme Modu",
+      "result": "Sonuç",
+      "simple": "Basit"
+    },
+    "permanentUrl": "Kalıcı URL",
+    "preview": "Önizleme",
+    "previewLoading": "Önizleme Yükleniyor...",
+    "readonly": "Salt okunur",
+    "theme": {
+      "dark": "Koyu",
+      "heading": "Tema",
+      "light": "Açık"
+    },
+    "tools": {
+      "closed": "Kapalı",
+      "full": "Tam",
+      "heading": "Araçlar",
+      "none": "Yok",
+      "open": "Açık"
+    },
+    "view": {
+      "editor": "Düzenleyici",
+      "heading": "Varsayılan Görünüm",
+      "result": "Sonuç",
+      "split": "Bölünmüş"
+    }
+  },
+  "generic": {
+    "about": {
+      "blog": "Blog",
+      "configuration": "Yapılandırma",
+      "gettingStarted": "Başlangıç",
+      "github": "GitHub",
+      "sdk": "LiveCodes SDK",
+      "sponsor": "Sponsor",
+      "twitter": "𝕏 / Twitter"
+    },
+    "clickForInfo": "Bilgi için tıklayın...",
+    "close": "Kapat",
+    "custom": "Özel",
+    "embed": {
+      "logoHint": "LiveCodes'ta Düzenle 🡕"
+    },
+    "error": {
+      "authentication": "Kimlik doğrulama hatası!",
+      "exceededSize": "Hata: {{size}} MB boyutu aşıldı",
+      "failedToReadFile": "Hata: Dosya okunamadı"
+    },
+    "loading": "Yükleniyor...",
+    "more": "Daha Fazla...",
+    "optional": "İsteğe Bağlı",
+    "required": "Gerekli",
+    "tagline": "Sorunsuz Çalışan Bir Kod Alanı!"
+  },
+  "import": {
+    "bulk": {
+      "desc": "Kaydedilmiş projelerinize birden fazla projeyi toplu olarak içe aktarın. Projeler <1>Kaydedilmiş Projeler</1> ekranından dışa aktarılabilir.",
+      "fromFile": "Yerel dosyadan toplu içe aktarma",
+      "fromURL": "URL'den toplu içe aktarma",
+      "heading": "Toplu İçe Aktarma",
+      "started": "Toplu içe aktarma başlatıldı..."
+    },
+    "code": {
+      "desc": "Desteklenen Kaynaklar: <1> <2>GitHub gist</2> <3>GitHub dosyası</3> <4>GitHub deposundaki dizin</4> <5>Gitlab snippet</5> <6>Gitlab dosyası</6> <7>Gitlab deposundaki dizin</7> <8>JS Bin</8> <9>Ham kod</9> <10>Web sayfası DOM'undaki kod</10> <11>Zip dosyasındaki kod</11> <12>Resimdeki kod (OCR)</12> <13>Resmi kod alanları<14></14>(TypeScript ve Vue)</13> </1> Ayrıntılar için lütfen <15>dokümantasyonu</15> ziyaret edin.",
+      "fromFile": "Yerel dosyaları içe aktar",
+      "fromURL": "URL'den içe aktar",
+      "heading": "Kodu İçe Aktar"
+    },
+    "error": {
+      "failedToLoadURL": "Hata: URL yüklenemedi",
+      "invalidConfigFile": "Geçersiz yapılandırma dosyası",
+      "invalidFile": "Hata: Geçersiz dosya"
+    },
+    "generic": {
+      "file": "Yerel dosya",
+      "url": "URL"
+    },
+    "heading": "İçe Aktar",
+    "json": {
+      "desc": "Tek bir proje JSON'unu düzenleyiciye içe aktarın. Bir proje, uygulama&nbsp;menüsü&nbsp;→ Dışa&nbsp;Aktar&nbsp;→ Projeyi&nbsp;Dışa&nbsp;Aktar&nbsp;(JSON) yoluyla dışa aktarılabilir.",
+      "fromFile": "Projeyi yerel dosyadan içe aktar",
+      "fromURL": "Projeyi URL'den içe aktar",
+      "heading": "Proje JSON'unu İçe Aktar"
+    },
+    "success": "İçe Aktarma Başarılı!"
+  },
+  "keyboardShortcuts": {
+    "command": "Komut",
+    "editorShortcuts": "Kod düzenleyici klavye kısayollarının listesi için, <1>VS Code kısayollarına</1> bakın",
+    "heading": "Klavye Kısayolları",
+    "key": "Tuş"
+  },
+  "login": {
+    "accessAllowed": "Erişime izin ver:",
+    "desc": "<1>Giriş yaparak, <2>çerezlerin</2> cihazınızda saklanabileceğini kabul etmiş olursunuz.</1> <3> <4>Bu izinler neden gereklidir?</4> </3> <5> <6>İzinler nasıl değiştirilir/iptal edilir?</6> </5>",
+    "gist": "Gist'ler",
+    "heading": "GitHub ile Giriş Yap",
+    "loginAs": "{{name}} olarak giriş yapıldı",
+    "loginBtn": "Giriş Yap",
+    "logout": "Çıkış Yap",
+    "privateRepo": "Özel Depolar",
+    "publicRepo": "Depolar"
+  },
+  "menu": {
+    "about": "Hakkında ...",
+    "appHelp": {
+      "heading": "Yardım",
+      "hint": "Yardım"
+    },
+    "appProject": {
+      "heading": "Proje",
+      "hint": "Proje"
+    },
+    "appSettings": {
+      "heading": "Ayarlar",
+      "hint": "Uygulama Ayarları"
+    },
+    "assets": "Varlıklar …",
+    "autoSave": "Otomatik Kaydetme",
+    "autoUpdate": "Otomatik Güncelleme",
+    "backup": "Yedekleme / Geri Yükleme …",
+    "blog": "LiveCodes Blogu",
+    "broadcast": "Yayın …",
+    "commandMenu": "Komut Menüsü",
+    "config": "Yapılandırma",
+    "customSettings": "Özel Ayarlar …",
+    "delay": {
+      "heading": "Gecikme: <1>1.5</1>s",
+      "hint": "Otomatik güncelleme öncesi gecikme"
+    },
+    "deploy": "Dağıt …",
+    "docs": "Dokümantasyon",
+    "editorSettings": "Düzenleyici Ayarları …",
+    "embed": "Göm …",
+    "export": {
+      "codepen": "CodePen'de Düzenle",
+      "gist": "GitHub Gist'e Dışa Aktar",
+      "heading": "Dışa Aktar",
+      "jsfiddle": "JSFiddle'da Düzenle",
+      "json": "Projeyi Dışa Aktar (JSON)",
+      "result": "Sonucu Dışa Aktar (HTML)",
+      "src": "Kaynağı Dışa Aktar (ZIP)"
+    },
+    "features": "Özellikler",
+    "formatOnsave": "Kaydederken Biçimlendir",
+    "getstart": "Başlangıç",
+    "import": "İçe Aktar …",
+    "keyboardShortcuts": "Klavye Kısayolları",
+    "layout": "Dikey Düzen",
+    "license": "Lisans",
+    "login": "Giriş Yap",
+    "logout": "Çıkış Yap",
+    "new": "Yeni …",
+    "open": "Aç …",
+    "project": "Proje Bilgisi …",
+    "recoverUnsaved": "Kaydedilmemiş Olanı Kurtar",
+    "report": "Bir sorun bildir",
+    "resources": "Harici Kaynaklar …",
+    "save": "Kaydet",
+    "saveAs": {
+      "fork": "Fork (Yeni Proje)",
+      "heading": "Farklı Kaydet …",
+      "template": "Şablon"
+    },
+    "sdk": "SDK",
+    "share": "Paylaş …",
+    "showSpacing": {
+      "heading": "Boşluğu Göster",
+      "hint": "Alt/Option tuşuna basın ve imlecinizi sonuç sayfası üzerinde hareket ettirin"
+    },
+    "showWelcome": {
+      "title": "Başlangıçta Hoş Geldin ekranını göster"
+    },
+    "snippets": "Kod Parçacıkları …",
+    "source": "GitHub'da kaynak kodu",
+    "sync": "Senkronize Et (beta) … <1> ⏳</1>",
+    "theme": "Koyu Tema",
+    "themeColor": "Renk",
+    "welcome": {
+      "heading": "Hoş Geldiniz …"
+    }
+  },
+  "open": {
+    "action": {
+      "delete": "Sil"
+    },
+    "defaultTemplate": "Varsayılan şablon ",
+    "delete": {
+      "all": "{{projects}} proje silinsin mi?",
+      "deleting": "Projeler siliniyor...",
+      "one": "Proje silinsin mi: {{project}}?"
+    },
+    "deleteAll": "Tümünü Sil",
+    "exportAll": "Tümünü Dışa Aktar",
+    "filter": {
+      "language": "dile göre filtrele",
+      "tag": "etikete göre filtrele"
+    },
+    "heading": "Kaydedilmiş Projeler",
+    "import": "İçe Aktar",
+    "lastModified": "Son değiştirilme: {{modified}}",
+    "noData": {
+      "desc": "Bir projeyi (ayarlar&nbsp;menüsü&nbsp;&gt;&nbsp;Kaydet) veya klavye kısayolu (Ctrl/⌘&nbsp;+&nbsp;S) ile kaydedebilirsiniz.",
+      "heading": "Kaydedilmiş projeniz yok."
+    },
+    "noMatch": "Bu filtrelere uyan proje yok.",
+    "placeholder": {
+      "allLanguages": "Tüm diller",
+      "filterByTags": "Etiketlere göre filtrele",
+      "search": "Ara"
+    },
+    "removeDefault": "(kaldır)",
+    "reset": "Sıfırla",
+    "setAsDefault": "Varsayılan olarak ayarla",
+    "sort": {
+      "heading": "Sıralama Kriteri:",
+      "lastModified": "Son Değiştirilme",
+      "title": "Başlık"
+    }
+  },
+  "project": {
+    "desc": "Açıklama",
+    "head": "&lt;head&gt;'e ekle",
+    "heading": "Proje Bilgisi",
+    "htmlAttr": "&lt;html&gt; için öznitelikler",
+    "tags": "Etiketler",
+    "title": "Proje Başlığı"
+  },
+  "recoverPrompt": {
+    "desc": "Son projenizde kaydedilmemiş değişiklikler var!",
+    "heading": "Kaydedilmemiş proje kurtarılsın mı?",
+    "meta": "Başlık: <1></1> <2></2> Son değiştirilme: <3></3>",
+    "notShowAgain": "Bunu bir daha gösterme.",
+    "prompt": {
+      "discard": "Kaydedilmemiş projeyi sil",
+      "heading": "<1></1>Şimdi kurtarmak ister misiniz?",
+      "recover": "Projeyi düzenleyiciye kurtar",
+      "save": "Cihaza kaydet ve devam et"
+    }
+  },
+  "resources": {
+    "browseOnJsDelivr": "Paket dosyalarını jsDelivr'de göz atın",
+    "cssPresets": {
+      "heading": "CSS Ön Ayarları",
+      "none": "Yok",
+      "normalizeCss": "Normalize.css",
+      "resetCss": "Reset CSS"
+    },
+    "error": {
+      "failedToLoadResults": "Sonuçlar yüklenemedi!",
+      "noResultsFound": "Şunun için sonuç bulunamadı: "
+    },
+    "fonts": {
+      "add": "Ekle",
+      "heading": "Yazı Tipleri <1>(Google Fonts tarafından desteklenmektedir)</1>",
+      "select": "Yazı tipi seçin ..."
+    },
+    "heading": "Harici Kaynaklar",
+    "scripts": "Harici Betikler",
+    "search": {
+      "heading": "Paketleri Ara <1>(jsDelivr tarafından desteklenmektedir)</1>",
+      "placeholder": "örn. jquery, lodash@4, bootstrap@5.2.3, ..."
+    },
+    "stylesheets": "Harici Stil Sayfaları",
+    "urlDesc": "Stil sayfası/betik URL'leri ekleyin. Her URL ayrı bir satırda olmalıdır."
+  },
+  "resultMode": {
+    "linkText": "LiveCodes'ta Düzenle"
+  },
+  "savePrompt": {
+    "heading": "Kaydedilmemiş değişiklikler",
+    "prompt": {
+      "cancel": "İptal",
+      "discard": "Kaydetme",
+      "heading": "Yaptığınız değişiklikler kaydedilmemiş olabilir. <1></1> Şimdi kaydetmek ister misiniz?",
+      "save": "Kaydet"
+    }
+  },
+  "share": {
+    "characters": "{{urlLength}} karakter",
+    "copy": {
+      "clickToCopy": "Kopyalamak için tıklayın",
+      "copied": "URL panoya kopyalandı"
+    },
+    "encodedURL": "Kodlanmış URL al",
+    "error": {
+      "failedToCopy": "Panoya kopyalama başarısız oldu!",
+      "failedToGenerateURL": "Kısa URL oluşturulamadı!"
+    },
+    "expireInOneYear": "1 yılda sona erer",
+    "generateURL": "URL oluşturuluyor …",
+    "heading": "Paylaş",
+    "permanentURL": "Kalıcı URL",
+    "qrcode": {
+      "clickToDownload": "İndirmek için tıklayın",
+      "generating": "Oluşturuluyor..."
+    },
+    "services": {
+      "devTo": "Dev.to",
+      "email": "E-posta",
+      "facebook": "Facebook",
+      "hackerNews": "Hacker News",
+      "linkedIn": "LinkedIn",
+      "pinterest": "Pinterest",
+      "pocket": "Pocket",
+      "qrCode": "QR kod",
+      "reddit": "Reddit",
+      "share": "Şununla paylaş …",
+      "telegram": "Telegram",
+      "tumblr": "Tumblr",
+      "twitter": "𝕏 / Twitter",
+      "whatsApp": "WhatsApp"
+    },
+    "shortURL": "Kısa URL al"
+  },
+  "snippets": {
+    "action": {
+      "copy": "Kopyala",
+      "delete": "Sil",
+      "edit": "Düzenle"
+    },
+    "add": {
+      "code": "Kod",
+      "desc": "Açıklama",
+      "heading": "Kod Parçacığı Ekle",
+      "language": "Dil",
+      "save": "Kaydet",
+      "snippets": "Kod Parçacıkları",
+      "title": "Başlık"
+    },
+    "copy": {
+      "clickToCopySnippet": "Kod parçacığını kopyalamak için tıklayın",
+      "copied": "Kod parçacığı panoya kopyalandı."
+    },
+    "delete": {
+      "all": "{{snippets}} kod parçacığı silinsin mi?",
+      "one": "Kod parçacığı silinsin mi: {{snippet}}?"
+    },
+    "deleteAll": "Tümünü Sil",
+    "error": {
+      "failedToCopy": "URL kopyalanamadı.",
+      "noTitle": "Lütfen kod parçacığı başlığı ekleyin."
+    },
+    "filter": {
+      "language": "dile göre filtrele"
+    },
+    "heading": "Kod Parçacıkları",
+    "lastModified": "Son değiştirilme: {{modified}}",
+    "noMatch": "Bu filtrelere uyan kod parçacığı yok.",
+    "noSavedSnippets": "Kaydedilmiş kod parçacığınız yok.",
+    "placeholder": {
+      "allLanguages": "Tüm diller",
+      "search": "Ara"
+    },
+    "reset": "Sıfırla",
+    "save": {
+      "success": "Kod parçacığı yerel olarak cihaza kaydedildi!"
+    },
+    "sort": {
+      "date": "Tarih",
+      "heading": "Sıralama Kriteri:",
+      "title": "Başlık"
+    },
+    "text": "Düz Metin"
+  },
+  "splash": {
+    "loading": "LiveCodes Yükleniyor…"
+  },
+  "sync": {
+    "autoSync": "Otomatik senkronizasyon",
+    "create": {
+      "desc": "Yeni bir <1>özel</1> depo oluşturulacaktır. LiveCodes yerel verileriniz <2>main</2> dalı ile senkronize edilecektir.",
+      "heading": "Yeni Depo Oluştur",
+      "repoName": "Depo Adı"
+    },
+    "error": {
+      "generic": "Senkronizasyon başarısız oldu!",
+      "repoNameRequired": "Depo adı gereklidir"
+    },
+    "existing": {
+      "desc": "LiveCodes yerel verileriniz <1>main</1> dalı ile senkronize edilecektir.",
+      "heading": "Mevcut Depo",
+      "repoName": "Depo Adı"
+    },
+    "heading": "GitHub Deposuna Senkronize Et",
+    "searchRepos": "Depolarınızı arayın...",
+    "success": "Senkronizasyon tamamlandı!",
+    "syncBtn": "Senkronize Et",
+    "syncInProgress": "Senkronizasyon devam ediyor...",
+    "syncStarted": "Senkronizasyon başlatıldı..."
+  },
+  "templates": {
+    "heading": "Yeni Proje",
+    "noUserTemplates": {
+      "desc": "Bir projeyi <1></1>(Uygulama&nbsp;menüsü&nbsp;&gt;&nbsp;Farklı&nbsp;Kaydet&nbsp;&gt; Şablon) yoluyla şablon olarak kaydedebilirsiniz.",
+      "heading": "Kaydedilmiş şablonunuz yok."
+    },
+    "search": {
+      "label": "Şablonlarda arama yapın",
+      "placeholder": "Şablonlarda arama yapın..."
+    },
+    "starter": {
+      "angular": "Angular Başlangıç",
+      "assemblyscript": "AssemblyScript Başlangıç",
+      "astro": "Astro Başlangıç",
+      "backbone": "Backbone Başlangıç",
+      "blank": "Boş Proje",
+      "blockly": "Blockly Başlangıç",
+      "bootstrap": "Bootstrap Başlangıç",
+      "civet": "Civet Başlangıç",
+      "clio": "Clio Başlangıç",
+      "clojurescript": "ClojureScript Başlangıç",
+      "coffeescript": "CoffeeScript Başlangıç",
+      "commonlisp": "Common Lisp Başlangıç",
+      "cpp": "C++ Başlangıç",
+      "cpp-wasm": "C++ (Wasm) Başlangıç",
+      "csharp-wasm": "C# (Wasm) Başlangıç",
+      "d3": "D3 Başlangıç",
+      "daisyui": "daisyUI Başlangıç",
+      "diagrams": "Diyagramlar Başlangıç",
+      "fennel": "Fennel Başlangıç",
+      "gleam": "Gleam Başlangıç",
+      "go": "Go Başlangıç",
+      "go-wasm": "Go (Wasm) Başlangıç",
+      "heading": "Başlangıç Şablonları",
+      "imba": "Imba Başlangıç",
+      "java": "Java Başlangıç",
+      "javascript": "JavaScript Başlangıç",
+      "jest": "Jest Başlangıç",
+      "jest-react": "Jest/React Başlangıç",
+      "jquery": "jQuery Başlangıç",
+      "julia": "Julia Başlangıç",
+      "knockout": "Knockout Başlangıç",
+      "lit": "Lit Başlangıç",
+      "livescript": "LiveScript Başlangıç",
+      "loading": "Başlangıç şablonları yükleniyor...",
+      "lua": "Lua Başlangıç",
+      "lua-wasm": "Lua (Wasm) Başlangıç",
+      "malina": "Malina.js Başlangıç",
+      "markdown": "Markdown Başlangıç",
+      "mdx": "MDX Başlangıç",
+      "minizinc": "MiniZinc Başlangıç",
+      "ocaml": "Ocaml Başlangıç",
+      "perl": "Perl Başlangıç",
+      "phaser": "Phaser Başlangıç",
+      "php": "PHP Başlangıç",
+      "php-wasm": "PHP (Wasm) Başlangıç",
+      "postgresql": "PostgreSQL Başlangıç",
+      "preact": "Preact Başlangıç",
+      "prolog": "Prolog Başlangıç",
+      "python": "Python Başlangıç",
+      "python-wasm": "Python (Wasm) Başlangıç",
+      "r": "R Başlangıç",
+      "react": "React Başlangıç",
+      "react-native": "React Native Başlangıç",
+      "reason": "Reason Başlangıç",
+      "rescript": "ReScript Başlangıç",
+      "riot": "Riot.js Başlangıç",
+      "ruby": "Ruby Başlangıç",
+      "ruby-wasm": "Ruby (Wasm) Başlangıç",
+      "scheme": "Scheme Başlangıç",
+      "shadcnui": "shadcn/ui Başlangıç",
+      "solid": "Solid Başlangıç",
+      "sql": "SQL Başlangıç",
+      "stencil": "Stencil Başlangıç",
+      "svelte": "Svelte Başlangıç",
+      "tailwindcss": "Tailwind CSS Başlangıç",
+      "tcl": "Tcl Başlangıç",
+      "teal": "Teal Başlangıç",
+      "typescript": "TypeScript Başlangıç",
+      "vue": "Vue SFC Başlangıç",
+      "vue2": "Vue 2 Başlangıç",
+      "wat": "WebAssembly Text Başlangıç"
+    },
+    "user": {
+      "heading": "Şablonlarım",
+      "loading": "Kullanıcı şablonları yükleniyor..."
+    }
+  },
+  "testEditor": {
+    "heading": "Testleri Düzenle",
+    "load": "Yükle",
+    "tests": "Testler"
+  },
+  "testSettings": {
+    "desc": "<1></1> Daha fazla ayrıntı için lütfen <2>dokümantasyona</2> bakın"
+  },
+  "toolspane": {
+    "close": "Kapat",
+    "compiled": {
+      "title": "Derlenmiş"
+    },
+    "console": {
+      "clear": "Konsolu temizle",
+      "title": "Konsol"
+    },
+    "test": {
+      "edit": "Düzenle",
+      "error": "<1><2>Test hatası!</2></1>",
+      "loading": "<1>Testler yükleniyor...</1>",
+      "noTest": "<1>Bu projenin testi yok!</1>",
+      "reset": "Sıfırla",
+      "run": {
+        "desc": "Ctrl/⌘ + Alt + T",
+        "heading": "Çalıştır"
+      },
+      "summary": {
+        "desc": "Testler: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<1></1>\nSüre: {{duration}}s",
+        "failed": "{{failedNum}} başarısız",
+        "passed": "{{passedNum}} başarılı",
+        "skipped": "{{skippedNum}} atlandı",
+        "total": "{{totalNum}} toplam"
+      },
+      "title": "Testler",
+      "watch": {
+        "desc": "Kod değiştiğinde testleri çalıştır",
+        "heading": "İzle"
+      }
+    }
+  },
+  "welcome": {
+    "about": {
+      "documentation": "Dokümantasyon",
+      "heading": "LiveCodes Hakkında"
+    },
+    "heading": "Hoş Geldiniz",
+    "recent": {
+      "heading": "Son Kullanılanlar"
+    },
+    "recover": {
+      "cancel": "İptal",
+      "heading": "Kurtar",
+      "lastModified": "Son değiştirilme:",
+      "recover": "Kurtar",
+      "save": "Kaydet",
+      "unsavedChanges": "Son projenizde kaydedilmemiş değişiklikler vardı:"
+    },
+    "showOnStartup": "Başlangıçta göster",
+    "start": {
+      "heading": "Başla",
+      "import": "İçe Aktar...",
+      "loadDefaultTemplate": "Varsayılan şablonu yükle",
+      "new": "Yeni...",
+      "noDefaultTemplate": "Varsayılan şablon yok",
+      "open": "Aç..."
+    },
+    "templates": {
+      "heading": "Başlangıç Şablonları"
+    }
+  }
+}
