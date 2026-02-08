@@ -127,10 +127,15 @@ export const replaceImports = (
 ) => {
   importMap = importMap || createImportMap(code, config, { external });
 
+  // sort keys (replace `lib/internal` before `lib`)
+  const mapkeys = Object.keys(importMap);
+  mapkeys.sort((a, b) => b.localeCompare(a));
+  const mapCopy = { ...importMap };
+  importMap = mapkeys.reduce((acc, key) => ({ ...acc, [key]: mapCopy[key] }), {});
+
   const replaceFn = (pattern: RegExp) => (statement: string) => {
-    if (!importMap) {
-      return statement;
-    }
+    if (!importMap) return statement;
+
     const libName = statement
       .replace(new RegExp(pattern), '$2')
       .replace(/"/g, '')
