@@ -1,6 +1,6 @@
 /// <reference path="../node_modules/@cloudflare/workers-types/index.d.ts" />
 
-import { getProjectInfo } from './utils';
+import { encodeHTML, getProjectInfo } from './utils';
 
 type Env = Record<'API_TOKEN', string>;
 type Data = Record<string, unknown>;
@@ -54,7 +54,7 @@ export const onRequest: PgFunction = async function (context) {
       .replace(
         /title" content="LiveCodes"/g,
         `title" content="${
-          !title || title === 'Untitled Project' ? 'LiveCodes' : title + ' - LiveCodes'
+          !title || title === 'Untitled Project' ? 'LiveCodes' : encodeHTML(title) + ' - LiveCodes'
         }"`,
       )
       .replace(
@@ -62,7 +62,7 @@ export const onRequest: PgFunction = async function (context) {
         `content="${
           !title && !description
             ? 'A Code Playground That Just Works!'
-            : description || 'A project on LiveCodes.'
+            : encodeHTML(description || 'A project on LiveCodes.')
         }"`,
       )
       .replace(/content="https:\/\/livecodes.io\/"/g, `content="${request.url}"`)
@@ -83,7 +83,7 @@ export const onRequest: PgFunction = async function (context) {
 
     context.waitUntil(logToAPI(context));
     return response;
-  } catch (err) {
+  } catch (err: any) {
     context.data = {
       ...data,
       ok: false,
