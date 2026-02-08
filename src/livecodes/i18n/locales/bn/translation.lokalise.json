@@ -1,0 +1,2250 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "about.blog.text": {
+    "translation": "ব্লগ"
+  },
+  "about.blog.title": {
+    "translation": "LiveCodes ব্লগ"
+  },
+  "about.configuration": {
+    "translation": "কনফিগারেশন"
+  },
+  "about.credits.heading": {
+    "translation": "কৃতজ্ঞতা"
+  },
+  "about.credits.para1": {
+    "translation": "LiveCodes ওপেন সোর্স প্রজেক্ট, ওয়েব সার্ভিস এবং অবদানকারীদের দ্বারা সম্ভব হয়েছে। <tag-1>কৃতজ্ঞতা দেখুন</tag-1>"
+  },
+  "about.credits.para2": {
+    "translation": "© 2024 Hatem Hosny। LiveCodes MIT লাইসেন্সের অধীনে লাইসেন্সপ্রাপ্ত।"
+  },
+  "about.documentations.heading": {
+    "translation": "ডকুমেন্টেশন"
+  },
+  "about.gettingStarted": {
+    "translation": "শুরু করা"
+  },
+  "about.github.text": {
+    "translation": "GitHub"
+  },
+  "about.github.title": {
+    "translation": "GitHub"
+  },
+  "about.heading": {
+    "translation": "LiveCodes সম্পর্কে"
+  },
+  "about.livecodes.aboutUs": {
+    "translation": "LiveCodes সম্পর্কে"
+  },
+  "about.livecodes.para1": {
+    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> একটি ওপেন সোর্স, বৈশিষ্ট্য সমৃদ্ধ, ক্লায়েন্ট সাইড কোড প্লেগ্রাউন্ড। বর্তমানে ৯০+ ভাষা এবং ফ্রেমওয়ার্ক সমর্থিত। এটি একটি স্বতন্ত্র অ্যাপ হিসাবে বা যেকোনো ওয়েব পেজে এম্বেড করা যেতে পারে।"
+  },
+  "about.livecodes.para2": {
+    "translation": "একটি শক্তিশালী SDK প্লেগ্রাউন্ডের সাথে ইন্টিগ্রেট এবং যোগাযোগ করা সহজ করে। কোড উদাহরণ, লাইভ ডেমো এবং স্ক্রিনশট সহ বিস্তৃত ডকুমেন্টেশন উপলব্ধ।"
+  },
+  "about.sdk": {
+    "translation": "LiveCodes SDK"
+  },
+  "about.sponsor.text": {
+    "translation": "স্পন্সর"
+  },
+  "about.sponsor.title": {
+    "translation": "LiveCodes স্পন্সর করুন"
+  },
+  "about.twitter.text": {
+    "translation": "𝕏 / Twitter"
+  },
+  "about.twitter.title": {
+    "translation": "𝕏 / Twitter"
+  },
+  "about.version.app": {
+    "translation": "অ্যাপ সংস্করণ: <tag-1>{{APP_VERSION}}</tag-1>"
+  },
+  "about.version.appPermanentUrl": {
+    "translation": "অ্যাপ স্থায়ী URL"
+  },
+  "about.version.commit": {
+    "translation": "Git কমিট: <tag-1>{{COMMIT_SHA}}</tag-1>"
+  },
+  "about.version.heading": {
+    "translation": "সংস্করণ"
+  },
+  "about.version.sdk": {
+    "translation": "SDK সংস্করণ: <tag-1>{{SDK_VERSION}}</tag-1>"
+  },
+  "about.version.sdkPermanentUrl": {
+    "translation": "SDK স্থায়ী URL"
+  },
+  "app.changeTheme.hint": {
+    "translation": "থিম পরিবর্তন করুন"
+  },
+  "app.codeToImage.hint": {
+    "translation": "কোড থেকে ছবি"
+  },
+  "app.consoleMessage.appVersion": {
+    "translation": "অ্যাপ সংস্করণ: {{APP_VERSION}}"
+  },
+  "app.consoleMessage.commit": {
+    "translation": "Git কমিট: {{COMMIT_SHA}}"
+  },
+  "app.consoleMessage.learnMore": {
+    "translation": "আরো জানুন! {{docsUrl}} 🚀"
+  },
+  "app.consoleMessage.sdkVersion": {
+    "translation": "SDK সংস্করণ: {{SDK_VERSION}}"
+  },
+  "app.copy.hint": {
+    "translation": "কপি করুন (Ctrl/⌘ + A, Ctrl/⌘ + C)"
+  },
+  "app.copyAsUrl.hint": {
+    "translation": "কোড ডেটা URL হিসাবে কপি করুন"
+  },
+  "app.customSettings.hint": {
+    "translation": "কাস্টম সেটিংস"
+  },
+  "app.editorSettings.hint": {
+    "translation": "এডিটর সেটিংস"
+  },
+  "app.externalResources.hint": {
+    "translation": "বাহ্যিক রিসোর্স"
+  },
+  "app.focus.hint": {
+    "translation": "ফোকাস মোড টগল করুন (Ctrl/⌘ + K, Z)"
+  },
+  "app.format.hint": {
+    "translation": "ফরম্যাট করুন (Alt + Shift + F)"
+  },
+  "app.fullscreen.hint": {
+    "translation": "ফুল স্ক্রিন"
+  },
+  "app.i18nButton.hint": {
+    "translation": "UI ভাষা"
+  },
+  "app.i18nMenu.docs": {
+    "translation": "i18n ডকুমেন্টেশন"
+  },
+  "app.i18nMenu.helpTranslate": {
+    "translation": "অনুবাদে সাহায্য করুন"
+  },
+  "app.logo.title": {
+    "translation": "LiveCodes: একটি কোড প্লেগ্রাউন্ড যা কাজ করে!"
+  },
+  "app.projectInfo.hint": {
+    "translation": "প্রজেক্ট তথ্য"
+  },
+  "app.redo.hint": {
+    "translation": "পুনরায় করুন (Ctrl/⌘ + Shift + Z)"
+  },
+  "app.result.hint": {
+    "translation": "ফলাফল (Ctrl/⌘ + Alt + R)"
+  },
+  "app.run.hint": {
+    "translation": "চালান (Shift + Enter)"
+  },
+  "app.share.hint": {
+    "translation": "শেয়ার করুন (Ctrl/⌘ + Alt + S)"
+  },
+  "app.themeColors.custom": {
+    "translation": "কাস্টম"
+  },
+  "app.undo.hint": {
+    "translation": "আনডু করুন (Ctrl/⌘ + Z)"
+  },
+  "app.untitledProject": {
+    "translation": "শিরোনামহীন প্রজেক্ট"
+  },
+  "assets.action.delete": {
+    "translation": "মুছুন"
+  },
+  "assets.add.dataURL.desc": {
+    "translation": "একটি base64-এনকোডেড <tag-1>ডেটা url</tag-1> হিসাবে অ্যাসেট যোগ করুন।"
+  },
+  "assets.add.dataURL.heading": {
+    "translation": "ডেটা URL"
+  },
+  "assets.add.dataURL.label": {
+    "translation": "ফাইল যোগ করুন"
+  },
+  "assets.add.githubPages.desc": {
+    "translation": "GitHub Pages এ অ্যাসেট ডিপ্লয় করুন। ফাইলটি আপনার GitHub অ্যাকাউন্টের <tag-2>livecodes-assets</tag-2> রেপোর <tag-1>gh-pages</tag-1> ব্রাঞ্চে পুশ করা হয়। রেপো ইতিমধ্যে না থাকলে, একটি পাবলিক রেপো তৈরি হবে।"
+  },
+  "assets.add.githubPages.heading": {
+    "translation": "GitHub Pages"
+  },
+  "assets.add.githubPages.label": {
+    "translation": "ফাইল আপলোড করুন"
+  },
+  "assets.add.heading": {
+    "translation": "অ্যাসেট যোগ করুন"
+  },
+  "assets.delete.all": {
+    "translation": "{{assets}} অ্যাসেট মুছবেন?"
+  },
+  "assets.delete.one": {
+    "translation": "অ্যাসেট মুছবেন: {{asset}}?"
+  },
+  "assets.deleteAll": {
+    "translation": "সব মুছুন"
+  },
+  "assets.generic.clickToCopyURL": {
+    "translation": "URL কপি করতে ক্লিক করুন"
+  },
+  "assets.heading": {
+    "translation": "অ্যাসেট"
+  },
+  "assets.link.date": {
+    "translation": "তারিখ: {{modified}}"
+  },
+  "assets.link.type": {
+    "translation": "প্রকার: {{type}}"
+  },
+  "assets.link.url": {
+    "translation": "URL: {{url}}"
+  },
+  "assets.loadFile.error.failedToUpload": {
+    "translation": "ত্রুটি: ফাইল আপলোড করতে ব্যর্থ"
+  },
+  "assets.loadFile.error.unauthenticated": {
+    "translation": "ত্রুটি: অপ্রমাণিত ব্যবহারকারী"
+  },
+  "assets.loadFile.upload": {
+    "translation": "ফাইল আপলোড করুন"
+  },
+  "assets.loadFile.uploading": {
+    "translation": "আপলোড হচ্ছে..."
+  },
+  "assets.noMatch": {
+    "translation": "এই ফিল্টারের সাথে কোনো অ্যাসেট মেলে না।"
+  },
+  "assets.noSavedAssets": {
+    "translation": "আপনার কোনো সংরক্ষিত অ্যাসেট নেই।"
+  },
+  "assets.processAsset.addFile": {
+    "translation": "ফাইল যোগ করা হয়েছে: "
+  },
+  "assets.processAsset.deployNotice": {
+    "translation": "অ্যাসেটটি শীঘ্রই এই URL এ উপলব্ধ হবে (~১ মিনিট)।"
+  },
+  "assets.processAsset.success": {
+    "translation": "ফাইল অ্যাসেটে যোগ করা হয়েছে!"
+  },
+  "assets.processAsset.urlLabel": {
+    "translation": "URL: "
+  },
+  "assets.resetFilters": {
+    "translation": "রিসেট করুন"
+  },
+  "assets.search": {
+    "translation": "খুঁজুন"
+  },
+  "assets.sort.date": {
+    "translation": "তারিখ"
+  },
+  "assets.sort.fileName": {
+    "translation": "ফাইলের নাম"
+  },
+  "assets.sort.heading": {
+    "translation": "সাজান:"
+  },
+  "assets.type.archive": {
+    "translation": "আর্কাইভ"
+  },
+  "assets.type.audio": {
+    "translation": "অডিও"
+  },
+  "assets.type.csv": {
+    "translation": "CSV"
+  },
+  "assets.type.font": {
+    "translation": "ফন্ট"
+  },
+  "assets.type.html": {
+    "translation": "HTML"
+  },
+  "assets.type.icon": {
+    "translation": "আইকন"
+  },
+  "assets.type.image": {
+    "translation": "ছবি"
+  },
+  "assets.type.json": {
+    "translation": "JSON"
+  },
+  "assets.type.other": {
+    "translation": "অন্যান্য"
+  },
+  "assets.type.script": {
+    "translation": "স্ক্রিপ্ট"
+  },
+  "assets.type.stylesheet": {
+    "translation": "স্টাইলশীট"
+  },
+  "assets.type.text": {
+    "translation": "টেক্সট"
+  },
+  "assets.type.video": {
+    "translation": "ভিডিও"
+  },
+  "assets.type.xml": {
+    "translation": "XML"
+  },
+  "assets.types.all": {
+    "translation": "সব প্রকার"
+  },
+  "assets.url.fail": {
+    "translation": "URL কপি করতে ব্যর্থ।"
+  },
+  "assets.url.success": {
+    "translation": "URL ক্লিপবোর্ডে কপি করা হয়েছে।"
+  },
+  "backup.backup.assets": {
+    "translation": "অ্যাসেট"
+  },
+  "backup.backup.button": {
+    "translation": "ব্যাকআপ"
+  },
+  "backup.backup.desc": {
+    "translation": "LiveCodes ডেটা ব্যাকআপ করুন, যাতে এটি পরে এই বা অন্য ডিভাইসে পুনরুদ্ধার করা যায়। <tag-1></tag-1> বিস্তারিত জানতে <tag-2>ডকুমেন্টেশন</tag-2> দেখুন।"
+  },
+  "backup.backup.heading": {
+    "translation": "ব্যাকআপ"
+  },
+  "backup.backup.projects": {
+    "translation": "প্রজেক্ট"
+  },
+  "backup.backup.settings": {
+    "translation": "ব্যবহারকারী সেটিংস"
+  },
+  "backup.backup.snippets": {
+    "translation": "কোড স্নিপেট"
+  },
+  "backup.backup.templates": {
+    "translation": "ব্যবহারকারী টেমপ্লেট"
+  },
+  "backup.backupBtn": {
+    "translation": "ব্যাকআপ"
+  },
+  "backup.error.atLeastOneStore": {
+    "translation": "ব্যাকআপ করার জন্য অন্তত একটি স্টোর নির্বাচন করুন"
+  },
+  "backup.error.incorrectFileType": {
+    "translation": "ত্রুটি: ভুল ফাইল প্রকার"
+  },
+  "backup.fileInputLabel": {
+    "translation": "ফাইল থেকে পুনরুদ্ধার করুন"
+  },
+  "backup.heading": {
+    "translation": "ব্যাকআপ / পুনরুদ্ধার"
+  },
+  "backup.inProgress": {
+    "translation": "চলছে..."
+  },
+  "backup.restore.desc": {
+    "translation": "পূর্বে ব্যাকআপ করা LiveCodes ডেটা পুনরুদ্ধার করুন। <tag-1></tag-1> বর্তমান কন্টেন্ট প্রতিস্থাপন করতে চাইলে, আপনি প্রথমে এটি ব্যাকআপ করতে পারেন। <tag-2></tag-2> বিস্তারিত জানতে <tag-3>ডকুমেন্টেশন</tag-3> দেখুন।"
+  },
+  "backup.restore.fromFile": {
+    "translation": "ফাইল থেকে পুনরুদ্ধার করুন"
+  },
+  "backup.restore.heading": {
+    "translation": "পুনরুদ্ধার"
+  },
+  "backup.restore.mode.merge": {
+    "translation": "বর্তমান কন্টেন্টের সাথে মার্জ করুন"
+  },
+  "backup.restore.mode.replace": {
+    "translation": "বর্তমান কন্টেন্ট প্রতিস্থাপন করুন"
+  },
+  "backup.restore.success": {
+    "translation": "সফলভাবে পুনরুদ্ধার করা হয়েছে!"
+  },
+  "broadcast.broadcastBtn.start": {
+    "translation": "ব্রডকাস্ট"
+  },
+  "broadcast.broadcastBtn.stop": {
+    "translation": "ব্রডকাস্ট বন্ধ করুন"
+  },
+  "broadcast.broadcasting": {
+    "translation": "ব্রডকাস্ট হচ্ছে..."
+  },
+  "broadcast.channelURL": {
+    "translation": "চ্যানেল URL"
+  },
+  "broadcast.connecting": {
+    "translation": "সংযোগ হচ্ছে..."
+  },
+  "broadcast.desc": {
+    "translation": "রিয়েল টাইমে অন্য ব্রাউজার/ডিভাইসে রেজাল্ট পেজ ব্রডকাস্ট করুন। বিস্তারিত জানতে <tag-1>ডকুমেন্টেশন</tag-1> দেখুন।"
+  },
+  "broadcast.error.generic": {
+    "translation": "ব্রডকাস্ট ব্যর্থ হয়েছে!"
+  },
+  "broadcast.error.serverURLRequired": {
+    "translation": "সার্ভার URL প্রয়োজন!"
+  },
+  "broadcast.heading": {
+    "translation": "ব্রডকাস্ট"
+  },
+  "broadcast.includeSourceCode": {
+    "translation": "সোর্স কোড অন্তর্ভুক্ত করুন"
+  },
+  "broadcast.serverURL.heading": {
+    "translation": "সার্ভার URL"
+  },
+  "codeToImage.background": {
+    "translation": "ব্যাকগ্রাউন্ড"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "বর্ডার রেডিয়াস"
+  },
+  "codeToImage.code": {
+    "translation": "কোড"
+  },
+  "codeToImage.copyCode": {
+    "translation": "কোড কপি করুন"
+  },
+  "codeToImage.copyImage": {
+    "translation": "ছবি কপি করুন"
+  },
+  "codeToImage.default": {
+    "translation": "ডিফল্ট"
+  },
+  "codeToImage.direction": {
+    "translation": "দিক"
+  },
+  "codeToImage.fileName": {
+    "translation": "ফাইলের নাম"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "ফন্ট ফ্যামিলি"
+  },
+  "codeToImage.fontSize": {
+    "translation": "ফন্ট সাইজ"
+  },
+  "codeToImage.heading": {
+    "translation": "কোড থেকে ছবি"
+  },
+  "codeToImage.image": {
+    "translation": "ছবি"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "ছবির ফরম্যাট"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "লেআউট"
+  },
+  "codeToImage.opacity": {
+    "translation": "স্বচ্ছতা"
+  },
+  "codeToImage.padding": {
+    "translation": "প্যাডিং"
+  },
+  "codeToImage.presets": {
+    "translation": "প্রিসেট"
+  },
+  "codeToImage.preview": {
+    "translation": "পূর্বরূপ"
+  },
+  "codeToImage.save": {
+    "translation": "ছবি সংরক্ষণ করুন"
+  },
+  "codeToImage.scale": {
+    "translation": "ছবির স্কেল"
+  },
+  "codeToImage.shadow": {
+    "translation": "ছায়া"
+  },
+  "codeToImage.shareImage": {
+    "translation": "ছবি শেয়ার করুন"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "শেয়ার"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "URL শেয়ার করুন"
+  },
+  "codeToImage.theme": {
+    "translation": "থিম"
+  },
+  "codeToImage.width": {
+    "translation": "প্রস্থ"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "উইন্ডো স্টাইল"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "কিছু নেই"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
+  "commandMenu.changeTheme.dark": {
+    "translation": "ডার্ক থিমে পরিবর্তন করুন"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "লাইট থিমে পরিবর্তন করুন"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "থিম পরিবর্তন করুন"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "UI ভাষা পরিবর্তন করুন"
+  },
+  "commandMenu.closeModalMenu": {
+    "translation": "মোডাল/মেনু বন্ধ করুন"
+  },
+  "commandMenu.contribute": {
+    "translation": "অবদান রাখুন"
+  },
+  "commandMenu.copy": {
+    "translation": "কোড কপি করুন"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "ডেটা URL হিসাবে কোড কপি করুন"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "অটো সেভ নিষ্ক্রিয় করুন"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "অটো আপডেট নিষ্ক্রিয় করুন"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "Emacs মোড নিষ্ক্রিয় করুন"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "সেভ করার সময় ফরম্যাট নিষ্ক্রিয় করুন"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "অসংরক্ষিত পুনরুদ্ধার নিষ্ক্রিয় করুন"
+  },
+  "commandMenu.disableVim": {
+    "translation": "Vim মোড নিষ্ক্রিয় করুন"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "অটো সেভ সক্রিয় করুন"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "অটো আপডেট সক্রিয় করুন"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "Emacs মোড সক্রিয় করুন"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "সেভ করার সময় ফরম্যাট সক্রিয় করুন"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "অসংরক্ষিত পুনরুদ্ধার সক্রিয় করুন"
+  },
+  "commandMenu.enableVim": {
+    "translation": "Vim মোড সক্রিয় করুন"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "এডিটরে ফোকাস করুন"
+  },
+  "commandMenu.focus.home": {
+    "translation": "হোমে ফোকাস সরান"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "এডিটর থেকে ফোকাস সরান"
+  },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "ট্যাব ফোকাস মোড টগল করুন"
+  },
+  "commandMenu.formatCode": {
+    "translation": "কোড ফরম্যাট করুন"
+  },
+  "commandMenu.home": {
+    "translation": "হোম"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "হরাইজন্টাল লেআউট"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "কীবোর্ড শর্টকাট"
+  },
+  "commandMenu.login": {
+    "translation": "লগইন"
+  },
+  "commandMenu.logout": {
+    "translation": "লগআউট"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "প্যারেন্টে যান"
+  },
+  "commandMenu.placeholder": {
+    "translation": "একটি কমান্ড টাইপ করুন বা খুঁজুন..."
+  },
+  "commandMenu.processors": {
+    "translation": "প্রসেসর"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "রেসপন্সিভ লেআউট"
+  },
+  "commandMenu.run": {
+    "translation": "চালান"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "ফর্ক হিসাবে সংরক্ষণ করুন (নতুন প্রজেক্ট)"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "টেমপ্লেট হিসাবে সংরক্ষণ করুন"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "ভাষা নির্বাচন করুন"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "কম্পাইল করা কোড টগল করুন"
+  },
+  "commandMenu.show.console": {
+    "translation": "কনসোল টগল করুন"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "ফোকাস মোড টগল করুন"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "ফুল স্ক্রিন টগল করুন"
+  },
+  "commandMenu.show.markup": {
+    "translation": "মার্কআপ এডিটর দেখান"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "কম্পাইল করা কোড ম্যাক্সিমাইজ করুন"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "কনসোল ম্যাক্সিমাইজ করুন"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "টেস্ট ম্যাক্সিমাইজ করুন"
+  },
+  "commandMenu.show.next": {
+    "translation": "পরবর্তী এডিটর দেখান"
+  },
+  "commandMenu.show.previous": {
+    "translation": "পূর্ববর্তী এডিটর দেখান"
+  },
+  "commandMenu.show.result": {
+    "translation": "ফলাফল টগল করুন"
+  },
+  "commandMenu.show.runTests": {
+    "translation": "টেস্ট চালান"
+  },
+  "commandMenu.show.script": {
+    "translation": "স্ক্রিপ্ট এডিটর দেখান"
+  },
+  "commandMenu.show.style": {
+    "translation": "স্টাইল এডিটর দেখান"
+  },
+  "commandMenu.show.tests": {
+    "translation": "টেস্ট টগল করুন"
+  },
+  "commandMenu.show.title": {
+    "translation": "দেখান …"
+  },
+  "commandMenu.show.zoom": {
+    "translation": "রেজাল্ট জুম টগল করুন"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "স্টার্টার টেমপ্লেট"
+  },
+  "commandMenu.sync": {
+    "translation": "সিঙ্ক (বেটা) …"
+  },
+  "commandMenu.template": {
+    "translation": "টেমপ্লেট"
+  },
+  "commandMenu.theme.color": {
+    "translation": "থিম রঙ সেট করুন"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "ডিফল্ট থিম রঙ সেট করুন"
+  },
+  "commandMenu.title": {
+    "translation": "কমান্ড মেনু"
+  },
+  "commandMenu.toClose": {
+    "translation": "বন্ধ করতে"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "নেভিগেট করতে"
+  },
+  "commandMenu.toSelect": {
+    "translation": "নির্বাচন করতে"
+  },
+  "commandMenu.toggle": {
+    "translation": "টগল: "
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "ভার্টিকাল লেআউট"
+  },
+  "core.broadcast.heading": {
+    "translation": "ব্রডকাস্ট"
+  },
+  "core.broadcast.successSetToken": {
+    "translation": "ব্রডকাস্ট ব্যবহারকারী টোকেন সফলভাবে সেট করা হয়েছে"
+  },
+  "core.changeLanguage.hint": {
+    "translation": "ভাষা পরিবর্তন করুন"
+  },
+  "core.changeLanguage.message": {
+    "translation": "{{lang}} লোড হচ্ছে। এতে কিছু সময় লাগতে পারে!"
+  },
+  "core.copy.copied": {
+    "translation": "কোড ক্লিপবোর্ডে কপি করা হয়েছে"
+  },
+  "core.copy.copiedAsDataURL": {
+    "translation": "কোড ডেটা URL হিসাবে কপি করা হয়েছে"
+  },
+  "core.copy.copiedImage": {
+    "translation": "ছবি ক্লিপবোর্ডে কপি করা হয়েছে।"
+  },
+  "core.copy.hint": {
+    "translation": "কপি করা হয়েছে!"
+  },
+  "core.copy.title": {
+    "translation": "কপি"
+  },
+  "core.error.couldNotLoadTemplate": {
+    "translation": "টেমপ্লেট লোড করা যায়নি: {{template}}"
+  },
+  "core.error.failedToCopyCode": {
+    "translation": "কোড কপি করতে ব্যর্থ"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "ছবি কপি করতে ব্যর্থ"
+  },
+  "core.error.failedToLoadTemplate": {
+    "translation": "টেমপ্লেট লোড করতে ব্যর্থ"
+  },
+  "core.error.failedToLoadTemplates": {
+    "translation": "স্টার্টার টেমপ্লেট লোড করতে ব্যর্থ"
+  },
+  "core.error.failedToParseSettings": {
+    "translation": "সেটিংস JSON হিসাবে পার্স করতে ব্যর্থ"
+  },
+  "core.error.failedToSaveImage": {
+    "translation": "ছবি সংরক্ষণ করতে ব্যর্থ"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "ছবি শেয়ার করতে ব্যর্থ"
+  },
+  "core.error.invalidCommand": {
+    "translation": "অবৈধ কমান্ড!"
+  },
+  "core.error.invalidImport": {
+    "translation": "অবৈধ ইমপোর্ট URL"
+  },
+  "core.error.invalidPanelId": {
+    "translation": "অবৈধ প্যানেল আইডি"
+  },
+  "core.error.invalidToken": {
+    "translation": "অবৈধ টোকেন!"
+  },
+  "core.error.login": {
+    "translation": "লগইন ত্রুটি!"
+  },
+  "core.error.logout": {
+    "translation": "লগআউট ত্রুটি!"
+  },
+  "core.error.noResultContainer": {
+    "translation": "রেজাল্ট কন্টেইনার পাওয়া যায়নি"
+  },
+  "core.error.unavailable": {
+    "translation": "কমান্ড উপলব্ধ নয়"
+  },
+  "core.error.unavailableForEmbeds": {
+    "translation": "এম্বেডের জন্য কমান্ড উপলব্ধ নয়"
+  },
+  "core.export.gist": {
+    "translation": "একটি পাবলিক GitHub gist তৈরি হচ্ছে..."
+  },
+  "core.fork.success": {
+    "translation": "নতুন প্রজেক্ট হিসাবে ফর্ক করা হয়েছে"
+  },
+  "core.fullScreen.enter": {
+    "translation": "ফুল স্ক্রিন"
+  },
+  "core.fullScreen.exit": {
+    "translation": "ফুল স্ক্রিন থেকে বের হন"
+  },
+  "core.generating": {
+    "translation": "তৈরি হচ্ছে..."
+  },
+  "core.import.loading": {
+    "translation": "প্রজেক্ট লোড হচ্ছে..."
+  },
+  "core.layout.horizontal": {
+    "translation": "হরাইজন্টাল লেআউট"
+  },
+  "core.layout.responsive": {
+    "translation": "রেসপন্সিভ লেআউট"
+  },
+  "core.layout.vertical": {
+    "translation": "ভার্টিকাল লেআউট"
+  },
+  "core.loadDefaults.template": {
+    "translation": "ডিফল্ট টেমপ্লেট লোড হচ্ছে"
+  },
+  "core.login.success": {
+    "translation": "সফলভাবে লগইন হয়েছে"
+  },
+  "core.login.successWithName": {
+    "translation": "লগইন হয়েছে: {{name}}"
+  },
+  "core.logout.success": {
+    "translation": "সফলভাবে লগআউট হয়েছে"
+  },
+  "core.result.hint": {
+    "translation": "নতুন উইন্ডোতে ফলাফল দেখান"
+  },
+  "core.save.success": {
+    "translation": "প্রজেক্ট স্থানীয়ভাবে ডিভাইসে সংরক্ষিত হয়েছে!"
+  },
+  "core.save.successWithName": {
+    "translation": "প্রজেক্ট \"{{name}}\" ডিভাইসে সংরক্ষিত হয়েছে।"
+  },
+  "core.template.blank": {
+    "translation": "ফাঁকা প্রজেক্ট"
+  },
+  "core.template.delete": {
+    "translation": "টেমপ্লেট মুছবেন \"{{item}}\"?"
+  },
+  "core.template.javascript": {
+    "translation": "JavaScript স্টার্টার"
+  },
+  "core.template.react": {
+    "translation": "React স্টার্টার"
+  },
+  "core.template.saved": {
+    "translation": "নতুন টেমপ্লেট হিসাবে সংরক্ষিত"
+  },
+  "core.template.typescript": {
+    "translation": "TypeScript স্টার্টার"
+  },
+  "core.template.vue": {
+    "translation": "Vue 3 স্টার্টার"
+  },
+  "core.unload.notSaved": {
+    "translation": "আপনার করা পরিবর্তনগুলো সংরক্ষিত নাও হতে পারে।"
+  },
+  "core.zoom.hint": {
+    "translation": "জুম"
+  },
+  "customSettings.JSON": {
+    "translation": "কাস্টম সেটিংস JSON"
+  },
+  "customSettings.desc": {
+    "translation": "<tag-1></tag-1> আরো বিস্তারিত জানতে, <tag-2> ডকুমেন্টেশন </tag-2> দেখুন"
+  },
+  "customSettings.heading": {
+    "translation": "কাস্টম সেটিংস"
+  },
+  "customSettings.load": {
+    "translation": "লোড করুন"
+  },
+  "deploy.create.desc": {
+    "translation": "একটি নতুন <tag-1>পাবলিক</tag-1> রেপো তৈরি হবে। রেজাল্ট পেজ <tag-2>gh-pages</tag-2> ব্রাঞ্চে পুশ করা হবে।"
+  },
+  "deploy.create.heading": {
+    "translation": "নতুন রেপো তৈরি করুন"
+  },
+  "deploy.create.repoName": {
+    "translation": "রেপো নাম <tag-1></tag-1>"
+  },
+  "deploy.error.generic": {
+    "translation": "ডিপ্লয়মেন্ট ব্যর্থ হয়েছে!"
+  },
+  "deploy.error.repoNameExists": {
+    "translation": "রেপো নাম ইতিমধ্যে বিদ্যমান"
+  },
+  "deploy.error.repoNameRequired": {
+    "translation": "রেপো নাম প্রয়োজন"
+  },
+  "deploy.existing.desc": {
+    "translation": "<tag-1>gh-pages</tag-1> ব্রাঞ্চে একটি নতুন কমিট যোগ করা হবে।"
+  },
+  "deploy.existing.heading": {
+    "translation": "বিদ্যমান রেপো"
+  },
+  "deploy.existing.repoName": {
+    "translation": "রেপো নাম"
+  },
+  "deploy.generic.commitMessage": {
+    "translation": "কমিট বার্তা"
+  },
+  "deploy.generic.commitSourceCodePublic": {
+    "translation": "সোর্স কোড কমিট করুন (পাবলিক)"
+  },
+  "deploy.generic.deployBtn": {
+    "translation": "ডিপ্লয় করুন"
+  },
+  "deploy.generic.deploying": {
+    "translation": "ডিপ্লয় হচ্ছে..."
+  },
+  "deploy.heading": {
+    "translation": "GitHub Pages এ ডিপ্লয় করুন"
+  },
+  "deploy.searchRepo": {
+    "translation": "আপনার পাবলিক রেপো খুঁজুন..."
+  },
+  "editorSettings.closeBrackets": {
+    "translation": "স্বয়ংক্রিয় বন্ধনী এবং উদ্ধৃতি বন্ধ করুন"
+  },
+  "editorSettings.codeJarDesc": {
+    "translation": "<tag-1></tag-1> * চিহ্নিত বৈশিষ্ট্যগুলি CodeJar এ উপলব্ধ নয়।"
+  },
+  "editorSettings.default": {
+    "translation": "ডিফল্ট"
+  },
+  "editorSettings.desc": {
+    "translation": "<tag-1></tag-1> বিস্তারিত জানতে <tag-2>ডকুমেন্টেশন</tag-2> দেখুন।"
+  },
+  "editorSettings.editor.codejar": {
+    "translation": "CodeJar"
+  },
+  "editorSettings.editor.codemirror": {
+    "translation": "CodeMirror"
+  },
+  "editorSettings.editor.heading": {
+    "translation": "এডিটর"
+  },
+  "editorSettings.editor.monaco": {
+    "translation": "Monaco"
+  },
+  "editorSettings.editorMode.emacs": {
+    "translation": "Emacs"
+  },
+  "editorSettings.editorMode.heading": {
+    "translation": "এডিটর মোড *"
+  },
+  "editorSettings.editorMode.vim": {
+    "translation": "Vim"
+  },
+  "editorSettings.editorTheme": {
+    "translation": "এডিটর থিম"
+  },
+  "editorSettings.emmet": {
+    "translation": "Emmet সক্রিয় করুন *"
+  },
+  "editorSettings.foldRegions": {
+    "translation": "অঞ্চলগুলি ভাঁজ করুন (সংকুচিত করুন) *"
+  },
+  "editorSettings.fontFamily": {
+    "translation": "ফন্ট ফ্যামিলি"
+  },
+  "editorSettings.fontSize": {
+    "translation": "ফন্ট সাইজ"
+  },
+  "editorSettings.format": {
+    "translation": "ফরম্যাট"
+  },
+  "editorSettings.heading": {
+    "translation": "এডিটর সেটিংস"
+  },
+  "editorSettings.lineNumbers": {
+    "translation": "লাইন নম্বর দেখান"
+  },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "আপেক্ষিক লাইন নম্বর *"
+  },
+  "editorSettings.notAvailableInCodeJar": {
+    "translation": "CodeJar এ উপলব্ধ নয়"
+  },
+  "editorSettings.preview": {
+    "translation": "পূর্বরূপ"
+  },
+  "editorSettings.semicolons": {
+    "translation": "ফরম্যাট: সেমিকোলন ব্যবহার করুন"
+  },
+  "editorSettings.singleQuote": {
+    "translation": "ফরম্যাট: একক উদ্ধৃতি ব্যবহার করুন"
+  },
+  "editorSettings.tabSize": {
+    "translation": "ট্যাব সাইজ"
+  },
+  "editorSettings.theme": {
+    "translation": "ডার্ক মোড"
+  },
+  "editorSettings.trailingComma": {
+    "translation": "ফরম্যাট: ট্রেলিং কমা ব্যবহার করুন"
+  },
+  "editorSettings.useTabs.heading": {
+    "translation": "ইন্ডেন্টেশন"
+  },
+  "editorSettings.useTabs.spaces": {
+    "translation": "স্পেস"
+  },
+  "editorSettings.useTabs.tabs": {
+    "translation": "ট্যাব"
+  },
+  "editorSettings.wordWrap": {
+    "translation": "শব্দ মোড়ানো"
+  },
+  "embed.activeEditor.heading": {
+    "translation": "সক্রিয় এডিটর"
+  },
+  "embed.activeEditor.markup": {
+    "translation": "{{markup}}"
+  },
+  "embed.activeEditor.script": {
+    "translation": "{{script}}"
+  },
+  "embed.activeEditor.style": {
+    "translation": "{{style}}"
+  },
+  "embed.activeTool.compiled": {
+    "translation": "কম্পাইল করা"
+  },
+  "embed.activeTool.console": {
+    "translation": "কনসোল"
+  },
+  "embed.activeTool.heading": {
+    "translation": "সক্রিয় টুল"
+  },
+  "embed.activeTool.tests": {
+    "translation": "টেস্ট"
+  },
+  "embed.code.copy": {
+    "translation": "কোড কপি করুন"
+  },
+  "embed.code.heading": {
+    "translation": "কোড"
+  },
+  "embed.codeEditor.codeJar": {
+    "translation": "CodeJar"
+  },
+  "embed.codeEditor.codeMirror": {
+    "translation": "CodeMirror"
+  },
+  "embed.codeEditor.default": {
+    "translation": "ডিফল্ট"
+  },
+  "embed.codeEditor.heading": {
+    "translation": "কোড এডিটর"
+  },
+  "embed.codeEditor.monaco": {
+    "translation": "Monaco"
+  },
+  "embed.desc": {
+    "translation": "উন্নত কনফিগারেশনের জন্য <tag-1>ডকুমেন্টেশন</tag-1> দেখুন।"
+  },
+  "embed.embedType.cdn": {
+    "translation": "স্ক্রিপ্ট (CDN)"
+  },
+  "embed.embedType.heading": {
+    "translation": "এম্বেড প্রকার"
+  },
+  "embed.embedType.html": {
+    "translation": "HTML"
+  },
+  "embed.embedType.iframe": {
+    "translation": "Iframe"
+  },
+  "embed.embedType.npm": {
+    "translation": "JS (npm)"
+  },
+  "embed.embedType.react": {
+    "translation": "React"
+  },
+  "embed.embedType.svelte": {
+    "translation": "Svelte"
+  },
+  "embed.embedType.vue": {
+    "translation": "Vue"
+  },
+  "embed.heading": {
+    "translation": "প্রজেক্ট এম্বেড করুন"
+  },
+  "embed.layout.heading": {
+    "translation": "লেআউট"
+  },
+  "embed.layout.horizontal": {
+    "translation": "হরাইজন্টাল"
+  },
+  "embed.layout.responsive": {
+    "translation": "রেসপন্সিভ"
+  },
+  "embed.layout.vertical": {
+    "translation": "ভার্টিকাল"
+  },
+  "embed.lite": {
+    "translation": "লাইট মোড"
+  },
+  "embed.loading.click": {
+    "translation": "ক্লিক করলে"
+  },
+  "embed.loading.eager": {
+    "translation": "তাৎক্ষণিক"
+  },
+  "embed.loading.heading": {
+    "translation": "লোডিং"
+  },
+  "embed.loading.lazy": {
+    "translation": "অলস"
+  },
+  "embed.mode.codeblock": {
+    "translation": "কোড ব্লক"
+  },
+  "embed.mode.editor": {
+    "translation": "এডিটর"
+  },
+  "embed.mode.full": {
+    "translation": "সম্পূর্ণ"
+  },
+  "embed.mode.heading": {
+    "translation": "প্রদর্শন মোড"
+  },
+  "embed.mode.result": {
+    "translation": "ফলাফল"
+  },
+  "embed.mode.simple": {
+    "translation": "সাধারণ"
+  },
+  "embed.permanentUrl": {
+    "translation": "স্থায়ী URL"
+  },
+  "embed.preview": {
+    "translation": "পূর্বরূপ"
+  },
+  "embed.previewLoading": {
+    "translation": "পূর্বরূপ লোড হচ্ছে..."
+  },
+  "embed.readonly": {
+    "translation": "শুধুমাত্র পড়ার জন্য"
+  },
+  "embed.theme.dark": {
+    "translation": "ডার্ক"
+  },
+  "embed.theme.heading": {
+    "translation": "থিম"
+  },
+  "embed.theme.light": {
+    "translation": "লাইট"
+  },
+  "embed.tools.closed": {
+    "translation": "বন্ধ"
+  },
+  "embed.tools.full": {
+    "translation": "সম্পূর্ণ"
+  },
+  "embed.tools.heading": {
+    "translation": "টুল"
+  },
+  "embed.tools.none": {
+    "translation": "কিছু নেই"
+  },
+  "embed.tools.open": {
+    "translation": "খোলা"
+  },
+  "embed.view.editor": {
+    "translation": "এডিটর"
+  },
+  "embed.view.heading": {
+    "translation": "ডিফল্ট ভিউ"
+  },
+  "embed.view.result": {
+    "translation": "ফলাফল"
+  },
+  "embed.view.split": {
+    "translation": "বিভক্ত"
+  },
+  "generic.about.blog": {
+    "translation": "ব্লগ"
+  },
+  "generic.about.configuration": {
+    "translation": "কনফিগারেশন"
+  },
+  "generic.about.gettingStarted": {
+    "translation": "শুরু করা"
+  },
+  "generic.about.github": {
+    "translation": "GitHub"
+  },
+  "generic.about.sdk": {
+    "translation": "LiveCodes SDK"
+  },
+  "generic.about.sponsor": {
+    "translation": "স্পন্সর"
+  },
+  "generic.about.twitter": {
+    "translation": "𝕏 / Twitter"
+  },
+  "generic.clickForInfo": {
+    "translation": "তথ্যের জন্য ক্লিক করুন..."
+  },
+  "generic.close": {
+    "translation": "বন্ধ করুন"
+  },
+  "generic.custom": {
+    "translation": "কাস্টম"
+  },
+  "generic.embed.logoHint": {
+    "translation": "LiveCodes এ সম্পাদনা করুন 🡕"
+  },
+  "generic.error.authentication": {
+    "translation": "প্রমাণীকরণ ত্রুটি!"
+  },
+  "generic.error.exceededSize": {
+    "translation": "ত্রুটি: {{size}} MB সাইজ অতিক্রম করেছে"
+  },
+  "generic.error.failedToReadFile": {
+    "translation": "ত্রুটি: ফাইল পড়তে ব্যর্থ"
+  },
+  "generic.loading": {
+    "translation": "লোড হচ্ছে..."
+  },
+  "generic.more": {
+    "translation": "আরো..."
+  },
+  "generic.optional": {
+    "translation": "ঐচ্ছিক"
+  },
+  "generic.required": {
+    "translation": "প্রয়োজনীয়"
+  },
+  "generic.tagline": {
+    "translation": "একটি কোড প্লেগ্রাউন্ড যা কাজ করে!"
+  },
+  "import.bulk.desc": {
+    "translation": "আপনার সংরক্ষিত প্রজেক্টে একাধিক প্রজেক্ট বাল্ক ইমপোর্ট করুন। প্রজেক্টগুলি <tag-1>সংরক্ষিত প্রজেক্ট</tag-1> স্ক্রিন থেকে এক্সপোর্ট করা যেতে পারে।"
+  },
+  "import.bulk.fromFile": {
+    "translation": "স্থানীয় ফাইল থেকে বাল্ক ইমপোর্ট"
+  },
+  "import.bulk.fromURL": {
+    "translation": "URL থেকে বাল্ক ইমপোর্ট"
+  },
+  "import.bulk.heading": {
+    "translation": "বাল্ক ইমপোর্ট"
+  },
+  "import.bulk.started": {
+    "translation": "বাল্ক ইমপোর্ট শুরু হয়েছে..."
+  },
+  "import.code.desc": {
+    "translation": "সমর্থিত উৎস: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHub ফাইল</tag-3> <tag-4>GitHub রেপোতে ডিরেক্টরি</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlab ফাইল</tag-6> <tag-7>Gitlab রেপোতে ডিরেক্টরি</tag-7> <tag-8>JS Bin</tag-8> <tag-9>কাঁচা কোড</tag-9> <tag-10>ওয়েব পেজ DOM-এ কোড</tag-10> <tag-11>জিপ ফাইলে কোড</tag-11> <tag-12>ছবিতে কোড (OCR)</tag-12> <tag-13>অফিসিয়াল প্লেগ্রাউন্ড<tag-14></tag-14>(TypeScript এবং Vue)</tag-13> </tag-1> বিস্তারিত জানতে <tag-15>ডকুমেন্টেশন</tag-15> দেখুন।"
+  },
+  "import.code.fromFile": {
+    "translation": "স্থানীয় ফাইল ইমপোর্ট করুন"
+  },
+  "import.code.fromURL": {
+    "translation": "URL থেকে ইমপোর্ট করুন"
+  },
+  "import.code.heading": {
+    "translation": "কোড ইমপোর্ট করুন"
+  },
+  "import.error.failedToLoadURL": {
+    "translation": "ত্রুটি: URL লোড করতে ব্যর্থ"
+  },
+  "import.error.invalidConfigFile": {
+    "translation": "অবৈধ কনফিগারেশন ফাইল"
+  },
+  "import.error.invalidFile": {
+    "translation": "ত্রুটি: অবৈধ ফাইল"
+  },
+  "import.generic.file": {
+    "translation": "স্থানীয় ফাইল"
+  },
+  "import.generic.url": {
+    "translation": "URL"
+  },
+  "import.heading": {
+    "translation": "ইমপোর্ট"
+  },
+  "import.json.desc": {
+    "translation": "এডিটরে একটি একক প্রজেক্ট JSON ইমপোর্ট করুন। একটি প্রজেক্ট অ্যাপ&nbsp;মেনু&nbsp;→ এক্সপোর্ট&nbsp;→ প্রজেক্ট&nbsp;এক্সপোর্ট&nbsp;(JSON) থেকে এক্সপোর্ট করা যেতে পারে।"
+  },
+  "import.json.fromFile": {
+    "translation": "স্থানীয় ফাইল থেকে প্রজেক্ট ইমপোর্ট করুন"
+  },
+  "import.json.fromURL": {
+    "translation": "URL থেকে প্রজেক্ট ইমপোর্ট করুন"
+  },
+  "import.json.heading": {
+    "translation": "প্রজেক্ট JSON ইমপোর্ট করুন"
+  },
+  "import.success": {
+    "translation": "ইমপোর্ট সফল!"
+  },
+  "keyboardShortcuts.command": {
+    "translation": "কমান্ড"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "কোড এডিটর কীবোর্ড শর্টকাটের তালিকার জন্য, <tag-1> VS Code শর্টকাট</tag-1> দেখুন"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "কীবোর্ড শর্টকাট"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "কী"
+  },
+  "login.accessAllowed": {
+    "translation": "এতে অ্যাক্সেসের অনুমতি দিন:"
+  },
+  "login.desc": {
+    "translation": "<tag-1>লগইন করে, আপনি সম্মত হন যে আপনার ডিভাইসে <tag-2>কুকি</tag-2> সংরক্ষিত হতে পারে।</tag-1> <tag-3> <tag-4>কেন এই অনুমতিগুলি প্রয়োজন?</tag-4> </tag-3> <tag-5> <tag-6>অনুমতি কীভাবে পরিবর্তন/প্রত্যাহার করবেন?</tag-6> </tag-5>"
+  },
+  "login.gist": {
+    "translation": "Gist"
+  },
+  "login.heading": {
+    "translation": "GitHub দিয়ে লগইন করুন"
+  },
+  "login.loginAs": {
+    "translation": "{{name}} হিসাবে লগইন করা হয়েছে"
+  },
+  "login.loginBtn": {
+    "translation": "লগইন"
+  },
+  "login.logout": {
+    "translation": "লগআউট"
+  },
+  "login.privateRepo": {
+    "translation": "প্রাইভেট রেপো"
+  },
+  "login.publicRepo": {
+    "translation": "রেপো"
+  },
+  "menu.about": {
+    "translation": "সম্পর্কে ..."
+  },
+  "menu.appHelp.heading": {
+    "translation": "সহায়তা"
+  },
+  "menu.appHelp.hint": {
+    "translation": "সহায়তা"
+  },
+  "menu.appProject.heading": {
+    "translation": "প্রজেক্ট"
+  },
+  "menu.appProject.hint": {
+    "translation": "প্রজেক্ট"
+  },
+  "menu.appSettings.heading": {
+    "translation": "সেটিংস"
+  },
+  "menu.appSettings.hint": {
+    "translation": "অ্যাপ সেটিংস"
+  },
+  "menu.assets": {
+    "translation": "অ্যাসেট …"
+  },
+  "menu.autoSave": {
+    "translation": "অটো সেভ"
+  },
+  "menu.autoUpdate": {
+    "translation": "অটো আপডেট"
+  },
+  "menu.backup": {
+    "translation": "ব্যাকআপ / পুনরুদ্ধার …"
+  },
+  "menu.blog": {
+    "translation": "LiveCodes ব্লগ"
+  },
+  "menu.broadcast": {
+    "translation": "ব্রডকাস্ট …"
+  },
+  "menu.commandMenu": {
+    "translation": "কমান্ড মেনু"
+  },
+  "menu.config": {
+    "translation": "কনফিগারেশন"
+  },
+  "menu.customSettings": {
+    "translation": "কাস্টম সেটিংস …"
+  },
+  "menu.delay.heading": {
+    "translation": "বিলম্ব: <tag-1>1.5</tag-1>s"
+  },
+  "menu.delay.hint": {
+    "translation": "অটো আপডেটের আগে বিলম্ব"
+  },
+  "menu.deploy": {
+    "translation": "ডিপ্লয় …"
+  },
+  "menu.docs": {
+    "translation": "ডকুমেন্টেশন"
+  },
+  "menu.editorSettings": {
+    "translation": "এডিটর সেটিংস …"
+  },
+  "menu.embed": {
+    "translation": "এম্বেড …"
+  },
+  "menu.export.codepen": {
+    "translation": "CodePen এ সম্পাদনা করুন"
+  },
+  "menu.export.gist": {
+    "translation": "GitHub Gist এ এক্সপোর্ট করুন"
+  },
+  "menu.export.heading": {
+    "translation": "এক্সপোর্ট"
+  },
+  "menu.export.jsfiddle": {
+    "translation": "JSFiddle এ সম্পাদনা করুন"
+  },
+  "menu.export.json": {
+    "translation": "প্রজেক্ট এক্সপোর্ট করুন (JSON)"
+  },
+  "menu.export.result": {
+    "translation": "ফলাফল এক্সপোর্ট করুন (HTML)"
+  },
+  "menu.export.src": {
+    "translation": "সোর্স এক্সপোর্ট করুন (ZIP)"
+  },
+  "menu.features": {
+    "translation": "বৈশিষ্ট্য"
+  },
+  "menu.formatOnsave": {
+    "translation": "সেভ করার সময় ফরম্যাট"
+  },
+  "menu.getstart": {
+    "translation": "শুরু করা"
+  },
+  "menu.import": {
+    "translation": "ইমপোর্ট …"
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "কীবোর্ড শর্টকাট"
+  },
+  "menu.layout": {
+    "translation": "ভার্টিকাল লেআউট"
+  },
+  "menu.license": {
+    "translation": "লাইসেন্স"
+  },
+  "menu.login": {
+    "translation": "লগইন"
+  },
+  "menu.logout": {
+    "translation": "লগআউট"
+  },
+  "menu.new": {
+    "translation": "নতুন …"
+  },
+  "menu.open": {
+    "translation": "খুলুন …"
+  },
+  "menu.project": {
+    "translation": "প্রজেক্ট তথ্য …"
+  },
+  "menu.recoverUnsaved": {
+    "translation": "অসংরক্ষিত পুনরুদ্ধার করুন"
+  },
+  "menu.report": {
+    "translation": "একটি সমস্যা রিপোর্ট করুন"
+  },
+  "menu.resources": {
+    "translation": "বাহ্যিক রিসোর্স …"
+  },
+  "menu.save": {
+    "translation": "সংরক্ষণ করুন"
+  },
+  "menu.saveAs.fork": {
+    "translation": "ফর্ক (নতুন প্রজেক্ট)"
+  },
+  "menu.saveAs.heading": {
+    "translation": "সংরক্ষণ করুন যেভাবে …"
+  },
+  "menu.saveAs.template": {
+    "translation": "টেমপ্লেট"
+  },
+  "menu.sdk": {
+    "translation": "SDK"
+  },
+  "menu.share": {
+    "translation": "শেয়ার …"
+  },
+  "menu.showSpacing.heading": {
+    "translation": "স্পেসিং দেখান"
+  },
+  "menu.showSpacing.hint": {
+    "translation": "Alt/Option চাপুন এবং রেজাল্ট পেজের উপর কার্সার সরান"
+  },
+  "menu.showWelcome.title": {
+    "translation": "স্টার্টআপে স্বাগত স্ক্রিন দেখান"
+  },
+  "menu.snippets": {
+    "translation": "কোড স্নিপেট …"
+  },
+  "menu.source": {
+    "translation": "GitHub এ সোর্স কোড"
+  },
+  "menu.sync": {
+    "translation": "সিঙ্ক (বেটা) … <tag-1> ⏳</tag-1>"
+  },
+  "menu.theme": {
+    "translation": "ডার্ক থিম"
+  },
+  "menu.themeColor": {
+    "translation": "রঙ"
+  },
+  "menu.welcome.heading": {
+    "translation": "স্বাগতম …"
+  },
+  "open.action.delete": {
+    "translation": "মুছুন"
+  },
+  "open.defaultTemplate": {
+    "translation": "ডিফল্ট টেমপ্লেট "
+  },
+  "open.delete.all": {
+    "translation": "{{projects}} প্রজেক্ট মুছবেন?"
+  },
+  "open.delete.deleting": {
+    "translation": "প্রজেক্ট মোছা হচ্ছে..."
+  },
+  "open.delete.one": {
+    "translation": "প্রজেক্ট মুছবেন: {{project}}?"
+  },
+  "open.deleteAll": {
+    "translation": "সব মুছুন"
+  },
+  "open.exportAll": {
+    "translation": "সব এক্সপোর্ট করুন"
+  },
+  "open.filter.language": {
+    "translation": "ভাষা দিয়ে ফিল্টার করুন"
+  },
+  "open.filter.tag": {
+    "translation": "ট্যাগ দিয়ে ফিল্টার করুন"
+  },
+  "open.heading": {
+    "translation": "সংরক্ষিত প্রজেক্ট"
+  },
+  "open.import": {
+    "translation": "ইমপোর্ট"
+  },
+  "open.lastModified": {
+    "translation": "সর্বশেষ পরিবর্তিত: {{modified}}"
+  },
+  "open.noData.desc": {
+    "translation": "আপনি (সেটিংস&nbsp;মেনু&nbsp;&gt;&nbsp;সংরক্ষণ করুন) থেকে বা কীবোর্ড শর্টকাট দ্বারা (Ctrl/⌘&nbsp;+&nbsp;S) একটি প্রজেক্ট সংরক্ষণ করতে পারেন।"
+  },
+  "open.noData.heading": {
+    "translation": "আপনার কোনো সংরক্ষিত প্রজেক্ট নেই।"
+  },
+  "open.noMatch": {
+    "translation": "এই ফিল্টারের সাথে কোনো প্রজেক্ট মেলে না।"
+  },
+  "open.placeholder.allLanguages": {
+    "translation": "সব ভাষা"
+  },
+  "open.placeholder.filterByTags": {
+    "translation": "ট্যাগ দিয়ে ফিল্টার করুন"
+  },
+  "open.placeholder.search": {
+    "translation": "খুঁজুন"
+  },
+  "open.removeDefault": {
+    "translation": "(আনসেট করুন)"
+  },
+  "open.reset": {
+    "translation": "রিসেট"
+  },
+  "open.setAsDefault": {
+    "translation": "ডিফল্ট হিসাবে সেট করুন"
+  },
+  "open.sort.heading": {
+    "translation": "সাজান:"
+  },
+  "open.sort.lastModified": {
+    "translation": "সর্বশেষ পরিবর্তিত"
+  },
+  "open.sort.title": {
+    "translation": "শিরোনাম"
+  },
+  "project.desc": {
+    "translation": "বর্ণনা"
+  },
+  "project.head": {
+    "translation": "&lt;head&gt; এ যোগ করুন"
+  },
+  "project.heading": {
+    "translation": "প্রজেক্ট তথ্য"
+  },
+  "project.htmlAttr": {
+    "translation": "&lt;html&gt; এর জন্য অ্যাট্রিবিউট"
+  },
+  "project.tags": {
+    "translation": "ট্যাগ"
+  },
+  "project.title": {
+    "translation": "প্রজেক্ট শিরোনাম"
+  },
+  "recoverPrompt.desc": {
+    "translation": "আপনার শেষ প্রজেক্টে অসংরক্ষিত পরিবর্তন রয়েছে!"
+  },
+  "recoverPrompt.heading": {
+    "translation": "অসংরক্ষিত প্রজেক্ট পুনরুদ্ধার করবেন?"
+  },
+  "recoverPrompt.meta": {
+    "translation": "শিরোনাম: <tag-1></tag-1> <tag-2></tag-2> সর্বশেষ পরিবর্তিত: <tag-3></tag-3>"
+  },
+  "recoverPrompt.notShowAgain": {
+    "translation": "এটি আর দেখাবেন না।"
+  },
+  "recoverPrompt.prompt.discard": {
+    "translation": "অসংরক্ষিত প্রজেক্ট বাতিল করুন"
+  },
+  "recoverPrompt.prompt.heading": {
+    "translation": "<tag-1></tag-1>আপনি কি এখন এটি পুনরুদ্ধার করতে চান?"
+  },
+  "recoverPrompt.prompt.recover": {
+    "translation": "এডিটরে প্রজেক্ট পুনরুদ্ধার করুন"
+  },
+  "recoverPrompt.prompt.save": {
+    "translation": "ডিভাইসে সংরক্ষণ করুন এবং চালিয়ে যান"
+  },
+  "resources.browseOnJsDelivr": {
+    "translation": "jsDelivr এ প্যাকেজ ফাইল ব্রাউজ করুন"
+  },
+  "resources.cssPresets.heading": {
+    "translation": "CSS প্রিসেট"
+  },
+  "resources.cssPresets.none": {
+    "translation": "কিছু নেই"
+  },
+  "resources.cssPresets.normalizeCss": {
+    "translation": "Normalize.css"
+  },
+  "resources.cssPresets.resetCss": {
+    "translation": "Reset CSS"
+  },
+  "resources.error.failedToLoadResults": {
+    "translation": "ফলাফল লোড করতে ব্যর্থ!"
+  },
+  "resources.error.noResultsFound": {
+    "translation": "এর জন্য কোনো ফলাফল পাওয়া যায়নি: "
+  },
+  "resources.fonts.add": {
+    "translation": "যোগ করুন"
+  },
+  "resources.fonts.heading": {
+    "translation": "ফন্ট <tag-1>(Google Fonts দ্বারা চালিত)</tag-1>"
+  },
+  "resources.fonts.select": {
+    "translation": "ফন্ট নির্বাচন করুন ..."
+  },
+  "resources.heading": {
+    "translation": "বাহ্যিক রিসোর্স"
+  },
+  "resources.scripts": {
+    "translation": "বাহ্যিক স্ক্রিপ্ট"
+  },
+  "resources.search.heading": {
+    "translation": "প্যাকেজ খুঁজুন <tag-1>(jsDelivr দ্বারা চালিত)</tag-1>"
+  },
+  "resources.search.placeholder": {
+    "translation": "যেমন jquery, lodash@4, bootstrap@5.2.3, ..."
+  },
+  "resources.stylesheets": {
+    "translation": "বাহ্যিক স্টাইলশীট"
+  },
+  "resources.urlDesc": {
+    "translation": "স্টাইলশীট/স্ক্রিপ্ট URL যোগ করুন। প্রতিটি URL আলাদা লাইনে হতে হবে।"
+  },
+  "resultMode.linkText": {
+    "translation": "LiveCodes এ সম্পাদনা করুন"
+  },
+  "savePrompt.heading": {
+    "translation": "অসংরক্ষিত পরিবর্তন"
+  },
+  "savePrompt.prompt.cancel": {
+    "translation": "বাতিল করুন"
+  },
+  "savePrompt.prompt.discard": {
+    "translation": "সংরক্ষণ করবেন না"
+  },
+  "savePrompt.prompt.heading": {
+    "translation": "আপনার করা পরিবর্তনগুলো সংরক্ষিত নাও হতে পারে। <tag-1></tag-1> আপনি কি এখন সংরক্ষণ করতে চান?"
+  },
+  "savePrompt.prompt.save": {
+    "translation": "সংরক্ষণ করুন"
+  },
+  "share.characters": {
+    "translation": "{{urlLength}} অক্ষর"
+  },
+  "share.copy.clickToCopy": {
+    "translation": "কপি করতে ক্লিক করুন"
+  },
+  "share.copy.copied": {
+    "translation": "URL ক্লিপবোর্ডে কপি করা হয়েছে"
+  },
+  "share.encodedURL": {
+    "translation": "এনকোডেড URL পান"
+  },
+  "share.error.failedToCopy": {
+    "translation": "ক্লিপবোর্ডে কপি ব্যর্থ হয়েছে!"
+  },
+  "share.error.failedToGenerateURL": {
+    "translation": "শর্ট URL তৈরি করতে ব্যর্থ!"
+  },
+  "share.expireInOneYear": {
+    "translation": "১ বছরে মেয়াদ শেষ হবে"
+  },
+  "share.generateURL": {
+    "translation": "URL তৈরি হচ্ছে …"
+  },
+  "share.heading": {
+    "translation": "শেয়ার"
+  },
+  "share.permanentURL": {
+    "translation": "স্থায়ী URL"
+  },
+  "share.qrcode.clickToDownload": {
+    "translation": "ডাউনলোড করতে ক্লিক করুন"
+  },
+  "share.qrcode.generating": {
+    "translation": "তৈরি হচ্ছে..."
+  },
+  "share.services.devTo": {
+    "translation": "Dev.to"
+  },
+  "share.services.email": {
+    "translation": "ইমেইল"
+  },
+  "share.services.facebook": {
+    "translation": "Facebook"
+  },
+  "share.services.hackerNews": {
+    "translation": "Hacker News"
+  },
+  "share.services.linkedIn": {
+    "translation": "LinkedIn"
+  },
+  "share.services.pinterest": {
+    "translation": "Pinterest"
+  },
+  "share.services.pocket": {
+    "translation": "Pocket"
+  },
+  "share.services.qrCode": {
+    "translation": "QR কোড"
+  },
+  "share.services.reddit": {
+    "translation": "Reddit"
+  },
+  "share.services.share": {
+    "translation": "শেয়ার করুন …"
+  },
+  "share.services.telegram": {
+    "translation": "Telegram"
+  },
+  "share.services.tumblr": {
+    "translation": "Tumblr"
+  },
+  "share.services.twitter": {
+    "translation": "𝕏 / Twitter"
+  },
+  "share.services.whatsApp": {
+    "translation": "WhatsApp"
+  },
+  "share.shortURL": {
+    "translation": "শর্ট URL পান"
+  },
+  "snippets.action.copy": {
+    "translation": "কপি"
+  },
+  "snippets.action.delete": {
+    "translation": "মুছুন"
+  },
+  "snippets.action.edit": {
+    "translation": "সম্পাদনা"
+  },
+  "snippets.add.code": {
+    "translation": "কোড"
+  },
+  "snippets.add.desc": {
+    "translation": "বর্ণনা"
+  },
+  "snippets.add.heading": {
+    "translation": "স্নিপেট যোগ করুন"
+  },
+  "snippets.add.language": {
+    "translation": "ভাষা"
+  },
+  "snippets.add.save": {
+    "translation": "সংরক্ষণ"
+  },
+  "snippets.add.snippets": {
+    "translation": "স্নিপেট"
+  },
+  "snippets.add.title": {
+    "translation": "শিরোনাম"
+  },
+  "snippets.copy.clickToCopySnippet": {
+    "translation": "স্নিপেট কপি করতে ক্লিক করুন"
+  },
+  "snippets.copy.copied": {
+    "translation": "স্নিপেট ক্লিপবোর্ডে কপি করা হয়েছে।"
+  },
+  "snippets.delete.all": {
+    "translation": "{{snippets}} স্নিপেট মুছবেন?"
+  },
+  "snippets.delete.one": {
+    "translation": "স্নিপেট মুছবেন: {{snippet}}?"
+  },
+  "snippets.deleteAll": {
+    "translation": "সব মুছুন"
+  },
+  "snippets.error.failedToCopy": {
+    "translation": "URL কপি করতে ব্যর্থ।"
+  },
+  "snippets.error.noTitle": {
+    "translation": "অনুগ্রহ করে স্নিপেট শিরোনাম যোগ করুন।"
+  },
+  "snippets.filter.language": {
+    "translation": "ভাষা দিয়ে ফিল্টার করুন"
+  },
+  "snippets.heading": {
+    "translation": "কোড স্নিপেট"
+  },
+  "snippets.lastModified": {
+    "translation": "সর্বশেষ পরিবর্তিত: {{modified}}"
+  },
+  "snippets.noMatch": {
+    "translation": "এই ফিল্টারের সাথে কোনো স্নিপেট মেলে না।"
+  },
+  "snippets.noSavedSnippets": {
+    "translation": "আপনার কোনো সংরক্ষিত স্নিপেট নেই।"
+  },
+  "snippets.placeholder.allLanguages": {
+    "translation": "সব ভাষা"
+  },
+  "snippets.placeholder.search": {
+    "translation": "খুঁজুন"
+  },
+  "snippets.reset": {
+    "translation": "রিসেট"
+  },
+  "snippets.save.success": {
+    "translation": "স্নিপেট স্থানীয়ভাবে ডিভাইসে সংরক্ষিত হয়েছে!"
+  },
+  "snippets.sort.date": {
+    "translation": "তারিখ"
+  },
+  "snippets.sort.heading": {
+    "translation": "সাজান:"
+  },
+  "snippets.sort.title": {
+    "translation": "শিরোনাম"
+  },
+  "snippets.text": {
+    "translation": "প্লেইন টেক্সট"
+  },
+  "splash.loading": {
+    "translation": "LiveCodes লোড হচ্ছে…"
+  },
+  "sync.autoSync": {
+    "translation": "অটো সিঙ্ক"
+  },
+  "sync.create.desc": {
+    "translation": "একটি নতুন <tag-1>প্রাইভেট</tag-1> রেপো তৈরি হবে। আপনার LiveCodes স্থানীয় ডেটা <tag-2>main</tag-2> ব্রাঞ্চের সাথে সিঙ্ক্রোনাইজ করা হবে।"
+  },
+  "sync.create.heading": {
+    "translation": "নতুন রেপো তৈরি করুন"
+  },
+  "sync.create.repoName": {
+    "translation": "রেপো নাম"
+  },
+  "sync.error.generic": {
+    "translation": "সিঙ্ক ব্যর্থ হয়েছে!"
+  },
+  "sync.error.repoNameRequired": {
+    "translation": "রেপো নাম প্রয়োজন"
+  },
+  "sync.existing.desc": {
+    "translation": "আপনার LiveCodes স্থানীয় ডেটা <tag-1>main</tag-1> ব্রাঞ্চের সাথে সিঙ্ক্রোনাইজ করা হবে।"
+  },
+  "sync.existing.heading": {
+    "translation": "বিদ্যমান রেপো"
+  },
+  "sync.existing.repoName": {
+    "translation": "রেপো নাম"
+  },
+  "sync.heading": {
+    "translation": "GitHub রেপোতে সিঙ্ক করুন"
+  },
+  "sync.searchRepos": {
+    "translation": "আপনার রেপো খুঁজুন..."
+  },
+  "sync.success": {
+    "translation": "সিঙ্ক সম্পূর্ণ!"
+  },
+  "sync.syncBtn": {
+    "translation": "সিঙ্ক"
+  },
+  "sync.syncInProgress": {
+    "translation": "সিঙ্ক চলছে..."
+  },
+  "sync.syncStarted": {
+    "translation": "সিঙ্ক শুরু হয়েছে..."
+  },
+  "templates.heading": {
+    "translation": "নতুন প্রজেক্ট"
+  },
+  "templates.noUserTemplates.desc": {
+    "translation": "আপনি <tag-1></tag-1>(অ্যাপ&nbsp;মেনু&nbsp;&gt;&nbsp;সংরক্ষণ&nbsp;করুন&nbsp;&gt; টেমপ্লেট) থেকে একটি প্রজেক্ট টেমপ্লেট হিসাবে সংরক্ষণ করতে পারেন।"
+  },
+  "templates.noUserTemplates.heading": {
+    "translation": "আপনার কোনো সংরক্ষিত টেমপ্লেট নেই।"
+  },
+  "templates.search.label": {
+    "translation": "টেমপ্লেটগুলিতে অনুসন্ধান করুন"
+  },
+  "templates.search.placeholder": {
+    "translation": "টেমপ্লেটগুলিতে অনুসন্ধান করুন..."
+  },
+  "templates.starter.angular": {
+    "translation": "Angular স্টার্টার"
+  },
+  "templates.starter.assemblyscript": {
+    "translation": "AssemblyScript স্টার্টার"
+  },
+  "templates.starter.astro": {
+    "translation": "Astro স্টার্টার"
+  },
+  "templates.starter.backbone": {
+    "translation": "Backbone স্টার্টার"
+  },
+  "templates.starter.blank": {
+    "translation": "ফাঁকা প্রজেক্ট"
+  },
+  "templates.starter.blockly": {
+    "translation": "Blockly স্টার্টার"
+  },
+  "templates.starter.bootstrap": {
+    "translation": "Bootstrap স্টার্টার"
+  },
+  "templates.starter.civet": {
+    "translation": "Civet স্টার্টার"
+  },
+  "templates.starter.clio": {
+    "translation": "Clio স্টার্টার"
+  },
+  "templates.starter.clojurescript": {
+    "translation": "ClojureScript স্টার্টার"
+  },
+  "templates.starter.coffeescript": {
+    "translation": "CoffeeScript স্টার্টার"
+  },
+  "templates.starter.commonlisp": {
+    "translation": "Common Lisp স্টার্টার"
+  },
+  "templates.starter.cpp": {
+    "translation": "C++ স্টার্টার"
+  },
+  "templates.starter.cpp-wasm": {
+    "translation": "C++ (Wasm) স্টার্টার"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C# (Wasm) স্টার্টার"
+  },
+  "templates.starter.d3": {
+    "translation": "D3 স্টার্টার"
+  },
+  "templates.starter.daisyui": {
+    "translation": "daisyUI স্টার্টার"
+  },
+  "templates.starter.diagrams": {
+    "translation": "Diagrams স্টার্টার"
+  },
+  "templates.starter.fennel": {
+    "translation": "Fennel স্টার্টার"
+  },
+  "templates.starter.gleam": {
+    "translation": "Gleam স্টার্টার"
+  },
+  "templates.starter.go": {
+    "translation": "Go স্টার্টার"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Go (Wasm) স্টার্টার"
+  },
+  "templates.starter.heading": {
+    "translation": "স্টার্টার টেমপ্লেট"
+  },
+  "templates.starter.imba": {
+    "translation": "Imba স্টার্টার"
+  },
+  "templates.starter.java": {
+    "translation": "Java স্টার্টার"
+  },
+  "templates.starter.javascript": {
+    "translation": "JavaScript স্টার্টার"
+  },
+  "templates.starter.jest": {
+    "translation": "Jest স্টার্টার"
+  },
+  "templates.starter.jest-react": {
+    "translation": "Jest/React স্টার্টার"
+  },
+  "templates.starter.jquery": {
+    "translation": "jQuery স্টার্টার"
+  },
+  "templates.starter.julia": {
+    "translation": "Julia স্টার্টার"
+  },
+  "templates.starter.knockout": {
+    "translation": "Knockout স্টার্টার"
+  },
+  "templates.starter.lit": {
+    "translation": "Lit স্টার্টার"
+  },
+  "templates.starter.livescript": {
+    "translation": "LiveScript স্টার্টার"
+  },
+  "templates.starter.loading": {
+    "translation": "স্টার্টার টেমপ্লেট লোড হচ্ছে..."
+  },
+  "templates.starter.lua": {
+    "translation": "Lua স্টার্টার"
+  },
+  "templates.starter.lua-wasm": {
+    "translation": "Lua (Wasm) স্টার্টার"
+  },
+  "templates.starter.malina": {
+    "translation": "Malina.js স্টার্টার"
+  },
+  "templates.starter.markdown": {
+    "translation": "Markdown স্টার্টার"
+  },
+  "templates.starter.mdx": {
+    "translation": "MDX স্টার্টার"
+  },
+  "templates.starter.minizinc": {
+    "translation": "MiniZinc স্টার্টার"
+  },
+  "templates.starter.ocaml": {
+    "translation": "Ocaml স্টার্টার"
+  },
+  "templates.starter.perl": {
+    "translation": "Perl স্টার্টার"
+  },
+  "templates.starter.phaser": {
+    "translation": "Phaser স্টার্টার"
+  },
+  "templates.starter.php": {
+    "translation": "PHP স্টার্টার"
+  },
+  "templates.starter.php-wasm": {
+    "translation": "PHP (Wasm) স্টার্টার"
+  },
+  "templates.starter.postgresql": {
+    "translation": "PostgreSQL স্টার্টার"
+  },
+  "templates.starter.preact": {
+    "translation": "Preact স্টার্টার"
+  },
+  "templates.starter.prolog": {
+    "translation": "Prolog স্টার্টার"
+  },
+  "templates.starter.python": {
+    "translation": "Python স্টার্টার"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Python (Wasm) স্টার্টার"
+  },
+  "templates.starter.r": {
+    "translation": "R স্টার্টার"
+  },
+  "templates.starter.react": {
+    "translation": "React স্টার্টার"
+  },
+  "templates.starter.react-native": {
+    "translation": "React Native স্টার্টার"
+  },
+  "templates.starter.reason": {
+    "translation": "Reason স্টার্টার"
+  },
+  "templates.starter.rescript": {
+    "translation": "ReScript স্টার্টার"
+  },
+  "templates.starter.riot": {
+    "translation": "Riot.js স্টার্টার"
+  },
+  "templates.starter.ruby": {
+    "translation": "Ruby স্টার্টার"
+  },
+  "templates.starter.ruby-wasm": {
+    "translation": "Ruby (Wasm) স্টার্টার"
+  },
+  "templates.starter.scheme": {
+    "translation": "Scheme স্টার্টার"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/ui স্টার্টার"
+  },
+  "templates.starter.solid": {
+    "translation": "Solid স্টার্টার"
+  },
+  "templates.starter.sql": {
+    "translation": "SQL স্টার্টার"
+  },
+  "templates.starter.stencil": {
+    "translation": "Stencil স্টার্টার"
+  },
+  "templates.starter.svelte": {
+    "translation": "Svelte স্টার্টার"
+  },
+  "templates.starter.tailwindcss": {
+    "translation": "Tailwind CSS স্টার্টার"
+  },
+  "templates.starter.tcl": {
+    "translation": "Tcl স্টার্টার"
+  },
+  "templates.starter.teal": {
+    "translation": "Teal স্টার্টার"
+  },
+  "templates.starter.typescript": {
+    "translation": "TypeScript স্টার্টার"
+  },
+  "templates.starter.vue": {
+    "translation": "Vue SFC স্টার্টার"
+  },
+  "templates.starter.vue2": {
+    "translation": "Vue 2 স্টার্টার"
+  },
+  "templates.starter.wat": {
+    "translation": "WebAssembly Text স্টার্টার"
+  },
+  "templates.user.heading": {
+    "translation": "আমার টেমপ্লেট"
+  },
+  "templates.user.loading": {
+    "translation": "ব্যবহারকারী টেমপ্লেট লোড হচ্ছে..."
+  },
+  "testEditor.heading": {
+    "translation": "টেস্ট সম্পাদনা করুন"
+  },
+  "testEditor.load": {
+    "translation": "লোড করুন"
+  },
+  "testEditor.tests": {
+    "translation": "টেস্ট"
+  },
+  "testSettings.desc": {
+    "translation": "<tag-1></tag-1> আরো বিস্তারিত জানতে, <tag-2>ডকুমেন্টেশন</tag-2> দেখুন"
+  },
+  "toolspane.close": {
+    "translation": "বন্ধ করুন"
+  },
+  "toolspane.compiled.title": {
+    "translation": "কম্পাইল করা"
+  },
+  "toolspane.console.clear": {
+    "translation": "কনসোল পরিষ্কার করুন"
+  },
+  "toolspane.console.title": {
+    "translation": "কনসোল"
+  },
+  "toolspane.test.edit": {
+    "translation": "সম্পাদনা"
+  },
+  "toolspane.test.error": {
+    "translation": "<tag-1><tag-2>টেস্ট ত্রুটি!</tag-2></tag-1>"
+  },
+  "toolspane.test.loading": {
+    "translation": "<tag-1>টেস্ট লোড হচ্ছে...</tag-1>"
+  },
+  "toolspane.test.noTest": {
+    "translation": "<tag-1>এই প্রজেক্টে কোনো টেস্ট নেই!</tag-1>"
+  },
+  "toolspane.test.reset": {
+    "translation": "রিসেট"
+  },
+  "toolspane.test.run.desc": {
+    "translation": "Ctrl/⌘ + Alt + T"
+  },
+  "toolspane.test.run.heading": {
+    "translation": "চালান"
+  },
+  "toolspane.test.summary.desc": {
+    "translation": "টেস্ট: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<tag-1></tag-1>\nসময়: {{duration}}s"
+  },
+  "toolspane.test.summary.failed": {
+    "translation": "{{failedNum}} ব্যর্থ"
+  },
+  "toolspane.test.summary.passed": {
+    "translation": "{{passedNum}} পাস"
+  },
+  "toolspane.test.summary.skipped": {
+    "translation": "{{skippedNum}} এড়িয়ে যাওয়া"
+  },
+  "toolspane.test.summary.total": {
+    "translation": "{{totalNum}} মোট"
+  },
+  "toolspane.test.title": {
+    "translation": "টেস্ট"
+  },
+  "toolspane.test.watch.desc": {
+    "translation": "কোড পরিবর্তিত হলে টেস্ট চালান"
+  },
+  "toolspane.test.watch.heading": {
+    "translation": "দেখুন"
+  },
+  "welcome.about.documentation": {
+    "translation": "ডকুমেন্টেশন"
+  },
+  "welcome.about.heading": {
+    "translation": "LiveCodes সম্পর্কে"
+  },
+  "welcome.heading": {
+    "translation": "স্বাগতম"
+  },
+  "welcome.recent.heading": {
+    "translation": "সাম্প্রতিক"
+  },
+  "welcome.recover.cancel": {
+    "translation": "বাতিল"
+  },
+  "welcome.recover.heading": {
+    "translation": "পুনরুদ্ধার"
+  },
+  "welcome.recover.lastModified": {
+    "translation": "সর্বশেষ পরিবর্তিত:"
+  },
+  "welcome.recover.recover": {
+    "translation": "পুনরুদ্ধার"
+  },
+  "welcome.recover.save": {
+    "translation": "সংরক্ষণ"
+  },
+  "welcome.recover.unsavedChanges": {
+    "translation": "আপনার শেষ প্রজেক্টে অসংরক্ষিত পরিবর্তন ছিল:"
+  },
+  "welcome.showOnStartup": {
+    "translation": "স্টার্টআপে দেখান"
+  },
+  "welcome.start.heading": {
+    "translation": "শুরু করুন"
+  },
+  "welcome.start.import": {
+    "translation": "ইমপোর্ট..."
+  },
+  "welcome.start.loadDefaultTemplate": {
+    "translation": "ডিফল্ট টেমপ্লেট লোড করুন"
+  },
+  "welcome.start.new": {
+    "translation": "নতুন..."
+  },
+  "welcome.start.noDefaultTemplate": {
+    "translation": "কোনো ডিফল্ট টেমপ্লেট নেই"
+  },
+  "welcome.start.open": {
+    "translation": "খুলুন..."
+  },
+  "welcome.templates.heading": {
+    "translation": "স্টার্টার টেমপ্লেট"
+  }
+}

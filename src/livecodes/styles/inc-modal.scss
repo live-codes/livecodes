@@ -64,6 +64,10 @@
     min-height: 60vh;
   }
 
+  &.large-fixed {
+    height: 85vh;
+  }
+
   #modal-container {
     height: 100%;
     margin-top: 2rem;
@@ -1301,8 +1305,8 @@
 
     #editor-settings-preview-container {
       height: 250px !important;
-      margin-bottom: 1rem;
-      max-height: 250px;
+      margin-bottom: 1rem !important;
+      max-height: 250px !important;
     }
 
     .field-note {
@@ -1467,13 +1471,52 @@
     }
   }
 
-  #templates-user {
-    .loading {
-      margin-top: 3em;
+  #templates-container {
+    #templates-tabs {
+      margin-bottom: unset;
+      width: calc(100% - var(--s4));
     }
 
-    ul {
-      height: fit-content;
+    .templates-search-container {
+      display: flex;
+      width: 100%;
+
+      label {
+        align-items: center;
+        display: flex;
+        margin: 0 var(--s4);
+        white-space: nowrap;
+      }
+
+      input {
+        align-items: center;
+        display: flex;
+        margin: var(--s12) var(--s4);
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .templates-search-container {
+        label {
+          display: none;
+        }
+
+        input {
+          margin-inline-start: 0;
+        }
+      }
+    }
+
+    #templates-user {
+      width: calc(100% - var(--s4));
+
+      .loading {
+        margin-top: 3em;
+      }
+
+      ul {
+        height: fit-content;
+      }
     }
   }
 

@@ -32,7 +32,7 @@ const sidebars: SidebarsConfig = {
             'features/tests',
             'features/module-resolution',
             'features/intellisense',
-            'features/ai',
+            // 'features/ai',
             'features/code-format',
             'features/command-menu',
             'features/keyboard-shortcuts',
@@ -85,7 +85,7 @@ const sidebars: SidebarsConfig = {
             type: 'doc',
             id: 'sdk/index',
           },
-          items: ['sdk/js-ts', 'sdk/react', 'sdk/vue', 'sdk/svelte', 'sdk/headless'],
+          items: ['sdk/js-ts', 'sdk/react', 'sdk/vue', 'sdk/svelte', 'sdk/solid', 'sdk/headless'],
         },
         {
           type: 'category',
@@ -109,6 +109,15 @@ const sidebars: SidebarsConfig = {
               dirName: 'languages',
             },
           ],
+        },
+        {
+          type: 'category',
+          label: 'Guides & Tutorials',
+          link: {
+            type: 'doc',
+            id: 'tutorials/index',
+          },
+          items: ['tutorials/getting-started-guide', 'tutorials/building-your-first-app'],
         },
         'bookmarklet',
         'gh-action',

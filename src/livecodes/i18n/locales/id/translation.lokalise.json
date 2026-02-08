@@ -1,0 +1,2250 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "about.blog.text": {
+    "translation": "Blog"
+  },
+  "about.blog.title": {
+    "translation": "Blog LiveCodes"
+  },
+  "about.configuration": {
+    "translation": "Konfigurasi"
+  },
+  "about.credits.heading": {
+    "translation": "Kredit"
+  },
+  "about.credits.para1": {
+    "translation": "LiveCodes dimungkinkan oleh proyek open source, layanan web, dan kontributor. <tag-1>Lihat Kredit</tag-1>"
+  },
+  "about.credits.para2": {
+    "translation": "© 2024 Hatem Hosny. LiveCodes dilisensikan di bawah Lisensi MIT."
+  },
+  "about.documentations.heading": {
+    "translation": "Dokumentasi"
+  },
+  "about.gettingStarted": {
+    "translation": "Memulai"
+  },
+  "about.github.text": {
+    "translation": "GitHub"
+  },
+  "about.github.title": {
+    "translation": "GitHub"
+  },
+  "about.heading": {
+    "translation": "Tentang LiveCodes"
+  },
+  "about.livecodes.aboutUs": {
+    "translation": "Tentang LiveCodes"
+  },
+  "about.livecodes.para1": {
+    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> adalah code playground open-source yang kaya fitur dan berjalan di sisi klien. Saat ini, 90+ bahasa dan framework didukung. Dapat digunakan sebagai aplikasi mandiri atau disematkan di halaman web mana pun."
+  },
+  "about.livecodes.para2": {
+    "translation": "SDK yang powerful memudahkan integrasi dan komunikasi dengan playground. Dokumentasi lengkap tersedia dengan contoh kode, demo langsung, dan tangkapan layar."
+  },
+  "about.sdk": {
+    "translation": "SDK LiveCodes"
+  },
+  "about.sponsor.text": {
+    "translation": "Sponsor"
+  },
+  "about.sponsor.title": {
+    "translation": "Sponsori LiveCodes"
+  },
+  "about.twitter.text": {
+    "translation": "𝕏 / Twitter"
+  },
+  "about.twitter.title": {
+    "translation": "𝕏 / Twitter"
+  },
+  "about.version.app": {
+    "translation": "Versi aplikasi: <tag-1>{{APP_VERSION}}</tag-1>"
+  },
+  "about.version.appPermanentUrl": {
+    "translation": "URL Permanen Aplikasi"
+  },
+  "about.version.commit": {
+    "translation": "Git commit: <tag-1>{{COMMIT_SHA}}</tag-1>"
+  },
+  "about.version.heading": {
+    "translation": "Versi"
+  },
+  "about.version.sdk": {
+    "translation": "Versi SDK: <tag-1>{{SDK_VERSION}}</tag-1>"
+  },
+  "about.version.sdkPermanentUrl": {
+    "translation": "URL Permanen SDK"
+  },
+  "app.changeTheme.hint": {
+    "translation": "Ubah Tema"
+  },
+  "app.codeToImage.hint": {
+    "translation": "Kode ke Gambar"
+  },
+  "app.consoleMessage.appVersion": {
+    "translation": "Versi aplikasi: {{APP_VERSION}}"
+  },
+  "app.consoleMessage.commit": {
+    "translation": "Git commit: {{COMMIT_SHA}}"
+  },
+  "app.consoleMessage.learnMore": {
+    "translation": "Pelajari lebih lanjut! {{docsUrl}} 🚀"
+  },
+  "app.consoleMessage.sdkVersion": {
+    "translation": "Versi SDK: {{SDK_VERSION}}"
+  },
+  "app.copy.hint": {
+    "translation": "Salin (Ctrl/⌘ + A, Ctrl/⌘ + C)"
+  },
+  "app.copyAsUrl.hint": {
+    "translation": "Salin kode sebagai data URL"
+  },
+  "app.customSettings.hint": {
+    "translation": "Pengaturan Kustom"
+  },
+  "app.editorSettings.hint": {
+    "translation": "Pengaturan Editor"
+  },
+  "app.externalResources.hint": {
+    "translation": "Sumber Daya Eksternal"
+  },
+  "app.focus.hint": {
+    "translation": "Aktifkan mode Fokus (Ctrl/⌘ + K, Z)"
+  },
+  "app.format.hint": {
+    "translation": "Format (Alt + Shift + F)"
+  },
+  "app.fullscreen.hint": {
+    "translation": "Layar Penuh"
+  },
+  "app.i18nButton.hint": {
+    "translation": "Bahasa UI"
+  },
+  "app.i18nMenu.docs": {
+    "translation": "Dokumentasi i18n"
+  },
+  "app.i18nMenu.helpTranslate": {
+    "translation": "Bantu Kami Menerjemahkan"
+  },
+  "app.logo.title": {
+    "translation": "LiveCodes: Code Playground yang Langsung Berfungsi!"
+  },
+  "app.projectInfo.hint": {
+    "translation": "Info Proyek"
+  },
+  "app.redo.hint": {
+    "translation": "Ulangi (Ctrl/⌘ + Shift + Z)"
+  },
+  "app.result.hint": {
+    "translation": "Hasil (Ctrl/⌘ + Alt + R)"
+  },
+  "app.run.hint": {
+    "translation": "Jalankan (Shift + Enter)"
+  },
+  "app.share.hint": {
+    "translation": "Bagikan (Ctrl/⌘ + Alt + S)"
+  },
+  "app.themeColors.custom": {
+    "translation": "Kustom"
+  },
+  "app.undo.hint": {
+    "translation": "Urungkan (Ctrl/⌘ + Z)"
+  },
+  "app.untitledProject": {
+    "translation": "Proyek Tanpa Judul"
+  },
+  "assets.action.delete": {
+    "translation": "Hapus"
+  },
+  "assets.add.dataURL.desc": {
+    "translation": "Tambahkan aset sebagai <tag-1>data url</tag-1> yang dikodekan base64."
+  },
+  "assets.add.dataURL.heading": {
+    "translation": "Data URL"
+  },
+  "assets.add.dataURL.label": {
+    "translation": "Tambahkan file"
+  },
+  "assets.add.githubPages.desc": {
+    "translation": "Deploy aset ke GitHub Pages. File akan didorong ke branch <tag-1>gh-pages</tag-1> dari repo <tag-2>livecodes-assets</tag-2> di akun GitHub Anda. Jika repo belum ada, repo publik akan dibuat."
+  },
+  "assets.add.githubPages.heading": {
+    "translation": "GitHub Pages"
+  },
+  "assets.add.githubPages.label": {
+    "translation": "Unggah file"
+  },
+  "assets.add.heading": {
+    "translation": "Tambah Aset"
+  },
+  "assets.delete.all": {
+    "translation": "Hapus {{assets}} aset?"
+  },
+  "assets.delete.one": {
+    "translation": "Hapus aset: {{asset}}?"
+  },
+  "assets.deleteAll": {
+    "translation": "Hapus Semua"
+  },
+  "assets.generic.clickToCopyURL": {
+    "translation": "Klik untuk menyalin URL"
+  },
+  "assets.heading": {
+    "translation": "Aset"
+  },
+  "assets.link.date": {
+    "translation": "Tanggal: {{modified}}"
+  },
+  "assets.link.type": {
+    "translation": "Tipe: {{type}}"
+  },
+  "assets.link.url": {
+    "translation": "URL: {{url}}"
+  },
+  "assets.loadFile.error.failedToUpload": {
+    "translation": "Error: Gagal mengunggah file"
+  },
+  "assets.loadFile.error.unauthenticated": {
+    "translation": "Error: Pengguna tidak terautentikasi"
+  },
+  "assets.loadFile.upload": {
+    "translation": "Unggah file"
+  },
+  "assets.loadFile.uploading": {
+    "translation": "Mengunggah..."
+  },
+  "assets.noMatch": {
+    "translation": "Tidak ada aset yang cocok dengan filter ini."
+  },
+  "assets.noSavedAssets": {
+    "translation": "Anda tidak memiliki aset yang tersimpan."
+  },
+  "assets.processAsset.addFile": {
+    "translation": "File ditambahkan: "
+  },
+  "assets.processAsset.deployNotice": {
+    "translation": "Aset akan segera tersedia di URL ini (~1 menit)."
+  },
+  "assets.processAsset.success": {
+    "translation": "File ditambahkan ke aset!"
+  },
+  "assets.processAsset.urlLabel": {
+    "translation": "URL: "
+  },
+  "assets.resetFilters": {
+    "translation": "Atur Ulang"
+  },
+  "assets.search": {
+    "translation": "Cari"
+  },
+  "assets.sort.date": {
+    "translation": "Tanggal"
+  },
+  "assets.sort.fileName": {
+    "translation": "Nama File"
+  },
+  "assets.sort.heading": {
+    "translation": "Urutkan Berdasarkan:"
+  },
+  "assets.type.archive": {
+    "translation": "Arsip"
+  },
+  "assets.type.audio": {
+    "translation": "Audio"
+  },
+  "assets.type.csv": {
+    "translation": "CSV"
+  },
+  "assets.type.font": {
+    "translation": "Font"
+  },
+  "assets.type.html": {
+    "translation": "HTML"
+  },
+  "assets.type.icon": {
+    "translation": "Ikon"
+  },
+  "assets.type.image": {
+    "translation": "Gambar"
+  },
+  "assets.type.json": {
+    "translation": "JSON"
+  },
+  "assets.type.other": {
+    "translation": "Lainnya"
+  },
+  "assets.type.script": {
+    "translation": "Skrip"
+  },
+  "assets.type.stylesheet": {
+    "translation": "Stylesheet"
+  },
+  "assets.type.text": {
+    "translation": "Teks"
+  },
+  "assets.type.video": {
+    "translation": "Video"
+  },
+  "assets.type.xml": {
+    "translation": "XML"
+  },
+  "assets.types.all": {
+    "translation": "Semua tipe"
+  },
+  "assets.url.fail": {
+    "translation": "Gagal menyalin URL."
+  },
+  "assets.url.success": {
+    "translation": "URL disalin ke clipboard."
+  },
+  "backup.backup.assets": {
+    "translation": "Aset"
+  },
+  "backup.backup.button": {
+    "translation": "Cadangkan"
+  },
+  "backup.backup.desc": {
+    "translation": "Cadangkan data LiveCodes, sehingga dapat dipulihkan nanti di perangkat ini atau perangkat lain. <tag-1></tag-1> Silakan kunjungi <tag-2>dokumentasi</tag-2> untuk detail."
+  },
+  "backup.backup.heading": {
+    "translation": "Cadangkan"
+  },
+  "backup.backup.projects": {
+    "translation": "Proyek"
+  },
+  "backup.backup.settings": {
+    "translation": "Pengaturan Pengguna"
+  },
+  "backup.backup.snippets": {
+    "translation": "Potongan Kode"
+  },
+  "backup.backup.templates": {
+    "translation": "Template Pengguna"
+  },
+  "backup.backupBtn": {
+    "translation": "Cadangkan"
+  },
+  "backup.error.atLeastOneStore": {
+    "translation": "Pilih setidaknya satu penyimpanan untuk dicadangkan"
+  },
+  "backup.error.incorrectFileType": {
+    "translation": "Error: Tipe file tidak benar"
+  },
+  "backup.fileInputLabel": {
+    "translation": "Pulihkan dari file"
+  },
+  "backup.heading": {
+    "translation": "Cadangkan / Pulihkan"
+  },
+  "backup.inProgress": {
+    "translation": "Sedang berlangsung..."
+  },
+  "backup.restore.desc": {
+    "translation": "Pulihkan data LiveCodes yang telah dicadangkan sebelumnya. <tag-1></tag-1> Jika Anda memilih untuk mengganti konten saat ini, Anda mungkin ingin mencadangkannya terlebih dahulu. <tag-2></tag-2> Silakan kunjungi <tag-3>dokumentasi</tag-3> untuk detail."
+  },
+  "backup.restore.fromFile": {
+    "translation": "Pulihkan dari file"
+  },
+  "backup.restore.heading": {
+    "translation": "Pulihkan"
+  },
+  "backup.restore.mode.merge": {
+    "translation": "Gabung dengan konten saat ini"
+  },
+  "backup.restore.mode.replace": {
+    "translation": "Ganti konten saat ini"
+  },
+  "backup.restore.success": {
+    "translation": "Berhasil Dipulihkan!"
+  },
+  "broadcast.broadcastBtn.start": {
+    "translation": "Siaran"
+  },
+  "broadcast.broadcastBtn.stop": {
+    "translation": "Hentikan siaran"
+  },
+  "broadcast.broadcasting": {
+    "translation": "Menyiarkan..."
+  },
+  "broadcast.channelURL": {
+    "translation": "URL Saluran"
+  },
+  "broadcast.connecting": {
+    "translation": "Menghubungkan..."
+  },
+  "broadcast.desc": {
+    "translation": "Siarkan halaman hasil ke browser/perangkat lain secara real time. Silakan kunjungi <tag-1>dokumentasi</tag-1> untuk detail."
+  },
+  "broadcast.error.generic": {
+    "translation": "Siaran gagal!"
+  },
+  "broadcast.error.serverURLRequired": {
+    "translation": "URL server diperlukan!"
+  },
+  "broadcast.heading": {
+    "translation": "Siaran"
+  },
+  "broadcast.includeSourceCode": {
+    "translation": "Sertakan kode sumber"
+  },
+  "broadcast.serverURL.heading": {
+    "translation": "URL Server"
+  },
+  "codeToImage.background": {
+    "translation": "Latar Belakang"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "Radius Batas"
+  },
+  "codeToImage.code": {
+    "translation": "Kode"
+  },
+  "codeToImage.copyCode": {
+    "translation": "Salin Kode"
+  },
+  "codeToImage.copyImage": {
+    "translation": "Salin Gambar"
+  },
+  "codeToImage.default": {
+    "translation": "Default"
+  },
+  "codeToImage.direction": {
+    "translation": "Arah"
+  },
+  "codeToImage.fileName": {
+    "translation": "Nama File"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "Keluarga Font"
+  },
+  "codeToImage.fontSize": {
+    "translation": "Ukuran Font"
+  },
+  "codeToImage.heading": {
+    "translation": "Kode ke Gambar"
+  },
+  "codeToImage.image": {
+    "translation": "Gambar"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "Format Gambar"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "Tata Letak"
+  },
+  "codeToImage.opacity": {
+    "translation": "Opasitas"
+  },
+  "codeToImage.padding": {
+    "translation": "Padding"
+  },
+  "codeToImage.presets": {
+    "translation": "Preset"
+  },
+  "codeToImage.preview": {
+    "translation": "Pratinjau"
+  },
+  "codeToImage.save": {
+    "translation": "Simpan Gambar"
+  },
+  "codeToImage.scale": {
+    "translation": "Skala Gambar"
+  },
+  "codeToImage.shadow": {
+    "translation": "Bayangan"
+  },
+  "codeToImage.shareImage": {
+    "translation": "Bagikan Gambar"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "Bagikan"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "Bagikan URL"
+  },
+  "codeToImage.theme": {
+    "translation": "Tema"
+  },
+  "codeToImage.width": {
+    "translation": "Lebar"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "Gaya Jendela"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "Tidak Ada"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
+  "commandMenu.changeTheme.dark": {
+    "translation": "Ubah ke Tema Gelap"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "Ubah ke Tema Terang"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "Ubah Tema"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "Ubah Bahasa UI"
+  },
+  "commandMenu.closeModalMenu": {
+    "translation": "Tutup Modal/Menu"
+  },
+  "commandMenu.contribute": {
+    "translation": "Berkontribusi"
+  },
+  "commandMenu.copy": {
+    "translation": "Salin Kode"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "Salin Kode sebagai Data URL"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "Nonaktifkan Simpan Otomatis"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "Nonaktifkan Update Otomatis"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "Nonaktifkan Mode Emacs"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "Nonaktifkan Format Saat Menyimpan"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "Nonaktifkan Pulihkan yang Belum Disimpan"
+  },
+  "commandMenu.disableVim": {
+    "translation": "Nonaktifkan Mode Vim"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "Aktifkan Simpan Otomatis"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "Aktifkan Update Otomatis"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "Aktifkan Mode Emacs"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "Aktifkan Format Saat Menyimpan"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "Aktifkan Pulihkan yang Belum Disimpan"
+  },
+  "commandMenu.enableVim": {
+    "translation": "Aktifkan Mode Vim"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "Fokus Editor"
+  },
+  "commandMenu.focus.home": {
+    "translation": "Pindah Fokus ke Beranda"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "Pindah Fokus keluar dari Editor"
+  },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "Aktifkan Mode Fokus Tab"
+  },
+  "commandMenu.formatCode": {
+    "translation": "Format Kode"
+  },
+  "commandMenu.home": {
+    "translation": "Beranda"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "Tata Letak Horizontal"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "Pintasan Keyboard"
+  },
+  "commandMenu.login": {
+    "translation": "Masuk"
+  },
+  "commandMenu.logout": {
+    "translation": "Keluar"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "pindah ke induk"
+  },
+  "commandMenu.placeholder": {
+    "translation": "Ketik perintah atau cari..."
+  },
+  "commandMenu.processors": {
+    "translation": "Prosesor"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "Tata Letak Responsif"
+  },
+  "commandMenu.run": {
+    "translation": "Jalankan"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "Simpan sebagai Fork (Proyek Baru)"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "Simpan sebagai Template"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "Pilih Bahasa"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "Aktifkan Kode yang Dikompilasi"
+  },
+  "commandMenu.show.console": {
+    "translation": "Aktifkan Konsol"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "Aktifkan Mode Fokus"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "Aktifkan Layar Penuh"
+  },
+  "commandMenu.show.markup": {
+    "translation": "Tampilkan Editor Markup"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "Maksimalkan Kode yang Dikompilasi"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "Maksimalkan Konsol"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "Maksimalkan Tes"
+  },
+  "commandMenu.show.next": {
+    "translation": "Tampilkan Editor Berikutnya"
+  },
+  "commandMenu.show.previous": {
+    "translation": "Tampilkan Editor Sebelumnya"
+  },
+  "commandMenu.show.result": {
+    "translation": "Aktifkan Hasil"
+  },
+  "commandMenu.show.runTests": {
+    "translation": "Jalankan Tes"
+  },
+  "commandMenu.show.script": {
+    "translation": "Tampilkan Editor Skrip"
+  },
+  "commandMenu.show.style": {
+    "translation": "Tampilkan Editor Gaya"
+  },
+  "commandMenu.show.tests": {
+    "translation": "Aktifkan Tes"
+  },
+  "commandMenu.show.title": {
+    "translation": "Tampilkan …"
+  },
+  "commandMenu.show.zoom": {
+    "translation": "Aktifkan Zoom Hasil"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "Template Pemula"
+  },
+  "commandMenu.sync": {
+    "translation": "Sinkronisasi (beta) …"
+  },
+  "commandMenu.template": {
+    "translation": "Template"
+  },
+  "commandMenu.theme.color": {
+    "translation": "Atur Warna Tema"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "Atur Warna Tema Default"
+  },
+  "commandMenu.title": {
+    "translation": "Menu Perintah"
+  },
+  "commandMenu.toClose": {
+    "translation": "untuk menutup"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "untuk navigasi"
+  },
+  "commandMenu.toSelect": {
+    "translation": "untuk memilih"
+  },
+  "commandMenu.toggle": {
+    "translation": "Aktifkan: "
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "Tata Letak Vertikal"
+  },
+  "core.broadcast.heading": {
+    "translation": "Siaran"
+  },
+  "core.broadcast.successSetToken": {
+    "translation": "Token pengguna siaran berhasil diatur"
+  },
+  "core.changeLanguage.hint": {
+    "translation": "Ubah Bahasa"
+  },
+  "core.changeLanguage.message": {
+    "translation": "Memuat {{lang}}. Ini mungkin memakan waktu!"
+  },
+  "core.copy.copied": {
+    "translation": "Kode disalin ke clipboard"
+  },
+  "core.copy.copiedAsDataURL": {
+    "translation": "Kode disalin sebagai data URL"
+  },
+  "core.copy.copiedImage": {
+    "translation": "Gambar disalin ke clipboard."
+  },
+  "core.copy.hint": {
+    "translation": "Tersalin!"
+  },
+  "core.copy.title": {
+    "translation": "Salin"
+  },
+  "core.error.couldNotLoadTemplate": {
+    "translation": "Tidak dapat memuat template: {{template}}"
+  },
+  "core.error.failedToCopyCode": {
+    "translation": "Gagal menyalin kode"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "Gagal menyalin gambar"
+  },
+  "core.error.failedToLoadTemplate": {
+    "translation": "Gagal memuat template"
+  },
+  "core.error.failedToLoadTemplates": {
+    "translation": "Gagal memuat template pemula"
+  },
+  "core.error.failedToParseSettings": {
+    "translation": "Gagal parsing pengaturan sebagai JSON"
+  },
+  "core.error.failedToSaveImage": {
+    "translation": "Gagal menyimpan gambar"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "Gagal membagikan gambar"
+  },
+  "core.error.invalidCommand": {
+    "translation": "Perintah tidak valid!"
+  },
+  "core.error.invalidImport": {
+    "translation": "URL impor tidak valid"
+  },
+  "core.error.invalidPanelId": {
+    "translation": "ID panel tidak valid"
+  },
+  "core.error.invalidToken": {
+    "translation": "Token tidak valid!"
+  },
+  "core.error.login": {
+    "translation": "Error saat masuk!"
+  },
+  "core.error.logout": {
+    "translation": "Error saat keluar!"
+  },
+  "core.error.noResultContainer": {
+    "translation": "Kontainer hasil tidak ditemukan"
+  },
+  "core.error.unavailable": {
+    "translation": "Perintah tidak tersedia"
+  },
+  "core.error.unavailableForEmbeds": {
+    "translation": "Perintah tidak tersedia untuk embed"
+  },
+  "core.export.gist": {
+    "translation": "Membuat gist GitHub publik..."
+  },
+  "core.fork.success": {
+    "translation": "Forked sebagai proyek baru"
+  },
+  "core.fullScreen.enter": {
+    "translation": "Layar Penuh"
+  },
+  "core.fullScreen.exit": {
+    "translation": "Keluar dari Layar Penuh"
+  },
+  "core.generating": {
+    "translation": "Menghasilkan..."
+  },
+  "core.import.loading": {
+    "translation": "Memuat Proyek..."
+  },
+  "core.layout.horizontal": {
+    "translation": "Tata letak horizontal"
+  },
+  "core.layout.responsive": {
+    "translation": "Tata letak responsif"
+  },
+  "core.layout.vertical": {
+    "translation": "Tata letak vertikal"
+  },
+  "core.loadDefaults.template": {
+    "translation": "Memuat template default"
+  },
+  "core.login.success": {
+    "translation": "Berhasil masuk"
+  },
+  "core.login.successWithName": {
+    "translation": "Masuk sebagai: {{name}}"
+  },
+  "core.logout.success": {
+    "translation": "Berhasil keluar"
+  },
+  "core.result.hint": {
+    "translation": "Tampilkan hasil di jendela baru"
+  },
+  "core.save.success": {
+    "translation": "Proyek berhasil disimpan secara lokal ke perangkat!"
+  },
+  "core.save.successWithName": {
+    "translation": "Proyek \"{{name}}\" disimpan ke perangkat."
+  },
+  "core.template.blank": {
+    "translation": "Proyek Kosong"
+  },
+  "core.template.delete": {
+    "translation": "Hapus template \"{{item}}\"?"
+  },
+  "core.template.javascript": {
+    "translation": "Pemula JavaScript"
+  },
+  "core.template.react": {
+    "translation": "Pemula React"
+  },
+  "core.template.saved": {
+    "translation": "Disimpan sebagai template baru"
+  },
+  "core.template.typescript": {
+    "translation": "Pemula TypeScript"
+  },
+  "core.template.vue": {
+    "translation": "Pemula Vue 3"
+  },
+  "core.unload.notSaved": {
+    "translation": "Perubahan yang Anda buat mungkin tidak tersimpan."
+  },
+  "core.zoom.hint": {
+    "translation": "Zoom"
+  },
+  "customSettings.JSON": {
+    "translation": "JSON Pengaturan Kustom"
+  },
+  "customSettings.desc": {
+    "translation": "<tag-1></tag-1> Untuk detail lebih lanjut, silakan lihat <tag-2> dokumentasi </tag-2>"
+  },
+  "customSettings.heading": {
+    "translation": "Pengaturan Kustom"
+  },
+  "customSettings.load": {
+    "translation": "Muat"
+  },
+  "deploy.create.desc": {
+    "translation": "Repo <tag-1>publik</tag-1> baru akan dibuat. Halaman hasil akan didorong ke branch <tag-2>gh-pages</tag-2>."
+  },
+  "deploy.create.heading": {
+    "translation": "Buat Repo Baru"
+  },
+  "deploy.create.repoName": {
+    "translation": "Nama Repo <tag-1></tag-1>"
+  },
+  "deploy.error.generic": {
+    "translation": "Deploy gagal!"
+  },
+  "deploy.error.repoNameExists": {
+    "translation": "Nama repo sudah ada"
+  },
+  "deploy.error.repoNameRequired": {
+    "translation": "Nama repo diperlukan"
+  },
+  "deploy.existing.desc": {
+    "translation": "Commit baru akan ditambahkan ke branch <tag-1>gh-pages</tag-1>."
+  },
+  "deploy.existing.heading": {
+    "translation": "Repo yang Ada"
+  },
+  "deploy.existing.repoName": {
+    "translation": "Nama Repo"
+  },
+  "deploy.generic.commitMessage": {
+    "translation": "Pesan Commit"
+  },
+  "deploy.generic.commitSourceCodePublic": {
+    "translation": "Commit kode sumber (publik)"
+  },
+  "deploy.generic.deployBtn": {
+    "translation": "Deploy"
+  },
+  "deploy.generic.deploying": {
+    "translation": "Men-deploy..."
+  },
+  "deploy.heading": {
+    "translation": "Deploy ke GitHub Pages"
+  },
+  "deploy.searchRepo": {
+    "translation": "Cari repo publik Anda..."
+  },
+  "editorSettings.closeBrackets": {
+    "translation": "Tutup otomatis kurung dan tanda kutip"
+  },
+  "editorSettings.codeJarDesc": {
+    "translation": "<tag-1></tag-1> * Fitur yang ditandai tidak tersedia di CodeJar."
+  },
+  "editorSettings.default": {
+    "translation": "Default"
+  },
+  "editorSettings.desc": {
+    "translation": "<tag-1></tag-1> Silakan periksa <tag-2>dokumentasi</tag-2> untuk detail."
+  },
+  "editorSettings.editor.codejar": {
+    "translation": "CodeJar"
+  },
+  "editorSettings.editor.codemirror": {
+    "translation": "CodeMirror"
+  },
+  "editorSettings.editor.heading": {
+    "translation": "Editor"
+  },
+  "editorSettings.editor.monaco": {
+    "translation": "Monaco"
+  },
+  "editorSettings.editorMode.emacs": {
+    "translation": "Emacs"
+  },
+  "editorSettings.editorMode.heading": {
+    "translation": "Mode Editor *"
+  },
+  "editorSettings.editorMode.vim": {
+    "translation": "Vim"
+  },
+  "editorSettings.editorTheme": {
+    "translation": "Tema Editor"
+  },
+  "editorSettings.emmet": {
+    "translation": "Aktifkan Emmet *"
+  },
+  "editorSettings.foldRegions": {
+    "translation": "Lipat (tutup) region *"
+  },
+  "editorSettings.fontFamily": {
+    "translation": "Keluarga Font"
+  },
+  "editorSettings.fontSize": {
+    "translation": "Ukuran Font"
+  },
+  "editorSettings.format": {
+    "translation": "Format"
+  },
+  "editorSettings.heading": {
+    "translation": "Pengaturan Editor"
+  },
+  "editorSettings.lineNumbers": {
+    "translation": "Tampilkan nomor baris"
+  },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "Nomor baris relatif *"
+  },
+  "editorSettings.notAvailableInCodeJar": {
+    "translation": "Tidak tersedia di CodeJar"
+  },
+  "editorSettings.preview": {
+    "translation": "Pratinjau"
+  },
+  "editorSettings.semicolons": {
+    "translation": "Format: Gunakan Titik Koma"
+  },
+  "editorSettings.singleQuote": {
+    "translation": "Format: Gunakan Tanda Kutip Tunggal"
+  },
+  "editorSettings.tabSize": {
+    "translation": "Ukuran Tab"
+  },
+  "editorSettings.theme": {
+    "translation": "Mode Gelap"
+  },
+  "editorSettings.trailingComma": {
+    "translation": "Format: Gunakan Koma Akhir"
+  },
+  "editorSettings.useTabs.heading": {
+    "translation": "Indentasi"
+  },
+  "editorSettings.useTabs.spaces": {
+    "translation": "Spasi"
+  },
+  "editorSettings.useTabs.tabs": {
+    "translation": "Tab"
+  },
+  "editorSettings.wordWrap": {
+    "translation": "Bungkus kata"
+  },
+  "embed.activeEditor.heading": {
+    "translation": "Editor Aktif"
+  },
+  "embed.activeEditor.markup": {
+    "translation": "{{markup}}"
+  },
+  "embed.activeEditor.script": {
+    "translation": "{{script}}"
+  },
+  "embed.activeEditor.style": {
+    "translation": "{{style}}"
+  },
+  "embed.activeTool.compiled": {
+    "translation": "Dikompilasi"
+  },
+  "embed.activeTool.console": {
+    "translation": "Konsol"
+  },
+  "embed.activeTool.heading": {
+    "translation": "Alat Aktif"
+  },
+  "embed.activeTool.tests": {
+    "translation": "Tes"
+  },
+  "embed.code.copy": {
+    "translation": "Salin Kode"
+  },
+  "embed.code.heading": {
+    "translation": "Kode"
+  },
+  "embed.codeEditor.codeJar": {
+    "translation": "CodeJar"
+  },
+  "embed.codeEditor.codeMirror": {
+    "translation": "CodeMirror"
+  },
+  "embed.codeEditor.default": {
+    "translation": "Default"
+  },
+  "embed.codeEditor.heading": {
+    "translation": "Editor Kode"
+  },
+  "embed.codeEditor.monaco": {
+    "translation": "Monaco"
+  },
+  "embed.desc": {
+    "translation": "Silakan periksa <tag-1>dokumentasi</tag-1> untuk konfigurasi lanjutan."
+  },
+  "embed.embedType.cdn": {
+    "translation": "Skrip (CDN)"
+  },
+  "embed.embedType.heading": {
+    "translation": "Tipe Embed"
+  },
+  "embed.embedType.html": {
+    "translation": "HTML"
+  },
+  "embed.embedType.iframe": {
+    "translation": "Iframe"
+  },
+  "embed.embedType.npm": {
+    "translation": "JS (npm)"
+  },
+  "embed.embedType.react": {
+    "translation": "React"
+  },
+  "embed.embedType.svelte": {
+    "translation": "Svelte"
+  },
+  "embed.embedType.vue": {
+    "translation": "Vue"
+  },
+  "embed.heading": {
+    "translation": "Embed Proyek"
+  },
+  "embed.layout.heading": {
+    "translation": "Tata Letak"
+  },
+  "embed.layout.horizontal": {
+    "translation": "Horizontal"
+  },
+  "embed.layout.responsive": {
+    "translation": "Responsif"
+  },
+  "embed.layout.vertical": {
+    "translation": "Vertikal"
+  },
+  "embed.lite": {
+    "translation": "Mode Lite"
+  },
+  "embed.loading.click": {
+    "translation": "Saat diklik"
+  },
+  "embed.loading.eager": {
+    "translation": "Eager"
+  },
+  "embed.loading.heading": {
+    "translation": "Memuat"
+  },
+  "embed.loading.lazy": {
+    "translation": "Lazy"
+  },
+  "embed.mode.codeblock": {
+    "translation": "Blok Kode"
+  },
+  "embed.mode.editor": {
+    "translation": "Editor"
+  },
+  "embed.mode.full": {
+    "translation": "Penuh"
+  },
+  "embed.mode.heading": {
+    "translation": "Mode Tampilan"
+  },
+  "embed.mode.result": {
+    "translation": "Hasil"
+  },
+  "embed.mode.simple": {
+    "translation": "Sederhana"
+  },
+  "embed.permanentUrl": {
+    "translation": "URL Permanen"
+  },
+  "embed.preview": {
+    "translation": "Pratinjau"
+  },
+  "embed.previewLoading": {
+    "translation": "Memuat Pratinjau..."
+  },
+  "embed.readonly": {
+    "translation": "Hanya baca"
+  },
+  "embed.theme.dark": {
+    "translation": "Gelap"
+  },
+  "embed.theme.heading": {
+    "translation": "Tema"
+  },
+  "embed.theme.light": {
+    "translation": "Terang"
+  },
+  "embed.tools.closed": {
+    "translation": "Tertutup"
+  },
+  "embed.tools.full": {
+    "translation": "Penuh"
+  },
+  "embed.tools.heading": {
+    "translation": "Alat"
+  },
+  "embed.tools.none": {
+    "translation": "Tidak Ada"
+  },
+  "embed.tools.open": {
+    "translation": "Terbuka"
+  },
+  "embed.view.editor": {
+    "translation": "Editor"
+  },
+  "embed.view.heading": {
+    "translation": "Tampilan Default"
+  },
+  "embed.view.result": {
+    "translation": "Hasil"
+  },
+  "embed.view.split": {
+    "translation": "Pisah"
+  },
+  "generic.about.blog": {
+    "translation": "Blog"
+  },
+  "generic.about.configuration": {
+    "translation": "Konfigurasi"
+  },
+  "generic.about.gettingStarted": {
+    "translation": "Memulai"
+  },
+  "generic.about.github": {
+    "translation": "GitHub"
+  },
+  "generic.about.sdk": {
+    "translation": "SDK LiveCodes"
+  },
+  "generic.about.sponsor": {
+    "translation": "Sponsor"
+  },
+  "generic.about.twitter": {
+    "translation": "𝕏 / Twitter"
+  },
+  "generic.clickForInfo": {
+    "translation": "Klik untuk info..."
+  },
+  "generic.close": {
+    "translation": "Tutup"
+  },
+  "generic.custom": {
+    "translation": "Kustom"
+  },
+  "generic.embed.logoHint": {
+    "translation": "Edit di LiveCodes 🡕"
+  },
+  "generic.error.authentication": {
+    "translation": "Error autentikasi!"
+  },
+  "generic.error.exceededSize": {
+    "translation": "Error: Melebihi ukuran {{size}} MB"
+  },
+  "generic.error.failedToReadFile": {
+    "translation": "Error: Gagal membaca file"
+  },
+  "generic.loading": {
+    "translation": "Memuat..."
+  },
+  "generic.more": {
+    "translation": "Lainnya..."
+  },
+  "generic.optional": {
+    "translation": "Opsional"
+  },
+  "generic.required": {
+    "translation": "Wajib"
+  },
+  "generic.tagline": {
+    "translation": "Code Playground yang Langsung Berfungsi!"
+  },
+  "import.bulk.desc": {
+    "translation": "Impor massal beberapa proyek ke proyek tersimpan Anda. Proyek dapat diekspor dari layar <tag-1>Proyek Tersimpan</tag-1>."
+  },
+  "import.bulk.fromFile": {
+    "translation": "Impor massal dari file lokal"
+  },
+  "import.bulk.fromURL": {
+    "translation": "Impor massal dari URL"
+  },
+  "import.bulk.heading": {
+    "translation": "Impor Massal"
+  },
+  "import.bulk.started": {
+    "translation": "Impor massal dimulai..."
+  },
+  "import.code.desc": {
+    "translation": "Sumber yang Didukung: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>File GitHub</tag-3> <tag-4>Direktori di repo GitHub</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>File Gitlab</tag-6> <tag-7>Direktori di repo Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Kode mentah</tag-9> <tag-10>Kode di DOM halaman web</tag-10> <tag-11>Kode di file zip</tag-11> <tag-12>Kode di gambar (OCR)</tag-12> <tag-13>Playground resmi<tag-14></tag-14>(TypeScript dan Vue)</tag-13> </tag-1> Silakan kunjungi <tag-15>dokumentasi</tag-15> untuk detail."
+  },
+  "import.code.fromFile": {
+    "translation": "Impor file lokal"
+  },
+  "import.code.fromURL": {
+    "translation": "Impor dari URL"
+  },
+  "import.code.heading": {
+    "translation": "Impor Kode"
+  },
+  "import.error.failedToLoadURL": {
+    "translation": "Error: gagal memuat URL"
+  },
+  "import.error.invalidConfigFile": {
+    "translation": "File konfigurasi tidak valid"
+  },
+  "import.error.invalidFile": {
+    "translation": "Error: File tidak valid"
+  },
+  "import.generic.file": {
+    "translation": "File lokal"
+  },
+  "import.generic.url": {
+    "translation": "URL"
+  },
+  "import.heading": {
+    "translation": "Impor"
+  },
+  "import.json.desc": {
+    "translation": "Impor satu proyek JSON ke editor. Proyek dapat diekspor dari menu&nbsp;aplikasi&nbsp;→ Ekspor&nbsp;→ Ekspor&nbsp;Proyek&nbsp;(JSON)."
+  },
+  "import.json.fromFile": {
+    "translation": "Impor proyek dari file lokal"
+  },
+  "import.json.fromURL": {
+    "translation": "Impor proyek dari URL"
+  },
+  "import.json.heading": {
+    "translation": "Impor Proyek JSON"
+  },
+  "import.success": {
+    "translation": "Impor Berhasil!"
+  },
+  "keyboardShortcuts.command": {
+    "translation": "Perintah"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "Untuk daftar pintasan keyboard editor kode, lihat <tag-1> pintasan VS Code</tag-1>"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "Pintasan Keyboard"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "Tombol"
+  },
+  "login.accessAllowed": {
+    "translation": "Izinkan akses ke:"
+  },
+  "login.desc": {
+    "translation": "<tag-1>Dengan masuk, Anda setuju bahwa <tag-2>cookie</tag-2> dapat disimpan di perangkat Anda.</tag-1> <tag-3> <tag-4>Mengapa izin ini diperlukan?</tag-4> </tag-3> <tag-5> <tag-6>Bagaimana cara mengubah/mencabut izin?</tag-6> </tag-5>"
+  },
+  "login.gist": {
+    "translation": "Gist"
+  },
+  "login.heading": {
+    "translation": "Masuk dengan GitHub"
+  },
+  "login.loginAs": {
+    "translation": "Masuk sebagai {{name}}"
+  },
+  "login.loginBtn": {
+    "translation": "Masuk"
+  },
+  "login.logout": {
+    "translation": "Keluar"
+  },
+  "login.privateRepo": {
+    "translation": "Repo Pribadi"
+  },
+  "login.publicRepo": {
+    "translation": "Repo"
+  },
+  "menu.about": {
+    "translation": "Tentang ..."
+  },
+  "menu.appHelp.heading": {
+    "translation": "Bantuan"
+  },
+  "menu.appHelp.hint": {
+    "translation": "Bantuan"
+  },
+  "menu.appProject.heading": {
+    "translation": "Proyek"
+  },
+  "menu.appProject.hint": {
+    "translation": "Proyek"
+  },
+  "menu.appSettings.heading": {
+    "translation": "Pengaturan"
+  },
+  "menu.appSettings.hint": {
+    "translation": "Pengaturan Aplikasi"
+  },
+  "menu.assets": {
+    "translation": "Aset …"
+  },
+  "menu.autoSave": {
+    "translation": "Simpan Otomatis"
+  },
+  "menu.autoUpdate": {
+    "translation": "Update Otomatis"
+  },
+  "menu.backup": {
+    "translation": "Cadangkan / Pulihkan …"
+  },
+  "menu.blog": {
+    "translation": "Blog LiveCodes"
+  },
+  "menu.broadcast": {
+    "translation": "Siaran …"
+  },
+  "menu.commandMenu": {
+    "translation": "Menu Perintah"
+  },
+  "menu.config": {
+    "translation": "Konfigurasi"
+  },
+  "menu.customSettings": {
+    "translation": "Pengaturan Kustom …"
+  },
+  "menu.delay.heading": {
+    "translation": "Delay: <tag-1>1.5</tag-1>d"
+  },
+  "menu.delay.hint": {
+    "translation": "Delay sebelum update otomatis"
+  },
+  "menu.deploy": {
+    "translation": "Deploy …"
+  },
+  "menu.docs": {
+    "translation": "Dokumentasi"
+  },
+  "menu.editorSettings": {
+    "translation": "Pengaturan Editor …"
+  },
+  "menu.embed": {
+    "translation": "Embed …"
+  },
+  "menu.export.codepen": {
+    "translation": "Edit di CodePen"
+  },
+  "menu.export.gist": {
+    "translation": "Ekspor ke GitHub Gist"
+  },
+  "menu.export.heading": {
+    "translation": "Ekspor"
+  },
+  "menu.export.jsfiddle": {
+    "translation": "Edit di JSFiddle"
+  },
+  "menu.export.json": {
+    "translation": "Ekspor Proyek (JSON)"
+  },
+  "menu.export.result": {
+    "translation": "Ekspor Hasil (HTML)"
+  },
+  "menu.export.src": {
+    "translation": "Ekspor Sumber (ZIP)"
+  },
+  "menu.features": {
+    "translation": "Fitur"
+  },
+  "menu.formatOnsave": {
+    "translation": "Format Saat Menyimpan"
+  },
+  "menu.getstart": {
+    "translation": "Memulai"
+  },
+  "menu.import": {
+    "translation": "Impor …"
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "Pintasan Keyboard"
+  },
+  "menu.layout": {
+    "translation": "Tata Letak Vertikal"
+  },
+  "menu.license": {
+    "translation": "Lisensi"
+  },
+  "menu.login": {
+    "translation": "Masuk"
+  },
+  "menu.logout": {
+    "translation": "Keluar"
+  },
+  "menu.new": {
+    "translation": "Baru …"
+  },
+  "menu.open": {
+    "translation": "Buka …"
+  },
+  "menu.project": {
+    "translation": "Info Proyek …"
+  },
+  "menu.recoverUnsaved": {
+    "translation": "Pulihkan yang Belum Disimpan"
+  },
+  "menu.report": {
+    "translation": "Laporkan masalah"
+  },
+  "menu.resources": {
+    "translation": "Sumber Daya Eksternal …"
+  },
+  "menu.save": {
+    "translation": "Simpan"
+  },
+  "menu.saveAs.fork": {
+    "translation": "Fork (Proyek Baru)"
+  },
+  "menu.saveAs.heading": {
+    "translation": "Simpan sebagai …"
+  },
+  "menu.saveAs.template": {
+    "translation": "Template"
+  },
+  "menu.sdk": {
+    "translation": "SDK"
+  },
+  "menu.share": {
+    "translation": "Bagikan …"
+  },
+  "menu.showSpacing.heading": {
+    "translation": "Tampilkan Spasi"
+  },
+  "menu.showSpacing.hint": {
+    "translation": "Tekan Alt/Option dan gerakkan kursor Anda di atas halaman hasil"
+  },
+  "menu.showWelcome.title": {
+    "translation": "Tampilkan layar Selamat datang saat startup"
+  },
+  "menu.snippets": {
+    "translation": "Potongan Kode …"
+  },
+  "menu.source": {
+    "translation": "Kode sumber di GitHub"
+  },
+  "menu.sync": {
+    "translation": "Sinkronisasi (beta) … <tag-1> ⏳</tag-1>"
+  },
+  "menu.theme": {
+    "translation": "Tema Gelap"
+  },
+  "menu.themeColor": {
+    "translation": "Warna"
+  },
+  "menu.welcome.heading": {
+    "translation": "Selamat datang …"
+  },
+  "open.action.delete": {
+    "translation": "Hapus"
+  },
+  "open.defaultTemplate": {
+    "translation": "Template default "
+  },
+  "open.delete.all": {
+    "translation": "Hapus {{projects}} proyek?"
+  },
+  "open.delete.deleting": {
+    "translation": "Menghapus proyek..."
+  },
+  "open.delete.one": {
+    "translation": "Hapus proyek: {{project}}?"
+  },
+  "open.deleteAll": {
+    "translation": "Hapus Semua"
+  },
+  "open.exportAll": {
+    "translation": "Ekspor Semua"
+  },
+  "open.filter.language": {
+    "translation": "filter berdasarkan bahasa"
+  },
+  "open.filter.tag": {
+    "translation": "filter berdasarkan tag"
+  },
+  "open.heading": {
+    "translation": "Proyek Tersimpan"
+  },
+  "open.import": {
+    "translation": "Impor"
+  },
+  "open.lastModified": {
+    "translation": "Terakhir diubah: {{modified}}"
+  },
+  "open.noData.desc": {
+    "translation": "Anda dapat menyimpan proyek dari (menu&nbsp;pengaturan&nbsp;&gt;&nbsp;Simpan) atau dengan pintasan keyboard (Ctrl/⌘&nbsp;+&nbsp;S)."
+  },
+  "open.noData.heading": {
+    "translation": "Anda tidak memiliki proyek yang tersimpan."
+  },
+  "open.noMatch": {
+    "translation": "Tidak ada proyek yang cocok dengan filter ini."
+  },
+  "open.placeholder.allLanguages": {
+    "translation": "Semua bahasa"
+  },
+  "open.placeholder.filterByTags": {
+    "translation": "Filter berdasarkan tag"
+  },
+  "open.placeholder.search": {
+    "translation": "Cari"
+  },
+  "open.removeDefault": {
+    "translation": "(hapus)"
+  },
+  "open.reset": {
+    "translation": "Atur Ulang"
+  },
+  "open.setAsDefault": {
+    "translation": "Tetapkan sebagai default"
+  },
+  "open.sort.heading": {
+    "translation": "Urutkan Berdasarkan:"
+  },
+  "open.sort.lastModified": {
+    "translation": "Terakhir Diubah"
+  },
+  "open.sort.title": {
+    "translation": "Judul"
+  },
+  "project.desc": {
+    "translation": "Deskripsi"
+  },
+  "project.head": {
+    "translation": "Tambahkan ke &lt;head&gt;"
+  },
+  "project.heading": {
+    "translation": "Info Proyek"
+  },
+  "project.htmlAttr": {
+    "translation": "Atribut untuk &lt;html&gt;"
+  },
+  "project.tags": {
+    "translation": "Tag"
+  },
+  "project.title": {
+    "translation": "Judul Proyek"
+  },
+  "recoverPrompt.desc": {
+    "translation": "Proyek terakhir Anda memiliki perubahan yang belum disimpan!"
+  },
+  "recoverPrompt.heading": {
+    "translation": "Pulihkan proyek yang belum disimpan?"
+  },
+  "recoverPrompt.meta": {
+    "translation": "Judul: <tag-1></tag-1> <tag-2></tag-2> Terakhir diubah: <tag-3></tag-3>"
+  },
+  "recoverPrompt.notShowAgain": {
+    "translation": "Jangan tampilkan ini lagi."
+  },
+  "recoverPrompt.prompt.discard": {
+    "translation": "Buang proyek yang belum disimpan"
+  },
+  "recoverPrompt.prompt.heading": {
+    "translation": "<tag-1></tag-1>Apakah Anda ingin memulihkannya sekarang?"
+  },
+  "recoverPrompt.prompt.recover": {
+    "translation": "Pulihkan proyek ke editor"
+  },
+  "recoverPrompt.prompt.save": {
+    "translation": "Simpan ke perangkat dan lanjutkan"
+  },
+  "resources.browseOnJsDelivr": {
+    "translation": "Telusuri file paket di jsDelivr"
+  },
+  "resources.cssPresets.heading": {
+    "translation": "Preset CSS"
+  },
+  "resources.cssPresets.none": {
+    "translation": "Tidak Ada"
+  },
+  "resources.cssPresets.normalizeCss": {
+    "translation": "Normalize.css"
+  },
+  "resources.cssPresets.resetCss": {
+    "translation": "Reset CSS"
+  },
+  "resources.error.failedToLoadResults": {
+    "translation": "Gagal memuat hasil!"
+  },
+  "resources.error.noResultsFound": {
+    "translation": "Tidak ada hasil ditemukan untuk: "
+  },
+  "resources.fonts.add": {
+    "translation": "Tambah"
+  },
+  "resources.fonts.heading": {
+    "translation": "Font <tag-1>(didukung oleh Google Fonts)</tag-1>"
+  },
+  "resources.fonts.select": {
+    "translation": "Pilih font ..."
+  },
+  "resources.heading": {
+    "translation": "Sumber Daya Eksternal"
+  },
+  "resources.scripts": {
+    "translation": "Skrip Eksternal"
+  },
+  "resources.search.heading": {
+    "translation": "Cari Paket <tag-1>(didukung oleh jsDelivr)</tag-1>"
+  },
+  "resources.search.placeholder": {
+    "translation": "misal jquery, lodash@4, bootstrap@5.2.3, ..."
+  },
+  "resources.stylesheets": {
+    "translation": "Stylesheet Eksternal"
+  },
+  "resources.urlDesc": {
+    "translation": "Tambahkan URL stylesheet/skrip. Setiap URL harus di baris terpisah."
+  },
+  "resultMode.linkText": {
+    "translation": "Edit di LiveCodes"
+  },
+  "savePrompt.heading": {
+    "translation": "Perubahan belum disimpan"
+  },
+  "savePrompt.prompt.cancel": {
+    "translation": "Batal"
+  },
+  "savePrompt.prompt.discard": {
+    "translation": "Jangan simpan"
+  },
+  "savePrompt.prompt.heading": {
+    "translation": "Perubahan yang Anda buat mungkin tidak tersimpan. <tag-1></tag-1> Apakah Anda ingin menyimpan sekarang?"
+  },
+  "savePrompt.prompt.save": {
+    "translation": "Simpan"
+  },
+  "share.characters": {
+    "translation": "{{urlLength}} karakter"
+  },
+  "share.copy.clickToCopy": {
+    "translation": "Klik untuk menyalin"
+  },
+  "share.copy.copied": {
+    "translation": "URL disalin ke clipboard"
+  },
+  "share.encodedURL": {
+    "translation": "Dapatkan URL yang dikodekan"
+  },
+  "share.error.failedToCopy": {
+    "translation": "Salin ke clipboard gagal!"
+  },
+  "share.error.failedToGenerateURL": {
+    "translation": "Gagal menghasilkan URL pendek!"
+  },
+  "share.expireInOneYear": {
+    "translation": "Kedaluwarsa dalam 1 tahun"
+  },
+  "share.generateURL": {
+    "translation": "Menghasilkan URL …"
+  },
+  "share.heading": {
+    "translation": "Bagikan"
+  },
+  "share.permanentURL": {
+    "translation": "URL Permanen"
+  },
+  "share.qrcode.clickToDownload": {
+    "translation": "Klik untuk mengunduh"
+  },
+  "share.qrcode.generating": {
+    "translation": "Menghasilkan..."
+  },
+  "share.services.devTo": {
+    "translation": "Dev.to"
+  },
+  "share.services.email": {
+    "translation": "Email"
+  },
+  "share.services.facebook": {
+    "translation": "Facebook"
+  },
+  "share.services.hackerNews": {
+    "translation": "Hacker News"
+  },
+  "share.services.linkedIn": {
+    "translation": "LinkedIn"
+  },
+  "share.services.pinterest": {
+    "translation": "Pinterest"
+  },
+  "share.services.pocket": {
+    "translation": "Pocket"
+  },
+  "share.services.qrCode": {
+    "translation": "Kode QR"
+  },
+  "share.services.reddit": {
+    "translation": "Reddit"
+  },
+  "share.services.share": {
+    "translation": "Bagikan melalui …"
+  },
+  "share.services.telegram": {
+    "translation": "Telegram"
+  },
+  "share.services.tumblr": {
+    "translation": "Tumblr"
+  },
+  "share.services.twitter": {
+    "translation": "𝕏 / Twitter"
+  },
+  "share.services.whatsApp": {
+    "translation": "WhatsApp"
+  },
+  "share.shortURL": {
+    "translation": "Dapatkan URL pendek"
+  },
+  "snippets.action.copy": {
+    "translation": "Salin"
+  },
+  "snippets.action.delete": {
+    "translation": "Hapus"
+  },
+  "snippets.action.edit": {
+    "translation": "Edit"
+  },
+  "snippets.add.code": {
+    "translation": "Kode"
+  },
+  "snippets.add.desc": {
+    "translation": "Deskripsi"
+  },
+  "snippets.add.heading": {
+    "translation": "Tambah Potongan"
+  },
+  "snippets.add.language": {
+    "translation": "Bahasa"
+  },
+  "snippets.add.save": {
+    "translation": "Simpan"
+  },
+  "snippets.add.snippets": {
+    "translation": "Potongan"
+  },
+  "snippets.add.title": {
+    "translation": "Judul"
+  },
+  "snippets.copy.clickToCopySnippet": {
+    "translation": "Klik untuk menyalin potongan"
+  },
+  "snippets.copy.copied": {
+    "translation": "Potongan disalin ke clipboard."
+  },
+  "snippets.delete.all": {
+    "translation": "Hapus {{snippets}} potongan?"
+  },
+  "snippets.delete.one": {
+    "translation": "Hapus potongan: {{snippet}}?"
+  },
+  "snippets.deleteAll": {
+    "translation": "Hapus Semua"
+  },
+  "snippets.error.failedToCopy": {
+    "translation": "Gagal menyalin URL."
+  },
+  "snippets.error.noTitle": {
+    "translation": "Silakan tambahkan judul potongan."
+  },
+  "snippets.filter.language": {
+    "translation": "filter berdasarkan bahasa"
+  },
+  "snippets.heading": {
+    "translation": "Potongan Kode"
+  },
+  "snippets.lastModified": {
+    "translation": "Terakhir diubah: {{modified}}"
+  },
+  "snippets.noMatch": {
+    "translation": "Tidak ada potongan yang cocok dengan filter ini."
+  },
+  "snippets.noSavedSnippets": {
+    "translation": "Anda tidak memiliki potongan yang tersimpan."
+  },
+  "snippets.placeholder.allLanguages": {
+    "translation": "Semua bahasa"
+  },
+  "snippets.placeholder.search": {
+    "translation": "Cari"
+  },
+  "snippets.reset": {
+    "translation": "Atur Ulang"
+  },
+  "snippets.save.success": {
+    "translation": "Potongan berhasil disimpan secara lokal ke perangkat!"
+  },
+  "snippets.sort.date": {
+    "translation": "Tanggal"
+  },
+  "snippets.sort.heading": {
+    "translation": "Urutkan Berdasarkan:"
+  },
+  "snippets.sort.title": {
+    "translation": "Judul"
+  },
+  "snippets.text": {
+    "translation": "Teks Biasa"
+  },
+  "splash.loading": {
+    "translation": "Memuat LiveCodes…"
+  },
+  "sync.autoSync": {
+    "translation": "Sinkronisasi otomatis"
+  },
+  "sync.create.desc": {
+    "translation": "Repo <tag-1>pribadi</tag-1> baru akan dibuat. Data lokal LiveCodes Anda akan disinkronkan dengan branch <tag-2>main</tag-2>."
+  },
+  "sync.create.heading": {
+    "translation": "Buat Repo Baru"
+  },
+  "sync.create.repoName": {
+    "translation": "Nama Repo"
+  },
+  "sync.error.generic": {
+    "translation": "Sinkronisasi gagal!"
+  },
+  "sync.error.repoNameRequired": {
+    "translation": "Nama repo diperlukan"
+  },
+  "sync.existing.desc": {
+    "translation": "Data lokal LiveCodes Anda akan disinkronkan dengan branch <tag-1>main</tag-1>."
+  },
+  "sync.existing.heading": {
+    "translation": "Repo yang Ada"
+  },
+  "sync.existing.repoName": {
+    "translation": "Nama Repo"
+  },
+  "sync.heading": {
+    "translation": "Sinkronkan ke Repo GitHub"
+  },
+  "sync.searchRepos": {
+    "translation": "Cari repo Anda..."
+  },
+  "sync.success": {
+    "translation": "Sinkronisasi selesai!"
+  },
+  "sync.syncBtn": {
+    "translation": "Sinkronkan"
+  },
+  "sync.syncInProgress": {
+    "translation": "Sinkronisasi sedang berlangsung..."
+  },
+  "sync.syncStarted": {
+    "translation": "Sinkronisasi dimulai..."
+  },
+  "templates.heading": {
+    "translation": "Proyek Baru"
+  },
+  "templates.noUserTemplates.desc": {
+    "translation": "Anda dapat menyimpan proyek sebagai template dari <tag-1></tag-1>(Menu&nbsp;aplikasi&nbsp;&gt;&nbsp;Simpan&nbsp;sebagai&nbsp;&gt; Template)."
+  },
+  "templates.noUserTemplates.heading": {
+    "translation": "Anda tidak memiliki template yang tersimpan."
+  },
+  "templates.search.label": {
+    "translation": "Cari di templat"
+  },
+  "templates.search.placeholder": {
+    "translation": "Cari di templat..."
+  },
+  "templates.starter.angular": {
+    "translation": "Pemula Angular"
+  },
+  "templates.starter.assemblyscript": {
+    "translation": "Pemula AssemblyScript"
+  },
+  "templates.starter.astro": {
+    "translation": "Pemula Astro"
+  },
+  "templates.starter.backbone": {
+    "translation": "Pemula Backbone"
+  },
+  "templates.starter.blank": {
+    "translation": "Proyek Kosong"
+  },
+  "templates.starter.blockly": {
+    "translation": "Pemula Blockly"
+  },
+  "templates.starter.bootstrap": {
+    "translation": "Pemula Bootstrap"
+  },
+  "templates.starter.civet": {
+    "translation": "Pemula Civet"
+  },
+  "templates.starter.clio": {
+    "translation": "Pemula Clio"
+  },
+  "templates.starter.clojurescript": {
+    "translation": "Pemula ClojureScript"
+  },
+  "templates.starter.coffeescript": {
+    "translation": "Pemula CoffeeScript"
+  },
+  "templates.starter.commonlisp": {
+    "translation": "Pemula Common Lisp"
+  },
+  "templates.starter.cpp": {
+    "translation": "Pemula C++"
+  },
+  "templates.starter.cpp-wasm": {
+    "translation": "Pemula C++ (Wasm)"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "Pemula C# (Wasm)"
+  },
+  "templates.starter.d3": {
+    "translation": "Pemula D3"
+  },
+  "templates.starter.daisyui": {
+    "translation": "Pemula daisyUI"
+  },
+  "templates.starter.diagrams": {
+    "translation": "Pemula Diagram"
+  },
+  "templates.starter.fennel": {
+    "translation": "Pemula Fennel"
+  },
+  "templates.starter.gleam": {
+    "translation": "Pemula Gleam"
+  },
+  "templates.starter.go": {
+    "translation": "Pemula Go"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Pemula Go (Wasm)"
+  },
+  "templates.starter.heading": {
+    "translation": "Template Pemula"
+  },
+  "templates.starter.imba": {
+    "translation": "Pemula Imba"
+  },
+  "templates.starter.java": {
+    "translation": "Pemula Java"
+  },
+  "templates.starter.javascript": {
+    "translation": "Pemula JavaScript"
+  },
+  "templates.starter.jest": {
+    "translation": "Pemula Jest"
+  },
+  "templates.starter.jest-react": {
+    "translation": "Pemula Jest/React"
+  },
+  "templates.starter.jquery": {
+    "translation": "Pemula jQuery"
+  },
+  "templates.starter.julia": {
+    "translation": "Pemula Julia"
+  },
+  "templates.starter.knockout": {
+    "translation": "Pemula Knockout"
+  },
+  "templates.starter.lit": {
+    "translation": "Pemula Lit"
+  },
+  "templates.starter.livescript": {
+    "translation": "Pemula LiveScript"
+  },
+  "templates.starter.loading": {
+    "translation": "Memuat template pemula..."
+  },
+  "templates.starter.lua": {
+    "translation": "Pemula Lua"
+  },
+  "templates.starter.lua-wasm": {
+    "translation": "Pemula Lua (Wasm)"
+  },
+  "templates.starter.malina": {
+    "translation": "Pemula Malina.js"
+  },
+  "templates.starter.markdown": {
+    "translation": "Pemula Markdown"
+  },
+  "templates.starter.mdx": {
+    "translation": "Pemula MDX"
+  },
+  "templates.starter.minizinc": {
+    "translation": "Pemula MiniZinc"
+  },
+  "templates.starter.ocaml": {
+    "translation": "Pemula Ocaml"
+  },
+  "templates.starter.perl": {
+    "translation": "Pemula Perl"
+  },
+  "templates.starter.phaser": {
+    "translation": "Pemula Phaser"
+  },
+  "templates.starter.php": {
+    "translation": "Pemula PHP"
+  },
+  "templates.starter.php-wasm": {
+    "translation": "Pemula PHP (Wasm)"
+  },
+  "templates.starter.postgresql": {
+    "translation": "Pemula PostgreSQL"
+  },
+  "templates.starter.preact": {
+    "translation": "Pemula Preact"
+  },
+  "templates.starter.prolog": {
+    "translation": "Pemula Prolog"
+  },
+  "templates.starter.python": {
+    "translation": "Pemula Python"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Pemula Python (Wasm)"
+  },
+  "templates.starter.r": {
+    "translation": "Pemula R"
+  },
+  "templates.starter.react": {
+    "translation": "Pemula React"
+  },
+  "templates.starter.react-native": {
+    "translation": "Pemula React Native"
+  },
+  "templates.starter.reason": {
+    "translation": "Pemula Reason"
+  },
+  "templates.starter.rescript": {
+    "translation": "Pemula ReScript"
+  },
+  "templates.starter.riot": {
+    "translation": "Pemula Riot.js"
+  },
+  "templates.starter.ruby": {
+    "translation": "Pemula Ruby"
+  },
+  "templates.starter.ruby-wasm": {
+    "translation": "Pemula Ruby (Wasm)"
+  },
+  "templates.starter.scheme": {
+    "translation": "Pemula Scheme"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "Pemula shadcn/ui"
+  },
+  "templates.starter.solid": {
+    "translation": "Pemula Solid"
+  },
+  "templates.starter.sql": {
+    "translation": "Pemula SQL"
+  },
+  "templates.starter.stencil": {
+    "translation": "Pemula Stencil"
+  },
+  "templates.starter.svelte": {
+    "translation": "Pemula Svelte"
+  },
+  "templates.starter.tailwindcss": {
+    "translation": "Pemula Tailwind CSS"
+  },
+  "templates.starter.tcl": {
+    "translation": "Pemula Tcl"
+  },
+  "templates.starter.teal": {
+    "translation": "Pemula Teal"
+  },
+  "templates.starter.typescript": {
+    "translation": "Pemula TypeScript"
+  },
+  "templates.starter.vue": {
+    "translation": "Pemula Vue SFC"
+  },
+  "templates.starter.vue2": {
+    "translation": "Pemula Vue 2"
+  },
+  "templates.starter.wat": {
+    "translation": "Pemula Teks WebAssembly"
+  },
+  "templates.user.heading": {
+    "translation": "Template Saya"
+  },
+  "templates.user.loading": {
+    "translation": "Memuat template pengguna..."
+  },
+  "testEditor.heading": {
+    "translation": "Edit Tes"
+  },
+  "testEditor.load": {
+    "translation": "Muat"
+  },
+  "testEditor.tests": {
+    "translation": "Tes"
+  },
+  "testSettings.desc": {
+    "translation": "<tag-1></tag-1> Untuk detail lebih lanjut, silakan lihat <tag-2>dokumentasi</tag-2>"
+  },
+  "toolspane.close": {
+    "translation": "Tutup"
+  },
+  "toolspane.compiled.title": {
+    "translation": "Dikompilasi"
+  },
+  "toolspane.console.clear": {
+    "translation": "Bersihkan konsol"
+  },
+  "toolspane.console.title": {
+    "translation": "Konsol"
+  },
+  "toolspane.test.edit": {
+    "translation": "Edit"
+  },
+  "toolspane.test.error": {
+    "translation": "<tag-1><tag-2>Error tes!</tag-2></tag-1>"
+  },
+  "toolspane.test.loading": {
+    "translation": "<tag-1>Memuat tes...</tag-1>"
+  },
+  "toolspane.test.noTest": {
+    "translation": "<tag-1>Proyek ini tidak memiliki tes!</tag-1>"
+  },
+  "toolspane.test.reset": {
+    "translation": "Atur Ulang"
+  },
+  "toolspane.test.run.desc": {
+    "translation": "Ctrl/⌘ + Alt + T"
+  },
+  "toolspane.test.run.heading": {
+    "translation": "Jalankan"
+  },
+  "toolspane.test.summary.desc": {
+    "translation": "Tes: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<tag-1></tag-1>\nWaktu: {{duration}}d"
+  },
+  "toolspane.test.summary.failed": {
+    "translation": "{{failedNum}} gagal"
+  },
+  "toolspane.test.summary.passed": {
+    "translation": "{{passedNum}} lulus"
+  },
+  "toolspane.test.summary.skipped": {
+    "translation": "{{skippedNum}} dilewati"
+  },
+  "toolspane.test.summary.total": {
+    "translation": "{{totalNum}} total"
+  },
+  "toolspane.test.title": {
+    "translation": "Tes"
+  },
+  "toolspane.test.watch.desc": {
+    "translation": "Jalankan tes saat kode berubah"
+  },
+  "toolspane.test.watch.heading": {
+    "translation": "Pantau"
+  },
+  "welcome.about.documentation": {
+    "translation": "Dokumentasi"
+  },
+  "welcome.about.heading": {
+    "translation": "Tentang LiveCodes"
+  },
+  "welcome.heading": {
+    "translation": "Selamat datang"
+  },
+  "welcome.recent.heading": {
+    "translation": "Terbaru"
+  },
+  "welcome.recover.cancel": {
+    "translation": "Batal"
+  },
+  "welcome.recover.heading": {
+    "translation": "Pulihkan"
+  },
+  "welcome.recover.lastModified": {
+    "translation": "Terakhir diubah:"
+  },
+  "welcome.recover.recover": {
+    "translation": "Pulihkan"
+  },
+  "welcome.recover.save": {
+    "translation": "Simpan"
+  },
+  "welcome.recover.unsavedChanges": {
+    "translation": "Proyek terakhir Anda memiliki perubahan yang belum disimpan:"
+  },
+  "welcome.showOnStartup": {
+    "translation": "Tampilkan saat startup"
+  },
+  "welcome.start.heading": {
+    "translation": "Mulai"
+  },
+  "welcome.start.import": {
+    "translation": "Impor..."
+  },
+  "welcome.start.loadDefaultTemplate": {
+    "translation": "Muat template default"
+  },
+  "welcome.start.new": {
+    "translation": "Baru..."
+  },
+  "welcome.start.noDefaultTemplate": {
+    "translation": "Tidak ada template default"
+  },
+  "welcome.start.open": {
+    "translation": "Buka..."
+  },
+  "welcome.templates.heading": {
+    "translation": "Template Pemula"
+  }
+}

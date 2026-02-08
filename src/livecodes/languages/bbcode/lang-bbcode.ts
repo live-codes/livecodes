@@ -1,13 +1,16 @@
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl } from '../../vendors';
+import { bbobHtmlUrl, bbobPresetHtmlUrl } from '../../vendors';
 
 export const bbcode: LanguageSpecs = {
   name: 'bbcode',
   title: 'BBCode',
   compiler: {
-    url: vendorsBaseUrl + 'bbob/bbob.js',
-    factory: () => async (code) =>
-      (self as any).BBob.bbobHTML(code, (self as any).BBob.presetHTML5()),
+    url: bbobHtmlUrl,
+    factory: () => {
+      (self as any).importScripts(bbobPresetHtmlUrl);
+      return async (code) =>
+        (self as any).BbobHtml.default(code, (self as any).BbobPresetHTML5.default());
+    },
   },
   extensions: ['bbcode', 'bb'],
   editor: 'markup',

@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "将代码复制为 Data URL"
   },
-  "commandMenu.disableAI": {
-    "translation": "禁用 AI 代码助手"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "禁用自动保存"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "禁用 Vim 模式"
-  },
-  "commandMenu.enableAI": {
-    "translation": "启用 AI 代码助手"
   },
   "commandMenu.enableAutoSave": {
     "translation": "启用自动保存"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "启用 Emmet *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "启用 AI 代码助手"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "由 <tag-1> <tag-2> </tag-2> </tag-1> 提供支持"
   },
   "editorSettings.foldRegions": {
     "translation": "折叠（收起）区域 *"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "您没有已保存的模板。"
   },
+  "templates.search.label": {
+    "translation": "在模板中搜索"
+  },
+  "templates.search.placeholder": {
+    "translation": "在模板中搜索..."
+  },
   "templates.starter.angular": {
     "translation": "Angular 启动模板"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "C++（WASM）启动模板"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C#（WASM）启动模板"
+  },
+  "templates.starter.d3": {
+    "translation": "D3 启动模板"
   },
   "templates.starter.daisyui": {
     "translation": "daisyUI 启动模板"
@@ -2022,11 +2022,17 @@
   "templates.starter.mdx": {
     "translation": "MDX 启动模板"
   },
+  "templates.starter.minizinc": {
+    "translation": "MiniZinc 启动模板"
+  },
   "templates.starter.ocaml": {
     "translation": "Ocaml 启动模板"
   },
   "templates.starter.perl": {
     "translation": "Perl 启动模板"
+  },
+  "templates.starter.phaser": {
+    "translation": "Phaser 启动模板"
   },
   "templates.starter.php": {
     "translation": "PHP 启动模板"
@@ -2045,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "Python 启动模板"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Python（WASM）启动模板"
   },
   "templates.starter.r": {
     "translation": "R 启动模板"

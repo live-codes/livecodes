@@ -159,10 +159,10 @@ const config: Config = {
               label: 'Import...',
               href: 'pathname:///../?screen=import',
             },
-            {
-              label: 'AI Code Assistant 🪄',
-              to: '/features/ai',
-            },
+            // {
+            //   label: 'AI Code Assistant 🪄',
+            //   to: '/features/ai',
+            // },
             {
               label: 'Bookmarklet',
               to: '/bookmarklet',
@@ -290,6 +290,7 @@ const config: Config = {
         plugin: ['typedoc-plugin-missing-exports'],
         excludeExternals: true,
         internalModule: '_internal',
+        skipErrorChecking: true,
       },
     ],
     [

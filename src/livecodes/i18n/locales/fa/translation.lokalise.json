@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "کپی کد به صورت آدرس داده"
   },
-  "commandMenu.disableAI": {
-    "translation": "غیرفعال‌سازی دستیار کد هوش مصنوعی"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "غیرفعال‌سازی ذخیره خودکار"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "غیرفعال‌سازی حالت Vim"
-  },
-  "commandMenu.enableAI": {
-    "translation": "فعال‌سازی دستیار کد هوش مصنوعی"
   },
   "commandMenu.enableAutoSave": {
     "translation": "فعال‌سازی ذخیره خودکار"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "فعال‌سازی Emmet *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "فعال‌سازی دستیار کد هوش مصنوعی"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "قدرت گرفته از <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.foldRegions": {
     "translation": "تا کردن (جمع کردن) مناطق *"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "شما هیچ قالب ذخیره‌شده‌ای ندارید."
   },
+  "templates.search.label": {
+    "translation": "جستجو در قالب‌ها"
+  },
+  "templates.search.placeholder": {
+    "translation": "جستجو در قالب‌ها..."
+  },
   "templates.starter.angular": {
     "translation": "شروع کننده انگولار"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "شروع کننده Go (Wasm)"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "شروع کننده C# (Wasm)"
+  },
+  "templates.starter.d3": {
+    "translation": "شروع کننده D3"
   },
   "templates.starter.daisyui": {
     "translation": "شروع کننده daisyUI"
@@ -2022,11 +2022,17 @@
   "templates.starter.mdx": {
     "translation": "شروع کننده MDX"
   },
+  "templates.starter.minizinc": {
+    "translation": "شروع کننده MiniZinc"
+  },
   "templates.starter.ocaml": {
     "translation": "شروع کننده Ocaml"
   },
   "templates.starter.perl": {
     "translation": "شروع کننده Perl"
+  },
+  "templates.starter.phaser": {
+    "translation": "شروع کننده Phaser"
   },
   "templates.starter.php": {
     "translation": "شروع کننده PHP"
@@ -2045,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "شروع کننده پایتون"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "شروع کننده Python (Wasm)"
   },
   "templates.starter.r": {
     "translation": "شروع کننده R"

@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "コードをデータURLとしてコピー"
   },
-  "commandMenu.disableAI": {
-    "translation": "AIコードアシスタントを無効にする"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "オートセーブを無効にする"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "Vimモードを無効にする"
-  },
-  "commandMenu.enableAI": {
-    "translation": "AIコードアシスタントを有効化"
   },
   "commandMenu.enableAutoSave": {
     "translation": "オートセーブを有効にする"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "Emmetを有効化 *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "AIコードアシスタントを有効化"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "提供： <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.foldRegions": {
     "translation": "折りたたみ領域"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "保存されたテンプレートはありません。"
   },
+  "templates.search.label": {
+    "translation": "テンプレートで検索"
+  },
+  "templates.search.placeholder": {
+    "translation": "テンプレートで検索..."
+  },
   "templates.starter.angular": {
     "translation": "Angularスターター"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "C++（Wasm）スターター"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C#（Wasm）スターター"
+  },
+  "templates.starter.d3": {
+    "translation": "D3スターター"
   },
   "templates.starter.daisyui": {
     "translation": "daisyUIスターター"
@@ -2022,11 +2022,17 @@
   "templates.starter.mdx": {
     "translation": "MDXスターター"
   },
+  "templates.starter.minizinc": {
+    "translation": "MiniZincスターター"
+  },
   "templates.starter.ocaml": {
     "translation": "OCamlスターター"
   },
   "templates.starter.perl": {
     "translation": "Perlスターター"
+  },
+  "templates.starter.phaser": {
+    "translation": "Phaserスターター"
   },
   "templates.starter.php": {
     "translation": "PHPスターター"
@@ -2045,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "Pythonスターター"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Python（Wasm）スターター"
   },
   "templates.starter.r": {
     "translation": "Rスターター"

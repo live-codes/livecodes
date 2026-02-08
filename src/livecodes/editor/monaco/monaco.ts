@@ -19,7 +19,7 @@ import type {
 import { pkgInfoService } from '../../services/pkgInfo';
 import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
 import {
-  codeiumProviderUrl,
+  // codeiumProviderUrl,
   emmetMonacoUrl,
   monacoBaseUrl,
   monacoEmacsUrl,
@@ -38,8 +38,7 @@ let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
 let monaco: typeof Monaco;
 const loadedThemes = new Set<string>();
-let codeiumProvider: { dispose: () => void } | undefined;
-// track editors for providing context for AI
+// let codeiumProvider: { dispose: () => void } | undefined;
 let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
 let tailwindcssConfig: any;
 let vueRegistered = false;
@@ -254,6 +253,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     astro: baseUrl + '{{hash:monaco-lang-astro.js}}',
     clio: baseUrl + '{{hash:monaco-lang-clio.js}}',
     imba: baseUrl + '{{hash:monaco-lang-imba.js}}',
+    minizinc: baseUrl + '{{hash:monaco-lang-minizinc.js}}',
+    prolog: baseUrl + '{{hash:monaco-lang-prolog.js}}',
     // sql: baseUrl + '{{hash:monaco-lang-sql.js}}', // TODO: add autocomplete
     wat: baseUrl + '{{hash:monaco-lang-wat.js}}',
   };
@@ -261,6 +262,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   interface CustomLanguageDefinition {
     config?: Monaco.languages.LanguageConfiguration;
     tokens?: Monaco.languages.IMonarchLanguage;
+    completions?: Monaco.languages.CompletionItemProvider;
   }
 
   const addVueSupport = async () => {
@@ -289,6 +291,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       }
       if (mod.tokens) {
         monaco.languages.setMonarchTokensProvider(lang, mod.tokens);
+      }
+      if (mod.completions) {
+        monaco.languages.registerCompletionItemProvider(lang, mod.completions);
       }
     }
   };
@@ -641,7 +646,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     configureEditorMode(settings.editorMode);
     editor.updateOptions(editorOptions);
     setTheme(settings.theme, settings.editorTheme);
-    configureCodeium(settings.enableAI);
+    // configureCodeium(settings.enableAI);
   };
 
   const undo = () => {
@@ -692,27 +697,27 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
-  const configureCodeium = (enabled: boolean) => {
-    if (!enabled) {
-      codeiumProvider?.dispose();
-      codeiumProvider = undefined;
-      return;
-    }
+  // const configureCodeium = (enabled: boolean) => {
+  //   if (!enabled) {
+  //     codeiumProvider?.dispose();
+  //     codeiumProvider = undefined;
+  //     return;
+  //   }
 
-    // already loaded or loading
-    if (codeiumProvider) {
-      return;
-    }
+  //   // already loaded or loading
+  //   if (codeiumProvider) {
+  //     return;
+  //   }
 
-    // avoid race condition between different editors
-    codeiumProvider = { dispose: () => 'loading...' };
+  //   // avoid race condition between different editors
+  //   codeiumProvider = { dispose: () => 'loading...' };
 
-    import(codeiumProviderUrl).then((codeiumModule) => {
-      codeiumProvider = codeiumModule.registerCodeiumProvider(monaco, {
-        getEditors: () => editors,
-      });
-    });
-  };
+  //   import(codeiumProviderUrl).then((codeiumModule) => {
+  //     codeiumProvider = codeiumModule.registerCodeiumProvider(monaco, {
+  //       getEditors: () => editors,
+  //     });
+  //   });
+  // };
 
   const destroy = () => {
     editors = editors.filter((e) => e !== editor);

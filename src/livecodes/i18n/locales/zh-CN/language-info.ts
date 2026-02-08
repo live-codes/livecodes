@@ -149,6 +149,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Java 官方网站    DoppioJVM    在 Y 分钟内学习 X，其中 X=java    加载启动模板</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
     name: 'Java',
   },
+  javascript: {
+    desc: '网络脚本语言',
+    link: '<1> <2>JavaScript on MDN</2> </1> <3> <4>在 Y 分钟内学习 X，其中 X=JavaScript</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载启动模板</8> </7>',
+    name: 'JavaScript',
+  },
   jinja: {
     desc: 'Jinja 是一个快速、富有表现力、可扩展的模板引擎。',
     link: '<1> <2>官方网站</2> </1> <3> <4>模板文档</4> </3> <5> <6> JavaScript 实现</6> </5> <7> <8> LiveCodes 文档</8> </7>',
@@ -205,6 +210,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: '组件时代的 Markdown。 <1> </1> MDX 让您可以在 Markdown 文档中无缝编写 JSX。',
     link: '<1><2>MDX 文档</2></1> <3><4>加载启动模板</4> </3>',
     name: 'MDX',
+  },
+  minizinc: {
+    desc: 'MiniZinc 是一种高级约束建模语言，可让您轻松表达和解决离散优化问题。',
+    link: '<1> <2>MiniZinc 官方网站</2> </1> <3> <4>MiniZinc 文档</4> </3> <5> <6>MiniZinc 教程</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
+    name: 'MiniZinc',
   },
   mjml: {
     desc: 'MJML 是一种标记语言，旨在减轻编写响应式电子邮件的痛苦。',

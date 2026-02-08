@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "Copia il codice come URL dati"
   },
-  "commandMenu.disableAI": {
-    "translation": "Disattivare l'Assistente codice AI"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "Disattivare il salvataggio automatico"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "Disattivare la modalità Vim"
-  },
-  "commandMenu.enableAI": {
-    "translation": "Abilita Assistente AI per il Codice"
   },
   "commandMenu.enableAutoSave": {
     "translation": "Abilita il salvataggio automatico"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "Abilita Emmet *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "Abilita Assistente AI per il Codice"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "Alimentato da <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.foldRegions": {
     "translation": "Piegare (collassare) le regioni *"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "Non hai modelli salvati."
   },
+  "templates.search.label": {
+    "translation": "Ricerca nei modelli"
+  },
+  "templates.search.placeholder": {
+    "translation": "Ricerca nei modelli..."
+  },
   "templates.starter.angular": {
     "translation": "Starter Angular"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "Starter C++ (Wasm)"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "Starter C# (Wasm)"
+  },
+  "templates.starter.d3": {
+    "translation": "Starter D3"
   },
   "templates.starter.daisyui": {
     "translation": "Starter daisyUI"
@@ -2022,11 +2022,17 @@
   "templates.starter.mdx": {
     "translation": "Starter MDX"
   },
+  "templates.starter.minizinc": {
+    "translation": "Starter MiniZinc"
+  },
   "templates.starter.ocaml": {
     "translation": "Starter OCaml"
   },
   "templates.starter.perl": {
     "translation": "Starter Perl"
+  },
+  "templates.starter.phaser": {
+    "translation": "Starter Phaser"
   },
   "templates.starter.php": {
     "translation": "Starter PHP"
@@ -2045,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "Starter Python"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Starter Python (Wasm)"
   },
   "templates.starter.r": {
     "translation": "Starter R"

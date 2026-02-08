@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "نسخ الكود كرابط بيانات"
   },
-  "commandMenu.disableAI": {
-    "translation": "تعطيل مساعد كود الذكاء الاصطناعي"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "تعطيل الحفظ التلقائي"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "تعطيل وضع Vim"
-  },
-  "commandMenu.enableAI": {
-    "translation": "تفعيل مساعد الكود الذكي"
   },
   "commandMenu.enableAutoSave": {
     "translation": "تفعيل الحفظ التلقائي"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "تفعيل Emmet *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "تفعيل مساعد الكود الذكي"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "مدعوم بواسطة <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.foldRegions": {
     "translation": "طيّ المناطق*"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "ليس لديك قوالب محفوظة."
   },
+  "templates.search.label": {
+    "translation": "بحث في القوالب"
+  },
+  "templates.search.placeholder": {
+    "translation": "بحث في القوالب..."
+  },
   "templates.starter.angular": {
     "translation": "قالب Angular"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "قالب C++ (Wasm)"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "قالب C# (Wasm)"
+  },
+  "templates.starter.d3": {
+    "translation": "قالب D3"
   },
   "templates.starter.daisyui": {
     "translation": "قالب daisyUI"
@@ -2022,11 +2022,17 @@
   "templates.starter.mdx": {
     "translation": "قالب MDX"
   },
+  "templates.starter.minizinc": {
+    "translation": "قالب MiniZinc"
+  },
   "templates.starter.ocaml": {
     "translation": "قالب Ocaml"
   },
   "templates.starter.perl": {
     "translation": "قالب Perl"
+  },
+  "templates.starter.phaser": {
+    "translation": "قالب Phaser"
   },
   "templates.starter.php": {
     "translation": "قالب PHP"
@@ -2045,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "قالب Python"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "قالب Python (Wasm)"
   },
   "templates.starter.r": {
     "translation": "قالب R"

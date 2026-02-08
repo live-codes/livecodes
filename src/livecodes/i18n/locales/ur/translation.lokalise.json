@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "کوڈ کو ڈیٹا یو آر ایل کے طور پر کاپی کریں"
   },
-  "commandMenu.disableAI": {
-    "translation": "AI کوڈ اسسٹنٹ کو غیر فعال کریں۔"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "آٹو سیو کو غیر فعال کریں۔"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "ویم موڈ کو غیر فعال کریں۔"
-  },
-  "commandMenu.enableAI": {
-    "translation": "اے آئی کوڈ اسسٹنٹ فعال کریں"
   },
   "commandMenu.enableAutoSave": {
     "translation": "آٹو سیو کو فعال کریں۔"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "ایمیٹ فعال کریں *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "اے آئی کوڈ اسسٹنٹ فعال کریں"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "<tag-1><tag-2></tag-2></tag-1> کی طرف سے طاقت یافتہ"
   },
   "editorSettings.foldRegions": {
     "translation": "فولڈ (سخت) علاقوں *"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "آپ کے پاس کوئی محفوظ شدہ سانچے نہیں ہیں۔"
   },
+  "templates.search.label": {
+    "translation": "ٹیمپلیٹس میں تلاش کریں"
+  },
+  "templates.search.placeholder": {
+    "translation": "ٹیمپلیٹس میں تلاش کریں..."
+  },
   "templates.starter.angular": {
     "translation": "اینگولر شروعاتی"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "سی++ (واسم) شروعاتی"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C# (واسم) شروعاتی"
+  },
+  "templates.starter.d3": {
+    "translation": "D3 شروعاتی"
   },
   "templates.starter.daisyui": {
     "translation": "daisyUI شروعاتی"
@@ -2022,11 +2022,17 @@
   "templates.starter.mdx": {
     "translation": "ایم ڈی ایکس شروعاتی"
   },
+  "templates.starter.minizinc": {
+    "translation": "MiniZinc شروعاتی"
+  },
   "templates.starter.ocaml": {
     "translation": "اوکامل شروعاتی"
   },
   "templates.starter.perl": {
     "translation": "پرل شروعاتی"
+  },
+  "templates.starter.phaser": {
+    "translation": "فیزر شروعاتی"
   },
   "templates.starter.php": {
     "translation": "پی ایچ پی شروعاتی"
@@ -2045,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "پائتھن شروعاتی"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "پائتھن (واسم) شروعاتی"
   },
   "templates.starter.r": {
     "translation": "آر شروعاتی"

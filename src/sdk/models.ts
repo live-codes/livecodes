@@ -811,11 +811,11 @@ export interface EditorConfig {
    */
   editorMode: 'vim' | 'emacs' | undefined;
 
-  /**
-   * If `true`, [AI code assistant](https://livecodes.io/docs/features/ai) is enabled.
-   * @default false
-   */
-  enableAI: boolean;
+  // /**
+  //  * If `true`, [AI code assistant](https://livecodes.io/docs/features/ai) is enabled.
+  //  * @default false
+  //  */
+  // enableAI: boolean;
 }
 
 export interface FormatterConfig {
@@ -933,6 +933,7 @@ export type Language =
   | 'postcss'
   | 'javascript'
   | 'js'
+  | 'mjs'
   | 'json'
   | 'babel'
   | 'es'
@@ -940,6 +941,7 @@ export type Language =
   | 'typescript'
   | 'flow'
   | 'ts'
+  | 'mts'
   | 'jsx'
   | 'tsx'
   | 'react'
@@ -1085,6 +1087,9 @@ export type Language =
   | 'postgresql.sql'
   | 'prolog.pl'
   | 'prolog'
+  | 'minizinc'
+  | 'mzn'
+  | 'dzn'
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
@@ -1254,7 +1259,8 @@ export type ParserName =
   | 'less'
   | 'php'
   | 'pug'
-  | 'java';
+  | 'java'
+  | 'minizinc';
 
 export interface Parser {
   name: ParserName;
@@ -1355,6 +1361,7 @@ export interface Compiler {
     | 'text/commonlisp'
     | 'text/tcl'
     | 'text/prolog'
+    | 'text/minizinc'
     | 'text/go-wasm'
     | 'application/json'
     | 'application/lua'
@@ -1374,7 +1381,7 @@ export interface Compilers {
 export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &
   Partial<ContentConfig> & {
     name: TemplateName;
-    aliases?: TemplateName[];
+    aliases?: TemplateAlias[];
     thumbnail: string;
     tools?: Config['tools'];
     autotest?: Config['autotest'];
@@ -1418,7 +1425,6 @@ export type TemplateName =
   | 'reason'
   | 'ocaml'
   | 'python'
-  | 'pyodide'
   | 'python-wasm'
   | 'r'
   | 'ruby'
@@ -1428,7 +1434,6 @@ export type TemplateName =
   | 'php'
   | 'php-wasm'
   | 'cpp'
-  | 'clang'
   | 'cpp-wasm'
   | 'java'
   | 'csharp-wasm'
@@ -1449,8 +1454,42 @@ export type TemplateName =
   | 'sql'
   | 'postgresql'
   | 'prolog'
+  | 'minizinc'
   | 'blockly'
   | 'diagrams';
+
+export type TemplateAlias =
+  | 'js'
+  | 'ts'
+  | 'ng'
+  | 'bs'
+  | 'tailwind'
+  | 'tw'
+  | 'coffee'
+  | 'ls'
+  | 'py'
+  | 'pyodide'
+  | 'py-wasm'
+  | 'r-lang'
+  | 'rlang'
+  | 'rb'
+  | 'rb-wasm'
+  | 'golang'
+  | 'golang-wasm'
+  | 'c++'
+  | 'clang'
+  | 'c++-wasm'
+  | 'c#-wasm'
+  | 'cs-wasm'
+  | 'pl'
+  | 'lisp'
+  | 'cljs'
+  | 'md'
+  | 'as'
+  | 'postgres'
+  | 'pg'
+  | 'pgsql'
+  | 'mzn';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';
@@ -1786,15 +1825,19 @@ export interface BlocklyContent {
 export type AppLanguage =
   | 'auto'
   | 'ar'
+  | 'bn'
   | 'de'
   | 'en'
   | 'es'
   | 'fa'
   | 'fr'
   | 'hi'
+  | 'id'
   | 'it'
   | 'ja'
+  | 'nl'
   | 'pt'
+  | 'tr'
   | 'ru'
   | 'ur'
   | 'zh-CN';

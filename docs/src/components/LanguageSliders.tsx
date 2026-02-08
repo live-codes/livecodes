@@ -106,6 +106,7 @@ export default function Sliders() {
       { name: 'sql', title: 'SQL' },
       { name: 'postgresql', title: 'PostgreSQL' },
       { name: 'prolog', title: 'Prolog' },
+      { name: 'minizinc', title: 'MiniZinc' },
       { name: 'blockly', title: 'Blockly' },
     ],
   };

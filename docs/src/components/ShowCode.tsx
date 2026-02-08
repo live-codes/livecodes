@@ -14,12 +14,14 @@ export default function ShowCode(props: {
   react: string;
   vue: string;
   svelte: string;
+  solid: string;
 }): ReactNode {
   const [jsCode, setJsCode] = useState(props.js);
   const [tsCode, setTsCode] = useState(props.ts);
   const [reactCode, setReactCode] = useState(props.react);
   const [vueCode, setVueCode] = useState(props.vue);
   const [svelteCode, setSvelteCode] = useState(props.svelte);
+  const [solidCode, setSolidCode] = useState(props.solid);
 
   const codeBlockTitleHeight = '3.7rem';
   const [codeCollapsed, setCodeCollapsed] = useState(true);
@@ -57,6 +59,7 @@ export default function ShowCode(props: {
       setReactCode(format(reactCode, 'jsx'));
       setVueCode(format(vueCode, 'html'));
       setSvelteCode(format(svelteCode, 'html'));
+      setSolidCode(format(solidCode, 'tsx'));
     }
   }, []);
 
@@ -96,6 +99,9 @@ export default function ShowCode(props: {
             </TabItem>
             <TabItem value="svelte" label="Svelte" attributes={{ onMouseDown: resize }}>
               <CodeBlock language="html">{svelteCode}</CodeBlock>
+            </TabItem>
+            <TabItem value="solid" label="Solid" attributes={{ onMouseDown: resize }}>
+              <CodeBlock language="tsx">{solidCode}</CodeBlock>
             </TabItem>
           </Tabs>
         </div>

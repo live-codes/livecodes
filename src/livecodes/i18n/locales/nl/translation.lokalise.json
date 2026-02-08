@@ -1,0 +1,2250 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "about.blog.text": {
+    "translation": "Blog"
+  },
+  "about.blog.title": {
+    "translation": "LiveCodes Blog"
+  },
+  "about.configuration": {
+    "translation": "Configuratie"
+  },
+  "about.credits.heading": {
+    "translation": "Credits"
+  },
+  "about.credits.para1": {
+    "translation": "LiveCodes wordt mogelijk gemaakt door open source-projecten, webservices en bijdragers. <tag-1>Bekijk Credits</tag-1>"
+  },
+  "about.credits.para2": {
+    "translation": "© 2024 Hatem Hosny. LiveCodes is gelicenseerd onder MIT-licentie."
+  },
+  "about.documentations.heading": {
+    "translation": "Documentatie"
+  },
+  "about.gettingStarted": {
+    "translation": "Aan de slag"
+  },
+  "about.github.text": {
+    "translation": "GitHub"
+  },
+  "about.github.title": {
+    "translation": "GitHub"
+  },
+  "about.heading": {
+    "translation": "Over LiveCodes"
+  },
+  "about.livecodes.aboutUs": {
+    "translation": "Over LiveCodes"
+  },
+  "about.livecodes.para1": {
+    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> is een open-source, feature-rijke, client-side code playground. Momenteel worden 90+ talen en frameworks ondersteund. Het kan worden gebruikt als standalone app of ingebed in elke webpagina."
+  },
+  "about.livecodes.para2": {
+    "translation": "Een krachtige SDK maakt het eenvoudig om playgrounds te integreren en ermee te communiceren. Uitgebreide documentatie is beschikbaar met codevoorbeelden, live demo's en screenshots."
+  },
+  "about.sdk": {
+    "translation": "LiveCodes SDK"
+  },
+  "about.sponsor.text": {
+    "translation": "Sponsor"
+  },
+  "about.sponsor.title": {
+    "translation": "Sponsor LiveCodes"
+  },
+  "about.twitter.text": {
+    "translation": "𝕏 / Twitter"
+  },
+  "about.twitter.title": {
+    "translation": "𝕏 / Twitter"
+  },
+  "about.version.app": {
+    "translation": "App-versie: <tag-1>{{APP_VERSION}}</tag-1>"
+  },
+  "about.version.appPermanentUrl": {
+    "translation": "Permanente URL van app"
+  },
+  "about.version.commit": {
+    "translation": "Git commit: <tag-1>{{COMMIT_SHA}}</tag-1>"
+  },
+  "about.version.heading": {
+    "translation": "Versie"
+  },
+  "about.version.sdk": {
+    "translation": "SDK-versie: <tag-1>{{SDK_VERSION}}</tag-1>"
+  },
+  "about.version.sdkPermanentUrl": {
+    "translation": "Permanente URL van SDK"
+  },
+  "app.changeTheme.hint": {
+    "translation": "Thema wijzigen"
+  },
+  "app.codeToImage.hint": {
+    "translation": "Code naar afbeelding"
+  },
+  "app.consoleMessage.appVersion": {
+    "translation": "App-versie: {{APP_VERSION}}"
+  },
+  "app.consoleMessage.commit": {
+    "translation": "Git commit: {{COMMIT_SHA}}"
+  },
+  "app.consoleMessage.learnMore": {
+    "translation": "Meer informatie! {{docsUrl}} 🚀"
+  },
+  "app.consoleMessage.sdkVersion": {
+    "translation": "SDK-versie: {{SDK_VERSION}}"
+  },
+  "app.copy.hint": {
+    "translation": "Kopiëren (Ctrl/⌘ + A, Ctrl/⌘ + C)"
+  },
+  "app.copyAsUrl.hint": {
+    "translation": "Code kopiëren als data-URL"
+  },
+  "app.customSettings.hint": {
+    "translation": "Aangepaste instellingen"
+  },
+  "app.editorSettings.hint": {
+    "translation": "Editor-instellingen"
+  },
+  "app.externalResources.hint": {
+    "translation": "Externe bronnen"
+  },
+  "app.focus.hint": {
+    "translation": "Focusmodus schakelen (Ctrl/⌘ + K, Z)"
+  },
+  "app.format.hint": {
+    "translation": "Formatteren (Alt + Shift + F)"
+  },
+  "app.fullscreen.hint": {
+    "translation": "Volledig scherm"
+  },
+  "app.i18nButton.hint": {
+    "translation": "UI-taal"
+  },
+  "app.i18nMenu.docs": {
+    "translation": "i18n-documentatie"
+  },
+  "app.i18nMenu.helpTranslate": {
+    "translation": "Help ons met vertalen"
+  },
+  "app.logo.title": {
+    "translation": "LiveCodes: Een code playground die gewoon werkt!"
+  },
+  "app.projectInfo.hint": {
+    "translation": "Projectinfo"
+  },
+  "app.redo.hint": {
+    "translation": "Opnieuw (Ctrl/⌘ + Shift + Z)"
+  },
+  "app.result.hint": {
+    "translation": "Resultaat (Ctrl/⌘ + Alt + R)"
+  },
+  "app.run.hint": {
+    "translation": "Uitvoeren (Shift + Enter)"
+  },
+  "app.share.hint": {
+    "translation": "Delen (Ctrl/⌘ + Alt + S)"
+  },
+  "app.themeColors.custom": {
+    "translation": "Aangepast"
+  },
+  "app.undo.hint": {
+    "translation": "Ongedaan maken (Ctrl/⌘ + Z)"
+  },
+  "app.untitledProject": {
+    "translation": "Naamloos project"
+  },
+  "assets.action.delete": {
+    "translation": "Verwijderen"
+  },
+  "assets.add.dataURL.desc": {
+    "translation": "Asset toevoegen als base64-gecodeerde <tag-1>data-url</tag-1>."
+  },
+  "assets.add.dataURL.heading": {
+    "translation": "Data-URL"
+  },
+  "assets.add.dataURL.label": {
+    "translation": "Bestand toevoegen"
+  },
+  "assets.add.githubPages.desc": {
+    "translation": "Asset deployen naar GitHub Pages. Het bestand wordt gepushed naar <tag-1>gh-pages</tag-1>-branch van de repo <tag-2>livecodes-assets</tag-2> op je GitHub-account. Als de repo nog niet bestaat, wordt er een publieke repo aangemaakt."
+  },
+  "assets.add.githubPages.heading": {
+    "translation": "GitHub Pages"
+  },
+  "assets.add.githubPages.label": {
+    "translation": "Bestand uploaden"
+  },
+  "assets.add.heading": {
+    "translation": "Asset toevoegen"
+  },
+  "assets.delete.all": {
+    "translation": "{{assets}} assets verwijderen?"
+  },
+  "assets.delete.one": {
+    "translation": "Asset verwijderen: {{asset}}?"
+  },
+  "assets.deleteAll": {
+    "translation": "Alles verwijderen"
+  },
+  "assets.generic.clickToCopyURL": {
+    "translation": "Klik om URL te kopiëren"
+  },
+  "assets.heading": {
+    "translation": "Assets"
+  },
+  "assets.link.date": {
+    "translation": "Datum: {{modified}}"
+  },
+  "assets.link.type": {
+    "translation": "Type: {{type}}"
+  },
+  "assets.link.url": {
+    "translation": "URL: {{url}}"
+  },
+  "assets.loadFile.error.failedToUpload": {
+    "translation": "Fout: Uploaden van bestand mislukt"
+  },
+  "assets.loadFile.error.unauthenticated": {
+    "translation": "Fout: Niet-geverifieerde gebruiker"
+  },
+  "assets.loadFile.upload": {
+    "translation": "Bestand uploaden"
+  },
+  "assets.loadFile.uploading": {
+    "translation": "Uploaden..."
+  },
+  "assets.noMatch": {
+    "translation": "Geen assets komen overeen met deze filters."
+  },
+  "assets.noSavedAssets": {
+    "translation": "Je hebt geen opgeslagen assets."
+  },
+  "assets.processAsset.addFile": {
+    "translation": "Bestand toegevoegd: "
+  },
+  "assets.processAsset.deployNotice": {
+    "translation": "Het asset zou binnenkort beschikbaar moeten zijn op deze URL (~1 min)."
+  },
+  "assets.processAsset.success": {
+    "translation": "Bestand toegevoegd aan assets!"
+  },
+  "assets.processAsset.urlLabel": {
+    "translation": "URL: "
+  },
+  "assets.resetFilters": {
+    "translation": "Reset"
+  },
+  "assets.search": {
+    "translation": "Zoeken"
+  },
+  "assets.sort.date": {
+    "translation": "Datum"
+  },
+  "assets.sort.fileName": {
+    "translation": "Bestandsnaam"
+  },
+  "assets.sort.heading": {
+    "translation": "Sorteren op:"
+  },
+  "assets.type.archive": {
+    "translation": "Archief"
+  },
+  "assets.type.audio": {
+    "translation": "Audio"
+  },
+  "assets.type.csv": {
+    "translation": "CSV"
+  },
+  "assets.type.font": {
+    "translation": "Lettertype"
+  },
+  "assets.type.html": {
+    "translation": "HTML"
+  },
+  "assets.type.icon": {
+    "translation": "Icoon"
+  },
+  "assets.type.image": {
+    "translation": "Afbeelding"
+  },
+  "assets.type.json": {
+    "translation": "JSON"
+  },
+  "assets.type.other": {
+    "translation": "Overig"
+  },
+  "assets.type.script": {
+    "translation": "Script"
+  },
+  "assets.type.stylesheet": {
+    "translation": "Stylesheet"
+  },
+  "assets.type.text": {
+    "translation": "Tekst"
+  },
+  "assets.type.video": {
+    "translation": "Video"
+  },
+  "assets.type.xml": {
+    "translation": "XML"
+  },
+  "assets.types.all": {
+    "translation": "Alle types"
+  },
+  "assets.url.fail": {
+    "translation": "Kopiëren van URL mislukt."
+  },
+  "assets.url.success": {
+    "translation": "URL is gekopieerd naar klembord."
+  },
+  "backup.backup.assets": {
+    "translation": "Assets"
+  },
+  "backup.backup.button": {
+    "translation": "Back-up"
+  },
+  "backup.backup.desc": {
+    "translation": "Maak een back-up van LiveCodes-gegevens, zodat deze later op dit of andere apparaten kunnen worden hersteld. <tag-1></tag-1> Raadpleeg de <tag-2>documentatie</tag-2> voor details."
+  },
+  "backup.backup.heading": {
+    "translation": "Back-up"
+  },
+  "backup.backup.projects": {
+    "translation": "Projecten"
+  },
+  "backup.backup.settings": {
+    "translation": "Gebruikersinstellingen"
+  },
+  "backup.backup.snippets": {
+    "translation": "Codefragmenten"
+  },
+  "backup.backup.templates": {
+    "translation": "Gebruikerssjablonen"
+  },
+  "backup.backupBtn": {
+    "translation": "Back-up"
+  },
+  "backup.error.atLeastOneStore": {
+    "translation": "Selecteer ten minste één opslag om een back-up van te maken"
+  },
+  "backup.error.incorrectFileType": {
+    "translation": "Fout: Onjuist bestandstype"
+  },
+  "backup.fileInputLabel": {
+    "translation": "Herstellen vanuit bestand"
+  },
+  "backup.heading": {
+    "translation": "Back-up / Herstellen"
+  },
+  "backup.inProgress": {
+    "translation": "Bezig..."
+  },
+  "backup.restore.desc": {
+    "translation": "Herstel eerder gemaakte back-up van LiveCodes-gegevens. <tag-1></tag-1> Als je ervoor kiest om de huidige inhoud te vervangen, wil je deze misschien eerst een back-up maken. <tag-2></tag-2> Raadpleeg de <tag-3>documentatie</tag-3> voor details."
+  },
+  "backup.restore.fromFile": {
+    "translation": "Herstellen vanuit bestand"
+  },
+  "backup.restore.heading": {
+    "translation": "Herstellen"
+  },
+  "backup.restore.mode.merge": {
+    "translation": "Samenvoegen met huidige inhoud"
+  },
+  "backup.restore.mode.replace": {
+    "translation": "Huidige inhoud vervangen"
+  },
+  "backup.restore.success": {
+    "translation": "Succesvol hersteld!"
+  },
+  "broadcast.broadcastBtn.start": {
+    "translation": "Uitzenden"
+  },
+  "broadcast.broadcastBtn.stop": {
+    "translation": "Uitzending stoppen"
+  },
+  "broadcast.broadcasting": {
+    "translation": "Bezig met uitzenden..."
+  },
+  "broadcast.channelURL": {
+    "translation": "Kanaal-URL"
+  },
+  "broadcast.connecting": {
+    "translation": "Verbinding maken..."
+  },
+  "broadcast.desc": {
+    "translation": "Zend de resultatenpagina in realtime uit naar andere browsers/apparaten. Raadpleeg de <tag-1>documentatie</tag-1> voor details."
+  },
+  "broadcast.error.generic": {
+    "translation": "Uitzending mislukt!"
+  },
+  "broadcast.error.serverURLRequired": {
+    "translation": "Server-URL is verplicht!"
+  },
+  "broadcast.heading": {
+    "translation": "Uitzenden"
+  },
+  "broadcast.includeSourceCode": {
+    "translation": "Broncode opnemen"
+  },
+  "broadcast.serverURL.heading": {
+    "translation": "Server-URL"
+  },
+  "codeToImage.background": {
+    "translation": "Achtergrond"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "Hoekradius"
+  },
+  "codeToImage.code": {
+    "translation": "Code"
+  },
+  "codeToImage.copyCode": {
+    "translation": "Code kopiëren"
+  },
+  "codeToImage.copyImage": {
+    "translation": "Afbeelding kopiëren"
+  },
+  "codeToImage.default": {
+    "translation": "Standaard"
+  },
+  "codeToImage.direction": {
+    "translation": "Richting"
+  },
+  "codeToImage.fileName": {
+    "translation": "Bestandsnaam"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "Lettertypefamilie"
+  },
+  "codeToImage.fontSize": {
+    "translation": "Lettergrootte"
+  },
+  "codeToImage.heading": {
+    "translation": "Code naar afbeelding"
+  },
+  "codeToImage.image": {
+    "translation": "Afbeelding"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "Afbeeldingsformaat"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "Layout"
+  },
+  "codeToImage.opacity": {
+    "translation": "Dekking"
+  },
+  "codeToImage.padding": {
+    "translation": "Opvulling"
+  },
+  "codeToImage.presets": {
+    "translation": "Voorinstellingen"
+  },
+  "codeToImage.preview": {
+    "translation": "Voorbeeld"
+  },
+  "codeToImage.save": {
+    "translation": "Afbeelding opslaan"
+  },
+  "codeToImage.scale": {
+    "translation": "Afbeeldingsschaal"
+  },
+  "codeToImage.shadow": {
+    "translation": "Schaduw"
+  },
+  "codeToImage.shareImage": {
+    "translation": "Afbeelding delen"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "Delen"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "URL delen"
+  },
+  "codeToImage.theme": {
+    "translation": "Thema"
+  },
+  "codeToImage.width": {
+    "translation": "Breedte"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "Vensterstijl"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "Geen"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
+  "commandMenu.changeTheme.dark": {
+    "translation": "Naar donker thema"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "Naar licht thema"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "Thema wijzigen"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "UI-taal wijzigen"
+  },
+  "commandMenu.closeModalMenu": {
+    "translation": "Modaal/menu sluiten"
+  },
+  "commandMenu.contribute": {
+    "translation": "Bijdragen"
+  },
+  "commandMenu.copy": {
+    "translation": "Code kopiëren"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "Code als data-URL kopiëren"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "Automatisch opslaan uitschakelen"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "Automatisch bijwerken uitschakelen"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "Emacs-modus uitschakelen"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "Formatteren bij opslaan uitschakelen"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "Herstellen van niet-opgeslagen uitschakelen"
+  },
+  "commandMenu.disableVim": {
+    "translation": "Vim-modus uitschakelen"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "Automatisch opslaan inschakelen"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "Automatisch bijwerken inschakelen"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "Emacs-modus inschakelen"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "Formatteren bij opslaan inschakelen"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "Herstellen van niet-opgeslagen inschakelen"
+  },
+  "commandMenu.enableVim": {
+    "translation": "Vim-modus inschakelen"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "Focus op editor"
+  },
+  "commandMenu.focus.home": {
+    "translation": "Focus naar home"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "Focus uit editor"
+  },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "Tab-focusmodus schakelen"
+  },
+  "commandMenu.formatCode": {
+    "translation": "Code formatteren"
+  },
+  "commandMenu.home": {
+    "translation": "Home"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "Horizontale layout"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "Toetsenbordsneltoetsen"
+  },
+  "commandMenu.login": {
+    "translation": "Inloggen"
+  },
+  "commandMenu.logout": {
+    "translation": "Uitloggen"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "naar bovenliggend"
+  },
+  "commandMenu.placeholder": {
+    "translation": "Typ een opdracht of zoek..."
+  },
+  "commandMenu.processors": {
+    "translation": "Processors"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "Responsieve layout"
+  },
+  "commandMenu.run": {
+    "translation": "Uitvoeren"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "Opslaan als fork (nieuw project)"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "Opslaan als sjabloon"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "Taal selecteren"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "Gecompileerde code schakelen"
+  },
+  "commandMenu.show.console": {
+    "translation": "Console schakelen"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "Focusmodus schakelen"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "Volledig scherm schakelen"
+  },
+  "commandMenu.show.markup": {
+    "translation": "Markup-editor weergeven"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "Gecompileerde code maximaliseren"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "Console maximaliseren"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "Tests maximaliseren"
+  },
+  "commandMenu.show.next": {
+    "translation": "Volgende editor weergeven"
+  },
+  "commandMenu.show.previous": {
+    "translation": "Vorige editor weergeven"
+  },
+  "commandMenu.show.result": {
+    "translation": "Resultaat schakelen"
+  },
+  "commandMenu.show.runTests": {
+    "translation": "Tests uitvoeren"
+  },
+  "commandMenu.show.script": {
+    "translation": "Script-editor weergeven"
+  },
+  "commandMenu.show.style": {
+    "translation": "Style-editor weergeven"
+  },
+  "commandMenu.show.tests": {
+    "translation": "Tests schakelen"
+  },
+  "commandMenu.show.title": {
+    "translation": "Weergeven …"
+  },
+  "commandMenu.show.zoom": {
+    "translation": "Resultaat zoomen schakelen"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "Startsjablonen"
+  },
+  "commandMenu.sync": {
+    "translation": "Synchroniseren (beta) …"
+  },
+  "commandMenu.template": {
+    "translation": "Sjabloon"
+  },
+  "commandMenu.theme.color": {
+    "translation": "Themakleur instellen"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "Standaard themakleur instellen"
+  },
+  "commandMenu.title": {
+    "translation": "Opdrachtmenu"
+  },
+  "commandMenu.toClose": {
+    "translation": "om te sluiten"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "om te navigeren"
+  },
+  "commandMenu.toSelect": {
+    "translation": "om te selecteren"
+  },
+  "commandMenu.toggle": {
+    "translation": "Schakelen: "
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "Verticale layout"
+  },
+  "core.broadcast.heading": {
+    "translation": "Uitzenden"
+  },
+  "core.broadcast.successSetToken": {
+    "translation": "Uitzend-gebruikerstoken succesvol ingesteld"
+  },
+  "core.changeLanguage.hint": {
+    "translation": "Taal wijzigen"
+  },
+  "core.changeLanguage.message": {
+    "translation": "{{lang}} wordt geladen. Dit kan even duren!"
+  },
+  "core.copy.copied": {
+    "translation": "Code gekopieerd naar klembord"
+  },
+  "core.copy.copiedAsDataURL": {
+    "translation": "Code als data-URL gekopieerd"
+  },
+  "core.copy.copiedImage": {
+    "translation": "Afbeelding gekopieerd naar klembord."
+  },
+  "core.copy.hint": {
+    "translation": "Gekopieerd!"
+  },
+  "core.copy.title": {
+    "translation": "Kopiëren"
+  },
+  "core.error.couldNotLoadTemplate": {
+    "translation": "Kan sjabloon niet laden: {{template}}"
+  },
+  "core.error.failedToCopyCode": {
+    "translation": "Kopiëren van code mislukt"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "Kopiëren van afbeelding mislukt"
+  },
+  "core.error.failedToLoadTemplate": {
+    "translation": "Laden van sjabloon mislukt"
+  },
+  "core.error.failedToLoadTemplates": {
+    "translation": "Laden van startsjablonen mislukt"
+  },
+  "core.error.failedToParseSettings": {
+    "translation": "Parsen van instellingen als JSON mislukt"
+  },
+  "core.error.failedToSaveImage": {
+    "translation": "Opslaan van afbeelding mislukt"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "Delen van afbeelding mislukt"
+  },
+  "core.error.invalidCommand": {
+    "translation": "Ongeldige opdracht!"
+  },
+  "core.error.invalidImport": {
+    "translation": "Ongeldige import-URL"
+  },
+  "core.error.invalidPanelId": {
+    "translation": "Ongeldige paneel-ID"
+  },
+  "core.error.invalidToken": {
+    "translation": "Ongeldig token!"
+  },
+  "core.error.login": {
+    "translation": "Inlogfout!"
+  },
+  "core.error.logout": {
+    "translation": "Uitlogfout!"
+  },
+  "core.error.noResultContainer": {
+    "translation": "Resultaatcontainer niet gevonden"
+  },
+  "core.error.unavailable": {
+    "translation": "Opdracht niet beschikbaar"
+  },
+  "core.error.unavailableForEmbeds": {
+    "translation": "Opdracht niet beschikbaar voor embeds"
+  },
+  "core.export.gist": {
+    "translation": "Een publieke GitHub gist wordt aangemaakt..."
+  },
+  "core.fork.success": {
+    "translation": "Geforkt als nieuw project"
+  },
+  "core.fullScreen.enter": {
+    "translation": "Volledig scherm"
+  },
+  "core.fullScreen.exit": {
+    "translation": "Volledig scherm afsluiten"
+  },
+  "core.generating": {
+    "translation": "Genereren..."
+  },
+  "core.import.loading": {
+    "translation": "Project laden..."
+  },
+  "core.layout.horizontal": {
+    "translation": "Horizontale layout"
+  },
+  "core.layout.responsive": {
+    "translation": "Responsieve layout"
+  },
+  "core.layout.vertical": {
+    "translation": "Verticale layout"
+  },
+  "core.loadDefaults.template": {
+    "translation": "Standaard sjabloon laden"
+  },
+  "core.login.success": {
+    "translation": "Succesvol ingelogd"
+  },
+  "core.login.successWithName": {
+    "translation": "Ingelogd als: {{name}}"
+  },
+  "core.logout.success": {
+    "translation": "Succesvol uitgelogd"
+  },
+  "core.result.hint": {
+    "translation": "Resultaat in nieuw venster weergeven"
+  },
+  "core.save.success": {
+    "translation": "Project lokaal opgeslagen op apparaat!"
+  },
+  "core.save.successWithName": {
+    "translation": "Project \"{{name}}\" opgeslagen op apparaat."
+  },
+  "core.template.blank": {
+    "translation": "Leeg project"
+  },
+  "core.template.delete": {
+    "translation": "Sjabloon \"{{item}}\" verwijderen?"
+  },
+  "core.template.javascript": {
+    "translation": "JavaScript-starter"
+  },
+  "core.template.react": {
+    "translation": "React-starter"
+  },
+  "core.template.saved": {
+    "translation": "Opgeslagen als nieuw sjabloon"
+  },
+  "core.template.typescript": {
+    "translation": "TypeScript-starter"
+  },
+  "core.template.vue": {
+    "translation": "Vue 3-starter"
+  },
+  "core.unload.notSaved": {
+    "translation": "Wijzigingen die je hebt aangebracht, worden mogelijk niet opgeslagen."
+  },
+  "core.zoom.hint": {
+    "translation": "Zoomen"
+  },
+  "customSettings.JSON": {
+    "translation": "Aangepaste instellingen JSON"
+  },
+  "customSettings.desc": {
+    "translation": "<tag-1></tag-1> Voor meer details, raadpleeg de <tag-2>documentatie</tag-2>"
+  },
+  "customSettings.heading": {
+    "translation": "Aangepaste instellingen"
+  },
+  "customSettings.load": {
+    "translation": "Laden"
+  },
+  "deploy.create.desc": {
+    "translation": "Een nieuwe <tag-1>publieke</tag-1> repo wordt aangemaakt. De resultatenpagina wordt gepushed naar <tag-2>gh-pages</tag-2>-branch."
+  },
+  "deploy.create.heading": {
+    "translation": "Nieuwe repo aanmaken"
+  },
+  "deploy.create.repoName": {
+    "translation": "Repo-naam <tag-1></tag-1>"
+  },
+  "deploy.error.generic": {
+    "translation": "Deployment mislukt!"
+  },
+  "deploy.error.repoNameExists": {
+    "translation": "Repo-naam bestaat al"
+  },
+  "deploy.error.repoNameRequired": {
+    "translation": "Repo-naam is verplicht"
+  },
+  "deploy.existing.desc": {
+    "translation": "Een nieuwe commit wordt toegevoegd aan <tag-1>gh-pages</tag-1>-branch."
+  },
+  "deploy.existing.heading": {
+    "translation": "Bestaande repo"
+  },
+  "deploy.existing.repoName": {
+    "translation": "Repo-naam"
+  },
+  "deploy.generic.commitMessage": {
+    "translation": "Commit-bericht"
+  },
+  "deploy.generic.commitSourceCodePublic": {
+    "translation": "Broncode committen (publiek)"
+  },
+  "deploy.generic.deployBtn": {
+    "translation": "Deployen"
+  },
+  "deploy.generic.deploying": {
+    "translation": "Bezig met deployen..."
+  },
+  "deploy.heading": {
+    "translation": "Deployen naar GitHub Pages"
+  },
+  "deploy.searchRepo": {
+    "translation": "Zoek in je publieke repo's..."
+  },
+  "editorSettings.closeBrackets": {
+    "translation": "Haakjes en aanhalingstekens automatisch sluiten"
+  },
+  "editorSettings.codeJarDesc": {
+    "translation": "<tag-1></tag-1> * De gemarkeerde functies zijn niet beschikbaar in CodeJar."
+  },
+  "editorSettings.default": {
+    "translation": "Standaard"
+  },
+  "editorSettings.desc": {
+    "translation": "<tag-1></tag-1> Raadpleeg de <tag-2>documentatie</tag-2> voor details."
+  },
+  "editorSettings.editor.codejar": {
+    "translation": "CodeJar"
+  },
+  "editorSettings.editor.codemirror": {
+    "translation": "CodeMirror"
+  },
+  "editorSettings.editor.heading": {
+    "translation": "Editor"
+  },
+  "editorSettings.editor.monaco": {
+    "translation": "Monaco"
+  },
+  "editorSettings.editorMode.emacs": {
+    "translation": "Emacs"
+  },
+  "editorSettings.editorMode.heading": {
+    "translation": "Editor-modus *"
+  },
+  "editorSettings.editorMode.vim": {
+    "translation": "Vim"
+  },
+  "editorSettings.editorTheme": {
+    "translation": "Editor-thema"
+  },
+  "editorSettings.emmet": {
+    "translation": "Emmet inschakelen *"
+  },
+  "editorSettings.foldRegions": {
+    "translation": "Regio's vouwen (samenvouwen) *"
+  },
+  "editorSettings.fontFamily": {
+    "translation": "Lettertypefamilie"
+  },
+  "editorSettings.fontSize": {
+    "translation": "Lettergrootte"
+  },
+  "editorSettings.format": {
+    "translation": "Formatteren"
+  },
+  "editorSettings.heading": {
+    "translation": "Editor-instellingen"
+  },
+  "editorSettings.lineNumbers": {
+    "translation": "Regelnummers weergeven"
+  },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "Relatieve regelnummers *"
+  },
+  "editorSettings.notAvailableInCodeJar": {
+    "translation": "Niet beschikbaar in CodeJar"
+  },
+  "editorSettings.preview": {
+    "translation": "Voorbeeld"
+  },
+  "editorSettings.semicolons": {
+    "translation": "Formatteren: Puntkomma's gebruiken"
+  },
+  "editorSettings.singleQuote": {
+    "translation": "Formatteren: Enkele aanhalingstekens gebruiken"
+  },
+  "editorSettings.tabSize": {
+    "translation": "Tabgrootte"
+  },
+  "editorSettings.theme": {
+    "translation": "Donkere modus"
+  },
+  "editorSettings.trailingComma": {
+    "translation": "Formatteren: Afsluitende komma's gebruiken"
+  },
+  "editorSettings.useTabs.heading": {
+    "translation": "Inspringing"
+  },
+  "editorSettings.useTabs.spaces": {
+    "translation": "Spaties"
+  },
+  "editorSettings.useTabs.tabs": {
+    "translation": "Tabs"
+  },
+  "editorSettings.wordWrap": {
+    "translation": "Woordomslag"
+  },
+  "embed.activeEditor.heading": {
+    "translation": "Actieve editor"
+  },
+  "embed.activeEditor.markup": {
+    "translation": "{{markup}}"
+  },
+  "embed.activeEditor.script": {
+    "translation": "{{script}}"
+  },
+  "embed.activeEditor.style": {
+    "translation": "{{style}}"
+  },
+  "embed.activeTool.compiled": {
+    "translation": "Gecompileerd"
+  },
+  "embed.activeTool.console": {
+    "translation": "Console"
+  },
+  "embed.activeTool.heading": {
+    "translation": "Actieve tool"
+  },
+  "embed.activeTool.tests": {
+    "translation": "Tests"
+  },
+  "embed.code.copy": {
+    "translation": "Code kopiëren"
+  },
+  "embed.code.heading": {
+    "translation": "Code"
+  },
+  "embed.codeEditor.codeJar": {
+    "translation": "CodeJar"
+  },
+  "embed.codeEditor.codeMirror": {
+    "translation": "CodeMirror"
+  },
+  "embed.codeEditor.default": {
+    "translation": "Standaard"
+  },
+  "embed.codeEditor.heading": {
+    "translation": "Code-editor"
+  },
+  "embed.codeEditor.monaco": {
+    "translation": "Monaco"
+  },
+  "embed.desc": {
+    "translation": "Raadpleeg de <tag-1>documentatie</tag-1> voor geavanceerde configuraties."
+  },
+  "embed.embedType.cdn": {
+    "translation": "Script (CDN)"
+  },
+  "embed.embedType.heading": {
+    "translation": "Embed-type"
+  },
+  "embed.embedType.html": {
+    "translation": "HTML"
+  },
+  "embed.embedType.iframe": {
+    "translation": "Iframe"
+  },
+  "embed.embedType.npm": {
+    "translation": "JS (npm)"
+  },
+  "embed.embedType.react": {
+    "translation": "React"
+  },
+  "embed.embedType.svelte": {
+    "translation": "Svelte"
+  },
+  "embed.embedType.vue": {
+    "translation": "Vue"
+  },
+  "embed.heading": {
+    "translation": "Project embedden"
+  },
+  "embed.layout.heading": {
+    "translation": "Layout"
+  },
+  "embed.layout.horizontal": {
+    "translation": "Horizontaal"
+  },
+  "embed.layout.responsive": {
+    "translation": "Responsief"
+  },
+  "embed.layout.vertical": {
+    "translation": "Verticaal"
+  },
+  "embed.lite": {
+    "translation": "Lite-modus"
+  },
+  "embed.loading.click": {
+    "translation": "Bij klik"
+  },
+  "embed.loading.eager": {
+    "translation": "Direct"
+  },
+  "embed.loading.heading": {
+    "translation": "Laden"
+  },
+  "embed.loading.lazy": {
+    "translation": "Lui"
+  },
+  "embed.mode.codeblock": {
+    "translation": "Codeblok"
+  },
+  "embed.mode.editor": {
+    "translation": "Editor"
+  },
+  "embed.mode.full": {
+    "translation": "Volledig"
+  },
+  "embed.mode.heading": {
+    "translation": "Weergavemodus"
+  },
+  "embed.mode.result": {
+    "translation": "Resultaat"
+  },
+  "embed.mode.simple": {
+    "translation": "Eenvoudig"
+  },
+  "embed.permanentUrl": {
+    "translation": "Permanente URL"
+  },
+  "embed.preview": {
+    "translation": "Voorbeeld"
+  },
+  "embed.previewLoading": {
+    "translation": "Voorbeeld laden..."
+  },
+  "embed.readonly": {
+    "translation": "Alleen-lezen"
+  },
+  "embed.theme.dark": {
+    "translation": "Donker"
+  },
+  "embed.theme.heading": {
+    "translation": "Thema"
+  },
+  "embed.theme.light": {
+    "translation": "Licht"
+  },
+  "embed.tools.closed": {
+    "translation": "Gesloten"
+  },
+  "embed.tools.full": {
+    "translation": "Volledig"
+  },
+  "embed.tools.heading": {
+    "translation": "Tools"
+  },
+  "embed.tools.none": {
+    "translation": "Geen"
+  },
+  "embed.tools.open": {
+    "translation": "Open"
+  },
+  "embed.view.editor": {
+    "translation": "Editor"
+  },
+  "embed.view.heading": {
+    "translation": "Standaardweergave"
+  },
+  "embed.view.result": {
+    "translation": "Resultaat"
+  },
+  "embed.view.split": {
+    "translation": "Gesplitst"
+  },
+  "generic.about.blog": {
+    "translation": "Blog"
+  },
+  "generic.about.configuration": {
+    "translation": "Configuratie"
+  },
+  "generic.about.gettingStarted": {
+    "translation": "Aan de slag"
+  },
+  "generic.about.github": {
+    "translation": "GitHub"
+  },
+  "generic.about.sdk": {
+    "translation": "LiveCodes SDK"
+  },
+  "generic.about.sponsor": {
+    "translation": "Sponsor"
+  },
+  "generic.about.twitter": {
+    "translation": "𝕏 / Twitter"
+  },
+  "generic.clickForInfo": {
+    "translation": "Klik voor info..."
+  },
+  "generic.close": {
+    "translation": "Sluiten"
+  },
+  "generic.custom": {
+    "translation": "Aangepast"
+  },
+  "generic.embed.logoHint": {
+    "translation": "Bewerken op LiveCodes 🡕"
+  },
+  "generic.error.authentication": {
+    "translation": "Authenticatiefout!"
+  },
+  "generic.error.exceededSize": {
+    "translation": "Fout: Grootte van {{size}} MB overschreden"
+  },
+  "generic.error.failedToReadFile": {
+    "translation": "Fout: Lezen van bestand mislukt"
+  },
+  "generic.loading": {
+    "translation": "Laden..."
+  },
+  "generic.more": {
+    "translation": "Meer..."
+  },
+  "generic.optional": {
+    "translation": "Optioneel"
+  },
+  "generic.required": {
+    "translation": "Verplicht"
+  },
+  "generic.tagline": {
+    "translation": "Een code playground die gewoon werkt!"
+  },
+  "import.bulk.desc": {
+    "translation": "Importeer meerdere projecten tegelijk naar je opgeslagen projecten. Projecten kunnen worden geëxporteerd vanuit het scherm <tag-1>Opgeslagen projecten</tag-1>."
+  },
+  "import.bulk.fromFile": {
+    "translation": "Bulk importeren vanuit lokaal bestand"
+  },
+  "import.bulk.fromURL": {
+    "translation": "Bulk importeren vanuit URL"
+  },
+  "import.bulk.heading": {
+    "translation": "Bulk importeren"
+  },
+  "import.bulk.started": {
+    "translation": "Bulk import gestart..."
+  },
+  "import.code.desc": {
+    "translation": "Ondersteunde bronnen: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHub-bestand</tag-3> <tag-4>Map in een GitHub-repo</tag-4> <tag-5>Gitlab-snippet</tag-5> <tag-6>Gitlab-bestand</tag-6> <tag-7>Map in een Gitlab-repo</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Ruwe code</tag-9> <tag-10>Code in webpagina-DOM</tag-10> <tag-11>Code in zip-bestand</tag-11> <tag-12>Code in afbeelding (OCR)</tag-12> <tag-13>Officiële playgrounds<tag-14></tag-14>(TypeScript en Vue)</tag-13> </tag-1> Raadpleeg de <tag-15>documentatie</tag-15> voor details."
+  },
+  "import.code.fromFile": {
+    "translation": "Lokale bestanden importeren"
+  },
+  "import.code.fromURL": {
+    "translation": "Importeren vanuit URL"
+  },
+  "import.code.heading": {
+    "translation": "Code importeren"
+  },
+  "import.error.failedToLoadURL": {
+    "translation": "Fout: laden van URL mislukt"
+  },
+  "import.error.invalidConfigFile": {
+    "translation": "Ongeldig configuratiebestand"
+  },
+  "import.error.invalidFile": {
+    "translation": "Fout: Ongeldig bestand"
+  },
+  "import.generic.file": {
+    "translation": "Lokaal bestand"
+  },
+  "import.generic.url": {
+    "translation": "URL"
+  },
+  "import.heading": {
+    "translation": "Importeren"
+  },
+  "import.json.desc": {
+    "translation": "Importeer een enkel project-JSON naar de editor. Een project kan worden geëxporteerd vanuit app-menu → Exporteren → Project exporteren (JSON)."
+  },
+  "import.json.fromFile": {
+    "translation": "Project importeren vanuit lokaal bestand"
+  },
+  "import.json.fromURL": {
+    "translation": "Project importeren vanuit URL"
+  },
+  "import.json.heading": {
+    "translation": "Project-JSON importeren"
+  },
+  "import.success": {
+    "translation": "Import succesvol!"
+  },
+  "keyboardShortcuts.command": {
+    "translation": "Opdracht"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "Voor de lijst met sneltoetsen van de code-editor, zie <tag-1>VS Code-sneltoetsen</tag-1>"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "Toetsenbordsneltoetsen"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "Toets"
+  },
+  "login.accessAllowed": {
+    "translation": "Toegang toestaan tot:"
+  },
+  "login.desc": {
+    "translation": "<tag-1>Door in te loggen, ga je ermee akkoord dat <tag-2>cookies</tag-2> op je apparaat kunnen worden opgeslagen.</tag-1> <tag-3> <tag-4>Waarom zijn deze machtigingen vereist?</tag-4> </tag-3> <tag-5> <tag-6>Hoe kan ik machtigingen wijzigen/intrekken?</tag-6> </tag-5>"
+  },
+  "login.gist": {
+    "translation": "Gists"
+  },
+  "login.heading": {
+    "translation": "Inloggen met GitHub"
+  },
+  "login.loginAs": {
+    "translation": "Ingelogd als {{name}}"
+  },
+  "login.loginBtn": {
+    "translation": "Inloggen"
+  },
+  "login.logout": {
+    "translation": "Uitloggen"
+  },
+  "login.privateRepo": {
+    "translation": "Privé-repo's"
+  },
+  "login.publicRepo": {
+    "translation": "Repo's"
+  },
+  "menu.about": {
+    "translation": "Over ..."
+  },
+  "menu.appHelp.heading": {
+    "translation": "Help"
+  },
+  "menu.appHelp.hint": {
+    "translation": "Help"
+  },
+  "menu.appProject.heading": {
+    "translation": "Project"
+  },
+  "menu.appProject.hint": {
+    "translation": "Project"
+  },
+  "menu.appSettings.heading": {
+    "translation": "Instellingen"
+  },
+  "menu.appSettings.hint": {
+    "translation": "App-instellingen"
+  },
+  "menu.assets": {
+    "translation": "Assets …"
+  },
+  "menu.autoSave": {
+    "translation": "Automatisch opslaan"
+  },
+  "menu.autoUpdate": {
+    "translation": "Automatisch bijwerken"
+  },
+  "menu.backup": {
+    "translation": "Back-up / Herstellen …"
+  },
+  "menu.blog": {
+    "translation": "LiveCodes Blog"
+  },
+  "menu.broadcast": {
+    "translation": "Uitzenden …"
+  },
+  "menu.commandMenu": {
+    "translation": "Opdrachtmenu"
+  },
+  "menu.config": {
+    "translation": "Configuratie"
+  },
+  "menu.customSettings": {
+    "translation": "Aangepaste instellingen …"
+  },
+  "menu.delay.heading": {
+    "translation": "Vertraging: <tag-1>1.5</tag-1>s"
+  },
+  "menu.delay.hint": {
+    "translation": "Vertraging voor automatisch bijwerken"
+  },
+  "menu.deploy": {
+    "translation": "Deployen …"
+  },
+  "menu.docs": {
+    "translation": "Documentatie"
+  },
+  "menu.editorSettings": {
+    "translation": "Editor-instellingen …"
+  },
+  "menu.embed": {
+    "translation": "Embedden …"
+  },
+  "menu.export.codepen": {
+    "translation": "Bewerken in CodePen"
+  },
+  "menu.export.gist": {
+    "translation": "Exporteren naar GitHub Gist"
+  },
+  "menu.export.heading": {
+    "translation": "Exporteren"
+  },
+  "menu.export.jsfiddle": {
+    "translation": "Bewerken in JSFiddle"
+  },
+  "menu.export.json": {
+    "translation": "Project exporteren (JSON)"
+  },
+  "menu.export.result": {
+    "translation": "Resultaat exporteren (HTML)"
+  },
+  "menu.export.src": {
+    "translation": "Bron exporteren (ZIP)"
+  },
+  "menu.features": {
+    "translation": "Functies"
+  },
+  "menu.formatOnsave": {
+    "translation": "Formatteren bij opslaan"
+  },
+  "menu.getstart": {
+    "translation": "Aan de slag"
+  },
+  "menu.import": {
+    "translation": "Importeren …"
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "Toetsenbordsneltoetsen"
+  },
+  "menu.layout": {
+    "translation": "Verticale layout"
+  },
+  "menu.license": {
+    "translation": "Licentie"
+  },
+  "menu.login": {
+    "translation": "Inloggen"
+  },
+  "menu.logout": {
+    "translation": "Uitloggen"
+  },
+  "menu.new": {
+    "translation": "Nieuw …"
+  },
+  "menu.open": {
+    "translation": "Openen …"
+  },
+  "menu.project": {
+    "translation": "Projectinfo …"
+  },
+  "menu.recoverUnsaved": {
+    "translation": "Niet-opgeslagen herstellen"
+  },
+  "menu.report": {
+    "translation": "Een probleem melden"
+  },
+  "menu.resources": {
+    "translation": "Externe bronnen …"
+  },
+  "menu.save": {
+    "translation": "Opslaan"
+  },
+  "menu.saveAs.fork": {
+    "translation": "Fork (nieuw project)"
+  },
+  "menu.saveAs.heading": {
+    "translation": "Opslaan als …"
+  },
+  "menu.saveAs.template": {
+    "translation": "Sjabloon"
+  },
+  "menu.sdk": {
+    "translation": "SDK"
+  },
+  "menu.share": {
+    "translation": "Delen …"
+  },
+  "menu.showSpacing.heading": {
+    "translation": "Afstand weergeven"
+  },
+  "menu.showSpacing.hint": {
+    "translation": "Druk op Alt/Option en beweeg je cursor over de resultatenpagina"
+  },
+  "menu.showWelcome.title": {
+    "translation": "Welkomstscherm bij opstarten weergeven"
+  },
+  "menu.snippets": {
+    "translation": "Codefragmenten …"
+  },
+  "menu.source": {
+    "translation": "Broncode op GitHub"
+  },
+  "menu.sync": {
+    "translation": "Synchroniseren (beta) … <tag-1> ⏳</tag-1>"
+  },
+  "menu.theme": {
+    "translation": "Donker thema"
+  },
+  "menu.themeColor": {
+    "translation": "Kleur"
+  },
+  "menu.welcome.heading": {
+    "translation": "Welkom …"
+  },
+  "open.action.delete": {
+    "translation": "Verwijderen"
+  },
+  "open.defaultTemplate": {
+    "translation": "Standaard sjabloon "
+  },
+  "open.delete.all": {
+    "translation": "{{projects}} projecten verwijderen?"
+  },
+  "open.delete.deleting": {
+    "translation": "Projecten verwijderen..."
+  },
+  "open.delete.one": {
+    "translation": "Project verwijderen: {{project}}?"
+  },
+  "open.deleteAll": {
+    "translation": "Alles verwijderen"
+  },
+  "open.exportAll": {
+    "translation": "Alles exporteren"
+  },
+  "open.filter.language": {
+    "translation": "filteren op taal"
+  },
+  "open.filter.tag": {
+    "translation": "filteren op tag"
+  },
+  "open.heading": {
+    "translation": "Opgeslagen projecten"
+  },
+  "open.import": {
+    "translation": "Importeren"
+  },
+  "open.lastModified": {
+    "translation": "Laatst gewijzigd: {{modified}}"
+  },
+  "open.noData.desc": {
+    "translation": "Je kunt een project opslaan vanuit (instellingenmenu > Opslaan) of via de sneltoets (Ctrl/⌘ + S)."
+  },
+  "open.noData.heading": {
+    "translation": "Je hebt geen opgeslagen projecten."
+  },
+  "open.noMatch": {
+    "translation": "Geen projecten komen overeen met deze filters."
+  },
+  "open.placeholder.allLanguages": {
+    "translation": "Alle talen"
+  },
+  "open.placeholder.filterByTags": {
+    "translation": "Filteren op tags"
+  },
+  "open.placeholder.search": {
+    "translation": "Zoeken"
+  },
+  "open.removeDefault": {
+    "translation": "(niet instellen)"
+  },
+  "open.reset": {
+    "translation": "Reset"
+  },
+  "open.setAsDefault": {
+    "translation": "Instellen als standaard"
+  },
+  "open.sort.heading": {
+    "translation": "Sorteren op:"
+  },
+  "open.sort.lastModified": {
+    "translation": "Laatst gewijzigd"
+  },
+  "open.sort.title": {
+    "translation": "Titel"
+  },
+  "project.desc": {
+    "translation": "Beschrijving"
+  },
+  "project.head": {
+    "translation": "Toevoegen aan &lt;head&gt;"
+  },
+  "project.heading": {
+    "translation": "Projectinfo"
+  },
+  "project.htmlAttr": {
+    "translation": "Attributen voor &lt;html&gt;"
+  },
+  "project.tags": {
+    "translation": "Tags"
+  },
+  "project.title": {
+    "translation": "Projecttitel"
+  },
+  "recoverPrompt.desc": {
+    "translation": "Je laatste project heeft niet-opgeslagen wijzigingen!"
+  },
+  "recoverPrompt.heading": {
+    "translation": "Niet-opgeslagen project herstellen?"
+  },
+  "recoverPrompt.meta": {
+    "translation": "Titel: <tag-1></tag-1> <tag-2></tag-2> Laatst gewijzigd: <tag-3></tag-3>"
+  },
+  "recoverPrompt.notShowAgain": {
+    "translation": "Dit niet meer weergeven."
+  },
+  "recoverPrompt.prompt.discard": {
+    "translation": "Niet-opgeslagen project negeren"
+  },
+  "recoverPrompt.prompt.heading": {
+    "translation": "<tag-1></tag-1>Wil je het nu herstellen?"
+  },
+  "recoverPrompt.prompt.recover": {
+    "translation": "Project herstellen naar editor"
+  },
+  "recoverPrompt.prompt.save": {
+    "translation": "Opslaan op apparaat en doorgaan"
+  },
+  "resources.browseOnJsDelivr": {
+    "translation": "Pakketbestanden browsen op jsDelivr"
+  },
+  "resources.cssPresets.heading": {
+    "translation": "CSS-voorinstellingen"
+  },
+  "resources.cssPresets.none": {
+    "translation": "Geen"
+  },
+  "resources.cssPresets.normalizeCss": {
+    "translation": "Normalize.css"
+  },
+  "resources.cssPresets.resetCss": {
+    "translation": "Reset CSS"
+  },
+  "resources.error.failedToLoadResults": {
+    "translation": "Laden van resultaten mislukt!"
+  },
+  "resources.error.noResultsFound": {
+    "translation": "Geen resultaten gevonden voor: "
+  },
+  "resources.fonts.add": {
+    "translation": "Toevoegen"
+  },
+  "resources.fonts.heading": {
+    "translation": "Lettertypen <tag-1>(mogelijk gemaakt door Google Fonts)</tag-1>"
+  },
+  "resources.fonts.select": {
+    "translation": "Lettertype selecteren ..."
+  },
+  "resources.heading": {
+    "translation": "Externe bronnen"
+  },
+  "resources.scripts": {
+    "translation": "Externe scripts"
+  },
+  "resources.search.heading": {
+    "translation": "Pakketten zoeken <tag-1>(mogelijk gemaakt door jsDelivr)</tag-1>"
+  },
+  "resources.search.placeholder": {
+    "translation": "bijv. jquery, lodash@4, bootstrap@5.2.3, ..."
+  },
+  "resources.stylesheets": {
+    "translation": "Externe stylesheets"
+  },
+  "resources.urlDesc": {
+    "translation": "Stylesheet/script-URL's toevoegen. Elke URL moet op een aparte regel staan."
+  },
+  "resultMode.linkText": {
+    "translation": "Bewerken op LiveCodes"
+  },
+  "savePrompt.heading": {
+    "translation": "Niet-opgeslagen wijzigingen"
+  },
+  "savePrompt.prompt.cancel": {
+    "translation": "Annuleren"
+  },
+  "savePrompt.prompt.discard": {
+    "translation": "Niet opslaan"
+  },
+  "savePrompt.prompt.heading": {
+    "translation": "De wijzigingen die je hebt aangebracht, worden mogelijk niet opgeslagen. <tag-1></tag-1> Wil je nu opslaan?"
+  },
+  "savePrompt.prompt.save": {
+    "translation": "Opslaan"
+  },
+  "share.characters": {
+    "translation": "{{urlLength}} tekens"
+  },
+  "share.copy.clickToCopy": {
+    "translation": "Klik om te kopiëren"
+  },
+  "share.copy.copied": {
+    "translation": "URL gekopieerd naar klembord"
+  },
+  "share.encodedURL": {
+    "translation": "Gecodeerde URL ophalen"
+  },
+  "share.error.failedToCopy": {
+    "translation": "Kopiëren naar klembord mislukt!"
+  },
+  "share.error.failedToGenerateURL": {
+    "translation": "Genereren van korte URL mislukt!"
+  },
+  "share.expireInOneYear": {
+    "translation": "Verloopt over 1 jaar"
+  },
+  "share.generateURL": {
+    "translation": "URL genereren …"
+  },
+  "share.heading": {
+    "translation": "Delen"
+  },
+  "share.permanentURL": {
+    "translation": "Permanente URL"
+  },
+  "share.qrcode.clickToDownload": {
+    "translation": "Klik om te downloaden"
+  },
+  "share.qrcode.generating": {
+    "translation": "Genereren..."
+  },
+  "share.services.devTo": {
+    "translation": "Dev.to"
+  },
+  "share.services.email": {
+    "translation": "E-mail"
+  },
+  "share.services.facebook": {
+    "translation": "Facebook"
+  },
+  "share.services.hackerNews": {
+    "translation": "Hacker News"
+  },
+  "share.services.linkedIn": {
+    "translation": "LinkedIn"
+  },
+  "share.services.pinterest": {
+    "translation": "Pinterest"
+  },
+  "share.services.pocket": {
+    "translation": "Pocket"
+  },
+  "share.services.qrCode": {
+    "translation": "QR-code"
+  },
+  "share.services.reddit": {
+    "translation": "Reddit"
+  },
+  "share.services.share": {
+    "translation": "Delen via …"
+  },
+  "share.services.telegram": {
+    "translation": "Telegram"
+  },
+  "share.services.tumblr": {
+    "translation": "Tumblr"
+  },
+  "share.services.twitter": {
+    "translation": "𝕏 / Twitter"
+  },
+  "share.services.whatsApp": {
+    "translation": "WhatsApp"
+  },
+  "share.shortURL": {
+    "translation": "Korte URL ophalen"
+  },
+  "snippets.action.copy": {
+    "translation": "Kopiëren"
+  },
+  "snippets.action.delete": {
+    "translation": "Verwijderen"
+  },
+  "snippets.action.edit": {
+    "translation": "Bewerken"
+  },
+  "snippets.add.code": {
+    "translation": "Code"
+  },
+  "snippets.add.desc": {
+    "translation": "Beschrijving"
+  },
+  "snippets.add.heading": {
+    "translation": "Fragment toevoegen"
+  },
+  "snippets.add.language": {
+    "translation": "Taal"
+  },
+  "snippets.add.save": {
+    "translation": "Opslaan"
+  },
+  "snippets.add.snippets": {
+    "translation": "Fragmenten"
+  },
+  "snippets.add.title": {
+    "translation": "Titel"
+  },
+  "snippets.copy.clickToCopySnippet": {
+    "translation": "Klik om fragment te kopiëren"
+  },
+  "snippets.copy.copied": {
+    "translation": "Fragment is gekopieerd naar klembord."
+  },
+  "snippets.delete.all": {
+    "translation": "{{snippets}} fragmenten verwijderen?"
+  },
+  "snippets.delete.one": {
+    "translation": "Fragment verwijderen: {{snippet}}?"
+  },
+  "snippets.deleteAll": {
+    "translation": "Alles verwijderen"
+  },
+  "snippets.error.failedToCopy": {
+    "translation": "Kopiëren van URL mislukt."
+  },
+  "snippets.error.noTitle": {
+    "translation": "Voeg een fragmenttitel toe."
+  },
+  "snippets.filter.language": {
+    "translation": "filteren op taal"
+  },
+  "snippets.heading": {
+    "translation": "Codefragmenten"
+  },
+  "snippets.lastModified": {
+    "translation": "Laatst gewijzigd: {{modified}}"
+  },
+  "snippets.noMatch": {
+    "translation": "Geen fragmenten komen overeen met deze filters."
+  },
+  "snippets.noSavedSnippets": {
+    "translation": "Je hebt geen opgeslagen fragmenten."
+  },
+  "snippets.placeholder.allLanguages": {
+    "translation": "Alle talen"
+  },
+  "snippets.placeholder.search": {
+    "translation": "Zoeken"
+  },
+  "snippets.reset": {
+    "translation": "Reset"
+  },
+  "snippets.save.success": {
+    "translation": "Fragment lokaal opgeslagen op apparaat!"
+  },
+  "snippets.sort.date": {
+    "translation": "Datum"
+  },
+  "snippets.sort.heading": {
+    "translation": "Sorteren op:"
+  },
+  "snippets.sort.title": {
+    "translation": "Titel"
+  },
+  "snippets.text": {
+    "translation": "Platte tekst"
+  },
+  "splash.loading": {
+    "translation": "LiveCodes laden…"
+  },
+  "sync.autoSync": {
+    "translation": "Automatisch synchroniseren"
+  },
+  "sync.create.desc": {
+    "translation": "Een nieuwe <tag-1>privé</tag-1>-repo wordt aangemaakt. Je LiveCodes lokale gegevens worden gesynchroniseerd met <tag-2>main</tag-2>-branch."
+  },
+  "sync.create.heading": {
+    "translation": "Nieuwe repo aanmaken"
+  },
+  "sync.create.repoName": {
+    "translation": "Repo-naam"
+  },
+  "sync.error.generic": {
+    "translation": "Synchronisatie mislukt!"
+  },
+  "sync.error.repoNameRequired": {
+    "translation": "Repo-naam is verplicht"
+  },
+  "sync.existing.desc": {
+    "translation": "Je LiveCodes lokale gegevens worden gesynchroniseerd met <tag-1>main</tag-1>-branch."
+  },
+  "sync.existing.heading": {
+    "translation": "Bestaande repo"
+  },
+  "sync.existing.repoName": {
+    "translation": "Repo-naam"
+  },
+  "sync.heading": {
+    "translation": "Synchroniseren met GitHub-repo"
+  },
+  "sync.searchRepos": {
+    "translation": "Zoek in je repo's..."
+  },
+  "sync.success": {
+    "translation": "Synchronisatie voltooid!"
+  },
+  "sync.syncBtn": {
+    "translation": "Synchroniseren"
+  },
+  "sync.syncInProgress": {
+    "translation": "Synchronisatie bezig..."
+  },
+  "sync.syncStarted": {
+    "translation": "Synchronisatie gestart..."
+  },
+  "templates.heading": {
+    "translation": "Nieuw project"
+  },
+  "templates.noUserTemplates.desc": {
+    "translation": "Je kunt een project opslaan als sjabloon vanuit <tag-1></tag-1>(App-menu > Opslaan als > Sjabloon)."
+  },
+  "templates.noUserTemplates.heading": {
+    "translation": "Je hebt geen opgeslagen sjablonen."
+  },
+  "templates.search.label": {
+    "translation": "Zoeken in sjablonen"
+  },
+  "templates.search.placeholder": {
+    "translation": "Zoeken in sjablonen..."
+  },
+  "templates.starter.angular": {
+    "translation": "Angular-starter"
+  },
+  "templates.starter.assemblyscript": {
+    "translation": "AssemblyScript-starter"
+  },
+  "templates.starter.astro": {
+    "translation": "Astro-starter"
+  },
+  "templates.starter.backbone": {
+    "translation": "Backbone-starter"
+  },
+  "templates.starter.blank": {
+    "translation": "Leeg project"
+  },
+  "templates.starter.blockly": {
+    "translation": "Blockly-starter"
+  },
+  "templates.starter.bootstrap": {
+    "translation": "Bootstrap-starter"
+  },
+  "templates.starter.civet": {
+    "translation": "Civet-starter"
+  },
+  "templates.starter.clio": {
+    "translation": "Clio-starter"
+  },
+  "templates.starter.clojurescript": {
+    "translation": "ClojureScript-starter"
+  },
+  "templates.starter.coffeescript": {
+    "translation": "CoffeeScript-starter"
+  },
+  "templates.starter.commonlisp": {
+    "translation": "Common Lisp-starter"
+  },
+  "templates.starter.cpp": {
+    "translation": "C++-starter"
+  },
+  "templates.starter.cpp-wasm": {
+    "translation": "C++ (Wasm)-starter"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C# (Wasm)-starter"
+  },
+  "templates.starter.d3": {
+    "translation": "D3-starter"
+  },
+  "templates.starter.daisyui": {
+    "translation": "daisyUI-starter"
+  },
+  "templates.starter.diagrams": {
+    "translation": "Diagrammen-starter"
+  },
+  "templates.starter.fennel": {
+    "translation": "Fennel-starter"
+  },
+  "templates.starter.gleam": {
+    "translation": "Gleam-starter"
+  },
+  "templates.starter.go": {
+    "translation": "Go-starter"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Go (Wasm)-starter"
+  },
+  "templates.starter.heading": {
+    "translation": "Startsjablonen"
+  },
+  "templates.starter.imba": {
+    "translation": "Imba-starter"
+  },
+  "templates.starter.java": {
+    "translation": "Java-starter"
+  },
+  "templates.starter.javascript": {
+    "translation": "JavaScript-starter"
+  },
+  "templates.starter.jest": {
+    "translation": "Jest-starter"
+  },
+  "templates.starter.jest-react": {
+    "translation": "Jest/React-starter"
+  },
+  "templates.starter.jquery": {
+    "translation": "jQuery-starter"
+  },
+  "templates.starter.julia": {
+    "translation": "Julia-starter"
+  },
+  "templates.starter.knockout": {
+    "translation": "Knockout-starter"
+  },
+  "templates.starter.lit": {
+    "translation": "Lit-starter"
+  },
+  "templates.starter.livescript": {
+    "translation": "LiveScript-starter"
+  },
+  "templates.starter.loading": {
+    "translation": "Startsjablonen laden..."
+  },
+  "templates.starter.lua": {
+    "translation": "Lua-starter"
+  },
+  "templates.starter.lua-wasm": {
+    "translation": "Lua (Wasm)-starter"
+  },
+  "templates.starter.malina": {
+    "translation": "Malina.js-starter"
+  },
+  "templates.starter.markdown": {
+    "translation": "Markdown-starter"
+  },
+  "templates.starter.mdx": {
+    "translation": "MDX-starter"
+  },
+  "templates.starter.minizinc": {
+    "translation": "MiniZinc Starter"
+  },
+  "templates.starter.ocaml": {
+    "translation": "Ocaml-starter"
+  },
+  "templates.starter.perl": {
+    "translation": "Perl-starter"
+  },
+  "templates.starter.phaser": {
+    "translation": "Phaser-starter"
+  },
+  "templates.starter.php": {
+    "translation": "PHP-starter"
+  },
+  "templates.starter.php-wasm": {
+    "translation": "PHP (Wasm)-starter"
+  },
+  "templates.starter.postgresql": {
+    "translation": "PostgreSQL-starter"
+  },
+  "templates.starter.preact": {
+    "translation": "Preact-starter"
+  },
+  "templates.starter.prolog": {
+    "translation": "Prolog-starter"
+  },
+  "templates.starter.python": {
+    "translation": "Python-starter"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Python (Wasm)-starter"
+  },
+  "templates.starter.r": {
+    "translation": "R-starter"
+  },
+  "templates.starter.react": {
+    "translation": "React-starter"
+  },
+  "templates.starter.react-native": {
+    "translation": "React Native-starter"
+  },
+  "templates.starter.reason": {
+    "translation": "Reason-starter"
+  },
+  "templates.starter.rescript": {
+    "translation": "ReScript-starter"
+  },
+  "templates.starter.riot": {
+    "translation": "Riot.js-starter"
+  },
+  "templates.starter.ruby": {
+    "translation": "Ruby-starter"
+  },
+  "templates.starter.ruby-wasm": {
+    "translation": "Ruby (Wasm)-starter"
+  },
+  "templates.starter.scheme": {
+    "translation": "Scheme-starter"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/ui-starter"
+  },
+  "templates.starter.solid": {
+    "translation": "Solid-starter"
+  },
+  "templates.starter.sql": {
+    "translation": "SQL-starter"
+  },
+  "templates.starter.stencil": {
+    "translation": "Stencil-starter"
+  },
+  "templates.starter.svelte": {
+    "translation": "Svelte-starter"
+  },
+  "templates.starter.tailwindcss": {
+    "translation": "Tailwind CSS-starter"
+  },
+  "templates.starter.tcl": {
+    "translation": "Tcl-starter"
+  },
+  "templates.starter.teal": {
+    "translation": "Teal-starter"
+  },
+  "templates.starter.typescript": {
+    "translation": "TypeScript-starter"
+  },
+  "templates.starter.vue": {
+    "translation": "Vue SFC-starter"
+  },
+  "templates.starter.vue2": {
+    "translation": "Vue 2-starter"
+  },
+  "templates.starter.wat": {
+    "translation": "WebAssembly Text-starter"
+  },
+  "templates.user.heading": {
+    "translation": "Mijn sjablonen"
+  },
+  "templates.user.loading": {
+    "translation": "Gebruikerssjablonen laden..."
+  },
+  "testEditor.heading": {
+    "translation": "Tests bewerken"
+  },
+  "testEditor.load": {
+    "translation": "Laden"
+  },
+  "testEditor.tests": {
+    "translation": "Tests"
+  },
+  "testSettings.desc": {
+    "translation": "<tag-1></tag-1> Voor meer details, raadpleeg de <tag-2>documentatie</tag-2>"
+  },
+  "toolspane.close": {
+    "translation": "Sluiten"
+  },
+  "toolspane.compiled.title": {
+    "translation": "Gecompileerd"
+  },
+  "toolspane.console.clear": {
+    "translation": "Console wissen"
+  },
+  "toolspane.console.title": {
+    "translation": "Console"
+  },
+  "toolspane.test.edit": {
+    "translation": "Bewerken"
+  },
+  "toolspane.test.error": {
+    "translation": "<tag-1><tag-2>Testfout!</tag-2></tag-1>"
+  },
+  "toolspane.test.loading": {
+    "translation": "<tag-1>Tests laden...</tag-1>"
+  },
+  "toolspane.test.noTest": {
+    "translation": "<tag-1>Dit project heeft geen tests!</tag-1>"
+  },
+  "toolspane.test.reset": {
+    "translation": "Reset"
+  },
+  "toolspane.test.run.desc": {
+    "translation": "Ctrl/⌘ + Alt + T"
+  },
+  "toolspane.test.run.heading": {
+    "translation": "Uitvoeren"
+  },
+  "toolspane.test.summary.desc": {
+    "translation": "Tests: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<tag-1></tag-1>\nTijd: {{duration}}s"
+  },
+  "toolspane.test.summary.failed": {
+    "translation": "{{failedNum}} mislukt"
+  },
+  "toolspane.test.summary.passed": {
+    "translation": "{{passedNum}} geslaagd"
+  },
+  "toolspane.test.summary.skipped": {
+    "translation": "{{skippedNum}} overgeslagen"
+  },
+  "toolspane.test.summary.total": {
+    "translation": "{{totalNum}} totaal"
+  },
+  "toolspane.test.title": {
+    "translation": "Tests"
+  },
+  "toolspane.test.watch.desc": {
+    "translation": "Tests uitvoeren wanneer code verandert"
+  },
+  "toolspane.test.watch.heading": {
+    "translation": "Volgen"
+  },
+  "welcome.about.documentation": {
+    "translation": "Documentatie"
+  },
+  "welcome.about.heading": {
+    "translation": "Over LiveCodes"
+  },
+  "welcome.heading": {
+    "translation": "Welkom"
+  },
+  "welcome.recent.heading": {
+    "translation": "Recent"
+  },
+  "welcome.recover.cancel": {
+    "translation": "Annuleren"
+  },
+  "welcome.recover.heading": {
+    "translation": "Herstellen"
+  },
+  "welcome.recover.lastModified": {
+    "translation": "Laatst gewijzigd:"
+  },
+  "welcome.recover.recover": {
+    "translation": "Herstellen"
+  },
+  "welcome.recover.save": {
+    "translation": "Opslaan"
+  },
+  "welcome.recover.unsavedChanges": {
+    "translation": "Je laatste project had niet-opgeslagen wijzigingen:"
+  },
+  "welcome.showOnStartup": {
+    "translation": "Weergeven bij opstarten"
+  },
+  "welcome.start.heading": {
+    "translation": "Start"
+  },
+  "welcome.start.import": {
+    "translation": "Importeren..."
+  },
+  "welcome.start.loadDefaultTemplate": {
+    "translation": "Standaard sjabloon laden"
+  },
+  "welcome.start.new": {
+    "translation": "Nieuw..."
+  },
+  "welcome.start.noDefaultTemplate": {
+    "translation": "Geen standaard sjabloon"
+  },
+  "welcome.start.open": {
+    "translation": "Openen..."
+  },
+  "welcome.templates.heading": {
+    "translation": "Startsjablonen"
+  }
+}

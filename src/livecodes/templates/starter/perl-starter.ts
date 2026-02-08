@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const perlStarter: Template = {
   name: 'perl',
+  aliases: ['pl'],
   title: window.deps.translateString('templates.starter.perl', 'Perl Starter'),
   thumbnail: 'assets/templates/perl.svg',
   activeEditor: 'script',

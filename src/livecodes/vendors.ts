@@ -3,7 +3,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.3/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.6/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -28,6 +28,11 @@ export const autoCompleteUrl = /* @__PURE__ */ getUrl(
 );
 
 export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.26.4/babel.js');
+
+export const bbobHtmlUrl = /* @__PURE__ */ getUrl('@bbob/html@4.3.1/dist/index.min.js');
+export const bbobPresetHtmlUrl = /* @__PURE__ */ getUrl(
+  '@bbob/preset-html5@4.3.1/dist/index.min.js',
+);
 
 export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
@@ -85,7 +90,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.2/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.4/build/');
 
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
@@ -293,9 +298,11 @@ export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid
 
 export const metaPngUrl = /* @__PURE__ */ getUrl('meta-png@1.0.6/dist/meta-png.umd.js');
 
+export const minizincUrl = /* @__PURE__ */ getUrl('minizinc@4.4.4/dist/minizinc.mjs');
+
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
-export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.3.0/');
+export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.3.1/');
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
@@ -337,6 +344,10 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
 
 export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
 
+export const prettierMinizincUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/prettier-plugin-minizinc@0.2.0/dist/standalone.js',
+);
+
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.22.2/standalone.js');
 
 export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/components/');
@@ -354,7 +365,7 @@ export const prismThemesLaserWaveUrl = /* @__PURE__ */ getUrl(
 );
 
 export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.jsdelivr.net/pyodide/v0.28.3/full/',
+  'https://cdn.jsdelivr.net/pyodide/v0.29.0/full/',
 );
 
 export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.6.1/dist/easy.qrcode.min.js');
@@ -391,10 +402,10 @@ export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
 export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.2/');
 
-export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.3-wasm-wasi@2.6.2/dist/');
+export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.4-wasm-wasi@2.7.2/dist/');
 
 export const rubyWasmScriptUrl = /* @__PURE__ */ getUrl(
-  '@ruby/wasm-wasi@2.6.2/dist/browser.umd.js',
+  '@ruby/wasm-wasi@2.7.2/dist/browser.umd.js',
 );
 
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
@@ -413,7 +424,7 @@ export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/s
 
 export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.3.2/dist/umd/stylis.js');
 
-export const svelteBaseUrl = /* @__PURE__ */ getUrl('svelte@5.12.0/');
+export const svelteBaseUrl = /* @__PURE__ */ getUrl('svelte@5.39.12/');
 
 export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm');
 
@@ -437,9 +448,7 @@ export const tesseractUrl = /* @__PURE__ */ getUrl('tesseract.js@6.0.1/dist/tess
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
-export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.6.2/lib/typescript.js`);
-
-export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.3/dist/vfs.esm.js');
+export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.9.3/lib/typescript.js`);
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 

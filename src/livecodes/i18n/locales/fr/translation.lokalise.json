@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "Copier le code en tant qu'URL de données"
   },
-  "commandMenu.disableAI": {
-    "translation": "Désactiver l'assistant de codage de l'IA"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "Désactiver l'enregistrement automatique"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "Désactiver le mode Vim"
-  },
-  "commandMenu.enableAI": {
-    "translation": "Activer l'assistant de code AI"
   },
   "commandMenu.enableAutoSave": {
     "translation": "Activer l'enregistrement automatique"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "Activer Emmet *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "Activer l'assistant de code AI"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "Propulsé par <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.foldRegions": {
     "translation": "Plier (réduire) les régions *"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "Vous n'avez aucun modèle enregistré."
   },
+  "templates.search.label": {
+    "translation": "Recherche dans les modèles"
+  },
+  "templates.search.placeholder": {
+    "translation": "Recherche dans les modèles..."
+  },
   "templates.starter.angular": {
     "translation": "Démarrage Angular"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "Démarrage C++ (Wasm)"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "Démarrage C# (Wasm)"
+  },
+  "templates.starter.d3": {
+    "translation": "Démarrage D3"
   },
   "templates.starter.daisyui": {
     "translation": "Démarrage daisyUI"
@@ -2022,11 +2022,17 @@
   "templates.starter.mdx": {
     "translation": "Démarrage MDX"
   },
+  "templates.starter.minizinc": {
+    "translation": "Démarrage MiniZinc"
+  },
   "templates.starter.ocaml": {
     "translation": "Démarrage OCaml"
   },
   "templates.starter.perl": {
     "translation": "Démarrage Perl"
+  },
+  "templates.starter.phaser": {
+    "translation": "Démarrage Phaser"
   },
   "templates.starter.php": {
     "translation": "Démarrage PHP"
@@ -2045,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "Démarrage Python"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Démarrage Python (Wasm)"
   },
   "templates.starter.r": {
     "translation": "Démarrage R"

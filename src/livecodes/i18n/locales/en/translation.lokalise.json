@@ -684,10 +684,6 @@
     "notes": "",
     "translation": "Copy Code as Data URL"
   },
-  "commandMenu.disableAI": {
-    "notes": "",
-    "translation": "Disable AI Code Assistant"
-  },
   "commandMenu.disableAutoSave": {
     "notes": "",
     "translation": "Disable Auto Save"
@@ -711,10 +707,6 @@
   "commandMenu.disableVim": {
     "notes": "",
     "translation": "Disable Vim Mode"
-  },
-  "commandMenu.enableAI": {
-    "notes": "",
-    "translation": "Enable AI Code Assistant"
   },
   "commandMenu.enableAutoSave": {
     "notes": "",
@@ -1255,14 +1247,6 @@
   "editorSettings.emmet": {
     "notes": "",
     "translation": "Enable Emmet *"
-  },
-  "editorSettings.enableAI.heading": {
-    "notes": "",
-    "translation": "Enable AI Code Assistant"
-  },
-  "editorSettings.enableAI.note": {
-    "notes": "### <tag-1> ###\n<a href=\"https://windsurf.com/\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img id=\"windsurf-logo\" src=\"{{baseUrl}}assets/images/windsurf.svg\" style=\"height: 3em; translate: 0 40%; margin-top: -2em;\" alt=\"Windsurf\" />\n\n",
-    "translation": "Powered by <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.foldRegions": {
     "notes": "",
@@ -2548,6 +2532,14 @@
     "notes": "",
     "translation": "You have no saved templates."
   },
+  "templates.search.label": {
+    "notes": "",
+    "translation": "Search templates"
+  },
+  "templates.search.placeholder": {
+    "notes": "",
+    "translation": "Search templates..."
+  },
   "templates.starter.angular": {
     "notes": "",
     "translation": "Angular Starter"
@@ -2603,6 +2595,14 @@
   "templates.starter.cpp-wasm": {
     "notes": "",
     "translation": "C++ (Wasm) Starter"
+  },
+  "templates.starter.csharp-wasm": {
+    "notes": "",
+    "translation": "C# (Wasm) Starter"
+  },
+  "templates.starter.d3": {
+    "notes": "",
+    "translation": "D3 Starter"
   },
   "templates.starter.daisyui": {
     "notes": "",
@@ -2696,6 +2696,10 @@
     "notes": "",
     "translation": "MDX Starter"
   },
+  "templates.starter.minizinc": {
+    "notes": "",
+    "translation": "MiniZinc Starter"
+  },
   "templates.starter.ocaml": {
     "notes": "",
     "translation": "Ocaml Starter"
@@ -2703,6 +2707,10 @@
   "templates.starter.perl": {
     "notes": "",
     "translation": "Perl Starter"
+  },
+  "templates.starter.phaser": {
+    "notes": "",
+    "translation": "Phaser Starter"
   },
   "templates.starter.php": {
     "notes": "",
@@ -2727,6 +2735,10 @@
   "templates.starter.python": {
     "notes": "",
     "translation": "Python Starter"
+  },
+  "templates.starter.python-wasm": {
+    "notes": "",
+    "translation": "Python (Wasm) Starter"
   },
   "templates.starter.r": {
     "notes": "",
