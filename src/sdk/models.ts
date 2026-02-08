@@ -811,11 +811,11 @@ export interface EditorConfig {
    */
   editorMode: 'vim' | 'emacs' | undefined;
 
-  /**
-   * If `true`, [AI code assistant](https://livecodes.io/docs/features/ai) is enabled.
-   * @default false
-   */
-  enableAI: boolean;
+  // /**
+  //  * If `true`, [AI code assistant](https://livecodes.io/docs/features/ai) is enabled.
+  //  * @default false
+  //  */
+  // enableAI: boolean;
 }
 
 export interface FormatterConfig {

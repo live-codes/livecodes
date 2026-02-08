@@ -47,10 +47,10 @@ import { getEditorTheme } from '../themes';
 import { codemirrorThemes, customThemes } from './codemirror-themes';
 import { editorLanguages } from './editor-languages';
 
-export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
-  editorId: EditorOptions['editorId'];
-};
-const editors: CodeiumEditor[] = [];
+// export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
+//   editorId: EditorOptions['editorId'];
+// };
+// const editors: CodeiumEditor[] = [];
 let tsWorker: any;
 let tabFocusMode = false;
 const changeTabFocusMode = debounce(() => (tabFocusMode = !tabFocusMode), 50);
@@ -109,9 +109,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let vim: (() => Extension) | undefined;
   let emacs: (() => Extension) | undefined;
   let emmet: Extension | undefined;
-  let codeium:
-    | ((editors: CodeiumEditor[], mapLanguage: (lang: Language) => Language) => Extension)
-    | undefined;
+  // let codeium:
+  //   | ((editors: CodeiumEditor[], mapLanguage: (lang: Language) => Language) => Extension)
+  //   | undefined;
   let lineNumbersRelative: () => Extension;
 
   const configureTSExtension = (extensionList: readonly Extension[]) => {
@@ -181,20 +181,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       vim: `${codeMirrorBaseUrl}codemirror-vim.js`,
       emacs: `${codeMirrorBaseUrl}codemirror-emacs.js`,
       emmet: `${codeMirrorBaseUrl}codemirror-emmet.js`,
-      codeium: `${codeMirrorBaseUrl}codemirror-codeium.js`,
+      // codeium: `${codeMirrorBaseUrl}codemirror-codeium.js`,
       lineNumbersRelative: `${codeMirrorBaseUrl}codemirror-line-numbers-relative.js`,
     };
-    const [vimMod, emacsMod, emmetMod, codeiumMod, lineNumbersRelativeMod] = await Promise.all([
-      opt.editorMode === 'vim' ? import(modules.vim) : Promise.resolve({}),
-      opt.editorMode === 'emacs' ? import(modules.emacs) : Promise.resolve({}),
-      opt.emmet ? import(modules.emmet) : Promise.resolve({}),
-      opt.enableAI ? import(modules.codeium) : Promise.resolve({}),
-      opt.lineNumbers === 'relative' ? import(modules.lineNumbersRelative) : Promise.resolve({}),
-    ]);
+    const [vimMod, emacsMod, emmetMod, /* codeiumMod, */ lineNumbersRelativeMod] =
+      await Promise.all([
+        opt.editorMode === 'vim' ? import(modules.vim) : Promise.resolve({}),
+        opt.editorMode === 'emacs' ? import(modules.emacs) : Promise.resolve({}),
+        opt.emmet ? import(modules.emmet) : Promise.resolve({}),
+        // opt.enableAI ? import(modules.codeium) : Promise.resolve({}),
+        opt.lineNumbers === 'relative' ? import(modules.lineNumbersRelative) : Promise.resolve({}),
+      ]);
     vim = vimMod.vim;
     emacs = emacsMod.emacs;
     emmet = emmetMod.emmet;
-    codeium = codeiumMod.codeium;
+    // codeium = codeiumMod.codeium;
     lineNumbersRelative = lineNumbersRelativeMod.lineNumbersRelative;
   };
   await loadExtensions(options);
@@ -217,7 +218,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const wordWrap = settings.wordWrap ?? editorSettings.wordWrap;
     const enableEmmet = settings.emmet ?? editorSettings.emmet;
     const enableLineNumbers = settings.lineNumbers ?? editorSettings.lineNumbers;
-    const enableAI = settings.enableAI ?? editorSettings.enableAI;
+    // const enableAI = settings.enableAI ?? editorSettings.enableAI;
     const editorMode = settings.editorMode ?? editorSettings.editorMode;
 
     return [
@@ -231,7 +232,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         : enableLineNumbers && lineNumbers
           ? [lineNumbers()]
           : []),
-      ...(enableAI && codeium ? [codeium(editors, mapLanguage)] : []),
+      // ...(enableAI && codeium ? [codeium(editors, mapLanguage)] : []),
       EditorView.theme({
         '&': {
           height: '100%',
@@ -341,8 +342,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
-  const codeiumEditor: CodeiumEditor = { editorId, getLanguage, getValue };
-  editors.push(codeiumEditor);
+  // const codeiumEditor: CodeiumEditor = { editorId, getLanguage, getValue };
+  // editors.push(codeiumEditor);
   loadTS().then(() => {
     tsResolve();
   });
@@ -517,7 +518,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     keyBindings.length = 0;
     view.destroy();
     container.innerHTML = '';
-    editors.splice(editors.indexOf(codeiumEditor), 1);
+    // editors.splice(editors.indexOf(codeiumEditor), 1);
     removeEventListener('keydown', toggleTabFocusMode);
   };
 

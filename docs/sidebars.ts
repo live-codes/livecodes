@@ -32,7 +32,7 @@ const sidebars: SidebarsConfig = {
             'features/tests',
             'features/module-resolution',
             'features/intellisense',
-            'features/ai',
+            // 'features/ai',
             'features/code-format',
             'features/command-menu',
             'features/keyboard-shortcuts',

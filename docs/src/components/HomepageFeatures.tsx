@@ -80,20 +80,20 @@ const FeatureList2: FeatureItem[] = [
     ),
   },
 
-  {
-    title: 'AI Code Assistant',
-    image: './img/magic-wand.svg',
-    description: (
-      <>
-        Leverage the <Link to="./features/ai">power of AI</Link> to help you write/learn code, using
-        the <strong>free</strong> Copilot alternative. It understands the context of your code and
-        comments to generate suggestions. It has a wide range of language support, and it works
-        everywhere (in the <Link to="./getting-started#standalone-app">standalone app</Link>,{' '}
-        <Link to="./features/embeds">embedded playgrounds</Link> and{' '}
-        <Link to="./features/self-hosting">self-hosted</Link> apps).
-      </>
-    ),
-  },
+  // {
+  //   title: 'AI Code Assistant',
+  //   image: './img/magic-wand.svg',
+  //   description: (
+  //     <>
+  //       Leverage the <Link to="./features/ai">power of AI</Link> to help you write/learn code, using
+  //       the <strong>free</strong> Copilot alternative. It understands the context of your code and
+  //       comments to generate suggestions. It has a wide range of language support, and it works
+  //       everywhere (in the <Link to="./getting-started#standalone-app">standalone app</Link>,{' '}
+  //       <Link to="./features/embeds">embedded playgrounds</Link> and{' '}
+  //       <Link to="./features/self-hosting">self-hosted</Link> apps).
+  //     </>
+  //   ),
+  // },
   {
     title: 'Mobile-Friendly',
     image: './img/responsive.svg',

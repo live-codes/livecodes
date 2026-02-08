@@ -70,23 +70,23 @@ export const createEditorSettingsUI = async ({
     note?: string;
   }
   const formFields: FormField[] = [
-    {
-      title: window.deps.translateString(
-        'editorSettings.enableAI.heading',
-        'Enable AI Code Assistant',
-      ),
-      name: 'enableAI',
-      options: [{ value: 'true' }],
-      help: `${process.env.DOCS_BASE_URL}features/ai`,
-      note: window.deps.translateString(
-        'editorSettings.enableAI.note',
-        'Powered by <a href="https://windsurf.com/" rel="noopener noreferrer" target="_blank"><img id="windsurf-logo" src="{{baseUrl}}assets/images/windsurf.svg" style="height: 3em; translate: 0 40%; margin-top: -2em;" alt="Windsurf" /></a>',
-        {
-          isHTML: true,
-          baseUrl,
-        },
-      ),
-    },
+    // {
+    //   title: window.deps.translateString(
+    //     'editorSettings.enableAI.heading',
+    //     'Enable AI Code Assistant',
+    //   ),
+    //   name: 'enableAI',
+    //   options: [{ value: 'true' }],
+    //   help: `${process.env.DOCS_BASE_URL}features/ai`,
+    //   note: window.deps.translateString(
+    //     'editorSettings.enableAI.note',
+    //     'Powered by <a href="https://windsurf.com/" rel="noopener noreferrer" target="_blank"><img id="windsurf-logo" src="{{baseUrl}}assets/images/windsurf.svg" style="height: 3em; translate: 0 40%; margin-top: -2em;" alt="Windsurf" /></a>',
+    //     {
+    //       isHTML: true,
+    //       baseUrl,
+    //     },
+    //   ),
+    // },
     {
       title: window.deps.translateString('editorSettings.editor.heading', 'Editor'),
       name: 'editor',
@@ -532,12 +532,12 @@ export const createEditorSettingsUI = async ({
       });
     }
 
-    const windsurfLogo = document.getElementById('windsurf-logo')!;
-    if (formData.theme === 'light') {
-      windsurfLogo.style.filter = 'invert(1)';
-    } else {
-      windsurfLogo.style.filter = 'unset';
-    }
+    // const windsurfLogo = document.getElementById('windsurf-logo')!;
+    // if (formData.theme === 'light') {
+    //   windsurfLogo.style.filter = 'invert(1)';
+    // } else {
+    //   windsurfLogo.style.filter = 'unset';
+    // }
 
     if (!init) {
       deps.changeSettings(formData);
