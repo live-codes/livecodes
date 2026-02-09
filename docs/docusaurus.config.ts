@@ -159,10 +159,10 @@ const config: Config = {
               label: 'Import...',
               href: 'pathname:///../?screen=import',
             },
-            {
-              label: 'AI Code Assistant 🪄',
-              to: '/features/ai',
-            },
+            // {
+            //   label: 'AI Code Assistant 🪄',
+            //   to: '/features/ai',
+            // },
             {
               label: 'Bookmarklet',
               to: '/bookmarklet',

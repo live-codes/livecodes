@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "Code als data-URL kopiëren"
   },
-  "commandMenu.disableAI": {
-    "translation": "AI-code-assistent uitschakelen"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "Automatisch opslaan uitschakelen"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "Vim-modus uitschakelen"
-  },
-  "commandMenu.enableAI": {
-    "translation": "AI-code-assistent inschakelen"
   },
   "commandMenu.enableAutoSave": {
     "translation": "Automatisch opslaan inschakelen"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "Emmet inschakelen *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "AI-code-assistent inschakelen"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "Mogelijk gemaakt door <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.foldRegions": {
     "translation": "Regio's vouwen (samenvouwen) *"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "Je hebt geen opgeslagen sjablonen."
   },
+  "templates.search.label": {
+    "translation": "Zoeken in sjablonen"
+  },
+  "templates.search.placeholder": {
+    "translation": "Zoeken in sjablonen..."
+  },
   "templates.starter.angular": {
     "translation": "Angular-starter"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "C++ (Wasm)-starter"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C# (Wasm)-starter"
+  },
+  "templates.starter.d3": {
+    "translation": "D3-starter"
   },
   "templates.starter.daisyui": {
     "translation": "daisyUI-starter"
@@ -2031,6 +2031,9 @@
   "templates.starter.perl": {
     "translation": "Perl-starter"
   },
+  "templates.starter.phaser": {
+    "translation": "Phaser-starter"
+  },
   "templates.starter.php": {
     "translation": "PHP-starter"
   },
@@ -2048,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "Python-starter"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Python (Wasm)-starter"
   },
   "templates.starter.r": {
     "translation": "R-starter"

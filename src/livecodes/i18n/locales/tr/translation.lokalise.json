@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "Kodu Veri URL'si Olarak Kopyala"
   },
-  "commandMenu.disableAI": {
-    "translation": "AI Kod Asistanını Devre Dışı Bırak"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "Otomatik Kaydetmeyi Devre Dışı Bırak"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "Vim Modunu Devre Dışı Bırak"
-  },
-  "commandMenu.enableAI": {
-    "translation": "AI Kod Asistanını Etkinleştir"
   },
   "commandMenu.enableAutoSave": {
     "translation": "Otomatik Kaydetmeyi Etkinleştir"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "Emmet'i Etkinleştir *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "AI Kod Asistanını Etkinleştir"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "<tag-1><tag-2></tag-2></tag-1> tarafından desteklenmektedir"
   },
   "editorSettings.foldRegions": {
     "translation": "Bölgeleri katla (daralt) *"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "Kaydedilmiş şablonunuz yok."
   },
+  "templates.search.label": {
+    "translation": "Şablonlarda arama yapın"
+  },
+  "templates.search.placeholder": {
+    "translation": "Şablonlarda arama yapın..."
+  },
   "templates.starter.angular": {
     "translation": "Angular Başlangıç"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "C++ (Wasm) Başlangıç"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C# (Wasm) Başlangıç"
+  },
+  "templates.starter.d3": {
+    "translation": "D3 Başlangıç"
   },
   "templates.starter.daisyui": {
     "translation": "daisyUI Başlangıç"
@@ -2031,6 +2031,9 @@
   "templates.starter.perl": {
     "translation": "Perl Başlangıç"
   },
+  "templates.starter.phaser": {
+    "translation": "Phaser Başlangıç"
+  },
   "templates.starter.php": {
     "translation": "PHP Başlangıç"
   },
@@ -2048,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "Python Başlangıç"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Python (Wasm) Başlangıç"
   },
   "templates.starter.r": {
     "translation": "R Başlangıç"

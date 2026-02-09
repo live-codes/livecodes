@@ -20,7 +20,7 @@ import type {
 import { pkgInfoService } from '../../services/pkgInfo';
 import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
 import {
-  codeiumProviderUrl,
+  // codeiumProviderUrl,
   emmetMonacoUrl,
   monacoBaseUrl,
   monacoEmacsUrl,
@@ -40,8 +40,7 @@ let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
 let monaco: typeof Monaco;
 const loadedThemes = new Set<string>();
-let codeiumProvider: { dispose: () => void } | undefined;
-// track editors for providing context for AI
+// let codeiumProvider: { dispose: () => void } | undefined;
 let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
 let tailwindcssConfig: any;
 
@@ -628,7 +627,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     configureEditorMode(settings.editorMode);
     editor.updateOptions(editorOptions);
     setTheme(settings.theme, settings.editorTheme);
-    configureCodeium(settings.enableAI);
+    // configureCodeium(settings.enableAI);
   };
 
   const undo = () => {
@@ -679,27 +678,27 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
-  const configureCodeium = (enabled: boolean) => {
-    if (!enabled) {
-      codeiumProvider?.dispose();
-      codeiumProvider = undefined;
-      return;
-    }
+  // const configureCodeium = (enabled: boolean) => {
+  //   if (!enabled) {
+  //     codeiumProvider?.dispose();
+  //     codeiumProvider = undefined;
+  //     return;
+  //   }
 
-    // already loaded or loading
-    if (codeiumProvider) {
-      return;
-    }
+  //   // already loaded or loading
+  //   if (codeiumProvider) {
+  //     return;
+  //   }
 
-    // avoid race condition between different editors
-    codeiumProvider = { dispose: () => 'loading...' };
+  //   // avoid race condition between different editors
+  //   codeiumProvider = { dispose: () => 'loading...' };
 
-    import(codeiumProviderUrl).then((codeiumModule) => {
-      codeiumProvider = codeiumModule.registerCodeiumProvider(monaco, {
-        getEditors: () => editors,
-      });
-    });
-  };
+  //   import(codeiumProviderUrl).then((codeiumModule) => {
+  //     codeiumProvider = codeiumModule.registerCodeiumProvider(monaco, {
+  //       getEditors: () => editors,
+  //     });
+  //   });
+  // };
 
   const destroy = () => {
     editors = editors.filter((e) => e !== editor);

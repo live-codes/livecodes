@@ -614,24 +614,24 @@ export const getCommandMenuActions = ({
             UI.getEditorSettingsLink()?.click();
           },
         },
-        {
-          id: 'Enable AI Code Assistant',
-          title: window.deps.translateString('commandMenu.enableAI', 'Enable AI Code Assistant'),
-          content: getContent('Enable AI Code Assistant'),
-          mdIcon: 'toggle_on',
-          handler: () => {
-            changeEditorSettings({ enableAI: true });
-          },
-        },
-        {
-          id: 'Disable AI Code Assistant',
-          title: window.deps.translateString('commandMenu.disableAI', 'Disable AI Code Assistant'),
-          content: getContent('Disable AI Code Assistant'),
-          mdIcon: 'toggle_off',
-          handler: () => {
-            changeEditorSettings({ enableAI: false });
-          },
-        },
+        // {
+        //   id: 'Enable AI Code Assistant',
+        //   title: window.deps.translateString('commandMenu.enableAI', 'Enable AI Code Assistant'),
+        //   content: getContent('Enable AI Code Assistant'),
+        //   mdIcon: 'toggle_on',
+        //   handler: () => {
+        //     changeEditorSettings({ enableAI: true });
+        //   },
+        // },
+        // {
+        //   id: 'Disable AI Code Assistant',
+        //   title: window.deps.translateString('commandMenu.disableAI', 'Disable AI Code Assistant'),
+        //   content: getContent('Disable AI Code Assistant'),
+        //   mdIcon: 'toggle_off',
+        //   handler: () => {
+        //     changeEditorSettings({ enableAI: false });
+        //   },
+        // },
         {
           id: 'Enable Auto Update',
           title: window.deps.translateString('commandMenu.enableAutoUpdate', 'Enable Auto Update'),

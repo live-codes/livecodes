@@ -110,7 +110,6 @@ Add this code to your page:
 - [Dev Tools](https://livecodes.io/docs/features/tools-pane) ([console](https://livecodes.io/docs/features/console), [compiled code viewer](https://livecodes.io/docs/features/compiled-code), [test runner](https://livecodes.io/docs/features/tests))
 - [Code formatting](https://livecodes.io/docs/features/code-format)
 - [Intellisense](https://livecodes.io/docs/features/intellisense)
-- [AI Code Assistant 🪄](https://livecodes.io/docs/features/ai)
 - [Lite mode](https://livecodes.io/docs/features/lite)
 - [Read-only mode](https://livecodes.io/docs/features/read-only)
 - [Broadcast](https://livecodes.io/docs/features/broadcast)
@@ -270,11 +269,6 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://windsurf.com/" target="_blank" title="Windsurf">
-  <img alt="Windsurf" width="200" src="https://dev.livecodes.io/docs/img/credits/windsurf.svg">
-</img></a><br /><br />
-</p>
-<p>
 <a href="https://m.do.co/c/fb8c00b45b91" target="_blank" title="DigitalOcean">
   <img alt="DigitalOcean" width="200" src="https://dev.livecodes.io/docs/img/credits/digital-ocean.svg">
 </img></a><br /><br />
@@ -307,11 +301,6 @@ LiveCodes uses services that are generously provided by:
 <p>
 <a href="https://www.codacy.com/" target="_blank" title="Codacy">
   <img alt="Codacy" width="200" src="https://dev.livecodes.io/docs/img/credits/codacy.svg">
-</img></a><br /><br />
-</p>
-<p>
-<a href="https://bundlewatch.io/" target="_blank" title="BundleWatch">
-  <img alt="BundleWatch" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlewatch.svg">
 </img></a><br /><br />
 </p>
 <p>
