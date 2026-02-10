@@ -650,7 +650,15 @@ const createEditors = async (config: Config) => {
   let isReload = false;
   if (editors) {
     isReload = true;
-    Object.values(editors).forEach((editor: CodeEditor) => editor.destroy());
+    Object.keys(editors).forEach((editorId: EditorId) => {
+      if (editorId in editors) {
+        editors[editorId].destroy();
+        delete editors[editorId];
+      }
+      if (editorLanguages && editorId in editorLanguages) delete editorLanguages[editorId];
+      const id = editorIds.indexOf(editorId);
+      if (id > -1) editorIds.splice(id, 1);
+    });
     resetEditorModeStatus();
   }
 
@@ -754,6 +762,7 @@ const createEditors = async (config: Config) => {
       editors[editorId] = editor;
       editorIds.push(editorId);
     }
+    changingContent = false;
   } else {
     const markupEditor = await createEditor(markupOptions);
     const styleEditor = await createEditor(styleOptions);
@@ -792,6 +801,8 @@ const createEditors = async (config: Config) => {
   if (isReload) {
     loadModuleTypes(editors, config, /* loadAll = */ true);
   }
+
+  handleChangeContent();
 };
 
 const reloadEditors = async (config: Config) => {
@@ -799,7 +810,6 @@ const reloadEditors = async (config: Config) => {
   await toolsPane?.console?.reloadEditor(config);
   await toolsPane?.compiled?.reloadEditor(config);
   updateCompiledCode();
-  handleChangeContent();
 };
 
 const updateEditors = async (editors: Editors, config: Config) => {
@@ -5572,7 +5582,6 @@ const basicHandlers = () => {
   handleIframeScroll();
   handleSelectEditor();
   handleChangeLanguage();
-  handleChangeContent();
   // Setup keyboard shortcuts with dependency injection
   handleKeyboardShortcuts({
     eventsManager,
