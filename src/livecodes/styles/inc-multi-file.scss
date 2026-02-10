@@ -32,6 +32,27 @@
       .editor-title > span {
         max-width: 13em;
       }
+
+      .truncate-text {
+        display: flex;
+        overflow: hidden;
+        white-space: nowrap;
+
+        span {
+          flex: 0 1 auto;
+          overflow: hidden;
+        }
+
+        span:nth-child(1) {
+          flex-shrink: 1;
+          text-overflow: ellipsis;
+        }
+
+        span:nth-child(2) {
+          flex: 1;
+          min-width: fit-content;
+        }
+      }
     }
 
     #add-file-button {

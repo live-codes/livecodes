@@ -202,10 +202,33 @@ export const createMultiFileEditorTab = ({
   editorSelector.addEventListener('click', () => showEditor(currentFileName));
 
   const label = document.createElement('span');
-  label.innerHTML = currentFileName;
+  setLabelText(currentFileName);
   label.title = currentFileName;
+  label.classList.add('truncate-text');
   label.addEventListener('paste', removeFormatting, false);
   editorSelector.appendChild(label);
+
+  function getLabelText() {
+    return label.innerText.trim().replaceAll('\n', '');
+  }
+
+  function setLabelText(text: string) {
+    const cleanText = text.trim().replaceAll('\n', '');
+    if (cleanText === '') {
+      label.innerText = text.replaceAll('\n', '');
+      return;
+    }
+    label.innerHTML = '';
+    const path = cleanText.split('/');
+    const fileName = path.pop() || '';
+    const folder = path.length > 0 ? path.join('/') + '/' : '';
+    const folderSpan = document.createElement('span');
+    folderSpan.innerText = folder;
+    label.appendChild(folderSpan);
+    const fileNameSpan = document.createElement('span');
+    fileNameSpan.innerText = fileName;
+    label.appendChild(fileNameSpan);
+  }
 
   if (!isMainFile && !isLocked) {
     const deleteButton = document.createElement('button');
@@ -237,18 +260,18 @@ export const createMultiFileEditorTab = ({
     label.contentEditable = 'false';
     eventAttached = false;
     if (isLocked) return;
-    label.innerText = label.innerText.trim().replaceAll('\n', '');
+    setLabelText(getLabelText());
     const success =
       isNewFile && typeof addFile === 'function'
-        ? await addFile(label.innerText)
-        : renameFile(currentFileName, label.innerText);
+        ? await addFile(getLabelText())
+        : renameFile(currentFileName, getLabelText());
     if (!success) {
       onDblClick();
       return;
     }
-    currentFileName = handleSlash(label.innerText);
+    currentFileName = handleSlash(getLabelText());
     label.title = currentFileName;
-    label.innerText = currentFileName;
+    setLabelText(currentFileName);
     label.style.maxWidth = '';
     showEditor(currentFileName);
     if (isNewFile) {
@@ -271,7 +294,7 @@ export const createMultiFileEditorTab = ({
       if (isNewFile) {
         editorSelector.remove();
       } else {
-        label.innerText = currentFileName;
+        setLabelText(currentFileName);
       }
     }
   };
