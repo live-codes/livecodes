@@ -23,7 +23,7 @@ export const exportSrc = async (
   const files = getFilesFromConfig(config, deps);
   (Object.keys(files) as EditorId[]).forEach((filename) => {
     const content = files[filename]?.content || '';
-    if (getFileLanguage(filename) === 'binary') {
+    if (getFileLanguage(filename, config) === 'binary') {
       zip.file(filename, content.split('base64,')[1] || '', { base64: true });
     } else {
       zip.file(filename, content);

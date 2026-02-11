@@ -358,7 +358,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getEditorId = () => editorId;
   const setEditorId = (filename: string, lang?: Language) => {
     editorId = filename;
-    language = lang || getFileLanguage(filename) || language;
+    language = lang || getFileLanguage(filename, {}) || language;
     setModel(editor, editor.getValue(), language);
   };
   const getValue = () => editor.getValue();

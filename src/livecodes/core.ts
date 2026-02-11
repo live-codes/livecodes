@@ -518,7 +518,7 @@ const addFile = async (
   const config = getConfig();
   const validName = checkFileName(filename, config);
   if (!validName) return false;
-  const fileLanguage = getFileLanguage(validName, config.fileLanguages) || 'javascript';
+  const fileLanguage = getFileLanguage(validName, config) || 'javascript';
   const container = createEditorUI(validName);
   const editor = await createEditor({
     ...editorOptions,
@@ -556,7 +556,7 @@ const renameFile = (filename: string, newName: string) => {
   const validName = checkFileName(newName, config, filename);
   if (!validName) return false;
   if (filename === validName) return true;
-  const language = getFileLanguage(validName, config.fileLanguages)!;
+  const language = getFileLanguage(validName, config)!;
   setConfig({
     ...config,
     activeEditor: validName,
@@ -1207,7 +1207,7 @@ const updateCompiledCode = () => {
       getLanguageCompiler(srcLang)?.compiledCodeLanguage ||
       defaultLang[editorId] ||
       defaultLang[getLanguageSpecs(srcLang)?.editor || ''] ||
-      getFileLanguage(editorId, config.fileLanguages) ||
+      getFileLanguage(editorId, config) ||
       'html';
     return {
       language: lang,
@@ -1916,7 +1916,7 @@ const updateConfig = () => {
     editors[file.filename]
       ? {
           ...file,
-          language: getFileLanguage(file.filename) as Language,
+          language: getFileLanguage(file.filename, newConfig) as Language,
           content: editors[file.filename].getValue(),
         }
       : file,

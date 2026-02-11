@@ -74,7 +74,7 @@ export const populateConfig = (
       .reduce((output: Partial<Config>, filename: string) => {
         const file = files.find((file) => file.filename === filename);
         if (!file) return output;
-        const language = getFileLanguage(file.filename) as Language;
+        const language = getFileLanguage(file.filename, {}) as Language;
         return {
           ...output,
           files: [
@@ -100,7 +100,7 @@ export const populateConfig = (
         files: files.map((file) => ({
           filename: file.path || file.filename,
           content: file.content,
-          language: file.language || (getFileLanguage(file.filename) as Language),
+          language: file.language || (getFileLanguage(file.filename, {}) as Language),
         })),
       },
       params,

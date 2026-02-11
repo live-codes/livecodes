@@ -138,7 +138,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getEditorId = () => editorId;
   const setEditorId = (filename: string, lang?: Language) => {
     editorId = filename;
-    const newLang = lang || getFileLanguage(filename);
+    const newLang = lang || getFileLanguage(filename, {});
     if (newLang && newLang !== language) {
       setLanguage(newLang);
     }

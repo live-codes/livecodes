@@ -70,7 +70,8 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
           : lang;
 
   const getEditorDefaultLanguage = (editorId: EditorId) =>
-    (isEditorId(editorId) ? defaultConfig[editorId].language : getFileLanguage(editorId)) || 'html';
+    (isEditorId(editorId) ? defaultConfig[editorId].language : getFileLanguage(editorId, config)) ||
+    'html';
 
   const validateEditorProps = (x: Editor, editorId: EditorId): Editor => ({
     language:

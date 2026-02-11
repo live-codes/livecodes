@@ -307,7 +307,7 @@ export const createMultiFileResultPage = async ({
     // replace relative URL access (e.g. img.src="./logo.svg") or fetching files (e.g. fetch("./data.json"))
     // note that the URLs should be relative to the main file (e.g. index.html)
     // do that only for static files (binary, json, text, html), other files are handled later
-    if (['binary', 'json', 'text', 'html'].includes(getFileLanguage(file.filename) || '')) {
+    if (['binary', 'json', 'text', 'html'].includes(getFileLanguage(file.filename, config) || '')) {
       let dataUrl: string | undefined; // cache data url
       const replaceUrl = (targetFile: (typeof compiledFiles)[number]) => {
         if (targetFile.filename === file.filename) return;

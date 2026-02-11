@@ -2042,6 +2042,7 @@ export type CustomSettings = Partial<
     convertCommonjs: boolean;
     defaultCDN: CDN;
     types: Types;
+    fileLanguages: Config['fileLanguages'];
   }
 >;
 

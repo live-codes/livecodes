@@ -23,9 +23,13 @@ export const getFileExtension = /* @__PURE__ */ (filename: string) => {
   return extension;
 };
 
-export const getFileLanguage = (filename: string, fileLanguages: Record<string, string> = {}) => {
+export const getFileLanguage = (filename: string, config: Partial<Config>) => {
   const extension = getFileExtension(filename);
-  return getLanguageByAlias(fileLanguages[extension] || extension);
+  const fileLanguages: Config['fileLanguages'] = {
+    ...config.fileLanguages,
+    ...config.customSettings?.fileLanguages,
+  };
+  return getLanguageByAlias(fileLanguages[extension as Language] || extension);
 };
 
 export const supportsMultiFile = (language: Language) =>
