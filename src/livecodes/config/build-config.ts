@@ -1,4 +1,4 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type {
   Config,
   EditorId,
@@ -159,6 +159,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   // ?console
   // ?tests=full
   // ?lite
+  // ?files
 
   // initialize paramsConfig with defaultConfig keys and params values
   const paramsConfig = ([...Object.keys(defaultConfig)] as Array<keyof Config>)
@@ -171,6 +172,39 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
       {} as Partial<Config>,
     );
   // populate params config from query string params
+
+  // ?fileLanguages=jsx:solid,tsx:solid.tsx
+  if (paramsConfig.fileLanguages) {
+    paramsConfig.fileLanguages = (paramsConfig.fileLanguages as string)
+      .trim()
+      .split(',')
+      .reduce((acc, l) => {
+        const [extension, alias] = l.trim().split(':');
+        const language = getLanguageByAlias(alias);
+        if (!language) return acc;
+        return {
+          ...acc,
+          [extension]: getLanguageByAlias(language),
+        };
+      }, {});
+  }
+
+  // ?files
+  // ?files=index.html,style.css,script.js
+  if (paramsConfig.files) {
+    if (typeof paramsConfig.files === 'string') {
+      paramsConfig.files = (paramsConfig.files as string)
+        .trim()
+        .split(',')
+        .map((f) => ({
+          filename: f.trim(),
+          content: '',
+          language: getFileLanguage(f.trim(), paramsConfig) || 'javascript',
+        }));
+    } else {
+      paramsConfig.files = [{ filename: 'index.html', language: 'html', content: '' }];
+    }
+  }
 
   // ?html=hi&scss&ts
   (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((key) => {
