@@ -145,6 +145,19 @@ const sdkBuild = async () => {
         '@vue/runtime-core': 'vue',
       },
     }),
+    esbuild.build({
+      ...sdkOptions,
+      entryPoints: [sdkSrcDir + 'reveal.ts'],
+      outdir: undefined,
+      outfile: path.resolve(outDir, sdkOutDir, 'reveal.umd.js'),
+      format: 'iife',
+    }),
+    esbuild.build({
+      ...sdkOptions,
+      entryPoints: [sdkSrcDir + 'reveal.ts'],
+      outdir: undefined,
+      outfile: path.resolve(outDir, sdkOutDir, 'reveal.js'),
+    }),
   ]);
 };
 
