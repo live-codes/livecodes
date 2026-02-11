@@ -52,20 +52,18 @@ import { getFileExtension, getLanguageByAlias, getLanguageEditorId } from '../ut
     const testJsx = (filename: string) =>
       !!(filename && /(\.|\b)[jt]sx$/.test(filename.toLowerCase()));
 
-    code = isMultiFile
-      ? code
-      : await replaceSFCImports(code, {
-          filename,
-          config,
-          getLanguageByAlias,
-          getFileExtension,
-          isSfc,
-          compileSFC: async (code, { filename, config }) => {
-            const compiled = (await compileVueSFC(code, { filename, config }))?.js || '';
-            importedContent += `\n${filename}\n\n${compiled}\n`;
-            return compiled;
-          },
-        });
+    code = await replaceSFCImports(code, {
+      filename,
+      config,
+      getLanguageByAlias,
+      getFileExtension,
+      isSfc,
+      compileSFC: async (code, { filename, config }) => {
+        const compiled = (await compileVueSFC(code, { filename, config }))?.js || '';
+        importedContent += `\n${filename}\n\n${compiled}\n`;
+        return compiled;
+      },
+    });
 
     const compiledBlocks = await compileBlocks(code, {
       config,

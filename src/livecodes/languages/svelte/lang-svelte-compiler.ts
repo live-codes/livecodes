@@ -21,29 +21,26 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
       imports = {};
     }
     if (!code) return getCompileResult('');
-    const isMultiFile = config.files.length > 0;
 
     const isSfc = (mod: string) =>
       (mod.toLowerCase().endsWith('.svelte') && !mod.startsWith('~/')) ||
       mod.toLowerCase().startsWith('data:text/svelte');
 
-    const fullCode = isMultiFile
-      ? code
-      : await replaceSFCImports(code, {
-          config,
-          filename,
-          getLanguageByAlias,
-          getFileExtension,
-          isSfc,
-          compileSFC: async (
-            code: string,
-            { config, filename }: { config: Config; filename: string },
-          ) => {
-            const compiled = (await compileSvelteSFC(code, { config, language, filename })).code;
-            importedContent += `\n${filename}\n\n${compiled}\n`;
-            return compiled;
-          },
-        });
+    const fullCode = await replaceSFCImports(code, {
+      config,
+      filename,
+      getLanguageByAlias,
+      getFileExtension,
+      isSfc,
+      compileSFC: async (
+        code: string,
+        { config, filename }: { config: Config; filename: string },
+      ) => {
+        const compiled = (await compileSvelteSFC(code, { config, language, filename })).code;
+        importedContent += `\n${filename}\n\n${compiled}\n`;
+        return compiled;
+      },
+    });
     const processedCode = await compileAllBlocks(fullCode, config, {
       removeEnclosingTemplate: true,
     });
