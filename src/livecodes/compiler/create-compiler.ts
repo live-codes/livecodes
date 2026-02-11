@@ -198,6 +198,7 @@ export const createCompiler = async ({
 
     if (
       !options?.forceCompile &&
+      language !== 'vue' && // Vue SFCs can defineProps from types in other files
       cache[filename]?.language === language &&
       cache[filename]?.content === content &&
       cache[filename]?.processors === enabledProcessors &&

@@ -508,6 +508,15 @@ import { getFileExtension, getLanguageByAlias, getLanguageEditorId } from '../ut
       };
       code = replaceBareImports(code);
 
+      const dtsSeparator = '\n\n<!---------- livecodes type declarations ---------->\n';
+      const dts = config.files
+        .filter((f) => f.filename.endsWith('.d.ts'))
+        .map((f) => f.content)
+        .join('\n\n');
+      if (dts) {
+        code += `${dtsSeparator}<script lang="ts">${dts}</script>`;
+      }
+
       const result = await compileVueSFC(code, { config, filename });
 
       if (result) {
@@ -517,6 +526,9 @@ import { getFileExtension, getLanguageByAlias, getLanguageEditorId } from '../ut
             {},
           );
           result.js = replaceImports(result.js, config, { importMap: restoredImports });
+        }
+        if (dts) {
+          result.js = result.js.split(dtsSeparator)[0];
         }
 
         const { css, js } = result;
