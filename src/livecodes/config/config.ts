@@ -5,6 +5,7 @@ import type {
   EditorConfig,
   FormatterConfig,
   MultiFileConfig,
+  SDKConfig,
   SingleFileConfig,
   UserConfig,
 } from '../models';
@@ -101,12 +102,14 @@ export const getFormatterConfig = (config: Config | UserConfig): FormatterConfig
     trailingComma: config.trailingComma,
   });
 
-export const getSingleFileConfig = (config: Config): SingleFileConfig => {
-  const { files, mainFile, ...SingleFileConfig } = config;
+export const getSingleFileConfig = (
+  config: Config | ContentConfig | SDKConfig,
+): SingleFileConfig => {
+  const { files, mainFile, fileLanguages, lockFiles, ...SingleFileConfig } = config;
   return cloneObject(SingleFileConfig);
 };
 
-export const getMultiFileConfig = (config: Config): MultiFileConfig => {
+export const getMultiFileConfig = (config: Config | ContentConfig | SDKConfig): MultiFileConfig => {
   const {
     markup,
     style,
@@ -121,5 +124,8 @@ export const getMultiFileConfig = (config: Config): MultiFileConfig => {
   return cloneObject(multiFileConfig);
 };
 
-export const upgradeAndValidate = (config: Partial<Config>) =>
+export const getSDKConfig = (config: Config | ContentConfig | SDKConfig): SDKConfig =>
+  config.files.length ? getMultiFileConfig(config) : getSingleFileConfig(config);
+
+export const upgradeAndValidate = (config: Partial<Config | SDKConfig>) =>
   validateConfig(upgradeConfig(config as any));

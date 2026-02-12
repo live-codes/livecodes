@@ -57,28 +57,33 @@ export const updateCache = (editorId: EditorId, language: Language, modified: st
   }
 };
 
-export const getCachedCode = (): Code => ({
-  markup: {
-    language: cache.markup.language,
-    content: cache.markup.content || '',
-    compiled: cache.markup.modified || cache.markup.compiled || '',
-  },
-  style: {
-    language: cache.style.language,
-    content: cache.style.content || '',
-    compiled: cache.style.modified || cache.style.compiled || '',
-  },
-  script: {
-    language: cache.script.language,
-    content: cache.script.content || '',
-    compiled: cache.script.modified || cache.script.compiled || '',
-  },
-  files: cache.files.map((f) => ({
-    filename: f.filename,
-    language: f.language,
-    content: f.content || '',
-    compiled: f.modified || f.compiled || '',
-  })),
-  mainFile: getMainFile(cache) || 'index.html',
-  result: cache.result || '',
-});
+export const getCachedCode = (): Code =>
+  cache.files.length > 0
+    ? {
+        files: cache.files.map((f) => ({
+          filename: f.filename,
+          language: f.language,
+          content: f.content || '',
+          compiled: f.modified || f.compiled || '',
+        })),
+        mainFile: getMainFile(cache) || 'index.html',
+        result: cache.result || '',
+      }
+    : {
+        markup: {
+          language: cache.markup.language,
+          content: cache.markup.content || '',
+          compiled: cache.markup.modified || cache.markup.compiled || '',
+        },
+        style: {
+          language: cache.style.language,
+          content: cache.style.content || '',
+          compiled: cache.style.modified || cache.style.compiled || '',
+        },
+        script: {
+          language: cache.script.language,
+          content: cache.script.content || '',
+          compiled: cache.script.modified || cache.script.compiled || '',
+        },
+        result: cache.result || '',
+      };

@@ -1,4 +1,4 @@
-import type { Config } from '../models';
+import type { SDKConfig } from '../models';
 import { allowedOrigin } from './allowed-origin';
 
 const dpasteGetUrl = 'https://dpaste.com/';
@@ -8,7 +8,7 @@ const selfHostedUrl = './api/share';
 
 // note: dpaste id length: 9, api id length: 11, self-hosted id length: 14
 
-type ConfigWithResult = Partial<Config & { result: string }>;
+type ConfigWithResult = Partial<SDKConfig & { result: string }>;
 interface ShareService {
   getProject: (id: string) => Promise<ConfigWithResult>;
   shareProject: (config: ConfigWithResult) => Promise<string>;

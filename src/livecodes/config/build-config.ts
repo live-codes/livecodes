@@ -4,6 +4,7 @@ import type {
   EditorId,
   Language,
   Processor,
+  SDKConfig,
   Tool,
   ToolsPaneStatus,
   UrlQueryParams,
@@ -27,7 +28,7 @@ import { getMainFile, isEditorId } from './utils';
  * 4. Sets active editor
  * 5. Fixes language names in final config
  */
-export const buildConfig = (appConfig: Partial<Config>): Config => {
+export const buildConfig = (appConfig: Partial<Config | SDKConfig>): Config => {
   if (!appConfig) return { ...defaultConfig };
   const userConfig = upgradeAndValidate(appConfig);
 

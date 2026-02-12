@@ -139,7 +139,7 @@ export const getContent = ({
 }: {
   editorId: EditorId;
   config: Config;
-  compiled: { [key in EditorId]: string };
+  compiled: Partial<{ [key in EditorId]: string }>;
   supportedLanguages: { [key in EditorId]: Language[] };
   getLanguageCompiler: typeof getLanguageCompilerFn;
 }) => {
@@ -150,17 +150,17 @@ export const getContent = ({
   const content = {
     markup: ['html', ...supportedLanguages.markup].includes(config.markup.language)
       ? config.markup.content
-      : compiled.markup,
+      : compiled.markup || '',
     style: ['css', ...supportedLanguages.style].includes(config.style.language)
       ? config.style.content
-      : compiled.style,
+      : compiled.style || '',
     script:
       config.script.language === 'php'
         ? config.script.content?.replace(/<\?php/g, '') || ''
         : config.script.language === 'python'
           ? config.script.content
           : replaceImports(
-              (isScriptSupported ? config.script.content : compiled.script) || '',
+              (isScriptSupported ? config.script.content : compiled.script || '') || '',
               config,
             ),
     files: config.files.map((file) => ({

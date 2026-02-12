@@ -129,7 +129,7 @@ export const createTypeLoader = (baseUrl: string) => {
     loadAll = false,
     forceLoad = false,
     callback?: (type: EditorLibrary) => void,
-  ) => {
+  ): Promise<EditorLibrary[]> => {
     if (isRunning) {
       await new Promise((resolve) => setTimeout(resolve, 50));
       return load(code, configTypes, loadAll, forceLoad, callback);

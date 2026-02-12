@@ -40,7 +40,10 @@ import {
   getContentConfig,
   getEditorConfig,
   getFormatterConfig,
+  getMultiFileConfig,
   getParams,
+  getSDKConfig,
+  getSingleFileConfig,
   getUserConfig,
   setConfig,
   upgradeAndValidate,
@@ -113,9 +116,11 @@ import type {
   EditorConfig,
   EditorId,
   EditorLanguages,
+  EditorLibrary,
   EditorOptions,
   Editors,
   EventsManager,
+  ExportedConfig,
   GithubScope,
   Language,
   Modal,
@@ -251,7 +256,7 @@ let resultPopup: Window | null = null;
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
-  code: createPub<{ code: Code; config: Config }>(),
+  code: createPub<{ code: Code; config: SDKConfig }>(),
   tests: createPub<{ results: TestResult[]; error?: string }>(),
   console: createPub<{ method: string; args: any[] }>(),
   destroy: createPub<void>(),
@@ -433,7 +438,7 @@ const loadModuleTypes = async (
           '',
         );
     const libs = await typeLoader.load(reactImport + content, configTypes, loadAll, force);
-    libs.forEach((lib) => addTypes(lib, force));
+    libs.forEach((lib: EditorLibrary) => addTypes(lib, force));
   }
 };
 
@@ -1862,31 +1867,34 @@ const share = async (
   permanentUrl = false,
 ): Promise<ShareData> => {
   const config = getConfig();
-  const content = contentOnly
-    ? {
-        ...getContentConfig(config),
-        markup: {
-          ...config.markup,
-          title: undefined,
-          hidden: undefined,
-        },
-        style: {
-          ...config.style,
-          title: undefined,
-          hidden: undefined,
-        },
-        script: {
-          ...config.script,
-          title: undefined,
-          hidden: undefined,
-        },
-        tools: {
-          ...config.tools,
-          enabled: defaultConfig.tools.enabled,
-          status: config.tools.status === 'none' ? defaultConfig.tools.status : config.tools.status,
-        },
-      }
-    : config;
+  const content = getSDKConfig(
+    contentOnly
+      ? {
+          ...getContentConfig(config),
+          markup: {
+            ...config.markup,
+            title: undefined,
+            hidden: undefined,
+          },
+          style: {
+            ...config.style,
+            title: undefined,
+            hidden: undefined,
+          },
+          script: {
+            ...config.script,
+            title: undefined,
+            hidden: undefined,
+          },
+          tools: {
+            ...config.tools,
+            enabled: defaultConfig.tools.enabled,
+            status:
+              config.tools.status === 'none' ? defaultConfig.tools.status : config.tools.status,
+          },
+        }
+      : config,
+  );
 
   const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
   const appUrl = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
@@ -1942,7 +1950,7 @@ const updateConfig = () => {
 };
 
 const loadConfig = async (
-  newConfig: Partial<Config | ContentConfig>,
+  newConfig: Partial<Config | ContentConfig | SDKConfig>,
   url?: string,
   flush = true,
 ) => {
@@ -2163,7 +2171,7 @@ const loadTemplate = async (templateId: string) => {
 };
 
 const dispatchChangeEvent = debounce(async () => {
-  let changeEvent: CustomEvent<{ code: Code; config: Config } | void>;
+  let changeEvent: CustomEvent<{ code: Code; config: SDKConfig } | void>;
   if (sdkWatchers.code.hasSubscribers()) {
     if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
       await getResultPage({ forExport: true });
@@ -2171,7 +2179,7 @@ const dispatchChangeEvent = debounce(async () => {
     changeEvent = new CustomEvent(customEvents.change, {
       detail: {
         code: getCachedCode(),
-        config: getConfig(),
+        config: getSDKConfig(getConfig()),
       },
     });
   } else {
@@ -2727,37 +2735,51 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
   }
 };
 
-const getPlaygroundState = (): Config & Code => {
-  const config = getConfig();
+const getPlaygroundState = (): Omit<SDKConfig, 'files'> & Code => {
+  const config = getSDKConfig(getConfig());
   const cachedCode = getCachedCode();
-  return {
-    ...config,
-    ...cachedCode,
-    markup: {
-      ...config.markup,
-      ...cachedCode.markup,
-      position: editors.markup?.getPosition(),
-    },
-    style: {
-      ...config.style,
-      ...cachedCode.style,
-      position: editors.style?.getPosition(),
-    },
-    script: {
-      ...config.script,
-      ...cachedCode.script,
-      position: editors.script?.getPosition(),
-    },
-    files: cachedCode.files.map((file) => ({
-      ...file,
-      position: editors[file.filename]?.getPosition(),
-    })),
-    tools: {
-      enabled: config.tools.enabled,
-      active: toolsPane?.getActiveTool() ?? '',
-      status: toolsPane?.getStatus() ?? '',
-    },
+  const tools: Config['tools'] = {
+    enabled: config.tools.enabled,
+    active: toolsPane?.getActiveTool() ?? '',
+    status: toolsPane?.getStatus() ?? '',
   };
+
+  return 'files' in config && 'files' in cachedCode
+    ? {
+        ...getMultiFileConfig(config),
+        ...cachedCode,
+        files: cachedCode.files.map((file) => ({
+          ...file,
+          position: editors[file.filename]?.getPosition(),
+        })),
+        tools,
+      }
+    : 'markup' in config && 'markup' in cachedCode
+      ? {
+          ...getSingleFileConfig(config),
+          ...cachedCode,
+          markup: {
+            ...config.markup,
+            ...cachedCode.markup,
+            position: editors.markup?.getPosition(),
+          },
+          style: {
+            ...config.style,
+            ...cachedCode.style,
+            position: editors.style?.getPosition(),
+          },
+          script: {
+            ...config.script,
+            ...cachedCode.script,
+            position: editors.script?.getPosition(),
+          },
+          tools,
+        }
+      : ({
+          ...config,
+          ...cachedCode,
+          tools,
+        } as SDKConfig & Code);
 };
 
 const zoom = (level: Config['zoom'] = 1) => {
@@ -4045,11 +4067,14 @@ const handleExport = () => {
         await getResultPage({});
       }
       const cache = getCachedCode();
-      const compiled = {
-        markup: cache.markup.compiled,
-        style: cache.style.compiled,
-        script: cache.script.compiled,
-      };
+      const compiled =
+        'markup' in cache
+          ? {
+              markup: cache.markup.compiled,
+              style: cache.style.compiled,
+              script: cache.script.compiled,
+            }
+          : cache.files.reduce((acc, file) => ({ ...acc, [file.filename]: file.compiled }), {});
       await loadModule();
       exportModule.exportConfig(getConfig(), baseUrl, 'codepen', {
         baseUrl,
@@ -4072,11 +4097,14 @@ const handleExport = () => {
         await getResultPage({});
       }
       const cache = getCachedCode();
-      const compiled = {
-        markup: cache.markup.compiled,
-        style: cache.style.compiled,
-        script: cache.script.compiled,
-      };
+      const compiled =
+        'markup' in cache
+          ? {
+              markup: cache.markup.compiled,
+              style: cache.style.compiled,
+              script: cache.script.compiled,
+            }
+          : cache.files.reduce((acc, file) => ({ ...acc, [file.filename]: file.compiled }), {});
       await loadModule();
       exportModule.exportConfig(getConfig(), baseUrl, 'jsfiddle', {
         baseUrl,
@@ -4724,7 +4752,7 @@ const handleCodeToImage = () => {
 
     const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/');
 
-    const getShareUrl = async (config: Partial<Config>, shortUrl = true) => {
+    const getShareUrl = async (config: Partial<SDKConfig>, shortUrl = true) => {
       if (shortUrl) {
         const param = '/?x=id/' + (await shareService.shareProject(config));
         return currentUrl + param;
@@ -5738,7 +5766,7 @@ const configureModes = ({
 
 const importExternalContent = async (options: {
   config?: Config;
-  sdkConfig?: Partial<Config>;
+  sdkConfig?: Partial<Config | SDKConfig>;
   configUrl?: string;
   template?: string;
   importUrl?: string;
@@ -5762,7 +5790,7 @@ const importExternalContent = async (options: {
   modal.show(loadingMessage(), { size: 'small' });
 
   let templateConfig: Partial<Config> = {};
-  let importUrlConfig: Partial<Config> = {};
+  let importUrlConfig: Partial<Config | SDKConfig> = {};
   let contentUrlConfig: Partial<Config> = {};
   let configUrlConfig: Partial<Config> = {};
 
@@ -5859,7 +5887,7 @@ const importExternalContent = async (options: {
       ...configUrlConfig,
       ...sdkConfig,
       ...contentUrlConfig,
-    }),
+    } as Partial<Config>),
     parent.location.href,
     false,
   );
@@ -5917,7 +5945,7 @@ const loadDefaults = async () => {
 
 const initializePlayground = async (
   options?: {
-    config?: Partial<Config>;
+    config?: Partial<SDKConfig>;
     baseUrl?: string;
     isEmbed?: boolean;
     isHeadless?: boolean;
@@ -5946,7 +5974,7 @@ const initializePlayground = async (
   window.history.replaceState(null, '', './'); // fix URL from "/app" to "/"
   await initializeStores(stores, isEmbed);
   const userConfig = stores.userConfig?.getValue() ?? {};
-  setConfig(buildConfig({ ...getConfig(), ...userConfig, ...initialConfig }));
+  setConfig(buildConfig({ ...getConfig(), ...userConfig, ...initialConfig } as Partial<Config>));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = (window as any).compiler = await getCompiler({
     config: getConfig(),
@@ -5997,25 +6025,35 @@ const initializePlayground = async (
 const createApi = (): API => {
   const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
 
-  const apiGetConfig = async (contentOnly = false): Promise<Config> => {
+  const apiGetConfig = async (contentOnly = false): Promise<ExportedConfig> => {
     updateConfig();
     const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
-    return JSON.parse(JSON.stringify(config));
+    return getSDKConfig(config);
   };
 
-  const apiSetConfig = async (newConfig: Partial<SDKConfig>): Promise<Config> => {
+  const apiSetConfig = async (newConfig: Partial<SDKConfig>): Promise<ExportedConfig> => {
     const currentConfig = getConfig();
-    const newAppConfig = buildConfig({ ...currentConfig, ...(newConfig as Partial<Config>) });
-
+    const newAppConfig = buildConfig({
+      ...currentConfig,
+      ...(newConfig as Partial<Config>),
+      // allow changing multifile project to singlefile
+      ...(currentConfig.files.length &&
+      !newConfig.files?.length &&
+      (newConfig.markup?.language || newConfig.style?.language || newConfig.script?.language)
+        ? { files: [] }
+        : {}),
+    });
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
     const shouldRun =
       newConfig.mode != null && newConfig.mode !== 'editor' && newConfig.mode !== 'codeblock';
     const shouldReloadCompiler = shouldRun && compiler.isFake;
-    const isContentOnlyChange = compareObjects(
-      newConfig,
-      currentConfig as Record<string, any>,
-    ).every((k) => ['markup.content', 'style.content', 'script.content'].includes(k));
+    const isContentOnlyChange =
+      !currentConfig.files.length &&
+      !newConfig.files?.length &&
+      compareObjects(newConfig, currentConfig as Record<string, any>).every((k) =>
+        ['markup.content', 'style.content', 'script.content'].includes(k),
+      );
 
     setConfig(newAppConfig);
 
@@ -6026,20 +6064,15 @@ const createApi = (): API => {
           editors[key].setValue(content);
         }
       }
-      return newAppConfig;
-    }
-
-    if (hasNewAppLanguage) {
+    } else if (hasNewAppLanguage) {
       changeAppLanguage(newAppConfig.appLanguage!);
-      return newAppConfig;
-    }
-
-    if (shouldReloadCompiler) {
+    } else if (shouldReloadCompiler) {
       await reloadCompiler(newAppConfig);
+    } else {
+      await applyConfig(newAppConfig as Partial<Config>, /* reload = */ true, currentConfig);
     }
 
-    await applyConfig(newAppConfig as Partial<Config>, /* reload = */ true, currentConfig);
-    return newAppConfig;
+    return getSDKConfig(newAppConfig);
   };
 
   const apiGetCode = async (): Promise<Code> => {
@@ -6047,7 +6080,7 @@ const createApi = (): API => {
     if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
       await getResultPage({ forExport: true });
     }
-    return JSON.parse(JSON.stringify(getCachedCode()));
+    return cloneObject(getCachedCode());
   };
 
   const apiShow: API['show'] = async (
@@ -6185,7 +6218,7 @@ const createApi = (): API => {
   };
 };
 
-const initApp = async (config: Partial<Config>, baseUrl: string) => {
+const initApp = async (config: Partial<SDKConfig>, baseUrl: string) => {
   window.deps = {
     showMode,
     translateString: translateStringMock,
@@ -6200,7 +6233,7 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
   return createApi();
 };
 
-const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
+const initEmbed = async (config: Partial<SDKConfig>, baseUrl: string) => {
   window.deps = {
     showMode,
     translateString: translateStringMock,
@@ -6216,7 +6249,7 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   return createApi();
 };
 
-const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
+const initHeadless = async (config: Partial<SDKConfig>, baseUrl: string) => {
   window.deps = {
     showMode: () => undefined,
     translateString: translateStringMock,
