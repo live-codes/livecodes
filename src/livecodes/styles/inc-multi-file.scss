@@ -130,8 +130,12 @@
     display: none;
   }
 
-  #app-menu-project li:has(#external-resources-link) {
-    display: none;
+  #app-menu-project {
+    li:has(> #external-resources-link),
+    li:has(> #export-codepen),
+    li:has(> #export-jsfiddle) {
+      display: none;
+    }
   }
 
   .binary-file-editor {
