@@ -2,7 +2,7 @@
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { useEffect } from 'react';
 import HomepageFeatures from '../components/HomepageFeatures';
 import { loadAds } from '../custom-content';
