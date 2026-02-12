@@ -29,7 +29,7 @@ export const getFileLanguage = (filename: string, config: Partial<Config>) => {
     ...config.fileLanguages,
     ...config.customSettings?.fileLanguages,
   };
-  return getLanguageByAlias(fileLanguages[extension as Language] || extension);
+  return getLanguageByAlias(fileLanguages[extension as Language]) || getLanguageByAlias(extension);
 };
 
 export const supportsMultiFile = (language: Language) =>

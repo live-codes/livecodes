@@ -754,7 +754,7 @@ const createEditors = async (config: Config) => {
         ...baseOptions,
         container,
         editorId,
-        language: file.language!,
+        language: file.language || getFileLanguage(file.filename, config) || 'text',
         value: file.content || '',
       };
       const editor = await createEditor(editorOptions);
@@ -2072,15 +2072,18 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
     }
     return false;
   })();
-  if ('configureTailwindcss' in editors.markup) {
+  const markupEditor = oldConfig?.files.length
+    ? editors[getMainFile(oldConfig) || 'index.html']
+    : editors.markup;
+  if (markupEditor && 'configureTailwindcss' in markupEditor) {
     if (newConfig.processors?.includes('tailwindcss')) {
-      editors.markup.configureTailwindcss?.(true);
+      markupEditor.configureTailwindcss?.(true);
     }
     if (
       currentConfig.processors?.includes('tailwindcss') &&
       !newConfig.processors?.includes('tailwindcss')
     ) {
-      editors.markup.configureTailwindcss?.(false);
+      markupEditor.configureTailwindcss?.(false);
       shouldReloadEditors = true;
     }
   }
@@ -5986,6 +5989,7 @@ const createApi = (): API => {
   const apiSetConfig = async (newConfig: Partial<SDKConfig>): Promise<Config> => {
     const currentConfig = getConfig();
     const newAppConfig = buildConfig({ ...currentConfig, ...(newConfig as Partial<Config>) });
+
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
     const shouldRun =
@@ -6000,7 +6004,7 @@ const createApi = (): API => {
 
     if (isContentOnlyChange) {
       for (const key of ['markup', 'style', 'script'] as const) {
-        const content = (newConfig as Partial<Config>)[key]?.content;
+        const content = (newAppConfig as Partial<Config>)[key]?.content;
         if (content != null) {
           editors[key].setValue(content);
         }
@@ -6009,13 +6013,15 @@ const createApi = (): API => {
     }
 
     if (hasNewAppLanguage) {
-      changeAppLanguage(newConfig.appLanguage!);
+      changeAppLanguage(newAppConfig.appLanguage!);
       return newAppConfig;
     }
+
     if (shouldReloadCompiler) {
       await reloadCompiler(newAppConfig);
     }
-    await applyConfig(newConfig as Partial<Config>, /* reload = */ true, currentConfig);
+
+    await applyConfig(newAppConfig as Partial<Config>, /* reload = */ true, currentConfig);
     return newAppConfig;
   };
 

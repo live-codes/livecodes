@@ -1,9 +1,4 @@
-import {
-  getFileExtension,
-  getFileLanguage,
-  getLanguageByAlias,
-  getLanguageEditorId,
-} from '../languages';
+import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type {
   Config,
   Editor,
@@ -107,11 +102,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
           })(),
           content: is(x.content, 'string') ? x.content ?? '' : '',
           language:
-            getLanguageByAlias(
-              x.language ||
-                (validFileLanguages as any)[getFileExtension(x.filename)] ||
-                getFileExtension(x.filename),
-            ) || 'html',
+            getLanguageByAlias(x.language) ||
+            getFileLanguage(x.filename, { ...config, fileLanguages: validFileLanguages }) ||
+            'text',
           ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
           ...(is(x.position, 'object') ? { position: x.position } : {}),
           ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
