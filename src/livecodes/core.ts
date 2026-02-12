@@ -316,19 +316,24 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
     //   result = '';
     // }
 
+    const config = getConfig();
+    const isMultiFile = config.files.length > 0;
     const scriptLang = getEditorLanguage('script') || 'javascript';
-    const compilers = getAllCompilers(languages, getConfig(), baseUrl);
-    const editorsText = `
-      ${getConfig().markup.hiddenContent || ''}
-      ${getConfig().markup.content}
-      ${getConfig().style.hiddenContent || ''}
-      ${getConfig().style.content}
-      ${getConfig().script.hiddenContent || ''}
-      ${getConfig().script.content}
+    const compilers = getAllCompilers(languages, config, baseUrl);
+    const editorsText = isMultiFile
+      ? config.files.map((f) => f.content).join('\n')
+      : `
+      ${config.markup.hiddenContent || ''}
+      ${config.markup.content}
+      ${config.style.hiddenContent || ''}
+      ${config.style.content}
+      ${config.script.hiddenContent || ''}
+      ${config.script.content}
       `;
     const iframeIsPlaced = iframe.parentElement === container;
     const styleOnlyUpdate = iframeIsPlaced && getCache().styleOnlyUpdate;
     const liveReload =
+      !isMultiFile &&
       iframeIsPlaced &&
       compilers[scriptLang]?.liveReload &&
       resultLanguages.includes(scriptLang) &&
@@ -368,10 +373,22 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       });
 
       iframe.remove(); // avoid changing browser history
-      const { markup, style, script } = getConfig();
-      const query = `?markup=${markup.language}&style=${style.language}&script=${
-        script.language
-      }&isEmbed=${isEmbed}&isLoggedIn=${Boolean(authService?.isLoggedIn())}&appCDN=${getAppCDN()}`;
+      const { markup, style, script } = config;
+      const usedLanguages = [
+        ...new Set(
+          Object.keys(editorLanguages || {})
+            .filter((editorId) =>
+              isMultiFile ? !['markup', 'style', 'script'].includes(editorId) : true,
+            )
+            .map((editorId) => editorLanguages![editorId]),
+        ),
+      ];
+      const query =
+        (isMultiFile
+          ? '?'
+          : `?markup=${markup.language}&style=${style.language}&script=${script.language}&`) +
+        `languages=${usedLanguages.join(',')}&isMultiFile=${isMultiFile}&isEmbed=${isEmbed}&` +
+        `isLoggedIn=${Boolean(authService?.isLoggedIn())}&appCDN=${getAppCDN()}`;
       const scrollPosition =
         params.scrollPosition === false ||
         (iframeScrollPosition.x === 0 && iframeScrollPosition.y === 0)
