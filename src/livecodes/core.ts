@@ -1981,6 +1981,17 @@ const getAllEditors = (): CodeEditor[] =>
     toolsPane?.compiled?.getEditor?.(),
   ].filter((x) => x != null);
 
+const runViewTransition = (fn: () => void | Promise<void>) => {
+  if ((document as any).startViewTransition) {
+    return (document as any).startViewTransition(() => {
+      fn();
+    });
+  } else {
+    fn();
+    return null;
+  }
+};
+
 const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];
   const root = document.documentElement;
@@ -2014,6 +2025,23 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   });
   toolsPane?.console?.setTheme?.(theme);
   UI.getNinjaKeys()?.classList.toggle('dark', theme === 'dark');
+};
+
+const transitionTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
+  const root = document.documentElement;
+  const activeElement = document.activeElement;
+  if (activeElement) {
+    const position = activeElement.getBoundingClientRect();
+    root.style.setProperty('--active-element-x', position.x + 'px');
+    root.style.setProperty('--active-element-y', position.y + 'px');
+    setTimeout(() => {
+      root.style.removeProperty('--active-element-x');
+      root.style.removeProperty('--active-element-y');
+    }, 1000);
+  }
+  runViewTransition(() => {
+    setTheme(theme, editorTheme);
+  });
 };
 
 const changeThemeColor = () => {
@@ -3031,7 +3059,7 @@ const handleSettings = () => {
 
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
-        setTheme(getConfig().theme, getConfig().editorTheme);
+        transitionTheme(getConfig().theme, getConfig().editorTheme);
       } else if (configKey === 'layout') {
         const newLayout = toggle.readOnly ? 'vertical' : !toggle.checked ? 'horizontal' : undefined;
         setConfig({
@@ -3128,13 +3156,13 @@ const handleChangeTheme = () => {
   if (lightThemeButton) {
     eventsManager.addEventListener(lightThemeButton, 'click', () => {
       setUserConfig({ theme: 'dark' });
-      setTheme('dark', getConfig().editorTheme);
+      transitionTheme('dark', getConfig().editorTheme);
     });
   }
   if (darkThemeButton) {
     eventsManager.addEventListener(darkThemeButton, 'click', () => {
       setUserConfig({ theme: 'light' });
-      setTheme('light', getConfig().editorTheme);
+      transitionTheme('light', getConfig().editorTheme);
     });
   }
 };
@@ -4047,7 +4075,7 @@ const changeEditorSettings = (newConfig: Partial<UserConfig> | null) => {
 
   setUserConfig(newConfig);
   const updatedConfig = getConfig();
-  setTheme(updatedConfig.theme, updatedConfig.editorTheme);
+  transitionTheme(updatedConfig.theme, updatedConfig.editorTheme);
   if (shouldReload) {
     reloadEditors(updatedConfig);
   } else {
