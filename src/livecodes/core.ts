@@ -1982,12 +1982,13 @@ const getAllEditors = (): CodeEditor[] =>
   ].filter((x) => x != null);
 
 const runViewTransition = (fn: () => void | Promise<void>) => {
-  if (document.startViewTransition) {
-    document.startViewTransition(() => {
+  if ((document as any).startViewTransition) {
+    return (document as any).startViewTransition(() => {
       fn();
     });
   } else {
     fn();
+    return null;
   }
 };
 
@@ -2033,6 +2034,10 @@ const transitionTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
     const position = activeElement.getBoundingClientRect();
     root.style.setProperty('--active-element-x', position.x + 'px');
     root.style.setProperty('--active-element-y', position.y + 'px');
+    setTimeout(() => {
+      root.style.removeProperty('--active-element-x');
+      root.style.removeProperty('--active-element-y');
+    }, 500);
   }
   runViewTransition(() => {
     setTheme(theme, editorTheme);
