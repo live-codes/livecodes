@@ -19,4 +19,5 @@ export const markdown: LanguageSpecs = {
   },
   extensions: ['md', 'markdown', 'mdown', 'mkdn'],
   editor: 'markup',
+  multiFileSupport: true,
 };

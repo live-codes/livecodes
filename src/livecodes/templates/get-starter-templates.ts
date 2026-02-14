@@ -28,6 +28,7 @@ const loadTemplates = async (baseUrl: string): Promise<Template[]> =>
 export const getStarterTemplates = async (config: Config, baseUrl: string): Promise<Template[]> =>
   (await loadTemplates(baseUrl))
     .filter((template) => {
+      if (template.files?.length) return true;
       const enabledLanguages = config.languages?.map(getLanguageByAlias).filter(Boolean);
       if (!enabledLanguages) return true;
       if (template.name === 'blank') return true;
@@ -69,6 +70,7 @@ export const getStarterTemplates = async (config: Config, baseUrl: string): Prom
           ? { contentUrl: mapBaseUrl(template.script?.contentUrl || '', baseUrl) }
           : {}),
       },
+      files: template.files?.map((f) => ({ ...f, content: mapBaseUrl(f.content, baseUrl) })) || [],
       imports: objectMap(template.imports || {}, (url) => mapBaseUrl(url || '', baseUrl)),
       types: objectMap(template.types || {}, (url) => mapBaseUrl(url || '', baseUrl)),
       stylesheets: template.stylesheets?.map((url) => mapBaseUrl(url || '', baseUrl)),

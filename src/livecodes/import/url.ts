@@ -58,7 +58,7 @@ export const importFromUrl = async (
     (url.startsWith('data:image/') && !url.startsWith('data:image/svg+xml'))
   ) {
     const image = await res.blob();
-    return importFromImage(image);
+    return importFromImage(image) as Promise<Partial<Config>>;
   }
 
   const fetchedContent = await res.text();

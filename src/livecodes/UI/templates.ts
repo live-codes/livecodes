@@ -36,6 +36,7 @@ export const createStarterTemplateLink = (
   baseUrl: string,
 ) => {
   const li = document.createElement('li');
+  li.classList.add('starter-template');
   li.dataset.id = template.id;
   const link = document.createElement('a');
   link.href = '?template=' + template.name;
@@ -96,14 +97,14 @@ export const addTemplateToIndex = ({
   });
 };
 
-export const setupTemplatesSearch = (container: HTMLElement) => {
+const setupTemplatesSearch = (container: HTMLElement) => {
   const input = getTemplatesSearchInput(container);
   if (!input) return;
 
   const filterTemplates = (query: string) => {
     searchIndex?.then(async (index) => {
       const mainItems = container.querySelectorAll(
-        '#templates-starter li',
+        'li.starter-template',
       ) as NodeListOf<HTMLElement>;
       const userItems = container.querySelectorAll('#templates-user li') as NodeListOf<HTMLElement>;
       const items = Array.from(mainItems).concat(Array.from(userItems));

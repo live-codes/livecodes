@@ -18,4 +18,5 @@ export const coffeescript: LanguageSpecs = {
   },
   extensions: ['coffee'],
   editor: 'script',
+  multiFileSupport: true,
 };

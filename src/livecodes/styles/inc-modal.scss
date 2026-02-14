@@ -1192,6 +1192,20 @@
     }
   }
 
+  ul#multifile-templates-list li {
+    position: relative;
+
+    a::after {
+      content: 'Multi-file';
+      font-size: var(--s10);
+      opacity: 0.5;
+      padding: var(--s4);
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
   #backup-container {
     #backup-stores {
       align-items: center;

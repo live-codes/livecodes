@@ -36,4 +36,5 @@ export const clojurescript: LanguageSpecs = {
   extensions: ['cljs', 'clj', 'cljc', 'edn', 'clojure'],
   editor: 'script',
   editorLanguage: 'clojure',
+  multiFileSupport: true,
 };

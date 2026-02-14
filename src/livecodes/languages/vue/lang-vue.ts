@@ -26,6 +26,7 @@ export const vue: LanguageSpecs = {
   extensions: ['vue', 'vue3'],
   editor: 'script',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };
 
 export const vueApp: LanguageSpecs = {

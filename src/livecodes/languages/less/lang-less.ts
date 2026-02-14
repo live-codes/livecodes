@@ -23,4 +23,5 @@ export const less: LanguageSpecs = {
   },
   extensions: ['less'],
   editor: 'style',
+  multiFileSupport: true,
 };

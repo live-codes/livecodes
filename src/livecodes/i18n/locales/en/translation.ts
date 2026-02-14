@@ -57,6 +57,9 @@ const translation = {
     },
   },
   app: {
+    binaryFileEditor: {
+      selectFile: 'Select file',
+    },
     changeTheme: {
       hint: 'Change Theme',
     },
@@ -377,6 +380,9 @@ const translation = {
       hint: 'Change Language',
       message: 'Loading {{lang}}. This may take a while!',
     },
+    confirm: {
+      deleteFile: 'Delete file: {{filename}}?',
+    },
     copy: {
       copied: 'Code copied to clipboard',
       copiedAsDataURL: 'Code copied as data URL',
@@ -406,6 +412,11 @@ const translation = {
     export: {
       gist: 'Creating a public GitHub gist...',
     },
+    file: {
+      exists: 'File already exists!',
+      invalidName: 'Invalid file name!',
+      invalidType: 'Invalid file type!',
+    },
     fork: {
       success: 'Forked as a new project',
     },
@@ -414,9 +425,6 @@ const translation = {
       exit: 'Exit Full Screen',
     },
     generating: 'Generating...',
-    import: {
-      loading: 'Loading Project...',
-    },
     layout: {
       horizontal: 'Horizontal layout',
       responsive: 'Responsive layout',
@@ -972,6 +980,21 @@ const translation = {
   },
   templates: {
     heading: 'New Project',
+    multifile: {
+      basic: 'Basic Template',
+      blank: 'Blank Template',
+      heading: 'Multi-file Templates',
+      javascript: 'JavaScript Template',
+      jest: 'Jest Template',
+      lit: 'Lit Template',
+      loading: 'Loading multi-file templates...',
+      preact: 'Preact Template',
+      react: 'React Template',
+      solid: 'Solid Template',
+      svelte: 'Svelte Template',
+      typescript: 'TypeScript Template',
+      vue: 'Vue Template',
+    },
     noUserTemplates: {
       desc: 'You can save a project as a template from <1></1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
       heading: 'You have no saved templates.',

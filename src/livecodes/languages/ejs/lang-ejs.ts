@@ -19,4 +19,5 @@ export const ejs: LanguageSpecs = {
   extensions: ['ejs'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

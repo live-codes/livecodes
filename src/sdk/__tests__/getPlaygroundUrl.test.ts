@@ -1,6 +1,5 @@
 import { compressToEncodedURIComponent } from 'lz-string';
-import { getPlaygroundUrl } from '../index';
-import type { Config, EmbedOptions, UrlQueryParams } from '../models';
+import { getPlaygroundUrl, type Config, type EmbedOptions } from '../index';
 
 test('empty options object', () => {
   const url = new URL(getPlaygroundUrl());
@@ -16,7 +15,7 @@ test('passing some params, they should be stored in hash params', () => {
     param1: 1,
     param2: 2,
   };
-  const url = new URL(getPlaygroundUrl({ params: params as UrlQueryParams }));
+  const url = new URL(getPlaygroundUrl({ params: params as EmbedOptions['params'] }));
   const searchParams = url.searchParams;
   const receivedParams = searchParams.get('params');
   expect(receivedParams).toBeNull();

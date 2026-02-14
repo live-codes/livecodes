@@ -116,6 +116,8 @@ JSCL: [MIT License](https://cdn.jsdelivr.net/gh/jscl-project/jscl-project.github
 
 JSCPP: [MIT License](https://github.com/felixhao28/JSCPP/blob/befbd6b48666007151c259c5dd291ab028ad4c04/LICENSE)
 
+JSON5: [MIT License](https://github.com/json5/json5/blob/b935d4a280eafa8835e6182551b63809e61243b0/LICENSE.md)
+
 JSZip: [MIT License](https://github.com/Stuk/jszip/blob/3db5fdc85586ef6c26d15b503c45ce8e42905d77/LICENSE.markdown)
 
 konnors-ninja-keys: [MIT License](https://github.com/KonnorRogers/konnors-ninja-keys/blob/6dde465ab2c64329c4284a1f95d9d7501acdb86a/LICENSE)
@@ -241,6 +243,8 @@ Riot: [MIT License](https://github.com/riot/riot/blob/2b08ebf8c7fa3f338d24b7320e
 ruby.wasm: [MIT License](https://github.com/ruby/ruby.wasm/blob/097b7ca8d2ed2a98eea4dcf2da8089bb8ff06e07/LICENSE)
 
 Sass.js: [MIT License](https://github.com/medialize/sass.js/blob/71d9bed2cad10969efda9905aa1bddacc480f372/LICENSE)
+
+@shopify/draggable: [MIT License](https://github.com/Shopify/draggable/blob/8a1eed57f3ab2dff9371e8ce60fb39ac85871e8d/LICENSE.md)
 
 SnackBar: [MIT License](https://github.com/egoist/snackbar/blob/4bc2fb7afd32d53a39661418fa5189dbb6e4aa86/LICENSE)
 

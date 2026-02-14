@@ -141,6 +141,12 @@ An object that configures the language and content of the markup editor. This ca
   A URL to load `content` from. It has to be a valid URL that is CORS-enabled.
   The URL is only fetched if `content` property had no value.
 
+- `hidden`:
+  Type: [`boolean | undefined`](../api/interfaces/Config.md#hidden)
+  Default: `""`
+  If `true`, the title of the code editor is hidden, however its code is still evaluated.
+  This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
+
 - `hiddenContent`:
   Type: [`string | undefined`](../api/interfaces/Config.md#hiddencontent)
   Default: `undefined`
@@ -153,18 +159,12 @@ An object that configures the language and content of the markup editor. This ca
   A URL to load `hiddenContent` from. It has to be a valid URL that is CORS-enabled.
   The URL is only fetched if `hiddenContent` property had no value.
 
-- `foldedLines`:
-  Type: [`Array<{ from: number; to: number }> | undefined`](../api/interfaces/Config.md#foldedlines)
-  Default: `undefined`
-  Lines that get folded when the editor loads. The code can be unfolded by clicking on arrow beside the line.
-  This can be useful for less relevant code in embedded playgrounds.
-
 - `title`:
   Type: [`string | undefined`](../api/interfaces/Config.md#title)
   Default: `""`
   If set, this is used as the title of the editor in the UI, overriding the default title set to the language name (e.g. "Python" can be used instead of "Py (Wasm)").
 
-- `hideTitle`:
+- `hideTitle` (**deprecated**, use `hidden` instead):
   Type: [`boolean | undefined`](../api/interfaces/Config.md#hidetitle)
   Default: `""`
   If `true`, the title of the code editor is hidden, however its code is still evaluated.
@@ -185,6 +185,12 @@ An object that configures the language and content of the markup editor. This ca
   Default: `undefined`
   The initial position of the cursor in the code editor.
   Example: `{lineNumber: 5, column: 10}`
+
+- `foldedLines`:
+  Type: [`Array<{ from: number; to: number }> | undefined`](../api/interfaces/Config.md#foldedlines)
+  Default: `undefined`
+  Lines that get folded when the editor loads. The code can be unfolded by clicking on arrow beside the line.
+  This can be useful for less relevant code in embedded playgrounds.
 
 ### `style`
 

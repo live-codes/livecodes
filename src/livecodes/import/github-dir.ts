@@ -1,8 +1,16 @@
 import { decode } from 'js-base64';
 import type { User } from '../models';
 import { getGithubHeaders } from '../services/github';
-import { modifyMarkup } from './github';
+import { filterFiles } from './files';
 import { populateConfig } from './utils';
+
+interface GitHubFile {
+  path: string;
+  type: 'blob' | 'tree';
+  size: number;
+  sha: string;
+  url: string;
+}
 
 export const importFromGithubDir = async (
   url: string,
@@ -38,7 +46,7 @@ export const importFromGithubDir = async (
     }
     const apiURL = `https://api.github.com/repos/${user}/${repository}/git/trees/${branch}?recursive=true`;
 
-    const tree = await fetch(apiURL, {
+    const tree: GitHubFile[] = await fetch(apiURL, {
       ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
     })
       .then((res) => {
@@ -47,53 +55,68 @@ export const importFromGithubDir = async (
       })
       .then((data) => data.tree);
 
-    const dirFiles = tree.filter((node: any) =>
-      rootDir
-        ? node.type === 'blob'
-        : node.type === 'blob' &&
-          node.path.startsWith(decodeURIComponent(dir)) &&
-          node.path.split('/').length === dir.split('/').length + 1,
-    );
+    const maxFiles = 20;
+    const dirFiles = filterFiles(
+      tree
+        .filter((node) =>
+          rootDir
+            ? node.type === 'blob'
+            : node.type === 'blob' && node.path.startsWith(decodeURIComponent(dir) + '/'),
+        )
+        // comply to file shape expected by filterFiles
+        .map((file) => ({
+          ...file,
+          filename: file.path.split('/')[file.path.split('/').length - 1],
+          content: '',
+        })),
+    ).filter((_file, index: number) => index < maxFiles);
 
     const files = await Promise.all(
-      Object.values(dirFiles).map(async (file: any) => {
+      dirFiles.map(async (file) => {
         const filename = decodeURIComponent(file.path.split('/')[file.path.split('/').length - 1]);
-        const content = decode(
-          await fetch(file.url, {
-            ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
+        const encodedContent = await fetch(file.url, {
+          ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error('Cannot fetch: ' + file.url);
+            return res.json();
           })
-            .then((res) => {
-              if (!res.ok) throw new Error('Cannot fetch: ' + file.url);
-              return res.json();
-            })
-            .then((data) => data.content),
-        );
-
+          .then((data) => {
+            const extension = file.path.split('.')[file.path.split('.').length - 1];
+            if (
+              [
+                'png',
+                'jpg',
+                'jpeg',
+                'gif',
+                'webp',
+                'bmp',
+                'tif',
+                'tiff',
+                'ico',
+                'ttf',
+                'otf',
+                'woff',
+                'woff2',
+              ].includes(extension)
+            ) {
+              return `data:${getBinaryMimeType(extension)};charset=UTF-8;base64,${data.content}`;
+            }
+            return data.content;
+          });
+        const content = encodedContent.startsWith('data:')
+          ? encodedContent.replaceAll('\n', '')
+          : decode(encodedContent);
+        const relativePath = dir ? file.path.replace(`${dir}/`, '') : file.path;
         return {
           filename,
           content,
-          path: file.path,
+          path: relativePath,
         };
       }),
     );
 
-    const config = populateConfig(files, params);
-
-    return modifyMarkup(
-      config,
-      files
-        .filter((f) =>
-          [config.markup?.content, config.style?.content, config.script?.content].includes(
-            f.content,
-          ),
-        )
-        .map((f) => ({
-          user,
-          repo: repository,
-          ref: branch,
-          path: f.path,
-        })),
-    );
+    return populateConfig(files, params);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Cannot fetch directory: ' + url);
@@ -101,4 +124,13 @@ export const importFromGithubDir = async (
     console.error(error);
     return {};
   }
+};
+
+const getBinaryMimeType = (extension: string) => {
+  let type = 'image';
+  if (extension === 'ico') return `${type}/x-icon`;
+  if (extension === 'jpg') return `${type}/jpeg`;
+  if (extension === 'tif') return `${type}/tiff`;
+  if (['ttf', 'otf', 'woff', 'woff2'].includes(extension)) type = 'font';
+  return `${type}/${extension}`;
 };

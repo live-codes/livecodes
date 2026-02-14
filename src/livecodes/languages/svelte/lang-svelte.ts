@@ -45,6 +45,7 @@ export const svelte: LanguageSpecs = {
   },
   extensions: ['svelte'],
   editor: 'script',
+  multiFileSupport: true,
 };
 
 export const svelteApp: LanguageSpecs = {

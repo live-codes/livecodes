@@ -9,7 +9,8 @@ export const solidTsx: LanguageSpecs = {
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
   compiler: 'solid',
-  extensions: ['solid.tsx'],
+  extensions: ['solid.tsx', 'solid-tsx'],
   editor: 'script',
   editorLanguage: 'typescript',
+  multiFileSupport: true,
 };

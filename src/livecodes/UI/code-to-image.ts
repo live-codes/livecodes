@@ -4,13 +4,13 @@ import { codeToImageScreen } from '../html';
 import type {
   CodeEditor,
   CodejarTheme,
-  Config,
   EditorId,
   EditorOptions,
   EventsManager,
   FormatFn,
   Modal,
   Notifications,
+  SDKConfig,
 } from '../models';
 import {
   colorToRgba,
@@ -75,7 +75,7 @@ export const createCodeToImageUI = async ({
   deps: {
     createEditor: (options: PreviewEditorOptions) => Promise<CodeEditor>;
     getFormatFn: () => Promise<FormatFn>;
-    getShareUrl: (config: Partial<Config>, shortUrl?: boolean) => Promise<string>;
+    getShareUrl: (config: Partial<SDKConfig>, shortUrl?: boolean) => Promise<string>;
     getSavedPreset: () => Partial<Preset> | undefined;
     savePreset: (preset: Partial<Preset>) => void;
   };
@@ -307,7 +307,7 @@ export const createCodeToImageUI = async ({
   };
   updateWatermark(currentUrl);
 
-  const getCodeConfig = (): Partial<Config> => ({
+  const getCodeConfig = (): Partial<SDKConfig> => ({
     title: windowControls.querySelector('#code-to-img-title')!.textContent || '',
     activeEditor: editorId,
     [editorId]: {
@@ -315,7 +315,7 @@ export const createCodeToImageUI = async ({
       content: editor.getValue(),
     },
   });
-  let cachedConfig: Partial<Config> | undefined;
+  let cachedConfig: Partial<SDKConfig> | undefined;
 
   let formData: Preset;
 

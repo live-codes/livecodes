@@ -29,6 +29,7 @@ import { colorPicker } from '@replit/codemirror-css-color-picker';
 
 // these are imported normally
 import { getEditorModeNode } from '../../UI/selectors';
+import { getFileLanguage } from '../../languages';
 import type {
   CodeEditor,
   CodemirrorTheme,
@@ -56,22 +57,17 @@ let tabFocusMode = false;
 const changeTabFocusMode = debounce(() => (tabFocusMode = !tabFocusMode), 50);
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const {
-    container,
-    readonly,
-    isEmbed,
-    editorId,
-    getFormatterConfig,
-    getFontFamily,
-    getLanguageExtension,
-  } = options;
+  const { container, readonly, isEmbed, getFormatterConfig, getFontFamily, getLanguageExtension } =
+    options;
+  let { editorId, language } = options;
   let editorSettings: EditorConfig = { ...options };
   if (!container) throw new Error('editor container not found');
 
   const getLanguageSupport = async (language: Language): Promise<LanguageSupport> =>
     editorLanguages[language]?.() || (editorLanguages.html?.() as Promise<LanguageSupport>);
 
-  const mapLanguage = (lang: Language) => {
+  const mapLanguage = (lang: Language | undefined) => {
+    if (!lang) return 'html';
     if (lang.startsWith('vue')) return 'vue';
     if (lang.startsWith('svelte')) return 'svelte';
     if (lang === 'liquid') return 'liquid';
@@ -91,7 +87,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const defaultThemes: Record<Theme, CodemirrorTheme> = { dark: 'one-dark', light: 'cm-light' };
   const getActiveTheme = () => themes[theme] || themes[defaultThemes[options.theme]] || [];
 
-  let language = options.language;
   let mappedLanguage = mapLanguage(language);
   let mappedLanguageSupport = await getLanguageSupport(mappedLanguage);
   let theme: CodemirrorTheme = await loadTheme(options.theme, options.editorTheme);
@@ -158,7 +153,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       mappedLanguage === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
         ? ext + '.tsx'
         : ext;
-    const path = `/${editorId}.${random}.${extension}`;
+    const path = editorId.includes('.') ? `/${editorId}` : `/${editorId}.${random}.${extension}`;
 
     codemirrorTS = codemirrorTS || [
       tsFacetWorker.of({ worker: tsWorker, path }),
@@ -309,6 +304,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   showEditorMode(options.editorMode);
 
   const getEditorId = () => editorId;
+  const setEditorId = (filename: string, lang?: Language) => {
+    editorId = filename;
+    const newLang = lang || getFileLanguage(filename, {});
+    if (newLang && newLang !== language) {
+      setLanguage(newLang);
+    }
+    tsLoaded.then(() => loadTS(true));
+  };
   const getValue = () => view.state.doc.toString();
   const setValue = (value = '', newState = true) => {
     if (newState) {
@@ -326,6 +329,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const focus = () => view.focus();
   const getLanguage = () => language;
   const setLanguage = (lang: Language, value?: string) => {
+    if (!lang) return;
     language = lang;
     mappedLanguage = mapLanguage(language);
     getLanguageSupport(mappedLanguage).then((langSupport) => {
@@ -334,9 +338,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         effects: [languageExtension.reconfigure(mappedLanguageSupport)],
       });
     });
-    tsLoaded.then(() => {
-      loadTS(true);
-    });
+    tsLoaded.then(() => loadTS(true));
     if (value != null) {
       setValue(value);
     }
@@ -528,6 +530,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getLanguage,
     setLanguage,
     getEditorId,
+    setEditorId,
     focus,
     getPosition,
     setPosition,

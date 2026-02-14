@@ -121,13 +121,21 @@ export const createTypeLoader = (baseUrl: string) => {
     ];
   };
 
+  let isRunning = false;
+
   const load = async (
     code: string,
     configTypes: Types,
     loadAll = false,
     forceLoad = false,
     callback?: (type: EditorLibrary) => void,
-  ) => {
+  ): Promise<EditorLibrary[]> => {
+    if (isRunning) {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      return load(code, configTypes, loadAll, forceLoad, callback);
+    }
+    isRunning = true;
+
     const imports = getImports(code);
 
     const codeTypes: Types = imports.reduce((accTypes, lib) => {
@@ -152,7 +160,9 @@ export const createTypeLoader = (baseUrl: string) => {
       };
     }, {} as Types);
 
-    const typesToGet = Object.keys(codeTypes).filter((key) => codeTypes[key] === '');
+    const typesToGet = Object.keys(codeTypes).filter(
+      (key) => codeTypes[key] === '' && !loadedTypes[key],
+    );
 
     // mark as loaded to avoid re-fetching
     loadedTypes = {
@@ -173,6 +183,7 @@ export const createTypeLoader = (baseUrl: string) => {
 
     const newLibs = await loadTypes({ ...codeTypes, ...fetchedTypes, ...autoloadTypes }, callback);
 
+    isRunning = false;
     return loadAll ? libs : newLibs;
   };
 

@@ -1,4 +1,4 @@
-import type { Config, User } from '../models';
+import type { Config, SDKConfig, User } from '../models';
 import { getValidUrl } from '../utils/utils';
 import {
   isCodepen,
@@ -24,7 +24,7 @@ export const importCode = async (
   config: Config,
   user: User | null | void,
   baseUrl: string,
-): Promise<Partial<Config>> => {
+): Promise<Partial<Config | SDKConfig>> => {
   if (isCompressedCode(url)) {
     return importCompressedCode(url);
   }

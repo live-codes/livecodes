@@ -25,4 +25,5 @@ export const flow: LanguageSpecs = {
   extensions: ['flow'],
   editor: 'script',
   editorLanguage: 'typescript',
+  multiFileSupport: true,
 };

@@ -10,4 +10,5 @@ export const stylus: LanguageSpecs = {
   },
   extensions: ['styl'],
   editor: 'style',
+  multiFileSupport: true,
 };

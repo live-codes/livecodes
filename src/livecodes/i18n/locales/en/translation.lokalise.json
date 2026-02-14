@@ -100,6 +100,10 @@
     "notes": "",
     "translation": "SDK Permanent URL"
   },
+  "app.binaryFileEditor.selectFile": {
+    "notes": "",
+    "translation": "Select file"
+  },
   "app.changeTheme.hint": {
     "notes": "",
     "translation": "Change Theme"
@@ -932,6 +936,10 @@
     "notes": "",
     "translation": "Loading {{lang}}. This may take a while!"
   },
+  "core.confirm.deleteFile": {
+    "notes": "",
+    "translation": "Delete file: {{filename}}?"
+  },
   "core.copy.copied": {
     "notes": "",
     "translation": "Code copied to clipboard"
@@ -1024,6 +1032,18 @@
     "notes": "",
     "translation": "Creating a public GitHub gist..."
   },
+  "core.file.exists": {
+    "notes": "",
+    "translation": "File already exists!"
+  },
+  "core.file.invalidName": {
+    "notes": "",
+    "translation": "Invalid file name!"
+  },
+  "core.file.invalidType": {
+    "notes": "",
+    "translation": "Invalid file type!"
+  },
   "core.fork.success": {
     "notes": "",
     "translation": "Forked as a new project"
@@ -1039,10 +1059,6 @@
   "core.generating": {
     "notes": "",
     "translation": "Generating..."
-  },
-  "core.import.loading": {
-    "notes": "",
-    "translation": "Loading Project..."
   },
   "core.layout.horizontal": {
     "notes": "",
@@ -2523,6 +2539,58 @@
   "templates.heading": {
     "notes": "",
     "translation": "New Project"
+  },
+  "templates.multifile.basic": {
+    "notes": "",
+    "translation": "Basic Template"
+  },
+  "templates.multifile.blank": {
+    "notes": "",
+    "translation": "Blank Template"
+  },
+  "templates.multifile.heading": {
+    "notes": "",
+    "translation": "Multi-file Templates"
+  },
+  "templates.multifile.javascript": {
+    "notes": "",
+    "translation": "JavaScript Template"
+  },
+  "templates.multifile.jest": {
+    "notes": "",
+    "translation": "Jest Template"
+  },
+  "templates.multifile.lit": {
+    "notes": "",
+    "translation": "Lit Template"
+  },
+  "templates.multifile.loading": {
+    "notes": "",
+    "translation": "Loading multi-file templates..."
+  },
+  "templates.multifile.preact": {
+    "notes": "",
+    "translation": "Preact Template"
+  },
+  "templates.multifile.react": {
+    "notes": "",
+    "translation": "React Template"
+  },
+  "templates.multifile.solid": {
+    "notes": "",
+    "translation": "Solid Template"
+  },
+  "templates.multifile.svelte": {
+    "notes": "",
+    "translation": "Svelte Template"
+  },
+  "templates.multifile.typescript": {
+    "notes": "",
+    "translation": "TypeScript Template"
+  },
+  "templates.multifile.vue": {
+    "notes": "",
+    "translation": "Vue Template"
   },
   "templates.noUserTemplates.desc": {
     "notes": "### <tag-1> ###\n<wbr  />\n\n",

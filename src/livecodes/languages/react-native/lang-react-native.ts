@@ -33,4 +33,5 @@ export const reactNative: LanguageSpecs = {
   extensions: ['react-native.jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  multiFileSupport: true,
 };

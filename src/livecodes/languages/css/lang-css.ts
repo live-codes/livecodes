@@ -14,4 +14,5 @@ export const css: LanguageSpecs = {
   },
   extensions: ['css'],
   editor: 'style',
+  multiFileSupport: true,
 };
