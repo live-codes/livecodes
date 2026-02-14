@@ -90,3 +90,21 @@
     }
   }
 }
+
+::view-transition-old(root) {
+  animation-delay: 500ms;
+}
+
+::view-transition-new(root) {
+  animation: circle-in 500ms;
+}
+
+@keyframes circle-in {
+  from {
+    clip-path: circle(0% at var(--active-element-x, 50%) var(--active-element-y, 0));
+  }
+
+  to {
+    clip-path: circle(120% at var(--active-element-x, 50%) var(--active-element-y, 0));
+  }
+}
