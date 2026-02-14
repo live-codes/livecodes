@@ -103,6 +103,7 @@
   from {
     clip-path: circle(0% at var(--active-element-x, 50%) var(--active-element-y, 0));
   }
+
   to {
     clip-path: circle(120% at var(--active-element-x, 50%) var(--active-element-y, 0));
   }

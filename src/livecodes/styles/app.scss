@@ -1,3 +1,5 @@
+@use 'sass:meta';
+
 :root {
   --font-size: 16px;
   --unit: var(--font-size);
@@ -225,7 +227,7 @@
   --icon-filter-active: invert(1);
 }
 
-@import 'inc-light';
+@include meta.load-css('inc-light');
 
 *,
 *::before,
@@ -335,11 +337,11 @@ html {
   color: var(--link);
 }
 
-@import 'inc-rtl';
+@include meta.load-css('inc-rtl');
 
-@import 'inc-icons';
+@include meta.load-css('inc-icons');
 
-@import 'inc-icons-share';
+@include meta.load-css('inc-icons-share');
 
 a,
 a:visited {
@@ -1400,9 +1402,9 @@ a.editor-title {
   }
 }
 
-@import 'inc-menu';
+@include meta.load-css('inc-menu');
 
-@import 'inc-modal';
+@include meta.load-css('inc-modal');
 
 :root:not(.light) {
   #modal #resources-container #resources-search-results {
