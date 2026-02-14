@@ -2032,8 +2032,8 @@ const transitionTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const activeElement = document.activeElement;
   if (activeElement) {
     const position = activeElement.getBoundingClientRect();
-    root.style.setProperty('--active-element-x', position.x + 'px');
-    root.style.setProperty('--active-element-y', position.y + 'px');
+    root.style.setProperty('--active-element-x', position.x + position.width / 2 + 'px');
+    root.style.setProperty('--active-element-y', position.y + position.height / 2 + 'px');
     setTimeout(() => {
       root.style.removeProperty('--active-element-x');
       root.style.removeProperty('--active-element-y');
