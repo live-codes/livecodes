@@ -343,7 +343,7 @@ html {
 
 @include meta.load-css('inc-icons-share');
 
-@import 'inc-multi-file';
+@include meta.load-css('inc-multi-file');
 
 a,
 a:visited {
