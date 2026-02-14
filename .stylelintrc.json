@@ -8,5 +8,5 @@
     "selector-max-id": 3,
     "selector-no-qualifying-type": null
   },
-  "ignoreFiles": ["**/build/**/*"]
+  "ignoreFiles": ["**/build/**/*", "docs/docs/api/**/*"]
 }
