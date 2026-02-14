@@ -2037,7 +2037,7 @@ const transitionTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
     setTimeout(() => {
       root.style.removeProperty('--active-element-x');
       root.style.removeProperty('--active-element-y');
-    }, 500);
+    }, 1000);
   }
   runViewTransition(() => {
     setTheme(theme, editorTheme);
