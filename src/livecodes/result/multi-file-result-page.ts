@@ -142,17 +142,23 @@ export const createMultiFileResultPage = async ({
     mod.startsWith('data:image') ||
     /\.(svg|jpg|jpeg|png|gif|ico|webp|avif|apng|bmp|tiff)(\?|#|$)/i.test(mod);
 
+  const isAsset = (mod: string) =>
+    isImage(mod) || /\?(url|raw|worker|sharedworker|inline|no-inline)/i.test(mod);
+
   const fileUrls: Record<string, string> = {};
   const stylesheetImports: Record<string, string> = {};
-  const imageImports: Record<string, string> = {};
+  const assetImports: Record<string, string> = {};
   let codeImports: Record<string, string> = {};
   const relativeImports: Record<string, string> = {};
 
   // generate data urls for files
-  const getDataUrl = (file: SourceFile & { compiled: string }, saveToFileUrls = true) => {
+  const getDataUrl = (
+    file: SourceFile & { compiled: string },
+    { saveToFileUrls = true, raw = false }: { saveToFileUrls?: boolean; raw?: boolean } = {},
+  ) => {
     if (file.filename === mainFile) return;
-    const content = file.compiled;
-    if (content.startsWith('data:')) return content;
+    const content = raw ? file.content : file.compiled;
+    if (content.startsWith('data:') || raw) return content;
     const mimeType =
       mapLanguage(file.language) === 'json'
         ? 'application/json'
@@ -242,7 +248,7 @@ export const createMultiFileResultPage = async ({
         !resolvedImport ||
         resolvedImport in fileImports ||
         resolvedImport in stylesheetImports ||
-        resolvedImport in imageImports
+        resolvedImport in assetImports
       ) {
         return;
       }
@@ -255,14 +261,14 @@ export const createMultiFileResultPage = async ({
         return;
       }
 
-      const importedFile = findFile(resolvedImport);
+      const importedFile = findFile(resolvedImport.split('?')[0]);
       // handle importing external stylesheets or images
       if (!importedFile) {
         if (isCss(resolvedImport)) {
           stylesheetImports[resolvedImport] = resolvedImport;
         }
         if (isImage(resolvedImport)) {
-          imageImports[resolvedImport] = resolvedImport;
+          assetImports[resolvedImport] = resolvedImport;
         }
         return;
       }
@@ -286,10 +292,14 @@ export const createMultiFileResultPage = async ({
         if (!dataUrl) return;
         stylesheetImports[convertedImport] = dataUrl;
         relativeImports[resolvedImport] = convertedImport;
-      } else if (isImage(resolvedImport)) {
-        const dataUrl = fileUrls[importedFile.filename] || getDataUrl(importedFile);
+      } else if (isAsset(resolvedImport)) {
+        const dataUrl =
+          fileUrls[importedFile.filename] ||
+          getDataUrl(importedFile, {
+            raw: resolvedImport.includes('?raw') || resolvedImport.includes('&raw'),
+          });
         if (!dataUrl) return;
-        imageImports[convertedImport] = dataUrl;
+        assetImports[convertedImport] = dataUrl;
         relativeImports[resolvedImport] = convertedImport;
       } else {
         relativeImports[resolvedImport] = convertedImport;
@@ -331,7 +341,7 @@ export const createMultiFileResultPage = async ({
         }
         targetFile.compiled = targetFile.compiled.replace(
           new RegExp(`(['"\`\()])(\\.?\\/)?${file.filename}`, 'g'),
-          `$1${(dataUrl ??= getDataUrl(file, /* saveToFileUrls */ false))}`,
+          `$1${(dataUrl ??= getDataUrl(file, { saveToFileUrls: false }))}`,
         );
       };
       compiledFiles.forEach(replaceUrl);
@@ -380,8 +390,8 @@ export const createMultiFileResultPage = async ({
   });
 
   // imported images
-  Object.keys(imageImports).forEach((mod) => {
-    const content = `export default '${imageImports[mod]}'`;
+  Object.keys(assetImports).forEach((mod) => {
+    const content = `export default '${assetImports[mod]}'`;
     codeImports[mod] = toDataUrl(content);
   });
 
