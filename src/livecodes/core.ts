@@ -832,6 +832,7 @@ const reloadEditors = async (config: Config) => {
   await toolsPane?.console?.reloadEditor(config);
   await toolsPane?.compiled?.reloadEditor(config);
   updateCompiledCode();
+  showEditor(config.activeEditor);
 };
 
 const updateEditors = async (editors: Editors, config: Config) => {
