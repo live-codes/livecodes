@@ -1209,6 +1209,8 @@ export type Language =
   | 'csv'
   | 'tsv'
   | 'plaintext'
+  | 'yaml'
+  | 'yml'
   | 'binary'
   | 'png'
   | 'jpg'

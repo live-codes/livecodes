@@ -118,6 +118,8 @@ JSCPP: [MIT License](https://github.com/felixhao28/JSCPP/blob/befbd6b48666007151
 
 JSON5: [MIT License](https://github.com/json5/json5/blob/b935d4a280eafa8835e6182551b63809e61243b0/LICENSE.md)
 
+js-yaml: [MIT License](https://github.com/nodeca/js-yaml/blob/74a01992953302040be3277c08ba214a06f00b87/LICENSE)
+
 JSZip: [MIT License](https://github.com/Stuk/jszip/blob/3db5fdc85586ef6c26d15b503c45ce8e42905d77/LICENSE.markdown)
 
 konnors-ninja-keys: [MIT License](https://github.com/KonnorRogers/konnors-ninja-keys/blob/6dde465ab2c64329c4284a1f95d9d7501acdb86a/LICENSE)

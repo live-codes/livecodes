@@ -83,6 +83,7 @@ import { vento } from './vento';
 import { vue, vueApp } from './vue';
 import { vue2 } from './vue2';
 import { wat } from './wat';
+import { yaml } from './yaml';
 export const languages: LanguageSpecs[] = [
   html,
   markdown,
@@ -174,5 +175,6 @@ export const languages: LanguageSpecs[] = [
   blockly,
   text,
   json,
+  yaml,
   binary,
 ];

@@ -159,18 +159,17 @@ export const createMultiFileResultPage = async ({
     if (file.filename === mainFile) return;
     const content = raw ? file.content : file.compiled;
     if (content.startsWith('data:') || raw) return content;
-    const mimeType =
-      mapLanguage(file.language) === 'json'
-        ? 'application/json'
-        : file.filename.endsWith('.svg')
-          ? 'image/svg+xml'
-          : getLanguageEditorId(file.language) === 'markup'
-            ? 'text/html'
-            : getLanguageEditorId(file.language) === 'style'
-              ? 'text/css'
-              : getLanguageEditorId(file.language) === 'script'
-                ? 'text/javascript'
-                : 'text/plain';
+    const mimeType = ['json', 'yaml'].includes(mapLanguage(file.language))
+      ? 'application/json'
+      : file.filename.endsWith('.svg')
+        ? 'image/svg+xml'
+        : getLanguageEditorId(file.language) === 'markup'
+          ? 'text/html'
+          : getLanguageEditorId(file.language) === 'style'
+            ? 'text/css'
+            : getLanguageEditorId(file.language) === 'script'
+              ? 'text/javascript'
+              : 'text/plain';
     const dataUrl = toDataUrl(content, mimeType);
     if (saveToFileUrls) {
       fileUrls[file.filename] = dataUrl;
@@ -317,7 +316,11 @@ export const createMultiFileResultPage = async ({
     // replace relative URL access (e.g. img.src="./logo.svg") or fetching files (e.g. fetch("./data.json"))
     // note that the URLs should be relative to the main file (e.g. index.html)
     // do that only for static files (binary, json, text, html), other files are handled later
-    if (['binary', 'json', 'text', 'html'].includes(getFileLanguage(file.filename, config) || '')) {
+    if (
+      ['binary', 'json', 'yaml', 'text', 'html'].includes(
+        getFileLanguage(file.filename, config) || '',
+      )
+    ) {
       let dataUrl: string | undefined; // cache data url
       const replaceUrl = (targetFile: (typeof compiledFiles)[number]) => {
         if (targetFile.filename === file.filename) return;
@@ -366,7 +369,7 @@ export const createMultiFileResultPage = async ({
       if (!file) return;
       const dataUrl =
         fileUrls[file.filename] ||
-        (mapLanguage(file.language) === 'json'
+        (['json', 'yaml'].includes(mapLanguage(file.language))
           ? toDataUrl(`export default ${file.compiled};`)
           : mapLanguage(file.language) === 'text'
             ? toDataUrl(`export default \`${escapeCode(file.compiled)}\`;`)
@@ -389,9 +392,9 @@ export const createMultiFileResultPage = async ({
     }
   });
 
-  // imported images
+  // imported assets
   Object.keys(assetImports).forEach((mod) => {
-    const content = `export default '${assetImports[mod]}'`;
+    const content = `export default \`${escapeCode(assetImports[mod])}\`;`;
     codeImports[mod] = toDataUrl(content);
   });
 

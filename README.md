@@ -13,7 +13,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 [![LiveCodes: npm version](https://img.shields.io/npm/v/livecodes)](https://www.npmjs.com/package/livecodes)
 [![LiveCodes: npm downloads](https://img.shields.io/npm/dm/livecodes)](https://www.npmjs.com/package/livecodes)
 [![LiveCodes: jsdelivr downloads](https://data.jsdelivr.com/v1/package/npm/livecodes/badge?style=rounded)](https://www.jsdelivr.com/package/npm/livecodes)
-[![LiveCodes: languages](https://img.shields.io/badge/languages-99-blue)](https://livecodes.io/docs/languages/)
+[![LiveCodes: languages](https://img.shields.io/badge/languages-100-blue)](https://livecodes.io/docs/languages/)
 [![LiveCodes: docs](https://img.shields.io/badge/Documentation-575757?logo=gitbook&logoColor=white)](https://livecodes.io/docs/)
 [![LiveCodes: llms.txt](https://img.shields.io/badge/llms.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms.txt)
 [![LiveCodes: llms-full.txt](https://img.shields.io/badge/llms--full.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms-full.txt)
