@@ -5,12 +5,14 @@ import { highlightjsUrl } from '../vendors';
 export const getLanguageByAlias = (alias: string = ''): Language | undefined => {
   if (!alias) return;
   const aliasLowerCase = alias?.toLowerCase();
-  return window.deps.languages.find(
-    (language) =>
-      language.name === aliasLowerCase ||
-      language.title.toLowerCase() === aliasLowerCase ||
-      language.extensions.map((ext) => ext.toLowerCase()).includes(aliasLowerCase),
-  )?.name;
+  return (
+    window.deps.languages.find(
+      (language) =>
+        language.name === aliasLowerCase ||
+        language.title.toLowerCase() === aliasLowerCase ||
+        language.extensions.map((ext) => ext.toLowerCase()).includes(aliasLowerCase),
+    )?.name || getLanguageByAlias(aliasLowerCase.split('.').slice(1).join('.')) // e.g. 'config.ts' => 'ts'
+  );
 };
 
 export const getFileExtension = /* @__PURE__ */ (filename: string) => {

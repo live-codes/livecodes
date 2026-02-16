@@ -28,8 +28,29 @@ const prepareFiles = (
     ...(title ? { title } : {}),
     mainFile,
     activeEditor: String(params.activeEditor || params.active || mainFile),
+    ...detectFramework(config.files),
     ...config,
   };
+};
+
+const detectFramework = (files: SourceFile[]): Partial<Config> => {
+  const viteConfig = files.find((f) => f.filename.startsWith('vite.config.'));
+  if (viteConfig) {
+    if (viteConfig.content.includes('vite-plugin-solid')) {
+      return { customSettings: { fileLanguages: { jsx: 'solid', tsx: 'solid.tsx' } } };
+    }
+    if (viteConfig.content.includes('@preact/preset-vite')) {
+      files.forEach((file) => {
+        if (
+          (file.filename.endsWith('.jsx') || file.filename.endsWith('.tsx')) &&
+          !file.content.match(/\/\*\*\s*@jsx/g)
+        ) {
+          file.content = '/** @jsxImportSource preact */\n' + file.content;
+        }
+      });
+    }
+  }
+  return {};
 };
 
 export const populateConfig = (

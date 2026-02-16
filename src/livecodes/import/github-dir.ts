@@ -67,6 +67,7 @@ export const importFromGithubDir = async (
         .map((file) => ({
           ...file,
           filename: file.path.split('/')[file.path.split('/').length - 1],
+          size: file.size,
           content: '',
         })),
     ).filter((_file, index: number) => index < maxFiles);
