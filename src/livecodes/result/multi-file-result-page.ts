@@ -26,10 +26,12 @@ import {
   getRandomString,
   isRelativeUrl,
   objectMap,
+  removeCommentsAndStrings,
   toCamelCase,
   toDataUrl,
 } from '../utils/utils';
 import { browserJestUrl, esModuleShimsPath, spacingJsUrl } from '../vendors';
+import { getEnvVars, replaceEnvVars } from './utils';
 
 let lastInput = '';
 let lastOutput = '';
@@ -93,11 +95,28 @@ export const createMultiFileResultPage = async ({
     .map((f) => ({ ...f, filename: f.filename.replace('public/', '') }));
   compiledFiles.push(...publicFiles);
 
+  const envVars = getEnvVars(compiledFiles, forExport);
+  compiledFiles.forEach((f) => {
+    const fileType = getLanguageEditorId(f.language);
+    if (fileType === 'markup') {
+      f.compiled = replaceEnvVars(f.compiled, envVars);
+    } else if (fileType === 'script') {
+      if (removeCommentsAndStrings(f.compiled).match(/\bimport\b/g)) {
+        f.compiled = `import.meta.env=${JSON.stringify(envVars)};${f.compiled}`;
+      }
+    }
+  });
+
   const mainFile = getMainFile(config);
   const mainFileHTML = compiledFiles.find((f) => f.filename === mainFile)?.compiled || '';
 
   const domParser = new DOMParser();
   const dom = domParser.parseFromString(mainFileHTML, 'text/html');
+
+  // env vars
+  const envVarsScript = dom.createElement('script');
+  envVarsScript.innerHTML = `window.process = window.process || {}; window.process.env = ${JSON.stringify(envVars)};`;
+  dom.head.appendChild(envVarsScript);
 
   // if export => clean, else => add utils
   if (forExport) {

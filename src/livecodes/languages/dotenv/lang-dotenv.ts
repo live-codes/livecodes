@@ -7,8 +7,16 @@ export const dotenv: LanguageSpecs = {
   info: false,
   compiler: {
     url: vendorsBaseUrl + 'dotenv/dotenv.js',
-    factory: () => async (code) =>
-      JSON.stringify((self as any).dotenv.parseAndExpand(code), null, 2),
+    factory: () => async (code) => {
+      const processEnv = {};
+      try {
+        const parsed = (self as any).dotenv.parse(code);
+        (self as any).dotenv.expand({ parsed, processEnv });
+      } catch {
+        //
+      }
+      return JSON.stringify(processEnv, null, 2);
+    },
     compiledCodeLanguage: 'json',
   },
   extensions: [

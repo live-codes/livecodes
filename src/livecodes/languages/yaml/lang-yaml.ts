@@ -7,8 +7,13 @@ export const yaml: LanguageSpecs = {
   info: false,
   compiler: {
     url: jsYamlUrl,
-    factory: () => async (code) =>
-      JSON.stringify((self as any).jsyaml.load(code, { json: true }), null, 2),
+    factory: () => async (code) => {
+      try {
+        return JSON.stringify((self as any).jsyaml.load(code, { json: true }), null, 2);
+      } catch {
+        return '{}';
+      }
+    },
     compiledCodeLanguage: 'json',
   },
   extensions: ['yaml', 'yml'],

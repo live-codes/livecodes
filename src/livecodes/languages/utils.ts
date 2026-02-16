@@ -20,10 +20,11 @@ export const getFileExtension = /* @__PURE__ */ (filename: string) => {
   if (parts.length === 2) return extension; // e.g. App.tsx => 'tsx'
   const lang = parts[parts.length - 2];
   if (getLanguageByAlias(`${lang}.${extension}`)) return `${lang}.${extension}`; // e.g. App.react.tsx => 'react.tsx'
-  return extension;
+  return parts.slice(1).join('.'); // e.g. .env.development.local
 };
 
 export const getFileLanguage = (filename: string, config: Partial<Config>) => {
+  if (filename.startsWith('.env')) return 'dotenv';
   const extension = getFileExtension(filename);
   const fileLanguages: Config['fileLanguages'] = {
     ...config.fileLanguages,
