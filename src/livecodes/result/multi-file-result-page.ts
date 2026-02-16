@@ -344,20 +344,20 @@ export const createMultiFileResultPage = async ({
       const replaceUrl = (targetFile: (typeof compiledFiles)[number]) => {
         if (targetFile.filename === file.filename) return;
         // handle svg <use href="./logo.svg#svg-logo"> which does not allow data urls
-        const usePattern = /<use\s+href\s*=\s*"/g;
+        const usePattern = /<use\s+href\s*=/g;
         if (
           file.filename.endsWith('.svg') &&
           (targetFile.content?.match(new RegExp(usePattern)) ||
             targetFile.compiled?.match(new RegExp(usePattern)))
         ) {
           targetFile.compiled = targetFile.compiled.replace(
-            new RegExp(`(['"\`])(\\.?\\/)?${file.filename}#`, 'g'),
-            (_match, $1) => {
+            new RegExp(`(\\.?\\/)?${file.filename}#`, 'g'),
+            () => {
               const div = document.createElement('div');
               div.style.display = 'none';
               div.innerHTML = file.compiled;
               dom.body.append(div);
-              return `${$1}#`;
+              return `#`;
             },
           );
         }
