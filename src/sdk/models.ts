@@ -1236,7 +1236,14 @@ export type Language =
   | 'wav'
   | 'oga'
   | 'mid'
-  | 'midi';
+  | 'midi'
+  | 'dotenv'
+  | 'env'
+  | 'env.local'
+  | 'env.development'
+  | 'env.production'
+  | 'env.development.local'
+  | 'env.production.local';
 
 export interface Editor {
   /**

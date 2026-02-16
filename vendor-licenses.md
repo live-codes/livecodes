@@ -62,6 +62,10 @@ dart-sass: [MIT License](https://github.com/sass/dart-sass/blob/e3bf3eb3a3a87088
 
 DoppioJVM: [MIT License](https://github.com/plasma-umass/doppio/blob/9a8bcf705c74f91301a542abfe8b7175ca757259/LICENSE)
 
+dotenv: [BSD 2-Clause License](https://github.com/motdotla/dotenv/blob/9d93f227bd04e1c364da31128a3606f98b321e61/LICENSE)
+
+dotenv-expand: [BSD 2-Clause License](https://github.com/motdotla/dotenv-expand/blob/eac922076a34dbde5c478d05725b0e366bf1751b/LICENSE)
+
 dts-bundle: [MIT License](https://github.com/TypeStrong/dts-bundle/blob/2ca1591e890dc4276efc4bb0893367e6ff32a039/LICENSE-MIT)
 
 EasyQRCodeJS: [MIT License](https://github.com/ushelp/EasyQRCodeJS/blob/573373b110d706132a41cc8abb5b297016b80094/LICENSE)

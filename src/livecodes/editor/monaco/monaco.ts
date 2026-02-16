@@ -24,13 +24,13 @@ import {
   emmetMonacoUrl,
   monacoBaseUrl,
   monacoEmacsUrl,
-  monacoLanguagesBaseUrl,
   monacoVimUrl,
   typescriptVersion,
   vendorsBaseUrl,
 } from '../../vendors';
 import { getEditorTheme } from '../themes';
 import { getCompilerOptions, hasJsx } from '../ts-compiler-options';
+import { type CustomLanguageDefinition, customLanguages } from './monaco-languages';
 import { customThemes, monacoThemes } from './monaco-themes';
 import { registerTwoSlash } from './register-twoslash';
 
@@ -38,7 +38,7 @@ type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
 let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
-let monaco: typeof Monaco;
+export let monaco: typeof Monaco;
 const loadedThemes = new Set<string>();
 // let codeiumProvider: { dispose: () => void } | undefined;
 let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
@@ -249,32 +249,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     listeners.forEach((fn) => editor.getModel()?.onDidChangeContent(fn));
   };
 
-  const customLanguages: Partial<Record<Language, string>> = {
-    astro: monacoLanguagesBaseUrl + 'astro.js',
-    clio: monacoLanguagesBaseUrl + 'clio.js',
-    imba: monacoLanguagesBaseUrl + 'imba.js',
-    json5: monacoLanguagesBaseUrl + 'json5.js',
-    minizinc: monacoLanguagesBaseUrl + 'minizinc.js',
-    prolog: monacoLanguagesBaseUrl + 'prolog.js',
-    // sql: monacoLanguagesBaseUrl + 'sql.js', // TODO: add autocomplete
-    vue: monacoLanguagesBaseUrl + 'vue.js',
-    wat: monacoLanguagesBaseUrl + 'wat.js',
-  };
-
-  interface CustomLanguageDefinition {
-    config?: Monaco.languages.LanguageConfiguration;
-    tokens?: Monaco.languages.IMonarchLanguage;
-    completions?: Monaco.languages.CompletionItemProvider;
-    definitions?: Monaco.languages.DefinitionProvider;
-    init?: (monaco: typeof Monaco) => void;
-  }
-
   const loadMonacoLanguage = async (lang: Language) => {
     lang = monacoMapLanguage(lang);
     const langUrl = customLanguages[lang];
     if (langUrl && !monaco.languages.getLanguages().find((l) => l.id === lang)) {
       monaco.languages.register({ id: lang });
-      const mod: CustomLanguageDefinition = (await import(langUrl)).default;
+      const mod: CustomLanguageDefinition =
+        typeof langUrl === 'string' ? (await import(langUrl)).default : langUrl;
       if (mod.config) {
         monaco.languages.setLanguageConfiguration(lang, mod.config);
       }

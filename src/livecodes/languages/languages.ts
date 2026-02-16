@@ -18,6 +18,7 @@ import { csharpWasm } from './csharp-wasm';
 import { css } from './css';
 import { diagrams } from './diagrams';
 import { dot } from './dot';
+import { dotenv } from './dotenv/lang-dotenv';
 import { ejs } from './ejs';
 import { eta } from './eta';
 import { fennel } from './fennel';
@@ -177,4 +178,5 @@ export const languages: LanguageSpecs[] = [
   json,
   yaml,
   binary,
+  dotenv,
 ];
