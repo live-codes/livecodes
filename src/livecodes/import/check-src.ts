@@ -15,6 +15,7 @@ export const hostPatterns = {
   typescriptPlayground: /^(?:(?:http|https):\/\/)?(?:www\.)?typescriptlang\.org\/play(?:.*)/g,
   vuePlayground: /^(?:(?:http|https):\/\/)?play\.vuejs\.org(?:.*)/g,
   sveltePlayground: /^(?:(?:http|https):\/\/)?svelte\.dev\/repl\/(?:.*)/g,
+  preactPlayground: /^(?:(?:http|https):\/\/)?preactjs\.com\/repl(?:.*)/g,
 };
 
 export const isCompressedCode = (url: string) => url.startsWith('code/');
@@ -108,4 +109,9 @@ export const isVuePlayground = (url: string, pattern = new RegExp(hostPatterns.v
 export const isSveltePlayground = (
   url: string,
   pattern = new RegExp(hostPatterns.sveltePlayground),
+) => pattern.test(url);
+
+export const isPreactPlayground = (
+  url: string,
+  pattern = new RegExp(hostPatterns.preactPlayground),
 ) => pattern.test(url);

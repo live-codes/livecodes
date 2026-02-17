@@ -11,6 +11,7 @@ import {
   isGitlabSnippet,
   isGitlabUrl,
   isJsbin,
+  isPreactPlayground,
   isProjectId,
   isTypescriptPlayground,
   isVuePlayground,
@@ -45,6 +46,7 @@ export const importCode = async (
     importFromJsbin,
     importTypescriptPlayground,
     importVuePlayground,
+    importPreactPlayground,
     importFromUrl,
   } = importSrc;
 
@@ -80,6 +82,9 @@ export const importCode = async (
   }
   if (isVuePlayground(url)) {
     return importVuePlayground(url);
+  }
+  if (isPreactPlayground(url)) {
+    return importPreactPlayground(url);
   }
   if (getValidUrl(url)) {
     return importFromUrl(url, params, config);
