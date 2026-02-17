@@ -13,6 +13,7 @@ import {
   isJsbin,
   isPreactPlayground,
   isProjectId,
+  isSolidPlayground,
   isTypescriptPlayground,
   isVuePlayground,
 } from './check-src';
@@ -47,6 +48,7 @@ export const importCode = async (
     importTypescriptPlayground,
     importVuePlayground,
     importPreactPlayground,
+    importSolidPlayground,
     importFromUrl,
   } = importSrc;
 
@@ -85,6 +87,9 @@ export const importCode = async (
   }
   if (isPreactPlayground(url)) {
     return importPreactPlayground(url);
+  }
+  if (isSolidPlayground(url)) {
+    return importSolidPlayground(url);
   }
   if (getValidUrl(url)) {
     return importFromUrl(url, params, config);
