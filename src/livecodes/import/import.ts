@@ -14,6 +14,7 @@ import {
   isPreactPlayground,
   isProjectId,
   isSolidPlayground,
+  isSveltePlayground,
   isTypescriptPlayground,
   isVuePlayground,
 } from './check-src';
@@ -49,6 +50,7 @@ export const importCode = async (
     importVuePlayground,
     importPreactPlayground,
     importSolidPlayground,
+    importSveltePlayground,
     importFromUrl,
   } = importSrc;
 
@@ -90,6 +92,9 @@ export const importCode = async (
   }
   if (isSolidPlayground(url)) {
     return importSolidPlayground(url);
+  }
+  if (isSveltePlayground(url)) {
+    return importSveltePlayground(url);
   }
   if (getValidUrl(url)) {
     return importFromUrl(url, params, config);

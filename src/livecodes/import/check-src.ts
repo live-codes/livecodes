@@ -14,7 +14,7 @@ export const hostPatterns = {
   jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin\.com\/((\w)+(\/\d+)?)(?:.*)/g,
   typescriptPlayground: /^(?:(?:http|https):\/\/)?(?:www\.)?typescriptlang\.org\/play(?:.*)/g,
   vuePlayground: /^(?:(?:http|https):\/\/)?play\.vuejs\.org(?:.*)/g,
-  sveltePlayground: /^(?:(?:http|https):\/\/)?svelte\.dev\/repl\/(?:.*)/g,
+  sveltePlayground: /^(?:(?:http|https):\/\/)?svelte\.dev\/playground\/(?:.*)/g,
   preactPlayground: /^(?:(?:http|https):\/\/)?preactjs\.com\/repl(?:.*)/g,
   solidPlayground: /^(?:(?:http|https):\/\/)?playground\.solidjs\.com\/(?:.*)/g,
 };
