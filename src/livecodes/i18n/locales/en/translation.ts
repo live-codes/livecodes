@@ -649,7 +649,7 @@ const translation = {
       started: 'Bulk import started...',
     },
     code: {
-      desc: 'Supported Sources: <1> <2>GitHub gist</2> <3>GitHub file</3> <4>Directory in a GitHub repo</4> <5>Gitlab snippet</5> <6>Gitlab file</6> <7>Directory in a Gitlab repo</7> <8>JS Bin</8> <9>Raw code</9> <10>Code in web page DOM</10> <11>Code in zip file</11> <12>Code in image (OCR)</12> <13>Official playgrounds<14></14>(TypeScript and Vue)</13> </1> Please visit the <15>documentations</15> for details.',
+      desc: 'Supported Sources: <1> <2>GitHub gist</2> <3>GitHub file</3> <4>Directory in a GitHub repo</4> <5>Gitlab snippet</5> <6>Gitlab file</6> <7>Directory in a Gitlab repo</7> <8>JS Bin</8> <9>Raw code</9> <10>Code in web page DOM</10> <11>Code in zip file</11> <12>Code in image (OCR)</12> <13>Official playgrounds<14></14>(TypeScript, Vue, Svelte, Preact and Solid)</13> </1> Please visit the <15>documentations</15> for details.',
       fromFile: 'Import local files',
       fromURL: 'Import from URL',
       heading: 'Import Code',
