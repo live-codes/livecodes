@@ -1070,6 +1070,8 @@ export type Language =
   | 'svelte'
   | 'svelte-app'
   | 'app.svelte'
+  | 'svelte.js'
+  | 'svelte.ts'
   | 'stencil'
   | 'stencil.tsx'
   | 'solid'

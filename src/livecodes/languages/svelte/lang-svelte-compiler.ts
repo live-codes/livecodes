@@ -1,7 +1,8 @@
+import { compileInCompiler } from '../../compiler';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
 import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
 import { getCompileResult } from '../../compiler/utils';
-import type { CompilerFunction, Config, Language } from '../../models';
+import type { CompileOptions, CompilerFunction, Config, Language } from '../../models';
 import { getErrorMessage } from '../../utils/utils';
 import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from '../utils';
 
@@ -75,6 +76,36 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
     };
   };
 
+  const compileSvelteModule = async (
+    code: string,
+    { config, options, filename }: { config: Config; options: CompileOptions; filename: string },
+  ) => {
+    try {
+      if (filename.endsWith('.ts')) {
+        code = (await compileInCompiler(code, 'typescript', config, options)).code;
+      }
+      const result = (window as any).svelte.compileModule(code, {
+        filename,
+        ...getLanguageCustomSettings('svelte', config),
+      });
+      return result.js;
+    } catch (err) {
+      errors.push(getErrorMessage(err));
+      return {
+        code: '',
+        info: { errors },
+      };
+    }
+  };
+
+  const getMountCode = (code: string) =>
+    `
+import { mount } from "svelte";
+${code}
+
+mount(__LiveCodes_App__, { target: document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')) });
+`.trimStart();
+
   return async (code, { config, language, options }) => {
     const isMultiFileProject = Boolean(config.files.length);
     const isMainFile = isMultiFileProject
@@ -86,20 +117,10 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
         ? MAIN_FILE
         : SECONDARY_FILE;
 
-    const compileResult = await compileSvelteSFC(code, {
-      config,
-      language: language as Language,
-      filename,
-    });
+    if (filename.endsWith('.svelte.js') || filename.endsWith('.svelte.ts')) {
+      return compileSvelteModule(code, { config, options, filename });
+    }
 
-    return compileResult;
+    return compileSvelteSFC(code, { config, language: language as Language, filename });
   };
 };
-
-const getMountCode = (code: string) =>
-  `
-import { mount } from "svelte";
-${code}
-
-mount(__LiveCodes_App__, { target: document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')) });
-`.trimStart();

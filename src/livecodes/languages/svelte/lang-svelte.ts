@@ -43,8 +43,9 @@ export const svelte: LanguageSpecs = {
     },
     inlineScript: 'globalThis.process = { env: { NODE_ENV: "production" } };',
   },
-  extensions: ['svelte'],
+  extensions: ['svelte', 'svelte.js', 'svelte.ts'],
   editor: 'script',
+  editorLanguage: 'html',
   multiFileSupport: true,
 };
 
