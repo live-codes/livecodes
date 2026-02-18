@@ -92,11 +92,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
               ? 'typescript'
               : editorId.endsWith('.js')
                 ? 'javascript'
-                : editorId.endsWith('.json5') || editorId.endsWith('.jsonc')
-                  ? 'json5'
-                  : mapLanguage(language) === 'text'
-                    ? 'plaintext'
-                    : mapLanguage(language);
+                : language.startsWith('svelte')
+                  ? 'svelte'
+                  : editorId.endsWith('.json5') || editorId.endsWith('.jsonc')
+                    ? 'json5'
+                    : mapLanguage(language) === 'text'
+                      ? 'plaintext'
+                      : mapLanguage(language);
 
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;

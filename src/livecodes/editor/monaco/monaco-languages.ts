@@ -20,6 +20,7 @@ export const customLanguages: Partial<Record<Language, string | CustomLanguageDe
   prolog: monacoLanguagesBaseUrl + 'prolog.js',
   // sql: monacoLanguagesBaseUrl + 'sql.js', // TODO: add autocomplete
   vue: monacoLanguagesBaseUrl + 'vue.js',
+  svelte: monacoLanguagesBaseUrl + 'svelte.js',
   wat: monacoLanguagesBaseUrl + 'wat.js',
 
   dotenv: {
