@@ -1,3 +1,136 @@
 # CSS
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[CSS](https://developer.mozilla.org/docs/Web/CSS) (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in HTML. It controls layout, colors, fonts, and the overall visual appearance of web pages.
+
+## Demo
+
+
+export const cssConfig = {
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Hello, LiveCodes!</h1>
+  <p>This is styled with <strong>CSS</strong>.</p>
+  <ul>
+    <li>Flexible</li>
+    <li>Powerful</li>
+    <li>Beautiful</li>
+  </ul>
+</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `.container {
+  font-family: sans-serif;
+  max-width: 600px;
+  margin: 2em auto;
+  padding: 1.5em;
+  border-radius: 8px;
+  background: #f0f4f8;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+  color: #2d3748;
+}
+
+p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1em;
+}
+
+li {
+  background: #3182ce;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+}
+`,
+  },
+};
+
+
+<LiveCodes config={cssConfig} />
+
+## Usage
+
+CSS code added to the [style editor](../features/css.mdx#style-editor) is added as-is without any compilation to the [result page](../features/result.mdx).
+
+There is no need to add a full page structure (e.g. `<html>`, `<head>`, `<style>` tags). LiveCodes handles this automatically.
+
+For more details about CSS support in LiveCodes, including CSS processors, style imports, CSS modules, and CSS frameworks, see the [CSS feature documentation](../features/css.mdx).
+
+
+
+
+### CSS Processors
+
+The CSS code can be further processed by one or more CSS processors. These include:
+
+- [Autoprefixer](./autoprefixer.mdx)
+- [postcss-preset-env](./postcssPresetEnv.mdx)
+- [Lightning CSS](./lightningcss.mdx)
+- [CSS Modules](./cssmodules.mdx)
+- [cssnano](./cssnano.mdx)
+- [PurgeCSS](./purgecss.mdx)
+
+See [CSS Processors](../features/css.mdx#css-processors) for details.
+
+### Auto-update
+
+When [`autoupdate`](../configuration/configuration-object.mdx#autoupdate) is enabled (default), changes in the style editor do NOT trigger a full reload of the [result page](../features/result.mdx). The updated CSS is sent to the page and applied without a reload.
+
+The page can be force-reloaded by clicking the run button or using the keyboard shortcut: <kbd>Shift</kbd>&nbsp;+&nbsp;<kbd>Enter</kbd>.
+
+
+
+
+
+
+### Style Imports
+
+CSS `@import` rules with [bare module](../features/module-resolution.mdx#bare-module-imports) specifiers are resolved to full CDN URLs. See [Style Imports](../features/css.mdx#style-imports) for details.
+
+## Language Info
+
+### Name
+
+`css`
+
+### Extensions
+
+`.css`
+
+### Editor
+
+`style`
+
+## Compiler
+
+None. CSS is added to the result page without compilation.
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Starter Template
+
+https://livecodes.io/?template=blank
+
+## Links
+
+- [CSS Reference (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [CSS Tutorial (W3Schools)](https://www.w3schools.com/css/)
+- [CSS feature documentation in LiveCodes](../features/css.mdx)
+
+
