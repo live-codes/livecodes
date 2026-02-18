@@ -36,6 +36,9 @@ const prepareFiles = (
 const detectFramework = (files: SourceFile[]): Partial<Config> => {
   const viteConfig = files.find((f) => f.filename.startsWith('vite.config.'));
   if (viteConfig) {
+    if (viteConfig.content.includes('@vitejs/plugin-react')) {
+      return { customSettings: { fileLanguages: { jsx: 'react', tsx: 'react.tsx' } } };
+    }
     if (viteConfig.content.includes('vite-plugin-solid')) {
       return { customSettings: { fileLanguages: { jsx: 'solid', tsx: 'solid.tsx' } } };
     }
