@@ -73,20 +73,21 @@ export const importPreactPlayground = async (url: string): Promise<Partial<Confi
     activeEditor: 'script',
     markup: {
       language: 'html',
-      content: '<div id="app"></div>',
+      content: `<style> html { font: 100%/1.3 system-ui, sans-serif; } </style>
+<div id="app"></div>
+`,
     },
     style: {
       language: 'css',
-      hiddenContent: 'html { font: 100%/1.3 system-ui, sans-serif; background: none; }',
       contentUrl: modulesService.getModuleUrl(
         'gh:preactjs/preact-www@master/src/components/controllers/repl/examples/style.css',
       ),
     },
     script: {
       language: 'jsx',
-      hiddenContent: '/** @jsxImportSource preact */\n',
       content,
       contentUrl,
     },
+    customSettings: { typescript: { jsxImportSource: 'preact' } },
   };
 };

@@ -43,14 +43,7 @@ const detectFramework = (files: SourceFile[]): Partial<Config> => {
       return { customSettings: { fileLanguages: { jsx: 'solid', tsx: 'solid.tsx' } } };
     }
     if (viteConfig.content.includes('@preact/preset-vite')) {
-      files.forEach((file) => {
-        if (
-          (file.filename.endsWith('.jsx') || file.filename.endsWith('.tsx')) &&
-          !file.content.match(/\/\*\*\s*@jsx/g)
-        ) {
-          file.content = '/** @jsxImportSource preact */\n' + file.content;
-        }
-      });
+      return { customSettings: { typescript: { jsxImportSource: 'preact' } } };
     }
   }
   return {};

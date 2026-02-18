@@ -25,7 +25,6 @@ export const preactStarter: Template = {
   script: {
     language: 'jsx',
     content: `
-/** @jsxImportSource preact */
 import { render } from 'preact';
 import { useSignal } from "@preact/signals";
 
@@ -41,7 +40,8 @@ function App(props) {
   );
 }
 
-render(<App name="Preact" />, document.body);
+render(<App name="Preact" />, document.getElementById("app"));
 `.trimStart(),
   },
+  customSettings: { typescript: { jsxImportSource: 'preact' } },
 };
