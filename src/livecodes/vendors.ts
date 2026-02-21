@@ -120,7 +120,7 @@ export const doppioJvmBaseUrl = 'https://unpkg.com/@seth0x41/doppio@1.0.0/';
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
-export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.10/ejs.js');
+export const ejsUrl = /* @__PURE__ */ getUrl('ejs@4.0.1/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
@@ -422,7 +422,7 @@ export const squintCljsBaseUrl = /* @__PURE__ */ getUrl('squint-cljs@0.4.81/');
 
 export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/stencil.js');
 
-export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.3.2/dist/umd/stylis.js');
+export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.3.6/dist/umd/stylis.js');
 
 export const svelteBaseUrl = /* @__PURE__ */ getUrl('svelte@5.39.12/');
 
