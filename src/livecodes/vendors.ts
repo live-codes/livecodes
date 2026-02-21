@@ -124,7 +124,7 @@ export const draggableUrl = /* @__PURE__ */ getUrl(
   '@shopify/draggable@1.2.1/build/umd/index.min.js',
 );
 
-export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.10/ejs.js');
+export const ejsUrl = /* @__PURE__ */ getUrl('ejs@4.0.1/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
@@ -378,7 +378,7 @@ export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
 
 export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.6.1/dist/easy.qrcode.min.js');
 
-export const quillEditorCdnBaseUrl = /* @__PURE__ */ getUrl('quill@2.0.2/dist/');
+export const quillEditorCdnBaseUrl = /* @__PURE__ */ getUrl('quill@2.0.3/dist/');
 
 export const quillHtmlEditUrl = /* @__PURE__ */ getUrl(
   'quill-html-edit-button@2.2.14/dist/quill.htmlEditButton.min.js',
@@ -430,7 +430,7 @@ export const squintCljsBaseUrl = /* @__PURE__ */ getUrl('squint-cljs@0.4.81/');
 
 export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/stencil.js');
 
-export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.3.2/dist/umd/stylis.js');
+export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.3.6/dist/umd/stylis.js');
 
 export const svelteBaseUrl = /* @__PURE__ */ getUrl('svelte@5.39.12/');
 
