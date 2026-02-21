@@ -1,8 +1,7 @@
 import { defaultConfig } from '../config/default-config';
 import { importScreen } from '../html';
-import { importFromFiles } from '../import/files';
+import type { importFromFiles as importFromFilesFn } from '../import/files';
 import { importCode } from '../import/import';
-import type { populateConfig as populateConfigFn } from '../import/utils';
 import type {
   Config,
   ContentConfig,
@@ -63,7 +62,7 @@ export const createImportUI = ({
   eventsManager,
   getUser,
   loadConfig,
-  populateConfig,
+  importFromFiles,
   projectStorage,
   showScreen,
 }: {
@@ -73,7 +72,7 @@ export const createImportUI = ({
   eventsManager: EventsManager;
   getUser: (() => Promise<void | User>) | undefined;
   loadConfig: (newConfig: Partial<ContentConfig>, url?: string) => Promise<void>;
-  populateConfig: typeof populateConfigFn;
+  importFromFiles: typeof importFromFilesFn;
   projectStorage: ProjectStorage | undefined;
   showScreen: (screen: Screen['screen'], options?: any) => Promise<void>;
 }) => {
@@ -95,7 +94,7 @@ export const createImportUI = ({
         {
           ...defaultConfig,
           ...imported,
-        },
+        } as Partial<ContentConfig>,
         location.origin + location.pathname + '?x=' + encodeURIComponent(url),
       );
       modal.close();
@@ -111,10 +110,14 @@ export const createImportUI = ({
 
   const codeImportInput = getCodeImportInput(importContainer);
   eventsManager.addEventListener(codeImportInput, 'change', () => {
-    if (!codeImportInput.files?.length) return;
+    const files = codeImportInput.files;
+    if (!files?.length) return;
     notifications.info(window.deps.translateString('generic.loading', 'Loading...'));
-    importFromFiles(codeImportInput.files, populateConfig, eventsManager)
-      .then(loadConfig)
+    importFromFiles({ files })
+      .then((fileConfig) => {
+        if (Object.keys(fileConfig).length === 0) return;
+        return loadConfig(fileConfig as Partial<ContentConfig>);
+      })
       .then(modal.close)
       .catch((message) => {
         notifications.error(message);

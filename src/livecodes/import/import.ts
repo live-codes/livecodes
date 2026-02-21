@@ -1,4 +1,4 @@
-import type { Config, User } from '../models';
+import type { Config, SDKConfig, User } from '../models';
 import { getValidUrl } from '../utils/utils';
 import {
   isCodepen,
@@ -11,7 +11,10 @@ import {
   isGitlabSnippet,
   isGitlabUrl,
   isJsbin,
+  isPreactPlayground,
   isProjectId,
+  isSolidPlayground,
+  isSveltePlayground,
   isTypescriptPlayground,
   isVuePlayground,
 } from './check-src';
@@ -24,7 +27,7 @@ export const importCode = async (
   config: Config,
   user: User | null | void,
   baseUrl: string,
-): Promise<Partial<Config>> => {
+): Promise<Partial<Config | SDKConfig>> => {
   if (isCompressedCode(url)) {
     return importCompressedCode(url);
   }
@@ -45,6 +48,9 @@ export const importCode = async (
     importFromJsbin,
     importTypescriptPlayground,
     importVuePlayground,
+    importPreactPlayground,
+    importSolidPlayground,
+    importSveltePlayground,
     importFromUrl,
   } = importSrc;
 
@@ -80,6 +86,15 @@ export const importCode = async (
   }
   if (isVuePlayground(url)) {
     return importVuePlayground(url);
+  }
+  if (isPreactPlayground(url)) {
+    return importPreactPlayground(url);
+  }
+  if (isSolidPlayground(url)) {
+    return importSolidPlayground(url);
+  }
+  if (isSveltePlayground(url)) {
+    return importSveltePlayground(url);
   }
   if (getValidUrl(url)) {
     return importFromUrl(url, params, config);

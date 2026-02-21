@@ -19,4 +19,5 @@ export const twig: LanguageSpecs = {
   extensions: ['twig'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

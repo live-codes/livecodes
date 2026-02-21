@@ -14,4 +14,5 @@ export const javascript: LanguageSpecs = {
   },
   extensions: ['js', 'mjs'],
   editor: 'script',
+  multiFileSupport: true,
 };

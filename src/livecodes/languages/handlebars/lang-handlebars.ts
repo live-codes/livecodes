@@ -22,4 +22,5 @@ export const handlebars: LanguageSpecs = {
   extensions: ['hbs', 'handlebars'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

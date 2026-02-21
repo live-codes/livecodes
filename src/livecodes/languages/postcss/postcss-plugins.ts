@@ -139,19 +139,28 @@ export const cssModules: ProcessorSpecs = {
         localsConvention: 'camelCase',
         ...customSettings,
         getJSON(_cssFileName: string, json: Record<string, string>, _outputFileName: string) {
-          const addClasses = customSettings.addClassesToHTML !== false;
+          const isMultiFileProject = options.filename !== 'style';
+          const filename = options.filename;
+          const addClasses = customSettings.addClassesToHTML === true;
           const removeClasses = customSettings.removeOriginalClasses === true;
+          let html = '';
           if (addClasses) {
-            options.html = (self as any).postcssModules.addClassesToHtml(
-              options.html,
+            html = (self as any).postcssModules.addClassesToHtml(
+              options.compileInfo?.modifiedHTML || options.html,
               json,
               removeClasses,
             );
+            if (!isMultiFileProject) {
+              options.html = html;
+            }
           }
           options.compileInfo = {
             ...options.compileInfo,
-            cssModules: json,
-            ...(addClasses ? { modifiedHTML: options.html } : {}),
+            cssModules: {
+              ...options.compileInfo?.cssModules,
+              [filename]: json,
+            },
+            ...(addClasses ? { modifiedHTML: html || options.compileInfo?.modifiedHTML } : {}),
           };
         },
       });

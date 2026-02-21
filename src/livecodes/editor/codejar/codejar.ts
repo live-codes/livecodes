@@ -10,6 +10,7 @@ import 'prismjs/components/prism-typescript';
 import 'prismjs/plugins/autoloader/prism-autoloader';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
 
+import { getFileLanguage } from '../../languages';
 import type {
   CodeEditor,
   CodejarTheme,
@@ -32,14 +33,22 @@ Prism.manual = true;
 Prism.plugins.autoloader.languages_path = prismBaseUrl;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, mode, editorId, readonly, isEmbed, getFormatterConfig, getFontFamily } =
-    options;
+  const { container, mode, readonly, isEmbed, getFormatterConfig, getFontFamily } = options;
   if (!container) throw new Error('editor container not found');
 
-  let { value, language } = options;
+  let { value, language, editorId } = options;
   let currentPosition: EditorPosition = { lineNumber: 1 };
-  const mapLanguage = options.mapLanguage || ((lang: Language) => lang);
-  let mappedLanguage = language === 'wat' ? 'wasm' : mapLanguage(language);
+  const mapLanguage = (lang: Language | undefined) =>
+    !lang
+      ? 'html'
+      : lang === 'wat'
+        ? 'wasm'
+        : editorId.endsWith('.ts') // e.g. counter.svelte.ts
+          ? 'typescript'
+          : editorId.endsWith('.js')
+            ? 'javascript'
+            : options.mapLanguage?.(lang) || lang;
+  let mappedLanguage = mapLanguage(language);
   let editorOptions: ReturnType<typeof convertOptions>;
 
   const preElement: HTMLElement = document.createElement('pre');
@@ -135,6 +144,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   // codejar?.onPaste(handleUpdate);
 
   const getEditorId = () => editorId;
+  const setEditorId = (filename: string, lang?: Language) => {
+    editorId = filename;
+    const newLang = lang || getFileLanguage(filename, {});
+    if (newLang && newLang !== language) {
+      setLanguage(newLang);
+    }
+  };
   const getValue = () => (codejar ? codejar.toString() : value);
   const setValue = (newValue = '\n') => {
     value = newValue;
@@ -157,6 +173,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const getLanguage = () => language;
   const setLanguage = (lang: Language, newValue?: string) => {
+    if (!lang) return;
     language = lang;
     mappedLanguage = mapLanguage(language);
     codeElement.className = 'language-' + mappedLanguage;
@@ -427,6 +444,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getLanguage,
     setLanguage,
     getEditorId,
+    setEditorId,
     focus,
     getPosition,
     setPosition: (position) => setPosition(position),

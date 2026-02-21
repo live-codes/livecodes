@@ -74,7 +74,10 @@
             readonly: true,
           });
           if (config.activeEditor) {
-            const { lineNumber = 1, column = 1 } = config[config.activeEditor]?.position || {};
+            const editor = config.files?.length
+              ? config.files.find((f) => f.filename === config.activeEditor)
+              : config[config.activeEditor];
+            const { lineNumber = 1, column = 1 } = editor?.position || {};
             await playground.show(config.activeEditor, {
               line: lineNumber,
               column,

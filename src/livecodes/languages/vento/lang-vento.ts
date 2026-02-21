@@ -19,4 +19,5 @@ export const vento: LanguageSpecs = {
   extensions: ['vto', 'vento'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

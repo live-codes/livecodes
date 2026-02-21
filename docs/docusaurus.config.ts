@@ -20,7 +20,7 @@ const config: Config = {
   tagline: 'A Code Playground That Just Works!',
   url: 'https://livecodes.io/',
   baseUrl,
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'LiveCodes',

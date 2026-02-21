@@ -116,6 +116,9 @@ export const getEditorTitles = /* @__PURE__ */ () =>
 export const getEditorDivs = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLElement>('#editors > .editor');
 
+export const getMultiFileEditorDivs = /* @__PURE__ */ () =>
+  document.querySelectorAll<HTMLElement>('#editors > .editor[data-multi-file]');
+
 export const getToolspaneElement = /* @__PURE__ */ () =>
   document.querySelector('#output #tools-pane') as HTMLElement;
 
@@ -175,6 +178,20 @@ export const getModalUnsavedLastModified = /* @__PURE__ */ () =>
 
 export const getModalDisableRecoverCheckbox = /* @__PURE__ */ () =>
   document.querySelector('#modal #disable-recover-checkbox') as HTMLInputElement;
+
+export const getEditorSelector = /* @__PURE__ */ () => document.querySelector('#select-editor');
+
+export const getEditorTabScroller = /* @__PURE__ */ () =>
+  document.querySelector('#select-editor > div.editors-scroller');
+
+export const getEditorScrollerStart = /* @__PURE__ */ () =>
+  document.querySelector('#select-editor .editor-scroll-start');
+
+export const getEditorScrollerEnd = /* @__PURE__ */ () =>
+  document.querySelector('#select-editor .editor-scroll-end');
+
+export const getEditorTab = /* @__PURE__ */ (editorId: string) =>
+  document.querySelector<HTMLElement>(`#select-editor .editor-title[data-editor="${editorId}"]`);
 
 export const getLanguageMenuLinks = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLElement>('#select-editor .language-item a');
@@ -486,6 +503,9 @@ export const getStarterTemplatesTab = /* @__PURE__ */ (templatesContainer: HTMLE
 
 export const getStarterTemplatesList = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector<HTMLElement>('#starter-templates-list');
+
+export const getMultifileTemplatesList = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
+  templatesContainer.querySelector<HTMLElement>('#multifile-templates-list');
 
 export const getUserTemplatesScreen = /* @__PURE__ */ (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector('#templates-user .modal-screen') as HTMLElement;

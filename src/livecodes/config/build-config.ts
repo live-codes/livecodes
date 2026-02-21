@@ -1,17 +1,19 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type {
   Config,
   EditorId,
   Language,
   Processor,
+  SDKConfig,
   Tool,
   ToolsPaneStatus,
   UrlQueryParams,
 } from '../models';
 import { addProp, cloneObject, decodeHTML, removeDuplicates, stringToValidJson } from '../utils';
 import { decompress } from '../utils/compression';
+import { upgradeAndValidate } from './config';
 import { defaultConfig } from './default-config';
-import { upgradeAndValidate } from './index';
+import { getMainFile, isEditorId } from './utils';
 
 /**
  * Builds and validates a configuration object by merging default config with user config and URL params
@@ -26,7 +28,7 @@ import { upgradeAndValidate } from './index';
  * 4. Sets active editor
  * 5. Fixes language names in final config
  */
-export const buildConfig = (appConfig: Partial<Config>): Config => {
+export const buildConfig = (appConfig: Partial<Config | SDKConfig>): Config => {
   if (!appConfig) return { ...defaultConfig };
   const userConfig = upgradeAndValidate(appConfig);
 
@@ -47,11 +49,14 @@ export const buildConfig = (appConfig: Partial<Config>): Config => {
     ...config,
     ...paramsConfig,
   };
-  const activeEditor = config.activeEditor || 'markup';
+
+  const activeEditor = config.activeEditor || config.files[0]?.filename || 'markup';
+  const mainFile = getMainFile(config);
 
   config = fixLanguageNames({
     ...config,
     activeEditor,
+    mainFile,
   });
   return config;
 };
@@ -155,6 +160,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   // ?console
   // ?tests=full
   // ?lite
+  // ?files
 
   // initialize paramsConfig with defaultConfig keys and params values
   const paramsConfig = ([...Object.keys(defaultConfig)] as Array<keyof Config>)
@@ -168,12 +174,45 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
     );
   // populate params config from query string params
 
+  // ?fileLanguages=jsx:solid,tsx:solid.tsx
+  if (paramsConfig.fileLanguages) {
+    paramsConfig.fileLanguages = (paramsConfig.fileLanguages as string)
+      .trim()
+      .split(',')
+      .reduce((acc, l) => {
+        const [extension, alias] = l.trim().split(':');
+        const language = getLanguageByAlias(alias);
+        if (!language) return acc;
+        return {
+          ...acc,
+          [extension]: getLanguageByAlias(language),
+        };
+      }, {});
+  }
+
+  // ?files
+  // ?files=index.html,style.css,script.js
+  if (paramsConfig.files) {
+    if (typeof paramsConfig.files === 'string') {
+      paramsConfig.files = (paramsConfig.files as string)
+        .trim()
+        .split(',')
+        .map((f) => ({
+          filename: f.trim(),
+          content: '',
+          language: getFileLanguage(f.trim(), paramsConfig) || 'javascript',
+        }));
+    } else {
+      paramsConfig.files = [{ filename: 'index.html', language: 'html', content: '' }];
+    }
+  }
+
   // ?html=hi&scss&ts
   (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((key) => {
     const language = getLanguageByAlias(key);
     if (!language) return;
     const editorId = getLanguageEditorId(language);
-    if (editorId && !paramsConfig[editorId]) {
+    if (editorId && isEditorId(editorId) && !paramsConfig[editorId]) {
       const value = params[key];
       const content = typeof value === 'string' ? decodeHTML(value) : '';
       paramsConfig[editorId] = { language, content };
@@ -186,7 +225,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   // ?lang=js
   const lang: any = getLanguageByAlias(params.language || params.lang);
   const editorId = getLanguageEditorId(lang);
-  if (editorId) {
+  if (editorId && isEditorId(editorId)) {
     if (paramsConfig[editorId]?.language === lang) {
       paramsConfig.activeEditor = editorId;
     } else if (!paramsConfig[editorId]?.content && config[editorId]?.language === lang) {
@@ -217,7 +256,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
         ? paramsActive
         : paramsActive in editorIds // ?active=1
           ? editorIds[paramsActive]
-          : paramsConfig.activeEditor;
+          : paramsActiveEditor || paramsActive || paramsConfig.activeEditor;
 
   // ?languages=html,md,css,ts
   if (typeof params.languages === 'string') {
@@ -365,7 +404,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
     }
   }
 
-  // ?markup.hideTitle=true&script.title=App.jsx
+  // ?markup.hidden=true&script.title=App.jsx
   // ?customSettings.template.prerender=false
   Object.keys(params).forEach((k) => {
     if (

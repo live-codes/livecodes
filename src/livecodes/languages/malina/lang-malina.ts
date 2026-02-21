@@ -20,4 +20,5 @@ export const malina: LanguageSpecs = {
   },
   extensions: ['xht'],
   editor: 'script',
+  editorLanguage: 'html',
 };

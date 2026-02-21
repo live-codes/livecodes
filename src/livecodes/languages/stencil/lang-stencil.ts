@@ -34,4 +34,5 @@ export const stencil: LanguageSpecs = {
   extensions: ['stencil.tsx'],
   editor: 'script',
   editorLanguage: 'typescript',
+  multiFileSupport: true,
 };

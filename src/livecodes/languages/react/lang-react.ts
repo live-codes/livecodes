@@ -39,4 +39,5 @@ export const react: LanguageSpecs = {
   extensions: ['react.jsx', 'react-jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  multiFileSupport: true,
 };

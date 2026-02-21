@@ -22,4 +22,5 @@ export const pug: LanguageSpecs = {
   },
   extensions: ['pug', 'jade'],
   editor: 'markup',
+  multiFileSupport: true,
 };

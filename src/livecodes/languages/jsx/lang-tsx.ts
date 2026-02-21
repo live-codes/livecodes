@@ -12,4 +12,5 @@ export const tsx: LanguageSpecs = {
   extensions: ['tsx'],
   editor: 'script',
   editorLanguage: 'typescript',
+  multiFileSupport: true,
 };

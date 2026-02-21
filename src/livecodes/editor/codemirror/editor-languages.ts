@@ -51,6 +51,7 @@ const moduleUrls = {
   stylus: getPath('codemirror-lang-stylus.js'),
   rust: getPath('codemirror-lang-rust.js'),
   swift: getPath('codemirror-lang-swift.js'),
+  yaml: getPath('codemirror-lang-yaml.js'),
 };
 
 export const editorLanguages: Partial<{ [key in Language]: () => Promise<LanguageSupport> }> = {
@@ -76,6 +77,7 @@ export const editorLanguages: Partial<{ [key in Language]: () => Promise<Languag
   sass: async () => (await import(moduleUrls.scss)).sass({ indented: true }),
   minizinc: async () => (await import(moduleUrls.minizinc)).MiniZinc(),
   prolog: async () => (await import(moduleUrls.prolog)).prolog(),
+  yaml: async () => (await import(moduleUrls.yaml)).yaml(),
   coffeescript: async () => legacy((await import(moduleUrls.coffeescript)).coffeeScript),
   livescript: async () => legacy((await import(moduleUrls.livescript)).liveScript),
   ruby: async () => legacy((await import(moduleUrls.ruby)).ruby),
