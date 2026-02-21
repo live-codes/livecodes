@@ -5,6 +5,7 @@ import { jest } from './jest';
 import { lit } from './lit';
 import { preact } from './preact';
 import { react } from './react';
+import { ripple } from './ripple';
 import { solid } from './solid';
 import { svelte } from './svelte';
 import { typescript } from './typescript';
@@ -21,5 +22,6 @@ export const multifileTemplates = [
   svelte,
   solid,
   lit,
+  ripple,
   jest,
 ];

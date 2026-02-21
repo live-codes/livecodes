@@ -990,6 +990,7 @@ const translation = {
       loading: 'Loading multi-file templates...',
       preact: 'Preact Template',
       react: 'React Template',
+      ripple: 'Ripple Template',
       solid: 'Solid Template',
       svelte: 'Svelte Template',
       typescript: 'TypeScript Template',

@@ -1642,6 +1642,7 @@ export type TemplateName =
   | 'multifile-svelte'
   | 'multifile-solid'
   | 'multifile-lit'
+  | 'multifile-ripple'
   | 'multifile-jest';
 
 export type TemplateAlias =

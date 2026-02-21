@@ -2576,6 +2576,10 @@
     "notes": "",
     "translation": "React Template"
   },
+  "templates.multifile.ripple": {
+    "notes": "",
+    "translation": "Ripple Template"
+  },
   "templates.multifile.solid": {
     "notes": "",
     "translation": "Solid Template"
