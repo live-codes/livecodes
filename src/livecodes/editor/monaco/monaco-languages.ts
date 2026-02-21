@@ -8,6 +8,7 @@ export interface CustomLanguageDefinition {
   tokens?: Monaco.languages.IMonarchLanguage;
   completions?: Monaco.languages.CompletionItemProvider;
   definitions?: Monaco.languages.DefinitionProvider;
+  hover?: Monaco.languages.HoverProvider;
   init?: (monaco: typeof Monaco) => void;
 }
 
@@ -18,6 +19,7 @@ export const customLanguages: Partial<Record<Language, string | CustomLanguageDe
   json5: monacoLanguagesBaseUrl + 'json5.js',
   minizinc: monacoLanguagesBaseUrl + 'minizinc.js',
   prolog: monacoLanguagesBaseUrl + 'prolog.js',
+  ripple: monacoLanguagesBaseUrl + 'ripple.js',
   // sql: monacoLanguagesBaseUrl + 'sql.js', // TODO: add autocomplete
   vue: monacoLanguagesBaseUrl + 'vue.js',
   svelte: monacoLanguagesBaseUrl + 'svelte.js',
