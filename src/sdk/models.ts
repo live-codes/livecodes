@@ -58,10 +58,19 @@ export interface API {
    *
    * createPlayground("#container").then(async (playground) => {
    *   const config = await playground.getConfig();
+   *
+   *   // check if a multi-file project
+   *   if ("files" in config) {
+   *     config.files.forEach((file) => {
+   *       const { filename, content, language } = file;
+   *     })
+   *   } else { // single-file (3-editor) project
+   *     const { content, language } = config.script; // script editor
+   *   }
    * });
    * ```
    */
-  getConfig: (contentOnly?: boolean) => Promise<SDKConfig>;
+  getConfig: (contentOnly?: boolean) => Promise<ExportedConfig>;
 
   /**
    * Loads a new project using the passed configuration object.
@@ -81,7 +90,7 @@ export interface API {
    * });
    * ```
    */
-  setConfig: (config: Partial<SDKConfig>) => Promise<SDKConfig>;
+  setConfig: (config: Partial<SDKConfig>) => Promise<ExportedConfig>;
 
   /**
    * Gets the playground code (including source code, source language and compiled code) for each editor (markup, style, script), in addition to result page HTML.
@@ -94,8 +103,14 @@ export interface API {
    * createPlayground("#container").then(async (playground) => {
    *   const code = await playground.getCode();
    *
-   *   // source code, language and compiled code for the script editor
-   *   const { content, language, compiled } = code.script;
+   *   // check if a multi-file project
+   *   if ("files" in code) {
+   *     code.files.forEach((file) => {
+   *       const { filename, content, language, compiled } = file;
+   *     })
+   *   } else { // single-file (3-editor) project
+   *     const { content, language, compiled } = code.script; // script editor
+   *   }
    *
    *   // result page HTML
    *   const result = code.result;
@@ -139,7 +154,7 @@ export interface API {
    *
    * @deprecated Use [`watch`](https://livecodes.io/docs/sdk/js-ts#watch) method instead.
    */
-  onChange: (fn: (data: { code: Code; config: Config }) => void) => { remove: () => void };
+  onChange: (fn: (data: { code: Code; config: ExportedConfig }) => void) => { remove: () => void };
 
   /**
    * Allows to watch for various playground events.
@@ -229,7 +244,7 @@ export type WatchLoad = (event: 'load', fn: () => void) => { remove: () => void 
  */
 export type WatchReady = (
   event: 'ready',
-  fn: (data: { config: Config }) => void,
+  fn: (data: { config: ExportedConfig }) => void,
 ) => { remove: () => void };
 
 /**
@@ -247,7 +262,7 @@ export type WatchReady = (
  */
 export type WatchCode = (
   event: 'code',
-  fn: (data: { code: Code; config: Config }) => void,
+  fn: (data: { code: Code; config: ExportedConfig }) => void,
 ) => { remove: () => void };
 
 export type WatchConsole = (
@@ -274,6 +289,8 @@ export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) ex
 export type Prettify<T> = {
   [K in keyof T]: T[K] extends object ? Prettify<T[K]> : T[K];
 } & {};
+
+export type NonEmptyArray<T> = [T, ...T[]];
 
 export type WatchFn = UnionToIntersection<WatchFns>;
 
@@ -408,16 +425,55 @@ export interface Config extends ContentConfig, AppConfig, UserConfig {}
 export interface SingleFileConfig
   extends Omit<ContentConfig, 'files' | 'mainFile' | 'fileLanguages' | 'lockFiles'>,
     AppConfig,
-    UserConfig {}
+    UserConfig {
+  files: never;
+  mainFile: never;
+  fileLanguages: never;
+  lockFiles: never;
+}
 
 export interface MultiFileConfig
-  extends Omit<MultiFileContentConfig, 'files'>,
+  extends Omit<
+      ContentConfig,
+      | 'files'
+      | 'markup'
+      | 'style'
+      | 'script'
+      | 'stylesheets'
+      | 'scripts'
+      | 'cssPreset'
+      | 'htmlAttrs'
+      | 'head'
+    >,
     AppConfig,
     UserConfig {
-  files: Array<{ filename: string } & Partial<SourceFile>>;
+  files: NonEmptyArray<{ filename: string } & Partial<SourceFile>>;
+  markup: never;
+  style: never;
+  script: never;
+  stylesheets: never;
+  scripts: never;
+  cssPreset: never;
+  htmlAttrs: never;
+  head: never;
 }
 
 export type SDKConfig = Prettify<SingleFileConfig> | Prettify<MultiFileConfig>;
+export type ExportedConfig =
+  | Prettify<Omit<SingleFileConfig, 'files' | 'mainFile' | 'fileLanguages' | 'lockFiles'>>
+  | Prettify<
+      Omit<
+        MultiFileConfig,
+        | 'markup'
+        | 'style'
+        | 'script'
+        | 'stylesheets'
+        | 'scripts'
+        | 'cssPreset'
+        | 'htmlAttrs'
+        | 'head'
+      >
+    >;
 
 /**
  * The properties that define the content of the current [project](https://livecodes.io/docs/features/projects).
@@ -622,25 +678,6 @@ export interface ContentConfig {
    */
   readonly version: string;
 }
-
-export type MultiFileContentConfig = Pick<
-  ContentConfig,
-  | 'title'
-  | 'description'
-  | 'tags'
-  | 'activeEditor'
-  | 'files'
-  | 'mainFile'
-  | 'fileLanguages'
-  | 'lockFiles'
-  | 'languages'
-  | 'processors'
-  | 'customSettings'
-  | 'imports'
-  | 'types'
-  | 'tests'
-  | 'version'
->;
 
 export type SourceFile = Prettify<
   {
@@ -880,11 +917,11 @@ export interface EditorConfig {
    */
   editorMode: 'vim' | 'emacs' | undefined;
 
-  /**
-   * If `true`, [AI code assistant](https://livecodes.io/docs/features/ai) is enabled.
-   * @default false
-   */
-  enableAI: boolean;
+  // /**
+  //  * If `true`, [AI code assistant](https://livecodes.io/docs/features/ai) is enabled.
+  //  * @default false
+  //  */
+  // enableAI: boolean;
 }
 
 export interface FormatterConfig {
@@ -1033,6 +1070,8 @@ export type Language =
   | 'svelte'
   | 'svelte-app'
   | 'app.svelte'
+  | 'svelte.js'
+  | 'svelte.ts'
   | 'stencil'
   | 'stencil.tsx'
   | 'solid'
@@ -1172,6 +1211,8 @@ export type Language =
   | 'csv'
   | 'tsv'
   | 'plaintext'
+  | 'yaml'
+  | 'yml'
   | 'binary'
   | 'png'
   | 'jpg'
@@ -1197,7 +1238,14 @@ export type Language =
   | 'wav'
   | 'oga'
   | 'mid'
-  | 'midi';
+  | 'midi'
+  | 'dotenv'
+  | 'env'
+  | 'env.local'
+  | 'env.development'
+  | 'env.production'
+  | 'env.development.local'
+  | 'env.production.local';
 
 export interface Editor {
   /**
@@ -2048,6 +2096,7 @@ export type CustomSettings = Partial<
     convertCommonjs: boolean;
     defaultCDN: CDN;
     types: Types;
+    fileLanguages: Config['fileLanguages'];
   }
 >;
 
@@ -2094,36 +2143,39 @@ export type Cache = Omit<ContentConfig, 'files'> & {
 };
 
 /**
- * An object that contains the language, content and compiled code for each of the 3 [code editors](https://livecodes.io/docs/features/projects)
+ * An object that contains the language, content and compiled code for each of the [code editors](https://livecodes.io/docs/features/projects)/files
  * and the [result page](https://livecodes.io/docs/features/result) HTML.
  *
  * See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
  */
-export interface Code {
-  markup: {
-    language: Language;
-    content: string;
-    compiled: string;
-  };
-  style: {
-    language: Language;
-    content: string;
-    compiled: string;
-  };
-  script: {
-    language: Language;
-    content: string;
-    compiled: string;
-  };
-  files: Array<{
-    filename: string;
-    language: Language;
-    content: string;
-    compiled: string;
-  }>;
-  mainFile: string;
-  result: string;
-}
+export type Code = { result: string } & (
+  | {
+      markup: {
+        language: Language;
+        content: string;
+        compiled: string;
+      };
+      style: {
+        language: Language;
+        content: string;
+        compiled: string;
+      };
+      script: {
+        language: Language;
+        content: string;
+        compiled: string;
+      };
+    }
+  | {
+      files: Array<{
+        filename: string;
+        language: Language;
+        content: string;
+        compiled: string;
+      }>;
+      mainFile: string;
+    }
+);
 
 export type Theme = 'light' | 'dark';
 

@@ -18,6 +18,7 @@ import { csharpWasm } from './csharp-wasm';
 import { css } from './css';
 import { diagrams } from './diagrams';
 import { dot } from './dot';
+import { dotenv } from './dotenv/lang-dotenv';
 import { ejs } from './ejs';
 import { eta } from './eta';
 import { fennel } from './fennel';
@@ -84,6 +85,7 @@ import { vento } from './vento';
 import { vue, vueApp } from './vue';
 import { vue2 } from './vue2';
 import { wat } from './wat';
+import { yaml } from './yaml';
 export const languages: LanguageSpecs[] = [
   html,
   markdown,
@@ -176,5 +178,7 @@ export const languages: LanguageSpecs[] = [
   blockly,
   text,
   json,
+  yaml,
   binary,
+  dotenv,
 ];

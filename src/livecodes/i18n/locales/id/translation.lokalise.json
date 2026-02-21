@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "Salin Kode sebagai Data URL"
   },
-  "commandMenu.disableAI": {
-    "translation": "Nonaktifkan Asisten Kode AI"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "Nonaktifkan Simpan Otomatis"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "Nonaktifkan Mode Vim"
-  },
-  "commandMenu.enableAI": {
-    "translation": "Aktifkan Asisten Kode AI"
   },
   "commandMenu.enableAutoSave": {
     "translation": "Aktifkan Simpan Otomatis"
@@ -941,12 +935,6 @@
   },
   "editorSettings.emmet": {
     "translation": "Aktifkan Emmet *"
-  },
-  "editorSettings.enableAI.heading": {
-    "translation": "Aktifkan Asisten Kode AI"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "Didukung oleh <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.foldRegions": {
     "translation": "Lipat (tutup) region *"
@@ -1911,6 +1899,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "Anda tidak memiliki template yang tersimpan."
   },
+  "templates.search.label": {
+    "translation": "Cari di templat"
+  },
+  "templates.search.placeholder": {
+    "translation": "Cari di templat..."
+  },
   "templates.starter.angular": {
     "translation": "Pemula Angular"
   },
@@ -1952,6 +1946,12 @@
   },
   "templates.starter.cpp-wasm": {
     "translation": "Pemula C++ (Wasm)"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "Pemula C# (Wasm)"
+  },
+  "templates.starter.d3": {
+    "translation": "Pemula D3"
   },
   "templates.starter.daisyui": {
     "translation": "Pemula daisyUI"
@@ -2031,6 +2031,9 @@
   "templates.starter.perl": {
     "translation": "Pemula Perl"
   },
+  "templates.starter.phaser": {
+    "translation": "Pemula Phaser"
+  },
   "templates.starter.php": {
     "translation": "Pemula PHP"
   },
@@ -2048,6 +2051,9 @@
   },
   "templates.starter.python": {
     "translation": "Pemula Python"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Pemula Python (Wasm)"
   },
   "templates.starter.r": {
     "translation": "Pemula R"

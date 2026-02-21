@@ -5,12 +5,14 @@ import { highlightjsUrl } from '../vendors';
 export const getLanguageByAlias = (alias: string = ''): Language | undefined => {
   if (!alias) return;
   const aliasLowerCase = alias?.toLowerCase();
-  return window.deps.languages.find(
-    (language) =>
-      language.name === aliasLowerCase ||
-      language.title.toLowerCase() === aliasLowerCase ||
-      language.extensions.map((ext) => ext.toLowerCase()).includes(aliasLowerCase),
-  )?.name;
+  return (
+    window.deps.languages.find(
+      (language) =>
+        language.name === aliasLowerCase ||
+        language.title.toLowerCase() === aliasLowerCase ||
+        language.extensions.map((ext) => ext.toLowerCase()).includes(aliasLowerCase),
+    )?.name || getLanguageByAlias(aliasLowerCase.split('.').slice(1).join('.')) // e.g. 'config.ts' => 'ts'
+  );
 };
 
 export const getFileExtension = /* @__PURE__ */ (filename: string) => {
@@ -20,12 +22,17 @@ export const getFileExtension = /* @__PURE__ */ (filename: string) => {
   if (parts.length === 2) return extension; // e.g. App.tsx => 'tsx'
   const lang = parts[parts.length - 2];
   if (getLanguageByAlias(`${lang}.${extension}`)) return `${lang}.${extension}`; // e.g. App.react.tsx => 'react.tsx'
-  return extension;
+  return parts.slice(1).join('.'); // e.g. .env.development.local
 };
 
-export const getFileLanguage = (filename: string, fileLanguages: Record<string, string> = {}) => {
+export const getFileLanguage = (filename: string, config: Partial<Config>) => {
+  if (filename.startsWith('.env')) return 'dotenv';
   const extension = getFileExtension(filename);
-  return getLanguageByAlias(fileLanguages[extension] || extension);
+  const fileLanguages: Config['fileLanguages'] = {
+    ...config.fileLanguages,
+    ...config.customSettings?.fileLanguages,
+  };
+  return getLanguageByAlias(fileLanguages[extension as Language]) || getLanguageByAlias(extension);
 };
 
 export const supportsMultiFile = (language: Language) =>

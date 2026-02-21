@@ -34,6 +34,7 @@ export const escapeCode = /* @__PURE__ */ (code: string, slash = true) =>
   code
     .replace(/\\/g, slash ? '\\\\' : '\\')
     .replace(/`/g, '\\`')
+    .replace(/\$/g, '\\$')
     .replace(/<\/script>/g, '<\\/script>');
 
 export const pipe = /* @__PURE__ */ (...fns: Function[]) =>

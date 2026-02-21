@@ -1,7 +1,8 @@
+import { compileInCompiler } from '../../compiler';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
 import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
 import { getCompileResult } from '../../compiler/utils';
-import type { CompilerFunction, Config, Language } from '../../models';
+import type { CompileOptions, CompilerFunction, Config, Language } from '../../models';
 import { getErrorMessage } from '../../utils/utils';
 import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from '../utils';
 
@@ -21,29 +22,26 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
       imports = {};
     }
     if (!code) return getCompileResult('');
-    const isMultiFile = config.files.length > 0;
 
     const isSfc = (mod: string) =>
       (mod.toLowerCase().endsWith('.svelte') && !mod.startsWith('~/')) ||
       mod.toLowerCase().startsWith('data:text/svelte');
 
-    const fullCode = isMultiFile
-      ? code
-      : await replaceSFCImports(code, {
-          config,
-          filename,
-          getLanguageByAlias,
-          getFileExtension,
-          isSfc,
-          compileSFC: async (
-            code: string,
-            { config, filename }: { config: Config; filename: string },
-          ) => {
-            const compiled = (await compileSvelteSFC(code, { config, language, filename })).code;
-            importedContent += `\n${filename}\n\n${compiled}\n`;
-            return compiled;
-          },
-        });
+    const fullCode = await replaceSFCImports(code, {
+      config,
+      filename,
+      getLanguageByAlias,
+      getFileExtension,
+      isSfc,
+      compileSFC: async (
+        code: string,
+        { config, filename }: { config: Config; filename: string },
+      ) => {
+        const compiled = (await compileSvelteSFC(code, { config, language, filename })).code;
+        importedContent += `\n${filename}\n\n${compiled}\n`;
+        return compiled;
+      },
+    });
     const processedCode = await compileAllBlocks(fullCode, config, {
       removeEnclosingTemplate: true,
     });
@@ -78,6 +76,36 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
     };
   };
 
+  const compileSvelteModule = async (
+    code: string,
+    { config, options, filename }: { config: Config; options: CompileOptions; filename: string },
+  ) => {
+    try {
+      if (filename.endsWith('.ts')) {
+        code = (await compileInCompiler(code, 'typescript', config, options)).code;
+      }
+      const result = (window as any).svelte.compileModule(code, {
+        filename,
+        ...getLanguageCustomSettings('svelte', config),
+      });
+      return result.js;
+    } catch (err) {
+      errors.push(getErrorMessage(err));
+      return {
+        code: '',
+        info: { errors },
+      };
+    }
+  };
+
+  const getMountCode = (code: string) =>
+    `
+import { mount } from "svelte";
+${code}
+
+mount(__LiveCodes_App__, { target: document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')) });
+`.trimStart();
+
   return async (code, { config, language, options }) => {
     const isMultiFileProject = config.files.length > 0;
     const isMainFile = isMultiFileProject
@@ -89,20 +117,10 @@ import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from 
         ? MAIN_FILE
         : SECONDARY_FILE;
 
-    const compileResult = await compileSvelteSFC(code, {
-      config,
-      language: language as Language,
-      filename,
-    });
+    if (filename.endsWith('.svelte.js') || filename.endsWith('.svelte.ts')) {
+      return compileSvelteModule(code, { config, options, filename });
+    }
 
-    return compileResult;
+    return compileSvelteSFC(code, { config, language: language as Language, filename });
   };
 };
-
-const getMountCode = (code: string) =>
-  `
-import { mount } from "svelte";
-${code}
-
-mount(__LiveCodes_App__, { target: document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')) });
-`.trimStart();

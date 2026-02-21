@@ -18,7 +18,7 @@ export const createFakeEditor = (options: EditorOptions): CodeEditor => {
     getEditorId: () => editorId,
     setEditorId: (fileName) => {
       editorId = fileName;
-      language = getFileLanguage(fileName) || language;
+      language = getFileLanguage(fileName, {}) || language;
     },
     focus: () => undefined,
     getPosition: () => ({ lineNumber: 1, column: 1 }),

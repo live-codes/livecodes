@@ -4,6 +4,51 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v48](https://github.com/live-codes/livecodes/compare/v47...v48) (2026-02-08)
+
+### Features
+
+- **Templates:** add search functionality for user templates ([ef91608](https://github.com/live-codes/livecodes/commit/ef91608380bfa1273a8454a5a39a2d9787e1b57f))
+- **Compilers:** add minizinc language support ([f3476d4](https://github.com/live-codes/livecodes/commit/f3476d4ad16c8c7ee36a4b5647a7b0d641055b95))
+- **Compilers:** upgrade svelte to v5.39.12 ([43f99c2](https://github.com/live-codes/livecodes/commit/43f99c29dcc5a663a7181cd0e053c8cfef107475))
+- **Compilers:** Update typescript to v5.9.3 ([d1181b8](https://github.com/live-codes/livecodes/pull/911/commits/d1181b8c6e52fbe7fcab56e78198f234e706b86b))
+- **Compilers:** Update Pyodide to 0.29.0 ([079fbb0](https://github.com/live-codes/livecodes/pull/912/commits/079fbb0ec90afb154f99b6bc4772e1949c0d082f))
+- **Compilers:** Updated language compilers for BBob, Jinja, MDX, React, React Native, Solid, Vento, Vue. ([619edf7](https://github.com/live-codes/livecodes/pull/914/commits/619edf786abb4cf17780615151072e729e23e50d))
+- **Compilers:** Update Ruby Wasm to v2.7.2 which provides Ruby v3.4. ([57166be](https://github.com/live-codes/livecodes/pull/897/commits/57166be6f803508e213d46b263ec408418c6810c))
+- **docs:** add JavaScript language documentation ([2148b87](https://github.com/live-codes/livecodes/commit/2148b87346309207291e45c66da34b1e88931cb9))
+- **docs:** add Astro language documentation ([8022516](https://github.com/live-codes/livecodes/pull/905/commits/80225162f249ef70dca86b95f9867d45f465a151))
+- **docs:** add tutorials section to documentation ([d8b9639](https://github.com/live-codes/livecodes/pull/908/commits/d8b9639777f37d6737d1052f987a9bee15570788))
+- **i18n:** add Bengali, Indonesian and Dutch ([22adf4d](https://github.com/live-codes/livecodes/commit/22adf4ddbf18e0e4b5b9331ed908f01962202feb))
+- **i18n:** Add Turkish translation ([5130cde](https://github.com/live-codes/livecodes/commit/5130cde6200dd501cac0f87eecaa5eb32aa9e7fc))
+- **services:** serve local sandbox in dev ([2cbf01c](https://github.com/live-codes/livecodes/commit/2cbf01c635ae0e9640907dc8c330e690d0ff4dc4))
+
+### Bug Fixes
+
+- **App:** fix selecting default editor in editor settings ([2349702](https://github.com/live-codes/livecodes/commit/2349702a2edc8c31f685e63531c10e7f6d7fb110))
+- **CommandMenu:** do not open command menu with Ctrl+Shift+K ([7cbb103](https://github.com/live-codes/livecodes/commit/7cbb103e7a5b74a02bf06fa1a1eb0458e9a1e907))
+- **Editor:** remove AI code assistant ([cf2734d](https://github.com/live-codes/livecodes/commit/cf2734d1800c3e208eaf4531710822cbf3c6b1c9))
+- **Result:** prevent frequent rerenders ([43b1f62](https://github.com/live-codes/livecodes/commit/43b1f62651ce133ce5bb82c83b5628d0c7c0b86c))
+
+### Credits
+
+Significant contributions and suggestions were made by:
+
+@a0m0rajab , @BassemHalim , @HossamSaberr , @m2y11138 , @ahmed-atiah , @iamAmer, @nhussein2026 , @mtantawy , @sharno , @TutTrue
+
+Thank you ❤️
+
+---
+
+## [sdk-v0.13.0](https://github.com/live-codes/livecodes/compare/v47...sdk-v0.13.0) (2026-02-08)
+
+### Highlights for this release
+
+- Add `minizinc` to `Language` (Minizinc language support).
+- Add `bn`, `nl`, `id` and `tr` to `AppLanguage` (Bengali, Dutch, Indonesian and Turkish translations).
+- Remove `enableAI` config option (see [#937](https://github.com/live-codes/livecodes/pull/937))
+
+---
+
 ## [v47](https://github.com/live-codes/livecodes/compare/v46...v47) (2025-10-04)
 
 ### Highlights for this release

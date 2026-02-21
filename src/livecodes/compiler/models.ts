@@ -19,7 +19,8 @@ export type TypescriptFeatures =
   | 'ata'
   | 'initCodeMirrorTS'
   | 'changeCodeMirrorLanguage'
-  | 'addTypes';
+  | 'addTypes'
+  | 'getTypes';
 export interface CompilerMessageEvent extends MessageEvent {
   data: CompilerMessage;
 }

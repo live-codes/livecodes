@@ -32,7 +32,7 @@ const selectEditor = (options: EditorOptions & { activeEditor?: Config['activeEd
   const { editor, mode, editorId, activeEditor, isLite, isHeadless } = options;
   const auto = isMobile() ? 'codemirror' : 'monaco';
   return (
-    (getFileLanguage(editorId) === 'binary'
+    (getFileLanguage(editorId, {}) === 'binary'
       ? 'binary'
       : isHeadless
         ? 'fake'

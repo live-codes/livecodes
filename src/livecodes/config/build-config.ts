@@ -1,9 +1,10 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type {
   Config,
   EditorId,
   Language,
   Processor,
+  SDKConfig,
   Tool,
   ToolsPaneStatus,
   UrlQueryParams,
@@ -27,7 +28,7 @@ import { getMainFile, isEditorId } from './utils';
  * 4. Sets active editor
  * 5. Fixes language names in final config
  */
-export const buildConfig = (appConfig: Partial<Config>): Config => {
+export const buildConfig = (appConfig: Partial<Config | SDKConfig>): Config => {
   if (!appConfig) return { ...defaultConfig };
   const userConfig = upgradeAndValidate(appConfig);
 
@@ -159,6 +160,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   // ?console
   // ?tests=full
   // ?lite
+  // ?files
 
   // initialize paramsConfig with defaultConfig keys and params values
   const paramsConfig = ([...Object.keys(defaultConfig)] as Array<keyof Config>)
@@ -171,6 +173,39 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
       {} as Partial<Config>,
     );
   // populate params config from query string params
+
+  // ?fileLanguages=jsx:solid,tsx:solid.tsx
+  if (paramsConfig.fileLanguages) {
+    paramsConfig.fileLanguages = (paramsConfig.fileLanguages as string)
+      .trim()
+      .split(',')
+      .reduce((acc, l) => {
+        const [extension, alias] = l.trim().split(':');
+        const language = getLanguageByAlias(alias);
+        if (!language) return acc;
+        return {
+          ...acc,
+          [extension]: getLanguageByAlias(language),
+        };
+      }, {});
+  }
+
+  // ?files
+  // ?files=index.html,style.css,script.js
+  if (paramsConfig.files) {
+    if (typeof paramsConfig.files === 'string') {
+      paramsConfig.files = (paramsConfig.files as string)
+        .trim()
+        .split(',')
+        .map((f) => ({
+          filename: f.trim(),
+          content: '',
+          language: getFileLanguage(f.trim(), paramsConfig) || 'javascript',
+        }));
+    } else {
+      paramsConfig.files = [{ filename: 'index.html', language: 'html', content: '' }];
+    }
+  }
 
   // ?html=hi&scss&ts
   (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((key) => {
@@ -221,7 +256,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
         ? paramsActive
         : paramsActive in editorIds // ?active=1
           ? editorIds[paramsActive]
-          : paramsConfig.activeEditor;
+          : paramsActiveEditor || paramsActive || paramsConfig.activeEditor;
 
   // ?languages=html,md,css,ts
   if (typeof params.languages === 'string') {

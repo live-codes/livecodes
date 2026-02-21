@@ -688,10 +688,6 @@
     "notes": "",
     "translation": "Copy Code as Data URL"
   },
-  "commandMenu.disableAI": {
-    "notes": "",
-    "translation": "Disable AI Code Assistant"
-  },
   "commandMenu.disableAutoSave": {
     "notes": "",
     "translation": "Disable Auto Save"
@@ -715,10 +711,6 @@
   "commandMenu.disableVim": {
     "notes": "",
     "translation": "Disable Vim Mode"
-  },
-  "commandMenu.enableAI": {
-    "notes": "",
-    "translation": "Enable AI Code Assistant"
   },
   "commandMenu.enableAutoSave": {
     "notes": "",
@@ -1272,14 +1264,6 @@
     "notes": "",
     "translation": "Enable Emmet *"
   },
-  "editorSettings.enableAI.heading": {
-    "notes": "",
-    "translation": "Enable AI Code Assistant"
-  },
-  "editorSettings.enableAI.note": {
-    "notes": "### <tag-1> ###\n<a href=\"https://windsurf.com/\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img id=\"windsurf-logo\" src=\"{{baseUrl}}assets/images/windsurf.svg\" style=\"height: 3em; translate: 0 40%; margin-top: -2em;\" alt=\"Windsurf\" />\n\n",
-    "translation": "Powered by <tag-1><tag-2></tag-2></tag-1>"
-  },
   "editorSettings.foldRegions": {
     "notes": "",
     "translation": "Fold (collapse) regions *"
@@ -1674,7 +1658,7 @@
   },
   "import.code.desc": {
     "notes": "### <tag-1> ###\n<ul  />\n\n### <tag-2> ###\n<li  />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<li  />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<li  />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<li  />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<li  />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<li  />\n\n### <tag-13> ###\n<li  />\n\n### <tag-14> ###\n<br  />\n\n### <tag-15> ###\n<a href=\"{{DOCS_BASE_URL}}features/import\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "Supported Sources: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHub file</tag-3> <tag-4>Directory in a GitHub repo</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlab file</tag-6> <tag-7>Directory in a Gitlab repo</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Raw code</tag-9> <tag-10>Code in web page DOM</tag-10> <tag-11>Code in zip file</tag-11> <tag-12>Code in image (OCR)</tag-12> <tag-13>Official playgrounds<tag-14></tag-14>(TypeScript and Vue)</tag-13> </tag-1> Please visit the <tag-15>documentations</tag-15> for details."
+    "translation": "Supported Sources: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHub file</tag-3> <tag-4>Directory in a GitHub repo</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlab file</tag-6> <tag-7>Directory in a Gitlab repo</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Raw code</tag-9> <tag-10>Code in web page DOM</tag-10> <tag-11>Code in zip file</tag-11> <tag-12>Code in image (OCR)</tag-12> <tag-13>Official playgrounds<tag-14></tag-14>(TypeScript, Vue, Svelte, Preact and Solid)</tag-13> </tag-1> Please visit the <tag-15>documentations</tag-15> for details."
   },
   "import.code.fromFile": {
     "notes": "",

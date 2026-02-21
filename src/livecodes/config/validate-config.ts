@@ -1,9 +1,4 @@
-import {
-  getFileExtension,
-  getFileLanguage,
-  getLanguageByAlias,
-  getLanguageEditorId,
-} from '../languages';
+import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type {
   Config,
   Editor,
@@ -70,7 +65,8 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
           : lang;
 
   const getEditorDefaultLanguage = (editorId: EditorId) =>
-    (isEditorId(editorId) ? defaultConfig[editorId].language : getFileLanguage(editorId)) || 'html';
+    (isEditorId(editorId) ? defaultConfig[editorId].language : getFileLanguage(editorId, config)) ||
+    'html';
 
   const validateEditorProps = (x: Editor, editorId: EditorId): Editor => ({
     language:
@@ -106,11 +102,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
           })(),
           content: is(x.content, 'string') ? x.content ?? '' : '',
           language:
-            getLanguageByAlias(
-              x.language ||
-                (validFileLanguages as any)[getFileExtension(x.filename)] ||
-                getFileExtension(x.filename),
-            ) || 'html',
+            getLanguageByAlias(x.language) ||
+            getFileLanguage(x.filename, { ...config, fileLanguages: validFileLanguages }) ||
+            'text',
           ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
           ...(is(x.position, 'object') ? { position: x.position } : {}),
           ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
@@ -246,7 +240,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.singleQuote, 'boolean') ? { singleQuote: config.singleQuote } : {}),
     ...(is(config.trailingComma, 'boolean') ? { trailingComma: config.trailingComma } : {}),
     ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),
-    ...(is(config.enableAI, 'boolean') ? { enableAI: config.enableAI } : {}),
+    // ...(is(config.enableAI, 'boolean') ? { enableAI: config.enableAI } : {}),
     ...(includes(editorModes, config.editorMode) ? { editorMode: config.editorMode } : {}),
     ...(is(config.imports, 'object') ? { imports: config.imports } : {}),
     ...(is(config.types, 'object') ? { types: config.types } : {}),

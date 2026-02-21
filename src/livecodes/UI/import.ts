@@ -94,7 +94,7 @@ export const createImportUI = ({
         {
           ...defaultConfig,
           ...imported,
-        },
+        } as Partial<ContentConfig>,
         location.origin + location.pathname + '?x=' + encodeURIComponent(url),
       );
       modal.close();
@@ -116,7 +116,7 @@ export const createImportUI = ({
     importFromFiles({ files })
       .then((fileConfig) => {
         if (Object.keys(fileConfig).length === 0) return;
-        return loadConfig(fileConfig);
+        return loadConfig(fileConfig as Partial<ContentConfig>);
       })
       .then(modal.close)
       .catch((message) => {

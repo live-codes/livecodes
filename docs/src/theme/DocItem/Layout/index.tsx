@@ -12,7 +12,7 @@ import DocItemTOCDesktop from '@theme/DocItem/TOC/Desktop';
 import DocItemTOCMobile from '@theme/DocItem/TOC/Mobile';
 import DocVersionBadge from '@theme/DocVersionBadge';
 import DocVersionBanner from '@theme/DocVersionBanner';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { type ReactNode } from 'react';
 
 import styles from './styles.module.css';

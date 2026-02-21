@@ -20,17 +20,17 @@ import type {
 import { pkgInfoService } from '../../services/pkgInfo';
 import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
 import {
-  codeiumProviderUrl,
+  // codeiumProviderUrl,
   emmetMonacoUrl,
   monacoBaseUrl,
   monacoEmacsUrl,
-  monacoLanguagesBaseUrl,
   monacoVimUrl,
   typescriptVersion,
   vendorsBaseUrl,
 } from '../../vendors';
 import { getEditorTheme } from '../themes';
 import { getCompilerOptions, hasJsx } from '../ts-compiler-options';
+import { type CustomLanguageDefinition, customLanguages } from './monaco-languages';
 import { customThemes, monacoThemes } from './monaco-themes';
 import { registerTwoSlash } from './register-twoslash';
 
@@ -38,10 +38,9 @@ type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
 let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
-let monaco: typeof Monaco;
+export let monaco: typeof Monaco;
 const loadedThemes = new Set<string>();
-let codeiumProvider: { dispose: () => void } | undefined;
-// track editors for providing context for AI
+// let codeiumProvider: { dispose: () => void } | undefined;
 let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
 let tailwindcssConfig: any;
 
@@ -89,13 +88,17 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           ? 'csharp'
           : language.startsWith('vue')
             ? 'vue'
-            : ['svelte', 'malina', 'riot'].includes(language)
-              ? ('razor' as Language) // avoid mixing code between markup & script editors when formatting
-              : language === 'json' && (editorId.endsWith('.json5') || editorId.endsWith('.jsonc'))
-                ? 'json5'
-                : mapLanguage(language) === 'text'
-                  ? 'plaintext'
-                  : mapLanguage(language);
+            : editorId.endsWith('.ts') // e.g. counter.svelte.ts
+              ? 'typescript'
+              : editorId.endsWith('.js')
+                ? 'javascript'
+                : language.startsWith('svelte')
+                  ? 'svelte'
+                  : editorId.endsWith('.json5') || editorId.endsWith('.jsonc')
+                    ? 'json5'
+                    : mapLanguage(language) === 'text'
+                      ? 'plaintext'
+                      : mapLanguage(language);
 
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;
@@ -250,34 +253,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     listeners.forEach((fn) => editor.getModel()?.onDidChangeContent(fn));
   };
 
-  const customLanguages: Partial<Record<Language, string>> = {
-    astro: monacoLanguagesBaseUrl + 'astro.js',
-    clio: monacoLanguagesBaseUrl + 'clio.js',
-    imba: monacoLanguagesBaseUrl + 'imba.js',
-    json5: monacoLanguagesBaseUrl + 'json5.js',
-    minizinc: monacoLanguagesBaseUrl + 'minizinc.js',
-    prolog: monacoLanguagesBaseUrl + 'prolog.js',
-    ripple: monacoLanguagesBaseUrl + 'ripple.js',
-    // sql: monacoLanguagesBaseUrl + 'sql.js', // TODO: add autocomplete
-    vue: monacoLanguagesBaseUrl + 'vue.js',
-    wat: monacoLanguagesBaseUrl + 'wat.js',
-  };
-
-  interface CustomLanguageDefinition {
-    config?: Monaco.languages.LanguageConfiguration;
-    tokens?: Monaco.languages.IMonarchLanguage;
-    completions?: Monaco.languages.CompletionItemProvider;
-    hover?: Monaco.languages.HoverProvider;
-    definitions?: Monaco.languages.DefinitionProvider;
-    init?: (monaco: typeof Monaco) => void;
-  }
-
   const loadMonacoLanguage = async (lang: Language) => {
     lang = monacoMapLanguage(lang);
     const langUrl = customLanguages[lang];
     if (langUrl && !monaco.languages.getLanguages().find((l) => l.id === lang)) {
       monaco.languages.register({ id: lang });
-      const mod: CustomLanguageDefinition = (await import(langUrl)).default;
+      const mod: CustomLanguageDefinition =
+        typeof langUrl === 'string' ? (await import(langUrl)).default : langUrl;
       if (mod.config) {
         monaco.languages.setLanguageConfiguration(lang, mod.config);
       }
@@ -364,7 +346,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getEditorId = () => editorId;
   const setEditorId = (filename: string, lang?: Language) => {
     editorId = filename;
-    language = lang || getFileLanguage(filename) || language;
+    language = lang || getFileLanguage(filename, {}) || language;
     setModel(editor, editor.getValue(), language);
   };
   const getValue = () => editor.getValue();
@@ -633,7 +615,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     configureEditorMode(settings.editorMode);
     editor.updateOptions(editorOptions);
     setTheme(settings.theme, settings.editorTheme);
-    configureCodeium(settings.enableAI);
+    // configureCodeium(settings.enableAI);
   };
 
   const undo = () => {
@@ -684,27 +666,27 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
-  const configureCodeium = (enabled: boolean) => {
-    if (!enabled) {
-      codeiumProvider?.dispose();
-      codeiumProvider = undefined;
-      return;
-    }
+  // const configureCodeium = (enabled: boolean) => {
+  //   if (!enabled) {
+  //     codeiumProvider?.dispose();
+  //     codeiumProvider = undefined;
+  //     return;
+  //   }
 
-    // already loaded or loading
-    if (codeiumProvider) {
-      return;
-    }
+  //   // already loaded or loading
+  //   if (codeiumProvider) {
+  //     return;
+  //   }
 
-    // avoid race condition between different editors
-    codeiumProvider = { dispose: () => 'loading...' };
+  //   // avoid race condition between different editors
+  //   codeiumProvider = { dispose: () => 'loading...' };
 
-    import(codeiumProviderUrl).then((codeiumModule) => {
-      codeiumProvider = codeiumModule.registerCodeiumProvider(monaco, {
-        getEditors: () => editors,
-      });
-    });
-  };
+  //   import(codeiumProviderUrl).then((codeiumModule) => {
+  //     codeiumProvider = codeiumModule.registerCodeiumProvider(monaco, {
+  //       getEditors: () => editors,
+  //     });
+  //   });
+  // };
 
   const destroy = () => {
     editors = editors.filter((e) => e !== editor);

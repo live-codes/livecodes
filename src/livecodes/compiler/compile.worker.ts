@@ -127,8 +127,13 @@ const loadTypeScript = async () => {
   await loadLanguageCompiler('typescript', {} as Config, baseUrl);
 };
 
-// see https://twitter.com/hatem_hosny_/status/1790644616175235323
-let resolveFn: ((value: EditorLibrary[]) => void) | undefined;
+const loadATA = doOnce(async () => {
+  await loadTypeScript();
+  if (!worker.typescriptATA) {
+    importScripts(typescriptAtaUrl);
+  }
+});
+
 let ata: any;
 
 const getTypesFromAta = async (code: string) =>
@@ -137,47 +142,35 @@ const getTypesFromAta = async (code: string) =>
       resolve([]);
       return;
     }
-
-    // load dependencies
-    await loadTypeScript();
-    if (!worker.typescriptATA) {
-      importScripts(typescriptAtaUrl);
-    }
+    await loadATA();
     const setupTypeAcquisition = worker.typescriptATA.setupTypeAcquisition;
 
-    // setup
     const ataTypes: EditorLibrary[] = [];
-    resolveFn = resolve;
-    ata =
-      ata ||
-      setupTypeAcquisition({
-        projectName: 'Playground',
-        typescript: worker.ts,
-        logger: {
-          log: () => undefined,
-          error: () => undefined,
-          groupCollapsed: () => undefined,
-          groupEnd: () => undefined,
+    ata ??= setupTypeAcquisition({
+      projectName: 'Playground',
+      typescript: worker.ts,
+      logger: {
+        log: () => undefined,
+        error: () => undefined,
+        groupCollapsed: () => undefined,
+        groupEnd: () => undefined,
+      },
+      delegate: {
+        receivedFile: (code: string, path: string) => {
+          ataTypes.push({ content: code, filename: path });
         },
-        delegate: {
-          receivedFile: (code: string, path: string) => {
-            ataTypes.push({ content: code, filename: path });
-          },
-          progress: (_downloaded: number, _total: number) => {
-            // console.log({ _downloaded, _total })
-          },
-          started: () => {
-            // console.log('ATA start');
-          },
-          finished: (_files: Map<string, string>) => {
-            if (typeof resolveFn === 'function') {
-              resolveFn(ataTypes);
-            }
-          },
+        progress: (_downloaded: number, _total: number) => {
+          // console.log({ _downloaded, _total });
         },
-      });
+        started: () => {
+          // console.log('ATA start');
+        },
+        finished: (_files: Map<string, string>) => {
+          resolve(ataTypes);
+        },
+      },
+    });
 
-    // run ATA
     ata(code);
   });
 

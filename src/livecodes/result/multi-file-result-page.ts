@@ -26,10 +26,12 @@ import {
   getRandomString,
   isRelativeUrl,
   objectMap,
+  removeCommentsAndStrings,
   toCamelCase,
   toDataUrl,
 } from '../utils/utils';
 import { browserJestUrl, esModuleShimsPath, spacingJsUrl } from '../vendors';
+import { getEnvVars, replaceEnvVars } from './utils';
 
 let lastInput = '';
 let lastOutput = '';
@@ -93,11 +95,28 @@ export const createMultiFileResultPage = async ({
     .map((f) => ({ ...f, filename: f.filename.replace('public/', '') }));
   compiledFiles.push(...publicFiles);
 
+  const envVars = getEnvVars(compiledFiles, forExport);
+  compiledFiles.forEach((f) => {
+    const fileType = getLanguageEditorId(f.language);
+    if (fileType === 'markup') {
+      f.compiled = replaceEnvVars(f.compiled, envVars);
+    } else if (fileType === 'script') {
+      if (removeCommentsAndStrings(f.compiled).match(/\bimport\b/g)) {
+        f.compiled = `import.meta.env=${JSON.stringify(envVars)};${f.compiled}`;
+      }
+    }
+  });
+
   const mainFile = getMainFile(config);
   const mainFileHTML = compiledFiles.find((f) => f.filename === mainFile)?.compiled || '';
 
   const domParser = new DOMParser();
   const dom = domParser.parseFromString(mainFileHTML, 'text/html');
+
+  // env vars
+  const envVarsScript = dom.createElement('script');
+  envVarsScript.innerHTML = `window.process = window.process || {}; window.process.env = ${JSON.stringify(envVars)};`;
+  dom.head.appendChild(envVarsScript);
 
   // if export => clean, else => add utils
   if (forExport) {
@@ -142,29 +161,34 @@ export const createMultiFileResultPage = async ({
     mod.startsWith('data:image') ||
     /\.(svg|jpg|jpeg|png|gif|ico|webp|avif|apng|bmp|tiff)(\?|#|$)/i.test(mod);
 
+  const isAsset = (mod: string) =>
+    isImage(mod) || /\?(url|raw|worker|sharedworker|inline|no-inline)/i.test(mod);
+
   const fileUrls: Record<string, string> = {};
   const stylesheetImports: Record<string, string> = {};
-  const imageImports: Record<string, string> = {};
+  const assetImports: Record<string, string> = {};
   let codeImports: Record<string, string> = {};
   const relativeImports: Record<string, string> = {};
 
   // generate data urls for files
-  const getDataUrl = (file: SourceFile & { compiled: string }, saveToFileUrls = true) => {
+  const getDataUrl = (
+    file: SourceFile & { compiled: string },
+    { saveToFileUrls = true, raw = false }: { saveToFileUrls?: boolean; raw?: boolean } = {},
+  ) => {
     if (file.filename === mainFile) return;
-    const content = file.compiled;
-    if (content.startsWith('data:')) return content;
-    const mimeType =
-      mapLanguage(file.language) === 'json'
-        ? 'application/json'
-        : file.filename.endsWith('.svg')
-          ? 'image/svg+xml'
-          : getLanguageEditorId(file.language) === 'markup'
-            ? 'text/html'
-            : getLanguageEditorId(file.language) === 'style'
-              ? 'text/css'
-              : getLanguageEditorId(file.language) === 'script'
-                ? 'text/javascript'
-                : 'text/plain';
+    const content = raw ? file.content : file.compiled;
+    if (content.startsWith('data:') || raw) return content;
+    const mimeType = ['json', 'yaml'].includes(mapLanguage(file.language))
+      ? 'application/json'
+      : file.filename.endsWith('.svg')
+        ? 'image/svg+xml'
+        : getLanguageEditorId(file.language) === 'markup'
+          ? 'text/html'
+          : getLanguageEditorId(file.language) === 'style'
+            ? 'text/css'
+            : getLanguageEditorId(file.language) === 'script'
+              ? 'text/javascript'
+              : 'text/plain';
     const dataUrl = toDataUrl(content, mimeType);
     if (saveToFileUrls) {
       fileUrls[file.filename] = dataUrl;
@@ -218,7 +242,8 @@ export const createMultiFileResultPage = async ({
         './' + f.filename === filename + '.mjs' ||
         './' + f.filename === filename + '.mts' ||
         './' + f.filename === filename + '.jsx' ||
-        './' + f.filename === filename + '.tsx',
+        './' + f.filename === filename + '.tsx' ||
+        './' + f.filename === filename + '.d.ts',
     );
 
   compiledFiles.forEach((file) => {
@@ -241,7 +266,7 @@ export const createMultiFileResultPage = async ({
         !resolvedImport ||
         resolvedImport in fileImports ||
         resolvedImport in stylesheetImports ||
-        resolvedImport in imageImports
+        resolvedImport in assetImports
       ) {
         return;
       }
@@ -254,14 +279,14 @@ export const createMultiFileResultPage = async ({
         return;
       }
 
-      const importedFile = findFile(resolvedImport);
+      const importedFile = findFile(resolvedImport.split('?')[0]);
       // handle importing external stylesheets or images
       if (!importedFile) {
         if (isCss(resolvedImport)) {
           stylesheetImports[resolvedImport] = resolvedImport;
         }
         if (isImage(resolvedImport)) {
-          imageImports[resolvedImport] = resolvedImport;
+          assetImports[resolvedImport] = resolvedImport;
         }
         return;
       }
@@ -285,10 +310,14 @@ export const createMultiFileResultPage = async ({
         if (!dataUrl) return;
         stylesheetImports[convertedImport] = dataUrl;
         relativeImports[resolvedImport] = convertedImport;
-      } else if (isImage(resolvedImport)) {
-        const dataUrl = fileUrls[importedFile.filename] || getDataUrl(importedFile);
+      } else if (isAsset(resolvedImport)) {
+        const dataUrl =
+          fileUrls[importedFile.filename] ||
+          getDataUrl(importedFile, {
+            raw: resolvedImport.includes('?raw') || resolvedImport.includes('&raw'),
+          });
         if (!dataUrl) return;
-        imageImports[convertedImport] = dataUrl;
+        assetImports[convertedImport] = dataUrl;
         relativeImports[resolvedImport] = convertedImport;
       } else {
         relativeImports[resolvedImport] = convertedImport;
@@ -306,31 +335,35 @@ export const createMultiFileResultPage = async ({
     // replace relative URL access (e.g. img.src="./logo.svg") or fetching files (e.g. fetch("./data.json"))
     // note that the URLs should be relative to the main file (e.g. index.html)
     // do that only for static files (binary, json, text, html), other files are handled later
-    if (['binary', 'json', 'text', 'html'].includes(getFileLanguage(file.filename) || '')) {
+    if (
+      ['binary', 'json', 'yaml', 'text', 'html'].includes(
+        getFileLanguage(file.filename, config) || '',
+      )
+    ) {
       let dataUrl: string | undefined; // cache data url
       const replaceUrl = (targetFile: (typeof compiledFiles)[number]) => {
         if (targetFile.filename === file.filename) return;
         // handle svg <use href="./logo.svg#svg-logo"> which does not allow data urls
-        const usePattern = /<use\s+href\s*=\s*"/g;
+        const usePattern = /<use\s+href\s*=/g;
         if (
           file.filename.endsWith('.svg') &&
           (targetFile.content?.match(new RegExp(usePattern)) ||
             targetFile.compiled?.match(new RegExp(usePattern)))
         ) {
           targetFile.compiled = targetFile.compiled.replace(
-            new RegExp(`(['"\`])(\\.?\\/)?${file.filename}#`, 'g'),
-            (_match, $1) => {
+            new RegExp(`(\\.?\\/)?${file.filename}#`, 'g'),
+            () => {
               const div = document.createElement('div');
               div.style.display = 'none';
               div.innerHTML = file.compiled;
               dom.body.append(div);
-              return `${$1}#`;
+              return `#`;
             },
           );
         }
         targetFile.compiled = targetFile.compiled.replace(
           new RegExp(`(['"\`\()])(\\.?\\/)?${file.filename}`, 'g'),
-          `$1${(dataUrl ??= getDataUrl(file, /* saveToFileUrls */ false))}`,
+          `$1${(dataUrl ??= getDataUrl(file, { saveToFileUrls: false }))}`,
         );
       };
       compiledFiles.forEach(replaceUrl);
@@ -355,7 +388,7 @@ export const createMultiFileResultPage = async ({
       if (!file) return;
       const dataUrl =
         fileUrls[file.filename] ||
-        (mapLanguage(file.language) === 'json'
+        (['json', 'yaml'].includes(mapLanguage(file.language))
           ? toDataUrl(`export default ${file.compiled};`)
           : mapLanguage(file.language) === 'text'
             ? toDataUrl(`export default \`${escapeCode(file.compiled)}\`;`)
@@ -378,9 +411,9 @@ export const createMultiFileResultPage = async ({
     }
   });
 
-  // imported images
-  Object.keys(imageImports).forEach((mod) => {
-    const content = `export default '${imageImports[mod]}'`;
+  // imported assets
+  Object.keys(assetImports).forEach((mod) => {
+    const content = `export default \`${escapeCode(assetImports[mod])}\`;`;
     codeImports[mod] = toDataUrl(content);
   });
 

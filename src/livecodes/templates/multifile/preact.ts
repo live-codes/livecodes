@@ -27,8 +27,7 @@ export const preact: Template = {
     {
       filename: 'src/main.jsx',
       language: 'tsx',
-      content: `/** @jsxImportSource preact */
-import { render } from "preact";
+      content: `import { render } from "preact";
 import "./index.css";
 import { App } from "./app.jsx";
 
@@ -111,8 +110,7 @@ button:focus-visible {
     {
       filename: 'src/app.jsx',
       language: 'jsx',
-      content: `/** @jsxImportSource preact */
-import { useState } from "preact/hooks";
+      content: `import { useState } from "preact/hooks";
 import preactLogo from "./assets/preact.svg";
 import "./app.css";
 
@@ -174,4 +172,5 @@ export function App() {
 `,
     },
   ],
+  customSettings: { typescript: { jsxImportSource: 'preact' } },
 };

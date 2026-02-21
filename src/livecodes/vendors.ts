@@ -3,7 +3,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.6/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.7/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -90,7 +90,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.4/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.5/build/');
 
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
@@ -272,6 +272,8 @@ export const jsclUrl = /* @__PURE__ */ getUrl(
 
 export const json5Url = /* @__PURE__ */ getUrl('json5@2.2.3/dist/index.min.js');
 
+export const jsYamlUrl = /* @__PURE__ */ getUrl('js-yaml@4.1.1/dist/js-yaml.min.js');
+
 export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
@@ -313,7 +315,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.1.0/dist/',
+  '@live-codes/monaco-languages@0.1.1/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');

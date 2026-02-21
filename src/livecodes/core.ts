@@ -40,7 +40,10 @@ import {
   getContentConfig,
   getEditorConfig,
   getFormatterConfig,
+  getMultiFileConfig,
   getParams,
+  getSDKConfig,
+  getSingleFileConfig,
   getUserConfig,
   setConfig,
   upgradeAndValidate,
@@ -113,9 +116,11 @@ import type {
   EditorConfig,
   EditorId,
   EditorLanguages,
+  EditorLibrary,
   EditorOptions,
   Editors,
   EventsManager,
+  ExportedConfig,
   GithubScope,
   Language,
   Modal,
@@ -251,7 +256,7 @@ let resultPopup: Window | null = null;
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
-  code: createPub<{ code: Code; config: Config }>(),
+  code: createPub<{ code: Code; config: SDKConfig }>(),
   tests: createPub<{ results: TestResult[]; error?: string }>(),
   console: createPub<{ method: string; args: any[] }>(),
   destroy: createPub<void>(),
@@ -316,19 +321,24 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
     //   result = '';
     // }
 
+    const config = getConfig();
+    const isMultiFile = config.files.length > 0;
     const scriptLang = getEditorLanguage('script') || 'javascript';
-    const compilers = getAllCompilers(languages, getConfig(), baseUrl);
-    const editorsText = `
-      ${getConfig().markup.hiddenContent || ''}
-      ${getConfig().markup.content}
-      ${getConfig().style.hiddenContent || ''}
-      ${getConfig().style.content}
-      ${getConfig().script.hiddenContent || ''}
-      ${getConfig().script.content}
+    const compilers = getAllCompilers(languages, config, baseUrl);
+    const editorsText = isMultiFile
+      ? config.files.map((f) => f.content).join('\n')
+      : `
+      ${config.markup.hiddenContent || ''}
+      ${config.markup.content}
+      ${config.style.hiddenContent || ''}
+      ${config.style.content}
+      ${config.script.hiddenContent || ''}
+      ${config.script.content}
       `;
     const iframeIsPlaced = iframe.parentElement === container;
     const styleOnlyUpdate = iframeIsPlaced && getCache().styleOnlyUpdate;
     const liveReload =
+      !isMultiFile &&
       iframeIsPlaced &&
       compilers[scriptLang]?.liveReload &&
       resultLanguages.includes(scriptLang) &&
@@ -368,10 +378,22 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       });
 
       iframe.remove(); // avoid changing browser history
-      const { markup, style, script } = getConfig();
-      const query = `?markup=${markup.language}&style=${style.language}&script=${
-        script.language
-      }&isEmbed=${isEmbed}&isLoggedIn=${Boolean(authService?.isLoggedIn())}&appCDN=${getAppCDN()}`;
+      const { markup, style, script } = config;
+      const usedLanguages = [
+        ...new Set(
+          Object.keys(editorLanguages || {})
+            .filter((editorId) =>
+              isMultiFile ? !['markup', 'style', 'script'].includes(editorId) : true,
+            )
+            .map((editorId) => editorLanguages![editorId]),
+        ),
+      ];
+      const query =
+        (isMultiFile
+          ? '?'
+          : `?markup=${markup.language}&style=${style.language}&script=${script.language}&`) +
+        `languages=${usedLanguages.join(',')}&isMultiFile=${isMultiFile}&isEmbed=${isEmbed}&` +
+        `isLoggedIn=${Boolean(authService?.isLoggedIn())}&appCDN=${getAppCDN()}`;
       const scrollPosition =
         params.scrollPosition === false ||
         (iframeScrollPosition.x === 0 && iframeScrollPosition.y === 0)
@@ -425,7 +447,7 @@ const loadModuleTypes = async (
           '',
         );
     const libs = await typeLoader.load(reactImport + content, configTypes, loadAll, force);
-    libs.forEach((lib) => addTypes(lib, force));
+    libs.forEach((lib: EditorLibrary) => addTypes(lib, force));
   }
 };
 
@@ -527,7 +549,7 @@ const addFile = async (
   const config = getConfig();
   const validName = checkFileName(filename, config);
   if (!validName) return false;
-  const fileLanguage = getFileLanguage(validName, config.fileLanguages) || 'javascript';
+  const fileLanguage = getFileLanguage(validName, config) || 'javascript';
   const container = createEditorUI(validName);
   const editor = await createEditor({
     ...editorOptions,
@@ -565,7 +587,7 @@ const renameFile = (filename: string, newName: string) => {
   const validName = checkFileName(newName, config, filename);
   if (!validName) return false;
   if (filename === validName) return true;
-  const language = getFileLanguage(validName, config.fileLanguages)!;
+  const language = getFileLanguage(validName, config)!;
   setConfig({
     ...config,
     activeEditor: validName,
@@ -659,7 +681,15 @@ const createEditors = async (config: Config) => {
   let isReload = false;
   if (editors) {
     isReload = true;
-    Object.values(editors).forEach((editor: CodeEditor) => editor.destroy());
+    Object.keys(editors).forEach((editorId: EditorId) => {
+      if (editorId in editors) {
+        editors[editorId].destroy();
+        delete editors[editorId];
+      }
+      if (editorLanguages && editorId in editorLanguages) delete editorLanguages[editorId];
+      const id = editorIds.indexOf(editorId);
+      if (id > -1) editorIds.splice(id, 1);
+    });
     resetEditorModeStatus();
   }
 
@@ -755,7 +785,7 @@ const createEditors = async (config: Config) => {
         ...baseOptions,
         container,
         editorId,
-        language: file.language!,
+        language: file.language || getFileLanguage(file.filename, config) || 'text',
         value: file.content || '',
       };
       const editor = await createEditor(editorOptions);
@@ -763,6 +793,7 @@ const createEditors = async (config: Config) => {
       editors[editorId] = editor;
       editorIds.push(editorId);
     }
+    changingContent = false;
   } else {
     const markupEditor = await createEditor(markupOptions);
     const styleEditor = await createEditor(styleOptions);
@@ -801,6 +832,8 @@ const createEditors = async (config: Config) => {
   if (isReload) {
     loadModuleTypes(editors, config, /* loadAll = */ true);
   }
+
+  handleChangeContent();
 };
 
 const reloadEditors = async (config: Config) => {
@@ -808,7 +841,7 @@ const reloadEditors = async (config: Config) => {
   await toolsPane?.console?.reloadEditor(config);
   await toolsPane?.compiled?.reloadEditor(config);
   updateCompiledCode();
-  handleChangeContent();
+  showEditor(config.activeEditor);
 };
 
 const updateEditors = async (editors: Editors, config: Config) => {
@@ -1206,7 +1239,7 @@ const updateCompiledCode = () => {
       getLanguageCompiler(srcLang)?.compiledCodeLanguage ||
       defaultLang[editorId] ||
       defaultLang[getLanguageSpecs(srcLang)?.editor || ''] ||
-      getFileLanguage(editorId, config.fileLanguages) ||
+      getFileLanguage(editorId, config) ||
       'html';
     return {
       language: lang,
@@ -1620,6 +1653,8 @@ const reloadCompiler = async (config: Config, force = false) => {
     config,
     baseUrl,
     eventsManager,
+    getTypes: async (code: string) =>
+      typeLoader.load(code, { ...config.types, ...config.customSettings.types }, true),
   });
   setCache();
   await getResultPage({});
@@ -1842,31 +1877,34 @@ const share = async (
   permanentUrl = false,
 ): Promise<ShareData> => {
   const config = getConfig();
-  const content = contentOnly
-    ? {
-        ...getContentConfig(config),
-        markup: {
-          ...config.markup,
-          title: undefined,
-          hidden: undefined,
-        },
-        style: {
-          ...config.style,
-          title: undefined,
-          hidden: undefined,
-        },
-        script: {
-          ...config.script,
-          title: undefined,
-          hidden: undefined,
-        },
-        tools: {
-          ...config.tools,
-          enabled: defaultConfig.tools.enabled,
-          status: config.tools.status === 'none' ? defaultConfig.tools.status : config.tools.status,
-        },
-      }
-    : config;
+  const content = getSDKConfig(
+    contentOnly
+      ? {
+          ...getContentConfig(config),
+          markup: {
+            ...config.markup,
+            title: undefined,
+            hidden: undefined,
+          },
+          style: {
+            ...config.style,
+            title: undefined,
+            hidden: undefined,
+          },
+          script: {
+            ...config.script,
+            title: undefined,
+            hidden: undefined,
+          },
+          tools: {
+            ...config.tools,
+            enabled: defaultConfig.tools.enabled,
+            status:
+              config.tools.status === 'none' ? defaultConfig.tools.status : config.tools.status,
+          },
+        }
+      : config,
+  );
 
   const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
   const appUrl = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
@@ -1913,7 +1951,7 @@ const updateConfig = () => {
     editors[file.filename]
       ? {
           ...file,
-          language: getFileLanguage(file.filename) as Language,
+          language: getFileLanguage(file.filename, newConfig) as Language,
           content: editors[file.filename].getValue(),
         }
       : file,
@@ -1922,7 +1960,7 @@ const updateConfig = () => {
 };
 
 const loadConfig = async (
-  newConfig: Partial<Config | ContentConfig>,
+  newConfig: Partial<Config | ContentConfig | SDKConfig>,
   url?: string,
   flush = true,
 ) => {
@@ -2075,16 +2113,18 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
     }
     return false;
   })();
-
-  if ('configureTailwindcss' in editors.markup) {
+  const markupEditor = oldConfig?.files.length
+    ? editors[getMainFile(oldConfig) || 'index.html']
+    : editors.markup;
+  if (markupEditor && 'configureTailwindcss' in markupEditor) {
     if (newConfig.processors?.includes('tailwindcss')) {
-      editors.markup.configureTailwindcss?.(true);
+      markupEditor.configureTailwindcss?.(true);
     }
     if (
       currentConfig.processors?.includes('tailwindcss') &&
       !newConfig.processors?.includes('tailwindcss')
     ) {
-      editors.markup.configureTailwindcss?.(false);
+      markupEditor.configureTailwindcss?.(false);
       shouldReloadEditors = true;
     }
   }
@@ -2148,7 +2188,7 @@ const loadTemplate = async (templateId: string) => {
 };
 
 const dispatchChangeEvent = debounce(async () => {
-  let changeEvent: CustomEvent<{ code: Code; config: Config } | void>;
+  let changeEvent: CustomEvent<{ code: Code; config: SDKConfig } | void>;
   if (sdkWatchers.code.hasSubscribers()) {
     if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
       await getResultPage({ forExport: true });
@@ -2156,7 +2196,7 @@ const dispatchChangeEvent = debounce(async () => {
     changeEvent = new CustomEvent(customEvents.change, {
       detail: {
         code: getCachedCode(),
-        config: getConfig(),
+        config: getSDKConfig(getConfig()),
       },
     });
   } else {
@@ -2524,6 +2564,17 @@ const getAllEditors = (): CodeEditor[] =>
     toolsPane?.compiled?.getEditor?.(),
   ].filter((x) => x != null) as CodeEditor[];
 
+const runViewTransition = (fn: () => void | Promise<void>) => {
+  if ((document as any).startViewTransition) {
+    return (document as any).startViewTransition(() => {
+      fn();
+    });
+  } else {
+    fn();
+    return null;
+  }
+};
+
 const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];
   const root = document.documentElement;
@@ -2557,6 +2608,23 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   });
   toolsPane?.console?.setTheme?.(theme);
   UI.getNinjaKeys()?.classList.toggle('dark', theme === 'dark');
+};
+
+const transitionTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
+  const root = document.documentElement;
+  const activeElement = document.activeElement;
+  if (activeElement) {
+    const position = activeElement.getBoundingClientRect();
+    root.style.setProperty('--active-element-x', position.x + position.width / 2 + 'px');
+    root.style.setProperty('--active-element-y', position.y + position.height / 2 + 'px');
+    setTimeout(() => {
+      root.style.removeProperty('--active-element-x');
+      root.style.removeProperty('--active-element-y');
+    }, 1000);
+  }
+  runViewTransition(() => {
+    setTheme(theme, editorTheme);
+  });
 };
 
 const changeThemeColor = () => {
@@ -2712,37 +2780,51 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
   }
 };
 
-const getPlaygroundState = (): Config & Code => {
-  const config = getConfig();
+const getPlaygroundState = (): Omit<SDKConfig, 'files'> & Code => {
+  const config = getSDKConfig(getConfig());
   const cachedCode = getCachedCode();
-  return {
-    ...config,
-    ...cachedCode,
-    markup: {
-      ...config.markup,
-      ...cachedCode.markup,
-      position: editors.markup?.getPosition(),
-    },
-    style: {
-      ...config.style,
-      ...cachedCode.style,
-      position: editors.style?.getPosition(),
-    },
-    script: {
-      ...config.script,
-      ...cachedCode.script,
-      position: editors.script?.getPosition(),
-    },
-    files: cachedCode.files.map((file) => ({
-      ...file,
-      position: editors[file.filename]?.getPosition(),
-    })),
-    tools: {
-      enabled: config.tools.enabled,
-      active: toolsPane?.getActiveTool() ?? '',
-      status: toolsPane?.getStatus() ?? '',
-    },
+  const tools: Config['tools'] = {
+    enabled: config.tools.enabled,
+    active: toolsPane?.getActiveTool() ?? '',
+    status: toolsPane?.getStatus() ?? '',
   };
+
+  return 'files' in config && 'files' in cachedCode
+    ? {
+        ...getMultiFileConfig(config),
+        ...cachedCode,
+        files: cachedCode.files.map((file) => ({
+          ...file,
+          position: editors[file.filename]?.getPosition(),
+        })),
+        tools,
+      }
+    : 'markup' in config && 'markup' in cachedCode
+      ? {
+          ...getSingleFileConfig(config),
+          ...cachedCode,
+          markup: {
+            ...config.markup,
+            ...cachedCode.markup,
+            position: editors.markup?.getPosition(),
+          },
+          style: {
+            ...config.style,
+            ...cachedCode.style,
+            position: editors.style?.getPosition(),
+          },
+          script: {
+            ...config.script,
+            ...cachedCode.script,
+            position: editors.script?.getPosition(),
+          },
+          tools,
+        }
+      : ({
+          ...config,
+          ...cachedCode,
+          tools,
+        } as SDKConfig & Code);
 };
 
 const zoom = (level: Config['zoom'] = 1) => {
@@ -3592,7 +3674,7 @@ const handleSettings = () => {
 
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
-        setTheme(getConfig().theme, getConfig().editorTheme);
+        transitionTheme(getConfig().theme, getConfig().editorTheme);
       } else if (configKey === 'layout') {
         const newLayout = toggle.readOnly ? 'vertical' : !toggle.checked ? 'horizontal' : undefined;
         setConfig({
@@ -3689,13 +3771,13 @@ const handleChangeTheme = () => {
   if (lightThemeButton) {
     eventsManager.addEventListener(lightThemeButton, 'click', () => {
       setUserConfig({ theme: 'dark' });
-      setTheme('dark', getConfig().editorTheme);
+      transitionTheme('dark', getConfig().editorTheme);
     });
   }
   if (darkThemeButton) {
     eventsManager.addEventListener(darkThemeButton, 'click', () => {
       setUserConfig({ theme: 'light' });
-      setTheme('light', getConfig().editorTheme);
+      transitionTheme('light', getConfig().editorTheme);
     });
   }
 };
@@ -4030,11 +4112,14 @@ const handleExport = () => {
         await getResultPage({});
       }
       const cache = getCachedCode();
-      const compiled = {
-        markup: cache.markup.compiled,
-        style: cache.style.compiled,
-        script: cache.script.compiled,
-      };
+      const compiled =
+        'markup' in cache
+          ? {
+              markup: cache.markup.compiled,
+              style: cache.style.compiled,
+              script: cache.script.compiled,
+            }
+          : cache.files.reduce((acc, file) => ({ ...acc, [file.filename]: file.compiled }), {});
       await loadModule();
       exportModule.exportConfig(getConfig(), baseUrl, 'codepen', {
         baseUrl,
@@ -4057,11 +4142,14 @@ const handleExport = () => {
         await getResultPage({});
       }
       const cache = getCachedCode();
-      const compiled = {
-        markup: cache.markup.compiled,
-        style: cache.style.compiled,
-        script: cache.script.compiled,
-      };
+      const compiled =
+        'markup' in cache
+          ? {
+              markup: cache.markup.compiled,
+              style: cache.style.compiled,
+              script: cache.script.compiled,
+            }
+          : cache.files.reduce((acc, file) => ({ ...acc, [file.filename]: file.compiled }), {});
       await loadModule();
       exportModule.exportConfig(getConfig(), baseUrl, 'jsfiddle', {
         baseUrl,
@@ -4618,11 +4706,13 @@ const handleEmbed = () => {
 
 const changeEditorSettings = (newConfig: Partial<UserConfig> | null) => {
   if (!newConfig) return;
-  const shouldReload = newConfig.editor != null && newConfig.editor !== getConfig().editor;
+  const shouldReload =
+    newConfig.editor !== getConfig().editor &&
+    !((newConfig.editor || '') in (getActiveEditor() || {}));
 
   setUserConfig(newConfig);
   const updatedConfig = getConfig();
-  setTheme(updatedConfig.theme, updatedConfig.editorTheme);
+  transitionTheme(updatedConfig.theme, updatedConfig.editorTheme);
   if (shouldReload) {
     reloadEditors(updatedConfig);
   } else {
@@ -4707,7 +4797,7 @@ const handleCodeToImage = () => {
 
     const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/');
 
-    const getShareUrl = async (config: Partial<Config>, shortUrl = true) => {
+    const getShareUrl = async (config: Partial<SDKConfig>, shortUrl = true) => {
       if (shortUrl) {
         const param = '/?x=id/' + (await shareService.shareProject(config));
         return currentUrl + param;
@@ -5585,7 +5675,6 @@ const basicHandlers = () => {
   handleIframeScroll();
   handleSelectEditor();
   handleChangeLanguage();
-  handleChangeContent();
   // Setup keyboard shortcuts with dependency injection
   handleKeyboardShortcuts({
     eventsManager,
@@ -5722,7 +5811,7 @@ const configureModes = ({
 
 const importExternalContent = async (options: {
   config?: Config;
-  sdkConfig?: Partial<Config>;
+  sdkConfig?: Partial<Config | SDKConfig>;
   configUrl?: string;
   template?: string;
   importUrl?: string;
@@ -5746,7 +5835,7 @@ const importExternalContent = async (options: {
   modal.show(loadingMessage(), { size: 'small' });
 
   let templateConfig: Partial<Config> = {};
-  let importUrlConfig: Partial<Config> = {};
+  let importUrlConfig: Partial<Config | SDKConfig> = {};
   let contentUrlConfig: Partial<Config> = {};
   let configUrlConfig: Partial<Config> = {};
 
@@ -5843,7 +5932,7 @@ const importExternalContent = async (options: {
       ...configUrlConfig,
       ...sdkConfig,
       ...contentUrlConfig,
-    }),
+    } as Partial<Config>),
     parent.location.href,
     false,
   );
@@ -5901,7 +5990,7 @@ const loadDefaults = async () => {
 
 const initializePlayground = async (
   options?: {
-    config?: Partial<Config>;
+    config?: Partial<SDKConfig>;
     baseUrl?: string;
     isEmbed?: boolean;
     isHeadless?: boolean;
@@ -5930,12 +6019,14 @@ const initializePlayground = async (
   window.history.replaceState(null, '', './'); // fix URL from "/app" to "/"
   await initializeStores(stores, isEmbed);
   const userConfig = stores.userConfig?.getValue() ?? {};
-  setConfig(buildConfig({ ...getConfig(), ...userConfig, ...initialConfig }));
+  setConfig(buildConfig({ ...getConfig(), ...userConfig, ...initialConfig } as Partial<Config>));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = (window as any).compiler = await getCompiler({
     config: getConfig(),
     baseUrl,
     eventsManager,
+    getTypes: async (code: string) =>
+      typeLoader.load(code, { ...getConfig().types, ...getConfig().customSettings.types }, true),
   });
   formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
@@ -5980,46 +6071,54 @@ const initializePlayground = async (
 const createApi = (): API => {
   const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
 
-  const apiGetConfig = async (contentOnly = false): Promise<Config> => {
+  const apiGetConfig = async (contentOnly = false): Promise<ExportedConfig> => {
     updateConfig();
     const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
-    return JSON.parse(JSON.stringify(config));
+    return getSDKConfig(config);
   };
 
-  const apiSetConfig = async (newConfig: Partial<SDKConfig>): Promise<Config> => {
+  const apiSetConfig = async (newConfig: Partial<SDKConfig>): Promise<ExportedConfig> => {
     const currentConfig = getConfig();
-    const newAppConfig = buildConfig({ ...currentConfig, ...(newConfig as Partial<Config>) });
+    const newAppConfig = buildConfig({
+      ...currentConfig,
+      ...(newConfig as Partial<Config>),
+      // allow changing multifile project to singlefile
+      ...(currentConfig.files.length &&
+      !newConfig.files?.length &&
+      (newConfig.markup?.language || newConfig.style?.language || newConfig.script?.language)
+        ? { files: [] }
+        : {}),
+    });
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
     const shouldRun =
       newConfig.mode != null && newConfig.mode !== 'editor' && newConfig.mode !== 'codeblock';
     const shouldReloadCompiler = shouldRun && compiler.isFake;
-    const isContentOnlyChange = compareObjects(
-      newConfig,
-      currentConfig as Record<string, any>,
-    ).every((k) => ['markup.content', 'style.content', 'script.content'].includes(k));
+    const isContentOnlyChange =
+      !currentConfig.files.length &&
+      !newConfig.files?.length &&
+      compareObjects(newConfig, currentConfig as Record<string, any>).every((k) =>
+        ['markup.content', 'style.content', 'script.content'].includes(k),
+      );
 
     setConfig(newAppConfig);
 
     if (isContentOnlyChange) {
       for (const key of ['markup', 'style', 'script'] as const) {
-        const content = (newConfig as Partial<Config>)[key]?.content;
+        const content = (newAppConfig as Partial<Config>)[key]?.content;
         if (content != null) {
           editors[key].setValue(content);
         }
       }
-      return newAppConfig;
+    } else if (hasNewAppLanguage) {
+      changeAppLanguage(newAppConfig.appLanguage!);
+    } else if (shouldReloadCompiler) {
+      await reloadCompiler(newAppConfig);
+    } else {
+      await applyConfig(newAppConfig as Partial<Config>, /* reload = */ true, currentConfig);
     }
 
-    if (hasNewAppLanguage) {
-      changeAppLanguage(newConfig.appLanguage!);
-      return newAppConfig;
-    }
-    if (shouldReloadCompiler) {
-      await reloadCompiler(newAppConfig);
-    }
-    await applyConfig(newConfig as Partial<Config>, /* reload = */ true, currentConfig);
-    return newAppConfig;
+    return getSDKConfig(newAppConfig);
   };
 
   const apiGetCode = async (): Promise<Code> => {
@@ -6027,7 +6126,7 @@ const createApi = (): API => {
     if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
       await getResultPage({ forExport: true });
     }
-    return JSON.parse(JSON.stringify(getCachedCode()));
+    return cloneObject(getCachedCode());
   };
 
   const apiShow: API['show'] = async (
@@ -6165,7 +6264,7 @@ const createApi = (): API => {
   };
 };
 
-const initApp = async (config: Partial<Config>, baseUrl: string) => {
+const initApp = async (config: Partial<SDKConfig>, baseUrl: string) => {
   window.deps = {
     showMode,
     translateString: translateStringMock,
@@ -6180,7 +6279,7 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
   return createApi();
 };
 
-const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
+const initEmbed = async (config: Partial<SDKConfig>, baseUrl: string) => {
   window.deps = {
     showMode,
     translateString: translateStringMock,
@@ -6196,7 +6295,7 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   return createApi();
 };
 
-const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
+const initHeadless = async (config: Partial<SDKConfig>, baseUrl: string) => {
   window.deps = {
     showMode: () => undefined,
     translateString: translateStringMock,

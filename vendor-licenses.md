@@ -62,6 +62,10 @@ dart-sass: [MIT License](https://github.com/sass/dart-sass/blob/e3bf3eb3a3a87088
 
 DoppioJVM: [MIT License](https://github.com/plasma-umass/doppio/blob/9a8bcf705c74f91301a542abfe8b7175ca757259/LICENSE)
 
+dotenv: [BSD 2-Clause License](https://github.com/motdotla/dotenv/blob/9d93f227bd04e1c364da31128a3606f98b321e61/LICENSE)
+
+dotenv-expand: [BSD 2-Clause License](https://github.com/motdotla/dotenv-expand/blob/eac922076a34dbde5c478d05725b0e366bf1751b/LICENSE)
+
 dts-bundle: [MIT License](https://github.com/TypeStrong/dts-bundle/blob/2ca1591e890dc4276efc4bb0893367e6ff32a039/LICENSE-MIT)
 
 EasyQRCodeJS: [MIT License](https://github.com/ushelp/EasyQRCodeJS/blob/573373b110d706132a41cc8abb5b297016b80094/LICENSE)
@@ -117,6 +121,8 @@ JSCL: [MIT License](https://cdn.jsdelivr.net/gh/jscl-project/jscl-project.github
 JSCPP: [MIT License](https://github.com/felixhao28/JSCPP/blob/befbd6b48666007151c259c5dd291ab028ad4c04/LICENSE)
 
 JSON5: [MIT License](https://github.com/json5/json5/blob/b935d4a280eafa8835e6182551b63809e61243b0/LICENSE.md)
+
+js-yaml: [MIT License](https://github.com/nodeca/js-yaml/blob/74a01992953302040be3277c08ba214a06f00b87/LICENSE)
 
 JSZip: [MIT License](https://github.com/Stuk/jszip/blob/3db5fdc85586ef6c26d15b503c45ce8e42905d77/LICENSE.markdown)
 

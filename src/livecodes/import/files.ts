@@ -35,7 +35,7 @@ export const filterFiles = <T extends LocalFile>(files: T[]) => {
       !file.filename.endsWith('-lock.json') &&
       !file.filename.endsWith('.zip') &&
       (!file.size || file.size <= maxSizeAllowed) &&
-      getFileLanguage(file.filename) != null,
+      getFileLanguage(file.filename, {}) != null,
   );
   localFiles.sort((a, b) => {
     if (a.filename.endsWith('.md')) return 1;
@@ -220,7 +220,7 @@ export const getLocalFiles = async (
         resolve(content);
       };
       reader.onerror = () => reject(reader.error);
-      if (getFileLanguage(file.name) === 'binary') {
+      if (getFileLanguage(file.name, {}) === 'binary') {
         reader.readAsDataURL(file);
       } else {
         reader.readAsText(file);

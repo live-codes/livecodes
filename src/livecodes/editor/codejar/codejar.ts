@@ -43,9 +43,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ? 'html'
       : lang === 'wat'
         ? 'wasm'
-        : lang === 'ripple'
-          ? 'jsx'
-          : options.mapLanguage?.(lang) || lang;
+        : editorId.endsWith('.ts') // e.g. counter.svelte.ts
+          ? 'typescript'
+          : editorId.endsWith('.js')
+            ? 'javascript'
+            : lang === 'ripple'
+              ? 'jsx'
+              : options.mapLanguage?.(lang) || lang;
   let mappedLanguage = mapLanguage(language);
   let editorOptions: ReturnType<typeof convertOptions>;
 
@@ -144,7 +148,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getEditorId = () => editorId;
   const setEditorId = (filename: string, lang?: Language) => {
     editorId = filename;
-    const newLang = lang || getFileLanguage(filename);
+    const newLang = lang || getFileLanguage(filename, {});
     if (newLang && newLang !== language) {
       setLanguage(newLang);
     }
