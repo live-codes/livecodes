@@ -335,6 +335,7 @@ export const getCommandMenuActions = ({
         'multifile-svelte',
         'multifile-solid',
         'multifile-lit',
+        'multifile-ripple',
         'multifile-jest',
       ).map((template) => {
         const label = template.startsWith('multifile-') ? template.replace('-', ' ') : template;
