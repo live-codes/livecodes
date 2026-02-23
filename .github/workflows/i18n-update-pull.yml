@@ -126,12 +126,14 @@ jobs:
 
       - name: Create a new i18n PR, comment on source PR and reaction
         uses: actions/github-script@v7
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
         with:
           github-token: ${{ steps.generate-token.outputs.token }}
           script: |
             const repoURL = context.payload.repository.html_url;
             const branchURL = `${repoURL}/tree/${process.env.NEW_BRANCH}`;
-            const prTitle = `i18n: ${{ github.event.issue.title }}`;
+            const prTitle = `i18n: ${process.env.ISSUE_TITLE}`;
             const prBody = `## What type of PR is this? (check all applicable)
 
             - [ ] ✨ Feature
