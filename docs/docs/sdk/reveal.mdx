@@ -1,0 +1,165 @@
+# Reveal SDK
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+The Reveal.js SDK is a lightweight plugin that integrates the JavaScript SDK into Reveal.js, allowing you to embed interactive playgrounds directly within your slides.
+
+It has a very simple [implementation](https://github.com/live-codes/livecodes/blob/develop/src/sdk/reveal.ts) which you can easily modify in case you need.
+
+## Installation
+
+Please refer to the [SDK installation](./index.mdx#installation) section.
+
+## Usage
+
+To provide a mounting container, you just need to add the attribute data-livecodes to your container element, and then import the LiveCodes script.
+
+```html
+<div data-livecodes></div>
+```
+
+There are two ways you can import the LiveCodes script
+
+1. Using a `<script>` tag
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/livecodes@0.12.0/reveal.umd.js"></script>
+
+<script>
+  Reveal.initialize({
+    plugins: [LiveCodes],
+  });
+</script>
+```
+
+2. Using an ES module `import` statement
+```js
+import Reveal from "reveal.js";
+import { LiveCodes } from 'livecodes';
+
+Reveal.initialize({
+  plugins: [LiveCodes],
+});
+```
+
+### TypeScript Support
+
+TypeScript types are exported from this module.
+
+`LiveOptions` – Configuration options for an individual playground, including the optional sdkReady callback.
+
+`GlobalLiveCodesOptions` – Global configuration for LiveCodes when used with Reveal.js, including optional customStyle.
+
+`LiveCodesInstance` – The LiveCodes object itself, containing an id and an init method for initializing with a Reveal.js deck.
+
+This allows TypeScript projects to import these types directly for full type safety and autocompletion:
+
+```ts
+import type { LiveOptions, GlobalLiveCodesOptions, LiveCodesInstance } from 'livecodes';
+const myPlaygroundOptions: LiveOptions = {
+  sdkReady: (sdk) => {
+    console.log("Playground initialized:", sdk);
+  },
+  theme: "dark",
+};
+
+const deckOptions: GlobalLiveCodesOptions = {
+  livecodes: myPlaygroundOptions,
+  customStyle: {
+    border: "1px solid #ddd",
+    borderRadius: "8px",
+  },
+  controls: true,
+  slideNumber: true,
+};
+```
+
+### Config
+
+All [embed options](js-ts.mdx#embed-options) are available as config object with the corresponding key-values. If you don’t specify it, the default configuration object will be used.
+
+Example:
+
+```js
+import { LiveCodes } from 'livecodes';
+
+const deck = new Reveal({
+  plugins: [LiveCodes, Markdown],
+  livecodes: {
+    config:{
+      markup: {
+        language: "markdown",
+        content: "# hello World!",
+      },
+    }
+    sdkReady: (item) => {
+      console.log(item);
+    },
+  }
+});
+
+deck.initialize();
+```
+
+You can provide an optional `sdkReady?: (sdk: Playground) => void` property, which will be called as a callback function after the initialization is complete. A callback function, that is provided with an instance of the JavaScript SDK representing the current playground. This allows making use of full capability of the SDK by calling SDK methods.
+
+In addition, you can also pass a CSS object `customStyle` to specify the CSS properties of the editor.
+
+Example:
+
+```js
+import { LiveCodes } from 'livecodes';
+
+const deck = new Reveal({
+  plugins: [LiveCodes, Markdown],
+  livecodes: {
+    config:{
+      markup: {
+        language: "markdown",
+        content: "# hello World!",
+      },
+    }
+  },
+  customStyle: { border: "5px solid pink", borderRadius: "8px" },
+});
+
+deck.initialize();
+```
+
+The CSS properties in customStyle will be applied directly to the embedded iframe. For example, with the settings above, you will see rounded corners and a pink border on the iframe.
+
+:::info 
+The customStyle object changes the CSS properties of the embedded iframe itself, not the outer container’s CSS properties.
+:::
+
+If you want to apply specific configurations to a particular LiveCode editor, you can write a stringified object that conforms to [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#:~:text=The%20JSON.parse()%20static,object%20before%20it%20is%20returned.) into the data-config attribute of its container element.
+
+Example:
+```html
+<section>
+  Slide 1
+  <div
+    data-livecodes
+    data-config='{"config":{"script":{"language":"javascript","content":"console.log(123)"}}}'
+  ></div>
+</section>
+```
+
+## Demo
+
+export const sdkDemo = {
+  html:'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>\n<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css"/>\n<div class="reveal">\n  <div class="slides">\n    <section>Slide 1\n        <div data-livecodes data-config=\'{"config":{"script":{"language":"javascript","content":"console.log(123)"}}}\'></div>\n    </section>\n    <section>Slide 2\n      <div data-livecodes></div>\n    </section>\n  </div>\n</div>\n<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>\n<script src="https://cdn.jsdelivr.net/npm/livecodes@0.12.0/reveal.umd.js"></script>\n<script>\n  async function init() {\n    const res = await Reveal.initialize({\n      plugins: [LiveCodes],\n      livecodes: {\n        config:{\n          markup: {\n            language: "markdown",\n            content: "# Hello World!",\n          },\n        }},\n      customStyle: {\n        backgroundColor: "rgba(255, 255, 255, 0.1)",\n      },\n   });\n  }\n  init();\n</script>'
+};
+
+<LiveCodes params={sdkDemo} height="80vh"/>
+
+## Related
+
+- [SDK Installation](./index.mdx#installation)
+- [JS/TS SDK](./js-ts.mdx)
+- [Vue SDK](./vue.mdx)
+- [React SDK](./react.mdx)
+- [Using SDK in Svelte](./svelte.mdx)
+- [Using SDK in Solid](./solid.mdx)
+- [Embedded Playgrounds](../features/embeds.mdx)

@@ -90,6 +90,7 @@
     "monaco-editor": "0.48.0",
     "patch-package": "7.0.2",
     "prismjs": "1.29.0",
+    "reveal.js": "^5.2.1",
     "split.js": "1.6.5",
     "yjs": "13.5.40"
   },
@@ -109,6 +110,7 @@
     "@types/prettier": "2.1.6",
     "@types/prismjs": "1.16.3",
     "@types/react": "19.0.10",
+    "@types/reveal.js": "^5.2.1",
     "@typescript-eslint/eslint-plugin": "8.24.1",
     "@typescript-eslint/parser": "8.24.1",
     "@typescript/vfs": "1.5.3",
@@ -156,15 +158,32 @@
     "singleQuote": true,
     "trailingComma": "all",
     "printWidth": 100,
-    "plugins": ["prettier-plugin-organize-imports"]
+    "plugins": [
+      "prettier-plugin-organize-imports"
+    ]
   },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
-    "setupFiles": ["<rootDir>/.jest/setup.ts"],
-    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/src/modules/"],
-    "collectCoverageFrom": ["src/**/*.ts", "!**/build/**", "!**/vendor/**", "!src/modules/**"],
-    "coverageReporters": ["json", "html", "lcov"],
+    "setupFiles": [
+      "<rootDir>/.jest/setup.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/build/",
+      "/src/modules/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!**/build/**",
+      "!**/vendor/**",
+      "!src/modules/**"
+    ],
+    "coverageReporters": [
+      "json",
+      "html",
+      "lcov"
+    ],
     "resolveJsonModule": true
   }
 }
