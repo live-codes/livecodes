@@ -36,8 +36,14 @@ export const getLanguageCompiler = (alias: string = ''): Compiler | undefined =>
   return compiler;
 };
 
-export const mapLanguage = (language: Language): Language =>
-  getLanguageSpecs(language)?.editorLanguage || language;
+export const mapLanguage = (
+  language: Language,
+  editor?: Exclude<Config['editor'], 'auto' | undefined>,
+): Language =>
+  (editor ? getLanguageSpecs(language)?.editorSupport?.[editor]?.language : undefined) ||
+  getLanguageSpecs(language)?.editorLanguage ||
+  getLanguageByAlias(language) ||
+  'html';
 
 export const languageIsEnabled = (language: Language, config: Config) => {
   const lang = getLanguageByAlias(language);

@@ -1188,6 +1188,26 @@ export interface EditorLanguages {
   script: Language;
 }
 
+export type LanguageEditorSupport = {
+  monaco?: {
+    language?: Language;
+    languageSupport?:
+      | string
+      | ((
+          monaco: any,
+        ) => void | Promise<void> | { dispose: () => void } | Promise<{ dispose: () => void }>);
+  };
+  codemirror?: {
+    language?: Language;
+    languageSupport?: string | (() => void | Promise<void>);
+  };
+  codejar?: {
+    language?: Language;
+  };
+} & {
+  compilerOptions?: Record<string, unknown>;
+};
+
 export interface Types {
   [key: string]:
     | string
@@ -1210,6 +1230,7 @@ export interface LanguageSpecs {
   extensions: Language[];
   editor: EditorId;
   editorLanguage?: Language;
+  editorSupport?: LanguageEditorSupport;
   preset?: CssPresetId;
   largeDownload?: boolean;
 }
@@ -1619,7 +1640,10 @@ export interface EditorOptions extends EditorConfig {
   isLite: boolean;
   isHeadless: boolean;
   getLanguageExtension: (alias: string) => Language | undefined;
-  mapLanguage: (language: Language) => Language;
+  mapLanguage: (
+    language: Language,
+    editor?: Exclude<Config['editor'], 'auto' | undefined>,
+  ) => Language;
   getFormatterConfig: () => Partial<FormatterConfig>;
   getFontFamily: (font: string | undefined) => string;
 }

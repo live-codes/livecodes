@@ -20,12 +20,10 @@ const legacy = (parser: StreamParser<unknown>) =>
 const getPath = (mod: string) => codeMirrorBaseUrl + mod;
 
 const moduleUrls = {
-  vue: getPath('codemirror-lang-vue.js'),
   svelte: getPath('codemirror-lang-svelte.js'),
   liquid: getPath('codemirror-lang-liquid.js'),
   json: getPath('codemirror-lang-json.js'),
   markdown: getPath('codemirror-lang-markdown.js'),
-  python: getPath('codemirror-lang-python.js'),
   php: getPath('codemirror-lang-php.js'),
   java: getPath('codemirror-lang-java.js'),
   clike: getPath('codemirror-lang-clike.js'),
@@ -61,11 +59,9 @@ export const editorLanguages: Partial<{ [key in Language]: () => Promise<Languag
   jsx: async () => javascript({ jsx: true }),
   tsx: async () => javascript({ jsx: true, typescript: true }),
   json: async () => json(),
-  vue: async () => (await import(moduleUrls.vue)).vue(),
   svelte: async () => (await import(moduleUrls.svelte)).svelte(),
   liquid: async () => (await import(moduleUrls.liquid)).liquid(),
   markdown: async () => (await import(moduleUrls.markdown)).markdown(),
-  python: async () => (await import(moduleUrls.python)).python(),
   php: async () => (await import(moduleUrls.php)).php(),
   go: async () => (await import(moduleUrls.go)).go(),
   java: async () => (await import(moduleUrls.java)).java(),

@@ -306,6 +306,10 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
+export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/monaco-languages@0.2.0/dist/',
+);
+
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
 
 export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.1/dist/monaco-vim.js');
@@ -448,7 +452,8 @@ export const tesseractUrl = /* @__PURE__ */ getUrl('tesseract.js@6.0.1/dist/tess
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
-export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.9.3/lib/typescript.js`);
+export const typescriptVersion = '5.9.3';
+export const typescriptUrl = getUrl(`typescript@${typescriptVersion}/lib/typescript.js`);
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 

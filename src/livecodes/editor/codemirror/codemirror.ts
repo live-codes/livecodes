@@ -29,6 +29,7 @@ import { colorPicker } from '@replit/codemirror-css-color-picker';
 
 // these are imported normally
 import { getEditorModeNode } from '../../UI/selectors';
+import { getLanguageSpecs } from '../../languages';
 import type {
   CodeEditor,
   CodemirrorTheme,
@@ -68,14 +69,25 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let editorSettings: EditorConfig = { ...options };
   if (!container) throw new Error('editor container not found');
 
-  const getLanguageSupport = async (language: Language): Promise<LanguageSupport> =>
-    editorLanguages[language]?.() || (editorLanguages.html?.() as Promise<LanguageSupport>);
+  const getLanguageSupport = async (lang: Language): Promise<LanguageSupport> => {
+    const langSupport = getLanguageSpecs(lang)?.editorSupport?.codemirror?.languageSupport;
+    if (!langSupport) {
+      return editorLanguages[language]?.() || editorLanguages.html?.() || [];
+    }
+    const loadLanguage: () => Promise<LanguageSupport> =
+      typeof langSupport === 'string'
+        ? (await import(langSupport)).default
+        : typeof langSupport === 'function'
+          ? langSupport
+          : async () => [];
+    return loadLanguage();
+  };
 
   const mapLanguage = (lang: Language) => {
     if (lang.startsWith('vue')) return 'vue';
     if (lang.startsWith('svelte')) return 'svelte';
     if (lang === 'liquid') return 'liquid';
-    return options.mapLanguage?.(lang) || lang;
+    return options.mapLanguage?.(lang, 'codemirror') || lang;
   };
 
   const themes: Partial<Record<CodemirrorTheme, Extension>> = {

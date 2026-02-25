@@ -1,5 +1,11 @@
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl, vueRuntimeUrl, vueSDKUrl } from '../../vendors';
+import {
+  codeMirrorBaseUrl,
+  monacoLanguagesBaseUrl,
+  vendorsBaseUrl,
+  vueRuntimeUrl,
+  vueSDKUrl,
+} from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 const compilerUrl = vendorsBaseUrl + 'vue-compiler-sfc/vue-compiler-sfc.js';
@@ -25,7 +31,18 @@ export const vue: LanguageSpecs = {
   },
   extensions: ['vue', 'vue3'],
   editor: 'script',
-  editorLanguage: 'html',
+  editorSupport: {
+    monaco: {
+      languageSupport: monacoLanguagesBaseUrl + 'vue.js',
+    },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-vue.js')).vue(),
+    },
+    codejar: {
+      language: 'html',
+    },
+  },
 };
 
 export const vueApp: LanguageSpecs = {
@@ -34,5 +51,5 @@ export const vueApp: LanguageSpecs = {
   compiler: 'vue',
   extensions: ['app.vue'],
   editor: 'markup',
-  editorLanguage: 'html',
+  editorSupport: { ...vue.editorSupport, monaco: { language: 'vue' } },
 };
