@@ -51,5 +51,5 @@ export const vueApp: LanguageSpecs = {
   compiler: 'vue',
   extensions: ['app.vue'],
   editor: 'markup',
-  editorSupport: { ...vue.editorSupport, monaco: { language: 'vue' } },
+  editorSupport: { ...vue.editorSupport, monaco: { language: 'vue' } }, // avoid duplicate registration
 };
