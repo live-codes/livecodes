@@ -38,7 +38,7 @@ import { getLanguageCustomSettings } from '../../utils';
         });
     };
 
-    const result = sass.compileString(code, {
+    const result = await sass.compileStringAsync(code, {
       ...customSettings,
       syntax,
       importers: [
@@ -48,26 +48,33 @@ import { getLanguageCustomSettings } from '../../utils';
           },
           load(canonicalUrl: URL) {
             const urlString = canonicalUrl.href;
+            const extension = '.' + language; // .scss or .sass
             return fetchStyles(urlString)
+              .catch(() => fetchStyles(urlString + extension))
+              .catch(() => fetchStyles(urlString + '.css'))
               .catch(() => {
                 const urlParts = urlString.split('/');
                 const filename = urlParts[urlParts.length - 1];
                 const prefix = filename.startsWith('_') ? '' : '_';
-                urlParts[urlParts.length - 1] = prefix + filename + '.scss';
+                urlParts[urlParts.length - 1] = prefix + filename + extension;
                 return fetchStyles(urlParts.join('/'));
               })
-              .catch(() => fetchStyles(urlString + '.scss'))
+              .catch(() => fetchStyles(urlString + '/_index' + extension))
               .catch(
                 () =>
                   new Promise((resolve, reject) => {
                     fetch(urlString + '/package.json')
                       .then((res) => res.json())
                       .then((pkg) => {
-                        if (pkg.sass) {
-                          baseUrl = urlString + '/' + pkg.sass;
-                          resolve(fetchStyles(baseUrl));
-                        } else if (pkg.style) {
-                          baseUrl = urlString + '/' + pkg.style;
+                        let stylePath = pkg.style || pkg.sass;
+                        if (!stylePath) {
+                          const main = pkg.main;
+                          if (main && (main.endsWith(extension) || main.endsWith('.css'))) {
+                            stylePath = main;
+                          }
+                        }
+                        if (stylePath) {
+                          baseUrl = urlString + '/' + stylePath;
                           resolve(fetchStyles(baseUrl));
                         } else {
                           reject('Not found');
