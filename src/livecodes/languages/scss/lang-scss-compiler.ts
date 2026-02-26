@@ -4,6 +4,7 @@ import { getLanguageCustomSettings } from '../../utils';
 
 (self as any).createScssCompiler = (): CompilerFunction => {
   const sass = (window as any).sass;
+  const cachedStyles = new Map<string, string>();
   return async (code, { config, language }): Promise<string> => {
     const syntax = language === 'sass' ? 'indented' : 'scss';
     const customSettings = getLanguageCustomSettings(language, config);
@@ -11,7 +12,14 @@ import { getLanguageCustomSettings } from '../../utils';
 
     const moduleServiceUrl = modulesService.getUrl('~').replace('~', '');
 
-    const fetchStyles = (url: string) => {
+    const fetchStyles = (url: string): Promise<{ contents: string; syntax: string }> => {
+      const cachedContents = cachedStyles.get(url);
+      if (cachedContents) {
+        return Promise.resolve({
+          contents: cachedContents,
+          syntax,
+        });
+      }
       const moduleUrl =
         baseUrl && baseUrl !== url ? new URL(url.replace(moduleServiceUrl, ''), baseUrl).href : url;
       const module = moduleUrl.replace(moduleServiceUrl, '');
@@ -49,7 +57,7 @@ import { getLanguageCustomSettings } from '../../utils';
           load(canonicalUrl: URL) {
             const urlString = canonicalUrl.href;
             const extension = '.' + language; // .scss or .sass
-            return fetchStyles(urlString)
+            const result: Promise<{ contents: string; syntax: string }> = fetchStyles(urlString)
               .catch(() => fetchStyles(urlString + extension))
               .catch(() => fetchStyles(urlString + '.css'))
               .catch(() => {
@@ -82,6 +90,10 @@ import { getLanguageCustomSettings } from '../../utils';
                       });
                   }),
               );
+            return result.then((res) => {
+              cachedStyles.set(urlString, res.contents);
+              return res;
+            });
           },
         },
       ],
