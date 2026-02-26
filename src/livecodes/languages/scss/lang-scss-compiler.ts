@@ -6,18 +6,24 @@ import { getLanguageCustomSettings } from '../../utils';
   const sass = (window as any).sass;
   const cachedStyles = new Map<string, string>();
   return async (code, { config, language }): Promise<string> => {
-    const syntax = language === 'sass' ? 'indented' : 'scss';
     const customSettings = getLanguageCustomSettings(language, config);
     let baseUrl: string | null = null;
 
     const moduleServiceUrl = modulesService.getUrl('~').replace('~', '');
+
+    const getSyntax = (filename: string, content: string): 'indented' | 'scss' => {
+      if (filename.endsWith('.scss')) return 'scss';
+      if (filename.endsWith('.sass')) return 'indented';
+      if (!content.includes(';') && !content.includes('{')) return 'indented';
+      return 'scss';
+    };
 
     const fetchStyles = (url: string): Promise<{ contents: string; syntax: string }> => {
       const cachedContents = cachedStyles.get(url);
       if (cachedContents) {
         return Promise.resolve({
           contents: cachedContents,
-          syntax,
+          syntax: getSyntax(url, cachedContents),
         });
       }
       const moduleUrl =
@@ -40,7 +46,7 @@ import { getLanguageCustomSettings } from '../../utils';
         .then((contents) => {
           const result = {
             contents,
-            syntax,
+            syntax: getSyntax(url, contents),
           };
           return result;
         });
@@ -48,7 +54,7 @@ import { getLanguageCustomSettings } from '../../utils';
 
     const result = await sass.compileStringAsync(code, {
       ...customSettings,
-      syntax,
+      syntax: language === 'sass' ? 'indented' : 'scss',
       importers: [
         {
           canonicalize(url: string) {
@@ -56,18 +62,26 @@ import { getLanguageCustomSettings } from '../../utils';
           },
           load(canonicalUrl: URL) {
             const urlString = canonicalUrl.href;
-            const extension = '.' + language; // .scss or .sass
             const result: Promise<{ contents: string; syntax: string }> = fetchStyles(urlString)
               .catch(() => {
                 const urlParts = urlString.split('/');
                 const filename = urlParts[urlParts.length - 1];
                 const prefix = filename.startsWith('_') ? '' : '_';
-                urlParts[urlParts.length - 1] = prefix + filename + extension;
+                urlParts[urlParts.length - 1] = prefix + filename + '.scss';
                 return fetchStyles(urlParts.join('/'));
               })
-              .catch(() => fetchStyles(urlString + extension))
+              .catch(() => {
+                const urlParts = urlString.split('/');
+                const filename = urlParts[urlParts.length - 1];
+                const prefix = filename.startsWith('_') ? '' : '_';
+                urlParts[urlParts.length - 1] = prefix + filename + '.sass';
+                return fetchStyles(urlParts.join('/'));
+              })
+              .catch(() => fetchStyles(urlString + '.scss'))
+              .catch(() => fetchStyles(urlString + '.sass'))
               .catch(() => fetchStyles(urlString + '.css'))
-              .catch(() => fetchStyles(urlString + '/_index' + extension))
+              .catch(() => fetchStyles(urlString + '/_index' + '.scss'))
+              .catch(() => fetchStyles(urlString + '/_index' + '.sass'))
               .catch(
                 () =>
                   new Promise((resolve, reject) => {
@@ -77,7 +91,12 @@ import { getLanguageCustomSettings } from '../../utils';
                         let stylePath = pkg.style || pkg.sass;
                         if (!stylePath) {
                           const main = pkg.main;
-                          if (main && (main.endsWith(extension) || main.endsWith('.css'))) {
+                          if (
+                            main &&
+                            (main.endsWith('.scss') ||
+                              main.endsWith('.sass') ||
+                              main.endsWith('.css'))
+                          ) {
                             stylePath = main;
                           }
                         }
