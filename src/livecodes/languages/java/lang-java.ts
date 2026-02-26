@@ -1,4 +1,5 @@
 import type { LanguageSpecs } from '../../models';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const java: LanguageSpecs = {
@@ -17,5 +18,12 @@ export const java: LanguageSpecs = {
   },
   extensions: ['java'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'java.js' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-java.js')).java(),
+    },
+  },
   largeDownload: true,
 };

@@ -32,16 +32,12 @@ export const vue: LanguageSpecs = {
   extensions: ['vue', 'vue3'],
   editor: 'script',
   editorSupport: {
-    monaco: {
-      languageSupport: monacoLanguagesBaseUrl + 'vue.js',
-    },
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'vue.js' },
     codemirror: {
       languageSupport: async () =>
         (await import(codeMirrorBaseUrl + 'codemirror-lang-vue.js')).vue(),
     },
-    codejar: {
-      language: 'html',
-    },
+    codejar: { language: 'html' },
   },
 };
 

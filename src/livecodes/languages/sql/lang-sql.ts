@@ -1,5 +1,10 @@
 import type { LanguageSpecs } from '../../models';
-import { sqlFormatterUrl, sqljsBaseUrl } from '../../vendors';
+import {
+  codeMirrorBaseUrl,
+  monacoLanguagesBaseUrl,
+  sqlFormatterUrl,
+  sqljsBaseUrl,
+} from '../../vendors';
 
 declare const importScripts: (...args: string[]) => void;
 
@@ -29,4 +34,11 @@ export const sql: LanguageSpecs = {
   },
   extensions: ['sql', 'sqlite', 'sqlite3'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'sql.js' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-sql.js')).sql(),
+    },
+  },
 };

@@ -1,4 +1,6 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const csharpWasm: LanguageSpecs = {
@@ -18,5 +20,12 @@ export const csharpWasm: LanguageSpecs = {
   extensions: ['cs', 'csharp', 'wasm.cs', 'cs-wasm'],
   editor: 'script',
   editorLanguage: 'csharp',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'csharp.js' },
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-clike.js')).csharp),
+    },
+  },
   largeDownload: true,
 };

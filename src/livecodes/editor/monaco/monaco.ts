@@ -243,7 +243,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           : typeof langSupport === 'function'
             ? langSupport
             : () => undefined;
-      await loadLanguage(monaco);
+      await loadLanguage(monaco, () => editor);
     }
   };
 

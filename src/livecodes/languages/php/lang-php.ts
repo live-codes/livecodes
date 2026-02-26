@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { uniterUrl } from '../../vendors';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, uniterUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const php: LanguageSpecs = {
@@ -27,4 +27,11 @@ export const php: LanguageSpecs = {
   },
   extensions: ['php'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'php.js' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-php.js')).php(),
+    },
+  },
 };
