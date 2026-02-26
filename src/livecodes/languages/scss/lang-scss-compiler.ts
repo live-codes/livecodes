@@ -58,8 +58,6 @@ import { getLanguageCustomSettings } from '../../utils';
             const urlString = canonicalUrl.href;
             const extension = '.' + language; // .scss or .sass
             const result: Promise<{ contents: string; syntax: string }> = fetchStyles(urlString)
-              .catch(() => fetchStyles(urlString + extension))
-              .catch(() => fetchStyles(urlString + '.css'))
               .catch(() => {
                 const urlParts = urlString.split('/');
                 const filename = urlParts[urlParts.length - 1];
@@ -67,6 +65,8 @@ import { getLanguageCustomSettings } from '../../utils';
                 urlParts[urlParts.length - 1] = prefix + filename + extension;
                 return fetchStyles(urlParts.join('/'));
               })
+              .catch(() => fetchStyles(urlString + extension))
+              .catch(() => fetchStyles(urlString + '.css'))
               .catch(() => fetchStyles(urlString + '/_index' + extension))
               .catch(
                 () =>
