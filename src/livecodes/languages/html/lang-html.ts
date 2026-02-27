@@ -14,4 +14,14 @@ export const html: LanguageSpecs = {
   },
   extensions: ['html', 'htm'],
   editor: 'markup',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () => {
+        // @ts-ignore
+        // eslint-disable-next-line import/no-unresolved
+        const { html } = await import('@codemirror/lang-html');
+        return html();
+      },
+    },
+  },
 };

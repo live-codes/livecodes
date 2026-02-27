@@ -46,4 +46,14 @@ export const typescript: LanguageSpecs = {
   },
   extensions: ['ts', 'mts', 'typescript'],
   editor: 'script',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () => {
+        // @ts-ignore
+        // eslint-disable-next-line import/no-unresolved
+        const { javascript } = await import('@codemirror/lang-javascript');
+        return javascript({ typescript: true });
+      },
+    },
+  },
 };

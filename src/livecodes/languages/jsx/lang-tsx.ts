@@ -12,4 +12,14 @@ export const tsx: LanguageSpecs = {
   extensions: ['tsx'],
   editor: 'script',
   editorLanguage: 'typescript',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () => {
+        // @ts-ignore
+        // eslint-disable-next-line import/no-unresolved
+        const { javascript } = await import('@codemirror/lang-javascript');
+        return javascript({ jsx: true, typescript: true });
+      },
+    },
+  },
 };

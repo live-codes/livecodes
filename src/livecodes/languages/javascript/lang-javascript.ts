@@ -14,4 +14,14 @@ export const javascript: LanguageSpecs = {
   },
   extensions: ['js', 'mjs'],
   editor: 'script',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () => {
+        // @ts-ignore
+        // eslint-disable-next-line import/no-unresolved
+        const { javascript } = await import('@codemirror/lang-javascript');
+        return javascript();
+      },
+    },
+  },
 };

@@ -14,4 +14,14 @@ export const css: LanguageSpecs = {
   },
   extensions: ['css'],
   editor: 'style',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () => {
+        // @ts-ignore
+        // eslint-disable-next-line import/no-unresolved
+        const { css } = await import('@codemirror/lang-css');
+        return css();
+      },
+    },
+  },
 };

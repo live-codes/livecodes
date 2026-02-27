@@ -1057,6 +1057,7 @@ export type Language =
   | 'cljc'
   | 'edn'
   | 'gleam'
+  | 'swift'
   | 'rescript'
   | 'res'
   | 'resi'

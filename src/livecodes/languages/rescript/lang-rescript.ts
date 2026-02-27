@@ -26,4 +26,5 @@ export const rescript: LanguageSpecs = {
   extensions: ['res', 'resi'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: { monaco: { language: 'csharp' } },
 };

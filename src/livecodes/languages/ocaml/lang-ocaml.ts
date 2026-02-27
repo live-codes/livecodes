@@ -1,4 +1,6 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
+import { codeMirrorBaseUrl } from '../../vendors';
 
 export const ocaml: LanguageSpecs = {
   name: 'ocaml',
@@ -6,5 +8,11 @@ export const ocaml: LanguageSpecs = {
   compiler: 'rescript',
   extensions: ['ml', 'mli'],
   editor: 'script',
-  editorLanguage: 'javascript',
+  editorSupport: {
+    monaco: { language: 'csharp' },
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-mllike.js')).oCaml),
+    },
+  },
 };

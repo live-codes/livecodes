@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
-import { markedUrl } from '../../vendors';
+import { codeMirrorBaseUrl, markedUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const markdown: LanguageSpecs = {
@@ -19,4 +19,10 @@ export const markdown: LanguageSpecs = {
   },
   extensions: ['md', 'markdown', 'mdown', 'mkdn'],
   editor: 'markup',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-markdown.js')).markdown(),
+    },
+  },
 };
