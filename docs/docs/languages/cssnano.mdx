@@ -58,7 +58,7 @@ export const cssnanoConfig = {
 `,
   },
   processors: ['cssnano'],
-  compiled: 'open',
+  tools: { active: 'compiled', status: 'open' },
   activeEditor: 'style',
 };
 
@@ -77,18 +77,6 @@ export const cssnanoConfig = {
 ### Editor
 
 `style`
-
-## Compiler
-
-cssnano is provided as a [PostCSS](./postcss.mdx) plugin using [cssnano-preset-default](https://cssnano.github.io/cssnano/docs/presets/).
-
-## Code Formatting
-
-Using [Prettier](https://prettier.io/).
-
-## Starter Template
-
-https://livecodes.io/?template=blank
 
 ## Links
 
