@@ -77,6 +77,46 @@ Sass uses the **indented syntax**, which relies on indentation instead of curly 
 
 For more details about CSS support in LiveCodes, including CSS processors, style imports, CSS modules, and CSS frameworks, see the [CSS feature documentation](../features/css.mdx).
 
+## Loading External Styles
+
+Sass supports loading external stylesheets and modules using `@use`, `@import`, and `meta.load-css()`. [Bare module](../features/module-resolution.mdx#bare-module-imports) specifiers are resolved to full CDN URLs.
+
+### Using `@use`
+
+You can load npm packages with `@use`:
+
+```sass
+@use "bootstrap/scss/bootstrap" as *
+```
+
+### Using `@import`
+
+You can import external modules and use their mixins:
+
+```sass
+@import 'sass-utils'
+
+.center
+  @include block--center
+  width: fit-content
+```
+
+### Using `meta.load-css()`
+
+You can dynamically load stylesheets from URLs using the built-in `sass:meta` module:
+
+```sass
+@use "sass:meta"
+
+@include meta.load-css("https://raw.githubusercontent.com/live-codes/livecodes/refs/heads/develop/src/livecodes/styles/app.scss")
+```
+
+:::tip
+
+For more information about loading and importing styles, see the [Style Imports](../features/css.mdx#style-imports) documentation.
+
+:::
+
 ## Language Info
 
 ### Name
