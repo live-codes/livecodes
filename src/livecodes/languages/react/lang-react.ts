@@ -39,4 +39,9 @@ export const react: LanguageSpecs = {
   extensions: ['react.jsx', 'react-jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
+  },
 };

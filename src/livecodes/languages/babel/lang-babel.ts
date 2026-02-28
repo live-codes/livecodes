@@ -33,4 +33,9 @@ export const babel: LanguageSpecs = {
   extensions: ['es', 'babel'],
   editor: 'script',
   editorLanguage: 'typescript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
+  },
 };

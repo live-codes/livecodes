@@ -2,7 +2,7 @@ import type * as Monaco from 'monaco-editor';
 
 import { getEditorModeNode } from '../../UI/selectors';
 import { getImports } from '../../compiler/import-map';
-import { getLanguageSpecs } from '../../languages';
+import { getLanguageSpecs, hasJsx } from '../../languages';
 import type {
   APIError,
   CodeEditor,
@@ -29,7 +29,7 @@ import {
   vendorsBaseUrl,
 } from '../../vendors';
 import { getEditorTheme } from '../themes';
-import { getCompilerOptions, hasJsx } from '../ts-compiler-options';
+import { getCompilerOptions } from '../ts-compiler-options';
 import { customThemes, monacoThemes } from './monaco-themes';
 import { registerTwoSlash } from './register-twoslash';
 
@@ -208,7 +208,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       return;
     }
 
-    const compilerOptions = getCompilerOptions(language);
+    const compilerOptions = {
+      ...getCompilerOptions(),
+      ...((getLanguageSpecs(language)?.editorSupport?.compilerOptions ||
+        {}) as Monaco.languages.typescript.CompilerOptions),
+    };
 
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions(compilerOptions);
@@ -677,7 +681,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     if (
       !model ||
       !addCloseLanguages.includes(mapLanguage(language, 'monaco')) ||
-      (mapLanguage(language, 'monaco') === 'typescript' && !hasJsx.includes(language)) || // avoid autocompleting TS generics
+      (mapLanguage(language, 'monaco') === 'typescript' && !hasJsx(language)) || // avoid autocompleting TS generics
       editorOptions.autoClosingBrackets === 'never'
     ) {
       return;

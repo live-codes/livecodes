@@ -12,4 +12,11 @@ export const reactTsx: LanguageSpecs = {
   extensions: ['react.tsx'],
   editor: 'script',
   editorLanguage: 'typescript',
+  editorSupport: {
+    compilerOptions: {
+      checkJs: true,
+      strictNullChecks: true,
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
+  },
 };

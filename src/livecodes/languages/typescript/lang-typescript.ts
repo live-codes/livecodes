@@ -11,7 +11,7 @@ export const hasCustomJsxRuntime = (code: string, config: Config) => {
   return Boolean(
     customTSConfig.jsx ||
       customTSConfig.jsxFactory ||
-      new RegExp(/\/\*\*[\s\*]*@jsx\s/g).test(code),
+      new RegExp(/\/\*\*[\s\*]*(@jsx)|(@jsxImportSource)\s/g).test(code),
   );
 };
 
@@ -54,6 +54,10 @@ export const typescript: LanguageSpecs = {
         const { javascript } = await import('@codemirror/lang-javascript');
         return javascript({ typescript: true });
       },
+    },
+    compilerOptions: {
+      checkJs: true,
+      strictNullChecks: true,
     },
   },
 };

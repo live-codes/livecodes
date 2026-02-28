@@ -23,4 +23,9 @@ export const sucrase: LanguageSpecs = {
   extensions: ['sucrase'],
   editor: 'script',
   editorLanguage: 'typescript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
+  },
 };

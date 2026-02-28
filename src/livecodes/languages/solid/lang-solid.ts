@@ -20,4 +20,12 @@ export const solid: LanguageSpecs = {
   extensions: ['solid.jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 1, // monaco.languages.typescript.JsxEmit.Preserve,
+      jsxImportSource: 'solid-js',
+      jsxFactory: 'JSX',
+      jsxFragmentFactory: 'Fragment',
+    },
+  },
 };

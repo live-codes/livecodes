@@ -36,6 +36,15 @@ export const getLanguageCompiler = (alias: string = ''): Compiler | undefined =>
   return compiler;
 };
 
+export const hasJsx = (alias: string = '') => {
+  const languageSpecs = getLanguageSpecs(alias);
+  const compilerOptions = languageSpecs?.editorSupport?.compilerOptions;
+  if (!compilerOptions) return false;
+  return Boolean(
+    compilerOptions.jsx || compilerOptions.jsxImportSource || compilerOptions.jsxFactory,
+  );
+};
+
 export const mapLanguage = (
   language: Language,
   editor?: Exclude<Config['editor'], 'auto' | undefined>,

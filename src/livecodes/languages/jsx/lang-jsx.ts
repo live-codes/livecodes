@@ -21,5 +21,8 @@ export const jsx: LanguageSpecs = {
         return javascript({ jsx: true });
       },
     },
+    compilerOptions: {
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
   },
 };

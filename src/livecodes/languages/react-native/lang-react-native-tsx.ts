@@ -13,4 +13,11 @@ export const reactNativeTsx: LanguageSpecs = {
   extensions: ['react-native.tsx'],
   editor: 'script',
   editorLanguage: 'typescript',
+  editorSupport: {
+    compilerOptions: {
+      checkJs: true,
+      strictNullChecks: true,
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
+  },
 };

@@ -33,4 +33,9 @@ export const reactNative: LanguageSpecs = {
   extensions: ['react-native.jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
+  },
 };

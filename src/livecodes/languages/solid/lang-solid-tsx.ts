@@ -12,4 +12,14 @@ export const solidTsx: LanguageSpecs = {
   extensions: ['solid.tsx'],
   editor: 'script',
   editorLanguage: 'typescript',
+  editorSupport: {
+    compilerOptions: {
+      checkJs: true,
+      strictNullChecks: true,
+      jsx: 1, // monaco.languages.typescript.JsxEmit.Preserve,
+      jsxImportSource: 'solid-js',
+      jsxFactory: 'JSX',
+      jsxFragmentFactory: 'Fragment',
+    },
+  },
 };

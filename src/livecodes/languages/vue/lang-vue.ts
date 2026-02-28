@@ -38,6 +38,11 @@ export const vue: LanguageSpecs = {
         (await import(codeMirrorBaseUrl + 'codemirror-lang-vue.js')).vue(),
     },
     codejar: { language: 'html' },
+    compilerOptions: {
+      jsx: 1, // monaco.languages.typescript.JsxEmit.Preserve,
+      jsxFactory: 'h',
+      jsxFragmentFactory: 'Fragment',
+    },
   },
 };
 

@@ -41,7 +41,6 @@ import {
   upgradeAndValidate,
 } from './config';
 import { createCustomEditors, createEditor, getFontFamily } from './editor';
-import { hasJsx } from './editor/ts-compiler-options';
 import { createEventsManager, createPub } from './events';
 import { customEvents } from './events/custom-events';
 import { exportJSON } from './export/export-json';
@@ -80,6 +79,7 @@ import {
   getLanguageExtension,
   getLanguageSpecs,
   getLanguageTitle,
+  hasJsx,
   languageIsEnabled,
   languages,
   mapLanguage,
@@ -389,7 +389,7 @@ const loadModuleTypes = async (
       ...config.types,
       ...config.customSettings.types,
     };
-    const reactImport = hasJsx.includes(scriptLanguage) ? `import React from 'react';\n` : '';
+    const reactImport = hasJsx(scriptLanguage) ? `import React from 'react';\n` : '';
     const libs = await typeLoader.load(
       reactImport + getConfig().script.content + '\n' + getConfig().markup.content,
       configTypes,
