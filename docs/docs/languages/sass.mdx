@@ -1,3 +1,165 @@
 # Sass
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[Sass](https://sass-lang.com/) (Syntactically Awesome Style Sheets) is a CSS preprocessor that uses the indented syntax (no curly braces or semicolons). It adds features like variables, nesting, mixins, and functions to CSS.
+
+:::info
+
+Sass has two syntaxes. The **indented syntax** (`.sass`) is documented here. For the **SCSS syntax** (`.scss`), which uses curly braces and semicolons like CSS, see [SCSS](./scss.mdx).
+
+:::
+
+## Demo
+
+export const sassConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Hello, Sass!</h1>
+  <p>This is styled with <strong>Sass</strong> indented syntax.</p>
+  <ul class="features">
+    <li>Variables</li>
+    <li>Nesting</li>
+    <li>Mixins</li>
+  </ul>
+</div>
+`,
+  },
+  style: {
+    language: 'sass',
+    content: `$primary: #3182ce
+$bg: #f0f4f8
+$radius: 8px
+
+=flex-center
+  display: flex
+  gap: 1em
+
+.container
+  font-family: sans-serif
+  max-width: 600px
+  margin: 2em auto
+  padding: 1.5em
+  border-radius: $radius
+  background: $bg
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+
+  h1
+    color: #2d3748
+
+  p
+    color: #4a5568
+    line-height: 1.6
+
+.features
+  +flex-center
+  list-style: none
+  padding: 0
+
+  li
+    background: $primary
+    color: white
+    padding: 0.5em 1em
+    border-radius: $radius
+`,
+  },
+};
+
+<LiveCodes config={sassConfig} />
+
+## Usage
+
+Sass code added to the [style editor](../features/projects.mdx#style-editor) is compiled to CSS before being added to the [result page](../features/result.mdx).
+
+Sass uses the **indented syntax**, which relies on indentation instead of curly braces and newlines instead of semicolons.
+
+For more details about CSS support in LiveCodes, including CSS processors, style imports, CSS modules, and CSS frameworks, see the [CSS feature documentation](../features/css.mdx).
+
+## Loading External Styles
+
+Sass supports loading external stylesheets and modules using `@use`, `@import`, and `meta.load-css()`. [Bare module](../features/module-resolution.mdx#bare-module-imports) specifiers are resolved to full CDN URLs.
+
+### Using `@use`
+
+You can load npm packages with `@use`:
+
+```sass
+@use "bootstrap/scss/bootstrap" as *
+```
+
+### Using `@import`
+
+You can import external modules and use their mixins:
+
+```sass
+@import 'sass-utils'
+
+.center
+  @include block--center
+  width: fit-content
+```
+
+### Using `meta.load-css()`
+
+You can dynamically load stylesheets from URLs using the built-in `sass:meta` module:
+
+```sass
+@use "sass:meta"
+
+@include meta.load-css("https://raw.githubusercontent.com/live-codes/livecodes/refs/heads/develop/src/livecodes/styles/app.scss")
+```
+
+:::tip
+
+For more information about loading and importing styles, see the [Style Imports](../features/css.mdx#style-imports) documentation.
+
+:::
+
+## Language Info
+
+### Name
+
+`sass`
+
+### Extensions
+
+`.sass`
+
+### Editor
+
+`style`
+
+## Compiler
+
+[Sass](https://sass-lang.com/) is compiled using the official [Dart Sass](https://sass-lang.com/dart-sass/) compiler (running in the browser).
+
+### Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `sass` are passed as a JSON object to the Sass compiler during compile. Please check the [Sass JavaScript API documentation](https://sass-lang.com/documentation/js-api/interfaces/stringoptions/) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "sass": {
+    "style": "compressed"
+  }
+}
+```
+
+## Code Formatting
+
+Code formatting is not supported for the Sass indented syntax. 
+[Prettier](https://prettier.io/) supports SCSS (`.scss`) but not the indented `.sass` syntax.
+
+## Links
+
+- [Sass Official Website](https://sass-lang.com/)
+- [Sass Documentation](https://sass-lang.com/documentation/)
+- [Sass Indented Syntax](https://sass-lang.com/documentation/syntax/#the-indented-syntax)
+- [SCSS in LiveCodes](./scss.mdx)
+- [CSS feature documentation in LiveCodes](../features/css.mdx)
