@@ -1,3 +1,4 @@
+import { codemirrorImports } from '../../editor/codemirror/utils';
 import type { Config, LanguageSpecs } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 import { typescriptUrl } from '../../vendors';
@@ -51,9 +52,7 @@ export const typescript: LanguageSpecs = {
   editorSupport: {
     codemirror: {
       languageSupport: async () => {
-        // @ts-ignore
-        // eslint-disable-next-line import/no-unresolved
-        const { javascript } = await import('@codemirror/lang-javascript');
+        const { javascript } = await import(codemirrorImports.javascript);
         return javascript({ typescript: true });
       },
     },

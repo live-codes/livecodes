@@ -1,3 +1,4 @@
+import { codemirrorImports } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
 import { parserPlugins } from '../prettier';
 
@@ -17,9 +18,7 @@ export const tsx: LanguageSpecs = {
   editorSupport: {
     codemirror: {
       languageSupport: async () => {
-        // @ts-ignore
-        // eslint-disable-next-line import/no-unresolved
-        const { javascript } = await import('@codemirror/lang-javascript');
+        const { javascript } = await import(codemirrorImports.javascript);
         return javascript({ jsx: true, typescript: true });
       },
     },

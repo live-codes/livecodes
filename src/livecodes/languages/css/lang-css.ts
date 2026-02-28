@@ -1,3 +1,4 @@
+import { codemirrorImports } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
 import { parserPlugins } from '../prettier';
 
@@ -19,9 +20,7 @@ export const css: LanguageSpecs = {
   editorSupport: {
     codemirror: {
       languageSupport: async () => {
-        // @ts-ignore
-        // eslint-disable-next-line import/no-unresolved
-        const { css } = await import('@codemirror/lang-css');
+        const { css } = await import(codemirrorImports.css);
         return css();
       },
     },
