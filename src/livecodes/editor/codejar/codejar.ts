@@ -38,9 +38,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   let { value, language } = options;
   let currentPosition: EditorPosition = { lineNumber: 1 };
-  const mapLanguage = (lang: Language) =>
-    options.mapLanguage?.(lang, 'codejar') || ((lang: Language) => lang);
-  let mappedLanguage = language === 'wat' ? 'wasm' : mapLanguage(language);
+  const mapLanguage = (lang: Language) => options.mapLanguage?.(lang, 'codejar');
+  let mappedLanguage = mapLanguage(language);
   let editorOptions: ReturnType<typeof convertOptions>;
 
   const preElement: HTMLElement = document.createElement('pre');

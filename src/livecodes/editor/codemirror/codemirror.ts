@@ -72,7 +72,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getLanguageSupport = async (lang: Language): Promise<LanguageSupport> => {
     const langSupport = getLanguageSpecs(lang)?.editorSupport?.codemirror?.languageSupport;
     if (!langSupport) {
-      return editorLanguages[language]?.() || editorLanguages.html?.() || [];
+      return editorLanguages[lang]?.() || editorLanguages.html?.() || [];
     }
     const loadLanguage: () => Promise<LanguageSupport> =
       typeof langSupport === 'string'

@@ -51,6 +51,6 @@ export const wat: LanguageSpecs = {
       languageSupport: async () =>
         (await import(codeMirrorBaseUrl + 'codemirror-lang-wast.js')).wast(),
     },
-    codejar: { language: 'wast' },
+    codejar: { language: 'wasm' },
   },
 };

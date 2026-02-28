@@ -12,7 +12,7 @@ export const hasCustomJsxRuntime = (code: string, config: Config) => {
   return Boolean(
     customTSConfig.jsx ||
       customTSConfig.jsxFactory ||
-      new RegExp(/\/\*\*[\s\*]*(@jsx)|(@jsxImportSource)\s/g).test(code),
+      new RegExp(/\/\*\*[\s\*]*((@jsx)|(@jsxImportSource))\s/g).test(code),
   );
 };
 
