@@ -6,9 +6,11 @@ import { getLanguageCustomSettings } from '../utils';
 export const react: LanguageSpecs = {
   name: 'react',
   title: 'React',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     dependencies: ['babel'],

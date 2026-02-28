@@ -14,9 +14,11 @@ export const vue: LanguageSpecs = {
   name: 'vue',
   title: 'Vue',
   longTitle: 'Vue SFC',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: compilerUrl,

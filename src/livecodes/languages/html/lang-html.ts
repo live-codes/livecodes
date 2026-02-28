@@ -5,9 +5,11 @@ export const html: LanguageSpecs = {
   name: 'html',
   title: 'HTML',
   info: false,
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     factory: () => async (code) => code,

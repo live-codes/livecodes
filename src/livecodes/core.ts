@@ -791,7 +791,7 @@ const configureEditorTools = (language: Language) => {
   UI.getEditorToolbar().classList.remove('hidden');
 
   const langSpecs = getLanguageSpecs(language);
-  if (langSpecs?.formatter || langSpecs?.parser) {
+  if (langSpecs?.formatter) {
     UI.getFormatButton().classList.remove('disabled');
   } else {
     UI.getFormatButton().classList.add('disabled');

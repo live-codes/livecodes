@@ -6,9 +6,11 @@ import { parserPlugins } from '../prettier';
 export const csharpWasm: LanguageSpecs = {
   name: 'csharp-wasm',
   title: 'C# (Wasm)',
-  parser: {
-    name: 'java',
-    pluginUrls: [parserPlugins.java],
+  formatter: {
+    prettier: {
+      name: 'java',
+      pluginUrls: [parserPlugins.java],
+    },
   },
   compiler: {
     factory: () => async (code) => code,

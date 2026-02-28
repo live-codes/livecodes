@@ -6,9 +6,11 @@ import { parserPlugins } from '../prettier';
 export const sucrase: LanguageSpecs = {
   name: 'sucrase',
   title: 'Sucrase',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     url: vendorsBaseUrl + 'sucrase/sucrase.js',

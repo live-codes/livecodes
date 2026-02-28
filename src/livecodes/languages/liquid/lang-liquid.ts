@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const liquid: LanguageSpecs = {
   name: 'liquid',
   title: 'Liquid',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: liquidJsUrl,

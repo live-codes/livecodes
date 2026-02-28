@@ -8,9 +8,11 @@ export const pug: LanguageSpecs = {
 
   // disable formatter, till @prettier/plugin-pug supports prettier v3
   // (https://github.com/prettier/plugin-pug/pull/411)
-  parser: {
-    name: 'pug',
-    pluginUrls: [parserPlugins.pug],
+  formatter: {
+    prettier: {
+      name: 'pug',
+      pluginUrls: [parserPlugins.pug],
+    },
   },
 
   compiler: {

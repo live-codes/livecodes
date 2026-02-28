@@ -6,9 +6,11 @@ import { parserPlugins } from '../prettier';
 export const markdown: LanguageSpecs = {
   name: 'markdown',
   title: 'Markdown',
-  parser: {
-    name: 'markdown',
-    pluginUrls: [parserPlugins.markdown, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'markdown',
+      pluginUrls: [parserPlugins.markdown, parserPlugins.html],
+    },
   },
   compiler: {
     url: markedUrl,

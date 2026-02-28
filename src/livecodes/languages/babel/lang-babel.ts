@@ -6,9 +6,11 @@ import { parserPlugins } from '../prettier';
 export const babel: LanguageSpecs = {
   name: 'babel',
   title: 'Babel',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     url: babelUrl,

@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const java: LanguageSpecs = {
   name: 'java',
   title: 'Java',
-  parser: {
-    name: 'java',
-    pluginUrls: [parserPlugins.java],
+  formatter: {
+    prettier: {
+      name: 'java',
+      pluginUrls: [parserPlugins.java],
+    },
   },
   compiler: {
     factory: () => async (code) => code,

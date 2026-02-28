@@ -1225,7 +1225,6 @@ export interface LanguageSpecs {
   title: string;
   longTitle?: string;
   info?: boolean;
-  parser?: Parser;
   formatter?: LanguageFormatter;
   compiler: Compiler | Language;
   extensions: Language[];
@@ -1284,7 +1283,7 @@ export type ParserName =
   | 'java'
   | 'minizinc';
 
-export interface Parser {
+export interface PrettierParser {
   name: ParserName;
   plugins?: any[];
   pluginUrls: string[];
@@ -1295,9 +1294,11 @@ export type FormatFn = (
   formatterConfig?: Partial<FormatterConfig>,
 ) => Promise<{ formatted: string; cursorOffset: number }>;
 
-export interface LanguageFormatter {
-  factory: (baseUrl: string, language: Language) => FormatFn;
-}
+export type LanguageFormatter =
+  | {
+      factory: (baseUrl: string, language: Language) => FormatFn;
+    }
+  | { prettier: PrettierParser };
 
 export type CssPresetId = '' | 'normalize.css' | 'reset-css';
 

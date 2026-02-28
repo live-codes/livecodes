@@ -26,9 +26,11 @@ export const typescript: LanguageSpecs = {
   name: 'typescript',
   title: 'TS',
   longTitle: 'TypeScript',
-  parser: {
-    name: 'babel-ts',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel-ts',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     url: typescriptUrl,

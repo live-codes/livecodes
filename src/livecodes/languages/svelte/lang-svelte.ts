@@ -7,9 +7,11 @@ import { vue } from '../vue/lang-vue';
 export const svelte: LanguageSpecs = {
   name: 'svelte',
   title: 'Svelte',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html, parserPlugins.babel],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html, parserPlugins.babel],
+    },
   },
   compiler: {
     url: svelteBaseUrl + 'compiler/index.js',

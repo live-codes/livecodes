@@ -6,9 +6,11 @@ import { parserPlugins } from '../prettier';
 export const stencil: LanguageSpecs = {
   name: 'stencil',
   title: 'Stencil',
-  parser: {
-    name: 'babel-ts',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel-ts',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     url: stencilUrl,

@@ -7,9 +7,11 @@ import { parserPlugins } from '../prettier';
 export const less: LanguageSpecs = {
   name: 'less',
   title: 'Less',
-  parser: {
-    name: 'less',
-    pluginUrls: [parserPlugins.postcss],
+  formatter: {
+    prettier: {
+      name: 'less',
+      pluginUrls: [parserPlugins.postcss],
+    },
   },
   compiler: {
     url: vendorsBaseUrl + 'less/less.js',

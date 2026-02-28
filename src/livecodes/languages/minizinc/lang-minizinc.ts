@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const minizinc: LanguageSpecs = {
   name: 'minizinc',
   title: 'MiniZinc',
-  parser: {
-    name: 'minizinc',
-    pluginUrls: [parserPlugins.minizinc],
+  formatter: {
+    prettier: {
+      name: 'minizinc',
+      pluginUrls: [parserPlugins.minizinc],
+    },
   },
   compiler: {
     factory: () => async (code) => code,

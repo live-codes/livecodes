@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const solid: LanguageSpecs = {
   name: 'solid',
   title: 'Solid',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     dependencies: ['babel'],

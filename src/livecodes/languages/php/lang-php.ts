@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const php: LanguageSpecs = {
   name: 'php',
   title: 'PHP',
-  parser: {
-    name: 'php',
-    pluginUrls: [parserPlugins.php],
+  formatter: {
+    prettier: {
+      name: 'php',
+      pluginUrls: [parserPlugins.php],
+    },
   },
   compiler: {
     factory: () => async (code) => {

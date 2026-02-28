@@ -1,6 +1,6 @@
 import { defaultConfig } from '../config/default-config';
 import { languages, parserPlugins, prettierUrl } from '../languages';
-import type { FormatFn, FormatterConfig, Language, Parser } from '../models';
+import type { FormatFn, FormatterConfig, Language, PrettierParser } from '../models';
 import type { FormatterMessage, FormatterMessageEvent } from './models';
 
 const worker: Worker = self as any;
@@ -9,7 +9,7 @@ declare const prettierPlugins: { [key: string]: { parsers: any } };
 declare const importScripts: (...args: string[]) => void;
 
 let baseUrl: string;
-const parsers: { [key: string]: Parser } = {};
+const parsers: { [key: string]: PrettierParser } = {};
 const plugins: { [key: string]: any } = {};
 const formatters: { [key: string]: FormatFn } = {};
 
@@ -17,9 +17,11 @@ const loadPrettier = () => {
   importScripts(prettierUrl);
 };
 
-const getParser = (language: Language): Parser | undefined => {
-  const parser = languages.find((lang) => lang.name === language)?.parser;
-  if (!parser) return undefined;
+const getParser = (language: Language): PrettierParser | undefined => {
+  const formatter = languages.find((lang) => lang.name === language)?.formatter;
+  if (!formatter || !('prettier' in formatter)) return;
+  const parser = formatter.prettier;
+  if (!parser) return;
   if (parser.pluginUrls.find((url) => url.includes('babel'))) {
     return {
       ...parser,
@@ -46,7 +48,7 @@ const load = (languages: Language[]) => {
   }
 };
 
-function loadParser(language: Language): Parser | undefined {
+function loadParser(language: Language): PrettierParser | undefined {
   if (!(self as any).prettier) {
     loadPrettier();
   }
@@ -93,7 +95,7 @@ const loadFormatter = (language: Language): FormatFn | undefined => {
   }
 
   const formatter = getFormatter(language);
-  if (!formatter) return;
+  if (!formatter || !('factory' in formatter)) return;
 
   formatters[language] = formatter.factory(baseUrl, language);
   return formatters[language];

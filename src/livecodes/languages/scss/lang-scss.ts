@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const scss: LanguageSpecs = {
   name: 'scss',
   title: 'SCSS',
-  parser: {
-    name: 'scss',
-    pluginUrls: [parserPlugins.postcss],
+  formatter: {
+    prettier: {
+      name: 'scss',
+      pluginUrls: [parserPlugins.postcss],
+    },
   },
   compiler: {
     url: vendorsBaseUrl + 'sass/sass.js',

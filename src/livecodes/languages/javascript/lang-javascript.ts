@@ -5,9 +5,11 @@ export const javascript: LanguageSpecs = {
   name: 'javascript',
   title: 'JS',
   longTitle: 'JavaScript',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     factory: () => async (code) => code,

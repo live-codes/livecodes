@@ -10,9 +10,11 @@ export const reactNative: LanguageSpecs = {
   name: 'react-native',
   title: 'RN',
   longTitle: 'React Native',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     dependencies: ['typescript'],
