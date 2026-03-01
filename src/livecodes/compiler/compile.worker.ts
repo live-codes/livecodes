@@ -283,12 +283,11 @@ const initCodemirrorTS = doOnce(async () => {
   const { createWorker } = worker.CodemirrorTsWorker;
   const { createDefaultMapFromCDN, createSystem, createVirtualTypeScriptEnvironment } =
     worker.typescriptVFS;
-  tsvfsMap = await createDefaultMapFromCDN(
-    getCompilerOptions(language),
-    worker.ts?.version,
-    false,
-    worker.ts,
-  );
+  const compilerOptions = {
+    ...getCompilerOptions(),
+    ...((getLanguageSpecs(language)?.editorSupport?.compilerOptions || {}) as TS.CompilerOptions),
+  };
+  tsvfsMap = await createDefaultMapFromCDN(compilerOptions, worker.ts?.version, false, worker.ts);
   const system = createSystem(tsvfsMap);
   const createTypeScriptEnvironment = (lang: Language) => {
     const compilerOpts = {

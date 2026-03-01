@@ -53,13 +53,19 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editorTheme,
     isEmbed,
     getLanguageExtension,
-    mapLanguage,
     getFormatterConfig,
     getFontFamily,
   } = options;
   let { editorId, language } = options;
 
   if (!container) throw new Error('editor container not found');
+
+  const mapLanguage = (lang: Language | undefined) => {
+    if (!lang) return 'html';
+    if (editorId.endsWith('.ts')) return 'typescript';
+    if (editorId.endsWith('.js')) return 'javascript';
+    return options.mapLanguage?.(lang, 'monaco') || lang;
+  };
 
   const loadMonaco = () => import(monacoBaseUrl + 'monaco.js');
 
@@ -201,7 +207,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const configureTypeScriptFeatures = () => {
     const JSLangs = ['javascript', 'jsx', 'react', 'flow', 'solid', 'react-native'];
     const isJSLang = JSLangs.includes(language);
-    if (!['javascript', 'typescript'].includes(mapLanguage(language, 'monaco'))) {
+    if (!['javascript', 'typescript'].includes(mapLanguage(language))) {
       return;
     }
 
@@ -253,7 +259,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getOrCreateModel = (value: string, lang: string | undefined, uri: Monaco.Uri) => {
     const model = monaco.editor.getModel(uri);
     if (model) {
-      if (model.getLanguageId() === mapLanguage(lang as Language, 'monaco')) {
+      if (model.getLanguageId() === mapLanguage(lang as Language)) {
         model.setValue(value);
         return model;
       }
@@ -273,20 +279,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const random = getRandomString();
     const ext = getLanguageExtension(language);
     const extension =
-      mapLanguage(language, 'monaco') === 'typescript' &&
-      !ext?.endsWith('ts') &&
-      !ext?.endsWith('tsx')
+      mapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
         ? ext + '.tsx'
         : ext;
     modelUri = editorId.includes('.')
       ? `file:///${editorId}`
       : `file:///${editorId}.${random}.${extension}`;
     const oldModel = editor.getModel();
-    const model = getOrCreateModel(
-      value || '',
-      mapLanguage(language, 'monaco'),
-      monaco.Uri.parse(modelUri),
-    );
+    const model = getOrCreateModel(value || '', mapLanguage(language), monaco.Uri.parse(modelUri));
     editor.setModel(model);
     setTimeout(() => oldModel?.dispose(), 1000); // avoid race https://github.com/microsoft/monaco-editor/issues/1715
     updateListeners();
@@ -295,9 +295,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const editor = monaco.editor.create(container, {
     ...editorOptions,
-    language: mapLanguage(language, 'monaco'),
+    language: mapLanguage(language),
   });
-  setModel(editor, options.value, mapLanguage(language, 'monaco'));
+  setModel(editor, options.value, mapLanguage(language));
 
   if (editorId.includes('.')) {
     editors.push(editor);
@@ -507,7 +507,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const registerFormatter = (formatFn: FormatFn | undefined) => {
     if (!formatFn) return;
-    monaco.languages.registerDocumentFormattingEditProvider(mapLanguage(language, 'monaco'), {
+    monaco.languages.registerDocumentFormattingEditProvider(mapLanguage(language), {
       provideDocumentFormattingEdits: async (model) => {
         if (!model || model.isDisposed()) return [];
         const val = model.getValue() || '';
@@ -684,8 +684,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const model = editor.getModel();
     if (
       !model ||
-      !addCloseLanguages.includes(mapLanguage(language, 'monaco')) ||
-      (mapLanguage(language, 'monaco') === 'typescript' && !hasJsx(language)) || // avoid autocompleting TS generics
+      !addCloseLanguages.includes(mapLanguage(language)) ||
+      (mapLanguage(language) === 'typescript' && !hasJsx(language)) || // avoid autocompleting TS generics
       editorOptions.autoClosingBrackets === 'never'
     ) {
       return;
