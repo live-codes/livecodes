@@ -1,6 +1,7 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
-import { coffeeScriptUrl } from '../../vendors';
+import { codeMirrorBaseUrl, coffeeScriptUrl } from '../../vendors';
 
 export const coffeescript: LanguageSpecs = {
   name: 'coffeescript',
@@ -18,5 +19,13 @@ export const coffeescript: LanguageSpecs = {
   },
   extensions: ['coffee'],
   editor: 'script',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy(
+          (await import(codeMirrorBaseUrl + 'codemirror-lang-coffeescript.js')).coffeescript,
+        ),
+    },
+  },
   multiFileSupport: true,
 };

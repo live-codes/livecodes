@@ -9,9 +9,11 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { baseUrl
 export const diagrams: LanguageSpecs = {
   name: 'diagrams',
   title: 'Diagrams',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     factory: () => async (code) => code || '',

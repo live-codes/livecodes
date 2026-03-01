@@ -6,9 +6,11 @@ export const artTemplate: LanguageSpecs = {
   name: 'art-template',
   title: 'art',
   longTitle: 'art-template',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: artTemplateUrl,

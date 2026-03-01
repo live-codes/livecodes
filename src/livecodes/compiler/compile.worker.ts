@@ -1,6 +1,12 @@
 import type TS from 'typescript';
 import { getCompilerOptions } from '../editor/ts-compiler-options';
-import { getFileExtension, getLanguageByAlias, languages, processors } from '../languages';
+import {
+  getFileExtension,
+  getLanguageByAlias,
+  getLanguageSpecs,
+  languages,
+  processors,
+} from '../languages';
 import type {
   CompileOptions,
   CompileResult,
@@ -285,7 +291,10 @@ const initCodemirrorTS = doOnce(async () => {
   );
   const system = createSystem(tsvfsMap);
   const createTypeScriptEnvironment = (lang: Language) => {
-    const compilerOpts = getCompilerOptions(lang);
+    const compilerOpts = {
+      ...getCompilerOptions(),
+      ...((getLanguageSpecs(lang)?.editorSupport?.compilerOptions || {}) as TS.CompilerOptions),
+    };
     return createVirtualTypeScriptEnvironment(system, [], worker.ts, compilerOpts);
   };
   let env = createTypeScriptEnvironment(language);

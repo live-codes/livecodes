@@ -1,4 +1,4 @@
-import type { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../../models';
+import type { CompilerFunction, FormatFn, Language, LanguageSpecs } from '../../models';
 
 declare const importScripts: (...args: string[]) => void;
 
@@ -7,7 +7,7 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { baseUrl
   return rescriptCompiler(code, { baseUrl, language });
 };
 
-export const formatterFactory: LanguageFormatter['factory'] = (baseUrl, language) => {
+export const formatterFactory = (baseUrl: string, language: Language): FormatFn => {
   importScripts(baseUrl + '{{hash:lang-rescript-formatter.js}}');
   return (self as any).createRescriptFormatter(baseUrl, language);
 };
@@ -26,5 +26,6 @@ export const rescript: LanguageSpecs = {
   extensions: ['res', 'resi'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: { monaco: { language: 'csharp' } },
   multiFileSupport: true,
 };

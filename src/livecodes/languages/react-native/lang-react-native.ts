@@ -10,9 +10,11 @@ export const reactNative: LanguageSpecs = {
   name: 'react-native',
   title: 'RN',
   longTitle: 'React Native',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     dependencies: ['typescript'],
@@ -33,5 +35,10 @@ export const reactNative: LanguageSpecs = {
   extensions: ['react-native.jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
+  },
   multiFileSupport: true,
 };

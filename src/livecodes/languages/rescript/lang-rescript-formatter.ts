@@ -1,10 +1,10 @@
-import type { LanguageFormatter } from '../../models';
+import type { FormatFn, Language } from '../../models';
 import { getAbsoluteUrl } from '../../utils';
 import { rescriptCdnBaseUrl } from '../../vendors';
 
 declare const importScripts: any;
 
-const createRescriptFormatter: LanguageFormatter['factory'] = (baseUrl, language) => {
+const createRescriptFormatter = (baseUrl: string, language: Language): FormatFn => {
   if (!(self as any).rescript_compiler) {
     importScripts(getAbsoluteUrl(rescriptCdnBaseUrl + 'compiler.js', baseUrl));
   }

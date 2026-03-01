@@ -8,9 +8,11 @@ export const assemblyscript: LanguageSpecs = {
   name: 'assemblyscript',
   title: 'AS',
   longTitle: 'AssemblyScript',
-  parser: {
-    name: 'babel-ts',
-    pluginUrls: [parserPlugins.babel],
+  formatter: {
+    prettier: {
+      name: 'babel-ts',
+      pluginUrls: [parserPlugins.babel],
+    },
   },
   compiler: {
     url: assemblyscriptUrl,

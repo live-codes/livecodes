@@ -6,9 +6,11 @@ import { parserPlugins } from '../prettier';
 export const stencil: LanguageSpecs = {
   name: 'stencil',
   title: 'Stencil',
-  parser: {
-    name: 'babel-ts',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel-ts',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     url: stencilUrl,
@@ -34,5 +36,12 @@ export const stencil: LanguageSpecs = {
   extensions: ['stencil.tsx'],
   editor: 'script',
   editorLanguage: 'typescript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 1, // monaco.languages.typescript.JsxEmit.Preserve,
+      jsxFactory: 'h',
+      jsxFragmentFactory: 'Fragment',
+    },
+  },
   multiFileSupport: true,
 };

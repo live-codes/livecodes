@@ -2,6 +2,7 @@ import type * as Monaco from 'monaco-editor';
 
 import { getEditorModeNode, getEditorTab } from '../../UI/selectors';
 import { getImports } from '../../compiler/import-map';
+import { getLanguageSpecs, hasJsx } from '../../languages';
 import { getFileLanguage } from '../../languages/utils';
 import type {
   APIError,
@@ -29,8 +30,7 @@ import {
   vendorsBaseUrl,
 } from '../../vendors';
 import { getEditorTheme } from '../themes';
-import { getCompilerOptions, hasJsx } from '../ts-compiler-options';
-import { type CustomLanguageDefinition, customLanguages } from './monaco-languages';
+import { getCompilerOptions } from '../ts-compiler-options';
 import { customThemes, monacoThemes } from './monaco-themes';
 import { registerTwoSlash } from './register-twoslash';
 
@@ -38,7 +38,8 @@ type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
 let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
-export let monaco: typeof Monaco;
+let monaco: typeof Monaco;
+const loadedLanguages = new Set<Language>();
 const loadedThemes = new Set<string>();
 // let codeiumProvider: { dispose: () => void } | undefined;
 let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
@@ -78,27 +79,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   });
 
   const baseOptions = convertOptions(options);
-
-  const monacoMapLanguage = (language: Language | undefined): Language =>
-    !language
-      ? 'html'
-      : language === 'livescript'
-        ? 'coffeescript'
-        : ['rescript', 'reason', 'ocaml'].includes(language)
-          ? 'csharp'
-          : language.startsWith('vue')
-            ? 'vue'
-            : editorId.endsWith('.ts') // e.g. counter.svelte.ts
-              ? 'typescript'
-              : editorId.endsWith('.js')
-                ? 'javascript'
-                : language.startsWith('svelte')
-                  ? 'svelte'
-                  : editorId.endsWith('.json5') || editorId.endsWith('.jsonc')
-                    ? 'json5'
-                    : mapLanguage(language) === 'text'
-                      ? 'plaintext'
-                      : mapLanguage(language);
 
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;
@@ -221,14 +201,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const configureTypeScriptFeatures = () => {
     const JSLangs = ['javascript', 'jsx', 'react', 'flow', 'solid', 'react-native'];
     const isJSLang = JSLangs.includes(language);
-    if (
-      // !['script', 'tests', 'editorSettings'].includes(editorId) ||
-      !['javascript', 'typescript'].includes(monacoMapLanguage(language))
-    ) {
+    if (!['javascript', 'typescript'].includes(mapLanguage(language, 'monaco'))) {
       return;
     }
 
-    const compilerOptions = getCompilerOptions(language);
+    const compilerOptions = {
+      ...getCompilerOptions(),
+      ...((getLanguageSpecs(language)?.editorSupport?.compilerOptions ||
+        {}) as Monaco.languages.typescript.CompilerOptions),
+    };
 
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions(compilerOptions);
@@ -254,27 +235,16 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const loadMonacoLanguage = async (lang: Language) => {
-    lang = monacoMapLanguage(lang);
-    const langUrl = customLanguages[lang];
-    if (langUrl && !monaco.languages.getLanguages().find((l) => l.id === lang)) {
-      monaco.languages.register({ id: lang });
-      const mod: CustomLanguageDefinition =
-        typeof langUrl === 'string' ? (await import(langUrl)).default : langUrl;
-      if (mod.config) {
-        monaco.languages.setLanguageConfiguration(lang, mod.config);
-      }
-      if (mod.tokens) {
-        monaco.languages.setMonarchTokensProvider(lang, mod.tokens);
-      }
-      if (mod.completions) {
-        monaco.languages.registerCompletionItemProvider(lang, mod.completions);
-      }
-      if (mod.definitions) {
-        monaco.languages.registerDefinitionProvider(lang, mod.definitions);
-      }
-      if (mod.init) {
-        mod.init(monaco);
-      }
+    const langSupport = getLanguageSpecs(lang)?.editorSupport?.monaco?.languageSupport;
+    if (langSupport && !loadedLanguages.has(lang)) {
+      loadedLanguages.add(lang);
+      const loadLanguage =
+        typeof langSupport === 'string'
+          ? (await import(langSupport)).default
+          : typeof langSupport === 'function'
+            ? langSupport
+            : () => undefined;
+      await loadLanguage(monaco, () => editor);
     }
   };
 
@@ -283,7 +253,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getOrCreateModel = (value: string, lang: string | undefined, uri: Monaco.Uri) => {
     const model = monaco.editor.getModel(uri);
     if (model) {
-      if (model.getLanguageId() === monacoMapLanguage(lang as Language)) {
+      if (model.getLanguageId() === mapLanguage(lang as Language, 'monaco')) {
         model.setValue(value);
         return model;
       }
@@ -291,6 +261,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
     return monaco.editor.createModel(value, lang, uri);
   };
+
+  await loadMonacoLanguage(language);
 
   let modelUri = '';
   const setModel = (
@@ -301,7 +273,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const random = getRandomString();
     const ext = getLanguageExtension(language);
     const extension =
-      monacoMapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
+      mapLanguage(language, 'monaco') === 'typescript' &&
+      !ext?.endsWith('ts') &&
+      !ext?.endsWith('tsx')
         ? ext + '.tsx'
         : ext;
     modelUri = editorId.includes('.')
@@ -310,7 +284,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const oldModel = editor.getModel();
     const model = getOrCreateModel(
       value || '',
-      monacoMapLanguage(language),
+      mapLanguage(language, 'monaco'),
       monaco.Uri.parse(modelUri),
     );
     editor.setModel(model);
@@ -321,9 +295,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const editor = monaco.editor.create(container, {
     ...editorOptions,
-    language: monacoMapLanguage(language),
+    language: mapLanguage(language, 'monaco'),
   });
-  setModel(editor, options.value, monacoMapLanguage(language));
+  setModel(editor, options.value, mapLanguage(language, 'monaco'));
 
   if (editorId.includes('.')) {
     editors.push(editor);
@@ -533,7 +507,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const registerFormatter = (formatFn: FormatFn | undefined) => {
     if (!formatFn) return;
-    monaco.languages.registerDocumentFormattingEditProvider(monacoMapLanguage(language), {
+    monaco.languages.registerDocumentFormattingEditProvider(mapLanguage(language, 'monaco'), {
       provideDocumentFormattingEdits: async (model) => {
         if (!model || model.isDisposed()) return [];
         const val = model.getValue() || '';
@@ -710,8 +684,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const model = editor.getModel();
     if (
       !model ||
-      !addCloseLanguages.includes(monacoMapLanguage(language)) ||
-      (monacoMapLanguage(language) === 'typescript' && !hasJsx.includes(language)) || // avoid autocompleting TS generics
+      !addCloseLanguages.includes(mapLanguage(language, 'monaco')) ||
+      (mapLanguage(language, 'monaco') === 'typescript' && !hasJsx(language)) || // avoid autocompleting TS generics
       editorOptions.autoClosingBrackets === 'never'
     ) {
       return;
