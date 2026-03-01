@@ -1,5 +1,6 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, vendorsBaseUrl } from '../../vendors';
 
 export const perl: LanguageSpecs = {
   name: 'perl',
@@ -14,4 +15,10 @@ export const perl: LanguageSpecs = {
   },
   extensions: ['pl', 'pm'],
   editor: 'script',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-perl.js')).perl),
+    },
+  },
 };
