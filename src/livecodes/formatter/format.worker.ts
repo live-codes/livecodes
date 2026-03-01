@@ -1,6 +1,6 @@
 import { defaultConfig } from '../config/default-config';
 import { languages, parserPlugins, prettierUrl } from '../languages';
-import type { Config, FormatFn, FormatterConfig, Language, Parser } from '../models';
+import type { Config, FormatFn, FormatterConfig, Language, PrettierParser } from '../models';
 import type { FormatterMessage, FormatterMessageEvent } from './models';
 
 const worker: Worker = self as any;
@@ -10,7 +10,7 @@ declare const importScripts: (...args: string[]) => void;
 
 let baseUrl: string;
 let initialConfig: Config;
-const parsers: { [key: string]: Parser } = {};
+const parsers: { [key: string]: PrettierParser } = {};
 const plugins: { [key: string]: any } = {};
 const formatters: { [key: string]: FormatFn } = {};
 
@@ -18,9 +18,11 @@ const loadPrettier = () => {
   importScripts(prettierUrl);
 };
 
-const getParser = (language: Language): Parser | undefined => {
-  const parser = languages.find((lang) => lang.name === language)?.parser;
-  if (!parser) return undefined;
+const getParser = (language: Language): PrettierParser | undefined => {
+  const formatter = languages.find((lang) => lang.name === language)?.formatter;
+  if (!formatter || !('prettier' in formatter)) return;
+  const parser = formatter.prettier;
+  if (!parser) return;
   if (parser.pluginUrls.find((url) => url.includes('babel'))) {
     return {
       ...parser,
@@ -47,7 +49,7 @@ const load = (languages: Language[]) => {
   }
 };
 
-async function loadParser(language: Language): Promise<Parser | undefined> {
+async function loadParser(language: Language): Promise<PrettierParser | undefined> {
   if (!(self as any).prettier) {
     loadPrettier();
   }
@@ -65,11 +67,6 @@ async function loadParser(language: Language): Promise<Parser | undefined> {
     await Promise.all(
       parser.pluginUrls.map(async (pluginUrl) => {
         if (plugins[pluginUrl]) return true;
-        if (language === 'ripple') {
-          const p = await import(pluginUrl);
-          prettierPlugins[language] = p;
-          return true;
-        }
         try {
           importScripts(pluginUrl);
           plugins[pluginUrl] = true;
@@ -101,7 +98,7 @@ const loadFormatter = async (language: Language): Promise<FormatFn | undefined> 
   }
 
   const formatter = getFormatter(language);
-  if (!formatter) return;
+  if (!formatter || !('factory' in formatter)) return;
 
   formatters[language] = await formatter.factory(baseUrl, language, initialConfig);
   return formatters[language];

@@ -1,3 +1,4 @@
+import { codemirrorImports } from '../../editor/codemirror/utils';
 import type { Config, LanguageSpecs } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 import { typescriptUrl } from '../../vendors';
@@ -11,7 +12,7 @@ export const hasCustomJsxRuntime = (code: string, config: Config) => {
   return Boolean(
     customTSConfig.jsx ||
       customTSConfig.jsxFactory ||
-      new RegExp(/\/\*\*[\s\*]*@jsx\s/g).test(code),
+      new RegExp(/\/\*\*[\s\*]*((@jsx)|(@jsxImportSource))\s/g).test(code),
   );
 };
 
@@ -26,9 +27,11 @@ export const typescript: LanguageSpecs = {
   name: 'typescript',
   title: 'TS',
   longTitle: 'TypeScript',
-  parser: {
-    name: 'babel-ts',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel-ts',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     url: typescriptUrl,
@@ -46,5 +49,17 @@ export const typescript: LanguageSpecs = {
   },
   extensions: ['ts', 'mts', 'typescript'],
   editor: 'script',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () => {
+        const { javascript } = await import(codemirrorImports.javascript);
+        return javascript({ typescript: true });
+      },
+    },
+    compilerOptions: {
+      checkJs: true,
+      strictNullChecks: true,
+    },
+  },
   multiFileSupport: true,
 };

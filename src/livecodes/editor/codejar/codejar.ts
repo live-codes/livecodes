@@ -38,18 +38,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   let { value, language, editorId } = options;
   let currentPosition: EditorPosition = { lineNumber: 1 };
-  const mapLanguage = (lang: Language | undefined) =>
-    !lang
-      ? 'html'
-      : lang === 'wat'
-        ? 'wasm'
-        : editorId.endsWith('.ts') // e.g. counter.svelte.ts
-          ? 'typescript'
-          : editorId.endsWith('.js')
-            ? 'javascript'
-            : lang === 'ripple'
-              ? 'jsx'
-              : options.mapLanguage?.(lang) || lang;
+  const mapLanguage = (lang: Language) => {
+    if (!lang) return 'html';
+    if (editorId.endsWith('.js')) return 'javascript';
+    if (editorId.endsWith('.ts')) return 'typescript';
+    return options.mapLanguage?.(lang, 'codejar') || lang;
+  };
   let mappedLanguage = mapLanguage(language);
   let editorOptions: ReturnType<typeof convertOptions>;
 

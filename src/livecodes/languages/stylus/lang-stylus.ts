@@ -1,5 +1,6 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, vendorsBaseUrl } from '../../vendors';
 
 export const stylus: LanguageSpecs = {
   name: 'stylus',
@@ -10,5 +11,11 @@ export const stylus: LanguageSpecs = {
   },
   extensions: ['styl'],
   editor: 'style',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-stylus.js')).stylus),
+    },
+  },
   multiFileSupport: true,
 };

@@ -1,14 +1,17 @@
 import type { LanguageSpecs } from '../../models';
 import { modulesService } from '../../services';
-import { svelteBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, svelteBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
+import { vue } from '../vue/lang-vue';
 
 export const svelte: LanguageSpecs = {
   name: 'svelte',
   title: 'Svelte',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html, parserPlugins.babel],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html, parserPlugins.babel],
+    },
   },
   compiler: {
     url: svelteBaseUrl + 'compiler/index.js',
@@ -45,7 +48,14 @@ export const svelte: LanguageSpecs = {
   },
   extensions: ['svelte', 'svelte.js', 'svelte.ts'],
   editor: 'script',
-  editorLanguage: 'html',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'svelte.js' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-svelte.js')).svelte(),
+    },
+    codejar: { language: 'html' },
+  },
   multiFileSupport: true,
 };
 
@@ -55,5 +65,5 @@ export const svelteApp: LanguageSpecs = {
   compiler: 'svelte',
   extensions: ['app.svelte'],
   editor: 'markup',
-  editorLanguage: 'html',
+  editorSupport: { ...vue.editorSupport, monaco: { language: 'svelte' } }, // avoid duplicate registration
 };

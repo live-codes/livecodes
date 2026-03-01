@@ -6,9 +6,11 @@ import { getLanguageCustomSettings } from '../utils';
 export const react: LanguageSpecs = {
   name: 'react',
   title: 'React',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     dependencies: ['babel'],
@@ -39,5 +41,10 @@ export const react: LanguageSpecs = {
   extensions: ['react.jsx', 'react-jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
+  },
   multiFileSupport: true,
 };

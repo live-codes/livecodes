@@ -1,4 +1,6 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
 export const r: LanguageSpecs = {
   name: 'r',
@@ -26,5 +28,12 @@ export const r: LanguageSpecs = {
   },
   extensions: ['r', 'rlang', 'rstats', 'r-wasm'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'r.js' },
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-r.js')).r),
+    },
+  },
   largeDownload: true,
 };

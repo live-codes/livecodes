@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const solid: LanguageSpecs = {
   name: 'solid',
   title: 'Solid',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     dependencies: ['babel'],
@@ -20,5 +22,13 @@ export const solid: LanguageSpecs = {
   extensions: ['solid.jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 1, // monaco.languages.typescript.JsxEmit.Preserve,
+      jsxImportSource: 'solid-js',
+      jsxFactory: 'JSX',
+      jsxFragmentFactory: 'Fragment',
+    },
+  },
   multiFileSupport: true,
 };

@@ -6,9 +6,11 @@ import { parserPlugins } from '../prettier';
 export const flow: LanguageSpecs = {
   name: 'flow',
   title: 'Flow',
-  parser: {
-    name: 'babel-flow',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel-flow',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     url: vendorsBaseUrl + 'flow-remove-types/flow-remove-types.js',
@@ -25,5 +27,10 @@ export const flow: LanguageSpecs = {
   extensions: ['flow'],
   editor: 'script',
   editorLanguage: 'typescript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
+  },
   multiFileSupport: true,
 };

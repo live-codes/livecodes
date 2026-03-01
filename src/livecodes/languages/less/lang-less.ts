@@ -1,14 +1,17 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
-import { vendorsBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, vendorsBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const less: LanguageSpecs = {
   name: 'less',
   title: 'Less',
-  parser: {
-    name: 'less',
-    pluginUrls: [parserPlugins.postcss],
+  formatter: {
+    prettier: {
+      name: 'less',
+      pluginUrls: [parserPlugins.postcss],
+    },
   },
   compiler: {
     url: vendorsBaseUrl + 'less/less.js',
@@ -23,5 +26,11 @@ export const less: LanguageSpecs = {
   },
   extensions: ['less'],
   editor: 'style',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-less.js')).less),
+    },
+  },
   multiFileSupport: true,
 };

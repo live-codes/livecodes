@@ -1,5 +1,11 @@
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl, vueRuntimeUrl, vueSDKUrl } from '../../vendors';
+import {
+  codeMirrorBaseUrl,
+  monacoLanguagesBaseUrl,
+  vendorsBaseUrl,
+  vueRuntimeUrl,
+  vueSDKUrl,
+} from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 const compilerUrl = vendorsBaseUrl + 'vue-compiler-sfc/vue-compiler-sfc.js';
@@ -8,9 +14,11 @@ export const vue: LanguageSpecs = {
   name: 'vue',
   title: 'Vue',
   longTitle: 'Vue SFC',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: compilerUrl,
@@ -25,7 +33,19 @@ export const vue: LanguageSpecs = {
   },
   extensions: ['vue', 'vue3'],
   editor: 'script',
-  editorLanguage: 'html',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'vue.js' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-vue.js')).vue(),
+    },
+    codejar: { language: 'html' },
+    compilerOptions: {
+      jsx: 1, // monaco.languages.typescript.JsxEmit.Preserve,
+      jsxFactory: 'h',
+      jsxFragmentFactory: 'Fragment',
+    },
+  },
   multiFileSupport: true,
 };
 
@@ -35,5 +55,5 @@ export const vueApp: LanguageSpecs = {
   compiler: 'vue',
   extensions: ['app.vue'],
   editor: 'markup',
-  editorLanguage: 'html',
+  editorSupport: { ...vue.editorSupport, monaco: { language: 'vue' } }, // avoid duplicate registration
 };

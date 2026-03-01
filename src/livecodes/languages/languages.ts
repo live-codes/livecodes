@@ -33,7 +33,7 @@ import { imba } from './imba';
 import { java } from './java';
 import { javascript } from './javascript';
 import { jinja } from './jinja';
-import { json } from './json';
+import { json, json5, jsonc } from './json';
 import { jsx, tsx } from './jsx';
 import { julia } from './julia';
 import { less } from './less';
@@ -178,6 +178,8 @@ export const languages: LanguageSpecs[] = [
   blockly,
   text,
   json,
+  json5,
+  jsonc,
   yaml,
   binary,
   dotenv,

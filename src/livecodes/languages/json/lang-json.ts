@@ -1,30 +1,29 @@
+import { codemirrorImports } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { json5Url } from '../../vendors';
+import { parserPlugins } from '../prettier';
 
 export const json: LanguageSpecs = {
   name: 'json',
   title: 'JSON',
   info: false,
-  compiler: {
-    factory: () => {
-      let JSON5: { parse: (code: string) => any; stringify: (code: any) => string } | undefined;
-      return async (code, { options: { filename } }) => {
-        if (filename.endsWith('.json5') || filename.endsWith('.jsonc')) {
-          if (!JSON5) {
-            (self as any).importScripts(json5Url);
-            JSON5 = (self as any).JSON5;
-          }
-          try {
-            return JSON.stringify(JSON5?.parse(code) || JSON.parse(code), null, 2);
-          } catch {
-            return code;
-          }
-        }
-        return code;
-      };
+  formatter: {
+    prettier: {
+      name: 'json',
+      pluginUrls: [parserPlugins.babel, parserPlugins.estree],
     },
   },
-  extensions: ['json', 'json5', 'jsonc'],
+  compiler: {
+    factory: () => async (code) => code,
+  },
+  extensions: ['json'],
   editor: '',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () => {
+        const { json } = await import(codemirrorImports.json);
+        return json();
+      },
+    },
+  },
   multiFileSupport: true,
 };

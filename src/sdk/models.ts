@@ -1169,6 +1169,7 @@ export type Language =
   | 'cljc'
   | 'edn'
   | 'gleam'
+  | 'swift'
   | 'rescript'
   | 'res'
   | 'resi'
@@ -1352,6 +1353,26 @@ export interface EditorLanguages {
   script: Language;
 }
 
+export type LanguageEditorSupport = {
+  monaco?: {
+    language?: Language;
+    languageSupport?:
+      | string
+      | ((
+          monaco: any,
+        ) => void | Promise<void> | { dispose: () => void } | Promise<{ dispose: () => void }>);
+  };
+  codemirror?: {
+    language?: Language;
+    languageSupport?: string | (() => void | Promise<void>);
+  };
+  codejar?: {
+    language?: Language;
+  };
+} & {
+  compilerOptions?: Record<string, unknown>;
+};
+
 export interface Types {
   [key: string]:
     | string
@@ -1368,12 +1389,12 @@ export interface LanguageSpecs {
   title: string;
   longTitle?: string;
   info?: boolean;
-  parser?: Parser;
   formatter?: LanguageFormatter;
   compiler: Compiler | Language;
   extensions: Language[];
   editor: EditorId;
   editorLanguage?: Language;
+  editorSupport?: LanguageEditorSupport;
   preset?: CssPresetId;
   largeDownload?: boolean;
   multiFileSupport?: boolean;
@@ -1416,6 +1437,9 @@ export type ParserName =
   | 'babel'
   | 'babel-ts'
   | 'babel-flow'
+  | 'json'
+  | 'json5'
+  | 'jsonc'
   | 'glimmer'
   | 'ripple'
   | 'html'
@@ -1428,7 +1452,7 @@ export type ParserName =
   | 'java'
   | 'minizinc';
 
-export interface Parser {
+export interface PrettierParser {
   name: ParserName;
   plugins?: any[];
   pluginUrls: string[];
@@ -1443,9 +1467,15 @@ export type FormatFn = (
   formatterConfig?: Partial<FormatterConfig>,
 ) => Promise<{ formatted: string; cursorOffset: number }>;
 
-export interface LanguageFormatter {
-  factory: (baseUrl: string, language: Language, config: Config) => FormatFn | Promise<FormatFn>;
-}
+export type LanguageFormatter =
+  | {
+      factory: (
+        baseUrl: string,
+        language: Language,
+        config: Config,
+      ) => FormatFn | Promise<FormatFn>;
+    }
+  | { prettier: PrettierParser };
 
 export type CssPresetId = '' | 'normalize.css' | 'reset-css';
 
@@ -1809,7 +1839,10 @@ export interface EditorOptions extends EditorConfig {
   isLite: boolean;
   isHeadless: boolean;
   getLanguageExtension: (alias: string) => Language | undefined;
-  mapLanguage: (language: Language) => Language;
+  mapLanguage: (
+    language: Language,
+    editor?: Exclude<Config['editor'], 'auto' | undefined>,
+  ) => Language;
   getFormatterConfig: () => Partial<FormatterConfig>;
   getFontFamily: (font: string | undefined) => string;
 }

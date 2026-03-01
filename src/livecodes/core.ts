@@ -51,7 +51,6 @@ import {
 import { getMainFile, getSource, getValidFileName, isEditorId } from './config/utils';
 import { createCustomEditors, createEditor, getFontFamily } from './editor';
 import { createFakeEditor } from './editor/fake-editor';
-import { hasJsx } from './editor/ts-compiler-options';
 import { createEventsManager, createPub } from './events';
 import { customEvents } from './events/custom-events';
 import { exportJSON } from './export/export-json';
@@ -90,6 +89,7 @@ import {
   getLanguageExtension,
   getLanguageSpecs,
   getLanguageTitle,
+  hasJsx,
   languageIsEnabled,
   languages,
   mapLanguage,
@@ -434,7 +434,7 @@ const loadModuleTypes = async (
       ...config.types,
       ...config.customSettings.types,
     };
-    const reactImport = scriptLanguages.some((l) => hasJsx.includes(l))
+    const reactImport = scriptLanguages.some((l) => hasJsx(l))
       ? `import React from 'react';\n`
       : '';
     const content = !config.files.length
@@ -1072,7 +1072,7 @@ const configureEditorTools = (language: Language | undefined) => {
   UI.getEditorToolbar().classList.remove('hidden');
 
   const langSpecs = getLanguageSpecs(language);
-  if (langSpecs?.formatter || langSpecs?.parser) {
+  if (langSpecs?.formatter) {
     UI.getFormatButton().classList.remove('disabled');
   } else {
     UI.getFormatButton().classList.add('disabled');
