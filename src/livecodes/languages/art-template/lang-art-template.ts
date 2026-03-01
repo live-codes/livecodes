@@ -22,4 +22,5 @@ export const artTemplate: LanguageSpecs = {
   extensions: ['art', 'art-template'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

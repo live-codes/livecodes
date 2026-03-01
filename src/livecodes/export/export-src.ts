@@ -1,4 +1,4 @@
-import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
+import { getFileLanguage, type getLanguageExtension as getLanguageExtensionFn } from '../languages';
 import type { Config, EditorId } from '../models';
 import { downloadFile, loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
@@ -22,7 +22,12 @@ export const exportSrc = async (
 
   const files = getFilesFromConfig(config, deps);
   (Object.keys(files) as EditorId[]).forEach((filename) => {
-    zip.file(filename, files[filename]?.content);
+    const content = files[filename]?.content || '';
+    if (getFileLanguage(filename, config) === 'binary') {
+      zip.file(filename, content.split('base64,')[1] || '', { base64: true });
+    } else {
+      zip.file(filename, content);
+    }
   });
   zip.file('result.html', html);
   zip.file('livecodes.json', JSON.stringify(config, null, 2));

@@ -12,4 +12,5 @@ export const reason: LanguageSpecs = {
   editor: 'script',
   editorLanguage: 'javascript',
   editorSupport: { monaco: { language: 'csharp' } },
+  multiFileSupport: true,
 };

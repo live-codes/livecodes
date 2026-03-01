@@ -72,7 +72,8 @@ export const getProjectInfo = async (url: URL): Promise<ProjectInfo> => {
   if (templateName) {
     return {
       title: templateName,
-      description: templateName + ' Template on LiveCodes',
+      description:
+        templateName + (templateName.includes('Template') ? '' : ' Template') + ' on LiveCodes',
     };
   }
   return {

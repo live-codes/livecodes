@@ -1,4 +1,5 @@
 import { replaceImports } from '../compiler/import-map';
+import { getSource, isEditorId } from '../config/utils';
 import type {
   getLanguageCompiler as getLanguageCompilerFn,
   getLanguageExtension as getLanguageExtensionFn,
@@ -22,16 +23,28 @@ export const getFilesFromConfig = (
     style: 'style',
     script: 'script',
   };
-  const codeFiles = (Object.keys(filenames) as EditorId[]).reduce((files, editorId) => {
-    const filename = filenames[editorId];
-    const language = config[editorId].language;
-    const extension = getLanguageExtension?.(language) || 'md';
-    const content = config[editorId].content || '';
-    return {
-      ...files,
-      ...(content ? { [filename + '.' + extension]: { content } } : {}),
-    };
-  }, {});
+  const codeFiles =
+    config.files.length > 0
+      ? config.files.reduce(
+          (files, file) => ({
+            ...files,
+            [file.filename]: { content: file.content },
+          }),
+          {},
+        )
+      : (Object.keys(filenames) as EditorId[]).reduce((files, editorId) => {
+          if (!isEditorId(editorId)) {
+            return files;
+          }
+          const filename = filenames[editorId];
+          const language = config[editorId].language;
+          const extension = getLanguageExtension?.(language) || 'md';
+          const content = config[editorId].content || '';
+          return {
+            ...files,
+            ...(content ? { [filename + '.' + extension]: { content } } : {}),
+          };
+        }, {});
 
   const externalStyles =
     config.stylesheets.length > 0
@@ -106,10 +119,10 @@ export const getCompilerScripts = ({
   supportedLanguages: { [key in EditorId]: Language[] };
   getLanguageCompiler: typeof getLanguageCompilerFn;
 }) => {
-  if (supportedLanguages[editorId].includes(config[editorId].language)) return [];
-  const compilerScripts = getLanguageCompiler?.(config[editorId].language)?.scripts;
-  const compiledCode =
-    config[editorId].language === 'python' ? config[editorId].content || '' : compiled[editorId];
+  const src = getSource(editorId, config);
+  if (!src || supportedLanguages[editorId].includes(src.language)) return [];
+  const compilerScripts = getLanguageCompiler?.(src.language)?.scripts;
+  const compiledCode = src.language === 'python' ? src.content || '' : compiled[editorId];
   const scripts =
     typeof compilerScripts === 'function'
       ? compilerScripts({ compiled: compiledCode, baseUrl, config })
@@ -126,7 +139,7 @@ export const getContent = ({
 }: {
   editorId: EditorId;
   config: Config;
-  compiled: { [key in EditorId]: string };
+  compiled: Partial<{ [key in EditorId]: string }>;
   supportedLanguages: { [key in EditorId]: Language[] };
   getLanguageCompiler: typeof getLanguageCompilerFn;
 }) => {
@@ -137,19 +150,23 @@ export const getContent = ({
   const content = {
     markup: ['html', ...supportedLanguages.markup].includes(config.markup.language)
       ? config.markup.content
-      : compiled.markup,
+      : compiled.markup || '',
     style: ['css', ...supportedLanguages.style].includes(config.style.language)
       ? config.style.content
-      : compiled.style,
+      : compiled.style || '',
     script:
       config.script.language === 'php'
         ? config.script.content?.replace(/<\?php/g, '') || ''
         : config.script.language === 'python'
           ? config.script.content
           : replaceImports(
-              (isScriptSupported ? config.script.content : compiled.script) || '',
+              (isScriptSupported ? config.script.content : compiled.script || '') || '',
               config,
             ),
+    files: config.files.map((file) => ({
+      ...file,
+      content: replaceImports(file.content, config),
+    })),
   };
 
   const scriptType = getLanguageCompiler?.(config.script.language)?.scriptType;
@@ -171,5 +188,5 @@ ${escapeScript(content.script || '')}
       return '';
     }
   }
-  return content[editorId] || '';
+  return getSource(editorId, content as any)?.content || '';
 };

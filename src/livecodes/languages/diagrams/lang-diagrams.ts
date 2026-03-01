@@ -22,4 +22,5 @@ export const diagrams: LanguageSpecs = {
   extensions: ['diagrams', 'diagram', 'graph', 'plt'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

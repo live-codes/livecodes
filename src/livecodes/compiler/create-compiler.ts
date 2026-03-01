@@ -12,6 +12,7 @@ import type {
   CompilerFunction,
   Compilers,
   Config,
+  EditorLibrary,
   Language,
 } from '../models';
 import { getAppCDN, sandboxService } from '../services';
@@ -32,10 +33,12 @@ export const createCompiler = async ({
   config,
   baseUrl,
   eventsManager,
+  getTypes,
 }: {
   config: Config;
   baseUrl: string;
   eventsManager: any;
+  getTypes: (code: string) => Promise<EditorLibrary[]>;
 }): Promise<Compiler> => {
   let compilers: Compilers;
   let compilerSandbox: Window;
@@ -71,6 +74,8 @@ export const createCompiler = async ({
         scriptUrl: baseUrl + '{{hash:compiler-utils.js}}',
       };
       compilerSandbox.postMessage(configMessage, compilerOrigin);
+
+      sendTypesToCompiler();
     });
 
   const createLanguageCompiler =
@@ -88,7 +93,7 @@ export const createCompiler = async ({
             message.payload.language === language &&
             message.payload.content === content
           ) {
-            window.removeEventListener('message', handler);
+            eventsManager.removeEventListener(window, 'message', handler);
 
             if (message.type === 'compiled') {
               resolve(message.payload.compiled);
@@ -97,7 +102,7 @@ export const createCompiler = async ({
             }
           }
         };
-        window.addEventListener('message', handler);
+        eventsManager.addEventListener(window, 'message', handler);
 
         const compileMessage: CompilerMessage = {
           type: 'compile',
@@ -167,7 +172,8 @@ export const createCompiler = async ({
     );
 
   const cache: {
-    [key in Language]?: {
+    [key: string]: {
+      language: Language;
       content: string;
       compiled: string;
       info: string;
@@ -188,17 +194,20 @@ export const createCompiler = async ({
 
     const enabledProcessors = getActivatedProcessors(language, config);
     const languageSettings = stringify(getCustomSettings(language, config));
+    const filename = options.filename;
 
     if (
       !options?.forceCompile &&
-      cache[language]?.content === content &&
-      cache[language]?.processors === enabledProcessors &&
-      cache[language]?.languageSettings === languageSettings &&
-      cache[language]?.compiled
+      language !== 'vue' && // Vue SFCs can defineProps from types in other files
+      cache[filename]?.language === language &&
+      cache[filename]?.content === content &&
+      cache[filename]?.processors === enabledProcessors &&
+      cache[filename]?.languageSettings === languageSettings &&
+      cache[filename]?.compiled
     ) {
       return {
-        code: cache[language]?.compiled || '',
-        info: JSON.parse(cache[language]?.info || '{}'),
+        code: cache[filename]?.compiled || '',
+        info: JSON.parse(cache[filename]?.info || '{}'),
       } as CompileResult;
     }
 
@@ -209,7 +218,7 @@ export const createCompiler = async ({
     const compiler = compilers[language]?.fn;
     if (typeof compiler !== 'function') {
       return new Promise<CompileResult>((res) => {
-        if (language !== 'html' && language !== 'css' && language !== 'javascript') {
+        if (language && language !== 'html' && language !== 'css' && language !== 'javascript') {
           // eslint-disable-next-line no-console
           console.error('Failed to load compiler for: ' + language);
         }
@@ -227,14 +236,14 @@ export const createCompiler = async ({
       ...processed.info,
     };
 
-    cache[language] = {
+    cache[filename] = {
+      language,
       content,
       compiled: processed.code,
       info: JSON.stringify(info),
       processors: enabledProcessors,
       languageSettings: stringify(getCustomSettings(language, config)),
     };
-
     return { code: processed.code, info };
   };
 
@@ -310,10 +319,10 @@ export const createCompiler = async ({
         ) {
           return;
         }
-        window.removeEventListener('message', handler);
+        eventsManager.removeEventListener(window, 'message', handler);
         resolve(message.payload.data);
       };
-      window.addEventListener('message', handler);
+      eventsManager.addEventListener(window, 'message', handler);
 
       const compileMessage: CompilerMessage = {
         type: 'ts-features',
@@ -321,6 +330,28 @@ export const createCompiler = async ({
       };
       compilerSandbox.postMessage(compileMessage, compilerOrigin);
     });
+
+  const sendTypesToCompiler = () => {
+    const handler = async (event: CompilerMessageEvent) => {
+      const message = event.data;
+      if (
+        event.origin !== compilerOrigin ||
+        event.source !== compilerSandbox ||
+        message.from !== 'compiler' ||
+        message.type !== 'ts-features' ||
+        message.payload.feature !== 'getTypes'
+      ) {
+        return;
+      }
+      const { id, feature, data } = message.payload;
+      const compileMessage: CompilerMessage = {
+        type: 'ts-features',
+        payload: { id, feature, data: await getTypes(data) },
+      };
+      compilerSandbox.postMessage(compileMessage, compilerOrigin);
+    };
+    eventsManager.addEventListener(window, 'message', handler);
+  };
 
   await initialize();
 

@@ -8,6 +8,14 @@ import type {
   Processor,
   Template,
 } from '../models';
+import { handleSlash, removeFormatting } from '../utils';
+import {
+  getEditorScrollerEnd,
+  getEditorScrollerStart,
+  getEditorSelector,
+  getEditorTab,
+  getEditorTabScroller,
+} from './selectors';
 
 export const createLanguageMenus = (
   config: Config,
@@ -19,8 +27,7 @@ export const createLanguageMenus = (
   registerMenuButton: (menu: HTMLElement, button: HTMLElement) => void,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
-  const rootList = document.createElement('ul');
-  document.querySelector('#select-editor')?.appendChild(rootList);
+  const rootList = getEditorTabScroller()!;
 
   let editorsNumber = editorIds.length;
 
@@ -30,6 +37,7 @@ export const createLanguageMenus = (
     editorSelector.id = editorId + '-selector';
     editorSelector.classList.add('editor-title', 'noselect');
     editorSelector.dataset.editor = editorId;
+    editorSelector.dataset.singleFile = 'true';
     editorSelector.innerHTML = `
       <span></span>
       <a
@@ -54,9 +62,9 @@ export const createLanguageMenus = (
     languageMenu.classList.add('dropdown-menu-' + editorId);
     menuScroller.appendChild(languageMenu);
 
-    const editorLanguages = [...window.deps.languages]
-      .filter((language) => language.editor === editorId)
-      .filter((language) => languageIsEnabled(language.name, config));
+    const editorLanguages = [...window.deps.languages].filter(
+      (language) => language.editor === editorId && languageIsEnabled(language.name, config),
+    );
 
     if (editorLanguages.length === 0) {
       editorSelector.classList.add('hidden');
@@ -159,6 +167,230 @@ export const createLanguageMenus = (
       editorSelector.classList.add('half-width');
     });
   }
+
+  handleEditorTabScroll();
+};
+
+export const createMultiFileEditorTab = ({
+  title,
+  showEditor,
+  addFile,
+  renameFile,
+  deleteFile,
+  isMainFile,
+  isNewFile = false,
+  isHidden = false,
+  isLocked = false,
+}: {
+  title: string;
+  showEditor: (filename: string) => void;
+  addFile?: (filename: string) => Promise<boolean>;
+  renameFile: (filename: string, newName: string) => boolean;
+  deleteFile: (filename: string) => void;
+  isMainFile: boolean;
+  isNewFile: boolean;
+  isHidden?: boolean;
+  isLocked?: boolean;
+}) => {
+  let currentFileName = title;
+  if (getEditorTab(currentFileName)) return;
+  const editorSelector = document.createElement('a');
+  editorSelector.href = '#';
+  editorSelector.classList.add('editor-title', 'noselect');
+  editorSelector.dataset.editor = currentFileName;
+  editorSelector.dataset.multiFile = 'true';
+  editorSelector.addEventListener('click', () => showEditor(currentFileName));
+
+  const label = document.createElement('span');
+  setLabelText(currentFileName);
+  label.title = currentFileName;
+  label.classList.add('truncate-text');
+  label.addEventListener('paste', removeFormatting, false);
+  editorSelector.appendChild(label);
+
+  function getLabelText() {
+    return label.innerText.trim().replaceAll('\n', '');
+  }
+
+  function setLabelText(text: string) {
+    const cleanText = text.trim().replaceAll('\n', '');
+    if (cleanText === '') {
+      label.innerText = text.replaceAll('\n', '');
+      return;
+    }
+    label.innerHTML = '';
+    const path = cleanText.split('/');
+    const fileName = path.pop() || '';
+    const folder = path.length > 0 ? path.join('/') + '/' : '';
+    const folderSpan = document.createElement('span');
+    folderSpan.innerText = folder;
+    label.appendChild(folderSpan);
+    const fileNameSpan = document.createElement('span');
+    fileNameSpan.innerText = fileName;
+    label.appendChild(fileNameSpan);
+  }
+
+  if (!isMainFile && !isLocked) {
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-file-button');
+    deleteButton.innerHTML = deleteIcon;
+    deleteButton.addEventListener('click', () => {
+      if (
+        confirm(
+          window.deps.translateString('core.confirm.deleteFile', 'Delete file: {{filename}}?', {
+            filename: currentFileName,
+          }),
+        )
+      ) {
+        deleteFile(currentFileName);
+      }
+    });
+    editorSelector.appendChild(deleteButton);
+  }
+
+  const selectAll = (element: HTMLElement) => {
+    const range = document.createRange();
+    range.selectNodeContents(element);
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+  };
+
+  const accept = async () => {
+    label.contentEditable = 'false';
+    eventAttached = false;
+    if (isLocked) return;
+    setLabelText(getLabelText());
+    const success =
+      isNewFile && typeof addFile === 'function'
+        ? await addFile(getLabelText())
+        : renameFile(currentFileName, getLabelText());
+    if (!success) {
+      onDblClick();
+      return;
+    }
+    currentFileName = handleSlash(getLabelText());
+    label.title = currentFileName;
+    setLabelText(currentFileName);
+    label.style.maxWidth = '';
+    showEditor(currentFileName);
+    if (isNewFile) {
+      // a new tab is created. remove this one
+      editorSelector.remove();
+    }
+    isNewFile = false;
+  };
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      accept();
+    }
+    if (e.key === 'Tab') {
+      accept();
+    }
+    if (e.key === 'Escape') {
+      label.contentEditable = 'false';
+      if (isNewFile) {
+        editorSelector.remove();
+      } else {
+        setLabelText(currentFileName);
+      }
+    }
+  };
+
+  const onBlur = () => {
+    if (label.contentEditable === 'true') {
+      accept();
+    }
+  };
+
+  let eventAttached = false;
+  const onDblClick = () => {
+    if (isLocked || !getEditorSelector()?.contains(label)) return;
+    label.contentEditable = 'true';
+    label.style.maxWidth = 'unset';
+    requestAnimationFrame(() => {
+      label.focus();
+      selectAll(label);
+      if (!eventAttached) {
+        label.addEventListener('blur', onBlur);
+        eventAttached = true;
+      }
+    });
+  };
+
+  const onF2 = (ev: KeyboardEventInit) => {
+    if (ev.key === 'F2') {
+      onDblClick();
+    }
+  };
+
+  editorSelector.addEventListener('dblclick', onDblClick);
+  editorSelector.addEventListener('keydown', onF2);
+  label.addEventListener('keydown', onKeyDown);
+
+  const scrollTo = document.querySelector('#multi-file-scroll-to');
+  getEditorTabScroller()?.insertBefore(editorSelector, scrollTo);
+
+  if (isNewFile) {
+    scrollTo?.scrollIntoView({ behavior: 'smooth', inline: 'end', block: 'end' });
+    onDblClick();
+  }
+  if (isHidden) {
+    editorSelector.style.display = 'none';
+  }
+};
+
+const handleEditorTabScroll = () => {
+  const scroller = getEditorTabScroller();
+  const startBtn = getEditorScrollerStart() as HTMLElement;
+  const endBtn = getEditorScrollerEnd() as HTMLElement;
+  if (!scroller || !startBtn || !endBtn) return;
+  const isRTL = () => document.documentElement.dir === 'rtl';
+
+  // TODO: use CSS @container scroll-state instead when it has better browser support
+  const updateScrollButtons = () => {
+    if (!scroller || !startBtn || !endBtn) return;
+    const canScrollLeft = scroller.scrollLeft > 0;
+    const canScrollRight = scroller.scrollLeft < scroller.scrollWidth - scroller.clientWidth;
+    startBtn.classList.toggle('hidden', !canScrollLeft && !isRTL());
+    endBtn.classList.toggle('hidden', !canScrollRight && !isRTL());
+  };
+
+  startBtn.addEventListener('click', () => {
+    scroller.scrollBy({
+      left: isRTL() ? scroller.clientWidth : -scroller.clientWidth,
+      behavior: 'smooth',
+    });
+    updateScrollButtons();
+  });
+  endBtn.addEventListener('click', () => {
+    scroller.scrollBy({
+      left: isRTL() ? -scroller.clientWidth : scroller.clientWidth,
+      behavior: 'smooth',
+    });
+    updateScrollButtons();
+  });
+
+  scroller.addEventListener('scroll', updateScrollButtons);
+  window.addEventListener('resize', updateScrollButtons);
+  updateScrollButtons();
+};
+
+export const createAddFileButton = ({ onclick: handleAddFileClick }: { onclick: () => void }) => {
+  if (document.querySelector('#add-file-button')) return;
+  const addFileButton = document.createElement('button');
+  addFileButton.id = 'add-file-button';
+  addFileButton.classList.add('app-menu-button', 'menu');
+  addFileButton.innerHTML =
+    '<i class="icon-add" title="Add file" data-i18n="core.addFile" data-i18n-prop="title"></i>';
+  addFileButton.addEventListener('click', handleAddFileClick);
+  getEditorSelector()?.appendChild(addFileButton);
+
+  const scrollTo = document.createElement('div');
+  scrollTo.id = 'multi-file-scroll-to';
+  getEditorTabScroller()?.appendChild(scrollTo);
 };
 
 export const createProcessorItem = (processor: { name: string; title: string }) => {
@@ -189,3 +421,4 @@ const getLanguageInfo = async (language: Language | Processor, baseUrl: string) 
 };
 
 const infoIcon = '<i class="icon-info"></i>';
+const deleteIcon = '<i class="icon-close"></i>';

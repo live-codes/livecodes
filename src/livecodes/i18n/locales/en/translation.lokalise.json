@@ -100,6 +100,10 @@
     "notes": "",
     "translation": "SDK Permanent URL"
   },
+  "app.binaryFileEditor.selectFile": {
+    "notes": "",
+    "translation": "Select file"
+  },
   "app.changeTheme.hint": {
     "notes": "",
     "translation": "Change Theme"
@@ -932,6 +936,10 @@
     "notes": "",
     "translation": "Loading {{lang}}. This may take a while!"
   },
+  "core.confirm.deleteFile": {
+    "notes": "",
+    "translation": "Delete file: {{filename}}?"
+  },
   "core.copy.copied": {
     "notes": "",
     "translation": "Code copied to clipboard"
@@ -1024,6 +1032,18 @@
     "notes": "",
     "translation": "Creating a public GitHub gist..."
   },
+  "core.file.exists": {
+    "notes": "",
+    "translation": "File already exists!"
+  },
+  "core.file.invalidName": {
+    "notes": "",
+    "translation": "Invalid file name!"
+  },
+  "core.file.invalidType": {
+    "notes": "",
+    "translation": "Invalid file type!"
+  },
   "core.fork.success": {
     "notes": "",
     "translation": "Forked as a new project"
@@ -1039,10 +1059,6 @@
   "core.generating": {
     "notes": "",
     "translation": "Generating..."
-  },
-  "core.import.loading": {
-    "notes": "",
-    "translation": "Loading Project..."
   },
   "core.layout.horizontal": {
     "notes": "",
@@ -1642,7 +1658,7 @@
   },
   "import.code.desc": {
     "notes": "### <tag-1> ###\n<ul  />\n\n### <tag-2> ###\n<li  />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<li  />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<li  />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<li  />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<li  />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<li  />\n\n### <tag-13> ###\n<li  />\n\n### <tag-14> ###\n<br  />\n\n### <tag-15> ###\n<a href=\"{{DOCS_BASE_URL}}features/import\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "Supported Sources: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHub file</tag-3> <tag-4>Directory in a GitHub repo</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlab file</tag-6> <tag-7>Directory in a Gitlab repo</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Raw code</tag-9> <tag-10>Code in web page DOM</tag-10> <tag-11>Code in zip file</tag-11> <tag-12>Code in image (OCR)</tag-12> <tag-13>Official playgrounds<tag-14></tag-14>(TypeScript and Vue)</tag-13> </tag-1> Please visit the <tag-15>documentations</tag-15> for details."
+    "translation": "Supported Sources: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHub file</tag-3> <tag-4>Directory in a GitHub repo</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlab file</tag-6> <tag-7>Directory in a Gitlab repo</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Raw code</tag-9> <tag-10>Code in web page DOM</tag-10> <tag-11>Code in zip file</tag-11> <tag-12>Code in image (OCR)</tag-12> <tag-13>Official playgrounds<tag-14></tag-14>(TypeScript, Vue, Svelte, Preact and Solid)</tag-13> </tag-1> Please visit the <tag-15>documentations</tag-15> for details."
   },
   "import.code.fromFile": {
     "notes": "",
@@ -2523,6 +2539,58 @@
   "templates.heading": {
     "notes": "",
     "translation": "New Project"
+  },
+  "templates.multifile.basic": {
+    "notes": "",
+    "translation": "Basic Template"
+  },
+  "templates.multifile.blank": {
+    "notes": "",
+    "translation": "Blank Template"
+  },
+  "templates.multifile.heading": {
+    "notes": "",
+    "translation": "Multi-file Templates"
+  },
+  "templates.multifile.javascript": {
+    "notes": "",
+    "translation": "JavaScript Template"
+  },
+  "templates.multifile.jest": {
+    "notes": "",
+    "translation": "Jest Template"
+  },
+  "templates.multifile.lit": {
+    "notes": "",
+    "translation": "Lit Template"
+  },
+  "templates.multifile.loading": {
+    "notes": "",
+    "translation": "Loading multi-file templates..."
+  },
+  "templates.multifile.preact": {
+    "notes": "",
+    "translation": "Preact Template"
+  },
+  "templates.multifile.react": {
+    "notes": "",
+    "translation": "React Template"
+  },
+  "templates.multifile.solid": {
+    "notes": "",
+    "translation": "Solid Template"
+  },
+  "templates.multifile.svelte": {
+    "notes": "",
+    "translation": "Svelte Template"
+  },
+  "templates.multifile.typescript": {
+    "notes": "",
+    "translation": "TypeScript Template"
+  },
+  "templates.multifile.vue": {
+    "notes": "",
+    "translation": "Vue Template"
   },
   "templates.noUserTemplates.desc": {
     "notes": "### <tag-1> ###\n<wbr  />\n\n",

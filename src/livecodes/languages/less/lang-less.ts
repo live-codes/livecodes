@@ -32,4 +32,5 @@ export const less: LanguageSpecs = {
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-less.js')).less),
     },
   },
+  multiFileSupport: true,
 };

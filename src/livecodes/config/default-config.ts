@@ -40,6 +40,10 @@ export const defaultConfig: Config = {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
+  files: [],
+  mainFile: undefined,
+  fileLanguages: {},
+  lockFiles: false,
   imports: {},
   types: {},
   tests: {

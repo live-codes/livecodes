@@ -201,3 +201,51 @@ export const handleScrollPosition = () => {
     });
   }
 };
+
+export const getEnvVars = (
+  compiledFiles: Array<{ filename: string; compiled: string }>,
+  forExport: boolean,
+) => {
+  const getFileVars = (filename: string) => {
+    try {
+      return JSON.parse(compiledFiles.find((f) => f.filename === filename)?.compiled || '{}');
+    } catch {
+      return {};
+    }
+  };
+  const baseEnvVars = getFileVars('.env');
+  const envMode = baseEnvVars.MODE ?? (forExport ? 'production' : 'development');
+  const fileVars: Record<string, string> = compiledFiles
+    .filter((f) => {
+      if (!f.filename.startsWith('.env')) return false;
+      if (f.filename === '.env' || f.filename === '.env.local') return true;
+      const [_, _env, mode, _local] = f.filename.split('.');
+      return mode === envMode;
+    })
+    .toSorted((a, b) => {
+      if (a.filename === '.env') return -1;
+      if (b.filename === '.env') return 1;
+      if (a.filename === '.env.local') return -1;
+      if (b.filename === '.env.local') return 1;
+      if (a.filename.endsWith('.local')) return 1;
+      if (b.filename.endsWith('.local')) return -1;
+      return a.filename.localeCompare(b.filename);
+    })
+    .reduce((acc, f) => ({ ...acc, ...getFileVars(f.filename) }), {});
+  return {
+    NODE_ENV: fileVars.NODE_ENV ?? (forExport ? 'production' : 'development'),
+    MODE: envMode,
+    BASE_URL: '/',
+    PROD: envMode === 'production',
+    DEV: envMode === 'development',
+    SSR: false,
+    ...fileVars,
+  };
+};
+
+export const replaceEnvVars = (code: string, envVars: Record<string, any>) => {
+  Object.entries(envVars).forEach(([key, value]) => {
+    code = code.replaceAll('%' + key + '%', String(value));
+  });
+  return code;
+};

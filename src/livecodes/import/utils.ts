@@ -1,18 +1,64 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import { getMainFile, isEditorId } from '../config/utils';
+import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { Config, EditorId, Language } from '../models';
 
 export interface SourceFile {
   filename: string;
   content: string;
+  path?: string;
   language?: Language;
   editorId?: EditorId;
 }
+
+const prepareFiles = (
+  config: { files?: Config['files'] },
+  params: { [key: string]: string },
+): Partial<Config> => {
+  if (!config.files?.length) return config;
+  const mainFile = getMainFile(config);
+  if (!mainFile || !config.files.find((f) => f.filename === mainFile)) {
+    return config;
+  }
+  const title = config.files
+    .find((f) => f.filename === mainFile)
+    ?.content.match(/<title>(.*?)<\/title>/)?.[1];
+
+  config.files.sort((f1, f2) => (f1.filename === mainFile ? -1 : f2.filename === mainFile ? 1 : 0));
+  return {
+    ...(title ? { title } : {}),
+    mainFile,
+    activeEditor: String(params.activeEditor || params.active || mainFile),
+    ...detectFramework(config.files),
+    ...config,
+  };
+};
+
+const detectFramework = (files: SourceFile[]): Partial<Config> => {
+  const viteConfig = files.find((f) => f.filename.startsWith('vite.config.'));
+  if (viteConfig) {
+    if (viteConfig.content.includes('@vitejs/plugin-react')) {
+      return { customSettings: { fileLanguages: { jsx: 'react', tsx: 'react.tsx' } } };
+    }
+    if (viteConfig.content.includes('vite-plugin-solid')) {
+      return { customSettings: { fileLanguages: { jsx: 'solid', tsx: 'solid.tsx' } } };
+    }
+    if (viteConfig.content.includes('@preact/preset-vite')) {
+      return { customSettings: { typescript: { jsxImportSource: 'preact' } } };
+    }
+  }
+  return {};
+};
 
 export const populateConfig = (
   files: SourceFile[],
   params: { [key: string]: string },
 ): Partial<Config> => {
   if (files.length === 0) return {};
+
+  const commonDir = files[0]?.path?.split('/')[0];
+  if (commonDir && files.every((file) => file.path?.startsWith(`${commonDir}/`))) {
+    files = files.map((file) => ({ ...file, path: file.path?.replace(`${commonDir}/`, '') }));
+  }
 
   const configFile = files.find(
     (file) =>
@@ -21,7 +67,16 @@ export const populateConfig = (
   );
   if (configFile) {
     try {
-      return JSON.parse(configFile.content);
+      const obj = JSON.parse(configFile.content);
+      if (
+        // if is LiveCodes config
+        obj.markup?.language ||
+        obj.style?.language ||
+        obj.script?.language ||
+        (obj.files?.[0]?.filename && obj.files?.[0]?.content)
+      ) {
+        return obj;
+      }
     } catch {
       // invalid JSON
     }
@@ -30,28 +85,43 @@ export const populateConfig = (
   // select files in query params (e.g. ?files=index.html,script.js)
   const filesInParams = params.files;
   if (filesInParams) {
-    return filesInParams
+    const config = filesInParams
       .split(',')
       .map((filename) => filename.trim())
       .reduce((output: Partial<Config>, filename: string) => {
-        const extension = filename.split('.')[filename.split('.').length - 1];
-        const language = getLanguageByAlias(extension);
-        if (!language) return output;
         const file = files.find((file) => file.filename === filename);
         if (!file) return output;
-
-        const editorId = getLanguageEditorId(language);
-        if (!editorId || output[editorId]) return output;
-
+        const language = getFileLanguage(file.filename, {}) as Language;
         return {
           ...output,
-          activeEditor: output.activeEditor || editorId, // set first as active editor
-          [editorId]: {
-            language,
-            content: file.content,
-          },
+          files: [
+            ...(output.files || []),
+            {
+              filename: file.path || file.filename,
+              content: file.content,
+              language,
+            },
+          ],
         };
       }, {} as Partial<Config>);
+    return prepareFiles(config, params);
+  }
+
+  // external styles and scripts (e.g. github gist exported from codepen)
+  const stylesFile = files.find((file) => file.filename === 'styles');
+  const scriptsFile = files.find((file) => file.filename === 'scripts');
+
+  if (!stylesFile && !scriptsFile) {
+    return prepareFiles(
+      {
+        files: files.map((file) => ({
+          filename: file.path || file.filename,
+          content: file.content,
+          language: file.language || (getFileLanguage(file.filename, {}) as Language),
+        })),
+      },
+      params,
+    );
   }
 
   // select languages from files
@@ -148,7 +218,7 @@ export const populateConfig = (
       }
 
       // code
-      if (!file.editorId || output[file.editorId]) return output;
+      if (!file.editorId || !isEditorId(file.editorId) || output[file.editorId]) return output;
       return {
         ...output,
         [file.editorId]: {
@@ -160,7 +230,6 @@ export const populateConfig = (
 
   // extract external styles and scripts
   const stylesheets: string[] = [];
-  const stylesFile = files.find((file) => file.filename === 'styles');
   if (stylesFile?.content) {
     try {
       const urls: string[] = [];
@@ -190,7 +259,6 @@ export const populateConfig = (
   }
 
   const scripts: string[] = [];
-  const scriptsFile = files.find((file) => file.filename === 'scripts');
   if (scriptsFile?.content) {
     try {
       const urls: string[] = [];

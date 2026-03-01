@@ -13,7 +13,7 @@ import { reactRuntime } from '../languages/jsx/react-runtime';
 import { reactNativeRuntime } from '../languages/react-native/react-native-runtime';
 import { solidRuntime } from '../languages/solid/solid-runtime';
 import { hasCustomJsxRuntime } from '../languages/typescript';
-import type { Cache, CompileInfo, Config, EditorId, Language } from '../models';
+import type { Cache, CompileInfo, Config, Language } from '../models';
 import { getAppCDN, modulesService } from '../services';
 import { testImports } from '../toolspane/test-imports';
 import {
@@ -27,13 +27,16 @@ import {
 } from '../utils';
 import { browserJestUrl, esModuleShimsPath, spacingJsUrl } from '../vendors';
 
+let lastInput = '';
+let lastOutput = '';
+
 export const createResultPage = async ({
   code,
   config,
   forExport,
   template,
   baseUrl,
-  singleFile,
+  singleFileResult,
   runTests,
   compileInfo,
 }: {
@@ -42,10 +45,23 @@ export const createResultPage = async ({
   forExport: boolean;
   template: string;
   baseUrl: string;
-  singleFile: boolean;
+  singleFileResult: boolean;
   runTests: boolean;
   compileInfo: CompileInfo;
 }): Promise<string> => {
+  const input = JSON.stringify({
+    code,
+    config,
+    forExport,
+    template,
+    baseUrl,
+    singleFileResult,
+    runTests,
+    compileInfo,
+  });
+  if (input === lastInput && lastOutput) return lastOutput;
+  lastInput = input;
+
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
   const domParser = new DOMParser();
@@ -162,7 +178,7 @@ export const createResultPage = async ({
   });
 
   // editor styles
-  if (singleFile) {
+  if (singleFileResult) {
     const style = code.style.compiled;
     const styleElement = dom.createElement('style');
     styleElement.id = '__livecodes_styles__';
@@ -188,12 +204,10 @@ export const createResultPage = async ({
   }
 
   // runtime styles & scripts
-  const runtimeDependencies = (['markup', 'style', 'script'] as EditorId[]).map(
-    (editorId: EditorId) => ({
-      language: code[editorId].language,
-      compiled: code[editorId].compiled,
-    }),
-  );
+  const runtimeDependencies = (['markup', 'style', 'script'] as const).map((editorId) => ({
+    language: code[editorId].language,
+    compiled: code[editorId].compiled,
+  }));
 
   const compiledTests = runTests ? code.tests?.compiled || '' : '';
 
@@ -315,13 +329,13 @@ export const createResultPage = async ({
           ...createCSSModulesImportMap(
             code.script.compiled,
             code.style.compiled,
-            compileInfo.cssModules,
+            compileInfo.cssModules?.style,
             styleExtension,
           ),
           ...createCSSModulesImportMap(
             code.markup.compiled,
             code.style.compiled,
-            compileInfo.cssModules,
+            compileInfo.cssModules?.style,
             styleExtension,
           ),
           ...compileInfo.imports,
@@ -425,7 +439,7 @@ export const createResultPage = async ({
     // editor script
     const script = code.script.compiled;
     const scriptElement = dom.createElement('script');
-    if (singleFile) {
+    if (singleFileResult) {
       scriptElement.innerHTML = escapeScript(script);
     } else {
       scriptElement.src = './script.js';
@@ -485,7 +499,8 @@ window.browserJest.run().then(results => {
     dom.body.appendChild(testScript);
   }
 
-  return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+  lastOutput = '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+  return lastOutput;
 };
 
 export const cleanResultFromDev = (result: string) => {

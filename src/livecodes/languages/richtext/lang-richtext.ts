@@ -14,4 +14,5 @@ export const richtext: LanguageSpecs = {
   extensions: ['rte', 'rte.html', 'rich'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

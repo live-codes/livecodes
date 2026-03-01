@@ -505,12 +505,37 @@ describe('loadParamConfig', () => {
     expect(output.customSettings).toEqual({ template: { prerender: false } });
   });
 
-  test('?markup.hideTitle=true&script.title=App.jsx', () => {
+  test('?markup.hidden=true&script.title=App.jsx', () => {
     const output: Partial<Config> = loadParamConfig(defaultConfig, {
-      'markup.hideTitle': true,
+      'markup.hidden': true,
       'script.title': 'App.jsx',
     });
-    expect(output.markup?.hideTitle).toEqual(true);
+    expect(output.markup?.hidden).toEqual(true);
     expect(output.script?.title).toEqual('App.jsx');
+  });
+
+  test('?files', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      files: true,
+    });
+    expect(output.files).toEqual([{ filename: 'index.html', language: 'html', content: '' }]);
+  });
+
+  test('?files=index.html,style.css,script.js', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      files: 'index.html,style.css,script.js',
+    });
+    expect(output.files).toEqual([
+      { filename: 'index.html', language: 'html', content: '' },
+      { filename: 'style.css', language: 'css', content: '' },
+      { filename: 'script.js', language: 'javascript', content: '' },
+    ]);
+  });
+
+  test('?fileLanguages=jsx:solid,tsx:solid.tsx', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      fileLanguages: 'jsx:solid,tsx:solid.tsx',
+    });
+    expect(output.fileLanguages).toEqual({ jsx: 'solid', tsx: 'solid.tsx' });
   });
 });

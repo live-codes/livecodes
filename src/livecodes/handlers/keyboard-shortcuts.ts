@@ -1,5 +1,6 @@
 import type { createSplitPanes } from '../UI';
 import * as UI from '../UI/selectors';
+import { getSource } from '../config/utils';
 import type { CodeEditor, Config, EditorId, EventsManager, ToolsPane } from '../models';
 import { ctrl } from '../utils';
 
@@ -8,7 +9,7 @@ import { ctrl } from '../utils';
  */
 export interface KeyboardShortcutDeps {
   eventsManager: EventsManager;
-  getActiveEditor: () => CodeEditor;
+  getActiveEditor: () => CodeEditor | undefined;
   getConfig: () => Config;
   showEditor: (editorId: EditorId) => void;
   run: () => Promise<void>;
@@ -27,7 +28,7 @@ let lastkeys = '';
  */
 const createCommandPaletteHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) => {
   const activeEditor = deps.getActiveEditor();
-  if (ctrl(e) && e.code === 'KeyP' && activeEditor.monaco) {
+  if (ctrl(e) && e.code === 'KeyP' && activeEditor?.monaco) {
     e.preventDefault();
     activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
     lastkeys = 'Ctrl + P';
@@ -108,7 +109,7 @@ const createZoomToggleHandler = () => (e: KeyboardEvent) => {
 const createFocusEditorHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) => {
   if (ctrl(e) && e.altKey && e.code === 'KeyE') {
     e.preventDefault();
-    deps.getActiveEditor().focus();
+    deps.getActiveEditor()?.focus();
     lastkeys = 'Ctrl + Alt + E';
     return true;
   }
@@ -149,25 +150,26 @@ const createEscapeHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) =
 // Ctrl + Alt + (1-3) activates editor 1-3
 // Ctrl + Alt + (ArrowLeft/ArrowRight) activates previous/next editor
 const createEditorSwitchHandler = (deps: KeyboardShortcutDeps) => (e: KeyboardEvent) => {
-  if (ctrl(e) && e.altKey && ['1', '2', '3', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-    const editorIds = (['markup', 'style', 'script'] as const).filter(
-      (id) => deps.getConfig()[id].hideTitle !== true,
-    );
+  const config = deps.getConfig();
+  const editorIds = (
+    config.files.length
+      ? config.files.map((f) => f.filename)
+      : (['markup', 'style', 'script'] as EditorId[])
+  ).filter((id) => getSource(id, config)?.hidden !== true);
+  const editorNumbers = editorIds.map((_, id) => String(id + 1));
 
+  if (ctrl(e) && e.altKey && [...editorNumbers, 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
     e.preventDefault();
     deps.split?.show('code');
-
-    const index = ['1', '2', '3'].includes(e.key)
+    const index = editorNumbers.includes(e.key)
       ? Number(e.key) - 1
       : e.key === 'ArrowLeft'
-        ? editorIds.findIndex((id) => id === deps.getConfig().activeEditor) - 1 || 0
+        ? editorIds.findIndex((id) => id === config.activeEditor) - 1 || 0
         : e.key === 'ArrowRight'
-          ? editorIds.findIndex((id) => id === deps.getConfig().activeEditor) + 1 || 0
+          ? editorIds.findIndex((id) => id === config.activeEditor) + 1 || 0
           : 0;
-
     const editorIndex =
       index === editorIds.length ? 0 : index === -1 ? editorIds.length - 1 : index;
-
     deps.showEditor(editorIds[editorIndex]);
     lastkeys = 'Ctrl + Alt + ' + e.key;
     return true;

@@ -1,10 +1,15 @@
 import type { ContentConfig } from '../models';
 import { loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
-import type { populateConfig as populateConfigFn, SourceFile } from './utils';
+import { filterFiles } from './files';
+import type { populateConfig as populateConfigFn } from './utils';
 
 export const importFromZip = async (blob: Blob, populateConfig: typeof populateConfigFn) =>
   new Promise<Partial<ContentConfig>>(async (resolve, reject) => {
+    if (blob.size > 100 * 1024 * 1024) {
+      // > 100 MB
+      reject(new Error('File is too big'));
+    }
     const JSZip: any = await loadScript(jsZipUrl, 'JSZip');
 
     JSZip.loadAsync(blob)
@@ -20,20 +25,16 @@ export const importFromZip = async (blob: Blob, populateConfig: typeof populateC
           return;
         }
 
-        const filesInSrcDir: any[] = zip.file(/((^src\/)|(\/src\/))/);
         const allFiles: any[] = zip.file(/.*/);
-        const rootFiles = allFiles.filter((file) => !file.name.includes('/'));
-        const selectedFiles =
-          filesInSrcDir.length > 0 ? filesInSrcDir : rootFiles.length > 0 ? rootFiles : allFiles;
-
-        if (selectedFiles.length > 0) {
-          const sourceFiles: SourceFile[] = await Promise.all(
-            selectedFiles.map(async (file) => ({
-              filename: file.name,
+        if (allFiles.length > 0) {
+          const sourceFiles = await Promise.all(
+            allFiles.map(async (file) => ({
+              filename: file.name.split('/').pop(),
               content: await file.async('string'),
+              path: file.name,
             })),
           );
-          resolve(populateConfig(sourceFiles, {}));
+          resolve(populateConfig(filterFiles(sourceFiles), {}));
           return;
         }
 

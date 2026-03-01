@@ -81,7 +81,7 @@ Import is supported from any of the following:
 - Local file(s)
 - Code in zip file (Local or URL)
 - Code in image - OCR (Local or URL)
-- Projects shared in official playgrounds of [TypeScript](https://www.typescriptlang.org/play) and [Vue](https://play.vuejs.org/)
+- Projects shared in official playgrounds of [TypeScript](https://www.typescriptlang.org/play), [Vue](https://play.vuejs.org/), [Svelte](https://svelte.dev/playground), [Preact](https://preactjs.com/repl/) and [Solid](https://playground.solidjs.com/)
 - [Exported project JSON](./export.mdx) (single project and bulk import)
 
 Import sources are identified by URL patterns (e.g. origin, pathname and extension).
@@ -89,34 +89,6 @@ Import sources are identified by URL patterns (e.g. origin, pathname and extensi
 :::tip
 Local files can be imported from the "Import Screen" or by dragging and dropping the file(s) in the editor.
 :::
-
-## File Selection
-
-For sources that provide multiple files (e.g. GitHub/GitLab directories, GitHub gists, GitLab snippets and local files), a best guess is tried to load files in respective editors. Best results are when there are 3 files and each file is in a language (identified by file extension) that can be loaded to a different editor, for example:
-
-- index.html, style.css, script.js
-- default.pug, app.scss, main.ts
-
-The following file names are given higher priority:
-
-- Markup files starting with `index.` or `default.`
-- Style files starting with `style.` or `styles.`
-- Script files starting with `script.`, `app.`, `main.` or `index.`
-
-While README, markdown files and files with no extension are given lower priority.
-
-Alternatively, files can be specified using the `files` [query param](../configuration/query-params.mdx). It takes a **comma-separated list** of filenames. The first 3 found files are loaded. If 1 or 2 files are specified, only these will be loaded. The first matching file is shown by default in the active editor.
-
-The query params should have the following format:
-`?x={url}&files={file1},{file2},{file3}`
-
-Example:
-`?x={url}&files=Counter.tsx,counter.scss,counter.html`
-
-The active editor can be specified using the [`activeEditor`](../configuration/configuration-object.mdx#activeeditor) (or its alias `active`) [query param](../configuration/query-params.mdx). It takes the name of the editor (`markup`, `style` or `script`) or its ID (`0`, `1` or `2`) to be shown by default.
-
-Example:
-`?x={url}&activeEditor=style` or `?x={url}&active=1`
 
 ## Import Shared Projects
 

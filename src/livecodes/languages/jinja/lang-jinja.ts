@@ -27,4 +27,5 @@ export const jinja: LanguageSpecs = {
   extensions: ['jinja'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

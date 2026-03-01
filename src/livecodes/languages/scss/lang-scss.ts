@@ -26,4 +26,5 @@ export const scss: LanguageSpecs = {
         (await import(codeMirrorBaseUrl + 'codemirror-lang-scss.js')).sass(),
     },
   },
+  multiFileSupport: true,
 };

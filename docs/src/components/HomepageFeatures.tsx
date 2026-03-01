@@ -3,7 +3,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import CodeBlock from '@theme/CodeBlock';
 
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 import HomepageCarousel from './HomepageCarousel';
 import styles from './HomepageFeatures.module.css';

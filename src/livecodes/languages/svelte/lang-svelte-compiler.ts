@@ -1,9 +1,10 @@
+import { compileInCompiler } from '../../compiler';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
 import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
 import { getCompileResult } from '../../compiler/utils';
-import type { CompilerFunction, Config, Language } from '../../models';
+import type { CompileOptions, CompilerFunction, Config, Language } from '../../models';
 import { getErrorMessage } from '../../utils/utils';
-import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
+import { getFileExtension, getLanguageByAlias, getLanguageCustomSettings } from '../utils';
 
 (self as any).createSvelteCompiler = (): CompilerFunction => {
   const MAIN_FILE = '__LiveCodes_App__.svelte';
@@ -23,12 +24,14 @@ import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
     if (!code) return getCompileResult('');
 
     const isSfc = (mod: string) =>
-      mod.toLowerCase().endsWith('.svelte') || mod.toLowerCase().startsWith('data:text/svelte');
+      (mod.toLowerCase().endsWith('.svelte') && !mod.startsWith('~/')) ||
+      mod.toLowerCase().startsWith('data:text/svelte');
 
     const fullCode = await replaceSFCImports(code, {
       config,
       filename,
       getLanguageByAlias,
+      getFileExtension,
       isSfc,
       compileSFC: async (
         code: string,
@@ -73,20 +76,51 @@ import { getLanguageByAlias, getLanguageCustomSettings } from '../utils';
     };
   };
 
-  return (code, { config, language }) => {
-    const isMainFile = config.markup.language !== 'svelte-app' || language === 'svelte-app';
-    return compileSvelteSFC(code, {
-      config,
-      language: language as Language,
-      filename: isMainFile ? MAIN_FILE : SECONDARY_FILE,
-    });
+  const compileSvelteModule = async (
+    code: string,
+    { config, options, filename }: { config: Config; options: CompileOptions; filename: string },
+  ) => {
+    try {
+      if (filename.endsWith('.ts')) {
+        code = (await compileInCompiler(code, 'typescript', config, options)).code;
+      }
+      const result = (window as any).svelte.compileModule(code, {
+        filename,
+        ...getLanguageCustomSettings('svelte', config),
+      });
+      return result.js;
+    } catch (err) {
+      errors.push(getErrorMessage(err));
+      return {
+        code: '',
+        info: { errors },
+      };
+    }
   };
-};
 
-const getMountCode = (code: string) =>
-  `
+  const getMountCode = (code: string) =>
+    `
 import { mount } from "svelte";
 ${code}
 
 mount(__LiveCodes_App__, { target: document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')) });
 `.trimStart();
+
+  return async (code, { config, language, options }) => {
+    const isMultiFileProject = Boolean(config.files.length);
+    const isMainFile = isMultiFileProject
+      ? false
+      : config.markup.language !== 'svelte-app' || language === 'svelte-app';
+    const filename = isMultiFileProject
+      ? options.filename
+      : isMainFile
+        ? MAIN_FILE
+        : SECONDARY_FILE;
+
+    if (filename.endsWith('.svelte.js') || filename.endsWith('.svelte.ts')) {
+      return compileSvelteModule(code, { config, options, filename });
+    }
+
+    return compileSvelteSFC(code, { config, language: language as Language, filename });
+  };
+};

@@ -30,4 +30,5 @@ export const solid: LanguageSpecs = {
       jsxFragmentFactory: 'Fragment',
     },
   },
+  multiFileSupport: true,
 };

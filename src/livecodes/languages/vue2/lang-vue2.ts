@@ -27,4 +27,5 @@ export const vue2: LanguageSpecs = {
   extensions: ['vue2'],
   editor: 'script',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

@@ -21,4 +21,5 @@ export const mustache: LanguageSpecs = {
   extensions: ['mustache'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

@@ -40,4 +40,5 @@ export const reactNative: LanguageSpecs = {
       jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
     },
   },
+  multiFileSupport: true,
 };

@@ -4,6 +4,9 @@ import type {
   ContentConfig,
   EditorConfig,
   FormatterConfig,
+  MultiFileConfig,
+  SDKConfig,
+  SingleFileConfig,
   UserConfig,
 } from '../models';
 import { cloneObject } from '../utils';
@@ -30,6 +33,10 @@ export const getContentConfig = (config: Config | ContentConfig): ContentConfig 
     markup: config.markup,
     style: config.style,
     script: config.script,
+    files: config.files,
+    mainFile: config.mainFile,
+    fileLanguages: config.fileLanguages,
+    lockFiles: config.lockFiles,
     stylesheets: config.stylesheets,
     scripts: config.scripts,
     cssPreset: config.cssPreset,
@@ -95,5 +102,30 @@ export const getFormatterConfig = (config: Config | UserConfig): FormatterConfig
     trailingComma: config.trailingComma,
   });
 
-export const upgradeAndValidate = (config: Partial<Config>) =>
+export const getSingleFileConfig = (
+  config: Config | ContentConfig | SDKConfig,
+): SingleFileConfig => {
+  const { files, mainFile, fileLanguages, lockFiles, ...SingleFileConfig } = config;
+  return cloneObject(SingleFileConfig);
+};
+
+export const getMultiFileConfig = (config: Config | ContentConfig | SDKConfig): MultiFileConfig => {
+  const {
+    markup,
+    style,
+    script,
+    stylesheets,
+    scripts,
+    cssPreset,
+    htmlAttrs,
+    head,
+    ...multiFileConfig
+  } = config;
+  return cloneObject(multiFileConfig);
+};
+
+export const getSDKConfig = (config: Config | ContentConfig | SDKConfig): SDKConfig =>
+  config.files.length ? getMultiFileConfig(config) : getSingleFileConfig(config);
+
+export const upgradeAndValidate = (config: Partial<Config | SDKConfig>) =>
   validateConfig(upgradeConfig(config as any));

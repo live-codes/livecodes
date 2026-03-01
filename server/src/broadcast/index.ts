@@ -7,6 +7,12 @@ import path from 'node:path';
 import * as socketio from 'socket.io';
 import { dirname, generateId } from '../utils.ts';
 
+interface Channel {
+  channelToken: string;
+  result: string;
+  data: Record<string, any>;
+  lastAccessed: number;
+}
 export const broadcast = ({
   hostname,
   port,
@@ -22,7 +28,7 @@ export const broadcast = ({
   const httpserver = http.createServer(app);
   const io = new socketio.Server(httpserver);
 
-  const channels = {};
+  const channels: Record<string, Channel> = {};
   const broadcastDir = path.resolve(dirname, 'broadcast');
   const broadcastUrl = `https://${hostname}:${port}`;
 
@@ -89,6 +95,7 @@ export const broadcast = ({
     if (reducedData.markup) reducedData.markup.compiled = '';
     if (reducedData.style) reducedData.style.compiled = '';
     if (reducedData.script) reducedData.script.compiled = '';
+    reducedData.files?.forEach?.((f: any) => (f.compiled = ''));
 
     channels[channel] = {
       channelToken,

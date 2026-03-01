@@ -25,4 +25,5 @@ export const javascript: LanguageSpecs = {
       },
     },
   },
+  multiFileSupport: true,
 };

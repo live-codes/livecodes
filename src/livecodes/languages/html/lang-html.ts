@@ -15,7 +15,7 @@ export const html: LanguageSpecs = {
   compiler: {
     factory: () => async (code) => code,
   },
-  extensions: ['html', 'htm'],
+  extensions: ['html', 'htm', 'svg'],
   editor: 'markup',
   editorSupport: {
     codemirror: {
@@ -25,4 +25,5 @@ export const html: LanguageSpecs = {
       },
     },
   },
+  multiFileSupport: true,
 };
