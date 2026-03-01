@@ -1,13 +1,15 @@
 import type { LanguageSpecs } from '../../models';
-import { liquidJsUrl } from '../../vendors';
+import { codeMirrorBaseUrl, liquidJsUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const liquid: LanguageSpecs = {
   name: 'liquid',
   title: 'Liquid',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: liquidJsUrl,
@@ -19,4 +21,10 @@ export const liquid: LanguageSpecs = {
   extensions: ['liquid', 'liquidjs'],
   editor: 'markup',
   editorLanguage: 'html',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-liquid.js')).liquid(),
+    },
+  },
 };

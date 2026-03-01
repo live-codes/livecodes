@@ -8,9 +8,11 @@ export const runtimeUrl = handlebarsBaseUrl + 'handlebars.runtime.min.js';
 export const handlebars: LanguageSpecs = {
   name: 'handlebars',
   title: 'Handlebars',
-  parser: {
-    name: 'glimmer',
-    pluginUrls: [parserPlugins.glimmer],
+  formatter: {
+    prettier: {
+      name: 'glimmer',
+      pluginUrls: [parserPlugins.glimmer],
+    },
   },
   compiler: {
     url,

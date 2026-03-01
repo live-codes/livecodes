@@ -1,3 +1,4 @@
+import { codemirrorImports } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
 import { parserPlugins } from '../prettier';
 
@@ -5,13 +6,23 @@ export const html: LanguageSpecs = {
   name: 'html',
   title: 'HTML',
   info: false,
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     factory: () => async (code) => code,
   },
   extensions: ['html', 'htm'],
   editor: 'markup',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () => {
+        const { html } = await import(codemirrorImports.html);
+        return html();
+      },
+    },
+  },
 };

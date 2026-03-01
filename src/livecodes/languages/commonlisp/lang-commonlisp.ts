@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { jsclUrl, parinferUrl } from '../../vendors';
+import { jsclUrl, monacoLanguagesBaseUrl, parinferUrl } from '../../vendors';
 
 export const parenFormatter = () => {
   const url = parinferUrl;
@@ -25,5 +25,9 @@ export const commonlisp: LanguageSpecs = {
   },
   extensions: ['lisp', 'common-lisp'],
   editor: 'script',
-  editorLanguage: 'scheme',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'commonlisp.js' },
+    codemirror: { language: 'scheme' },
+    codejar: { language: 'scheme' },
+  },
 };

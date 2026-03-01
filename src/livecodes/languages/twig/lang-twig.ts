@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const twig: LanguageSpecs = {
   name: 'twig',
   title: 'Twig',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: twigUrl,

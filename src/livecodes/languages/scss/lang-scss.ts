@@ -1,13 +1,15 @@
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, vendorsBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const scss: LanguageSpecs = {
   name: 'scss',
   title: 'SCSS',
-  parser: {
-    name: 'scss',
-    pluginUrls: [parserPlugins.postcss],
+  formatter: {
+    prettier: {
+      name: 'scss',
+      pluginUrls: [parserPlugins.postcss],
+    },
   },
   compiler: {
     url: vendorsBaseUrl + 'sass/sass.js',
@@ -18,4 +20,10 @@ export const scss: LanguageSpecs = {
   },
   extensions: ['scss'],
   editor: 'style',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-scss.js')).sass(),
+    },
+  },
 };

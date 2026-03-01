@@ -11,4 +11,5 @@ export const reason: LanguageSpecs = {
   extensions: ['re', 'rei'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: { monaco: { language: 'csharp' } },
 };
