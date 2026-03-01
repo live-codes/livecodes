@@ -46,7 +46,6 @@ import { ctrl, debounce, getRandomString } from '../../utils/utils';
 import { codeMirrorBaseUrl, comlinkBaseUrl } from '../../vendors';
 import { getEditorTheme } from '../themes';
 import { codemirrorThemes, customThemes } from './codemirror-themes';
-import { editorLanguages } from './editor-languages';
 
 // export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
 //   editorId: EditorOptions['editorId'];
@@ -65,9 +64,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const getLanguageSupport = async (lang: Language): Promise<LanguageSupport> => {
     const langSupport = getLanguageSpecs(lang)?.editorSupport?.codemirror?.languageSupport;
-    if (!langSupport) {
-      return editorLanguages[lang]?.() || editorLanguages.html?.() || [];
-    }
+    if (!langSupport) return [];
     const loadLanguage: () => Promise<LanguageSupport> =
       typeof langSupport === 'string'
         ? (await import(langSupport)).default
