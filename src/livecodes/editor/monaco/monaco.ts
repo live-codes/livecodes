@@ -268,8 +268,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     return monaco.editor.createModel(value, lang, uri);
   };
 
-  await loadMonacoLanguage(language);
-
   let modelUri = '';
   const setModel = (
     editor: Monaco.editor.IStandaloneCodeEditor,
