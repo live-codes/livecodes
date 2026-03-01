@@ -10,4 +10,5 @@ export const text: LanguageSpecs = {
   extensions: ['txt', 'csv', 'tsv', 'plaintext'],
   editor: '',
   multiFileSupport: true,
+  editorSupport: { monaco: { language: 'plaintext' } },
 };
