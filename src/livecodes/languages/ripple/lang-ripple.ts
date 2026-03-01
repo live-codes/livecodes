@@ -1,4 +1,5 @@
 import type { LanguageSpecs } from '../../models';
+import { monacoLanguagesBaseUrl } from '../../vendors';
 
 export const ripple: LanguageSpecs = {
   name: 'ripple',
@@ -17,5 +18,10 @@ export const ripple: LanguageSpecs = {
   },
   extensions: ['ripple'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'ripple.js' },
+    codemirror: { language: 'jsx' },
+    codejar: { language: 'jsx' },
+  },
   multiFileSupport: true,
 };
