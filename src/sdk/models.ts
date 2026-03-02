@@ -801,7 +801,7 @@ export interface EditorConfig {
   closeBrackets: boolean;
 
   /**
-   * Show minimap.
+   * Enables minimap in code editor.
    * @default false
    */
   minimap: boolean;
