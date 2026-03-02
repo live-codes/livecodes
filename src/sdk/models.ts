@@ -801,6 +801,12 @@ export interface EditorConfig {
   closeBrackets: boolean;
 
   /**
+   * Show minimap.
+   * @default false
+   */
+  minimap: boolean;
+
+  /**
    * Enables [Emmet](https://livecodes.io/docs/features/editor-settings#emmet).
    * @default true
    */
