@@ -957,6 +957,9 @@
   "editorSettings.lineNumbersRelative": {
     "translation": "متعلقہ لائن نمبر *"
   },
+  "editorSettings.minimap": {
+    "translation": "Minimap کو فعال کریں *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "کوڈ جار میں دستیاب نہیں"
   },

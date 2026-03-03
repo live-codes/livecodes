@@ -957,6 +957,9 @@
   "editorSettings.lineNumbersRelative": {
     "translation": "Relative Zeilennummern *"
   },
+  "editorSettings.minimap": {
+    "translation": "Minimap einschalten *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "Nicht verfügbar in CodeJar"
   },

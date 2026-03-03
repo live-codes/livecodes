@@ -957,6 +957,9 @@
   "editorSettings.lineNumbersRelative": {
     "translation": "相对行号 *"
   },
+  "editorSettings.minimap": {
+    "translation": "启用小地图*"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "在 CodeJar 中不可用"
   },
