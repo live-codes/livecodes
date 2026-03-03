@@ -245,6 +245,11 @@ export const createEditorSettingsUI = async ({
       help: `${process.env.DOCS_BASE_URL}configuration/configuration-object#foldregions`,
     },
     {
+      title: window.deps.translateString('editorSettings.minimap', 'Enable Minimap *'),
+      name: 'minimap',
+      options: [{ value: 'true' }],
+    },
+    {
       title: window.deps.translateString('editorSettings.emmet', 'Enable Emmet *'),
       name: 'emmet',
       options: [{ value: 'true' }],

@@ -957,6 +957,9 @@
   "editorSettings.lineNumbersRelative": {
     "translation": "আপেক্ষিক লাইন নম্বর *"
   },
+  "editorSettings.minimap": {
+    "translation": "মিনিম্যাপ সক্রিয় করুন *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "CodeJar এ উপলব্ধ নয়"
   },

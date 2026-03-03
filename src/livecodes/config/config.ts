@@ -88,6 +88,7 @@ export const getEditorConfig = (config: Config | UserConfig): EditorConfig =>
     wordWrap: config.wordWrap,
     closeBrackets: config.closeBrackets,
     foldRegions: config.foldRegions,
+    minimap: config.minimap,
     emmet: config.emmet,
     // enableAI: config.enableAI,
     editorMode: config.editorMode,

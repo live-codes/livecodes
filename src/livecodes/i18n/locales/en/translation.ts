@@ -519,6 +519,7 @@ const translation = {
     heading: 'Editor Settings',
     lineNumbers: 'Show line numbers',
     lineNumbersRelative: 'Relative line numbers *',
+    minimap: 'Enable Minimap *',
     notAvailableInCodeJar: 'Not available in CodeJar',
     preview: 'Preview',
     semicolons: 'Format: Use Semicolons',

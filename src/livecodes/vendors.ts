@@ -92,6 +92,10 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
 
 export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.5/build/');
 
+export const codemirrorMinimapUrl = /* @__PURE__ */ getUrl(
+  '@replit/codemirror-minimap@0.5.2/dist/index.js',
+);
+
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
 );
@@ -101,6 +105,8 @@ export const colorisBaseUrl = /* @__PURE__ */ getUrl('@melloware/coloris@0.22.0/
 export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 
 export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/');
+
+export const creltUrl = /* @__PURE__ */ getUrl('crelt@1.0.6/index.js');
 
 export const csharpWasmBaseUrl = /* @__PURE__ */ getUrl('@seth0x41/csharp-wasm@1.0.3/');
 

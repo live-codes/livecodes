@@ -82,6 +82,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     autoClosingBrackets: opt.closeBrackets ? 'always' : 'never',
     autoClosingQuotes: opt.closeBrackets ? 'always' : 'never',
     autoClosingDelete: opt.closeBrackets ? 'always' : 'never',
+    minimap: { enabled: opt.minimap, scale: 1.5 },
   });
 
   const baseOptions = convertOptions(options);
@@ -142,7 +143,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     fontLigatures: true,
     formatOnType: false,
     lineNumbersMinChars: 3,
-    minimap: { enabled: false },
     scrollbar: { useShadows: false },
     mouseWheelZoom: false,
     automaticLayout: true,
@@ -186,6 +186,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     },
     scrollBeyondLastLine: false,
     contextmenu: false,
+    minimap: { enabled: false },
   };
 
   const embedOptions: Options = {

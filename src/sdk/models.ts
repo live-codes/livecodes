@@ -907,6 +907,12 @@ export interface EditorConfig {
   closeBrackets: boolean;
 
   /**
+   * Enables minimap in code editor.
+   * @default false
+   */
+  minimap: boolean;
+
+  /**
    * Enables [Emmet](https://livecodes.io/docs/features/editor-settings#emmet).
    * @default true
    */

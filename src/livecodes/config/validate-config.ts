@@ -239,6 +239,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.semicolons, 'boolean') ? { semicolons: config.semicolons } : {}),
     ...(is(config.singleQuote, 'boolean') ? { singleQuote: config.singleQuote } : {}),
     ...(is(config.trailingComma, 'boolean') ? { trailingComma: config.trailingComma } : {}),
+    ...(is(config.minimap, 'boolean') ? { minimap: config.minimap } : {}),
     ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),
     // ...(is(config.enableAI, 'boolean') ? { enableAI: config.enableAI } : {}),
     ...(includes(editorModes, config.editorMode) ? { editorMode: config.editorMode } : {}),
