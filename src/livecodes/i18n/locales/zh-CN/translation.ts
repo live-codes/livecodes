@@ -503,6 +503,7 @@ const translation: I18nTranslation = {
     heading: '编辑器设置',
     lineNumbers: '显示行号',
     lineNumbersRelative: '相对行号 *',
+    minimap: '启用小地图*',
     notAvailableInCodeJar: '在 CodeJar 中不可用',
     preview: '预览',
     semicolons: '格式：使用分号',

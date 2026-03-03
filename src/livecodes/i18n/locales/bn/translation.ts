@@ -504,6 +504,7 @@ const translation: I18nTranslation = {
     heading: 'এডিটর সেটিংস',
     lineNumbers: 'লাইন নম্বর দেখান',
     lineNumbersRelative: 'আপেক্ষিক লাইন নম্বর *',
+    minimap: 'মিনিম্যাপ সক্রিয় করুন *',
     notAvailableInCodeJar: 'CodeJar এ উপলব্ধ নয়',
     preview: 'পূর্বরূপ',
     semicolons: 'ফরম্যাট: সেমিকোলন ব্যবহার করুন',
