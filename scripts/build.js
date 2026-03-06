@@ -223,6 +223,8 @@ const iifeBuild = () =>
       'languages/liquid/lang-liquid-compiler.ts',
       'languages/lua-wasm/lang-lua-wasm-script.ts',
       'languages/malina/lang-malina-compiler.ts',
+      'languages/markdown/lang-markdown-compiler.ts',
+      'languages/markdown/lang-markdown-script.ts',
       'languages/minizinc/lang-minizinc-script.ts',
       'languages/mustache/lang-mustache-compiler.ts',
       'languages/nunjucks/lang-nunjucks-compiler.ts',
