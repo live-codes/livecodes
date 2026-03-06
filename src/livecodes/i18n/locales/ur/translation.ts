@@ -504,7 +504,6 @@ const translation: I18nTranslation = {
     heading: 'ایڈیٹر کی ترتیبات',
     lineNumbers: 'لائن نمبرز دکھائیں',
     lineNumbersRelative: 'متعلقہ لائن نمبر *',
-    minimap: 'Minimap کو فعال کریں *',
     notAvailableInCodeJar: 'کوڈ جار میں دستیاب نہیں',
     preview: 'پیش نظارہ',
     semicolons: 'فارمیٹ: سیمی کولن استعمال کریں',

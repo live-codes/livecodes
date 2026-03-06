@@ -504,7 +504,6 @@ const translation: I18nTranslation = {
     heading: 'Настройки редактора',
     lineNumbers: 'Показывать номера строк',
     lineNumbersRelative: 'Относительные номера строк *',
-    minimap: 'Включить мини-картинку *',
     notAvailableInCodeJar: 'Недоступно в CodeJar',
     preview: 'Предпросмотр',
     semicolons: 'Форматирование: Использовать точки с запятой',

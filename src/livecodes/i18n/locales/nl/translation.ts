@@ -504,7 +504,6 @@ const translation: I18nTranslation = {
     heading: 'Editor-instellingen',
     lineNumbers: 'Regelnummers weergeven',
     lineNumbersRelative: 'Relatieve regelnummers *',
-    minimap: 'Minimap inschakelen *',
     notAvailableInCodeJar: 'Niet beschikbaar in CodeJar',
     preview: 'Voorbeeld',
     semicolons: "Formatteren: Puntkomma's gebruiken",

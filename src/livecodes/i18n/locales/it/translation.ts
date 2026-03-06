@@ -504,7 +504,6 @@ const translation: I18nTranslation = {
     heading: 'Impostazioni Editor',
     lineNumbers: 'Mostra numeri di riga',
     lineNumbersRelative: 'Numeri di riga relativi *',
-    minimap: 'Abilita la minimappa *',
     notAvailableInCodeJar: 'Non disponibile in CodeJar',
     preview: 'Anteprima',
     semicolons: 'Formato: Usa punto e virgola',

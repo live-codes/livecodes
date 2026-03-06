@@ -504,7 +504,6 @@ const translation: I18nTranslation = {
     heading: 'تنظیمات ویرایشگر',
     lineNumbers: 'نمایش شماره خطوط',
     lineNumbersRelative: 'شماره خطوط نسبی *',
-    minimap: 'فعال کردن مینی‌مپ *',
     notAvailableInCodeJar: 'در CodeJar در دسترس نیست',
     preview: 'پیش‌نمایش',
     semicolons: 'قالب‌بندی: استفاده از نقطه‌ویرگول',

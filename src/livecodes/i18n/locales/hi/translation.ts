@@ -504,7 +504,6 @@ const translation: I18nTranslation = {
     heading: 'संपादक सेटिंग्स',
     lineNumbers: 'पंक्ति संख्याएँ दिखाएँ',
     lineNumbersRelative: 'सापेक्ष पंक्ति संख्या *',
-    minimap: 'मिनीमैप सक्षम करें *',
     notAvailableInCodeJar: 'CodeJar में उपलब्ध नहीं',
     preview: 'पूर्वावलोकन',
     semicolons: 'प्रारूप: अर्धविराम का उपयोग करें',

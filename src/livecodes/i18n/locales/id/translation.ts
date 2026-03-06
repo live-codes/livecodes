@@ -504,7 +504,6 @@ const translation: I18nTranslation = {
     heading: 'Pengaturan Editor',
     lineNumbers: 'Tampilkan nomor baris',
     lineNumbersRelative: 'Nomor baris relatif *',
-    minimap: 'Aktifkan Minimap *',
     notAvailableInCodeJar: 'Tidak tersedia di CodeJar',
     preview: 'Pratinjau',
     semicolons: 'Format: Gunakan Titik Koma',
