@@ -17,61 +17,106 @@ One Paragraph of project description goes here
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+### Installation
 
-What things you need to install the software and how to install them
+Make sure you have \`python 3.10+\` and \`pip\` installed. Then run:
 
-\`\`\`
-Give examples
-\`\`\`
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-\`\`\`
-Give the example
+\`\`\`bash
+pip install -r requirements.txt
+cp .env.example .env
+python manage.py migrate
 \`\`\`
 
-And repeat
+Start the development server on \`localhost:8000\`:
 
-\`\`\`
-until finished
+\`\`\`bash
+python manage.py runserver
 \`\`\`
 
-End with an example of getting some data out of the system or using it for a little demo
+### Usage
+
+Give an example of getting some data out of the system or using it for a little demo
+
+\`\`\`python
+from project_name import Client
+
+client = Client(api_key="your-api-key")
+resources = client.resources.list(limit=10)
+
+for resource in resources:
+    print(f"{resource.id}: {resource.name}")
+\`\`\`
+
+You can also use the \`--verbose\` flag for detailed output:
+
+\`\`\`bash
+python main.py --verbose
+\`\`\`
+
+### Frontend Integration
+
+The API returns \`JSON\` responses that can be consumed by any frontend:
+
+\`\`\`js
+const res = await fetch('http://localhost:8000/api/resources');
+const data = await res.json();
+console.log(data);
+\`\`\`
+
+## Overview
+
+A high-level look at how the system fits together. The \`Core API\` handles all business logic.
+
+\`\`\`mermaid
+graph TD
+    A[Client] -->|Request| B[API Gateway]
+    B --> C[Auth Service]
+    B --> D[Core API]
+    D --> E[(Database)]
+    D --> F[(Cache)]
+\`\`\`
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Run the full test suite with \`pytest\`:
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-\`\`\`
-Give an example
+\`\`\`bash
+pytest --cov=project_name tests/
 \`\`\`
 
-### And coding style tests
+### End to end tests
 
-Explain what these tests test and why
+These tests verify the full request lifecycle from \`Client\` to \`Database\` and back.
 
+\`\`\`python
+def test_create_resource(client):
+    response = client.post("/api/resources", json={"name": "Test"})
+    assert response.status_code == 201
+    assert response.json()["name"] == "Test"
 \`\`\`
-Give an example
+
+### Coding style tests
+
+We use \`flake8\` and \`black\` to enforce consistent code style:
+
+\`\`\`bash
+flake8 project_name/
+black --check project_name/
 \`\`\`
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Make sure \`Docker\` is installed, then build and run:
+
+\`\`\`bash
+docker build -t project-name .
+docker run -p 8000:8000 --env-file .env project-name
+\`\`\`
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Django](https://www.djangoproject.com/) - The web framework used
+* [pip](https://pip.pypa.io/) - Dependency Management
 
 ## Contributing
 
@@ -83,7 +128,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Your Name** - *Initial work* - [YourGitHub](https://github.com/your-username)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
@@ -93,12 +138,9 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
+* Give credit to anyone whose code was used
 * Inspiration
 * etc
-
-
-Source: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 `.trimStart(),
   },
   style: {
