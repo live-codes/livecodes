@@ -3,7 +3,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.7/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.22.10/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -263,6 +263,9 @@ export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.
 export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.8/dist/');
 
 export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.11.1');
+export const highlightjsStylesUrl = /* @__PURE__ */ getUrl(
+  'highlight.js@11.11.1/styles/github.min.css',
+);
 
 export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 
@@ -306,7 +309,9 @@ export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
 
 export const malinaBaseUrl = /* @__PURE__ */ getUrl(`malinajs@0.7.19/`);
 
-export const markedUrl = /* @__PURE__ */ getUrl('marked@13.0.2/marked.min.js');
+export const markedUrl = /* @__PURE__ */ getUrl('marked@17.0.4/lib/marked.umd.js');
+
+export const markedHighlightUrl = /* @__PURE__ */ getUrl('marked-highlight@2.2.3/lib/index.umd.js');
 
 export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
 
