@@ -43,4 +43,5 @@ export const stencil: LanguageSpecs = {
       jsxFragmentFactory: 'Fragment',
     },
   },
+  multiFileSupport: true,
 };

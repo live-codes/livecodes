@@ -27,4 +27,5 @@ export const liquid: LanguageSpecs = {
         (await import(codeMirrorBaseUrl + 'codemirror-lang-liquid.js')).liquid(),
     },
   },
+  multiFileSupport: true,
 };

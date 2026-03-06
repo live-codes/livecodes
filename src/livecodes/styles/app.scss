@@ -343,6 +343,8 @@ html {
 
 @include meta.load-css('inc-icons-share');
 
+@include meta.load-css('inc-multi-file');
+
 a,
 a:visited {
   color: var(--link);
@@ -578,6 +580,10 @@ kbd {
       margin: 0 var(--s4);
       min-width: var(--s40);
     }
+  }
+
+  #add-file-button {
+    display: none;
   }
 
   #project-title {
@@ -1042,6 +1048,7 @@ a#result-button {
 
 #result {
   background-color: #fff;
+  position: relative;
   resize: both;
 
   &.full {
@@ -1313,9 +1320,47 @@ a.tools-pane-title {
   margin: 0 0 calc(-1 * var(--s2)) var(--s8);
   position: relative;
 
-  > ul {
+  > div.editors-scroller {
     display: flex;
     height: 100%;
+  }
+
+  .editor-scroll-btn {
+    align-items: center;
+    background: var(--editor-title-bg-color);
+    border-block: 1px solid var(--editor-title-bg-color);
+    border-inline: 2px solid var(--toolbar-bg-color);
+    border-top-left-radius: var(--editor-title-border-radius);
+    border-top-right-radius: var(--editor-title-border-radius);
+    color: var(--editor-title-color);
+    cursor: pointer;
+    display: none;
+    font-size: inherit;
+    justify-content: center;
+    margin-right: 2px;
+    top: 1px;
+
+    &:hover {
+      background-color: var(--editor-title-bg-active);
+      border-color: var(--editor-title-bg-active);
+      color: var(--editor-title-active);
+    }
+
+    &.hidden {
+      visibility: hidden;
+    }
+
+    &.editor-scroll-start {
+      i.icon-arrow-down {
+        transform: rotate(90deg);
+      }
+    }
+
+    &.editor-scroll-end {
+      i.icon-arrow-down {
+        transform: rotate(270deg);
+      }
+    }
   }
 }
 
@@ -1346,6 +1391,7 @@ a.editor-title {
   > span {
     display: inline-block;
     flex-grow: 1;
+    min-width: 3em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1398,6 +1444,33 @@ a.editor-title {
     .dropdown-menu {
       animation: fadeIn 0.4s forwards;
       display: block;
+    }
+  }
+
+  &[data-multi-file='true'] {
+    width: fit-content;
+
+    > span {
+      padding: 0 4px;
+    }
+  }
+
+  .delete-file-button {
+    background: transparent;
+    border: 0;
+    color: var(--editor-title-color);
+    cursor: pointer;
+    height: 100%;
+    margin-inline-end: -7px;
+    margin-inline-start: 0;
+    width: var(--s16);
+
+    i {
+      font-size: var(--s10);
+    }
+
+    &:hover {
+      color: var(--editor-title-active);
     }
   }
 }

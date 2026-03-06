@@ -17,4 +17,5 @@ export const stylus: LanguageSpecs = {
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-stylus.js')).stylus),
     },
   },
+  multiFileSupport: true,
 };

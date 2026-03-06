@@ -90,7 +90,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.4/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.3.5/build/');
 
 export const codemirrorMinimapUrl = /* @__PURE__ */ getUrl(
   '@replit/codemirror-minimap@0.5.2/dist/index.js',
@@ -125,6 +125,10 @@ export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
 export const doppioJvmBaseUrl = 'https://unpkg.com/@seth0x41/doppio@1.0.0/';
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
+
+export const draggableUrl = /* @__PURE__ */ getUrl(
+  '@shopify/draggable@1.2.1/build/umd/index.min.js',
+);
 
 export const ejsUrl = /* @__PURE__ */ getUrl('ejs@4.0.1/ejs.js');
 
@@ -275,6 +279,10 @@ export const jsclUrl = /* @__PURE__ */ getUrl(
   'gh:jscl-project/jscl-project.github.io@058adc599f0d012718ef3ad28e704a92c4dd741e/jscl.js',
 );
 
+export const json5Url = /* @__PURE__ */ getUrl('json5@2.2.3/dist/index.min.js');
+
+export const jsYamlUrl = /* @__PURE__ */ getUrl('js-yaml@4.1.1/dist/js-yaml.min.js');
+
 export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
@@ -324,10 +332,6 @@ export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
 
 export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.1/dist/monaco-vim.js');
-
-export const monacoVolarUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-volar@0.1.0/dist/index.js',
-);
 
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
 

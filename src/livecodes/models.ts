@@ -1,3 +1,5 @@
+import type { Config, SourceFile } from '../sdk/models';
+
 export type * from '../sdk/models';
 
 export interface ModalOptions {
@@ -46,3 +48,7 @@ export interface INinjaAction {
   ) => boolean;
   keepOpen?: boolean;
 }
+
+export type ConfigWithCompiled = Omit<Config, 'files'> & {
+  files: Array<SourceFile & { compiled: string }>;
+};

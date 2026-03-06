@@ -46,6 +46,7 @@ export const vue: LanguageSpecs = {
       jsxFragmentFactory: 'Fragment',
     },
   },
+  multiFileSupport: true,
 };
 
 export const vueApp: LanguageSpecs = {

@@ -13,4 +13,5 @@ export const civet: LanguageSpecs = {
   extensions: ['civet'],
   editor: 'script',
   editorLanguage: 'coffeescript',
+  multiFileSupport: true,
 };

@@ -13,4 +13,5 @@ export const haml: LanguageSpecs = {
   },
   extensions: ['haml'],
   editor: 'markup',
+  multiFileSupport: true,
 };

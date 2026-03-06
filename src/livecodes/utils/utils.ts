@@ -34,6 +34,7 @@ export const escapeCode = /* @__PURE__ */ (code: string, slash = true) =>
   code
     .replace(/\\/g, slash ? '\\\\' : '\\')
     .replace(/`/g, '\\`')
+    .replace(/\$/g, '\\$')
     .replace(/<\/script>/g, '<\\/script>');
 
 export const pipe = /* @__PURE__ */ (...fns: Function[]) =>
@@ -347,9 +348,6 @@ export const runOrContinue =
         return x;
       }
     };
-
-export const getFileExtension = /* @__PURE__ */ (file: string) =>
-  file.split('.')[file.split('.').length - 1];
 
 export const isInIframe = /* @__PURE__ */ () => {
   // TODO allow in storybook
@@ -685,12 +683,32 @@ export const addProp = /* @__PURE__ */ (
   addProp(obj[first] as Record<string, unknown>, rest.join('.'), value);
 };
 
+export const handleSlash = /* @__PURE__ */ (x: string) => {
+  if (!x) return '';
+  x = x.replaceAll('\\', '/');
+  return x.startsWith('/')
+    ? x.slice(1)
+    : x.startsWith('./')
+      ? x.slice(2)
+      : x.startsWith('../')
+        ? x.slice(3)
+        : x.startsWith('~/')
+          ? x.slice(2)
+          : x;
+};
+
 export const onLoad = /* @__PURE__ */ (fn: (...args: any[]) => any) => {
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     fn();
   } else {
     window.addEventListener('load', fn, { once: true });
   }
+};
+
+export const removeFormatting = (e: any) => {
+  e.preventDefault();
+  const text = e.clipboardData.getData('text/plain');
+  document.execCommand('insertHTML', false, text);
 };
 
 export const predefinedValues = {

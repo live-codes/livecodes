@@ -24,4 +24,5 @@ export const nunjucks: LanguageSpecs = {
   extensions: ['njk', 'nunjucks'],
   editor: 'markup',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

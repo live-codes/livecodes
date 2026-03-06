@@ -23,9 +23,10 @@
     "@types/dedent": "0.7.0",
     "@types/flat": "5.0.2",
     "@types/react": "18.3.18",
+    "@types/webpack-env": "1.18.8",
     "babel-loader": "8.3.0",
     "cross-env": "7.0.3",
-    "typescript": "5.4.5"
+    "typescript": "5.9.3"
   },
   "dependencies": {
     "dedent": "0.7.0",

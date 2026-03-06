@@ -1,8 +1,7 @@
 import { decode } from 'js-base64';
-import { getLanguageByAlias, getLanguageEditorId, getLanguageExtension } from '../languages/utils';
-import type { Config, EditorId, Language, User } from '../models';
+import { getFileExtension, getLanguageByAlias, getLanguageEditorId } from '../languages/utils';
+import type { Config, Language, User } from '../models';
 import { getGithubHeaders } from '../services/github';
-import { modulesService } from '../services/modules';
 
 const getValidUrl = (url: string) =>
   url.startsWith('https://') ? new URL(url) : new URL('https://' + url);
@@ -15,7 +14,7 @@ const getFileData = (urlObj: URL): FileData => {
   const ref = pathSplit[4];
   const filePath = pathSplit.slice(5, pathSplit.length).join('/');
   const filename = filePath.split('/')[filePath.split('/').length - 1];
-  const extension = (filename.split('.')[filename.split('.').length - 1] || 'md') as Language;
+  const extension = getFileExtension(filename) as Language;
   const lineSplit = urlObj.hash.split('-');
   const startLine = urlObj.hash !== '' ? Number(lineSplit[0].replace('#L', '')) : -1;
   const endLine =
@@ -69,6 +68,18 @@ const getContent = async (
       }
     }
 
+    if (!(startLine > 0)) {
+      return {
+        files: [
+          {
+            filename: fileData.filename,
+            language: getLanguageByAlias(extension) || 'html',
+            content: fileContent,
+          },
+        ],
+      };
+    }
+
     const content =
       startLine > 0
         ? fileContent
@@ -78,14 +89,13 @@ const getContent = async (
         : fileContent;
     const language = getLanguageByAlias(extension) || 'html';
     const editorId = getLanguageEditorId(language) || 'markup';
-    const config = {
+    return {
       [editorId]: {
         language,
         content,
       },
       activeEditor: editorId,
     };
-    return modifyMarkup(config, [fileData]);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Cannot fetch: ' + apiUrl);
@@ -100,81 +110,4 @@ export const importFromGithub = (
   const validUrl = getValidUrl(url);
   const fileData = getFileData(validUrl);
   return getContent(fileData, loggedInUser);
-};
-
-/**
- * Adds base tag for relative links.
- * Removes <!DOCTYPE html>, <html>, <link> and <script> tags.
- * Extracts html attributes.
- */
-export const modifyMarkup = (
-  config: Partial<Config>,
-  files: Array<{ user: string; repo: string; ref: string; path: string }>,
-): Partial<Config> => {
-  const markupLanguages = ['html', 'markdown', 'mdx'];
-  const markupFile = files.find((file) =>
-    markupLanguages.find((lang) => file.path.endsWith(`.${getLanguageExtension(lang)}`)),
-  );
-  const getFile = (editorId: EditorId) =>
-    files.find((file) => {
-      const extension = file.path.split('.')[file.path.split('.').length - 1];
-      return editorId === getLanguageEditorId(extension);
-    });
-  const styleFile = getFile('style');
-  const scriptFile = getFile('script');
-  if (
-    !markupFile ||
-    !config.markup?.language ||
-    !markupLanguages.includes(config.markup?.language || '') ||
-    config.markup.content?.includes('<base')
-  ) {
-    return config;
-  }
-  const { user, repo, ref, path } = markupFile;
-  const baseUrl = modulesService.getUrl(`gh:${user}/${repo}@${ref}/${path}`);
-  const baseTag = `<base href="${baseUrl}">`;
-  let htmlAttrs = '';
-
-  const removeTags = (markupContent: string, tag: 'html' | 'link' | 'script') => {
-    const file = tag === 'link' ? styleFile : scriptFile;
-    if (!file && tag !== 'html') return markupContent;
-    const filename = file?.path.split('/')[file.path.split('/').length - 1];
-    if (filename && !markupContent.includes(filename)) return markupContent;
-    const linkPattern = new RegExp(
-      `<link[^>]{1,200}?href=["']((?!http(s)?:\\/\\/).){0,200}?${filename}["'][^>]{0,200}?>`,
-      'g',
-    );
-    const scriptPattern = new RegExp(
-      `<script[\\s\\S]{1,200}?src=["']((?!http(s)?:\\/\\/).){0,200}?${filename}["'][\\s\\S]{0,200}?</script>`,
-      'g',
-    );
-    const htmlTagPattern = new RegExp(
-      `(?:<!DOCTYPE\\s+html>\\s*?[\\n\\r]*)|(?:<html([^>]{1,200}?)>\\s*?[\\n\\r]*)|(?:\\s*<\/html>)`,
-      'g',
-    );
-    if (tag === 'html') {
-      const result = [...markupContent.matchAll(htmlTagPattern)];
-      for (const match of result) {
-        if (match[1]) {
-          htmlAttrs = match[1];
-        }
-      }
-    }
-    const pattern = tag === 'html' ? htmlTagPattern : tag === 'link' ? linkPattern : scriptPattern;
-    return markupContent.replace(pattern, '');
-  };
-
-  let content = removeTags(config.markup.content || '', 'html');
-  content = removeTags(content, 'link');
-  content = removeTags(content, 'script');
-
-  return {
-    ...config,
-    ...(htmlAttrs ? { htmlAttrs } : {}),
-    head: `${baseTag}\n${config.head || ''}`,
-    markup: {
-      ...config.markup,
-      content,
-    },
-  };
 };
