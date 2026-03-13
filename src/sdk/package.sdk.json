@@ -14,6 +14,7 @@
   "module": "./livecodes.js",
   "browser": "./livecodes.js",
   "types": "./livecodes.d.ts",
+  "jsdelivr": "./livecodes.js",
   "exports": {
     ".": {
       "import": "./livecodes.js",
@@ -25,6 +26,9 @@
     },
     "./vue": {
       "import": "./vue.js"
+    },
+    "./reveal": {
+      "import": "./reveal.js"
     },
     "./package.json": "./package.json"
   }
