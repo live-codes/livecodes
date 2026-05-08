@@ -100,6 +100,25 @@ export const styledMarkdownParams = {
 
 <LiveCodes params={styledMarkdownParams} height='80vh'></LiveCodes>
 
+## Code Blocks
+
+Syntax highlighting is provided for code blocks using [highlight.js](https://highlightjs.org/).
+
+## Mermaid Diagrams
+
+Mermaid diagrams are also supported. See [Mermaid documentation](https://mermaid.ai/open-source/) for usage.
+
+Example:
+
+````md
+```mermaid
+graph TD
+  A-->B
+  A-->C
+  B-->D
+```
+````
+
 ## Language Info
 
 ### Name
@@ -124,7 +143,7 @@ export const styledMarkdownParams = {
 
 ### Version
 
-`marked`: v13.0.2
+`marked`: v17.0.4
 
 ## Code Formatting
 

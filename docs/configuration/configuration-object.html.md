@@ -681,6 +681,14 @@ Default: `false`
 
 When set to `true`, regions marked by `#region` and `#endregion` comments are folded when the project is loaded.
 
+### `minimap`
+
+Type: [`boolean`](../api/interfaces/Config.md#minimap)
+
+Default: `false`
+
+Enables minimap in code editor.
+
 ### `emmet`
 
 Type: [`boolean`](../api/interfaces/Config.md#emmet)

@@ -1,0 +1,108 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([["4484"],{53114:function(e,t,s){s.r(t),s.d(t,{cssConfig:()=>d,default:()=>p,frontMatter:()=>l,assets:()=>c,metadata:()=>o,toc:()=>u,contentTitle:()=>a});var o=JSON.parse('{"id":"languages/css","title":"CSS","description":"CSS (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in HTML. It controls layout, colors, fonts, and the overall visual appearance of web pages.","source":"@site/docs/languages/css.mdx","sourceDirName":"languages","slug":"/languages/css","permalink":"/livecodes/docs/languages/css","draft":false,"unlisted":false,"editUrl":"https://github.com/live-codes/livecodes/tree/develop/docs/docs/languages/css.mdx","tags":[],"version":"current","frontMatter":{},"sidebar":"docsSidebar","previous":{"title":"C# (Wasm)","permalink":"/livecodes/docs/languages/csharp-wasm"},"next":{"title":"CSS Modules","permalink":"/livecodes/docs/languages/cssmodules"}}'),r=s("85893"),n=s("50065"),i=s("65899");let l={},a="CSS",c={},d={activeEditor:"style",markup:{language:"html",content:`<div class="container">
+  <h1>Hello, LiveCodes!</h1>
+  <p>This is styled with <strong>CSS</strong>.</p>
+  <ul>
+    <li>Flexible</li>
+    <li>Powerful</li>
+    <li>Beautiful</li>
+  </ul>
+</div>
+`},style:{language:"css",content:`.container {
+  font-family: sans-serif;
+  max-width: 600px;
+  margin: 2em auto;
+  padding: 1.5em;
+  border-radius: 8px;
+  background: #f0f4f8;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+  color: #2d3748;
+}
+
+p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1em;
+}
+
+li {
+  background: #3182ce;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+}
+`}},u=[{value:"Demo",id:"demo",level:2},{value:"Usage",id:"usage",level:2},{value:"CSS Processors",id:"css-processors",level:3},{value:"Auto-update",id:"auto-update",level:3},{value:"Style Imports",id:"style-imports",level:3},{value:"Language Info",id:"language-info",level:2},{value:"Name",id:"name",level:3},{value:"Extensions",id:"extensions",level:3},{value:"Editor",id:"editor",level:3},{value:"Compiler",id:"compiler",level:2},{value:"Code Formatting",id:"code-formatting",level:2},{value:"Links",id:"links",level:2}];function h(e){let t={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",header:"header",li:"li",p:"p",ul:"ul",...(0,n.a)(),...e.components};return(0,r.jsxs)(r.Fragment,{children:[(0,r.jsx)(t.header,{children:(0,r.jsx)(t.h1,{id:"css",children:"CSS"})}),"\n","\n",(0,r.jsxs)(t.p,{children:[(0,r.jsx)(t.a,{href:"https://developer.mozilla.org/docs/Web/CSS",children:"CSS"})," (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in HTML. It controls layout, colors, fonts, and the overall visual appearance of web pages."]}),"\n",(0,r.jsx)(t.h2,{id:"demo",children:"Demo"}),"\n","\n",(0,r.jsx)(i.Z,{config:d}),"\n",(0,r.jsx)(t.h2,{id:"usage",children:"Usage"}),"\n",(0,r.jsxs)(t.p,{children:["CSS code added to the ",(0,r.jsx)(t.a,{href:"/livecodes/docs/features/css#style-editor",children:"style editor"})," is added as-is without any compilation to the ",(0,r.jsx)(t.a,{href:"/livecodes/docs/features/result",children:"result page"}),"."]}),"\n",(0,r.jsxs)(t.p,{children:["There is no need to add a full page structure (e.g. ",(0,r.jsx)(t.code,{children:"<html>"}),", ",(0,r.jsx)(t.code,{children:"<head>"}),", ",(0,r.jsx)(t.code,{children:"<link>"}),", ",(0,r.jsx)(t.code,{children:"<style>"})," tags). LiveCodes handles this automatically."]}),"\n",(0,r.jsxs)(t.p,{children:["For more details about CSS support in LiveCodes, including CSS processors, style imports, CSS modules, and CSS frameworks, see the ",(0,r.jsx)(t.a,{href:"/livecodes/docs/features/css",children:"CSS feature documentation"}),"."]}),"\n",(0,r.jsx)(t.h3,{id:"css-processors",children:"CSS Processors"}),"\n",(0,r.jsx)(t.p,{children:"The CSS code can be further processed by one or more CSS processors. These include:"}),"\n",(0,r.jsxs)(t.ul,{children:["\n",(0,r.jsx)(t.li,{children:(0,r.jsx)(t.a,{href:"/livecodes/docs/languages/autoprefixer",children:"Autoprefixer"})}),"\n",(0,r.jsx)(t.li,{children:(0,r.jsx)(t.a,{href:"/livecodes/docs/languages/postcssPresetEnv",children:"postcss-preset-env"})}),"\n",(0,r.jsx)(t.li,{children:(0,r.jsx)(t.a,{href:"/livecodes/docs/languages/lightningcss",children:"Lightning CSS"})}),"\n",(0,r.jsx)(t.li,{children:(0,r.jsx)(t.a,{href:"/livecodes/docs/languages/cssmodules",children:"CSS Modules"})}),"\n",(0,r.jsx)(t.li,{children:(0,r.jsx)(t.a,{href:"/livecodes/docs/languages/cssnano",children:"cssnano"})}),"\n",(0,r.jsx)(t.li,{children:(0,r.jsx)(t.a,{href:"/livecodes/docs/languages/purgecss",children:"PurgeCSS"})}),"\n"]}),"\n",(0,r.jsxs)(t.p,{children:["See ",(0,r.jsx)(t.a,{href:"/livecodes/docs/features/css#css-processors",children:"CSS Processors"})," for details."]}),"\n",(0,r.jsx)(t.h3,{id:"auto-update",children:"Auto-update"}),"\n",(0,r.jsxs)(t.p,{children:["When ",(0,r.jsx)(t.a,{href:"/livecodes/docs/configuration/configuration-object#autoupdate",children:(0,r.jsx)(t.code,{children:"autoupdate"})})," is enabled (default), changes in the style editor do NOT trigger a full reload of the ",(0,r.jsx)(t.a,{href:"/livecodes/docs/features/result",children:"result page"}),". The updated CSS is sent to the page and applied without a reload."]}),"\n",(0,r.jsxs)(t.p,{children:["The page can be force-reloaded by clicking the run button or using the keyboard shortcut: ",(0,r.jsx)("kbd",{children:"Shift"}),"\xa0+\xa0",(0,r.jsx)("kbd",{children:"Enter"}),"."]}),"\n",(0,r.jsx)(t.h3,{id:"style-imports",children:"Style Imports"}),"\n",(0,r.jsxs)(t.p,{children:["CSS ",(0,r.jsx)(t.code,{children:"@import"})," rules with ",(0,r.jsx)(t.a,{href:"/livecodes/docs/features/module-resolution#bare-module-imports",children:"bare module"})," specifiers are resolved to full CDN URLs. See ",(0,r.jsx)(t.a,{href:"/livecodes/docs/features/css#style-imports",children:"Style Imports"})," for details."]}),"\n",(0,r.jsx)(t.h2,{id:"language-info",children:"Language Info"}),"\n",(0,r.jsx)(t.h3,{id:"name",children:"Name"}),"\n",(0,r.jsx)(t.p,{children:(0,r.jsx)(t.code,{children:"css"})}),"\n",(0,r.jsx)(t.h3,{id:"extensions",children:"Extensions"}),"\n",(0,r.jsx)(t.p,{children:(0,r.jsx)(t.code,{children:".css"})}),"\n",(0,r.jsx)(t.h3,{id:"editor",children:"Editor"}),"\n",(0,r.jsx)(t.p,{children:(0,r.jsx)(t.code,{children:"style"})}),"\n",(0,r.jsx)(t.h2,{id:"compiler",children:"Compiler"}),"\n",(0,r.jsx)(t.p,{children:"None. CSS is added to the result page without compilation."}),"\n",(0,r.jsx)(t.h2,{id:"code-formatting",children:"Code Formatting"}),"\n",(0,r.jsxs)(t.p,{children:["Using ",(0,r.jsx)(t.a,{href:"https://prettier.io/",children:"Prettier"}),"."]}),"\n",(0,r.jsx)(t.h2,{id:"links",children:"Links"}),"\n",(0,r.jsxs)(t.ul,{children:["\n",(0,r.jsx)(t.li,{children:(0,r.jsx)(t.a,{href:"https://developer.mozilla.org/en-US/docs/Web/CSS",children:"CSS Reference (MDN)"})}),"\n",(0,r.jsx)(t.li,{children:(0,r.jsx)(t.a,{href:"https://www.w3schools.com/css/",children:"CSS Tutorial (W3Schools)"})}),"\n",(0,r.jsx)(t.li,{children:(0,r.jsx)(t.a,{href:"/livecodes/docs/features/css",children:"CSS feature documentation in LiveCodes"})}),"\n"]})]})}function p(e={}){let{wrapper:t}={...(0,n.a)(),...e.components};return t?(0,r.jsx)(t,{...e,children:(0,r.jsx)(h,{...e})}):h(e)}},65899:function(e,t,s){s.d(t,{Z:()=>v});var o=s("85893"),r=s("79207"),n=s("67294"),i=s("88711");let l=function(e){let{useEffect:t,useRef:s}=e;return function(e){let o=s(null),r=s(void 0),n=s(""),l=s(""),a=s(0),c=s(!1),d=e.className||"",u=e.style||{},h=e.height&&Number(e.height)?`${e.height}px`:e.height;return t(()=>{if(!o.current)return;let{className:t,style:s,height:d,sdkReady:u,config:h,...p}=e,g=++a.current,f=()=>a.current!==g||c.current,m=JSON.stringify(p);if(r.current&&l.current===m){let e=JSON.stringify(h);if(n.current===e)return;n.current=e,h&&r.current.setConfig(h)}else l.current=m,n.current=JSON.stringify(h),r.current?.destroy(),r.current=void 0,(0,i.TH)(o.current,{config:h,...p}).then(e=>{if(f()){e.destroy();return}r.current=e,"function"==typeof u&&u(e)})},[e]),t(()=>()=>{c.current=!0,r.current?.destroy(),r.current=void 0},[]),{containerRef:o,className:d,style:u,height:h}}}({useEffect:n.useEffect,useRef:n.useRef});function a(e){let{containerRef:t,className:s,style:r,height:n}=l(e);return(0,o.jsx)("div",{ref:t,className:s,style:{...r,...n?{height:n}:{}},"data-height":n})}var c=s("21858"),d=s("33262"),u=s("31705"),h=s("97645"),p=s("58168"),g=s("98228"),f=s("45050");function m(e){let[t,s]=(0,n.useState)(e.js),[r,i]=(0,n.useState)(e.ts),[l,a]=(0,n.useState)(e.react),[c,m]=(0,n.useState)(e.vue),[v,y]=(0,n.useState)(e.svelte),[x,j]=(0,n.useState)(e.solid),[b,S]=(0,n.useState)(e.preact),[w,C]=(0,n.useState)(e.webComponents),P="3.7rem",[k,E]=(0,n.useState)(!0),[L,N]=(0,n.useState)(P),$=(0,n.useRef)(null),O=()=>{setTimeout(()=>{N(`calc(${$.current.offsetHeight}px + ${P})`)},5),setTimeout(()=>{N(`calc(${$.current.offsetHeight}px + ${P})`)},255)};return(0,n.useEffect)(()=>{if(d.Z.canUseDOM){let e=function(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"js";try{return window.prettier?.format(e,{parser:"html"===t?"html":"babel",plugins:window.prettierPlugins})}catch{return e}};s(e(t,"js")),i(e(r,"ts")),a(e(l,"jsx")),m(e(c,"html")),y(e(v,"html")),j(e(x,"tsx")),S(e(b,"jsx")),C(e(w,"html"))}},[]),(0,o.jsxs)("details",{className:`alert alert--info ${f.Z.details} ${g.Z.details}`,"data-collapsed":k,style:{height:k?P:L,overflow:"hidden",willChange:"height",transition:`height ${k?"250ms":"265ms"} ease-in-out 0s`,margin:"1em 0"},children:[(0,o.jsx)("summary",{onClick:()=>{E(!k),O()},children:"show code"}),(0,o.jsx)("div",{ref:$,style:{display:"block",overflow:"hidden"},children:(0,o.jsx)("div",{className:f.Z.collapsibleContent,children:(0,o.jsxs)(p.Z,{groupId:"sdk-code",children:[(0,o.jsx)(h.Z,{value:"js",label:"JS",attributes:{onMouseDown:O},children:(0,o.jsx)(u.Z,{language:"js",children:t})}),(0,o.jsx)(h.Z,{value:"ts",label:"TS",attributes:{onMouseDown:O},children:(0,o.jsx)(u.Z,{language:"ts",children:r})}),(0,o.jsx)(h.Z,{value:"react",label:"React",attributes:{onMouseDown:O},children:(0,o.jsx)(u.Z,{language:"jsx",children:l})}),(0,o.jsx)(h.Z,{value:"vue",label:"Vue",attributes:{onMouseDown:O},children:(0,o.jsx)(u.Z,{language:"html",children:c})}),(0,o.jsx)(h.Z,{value:"svelte",label:"Svelte",attributes:{onMouseDown:O},children:(0,o.jsx)(u.Z,{language:"html",children:v})}),(0,o.jsx)(h.Z,{value:"solid",label:"Solid",attributes:{onMouseDown:O},children:(0,o.jsx)(u.Z,{language:"tsx",children:x})}),(0,o.jsx)(h.Z,{value:"preact",label:"Preact",attributes:{onMouseDown:O},children:(0,o.jsx)(u.Z,{language:"jsx",children:b})}),(0,o.jsx)(h.Z,{value:"web-components",label:"Web Components",attributes:{onMouseDown:O},children:(0,o.jsx)(u.Z,{language:"html",children:w})})]})})})]})}function v(e){let{className:t,style:s,showCode:n,height:i,...l}=e,{colorMode:d}=(0,r.I)(),u=e=>JSON.stringify(e,null,2),h=`
+import { createPlayground } from 'livecodes';
+
+const options = ${u(l)};
+createPlayground('#container', options);
+
+`.trimStart(),p=`
+import { createPlayground, type EmbedOptions } from 'livecodes';
+
+const options: EmbedOptions = ${u(l)};
+createPlayground('#container', options);
+
+`.trimStart(),g=`
+import LiveCodes from 'livecodes/react';
+
+export default function App() {
+  const options = ${u(l)};
+  return (<LiveCodes {...options} />);
+}
+
+`.trimStart(),f=`
+<script setup>
+import LiveCodes from "livecodes/vue";
+
+const options = ${u(l)};
+</script>
+<template>
+  <LiveCodes v-bind="options" />
+</template>
+
+`,v=`
+<script>
+import LiveCodes from 'livecodes/svelte';
+
+export default function App() {
+  const options = ${u(l)};
+}
+</script>
+
+<LiveCodes {...options} />
+
+`.trimStart(),y=`
+import LiveCodes from 'livecodes/solid';
+
+export default function App() {
+  const options = ${u(l)};
+  return (<LiveCodes {...options} />);
+}
+
+`.trimStart(),x=`
+import LiveCodes from 'livecodes/preact';
+
+export default function App() {
+  const options = ${u(l)};
+  return (<LiveCodes {...options} />);
+}
+
+`.trimStart(),j=(e=>{let{config:t,params:s,...o}=e,r=Object.entries(o).filter(e=>{let[,t]=e;return null!=t}).map(e=>{let[t,s]=e,o=t.replace(/[A-Z]/g,e=>`-${e.toLowerCase()}`);return"boolean"==typeof s?s?o:null:`${o}="${s}"`}).filter(Boolean),n=r.length>0?"\n  "+r.join("\n  "):"",i=[];t&&i.push(`playground.config = ${JSON.stringify(t,null,2).split("\n").join("\n  ")};`),s&&i.push(`playground.params = ${JSON.stringify(s,null,2).split("\n").join("\n  ")};`);let l=i.length>0?`
+
+  const playground = document.querySelector("live-codes");
+  ${i.join("\n  ")}`:"";return`
+<live-codes${n}></live-codes>
+
+<script type="module">
+  import "livecodes/web-components";${l}
+</script>
+`.trimStart()})(l);return(0,o.jsxs)(o.Fragment,{children:[(0,o.jsx)(a,{className:`container_Egsj ${e.className}`,style:{height:i||"50vh",...e.style},appUrl:c.G,...e,config:{theme:d,themeColor:"hsl(215, 8%, 60%)",..."object"==typeof e.config?e.config:{}}}),!1!==e.showCode&&(0,o.jsx)(m,{js:h,ts:p,react:g,vue:f,svelte:v,solid:y,preact:x,webComponents:j})]})}},88711:function(e,t,s){s.d(t,{rP:()=>a,TH:()=>l});var o=s("17728");let r={chrome:["accelerometer","bluetooth","camera","clipboard-read","clipboard-write","display-capture","encrypted-media","geolocation","gyroscope","language-detector","language-model","local-network-access","microphone","midi","proofreader","rewriter","serial","summarizer","translator","web-share","writer","window-placement","xr-spatial-tracking"],firefox:["camera","display-capture","geolocation","microphone","web-share"],default:["accelerometer","ambient-light-sensor","camera","display-capture","encrypted-media","geolocation","gyroscope","microphone","midi","payment","serial","vr","web-share","xr-spatial-tracking"]},n=()=>{if("undefined"==typeof navigator)return"default";let e=navigator.userAgent;return/Firefox\//i.test(e)?"firefox":/Chrome\//i.test(e)?"chrome":"default"},i=()=>r[n()].filter(e=>{let t=globalThis.document?.featurePolicy?.features?.();return!t||t.includes(e)}).join("; ");async function l(e){let t,s=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};"object"!=typeof e||e instanceof HTMLElement||!e.headless&&"headless"!==e.view||(s=e,e=null);let{config:o={},headless:r,loading:n="lazy",view:l}=s,c=r||"headless"===l,d=null,u=null,h=e=>{e.style.position="absolute",e.style.top="0",e.style.visibility="hidden",e.style.opacity="0"};if("string"==typeof e)d=document.querySelector(e);else if(e instanceof HTMLElement)d=e;else if(!(c&&"object"==typeof e))throw Error("A valid container element is required.");if(!d){if(c)h(d=document.createElement("div")),document.body.appendChild(d);else throw Error(`Cannot find element: "${e}"`)}let p=new URL(a(s)),g=p.origin;p.searchParams.set("embed","true"),p.searchParams.set("loading",c?"eager":n),p.searchParams.set("sdkVersion",process.env.SDK_VERSION||"latest"),"object"==typeof o&&Object.keys(o).length>0&&p.searchParams.set("config","sdk");let f=s.params;"object"==typeof f&&Object.keys(f).length>0&&JSON.stringify(f).length<1800&&Object.keys(f).forEach(e=>{p.searchParams.set(e,encodeURIComponent(String(f[e])))});let m=!1,v="Cannot call API methods after calling `destroy()`.",y=[],x=function(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"message";addEventListener(t,e),y.push(e)},j=function(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"message";removeEventListener(t,e);let s=y.indexOf(e);s>-1&&y.splice(s,1)},b=await new Promise(e=>{if(!d)return;let t=d.dataset.height||d.style.height;if(t&&!c){let e=isNaN(Number(t))?t:t+"px";d.style.height=e}"false"===d.dataset.defaultStyles||c||(d.style.backgroundColor||="#fff",d.style.border||="1px solid black",d.style.borderRadius||="8px",d.style.boxSizing||="border-box",d.style.padding||="0",d.style.width||="100%",d.style.height||=d.style.height||"300px",d.style.minHeight="200px",d.style.flexGrow="1",d.style.overflow||="hidden",d.style.resize||="vertical","inline"!==getComputedStyle(d).getPropertyValue("display")||(d.style.display="block"));let s="livecodes",r=d.querySelector(`iframe.${s}`),l=r||document.createElement("iframe");l.classList.add(s),l.setAttribute("allow",i()),l.setAttribute("allowtransparency","true"),l.setAttribute("allowpaymentrequest","true"),l.setAttribute("allowfullscreen","true"),l.setAttribute("sandbox","allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"),l.setAttribute("loading","eager"===n?"eager":"lazy"),c?h(l):(l.style.height="100%",l.style.minHeight="200px",l.style.width="100%",l.style.margin="0",l.style.border="0",l.style.borderRadius=d.style.borderRadius),x(function e(t){t.source===l.contentWindow&&t.origin===g&&t.data?.type==="livecodes-init"&&(j(e),u=Number(t.data.payload.appVersion.replace(/^v/,"")))}),(!u||u<46)&&x(function e(t){t.source===l.contentWindow&&t.origin===g&&t.data?.type==="livecodes-get-config"&&(j(e),l.contentWindow?.postMessage({type:"livecodes-config",payload:o},g))}),l.onload=()=>{e(l)},l.src=p.href,r||d.appendChild(l)}),S=new Promise(e=>{x(function t(s){s.source===b.contentWindow&&s.origin===g&&s.data?.type==="livecodes-ready"&&(j(t),e(),S.settled=!0)})}),w=()=>m?Promise.reject(v):new Promise(async e=>{S.settled&&e(),b.contentWindow?.postMessage({type:"livecodes-load"},g),await S,e()}),C=(e,t)=>new Promise(async(s,o)=>{if(m)return o(v);await w();let r=$(),n=setTimeout(()=>{j(i),o(Error(`SDK call "${e}" timed out after 60000ms.`))},6e4);function i(t){if(t.source===b.contentWindow&&t.origin===g&&t.data?.type==="livecodes-api-response"&&t.data?.id===r&&t.data.method===e){clearTimeout(n),j(i);let e=t.data.payload;e?.error?o(e.error):s(e)}}x(i),b.contentWindow?.postMessage({method:e,id:r,args:t},g)}),P={},k=["load","ready","code","console","tests","destroy"],E=(e,t)=>{if(m)throw Error(v);return k.includes(e)?(C("watch",[e]),P[e]||(P[e]=[]),P[e]?.push(t),{remove:()=>{P[e]=P[e]?.filter(e=>e!==t),P[e]?.length===0&&C("watch",[e,"unsubscribe"])}}):{remove:()=>void 0}},L=e=>({"livecodes-app-loaded":"load","livecodes-ready":"ready","livecodes-change":"code","livecodes-console":"console","livecodes-test-results":"tests","livecodes-destroy":"destroy"})[e];x(async function(e){let t=L(e.data?.type??"");if(e.source!==b.contentWindow||e.origin!==g||!t||!P[t])return;let s=e.data?.payload;P[t]?.forEach(e=>{e(s)})});let N=()=>{b?.remove?.(),Object.values(P).forEach(e=>{e.length=0}),y.forEach(e=>removeEventListener("message",e)),y.length=0,t&&d&&t.unobserve(d),m=!0};"lazy"===n&&"IntersectionObserver"in window&&(t=new IntersectionObserver((e,t)=>{e.forEach(async e=>{e.isIntersecting&&(await w(),t.unobserve(d))})},{rootMargin:"150px"})).observe(d);let $=()=>(String(Math.random())+Date.now().toFixed()).replace("0.","");return{load:()=>w(),run:()=>C("run"),format:e=>C("format",[e]),getShareUrl:e=>C("getShareUrl",[e]),getConfig:e=>C("getConfig",[e]),setConfig:e=>C("setConfig",[e]),getCode:()=>C("getCode"),show:(e,t)=>C("show",[e,t]),runTests:()=>C("runTests"),onChange:e=>E("code",e),watch:E,exec:function(e){for(var t=arguments.length,s=Array(t>1?t-1:0),o=1;o<t;o++)s[o-1]=arguments[o];return C("exec",[e,...s])},destroy:()=>m?Promise.reject(v):(N(),Promise.resolve())}}function a(){let e,t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},{appUrl:s="https://livecodes.io",params:r={},config:n={},headless:i,import:l,lite:a,view:c,...d}=t;try{e=new URL(s)}catch{throw Error(`${s} is not a valid URL.`)}let u=new URLSearchParams;Object.entries(d).forEach(t=>{let[s,o]=t;void 0!==o&&e.searchParams.set(s,String(o))});let h="headless"===t.view||i;if(a&&(console.warn('Deprecation notice: "lite" option is deprecated. Use "config: { mode: \'lite\' }" instead.'),"object"==typeof n&&null==n.mode?n.mode="lite":e.searchParams.set("lite","true")),c&&(console.warn('Deprecation notice: The "view" option has been moved to "config.view". For headless mode use "headless: true".'),"object"==typeof n&&null==n.view&&"headless"!==c?n.view=c:e.searchParams.set("view",c)),"string"==typeof n)try{new URL(n),e.searchParams.set("config",encodeURIComponent(n))}catch{throw Error('"config" is not a valid URL or configuration object.')}else n&&"object"==typeof n&&Object.keys(n).length>0&&(n.title&&"Untitled Project"!==n.title&&e.searchParams.set("title",n.title),n.description&&n.description.length>0&&e.searchParams.set("description",n.description),u.set("config","code/"+(0,o.compressToEncodedURIComponent)(JSON.stringify(n))));if(r&&"object"==typeof r&&Object.keys(r).length>0)try{u.set("params",(0,o.compressToEncodedURIComponent)(JSON.stringify(r)))}catch{Object.keys(r).forEach(t=>{e.searchParams.set(t,encodeURIComponent(String(r[t])))})}return l&&e.searchParams.set("x",encodeURIComponent(l)),h&&e.searchParams.set("headless","true"),u.toString().length>0&&(e.hash=u.toString()),e.href}},50065:function(e,t,s){s.d(t,{Z:function(){return l},a:function(){return i}});var o=s(67294);let r={},n=o.createContext(r);function i(e){let t=o.useContext(n);return o.useMemo(function(){return"function"==typeof e?e(t):{...t,...e}},[t,e])}function l(e){let t;return t=e.disableParentContext?"function"==typeof e.components?e.components(r):e.components||r:i(e.components),o.createElement(n.Provider,{value:t},e.children)}}}]);

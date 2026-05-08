@@ -48,6 +48,7 @@ These include:
 - [Word-wrap](../configuration/configuration-object.html.md)#wordwrap)
 - [Auto-close brackets and quotes](../configuration/configuration-object.html.md)#closebrackets)
 - [Fold (collapse) regions](../configuration/configuration-object.html.md)#foldregions)
+- [Minimap](../configuration/configuration-object.html.md)#minimap)
 
 ### Emmet
 

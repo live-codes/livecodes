@@ -11,21 +11,29 @@ See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
 
 > **markup**: `object`
 
+Markup editor code.
+
 #### compiled
 
 > **compiled**: `string`
+
+The compiled code.
 
 #### content
 
 > **content**: `string`
 
+The source code.
+
 #### language
 
 > **language**: [`Language`](../type-aliases/Language.md)
 
+The language of the code.
+
 #### Defined in
 
-[models.ts:1960](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L1960)
+[src/sdk/models.ts:1276](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1276)
 
 ***
 
@@ -33,9 +41,11 @@ See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
 
 > **result**: `string`
 
+The HTML content of the result page.
+
 #### Defined in
 
-[models.ts:1975](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L1975)
+[src/sdk/models.ts:1303](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1303)
 
 ***
 
@@ -43,21 +53,29 @@ See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
 
 > **script**: `object`
 
+Script editor code.
+
 #### compiled
 
 > **compiled**: `string`
+
+The compiled code.
 
 #### content
 
 > **content**: `string`
 
+The source code.
+
 #### language
 
 > **language**: [`Language`](../type-aliases/Language.md)
 
+The language of the code.
+
 #### Defined in
 
-[models.ts:1970](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L1970)
+[src/sdk/models.ts:1294](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1294)
 
 ***
 
@@ -65,18 +83,26 @@ See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
 
 > **style**: `object`
 
+Style editor code.
+
 #### compiled
 
 > **compiled**: `string`
+
+The compiled code.
 
 #### content
 
 > **content**: `string`
 
+The source code.
+
 #### language
 
 > **language**: [`Language`](../type-aliases/Language.md)
 
+The language of the code.
+
 #### Defined in
 
-[models.ts:1965](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L1965)
+[src/sdk/models.ts:1285](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1285)

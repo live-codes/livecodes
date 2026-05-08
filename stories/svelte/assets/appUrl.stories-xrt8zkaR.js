@@ -1,0 +1,3 @@
+import{n as e}from"./chunk-BneVvdWh.js";import{n as t,r as n,t as r}from"./src-XCVBTQHS.js";var i,a,o,s;e((()=>{r(),i={...t,title:`EmbedOptions/appUrl`},a=n({appUrl:`https://dev.livecodes.io`}),o=n({}),a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:`livecodesStory({
+  appUrl: 'https://dev.livecodes.io'
+})`,...a.parameters?.docs?.source}}},o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`livecodesStory({})`,...o.parameters?.docs?.source}}},s=[`AppUrl`,`Default`]}))();export{a as AppUrl,o as Default,s as __namedExportsOrder,i as default};

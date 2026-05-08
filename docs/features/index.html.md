@@ -76,7 +76,7 @@ LiveCodes runs in the browser, where all the processing/transpilation occurs, wi
 
 ## Developer-friendly
 
-LiveCodes makes it easy to [get started](../getting-started.html.md). It is highly [configurable](../configuration/index.html.md). Lots of features can be configured by URL [query params](../configuration/query-params.html.md). The [SDK](../sdk/index.html.md) facilitates [embedding](./embeds.html.md) playgrounds and allows easy [communication](../sdk/js-ts.html.md)#sdk-methods) with them. The SDK is available for use in [JS/TS](../sdk/js-ts.html.md), [React](../sdk/react.html.md) [Vue](../sdk/vue.html.md) and [Svelte](../sdk/svelte.html.md).
+LiveCodes makes it easy to [get started](../getting-started.html.md). It is highly [configurable](../configuration/index.html.md). Lots of features can be configured by URL [query params](../configuration/query-params.html.md). The [SDK](../sdk/index.html.md) facilitates [embedding](./embeds.html.md) playgrounds and allows easy [communication](../sdk/js-ts.html.md)#sdk-methods) with them. The SDK is available for use in [JS/TS](../sdk/js-ts.html.md), [Preact](../sdk/preact.html.md), [React](../sdk/react.html.md), [Solid](../sdk/solid.html.md), [Svelte](../sdk/svelte.html.md), [Vue](../sdk/vue.html.md) and [Web Components](../sdk/web-components.html.md).
 
 ## Comprehensive Documentations
 

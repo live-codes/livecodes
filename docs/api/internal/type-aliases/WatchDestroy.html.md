@@ -2,6 +2,8 @@
 
 > **WatchDestroy**: (`event`, `fn`) => `object`
 
+Called when the playground is destroyed.
+
 ## Parameters
 
 • **event**: `"destroy"`
@@ -22,4 +24,4 @@
 
 ## Defined in
 
-[models.ts:263](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L263)
+[src/sdk/models.ts:1371](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1371)

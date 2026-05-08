@@ -23,7 +23,7 @@ If supplied with an invalid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:314](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L314)
+[src/sdk/models.ts:1697](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1697)
 
 ***
 
@@ -43,7 +43,7 @@ If supplied and is not an object or a valid URL, an error is thrown.
 
 #### Defined in
 
-[models.ts:346](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L346)
+[src/sdk/models.ts:1729](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1729)
 
 ***
 
@@ -61,7 +61,7 @@ false
 
 #### Defined in
 
-[models.ts:352](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L352)
+[src/sdk/models.ts:1735](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1735)
 
 ***
 
@@ -73,7 +73,7 @@ A resource to [import](https://livecodes.io/docs/features/import) (from any of t
 
 #### Defined in
 
-[models.ts:357](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L357)
+[src/sdk/models.ts:1740](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1740)
 
 ***
 
@@ -81,11 +81,11 @@ A resource to [import](https://livecodes.io/docs/features/import) (from any of t
 
 > `optional` **lite**: `boolean`
 
+If `true`, the playground is loaded in [lite mode](https://livecodes.io/docs/features/lite).
+
 #### Deprecated
 
 Use `{ config: { mode: "lite" } }` instead
-
-If `true`, the playground is loaded in [lite mode](https://livecodes.io/docs/features/lite).
 
 #### Default
 
@@ -95,7 +95,7 @@ false
 
 #### Defined in
 
-[models.ts:367](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L367)
+[src/sdk/models.ts:1751](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1751)
 
 ***
 
@@ -117,7 +117,7 @@ Sets how the playground loads:
 
 #### Defined in
 
-[models.ts:377](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L377)
+[src/sdk/models.ts:1761](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1761)
 
 ***
 
@@ -1399,6 +1399,10 @@ Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) fo
 
 > **svelte-app**: `any`
 
+#### customSettings.swift
+
+> **swift**: `any`
+
 #### customSettings.tailwindcss
 
 > **tailwindcss**: `any`
@@ -2138,11 +2142,11 @@ true
 
 > `optional` **lite**: `boolean`
 
+If `true`, the playground is loaded in [lite mode](https://livecodes.io/docs/features/lite).
+
 ##### Deprecated
 
 Use `{ config: { mode: "lite" } }` instead
-
-If `true`, the playground is loaded in [lite mode](https://livecodes.io/docs/features/lite).
 
 ##### Default
 
@@ -2372,6 +2376,18 @@ overriding the default title set to the language name
 
 > **mdx-selector**: `undefined` \| `string`
 
+#### minimap?
+
+> `optional` **minimap**: `boolean`
+
+Enables minimap in code editor.
+
+##### Default
+
+```ts
+false
+```
+
 #### minizinc
 
 > **minizinc**: `undefined` \| `string`
@@ -2490,7 +2506,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### params?
 
-> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 494 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
+> `optional` **params**: \{ appUrl?: string \| undefined; params?: ... \| undefined; config?: string \| (Partial\<Config\> & string) \| undefined; headless?: boolean \| undefined; import?: string \| undefined; ... 497 more ...; compiled?: "" \| ... 5 more ... \| undefined; \} \| undefined
 
 An object that represents the [URL Query parameters](https://livecodes.io/docs/configuration/query-params), that can be used to configure the playground.
 
@@ -3066,7 +3082,7 @@ true
 
 #### screen?
 
-> `optional` **screen**: `"open"` \| `"welcome"` \| `"import"` \| `"new"` \| `"embed"` \| `"login"` \| `"info"` \| `"assets"` \| `"add-asset"` \| `"snippets"` \| `"add-snippet"` \| `"resources"` \| `"share"` \| `"deploy"` \| `"sync"` \| `"backup"` \| `"broadcast"` \| `"about"` \| `"custom-settings"` \| `"editor-settings"` \| `"code-to-image"` \| `"test-editor"` \| `"keyboard-shortcuts"`
+> `optional` **screen**: [`ScreenName`](../internal/type-aliases/ScreenName.md)
 
 #### script?
 
@@ -3476,6 +3492,14 @@ overriding the default title set to the language name
 
 > **svelte-selector**: `undefined` \| `string`
 
+#### swift
+
+> **swift**: `undefined` \| `string`
+
+#### swift-selector
+
+> **swift-selector**: `undefined` \| `string`
+
 #### tabSize?
 
 > `optional` **tabSize**: `number`
@@ -3685,14 +3709,13 @@ Version specified in [exported](https://livecodes.io/docs/features/export) proje
 
 > `optional` **view**: `"split"` \| `"editor"` \| `"result"`
 
-##### Deprecated
-
-The `view` option has been moved to `config.view`.
-For headless mode use `headless: true`.
-
 The [default view](https://livecodes.io/docs/features/default-view) for the playground.
 
 When set to `"headless"`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+
+##### Deprecated
+
+The `view` option has been moved to `config.view`. For headless mode use `headless: true`.
 
 ##### Default
 
@@ -3874,7 +3897,7 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[models.ts:338](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L338)
+[src/sdk/models.ts:1721](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1721)
 
 ***
 
@@ -3887,7 +3910,7 @@ Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-a
 
 #### Defined in
 
-[models.ts:383](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L383)
+[src/sdk/models.ts:1767](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1767)
 
 ***
 
@@ -3895,14 +3918,13 @@ Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-a
 
 > `optional` **view**: `"split"` \| `"editor"` \| `"result"` \| `"headless"`
 
-#### Deprecated
-
-The `view` option has been moved to `config.view`.
-For headless mode use `headless: true`.
-
 The [default view](https://livecodes.io/docs/features/default-view) for the playground.
 
 When set to `"headless"`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+
+#### Deprecated
+
+The `view` option has been moved to `config.view`. For headless mode use `headless: true`.
 
 #### Default
 
@@ -3912,4 +3934,4 @@ When set to `"headless"`, the playground is loaded in [headless mode](https://li
 
 #### Defined in
 
-[models.ts:396](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L396)
+[src/sdk/models.ts:1780](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1780)

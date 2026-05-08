@@ -61,10 +61,10 @@ Its MIT License also permits commercial use.
 - [Themes](https://livecodes.io/livecodes/docs/features/themes.html.md)
 - [Mobile Support](https://livecodes.io/livecodes/docs/features/mobile.html.md)
 - [Embedded Playgrounds](https://livecodes.io/livecodes/docs/features/embeds.html.md)
+- [Code Prefill](https://livecodes.io/livecodes/docs/features/code-prefill.html.md)
 - [Lite Mode](https://livecodes.io/livecodes/docs/features/lite.html.md)
 - [Read-Only](https://livecodes.io/livecodes/docs/features/read-only.html.md)
 - [Permanent URL](https://livecodes.io/livecodes/docs/features/permanent-url.html.md)
-- [Code Prefill](https://livecodes.io/livecodes/docs/features/code-prefill.html.md)
 - [Data URLs](https://livecodes.io/livecodes/docs/features/data-urls.html.md)
 - [Deploy](https://livecodes.io/livecodes/docs/features/deploy.html.md)
 - [Sync](https://livecodes.io/livecodes/docs/features/sync.html.md)
@@ -86,10 +86,12 @@ Its MIT License also permits commercial use.
 
 - [LiveCodes SDK](https://livecodes.io/livecodes/docs/sdk/index.html.md)
 - [JavaScript/TypeScript SDK](https://livecodes.io/livecodes/docs/sdk/js-ts.html.md)
+- [Preact SDK](https://livecodes.io/livecodes/docs/sdk/preact.html.md)
 - [React SDK](https://livecodes.io/livecodes/docs/sdk/react.html.md)
+- [Solid SDK](https://livecodes.io/livecodes/docs/sdk/solid.html.md)
+- [Svelte SDK](https://livecodes.io/livecodes/docs/sdk/svelte.html.md)
 - [Vue SDK](https://livecodes.io/livecodes/docs/sdk/vue.html.md)
-- [Svelte](https://livecodes.io/livecodes/docs/sdk/svelte.html.md)
-- [Solid](https://livecodes.io/livecodes/docs/sdk/solid.html.md)
+- [Web Components SDK](https://livecodes.io/livecodes/docs/sdk/web-components.html.md)
 - [Headless Mode](https://livecodes.io/livecodes/docs/sdk/headless.html.md)
 
 ## Advanced
@@ -207,6 +209,8 @@ Its MIT License also permits commercial use.
 - [Guides & Tutorials](https://livecodes.io/livecodes/docs/tutorials/index.html.md)
 - [007bff;](https://livecodes.io/livecodes/docs/tutorials/getting-started-guide.html.md)
 - [3498db</span>](https://livecodes.io/livecodes/docs/tutorials/building-your-first-app.html.md)
+- [f5f5f5;](https://livecodes.io/livecodes/docs/tutorials/embedding-playgrounds.html.md)
+- [Creating Shareable URLs](https://livecodes.io/livecodes/docs/tutorials/creating-shareable-urls.html.md)
 
 ## Docs
 
@@ -214,6 +218,7 @@ Its MIT License also permits commercial use.
 - [GitHub Action ⚡](https://livecodes.io/livecodes/docs/gh-action.html.md)
 - [Markdown to LiveCodes](https://livecodes.io/livecodes/docs/markdown-to-livecodes.html.md)
 - [Contribution](https://livecodes.io/livecodes/docs/contribution.html.md)
+- [AI Guide](https://livecodes.io/livecodes/docs/ai-guide.html.md)
 - [Credits](https://livecodes.io/livecodes/docs/credits.html.md)
 - [License](https://livecodes.io/livecodes/docs/license.html.md)
 - [Sponsor LiveCodes](https://livecodes.io/livecodes/docs/sponsor.html.md)
@@ -256,8 +261,10 @@ Its MIT License also permits commercial use.
 - [Type Alias: EditorTheme](https://livecodes.io/livecodes/docs/api/internal/type-aliases/EditorTheme.html.md)
 - [Type Alias: MonacoTheme](https://livecodes.io/livecodes/docs/api/internal/type-aliases/MonacoTheme.html.md)
 - [Type Alias: Processor](https://livecodes.io/livecodes/docs/api/internal/type-aliases/Processor.html.md)
+- [Type Alias: ScreenName](https://livecodes.io/livecodes/docs/api/internal/type-aliases/ScreenName.html.md)
 - [Type Alias: TemplateName](https://livecodes.io/livecodes/docs/api/internal/type-aliases/TemplateName.html.md)
 - [Type Alias: Theme](https://livecodes.io/livecodes/docs/api/internal/type-aliases/Theme.html.md)
+- [Type Alias: ToolName](https://livecodes.io/livecodes/docs/api/internal/type-aliases/ToolName.html.md)
 - [Type Alias: ToolsPaneStatus](https://livecodes.io/livecodes/docs/api/internal/type-aliases/ToolsPaneStatus.html.md)
 - [Type Alias: WatchCode()](https://livecodes.io/livecodes/docs/api/internal/type-aliases/WatchCode.html.md)
 - [Type Alias: WatchConsole()](https://livecodes.io/livecodes/docs/api/internal/type-aliases/WatchConsole.html.md)
@@ -279,5 +286,7 @@ Its MIT License also permits commercial use.
 
 ## Functions
 
+- [Function: compress()](https://livecodes.io/livecodes/docs/api/functions/compress.html.md)
 - [Function: createPlayground()](https://livecodes.io/livecodes/docs/api/functions/createPlayground.html.md)
+- [Function: decompress()](https://livecodes.io/livecodes/docs/api/functions/decompress.html.md)
 - [Function: getPlaygroundUrl()](https://livecodes.io/livecodes/docs/api/functions/getPlaygroundUrl.html.md)

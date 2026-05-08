@@ -1,0 +1,117 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([["3428"],{85006:function(e,t,r){r.r(t),r.d(t,{default:()=>m,frontMatter:()=>c,gettingStartedParams:()=>p,assets:()=>u,metadata:()=>n,toc:()=>h,contentTitle:()=>d});var n=JSON.parse('{"id":"tutorials/getting-started-guide","title":"Getting Started Guide","description":"h1 {","source":"@site/docs/tutorials/getting-started-guide.mdx","sourceDirName":"tutorials","slug":"/tutorials/getting-started-guide","permalink":"/livecodes/docs/tutorials/getting-started-guide","draft":false,"unlisted":false,"editUrl":"https://github.com/live-codes/livecodes/tree/develop/docs/docs/tutorials/getting-started-guide.mdx","tags":[],"version":"current","frontMatter":{"title":"Getting Started Guide"},"sidebar":"docsSidebar","previous":{"title":"Guides & Tutorials","permalink":"/livecodes/docs/tutorials/"},"next":{"title":"Building Your First App","permalink":"/livecodes/docs/tutorials/building-your-first-app"}}'),s=r("85893"),i=r("50065"),o=r("31705"),l=r("65899"),a=r("58500");let c={title:"Getting Started Guide"},d="Getting Started Guide",u={},p={html:`<div class="container">
+  <h1 id="greeting">Hello, World!</h1>
+  <input type="text" id="nameInput" placeholder="Enter your name">
+  <button id="greetBtn">Greet Me!</button>
+</div>
+`,css:`.container {
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #007bff;
+  font-size: 2.5rem;
+}
+
+input {
+  padding: 10px;
+  font-size: 1rem;
+  margin: 10px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+`,js:`const greeting = document.getElementById('greeting');
+const nameInput = document.getElementById('nameInput');
+const greetBtn = document.getElementById('greetBtn');
+
+greetBtn.addEventListener('click', () => {
+  const name = nameInput.value.trim();
+  if (name) {
+    greeting.textContent = \`Hello, \${name}!\`;
+  } else {
+    greeting.textContent = 'Hello, World!';
+  }
+});
+`},h=[{value:"Prerequisites",id:"prerequisites",level:2},{value:"Step 1: Open LiveCodes",id:"step-1-open-livecodes",level:2},{value:"Step 2: Create a Simple Page",id:"step-2-create-a-simple-page",level:2},{value:"HTML Panel",id:"html-panel",level:3},{value:"CSS Panel",id:"css-panel",level:3},{value:"JavaScript Panel",id:"javascript-panel",level:3},{value:"Step 3: See Your Results",id:"step-3-see-your-results",level:2},{value:"Step 4: Save Your Project",id:"step-4-save-your-project",level:2},{value:"Congratulations!",id:"congratulations",level:2},{value:"Next Steps",id:"next-steps",level:2},{value:"Tips",id:"tips",level:2}];function g(e){let t={a:"a",h1:"h1",h2:"h2",h3:"h3",header:"header",li:"li",ol:"ol",p:"p",strong:"strong",ul:"ul",...(0,i.a)(),...e.components};return(0,s.jsxs)(s.Fragment,{children:[(0,s.jsx)(t.header,{children:(0,s.jsx)(t.h1,{id:"getting-started-guide",children:"Getting Started Guide"})}),"\n",(0,s.jsx)(t.p,{children:"This guide will walk you through creating your first project in LiveCodes."}),"\n",(0,s.jsx)(t.p,{children:"Try the completed project below:"}),"\n",(0,s.jsxs)(t.p,{children:[(0,s.jsx)(a.Z,{linkText:"open it in a new tab",params:p}),"."]}),"\n",(0,s.jsx)(l.Z,{params:p}),"\n",(0,s.jsx)(t.h2,{id:"prerequisites",children:"Prerequisites"}),"\n",(0,s.jsxs)(t.ul,{children:["\n",(0,s.jsx)(t.li,{children:"A web browser (Chrome, Firefox, Safari, or Edge)"}),"\n",(0,s.jsx)(t.li,{children:"Basic knowledge of HTML, CSS, and JavaScript"}),"\n"]}),"\n",(0,s.jsx)(t.h2,{id:"step-1-open-livecodes",children:"Step 1: Open LiveCodes"}),"\n",(0,s.jsxs)(t.ol,{children:["\n",(0,s.jsxs)(t.li,{children:["Navigate to ",(0,s.jsx)(t.a,{href:"https://livecodes.io",children:"livecodes.io"})]}),"\n",(0,s.jsxs)(t.li,{children:["You'll see the editor interface with three panels:","\n",(0,s.jsxs)(t.ul,{children:["\n",(0,s.jsx)(t.li,{children:(0,s.jsx)(t.strong,{children:"HTML"})}),"\n",(0,s.jsx)(t.li,{children:(0,s.jsx)(t.strong,{children:"CSS"})}),"\n",(0,s.jsx)(t.li,{children:(0,s.jsx)(t.strong,{children:"JavaScript"})}),"\n"]}),"\n"]}),"\n"]}),"\n",(0,s.jsx)(t.h2,{id:"step-2-create-a-simple-page",children:"Step 2: Create a Simple Page"}),"\n",(0,s.jsx)(t.p,{children:"Let's create a simple interactive greeting card."}),"\n",(0,s.jsx)(t.h3,{id:"html-panel",children:"HTML Panel"}),"\n",(0,s.jsx)(o.Z,{language:"html",children:p.html}),"\n",(0,s.jsx)(t.h3,{id:"css-panel",children:"CSS Panel"}),"\n",(0,s.jsx)(o.Z,{language:"css",children:p.css}),"\n",(0,s.jsx)(t.h3,{id:"javascript-panel",children:"JavaScript Panel"}),"\n",(0,s.jsx)(o.Z,{language:"js",children:p.js}),"\n",(0,s.jsx)(t.h2,{id:"step-3-see-your-results",children:"Step 3: See Your Results"}),"\n",(0,s.jsx)(t.p,{children:"The result panel automatically updates as you type. Try:"}),"\n",(0,s.jsxs)(t.ul,{children:["\n",(0,s.jsx)(t.li,{children:"Entering your name in the input field"}),"\n",(0,s.jsx)(t.li,{children:'Clicking the "Greet Me!" button'}),"\n",(0,s.jsx)(t.li,{children:"Modifying the colors in the CSS"}),"\n"]}),"\n",(0,s.jsx)(t.h2,{id:"step-4-save-your-project",children:"Step 4: Save Your Project"}),"\n",(0,s.jsxs)(t.ol,{children:["\n",(0,s.jsxs)(t.li,{children:['Click on the "',(0,s.jsx)(t.strong,{children:"Project"}),'" menu button in the toolbar']}),"\n",(0,s.jsxs)(t.li,{children:['Click "',(0,s.jsx)(t.strong,{children:"Save"}),'" to save the project (on this device)']}),"\n",(0,s.jsxs)(t.li,{children:['You can open it later from "',(0,s.jsx)(t.strong,{children:"Project menu > Open"}),'"']}),"\n",(0,s.jsxs)(t.li,{children:['Use "',(0,s.jsx)(t.strong,{children:"Project menu > Share"}),'" to get a permanent URL to your project that you can share']}),"\n"]}),"\n",(0,s.jsx)(t.h2,{id:"congratulations",children:"Congratulations!"}),"\n",(0,s.jsx)(t.p,{children:"You've just built your first interactive app with LiveCodes!"}),"\n",(0,s.jsx)(t.p,{children:"Compare your version with the completed project above. Did you add any personal touches?"}),"\n",(0,s.jsx)(a.Z,{linkText:"View the completed project",params:p}),"\n",(0,s.jsx)(t.h2,{id:"next-steps",children:"Next Steps"}),"\n",(0,s.jsx)(t.p,{children:"Now that you've created your first project, explore:"}),"\n",(0,s.jsxs)(t.ul,{children:["\n",(0,s.jsxs)(t.li,{children:[(0,s.jsx)(t.a,{href:"building-your-first-app",children:"Building Your First App"})," - Create more complex applications"]}),"\n",(0,s.jsxs)(t.li,{children:[(0,s.jsx)(t.a,{href:"/livecodes/docs/features/",children:"Features"})," - Learn about all LiveCodes features"]}),"\n",(0,s.jsxs)(t.li,{children:[(0,s.jsx)(t.a,{href:"/livecodes/docs/features/templates",children:"Templates"})," - Use pre-built templates"]}),"\n",(0,s.jsxs)(t.li,{children:[(0,s.jsx)(t.a,{href:"/livecodes/docs/features/external-resources",children:"External Resources"})," - Add libraries to your projects"]}),"\n"]}),"\n",(0,s.jsx)(t.h2,{id:"tips",children:"Tips"}),"\n",(0,s.jsxs)(t.ul,{children:["\n",(0,s.jsxs)(t.li,{children:["Use ",(0,s.jsx)(t.strong,{children:"Ctrl/Cmd + S"})," to manually save"]}),"\n",(0,s.jsxs)(t.li,{children:["Press ",(0,s.jsx)(t.strong,{children:"Ctrl/Cmd + Alt + S"})," to open share panel"]}),"\n",(0,s.jsxs)(t.li,{children:["Press ",(0,s.jsx)(t.strong,{children:"Ctrl/Cmd + K"})," to open the command menu"]}),"\n",(0,s.jsxs)(t.li,{children:["Enable ",(0,s.jsx)(t.strong,{children:"Auto-save"})," in user settings for automatic saving"]}),"\n"]})]})}function m(e={}){let{wrapper:t}={...(0,i.a)(),...e.components};return t?(0,s.jsx)(t,{...e,children:(0,s.jsx)(g,{...e})}):g(e)}},65899:function(e,t,r){r.d(t,{Z:()=>v});var n=r("85893"),s=r("79207"),i=r("67294"),o=r("88711");let l=function(e){let{useEffect:t,useRef:r}=e;return function(e){let n=r(null),s=r(void 0),i=r(""),l=r(""),a=r(0),c=r(!1),d=e.className||"",u=e.style||{},p=e.height&&Number(e.height)?`${e.height}px`:e.height;return t(()=>{if(!n.current)return;let{className:t,style:r,height:d,sdkReady:u,config:p,...h}=e,g=++a.current,m=()=>a.current!==g||c.current,f=JSON.stringify(h);if(s.current&&l.current===f){let e=JSON.stringify(p);if(i.current===e)return;i.current=e,p&&s.current.setConfig(p)}else l.current=f,i.current=JSON.stringify(p),s.current?.destroy(),s.current=void 0,(0,o.TH)(n.current,{config:p,...h}).then(e=>{if(m()){e.destroy();return}s.current=e,"function"==typeof u&&u(e)})},[e]),t(()=>()=>{c.current=!0,s.current?.destroy(),s.current=void 0},[]),{containerRef:n,className:d,style:u,height:p}}}({useEffect:i.useEffect,useRef:i.useRef});function a(e){let{containerRef:t,className:r,style:s,height:i}=l(e);return(0,n.jsx)("div",{ref:t,className:r,style:{...s,...i?{height:i}:{}},"data-height":i})}var c=r("21858"),d=r("33262"),u=r("31705"),p=r("97645"),h=r("58168"),g=r("98228"),m=r("45050");function f(e){let[t,r]=(0,i.useState)(e.js),[s,o]=(0,i.useState)(e.ts),[l,a]=(0,i.useState)(e.react),[c,f]=(0,i.useState)(e.vue),[v,x]=(0,i.useState)(e.svelte),[j,y]=(0,i.useState)(e.solid),[b,w]=(0,i.useState)(e.preact),[S,C]=(0,i.useState)(e.webComponents),P="3.7rem",[E,L]=(0,i.useState)(!0),[k,Z]=(0,i.useState)(P),N=(0,i.useRef)(null),T=()=>{setTimeout(()=>{Z(`calc(${N.current.offsetHeight}px + ${P})`)},5),setTimeout(()=>{Z(`calc(${N.current.offsetHeight}px + ${P})`)},255)};return(0,i.useEffect)(()=>{if(d.Z.canUseDOM){let e=function(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"js";try{return window.prettier?.format(e,{parser:"html"===t?"html":"babel",plugins:window.prettierPlugins})}catch{return e}};r(e(t,"js")),o(e(s,"ts")),a(e(l,"jsx")),f(e(c,"html")),x(e(v,"html")),y(e(j,"tsx")),w(e(b,"jsx")),C(e(S,"html"))}},[]),(0,n.jsxs)("details",{className:`alert alert--info ${m.Z.details} ${g.Z.details}`,"data-collapsed":E,style:{height:E?P:k,overflow:"hidden",willChange:"height",transition:`height ${E?"250ms":"265ms"} ease-in-out 0s`,margin:"1em 0"},children:[(0,n.jsx)("summary",{onClick:()=>{L(!E),T()},children:"show code"}),(0,n.jsx)("div",{ref:N,style:{display:"block",overflow:"hidden"},children:(0,n.jsx)("div",{className:m.Z.collapsibleContent,children:(0,n.jsxs)(h.Z,{groupId:"sdk-code",children:[(0,n.jsx)(p.Z,{value:"js",label:"JS",attributes:{onMouseDown:T},children:(0,n.jsx)(u.Z,{language:"js",children:t})}),(0,n.jsx)(p.Z,{value:"ts",label:"TS",attributes:{onMouseDown:T},children:(0,n.jsx)(u.Z,{language:"ts",children:s})}),(0,n.jsx)(p.Z,{value:"react",label:"React",attributes:{onMouseDown:T},children:(0,n.jsx)(u.Z,{language:"jsx",children:l})}),(0,n.jsx)(p.Z,{value:"vue",label:"Vue",attributes:{onMouseDown:T},children:(0,n.jsx)(u.Z,{language:"html",children:c})}),(0,n.jsx)(p.Z,{value:"svelte",label:"Svelte",attributes:{onMouseDown:T},children:(0,n.jsx)(u.Z,{language:"html",children:v})}),(0,n.jsx)(p.Z,{value:"solid",label:"Solid",attributes:{onMouseDown:T},children:(0,n.jsx)(u.Z,{language:"tsx",children:j})}),(0,n.jsx)(p.Z,{value:"preact",label:"Preact",attributes:{onMouseDown:T},children:(0,n.jsx)(u.Z,{language:"jsx",children:b})}),(0,n.jsx)(p.Z,{value:"web-components",label:"Web Components",attributes:{onMouseDown:T},children:(0,n.jsx)(u.Z,{language:"html",children:S})})]})})})]})}function v(e){let{className:t,style:r,showCode:i,height:o,...l}=e,{colorMode:d}=(0,s.I)(),u=e=>JSON.stringify(e,null,2),p=`
+import { createPlayground } from 'livecodes';
+
+const options = ${u(l)};
+createPlayground('#container', options);
+
+`.trimStart(),h=`
+import { createPlayground, type EmbedOptions } from 'livecodes';
+
+const options: EmbedOptions = ${u(l)};
+createPlayground('#container', options);
+
+`.trimStart(),g=`
+import LiveCodes from 'livecodes/react';
+
+export default function App() {
+  const options = ${u(l)};
+  return (<LiveCodes {...options} />);
+}
+
+`.trimStart(),m=`
+<script setup>
+import LiveCodes from "livecodes/vue";
+
+const options = ${u(l)};
+</script>
+<template>
+  <LiveCodes v-bind="options" />
+</template>
+
+`,v=`
+<script>
+import LiveCodes from 'livecodes/svelte';
+
+export default function App() {
+  const options = ${u(l)};
+}
+</script>
+
+<LiveCodes {...options} />
+
+`.trimStart(),x=`
+import LiveCodes from 'livecodes/solid';
+
+export default function App() {
+  const options = ${u(l)};
+  return (<LiveCodes {...options} />);
+}
+
+`.trimStart(),j=`
+import LiveCodes from 'livecodes/preact';
+
+export default function App() {
+  const options = ${u(l)};
+  return (<LiveCodes {...options} />);
+}
+
+`.trimStart(),y=(e=>{let{config:t,params:r,...n}=e,s=Object.entries(n).filter(e=>{let[,t]=e;return null!=t}).map(e=>{let[t,r]=e,n=t.replace(/[A-Z]/g,e=>`-${e.toLowerCase()}`);return"boolean"==typeof r?r?n:null:`${n}="${r}"`}).filter(Boolean),i=s.length>0?"\n  "+s.join("\n  "):"",o=[];t&&o.push(`playground.config = ${JSON.stringify(t,null,2).split("\n").join("\n  ")};`),r&&o.push(`playground.params = ${JSON.stringify(r,null,2).split("\n").join("\n  ")};`);let l=o.length>0?`
+
+  const playground = document.querySelector("live-codes");
+  ${o.join("\n  ")}`:"";return`
+<live-codes${i}></live-codes>
+
+<script type="module">
+  import "livecodes/web-components";${l}
+</script>
+`.trimStart()})(l);return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(a,{className:`container_Egsj ${e.className}`,style:{height:o||"50vh",...e.style},appUrl:c.G,...e,config:{theme:d,themeColor:"hsl(215, 8%, 60%)",..."object"==typeof e.config?e.config:{}}}),!1!==e.showCode&&(0,n.jsx)(f,{js:p,ts:h,react:g,vue:m,svelte:v,solid:x,preact:j,webComponents:y})]})}},58500:function(e,t,r){r.d(t,{Z:()=>c});var n=r("85893");r("67294");var s=r("6735");function i(e){let{children:t,fallback:r}=e;return(0,s.Z)()?(0,n.jsx)(n.Fragment,{children:t?.()}):r??null}var o=r("31705"),l=r("88711"),a=r("21858");function c(e){let{params:t,config:r,code:s,language:c="js",codeTitle:d="",showLineNumbers:u=!1,formatCode:p=!0,linkText:h="Run in LiveCodes",style:g={},className:m=""}=e,f=(0,l.rP)({appUrl:a.G,params:t,config:r});return(0,n.jsxs)("div",{style:{marginBottom:"30px",...g},className:m,children:[s&&(0,n.jsx)(i,{children:()=>(0,n.jsx)(o.Z,{language:c,title:d,showLineNumbers:u,children:p?function(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"js";return window.prettier?.format(e,{parser:"html"===t?"html":"babel",plugins:window.prettierPlugins})}(s,c):s})}),(0,n.jsxs)("a",{href:f,target:"_blank",rel:"noreferrer",children:[h,(0,n.jsx)("svg",{width:"12",height:"12","aria-hidden":"true",viewBox:"0 0 24 24",className:"iconExternalLink_node_modules-@docusaurus-theme-classic-lib-theme-Icon-ExternalLink-styles-module",style:{marginLeft:"4px"},children:(0,n.jsx)("path",{fill:"currentColor",d:"M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"})})]})]})}},88711:function(e,t,r){r.d(t,{rP:()=>a,TH:()=>l});var n=r("17728");let s={chrome:["accelerometer","bluetooth","camera","clipboard-read","clipboard-write","display-capture","encrypted-media","geolocation","gyroscope","language-detector","language-model","local-network-access","microphone","midi","proofreader","rewriter","serial","summarizer","translator","web-share","writer","window-placement","xr-spatial-tracking"],firefox:["camera","display-capture","geolocation","microphone","web-share"],default:["accelerometer","ambient-light-sensor","camera","display-capture","encrypted-media","geolocation","gyroscope","microphone","midi","payment","serial","vr","web-share","xr-spatial-tracking"]},i=()=>{if("undefined"==typeof navigator)return"default";let e=navigator.userAgent;return/Firefox\//i.test(e)?"firefox":/Chrome\//i.test(e)?"chrome":"default"},o=()=>s[i()].filter(e=>{let t=globalThis.document?.featurePolicy?.features?.();return!t||t.includes(e)}).join("; ");async function l(e){let t,r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};"object"!=typeof e||e instanceof HTMLElement||!e.headless&&"headless"!==e.view||(r=e,e=null);let{config:n={},headless:s,loading:i="lazy",view:l}=r,c=s||"headless"===l,d=null,u=null,p=e=>{e.style.position="absolute",e.style.top="0",e.style.visibility="hidden",e.style.opacity="0"};if("string"==typeof e)d=document.querySelector(e);else if(e instanceof HTMLElement)d=e;else if(!(c&&"object"==typeof e))throw Error("A valid container element is required.");if(!d){if(c)p(d=document.createElement("div")),document.body.appendChild(d);else throw Error(`Cannot find element: "${e}"`)}let h=new URL(a(r)),g=h.origin;h.searchParams.set("embed","true"),h.searchParams.set("loading",c?"eager":i),h.searchParams.set("sdkVersion",process.env.SDK_VERSION||"latest"),"object"==typeof n&&Object.keys(n).length>0&&h.searchParams.set("config","sdk");let m=r.params;"object"==typeof m&&Object.keys(m).length>0&&JSON.stringify(m).length<1800&&Object.keys(m).forEach(e=>{h.searchParams.set(e,encodeURIComponent(String(m[e])))});let f=!1,v="Cannot call API methods after calling `destroy()`.",x=[],j=function(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"message";addEventListener(t,e),x.push(e)},y=function(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"message";removeEventListener(t,e);let r=x.indexOf(e);r>-1&&x.splice(r,1)},b=await new Promise(e=>{if(!d)return;let t=d.dataset.height||d.style.height;if(t&&!c){let e=isNaN(Number(t))?t:t+"px";d.style.height=e}"false"===d.dataset.defaultStyles||c||(d.style.backgroundColor||="#fff",d.style.border||="1px solid black",d.style.borderRadius||="8px",d.style.boxSizing||="border-box",d.style.padding||="0",d.style.width||="100%",d.style.height||=d.style.height||"300px",d.style.minHeight="200px",d.style.flexGrow="1",d.style.overflow||="hidden",d.style.resize||="vertical","inline"!==getComputedStyle(d).getPropertyValue("display")||(d.style.display="block"));let r="livecodes",s=d.querySelector(`iframe.${r}`),l=s||document.createElement("iframe");l.classList.add(r),l.setAttribute("allow",o()),l.setAttribute("allowtransparency","true"),l.setAttribute("allowpaymentrequest","true"),l.setAttribute("allowfullscreen","true"),l.setAttribute("sandbox","allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"),l.setAttribute("loading","eager"===i?"eager":"lazy"),c?p(l):(l.style.height="100%",l.style.minHeight="200px",l.style.width="100%",l.style.margin="0",l.style.border="0",l.style.borderRadius=d.style.borderRadius),j(function e(t){t.source===l.contentWindow&&t.origin===g&&t.data?.type==="livecodes-init"&&(y(e),u=Number(t.data.payload.appVersion.replace(/^v/,"")))}),(!u||u<46)&&j(function e(t){t.source===l.contentWindow&&t.origin===g&&t.data?.type==="livecodes-get-config"&&(y(e),l.contentWindow?.postMessage({type:"livecodes-config",payload:n},g))}),l.onload=()=>{e(l)},l.src=h.href,s||d.appendChild(l)}),w=new Promise(e=>{j(function t(r){r.source===b.contentWindow&&r.origin===g&&r.data?.type==="livecodes-ready"&&(y(t),e(),w.settled=!0)})}),S=()=>f?Promise.reject(v):new Promise(async e=>{w.settled&&e(),b.contentWindow?.postMessage({type:"livecodes-load"},g),await w,e()}),C=(e,t)=>new Promise(async(r,n)=>{if(f)return n(v);await S();let s=N(),i=setTimeout(()=>{y(o),n(Error(`SDK call "${e}" timed out after 60000ms.`))},6e4);function o(t){if(t.source===b.contentWindow&&t.origin===g&&t.data?.type==="livecodes-api-response"&&t.data?.id===s&&t.data.method===e){clearTimeout(i),y(o);let e=t.data.payload;e?.error?n(e.error):r(e)}}j(o),b.contentWindow?.postMessage({method:e,id:s,args:t},g)}),P={},E=["load","ready","code","console","tests","destroy"],L=(e,t)=>{if(f)throw Error(v);return E.includes(e)?(C("watch",[e]),P[e]||(P[e]=[]),P[e]?.push(t),{remove:()=>{P[e]=P[e]?.filter(e=>e!==t),P[e]?.length===0&&C("watch",[e,"unsubscribe"])}}):{remove:()=>void 0}},k=e=>({"livecodes-app-loaded":"load","livecodes-ready":"ready","livecodes-change":"code","livecodes-console":"console","livecodes-test-results":"tests","livecodes-destroy":"destroy"})[e];j(async function(e){let t=k(e.data?.type??"");if(e.source!==b.contentWindow||e.origin!==g||!t||!P[t])return;let r=e.data?.payload;P[t]?.forEach(e=>{e(r)})});let Z=()=>{b?.remove?.(),Object.values(P).forEach(e=>{e.length=0}),x.forEach(e=>removeEventListener("message",e)),x.length=0,t&&d&&t.unobserve(d),f=!0};"lazy"===i&&"IntersectionObserver"in window&&(t=new IntersectionObserver((e,t)=>{e.forEach(async e=>{e.isIntersecting&&(await S(),t.unobserve(d))})},{rootMargin:"150px"})).observe(d);let N=()=>(String(Math.random())+Date.now().toFixed()).replace("0.","");return{load:()=>S(),run:()=>C("run"),format:e=>C("format",[e]),getShareUrl:e=>C("getShareUrl",[e]),getConfig:e=>C("getConfig",[e]),setConfig:e=>C("setConfig",[e]),getCode:()=>C("getCode"),show:(e,t)=>C("show",[e,t]),runTests:()=>C("runTests"),onChange:e=>L("code",e),watch:L,exec:function(e){for(var t=arguments.length,r=Array(t>1?t-1:0),n=1;n<t;n++)r[n-1]=arguments[n];return C("exec",[e,...r])},destroy:()=>f?Promise.reject(v):(Z(),Promise.resolve())}}function a(){let e,t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},{appUrl:r="https://livecodes.io",params:s={},config:i={},headless:o,import:l,lite:a,view:c,...d}=t;try{e=new URL(r)}catch{throw Error(`${r} is not a valid URL.`)}let u=new URLSearchParams;Object.entries(d).forEach(t=>{let[r,n]=t;void 0!==n&&e.searchParams.set(r,String(n))});let p="headless"===t.view||o;if(a&&(console.warn('Deprecation notice: "lite" option is deprecated. Use "config: { mode: \'lite\' }" instead.'),"object"==typeof i&&null==i.mode?i.mode="lite":e.searchParams.set("lite","true")),c&&(console.warn('Deprecation notice: The "view" option has been moved to "config.view". For headless mode use "headless: true".'),"object"==typeof i&&null==i.view&&"headless"!==c?i.view=c:e.searchParams.set("view",c)),"string"==typeof i)try{new URL(i),e.searchParams.set("config",encodeURIComponent(i))}catch{throw Error('"config" is not a valid URL or configuration object.')}else i&&"object"==typeof i&&Object.keys(i).length>0&&(i.title&&"Untitled Project"!==i.title&&e.searchParams.set("title",i.title),i.description&&i.description.length>0&&e.searchParams.set("description",i.description),u.set("config","code/"+(0,n.compressToEncodedURIComponent)(JSON.stringify(i))));if(s&&"object"==typeof s&&Object.keys(s).length>0)try{u.set("params",(0,n.compressToEncodedURIComponent)(JSON.stringify(s)))}catch{Object.keys(s).forEach(t=>{e.searchParams.set(t,encodeURIComponent(String(s[t])))})}return l&&e.searchParams.set("x",encodeURIComponent(l)),p&&e.searchParams.set("headless","true"),u.toString().length>0&&(e.hash=u.toString()),e.href}},50065:function(e,t,r){r.d(t,{Z:function(){return l},a:function(){return o}});var n=r(67294);let s={},i=n.createContext(s);function o(e){let t=n.useContext(i);return n.useMemo(function(){return"function"==typeof e?e(t):{...t,...e}},[t,e])}function l(e){let t;return t=e.disableParentContext?"function"==typeof e.components?e.components(s):e.components||s:o(e.components),n.createElement(i.Provider,{value:t},e.children)}}}]);

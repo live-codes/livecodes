@@ -1,0 +1,1 @@
+import{c as e,g as t}from"./theming-ZBl91PmQ.js";e();export{t as color};

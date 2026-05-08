@@ -2,6 +2,8 @@
 
 > **CssPresetId**: `""` \| `"normalize.css"` \| `"reset-css"`
 
+CSS presets.
+
 ## Defined in
 
-[models.ts:1280](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L1280)
+[src/sdk/models.ts:289](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L289)

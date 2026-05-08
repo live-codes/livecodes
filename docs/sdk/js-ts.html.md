@@ -3,7 +3,7 @@
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
-This is the core SDK on which others ([React](react.html.md), [Vue](vue.html.md), and [Svelte](svelte.html.md) SDKs) are build on top. It is a light-weight ([less than 5kb gzipped](https://bundlephobia.com/package/livecodes)), zero-dependencies library that allows creating, embedding and communication with LiveCodes playgrounds. It also allows easily creating links to playgrounds.
+This is the core SDK on which others ([Preact](preact.html.md), [React](react.html.md), [Solid](solid.html.md), [Svelte](svelte.html.md), [Vue](vue.html.md) and [Web Components](web-components.html.md) SDKs) are built on top. It is a light-weight, zero-dependencies library that allows creating, embedding and communication with LiveCodes playgrounds. It also allows easily creating links to playgrounds.
 
 ## Installation
 
@@ -107,6 +107,48 @@ export const getPlaygroundUrlDemo = {
 };
 
 <RunInLiveCodes params={getPlaygroundUrlDemo} />
+
+## `compress`
+
+Type: `(uncompressed: string) => string`
+
+A utility function that allows compressing the stringified config object (e.g. for [sharing in URL hash](../tutorials/creating-shareable-urls.html.md)). It encodes it in base64 with a few tweaks to make it URI safe.
+
+This is the `compressToEncodedURIComponent` function re-exported from [`lz-string`](https://www.npmjs.com/package/lz-string) for convenience.
+
+```js
+import { compress } from 'livecodes';
+
+const config = {
+  markup: {
+    language: 'html',
+    content: '<h1>Hello World!</h1>',
+  },
+};
+
+const compressed = compress(JSON.stringify(config));
+```
+
+## `decompress`
+
+Type: `(compressed: string) => string | null`
+
+A utility function that allows decompressing the config object (compressed by [`compress`](#compress)). It decodes it to a string that should be `JSON.parse`d.
+
+This is the `decompressFromEncodedURIComponent` function re-exported from [`lz-string`](https://www.npmjs.com/package/lz-string) for convenience.
+
+```js
+import { decompress } from 'livecodes';
+
+const decompressed = decompress(compressedString);
+if (decompressed) {
+  try {
+    const config = JSON.parse(decompressed);
+  } catch {
+    // invalid JSON
+  }
+}
+```
 
 ## Embed Options
 
@@ -282,6 +324,10 @@ createPlayground('#container').then(async (playground) => {
 Type: [`(config: Partial<Config>) => Promise<Config>`](../api/interfaces/Playground.md#setconfig)
 
 Loads a new project using the passed configuration object.
+
+If it is a string, it is assumed to be a URL to a JSON file that contains the configuration object.
+
+It throws an error if the config object (or URL) is invalid.
 
 ```js
 import { createPlayground } from 'livecodes';
@@ -572,7 +618,7 @@ Example:
 
 ### Height
 
-By default, the playground container height is set to `"300px"`. To change the height, either disable the default styles and override them, or simply set the `data-height` attribute to a number (in pixels) or any valid CSS value (e.g. `"100%"` to take the full height of its parent element).
+By default, the playground container height is set to `"300px"`. To change the height, either disable the default styles and override them, or simply set the `data-height` attribute to a number (in pixels) or any valid CSS value for `height` property (e.g. `"100%"` to take the full height of its parent element).
 
 Example:
 
@@ -595,7 +641,10 @@ export const sdkDemo = {
 
 ## Related
 
+- [Preact SDK](./preact.html.md)
 - [React SDK](./react.html.md)
+- [Solid SDK](./solid.html.md)
+- [Svelte SDK](./svelte.html.md)
 - [Vue SDK](./vue.html.md)
-- [Using SDK in Svelte](./svelte.html.md)
+- [Web Components SDK](./web-components.html.md)
 - [Embedded Playgrounds](../features/embeds.html.md)

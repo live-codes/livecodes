@@ -2,17 +2,7 @@
 
 > **WatchCode**: (`event`, `fn`) => `object`
 
-Called when the playground "content" is changed (see [`getCode`](https://livecodes.io/docs/sdk/js-ts#getcode) and [`getConfig`](https://livecodes.io/docs/sdk/js-ts#getcode)).
-
-This includes changes in:
-- Code (in editors)
-- Editor [languages](https://livecodes.io/docs/languages/)
-- [CSS processors](https://livecodes.io/docs/features/css#css-processors)
-- [External resources](https://livecodes.io/docs/features/external-resources)
-- Project info (e.g. allows adding content in page head and attributes to `<html>` element)
-- [Custom settings](https://livecodes.io/docs/advanced/custom-settings) (e.g. allows changing [import maps](https://livecodes.io/docs/features/module-resolution#custom-module-resolution))
-- Project title
-- [Test](https://livecodes.io/docs/features/tests) code
+Watch function type for code changes in the playground.
 
 ## Parameters
 
@@ -34,4 +24,4 @@ This includes changes in:
 
 ## Defined in
 
-[models.ts:248](https://github.com/live-codes/livecodes/blob/61a0396afe9816818482c9e42c3ba23295ad3520/src/sdk/models.ts#L248)
+[src/sdk/models.ts:1347](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1347)
