@@ -9,11 +9,13 @@ import prettier from 'prettier';
 const require = createRequire(import.meta.url);
 const appPkgPath = '../package.json';
 const sdkPkgPath = '../src/sdk/package.sdk.json';
+const jsrJsonPath = '../src/sdk/jsr.json';
 const changelogPath = '../CHANGELOG.md';
 
 const appPkg = require(appPkgPath);
 const originalAppVersion = appPkg.appVersion;
 const sdkPkg = require(sdkPkgPath);
+const jsrJson = require(jsrJsonPath);
 const originalSDKVersion = sdkPkg.version;
 const prettierConfig = appPkg.prettier;
 
@@ -225,10 +227,12 @@ const changeSDKVersion = async (releaseNotes) => {
       : selectedVersion;
   const versionName = 'sdk-v' + version;
   sdkPkg.version = version;
+  jsrJson.version = version;
   if (!(await confirm({ message: `Creating SDK version: ${versionName}\nProceed?` }))) {
     return confirmCancel(() => changeSDKVersion(releaseNotes));
   }
   fs.writeFileSync(new URL(sdkPkgPath, import.meta.url), await stringify(sdkPkg), 'utf8');
+  fs.writeFileSync(new URL(jsrJsonPath, import.meta.url), await stringify(jsrJson), 'utf8');
   return releaseNotes;
 };
 

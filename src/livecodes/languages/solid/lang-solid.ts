@@ -1,4 +1,5 @@
 import type { LanguageSpecs } from '../../models';
+import { modulesService } from '../../services/modules';
 import { vendorsBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
@@ -17,6 +18,10 @@ export const solid: LanguageSpecs = {
     factory: (_config, baseUrl) => {
       (self as any).importScripts(baseUrl + '{{hash:lang-solid-compiler.js}}');
       return (self as any).createSolidCompiler();
+    },
+    imports: {
+      'solid-js': modulesService.getModuleUrl('solid-js'),
+      'solid-js/web': modulesService.getModuleUrl('solid-js/web'),
     },
   },
   extensions: ['solid.jsx'],

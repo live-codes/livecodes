@@ -1,0 +1,41 @@
+{
+  "name": "vue",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6007",
+    "build-storybook": "storybook build"
+  },
+  "imports": {
+    "#src": "./src/index.ts"
+  },
+  "dependencies": {
+    "flat": "6.0.1",
+    "livecodes": "../../build/sdk",
+    "vue": "^3.5.25"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^5.0.2",
+    "@storybook/addon-a11y": "^10.3.1",
+    "@storybook/addon-docs": "^10.3.1",
+    "@storybook/addon-vitest": "^10.3.1",
+    "@storybook/vue3-vite": "^10.3.1",
+    "@types/node": "^24.10.1",
+    "@vitejs/plugin-vue": "^6.0.2",
+    "@vitejs/plugin-vue-jsx": "^5.1.4",
+    "@vitest/browser-playwright": "^4.0.18",
+    "@vitest/coverage-v8": "^4.0.18",
+    "@vue/tsconfig": "^0.8.1",
+    "playwright": "^1.58.2",
+    "storybook": "^10.3.1",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.0-beta.13",
+    "vite-plugin-ignore-dynamic-imports": "^1.0.2",
+    "vitest": "^4.0.18",
+    "vue-tsc": "^3.1.5"
+  },
+  "overrides": {
+    "vite": "^8.0.0-beta.13"
+  }
+}

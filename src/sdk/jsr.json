@@ -1,0 +1,29 @@
+{
+  "$schema": "https://jsr.io/schema/config-file.v1.json",
+  "name": "@livecodes/sdk",
+  "description": "A Code Playground That Just Works!",
+  "version": "0.13.0",
+  "license": "MIT",
+  "exports": {
+    ".": "./index.ts",
+    "./preact": "./preact.ts",
+    "./react": "./react.tsx",
+    "./solid": "./solid.ts",
+    "./svelte": "./svelte.ts",
+    "./vue": "./vue.ts",
+    "./web-components": "./web-components.ts"
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.svelte", "README.md", "LICENSE"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "**/*.umd.ts", "node_modules/**"],
+  "imports": {
+    "@live-codes/solid-sdk": "npm:@live-codes/solid-sdk@^0.4.0",
+    "lz-string": "npm:lz-string@^1.4.4",
+    "preact": "npm:preact@^10",
+    "preact/hooks": "npm:preact@^10/hooks",
+    "preact/jsx-runtime": "npm:preact@^10/jsx-runtime",
+    "react": "npm:react@^19",
+    "solid-js": "npm:solid-js@^1",
+    "svelte": "npm:svelte@^5",
+    "vue": "npm:vue@^3"
+  }
+}

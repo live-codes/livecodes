@@ -148,12 +148,13 @@ const FeatureList3: FeatureItem[] = [
         It is easy to <Link to="./getting-started">get started</Link>. LiveCodes is highly{' '}
         <Link to="./configuration/configuration-object">configurable</Link> (even by URL{' '}
         <Link to="./configuration/query-params">query params</Link>). The{' '}
-        <Link to="./sdk/">SDK</Link> facilitates <Link to="./features/embeds">embedding</Link>{' '}
-        playgrounds and allows easy <Link to="./sdk/js-ts#sdk-methods">communication</Link> with
-        them. The SDK is available for <Link to="./sdk/js-ts">vanilla JS/TS</Link>,{' '}
-        <Link to="./sdk/react">React</Link>, <Link to="./sdk/vue">Vue</Link>,{' '}
-        <Link to="./sdk/svelte">Svelte</Link> and <Link to="./sdk/solid">Solid</Link>. There is also
-        a <Link to="./sdk/headless">headless mode</Link> for full control over the UI.
+        <Link to="./sdk/">SDK</Link> allows <Link to="./features/embeds">creating</Link> and{' '}
+        <Link to="./sdk/js-ts#sdk-methods">communicating</Link> with embedded playgrounds. It is
+        available for <Link to="./sdk/js-ts">vanilla JS/TS</Link>,{' '}
+        <Link to="./sdk/preact">Preact</Link>, <Link to="./sdk/react">React</Link>,{' '}
+        <Link to="./sdk/solid">Solid</Link>, <Link to="./sdk/svelte">Svelte</Link>,{' '}
+        <Link to="./sdk/vue">Vue</Link> and <Link to="./sdk/web-components">Web Components</Link>, .
+        There is also a <Link to="./sdk/headless">headless mode</Link> for full control over the UI.
       </>
     ),
   },

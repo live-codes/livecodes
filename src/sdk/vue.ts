@@ -1,3 +1,11 @@
+/**
+ * LiveCodes Vue Component
+ *
+ * This module provides a Vue component wrapper for embedding LiveCodes playgrounds.
+ *
+ * @module
+ */
+
 /* eslint-disable no-duplicate-imports */
 /* eslint-disable import/no-extraneous-dependencies */
 
@@ -19,10 +27,21 @@ import { h, onMounted, onUnmounted, ref, watch } from '@vue/runtime-core';
 import { createPlayground } from './index';
 // eslint-disable-next-line import/order
 import type { EmbedOptions, Playground } from './models';
+export type { Code, Config, EmbedOptions, Language, Playground } from './models';
 
+/**
+ * Props for the LiveCodes Vue component.
+ */
 export interface Props extends EmbedOptions {
+  /** Height of the playground container. */
   height?: string;
 }
+
+type VuePropConstructor =
+  | StringConstructor
+  | BooleanConstructor
+  | ObjectConstructor
+  | Array<StringConstructor | ObjectConstructor>;
 
 const props = {
   appUrl: String,
@@ -35,9 +54,10 @@ const props = {
   template: String,
   view: String,
   height: String,
-} satisfies { [key in keyof Required<Props>]: any };
+} satisfies Record<keyof Required<Props>, VuePropConstructor>;
 
-// remove functions added to objects by vue ref
+// Strips reactive wrappers (functions, symbols) added by Vue's ref(),
+// preserving only the plain serializable data needed by createPlayground.
 const clone = <T>(obj: T): T => JSON.parse(JSON.stringify(obj));
 
 /**
@@ -47,7 +67,7 @@ const clone = <T>(obj: T): T => JSON.parse(JSON.stringify(obj));
  * @see {@link https://livecodes.io/docs/sdk/vue}
  *
  * @prop {string} [appUrl] - The URL of the LiveCodes app. Defaults to `https://livecodes.io/`.
- * @prop {object | string} [config] - The [config object](https://livecodes.io/docs/api/interfaces/Config) for the playground or the URL of the config file.
+ * @prop {object | string} [config] - The [config object](https://livecodes.io/docs/configuration/configuration-object) for the playground or the URL of the config file.
  * @prop {string} [import] - A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
  * @prop {boolean} [headless=false] - Whether to use the headless mode of LiveCodes.
  * @prop {boolean} [lite=false] - Deprecated! Use `config={{ mode: "lite" }}` instead - Whether to use the lite mode of LiveCodes.
@@ -69,11 +89,17 @@ const clone = <T>(obj: T): T => JSON.parse(JSON.stringify(obj));
  * </template>
  * ```
  */
-// @ts-ignore
+
 const LiveCodes: LiveCodesComponent = {
   props,
   emits: ['sdkReady'],
-  setup(props, ctx) {
+  setup(
+    props: Props,
+    ctx: {
+      emit: (ev: string, data: Playground) => void;
+      slots: { default: () => string | number | boolean | undefined };
+    },
+  ) {
     const { height: _height, ...options } = props;
     const containerRef = ref<HTMLElement>();
     const height = ref(_height || '');
@@ -81,42 +107,57 @@ const LiveCodes: LiveCodesComponent = {
     const { config, ...otherOptions } = options;
     let configCache = JSON.stringify(config);
     let otherOptionsCache = JSON.stringify(otherOptions);
+    let generation = 0;
+
+    // avoid race conditions if props change while doing async operation (creating playground)
+    const isStale = (gen: number) => gen !== generation;
 
     onMounted(() => {
       if (!containerRef.value) return;
+      const currentGeneration = ++generation;
       createPlayground(containerRef.value, clone(options)).then((sdk) => {
+        if (isStale(currentGeneration)) {
+          sdk.destroy();
+          return;
+        }
         playground.value = sdk;
         ctx.emit('sdkReady', sdk);
       });
     });
 
     watch(props, async (newProps) => {
-      if (!containerRef.value || !playground.value) return;
+      if (!containerRef.value) return;
       const { height: _height, ...options } = newProps;
-
-      height.value = _height || '';
+      const currentGeneration = ++generation;
+      if (_height) height.value = _height;
 
       // eslint-disable-next-line prefer-const
       let { config, ...otherOptions } = options;
-      if (typeof config === 'string') {
-        config = await fetch(config).then((res) => res.json());
-      }
 
-      if (JSON.stringify(otherOptions) !== otherOptionsCache) {
-        await playground.value?.destroy();
+      if (!playground.value || JSON.stringify(otherOptions) !== otherOptionsCache) {
+        otherOptionsCache = JSON.stringify(otherOptions);
+        configCache = JSON.stringify(config);
+        playground.value?.destroy();
+        playground.value = undefined;
+
         createPlayground(containerRef.value, clone(options)).then((sdk) => {
+          if (isStale(currentGeneration)) {
+            sdk.destroy();
+            return;
+          }
           playground.value = sdk;
           ctx.emit('sdkReady', sdk);
         });
       } else if (JSON.stringify(config) !== configCache) {
-        playground.value.setConfig((clone(config) as any) || {});
+        configCache = JSON.stringify(config);
+        if (config) {
+          playground.value.setConfig((clone(config) as any) || {});
+        }
       }
-
-      configCache = JSON.stringify(config);
-      otherOptionsCache = JSON.stringify(otherOptions);
     });
 
     onUnmounted(() => {
+      ++generation; // invalidate any pending async callbacks
       playground.value?.destroy();
     });
 
@@ -125,12 +166,14 @@ const LiveCodes: LiveCodesComponent = {
         'div',
         {
           ref: containerRef,
-          'data-height': height.value,
+          style: height.value
+            ? { height: Number(height.value) ? `${height.value}px` : height.value }
+            : undefined,
         },
         ctx.slots.default?.() || '',
       );
   },
-};
+} as unknown as LiveCodesComponent;
 
 export default LiveCodes;
 

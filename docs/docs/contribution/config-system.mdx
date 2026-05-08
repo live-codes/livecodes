@@ -1,0 +1,394 @@
+# Configuration System
+
+This document describes the configuration system which manages application state in LiveCodes. It outlines the architecture, data flow, and how configurations are managed.
+
+## Overview
+
+LiveCodes configuration system handles:
+
+- Default configuration values
+- User configuration merging
+- URL query parameter parsing
+- Configuration validation
+- Configuration version upgrades
+
+For individual configuration properties and their meanings, see the [Configuration Documentation](https://livecodes.io/docs/configuration).
+
+## Architecture
+
+```mermaid
+graph TD
+    subgraph "src/livecodes/config/"
+        A[index.ts] --> B[default-config.ts]
+        A --> C[build-config.ts]
+        A --> D[config.ts]
+        A --> E[validate-config.ts]
+        A --> F[upgrade-config.ts]
+    end
+    
+    B["Default configuration values"]
+    C["Configuration builder"]
+    D["Config getters/setters"]
+    E["Configuration validation"]
+    F["Version upgrade migrations"]
+```
+
+## Configuration Types
+
+The configuration is defined in `src/sdk/models.ts` and composed of several interfaces:
+
+### Config Interface
+
+```typescript
+interface Config extends ContentConfig, AppConfig, UserConfig {}
+```
+
+### Content Config
+
+[Content-related configuration](https://livecodes.io/docs/configuration/configuration-object#project-content)
+
+### AppConfig
+
+[Application behavior configuration](https://livecodes.io/docs/configuration/configuration-object#app-settings)
+
+### UserConfig
+
+[User preferences and editor settings](https://livecodes.io/docs/configuration/configuration-object#user-settings)
+
+## Configuration Flow
+
+```mermaid
+flowchart TD
+    A[Default Configuration<br/>default-config.ts] --> B[merge]
+    C[Saved Project Configuration<br/>from storage] --> B
+    B --> D[merge]
+    E[User Configuration<br/>programmatic/SDK] --> D
+    D --> F[merge]
+    G[URL Query Parameters] --> F
+    F --> H[merge]
+    I[URL Hash Parameters] --> H
+    H --> J["Final Configuration<br/>fixLanguageNames()"]
+```
+
+### 1. Default Configuration
+
+`default-config.ts` provides the base configuration:
+
+```typescript
+export const defaultConfig: Config = {
+  title: 'Untitled Project',
+  description: '',
+  head: `<meta charset="UTF-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />`,
+  autoupdate: true,
+  autosave: false,
+  delay: 1500,
+  theme: 'dark',
+  markup: { language: 'html', content: '' },
+  style: { language: 'css', content: '' },
+  script: { language: 'javascript', content: '' },
+  // ... more defaults
+  version: process.env.VERSION as string,
+};
+```
+
+### 2. Build Configuration
+
+`build-config.ts` merges configuration sources in order of precedence:
+
+```typescript
+export const buildConfig = (appConfig: Partial<Config>): Config => {
+  // 1. Start with default config
+  // 2. Merge user-provided config
+  // 3. Override with URL query parameters
+  // 4. Fix language names (aliases to canonical names)const userConfig = upgradeAndValidate(appConfig);
+
+  let config: Config = {
+    ...defaultConfig,
+    ...userConfig,
+  };
+
+  // Get URL params and merge
+  const params = getParams();
+  const { version, ...paramsConfig } = upgradeAndValidate(loadParamConfig(config, params));
+
+  config = { ...config, ...paramsConfig };
+
+  // Fix language aliases
+  return fixLanguageNames(config);
+};
+```
+
+### 3. Configuration State
+
+`config.ts` manages runtime configuration state with immutable getters/setters:
+
+```typescript
+let appConfig = defaultConfig;
+
+// Get current configuration
+export const getConfig = (): Config => cloneObject(appConfig);
+
+// Set new configuration
+export const setConfig = (newConfig: Config) => {
+  appConfig = cloneObject(newConfig);
+};
+
+// Extract content-only config (for sharing/export)
+export const getContentConfig = (config: Config): ContentConfig => {
+  /* ...*/
+};
+
+// Extract app-only config
+export const getAppConfig = (config: Config): AppConfig => {
+  /* ... */
+};
+
+// Extract user preferences
+export const getUserConfig = (config: Config): UserConfig => {
+  /* ... */
+};
+
+// Upgrade and validate in one step
+export const upgradeAndValidate = (config: Partial<Config>) =>
+  validateConfig(upgradeConfig(config as any));
+```
+
+## URL Parameter Handling
+
+### Parameter Types
+
+The system supports multiple [URL query parameter](https://livecodes.io/docs/configuration/query-params) formats (with the type `UrlQueryParams`)
+
+```
+?js                                    # Language shorthand
+?lang=js                               # Set active language
+?html=hi&scss&ts                       # Set editor content + language
+?languages=html,md,css,ts              # Enable multiple languages
+?processors=tailwindcss,autoprefixer # Enable processors
+?console                              # Open console (shorthand)
+?console=open                         # Open console (explicit)
+?tests=full                           # Open tests in full mode
+?lite                                 # Enable lite mode
+?customSettings={...}                 # Custom settings as JSON
+?markup.hideTitle=true                # Nested properties
+```
+
+### Load Param Config
+
+`loadParamConfig` converts URL parameters to configuration:
+
+```typescript
+export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial<Config> => {
+  const paramsConfig: Partial<Config> = {};
+
+  // ?html=hi&scss&ts - Set editor content/language
+  Object.keys(params).forEach((key) => {
+    const language = getLanguageByAlias(key);
+    const editorId = getLanguageEditorId(language);
+    if (editorId) {
+      paramsConfig[editorId] = { language, content: params[key] };
+    }
+  });
+  // ?activeEditor=style or ?active=1
+  // ?languages=html,md,css,ts
+  // ?processors=tailwindcss,autoprefixer
+  // ?tools=none|open|full
+  // ?customSettings={...}
+  // ?markup.hideTitle=true (nested props)
+
+  return paramsConfig;
+};
+```
+
+## Configuration Validation
+
+`validate-config.ts` ensures configuration validation in runtime:
+
+```typescript
+export const validateConfig = (config: Partial<Config>): Partial<Config> => {
+  // Type checking helpers
+  const is = (x: any, type: types, arrayType?: types): boolean => {
+    /* ... */
+  };
+
+  // Validate each property
+  return {
+    ...(is(config.title, 'string') ? { title: config.title } : {}),
+    ...(is(config.autoupdate, 'boolean') ? { autoupdate: config.autoupdate } : {}),
+    ...(includes(views, config.view) ? { view: config.view } : {}),
+    // ... validate all properties
+
+    // Validate nested objects
+    ...(is(config.markup, 'object')
+      ? { markup: validateEditorProps(config.markup, 'markup') }
+      : {}),
+    // ...
+  };
+};
+```
+
+## Version Upgrade
+
+`upgrade-config.ts` handles configuration migrations when versions change:
+
+```typescript
+interface UpgradeStep {
+  to: string; // Target version
+  upgrade: (oldConfig: Config, version: string) => Config;
+}
+
+const upgradeSteps: UpgradeStep[] = [
+  {
+    to: '18',
+    upgrade: (oldConfig) => {
+      // Move customSettings.head to config.head
+      // Move customSettings.htmlClasses to config.htmlAttrs
+    },
+  },
+  // ...
+];
+```
+
+## Usage
+
+### Getting/Setting Configuration
+
+```typescript
+// In core.ts
+import { getConfig, setConfig, buildConfig } from './config';
+
+// Get current config
+const config = getConfig();
+
+// Set new config
+setConfig({ ...getConfig(), title: 'New Title' });
+
+// Build config from user input
+const newConfig = buildConfig(userInput);
+```
+
+### Configuration Categories
+
+The system extracts specific configuration subsets:
+
+```typescript
+// Content config (for sharing/export)
+const contentConfig = getContentConfig(getConfig());
+// Returns: { title, description, markup, style, script, ... }
+
+// App config (behavior settings)
+const appConfig = getAppConfig(getConfig());
+// Returns: { readonly, allowLangChange, view, mode, tools, zoom }
+
+// User config (preferences)
+const userConfig = getUserConfig(getConfig());
+// Returns: { autoupdate, autosave, theme, editorTheme, ... }
+
+// Editor config
+const editorConfig = getEditorConfig(getConfig());
+// Returns: { editor, theme, fontFamily, fontSize, ... }
+
+// Formatter config
+const formatterConfig = getFormatterConfig(getConfig());
+// Returns: { useTabs, tabSize, semicolons, singleQuote, trailingComma }
+```
+
+## Configuration Sources Priority
+
+When building the final configuration, sources are merged in this order (later overrides earlier):
+
+1. **Default configuration** (`default-config.ts`)
+2. **Saved project configuration** (from storage)
+3. **User configuration** (programmatic - e.g. SDK)
+4. **URL query parameters** (including compressed params)
+5. **URL hash parameters** (highest priority)
+
+Example:
+
+```typescript
+// Default: theme = 'dark'
+// Saved user config: theme = 'light'
+// URL param: ?theme=dark
+// Final: theme = 'dark'
+```
+
+## Configuration Persistence
+
+Configuration is persisted through the storage system:
+
+```typescript
+// Save project
+const projectConfig = buildConfig(getConfig());
+await stores.projects?.addItem(projectConfig);
+
+// Load project
+const savedConfig = await stores.projects?.getItem(projectId);
+setConfig(buildConfig(savedConfig));
+```
+
+## Special Configuration Handling
+
+### Language Aliases
+
+Language names are normalized to canonical names:  
+(e.g. `md` becomes `markdown`, `ts` becomes `typescript`)
+
+```typescript
+const fixLanguageNames = (config: Config): Config => ({
+  ...config,
+  markup: {
+    ...config.markup,
+    language: getLanguageByAlias(config.markup.language) || 'html',
+  },
+  // ... same for style, script
+});
+```
+
+## Adding New Configuration Properties
+
+1. **Add type definition** in `src/sdk/models.ts`:
+
+   ```typescript
+   export interface EditorConfig {
+     // ...
+     /** Add descriptive JSDoc */
+     newProperty: string;
+   }
+   ```
+
+2. **Add default value** in `src/livecodes/config/default-config.ts`:
+
+   ```typescript
+   export const defaultConfig: Config = {
+     // ...
+     newProperty: 'default value',
+   };
+   ```
+
+3. **Add validation** in `src/livecodes/config/validate-config.ts`:
+
+   ```typescript
+   return {
+     // ...
+     ...(is(config.newProperty, 'string') ? { newProperty: config.newProperty } : {}),
+   };
+   ```
+
+4. **Add upgrade step** if needed in `src/livecodes/config/upgrade-config.ts`.
+
+5. **Add it do a configuration category** in `src/livecodes/config/config.ts`:
+
+   ```typescript
+   export const getEditorConfig = (config: Config): EditorConfig => ({
+     // ...
+     newProperty: config.newProperty,
+   });
+   ```
+
+6. **Document the property** in `docs/docs/configuration/configuration-object.mdx`.
+
+## Related Documentation
+
+- [Configuration Object](https://livecodes.io/docs/configuration/configuration-object) - User-facing configuration docs
+- [Query Parameters](https://livecodes.io/docs/configuration/query-params) - URL configuration
+- [SDK Models](../../../src/sdk/models.ts) - Type definitions

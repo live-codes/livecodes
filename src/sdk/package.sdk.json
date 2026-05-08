@@ -4,28 +4,70 @@
   "description": "A Code Playground That Just Works!",
   "author": "Hatem Hosny",
   "license": "MIT",
-  "keywords": ["playground", "code", "repl", "client", "sdk", "react", "vue", "svelte", "python"],
-  "private": false,
+  "homepage": "https://livecodes.io",
   "repository": {
     "url": "https://github.com/live-codes/livecodes"
   },
+  "bugs": "https://github.com/live-codes/livecodes/issues",
   "type": "module",
   "main": "./livecodes.js",
   "module": "./livecodes.js",
   "browser": "./livecodes.js",
-  "types": "./livecodes.d.ts",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "import": "./livecodes.js",
       "require": "./livecodes.cjs",
-      "default": "./livecodes.js"
+      "default": "./livecodes.js",
+      "types": "./types/index.d.ts"
     },
     "./react": {
-      "import": "./react.js"
+      "import": "./react.js",
+      "types": "./types/react.d.ts"
+    },
+    "./preact": {
+      "import": "./preact.js",
+      "types": "./types/preact.d.ts"
+    },
+    "./solid": {
+      "import": "./solid.js",
+      "types": "./types/solid.d.ts"
+    },
+    "./svelte": {
+      "svelte": "./LiveCodes.svelte",
+      "default": "./svelte.js",
+      "types": "./types/svelte.d.ts"
     },
     "./vue": {
-      "import": "./vue.js"
+      "import": "./vue.js",
+      "types": "./types/vue.d.ts"
+    },
+    "./web-components": {
+      "import": "./web-components.js",
+      "types": "./types/web-components.d.ts"
     },
     "./package.json": "./package.json"
-  }
+  },
+  "keywords": [
+    "playground",
+    "code",
+    "repl",
+    "sdk",
+    "preact",
+    "react",
+    "solid",
+    "svelte",
+    "vue",
+    "web-components",
+    "python",
+    "tanstack-intent"
+  ],
+  "funding": [
+    "https://github.com/sponsors/live-codes",
+    "https://github.com/sponsors/hatemhosny",
+    "https://ko-fi.com/hatemhosny",
+    "https://paypal.me/hatemhosni",
+    "https://livecodes.io/docs/sponsor"
+  ],
+  "private": false
 }

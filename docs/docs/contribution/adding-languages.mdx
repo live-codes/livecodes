@@ -14,6 +14,36 @@ If you still have doubts if the language qualifies, [let's discuss it](https://g
 
 ## Checklist when adding
 
+```mermaid
+flowchart TD
+    A[Add Language] --> B["Create language specs<br/>src/livecodes/languages/"]
+    B --> C["Add to languages.ts<br/>or processors.ts"]
+
+    C --> D{"Compiler needs<br/>separate build?"}
+    D -->|Yes| E["Add to build script<br/>scripts/build.js"]
+    D -->|No| F{"New packages/<br/>static files?"}
+
+    F -->|Yes| G["Add to browser-compilers repo<br/>and CDN"]
+    F -->|No| H["Reference vendors.ts<br/>for CDN links"]
+
+    E --> H
+    G --> H
+
+    H --> I["Add name/aliases<br/>to sdk/models.ts"]
+    I --> J["Add editor support<br/>Monaco/CodeMirror/Prismjs"]
+    J --> K["Add language info<br/>html/language-info.html"]
+    K --> L{"Starter template?"}
+
+    L -->|Yes| M["Create template<br/>Add to TemplateList, command-menu,<br/>language-info"]
+    L -->|No| N["Add e2e tests"]
+
+    M --> N
+    N --> O["Add language docs<br/>docs/docs/languages/"]
+    O --> P["Add to docs slider<br/>LanguageSliders.tsx"]
+    P --> Q["Add licenses<br/>vendor-licenses.mdx"]
+    Q --> R["Update badge<br/>README.mdx"]
+```
+
 - [ ] Add [language specs](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/languages) and include that in the list of [languages](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/languages/languages.ts) or [processors](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/languages/processors.ts).
 - [ ] The compiler +/- formatter should be lazy-loaded.
 - [ ] If the compiler needs a separate build, add it to the [build script](https://github.com/live-codes/livecodes/blob/3a2617850f09487b9af92de862093f082942b8a9/scripts/build.js#L207).

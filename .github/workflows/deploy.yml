@@ -13,7 +13,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      NODE_OPTIONS: "--max_old_space_size=4096"
+      NODE_OPTIONS: "--max_old_space_size=8192"
     steps:
       - name: Generate Github Token for CI Bot
         uses: actions/create-github-app-token@v1

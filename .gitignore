@@ -16,3 +16,4 @@ docs/static/llms-full.txt
 src/livecodes/i18n/locales/tmp/
 lokalise_tmp
 /server/data
+.sisyphus

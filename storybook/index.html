@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiveCodes SDK – Storybook</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          'Nunito Sans',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        background: #f6f9fc;
+        color: #333;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        background: #171c23;
+        padding: 2.5rem 1.5rem 2rem;
+        text-align: center;
+      }
+
+      header a.header-link {
+        text-decoration: none;
+        color: inherit;
+        display: inline-block;
+      }
+
+      header a.header-link:hover .logo-wrapper svg {
+        filter: drop-shadow(0 2px 12px rgba(150, 191, 61, 0.4));
+      }
+
+      header a.header-link:hover h1 {
+        color: #e8e8e8;
+      }
+
+      .logo-wrapper {
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      .logo-wrapper svg {
+        height: 72px;
+        width: auto;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+        transition: filter 0.3s;
+      }
+
+      header h1 {
+        color: #fff;
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.35rem;
+        transition: color 0.2s;
+      }
+
+      header p {
+        color: #9da5b4;
+        font-size: 0.95rem;
+        font-weight: 400;
+      }
+
+      header p a {
+        color: #1ea7fd;
+        text-decoration: none;
+      }
+
+      header p a:hover {
+        text-decoration: underline;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #ff4785;
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.2em 0.65em;
+        border-radius: 999px;
+        vertical-align: middle;
+        margin-left: 0.4rem;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      main {
+        flex: 1;
+        max-width: 960px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2.5rem 1.5rem 3rem;
+      }
+
+      .section-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #999;
+        margin-bottom: 1.25rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.25rem;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #e6e9ed;
+        border-radius: 10px;
+        padding: 1.5rem;
+        padding-right: 2.75rem;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+        transition:
+          box-shadow 0.2s,
+          border-color 0.2s,
+          transform 0.15s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        border-color: #1ea7fd;
+        box-shadow:
+          0 4px 20px rgba(30, 167, 253, 0.15),
+          0 1px 3px rgba(0, 0, 0, 0.06);
+        transform: translateY(-2px);
+      }
+
+      .card:active {
+        transform: translateY(0);
+      }
+
+      .card-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #fff;
+        position: relative;
+      }
+
+      .card-icon svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .card-body h2 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.2rem;
+        color: #171c23;
+      }
+
+      .card-body p {
+        font-size: 0.82rem;
+        color: #8c9baa;
+        line-height: 1.35;
+      }
+
+      .card .arrow {
+        position: absolute;
+        right: 1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #ced4db;
+        transition:
+          color 0.2s,
+          transform 0.2s;
+        font-size: 1.1rem;
+      }
+
+      .card:hover .arrow {
+        color: #1ea7fd;
+        transform: translateY(-50%) translateX(3px);
+      }
+
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        color: #9da5b4;
+        font-size: 0.82rem;
+        border-top: 1px solid #e6e9ed;
+        background: #fff;
+      }
+
+      footer a {
+        color: #1ea7fd;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Framework colors */
+      .icon-react {
+        background: linear-gradient(135deg, #61dafb, #3b8fc2);
+      }
+      .icon-preact {
+        background: linear-gradient(135deg, #673ab8, #512da8);
+      }
+      .icon-vue {
+        background: linear-gradient(135deg, #42d392, #2f9768);
+      }
+      .icon-svelte {
+        background: linear-gradient(135deg, #ff3e00, #cc3200);
+      }
+      .icon-solid {
+        background: linear-gradient(135deg, #4a80c4, #2c5ea0);
+      }
+      .icon-wc {
+        background: linear-gradient(135deg, #29abe2, #1b8dbf);
+      }
+
+      @media (max-width: 600px) {
+        header {
+          padding: 2rem 1rem 1.5rem;
+        }
+        header h1 {
+          font-size: 1.3rem;
+        }
+        .logo-wrapper svg {
+          height: 56px;
+        }
+        main {
+          padding: 1.75rem 1rem 2rem;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="https://livecodes.io/docs/sdk/" target="_blank" rel="noopener" class="header-link">
+        <div class="logo-wrapper">
+          <!-- LiveCodes Logo (inline SVG) -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="737"
+            height="488"
+            viewBox="0 0 737 488"
+            stroke="#000"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="#fff"
+            fill-rule="evenodd"
+          >
+            <style>
+              .B {
+                stroke: none;
+              }
+              .C {
+                fill: url(#C);
+              }
+              .D {
+                fill: #96bf3d;
+              }
+              .E {
+                fill-rule: nonzero;
+              }
+            </style>
+            <defs>
+              <filter id="A" x="-1.8182%" y="-2.7229%" width="104.0559%" height="106.0741%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+                <feOffset dx="3" dy="3" result="B" />
+                <feFlood flood-color="#000" flood-opacity=".5" />
+                <feComposite in2="B" operator="in" result="C" />
+                <feMerge>
+                  <feMergeNode in="C" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <filter id="B" x="-4.4068%" y="-3.6111%" width="109.8305%" height="108.0556%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+                <feOffset dx="3" dy="3" result="B" />
+                <feFlood flood-color="#000" flood-opacity=".5" />
+                <feComposite in2="B" operator="in" result="C" />
+                <feMerge>
+                  <feMergeNode in="C" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <linearGradient id="C" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#d7d7d7" />
+                <stop offset="100%" stop-color="#626262" />
+              </linearGradient>
+            </defs>
+            <g filter="url(#A)" fill="#c1c1c1" transform="translate(9.5 4.5)" class="B E">
+              <path
+                d="M16.7525 286.7298C6.7066 275.7455 0 253.8097 0 234.5909c0-19.2061 5.0266-37.032 17.5891-46.6336h-.8357L214.4292 0v127.5964c-21.7784 20.5762-51.0939 43.9057-124.8028 108.3891l.8357 1.3552c39.3673 28.822 84.5988 72.7163 123.9662 111.1297v128.966z"
+              />
+              <g transform="translate(500.5716 .0017)">
+                <path
+                  d="M197.6761 190.6956c10.0385 10.985 16.7523 32.9317 16.7523 52.1396s-5.0268 37.0308-17.5962 46.6336h.8443L0 477.4266V349.8297c21.7793-20.5648 51.094-43.8937 124.8034-108.3777l-.8357-1.3553C84.607 211.2747 39.3692 167.3799.0009 128.9676V0z"
+                />
+              </g>
+            </g>
+            <g filter="url(#B)" transform="translate(219.5 59.5)" class="B">
+              <g transform="translate(147.229 92.5951)">
+                <path d="M0 261.9238l143.1698-87.4534V0L0 87.2109v174.7129z" />
+              </g>
+              <g transform="translate(4.3302 92.7405)">
+                <path d="M0 174.2764l142.9894 87.3081V87.1142L0 0v174.2764z" />
+              </g>
+              <g transform="translate(5.2325 6.0147)">
+                <path
+                  d="M284.1743 86.5805L142.0872 0 0 86.5805l142.0872 86.7257 142.0871-86.7257z"
+                />
+              </g>
+              <g transform="translate(147.3196 92.5951)">
+                <path d="M0 81.5845L133.8327.0967 133.6974 0 0 81.5845z" />
+              </g>
+              <g transform="translate(13.487 92.5951)">
+                <path d="M.1353 0L0 .0967l133.8327 81.4878L.1353 0z" />
+              </g>
+              <g transform="translate(147.3196 174.1792)"><path d="M0 0z" /></g>
+              <path
+                d="M290.1287 87.017L147.3196 0 4.5106 87.017 0 89.8789v180.0482L147.5 360l4.5106-2.7648L295 269.9271V89.8303zm-4.511 177.2837l-133.7875 81.7786V182.6194l133.9679-81.6331zm-142.809 81.7786L8.8407 264.2521V100.9863l133.968 81.6331zM13.6223 92.6919l133.6973-81.536 133.6974 81.536-133.6974 81.4873L13.487 92.6919z"
+                fill="#444"
+              />
+              <g transform="translate(147.9058 133.4844)" class="C">
+                <path d="M0 140.566l76.9073-46.9039V0L0 46.8553v93.7107z" />
+              </g>
+              <g transform="translate(69.8257 133.4844)" class="C">
+                <path d="M0 93.6621l76.9073 46.9039V46.8553L0 0v93.6621z" />
+              </g>
+              <g transform="translate(70.6373 85.513)" class="C">
+                <path d="M153.3638 46.71L76.6819 0 0 46.71l76.6819 46.8554L153.3638 46.71z" />
+              </g>
+              <g transform="translate(147.3196 132.223)" class="D">
+                <path d="M0 42.102L68.9685.0968 68.8787 0 0 42.0534v.0486z" />
+              </g>
+              <g transform="translate(78.3507 132.223)" class="D">
+                <path d="M.0902 0L0 .0968 68.9685 42.102v-.0486L.0902 0z" />
+              </g>
+              <g transform="translate(147.3196 174.2764)" class="D"><path d="M0 0z" /></g>
+              <g transform="translate(64.7736 79.159)">
+                <path
+                  d="M160.5811 47.4858L82.5456 0 4.5106 47.4858 0 50.2992v100.9377l82.5456 50.4446 4.511-2.7648 78.1253-47.6798V50.2992zm-4.5109 98.0762l-69.0136 42.1987v-84.2035l69.1042-42.102zm-78.0351 42.1987L8.9309 145.562V61.4552l69.1042 42.102zM13.6674 53.064l68.8782-41.908 68.8787 41.9566-68.8787 42.0048-68.9684-41.9566z"
+                />
+              </g>
+            </g>
+          </svg>
+        </div>
+        <h1>LiveCodes SDK <span class="badge">Storybook</span></h1>
+      </a>
+      <p>
+        Component stories for the
+        <a href="https://livecodes.io/docs/sdk/" target="_blank" rel="noopener">LiveCodes SDK</a>
+      </p>
+    </header>
+
+    <main>
+      <div class="section-title">Choose a framework</div>
+      <div class="grid">
+        <a href="./preact/" class="card">
+          <div class="card-icon icon-preact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <ellipse cx="12" cy="12" rx="10" ry="4" />
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" />
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)" />
+              <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h2>Preact</h2>
+            <p>SDK components for Preact</p>
+          </div>
+          <span class="arrow">›</span>
+        </a>
+
+        <a href="./react/" class="card">
+          <div class="card-icon icon-react">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <ellipse cx="12" cy="12" rx="10" ry="4" />
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" />
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)" />
+              <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h2>React</h2>
+            <p>SDK components for React</p>
+          </div>
+          <span class="arrow">›</span>
+        </a>
+
+        <a href="./solid/" class="card">
+          <div class="card-icon icon-solid">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 166 155.3" stroke="#fff">
+              <path
+                d="M163 35S110-4 69 5l-3 1c-6 2-11 5-14 9l-2 3-15 26 26 5c11 7 25 10 38 7l46 9 18-30z"
+                fill="#76b3e1"
+              />
+              <linearGradient
+                id="a"
+                gradientUnits="userSpaceOnUse"
+                x1="27.5"
+                y1="3"
+                x2="152"
+                y2="63.5"
+              >
+                <stop offset=".1" stop-color="#76b3e1" />
+                <stop offset=".3" stop-color="#dcf2fd" />
+                <stop offset="1" stop-color="#76b3e1" />
+              </linearGradient>
+              <path
+                d="M163 35S110-4 69 5l-3 1c-6 2-11 5-14 9l-2 3-15 26 26 5c11 7 25 10 38 7l46 9 18-30z"
+                opacity=".3"
+                fill="url(#a)"
+              />
+              <path
+                d="M52 35l-4 1c-17 5-22 21-13 35 10 13 31 20 48 15l62-21S92 26 52 35z"
+                fill="#518ac8"
+              />
+              <linearGradient
+                id="b"
+                gradientUnits="userSpaceOnUse"
+                x1="95.8"
+                y1="32.6"
+                x2="74"
+                y2="105.2"
+              >
+                <stop offset="0" stop-color="#76b3e1" />
+                <stop offset=".5" stop-color="#4377bb" />
+                <stop offset="1" stop-color="#1f3b77" />
+              </linearGradient>
+              <path
+                d="M52 35l-4 1c-17 5-22 21-13 35 10 13 31 20 48 15l62-21S92 26 52 35z"
+                opacity=".3"
+                fill="url(#b)"
+              />
+              <linearGradient
+                id="c"
+                gradientUnits="userSpaceOnUse"
+                x1="18.4"
+                y1="64.2"
+                x2="144.3"
+                y2="149.8"
+              >
+                <stop offset="0" stop-color="#315aa9" />
+                <stop offset=".5" stop-color="#518ac8" />
+                <stop offset="1" stop-color="#315aa9" />
+              </linearGradient>
+              <path
+                d="M134 80a45 45 0 00-48-15L24 85 4 120l112 19 20-36c4-7 3-15-2-23z"
+                fill="url(#c)"
+              />
+              <linearGradient
+                id="d"
+                gradientUnits="userSpaceOnUse"
+                x1="75.2"
+                y1="74.5"
+                x2="24.4"
+                y2="260.8"
+              >
+                <stop offset="0" stop-color="#4377bb" />
+                <stop offset=".5" stop-color="#1a336b" />
+                <stop offset="1" stop-color="#1a336b" />
+              </linearGradient>
+              <path
+                d="M114 115a45 45 0 00-48-15L4 120s53 40 94 30l3-1c17-5 23-21 13-34z"
+                fill="url(#d)"
+              />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h2>Solid</h2>
+            <p>SDK components for SolidJS</p>
+          </div>
+          <span class="arrow">›</span>
+        </a>
+
+        <a href="./svelte/" class="card">
+          <div class="card-icon icon-svelte">
+            <svg viewBox="0 0 256 308" preserveAspectRatio="xMidYMid">
+              <g>
+                <path
+                  d="M239.681566,40.706757 C211.113272,-0.181889366 154.69089,-12.301439 113.894816,13.6910393 L42.2469062,59.3555354 C22.6760042,71.6680028 9.1958152,91.6538543 5.11196889,114.412133 C1.69420521,133.371174 4.6982178,152.928576 13.6483951,169.987905 C7.51549676,179.291145 3.33259428,189.7413 1.3524912,200.706787 C-2.77083771,223.902098 2.62286977,247.780539 16.3159596,266.951444 C44.8902975,307.843936 101.312954,319.958266 142.10271,293.967161 L213.75062,248.302665 C233.322905,235.991626 246.803553,216.005094 250.885557,193.246067 C254.302867,174.287249 251.30121,154.730228 242.355449,137.668922 C248.486748,128.365895 252.667894,117.916162 254.646134,106.951413 C258.772188,83.7560394 253.378243,59.8765465 239.682665,40.706757"
+                  fill="#FFFFFF"
+                ></path>
+                <path
+                  d="M106.888658,270.841265 C83.7871855,276.848065 59.3915045,267.805346 45.7864111,248.192566 C37.5477583,236.66102 34.3023491,222.296573 36.7830958,208.343155 C37.1989333,206.075414 37.7711933,203.839165 38.4957755,201.650433 L39.845476,197.534835 L43.5173097,200.231763 C51.9971301,206.462491 61.4784803,211.199728 71.5527203,214.239302 L74.2164003,215.047419 L73.9710252,217.705878 C73.6455499,221.487851 74.6696022,225.262925 76.8616703,228.361972 C80.9560313,234.269749 88.3011363,236.995968 95.2584831,235.190159 C96.8160691,234.773852 98.3006859,234.121384 99.6606718,233.25546 L171.331634,187.582718 C174.877468,185.349963 177.321139,181.729229 178.065299,177.605596 C178.808171,173.400048 177.830501,169.072361 175.351884,165.594581 C171.255076,159.685578 163.908134,156.9582 156.947927,158.762547 C155.392392,159.178888 153.90975,159.83088 152.551509,160.695872 L125.202489,178.130144 C120.705281,180.989558 115.797437,183.144784 110.64897,184.521162 C87.547692,190.527609 63.1523949,181.484801 49.5475471,161.872188 C41.3085624,150.340895 38.0631179,135.976391 40.5442317,122.023052 C43.0002744,108.333716 51.1099574,96.3125326 62.8835328,88.9089537 L134.548175,43.2323647 C139.047294,40.3682559 143.958644,38.21032 149.111311,36.8336525 C172.21244,30.8273594 196.607527,39.8700206 210.212459,59.4823515 C218.451112,71.013898 221.696522,85.3783452 219.215775,99.3317627 C218.798144,101.59911 218.225915,103.835236 217.503095,106.024485 L216.153395,110.140083 L212.483484,107.447276 C204.004261,101.212984 194.522,96.4735732 184.44615,93.4336926 L181.78247,92.6253012 L182.027845,89.9668419 C182.350522,86.1852063 181.326723,82.4111645 179.1372,79.3110228 C175.042839,73.4032457 167.697734,70.677026 160.740387,72.4828355 C159.182801,72.8991426 157.698185,73.5516104 156.338199,74.4175344 L84.6672364,120.0922 C81.1218886,122.323199 78.6795938,125.943704 77.9387928,130.066574 C77.1913232,134.271925 78.1673502,138.601163 80.6469865,142.078963 C84.7438467,147.987899 92.0907405,150.71526 99.0509435,148.910997 C100.608143,148.493836 102.092543,147.841423 103.452857,146.976298 L130.798305,129.548621 C135.293566,126.685437 140.201191,124.528302 145.350175,123.152382 C168.451453,117.145935 192.846751,126.188743 206.451598,145.801356 C214.690583,157.332649 217.936027,171.697153 215.454914,185.650492 C212.997261,199.340539 204.888162,211.362752 193.115613,218.769811 L121.450695,264.442553 C116.951576,267.306662 112.040226,269.464598 106.887559,270.841265"
+                  fill="#FF3E00"
+                ></path>
+              </g>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h2>Svelte</h2>
+            <p>SDK components for Svelte</p>
+          </div>
+          <span class="arrow">›</span>
+        </a>
+
+        <a href="./vue/" class="card">
+          <div class="card-icon icon-vue">
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+              <path d="M2 3h3.5L12 14.5 18.5 3H22L12 21 2 3z" opacity=".6" />
+              <path d="M7.5 3L12 11l4.5-8h-3L12 7.5 10.5 3z" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h2>Vue</h2>
+            <p>SDK components for Vue</p>
+          </div>
+          <span class="arrow">›</span>
+        </a>
+
+        <a href="./web-components/" class="card">
+          <div class="card-icon icon-wc">
+            <svg fill="currentColor" viewBox="0 0 24 24">
+              <path d="M11.7 4H6.6L2 12l4.6 8h5.1l-4.76-8z" />
+              <path
+                d="m12.56 19.49.31.51h4.28l2.21-3.74h-8.72zM14.26 15.57h5.44l1.87-3.23h-5.44zM19.36 7.74 17.15 4h-4.28l-.31.51-1.92 3.23zM14.26 8.43l1.87 3.23h5.44L19.7 8.43z"
+              />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h2>Web Components</h2>
+            <p>SDK as native custom elements</p>
+          </div>
+          <span class="arrow">›</span>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <a href="https://livecodes.io" target="_blank" rel="noopener">LiveCodes</a> ·
+      <a href="https://livecodes.io/docs" target="_blank" rel="noopener">Docs</a> ·
+      <a href="https://github.com/live-codes/livecodes" target="_blank" rel="noopener">GitHub</a>
+    </footer>
+  </body>
+</html>

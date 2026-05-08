@@ -14,6 +14,7 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "resolveJsonModule": true,
+    "noEmit": true,
 
     "allowJs": true,
     "checkJs": true,
@@ -45,9 +46,10 @@
     "jsx": "react-jsx",
     "lib": ["es2022", "dom", "dom.iterable"],
     "types": ["node", "jest"],
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "skipLibCheck": true
   },
   "compileOnSave": true,
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/sdk/react.tsx"],
   "exclude": ["**/node_modules/**"]
 }
