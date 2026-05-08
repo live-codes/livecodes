@@ -107,7 +107,7 @@ jobs:
         run: |
           node ./scripts/prepare-jsr.mts
           cd dist/jsr
-          npx jsr publish
+          npx jsr publish --allow-dirty
 
       - name: Create pull request to main (App)
         if: startsWith(github.head_ref, 'releases/v')
