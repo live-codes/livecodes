@@ -1,0 +1,850 @@
+# Architecture Overview
+
+This document provides a comprehensive high-level overview of LiveCodes architecture, showing the major systems and how they connect together.
+
+## Table of Contents
+
+- [High-Level Architecture](#high-level-architecture)
+- [Core Systems](#core-systems)
+- [Data Flow](#data-flow)
+- [Key Workflows](#key-workflows)
+- [System Interactions](#system-interactions)
+
+---
+
+## High-Level Architecture
+
+LiveCodes is a client-side code playground that runs entirely in the browser. The architecture follows a modular design with clear separation of concerns.
+
+```mermaid
+graph TB
+    subgraph Entry Points
+        SDK[SDK Entry<br/>sdk/index.ts]
+        App[App Entry<br/>livecodes/index.ts]
+        Main[Main Loader<br/>livecodes/main.ts]
+    end
+
+    subgraph Core Application
+        Core[Core Controller<br/>livecodes/core.ts]
+        Config[Configuration<br/>config/]
+        Events[Event System<br/>events/]
+    end
+
+    subgraph Editors
+        Monaco[Monaco Editor]
+        CodeMirror[CodeMirror Editor]
+        CodeJar[CodeJar Editor]
+        Custom[Custom Editors<br/>Blockly/Quill]
+    end
+
+    subgraph Compiler System
+        Compiler[Compiler Factory]
+        Worker[Web Worker<br/>compile.worker.ts]
+        Sandbox[iframe Sandbox<br/>compiler-sandbox.ts]
+        Languages[Language Specs<br/>languages/]
+    end
+
+    subgraph Result Page
+        ResultPage[Result Generator<br/>result/]
+        Iframe[Result iframe]
+        Console[Console Proxy]
+    end
+
+    subgraph Storage
+        IndexedDB[IndexedDB<br/>via LocalForage]
+        LocalStorage[localStorage]
+    end
+
+    subgraph Services
+        Auth[Authentication<br/>Firebase/GitHub]
+        Share[Share Service]
+        GitHub[GitHub API]
+        CDN[Module Resolution]
+    end
+
+    subgraph UI
+        Toolbar[Toolbar]
+        ToolsPane[Tools Pane<br/>Console/Compiled/Tests]
+        Modals[Modal Screens]
+        Notifications[Notifications]
+    end
+
+    SDK --> Main
+    Main --> Core
+    App --> Core
+
+    Core --> Config
+    Core --> Events
+    Core --> Editors
+    Core --> Compiler
+    Core --> Storage
+    Core --> Services
+    Core --> UI
+
+    Editors --> Core
+    Compiler --> Worker
+    Compiler --> Sandbox
+    Languages --> Compiler
+
+    Core --> ResultPage
+    ResultPage --> Iframe
+    Iframe --> Console
+    Console --> ToolsPane
+
+    Storage --> IndexedDB
+    Storage --> LocalStorage
+```
+
+---
+
+## Core Systems
+
+### 1. Entry Points
+
+LiveCodes has multiple entry points depending on the use case:
+
+| Entry Point | File                     | Purpose                                    |
+| ----------- | ------------------------ | ------------------------------------------ |
+| SDK         | `src/sdk/index.ts`       | JavaScript/TypeScript SDK for embedding    |
+| App         | `src/livecodes/index.ts` | Main application entry with loading screen |
+| Main        | `src/livecodes/main.ts`  | Orchestrates app loading in iframe         |
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant SDK as createPlayground()
+    participant Main as main.ts
+    participant Index as index.ts
+    participant Core as core.ts
+
+    User->>SDK: createPlayground(container, config)
+    SDK->>Main: Load app.html with config
+    Main->>Main: Check loading mode (lazy/eager/click)
+    Main->>Index: Initialize app
+    Index->>Core: Initialize with config
+    Core->>Core: Set up stores, events, compilers
+    Core-->>Index: API object
+    Index-->>Main:appLoaded event
+    Main-->>SDK: ready event
+    SDK-->>User: Playground object with API methods
+```
+
+### 2. Core Controller (`core.ts`)
+
+The core controller is the orchestrator of the entire application. It manages:
+
+- **State Management**: Configuration, editors, cache
+- **Lifecycle**: Initialization, destruction, event handling
+- **Coordination**: Connecting all subsystems
+
+Key responsibilities:
+
+```typescript
+// Core state (module-level)
+const stores: Stores = createStores();
+const eventsManager = createEventsManager();
+let editors: Editors;
+let compiler: Compiler;
+let formatter: Formatter;
+let toolsPane: ToolsPane;
+```
+
+Core initialization flow:
+
+```mermaid
+flowchart TD
+    A[app.ts called] --> B[Initialize Stores]
+    B --> C[Initialize Events Manager]
+    C --> D[Create Notifications]
+    D --> E[Load i18n]
+    E --> F[Create Editors]
+    F --> G[Load Compilers]
+    G --> H[Create Tools Pane]
+    H --> I[Apply Initial Config]
+    I --> J[Load Starter Templates]
+    J --> K[Attach Event Handlers]
+    K --> L[Run Initial Code]
+    L --> M[Dispatch 'ready' Event]
+```
+
+### 3. Configuration System
+
+The configuration system manages all application state:
+
+```mermaid
+flowchart LR
+    subgraph Sources
+        A[Default Config]
+        B[Saved Project]
+        C[SDK Config]
+        D[URL Params]
+        E[Hash Params]
+    end
+
+    subgraph Processing
+        F[buildConfig]
+        G[upgradeConfig]
+        H[validateConfig]
+    end
+
+    subgraph State
+        I[appConfig<br/>runtime state]
+    end
+
+    A --> F
+    B --> F
+    C --> F
+    D --> F
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+```
+
+**Configuration Categories**:
+
+| Category        | Description                               | Extractor              |
+| --------------- | ----------------------------------------- | ---------------------- |
+| ContentConfig   | Project content (markup, style, script)   | `getContentConfig()`   |
+| AppConfig       | App behavior (readonly, mode, tools)      | `getAppConfig()`       |
+| UserConfig      | User preferences (theme, autoupdate)      | `getUserConfig()`      |
+| EditorConfig    | Editor settings (font, line numbers)      | `getEditorConfig()`    |
+| FormatterConfig | Formatting settings (tabSize, semicolons) | `getFormatterConfig()` |
+
+### 4.Editor System
+
+The editor system provides a unified interface for multiple code editors:
+
+```mermaid
+classDiagram
+    class CodeEditor {
+        <<interface>>
+        +getValue() string
+        +setValue(value) void
+        +getLanguage() Language
+        +setLanguage(language, value) void
+        +getPosition() Position
+        +setPosition(position) void
+        +focus() void
+        +layout() void
+        +destroy() void
+        +format() void
+        +onContentChanged(fn)
+        +addTypes(lib) void
+    }
+
+    class MonacoEditor {
+        +monaco: Monaco
+        +format()
+        +addTypes()
+    }
+
+    class CodeMirrorEditor {
+        +view: EditorView
+        +format()
+        +loadTS()
+    }
+
+    class CodeJarEditor {
+        +jar: CodeJar
+        +format()
+    }
+
+    class FakeEditor {
+        +getValue()
+        +setValue()
+    }
+
+    CodeEditor <|.. MonacoEditor
+    CodeEditor <|.. CodeMirrorEditor
+    CodeEditor <|.. CodeJarEditor
+    CodeEditor <|.. FakeEditor
+
+    MonacoEditor -- EditorFactory
+    CodeMirrorEditor -- EditorFactory
+    CodeJarEditor -- EditorFactory
+    FakeEditor -- EditorFactory
+
+    class EditorFactory {
+        +createEditor(options) CodeEditor
+    }
+```
+
+**Editor Selection Logic**:
+
+| Mode                            | Selected Editor |
+| ------------------------------- | --------------- |
+| Headless                        | Fake            |
+| Result                          | Fake            |
+| Simple (inactive)               | Fake            |
+| Simple (active)                 | CodeMirror      |
+| Mobile                          | CodeMirror      |
+| Desktop                         | Monaco          |
+| Codeblock                       | CodeJar         |
+| Lite                            | CodeJar         |
+| Explicit `editor: 'monaco'`     | Monaco          |
+| Explicit `editor: 'codemirror'` | CodeMirror      |
+
+---
+
+## Data Flow
+
+### Compilation Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Editor
+    participant Core
+    participant Compiler
+    participant Worker
+    participant Result
+
+    User->>Editor: Type code
+    Editor->>Core: onContentChanged
+    Core->>Core: updateConfig()
+    Core->>Core: Check autoupdate
+
+    alt autoupdate enabled
+        Core->>Compiler: compile(markup, language, config)
+        Compiler->>Worker: postMessage(compile)
+        Worker->>Worker: Load language compiler
+        Worker->>Worker: Execute compilation
+        Worker-->>Compiler: postMessage(compiled)
+        Compiler->>Core: CompileResult
+        Core->>Result: getResultPage()
+        Result->>Result: Create HTML
+        Result-->>Core: HTML string
+        Core->>Core: createIframe()
+        Core->>Result: postMessage(result)
+    end
+```
+
+### Result Page Generation
+
+The result page is generated by combining compiled code from all editors:
+
+```mermaid
+flowchart TD
+    A[getResultPage] --> B[Compile Markup]
+    B --> C[Compile Style]
+    C --> D[Compile Script]
+    D --> E[Compile Tests]
+
+    E --> F{Processors?}
+    F -->|Yes| G[Apply PostCSS/Tailwind/etc]
+    F -->|No| H[Create Import Map]
+    G --> H
+
+    H --> I[Create Result HTML]
+    I --> J[Add CS Preset]
+    J --> K[Add External Resources]
+    K --> L[Add Runtime Scripts]
+
+    L --> M{Script Type}
+    M -->|module| N[Add as ES Module]
+    M -->|classic| O[Add as Classic Script]
+
+    N --> P{Live Reload?}
+    O --> P
+    P -->|Supported| Q[postMessage to iframe]
+    P -->|Not supported| R[Reload iframe]
+
+    Q --> S[Update Cache]
+    R --> S
+```
+
+---
+
+## Key Workflows
+
+### App Initialization
+
+```mermaid
+stateDiagram-v2
+    [*] --> Loading: App Entry
+    Loading --> EmbedMode: isEmbed check
+    Loading --> FullMode: !isEmbed
+
+    state EmbedMode {
+        [*] --> ClickToLoad: loading=click
+        [*] --> LazyLoad: loading=lazy
+        [*] --> EagerLoad: loading=eager
+        ClickToLoad --> EagerLoad: click
+        LazyLoad --> EagerLoad: IntersectionObserver
+    }
+
+    state FullMode {
+        [*] --> InitSplash
+        InitSplash --> LoadI18n
+        LoadI18n --> InitializeCore
+    }
+
+    state EagerLoad {
+        [*] --> InitializeCore
+    }
+
+    FullMode --> Ready
+    EmbedMode --> Ready
+
+    Ready --> [*]: dispatch 'ready' event
+```
+
+### Run Code Workflow
+
+When the user triggers code execution (Run button or auto-update):
+
+```mermaid
+flowchart TD
+    A[run triggered] --> B[updateConfig]
+    B --> C{Style only update?}
+
+    C -->|Yes| D[Post CSS update to iframe]
+    C -->|No| E[Get all compiled code]
+
+    D --> F[Update Cache]
+
+    E --> G[compile markup]
+    G --> H[compile style<br/>with HTML context]
+    H --> I[compile script]
+    I --> J{Tests enabled?}
+
+    J -->|Yes| K[compile tests]
+    J -->|No| L[createResultPage]
+    K --> L
+
+    L --> M[Apply processors]
+    M --> N[Create import map]
+    N --> O[Generate HTML]
+
+    O --> P{LiveReload support?}
+    P -->|Yes| Q[postMessage to iframe]
+    P -->|No| R[Reload iframe]
+
+    Q --> F
+    R --> F
+
+    F --> S[Update compiled code viewer]
+    S --> T[Clear console if needed]
+    T --> U[Dispatch change event]
+```
+
+### Editor Language Change
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant UI as UI Handlers
+    participant Core
+    participant Editor
+    participant Compiler
+    participant Formatter
+    participant Cache
+
+    User->>UI: Select language from menu
+    UI->>Core: changeLanguage(lang)
+    Core->>Core: check languageIsEnabled
+    Core->>Editor: setLanguage(lang, content)
+    Editor->>Editor: Update model/language
+    Editor-->>Core: Done
+
+    Core->>Core: update editorLanguages
+    Core->>Core: setEditorTitle
+
+    par Parallel Operations
+        Core->>Compiler: load([lang], config)
+        Compiler->>Compiler: Load language compiler
+        Compiler-->>Core: Loaded
+
+        Core->>Formatter: getFormatFn(lang)
+        Formatter->>Formatter: Load prettier plugins
+        Formatter-->>Core: Format function
+    end
+
+    Core->>Editor: registerFormatter(fn)
+
+    alt autoupdate enabled
+        Core->>Core: run()
+    end
+
+    Core->>Core: loadModuleTypes (for TS/JS)
+    Core->>Editor: addTypes(lib)
+
+    Core->>Cache: setSavedStatus
+    Core-->>UI: Language changed
+```
+
+---
+
+## System Interactions
+
+### Event System
+
+LiveCodes uses a publish/subscribe pattern for cross-component communication:
+
+```mermaid
+flowchart LR
+    subgraph Publishers
+        Core[Core Controller]
+        SDK[SDK Watchers]
+        Iframe[Result Iframe]
+    end
+
+    subgraph EventBus
+        Events[Events Manager<br/>addEventListener/removeEventListener]
+        CustomEvents[Custom Events<br/>livecodes-*]
+        PubSub[Pub/Sub<br/>createPub]
+    end
+
+    subgraph Subscribers
+        UI[UI Components]
+        ToolsPane[Tools Pane]
+        Storage[Storage Sync]
+        External[External Handlers]
+    end
+
+    Core --> Events
+    SDK --> CustomEvents
+    Iframe --> CustomEvents
+
+    Events --> UI
+    CustomEvents --> ToolsPane
+    Events --> Storage
+    CustomEvents --> External
+```
+
+**Custom Events**:
+
+| Event                     | When Fired           | Payload              |
+| ------------------------- | -------------------- | -------------------- |
+| `livecodes-init`          | App starts loading   | `{ appVersion }`     |
+| `livecodes-ready`         | Project loaded       | -                    |
+| `livecodes-load`          | Load triggered (SDK) | -                    |
+| `livecodes-change`        | Code changed         | `{ code, config }`   |
+| `livecodes-test-results`  | Tests completed      | `{ results, error }` |
+| `livecodes-console`       | Console output       | `{ method, args }`   |
+| `livecodes-destroy`       | App destroyed        | -                    |
+| `livecodes-resize-editor` | Editor resize        | -                    |
+
+**Pub/Sub for SDK**:
+
+```typescript
+const sdkWatchers = {
+  load: createPub<void>(),
+  ready: createPub<void>(),
+  code: createPub<{ code: Code; config: Config }>(),
+  tests: createPub<{ results: TestResult[]; error?: string }>(),
+  console: createPub<{ method: string; args: any[] }>(),
+  destroy: createPub<void>(),
+};
+```
+
+### Storage System
+
+The storage system provides persistent storage using IndexedDB (via LocalForage) and localStorage:
+
+```mermaid
+flowchart TB
+    subgraph Storage Layer
+        Stores[Stores Object]
+    end
+
+    subgraph IndexedDB Stores
+        Projects[projects<br/>ProjectStorage]
+        Templates[templates<br/>ProjectStorage]
+        Assets[assets<br/>Storage]
+        Snippets[snippets<br/>Storage]
+        UserData[userData<br/>Storage]
+        Sync[sync<br/>Storage]
+    end
+
+    subgraph LocalStorage
+        UserConfig[userConfig<br/>SimpleStorage]
+        Recover[recover<br/>SimpleStorage]
+        AppData[appData<br/>SimpleStorage]
+    end
+
+    Stores --> Projects
+    Stores --> Templates
+    Stores --> Assets
+    Stores --> Snippets
+    Stores --> UserConfig
+    Stores --> Recover
+    Stores --> UserData
+    Stores --> AppData
+    Stores --> Sync
+
+    Projects -->|addItem/updateItem/getItem| Core1[Core]
+    UserConfig -->|getValue/setValue| Core2[Load Settings]
+    Recover -->|getValue/setValue| Core3[Auto-save]
+```
+
+**Storage Operations**:
+
+```typescript
+// Save project
+projectId = await stores.projects?.addItem(projectConfig);
+
+// Load project
+constsavedConfig = await stores.projects?.getItem(projectId);
+
+// User preferences
+stores.userConfig?.setValue({ theme: 'dark', autoupdate: true });
+
+// Recovery
+stores.recover?.setValue({ config: getContentConfig(getConfig()), lastModified: Date.now() });
+```
+
+### Services Layer
+
+External services are abstracted behind interfaces:
+
+```mermaid
+flowchart TB
+    subgraph Core Application
+        Core[core.ts]
+    end
+
+    subgraph Services
+        AuthService[auth.ts<br/>Firebase/GitHub OAuth]
+        ShareService[share.ts<br/>Project Sharing]
+        SandboxService[sandbox.ts<br/>Result/Compiler iframes]
+        BroadcastService[broadcast.ts<br/>Real-time sync]
+        ModulesService[modules.ts<br/>CDN Module Resolution]
+        GitHubService[github.ts<br/>GitHub API]
+        CorsService[cors.ts<br/>CORS Proxy]
+        PermanentUrlService[permanent-url.ts<br/>Versioned URLs]
+    end
+
+    subgraph External
+        Firebase[(Firebase Auth)]
+        GitHub[(GitHub API)]
+        CDN[(CDN: esm.sh, etc)]
+        BroadcastServer[(Broadcast Server)]
+    end
+
+    Core --> AuthService
+    Core --> ShareService
+    Core --> GitHubService
+    Core --> ModulesService
+    Core --> BroadcastService
+
+    AuthService --> Firebase
+    AuthService --> GitHub
+    GitHubService --> GitHub
+    ModulesService --> CDN
+    BroadcastService --> BroadcastServer
+```
+
+### Compiler System
+
+The compiler system uses Web Workers for performance:
+
+```mermaid
+flowchart TB
+    subgraph Main Thread
+        Core[core.ts]
+        CompilerFactory[getCompiler]
+        CreateCompiler[createCompiler]
+    end
+
+    subgraph Worker Module
+        Worker[compile.worker.ts]
+        CompilerRegistry[getAllCompilers]
+        LanguageLoaders[Language Compilers]
+    end
+
+    subgraph Page Context
+        Sandbox[compiler-sandbox.ts<br/>iframe]
+        PageCompilers[compile.page.ts]
+    end
+
+    Core --> CompilerFactory
+    CompilerFactory --> CreateCompiler
+    CreateCompiler -->|Worker supported| Worker
+    CreateCompiler -->|Not supported| Sandbox
+
+    Worker --> CompilerRegistry
+    Worker --> LanguageLoaders
+
+    Sandbox --> PageCompilers
+
+    subgraph Message Protocol
+        M1[init]
+        M2[load]
+        M3[compile]
+        M4[compiled]
+        M5[error]
+    end
+
+    CreateCompiler<-->|postMessage| Worker
+    CreateCompiler<-->|postMessage| Sandbox
+```
+
+**Worker vs Page Context**:
+
+| Compiler Type           | Environment  | Reason                      |
+| ----------------------- | ------------ | --------------------------- |
+| Most languages          | Worker       | Performance, no UI blocking |
+| ReScript, OCaml, Reason | Page/Sandbox | Needs DOM APIs              |
+| MDX, Diagrams           | Page/Sandbox | WebAssembly limitations     |
+| PostgreSQL              | Page/Sandbox | Creates nested workers      |
+
+---
+
+## Display Modes
+
+LiveCodes supports multiple display modes for different use cases:
+
+```mermaid
+flowchart TB
+    subgraph Modes
+        Full[full<br/>Complete app]
+        Focus[focus<br/>Minimal UI]
+        Simple[simple<br/>Single editor]
+        Lite[lite<br/>Lightweight]
+        Editor[editor<br/>Code only]
+        Codeblock[codeblock<br/>Read-only display]
+        Result[result<br/>Output only]
+    end
+
+    subgraph Editor Selection
+        Monaco[Monaco Editor<br/>Full features]
+        CodeMirror[CodeMirror<br/>Mobile-friendly]
+        CodeJar[CodeJar<br/>Lightweight]
+        Fake[Fake Editor<br/>No editor]
+    end
+
+    Full --> Monaco
+    Focus --> Monaco
+    Simple --> CodeMirror
+    Lite --> CodeJar
+    Editor --> Monaco
+    Codeblock --> CodeJar
+    Result --> Fake
+```
+
+**Mode Features**:
+
+| Mode      | Toolbar | Editors | Result | Tools Pane   |
+| --------- | ------- | ------- | ------ | ------------ |
+| full      | ✅      | ✅      | ✅     | ✅           |
+| focus     | ✅      | ✅      | ✅     | ✅ (console) |
+| simple    | ✅      | ✅      | ✅     | ✅           |
+| lite      | ❌      | ✅      | ✅     | ❌           |
+| editor    | ❌      | ✅      | ❌     | ❌           |
+| codeblock | ❌      | ✅      | ❌     | ❌           |
+| result    | ❌      | ❌      | ✅     | ✅           |
+
+---
+
+## Import/Export System
+
+```mermaid
+flowchart LR
+    subgraph Import Sources
+        URL[URL Import]
+        Files[File Import]
+        GitHub[GitHub Import]
+        Template[Template]
+        SDK[SDK Config]
+    end
+
+    subgraph Import Pipeline
+        Parse[Parse Source]
+        Validate[Validate Config]
+        Load[Load Compilers]
+        Apply[Apply Config]
+    end
+
+    subgraph Export Targets
+        ShareURL[Share URL]
+        Download[Download Files]
+        GitHubExport[GitHub Export]
+        Broadcast[Broadcast]
+    end
+
+    subgraph Export Pipeline
+        Build[Build Config]
+        Compile[Compile Code]
+        Format[Format Output]
+    end
+
+    URL --> Parse
+    Files --> Parse
+    GitHub --> Parse
+    Template --> Parse
+    SDK --> Parse
+
+    Parse --> Validate
+    Validate --> Load
+    Load --> Apply
+
+    Build --> Compile
+    Compile --> Format
+
+    Format --> ShareURL
+    Format --> Download
+    Format --> GitHubExport
+    Format --> Broadcast
+```
+
+---
+
+## Internationalization (i18n)
+
+```mermaid
+flowchart LR
+    subgraph Source
+        Code["TypeScript Files<br/>translateString()"]
+        HTML[HTML Files<br/>data-i18n attribute]
+    end
+
+    subgraph Extraction
+        Export[i18n-export script]
+    end
+
+    subgraph Lokalise
+        Upload[Upload Source Strings]
+        Translate[Translator Interface]
+        Download[Download Translations]
+    end
+
+    subgraph Integration
+        Import[i18n-import script]
+        Locales[locales/*.ts]
+    end
+
+    subgraph Runtime
+        I18n[i18next]
+        UI[Translated UI]
+    end
+
+    Code --> Export
+    HTML --> Export
+    Export --> Upload
+    Upload --> Lokalise
+    Lokalise --> Download
+    Download --> Import
+    Import --> Locales
+    Locales --> I18n
+    I18n --> UI
+```
+
+---
+
+## Related Documentation
+
+For detailed information about specific systems, see:
+
+- [Build System](./build-system.mdx) - Build process and outputs
+- [Compiler System](./compiler-system.mdx) - Language compilation details
+- [Editor System](./editor-system.mdx) - Code editor implementations
+- [Configuration System](./config-system.mdx) - Configuration management
+- [Storage System](./storage-system.mdx) - Data persistence
+- [Services System](./services-system.mdx) - External services
+- [UI Design System](./ui-design-system.mdx) - Styles and templates
+- [Tools Pane System](./tools-pane-system.mdx) - Console, compiled code, tests
+- [Language Support System](./language-support-system.mdx) - Adding languages
+- [i18n](./i18n.mdx) - Internationalization
+- [Result Page](./result-page.mdx) - Result page generation

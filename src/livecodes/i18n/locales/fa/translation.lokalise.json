@@ -957,6 +957,9 @@
   "editorSettings.lineNumbersRelative": {
     "translation": "شماره خطوط نسبی *"
   },
+  "editorSettings.minimap": {
+    "translation": "فعال کردن مینی‌مپ *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "در CodeJar در دسترس نیست"
   },

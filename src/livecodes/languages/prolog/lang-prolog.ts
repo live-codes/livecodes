@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { tauPrologBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, tauPrologBaseUrl } from '../../vendors';
 
 export const prolog: LanguageSpecs = {
   name: 'prolog',
@@ -24,4 +24,11 @@ export const prolog: LanguageSpecs = {
   },
   extensions: ['prolog.pl', 'prolog'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'prolog.js' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-prolog.js')).prolog(),
+    },
+  },
 };

@@ -4,6 +4,40 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.14.0](https://github.com/live-codes/livecodes/compare/sdk-v0.13.0...sdk-v0.14.0) (2026-05-08)
+
+### Highlights for this release
+
+- The SDK now, in addition to React and Vue, provides support for Svelte, Solid, Preact, and Web Components. See [docs](https://livecodes.io/docs/sdk).
+- The SDK is now also published to [jsr.io](https://jsr.io/@livecodes/sdk) as `@livecodes/sdk`. See [docs](https://livecodes.io/docs/sdk/jsr).
+- Skills are published with SDK for use with AI agents. See [AI guide](https://livecodes.io/docs/ai-guide).
+- The SDK exports new utility functions for compressing and decompressing code (URI-friendly base64-encoded). This is useful for allowing users to provide share links (using URL hash) for embedded playgrounds. See [guide](https://livecodes.io/docs/tutorials/creating-shareable-urls).
+- `setConfig` SDK method can now accept a config URL.
+- "Prefill from DOM" is fixed. See [docs](https://livecodes.io/docs/features/code-prefill#auto-pre-fill-from-page-dom).
+- In addition to other improvements and bug fixes.
+
+### Features
+
+- **SDK:** add preact sdk ([d561bc8](https://github.com/live-codes/livecodes/commit/d561bc832f5f61dda5f9dfe649269e90cfe57843))
+- **SDK:** add SDK Svelte component ([337a774](https://github.com/live-codes/livecodes/commit/337a774ac106c1eefb2b130f7ed0db68655bb112))
+- **SDK:** add web-components SDK ([fef131e](https://github.com/live-codes/livecodes/commit/fef131ee181a4572cf62a32cf9adedc707960dc2))
+- **SDK:** allow passing a config URL to `setConfig` SDK method. ([35497a5](https://github.com/live-codes/livecodes/commit/35497a572bc3d43857c492b17c9252366d6ae277))
+- **SDK:** allow setting content in web-components sdk using child elements ([824681b](https://github.com/live-codes/livecodes/commit/824681b65c7bd75790e85ad4415fd083f7e60619))
+- **SDK:** export `compress` and `decompress` utility functions from SDK ([621a41d](https://github.com/live-codes/livecodes/commit/621a41df462500f9acb076f6a86abeb924067c88))
+- **SDK:** export types from framework SDKs ([df813d6](https://github.com/live-codes/livecodes/commit/df813d6a9f0aedc2f50bd7f70b888a44c6dd24ec))
+
+### Bug Fixes
+
+- **SDK:** fix and document prefill from DOM ([d6aa0d0](https://github.com/live-codes/livecodes/commit/d6aa0d014cb566d5b59bbb2ed9440c9dead69d14))
+- **SDK:** fix updating height in SDK ([8a9d8a1](https://github.com/live-codes/livecodes/commit/8a9d8a1dc3af7ae67fb39a9d56ac945da5804142))
+- **SDK:** remove event handlers from array ([3e107e2](https://github.com/live-codes/livecodes/commit/3e107e25cbd4b69fca4078a2ee639565f726a9ad))
+
+### Performance Improvements
+
+- **SDK:** timeout SDK calls, then clear event listeners ([7a24970](https://github.com/live-codes/livecodes/commit/7a249706390cfb1a468bda3689f4c174084e9d62))
+
+---
+
 ## [v48](https://github.com/live-codes/livecodes/compare/v47...v48) (2026-02-08)
 
 ### Features

@@ -2,9 +2,15 @@
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-The react SDK is a thin wrapper around the [JavaScript SDK](js-ts.mdx) to provide an easy to use react component, yet retaining the full power, by having access to the [SDK methods](js-ts.mdx#sdk-methods).
+The React SDK is a thin wrapper around the [JavaScript SDK](js-ts.mdx) to provide an easy to use react component, yet retaining the full power, by having access to the [SDK methods](js-ts.mdx#sdk-methods).
 
-It has a very simple [implementation](https://github.com/live-codes/livecodes/blob/develop/src/sdk/react.tsx) which you can easily modify in case you need.
+## Demo
+
+export const reactSDKDemo = {
+  jsx: `import LiveCodes from "livecodes/react";\n\nconst App = () => {\n  const params = {\n    html: "<h1>Hello World!</h1>",\n    css: "h1 {color: blue;}",\n    js: 'console.log("Hello, World!")',\n    console: "open",\n  };\n\n  return <LiveCodes params={params} />;\n};\n\nexport default App;\n`,
+};
+
+<LiveCodes params={reactSDKDemo} height="60vh" />
 
 ## Installation
 
@@ -12,26 +18,30 @@ Please refer to the [SDK installation](./index.mdx#installation) section.
 
 ## Usage
 
-The react component is provided as the default export from `livecodes/react`.
+The React component is provided as the default export from `livecodes/react`.
 
-```jsx title="JSX"
+```jsx title="JSX" livecodes render=link lang=react
 import LiveCodes from 'livecodes/react';
 
-export const Playground = () => <LiveCodes />;
+export default () => <LiveCodes />;
 ```
 
 ### TypeScript Support
 
 Prop types are exported as `Props` from `livecodes/react`.
 
-```tsx title="TSX"
+```tsx title="TSX" livecodes render=link lang=react.tsx
 import LiveCodes, { type Props } from 'livecodes/react';
 
 const options: Props = {
   // embed options
 };
-export const Playground = () => <LiveCodes {...options} />;
+export default () => <LiveCodes {...options} />;
 ```
+<p />
+
+For convenience, the following types are also exported from `livecodes/react`:<br />
+`Code`, `Config`, `EmbedOptions`, `Language`, `Playground`.
 
 TypeScript types are [documented here](../api/globals.md).
 
@@ -41,7 +51,7 @@ All [embed options](js-ts.mdx#embed-options) are available as props with the cor
 
 Example:
 
-```jsx title="JSX"
+```jsx title="JSX" livecodes render=link lang=react
 import LiveCodes from 'livecodes/react';
 
 const config = {
@@ -50,8 +60,9 @@ const config = {
     content: '# Hello World!',
   },
 };
-export const Playground = () => <LiveCodes config={config} view="result" />;
+export default () => <LiveCodes config={config} view="result" />;
 ```
+<p />
 
 In addition, the following props are also available:
 
@@ -63,24 +74,24 @@ In addition, the following props are also available:
 
   Example:
 
-  ```jsx title="JSX"
+  ```jsx title="JSX" livecodes render=link lang=react
   import LiveCodes from 'livecodes/react';
 
-  export const Playground = () => <LiveCodes className="centered" />;
+  export default () => <LiveCodes className="centered" />;
   ```
 
 - `height`
 
   Type: `string`.
 
-  Sets the height of playground container element.
+  Sets the [height of playground container](js-ts.mdx#height) element.
 
   Example:
 
-  ```jsx title="JSX"
+  ```jsx title="JSX" livecodes render=link lang=react
   import LiveCodes from 'livecodes/react';
 
-  export const Playground = () => <LiveCodes height="500px" />;
+  export default () => <LiveCodes height="500px" />;
   ```
 
 - `style`
@@ -91,14 +102,14 @@ In addition, the following props are also available:
 
   Example:
 
-  ```tsx title="JSX"
+  ```tsx title="JSX" livecodes render=link lang=react
   import LiveCodes from 'livecodes/react';
 
   const style = {
     margin: 'auto',
     width: '80%',
   };
-  export const Playground = () => <LiveCodes style={style} />;
+  export default () => <LiveCodes style={style} />;
   ```
 
 - `sdkReady`
@@ -109,12 +120,12 @@ In addition, the following props are also available:
 
   Example:
 
-  ```tsx title="TSX"
+  ```tsx title="TSX" livecodes render=link lang=react.tsx
   import { useState } from 'react';
-  import LiveCodes from 'livecodes/react';
+  import LiveCodes, { type Props } from 'livecodes/react';
   import type { Playground } from 'livecodes';
 
-  export const App = () => {
+  export default () => {
     const [playground, setPlayground] = useState<Playground>();
 
     const onReady = (sdk: Playground) => {
@@ -125,28 +136,72 @@ In addition, the following props are also available:
       await playground?.run();
     };
 
+    const options: Props = {
+      config: {
+        markup: {
+          language: 'html',
+          content: '<h1>Hello World!</h1>',
+        },
+      },
+    };
+
     return (
       <>
-        <LiveCodes sdkReady={onReady} />
+        <LiveCodes {...options} sdkReady={onReady} />
         <button onClick={run}>Run</button>
       </>
     );
   };
   ```
 
-## Demo
+### Reactive Props
 
-export const reactSDKDemo = {
-  jsx: `import LiveCodes from "livecodes/react";\n\nconst App = () => {\n  const params = {\n    html: "<h1>Hello World!</h1>",\n    css: "h1 {color: blue;}",\n    js: 'console.log("Hello, World!")',\n    console: "open",\n  };\n\n  return <LiveCodes params={params} />;\n};\n\nexport default App;\n`,
+Changing any prop will cause the playground to reload with the new options.
+However, changing the `config` prop is an exception — it updates the playground in place using the SDK method [`setConfig`](js-ts.mdx#setconfig), without triggering a full reload.
+This allows for a smooth update experience when only the configuration changes.
+
+Example:
+
+```jsx title="JSX" livecodes render=link lang=react
+import { useState } from 'react';
+import LiveCodes from 'livecodes/react';
+
+export default () => {
+  const [config, setConfig] = useState({
+    markup: {
+      language: 'html',
+      content: '<h1>Hello World!</h1>',
+    },
+  });
+
+  function switchToMarkdown() {
+    setConfig({
+      markup: {
+        language: 'markdown',
+        content: '# Hello World! (from Markdown)',
+      },
+    });
+  }
+
+  return (
+    <>
+      <LiveCodes config={config} />
+      <button onClick={switchToMarkdown}>Switch to Markdown</button>
+    </>
+  );
 };
+```
 
-<LiveCodes params={reactSDKDemo} height="80vh" />
+## Storybook
+
+See [storybook](pathname:///../stories/react/) for usage examples.
 
 ## Related
 
 - [SDK Installation](./index.mdx#installation)
-- [JS/TS SDK](./js-ts.mdx)
+- [Preact SDK](./preact.mdx)
+- [Solid SDK](./solid.mdx)
+- [Svelte SDK](./svelte.mdx)
 - [Vue SDK](./vue.mdx)
-- [Using SDK in Svelte](./svelte.mdx)
-- [Using SDK in Solid](./solid.mdx)
+- [Web Components SDK](./web-components.mdx)
 - [Embedded Playgrounds](../features/embeds.mdx)

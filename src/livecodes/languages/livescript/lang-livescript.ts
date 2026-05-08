@@ -1,6 +1,7 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
-import { vendorsBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, vendorsBaseUrl } from '../../vendors';
 
 export const livescript: LanguageSpecs = {
   name: 'livescript',
@@ -18,4 +19,13 @@ export const livescript: LanguageSpecs = {
   },
   extensions: ['ls'],
   editor: 'script',
+  editorSupport: {
+    monaco: { language: 'coffeescript' },
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy(
+          (await import(codeMirrorBaseUrl + 'codemirror-lang-livescript.js')).livescript,
+        ),
+    },
+  },
 };

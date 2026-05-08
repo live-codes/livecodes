@@ -504,6 +504,7 @@ const translation: I18nTranslation = {
     heading: 'Düzenleyici Ayarları',
     lineNumbers: 'Satır numaralarını göster',
     lineNumbersRelative: 'Göreceli satır numaraları *',
+    minimap: "Minimap'i Etkinleştir *",
     notAvailableInCodeJar: "CodeJar'da mevcut değil",
     preview: 'Önizleme',
     semicolons: 'Biçim: Noktalı Virgül Kullan',

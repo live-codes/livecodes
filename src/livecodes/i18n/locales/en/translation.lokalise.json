@@ -1276,6 +1276,10 @@
     "notes": "",
     "translation": "Relative line numbers *"
   },
+  "editorSettings.minimap": {
+    "notes": "",
+    "translation": "Enable Minimap *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "notes": "",
     "translation": "Not available in CodeJar"

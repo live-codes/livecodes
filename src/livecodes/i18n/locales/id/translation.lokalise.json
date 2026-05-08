@@ -957,6 +957,9 @@
   "editorSettings.lineNumbersRelative": {
     "translation": "Nomor baris relatif *"
   },
+  "editorSettings.minimap": {
+    "translation": "Aktifkan Minimap *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "Tidak tersedia di CodeJar"
   },

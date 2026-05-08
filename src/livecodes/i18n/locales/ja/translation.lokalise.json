@@ -957,6 +957,9 @@
   "editorSettings.lineNumbersRelative": {
     "translation": "相対的な行番号"
   },
+  "editorSettings.minimap": {
+    "translation": "ミニマップを有効にする"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "CodeJarでは利用できません"
   },

@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const ejs: LanguageSpecs = {
   name: 'ejs',
   title: 'EJS',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: ejsUrl,

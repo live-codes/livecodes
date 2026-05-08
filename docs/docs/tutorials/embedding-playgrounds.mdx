@@ -1,0 +1,385 @@
+---
+title: Embedding Playgrounds
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import LiveCodes from '../../src/components/LiveCodes';
+import RunInLiveCodes from '../../src/components/RunInLiveCodes';
+
+export const embedDemoParams = {
+  html: `<div id="page">
+  <header>
+    <h1>My Code Playground</h1>
+    <p>Edit the code below and see the result instantly!</p>
+  </header>
+  <div id="playground"></div>
+</div>
+`,
+  css: `body {
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+#page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+h1 {
+  margin: 0 0 8px;
+  color: #1a1a1a;
+}
+p {
+  margin: 0;
+  color: #666;
+}
+#playground {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 500px;
+}
+`,
+  js: `import { createPlayground } from 'livecodes';
+
+const config = {
+  markup: {
+    language: 'html',
+    content: \`<div class="card">\n  <h2>Hello LiveCodes!</h2>\n  <p>Edit this code and see changes live.</p>\n  <button id="actionBtn">Click me</button>\n</div>\`,
+  },
+  style: {
+    language: 'css',
+    content: \`body {\n  font-family: system-ui;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n  margin: 0;\n  background: #f0f0f0;\n}\n.card {\n  background: white;\n  padding: 40px;\n  border-radius: 12px;\n  box-shadow: 0 4px 20px rgba(0,0,0,0.1);\n  text-align: center;\n}\nh2 {\n  margin: 0 0 12px;\n  color: #333;\n}\nbutton {\n  padding: 10px 24px;\n  background: #007bff;\n  color: white;\n  border: none;\n  border-radius: 6px;\n  cursor: pointer;\n  font-size: 16px;\n}\nbutton:hover {\n  background: #0056b3;\n}\`,
+  },
+  script: {
+    language: 'javascript',
+    content: \`const btn = document.getElementById("actionBtn");\nbtn.addEventListener("click", () => {\n  btn.textContent = "Clicked!";\n  setTimeout(() => {\n    btn.textContent = "Click me";\n  }, 1000);\n});\`,
+  },
+};
+
+await createPlayground('#playground', {
+  config,
+  loading: 'eager',
+});
+`,
+};
+
+export const lazyLoadParams = {
+  html: `<div id="page">
+  <h1>Lazy Loaded Playground</h1>
+  <p>Scroll down to see the playground load automatically.</p>
+  <div class="spacer"></div>
+  <div id="playground"></div>
+</div>
+`,
+  css: `body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+.spacer {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+}
+#playground {
+  height: 400px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+`,
+  js: `import { createPlayground } from 'livecodes';
+
+const config = {
+  markup: {
+    language: 'html',
+    content: '<h2>I loaded lazily!</h2><p>This playground only loads when it enters the viewport.</p>',
+  },
+};
+
+createPlayground('#playground', {
+  config,
+  loading: 'lazy',
+});
+`,
+};
+
+export const clickToLoadParams = {
+  html: `<div id="page">
+  <h1>Click-to-Load Playground</h1>
+  <p>The playground below won't load until you click it.</p>
+  <div id="playground"></div>
+</div>
+`,
+  css: `body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+#playground {
+  height: 400px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+`,
+  js: `import { createPlayground } from 'livecodes';
+
+const config = {
+  markup: {
+    language: 'html',
+    content: '<h2>You clicked to load me!</h2>',
+  },
+};
+
+createPlayground('#playground', {
+  config,
+  loading: 'click',
+});
+`,
+};
+
+export const fullHtmlExample = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Embedded LiveCodes Playground</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+    }
+    #page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      color: #1a1a1a;
+    }
+    p {
+      margin: 0;
+      color: #666;
+    }
+    #playground {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <div id="page">
+    <header>
+      <h1>My Code Playground</h1>
+      <p>Edit the code below and see the result instantly!</p>
+    </header>
+    <div id="playground"></div>
+  </div>
+
+  <script type="module">
+    import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
+
+    const config = {
+      markup: {
+        language: 'html',
+        content: '<div class="card">\n  <h2>Hello LiveCodes!</h2>\n  <p>Edit this code and see changes live.</p>\n  <button id="actionBtn">Click me</button>\n</div>',
+      },
+      style: {
+        language: 'css',
+        content: 'body {\n  font-family: system-ui;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n  margin: 0;\n  background: #f0f0f0;\n}\n.card {\n  background: white;\n  padding: 40px;\n  border-radius: 12px;\n  box-shadow: 0 4px 20px rgba(0,0,0,0.1);\n  text-align: center;\n}\nh2 {\n  margin: 0 0 12px;\n  color: #333;\n}\nbutton {\n  padding: 10px 24px;\n  background: #007bff;\n  color: white;\n  border: none;\n  border-radius: 6px;\n  cursor: pointer;\n  font-size: 16px;\n}\nbutton:hover {\n  background: #0056b3;\n}',
+      },
+      script: {
+        language: 'javascript',
+        content: 'const btn = document.getElementById("actionBtn");\nbtn.addEventListener("click", () => {\n  btn.textContent = "Clicked!";\n  setTimeout(() => {\n    btn.textContent = "Click me";\n  }, 1000);\n});',
+      },
+    };
+
+    await createPlayground('#playground', {
+      config,
+      loading: 'eager',
+    });
+  </script>
+</body>
+</html>`;
+
+# Embedding a Code Playground
+
+Learn how to embed a LiveCodes playground into any web page so your users can write, edit, and run code directly on your site.
+
+Try the live demo below:
+
+<RunInLiveCodes linkText="Run the demo in LiveCodes" params={embedDemoParams}></RunInLiveCodes>
+
+<LiveCodes params={embedDemoParams} height="70vh"></LiveCodes>
+
+## What We'll Build
+
+A web page that:
+
+1. Embeds a LiveCodes playground in a styled container
+2. Pre-fills the playground with starter code
+3. Lets users edit HTML, CSS, and JavaScript directly
+4. Shows live results as they type
+
+## Basic Embedding
+
+The simplest way to embed LiveCodes is with `createPlayground`:
+
+```js
+import { createPlayground } from 'livecodes';
+
+const config = {
+  markup: { language: 'html', content: '<h1>Hello!</h1>' },
+  style: { language: 'css', content: 'h1 { color: blue; }' },
+  script: { language: 'javascript', content: 'console.log("hi")' },
+};
+
+await createPlayground('#playground', { config });
+```
+
+This creates an interactive editor inside the `#playground` element.
+
+## Loading Modes
+
+LiveCodes supports three loading modes:
+
+### Eager Loading (Default)
+
+The playground loads immediately:
+
+```js
+createPlayground('#playground', {
+  config,
+  loading: 'eager',
+});
+```
+
+### Lazy Loading
+
+The playground only loads when it scrolls into view:
+
+<LiveCodes params={lazyLoadParams} height="90vh"></LiveCodes>
+
+```js
+createPlayground('#playground', {
+  config,
+  loading: 'lazy',
+});
+```
+
+### Click-to-Load
+
+Shows a "Click to load" screen until the user clicks:
+
+<LiveCodes params={clickToLoadParams} height="50vh"></LiveCodes>
+
+```js
+createPlayground('#playground', {
+  config,
+  loading: 'click',
+});
+```
+
+## Full Example
+
+Save this as `index.html` and open it in a browser:
+
+<CodeBlock language="html">{fullHtmlExample}</CodeBlock>
+
+## How It Works
+
+### Container Setup
+
+LiveCodes needs a container element. You can use any `div`:
+
+```html
+<div id="playground"></div>
+```
+
+By default, the playground has a height of `300px`. You can override this with CSS:
+
+```css
+#playground {
+  height: 500px;
+}
+```
+
+Or use the `data-height` attribute:
+
+```html
+<div id="playground" data-height="500"></div>
+```
+
+### Configuration
+
+Pass a [config object](../configuration/configuration-object.mdx) to pre-fill the playground:
+
+```js
+const config = {
+  markup: {
+    language: 'html',
+    content: '<h1>Hello World</h1>',
+  },
+  style: {
+    language: 'css',
+    content: 'h1 { color: royalblue; }',
+  },
+  script: {
+    language: 'javascript',
+    content: 'console.log("Hello!");',
+  },
+};
+```
+
+### CDN Import
+
+For quick testing without a build step, import from jsDelivr:
+
+```html
+<script type="module">
+  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
+  // ...
+</script>
+```
+
+## Testing Your App
+
+1. Save the HTML example to a file
+2. Open it in your browser
+3. Edit the code in the embedded playground
+4. Watch the result update live
+
+## Challenge: Enhance Your Playground
+
+Try adding these features:
+
+- [Configure](../configuration/configuration-object.mdx) the playground with a custom theme
+- Add a "Reset" button to restore the original config
+- Add a language selector to switch between different starter templates
+- Style the playground container to match your site's design
+
+## Next Steps
+
+- [Creating Shareable URLs](./creating-shareable-urls.mdx): Let users share their edited code
+- [SDK Methods](../sdk/js-ts.mdx): Learn more about controlling the playground programmatically
+- [Configuration](../configuration/configuration-object.mdx): Explore all configuration options
+
+## Complete Code Summary
+
+**Concepts Covered**: Embedding, container setup, loading modes, configuration, CDN import
+
+**Key SDK Functions**: `createPlayground`

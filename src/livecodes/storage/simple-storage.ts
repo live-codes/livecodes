@@ -22,8 +22,12 @@ export const createSimpleStorage = <T>(name: StoreName, isEmbed: boolean): Simpl
   };
 
   const setValue = (value: T | null) => {
-    window.localStorage.setItem(name, JSON.stringify(value));
-    notifyPub();
+    try {
+      window.localStorage.setItem(name, JSON.stringify(value));
+      notifyPub();
+    } catch {
+      // exceeded quota
+    }
   };
 
   const getValue = (): T | null => {

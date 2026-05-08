@@ -1,5 +1,6 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { requireUrl } from '../../vendors';
+import { codeMirrorBaseUrl, requireUrl } from '../../vendors';
 
 export const tcl: LanguageSpecs = {
   name: 'tcl',
@@ -12,4 +13,10 @@ export const tcl: LanguageSpecs = {
   },
   extensions: ['tcl'],
   editor: 'script',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-tcl.js')).tcl),
+    },
+  },
 };

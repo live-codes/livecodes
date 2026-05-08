@@ -1,9 +1,16 @@
-# Solid
+# Solid SDK
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
-import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
-The [JS/TS SDK](js-ts.mdx) can be used directly in [Solid](https://www.solidjs.com/) components without the need for any wrappers.
+The Solid SDK is a thin wrapper around the [JavaScript SDK](js-ts.mdx) to provide an easy to use Solid component, yet retaining the full power, by having access to the [SDK methods](js-ts.mdx#sdk-methods).
+
+## Demo
+
+export const solidSDKDemo = {
+  solid: `import LiveCodes from "livecodes/solid";\n\nconst App = () => {\n  const params = {\n    html: "<h1>Hello World!</h1>",\n    css: "h1 {color: blue;}",\n    js: 'console.log("Hello, World!")',\n    console: "open",\n  };\n\n  return <LiveCodes params={params} />;\n};\n\nexport default App;\n`,
+};
+
+<LiveCodes params={solidSDKDemo} height="60vh" />
 
 ## Installation
 
@@ -11,76 +18,191 @@ Please refer to the [SDK installation](./index.mdx#installation) section.
 
 ## Usage
 
-This is an example of using the LiveCodes TS SDK in a Solid component:
+The Solid component is provided as the default export from `livecodes/solid`.
 
-```tsx title="App.tsx"
-import { onCleanup } from 'solid-js';
-import { createPlayground, type Playground, type EmbedOptions } from 'livecodes';
+```jsx title="JSX" livecodes render=link lang=solid
+import LiveCodes from 'livecodes/solid';
 
-export default function App() {
-  let playground: Playground | null = null;
-
-  const options: EmbedOptions = {
-    params: {
-      html: '<h1>Hello World!</h1>',
-      css: 'h1 {color: blue;}',
-      js: 'console.log("Hello, Solid!")',
-      console: 'open',
-    },
-  };
-
-  const onMounted = (container: HTMLElement) => {
-    createPlayground(container, options).then((sdk) => {
-      playground = sdk; // now the SDK is available
-    });
-  };
-  onCleanup(() => playground?.destroy());
-
-  return <div ref={onMounted}></div>;
-}
+export default () => <LiveCodes />;
 ```
 
-export const solidSDKDemo = {
-  "solid.tsx": `import { onCleanup } from 'solid-js';
-import { createPlayground, type Playground, type EmbedOptions } from 'livecodes';
+### TypeScript Support
 
-export default function App() {
-  let playground: Playground | null = null;
+Prop types are exported as `Props` from `livecodes/solid`.
 
-  const options: EmbedOptions = {
-    params: {
-      html: '<h1>Hello World!</h1>',
-      css: 'h1 {color: blue;}',
-      js: 'console.log("Hello, Solid!")',
-      console: 'open',
-    },
-  };
+```tsx title="TSX" livecodes render=link lang=solid.tsx
+import LiveCodes, { type Props } from 'livecodes/solid';
 
-  const onMounted = (container: HTMLElement) => {
-    createPlayground(container, options).then((sdk) => {
-      playground = sdk; // now the SDK is available
-    });
-  };
-  onCleanup(() => playground?.destroy());
-
-  return <div ref={onMounted}></div>;
-}
-`,
+const options: Props = {
+  // embed options
 };
+export default () => <LiveCodes {...options} />;
+```
+<p />
 
-<RunInLiveCodes params={solidSDKDemo}></RunInLiveCodes>
+For convenience, the following types are also exported from `livecodes/solid`:<br />
+`Code`, `Config`, `EmbedOptions`, `Language`, `Playground`.
 
-[Embed options](./js-ts.mdx#embed-options), [SDK methods](./js-ts.mdx#sdk-methods) and [TypeScript types](./js-ts.mdx#typescript-types) are available as described in the [JS/TS SDK documentations](./js-ts.mdx).
+TypeScript types are [documented here](../api/globals.md).
 
-## Demo
+### Props
 
-<LiveCodes params={solidSDKDemo} height="80vh" />
+All [embed options](js-ts.mdx#embed-options) are available as props with the corresponding types.
+
+Example:
+
+```jsx title="JSX" livecodes render=link lang=solid
+import LiveCodes from 'livecodes/solid';
+
+const config = {
+  markup: {
+    language: 'markdown',
+    content: '# Hello World!',
+  },
+};
+export default () => <LiveCodes config={config} view="result" />;
+```
+<p />
+
+In addition, the following props are also available:
+
+- `class`
+
+  Type: `string`.
+
+  Class name(s) to add to playground container element.
+
+  Example:
+
+  ```jsx title="JSX" livecodes render=link lang=solid
+  import LiveCodes from 'livecodes/solid';
+
+  export default () => <LiveCodes class="centered" />;
+  ```
+
+- `height`
+
+  Type: `string`.
+
+  Sets the [height of playground container](js-ts.mdx#height) element.
+
+  Example:
+
+  ```jsx title="JSX" livecodes render=link lang=solid
+  import LiveCodes from 'livecodes/solid';
+
+  export default () => <LiveCodes height="500px" />;
+  ```
+
+- `style`
+
+  Type: `JSX.CSSProperties`.
+
+  Defines styles to add to playground container element. Styles set here override the [default styles](js-ts.mdx#default-styles).
+
+  Example:
+
+  ```tsx title="JSX" livecodes render=link lang=solid
+  import LiveCodes from 'livecodes/solid';
+
+  const style = {
+    margin: 'auto',
+    width: '80%',
+  };
+  export default () => <LiveCodes style={style} />;
+  ```
+
+- `sdkReady`
+
+  Type: `(sdk: Playground) => void`.
+
+  A callback function, that is provided with an instance of the [JavaScript SDK](js-ts.mdx) representing the current playground. This allows making use of full capability of the SDK by calling [SDK methods](js-ts.mdx#sdk-methods).
+
+  Example:
+
+  ```tsx title="TSX" livecodes render=link lang=solid.tsx
+  import { createSignal } from 'solid-js';
+  import LiveCodes, { type Props } from 'livecodes/solid';
+  import type { Playground } from 'livecodes';
+
+  export default () => {
+    const [playground, setPlayground] = createSignal<Playground>();
+
+    const onReady = (sdk: Playground) => {
+      setPlayground(sdk);
+    };
+
+    const run = async () => {
+      await playground()?.run();
+    };
+
+    const options: Props = {
+      config: {
+        markup: {
+          language: 'html',
+          content: '<h1>Hello World!</h1>',
+        },
+      },
+    };
+
+    return (
+      <>
+        <LiveCodes {...options} sdkReady={onReady} />
+        <button onClick={run}>Run</button>
+      </>
+    );
+  };
+  ```
+
+### Reactive Props
+
+Changing any prop will cause the playground to reload with the new options.
+However, changing the `config` prop is an exception — it updates the playground in place using the SDK method [`setConfig`](js-ts.mdx#setconfig), without triggering a full reload.
+This allows for a smooth update experience when only the configuration changes.
+
+Example:
+
+```jsx title="JSX" livecodes render=link lang=solid
+import { createSignal } from 'solid-js';
+import LiveCodes from 'livecodes/solid';
+
+export default () => {
+  const [config, setConfig] = createSignal({
+    markup: {
+      language: 'html',
+      content: '<h1>Hello World!</h1>',
+    },
+  });
+
+  function switchToMarkdown() {
+    setConfig({
+      markup: {
+        language: 'markdown',
+        content: '# Hello World! (from Markdown)',
+      },
+    });
+  }
+
+  return (
+    <>
+      <LiveCodes config={config()} />
+      <button onClick={switchToMarkdown}>Switch to Markdown</button>
+    </>
+  );
+};
+```
+
+## Storybook
+
+See [storybook](pathname:///../stories/solid/) for usage examples.
 
 ## Related
 
 - [SDK Installation](./index.mdx#installation)
 - [JS/TS SDK](./js-ts.mdx)
+- [Preact SDK](./preact.mdx)
 - [React SDK](./react.mdx)
+- [Svelte SDK](./svelte.mdx)
 - [Vue SDK](./vue.mdx)
-- [Using SDK in Svelte](./svelte.mdx)
+- [Web Components SDK](./web-components.mdx)
 - [Embedded Playgrounds](../features/embeds.mdx)

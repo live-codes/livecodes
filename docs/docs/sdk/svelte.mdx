@@ -1,9 +1,18 @@
-# Svelte
+# Svelte SDK
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
-import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
-The [JS/TS SDK](js-ts.mdx) can be used directly in Svelte components without the need for any wrappers.
+The Svelte SDK is a thin wrapper around the [JavaScript SDK](js-ts.mdx) to provide an easy to use Svelte component, yet retaining the full power, by having access to the [SDK methods](js-ts.mdx#sdk-methods).
+
+It requires Svelte 5 and uses [runes](https://svelte.dev/docs/svelte/what-are-runes) for reactivity.
+
+## Demo
+
+export const svelteSDKDemo = {
+  svelte: `<script>\n  import LiveCodes from "livecodes/svelte";\n\n  const params = {\n    html: "<h1>Hello World!</h1>",\n    css: "h1 {color: blue;}",\n    js: 'console.log("Hello, World!")',\n    console: "open",\n  };\n</script>\n\n<LiveCodes {params} />\n`,
+};
+
+<LiveCodes params={svelteSDKDemo} height="60vh" />
 
 ## Installation
 
@@ -11,91 +20,187 @@ Please refer to the [SDK installation](./index.mdx#installation) section.
 
 ## Usage
 
-This is an example of using the LiveCodes JS SDK in a Svelte component:
+The Svelte component is provided as the default export from `livecodes/svelte`.
 
-```html title="Component.svelte"
+```html title="Svelte" livecodes render=link lang=svelte
 <script>
-  import { onMount } from 'svelte';
-  import { createPlayground } from 'livecodes';
-
-  // Embed Options
-  const options = {
-    params: {
-      html: '<h1>Hello World!</h1>',
-      css: 'h1 {color: blue;}',
-      js: 'console.log("Hello, Svelte!")',
-      console: 'open',
-    },
-  };
-
-  let container;
-  let playground = $state(null);
-  onMount(() => {
-    createPlayground(container, options).then((p) => {
-      playground = p; // now the SDK is available
-    });
-    // cleanup when the component is destroyed
-    return () => playground?.destroy();
-  });
+  import LiveCodes from 'livecodes/svelte';
 </script>
 
-<div bind:this="{container}"></div>
+<LiveCodes />
 ```
 
-export const svelteSDKDemo = {
-  svelte: `\x3Cscript>\n  import { onMount } from 'svelte';\n  import { createPlayground } from 'livecodes';\n\n  // Embed Options\n  const options = {\n    params: {\n      html: '<h1>Hello World!</h1>',\n      css: 'h1 {color: blue;}',\n      js: 'console.log("Hello, Svelte!")',\n      console: 'open',\n    },\n  };\n\n  let container;\n  let playground = $state(null);\n  onMount(() => {\n    createPlayground(container, options).then((p) => {\n      playground = p; // now the SDK is available\n    });\n    // cleanup when the component is destroyed\n    return () => playground?.destroy();\n  });\n\x3C/script>\n\n<div bind:this="{container}"></div>\n`,
-};
+### TypeScript Support
 
-<RunInLiveCodes params={svelteSDKDemo}></RunInLiveCodes>
+Prop types are exported as `Props` from `livecodes/svelte`.
 
-[Embed options](./js-ts.mdx#embed-options), [SDK methods](./js-ts.mdx#sdk-methods) and [TypeScript types](./js-ts.mdx#typescript-types) are available as described in the [JS/TS SDK documentations](./js-ts.mdx).
+```html title="Svelte (TypeScript)" livecodes render=link lang=svelte
+<script lang="ts">
+  import LiveCodes, { type Props } from 'livecodes/svelte';
 
-Alternatively, the SDK function [`createPlayground`](./js-ts.mdx#createplayground) can be used as an [action](https://learn.svelte.dev/tutorial/actions).
+  const options: Props = {
+    // embed options
+  };
+</script>
+
+<LiveCodes {...options} />
+```
+<p />
+
+For convenience, the following types are also exported from `livecodes/svelte`:<br />
+`Code`, `Config`, `EmbedOptions`, `Language`, `Playground`.
+
+TypeScript types are [documented here](../api/globals.md).
+
+### Props
+
+All [embed options](js-ts.mdx#embed-options) are available as props with the corresponding types.
 
 Example:
 
-```html title="Component.svelte"
+```html title="Svelte" livecodes render=link lang=svelte
 <script>
-  import { createPlayground } from 'livecodes';
-  let options = {
-    // embed options
+  import LiveCodes from 'livecodes/svelte';
+
+  const config = {
+    markup: {
+      language: 'markdown',
+      content: '# Hello World!',
+    },
   };
 </script>
 
-<div use:createPlayground="{options}"></div>
+<LiveCodes {config} view="result" />
 ```
+<p />
 
-However, it is recommended to cleanup when the node is unmounted, like that:
+In addition, the following props are also available:
 
-```html title="Component.svelte"
+- `class`
+
+  Type: `string`.
+
+  Class name(s) to add to playground container element.
+
+  Example:
+
+  ```html title="Svelte" livecodes render=link lang=svelte
+  <script>
+    import LiveCodes from 'livecodes/svelte';
+  </script>
+
+  <LiveCodes class="centered" />
+  ```
+
+- `height`
+
+  Type: `string`.
+
+  Sets the [height of playground container](js-ts.mdx#height) element.
+
+  Example:
+
+  ```html title="Svelte" livecodes render=link lang=svelte
+  <script>
+    import LiveCodes from 'livecodes/svelte';
+  </script>
+
+  <LiveCodes height="500px" />
+  ```
+
+- `style`
+
+  Type: `Record<string, string>`.
+
+  Defines styles to add to playground container element. Styles set here override the [default styles](js-ts.mdx#default-styles).
+
+  Example:
+
+  ```html title="Svelte" livecodes render=link lang=svelte
+  <script>
+    import LiveCodes from 'livecodes/svelte';
+
+    const style = {
+      margin: 'auto',
+      width: '80%',
+    };
+  </script>
+
+  <LiveCodes {style} />
+  ```
+
+- `sdkReady`
+
+  Type: `(sdk: Playground) => void`.
+
+  A callback function, that is provided with an instance of the [JavaScript SDK](js-ts.mdx) representing the current playground. This allows making use of full capability of the SDK by calling [SDK methods](js-ts.mdx#sdk-methods).
+
+  Example:
+
+  ```html title="Svelte (TypeScript)" livecodes render=link lang=svelte
+  <script lang="ts">
+    import LiveCodes from 'livecodes/svelte';
+    import type { Playground } from 'livecodes';
+
+    let playground: Playground | undefined = $state();
+
+    const onReady = (sdk: Playground) => {
+      playground = sdk;
+    };
+
+    const run = async () => {
+      await playground?.run();
+    };
+  </script>
+
+  <LiveCodes sdkReady={onReady} />
+  <button onclick={run}>Run</button>
+  ```
+
+### Reactive Props
+
+Changing any prop will cause the playground to reload with the new options.
+However, changing the `config` prop is an exception — it updates the playground in place using the SDK method [`setConfig`](js-ts.mdx#setconfig), without triggering a full reload.
+This allows for a smooth update experience when only the configuration changes.
+
+Example:
+
+```html title="Svelte" livecodes render=link lang=svelte
 <script>
-  import { createPlayground } from 'livecodes';
-  let options = {
-    // embed options
-  };
+  import LiveCodes from 'livecodes/svelte';
 
-  const livecodes = (node, opts) => {
-    let playground = $state(null);
-    const ready = new Promise(async (res) => {
-      playground = await createPlayground(node, opts);
-      res();
-    });
-    return { destroy: () => ready.then(() => playground?.destroy()) };
-  };
+  let config = $state({
+    markup: {
+      language: 'html',
+      content: '<h1>Hello World!</h1>',
+    },
+  });
+
+  function switchToMarkdown() {
+    config = {
+      markup: {
+        language: 'markdown',
+        content: '# Hello World! (from Markdown)',
+      },
+    };
+  }
 </script>
 
-<div use:livecodes="{options}"></div>
+<LiveCodes {config} />
+<button onclick={switchToMarkdown}>Switch to Markdown</button>
 ```
 
-## Demo
+## Storybook
 
-<LiveCodes params={svelteSDKDemo} height="80vh" />
+See [storybook](pathname:///../stories/svelte/) for usage examples.
 
 ## Related
 
 - [SDK Installation](./index.mdx#installation)
 - [JS/TS SDK](./js-ts.mdx)
+- [Preact SDK](./preact.mdx)
 - [React SDK](./react.mdx)
+- [Solid SDK](./solid.mdx)
 - [Vue SDK](./vue.mdx)
-- [Using SDK in Solid](./solid.mdx)
+- [Web Components SDK](./web-components.mdx)
 - [Embedded Playgrounds](../features/embeds.mdx)

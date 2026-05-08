@@ -1,4 +1,6 @@
-import type { Language, LanguageSpecs } from '../../models';
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
+import type { LanguageSpecs } from '../../models';
+import { codeMirrorBaseUrl } from '../../vendors';
 
 export const gleam: LanguageSpecs = {
   name: 'gleam',
@@ -17,5 +19,12 @@ export const gleam: LanguageSpecs = {
   },
   extensions: ['gleam'],
   editor: 'script',
-  editorLanguage: 'swift' as Language,
+  editorSupport: {
+    monaco: { language: 'swift' },
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-swift.js')).swift),
+    },
+    codejar: { language: 'swift' },
+  },
 };

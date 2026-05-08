@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const dot: LanguageSpecs = {
   name: 'dot',
   title: 'doT',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: dotUrl,

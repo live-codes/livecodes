@@ -1,13 +1,16 @@
 import type { LanguageSpecs } from '../../models';
+import { modulesService } from '../../services/modules';
 import { vendorsBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const solid: LanguageSpecs = {
   name: 'solid',
   title: 'Solid',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     dependencies: ['babel'],
@@ -16,8 +19,20 @@ export const solid: LanguageSpecs = {
       (self as any).importScripts(baseUrl + '{{hash:lang-solid-compiler.js}}');
       return (self as any).createSolidCompiler();
     },
+    imports: {
+      'solid-js': modulesService.getModuleUrl('solid-js'),
+      'solid-js/web': modulesService.getModuleUrl('solid-js/web'),
+    },
   },
   extensions: ['solid.jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 1, // monaco.languages.typescript.JsxEmit.Preserve,
+      jsxImportSource: 'solid-js',
+      jsxFactory: 'JSX',
+      jsxFragmentFactory: 'Fragment',
+    },
+  },
 };

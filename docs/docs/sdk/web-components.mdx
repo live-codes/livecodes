@@ -1,0 +1,462 @@
+# Web Components SDK
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+The Web Components SDK is a wrapper around the [JavaScript SDK](js-ts.mdx) to provide an easy to use custom element (`<live-codes>`), yet retaining the full power, by having access to the [SDK methods](js-ts.mdx#sdk-methods).
+
+## Demo
+
+export const webComponentsSDKDemo = {
+  markup: {
+    language: 'html',
+    content: `<live-codes height="90vh" params='{"console": "open"}'>
+  <template>
+    <template lang="html">
+      <h1>Hello World!</h1>
+    </template>
+    <style lang="scss">
+      h1 { color: royalblue; }
+    </style>
+    <script lang="ts" active>
+      console.log('hello!');
+    </script>
+  </template>
+</live-codes>
+
+<script src="https://cdn.jsdelivr.net/npm/livecodes@${process.env.SDK_VERSION}/web-components.js"></script>
+`,
+  },
+};
+
+<LiveCodes config={webComponentsSDKDemo} height="80vh" />
+
+## Installation
+
+Please refer to the [SDK installation](./index.mdx#installation) section.
+
+## Usage
+
+The custom element is registered by importing `livecodes/web-components`.
+
+### Using a bundler
+
+```html title="HTML"
+<live-codes></live-codes>
+
+<script type="module">
+  import 'livecodes/web-components';
+</script>
+```
+
+### Using a CDN
+
+Alternatively, you can load the web components SDK directly from a CDN using a script tag:
+
+import CodeBlock from '@theme/CodeBlock';
+
+export const UMDCode = () => (
+    <CodeBlock title="HTML" language="html">
+      {`<script src="https://cdn.jsdelivr.net/npm/livecodes@${process.env.SDK_VERSION}/web-components.js"></script>
+
+<live-codes></live-codes>
+`}
+    </CodeBlock>
+  );
+
+<UMDCode />
+
+### TypeScript Support
+
+Types are exported from `livecodes/web-components` for convenience:
+
+```ts title="TypeScript"
+import type { EmbedOptions, Playground } from 'livecodes/web-components';
+```
+<p />
+
+The following types are available:<br />
+`Code`, `Config`, `EmbedOptions`, `Language`, `Playground`.
+
+TypeScript types are [documented here](../api/globals.md).
+
+### Declarative Code via Children \{#declarative-children}
+
+You can provide code for the playground declaratively using child elements inside a wrapper `<template>`. This avoids the need to set code in JavaScript strings and gives you full IDE syntax highlighting and autocomplete.
+
+The outer `<template>` element (highlighted in the example below) ensures that inner `<style>` and `<script>` elements are inert — the browser will not execute them or apply their styles to the embedding page. The code is trimmed and dedented automatically.
+
+{/* #### Single-Editor Mode */}
+
+Use `<template>`, `<style>`, and `<script>` elements with a `lang` attribute to set the language for each editor. These elements map to the corresponding editors (markup, style, script).
+
+```html {2,20} title="HTML"
+<live-codes height="400px">
+  <template>
+    <template lang="html">
+      <h1>Hello World</h1>
+      <p>Welcome to <strong>LiveCodes</strong></p>
+    </template>
+    <style lang="scss">
+      body {
+        font-family: sans-serif;
+        h1 { color: royalblue; }
+        p { font-size: 1.2em; }
+      }
+    </style>
+    <script lang="ts">
+      const btn = document.querySelector<HTMLButtonElement>('#btn');
+      btn?.addEventListener('click', () => {
+        btn.textContent = 'Clicked!';
+      });
+    </script>
+  </template>
+</live-codes>
+```
+
+If the `lang` attribute is omitted, the defaults are `html`, `css`, and `javascript`.
+{/*
+#### Multi-File Mode
+
+Use a `filename` attribute instead of `lang` to provide multiple files. The language is inferred from the file extension. The element type (`<template>`, `<style>`, `<script>`) does not matter in this mode, but using the matching element gives you IDE syntax highlighting.
+
+```html title="HTML"
+<live-codes height="400px">
+  <template>
+    <template filename="index.html">
+      <h1>Hello World</h1>
+      <script type="module" src="./app.ts"></script>
+    </template>
+    <style filename="styles.scss">
+      body { font-family: sans-serif; }
+      h1 { color: royalblue; }
+    </style>
+    <script filename="app.ts">
+      import { greet } from './utils.ts';
+      console.log(greet('LiveCodes'));
+    </script>
+    <script filename="utils.ts">
+      export const greet = (name: string): string => `Hello, ${name}!`;
+    </script>
+  </template>
+</live-codes>
+```
+*/}
+
+#### Active Editor
+
+Use the `active` boolean attribute on a code element to set the initially active editor:
+
+```html {5} title="HTML"
+<live-codes height="400px">
+  <template>
+    <template lang="html"><h1>Hello</h1></template>
+    <style lang="css">h1 { color: blue; }</style>
+    <script lang="ts" active>console.log('focused here');</script>
+  </template>
+</live-codes>
+```
+
+{/*
+In multi-file mode, `active` sets the active file:
+
+```html title="HTML"
+<live-codes height="400px">
+  <template>
+    <template filename="index.html"><h1>Hello</h1></template>
+    <script filename="app.ts" active>console.log('focused');</script>
+  </template>
+</live-codes>
+```
+*/}
+
+#### Combining Children with Config
+
+You can combine declarative children with `config` (attribute or property) and `params`. The merge precedence is:
+
+1. **`config` property** (highest — explicit programmatic override)
+2. **Children** (declarative defaults)
+3. **`config` attribute** (lowest — inline JSON settings)
+
+Children are best used for code content, while the `config` attribute is useful for non-code settings:
+
+```html title="HTML"
+<live-codes
+  height="400px"
+  config='{"processors": ["tailwindcss"]}'
+  params='{"console": "open"}'
+>
+  <template>
+    <template lang="html">
+      <h1 class="text-3xl font-bold text-blue-600">Hello Tailwind</h1>
+    </template>
+    <script lang="ts">console.log('Hello!');</script>
+  </template>
+</live-codes>
+```
+
+If the `config` property is set programmatically for the same editor, the property wins:
+
+```html title="HTML"
+<live-codes id="demo" height="400px">
+  <template>
+    <template lang="html"><h1>Default from children</h1></template>
+  </template>
+</live-codes>
+
+<script type="module">
+  import 'livecodes/web-components';
+
+  const el = document.getElementById('demo');
+  // This overrides the children's markup content
+  el.config = {
+    markup: { language: 'html', content: '<h1>Override from JS</h1>' },
+  };
+</script>
+```
+
+#### Reactivity
+
+Children content is reactive. Programmatically changing the content inside the wrapper `<template>` will trigger a call to [`setConfig`](js-ts.mdx#setconfig) on the existing playground.
+However, updating the [`config` property](#properties) is the preferred way to change the content.
+
+```html title="HTML"
+<live-codes id="demo" height="400px">
+  <template>
+    <template><h1>Hello World!</h1></template>
+    <style lang="css" active>h1 { color: blue; }</style>
+  </template>
+</live-codes>
+
+<button onclick="updateCode()">Change Color</button>
+
+<script type="module">
+  import 'livecodes/web-components';
+
+  function updateCode() {
+    const el = document.getElementById('demo');
+    const wrapper = el.querySelector(':scope > template');
+    const style = wrapper.content.querySelector('style');
+    style.textContent = 'h1 { color: red; }';
+  }
+
+  // expose to onclick
+  window.updateCode = updateCode;
+</script>
+```
+
+### Attributes
+
+The following HTML attributes are supported and correspond to [embed options](js-ts.mdx#embed-options):
+
+| Attribute              | Type      | Description                                                                                                           |
+| ---------------------- | --------- | --------------------------------------------------------------------------------------------------------------------- |
+| `app-url`              | `string`  | The URL of the LiveCodes app.                                                                                         |
+| `config`               | `string`  | A JSON string representing the [config object](../api/interfaces/Config.md).                                          |
+| `import`               | `string`  | A resource to [import](../features/import.mdx).                                                    |
+| `loading`              | `string`  | When to load the playground (`"click"`, `"lazy"`, or `"eager"`).                                                      |
+| `params`               | `string`  | A JSON string representing [URL Query parameters](../configuration/query-params.mdx).                                  |
+| `template`             | `string`  | A [starter template](../features/templates.mdx) to load.                                           |
+| `headless`             | `boolean` | Whether to use the headless mode of LiveCodes.                                                                        |
+| `height`               | `string`  | Sets the [height of playground container](js-ts.mdx#height) element.                                                  |
+| `data-default-styles`  | `string`  | If set to `"false"`, disables the [default styles](js-ts.mdx#default-styles) applied to the playground container.     |
+
+Example:
+
+```html title="HTML"
+<live-codes template="react" loading="click"></live-codes>
+
+<script type="module">
+  import 'livecodes/web-components';
+</script>
+```
+
+#### Default Styles
+
+By default, the `<live-codes>` element is styled when the playground is initialized (including height, border, etc.). To disable default styles, set the `data-default-styles` attribute to `"false"`.
+
+```html title="HTML"
+<live-codes data-default-styles="false" class="custom"></live-codes>
+
+<script type="module">
+  import 'livecodes/web-components';
+</script>
+```
+
+### Properties
+
+For complex values it is recommended to use JavaScript properties on the element.
+
+- `config`
+
+  Type: `object | string`.
+
+  The [config object](../api/interfaces/Config.md) for the playground or the URL of the config file.
+
+  Example:
+
+  ```html title="HTML"
+  <live-codes></live-codes>
+
+  <script type="module">
+    import 'livecodes/web-components';
+
+    const playground = document.querySelector('live-codes');
+    playground.config = {
+      markup: {
+        language: 'markdown',
+        content: '# Hello World!',
+      },
+    };
+  </script>
+  ```
+
+- `params`
+
+  Type: `object`.
+
+  An object that represents [URL Query parameters](../configuration/query-params.mdx).
+
+  Example:
+
+  ```html title="HTML"
+  <live-codes></live-codes>
+
+  <script type="module">
+    import 'livecodes/web-components';
+
+    const playground = document.querySelector('live-codes');
+    playground.params = {
+      html: '<h1>Hello World!</h1>',
+      css: 'h1 {color: blue;}',
+    };
+  </script>
+  ```
+
+- `sdk`
+
+  Type: `Playground | undefined` (read-only).
+
+  The playground SDK instance. Available after the playground has been initialized. This allows making use of the full capability of the SDK by calling [SDK methods](js-ts.mdx#sdk-methods).
+
+  Example:
+
+  ```html title="HTML"
+  <live-codes></live-codes>
+
+  <script type="module">
+    import 'livecodes/web-components';
+
+    const playground = document.querySelector('live-codes');
+    playground.addEventListener('sdkready', async () => {
+      const code = await playground.sdk.getCode();
+      console.log(code);
+    });
+  </script>
+  ```
+
+### Events
+
+- `sdkready`
+
+  Fired when the SDK is ready. The SDK instance is available via `event.detail.sdk` or via the [`sdk`](#properties) property on the element. Use this event to access the [SDK methods](js-ts.mdx#sdk-methods).
+
+  Example:
+
+  ```html title="HTML"
+  <live-codes></live-codes>
+  <button id="run">Run</button>
+
+  <script type="module">
+    import 'livecodes/web-components';
+
+    let sdk;
+
+    const playground = document.querySelector('live-codes');
+    playground.config = {
+      markup: {
+        language: 'html',
+        content: '<h1>Hello World!</h1>',
+      },
+    };
+    playground.addEventListener('sdkready', (e) => {
+      sdk = e.detail.sdk;
+    });
+
+    document.getElementById('run').addEventListener('click', async () => {
+      await sdk?.run();
+    });
+  </script>
+  ```
+
+### Reactive Attributes and Properties
+
+Changing any attribute or property will cause the playground to reload with the new options.
+However, changing the `config` property is an exception — it updates the playground in place using the SDK method [`setConfig`](js-ts.mdx#setconfig), without triggering a full reload.
+This allows for a smooth update experience when only the configuration changes.
+
+Similarly, changing the `height` attribute and [children content](#reactivity) also update the playground in place without triggering a full reload.
+
+Example:
+
+```html title="HTML"
+<live-codes></live-codes>
+<button id="switch">Switch to Markdown</button>
+
+<script type="module">
+  import 'livecodes/web-components';
+
+  const playground = document.querySelector('live-codes');
+  playground.config = {
+    markup: {
+      language: 'html',
+      content: '<h1>Hello World!</h1>',
+    },
+  };
+
+  document.getElementById('switch').addEventListener('click', () => {
+    playground.config = {
+      markup: {
+        language: 'markdown',
+        content: '# Hello World! (from Markdown)',
+      },
+    };
+  });
+</script>
+```
+
+### Methods
+
+- `destroy()`
+
+  Destroys the playground instance and cleans up resources. This is also called automatically when the element is removed from the DOM.
+
+  Example:
+
+  ```html title="HTML"
+  <live-codes></live-codes>
+  <button id="destroy">Destroy</button>
+
+  <script type="module">
+    import 'livecodes/web-components';
+
+    const playground = document.querySelector('live-codes');
+    document.getElementById('destroy').addEventListener('click', () => {
+      playground.destroy();
+    });
+  </script>
+  ```
+
+## Storybook
+
+See [storybook](pathname:///../stories/web-components/) for usage examples.
+
+## Related
+
+- [SDK Installation](./index.mdx#installation)
+- [JS/TS SDK](./js-ts.mdx)
+- [Preact SDK](./preact.mdx)
+- [React SDK](./react.mdx)
+- [Solid SDK](./solid.mdx)
+- [Svelte SDK](./svelte.mdx)
+- [Vue SDK](./vue.mdx)
+- [Embedded Playgrounds](../features/embeds.mdx)

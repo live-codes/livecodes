@@ -1,0 +1,448 @@
+# Storybook Setup
+
+This document describes the [Storybook](https://storybook.js.org) setup for testing and documenting the LiveCodes SDK across different frameworks.
+
+The stories are hosted at: [livecodes.io/stories](https://livecodes.io/stories)
+
+## Overview
+
+LiveCodes provides SDK wrappers for multiple frameworks:
+
+- **React** (`livecodes/react`)
+- **Preact** (`livecodes/preact`)
+- **Solid** (`livecodes/solid`)
+- **Svelte** (`livecodes/svelte`)
+- **Vue** (`livecodes/vue`)
+- **Web Components** (`livecodes/web-components`)
+
+Each framework has its own Storybook instance to showcase and test the SDK components. Stories are defined once in a central location and auto-generated for each framework.
+
+## Directory Structure
+
+```
+storybook/
+├── _stories/              # Source story definitions (edit here!)
+│   ├── Basic.ts
+│   ├── EmbedOptions/
+│   │   ├── config.ts
+│   │   ├── loading.ts
+│   │   ├── lite.ts
+│   │   └── ...
+│   └── ...
+├── common/                 # Shared utilities
+│   ├── arg-types.ts        # Storybook argument types
+│   ├── deps.ts             # Dependencies
+│   ├── index.ts            # Public exports
+│   ├── internal.ts         # Internal utilities
+│   ├── livecodes.ts        # Props definitions
+│   ├── story-definition.ts # StoryDef interface
+│   ├── themes.ts           # Theme configurations
+│   └── utils.ts            # Helper functions
+├── react/                  # React Storybook
+│   ├── .storybook/         # Storybook config
+│   ├── src/
+│   │   ├── livecodes.ts    # React component
+│   │   ├── livecodes-story.tsx
+│   │   └── index.ts
+│   └── stories/            # Generated stories (do not edit!)
+│       ├── Basic.stories.ts
+│       └── EmbedOptions/
+├── preact/                 # Preact Storybook (same structure)
+├── solid/                  # Solid Storybook (same structure)
+├── svelte/                 # Svelte Storybook (same structure)
+├── vue/                    # Vue Storybook (same structure)
+├── web-components/         # Web Components Storybook (same structure)
+└── package.json            # Workspace scripts
+```
+
+## Key Principle
+
+**Stories should only be added in `storybook/_stories/`**
+
+The story generator (`scripts/generate-stories.mts`) automatically creates stories for each framework from these definitions.
+
+**Do not edit generated stories** in `storybook/{framework}/stories/`. They are auto-generated and will be overwritten.
+
+## Story Definition
+
+### StoryDef Interface
+
+Stories are defined using the `StoryDef` interface from `storybook/common/story-definition.ts`:
+
+```typescript
+export interface StoryDef {
+  [key: string]: { props: Props; storyName?: string };
+}
+```
+
+### Basic Story Example
+
+Create `storybook/_stories/Basic.ts`:
+
+```typescript
+import type { StoryDef } from '../common';
+
+const storyDef: StoryDef = {
+  Introduction: {
+    props: {
+      config: {
+        markup: {
+          language: 'markdown',
+          content: '# Hello World!',
+        },
+      },
+      height: '400px',
+    },
+  },
+  Default: {
+    props: {},
+  },
+  ReactTemplate: {
+    props: {
+      template: 'react',
+    },
+  },
+};
+
+export default storyDef;
+```
+
+### Complex Story Example
+
+Create `storybook/_stories/EmbedOptions/config.ts`:
+
+```typescript
+import type { StoryDef } from '../../common';
+
+const storyDef: StoryDef = {
+  LanguagesAndContent: {
+    props: {
+      config: {
+        markup: { language: 'html', content: '<h1>Hello</h1>' },
+        style: { language: 'css', content: 'h1 { color: blue; }' },
+        script: { language: 'javascript', content: 'console.log("hi")' },
+      },
+    },
+  },
+  CustomTheme: {
+    props: {
+      config: {
+        theme: 'dark',
+        themeColor: '#F63C00',
+      },
+    },
+    storyName: 'Custom Theme', // Optional display name
+  },
+};
+
+export default storyDef;
+```
+
+### Props Interface
+
+The `Props` interface extends LiveCodes SDK [`EmbedOptions`](https://livecodes.io/docs/sdk/js-ts/#embed-options) interface, and adds extra props for `height`, `class` and `style`:
+
+```typescript
+interface Props {
+  // Allows loading the playground from a custom URL
+  appUrl?: string;
+  // Configuration object or URL
+  config?: string | Config;
+  // URL parameters
+  params?: Record<string, string>;
+  // Starter template name (e.g., 'react', 'vue', 'svelte')
+  template?: string;
+  // A resource to import from any of the supported sources
+  import?: string;
+  // Sets how the playground loads
+  loading?: 'lazy' | 'click' | 'eager';
+  // Height of the embedded playground
+  height?: string;
+  // CSS class name
+  class?: string;
+  // Inline styles
+  style?: Record<string, string>;
+}
+```
+
+## Story Generation
+
+### Script: `generate-stories.mts`
+
+Located at `scripts/generate-stories.mts`, this script:
+
+1. Reads all story definitions from `storybook/_stories/`
+2. For each definition, generates story files for all frameworks
+3. Outputs to `storybook/{framework}/stories/`
+
+### Generated Story
+
+Example from `storybook/react/stories/Basic.stories.ts`:
+
+```typescript
+// AUTO-GENERATED — do not edit
+
+/* eslint-disable */
+import { defaultMeta, livecodesStory, type LiveCodes, type Meta } from '#src';
+
+export default {
+  ...defaultMeta,
+  title: 'Basic',
+} satisfies Meta<typeof LiveCodes>;
+
+export const Introduction = livecodesStory({
+  config: {
+    markup: { language: 'markdown', content: '# Hello' },
+    // ...
+  },
+  height: '80vh',
+});
+
+export const Default = livecodesStory({});
+
+export const ReactTemplate = livecodesStory({ template: 'react' });
+```
+
+## Commands
+
+### Development
+
+```bash
+# Start React Storybook (default)
+npm run storybook
+
+# This runs in parallel:
+# - storybook:watch  - Watch for changes and regenerate stories
+# - storybook:serve  - Start React Storybook server
+```
+
+The development server:
+
+- Watches `storybook/_stories/` for changes
+- Auto-regenerates stories when definitions change
+- Serves React Storybook at `http://localhost:6006`
+
+### Build
+
+```bash
+# Build all Storybook instances
+npm run build:storybook
+
+# This runs for each framework:
+# storybook/preact: npm run build-storybook -- -o ../../build/stories/preact
+# storybook/react: npm run build-storybook -- -o ../../build/stories/react
+# storybook/solid: npm run build-storybook -- -o ../../build/stories/solid
+# storybook/svelte: npm run build-storybook -- -o ../../build/stories/svelte
+# storybook/vue: npm run build-storybook -- -o ../../build/stories/vue
+# storybook/web-components: npm run build-storybook -- -o ../../build/stories/web-components
+```
+
+Output locations:
+
+- `build/stories/preact/`
+- `build/stories/react/`
+- `build/stories/solid/`
+- `build/stories/svelte/`
+- `build/stories/vue/`
+- `build/stories/web-components/`
+
+### Type Checking
+
+```bash
+# Type check all Storybook projects
+npm run typecheck:storybook
+```
+
+## Adding New Stories
+
+### 1. Create Story Definition
+
+Create a new file in `storybook/_stories/`:
+
+```typescript
+// storybook/_stories/Features/Mode.stories.ts
+
+import type { StoryDef } from '../../common';
+
+const storyDef: StoryDef = {
+  SimpleMode: {
+    props: {
+      config: {
+        mode: 'simple',
+      },
+    },
+  },
+  LiteMode: {
+    props: {
+      config: {
+        mode: 'lite',
+      },
+    },
+  },
+  // ...
+};
+
+export default storyDef;
+```
+
+### 2. Regenerate Stories
+
+Stories are auto-generated on file save if running `npm run storybook`.
+
+Or manually run:
+
+```bash
+node ./scripts/generate-stories.mts
+```
+
+### 3. Verify in Storybook
+
+Open `http://localhost:6006` (or the appropriate port) and navigate to:
+
+- **Features** → **Mode** → **Simple Mode**
+
+## Story Organization
+
+Stories are organized by directory structure:
+
+```
+_stories/
+├── Basic.ts                 # → stories/Basic.stories.ts
+├── EmbedOptions/
+│   ├── config.ts            # → stories/EmbedOptions/config.stories.ts
+│   ├── loading.ts           # → stories/EmbedOptions/loading.stories.ts
+│   └── ...
+└── Styles/
+    └── Styles.ts            # → stories/Styles/Styles.stories.ts
+```
+
+The title in Storybook follows the directory path:
+
+- `Basic.ts` → `Basic` (title)
+- `EmbedOptions/config.ts` → `EmbedOptions/config` (title)
+
+## Best Practices
+
+### 1. Keep Stories Focused
+
+Each story should demonstrate a single feature or configuration:
+
+```typescript
+// Good: Focused story
+const storyDef: StoryDef = {
+  ThemeDark: {
+    props: { config: { theme: 'dark' } },
+  },
+  ThemeLight: {
+    props: { config: { theme: 'light' } },
+  },
+};
+
+// Avoid: Multiple features in one story
+const storyDef: StoryDef = {
+  ComplexConfig: {
+    props: {
+      config: {
+        theme: 'dark',
+        mode: 'simple',
+        tools: { enabled: ['console'] },
+        // ... too many options
+      },
+    },
+  },
+};
+```
+
+### 2. Use Meaningful Names
+
+```typescript
+// Good: Descriptive name
+const storyDef: StoryDef = {
+  CustomHeight: {
+    props: { height: '500px' },
+    storyName: 'Height: 500px',
+  },
+};
+
+// Avoid: Generic names
+const storyDef: StoryDef = {
+  Test1: { props: { height: '500px' } },
+};
+```
+
+### 3. Test Across Frameworks
+
+After adding stories, verify they work in multiple Storybook instances:
+
+```bash
+# View in different frameworks
+cd storybook/react && npm run storybook   # Port 6006
+cd storybook/vue && npm run storybook      # Port 6007
+cd storybook/svelte && npm run storybook   # Port 6008
+```
+
+## Framework-Specific Setup
+
+Each framework has its own Storybook configuration in`storybook/{framework}/.storybook/`:
+
+### Common Files
+
+| File              | Purpose                      |
+| ----------------- | ---------------------------- |
+| `main.ts`         | Storybook configuration      |
+| `preview.ts`      | Global decorators/parameters |
+| `manager.ts`      | UI customizations            |
+| `vitest.setup.ts` | Test setup                   |
+
+### Component Wrapper
+
+Each framework has a `livecodes-story.ts` file that provides:
+
+```typescript
+// Example: react/src/livecodes-story.tsx
+
+export const defaultMeta = {
+  component: LiveCodes,
+  parameters: {
+    layout: 'fullscreen',
+  },
+  argTypes,
+} satisfies Meta<typeof LiveCodes>;
+
+export const livecodesStory = (props: Props): Story => {
+  return {
+    args: flatten(options, { delimiter }),
+    render: (args) => <LiveCodes {...unflatten(args, { delimiter })} />,parameters: {
+      docs: {
+        source: {
+          code: getCode(props), // Generates example code
+          language: 'jsx',
+        },
+      },
+    },
+  };
+};
+```
+
+## Troubleshooting
+
+### Stories Not Updating
+
+1. Ensure `npm run storybook` is running (includes watch mode)
+2. Check for TypeScript errors: `cd storybook && npm run typecheck`
+3. Manually regenerate: `node ./scripts/generate-stories.mts`
+
+### Framework-Specific Issues
+
+Each framework has its own quirks:
+
+- **Solid**: Requires patched SDK (see `generate-stories.mts`)
+- **Vue**: Different prop passing patterns
+- **Svelte**: Svelte 5 runes syntax support
+- **Web Components**: Custom element registration
+
+## Related Documentation
+
+- [Build System](./build-system.mdx) - Building the SDK
+- [SDK Documentation](https://livecodes.io/docs/sdk) - Using the SDK
+- [Adding Languages](./adding-languages.mdx) - Adding new language support

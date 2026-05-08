@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const phpWasm: LanguageSpecs = {
   name: 'php-wasm',
   title: 'PHP (Wasm)',
-  parser: {
-    name: 'php',
-    pluginUrls: [parserPlugins.php],
+  formatter: {
+    prettier: {
+      name: 'php',
+      pluginUrls: [parserPlugins.php],
+    },
   },
   compiler: {
     factory: () => async (code) => code,

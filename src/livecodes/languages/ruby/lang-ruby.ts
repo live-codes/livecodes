@@ -1,6 +1,7 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
-import { opalBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, opalBaseUrl } from '../../vendors';
 
 declare const importScripts: (...args: string[]) => void;
 
@@ -43,4 +44,11 @@ export const ruby: LanguageSpecs = {
   },
   extensions: ['rb'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'ruby.js' },
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-ruby.js')).ruby),
+    },
+  },
 };

@@ -230,7 +230,7 @@ export const loadStylesheet = (url: string, id?: string, insertBefore?: string) 
 };
 
 export const typedArrayToBuffer = /* @__PURE__ */ (array: Uint8Array): ArrayBuffer =>
-  array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset);
+  array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset) as ArrayBuffer;
 
 export const getDate = /* @__PURE__ */ () => {
   let date = new Date();

@@ -504,6 +504,7 @@ const translation: I18nTranslation = {
     heading: 'Editor-Einstellungen',
     lineNumbers: 'Zeilennummern anzeigen',
     lineNumbersRelative: 'Relative Zeilennummern *',
+    minimap: 'Minimap einschalten *',
     notAvailableInCodeJar: 'Nicht verfügbar in CodeJar',
     preview: 'Vorschau',
     semicolons: 'Format: Semikolons verwenden',

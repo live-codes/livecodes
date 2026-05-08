@@ -1,6 +1,7 @@
 import { compileInCompiler } from '../../compiler';
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { cherryCljsBaseUrl, squintCljsBaseUrl } from '../../vendors';
+import { cherryCljsBaseUrl, codeMirrorBaseUrl, squintCljsBaseUrl } from '../../vendors';
 import { parenFormatter } from '../commonlisp';
 
 export const clojurescript: LanguageSpecs = {
@@ -36,4 +37,10 @@ export const clojurescript: LanguageSpecs = {
   extensions: ['cljs', 'clj', 'cljc', 'edn', 'clojure'],
   editor: 'script',
   editorLanguage: 'clojure',
+  editorSupport: {
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-clojure.js')).clojure),
+    },
+  },
 };

@@ -1,5 +1,5 @@
 var getTemplateName = (_, templateName) => templateName;
-var d={name:"angular",title:getTemplateName("templates.starter.angular","Angular Starter"),thumbnail:"assets/templates/angular.svg",activeEditor:"script",markup:{language:"html",content:`<app>Loading...</app>
+var d={name:"angular",aliases:["ng"],title:getTemplateName("templates.starter.angular","Angular Starter"),thumbnail:"assets/templates/angular.svg",activeEditor:"script",markup:{language:"html",content:`<app>Loading...</app>
 `},style:{language:"css",content:""},script:{language:"typescript",content:`
 import { Component, Input, NgModule, enableProdMode } from '@angular/core@12.2.13';
 import { CommonModule } from '@angular/common@12.2.13';
@@ -70,7 +70,7 @@ class AppModule {}
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch((err: Error) => console.error(err));
-`.trimStart()},customSettings:{typescript:{experimentalDecorators:!0}}};var u={name:"assemblyscript",title:getTemplateName("templates.starter.assemblyscript","AssemblyScript Starter"),thumbnail:"assets/templates/assemblyscript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},customSettings:{typescript:{experimentalDecorators:!0}}};var u={name:"assemblyscript",aliases:["as"],title:getTemplateName("templates.starter.assemblyscript","AssemblyScript Starter"),thumbnail:"assets/templates/assemblyscript.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/assemblyscript.svg" />
@@ -358,7 +358,7 @@ var view = new AppView({ model: counter });
     </statement>
   </block>
 </xml>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var v={name:"bootstrap",title:getTemplateName("templates.starter.bootstrap","Bootstrap Starter"),thumbnail:"assets/templates/bootstrap.svg",activeEditor:"markup",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var v={name:"bootstrap",aliases:["bs"],title:getTemplateName("templates.starter.bootstrap","Bootstrap Starter"),thumbnail:"assets/templates/bootstrap.svg",activeEditor:"markup",markup:{language:"html",content:`
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -520,7 +520,7 @@ export fn main argv:
   document.querySelector "#counter-button"
     -> activateBtn
     -> .addEventListener "click" onBtnClick
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var w={name:"clojurescript",title:getTemplateName("templates.starter.clojurescript","ClojureScript Starter"),thumbnail:"assets/templates/cljs.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var w={name:"clojurescript",aliases:["cljs"],title:getTemplateName("templates.starter.clojurescript","ClojureScript Starter"),thumbnail:"assets/templates/cljs.svg",activeEditor:"script",markup:{language:"html",content:`
 <div id="app">Loading...</div>
 `.trimStart()},style:{language:"css",content:`
 .container,
@@ -560,7 +560,7 @@ export fn main argv:
 (print (str "Hello, " title "!"))
 (defonce root (createRoot (js/document.querySelector "#app")))
 (.render root #jsx [Counter #js {:name title}])
-`.trimStart()}};var S={name:"coffeescript",title:getTemplateName("templates.starter.coffeescript","CoffeeScript Starter"),thumbnail:"assets/templates/coffeescript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var S={name:"coffeescript",aliases:["coffee"],title:getTemplateName("templates.starter.coffeescript","CoffeeScript Starter"),thumbnail:"assets/templates/coffeescript.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/coffeescript.svg" />
@@ -589,7 +589,7 @@ increment = counter 0
 
 button.addEventListener('click',
   -> counterElement.innerText = increment())
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var k={name:"commonlisp",title:getTemplateName("templates.starter.commonlisp","Common Lisp Starter"),thumbnail:"assets/templates/commonlisp.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var k={name:"commonlisp",aliases:["lisp"],title:getTemplateName("templates.starter.commonlisp","Common Lisp Starter"),thumbnail:"assets/templates/commonlisp.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1 id="title">Hello, World!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/commonlisp.svg" />
@@ -625,7 +625,7 @@ button.addEventListener('click',
 
 (#j:console:clear)
 (write "Hello, Common Lisp!")
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var _={name:"cpp",title:getTemplateName("templates.starter.cpp","C++ Starter"),thumbnail:"assets/templates/cpp.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var _={name:"cpp",aliases:["c++"],title:getTemplateName("templates.starter.cpp","C++ Starter"),thumbnail:"assets/templates/cpp.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/cpp.svg" />
@@ -693,7 +693,7 @@ int main() {
 
     return 0;
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var j={name:"cpp-wasm",aliases:["clang"],title:getTemplateName("templates.starter.cpp-wasm","C++ (Wasm) Starter"),thumbnail:"assets/templates/cpp.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var j={name:"cpp-wasm",aliases:["clang","c++-wasm"],title:getTemplateName("templates.starter.cpp-wasm","C++ (Wasm) Starter"),thumbnail:"assets/templates/cpp.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/cpp.svg" />
@@ -764,7 +764,7 @@ int main() {
 
     return 0;
 }
-`.trimStart()}};var T={name:"csharp-wasm",title:"C# (Wasm) Starter",thumbnail:"assets/templates/csharp.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var T={name:"csharp-wasm",aliases:["c#-wasm"],title:getTemplateName("templates.starter.csharp-wasm","C# (Wasm) Starter"),thumbnail:"assets/templates/csharp.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/csharp.svg" />
@@ -836,7 +836,7 @@ class Program
         Console.WriteLine(count);
     }
 }
-`.trimStart()}};var C={name:"d3",title:"D3 Starter",thumbnail:"assets/templates/d3.svg",activeEditor:"script",markup:{language:"html",content:`<div id="chart">Loading...</div>
+`.trimStart()}};var C={name:"d3",title:getTemplateName("templates.starter.d3","D3 Starter"),thumbnail:"assets/templates/d3.svg",activeEditor:"script",markup:{language:"html",content:`<div id="chart">Loading...</div>
 `},style:{language:"css",content:`
 .bar {
   fill: steelblue;
@@ -1063,7 +1063,7 @@ svg
 (global counter (Counter:new nil))
 (global button (document:querySelector "#counter-button"))
 (button:addEventListener :click (fn [] (counter:increment) (counter:show)))
-`.trimStart()}};var $=["esm.sh","skypack","esm.run","jsdelivr.esm","fastly.jsdelivr.esm","gcore.jsdelivr.esm","testingcf.jsdelivr.esm","jsdelivr.b-cdn.esm","jspm"],B=["jsdelivr","fastly.jsdelivr","unpkg","gcore.jsdelivr","testingcf.jsdelivr","jsdelivr.b-cdn","npmcdn"],M=["jsdelivr.gh","fastly.jsdelivr.gh","statically","gcore.jsdelivr.gh","testingcf.jsdelivr.gh","jsdelivr.b-cdn.gh"],r={getModuleUrl:(e,{isModule:s=!0,defaultCDN:i="esm.sh",external:o}={})=>{e=e.replace(/#nobundle/g,"");let a=n=>!o||!n.includes("https://esm.sh")?n:n.includes("?")?`${n}&external=${o}`:`${n}?external=${o}`,l=q(e,s,i);return l?a(l):s?a("https://esm.sh/"+e):"https://cdn.jsdelivr.net/npm/"+e},getUrl:(e,s)=>e.startsWith("http")||e.startsWith("data:")?e:q(e,!1,s||qt())||e,cdnLists:{npm:B,module:$,gh:M},checkCDNs:async(e,s)=>{let i=[s,...r.cdnLists.npm].filter(Boolean);for(let o of i)try{if((await fetch(r.getUrl(e,o),{method:"HEAD"})).ok)return o}catch{}return r.cdnLists.npm[0]}},qt=()=>{if(globalThis.appCDN)return globalThis.appCDN;try{return new URL(location.href).searchParams.get("appCDN")||r.cdnLists.npm[0]}catch{return r.cdnLists.npm[0]}},q=(e,s,i)=>{let o=s&&e.startsWith("unpkg:")?"?module":"";e.startsWith("gh:")?e=e.replace("gh",M[0]):e.includes(":")||(e=(i||(s?$[0]:B[0]))+":"+e);for(let a of $t){let[l,n]=a;if(l.test(e))return e.replace(l,n)+o}return null},$t=[[/^(esm\.sh:)(.+)/i,"https://esm.sh/$2"],[/^(npm:)(.+)/i,"https://esm.sh/$2"],[/^(node:)(.+)/i,"https://esm.sh/$2"],[/^(jsr:)(.+)/i,"https://esm.sh/jsr/$2"],[/^(pr:)(.+)/i,"https://esm.sh/pr/$2"],[/^(pkg\.pr\.new:)(.+)/i,"https://esm.sh/pkg.pr.new/$2"],[/^(skypack:)(.+)/i,"https://cdn.skypack.dev/$2"],[/^(jsdelivr:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2"],[/^(fastly\.jsdelivr:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2"],[/^(gcore\.jsdelivr:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2"],[/^(testingcf\.jsdelivr:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2"],[/^(jsdelivr\.b-cdn:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2"],[/^(jsdelivr\.gh:)(.+)/i,"https://cdn.jsdelivr.net/gh/$2"],[/^(fastly\.jsdelivr\.gh:)(.+)/i,"https://fastly.jsdelivr.net/gh/$2"],[/^(gcore\.jsdelivr\.gh:)(.+)/i,"https://gcore.jsdelivr.net/gh/$2"],[/^(testingcf\.jsdelivr\.gh:)(.+)/i,"https://testingcf.jsdelivr.net/gh/$2"],[/^(jsdelivr\.b-cdn\.gh:)(.+)/i,"https://jsdelivr.b-cdn.net/gh/$2"],[/^(statically:)(.+)/i,"https://cdn.statically.io/gh/$2"],[/^(esm\.run:)(.+)/i,"https://esm.run/$2"],[/^(jsdelivr\.esm:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2/+esm"],[/^(fastly\.jsdelivr\.esm:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2/+esm"],[/^(gcore\.jsdelivr\.esm:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2/+esm"],[/^(testingcf\.jsdelivr\.esm:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2/+esm"],[/^(jsdelivr\.b-cdn\.esm:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2/+esm"],[/^(jspm:)(.+)/i,"https://jspm.dev/$2"],[/^(esbuild:)(.+)/i,"https://esbuild.vercel.app/$2"],[/^(bundle\.run:)(.+)/i,"https://bundle.run/$2"],[/^(unpkg:)(.+)/i,"https://unpkg.com/$2"],[/^(npmcdn:)(.+)/i,"https://npmcdn.com/$2"],[/^(bundlejs:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(bundle:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(deno:)(.+)/i,"https://deno.bundlejs.com/?file&q=https://deno.land/x/$2/mod.ts"],[/^(https:\/\/deno\.land\/.+)/i,"https://deno.bundlejs.com/?file&q=$1"],[/^(github:|https:\/\/github\.com\/)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,"https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/$2/$3@$4"],[/^(gist\.github:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(gitlab:|https:\/\/gitlab\.com\/)([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://gl.githack.com/$2/raw/$3"],[/^(bitbucket:|https:\/\/bitbucket\.org\/)([^\/]+\/[^\/]+)\/(?:raw|src)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://bb.githack.com/$2/raw/$3"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/]+)\/revisions\/([^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/$3/files/$4"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/HEAD/files/$3"],[/^(bitbucket:)\!api\/2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(api\.bitbucket:)2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(rawgit:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(rawgit:|https:\/\/raw\.githubusercontent\.com)(\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,"https://deno.bundlejs.com/?file&q=https://raw.githack.com/$2/$3"]];var{getUrl:Bt,getModuleUrl:ee}=r;var c=Bt("gh:live-codes/gleam-precompiled@v0.5.0/");var m=c+"build/packages/plinth/src/plinth/",p=c+"build/dev/javascript/plinth/plinth/",P={name:"gleam",title:getTemplateName("templates.starter.gleam","Gleam Starter"),thumbnail:"assets/templates/gleam.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var $=["esm.sh","skypack","esm.run","jsdelivr.esm","fastly.jsdelivr.esm","gcore.jsdelivr.esm","testingcf.jsdelivr.esm","jsdelivr.b-cdn.esm","jspm"],B=["jsdelivr","fastly.jsdelivr","unpkg","gcore.jsdelivr","testingcf.jsdelivr","jsdelivr.b-cdn","npmcdn"],M=["jsdelivr.gh","fastly.jsdelivr.gh","statically","gcore.jsdelivr.gh","testingcf.jsdelivr.gh","jsdelivr.b-cdn.gh"],r={getModuleUrl:(e,{isModule:s=!0,defaultCDN:i="esm.sh",external:o}={})=>{e=e.replace(/#nobundle/g,"");let a=n=>!o||!n.includes("https://esm.sh")?n:n.includes("?")?`${n}&external=${o}`:`${n}?external=${o}`,l=q(e,s,i);return l?a(l):s?a("https://esm.sh/"+e):"https://cdn.jsdelivr.net/npm/"+e},getUrl:(e,s)=>e.startsWith("http")||e.startsWith("data:")?e:q(e,!1,s||$t())||e,cdnLists:{npm:B,module:$,gh:M},checkCDNs:async(e,s)=>{let i=[s,...r.cdnLists.npm].filter(Boolean);for(let o of i)try{if((await fetch(r.getUrl(e,o),{method:"HEAD"})).ok)return o}catch{}return r.cdnLists.npm[0]}},$t=()=>{if(globalThis.appCDN)return globalThis.appCDN;try{return new URL(location.href).searchParams.get("appCDN")||r.cdnLists.npm[0]}catch{return r.cdnLists.npm[0]}},q=(e,s,i)=>{let o=s&&e.startsWith("unpkg:")?"?module":"";e.startsWith("gh:")?e=e.replace("gh",M[0]):e.includes(":")||(e=(i||(s?$[0]:B[0]))+":"+e);for(let a of Bt){let[l,n]=a;if(l.test(e))return e.replace(l,n)+o}return null},Bt=[[/^(esm\.sh:)(.+)/i,"https://esm.sh/$2"],[/^(npm:)(.+)/i,"https://esm.sh/$2"],[/^(node:)(.+)/i,"https://esm.sh/$2"],[/^(jsr:)(.+)/i,"https://esm.sh/jsr/$2"],[/^(pr:)(.+)/i,"https://esm.sh/pr/$2"],[/^(pkg\.pr\.new:)(.+)/i,"https://esm.sh/pkg.pr.new/$2"],[/^(skypack:)(.+)/i,"https://cdn.skypack.dev/$2"],[/^(jsdelivr:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2"],[/^(fastly\.jsdelivr:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2"],[/^(gcore\.jsdelivr:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2"],[/^(testingcf\.jsdelivr:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2"],[/^(jsdelivr\.b-cdn:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2"],[/^(jsdelivr\.gh:)(.+)/i,"https://cdn.jsdelivr.net/gh/$2"],[/^(fastly\.jsdelivr\.gh:)(.+)/i,"https://fastly.jsdelivr.net/gh/$2"],[/^(gcore\.jsdelivr\.gh:)(.+)/i,"https://gcore.jsdelivr.net/gh/$2"],[/^(testingcf\.jsdelivr\.gh:)(.+)/i,"https://testingcf.jsdelivr.net/gh/$2"],[/^(jsdelivr\.b-cdn\.gh:)(.+)/i,"https://jsdelivr.b-cdn.net/gh/$2"],[/^(statically:)(.+)/i,"https://cdn.statically.io/gh/$2"],[/^(esm\.run:)(.+)/i,"https://esm.run/$2"],[/^(jsdelivr\.esm:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2/+esm"],[/^(fastly\.jsdelivr\.esm:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2/+esm"],[/^(gcore\.jsdelivr\.esm:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2/+esm"],[/^(testingcf\.jsdelivr\.esm:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2/+esm"],[/^(jsdelivr\.b-cdn\.esm:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2/+esm"],[/^(jspm:)(.+)/i,"https://jspm.dev/$2"],[/^(esbuild:)(.+)/i,"https://esbuild.vercel.app/$2"],[/^(bundle\.run:)(.+)/i,"https://bundle.run/$2"],[/^(unpkg:)(.+)/i,"https://unpkg.com/$2"],[/^(npmcdn:)(.+)/i,"https://npmcdn.com/$2"],[/^(bundlejs:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(bundle:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(deno:)(.+)/i,"https://deno.bundlejs.com/?file&q=https://deno.land/x/$2/mod.ts"],[/^(https:\/\/deno\.land\/.+)/i,"https://deno.bundlejs.com/?file&q=$1"],[/^(github:|https:\/\/github\.com\/)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,"https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/$2/$3@$4"],[/^(gist\.github:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(gitlab:|https:\/\/gitlab\.com\/)([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://gl.githack.com/$2/raw/$3"],[/^(bitbucket:|https:\/\/bitbucket\.org\/)([^\/]+\/[^\/]+)\/(?:raw|src)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://bb.githack.com/$2/raw/$3"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/]+)\/revisions\/([^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/$3/files/$4"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/HEAD/files/$3"],[/^(bitbucket:)\!api\/2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(api\.bitbucket:)2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(rawgit:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(rawgit:|https:\/\/raw\.githubusercontent\.com)(\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,"https://deno.bundlejs.com/?file&q=https://raw.githack.com/$2/$3"]];var{getUrl:P,getModuleUrl:se}=r;var c=P("gh:live-codes/gleam-precompiled@v0.5.0/");var Mt="5.9.3",oe=P(`typescript@${Mt}/lib/typescript.js`);var p=c+"build/packages/plinth/src/plinth/",m=c+"build/dev/javascript/plinth/plinth/",R={name:"gleam",title:getTemplateName("templates.starter.gleam","Gleam Starter"),thumbnail:"assets/templates/gleam.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1 id="title">Hello, World!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/gleam.svg" />
@@ -1131,7 +1131,7 @@ pub fn hello(str: String) -> String
 // npm module
 @external(javascript, "npm:cowsay2", "say")
 pub fn cowsay(str: String) -> String
-`.trimStart()},customSettings:{imports:{"my_pkg/greet.js":c+"demo/greet.js"},gleam:{modules:{"plinth/browser/document":{srcUrl:m+"browser/document.gleam",compiledUrl:p+"browser/document.mjs"},"plinth/browser/element":{srcUrl:m+"browser/element.gleam",compiledUrl:p+"browser/element.mjs"},"plinth/browser/event":{srcUrl:m+"browser/event.gleam",compiledUrl:p+"browser/event.mjs"}}}}};var R={name:"go",title:getTemplateName("templates.starter.go","Go Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},customSettings:{imports:{"my_pkg/greet.js":c+"demo/greet.js"},gleam:{modules:{"plinth/browser/document":{srcUrl:p+"browser/document.gleam",compiledUrl:m+"browser/document.mjs"},"plinth/browser/element":{srcUrl:p+"browser/element.gleam",compiledUrl:m+"browser/element.mjs"},"plinth/browser/event":{srcUrl:p+"browser/event.gleam",compiledUrl:m+"browser/event.mjs"}}}}};var N={name:"go",aliases:["golang"],title:getTemplateName("templates.starter.go","Go Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/go.svg" />
@@ -1194,7 +1194,7 @@ func greet() {
 		fmt.Println("Good evening")
 	}
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var N={name:"go-wasm",title:getTemplateName("templates.starter.go-wasm","Go (Wasm) Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var H={name:"go-wasm",aliases:["golang-wasm"],title:getTemplateName("templates.starter.go-wasm","Go (Wasm) Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Go (Wasm)</h1>
   <img class="logo" alt="Go logo" src="{{ __livecodes_baseUrl__ }}assets/templates/go.svg" />
@@ -1351,7 +1351,7 @@ func main() {
 		fmt.Println("Hello from Go WebAssembly!")
 	}
 }
-`.trimStart()}};var H={name:"imba",title:getTemplateName("templates.starter.imba","Imba Starter"),thumbnail:"assets/templates/imba.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"imba",content:`
+`.trimStart()}};var I={name:"imba",title:getTemplateName("templates.starter.imba","Imba Starter"),thumbnail:"assets/templates/imba.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"imba",content:`
 tag app-counter
 	prop name = "Imba"
 	prop count = 0
@@ -1443,7 +1443,7 @@ public class Main {
     System.out.println(count);
   }
 }
-`.trimStart()}};var I={name:"javascript",title:getTemplateName("templates.starter.javascript","JavaScript Starter"),thumbnail:"assets/templates/javascript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var D={name:"javascript",aliases:["js"],title:getTemplateName("templates.starter.javascript","JavaScript Starter"),thumbnail:"assets/templates/javascript.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/javascript.svg" />
@@ -1471,7 +1471,7 @@ button.addEventListener("click", () => {
   count++;
   counter.innerText = count;
 });
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var O={name:"jest-react",title:getTemplateName("templates.starter.jest-react","Jest/React Starter"),thumbnail:"assets/templates/jest.svg",activeEditor:"script",autotest:!0,markup:{language:"html",content:""},style:{language:"css",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var A={name:"jest-react",title:getTemplateName("templates.starter.jest-react","Jest/React Starter"),thumbnail:"assets/templates/jest.svg",activeEditor:"script",autotest:!0,markup:{language:"html",content:""},style:{language:"css",content:`
 .container,
 .container button {
   text-align: center;
@@ -1553,7 +1553,7 @@ describe("Page", () => {
     );
   });
 });
-`.trimStart()},tools:{enabled:"all",active:"tests",status:"open"}};var A={name:"jest",title:getTemplateName("templates.starter.jest","Jest Starter"),thumbnail:"assets/templates/jest.svg",autotest:!0,activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},tools:{enabled:"all",active:"tests",status:"open"}};var O={name:"jest",title:getTemplateName("templates.starter.jest","Jest Starter"),thumbnail:"assets/templates/jest.svg",autotest:!0,activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/jest.svg" />
@@ -1643,7 +1643,7 @@ describe("Page", () => {
     );
   });
 });
-`.trimStart()},tools:{enabled:"all",active:"tests",status:"open"}};var D={name:"jquery",title:getTemplateName("templates.starter.jquery","jQuery Starter"),thumbnail:"assets/templates/jquery.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},tools:{enabled:"all",active:"tests",status:"open"}};var Y={name:"jquery",title:getTemplateName("templates.starter.jquery","jQuery Starter"),thumbnail:"assets/templates/jquery.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/jquery.svg" />
@@ -1669,7 +1669,7 @@ $("#counter-button").click(() => {
   count += 1;
   $("#counter").text(count);
 });
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Y={name:"julia",title:getTemplateName("templates.starter.julia","Julia Starter"),thumbnail:"assets/templates/julia.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var z={name:"julia",title:getTemplateName("templates.starter.julia","Julia Starter"),thumbnail:"assets/templates/julia.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/julia.svg" />
@@ -1747,7 +1747,7 @@ function formatOutput(args...)
 end
 
 formatOutput(getTitle(), increment(livecodesInput))
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var z={name:"knockout",title:getTemplateName("templates.starter.knockout","Knockout Starter"),thumbnail:"assets/templates/knockout.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var G={name:"knockout",title:getTemplateName("templates.starter.knockout","Knockout Starter"),thumbnail:"assets/templates/knockout.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span data-bind="text: title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/knockout.svg" />
@@ -1778,7 +1778,7 @@ class ClickCounterViewModel {
 }
 
 ko.applyBindings(new ClickCounterViewModel());
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var G={name:"lit",title:getTemplateName("templates.starter.lit","Lit Starter"),thumbnail:"assets/templates/lit.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var V={name:"lit",title:getTemplateName("templates.starter.lit","Lit Starter"),thumbnail:"assets/templates/lit.svg",activeEditor:"script",markup:{language:"html",content:`
 <my-counter name="Lit"></my-counter>
 `.trimStart()},style:{language:"css",content:""},script:{language:"typescript",content:`
 import { LitElement, html, css } from "lit";
@@ -1819,7 +1819,7 @@ export class SignalExample extends SignalWatcher(LitElement) {
     }
   \`;
 }
-`.trimStart()},customSettings:{typescript:{experimentalDecorators:!0,useDefineForClassFields:!1}}};var V={name:"livescript",title:getTemplateName("templates.starter.livescript","LiveScript Starter"),thumbnail:"assets/templates/livescript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},customSettings:{typescript:{experimentalDecorators:!0,useDefineForClassFields:!1}}};var X={name:"livescript",aliases:["ls"],title:getTemplateName("templates.starter.livescript","LiveScript Starter"),thumbnail:"assets/templates/livescript.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/livescript.svg" />
@@ -1853,7 +1853,7 @@ button = document.getElementById \\counter-button
 
 button.addEventListener \\click,
   -> counter-element.innerText = counter!
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var X={name:"lua",title:getTemplateName("templates.starter.lua","Lua Starter"),thumbnail:"assets/templates/lua.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var F={name:"lua",title:getTemplateName("templates.starter.lua","Lua Starter"),thumbnail:"assets/templates/lua.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/lua.svg" />
@@ -1907,7 +1907,7 @@ elseif time >= 12 and time < 18 then
 else
   print ("Good evening")
 end
-`.trimStart()}};var F={name:"lua-wasm",title:getTemplateName("templates.starter.lua-wasm","Lua (Wasm) Starter"),thumbnail:"assets/templates/lua.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var J={name:"lua-wasm",title:getTemplateName("templates.starter.lua-wasm","Lua (Wasm) Starter"),thumbnail:"assets/templates/lua.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/lua.svg" />
@@ -1958,7 +1958,7 @@ elseif time >= 12 and time < 18 then
 else
   print ("Good evening")
 end
-`.trimStart()}};var J={name:"malina",title:getTemplateName("templates.starter.malina","Malina.js Starter"),thumbnail:"assets/templates/malina.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"malina",content:`
+`.trimStart()}};var Z={name:"malina",title:getTemplateName("templates.starter.malina","Malina.js Starter"),thumbnail:"assets/templates/malina.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"malina",content:`
 <script>
   let title = "Malina.js";
   let counter = 0;
@@ -1984,7 +1984,7 @@ end
   <p>You clicked {counter} times.</p>
   <button @click={increment}>Click me</button>
 </div>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Z={name:"markdown",title:getTemplateName("templates.starter.markdown","Markdown Starter"),thumbnail:"assets/templates/markdown.svg",activeEditor:"markup",markup:{language:"markdown",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var K={name:"markdown",aliases:["md"],title:getTemplateName("templates.starter.markdown","Markdown Starter"),thumbnail:"assets/templates/markdown.svg",activeEditor:"markup",markup:{language:"markdown",content:`
 # Project Title
 
 One Paragraph of project description goes here
@@ -1993,61 +1993,106 @@ One Paragraph of project description goes here
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+### Installation
 
-What things you need to install the software and how to install them
+Make sure you have \`python 3.10+\` and \`pip\` installed. Then run:
 
-\`\`\`
-Give examples
-\`\`\`
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-\`\`\`
-Give the example
+\`\`\`bash
+pip install -r requirements.txt
+cp .env.example .env
+python manage.py migrate
 \`\`\`
 
-And repeat
+Start the development server on \`localhost:8000\`:
 
-\`\`\`
-until finished
+\`\`\`bash
+python manage.py runserver
 \`\`\`
 
-End with an example of getting some data out of the system or using it for a little demo
+### Usage
+
+Give an example of getting some data out of the system or using it for a little demo
+
+\`\`\`python
+from project_name import Client
+
+client = Client(api_key="your-api-key")
+resources = client.resources.list(limit=10)
+
+for resource in resources:
+    print(f"{resource.id}: {resource.name}")
+\`\`\`
+
+You can also use the \`--verbose\` flag for detailed output:
+
+\`\`\`bash
+python main.py --verbose
+\`\`\`
+
+### Frontend Integration
+
+The API returns \`JSON\` responses that can be consumed by any frontend:
+
+\`\`\`js
+const res = await fetch('http://localhost:8000/api/resources');
+const data = await res.json();
+console.log(data);
+\`\`\`
+
+## Overview
+
+A high-level look at how the system fits together. The \`Core API\` handles all business logic.
+
+\`\`\`mermaid
+graph TD
+    A[Client] -->|Request| B[API Gateway]
+    B --> C[Auth Service]
+    B --> D[Core API]
+    D --> E[(Database)]
+    D --> F[(Cache)]
+\`\`\`
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Run the full test suite with \`pytest\`:
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-\`\`\`
-Give an example
+\`\`\`bash
+pytest --cov=project_name tests/
 \`\`\`
 
-### And coding style tests
+### End to end tests
 
-Explain what these tests test and why
+These tests verify the full request lifecycle from \`Client\` to \`Database\` and back.
 
+\`\`\`python
+def test_create_resource(client):
+    response = client.post("/api/resources", json={"name": "Test"})
+    assert response.status_code == 201
+    assert response.json()["name"] == "Test"
 \`\`\`
-Give an example
+
+### Coding style tests
+
+We use \`flake8\` and \`black\` to enforce consistent code style:
+
+\`\`\`bash
+flake8 project_name/
+black --check project_name/
 \`\`\`
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Make sure \`Docker\` is installed, then build and run:
+
+\`\`\`bash
+docker build -t project-name .
+docker run -p 8000:8000 --env-file .env project-name
+\`\`\`
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Django](https://www.djangoproject.com/) - The web framework used
+* [pip](https://pip.pypa.io/) - Dependency Management
 
 ## Contributing
 
@@ -2059,7 +2104,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Your Name** - *Initial work* - [YourGitHub](https://github.com/your-username)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
@@ -2069,12 +2114,9 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
+* Give credit to anyone whose code was used
 * Inspiration
 * etc
-
-
-Source: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 `.trimStart()},style:{language:"css",content:`
 @import "github-markdown-css";
 
@@ -2085,7 +2127,7 @@ body {
   margin: 20px !important;
 }
 `.trimStart()},script:{language:"javascript",content:`document.body.classList.add('markdown-body');
-`},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var K={name:"mdx",title:getTemplateName("templates.starter.mdx","MDX Starter"),thumbnail:"assets/templates/mdx.svg",activeEditor:"markup",markup:{language:"mdx",content:`
+`},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Q={name:"mdx",title:getTemplateName("templates.starter.mdx","MDX Starter"),thumbnail:"assets/templates/mdx.svg",activeEditor:"markup",markup:{language:"mdx",content:`
 import { Greeting, Counter } from './script';
 
 <Greeting name="MDX" />
@@ -2118,7 +2160,7 @@ export function Counter() {
     </div>
   );
 }
-`.trimStart()}};var Q={name:"minizinc",title:getTemplateName("templates.starter.minizinc","MiniZinc Starter"),thumbnail:"assets/templates/minizinc.png",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var tt={name:"minizinc",aliases:["mzn"],title:getTemplateName("templates.starter.minizinc","MiniZinc Starter"),thumbnail:"assets/templates/minizinc.png",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/minizinc.png" title="MiniZinc" />
   <button id="button" onclick="run()">Run</button>
@@ -2300,7 +2342,7 @@ solve maximize 400 * b + 450 * c;
 output [
   "no. of banana cakes = \(b)\n",
   "no. of chocolate cakes = \(c)\n"];
-`.trimStart()}};var tt={name:"ocaml",title:getTemplateName("templates.starter.ocaml","Ocaml Starter"),thumbnail:"assets/templates/ocaml.svg",activeEditor:"script",markup:{language:"html",content:`<div id="app">Loading...</div>
+`.trimStart()}};var et={name:"ocaml",title:getTemplateName("templates.starter.ocaml","Ocaml Starter"),thumbnail:"assets/templates/ocaml.svg",activeEditor:"script",markup:{language:"html",content:`<div id="app">Loading...</div>
 `},style:{language:"css",content:`
 .container,
 .container button {
@@ -2349,7 +2391,7 @@ let _ =
   | None  -> ()
 
 let _ = print_endline "Hello, OCaml!"
-`.trimStart()},customSettings:{imports:{react:"https://esm.sh/react@18.3.1","react/":"https://esm.sh/react@18.3.1/","react-dom":"https://esm.sh/react-dom@18.3.1"}}};var et={name:"perl",title:getTemplateName("templates.starter.perl","Perl Starter"),thumbnail:"assets/templates/perl.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},customSettings:{imports:{react:"https://esm.sh/react@18.3.1","react/":"https://esm.sh/react@18.3.1/","react-dom":"https://esm.sh/react-dom@18.3.1"}}};var st={name:"perl",aliases:["pl"],title:getTemplateName("templates.starter.perl","Perl Starter"),thumbnail:"assets/templates/perl.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/perl.svg" />
@@ -2407,7 +2449,7 @@ if ($hour < 12) {
 } else {
   print "Good evening";
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var st={name:"phaser",title:"Phaser Starter",thumbnail:"assets/templates/phaser.png",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var ot={name:"phaser",title:getTemplateName("templates.starter.phaser","Phaser Starter"),thumbnail:"assets/templates/phaser.png",activeEditor:"script",markup:{language:"html",content:`
 <div id="app">
   <div id="game-container"></div>
 </div>
@@ -2601,7 +2643,7 @@ const config = {
 };
 
 export default new Phaser.Game(config);
-`.trimStart()}};var ot={name:"php",title:getTemplateName("templates.starter.php","PHP Starter"),thumbnail:"assets/templates/php.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var nt={name:"php",title:getTemplateName("templates.starter.php","PHP Starter"),thumbnail:"assets/templates/php.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">world</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/php.svg" />
@@ -2631,7 +2673,7 @@ $document
     $document->getElementById('counter')->innerText = $count;
     echo "count: $count";
   });
-`.trimStart()}};var nt={name:"php-wasm",title:getTemplateName("templates.starter.php-wasm","PHP (Wasm) Starter"),thumbnail:"assets/templates/php.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var rt={name:"php-wasm",title:getTemplateName("templates.starter.php-wasm","PHP (Wasm) Starter"),thumbnail:"assets/templates/php.svg",activeEditor:"script",markup:{language:"html",content:`
 <p>
   <h1>Hello, <span id="title">world</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/php.svg" />
@@ -2663,7 +2705,7 @@ if ($time < 12) {
 $date = date("l jS \\of F, Y");
 
 echo $greeting . "<br>Today is:<br>" . $date;
-`.trimStart()}};var rt={name:"postgresql",title:getTemplateName("templates.starter.postgresql","PostgreSQL Starter"),thumbnail:"assets/templates/postgresql.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var at={name:"postgresql",aliases:["pg","postgres","pgsql"],title:getTemplateName("templates.starter.postgresql","PostgreSQL Starter"),thumbnail:"assets/templates/postgresql.svg",activeEditor:"script",markup:{language:"html",content:`
 <div id="output">
   <details open>
     <summary>Tables</summary>
@@ -2767,7 +2809,7 @@ SELECT a.id, a.rev, a.quote
                ROW_NUMBER() OVER (PARTITION BY id ORDER BY rev DESC) rank
           FROM quotes) a
   WHERE a.rank = 1;
-`.trimStart()}};var at={name:"preact",title:getTemplateName("templates.starter.preact","Preact Starter"),thumbnail:"assets/templates/preact.svg",activeEditor:"script",markup:{language:"html",content:`<div id="app"></div>
+`.trimStart()}};var it={name:"preact",title:getTemplateName("templates.starter.preact","Preact Starter"),thumbnail:"assets/templates/preact.svg",activeEditor:"script",markup:{language:"html",content:`<div id="app"></div>
 `},style:{language:"css",content:`
 .container,
 .container button {
@@ -2795,7 +2837,7 @@ function App(props) {
 }
 
 render(<App name="Preact" />, document.body);
-`.trimStart()}};var it={name:"prolog",title:getTemplateName("templates.starter.prolog","Prolog Starter"),thumbnail:"assets/templates/tau-prolog.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var lt={name:"prolog",title:getTemplateName("templates.starter.prolog","Prolog Starter"),thumbnail:"assets/templates/tau-prolog.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/tau-prolog.svg" title="Tau Prolog" />
@@ -2931,7 +2973,7 @@ aunt(X, Y):- parent(Z, Y),
 ancestor(X, Y):- parent(X, Y).
 ancestor(X, Y):- parent(X, Z),
     ancestor(Z, Y).
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var lt={name:"python",title:getTemplateName("templates.starter.python","Python Starter"),thumbnail:"assets/templates/python.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var ct={name:"python",aliases:["py"],title:getTemplateName("templates.starter.python","Python Starter"),thumbnail:"assets/templates/python.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1 id="header">Hello, World!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/python.svg" />
@@ -2971,7 +3013,7 @@ elif 12 <= current_time < 18:
       print('Good afternoon')
 else:
       print('Good evening')
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var ct={name:"python-wasm",aliases:["pyodide"],title:"Python (Wasm) Starter",thumbnail:"assets/templates/python.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var pt={name:"python-wasm",aliases:["pyodide","py-wasm"],title:getTemplateName("templates.starter.python-wasm","Python (Wasm) Starter"),thumbnail:"assets/templates/python.svg",activeEditor:"script",markup:{language:"html",content:`
 <h1 id="title">Hello, World!</h1>
 <div id="loading">Loading...</div>
 <div id="plots"></div>
@@ -3034,7 +3076,7 @@ loading.innerHTML = ""
 
 # avoid leaving figures open
 plt.close("all")
-`.trimStart()}};var mt={name:"r",title:getTemplateName("templates.starter.r","R Starter"),thumbnail:"assets/templates/r.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var mt={name:"r",aliases:["r-lang","rlang"],title:getTemplateName("templates.starter.r","R Starter"),thumbnail:"assets/templates/r.svg",activeEditor:"script",markup:{language:"html",content:`
 <div id="output">Loading...</div>
 
 <script>
@@ -3082,7 +3124,7 @@ legend("topleft",
 #   summarize(mean_price = mean(price)) %>%
 #   ggplot(aes(x = cut, y = mean_price, fill = cut)) +
 #       geom_bar(stat = "identity")
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var pt={name:"react-native",title:getTemplateName("templates.starter.react-native","React Native Starter"),thumbnail:"assets/templates/react.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"react-native",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var dt={name:"react-native",title:getTemplateName("templates.starter.react-native","React Native Starter"),thumbnail:"assets/templates/react.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"react-native",content:`
 import { useState } from "react";
 import { Button, Image, StyleSheet, Text, View } from "react-native";
 
@@ -3159,7 +3201,7 @@ const styles = StyleSheet.create({
     color: "#1B95E0",
   },
 });
-`.trimStart()}};var dt={name:"react",title:getTemplateName("templates.starter.react","React Starter"),thumbnail:"assets/templates/react.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:`
+`.trimStart()}};var ut={name:"react",title:getTemplateName("templates.starter.react","React Starter"),thumbnail:"assets/templates/react.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:`
 .container,
 .container button {
   text-align: center;
@@ -3186,7 +3228,7 @@ function Counter(props) {
 export default function App() {
   return <Counter name="React" />;
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var ut={name:"reason",title:getTemplateName("templates.starter.reason","Reason Starter"),thumbnail:"assets/templates/reason.svg",activeEditor:"script",markup:{language:"html",content:`<div id="app">Loading...</div>
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var gt={name:"reason",title:getTemplateName("templates.starter.reason","Reason Starter"),thumbnail:"assets/templates/reason.svg",activeEditor:"script",markup:{language:"html",content:`<div id="app">Loading...</div>
 `},style:{language:"css",content:`
 .container,
 .container button {
@@ -3227,7 +3269,7 @@ switch (ReactDOM.querySelector("#app")) {
 }
 
 Js.log("Hello, Reason!");
-`.trimStart()},customSettings:{imports:{react:"https://esm.sh/react@18.3.1","react/":"https://esm.sh/react@18.3.1/","react-dom":"https://esm.sh/react-dom@18.3.1"}}};var gt={name:"rescript",title:getTemplateName("templates.starter.rescript","ReScript Starter"),thumbnail:"assets/templates/rescript.png",activeEditor:"script",markup:{language:"html",content:`<div id="app">Loading...</div>
+`.trimStart()},customSettings:{imports:{react:"https://esm.sh/react@18.3.1","react/":"https://esm.sh/react@18.3.1/","react-dom":"https://esm.sh/react-dom@18.3.1"}}};var ht={name:"rescript",title:getTemplateName("templates.starter.rescript","ReScript Starter"),thumbnail:"assets/templates/rescript.png",activeEditor:"script",markup:{language:"html",content:`<div id="app">Loading...</div>
 `},style:{language:"css",content:`
 .container,
 .container button {
@@ -3280,7 +3322,7 @@ switch ReactDOM.querySelector("#app") {
 }
 
 Console.log("Hello, ReScript!")
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var ht={name:"riot",title:getTemplateName("templates.starter.riot","Riot.js Starter"),thumbnail:"assets/templates/riot.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var bt={name:"riot",title:getTemplateName("templates.starter.riot","Riot.js Starter"),thumbnail:"assets/templates/riot.svg",activeEditor:"script",markup:{language:"html",content:`
 <counter title="Riot.js"></counter>
 
 <script>
@@ -3331,7 +3373,7 @@ Console.log("Hello, ReScript!")
     };
   <\/script>
 </counter>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var bt={name:"ruby",title:getTemplateName("templates.starter.ruby","Ruby Starter"),thumbnail:"assets/templates/ruby.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var ft={name:"ruby",aliases:["rb"],title:getTemplateName("templates.starter.ruby","Ruby Starter"),thumbnail:"assets/templates/ruby.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/ruby.svg" />
@@ -3375,7 +3417,7 @@ elsif current_time < 18
 else
     puts "Good evening, " + msg
 end
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var ft={name:"ruby-wasm",title:getTemplateName("templates.starter.ruby-wasm","Ruby (Wasm) Starter"),thumbnail:"assets/templates/ruby.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var vt={name:"ruby-wasm",aliases:["rb-wasm"],title:getTemplateName("templates.starter.ruby-wasm","Ruby (Wasm) Starter"),thumbnail:"assets/templates/ruby.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/ruby.svg" />
@@ -3419,7 +3461,7 @@ elsif current_time < 18
 else
     puts "Good evening, " + msg
 end
-`.trimStart()}};var vt={name:"scheme",title:getTemplateName("templates.starter.scheme","Scheme Starter"),thumbnail:"assets/templates/scheme.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var yt={name:"scheme",title:getTemplateName("templates.starter.scheme","Scheme Starter"),thumbnail:"assets/templates/scheme.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/scheme.svg" />
@@ -3451,7 +3493,7 @@ end
     (cond ((< time-now 12) "Good morning")
           ((< time-now 18) "Good afternoon")
           (else "Good evening"))))
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var t="https://cdn.jsdelivr.net/npm/@hatemhosny/shadcdn@0.0.14/build/",yt={name:"shadcn-ui",title:getTemplateName("templates.starter.shadcnui","shadcn/ui Starter"),thumbnail:"assets/templates/shadcn-ui.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var t="https://cdn.jsdelivr.net/npm/@hatemhosny/shadcdn@0.0.14/build/",xt={name:"shadcn-ui",title:getTemplateName("templates.starter.shadcnui","shadcn/ui Starter"),thumbnail:"assets/templates/shadcn-ui.svg",activeEditor:"script",markup:{language:"html",content:`
 <link rel="stylesheet" href="${t}shadcdn.css">
 <link rel="stylesheet" href="${t}themes.css">
 `.trimStart()},style:{language:"css",content:`
@@ -3578,7 +3620,7 @@ function LoginForm({
     </div>
   );
 }
-`.trimStart()},processors:["tailwindcss"],imports:{},types:{},customSettings:{imports:{react:"https://esm.sh/react","react/":"https://esm.sh/react/","react-dom":"https://esm.sh/react-dom","react-dom/":"https://esm.sh/react-dom/","@":`${t}shadcdn.js`,"@/lib/utils":`${t}shadcdn.js`,"@/components/ui/accordion":`${t}shadcdn.js`,"@/components/ui/alert-dialog":`${t}shadcdn.js`,"@/components/ui/alert":`${t}shadcdn.js`,"@/components/ui/aspect-ratio":`${t}shadcdn.js`,"@/components/ui/avatar":`${t}shadcdn.js`,"@/components/ui/badge":`${t}shadcdn.js`,"@/components/ui/button":`${t}shadcdn.js`,"@/components/ui/calendar":`${t}shadcdn.js`,"@/components/ui/card":`${t}shadcdn.js`,"@/components/ui/checkbox":`${t}shadcdn.js`,"@/components/ui/collapsible":`${t}shadcdn.js`,"@/components/ui/command":`${t}shadcdn.js`,"@/components/ui/context-menu":`${t}shadcdn.js`,"@/components/ui/dialog":`${t}shadcdn.js`,"@/components/ui/dropdown-menu":`${t}shadcdn.js`,"@/components/ui/form":`${t}shadcdn.js`,"@/components/ui/hover-card":`${t}shadcdn.js`,"@/components/ui/input":`${t}shadcdn.js`,"@/components/ui/label":`${t}shadcdn.js`,"@/components/ui/menubar":`${t}shadcdn.js`,"@/components/ui/navigation-menu":`${t}shadcdn.js`,"@/components/ui/popover":`${t}shadcdn.js`,"@/components/ui/progress":`${t}shadcdn.js`,"@/components/ui/radio-group":`${t}shadcdn.js`,"@/components/ui/scroll-area":`${t}shadcdn.js`,"@/components/ui/select":`${t}shadcdn.js`,"@/components/ui/separator":`${t}shadcdn.js`,"@/components/ui/sheet":`${t}shadcdn.js`,"@/components/ui/skeleton":`${t}shadcdn.js`,"@/components/ui/slider":`${t}shadcdn.js`,"@/components/ui/switch":`${t}shadcdn.js`,"@/components/ui/table":`${t}shadcdn.js`,"@/components/ui/tabs":`${t}shadcdn.js`,"@/components/ui/textarea":`${t}shadcdn.js`,"@/components/ui/toast":`${t}shadcdn.js`,"@/components/ui/toaster":`${t}shadcdn.js`,"@/components/ui/toggle":`${t}shadcdn.js`,"@/components/ui/tooltip":`${t}shadcdn.js`,"@/components/ui/use-toast":`${t}shadcdn.js`,"@/components/ui/resizable":`${t}shadcdn.js`,"@/components/ui/input-otp":`${t}shadcdn.js`,"@/components/ui/breadcrumb":`${t}shadcdn.js`,"@/components/ui/toggle-group":`${t}shadcdn.js`,"@/components/ui/sonner":`${t}shadcdn.js`,"@/components/ui/pagination":`${t}shadcdn.js`,"@/components/ui/drawer":`${t}shadcdn.js`,"@/components/ui/carousel":`${t}shadcdn.js`,"@/components/ui/sidebar":`${t}shadcdn.js`,"@/components/ui/chart":`${t}shadcdn.js`},types:{"@/components":`${t}shadcdn.d.ts`,"@/utils":`${t}shadcdn.d.ts`}}};var xt={name:"solid",title:getTemplateName("templates.starter.solid","Solid Starter"),thumbnail:"assets/templates/solid.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:`
+`.trimStart()},processors:["tailwindcss"],imports:{},types:{},customSettings:{imports:{react:"https://esm.sh/react","react/":"https://esm.sh/react/","react-dom":"https://esm.sh/react-dom","react-dom/":"https://esm.sh/react-dom/","@":`${t}shadcdn.js`,"@/lib/utils":`${t}shadcdn.js`,"@/components/ui/accordion":`${t}shadcdn.js`,"@/components/ui/alert-dialog":`${t}shadcdn.js`,"@/components/ui/alert":`${t}shadcdn.js`,"@/components/ui/aspect-ratio":`${t}shadcdn.js`,"@/components/ui/avatar":`${t}shadcdn.js`,"@/components/ui/badge":`${t}shadcdn.js`,"@/components/ui/button":`${t}shadcdn.js`,"@/components/ui/calendar":`${t}shadcdn.js`,"@/components/ui/card":`${t}shadcdn.js`,"@/components/ui/checkbox":`${t}shadcdn.js`,"@/components/ui/collapsible":`${t}shadcdn.js`,"@/components/ui/command":`${t}shadcdn.js`,"@/components/ui/context-menu":`${t}shadcdn.js`,"@/components/ui/dialog":`${t}shadcdn.js`,"@/components/ui/dropdown-menu":`${t}shadcdn.js`,"@/components/ui/form":`${t}shadcdn.js`,"@/components/ui/hover-card":`${t}shadcdn.js`,"@/components/ui/input":`${t}shadcdn.js`,"@/components/ui/label":`${t}shadcdn.js`,"@/components/ui/menubar":`${t}shadcdn.js`,"@/components/ui/navigation-menu":`${t}shadcdn.js`,"@/components/ui/popover":`${t}shadcdn.js`,"@/components/ui/progress":`${t}shadcdn.js`,"@/components/ui/radio-group":`${t}shadcdn.js`,"@/components/ui/scroll-area":`${t}shadcdn.js`,"@/components/ui/select":`${t}shadcdn.js`,"@/components/ui/separator":`${t}shadcdn.js`,"@/components/ui/sheet":`${t}shadcdn.js`,"@/components/ui/skeleton":`${t}shadcdn.js`,"@/components/ui/slider":`${t}shadcdn.js`,"@/components/ui/switch":`${t}shadcdn.js`,"@/components/ui/table":`${t}shadcdn.js`,"@/components/ui/tabs":`${t}shadcdn.js`,"@/components/ui/textarea":`${t}shadcdn.js`,"@/components/ui/toast":`${t}shadcdn.js`,"@/components/ui/toaster":`${t}shadcdn.js`,"@/components/ui/toggle":`${t}shadcdn.js`,"@/components/ui/tooltip":`${t}shadcdn.js`,"@/components/ui/use-toast":`${t}shadcdn.js`,"@/components/ui/resizable":`${t}shadcdn.js`,"@/components/ui/input-otp":`${t}shadcdn.js`,"@/components/ui/breadcrumb":`${t}shadcdn.js`,"@/components/ui/toggle-group":`${t}shadcdn.js`,"@/components/ui/sonner":`${t}shadcdn.js`,"@/components/ui/pagination":`${t}shadcdn.js`,"@/components/ui/drawer":`${t}shadcdn.js`,"@/components/ui/carousel":`${t}shadcdn.js`,"@/components/ui/sidebar":`${t}shadcdn.js`,"@/components/ui/chart":`${t}shadcdn.js`},types:{"@/components":`${t}shadcdn.d.ts`,"@/utils":`${t}shadcdn.d.ts`}}};var wt={name:"solid",title:getTemplateName("templates.starter.solid","Solid Starter"),thumbnail:"assets/templates/solid.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:`
 .container,
 .container button {
   text-align: center;
@@ -3606,7 +3648,7 @@ function Counter(props: { name: string }) {
 export default function App() {
   return <Counter name="Solid" />;
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var wt={name:"sql",title:getTemplateName("templates.starter.sql","SQL Starter"),thumbnail:"assets/templates/sqlite.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var St={name:"sql",title:getTemplateName("templates.starter.sql","SQL Starter"),thumbnail:"assets/templates/sqlite.svg",activeEditor:"script",markup:{language:"html",content:`
 <div id="output">
   <details open>
     <summary>Tables</summary>
@@ -3710,7 +3752,7 @@ SELECT a.id, a.rev, a.quote
                ROW_NUMBER() OVER (PARTITION BY id ORDER BY rev DESC) rank
           FROM quotes) a
   WHERE a.rank = 1;
-`.trimStart()}};var St={name:"stencil",title:getTemplateName("templates.starter.stencil","Stencil Starter"),thumbnail:"assets/templates/stencil.png",activeEditor:"script",markup:{language:"html",content:`<my-app title="Stencil"></my-app>
+`.trimStart()}};var kt={name:"stencil",title:getTemplateName("templates.starter.stencil","Stencil Starter"),thumbnail:"assets/templates/stencil.png",activeEditor:"script",markup:{language:"html",content:`<my-app title="Stencil"></my-app>
 `},style:{language:"css",content:""},script:{language:"stencil",content:`
 import { Component, Prop, h, State } from "@stencil/core";
 
@@ -3746,7 +3788,7 @@ export class App {
     );
   }
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var kt={name:"svelte",title:getTemplateName("templates.starter.svelte","Svelte Starter"),thumbnail:"assets/templates/svelte.svg",activeEditor:"script",markup:{language:"svelte",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var _t={name:"svelte",title:getTemplateName("templates.starter.svelte","Svelte Starter"),thumbnail:"assets/templates/svelte.svg",activeEditor:"script",markup:{language:"svelte",content:`
 <script>
 import Counter from "./Component.svelte";
 <\/script>
@@ -3778,7 +3820,7 @@ import Counter from "./Component.svelte";
   <p>You clicked {counter} times.</p>
   <button on:click={increment}>Click me</button>
 </div>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var _t={name:"tailwindcss",title:getTemplateName("templates.starter.tailwindcss","Tailwind CSS Starter"),thumbnail:"assets/templates/tailwindcss.svg",activeEditor:"markup",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var jt={name:"tailwindcss",aliases:["tw","tailwind"],title:getTemplateName("templates.starter.tailwindcss","Tailwind CSS Starter"),thumbnail:"assets/templates/tailwindcss.svg",activeEditor:"markup",markup:{language:"html",content:`
 <div class="relative grid min-h-screen grid-cols-[1fr_2.5rem_auto_2.5rem_1fr] grid-rows-[1fr_1px_auto_1px_1fr] bg-white [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10">
   <div class="col-start-3 row-start-3 flex max-w-lg flex-col bg-gray-100 p-2 dark:bg-white/10">
     <div class="rounded-xl bg-white p-10 text-sm/7 text-gray-700 dark:bg-gray-950 dark:text-gray-300">
@@ -3857,7 +3899,7 @@ import Counter from "./Component.svelte";
 @theme {
   /* ... */
 }
-`.trimStart()},script:{language:"javascript",content:""},processors:["tailwindcss"]};var jt={name:"tcl",title:getTemplateName("templates.starter.tcl","Tcl Starter"),thumbnail:"assets/templates/tcl.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},script:{language:"javascript",content:""},processors:["tailwindcss"]};var Tt={name:"tcl",title:getTemplateName("templates.starter.tcl","Tcl Starter"),thumbnail:"assets/templates/tcl.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/tcl.svg" />
@@ -3902,7 +3944,7 @@ if {[info exists count]} {
 }
 ::wacl::dom attr "#counter" innerText $count
 puts $count
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Tt={name:"teal",title:getTemplateName("templates.starter.teal","Teal Starter"),thumbnail:"assets/templates/teal.png",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Ct={name:"teal",title:getTemplateName("templates.starter.teal","Teal Starter"),thumbnail:"assets/templates/teal.png",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/teal.png" />
@@ -3951,7 +3993,7 @@ button:addEventListener("click", function()
   count = increment(count)
   counter_el.innerHTML = ("You clicked %d times."):format(count)
 end)
-`.trimStart()}};var Ct={name:"typescript",title:getTemplateName("templates.starter.typescript","TypeScript Starter"),thumbnail:"assets/templates/typescript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var Ut={name:"typescript",aliases:["ts"],title:getTemplateName("templates.starter.typescript","TypeScript Starter"),thumbnail:"assets/templates/typescript.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/typescript.svg" />
@@ -3995,7 +4037,7 @@ button.addEventListener(
   },
   false
 );
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Ut={name:"vue",title:getTemplateName("templates.starter.vue","Vue SFC Starter"),thumbnail:"assets/templates/vue.svg",activeEditor:"script",markup:{language:"vue",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Et={name:"vue",title:getTemplateName("templates.starter.vue","Vue SFC Starter"),thumbnail:"assets/templates/vue.svg",activeEditor:"script",markup:{language:"vue",content:`
 <script setup lang="tsx">
 import Counter from './Component.vue';
 <\/script>
@@ -4039,7 +4081,7 @@ import Counter from './Component.vue';
     width: 150px;
   }
 </style>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Et={name:"vue2",title:getTemplateName("templates.starter.vue2","Vue 2 Starter"),thumbnail:"assets/templates/vue.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Lt={name:"vue2",title:getTemplateName("templates.starter.vue2","Vue 2 Starter"),thumbnail:"assets/templates/vue.svg",activeEditor:"script",markup:{language:"html",content:`
 <div id="app">
   <h1>Hello, Vue!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/vue.svg" />
@@ -4067,7 +4109,7 @@ new Vue({
     },
   },
 });
-`.trimStart()},stylesheets:[],scripts:["{{ __CDN_URL__ }}vue@2"],cssPreset:"",imports:{},types:{}};var Lt={name:"wat",title:getTemplateName("templates.starter.wat","WebAssembly Text Starter"),thumbnail:"assets/templates/webassembly.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:["{{ __CDN_URL__ }}vue@2"],cssPreset:"",imports:{},types:{}};var qt={name:"wat",title:getTemplateName("templates.starter.wat","WebAssembly Text Starter"),thumbnail:"assets/templates/webassembly.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/webassembly.svg" />
@@ -4135,4 +4177,4 @@ new Vue({
     (i32.add (local.get $0) (i32.const 1))
   )
 )
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var bo=[b,I,Ct,dt,pt,Ut,d,at,kt,xt,G,St,K,_t,yt,U,v,g,ht,J,D,h,z,A,O,C,st,Et,S,V,y,x,H,gt,ut,tt,lt,ct,mt,bt,ft,R,N,ot,nt,_,j,W,T,et,X,F,Tt,L,Y,vt,k,w,P,jt,Z,u,Lt,wt,rt,it,Q,f,E];export{bo as starterTemplates};
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var vo=[b,D,Ut,ut,dt,Et,d,it,_t,wt,V,kt,Q,jt,xt,U,v,g,bt,Z,Y,h,G,O,A,C,ot,Lt,S,X,y,x,I,ht,gt,et,ct,pt,mt,ft,vt,N,H,nt,rt,_,j,W,T,st,F,J,Ct,L,z,yt,k,w,R,Tt,K,u,qt,St,at,lt,tt,f,E];export{vo as starterTemplates};

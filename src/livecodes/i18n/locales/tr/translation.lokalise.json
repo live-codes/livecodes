@@ -957,6 +957,9 @@
   "editorSettings.lineNumbersRelative": {
     "translation": "Göreceli satır numaraları *"
   },
+  "editorSettings.minimap": {
+    "translation": "Minimap'i Etkinleştir *"
+  },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "CodeJar'da mevcut değil"
   },
