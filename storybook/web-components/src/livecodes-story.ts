@@ -1,5 +1,6 @@
 import { flatten, unflatten } from 'flat';
 import { html, nothing } from 'lit';
+// eslint-disable-next-line import/no-unresolved
 import 'livecodes/web-components';
 import { appUrl, argTypes, delimiter } from '../../common';
 import type { Props } from './livecodes';

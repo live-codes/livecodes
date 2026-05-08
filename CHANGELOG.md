@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v49](https://github.com/live-codes/livecodes/compare/v48...v49) (2026-05-08)
+
+### Highlights for this release
+
+- Storybook instances are available for all SDKs, with full docs and examples. See [Storybook](https://livecodes.io/stories/).
+- Markdown now supports code syntax highlighting and mermaid diagrams. See [starter template](https://livecodes.io/?template=markdown).
+
+### Features
+
+- **Compilers:** add syntax highlighting and mermaid diagrams for markdown ([a9be20e](https://github.com/live-codes/livecodes/commit/a9be20e58dced18ff601a3cb0d1f974d13cfa7ff))
+- **Config:** add `minimap` config option ([f814418](https://github.com/live-codes/livecodes/commit/f814418d02b11e2c4f4768791b7ebf842afa81eb))
+- **Result:** dynamically generate iframe `allow` attribute based on browser support ([ddc7c1e](https://github.com/live-codes/livecodes/commit/ddc7c1e9245b610a7f039461abad53cc476a4897))
+- **UI:** use transition animation when changing theme ([ec66954](https://github.com/live-codes/livecodes/commit/ec669546e5a410c3ed0bbb706049a683536ebcd2))
+
+### Bug Fixes
+
+- **App:** fix exceeding localstorage quota ([3e5f03c](https://github.com/live-codes/livecodes/commit/3e5f03cfecd3ffe3d8bc3d6511fa525af9a8ac7e))
+- **Compilers:** add solid compiler importmap ([30618c5](https://github.com/live-codes/livecodes/commit/30618c51de2ef3a60d4613489426ff9346eb841d))
+- **Compilers:** fix sass imports ([3a59549](https://github.com/live-codes/livecodes/commit/3a5954975586f53ebf40ff1aee70fcaf39ba7351))
+- **Embed:** fix "click to load" flash when loading embeds ([e7f36f3](https://github.com/live-codes/livecodes/commit/e7f36f3c134ab42f97e9dcc362b7f96f1eb67d99))
+- **Embed:** fix result mode motion ([f22dc5d](https://github.com/live-codes/livecodes/commit/f22dc5d724d734e139526ce67deb8d51055dd4f7))
+- **Embed:** remove result mode drawer in embeds ([2f147ae](https://github.com/live-codes/livecodes/commit/2f147aef81bacefae276535aa63d2ae58b671f7e))
+
+---
+
 ## [sdk-v0.14.1](https://github.com/live-codes/livecodes/compare/sdk-v0.14.0...sdk-v0.14.1) (2026-05-08)
 
 ---
