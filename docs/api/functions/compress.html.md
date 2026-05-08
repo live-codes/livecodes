@@ -31,4 +31,4 @@ const compressed = compress(JSON.stringify(config));
 
 ## Defined in
 
-[src/sdk/index.ts:522](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/index.ts#L522)
+[src/sdk/index.ts:522](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/index.ts#L522)

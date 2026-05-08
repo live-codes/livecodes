@@ -24,4 +24,4 @@ Called when console methods are called in the result page.
 
 ## Defined in
 
-[src/sdk/models.ts:1355](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1355)
+[src/sdk/models.ts:1355](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/models.ts#L1355)

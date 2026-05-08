@@ -23,7 +23,7 @@ If supplied with an invalid URL, an error is thrown.
 
 #### Defined in
 
-[src/sdk/models.ts:1697](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1697)
+[src/sdk/models.ts:1697](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/models.ts#L1697)
 
 ***
 
@@ -43,7 +43,7 @@ If supplied and is not an object or a valid URL, an error is thrown.
 
 #### Defined in
 
-[src/sdk/models.ts:1729](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1729)
+[src/sdk/models.ts:1729](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/models.ts#L1729)
 
 ***
 
@@ -61,7 +61,7 @@ false
 
 #### Defined in
 
-[src/sdk/models.ts:1735](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1735)
+[src/sdk/models.ts:1735](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/models.ts#L1735)
 
 ***
 
@@ -73,7 +73,7 @@ A resource to [import](https://livecodes.io/docs/features/import) (from any of t
 
 #### Defined in
 
-[src/sdk/models.ts:1740](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1740)
+[src/sdk/models.ts:1740](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/models.ts#L1740)
 
 ***
 
@@ -95,7 +95,7 @@ false
 
 #### Defined in
 
-[src/sdk/models.ts:1751](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1751)
+[src/sdk/models.ts:1751](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/models.ts#L1751)
 
 ***
 
@@ -117,7 +117,7 @@ Sets how the playground loads:
 
 #### Defined in
 
-[src/sdk/models.ts:1761](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1761)
+[src/sdk/models.ts:1761](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/models.ts#L1761)
 
 ***
 
@@ -3897,7 +3897,7 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[src/sdk/models.ts:1721](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1721)
+[src/sdk/models.ts:1721](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/models.ts#L1721)
 
 ***
 
@@ -3910,7 +3910,7 @@ Allowed valued can be found [here](https://livecodes.io/docs/api/internal/type-a
 
 #### Defined in
 
-[src/sdk/models.ts:1767](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1767)
+[src/sdk/models.ts:1767](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/models.ts#L1767)
 
 ***
 
@@ -3934,4 +3934,4 @@ The `view` option has been moved to `config.view`. For headless mode use `headle
 
 #### Defined in
 
-[src/sdk/models.ts:1780](https://github.com/live-codes/livecodes/blob/a8e9daf8c5c4d389879e49888d1a49b5bcd519fe/src/sdk/models.ts#L1780)
+[src/sdk/models.ts:1780](https://github.com/live-codes/livecodes/blob/1fff173950709dd2999dfb8e56eea413d185caf3/src/sdk/models.ts#L1780)
