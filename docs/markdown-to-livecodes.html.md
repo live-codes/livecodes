@@ -580,3 +580,9 @@ export default defineConfig({
   },
 });
 ```
+
+### Xlog
+
+([demo](https://xlog.emadelsaid.com/docs/Features%20Test/#blocks))
+
+LiveCodes is natively supported by [Xlog](https://xlog.emadelsaid.com/) as an [official extension](https://xlog.emadelsaid.com/docs/official%20extensions/#livecodes-interactive-playgrounds).
