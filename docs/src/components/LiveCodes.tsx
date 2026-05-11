@@ -61,9 +61,7 @@ const options = ${stringify(options)};
 <script>
 import LiveCodes from 'livecodes/svelte';
 
-export default function App() {
-  const options = ${stringify(options)};
-}
+const options = ${stringify(options)};
 </script>
 
 <LiveCodes {...options} />
