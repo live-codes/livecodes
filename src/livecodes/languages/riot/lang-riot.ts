@@ -8,9 +8,11 @@ const cdnUrl = riotBaseUrl + 'riot.min.js';
 export const riot: LanguageSpecs = {
   name: 'riot',
   title: 'Riot.js',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html, parserPlugins.babel],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html, parserPlugins.babel],
+    },
   },
   compiler: {
     url: compilerCdnUrl,
@@ -23,4 +25,5 @@ export const riot: LanguageSpecs = {
   },
   extensions: ['riot', 'riotjs'],
   editor: 'script',
+  editorLanguage: 'html',
 };

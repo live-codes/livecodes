@@ -3,22 +3,13 @@ import type { CustomTypeOptions } from 'i18next';
 /**
  * Report error when no property is provided.
  */
-export type RequireAtLeastOne<T> = {
-  [K in keyof T]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<keyof T, K>>>;
-}[keyof T];
-
-/**
- * Widen `T` to `U` while keeping the structure, with non-object properties widened to `Default`.
- *
- * @param T The object to be converted.
- * @param U The type to be converted to.
- * @param Default The default type.
- */
-export type UnAsConst<T, U, Default> = RequireAtLeastOne<{
-  readonly [K in keyof T]: T[K] extends U
-    ? RequireAtLeastOne<UnAsConst<T[K], U, Default>>
-    : Default;
-}>;
+export type RequireAtLeastOne<T> = T extends any
+  ? keyof T extends never
+    ? never
+    : {
+        [K in keyof T]-?: T & Required<Pick<T, K>>;
+      }[keyof T]
+  : never;
 
 /**
  * Increment a number type by 1.

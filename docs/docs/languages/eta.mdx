@@ -1,6 +1,6 @@
 # Eta
 
-[Eta](https://eta.js.org/) is an embedded JS template engine for Node, Deno, and the browser. Lighweight, fast, and pluggable. Written in TypeScript.
+[Eta](https://eta.js.org/) is an embedded JS template engine for Node, Deno, and the browser. Lightweight, fast, and pluggable. Written in TypeScript.
 
 ## Usage
 

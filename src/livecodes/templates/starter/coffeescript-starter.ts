@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const coffeescriptStarter: Template = {
   name: 'coffeescript',
+  aliases: ['coffee'],
   title: window.deps.translateString('templates.starter.coffeescript', 'CoffeeScript Starter'),
   thumbnail: 'assets/templates/coffeescript.svg',
   activeEditor: 'script',

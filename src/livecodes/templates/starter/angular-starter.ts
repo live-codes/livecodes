@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const angularStarter: Template = {
   name: 'angular',
+  aliases: ['ng'],
   title: window.deps.translateString('templates.starter.angular', 'Angular Starter'),
   thumbnail: 'assets/templates/angular.svg',
   activeEditor: 'script',

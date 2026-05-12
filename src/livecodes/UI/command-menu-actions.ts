@@ -216,7 +216,7 @@ export const getCommandMenuActions = ({
           handler: async () => {
             document
               .querySelector<HTMLAnchorElement>('a[data-editor][data-lang="' + lang.name + '"]')
-              ?.dispatchEvent(new Event('mousedown'));
+              ?.click();
           },
         })),
     },
@@ -245,7 +245,7 @@ export const getCommandMenuActions = ({
               .querySelector<HTMLAnchorElement>(
                 '.processor-item input[data-processor="' + processor.name + '"]',
               )
-              ?.dispatchEvent(new Event('mousedown', { bubbles: true }));
+              ?.dispatchEvent(new Event('click', { bubbles: true }));
           },
         })),
     },
@@ -292,16 +292,15 @@ export const getCommandMenuActions = ({
         'reason',
         'ocaml',
         'python',
-        'pyodide',
         'python-wasm',
         'r',
         'ruby',
         'ruby-wasm',
         'go',
+        'go-wasm',
         'php',
         'php-wasm',
         'cpp',
-        'clang',
         'cpp-wasm',
         'java',
         'csharp-wasm',
@@ -322,6 +321,7 @@ export const getCommandMenuActions = ({
         'sql',
         'postgresql',
         'prolog',
+        'minizinc',
         'blockly',
         'diagrams',
       ).map((template) => ({
@@ -600,24 +600,24 @@ export const getCommandMenuActions = ({
             UI.getEditorSettingsLink()?.click();
           },
         },
-        {
-          id: 'Enable AI Code Assistant',
-          title: window.deps.translateString('commandMenu.enableAI', 'Enable AI Code Assistant'),
-          content: getContent('Enable AI Code Assistant'),
-          mdIcon: 'toggle_on',
-          handler: () => {
-            changeEditorSettings({ enableAI: true });
-          },
-        },
-        {
-          id: 'Disable AI Code Assistant',
-          title: window.deps.translateString('commandMenu.disableAI', 'Disable AI Code Assistant'),
-          content: getContent('Disable AI Code Assistant'),
-          mdIcon: 'toggle_off',
-          handler: () => {
-            changeEditorSettings({ enableAI: false });
-          },
-        },
+        // {
+        //   id: 'Enable AI Code Assistant',
+        //   title: window.deps.translateString('commandMenu.enableAI', 'Enable AI Code Assistant'),
+        //   content: getContent('Enable AI Code Assistant'),
+        //   mdIcon: 'toggle_on',
+        //   handler: () => {
+        //     changeEditorSettings({ enableAI: true });
+        //   },
+        // },
+        // {
+        //   id: 'Disable AI Code Assistant',
+        //   title: window.deps.translateString('commandMenu.disableAI', 'Disable AI Code Assistant'),
+        //   content: getContent('Disable AI Code Assistant'),
+        //   mdIcon: 'toggle_off',
+        //   handler: () => {
+        //     changeEditorSettings({ enableAI: false });
+        //   },
+        // },
         {
           id: 'Enable Auto Update',
           title: window.deps.translateString('commandMenu.enableAutoUpdate', 'Enable Auto Update'),

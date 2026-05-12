@@ -127,6 +127,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Site do Go</2></1> <3><4>Documentação do Go</4></3> <5> <6>Repositório do GopherJS</6> </5> <7> <8>Aprenda X em Y minutos, onde X=Go</8> </7> <9><10>Carregar modelo inicial</10></9>',
     name: 'Go',
   },
+  goWasm: {
+    desc: 'Intérprete Go em execução no WebAssembly, usando Yaegi',
+    link: '<1><2>Sítio Web oficial do Go</2></1> <3><4>Yaegi</4></3> <5> <6>Aprender X em Y minutos, em que X=Go</6> </5> <7> <8>Documentações LiveCodes</8> </7> <9> <10>Carregar modelo inicial</10> </9>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: 'Compilador Haml para modelos de visualização JavaScript do lado do cliente usando clientside-haml-js.',
     link: '<1><2>Site oficial do Haml</2></1> <3> <4>Documentação do Haml</4> </3> <5> <6>Repositório GitHub do clientside-haml-js</6> </5> <7> <8>Aprenda X em Y minutos, onde X=haml</8> </7> <9> <10>Documentação do LiveCodes</10> </9>',
@@ -146,6 +151,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'JVM em execução no navegador usando DoppioJVM.',
     link: '<1> <2>Sítio Web oficial de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Aprender X em Y minutos, onde X=java</6> </5> <7> <8> Carregar modelo inicial</8> </7>',
     name: 'Java',
+  },
+  javascript: {
+    desc: 'A linguagem de script da Web.',
+    link: '<1> <2>JavaScript na MDN</2> </1> <3> <4>Aprenda X em Y minutos, onde X=JavaScript</4> </3> <5> <6>Documentação LiveCodes</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
+    name: 'JavaScript',
   },
   jinja: {
     desc: 'Jinja é um motor de criação de modelos rápido, expressivo e extensível.',
@@ -203,6 +213,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Markdown para a era dos componentes. <1></1>MDX permite que você escreva JSX perfeitamente em seus documentos Markdown.',
     link: '<1><2>Documentação do MDX</2></1> <3><4>Carregar modelo inicial</4></3>',
     name: 'MDX',
+  },
+  minizinc: {
+    desc: 'O MiniZinc é uma linguagem de modelação de restrições de alto nível que permite exprimir e resolver facilmente problemas de otimização discreta.',
+    link: '<1> <2>Sítio Web oficial do MiniZinc</2> </1> <3> <4>Documentação do MiniZinc</4> </3> <5> <6>Tutorial do MiniZinc</6> </5> <7> <8>Documentações LiveCodes</8> </7> <9> <10>Carregar modelo inicial</10> </9>',
+    name: 'MiniZinc',
   },
   mjml: {
     desc: 'MJML é uma linguagem de marcação projetada para reduzir o trabalho de codificar um e-mail responsivo.',

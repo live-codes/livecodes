@@ -1,0 +1,786 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "artTemplate.desc": {
+    "translation": "Krachtige JavaScript-sjabloonengine met hoge prestaties."
+  },
+  "artTemplate.link": {
+    "translation": "<tag-1> <tag-2>art-template officiële website</tag-2> </tag-1> <tag-3> <tag-4>art-template documentatie</tag-4> </tag-3>"
+  },
+  "artTemplate.name": {
+    "translation": "art-template"
+  },
+  "asciidoc.desc": {
+    "translation": "AsciiDoc gecompileerd naar HTML met Asciidoctor."
+  },
+  "asciidoc.link": {
+    "translation": "<tag-1> <tag-2>AsciiDoc officiële website</tag-2> </tag-1> <tag-3> <tag-4>Asciidoctor officiële website</tag-4> </tag-3> <tag-5> <tag-6>Asciidoctor documentatie</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=asciidoc</tag-8> </tag-7>"
+  },
+  "asciidoc.name": {
+    "translation": "AsciiDoc"
+  },
+  "assemblyscript.desc": {
+    "translation": "Een TypeScript-achtige taal voor WebAssembly."
+  },
+  "assemblyscript.link": {
+    "translation": "<tag-1> <tag-2>AssemblyScript officiële website</tag-2> </tag-1> <tag-3> <tag-4>AssemblyScript documentatie</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "assemblyscript.name": {
+    "translation": "AssemblyScript"
+  },
+  "astro.desc": {
+    "translation": "Bouw snellere websites met minder client-side JavaScript. (Nog in bèta)"
+  },
+  "astro.link": {
+    "translation": "<tag-1> <tag-2>Astro officiële website</tag-2> </tag-1> <tag-3> <tag-4>Astro documentatie</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "astro.name": {
+    "translation": "Astro"
+  },
+  "babel.desc": {
+    "translation": "De JavaScript-compiler"
+  },
+  "babel.link": {
+    "translation": "<tag-1><tag-2>Officiële website</tag-2></tag-1> <tag-3> <tag-4>Babel documentatie</tag-4> </tag-3>"
+  },
+  "babel.name": {
+    "translation": "Babel"
+  },
+  "bbcode.desc": {
+    "translation": "BBCode (\"Bulletin Board Code\") is een lichtgewicht opmaaktaal die wordt gebruikt om berichten op te maken in veel internerforum-software."
+  },
+  "bbcode.link": {
+    "translation": "<tag-1><tag-2>bbcode.org</tag-2></tag-1> <tag-3> <tag-4>BBCode-gids</tag-4> </tag-3> <tag-5> <tag-6>BBCode op Wikipedia</tag-6> </tag-5>"
+  },
+  "bbcode.name": {
+    "translation": "BBCode"
+  },
+  "blockly.desc": {
+    "translation": "Een JavaScript-bibliotheek voor het bouwen van visuele programmeereditoren."
+  },
+  "blockly.link": {
+    "translation": "<tag-1> <tag-2>Officiële website</tag-2> </tag-1> <tag-3> <tag-4>Handleidingen</tag-4> </tag-3> <tag-5> <tag-6>Referentie</tag-6> </tag-5> <tag-7> <tag-8>Voorbeelden</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "blockly.name": {
+    "translation": "Blockly"
+  },
+  "civet.desc": {
+    "translation": "Civet is een programmeertaal die compileert naar TypeScript of JavaScript, zodat je bestaande tooling kunt gebruiken maar beknopte en krachtige syntaxis mogelijk maakt."
+  },
+  "civet.link": {
+    "translation": "<tag-1> <tag-2>Civet officiële website</tag-2> </tag-1> <tag-3> <tag-4>Civet cheatsheet</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "civet.name": {
+    "translation": "Civet"
+  },
+  "clio.desc": {
+    "translation": "Clio is een snelle, gedistribueerde, functionele programmeertaal die compileert naar JavaScript."
+  },
+  "clio.link": {
+    "translation": "<tag-1> <tag-2>Clio officiële website</tag-2> </tag-1> <tag-3> <tag-4>Clio documentatie</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "clio.name": {
+    "translation": "Clio"
+  },
+  "clojurescript.desc": {
+    "translation": "ClojureScript is een compiler voor <tag-1>Clojure</tag-1> die zich richt op JavaScript. <tag-2></tag-2>In LiveCodes draait het in de browser met <tag-3>Cherry</tag-3>"
+  },
+  "clojurescript.link": {
+    "translation": "<tag-1> <tag-2>ClojureScript officiële website</tag-2> </tag-1> <tag-3> <tag-4>Clojure officiële website</tag-4> </tag-3> <tag-5> <tag-6>Cherry repo</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "clojurescript.name": {
+    "translation": "ClojureScript (CLJS)"
+  },
+  "coffeescript.desc": {
+    "translation": "JavaScript zonder poespas."
+  },
+  "coffeescript.link": {
+    "translation": "<tag-1> <tag-2>CoffeeScript officiële website</tag-2> </tag-1> <tag-3> <tag-4>Leer X in Y minuten, waarbij X=coffeescript</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "coffeescript.name": {
+    "translation": "CoffeeScript"
+  },
+  "commonlisp.desc": {
+    "translation": "Een Common Lisp-implementatie op JavaScript met JSCL (een Lisp-naar-Javascript-compiler gebootstrapt van Common Lisp)."
+  },
+  "commonlisp.link": {
+    "translation": "<tag-1> <tag-2>Common-Lisp.net</tag-2> </tag-1> <tag-3> <tag-4>JSCL-project</tag-4> </tag-3> <tag-5> <tag-6>Common Lisp-bronnen</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=Common Lisp</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "commonlisp.name": {
+    "translation": "Common Lisp"
+  },
+  "cpp.desc1": {
+    "translation": "C++-ondersteuning met JSCPP (een eenvoudige C++-interpreter geschreven in JavaScript)."
+  },
+  "cpp.desc2": {
+    "translation": "Het is geen volledige implementatie van C++. Raadpleeg <tag-1>JSCPP-documentatie</tag-1> voor details."
+  },
+  "cpp.link": {
+    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>JSCPP</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=C++</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "cpp.name": {
+    "translation": "C++"
+  },
+  "cppWasm.desc": {
+    "translation": "Clang C/C++-compiler draaiend op WebAssembly, met <tag-1>wasm-clang</tag-1> aangepast door <tag-2>polylang.io</tag-2>"
+  },
+  "cppWasm.link": {
+    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>Clang officiële website</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=C++</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "cppWasm.name": {
+    "translation": "C/C++ (Wasm)"
+  },
+  "csharpWasm.desc": {
+    "translation": "C#-compiler draaiend op WebAssembly, met <tag-1>Blazor</tag-1>"
+  },
+  "csharpWasm.link": {
+    "translation": "<tag-1> <tag-2>C#-taaldocumentatie</tag-2> </tag-1> <tag-3> <tag-4>Leer X in Y minuten, waarbij X=C#</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "csharpWasm.name": {
+    "translation": "C# (Wasm)"
+  },
+  "diagrams.desc1": {
+    "translation": "(Experimenteel)"
+  },
+  "diagrams.desc2": {
+    "translation": "Diagrammen als code. Ondersteunt:"
+  },
+  "diagrams.desc3": {
+    "translation": "<tag-1> <tag-2>Cytoscape</tag-2> </tag-1> <tag-3> <tag-4>ELK</tag-4> (met <tag-5>elkjs</tag-5>) </tag-3> <tag-6> <tag-7>Gnuplot</tag-7> (met <tag-8>gnuplot-JS</tag-8>) </tag-6> <tag-9> <tag-10>Graphviz</tag-10> (met <tag-11>@hpcc-js/wasm</tag-11>) </tag-9> <tag-12> <tag-13>Mermaid</tag-13> </tag-12> <tag-14> <tag-15>Nomnoml</tag-15> </tag-14> <tag-16> <tag-17>Pintora</tag-17> </tag-16> <tag-18> <tag-19>Plotly</tag-19> </tag-18> <tag-20> <tag-21>Svgbob</tag-21> </tag-20> <tag-22> <tag-23>Vega</tag-23> </tag-22> <tag-24> <tag-25>VegaLite</tag-25> </tag-24> <tag-26> <tag-27>WaveDrom</tag-27> </tag-26>"
+  },
+  "diagrams.link": {
+    "translation": "<tag-1> <tag-2>Startsjabloon laden</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes Documentatie</tag-4> </tag-3>"
+  },
+  "diagrams.name": {
+    "translation": "Diagrammen"
+  },
+  "dot.desc": {
+    "translation": "De snelste + beknopte JavaScript-sjabloonengine voor Node.js en browsers."
+  },
+  "dot.link": {
+    "translation": "<tag-1> <tag-2>Officiële website</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes Documentatie</tag-4> </tag-3>"
+  },
+  "dot.name": {
+    "translation": "doT.js"
+  },
+  "ejs.desc": {
+    "translation": "Embedded JavaScript-templating."
+  },
+  "ejs.link": {
+    "translation": "<tag-1><tag-2>Officiële website</tag-2></tag-1> <tag-3> <tag-4>LiveCodes Documentatie</tag-4> </tag-3>"
+  },
+  "ejs.name": {
+    "translation": "EJS"
+  },
+  "eta.desc": {
+    "translation": "Embedded JS-sjabloonengine voor Node, Deno en de browser. Lichtgewicht, snel en pluggable. Geschreven in TypeScript."
+  },
+  "eta.link": {
+    "translation": "<tag-1><tag-2>Officiële website</tag-2></tag-1> <tag-3> <tag-4>Documentatie</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5>"
+  },
+  "eta.name": {
+    "translation": "Eta"
+  },
+  "fennel.desc": {
+    "translation": "Fennel is een programmeertaal die de snelheid, eenvoud en bereik van Lua combineert met de flexibiliteit van een lisp-syntaxis en macrosysteem."
+  },
+  "fennel.link": {
+    "translation": "<tag-1> <tag-2>Fennel officiële website</tag-2> </tag-1> <tag-3> <tag-4>Aan de slag met Fennel</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "fennel.name": {
+    "translation": "Fennel"
+  },
+  "flow.desc": {
+    "translation": "Flow is een statische type checker voor JavaScript."
+  },
+  "flow.link": {
+    "translation": "<tag-1> <tag-2>Flow officiële website</tag-2> </tag-1> <tag-3> <tag-4>Flow documentatie</tag-4> </tag-3>"
+  },
+  "flow.name": {
+    "translation": "Flow"
+  },
+  "gleam.desc1": {
+    "translation": "Gleam is een vriendelijke taal voor het bouwen van type-veilige systemen die schalen!"
+  },
+  "gleam.desc2": {
+    "translation": "Gleam is een statisch getypeerde functionele programmeertaal, die compileert naar Erlang of JavaScript."
+  },
+  "gleam.link": {
+    "translation": "<tag-1><tag-2>Gleam website</tag-2></tag-1> <tag-3> <tag-4>Gleam documentatie</tag-4> </tag-3> <tag-5> <tag-6>Gleam taaltour</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "gleam.name": {
+    "translation": "Gleam"
+  },
+  "go.desc1": {
+    "translation": "Go (Golang) is een open source programmeertaal die het gemakkelijk maakt om eenvoudige, betrouwbare en efficiënte software te bouwen."
+  },
+  "go.desc2": {
+    "translation": "Hier wordt het gecompileerd naar JavaScript met GopherJS."
+  },
+  "go.link": {
+    "translation": "<tag-1><tag-2>Go website</tag-2></tag-1> <tag-3><tag-4>Go documentatie</tag-4></tag-3> <tag-5> <tag-6>GopherJS repo</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "go.name": {
+    "translation": "Go"
+  },
+  "goWasm.desc": {
+    "translation": "Go-interpreter draaiend op WebAssembly, met Yaegi"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>Go officiële website</tag-2></tag-1> <tag-3><tag-4>Yaegi</tag-4></tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=Go</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
+  "haml.desc": {
+    "translation": "Haml-compiler voor client-side JavaScript-view-sjablonen met clientside-haml-js."
+  },
+  "haml.link": {
+    "translation": "<tag-1><tag-2>Haml officiële website</tag-2></tag-1> <tag-3> <tag-4>Haml documentatie</tag-4> </tag-3> <tag-5> <tag-6>clientside-haml-js GitHub repo</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=haml</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9>"
+  },
+  "haml.name": {
+    "translation": "Haml"
+  },
+  "handlebars.desc": {
+    "translation": "Minimale templating op steroïden."
+  },
+  "handlebars.link": {
+    "translation": "<tag-1><tag-2>Officiële website</tag-2></tag-1> <tag-3> <tag-4>LiveCodes Documentatie</tag-4> </tag-3>"
+  },
+  "handlebars.name": {
+    "translation": "Handlebars"
+  },
+  "imba.desc": {
+    "translation": "De vriendelijke full-stack taal."
+  },
+  "imba.link": {
+    "translation": "<tag-1><tag-2>Officiële website</tag-2></tag-1>"
+  },
+  "imba.name": {
+    "translation": "Imba"
+  },
+  "java.desc": {
+    "translation": "JVM draaiend in de browser met DoppioJVM."
+  },
+  "java.link": {
+    "translation": "<tag-1> <tag-2>Java officiële website</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "java.name": {
+    "translation": "Java"
+  },
+  "javascript.desc": {
+    "translation": "De scripttaal van het web."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>JavaScript op MDN</tag-2> </tag-1> <tag-3> <tag-4>Leer X in Y minuten, waarbij X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5> <tag-7> <tag-8>Starterssjabloon laden</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
+  "jinja.desc": {
+    "translation": "Jinja is een snelle, expressieve, uitbreidbare sjabloonengine."
+  },
+  "jinja.link": {
+    "translation": "<tag-1> <tag-2>Officiële website</tag-2> </tag-1> <tag-3> <tag-4>Sjabloondocumentatie</tag-4> </tag-3> <tag-5> <tag-6>JavaScript-implementatie</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentatie</tag-8> </tag-7>"
+  },
+  "jinja.name": {
+    "translation": "Jinja"
+  },
+  "jsx.desc": {
+    "translation": "JSX wordt in LiveCodes gecompileerd naar JavaScript met de TypeScript Compiler. Standaard gebruikt het React als JSX runtime."
+  },
+  "jsx.link": {
+    "translation": "<tag-1> <tag-2>React officiële website</tag-2> </tag-1> <tag-3> <tag-4>JSX in React documentatie</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5>"
+  },
+  "jsx.name": {
+    "translation": "JSX"
+  },
+  "julia.desc1": {
+    "translation": "Julia-taalondersteuning in LiveCodes is nog experimenteel"
+  },
+  "julia.desc2": {
+    "translation": "Julia-compiler en Julia Base draaiend op WASM, met <tag-1>julia-wasm</tag-1> aangepast door <tag-2>polylang.io</tag-2>"
+  },
+  "julia.link": {
+    "translation": "<tag-1> <tag-2>Julia officiële website</tag-2> </tag-1> <tag-3> <tag-4>Julia documentatie</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=Julia</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "julia.name": {
+    "translation": "Julia"
+  },
+  "less.desc": {
+    "translation": "Het is CSS, met net iets meer."
+  },
+  "less.link": {
+    "translation": "<tag-1><tag-2>Less officiële website</tag-2></tag-1> <tag-3> <tag-4>Leer X in Y minuten, waarbij X=less</tag-4> </tag-3>"
+  },
+  "less.name": {
+    "translation": "Less"
+  },
+  "liquid.desc": {
+    "translation": "Een eenvoudige, expressieve en veilige sjabloonengine."
+  },
+  "liquid.link": {
+    "translation": "<tag-1> <tag-2>LiquidJS officiële website</tag-2> </tag-1> <tag-3> <tag-4>LiquidJS documentatie</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5>"
+  },
+  "liquid.name": {
+    "translation": "LiquidJS"
+  },
+  "livescript.desc": {
+    "translation": "Een taal die compileert naar JavaScript."
+  },
+  "livescript.link": {
+    "translation": "<tag-1> <tag-2>LiveScript officiële website</tag-2> </tag-1> <tag-3> <tag-4>Leer X in Y minuten, waarbij X=LiveScript</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "livescript.name": {
+    "translation": "LiveScript"
+  },
+  "lua.desc": {
+    "translation": "Lua draaiend in de browser met fengari-web."
+  },
+  "lua.link": {
+    "translation": "<tag-1><tag-2>Lua officiële website</tag-2></tag-1> <tag-3> <tag-4>Lua documentatie</tag-4> </tag-3> <tag-5> <tag-6>Fengari officiële website</tag-6> </tag-5> <tag-7> <tag-8>fengari-web GitHub repo</tag-8> </tag-7> <tag-9> <tag-10>Leer X in Y minuten, waarbij X=Lua</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Documentatie</tag-12> </tag-11> <tag-13> <tag-14>Startsjabloon laden</tag-14> </tag-13>"
+  },
+  "lua.name": {
+    "translation": "Lua"
+  },
+  "luaWasm.desc": {
+    "translation": "Lua draaiend in de browser met Wasmoon, een echte lua 5.4 VM met JS-bindingen gemaakt met WebAssembly."
+  },
+  "luaWasm.link": {
+    "translation": "<tag-1><tag-2>Lua officiële website</tag-2></tag-1> <tag-3> <tag-4>Lua documentatie</tag-4> </tag-3> <tag-5> <tag-6>Wasmoon GitHub repo</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=Lua</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "luaWasm.name": {
+    "translation": "Lua (Wasm)"
+  },
+  "malina.desc": {
+    "translation": "Frontend-compiler, geïnspireerd door Svelte."
+  },
+  "malina.link": {
+    "translation": "<tag-1> <tag-2>Malina.js repo</tag-2> </tag-1> <tag-3> <tag-4>Malina.js documentatie</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "malina.name": {
+    "translation": "Malina.js"
+  },
+  "markdown.desc": {
+    "translation": "Markdown gecompileerd naar HTML met Marked."
+  },
+  "markdown.link": {
+    "translation": "<tag-1> <tag-2>Markdown officiële website</tag-2> </tag-1> <tag-3> <tag-4>Marked documentatie</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=markdown</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "markdown.name": {
+    "translation": "Markdown"
+  },
+  "mdx.desc": {
+    "translation": "Markdown voor het componententijdperk. <tag-1></tag-1>MDX laat je naadloos JSX schrijven in je Markdown-documenten."
+  },
+  "mdx.link": {
+    "translation": "<tag-1><tag-2>MDX documentatie</tag-2></tag-1> <tag-3> <tag-4>Startsjabloon laden</tag-4> </tag-3>"
+  },
+  "mdx.name": {
+    "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "MiniZinc is een modelleertaal voor beperkingen op hoog niveau waarmee je eenvoudig discrete optimalisatieproblemen kunt uitdrukken en oplossen."
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>De officiële website van MiniZinc</tag-2> </tag-1> <tag-3> <tag-4>MiniZinc documentatie</tag-4> </tag-3> <tag-5> <tag-6>MiniZinc handleiding</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
+  },
+  "mjml.desc": {
+    "translation": "MJML is een opmaaktaal ontworpen om de pijn van het coderen van een responsieve e-mail te verminderen."
+  },
+  "mjml.link": {
+    "translation": "<tag-1><tag-2>MJML officiële website</tag-2></tag-1> <tag-3> <tag-4>MJML documentatie</tag-4> </tag-3> <tag-5> <tag-6>MJML officiële sjablonen</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentatie</tag-8> </tag-7>"
+  },
+  "mjml.name": {
+    "translation": "MJML"
+  },
+  "mustache.desc": {
+    "translation": "Logicalose sjablonen."
+  },
+  "mustache.link": {
+    "translation": "<tag-1> <tag-2>Officiële website</tag-2> </tag-1> <tag-3> <tag-4>mustache(5) handleiding</tag-4> </tag-3> <tag-5> <tag-6>JavaScript-implementatie</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentatie</tag-8> </tag-7>"
+  },
+  "mustache.name": {
+    "translation": "Mustache"
+  },
+  "nunjucks.desc": {
+    "translation": "Een rijke en krachtige sjabloontaal voor JavaScript. Nunjucks is in wezen een port van <tag-1>jinja2</tag-1>"
+  },
+  "nunjucks.link": {
+    "translation": "<tag-1> <tag-2>Officiële website</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes Documentatie</tag-4> </tag-3>"
+  },
+  "nunjucks.name": {
+    "translation": "Nunjucks"
+  },
+  "ocaml.desc1": {
+    "translation": "OCaml is een industriële programmeertaal die functionele, imperatieve en objectgeoriënteerde stijlen ondersteunt."
+  },
+  "ocaml.desc2": {
+    "translation": "ReScript-compiler wordt hier gebruikt om OCaml te compileren naar JavaScript."
+  },
+  "ocaml.link": {
+    "translation": "<tag-1><tag-2>OCaml website</tag-2></tag-1> <tag-3> <tag-4>OCaml documentatie</tag-4> </tag-3> <tag-5> <tag-6>ReScript website</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=OCaml</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "ocaml.name": {
+    "translation": "OCaml"
+  },
+  "perl.desc": {
+    "translation": "Perl draaiend in de browser met Perlito."
+  },
+  "perl.link": {
+    "translation": "<tag-1> <tag-2>Perl officiële website</tag-2> </tag-1> <tag-3> <tag-4>Perl documentatie</tag-4> </tag-3> <tag-5> <tag-6>Perlito5 Readme</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=perl</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "perl.name": {
+    "translation": "Perl"
+  },
+  "php.desc": {
+    "translation": "PHP draaiend in de browser met Uniter."
+  },
+  "php.link": {
+    "translation": "<tag-1><tag-2>PHP officiële website</tag-2></tag-1> <tag-3> <tag-4>PHP documentatie</tag-4> </tag-3> <tag-5> <tag-6>Uniter GitHub repo</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=PHP</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "php.name": {
+    "translation": "PHP"
+  },
+  "phpWasm.desc": {
+    "translation": "PHP in browser, mogelijk gemaakt door WebAssembly, met php-wasm."
+  },
+  "phpWasm.link": {
+    "translation": "<tag-1><tag-2>PHP officiële website</tag-2></tag-1> <tag-3> <tag-4>PHP documentatie</tag-4> </tag-3> <tag-5> <tag-6>php-wasm GitHub repo</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=PHP</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "phpWasm.name": {
+    "translation": "PHP (Wasm)"
+  },
+  "postgresql.desc": {
+    "translation": "PostgreSQL verpakt als WASM met PGlite"
+  },
+  "postgresql.link": {
+    "translation": "<tag-1> <tag-2>PostgreSQL officiële website</tag-2> </tag-1> <tag-3> <tag-4>PostgreSQL documentatie</tag-4> </tag-3> <tag-5> <tag-6>PGlite GitHub repo</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=SQL</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "postgresql.name": {
+    "translation": "PostgreSQL"
+  },
+  "prolog.desc": {
+    "translation": "Een open source Prolog-interpreter in JavaScript."
+  },
+  "prolog.link": {
+    "translation": "<tag-1> <tag-2>Tau Prolog officiële website</tag-2> </tag-1> <tag-3> <tag-4>Tau Prolog documentatie</tag-4> </tag-3> <tag-5> <tag-6>SWI-Prolog</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=Prolog</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "prolog.name": {
+    "translation": "Tau Prolog"
+  },
+  "pug.desc": {
+    "translation": "Robuuste, elegante, feature-rijke sjabloonengine."
+  },
+  "pug.link": {
+    "translation": "<tag-1> <tag-2>Pug documentatie</tag-2> </tag-1> <tag-3> <tag-4>Leer X in Y minuten, waarbij X=Pug</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5>"
+  },
+  "pug.name": {
+    "translation": "Pug"
+  },
+  "python.desc": {
+    "translation": "Python draaiend in de browser met Brython."
+  },
+  "python.link": {
+    "translation": "<tag-1> <tag-2>Python officiële website</tag-2> </tag-1> <tag-3> <tag-4>Python documentatie</tag-4> </tag-3> <tag-5> <tag-6>Brython documentatie</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=Python</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "python.name": {
+    "translation": "Python"
+  },
+  "pythonWasm.desc1": {
+    "translation": "Python met de wetenschappelijke stack, gecompileerd naar WebAssembly met Pyodide."
+  },
+  "pythonWasm.desc2": {
+    "translation": "Pyodide maakt het mogelijk om Python wetenschappelijke stack te gebruiken, inclusief NumPy, Pandas, Matplotlib, SciPy, scikit-learn en nog veel meer. Daarnaast is het mogelijk om pure Python wheels van PyPi te installeren."
+  },
+  "pythonWasm.link": {
+    "translation": "<tag-1> <tag-2>Python officiële website</tag-2> </tag-1> <tag-3> <tag-4>Python documentatie</tag-4> </tag-3> <tag-5><tag-6>Pyodide documentatie</tag-6></tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=Python</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "pythonWasm.name": {
+    "translation": "Python (Wasm)"
+  },
+  "r.desc": {
+    "translation": "R draaiend in de browser met WebR."
+  },
+  "r.link": {
+    "translation": "<tag-1> <tag-2>R project officiële website</tag-2> </tag-1> <tag-3> <tag-4>De R-handleidingen</tag-4> </tag-3> <tag-5> <tag-6>R for Data Science (2e)</tag-6> </tag-5> <tag-7> <tag-8>WebR documentatie</tag-8> </tag-7> <tag-9> <tag-10>Leer X in Y minuten, waarbij X=R</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Documentatie</tag-12> </tag-11> <tag-13> <tag-14>Startsjabloon laden</tag-14> </tag-13>"
+  },
+  "r.name": {
+    "translation": "R"
+  },
+  "react.desc": {
+    "translation": "React Compiler is een build-time-only tool die React apps automatisch optimaliseert."
+  },
+  "react.link": {
+    "translation": "<tag-1> <tag-2>React officiële website</tag-2> </tag-1> <tag-3> <tag-4>React Compiler</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "react.name": {
+    "translation": "React Compiler"
+  },
+  "reactNative.desc": {
+    "translation": "React Native for Web is een toegankelijke implementatie van React Native's Components en API's die interoperabel is met React DOM."
+  },
+  "reactNative.link": {
+    "translation": "<tag-1> <tag-2>React officiële website</tag-2> </tag-1> <tag-3> <tag-4>React Native website</tag-4> </tag-3> <tag-5> <tag-6>React Native for Web website</tag-6> </tag-5> <tag-7> <tag-8>React Native documentatie</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "reactNative.name": {
+    "translation": "React Native for Web"
+  },
+  "reactNativeTsx.desc": {
+    "translation": "React Native for Web is een toegankelijke implementatie van React Native's Components en API's die interoperabel is met React DOM."
+  },
+  "reactNativeTsx.link": {
+    "translation": "<tag-1> <tag-2>React officiële website</tag-2> </tag-1> <tag-3> <tag-4>React Native website</tag-4> </tag-3> <tag-5> <tag-6>React Native for Web website</tag-6> </tag-5> <tag-7> <tag-8>React Native documentatie</tag-8> </tag-7> <tag-9> <tag-10>TypeScript website</tag-10> </tag-9> <tag-11> <tag-12>TypeScript documentatie</tag-12> </tag-11> <tag-13> <tag-14>LiveCodes Documentatie</tag-14> </tag-13> <tag-15> <tag-16>Startsjabloon laden (JSX)</tag-16> </tag-15>"
+  },
+  "reactNativeTsx.name": {
+    "translation": "React Native for Web (met TypeScript)"
+  },
+  "reactTsx.desc": {
+    "translation": "React Compiler is een build-time-only tool die React apps automatisch optimaliseert."
+  },
+  "reactTsx.link": {
+    "translation": "<tag-1> <tag-2>React officiële website</tag-2> </tag-1> <tag-3> <tag-4>React Compiler</tag-4> </tag-3> <tag-5> <tag-6>TypeScript website</tag-6> </tag-5> <tag-7> <tag-8>TypeScript documentatie</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden (JSX)</tag-12> </tag-11>"
+  },
+  "reactTsx.name": {
+    "translation": "React Compiler (met TypeScript)"
+  },
+  "reason.desc1": {
+    "translation": "Reason laat je eenvoudige, snelle en kwalitatief hoogwaardige type-veilige code schrijven terwijl je gebruik maakt van zowel de JavaScript- als OCaml-ecosystemen."
+  },
+  "reason.desc2": {
+    "translation": "ReScript-compiler wordt hier gebruikt om Reason te compileren naar JavaScript."
+  },
+  "reason.link": {
+    "translation": "<tag-1><tag-2>Reason website</tag-2></tag-1> <tag-3> <tag-4>Reason documentatie</tag-4> </tag-3> <tag-5> <tag-6>ReasonReact</tag-6> </tag-5> <tag-7> <tag-8>ReScript website</tag-8> </tag-7> <tag-9> <tag-10>Leer X in Y minuten, waarbij X=reason</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "reason.name": {
+    "translation": "Reason"
+  },
+  "rescript.desc": {
+    "translation": "ReScript is een robuust getypeerde taal die compileert naar efficiënte en menselijk leesbare JavaScript."
+  },
+  "rescript.link": {
+    "translation": "<tag-1> <tag-2>ReScript website</tag-2> </tag-1> <tag-3> <tag-4>ReScript / React</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "rescript.name": {
+    "translation": "ReScript"
+  },
+  "richtext.desc1": {
+    "translation": "Met Quill:"
+  },
+  "richtext.desc2": {
+    "translation": "Je krachtige rich text editor."
+  },
+  "richtext.link": {
+    "translation": "<tag-1> <tag-2>Quill officiële website</tag-2> </tag-1>"
+  },
+  "richtext.name": {
+    "translation": "Rich Text Editor"
+  },
+  "riot.desc": {
+    "translation": "Eenvoudige en elegante componentgebaseerde UI-bibliotheek."
+  },
+  "riot.link": {
+    "translation": "<tag-1> <tag-2>Riot.js officiële website</tag-2> </tag-1> <tag-3> <tag-4>Riot.js documentatie</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "riot.name": {
+    "translation": "Riot.js"
+  },
+  "ruby.desc": {
+    "translation": "Ruby draaiend in de browser met Opal."
+  },
+  "ruby.link": {
+    "translation": "<tag-1> <tag-2>Ruby officiële website</tag-2> </tag-1> <tag-3> <tag-4>Ruby documentatie</tag-4> </tag-3> <tag-5><tag-6>Opal officiële website</tag-6></tag-5> <tag-7> <tag-8>Opal standard library CDN</tag-8> </tag-7> <tag-9> <tag-10>Leer X in Y minuten, waarbij X=ruby</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Documentatie</tag-12> </tag-11> <tag-13> <tag-14>Startsjabloon laden</tag-14> </tag-13>"
+  },
+  "ruby.name": {
+    "translation": "Ruby"
+  },
+  "rubyWasm.desc": {
+    "translation": "Ruby draaiend in de browser met ruby-wasm (een verzameling WebAssembly-ports van de CRuby)."
+  },
+  "rubyWasm.link": {
+    "translation": "<tag-1> <tag-2>Ruby officiële website</tag-2> </tag-1> <tag-3> <tag-4>Ruby documentatie</tag-4> </tag-3> <tag-5> <tag-6>ruby.wasm website</tag-6> </tag-5> <tag-7><tag-8>CRuby</tag-8></tag-7> <tag-9> <tag-10>Leer X in Y minuten, waarbij X=ruby</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Documentatie</tag-12> </tag-11> <tag-13> <tag-14>Startsjabloon laden</tag-14> </tag-13>"
+  },
+  "rubyWasm.name": {
+    "translation": "Ruby (WASM)"
+  },
+  "sass.desc": {
+    "translation": "Syntactisch geweldige stylesheets."
+  },
+  "sass.link": {
+    "translation": "<tag-1> <tag-2>Sass officiële website</tag-2> </tag-1> <tag-3> <tag-4>Sass documentatie</tag-4> </tag-3> <tag-5> <tag-6>Sass (de ingesprongen) syntaxis</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=sass</tag-8> </tag-7>"
+  },
+  "sass.name": {
+    "translation": "Sass"
+  },
+  "scheme.desc": {
+    "translation": "Scheme draaiend in de browser met biwascheme."
+  },
+  "scheme.link": {
+    "translation": "<tag-1> <tag-2>The Scheme Programming Language</tag-2> </tag-1> <tag-3> <tag-4>BiwaScheme officiële website</tag-4> </tag-3> <tag-5> <tag-6>BiwaScheme referentie</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "scheme.name": {
+    "translation": "Scheme"
+  },
+  "scss.desc": {
+    "translation": "Syntactisch geweldige stylesheets."
+  },
+  "scss.link": {
+    "translation": "<tag-1> <tag-2>Sass officiële website</tag-2> </tag-1> <tag-3> <tag-4>Sass documentatie</tag-4> </tag-3> <tag-5> <tag-6>SCSS syntaxis</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=sass</tag-8> </tag-7>"
+  },
+  "scss.name": {
+    "translation": "SCSS"
+  },
+  "solid.desc": {
+    "translation": "Een declaratieve, efficiënte en flexibele JavaScript-bibliotheek voor het bouwen van gebruikersinterfaces."
+  },
+  "solid.link": {
+    "translation": "<tag-1><tag-2>Officiële website</tag-2></tag-1> <tag-3><tag-4>Documentatie</tag-4></tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden (TSX)</tag-8> </tag-7>"
+  },
+  "solid.name": {
+    "translation": "Solid"
+  },
+  "solid.tsx.desc": {
+    "translation": "Een declaratieve, efficiënte en flexibele JavaScript-bibliotheek voor het bouwen van gebruikersinterfaces."
+  },
+  "solid.tsx.link": {
+    "translation": "<tag-1><tag-2>Officiële website</tag-2></tag-1> <tag-3> <tag-4>Solid documentatie</tag-4> </tag-3> <tag-5> <tag-6>TypeScript website</tag-6> </tag-5> <tag-7> <tag-8>TypeScript documentatie</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "solid.tsx.name": {
+    "translation": "Solid (met TypeScript)"
+  },
+  "sql.desc": {
+    "translation": "SQLite gecompileerd naar JavaScript met SQL.js"
+  },
+  "sql.link": {
+    "translation": "<tag-1> <tag-2>SQLite officiële website</tag-2> </tag-1> <tag-3> <tag-4>SQLite syntaxisdocumentatie</tag-4> </tag-3> <tag-5> <tag-6>SQL.js officiële website</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=SQL</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "sql.name": {
+    "translation": "SQLite"
+  },
+  "stencil.desc": {
+    "translation": "Een compiler voor webcomponenten en high performance web apps."
+  },
+  "stencil.link": {
+    "translation": "<tag-1> <tag-2>Stencil officiële website</tag-2> </tag-1> <tag-3> <tag-4>Stencil documentatie</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "stencil.name": {
+    "translation": "Stencil"
+  },
+  "styleProcessors.link": {
+    "translation": "<tag-1> <tag-2>Tailwind CSS</tag-2> </tag-1> <tag-3> <tag-4>Windi CSS</tag-4> </tag-3> <tag-5> <tag-6>UnoCSS</tag-6> </tag-5> <tag-7> <tag-8>Lightning CSS</tag-8> </tag-7> <tag-9> <tag-10>PostCSS</tag-10> Plugins: <tag-11> <tag-12> <tag-13>Autoprefixer</tag-13> </tag-12> <tag-14> <tag-15>postcss-preset-env</tag-15> </tag-14> <tag-16> <tag-17>postcss-import-url</tag-17> </tag-16> <tag-18> <tag-19>postcss-modules</tag-19> </tag-18> </tag-11> </tag-9>"
+  },
+  "styleProcessors.name": {
+    "translation": "CSS-frameworks en -processors"
+  },
+  "stylis.desc": {
+    "translation": "Lichtgewicht CSS-preprocessor."
+  },
+  "stylis.link": {
+    "translation": "<tag-1> <tag-2>Stylis officiële website</tag-2> </tag-1>"
+  },
+  "stylis.name": {
+    "translation": "Stylis"
+  },
+  "stylus.desc": {
+    "translation": "Expressieve, dynamische, robuuste CSS."
+  },
+  "stylus.link": {
+    "translation": "<tag-1> <tag-2>Stylus officiële website</tag-2> </tag-1> <tag-3> <tag-4>Leer X in Y minuten, waarbij X=stylus</tag-4> </tag-3>"
+  },
+  "stylus.name": {
+    "translation": "Stylus"
+  },
+  "sucrase.desc": {
+    "translation": "Supersnelle alternatief voor Babel wanneer je moderne JS-runtimes kunt targeten."
+  },
+  "sucrase.link": {
+    "translation": "<tag-1> <tag-2>Sucrase officiële website</tag-2> </tag-1> <tag-3> <tag-4>Sucrase GitHub Repo</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5>"
+  },
+  "sucrase.name": {
+    "translation": "Sucrase"
+  },
+  "svelte.desc": {
+    "translation": "Cybernetisch verbeterde web apps."
+  },
+  "svelte.link": {
+    "translation": "<tag-1> <tag-2>Svelte officiële website</tag-2> </tag-1> <tag-3> <tag-4>Svelte documentatie</tag-4> </tag-3> <tag-5> <tag-6>Startsjabloon laden</tag-6> </tag-5>"
+  },
+  "svelte.name": {
+    "translation": "Svelte"
+  },
+  "tcl.desc": {
+    "translation": "Tcl draaiend in de browser, met <tag-1>wacl</tag-1>."
+  },
+  "tcl.link": {
+    "translation": "<tag-1> <tag-2>Tcl officiële website</tag-2> </tag-1> <tag-3> <tag-4>wacl repo</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=Tcl</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "tcl.name": {
+    "translation": "Tcl (Tool Command Language)"
+  },
+  "teal.desc": {
+    "translation": "Een getypeerde dialect van Lua."
+  },
+  "teal.link": {
+    "translation": "<tag-1> <tag-2>Teal GitHub repo</tag-2> </tag-1> <tag-3> <tag-4>Teal docs</tag-4> </tag-3> <tag-5> <tag-6>Teal tutorial</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "teal.name": {
+    "translation": "Teal"
+  },
+  "tsx.desc": {
+    "translation": "TypeScript in JSX. TSX wordt in LiveCodes gecompileerd naar JavaScript met de TypeScript Compiler. Standaard gebruikt het React als JSX runtime."
+  },
+  "tsx.link": {
+    "translation": "<tag-1> <tag-2>React officiële website</tag-2> </tag-1> <tag-3> <tag-4>JSX in React documentatie</tag-4> </tag-3> <tag-5> <tag-6>Typescript documentatie</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentatie</tag-8> </tag-7>"
+  },
+  "tsx.name": {
+    "translation": "TSX"
+  },
+  "twig.desc": {
+    "translation": "Een JavaScript-implementatie van de <tag-1>Twig</tag-1> PHP-sjabloontaal door <tag-2>Twig.js</tag-2>"
+  },
+  "twig.link": {
+    "translation": "<tag-1> <tag-2>Twig officiële website</tag-2> </tag-1> <tag-3> <tag-4>Twig Documentatie</tag-4> </tag-3> <tag-5> <tag-6>Twig.js Repo</tag-6> </tag-5> <tag-7> <tag-8>Twig.js Documentatie</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9>"
+  },
+  "twig.name": {
+    "translation": "Twig"
+  },
+  "typescript.desc": {
+    "translation": "Een getypeerde superset van JavaScript."
+  },
+  "typescript.link": {
+    "translation": "<tag-1> <tag-2>Officiële website</tag-2> </tag-1> <tag-3> <tag-4>TypeScript documentatie</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=TypeScript</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "typescript.name": {
+    "translation": "TypeScript"
+  },
+  "vue.link": {
+    "translation": "<tag-1> <tag-2>Vue.js v3 officiële website</tag-2> </tag-1> <tag-3> <tag-4>Vue3 documentatie</tag-4> </tag-3> <tag-5> <tag-6>Vue3 single file components</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "vue.name": {
+    "translation": "Vue3 Single File Components"
+  },
+  "vue2.desc": {
+    "translation": "Geladen met vue3-sfc-loader."
+  },
+  "vue2.link": {
+    "translation": "<tag-1><tag-2>Vue.js officiële website</tag-2></tag-1> <tag-3> <tag-4>Vue2 documentatie</tag-4> </tag-3> <tag-5> <tag-6>Vue2 single file components</tag-6> </tag-5> <tag-7> <tag-8>vue3-sfc-loader GitHub repo</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9>"
+  },
+  "vue2.name": {
+    "translation": "Vue2 Single File Components"
+  },
+  "wat.desc1": {
+    "translation": "Low-level tekstuele representatie van het WebAssembly (wasm) binaire formaat."
+  },
+  "wat.desc2": {
+    "translation": "Het wordt geconverteerd naar wasm met wabt.js."
+  },
+  "wat.link": {
+    "translation": "<tag-1><tag-2>WebAssembly.org</tag-2></tag-1> <tag-3> <tag-4>WebAssembly Text Specs</tag-4> </tag-3> <tag-5> <tag-6>WebAssembly op MDN</tag-6> </tag-5> <tag-7> <tag-8>WebAssembly tekstformaat begrijpen</tag-8> </tag-7> <tag-9> <tag-10>wabt.js documentatie</tag-10> </tag-9> <tag-11> <tag-12>Leer X in Y minuten, waarbij X=WebAssembly</tag-12> </tag-11> <tag-13> <tag-14>Startsjabloon laden</tag-14> </tag-13>"
+  },
+  "wat.name": {
+    "translation": "WebAssembly Text Format"
+  }
+}

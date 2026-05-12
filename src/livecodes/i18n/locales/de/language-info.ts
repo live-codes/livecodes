@@ -128,6 +128,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Go Website</2></1> <3><4>Go Dokumentation</4></3> <5> <6>GopherJS Repository</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=Go</8> </7> <9><10>Starter-Vorlage laden</10></9>',
     name: 'Go',
   },
+  goWasm: {
+    desc: 'Go-Interpreter, der auf WebAssembly läuft, unter Verwendung von Yaegi',
+    link: '<1><2>Go offizielle Website</2></1> <3><4>Yaegi</4></3> <5> <6>Lerne X in Y Minuten, wobei X=Go</6> </5> <7> <8>LiveCodes Dokumentationen</8> </7> <9> <10>Lade Startvorlage</10> </9>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: 'Haml-Compiler für clientseitige JavaScript-View-Templates unter Verwendung von clientside-haml-js.',
     link: '<1><2>Haml offizielle Website</2></1> <3> <4>Haml Dokumentation</4> </3> <5> <6>clientside-haml-js GitHub Repository</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=haml</8> </7> <9> <10>LiveCodes Dokumentation</10> </9>',
@@ -147,6 +152,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'JVM läuft im Browser mit DoppioJVM.',
     link: '<1> <2>Offizielle Java-Website</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Lernen Sie X in Y Minuten, wobei X=java</6> </5> <7> <8> Laden Sie die Startvorlage</8> </7>',
     name: 'Java',
+  },
+  javascript: {
+    desc: 'Die Skriptsprache des Webs.',
+    link: '<1> <2>JavaScript auf MDN</2> </1> <3> <4>Lernen Sie X in Y Minuten, wobei X=JavaScript</4> </3> <5> <6>LiveCodes Dokumentation</6> </5> <7> <8>Laden Sie eine Startvorlage</8> </7>',
+    name: 'JavaScript',
   },
   jinja: {
     desc: 'Jinja ist eine schnelle, ausdrucksstarke und erweiterbare Template-Engine.',
@@ -204,6 +214,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Markdown für die Komponenten-Ära. <1></1>MDX ermöglicht es Ihnen, nahtlos JSX in Ihren Markdown-Dokumenten zu schreiben.',
     link: '<1><2>MDX Dokumentation</2></1> <3><4>Starter-Vorlage laden</4></3>',
     name: 'MDX',
+  },
+  minizinc: {
+    desc: 'MiniZinc ist eine hochentwickelte Sprache zur Modellierung von Nebenbedingungen, mit der Sie diskrete Optimierungsprobleme leicht ausdrücken und lösen können.',
+    link: '<1> <2>Offizielle MiniZinc-Website</2> </1> <3> <4>MiniZinc-Dokumentation</4> </3> <5> <6>MiniZinc-Tutorial</6> </5> <7> <8>LiveCodes-Dokumentationen</8> </7> <9> <10>Startvorlage laden</10> </9>',
+    name: 'MiniZinc',
   },
   mjml: {
     desc: 'MJML ist eine Auszeichnungssprache, die entwickelt wurde, um den Aufwand beim Codieren einer responsiven E-Mail zu reduzieren.',

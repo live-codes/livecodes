@@ -1,0 +1,786 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "artTemplate.desc": {
+    "translation": "উচ্চ কর্মক্ষমতা সম্পন্ন JavaScript টেমপ্লেটিং ইঞ্জিন।"
+  },
+  "artTemplate.link": {
+    "translation": "<tag-1> <tag-2>art-template অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>art-template ডকুমেন্টেশন</tag-4> </tag-3>"
+  },
+  "artTemplate.name": {
+    "translation": "art-template"
+  },
+  "asciidoc.desc": {
+    "translation": "Asciidoctor ব্যবহার করে HTML-এ কম্পাইল করা AsciiDoc।"
+  },
+  "asciidoc.link": {
+    "translation": "<tag-1> <tag-2>AsciiDoc অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Asciidoctor অফিসিয়াল ওয়েবসাইট</tag-4> </tag-3> <tag-5> <tag-6>Asciidoctor ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=asciidoc</tag-8> </tag-7>"
+  },
+  "asciidoc.name": {
+    "translation": "AsciiDoc"
+  },
+  "assemblyscript.desc": {
+    "translation": "WebAssembly-এর জন্য TypeScript-এর মতো একটি ভাষা।"
+  },
+  "assemblyscript.link": {
+    "translation": "<tag-1> <tag-2>AssemblyScript অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>AssemblyScript ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "assemblyscript.name": {
+    "translation": "AssemblyScript"
+  },
+  "astro.desc": {
+    "translation": "কম ক্লায়েন্ট-সাইড JavaScript দিয়ে দ্রুত ওয়েবসাইট তৈরি করুন। (এখনও বেটায় আছে)"
+  },
+  "astro.link": {
+    "translation": "<tag-1> <tag-2>Astro অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Astro ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "astro.name": {
+    "translation": "Astro"
+  },
+  "babel.desc": {
+    "translation": "JavaScript কম্পাইলার"
+  },
+  "babel.link": {
+    "translation": "<tag-1><tag-2>অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>Babel ডকুমেন্টেশন</tag-4> </tag-3>"
+  },
+  "babel.name": {
+    "translation": "Babel"
+  },
+  "bbcode.desc": {
+    "translation": "BBCode (\"Bulletin Board Code\") একটি লাইটওয়েট মার্কআপ ভাষা যা অনেক ইন্টারনেট ফোরাম সফটওয়্যারে বার্তা ফরম্যাট করতে ব্যবহৃত হয়।"
+  },
+  "bbcode.link": {
+    "translation": "<tag-1><tag-2>bbcode.org</tag-2></tag-1> <tag-3> <tag-4>BBCode গাইড</tag-4> </tag-3> <tag-5> <tag-6>উইকিপিডিয়ায় BBCode</tag-6> </tag-5>"
+  },
+  "bbcode.name": {
+    "translation": "BBCode"
+  },
+  "blockly.desc": {
+    "translation": "ভিজুয়াল প্রোগ্রামিং এডিটর তৈরির জন্য একটি JavaScript লাইব্রেরি।"
+  },
+  "blockly.link": {
+    "translation": "<tag-1> <tag-2>অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>গাইড</tag-4> </tag-3> <tag-5> <tag-6>রেফারেন্স</tag-6> </tag-5> <tag-7> <tag-8>নমুনা</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "blockly.name": {
+    "translation": "Blockly"
+  },
+  "civet.desc": {
+    "translation": "Civet একটি প্রোগ্রামিং ভাষা যা TypeScript বা JavaScript-এ কম্পাইল হয়, যাতে আপনি বিদ্যমান টুলিং ব্যবহার করতে পারেন কিন্তু সংক্ষিপ্ত এবং শক্তিশালী সিনট্যাক্স সক্ষম করতে পারেন।"
+  },
+  "civet.link": {
+    "translation": "<tag-1> <tag-2>Civet অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Civet চিটশিট</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "civet.name": {
+    "translation": "Civet"
+  },
+  "clio.desc": {
+    "translation": "Clio একটি দ্রুত, বিতরণকৃত, ফাংশনাল প্রোগ্রামিং ভাষা যা JavaScript-এ কম্পাইল হয়।"
+  },
+  "clio.link": {
+    "translation": "<tag-1> <tag-2>Clio অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Clio ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "clio.name": {
+    "translation": "Clio"
+  },
+  "clojurescript.desc": {
+    "translation": "ClojureScript হলো <tag-1>Clojure</tag-1>-এর জন্য একটি কম্পাইলার যা JavaScript লক্ষ্য করে। <tag-2></tag-2>LiveCodes-এ, এটি <tag-3>Cherry</tag-3> ব্যবহার করে ব্রাউজারে চলে"
+  },
+  "clojurescript.link": {
+    "translation": "<tag-1> <tag-2>ClojureScript অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Clojure অফিসিয়াল ওয়েবসাইট</tag-4> </tag-3> <tag-5> <tag-6>Cherry রেপো</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "clojurescript.name": {
+    "translation": "ClojureScript (CLJS)"
+  },
+  "coffeescript.desc": {
+    "translation": "সাধারণ JavaScript।"
+  },
+  "coffeescript.link": {
+    "translation": "<tag-1> <tag-2>CoffeeScript অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Y মিনিটে X শিখুন, যেখানে X=coffeescript</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "coffeescript.name": {
+    "translation": "CoffeeScript"
+  },
+  "commonlisp.desc": {
+    "translation": "JSCL (Common Lisp থেকে বুটস্ট্র্যাপ করা Lisp-থেকে-Javascript কম্পাইলার) ব্যবহার করে JavaScript-এ একটি Common Lisp বাস্তবায়ন।"
+  },
+  "commonlisp.link": {
+    "translation": "<tag-1> <tag-2>Common-Lisp.net</tag-2> </tag-1> <tag-3> <tag-4>JSCL প্রজেক্ট</tag-4> </tag-3> <tag-5> <tag-6>Common Lisp রিসোর্স</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Common Lisp</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "commonlisp.name": {
+    "translation": "Common Lisp"
+  },
+  "cpp.desc1": {
+    "translation": "JSCPP (JavaScript-এ লেখা একটি সাধারণ C++ ইন্টারপ্রেটার) ব্যবহার করে C++ সমর্থন।"
+  },
+  "cpp.desc2": {
+    "translation": "এটি C++-এর সম্পূর্ণ বাস্তবায়ন নয়। বিস্তারিত জানতে <tag-1>JSCPP ডকুমেন্টেশন</tag-1> দেখুন।"
+  },
+  "cpp.link": {
+    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>JSCPP</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=C++</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "cpp.name": {
+    "translation": "C++"
+  },
+  "cppWasm.desc": {
+    "translation": "WebAssembly-তে চলমান Clang C/C++ কম্পাইলার, <tag-2>polylang.io</tag-2> দ্বারা অভিযোজিত <tag-1>wasm-clang</tag-1> ব্যবহার করে"
+  },
+  "cppWasm.link": {
+    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>Clang অফিসিয়াল ওয়েবসাইট</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=C++</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "cppWasm.name": {
+    "translation": "C/C++ (Wasm)"
+  },
+  "csharpWasm.desc": {
+    "translation": "WebAssembly-তে চলমান C# কম্পাইলার, <tag-1>Blazor</tag-1> ব্যবহার করে"
+  },
+  "csharpWasm.link": {
+    "translation": "<tag-1> <tag-2>C# ভাষা ডকুমেন্টেশন</tag-2> </tag-1> <tag-3> <tag-4>Y মিনিটে X শিখুন, যেখানে X=C#</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "csharpWasm.name": {
+    "translation": "C# (Wasm)"
+  },
+  "diagrams.desc1": {
+    "translation": "(পরীক্ষামূলক)"
+  },
+  "diagrams.desc2": {
+    "translation": "কোড-হিসাবে-ডায়াগ্রাম। সমর্থন করে:"
+  },
+  "diagrams.desc3": {
+    "translation": "<tag-1> <tag-2>Cytoscape</tag-2> </tag-1> <tag-3> <tag-4>ELK</tag-4> (<tag-5>elkjs</tag-5> ব্যবহার করে) </tag-3> <tag-6> <tag-7>Gnuplot</tag-7> (<tag-8>gnuplot-JS</tag-8> ব্যবহার করে) </tag-6> <tag-9> <tag-10>Graphviz</tag-10> (<tag-11>@hpcc-js/wasm</tag-11> ব্যবহার করে) </tag-9> <tag-12> <tag-13>Mermaid</tag-13> </tag-12> <tag-14> <tag-15>Nomnoml</tag-15> </tag-14> <tag-16> <tag-17>Pintora</tag-17> </tag-16> <tag-18> <tag-19>Plotly</tag-19> </tag-18> <tag-20> <tag-21>Svgbob</tag-21> </tag-20> <tag-22> <tag-23>Vega</tag-23> </tag-22> <tag-24> <tag-25>VegaLite</tag-25> </tag-24> <tag-26> <tag-27>WaveDrom</tag-27> </tag-26>"
+  },
+  "diagrams.link": {
+    "translation": "<tag-1> <tag-2>স্টার্টার টেমপ্লেট লোড করুন</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes ডকুমেন্টেশন</tag-4> </tag-3>"
+  },
+  "diagrams.name": {
+    "translation": "ডায়াগ্রাম"
+  },
+  "dot.desc": {
+    "translation": "Node.js এবং ব্রাউজারের জন্য সবচেয়ে দ্রুত + সংক্ষিপ্ত javascript টেমপ্লেট ইঞ্জিন।"
+  },
+  "dot.link": {
+    "translation": "<tag-1> <tag-2>অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes ডকুমেন্টেশন</tag-4> </tag-3>"
+  },
+  "dot.name": {
+    "translation": "doT.js"
+  },
+  "ejs.desc": {
+    "translation": "এম্বেডেড JavaScript টেমপ্লেটিং।"
+  },
+  "ejs.link": {
+    "translation": "<tag-1><tag-2>অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>LiveCodes ডকুমেন্টেশন</tag-4> </tag-3>"
+  },
+  "ejs.name": {
+    "translation": "EJS"
+  },
+  "eta.desc": {
+    "translation": "Node, Deno এবং ব্রাউজারের জন্য এম্বেডেড JS টেমপ্লেট ইঞ্জিন। হালকা, দ্রুত এবং প্লাগযোগ্য। TypeScript-এ লেখা।"
+  },
+  "eta.link": {
+    "translation": "<tag-1><tag-2>অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5>"
+  },
+  "eta.name": {
+    "translation": "Eta"
+  },
+  "fennel.desc": {
+    "translation": "Fennel একটি প্রোগ্রামিং ভাষা যা Lua-এর গতি, সরলতা এবং পৌঁছানোকে একটি lisp সিনট্যাক্স এবং ম্যাক্রো সিস্টেমের নমনীয়তার সাথে একত্রিত করে।"
+  },
+  "fennel.link": {
+    "translation": "<tag-1> <tag-2>Fennel অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Fennel দিয়ে শুরু করা</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "fennel.name": {
+    "translation": "Fennel"
+  },
+  "flow.desc": {
+    "translation": "Flow হলো JavaScript-এর জন্য একটি স্ট্যাটিক টাইপ চেকার।"
+  },
+  "flow.link": {
+    "translation": "<tag-1> <tag-2>Flow অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Flow ডকুমেন্টেশন</tag-4> </tag-3>"
+  },
+  "flow.name": {
+    "translation": "Flow"
+  },
+  "gleam.desc1": {
+    "translation": "Gleam একটি বন্ধুত্বপূর্ণ ভাষা যা টাইপ-সেফ সিস্টেম তৈরির জন্য যা স্কেল করে!"
+  },
+  "gleam.desc2": {
+    "translation": "Gleam একটি স্ট্যাটিক্যালি-টাইপড ফাংশনাল প্রোগ্রামিং ভাষা, যা Erlang বা JavaScript-এ কম্পাইল হয়।"
+  },
+  "gleam.link": {
+    "translation": "<tag-1><tag-2>Gleam ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>Gleam ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Gleam ভাষা ট্যুর</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "gleam.name": {
+    "translation": "Gleam"
+  },
+  "go.desc1": {
+    "translation": "Go (Golang) একটি ওপেন সোর্স প্রোগ্রামিং ভাষা যা সহজ, নির্ভরযোগ্য এবং দক্ষ সফটওয়্যার তৈরি করা সহজ করে।"
+  },
+  "go.desc2": {
+    "translation": "এখানে, এটি GopherJS ব্যবহার করে JavaScript-এ কম্পাইল হয়।"
+  },
+  "go.link": {
+    "translation": "<tag-1><tag-2>Go ওয়েবসাইট</tag-2></tag-1> <tag-3><tag-4>Go ডকুমেন্টেশন</tag-4></tag-3> <tag-5> <tag-6>GopherJS রেপো</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "go.name": {
+    "translation": "Go"
+  },
+  "goWasm.desc": {
+    "translation": "WebAssembly-তে চলমান Go ইন্টারপ্রেটার, Yaegi ব্যবহার করে"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>Go অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3><tag-4>Yaegi</tag-4></tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=Go</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
+  "haml.desc": {
+    "translation": "clientside-haml-js ব্যবহার করে ক্লায়েন্ট সাইড javascript ভিউ টেমপ্লেটের জন্য Haml কম্পাইলার।"
+  },
+  "haml.link": {
+    "translation": "<tag-1><tag-2>Haml অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>Haml ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>clientside-haml-js GitHub রেপো</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=haml</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9>"
+  },
+  "haml.name": {
+    "translation": "Haml"
+  },
+  "handlebars.desc": {
+    "translation": "স্টেরয়েডে ন্যূনতম টেমপ্লেটিং।"
+  },
+  "handlebars.link": {
+    "translation": "<tag-1><tag-2>অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>LiveCodes ডকুমেন্টেশন</tag-4> </tag-3>"
+  },
+  "handlebars.name": {
+    "translation": "Handlebars"
+  },
+  "imba.desc": {
+    "translation": "বন্ধুত্বপূর্ণ ফুল-স্ট্যাক ভাষা।"
+  },
+  "imba.link": {
+    "translation": "<tag-1><tag-2>অফিসিয়াল ওয়েবসাইট</tag-2></tag-1>"
+  },
+  "imba.name": {
+    "translation": "Imba"
+  },
+  "java.desc": {
+    "translation": "DoppioJVM ব্যবহার করে ব্রাউজারে চলমান JVM।"
+  },
+  "java.link": {
+    "translation": "<tag-1> <tag-2>Java অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "java.name": {
+    "translation": "Java"
+  },
+  "javascript.desc": {
+    "translation": "ওয়েবের স্ক্রিপ্টিং ভাষা।"
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>MDN-এ জাভাস্ক্রিপ্ট</tag-2> </tag-1> <tag-3> <tag-4>Y মিনিটে X শিখুন, যেখানে X=জাভাস্ক্রিপ্ট</tag-4> </tag-3> <tag-5> <tag-6>লাইভকোডস ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
+  "jinja.desc": {
+    "translation": "Jinja একটি দ্রুত, প্রকাশক, এক্সটেনসিবল টেমপ্লেটিং ইঞ্জিন।"
+  },
+  "jinja.link": {
+    "translation": "<tag-1> <tag-2>অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>টেমপ্লেট ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>JavaScript বাস্তবায়ন</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7>"
+  },
+  "jinja.name": {
+    "translation": "Jinja"
+  },
+  "jsx.desc": {
+    "translation": "JSX LiveCodes-এ TypeScript কম্পাইলার ব্যবহার করে JavaScript-এ কম্পাইল হয়। ডিফল্টভাবে এটি JSX রানটাইম হিসাবে React ব্যবহার করে।"
+  },
+  "jsx.link": {
+    "translation": "<tag-1> <tag-2>React অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>React ডকুমেন্টেশনে JSX</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5>"
+  },
+  "jsx.name": {
+    "translation": "JSX"
+  },
+  "julia.desc1": {
+    "translation": "LiveCodes-এ Julia ভাষা সমর্থন এখনও পরীক্ষামূলক"
+  },
+  "julia.desc2": {
+    "translation": "WASM-এ চলমান Julia কম্পাইলার এবং Julia Base, <tag-2>polylang.io</tag-2> দ্বারা অভিযোজিত <tag-1>julia-wasm</tag-1> ব্যবহার করে"
+  },
+  "julia.link": {
+    "translation": "<tag-1> <tag-2>Julia অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Julia ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=Julia</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "julia.name": {
+    "translation": "Julia"
+  },
+  "less.desc": {
+    "translation": "এটি CSS, কিছুটা বেশি সহ।"
+  },
+  "less.link": {
+    "translation": "<tag-1><tag-2>Less অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>Y মিনিটে X শিখুন, যেখানে X=less</tag-4> </tag-3>"
+  },
+  "less.name": {
+    "translation": "Less"
+  },
+  "liquid.desc": {
+    "translation": "একটি সহজ, প্রকাশক এবং নিরাপদ টেমপ্লেট ইঞ্জিন।"
+  },
+  "liquid.link": {
+    "translation": "<tag-1> <tag-2>LiquidJS অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>LiquidJS ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5>"
+  },
+  "liquid.name": {
+    "translation": "LiquidJS"
+  },
+  "livescript.desc": {
+    "translation": "একটি ভাষা যা JavaScript-এ কম্পাইল হয়।"
+  },
+  "livescript.link": {
+    "translation": "<tag-1> <tag-2>LiveScript অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Y মিনিটে X শিখুন, যেখানে X=LiveScript</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "livescript.name": {
+    "translation": "LiveScript"
+  },
+  "lua.desc": {
+    "translation": "fengari-web ব্যবহার করে ব্রাউজারে চলমান Lua।"
+  },
+  "lua.link": {
+    "translation": "<tag-1><tag-2>Lua অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>Lua ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Fengari অফিসিয়াল ওয়েবসাইট</tag-6> </tag-5> <tag-7> <tag-8>fengari-web GitHub রেপো</tag-8> </tag-7> <tag-9> <tag-10>Y মিনিটে X শিখুন, যেখানে X=Lua</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes ডকুমেন্টেশন</tag-12> </tag-11> <tag-13> <tag-14>স্টার্টার টেমপ্লেট লোড করুন</tag-14> </tag-13>"
+  },
+  "lua.name": {
+    "translation": "Lua"
+  },
+  "luaWasm.desc": {
+    "translation": "Wasmoon ব্যবহার করে ব্রাউজারে চলমান Lua, WebAssembly দিয়ে তৈরি JS বাইন্ডিং সহ একটি আসল lua 5.4 VM।"
+  },
+  "luaWasm.link": {
+    "translation": "<tag-1><tag-2>Lua অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>Lua ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Wasmoon GitHub রেপো</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Lua</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "luaWasm.name": {
+    "translation": "Lua (Wasm)"
+  },
+  "malina.desc": {
+    "translation": "ফ্রন্টএন্ড কম্পাইলার, Svelte দ্বারা অনুপ্রাণিত।"
+  },
+  "malina.link": {
+    "translation": "<tag-1> <tag-2>Malina.js রেপো</tag-2> </tag-1> <tag-3> <tag-4>Malina.js ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "malina.name": {
+    "translation": "Malina.js"
+  },
+  "markdown.desc": {
+    "translation": "Marked ব্যবহার করে HTML-এ কম্পাইল করা Markdown।"
+  },
+  "markdown.link": {
+    "translation": "<tag-1> <tag-2>Markdown অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Marked ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=markdown</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "markdown.name": {
+    "translation": "Markdown"
+  },
+  "mdx.desc": {
+    "translation": "কম্পোনেন্ট যুগের জন্য Markdown। <tag-1></tag-1>MDX আপনাকে আপনার Markdown ডকুমেন্টে নির্বিঘ্নে JSX লিখতে দেয়।"
+  },
+  "mdx.link": {
+    "translation": "<tag-1><tag-2>MDX ডকুমেন্টেশন</tag-2></tag-1> <tag-3> <tag-4>স্টার্টার টেমপ্লেট লোড করুন</tag-4> </tag-3>"
+  },
+  "mdx.name": {
+    "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "মিনিজিঙ্ক একটি উচ্চ-স্তরের সীমাবদ্ধ মডেলিং ভাষা যা আপনাকে সহজেই বিচ্ছিন্ন অপ্টিমাইজেশন সমস্যাগুলি প্রকাশ করতে এবং সমাধান করতে দেয়।"
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>মিনিজিঙ্কের অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>মিনিজিঙ্ক ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>মিনিজিঙ্ক টিউটোরিয়াল</tag-6> </tag-5> <tag-7> <tag-8>লাইভকোডস ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
+  },
+  "mjml.desc": {
+    "translation": "MJML একটি মার্কআপ ভাষা যা একটি রেসপন্সিভ ইমেইল কোডিং করার কষ্ট কমানোর জন্য ডিজাইন করা হয়েছে।"
+  },
+  "mjml.link": {
+    "translation": "<tag-1><tag-2>MJML অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>MJML ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>MJML অফিসিয়াল টেমপ্লেট</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7>"
+  },
+  "mjml.name": {
+    "translation": "MJML"
+  },
+  "mustache.desc": {
+    "translation": "লজিকবিহীন টেমপ্লেট।"
+  },
+  "mustache.link": {
+    "translation": "<tag-1> <tag-2>অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>mustache(5) ম্যানুয়াল</tag-4> </tag-3> <tag-5> <tag-6>JavaScript বাস্তবায়ন</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7>"
+  },
+  "mustache.name": {
+    "translation": "Mustache"
+  },
+  "nunjucks.desc": {
+    "translation": "JavaScript-এর জন্য একটি সমৃদ্ধ এবং শক্তিশালী টেমপ্লেটিং ভাষা। Nunjucks মূলত <tag-1>jinja2</tag-1> এর একটি পোর্ট"
+  },
+  "nunjucks.link": {
+    "translation": "<tag-1> <tag-2>অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes ডকুমেন্টেশন</tag-4> </tag-3>"
+  },
+  "nunjucks.name": {
+    "translation": "Nunjucks"
+  },
+  "ocaml.desc1": {
+    "translation": "OCaml একটি শিল্প-মানের প্রোগ্রামিং ভাষা যা ফাংশনাল, ইম্পেরেটিভ এবং অবজেক্ট-ওরিয়েন্টেড স্টাইল সমর্থন করে।"
+  },
+  "ocaml.desc2": {
+    "translation": "এখানে OCaml থেকে JavaScript-এ কম্পাইল করতে ReScript কম্পাইলার ব্যবহার করা হয়।"
+  },
+  "ocaml.link": {
+    "translation": "<tag-1><tag-2>OCaml ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>OCaml ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>ReScript ওয়েবসাইট</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=OCaml</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "ocaml.name": {
+    "translation": "OCaml"
+  },
+  "perl.desc": {
+    "translation": "Perlito ব্যবহার করে ব্রাউজারে চলমান Perl।"
+  },
+  "perl.link": {
+    "translation": "<tag-1> <tag-2>Perl অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Perl ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Perlito5 Readme</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=perl</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "perl.name": {
+    "translation": "Perl"
+  },
+  "php.desc": {
+    "translation": "Uniter ব্যবহার করে ব্রাউজারে চলমান PHP।"
+  },
+  "php.link": {
+    "translation": "<tag-1><tag-2>PHP অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>PHP ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Uniter GitHub রেপো</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=PHP</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "php.name": {
+    "translation": "PHP"
+  },
+  "phpWasm.desc": {
+    "translation": "ব্রাউজারে PHP, WebAssembly দ্বারা চালিত, php-wasm ব্যবহার করে।"
+  },
+  "phpWasm.link": {
+    "translation": "<tag-1><tag-2>PHP অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>PHP ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>php-wasm GitHub রেপো</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=PHP</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "phpWasm.name": {
+    "translation": "PHP (Wasm)"
+  },
+  "postgresql.desc": {
+    "translation": "PGlite ব্যবহার করে WASM হিসাবে প্যাকেজ করা PostgreSQL"
+  },
+  "postgresql.link": {
+    "translation": "<tag-1> <tag-2>PostgreSQL অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>PostgreSQL ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>PGlite GitHub রেপো</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=SQL</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "postgresql.name": {
+    "translation": "PostgreSQL"
+  },
+  "prolog.desc": {
+    "translation": "JavaScript-এ একটি ওপেন সোর্স Prolog ইন্টারপ্রেটার।"
+  },
+  "prolog.link": {
+    "translation": "<tag-1> <tag-2>Tau Prolog অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Tau Prolog ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>SWI-Prolog</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Prolog</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "prolog.name": {
+    "translation": "Tau Prolog"
+  },
+  "pug.desc": {
+    "translation": "মজবুত, মার্জিত, বৈশিষ্ট্য সমৃদ্ধ টেমপ্লেট ইঞ্জিন।"
+  },
+  "pug.link": {
+    "translation": "<tag-1> <tag-2>Pug ডকুমেন্টেশন</tag-2> </tag-1> <tag-3> <tag-4>Y মিনিটে X শিখুন, যেখানে X=Pug</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5>"
+  },
+  "pug.name": {
+    "translation": "Pug"
+  },
+  "python.desc": {
+    "translation": "Brython ব্যবহার করে ব্রাউজারে চলমান Python।"
+  },
+  "python.link": {
+    "translation": "<tag-1> <tag-2>Python অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Python ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Brython ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Python</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "python.name": {
+    "translation": "Python"
+  },
+  "pythonWasm.desc1": {
+    "translation": "Pyodide ব্যবহার করে WebAssembly-তে কম্পাইল করা বৈজ্ঞানিক স্ট্যাক সহ Python।"
+  },
+  "pythonWasm.desc2": {
+    "translation": "Pyodide NumPy, Pandas, Matplotlib, SciPy, scikit-learn এবং আরো অনেক কিছু সহ Python বৈজ্ঞানিক স্ট্যাক ব্যবহার করার অনুমতি দেয়। এছাড়াও PyPi থেকে বিশুদ্ধ Python হুইল ইনস্টল করা সম্ভব।"
+  },
+  "pythonWasm.link": {
+    "translation": "<tag-1> <tag-2>Python অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Python ডকুমেন্টেশন</tag-4> </tag-3> <tag-5><tag-6>Pyodide ডকুমেন্টেশন</tag-6></tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Python</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "pythonWasm.name": {
+    "translation": "Python (Wasm)"
+  },
+  "r.desc": {
+    "translation": "WebR ব্যবহার করে ব্রাউজারে চলমান R।"
+  },
+  "r.link": {
+    "translation": "<tag-1> <tag-2>R প্রজেক্ট অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>R ম্যানুয়াল</tag-4> </tag-3> <tag-5> <tag-6>R for Data Science (2e)</tag-6> </tag-5> <tag-7> <tag-8>WebR ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>Y মিনিটে X শিখুন, যেখানে X=R</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes ডকুমেন্টেশন</tag-12> </tag-11> <tag-13> <tag-14>স্টার্টার টেমপ্লেট লোড করুন</tag-14> </tag-13>"
+  },
+  "r.name": {
+    "translation": "R"
+  },
+  "react.desc": {
+    "translation": "React Compiler একটি বিল্ড-টাইম শুধুমাত্র টুল যা স্বয়ংক্রিয়ভাবে React অ্যাপ অপ্টিমাইজ করে।"
+  },
+  "react.link": {
+    "translation": "<tag-1> <tag-2>React অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>React Compiler</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "react.name": {
+    "translation": "React Compiler"
+  },
+  "reactNative.desc": {
+    "translation": "React Native for Web হলো React Native-এর কম্পোনেন্ট এবং API-এর একটি অ্যাক্সেসযোগ্য বাস্তবায়ন যা React DOM-এর সাথে ইন্টারঅপারেবল।"
+  },
+  "reactNative.link": {
+    "translation": "<tag-1> <tag-2>React অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>React Native ওয়েবসাইট</tag-4> </tag-3> <tag-5> <tag-6>React Native for Web ওয়েবসাইট</tag-6> </tag-5> <tag-7> <tag-8>React Native ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "reactNative.name": {
+    "translation": "React Native for Web"
+  },
+  "reactNativeTsx.desc": {
+    "translation": "React Native for Web হলো React Native-এর কম্পোনেন্ট এবং API-এর একটি অ্যাক্সেসযোগ্য বাস্তবায়ন যা React DOM-এর সাথে ইন্টারঅপারেবল।"
+  },
+  "reactNativeTsx.link": {
+    "translation": "<tag-1> <tag-2>React অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>React Native ওয়েবসাইট</tag-4> </tag-3> <tag-5> <tag-6>React Native for Web ওয়েবসাইট</tag-6> </tag-5> <tag-7> <tag-8>React Native ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>TypeScript ওয়েবসাইট</tag-10> </tag-9> <tag-11> <tag-12>TypeScript ডকুমেন্টেশন</tag-12> </tag-11> <tag-13> <tag-14>LiveCodes ডকুমেন্টেশন</tag-14> </tag-13> <tag-15> <tag-16>স্টার্টার টেমপ্লেট লোড করুন (JSX)</tag-16> </tag-15>"
+  },
+  "reactNativeTsx.name": {
+    "translation": "React Native for Web (TypeScript সহ)"
+  },
+  "reactTsx.desc": {
+    "translation": "React Compiler একটি বিল্ড-টাইম শুধুমাত্র টুল যা স্বয়ংক্রিয়ভাবে React অ্যাপ অপ্টিমাইজ করে।"
+  },
+  "reactTsx.link": {
+    "translation": "<tag-1> <tag-2>React অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>React Compiler</tag-4> </tag-3> <tag-5> <tag-6>TypeScript ওয়েবসাইট</tag-6> </tag-5> <tag-7> <tag-8>TypeScript ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন (JSX)</tag-12> </tag-11>"
+  },
+  "reactTsx.name": {
+    "translation": "React Compiler (TypeScript সহ)"
+  },
+  "reason.desc1": {
+    "translation": "Reason আপনাকে সহজ, দ্রুত এবং গুণমান টাইপ সেফ কোড লিখতে দেয় যখন JavaScript এবং OCaml উভয় ইকোসিস্টেম ব্যবহার করে।"
+  },
+  "reason.desc2": {
+    "translation": "এখানে Reason থেকে JavaScript-এ কম্পাইল করতে ReScript কম্পাইলার ব্যবহার করা হয়।"
+  },
+  "reason.link": {
+    "translation": "<tag-1><tag-2>Reason ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>Reason ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>ReasonReact</tag-6> </tag-5> <tag-7> <tag-8>ReScript ওয়েবসাইট</tag-8> </tag-7> <tag-9> <tag-10>Y মিনিটে X শিখুন, যেখানে X=reason</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "reason.name": {
+    "translation": "Reason"
+  },
+  "rescript.desc": {
+    "translation": "ReScript একটি মজবুতভাবে টাইপ করা ভাষা যা দক্ষ এবং মানব-পাঠযোগ্য JavaScript-এ কম্পাইল হয়।"
+  },
+  "rescript.link": {
+    "translation": "<tag-1> <tag-2>ReScript ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>ReScript / React</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "rescript.name": {
+    "translation": "ReScript"
+  },
+  "richtext.desc1": {
+    "translation": "Quill ব্যবহার করে:"
+  },
+  "richtext.desc2": {
+    "translation": "আপনার শক্তিশালী রিচ টেক্সট এডিটর।"
+  },
+  "richtext.link": {
+    "translation": "<tag-1> <tag-2>Quill অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1>"
+  },
+  "richtext.name": {
+    "translation": "রিচ টেক্সট এডিটর"
+  },
+  "riot.desc": {
+    "translation": "সহজ এবং মার্জিত কম্পোনেন্ট-ভিত্তিক UI লাইব্রেরি।"
+  },
+  "riot.link": {
+    "translation": "<tag-1> <tag-2>Riot.js অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Riot.js ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "riot.name": {
+    "translation": "Riot.js"
+  },
+  "ruby.desc": {
+    "translation": "Opal ব্যবহার করে ব্রাউজারে চলমান Ruby।"
+  },
+  "ruby.link": {
+    "translation": "<tag-1> <tag-2>Ruby অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Ruby ডকুমেন্টেশন</tag-4> </tag-3> <tag-5><tag-6>Opal অফিসিয়াল ওয়েবসাইট</tag-6></tag-5> <tag-7> <tag-8>Opal স্ট্যান্ডার্ড লাইব্রেরি CDN</tag-8> </tag-7> <tag-9> <tag-10>Y মিনিটে X শিখুন, যেখানে X=ruby</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes ডকুমেন্টেশন</tag-12> </tag-11> <tag-13> <tag-14>স্টার্টার টেমপ্লেট লোড করুন</tag-14> </tag-13>"
+  },
+  "ruby.name": {
+    "translation": "Ruby"
+  },
+  "rubyWasm.desc": {
+    "translation": "ruby-wasm (CRuby-এর WebAssembly পোর্টগুলির একটি সংগ্রহ) ব্যবহার করে ব্রাউজারে চলমান Ruby।"
+  },
+  "rubyWasm.link": {
+    "translation": "<tag-1> <tag-2>Ruby অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Ruby ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>ruby.wasm ওয়েবসাইট</tag-6> </tag-5> <tag-7><tag-8>CRuby</tag-8></tag-7> <tag-9> <tag-10>Y মিনিটে X শিখুন, যেখানে X=ruby</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes ডকুমেন্টেশন</tag-12> </tag-11> <tag-13> <tag-14>স্টার্টার টেমপ্লেট লোড করুন</tag-14> </tag-13>"
+  },
+  "rubyWasm.name": {
+    "translation": "Ruby (WASM)"
+  },
+  "sass.desc": {
+    "translation": "সিনট্যাক্টিক্যালি অসাধারণ স্টাইল শীট।"
+  },
+  "sass.link": {
+    "translation": "<tag-1> <tag-2>Sass অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Sass ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Sass (ইন্ডেন্টেড) সিনট্যাক্স</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=sass</tag-8> </tag-7>"
+  },
+  "sass.name": {
+    "translation": "Sass"
+  },
+  "scheme.desc": {
+    "translation": "biwascheme ব্যবহার করে ব্রাউজারে চলমান Scheme।"
+  },
+  "scheme.link": {
+    "translation": "<tag-1> <tag-2>Scheme প্রোগ্রামিং ভাষা</tag-2> </tag-1> <tag-3> <tag-4>BiwaScheme অফিসিয়াল ওয়েবসাইট</tag-4> </tag-3> <tag-5> <tag-6>BiwaScheme রেফারেন্স</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "scheme.name": {
+    "translation": "Scheme"
+  },
+  "scss.desc": {
+    "translation": "সিনট্যাক্টিক্যালি অসাধারণ স্টাইল শীট।"
+  },
+  "scss.link": {
+    "translation": "<tag-1> <tag-2>Sass অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Sass ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>SCSS সিনট্যাক্স</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=sass</tag-8> </tag-7>"
+  },
+  "scss.name": {
+    "translation": "SCSS"
+  },
+  "solid.desc": {
+    "translation": "ব্যবহারকারী ইন্টারফেস তৈরির জন্য একটি ঘোষণামূলক, দক্ষ এবং নমনীয় JavaScript লাইব্রেরি।"
+  },
+  "solid.link": {
+    "translation": "<tag-1><tag-2>অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3><tag-4>ডকুমেন্টেশন</tag-4></tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন (TSX)</tag-8> </tag-7>"
+  },
+  "solid.name": {
+    "translation": "Solid"
+  },
+  "solid.tsx.desc": {
+    "translation": "ব্যবহারকারী ইন্টারফেস তৈরির জন্য একটি ঘোষণামূলক, দক্ষ এবং নমনীয় JavaScript লাইব্রেরি।"
+  },
+  "solid.tsx.link": {
+    "translation": "<tag-1><tag-2>অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>Solid ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>TypeScript ওয়েবসাইট</tag-6> </tag-5> <tag-7> <tag-8>TypeScript ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "solid.tsx.name": {
+    "translation": "Solid (TypeScript সহ)"
+  },
+  "sql.desc": {
+    "translation": "SQL.js ব্যবহার করে JavaScript-এ কম্পাইল করা SQLite"
+  },
+  "sql.link": {
+    "translation": "<tag-1> <tag-2>SQLite অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>SQLite সিনট্যাক্স ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>SQL.js অফিসিয়াল ওয়েবসাইট</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=SQL</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "sql.name": {
+    "translation": "SQLite"
+  },
+  "stencil.desc": {
+    "translation": "ওয়েব কম্পোনেন্ট এবং উচ্চ কর্মক্ষমতা ওয়েব অ্যাপের জন্য একটি কম্পাইলার।"
+  },
+  "stencil.link": {
+    "translation": "<tag-1> <tag-2>Stencil অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Stencil ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "stencil.name": {
+    "translation": "Stencil"
+  },
+  "styleProcessors.link": {
+    "translation": "<tag-1> <tag-2>Tailwind CSS</tag-2> </tag-1> <tag-3> <tag-4>Windi CSS</tag-4> </tag-3> <tag-5> <tag-6>UnoCSS</tag-6> </tag-5> <tag-7> <tag-8>Lightning CSS</tag-8> </tag-7> <tag-9> <tag-10>PostCSS</tag-10> প্লাগইন: <tag-11> <tag-12> <tag-13>Autoprefixer</tag-13> </tag-12> <tag-14> <tag-15>postcss-preset-env</tag-15> </tag-14> <tag-16> <tag-17>postcss-import-url</tag-17> </tag-16> <tag-18> <tag-19>postcss-modules</tag-19> </tag-18> </tag-11> </tag-9>"
+  },
+  "styleProcessors.name": {
+    "translation": "CSS ফ্রেমওয়ার্ক এবং প্রসেসর"
+  },
+  "stylis.desc": {
+    "translation": "হালকা ওজনের css প্রিপ্রসেসর।"
+  },
+  "stylis.link": {
+    "translation": "<tag-1> <tag-2>Stylis অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1>"
+  },
+  "stylis.name": {
+    "translation": "Stylis"
+  },
+  "stylus.desc": {
+    "translation": "প্রকাশক, ডায়নামিক, মজবুত CSS।"
+  },
+  "stylus.link": {
+    "translation": "<tag-1> <tag-2>Stylus অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Y মিনিটে X শিখুন, যেখানে X=stylus</tag-4> </tag-3>"
+  },
+  "stylus.name": {
+    "translation": "Stylus"
+  },
+  "sucrase.desc": {
+    "translation": "আধুনিক JS রানটাইম লক্ষ্য করতে পারলে Babel-এর সুপার-দ্রুত বিকল্প।"
+  },
+  "sucrase.link": {
+    "translation": "<tag-1> <tag-2>Sucrase অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Sucrase GitHub রেপো</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5>"
+  },
+  "sucrase.name": {
+    "translation": "Sucrase"
+  },
+  "svelte.desc": {
+    "translation": "সাইবারনেটিক্যালি উন্নত ওয়েব অ্যাপ।"
+  },
+  "svelte.link": {
+    "translation": "<tag-1> <tag-2>Svelte অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Svelte ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>স্টার্টার টেমপ্লেট লোড করুন</tag-6> </tag-5>"
+  },
+  "svelte.name": {
+    "translation": "Svelte"
+  },
+  "tcl.desc": {
+    "translation": "<tag-1>wacl</tag-1> ব্যবহার করে ব্রাউজারে চলমান Tcl।"
+  },
+  "tcl.link": {
+    "translation": "<tag-1> <tag-2>Tcl অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>wacl রেপো</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=Tcl</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "tcl.name": {
+    "translation": "Tcl (Tool Command Language)"
+  },
+  "teal.desc": {
+    "translation": "Lua-এর একটি টাইপড উপভাষা।"
+  },
+  "teal.link": {
+    "translation": "<tag-1> <tag-2>Teal GitHub রেপো</tag-2> </tag-1> <tag-3> <tag-4>Teal ডক্স</tag-4> </tag-3> <tag-5> <tag-6>Teal টিউটোরিয়াল</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "teal.name": {
+    "translation": "Teal"
+  },
+  "tsx.desc": {
+    "translation": "JSX-এ TypeScript। TSX LiveCodes-এ TypeScript কম্পাইলার ব্যবহার করে JavaScript-এ কম্পাইল হয়। ডিফল্টভাবে এটি JSX রানটাইম হিসাবে React ব্যবহার করে।"
+  },
+  "tsx.link": {
+    "translation": "<tag-1> <tag-2>React অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>React ডকুমেন্টেশনে JSX</tag-4> </tag-3> <tag-5> <tag-6>Typescript ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7>"
+  },
+  "tsx.name": {
+    "translation": "TSX"
+  },
+  "twig.desc": {
+    "translation": "<tag-2>Twig.js</tag-2> দ্বারা <tag-1>Twig</tag-1> PHP টেমপ্লেটিং ভাষার একটি JavaScript বাস্তবায়ন"
+  },
+  "twig.link": {
+    "translation": "<tag-1> <tag-2>Twig অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Twig ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Twig.js রেপো</tag-6> </tag-5> <tag-7> <tag-8>Twig.js ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9>"
+  },
+  "twig.name": {
+    "translation": "Twig"
+  },
+  "typescript.desc": {
+    "translation": "JavaScript-এর একটি টাইপড সুপারসেট।"
+  },
+  "typescript.link": {
+    "translation": "<tag-1> <tag-2>অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>TypeScript ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=TypeScript</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "typescript.name": {
+    "translation": "TypeScript"
+  },
+  "vue.link": {
+    "translation": "<tag-1> <tag-2>Vue.js v3 অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Vue3 ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Vue3 সিঙ্গেল ফাইল কম্পোনেন্ট</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "vue.name": {
+    "translation": "Vue3 সিঙ্গেল ফাইল কম্পোনেন্ট"
+  },
+  "vue2.desc": {
+    "translation": "vue3-sfc-loader ব্যবহার করে লোড করা হয়েছে।"
+  },
+  "vue2.link": {
+    "translation": "<tag-1><tag-2>Vue.js অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>Vue2 ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Vue2 সিঙ্গেল ফাইল কম্পোনেন্ট</tag-6> </tag-5> <tag-7> <tag-8>vue3-sfc-loader GitHub রেপো</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9>"
+  },
+  "vue2.name": {
+    "translation": "Vue2 সিঙ্গেল ফাইল কম্পোনেন্ট"
+  },
+  "wat.desc1": {
+    "translation": "WebAssembly (wasm) বাইনারি ফরম্যাটের নিম্ন-স্তরের টেক্সটুয়াল উপস্থাপনা।"
+  },
+  "wat.desc2": {
+    "translation": "এটি wabt.js ব্যবহার করে wasm-এ রূপান্তরিত হয়।"
+  },
+  "wat.link": {
+    "translation": "<tag-1><tag-2>WebAssembly.org</tag-2></tag-1> <tag-3> <tag-4>WebAssembly টেক্সট স্পেক্স</tag-4> </tag-3> <tag-5> <tag-6>MDN-এ WebAssembly</tag-6> </tag-5> <tag-7> <tag-8>WebAssembly টেক্সট ফরম্যাট বোঝা</tag-8> </tag-7> <tag-9> <tag-10>wabt.js ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>Y মিনিটে X শিখুন, যেখানে X=WebAssembly</tag-12> </tag-11> <tag-13> <tag-14>স্টার্টার টেমপ্লেট লোড করুন</tag-14> </tag-13>"
+  },
+  "wat.name": {
+    "translation": "WebAssembly টেক্সট ফরম্যাট"
+  }
+}

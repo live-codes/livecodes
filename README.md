@@ -13,7 +13,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 [![LiveCodes: npm version](https://img.shields.io/npm/v/livecodes)](https://www.npmjs.com/package/livecodes)
 [![LiveCodes: npm downloads](https://img.shields.io/npm/dm/livecodes)](https://www.npmjs.com/package/livecodes)
 [![LiveCodes: jsdelivr downloads](https://data.jsdelivr.com/v1/package/npm/livecodes/badge?style=rounded)](https://www.jsdelivr.com/package/npm/livecodes)
-[![LiveCodes: languages](https://img.shields.io/badge/languages-96-blue)](https://livecodes.io/docs/languages/)
+[![LiveCodes: languages](https://img.shields.io/badge/languages-98-blue)](https://livecodes.io/docs/languages/)
 [![LiveCodes: docs](https://img.shields.io/badge/Documentation-575757?logo=gitbook&logoColor=white)](https://livecodes.io/docs/)
 [![LiveCodes: llms.txt](https://img.shields.io/badge/llms.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms.txt)
 [![LiveCodes: llms-full.txt](https://img.shields.io/badge/llms--full.txt-575757?logo=googledocs&logoColor=white)](https://livecodes.io/docs/llms-full.txt)
@@ -85,7 +85,7 @@ Add this code to your page:
 #### Self-hosted
 
 1. Download a [release](https://github.com/live-codes/livecodes/releases)
-2. Put it on a static file server (for free!) <sup><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">1</a>, <a href="https://vercel.com/" target="_blank" rel="noopener">2</a>, <a href="https://www.netlify.com/" target="_blank" rel="noopener">3</a>, <a href="https://firebase.google.com/" target="_blank" rel="noopener">4</a>, <a href="https://pages.github.com/" target="_blank" rel="noopener">5</a></sup>
+2. Put it on a static file server (for free!) <sup><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">1</a>, <a href="https://www.netlify.com/" target="_blank" rel="noopener">2</a>, <a href="https://firebase.google.com/" target="_blank" rel="noopener">3</a>, <a href="https://pages.github.com/" target="_blank" rel="noopener">4</a></sup>
 
    <sup>Check the guide for <a href="https://livecodes.io/docs/features/self-hosting" target="_blank" rel="noopener">self-hosting</a> (including the built-in setup to deploy to GitHub Pages).</sup>
 
@@ -110,7 +110,6 @@ Add this code to your page:
 - [Dev Tools](https://livecodes.io/docs/features/tools-pane) ([console](https://livecodes.io/docs/features/console), [compiled code viewer](https://livecodes.io/docs/features/compiled-code), [test runner](https://livecodes.io/docs/features/tests))
 - [Code formatting](https://livecodes.io/docs/features/code-format)
 - [Intellisense](https://livecodes.io/docs/features/intellisense)
-- [AI Code Assistant 🪄](https://livecodes.io/docs/features/ai)
 - [Lite mode](https://livecodes.io/docs/features/lite)
 - [Read-only mode](https://livecodes.io/docs/features/read-only)
 - [Broadcast](https://livecodes.io/docs/features/broadcast)
@@ -119,7 +118,7 @@ Add this code to your page:
 - [Client-side!](https://livecodes.io/docs/why#client-side)
 - Very [configurable](https://livecodes.io/docs/configuration/)
 - Developer-friendly build-free environment
-- Powerful [SDK](https://livecodes.io/docs/sdk/) (available for [vanilla JavaScript, TypeScript](https://livecodes.io/docs/sdk/js-ts), [React](https://livecodes.io/docs/sdk/react), [Vue](https://livecodes.io/docs/sdk/vue) and [Svelte](https://livecodes.io/docs/sdk/svelte))
+- Powerful [SDK](https://livecodes.io/docs/sdk/) (available for [JavaScript, TypeScript](https://livecodes.io/docs/sdk/js-ts), [React](https://livecodes.io/docs/sdk/react), [Vue](https://livecodes.io/docs/sdk/vue), [Svelte](https://livecodes.io/docs/sdk/svelte), [Solid](https://livecodes.io/docs/sdk/solid), [Preact](https://livecodes.io/docs/sdk/preact) and [web components](https://livecodes.io/docs/sdk/web-components))
 - Comprehensive [Documentations](https://livecodes.io/docs/)
 - Focused on [privacy and security](https://livecodes.io/docs/features/security)
 - Free and [Open-Source](https://livecodes.io/docs/license)
@@ -130,7 +129,7 @@ For details check the [full list of features](https://livecodes.io/docs/features
 
 The Software Development Kit (SDK) provides an easy, yet powerful, interface to embed and communicate with LiveCodes playgrounds.
 
-The SDK is provided as a light-weight ([less than 5kb gzipped](https://bundlephobia.com/package/livecodes)), zero-dependencies [npm package](https://livecodes.io/docs/sdk/#npm-package), that is also available from [CDNs](https://livecodes.io/docs/sdk/#cdn). It can be used to create playgrounds with a wide variety of [configurations](https://livecodes.io/docs/configuration/configuration-object.md) and [embed options](https://livecodes.io/docs/sdk/js-ts.md#embed-options). In addition, [SDK methods](https://livecodes.io/docs/sdk/js-ts.md#sdk-methods) allow programmatic communication and control of the playgrounds during runtime.
+The SDK is provided as a light-weight [npm package](https://livecodes.io/docs/sdk/#npm-package) (or [jsr package](https://livecodes.io/docs/sdk/#jsr)), that is also available from [CDNs](https://livecodes.io/docs/sdk/#cdn). It can be used to create playgrounds with a wide variety of [configurations](https://livecodes.io/docs/configuration/configuration-object) and [embed options](https://livecodes.io/docs/sdk/js-ts#embed-options). In addition, [SDK methods](https://livecodes.io/docs/sdk/js-ts#sdk-methods) allow programmatic communication and control of the playgrounds during runtime.
 
 ### Installation
 
@@ -156,7 +155,7 @@ createPlayground('#container', {
 });
 ```
 
-The [JavaScript SDK](https://livecodes.io/docs/sdk/js-ts.md) is framework/library agnostic. However, wrapper components are also provided for popular libraries (currently [React](https://livecodes.io/docs/sdk/react.md) and [Vue](https://livecodes.io/docs/sdk/vue.md)). The SDK can be used in [Svelte](https://livecodes.io/docs/sdk/svelte.md) directly without wrappers. [TypeScript support](https://livecodes.io/docs/sdk/js-ts.md#typescript-types) provides type-safety and a great developer experience.
+The [JavaScript SDK](https://livecodes.io/docs/sdk/js-ts) is framework/library agnostic. However, wrapper components are also provided for [React](https://livecodes.io/docs/sdk/react), [Vue](https://livecodes.io/docs/sdk/vue), [Svelte](https://livecodes.io/docs/sdk/svelte), [Solid](https://livecodes.io/docs/sdk/solid), [Preact](https://livecodes.io/docs/sdk/preact) and [web components](https://livecodes.io/docs/sdk/web-components). [TypeScript support](https://livecodes.io/docs/sdk/js-ts#typescript-types) provides type-safety and a great developer experience.
 
 React SDK example: ([open in LiveCodes](https://livecodes.io/?x=code/N4IgLglmA2CmIC4QBkIDdYGED2ATWAzgAQBKsAhgMZhEDKAIgNJH4C22IANCPgZQE4QADpGwA7RCC4gAFhVySAPK1hhyRSjPL8CqgLwAdEAFUAKgDEAtAA4jRAPQA+A2OWr1Y8isMg0EWADuQtj8YHaU4mCwYmA+ARC4YDJ6+H6UsJbxiTKcRBBiUBDk0JZ8xbB6AIwAdAAMdk7SMmCs0ACCYGA6ktDkYgDmPtHhvQQEPkbSav0EiADaALrcVJAYAKK4UCGSfIIi0qzaANYArkKIoL0DJ+T98EjNrdIRMdFgkiAAvtwEYACecAuICu-Rud0klDGz0ibw+3xAu2E7wQlz6oNu9xAACsCAAPaGvGKSCCsYKhIioDA4XhEABm-GwrCIAHJoOhYBFePZ+BRqMyANwGfguIUuF6-DTiWkQfpEPREYCisREIiHfinIQIBVKlUqkFg2Ba5lqo64bABMTMzg63UvKIxI0AYiIAAlYNBoNgiAB1ELQXAAQitNu+Ss+guFYnFNAACr0-v0GScxLg5UQABQASjljiIikpWDwhElYmlg2ALzLnyIfkCPh5BBO0DCIAcjgjLlguLJNHwtPITdj8cT2GTuA7EnhvwBhDkqlmCEWPwESIXS5AkIIMYbqg+3CEDPSYxCa6WG5Ov0ZtFUkAGC+A8JJPfv8P+QkIF1fhDA9+BaINkhvoQK77NwdqwkgXzcBgOgQOIkgAMwIVM2DYNAv7ROQABGcAKEgxTQNIKzshC4gEGh8A-GoYAXhCnq6AonyfEAA))
 
@@ -169,7 +168,7 @@ const config = {
     content: '# Hello World!',
   },
 };
-const Playground = () => <LiveCodes config={config} view="result" />;
+const Playground = () => <LiveCodes config={config} />;
 export default Playground;
 ```
 
@@ -188,7 +187,7 @@ Vue SDK example: ([open in LiveCodes](https://livecodes.io/?x=code/N4IgLglmA2CmI
 </script>
 
 <template>
-  <LiveCodes :config="config" view="result" />
+  <LiveCodes :config="config" />
 </template>
 ```
 
@@ -206,6 +205,7 @@ const url = getPlaygroundUrl({
   },
 });
 
+// this URL can be shared
 console.log(url);
 ```
 
@@ -218,6 +218,8 @@ Comprehensive documentations for [features](https://livecodes.io/docs/features/)
 https://livecodes.io/docs/
 
 The documentations include demos, code samples, screenshots, [Storybook](https://livecodes.io/stories) and [TypeScript types](https://livecodes.io/docs/sdk/js-ts#typescript-types).
+
+See below for documentations for [contributors](#contribution) and [AI models](#for-ai-agents).
 
 ## Updates
 
@@ -243,7 +245,32 @@ Contributions are welcome and highly appreciated.
 
 A huge shout-out to our wonderful [contributors](https://github.com/live-codes/livecodes/graphs/contributors)! Your hard work makes all the difference!
 
-Please refer to the [contribution guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md).
+Please refer to the [contribution guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md) and [system documentation](https://github.com/live-codes/livecodes/blob/HEAD/docs/docs/contribution/README.md).
+
+## For AI Agents
+
+### llms.txt
+
+For developers working with AI agents and language models, we provide specialized documentation files following the [llms.txt specification](https://llmstxt.org/):
+
+- [llms.txt](https://livecodes.io/docs/llms.txt) - Concise documentation optimized for LLM context windows
+- [llms-full.txt](https://livecodes.io/docs/llms-full.txt) - Comprehensive documentation including all referenced URLs
+
+These files provide LLM-friendly content in a standardized format, helping language models understand and work with LiveCodes documentation. The format is designed to be both human and LLM readable.
+
+### Intent Skills
+
+If you use an AI coding agent, run:
+
+```bash
+npx @tanstack/intent@latest install
+```
+
+This loads the Intent skills for LiveCodes SDK. See [.agents/skills/livecodes/SKILL.md](https://github.com/live-codes/livecodes/blob/HEAD/.agents/skills/livecodes/SKILL.md) for the skill index.
+
+### System Documentation
+
+For internal architecture and system documentation, see [docs/docs/contribution/](https://github.com/live-codes/livecodes/blob/HEAD/docs/docs/contribution/README.md).
 
 ## Credits
 
@@ -267,11 +294,6 @@ LiveCodes uses services that are generously provided by:
 <p>
 <a href="https://unpkg.com/" target="_blank" title="unpkg">
   <img alt="unpkg" width="200" src="https://dev.livecodes.io/docs/img/credits/unpkg.png">
-</img></a><br /><br />
-</p>
-<p>
-<a href="https://windsurf.com/" target="_blank" title="Windsurf">
-  <img alt="Windsurf" width="200" src="https://dev.livecodes.io/docs/img/credits/windsurf.svg">
 </img></a><br /><br />
 </p>
 <p>
@@ -310,11 +332,6 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://bundlewatch.io/" target="_blank" title="BundleWatch">
-  <img alt="BundleWatch" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlewatch.svg">
-</img></a><br /><br />
-</p>
-<p>
 <a href="https://www.browserstack.com/" target="_blank" title="BrowserStack">
   <img alt="BrowserStack" width="200" src="https://dev.livecodes.io/docs/img/credits/browserstack.svg">
 </img></a><br /><br />
@@ -333,7 +350,7 @@ Packages used by LiveCodes and their licenses are [listed here](https://github.c
 
 [MIT](https://github.com/live-codes/livecodes/blob/HEAD/LICENSE) License © [Hatem Hosny](https://github.com/hatemhosny)
 
-## Sponsor
+## Sponsor 💚
 
 LiveCodes is free and open-source. The app does not contain ads or require subscription. It allows unlimited usage without any restrictions.
 

@@ -66,8 +66,9 @@ export const defaultConfig: Config = {
   semicolons: true,
   singleQuote: false,
   trailingComma: true,
+  minimap: false,
   emmet: true,
-  enableAI: false,
+  // enableAI: false,
   editorMode: undefined,
   version: process.env.VERSION as string,
 };

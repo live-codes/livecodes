@@ -1,0 +1,145 @@
+# MiniZinc
+
+[MiniZinc](https://www.minizinc.org/) is a high-level constraint modelling language that allows you to easily express and solve discrete optimisation problems.
+
+LiveCodes runs MiniZinc in the browser using WebAssembly.
+
+## Basic Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const params = {
+  'minizinc': `% Soduku
+
+include "globals.mzn";
+
+any: board = [|
+   5,  3, <>,  <>,  7, <>,  <>, <>, <> |
+   6, <>, <>,   1,  9,  5,  <>, <>, <> |
+  <>,  9,  8,  <>, <>, <>,  <>,  6, <> |
+
+   8, <>, <>,  <>,  6, <>,  <>, <>,  3 |
+   4, <>, <>,   8, <>,  3,  <>, <>,  1 |
+   7, <>, <>,  <>,  2, <>,  <>, <>,  6 |
+
+  <>,  6, <>,  <>, <>, <>,   2,  8, <> |
+  <>, <>, <>,   4,  1,  9,  <>, <>,  5 |
+  <>, <>, <>,  <>,  8, <>,  <>,  7,  9
+|];
+
+array [1..9, 1..9] of var 1..9: solution;
+
+% Given numbers are fixed
+constraint forall (i, j in 1..9) (solution[i, j] ~= board[i, j]);
+
+% Rows are all different
+constraint forall (i in 1..9) (all_different(solution[i, ..]));
+% Columns are all different
+constraint forall (j in 1..9) (all_different(solution[.., j]));
+
+% Subgrids are all different
+constraint forall (i, j in 1..3) (
+  all_different(solution[
+    3 * (i - 1) + 1 .. 3 * i,
+    3 * (j - 1) + 1 .. 3 * j
+  ])
+);
+
+solve satisfy;
+`,
+  console: 'full',
+};
+
+<LiveCodes params={params}></LiveCodes>
+
+See below for more advanced examples.
+
+## Usage
+
+By default the output is logged to the integrated console.
+In addition, helper methods are available to access solve progress and solution from JavaScript.
+
+### Usage from JavaScript
+
+Helper methods are available in the browser global `livecodes.minizinc` object.
+They allow interacting with the [JavaScript interface for MiniZinc](https://js.minizinc.dev/).
+
+The following methods are available:
+
+- `livecodes.minizinc.init`: A method that returns a promise that resolves when the MiniZinc environment is loaded. This should be used before calling `livecodes.minizinc.solve`.
+- `livecodes.minizinc.getSolvers`: A method that returns a promise that resolves to an array of available MiniZinc solvers.
+- `livecodes.minizinc.run`: A method that returns a promise that resolves to the final solution/statistics/status. It optionally accepts a data object (see below) as an argument.
+- `livecodes.minizinc.solve`: This method should only be run after `livecodes.minizinc.init()` resolves. It returns a [solve progress object](https://js.minizinc.dev/docs/stable/interfaces/SolveProgress.html), which can be used to listen to events during solving, and can be awaited to retrieve the final solution/statistics/status. This method also optionally accepts a data object (see below) as an argument.
+
+#### Data Object
+
+The data object can be used to pass data to the MiniZinc environment, such as dzn or json.
+It can also pass configuration object. It has the following type definition:
+
+```ts
+interface MiniZincData {
+  dzn?: string;
+  json?: string;
+  config?: {
+    jsonOutput?: boolean;
+    options?: {
+      solver?: string;
+      "time-limit"?: number;
+      statistics?: boolean;
+      "all-solutions"?: boolean;
+      // ... other MiniZinc options
+    };
+  };
+}
+```
+
+#### Example
+
+<LiveCodes template='minizinc' height="80vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`minizinc`
+
+### Extension
+
+`mzn`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The official [JavaScript port](https://js.minizinc.dev/) for MiniZinc which uses WebAssembly.
+
+### Version
+
+`minizinc` v4.4.4
+
+## Code Formatting
+
+Using a [MiniZinc plugin](https://github.com/live-codes/prettier-plugin-minizinc) for the [Prettier](https://prettier.io/) formatter.
+
+
+## Limitations
+
+Currently, [visualisations](https://docs.minizinc.dev/en/stable/visualisation.html) are not supported out-of-the-box.
+However, using the [helper methods](#usage-from-javascript), and based on [official implementations](https://github.com/MiniZinc/libminizinc/tree/master/share/minizinc/std/ide), it should be possible to create custom visualisations.
+
+Example:
+
+<LiveCodes import='id/xj98m7cfpnv' height="80vh"></LiveCodes>
+
+## Starter Template
+
+https://livecodes.io/?template=minizinc
+
+## Links
+
+- [MiniZinc](https://www.minizinc.org/)
+- [MiniZinc documentation](https://docs.minizinc.dev/en/stable/)
+- [MiniZinc JavaScript port](https://js.minizinc.dev/)
+- [MiniZinc tutorial](https://docs.minizinc.dev/en/stable/part_2_tutorial.html)

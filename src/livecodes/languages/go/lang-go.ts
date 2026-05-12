@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { go2jsBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, go2jsBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
 declare const importScripts: (...args: string[]) => void;
 
@@ -46,4 +46,10 @@ export const go: LanguageSpecs = {
   },
   extensions: ['go', 'golang'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'go.js' },
+    codemirror: {
+      languageSupport: async () => (await import(codeMirrorBaseUrl + 'codemirror-lang-go.js')).go(),
+    },
+  },
 };

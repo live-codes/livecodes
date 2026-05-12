@@ -1,0 +1,353 @@
+# Services System
+
+This guide describes the services system in LiveCodes, located in `src/livecodes/services/`.
+
+## Overview
+
+LiveCodes is a client-side application that relies on various external services for functionality like sharing projects, authentication, module resolution, and more. The services system provides a clean abstraction layer for these external dependencies.
+
+## Architecture
+
+### Service Pattern
+
+Each service is implemented as an object with methods that handle specific functionality. Services are designed to be:
+
+1. **Swappable** - Different implementations can be used based on the deployment environment (hosted app, self-hosted, static)
+2. **Environment-aware** - Services configure themselves based on `process.env` flags
+3. **Self-contained** - Each service handles its own API interactions and error handling
+
+### Service Overview
+
+```mermaid
+graph TD
+    subgraph "External Services"
+        A[auth.ts<br/>Firebase/GitHub OAuth]
+        B[share.ts<br/>Project sharing]
+        C[sandbox.ts<br/>Result/Compiler URLs]
+        D[broadcast.ts<br/>Real-time sharing]
+        E[modules.ts<br/>CDN resolution]
+    end
+    
+    subgraph "Utility Services"
+        F[cors.ts<br/>CORS proxy]
+        G[github.ts<br/>GitHub API]
+        H[google-fonts.ts<br/>Font loading]
+        I[pkgInfo.ts<br/>npm metadata]
+        J[permanent-url.ts<br/>Versioned URLs]
+    end
+    
+    subgraph "Legacy Services"
+        K[types.ts<br/>TypeScript types]
+    end
+    
+    A --> L[core.ts]
+    B --> L
+    C --> L
+    D --> L
+    E --> L
+    F --> L
+    G --> L
+    H --> L
+    I --> L
+    J --> L
+    K --> L
+```
+
+### Authentication Service (`auth.ts`)
+
+Handles user authentication via Firebase/GitHub OAuth.
+
+**Interface:**
+
+```typescript
+interface AuthService {
+  load(): Promise<void>;
+  getUser(): Promise<User | void>;
+  signIn(scopes?: GithubScope[]): Promise<User | void>;
+  signOut(): Promise<void>;
+  isLoggedIn(): boolean;
+}
+```
+
+**Key Features:**
+
+- Lazy-loads Firebase authentication module
+- Supports GitHub OAuth with configurable scopes (`gist`, `repo`)
+- Encrypts and stores tokens
+- Returns a `fakeAuthService` for embed mode (no auth)
+
+**Usage in core.ts:**
+
+```typescript
+authService = createAuthService(isEmbed);
+const user = await authService.getUser();
+await authService.signIn(scopes);
+await authService.signOut();
+```
+
+---
+
+### Share Service (`share.ts`)
+
+Handles project sharing via short URLs.
+
+**Interface:**
+
+```typescript
+interface ShareService {
+  getProject: (id: string) => Promise<ConfigWithResult>;
+  shareProject: (config: ConfigWithResult) => Promise<string>;
+}
+```
+
+**Implementations:**
+
+- **apiService** - Uses `https://api2.livecodes.io/share` (hosted app)
+- **dpasteService** - Uses dpaste.com with 365-day expiry (fallback)
+- **selfHostedService** - Uses `./api/share` endpoint
+
+**Usage in core.ts:**
+
+```typescript
+await shareService.shareProject({
+  ...contentConfig,
+  result: includeResult ? result : undefined,
+});
+```
+
+---
+
+### Sandbox Service (`sandbox.ts`)
+
+Provides URLs for the result and compiler [sandboxed iframes](https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/).
+
+**Interface:**
+
+```typescript
+interface SandboxService {
+  getResultUrl: () => string;
+  getCompilerUrl: () => string;
+  getOrigin: () => string;
+}
+```
+
+**URL Selection:**
+
+- Local development: `http://127.0.0.1:8085`
+- Self-hosted: Configured via `SANDBOX_HOST_NAME` and `SANDBOX_PORT`
+- CI: GitHub Pages
+- Production: Cloudflare Pages
+
+**Usage in core.ts:**
+
+```typescript
+const createIframe = (container: HTMLElement, result = '', service = sandboxService) => {
+  // ...
+  iframe.contentWindow?.postMessage({ result }, service.getOrigin());
+  iframe.src = service.getResultUrl() + query + scrollPosition;
+};
+```
+
+---
+
+### Broadcast Service (`broadcast.ts`)
+
+Provides URL for the [broadcast server](https://livecodes.io/docs/features/broadcast) (real-time sharing).
+
+**Interface:**
+
+```typescript
+interface BroadcastService {
+  getUrl: () => string;
+}
+```
+
+**URL Selection:**
+
+- Self-hosted with broadcast: `https://${location.hostname}:${BROADCAST_PORT}`
+- Hosted: `https://vps.livecodes.io:3030/`
+
+---
+
+### Module Resolution Service (`modules.ts`)
+
+[Resolves URLs](https://livecodes.io/docs/features/module-resolution) from various CDNs.
+
+**Interface:**
+
+```typescript
+interface ModulesService {
+  getModuleUrl: (moduleName: string, options?: ModuleOptions) => string;
+  getUrl: (path: string, cdn?: CDN) => string;
+  cdnLists: { npm: CDN[]; module: CDN[]; gh: CDN[] };
+  checkCDNs: (testModule: string, preferredCDN?: CDN) => Promise<CDN>;
+}
+```
+
+---
+
+### CORS Proxy Service (`cors.ts`)
+
+Provides CORS proxy for fetching resources from domains that don't allow cross-origin requests.
+
+**Interface:**
+
+```typescript
+interface CorsService {
+  fetch: (url: string, options?: RequestInit) => Promise<Response>;
+}
+```
+
+**URL Selection:**
+
+- Self-hosted: `./api/cors?url=`
+- Hosted app: `https://api.livecodes.io/cors?url=`
+- Fallback: `https://api.allorigins.win/raw?url=`
+
+---
+
+### Allowed Origin Service (`allowed-origin.ts`)
+
+Checks if the current origin is authorized as LiveCodes hosted service.
+
+```typescript
+export const allowedOrigin = (origin = location.origin) =>
+  Boolean(
+    origin &&
+      (origin.endsWith('livecodes.io') ||
+        origin.endsWith('livecodes.pages.dev') ||
+        origin.endsWith('localpen.pages.dev') ||
+        origin.includes('127.0.0.1') ||
+        origin.includes('localhost:') ||
+        origin.endsWith('localhost') ||
+        origin.endsWith('.test')),
+  );
+```
+
+---
+
+### Types Service (`types.ts`)
+
+Fetches TypeScript type definitions for modules (Legacy).  
+Note: Typescript definitions are now retrieved using [ATA](https://www.npmjs.com/package/@typescript/ata) from jsDelivr.
+
+**Interface:**
+
+```typescript
+interface TypesService {
+  getTypeUrls: (types: string[]) => Promise<Types>;
+  getTypesAsImports: (types: string[]) => string;
+}
+```
+
+Uses esm.sh's `X-Typescript-Types` header to resolve type URLs.
+
+---
+
+### Firebase Configuration (`firebase.ts`)
+
+Exports Firebase app initialization and auth providers.
+
+---
+
+### GitHub API Service (`github.ts`)
+
+Provides GitHub API operations for deploy, sync, and import features.
+
+**Key Functions:**
+
+- `repoExists(user, repo)` - Check if repository exists
+- `getContent({ user, repo, branch, path })` - Get file content
+- `commitFiles({ files, user, repo, branch, ... })` - Commit multiple files
+- `commitFile({ file, user, repo, branch, ... })` - Commit single file
+- `getUserRepos(user, reposType)` - List user repositories
+
+---
+
+### Google Fonts Service (`google-fonts.ts`)
+
+Provides list of available Google Fonts and stylesheet URL generation.
+
+```typescript
+export const googleFonts = {
+  getFonts: () => [...fonts],
+  getStylesheetUrl: (font: string) =>
+    `https://fonts.googleapis.com/css2?family=${font.replace(/\s/g, '+')}&display=swap`,
+};
+```
+
+---
+
+### Package Info Service (`pkgInfo.ts`)
+
+Queries npm package metadata using jsDelivr's API.
+
+**Interface:**
+
+```typescript
+interface CDNService {
+  search: (query: string, limit?: number) => Promise<PkgInfo[] | APIError>;
+  getPkgInfo: (pkgName: string) => Promise<PkgInfo | APIError>;
+  getPkgFiles: (pkgName: string) => Promise<{ default?: string; files: string[] } | APIError>;
+  getPkgDefaultFiles: (pkgName: string) => Promise<{ js?: string; css?: string } | APIError>;
+}
+```
+
+Uses Algolia search API and jsDelivr data API.
+
+---
+
+### Permanent URL Service (`permanent-url.ts`)
+
+Generates versioned [permanent URLs](https://livecodes.io/docs/features/permanent-url) for app and SDK.
+
+```typescript
+interface PermanentUrlService {
+  getAppUrl: () => string;
+  getSDKUrl: (file?: SDKFile) => string;
+}
+```
+
+---
+
+## Environment Configuration
+
+Services are configured via build-time [environment variables](../../../scripts/utils.js):
+
+| Variable                | Description                   |
+| ----------------------- | ----------------------------- |
+| `SELF_HOSTED`           | Enables self-hosted mode      |
+| `SELF_HOSTED_SHARE`     | Uses local share API          |
+| `SELF_HOSTED_BROADCAST` | Uses local broadcast server   |
+| `SANDBOX_HOST_NAME`     | Sandbox server hostname       |
+| `SANDBOX_PORT`          | Sandbox server port           |
+| `FIREBASE_CONFIG`       | Custom Firebase config (JSON) |
+| `CI`                    | CI environment flag           |
+| `VERSION`               | App version                   |
+| `SDK_VERSION`           | SDK version                   |
+
+## Adding a New Service
+
+1. Create a new file in `src/livecodes/services/`
+2. Export a service object with the required interface
+3. Configure environment-specific behavior using `process.env` flags
+4. Use the service in `core.ts` or other modules as needed
+
+## Testing
+
+Services have co-located tests in `__tests__/` directories:
+
+```
+src/livecodes/services/
+├── __tests__/
+│   ├── modules.spec.ts
+│   └── ...
+├── modules.ts
+└── ...
+```
+
+Run tests with:
+
+```bash
+npm run test:unit -- --testPathPattern="services"
+```

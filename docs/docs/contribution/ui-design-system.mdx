@@ -1,0 +1,407 @@
+# UI Design System
+
+This guide describes the UI design system in LiveCodes, including styles, HTML templates, and theming.
+
+## Overview
+
+LiveCodes uses a SCSS-based design system with CSS custom properties for dynamic theming. The UI is built from HTML templates that are injected into the DOM and styled via a compiled stylesheet.
+
+## Style Architecture
+
+### Main Stylesheet (`app.scss`)
+
+The primary stylesheet defines CSS custom properties for:
+
+**Space Units:**
+
+```scss
+--unit: 16px;
+--s2: 2px;
+--s4: 4px;
+--s8: 8px;
+--s12: 12px;
+--s16: 16px;
+--s24: 24px;
+--s32: 32px;
+--s40: 40px;
+--rs: 4px; // border-radius
+```
+
+**Color System:**
+
+```scss
+--hue: 214; // Base hue (214 = blue)
+--st: 40%; // Saturation percentage
+--lt: 50%; // Lightness percentage
+
+// Derived colors
+--color: hsl(var(--hue), var(--st), var(--lt));
+--color10: ... --color95: // Lightness variants;;
+```
+
+**Semantic Colors:**
+
+```scss
+--darker-bg-color, --darker-bg-active, --darker-color
+--dark-bg-color, --dark-bg-active, --dark-color
+--link, --light
+--console-bg, --dropdown, --layout, --modal
+--btn-bg-color, --btn-bg-active, --btn-color
+```
+
+---
+
+### Theme Variants (`inc-light.scss`)
+
+Light theme swaps color values:
+
+```scss
+:root.light {
+  --lt: 100%;
+  --color10: hsl(var(--hue), var(--st), calc(var(--lt) * 0.1));
+  // ... inverted lightness scale
+  --icon-filter: invert(0.3);
+}
+```
+
+### RTL Support (`inc-rtl.scss`)
+
+Right-to-left layout adjustments:
+
+```scss
+html[dir='rtl'] {
+  #editors,
+  #tools-pane,
+  .custom-editor {
+    direction: ltr; // Editors stay LTR
+  }
+  .submenu {
+    right: 98%;
+  }
+  #modal .close-button {
+    left: 1.5rem;
+    right: unset;
+  }
+  // ... mirror transforms
+}
+```
+
+---
+
+### Loading Styles (`index.css`)
+
+Initial loading screen styles with animations:
+
+```css
+#loading {
+  align-items: center;
+  display: flex;
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+
+#livecodes {
+  opacity: 0; /* Hidden until loaded */
+}
+
+@keyframes pulsate { ... }
+@keyframes pulse { ... }
+```
+
+---
+
+## HTML Template System
+
+### Template Files
+
+Located in `src/livecodes/html/`:
+
+| Template            | Purpose                                        |
+| ------------------- | ---------------------------------------------- |
+| `app.html`          | Main app layout                                |
+| `app-menu-*.html`   | Dropdown menus (project, settings, help)       |
+| `*-screen.html`     | Modal screens (settings, import, deploy, etc.) |
+| `welcome.html`      | Welcome screen                                 |
+| `templates.html`    | Starter templates selection                    |
+| `result-popup.html` | Result page popup                              |
+
+### Template Loading
+
+Templates are imported as raw strings and preprocessed:
+
+```typescript
+// index.ts
+import appHTMLRaw from './app.html?raw';
+import menuProjectHTMLRaw from './app-menu-project.html?raw';
+
+const replaceValues = (str: string) =>
+  Object.entries(predefinedValues).reduce(
+    (str, [key, value]) => str.replace(new RegExp(`{{${key}}}`, 'g'), value),
+    str,
+  );
+
+export const appHTML = replaceValues(appHTMLRaw);
+```
+
+### Template Variables
+
+Runtime values replaced via `{{variable}}` placeholders:
+
+- `{{baseUrl}}` - App base URL
+- `{{hash:app.css}}` - Hashed asset filenames
+- `{{appCDN}}` - CDN URL
+- `{{esModuleShimsUrl}}` - ES module shims
+
+---
+
+## Main App Structure
+
+```mermaid
+graph TD
+    subgraph "App Layout"
+        A["toolbar-app<br/><br/>Logo | Project | Settings<br/>Help | i18n | Theme"]
+        B["toolbar-render<br/><br/>Project Title | Run | Share<br/>Fullscreen | Login/Logout"]
+        
+        C["#editor-container"]
+        
+        subgraph "Editor Area"
+            D["#editors<br/><br/>#markup .editor<br/>#style .editor<br/>#script .editor<br/><br/>#editor-tools<br/>Focus | Format | ..."]
+            E["#output"]
+            
+            subgraph "Output Area"
+                F["#result<br/>(sandboxed result page)"]
+                G["#tools-pane<br/>(console/compiled/tests)"]
+            end
+        end
+        
+        H["#overlay | #modal | ninja-keys | #result-mode-drawer"]
+    end
+    
+    A --> C
+    B --> C
+    C --> D
+    C --> E
+    E --> F
+    E --> G
+```
+
+---
+
+## Display Modes
+
+Configured via `config.mode`:
+
+| Mode        | Description                         | Editor Used                            |
+| ----------- | ----------------------------------- | -------------------------------------- |
+| `full`      | Complete app with all features      | Monaco (desktop) / CodeMirror (mobile) |
+| `focus`     | Minimal UI, essential elements only | Monaco / CodeMirror                    |
+| `simple`    | Single editor + result              | CodeMirror                             |
+| `lite`      | Lightweight, minimal features       | CodeJar                                |
+| `editor`    | Code editor only                    | Monaco                                 |
+| `codeblock` | Read-only code display              | CodeJar                                |
+| `result`    | Result page only                    | Fake                                   |
+
+---
+
+## View Configuration
+
+Controlled via `config.view`:
+
+| View     | Description                              |
+| -------- | ---------------------------------------- |
+| `split`  | Both editor and result visible (default) |
+| `editor` | Editor visible, result collapsed         |
+| `result` | Result visible, editor collapsed         |
+
+---
+
+## Theming
+
+### Theme Classes
+
+Applied to `<html>` element:
+
+```typescript
+// core.ts
+document.documentElement.classList.add(theme); // 'light' or 'dark'
+```
+
+### Theme Color
+
+CSS custom properties dynamically updated:
+
+```typescript
+// core.ts
+const changeThemeColor = () => {
+  const { themeColor, theme } = getConfig();
+  const { h, s, l } = colorToHsla(themeColor);
+  document.documentElement.style.setProperty('--hue', `${h}`);
+  document.documentElement.style.setProperty('--st', `${s}%`);
+  document.documentElement.style.setProperty('--lt', `${theme === 'light' ? 100 : l}%`);
+};
+```
+
+### Default Colors
+
+```typescript
+// core.ts
+const getDefaultColor = () => 'hsl(214, 40%, 50%)'; // Blue
+```
+
+---
+
+## Key UI Components
+
+### Toolbar
+
+- **toolbar-app**: Logo, menus (Project, Settings, Help), i18n, theme
+- **toolbar-render**: Project title, Run/Share buttons, fullscreen
+
+### Editors Panel
+
+- `#editors`: Container for markup/style/script editors
+- `#editor-tools`: Toolbar with Focus, Format, Undo/Redo, Copy, etc.
+
+### Tools Pane
+
+- Console: JavaScript console output
+- Compiled Code: View compiled output
+- Tests: Run test suites
+
+### Modals
+
+```html
+<dialog id="modal">
+  <div id="modal-container"></div>
+  <div class="snackbars-left"></div>
+</dialog>
+```
+
+### Command Palette
+
+```html
+<ninja-keys placeholder="Type a command or search..."></ninja-keys>
+```
+
+---
+
+## Internationalization (i18n)
+
+### HTML Attributes
+
+```html
+<span data-i18n="app.run.hint" data-i18n-prop="title">Run</span>
+```
+
+- `data-i18n` - Translation key
+- `data-i18n-prop` - Target property (title, placeholder, etc.)
+
+### RTL Handling
+
+RTL languages automatically apply `inc-rtl.scss`:
+
+```typescript
+// Set document direction
+document.documentElement.setAttribute('dir', 'rtl');
+```
+
+Key RTL adjustments:
+
+- Menus and submenus flip to left side
+- Close buttons move to left
+- Editor content stays LTR
+
+---
+
+## Responsive Design
+
+### Layout Classes
+
+```scss
+.simple-mode { ... }
+.focus-mode { ... }
+.lite-mode { ... }
+.result { ... }
+.no-result { ... }
+```
+
+### Editor Status
+
+```html
+<span id="editor-status">
+  <span id="editor-mode" title="Editor Mode"></span>
+  <span data-status="markup"></span>
+  <span data-status="style"></span>
+  <span data-status="script"></span>
+</span>
+```
+
+---
+
+## CSS Class Naming Conventions
+
+| Pattern           | Example                          | Purpose                 |
+| ----------------- | -------------------------------- | ----------------------- |
+| `#id`             | `#toolbar`, `#editors`           | Main structure IDs      |
+| `.class`          | `.button`, `.menu`               | Reusable components     |
+| `.state-class`    | `.hidden`, `.active`, `.visible` | State modifiers         |
+| `mode-class`      | `.simple-mode`, `.focus-mode`    | Mode-specific overrides |
+| `element-variant` | `.btn-modal`, `.dropdown-height` | Component variants      |
+
+---
+
+## Icon System
+
+Icons use SVG data URL as mask image:
+
+```html
+<i class="icon-run"></i>
+```
+
+```css
+[class^='icon-'] {
+  background-color: currentColor;
+  display: inline-block;
+  height: 1em;
+  mask-image: var(--svg);
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  vertical-align: -0.175em;
+  width: 1em;
+}
+
+.icon-run {
+  --svg: url('data:image/svg+xml,...');
+}
+```
+
+Icon filters for light theme:
+
+```scss
+:root.light {
+  --icon-filter: invert(0.3);
+  --icon-filter-active: invert(1);
+}
+```
+
+---
+
+## Adding New UI Components
+
+1. **Create HTML template** in `src/livecodes/html/your-component.html`
+2. **Import in `src/livecodes/html/index.ts`** and export
+3. **Add styles** to `app.scss` or a new partial file
+4. **Update i18n keys** if needed
+5. **Instantiate in TypeScript** in `src/livecodes/UI/your-component.ts` via `innerHTML` or DOM manipulation
+
+---
+
+## Testing Styles
+
+Run Storybook for visual component testing:
+
+```bash
+npm run storybook
+```
+
+See `docs/docs/contribution/storybook.mdx` for details.

@@ -1,0 +1,44 @@
+{
+  "name": "react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "imports": {
+    "#src": "./src/index.js"
+  },
+  "dependencies": {
+    "flat": "6.0.1",
+    "livecodes": "../../build/sdk",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^5.0.2",
+    "@storybook/addon-a11y": "^10.3.1",
+    "@storybook/addon-docs": "^10.3.1",
+    "@storybook/addon-onboarding": "^10.3.1",
+    "@storybook/addon-vitest": "^10.3.1",
+    "@storybook/react-vite": "^10.3.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/browser-playwright": "^4.0.18",
+    "@vitest/coverage-v8": "^4.0.18",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "globals": "^16.5.0",
+    "playwright": "^1.58.2",
+    "storybook": "^10.3.1",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.0-beta.13",
+    "vite-plugin-ignore-dynamic-imports": "^1.0.2",
+    "vitest": "^4.0.18"
+  },
+  "overrides": {
+    "vite": "^8.0.0-beta.13"
+  }
+}

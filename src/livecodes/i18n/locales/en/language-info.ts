@@ -106,7 +106,7 @@ const languageInfo = {
     name: 'EJS',
   },
   eta: {
-    desc: 'Embedded JS template engine for Node, Deno, and the browser. Lighweight, fast, and pluggable. Written in TypeScript.',
+    desc: 'Embedded JS template engine for Node, Deno, and the browser. Lightweight, fast, and pluggable. Written in TypeScript.',
     link: '<1><2>Official website</2></1> <3> <4>Documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>',
     name: 'Eta',
   },
@@ -131,8 +131,13 @@ const languageInfo = {
     desc1:
       'Go (Golang) is an open source programming language that makes it easy to build simple, reliable, and efficient software.',
     desc2: 'Here, it is compiled to JavaScript using GopherJS.',
-    link: '<1><2>Go website</2></1> <3><4>Go documentation</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Learn X in Y minutes, where X=Go</8> </7> <9> <10>Load starter template</10> </9>',
+    link: '<1><2>Go website</2></1> <3><4>Go documentation</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Learn X in Y minutes, where X=Go</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
     name: 'Go',
+  },
+  goWasm: {
+    desc: 'Go interpreter running on WebAssembly, using Yaegi',
+    link: '<1><2>Go official website</2></1> <3><4>Yaegi</4></3> <5> <6>Learn X in Y minutes, where X=Go</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Go (Wasm)',
   },
   haml: {
     desc: 'Haml compiler for client side javascript view templates using clientside-haml-js.',
@@ -153,6 +158,11 @@ const languageInfo = {
     desc: 'JVM running in the browser using DoppioJVM.',
     link: '<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Java',
+  },
+  javascript: {
+    desc: 'The scripting language of the web.',
+    link: '<1> <2>JavaScript on MDN</2> </1> <3> <4>Learn X in Y minutes, where X=JavaScript</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'JavaScript',
   },
   jinja: {
     desc: 'Jinja is a fast, expressive, extensible templating engine.',
@@ -210,6 +220,11 @@ const languageInfo = {
     desc: 'Markdown for the component era. <1></1>MDX lets you seamlessly write JSX in your Markdown documents.',
     link: '<1><2>MDX documentation</2></1> <3> <4>Load starter template</4> </3>',
     name: 'MDX',
+  },
+  minizinc: {
+    desc: 'MiniZinc is a high-level constraint modelling language that allows you to easily express and solve discrete optimisation problems.',
+    link: '<1> <2>MiniZinc official website</2> </1> <3> <4>MiniZinc documentation</4> </3> <5> <6>MiniZinc tutorial</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'MiniZinc',
   },
   mjml: {
     desc: 'MJML is a markup language designed to reduce the pain of coding a responsive email.',

@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, vendorsBaseUrl } from '../../vendors';
 
 export const cdnUrl = vendorsBaseUrl + 'jscpp/JSCPP.es5.min.js';
 
@@ -14,4 +14,11 @@ export const cpp: LanguageSpecs = {
   },
   extensions: ['cpp', 'c', 'C', 'cp', 'cxx', 'c++', 'cppm', 'ixx', 'ii', 'hpp', 'h'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'cpp.js' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-cpp.js')).cpp(),
+    },
+  },
 };

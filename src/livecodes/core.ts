@@ -1,5 +1,7 @@
 import { getPlaygroundUrl } from '../sdk';
+import { getIframeAllowAttribute } from '../sdk/internal';
 import {
+  addTemplateToIndex,
   createLoginContainer,
   createOpenItem,
   createProjectInfoUI,
@@ -10,6 +12,7 @@ import {
   displayLoggedOut,
   getFullscreenButton,
   getResultElement,
+  initTemplatesSearchIndex,
   loadingMessage,
   noUserTemplates,
 } from './UI';
@@ -39,12 +42,12 @@ import {
   upgradeAndValidate,
 } from './config';
 import { createCustomEditors, createEditor, getFontFamily } from './editor';
-import { hasJsx } from './editor/ts-compiler-options';
 import { createEventsManager, createPub } from './events';
 import { customEvents } from './events/custom-events';
 import { exportJSON } from './export/export-json';
 import { getFormatter } from './formatter';
 import type { Formatter } from './formatter/models';
+import { handleKeyboardShortcuts } from './handlers';
 import {
   aboutScreen,
   customSettingsScreen,
@@ -77,6 +80,7 @@ import {
   getLanguageExtension,
   getLanguageSpecs,
   getLanguageTitle,
+  hasJsx,
   languageIsEnabled,
   languages,
   mapLanguage,
@@ -99,6 +103,7 @@ import type {
   CustomEditors,
   CustomSettings,
   Editor,
+  EditorConfig,
   EditorId,
   EditorLanguages,
   EditorOptions,
@@ -209,6 +214,7 @@ let compiler: Await<ReturnType<typeof getCompiler>>;
 let formatter: Formatter;
 let editors: Editors;
 let customEditors: CustomEditors;
+let currentEditorConfig: EditorConfig;
 let toolsPane: ToolsPane | undefined;
 export let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
@@ -259,6 +265,7 @@ const loadStyles = () =>
         ].map((url) => loadStylesheet(url, undefined, '#app-styles')),
       );
 
+let lastRun = { time: 0, result: '' };
 const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>
   new Promise((resolve, reject) => {
     if (!container) {
@@ -276,10 +283,7 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       if (isHeadless) {
         iframe.setAttribute('sandbox', 'allow-same-origin allow-forms allow-scripts');
       } else {
-        iframe.setAttribute(
-          'allow',
-          'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
-        );
+        iframe.setAttribute('allow', getIframeAllowAttribute());
         iframe.setAttribute('allowtransparency', 'true');
         iframe.setAttribute('allowpaymentrequest', 'true');
         iframe.setAttribute('allowfullscreen', 'true');
@@ -335,12 +339,13 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       eventsManager.addEventListener(iframe, 'load', function onload() {
         eventsManager.removeEventListener(iframe, 'load', onload);
 
-        if (!result || loaded) {
+        if (!result || loaded || (lastRun.result === result && Date.now() - lastRun.time < 500)) {
           resolve('loaded');
           return; // prevent infinite loop
         }
 
         iframe.contentWindow?.postMessage({ result }, service.getOrigin());
+        lastRun = { time: Date.now(), result };
         loaded = true;
         resolve('loaded');
       });
@@ -382,7 +387,7 @@ const loadModuleTypes = async (
       ...config.types,
       ...config.customSettings.types,
     };
-    const reactImport = hasJsx.includes(scriptLanguage) ? `import React from 'react';\n` : '';
+    const reactImport = hasJsx(scriptLanguage) ? `import React from 'react';\n` : '';
     const libs = await typeLoader.load(
       reactImport + getConfig().script.content + '\n' + getConfig().markup.content,
       configTypes,
@@ -527,6 +532,8 @@ const createEditors = async (config: Config) => {
   const styleEditor = await createEditor(styleOptions);
   const scriptEditor = await createEditor(scriptOptions);
 
+  currentEditorConfig = { ...getEditorConfig(config), ...getFormatterConfig(config) };
+
   setEditorTitle('markup', markupOptions.language);
   setEditorTitle('style', styleOptions.language);
   setEditorTitle('script', scriptOptions.language);
@@ -594,7 +601,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   }
 
   if (mode === 'editor' || mode === 'codeblock' || mode === 'result') {
-    split?.destroy();
+    split?.destroy(true);
     split = null;
   } else {
     if (view === 'editor') {
@@ -782,7 +789,7 @@ const configureEditorTools = (language: Language) => {
   UI.getEditorToolbar().classList.remove('hidden');
 
   const langSpecs = getLanguageSpecs(language);
-  if (langSpecs?.formatter || langSpecs?.parser) {
+  if (langSpecs?.formatter) {
     UI.getFormatButton().classList.remove('disabled');
   } else {
     UI.getFormatButton().classList.add('disabled');
@@ -996,7 +1003,7 @@ const getResultPage = async ({
     },
   };
 
-  const compileResults = await Promise.all([
+  const [styleCompileResult, testsCompileResult] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: `${compiledMarkup}<script type="script-for-styles">${compiledScript}</script>
         <script type="script-for-styles">${compileInfo.importedContent}</script>`,
@@ -1008,8 +1015,7 @@ const getResultPage = async ({
         : compiler.compile(testsContent, testsLanguage, config, {})
       : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')),
   ]);
-
-  const [compiledStyle, compiledTests] = compileResults.map((result) => {
+  const [compiledStyle, compiledTests] = [styleCompileResult, testsCompileResult].map((result) => {
     const { code, info } = getCompileResult(result);
     compileInfo = {
       ...compileInfo,
@@ -1027,10 +1033,12 @@ const getResultPage = async ({
     markup: {
       ...contentConfig.markup,
       compiled: compiledMarkup,
+      modified: compiledMarkup,
     },
     style: {
       ...contentConfig.style,
       compiled: compiledStyle,
+      modified: compiledStyle,
     },
     script: {
       ...contentConfig.script,
@@ -1045,6 +1053,7 @@ const getResultPage = async ({
       compiled: compiledTests,
     },
   };
+  compiledCode.script.modified = compiledCode.script.compiled;
 
   if (scriptType != null && scriptType !== 'module') {
     singleFile = true;
@@ -1062,6 +1071,14 @@ const getResultPage = async ({
   });
 
   const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
+
+  const logError = (language: Language, errors: string[] = []) => {
+    errors.forEach((err) => toolsPane?.console?.error(`[${getLanguageTitle(language)}] ${err}`));
+  };
+  logError(markupLanguage, markupCompileResult.info?.errors);
+  logError(styleLanguage, styleCompileResult.info?.errors);
+  logError(scriptLanguage, scriptCompileResult.info?.errors);
+  logError(testsLanguage, getCompileResult(testsCompileResult).info?.errors);
 
   if (singleFile) {
     setCache({
@@ -1124,17 +1141,9 @@ const flushResult = () => {
     wat: ';; loading',
   };
 
-  updateCache(
-    'markup',
-    compiledLanguages.markup,
-    loadingComments[compiledLanguages.markup] || 'html',
-  );
-  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] || 'css');
-  updateCache(
-    'script',
-    compiledLanguages.script,
-    loadingComments[compiledLanguages.script] || 'javascript',
-  );
+  updateCache('markup', compiledLanguages.markup, loadingComments[compiledLanguages.markup] ?? '');
+  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] ?? '');
+  updateCache('script', compiledLanguages.script, loadingComments[compiledLanguages.script] ?? '');
   setCache({
     ...getCache(),
     tests: {
@@ -1184,6 +1193,28 @@ const setExternalResourcesMark = () => {
   const btn = UI.getExternalResourcesBtn();
   const config = getConfig();
   if (config.scripts.length > 0 || config.stylesheets.length > 0 || config.cssPreset) {
+    btn.classList.add('active');
+    btn.style.display = 'unset';
+  } else {
+    btn.classList.remove('active');
+    if (isEmbed) {
+      btn.style.display = 'none';
+    }
+  }
+};
+
+const setProjectInfoMark = () => {
+  const btn = UI.getProjectInfoBtn();
+  const config = getConfig();
+  if (
+    (typeof config.htmlAttrs === 'string' &&
+      config.htmlAttrs !== defaultConfig.htmlAttrs &&
+      config.htmlAttrs.trim().length > 0) ||
+    (typeof config.htmlAttrs === 'object' &&
+      config.htmlAttrs &&
+      Object.entries(config.htmlAttrs).length > 0) ||
+    (config.head !== defaultConfig.head && config.head.trim().length > 0)
+  ) {
     btn.classList.add('active');
     btn.style.display = 'unset';
   } else {
@@ -1404,9 +1435,12 @@ const loadConfig = async (
   changingContent = false;
 };
 
-const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
-  const currentConfig = getConfig();
+const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig?: Config) => {
+  const currentConfig = oldConfig || getConfig();
   const combinedConfig: Config = { ...currentConfig, ...newConfig };
+  if (newConfig.mode || newConfig.view) {
+    window.deps?.showMode?.(combinedConfig.mode, combinedConfig.view);
+  }
   if (reload) {
     await updateEditors(editors, getConfig());
   }
@@ -1416,9 +1450,6 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
 
   if (!isEmbed) {
     loadSettings(combinedConfig);
-  }
-  if (newConfig.mode || newConfig.view) {
-    window.deps?.showMode?.(combinedConfig.mode, combinedConfig.view);
   }
   if (newConfig.tools) {
     configureToolsPane(newConfig.tools, combinedConfig.mode);
@@ -1440,6 +1471,7 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
     setTimeout(() => getActiveEditor().focus());
   }
   setExternalResourcesMark();
+  setProjectInfoMark();
   setCustomSettingsMark();
   updateCompiledCode();
   loadModuleTypes(editors, combinedConfig, /* loadAll = */ true);
@@ -1489,24 +1521,20 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
     });
   }
 
-  let shouldReloadEditors = false;
   const editorConfig = {
     ...getEditorConfig(newConfig as Config),
     ...getFormatterConfig(newConfig as Config),
   };
-  const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
-  if (hasEditorConfig) {
-    const currentEditorConfig = {
-      ...getEditorConfig(currentConfig),
-      ...getFormatterConfig(currentConfig),
-    };
-    for (const key in editorConfig) {
-      if ((editorConfig as any)[key] !== (currentEditorConfig as any)[key]) {
-        shouldReloadEditors = true;
-        break;
-      }
+
+  const hasEditorConfig = Object.keys(editorConfig).some((k) => k in newConfig);
+  let shouldReloadEditors = (() => {
+    if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
+    if (newConfig.mode != null) {
+      if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
+      if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
     }
-  }
+    return false;
+  })();
   if ('configureTailwindcss' in editors.markup) {
     if (newConfig.processors?.includes('tailwindcss')) {
       editors.markup.configureTailwindcss?.(true);
@@ -1521,6 +1549,12 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false) => {
   }
   if (shouldReloadEditors) {
     await reloadEditors(combinedConfig);
+  } else if (hasEditorConfig) {
+    currentEditorConfig = {
+      ...getEditorConfig(combinedConfig),
+      ...getFormatterConfig(combinedConfig),
+    };
+    getAllEditors().forEach((editor) => editor.changeSettings(currentEditorConfig));
   }
 
   parent.dispatchEvent(new Event(customEvents.ready));
@@ -1547,15 +1581,17 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
 const loadUserConfig = (updateUI = true) => {
   if (isEmbed) return;
   const userConfig = stores.userConfig?.getValue();
+  const currentConfig = getConfig();
   setConfig(
     buildConfig({
-      ...getConfig(),
-      ...userConfig,
+      ...currentConfig,
+      ...getUserConfig(userConfig || currentConfig),
     }),
   );
   if (!updateUI) return;
-  loadSettings(getConfig());
-  setTheme(getConfig().theme, getConfig().editorTheme);
+  const newConfig = getConfig();
+  loadSettings(newConfig);
+  setTheme(newConfig.theme, newConfig.editorTheme);
   showSyncStatus(true);
 };
 
@@ -1936,11 +1972,23 @@ const loadSelectedScreen = () => {
   return false;
 };
 
-const getAllEditors = (): CodeEditor[] => [
-  ...Object.values(editors),
-  ...[toolsPane?.console?.getEditor?.()],
-  ...[toolsPane?.compiled?.getEditor?.()],
-];
+const getAllEditors = (): CodeEditor[] =>
+  [
+    ...Object.values(editors),
+    toolsPane?.console?.getEditor?.(),
+    toolsPane?.compiled?.getEditor?.(),
+  ].filter((x) => x != null);
+
+const runViewTransition = (fn: () => void | Promise<void>) => {
+  if ((document as any).startViewTransition) {
+    return (document as any).startViewTransition(() => {
+      fn();
+    });
+  } else {
+    fn();
+    return null;
+  }
+};
 
 const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];
@@ -1975,6 +2023,23 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   });
   toolsPane?.console?.setTheme?.(theme);
   UI.getNinjaKeys()?.classList.toggle('dark', theme === 'dark');
+};
+
+const transitionTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
+  const root = document.documentElement;
+  const activeElement = document.activeElement;
+  if (activeElement) {
+    const position = activeElement.getBoundingClientRect();
+    root.style.setProperty('--active-element-x', position.x + position.width / 2 + 'px');
+    root.style.setProperty('--active-element-y', position.y + position.height / 2 + 'px');
+    setTimeout(() => {
+      root.style.removeProperty('--active-element-x');
+      root.style.removeProperty('--active-element-y');
+    }, 1000);
+  }
+  runViewTransition(() => {
+    setTheme(theme, editorTheme);
+  });
 };
 
 const changeThemeColor = () => {
@@ -2530,199 +2595,6 @@ const handleChangeContent = () => {
   });
 };
 
-const handleKeyboardShortcuts = () => {
-  let lastkeys = '';
-
-  const hotKeys = async (e: KeyboardEvent) => {
-    // Ctrl + P opens the command palette
-    const activeEditor = getActiveEditor();
-    if (ctrl(e) && e.code === 'KeyP' && activeEditor.monaco) {
-      e.preventDefault();
-      activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
-      lastkeys = 'Ctrl + P';
-      return;
-    }
-
-    // Ctrl + D prevents browser bookmark dialog
-    if (ctrl(e) && e.code === 'KeyD') {
-      e.preventDefault();
-      lastkeys = 'Ctrl + D';
-      return;
-    }
-
-    // Ctrl + Alt + C: toggle console
-    if (ctrl(e) && e.altKey && e.code === 'KeyC') {
-      e.preventDefault();
-      lastkeys = 'Ctrl + Alt + C';
-      UI.getConsoleButton()?.dispatchEvent(new Event('touchstart'));
-      return;
-    }
-
-    // Ctrl + Alt + C, F: maximize console
-    if (ctrl(e) && e.altKey && e.code === 'KeyF' && lastkeys === 'Ctrl + Alt + C') {
-      e.preventDefault();
-      lastkeys = 'Ctrl + Alt + C, F';
-      UI.getConsoleButton()?.dispatchEvent(new Event('dblclick'));
-      return;
-    }
-
-    // Ctrl + Alt + T runs tests
-    if (ctrl(e) && e.altKey && e.code === 'KeyT') {
-      e.preventDefault();
-      UI.getRunTestsButton()?.click();
-      lastkeys = 'Ctrl + Alt + T';
-      return;
-    }
-
-    // Shift + Enter triggers run
-    if (e.shiftKey && e.key === 'Enter') {
-      e.preventDefault();
-      UI.getRunButton()?.click();
-      lastkeys = 'Shift + Enter';
-      return;
-    }
-
-    // Ctrl + Alt + R toggles result page
-    if (ctrl(e) && e.altKey && e.code === 'KeyR') {
-      e.preventDefault();
-      UI.getResultButton()?.click();
-      lastkeys = 'Ctrl + Alt + R';
-      return;
-    }
-
-    // Ctrl + Alt + Z toggles result zoom
-    if (ctrl(e) && e.altKey && e.code === 'KeyZ') {
-      e.preventDefault();
-      UI.getZoomButton()?.click();
-      lastkeys = 'Ctrl + Alt + Z';
-      return;
-    }
-
-    // Ctrl + Alt + E focuses active editor
-    if (ctrl(e) && e.altKey && e.code === 'KeyE') {
-      e.preventDefault();
-      getActiveEditor().focus();
-      lastkeys = 'Ctrl + Alt + E';
-      return;
-    }
-
-    // Esc closes dropdown menus
-    // Esc + Esc moves focus out of editor
-    // Esc + Esc + Esc moves focus to logo
-    if (e.code === 'Escape') {
-      document.querySelectorAll('.menu-scroller').forEach((el) => el.classList.add('hidden'));
-      if (lastkeys === 'Esc') {
-        e.preventDefault();
-        if (
-          (toolsPane?.getStatus() === 'open' || toolsPane?.getStatus() === 'full') &&
-          toolsPane.getActiveTool() === 'console'
-        ) {
-          UI.getConsoleButton()?.focus();
-        } else {
-          UI.getFocusButton()?.focus();
-        }
-        lastkeys = 'Esc + Esc';
-        return;
-      }
-      if (lastkeys === 'Esc + Esc') {
-        e.preventDefault();
-        UI.getLogoLink()?.focus();
-        lastkeys = 'Esc + Esc + Esc';
-        return;
-      }
-      lastkeys = 'Esc';
-      return;
-    }
-
-    // Ctrl + Alt + (1-3) activates editor 1-3
-    // Ctrl + Alt + (ArrowLeft/ArrowRight) activates previous/next editor
-    const editorIds = (['markup', 'style', 'script'] as EditorId[]).filter(
-      (id) => getConfig()[id].hideTitle !== true,
-    );
-    if (ctrl(e) && e.altKey && ['1', '2', '3', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-      e.preventDefault();
-      split?.show('code');
-      const index = ['1', '2', '3'].includes(e.key)
-        ? Number(e.key) - 1
-        : e.key === 'ArrowLeft'
-          ? editorIds.findIndex((id) => id === getConfig().activeEditor) - 1 || 0
-          : e.key === 'ArrowRight'
-            ? editorIds.findIndex((id) => id === getConfig().activeEditor) + 1 || 0
-            : 0;
-      const editorIndex =
-        index === editorIds.length ? 0 : index === -1 ? editorIds.length - 1 : index;
-      showEditor(editorIds[editorIndex] as EditorId);
-      lastkeys = 'Ctrl + Alt + ' + e.key;
-      return;
-    }
-
-    if (isEmbed) return;
-
-    // Ctrl + Alt + N: new project
-    if (ctrl(e) && e.altKey && e.code === 'KeyN') {
-      e.preventDefault();
-      UI.getNewLink()?.click();
-      lastkeys = 'Ctrl + Alt + N';
-      return;
-    }
-
-    // Ctrl + O: open project
-    if (ctrl(e) && e.code === 'KeyO') {
-      e.preventDefault();
-      UI.getOpenLink()?.click();
-      lastkeys = 'Ctrl + O';
-      return;
-    }
-
-    // Ctrl + Alt + I: import
-    if (ctrl(e) && e.altKey && e.code === 'KeyI') {
-      e.preventDefault();
-      UI.getImportLink()?.click();
-      lastkeys = 'Ctrl + Alt + I';
-      return;
-    }
-
-    // Ctrl + Alt + S: share
-    if (ctrl(e) && e.altKey && e.code === 'KeyS') {
-      e.preventDefault();
-      UI.getShareLink()?.click();
-      lastkeys = 'Ctrl + Alt + S';
-      return;
-    }
-
-    // Ctrl + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.code === 'KeyS') {
-      e.preventDefault();
-      UI.getForkLink()?.click();
-      lastkeys = 'Ctrl + Shift + S';
-      return;
-    }
-
-    // Ctrl + S saves the project
-    if (ctrl(e) && e.code === 'KeyS') {
-      e.preventDefault();
-      UI.getSaveLink()?.click();
-      lastkeys = 'Ctrl + S';
-      return;
-    }
-
-    // Ctrl + Alt + F toggles focus mode
-    if (ctrl(e) && e.altKey && e.code === 'KeyF') {
-      e.preventDefault();
-      UI.getFocusButton()?.click();
-      lastkeys = 'Ctrl + Alt + F';
-      return;
-    }
-
-    if (!ctrl(e) && !e.altKey && !e.shiftKey) {
-      lastkeys = e.key;
-      return;
-    }
-  };
-
-  eventsManager.addEventListener(window, 'keydown', hotKeys, true);
-};
-
 const handleKeyboardShortcutsScreen = () => {
   if (isEmbed) return;
 
@@ -2800,6 +2672,7 @@ const handleCommandMenu = async () => {
   const openCommandMenu = () => {
     modal.close();
     ninja.close();
+    UI.getAppMenuHelpScroller()?.classList.add('hidden');
     const { actions, loginAction, logoutAction } = getCommandMenuActions({
       deps: {
         getConfig,
@@ -2820,8 +2693,9 @@ const handleCommandMenu = async () => {
   let anotherShortcut = false;
   const onHotkey = async (e: KeyboardEvent) => {
     // Ctrl+K opens the command menu
+    // do not open the menu if shortcut is Ctrl+Shift+K
     // wait for 500ms to allow other shortcuts like Ctrl+K Ctrl+0
-    if (!ctrl(e)) {
+    if (!ctrl(e) || e.shiftKey || e.altKey) {
       anotherShortcut = false;
       return;
     }
@@ -2834,11 +2708,7 @@ const handleCommandMenu = async () => {
     setTimeout(async () => {
       if (anotherShortcut) return;
       // eslint-disable-next-line no-underscore-dangle
-      if (ninja.__visible == null) {
-        await loadNinjaKeys();
-      }
-      // eslint-disable-next-line no-underscore-dangle
-      if (ninja.__visible === false) {
+      if (ninja?.__visible === false || ninja?.data?.length === 0) {
         ninja.focus();
         requestAnimationFrame(() => openCommandMenu());
       }
@@ -3097,45 +2967,40 @@ const registerMenuButton = (menu: HTMLElement, button: HTMLElement) => {
 };
 
 const handleAppMenuProject = () => {
-  const menuProjectContainer = UI.getAppMenuProjectScroller();
-  const menuProjectButton = UI.getAppMenuProjectButton();
-  if (!menuProjectContainer || !menuProjectButton) return;
-
-  const html = isMac()
-    ? menuProjectHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>')
-    : menuProjectHTML;
-  menuProjectContainer.innerHTML = html;
-  translateElement(menuProjectContainer);
-  // adjustFontSize(menuProjectContainer);
-  registerMenuButton(menuProjectContainer, menuProjectButton);
+  setupAppMenu(UI.getAppMenuProjectScroller(), UI.getAppMenuProjectButton(), menuProjectHTML);
 };
 
 const handleAppMenuSettings = () => {
-  const menuSettingsContainer = UI.getAppMenuSettingsScroller();
-  const menuSettingsButton = UI.getAppMenuSettingsButton();
-  if (!menuSettingsContainer || !menuSettingsButton) return;
-
-  const html = isMac()
-    ? menuSettingsHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>')
-    : menuSettingsHTML;
-  menuSettingsContainer.innerHTML = html;
-
-  translateElement(menuSettingsContainer);
-  adjustFontSize(menuSettingsContainer);
-  registerMenuButton(menuSettingsContainer, menuSettingsButton);
+  setupAppMenu(
+    UI.getAppMenuSettingsScroller(),
+    UI.getAppMenuSettingsButton(),
+    menuSettingsHTML,
+    true,
+  );
 };
 
 const handleAppMenuHelp = () => {
-  const menuHelpContainer = UI.getAppMenuHelpScroller();
-  const menuHelpButton = UI.getAppMenuHelpButton();
-  if (!menuHelpContainer || !menuHelpButton) return;
+  setupAppMenu(UI.getAppMenuHelpScroller(), UI.getAppMenuHelpButton(), menuHelpHTML);
+};
 
-  const html = isMac() ? menuHelpHTML.replace(/<kbd>Ctrl<\/kbd>/g, '<kbd>⌘</kbd>') : menuHelpHTML;
-  menuHelpContainer.innerHTML = html;
-  menuHelpContainer.classList.add('hidden');
-  translateElement(menuHelpContainer);
-  // adjustFontSize(menuHelpContainer);
-  registerMenuButton(menuHelpContainer, menuHelpButton);
+const setupAppMenu = (
+  container: HTMLElement | null,
+  button: HTMLElement | null,
+  menuHTML: string,
+  shouldAdjustFontSize = false,
+) => {
+  if (!container || !button) return;
+
+  const html = isMac() ? menuHTML.replaceAll('<kbd>Ctrl</kbd>', '<kbd>⌘</kbd>') : menuHTML;
+
+  container.innerHTML = html;
+  translateElement(container);
+
+  if (shouldAdjustFontSize) {
+    adjustFontSize(container);
+  }
+
+  registerMenuButton(container, button);
 };
 
 /**
@@ -3192,7 +3057,7 @@ const handleSettings = () => {
 
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
-        setTheme(getConfig().theme, getConfig().editorTheme);
+        transitionTheme(getConfig().theme, getConfig().editorTheme);
       } else if (configKey === 'layout') {
         const newLayout = toggle.readOnly ? 'vertical' : !toggle.checked ? 'horizontal' : undefined;
         setConfig({
@@ -3289,13 +3154,13 @@ const handleChangeTheme = () => {
   if (lightThemeButton) {
     eventsManager.addEventListener(lightThemeButton, 'click', () => {
       setUserConfig({ theme: 'dark' });
-      setTheme('dark', getConfig().editorTheme);
+      transitionTheme('dark', getConfig().editorTheme);
     });
   }
   if (darkThemeButton) {
     eventsManager.addEventListener(darkThemeButton, 'click', () => {
       setUserConfig({ theme: 'light' });
-      setTheme('light', getConfig().editorTheme);
+      transitionTheme('light', getConfig().editorTheme);
     });
   }
 };
@@ -3310,10 +3175,10 @@ const handleLogout = () => {
 };
 
 const handleNew = () => {
-  const templatesContainer = createTemplatesContainer(eventsManager, () => loadUserTemplates());
-  const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
+  const templatesContainer = createTemplatesContainer(eventsManager);
 
   const loadUserTemplates = async () => {
+    const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
     const defaultTemplate = getAppData()?.defaultTemplate;
     const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
       a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
@@ -3337,6 +3202,7 @@ const handleNew = () => {
         getLanguageByAlias,
         true,
       );
+      addTemplateToIndex(item);
 
       if (defaultTemplate === item.id) {
         link.parentElement?.classList.add('selected');
@@ -3418,41 +3284,50 @@ const handleNew = () => {
     });
   };
 
-  let starterTemplatesCache: Template[];
   const createTemplatesUI = async () => {
+    initTemplatesSearchIndex();
     const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
+    if (!starterTemplatesList) return;
+    starterTemplatesList.innerHTML = '';
+    const searchInput = UI.getTemplatesSearchInput(templatesContainer);
+    if (searchInput) {
+      searchInput.value = '';
+    }
     const loadingText = starterTemplatesList?.firstElementChild;
-    if (!starterTemplatesCache) {
-      getTemplates()
-        .then((starterTemplates) => {
-          starterTemplatesCache = starterTemplates;
-          loadingText?.remove();
-          starterTemplates.forEach((template) => {
-            const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
-            eventsManager.addEventListener(
-              link,
-              'click',
-              (event) => {
-                event.preventDefault();
-                loadStarterTemplate(template.name, /* checkSaved= */ false);
-              },
-              false,
-            );
-          });
-        })
-        .catch(() => {
-          loadingText?.remove();
-          notifications.error(
-            window.deps.translateString(
-              'core.error.failedToLoadTemplates',
-              'Failed loading starter templates',
-            ),
+    getTemplates()
+      .then((starterTemplates) => {
+        loadingText?.remove();
+        starterTemplates.forEach((template, id) => {
+          const link = createStarterTemplateLink(
+            { id: String(id), ...template },
+            starterTemplatesList,
+            baseUrl,
+          );
+          addTemplateToIndex({ id: String(id), ...template });
+          eventsManager.addEventListener(
+            link,
+            'click',
+            (event) => {
+              event.preventDefault();
+              loadStarterTemplate(template.name, /* checkSaved= */ false);
+            },
+            false,
           );
         });
-    }
+      })
+      .catch(() => {
+        loadingText?.remove();
+        notifications.error(
+          window.deps.translateString(
+            'core.error.failedToLoadTemplates',
+            'Failed loading starter templates',
+          ),
+        );
+      });
 
-    setTimeout(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
-    modal.show(templatesContainer, { isAsync: true });
+    loadUserTemplates();
+    requestAnimationFrame(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
+    modal.show(templatesContainer, { isAsync: true, size: 'large-fixed' });
   };
 
   eventsManager.addEventListener(
@@ -4122,6 +3997,7 @@ const handleProjectInfo = () => {
       htmlAttrs: attrs,
       tags,
     });
+    setProjectInfoMark();
     if (getConfig().autoupdate) {
       await run();
     }
@@ -4192,11 +4068,12 @@ const handleEmbed = () => {
 
 const changeEditorSettings = (newConfig: Partial<UserConfig> | null) => {
   if (!newConfig) return;
-  const shouldReload = newConfig.editor != null && newConfig.editor !== getConfig().editor;
+  const shouldReload =
+    newConfig.editor !== getConfig().editor && !((newConfig.editor || '') in getActiveEditor());
 
   setUserConfig(newConfig);
   const updatedConfig = getConfig();
-  setTheme(updatedConfig.theme, updatedConfig.editorTheme);
+  transitionTheme(updatedConfig.theme, updatedConfig.editorTheme);
   if (shouldReload) {
     reloadEditors(updatedConfig);
   } else {
@@ -4758,6 +4635,7 @@ const handleResultLoading = () => {
   const showResultModeDrawer = (event: MessageEvent) => {
     const iframe = UI.getResultIFrameElement();
     if (
+      isEmbed ||
       !iframe ||
       event.source !== iframe.contentWindow ||
       event.data.type !== 'loading' ||
@@ -4773,14 +4651,23 @@ const handleResultLoading = () => {
   eventsManager.addEventListener(window, 'message', showResultModeDrawer);
 };
 
+const createToolButton = (id: string, title: string, innerHTML: string) => {
+  const btn = document.createElement('div');
+  btn.id = id;
+  btn.classList.add('tool-buttons');
+  btn.title = title;
+  btn.style.pointerEvents = 'all'; // override setting to 'none' on toolspane bar
+  btn.innerHTML = innerHTML;
+  UI.getToolspaneTitles()?.appendChild(btn);
+  return btn;
+};
+
 const handleResultPopup = () => {
-  const popupBtn = document.createElement('div');
-  popupBtn.id = 'result-popup-btn';
-  popupBtn.classList.add('tool-buttons');
-  popupBtn.title = window.deps.translateString('core.result.hint', 'Show result in new window');
-  popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const iconCSS = '<i class="icon-window-new"></i>';
-  popupBtn.innerHTML = `<button id="show-result">${iconCSS}</button>`;
+  const popupBtn = createToolButton(
+    'result-popup-btn',
+    window.deps.translateString('core.result.hint', 'Show result in new window'),
+    `<button id="show-result"><i class="icon-window-new"></i></button>`,
+  );
   let url: string | undefined;
   const openWindow = async () => {
     if (resultPopup && !resultPopup.closed) {
@@ -4813,17 +4700,14 @@ const handleResultPopup = () => {
 };
 
 const handleResultZoom = () => {
-  const zoomBtn = document.createElement('div');
-  zoomBtn.id = 'zoom-button';
-  zoomBtn.classList.add('tool-buttons');
-  zoomBtn.title = window.deps.translateString('core.zoom.hint', 'Zoom') + ' (Ctrl/Cmd + Alt + Z)';
-  zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  zoomBtn.innerHTML = `
-  <button class="text">
-    <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
-    &times;
-  </button>`;
-
+  const zoomBtn = createToolButton(
+    'zoom-button',
+    window.deps.translateString('core.zoom.hint', 'Zoom') + ' (Ctrl/Cmd + Alt + Z)',
+    `<button class="text">
+      <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
+      &times;
+    </button>`,
+  );
   const toggleZoom = () => {
     const config = getConfig();
     const currentZoom = config.zoom;
@@ -4841,13 +4725,11 @@ const handleResultZoom = () => {
 };
 
 const handleBroadcastStatus = () => {
-  const broadcastStatusBtn = document.createElement('div');
-  broadcastStatusBtn.id = 'broadcast-status-btn';
-  broadcastStatusBtn.classList.add('tool-buttons');
-  broadcastStatusBtn.title = window.deps.translateString('core.broadcast.heading', 'Broadcast');
-  broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const iconCSS = '<i class="icon-broadcast"></i>';
-  broadcastStatusBtn.innerHTML = `<button id="broadcast-status">${iconCSS}<span class="mark"></span></button>`;
+  const broadcastStatusBtn = createToolButton(
+    'broadcast-status-btn',
+    window.deps.translateString('core.broadcast.heading', 'Broadcast'),
+    `<button id="broadcast-status"><i class="icon-broadcast"></i><span class="mark"></span></button>`,
+  );
 
   const showBroadcast = () => {
     showScreen('broadcast');
@@ -5117,7 +4999,17 @@ const basicHandlers = () => {
   handleSelectEditor();
   handleChangeLanguage();
   handleChangeContent();
-  handleKeyboardShortcuts();
+  // Setup keyboard shortcuts with dependency injection
+  handleKeyboardShortcuts({
+    eventsManager,
+    getActiveEditor,
+    getConfig,
+    showEditor,
+    run,
+    toolsPane,
+    split,
+    isEmbed,
+  });
   handleRunButton();
   handleResultButton();
   handleShareButton();
@@ -5180,7 +5072,6 @@ const extraHandlers = async () => {
 
 const configureEmbed = (eventsManager: EventsManager) => {
   document.body.classList.add('embed');
-  handleResultModeDrawer();
 
   const logoLink = UI.getLogoLink();
   logoLink.title = window.deps.translateString('generic.embed.logoHint', 'Edit on LiveCodes 🡕');
@@ -5233,8 +5124,11 @@ const configureModes = ({
   if (isLite) {
     configureLite();
   }
-  if (isEmbed || config.mode === 'result') {
+  if (isEmbed) {
     configureEmbed(eventsManager);
+  }
+  if (config.mode === 'result') {
+    handleResultModeDrawer();
   }
   if (config.mode === 'simple') {
     configureSimpleMode(config);
@@ -5501,22 +5395,24 @@ const createApi = (): API => {
     return JSON.parse(JSON.stringify(config));
   };
 
-  const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
+  const apiSetConfig = async (newConfig: Partial<Config> | string): Promise<Config> => {
     const currentConfig = getConfig();
+    if (typeof newConfig === 'string') {
+      try {
+        newConfig = (await fetch(newConfig).then((r) => r.json())) as Partial<Config>;
+      } catch {
+        return { error: 'Invalid config URL.' } as any;
+      }
+    }
+    if (!newConfig || typeof newConfig !== 'object') {
+      return { error: 'Invalid config.' } as any;
+    }
     const newAppConfig = buildConfig({ ...currentConfig, ...newConfig });
     const hasNewAppLanguage =
       newConfig.appLanguage && newConfig.appLanguage !== i18n?.getLanguage();
     const shouldRun =
       newConfig.mode != null && newConfig.mode !== 'editor' && newConfig.mode !== 'codeblock';
     const shouldReloadCompiler = shouldRun && compiler.isFake;
-    const shouldReloadCodeEditors = (() => {
-      if (newConfig.editor != null && !(newConfig.editor in editors.markup)) return true;
-      if (newConfig.mode != null) {
-        if (newConfig.mode !== 'result' && editors.markup.isFake) return true;
-        if (newConfig.mode !== 'codeblock' && editors.markup.codejar) return true;
-      }
-      return false;
-    })();
     const isContentOnlyChange = compareObjects(
       newConfig,
       currentConfig as Record<string, any>,
@@ -5541,17 +5437,7 @@ const createApi = (): API => {
     if (shouldReloadCompiler) {
       await reloadCompiler(newAppConfig);
     }
-    if (shouldReloadCodeEditors) {
-      await createEditors(newAppConfig);
-    }
-    await applyConfig(newConfig, /* reload = */ true);
-    const content = getContentConfig(newConfig as Config);
-    const hasContent = Object.values(content).some((value) => value != null);
-    if (hasContent) {
-      await loadConfig(newAppConfig);
-    } else if (shouldRun && newAppConfig.autoupdate === true) {
-      await run();
-    }
+    await applyConfig(newConfig, /* reload = */ true, currentConfig);
     return newAppConfig;
   };
 

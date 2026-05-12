@@ -22,7 +22,7 @@
 
 ### Version
 
-`BBob`: v3.0.2
+`BBob`: v4.3.1
 
 ## Example Usage
 

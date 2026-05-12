@@ -1,5 +1,6 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageFormatter, LanguageSpecs } from '../../models';
-import { luaUrl, vendorsBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, luaUrl, monacoLanguagesBaseUrl, vendorsBaseUrl } from '../../vendors';
 
 const luaFmtUrl = vendorsBaseUrl + 'lua-fmt/lua-fmt.js';
 
@@ -25,4 +26,13 @@ export const lua: LanguageSpecs = {
   },
   extensions: ['lua'],
   editor: 'script',
+  editorSupport: {
+    monaco: {
+      languageSupport: monacoLanguagesBaseUrl + 'lua.js',
+    },
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-lua.js')).lua),
+    },
+  },
 };

@@ -51,15 +51,6 @@ LiveCodes uses services that are generously provided by:
     </a>
   </p>
   <p>
-    <a href="https://windsurf.com/" target="_blank" title="Windsurf">
-      <img
-        alt="Windsurf"
-        width="200"
-        src="/docs/img/credits/windsurf.svg"
-      ></img>
-    </a>
-  </p>
-  <p>
     <a href="https://m.do.co/c/fb8c00b45b91" target="_blank" title="DigitalOcean">
       <img
         alt="DigitalOcean"
@@ -119,15 +110,6 @@ LiveCodes uses services that are generously provided by:
         alt="Codacy"
         width="200"
         src="/docs/img/credits/codacy.svg"
-      ></img>
-    </a>
-  </p>
-  <p>
-    <a href="https://bundlewatch.io/" target="_blank" title="BundleWatch">
-      <img
-        alt="BundleWatch"
-        width="200"
-        src="/docs/img/credits/bundlewatch.svg"
       ></img>
     </a>
   </p>

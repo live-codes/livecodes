@@ -6,6 +6,7 @@ import { modulesService } from '../../services';
 import { getLanguageCustomSettings } from '../../utils/utils';
 import { tailwindcss3Url, tailwindcssBaseUrl, vendorsBaseUrl } from '../../vendors';
 import { lightningcssFeatures } from '../lightningcss/processor-lightningcss-compiler';
+import { addCodeInStyleBlocks } from './utils';
 
 declare const self: any;
 
@@ -186,21 +187,21 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
       },
     });
 
-    return tailwind.generateStylesFromContent(code, [
-      `<template>${options.html}\n<script>${config.script.content}</script></template>`,
-    ]);
+    const html = `<template>${options.html}\n<script>${config.script.content}</script></template>`;
+    return tailwind.generateStylesFromContent(addCodeInStyleBlocks(code, html), [html]);
   };
 
   const tailwind4: CompilerFunction = async (code, { config, options }) => {
-    const prepareCode = (css: string) => {
+    const prepareCode = (css: string, html: string) => {
       let result = replaceStyleImports(css, [/tailwindcss/g]);
       if (!result.includes('@import')) {
         result = `@import "tailwindcss";${result}`;
       }
-      return result;
+      return addCodeInStyleBlocks(result, html);
     };
+
     const html = `<template>${options.html}\n<script>${config.script.content}</script></template>`;
-    const css = prepareCode(code);
+    const css = prepareCode(code, html);
     try {
       const compiler = await self.tailwindcss.compile(css, {
         base: '/',

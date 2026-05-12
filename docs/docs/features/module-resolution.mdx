@@ -135,6 +135,20 @@ If you want to bundle (and transpile) any import URL, prefix it with `bundle:` (
 
 :::
 
+## pkg.pr.new
+
+Unpublished npm packages can be imported while still under development using the [pkg.pr.new](https://pkg.pr.new/) service.
+
+Use the prefix `pr:` or `pkg.pr.new:`.
+
+Example:
+
+```js
+import { Bench } from 'pr:tinybench@a832a55';
+// or
+// import { Bench } from 'pr:tinylibs/tinybench/tinybench@a832a55';
+```
+
 ## CDN Providers
 
 By default, npm modules are imported from [esm.sh](https://esm.sh/). You may choose another provider by using a CDN prefix. These are examples of importing the library `uuid`:
@@ -164,6 +178,10 @@ By default, npm modules are imported from [esm.sh](https://esm.sh/). You may cho
 `node:uuid` → https://esm.sh/uuid ([info](https://esm.sh))
 
 `jsr:@std/uuid` → https://esm.sh/jsr/@std/uuid ([info](https://esm.sh))
+
+`pr:tinybench@a832a55` → https://esm.sh/pr/tinybench@a832a55 ([info](https://esm.sh))
+
+`pkg.pr.new:tinybench@a832a55` → https://esm.sh/pkg.pr.new/tinybench@a832a55 ([info](https://esm.sh))
 
 `jspm:uuid` → https://jspm.dev/uuid ([info](https://jspm.org) - [DEPRECATED](https://jspm.org/jspm-dev-deprecation))
 

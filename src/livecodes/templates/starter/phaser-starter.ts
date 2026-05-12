@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const phaserStarter: Template = {
   name: 'phaser',
-  title: 'Phaser Starter',
+  title: window.deps.translateString('templates.starter.phaser', 'Phaser Starter'),
   thumbnail: 'assets/templates/phaser.png',
   activeEditor: 'script',
   markup: {

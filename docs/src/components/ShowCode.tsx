@@ -14,12 +14,18 @@ export default function ShowCode(props: {
   react: string;
   vue: string;
   svelte: string;
+  solid: string;
+  preact: string;
+  webComponents: string;
 }): ReactNode {
   const [jsCode, setJsCode] = useState(props.js);
   const [tsCode, setTsCode] = useState(props.ts);
   const [reactCode, setReactCode] = useState(props.react);
   const [vueCode, setVueCode] = useState(props.vue);
   const [svelteCode, setSvelteCode] = useState(props.svelte);
+  const [solidCode, setSolidCode] = useState(props.solid);
+  const [preactCode, setPreactCode] = useState(props.preact);
+  const [webComponentsCode, setWebComponentsCode] = useState(props.webComponents);
 
   const codeBlockTitleHeight = '3.7rem';
   const [codeCollapsed, setCodeCollapsed] = useState(true);
@@ -57,6 +63,9 @@ export default function ShowCode(props: {
       setReactCode(format(reactCode, 'jsx'));
       setVueCode(format(vueCode, 'html'));
       setSvelteCode(format(svelteCode, 'html'));
+      setSolidCode(format(solidCode, 'tsx'));
+      setPreactCode(format(preactCode, 'jsx'));
+      setWebComponentsCode(format(webComponentsCode, 'html'));
     }
   }, []);
 
@@ -96,6 +105,19 @@ export default function ShowCode(props: {
             </TabItem>
             <TabItem value="svelte" label="Svelte" attributes={{ onMouseDown: resize }}>
               <CodeBlock language="html">{svelteCode}</CodeBlock>
+            </TabItem>
+            <TabItem value="solid" label="Solid" attributes={{ onMouseDown: resize }}>
+              <CodeBlock language="tsx">{solidCode}</CodeBlock>
+            </TabItem>
+            <TabItem value="preact" label="Preact" attributes={{ onMouseDown: resize }}>
+              <CodeBlock language="jsx">{preactCode}</CodeBlock>
+            </TabItem>
+            <TabItem
+              value="web-components"
+              label="Web Components"
+              attributes={{ onMouseDown: resize }}
+            >
+              <CodeBlock language="html">{webComponentsCode}</CodeBlock>
             </TabItem>
           </Tabs>
         </div>

@@ -197,6 +197,20 @@ describe('loadParamConfig', () => {
     expect(output.activeEditor).toEqual('style');
   });
 
+  test('?processors=tailwindcss,autoprefixer', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      processors: 'tailwindcss,autoprefixer',
+    });
+    expect(output.processors).toEqual(['tailwindcss', 'autoprefixer']);
+  });
+
+  test('?processors= tailwindcss, autoprefixer', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      processors: ' tailwindcss, autoprefixer',
+    });
+    expect(output.processors).toEqual(['tailwindcss', 'autoprefixer']);
+  });
+
   test('?tags=js,advanced,proof-of-concept', () => {
     const output: Partial<Config> = loadParamConfig(defaultConfig, {
       tags: 'js,advanced,proof-of-concept',
@@ -475,5 +489,28 @@ describe('loadParamConfig', () => {
       active: '',
       status: 'open',
     });
+  });
+
+  test('?customSettings={template:{prerender:false}}', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      customSettings: '{template:{prerender:false}}',
+    });
+    expect(output.customSettings).toEqual({ template: { prerender: false } });
+  });
+
+  test('?customSettings.template.prerender=false', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      'customSettings.template.prerender': false,
+    });
+    expect(output.customSettings).toEqual({ template: { prerender: false } });
+  });
+
+  test('?markup.hideTitle=true&script.title=App.jsx', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      'markup.hideTitle': true,
+      'script.title': 'App.jsx',
+    });
+    expect(output.markup?.hideTitle).toEqual(true);
+    expect(output.script?.title).toEqual('App.jsx');
   });
 });

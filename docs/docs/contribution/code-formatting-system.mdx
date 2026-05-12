@@ -1,0 +1,409 @@
+# Code Formatting System
+
+This guide describes the code formatting system in LiveCodes, located in `src/livecodes/formatter/`.
+
+## Overview
+
+LiveCodes uses [Prettier](https://prettier.io/) as the primary code formatter, with support for custom formatters for languages not supported by Prettier. Formatting runs in a Web Worker to avoid blocking the main UI thread.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A[core.ts<br/>format call] --> B[get-formatter.ts<br/>factory]
+    B --> C[formatter.ts<br/>Web Worker]
+    C --> D[format.worker.ts]
+    
+    subgraph "Worker Content"
+        D --> E[Prettier]
+        D --> F[Custom parsers]
+        D --> G[Custom formatters]
+    end
+```
+
+## Formatter Interface
+
+```typescript
+interface Formatter {
+  load: (languages: Language[]) => Promise<string>;
+  getFormatFn: (language: Language) => Promise<FormatFn>;
+  destroy: () => void;
+}
+
+interface FormatFn {
+  (value: string, cursorOffset: number, formatterConfig: Partial<FormatterConfig>): 
+    Promise<{ formatted: string; cursorOffset: number }>;
+}
+```
+
+## Formatter Types
+
+### 1. Prettier-based Formatters
+
+Most languages use Prettier with language-specific parsers:
+
+```typescript
+// lang-html.ts
+export const html: LanguageSpecs = {
+  name: 'html',
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
+  },
+  // ...
+};
+```
+
+**Parser Plugin URLs** are defined in `src/livecodes/languages/prettier.ts`:
+
+```typescript
+export const parserPlugins = {
+  html: '{{hash:prettier-plugin-html.js}}',
+  babel: '{{hash:prettier-plugin-babel.js}}',
+  typescript: '{{hash:prettier-plugin-typescript.js}}',
+  // ... more parsers
+};
+```
+
+### 2. Custom Formatters
+
+Languages without Prettier support use custom formatters:
+
+```typescript
+// lang-go.ts
+export const go: LanguageSpecs = {
+  name: 'go',
+  formatter: {
+    factory: () => {
+      importScripts(go2jsBaseUrl + 'go2js-format.js');
+      return async (code: string) => {
+        const [formatted, err] = (globalThis as any).go2jsFormat(code);
+        if (err) return { formatted: code, cursorOffset: 0 };
+        return { formatted, cursorOffset: 0 };
+      };
+    },
+  },
+  // ...
+};
+```
+
+### 3. Fake Formatter
+
+Used when formatting is disabled:
+
+```typescript
+function createFakeFormatter(): Formatter {
+  return {
+    load: () => Promise.resolve('do nothing'),
+    getFormatFn: () => Promise.resolve((value, cursorOffset) => 
+      Promise.resolve({ formatted: value, cursorOffset })),
+    destroy: () => undefined,
+  };
+}
+```
+
+---
+
+## Formatter Factory
+
+The `getFormatter` factory creates the appropriate formatter:
+
+```typescript
+export const getFormatter = (config: Config, baseUrl: string, lazy: boolean): Formatter => {
+  const { readonly, mode } = config;
+
+  if (readonly || mode === 'codeblock' || mode === 'result') {
+    return createFakeFormatter();  // No formatting needed
+  } else if (lazy) {
+    return createLazyFormatter(baseUrl);  // Defer loading
+  } else {
+    return createFormatter(baseUrl);  // Full formatter with worker
+  }
+};
+```
+
+**Lazy Formatter** defers worker creation until first use:
+
+```typescript
+const createLazyFormatter = (baseUrl: string) => {
+  let formatter = createFakeFormatter();
+  
+  const lazyFormatter = {
+    load: (languages) => {
+      loadFormatter();
+      return formatter.load(languages);
+    },
+    getFormatFn: (language) => {
+      loadFormatter();
+      return formatter.getFormatFn(language);
+    },
+    destroy: () => { /* ... */ },
+  };
+  
+  const loadFormatter = () => {
+    formatter = createFormatter(baseUrl);  // Create real formatter
+  };
+  
+  return lazyFormatter;
+};
+```
+
+---
+
+## Worker Communication
+
+Messages between main thread and worker:
+
+| Message Type | Direction | Purpose |
+|--------------|-----------|---------|
+| `init` | Main → Worker | Initialize with base URL |
+| `load` | Main → Worker | Load formatters for languages |
+| `loaded` | Worker → Main | Confirm load success |
+| `load-failed` | Worker → Main | Load failure |
+| `format` | Main → Worker | Request formatting |
+| `formatted` | Worker → Main | Formatted result |
+| `format-failed` | Worker → Main | Format failure |
+
+---
+
+## Worker Implementation
+
+`format.worker.ts` runs in a dedicated Web Worker:
+
+### Loading Prettier
+
+```typescript
+const loadPrettier = () => {
+  importScripts(prettierUrl);
+};
+
+const loadParser = (language: Language): PrettierParser | undefined => {
+  if (!(self as any).prettier) {
+    loadPrettier();
+  }
+  
+  const parser = getParser(language);
+  parser.pluginUrls.forEach((pluginUrl) => {
+    importScripts(pluginUrl);
+  });
+  
+  return parser;
+};
+```
+
+### Formatting
+
+```typescript
+const format = async (
+  language: Language,
+  value: string,
+  cursorOffset: number,
+  formatterConfig: Partial<FormatterConfig>,
+) => {
+  if (getParser(language) != null) {
+    // Prettier-based formatting
+    const parser = loadParser(language);
+    return (self as any).prettier.formatWithCursor(value, {
+      parser: parser?.name,
+      plugins: prettierPlugins,
+      cursorOffset,
+      ...formatterConfig,
+    });
+  }
+  
+  if (getFormatter(language) != null) {
+    // Custom formatter
+    const formatFn = loadFormatter(language);
+    return formatFn(value, cursorOffset);
+  }
+  
+  return { formatted: value, cursorOffset };
+};
+```
+
+---
+
+## Formatter Configuration
+
+User-configurable options via `FormatterConfig`:
+
+```typescript
+interface FormatterConfig {
+  useTabs: boolean;
+  tabSize: number;
+  semicolons: boolean;
+  singleQuote: boolean;
+  trailingComma: boolean;
+}
+```
+
+Defaults from `defaultConfig`:
+
+```typescript
+useTabs: false,
+tabSize: 2,
+semicolons: true,
+singleQuote: true,
+trailingComma: 'all',
+```
+
+---
+
+## Usage in core.ts
+
+### Initialization
+
+```typescript
+formatter = getFormatter(getConfig(), baseUrl, isEmbed);
+```
+
+### Loading Formatters
+
+```typescript
+// Called when language changes or on initial load
+formatter.load(getEditorLanguages());
+```
+
+### Formatting Code
+
+```typescript
+const format = async (allEditors = true) => {
+  if (allEditors) {
+    await Promise.all(
+      Object.values(editors).map(async (editor) => {
+        await editor.format();
+        if (getConfig().foldRegions) {
+          await editor.foldRegions?.();
+        }
+      }),
+    );
+  } else {
+    const activeEditor = getActiveEditor();
+    await activeEditor.format();
+  }
+  updateConfig();
+};
+```
+
+### Registering Formatter with Editor
+
+```typescript
+// When creating editors
+formatter.getFormatFn(language).then((fn) => {
+  editor.registerFormatter(fn);
+});
+
+// On language change
+formatter.getFormatFn(language).then((fn) => {
+  editor.registerFormatter(fn);
+});
+```
+
+---
+
+## Editor Integration
+
+Editors call `format()` which uses the registered formatter:
+
+```typescript
+// monaco.ts
+const format = async () => {
+  editor.getAction('editor.action.formatDocument')?.run();
+};
+
+// codemirror.ts
+const format = async () => {
+  if (!formatter) return;
+  const offset = view.state.selection.main.to;
+  const oldValue = getValue();
+  const newValue = await formatter(oldValue, offset, getFormatterConfig());
+  setValue(newValue.formatted, false);
+  view.dispatch({ selection: { anchor: newValue.cursorOffset } });
+};
+
+// codejar.ts
+const format = async () => {
+  if (!formatter) return;
+  const position = codejar?.save();
+  const offset = position?.start || 0;
+  const oldValue = getValue();
+  const newValue = await formatter(oldValue, offset, getFormatterConfig());
+  setValue(newValue.formatted);
+  codejar?.restore({ start: newValue.cursorOffset, end: newValue.cursorOffset });
+};
+```
+
+---
+
+## Language Spec Formatter Definition
+
+Two formats supported:
+
+### Prettier Parser
+
+```typescript
+formatter: {
+  prettier: {
+    name: 'typescript',           // Parser name
+    pluginUrls: [
+      parserPlugins.typescript,   // Parser plugin
+      parserPlugins.estree,        // Additional plugins
+    ],
+  },
+}
+```
+
+### Custom Formatter Factory
+
+```typescript
+formatter: {
+  factory: (baseUrl: string, language: Language) => async (code: string) => {
+    // Custom formatting logic
+    return { formatted: code, cursorOffset: 0 };
+  },
+}
+```
+
+---
+
+## Adding a New Formatter
+
+1. **Prettier-supported language:**
+   ```typescript
+   // src/livecodes/languages/your-lang/lang-your-lang.ts
+   export const yourLang: LanguageSpecs = {
+     name: 'your-lang',
+     formatter: {
+       prettier: {
+         name: 'your-lang',
+         pluginUrls: [parserPlugins.yourLang],
+       },
+     },
+     // ...
+   };
+   ```
+
+2. **Custom formatter:**
+   ```typescript
+   formatter: {
+     factory: (baseUrl) => {
+       // Load your formatter library
+       importScripts(baseUrl + 'your-formatter.js');
+       return async (code) => {
+         const formatted = customFormat(code);
+         return { formatted, cursorOffset: 0 };
+       };
+     },
+   }
+   ```
+
+---
+
+## Performance Considerations
+
+- **Web Worker:** Formatting runs off main thread
+- **Lazy Loading:** Formatter loaded only when needed
+- **Fake Formatter:** Skipped completely in readonly/codeblock modes
+- **Prettier Lazy Load:** Prettier loaded only when first format needed

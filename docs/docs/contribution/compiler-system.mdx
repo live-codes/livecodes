@@ -1,0 +1,648 @@
+# Compiler System
+
+This document describes the compiler system architecture, components, and how to work with it when contributing to LiveCodes.
+
+## Overview
+
+LiveCodes supports ~90 programming languages. The compiler system is responsible for:
+
+- Loading language compilers on-demand
+- Compiling source code to runnable JavaScript/CSS/HTML
+- Managing import resolution and module bundling
+- Running post-processors (e.g., PostCSS, Tailwind CSS)
+- Providing TypeScript type acquisition (ATA)
+
+## Architecture
+
+The compiler system uses a **worker-based architecture** to perform compilation off the main thread, preventing UI blocking during heavy compilation tasks.
+
+### Key Components
+
+```mermaid
+graph TD
+    subgraph "src/livecodes/compiler/"
+        A[index.ts] --> B[models.ts]
+        A --> C[create-compiler.ts]
+        A --> D[get-compiler.ts]
+        A --> E[get-all-compilers.ts]
+        A --> F[compile.worker.ts]
+        A --> G[compile.page.ts]
+        A --> H[compile-in-compiler.ts]
+        A --> I[compile-blocks.ts]
+        A --> J[compiler-sandbox.ts]
+        A --> K[import-map.ts]
+        A --> L[compiler-utils.ts]
+        A --> M[utils.ts]
+    end
+    
+    B["Type definitions"]
+    C["Main compiler factory"]
+    D["Compiler instance getter"]
+    E["Compiler registry builder"]
+    F["Web Worker for compilation"]
+    G["Page-level compilers"]
+    H["Worker communication helper"]
+    I["SFC block compilation"]
+    J["iframe sandbox creation"]
+    K["Import resolution utilities"]
+    L["iframe initialization"]
+    M["Utility functions"]
+```
+
+## Core Concepts
+
+### 1. Compiler Interface
+
+Defined in`models.ts`:
+
+```typescript
+interface Compiler {
+  load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
+  compile: (
+    content: string,
+    language: Language,
+    config: Config,
+    options: CompileOptions,
+  ) => Promise<CompileResult>;
+  clearCache: () => void;
+  typescriptFeatures: (options: { feature: TypescriptFeatures; payload: any }) => Promise<unknown>;
+  isFake: boolean;
+}
+```
+
+**Methods:**
+
+| Method                 | Purpose                                         |
+| ---------------------- | ----------------------------------------------- |
+| `load()`               | Preload compilers for specified languages       |
+| `compile()`            | Compile source code to output                   |
+| `clearCache()`         | Clear compilation cache                         |
+| `typescriptFeatures()` | Access TypeScript-specific features (ATA, etc.) |
+
+### 2. Language Specifications
+
+Languages are defined in `src/livecodes/languages/`. Each language exports a `LanguageSpecs` object:
+
+```typescript
+interface LanguageSpecs {
+  name: Language; // Unique identifier
+  title: string; // Display name
+  longTitle?: string; // Full display name
+  formatter?: LanguageFormatter;
+  compiler: Compiler | Language; // Compiler config or alias
+  extensions: Language[]; // File extensions
+  editor: EditorId; // 'markup' | 'style' | 'script'
+  editorSupport?: LanguageEditorSupport;
+  largeDownload?: boolean; // Warn about download size
+}
+```
+
+Example from `lang-vue.ts`:
+
+```typescript
+export const vue: LanguageSpecs = {
+  name: 'vue',
+  title: 'Vue',
+  longTitle: 'Vue SFC',
+  compiler: {
+    url: compilerUrl,
+    factory: (_config, baseUrl) => {
+      (self as any).importScripts(baseUrl + '{{hash:lang-vue-compiler.js}}');
+      return (self as any).createVueCompiler();
+    },
+    imports: {
+      vue: vueRuntimeUrl,
+      'livecodes/vue': vueSDKUrl,
+    },
+  },
+  extensions: ['vue', 'vue3'],
+  editor: 'script',
+};
+```
+
+### 3. Compiler Function
+
+Each language provides a `CompilerFunction` that performs actual compilation:
+
+```typescript
+type CompilerFunction = (
+  code: string,
+  {
+    config,
+    language,
+    baseUrl,
+    options,
+  }: {
+    config: Config;
+    language: Language | Processor;
+    baseUrl: string;
+    options: CompileOptions;
+    worker?: Worker;
+  },
+) => Promise<string | CompileResult>;
+```
+
+The function receives source code and configuration, returns compiled output.
+
+### 4. Compilation Result
+
+```typescript
+interface CompileResult {
+  code: string; // Compiled code
+  info: CompileInfo; // Additional metadata
+}
+
+interface CompileInfo {
+  cssModules?: Record<string, string>;
+  modifiedHTML?: string;
+  importedContent?: string;
+  imports?: Record<string, string>;
+  errors?: string[];
+}
+```
+
+## Compilation Flow
+
+### Main Thread Flow
+
+1. **Initialization** (`createCompiler` in `create-compiler.ts`)
+
+   - Creates compiler sandbox iframe (as an additional security barrier between the main app and compilers code)
+   - Loads compiler worker
+   - Sets up postMessage communication
+
+2. **Compilation Request** (`compile` method)
+
+   - Checks cache for unchanged content
+   - Loads compiler if not already loaded
+   - Sends compile message to worker
+   - Waits for compiled result
+   - Post-processes result (processors, style imports)
+
+3. **Post-Processing** (`postProcess` function)
+   - Runs style processors (PostCSS plugins)
+   - Handles CSS imports
+   - Applies Tailwind CSS, Windi CSS, UnoCSS, etc.
+
+### Worker Flow (`compile.worker.ts`)
+
+1. **Initialization**
+
+   - Loads language compilers on-demand
+   - Manages compiler dependencies
+   - Sets up TypeScript ATA (re-using the TypeScript compiler)
+
+2. **Compilation**
+
+   - Receives compile message
+   - Executes language-specific compiler
+   - Returns compiled result via postMessage
+
+3. **TypeScript Features**
+   - ATA (Automatic Type Acquisition)
+   - CodeMirror TypeScript integration
+   - Type definition management
+
+### Dual Compilation Environments
+
+LiveCodes uses **two compilation environments** to handle different compiler requirements:
+
+#### 1. Web Worker (`compile.worker.ts`)
+
+The primary compilation environment. Most compilers run here because:
+
+- No UI thread blocking during compilation
+- Better performance for heavy compilation tasks
+- Isolated from main application state
+
+#### 2. Sandboxed iframe (`compile.page.ts` + `compiler-sandbox.ts`)
+
+Some compilers **cannot run in a worker** and must execute in a page context. Reasons include:
+
+- Need access to browser DOM APIs
+- Need to create their own nested workers
+- Require `window`/`document` objects
+- Use WebAssembly features not available in workers
+- Have library dependencies that assume page context
+
+Example from `compile.page.ts`:
+
+```typescript
+import { runOutsideWorker as diagrams } from '../languages/diagrams';
+import { runOutsideWorker as mdx } from '../languages/mdx';
+import { runOutsideWorker as postgresql } from '../languages/postgresql';
+import { runOutsideWorker as rescript } from '../languages/rescript';
+
+(window as any).compilers = {
+  rescript,
+  reason: rescript,
+  ocaml: rescript,
+  mdx,
+  diagrams,
+  postgresql,
+};
+```
+
+Languages that compileoutside the worker expose their compiler via `runOutsideWorker` export.
+
+#### Language Compiler Factory
+
+When defining a language, the compiler factory determines where it runs:
+
+```typescript
+// Runs in worker (most languages)
+compiler: {
+  url: compilerUrl,
+  factory: (config, baseUrl) => { ... },
+}
+
+// Runs in sandboxed iframe (special cases)
+compiler: {
+  url: compilerUrl,
+  runOutsideWorker: async (code, options) => { ... },
+}
+```
+
+### Sandbox Architecture (`compiler-sandbox.ts`)
+
+Creates an iframe sandbox for isolation and security:
+
+```typescript
+export const createCompilerSandbox = (sandboxUrl: string): Promise<Window> =>
+  new Promise((resolve) => {
+    const iframe = document.createElement('iframe');
+    iframe.name = 'compiler';
+    iframe.id = 'compiler-frame';
+    // display: 'none' causes problems with some compilers (e.g., mermaid.js)
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.visibility = 'hidden';iframe.style.position = 'absolute';
+    iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts');
+    iframe.src = sandboxUrl;
+    document.body.appendChild(iframe);iframe.onload = () => {
+      resolve(iframe.contentWindow as Window);
+    };
+  });
+```
+
+The iframe provides:
+- **Isolation**: Compilers run in separate origin context
+- **Security**: Limited sandbox permissions (`allow-same-origin allow-scripts`)
+- **Page context**: Access to DOM and browser APIs workers cannot access
+
+## Communication Protocol
+
+### Message Types (`models.ts`)
+
+Workers and main thread communicate via typed messages:
+
+| Type             | Direction     | Purpose                    |
+| ---------------- | ------------- | -------------------------- |
+| `init`           | Main → Worker | Initialize with config     |
+| `init-success`   | Worker → Main | Acknowledge initialization |
+| `load`           | Main → Worker | Load language compiler     |
+| `loaded`         | Worker → Main | Compiler loaded            |
+| `load-failed`    | Worker → Main | Failed to load             |
+| `compile`        | Main → Worker | Request compilation        |
+| `compiled`       | Worker → Main | Compilation result         |
+| `compile-failed` | Worker → Main | Compilation error          |
+| `ts-features`    | Bidirectional | TypeScript features        |
+
+### Example Message Flow
+
+```mermaid
+sequenceDiagram
+    participant Main as Main Thread
+    participant Worker as Worker
+    
+    Main->>Worker: init (config)
+    Worker->>Main: init-success
+    
+    Main->>Worker: load (typescript)
+    Worker->>Main: loaded (typescript)
+    
+    Main->>Worker: compile (code, language)
+    Worker->>Main: compiled (result)
+```
+
+## Import Resolution (`import-map.ts`)
+
+Handles module resolution and CDN fallbacks:
+
+### Key Functions
+
+- `getImports(code)` - Extract import statements
+- `createImportMap(code, config)` - Build import map for bare modules
+- `replaceImports(code, config)` - Replace imports with resolved URLs
+- `replaceSFCImports(code, options)` - Handle SFC (Single File Component) imports (e.g. importing external Vue/Svelte components)
+- `cjs2esm(code)` - Convert CommonJS to ESM
+
+### Import Patterns
+
+```typescript
+// Static imports
+import * as React from 'react';
+import { useState } from 'react';
+
+// Dynamic imports
+const module = await import('./module.js');
+
+// Style imports
+@import 'bootstrap';
+```
+
+### Resolution Strategy
+
+1. Check config imports / customSettings.imports
+2. Resolve to CDN URL (defaults: esm.sh, bundlejs)
+3. Handle relative URLs
+4. Support external modules
+
+## Block Compilation (`compile-blocks.ts`)
+
+Compiles SFC (Single File Component) blocks (e.g. in Vue/Svelte) using language compilers:
+
+```html title="App.vue"
+<script lang="ts">
+  // this is compiled with TypeScript compiler first
+</script>
+<style lang="scss">
+  /* this is compiled with SCSS compiler first */
+</style>
+```
+
+### Supported Blocks
+
+- `<template>`
+- `<style>`
+- `<script>`
+
+### Process
+
+```typescript
+const compileBlocks = async (
+  code: string,
+  blockElement: 'template' | 'style' | 'script',
+  config: Config,
+  options: CompileBlocksOptions = {},
+) => {
+  // 1. Fetch external block sources (src="...")
+  // 2. Match block patterns
+  // 3. Compile each block with appropriate language
+  // 4. Apply processors
+  // 5. Replace blocks in original code
+  // 6. It can then be compiled with the main compiler (e.g. Vue/Svelte)
+};
+```
+
+## Adding a New Language
+
+### 1. Create Language Specification
+
+Create `src/livecodes/languages/{language}/lang-{language}.ts`:
+
+```typescript
+import type { LanguageSpecs } from '../../models';
+import { vendorsBaseUrl } from '../../vendors';
+
+const compilerUrl = vendorsBaseUrl + 'my-language-compiler.js';
+
+export const myLanguage: LanguageSpecs = {
+  name: 'my-language',
+  title: 'My Language',
+  compiler: {
+    url: compilerUrl,
+    factory: (config, baseUrl) => {
+      // Option 1: Load via importScripts
+      (self as any).importScripts(baseUrl + '{{hash:lang-my-language-compiler.js}}');
+      return (self as any).createMyLanguageCompiler();
+    },
+  },
+  extensions: ['ml'],
+  editor: 'script', // or 'markup' or 'style'
+  editorSupport: {
+    monaco: { language: 'javascript' }, // Editor language
+    codemirror: { languageSupport: '...' },
+  },
+};
+```
+
+### 2. Create Compiler Factory
+
+Create `lang-my-language-compiler.ts`:
+
+```typescript
+import type { CompilerFunction } from '../../models';
+
+export const createMyLanguageCompiler =
+  (): CompilerFunction =>
+  async (code, { config }) => {
+    // Compile code to JavaScript
+    const compiled = await myLanguageCompiler(code, config);
+    return compiled;
+  };
+```
+
+### 3. Register Language
+
+Add to `src/livecodes/languages/languages.ts`:
+
+```typescript
+import { myLanguage } from './my-language';
+
+export const languages: LanguageSpecs[] = [
+  // ...existing languages
+  myLanguage,
+];
+```
+
+### 4. Build Integration
+
+Add compiler URL mapping in `scripts/build.js`:
+
+```javascript
+// The {{hash:...}} syntax is replaced with content-hashed filenames
+
+const iifeBuild = () =>
+  esbuild.build({
+    ...baseOptions,
+    format: 'iife',
+    entryPoints: [
+      // ...
+      'languages/my-language/lang-my-language-compiler.ts',
+      // ...
+    ],
+  });
+```
+
+## Processors
+
+Processors are post-compilation transformers (e.g., PostCSS plugins):
+
+### Processor Specification
+
+```typescript
+interface ProcessorSpecs {
+  name: Processor;
+  title: string;
+  isPostcssPlugin: boolean;
+  needsHTML?: boolean;
+  compiler: {
+    url: string;
+    factory: (config, baseUrl, options) => CompilerFunction | CompilerFunction[];
+  };
+  editor: EditorId;
+  hidden?: boolean;
+}
+```
+
+### Example: PostCSS
+
+```typescript
+export const postcss: ProcessorSpecs = {
+  name: 'postcss',
+  title: 'PostCSS',
+  isPostcssPlugin: true,
+  compiler: {
+    url: postcssUrl,
+    factory: (config, baseUrl) => { ... },
+  },
+  editor: 'style',
+};
+```
+
+## Caching
+
+### Compilation Cache
+
+The compiler caches results to avoid recompilation:
+
+```typescript
+cache[language] = {
+  content, // Source code
+  compiled, // Compiled output
+  info, // Metadata
+  processors, // Active processors
+  languageSettings, // Custom settings
+};
+```
+
+Cache is invalidated when:
+
+- Source code changes
+- Processor configuration changes
+- Language settings change
+- `forceCompile` option is set
+
+## TypeScript Integration
+
+### Automatic Type Acquisition (ATA)
+
+```typescript
+typescriptFeatures({
+  feature: 'ata',
+  payload: code,
+});
+```
+
+### CodeMirror Integration
+
+```typescript
+typescriptFeatures({
+  feature: 'initCodeMirrorTS',
+  payload: language,
+});
+```
+
+### Type Management
+
+Types are loaded via `src/livecodes/types/type-loader.ts` and managed in the worker's virtual filesystem.
+
+## Mode-Specific Behavior
+
+### Fake Compiler (`get-compiler.ts`)
+
+In`codeblock` or `editor` mode, a fake compiler is used:
+
+```typescript
+async function createFakeCompiler(): Promise<Compiler> {
+  return {
+    load: () => Promise.resolve(['do nothing']),
+    compile: (content) => Promise.resolve(getCompileResult(content)),
+    clearCache: () => undefined,
+    typescriptFeatures: async () => undefined,
+    isFake: true,
+  };
+}
+```
+
+This avoids loading heavy compilers when only displaying code.
+
+## Best Practices
+
+### 1. Lazy Loading
+
+Compilers are loaded on-demand. Only load what's needed:
+
+```typescript
+// Good: Load only when needed
+await compiler.load([language], config);
+
+// Bad: Load all compilers upfront
+await compiler.load(allLanguages, config);
+```
+
+### 2. Error Handling
+
+Handle compilation failures gracefully:
+
+```typescript
+try {
+  const result = await compiler.compile(code, language, config, options);
+} catch (error) {
+  // Display error to user
+  console.error(`Failed to compile ${language}:`, error);
+}
+```
+
+### 3. Cache Management
+
+Clear cache when configuration changes:
+
+```typescript
+compiler.clearCache();
+await compiler.load(languages, newConfig);
+```
+
+## Testing
+
+### Unit Tests
+
+Located in `src/livecodes/compiler/__tests__/`:
+
+- `import-map.spec.ts` - Import resolution tests
+
+Run tests:
+
+```bash
+npm run test:unit -- --testPathPattern="compiler"
+```
+
+### Integration Testing
+
+Test with actual languages:
+
+```typescript
+const result = await compiler.compile(
+  '<template><div>{{ msg }}</div></template>',
+  'vue',
+  config,
+  {},
+);
+```
+
+## Related Documentation
+
+- [Adding Languages](./adding-languages.mdx) - Detailed guide for adding new languages
+- [Build System](./build-system.mdx) - How compilers are built
+- [SDK Documentation](https://livecodes.io/docs/sdk) - Using the compiler in embeds

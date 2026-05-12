@@ -48,3 +48,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 body[data-origin-not-allowed='true'] #kapa-widget-container {
   display: none !important;
 }
+
+.tabs__item {
+  white-space: nowrap;
+}

@@ -1,0 +1,310 @@
+# Type Loader System
+
+This guide describes the TypeScript type loading system in LiveCodes, located in `src/livecodes/types/`.
+
+See [IntelliSense docs](https://livecodes.io/docs/features/intellisense) for demos.
+
+## Overview
+
+The type loader system provides IntelliSense/autocomplete for JavaScript and TypeScript editors by dynamically fetching and loading TypeScript type definitions from CDNs and package registries.
+
+## Architecture
+
+```mermaid
+flowchart TD
+    A["type-loader.ts<br/>createTypeLoader(baseUrl) → { load }"]
+    
+    A --> B["Types with URLs<br/>(config)"]
+    A --> C["Types from imports<br/>(no URLs)"]
+    A --> D["ATA<br/>(jsDelivr)"]
+    
+    B & C & D --> E["EditorLibrary<br/>(added to editors)"]
+```
+
+## Core Components
+
+### Type Loader (`type-loader.ts`)
+
+Factory function that creates a type loader instance:
+
+```typescript
+export const createTypeLoader = (baseUrl: string) => {
+  let loadedTypes: Types = {};
+  const libs: EditorLibrary[] = [];
+
+  return {
+    load: async (
+      code: string,
+      configTypes: Types,
+      loadAll?: boolean,
+      forceLoad?: boolean,
+      callback?: (type: EditorLibrary) => void,
+    ) => EditorLibrary[];
+  };
+};
+```
+
+**Key Interfaces:**
+
+```typescript
+// Type definition mapping: module name → type URL or config
+interface Types {
+  [moduleName: string]:
+    | string
+    | {
+        url: string;
+        autoload?: boolean;
+        declareAsModule?: boolean;
+        declareAsGlobal?: boolean;
+      };
+}
+
+// Loaded type library ready for editor consumption
+interface EditorLibrary {
+  filename: string; // e.g., "/node_modules/react/index.d.ts"
+  content: string; // Full TypeScript declaration content
+}
+```
+
+---
+
+## Type Loading Flow
+
+### 1. Types with URLs (Explicit Configuration)
+
+User-configured types loaded directly from specified URLs:
+
+```typescript
+// Example config
+config.types = {
+  react: 'https://esm.sh/react@18/index.d.ts',
+  vue: {
+    url: 'https://unpkg.com/vue@3/dist/vue.d.ts',
+    declareAsModule: true,
+  },
+};
+```
+
+**Process:**
+
+1. Fetch type definition from URL
+2. Handle transitive imports (`bundle-types.ts` for URL imports)
+3. Wrap in `declare module` if needed
+4. Add to loaded types cache
+
+### 2. Types from Imports (ATA)
+
+Automatic type acquisition for import statements:
+
+```typescript
+// User code
+import { useState } from 'react';
+import { ref } from 'vue';
+```
+
+**Process:**
+
+1. Parse imports using `getImports(code)`
+2. Check if types already loaded
+3. For new imports without explicit URL, use ATA
+
+### 3. Automatic Type Acquisition (ATA)
+
+Uses TypeScript's ATA module to fetch types from jsDelivr:
+
+```typescript
+// Runs in compile worker to reuse TypeScript compiler
+const getTypesFromAta = async (code: string) => {
+  const types = await compiler.typescriptFeatures({
+    feature: 'ata',
+    payload: code,
+  });
+  // Returns EditorLibrary[] with types from jsDelivr
+};
+```
+
+---
+
+## Bundle Types (`bundle-types.ts`)
+
+Bundles TypeScript declaration files that have relative imports:
+
+```typescript
+export async function bundle(options: Options): Promise<string>;
+```
+
+**When Used:**
+When a `.d.ts` file contains URL-based imports (e.g., `import('./other.d.ts')`), it bundles all dependencies into a single file.
+
+**Based on:** [dts-bundle](https://github.com/anodynos/dts-bundle)
+
+---
+
+## Editor Integration
+
+### Monaco Editor
+
+```typescript
+// monaco.ts
+const addTypes = (type: EditorLibrary, force?: boolean) => {
+  const loadedType = types.find((t) => t.filename === type.filename);
+  if (loadedType && !force) return;
+
+  const path = 'file://' + type.filename;
+  types.push({
+    editorId,
+    filename: type.filename,
+    libJs: monaco.languages.typescript.javascriptDefaults.addExtraLib(type.content, path),
+    libTs: monaco.languages.typescript.typescriptDefaults.addExtraLib(type.content, path),
+  });
+};
+```
+
+### CodeMirror Editor
+
+Uses WebWorker for TypeScript features:
+
+```typescript
+// codemirror.ts
+const addTypes = (lib: EditorLibrary) => {
+  tsLoaded.then(() => {
+    compiler.typescriptFeatures({
+      feature: 'addTypes',
+      payload: lib,
+    });
+  });
+};
+```
+
+The worker maintains a virtual file system (`tsvfsMap`) for type definitions.
+
+---
+
+## Usage in core.ts
+
+### Initialization
+
+```typescript
+typeLoader = createTypeLoader(baseUrl);
+```
+
+### Loading Types on Content Change
+
+```typescript
+const loadModuleTypes = async (
+  editors: Editors,
+  config: Config,
+  loadAll = false,
+  force = false,
+) => {
+  if (typeof editors?.script?.addTypes !== 'function') return;
+
+  const configTypes = {
+    ...getLanguageCompiler(config.markup.language)?.types,
+    ...getLanguageCompiler(config.script.language)?.types,
+    ...getDefaultTypes(),
+    ...config.types,
+    ...config.customSettings.types,
+  };
+
+  const libs = await typeLoader.load(
+    reactImport + config.script.content + '\n' + config.markup.content,
+    configTypes,
+    loadAll,
+    force,
+  );
+
+  libs.forEach((lib) => editors.script.addTypes?.(lib, force));
+};
+```
+
+### Called When:
+
+- Editor language changes
+- Content changes (debounced)
+- Custom settings updated
+- Tests editor loads types
+
+---
+
+## Types Service (`services/types.ts`)
+
+Provides helper for fetching type URLs from esm.sh (Legacy).  
+Currently replaced by ATA.
+
+```typescript
+export const typesService = {
+  getTypeUrls: async (types: string[]) => {
+    // Fetches X-Typescript-Types header from esm.sh
+    const res = await fetch('https://esm.sh/' + mod, { method: 'HEAD' });
+    const typesUrl = res.headers.get('X-Typescript-Types');
+    return { [type]: typesUrl };
+  },
+  getTypesAsImports: (types: string[]) =>
+    types.map((type, i) => `import * as x${i} from '${type}';`).join('\n'),
+};
+```
+
+---
+
+## Default Types (`default-types.ts`)
+
+Provides baseline types. Currently empty but extensible:
+
+```typescript
+export const getDefaultTypes = (): Types => ({});
+```
+
+---
+
+## Compile Worker Integration
+
+The compile worker (`compile.worker.ts`) handles TypeScript-related features in a dedicated thread:
+
+```typescript
+// Worker message types
+type CompilerMessageFeature = 'ata' | 'addTypes' | 'initCodeMirrorTS' | 'changeCodeMirrorLanguage';
+
+// ATA request handling
+if (feature === 'ata') {
+  const types = await getTypesFromAta(data);
+  worker.postMessage({ type: 'ts-features', payload: { id, data: types } });
+}
+
+// CodeMirror type additions
+if (feature === 'addTypes') {
+  await initCodemirrorTS();
+  tsvfsMap.set(data.filename, data.content);
+}
+```
+
+---
+
+## Configuration
+
+Types can be configured in multiple ways:
+
+1. **Global config (`config.types`)** - Explicit type URLs
+2. **Language config (`languageCompiler.types`)** - Language-specific types
+3. **Custom settings (`customSettings.types`)** - User-configured types
+4. **Automatic (imports)** - ATA from import statements
+
+```typescript
+const configTypes = {
+  ...getLanguageCompiler(config.markup.language)?.types, // e.g., react types for JSX
+  ...getLanguageCompiler(config.script.language)?.types, // e.g., vue types for .vue
+  ...getDefaultTypes(), // Baseline types
+  ...config.types, // User-configured
+  ...config.customSettings.types, // Custom settings
+};
+```
+
+---
+
+## Key Points
+
+- **Lazy Loading:** Types loaded only when needed
+- **Caching:** `loadedTypes` tracks loaded types to avoid re-fetching
+- **Worker Thread:** Heavy TypeScript work runs in compile worker
+- **Editor Agnostic:** Works with both Monaco and CodeMirror
+- **Force Reload:** `forceLoad` option allows reloading types on demand

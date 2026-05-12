@@ -42,6 +42,7 @@ const templates = [
   { name: 'ruby', title: 'Ruby Starter', thumbnail: 'ruby.svg' },
   { name: 'ruby-wasm', title: 'Ruby (Wasm) Starter', thumbnail: 'ruby.svg' },
   { name: 'go', title: 'Go Starter', thumbnail: 'go.svg' },
+  { name: 'go-wasm', title: 'Go (Wasm) Starter', thumbnail: 'go.svg' },
   { name: 'php', title: 'PHP Starter', thumbnail: 'php.svg' },
   { name: 'php-wasm', title: 'PHP (Wasm) Starter', thumbnail: 'php.svg' },
   { name: 'cpp', title: 'C++ Starter', thumbnail: 'cpp.svg' },
@@ -65,6 +66,7 @@ const templates = [
   { name: 'sql', title: 'SQL Starter', thumbnail: 'sqlite.svg' },
   { name: 'postgresql', title: 'PostgreSQL Starter', thumbnail: 'postgresql.svg' },
   { name: 'prolog', title: 'Prolog Starter', thumbnail: 'tau-prolog.svg' },
+  { name: 'minizinc', title: 'MiniZinc Starter', thumbnail: 'minizinc.png' },
   { name: 'blockly', title: 'Blockly Starter', thumbnail: 'blockly.svg' },
   { name: 'diagrams', title: 'Diagrams Starter', thumbnail: 'diagrams.svg' },
 ];

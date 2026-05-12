@@ -1,5 +1,10 @@
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl, wabtjsUrl } from '../../vendors';
+import {
+  codeMirrorBaseUrl,
+  monacoLanguagesBaseUrl,
+  vendorsBaseUrl,
+  wabtjsUrl,
+} from '../../vendors';
 
 declare const importScripts: (...args: string[]) => void;
 
@@ -40,4 +45,12 @@ export const wat: LanguageSpecs = {
   },
   extensions: ['wat', 'wast', 'webassembly', 'wasm'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'wat.js' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-wast.js')).wast(),
+    },
+    codejar: { language: 'wasm' },
+  },
 };

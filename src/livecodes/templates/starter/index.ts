@@ -21,6 +21,7 @@ import { diagramsStarter } from './diagrams-starter';
 import { fennelStarter } from './fennel-starter';
 import { gleamStarter } from './gleam-starter';
 import { goStarter } from './go-starter';
+import { goWasmStarter } from './go-wasm-starter';
 import { imbaStarter } from './imba-starter';
 import { javaStarter } from './java-starter';
 import { javascriptStarter } from './javascript-starter';
@@ -36,6 +37,7 @@ import { luaWasmStarter } from './lua-wasm-starter';
 import { malinaStarter } from './malina-starter';
 import { markdownStarter } from './markdown-starter';
 import { mdxStarter } from './mdx-starter';
+import { minizincStarter } from './minizinc-starter';
 import { ocamlStarter } from './ocaml-starter';
 import { perlStarter } from './perl-starter';
 import { phaserStarter } from './phaser-starter';
@@ -111,6 +113,7 @@ export const starterTemplates = [
   rubyStarter,
   rubyWasmStarter,
   goStarter,
+  goWasmStarter,
   phpStarter,
   phpWasmStarter,
   cppStarter,
@@ -134,6 +137,7 @@ export const starterTemplates = [
   sqlStarter,
   postgresqlStarter,
   prologStarter,
+  minizincStarter,
   blocklyStarter,
   diagramsStarter,
 ];

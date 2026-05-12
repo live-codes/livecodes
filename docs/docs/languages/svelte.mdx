@@ -202,7 +202,7 @@ The official [Svelte compiler](https://svelte.dev/docs/svelte/svelte-compiler).
 
 ### Version
 
-`svelte`: v5.12.0
+`svelte`: v5.39.12
 
 ## Code Formatting
 

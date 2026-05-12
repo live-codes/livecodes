@@ -19,7 +19,7 @@ Screenshots:
 - Automated tests increase the confidence in the code and can improve the quality of projects.
 - Allows <a href="https://en.wikipedia.org/wiki/Test-driven_development" target="_blank">Test-driven development (TDD)</a>.
 - Can be used for education and training by preparing projects with tests that are required to pass by the students' implementation (similar to <a href="https://www.freecodecamp.org/learn" target="_blank">freeCodeCamp</a>).
-- Can be used by wesites that offer coding challenges (similar to <a href="https://www.codewars.com/" target="_blank">Codewars</a>).
+- Can be used by websites that offer coding challenges (similar to <a href="https://www.codewars.com/" target="_blank">Codewars</a>).
 
 ## Demos
 
