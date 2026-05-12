@@ -34,7 +34,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[src/sdk/models.ts:1605](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1605)
+[src/sdk/models.ts:1605](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1605)
 
 ***
 
@@ -58,7 +58,7 @@ See [docs](https://livecodes.io/docs/sdk/js-ts#exec) for details.
 
 #### Defined in
 
-[src/sdk/models.ts:1588](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1588)
+[src/sdk/models.ts:1588](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1588)
 
 ***
 
@@ -92,7 +92,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[src/sdk/models.ts:1421](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1421)
+[src/sdk/models.ts:1421](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1421)
 
 ***
 
@@ -126,7 +126,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[src/sdk/models.ts:1499](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1499)
+[src/sdk/models.ts:1499](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1499)
 
 ***
 
@@ -159,7 +159,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[src/sdk/models.ts:1454](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1454)
+[src/sdk/models.ts:1454](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1454)
 
 ***
 
@@ -193,7 +193,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[src/sdk/models.ts:1438](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1438)
+[src/sdk/models.ts:1438](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1438)
 
 ***
 
@@ -225,7 +225,7 @@ Use [`watch`](https://livecodes.io/docs/sdk/js-ts#watch) method instead.
 
 #### Defined in
 
-[src/sdk/models.ts:1536](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1536)
+[src/sdk/models.ts:1536](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1536)
 
 ***
 
@@ -252,7 +252,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[src/sdk/models.ts:1404](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1404)
+[src/sdk/models.ts:1404](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1404)
 
 ***
 
@@ -282,7 +282,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[src/sdk/models.ts:1529](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1529)
+[src/sdk/models.ts:1529](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1529)
 
 ***
 
@@ -324,7 +324,7 @@ createPlayground("#container").then(async (playground) => {
 
 #### Defined in
 
-[src/sdk/models.ts:1478](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1478)
+[src/sdk/models.ts:1478](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1478)
 
 ***
 
@@ -367,7 +367,7 @@ await playground.show("console", { full: true });
 
 #### Defined in
 
-[src/sdk/models.ts:1513](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1513)
+[src/sdk/models.ts:1513](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1513)
 
 ***
 
@@ -421,4 +421,4 @@ createPlayground("#container").then((playground) => {
 
 #### Defined in
 
-[src/sdk/models.ts:1581](https://github.com/live-codes/livecodes/blob/c3b62a72e2817a8178746f6774572e3863c09a69/src/sdk/models.ts#L1581)
+[src/sdk/models.ts:1581](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1581)
