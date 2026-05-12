@@ -4,6 +4,16 @@ RUN apk update --no-cache && apk add --no-cache git
 
 WORKDIR /app
 
+ARG SELF_HOSTED
+ARG SELF_HOSTED_SHARE
+ARG SELF_HOSTED_BROADCAST
+ARG BROADCAST_PORT
+ARG SANDBOX_HOST_NAME
+ARG SANDBOX_PORT
+ARG FIREBASE_CONFIG
+ARG DOCS_BASE_URL
+ARG NODE_OPTIONS
+
 COPY package*.json ./
 COPY docs/package*.json docs/
 COPY server/package*.json server/
@@ -16,24 +26,14 @@ COPY storybook/svelte/package*.json storybook/svelte/
 COPY storybook/vue/package*.json storybook/vue/
 COPY storybook/web-components/package*.json storybook/web-components/
 
-# pre install to avoid timeout in postinstall script
+# pre install in separate commands to avoid timeout in postinstall script
 RUN npm run install:docs
-RUN npm run install:server
 RUN npm run install:storybook
+RUN npm run install:server
 
 RUN npm ci
 
 COPY . .
-
-ARG SELF_HOSTED
-ARG SELF_HOSTED_SHARE
-ARG SELF_HOSTED_BROADCAST
-ARG BROADCAST_PORT
-ARG SANDBOX_HOST_NAME
-ARG SANDBOX_PORT
-ARG FIREBASE_CONFIG
-ARG DOCS_BASE_URL
-ARG NODE_OPTIONS
 
 RUN if [ "$DOCS_BASE_URL" == "null" ]; \
   then npm run build:app; \
