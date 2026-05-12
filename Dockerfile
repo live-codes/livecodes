@@ -16,6 +16,11 @@ COPY storybook/svelte/package*.json storybook/svelte/
 COPY storybook/vue/package*.json storybook/vue/
 COPY storybook/web-components/package*.json storybook/web-components/
 
+# pre install to avoid timeout in postinstall script
+RUN npm run install:docs
+RUN npm run install:server
+RUN npm run install:storybook
+
 RUN npm ci
 
 COPY . .
