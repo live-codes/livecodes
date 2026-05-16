@@ -6,7 +6,6 @@
  * @module
  */
 
- 
 /* eslint-disable import/no-unresolved */
 // @ts-ignore
 import { useEffect, useRef } from 'preact/hooks';
