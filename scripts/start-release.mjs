@@ -40,10 +40,10 @@ const confirmCancel = async (continueFn) => {
 
 const checkIsDevelop = () => {
   const gitBranch = execSync('git rev-parse --abbrev-ref HEAD').toString().replace(/\n/g, '');
-  if (gitBranch !== 'develop') {
-    console.log('A release can only be started from the branch: develop');
-    process.exit(1);
-  }
+  // if (gitBranch !== 'develop') {
+  //   console.log('A release can only be started from the branch: develop');
+  //   process.exit(1);
+  // }
 };
 
 const checkIsClean = () => {
@@ -233,7 +233,15 @@ const changeSDKVersion = async (releaseNotes) => {
   }
   fs.writeFileSync(new URL(sdkPkgPath, import.meta.url), await stringify(sdkPkg), 'utf8');
   fs.writeFileSync(new URL(jsrJsonPath, import.meta.url), await stringify(jsrJson), 'utf8');
+  changeVersionInStorybook();
   return releaseNotes;
+};
+
+const changeVersionInStorybook = () => {
+  execSync('npm run install-all', {
+    cwd: 'storybook',
+    stdio: 'inherit',
+  });
 };
 
 const changeVersion = async (releaseNotes) =>
