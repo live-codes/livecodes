@@ -6,7 +6,7 @@ description: >-
   LiveCodes skills.
 type: core
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 ---
 
 # LiveCodes Overview
@@ -24,7 +24,7 @@ LiveCodes is a feature-rich, open-source, client-side code playground that runs 
 | Quick start for beginners                        | [livecodes/getting-started/SKILL.md](./getting-started/SKILL.md)           |
 | Create embedded playgrounds                      | [livecodes/sdk-embedding/SKILL.md](./sdk-embedding/SKILL.md)               |
 | Use SDK methods (run, getCode, setConfig, watch) | [livecodes/sdk-methods/SKILL.md](./sdk-methods/SKILL.md)                   |
-| Compress/decompress config utilities         | [livecodes/sdk-embedding/SKILL.md](./sdk-embedding/SKILL.md)               |
+| Compress/decompress config utilities             | [livecodes/sdk-embedding/SKILL.md](./sdk-embedding/SKILL.md)               |
 | Configure via Config object, query params        | [livecodes/configuration/SKILL.md](./configuration/SKILL.md)               |
 | Choose display mode (full, simple, result, etc.) | [livecodes/display-modes/SKILL.md](./display-modes/SKILL.md)               |
 | Run playgrounds without visible UI               | [livecodes/headless-mode/SKILL.md](./headless-mode/SKILL.md)               |

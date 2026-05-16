@@ -5,7 +5,7 @@ description: >
   and self-hosting basics. Load this skill for initial setup and basic usage patterns.
 type: lifecycle
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 sources:
   - live-codes/livecodes:README.md
   - live-codes/livecodes:docs/docs/getting-started.mdx
@@ -132,7 +132,7 @@ createPlayground('#container', {
 });
 
 // SDK version pinning
-import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@0.13.0';
+import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@0.14.1';
 ```
 
 ## Common Patterns by Use Case

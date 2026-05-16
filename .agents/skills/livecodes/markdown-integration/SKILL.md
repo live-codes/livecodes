@@ -6,7 +6,7 @@ description: >
   Docusaurus, Astro, VitePress, Next.js, and Storybook.
 type: composition
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 requires:
   - sdk-embedding
 sources:

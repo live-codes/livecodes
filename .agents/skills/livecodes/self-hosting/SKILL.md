@@ -6,7 +6,7 @@ description: >
   when self-hosting LiveCodes or using a custom app URL.
 type: composition
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 requires:
   - sdk-embedding
 sources:
@@ -152,9 +152,9 @@ createPlayground('#container', {
 });
 
 // Pin SDK version
-import { createPlayground } from 'livecodes@0.13.0';
+import { createPlayground } from 'livecodes@0.14.1';
 // or
-import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@0.13.0';
+import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@0.14.1';
 ```
 
 Permanent URLs format: `https://v{VERSION}.livecodes.io`
