@@ -8,10 +8,7 @@
  */
 
 /* eslint-disable no-redeclare */
-import {
-  compressToEncodedURIComponent,
-  decompressFromEncodedURIComponent,
-} from 'lz-string';
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
 import { getIframeAllowAttribute, type CustomEvents } from './internal';
 import type {
   API,
@@ -92,10 +89,7 @@ export async function createPlayground(
   const origin = playgroundUrl.origin;
   playgroundUrl.searchParams.set('embed', 'true');
   playgroundUrl.searchParams.set('loading', isHeadless ? 'eager' : loading);
-  playgroundUrl.searchParams.set(
-    'sdkVersion',
-    process.env.SDK_VERSION || 'latest',
-  );
+  playgroundUrl.searchParams.set('sdkVersion', process.env.SDK_VERSION || 'latest');
 
   // for backward-compatibility
   if (typeof config === 'object' && Object.keys(config).length > 0) {
@@ -109,29 +103,19 @@ export async function createPlayground(
     JSON.stringify(params).length < 1800
   ) {
     (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
-      playgroundUrl.searchParams.set(
-        param,
-        encodeURIComponent(String(params[param])),
-      );
+      playgroundUrl.searchParams.set(param, encodeURIComponent(String(params[param])));
     });
   }
 
   let destroyed = false;
-  const alreadyDestroyedMessage =
-    'Cannot call API methods after calling `destroy()`.';
+  const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
   type EventHandler = (event: MessageEvent<any>) => void | Promise<void>;
   const eventHandlers: EventHandler[] = [];
-  const registerEventHandler = (
-    handler: EventHandler,
-    eventType = 'message',
-  ) => {
+  const registerEventHandler = (handler: EventHandler, eventType = 'message') => {
     addEventListener(eventType, handler as EventListener);
     eventHandlers.push(handler);
   };
-  const unregisterEventHandler = (
-    handler: EventHandler,
-    eventType = 'message',
-  ) => {
+  const unregisterEventHandler = (handler: EventHandler, eventType = 'message') => {
     removeEventListener(eventType, handler as EventListener);
     const index = eventHandlers.indexOf(handler);
     if (index > -1) {
@@ -143,8 +127,7 @@ export async function createPlayground(
     new Promise<HTMLIFrameElement>((resolve) => {
       if (!containerElement) return;
 
-      const height =
-        containerElement.dataset.height || containerElement.style.height;
+      const height = containerElement.dataset.height || containerElement.style.height;
       if (height && !isHeadless) {
         const cssHeight = isNaN(Number(height)) ? height : height + 'px';
         containerElement.style.height = cssHeight;
@@ -156,25 +139,20 @@ export async function createPlayground(
         containerElement.style.boxSizing ||= 'border-box';
         containerElement.style.padding ||= '0';
         containerElement.style.width ||= '100%';
-        containerElement.style.height ||=
-          containerElement.style.height || '300px';
+        containerElement.style.height ||= containerElement.style.height || '300px';
         containerElement.style.minHeight = '200px';
         containerElement.style.flexGrow = '1';
         containerElement.style.overflow ||= 'hidden';
         containerElement.style.resize ||= 'vertical';
-        if (
-          getComputedStyle(containerElement).getPropertyValue('display') ===
-          'inline'
-        ) {
+        if (getComputedStyle(containerElement).getPropertyValue('display') === 'inline') {
           containerElement.style.display = 'block';
         }
       }
 
       const className = 'livecodes';
-      const preExistingIframe =
-        containerElement.querySelector<HTMLIFrameElement>(
-          `iframe.${className}`,
-        );
+      const preExistingIframe = containerElement.querySelector<HTMLIFrameElement>(
+        `iframe.${className}`,
+      );
       const frame = preExistingIframe || document.createElement('iframe');
       frame.classList.add(className);
       frame.setAttribute('allow', getIframeAllowAttribute());
@@ -227,10 +205,7 @@ export async function createPlayground(
             return;
           }
           unregisterEventHandler(configHandler);
-          frame.contentWindow?.postMessage(
-            { type: 'livecodes-config', payload: config },
-            origin,
-          );
+          frame.contentWindow?.postMessage({ type: 'livecodes-config', payload: config }, origin);
         });
       }
       frame.onload = () => {
@@ -244,24 +219,20 @@ export async function createPlayground(
 
   const iframe = await createIframe();
 
-  const livecodesReady: Promise<void> & { settled?: boolean } = new Promise(
-    (resolve) => {
-      registerEventHandler(function readyHandler(
-        e: MessageEvent<{ type: CustomEvents['ready'] }>,
+  const livecodesReady: Promise<void> & { settled?: boolean } = new Promise((resolve) => {
+    registerEventHandler(function readyHandler(e: MessageEvent<{ type: CustomEvents['ready'] }>) {
+      if (
+        e.source !== iframe.contentWindow ||
+        e.origin !== origin ||
+        e.data?.type !== 'livecodes-ready'
       ) {
-        if (
-          e.source !== iframe.contentWindow ||
-          e.origin !== origin ||
-          e.data?.type !== 'livecodes-ready'
-        ) {
-          return;
-        }
-        unregisterEventHandler(readyHandler);
-        resolve();
-        livecodesReady.settled = true;
-      });
-    },
-  );
+        return;
+      }
+      unregisterEventHandler(readyHandler);
+      resolve();
+      livecodesReady.settled = true;
+    });
+  });
 
   const loadLivecodes = () =>
     destroyed
@@ -286,9 +257,7 @@ export async function createPlayground(
 
       const timeoutId = setTimeout(() => {
         unregisterEventHandler(handler);
-        reject(
-          new Error(`SDK call "${method}" timed out after ${API_TIMEOUT}ms.`),
-        );
+        reject(new Error(`SDK call "${method}" timed out after ${API_TIMEOUT}ms.`));
       }, API_TIMEOUT);
 
       function handler(
@@ -325,14 +294,7 @@ export async function createPlayground(
     });
 
   const watchers: Partial<Record<SDKEvent, SDKEventHandler[]>> = {};
-  const sdkEvents: SDKEvent[] = [
-    'load',
-    'ready',
-    'code',
-    'console',
-    'tests',
-    'destroy',
-  ];
+  const sdkEvents: SDKEvent[] = ['load', 'ready', 'code', 'console', 'tests', 'destroy'];
   const watch = (event: SDKEvent, fn: SDKEventHandler) => {
     if (destroyed) {
       throw new Error(alreadyDestroyedMessage);
@@ -416,8 +378,7 @@ export async function createPlayground(
     observer.observe(containerElement);
   }
 
-  const getRandomString = () =>
-    (String(Math.random()) + Date.now().toFixed()).replace('0.', '');
+  const getRandomString = () => (String(Math.random()) + Date.now().toFixed()).replace('0.', '');
 
   return {
     load: () => loadLivecodes(),
@@ -499,11 +460,7 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
     console.warn(
       `Deprecation notice: The "view" option has been moved to "config.view". For headless mode use "headless: true".`,
     );
-    if (
-      typeof config === 'object' &&
-      config.view == null &&
-      view !== 'headless'
-    ) {
+    if (typeof config === 'object' && config.view == null && view !== 'headless') {
       config.view = view;
     } else {
       playgroundUrl.searchParams.set('view', view);
@@ -517,36 +474,23 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
     } catch {
       throw new Error(`"config" is not a valid URL or configuration object.`);
     }
-  } else if (
-    config &&
-    typeof config === 'object' &&
-    Object.keys(config).length > 0
-  ) {
+  } else if (config && typeof config === 'object' && Object.keys(config).length > 0) {
     if (config.title && config.title !== 'Untitled Project') {
       playgroundUrl.searchParams.set('title', config.title);
     }
     if (config.description && config.description.length > 0) {
       playgroundUrl.searchParams.set('description', config.description);
     }
-    hashParams.set(
-      'config',
-      'code/' + compressToEncodedURIComponent(JSON.stringify(config)),
-    );
+    hashParams.set('config', 'code/' + compressToEncodedURIComponent(JSON.stringify(config)));
   }
 
   // handle params
   if (params && typeof params === 'object' && Object.keys(params).length > 0) {
     try {
-      hashParams.set(
-        'params',
-        compressToEncodedURIComponent(JSON.stringify(params)),
-      );
+      hashParams.set('params', compressToEncodedURIComponent(JSON.stringify(params)));
     } catch {
       (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
-        playgroundUrl.searchParams.set(
-          param,
-          encodeURIComponent(String(params[param])),
-        );
+        playgroundUrl.searchParams.set(param, encodeURIComponent(String(params[param])));
       });
     }
   }
