@@ -21,7 +21,7 @@ export let isEmbed =
   (params.get('embed') != null && params.get('embed') !== 'false') ||
   isInIframe();
 const loadingParam = params.get('loading');
-export const clickToLoad = isEmbed && loadingParam !== 'eager';
+export const clickToLoad = isEmbed && loadingParam === 'click';
 export const loading: EmbedOptions['loading'] = !isEmbed
   ? 'eager'
   : loadingParam === 'lazy' || loadingParam === 'click' || loadingParam === 'eager'

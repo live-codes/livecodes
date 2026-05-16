@@ -1,0 +1,36 @@
+{
+  "name": "preact",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6010",
+    "build-storybook": "storybook build"
+  },
+  "imports": {
+    "#src": "./src/index.ts"
+  },
+  "dependencies": {
+    "flat": "6.0.1",
+    "livecodes": "../../build/sdk",
+    "preact": "^10.28.4"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^5.0.2",
+    "@preact/preset-vite": "^2.10.3",
+    "@storybook/addon-a11y": "^10.3.1",
+    "@storybook/addon-docs": "^10.3.1",
+    "@storybook/addon-vitest": "^10.3.1",
+    "@storybook/preact-vite": "^10.3.1",
+    "@storybook/react-vite": "^10.3.1",
+    "@types/node": "^24.12.0",
+    "@vitest/browser-playwright": "^4.1.0",
+    "@vitest/coverage-v8": "^4.1.0",
+    "playwright": "^1.58.2",
+    "storybook": "^10.3.1",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.0",
+    "vite-plugin-ignore-dynamic-imports": "^1.0.2",
+    "vitest": "^4.1.0"
+  }
+}

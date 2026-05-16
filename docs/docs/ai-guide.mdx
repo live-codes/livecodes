@@ -1,0 +1,248 @@
+---
+title: AI Guide
+description: Guide for AI LLMs and agents using LiveCodes
+---
+
+# AI Guide
+
+This guide is specifically designed for AI Large Language Models (LLMs) and autonomous agents to effectively use the LiveCodes library for creating and embedding code playgrounds.
+
+## llms.txt
+
+For optimal context when working with LiveCodes, use these specially formatted documentation files:
+
+**📄 [llms.txt](pathname:///llms.txt)** - Concise overview of the library, installation, basic usage, and key concepts
+
+**📄 [llms-full.txt](pathname:///llms-full.txt)** - Complete documentation including all guides, API reference, and examples
+
+These files are specifically structured for AI consumption with:
+
+- Clear API signatures and type definitions
+- Code examples with expected outputs
+- Language and framework reference lists
+- Best practices and common patterns
+
+See [https://llmstxt.org/](https://llmstxt.org/) for more information about llms.txt standards.
+
+## Skills
+
+LiveCodes provides skills for enhanced AI-assisted development.
+
+### Installation for AI Agents
+
+```bash
+# Add skills into your project
+npx skills add live-codes/livecodes
+```
+
+### Available Skills
+
+| Skill                               | Description                                      |
+| ----------------------------------- | ------------------------------------------------ |
+| `livecodes/getting-started`         | Quick start, installation, first playground      |
+| `livecodes/sdk-embedding`           | createPlayground, EmbedOptions, containers       |
+| `livecodes/sdk-methods`             | run, getCode, setConfig, watch, format           |
+| `livecodes/configuration`           | Config object, query params, processors          |
+| `livecodes/display-modes`           | full, simple, lite, editor, result modes         |
+| `livecodes/headless-mode`           | Run without visible UI                           |
+| `livecodes/import-export`           | GitHub, gists, URLs, files, ZIP, HTML            |
+| `livecodes/language-support`        | 90+ languages, compilers, CSS processors         |
+| `livecodes/module-resolution`       | npm, jsr, GitHub imports, CDN resolution         |
+| `livecodes/testing`                 | Jest and Testing Library in the browser          |
+| `livecodes/framework-wrappers`      | React, Vue, Svelte, Solid, Preact wrappers       |
+| `livecodes/markdown-integration`    | Docusaurus, Astro, VitePress, Next.js            |
+| `livecodes/self-hosting`            | Static servers, GitHub Pages, Docker             |
+| `livecodes/gh-action`               | Preview PRs in LiveCodes                         |
+
+### Using Skills
+
+AI agents can load relevant skills automatically based on context:
+
+- Creating a new embedded playground → loads `sdk-embedding`
+- Configuring languages or processors → loads `language-support`
+- Using React/Vue/Svelte wrappers → loads `framework-wrappers`
+- Running tests in the playground → loads `testing`
+- Importing npm packages → loads `module-resolution`
+- Self-hosting LiveCodes → loads `self-hosting`
+
+## Key Concepts for AI Agents
+
+### 1. Creating a Playground
+
+```typescript
+import { createPlayground } from 'livecodes';
+
+// Always await createPlayground - it returns a Promise
+const playground = await createPlayground('#container', {
+  config: {
+    markup: { language: 'html', content: '<h1>Hello LiveCodes!</h1>' },
+    style: { language: 'css', content: 'h1 { color: blue; }' },
+    script: { language: 'javascript', content: 'console.log("Hello!");' },
+  },
+});
+```
+
+### 2. SDK Methods Are Async
+
+**All SDK methods return Promises. Always `await` them.**
+
+```typescript
+// Run the playground
+await playground.run();
+
+// Get current code
+const code = await playground.getCode();
+
+// Set new configuration
+await playground.setConfig({ /* ... */ });
+
+// Format code
+await playground.format();
+```
+
+### 3. Configuration
+
+```typescript
+const playground = await createPlayground('#container', {
+  // Default view
+  view: 'split', // 'split' | 'editor' | 'result'
+
+  // Readonly mode
+  readonly: false,
+
+  // Configuration for code editors
+  config: {
+    markup: { language: 'html', content: '<div>Hello</div>' },
+    style: { language: 'css', content: 'div { color: red; }' },
+    script: { language: 'typescript', content: 'console.log("Hello");' },
+  },
+});
+```
+
+### 4. Language Support
+
+LiveCodes supports 90+ languages. Use the `language` property in editor config:
+
+```typescript
+const config = {
+  markup: { language: 'markdown', content: '# Title' },
+  style: { language: 'scss', content: '$color: blue; div { color: $color; }' },
+  script: { language: 'python', content: 'print("Hello")' },
+}
+```
+
+### 5. Module Resolution
+
+Import npm packages directly without a bundler:
+
+```typescript
+// In the script editor
+import confetti from 'canvas-confetti';
+```
+
+## Common Patterns
+
+### React Integration
+
+```tsx
+import { useState } from 'react';
+import LiveCodes from 'livecodes/react';
+
+export default function App() {
+  const [playground, setPlayground] = useState();
+
+  const runCode = async () => {
+    if (playground) {
+      await playground.run();
+    }
+  };
+
+  return (
+    <>
+      <LiveCodes
+        sdkReady={setPlayground}
+        config={{
+          markup: { language: 'html', content: '<h1>Hello React!</h1>' },
+          script: { language: 'javascript', content: 'console.log("Hello");' },
+        }}
+      />
+      <button onClick={runCode}>Run</button>
+    </>
+  );
+}
+```
+
+### Headless Mode (No UI)
+
+```typescript
+import { createPlayground } from 'livecodes';
+
+const playground = await createPlayground({
+  headless: true,
+  config: {
+    markup: { language: 'markdown', content: '# Hello LiveCodes!' },
+  }
+});
+
+// Compile and get output without visible UI
+await playground.run();
+const result = await playground.getCode();
+```
+
+## Common Mistakes to Avoid
+
+### Forgetting Async/Await
+
+```typescript
+// ❌ Wrong: Not awaiting
+const playground = createPlayground('#container', {});
+await playground.run(); // Error! playground is a Promise
+
+// ✅ Correct: Always await createPlayground
+const playground = await createPlayground('#container', {});
+await playground.run();
+```
+
+### Server-Side Assumptions
+
+```typescript
+// ❌ Wrong: Assuming server-side rendering
+import { createPlayground } from 'livecodes';
+// This won't work in Node.js without a DOM
+
+// ✅ Correct: LiveCodes is client-side only
+// Use in browser environments or frameworks that hydrate client-side
+```
+
+### Confusing Display Mode and Default View
+
+```typescript
+// ❌ Wrong: Using 'code' instead of 'editor'
+const playground = await createPlayground('#container', {
+  view: 'codeblock', // Invalid view
+});
+
+// ✅ Correct: Use valid default view
+const playground = await createPlayground('#container', {
+  view: 'editor', // 'split' | 'editor' | 'result'
+});
+```
+
+## Best Practices for AI Generation
+
+1. **Always await `createPlayground`** - it returns a Promise
+2. **Use descriptive configuration** for better maintainability
+3. **Choose appropriate display modes** based on use case
+4. **Import only needed languages** to optimize loading
+5. **Handle async operations** properly with `await` or `.then()`
+6. **Load relevant skills** for enhanced guidance on specific tasks
+7. **Remember client-side only** - no server-side rendering
+
+## Resources
+
+- 📚 [Full Documentation](https://livecodes.io/docs/)
+- 🔧 [SDK Reference](https://livecodes.io/docs/sdk/)
+- 🎨 [Language Support](https://livecodes.io/docs/languages/)
+- 🤖 [Skills](https://github.com/live-codes/livecodes/blob/develop/.agents/skills/livecodes/SKILL.md) - AI-assisted development
+- 📄 [llms.txt](pathname:///llms.txt) - Quick reference
+- 📄 [llms-full.txt](pathname:///llms-full.txt) - Complete docs

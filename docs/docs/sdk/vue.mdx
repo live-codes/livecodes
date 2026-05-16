@@ -2,9 +2,15 @@
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-The vue SDK is a thin wrapper around the [JavaScript SDK](js-ts.mdx) to provide an easy to use vue component, yet retaining the full power, by having access to the [SDK methods](js-ts.mdx#sdk-methods).
+The Vue SDK is a thin wrapper around the [JavaScript SDK](js-ts.mdx) to provide an easy to use vue component, yet retaining the full power, by having access to the [SDK methods](js-ts.mdx#sdk-methods).
 
-It has a very simple [implementation](https://github.com/live-codes/livecodes/blob/develop/src/sdk/vue.ts) which you can easily modify in case you need.
+## Demo
+
+export const vueSDKDemo = {
+  vue: `<script setup>\n  import LiveCodes from 'livecodes/vue';\n  \n  const params = {\n    html: '<h1>Hello World!</h1>',\n    css: 'h1 {color: blue;}',\n    js: 'console.log("Hello, Svelte!")',\n    console: 'open',\n  };\n</script>\n\n<template>\n  <LiveCodes :params="params" />\n</template>\n`,
+};
+
+<LiveCodes params={vueSDKDemo} height="60vh" />
 
 ## Installation
 
@@ -12,9 +18,9 @@ Please refer to the [SDK installation](./index.mdx#installation) section.
 
 ## Usage
 
-The vue component is provided as the default export from `livecodes/vue`.
+The Vue component is provided as the default export from `livecodes/vue`.
 
-```html title="App.vue"
+```html title="Vue" livecodes render=link lang=vue
 <script setup>
   import LiveCodes from 'livecodes/vue';
 </script>
@@ -28,7 +34,7 @@ The vue component is provided as the default export from `livecodes/vue`.
 
 Prop types are exported as `Props` from `livecodes/vue`.
 
-```html title="App.vue"
+```html title="Vue" livecodes render=link lang=vue
 <script setup lang="ts">
   import LiveCodes, { type Props } from 'livecodes/vue';
   const options: Props = {
@@ -40,6 +46,10 @@ Prop types are exported as `Props` from `livecodes/vue`.
   <LiveCodes v-bind="options" />
 </template>
 ```
+<p />
+
+For convenience, the following types are also exported from `livecodes/vue`:<br />
+`Code`, `Config`, `EmbedOptions`, `Language`, `Playground`.
 
 TypeScript types are [documented here](../api/globals.md).
 
@@ -49,7 +59,7 @@ All [embed options](js-ts.mdx#embed-options) are available as props with the cor
 
 Example:
 
-```html title="App.vue"
+```html title="Vue" livecodes render=link lang=vue
 <script setup>
   import LiveCodes from 'livecodes/vue';
 
@@ -65,6 +75,7 @@ Example:
   <LiveCodes :config="config" view="result" />
 </template>
 ```
+<p />
 
 In addition, the following prop is also available:
 
@@ -76,7 +87,7 @@ In addition, the following prop is also available:
 
   Example:
 
-  ```html title="App.vue"
+  ```html title="Vue" livecodes render=link lang=vue
   <script setup>
     import LiveCodes from 'livecodes/vue';
   </script>
@@ -96,7 +107,7 @@ In addition, the following prop is also available:
 
   Example:
 
-  ```html title="App.vue"
+  ```html title="Vue" livecodes render=link lang=vue
   <script setup lang="ts">
     import type { Playground } from 'livecodes';
     import LiveCodes, { type Props } from 'livecodes/vue';
@@ -134,7 +145,7 @@ By default, a set of [default styles](js-ts.mdx#default-styles) are applied to t
 
 Example:
 
-```html title="App.vue"
+```html title="Vue" livecodes render=link lang=vue
 <script setup>
   import LiveCodes from 'livecodes/vue';
 
@@ -149,19 +160,53 @@ Example:
 </template>
 ```
 
-## Demo
+### Reactive Props
 
-export const vueSDKDemo = {
-  vue: `<script setup>\n  import LiveCodes from 'livecodes/vue';\n  \n  const params = {\n    html: '<h1>Hello World!</h1>',\n    css: 'h1 {color: blue;}',\n    js: 'console.log("Hello, Svelte!")',\n    console: 'open',\n  };\n</script>\n\n<template>\n  <LiveCodes :params="params" />\n</template>\n`,
-};
+Changing any prop will cause the playground to reload with the new options.
+However, changing the `config` prop is an exception — it updates the playground in place using the SDK method [`setConfig`](js-ts.mdx#setconfig), without triggering a full reload.
+This allows for a smooth update experience when only the configuration changes.
 
-<LiveCodes params={vueSDKDemo} height="80vh" />
+Example:
+
+```html title="Vue" livecodes render=link lang=vue
+<script setup>
+import { ref } from 'vue';
+import LiveCodes from 'livecodes/vue';
+
+const config = ref({
+  markup: {
+    language: 'html',
+    content: '<h1>Hello World!</h1>',
+  },
+});
+
+function switchToMarkdown() {
+  config.value = {
+    markup: {
+      language: 'markdown',
+      content: '# Hello World! (from Markdown)',
+    },
+  };
+}
+</script>
+
+<template>
+  <LiveCodes :config="config" />
+  <button @click="switchToMarkdown">Switch to Markdown</button>
+</template>
+```
+
+## Storybook
+
+See [storybook](pathname:///../stories/vue/) for usage examples.
 
 ## Related
 
 - [SDK Installation](./index.mdx#installation)
 - [JS/TS SDK](./js-ts.mdx)
+- [Preact SDK](./preact.mdx)
 - [React SDK](./react.mdx)
-- [Using SDK in Svelte](./svelte.mdx)
-- [Using SDK in Solid](./solid.mdx)
+- [Solid SDK](./solid.mdx)
+- [Svelte SDK](./svelte.mdx)
+- [Web Components SDK](./web-components.mdx)
 - [Embedded Playgrounds](../features/embeds.mdx)

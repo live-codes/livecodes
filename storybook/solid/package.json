@@ -1,0 +1,39 @@
+{
+  "name": "solid",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6009",
+    "build-storybook": "storybook build"
+  },
+  "imports": {
+    "#src": "./src/index.ts"
+  },
+  "dependencies": {
+    "@live-codes/solid-sdk": "0.4.0",
+    "flat": "6.0.1",
+    "livecodes": "../../build/sdk",
+    "solid-js": "^1.9.10"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^5.0.2",
+    "@storybook/addon-a11y": "^10.3.1",
+    "@storybook/addon-docs": "^10.3.1",
+    "@storybook/addon-vitest": "^10.3.1",
+    "@types/node": "^24.10.1",
+    "@vitest/browser-playwright": "^4.0.18",
+    "@vitest/coverage-v8": "^4.0.18",
+    "playwright": "^1.58.2",
+    "storybook": "^10.3.1",
+    "storybook-solidjs-vite": "^10.0.9",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.0-beta.13",
+    "vite-plugin-ignore-dynamic-imports": "^1.0.2",
+    "vite-plugin-solid": "^2.11.10",
+    "vitest": "^4.0.18"
+  },
+  "overrides": {
+    "vite": "^8.0.0-beta.13"
+  }
+}

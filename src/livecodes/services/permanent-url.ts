@@ -1,13 +1,26 @@
 import { modulesService } from './modules';
 
-type SDKFile = 'esm' | 'umd' | 'react' | 'vue' | 'types';
+type SDKFile =
+  | 'esm'
+  | 'umd'
+  | 'preact'
+  | 'react'
+  | 'solid'
+  | 'svelte'
+  | 'vue'
+  | 'webComponents'
+  | 'types';
 
 const sdkFiles: Record<SDKFile, string> = {
   esm: 'livecodes.js',
   umd: 'livecodes.umd.js',
+  preact: 'preact.js',
   react: 'react.js',
+  solid: 'solid.js',
+  svelte: 'svelte.js',
   vue: 'vue.js',
-  types: 'index.d.ts',
+  webComponents: 'web-components.js',
+  types: 'types/index.d.ts',
 };
 
 export const permanentUrlService = {

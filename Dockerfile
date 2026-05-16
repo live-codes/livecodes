@@ -6,8 +6,15 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY docs/package*.json docs/
-COPY storybook/package*.json storybook/
 COPY server/package*.json server/
+
+COPY storybook/package*.json storybook/
+COPY storybook/preact/package*.json storybook/preact/
+COPY storybook/react/package*.json storybook/react/
+COPY storybook/solid/package*.json storybook/solid/
+COPY storybook/svelte/package*.json storybook/svelte/
+COPY storybook/vue/package*.json storybook/vue/
+COPY storybook/web-components/package*.json storybook/web-components/
 
 RUN npm ci
 

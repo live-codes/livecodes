@@ -1,0 +1,342 @@
+# Export System
+
+This guide describes the export system in LiveCodes, located in `src/livecodes/export/`.
+
+## Overview
+
+The export system allows exporting projects to various formats including JSON, ZIP (source), HTML (result), GitHub Gist, CodePen, and JSFiddle.
+
+## Architecture
+
+```mermaid
+flowchart TB
+    subgraph Core[Core Application]
+        CoreTS[core.ts<br/>handleExport]
+    end
+
+    subgraph Export Module
+        ExportTS[export.ts<br/>Main Dispatcher]
+        Utils[utils.ts<br/>File Helpers]
+
+        subgraph Handlers[Export Handlers]
+            JSON[export-json.ts<br/>Project JSON]
+            SRC[export-src.ts<br/>Source ZIP]
+            HTML[export-html.ts<br/>Result HTML]
+            CodePen[export-codepen.ts<br/>CodePen]
+            JSFiddle[export-jsfiddle.ts<br/>JSFiddle]
+            GitHubGist[export-github-gist.ts<br/>GitHub Gist]
+        end
+    end
+
+    subgraph External
+        CodePenAPI[CodePen API<br/>POST /pen/define]
+        JSFiddleAPI[JSFiddle API<br/>POST /api/post]
+        GitHubAPI[GitHub API<br/>POST /gists]
+        Download[Browser Download]
+    end
+
+    CoreTS --> ExportTS
+    ExportTS --> JSON
+    ExportTS --> SRC
+    ExportTS --> HTML
+    ExportTS --> CodePen
+    ExportTS --> JSFiddle
+    ExportTS --> GitHubGist
+
+    JSON --> Utils
+    SRC --> Utils
+    CodePen --> Utils
+    JSFiddle --> Utils
+    GitHubGist --> Utils
+
+    JSON --> Download
+    SRC --> Download
+    HTML --> Download
+    CodePen --> CodePenAPI
+    JSFiddle --> JSFiddleAPI
+    GitHubGist --> GitHubAPI
+```
+
+## Export Types
+
+| Type | Handler | Output | Description |
+|------|---------|--------|-------------|
+| `json` | `exportJSON` | `.json` file | Project configuration |
+| `src` | `exportSrc` | `.zip` file | Source files + result + config |
+| `html` | `exportHTML` | `.html` file | Standalone result page |
+| `codepen` | `exportCodepen` | CodePen URL | Prefilled CodePen pen |
+| `jsfiddle` | `exportJsfiddle` | JSFiddle URL | Prefilled JSFiddle |
+| `githubGist` | `exportGithubGist` | Gist URL | Public GitHub gist |
+
+## Core Dispatcher (export.ts)
+
+The main dispatcher routes to appropriate handlers:
+
+```mermaid
+flowchart LR
+    A[exportConfig<br/>type, config, payload] --> B{Export Type}
+
+    B -->|json| C[exportJSON]
+    B -->|src| D[exportSrc]
+    B -->|html| E[exportHTML]
+    B -->|codepen| F[exportCodepen]
+    B -->|jsfiddle| G[exportJsfiddle]
+    B -->|githubGist| H[exportGithubGist]
+```
+
+## Utility Functions (utils.ts)
+
+### getFilesFromConfig
+
+Extracts file structure from configuration:
+
+```mermaid
+flowchart TD
+    A[Config] --> B{Has content?}
+
+    B -->|markup| C["index.{ext}"]
+    B -->|style| D["style.{ext}"]
+    B -->|script| E["script.{ext}"]
+    B -->|stylesheets| F[styles file<br/>external links]
+    B -->|scripts| G[scripts file<br/>external links]
+    B -->|tests| H["script.spec.{ext}"]
+
+    C --> I[Files object]
+    D --> I
+    E --> I
+    F --> I
+    G --> I
+    H --> I
+```
+
+### getContent
+
+Handles language support for export targets:
+
+Supported languages vary by platform:
+- **CodePen**: markdown, haml, less, scss, sass, stylus, babel, typescript, coffeescript, livescript
+- **JSFiddle**: haml, scss, sass, babel, typescript, coffeescript
+
+For unsupported languages, compiled code is used.
+
+### getCompilerScripts
+
+External compiler scripts needed for non-JS languages:
+
+```mermaid
+flowchart LR
+    A[Language] --> B{Supported?}
+    B -->|Yes| C[Use original code]
+    B -->|No| D[Get compiler scripts]
+    D --> E[Filter HTTPS URLs]
+    E --> F[Add to external resources]
+```
+
+## Export Handlers
+
+### JSON Export (export-json.ts)
+
+Exports project configuration:
+
+```mermaid
+sequenceDiagram
+    participant Core
+    participant ExportJSON
+    participant Browser
+
+    Core->>ExportJSON: exportJSON(config)
+    ExportJSON->>ExportJSON: Stringify config
+    ExportJSON->>Browser: Download as {title}.json
+```
+
+### Source Export (export-src.ts)
+
+Creates ZIP with all project files:
+
+```mermaid
+sequenceDiagram
+    participant Core
+    participant ExportSrc
+    participant JSZip
+    participant Browser
+
+    Core->>ExportSrc: exportSrc(config, html)
+    ExportSrc->>JSZip: Load JSZip
+    ExportSrc->>ExportSrc: getFilesFromConfig()
+
+    loop Each file
+        ExportSrc->>JSZip: zip.file(filename, content)
+    end
+
+    ExportSrc->>JSZip: zip.file(result.html)
+    ExportSrc->>JSZip: zip.file(livecodes.json)
+    JSZip->>ExportSrc: base64 output
+    ExportSrc->>Browser: Download as {title}.zip
+```
+
+### HTML Export (export-html.ts)
+
+Exports standalone result page:
+
+```mermaid
+sequenceDiagram
+    participant Core
+    participant ExportHTML
+    participant ResultPage
+    participant Browser
+
+    Core->>ResultPage: getResultPage(forExport=true)
+    ResultPage-->>Core: HTML string
+    Core->>ExportHTML: exportHTML(config, html)
+    ExportHTML->>Browser: Download as {title}.html
+```
+
+### CodePen Export (export-codepen.ts)
+
+Creates prefilled CodePen:
+
+```mermaid
+flowchart TD
+    A[exportCodepen] --> B[Check language support]
+    B --> C{Supported?}
+    C -->|Yes| D[Use original code]
+    C -->|No| E[Use compiled code]
+
+    D --> F[Build form data]
+    E --> F
+
+    F --> G[Add preprocessor settings]
+    G --> H[Add external resources]
+    H --> I[POST to codepen.io/pen/define]
+    I --> J[Open in new window]
+```
+
+### JSFiddle Export (export-jsfiddle.ts)
+
+Creates prefilled JSFiddle:
+
+```mermaid
+flowchart TD
+    A[exportJsfiddle] --> B[Check language support]
+    B --> C[Build form data]
+    C --> D[Set panel types<br/>CSS:1, JS:4 for TypeScript]
+    D --> E[Add external resources]
+    E --> F[POST to jsfiddle.net/api/post/library/pure/]
+    F --> G[Open in new window]
+```
+
+### GitHub Gist Export (export-github-gist.ts)
+
+Creates public GitHub gist:
+
+```mermaid
+sequenceDiagram
+    participant Core
+    participant ExportGist
+    participant GitHub API
+
+    Core->>ExportGist: exportGithubGist(config, user)
+    ExportGist->>ExportGist: getFiles(config)
+    ExportGist->>GitHub API: POST /gists
+
+    alt Success
+        GitHub API-->>ExportGist: gist.id, gist.html_url
+        ExportGist->>ExportGist: Update gist with project link
+        ExportGist->>GitHub API: PATCH /gists/{id}
+        GitHub API-->>ExportGist: Updated gist
+        ExportGist->>Core: Open gist URL
+    else Failure
+        GitHub API-->>ExportGist: Error
+        ExportGist-->>Core: No action
+    end
+```
+
+## Usage in core.ts
+
+### handleExport Function
+
+Main entry point for export functionality:
+
+```mermaid
+flowchart TD
+    A[handleExport] --> B[Load export module<br/>lazy loaded]
+
+    B --> C[Export JSON<br/>click handler]
+    B --> D[Export Result<br/>click handler]
+    B --> E[Export Source<br/>click handler]
+    B --> F[Export CodePen<br/>click handler]
+    B --> G[Export JSFiddle<br/>click handler]
+    B --> H[Export GitHub Gist<br/>click handler]
+
+    C --> I[updateConfig]
+    I --> J[exportJSON]
+
+    D --> K[updateConfig]
+    K --> L[getResultPage forExport=true]
+    L --> M[exportConfig html]
+
+    E --> N[updateConfig]
+    N --> L
+    N --> M2[exportConfig src]
+
+    F --> O[updateConfig]
+    O --> P{Cache valid?}
+    P -->|No| Q[getResultPage]
+    P -->|Yes| R[getCachedCode]
+    Q --> R
+    R --> S[exportConfig codepen<br/>with compiled]
+
+    G --> T[Similar to CodePen]
+    T --> U[exportConfig jsfiddle]
+
+    H --> V[Get authenticated user]
+    V --> W{User logged in?}
+    W -->|No| X[Return]
+    W -->|Yes| Y[exportConfig gist]
+```
+
+### Lazy Loading
+
+Export handlers are lazy-loaded to reduce initial bundle size:
+
+```typescript
+let exportModule: typeof import('./export/export');
+const loadModule = async () => {
+  exportModule = exportModule || (await import(baseUrl + '{{hash:export.js}}'));
+};
+```
+
+## Bulk Export
+
+Multiple projects can be exported via the Saved Projects screen:
+
+```mermaid
+flowchart TD
+    A[Saved Projects UI] --> B[Export All button]
+    B --> C[Get visible projects<br/>from storage]
+    C --> D[Create JSON array<br/>of configs]
+    D --> E[Download as JSON]
+```
+
+## File Structure
+
+```
+src/livecodes/export/
+├── index.ts              # Public exports
+├── export.ts              # Main dispatcher
+├── export-json.ts         # JSON export
+├── export-src.ts          # Source ZIP export
+├── export-html.ts         # Result HTML export
+├── export-codepen.ts      # CodePen export
+├── export-jsfiddle.ts     # JSFiddle export
+├── export-github-gist.ts  # GitHub Gist export
+└── utils.ts               # Shared utilities
+```
+
+## Related Documentation
+
+- [Import System](./import-system.mdx) - Importing projects
+- [Configuration System](./config-system.mdx) - Configuration object
+- [Storage System](./storage-system.mdx) - Project storage
+- [Result Page](./result-page.mdx) - Result generation
+- [User Docs: Export](https://livecodes.io/docs/features/export) - User-facing documentation

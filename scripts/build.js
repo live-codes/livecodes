@@ -2,7 +2,10 @@ const esbuild = require('esbuild');
 const { minify: minifyHTML, default: minifyHTMLPlugin } = require('esbuild-plugin-minify-html');
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
 
+const { bundleTypes } = require('./bundle-types');
+const { cleanTypes } = require('./clean-types');
 const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
 const { buildStyles } = require('./styles');
@@ -90,14 +93,21 @@ const baseOptions = {
 
 const sdkBuild = async () => {
   const sdkSrcDir = 'src/sdk/';
-  const sdkSrcMod = sdkSrcDir + 'index.ts';
   const sdkOutDir = 'sdk/';
 
   await Promise.all([
     copyFile('LICENSE', sdkOutDir + 'LICENSE'),
     copyFile('README.md', sdkOutDir + 'README.md'),
     copyFile(sdkSrcDir + 'package.sdk.json', sdkOutDir + 'package.json'),
+    copyFile(sdkSrcDir + 'LiveCodes.svelte', sdkOutDir + 'LiveCodes.svelte'),
   ]);
+
+  if (!devMode) {
+    fs.promises.cp(path.resolve('.agents', 'skills'), path.resolve(outDir, sdkOutDir, 'skills'), {
+      recursive: true,
+      filter: (srcPath) => !srcPath.includes('_artifacts'),
+    });
+  }
 
   const sdkOptions = {
     ...baseOptions,
@@ -108,43 +118,50 @@ const sdkBuild = async () => {
   return Promise.all([
     esbuild.build({
       ...sdkOptions,
-      entryPoints: [sdkSrcMod],
-      outdir: undefined,
-      outfile: path.resolve(outDir, sdkOutDir, 'livecodes.js'),
+      entryPoints: {
+        livecodes: sdkSrcDir + 'index.ts',
+        preact: sdkSrcDir + 'preact.ts',
+        react: sdkSrcDir + 'react.tsx',
+        solid: sdkSrcDir + 'solid.ts',
+        svelte: sdkSrcDir + 'svelte.ts',
+        vue: sdkSrcDir + 'vue.ts',
+      },
+      outdir: path.resolve(outDir, sdkOutDir),
+      external: ['preact', 'react', 'solid-js', 'svelte', 'vue'],
+      jsx: 'automatic',
+      alias: {
+        '@vue/runtime-core': 'vue',
+      },
     }),
     esbuild.build({
       ...sdkOptions,
-      entryPoints: [sdkSrcMod],
+      entryPoints: [sdkSrcDir + 'index.ts'],
       outdir: undefined,
       outfile: path.resolve(outDir, sdkOutDir, 'livecodes.cjs'),
       format: 'cjs',
     }),
     esbuild.build({
       ...sdkOptions,
-      entryPoints: [sdkSrcMod],
-      outdir: undefined,
-      outfile: path.resolve(outDir, sdkOutDir, 'livecodes.umd.js'),
-      format: 'iife',
-      globalName: 'livecodes',
-    }),
-    esbuild.build({
-      ...sdkOptions,
-      entryPoints: [sdkSrcDir + 'react.tsx'],
-      outdir: undefined,
-      outfile: path.resolve(outDir, sdkOutDir, 'react.js'),
-      external: ['react'],
-      jsx: 'automatic',
-    }),
-    esbuild.build({
-      ...sdkOptions,
-      entryPoints: [sdkSrcDir + 'vue.ts'],
-      outdir: undefined,
-      outfile: path.resolve(outDir, sdkOutDir, 'vue.js'),
-      external: ['vue'],
-      alias: {
-        '@vue/runtime-core': 'vue',
+      entryPoints: {
+        'livecodes.umd': sdkSrcDir + 'livecodes.umd.ts',
+        'web-components': sdkSrcDir + 'web-components.ts',
       },
+      outdir: path.resolve(outDir, sdkOutDir),
+      format: 'iife',
     }),
+    /** @type {Promise<void>} */ (
+      new Promise((resolve) => {
+        exec('npx tsc -p tsconfig.sdk.json', () => {
+          cleanTypes();
+          if (!devMode) {
+            // for backward compatibility
+            // and to provide a bundled file for use as custom types in livecodes if needed
+            bundleTypes();
+          }
+          resolve();
+        });
+      })
+    ),
   ]);
 };
 

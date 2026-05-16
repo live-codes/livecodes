@@ -5,11 +5,11 @@ import siteConfig from '@generated/docusaurus.config';
   ...(globalThis as any).process,
   env: {
     ...(globalThis as any).process?.env,
-    SDK_VERSION: siteConfig.customFields.sdkVersion,
+    SDK_VERSION: siteConfig.customFields?.sdkVersion,
   },
 };
 
-let docsBaseUrl = siteConfig.customFields.docsBaseUrl as string | undefined;
+let docsBaseUrl = siteConfig.customFields?.docsBaseUrl as string | undefined;
 if (docsBaseUrl && !docsBaseUrl.endsWith('/')) {
   docsBaseUrl = docsBaseUrl + '/';
 }

@@ -16,7 +16,7 @@ If an existing repo is selected, the content of the `gh-pages` branch (if existi
 
 If the option `Commit source code` is enabled, the source code will be deployed to the directory `/src`.
 
-The code for the result page (and source code) is deployed as separate files for markup (`/index.html`), styles (`style.css`) and script (`script.js`). This allows re-use of these resources in other projects. Of course, multiple projects can be deloyed and linked to each other to act like a multi-page website.
+The code for the result page (and source code) is deployed as separate files for markup (`/index.html`), styles (`style.css`) and script (`script.js`). This allows re-use of these resources in other projects. Of course, multiple projects can be deployed and linked to each other to act like a multi-page website.
 
 The LiveCodes app will remember the repo used to deploy each project, so that later updates to the project can be deployed to the same repo.
 

@@ -16,10 +16,12 @@ if (isEmbed) {
   );
 
   document.body.classList.add('embed');
-  if (clickToLoad) {
-    loadingEl.classList.add('click-to-load');
-    loadingEl.title = 'Click to Load';
-    loadingText.innerText = 'Click to load LiveCodes';
+  if (loading !== 'eager') {
+    if (clickToLoad) {
+      loadingEl.classList.add('click-to-load');
+      loadingEl.title = 'Click to Load';
+      loadingText.innerText = 'Click to load LiveCodes';
+    }
 
     // load on click
     loadingEl.addEventListener('click', load);

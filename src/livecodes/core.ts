@@ -1,4 +1,5 @@
 import { getPlaygroundUrl } from '../sdk';
+import { getIframeAllowAttribute } from '../sdk/internal';
 import {
   addTemplateToIndex,
   createLoginContainer,
@@ -302,10 +303,7 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       if (isHeadless) {
         iframe.setAttribute('sandbox', 'allow-same-origin allow-forms allow-scripts');
       } else {
-        iframe.setAttribute(
-          'allow',
-          'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
-        );
+        iframe.setAttribute('allow', getIframeAllowAttribute());
         iframe.setAttribute('allowtransparency', 'true');
         iframe.setAttribute('allowpaymentrequest', 'true');
         iframe.setAttribute('allowfullscreen', 'true');
@@ -869,7 +867,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   }
 
   if (mode === 'editor' || mode === 'codeblock' || mode === 'result') {
-    split?.destroy();
+    split?.destroy(true);
     split = null;
   } else {
     if (view === 'editor') {
@@ -2002,6 +2000,9 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
     deleteFile(file.filename);
   }
   configureMultiFile(combinedConfig);
+  if (newConfig.mode || newConfig.view) {
+    window.deps?.showMode?.(combinedConfig.mode, combinedConfig.view);
+  }
   if (reload) {
     await updateEditors(editors, getConfig());
   }
@@ -2010,9 +2011,6 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
 
   if (!isEmbed) {
     loadSettings(combinedConfig);
-  }
-  if (newConfig.mode || newConfig.view) {
-    window.deps?.showMode?.(combinedConfig.mode, combinedConfig.view);
   }
   if (newConfig.tools) {
     configureToolsPane(newConfig.tools, combinedConfig.mode);
@@ -5258,6 +5256,7 @@ const handleResultLoading = () => {
   const showResultModeDrawer = (event: MessageEvent) => {
     const iframe = UI.getResultIFrameElement();
     if (
+      isEmbed ||
       !iframe ||
       event.source !== iframe.contentWindow ||
       event.data.type !== 'loading' ||
@@ -5732,7 +5731,6 @@ const extraHandlers = async () => {
 
 const configureEmbed = (eventsManager: EventsManager) => {
   document.body.classList.add('embed');
-  handleResultModeDrawer();
 
   const logoLink = UI.getLogoLink();
   logoLink.title = window.deps.translateString('generic.embed.logoHint', 'Edit on LiveCodes 🡕');
@@ -5785,8 +5783,11 @@ const configureModes = ({
   if (isLite) {
     configureLite();
   }
-  if (isEmbed || config.mode === 'result') {
+  if (isEmbed) {
     configureEmbed(eventsManager);
+  }
+  if (config.mode === 'result') {
+    handleResultModeDrawer();
   }
   if (config.mode === 'simple') {
     configureSimpleMode(config);
@@ -6060,8 +6061,18 @@ const createApi = (): API => {
     return getSDKConfig(config);
   };
 
-  const apiSetConfig = async (newConfig: Partial<SDKConfig>): Promise<ExportedConfig> => {
+  const apiSetConfig = async (newConfig: Partial<SDKConfig> | string): Promise<ExportedConfig> => {
     const currentConfig = getConfig();
+    if (typeof newConfig === 'string') {
+      try {
+        newConfig = (await fetch(newConfig).then((r) => r.json())) as Partial<SDKConfig>;
+      } catch {
+        return { error: 'Invalid config URL.' } as any;
+      }
+    }
+    if (!newConfig || typeof newConfig !== 'object') {
+      return { error: 'Invalid config.' } as any;
+    }
     const newAppConfig = buildConfig({
       ...currentConfig,
       ...(newConfig as Partial<Config>),

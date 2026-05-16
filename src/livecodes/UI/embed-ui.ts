@@ -473,21 +473,17 @@ export default function App() {
     svelte(data: FormData) {
       const options = getOptions(data);
       const formatted = JSON.stringify(options, null, 2);
-      const indented = indentCode(formatted, 2);
+      const indented = indentCode(formatted, 4);
       return `
 <script>
-  import { onMount } from 'svelte';
-  import { createPlayground } from 'livecodes';
-  const options = ${indented};
-  let container;
-  let playground;
-  onMount(() => {
-    createPlayground(container, options).then((p) => (playground = p));
-    return () => playground?.destroy();
-  });
+  import LiveCodes from "livecodes/svelte";
+
+  export default function App() {
+    const options = ${indented};
+  }
 </script>
 
-<div bind:this="{container}"></div>
+<LiveCodes {...options} />
 `.trimStart();
     },
     iframe: (data: FormData) => {

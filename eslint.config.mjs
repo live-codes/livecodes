@@ -8,6 +8,7 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import jsdoc from 'eslint-plugin-jsdoc';
 import noOnlyTests from 'eslint-plugin-no-only-tests';
+import storybook from 'eslint-plugin-storybook';
 import globals from 'globals';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -16,6 +17,7 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 const compat = new FlatCompat({
   baseDirectory: dirname,
+  // @ts-ignore
   recommendedConfig: js.configs.recommended,
   allConfig: js.configs.all,
 });
@@ -28,12 +30,14 @@ export default [
       '**/build',
       '**/coverage',
       '**/scripts',
+      '**/.cache',
       '**/.docusaurus',
       '**/.cache',
       '**/.jest',
       '**/.storybook',
       'docs/docs/api',
       'functions/vendors',
+      'storybook/**/src/livecodes*.ts',
     ],
   },
   ...fixupConfigRules(
@@ -53,12 +57,13 @@ export default [
       'no-only-tests': noOnlyTests,
     },
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 'latest',
       globals: globals.browser,
       parser: tsParser,
       parserOptions: {
         project: ['./tsconfig.eslint.json'],
       },
+      sourceType: 'module',
     },
     rules: {
       '@typescript-eslint/adjacent-overload-signatures': 'error',
@@ -196,4 +201,5 @@ export default [
       'import/no-extraneous-dependencies': 'off',
     },
   },
+  ...storybook.configs['flat/recommended'],
 ];
