@@ -1,1 +1,33 @@
-<svg class="livecodes-logo" width="auto" height="1em" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="#fff" fill-rule="evenodd" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="C" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0" stop-color="#d7d7d7"/><stop offset="1" stop-color="#626262"/></linearGradient></defs><g transform="matrix(.72582 0 0 .7127 -3.3 -4.8)"><path d="m27.3 43.3-11.1-9.1c-2.8-2.3-7.5-5.4-7.4-8.7 0-3.6 4.6-6.5 7.4-9.1l11-8.9v8.6l-11 9.1 11 9.8v8.3Z" fill="#d8d8d8" paint-order="stroke"/><path d="m51.9 43.3 11-9.1c2.8-2.3 7.5-5.4 7.4-8.7 0-3.6-4.6-6.5-7.4-9.1L52 7.5v8.6l11 9.1L52 35v8.3Z" fill="#d8d8d8" paint-order="stroke" transform-origin="61.083px 25.444px"/></g><g transform="matrix(.06081 0 0 .0597 25.3 8.1)"><path d="M0 86.7-142 0 0-86.6 142.3 0ZM-142.8.1.1 87.2 143 0v174.5L0 261.9v-.2l-142.9-87.3Z" paint-order="stroke" shape-rendering="optimizespeed"/></g><g transform="matrix(.06081 0 0 .0597 25.3 10.6)" fill="url(#C)"><path d="M76-1.3-.5-48-77.3-1.3-.6 45.6 76.1-1.3ZM-78 93.7l76.8 46.9V46.9L-78 0v93.7ZM0 140.6l77-47V0L0 46.9v93.7Z" paint-order="stroke" shape-rendering="optimizespeed"/></g><g transform="matrix(.06081 0 0 .0597 16.3 2.6)" stroke="none"><path d="M290.1 87 147.3 0 4.5 87 0 90v180L147.5 360l4.5-2.8L295 270V90l-4.9-2.9Zm-4.5 177.3-133.8 81.8V182.6l134-81.6-.2 163.3Zm-142.8 81.8-134-81.8V101l134 81.6v163.5ZM13.6 92.7l133.7-81.5L281 92.7l-133.7 81.5L13.5 92.7h.1Z" fill="#444" paint-order="stroke" shape-rendering="optimizespeed"/><path d="m225.4 126.6-78-47.4-78.1 47.4-4.5 2.9v100.9l82.5 50.4 4.5-2.7 78.2-47.7v-101l-4.6-2.8Zm-4.6 98.1-69 42.2v-84.2l69.1-42v84Zm-78 42.2-69.1-42.2v-84l69.1 42V267ZM78.4 132.2l69-41.9 68.8 42-68.9 42-69-42h.1Z" paint-order="stroke" shape-rendering="optimizespeed"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 140" width="580" height="140" role="img" aria-label="LiveCodes logo with border">
+  <defs>
+    <linearGradient id="lclb-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1825"/>
+      <stop offset="100%" stop-color="#080d16"/>
+    </linearGradient>
+    <filter id="lclb-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feFlood flood-color="#00c8ff" flood-opacity=".35" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="lclb-dot-glow" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Outer border -->
+  <rect x="2" y="2" width="576" height="136" rx="20" fill="none" stroke="rgba(0,200,255,0.25)" stroke-width="2"/>
+  <!-- Icon badge -->
+  <rect x="12" y="30" width="80" height="80" rx="12" fill="url(#lclb-bg)"/>
+  <rect x="13" y="31" width="78" height="78" rx="11" fill="none" stroke="rgba(0,200,255,0.3)" stroke-width="1.5"/>
+  <g filter="url(#lclb-glow)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="34,58 25,70 34,82" stroke="#00c8ff" stroke-width="7"/>
+    <line x1="60" y1="52" x2="43" y2="88" stroke="#00e5c8" stroke-width="7"/>
+    <polyline points="70,58 79,70 70,82" stroke="#00c8ff" stroke-width="7"/>
+  </g>
+  <circle cx="74" cy="43" r="4" fill="#ff4d4d" filter="url(#lclb-dot-glow)"/>
+  <!-- Wordmark -->
+  <text x="112" y="92" font-family="'Helvetica Neue', Arial, sans-serif" font-size="70" font-weight="700" fill="#0d1825" letter-spacing="-1">LiveCodes</text>
+</svg>
