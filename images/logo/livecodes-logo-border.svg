@@ -1,33 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 140" width="580" height="140" role="img" aria-label="LiveCodes logo with border">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="LiveCodes icon with border">
   <defs>
-    <linearGradient id="lclb-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="lcib-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1825"/>
       <stop offset="100%" stop-color="#080d16"/>
     </linearGradient>
-    <filter id="lclb-glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="3" result="b"/>
-      <feFlood flood-color="#00c8ff" flood-opacity=".35" result="c"/>
+    <pattern id="lcib-dots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r=".75" fill="rgba(255,255,255,.04)"/>
+    </pattern>
+    <filter id="lcib-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14" result="b"/>
+      <feFlood flood-color="#00c8ff" flood-opacity=".32" result="c"/>
       <feComposite in="c" in2="b" operator="in" result="cb"/>
       <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="lclb-dot-glow" x="-120%" y="-120%" width="340%" height="340%">
-      <feGaussianBlur stdDeviation="2" result="b"/>
+    <filter id="lcib-dot-glow" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
       <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c"/>
       <feComposite in="c" in2="b" operator="in" result="cb"/>
       <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <!-- Outer border -->
-  <rect x="2" y="2" width="576" height="136" rx="20" fill="none" stroke="rgba(0,200,255,0.25)" stroke-width="2"/>
-  <!-- Icon badge -->
-  <rect x="12" y="30" width="80" height="80" rx="12" fill="url(#lclb-bg)"/>
-  <rect x="13" y="31" width="78" height="78" rx="11" fill="none" stroke="rgba(0,200,255,0.3)" stroke-width="1.5"/>
-  <g filter="url(#lclb-glow)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <polyline points="34,58 25,70 34,82" stroke="#00c8ff" stroke-width="7"/>
-    <line x1="60" y1="52" x2="43" y2="88" stroke="#00e5c8" stroke-width="7"/>
-    <polyline points="70,58 79,70 70,82" stroke="#00c8ff" stroke-width="7"/>
+  <rect width="512" height="512" rx="80" fill="url(#lcib-bg)"/>
+  <rect width="512" height="512" rx="80" fill="url(#lcib-dots)"/>
+  <rect x="6" y="6" width="500" height="500" rx="76" fill="none" stroke="rgba(0,200,255,0.35)" stroke-width="3"/>
+  <g filter="url(#lcib-glow)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44"/>
+    <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44"/>
+    <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44"/>
   </g>
-  <circle cx="74" cy="43" r="4" fill="#ff4d4d" filter="url(#lclb-dot-glow)"/>
-  <!-- Wordmark -->
-  <text x="112" y="92" font-family="'Helvetica Neue', Arial, sans-serif" font-size="70" font-weight="700" fill="#0d1825" letter-spacing="-1">LiveCodes</text>
+  <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#lcib-dot-glow)"/>
 </svg>

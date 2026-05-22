@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" aria-hidden="true">
+  <defs>
+    <style>
+      .stroke {
+        fill: none;
+        stroke: #000;
+        stroke-width: 44;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: draw 0.6s linear forwards;
+      }
+
+      .left  { animation-delay: 0s; }
+      .slash { animation-delay: 0.65s; }
+      .right { animation-delay: 1.3s; }
+
+      @keyframes draw {
+        to { stroke-dashoffset: 0; }
+      }
+    </style>
+  </defs>
+
+  <!-- Left bracket -->
+  <path class="stroke left" pathLength="1"
+    d="M146 176 L86 256 L146 336" />
+
+  <!-- Slash -->
+  <path class="stroke slash" pathLength="1"
+    d="M310 160 L202 352" />
+
+  <!-- Right bracket -->
+  <path class="stroke right" pathLength="1"
+    d="M366 176 L426 256 L366 336" />
+
+  <!-- Live dot -->
+  <circle cx="395" cy="100" r="26" fill="#000" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="1.95s" dur="0.18s" fill="freeze" />
+  </circle>
+</svg>

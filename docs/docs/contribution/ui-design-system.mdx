@@ -6,6 +6,8 @@ This guide describes the UI design system in LiveCodes, including styles, HTML t
 
 LiveCodes uses a SCSS-based design system with CSS custom properties for dynamic theming. The UI is built from HTML templates that are injected into the DOM and styled via a compiled stylesheet.
 
+The visual identity is anchored around the LiveCodes icon palette: deep navy surfaces, electric cyan (`#00c8ff`) and signal teal (`#00e5c8`) accents, and a live red (`#ff4d4d`) indicator. A fixed `--brand-*` token layer defines this chrome while the existing `--hue/--st/--lt` system continues to allow user `themeColor` customization.
+
 ## Style Architecture
 
 ### Main Stylesheet (`app.scss`)
@@ -24,20 +26,58 @@ The primary stylesheet defines CSS custom properties for:
 --s24: 24px;
 --s32: 32px;
 --s40: 40px;
---rs: 4px; // border-radius
+  --rs: 6px;   // border-radius (buttons, inputs, menus)
+  --rs-lg: 12px; // border-radius (cards, modals, drawers)
 ```
 
 **Color System:**
 
+The color system has two layers:
+
+1. **User-themeable layer** (`--hue`, `--st`, `--lt`) — drives buttons, links, active states, focus rings.
+2. **Brand layer** (`--brand-*`) — fixed identity colors for chrome, independent of user `themeColor`.
+
 ```scss
+// User-themeable
 --hue: 214; // Base hue (214 = blue)
---st: 40%; // Saturation percentage
---lt: 50%; // Lightness percentage
+--st: 40%;  // Saturation
+--lt: 50%;  // Lightness
 
 // Derived colors
 --color: hsl(var(--hue), var(--st), var(--lt));
---color10: ... --color95: // Lightness variants;;
+--color10: ... --color95: // Lightness variants
 ```
+
+**Brand Tokens (dark theme):**
+
+```scss
+--brand-bg-deep: #080d16;
+--brand-bg-elevated: #0d1825;
+--brand-bg-elevated-2: #111b2c;
+--brand-border: rgba(255, 255, 255, 0.06);
+--brand-border-hi: rgba(0, 200, 255, 0.18);
+--brand-cyan: #00c8ff;
+--brand-teal: #00e5c8;
+--brand-live: #ff4d4d;
+--brand-text: #dde6f0;
+--brand-muted: #556070;
+--brand-dim: #2e3a4a;
+--brand-glow-cyan: 0 0 24px rgba(0, 200, 255, 0.18);
+--brand-glow-cyan-soft: 0 0 12px rgba(0, 200, 255, 0.1);
+```
+
+**Typography:**
+
+```scss
+--font-ui:
+  'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Arial, sans-serif;
+--font-mono:
+  'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo,
+  Consolas, monospace;
+```
+
+Both fonts are loaded via `@fontsource` packages (`vendors.ts`) and fetched alongside app styles in `core.ts`. System fallbacks render immediately to avoid FOIT.
 
 **Semantic Colors:**
 
@@ -53,7 +93,7 @@ The primary stylesheet defines CSS custom properties for:
 
 ### Theme Variants (`inc-light.scss`)
 
-Light theme swaps color values:
+Light theme swaps color values and mirrors the brand token palette for light surfaces:
 
 ```scss
 :root.light {
@@ -61,6 +101,19 @@ Light theme swaps color values:
   --color10: hsl(var(--hue), var(--st), calc(var(--lt) * 0.1));
   // ... inverted lightness scale
   --icon-filter: invert(0.3);
+
+  // Light-mode brand overrides
+  --brand-bg-deep: #f4f7fb;
+  --brand-bg-elevated: #fff;
+  --brand-bg-elevated-2: #f0f3f8;
+  --brand-border: rgba(13, 24, 37, 0.08);
+  --brand-border-hi: rgba(0, 130, 178, 0.28);
+  --brand-cyan: #0096cc;
+  --brand-teal: #00a896;
+  --brand-live: #e63946;
+  --brand-text: #1a2332;
+  --brand-muted: #5a6b80;
+  --brand-dim: #97a4b6;
 }
 ```
 
@@ -90,9 +143,15 @@ html[dir='rtl'] {
 
 ### Loading Styles (`index.css`)
 
-Initial loading screen styles with animations:
+Initial loading screen uses the branded icon SVG and deep navy background:
 
 ```css
+body,
+#livecodes {
+  background-color: #080d16;
+  color: #e2e8f0;
+}
+
 #loading {
   align-items: center;
   display: flex;
@@ -104,9 +163,35 @@ Initial loading screen styles with animations:
   opacity: 0; /* Hidden until loaded */
 }
 
-@keyframes pulsate { ... }
-@keyframes pulse { ... }
+@keyframes liveIndicatorGlow { ... }
+@keyframes loadingTextPulse { ... }
 ```
+
+### Design Motifs
+
+**Dot Pattern:**
+
+A subtle dot texture is used on the toolbar and modal title bars, matching the icon background:
+
+```scss
+--brand-dot-pattern:
+  radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 0.75px, transparent 1px);
+--brand-dot-size: 28px 28px;
+```
+
+**Cyan Glow:**
+
+Focus states and hover effects use a soft cyan glow to create a modern, electric feel:
+
+```scss
+// Focus ring
+box-shadow: var(--brand-glow-cyan);        // 0 0 24px rgba(0, 200, 255, 0.18)
+
+// Soft hover glow
+box-shadow: var(--brand-glow-cyan-soft);    // 0 0 12px rgba(0, 200, 255, 0.1)
+```
+
+Applied to buttons, menu items, inputs, modal close buttons, cards, thumbnails, and tags.
 
 ---
 
@@ -391,8 +476,10 @@ Icon filters for light theme:
 1. **Create HTML template** in `src/livecodes/html/your-component.html`
 2. **Import in `src/livecodes/html/index.ts`** and export
 3. **Add styles** to `app.scss` or a new partial file
-4. **Update i18n keys** if needed
-5. **Instantiate in TypeScript** in `src/livecodes/UI/your-component.ts` via `innerHTML` or DOM manipulation
+4. **Use brand tokens** for surfaces, borders, and accents (`--brand-*`)
+5. **Add cyan focus-visible** rings for interactive elements (`border-color: var(--brand-cyan); box-shadow: var(--brand-glow-cyan-soft);`)
+6. **Update i18n keys** if needed
+7. **Instantiate in TypeScript** in `src/livecodes/UI/your-component.ts` via `innerHTML` or DOM manipulation
 
 ---
 

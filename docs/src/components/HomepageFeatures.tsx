@@ -242,7 +242,7 @@ import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteC
 createPlayground('#container', {
   params: {
     markdown: '# Hello LiveCodes!',
-    css: 'h1 {color: dodgerblue;}',
+    css: 'h1 {color: #00c8ff;}',
     js: 'console.log("Hello, from JS!");',
     console: 'open',
   },
@@ -266,7 +266,7 @@ export default function HomepageFeatures(): ReactNode {
               style={{
                 height: '70vh',
                 width: '95%',
-                boxShadow: '0 0 20px var(--ifm-color-secondary-darkest)',
+                boxShadow: '0 0 28px rgba(0, 200, 255, 0.35), 0 0 0 1px rgba(0, 200, 255, 0.1)',
               }}
               showCode={false}
               loading="eager"

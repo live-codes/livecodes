@@ -170,6 +170,8 @@ export const fontDECTerminalModernUrl = /* @__PURE__ */ getUrl(
 
 export const fontDejaVuMonoUrl = /* @__PURE__ */ getUrl('@fontsource/dejavu-mono@4.5.4/index.css');
 
+export const fontDMSansUrl = /* @__PURE__ */ getUrl('@fontsource/dm-sans@5.0.7/index.css');
+
 export const fontFantasqueUrl = /* @__PURE__ */ getUrl(
   '@typopro/web-fantasque-sans-mono@3.7.5/TypoPRO-FantasqueSansMono.css',
 );

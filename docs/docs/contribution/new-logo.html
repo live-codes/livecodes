@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiveCodes — Icon Proposal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #060a10;
+        --surface: #0d1420;
+        --surface-2: #111b2c;
+        --border: rgba(255, 255, 255, 0.06);
+        --border-hi: rgba(0, 200, 255, 0.18);
+        --text: #dde6f0;
+        --muted: #556070;
+        --dim: #2e3a4a;
+        --cyan: #00c8ff;
+        --teal: #00e5c8;
+        --red: #ff4d4d;
+        --font: 'DM Sans', system-ui, sans-serif;
+        --mono: 'JetBrains Mono', monospace;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font);
+        font-size: 15px;
+        line-height: 1.65;
+        padding: 80px 40px 120px;
+      }
+
+      .container {
+        max-width: 920px;
+        margin: 0 auto;
+      }
+
+      /* ── HEADER ─────────────────────────────────────────── */
+      .header {
+        margin-bottom: 88px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 48px;
+      }
+
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .eyebrow::before {
+        content: '';
+        width: 20px;
+        height: 1px;
+        background: var(--cyan);
+        opacity: 0.6;
+      }
+
+      h1 {
+        font-size: clamp(32px, 5vw, 52px);
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        line-height: 1.08;
+        margin-bottom: 20px;
+      }
+
+      h1 em {
+        font-style: normal;
+        color: var(--muted);
+        font-weight: 300;
+      }
+
+      .header-desc {
+        font-size: 16px;
+        color: var(--muted);
+        max-width: 540px;
+        line-height: 1.75;
+      }
+
+      /* ── SECTION LABEL ──────────────────────────────────── */
+      .label {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--dim);
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .label::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      section {
+        margin-bottom: 96px;
+      }
+
+      /* ── HERO CARD ──────────────────────────────────────── */
+      .hero-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 88px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            ellipse 60% 50% at 50% 0%,
+            rgba(0, 200, 255, 0.06) 0%,
+            transparent 100%
+          ),
+          radial-gradient(ellipse 40% 40% at 30% 100%, rgba(0, 229, 200, 0.04) 0%, transparent 100%);
+        pointer-events: none;
+      }
+
+      .icon-wrap {
+        filter: drop-shadow(0 0 48px rgba(0, 200, 255, 0.22))
+          drop-shadow(0 40px 80px rgba(0, 0, 0, 0.9));
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ── COMPARISON ─────────────────────────────────────── */
+      .compare-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .c-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 40px;
+      }
+
+      .c-card.new {
+        border-color: var(--border-hi);
+        background: linear-gradient(145deg, #0d1522 0%, #091019 100%);
+      }
+
+      .c-badge {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 99px;
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+
+      .c-badge.old {
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--dim);
+        border: 1px solid var(--border);
+      }
+
+      .c-badge.new {
+        background: rgba(0, 200, 255, 0.08);
+        color: var(--cyan);
+        border: 1px solid rgba(0, 200, 255, 0.2);
+      }
+
+      .c-icon-area {
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 32px;
+        border-radius: 12px;
+        max-width: 40vw;
+      }
+
+      .c-icon-area.old-bg {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px dashed var(--border);
+      }
+
+      .c-icon-area.new-bg {
+        background: rgba(0, 200, 255, 0.03);
+        border: 1px solid rgba(0, 200, 255, 0.08);
+      }
+
+      .c-title {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 6px;
+      }
+
+      .c-desc {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+
+      .c-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .c-list li {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .c-list.bad li::before {
+        content: '—';
+        color: #663030;
+      }
+      .c-list.good li::before {
+        content: '✓';
+        color: var(--teal);
+      }
+
+      /* ── SIZE STRIP ─────────────────────────────────────── */
+      .size-strip {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 56px 60px 40px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 52px;
+      }
+
+      .size-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .size-px {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--dim);
+        letter-spacing: 0.08em;
+      }
+
+      /* ── CONTEXT CARDS ──────────────────────────────────── */
+      .ctx-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .ctx-card {
+        border-radius: 18px;
+        padding: 40px 20px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .ctx-card.on-dark {
+        background: #0b0e17;
+        border: 1px solid var(--border);
+      }
+
+      .ctx-card.on-light {
+        background: #f0f3f8;
+        border: 1px solid rgba(0, 0, 0, 0.07);
+      }
+
+      .ctx-card.as-avatar .avatar-crop {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 96px;
+        height: 96px;
+      }
+
+      .ctx-card.as-avatar {
+        background: #161b27;
+        border: 1px solid var(--border);
+      }
+
+      .ctx-tag {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .ctx-card.on-dark .ctx-tag {
+        color: var(--dim);
+      }
+      .ctx-card.on-light .ctx-tag {
+        color: #9aabb8;
+      }
+      .ctx-card.as-avatar .ctx-tag {
+        color: var(--dim);
+      }
+
+      /* ── PALETTE ────────────────────────────────────────── */
+      .palette {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+
+      .swatch {
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+
+      .swatch-color {
+        height: 100px;
+      }
+
+      .swatch-info {
+        background: var(--surface);
+        padding: 14px 16px;
+      }
+
+      .swatch-name {
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 3px;
+      }
+
+      .swatch-hex {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .swatch-role {
+        font-size: 11px;
+        color: var(--dim);
+        margin-top: 4px;
+      }
+
+      /* ── CODE BLOCK ─────────────────────────────────────── */
+      .code-block {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+      .code-header {
+        background: var(--surface-2);
+        border-bottom: 1px solid var(--border);
+        padding: 13px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .code-dots {
+        display: flex;
+        gap: 6px;
+      }
+
+      .code-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .code-filename {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .code-pre {
+        padding: 28px;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        line-height: 1.75;
+        color: #7a8fa8;
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .t-tag {
+        color: #7ec8e3;
+      }
+      .t-attr {
+        color: #98c4e0;
+        opacity: 0.8;
+      }
+      .t-val {
+        color: #a8d8a8;
+      }
+      .t-comment {
+        color: #2e3e52;
+        font-style: italic;
+      }
+      .t-hex-cyan {
+        color: #00c8ff;
+      }
+      .t-hex-teal {
+        color: #00e5c8;
+      }
+      .t-hex-red {
+        color: #ff4d4d;
+      }
+
+      /* ── FOOTER ─────────────────────────────────────────── */
+      .footer {
+        margin-top: 96px;
+        padding-top: 32px;
+        border-top: 1px solid var(--border);
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--dim);
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- ── HEADER ──────────────────────────────────────────── -->
+      <header class="header">
+        <div class="eyebrow">livecodes.io / icon redesign proposal</div>
+        <h1>A sharper mark<br /><em>for a sharper tool</em></h1>
+        <p class="header-desc">
+          The current logo is a wide illustration that doesn't work as an icon. This proposal
+          replaces it with a single, focused symbol built on one idea: code brackets + a live
+          indicator. Readable from 512 px down to 16 px.
+        </p>
+      </header>
+
+      <!-- ── HERO ────────────────────────────────────────────── -->
+      <section>
+        <div class="label">new icon — 512 × 512</div>
+        <div class="hero-card">
+          <div class="icon-wrap">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              width="320"
+              height="320"
+              role="img"
+              aria-label="LiveCodes proposed icon"
+            >
+              <defs>
+                <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0d1825" />
+                  <stop offset="100%" stop-color="#080d16" />
+                </linearGradient>
+                <pattern id="dotP" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+                  <circle cx="1" cy="1" r=".75" fill="rgba(255,255,255,.04)" />
+                </pattern>
+                <filter id="gG" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="14" result="b" />
+                  <feFlood flood-color="#00c8ff" flood-opacity=".32" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="dG" x="-120%" y="-120%" width="340%" height="340%">
+                  <feGaussianBlur stdDeviation="7" result="b" />
+                  <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect width="512" height="512" rx="80" fill="url(#bgG)" />
+              <rect width="512" height="512" rx="80" fill="url(#dotP)" />
+              <g filter="url(#gG)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44" />
+                <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44" />
+                <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44" />
+              </g>
+              <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#dG)" />
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── COMPARISON ──────────────────────────────────────── -->
+      <section>
+        <div class="label">before / after</div>
+        <div class="compare-grid">
+          <!-- OLD -->
+          <div class="c-card">
+            <span class="c-badge old">current logo</span>
+            <div class="c-icon-area old-bg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="zoom: 0.25"
+                width="737"
+                height="488"
+                stroke="#000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                fill="#fff"
+                fill-rule="evenodd"
+              >
+                <style>
+                  <![CDATA[.B{stroke:none}.C{fill:url(#C)}.D{fill:#96bf3d}.E{fill-rule:nonzero}]]>
+                </style>
+                <defs>
+                  <filter id="A" x="-1.8182%" y="-2.7229%" width="104.0559%" height="106.0741%">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+                    <feOffset dx="3" dy="3" result="B" />
+                    <feFlood flood-color="#000" flood-opacity=".5" />
+                    <feComposite in2="B" operator="in" result="C" />
+                    <feMerge>
+                      <feMergeNode in="C" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <filter id="B" x="-4.4068%" y="-3.6111%" width="109.8305%" height="108.0556%">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+                    <feOffset dx="3" dy="3" result="B" />
+                    <feFlood flood-color="#000" flood-opacity=".5" />
+                    <feComposite in2="B" operator="in" result="C" />
+                    <feMerge>
+                      <feMergeNode in="C" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <linearGradient id="C" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#d7d7d7" />
+                    <stop offset="100%" stop-color="#626262" />
+                  </linearGradient>
+                </defs>
+                <g filter="url(#A)" fill="#c1c1c1" transform="translate(9.5 4.5)" class="B E">
+                  <path
+                    d="M16.7525 286.7298C6.7066 275.7455 0 253.8097 0 234.5909c0-19.2061 5.0266-37.032 17.5891-46.6336h-.8357L214.4292 0v127.5964c-21.7784 20.5762-51.0939 43.9057-124.8028 108.3891l.8357 1.3552c39.3673 28.822 84.5988 72.7163 123.9662 111.1297v128.966z"
+                  />
+                  <g transform="translate(500.5716 .0017)">
+                    <path
+                      d="M197.6761 190.6956c10.0385 10.985 16.7523 32.9317 16.7523 52.1396s-5.0268 37.0308-17.5962 46.6336h.8443L0 477.4266V349.8297c21.7793-20.5648 51.094-43.8937 124.8034-108.3777l-.8357-1.3553C84.607 211.2747 39.3692 167.3799.0009 128.9676V0z"
+                    />
+                  </g>
+                </g>
+                <g filter="url(#B)" transform="translate(219.5 59.5)" class="B">
+                  <g transform="translate(147.229 92.5951)">
+                    <path d="M0 261.9238l143.1698-87.4534V0L0 87.2109v174.7129z" />
+                  </g>
+                  <g transform="translate(4.3302 92.7405)">
+                    <path d="M0 174.2764l142.9894 87.3081V87.1142L0 0v174.2764z" />
+                  </g>
+                  <g transform="translate(5.2325 6.0147)">
+                    <path
+                      d="M284.1743 86.5805L142.0872 0 0 86.5805l142.0872 86.7257 142.0871-86.7257z"
+                    />
+                  </g>
+                  <g transform="translate(147.3196 92.5951)">
+                    <path d="M0 81.5845L133.8327.0967 133.6974 0 0 81.5845z" />
+                  </g>
+                  <g transform="translate(13.487 92.5951)">
+                    <path d="M.1353 0L0 .0967l133.8327 81.4878L.1353 0z" />
+                  </g>
+                  <g transform="translate(147.3196 174.1792)"><path d="M0 0z" /></g>
+                  <path
+                    d="M290.1287 87.017L147.3196 0 4.5106 87.017 0 89.8789v180.0482L147.5 360l4.5106-2.7648L295 269.9271V89.8303zm-4.511 177.2837l-133.7875 81.7786V182.6194l133.9679-81.6331zm-142.809 81.7786L8.8407 264.2521V100.9863l133.968 81.6331zM13.6223 92.6919l133.6973-81.536 133.6974 81.536-133.6974 81.4873L13.487 92.6919z"
+                    fill="#444"
+                  />
+                  <g transform="translate(147.9058 133.4844)" class="C">
+                    <path d="M0 140.566l76.9073-46.9039V0L0 46.8553v93.7107z" />
+                  </g>
+                  <g transform="translate(69.8257 133.4844)" class="C">
+                    <path d="M0 93.6621l76.9073 46.9039V46.8553L0 0v93.6621z" />
+                  </g>
+                  <g transform="translate(70.6373 85.513)" class="C">
+                    <path d="M153.3638 46.71L76.6819 0 0 46.71l76.6819 46.8554L153.3638 46.71z" />
+                  </g>
+                  <g transform="translate(147.3196 132.223)" class="D">
+                    <path d="M0 42.102L68.9685.0968 68.8787 0 0 42.0534v.0486z" />
+                  </g>
+                  <g transform="translate(78.3507 132.223)" class="D">
+                    <path d="M.0902 0L0 .0968 68.9685 42.102v-.0486L.0902 0z" />
+                  </g>
+                  <g transform="translate(147.3196 174.2764)" class="D"><path d="M0 0z" /></g>
+                  <g transform="translate(64.7736 79.159)">
+                    <path
+                      d="M160.5811 47.4858L82.5456 0 4.5106 47.4858 0 50.2992v100.9377l82.5456 50.4446 4.511-2.7648 78.1253-47.6798V50.2992zm-4.5109 98.0762l-69.0136 42.1987v-84.2035l69.1042-42.102zm-78.0351 42.1987L8.9309 145.562V61.4552l69.1042 42.102zM13.6674 53.064l68.8782-41.908 68.8787 41.9566-68.8787 42.0048-68.9684-41.9566z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div class="c-title">Current design</div>
+            <p class="c-desc">
+              Wide illustration with two gray brackets flanking an isometric cube. Muted grays,
+              dated 3D style, complex nested geometry.
+            </p>
+            <ul class="c-list bad">
+              <li>737 × 488 — unusable as app icon or favicon</li>
+              <li>Dominant gray palette — no energy or identity</li>
+              <li>Isometric 3D style — circa 2015 aesthetic</li>
+              <li>Three competing symbols — brackets + 2 cubes</li>
+              <li>Collapses into noise at 32 px</li>
+            </ul>
+          </div>
+
+          <!-- NEW -->
+          <div class="c-card new">
+            <span class="c-badge new">proposal</span>
+            <div class="c-icon-area new-bg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                width="140"
+                height="140"
+              >
+                <defs>
+                  <linearGradient id="bgG2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0d1825" />
+                    <stop offset="100%" stop-color="#080d16" />
+                  </linearGradient>
+                  <filter id="gG2" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="14" result="b" />
+                    <feFlood flood-color="#00c8ff" flood-opacity=".32" result="c" />
+                    <feComposite in="c" in2="b" operator="in" result="cb" />
+                    <feMerge>
+                      <feMergeNode in="cb" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <filter id="dG2" x="-120%" y="-120%" width="340%" height="340%">
+                    <feGaussianBlur stdDeviation="7" result="b" />
+                    <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c" />
+                    <feComposite in="c" in2="b" operator="in" result="cb" />
+                    <feMerge>
+                      <feMergeNode in="cb" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <rect width="512" height="512" rx="80" fill="url(#bgG2)" />
+                <g filter="url(#gG2)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                  <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44" />
+                  <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44" />
+                  <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44" />
+                </g>
+                <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#dG2)" />
+              </svg>
+            </div>
+            <div class="c-title">Proposed design</div>
+            <p class="c-desc">
+              Square dark icon. One focused symbol: code brackets + a live indicator. Works at every
+              size, in every context.
+            </p>
+            <ul class="c-list good">
+              <li>512 × 512 — scales to any context perfectly</li>
+              <li>Electric cyan on deep navy — distinct and modern</li>
+              <li>Flat with precision glow — timeless, not trendy</li>
+              <li>Single symbol — &lt;/&gt; reads in under a second</li>
+              <li>Live dot survives at 16 px as a warm accent</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SIZES ────────────────────────────────────────────── -->
+      <section>
+        <div class="label">icon at every size</div>
+        <div class="size-strip">
+          <!-- 256 -->
+          <div class="size-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="256" height="256">
+              <defs>
+                <linearGradient id="bA" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0d1825" />
+                  <stop offset="100%" stop-color="#080d16" />
+                </linearGradient>
+                <pattern id="dA" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+                  <circle cx="1" cy="1" r=".75" fill="rgba(255,255,255,.04)" />
+                </pattern>
+                <filter id="gA" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="14" result="b" />
+                  <feFlood flood-color="#00c8ff" flood-opacity=".32" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="daA" x="-120%" y="-120%" width="340%" height="340%">
+                  <feGaussianBlur stdDeviation="7" result="b" />
+                  <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect width="512" height="512" rx="80" fill="url(#bA)" />
+              <rect width="512" height="512" rx="80" fill="url(#dA)" />
+              <g filter="url(#gA)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44" />
+                <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44" />
+                <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44" />
+              </g>
+              <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#daA)" />
+            </svg>
+            <span class="size-px">256 px</span>
+          </div>
+
+          <!-- 128 -->
+          <div class="size-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="128" height="128">
+              <defs>
+                <linearGradient id="bB" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0d1825" />
+                  <stop offset="100%" stop-color="#080d16" />
+                </linearGradient>
+                <filter id="gB" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="14" result="b" />
+                  <feFlood flood-color="#00c8ff" flood-opacity=".32" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="daB" x="-120%" y="-120%" width="340%" height="340%">
+                  <feGaussianBlur stdDeviation="7" result="b" />
+                  <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect width="512" height="512" rx="80" fill="url(#bB)" />
+              <g filter="url(#gB)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44" />
+                <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44" />
+                <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44" />
+              </g>
+              <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#daB)" />
+            </svg>
+            <span class="size-px">128 px</span>
+          </div>
+
+          <!-- 64 -->
+          <div class="size-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="64" height="64">
+              <defs>
+                <linearGradient id="bC" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0d1825" />
+                  <stop offset="100%" stop-color="#080d16" />
+                </linearGradient>
+                <filter id="gC" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="14" result="b" />
+                  <feFlood flood-color="#00c8ff" flood-opacity=".32" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="daC" x="-120%" y="-120%" width="340%" height="340%">
+                  <feGaussianBlur stdDeviation="7" result="b" />
+                  <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect width="512" height="512" rx="80" fill="url(#bC)" />
+              <g filter="url(#gC)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44" />
+                <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44" />
+                <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44" />
+              </g>
+              <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#daC)" />
+            </svg>
+            <span class="size-px">64 px</span>
+          </div>
+
+          <!-- 32 -->
+          <div class="size-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="32" height="32">
+              <defs>
+                <linearGradient id="bD" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0d1825" />
+                  <stop offset="100%" stop-color="#080d16" />
+                </linearGradient>
+                <filter id="gD" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="14" result="b" />
+                  <feFlood flood-color="#00c8ff" flood-opacity=".4" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="daD" x="-120%" y="-120%" width="340%" height="340%">
+                  <feGaussianBlur stdDeviation="7" result="b" />
+                  <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect width="512" height="512" rx="80" fill="url(#bD)" />
+              <g filter="url(#gD)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44" />
+                <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44" />
+                <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44" />
+              </g>
+              <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#daD)" />
+            </svg>
+            <span class="size-px">32 px</span>
+          </div>
+
+          <!-- 16 -->
+          <div class="size-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16">
+              <defs>
+                <linearGradient id="bE" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0d1825" />
+                  <stop offset="100%" stop-color="#080d16" />
+                </linearGradient>
+                <filter id="gE" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="14" result="b" />
+                  <feFlood flood-color="#00c8ff" flood-opacity=".4" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="daE" x="-120%" y="-120%" width="340%" height="340%">
+                  <feGaussianBlur stdDeviation="7" result="b" />
+                  <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect width="512" height="512" rx="80" fill="url(#bE)" />
+              <g filter="url(#gE)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44" />
+                <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44" />
+                <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44" />
+              </g>
+              <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#daE)" />
+            </svg>
+            <span class="size-px">16 px</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CONTEXT ──────────────────────────────────────────── -->
+      <section>
+        <div class="label">in context</div>
+        <div class="ctx-grid">
+          <!-- On dark -->
+          <div class="ctx-card on-dark">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="96" height="96">
+              <defs>
+                <linearGradient id="bF" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0d1825" />
+                  <stop offset="100%" stop-color="#080d16" />
+                </linearGradient>
+                <filter id="gF" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="14" result="b" />
+                  <feFlood flood-color="#00c8ff" flood-opacity=".32" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="daF" x="-120%" y="-120%" width="340%" height="340%">
+                  <feGaussianBlur stdDeviation="7" result="b" />
+                  <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect width="512" height="512" rx="80" fill="url(#bF)" />
+              <g filter="url(#gF)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44" />
+                <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44" />
+                <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44" />
+              </g>
+              <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#daF)" />
+            </svg>
+            <span class="ctx-tag">dark background</span>
+          </div>
+
+          <!-- On light -->
+          <div class="ctx-card on-light">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="96" height="96">
+              <defs>
+                <linearGradient id="bG" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0d1825" />
+                  <stop offset="100%" stop-color="#080d16" />
+                </linearGradient>
+                <filter id="gG3" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="14" result="b" />
+                  <feFlood flood-color="#00c8ff" flood-opacity=".32" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="daG" x="-120%" y="-120%" width="340%" height="340%">
+                  <feGaussianBlur stdDeviation="7" result="b" />
+                  <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c" />
+                  <feComposite in="c" in2="b" operator="in" result="cb" />
+                  <feMerge>
+                    <feMergeNode in="cb" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect width="512" height="512" rx="80" fill="url(#bG)" />
+              <g filter="url(#gG3)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44" />
+                <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44" />
+                <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44" />
+              </g>
+              <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#daG)" />
+            </svg>
+            <span class="ctx-tag" style="color: #9aabb8">light background</span>
+          </div>
+
+          <!-- As circular avatar -->
+          <div class="ctx-card as-avatar">
+            <div class="avatar-crop">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="96" height="96">
+                <defs>
+                  <linearGradient id="bH" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0d1825" />
+                    <stop offset="100%" stop-color="#080d16" />
+                  </linearGradient>
+                  <filter id="gH" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="14" result="b" />
+                    <feFlood flood-color="#00c8ff" flood-opacity=".32" result="c" />
+                    <feComposite in="c" in2="b" operator="in" result="cb" />
+                    <feMerge>
+                      <feMergeNode in="cb" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <filter id="daH" x="-120%" y="-120%" width="340%" height="340%">
+                    <feGaussianBlur stdDeviation="7" result="b" />
+                    <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c" />
+                    <feComposite in="c" in2="b" operator="in" result="cb" />
+                    <feMerge>
+                      <feMergeNode in="cb" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <rect width="512" height="512" fill="url(#bH)" />
+                <g filter="url(#gH)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                  <polyline points="146,176 86,256 146,336" stroke="#00c8ff" stroke-width="44" />
+                  <line x1="310" y1="160" x2="202" y2="352" stroke="#00e5c8" stroke-width="44" />
+                  <polyline points="366,176 426,256 366,336" stroke="#00c8ff" stroke-width="44" />
+                </g>
+                <circle cx="395" cy="100" r="26" fill="#ff4d4d" filter="url(#daH)" />
+              </svg>
+            </div>
+            <span class="ctx-tag">github / social avatar</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── PALETTE ──────────────────────────────────────────── -->
+      <section>
+        <div class="label">color palette</div>
+        <div class="palette">
+          <div class="swatch">
+            <div class="swatch-color" style="background: #080d16"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Deep Void</div>
+              <div class="swatch-hex">#080d16</div>
+              <div class="swatch-role">Icon background</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div
+              class="swatch-color"
+              style="background: linear-gradient(135deg, #00c8ff, #0090cc)"
+            ></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Electric Cyan</div>
+              <div class="swatch-hex">#00c8ff</div>
+              <div class="swatch-role">Code brackets &lt; &gt;</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div
+              class="swatch-color"
+              style="background: linear-gradient(135deg, #00e5c8, #00a896)"
+            ></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Signal Teal</div>
+              <div class="swatch-hex">#00e5c8</div>
+              <div class="swatch-role">Slash / accent</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div
+              class="swatch-color"
+              style="background: linear-gradient(135deg, #ff4d4d, #cc2020)"
+            ></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Live Red</div>
+              <div class="swatch-hex">#ff4d4d</div>
+              <div class="swatch-role">Live indicator dot</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── COPYABLE SVG ─────────────────────────────────────── -->
+      <section>
+        <div class="label">copyable svg — paste directly</div>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots">
+              <div class="code-dot" style="background: #ff5f57"></div>
+              <div class="code-dot" style="background: #ffbd2e"></div>
+              <div class="code-dot" style="background: #28c840"></div>
+            </div>
+            <span class="code-filename">livecodes-icon.svg</span>
+            <span style="font-family: var(--mono); font-size: 10px; color: var(--dim)"
+              >512 × 512</span
+            >
+          </div>
+          <pre class="code-pre"><span class="t-comment">&lt;!-- LiveCodes Icon --&gt;</span>
+<span class="t-tag">&lt;svg</span> <span class="t-attr">xmlns</span>=<span class="t-val">"http://www.w3.org/2000/svg"</span> <span class="t-attr">viewBox</span>=<span class="t-val">"0 0 512 512"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;defs&gt;</span>
+
+    <span class="t-comment">&lt;!-- Background gradient --&gt;</span>
+    <span class="t-tag">&lt;linearGradient</span> <span class="t-attr">id</span>=<span class="t-val">"bg"</span> <span class="t-attr">x1</span>=<span class="t-val">"0%"</span> <span class="t-attr">y1</span>=<span class="t-val">"0%"</span> <span class="t-attr">x2</span>=<span class="t-val">"100%"</span> <span class="t-attr">y2</span>=<span class="t-val">"100%"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;stop</span> <span class="t-attr">offset</span>=<span class="t-val">"0%"</span>   <span class="t-attr">stop-color</span>=<span class="t-val">"<span class="t-hex-cyan">#0d1825</span>"</span><span class="t-tag">/&gt;</span>
+      <span class="t-tag">&lt;stop</span> <span class="t-attr">offset</span>=<span class="t-val">"100%"</span> <span class="t-attr">stop-color</span>=<span class="t-val">"<span class="t-hex-cyan">#080d16</span>"</span><span class="t-tag">/&gt;</span>
+    <span class="t-tag">&lt;/linearGradient&gt;</span>
+
+    <span class="t-comment">&lt;!-- Subtle dot texture --&gt;</span>
+    <span class="t-tag">&lt;pattern</span> <span class="t-attr">id</span>=<span class="t-val">"dots"</span> <span class="t-attr">x</span>=<span class="t-val">"0"</span> <span class="t-attr">y</span>=<span class="t-val">"0"</span> <span class="t-attr">width</span>=<span class="t-val">"28"</span> <span class="t-attr">height</span>=<span class="t-val">"28"</span> <span class="t-attr">patternUnits</span>=<span class="t-val">"userSpaceOnUse"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;circle</span> <span class="t-attr">cx</span>=<span class="t-val">"1"</span> <span class="t-attr">cy</span>=<span class="t-val">"1"</span> <span class="t-attr">r</span>=<span class="t-val">".75"</span> <span class="t-attr">fill</span>=<span class="t-val">"rgba(255,255,255,.04)"</span><span class="t-tag">/&gt;</span>
+    <span class="t-tag">&lt;/pattern&gt;</span>
+
+    <span class="t-comment">&lt;!-- Cyan glow on the &lt;/&gt; glyph --&gt;</span>
+    <span class="t-tag">&lt;filter</span> <span class="t-attr">id</span>=<span class="t-val">"glow"</span> <span class="t-attr">x</span>=<span class="t-val">"-40%"</span> <span class="t-attr">y</span>=<span class="t-val">"-40%"</span> <span class="t-attr">width</span>=<span class="t-val">"180%"</span> <span class="t-attr">height</span>=<span class="t-val">"180%"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;feGaussianBlur</span> <span class="t-attr">stdDeviation</span>=<span class="t-val">"14"</span> <span class="t-attr">result</span>=<span class="t-val">"b"</span><span class="t-tag">/&gt;</span>
+      <span class="t-tag">&lt;feFlood</span> <span class="t-attr">flood-color</span>=<span class="t-val">"<span class="t-hex-cyan">#00c8ff</span>"</span> <span class="t-attr">flood-opacity</span>=<span class="t-val">".32"</span> <span class="t-attr">result</span>=<span class="t-val">"c"</span><span class="t-tag">/&gt;</span>
+      <span class="t-tag">&lt;feComposite</span> <span class="t-attr">in</span>=<span class="t-val">"c"</span> <span class="t-attr">in2</span>=<span class="t-val">"b"</span> <span class="t-attr">operator</span>=<span class="t-val">"in"</span> <span class="t-attr">result</span>=<span class="t-val">"cb"</span><span class="t-tag">/&gt;</span>
+      <span class="t-tag">&lt;feMerge&gt;</span>
+        <span class="t-tag">&lt;feMergeNode</span> <span class="t-attr">in</span>=<span class="t-val">"cb"</span><span class="t-tag">/&gt;</span>
+        <span class="t-tag">&lt;feMergeNode</span> <span class="t-attr">in</span>=<span class="t-val">"SourceGraphic"</span><span class="t-tag">/&gt;</span>
+      <span class="t-tag">&lt;/feMerge&gt;</span>
+    <span class="t-tag">&lt;/filter&gt;</span>
+
+    <span class="t-comment">&lt;!-- Red glow on the live dot --&gt;</span>
+    <span class="t-tag">&lt;filter</span> <span class="t-attr">id</span>=<span class="t-val">"dot-glow"</span> <span class="t-attr">x</span>=<span class="t-val">"-120%"</span> <span class="t-attr">y</span>=<span class="t-val">"-120%"</span> <span class="t-attr">width</span>=<span class="t-val">"340%"</span> <span class="t-attr">height</span>=<span class="t-val">"340%"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;feGaussianBlur</span> <span class="t-attr">stdDeviation</span>=<span class="t-val">"7"</span> <span class="t-attr">result</span>=<span class="t-val">"b"</span><span class="t-tag">/&gt;</span>
+      <span class="t-tag">&lt;feFlood</span> <span class="t-attr">flood-color</span>=<span class="t-val">"<span class="t-hex-red">#ff4d4d</span>"</span> <span class="t-attr">flood-opacity</span>=<span class="t-val">".7"</span> <span class="t-attr">result</span>=<span class="t-val">"c"</span><span class="t-tag">/&gt;</span>
+      <span class="t-tag">&lt;feComposite</span> <span class="t-attr">in</span>=<span class="t-val">"c"</span> <span class="t-attr">in2</span>=<span class="t-val">"b"</span> <span class="t-attr">operator</span>=<span class="t-val">"in"</span> <span class="t-attr">result</span>=<span class="t-val">"cb"</span><span class="t-tag">/&gt;</span>
+      <span class="t-tag">&lt;feMerge&gt;</span>
+        <span class="t-tag">&lt;feMergeNode</span> <span class="t-attr">in</span>=<span class="t-val">"cb"</span><span class="t-tag">/&gt;</span>
+        <span class="t-tag">&lt;feMergeNode</span> <span class="t-attr">in</span>=<span class="t-val">"SourceGraphic"</span><span class="t-tag">/&gt;</span>
+      <span class="t-tag">&lt;/feMerge&gt;</span>
+    <span class="t-tag">&lt;/filter&gt;</span>
+
+  <span class="t-tag">&lt;/defs&gt;</span>
+
+  <span class="t-comment">&lt;!-- Background --&gt;</span>
+  <span class="t-tag">&lt;rect</span> <span class="t-attr">width</span>=<span class="t-val">"512"</span> <span class="t-attr">height</span>=<span class="t-val">"512"</span> <span class="t-attr">rx</span>=<span class="t-val">"80"</span> <span class="t-attr">fill</span>=<span class="t-val">"url(#bg)"</span><span class="t-tag">/&gt;</span>
+  <span class="t-tag">&lt;rect</span> <span class="t-attr">width</span>=<span class="t-val">"512"</span> <span class="t-attr">height</span>=<span class="t-val">"512"</span> <span class="t-attr">rx</span>=<span class="t-val">"80"</span> <span class="t-attr">fill</span>=<span class="t-val">"url(#dots)"</span><span class="t-tag">/&gt;</span>
+
+  <span class="t-comment">&lt;!-- Code glyph &lt;/&gt; with cyan glow --&gt;</span>
+  <span class="t-tag">&lt;g</span> <span class="t-attr">filter</span>=<span class="t-val">"url(#glow)"</span> <span class="t-attr">stroke-linecap</span>=<span class="t-val">"round"</span> <span class="t-attr">stroke-linejoin</span>=<span class="t-val">"round"</span> <span class="t-attr">fill</span>=<span class="t-val">"none"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;polyline</span> <span class="t-attr">points</span>=<span class="t-val">"146,176 86,256 146,336"</span>    <span class="t-attr">stroke</span>=<span class="t-val">"<span class="t-hex-cyan">#00c8ff</span>"</span> <span class="t-attr">stroke-width</span>=<span class="t-val">"44"</span><span class="t-tag">/&gt;</span>
+    <span class="t-tag">&lt;line</span>     <span class="t-attr">x1</span>=<span class="t-val">"310"</span> <span class="t-attr">y1</span>=<span class="t-val">"160"</span> <span class="t-attr">x2</span>=<span class="t-val">"202"</span> <span class="t-attr">y2</span>=<span class="t-val">"352"</span> <span class="t-attr">stroke</span>=<span class="t-val">"<span class="t-hex-teal">#00e5c8</span>"</span> <span class="t-attr">stroke-width</span>=<span class="t-val">"44"</span><span class="t-tag">/&gt;</span>
+    <span class="t-tag">&lt;polyline</span> <span class="t-attr">points</span>=<span class="t-val">"366,176 426,256 366,336"</span>    <span class="t-attr">stroke</span>=<span class="t-val">"<span class="t-hex-cyan">#00c8ff</span>"</span> <span class="t-attr">stroke-width</span>=<span class="t-val">"44"</span><span class="t-tag">/&gt;</span>
+  <span class="t-tag">&lt;/g&gt;</span>
+
+  <span class="t-comment">&lt;!-- Live indicator dot --&gt;</span>
+  <span class="t-tag">&lt;circle</span> <span class="t-attr">cx</span>=<span class="t-val">"395"</span> <span class="t-attr">cy</span>=<span class="t-val">"100"</span> <span class="t-attr">r</span>=<span class="t-val">"26"</span> <span class="t-attr">fill</span>=<span class="t-val">"<span class="t-hex-red">#ff4d4d</span>"</span> <span class="t-attr">filter</span>=<span class="t-val">"url(#dot-glow)"</span><span class="t-tag">/&gt;</span>
+
+<span class="t-tag">&lt;/svg&gt;</span></pre>
+        </div>
+      </section>
+
+      <!-- ── FOOTER ───────────────────────────────────────────── -->
+      <footer class="footer">
+        <span>livecodes.io — icon redesign proposal</span>
+        <span style="color: var(--cyan); opacity: 0.5">livecodes, sharp mark</span>
+      </footer>
+    </div>
+  </body>
+</html>

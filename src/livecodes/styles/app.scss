@@ -18,7 +18,7 @@
   --s32: calc(var(--unit) * 2);
   --s36: calc(var(--unit) * 2.25);
   --s40: calc(var(--unit) * 2.5);
-  --rs: var(--s4); // border radius
+  --rs: calc(var(--unit) * 0.375); // 6px — border radius (rebrand)
 
   // Color
   // this should match getDefaultColor() in core.ts
@@ -225,6 +225,47 @@
 
   --icon-filter: invert(0.8);
   --icon-filter-active: invert(1);
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Brand tokens (rebrand 2026)
+     These are layered ON TOP of the user-themable --hue/--st/--lt system.
+     They define the LiveCodes visual identity (icon palette + chrome) while
+     allowing user `themeColor` to keep tinting buttons/links/active states.
+     The values below correspond to the dark theme. The light theme overrides
+     the same tokens in `inc-light.scss`.
+     ───────────────────────────────────────────────────────────────────── */
+  --brand-bg-deep: #080d16;
+  --brand-bg-elevated: #0d1825;
+  --brand-bg-elevated-2: #111b2c;
+  --brand-border: rgba(255, 255, 255, 0.06);
+  --brand-border-hi: rgba(0, 200, 255, 0.18);
+  --brand-cyan: #00c8ff;
+  --brand-cyan-soft: rgba(0, 200, 255, 0.12);
+  --brand-teal: #00e5c8;
+  --brand-teal-soft: rgba(0, 229, 200, 0.12);
+  --brand-live: #ff4d4d;
+  --brand-text: #dde6f0;
+  --brand-muted: #556070;
+  --brand-dim: #2e3a4a;
+  --brand-glow-cyan: 0 0 24px rgba(0, 200, 255, 0.18);
+  --brand-glow-cyan-soft: 0 0 12px rgba(0, 200, 255, 0.1);
+
+  /* Subtle dot texture used on toolbar / modal headers (matches the icon). */
+  --brand-dot-pattern: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.04) 0.75px,
+    transparent 1px
+  );
+  --brand-dot-size: 28px 28px;
+
+  /* Typography */
+  --font-ui: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas,
+    monospace;
+
+  /* Larger radius for cards / modals (kept distinct from --rs which controls small chrome). */
+  --rs-lg: calc(var(--unit) * 0.75); /* 12px */
 }
 
 @include meta.load-css('inc-light');
@@ -288,10 +329,15 @@ html,
 body {
   box-sizing: border-box;
   display: flex;
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-ui, system-ui, sans-serif);
   font-size: var(--font-size);
+  font-feature-settings:
+    'ss01' on,
+    'cv11' on;
   height: 100%;
   justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   width: 100%;
 }
 
@@ -375,12 +421,23 @@ a:visited {
   min-width: 32px;
   padding: var(--s4);
   text-decoration: none;
-  transition: ease-in-out 0.4s;
-  transition: visibility 0s;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 
   &:hover {
     background: var(--btn-bg-active);
+    border-color: var(--brand-border-hi);
+    box-shadow: var(--brand-glow-cyan-soft);
     color: var(--btn-active);
+  }
+
+  &:focus-visible {
+    border-color: var(--brand-cyan);
+    box-shadow: var(--brand-glow-cyan);
+    outline: none;
   }
 
   &.disabled {
@@ -488,8 +545,10 @@ kbd {
 
 #toolbar {
   align-items: center;
-  background: var(--toolbar-bg-color);
-  border-bottom: var(--toolbar-border);
+  background-color: var(--toolbar-bg-color);
+  background-image: var(--brand-dot-pattern);
+  background-size: var(--brand-dot-size);
+  border-bottom: 1px solid var(--brand-border);
   color: var(--toolbar-color);
   display: flex;
   font-size: var(--s14);
@@ -542,11 +601,17 @@ kbd {
   }
 
   #logo {
-    margin: 0 var(--s4);
+    border-radius: var(--rs);
+    margin: var(--s4) var(--s4) 0;
     padding: 0;
     text-align: center;
+    transition: filter 220ms ease;
     width: 32px;
     z-index: 2;
+
+    &:hover {
+      filter: drop-shadow(0 0 6px rgba(0, 200, 255, 0.45));
+    }
 
     img {
       height: auto;
@@ -568,9 +633,14 @@ kbd {
     margin-right: var(--s4);
     padding: 0 var(--s4);
     text-decoration: none;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease,
+      box-shadow 180ms ease;
 
     &:hover {
       background: var(--menu-bg-active);
+      box-shadow: var(--brand-glow-cyan-soft);
       color: var(--menu-active);
     }
 
@@ -706,15 +776,18 @@ a#result-button {
 
   #result-mode-drawer {
     align-items: center;
-    background-color: rgb(250, 251, 255);
-    border: 0.5px solid rgb(233, 235, 237);
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+    background-color: var(--brand-bg-elevated-2);
+    border: 1px solid var(--brand-border);
+    border-bottom: 0;
+    border-top-left-radius: var(--rs-lg, 12px);
+    border-top-right-radius: var(--rs-lg, 12px);
     bottom: 0;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 0 6px;
+    box-shadow:
+      rgba(0, 0, 0, 0.25) 0 -4px 24px,
+      0 0 0 1px var(--brand-border) inset;
     box-sizing: border-box;
     display: flex;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-ui, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
     height: 42px;
     justify-content: space-between;
     left: 50%;
@@ -731,21 +804,22 @@ a#result-button {
 
     a {
       align-items: center;
-      border-top-left-radius: 6px;
-      color: rgb(77, 86, 95);
+      border-top-left-radius: var(--rs-lg, 12px);
+      color: var(--brand-text);
       display: flex;
       flex-grow: 1;
       gap: 10px;
       height: 42px;
       justify-content: center;
       text-decoration: none;
+      transition: background-color 180ms ease;
 
       &:hover {
-        background-color: rgb(246, 246, 247);
+        background-color: var(--brand-bg-deep);
       }
 
       &::after {
-        background: #e9ebed;
+        background: var(--brand-border);
         content: '';
         height: 26px;
         position: absolute;
@@ -766,13 +840,14 @@ a#result-button {
     }
 
     #drawer-text {
+      color: var(--brand-muted);
       font-size: 14px;
       font-weight: 600;
       line-height: 20px;
 
       svg {
         display: inline-block;
-        fill: rgb(119, 128, 137);
+        fill: var(--brand-muted);
         height: 12px;
         transform: translateX(2px) translateY(2px);
       }
@@ -782,15 +857,18 @@ a#result-button {
       align-items: center;
       background-color: transparent;
       border: 0;
+      border-radius: var(--rs);
+      color: var(--brand-muted);
       cursor: pointer;
       display: flex;
       height: 30px;
       justify-content: center;
       margin-left: 5px;
+      transition: background-color 180ms ease;
       width: 30px;
 
       &:hover {
-        background-color: rgb(246, 246, 247);
+        background-color: var(--brand-bg-deep);
       }
 
       svg {
@@ -833,6 +911,7 @@ a#result-button {
 
     .toolbar-render {
       justify-content: space-between;
+      padding-top: var(--s4);
       place-items: center;
     }
 
@@ -861,7 +940,7 @@ a#result-button {
   }
 
   #editor-container {
-    height: calc(100% - var(--toolbar-height) * 2);
+    height: calc(100% - (var(--toolbar-height) * 2) + var(--s4));
   }
 
   #modal {
@@ -1289,7 +1368,7 @@ a.tools-pane-title {
   border-radius: var(--rs);
   color: var(--size-label-color);
   cursor: auto;
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-mono, ui-monospace, monospace);
   font-size: var(--s12);
   left: 15px !important;
   max-height: calc(100vh - var(--toolbar-height));
@@ -1554,7 +1633,6 @@ a.editor-title {
     justify-content: space-between;
 
     #logo {
-      inset-block-start: var(--s6); /* top */
       inset-inline-end: var(--s6); /* right */
       position: absolute;
 
@@ -1776,7 +1854,7 @@ ninja-keys {
   --ninja-placeholder-color: var(--color70);
   --ninja-footer-background: var(--dropdown-bg-color);
   --ninja-overflow-background: var(--overlay-bg-color);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--font-ui, Inter, system-ui, sans-serif);
 
   &.dark {
     --ninja-placeholder-color: var(--color40);

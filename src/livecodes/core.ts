@@ -159,7 +159,9 @@ import {
   toDataUrl,
 } from './utils';
 import {
+  fontDMSansUrl,
   fontInterUrl,
+  fontJetbrainsMonoUrl,
   fontMaterialIconsUrl,
   fscreenUrl,
   jestTypesUrl,
@@ -254,6 +256,10 @@ const loadStyles = () =>
     : Promise.all(
         [
           snackbarUrl,
+          // Brand fonts (DM Sans for UI, JetBrains Mono for monospace chrome).
+          // Loaded asynchronously so initial render is not blocked; the SCSS font stack
+          // includes system fallbacks until the webfont is ready.
+          ...(isLite ? [] : [fontDMSansUrl, fontJetbrainsMonoUrl]),
           ...(isLite
             ? []
             : [
