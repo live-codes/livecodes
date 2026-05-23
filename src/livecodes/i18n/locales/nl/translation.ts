@@ -13,7 +13,7 @@ const translation: I18nTranslation = {
       heading: 'Credits',
       para1:
         'LiveCodes wordt mogelijk gemaakt door open source-projecten, webservices en bijdragers. <1>Bekijk Credits</1>',
-      para2: '© 2024 Hatem Hosny. LiveCodes is gelicenseerd onder MIT-licentie.',
+      para2: '© 2021-2026 Hatem Hosny. LiveCodes is gelicenseerd onder MIT-licentie.',
     },
     documentations: {
       heading: 'Documentatie',
@@ -504,6 +504,7 @@ const translation: I18nTranslation = {
     heading: 'Editor-instellingen',
     lineNumbers: 'Regelnummers weergeven',
     lineNumbersRelative: 'Relatieve regelnummers *',
+    minimap: 'Minimap inschakelen *',
     notAvailableInCodeJar: 'Niet beschikbaar in CodeJar',
     preview: 'Voorbeeld',
     semicolons: "Formatteren: Puntkomma's gebruiken",

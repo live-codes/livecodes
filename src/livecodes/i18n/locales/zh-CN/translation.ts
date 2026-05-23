@@ -12,7 +12,7 @@ const translation: I18nTranslation = {
     credits: {
       heading: '致谢',
       para1: 'LiveCodes 的实现得益于开源项目、网络服务和贡献者的支持。 <1>查看致谢</1>',
-      para2: '© 2024 Hatem Hosny。LiveCodes 已获得 MIT 许可。',
+      para2: '© 2021-2026 Hatem Hosny。LiveCodes 已获得 MIT 许可。',
     },
     documentations: {
       heading: '文档',
@@ -503,6 +503,7 @@ const translation: I18nTranslation = {
     heading: '编辑器设置',
     lineNumbers: '显示行号',
     lineNumbersRelative: '相对行号 *',
+    minimap: '启用小地图*',
     notAvailableInCodeJar: '在 CodeJar 中不可用',
     preview: '预览',
     semicolons: '格式：使用分号',

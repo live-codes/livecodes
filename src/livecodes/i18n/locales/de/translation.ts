@@ -13,7 +13,7 @@ const translation: I18nTranslation = {
       heading: 'Kredite',
       para1:
         'LiveCodes wird durch Open-Source-Projekte, Webdienste und Mitwirkende ermöglicht. <1> Credits anzeigen </1>',
-      para2: '© 2024 Hatem Hosny. LiveCodes ist unter der MIT-Lizenz lizenziert.',
+      para2: '© 2021-2026 Hatem Hosny. LiveCodes ist unter der MIT-Lizenz lizenziert.',
     },
     documentations: {
       heading: 'Dokumentationen',
@@ -504,6 +504,7 @@ const translation: I18nTranslation = {
     heading: 'Editor-Einstellungen',
     lineNumbers: 'Zeilennummern anzeigen',
     lineNumbersRelative: 'Relative Zeilennummern *',
+    minimap: 'Minimap einschalten *',
     notAvailableInCodeJar: 'Nicht verfügbar in CodeJar',
     preview: 'Vorschau',
     semicolons: 'Format: Semikolons verwenden',

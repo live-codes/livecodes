@@ -13,7 +13,8 @@ const translation: I18nTranslation = {
       heading: 'クレジット',
       para1:
         'LiveCodes は、オープンソース プロジェクト、Web サービス、貢献者によって実現されています。 <1>クレジットを表示</1>',
-      para2: '© 2024 Hatem Hosny。LiveCodes は MIT ライセンスに基づいてライセンスされています。',
+      para2:
+        '© 2021-2026 Hatem Hosny。LiveCodes は MIT ライセンスに基づいてライセンスされています。',
     },
     documentations: {
       heading: 'ドキュメント',
@@ -504,6 +505,7 @@ const translation: I18nTranslation = {
     heading: 'エディター設定',
     lineNumbers: '行番号を表示',
     lineNumbersRelative: '相対的な行番号',
+    minimap: 'ミニマップを有効にする',
     notAvailableInCodeJar: 'CodeJarでは利用できません',
     preview: 'プレビュー',
     semicolons: 'フォーマット：セミコロンを使用',

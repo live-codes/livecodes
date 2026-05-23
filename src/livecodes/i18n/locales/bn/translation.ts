@@ -13,7 +13,7 @@ const translation: I18nTranslation = {
       heading: 'কৃতজ্ঞতা',
       para1:
         'LiveCodes ওপেন সোর্স প্রজেক্ট, ওয়েব সার্ভিস এবং অবদানকারীদের দ্বারা সম্ভব হয়েছে। <1>কৃতজ্ঞতা দেখুন</1>',
-      para2: '© 2024 Hatem Hosny। LiveCodes MIT লাইসেন্সের অধীনে লাইসেন্সপ্রাপ্ত।',
+      para2: '© 2021-2026 Hatem Hosny। LiveCodes MIT লাইসেন্সের অধীনে লাইসেন্সপ্রাপ্ত।',
     },
     documentations: {
       heading: 'ডকুমেন্টেশন',
@@ -504,6 +504,7 @@ const translation: I18nTranslation = {
     heading: 'এডিটর সেটিংস',
     lineNumbers: 'লাইন নম্বর দেখান',
     lineNumbersRelative: 'আপেক্ষিক লাইন নম্বর *',
+    minimap: 'মিনিম্যাপ সক্রিয় করুন *',
     notAvailableInCodeJar: 'CodeJar এ উপলব্ধ নয়',
     preview: 'পূর্বরূপ',
     semicolons: 'ফরম্যাট: সেমিকোলন ব্যবহার করুন',
