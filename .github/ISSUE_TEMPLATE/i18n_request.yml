@@ -38,7 +38,7 @@ body:
     id: contribution
     attributes:
       label: Contributing Docs
-      description: If you plan on contributing i18n please read - [Contribution Guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md) and [I18n Guide](https://github.com/live-codes/livecodes/blob/HEAD/docs/docs/contribution/i18n.md)
+      description: If you plan on contributing i18n please read - [Contribution Guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md) and [I18n Guide](https://github.com/live-codes/livecodes/blob/HEAD/docs/docs/contribution/i18n.mdx)
       options:
         - label: I agree to follow this project's Contribution Docs
           required: false
