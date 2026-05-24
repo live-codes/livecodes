@@ -13,7 +13,7 @@ const translation: I18nTranslation = {
       heading: 'Кредиты',
       para1:
         'LiveCodes стал возможен благодаря проектам с открытым исходным кодом, веб-сервисам и участникам. <1> Посмотреть кредиты </1>',
-      para2: '© 2024 Hatem Hosny. LiveCodes распространяется по лицензии MIT.',
+      para2: '© 2021-2026 Hatem Hosny. LiveCodes распространяется по лицензии MIT.',
     },
     documentations: {
       heading: 'Документация',

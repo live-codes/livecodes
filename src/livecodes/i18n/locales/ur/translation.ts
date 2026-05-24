@@ -13,7 +13,7 @@ const translation: I18nTranslation = {
       heading: 'کریڈٹس',
       para1:
         'LiveCodes کو اوپن سورس پروجیکٹس، ویب سروسز اور تعاون کنندگان کے ذریعے ممکن بنایا گیا ہے۔ <1> کریڈٹ دیکھیں </1>',
-      para2: '© 2024 حاتم حسنی LiveCodes MIT لائسنس کے تحت لائسنس یافتہ ہے۔',
+      para2: '© 2021-2026 حاتم حسنی LiveCodes MIT لائسنس کے تحت لائسنس یافتہ ہے۔',
     },
     documentations: {
       heading: 'دستاویزات',

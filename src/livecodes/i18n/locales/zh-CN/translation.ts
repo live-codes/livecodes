@@ -12,7 +12,7 @@ const translation: I18nTranslation = {
     credits: {
       heading: '致谢',
       para1: 'LiveCodes 的实现得益于开源项目、网络服务和贡献者的支持。 <1>查看致谢</1>',
-      para2: '© 2024 Hatem Hosny。LiveCodes 已获得 MIT 许可。',
+      para2: '© 2021-2026 Hatem Hosny。LiveCodes 已获得 MIT 许可。',
     },
     documentations: {
       heading: '文档',

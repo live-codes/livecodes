@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 190" width="720" height="190" role="img" aria-label="LiveCodes text logo">
+  <defs>
+    <linearGradient id="ltl-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1825"/>
+      <stop offset="100%" stop-color="#080d16"/>
+    </linearGradient>
+    <pattern id="ltl-dots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r=".75" fill="rgba(255,255,255,.04)"/>
+    </pattern>
+    <filter id="ltl-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feFlood flood-color="#00c8ff" flood-opacity=".35" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="ltl-dot-glow" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="ltl-text-glow" x="-5%" y="-20%" width="110%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feFlood flood-color="#00c8ff" flood-opacity=".15" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Icon badge -->
+  <rect x="10" y="25" width="140" height="140" rx="22" fill="url(#ltl-bg)"/>
+  <rect x="10" y="25" width="140" height="140" rx="22" fill="url(#ltl-dots)"/>
+  <rect x="12" y="27" width="136" height="136" rx="20" fill="none" stroke="rgba(0,200,255,0.2)" stroke-width="1.5"/>
+  <g filter="url(#ltl-glow)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="50,73 34,95 50,117" stroke="#00c8ff" stroke-width="12"/>
+    <line x1="95" y1="69" x2="65" y2="121" stroke="#00e5c8" stroke-width="12"/>
+    <polyline points="110,73 127,95 110,117" stroke="#00c8ff" stroke-width="12"/>
+  </g>
+  <circle cx="118" cy="52" r="7" fill="#ff4d4d" filter="url(#ltl-dot-glow)"/>
+  <!-- Wordmark -->
+  <text x="170" y="130" font-family="'Helvetica Neue', Arial, sans-serif" font-size="100" font-weight="700" fill="#f8fAfc" letter-spacing="-2" filter="url(#ltl-text-glow)">LiveCodes</text>
+</svg>

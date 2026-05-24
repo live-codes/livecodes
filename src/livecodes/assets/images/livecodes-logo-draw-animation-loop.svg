@@ -1,0 +1,126 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 512 512"
+  role="img"
+  aria-label="LiveCodes loading icon"
+>
+  <defs>
+    <linearGradient id="lci-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1825"/>
+      <stop offset="100%" stop-color="#080d16"/>
+    </linearGradient>
+    <pattern id="dots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r=".75" fill="rgba(255,255,255,.04)" />
+    </pattern>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="dot-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rectangles fade in before the logo animation starts -->
+  <rect width="512" height="512" rx="80" fill="url(#lci-bg)" />
+  <rect width="512" height="512" rx="80" fill="url(#lci-dots)" />
+  <!-- Master group fades out at the end of each cycle -->
+  <g>
+    <animate
+      attributeName="opacity"
+      values="1;1;0;0"
+      keyTimes="0;0.767;0.933;1"
+      dur="5s"
+      repeatCount="indefinite"
+      fill="freeze"
+    />
+    <rect width="512" height="512" rx="80" fill="url(#dots)" />
+    <!-- Strokes -->
+    <g filter="url(#glow)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Left bracket -->
+      <path
+        d="M146 176 L86 256 L146 336"
+        stroke="#00c8ff"
+        stroke-width="44"
+        pathLength="1"
+        stroke-dasharray="1"
+        stroke-dashoffset="1"
+      >
+        <animate
+          attributeName="stroke-dashoffset"
+          values="1;0;0;1"
+          keyTimes="0;0.167;0.95;1"
+          dur="5s"
+          repeatCount="indefinite"
+          fill="freeze"
+        />
+      </path>
+      <!-- Slash -->
+      <path
+        d="M310 160 L202 352"
+        stroke="#00e5c8"
+        stroke-width="44"
+        pathLength="1"
+        stroke-dasharray="1"
+        stroke-dashoffset="1"
+      >
+        <animate
+          attributeName="stroke-dashoffset"
+          values="1;1;0;0;1"
+          keyTimes="0;0.167;0.333;0.95;1"
+          dur="5s"
+          repeatCount="indefinite"
+          fill="freeze"
+        />
+      </path>
+      <!-- Right bracket -->
+      <path
+        d="M366 176 L426 256 L366 336"
+        stroke="#00c8ff"
+        stroke-width="44"
+        pathLength="1"
+        stroke-dasharray="1"
+        stroke-dashoffset="1"
+      >
+        <animate
+          attributeName="stroke-dashoffset"
+          values="1;1;0;0;1"
+          keyTimes="0;0.333;0.5;0.95;1"
+          dur="5s"
+          repeatCount="indefinite"
+          fill="freeze"
+        />
+      </path>
+    </g>
+    <!-- Live dot -->
+    <g filter="url(#dot-glow)">
+      <circle cx="395" cy="100" r="26" fill="#ff4d4d" opacity="0">
+        <!-- Fade-in + opacity pulse -->
+        <animate
+          attributeName="opacity"
+          values="0;0;1;0.8;1;0.8;1"
+          keyTimes="0;0.5;0.567;0.667;0.767;0.867;1"
+          dur="5s"
+          repeatCount="indefinite"
+          fill="freeze"
+        />
+        <!-- Radius pulse (breathing effect) -->
+        <animate
+          attributeName="r"
+          values="20;22;26;26;26;30;26"
+          keyTimes="0;0.5;0.567;0.667;0.767;0.867;1"
+          dur="5s"
+          repeatCount="indefinite"
+          fill="freeze"
+        />
+      </circle>
+    </g>
+  </g>
+</svg>

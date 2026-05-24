@@ -1,6 +1,6 @@
 {
-  "name": "livecodes",
-  "short_name": "livecodes",
+  "name": "LiveCodes",
+  "short_name": "LiveCodes",
   "icons": [
     {
       "src": "https://livecodes.io/livecodes/assets/images/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#080d16",
+  "background_color": "#080d16",
   "display": "standalone"
 }

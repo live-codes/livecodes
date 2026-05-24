@@ -38,7 +38,7 @@ export const onRequest: PgFunction = async function (context) {
     width: maxWidth && maxWidth < 800 ? String(maxWidth) : '800',
     thumbnail_width: String(thumbnailWidth),
     thumbnail_height: String(thumbnailHeight),
-    thumbnail_url: url.origin + '/livecodes/assets/images/livecodes-text-logo.png',
+    thumbnail_url: url.origin + '/livecodes/assets/images/oembed.png',
     html: `<iframe
         src="${url.href}"
         scrolling="no"

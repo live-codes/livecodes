@@ -144,7 +144,7 @@ export default function App() {
         {...props}
         config={{
           theme: colorMode,
-          themeColor: 'hsl(215, 8%, 60%)',
+          themeColor: 'hsl(205, 50%, 50%)',
           ...(typeof props.config === 'object' ? props.config : {}),
         }}
       />

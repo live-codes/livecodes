@@ -13,7 +13,7 @@ const translation: I18nTranslation = {
       heading: 'Katkıda Bulunanlar',
       para1:
         'LiveCodes, açık kaynak projeler, web servisleri ve katkıda bulunanlar sayesinde mümkün olmuştur. <1>Katkıda Bulunanları Görüntüle</1>',
-      para2: '© 2024 Hatem Hosny. LiveCodes, MIT Lisansı altında lisanslanmıştır.',
+      para2: '© 2021-2026 Hatem Hosny. LiveCodes, MIT Lisansı altında lisanslanmıştır.',
     },
     documentations: {
       heading: 'Dokümantasyon',

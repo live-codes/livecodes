@@ -13,7 +13,7 @@ const translation: I18nTranslation = {
       heading: 'اعتبارات',
       para1:
         'LiveCodes با کمک پروژه‌های متن‌باز، سرویس‌های وب و مشارکت‌کنندگان امکان‌پذیر شده است. <1>مشاهده اعتبارات</1>',
-      para2: '© 2024 حاتم حسنی. LiveCodes تحت مجوز MIT لایسنس شده است.',
+      para2: '© 2021-2026 حاتم حسنی. LiveCodes تحت مجوز MIT لایسنس شده است.',
     },
     documentations: {
       heading: 'مستندات',

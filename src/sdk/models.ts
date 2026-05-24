@@ -376,6 +376,7 @@ export type AppLanguage =
   | 'fa'
   | 'fr'
   | 'hi'
+  | 'hu'
   | 'id'
   | 'it'
   | 'ja'

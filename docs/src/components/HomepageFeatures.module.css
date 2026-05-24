@@ -28,16 +28,16 @@
 
 .steps {
   background-color: var(--ifm-pre-background);
-  border: 1px solid grey;
-  border-radius: 3px;
+  border: 1px solid rgba(0, 200, 255, 0.18);
+  border-radius: 6px;
   margin-bottom: 2em;
   padding: 0.5em;
   padding-left: 2em;
 }
 
 .border {
-  border: 1px solid grey;
-  border-radius: 3px;
+  border: 1px solid rgba(0, 200, 255, 0.12);
+  border-radius: 6px;
   overflow: hidden;
   padding: 0;
 }
@@ -65,7 +65,15 @@ html[data-theme='dark'] .rowLight {
 }
 
 html[data-theme='dark'] .rowDark {
-  background-color: var(--ifm-background-surface-color);
+  background-color: #0d1825;
+}
+
+html[data-theme='dark'] .steps {
+  background-color: #111b2c;
+}
+
+html[data-theme='dark'] .border {
+  background-color: #111b2c;
 }
 
 html[data-theme='dark'] .features img[src$='.svg'] {

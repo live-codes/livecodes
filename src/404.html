@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404</title>
+    <title>404 - Page Not Found</title>
     <link
       rel="alternate"
       type="application/json+oembed"
@@ -29,15 +29,18 @@
     />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="manifest" href="/livecodes/assets/site.webmanifest" />
-    <link rel="mask-icon" href="/livecodes/assets/images/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="mask-icon" href="/livecodes/assets/images/safari-pinned-tab.svg" color="#00e5ff" />
     <meta name="apple-mobile-web-app-title" content="livecodes" />
     <meta name="application-name" content="livecodes" />
-    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-TileColor" content="#1e242f" />
     <meta name="msapplication-config" content="/livecodes/assets/browserconfig.xml" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#141820" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
       html,
       body {
@@ -47,26 +50,48 @@
         overflow-x: hidden;
       }
       body {
-        font-family: system-ui, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f5f5f5;
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+        background-color: #141820;
+        color: #e2e8f0;
       }
       #header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
+        padding: 0.5em 1em;
       }
       #logo {
         margin: 1em;
+        transition: transform 0.2s ease;
+      }
+      #logo:hover {
+        transform: scale(1.05);
       }
       #text {
         margin-left: 2em;
+        max-width: 60%;
       }
       .news > span {
         font-family: 'Pacifico', 'Brush Script MT', cursive;
-        font-size: 2em;
+        font-size: 2.2em;
+        background: linear-gradient(45deg, #00f2fe, #4facfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
       }
       .news > p {
-        margin-left: 2em;
+        margin-left: 0.5em;
+        margin-top: 0.5em;
+        font-size: 1.1em;
+        color: #94a3b8;
       }
       #frame-container {
         text-align: right;
@@ -74,71 +99,134 @@
         width: calc(100vw - 3em);
       }
       iframe {
-        border: 1px solid black;
-        border-radius: 8px;
-        box-shadow: 0 0 20px #a4a6a8;
-        height: 50vh;
-        min-height: 350px;
+        border: 1px solid #2e3746;
+        border-radius: 12px;
+        box-shadow:
+          0 10px 30px rgba(0, 0, 0, 0.5),
+          0 0 1px #00f2fe;
+        height: 55vh;
+        min-height: 400px;
         width: calc(100% - 2em);
         margin-top: 1em;
         z-index: 10;
+        background-color: #1e242f;
       }
-      #img404 {
+      #visual404 {
         position: absolute;
-        top: 30px;
-        right: 30px;
-        width: 30%;
-        min-width: 100px;
-        max-width: 300px;
+        top: 40px;
+        right: 5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle, rgba(0, 242, 254, 0.1) 0%, transparent 70%);
+        width: 300px;
+        height: 300px;
         z-index: 1;
+        pointer-events: none;
+      }
+      .error-code {
+        font-size: 7rem;
+        font-weight: 800;
+        line-height: 1;
+        margin: 0;
+        background: linear-gradient(135deg, #00f2fe 0%, #0575e6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 40px rgba(0, 242, 254, 0.3);
+        letter-spacing: -2px;
+      }
+      .error-tag {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: #ff4a5a;
+        font-weight: 600;
+        border: 1px solid rgba(255, 74, 90, 0.3);
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-top: 10px;
+        background: rgba(255, 74, 90, 0.05);
+        box-shadow: 0 0 15px rgba(255, 74, 90, 0.1);
       }
       #footer {
         margin: 0;
-        margin-top: 2em;
-        padding: 1em;
-        padding-bottom: 2em;
-        background-color: #303846;
-        color: #f5f5f5;
+        margin-top: 4em;
+        padding: 2em 1em;
+        background-color: #0b0d12;
+        border-top: 1px solid #1e242f;
+        color: #94a3b8;
         width: 100vw;
         overflow: hidden;
       }
       #footer .title {
-        font-weight: bold;
+        font-weight: 600;
         margin: 1em;
+        color: #e2e8f0;
       }
       #footer a {
-        color: #f5f5f5;
+        color: #94a3b8;
         text-decoration: none;
         margin: 1em;
+        transition: color 0.2s ease;
+      }
+      #footer a:hover {
+        color: #00f2fe;
+      }
+
+      @media (max-width: 768px) {
+        #visual404 {
+          position: relative;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: 180px;
+          margin-top: 1em;
+        }
+        #text {
+          max-width: 90%;
+          margin-left: 1.5em;
+        }
+        .error-code {
+          font-size: 5rem;
+        }
       }
     </style>
   </head>
   <body>
     <div id="header">
       <div>
-        <a href="/" title="LiveCodes App"
-          ><img
+        <a href="/" title="LiveCodes App">
+          <img
             src="/livecodes/assets/images/livecodes-logo.svg"
             alt="LiveCodes logo"
             id="logo"
-            width="80"
-        /></a>
+            width="72"
+          />
+        </a>
       </div>
     </div>
+
+    <div id="visual404">
+      <div class="error-code">404</div>
+      <div class="error-tag">Page Missing</div>
+    </div>
+
     <div id="text">
       <div class="news">
         <span>The bad news</span>
-        <p>The page you requested is not found!</p>
+        <p>The page you requested could not be found.</p>
       </div>
       <div class="news">
         <span>The good news</span>
-        <p>You can have some fun with this interactive playground 🎉</p>
+        <p>You can still build something awesome right here 🎉</p>
       </div>
     </div>
+
     <div id="frame-container">
       <iframe src="/?embed&template=react" title="LiveCodes Playground"></iframe>
     </div>
-    <img id="img404" src="/livecodes/assets/images/404.png" alt="LiveCodes with 404 stamp" />
+
     <div id="footer">
       <div class="title">LiveCodes</div>
       <div class="links">

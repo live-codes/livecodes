@@ -13,7 +13,7 @@ const translation: I18nTranslation = {
       heading: 'الاعتمادات',
       para1:
         'تم إنشاء LiveCodes بفضل مشاريع مفتوحة المصدر وخدمات الويب والمساهمين. <1> عرض الاعتمادات </1>',
-      para2: '© 2024 حاتم حسني. LiveCodes مرخصة بموجب ترخيص MIT.',
+      para2: '© 2021-2026 حاتم حسني. LiveCodes مرخصة بموجب ترخيص MIT.',
     },
     documentations: {
       heading: 'الوثائق',

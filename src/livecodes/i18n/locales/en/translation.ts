@@ -20,7 +20,7 @@ const translation = {
       heading: 'Credits',
       para1:
         'LiveCodes is made possible by open source projects, web services and contributors. <1>View Credits</1>',
-      para2: '© 2024 Hatem Hosny. LiveCodes is licensed under MIT License.',
+      para2: '© 2021-2026 Hatem Hosny. LiveCodes is licensed under MIT License.',
     },
     documentations: {
       heading: 'Documentations',

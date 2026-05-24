@@ -9,6 +9,7 @@ export const appLanguages: { [key in Exclude<AppLanguage, 'auto'>]: string } = {
   fa: 'فارسی',
   fr: 'Français',
   hi: 'हिंदी',
+  hu: 'Magyar',
   id: 'Bahasa Indonesia',
   it: 'Italiano',
   ja: '日本語',

@@ -1,0 +1,2253 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "about.blog.text": {
+    "translation": "Blog"
+  },
+  "about.blog.title": {
+    "translation": "LiveCodes Blog"
+  },
+  "about.configuration": {
+    "translation": "Konfiguráció"
+  },
+  "about.credits.heading": {
+    "translation": "Köszönetnyilvánítás"
+  },
+  "about.credits.para1": {
+    "translation": "A LiveCodes-t nyílt forráskódú projektek, webszolgáltatások és közreműködők teszik lehetővé. <tag-1>Köszönetnyilvánítás megtekintése</tag-1>"
+  },
+  "about.credits.para2": {
+    "translation": "© 2021-2026 Hatem Hosny. A LiveCodes MIT licenc alatt áll."
+  },
+  "about.documentations.heading": {
+    "translation": "Dokumentáció"
+  },
+  "about.gettingStarted": {
+    "translation": "Első lépések"
+  },
+  "about.github.text": {
+    "translation": "GitHub"
+  },
+  "about.github.title": {
+    "translation": "GitHub"
+  },
+  "about.heading": {
+    "translation": "A LiveCodes-ról"
+  },
+  "about.livecodes.aboutUs": {
+    "translation": "A LiveCodes-ról"
+  },
+  "about.livecodes.para1": {
+    "translation": "A <tag-1><tag-2>LiveCodes</tag-2></tag-1> egy nyílt forráskódú, funkciókban gazdag, kliens oldali kódjátszótér. Jelenleg több mint 90 nyelvet és keretrendszert támogat. Használható önálló alkalmazásként vagy beágyazható bármely weboldalba."
+  },
+  "about.livecodes.para2": {
+    "translation": "Egy hatékony SDK megkönnyíti a játszóterekkel való integrációt és kommunikációt. Részletes dokumentáció áll rendelkezésre kódpéldákkal, élő demókkal és képernyőképekkel."
+  },
+  "about.sdk": {
+    "translation": "LiveCodes SDK"
+  },
+  "about.sponsor.text": {
+    "translation": "Támogatás"
+  },
+  "about.sponsor.title": {
+    "translation": "LiveCodes támogatása"
+  },
+  "about.twitter.text": {
+    "translation": "𝕏 / Twitter"
+  },
+  "about.twitter.title": {
+    "translation": "𝕏 / Twitter"
+  },
+  "about.version.app": {
+    "translation": "Alkalmazás verzió: <tag-1>{{APP_VERSION}}</tag-1>"
+  },
+  "about.version.appPermanentUrl": {
+    "translation": "Alkalmazás állandó URL"
+  },
+  "about.version.commit": {
+    "translation": "Git commit: <tag-1>{{COMMIT_SHA}}</tag-1>"
+  },
+  "about.version.heading": {
+    "translation": "Verzió"
+  },
+  "about.version.sdk": {
+    "translation": "SDK verzió: <tag-1>{{SDK_VERSION}}</tag-1>"
+  },
+  "about.version.sdkPermanentUrl": {
+    "translation": "SDK állandó URL"
+  },
+  "app.changeTheme.hint": {
+    "translation": "Téma váltása"
+  },
+  "app.codeToImage.hint": {
+    "translation": "Kód képpé alakítása"
+  },
+  "app.consoleMessage.appVersion": {
+    "translation": "Alkalmazás verzió: {{APP_VERSION}}"
+  },
+  "app.consoleMessage.commit": {
+    "translation": "Git commit: {{COMMIT_SHA}}"
+  },
+  "app.consoleMessage.learnMore": {
+    "translation": "Tudj meg többet! {{docsUrl}} 🚀"
+  },
+  "app.consoleMessage.sdkVersion": {
+    "translation": "SDK verzió: {{SDK_VERSION}}"
+  },
+  "app.copy.hint": {
+    "translation": "Másolás (Ctrl/⌘ + A, Ctrl/⌘ + C)"
+  },
+  "app.copyAsUrl.hint": {
+    "translation": "Kód másolása adat URL-ként"
+  },
+  "app.customSettings.hint": {
+    "translation": "Egyéni beállítások"
+  },
+  "app.editorSettings.hint": {
+    "translation": "Szerkesztő beállítások"
+  },
+  "app.externalResources.hint": {
+    "translation": "Külső erőforrások"
+  },
+  "app.focus.hint": {
+    "translation": "Fókusz mód váltása (Ctrl/⌘ + K, Z)"
+  },
+  "app.format.hint": {
+    "translation": "Formázás (Alt + Shift + F)"
+  },
+  "app.fullscreen.hint": {
+    "translation": "Teljes képernyő"
+  },
+  "app.i18nButton.hint": {
+    "translation": "Felhasználói felület nyelve"
+  },
+  "app.i18nMenu.docs": {
+    "translation": "i18n dokumentáció"
+  },
+  "app.i18nMenu.helpTranslate": {
+    "translation": "Segíts a fordításban"
+  },
+  "app.logo.title": {
+    "translation": "LiveCodes: Egy kódjátszótér, ami egyszerűen működik!"
+  },
+  "app.projectInfo.hint": {
+    "translation": "Projekt információ"
+  },
+  "app.redo.hint": {
+    "translation": "Újra (Ctrl/⌘ + Shift + Z)"
+  },
+  "app.result.hint": {
+    "translation": "Eredmény (Ctrl/⌘ + Alt + R)"
+  },
+  "app.run.hint": {
+    "translation": "Futtatás (Shift + Enter)"
+  },
+  "app.share.hint": {
+    "translation": "Megosztás (Ctrl/⌘ + Alt + S)"
+  },
+  "app.themeColors.custom": {
+    "translation": "Egyéni"
+  },
+  "app.undo.hint": {
+    "translation": "Visszavonás (Ctrl/⌘ + Z)"
+  },
+  "app.untitledProject": {
+    "translation": "Névtelen projekt"
+  },
+  "assets.action.delete": {
+    "translation": "Törlés"
+  },
+  "assets.add.dataURL.desc": {
+    "translation": "Eszköz hozzáadása base64-kódolású <tag-1>adat URL</tag-1>-ként."
+  },
+  "assets.add.dataURL.heading": {
+    "translation": "Adat URL"
+  },
+  "assets.add.dataURL.label": {
+    "translation": "Fájl hozzáadása"
+  },
+  "assets.add.githubPages.desc": {
+    "translation": "Eszköz telepítése a GitHub Pages-re. A fájl a GitHub fiókod <tag-2>livecodes-assets</tag-2> tárolójának <tag-1>gh-pages</tag-1> ágára kerül. Ha a tároló még nem létezik, egy nyilvános tároló jön létre."
+  },
+  "assets.add.githubPages.heading": {
+    "translation": "GitHub Pages"
+  },
+  "assets.add.githubPages.label": {
+    "translation": "Fájl feltöltése"
+  },
+  "assets.add.heading": {
+    "translation": "Eszköz hozzáadása"
+  },
+  "assets.delete.all": {
+    "translation": "Törlöd mind a(z) {{assets}} eszközt?"
+  },
+  "assets.delete.one": {
+    "translation": "Eszköz törlése: {{asset}}?"
+  },
+  "assets.deleteAll": {
+    "translation": "Összes törlése"
+  },
+  "assets.generic.clickToCopyURL": {
+    "translation": "Kattints az URL másolásához"
+  },
+  "assets.heading": {
+    "translation": "Eszközök"
+  },
+  "assets.link.date": {
+    "translation": "Dátum: {{modified}}"
+  },
+  "assets.link.type": {
+    "translation": "Típus: {{type}}"
+  },
+  "assets.link.url": {
+    "translation": "URL: {{url}}"
+  },
+  "assets.loadFile.error.failedToUpload": {
+    "translation": "Hiba: A fájl feltöltése sikertelen"
+  },
+  "assets.loadFile.error.unauthenticated": {
+    "translation": "Hiba: Nem hitelesített felhasználó"
+  },
+  "assets.loadFile.upload": {
+    "translation": "Fájl feltöltése"
+  },
+  "assets.loadFile.uploading": {
+    "translation": "Feltöltés..."
+  },
+  "assets.noMatch": {
+    "translation": "Nincs a szűrőknek megfelelő eszköz."
+  },
+  "assets.noSavedAssets": {
+    "translation": "Nincsenek mentett eszközeid."
+  },
+  "assets.processAsset.addFile": {
+    "translation": "Fájl hozzáadva: "
+  },
+  "assets.processAsset.deployNotice": {
+    "translation": "Az eszköz hamarosan elérhető lesz ezen az URL-en (~1 perc)."
+  },
+  "assets.processAsset.success": {
+    "translation": "Fájl hozzáadva az eszközökhöz!"
+  },
+  "assets.processAsset.urlLabel": {
+    "translation": "URL: "
+  },
+  "assets.resetFilters": {
+    "translation": "Visszaállítás"
+  },
+  "assets.search": {
+    "translation": "Keresés"
+  },
+  "assets.sort.date": {
+    "translation": "Dátum"
+  },
+  "assets.sort.fileName": {
+    "translation": "Fájlnév"
+  },
+  "assets.sort.heading": {
+    "translation": "Rendezés:"
+  },
+  "assets.type.archive": {
+    "translation": "Archívum"
+  },
+  "assets.type.audio": {
+    "translation": "Audió"
+  },
+  "assets.type.csv": {
+    "translation": "CSV"
+  },
+  "assets.type.font": {
+    "translation": "Betűtípus"
+  },
+  "assets.type.html": {
+    "translation": "HTML"
+  },
+  "assets.type.icon": {
+    "translation": "Ikon"
+  },
+  "assets.type.image": {
+    "translation": "Kép"
+  },
+  "assets.type.json": {
+    "translation": "JSON"
+  },
+  "assets.type.other": {
+    "translation": "Egyéb"
+  },
+  "assets.type.script": {
+    "translation": "Szkript"
+  },
+  "assets.type.stylesheet": {
+    "translation": "Stíluslap"
+  },
+  "assets.type.text": {
+    "translation": "Szöveg"
+  },
+  "assets.type.video": {
+    "translation": "Videó"
+  },
+  "assets.type.xml": {
+    "translation": "XML"
+  },
+  "assets.types.all": {
+    "translation": "Minden típus"
+  },
+  "assets.url.fail": {
+    "translation": "Az URL másolása sikertelen."
+  },
+  "assets.url.success": {
+    "translation": "Az URL a vágólapra másolva."
+  },
+  "backup.backup.assets": {
+    "translation": "Eszközök"
+  },
+  "backup.backup.button": {
+    "translation": "Biztonsági mentés"
+  },
+  "backup.backup.desc": {
+    "translation": "LiveCodes adatok biztonsági mentése, hogy később visszaállíthatók legyenek ezen vagy más eszközökön. <tag-1></tag-1> Kérjük, látogasd meg a <tag-2>dokumentációt</tag-2> a részletekért."
+  },
+  "backup.backup.heading": {
+    "translation": "Biztonsági mentés"
+  },
+  "backup.backup.projects": {
+    "translation": "Projektek"
+  },
+  "backup.backup.settings": {
+    "translation": "Felhasználói beállítások"
+  },
+  "backup.backup.snippets": {
+    "translation": "Kódrészletek"
+  },
+  "backup.backup.templates": {
+    "translation": "Felhasználói sablonok"
+  },
+  "backup.backupBtn": {
+    "translation": "Biztonsági mentés"
+  },
+  "backup.error.atLeastOneStore": {
+    "translation": "Kérjük, válassz legalább egy tárolót a mentéshez"
+  },
+  "backup.error.incorrectFileType": {
+    "translation": "Hiba: Helytelen fájltípus"
+  },
+  "backup.fileInputLabel": {
+    "translation": "Visszaállítás fájlból"
+  },
+  "backup.heading": {
+    "translation": "Biztonsági mentés / Visszaállítás"
+  },
+  "backup.inProgress": {
+    "translation": "Folyamatban..."
+  },
+  "backup.restore.desc": {
+    "translation": "Korábban mentett LiveCodes adatok visszaállítása. <tag-1></tag-1> Ha a jelenlegi tartalom felülírását választod, érdemes lehet előbb biztonsági mentést készíteni. <tag-2></tag-2> Kérjük, látogasd meg a <tag-3>dokumentációt</tag-3> a részletekért."
+  },
+  "backup.restore.fromFile": {
+    "translation": "Visszaállítás fájlból"
+  },
+  "backup.restore.heading": {
+    "translation": "Visszaállítás"
+  },
+  "backup.restore.mode.merge": {
+    "translation": "Összevonás a jelenlegi tartalommal"
+  },
+  "backup.restore.mode.replace": {
+    "translation": "Jelenlegi tartalom felülírása"
+  },
+  "backup.restore.success": {
+    "translation": "Sikeres visszaállítás!"
+  },
+  "broadcast.broadcastBtn.start": {
+    "translation": "Közvetítés"
+  },
+  "broadcast.broadcastBtn.stop": {
+    "translation": "Közvetítés leállítása"
+  },
+  "broadcast.broadcasting": {
+    "translation": "Közvetítés..."
+  },
+  "broadcast.channelURL": {
+    "translation": "Csatorna URL"
+  },
+  "broadcast.connecting": {
+    "translation": "Csatlakozás..."
+  },
+  "broadcast.desc": {
+    "translation": "Az eredményoldal valós idejű közvetítése más böngészőkbe/eszközökre. Kérjük, látogasd meg a <tag-1>dokumentációt</tag-1> a részletekért."
+  },
+  "broadcast.error.generic": {
+    "translation": "A közvetítés sikertelen!"
+  },
+  "broadcast.error.serverURLRequired": {
+    "translation": "Szerver URL szükséges!"
+  },
+  "broadcast.heading": {
+    "translation": "Közvetítés"
+  },
+  "broadcast.includeSourceCode": {
+    "translation": "Forráskód belefoglalása"
+  },
+  "broadcast.serverURL.heading": {
+    "translation": "Szerver URL"
+  },
+  "codeToImage.background": {
+    "translation": "Háttér"
+  },
+  "codeToImage.borderRadius": {
+    "translation": "Sarkok lekerekítése"
+  },
+  "codeToImage.code": {
+    "translation": "Kód"
+  },
+  "codeToImage.copyCode": {
+    "translation": "Kód másolása"
+  },
+  "codeToImage.copyImage": {
+    "translation": "Kép másolása"
+  },
+  "codeToImage.default": {
+    "translation": "Alapértelmezett"
+  },
+  "codeToImage.direction": {
+    "translation": "Irány"
+  },
+  "codeToImage.fileName": {
+    "translation": "Fájlnév"
+  },
+  "codeToImage.fontFamily": {
+    "translation": "Betűtípus"
+  },
+  "codeToImage.fontSize": {
+    "translation": "Betűméret"
+  },
+  "codeToImage.heading": {
+    "translation": "Kód képpé alakítása"
+  },
+  "codeToImage.image": {
+    "translation": "Kép"
+  },
+  "codeToImage.imageFormat.jpg": {
+    "translation": "JPEG"
+  },
+  "codeToImage.imageFormat.label": {
+    "translation": "Képformátum"
+  },
+  "codeToImage.imageFormat.png": {
+    "translation": "PNG"
+  },
+  "codeToImage.imageFormat.svg": {
+    "translation": "SVG"
+  },
+  "codeToImage.layout": {
+    "translation": "Elrendezés"
+  },
+  "codeToImage.opacity": {
+    "translation": "Átlátszóság"
+  },
+  "codeToImage.padding": {
+    "translation": "Kitöltés"
+  },
+  "codeToImage.presets": {
+    "translation": "Előbeállítások"
+  },
+  "codeToImage.preview": {
+    "translation": "Előnézet"
+  },
+  "codeToImage.save": {
+    "translation": "Kép mentése"
+  },
+  "codeToImage.scale": {
+    "translation": "Képméretezés"
+  },
+  "codeToImage.shadow": {
+    "translation": "Árnyék"
+  },
+  "codeToImage.shareImage": {
+    "translation": "Kép megosztása"
+  },
+  "codeToImage.shareTitle": {
+    "translation": "Megosztás"
+  },
+  "codeToImage.shareUrl": {
+    "translation": "URL megosztása"
+  },
+  "codeToImage.theme": {
+    "translation": "Téma"
+  },
+  "codeToImage.width": {
+    "translation": "Szélesség"
+  },
+  "codeToImage.windowStyle.label": {
+    "translation": "Ablakstílus"
+  },
+  "codeToImage.windowStyle.mac": {
+    "translation": "macOS"
+  },
+  "codeToImage.windowStyle.none": {
+    "translation": "Nincs"
+  },
+  "codeToImage.windowStyle.windows": {
+    "translation": "Windows"
+  },
+  "commandMenu.changeTheme.dark": {
+    "translation": "Váltás sötét témára"
+  },
+  "commandMenu.changeTheme.light": {
+    "translation": "Váltás világos témára"
+  },
+  "commandMenu.changeTheme.title": {
+    "translation": "Téma váltása"
+  },
+  "commandMenu.changeUILanguage": {
+    "translation": "Felhasználói felület nyelvének váltása"
+  },
+  "commandMenu.closeModalMenu": {
+    "translation": "Ablak/Menü bezárása"
+  },
+  "commandMenu.contribute": {
+    "translation": "Közreműködés"
+  },
+  "commandMenu.copy": {
+    "translation": "Kód másolása"
+  },
+  "commandMenu.copyAsDataUrl": {
+    "translation": "Kód másolása adat URL-ként"
+  },
+  "commandMenu.disableAutoSave": {
+    "translation": "Automatikus mentés kikapcsolása"
+  },
+  "commandMenu.disableAutoUpdate": {
+    "translation": "Automatikus frissítés kikapcsolása"
+  },
+  "commandMenu.disableEmacs": {
+    "translation": "Emacs mód kikapcsolása"
+  },
+  "commandMenu.disableFormatOnSave": {
+    "translation": "Formázás mentéskor kikapcsolása"
+  },
+  "commandMenu.disableRecoverUnsaved": {
+    "translation": "Nem mentett visszaállítás kikapcsolása"
+  },
+  "commandMenu.disableVim": {
+    "translation": "Vim mód kikapcsolása"
+  },
+  "commandMenu.enableAutoSave": {
+    "translation": "Automatikus mentés bekapcsolása"
+  },
+  "commandMenu.enableAutoUpdate": {
+    "translation": "Automatikus frissítés bekapcsolása"
+  },
+  "commandMenu.enableEmacs": {
+    "translation": "Emacs mód bekapcsolása"
+  },
+  "commandMenu.enableFormatOnSave": {
+    "translation": "Formázás mentéskor bekapcsolása"
+  },
+  "commandMenu.enableRecoverUnsaved": {
+    "translation": "Nem mentett visszaállítás bekapcsolása"
+  },
+  "commandMenu.enableVim": {
+    "translation": "Vim mód bekapcsolása"
+  },
+  "commandMenu.focus.editor": {
+    "translation": "Szerkesztő fókuszálása"
+  },
+  "commandMenu.focus.home": {
+    "translation": "Fókusz áthelyezése a kezdőlapra"
+  },
+  "commandMenu.focus.outOfEditor": {
+    "translation": "Fókusz áthelyezése a szerkesztőn kívülre"
+  },
+  "commandMenu.focus.toggleTabFocusMode": {
+    "translation": "Tab fókusz mód váltása"
+  },
+  "commandMenu.formatCode": {
+    "translation": "Kód formázása"
+  },
+  "commandMenu.home": {
+    "translation": "Kezdőlap"
+  },
+  "commandMenu.horizontalLayout": {
+    "translation": "Vízszintes elrendezés"
+  },
+  "commandMenu.keyboardShortcuts": {
+    "translation": "Billentyűparancsok"
+  },
+  "commandMenu.login": {
+    "translation": "Bejelentkezés"
+  },
+  "commandMenu.logout": {
+    "translation": "Kijelentkezés"
+  },
+  "commandMenu.moveToParent": {
+    "translation": "ugrás a szülőhöz"
+  },
+  "commandMenu.placeholder": {
+    "translation": "Írj be egy parancsot vagy keress..."
+  },
+  "commandMenu.processors": {
+    "translation": "Processzorok"
+  },
+  "commandMenu.responsiveLayout": {
+    "translation": "Reszponzív elrendezés"
+  },
+  "commandMenu.run": {
+    "translation": "Futtatás"
+  },
+  "commandMenu.saveAsFork": {
+    "translation": "Mentés elágazásként (Új projekt)"
+  },
+  "commandMenu.saveAsTemplate": {
+    "translation": "Mentés sablonként"
+  },
+  "commandMenu.selectLanguage": {
+    "translation": "Nyelv kiválasztása"
+  },
+  "commandMenu.show.compiled": {
+    "translation": "Lefordított kód váltása"
+  },
+  "commandMenu.show.console": {
+    "translation": "Konzol váltása"
+  },
+  "commandMenu.show.focusMode": {
+    "translation": "Fókusz mód váltása"
+  },
+  "commandMenu.show.fullscreen": {
+    "translation": "Teljes képernyő váltása"
+  },
+  "commandMenu.show.markup": {
+    "translation": "Jelölőnyelv szerkesztő megjelenítése"
+  },
+  "commandMenu.show.maximizeCompiled": {
+    "translation": "Lefordított kód maximalizálása"
+  },
+  "commandMenu.show.maximizeConsole": {
+    "translation": "Konzol maximalizálása"
+  },
+  "commandMenu.show.maximizeTests": {
+    "translation": "Tesztek maximalizálása"
+  },
+  "commandMenu.show.next": {
+    "translation": "Következő szerkesztő megjelenítése"
+  },
+  "commandMenu.show.previous": {
+    "translation": "Előző szerkesztő megjelenítése"
+  },
+  "commandMenu.show.result": {
+    "translation": "Eredmény váltása"
+  },
+  "commandMenu.show.runTests": {
+    "translation": "Tesztek futtatása"
+  },
+  "commandMenu.show.script": {
+    "translation": "Szkript szerkesztő megjelenítése"
+  },
+  "commandMenu.show.style": {
+    "translation": "Stílus szerkesztő megjelenítése"
+  },
+  "commandMenu.show.tests": {
+    "translation": "Tesztek váltása"
+  },
+  "commandMenu.show.title": {
+    "translation": "Megjelenítés …"
+  },
+  "commandMenu.show.zoom": {
+    "translation": "Eredmény nagyítás váltása"
+  },
+  "commandMenu.starterTemplates": {
+    "translation": "Kezdő sablonok"
+  },
+  "commandMenu.sync": {
+    "translation": "Szinkronizálás (béta) …"
+  },
+  "commandMenu.template": {
+    "translation": "Sablon"
+  },
+  "commandMenu.theme.color": {
+    "translation": "Téma szín beállítása"
+  },
+  "commandMenu.theme.defaultColor": {
+    "translation": "Alapértelmezett téma szín beállítása"
+  },
+  "commandMenu.title": {
+    "translation": "Parancsmenü"
+  },
+  "commandMenu.toClose": {
+    "translation": "bezárás"
+  },
+  "commandMenu.toNavigate": {
+    "translation": "navigálás"
+  },
+  "commandMenu.toSelect": {
+    "translation": "kiválasztás"
+  },
+  "commandMenu.toggle": {
+    "translation": "Váltás: "
+  },
+  "commandMenu.verticalLayout": {
+    "translation": "Függőleges elrendezés"
+  },
+  "core.broadcast.heading": {
+    "translation": "Közvetítés"
+  },
+  "core.broadcast.successSetToken": {
+    "translation": "Közvetítés felhasználói token sikeresen beállítva"
+  },
+  "core.changeLanguage.hint": {
+    "translation": "Nyelv váltása"
+  },
+  "core.changeLanguage.message": {
+    "translation": "{{lang}} betöltése. Ez eltarthat egy ideig!"
+  },
+  "core.copy.copied": {
+    "translation": "Kód a vágólapra másolva"
+  },
+  "core.copy.copiedAsDataURL": {
+    "translation": "Kód adat URL-ként másolva"
+  },
+  "core.copy.copiedImage": {
+    "translation": "Kép a vágólapra másolva."
+  },
+  "core.copy.hint": {
+    "translation": "Másolva!"
+  },
+  "core.copy.title": {
+    "translation": "Másolás"
+  },
+  "core.error.couldNotLoadTemplate": {
+    "translation": "Nem sikerült betölteni a sablont: {{template}}"
+  },
+  "core.error.failedToCopyCode": {
+    "translation": "A kód másolása sikertelen"
+  },
+  "core.error.failedToCopyImage": {
+    "translation": "A kép másolása sikertelen"
+  },
+  "core.error.failedToLoadTemplate": {
+    "translation": "A sablon betöltése sikertelen"
+  },
+  "core.error.failedToLoadTemplates": {
+    "translation": "A kezdő sablonok betöltése sikertelen"
+  },
+  "core.error.failedToParseSettings": {
+    "translation": "A beállítások JSON-ként való értelmezése sikertelen"
+  },
+  "core.error.failedToSaveImage": {
+    "translation": "A kép mentése sikertelen"
+  },
+  "core.error.failedToShareImage": {
+    "translation": "A kép megosztása sikertelen"
+  },
+  "core.error.invalidCommand": {
+    "translation": "Érvénytelen parancs!"
+  },
+  "core.error.invalidImport": {
+    "translation": "Érvénytelen importálási URL"
+  },
+  "core.error.invalidPanelId": {
+    "translation": "Érvénytelen panel azonosító"
+  },
+  "core.error.invalidToken": {
+    "translation": "Érvénytelen token!"
+  },
+  "core.error.login": {
+    "translation": "Bejelentkezési hiba!"
+  },
+  "core.error.logout": {
+    "translation": "Kijelentkezési hiba!"
+  },
+  "core.error.noResultContainer": {
+    "translation": "Az eredmény tároló nem található"
+  },
+  "core.error.unavailable": {
+    "translation": "A parancs nem elérhető"
+  },
+  "core.error.unavailableForEmbeds": {
+    "translation": "A parancs nem elérhető beágyazásokhoz"
+  },
+  "core.export.gist": {
+    "translation": "Nyilvános GitHub gist létrehozása..."
+  },
+  "core.fork.success": {
+    "translation": "Elágaztatva új projektként"
+  },
+  "core.fullScreen.enter": {
+    "translation": "Teljes képernyő"
+  },
+  "core.fullScreen.exit": {
+    "translation": "Kilépés a teljes képernyőből"
+  },
+  "core.generating": {
+    "translation": "Generálás..."
+  },
+  "core.import.loading": {
+    "translation": "Projekt betöltése..."
+  },
+  "core.layout.horizontal": {
+    "translation": "Vízszintes elrendezés"
+  },
+  "core.layout.responsive": {
+    "translation": "Reszponzív elrendezés"
+  },
+  "core.layout.vertical": {
+    "translation": "Függőleges elrendezés"
+  },
+  "core.loadDefaults.template": {
+    "translation": "Alapértelmezett sablon betöltése"
+  },
+  "core.login.success": {
+    "translation": "Sikeres bejelentkezés"
+  },
+  "core.login.successWithName": {
+    "translation": "Bejelentkezve mint: {{name}}"
+  },
+  "core.logout.success": {
+    "translation": "Sikeres kijelentkezés"
+  },
+  "core.result.hint": {
+    "translation": "Eredmény megjelenítése új ablakban"
+  },
+  "core.save.success": {
+    "translation": "Projekt helyben mentve az eszközre!"
+  },
+  "core.save.successWithName": {
+    "translation": "\"{{name}}\" projekt mentve az eszközre."
+  },
+  "core.template.blank": {
+    "translation": "Üres projekt"
+  },
+  "core.template.delete": {
+    "translation": "Törlöd a(z) \"{{item}}\" sablont?"
+  },
+  "core.template.javascript": {
+    "translation": "JavaScript kezdő"
+  },
+  "core.template.react": {
+    "translation": "React kezdő"
+  },
+  "core.template.saved": {
+    "translation": "Mentve új sablonként"
+  },
+  "core.template.typescript": {
+    "translation": "TypeScript kezdő"
+  },
+  "core.template.vue": {
+    "translation": "Vue 3 kezdő"
+  },
+  "core.unload.notSaved": {
+    "translation": "Az elvégzett módosítások esetleg nem lettek mentve."
+  },
+  "core.zoom.hint": {
+    "translation": "Nagyítás"
+  },
+  "customSettings.JSON": {
+    "translation": "Egyéni beállítások JSON"
+  },
+  "customSettings.desc": {
+    "translation": "<tag-1></tag-1> További részletekért kérjük, tekintsd meg a <tag-2> dokumentációt </tag-2>"
+  },
+  "customSettings.heading": {
+    "translation": "Egyéni beállítások"
+  },
+  "customSettings.load": {
+    "translation": "Betöltés"
+  },
+  "deploy.create.desc": {
+    "translation": "Egy új <tag-1>nyilvános</tag-1> tároló jön létre. Az eredményoldal a <tag-2>gh-pages</tag-2> ágra kerül."
+  },
+  "deploy.create.heading": {
+    "translation": "Új tároló létrehozása"
+  },
+  "deploy.create.repoName": {
+    "translation": "Tároló neve <tag-1></tag-1>"
+  },
+  "deploy.error.generic": {
+    "translation": "A telepítés sikertelen!"
+  },
+  "deploy.error.repoNameExists": {
+    "translation": "A tároló neve már létezik"
+  },
+  "deploy.error.repoNameRequired": {
+    "translation": "A tároló neve kötelező"
+  },
+  "deploy.existing.desc": {
+    "translation": "Egy új commit kerül a <tag-1>gh-pages</tag-1> ágra."
+  },
+  "deploy.existing.heading": {
+    "translation": "Meglévő tároló"
+  },
+  "deploy.existing.repoName": {
+    "translation": "Tároló neve"
+  },
+  "deploy.generic.commitMessage": {
+    "translation": "Commit üzenet"
+  },
+  "deploy.generic.commitSourceCodePublic": {
+    "translation": "Forráskód commitolása (nyilvános)"
+  },
+  "deploy.generic.deployBtn": {
+    "translation": "Telepítés"
+  },
+  "deploy.generic.deploying": {
+    "translation": "Telepítés..."
+  },
+  "deploy.heading": {
+    "translation": "Telepítés GitHub Pages-re"
+  },
+  "deploy.searchRepo": {
+    "translation": "Nyilvános tárolók keresése..."
+  },
+  "editorSettings.closeBrackets": {
+    "translation": "Zárójelek és idézőjelek automatikus bezárása"
+  },
+  "editorSettings.codeJarDesc": {
+    "translation": "<tag-1></tag-1> * A megjelölt funkciók nem érhetők el a CodeJar-ban."
+  },
+  "editorSettings.default": {
+    "translation": "Alapértelmezett"
+  },
+  "editorSettings.desc": {
+    "translation": "<tag-1></tag-1> Kérjük, tekintsd meg a <tag-2>dokumentációt</tag-2> a részletekért."
+  },
+  "editorSettings.editor.codejar": {
+    "translation": "CodeJar"
+  },
+  "editorSettings.editor.codemirror": {
+    "translation": "CodeMirror"
+  },
+  "editorSettings.editor.heading": {
+    "translation": "Szerkesztő"
+  },
+  "editorSettings.editor.monaco": {
+    "translation": "Monaco"
+  },
+  "editorSettings.editorMode.emacs": {
+    "translation": "Emacs"
+  },
+  "editorSettings.editorMode.heading": {
+    "translation": "Szerkesztő mód *"
+  },
+  "editorSettings.editorMode.vim": {
+    "translation": "Vim"
+  },
+  "editorSettings.editorTheme": {
+    "translation": "Szerkesztő téma"
+  },
+  "editorSettings.emmet": {
+    "translation": "Emmet engedélyezése *"
+  },
+  "editorSettings.foldRegions": {
+    "translation": "Régiók összecsukása *"
+  },
+  "editorSettings.fontFamily": {
+    "translation": "Betűtípus"
+  },
+  "editorSettings.fontSize": {
+    "translation": "Betűméret"
+  },
+  "editorSettings.format": {
+    "translation": "Formázás"
+  },
+  "editorSettings.heading": {
+    "translation": "Szerkesztő beállítások"
+  },
+  "editorSettings.lineNumbers": {
+    "translation": "Sorszámok megjelenítése"
+  },
+  "editorSettings.lineNumbersRelative": {
+    "translation": "Relatív sorszámok *"
+  },
+  "editorSettings.minimap": {
+    "translation": "Minitérkép engedélyezése *"
+  },
+  "editorSettings.notAvailableInCodeJar": {
+    "translation": "Nem érhető el a CodeJar-ban"
+  },
+  "editorSettings.preview": {
+    "translation": "Előnézet"
+  },
+  "editorSettings.semicolons": {
+    "translation": "Formázás: Pontosvesszők használata"
+  },
+  "editorSettings.singleQuote": {
+    "translation": "Formázás: Szimpla idézőjelek használata"
+  },
+  "editorSettings.tabSize": {
+    "translation": "Tabulátor mérete"
+  },
+  "editorSettings.theme": {
+    "translation": "Sötét mód"
+  },
+  "editorSettings.trailingComma": {
+    "translation": "Formázás: Záró vesszők használata"
+  },
+  "editorSettings.useTabs.heading": {
+    "translation": "Behúzás"
+  },
+  "editorSettings.useTabs.spaces": {
+    "translation": "Szóközök"
+  },
+  "editorSettings.useTabs.tabs": {
+    "translation": "Tabulátorok"
+  },
+  "editorSettings.wordWrap": {
+    "translation": "Sortörés"
+  },
+  "embed.activeEditor.heading": {
+    "translation": "Aktív szerkesztő"
+  },
+  "embed.activeEditor.markup": {
+    "translation": "{{markup}}"
+  },
+  "embed.activeEditor.script": {
+    "translation": "{{script}}"
+  },
+  "embed.activeEditor.style": {
+    "translation": "{{style}}"
+  },
+  "embed.activeTool.compiled": {
+    "translation": "Lefordított"
+  },
+  "embed.activeTool.console": {
+    "translation": "Konzol"
+  },
+  "embed.activeTool.heading": {
+    "translation": "Aktív eszköz"
+  },
+  "embed.activeTool.tests": {
+    "translation": "Tesztek"
+  },
+  "embed.code.copy": {
+    "translation": "Kód másolása"
+  },
+  "embed.code.heading": {
+    "translation": "Kód"
+  },
+  "embed.codeEditor.codeJar": {
+    "translation": "CodeJar"
+  },
+  "embed.codeEditor.codeMirror": {
+    "translation": "CodeMirror"
+  },
+  "embed.codeEditor.default": {
+    "translation": "Alapértelmezett"
+  },
+  "embed.codeEditor.heading": {
+    "translation": "Kódszerkesztő"
+  },
+  "embed.codeEditor.monaco": {
+    "translation": "Monaco"
+  },
+  "embed.desc": {
+    "translation": "Kérjük, tekintsd meg a <tag-1>dokumentációt</tag-1> a haladó konfigurációkért."
+  },
+  "embed.embedType.cdn": {
+    "translation": "Szkript (CDN)"
+  },
+  "embed.embedType.heading": {
+    "translation": "Beágyazás típusa"
+  },
+  "embed.embedType.html": {
+    "translation": "HTML"
+  },
+  "embed.embedType.iframe": {
+    "translation": "Iframe"
+  },
+  "embed.embedType.npm": {
+    "translation": "JS (npm)"
+  },
+  "embed.embedType.react": {
+    "translation": "React"
+  },
+  "embed.embedType.svelte": {
+    "translation": "Svelte"
+  },
+  "embed.embedType.vue": {
+    "translation": "Vue"
+  },
+  "embed.heading": {
+    "translation": "Projekt beágyazása"
+  },
+  "embed.layout.heading": {
+    "translation": "Elrendezés"
+  },
+  "embed.layout.horizontal": {
+    "translation": "Vízszintes"
+  },
+  "embed.layout.responsive": {
+    "translation": "Reszponzív"
+  },
+  "embed.layout.vertical": {
+    "translation": "Függőleges"
+  },
+  "embed.lite": {
+    "translation": "Egyszerű mód"
+  },
+  "embed.loading.click": {
+    "translation": "Kattintásra"
+  },
+  "embed.loading.eager": {
+    "translation": "Azonnali"
+  },
+  "embed.loading.heading": {
+    "translation": "Betöltés"
+  },
+  "embed.loading.lazy": {
+    "translation": "Lusta"
+  },
+  "embed.mode.codeblock": {
+    "translation": "Kódblokk"
+  },
+  "embed.mode.editor": {
+    "translation": "Szerkesztő"
+  },
+  "embed.mode.full": {
+    "translation": "Teljes"
+  },
+  "embed.mode.heading": {
+    "translation": "Megjelenítési mód"
+  },
+  "embed.mode.result": {
+    "translation": "Eredmény"
+  },
+  "embed.mode.simple": {
+    "translation": "Egyszerű"
+  },
+  "embed.permanentUrl": {
+    "translation": "Állandó URL"
+  },
+  "embed.preview": {
+    "translation": "Előnézet"
+  },
+  "embed.previewLoading": {
+    "translation": "Előnézet betöltése..."
+  },
+  "embed.readonly": {
+    "translation": "Csak olvasható"
+  },
+  "embed.theme.dark": {
+    "translation": "Sötét"
+  },
+  "embed.theme.heading": {
+    "translation": "Téma"
+  },
+  "embed.theme.light": {
+    "translation": "Világos"
+  },
+  "embed.tools.closed": {
+    "translation": "Zárt"
+  },
+  "embed.tools.full": {
+    "translation": "Teljes"
+  },
+  "embed.tools.heading": {
+    "translation": "Eszközök"
+  },
+  "embed.tools.none": {
+    "translation": "Nincs"
+  },
+  "embed.tools.open": {
+    "translation": "Nyitott"
+  },
+  "embed.view.editor": {
+    "translation": "Szerkesztő"
+  },
+  "embed.view.heading": {
+    "translation": "Alapértelmezett nézet"
+  },
+  "embed.view.result": {
+    "translation": "Eredmény"
+  },
+  "embed.view.split": {
+    "translation": "Osztott"
+  },
+  "generic.about.blog": {
+    "translation": "Blog"
+  },
+  "generic.about.configuration": {
+    "translation": "Konfiguráció"
+  },
+  "generic.about.gettingStarted": {
+    "translation": "Első lépések"
+  },
+  "generic.about.github": {
+    "translation": "GitHub"
+  },
+  "generic.about.sdk": {
+    "translation": "LiveCodes SDK"
+  },
+  "generic.about.sponsor": {
+    "translation": "Támogatás"
+  },
+  "generic.about.twitter": {
+    "translation": "𝕏 / Twitter"
+  },
+  "generic.clickForInfo": {
+    "translation": "Kattints az információért..."
+  },
+  "generic.close": {
+    "translation": "Bezárás"
+  },
+  "generic.custom": {
+    "translation": "Egyéni"
+  },
+  "generic.embed.logoHint": {
+    "translation": "Szerkesztés a LiveCodes-ban 🡕"
+  },
+  "generic.error.authentication": {
+    "translation": "Hitelesítési hiba!"
+  },
+  "generic.error.exceededSize": {
+    "translation": "Hiba: Meghaladta a(z) {{size}} MB méretet"
+  },
+  "generic.error.failedToReadFile": {
+    "translation": "Hiba: A fájl olvasása sikertelen"
+  },
+  "generic.loading": {
+    "translation": "Betöltés..."
+  },
+  "generic.more": {
+    "translation": "Továbbiak..."
+  },
+  "generic.optional": {
+    "translation": "Opcionális"
+  },
+  "generic.required": {
+    "translation": "Kötelező"
+  },
+  "generic.tagline": {
+    "translation": "Egy kódjátszótér, ami egyszerűen működik!"
+  },
+  "import.bulk.desc": {
+    "translation": "Több projekt tömeges importálása a mentett projektjeid közé. A projektek a <tag-1>Mentett projektek</tag-1> képernyőről exportálhatók."
+  },
+  "import.bulk.fromFile": {
+    "translation": "Tömeges importálás helyi fájlból"
+  },
+  "import.bulk.fromURL": {
+    "translation": "Tömeges importálás URL-ből"
+  },
+  "import.bulk.heading": {
+    "translation": "Tömeges importálás"
+  },
+  "import.bulk.started": {
+    "translation": "Tömeges importálás elindítva..."
+  },
+  "import.code.desc": {
+    "translation": "Támogatott források: <tag-1> <tag-2>GitHub gist</tag-2> <tag-3>GitHub fájl</tag-3> <tag-4>Könyvtár egy GitHub tárolóban</tag-4> <tag-5>Gitlab részlet</tag-5> <tag-6>Gitlab fájl</tag-6> <tag-7>Könyvtár egy Gitlab tárolóban</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Nyers kód</tag-9> <tag-10>Kód weboldal DOM-jában</tag-10> <tag-11>Kód zip fájlban</tag-11> <tag-12>Kód képben (OCR)</tag-12> <tag-13>Hivatalos játszóterek<tag-14></tag-14>(TypeScript és Vue)</tag-13> </tag-1> Kérjük, látogasd meg a <tag-15>dokumentációt</tag-15> a részletekért."
+  },
+  "import.code.fromFile": {
+    "translation": "Helyi fájlok importálása"
+  },
+  "import.code.fromURL": {
+    "translation": "Importálás URL-ből"
+  },
+  "import.code.heading": {
+    "translation": "Kód importálása"
+  },
+  "import.error.failedToLoadURL": {
+    "translation": "Hiba: az URL betöltése sikertelen"
+  },
+  "import.error.invalidConfigFile": {
+    "translation": "Érvénytelen konfigurációs fájl"
+  },
+  "import.error.invalidFile": {
+    "translation": "Hiba: Érvénytelen fájl"
+  },
+  "import.generic.file": {
+    "translation": "Helyi fájl"
+  },
+  "import.generic.url": {
+    "translation": "URL"
+  },
+  "import.heading": {
+    "translation": "Importálás"
+  },
+  "import.json.desc": {
+    "translation": "Egyetlen projekt JSON importálása a szerkesztőbe. Egy projekt exportálható az alkalmazás&nbsp;menü&nbsp;→ Exportálás&nbsp;→ Projekt&nbsp;exportálása&nbsp;(JSON) menüpontból."
+  },
+  "import.json.fromFile": {
+    "translation": "Projekt importálása helyi fájlból"
+  },
+  "import.json.fromURL": {
+    "translation": "Projekt importálása URL-ből"
+  },
+  "import.json.heading": {
+    "translation": "Projekt JSON importálása"
+  },
+  "import.success": {
+    "translation": "Sikeres importálás!"
+  },
+  "keyboardShortcuts.command": {
+    "translation": "Parancs"
+  },
+  "keyboardShortcuts.editorShortcuts": {
+    "translation": "A kódszerkesztő billentyűparancsainak listájáért lásd: <tag-1> VS Code billentyűparancsok</tag-1>"
+  },
+  "keyboardShortcuts.heading": {
+    "translation": "Billentyűparancsok"
+  },
+  "keyboardShortcuts.key": {
+    "translation": "Billentyű"
+  },
+  "login.accessAllowed": {
+    "translation": "Hozzáférés engedélyezése:"
+  },
+  "login.desc": {
+    "translation": "<tag-1>A bejelentkezéssel elfogadod, hogy <tag-2>cookie-k</tag-2> tárolódhatnak az eszközödön.</tag-1> <tag-3> <tag-4>Miért szükségesek ezek az engedélyek?</tag-4> </tag-3> <tag-5> <tag-6>Hogyan lehet módosítani/visszavonni az engedélyeket?</tag-6> </tag-5>"
+  },
+  "login.gist": {
+    "translation": "Gist-ek"
+  },
+  "login.heading": {
+    "translation": "Bejelentkezés GitHub-bal"
+  },
+  "login.loginAs": {
+    "translation": "Bejelentkezve mint: {{name}}"
+  },
+  "login.loginBtn": {
+    "translation": "Bejelentkezés"
+  },
+  "login.logout": {
+    "translation": "Kijelentkezés"
+  },
+  "login.privateRepo": {
+    "translation": "Privát tárolók"
+  },
+  "login.publicRepo": {
+    "translation": "Tárolók"
+  },
+  "menu.about": {
+    "translation": "Névjegy ..."
+  },
+  "menu.appHelp.heading": {
+    "translation": "Súgó"
+  },
+  "menu.appHelp.hint": {
+    "translation": "Súgó"
+  },
+  "menu.appProject.heading": {
+    "translation": "Projekt"
+  },
+  "menu.appProject.hint": {
+    "translation": "Projekt"
+  },
+  "menu.appSettings.heading": {
+    "translation": "Beállítások"
+  },
+  "menu.appSettings.hint": {
+    "translation": "Alkalmazás beállítások"
+  },
+  "menu.assets": {
+    "translation": "Eszközök …"
+  },
+  "menu.autoSave": {
+    "translation": "Automatikus mentés"
+  },
+  "menu.autoUpdate": {
+    "translation": "Automatikus frissítés"
+  },
+  "menu.backup": {
+    "translation": "Biztonsági mentés / Visszaállítás …"
+  },
+  "menu.blog": {
+    "translation": "LiveCodes Blog"
+  },
+  "menu.broadcast": {
+    "translation": "Közvetítés …"
+  },
+  "menu.commandMenu": {
+    "translation": "Parancsmenü"
+  },
+  "menu.config": {
+    "translation": "Konfiguráció"
+  },
+  "menu.customSettings": {
+    "translation": "Egyéni beállítások …"
+  },
+  "menu.delay.heading": {
+    "translation": "Késleltetés: <tag-1>1.5</tag-1>mp"
+  },
+  "menu.delay.hint": {
+    "translation": "Késleltetés az automatikus frissítés előtt"
+  },
+  "menu.deploy": {
+    "translation": "Telepítés …"
+  },
+  "menu.docs": {
+    "translation": "Dokumentáció"
+  },
+  "menu.editorSettings": {
+    "translation": "Szerkesztő beállítások …"
+  },
+  "menu.embed": {
+    "translation": "Beágyazás …"
+  },
+  "menu.export.codepen": {
+    "translation": "Szerkesztés CodePen-ben"
+  },
+  "menu.export.gist": {
+    "translation": "Exportálás GitHub Gist-be"
+  },
+  "menu.export.heading": {
+    "translation": "Exportálás"
+  },
+  "menu.export.jsfiddle": {
+    "translation": "Szerkesztés JSFiddle-ben"
+  },
+  "menu.export.json": {
+    "translation": "Projekt exportálása (JSON)"
+  },
+  "menu.export.result": {
+    "translation": "Eredmény exportálása (HTML)"
+  },
+  "menu.export.src": {
+    "translation": "Forráskód exportálása (ZIP)"
+  },
+  "menu.features": {
+    "translation": "Funkciók"
+  },
+  "menu.formatOnsave": {
+    "translation": "Formázás mentéskor"
+  },
+  "menu.getstart": {
+    "translation": "Első lépések"
+  },
+  "menu.import": {
+    "translation": "Importálás …"
+  },
+  "menu.keyboardShortcuts": {
+    "translation": "Billentyűparancsok"
+  },
+  "menu.layout": {
+    "translation": "Függőleges elrendezés"
+  },
+  "menu.license": {
+    "translation": "Licenc"
+  },
+  "menu.login": {
+    "translation": "Bejelentkezés"
+  },
+  "menu.logout": {
+    "translation": "Kijelentkezés"
+  },
+  "menu.new": {
+    "translation": "Új …"
+  },
+  "menu.open": {
+    "translation": "Megnyitás …"
+  },
+  "menu.project": {
+    "translation": "Projekt információ …"
+  },
+  "menu.recoverUnsaved": {
+    "translation": "Nem mentett visszaállítása"
+  },
+  "menu.report": {
+    "translation": "Hiba bejelentése"
+  },
+  "menu.resources": {
+    "translation": "Külső erőforrások …"
+  },
+  "menu.save": {
+    "translation": "Mentés"
+  },
+  "menu.saveAs.fork": {
+    "translation": "Elágazás (Új projekt)"
+  },
+  "menu.saveAs.heading": {
+    "translation": "Mentés másként …"
+  },
+  "menu.saveAs.template": {
+    "translation": "Sablon"
+  },
+  "menu.sdk": {
+    "translation": "SDK"
+  },
+  "menu.share": {
+    "translation": "Megosztás …"
+  },
+  "menu.showSpacing.heading": {
+    "translation": "Térközök megjelenítése"
+  },
+  "menu.showSpacing.hint": {
+    "translation": "Nyomd meg az Alt/Option billentyűt és mozgasd a kurzort az eredményoldal fölé"
+  },
+  "menu.showWelcome.title": {
+    "translation": "Üdvözlő képernyő megjelenítése indításkor"
+  },
+  "menu.snippets": {
+    "translation": "Kódrészletek …"
+  },
+  "menu.source": {
+    "translation": "Forráskód a GitHub-on"
+  },
+  "menu.sync": {
+    "translation": "Szinkronizálás (béta) … <tag-1> ⏳</tag-1>"
+  },
+  "menu.theme": {
+    "translation": "Sötét téma"
+  },
+  "menu.themeColor": {
+    "translation": "Szín"
+  },
+  "menu.welcome.heading": {
+    "translation": "Üdvözlő …"
+  },
+  "open.action.delete": {
+    "translation": "Törlés"
+  },
+  "open.defaultTemplate": {
+    "translation": "Alapértelmezett sablon "
+  },
+  "open.delete.all": {
+    "translation": "Törlöd mind a(z) {{projects}} projektet?"
+  },
+  "open.delete.deleting": {
+    "translation": "Projektek törlése..."
+  },
+  "open.delete.one": {
+    "translation": "Projekt törlése: {{project}}?"
+  },
+  "open.deleteAll": {
+    "translation": "Összes törlése"
+  },
+  "open.exportAll": {
+    "translation": "Összes exportálása"
+  },
+  "open.filter.language": {
+    "translation": "szűrés nyelv szerint"
+  },
+  "open.filter.tag": {
+    "translation": "szűrés címke szerint"
+  },
+  "open.heading": {
+    "translation": "Mentett projektek"
+  },
+  "open.import": {
+    "translation": "Importálás"
+  },
+  "open.lastModified": {
+    "translation": "Utoljára módosítva: {{modified}}"
+  },
+  "open.noData.desc": {
+    "translation": "Projektet menthetsz a (beállítások&nbsp;menü&nbsp;&gt;&nbsp;Mentés) menüpontból vagy a billentyűparanccsal (Ctrl/⌘&nbsp;+&nbsp;S)."
+  },
+  "open.noData.heading": {
+    "translation": "Nincsenek mentett projektjeid."
+  },
+  "open.noMatch": {
+    "translation": "Nincs a szűrőknek megfelelő projekt."
+  },
+  "open.placeholder.allLanguages": {
+    "translation": "Minden nyelv"
+  },
+  "open.placeholder.filterByTags": {
+    "translation": "Szűrés címkék szerint"
+  },
+  "open.placeholder.search": {
+    "translation": "Keresés"
+  },
+  "open.removeDefault": {
+    "translation": "(törlés)"
+  },
+  "open.reset": {
+    "translation": "Visszaállítás"
+  },
+  "open.setAsDefault": {
+    "translation": "Beállítás alapértelmezettként"
+  },
+  "open.sort.heading": {
+    "translation": "Rendezés:"
+  },
+  "open.sort.lastModified": {
+    "translation": "Utolsó módosítás"
+  },
+  "open.sort.title": {
+    "translation": "Cím"
+  },
+  "project.desc": {
+    "translation": "Leírás"
+  },
+  "project.head": {
+    "translation": "Hozzáadás a &lt;head&gt;-hez"
+  },
+  "project.heading": {
+    "translation": "Projekt információ"
+  },
+  "project.htmlAttr": {
+    "translation": "Attribútumok a &lt;html&gt;-hez"
+  },
+  "project.tags": {
+    "translation": "Címkék"
+  },
+  "project.title": {
+    "translation": "Projekt címe"
+  },
+  "recoverPrompt.desc": {
+    "translation": "Az utolsó projektedben nem mentett módosítások vannak!"
+  },
+  "recoverPrompt.heading": {
+    "translation": "Nem mentett projekt visszaállítása?"
+  },
+  "recoverPrompt.meta": {
+    "translation": "Cím: <tag-1></tag-1> <tag-2></tag-2> Utoljára módosítva: <tag-3></tag-3>"
+  },
+  "recoverPrompt.notShowAgain": {
+    "translation": "Ne jelenjen meg többet."
+  },
+  "recoverPrompt.prompt.discard": {
+    "translation": "Nem mentett projekt elvetése"
+  },
+  "recoverPrompt.prompt.heading": {
+    "translation": "<tag-1></tag-1>Szeretnéd most visszaállítani?"
+  },
+  "recoverPrompt.prompt.recover": {
+    "translation": "Projekt visszaállítása a szerkesztőbe"
+  },
+  "recoverPrompt.prompt.save": {
+    "translation": "Mentés az eszközre és folytatás"
+  },
+  "resources.browseOnJsDelivr": {
+    "translation": "Csomagfájlok böngészése a jsDelivr-en"
+  },
+  "resources.cssPresets.heading": {
+    "translation": "CSS előbeállítások"
+  },
+  "resources.cssPresets.none": {
+    "translation": "Nincs"
+  },
+  "resources.cssPresets.normalizeCss": {
+    "translation": "Normalize.css"
+  },
+  "resources.cssPresets.resetCss": {
+    "translation": "Reset CSS"
+  },
+  "resources.error.failedToLoadResults": {
+    "translation": "Az eredmények betöltése sikertelen!"
+  },
+  "resources.error.noResultsFound": {
+    "translation": "Nincs találat erre: "
+  },
+  "resources.fonts.add": {
+    "translation": "Hozzáadás"
+  },
+  "resources.fonts.heading": {
+    "translation": "Betűtípusok <tag-1>(Google Fonts által)</tag-1>"
+  },
+  "resources.fonts.select": {
+    "translation": "Betűtípus kiválasztása ..."
+  },
+  "resources.heading": {
+    "translation": "Külső erőforrások"
+  },
+  "resources.scripts": {
+    "translation": "Külső szkriptek"
+  },
+  "resources.search.heading": {
+    "translation": "Csomagok keresése <tag-1>(jsDelivr által)</tag-1>"
+  },
+  "resources.search.placeholder": {
+    "translation": "pl. jquery, lodash@4, bootstrap@5.2.3, ..."
+  },
+  "resources.stylesheets": {
+    "translation": "Külső stíluslapok"
+  },
+  "resources.urlDesc": {
+    "translation": "Stíluslap/szkript URL-ek hozzáadása. Minden URL külön sorba kerüljön."
+  },
+  "resultMode.linkText": {
+    "translation": "Szerkesztés a LiveCodes-ban"
+  },
+  "savePrompt.heading": {
+    "translation": "Nem mentett módosítások"
+  },
+  "savePrompt.prompt.cancel": {
+    "translation": "Mégse"
+  },
+  "savePrompt.prompt.discard": {
+    "translation": "Ne mentse"
+  },
+  "savePrompt.prompt.heading": {
+    "translation": "Az elvégzett módosítások esetleg nem lettek mentve. <tag-1></tag-1> Szeretnéd most menteni?"
+  },
+  "savePrompt.prompt.save": {
+    "translation": "Mentés"
+  },
+  "share.characters": {
+    "translation": "{{urlLength}} karakter"
+  },
+  "share.copy.clickToCopy": {
+    "translation": "Kattints a másoláshoz"
+  },
+  "share.copy.copied": {
+    "translation": "URL a vágólapra másolva"
+  },
+  "share.encodedURL": {
+    "translation": "Kódolt URL lekérése"
+  },
+  "share.error.failedToCopy": {
+    "translation": "Másolás a vágólapra sikertelen!"
+  },
+  "share.error.failedToGenerateURL": {
+    "translation": "A rövid URL generálása sikertelen!"
+  },
+  "share.expireInOneYear": {
+    "translation": "1 év múlva lejár"
+  },
+  "share.generateURL": {
+    "translation": "URL generálása …"
+  },
+  "share.heading": {
+    "translation": "Megosztás"
+  },
+  "share.permanentURL": {
+    "translation": "Állandó URL"
+  },
+  "share.qrcode.clickToDownload": {
+    "translation": "Kattints a letöltéshez"
+  },
+  "share.qrcode.generating": {
+    "translation": "Generálás..."
+  },
+  "share.services.devTo": {
+    "translation": "Dev.to"
+  },
+  "share.services.email": {
+    "translation": "E-mail"
+  },
+  "share.services.facebook": {
+    "translation": "Facebook"
+  },
+  "share.services.hackerNews": {
+    "translation": "Hacker News"
+  },
+  "share.services.linkedIn": {
+    "translation": "LinkedIn"
+  },
+  "share.services.pinterest": {
+    "translation": "Pinterest"
+  },
+  "share.services.pocket": {
+    "translation": "Pocket"
+  },
+  "share.services.qrCode": {
+    "translation": "QR kód"
+  },
+  "share.services.reddit": {
+    "translation": "Reddit"
+  },
+  "share.services.share": {
+    "translation": "Megosztás …"
+  },
+  "share.services.telegram": {
+    "translation": "Telegram"
+  },
+  "share.services.tumblr": {
+    "translation": "Tumblr"
+  },
+  "share.services.twitter": {
+    "translation": "𝕏 / Twitter"
+  },
+  "share.services.whatsApp": {
+    "translation": "WhatsApp"
+  },
+  "share.shortURL": {
+    "translation": "Rövid URL lekérése"
+  },
+  "snippets.action.copy": {
+    "translation": "Másolás"
+  },
+  "snippets.action.delete": {
+    "translation": "Törlés"
+  },
+  "snippets.action.edit": {
+    "translation": "Szerkesztés"
+  },
+  "snippets.add.code": {
+    "translation": "Kód"
+  },
+  "snippets.add.desc": {
+    "translation": "Leírás"
+  },
+  "snippets.add.heading": {
+    "translation": "Kódrészlet hozzáadása"
+  },
+  "snippets.add.language": {
+    "translation": "Nyelv"
+  },
+  "snippets.add.save": {
+    "translation": "Mentés"
+  },
+  "snippets.add.snippets": {
+    "translation": "Kódrészletek"
+  },
+  "snippets.add.title": {
+    "translation": "Cím"
+  },
+  "snippets.copy.clickToCopySnippet": {
+    "translation": "Kattints a kódrészlet másolásához"
+  },
+  "snippets.copy.copied": {
+    "translation": "Kódrészlet a vágólapra másolva."
+  },
+  "snippets.delete.all": {
+    "translation": "Törlöd mind a(z) {{snippets}} kódrészletet?"
+  },
+  "snippets.delete.one": {
+    "translation": "Kódrészlet törlése: {{snippet}}?"
+  },
+  "snippets.deleteAll": {
+    "translation": "Összes törlése"
+  },
+  "snippets.error.failedToCopy": {
+    "translation": "Az URL másolása sikertelen."
+  },
+  "snippets.error.noTitle": {
+    "translation": "Kérjük, adj meg egy címet a kódrészlethez."
+  },
+  "snippets.filter.language": {
+    "translation": "szűrés nyelv szerint"
+  },
+  "snippets.heading": {
+    "translation": "Kódrészletek"
+  },
+  "snippets.lastModified": {
+    "translation": "Utoljára módosítva: {{modified}}"
+  },
+  "snippets.noMatch": {
+    "translation": "Nincs a szűrőknek megfelelő kódrészlet."
+  },
+  "snippets.noSavedSnippets": {
+    "translation": "Nincsenek mentett kódrészleteid."
+  },
+  "snippets.placeholder.allLanguages": {
+    "translation": "Minden nyelv"
+  },
+  "snippets.placeholder.search": {
+    "translation": "Keresés"
+  },
+  "snippets.reset": {
+    "translation": "Visszaállítás"
+  },
+  "snippets.save.success": {
+    "translation": "Kódrészlet helyben mentve az eszközre!"
+  },
+  "snippets.sort.date": {
+    "translation": "Dátum"
+  },
+  "snippets.sort.heading": {
+    "translation": "Rendezés:"
+  },
+  "snippets.sort.title": {
+    "translation": "Cím"
+  },
+  "snippets.text": {
+    "translation": "Egyszerű szöveg"
+  },
+  "splash.loading": {
+    "translation": "LiveCodes betöltése…"
+  },
+  "sync.autoSync": {
+    "translation": "Automatikus szinkronizálás"
+  },
+  "sync.create.desc": {
+    "translation": "Egy új <tag-1>privát</tag-1> tároló jön létre. A LiveCodes helyi adataid a <tag-2>main</tag-2> ággal lesznek szinkronizálva."
+  },
+  "sync.create.heading": {
+    "translation": "Új tároló létrehozása"
+  },
+  "sync.create.repoName": {
+    "translation": "Tároló neve"
+  },
+  "sync.error.generic": {
+    "translation": "A szinkronizálás sikertelen!"
+  },
+  "sync.error.repoNameRequired": {
+    "translation": "A tároló neve kötelező"
+  },
+  "sync.existing.desc": {
+    "translation": "A LiveCodes helyi adataid a <tag-1>main</tag-1> ággal lesznek szinkronizálva."
+  },
+  "sync.existing.heading": {
+    "translation": "Meglévő tároló"
+  },
+  "sync.existing.repoName": {
+    "translation": "Tároló neve"
+  },
+  "sync.heading": {
+    "translation": "Szinkronizálás GitHub tárolóval"
+  },
+  "sync.searchRepos": {
+    "translation": "Tárolók keresése..."
+  },
+  "sync.success": {
+    "translation": "Szinkronizálás kész!"
+  },
+  "sync.syncBtn": {
+    "translation": "Szinkronizálás"
+  },
+  "sync.syncInProgress": {
+    "translation": "Szinkronizálás folyamatban..."
+  },
+  "sync.syncStarted": {
+    "translation": "Szinkronizálás elindítva..."
+  },
+  "templates.heading": {
+    "translation": "Új projekt"
+  },
+  "templates.noUserTemplates.desc": {
+    "translation": "Projektet menthetsz sablonként innen: <tag-1></tag-1>(Alkalmazás&nbsp;menü&nbsp;&gt;&nbsp;Mentés&nbsp;másként&nbsp;&gt; Sablon)."
+  },
+  "templates.noUserTemplates.heading": {
+    "translation": "Nincsenek mentett sablonjaid."
+  },
+  "templates.search.label": {
+    "translation": "Sablonok keresése"
+  },
+  "templates.search.placeholder": {
+    "translation": "Sablonok keresése..."
+  },
+  "templates.starter.angular": {
+    "translation": "Angular kezdő"
+  },
+  "templates.starter.assemblyscript": {
+    "translation": "AssemblyScript kezdő"
+  },
+  "templates.starter.astro": {
+    "translation": "Astro kezdő"
+  },
+  "templates.starter.backbone": {
+    "translation": "Backbone kezdő"
+  },
+  "templates.starter.blank": {
+    "translation": "Üres projekt"
+  },
+  "templates.starter.blockly": {
+    "translation": "Blockly kezdő"
+  },
+  "templates.starter.bootstrap": {
+    "translation": "Bootstrap kezdő"
+  },
+  "templates.starter.civet": {
+    "translation": "Civet kezdő"
+  },
+  "templates.starter.clio": {
+    "translation": "Clio kezdő"
+  },
+  "templates.starter.clojurescript": {
+    "translation": "ClojureScript kezdő"
+  },
+  "templates.starter.coffeescript": {
+    "translation": "CoffeeScript kezdő"
+  },
+  "templates.starter.commonlisp": {
+    "translation": "Common Lisp kezdő"
+  },
+  "templates.starter.cpp": {
+    "translation": "C++ kezdő"
+  },
+  "templates.starter.cpp-wasm": {
+    "translation": "C++ (Wasm) kezdő"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C# (Wasm) kezdő"
+  },
+  "templates.starter.d3": {
+    "translation": "D3 kezdő"
+  },
+  "templates.starter.daisyui": {
+    "translation": "daisyUI kezdő"
+  },
+  "templates.starter.diagrams": {
+    "translation": "Diagramok kezdő"
+  },
+  "templates.starter.fennel": {
+    "translation": "Fennel kezdő"
+  },
+  "templates.starter.gleam": {
+    "translation": "Gleam kezdő"
+  },
+  "templates.starter.go": {
+    "translation": "Go kezdő"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Go (Wasm) kezdő"
+  },
+  "templates.starter.heading": {
+    "translation": "Kezdő sablonok"
+  },
+  "templates.starter.imba": {
+    "translation": "Imba kezdő"
+  },
+  "templates.starter.java": {
+    "translation": "Java kezdő"
+  },
+  "templates.starter.javascript": {
+    "translation": "JavaScript kezdő"
+  },
+  "templates.starter.jest": {
+    "translation": "Jest kezdő"
+  },
+  "templates.starter.jest-react": {
+    "translation": "Jest/React kezdő"
+  },
+  "templates.starter.jquery": {
+    "translation": "jQuery kezdő"
+  },
+  "templates.starter.julia": {
+    "translation": "Julia kezdő"
+  },
+  "templates.starter.knockout": {
+    "translation": "Knockout kezdő"
+  },
+  "templates.starter.lit": {
+    "translation": "Lit kezdő"
+  },
+  "templates.starter.livescript": {
+    "translation": "LiveScript kezdő"
+  },
+  "templates.starter.loading": {
+    "translation": "Kezdő sablonok betöltése..."
+  },
+  "templates.starter.lua": {
+    "translation": "Lua kezdő"
+  },
+  "templates.starter.lua-wasm": {
+    "translation": "Lua (Wasm) kezdő"
+  },
+  "templates.starter.malina": {
+    "translation": "Malina.js kezdő"
+  },
+  "templates.starter.markdown": {
+    "translation": "Markdown kezdő"
+  },
+  "templates.starter.mdx": {
+    "translation": "MDX kezdő"
+  },
+  "templates.starter.minizinc": {
+    "translation": "MiniZinc kezdő"
+  },
+  "templates.starter.ocaml": {
+    "translation": "OCaml kezdő"
+  },
+  "templates.starter.perl": {
+    "translation": "Perl kezdő"
+  },
+  "templates.starter.phaser": {
+    "translation": "Phaser kezdő"
+  },
+  "templates.starter.php": {
+    "translation": "PHP kezdő"
+  },
+  "templates.starter.php-wasm": {
+    "translation": "PHP (Wasm) kezdő"
+  },
+  "templates.starter.postgresql": {
+    "translation": "PostgreSQL kezdő"
+  },
+  "templates.starter.preact": {
+    "translation": "Preact kezdő"
+  },
+  "templates.starter.prolog": {
+    "translation": "Prolog kezdő"
+  },
+  "templates.starter.python": {
+    "translation": "Python kezdő"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Python (Wasm) kezdő"
+  },
+  "templates.starter.r": {
+    "translation": "R kezdő"
+  },
+  "templates.starter.react": {
+    "translation": "React kezdő"
+  },
+  "templates.starter.react-native": {
+    "translation": "React Native kezdő"
+  },
+  "templates.starter.reason": {
+    "translation": "Reason kezdő"
+  },
+  "templates.starter.rescript": {
+    "translation": "ReScript kezdő"
+  },
+  "templates.starter.riot": {
+    "translation": "Riot.js kezdő"
+  },
+  "templates.starter.ruby": {
+    "translation": "Ruby kezdő"
+  },
+  "templates.starter.ruby-wasm": {
+    "translation": "Ruby (Wasm) kezdő"
+  },
+  "templates.starter.scheme": {
+    "translation": "Scheme kezdő"
+  },
+  "templates.starter.shadcnui": {
+    "translation": "shadcn/ui kezdő"
+  },
+  "templates.starter.solid": {
+    "translation": "Solid kezdő"
+  },
+  "templates.starter.sql": {
+    "translation": "SQL kezdő"
+  },
+  "templates.starter.stencil": {
+    "translation": "Stencil kezdő"
+  },
+  "templates.starter.svelte": {
+    "translation": "Svelte kezdő"
+  },
+  "templates.starter.tailwindcss": {
+    "translation": "Tailwind CSS kezdő"
+  },
+  "templates.starter.tcl": {
+    "translation": "Tcl kezdő"
+  },
+  "templates.starter.teal": {
+    "translation": "Teal kezdő"
+  },
+  "templates.starter.typescript": {
+    "translation": "TypeScript kezdő"
+  },
+  "templates.starter.vue": {
+    "translation": "Vue SFC kezdő"
+  },
+  "templates.starter.vue2": {
+    "translation": "Vue 2 kezdő"
+  },
+  "templates.starter.wat": {
+    "translation": "WebAssembly Text kezdő"
+  },
+  "templates.user.heading": {
+    "translation": "Saját sablonok"
+  },
+  "templates.user.loading": {
+    "translation": "Felhasználói sablonok betöltése..."
+  },
+  "testEditor.heading": {
+    "translation": "Tesztek szerkesztése"
+  },
+  "testEditor.load": {
+    "translation": "Betöltés"
+  },
+  "testEditor.tests": {
+    "translation": "Tesztek"
+  },
+  "testSettings.desc": {
+    "translation": "<tag-1></tag-1> További részletekért kérjük, tekintsd meg a <tag-2>dokumentációt</tag-2>"
+  },
+  "toolspane.close": {
+    "translation": "Bezárás"
+  },
+  "toolspane.compiled.title": {
+    "translation": "Lefordított"
+  },
+  "toolspane.console.clear": {
+    "translation": "Konzol törlése"
+  },
+  "toolspane.console.title": {
+    "translation": "Konzol"
+  },
+  "toolspane.test.edit": {
+    "translation": "Szerkesztés"
+  },
+  "toolspane.test.error": {
+    "translation": "<tag-1><tag-2>Teszt hiba!</tag-2></tag-1>"
+  },
+  "toolspane.test.loading": {
+    "translation": "<tag-1>Tesztek betöltése...</tag-1>"
+  },
+  "toolspane.test.noTest": {
+    "translation": "<tag-1>Ennek a projektnek nincsenek tesztjei!</tag-1>"
+  },
+  "toolspane.test.reset": {
+    "translation": "Visszaállítás"
+  },
+  "toolspane.test.run.desc": {
+    "translation": "Ctrl/⌘ + Alt + T"
+  },
+  "toolspane.test.run.heading": {
+    "translation": "Futtatás"
+  },
+  "toolspane.test.summary.desc": {
+    "translation": "Tesztek: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<tag-1></tag-1>\nIdő: {{duration}}mp"
+  },
+  "toolspane.test.summary.failed": {
+    "translation": "{{failedNum}} sikertelen"
+  },
+  "toolspane.test.summary.passed": {
+    "translation": "{{passedNum}} sikeres"
+  },
+  "toolspane.test.summary.skipped": {
+    "translation": "{{skippedNum}} kihagyva"
+  },
+  "toolspane.test.summary.total": {
+    "translation": "{{totalNum}} összesen"
+  },
+  "toolspane.test.title": {
+    "translation": "Tesztek"
+  },
+  "toolspane.test.watch.desc": {
+    "translation": "Tesztek futtatása kódváltozáskor"
+  },
+  "toolspane.test.watch.heading": {
+    "translation": "Figyelés"
+  },
+  "welcome.about.documentation": {
+    "translation": "Dokumentáció"
+  },
+  "welcome.about.heading": {
+    "translation": "A LiveCodes-ról"
+  },
+  "welcome.heading": {
+    "translation": "Üdvözöljük"
+  },
+  "welcome.recent.heading": {
+    "translation": "Legutóbbi"
+  },
+  "welcome.recover.cancel": {
+    "translation": "Mégse"
+  },
+  "welcome.recover.heading": {
+    "translation": "Visszaállítás"
+  },
+  "welcome.recover.lastModified": {
+    "translation": "Utoljára módosítva:"
+  },
+  "welcome.recover.recover": {
+    "translation": "Visszaállítás"
+  },
+  "welcome.recover.save": {
+    "translation": "Mentés"
+  },
+  "welcome.recover.unsavedChanges": {
+    "translation": "Az utolsó projektedben nem mentett módosítások voltak:"
+  },
+  "welcome.showOnStartup": {
+    "translation": "Megjelenítés indításkor"
+  },
+  "welcome.start.heading": {
+    "translation": "Indítás"
+  },
+  "welcome.start.import": {
+    "translation": "Importálás..."
+  },
+  "welcome.start.loadDefaultTemplate": {
+    "translation": "Alapértelmezett sablon betöltése"
+  },
+  "welcome.start.new": {
+    "translation": "Új..."
+  },
+  "welcome.start.noDefaultTemplate": {
+    "translation": "Nincs alapértelmezett sablon"
+  },
+  "welcome.start.open": {
+    "translation": "Megnyitás..."
+  },
+  "welcome.templates.heading": {
+    "translation": "Kezdő sablonok"
+  }
+}

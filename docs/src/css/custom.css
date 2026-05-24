@@ -1,17 +1,32 @@
+/* Brand palette (rebrand 2026) — derived from the new LiveCodes icon.
+   Electric Cyan #00c8ff  ·  Signal Teal #00e5c8  ·  Live Red #ff4d4d
+   Deep Void #080d16  ·  Elevated Surface #0d1825 */
+
 :root {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-color-primary: #0090cc;
+  --ifm-color-primary-dark: #007db3;
+  --ifm-color-primary-darker: #006b99;
+  --ifm-color-primary-darkest: #004d70;
+  --ifm-color-primary-light: #33b3e6;
+  --ifm-color-primary-lighter: #66c9ec;
+  --ifm-color-primary-lightest: #99def3;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme='dark'] {
+  --ifm-color-primary: #00c8ff;
+  --ifm-color-primary-dark: #00b3e6;
+  --ifm-color-primary-darker: #009ecc;
+  --ifm-color-primary-darkest: #007a99;
+  --ifm-color-primary-light: #33d4ff;
+  --ifm-color-primary-lighter: #66dfff;
+  --ifm-color-primary-lightest: #99ebff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 200, 255, 0.08);
 }
 
 html[data-theme='dark'] .docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 200, 255, 0.08);
 }
 
 [target='_self'] svg {
@@ -34,6 +49,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 .status-link > span::after {
   background-color: #20bf6b;
   border-radius: 50%;
+  box-shadow: 0 0 8px rgba(77, 255, 80, 0.55);
   content: '';
   display: inline-block;
   height: 10px;
