@@ -2775,6 +2775,7 @@ const handleI18nMenu = () => {
   sep.role = 'separator';
   i18nMenu.appendChild(sep);
   const contributeLi = document.createElement('li');
+  contributeLi.classList.add('i18n-links');
   const contributeSpan = document.createElement('span');
   const contributeLink = document.createElement('a');
   contributeLink.href =
@@ -2790,6 +2791,7 @@ const handleI18nMenu = () => {
   i18nMenu.appendChild(contributeLi);
 
   const docsLi = document.createElement('li');
+  docsLi.classList.add('i18n-links');
   const docsLink = document.createElement('a');
   docsLink.href = `${process.env.DOCS_BASE_URL}features/i18n`;
   docsLink.textContent = window.deps.translateString('app.i18nMenu.docs', 'i18n Documentation');
@@ -2798,7 +2800,6 @@ const handleI18nMenu = () => {
   docsLi.appendChild(docsLink);
   i18nMenu.appendChild(docsLi);
   menuContainer.appendChild(i18nMenu);
-  adjustFontSize(menuContainer);
   registerMenuButton(menuContainer, UI.getI18nMenuButton());
 };
 
@@ -2977,12 +2978,7 @@ const handleAppMenuProject = () => {
 };
 
 const handleAppMenuSettings = () => {
-  setupAppMenu(
-    UI.getAppMenuSettingsScroller(),
-    UI.getAppMenuSettingsButton(),
-    menuSettingsHTML,
-    true,
-  );
+  setupAppMenu(UI.getAppMenuSettingsScroller(), UI.getAppMenuSettingsButton(), menuSettingsHTML);
 };
 
 const handleAppMenuHelp = () => {
@@ -2993,7 +2989,6 @@ const setupAppMenu = (
   container: HTMLElement | null,
   button: HTMLElement | null,
   menuHTML: string,
-  shouldAdjustFontSize = false,
 ) => {
   if (!container || !button) return;
 
@@ -3002,47 +2997,7 @@ const setupAppMenu = (
   container.innerHTML = html;
   translateElement(container);
 
-  if (shouldAdjustFontSize) {
-    adjustFontSize(container);
-  }
-
   registerMenuButton(container, button);
-};
-
-/**
- * decrease font size in menus when text is too wide (for different languages)
- */
-const adjustFontSize = (container: HTMLElement) => {
-  if (!i18n || i18n.getLanguage() === 'en') return;
-
-  const adjustFont = (el: HTMLElement) =>
-    new Promise<void>((resolve) => {
-      const fontSize = Number(getComputedStyle(el).getPropertyValue('font-size').replace('px', ''));
-      const maxWidth =
-        Number(getComputedStyle(el).getPropertyValue('--label-max-width').replace('px', '')) || 188;
-      if (el.clientWidth <= maxWidth || fontSize <= 0) return resolve();
-      el.style.fontSize = fontSize - 1 + 'px';
-      requestAnimationFrame(async () => {
-        await adjustFont(el);
-        resolve();
-      });
-    });
-
-  const startAdjustment = async () => {
-    container.style.display = 'block';
-    container.style.visibility = 'hidden';
-    (container.children[0] as HTMLElement).style.display = 'block';
-    for (const el of container.querySelectorAll<HTMLElement>('span')) {
-      await adjustFont(el);
-    }
-    container.style.display = '';
-    container.style.visibility = '';
-    (container.children[0] as HTMLElement).style.display = '';
-  };
-
-  setTimeout(startAdjustment, 1000);
-  setTimeout(startAdjustment, 2000);
-  setTimeout(startAdjustment, 3000);
 };
 
 const handleAppMenuButtonFocus = () => {

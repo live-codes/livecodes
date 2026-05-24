@@ -94,10 +94,12 @@
   --dropdown-color: var(--link);
   --dropdown-active: var(--darker-active);
   --dropdown-font: var(--s14);
-  --dropdown-height: var(--s32);
+  --dropdown-item-height: var(--s32);
   --dropdown-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.275);
   --dropdown-split-color: var(--dark-bg-color);
   --submenu-arrow-color: var(--darker-color);
+  --dropdown-menu-width: clamp(calc(var(--dropdown-font) * 18), 280px, 400px);
+  --language-menu-width: calc(var(--dropdown-font) * 30);
 
   --editor-title-bg-color: var(--darker-bg-color);
   --editor-title-bg-active: var(--darker-bg-active);
@@ -266,6 +268,14 @@
 
   /* Larger radius for cards / modals (kept distinct from --rs which controls small chrome). */
   --rs-lg: calc(var(--unit) * 0.75); /* 12px */
+}
+
+:lang(ru) {
+  --dropdown-font: calc(var(--s14) * 0.9);
+}
+
+:lang(de) {
+  --dropdown-font: calc(var(--s14) * 0.95);
 }
 
 @include meta.load-css('inc-light');
@@ -1930,9 +1940,9 @@ ninja-keys {
 }
 
 #console-input {
-  .cm-activeLine {
-    // background: var(--console-bg) !important; TODO Test this
-  }
+  // .cm-activeLine {
+  //   background: var(--console-bg) !important; TODO Test this
+  // }
 
   .cm-gutter {
     display: none !important;
