@@ -101,6 +101,7 @@ export const ModeResultCompiledOpen = livecodesStory({
   template: 'javascript',
   config: { mode: 'result', tools: { enabled: 'all', active: 'compiled', status: 'open' } },
 });
+export const disableHomeLink = livecodesStory({ config: { disableHomeLink: true } });
 export const ConfigJsonURL = livecodesStory({
   config:
     'https://raw.githubusercontent.com/hatemhosny/typescript-demo-for-testing-import-/gh-pages/src/livecodes.json',

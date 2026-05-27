@@ -49,6 +49,7 @@ export const getAppConfig = (config: Config | AppConfig): AppConfig =>
     mode: config.mode,
     tools: config.tools,
     zoom: config.zoom,
+    disableHomeLink: config.disableHomeLink,
   });
 
 export const getUserConfig = (config: Config | UserConfig): UserConfig =>

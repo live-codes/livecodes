@@ -70,5 +70,6 @@ export const defaultConfig: Config = {
   emmet: true,
   // enableAI: false,
   editorMode: undefined,
+  disableHomeLink: false,
   version: process.env.VERSION as string,
 };

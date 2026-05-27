@@ -185,6 +185,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(includes(editorModes, config.editorMode) ? { editorMode: config.editorMode } : {}),
     ...(is(config.imports, 'object') ? { imports: config.imports } : {}),
     ...(is(config.types, 'object') ? { types: config.types } : {}),
+    ...(is(config.disableHomeLink, 'boolean') ? { disableHomeLink: config.disableHomeLink } : {}),
     ...(is(config.version, 'string') ? { version: config.version } : {}),
   };
 };

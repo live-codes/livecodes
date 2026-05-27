@@ -1073,6 +1073,13 @@ export interface AppConfig {
    * Sets result page [zoom level](https://livecodes.io/docs/features/result#result-page-zoom).
    */
   zoom: 1 | 0.5 | 0.25;
+
+  /**
+   * If `true`, the link on LiveCodes logo ("Edit on LiveCodes") is disabled in [embeds](https://livecodes.io/docs/features/embeds).
+   *
+   * @default false
+   */
+  disableHomeLink: boolean;
 }
 
 /**

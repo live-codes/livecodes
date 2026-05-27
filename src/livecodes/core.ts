@@ -5035,15 +5035,23 @@ const configureEmbed = (eventsManager: EventsManager) => {
   document.body.classList.add('embed');
 
   const logoLink = UI.getLogoLink();
-  logoLink.title = window.deps.translateString('generic.embed.logoHint', 'Edit on LiveCodes 🡕');
-
-  eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
-    event.preventDefault();
-    window.open(
-      (await share(/* shortUrl= */ false, /* contentOnly= */ true, /* urlUpdate= */ false)).url,
-      '_blank',
-    );
-  });
+  const { disableHomeLink } = getConfig();
+  if (disableHomeLink) {
+    logoLink.title = 'LiveCodes';
+    logoLink.style.cursor = 'default';
+    eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
+      event.preventDefault();
+    });
+  } else {
+    logoLink.title = window.deps.translateString('generic.embed.logoHint', 'Edit on LiveCodes 🡕');
+    eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
+      event.preventDefault();
+      window.open(
+        (await share(/* shortUrl= */ false, /* contentOnly= */ true, /* urlUpdate= */ false)).url,
+        '_blank',
+      );
+    });
+  }
 };
 
 const configureLite = () => {
