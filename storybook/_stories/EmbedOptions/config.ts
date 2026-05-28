@@ -259,6 +259,14 @@ const storyDef: StoryDef = {
     },
   },
 
+  disableHomeLink: {
+    props: {
+      config: {
+        disableHomeLink: true,
+      },
+    },
+  },
+
   ConfigJsonURL: {
     props: {
       config:

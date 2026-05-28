@@ -657,6 +657,13 @@ If set to \`"auto"\`, Monaco editor is used on desktop and CodeMirror is used on
     control: 'inline-radio',
     options: ['vim', 'emacs'],
   },
+  config__disableHomeLink: {
+    ...getControlInfo('config__disableHomeLink'),
+    description:
+      'If `true`, the link on LiveCodes logo ("Edit on LiveCodes") is disabled in [embeds](https://livecodes.io/docs/features/embeds).',
+    type: 'boolean',
+    control: 'boolean',
+  },
 };
 
 export const argTypes: Partial<

@@ -25,7 +25,7 @@ graph TD
         A --> E[validate-config.ts]
         A --> F[upgrade-config.ts]
     end
-    
+
     B["Default configuration values"]
     C["Configuration builder"]
     D["Config getters/setters"]
@@ -330,7 +330,7 @@ setConfig(buildConfig(savedConfig));
 
 ### Language Aliases
 
-Language names are normalized to canonical names:  
+Language names are normalized to canonical names:
 (e.g. `md` becomes `markdown`, `ts` becomes `typescript`)
 
 ```typescript
@@ -386,6 +386,12 @@ const fixLanguageNames = (config: Config): Config => ({
    ```
 
 6. **Document the property** in `docs/docs/configuration/configuration-object.mdx`.
+
+7. **Add it to Storybook** in `storybook/common/arg-types.ts`.
+
+8. **Add stories** in `storybook/_stories/EmbedOptions/config.ts`.
+
+9. **Add tests** in `e2e/specs/config.spec.ts`.
 
 ## Related Documentation
 
