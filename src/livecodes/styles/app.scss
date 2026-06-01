@@ -985,6 +985,10 @@ a#result-button {
   position: relative;
   top: 0;
 
+  #sidebar {
+    display: none;
+  }
+
   > .editor {
     font-variant-ligatures: discretionary-ligatures;
     visibility: hidden;
@@ -1904,6 +1908,16 @@ a.editor-title {
   #editor-tools {
     bottom: 0;
     position: absolute;
+  }
+
+  #editors {
+    #sidebar {
+      display: none;
+    }
+
+    .editor {
+      margin-inline-start: 0;
+    }
   }
 
   @media only screen and (max-width: 768px) {
