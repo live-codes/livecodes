@@ -102,7 +102,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         : selectedTheme === 'vs-dark'
           ? 'custom-vs-dark'
           : !selectedTheme
-            ? 'custom-vs-' + theme
+            ? 'livecodes-' + theme
             : selectedTheme
     ) as MonacoTheme;
 

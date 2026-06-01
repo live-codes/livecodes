@@ -101,7 +101,7 @@
     "@inquirer/prompts": "1.0.3",
     "@istanbuljs/nyc-config-typescript": "1.0.1",
     "@lokalise/node-api": "14.4.0",
-    "@playwright/test": "1.32.3",
+    "@playwright/test": "1.60.0",
     "@types/deep-diff": "1.0.1",
     "@types/jest": "25.2.3",
     "@types/live-server": "1.2.0",

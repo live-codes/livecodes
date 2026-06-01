@@ -266,7 +266,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
-    const defaultThemes: Record<Theme, CodejarTheme> = { dark: 'vsc-dark-plus', light: 'vs' };
+    const defaultThemes: Record<Theme, CodejarTheme> = {
+      dark: 'livecodes-dark',
+      light: 'livecodes-light',
+    };
     const selectedTheme = getEditorTheme({
       editor: 'codejar',
       editorTheme,

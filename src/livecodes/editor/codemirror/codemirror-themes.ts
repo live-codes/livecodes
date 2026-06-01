@@ -3,7 +3,11 @@
 // @ts-ignore
 import { EditorView } from '@codemirror/view';
 // @ts-ignore
+import type { Extension } from '@codemirror/state';
+// @ts-ignore
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language';
+// @ts-ignore
+import { tags as t } from '@lezer/highlight';
 
 import type { CodemirrorTheme } from '../../models';
 import {
@@ -282,7 +286,222 @@ const createTheme = ({
   return extension;
 };
 
+// ==========================================
+// LiveCodes Dark Theme
+// ==========================================
+
+const liveCodesDarkTheme = EditorView.theme(
+  {
+    '&': {
+      color: '#dde6f0',
+      backgroundColor: '#16191d',
+    },
+    '.cm-content': {
+      caretColor: '#00c8ff',
+    },
+    '.cm-cursor, .cm-dropCursor': {
+      borderLeftColor: '#00c8ff',
+    },
+    '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, ::selection': {
+      backgroundColor: '#00c8ff59 !important',
+    },
+    '.cm-panels': {
+      backgroundColor: '#111b2c',
+      color: '#dde6f0',
+    },
+    '.cm-panels.cm-panels-top': {
+      borderBottom: '2px solid #16191d',
+    },
+    '.cm-panels.cm-panels-bottom': {
+      borderTop: '2px solid #16191d',
+    },
+    '.cm-searchMatch': {
+      backgroundColor: '#00c8ff66',
+      outline: '1px solid #00c8ff',
+    },
+    '.cm-searchMatch.cm-searchMatch-selected': {
+      backgroundColor: '#00c8ff44',
+    },
+    '.cm-activeLine': {
+      backgroundColor: '#00c8ff0f',
+    },
+    '.cm-selectionMatch': {
+      backgroundColor: '#00c8ff26',
+    },
+    '&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
+      backgroundColor: '#00c8ff26',
+      outline: '1px solid #00c8ff80',
+    },
+    '.cm-gutters': {
+      backgroundColor: '#16191d',
+      color: '#2e3a4a',
+      border: 'none',
+    },
+    '.cm-activeLineGutter': {
+      backgroundColor: '#0d1825',
+      color: '#00c8ff',
+    },
+    '.cm-foldPlaceholder': {
+      backgroundColor: 'transparent',
+      border: 'none',
+      color: '#556070',
+    },
+    '.cm-tooltip': {
+      border: '1px solid #1f3147',
+      backgroundColor: '#111b2c',
+    },
+    '.cm-tooltip-autocomplete': {
+      '& > ul > li[aria-selected]': {
+        backgroundColor: '#00c8ff26',
+        color: '#ffffff',
+      },
+    },
+  },
+  { dark: true },
+);
+
+const liveCodesDarkHighlightStyle = HighlightStyle.define([
+  { tag: [t.keyword, t.controlKeyword, t.modifier], color: '#00c8ff' },
+  { tag: [t.name, t.deleted, t.character, t.propertyName, t.macroName], color: '#dde6f0' },
+  { tag: [t.variableName], color: '#dde6f0' },
+  { tag: [t.function(t.variableName), t.function(t.propertyName)], color: '#69d6ff' },
+  { tag: [t.typeName, t.className, t.namespace], color: '#5fe0c8' },
+  { tag: [t.operator, t.operatorKeyword], color: '#9cc0d4' },
+  { tag: [t.string], color: '#00e5c8' },
+  { tag: [t.escape], color: '#5ff0db' },
+  { tag: [t.regexp], color: '#4ee8d4' },
+  { tag: [t.number, t.changed], color: '#ffb86c' },
+  { tag: [t.bool, t.null], color: '#ff8c66' },
+  { tag: [t.annotation, t.derefOperator, t.typeOperator], color: '#5fe0c8' },
+  { tag: [t.meta, t.comment], color: '#556070', fontStyle: 'italic' },
+  { tag: [t.docComment], color: '#6a7a8c', fontStyle: 'italic' },
+  { tag: [t.strong], fontWeight: 'bold' },
+  { tag: [t.emphasis], fontStyle: 'italic' },
+  { tag: [t.strikethrough], textDecoration: 'line-through' },
+  { tag: [t.heading], fontWeight: 'bold', color: '#00c8ff' },
+  { tag: [t.link], color: '#00e5c8' },
+  { tag: [t.invalid], color: '#ff4d4d' },
+  { tag: [t.tagName], color: '#00c8ff' },
+  { tag: [t.attributeName], color: '#c9b8ff' },
+  { tag: [t.attributeValue], color: '#00e5c8' },
+  { tag: [t.punctuation, t.bracket], color: '#b5c7d9' },
+]);
+
+const liveCodesDark: Extension = [
+  liveCodesDarkTheme,
+  syntaxHighlighting(liveCodesDarkHighlightStyle),
+];
+
+// ==========================================
+// LiveCodes Light Theme
+// ==========================================
+
+const liveCodesLightTheme = EditorView.theme(
+  {
+    '&': {
+      color: '#1c2733',
+      backgroundColor: '#ffffff',
+    },
+    '.cm-content': {
+      caretColor: '#0073a8',
+    },
+    '.cm-cursor, .cm-dropCursor': {
+      borderLeftColor: '#0073a8',
+    },
+    '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, ::selection': {
+      backgroundColor: '#0073a859 !important',
+    },
+    '.cm-panels': {
+      backgroundColor: '#ffffff',
+      color: '#1c2733',
+    },
+    '.cm-panels.cm-panels-top': {
+      borderBottom: '2px solid #e8eef4',
+    },
+    '.cm-panels.cm-panels-bottom': {
+      borderTop: '2px solid #e8eef4',
+    },
+    '.cm-searchMatch': {
+      backgroundColor: '#0073a866',
+      outline: '1px solid #0073a8',
+    },
+    '.cm-searchMatch.cm-searchMatch-selected': {
+      backgroundColor: '#0073a844',
+    },
+    '.cm-activeLine': {
+      backgroundColor: '#0073a80d',
+    },
+    '.cm-selectionMatch': {
+      backgroundColor: '#0073a826',
+    },
+    '&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
+      backgroundColor: '#0073a826',
+      outline: '1px solid #0073a880',
+    },
+    '.cm-gutters': {
+      backgroundColor: '#ffffff',
+      color: '#b0bccb',
+      border: 'none',
+    },
+    '.cm-activeLineGutter': {
+      backgroundColor: '#f2f7fb',
+      color: '#0073a8',
+    },
+    '.cm-foldPlaceholder': {
+      backgroundColor: 'transparent',
+      border: 'none',
+      color: '#8693a3',
+    },
+    '.cm-tooltip': {
+      border: '1px solid #d6e0ea',
+      backgroundColor: '#ffffff',
+    },
+    '.cm-tooltip-autocomplete': {
+      '& > ul > li[aria-selected]': {
+        backgroundColor: '#0073a81f',
+        color: '#0a2433',
+      },
+    },
+  },
+  { dark: false },
+);
+
+const liveCodesLightHighlightStyle = HighlightStyle.define([
+  { tag: [t.keyword, t.controlKeyword, t.modifier], color: '#0073a8' },
+  { tag: [t.name, t.deleted, t.character, t.macroName], color: '#1c2733' },
+  { tag: [t.propertyName], color: '#6b4fc4' },
+  { tag: [t.variableName], color: '#1c2733' },
+  { tag: [t.function(t.variableName), t.function(t.propertyName)], color: '#0a7bbf' },
+  { tag: [t.typeName, t.className, t.namespace], color: '#00897b' },
+  { tag: [t.operator, t.operatorKeyword], color: '#4a5d6e' },
+  { tag: [t.string], color: '#008573' },
+  { tag: [t.escape], color: '#00a890' },
+  { tag: [t.regexp], color: '#00997f' },
+  { tag: [t.number, t.changed], color: '#c25e00' },
+  { tag: [t.bool, t.null], color: '#cc4422' },
+  { tag: [t.annotation, t.derefOperator, t.typeOperator], color: '#00897b' },
+  { tag: [t.meta, t.comment], color: '#8693a3', fontStyle: 'italic' },
+  { tag: [t.docComment], color: '#7a8696', fontStyle: 'italic' },
+  { tag: [t.strong], fontWeight: 'bold' },
+  { tag: [t.emphasis], fontStyle: 'italic' },
+  { tag: [t.strikethrough], textDecoration: 'line-through' },
+  { tag: [t.heading], fontWeight: 'bold', color: '#0073a8' },
+  { tag: [t.link], color: '#008573' },
+  { tag: [t.invalid], color: '#d11414' },
+  { tag: [t.tagName], color: '#0073a8' },
+  { tag: [t.attributeName], color: '#6b4fc4' },
+  { tag: [t.attributeValue], color: '#008573' },
+  { tag: [t.punctuation, t.bracket], color: '#3a4d5e' },
+]);
+
+const liveCodesLight: Extension = [
+  liveCodesLightTheme,
+  syntaxHighlighting(liveCodesLightHighlightStyle),
+];
+
 export const customThemes = {
+  'livecodes-light': liveCodesLight,
+  'livecodes-dark': liveCodesDark,
   monochrome: createTheme({
     variant: 'light',
     settings: {
