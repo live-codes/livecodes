@@ -91,7 +91,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     ],
     ...customThemes,
   };
-  const defaultThemes: Record<Theme, CodemirrorTheme> = { dark: 'one-dark', light: 'cm-light' };
+  const defaultThemes: Record<Theme, CodemirrorTheme> = {
+    dark: 'livecodes-dark',
+    light: 'livecodes-light',
+  };
   const getActiveTheme = () => themes[theme] || themes[defaultThemes[options.theme]] || [];
 
   let mappedLanguage = mapLanguage(language);
