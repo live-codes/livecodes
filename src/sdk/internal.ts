@@ -20,6 +20,7 @@ export interface CustomEvents {
   appLoaded: 'livecodes-app-loaded';
   ready: 'livecodes-ready';
   change: 'livecodes-change';
+  run: 'livecodes-run';
   testResults: 'livecodes-test-results';
   console: 'livecodes-console';
   destroy: 'livecodes-destroy';

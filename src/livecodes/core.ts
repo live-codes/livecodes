@@ -240,6 +240,7 @@ const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
   code: createPub<{ code: Code; config: Config }>(),
+  run: createPub<{ code: Code; config: Config }>(),
   tests: createPub<{ results: TestResult[]; error?: string }>(),
   console: createPub<{ method: string; args: any[] }>(),
   destroy: createPub<void>(),
@@ -1256,6 +1257,13 @@ const run = async (editorId?: EditorId, runTests?: boolean) => {
   const result = await getResultPage({ sourceEditor: editorId, runTests: shouldRunTests });
   await createIframe(UI.getResultElement(), result);
   updateCompiledCode();
+  if (sdkWatchers.run.hasSubscribers()) {
+    const runEvent = new CustomEvent(customEvents.run, {
+      detail: { code: getCachedCode(), config },
+    });
+    document.dispatchEvent(runEvent);
+    parent.dispatchEvent(runEvent);
+  }
 };
 
 const runTests = () => run(/* editorId= */ undefined, /* runTests= */ true);

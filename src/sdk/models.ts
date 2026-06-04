@@ -1324,6 +1324,7 @@ export type WatchFns =
   | WatchLoad
   | WatchReady
   | WatchCode
+  | WatchRun
   | WatchConsole
   | WatchTests
   | WatchDestroy;
@@ -1342,7 +1343,7 @@ export type WatchReady = (
 ) => { remove: () => void };
 
 /**
- * Called when the playground "content" is changed (see [`getCode`](https://livecodes.io/docs/sdk/js-ts#getcode) and [`getConfig`](https://livecodes.io/docs/sdk/js-ts#getcode)).
+ * Called when the playground code is changed (see [`getCode`](https://livecodes.io/docs/sdk/js-ts#getcode) and [`getConfig`](https://livecodes.io/docs/sdk/js-ts#getcode)).
  *
  * This includes changes in:
  * - Code (in editors)
@@ -1354,12 +1355,16 @@ export type WatchReady = (
  * - Project title
  * - [Test](https://livecodes.io/docs/features/tests) code
  */
-
-/**
- * Watch function type for code changes in the playground.
- */
 export type WatchCode = (
   event: 'code',
+  fn: (data: { code: Code; config: Config }) => void,
+) => { remove: () => void };
+
+/**
+ * Called when running the playground code.
+ */
+export type WatchRun = (
+  event: 'run',
   fn: (data: { code: Code; config: Config }) => void,
 ) => { remove: () => void };
 
@@ -1553,7 +1558,7 @@ export interface API {
    * Allows to watch for various playground events.
    * It takes 2 arguments: event name and a callback function that will be called on every event.
    *
-   * event name can be one of: `"load" | "ready" | "code" | "console" | "tests" | "destroy"`
+   * event name can be one of: `"load" | "ready" | "code" | "run" | "console" | "tests" | "destroy"`
    *
    * In some events, the callback function will be called with an object that supplies relevant data to the callback function (e.g. code, console output, test results).
    *

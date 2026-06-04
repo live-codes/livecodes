@@ -432,6 +432,7 @@ Type: [docs](../api/interfaces/Playground.md#watch)
 ((event: 'load', fn: () => void) => { remove: () => void }) &
 ((event: 'ready', fn: (data: { config: Config }) => void) => { remove: () => void }) &
 ((event: 'code', fn: (data: { code: Code; config: Config }) => void) => { remove: () => void }) &
+((event: 'run', fn: (data: { code: Code; config: Config }) => void) => { remove: () => void }) &
 ((event: 'console', fn: (data: { method: string; args: any[] }) => void) => { remove: () => void }) &
 ((event: 'tests', fn: (data: { results: TestResult[]; error?: string }) => void) => { remove: () => void }) &
 ((event: 'destroy', fn: () => void) => { remove: () => void });
@@ -510,6 +511,16 @@ These are the events that can be watched and the description of their callback f
   ```ts
   (
     event: "code",
+    fn: (data: { code: Code; config: Config }) => void
+  ) => { remove: () => void }
+
+  ```
+
+- `"run"`: Called when running the playground code.
+
+  ```ts
+  (
+    event: "run",
     fn: (data: { code: Code; config: Config }) => void
   ) => { remove: () => void }
   ```
