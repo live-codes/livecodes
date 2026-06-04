@@ -844,6 +844,42 @@ describe('createPlayground – watch and onChange', () => {
     await playground.destroy();
   });
 
+  test('watch("run") receives run events', async () => {
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+
+    const { playground, fakeContentWindow, posted } = await createReadyPlayground(container);
+    const received: any[] = [];
+
+    const watcher = playground.watch('run', (data) => {
+      received.push(data);
+    });
+    await flushMicrotasks();
+
+    // Respond to the watch subscription
+    const watchCall = posted.find((m) => m.method === 'watch');
+    expect(watchCall).toBeTruthy();
+    expect(watchCall!.args).toEqual(['run']);
+    postFromIframe(fakeContentWindow, {
+      type: 'livecodes-api-response',
+      method: 'watch',
+      id: watchCall!.id,
+      payload: undefined,
+    });
+
+    // Simulate a run event from the iframe
+    const runPayload = { some: 'data' };
+    postFromIframe(fakeContentWindow, {
+      type: 'livecodes-run',
+      payload: runPayload,
+    });
+    expect(received).toHaveLength(1);
+    expect(received[0]).toEqual(runPayload);
+
+    watcher.remove();
+    await playground.destroy();
+  });
+
   test('watch("console") receives console events', async () => {
     const container = document.createElement('div');
     document.body.appendChild(container);

@@ -260,6 +260,7 @@ const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
   code: createPub<{ code: Code; config: SDKConfig }>(),
+  run: createPub<{ code: Code; config: SDKConfig }>(),
   tests: createPub<{ results: TestResult[]; error?: string }>(),
   console: createPub<{ method: string; args: any[] }>(),
   destroy: createPub<void>(),
@@ -1807,6 +1808,7 @@ const run = async (editorId?: EditorId, runTests?: boolean) => {
   if (editorId !== 'style') {
     toolsPane?.console?.clear(/* silent= */ true);
   }
+
   const config = getConfig();
   const shouldRunTests = (runTests ?? config.autotest) && Boolean(config.tests?.content?.trim());
   const result = await getResultPage({
@@ -1815,6 +1817,17 @@ const run = async (editorId?: EditorId, runTests?: boolean) => {
   });
   await createIframe(UI.getResultElement(), result);
   updateCompiledCode();
+
+  let runEvent: CustomEvent<{ code: Code; config: SDKConfig } | void>;
+  if (sdkWatchers.run.hasSubscribers()) {
+    runEvent = new CustomEvent(customEvents.run, {
+      detail: { code: getCachedCode(), config: getSDKConfig(config) },
+    });
+  } else {
+    runEvent = new CustomEvent(customEvents.run);
+  }
+  document.dispatchEvent(runEvent);
+  parent.dispatchEvent(runEvent);
 };
 
 const runTests = () => run(/* editorId= */ undefined, /* runTests= */ true);

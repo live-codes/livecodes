@@ -294,7 +294,7 @@ export async function createPlayground(
     });
 
   const watchers: Partial<Record<SDKEvent, SDKEventHandler[]>> = {};
-  const sdkEvents: SDKEvent[] = ['load', 'ready', 'code', 'console', 'tests', 'destroy'];
+  const sdkEvents: SDKEvent[] = ['load', 'ready', 'code', 'run', 'console', 'tests', 'destroy'];
   const watch = (event: SDKEvent, fn: SDKEventHandler) => {
     if (destroyed) {
       throw new Error(alreadyDestroyedMessage);
@@ -323,6 +323,7 @@ export async function createPlayground(
       'livecodes-app-loaded': 'load',
       'livecodes-ready': 'ready',
       'livecodes-change': 'code',
+      'livecodes-run': 'run',
       'livecodes-console': 'console',
       'livecodes-test-results': 'tests',
       'livecodes-destroy': 'destroy',
