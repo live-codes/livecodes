@@ -17,26 +17,43 @@ export const runeWasmStarter: Template = {
 </div>
 
 <script>
+  // set initial input
+  livecodes.runeWasm.input = "-1";
+
   addEventListener('load', async () => {
     const button = document.querySelector("#counter-button");
 
+    // wait till loaded
     await livecodes.runeWasm.loaded;
 
-    if (livecodes.runeWasm.output) {
-      document.querySelector("#title").innerHTML = livecodes.runeWasm.output;
-    }
+    // get initial output
+    const initialOutput = livecodes.runeWasm.output;
+    update(initialOutput);
 
-    button.disabled = false;
-    button.textContent = "Click me";
-
-    let count = 0;
-    button.onclick = () => {
-      count++;
-      document.querySelector("#counter").innerText = count;
+    button.onclick = async () => {
+      button.disabled = true;
+      // run with new input
+      const {output} = await livecodes.runeWasm.run(window.count);
+      update(output);
     };
 
-    // check console
-    console.log("Rune WASM is ready!");
+    function update(output) {
+      const name = document.querySelector("#title");
+      const counter = document.querySelector("#counter");
+      const button = document.querySelector("#counter-button");
+
+      const [title, count] = output.split('\\n');
+
+      if (parseInt(count) !== NaN) {
+        window.count = count;
+        counter.innerText = window.count;
+      }
+      if (title) {
+        name.innerText = title;
+      }
+      button.innerText = "Click me";
+      button.disabled = false;
+    }
   });
 </script>
 `.trimStart(),
@@ -59,11 +76,7 @@ export const runeWasmStarter: Template = {
     content: `
 pub fn main() {
     println("Hello, Rune!");
-
-    let a = 10;
-    let b = 32;
-    let sum = a + b;
-    println(\`\${a} + \${b} = \${sum}\`);
+    println(\`\${__input + 1}\`);
 }
 `.trimStart(),
   },
