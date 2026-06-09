@@ -2776,6 +2776,10 @@
     "notes": "",
     "translation": "Ruby (Wasm) Starter"
   },
+  "templates.starter.rune-wasm": {
+    "notes": "",
+    "translation": "Rune Starter"
+  },
   "templates.starter.scheme": {
     "notes": "",
     "translation": "Scheme Starter"

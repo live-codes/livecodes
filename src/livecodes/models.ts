@@ -234,6 +234,8 @@ export type TemplateAlias =
   | 'rlang'
   | 'rb'
   | 'rb-wasm'
+  | 'rune'
+  | 'rn'
   | 'golang'
   | 'golang-wasm'
   | 'c++'

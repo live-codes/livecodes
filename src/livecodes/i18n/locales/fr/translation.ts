@@ -1035,6 +1035,7 @@ const translation: I18nTranslation = {
       riot: 'Démarrage Riot.js',
       ruby: 'Démarrage Ruby',
       'ruby-wasm': 'Démarrage Ruby (Wasm)',
+      'rune-wasm': 'Rune Starter',
       scheme: 'Démarrage Scheme',
       shadcnui: 'Démarrage shadcn/ui',
       solid: 'Démarrage Solid',

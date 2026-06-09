@@ -1040,6 +1040,7 @@ const translation = {
       riot: 'Riot.js Starter',
       ruby: 'Ruby Starter',
       'ruby-wasm': 'Ruby (Wasm) Starter',
+      'rune-wasm': 'Rune Starter',
       scheme: 'Scheme Starter',
       shadcnui: 'shadcn/ui Starter',
       solid: 'Solid Starter',

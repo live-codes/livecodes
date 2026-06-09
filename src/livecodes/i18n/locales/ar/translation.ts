@@ -1033,6 +1033,7 @@ const translation: I18nTranslation = {
       riot: 'قالب Riot.js',
       ruby: 'قالب Ruby',
       'ruby-wasm': 'قالب Ruby-Wasm',
+      'rune-wasm': 'Rune Starter',
       scheme: 'قالب Scheme',
       shadcnui: 'قالب shadcn/ui',
       solid: 'قالب Solid',

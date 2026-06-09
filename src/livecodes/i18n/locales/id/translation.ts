@@ -1033,6 +1033,7 @@ const translation: I18nTranslation = {
       riot: 'Pemula Riot.js',
       ruby: 'Pemula Ruby',
       'ruby-wasm': 'Pemula Ruby (Wasm)',
+      'rune-wasm': 'Rune Starter',
       scheme: 'Pemula Scheme',
       shadcnui: 'Pemula shadcn/ui',
       solid: 'Pemula Solid',

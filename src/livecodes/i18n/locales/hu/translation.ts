@@ -1034,6 +1034,7 @@ const translation: I18nTranslation = {
       riot: 'Riot.js kezdő',
       ruby: 'Ruby kezdő',
       'ruby-wasm': 'Ruby (Wasm) kezdő',
+      'rune-wasm': 'Rune Starter',
       scheme: 'Scheme kezdő',
       shadcnui: 'shadcn/ui kezdő',
       solid: 'Solid kezdő',

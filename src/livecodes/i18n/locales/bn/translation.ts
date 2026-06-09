@@ -1033,6 +1033,7 @@ const translation: I18nTranslation = {
       riot: 'Riot.js স্টার্টার',
       ruby: 'Ruby স্টার্টার',
       'ruby-wasm': 'Ruby (Wasm) স্টার্টার',
+      'rune-wasm': 'Rune Starter',
       scheme: 'Scheme স্টার্টার',
       shadcnui: 'shadcn/ui স্টার্টার',
       solid: 'Solid স্টার্টার',

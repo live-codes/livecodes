@@ -1033,6 +1033,7 @@ const translation: I18nTranslation = {
       riot: 'رائٹ.جے ایس شروعاتی',
       ruby: 'روبی شروعاتی',
       'ruby-wasm': 'روبی (واسم) شروعاتی',
+      'rune-wasm': 'Rune Starter',
       scheme: 'اسکیم شروعاتی',
       shadcnui: 'shadcn/ui شروعاتی',
       solid: 'سالڈ شروعاتی',

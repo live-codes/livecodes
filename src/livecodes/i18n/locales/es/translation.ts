@@ -1033,6 +1033,7 @@ const translation: I18nTranslation = {
       riot: 'Inicio Riot.js',
       ruby: 'Inicio Ruby',
       'ruby-wasm': 'Inicio Ruby (Wasm)',
+      'rune-wasm': 'Rune Starter',
       scheme: 'Inicio Scheme',
       shadcnui: 'Inicio shadcn/ui',
       solid: 'Inicio Solid',
