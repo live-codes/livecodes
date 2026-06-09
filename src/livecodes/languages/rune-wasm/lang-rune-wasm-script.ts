@@ -42,7 +42,7 @@ const runCode = async (
   try {
     console.log('Running Rune code...');
     const compiledCode =
-      input != null && input !== '' ? `let __input = ${Number(input)};\n${code}` : code;
+      input != null && input !== '' ? `let input = ${input};\n${code}` : code;
     const result = await rune.module!.compile(compiledCode, {});
     const output = result != null ? String(result) : '';
     return { output, error: null, exitCode: 0 };
@@ -55,6 +55,7 @@ const runCode = async (
 livecodes.runeWasm.run ??= async (input?: string) => {
   parent.postMessage({ type: 'loading', payload: true }, '*');
 
+  input ??= livecodes.runeWasm.input;
   let code = '';
   livecodes.runeWasm.input = input;
   livecodes.runeWasm.output = null;

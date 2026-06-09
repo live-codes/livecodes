@@ -76,7 +76,7 @@ export const runeWasmStarter: Template = {
     content: `
 pub fn main() {
     println("Hello, Rune!");
-    println(\`\${__input + 1}\`);
+    println(\`\${input + 1}\`);
 }
 `.trimStart(),
   },
