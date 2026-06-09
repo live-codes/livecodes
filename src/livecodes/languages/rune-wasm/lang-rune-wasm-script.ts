@@ -19,6 +19,7 @@ declare const rune: {
 };
 
 livecodes.runeWasm ??= {};
+let initPromise: Promise<void> | null = null;
 
 livecodes.runeWasm.run ??= async () => {
   parent.postMessage({ type: 'loading', payload: true }, '*');
@@ -33,10 +34,16 @@ livecodes.runeWasm.run ??= async () => {
   }
 
   try {
-    if (!rune.module) {
-      // eslint-disable-next-line no-console
-      console.log('Initializing Rune WASM environment...');
-      await rune.init();
+    if (typeof rune.module?.compile !== 'function') {
+      if (!initPromise) {
+        // eslint-disable-next-line no-console
+        console.log('Initializing Rune WASM environment...');
+        initPromise = rune.init();
+      }
+      await initPromise;
+      if (typeof rune.module?.compile !== 'function') {
+        throw new Error('Failed to initialize Rune WASM environment');
+      }
     }
 
     // eslint-disable-next-line no-console
