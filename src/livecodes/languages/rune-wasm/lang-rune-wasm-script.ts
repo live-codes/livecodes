@@ -37,10 +37,12 @@ const init = async () => {
 
 const runCode = async (
   code: string,
+  input?: string,
 ): Promise<{ output: string | null; error: string | null; exitCode: number }> => {
   try {
     console.log('Running Rune code...');
-    const result = await rune.module!.compile(code, {});
+    const fullCode = `let input = ${input ?? '-1'};\n` + code;
+    const result = await rune.module!.compile(fullCode, {});
     const output = result != null ? String(result) : '';
     return { output, error: null, exitCode: 0 };
   } catch (err) {
@@ -64,7 +66,7 @@ livecodes.runeWasm.run ??= async (input?: string) => {
     : await (async () => {
         try {
           await init();
-          return await runCode(code);
+          return await runCode(code, input);
         } catch (err) {
           const error = (err as Error).message ?? String(err);
           return { output: null, error, exitCode: 1 };
