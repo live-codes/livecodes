@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { runeWasmWasmUrl } from '../../vendors';
 
 const originalFetch = window.fetch;
@@ -21,40 +22,77 @@ declare const rune: {
 livecodes.runeWasm ??= {};
 let initPromise: Promise<void> | null = null;
 
-livecodes.runeWasm.run ??= async () => {
+const init = async () => {
+  if (typeof rune.module?.compile === 'function') return;
+  if (!initPromise) {
+    console.log('Initializing Rune WASM environment...');
+    initPromise = rune.init();
+  }
+  await initPromise;
+  if (typeof rune.module?.compile !== 'function') {
+    throw new Error('Failed to initialize Rune WASM environment');
+  }
+  console.log('Rune WASM environment initialized successfully');
+};
+
+const runCode = async (
+  code: string,
+): Promise<{ output: string | null; error: string | null; exitCode: number }> => {
+  try {
+    console.log('Running Rune code...');
+    const result = await rune.module!.compile(code, {});
+    const output = result != null ? String(result) : '';
+    return { output, error: null, exitCode: 0 };
+  } catch (err) {
+    const error = (err as Error).message ?? String(err);
+    return { output: null, error, exitCode: (err as any).code ?? 1 };
+  }
+};
+
+livecodes.runeWasm.run ??= async (input?: string) => {
   parent.postMessage({ type: 'loading', payload: true }, '*');
 
   let code = '';
+  livecodes.runeWasm.input = input;
+  livecodes.runeWasm.output = null;
+  livecodes.runeWasm.ready = false;
   const scripts = document.querySelectorAll('script[type="text/rune"]');
   scripts.forEach((script) => (code += script.innerHTML + '\n'));
 
-  if (!code.trim()) {
-    parent.postMessage({ type: 'loading', payload: false }, '*');
-    return;
+  const { output, error, exitCode } = !code.trim()
+    ? { output: null, error: null, exitCode: 0 }
+    : await (async () => {
+        try {
+          await init();
+          return await runCode(code);
+        } catch (err) {
+          const error = (err as Error).message ?? String(err);
+          return { output: null, error, exitCode: 1 };
+        }
+      })();
+
+  if (error != null) {
+    console.error(error);
+  } else if (output != null) {
+    console.log(output);
   }
 
-  try {
-    if (typeof rune.module?.compile !== 'function') {
-      if (!initPromise) {
-        // eslint-disable-next-line no-console
-        console.log('Initializing Rune WASM environment...');
-        initPromise = rune.init();
-      }
-      await initPromise;
-      if (typeof rune.module?.compile !== 'function') {
-        throw new Error('Failed to initialize Rune WASM environment');
-      }
-    }
+  livecodes.runeWasm.input = input;
+  livecodes.runeWasm.output = output;
+  livecodes.runeWasm.error = error;
+  livecodes.runeWasm.exitCode = exitCode;
+  livecodes.runeWasm.ready = true;
 
-    // eslint-disable-next-line no-console
-    console.log('Running Rune code...');
-    await rune.module!.compile(code, {});
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error(err);
-  } finally {
-    parent.postMessage({ type: 'loading', payload: false }, '*');
-  }
+  parent.postMessage({ type: 'loading', payload: false }, '*');
 };
+
+livecodes.runeWasm.loaded = new Promise<void>((resolve) => {
+  const interval = setInterval(() => {
+    if (livecodes.runeWasm.ready) {
+      clearInterval(interval);
+      resolve();
+    }
+  }, 50);
+});
 
 window.addEventListener('load', () => livecodes.runeWasm.run?.());
