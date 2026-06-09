@@ -342,6 +342,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Ruby hivatalos weboldal</2> </1> <3> <4>Ruby dokumentáció</4> </3> <5> <6>ruby.wasm weboldal</6> </5> <7><8>CRuby</8></7> <9> <10>Tanulj X-et Y perc alatt, ahol X=ruby</10> </9> <11> <12>LiveCodes dokumentáció</12> </11> <13> <14>Kezdő sablon betöltése</14> </13>',
     name: 'Ruby (WASM)',
   },
+  runeWasm: {
+    desc: 'Rune is a dynamic, Rust-like programming language that compiles to WebAssembly and runs in the browser.',
+    link: '<1> <2>Rune official website</2> </1> <3> <4>Rune documentation</4> </3> <5> <6>Rune playground</6> </5> <7> <8>GitHub repository</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
+    name: 'Rune',
+  },
   sass: {
     desc: 'Szintaktikusan Fantasztikus Stíluslapok.',
     link: '<1> <2>Sass hivatalos weboldal</2> </1> <3> <4>Sass dokumentáció</4> </3> <5> <6>Sass (a behúzott) szintaxis</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=sass</8> </7>',

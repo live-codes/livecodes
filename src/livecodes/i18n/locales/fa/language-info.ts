@@ -341,6 +341,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>وب‌سایت رسمی Ruby</2> </1> <3> <4>مستندات Ruby</4> </3> <5> <6>وب‌سایت ruby.wasm</6> </5> <7><8>CRuby</8></7> <9> <10>یادگیری X در Y دقیقه، جایی که X=ruby</10> </9> <11> <12>مستندات LiveCodes</12> </11> <13> <14>بارگذاری قالب شروع کننده</14> </13>',
     name: 'Ruby (WASM)',
   },
+  runeWasm: {
+    desc: 'Rune is a dynamic, Rust-like programming language that compiles to WebAssembly and runs in the browser.',
+    link: '<1> <2>Rune official website</2> </1> <3> <4>Rune documentation</4> </3> <5> <6>Rune playground</6> </5> <7> <8>GitHub repository</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
+    name: 'Rune',
+  },
   sass: {
     desc: 'شیوه‌نامه‌های شگفت انگیز از نظر نحوی.',
     link: '<1> <2>وب‌سایت رسمی Sass</2> </1> <3> <4>مستندات Sass</4> </3> <5> <6>نحو Sass (نحو تو رفته)</6> </5> <7> <8>یادگیری X در Y دقیقه، جایی که X=sass</8> </7>',

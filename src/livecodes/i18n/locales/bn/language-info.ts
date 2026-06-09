@@ -340,6 +340,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Ruby অফিসিয়াল ওয়েবসাইট</2> </1> <3> <4>Ruby ডকুমেন্টেশন</4> </3> <5> <6>ruby.wasm ওয়েবসাইট</6> </5> <7><8>CRuby</8></7> <9> <10>Y মিনিটে X শিখুন, যেখানে X=ruby</10> </9> <11> <12>LiveCodes ডকুমেন্টেশন</12> </11> <13> <14>স্টার্টার টেমপ্লেট লোড করুন</14> </13>',
     name: 'Ruby (WASM)',
   },
+  runeWasm: {
+    desc: 'Rune is a dynamic, Rust-like programming language that compiles to WebAssembly and runs in the browser.',
+    link: '<1> <2>Rune official website</2> </1> <3> <4>Rune documentation</4> </3> <5> <6>Rune playground</6> </5> <7> <8>GitHub repository</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
+    name: 'Rune',
+  },
   sass: {
     desc: 'সিনট্যাক্টিক্যালি অসাধারণ স্টাইল শীট।',
     link: '<1> <2>Sass অফিসিয়াল ওয়েবসাইট</2> </1> <3> <4>Sass ডকুমেন্টেশন</4> </3> <5> <6>Sass (ইন্ডেন্টেড) সিনট্যাক্স</6> </5> <7> <8>Y মিনিটে X শিখুন, যেখানে X=sass</8> </7>',

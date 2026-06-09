@@ -344,6 +344,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>روبی کی سرکاری ویب سائٹ</2> </1> <3> <4>روبی دستاویزات</4> </3> <5> <6>روبی.ڈبلیو اے ایس ایم ویب سائٹ</6> </5> <7><8>سی روبی</8></7> <9> <10>X کو Y منٹ میں سیکھیں، جہاں X=روبی</10> </9> <11> <12>لائیو کوڈز دستاویزات</12> </11> <13> <14>ابتدائی سانچہ لوڈ کریں</14> </13>',
     name: 'روبی (ڈبلیو اے ایس ایم)',
   },
+  runeWasm: {
+    desc: 'Rune is a dynamic, Rust-like programming language that compiles to WebAssembly and runs in the browser.',
+    link: '<1> <2>Rune official website</2> </1> <3> <4>Rune documentation</4> </3> <5> <6>Rune playground</6> </5> <7> <8>GitHub repository</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
+    name: 'Rune',
+  },
   sass: {
     desc: 'نحوی طور پر شاندار اسٹائل شیٹس۔',
     link: '<1> <2>ساس کی سرکاری ویب سائٹ</2> </1> <3> <4>ساس دستاویزات</4> </3> <5> <6>ساس (انڈینٹڈ) نحو</6> </5> <7> <8>X کو Y منٹ میں سیکھیں، جہاں X=ساس</8> </7>',

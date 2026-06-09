@@ -336,6 +336,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Ruby 官方网站</2> </1> <3> <4>Ruby 文档</4> </3> <5> <6>ruby.wasm 网站</6> </5> <7><8>CRuby</8></7> <9> <10>在 Y 分钟内学习 X，其中 X=ruby</10> </9> <11> <12>LiveCodes 文档</12> </11> <13> <14>加载启动模板</14> </13>',
     name: 'Ruby（WASM）',
   },
+  runeWasm: {
+    desc: 'Rune is a dynamic, Rust-like programming language that compiles to WebAssembly and runs in the browser.',
+    link: '<1> <2>Rune official website</2> </1> <3> <4>Rune documentation</4> </3> <5> <6>Rune playground</6> </5> <7> <8>GitHub repository</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
+    name: 'Rune',
+  },
   sass: {
     desc: '语法超赞的样式表。',
     link: '<1> <2>Sass 官方网站</2> </1> <3> <4>Sass 文档</4> </3> <5> <6>Sass（缩进）语法</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=sass</8> </7>',
