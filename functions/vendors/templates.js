@@ -1351,7 +1351,7 @@ func main() {
 		fmt.Println("Hello from Go WebAssembly!")
 	}
 }
-`.trimStart()}};var I={name:"imba",title:getTemplateName("templates.starter.imba","Imba Starter"),thumbnail:"assets/templates/imba.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"imba",content:`
+`.trimStart()}};var W={name:"imba",title:getTemplateName("templates.starter.imba","Imba Starter"),thumbnail:"assets/templates/imba.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:""},script:{language:"imba",content:`
 tag app-counter
 	prop name = "Imba"
 	prop count = 0
@@ -1369,7 +1369,7 @@ tag app-counter
 		<button.btn @click=count++> "Click me"
 
 imba.mount <app-counter>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var W={name:"java",title:getTemplateName("templates.starter.java","Java Starter"),thumbnail:"assets/templates/java.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var I={name:"java",title:getTemplateName("templates.starter.java","Java Starter"),thumbnail:"assets/templates/java.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/java.svg" />
@@ -4177,4 +4177,4 @@ new Vue({
     (i32.add (local.get $0) (i32.const 1))
   )
 )
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var vo=[b,D,Ut,ut,dt,Et,d,it,_t,wt,V,kt,Q,jt,xt,U,v,g,bt,Z,Y,h,G,O,A,C,ot,Lt,S,X,y,x,I,ht,gt,et,ct,pt,mt,ft,vt,N,H,nt,rt,_,j,W,T,st,F,J,Ct,L,z,yt,k,w,R,Tt,K,u,qt,St,at,lt,tt,f,E];export{vo as starterTemplates};
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var vo=[b,D,Ut,ut,dt,Et,d,it,_t,wt,V,kt,Q,jt,xt,U,v,g,bt,Z,Y,h,G,O,A,C,ot,Lt,S,X,y,x,W,ht,gt,et,ct,pt,mt,ft,vt,N,H,nt,rt,_,j,I,T,st,F,J,Ct,L,z,yt,k,w,R,Tt,K,u,qt,St,at,lt,tt,f,E];export{vo as starterTemplates};

@@ -488,6 +488,14 @@ export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.35/index.js');
 
 export const wasmoonUrl = /* @__PURE__ */ getUrl('wasmoon@1.16.0/dist/index.js');
 
+export const runeWasmUrl = /* @__PURE__ */ getUrl(
+  'gh:rune-rs/rune-rs.github.io@797a2695/js/rune.js',
+);
+
+export const runeWasmWasmUrl = /* @__PURE__ */ getUrl(
+  'gh:rune-rs/rune-rs.github.io@797a2695/js/assets/rune_wasm-80f04f7b.wasm',
+);
+
 export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');
 
 export const webRBaseUrl = /* @__PURE__ */ getUrl('webr@0.4.0/dist/');

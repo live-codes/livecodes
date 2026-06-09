@@ -253,6 +253,7 @@ const iifeBuild = () =>
       'languages/rescript/lang-rescript-formatter.ts',
       'languages/riot/lang-riot-compiler.ts',
       'languages/ruby-wasm/lang-ruby-wasm-script.ts',
+      'languages/rune-wasm/lang-rune-wasm-script.ts',
       'languages/scss/lang-scss-compiler.ts',
       'languages/solid/lang-solid-compiler.ts',
       'languages/sql/lang-sql-compiler.ts',

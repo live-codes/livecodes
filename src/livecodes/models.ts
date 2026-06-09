@@ -202,6 +202,7 @@ export interface Compiler {
     | 'text/prolog'
     | 'text/minizinc'
     | 'text/go-wasm'
+    | 'text/rune'
     | 'application/json'
     | 'application/lua'
     | 'text/fennel'

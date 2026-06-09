@@ -63,6 +63,7 @@ import { richtext } from './richtext';
 import { riot } from './riot';
 import { ruby } from './ruby';
 import { rubyWasm } from './ruby-wasm';
+import { runeWasm } from './rune-wasm';
 import { scheme } from './scheme';
 import { sass, scss } from './scss';
 import { solid, solidTsx } from './solid';
@@ -143,6 +144,7 @@ export const languages: LanguageSpecs[] = [
   r,
   ruby,
   rubyWasm,
+  runeWasm,
   go,
   goWasm,
   php,
