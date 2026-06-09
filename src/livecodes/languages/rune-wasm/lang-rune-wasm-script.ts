@@ -41,8 +41,7 @@ const runCode = async (
 ): Promise<{ output: string | null; error: string | null; exitCode: number }> => {
   try {
     console.log('Running Rune code...');
-    const compiledCode =
-      input != null && input !== '' ? `let input = ${input};\n${code}` : code;
+    const compiledCode = input != null && input !== '' ? `let input = ${input};\n${code}` : code;
     const result = await rune.module!.compile(compiledCode, {});
     const output = result != null ? String(result) : '';
     return { output, error: null, exitCode: 0 };
