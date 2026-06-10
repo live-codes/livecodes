@@ -87,6 +87,8 @@ livecodes.runeWasm.run ??= async (input?: string) => {
   livecodes.runeWasm.ready = true;
 
   parent.postMessage({ type: 'loading', payload: false }, '*');
+
+  return { output, error, exitCode };
 };
 
 livecodes.runeWasm.loaded = new Promise<void>((resolve) => {

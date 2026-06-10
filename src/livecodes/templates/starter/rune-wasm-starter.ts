@@ -42,9 +42,9 @@ export const runeWasmStarter: Template = {
       const counter = document.querySelector("#counter");
       const button = document.querySelector("#counter-button");
 
-      const [title, count] = output.split('\\n');
+      const [title, count] = output.split('\n');
 
-      if (parseInt(count) !== NaN) {
+      if (!isNaN(parseInt(count))) {
         window.count = count;
         counter.innerText = window.count;
       }
