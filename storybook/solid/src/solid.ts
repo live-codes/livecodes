@@ -10,7 +10,7 @@
 import { createComponent } from '@live-codes/solid-sdk';
 import type { Component, JSX } from 'solid-js';
 import { createPlayground } from 'livecodes';
- 
+// eslint-disable-next-line import/order
 import type { EmbedOptions, Playground } from 'livecodes';
 export type { Code, Config, EmbedOptions, Language, Playground } from 'livecodes';
 
