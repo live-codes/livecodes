@@ -14,7 +14,14 @@ declare const rune: {
   init: () => Promise<void>;
   module:
     | ({
-        compile: (input: string, config: Record<string, unknown>) => Promise<unknown>;
+        compile: (
+          input: string,
+          config: Record<string, unknown>,
+        ) => Promise<{
+          output: string | null;
+          result: string | null;
+          error: string | null;
+        }>;
       } & Record<string, unknown>)
     | null;
 };
@@ -43,8 +50,10 @@ const runCode = async (
     console.log('Running Rune code...');
     const compiledCode = input != null && input !== '' ? `let input = ${input};\n${code}` : code;
     const result = await rune.module!.compile(compiledCode, {});
-    const output = result != null ? String(result) : '';
-    return { output, error: null, exitCode: 0 };
+    if (result.error != null) {
+      return { output: result.output ?? null, error: result.error, exitCode: 1 };
+    }
+    return { output: result.output ?? '', error: null, exitCode: 0 };
   } catch (err) {
     const error = (err as Error).message ?? String(err);
     return { output: null, error, exitCode: (err as any).code ?? 1 };
