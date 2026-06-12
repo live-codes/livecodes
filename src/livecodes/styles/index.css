@@ -17,6 +17,12 @@ body,
   overflow: hidden;
 }
 
+body.light,
+body.light #livecodes {
+  background-color: #f8fafc;
+  color: #080d16;
+}
+
 #livecodes {
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
@@ -38,16 +44,19 @@ body,
 }
 
 .logo-wrapper {
-  width: 160px;
-  height: 160px;
-  margin-bottom: 24px;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  height: 160px;
+  justify-content: center;
+  margin-top: -1rem;
+  max-height: 50vh;
+  max-width: 50vh;
+  width: 160px;
 }
 
 #loading-text,
 .noscript {
+  color: #557093;
   font-family:
     system-ui,
     -apple-system,
@@ -57,7 +66,6 @@ body,
     monospace;
   font-size: 1.1em;
   letter-spacing: 0.05em;
-  color: #557093;
   margin: 0;
   text-align: center;
 }
@@ -104,12 +112,8 @@ body,
   }
 }
 
-.embed #loading .logo-wrapper {
+.embed #loading > * {
   transform: scale(0.8);
-}
-
-.embed #loading-text {
-  padding: 0.3em;
 }
 
 .click-to-load {

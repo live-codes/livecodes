@@ -319,7 +319,7 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
   inherit: true,
   rules: [
     // Base text
-    { token: '', foreground: 'dde6f0', background: '16191d' },
+    { token: '', foreground: 'dde6f0', background: '181c20' },
 
     // Comments — muted brand tone, italic per .token.comment style
     { token: 'comment', foreground: '556070', fontStyle: 'italic' },
@@ -410,11 +410,11 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
   ],
   colors: {
     // ── Editor base ──
-    'editor.background': '#16191d', // --toolbar-bg-color
+    'editor.background': '#181c20', // --toolbar-bg-color (#16191d) -> hsl -> l + 1 -> hex
     'editor.foreground': '#dde6f0', // --brand-text
     'editorCursor.foreground': '#00c8ff', // --brand-cyan
-    'editor.lineHighlightBackground': '#0d1825', // --brand-bg-elevated
-    'editor.lineHighlightBorder': '#00000000',
+    'editor.lineHighlightBackground': '#16191d', // --toolbar-bg-color
+    'editor.lineHighlightBorder': '#1f2329', // --toolbar-bg-color -> hsl -> l + 4 -> hex
     'editorLineNumber.foreground': '#2e3a4a', // --brand-dim
     'editorLineNumber.activeForeground': '#00c8ff',
     'editorIndentGuide.background': '#1a2738',
@@ -431,21 +431,21 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
     'editor.findMatchBackground': '#00c8ff66',
     'editor.findMatchHighlightBackground': '#00c8ff33',
     'editor.findRangeHighlightBackground': '#00c8ff1a',
-    'editor.rangeHighlightBackground': '#111b2c',
+    'editor.rangeHighlightBackground': '#16191d',
 
     // ── Brackets ──
     'editorBracketMatch.background': '#00c8ff26',
     'editorBracketMatch.border': '#00c8ff80',
     'editorBracketHighlight.foreground1': '#00c8ff',
     'editorBracketHighlight.foreground2': '#00e5c8',
-    'editorBracketHighlight.foreground3': '#c9b8ff',
+    'editorBracketHighlight.foreground3': '#ee82ee',
     'editorBracketHighlight.foreground4': '#ffb86c',
     'editorBracketHighlight.foreground5': '#69d6ff',
     'editorBracketHighlight.foreground6': '#ff8c66',
     'editorBracketHighlight.unexpectedBracket.foreground': '#ff4d4d',
 
     // ── Gutter ──
-    'editorGutter.background': '#16191d',
+    'editorGutter.background': '#181c20',
     'editorGutter.modifiedBackground': '#00c8ff',
     'editorGutter.addedBackground': '#00e5c8',
     'editorGutter.deletedBackground': '#ff4d4d',
@@ -459,7 +459,7 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
     'editorWarning.background': '#ffb86c14',
 
     // ── Overview ruler (minimap area markers) ──
-    'editorOverviewRuler.border': '#16191d',
+    'editorOverviewRuler.border': '#181c20',
     'editorOverviewRuler.findMatchForeground': '#00c8ff99',
     'editorOverviewRuler.rangeHighlightForeground': '#00c8ff66',
     'editorOverviewRuler.selectionHighlightForeground': '#00c8ff44',
@@ -473,7 +473,7 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
     'editorOverviewRuler.deletedForeground': '#ff4d4d',
 
     // ── Minimap ──
-    'minimap.background': '#16191d',
+    'minimap.background': '#181c20',
     'minimap.selectionHighlight': '#00c8ff66',
     'minimap.findMatchHighlight': '#00c8ff99',
     'minimap.errorHighlight': '#ff4d4d',
@@ -492,13 +492,13 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
     'scrollbarSlider.activeBackground': '#2a3a4e',
 
     // ── Widgets (autocomplete, hover, find) ──
-    'editorWidget.background': '#111b2c', // --brand-bg-elevated-2
+    'editorWidget.background': '#16191d',
     'editorWidget.foreground': '#dde6f0',
     'editorWidget.border': '#1f3147', // ~ --brand-border-hi tone
     'editorWidget.resizeBorder': '#00c8ff',
 
     // ── Autocomplete / suggestion widget ──
-    'editorSuggestWidget.background': '#16191d',
+    'editorSuggestWidget.background': '#181c20',
     'editorSuggestWidget.foreground': '#dde6f0',
     'editorSuggestWidget.border': '#1f3147',
     'editorSuggestWidget.selectedBackground': '#00c8ff26',
@@ -508,11 +508,11 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
     'editorSuggestWidgetStatus.foreground': '#556070',
 
     // ── Hover widget ──
-    'editorHoverWidget.background': '#111b2c',
+    'editorHoverWidget.background': '#16191d',
     'editorHoverWidget.foreground': '#dde6f0',
     'editorHoverWidget.border': '#1f3147',
     'editorHoverWidget.highlightForeground': '#00c8ff',
-    'editorHoverWidget.statusBarBackground': '#16191d',
+    'editorHoverWidget.statusBarBackground': '#181c20',
 
     // ── Parameter hints ──
     'editorHoverWidget.foreground.parameterHints': '#dde6f0',
@@ -536,8 +536,8 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
     'editorGhostText.background': '#00000000',
 
     // ── Sticky scroll ──
-    'editorStickyScroll.background': '#0a1320',
-    'editorStickyScrollHover.background': '#111b2c',
+    'editorStickyScroll.background': '#16191d',
+    'editorStickyScrollHover.background': '#0a1320',
 
     // ── Links ──
     'editorLink.activeForeground': '#00c8ff',
@@ -555,14 +555,14 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
     'peekView.border': '#00c8ff',
     'peekViewEditor.background': '#0a1320',
     'peekViewEditor.matchHighlightBackground': '#00c8ff44',
-    'peekViewResult.background': '#16191d',
+    'peekViewResult.background': '#181c20',
     'peekViewResult.foreground': '#dde6f0',
     'peekViewResult.selectionBackground': '#00c8ff26',
     'peekViewResult.selectionForeground': '#ffffff',
     'peekViewResult.matchHighlightBackground': '#00c8ff44',
     'peekViewResult.lineForeground': '#dde6f0',
     'peekViewResult.fileForeground': '#dde6f0',
-    'peekViewTitle.background': '#111b2c',
+    'peekViewTitle.background': '#16191d',
     'peekViewTitleLabel.foreground': '#dde6f0',
     'peekViewTitleDescription.foreground': '#556070',
 
@@ -582,10 +582,10 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
     'inputValidation.infoBorder': '#00c8ff',
 
     // ── Dropdown ──
-    'dropdown.background': '#111b2c',
+    'dropdown.background': '#16191d',
     'dropdown.foreground': '#dde6f0',
     'dropdown.border': '#1f3147',
-    'dropdown.listBackground': '#16191d',
+    'dropdown.listBackground': '#181c20',
 
     // ── List (in pickers) ──
     'list.hoverBackground': '#00c8ff14',
@@ -598,7 +598,7 @@ const liveCodesDark: Monaco.editor.IStandaloneThemeData = {
     'list.highlightForeground': '#00c8ff',
 
     // ── Misc ──
-    'editorMarkerNavigation.background': '#16191d',
+    'editorMarkerNavigation.background': '#181c20',
     'editorMarkerNavigationError.background': '#ff4d4d',
     'editorMarkerNavigationWarning.background': '#ffb86c',
     'editorMarkerNavigationInfo.background': '#00c8ff',
@@ -737,7 +737,7 @@ const liveCodesLight: Monaco.editor.IStandaloneThemeData = {
     'editorBracketMatch.border': '#0073a880',
     'editorBracketHighlight.foreground1': '#0073a8',
     'editorBracketHighlight.foreground2': '#008573',
-    'editorBracketHighlight.foreground3': '#6b4fc4',
+    'editorBracketHighlight.foreground3': '#9d159d',
     'editorBracketHighlight.foreground4': '#c25e00',
     'editorBracketHighlight.foreground5': '#0a7bbf',
     'editorBracketHighlight.foreground6': '#cc4422',

@@ -477,6 +477,9 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
     if (config.description && config.description.length > 0) {
       playgroundUrl.searchParams.set('description', config.description);
     }
+    if (config.theme) {
+      playgroundUrl.searchParams.set('theme', config.theme);
+    }
     hashParams.set('config', 'code/' + compressToEncodedURIComponent(JSON.stringify(config)));
   }
 

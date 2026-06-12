@@ -161,15 +161,32 @@
     "singleQuote": true,
     "trailingComma": "all",
     "printWidth": 100,
-    "plugins": ["prettier-plugin-organize-imports"]
+    "plugins": [
+      "prettier-plugin-organize-imports"
+    ]
   },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
-    "setupFiles": ["<rootDir>/.jest/setup.ts"],
-    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/src/modules/"],
-    "collectCoverageFrom": ["src/**/*.ts", "!**/build/**", "!**/vendor/**", "!src/modules/**"],
-    "coverageReporters": ["json", "html", "lcov"],
+    "setupFiles": [
+      "<rootDir>/.jest/setup.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/build/",
+      "/src/modules/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!**/build/**",
+      "!**/vendor/**",
+      "!src/modules/**"
+    ],
+    "coverageReporters": [
+      "json",
+      "html",
+      "lcov"
+    ],
     "resolveJsonModule": true
   }
 }

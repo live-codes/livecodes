@@ -1220,6 +1220,10 @@ a.tools-pane-title {
 #console {
   overflow: auto;
 
+  &.luna-console-theme-dark {
+    background-color: hsl(214, 14%, 11%);
+  }
+
   .luna-object-viewer {
     overflow: hidden;
   }
@@ -1930,40 +1934,76 @@ ninja-keys {
 }
 
 /* Code Mirror */
-// TODO TEST CM
-.cm-wrap {
-  height: 100%;
-}
-
-.cm-scroller {
-  overflow: auto;
-}
-
-#console-input {
-  // .cm-activeLine {
-  //   background: var(--console-bg) !important; TODO Test this
-  // }
-
-  .cm-gutter {
-    display: none !important;
+.cm-editor {
+  .cm-wrap {
+    height: 100%;
   }
 
-  .cm-gutters #console-input-indicator {
-    margin-left: 3px;
-    margin-top: 3px;
+  .cm-scroller {
+    overflow: auto;
   }
-}
 
-// CodeMirror Codeium
-.cm-ghostText,
-.cm-ghostText * {
-  cursor: pointer;
-  filter: grayscale(20%);
-  opacity: 0.6;
-}
+  #console-input {
+    // .cm-activeLine {
+    //   background: var(--console-bg) !important; TODO Test this
+    // }
 
-.cm-ghostText:hover {
-  background: #eee;
+    .cm-gutter {
+      display: none !important;
+    }
+
+    .cm-gutters #console-input-indicator {
+      margin-left: 3px;
+      margin-top: 3px;
+    }
+  }
+
+  .rainbow-bracket-red,
+  .rainbow-bracket-red > span {
+    color: #00c8ff;
+  }
+
+  .rainbow-bracket-orange,
+  .rainbow-bracket-orange > span {
+    color: #00e5c8;
+  }
+
+  .rainbow-bracket-yellow,
+  .rainbow-bracket-yellow > span {
+    color: #ee82ee;
+  }
+
+  .rainbow-bracket-green,
+  .rainbow-bracket-green > span {
+    color: #ffb86c;
+  }
+
+  .rainbow-bracket-blue,
+  .rainbow-bracket-blue > span {
+    color: #69d6ff;
+  }
+
+  .rainbow-bracket-indigo,
+  .rainbow-bracket-indigo > span {
+    color: #ff8c66;
+  }
+
+  .rainbow-bracket-violet,
+  .rainbow-bracket-violet > span {
+    color: #ff4d4d;
+  }
+
+  // CodeMirror Codeium
+  .cm-ghostText,
+  .cm-ghostText * {
+    cursor: pointer;
+    filter: grayscale(20%);
+    opacity: 0.6;
+  }
+
+  .cm-ghostText:hover {
+    background: #eee;
+  }
 }
 
 /* Prism JS */
