@@ -9,6 +9,12 @@ const loadingEl = document.querySelector<HTMLElement>('#loading')!;
 const loadingText = document.querySelector<HTMLElement>('#loading-text')!;
 const loadingHTML = loadingEl.innerHTML;
 
+document.documentElement.style.display = 'unset';
+
+if (params.get('theme') === 'light') {
+  document.body.classList.add('light');
+}
+
 if (isEmbed) {
   parent.postMessage(
     { type: customEvents.init, payload: { appVersion: process.env.VERSION } },
@@ -75,6 +81,7 @@ function loaded() {
   loadingEl.style.opacity = '0';
   setTimeout(() => {
     loadingEl.remove();
+    document.body.classList.remove('light');
   }, 500);
 
   document.querySelector<HTMLElement>(rootSelector)!.style.opacity = '1';

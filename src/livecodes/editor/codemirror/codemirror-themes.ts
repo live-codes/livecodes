@@ -294,7 +294,7 @@ const liveCodesDarkTheme = EditorView.theme(
   {
     '&': {
       color: '#dde6f0',
-      backgroundColor: '#16191d',
+      backgroundColor: '#181c20',
     },
     '.cm-content': {
       caretColor: '#00c8ff',
@@ -310,10 +310,10 @@ const liveCodesDarkTheme = EditorView.theme(
       color: '#dde6f0',
     },
     '.cm-panels.cm-panels-top': {
-      borderBottom: '2px solid #16191d',
+      borderBottom: '2px solid #181c20',
     },
     '.cm-panels.cm-panels-bottom': {
-      borderTop: '2px solid #16191d',
+      borderTop: '2px solid #181c20',
     },
     '.cm-searchMatch': {
       backgroundColor: '#00c8ff66',
@@ -323,7 +323,8 @@ const liveCodesDarkTheme = EditorView.theme(
       backgroundColor: '#00c8ff44',
     },
     '.cm-activeLine': {
-      backgroundColor: '#00c8ff0f',
+      backgroundColor: '#0b0d0f4d',
+      outline: '2px solid #1f2329',
     },
     '.cm-selectionMatch': {
       backgroundColor: '#00c8ff26',
@@ -333,7 +334,7 @@ const liveCodesDarkTheme = EditorView.theme(
       outline: '1px solid #00c8ff80',
     },
     '.cm-gutters': {
-      backgroundColor: '#16191d',
+      backgroundColor: '#181c20',
       color: '#2e3a4a',
       border: 'none',
     },
@@ -347,8 +348,10 @@ const liveCodesDarkTheme = EditorView.theme(
       color: '#556070',
     },
     '.cm-tooltip': {
+      backgroundColor: '#16191d',
       border: '1px solid #1f3147',
-      backgroundColor: '#111b2c',
+      borderRadius: '3px',
+      padding: '6px 10px',
     },
     '.cm-tooltip-autocomplete': {
       '& > ul > li[aria-selected]': {
@@ -453,8 +456,10 @@ const liveCodesLightTheme = EditorView.theme(
       color: '#8693a3',
     },
     '.cm-tooltip': {
-      border: '1px solid #d6e0ea',
       backgroundColor: '#ffffff',
+      border: '1px solid #d6e0ea',
+      borderRadius: '3px',
+      padding: '6px 10px',
     },
     '.cm-tooltip-autocomplete': {
       '& > ul > li[aria-selected]': {

@@ -2605,7 +2605,7 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const root = document.documentElement;
   root?.classList.remove(...themes);
   root?.classList.add(theme);
-  changeThemeColor();
+  changeThemeColor(theme);
   setFontSize();
   const themeToggle = UI.getThemeToggle();
   if (themeToggle) {
@@ -2652,8 +2652,10 @@ const transitionTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   });
 };
 
-const changeThemeColor = () => {
-  const { themeColor, theme } = getConfig();
+const changeThemeColor = (newTheme?: Theme | undefined, newThemeColor?: string | undefined) => {
+  const config = getConfig();
+  const themeColor = newThemeColor || config.themeColor;
+  const theme = newTheme || config.theme;
   const color = themeColor || getDefaultColor();
   const { h, s, l } = colorToHsla(color);
   const root = document.documentElement;

@@ -26,6 +26,8 @@ import { indentationMarkers } from '@replit/codemirror-indentation-markers';
 import { vscodeKeymap } from '@replit/codemirror-vscode-keymap';
 // @ts-ignore
 import { colorPicker } from '@replit/codemirror-css-color-picker';
+// @ts-ignore
+import { rainbowbrackets } from 'rainbowbrackets';
 
 // these are imported normally
 import { getEditorModeNode } from '../../UI/selectors';
@@ -238,6 +240,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ...(editorMode === 'vim' && vim ? [vim()] : editorMode === 'emacs' && emacs ? [emacs()] : []),
       ...(enableMinimap && minimap
         ? [
+            // @ts-ignore
             minimap.compute(['doc'], () => ({
               create: () => ({ dom: document.createElement('div') }),
             })),
@@ -282,6 +285,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       keymap.of(vscodeKeymap),
       indentationMarkers(),
       colorPicker,
+      rainbowbrackets(),
     ];
 
     const codeblockOptions = [readOnlyExtension, ...defaultOptions];

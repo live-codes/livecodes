@@ -87,7 +87,7 @@ const baseOptions = {
   },
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
-  external: ['codemirror', '@codemirror/*', '@lezer/*', '@replit/codemirror-*'],
+  external: ['codemirror', '@codemirror/*', '@lezer/*', '@replit/codemirror-*', 'rainbowbrackets'],
   plugins: [...(devMode ? [] : [minifyHTMLPlugin(minifyHTMLOptions)])],
 };
 
