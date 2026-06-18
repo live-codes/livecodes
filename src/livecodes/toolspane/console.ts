@@ -209,6 +209,7 @@ export const createConsole = (
 
     consoleElement = document.createElement('div');
     consoleElement.id = 'console';
+    consoleElement.tabIndex = -1;
     container.appendChild(consoleElement);
 
     const consoleInput = document.createElement('div');

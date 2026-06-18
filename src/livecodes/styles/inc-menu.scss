@@ -326,8 +326,14 @@
 }
 
 #app-menu-help a:hover + .submenu,
+#app-menu-help a:focus-visible + .submenu,
+#app-menu-help a + .submenu:focus-within,
 #app-menu-project a:hover + .submenu,
-#app-menu-project i:hover + a + .submenu {
+#app-menu-project a:focus-visible + .submenu,
+#app-menu-project a + .submenu:focus-within,
+#app-menu-project i:hover + a + .submenu,
+#app-menu-project i:focus-visible + a + .submenu,
+#app-menu-project i + a + .submenu:focus-within {
   display: block !important;
 }
 
@@ -530,6 +536,12 @@ i.arrow {
 
     &:focus + .slider {
       box-shadow: 0 0 1px var(--input-switch-active);
+      border: 1px solid var(--outline-color);
+    }
+
+    &:focus-visible + .slider {
+      box-shadow: 0 0 1px var(--input-switch-active);
+      outline: 2px solid var(--outline-color);
     }
 
     &:checked + .slider::before {
@@ -592,7 +604,7 @@ i.arrow {
 
       &:has(input:checked),
       &:has(input:focus) {
-        outline: 1px solid var(--input-active);
+        outline: 2px solid var(--outline-color);
       }
     }
   }

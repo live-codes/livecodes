@@ -27,8 +27,12 @@ export const getResultElement = /* @__PURE__ */ () =>
 
 export const getResultIFrameElement = /* @__PURE__ */ () =>
   document.querySelector('#result > iframe') as HTMLIFrameElement;
+
 export const getGutterElement = /* @__PURE__ */ () =>
   document.querySelector('#editor-container .gutter') as HTMLElement;
+
+export const getSizeLabel = /* @__PURE__ */ () =>
+  document.querySelector('#size-label') as HTMLElement;
 
 export const getLogoLink = /* @__PURE__ */ () =>
   document.querySelector('a#logo') as HTMLAnchorElement;

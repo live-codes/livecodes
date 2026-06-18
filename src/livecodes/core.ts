@@ -3087,19 +3087,15 @@ const handleResize = () => {
 };
 
 const handleIframeResize = () => {
-  const gutter = UI.getGutterElement();
-  if (!gutter) return;
-
-  const sizeLabel = document.createElement('div');
-  sizeLabel.id = 'size-label';
-  gutter.appendChild(sizeLabel);
+  const sizeLabel = UI.getSizeLabel();
+  if (!sizeLabel) return;
 
   const hideLabel = debounce(() => {
     setTimeout(() => {
       sizeLabel.classList.remove('visible');
       setTimeout(() => {
         sizeLabel.style.display = 'none';
-      }, 100);
+      }, 200);
     }, 1000);
   }, 1000);
 
@@ -3443,7 +3439,8 @@ const handleI18nMenu = () => {
 const handleEditorTools = () => {
   if (!configureEditorTools(getActiveEditor()?.getLanguage())) return;
   const originalMode = getConfig().mode;
-  eventsManager.addEventListener(UI.getFocusButton(), 'click', () => {
+  const focusButton = UI.getFocusButton();
+  eventsManager.addEventListener(focusButton, 'click', () => {
     const config = getConfig();
     const currentMode = config.mode;
     const newMode = currentMode === originalMode ? 'focus' : originalMode;
@@ -3457,6 +3454,7 @@ const handleEditorTools = () => {
       config.tools.enabled == null;
     if (newMode === 'focus' && consoleIsEnabled) {
       toolsPane?.setActiveTool('console');
+      requestAnimationFrame(() => focusButton.focus()); // avoid moving focus to console editor
     }
     window.deps?.showMode?.(newMode, config.view);
   });
@@ -5525,6 +5523,14 @@ const configureToolsPane = (
     toolsPane.hide();
     return;
   }
+  const zoomBtn = UI.getZoomButton();
+  if (zoomBtn) {
+    if (tools?.enabled?.includes('zoom') || tools?.enabled === 'all') {
+      zoomBtn.classList.remove('hidden');
+    } else {
+      zoomBtn.classList.add('hidden');
+    }
+  }
   if (tools?.active) {
     toolsPane.setActiveTool(tools.active);
   }
@@ -5532,7 +5538,7 @@ const configureToolsPane = (
     toolsPane.close();
     return;
   }
-  if (tools.status === 'none') {
+  if (tools.status === 'none' || tools.enabled?.length === 0) {
     toolsPane.hide();
     return;
   }
@@ -5783,8 +5789,8 @@ const configureSimpleMode = (config: Config) => {
   setConfig({
     ...config,
     tools: {
-      enabled: ['console'],
-      active: 'console',
+      enabled: Array.isArray(config.tools?.enabled) ? config.tools.enabled : ['console'],
+      active: config.tools?.active || 'console',
       status: config.tools?.status || 'closed',
     },
   });
