@@ -329,7 +329,9 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
         }
         paramsConfig.tools.enabled = paramsConfig.tools.enabled?.filter((t) => t !== tool) || [];
         if (paramsConfig.tools.active === tool) {
-          paramsConfig.tools.active = paramsConfig.tools.enabled?.[0] || '';
+          paramsConfig.tools.active =
+            (paramsConfig.tools.enabled as Array<Exclude<Tool['name'], 'zoom'>> | undefined)?.[0] ||
+            '';
         }
       }
     });

@@ -4823,6 +4823,14 @@ const configureToolsPane = (
     toolsPane.hide();
     return;
   }
+  const zoomBtn = UI.getZoomButton();
+  if (zoomBtn) {
+    if (tools?.enabled?.includes('zoom') || tools?.enabled === 'all') {
+      zoomBtn.classList.remove('hidden');
+    } else {
+      zoomBtn.classList.add('hidden');
+    }
+  }
   if (tools?.active) {
     toolsPane.setActiveTool(tools.active);
   }
@@ -4830,7 +4838,7 @@ const configureToolsPane = (
     toolsPane.close();
     return;
   }
-  if (tools.status === 'none') {
+  if (tools.status === 'none' || tools.enabled?.length === 0) {
     toolsPane.hide();
     return;
   }
@@ -5079,8 +5087,8 @@ const configureSimpleMode = (config: Config) => {
   setConfig({
     ...config,
     tools: {
-      enabled: ['console'],
-      active: 'console',
+      enabled: Array.isArray(config.tools?.enabled) ? config.tools.enabled : ['console'],
+      active: config.tools?.active || 'console',
       status: config.tools?.status || 'closed',
     },
   });

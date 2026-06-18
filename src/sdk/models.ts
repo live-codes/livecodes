@@ -1070,7 +1070,7 @@ export interface AppConfig {
    * ```
    */
   tools: Partial<{
-    enabled: ToolName[] | 'all';
+    enabled: Array<ToolName | 'zoom'> | 'all';
     active: ToolName | '';
     status: ToolsPaneStatus;
   }>;

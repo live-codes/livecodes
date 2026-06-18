@@ -37,7 +37,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const themes: Array<Config['theme']> = ['light', 'dark'];
   const layout: Array<Config['layout']> = ['responsive', 'horizontal', 'vertical'];
   const editorModes: Array<Config['editorMode']> = ['vim', 'emacs'];
-  const tools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
+  const tools: Array<Tool['name'] | 'zoom'> = ['console', 'compiled', 'tests', 'zoom'];
   const toolsPaneStatus: ToolsPaneStatus[] = ['', 'full', 'closed', 'open', 'none'];
   const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar', 'auto'];
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
@@ -96,8 +96,11 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
         }),
     ...(x &&
     x.active != null &&
-    includes(tools, x.active) &&
-    (typeof x.enabled === 'string' ||
+    includes(
+      tools.filter((t) => t !== 'zoom'),
+      x.active,
+    ) &&
+    (x.enabled === 'all' ||
       x.enabled == null ||
       (Array.isArray(x.enabled) && includes(x.enabled, x.active)))
       ? { active: x.active }
