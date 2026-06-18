@@ -102,6 +102,7 @@
     display: flex;
     flex-direction: row;
     font-size: var(--s14);
+    height: 32px;
     margin-bottom: 1.5rem;
     place-content: space-between;
     place-items: center;
@@ -390,8 +391,11 @@
       }
 
       a {
+        border-top-left-radius: var(--rs);
+        border-top-right-radius: var(--rs);
         color: var(--btn-modal-color);
         display: block;
+        outline-offset: 0;
         padding: 0.5rem;
         text-decoration: none;
       }
@@ -676,12 +680,6 @@
       box-shadow: var(--brand-glow-cyan-soft);
       color: var(--btn-modal-active);
     }
-
-    &:focus-visible {
-      border-color: var(--brand-cyan);
-      box-shadow: var(--brand-glow-cyan);
-      outline: none;
-    }
   }
 
   .close-button {
@@ -823,9 +821,9 @@
     width: 100%;
 
     &:focus-visible {
-      border-color: var(--brand-cyan);
       box-shadow: var(--brand-glow-cyan-soft);
-      outline: none;
+      outline-offset: -1px;
+      outline-width: 1px;
     }
   }
 
@@ -902,8 +900,6 @@
   .modal-title {
     backdrop-filter: blur(8px);
     background: var(--modal-title-bg);
-    background-image: var(--brand-dot-pattern);
-    background-size: var(--brand-dot-size);
     border: 1px solid var(--brand-border);
     border-radius: var(--rs);
     box-sizing: border-box;
@@ -1131,9 +1127,9 @@
     width: 100%;
 
     &:focus-visible {
-      border-color: var(--brand-cyan);
       box-shadow: var(--brand-glow-cyan-soft);
-      outline: none;
+      outline-offset: -1px;
+      outline-width: 1px;
     }
   }
 
@@ -1163,9 +1159,9 @@
     width: 100%;
 
     &:focus-visible {
-      border-color: var(--brand-cyan);
       box-shadow: var(--brand-glow-cyan-soft);
-      outline: none;
+      outline-offset: -1px;
+      outline-width: 1px;
     }
   }
 
@@ -1264,8 +1260,10 @@
     }
 
     a {
+      border-radius: var(--rs);
       color: unset;
       display: flow-root;
+      outline-offset: 0;
       padding: 0.5rem 0;
       text-decoration: none;
     }
@@ -1641,7 +1639,13 @@
     }
 
     li {
+      margin-block: var(--outline-width, 2px);
       white-space: nowrap;
+
+      a {
+        margin: var(--outline-width);
+        width: calc(100% - var(--outline-width) * 3);
+      }
     }
   }
 

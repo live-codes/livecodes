@@ -18,7 +18,7 @@
   --s32: calc(var(--unit) * 2);
   --s36: calc(var(--unit) * 2.25);
   --s40: calc(var(--unit) * 2.5);
-  --rs: calc(var(--unit) * 0.375); // 6px — border radius (rebrand)
+  --rs: var(--s6); // border-radius
 
   // Color
   // this should match getDefaultColor() in core.ts
@@ -225,6 +225,10 @@
   --text-success-border: 1px solid rgb(85, 255, 0);
   --text-success-color: rgb(153, 255, 102);
 
+  --outline-color: hsl(calc(var(--hue) - 20), 100%, 50%); // --brand-cyan
+  --outline-shadow: hsla(calc(var(--hue) - 20), 100%, 50%, 0.18); // --brand-glow-cyan
+  --outline-width: 2px;
+
   --icon-filter: invert(0.8);
   --icon-filter-active: invert(1);
 
@@ -236,29 +240,21 @@
      The values below correspond to the dark theme. The light theme overrides
      the same tokens in `inc-light.scss`.
      ───────────────────────────────────────────────────────────────────── */
-  --brand-bg-deep: #080d16;
-  --brand-bg-elevated: #0d1825;
-  --brand-bg-elevated-2: #111b2c;
-  --brand-border: rgba(255, 255, 255, 0.06);
-  --brand-border-hi: rgba(0, 200, 255, 0.18);
-  --brand-cyan: #00c8ff;
-  --brand-cyan-soft: rgba(0, 200, 255, 0.12);
-  --brand-teal: #00e5c8;
-  --brand-teal-soft: rgba(0, 229, 200, 0.12);
-  --brand-live: #ff4d4d;
-  --brand-text: #dde6f0;
-  --brand-muted: #556070;
-  --brand-dim: #2e3a4a;
-  --brand-glow-cyan: 0 0 24px rgba(0, 200, 255, 0.18);
-  --brand-glow-cyan-soft: 0 0 12px rgba(0, 200, 255, 0.1);
-
-  /* Subtle dot texture used on toolbar / modal headers (matches the icon). */
-  --brand-dot-pattern: radial-gradient(
-    circle at 1px 1px,
-    rgba(255, 255, 255, 0.04) 0.75px,
-    transparent 1px
-  );
-  --brand-dot-size: 28px 28px;
+  --brand-bg-deep: hsl(219, 47%, 6%);
+  --brand-bg-elevated: hsl(213, 48%, 10%);
+  --brand-bg-elevated-2: hsl(218, 44%, 12%);
+  --brand-border: hsla(0, 0%, 100%, 0.06);
+  --brand-border-hi: hsla(193, 100%, 50%, 0.18);
+  --brand-cyan: hsl(193, 100%, 50%);
+  --brand-cyan-soft: hsla(193, 100%, 50%, 0.12);
+  --brand-teal: hsl(172, 100%, 45%);
+  --brand-teal-soft: hsla(172, 100%, 45%, 0.12);
+  --brand-live: hsl(0, 100%, 65%);
+  --brand-text: hsl(212, 39%, 90%);
+  --brand-muted: hsl(216, 14%, 39%);
+  --brand-dim: hsl(214, 23%, 24%);
+  --brand-glow-cyan: 0 0 24px hsla(193, 100%, 50%, 0.18);
+  --brand-glow-cyan-soft: 0 0 12px hsla(193, 100%, 50%, 0.1);
 
   /* Typography */
   --font-ui: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -386,6 +382,11 @@ html {
     --tags-border-color: var(--input-border-color) !important;
     background: var(--input-bg-color); // color2);
     border-radius: var(--rs);
+
+    &.tagify--focus {
+      outline: 1px solid var(--outline-color);
+      outline-offset: -1px;
+    }
   }
 }
 
@@ -398,6 +399,12 @@ html {
 @include meta.load-css('inc-icons');
 
 @include meta.load-css('inc-icons-share');
+
+:focus-visible {
+  box-shadow: var(--outline-shadow);
+  outline: var(--outline-width) solid var(--outline-color);
+  outline-offset: calc(var(--outline-width) * -1);
+}
 
 a,
 a:visited {
@@ -442,12 +449,6 @@ a:visited {
     border-color: var(--brand-border-hi);
     box-shadow: var(--brand-glow-cyan-soft);
     color: var(--btn-active);
-  }
-
-  &:focus-visible {
-    border-color: var(--brand-cyan);
-    box-shadow: var(--brand-glow-cyan);
-    outline: none;
   }
 
   &.disabled {
@@ -556,8 +557,6 @@ kbd {
 #toolbar {
   align-items: center;
   background-color: var(--toolbar-bg-color);
-  background-image: var(--brand-dot-pattern);
-  background-size: var(--brand-dot-size);
   border-bottom: 1px solid var(--brand-border);
   color: var(--toolbar-color);
   display: flex;
@@ -592,6 +591,7 @@ kbd {
     div:first-child {
       display: inherit;
       flex-grow: 1;
+      gap: calc(var(--outline-width) * 2);
     }
 
     .button {
@@ -611,8 +611,10 @@ kbd {
   }
 
   #logo {
+    align-self: baseline;
     border-radius: var(--rs);
-    margin: var(--s4) var(--s4) 0;
+    height: 32px;
+    margin-inline: var(--s4);
     padding: 0;
     text-align: center;
     transition: filter 220ms ease;
@@ -672,6 +674,8 @@ kbd {
     justify-content: flex-start;
     margin: 0 var(--s8);
     max-width: 50%;
+    outline-offset: -1px;
+    outline-width: 1px;
     overflow: hidden;
     padding: 0 var(--s4);
     place-self: center;
@@ -897,11 +901,6 @@ a#result-button {
 .layout-vertical {
   #editor-container {
     flex-direction: column;
-
-    .gutter #size-label {
-      left: 5px !important;
-      top: 15px !important;
-    }
   }
 
   .gutter.gutter-vertical {
@@ -1127,6 +1126,7 @@ a#result-button {
   background-color: var(--toolbar-bg-color);
   height: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 #result {
@@ -1358,7 +1358,6 @@ a.tools-pane-title {
   display: flex !important;
   justify-content: center;
   overflow: hidden;
-  position: relative;
 
   &.gutter-vertical {
     cursor: ns-resize;
@@ -1376,7 +1375,7 @@ a.tools-pane-title {
   }
 }
 
-#editor-container .gutter #size-label {
+#output #size-label {
   background-color: var(--size-label-background);
   border: 1px solid var(--size-label-border);
   border-radius: var(--rs);
@@ -1384,19 +1383,18 @@ a.tools-pane-title {
   cursor: auto;
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: var(--s12);
-  left: 15px !important;
+  left: 5px !important;
   max-height: calc(100vh - var(--toolbar-height));
   opacity: 0;
   padding: 2px;
   position: absolute;
   top: 5px !important;
-  transition: opacity 0.1s;
+  transition: opacity 0.2s;
   white-space: nowrap;
-  z-index: 10;
 
   &.visible {
     opacity: 100%;
-    transition: opacity 0.1s;
+    transition: opacity 0.2s;
   }
 }
 
@@ -1647,8 +1645,11 @@ a.editor-title {
     justify-content: space-between;
 
     #logo {
+      align-self: unset;
+      height: 28px;
       inset-inline-end: var(--s6); /* right */
       position: absolute;
+      top: var(--s2);
 
       img {
         width: 28px;

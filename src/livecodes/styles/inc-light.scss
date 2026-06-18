@@ -73,32 +73,30 @@
   --text-success-border: 1px solid rgb(0, 128, 0);
   --text-success-color: rgb(0, 178, 0);
 
+  --outline-color: hsl(calc(var(--hue) - 20), 80%, 50%); // --brand-cyan
+  --outline-shadow: hsla(calc(var(--hue) - 20), 80%, 50%, 0.18); // --brand-glow-cyan
+
   --icon-filter: invert(0.3);
   --icon-filter-active: invert(1);
 
   /* Brand tokens — light theme overrides (rebrand 2026).
      Mirror the structure in app.scss so chrome reads brand colors against a
      light surface while user themeColor still drives buttons/links/active states. */
-  --brand-bg-deep: #f4f7fb;
-  --brand-bg-elevated: #fff;
-  --brand-bg-elevated-2: #f0f3f8;
-  --brand-border: rgba(13, 24, 37, 0.08);
-  --brand-border-hi: rgba(0, 130, 178, 0.28);
-  --brand-cyan: #0096cc;
-  --brand-cyan-soft: rgba(0, 150, 204, 0.1);
-  --brand-teal: #00a896;
-  --brand-teal-soft: rgba(0, 168, 150, 0.1);
-  --brand-live: #e63946;
-  --brand-text: #1a2332;
-  --brand-muted: #5a6b80;
-  --brand-dim: #97a4b6;
-  --brand-glow-cyan: 0 0 24px rgba(0, 150, 204, 0.15);
-  --brand-glow-cyan-soft: 0 0 12px rgba(0, 150, 204, 0.08);
-  --brand-dot-pattern: radial-gradient(
-    circle at 1px 1px,
-    rgba(13, 24, 37, 0.04) 0.75px,
-    transparent 1px
-  );
+  --brand-bg-deep: hsl(214, 47%, 97%);
+  --brand-bg-elevated: hsl(0, 0%, 100%);
+  --brand-bg-elevated-2: hsl(218, 36%, 96%);
+  --brand-border: hsla(213, 48%, 10%, 0.08);
+  --brand-border-hi: hsla(196, 100%, 35%, 0.28);
+  --brand-cyan: hsl(196, 100%, 40%);
+  --brand-cyan-soft: hsla(196, 100%, 40%, 0.1);
+  --brand-teal: hsl(174, 100%, 33%);
+  --brand-teal-soft: hsla(174, 100%, 33%, 0.1);
+  --brand-live: hsl(355, 78%, 56%);
+  --brand-text: hsl(218, 32%, 15%);
+  --brand-muted: hsl(213, 17%, 43%);
+  --brand-dim: hsl(215, 18%, 65%);
+  --brand-glow-cyan: 0 0 24px hsla(196, 100%, 40%, 0.15);
+  --brand-glow-cyan-soft: 0 0 12px hsla(196, 100%, 40%, 0.08);
 
   #logo img {
     filter: drop-shadow(1px 1px 1px var(--color50));

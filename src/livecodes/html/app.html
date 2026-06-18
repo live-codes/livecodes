@@ -73,7 +73,7 @@
               <i class="icon-nav"></i>
               <span class="menu-text" data-i18n="menu.appProject.heading">Project</span>
             </a>
-            <div id="app-menu-container-project" class="menu-scroller"></div>
+            <div id="app-menu-container-project" class="menu-scroller" tabindex="-1"></div>
             <a
               href="javascript:void(0)"
               id="app-menu-button-settings"
@@ -86,7 +86,7 @@
               <i class="icon-settings"></i>
               <span class="menu-text" data-i18n="menu.appSettings.heading">Settings</span>
             </a>
-            <div id="app-menu-container-settings" class="menu-scroller"></div>
+            <div id="app-menu-container-settings" class="menu-scroller" tabindex="-1"></div>
             <a
               href="javascript:void(0)"
               id="app-menu-button-help"
@@ -99,7 +99,7 @@
               <i class="icon-help"></i>
               <span class="menu-text" data-i18n="menu.appHelp.heading">Help</span>
             </a>
-            <div id="app-menu-container-help" class="menu-scroller"></div>
+            <div id="app-menu-container-help" class="menu-scroller" tabindex="-1"></div>
             <a
               href="javascript:void(0)"
               id="app-menu-button-i18n"
@@ -110,7 +110,7 @@
             >
               <i class="icon-i18n"></i>
             </a>
-            <div id="app-menu-container-i18n" class="menu-scroller"></div>
+            <div id="app-menu-container-i18n" class="menu-scroller" tabindex="-1"></div>
             <a
               href="javascript:void(0)"
               id="light-theme-button"
@@ -315,13 +315,14 @@
         </div>
         <div id="output">
           <div id="result" class="full"></div>
+          <div id="size-label"></div>
           <div id="tools-pane"></div>
         </div>
       </div>
     </div>
     <div id="overlay" style="display: none"></div>
-    <dialog id="modal">
-      <div id="modal-container"></div>
+    <dialog id="modal" tabindex="-1">
+      <div id="modal-container" tabindex="-1"></div>
       <div class="snackbars-left"></div>
     </dialog>
     <ninja-keys
