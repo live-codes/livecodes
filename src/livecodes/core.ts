@@ -3296,7 +3296,7 @@ const handleNew = () => {
 
     loadUserTemplates();
     requestAnimationFrame(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
-    modal.show(templatesContainer, { isAsync: true, size: 'large-fixed' });
+    modal.show(templatesContainer, { isAsync: true, size: 'large-fixed', autoFocus: false });
   };
 
   eventsManager.addEventListener(

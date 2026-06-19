@@ -579,8 +579,11 @@ export const preventFocus = /* @__PURE__ */ (container: HTMLElement) => {
   const editorFocusArea =
     container.querySelector('textarea') || // monaco
     container.querySelector('[role="textbox"]'); // codemirror
-  if (editorFocusArea) {
-    const disableFocus = () => (editorFocusArea.tabIndex = -1);
+  if (editorFocusArea && !editorFocusArea.dataset.focusDisabled) {
+    const disableFocus = () => {
+      editorFocusArea.tabIndex = -1;
+      editorFocusArea.dataset.focusDisabled = 'true';
+    };
     // monaco keeps setting it to 0
     const ob = new MutationObserver((mutationList) => {
       for (const mutation of mutationList) {
