@@ -182,9 +182,9 @@ export const createConsole = (
       container.style.height = height + 'px';
     });
 
-    if (editor) return consoleEditor;
-
     preventFocus(container);
+
+    if (editor) return consoleEditor;
 
     const gutterSelector = consoleEditor.monaco ? '.glyph-margin' : '.cm-gutters';
 

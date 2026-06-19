@@ -325,20 +325,8 @@
   }
 }
 
-#app-menu-help a:hover + .submenu,
-#app-menu-help a:focus-visible + .submenu,
-#app-menu-help a + .submenu:focus-within,
-#app-menu-project a:hover + .submenu,
-#app-menu-project a:focus-visible + .submenu,
-#app-menu-project a + .submenu:focus-within,
-#app-menu-project i:hover + a + .submenu,
-#app-menu-project i:focus-visible + a + .submenu,
-#app-menu-project i + a + .submenu:focus-within {
-  display: block !important;
-}
-
-#open-link:hover + #open-list,
-#open-list:hover {
+#app-menu-project li:hover > .submenu,
+#app-menu-project li:focus-within > .submenu {
   display: block !important;
 }
 

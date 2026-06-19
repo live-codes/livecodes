@@ -155,6 +155,7 @@ export async function createPlayground(
       );
       const frame = preExistingIframe || document.createElement('iframe');
       frame.classList.add(className);
+      frame.title = 'LiveCodes Embedded Playground';
       frame.setAttribute('allow', getIframeAllowAttribute());
       frame.setAttribute('allowtransparency', 'true');
       frame.setAttribute('allowpaymentrequest', 'true');

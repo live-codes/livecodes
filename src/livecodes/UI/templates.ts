@@ -24,6 +24,7 @@ export const createTemplatesContainer = (eventsManager: EventsManager) => {
       });
       const target = templatesContainer.querySelector('#' + link.dataset.target);
       target?.classList.add('active');
+      getTemplatesSearchInput(templatesContainer)?.focus();
     });
   });
   setupTemplatesSearch(templatesContainer);

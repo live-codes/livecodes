@@ -307,6 +307,7 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       iframe = document.createElement('iframe');
       iframe.name = 'result';
       iframe.id = 'result-frame';
+      iframe.title = 'Result';
       if (isHeadless) {
         iframe.setAttribute('sandbox', 'allow-same-origin allow-forms allow-scripts');
       } else {
@@ -3945,7 +3946,7 @@ const handleNew = () => {
       });
     loadUserTemplates();
     requestAnimationFrame(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
-    modal.show(templatesContainer, { isAsync: true, size: 'large-fixed' });
+    modal.show(templatesContainer, { isAsync: true, size: 'large-fixed', autoFocus: false });
   };
 
   eventsManager.addEventListener(
