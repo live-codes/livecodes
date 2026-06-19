@@ -406,6 +406,14 @@ html {
   outline-offset: calc(var(--outline-width) * -1);
 }
 
+.snackbar--button:focus {
+  outline: var(--outline-width) solid var(--outline-color) !important;
+}
+
+.monaco-editor {
+  outline: none !important; // avoid flash when switching editors
+}
+
 a,
 a:visited {
   color: var(--link);
@@ -1852,10 +1860,6 @@ a.editor-title {
       }
     }
   }
-}
-
-.snackbar--button:focus {
-  outline: auto !important;
 }
 
 ninja-keys {

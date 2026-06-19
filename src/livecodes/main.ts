@@ -84,6 +84,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
 
       const iframe = document.createElement('iframe');
       iframe.name = 'app';
+      iframe.title = 'LiveCodes App';
       iframe.style.display = 'none';
       const disableAIQuery = disableAI ? `?disableAI` : '';
       iframe.src = './app.html' + disableAIQuery;
