@@ -60,6 +60,8 @@
   --dropdown: var(--color15);
   --layout: var(--color10);
   --modal: var(--color15);
+  --sidebar-bg: var(--color10);
+  --sidebar-panel-bg: var(--color15);
 
   // elements
   --btn-bg-color: var(--layout); // transparent; or var(--darker-bg-color);
@@ -2417,6 +2419,10 @@ pre[class*='language-'].line-numbers > code {
 body {
   .modal-tabs li.active {
     z-index: 1;
+  }
+
+  #sidebar-content {
+    z-index: 5;
   }
 
   #console .luna-console-error {

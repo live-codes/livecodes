@@ -81,8 +81,10 @@
       top: 0;
       inset-inline-start: 0;
       display: flex;
+      height: calc(100% - var(--s32));
 
       #sidebar-buttons {
+        height: 100%;
         width: 38px;
 
         button {
@@ -91,8 +93,30 @@
       }
 
       #sidebar-content {
+        background: var(--sidebar-bg);
+        height: 100%;
+        overflow: auto;
+        transition: width 0.3s ease-in-out;
+        width: 0;
+
+        &.open {
+          width: 20vw;
+        }
+      }
+
+      .sidebar-panel {
+        background-color: var(--sidebar-panel-bg);
+        // display: none;
+        height: 100%;
+        margin-inline-end: 5px;
         overflow: auto;
       }
+    }
+  }
+
+  &.layout-vertical {
+    #editors #sidebar #sidebar-content.open {
+      width: calc(100% - 40px);
     }
   }
 
@@ -109,11 +133,21 @@
         max-width: calc(100vw - 210px);
       }
     }
+
+    #editors #sidebar #sidebar-content.open {
+      width: 40vw;
+    }
   }
 
   @media only screen and (max-width: 480px) {
     #toolbar #select-editor {
       max-width: calc(100% - 8px);
+    }
+
+    &.layout-vertical {
+      #editors #sidebar {
+        height: 100%;
+      }
     }
   }
 
