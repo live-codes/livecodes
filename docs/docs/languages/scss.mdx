@@ -1,3 +1,177 @@
 # SCSS
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[SCSS](https://sass-lang.com/) (Sassy CSS) is the main syntax of the Sass CSS preprocessor. It uses curly braces and semicolons like CSS, so every valid CSS stylesheet is also valid SCSS. It adds features like variables, nesting, mixins, and functions to CSS.
+
+:::info
+
+Sass has two syntaxes. The **SCSS syntax** (`.scss`), which uses curly braces and semicolons like CSS, is documented here. For the **indented syntax** (`.sass`), see [Sass](./sass.mdx).
+
+:::
+
+## Demo
+
+export const scssConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Hello, SCSS!</h1>
+  <p>This is styled with <strong>SCSS</strong> syntax.</p>
+  <ul class="features">
+    <li>Variables</li>
+    <li>Nesting</li>
+    <li>Mixins</li>
+  </ul>
+</div>
+`,
+  },
+  style: {
+    language: 'scss',
+    content: `$primary: #3182ce;
+$bg: #f0f4f8;
+$radius: 8px;
+
+@mixin flex-center {
+  display: flex;
+  gap: 1em;
+}
+
+.container {
+  font-family: sans-serif;
+  max-width: 600px;
+  margin: 2em auto;
+  padding: 1.5em;
+  border-radius: $radius;
+  background: $bg;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    color: #2d3748;
+  }
+
+  p {
+    color: #4a5568;
+    line-height: 1.6;
+  }
+}
+
+.features {
+  @include flex-center;
+  list-style: none;
+  padding: 0;
+
+  li {
+    background: $primary;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: $radius;
+  }
+}
+`,
+  },
+};
+
+<LiveCodes config={scssConfig} />
+
+## Usage
+
+SCSS code added to the [style editor](../features/projects.mdx#style-editor) is compiled to CSS before being added to the [result page](../features/result.mdx).
+
+SCSS uses a CSS-like syntax with curly braces and semicolons. Since it is a superset of CSS, plain CSS works as-is and you can adopt Sass features incrementally.
+
+For more details about CSS support in LiveCodes, including CSS processors, style imports, CSS modules, and CSS frameworks, see the [CSS feature documentation](../features/css.mdx).
+
+## Loading External Styles
+
+SCSS supports loading external stylesheets and modules using `@use`, `@import`, and `meta.load-css()`. [Bare module](../features/module-resolution.mdx#bare-module-imports) specifiers are resolved to full CDN URLs.
+
+### Using `@use`
+
+You can load npm packages with `@use`:
+
+```scss
+@use 'bootstrap/scss/bootstrap' as *;
+```
+
+### Using `@import`
+
+You can import external modules and use their mixins:
+
+```scss
+@import 'sass-utils';
+
+.center {
+  @include block--center;
+  width: fit-content;
+}
+```
+
+### Using `meta.load-css()`
+
+You can dynamically load stylesheets from URLs using the built-in `sass:meta` module:
+
+```scss
+@use 'sass:meta';
+
+@include meta.load-css(
+  'https://raw.githubusercontent.com/live-codes/livecodes/refs/heads/develop/src/livecodes/styles/app.scss'
+);
+```
+
+:::tip
+
+For more information about loading and importing styles, see the [Style Imports](../features/css.mdx#style-imports) documentation.
+
+:::
+
+## Language Info
+
+### Name
+
+`scss`
+
+### Extensions
+
+`.scss`
+
+### Editor
+
+`style`
+
+## Compiler
+
+[SCSS](https://sass-lang.com/) is compiled using the official [Dart Sass](https://sass-lang.com/dart-sass/) compiler (running in the browser).
+
+### Version
+
+`sass`: v1.93.3
+
+### Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `scss` are passed as a JSON object to the Sass compiler during compile. Please check the [Sass JavaScript API documentation](https://sass-lang.com/documentation/js-api/interfaces/stringoptions/) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "scss": {
+    "style": "compressed"
+  }
+}
+```
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Links
+
+- [Sass Official Website](https://sass-lang.com/)
+- [Sass Documentation](https://sass-lang.com/documentation/)
+- [SCSS Syntax](https://sass-lang.com/documentation/syntax/)
+- [Sass (indented syntax) in LiveCodes](./sass.mdx)
+- [CSS feature documentation in LiveCodes](../features/css.mdx)
