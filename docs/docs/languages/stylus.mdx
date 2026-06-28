@@ -1,3 +1,119 @@
 # Stylus
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[Stylus](https://stylus-lang.com/) is an expressive, dynamic CSS preprocessor. It supports both an indented, minimal syntax (optional braces, colons and semicolons) and regular CSS-like syntax, and adds variables, nesting, mixins and functions to CSS.
+
+## Demo
+
+export const stylusConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Hello, Stylus!</h1>
+  <p>This is styled with <strong>Stylus</strong>.</p>
+  <ul class="features">
+    <li>Variables</li>
+    <li>Nesting</li>
+    <li>Mixins</li>
+  </ul>
+</div>
+`,
+  },
+  style: {
+    language: 'stylus',
+    content: `primary = #3182ce
+bg = #f0f4f8
+radius = 8px
+
+flex-center()
+  display flex
+  gap 1em
+
+.container
+  font-family sans-serif
+  max-width 600px
+  margin 2em auto
+  padding 1.5em
+  border-radius radius
+  background bg
+  box-shadow 0 2px 8px rgba(0, 0, 0, 0.1)
+
+  h1
+    color #2d3748
+
+  p
+    color #4a5568
+    line-height 1.6
+
+.features
+  flex-center()
+  list-style none
+  padding 0
+
+  li
+    background primary
+    color white
+    padding 0.5em 1em
+    border-radius radius
+`,
+  },
+};
+
+<LiveCodes config={stylusConfig} />
+
+## Usage
+
+Stylus code added to the [style editor](../features/projects.mdx#style-editor) is compiled to CSS before being added to the [result page](../features/result.mdx).
+
+Stylus has a very flexible syntax. Braces, colons and semicolons are optional, so you can write terse, indentation-based styles or use a more CSS-like style. Variables are defined by simple assignment (e.g. `primary = #3182ce`).
+
+For more details about CSS support in LiveCodes, including CSS processors, style imports, CSS modules, and CSS frameworks, see the [CSS feature documentation](../features/css.mdx).
+
+## Loading External Styles
+
+Stylus supports importing external stylesheets using the `@import` rule. [Bare module](../features/module-resolution.mdx#bare-module-imports) specifiers are resolved to full CDN URLs.
+
+```stylus
+@import 'normalize.css'
+```
+
+:::tip
+
+For more information about loading and importing styles, see the [Style Imports](../features/css.mdx#style-imports) documentation.
+
+:::
+
+## Language Info
+
+### Name
+
+`stylus`
+
+### Extensions
+
+`.styl`
+
+### Editor
+
+`style`
+
+## Compiler
+
+[Stylus](https://stylus-lang.com/) is compiled using the official [Stylus](https://www.npmjs.com/package/stylus) compiler (running in the browser).
+
+### Version
+
+`stylus`: v0.54.5
+
+## Code Formatting
+
+Code formatting is not supported for Stylus.
+
+## Links
+
+- [Stylus Official Website](https://stylus-lang.com/)
+- [Stylus Documentation](https://stylus-lang.com/docs/)
+- [Stylus on GitHub](https://github.com/stylus/stylus)
+- [CSS feature documentation in LiveCodes](../features/css.mdx)
