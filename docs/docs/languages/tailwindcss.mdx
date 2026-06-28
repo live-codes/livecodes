@@ -58,15 +58,14 @@ CSS Frameworks supported in LiveCodes (e.g. Tailwind CSS, [UnoCSS](./unocss.mdx)
 
 ### Tailwind CSS Plugins
 
-Tailwind CSS plugins can be imported in the [style editor](../features/projects.mdx#style-editor).
+Tailwind CSS [legacy JavaScript-based plugins](https://v3.tailwindcss.com/docs/plugins#official-plugins) can be loaded using the [`@plugin` directive](https://tailwindcss.com/docs/functions-and-directives#plugin-directive) in the [style editor](../features/projects.mdx#style-editor).
 
 ```css
-@import "@tailwindcss/forms";
-@import "@tailwindcss/typography";
-@import "@tailwindcss/aspect-ratio";
-@import "@tailwindcss/line-clamp";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/aspect-ratio";
+@plugin "@tailwindcss/line-clamp";
 ```
-
 
 ## Processor Info
 
