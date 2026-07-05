@@ -1,3 +1,62 @@
 # Perl
 
-TODO...
+[Perl](https://www.perl.org/) is a highly capable, feature-rich programming language with over 30 years of development. It is popular for text processing, system administration, web development, and more.
+
+LiveCodes runs Perl in the browser using [Perlito5](https://github.com/fglock/Perlito), a Perl to JavaScript compiler. Perl code is compiled to JavaScript and executed in the browser.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="perl" height="80vh"></LiveCodes>
+
+### JavaScript Interoperability
+
+Perl code can interact with JavaScript using `JS::inline()` to execute JavaScript expressions and access the DOM:
+
+```perl
+use strict;
+my $name = "Perl";
+JS::inline('document.body.innerHTML') = "Hello, $name";
+```
+
+## Language Info
+
+### Name
+
+`perl`
+
+### Aliases
+
+`pl`
+
+### Extensions
+
+`.pl`, `.pm`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Perlito5](https://github.com/fglock/Perlito)
+
+### Version
+
+`Perlito5`: v9.028
+
+## Code Formatting
+
+Not supported.
+
+## Starter Template
+
+https://livecodes.io/?template=perl
+
+## Links
+
+- [Perl](https://www.perl.org/)
+- [Perlito5](https://github.com/fglock/Perlito)

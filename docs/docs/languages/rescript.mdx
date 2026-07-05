@@ -1,3 +1,104 @@
 # ReScript
 
-TODO...
+[ReScript](https://rescript-lang.org/) is a robust typed language that compiles to efficient and human-readable JavaScript. It provides a first-class type system with fast compilation and first-class [React integration](https://rescript-lang.org/docs/react/latest/introduction).
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="rescript" height="80vh"></LiveCodes>
+
+### Standard Library
+
+ReScript's standard library modules (e.g. `Belt`, `Array`, `List`, `String`) are available directly without explicit imports:
+
+Example:
+
+```reason
+let doubled = list{1, 2, 3}->Belt.List.map(n => n * 2)
+Console.log(doubled)
+```
+
+### Module Imports
+
+npm modules can be imported using the `@module` directive as described in the section about [module resolution](../features/module-resolution.mdx).
+
+Example:
+
+```reason
+@module("canvas-confetti") external confetti: () => unit = "default"
+confetti()
+```
+
+### ReScript React
+
+ReScript has first-class [React support](https://rescript-lang.org/docs/react/latest/introduction). Components use the `@react.component` decorator with a clean, JSX-like syntax. React and React DOM are available as built-in modules (`React`, `ReactDOM`).
+
+Example:
+
+```reason
+module App = {
+  @react.component
+  let make = (~name: string) => {
+    let title = "Hello, " ++ name ++ "!"
+    let (count, setCount) = React.useState(_ => 0)
+
+    <div className="container">
+      <h1> {title->React.string} </h1>
+      <p> {React.string("You clicked " ++ String.make(count) ++ " times")} </p>
+      <button onClick={_ => setCount(_ => count + 1)}>
+        {React.string("Click me")}
+      </button>
+    </div>
+  }
+}
+
+switch ReactDOM.querySelector("#app") {
+| Some(rootElement) => {
+    let root = ReactDOM.Client.createRoot(rootElement)
+    ReactDOM.Client.Root.render(root, <App name="ReScript React" />)
+  }
+| None => ()
+}
+```
+
+## Language Info
+
+### Name
+
+`rescript`
+
+### Aliases
+
+`res`
+
+### Extensions
+
+`.res`, `.resi`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[ReScript compiler](https://rescript-lang.org/)
+
+### Version
+
+`rescript`: v11.1.2
+
+## Code Formatting
+
+Using the ReScript formatter.
+
+## Starter Template
+
+https://livecodes.io/?template=rescript
+
+## Links
+
+- [ReScript](https://rescript-lang.org/)
+- [ReScript React](https://rescript-lang.org/docs/react/latest/introduction)

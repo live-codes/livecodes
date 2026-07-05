@@ -1,3 +1,93 @@
 # TypeScript
 
-TODO...
+[TypeScript](https://www.typescriptlang.org/) is a strongly typed programming language that builds on JavaScript. It adds optional static typing, interfaces, generics, and other modern features that compile to plain JavaScript.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="typescript" height="80vh"></LiveCodes>
+
+The compiled JavaScript output can be viewed in the [compiled code viewer](../features/compiled-code.mdx).
+
+### Module Imports
+
+npm modules can be imported as described in the section about [module resolution](../features/module-resolution.mdx), including bare module imports and importing from different CDNs.
+
+### Editor Support
+
+The code editor provides rich [IntelliSense](../features/intellisense.mdx) for TypeScript, including autocomplete, parameter hints, hover information, and inline errors. This also works in JavaScript, JSX, TSX, and other languages that use the TypeScript-based editor.
+
+**Automatic Types for npm Modules** — LiveCodes automatically loads type definitions for imported npm modules, providing autocomplete and type checking without manual configuration.
+
+**TypeScript TwoSlash** — The editor supports [TypeScript TwoSlash](https://github.com/microsoft/TypeScript-Website/tree/v2/packages/ts-twoslasher), useful for debugging, sharing, and teaching TypeScript. Use `// ^?` to see inferred types and `// @errors:` to annotate expected errors inline.
+
+**Custom Types** — For modules without published types, provide custom type definitions using the `types` property in [custom settings](../advanced/custom-settings.mdx):
+
+```json title="Custom Settings"
+{
+  "types": {
+    "my-module": "https://cdn.jsdelivr.net/npm/my-module@1.0.0/types/index.d.ts"
+  }
+}
+```
+
+See [IntelliSense documentation](../features/intellisense.mdx) for full details.
+
+## Language Info
+
+### Name
+
+`typescript`
+
+### Aliases
+
+`ts`
+
+### Extensions
+
+`.ts`, `.mts`, `.typescript`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[TypeScript compiler](https://www.typescriptlang.org/)
+
+### Version
+
+`typescript`: v5.9.3
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `typescript` are passed as compiler options to `ts.transpile`. Please check the [TypeScript documentation](https://www.typescriptlang.org/docs/handbook/compiler-options.html) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "typescript": {
+    "target": "es2020",
+    "strictNullChecks": true
+  }
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=typescript
+
+## Links
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)

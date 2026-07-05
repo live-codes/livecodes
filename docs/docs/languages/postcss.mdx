@@ -1,3 +1,92 @@
 # PostCSS
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[PostCSS](https://postcss.org/) is a tool for transforming CSS with JavaScript plugins. It provides a framework that allows you to parse CSS and use plugins to transform the AST, enabling tasks like autoprefixing, linting, and using future CSS features.
+
+In LiveCodes, PostCSS serves as the underlying engine for many [CSS processors](../features/css.mdx#css-processors) including [Autoprefixer](./autoprefixer.mdx), [Tailwind CSS](./tailwindcss.mdx), [UnoCSS](./unocss.mdx), and more. These processors are PostCSS plugins that are applied to CSS output when enabled from the style editor menu.
+
+## Usage
+
+PostCSS plugins can be enabled individually from the style editor menu, or configured via the [`processors`](../configuration/configuration-object.mdx#processors) property of the [configuration object](../configuration/configuration-object.mdx). They are applied in the order they appear in the menu.
+
+### Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) can be used to configure each plugin's options individually.
+
+For example, to configure [Autoprefixer](./autoprefixer.mdx):
+
+```json title="Custom Settings"
+{
+  "autoprefixer": {
+    "cascade": true
+  }
+}
+```
+
+### Demo
+
+The following demo enables [Autoprefixer](./autoprefixer.mdx) and [cssnano](./cssnano.mdx), and shows the compiled output:
+
+export const postcssConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>PostCSS Demo</h1>
+  <p>Check the <strong>Compiled</strong> tab to see the transformed CSS output.</p>
+  <div class="box">Autoprefixed and processed</div>
+</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `.box {
+  width: 200px;
+  padding: 1em;
+  background: #4a90d9;
+  color: white;
+  border-radius: 8px;
+  user-select: none;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box:hover {
+  transform: scale(1.1);
+}
+`,
+  },
+  processors: ['autoprefixer', 'cssnano'],
+  tools: { active: 'compiled', status: 'open' },
+};
+
+<LiveCodes config={postcssConfig} height="80vh"></LiveCodes>
+
+## Processor Info
+
+### Name
+
+`postcss`
+
+### Editor
+
+`style`
+
+## Processor
+
+[PostCSS](https://postcss.org/)
+
+### Version
+
+`postcss`: v8.5.6
+
+## Links
+
+- [PostCSS](https://postcss.org/)
+- [PostCSS on GitHub](https://github.com/postcss/postcss)
+- [Autoprefixer](./autoprefixer.mdx) in LiveCodes
+- [cssnano](./cssnano.mdx) in LiveCodes
+- [CSS Processors](../features/css.mdx#css-processors) in LiveCodes

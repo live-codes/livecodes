@@ -1,3 +1,86 @@
-# Import Url
+# PostCSS Import Url
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+The Import Url processor uses the [postcss-import-url](https://github.com/unlight/postcss-import-url) plugin to inline CSS files from external URLs or npm packages directly into your stylesheet.
+
+## Usage
+
+Import Url is a [CSS processor](../features/css.mdx#css-processors) that can be enabled from the style editor menu, or configured via the [`processors`](../configuration/configuration-object.mdx#processors) property of the [configuration object](../configuration/configuration-object.mdx).
+
+When enabled, `@import` statements that reference external URLs or npm packages are resolved and their contents are inlined into the stylesheet.
+
+Imported content is cached to avoid multiple requests for the same file.
+
+### Demo
+
+export const importUrlConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Import Url Demo</h1>
+  <p>This page imports and inlines an external CSS stylesheet. Check the <strong>Compiled</strong> tab to see the inlined output.</p>
+  <button class="button">A styled button</button>
+</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `@import url("https://cdn.jsdelivr.net/npm/modern-normalize@2.0.0/modern-normalize.css");
+
+.button {
+  background: #4a90d9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+`,
+  },
+  processors: ['postcssImportUrl'],
+  tools: { active: 'compiled', status: 'open' },
+};
+
+<LiveCodes config={importUrlConfig} height="80vh"></LiveCodes>
+
+## Processor Info
+
+### Name
+
+`postcssImportUrl`
+
+### Editor
+
+`style`
+
+## Processor
+
+[postcss-import-url](https://github.com/unlight/postcss-import-url)
+
+### Version
+
+`postcss-import-url`: v7.0.0
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `postcssImportUrl` are passed as options to the plugin. Please check the [documentation](https://github.com/unlight/postcss-import-url#options) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "postcssImportUrl": {
+    "modernBrowser": true
+  }
+}
+```
+
+## Links
+
+- [postcss-import-url](https://github.com/unlight/postcss-import-url)
+- [PostCSS](./postcss.mdx) in LiveCodes
+- [CSS Processors](../features/css.mdx#css-processors) in LiveCodes

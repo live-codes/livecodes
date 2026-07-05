@@ -1,3 +1,125 @@
 # AssemblyScript
 
-TODO...
+[AssemblyScript](https://www.assemblyscript.org/) compiles a strict variant of TypeScript to WebAssembly, enabling high-performance code execution in the browser. It is designed for developers familiar with TypeScript who want to target WebAssembly.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="assemblyscript" height="80vh"></LiveCodes>
+
+### Loading the Wasm Module
+
+The compiled WebAssembly module is loaded using the `livecodes.loadWasm()` method, which optionally takes an [import object](#import-object) and returns a promise that resolves to an object containing:
+
+- `wasmModule` - the instantiated WebAssembly module (with exported functions)
+- `text` - the WebAssembly Text Format (WAT) representation (can be viewed in [compiled code viewer](../features/compiled-code.mdx))
+- `binary` - the raw WebAssembly binary
+
+```js
+const { wasmModule } = await livecodes.loadWasm();
+const { increment } = wasmModule.exports;
+```
+
+### Working with Strings
+
+AssemblyScript manages strings differently than JavaScript. Any exported function that returns a string must be accessed via the `__getString` helper provided by the AssemblyScript loader.
+
+Example:
+
+```ts title="AssemblyScript"
+export function greet(): string {
+  return "Hello, AssemblyScript!"
+}
+```
+
+```js title="JavaScript"
+const { wasmModule } = await livecodes.loadWasm();
+const { __getString, greet } = wasmModule.exports;
+const message = __getString(greet());
+document.body.textContent = message;
+```
+
+If `__getString` is not used, you will get a raw memory pointer instead of the actual string value.
+
+### Import Object
+
+The `loadWasm()` method accepts an optional import object, allowing the AssemblyScript module to call JavaScript functions. Use `@external("env", "functionName")` to declare imports.
+
+Example:
+
+```ts title="AssemblyScript"
+@external("env", "getMultiplier")
+declare function getMultiplier(): i32;
+
+export function applyMultiplier(value: i32): i32 {
+  return value * getMultiplier();
+}
+```
+
+```js title="JavaScript"
+const { wasmModule } = await livecodes.loadWasm({
+  env: {
+    getMultiplier: () => 10,
+  },
+});
+const result = wasmModule.exports.applyMultiplier(5);
+console.log(result); // 50
+```
+
+## Language Info
+
+### Name
+
+`assemblyscript`
+
+### Aliases
+
+`as`
+
+### Extensions
+
+`.as`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[AssemblyScript compiler](https://www.assemblyscript.org/compiler.html)
+
+### Version
+
+`assemblyscript`: v0.28.9
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `assemblyscript` are passed as options to the AssemblyScript compiler. Please check the [documentation](https://www.assemblyscript.org/compiler.html) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "assemblyscript": {
+    "optimizeLevel": 3
+  }
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=assemblyscript
+
+## Links
+
+- [AssemblyScript](https://www.assemblyscript.org/)
+- [AssemblyScript on GitHub](https://github.com/AssemblyScript/assemblyscript)

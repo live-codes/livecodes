@@ -1,3 +1,100 @@
-# Preset Env
+# PostCSS Preset Env
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[postcss-preset-env](https://preset-env.cssdb.org/) lets you use modern CSS features today by converting them to browser-compatible CSS based on your target browsers. It is built on PostCSS and uses data from [caniuse.com](https://caniuse.com/) and [MDN](https://developer.mozilla.org/).
+
+## Usage
+
+Preset Env is a [CSS processor](../features/css.mdx#css-processors) that can be enabled from the style editor menu, or configured via the [`processors`](../configuration/configuration-object.mdx#processors) property of the [configuration object](../configuration/configuration-object.mdx).
+
+When enabled, modern CSS features (like `@custom-media`, `@nest`, color functions, etc.) are transpiled to browser-compatible CSS.
+
+Preset Env can be used alongside other processors. Multiple processors are applied in the order they appear in the style editor menu.
+
+:::note
+Autoprefixer is disabled by default when using Preset Env (since Preset Env handles prefixing). Enable [Autoprefixer](./autoprefixer.mdx) separately if needed.
+:::
+
+### Demo
+
+export const presetEnvConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Preset Env Demo</h1>
+  <p>Modern CSS features are transpiled for browser compatibility. Check the <strong>Compiled</strong> tab to see the output.</p>
+  <div class="card">Nesting and custom properties</div>
+  <div class="card feature">Modern color functions</div>
+</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `.card {
+  background: oklch(0.5 0.2 240);
+  color: white;
+  padding: 1em;
+  border-radius: 8px;
+  margin-bottom: 1em;
+
+  &.feature {
+    background: oklch(0.6 0.2 120);
+  }
+
+  & .title {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+}
+`,
+  },
+  processors: ['postcssPresetEnv'],
+  tools: { active: 'compiled', status: 'open' },
+};
+
+<LiveCodes config={presetEnvConfig} height="80vh"></LiveCodes>
+
+## Processor Info
+
+### Name
+
+`postcssPresetEnv`
+
+### Editor
+
+`style`
+
+## Processor
+
+[postcss-preset-env](https://preset-env.cssdb.org/)
+
+### Version
+
+`postcss-preset-env`: v10.4.0
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `postcssPresetEnv` are passed as options to postcss-preset-env. Please check the [documentation](https://preset-env.cssdb.org/features/) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "postcssPresetEnv": {
+    "stage": 2,
+    "features": {
+      "nesting-rules": true
+    }
+  }
+}
+```
+
+## Links
+
+- [postcss-preset-env](https://preset-env.cssdb.org/)
+- [PostCSS](./postcss.mdx) in LiveCodes
+- [CSS Processors](../features/css.mdx#css-processors) in LiveCodes

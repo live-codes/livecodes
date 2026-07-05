@@ -1,3 +1,95 @@
 # Autoprefixer
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[Autoprefixer](https://github.com/postcss/autoprefixer) is a [PostCSS](./postcss.mdx) plugin that automatically adds vendor prefixes to your CSS. It uses data from [Can I Use](https://caniuse.com/) to determine which properties need prefixes.
+
+## Usage
+
+Autoprefixer is a [CSS processor](../features/css.mdx#css-processors) that can be enabled from the style editor menu, or configured via the [`processors`](../configuration/configuration-object.mdx#processors) property of the [configuration object](../configuration/configuration-object.mdx).
+
+When enabled, all CSS output is processed to add necessary vendor prefixes based on browser support data. No additional configuration is required - Autoprefixer automatically determines which prefixes to add.
+
+Autoprefixer can be used alongside other processors. Multiple processors are applied in the order they appear in the style editor menu.
+
+### Demo
+
+export const autoprefixerConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Autoprefixer Demo</h1>
+  <p>The CSS below uses properties that require vendor prefixes. Check the <strong>Compiled</strong> tab to see the prefixed output.</p>
+  <div class="box">
+    <p>Hover over this box</p>
+  </div>
+</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `.box {
+  width: 200px;
+  padding: 1em;
+  background: #4a90d9;
+  color: white;
+  border-radius: 8px;
+  user-select: none;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box:hover {
+  transform: scale(1.1);
+}
+`,
+  },
+  processors: ['autoprefixer'],
+  tools: { active: 'compiled', status: 'open' },
+};
+
+<LiveCodes config={autoprefixerConfig} height="80vh"></LiveCodes>
+
+## Processor Info
+
+### Name
+
+`autoprefixer`
+
+### Editor
+
+`style`
+
+## Processor
+
+[Autoprefixer](https://github.com/postcss/autoprefixer)
+
+### Version
+
+`autoprefixer`: v10.4.21
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `autoprefixer` are passed as options to the Autoprefixer plugin. Please check the [documentation](https://github.com/postcss/autoprefixer#options) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "autoprefixer": {
+    "cascade": true
+  }
+}
+```
+
+## Links
+
+- [Autoprefixer](https://github.com/postcss/autoprefixer)
+- [Can I Use](https://caniuse.com/)
+- [PostCSS](./postcss.mdx) in LiveCodes
+- [CSS Processors](../features/css.mdx#css-processors) in LiveCodes

@@ -28,7 +28,7 @@ This directory contains comprehensive documentation for contributors working on 
 | [editor-system.mdx](./editor-system.mdx)             | Multi-editor support (Monaco, CodeMirror, CodeJar) and themes |
 | [ui-design-system.mdx](./ui-design-system.mdx)       | UI components, styling, theming, and responsive design        |
 | [tools-pane-system.mdx](./tools-pane-system.mdx)     | Console, compiled code viewer, and test runner                |
-| [notifications-system.md](./notifications-system.md) | Toast notification system                                     |
+| [notifications-system.md](./notifications-system.mdx) | Toast notification system                                     |
 
 ### Language Support
 

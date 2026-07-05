@@ -1,3 +1,61 @@
 # Rich Text Editor
 
-TODO...
+LiveCodes includes a built-in rich text editor powered by [Quill](https://quilljs.com/), a modern WYSIWYG editor. This allows writing formatted content visually which is then rendered as HTML in the result page.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const richtextDemo = {
+  markup: {
+    language: 'richtext',
+    content: `<h1>Hello, Rich Text!</h1>
+<p>This content was created using the rich text editor.</p>
+<ul>
+  <li><strong>Bold</strong>, <em>italic</em>, <u>underline</u></li>
+  <li>Headings and lists</li>
+  <li>Tables and images</li>
+</ul>`,
+  },
+};
+
+<LiveCodes config={richtextDemo} height="60vh"></LiveCodes>
+
+### How It Works
+
+When the Rich Text Editor language is selected for the markup editor, the code editor is replaced with a Quill editor. Content created in the editor is converted to HTML and rendered directly in the result page.
+
+The generated HTML can be viewed in the [compiled code viewer](../features/compiled-code.mdx).
+
+### Editor Features
+
+The Quill editor includes several plugins:
+
+- **HTML Edit** — switch between rich text and HTML source editing
+- **Blot Formatter** — resize and align images and embeds
+- **Better Table** — create and edit tables with column/row operations
+
+## Language Info
+
+### Name
+
+`richtext`
+
+### Extensions
+
+`.rte`, `.rte.html`, `.rich`
+
+### Editor
+
+`markup`
+
+## Compiler
+
+[Quill](https://quilljs.com/)
+
+## Links
+
+- [Quill](https://quilljs.com/)
+- [Quill on GitHub](https://github.com/slab/quill)

@@ -1,3 +1,97 @@
 # Riot.js
 
-TODO...
+[Riot.js](https://riot.js.org/) is a simple and elegant component-based UI library. Riot components (tags) use a familiar HTML-like syntax with embedded JavaScript and CSS, similar to Vue SFCs.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="riot" height="60vh"></LiveCodes>
+
+### Pre-Processors
+
+Many of the [languages supported in LiveCodes](./index.mdx) can be used in Riot components by specifying the `type` attribute on the template, script or style tags.
+
+```html
+<my-component>
+<template type="pug">
+h1 { message }
+</template>
+
+<script type="ts">
+export default {
+  message: 'Hello!'
+}
+</script>
+
+<style type="scss">
+$color: #333;
+h1 { color: $color; }
+</style>
+</my-component>
+```
+
+### Module Imports
+
+npm modules can be imported as described in the section about [module resolution](../features/module-resolution.mdx), including bare module imports and importing from different CDNs.
+
+### Root Element
+
+To mount the application instance to a specific DOM element use `"livecodes-app"` as the element `id` in the HTML. Otherwise, if that element is not found, Riot components are mounted on a new `div` element added to `document.body`.
+
+## Language Info
+
+### Name
+
+`riot`
+
+### Aliases
+
+`riotjs`
+
+### Extensions
+
+`.riot`, `.riotjs`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Riot.js compiler](https://riot.js.org/)
+
+### Version
+
+`riot`: v9.2.2
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `riot` can include compiler options and template data. Please check the [Riot.js documentation](https://riot.js.org/compiler/) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "riot": {
+    "template": "pug"
+  }
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=riot
+
+## Links
+
+- [Riot.js](https://riot.js.org/)
+- [Riot.js GitHub](https://github.com/riot/riot)
