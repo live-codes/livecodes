@@ -1,3 +1,92 @@
 # Lightning CSS
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[Lightning CSS](https://lightningcss.dev/) is an extremely fast CSS parser, transformer, bundler, and minifier written in Rust and compiled to WebAssembly. It supports modern CSS features and can transpile them for broader browser compatibility.
+
+## Usage
+
+Lightning CSS is a [CSS processor](../features/css.mdx#css-processors) that can be enabled from the style editor menu, or configured via the [`processors`](../configuration/configuration-object.mdx#processors) property of the [configuration object](../configuration/configuration-object.mdx).
+
+When enabled, all CSS output is processed through Lightning CSS, which minifies the output and transpiles modern CSS features for browser compatibility.
+
+Lightning CSS can be used alongside other processors. Multiple processors are applied in the order they appear in the style editor menu.
+
+### Demo
+
+export const lightningcssConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Lightning CSS Demo</h1>
+  <p>Check the <strong>Compiled</strong> tab to see the minified and transpiled CSS output.</p>
+  <div class="card">CSS nesting example</div>
+  <div class="colors">Modern color functions</div>
+</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `.card {
+  background: oklch(0.5 0.2 240);
+  color: white;
+  padding: 1em;
+  & .title {
+    font-size: 1.2em;
+  }
+}
+
+.colors {
+  background: color(display-p3 0.5 0.2 0.7);
+  padding: 1em;
+  margin-top: 1em;
+}
+`,
+  },
+  processors: ['lightningcss'],
+  tools: { active: 'compiled', status: 'open' },
+};
+
+<LiveCodes config={lightningcssConfig} height="80vh"></LiveCodes>
+
+## Processor Info
+
+### Name
+
+`lightningcss`
+
+### Editor
+
+`style`
+
+## Processor
+
+[Lightning CSS](https://lightningcss.dev/)
+
+### Version
+
+`lightningcss-wasm`: v1.30.2
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `lightningcss` are passed as transform options to Lightning CSS. Please check the [documentation](https://lightningcss.dev/transpilation.html) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "lightningcss": {
+    "minify": true,
+    "sourceMap": true
+  }
+}
+```
+
+## Links
+
+- [Lightning CSS](https://lightningcss.dev/)
+- [Lightning CSS on GitHub](https://github.com/parcel-bundler/lightningcss)
+- [CSS Processors](../features/css.mdx#css-processors) in LiveCodes

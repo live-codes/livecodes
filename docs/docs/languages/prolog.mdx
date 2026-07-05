@@ -1,3 +1,67 @@
 # Prolog
 
-TODO...
+[Prolog](https://en.wikipedia.org/wiki/Prolog) is a logic programming language used for artificial intelligence and computational linguistics. Programs are expressed as relations represented by facts and rules, and computation is performed by running queries over these relations.
+
+LiveCodes runs Prolog in the browser using [Tau Prolog](http://tau-prolog.org/), a Prolog interpreter written in JavaScript.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="prolog" height="80vh"></LiveCodes>
+
+### JavaScript Interoperability
+
+JavaScript can interact with the Prolog interpreter using the `livecodes.prolog.createSession()` method:
+
+- `livecodes.prolog.createSession({ limit?: number })` — creates a new Prolog session, returns a promise
+- `session.query(goal)` — runs a query
+- `session.answer(callback)` — receives answers one at a time
+- `session.promiseQuery(goal)` — promise-based query
+- `session.promiseAnswers()` — async iterator for answers
+- `session.format_answer(answer)` — formats an answer as a string
+
+See Tau Prolog's [documentation](http://tau-prolog.org/documentation) for more details.
+
+**Example:**
+
+```js
+const session = await livecodes.prolog.createSession();
+session.query('father(X, jack).');
+session.answer((answer) => {
+  console.log(session.format_answer(answer));
+});
+```
+
+## Language Info
+
+### Name
+
+`prolog`
+
+### Extensions
+
+`.prolog.pl`, `.prolog`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Tau Prolog](http://tau-prolog.org/)
+
+## Code Formatting
+
+Not supported.
+
+## Starter Template
+
+https://livecodes.io/?template=prolog
+
+## Links
+
+- [Tau Prolog](http://tau-prolog.org/)
+- [Tau Prolog on GitHub](https://github.com/tau-prolog/tau-prolog)

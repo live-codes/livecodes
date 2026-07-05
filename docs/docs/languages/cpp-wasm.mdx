@@ -1,3 +1,71 @@
 # C/C++ (Wasm)
 
-TODO...
+The C++ (Wasm) language support in LiveCodes uses [Clang](https://clang.llvm.org/) compiled to WebAssembly via [`@chriskoch/cpp-wasm`](https://www.npmjs.com/package/@chriskoch/cpp-wasm). Unlike the [JSCPP-based C++](./cpp.mdx) interpreter, this provides a real C/C++ compiler running on WebAssembly.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="cpp-wasm" height="80vh"></LiveCodes>
+
+### Standard I/O
+
+C++ programs use `cin` for input and `cout` for output. Input is passed from JavaScript via `livecodes.cpp.run()`, and output is returned as a string.
+
+### JavaScript Interoperability
+
+JavaScript can interact with the C++ runtime using the `livecodes.cpp` global:
+
+- `livecodes.cpp.input` — set this to pass input to the program (read by `cin`)
+- `livecodes.cpp.run(input?)` — execute the program with optional input, returns a promise that resolves to `{ input, output, exitCode, error }`
+- `livecodes.cpp.loaded` — a promise that resolves when the runtime is ready
+
+### Live Reload
+
+The Clang WebAssembly compiler is a large download. Initial loading may take some time, after which subsequent runs should be faster.
+
+By default, when code is updated, the environment is re-used. This behavior is used for performance reasons. However, in order to get full reload and start a new environment, insert this comment in the code:
+
+```cpp
+// __livecodes_reload__
+```
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Language Info
+
+### Name
+
+`cpp-wasm`
+
+### Aliases
+
+`clang`, `c++-wasm`
+
+### Extensions
+
+`.wasm.cpp`, `.cppwasm`, `.cwasm`, `.clang.cpp`, `.clang`, `.cpp`, `.c`, `.C`, `.cp`, `.cxx`, `.c++`, `.cppm`, `.ixx`, `.ii`, `.hpp`, `.h`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Clang](https://clang.llvm.org/) compiled to WebAssembly via [@chriskoch/cpp-wasm](https://www.npmjs.com/package/@chriskoch/cpp-wasm)
+
+## Code Formatting
+
+Not supported.
+
+## Starter Template
+
+https://livecodes.io/?template=cpp-wasm
+
+## Links
+
+- [Clang](https://clang.llvm.org/)
+- [@chriskoch/cpp-wasm](https://www.npmjs.com/package/@chriskoch/cpp-wasm)
+- [C++ (JSCPP)](./cpp.mdx) in LiveCodes

@@ -1,3 +1,45 @@
 # Clio
 
-TODO...
+[Clio](https://clio-lang.org/) is a fast, distributed, functional programming language that compiles to JavaScript. It is made to take advantage of multiple CPUs and CPU cores (parallelism) by default.
+
+LiveCodes compiles Clio code to JavaScript and executes it in the browser.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="clio" height="60vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`clio`
+
+### Extensions
+
+`.clio`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Clio compiler](https://github.com/clio-lang/clio): v0.12.0.
+
+## Code Formatting
+
+Not supported.
+
+## Starter Template
+
+https://livecodes.io/?template=clio
+
+## Links
+
+- [Clio](https://clio-lang.org/)
+- [Clio Documentation](https://docs.clio-lang.org/)
+- [Clio on GitHub](https://github.com/clio-lang/clio)

@@ -1,3 +1,50 @@
 # Flow
 
-TODO...
+[Flow](https://flow.org/) is a typed dialect of JavaScript that looks like TypeScript.
+
+## Language Info
+
+### Name
+
+`flow`
+
+### Extensions
+
+`.flow`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[flow-remove-types](https://github.com/facebook/flow/tree/main/packages/flow-remove-types)
+
+### Version
+
+`flow-remove-types`: v2.289.0
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `flow` are passed as options to `flowRemoveTypes.transpile`. Please check the [documentation](https://github.com/facebook/flow/tree/main/packages/flow-remove-types) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "flow": {
+    "all": true
+  }
+}
+```
+
+## Links
+
+- [Flow](https://flow.org/)
+- [flow-remove-types](https://github.com/facebook/flow/tree/main/packages/flow-remove-types)

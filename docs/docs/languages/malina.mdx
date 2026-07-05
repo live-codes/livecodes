@@ -1,3 +1,88 @@
 # Malina.js
 
-TODO...
+[Malina.js](https://malinajs.github.io/docs/) is a minimal JavaScript framework for building reactive web applications, inspired by [Svelte](./svelte.mdx).
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="malina" height="80vh"></LiveCodes>
+
+### Component Syntax
+
+Malina.js components are written in `.xht` files with a familiar HTML-like syntax containing `script`, `style`, and markup sections:
+
+```html
+<script>
+  let count = 0;
+  function increment() {
+    count += 1;
+  }
+</script>
+
+<div>
+  <p>You clicked {count} times.</p>
+  <button @click={increment}>Click me</button>
+</div>
+```
+
+### Module Imports
+
+npm modules can be imported as described in the section about [module resolution](../features/module-resolution.mdx), including bare module imports and importing from different CDNs.
+
+### Root Element
+
+To mount the application instance to a specific DOM element use `"livecodes-app"` as the element `id` in the HTML. Otherwise, a new `div` element is added to `document.body`.
+
+## Language Info
+
+### Name
+
+`malina`
+
+### Extensions
+
+`.xht`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Malina.js compiler](https://malinajs.github.io/docs/)
+
+### Version
+
+`malinajs`: v0.7.19
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `malina` are passed as options to the Malina.js compiler. Please check the [documentation](https://malinajs.github.io/docs/#compile-options) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "malina": {
+    "autoSubscribe": true
+  }
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=malina
+
+## Links
+
+- [Malina.js](https://malinajs.github.io/docs/)
+- [Malina.js on GitHub](https://github.com/malinajs/malinajs)

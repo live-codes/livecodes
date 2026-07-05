@@ -1,1 +1,220 @@
 # Custom Settings
+
+Custom settings allow you to configure various aspects of a LiveCodes project. They are defined as a JSON object and provide fine-grained control over languages, compilers, processors, templates, module resolution, and more.
+
+## Where to Use
+
+### Standalone App
+
+In the standalone app, the custom settings screen can be accessed from:
+- The editor toolbar - below the editor (the `{}` button)
+- The Project menu → Custom Settings …
+- The URL parameter [`?screen=custom-settings`](https://livecodes.io/?screen=custom-settings).
+
+### SDK
+
+For embedded playgrounds, use the [`config.customSettings`](../configuration/configuration-object.mdx#customsettings) property of the [configuration object](../configuration/configuration-object.mdx):
+
+```js
+import { createPlayground } from 'livecodes';
+
+createPlayground('#container', {
+  config: {
+    customSettings: {
+      // your settings here
+    },
+  },
+});
+```
+
+### URL Parameter
+
+Custom settings can also be passed as a [URL query parameter](../configuration/query-params.mdx) using `customSettings`:
+
+```
+https://livecodes.io/?customSettings={"jsx":{"jsxFactory":"h"}}
+```
+
+## Language and Compiler Settings
+
+Custom settings can be passed as options to the compiler of any supported [language](../languages/index.mdx). The property name is the language name, and the value is a JSON object that gets passed to the compiler.
+
+Many languages document their supported options on their respective documentation pages.
+
+**Example:** TypeScript compiler options
+
+```json title="Custom Settings"
+{
+  "typescript": {
+    "target": "es2020",
+    "jsx": "react-jsx"
+  }
+}
+```
+
+:::note
+Custom settings must be valid JSON. Functions, callbacks, and non-serializable values are not allowed.
+:::
+
+## CSS Processor Settings
+
+CSS processors can also be configured via custom settings using the processor name as the property.
+
+**Example:** PostCSS Preset Env
+
+```json title="Custom Settings"
+{
+  "postcssPresetEnv": {
+    "stage": 2,
+    "features": {
+      "nesting-rules": true
+    }
+  }
+}
+```
+
+## Template Data
+
+### Pre-rendered (Default)
+
+For template languages (e.g. [EJS](../languages/ejs.mdx), [Handlebars](../languages/handlebars.mdx), [Mustache](../languages/mustache.mdx), [Jinja](../languages/jinja.mdx), etc.), template expressions are evaluated during compilation. The values are supplied using the `template.data` property:
+
+```json title="Custom Settings"
+{
+  "template": {
+    "data": {
+      "name": "LiveCodes",
+      "description": "A Code Playground That Just Works!",
+    }
+  }
+}
+```
+
+```html title="EJS Template"
+<h1>Hello, <%= name %>!</h1>
+<p>Description: <%= description %></p>
+```
+
+### Dynamic
+
+Template rendering can be deferred to runtime by setting `template.prerender` to `false`. Values can then be provided at runtime via `window.livecodes.templateData`:
+
+```json title="Custom Settings"
+{
+  "template": {
+    "prerender": false,
+    "data": {
+      "name": "Default Name"
+    }
+  }
+}
+```
+
+```js title="Script Editor"
+window.livecodes.templateData = {
+  name: 'Dynamic Value',
+};
+```
+
+:::caution
+When `prerender` is `false`, the `window.livecodes.templateData` assignment must occur before the page `load` event, as template rendering happens on page load.
+:::
+
+## Module Resolution
+
+### Custom Import Maps
+
+Custom import maps allow you to override module URLs, specify versions, or import unpublished libraries:
+
+```json title="Custom Settings"
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "lodash": "https://cdn.jsdelivr.net/npm/lodash@4.17.21",
+    "my-lib": "https://my-server.com/path/to/library.js"
+  }
+}
+```
+
+This is equivalent to using [`<script type="importmap">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap) in the HTML. See [Module Resolution](../features/module-resolution.mdx) for full details.
+
+### Default CDN
+
+Change the [default CDN](../features/module-resolution.mdx#cdn-providers) used for [bare module imports](../features/module-resolution.mdx#bare-module-imports):
+
+```json title="Custom Settings"
+{
+  "defaultCDN": "skypack"
+}
+```
+
+Available CDN aliases: `esm.sh`, `skypack`, `esm.run`, `jspm`, `bundlejs`.
+
+## Custom Type Definitions
+
+Providing type definitions enables editor [IntelliSense](../features/intellisense.mdx) for custom or unpublished modules:
+
+```json title="Custom Settings"
+{
+  "types": {
+    "my-module": "https://my-server.com/types/my-module.d.ts",
+    "my-other-lib": "data:text/typescript;charset=UTF-8;base64,..."
+  }
+}
+```
+
+See [IntelliSense documentation](../features/intellisense.mdx#custom-types) for full details and examples.
+
+## Script Type
+
+Override the type of the script tag used to serve the script editor compiled code.
+
+```json title="Custom Settings"
+{
+  "scriptType": "module"
+}
+```
+
+## CommonJS Conversion
+
+By default, LiveCodes [converts CommonJS `require()`](../features/module-resolution.mdx#commonjs-modules) calls to ESM imports. You can disable this behavior:
+
+```json title="Custom Settings"
+{
+  "convertCommonjs": false
+}
+```
+
+## Language and Processor Combinations
+
+Custom settings for different languages and processors can be combined in a single JSON object:
+
+```json title="Custom Settings"
+{
+  "typescript": {
+    "target": "es2022"
+  },
+  "autoprefixer": {
+    "cascade": true
+  },
+  "postcssPresetEnv": {
+    "stage": 3
+  },
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1"
+  },
+  "template": {
+    "prerender": false,
+    "data": {
+      "title": "My Project"
+    }
+  }
+}
+```
+
+## Related
+
+- [Languages](../languages/index.mdx) — language-specific custom settings
+- [Module Resolution](../features/module-resolution.mdx) — import maps and CDN configuration
+- [IntelliSense](../features/intellisense.mdx) — custom type definitions
+- [Configuration Object](../configuration/configuration-object.mdx) — SDK embed options
