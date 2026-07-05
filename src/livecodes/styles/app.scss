@@ -1387,16 +1387,16 @@ a.tools-pane-title {
   background-color: var(--size-label-background);
   border: 1px solid var(--size-label-border);
   border-radius: var(--rs);
+  bottom: calc(5px + var(--toolbar-height)) !important;
   color: var(--size-label-color);
   cursor: auto;
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: var(--s12);
-  left: 5px !important;
   max-height: calc(100vh - var(--toolbar-height));
   opacity: 0;
   padding: 2px;
   position: absolute;
-  top: 5px !important;
+  right: 5px !important;
   transition: opacity 0.2s;
   white-space: nowrap;
 
