@@ -24,4 +24,4 @@ Watch function type for code changes in the playground.
 
 ## Defined in
 
-[src/sdk/models.ts:1347](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L1347)
+[src/sdk/models.ts:1347](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/models.ts#L1347)

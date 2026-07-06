@@ -6,4 +6,4 @@ API commands for the SDK.
 
 ## Defined in
 
-[src/sdk/models.ts:430](https://github.com/live-codes/livecodes/blob/aec9b8c37d4ecd87867f4910f062861109d183d8/src/sdk/models.ts#L430)
+[src/sdk/models.ts:430](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/models.ts#L430)
