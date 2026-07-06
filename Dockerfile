@@ -6,6 +6,7 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY server/package*.json server/
+COPY patches/ patches/
 
 RUN npm ci --ignore-scripts
 # postinstall script without installing docs and storybook
