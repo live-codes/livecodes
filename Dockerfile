@@ -6,11 +6,10 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY server/package*.json server/
-COPY scripts/patch-package.js scripts/
 
-RUN node ./scripts/patch-package.js
-
-RUN npm ci
+RUN npm ci --ignore-scripts
+# postinstall script without installing docs and storybook
+RUN npx patch-package && npm run install:server
 
 COPY . .
 
