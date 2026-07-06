@@ -1,3 +1,5 @@
+// from src/livecodes/services/allowed-origin.ts
+
 const getHostname = (origin: string) => {
   try {
     return new URL(origin).hostname;
@@ -20,16 +22,4 @@ export const allowedOrigin = (origin = location.origin) => {
         hostname === '127.0.0.1' ||
         hostname.endsWith('.test')),
   );
-};
-
-export const whitelistTarget = (url: string) => {
-  try {
-    const { protocol, hostname } = new URL(url);
-    return (
-      (protocol === 'http:' || protocol === 'https:') &&
-      ['githubusercontent.com', 'jsbin.com'].some((domain) => matchesDomain(hostname, domain))
-    );
-  } catch {
-    return false;
-  }
 };
