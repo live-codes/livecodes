@@ -5,16 +5,10 @@ RUN apk update --no-cache && apk add --no-cache git
 WORKDIR /app
 
 COPY package*.json ./
-COPY docs/package*.json docs/
 COPY server/package*.json server/
+COPY scripts/patch-package.js scripts/
 
-COPY storybook/package*.json storybook/
-COPY storybook/preact/package*.json storybook/preact/
-COPY storybook/react/package*.json storybook/react/
-COPY storybook/solid/package*.json storybook/solid/
-COPY storybook/svelte/package*.json storybook/svelte/
-COPY storybook/vue/package*.json storybook/vue/
-COPY storybook/web-components/package*.json storybook/web-components/
+RUN node ./scripts/patch-package.js
 
 RUN npm ci
 
@@ -30,10 +24,7 @@ ARG FIREBASE_CONFIG
 ARG DOCS_BASE_URL
 ARG NODE_OPTIONS
 
-RUN if [ "$DOCS_BASE_URL" == "null" ]; \
-  then npm run build:app; \
-  else npm run build; \
-  fi
+RUN npm run build:app
 
 FROM node:24.4.1-alpine3.22 AS server
 
