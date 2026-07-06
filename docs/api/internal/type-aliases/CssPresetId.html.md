@@ -6,4 +6,4 @@ CSS presets.
 
 ## Defined in
 
-[src/sdk/models.ts:289](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/models.ts#L289)
+[src/sdk/models.ts:289](https://github.com/live-codes/livecodes/blob/a9e1ee5301dfecfbec8fbeb82682e7aac5851e35/src/sdk/models.ts#L289)

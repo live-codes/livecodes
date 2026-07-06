@@ -25,7 +25,7 @@ A promise that resolves to a [`Playground`](https://livecodes.io/docs/api/interf
 
 ### Defined in
 
-[src/sdk/index.ts:36](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/index.ts#L36)
+[src/sdk/index.ts:36](https://github.com/live-codes/livecodes/blob/a9e1ee5301dfecfbec8fbeb82682e7aac5851e35/src/sdk/index.ts#L36)
 
 ## createPlayground(options)
 
@@ -41,4 +41,4 @@ A promise that resolves to a [`Playground`](https://livecodes.io/docs/api/interf
 
 ### Defined in
 
-[src/sdk/index.ts:40](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/index.ts#L40)
+[src/sdk/index.ts:40](https://github.com/live-codes/livecodes/blob/a9e1ee5301dfecfbec8fbeb82682e7aac5851e35/src/sdk/index.ts#L40)

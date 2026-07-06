@@ -22,7 +22,7 @@ true
 
 #### Defined in
 
-[src/sdk/models.ts:1037](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/models.ts#L1037)
+[src/sdk/models.ts:1037](https://github.com/live-codes/livecodes/blob/a9e1ee5301dfecfbec8fbeb82682e7aac5851e35/src/sdk/models.ts#L1037)
 
 ***
 
@@ -40,7 +40,7 @@ Sets the [display mode](https://livecodes.io/docs/features/display-modes).
 
 #### Defined in
 
-[src/sdk/models.ts:1049](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/models.ts#L1049)
+[src/sdk/models.ts:1049](https://github.com/live-codes/livecodes/blob/a9e1ee5301dfecfbec8fbeb82682e7aac5851e35/src/sdk/models.ts#L1049)
 
 ***
 
@@ -61,7 +61,7 @@ false
 
 #### Defined in
 
-[src/sdk/models.ts:1031](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/models.ts#L1031)
+[src/sdk/models.ts:1031](https://github.com/live-codes/livecodes/blob/a9e1ee5301dfecfbec8fbeb82682e7aac5851e35/src/sdk/models.ts#L1031)
 
 ***
 
@@ -105,7 +105,7 @@ Sets enabled and active tools and status of [tools pane](https://livecodes.io/do
 
 #### Defined in
 
-[src/sdk/models.ts:1065](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/models.ts#L1065)
+[src/sdk/models.ts:1065](https://github.com/live-codes/livecodes/blob/a9e1ee5301dfecfbec8fbeb82682e7aac5851e35/src/sdk/models.ts#L1065)
 
 ***
 
@@ -123,7 +123,7 @@ Sets the [default view](https://livecodes.io/docs/features/default-view) for the
 
 #### Defined in
 
-[src/sdk/models.ts:1043](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/models.ts#L1043)
+[src/sdk/models.ts:1043](https://github.com/live-codes/livecodes/blob/a9e1ee5301dfecfbec8fbeb82682e7aac5851e35/src/sdk/models.ts#L1043)
 
 ***
 
@@ -135,4 +135,4 @@ Sets result page [zoom level](https://livecodes.io/docs/features/result#result-p
 
 #### Defined in
 
-[src/sdk/models.ts:1074](https://github.com/live-codes/livecodes/blob/4b98aa488ba665054bdf4150f76438526cbd56e7/src/sdk/models.ts#L1074)
+[src/sdk/models.ts:1074](https://github.com/live-codes/livecodes/blob/a9e1ee5301dfecfbec8fbeb82682e7aac5851e35/src/sdk/models.ts#L1074)
