@@ -117,6 +117,13 @@ function consoleArgs(args: any[]): Array<{ type: string; content: any }> {
   });
 }
 
+const getCallSiteLine = (): number | undefined => {
+  const stack = new Error().stack ?? '';
+  const callerFrame = stack.split('\n')[3] ?? ''; // 0=Error, 1=this fn, 2=proxy getter, 3=user call site
+  const match = callerFrame.match(/:(\d+):\d+\)?[\s]*$/);
+  return match ? Number(match[1]) : undefined;
+};
+
 export const proxyConsole = () => {
   window.console = new Proxy(console, {
     get(target, method) {
@@ -128,7 +135,7 @@ export const proxyConsole = () => {
           return;
         }
         (target[method as keyof typeof console] as any)(...args);
-        parent.postMessage({ type: 'console', method, args: consoleArgs(args) }, '*');
+        parent.postMessage({ type: 'console', method, args: consoleArgs(args), lineNumber: getCallSiteLine() }, '*');
       };
     },
   });
@@ -139,6 +146,7 @@ export const proxyConsole = () => {
         type: 'console',
         method: 'error',
         args: consoleArgs([error.message]),
+        lineNumber: error.lineno || undefined,
       },
       '*',
     );

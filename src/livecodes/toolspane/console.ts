@@ -14,6 +14,7 @@ import type {
 } from '../models';
 import { sandboxService } from '../services';
 import { isMobile, preventFocus } from '../utils';
+import { buildSourceLineMap } from '../utils/source-map';
 
 export const createConsole = (
   config: Config,
@@ -25,6 +26,9 @@ export const createConsole = (
 ): Console => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let editor: CodeEditor;
+  let sourceLineMap: Map<number, number> | null = null;
+  let lineNumbersEnabled = false;
+  const lineNumberQueue: Array<number | null> = [];
 
   let consoleElement: HTMLElement;
   const sourceSelector = '#result > iframe';
@@ -68,14 +72,33 @@ export const createConsole = (
       return arg.content;
     });
 
+  const setupInsertListener = () => {
+    (consoleEmulator as any).on('insert', (log: any) => {
+      const sourceLine = lineNumberQueue.shift() ?? null;
+      if (sourceLine == null) return;
+      const logItem = log?.container?.querySelector?.('.luna-console-log-item');
+      if (!logItem) return;
+      let badge = logItem.querySelector('.console-line-number') as HTMLElement | null;
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'console-line-number';
+        (logItem as HTMLElement).appendChild(badge);
+      }
+      badge.textContent = `:${sourceLine}`;
+    });
+  };
+
   const createConsoleEmulator = () => {
     if (consoleEmulator) {
       consoleEmulator.destroy();
       consoleEmulator = new LunaConsole(consoleElement);
+      setupInsertListener();
       return consoleEmulator;
     }
 
     consoleEmulator = new LunaConsole(consoleElement, { theme: config.theme });
+    setupInsertListener();
+
     eventsManager.addEventListener(window, 'message', (event: any) => {
       if (
         !consoleElement ||
@@ -107,9 +130,22 @@ export const createConsole = (
       if (api.includes(message.method)) {
         if (message.method === 'clear') {
           // prevent passing args (silent) to `clear` method
+          lineNumberQueue.length = 0;
           consoleEmulator.clear();
         } else {
-          (consoleEmulator as any)[message.method](...convertTypes(message.args));
+          const args = convertTypes(message.args);
+          // groupEnd modifies an existing log entry — no 'insert' event fires, skip queue
+          if (message.method !== 'groupEnd') {
+            const lineDisplayMethods = ['log', 'error', 'warn', 'info', 'output'];
+            const sourceLine =
+              lineNumbersEnabled &&
+              message.lineNumber !== undefined &&
+              lineDisplayMethods.includes(message.method)
+                ? sourceLineMap?.get(message.lineNumber) ?? message.lineNumber
+                : null;
+            lineNumberQueue.push(sourceLine);
+          }
+          (consoleEmulator as any)[message.method](...args);
         }
         updateMark();
       }
@@ -310,6 +346,18 @@ export const createConsole = (
     getEditor: () => editor,
     reloadEditor,
     setTheme: (theme: Theme) => exec(() => consoleEmulator?.setOption('theme', theme)),
+    setSourceMap: (map: string | null | undefined) => {
+      if (typeof map === 'string') {
+        sourceLineMap = buildSourceLineMap(map);
+        lineNumbersEnabled = true;
+      } else if (map === null) {
+        sourceLineMap = null; // plain JS: accurate raw lines, no map needed
+        lineNumbersEnabled = true;
+      } else {
+        sourceLineMap = null; // suppress: Python, Ruby, WASM, etc.
+        lineNumbersEnabled = false;
+      }
+    },
     log: (...args) => exec(() => consoleEmulator?.log(...args)),
     info: (...args) => exec(() => consoleEmulator?.info(...args)),
     table: (...args) => exec(() => consoleEmulator?.table(...args)),

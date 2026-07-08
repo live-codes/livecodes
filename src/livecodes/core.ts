@@ -999,6 +999,11 @@ const getResultPage = async ({
   });
   const compiledScript = scriptCompileResult.code;
 
+
+  const { sourceMap } = scriptCompileResult.info ?? {};
+  const consoleSourceMap = sourceMap ?? (scriptLanguage === 'javascript' ? null : undefined);
+  toolsPane?.console?.setSourceMap?.(consoleSourceMap);
+
   let compileInfo: CompileInfo = {
     ...markupCompileResult.info,
     ...scriptCompileResult.info,
