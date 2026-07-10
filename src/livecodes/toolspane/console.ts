@@ -17,6 +17,7 @@ import { isConsoleDisplaySource } from '../result/result-types';
 import { sandboxService } from '../services';
 import { isMobile, preventFocus } from '../utils';
 import { buildSourceLineMap } from '../utils/source-map';
+import { toPositiveLineNumber } from '../utils/line-number';
 
 export const createConsole = (
   config: Config,
@@ -77,11 +78,6 @@ export const createConsole = (
 
   const getSource = (source: unknown): ConsoleDisplaySource =>
     isConsoleDisplaySource(source) ? source : 'script';
-
-  const toPositiveLineNumber = (line: unknown): number | undefined => {
-    if (typeof line !== 'number' || !Number.isFinite(line)) return undefined;
-    return line > 0 ? Math.trunc(line) : undefined;
-  };
 
   // Extends a badge like 'script:1' to 'script:1:5' when lines span a range.
   const updateSourceLineRange = (current: string, newLine: number): string => {

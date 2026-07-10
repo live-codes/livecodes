@@ -1,7 +1,4 @@
-const toPositiveLineNumber = (line: number | undefined): number | undefined => {
-  if (typeof line !== 'number' || !Number.isFinite(line) || line <= 0) return undefined;
-  return Math.trunc(line);
-};
+import { toPositiveLineNumber } from '../utils/line-number';
 
 const toUserLine = (docLine: number, offset: number): number | undefined => {
   if (!offset) return undefined;

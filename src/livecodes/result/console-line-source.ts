@@ -1,10 +1,6 @@
 import { getMarkupInlineScriptLine } from './markup-script-lines';
 import type { ConsoleCallSite, ConsoleErrorSite, ConsoleSource } from './result-types';
-
-const toPositiveLineNumber = (line: number | undefined): number | undefined => {
-  if (typeof line !== 'number' || !Number.isFinite(line) || line <= 0) return undefined;
-  return Math.trunc(line);
-};
+import { toPositiveLineNumber } from '../utils/line-number';
 
 const getOffsets = () => ({
   markup: Number(document.body?.dataset?.livecodesMarkupLineOffset ?? 0),
