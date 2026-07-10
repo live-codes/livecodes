@@ -27,7 +27,7 @@ const decodeOriginalLineDelta = (segment: string): number | null => {
   return decodeVlq(segment, pos)[0]; // original line delta
 };
 
-export const buildSourceLineMap = (sourceMapStr: string): Map<number, number> => {
+export const buildSourceLineMap = /* @__PURE__ */ (sourceMapStr: string): Map<number, number> => {
   const lineMap = new Map<number, number>();
 
   let mappings: string;

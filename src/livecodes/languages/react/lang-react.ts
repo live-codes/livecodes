@@ -35,7 +35,7 @@ export const react: LanguageSpecs = {
           ],
           plugins: [[(window as any).reactCompiler.reactCompiler, reactCompilerConfig]],
           ...babelConfig,
-          sourceMaps: true, 
+          sourceMaps: true,
         });
         return {
           code: result.code,

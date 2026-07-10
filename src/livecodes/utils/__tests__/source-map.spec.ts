@@ -1,4 +1,4 @@
-import { decodeVlq, buildSourceLineMap } from '../source-map';
+import { buildSourceLineMap, decodeVlq } from '../source-map';
 
 describe('decodeVlq', () => {
   test('decodes a single positive value', () => {

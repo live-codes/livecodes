@@ -48,7 +48,14 @@ export const typescript: LanguageSpecs = {
           ...getLanguageCustomSettings(config.script.language, config),
           sourceMap: true,
         };
-        const { options: compilerOptions } = ts.convertCompilerOptionsFromJson(rawOptions, '');
+        const { options: compilerOptions, errors } = ts.convertCompilerOptionsFromJson(
+          rawOptions,
+          '',
+        );
+        if (errors?.length) {
+          // eslint-disable-next-line no-console
+          console.warn('TypeScript compiler option errors:', errors);
+        }
         const result = ts.transpileModule(code, { compilerOptions });
         return {
           code: result.outputText.replace(/\n?\/\/# sourceMappingURL=\S+/m, ''),
