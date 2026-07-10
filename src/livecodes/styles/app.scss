@@ -928,7 +928,6 @@ a#result-button {
 
     .toolbar-render {
       justify-content: space-between;
-      padding-top: var(--s4);
       place-items: center;
     }
 
@@ -1751,9 +1750,17 @@ a.editor-title {
 
       #app-menu-button-i18n,
       #light-theme-button,
-      #dark-theme-button {
+      #dark-theme-button,
+      // increase specificity!
+      .toolbar-render:not(.---) #result-button {
         display: none !important;
       }
+    }
+  }
+
+  @media only screen and (max-width: 350px) {
+    #toolbar .toolbar-render #fullscreen-button {
+      display: none !important;
     }
   }
 }

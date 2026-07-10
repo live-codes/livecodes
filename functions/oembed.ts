@@ -64,10 +64,10 @@ export const onRequest: PgFunction = async function (context) {
     title: fullTitle,
     width,
     height,
-    thumbnail_url: url.origin + '/livecodes/assets/images/livecodes-text-logo.png',
+    thumbnail_url: url.origin + '/livecodes/assets/images/oembed.png',
     thumbnail_width: thumbnailWidth,
     thumbnail_height: thumbnailHeight,
-    cache_age: '3600',
+    cache_age: 3600,
     html: `<iframe
         src="${url.href}"
         title="${encodeHTML(fullTitle)}"
