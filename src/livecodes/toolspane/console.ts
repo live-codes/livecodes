@@ -12,6 +12,8 @@ import type {
   EventsManager,
   Theme,
 } from '../models';
+import type { ConsoleDisplaySource } from '../result/result-types';
+import { isConsoleDisplaySource } from '../result/result-types';
 import { sandboxService } from '../services';
 import { isMobile, preventFocus } from '../utils';
 import { buildSourceLineMap } from '../utils/source-map';
@@ -28,7 +30,8 @@ export const createConsole = (
   let editor: CodeEditor;
   let sourceLineMap: Map<number, number> | null = null;
   let lineNumbersEnabled = false;
-  const lineNumberQueue: Array<number | null> = [];
+  const lineNumberQueue: Array<string | null> = [];
+  let lastProcessedSource: string | null = null;
 
   let consoleElement: HTMLElement;
   const sourceSelector = '#result > iframe';
@@ -72,6 +75,26 @@ export const createConsole = (
       return arg.content;
     });
 
+  const getSource = (source: unknown): ConsoleDisplaySource =>
+    isConsoleDisplaySource(source) ? source : 'script';
+
+  const toPositiveLineNumber = (line: unknown): number | undefined => {
+    if (typeof line !== 'number' || !Number.isFinite(line)) return undefined;
+    return line > 0 ? Math.trunc(line) : undefined;
+  };
+
+  // Extends a badge like 'script:1' to 'script:1:5' when lines span a range.
+  const updateSourceLineRange = (current: string, newLine: number): string => {
+    const match = current.match(/^(\w+):(\d+)(?::(\d+))?$/);
+    if (!match) return current;
+    const src = match[1];
+    const firstLine = parseInt(match[2], 10);
+    const lastLine = match[3] ? parseInt(match[3], 10) : firstLine;
+    const newLastLine = Math.max(lastLine, newLine);
+    if (newLastLine === firstLine) return current;
+    return `${src}:${firstLine}:${newLastLine}`;
+  };
+
   const setupInsertListener = () => {
     (consoleEmulator as any).on('insert', (log: any) => {
       const sourceLine = lineNumberQueue.shift() ?? null;
@@ -84,19 +107,25 @@ export const createConsole = (
         badge.className = 'console-line-number';
         (logItem as HTMLElement).appendChild(badge);
       }
-      badge.textContent = `:${sourceLine}`;
+      if (badge.textContent) {
+        // Luna re-emits 'insert' on dedup (addCount) — extend the line range.
+        const newLine = parseInt(sourceLine.split(':')[1], 10);
+        badge.textContent = updateSourceLineRange(badge.textContent, newLine);
+      } else {
+        badge.textContent = sourceLine;
+      }
     });
   };
 
   const createConsoleEmulator = () => {
     if (consoleEmulator) {
       consoleEmulator.destroy();
-      consoleEmulator = new LunaConsole(consoleElement);
+      consoleEmulator = new LunaConsole(consoleElement, { asyncRender: false });
       setupInsertListener();
       return consoleEmulator;
     }
 
-    consoleEmulator = new LunaConsole(consoleElement, { theme: config.theme });
+    consoleEmulator = new LunaConsole(consoleElement, { theme: config.theme, asyncRender: false });
     setupInsertListener();
 
     eventsManager.addEventListener(window, 'message', (event: any) => {
@@ -131,19 +160,41 @@ export const createConsole = (
         if (message.method === 'clear') {
           // prevent passing args (silent) to `clear` method
           lineNumberQueue.length = 0;
+          lastProcessedSource = null;
           consoleEmulator.clear();
         } else {
           const args = convertTypes(message.args);
           // groupEnd modifies an existing log entry — no 'insert' event fires, skip queue
           if (message.method !== 'groupEnd') {
             const lineDisplayMethods = ['log', 'error', 'warn', 'info', 'output'];
-            const sourceLine =
+            if (
               lineNumbersEnabled &&
               message.lineNumber !== undefined &&
               lineDisplayMethods.includes(message.method)
-                ? sourceLineMap?.get(message.lineNumber) ?? message.lineNumber
-                : null;
-            lineNumberQueue.push(sourceLine);
+            ) {
+              const source = getSource(message.source);
+              const rawLineNumber = toPositiveLineNumber(message.lineNumber);
+              if (!rawLineNumber) {
+                lineNumberQueue.push(null);
+                (consoleEmulator as any)[message.method](...args);
+                updateMark();
+                return;
+              }
+              const lineNumber =
+                source === 'script'
+                  ? toPositiveLineNumber(sourceLineMap?.get(rawLineNumber)) ?? rawLineNumber
+                  : rawLineNumber;
+              lineNumberQueue.push(`${source}:${lineNumber}`);
+              // Break Luna's deduplication only when the source (markup/script) changes.
+              // Same source lets Luna group identical messages; the insert handler extends
+              // the badge range on each dedup re-emit.
+              if (lastProcessedSource !== source) {
+                (consoleEmulator as any).lastLog = null;
+                lastProcessedSource = source;
+              }
+            } else {
+              lineNumberQueue.push(null);
+            }
           }
           (consoleEmulator as any)[message.method](...args);
         }
