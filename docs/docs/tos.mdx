@@ -1,0 +1,120 @@
+# Terms of Service
+
+import MailLink from '../src/components/MailLink.tsx';
+
+_Last updated: July 11, 2026_
+
+## 1. Acceptance of Terms
+
+By accessing or using LiveCodes ("the Service"), available at [livecodes.io](https://livecodes.io) and any related services, you agree to be bound by these Terms of Service. If you do not agree, do not use the Service.
+
+The Service is provided by Hatem Hosny ("we", "us", "our").
+
+## 2. Description of Service
+
+LiveCodes is a free, open-source, client-side code playground that supports 90+ programming languages and frameworks. The Service runs primarily in your browser with no server-side code execution required. It allows you to write, run, test, share, export, and deploy code projects.
+
+## 3. Who Can Use the Service
+
+There is no minimum age to use the Service. LiveCodes does not require an account, does not collect personal information from unauthenticated users, and all code execution happens locally in your browser.
+
+Some features that require GitHub authentication may be subject to GitHub's own age requirements. Those are governed by GitHub's Terms of Service.
+
+## 4. Accounts
+
+No account is required to use most features of the Service. Certain features (GitHub integration, deployment, sync, assets hosting) require authentication via a GitHub account through Firebase Authentication. You are responsible for maintaining the security of your account credentials and for all activities that occur under your account.
+
+## 5. User Content
+
+### 5.1 Ownership
+
+You retain all rights to the code, projects, assets, and other content you create using the Service ("User Content"). The Service does not claim ownership over your User Content.
+
+### 5.2 Local Storage
+
+User Content is stored locally in your browser using IndexedDB and localStorage. The Service does not upload or store your User Content on our servers unless you explicitly choose to use features that require server-side storage (e.g., generating short share URLs, deploying to GitHub Pages).
+
+### 5.3 Shared Content
+
+When you generate a short URL for sharing, your project configuration including source code is transmitted to the LiveCodes share service. Shared content **cannot be deleted** once a short URL is created. Exercise caution when sharing sensitive or proprietary code.
+
+### 5.4 Prohibited Content
+
+You agree not to use the Service to create, share, or distribute content that:
+
+- Violates any applicable law or regulation
+- Infringes upon intellectual property rights of others
+- Contains malware, viruses, or malicious code
+- Is used for phishing, spamming, or fraudulent activities
+- Constitutes harassment, hate speech, or abuse
+- Facilitates illegal activities
+
+We reserve the right to disable access to shared URLs that violate these terms.
+
+## 6. Third-Party Services
+
+### 6.1 GitHub Integration
+
+Features including import from private repos, export to gists, deployment to GitHub Pages, assets hosting, and data sync require authentication with GitHub and are subject to [GitHub's Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service).
+
+### 6.2 Firebase Authentication
+
+User authentication is handled by Firebase Authentication, which may use cookies. By logging in, you agree that cookies may be stored on your device. Firebase Authentication is subject to [Google's Privacy Policy](https://policies.google.com/privacy).
+
+### 6.3 CDN and Package Services
+
+The Service loads language runtimes, compilers, libraries, and packages from third-party CDNs including npm, jsDelivr, deno.land/x, JSR, and GitHub. These are subject to their respective terms of service.
+
+## 7. Acceptable Use
+
+You agree not to:
+
+- Use the Service in any way that could disrupt, damage, or impair the Service
+- Attempt to gain unauthorized access to the Service or its related systems
+- Use automated means (bots, scrapers) to access the Service in a manner that imposes unreasonable load
+- Abuse the share service by generating excessive short URLs or storing prohibited content
+- Use the Service for cryptocurrency mining or other resource-intensive activities
+
+## 8. Intellectual Property
+
+The LiveCodes source code is released under the [MIT License](https://github.com/live-codes/livecodes/blob/develop/LICENSE). The LiveCodes name, logo, and branding are proprietary and may not be used without permission except as allowed by the license.
+
+## 9. Service Availability
+
+The Service is provided on an "as is" and "as available" basis. While we strive for high availability, we do not guarantee uninterrupted access. We reserve the right to modify, suspend, or discontinue the Service, or any part thereof, at any time without notice.
+
+## 10. Disclaimer of Warranties
+
+THE SERVICE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICE WILL BE ERROR-FREE, SECURE, OR UNINTERRUPTED.
+
+Code execution occurs in your browser using third-party compilers and runtimes. We make no guarantees about the correctness, security, or reliability of code execution results.
+
+## 11. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS OF DATA, PROFITS, OR CODE, ARISING FROM YOUR USE OF THE SERVICE.
+
+## 12. Indemnification
+
+You agree to indemnify and hold us harmless from any claims, damages, liabilities, and expenses arising from your use of the Service or violation of these Terms.
+
+## 13. Third-Party Links
+
+The Service or user-shared content may contain links to third-party websites. We are not responsible for the content, policies, or practices of any third-party websites.
+
+## 14. Changes to Terms
+
+We reserve the right to update these Terms at any time. Continued use of the Service after changes constitutes acceptance of the updated Terms. We will make reasonable efforts to notify users of material changes.
+
+## 15. Termination
+
+We may terminate or suspend your access to the Service at our discretion, without prior notice, for conduct that violates these Terms or is otherwise harmful to the Service or other users.
+
+You may stop using the Service at any time. Your locally stored data remains on your device unless you clear your browser storage.
+
+## 16. Governing Law
+
+These Terms are governed by the laws of the jurisdiction in which the Service operator resides, without regard to conflict of law principles.
+
+## 17. Contact
+
+For questions about these Terms, please contact us at <MailLink email="info&#64;livecodes&#46;io" />.

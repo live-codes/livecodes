@@ -140,6 +140,8 @@ const sidebars: SidebarsConfig = {
         'ai-guide',
         'credits',
         'license',
+        'tos',
+        'privacy',
         'sponsor',
         'contact',
         'about',

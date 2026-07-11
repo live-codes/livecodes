@@ -2,8 +2,8 @@
 
 We would love to hear from you!
 
-import ContactForm from '../src/components/ContactForm.tsx'
-import MailLink from '../src/components/MailLink.tsx'
+import ContactForm from '../src/components/ContactForm.tsx';
+import MailLink from '../src/components/MailLink.tsx';
 
 <ContactForm></ContactForm>
 

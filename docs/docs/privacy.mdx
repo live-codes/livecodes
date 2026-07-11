@@ -1,0 +1,165 @@
+# Privacy Policy
+
+import MailLink from '../src/components/MailLink.tsx';
+
+_Last updated: July 11, 2026_
+
+## 1. Introduction
+
+LiveCodes ("we", "us", "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our Service at [livecodes.io](https://livecodes.io) and related services.
+
+The Service is designed with privacy in mind. Code execution, compilation, and most data storage happen entirely in your browser. Your code does not leave your device unless you choose to use features that require server interaction.
+
+## 2. Information We Collect
+
+### 2.1 Server-Side Analytics
+
+When you access the Service, our servers (hosted on Cloudflare) automatically collect the following information for operational analytics:
+
+- **Request data**: URL accessed, HTTP method
+- **Network data**: Cloudflare data center location (colo), HTTP protocol version
+- **Geographic data**: Country, city, continent, region, timezone (derived from IP address by Cloudflare)
+- **Device data**: User agent, Accept headers, Accept-Language, Accept-Encoding, Referer, Client Hints (`sec-ch-ua`, `sec-ch-ua-mobile`, `sec-ch-ua-platform`), fetch destination/site/mode headers
+
+This data is used for aggregate analytics, monitoring, and abuse prevention.
+
+### 2.2 Locally Stored Data
+
+The Service stores the following data in your browser's local storage (IndexedDB and localStorage):
+
+- Projects (code, title, description, tags, language settings)
+- Code snippets
+- User assets (images, fonts, stylesheets, scripts)
+- User settings and preferences
+- Editor state and layout configuration
+- Templates
+
+This data remains on your device and is **not sent to our servers** unless you explicitly initiate features that require server interaction (see Section 2.3).
+
+### 2.3 Data You Choose to Send
+
+Certain features transmit data to servers only when you explicitly initiate them:
+
+| Feature | Data Sent | Destination |
+|---------|-----------|-------------|
+| Short URL sharing | Project configuration including source code | LiveCodes share service or dpaste |
+| QR code generation | Project code (via short URL generation) | LiveCodes share service or dpaste |
+| GitHub login | Authentication token via GitHub OAuth | Firebase Authentication + GitHub |
+| GitHub integration | Repositories, gists, and file contents per user action | GitHub API |
+| Data sync | Projects, snippets, assets, settings | Your selected GitHub repository |
+| Asset hosting | Asset files | Your GitHub Pages repository (`livecodes-assets`) |
+| Deployment | Result page and source code | Your selected GitHub Pages repository |
+| Embed screen | Project code (via short URL generation) | LiveCodes share service or dpaste |
+
+### 2.4 Cookies
+
+The Service may use cookies in the following circumstances:
+
+- **Firebase Authentication**: When you log in with GitHub, Firebase Authentication may set cookies on your device. By logging in, you consent to this.
+- **Essential functionality**: The Service itself may use cookies or similar storage for essential functionality (e.g., maintaining session state for authenticated users).
+
+## 3. How We Use Information
+
+### 3.1 Analytics
+
+Server-side analytics data is used to:
+- Monitor Service health and performance
+- Understand usage patterns in aggregate
+- Detect and prevent abuse
+- Debug operational issues
+
+### 3.2 Share Service
+
+When you generate a short URL, your project code is stored by the share service to enable retrieval via the short URL. Shared projects are **private** — share URLs are not published or indexed by us, and IDs are non-sequential. However, anyone with the short URL can access the shared project. Shared content **cannot be deleted** after creation.
+
+For static self-hosted instances, the free service [dpaste](https://dpaste.com/) is used for short URLs, and content is automatically deleted after 365 days.
+
+### 3.3 GitHub Integration
+
+When you authenticate with GitHub, we use the granted permissions solely to perform actions you initiate (e.g., importing from repos, pushing to repos, syncing data). We do not access your GitHub data for any other purpose. You can revoke permissions at any time through your [GitHub settings](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/reviewing-your-authorized-oauth-applications).
+
+## 4. Data We Do Not Collect
+
+We do **not**:
+
+- Require personal information beyond what is necessary for authenticated features
+- Run server-side code execution — all compilation and execution happens in your browser
+- Sell, rent, or trade your data to third parties
+- Use tracking cookies or third-party analytics (e.g., Google Analytics)
+- Display advertisements or use ad tracking
+- Profile users or track behavior across sites
+- Collect keystrokes or monitor your coding activity
+- Access your local file system beyond what you explicitly upload
+
+## 5. Data Storage and Security
+
+### 5.1 Local Data
+
+Projects, assets, snippets, and settings are stored in your browser's IndexedDB and localStorage. This data is tied to your browser profile and device. If you clear your browser storage, this data will be permanently lost unless you have backed it up or synced it to GitHub.
+
+### 5.2 Server Data
+
+- **Share service**: Project code stored for short URLs is retained indefinitely on LiveCodes infrastructure hosted on Cloudflare.
+- **Analytics**: Server-side analytics logs are retained for operational purposes.
+
+### 5.3 Security Measures
+
+- Code execution and result pages run in **sandboxed iframes** with unique origins
+- Embedded playgrounds **cannot access** the parent page, its cookies, or localStorage
+- We follow security best practices and promptly address reported vulnerabilities (see our [Security Policy](https://github.com/live-codes/livecodes/blob/develop/SECURITY.md))
+- All communication with the Service is encrypted via HTTPS
+
+### 5.4 Security Vulnerabilities
+
+If you discover a security vulnerability, please report it to <MailLink email="security&#64;livecodes&#46;io" />. Please do not disclose it publicly. See our [Security Policy](https://github.com/live-codes/livecodes/blob/develop/SECURITY.md) for details.
+
+## 6. Third-Party Services
+
+### 6.1 Compilers and Runtimes
+
+The Service loads language compilers, interpreters, and runtimes from third-party CDNs (esm.sh, jsDelivr, unpkg, deno.land/x, JSR, GitHub, and others) when needed for your selected languages. These services may log requests in accordance with their respective privacy policies.
+
+### 6.2 Package Registries
+
+When you import modules from npm, deno.land/x, JSR, or GitHub in your code, requests are made directly from your browser to the respective registries. These services may log requests per their privacy policies.
+
+### 6.3 GitHub
+
+Features using GitHub Integration transmit data to and from GitHub per your actions. GitHub's handling of this data is governed by [GitHub's Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement).
+
+### 6.4 Firebase Authentication
+
+Authentication is handled by Firebase, a Google service. Firebase's data practices are governed by [Google's Privacy Policy](https://policies.google.com/privacy).
+
+## 7. Children's Privacy
+
+LiveCodes is designed to be an educational tool and learning platform accessible to all ages. For unauthenticated use, we collect no personal information and all data stays on the user's device. Children can freely use the Service to learn to code. Features requiring GitHub authentication are subject to GitHub's age policies.
+
+## 8. Data Portability and Deletion
+
+### 8.1 Export Your Data
+
+You can export your locally stored data at any time using the [Backup](../docs/features/backup-restore.mdx) feature, which downloads a zip file of your projects, snippets, assets, templates, and settings.
+
+### 8.2 Delete Your Data
+
+- **Local data**: Clear your browser storage to delete all locally stored data. You can also delete individual projects and assets through the app interface.
+- **Shared URLs**: Content shared via short URLs **cannot be deleted** after creation.
+- **Sync data**: Data synced to GitHub can be deleted by deleting the synced repository.
+- **GitHub permissions**: Revoke LiveCodes' access through your [GitHub authorized applications](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/reviewing-your-authorized-oauth-applications).
+
+## 9. International Data Transfers
+
+The Service is hosted on Cloudflare's global network. Server-side analytics and share service data may be processed in data centers worldwide. By using the Service, you consent to this transfer and processing.
+
+## 10. Changes to This Policy
+
+We may update this Privacy Policy from time to time. Material changes will be communicated through the Service or our GitHub repository. Continued use after changes constitutes acceptance of the updated policy.
+
+## 11. Contact
+
+For privacy-related questions or to exercise your data rights, contact us at:
+
+- **Email**: <MailLink email="info&#64;livecodes&#46;io" />
+- **Security**: <MailLink email="security&#64;livecodes&#46;io" />
+- **GitHub**: [live-codes/livecodes](https://github.com/live-codes/livecodes)
