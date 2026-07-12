@@ -49,6 +49,36 @@ The LiveCodes [SDK](../sdk/index.mdx) can be used to embed playgrounds, specify 
 
 This method provides more control and allows advanced scenarios.
 
+## Embed via URL
+
+LiveCodes playgrounds can be embedded in many websites and apps simply by pasting a LiveCodes link. This works on platforms that support [oEmbed](https://oembed.com/) (e.g. Notion and many others).
+
+To embed a playground in a supported platform, paste a LiveCodes URL (**short** [share URL](./share.mdx) or a URL with [query params](../configuration/query-params.mdx)). The platform will automatically resolve the embed.
+
+Watch a [video demo](https://x.com/hatem_hosny_/status/2075653559706624472/video/1).
+
+### oEmbed
+
+LiveCodes is registered on the [oEmbed provider registry](https://oembed.com/providers.json). Auto-discovery is also supported via `<link>` meta tags, so any platform that supports oEmbed discovery can automatically embed LiveCodes playgrounds.
+
+### iframely
+
+[iframely](https://iframely.com/) is a popular oEmbed proxy that many platforms use. LiveCodes is supported by iframely out of the box.
+
+### WordPress
+
+WordPress has built-in oEmbed support, but LiveCodes is not _yet_ in the default WordPress whitelist. To add LiveCodes oEmbed support, add the following snippet to your theme's `functions.php` or as a [must-use plugin](https://wordpress.org/documentation/article/must-use-plugins/):
+
+```php
+add_action( 'init', function () {
+  wp_oembed_add_provider(
+    '!^https?://(?:[a-z0-9\-]+\.)?livecodes\.io/(?:index\.html)?(?:\?[^#]*)?(?:#.*)?$!i',
+    'https://livecodes.io/oembed',
+    true
+  );
+} );
+```
+
 ## Avoid Breaking Changes
 
 To avoid breaking changes that would cause the embedded playgrounds to stop working as expected with later updates, follow these recommendations:
