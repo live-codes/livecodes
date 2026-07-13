@@ -1,5 +1,11 @@
 import LunaConsole from 'luna-console';
 import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '../UI';
+import {
+  buildSourceLineMap,
+  isConsoleDisplaySource,
+  toPositiveLineNumber,
+  type ConsoleDisplaySource,
+} from '../compiler/source-maps';
 import { getEditorConfig } from '../config';
 import { createEditor, getFontFamily } from '../editor';
 import { getLanguageExtension, mapLanguage } from '../languages';
@@ -12,12 +18,6 @@ import type {
   EventsManager,
   Theme,
 } from '../models';
-import {
-  buildSourceLineMap,
-  isConsoleDisplaySource,
-  toPositiveLineNumber,
-  type ConsoleDisplaySource,
-} from '../compiler/source-maps';
 import { sandboxService } from '../services';
 import { isMobile, preventFocus } from '../utils';
 
@@ -199,11 +199,12 @@ export const createConsole = (
               // Multi-file (PR #934): use message.filename to pick the right key per call site.
               const mapKey =
                 source === 'script' && sourceMapsRecord
-                  ? (Object.keys(sourceMapsRecord)[0] ?? 'script')
+                  ? Object.keys(sourceMapsRecord)[0] ?? 'script'
                   : source;
               const lineNumber =
                 source === 'script'
-                  ? toPositiveLineNumber(getSourceLineMap(mapKey)?.get(rawLineNumber)) ?? rawLineNumber
+                  ? toPositiveLineNumber(getSourceLineMap(mapKey)?.get(rawLineNumber)) ??
+                    rawLineNumber
                   : rawLineNumber;
               lineNumberQueue.push(`${mapKey}:${lineNumber}`);
               // Break Luna's deduplication when source OR line changes.

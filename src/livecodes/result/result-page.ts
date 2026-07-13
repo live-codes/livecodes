@@ -536,7 +536,9 @@ window.browserJest.run().then(results => {
           `script[data-livecodes-markup-script-id="${scriptId}"]`,
         );
         if (scriptElement) {
-          scriptElement.dataset.livecodesMarkupScriptLine = String(scriptTagLine - markupLineOffset);
+          scriptElement.dataset.livecodesMarkupScriptLine = String(
+            scriptTagLine - markupLineOffset,
+          );
           const startsWithNewLine = /^(\r\n|\n|\r)/.test(scriptElement.textContent ?? '');
           scriptElement.dataset.livecodesMarkupScriptStackBase = startsWithNewLine ? '2' : '1';
         }
