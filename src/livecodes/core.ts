@@ -999,9 +999,9 @@ const getResultPage = async ({
   });
   const compiledScript = scriptCompileResult.code;
 
-  const { sourceMap } = scriptCompileResult.info ?? {};
-  const consoleSourceMap = sourceMap ?? (scriptLanguage === 'javascript' ? null : undefined);
-  toolsPane?.console?.setSourceMap?.(consoleSourceMap);
+  const { sourceMaps } = scriptCompileResult.info ?? {};
+  const consoleSourceMaps = sourceMaps ?? (scriptLanguage === 'javascript' ? null : undefined);
+  toolsPane?.console?.setSourceMap?.(consoleSourceMaps);
 
   let compileInfo: CompileInfo = {
     ...markupCompileResult.info,
@@ -1012,6 +1012,10 @@ const getResultPage = async ({
     imports: {
       ...scriptCompileResult.info.imports,
       ...markupCompileResult.info.imports,
+    },
+    sourceMaps: {
+      ...markupCompileResult.info.sourceMaps,
+      ...scriptCompileResult.info.sourceMaps,
     },
   };
 
@@ -5478,6 +5482,10 @@ const createApi = (): API => {
       throw new Error(window.deps.translateString('core.error.invalidPanelId', 'Invalid panel id'));
     }
   };
+
+  eventsManager.addEventListener(window, 'livecodes-console-navigate', (e: any) => {
+    apiShow(e.detail.editorId, { line: e.detail.line });
+  });
 
   const apiRunTests: API['runTests'] = () =>
     new Promise((resolve) => {

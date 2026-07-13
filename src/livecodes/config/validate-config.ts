@@ -189,6 +189,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.imports, 'object') ? { imports: config.imports } : {}),
     ...(is(config.types, 'object') ? { types: config.types } : {}),
     ...(is(config.disableHomeLink, 'boolean') ? { disableHomeLink: config.disableHomeLink } : {}),
+    ...(is(config.scriptFilename, 'string') ? { scriptFilename: config.scriptFilename } : {}),
     ...(is(config.version, 'string') ? { version: config.version } : {}),
   };
 };

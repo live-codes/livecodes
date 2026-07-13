@@ -1,4 +1,4 @@
-import { getConsoleCallSite } from './console-line-source';
+import { getConsoleCallSite } from '../compiler/source-maps';
 
 // modified from https://github.com/alexindigo/precise-typeof/blob/master/index.js
 export const typeOf = (obj: any) => {
@@ -131,6 +131,16 @@ export const proxyConsole = () => {
         }
         (target[method as keyof typeof console] as any)(...args);
         const callSite = getConsoleCallSite();
+        // Methods that produce no visual output in Luna (don't fire the 'insert' event):
+        // - 'time' always silent (stores start time, no DOM entry)
+        // - 'countReset' always silent (resets counter in memory, no DOM entry)
+        // - 'assert' when assertion passes (first arg truthy = no failure shown)
+        // - 'table' with no args (nothing to render)
+        const silent =
+          method === 'time' ||
+          method === 'countReset' ||
+          (method === 'assert' && !!args[0]) ||
+          (method === 'table' && args.length === 0);
         parent.postMessage(
           {
             type: 'console',
@@ -138,6 +148,7 @@ export const proxyConsole = () => {
             args: consoleArgs(args),
             lineNumber: callSite.lineNumber,
             source: callSite.source,
+            silent,
           },
           '*',
         );

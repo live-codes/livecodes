@@ -71,5 +71,6 @@ export const defaultConfig: Config = {
   // enableAI: false,
   editorMode: undefined,
   disableHomeLink: false,
+  scriptFilename: undefined,
   version: process.env.VERSION as string,
 };

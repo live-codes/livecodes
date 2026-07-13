@@ -12,12 +12,14 @@ import type {
   EventsManager,
   Theme,
 } from '../models';
-import type { ConsoleDisplaySource } from '../result/result-types';
-import { isConsoleDisplaySource } from '../result/result-types';
+import {
+  buildSourceLineMap,
+  isConsoleDisplaySource,
+  toPositiveLineNumber,
+  type ConsoleDisplaySource,
+} from '../compiler/source-maps';
 import { sandboxService } from '../services';
 import { isMobile, preventFocus } from '../utils';
-import { buildSourceLineMap } from '../utils/source-map';
-import { toPositiveLineNumber } from '../utils/line-number';
 
 export const createConsole = (
   config: Config,
@@ -29,10 +31,24 @@ export const createConsole = (
 ): Console => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let editor: CodeEditor;
-  let sourceLineMap: Map<number, number> | null = null;
+  let sourceMapsRecord: Record<string, string> | null | undefined;
+  // Lazy-decoded cache: source map key → decoded line map.
+  // Keyed by filename today ('script'), by actual filename in multi-file future ('tax-calculator.ts').
+  const sourceLineMapsCache = new Map<string, Map<number, number>>();
   let lineNumbersEnabled = false;
+
+  const getSourceLineMap = (key: string): Map<number, number> | null => {
+    if (!sourceMapsRecord) return null;
+    if (sourceLineMapsCache.has(key)) return sourceLineMapsCache.get(key)!;
+    const raw = sourceMapsRecord[key];
+    if (!raw) return null;
+    const decoded = buildSourceLineMap(raw);
+    sourceLineMapsCache.set(key, decoded);
+    return decoded;
+  };
   const lineNumberQueue: Array<string | null> = [];
   let lastProcessedSource: string | null = null;
+  let lastProcessedLine: number | undefined;
 
   let consoleElement: HTMLElement;
   const sourceSelector = '#result > iframe';
@@ -79,43 +95,43 @@ export const createConsole = (
   const getSource = (source: unknown): ConsoleDisplaySource =>
     isConsoleDisplaySource(source) ? source : 'script';
 
-  // Extends a badge like 'script:1' to 'script:1:5' when lines span a range.
-  const updateSourceLineRange = (current: string, newLine: number): string => {
-    const match = current.match(/^(\w+):(\d+)(?::(\d+))?$/);
-    if (!match) return current;
-    const src = match[1];
-    const firstLine = parseInt(match[2], 10);
-    const lastLine = match[3] ? parseInt(match[3], 10) : firstLine;
-    const newLastLine = Math.max(lastLine, newLine);
-    if (newLastLine === firstLine) return current;
-    return `${src}:${firstLine}:${newLastLine}`;
-  };
-
   const setupInsertListener = () => {
     (consoleEmulator as any).on('insert', (log: any) => {
-      const sourceLine = lineNumberQueue.shift() ?? null;
-      if (sourceLine == null) return;
       const logItem = log?.container?.querySelector?.('.luna-console-log-item');
       if (!logItem) return;
-      let badge = logItem.querySelector('.console-line-number') as HTMLElement | null;
-      if (!badge) {
-        badge = document.createElement('span');
-        badge.className = 'console-line-number';
-        (logItem as HTMLElement).appendChild(badge);
+      const sourceLine = lineNumberQueue.shift() ?? null;
+      // If badge already exists: Luna re-emitted 'insert' for a dedup (addCount) on the same
+      // source+line entry. The queue slot is consumed above; keep the existing badge unchanged.
+      if (logItem.querySelector('.console-line-number')) return;
+      if (!sourceLine) return;
+      const badge = document.createElement('span');
+      badge.className = 'console-line-number';
+      badge.textContent = sourceLine;
+      // Parse "label:line" — anything other than 'markup' maps to the script editor.
+      const colonIdx = sourceLine.lastIndexOf(':');
+      const sourceLabel = sourceLine.slice(0, colonIdx);
+      const lineNumber = parseInt(sourceLine.slice(colonIdx + 1), 10);
+      if (!isNaN(lineNumber)) {
+        const editorId = sourceLabel === 'markup' ? 'markup' : 'script';
+        badge.title = `Go to ${sourceLine}`;
+        badge.addEventListener('click', (e) => {
+          e.stopPropagation();
+          window.dispatchEvent(
+            new CustomEvent('livecodes-console-navigate', {
+              detail: { editorId, line: lineNumber },
+            }),
+          );
+        });
       }
-      if (badge.textContent) {
-        // Luna re-emits 'insert' on dedup (addCount) — extend the line range.
-        const newLine = parseInt(sourceLine.split(':')[1], 10);
-        badge.textContent = updateSourceLineRange(badge.textContent, newLine);
-      } else {
-        badge.textContent = sourceLine;
-      }
+      (logItem as HTMLElement).appendChild(badge);
     });
   };
 
   const createConsoleEmulator = () => {
     if (consoleEmulator) {
       consoleEmulator.destroy();
+      // asyncRender: false is required so that Luna's lastLog dedup check runs synchronously
+      // before we reset it for the next message. With async rendering, the reset races the check.
       consoleEmulator = new LunaConsole(consoleElement, { asyncRender: false });
       setupInsertListener();
       return consoleEmulator;
@@ -157,6 +173,7 @@ export const createConsole = (
           // prevent passing args (silent) to `clear` method
           lineNumberQueue.length = 0;
           lastProcessedSource = null;
+          lastProcessedLine = undefined;
           consoleEmulator.clear();
         } else {
           const args = convertTypes(message.args);
@@ -176,19 +193,31 @@ export const createConsole = (
                 updateMark();
                 return;
               }
+              // Derive the source map key from sourceMapsRecord.
+              // Single-file: first (and only) key — 'script' by default, or a real filename
+              // like 'tax-calculator.ts' when config.scriptFilename is set.
+              // Multi-file (PR #934): use message.filename to pick the right key per call site.
+              const mapKey =
+                source === 'script' && sourceMapsRecord
+                  ? (Object.keys(sourceMapsRecord)[0] ?? 'script')
+                  : source;
               const lineNumber =
                 source === 'script'
-                  ? toPositiveLineNumber(sourceLineMap?.get(rawLineNumber)) ?? rawLineNumber
+                  ? toPositiveLineNumber(getSourceLineMap(mapKey)?.get(rawLineNumber)) ?? rawLineNumber
                   : rawLineNumber;
-              lineNumberQueue.push(`${source}:${lineNumber}`);
-              // Break Luna's deduplication only when the source (markup/script) changes.
-              // Same source lets Luna group identical messages; the insert handler extends
-              // the badge range on each dedup re-emit.
-              if (lastProcessedSource !== source) {
+              lineNumberQueue.push(`${mapKey}:${lineNumber}`);
+              // Break Luna's deduplication when source OR line changes.
+              // Only identical messages from the exact same source+line (e.g. a loop) are grouped.
+              if (lastProcessedSource !== source || lastProcessedLine !== lineNumber) {
                 (consoleEmulator as any).lastLog = null;
                 lastProcessedSource = source;
+                lastProcessedLine = lineNumber;
               }
-            } else {
+            } else if (!message.silent) {
+              // Non-display methods that DO produce a Luna DOM entry (group, count, dir, etc.)
+              // still need a queue slot so the FIFO stays aligned.
+              // Silent methods (time, assert(true), table with no args) produce no DOM entry
+              // and must not push — otherwise the queue drifts.
               lineNumberQueue.push(null);
             }
           }
@@ -393,24 +422,31 @@ export const createConsole = (
     getEditor: () => editor,
     reloadEditor,
     setTheme: (theme: Theme) => exec(() => consoleEmulator?.setOption('theme', theme)),
-    setSourceMap: (map: string | null | undefined) => {
-      if (typeof map === 'string') {
-        sourceLineMap = buildSourceLineMap(map);
-        lineNumbersEnabled = true;
-      } else if (map === null) {
-        sourceLineMap = null; // plain JS: accurate raw lines, no map needed
-        lineNumbersEnabled = true;
-      } else {
-        sourceLineMap = null; // suppress: Python, Ruby, WASM, etc.
-        lineNumbersEnabled = false;
-      }
+    setSourceMap: (sourceMaps: Record<string, string> | null | undefined) => {
+      // null  = plain JS (accurate raw lines, no mapping needed) → enable line numbers
+      // undefined = suppress (Python, Ruby, WASM, etc.)          → disable line numbers
+      // Record   = compiled language with source maps            → enable + map lines
+      // Keys today: { script: '...' }. Multi-file future: { 'tax-calculator.ts': '...', 'test.js': '...' }
+      sourceMapsRecord = sourceMaps;
+      sourceLineMapsCache.clear();
+      lineNumbersEnabled = sourceMaps !== undefined;
+      // Reset queue state on each run so stale slots from the previous run
+      // (e.g. a 'time' call that was later removed) don't shift badges.
+      lineNumberQueue.length = 0;
+      lastProcessedSource = null;
+      lastProcessedLine = undefined;
     },
     log: (...args) => exec(() => consoleEmulator?.log(...args)),
     info: (...args) => exec(() => consoleEmulator?.info(...args)),
     table: (...args) => exec(() => consoleEmulator?.table(...args)),
     warn: (...args) => exec(() => consoleEmulator?.warn(...args)),
     error: (...args) => exec(() => consoleEmulator?.error(...args)),
-    clear: (silent) => exec(() => consoleEmulator?.clear(silent)),
+    clear: (silent) => {
+      lineNumberQueue.length = 0;
+      lastProcessedSource = null;
+      lastProcessedLine = undefined;
+      exec(() => consoleEmulator?.clear(silent));
+    },
     // filterLog: (filter) => exec(() => consoleEmulator?.filterLog(filter)),
     evaluate: (code) => exec(() => consoleEmulator?.evaluate(code)),
   };

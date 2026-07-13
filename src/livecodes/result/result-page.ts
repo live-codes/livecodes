@@ -115,7 +115,12 @@ export const createResultPage = async ({
   // editor markup
   const markup = code.markup.compiled;
   dom.body.innerHTML += markup;
-  if (!forExport) {
+  const consoleEnabled =
+    !forExport &&
+    (config.tools?.enabled === 'all' ||
+      config.tools?.enabled == null ||
+      (config.tools?.enabled as string[])?.includes('console'));
+  if (consoleEnabled && markup.includes('<script')) {
     // Mark inline scripts from markup so runtime can recover absolute markup line numbers.
     const markupScripts = dom.body.querySelectorAll<HTMLScriptElement>('script:not([src])');
     markupScripts.forEach((script, index) => {
@@ -518,28 +523,30 @@ window.browserJest.run().then(results => {
       }
     }
 
-    const markupScriptTagMatches = tempHtml.matchAll(
-      /<script\b[^>]*data-livecodes-markup-script-id=(['"])(\d+)\1[^>]*>/gi,
-    );
-    for (const match of markupScriptTagMatches) {
-      const scriptId = match[2];
-      const tagIndex = match.index;
-      if (tagIndex == null) continue;
-      const scriptTagLine = (tempHtml.slice(0, tagIndex).match(/\n/g) ?? []).length + 1;
-      const scriptElement = dom.body.querySelector<HTMLScriptElement>(
-        `script[data-livecodes-markup-script-id="${scriptId}"]`,
+    if (consoleEnabled) {
+      const markupScriptTagMatches = tempHtml.matchAll(
+        /<script\b[^>]*data-livecodes-markup-script-id=(['"])(\d+)\1[^>]*>/gi,
       );
-      if (scriptElement) {
-        scriptElement.dataset.livecodesMarkupScriptLine = String(scriptTagLine - markupLineOffset);
-        const startsWithNewLine = /^(\r\n|\n|\r)/.test(scriptElement.textContent ?? '');
-        scriptElement.dataset.livecodesMarkupScriptStackBase = startsWithNewLine ? '2' : '1';
+      for (const match of markupScriptTagMatches) {
+        const scriptId = match[2];
+        const tagIndex = match.index;
+        if (tagIndex == null) continue;
+        const scriptTagLine = (tempHtml.slice(0, tagIndex).match(/\n/g) ?? []).length + 1;
+        const scriptElement = dom.body.querySelector<HTMLScriptElement>(
+          `script[data-livecodes-markup-script-id="${scriptId}"]`,
+        );
+        if (scriptElement) {
+          scriptElement.dataset.livecodesMarkupScriptLine = String(scriptTagLine - markupLineOffset);
+          const startsWithNewLine = /^(\r\n|\n|\r)/.test(scriptElement.textContent ?? '');
+          scriptElement.dataset.livecodesMarkupScriptStackBase = startsWithNewLine ? '2' : '1';
+        }
       }
+      dom.body
+        .querySelectorAll<HTMLScriptElement>('script[data-livecodes-markup-script-id]')
+        .forEach((scriptElement) => {
+          delete scriptElement.dataset.livecodesMarkupScriptId;
+        });
     }
-    dom.body
-      .querySelectorAll<HTMLScriptElement>('script[data-livecodes-markup-script-id]')
-      .forEach((scriptElement) => {
-        delete scriptElement.dataset.livecodesMarkupScriptId;
-      });
 
     dom.body.dataset.livecodesMarkupLineOffset = String(markupLineOffset);
     dom.body.dataset.livecodesScriptLineOffset = String(scriptLineOffset);

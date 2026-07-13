@@ -1252,8 +1252,12 @@ a.tools-pane-title {
       opacity: 0.45;
       font-size: 0.8em;
       white-space: nowrap;
-      pointer-events: none;
+      cursor: pointer;
       user-select: none;
+      &:hover {
+        opacity: 0.8;
+        text-decoration: underline;
+      }
     }
   }
 }

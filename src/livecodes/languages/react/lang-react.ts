@@ -39,7 +39,7 @@ export const react: LanguageSpecs = {
         });
         return {
           code: result.code,
-          info: { sourceMap: result.map ? JSON.stringify(result.map) : undefined },
+          info: { sourceMaps: result.map ? { script: JSON.stringify(result.map) } : undefined },
         };
       },
   },

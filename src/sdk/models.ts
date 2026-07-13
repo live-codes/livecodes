@@ -1086,6 +1086,16 @@ export interface AppConfig {
    * @default false
    */
   disableHomeLink: boolean;
+
+  /**
+   * Filename for the script editor content.
+   * Used as the source map key, so console badges show the actual filename
+   * (e.g. `tax-calculator.ts:5`) instead of the generic `script:5`.
+   * In multi-file mode (future), each file will supply its own source map key.
+   *
+   * @default undefined
+   */
+  scriptFilename?: string;
 }
 
 /**
