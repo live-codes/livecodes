@@ -440,24 +440,31 @@ export const createResultPage = async ({
     const scriptElement = dom.createElement('script');
     scriptElement.dataset.livecodesScript = 'editor';
 
+    const languageScriptType = getLanguageCompiler(code.script.language)?.scriptType;
+    const scriptType =
+      languageScriptType ??
+      (config.customSettings.scriptType != null
+        ? config.customSettings.scriptType || undefined
+        : isModuleScript(script)
+          ? 'module'
+          : undefined);
+
+    const supportsSourceUrl =
+      !scriptType || scriptType === 'module' || /(java|ecma)script/i.test(scriptType);
+    const scriptContent = supportsSourceUrl
+      ? `${script}\n//# sourceURL=livecodes-script.js`
+      : script;
+
     if (singleFile) {
-      scriptElement.innerHTML = escapeScript(`${script}\n//# sourceURL=livecodes-script.js`);
+      scriptElement.innerHTML = escapeScript(scriptContent);
     } else {
       scriptElement.src = './script.js';
     }
     dom.body.appendChild(scriptElement);
 
     // script type
-    const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
     if (scriptType) {
       scriptElement.type = scriptType;
-    } else if (config.customSettings.scriptType != null) {
-      // do not add type if scriptType === ''
-      if (config.customSettings.scriptType) {
-        scriptElement.type = config.customSettings.scriptType;
-      }
-    } else if (isModuleScript(script)) {
-      scriptElement.type = 'module';
     }
   }
 
