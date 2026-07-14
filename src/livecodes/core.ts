@@ -5483,7 +5483,7 @@ const createApi = (): API => {
     }
   };
 
-  eventsManager.addEventListener(window, 'livecodes-console-navigate', (e: any) => {
+  eventsManager.addEventListener(window, customEvents.consoleNavigate, (e: any) => {
     apiShow(e.detail.editorId, { line: e.detail.line });
   });
 

@@ -8,6 +8,7 @@ import {
 } from '../compiler/source-maps';
 import { getEditorConfig } from '../config';
 import { createEditor, getFontFamily } from '../editor';
+import { customEvents } from '../events/custom-events';
 import { getLanguageExtension, mapLanguage } from '../languages';
 import type {
   CodeEditor,
@@ -113,11 +114,10 @@ export const createConsole = (
       const lineNumber = parseInt(sourceLine.slice(colonIdx + 1), 10);
       if (!isNaN(lineNumber)) {
         const editorId = sourceLabel === 'markup' ? 'markup' : 'script';
-        badge.title = `Go to ${sourceLine}`;
         badge.addEventListener('click', (e) => {
           e.stopPropagation();
           window.dispatchEvent(
-            new CustomEvent('livecodes-console-navigate', {
+            new CustomEvent(customEvents.consoleNavigate, {
               detail: { editorId, line: lineNumber },
             }),
           );
