@@ -193,9 +193,7 @@ export const createConsole = (
                 updateMark();
                 return;
               }
-              // Derive the source map key from sourceMapsRecord.
-              // Single-file: first (and only) key — 'script' by default
-              // Multi-file (PR #934): use message.filename to pick the right key per call site.
+              // Console messages have no filename, so use first source-map key.
               const mapKey =
                 source === 'script' && sourceMapsRecord
                   ? Object.keys(sourceMapsRecord)[0] ?? 'script'

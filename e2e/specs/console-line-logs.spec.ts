@@ -37,7 +37,7 @@ const openWithCode = async (
     language = 'js',
   }: { markup: string; script: string; language?: string; filename?: string },
 ) => {
-  const scriptParam = language === 'ts' ? 'ts' : 'js';
+  const scriptParam = language === 'ts' ? 'ts' : language === 'js' ? 'js' : language;
   await page.goto(
     getTestUrl({
       tools: 'console|open',
@@ -301,6 +301,96 @@ test.describe('Console line logs', () => {
     expect(byeEntries[0].sourceLine).toBe('markup:2');
     expect(byeEntries[1].sourceLine).toBe('markup:3');
     expect(byeEntries[2].sourceLine).toBe('markup:8');
+  });
+
+  test('markup inline script: line numbers correct when TypeScript is active', async ({
+    page,
+    getTestUrl,
+  }) => {
+    // When TypeScript is in the script editor, sourceMapsRecord is non-null.
+    // This caused the currentScriptStartLine path to be taken for markup inline logs,
+    // where a wrong stackBase (2 instead of 1) produced an off-by-one.
+    const markup = [
+      '<div class="container">',
+      '  <h1>Hello</h1>',
+      '  <p>paragraph</p>',
+      '  <button>click</button>',
+      '</div>',
+      '',
+      '<script>',
+      '  console.log("ts-markup-a")',  // markup line 8
+      '  console.log("ts-markup-b")',  // markup line 9
+      '</script>',
+    ].join('\n');
+    const { app } = await openWithCode(page, getTestUrl, {
+      markup,
+      script: 'const greeting: string = "hello";',
+      language: 'ts',
+    });
+    await waitForConsoleEntries(app, 2);
+    await app.waitForTimeout(300);
+
+    const entries = await getConsoleEntries(app);
+    expect(entries.find((e) => e.text === 'ts-markup-a')?.sourceLine).toBe('markup:8');
+    expect(entries.find((e) => e.text === 'ts-markup-b')?.sourceLine).toBe('markup:9');
+  });
+
+  test('markup inline script: same-value logs keep exact lines in JS/TS/React', async ({
+    page,
+    getTestUrl,
+  }) => {
+    const markup = [
+      '<div class="container">',
+      '  <h1>Hello, <span id="title">World</span>!</h1>',
+      '  <img class="logo" alt="logo" src="http://127.0.0.1:8080/livecodes/assets/templates/javascript.svg" />',
+      '  <p>You clicked <span id="counter">0</span> times.</p>',
+      '  <button id="counter-button">Click me</button>',
+      '</div>',
+      '',
+      '<script>',
+      '  console.log("same value")',
+      '  console.log("same value")',
+      '  console.time("ignored")',
+      '</script>',
+    ].join('\n');
+
+    const cases = [
+      {
+        label: 'JavaScript',
+        language: 'js',
+        script: 'document.body.dataset.ready = "js";',
+      },
+      {
+        label: 'TypeScript',
+        language: 'ts',
+        script: 'const ready: string = "ts"; document.body.dataset.ready = ready;',
+      },
+      {
+        label: 'React',
+        language: 'react',
+        script: 'export default function App() { return null; }',
+      },
+    ] as const;
+
+    for (const testCase of cases) {
+      // Arrange
+      const { app } = await openWithCode(page, getTestUrl, {
+        markup,
+        script: testCase.script,
+        language: testCase.language,
+      });
+      await waitForConsoleEntries(app, 2);
+      await app.waitForTimeout(300);
+
+      // Act
+      const entries = await getConsoleEntries(app);
+      const sameValueEntries = entries.filter((e) => e.text === 'same value');
+
+      // Assert
+      expect(sameValueEntries, `${testCase.label}: should show two separate same-value entries`).toHaveLength(2);
+      expect(sameValueEntries[0].sourceLine, `${testCase.label}: first log line`).toBe('markup:9');
+      expect(sameValueEntries[1].sourceLine, `${testCase.label}: second log line`).toBe('markup:10');
+    }
   });
 
   test('TypeScript source map maps compiled lines to original TS lines', async ({
