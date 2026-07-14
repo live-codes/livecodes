@@ -194,8 +194,7 @@ export const createConsole = (
                 return;
               }
               // Derive the source map key from sourceMapsRecord.
-              // Single-file: first (and only) key — 'script' by default, or a real filename
-              // like 'tax-calculator.ts' when config.scriptFilename is set.
+              // Single-file: first (and only) key — 'script' by default
               // Multi-file (PR #934): use message.filename to pick the right key per call site.
               const mapKey =
                 source === 'script' && sourceMapsRecord

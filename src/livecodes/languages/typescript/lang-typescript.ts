@@ -60,9 +60,7 @@ export const typescript: LanguageSpecs = {
         return {
           code: result.outputText.replace(/\n?\/\/# sourceMappingURL=\S+/m, ''),
           info: {
-            sourceMaps: result.sourceMapText
-              ? { [config.scriptFilename ?? 'script']: result.sourceMapText }
-              : undefined,
+            sourceMaps: result.sourceMapText ? { script: result.sourceMapText } : undefined,
           },
         };
       },

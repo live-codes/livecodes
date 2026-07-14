@@ -1,7 +1,7 @@
 import { expect, type Frame, type Page } from '@playwright/test';
+import type { UrlQueryParams } from '../../src/livecodes/models';
 import { getLoadedApp } from '../helpers';
 import { test } from '../test-fixtures';
-import type { UrlQueryParams } from '../../src/livecodes/models';
 
 interface ConsoleEntry {
   text: string;
@@ -35,7 +35,6 @@ const openWithCode = async (
     markup,
     script,
     language = 'js',
-    filename,
   }: { markup: string; script: string; language?: string; filename?: string },
 ) => {
   const scriptParam = language === 'ts' ? 'ts' : 'js';
@@ -45,7 +44,6 @@ const openWithCode = async (
       active: 'script',
       html: encodeURIComponent(markup),
       [scriptParam]: encodeURIComponent(script),
-      ...(filename ? { scriptFilename: filename } : {}),
     }),
   );
   const { app, waitForResultUpdate } = await getLoadedApp(page);
@@ -121,7 +119,10 @@ test.describe('Console line logs', () => {
     expect(entries.find((e) => e.text === 'inline markup log')?.sourceLine).toBe('markup:3');
   });
 
-  test('groups same-line loop logs and regroups after interruption', async ({ page, getTestUrl }) => {
+  test('groups same-line loop logs and regroups after interruption', async ({
+    page,
+    getTestUrl,
+  }) => {
     // Arrange — loops produce same-line logs; different lines break grouping
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '<div>test</div>',
@@ -166,11 +167,7 @@ test.describe('Console line logs', () => {
     // Arrange — console.time produces no DOM entry in Luna, so it must not consume a queue slot
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '',
-      script: [
-        "console.log('before');",
-        "console.time('t');",
-        "console.log('after');",
-      ].join('\n'),
+      script: ["console.log('before');", "console.time('t');", "console.log('after');"].join('\n'),
     });
     await waitForConsoleEntries(app, 2);
     await app.waitForTimeout(300);
@@ -255,12 +252,9 @@ test.describe('Console line logs', () => {
     // A helper whose log lives on line 1 — each invocation still comes from script:1, so they group
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '',
-      script: [
-        'const greet = () => console.log("hi");',
-        'greet();',
-        'greet();',
-        'greet();',
-      ].join('\n'),
+      script: ['const greet = () => console.log("hi");', 'greet();', 'greet();', 'greet();'].join(
+        '\n',
+      ),
     });
     await waitForConsoleEntries(app, 1);
     await app.waitForTimeout(300);
@@ -281,14 +275,14 @@ test.describe('Console line logs', () => {
     // console.time is silent (no badge confusion), loop logs all share line 8 and group
     const markup = [
       '<script>',
-      'console.log("bye")',       // markup line 2
-      'console.log("bye")',       // markup line 3 — different line → separate entry
-      'console.time("bye")',      // markup line 4 — silent, must not shift queue
-      '',                         // markup line 5
-      '',                         // markup line 6
-      'for(let i=0;i<5;i++){',   // markup line 7
-      'console.log("bye")',       // markup line 8 — all 5 iterations → grouped
-      '}',                        // markup line 9
+      'console.log("bye")', // markup line 2
+      'console.log("bye")', // markup line 3 — different line → separate entry
+      'console.time("bye")', // markup line 4 — silent, must not shift queue
+      '', // markup line 5
+      '', // markup line 6
+      'for(let i=0;i<5;i++){', // markup line 7
+      'console.log("bye")', // markup line 8 — all 5 iterations → grouped
+      '}', // markup line 9
       '</script>',
     ].join('\n');
     const { app } = await openWithCode(page, getTestUrl, {
@@ -319,12 +313,12 @@ test.describe('Console line logs', () => {
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '',
       script: [
-        'interface Greeter { name: string; }',   // line 1 — stripped by TS compiler
-        'interface Config { debug: boolean; }',   // line 2 — stripped
+        'interface Greeter { name: string; }', // line 1 — stripped by TS compiler
+        'interface Config { debug: boolean; }', // line 2 — stripped
         'interface Options { timeout: number; }', // line 3 — stripped
         '',
-        'const msg = "ts source map works";',     // line 5
-        'console.log(msg);',                      // line 6 in TS, line ~2 in compiled JS
+        'const msg = "ts source map works";', // line 5
+        'console.log(msg);', // line 6 in TS, line ~2 in compiled JS
       ].join('\n'),
       language: 'ts',
     });
@@ -338,34 +332,34 @@ test.describe('Console line logs', () => {
     expect(entries.find((e) => e.text === 'ts source map works')?.sourceLine).toBe('script:6');
   });
 
-  test('named file badge shows filename instead of generic "script"', async ({
-    page,
-    getTestUrl,
-  }) => {
-    // When scriptFilename is set, the compiler keys the source map by filename.
-    // console.ts reads that key and uses it as the badge label.
-    // Multi-file (PR #934): each file will supply its own key; this proves the mechanism works.
-    const { app } = await openWithCode(page, getTestUrl, {
-      markup: '',
-      script: [
-        'interface Price { amount: number; }',           // line 1 — stripped by TS compiler
-        'interface Rate { pct: number; }',               // line 2 — stripped
-        '',
-        'const tax = (p: Price, r: Rate) => p.amount * r.pct;', // line 4
-        'console.log(tax({ amount: 100 }, { pct: 0.2 }));',     // line 5 in TS, line ~2 in compiled JS
-      ].join('\n'),
-      language: 'ts',
-      filename: 'tax-calculator.ts',
-    });
-    await waitForConsoleEntries(app, 1);
-    await app.waitForTimeout(300);
+  // test('named file badge shows filename instead of generic "script"', async ({
+  //   page,
+  //   getTestUrl,
+  // }) => {
+  //   // When scriptFilename is set, the compiler keys the source map by filename.
+  //   // console.ts reads that key and uses it as the badge label.
+  //   // Multi-file (PR #934): each file will supply its own key; this proves the mechanism works.
+  //   const { app } = await openWithCode(page, getTestUrl, {
+  //     markup: '',
+  //     script: [
+  //       'interface Price { amount: number; }',           // line 1 — stripped by TS compiler
+  //       'interface Rate { pct: number; }',               // line 2 — stripped
+  //       '',
+  //       'const tax = (p: Price, r: Rate) => p.amount * r.pct;', // line 4
+  //       'console.log(tax({ amount: 100 }, { pct: 0.2 }));',     // line 5 in TS, line ~2 in compiled JS
+  //     ].join('\n'),
+  //     language: 'ts',
+  //     filename: 'tax-calculator.ts',
+  //   });
+  //   await waitForConsoleEntries(app, 1);
+  //   await app.waitForTimeout(300);
 
-    // Act
-    const entries = await getConsoleEntries(app);
+  //   // Act
+  //   const entries = await getConsoleEntries(app);
 
-    // Assert — badge shows real filename + original TS line, not 'script:2' (compiled JS)
-    expect(entries[0].sourceLine).toBe('tax-calculator.ts:5');
-  });
+  //   // Assert — badge shows real filename + original TS line, not 'script:2' (compiled JS)
+  //   expect(entries[0].sourceLine).toBe('tax-calculator.ts:5');
+  // });
 
   test('badge queue resets correctly after page re-run', async ({ page, getTestUrl }) => {
     // Arrange — console.time is silent; after re-run the queue must start fresh.
