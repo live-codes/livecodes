@@ -1,4 +1,4 @@
-import { getConsoleCallSite } from '../compiler/source-maps';
+import { getConsoleCallSite, getConsoleCallSiteFromError } from '../compiler/source-maps';
 
 // modified from https://github.com/alexindigo/precise-typeof/blob/master/index.js
 export const typeOf = (obj: any) => {
@@ -157,12 +157,14 @@ export const proxyConsole = () => {
   });
 
   window.addEventListener('error', (error) => {
+    const callSite = getConsoleCallSiteFromError(error.lineno, error.error?.stack);
     parent.postMessage(
       {
         type: 'console',
         method: 'error',
         args: consoleArgs([error.message]),
-        lineNumber: error.lineno || undefined,
+        lineNumber: callSite.lineNumber,
+        source: callSite.source,
       },
       '*',
     );

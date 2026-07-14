@@ -441,7 +441,7 @@ export const createResultPage = async ({
     scriptElement.dataset.livecodesScript = 'editor';
 
     if (singleFile) {
-      scriptElement.src = toDataUrl(`${script}\n//# sourceURL=livecodes-script.js`);
+      scriptElement.innerHTML = escapeScript(`${script}\n//# sourceURL=livecodes-script.js`);
     } else {
       scriptElement.src = './script.js';
     }

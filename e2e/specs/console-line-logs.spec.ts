@@ -335,6 +335,30 @@ test.describe('Console line logs', () => {
     expect(entries.find((e) => e.text === 'ts-markup-b')?.sourceLine).toBe('markup:9');
   });
 
+  test('markup runtime errors should map to markup line numbers', async ({ page, getTestUrl }) => {
+    const { app } = await openWithCode(page, getTestUrl, {
+      markup: [
+        'some text',
+        '',
+        '<script>',
+        '  console.log("line-number-bug-log")',
+        '',
+        '',
+        '  throw new Error("line-number-bug-error")',
+        '</script>',
+      ].join('\n'),
+      script: '',
+    });
+    await waitForConsoleEntries(app, 2);
+    await app.waitForTimeout(300);
+
+    const entries = await getConsoleEntries(app);
+    expect(entries.find((e) => e.text.includes('line-number-bug-log'))?.sourceLine).toBe('markup:4');
+    expect(entries.find((e) => e.text.includes('line-number-bug-error'))?.sourceLine).toBe(
+      'markup:7',
+    );
+  });
+
   test('markup inline script: same-value logs keep exact lines in JS/TS/React', async ({
     page,
     getTestUrl,

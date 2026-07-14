@@ -152,57 +152,19 @@ const getCandidateFrame = (stack: string) => {
   return codeFrames.find(isExternalScriptFrame) ?? codeFrames[0] ?? '';
 };
 
-export const getConsoleCallSite = (): ConsoleCallSite => {
-  try {
-    const stack = new Error().stack ?? '';
-    const callerFrame = getCandidateFrame(stack);
-    const match = callerFrame.match(/:(\d+):\d+\)?[\s]*$/);
-    if (!match) return { source: 'script', callerFrame };
+const getLineNumberFromFrame = (callerFrame: string): number | undefined => {
+  const match = callerFrame.match(/:(\d+):\d+\)?[\s]*$/);
+  return toPositiveLineNumber(Number(match?.[1]));
+};
 
-    const docLine = toPositiveLineNumber(Number(match[1]));
-    if (!docLine) return { source: 'script', callerFrame };
+const resolveConsoleCallSiteFromDocLine = (
+  docLine: number,
+  callerFrame?: string,
+): ConsoleCallSite => {
+  const { markup, script } = getOffsets();
+  const externalScriptFrame = isExternalScriptFrame(callerFrame ?? '');
 
-    const { markup, script } = getOffsets();
-    const externalScriptFrame = isExternalScriptFrame(callerFrame);
-
-    if (externalScriptFrame || (!markup && !script)) {
-      return {
-        lineNumber: docLine,
-        source: 'script',
-        callerFrame,
-        markupOffset: markup,
-        scriptOffset: script,
-        externalScriptFrame,
-      };
-    }
-
-    if (script > 0) {
-      const source: ConsoleSource = docLine >= script ? 'script' : 'markup';
-      const lineNumber =
-        source === 'script'
-          ? toUserLine(docLine, script) ?? docLine
-          : getMarkupInlineScriptLine(docLine, markup) ?? docLine;
-      return {
-        lineNumber,
-        source,
-        callerFrame,
-        markupOffset: markup,
-        scriptOffset: script,
-        externalScriptFrame,
-      };
-    }
-
-    if (markup > 0) {
-      return {
-        lineNumber: getMarkupInlineScriptLine(docLine, markup) ?? docLine,
-        source: 'markup',
-        callerFrame,
-        markupOffset: markup,
-        scriptOffset: script,
-        externalScriptFrame,
-      };
-    }
-
+  if (externalScriptFrame || (!markup && !script)) {
     return {
       lineNumber: docLine,
       source: 'script',
@@ -211,6 +173,64 @@ export const getConsoleCallSite = (): ConsoleCallSite => {
       scriptOffset: script,
       externalScriptFrame,
     };
+  }
+
+  if (script > 0) {
+    const source: ConsoleSource = docLine >= script ? 'script' : 'markup';
+    const lineNumber =
+      source === 'script'
+        ? toUserLine(docLine, script) ?? docLine
+        : getMarkupInlineScriptLine(docLine, markup) ?? docLine;
+    return {
+      lineNumber,
+      source,
+      callerFrame,
+      markupOffset: markup,
+      scriptOffset: script,
+      externalScriptFrame,
+    };
+  }
+
+  if (markup > 0) {
+    return {
+      lineNumber: getMarkupInlineScriptLine(docLine, markup) ?? docLine,
+      source: 'markup',
+      callerFrame,
+      markupOffset: markup,
+      scriptOffset: script,
+      externalScriptFrame,
+    };
+  }
+
+  return {
+    lineNumber: docLine,
+    source: 'script',
+    callerFrame,
+    markupOffset: markup,
+    scriptOffset: script,
+    externalScriptFrame,
+  };
+};
+
+export const getConsoleCallSiteFromError = (
+  lineNumber: unknown,
+  stack?: string,
+): ConsoleCallSite => {
+  const callerFrame = stack ? getCandidateFrame(stack) : undefined;
+  const docLine = getLineNumberFromFrame(callerFrame ?? '') ?? toPositiveLineNumber(lineNumber);
+  if (!docLine) return { source: 'script', callerFrame };
+
+  return resolveConsoleCallSiteFromDocLine(docLine, callerFrame);
+};
+
+export const getConsoleCallSite = (): ConsoleCallSite => {
+  try {
+    const stack = new Error().stack ?? '';
+    const callerFrame = getCandidateFrame(stack);
+    const docLine = getLineNumberFromFrame(callerFrame);
+    if (!docLine) return { source: 'script', callerFrame };
+
+    return resolveConsoleCallSiteFromDocLine(docLine, callerFrame);
   } catch {
     return { source: 'script' };
   }
