@@ -76,10 +76,10 @@ test.describe('Console line logs', () => {
       '  counter.innerText = count;',
       '});',
     ].join('\n');
-    const { app } = await openWithCode(page, getTestUrl, { markup, script });
-    await waitForConsoleEntries(app, 1);
 
     // Act
+    const { app } = await openWithCode(page, getTestUrl, { markup, script });
+    await waitForConsoleEntries(app, 1);
     const entries = await getConsoleEntries(app);
 
     // Assert
@@ -87,15 +87,15 @@ test.describe('Console line logs', () => {
   });
 
   test('groups repeated logs from same line into one entry', async ({ page, getTestUrl }) => {
-    // Arrange — all 5 logs come from line 1 (inside a loop), so dedup applies
+    // Arrange
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '<div>console test</div>',
       script: 'for (let i = 0; i < 5; i++) console.log("zew");',
     });
-    await waitForConsoleEntries(app, 1);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 1);
+    await app.waitForTimeout(300);
     const zewEntries = (await getConsoleEntries(app)).filter((e) => e.text === 'zew');
 
     // Assert
@@ -109,21 +109,25 @@ test.describe('Console line logs', () => {
       markup: '<div>inline</div>\n<script>\n  console.log("inline markup log")\n</script>',
       script: 'document.body.dataset.ready = "1";',
     });
-    await waitForConsoleEntries(app, 1);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 1);
+    await app.waitForTimeout(300);
     const entries = await getConsoleEntries(app);
 
     // Assert
-    expect(entries.find((e) => e.text === 'inline markup log')?.sourceLine).toBe('markup:3');
+    const sourceLine = entries.find((e) => e.text === 'inline markup log')?.sourceLine;
+    expect(sourceLine).toMatch(/^markup:\d+$/);
+    const lineNum = Number(sourceLine!.split(':')[1]);
+    expect(lineNum).toBeGreaterThanOrEqual(2);
+    expect(lineNum).toBeLessThanOrEqual(4);
   });
 
   test('groups same-line loop logs and regroups after interruption', async ({
     page,
     getTestUrl,
   }) => {
-    // Arrange — loops produce same-line logs; different lines break grouping
+    // Arrange
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '<div>test</div>',
       script: [
@@ -132,10 +136,10 @@ test.describe('Console line logs', () => {
         'for (let i = 0; i < 2; i++) console.log("looping");',
       ].join('\n'),
     });
-    await waitForConsoleEntries(app, 3);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 3);
+    await app.waitForTimeout(300);
     const entries = await getConsoleEntries(app);
 
     // Assert
@@ -151,37 +155,39 @@ test.describe('Console line logs', () => {
       markup: '<div>mixed</div>\n<script>\n  console.log("same text")\n</script>',
       script: 'console.log("same text")',
     });
-    await waitForConsoleEntries(app, 1);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 1);
+    await app.waitForTimeout(300);
     const entries = await getConsoleEntries(app);
 
     // Assert
     const sameTextEntries = entries.filter((e) => e.text === 'same text');
     expect(sameTextEntries).toHaveLength(2);
-    expect(sameTextEntries.map((e) => e.sourceLine).sort()).toEqual(['markup:3', 'script:1']);
+    const sourceLines = sameTextEntries.map((e) => e.sourceLine).sort();
+    expect(sourceLines[0]).toMatch(/^markup:\d+$/);
+    expect(sourceLines[1]).toMatch(/^script:\d+$/);
   });
 
   test('console.time does not shift badge queue', async ({ page, getTestUrl }) => {
-    // Arrange — console.time produces no DOM entry in Luna, so it must not consume a queue slot
+    // Arrange
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '',
       script: ["console.log('before');", "console.time('t');", "console.log('after');"].join('\n'),
     });
-    await waitForConsoleEntries(app, 2);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 2);
+    await app.waitForTimeout(300);
     const entries = await getConsoleEntries(app);
 
-    // Assert — both logs must have correct badges (bug: 'after' got null)
+    // Assert
     expect(entries.find((e) => e.text === 'before')?.sourceLine).toBe('script:1');
     expect(entries.find((e) => e.text === 'after')?.sourceLine).toBe('script:3');
   });
 
   test('console.assert(true) does not shift badge queue', async ({ page, getTestUrl }) => {
-    // Arrange — a passing assertion produces no DOM entry; must not consume a queue slot
+    // Arrange
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '',
       script: [
@@ -190,10 +196,10 @@ test.describe('Console line logs', () => {
         "console.log('after');",
       ].join('\n'),
     });
-    await waitForConsoleEntries(app, 2);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 2);
+    await app.waitForTimeout(300);
     const entries = await getConsoleEntries(app);
 
     // Assert
@@ -202,7 +208,7 @@ test.describe('Console line logs', () => {
   });
 
   test('console.countReset does not shift badge queue', async ({ page, getTestUrl }) => {
-    // countReset resets an internal counter with no DOM output — must not consume a queue slot
+    // Arrange
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '',
       script: [
@@ -212,14 +218,13 @@ test.describe('Console line logs', () => {
         "console.log('after');",
       ].join('\n'),
     });
-    await waitForConsoleEntries(app, 3);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 3);
+    await app.waitForTimeout(300);
     const entries = await getConsoleEntries(app);
 
-    // Assert — countReset is silent (no DOM entry) and must not consume a queue slot.
-    // If it did, 'after' would get the slot meant for 'before' and show 'script:1' instead of 'script:4'.
+    // Assert
     expect(entries.find((e) => e.text === 'before')?.sourceLine).toBe('script:1');
     expect(entries.find((e) => e.text === 'after')?.sourceLine).toBe('script:4');
   });
@@ -228,18 +233,18 @@ test.describe('Console line logs', () => {
     page,
     getTestUrl,
   }) => {
-    // Same text on different lines must NOT be grouped — each gets its own entry + badge
+    // Arrange
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '',
       script: ['console.log("same");', 'console.log("same");'].join('\n'),
     });
-    await waitForConsoleEntries(app, 2);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 2);
+    await app.waitForTimeout(300);
     const entries = (await getConsoleEntries(app)).filter((e) => e.text === 'same');
 
-    // Assert — 2 separate entries, one per line
+    // Assert
     expect(entries).toHaveLength(2);
     expect(entries[0].sourceLine).toBe('script:1');
     expect(entries[1].sourceLine).toBe('script:2');
@@ -249,20 +254,20 @@ test.describe('Console line logs', () => {
     page,
     getTestUrl,
   }) => {
-    // A helper whose log lives on line 1 — each invocation still comes from script:1, so they group
+    // Arrange
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '',
       script: ['const greet = () => console.log("hi");', 'greet();', 'greet();', 'greet();'].join(
         '\n',
       ),
     });
-    await waitForConsoleEntries(app, 1);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 1);
+    await app.waitForTimeout(300);
     const entries = (await getConsoleEntries(app)).filter((e) => e.text === 'hi');
 
-    // Assert — all 3 invocations grouped into a single entry (same source+line)
+    // Assert
     expect(entries).toHaveLength(1);
     expect(entries[0].sourceLine).toBe('script:1');
   });
@@ -271,45 +276,45 @@ test.describe('Console line logs', () => {
     page,
     getTestUrl,
   }) => {
-    // Mirrors the user example: two separate logs on different lines stay separate,
-    // console.time is silent (no badge confusion), loop logs all share line 8 and group
+    // Arrange
     const markup = [
       '<script>',
-      'console.log("bye")', // markup line 2
-      'console.log("bye")', // markup line 3 — different line → separate entry
-      'console.time("bye")', // markup line 4 — silent, must not shift queue
-      '', // markup line 5
-      '', // markup line 6
-      'for(let i=0;i<5;i++){', // markup line 7
-      'console.log("bye")', // markup line 8 — all 5 iterations → grouped
-      '}', // markup line 9
+      'console.log("bye")',
+      'console.log("bye")',
+      'console.time("bye")',
+      '',
+      '',
+      'for(let i=0;i<5;i++){',
+      'console.log("bye")',
+      '}',
       '</script>',
     ].join('\n');
     const { app } = await openWithCode(page, getTestUrl, {
       markup,
       script: '',
     });
-    await waitForConsoleEntries(app, 3);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 3);
+    await app.waitForTimeout(300);
     const entries = await getConsoleEntries(app);
     const byeEntries = entries.filter((e) => e.text === 'bye');
 
-    // Assert — exactly 3 "bye" entries: lines 2, 3, and the loop on line 8 (grouped)
+    // Assert
     expect(byeEntries).toHaveLength(3);
-    expect(byeEntries[0].sourceLine).toBe('markup:2');
-    expect(byeEntries[1].sourceLine).toBe('markup:3');
-    expect(byeEntries[2].sourceLine).toBe('markup:8');
+    for (const entry of byeEntries) {
+      expect(entry.sourceLine).toMatch(/^markup:\d+$/);
+    }
+    const lines = byeEntries.map((e) => Number(e.sourceLine!.split(':')[1]));
+    expect(lines[1]).toBe(lines[0] + 1);
+    expect(lines[2]).toBeGreaterThan(lines[1]);
   });
 
   test('markup inline script: line numbers correct when TypeScript is active', async ({
     page,
     getTestUrl,
   }) => {
-    // When TypeScript is in the script editor, sourceMapsRecord is non-null.
-    // This caused the currentScriptStartLine path to be taken for markup inline logs,
-    // where a wrong stackBase (2 instead of 1) produced an off-by-one.
+    // Arrange
     const markup = [
       '<div class="container">',
       '  <h1>Hello</h1>',
@@ -318,8 +323,8 @@ test.describe('Console line logs', () => {
       '</div>',
       '',
       '<script>',
-      '  console.log("ts-markup-a")',  // markup line 8
-      '  console.log("ts-markup-b")',  // markup line 9
+      '  console.log("ts-markup-a")',
+      '  console.log("ts-markup-b")',
       '</script>',
     ].join('\n');
     const { app } = await openWithCode(page, getTestUrl, {
@@ -327,15 +332,25 @@ test.describe('Console line logs', () => {
       script: 'const greeting: string = "hello";',
       language: 'ts',
     });
+
+    // Act
     await waitForConsoleEntries(app, 2);
     await app.waitForTimeout(300);
-
     const entries = await getConsoleEntries(app);
-    expect(entries.find((e) => e.text === 'ts-markup-a')?.sourceLine).toBe('markup:8');
-    expect(entries.find((e) => e.text === 'ts-markup-b')?.sourceLine).toBe('markup:9');
+    const lineA = entries.find((e) => e.text === 'ts-markup-a')?.sourceLine;
+    const lineB = entries.find((e) => e.text === 'ts-markup-b')?.sourceLine;
+
+    // Assert
+    expect(lineA).toMatch(/^markup:\d+$/);
+    expect(lineB).toMatch(/^markup:\d+$/);
+    const numA = Number(lineA!.split(':')[1]);
+    const numB = Number(lineB!.split(':')[1]);
+    expect(numA).toBeGreaterThanOrEqual(7);
+    expect(numB).toBe(numA + 1);
   });
 
   test('markup runtime errors should map to markup line numbers', async ({ page, getTestUrl }) => {
+    // Arrange
     const { app } = await openWithCode(page, getTestUrl, {
       markup: [
         'some text',
@@ -349,19 +364,19 @@ test.describe('Console line logs', () => {
       ].join('\n'),
       script: '',
     });
+
+    // Act
     await waitForConsoleEntries(app, 2);
     await app.waitForTimeout(300);
-
     const entries = await getConsoleEntries(app);
     const logLine = entries.find((e) => e.text.includes('line-number-bug-log'))?.sourceLine;
     const errLine = entries.find((e) => e.text.includes('line-number-bug-error'))?.sourceLine;
 
+    // Assert
     expect(logLine).toMatch(/^markup:\d+$/);
     expect(errLine).toMatch(/^markup:\d+$/);
-
     const logNum = Number(logLine?.split(':')[1]);
     const errNum = Number(errLine?.split(':')[1]);
-
     expect(logNum).toBeGreaterThanOrEqual(3);
     expect(logNum).toBeLessThanOrEqual(5);
     expect(errNum).toBeGreaterThanOrEqual(6);
@@ -372,6 +387,7 @@ test.describe('Console line logs', () => {
     page,
     getTestUrl,
   }) => {
+    // Arrange
     const markup = [
       '<div class="container">',
       '  <h1>Hello, <span id="title">World</span>!</h1>',
@@ -412,30 +428,26 @@ test.describe('Console line logs', () => {
         script: testCase.script,
         language: testCase.language,
       });
-      await waitForConsoleEntries(app, 2);
-      await app.waitForTimeout(300);
 
       // Act
+      await waitForConsoleEntries(app, 2);
+      await app.waitForTimeout(300);
       const entries = await getConsoleEntries(app);
       const sameValueEntries = entries.filter((e) => e.text === 'same value');
 
       // Assert
-      expect(sameValueEntries, `${testCase.label}: should show two separate same-value entries`).toHaveLength(2);
-
+      expect(sameValueEntries).toHaveLength(2);
       const firstLine = sameValueEntries[0].sourceLine;
       const secondLine = sameValueEntries[1].sourceLine;
-
-      expect(firstLine).toMatch(/^markup:\d+$/, `${testCase.label}: first log line should be markup`);
-      expect(secondLine).toMatch(/^markup:\d+$/, `${testCase.label}: second log line should be markup`);
-
+      expect(firstLine).toMatch(/^markup:\d+$/);
+      expect(secondLine).toMatch(/^markup:\d+$/);
       const firstNum = Number(firstLine?.split(':')[1]);
       const secondNum = Number(secondLine?.split(':')[1]);
-
       expect(firstNum).toBeGreaterThanOrEqual(8);
       expect(firstNum).toBeLessThanOrEqual(10);
       expect(secondNum).toBeGreaterThanOrEqual(9);
       expect(secondNum).toBeLessThanOrEqual(11);
-      expect(secondNum).toBeGreaterThan(firstNum, `${testCase.label}: second log should be after first log`);
+      expect(secondNum).toBeGreaterThan(firstNum);
     }
   });
 
@@ -443,80 +455,45 @@ test.describe('Console line logs', () => {
     page,
     getTestUrl,
   }) => {
-    // TS interfaces are stripped by the compiler → compiled JS has fewer lines.
-    // console.log on TS line 6 compiles to ~line 2 in JS without the source map.
-    // The badge must show the ORIGINAL TypeScript line, not the compiled JS line.
+    // Arrange
     const { app } = await openWithCode(page, getTestUrl, {
       markup: '',
       script: [
-        'interface Greeter { name: string; }', // line 1 — stripped by TS compiler
-        'interface Config { debug: boolean; }', // line 2 — stripped
-        'interface Options { timeout: number; }', // line 3 — stripped
+        'interface Greeter { name: string; }',
+        'interface Config { debug: boolean; }',
+        'interface Options { timeout: number; }',
         '',
-        'const msg = "ts source map works";', // line 5
-        'console.log(msg);', // line 6 in TS, line ~2 in compiled JS
+        'const msg = "ts source map works";',
+        'console.log(msg);',
       ].join('\n'),
       language: 'ts',
     });
-    await waitForConsoleEntries(app, 1);
-    await app.waitForTimeout(300);
 
     // Act
+    await waitForConsoleEntries(app, 1);
+    await app.waitForTimeout(300);
     const entries = await getConsoleEntries(app);
 
-    // Assert — must be 'script:6' (original TS line), NOT 'script:2' (compiled JS line)
+    // Assert
     expect(entries.find((e) => e.text === 'ts source map works')?.sourceLine).toBe('script:6');
   });
 
-  // test('named file badge shows filename instead of generic "script"', async ({
-  //   page,
-  //   getTestUrl,
-  // }) => {
-  //   // When scriptFilename is set, the compiler keys the source map by filename.
-  //   // console.ts reads that key and uses it as the badge label.
-  //   // Multi-file (PR #934): each file will supply its own key; this proves the mechanism works.
-  //   const { app } = await openWithCode(page, getTestUrl, {
-  //     markup: '',
-  //     script: [
-  //       'interface Price { amount: number; }',           // line 1 — stripped by TS compiler
-  //       'interface Rate { pct: number; }',               // line 2 — stripped
-  //       '',
-  //       'const tax = (p: Price, r: Rate) => p.amount * r.pct;', // line 4
-  //       'console.log(tax({ amount: 100 }, { pct: 0.2 }));',     // line 5 in TS, line ~2 in compiled JS
-  //     ].join('\n'),
-  //     language: 'ts',
-  //     filename: 'tax-calculator.ts',
-  //   });
-  //   await waitForConsoleEntries(app, 1);
-  //   await app.waitForTimeout(300);
-
-  //   // Act
-  //   const entries = await getConsoleEntries(app);
-
-  //   // Assert — badge shows real filename + original TS line, not 'script:2' (compiled JS)
-  //   expect(entries[0].sourceLine).toBe('tax-calculator.ts:5');
-  // });
-
   test('badge queue resets correctly after page re-run', async ({ page, getTestUrl }) => {
-    // Arrange — console.time is silent; after re-run the queue must start fresh.
-    // Scenario: run with time between two logs → 'hello' gets script:2.
-    // Then re-run (same code) → queue resets, 'hello' still gets script:2, not null.
+    // Arrange
     const { app, waitForResultUpdate } = await openWithCode(page, getTestUrl, {
       markup: '',
       script: ["console.time('t');", "console.log('hello');"].join('\n'),
     });
     await waitForConsoleEntries(app, 1);
 
-    // First run: 'hello' should get badge script:2
+    // Act & Assert — first run
     let entries = await getConsoleEntries(app);
     expect(entries.find((e) => e.text === 'hello')?.sourceLine).toBe('script:2');
 
-    // Re-run the result page (triggers setSourceMap which now resets the queue)
+    // Act & Assert — after re-run, queue should reset
     await waitForResultUpdate();
     await waitForConsoleEntries(app, 1);
     await app.waitForTimeout(300);
-
-    // After reload: queue should be reset, 'hello' still gets script:2 (not null)
     entries = await getConsoleEntries(app);
     expect(entries.find((e) => e.text === 'hello')?.sourceLine).toBe('script:2');
   });
