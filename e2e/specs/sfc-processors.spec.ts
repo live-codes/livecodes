@@ -111,7 +111,7 @@ demo
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{ "riot": { "template": "pug" } }`);
     await app.click('button:has-text("Load"):visible');

@@ -11,7 +11,7 @@ test.describe('Custom Settings', () => {
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"asciidoc": { standalone: true, attributes: { nofooter: false } }}`);
     await app.click('button:has-text("Load"):visible');
@@ -34,7 +34,7 @@ test.describe('Custom Settings', () => {
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"scss": {"style": "compressed"}}`);
     await app.click('button:has-text("Load"):visible');
@@ -61,7 +61,7 @@ test.describe('Custom Settings', () => {
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.insertText(`{"sass": {"style": "compressed"}}`);
     await app.click('button:has-text("Load"):visible');
@@ -91,7 +91,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"less": {"math": "always"}}`);
     await app.click('button:has-text("Load"):visible');
@@ -114,7 +114,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"postcssImportUrl": false}`);
     await app.click('button:has-text("Load"):visible');
@@ -137,7 +137,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"autoprefixer": {"add": false}}`);
     await app.click('button:has-text("Load"):visible');
@@ -161,7 +161,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"postcssPresetEnv": {"stage": 3}}`);
     await app.click('button:has-text("Load"):visible');
@@ -185,7 +185,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(
       `{"tailwindcss": {"theme": {"extend": {"colors": {"dark-blue-800": "#0A214C"}}}}}`,
@@ -220,7 +220,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(
       `{"windicss": {"theme": {"extend": {"colors": {"dark-blue-800": "#0A214C"}}}}}`,
@@ -254,7 +254,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"babel": {"sourceMaps": "inline"}}`);
     await app.click('button:has-text("Load"):visible');
@@ -277,7 +277,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"typescript": {"target": "es5"}}`);
     await app.click('button:has-text("Load"):visible');
@@ -300,7 +300,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"flow": {"pretty": true}}`);
     await app.click('button:has-text("Load"):visible');
@@ -327,7 +327,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"svelte": {"css": false}}`);
     await app.click('button:has-text("Load"):visible');
@@ -347,7 +347,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"stencil": {"sourceMap": true}}`);
     await app.click('button:has-text("Load"):visible');
@@ -365,7 +365,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"coffeescript": {"bare": false}}`);
     await app.click('button:has-text("Load"):visible');
@@ -388,7 +388,7 @@ body
     await app.click('[aria-label="Project"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"livescript": {"bare": false}}`);
     await app.click('button:has-text("Load"):visible');
