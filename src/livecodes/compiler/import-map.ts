@@ -304,7 +304,7 @@ export const cjs2esm = (code: string) => {
     require,
     `const exports = {}; const module = { exports };`,
     code,
-    `export default module.exports;`,
+    `\nexport default module.exports;`,
   ].join(' ');
 };
 
