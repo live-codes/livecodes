@@ -59,11 +59,11 @@ export const buildSourceLineMap = /* @__PURE__ */ (sourceMapStr: string): Map<nu
 
   let mappings: string;
   try {
-    ({ mappings } = JSON.parse(sourceMapStr) as { mappings: string });
+    mappings = JSON.parse(sourceMapStr).mappings;
   } catch {
     return lineMap; // invalid JSON — nothing to map
   }
-  if (!mappings) return lineMap;
+  if (!mappings || typeof mappings !== 'string') return lineMap;
 
   let originalLine = 0;
   mappings.split(';').forEach((group, compiledLine) => {
@@ -100,14 +100,14 @@ const getMarkupInlineScriptStartLines = () => {
 };
 
 const getCurrentMarkupScriptStartLine = () => {
-  const script = document.currentScript as HTMLScriptElement | null;
+  const script = document.currentScript;
   if (!script) return undefined;
   const startLine = Number(script.dataset.livecodesMarkupScriptLine);
   return toPositiveLineNumber(startLine);
 };
 
 const getCurrentMarkupScriptStackBase = (): number => {
-  const script = document.currentScript as HTMLScriptElement | null;
+  const script = document.currentScript;
   if (!script) return 1;
   return Number(script.dataset.livecodesMarkupScriptStackBase) || 1;
 };
