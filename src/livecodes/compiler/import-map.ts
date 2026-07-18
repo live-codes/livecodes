@@ -286,9 +286,9 @@ export const cjs2esm = (code: string) => {
       [
         `import * as __requires_${i} from '${id}';`,
         `const __requires_${i}_default = __requires_${i}.default;`,
-      ].join('\n'),
+      ].join(' '),
     )
-    .join('\n');
+    .join(' ');
   const lookup = `const __requires_lookup = { ${requires
     .map((id, i) => `'${id}': __requires_${i}_default || __requires_${i}`)
     .join(', ')} };`;
@@ -296,7 +296,7 @@ export const cjs2esm = (code: string) => {
   const require = `window.require = window.require || ((id) => {
 	if (id in __requires_lookup) return __requires_lookup[id];
 	throw new Error(\`Cannot require modules dynamically (\${id})\`);
-});`;
+});`.replaceAll('\n', '');
 
   return [
     imports,
@@ -305,7 +305,7 @@ export const cjs2esm = (code: string) => {
     `const exports = {}; const module = { exports };`,
     code,
     `export default module.exports;`,
-  ].join('\n\n');
+  ].join(' ');
 };
 
 export const createCSSModulesImportMap = (
