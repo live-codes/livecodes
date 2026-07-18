@@ -45,9 +45,18 @@ The setting "Embed Type" allows selection from different variations of the gener
 
 ### SDK
 
-The LiveCodes [SDK](../sdk/index.mdx) can be used to embed playgrounds, specify [embed](../sdk/js-ts.mdx#embed-options) and [configuration](../configuration/index.mdx) options and allows communication with the embedded playground with many [SDK methods](../sdk/js-ts.mdx#sdk-methods).
+The LiveCodes [SDK](../sdk/index.mdx) can be used to embed playgrounds and specify [embed](../sdk/js-ts.mdx#embed-options) and [configuration](../configuration/index.mdx) options.
+In addition, the SDK allows communication with the embedded playground with many [SDK methods](../sdk/js-ts.mdx#sdk-methods).
 
 This method provides more control and allows advanced scenarios.
+
+```js title="index.js"
+import { createPlayground } from 'livecodes';
+
+createPlayground('#container', {
+  // embed options
+});
+```
 
 ## Embed via URL
 
@@ -67,17 +76,8 @@ LiveCodes is registered on the [oEmbed provider registry](https://oembed.com/pro
 
 ### WordPress
 
-WordPress has built-in oEmbed support, but LiveCodes is not _yet_ in the default WordPress whitelist. To add LiveCodes oEmbed support, add the following snippet to your theme's `functions.php` or as a [must-use plugin](https://wordpress.org/documentation/article/must-use-plugins/):
-
-```php
-add_action( 'init', function () {
-  wp_oembed_add_provider(
-    '!^https?://(?:[a-z0-9\-]+\.)?livecodes\.io/(?:index\.html)?(?:\?[^#]*)?(?:#.*)?$!i',
-    'https://livecodes.io/oembed',
-    true
-  );
-} );
-```
+The official [LiveCodes Embed](https://wordpress.org/plugins/livecodes-embed/) plugin allows embedding playgrounds in [WordPress](https://wordpress.org/), by pasting a LiveCodes URL on its own line in the Block editor or the classic editor.
+It also adds **LiveCodes** to the block inserter.
 
 ## Avoid Breaking Changes
 
@@ -88,6 +88,23 @@ To avoid breaking changes that would cause the embedded playgrounds to stop work
 - For project code, [specify the versions](./module-resolution.mdx#package-version) of the imported packages and [external resources](./external-resources.mdx). [Custom import maps](./module-resolution.mdx#custom-module-resolution) can be set to control the module import behavior.
 
 Check the [Permanent URL](./permanent-url.mdx) section for more details.
+
+## Self-Hosted Playgrounds
+
+Self-hosted instances can be embedded using any of the following options:
+
+- Using the [SDK](#sdk): Specify [`EmbedOptions.appUrl`](../sdk/js-ts.mdx#appurl).
+- Using [oEmbed](#oembed): The [Docker setup](../advanced/docker.mdx) provides an oEmbed service at `/oembed`.
+- Using WordPress: The [WordPress plugin](https://wordpress.org/plugins/livecodes-embed/) allows embedding self-hosted instances. Example:
+
+```php title="functions.php"
+add_filter( 'livecodes_embed_url_pattern', function () {
+  return '!^https?://livecodes\.example\.com/.*$!i';
+} );
+add_filter( 'livecodes_embed_provider_endpoint', function () {
+  return 'https://livecodes.example.com/oembed';
+} );
+```
 
 ## Differences from Full App
 
