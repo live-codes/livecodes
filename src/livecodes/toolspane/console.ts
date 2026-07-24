@@ -2,6 +2,7 @@ import LunaConsole from 'luna-console';
 import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '../UI';
 import {
   buildSourceLineMap,
+  getOriginalPosition,
   isConsoleDisplaySource,
   toPositiveLineNumber,
   type ConsoleDisplaySource,
@@ -105,26 +106,50 @@ export const createConsole = (
       // If badge already exists: Luna re-emitted 'insert' for a dedup (addCount) on the same
       // source+line entry. The queue slot is consumed above; keep the existing badge unchanged.
       if (logItem.querySelector('.console-line-number')) return;
-      const badge = document.createElement('a');
-      badge.href = '#';
-      badge.className = 'console-line-number';
-      badge.textContent = sourceLine;
-      // Parse "filename:line".
-      const colonIdx = sourceLine.lastIndexOf(':');
-      const filename = sourceLine.slice(0, colonIdx);
-      const lineNumber = parseInt(sourceLine.slice(colonIdx + 1), 10);
+      // Parse "key:line" or "key:line:column". Parse from the right.
+      const lastColonIdx = sourceLine.lastIndexOf(':');
+      const secondLastColonIdx = sourceLine.lastIndexOf(':', lastColonIdx - 1);
+      let filename: string;
+      let lineStr: string;
+      let colStr: string | undefined;
+      if (secondLastColonIdx >= 0) {
+        // Format: "key:line:column" or "key:line:col" where line/col are numeric
+        filename = sourceLine.slice(0, secondLastColonIdx);
+        lineStr = sourceLine.slice(secondLastColonIdx + 1, lastColonIdx);
+        colStr = sourceLine.slice(lastColonIdx + 1);
+      } else if (lastColonIdx >= 0) {
+        // Format: "key:line"
+        filename = sourceLine.slice(0, lastColonIdx);
+        lineStr = sourceLine.slice(lastColonIdx + 1);
+      } else {
+        // No colons — shouldn't happen with valid input
+        filename = '';
+        lineStr = '';
+      }
+      const lineNumber = parseInt(lineStr, 10);
+      const columnNumber: number | undefined = colStr ? parseInt(colStr, 10) : undefined;
+      const hasColumn = colStr !== undefined && !isNaN(Number(colStr));
       if (filename && !isNaN(lineNumber)) {
+        const badge = document.createElement('a');
+        badge.href = '#';
+        badge.className = 'console-line-number';
+        badge.textContent = `${filename}:${lineStr}`;
+
         badge.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
           window.dispatchEvent(
             new CustomEvent(customEvents.consoleNavigate, {
-              detail: { editorId: filename, line: lineNumber },
+              detail: {
+                editorId: filename,
+                line: lineNumber,
+                column: hasColumn ? columnNumber : undefined,
+              },
             }),
           );
         });
+        (logItem as HTMLElement).appendChild(badge);
       }
-      (logItem as HTMLElement).appendChild(badge);
     });
   };
 
@@ -194,6 +219,7 @@ export const createConsole = (
             ) {
               const source = getSource(message.source);
               const rawLineNumber = toPositiveLineNumber(message.lineNumber);
+              const rawColumnNumber = toPositiveLineNumber(message.columnNumber);
               if (!rawLineNumber) {
                 lineNumberQueue.push(null);
                 (consoleEmulator as any)[message.method](...args);
@@ -205,12 +231,29 @@ export const createConsole = (
                 source === 'script' && sourceMapsRecord
                   ? Object.keys(sourceMapsRecord)[0] ?? 'script'
                   : source;
-              const lineNumber =
-                source === 'script'
-                  ? toPositiveLineNumber(getSourceLineMap(mapKey)?.get(rawLineNumber)) ??
-                    rawLineNumber
-                  : rawLineNumber;
-              lineNumberQueue.push(`${mapKey}:${lineNumber}`);
+              let lineNumber: number = rawLineNumber;
+              let columnNumber: number | undefined = rawColumnNumber;
+              let hasSourceMapColumn = false;
+              if (source === 'script' && sourceMapsRecord && mapKey) {
+                const rawMap = sourceMapsRecord[mapKey];
+                if (columnNumber !== undefined) {
+                  const position = getOriginalPosition(rawMap, rawLineNumber, columnNumber);
+                  if (position) {
+                    lineNumber = position.line;
+                    columnNumber = position.column;
+                    hasSourceMapColumn = true;
+                  }
+                } else {
+                  const mappedLine = toPositiveLineNumber(
+                    getSourceLineMap(mapKey)?.get(rawLineNumber),
+                  );
+                  if (mappedLine) {
+                    lineNumber = mappedLine;
+                  }
+                }
+              }
+              const columnSuffix = hasSourceMapColumn ? `:${columnNumber}` : '';
+              lineNumberQueue.push(`${mapKey}:${lineNumber}${columnSuffix}`);
               // Break Luna's deduplication when source OR line changes.
               // Only identical messages from the exact same source+line (e.g. a loop) are grouped.
               if (lastProcessedSource !== source || lastProcessedLine !== lineNumber) {

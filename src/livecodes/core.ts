@@ -5484,7 +5484,8 @@ const createApi = (): API => {
   };
 
   eventsManager.addEventListener(window, customEvents.consoleNavigate, (e: any) => {
-    apiShow(e.detail.editorId, { line: e.detail.line });
+    const { editorId, line, column } = e.detail;
+    apiShow(editorId, { line, column });
   });
 
   const apiRunTests: API['runTests'] = () =>

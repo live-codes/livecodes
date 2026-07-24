@@ -1,4 +1,4 @@
-import { buildSourceLineMap, decodeVlq, toPositiveLineNumber } from '../source-maps';
+import { buildSourceLineMap, decodeVlq, getOriginalPosition, toPositiveLineNumber } from '../source-maps';
 
 describe('toPositiveLineNumber', () => {
   test('returns the integer for a positive number', () => {
@@ -243,5 +243,58 @@ describe('buildSourceLineMap', () => {
 
     // Assert
     expect(map.get(1)).toBeUndefined();
+  });
+});
+
+describe('getOriginalPosition', () => {
+  test('resolves identity-mapped position to same line and column', () => {
+    // "AAAA": col=0, sources=0, line=0, col=0
+    const input = JSON.stringify({ mappings: 'AAAA' });
+
+    const pos = getOriginalPosition(input, 1, 1);
+
+    expect(pos).toEqual({ line: 1, column: 1 });
+  });
+
+  test('offsets column relative to segment generatedColumn', () => {
+    // "CAAA": A=0(genCol=0), C=2(genColDelta=1→genCol=1), A=0(sources=0), A=0(line=0), A=0(col=0)
+    // Segment at generatedColumn=1, originalLine=0, originalColumn=0
+    // compiled row 1, col 3 (0-indexed col 2) → segment at col 1 ≤ 2
+    // column = 0+1 + max(0, 2-1) = 2
+    const input = JSON.stringify({ mappings: 'CAAA' });
+
+    const pos = getOriginalPosition(input, 1, 3);
+
+    expect(pos).toEqual({ line: 1, column: 2 });
+  });
+
+  test('picks the correct segment via binary search on same line', () => {
+    // Two segments on compiled line 1:
+    // "AAAA": col=0→0, src=-, line=0→0, col=0→0 → {genCol:0, origLn:0, origCol:0}
+    // "CAEC": colDelta=1→genCol=1, src=0, lineDelta=2→origLn=2, colDelta=1→origCol=1 → {genCol:1, origLn:2, origCol:1}
+    const input = JSON.stringify({ mappings: 'AAAA,CAEC' });
+
+    // compiled col 1 (0-idx 0): segment 0 at genCol=0 ≤ 0 → {line:1, col:1}
+    expect(getOriginalPosition(input, 1, 1)).toEqual({ line: 1, column: 1 });
+    // compiled col 3 (0-idx 2): segment 1 at genCol=1 ≤ 2 → {line:3, col:3}
+    expect(getOriginalPosition(input, 1, 3)).toEqual({ line: 3, column: 3 });
+  });
+
+  test('returns undefined for a line not present in the source map', () => {
+    const input = JSON.stringify({ mappings: 'AAAA' });
+
+    expect(getOriginalPosition(input, 99, 1)).toBeUndefined();
+  });
+
+  test('returns undefined for invalid JSON', () => {
+    expect(getOriginalPosition('invalid', 1, 1)).toBeUndefined();
+  });
+
+  test('returns undefined for missing mappings field', () => {
+    expect(getOriginalPosition(JSON.stringify({ version: 3 }), 1, 1)).toBeUndefined();
+  });
+
+  test('returns undefined for empty mappings', () => {
+    expect(getOriginalPosition(JSON.stringify({ mappings: '' }), 1, 1)).toBeUndefined();
   });
 });

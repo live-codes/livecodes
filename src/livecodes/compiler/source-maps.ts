@@ -6,6 +6,7 @@ export type ConsoleDisplaySource = ConsoleSource | 'style';
 
 export interface ConsoleCallSite {
   lineNumber?: number;
+  columnNumber?: number;
   source: ConsoleSource;
   callerFrame?: string;
   markupOffset?: number;
@@ -41,43 +42,109 @@ export const decodeVlq = (str: string, pos: number): [value: number, nextPos: nu
   return [value, pos];
 };
 
-// Returns the original line delta for a segment, or null if the segment lacks source info.
-// Source map segments have up to 5 VLQ fields: generatedCol, sourcesIndex, originalLine,
-// originalCol, namesIndex. We need at least 3 fields to get the original line.
-const decodeOriginalLineDelta = (segment: string): number | null => {
-  if (!segment) return null;
-  let pos = 0;
-  [, pos] = decodeVlq(segment, pos); // skip: generated column
-  if (pos >= segment.length) return null;
-  [, pos] = decodeVlq(segment, pos); // skip: sources index
-  if (pos >= segment.length) return null;
-  return decodeVlq(segment, pos)[0]; // original line delta
-};
+interface SourceMapSegment {
+  generatedColumn: number;
+  originalLine: number;
+  originalColumn: number;
+}
 
-export const buildSourceLineMap = /* @__PURE__ */ (sourceMapStr: string): Map<number, number> => {
-  const lineMap = new Map<number, number>();
+// Map of compiled line (0-indexed) → array of segments (sorted by generatedColumn)
+type DecodedSegments = Map<number, SourceMapSegment[]>;
 
+const decodeSourceMapSegments = (sourceMapStr: string): DecodedSegments | null => {
   let mappings: string;
   try {
     mappings = JSON.parse(sourceMapStr).mappings;
   } catch {
-    return lineMap; // invalid JSON — nothing to map
+    return null;
   }
-  if (!mappings || typeof mappings !== 'string') return lineMap;
+  if (!mappings || typeof mappings !== 'string') return null;
 
+  const segments = new Map<number, SourceMapSegment[]>();
+  let generatedLine = 0;
+  let generatedColumn = 0;
   let originalLine = 0;
-  mappings.split(';').forEach((group, compiledLine) => {
-    for (const segment of group.split(',')) {
-      const delta = decodeOriginalLineDelta(segment);
-      if (delta === null) continue;
-      originalLine += delta; // delta is relative to previous segment across all lines
-      if (!lineMap.has(compiledLine + 1)) {
-        lineMap.set(compiledLine + 1, originalLine + 1); // convert 0-indexed to 1-indexed
-      }
+  let originalColumn = 0;
+
+  mappings.split(';').forEach((group) => {
+    const lineSegments: SourceMapSegment[] = [];
+    generatedColumn = 0; // reset on each new line
+    for (const segmentStr of group.split(',')) {
+      if (!segmentStr) continue;
+      let pos = 0;
+      const [genColDelta] = decodeVlq(segmentStr, pos);
+      pos = decodeVlq(segmentStr, pos)[1];
+      generatedColumn += genColDelta;
+      if (pos >= segmentStr.length) continue;
+      // skip sourcesIndex
+      pos = decodeVlq(segmentStr, pos)[1];
+      if (pos >= segmentStr.length) continue;
+      const [origLineDelta] = decodeVlq(segmentStr, pos);
+      pos = decodeVlq(segmentStr, pos)[1];
+      originalLine += origLineDelta;
+      if (pos >= segmentStr.length) continue;
+      const [origColDelta] = decodeVlq(segmentStr, pos);
+      originalColumn += origColDelta;
+      lineSegments.push({
+        generatedColumn,
+        originalLine,
+        originalColumn,
+      });
     }
+    if (lineSegments.length > 0) {
+      segments.set(generatedLine, lineSegments);
+    }
+    generatedLine++;
   });
 
+  return segments.size > 0 ? segments : null;
+};
+
+export const buildSourceLineMap = /* @__PURE__ */ (sourceMapStr: string): Map<number, number> => {
+  const lineMap = new Map<number, number>();
+  const segments = decodeSourceMapSegments(sourceMapStr);
+  if (!segments) return lineMap;
+
+  for (const [compiledLine, compiledSegments] of segments) {
+    lineMap.set(compiledLine + 1, compiledSegments[0].originalLine + 1);
+  }
+
   return lineMap;
+};
+
+// Resolves a compiled (line, column) position, both 1-indexed, to the original source position.
+// Returns undefined if no source map, or the input position if not found in the map.
+export const getOriginalPosition = /* @__PURE__ */ (
+  sourceMapStr: string,
+  compiledLine: number,
+  compiledColumn: number,
+): { line: number; column: number } | undefined => {
+  const segments = decodeSourceMapSegments(sourceMapStr);
+  if (!segments) return undefined;
+  const lineSegments = segments.get(compiledLine - 1);
+  if (!lineSegments) return undefined;
+
+  // Binary search for the segment whose generatedColumn is ≤ compiledColumn
+  let lo = 0;
+  let hi = lineSegments.length - 1;
+  let best: SourceMapSegment | undefined;
+  while (lo <= hi) {
+    // eslint-disable-next-line no-bitwise
+    const mid = (lo + hi) >> 1;
+    const seg = lineSegments[mid];
+    if (seg.generatedColumn <= compiledColumn - 1) {
+      best = seg;
+      lo = mid + 1;
+    } else {
+      hi = mid - 1;
+    }
+  }
+
+  if (!best) return undefined;
+  return {
+    line: best.originalLine + 1,
+    column: best.originalColumn + 1 + Math.max(0, compiledColumn - 1 - best.generatedColumn),
+  };
 };
 
 // ─── Markup inline-script line resolver ───────────────────────────────────────
@@ -158,9 +225,15 @@ const getLineNumberFromFrame = (callerFrame: string): number | undefined => {
   return toPositiveLineNumber(Number(match?.[1]));
 };
 
+const getColumnNumberFromFrame = (callerFrame: string): number | undefined => {
+  const match = callerFrame.match(/:(\d+):(\d+)\)?[\s]*$/);
+  return toPositiveLineNumber(Number(match?.[2]));
+};
+
 const resolveConsoleCallSiteFromDocLine = (
   docLine: number,
   callerFrame?: string,
+  column?: number,
 ): ConsoleCallSite => {
   const { markup, script } = getOffsets();
   const externalScriptFrame = isExternalScriptFrame(callerFrame ?? '');
@@ -168,6 +241,7 @@ const resolveConsoleCallSiteFromDocLine = (
   if (externalScriptFrame || (!markup && !script)) {
     return {
       lineNumber: docLine,
+      columnNumber: column,
       source: 'script',
       callerFrame,
       markupOffset: markup,
@@ -184,6 +258,7 @@ const resolveConsoleCallSiteFromDocLine = (
         : getMarkupInlineScriptLine(docLine, markup) ?? docLine;
     return {
       lineNumber,
+      columnNumber: column,
       source,
       callerFrame,
       markupOffset: markup,
@@ -195,6 +270,7 @@ const resolveConsoleCallSiteFromDocLine = (
   if (markup > 0) {
     return {
       lineNumber: getMarkupInlineScriptLine(docLine, markup) ?? docLine,
+      columnNumber: column,
       source: 'markup',
       callerFrame,
       markupOffset: markup,
@@ -205,6 +281,7 @@ const resolveConsoleCallSiteFromDocLine = (
 
   return {
     lineNumber: docLine,
+    columnNumber: column,
     source: 'script',
     callerFrame,
     markupOffset: markup,
@@ -219,9 +296,10 @@ export const getConsoleCallSiteFromError = (
 ): ConsoleCallSite => {
   const callerFrame = stack ? getCandidateFrame(stack) : undefined;
   const docLine = getLineNumberFromFrame(callerFrame ?? '') ?? toPositiveLineNumber(lineNumber);
+  const docColumn = getColumnNumberFromFrame(callerFrame ?? '');
   if (!docLine) return { source: 'script', callerFrame };
 
-  return resolveConsoleCallSiteFromDocLine(docLine, callerFrame);
+  return resolveConsoleCallSiteFromDocLine(docLine, callerFrame, docColumn);
 };
 
 export const getConsoleCallSite = (): ConsoleCallSite => {
@@ -229,9 +307,10 @@ export const getConsoleCallSite = (): ConsoleCallSite => {
     const stack = new Error().stack ?? '';
     const callerFrame = getCandidateFrame(stack);
     const docLine = getLineNumberFromFrame(callerFrame);
+    const docColumn = getColumnNumberFromFrame(callerFrame);
     if (!docLine) return { source: 'script', callerFrame };
 
-    return resolveConsoleCallSiteFromDocLine(docLine, callerFrame);
+    return resolveConsoleCallSiteFromDocLine(docLine, callerFrame, docColumn);
   } catch {
     return { source: 'script' };
   }
