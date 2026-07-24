@@ -205,10 +205,8 @@ const getOffsets = () => ({
 
 const isExternalScriptFrame = (frame: string) =>
   /data:text\/javascript/i.test(frame) ||
-  /data:application\/json/i.test(frame) ||
   /blob:/i.test(frame) ||
-  /\.[cm]?js(?:[?#][^)\s]*)?:\d+:\d+\)?[\s]*$/i.test(frame) ||
-  /script:/i.test(frame);
+  /\.[cm]?js(?:[?#][^)\s]*)?:\d+:\d+\)?[\s]*$/i.test(frame);
 
 const getCandidateFrame = (stack: string) => {
   const frames = stack.split('\n').filter(Boolean);

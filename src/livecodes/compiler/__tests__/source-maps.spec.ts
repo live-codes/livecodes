@@ -1,4 +1,9 @@
-import { buildSourceLineMap, decodeVlq, getOriginalPosition, toPositiveLineNumber } from '../source-maps';
+import {
+  buildSourceLineMap,
+  decodeVlq,
+  getOriginalPosition,
+  toPositiveLineNumber,
+} from '../source-maps';
 
 describe('toPositiveLineNumber', () => {
   test('returns the integer for a positive number', () => {

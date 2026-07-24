@@ -452,7 +452,7 @@ export const createResultPage = async ({
     try {
       sourceMapObj = {
         ...JSON.parse(sourceMap as string),
-        file: 'script',
+        file: 'script.js',
         sources: ['script'],
         sourcesContent: [config.script.content || ''],
       };
@@ -468,7 +468,7 @@ export const createResultPage = async ({
       (!scriptType || scriptType === 'module' || /(java|ecma)script/i.test(scriptType));
 
     const scriptContent = supportsSourceUrl
-      ? `${script}\n//# sourceURL=script\n//# sourceMappingURL=${sourceMappingURL}`
+      ? `${script}\n//# sourceURL=script.js\n//# sourceMappingURL=${sourceMappingURL}`
       : script;
 
     if (singleFile) {
