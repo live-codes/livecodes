@@ -446,7 +446,9 @@ export const createResultPage = async ({
       config.customSettings.scriptType ||
       (isModuleScript(script) ? 'module' : undefined);
 
-    const sourceMap = compileInfo.sourceMaps?.script;
+    const sourceMap =
+      // allow having sourceMappingURL for javascript (with no sourceMap)
+      config.script.language === 'javascript' ? '{}' : compileInfo.sourceMaps?.script;
     let sourceMapObj = {};
     let hasValidSourceMap = false;
     try {
