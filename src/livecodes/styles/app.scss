@@ -1245,13 +1245,14 @@ a.tools-pane-title {
 
   .luna-console-log-item {
     .console-line-number {
-      flex-shrink: 0;
-      padding: 3px 8px 3px 4px;
-      opacity: 0.45;
-      font-size: 0.8em;
-      white-space: nowrap;
+      color: inherit !important;
       cursor: pointer;
+      flex-shrink: 0;
+      font-size: 0.8em;
+      opacity: 0.45;
+      padding: 3px 8px 3px 4px;
       user-select: none;
+      white-space: nowrap;
 
       &:hover {
         opacity: 0.8;

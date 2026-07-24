@@ -101,24 +101,25 @@ export const createConsole = (
       const logItem = log?.container?.querySelector?.('.luna-console-log-item');
       if (!logItem) return;
       const sourceLine = lineNumberQueue.shift() ?? null;
+      if (!sourceLine) return;
       // If badge already exists: Luna re-emitted 'insert' for a dedup (addCount) on the same
       // source+line entry. The queue slot is consumed above; keep the existing badge unchanged.
       if (logItem.querySelector('.console-line-number')) return;
-      if (!sourceLine) return;
-      const badge = document.createElement('span');
+      const badge = document.createElement('a');
+      badge.href = '#';
       badge.className = 'console-line-number';
       badge.textContent = sourceLine;
-      // Parse "label:line" — anything other than 'markup' maps to the script editor.
+      // Parse "filename:line".
       const colonIdx = sourceLine.lastIndexOf(':');
-      const sourceLabel = sourceLine.slice(0, colonIdx);
+      const filename = sourceLine.slice(0, colonIdx);
       const lineNumber = parseInt(sourceLine.slice(colonIdx + 1), 10);
-      if (!isNaN(lineNumber)) {
-        const editorId = sourceLabel === 'markup' ? 'markup' : 'script';
+      if (filename && !isNaN(lineNumber)) {
         badge.addEventListener('click', (e) => {
+          e.preventDefault();
           e.stopPropagation();
           window.dispatchEvent(
             new CustomEvent(customEvents.consoleNavigate, {
-              detail: { editorId, line: lineNumber },
+              detail: { editorId: filename, line: lineNumber },
             }),
           );
         });
@@ -132,12 +133,18 @@ export const createConsole = (
       consoleEmulator.destroy();
       // asyncRender: false is required so that Luna's lastLog dedup check runs synchronously
       // before we reset it for the next message. With async rendering, the reset races the check.
-      consoleEmulator = new LunaConsole(consoleElement, { asyncRender: false });
+      consoleEmulator = new LunaConsole(consoleElement, {
+        theme: config.theme,
+        asyncRender: false,
+      });
       setupInsertListener();
       return consoleEmulator;
     }
 
-    consoleEmulator = new LunaConsole(consoleElement, { theme: config.theme, asyncRender: false });
+    consoleEmulator = new LunaConsole(consoleElement, {
+      theme: config.theme,
+      asyncRender: false,
+    });
     setupInsertListener();
 
     eventsManager.addEventListener(window, 'message', (event: any) => {

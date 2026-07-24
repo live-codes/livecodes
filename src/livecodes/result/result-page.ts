@@ -442,30 +442,26 @@ export const createResultPage = async ({
 
     const languageScriptType = getLanguageCompiler(code.script.language)?.scriptType;
     const scriptType =
-      languageScriptType ??
-      (config.customSettings.scriptType != null
-        ? config.customSettings.scriptType || undefined
-        : isModuleScript(script)
-          ? 'module'
-          : undefined);
+      languageScriptType ||
+      config.customSettings.scriptType ||
+      (isModuleScript(script) ? 'module' : undefined);
 
     const supportsSourceUrl =
-      !scriptType || scriptType === 'module' || /(java|ecma)script/i.test(scriptType);
-    const scriptContent = supportsSourceUrl
-      ? `${script}\n//# sourceURL=livecodes-script.js`
-      : script;
+      consoleEnabled &&
+      (!scriptType || scriptType === 'module' || /(java|ecma)script/i.test(scriptType));
+    const scriptContent = supportsSourceUrl ? `${script}\n//# sourceURL=script` : script;
 
     if (singleFile) {
       scriptElement.innerHTML = escapeScript(scriptContent);
     } else {
       scriptElement.src = './script.js';
     }
-    dom.body.appendChild(scriptElement);
 
-    // script type
     if (scriptType) {
       scriptElement.type = scriptType;
     }
+
+    dom.body.appendChild(scriptElement);
   }
 
   // React JSX runtime
