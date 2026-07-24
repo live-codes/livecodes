@@ -233,7 +233,7 @@ export const createConsole = (
                   : source;
               let lineNumber: number = rawLineNumber;
               let columnNumber: number | undefined = rawColumnNumber;
-              let hasSourceMapColumn = false;
+              const hasColumn = columnNumber !== undefined;
               if (source === 'script' && sourceMapsRecord && mapKey) {
                 const rawMap = sourceMapsRecord[mapKey];
                 if (columnNumber !== undefined) {
@@ -241,7 +241,6 @@ export const createConsole = (
                   if (position) {
                     lineNumber = position.line;
                     columnNumber = position.column;
-                    hasSourceMapColumn = true;
                   }
                 } else {
                   const mappedLine = toPositiveLineNumber(
@@ -252,7 +251,7 @@ export const createConsole = (
                   }
                 }
               }
-              const columnSuffix = hasSourceMapColumn ? `:${columnNumber}` : '';
+              const columnSuffix = hasColumn ? `:${columnNumber}` : '';
               lineNumberQueue.push(`${mapKey}:${lineNumber}${columnSuffix}`);
               // Break Luna's deduplication when source OR line changes.
               // Only identical messages from the exact same source+line (e.g. a loop) are grouped.
