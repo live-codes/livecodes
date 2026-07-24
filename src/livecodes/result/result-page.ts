@@ -446,10 +446,30 @@ export const createResultPage = async ({
       config.customSettings.scriptType ||
       (isModuleScript(script) ? 'module' : undefined);
 
+    const sourceMap = compileInfo.sourceMaps?.script;
+    let sourceMapObj = {};
+    let hasValidSourceMap = false;
+    try {
+      sourceMapObj = {
+        ...JSON.parse(sourceMap as string),
+        file: 'script',
+        sources: ['script'],
+        sourcesContent: [config.script.content || ''],
+      };
+      hasValidSourceMap = true;
+    } catch (e) {
+      // invalid sourceMap
+    }
+    const sourceMappingURL = `data:application/json;base64,${btoa(JSON.stringify(sourceMapObj))}`;
+
     const supportsSourceUrl =
       consoleEnabled &&
+      hasValidSourceMap &&
       (!scriptType || scriptType === 'module' || /(java|ecma)script/i.test(scriptType));
-    const scriptContent = supportsSourceUrl ? `${script}\n//# sourceURL=script` : script;
+
+    const scriptContent = supportsSourceUrl
+      ? `${script}\n//# sourceURL=script\n//# sourceMappingURL=${sourceMappingURL}`
+      : script;
 
     if (singleFile) {
       scriptElement.innerHTML = escapeScript(scriptContent);
