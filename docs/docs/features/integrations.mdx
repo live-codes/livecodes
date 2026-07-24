@@ -1,1 +1,186 @@
 # Integrations
+
+LiveCodes is a client-side app that runs entirely in the browser. However, it integrates with a wide range of external services, platforms, and tools. All integrations are optional and only activated when you explicitly use the relevant feature.
+
+## Import Sources
+
+You can import code into LiveCodes from a variety of sources.
+
+### Code Playgrounds
+
+| Service | Description |
+|---|---|
+| **JS Bin** | Import bins from [jsbin.com](https://jsbin.com) |
+| **TypeScript Playground** | Import from [typescriptlang.org/play](https://www.typescriptlang.org/play) |
+| **Vue SFC Playground** | Import from [play.vuejs.org](https://play.vuejs.org) |
+
+### Git Platforms
+
+| Service | Description |
+|---|---|
+| **GitHub Repos** | Import single files, directories, or full repos — supports [livecodes.json](../configuration/configuration-object.mdx) auto-detection and line ranges (`#L`) |
+| **GitHub Gists** | Import all files from a GitHub gist |
+| **GitLab Repos** | Import single files or directories from GitLab projects |
+| **GitLab Snippets** | Import GitLab snippets |
+
+### Other Sources
+
+| Source | Description |
+|---|---|
+| **Generic URL** | Fetch any URL — detects HTML, ZIP, images, SVGs, or plain text |
+| **Compressed Code** | Import from `code/` prefixed compressed config strings |
+| **Project ID** | Import shared projects by their short ID |
+| **File Upload** | Drag and drop files, ZIP archives, or images |
+| **Image (OCR)** | Extract code from images using Tesseract.js OCR, or from LiveCodes "Code to Image" PNG metadata |
+| **DOM / HTML** | Extract code from HTML pages using CSS selectors |
+
+See the [Import](./import.mdx) page for details.
+
+## Export Targets
+
+Export your projects to other platforms or download them as files.
+
+| Target | Description |
+|---|---|
+| **CodePen** | Open project as a CodePen pen |
+| **JSFiddle** | Open project as a JSFiddle |
+| **GitHub Gist** | Create or update a GitHub gist |
+| **HTML** | Download the result page as a standalone `.html` file |
+| **JSON** | Download the project configuration as `.json` |
+| **Source + Result (ZIP)** | Download source files and result page as a ZIP archive |
+
+See the [Export](./export.mdx) page for details.
+
+## Deployment
+
+Deploy your project's result page to a live URL.
+
+| Target | Description |
+|---|---|
+| **GitHub Pages** | Deploy to the `gh-pages` branch of a GitHub repo — creates the repo if needed. Result page is served at `https://{user}.github.io/{repo}/` |
+
+See the [Deploy](./deploy.mdx) page for details.
+
+## Sharing & Collaboration
+
+### Share URLs
+
+Generate URLs that load your project. Long URLs encode the project locally (no server involved). Short URLs use the share service.
+
+| Service | Description |
+|---|---|
+| **LiveCodes Share API** | Stores project config and returns a short ID (`livecodes.io/?x=id/{id}`) |
+| **dpaste** | Used by static self-hosted apps. Content expires after 365 days |
+| **Self-hosted Share** | Valkey/Redis-backed share service included in the [Docker setup](../advanced/docker.mdx) |
+
+See the [Share](./share.mdx) page for details.
+
+### Social Sharing
+
+Share URLs can be posted directly to these platforms:
+
+Facebook, 𝕏 (Twitter), Hacker News, Reddit, LinkedIn, Dev.to, Tumblr, Pinterest, WhatsApp, Telegram, Pocket, Email, QR Code, and native Web Share API.
+
+### Sync
+
+Synchronize your projects, snippets, assets, and settings to a private GitHub repo. Uses CRDT-based merging (Yjs) for conflict resolution. Supports auto-sync every 5 minutes.
+
+See the [Sync](./sync.mdx) page for details.
+
+### Broadcast
+
+Real-time collaboration — broadcast your result page or code to other devices via WebSocket.
+
+See the [Broadcast](./broadcast.mdx) page for details.
+
+### oEmbed
+
+Projects support the [oEmbed](https://oembed.com/) protocol. Embedding sites can fetch structured embed data via `livecodes.io/oembed?url={projectUrl}` to display rich embeds.
+
+## Authentication
+
+| Service | Description |
+|---|---|
+| **GitHub (via Firebase Auth)** | Login with GitHub for features requiring the GitHub API — import from private repos, export to gists, deploy to GitHub Pages, asset hosting, and sync |
+
+See [GitHub Integration](./github-integration.mdx) and [User Management](./user-management.mdx) for details.
+
+## Module Resolution & CDNs
+
+When your code imports modules, LiveCodes resolves them through these CDN services:
+
+| Service | Role |
+|---|---|
+| **esm.sh** | Default module CDN for npm packages and TypeScript type resolution |
+| **jsDelivr** | Alternative npm CDN; also provides package info and entrypoint lookup |
+| **Skypack / esm.run / jspm / unpkg** | Additional module CDN options |
+| **bundle.run / esbuild.vercel.app** | ESM bundling services |
+| **deno.bundlejs.com** | Bundles deno.land/x, GitHub, GitLab, and Bitbucket URLs |
+| **statically / githack** | CDN for raw files from GitHub, Gists, GitLab, and Bitbucket |
+| **jsDelivr (Algolia)** | npm package search for auto-complete when adding modules |
+
+See [Module Resolution](./module-resolution.mdx) for details.
+
+### Google Fonts
+
+The font picker integrates with Google Fonts. Available fonts are fetched from `fonts.googleapis.com`, and selected fonts are loaded as CSS from the same service.
+
+## CORS Proxy
+
+Some external resources require a CORS proxy to be accessed from the browser:
+
+| Service | Description |
+|---|---|
+| **LiveCodes CORS API** | `api.livecodes.io/cors` — used by the hosted app |
+| **allOrigins** | `api.allorigins.win/raw` — used as fallback |
+| **Self-hosted CORS** | Included in the [Docker setup](../advanced/docker.mdx) |
+
+## CI/CD & Tooling
+
+### GitHub Action
+
+The ["Preview in LiveCodes" GitHub Action](../gh-action.mdx) posts playground preview links on pull requests so reviewers can preview code changes in the browser.
+
+### Markdown to LiveCodes
+
+Plugin integrations for embedding LiveCodes from markdown content in:
+
+[Docusaurus](https://docusaurus.io/), [Astro](https://astro.build/), [VitePress](https://vitepress.dev/), [Next.js](https://nextjs.org/), [11ty](https://www.11ty.dev/), [Gatsby](https://www.gatsbyjs.com/), and [Storybook](https://storybook.js.org/).
+
+See the [Markdown to LiveCodes](../markdown-to-livecodes.mdx) page for details.
+
+### Bookmarklet
+
+A browser bookmarklet that opens the current page as a LiveCodes project in one click.
+
+See the [Bookmarklet](../bookmarklet.mdx) page for details.
+
+### AI & LLM Integrations
+
+LiveCodes provides [`llms.txt`](https://livecodes.io/docs/llms.txt) and [`llms-full.txt`](https://livecodes.io/docs/llms-full.txt) for AI assistants, plus custom AI skills for building with the LiveCodes SDK.
+
+See the [AI Guide](../ai-guide.mdx) for details.
+
+## Sandbox
+
+Code execution and result pages run in sandboxed iframes hosted on separate origins for security:
+
+| Service | Origin |
+|---|---|
+| **Cloudflare Pages** | `livecodes-sandbox.pages.dev` (production) |
+| **GitHub Pages** | `live-codes.github.io/livecodes-sandbox` (CI) |
+| **Self-hosted** | Included in the Docker setup |
+
+## Infrastructure & Credits
+
+LiveCodes is made possible thanks to these services:
+
+| Service | Usage |
+|---|---|
+| **Cloudflare Pages** | Primary app hosting and serverless functions |
+| **DigitalOcean** | VPS for docker setup example |
+| **BrowserStack** | Cross-browser testing |
+| **Lokalise** | Internationalization (UI languages) |
+| **SonarCloud / Codacy** | Code quality analysis |
+
+Full list in the [Credits](../credits.mdx) page.
