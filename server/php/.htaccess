@@ -1,0 +1,40 @@
+# LiveCodes - PHP server (shared hosting)
+# Routes dynamic endpoints to PHP scripts and applies cache headers
+# equivalent to src/_headers. Requires mod_rewrite and mod_headers.
+
+DirectoryIndex index.php index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # sandbox (separate origin): requests for the sandbox subdomain
+  RewriteCond %{HTTP_HOST} ^sandbox\. [NC]
+  RewriteRule ^ sandbox/index.php [L]
+
+  # broadcast API: the app posts broadcasts to the origin root
+  RewriteCond %{REQUEST_METHOD} =POST [OR]
+  RewriteCond %{REQUEST_METHOD} =OPTIONS
+  RewriteRule ^/?$ broadcast/index.php [L]
+
+  # broadcast channel viewer pages
+  RewriteRule ^channels/([A-Za-z0-9]+)/?$ broadcast/channel.php?id=$1 [L,QSA]
+
+  # API endpoints
+  RewriteRule ^api/share/?$ api/share.php [L,QSA]
+  RewriteRule ^api/cors/?$ api/cors.php [L,QSA]
+
+  # oEmbed endpoint
+  RewriteRule ^oembed/?$ oembed.php [L,QSA]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # cache headers (equivalent of src/_headers)
+  SetEnvIf Request_URI "^/assets/" LONG_CACHE
+  SetEnvIf Request_URI "^/livecodes/" LONG_CACHE
+  SetEnvIf Request_URI "^/livecodes/assets/" SHORT_CACHE
+  SetEnvIf Request_URI "\.map$" SHORT_CACHE
+  Header set Cache-Control "public, max-age=31536000, s-maxage=31536000, immutable" env=LONG_CACHE
+  # applied after LONG_CACHE so it takes precedence
+  Header set Cache-Control "public, max-age=14400, must-revalidate" env=SHORT_CACHE
+</IfModule>

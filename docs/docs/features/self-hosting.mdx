@@ -3,7 +3,7 @@
 LiveCodes is a [client-side app](../why.mdx#client-side). It can be easily self-hosted on any static file server or CDN.
 
 All core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser. However, some minor features require [external services](../advanced/services.mdx) (e.g. [sharing](./share.mdx) short URLs, [broadcast](./broadcast.mdx), etc).
-If you also want to self-host these services, you can use the [docker setup](../advanced/docker.mdx).
+If you also want to self-host these services, you can use the [docker setup](../advanced/docker.mdx) (for VPS) or the [PHP setup](../advanced/php.mdx) (for shared hosting).
 
 ## Guide
 
@@ -47,6 +47,10 @@ docker-compose up -d
 By default, the app is served at https://livecodes.localhost.
 
 For customization and detailed guide, see [docker setup](../advanced/docker.mdx) docs.
+
+### PHP Setup on Shared Hosting
+
+For shared hosting that supports PHP and MySQL, the included [PHP setup](../advanced/php.mdx) provides the same services as the docker setup, without installing anything on the server. It is deployed via FTP/SSH using the included GitHub Actions workflow.
 
 ## Custom Build
 

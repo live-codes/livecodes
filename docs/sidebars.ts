@@ -103,7 +103,12 @@ const sidebars: SidebarsConfig = {
             type: 'doc',
             id: 'advanced/index',
           },
-          items: ['advanced/custom-settings', 'advanced/services', 'advanced/docker'],
+          items: [
+            'advanced/custom-settings',
+            'advanced/services',
+            'advanced/docker',
+            'advanced/php',
+          ],
         },
         {
           type: 'category',

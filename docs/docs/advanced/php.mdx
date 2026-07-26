@@ -1,0 +1,140 @@
+# PHP Setup (Shared Hosting)
+
+This guide describes how to set up a self-hosted instance of LiveCodes on shared hosting that supports **PHP** and **MySQL**, without installing anything on the server.
+
+## Why?
+
+LiveCodes is a [client-side app](../why.mdx#client-side). It can be easily self-hosted on any static file server or <acronym title="Content Delivery Network">CDN</acronym> (See [Self-Hosting guide](../features/self-hosting.mdx)).
+
+All core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser.
+However, some features require [external services](./services.mdx) which depend on server-side implementations (e.g. [sharing](../features/share.mdx) short URLs, [broadcast server](../features/broadcast.mdx), etc).
+The PHP setup described here provides implementations for self-hosting these services, as an alternative to the [docker setup](./docker.mdx) (which requires a VPS).
+
+This allows self-hosted instances on shared hosting to have the same features as the hosted app ([livecodes.io](https://livecodes.io)).
+
+:::warning Note
+Most self-hosted instances will not require this setup. The static app should work just fine using other simpler [self-hosting methods](../features/self-hosting.mdx#guide).
+Only use the PHP setup if you need to self-host [these services](#services).
+:::
+
+## Requirements
+
+The hosting provider should offer:
+
+- Apache with `mod_rewrite` and `mod_headers` enabled (typical for shared hosting)
+- PHP 8.0+ with PDO MySQL, cURL and mbstring extensions (all commonly available)
+- MySQL (or MariaDB) database credentials
+- HTTPS (TLS certificate) — usually supplied by the hosting provider
+- A subdomain (e.g. `sandbox.example.com`) pointing to the same hosting account, used as the separate-origin [sandbox](#services)
+
+Nothing needs to be installed on the server. The app is built in CI (GitHub Actions) and uploaded as plain files over FTP or SSH/rsync.
+
+## Getting Started
+
+1. Fork the [GitHub repo](https://github.com/live-codes/livecodes).
+
+2. In your hosting control panel:
+
+   - Create a MySQL database user (and a database, if your provider does not allow creating databases from PHP).
+   - Create a subdomain for the sandbox (e.g. `sandbox.example.com`) that points to the same document root as the main domain.
+
+3. In the forked repo settings (**Secrets and variables** → **Actions**), add:
+
+    **Secrets:**
+
+    | Secret | Description |
+    | --- | --- |
+    | `MYSQL_HOST` | MySQL hostname (usually `localhost`) |
+    | `MYSQL_PORT` | MySQL port (optional, default `3306`) |
+    | `MYSQL_USER` | MySQL user |
+    | `MYSQL_PASSWORD` | MySQL password |
+    | `MYSQL_DATABASE` | MySQL database name |
+    | `FIREBASE_CONFIG` | (optional) [Firebase config object](https://firebase.google.com/docs/web/learn-more#config-object) (JSON), used for [authentication](../features/github-integration.mdx) |
+    | `BROADCAST_TOKENS` | (optional) Comma-separated list of broadcast [user tokens](../features/broadcast.mdx#technical-details) |
+    | `LOG_URL` | (optional) Full URL to send server-side analytics (e.g. `https://api.website.com/log`) |
+    | `API_TOKEN` | (optional) Token sent with the analytics requests |
+
+    Deploy using FTP:
+
+    | Secret | Description |
+    | --- | --- |
+    | `FTP_HOST` | FTP server hostname (enables the FTP deploy job) |
+    | `FTP_USER` | FTP user |
+    | `FTP_PASSWORD` | FTP password |
+    | `FTP_PORT` | FTP port |
+    | `FTP_PROTOCOL` | FTP protocol (`ftp`, `ftps` or `ftps-legacy`) |
+    | `FTP_PATH` | Remote path of the document root (e.g. `/public_html/`) |
+
+    Or deploy using SSH:
+
+    | Secret | Description |
+    | --- | --- |
+    | `SSH_HOST` | SSH server hostname (enables the SSH/rsync deploy job) |
+    | `SSH_USER` | SSH user |
+    | `SSH_KEY` | SSH private key |
+    | `SSH_PORT` | SSH port |
+    | `SSH_PATH` | Remote path of the document root |
+
+    **Variables:**
+
+    | Variable | Description |
+    | --- | --- |
+    | `HOST_NAME` | Hostname of the app (e.g. `example.com`) |
+    | `SANDBOX_HOST_NAME` | Hostname of the sandbox (e.g. `sandbox.example.com`) |
+
+4. Push to the `main` branch (or run the workflow manually from the **Actions** tab: **Deploy to PHP host**).
+
+The workflow builds the app, copies the PHP server files from [`server/php`](https://github.com/live-codes/livecodes/tree/develop/server/php) to the build directory, generates the server configuration from the secrets above, and uploads everything to your hosting over FTP and/or SSH (each job runs only when its secrets are configured).
+
+The database and required tables are created automatically on first request if they do not exist (creating the database requires the MySQL user to have the `CREATE` privilege; otherwise pre-create it in the hosting control panel).
+
+## Services
+
+- [Open Graph meta tags](https://ogp.me/)
+
+  Provide project-specific meta tags, for social media cards.
+
+- [oEmbed](https://oembed.com/)
+
+  Allows embedded representations on third party sites. See details in [Embeds](../features/embeds.mdx#embed-via-url).
+
+- Adding [headers](https://github.com/live-codes/livecodes/blob/develop/src/_headers)
+
+  e.g. aggressive caching of static assets for improved performance (applied in `.htaccess`).
+
+- [Short-URL share service](../features/share.mdx)
+
+  Generates a short URL that can be shared. The project config is stored in the MySQL database.
+
+- [Broadcast server](../features/broadcast.mdx)
+
+  Broadcasts updates to connected clients. Since WebSockets are not available on shared PHP hosting, channel state is stored in the MySQL database and viewer pages poll for updates (every ~1.5 seconds). The broadcast API used by the app is identical to the other setups.
+
+- CORS proxy
+
+  Allows [importing content](../features/import.mdx) from external URLs.
+
+- Separate origin sandbox
+
+  Runs code in a separate origin [sandboxed iframe](https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/) to prevent cross-site scripting. This requires a subdomain (e.g. `sandbox.example.com`) pointing to the same document root; requests to the subdomain are routed to the sandbox content (set `SANDBOX_HOST_NAME` accordingly).
+
+- [404 page](https://livecodes.io/404)
+
+  Custom 404 page for resources that are not found.
+
+:::info note
+Unlike the [docker setup](./docker.mdx), automatic HTTPS is **not** included. TLS certificates should be provided by the hosting provider (most shared hosts offer free certificates).
+:::
+
+## Server Configuration
+
+On the server, configuration is read from environment variables when available, or from the `config.php` file (in the document root) generated by the deploy workflow. See [`server/php/config.sample.php`](https://github.com/live-codes/livecodes/blob/develop/server/php/config.sample.php) for the supported options.
+
+## Deployment
+
+The included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/develop/.github/workflows/php-deploy.yml) deploys on push to the `main` branch (and can be triggered manually). It has two independent jobs:
+
+- **deploy-ftp**: uploads the build using FTP (runs when `FTP_HOST` is set).
+- **deploy-ssh**: uploads the build using rsync over SSH (runs when `SSH_HOST` is set).
+
+Both jobs require the MySQL secrets (`MYSQL_HOST`, `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_DATABASE`) to also be configured, and skip silently otherwise.
