@@ -17,16 +17,27 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ secrets.FTP_HOST != '' }}
     env:
       NODE_OPTIONS: "--max_old_space_size=8192"
     steps:
+      - name: Check if FTP_HOST is configured
+        id: check
+        run: |
+          if [ -z "${{ secrets.FTP_HOST }}" ]; then
+            echo "FTP_HOST is not set — cancelling deployment."
+            echo "proceed=false" >> $GITHUB_OUTPUT
+          else
+            echo "proceed=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Checkout code
+        if: ${{ steps.check.outputs.proceed == 'true' }}
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.branch || 'main' }}
 
       - name: Use Node.js
+        if: ${{ steps.check.outputs.proceed == 'true' }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -34,13 +45,16 @@ jobs:
           cache-dependency-path: "**/package-lock.json"
 
       - name: Install dependencies
+        if: ${{ steps.check.outputs.proceed == 'true' }}
         run: npm ci
 
       - name: Build
+        if: ${{ steps.check.outputs.proceed == 'true' }}
         run: npm run build
 
       - name: Deploy to FTP server
-        uses: SamKirkland/FTP-Deploy-Action@4.3.5
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
