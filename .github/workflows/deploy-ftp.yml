@@ -61,5 +61,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           protocol: ${{ secrets.FTP_PROTOCOL }}
-          local-dir: ./dist/
+          local-dir: ./build/
           server-dir: ${{ secrets.FTP_PATH }}

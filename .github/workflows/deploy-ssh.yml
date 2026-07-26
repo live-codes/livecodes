@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Branch to deploy'
+        description: "Branch to deploy"
         required: false
-        default: 'main'
+        default: "main"
 
 env:
   NODE_VERSION: 24.x
@@ -18,7 +18,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      NODE_OPTIONS: '--max_old_space_size=8192'
+      NODE_OPTIONS: "--max_old_space_size=8192"
     steps:
       - name: Check if SSH_HOST is configured
         id: check
@@ -41,8 +41,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
 
       - name: Install dependencies
         if: ${{ steps.check.outputs.proceed == 'true' }}
@@ -61,4 +61,4 @@ jobs:
           private-ssh-key: ${{ secrets.SSH_KEY }}
           ssh-port: ${{ secrets.SSH_PORT }}
           destination-path: ${{ secrets.SSH_PATH }}
-          source-path: ./dist/
+          source-path: ./build/
