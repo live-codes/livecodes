@@ -3,10 +3,18 @@
 /**
  * Sample server configuration.
  *
- * The GitHub deploy workflow generates `config.php` (in the build root)
- * from repository secrets/variables with this shape. You can also create
- * it manually, or set the same names as real environment variables
- * (environment variables take precedence).
+ * At deploy time, the GitHub workflow generates `config.php` (in the build root)
+ * from two sources:
+ *
+ *   PHP_ENV (repository variable, .env format):
+ *     Non-sensitive values — hostnames, feature flags, Firebase config, log URL.
+ *     See the deploy workflow for the supported keys.
+ *
+ *   GitHub Secrets:
+ *     Sensitive values only — MySQL credentials, API_TOKEN, BROADCAST_TOKENS.
+ *
+ * You can also create `config.php` manually, or set the same keys as real
+ * environment variables (environment variables take precedence).
  */
 
 return [

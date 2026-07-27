@@ -40,7 +40,31 @@ Nothing needs to be installed on the server. The app is built in CI (GitHub Acti
 
 3. In the forked repo settings (**Secrets and variables** → **Actions**), add:
 
-    **Secrets:**
+    **Variable `PHP_ENV`:**
+
+    Contains all non-sensitive configuration as key=value pairs, one per line (`.env` format):
+
+    ```ini
+    SELF_HOSTED=true
+    SELF_HOSTED_SHARE=true
+    SELF_HOSTED_BROADCAST=true
+    BROADCAST_PORT=443
+    SANDBOX_HOST_NAME=sandbox.example.com
+    SANDBOX_PORT=443
+    DOCS_BASE_URL=null
+    FIREBASE_CONFIG={"apiKey":"..."}
+    HOST_NAME=example.com
+    LOG_URL=https://api.example.com/log
+    ```
+
+    | Key | Description |
+    | --- | --- |
+    | `HOST_NAME` | Hostname of the app (e.g. `example.com`) |
+    | `SANDBOX_HOST_NAME` | Hostname of the sandbox (e.g. `sandbox.example.com`) |
+    | `FIREBASE_CONFIG` | (optional) [Firebase config object](https://firebase.google.com/docs/web/learn-more#config-object) (JSON), used for [authentication](../features/github-integration.mdx) |
+    | `LOG_URL` | (optional) Full URL to send server-side analytics (e.g. `https://api.website.com/log`) |
+
+    **Secrets (sensitive values only):**
 
     | Secret | Description |
     | --- | --- |
@@ -49,9 +73,7 @@ Nothing needs to be installed on the server. The app is built in CI (GitHub Acti
     | `MYSQL_USER` | MySQL user |
     | `MYSQL_PASSWORD` | MySQL password |
     | `MYSQL_DATABASE` | MySQL database name |
-    | `FIREBASE_CONFIG` | (optional) [Firebase config object](https://firebase.google.com/docs/web/learn-more#config-object) (JSON), used for [authentication](../features/github-integration.mdx) |
     | `BROADCAST_TOKENS` | (optional) Comma-separated list of broadcast [user tokens](../features/broadcast.mdx#technical-details) |
-    | `LOG_URL` | (optional) Full URL to send server-side analytics (e.g. `https://api.website.com/log`) |
     | `API_TOKEN` | (optional) Token sent with the analytics requests |
 
     Deploy using FTP:
@@ -74,13 +96,6 @@ Nothing needs to be installed on the server. The app is built in CI (GitHub Acti
     | `SSH_KEY` | SSH private key |
     | `SSH_PORT` | SSH port |
     | `SSH_PATH` | Remote path of the document root |
-
-    **Variables:**
-
-    | Variable | Description |
-    | --- | --- |
-    | `PHP_HOST_NAME` | Hostname of the app (e.g. `example.com`) |
-    | `PHP_SANDBOX_HOST_NAME` | Hostname of the sandbox (e.g. `sandbox.example.com`) |
 
 4. Push to the `main` branch (or run the workflow manually from the **Actions** tab: **Deploy to PHP**).
 
@@ -132,9 +147,13 @@ On the server, configuration is read from environment variables when available, 
 
 ## Deployment
 
-The included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/develop/.github/workflows/deploy-php.yml) deploys on push to the `main` branch (and can be triggered manually). The workflow only runs when the repository variable `PHP_ENV` is set, so you must add it in your fork's settings (**Settings → Secrets and variables → Actions → Variables**). It has two independent jobs:
+The included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/develop/.github/workflows/deploy-php.yml) deploys on push to the `main` branch (and can be triggered manually). The workflow only runs when the repository variable `PHP_ENV` is set (**Settings → Secrets and variables → Actions → Variables**).
+
+Configuration is read from two sources:
+- **`PHP_ENV`** (repository variable): Non-sensitive config in `.env` format — hostnames, feature flags, ports, Firebase config, log URL. These are used both as build-time environment variables and server runtime config.
+- **GitHub Secrets**: Sensitive values only — MySQL credentials, API tokens, broadcast tokens.
+
+The workflow has two independent jobs:
 
 - **deploy-ftp**: uploads the build using FTP (runs when `FTP_HOST` is set).
 - **deploy-ssh**: uploads the build using rsync over SSH (runs when `SSH_HOST` is set).
-
-Both jobs require the MySQL secrets (`MYSQL_HOST`, `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_DATABASE`) to also be configured, and skip silently otherwise.
