@@ -17,6 +17,9 @@ ErrorDocument 404 /404.html
   RewriteCond %{REQUEST_METHOD} =OPTIONS
   RewriteRule ^/?$ broadcast/index.php [L]
 
+  # block direct web access to server-side includes and config
+  RewriteRule ^(inc|vendor)/ - [F,L]
+
   # broadcast channel viewer pages
   RewriteRule ^channels/([A-Za-z0-9]+)/?$ broadcast/channel.php?id=$1 [L,QSA]
 
@@ -26,6 +29,12 @@ ErrorDocument 404 /404.html
 
   # oEmbed endpoint
   RewriteRule ^oembed/?$ oembed.php [L,QSA]
+</IfModule>
+
+<IfModule mod_authz_core.c>
+  <FilesMatch "^config(\.sample)?\.php$">
+    Require all denied
+  </FilesMatch>
 </IfModule>
 
 <IfModule mod_headers.c>

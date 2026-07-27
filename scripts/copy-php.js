@@ -20,7 +20,7 @@ const generateStarterTemplates = async () => {
     format: 'cjs',
     target: 'es2020',
     logLevel: 'error',
-    loader: { '.html': 'text' },
+    loader: { '.html': 'text', '.ttf': 'file' },
     entryPoints: [path.resolve(root, 'src/livecodes/templates/starter/index.ts')],
     outfile: tmpFile,
     define: {
@@ -49,7 +49,11 @@ const main = async () => {
     throw new Error('build/ directory not found. Run `npm run build:app` first.');
   }
   // PHP server files (index.php, oembed.php, .htaccess, api/, broadcast/, sandbox/index.php, inc/, vendor/)
-  fs.cpSync(phpDir, outDir, { recursive: true });
+  // README.md is repo documentation and is not deployed
+  fs.cpSync(phpDir, outDir, {
+    recursive: true,
+    filter: (src) => !src.endsWith('README.md'),
+  });
   // sandbox static content (version directories), like the Dockerfile does
   fs.cpSync(sandboxSrcDir, path.resolve(outDir, 'sandbox'), { recursive: true });
   await generateStarterTemplates();

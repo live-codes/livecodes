@@ -80,7 +80,7 @@
             });
           }
         };
-        const channel = location.pathname.split('/').slice(-1)[0];
+        const channel = location.pathname.split('/').filter(Boolean).pop();
         const poll = async () => {
           try {
             const res = await fetch('/broadcast/state.php?channel=' + encodeURIComponent(channel));
