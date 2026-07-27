@@ -57,6 +57,8 @@ jobs:
       - name: Load PHP_ENV configuration
         if: ${{ steps.check.outputs.proceed == 'true' }}
         run: |
+          echo "SELF_HOSTED=true" >> $GITHUB_ENV
+          echo "DOCS_BASE_URL=null" >> $GITHUB_ENV
           printf '%s\n' "${{ vars.PHP_ENV }}" > /tmp/php_env.tmp
           while IFS='=' read -r key value; do
             if [ -n "$key" ] && [ -n "$value" ]; then
@@ -144,6 +146,8 @@ jobs:
       - name: Load PHP_ENV configuration
         if: ${{ steps.check.outputs.proceed == 'true' }}
         run: |
+          echo "SELF_HOSTED=true" >> $GITHUB_ENV
+          echo "DOCS_BASE_URL=null" >> $GITHUB_ENV
           printf '%s\n' "${{ vars.PHP_ENV }}" > /tmp/php_env.tmp
           while IFS='=' read -r key value; do
             if [ -n "$key" ] && [ -n "$value" ]; then

@@ -45,15 +45,11 @@ Nothing needs to be installed on the server. The app is built in CI (GitHub Acti
     Contains all non-sensitive configuration as key=value pairs, one per line (`.env` format):
 
     ```ini
-    SELF_HOSTED=true
+    HOST_NAME=example.com
+    SANDBOX_HOST_NAME=sandbox.example.com
     SELF_HOSTED_SHARE=true
     SELF_HOSTED_BROADCAST=true
-    BROADCAST_PORT=443
-    SANDBOX_HOST_NAME=sandbox.example.com
-    SANDBOX_PORT=443
-    DOCS_BASE_URL=null
     FIREBASE_CONFIG={"apiKey":"..."}
-    HOST_NAME=example.com
     LOG_URL=https://api.example.com/log
     ```
 
