@@ -1,3 +1,8 @@
+# Deploys the static app to FTP.
+# Triggered on push to `main`, or can be triggered manually with specific branch.
+# Requires the FTP secrets (`FTP_HOST`, `FTP_USER`, `FTP_PASSWORD`) to be configured.
+# Does not run when the variable `PHP_ENV` is set.
+
 name: Deploy to FTP
 
 on:
@@ -16,6 +21,7 @@ env:
 
 jobs:
   deploy:
+    if: ${{ vars.PHP_ENV == '' }}
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: "--max_old_space_size=8192"

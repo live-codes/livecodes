@@ -1,12 +1,23 @@
-name: Docker Deploy
+# Deploys to Docker. Supports server-side services.
+# Triggered on push to `main`, or can be triggered manually with specific branch.
+# Requires the variable `VPS_ENV` to be configured.
+
+name: Deploy to Docker
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: false
+        default: "main"
 
 jobs:
   deploy:
+    if: ${{ vars.VPS_ENV != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: SSH to server
@@ -19,8 +30,8 @@ jobs:
           script: |
             set -e
             cd livecodes
-            git checkout main
-            git pull origin main
+            git checkout ${{ github.event.inputs.branch || 'main' }}
+            git pull origin ${{ github.event.inputs.branch || 'main' }}
             echo "${{ vars.VPS_ENV }}" > .env
             docker compose build
             docker compose up -d

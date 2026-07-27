@@ -1,4 +1,8 @@
-name: Deploy to PHP host
+# Deploys to shared hosting. Supports PHP/MySQL server-side services.
+# Triggered on push to `main`, or can be triggered manually with specific branch.
+# Requires the variable `PHP_ENV` to be configured.
+
+name: Deploy to PHP
 
 on:
   push:
@@ -17,6 +21,7 @@ env:
 
 jobs:
   deploy-ftp:
+    if: ${{ vars.PHP_ENV != '' }}
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: "--max_old_space_size=8192"
@@ -97,6 +102,7 @@ jobs:
           server-dir: ${{ secrets.FTP_PATH }}
 
   deploy-ssh:
+    if: ${{ vars.PHP_ENV != '' }}
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: "--max_old_space_size=8192"

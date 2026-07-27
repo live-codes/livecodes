@@ -1,6 +1,8 @@
-name: Deploy
+# Deploys the static app to GitHub Pages.
+# Triggered on push to `main`.
+# Requires the secrets (`CI_APP_ID`, `CI_APP_PRIVATE_KEY`) to be configured.
 
-# on push to main deploy (as self-hosted build) to github pages
+name: Deploy to GitHub Pages
 on:
   push:
     branches:
