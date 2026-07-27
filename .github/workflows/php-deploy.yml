@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - deploy-to-php
   workflow_dispatch:
     inputs:
       branch:
