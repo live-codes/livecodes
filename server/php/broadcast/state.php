@@ -30,8 +30,8 @@ getDb()
     ->prepare('UPDATE `broadcast_channels` SET `last_accessed` = ? WHERE `channel` = ?')
     ->execute([(int) round(microtime(true) * 1000), $channel]);
 
-$data = json_decode((string) ($row['data'] ?? ''), true);
+$data = json_decode((string) ($row['data'] ?? ''));
 echo json_encode([
     'result' => (string) ($row['result'] ?? ''),
-    'data' => is_array($data) ? $data : new stdClass(),
+    'data' => $data instanceof stdClass || is_array($data) ? $data : new stdClass(),
 ]);

@@ -85,6 +85,9 @@ foreach (['markup', 'style', 'script'] as $editor) {
 
 $storedResult = strlen($result) < 300000 ? $result : '';
 $dataJson = json_encode($reducedData);
+if ($dataJson === '[]') {
+    $dataJson = '{}';
+}
 $storedData = strlen($dataJson) < 500000 ? $dataJson : '{}';
 
 $stmt = $pdo->prepare(
