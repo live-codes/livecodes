@@ -24,8 +24,8 @@ jobs:
       - name: Check if FTP and MySQL credentials are configured
         id: check
         run: |
-          if [ -z "${{ secrets.FTP_HOST }}" ] || [ -z "${{ secrets.MYSQL_HOST }}" ]; then
-            echo "FTP_HOST and/or MYSQL_HOST is not set — cancelling deployment."
+          if [ -z "${{ secrets.FTP_HOST }}" ] || [ -z "${{ vars.PHP_HOST_NAME }}" ]; then
+            echo "FTP_HOST and/or PHP_HOST_NAME is not set — cancelling deployment."
             echo "proceed=false" >> $GITHUB_OUTPUT
           else
             echo "proceed=true" >> $GITHUB_OUTPUT
@@ -56,7 +56,7 @@ jobs:
           SELF_HOSTED_SHARE: "true"
           SELF_HOSTED_BROADCAST: "true"
           BROADCAST_PORT: "443"
-          SANDBOX_HOST_NAME: ${{ vars.SANDBOX_HOST_NAME }}
+          SANDBOX_HOST_NAME: ${{ vars.PHP_SANDBOX_HOST_NAME }}
           SANDBOX_PORT: "443"
           DOCS_BASE_URL: "null"
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
@@ -77,7 +77,7 @@ jobs:
             'MYSQL_USER' => '${{ secrets.MYSQL_USER }}',
             'MYSQL_PASSWORD' => '${{ secrets.MYSQL_PASSWORD }}',
             'MYSQL_DATABASE' => '${{ secrets.MYSQL_DATABASE }}',
-            'HOST_NAME' => '${{ vars.HOST_NAME }}',
+            'HOST_NAME' => '${{ vars.PHP_HOST_NAME }}',
             'LOG_URL' => '${{ secrets.LOG_URL }}',
             'API_TOKEN' => '${{ secrets.API_TOKEN }}',
             'BROADCAST_TOKENS' => '${{ secrets.BROADCAST_TOKENS }}',
@@ -104,8 +104,8 @@ jobs:
       - name: Check if SSH and MySQL credentials are configured
         id: check
         run: |
-          if [ -z "${{ secrets.SSH_HOST }}" ] || [ -z "${{ secrets.MYSQL_HOST }}" ]; then
-            echo "SSH_HOST and/or MYSQL_HOST is not set — cancelling deployment."
+          if [ -z "${{ secrets.SSH_HOST }}" ] || [ -z "${{ vars.PHP_HOST_NAME }}" ]; then
+            echo "SSH_HOST and/or PHP_HOST_NAME is not set — cancelling deployment."
             echo "proceed=false" >> $GITHUB_OUTPUT
           else
             echo "proceed=true" >> $GITHUB_OUTPUT
@@ -136,7 +136,7 @@ jobs:
           SELF_HOSTED_SHARE: "true"
           SELF_HOSTED_BROADCAST: "true"
           BROADCAST_PORT: "443"
-          SANDBOX_HOST_NAME: ${{ vars.SANDBOX_HOST_NAME }}
+          SANDBOX_HOST_NAME: ${{ vars.PHP_SANDBOX_HOST_NAME }}
           SANDBOX_PORT: "443"
           DOCS_BASE_URL: "null"
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
@@ -157,7 +157,7 @@ jobs:
             'MYSQL_USER' => '${{ secrets.MYSQL_USER }}',
             'MYSQL_PASSWORD' => '${{ secrets.MYSQL_PASSWORD }}',
             'MYSQL_DATABASE' => '${{ secrets.MYSQL_DATABASE }}',
-            'HOST_NAME' => '${{ vars.HOST_NAME }}',
+            'HOST_NAME' => '${{ vars.PHP_HOST_NAME }}',
             'LOG_URL' => '${{ secrets.LOG_URL }}',
             'API_TOKEN' => '${{ secrets.API_TOKEN }}',
             'BROADCAST_TOKENS' => '${{ secrets.BROADCAST_TOKENS }}',
