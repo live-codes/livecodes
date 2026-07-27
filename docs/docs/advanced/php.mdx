@@ -82,9 +82,9 @@ Nothing needs to be installed on the server. The app is built in CI (GitHub Acti
     | `PHP_HOST_NAME` | Hostname of the app (e.g. `example.com`) |
     | `PHP_SANDBOX_HOST_NAME` | Hostname of the sandbox (e.g. `sandbox.example.com`) |
 
-4. Push to the `main` branch (or run the workflow manually from the **Actions** tab: **Deploy to PHP host**).
+4. Push to the `main` branch (or run the workflow manually from the **Actions** tab: **Deploy to PHP**).
 
-The workflow builds the app, copies the PHP server files from [`server/php`](https://github.com/live-codes/livecodes/tree/develop/server/php) to the build directory, generates the server configuration from the secrets above, and uploads everything to your hosting over FTP and/or SSH (each job runs only when its secrets are configured).
+The workflow builds the app, copies the PHP server files from [`server/php`](https://github.com/live-codes/livecodes/tree/develop/server/php) to the build directory, generates the server configuration from the secrets above, and uploads everything to your hosting over FTP and/or SSH (each job runs only when its secrets are configured and the repository variable `PHP_ENV` is set).
 
 The database and required tables are created automatically on first request if they do not exist (creating the database requires the MySQL user to have the `CREATE` privilege; otherwise pre-create it in the hosting control panel).
 
@@ -132,7 +132,7 @@ On the server, configuration is read from environment variables when available, 
 
 ## Deployment
 
-The included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/develop/.github/workflows/php-deploy.yml) deploys on push to the `main` branch (and can be triggered manually). It has two independent jobs:
+The included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/develop/.github/workflows/deploy-php.yml) deploys on push to the `main` branch (and can be triggered manually). The workflow only runs when the repository variable `PHP_ENV` is set, so you must add it in your fork's settings (**Settings → Secrets and variables → Actions → Variables**). It has two independent jobs:
 
 - **deploy-ftp**: uploads the build using FTP (runs when `FTP_HOST` is set).
 - **deploy-ssh**: uploads the build using rsync over SSH (runs when `SSH_HOST` is set).

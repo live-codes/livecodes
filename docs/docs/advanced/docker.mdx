@@ -266,8 +266,8 @@ echo "Restore complete."
 
 ## Deployment
 
-For continuous deployment, you can use the included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/develop/.github/workflows/docker-deploy.yml) to deploy to a VPS when a new commit is pushed (e.g. to the `main` branch).
+For continuous deployment, you can use the included [GitHub Actions workflow](https://github.com/live-codes/livecodes/blob/develop/.github/workflows/deploy-docker.yml) to deploy to a VPS when a new commit is pushed (e.g. to the `main` branch).
 
-This assumses that you have followed the [Getting Started](#getting-started) instructions and have cloned the repo to your VPS.
+This assumes that you have followed the [Getting Started](#getting-started) instructions and have cloned the repo to your VPS.
 
-The workflow uses [secrets](https://docs.github.com/en/actions/how-tos/security-for-github-actions/security-guides/using-secrets-in-github-actions) and [variables](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) from your GitHub repo settings for SSH access and setting required [environment variables](#environment-variables).
+The workflow uses [secrets](https://docs.github.com/en/actions/how-tos/security-for-github-actions/security-guides/using-secrets-in-github-actions) and [variables](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) from your GitHub repo settings for SSH access and setting required [environment variables](#environment-variables). The workflow only runs when the repository variable `VPS_ENV` is set, so you must add it in your fork's settings (**Settings → Secrets and variables → Actions → Variables**).
