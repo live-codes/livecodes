@@ -1,5 +1,5 @@
 # Deploys the static app to GitHub Pages.
-# Triggered on push to `main`.
+# Triggered on push to `main`, or can be triggered manually with specific branch.
 # Requires the secrets (`CI_APP_ID`, `CI_APP_PRIVATE_KEY`) to be configured.
 
 name: Deploy to GitHub Pages
@@ -7,6 +7,16 @@ on:
   push:
     branches:
       - main
+      - deploy-to-php
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: false
+        default: "main"
+
+permissions:
+  contents: write
 
 env:
   NODE_VERSION: 24.x
@@ -17,7 +27,16 @@ jobs:
     env:
       NODE_OPTIONS: "--max_old_space_size=8192"
     steps:
-      - name: Generate Github Token for CI Bot
+      - name: Check GitHub App secrets
+        id: check-secrets
+        env:
+          CI_APP_ID: ${{ secrets.CI_APP_ID }}
+          CI_APP_PRIVATE_KEY: ${{ secrets.CI_APP_PRIVATE_KEY }}
+        if: ${{ env.CI_APP_ID != '' && env.CI_APP_PRIVATE_KEY != '' }}
+        run: echo "available=true" >> $GITHUB_OUTPUT
+
+      - name: Generate GitHub App token
+        if: ${{ steps.check-secrets.outputs.available == 'true' }}
         uses: actions/create-github-app-token@v1
         id: generate-token
         with:
@@ -27,7 +46,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          token: ${{ steps.generate-token.outputs.token }}
+          ref: ${{ github.event.inputs.branch || 'main' }}
+          token: ${{ steps.generate-token.outputs.token || github.token }}
 
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -40,8 +60,8 @@ jobs:
         run: npm ci
 
       - name: Deploy
-        run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
-          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
         env:
-          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+          DEPLOY_TOKEN: ${{ steps.generate-token.outputs.token || github.token }}
+        run: |
+          git remote set-url origin https://git:${DEPLOY_TOKEN}@github.com/${{github.repository}}.git
+          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
