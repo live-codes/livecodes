@@ -81,9 +81,12 @@
           }
         };
         const channel = location.pathname.split('/').filter(Boolean).pop();
+        let lastConfig = '';
         const poll = async () => {
           try {
-            const res = await fetch('/broadcast/state.php?channel=' + encodeURIComponent(channel));
+            const res = await fetch('/broadcast/state.php?channel=' + encodeURIComponent(channel), {
+              cache: 'no-store',
+            });
             if (res.status === 404) {
               await playground.destroy();
               document.querySelector('#container').innerHTML =
@@ -92,7 +95,11 @@
             }
             if (!res.ok) throw new Error(res.statusText);
             const { result, data } = await res.json();
-            await loadConfig(result, data);
+            const newConfig = JSON.stringify(data);
+            if (newConfig !== lastConfig) {
+              lastConfig = newConfig;
+              await loadConfig(result, data);
+            }
           } catch (e) {
             // retry on next interval
           }
