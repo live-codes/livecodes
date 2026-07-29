@@ -72,7 +72,7 @@ const prepareDir = async () => {
     copyFile('src/livecodes/html/app-base.html', 'app.html'),
   ]);
 };
-
+console.log('getEnvVars', getEnvVars(devMode));
 /** @type {Partial<esbuild.BuildOptions>} */
 const baseOptions = {
   bundle: true,

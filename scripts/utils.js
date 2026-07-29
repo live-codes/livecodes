@@ -69,7 +69,7 @@ const getVars = (/** @type {boolean} */ devMode) => {
   const hostName = String(process.env.HOST_NAME) || 'null';
   const selfHostedShare = String(process.env.SELF_HOSTED_SHARE) === 'true';
   const selfHostedBroadcast = String(process.env.SELF_HOSTED_BROADCAST) === 'true';
-  const selfHostedBroadcastPort = Number(process.env.BROADCAST_PORT) || 3030;
+  const selfHostedBroadcastPort = Number(process.env.BROADCAST_PORT) || 443;
   const selfHostedSandboxHostName = process.env.SANDBOX_HOST_NAME || 'null';
   const selfHostedSandboxPort = Number(process.env.SANDBOX_PORT) || 443;
   const firebaseConfig = process.env.FIREBASE_CONFIG || 'null';
