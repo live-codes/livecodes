@@ -6,11 +6,11 @@ const selfHostedBaseUrl = `https://${process.env.SANDBOX_HOST_NAME}:${process.en
 const localBaseUrl = 'http://127.0.0.1:8085';
 
 const serviceBaseUrl =
-  String(process.env.SELF_HOSTED) === 'true'
+  process.env.SELF_HOSTED === 'true' && process.env.SANDBOX_HOST_NAME !== 'null'
     ? selfHostedBaseUrl
     : location.hostname === 'localhost' || location.hostname === '127.0.0.1'
       ? localBaseUrl
-      : String(process.env.CI) === 'true'
+      : process.env.CI === 'true'
         ? ghPagesBaseUrl
         : cfPagesBaseUrl;
 const version = sandboxVersion;
