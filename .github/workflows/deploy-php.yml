@@ -57,14 +57,17 @@ jobs:
       - name: Load PHP_ENV configuration
         if: ${{ steps.check.outputs.proceed == 'true' }}
         run: |
-          echo "SELF_HOSTED=true" >> $GITHUB_ENV
-          echo "DOCS_BASE_URL=null" >> $GITHUB_ENV
-          printf '%s\n' "${{ vars.PHP_ENV }}" > /tmp/php_env.tmp
-          while IFS='=' read -r key value; do
-            if [ -n "$key" ] && [ -n "$value" ]; then
-              echo "$key=$value" >> $GITHUB_ENV
-            fi
-          done < /tmp/php_env.tmp
+          node -e "
+            const { appendFileSync } = require('fs');
+            appendFileSync(process.env.GITHUB_ENV, 'SELF_HOSTED=true\n');
+            appendFileSync(process.env.GITHUB_ENV, 'DOCS_BASE_URL=null\n');
+            const env = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
+            for (const line of env.split('\n')) {
+              if (line.includes('=')) {
+                appendFileSync(process.env.GITHUB_ENV, line + '\n');
+              }
+            }
+          "
 
       - name: Build
         if: ${{ steps.check.outputs.proceed == 'true' }}
@@ -77,25 +80,30 @@ jobs:
       - name: Create server config
         if: ${{ steps.check.outputs.proceed == 'true' }}
         run: |
-          cat > build/config.php <<'HEADER'
-          <?php
-          return [
-          HEADER
-          printf "  'MYSQL_HOST' => '%s',\n" "${{ secrets.MYSQL_HOST }}" >> build/config.php
-          printf "  'MYSQL_PORT' => '%s',\n" "${{ secrets.MYSQL_PORT }}" >> build/config.php
-          printf "  'MYSQL_USER' => '%s',\n" "${{ secrets.MYSQL_USER }}" >> build/config.php
-          printf "  'MYSQL_PASSWORD' => '%s',\n" "${{ secrets.MYSQL_PASSWORD }}" >> build/config.php
-          printf "  'MYSQL_DATABASE' => '%s',\n" "${{ secrets.MYSQL_DATABASE }}" >> build/config.php
-          while IFS='=' read -r key value; do
-            case "$key" in
-              HOST_NAME|LOG_URL|SELF_HOSTED_SHARE|SELF_HOSTED_BROADCAST)
-                printf "  '%s' => '%s',\n" "$key" "$value" >> build/config.php
-                ;;
-            esac
-          done < /tmp/php_env.tmp
-          printf "  'API_TOKEN' => '%s',\n" "${{ secrets.API_TOKEN }}" >> build/config.php
-          printf "  'BROADCAST_TOKENS' => '%s',\n" "${{ secrets.BROADCAST_TOKENS }}" >> build/config.php
-          echo '];' >> build/config.php
+          node -e "
+            const { writeFileSync, appendFileSync } = require('fs');
+            const phpEnv = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
+            const envMap = {};
+            for (const line of phpEnv.split('\n')) {
+              if (line.includes('=')) {
+                envMap[line.slice(0, eq)] = line.slice(eq + 1);
+              }
+            }
+            writeFileSync('build/config.php', '<?php\nreturn [\n');
+            appendFileSync('build/config.php', \`  'MYSQL_HOST' => '\${{ secrets.MYSQL_HOST }}',\n\`);
+            appendFileSync('build/config.php', \`  'MYSQL_PORT' => '\${{ secrets.MYSQL_PORT }}',\n\`);
+            appendFileSync('build/config.php', \`  'MYSQL_USER' => '\${{ secrets.MYSQL_USER }}',\n\`);
+            appendFileSync('build/config.php', \`  'MYSQL_PASSWORD' => '\${{ secrets.MYSQL_PASSWORD }}',\n\`);
+            appendFileSync('build/config.php', \`  'MYSQL_DATABASE' => '\${{ secrets.MYSQL_DATABASE }}',\n\`);
+            for (const key of ['HOST_NAME', 'LOG_URL', 'SELF_HOSTED_SHARE', 'SELF_HOSTED_BROADCAST']) {
+              if (envMap[key]) {
+                appendFileSync('build/config.php', \`  '\${key}' => '\${envMap[key]}',\n\`);
+              }
+            }
+            appendFileSync('build/config.php', \`  'API_TOKEN' => '\${{ secrets.API_TOKEN }}',\n\`);
+            appendFileSync('build/config.php', \`  'BROADCAST_TOKENS' => '\${{ secrets.BROADCAST_TOKENS }}',\n\`);
+            appendFileSync('build/config.php', '];\n');
+          "
 
       - name: Deploy to FTP server
         if: ${{ steps.check.outputs.proceed == 'true' }}
@@ -146,14 +154,17 @@ jobs:
       - name: Load PHP_ENV configuration
         if: ${{ steps.check.outputs.proceed == 'true' }}
         run: |
-          echo "SELF_HOSTED=true" >> $GITHUB_ENV
-          echo "DOCS_BASE_URL=null" >> $GITHUB_ENV
-          printf '%s\n' "${{ vars.PHP_ENV }}" > /tmp/php_env.tmp
-          while IFS='=' read -r key value; do
-            if [ -n "$key" ] && [ -n "$value" ]; then
-              echo "$key=$value" >> $GITHUB_ENV
-            fi
-          done < /tmp/php_env.tmp
+          node -e "
+            const { appendFileSync } = require('fs');
+            const env = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
+            appendFileSync(process.env.GITHUB_ENV, 'SELF_HOSTED=true\n');
+            appendFileSync(process.env.GITHUB_ENV, 'DOCS_BASE_URL=null\n');
+            for (const line of env.split('\n')) {
+              if (line.includes('=')) {
+                appendFileSync(process.env.GITHUB_ENV, line + '\n');
+              }
+            }
+          "
 
       - name: Build
         if: ${{ steps.check.outputs.proceed == 'true' }}
@@ -166,25 +177,30 @@ jobs:
       - name: Create server config
         if: ${{ steps.check.outputs.proceed == 'true' }}
         run: |
-          cat > build/config.php <<'HEADER'
-          <?php
-          return [
-          HEADER
-          printf "  'MYSQL_HOST' => '%s',\n" "${{ secrets.MYSQL_HOST }}" >> build/config.php
-          printf "  'MYSQL_PORT' => '%s',\n" "${{ secrets.MYSQL_PORT }}" >> build/config.php
-          printf "  'MYSQL_USER' => '%s',\n" "${{ secrets.MYSQL_USER }}" >> build/config.php
-          printf "  'MYSQL_PASSWORD' => '%s',\n" "${{ secrets.MYSQL_PASSWORD }}" >> build/config.php
-          printf "  'MYSQL_DATABASE' => '%s',\n" "${{ secrets.MYSQL_DATABASE }}" >> build/config.php
-          while IFS='=' read -r key value; do
-            case "$key" in
-              HOST_NAME|LOG_URL|SELF_HOSTED_SHARE|SELF_HOSTED_BROADCAST)
-                printf "  '%s' => '%s',\n" "$key" "$value" >> build/config.php
-                ;;
-            esac
-          done < /tmp/php_env.tmp
-          printf "  'API_TOKEN' => '%s',\n" "${{ secrets.API_TOKEN }}" >> build/config.php
-          printf "  'BROADCAST_TOKENS' => '%s',\n" "${{ secrets.BROADCAST_TOKENS }}" >> build/config.php
-          echo '];' >> build/config.php
+          node -e "
+            const { writeFileSync, appendFileSync } = require('fs');
+            const phpEnv = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
+            const envMap = {};
+            for (const line of phpEnv.split('\n')) {
+              if (line.includes('=')) {
+                envMap[line.slice(0, eq)] = line.slice(eq + 1);
+              }
+            }
+            writeFileSync('build/config.php', '<?php\nreturn [\n');
+            appendFileSync('build/config.php', \`  'MYSQL_HOST' => '\${{ secrets.MYSQL_HOST }}',\n\`);
+            appendFileSync('build/config.php', \`  'MYSQL_PORT' => '\${{ secrets.MYSQL_PORT }}',\n\`);
+            appendFileSync('build/config.php', \`  'MYSQL_USER' => '\${{ secrets.MYSQL_USER }}',\n\`);
+            appendFileSync('build/config.php', \`  'MYSQL_PASSWORD' => '\${{ secrets.MYSQL_PASSWORD }}',\n\`);
+            appendFileSync('build/config.php', \`  'MYSQL_DATABASE' => '\${{ secrets.MYSQL_DATABASE }}',\n\`);
+            for (const key of ['HOST_NAME', 'LOG_URL', 'SELF_HOSTED_SHARE', 'SELF_HOSTED_BROADCAST']) {
+              if (envMap[key]) {
+                appendFileSync('build/config.php', \`  '\${key}' => '\${envMap[key]}',\n\`);
+              }
+            }
+            appendFileSync('build/config.php', \`  'API_TOKEN' => '\${{ secrets.API_TOKEN }}',\n\`);
+            appendFileSync('build/config.php', \`  'BROADCAST_TOKENS' => '\${{ secrets.BROADCAST_TOKENS }}',\n\`);
+            appendFileSync('build/config.php', '];\n');
+          "
 
       - name: Deploy via SSH
         if: ${{ steps.check.outputs.proceed == 'true' }}
