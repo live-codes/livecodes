@@ -79,29 +79,39 @@ jobs:
 
       - name: Create server config
         if: ${{ steps.check.outputs.proceed == 'true' }}
+        env:
+          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          BROADCAST_TOKENS: ${{ secrets.BROADCAST_TOKENS }}
         run: |
           node -e "
             const { writeFileSync, appendFileSync } = require('fs');
             const phpEnv = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
             const envMap = {};
             for (const line of phpEnv.split('\n')) {
-              if (line.includes('=')) {
+              const eq = line.indexOf('=');
+              if (eq > 0) {
                 envMap[line.slice(0, eq)] = line.slice(eq + 1);
               }
             }
+            const c = (key, val) => \`  '\${key}' => '\${val}',\n\`;
             writeFileSync('build/config.php', '<?php\nreturn [\n');
-            appendFileSync('build/config.php', \`  'MYSQL_HOST' => '\${{ secrets.MYSQL_HOST }}',\n\`);
-            appendFileSync('build/config.php', \`  'MYSQL_PORT' => '\${{ secrets.MYSQL_PORT }}',\n\`);
-            appendFileSync('build/config.php', \`  'MYSQL_USER' => '\${{ secrets.MYSQL_USER }}',\n\`);
-            appendFileSync('build/config.php', \`  'MYSQL_PASSWORD' => '\${{ secrets.MYSQL_PASSWORD }}',\n\`);
-            appendFileSync('build/config.php', \`  'MYSQL_DATABASE' => '\${{ secrets.MYSQL_DATABASE }}',\n\`);
+            appendFileSync('build/config.php', c('MYSQL_HOST', process.env.MYSQL_HOST));
+            appendFileSync('build/config.php', c('MYSQL_PORT', process.env.MYSQL_PORT));
+            appendFileSync('build/config.php', c('MYSQL_USER', process.env.MYSQL_USER));
+            appendFileSync('build/config.php', c('MYSQL_PASSWORD', process.env.MYSQL_PASSWORD));
+            appendFileSync('build/config.php', c('MYSQL_DATABASE', process.env.MYSQL_DATABASE));
             for (const key of ['HOST_NAME', 'LOG_URL', 'SELF_HOSTED_SHARE', 'SELF_HOSTED_BROADCAST']) {
               if (envMap[key]) {
-                appendFileSync('build/config.php', \`  '\${key}' => '\${envMap[key]}',\n\`);
+                appendFileSync('build/config.php', c(key, envMap[key]));
               }
             }
-            appendFileSync('build/config.php', \`  'API_TOKEN' => '\${{ secrets.API_TOKEN }}',\n\`);
-            appendFileSync('build/config.php', \`  'BROADCAST_TOKENS' => '\${{ secrets.BROADCAST_TOKENS }}',\n\`);
+            appendFileSync('build/config.php', c('API_TOKEN', process.env.API_TOKEN));
+            appendFileSync('build/config.php', c('BROADCAST_TOKENS', process.env.BROADCAST_TOKENS));
             appendFileSync('build/config.php', '];\n');
           "
 
@@ -176,29 +186,39 @@ jobs:
 
       - name: Create server config
         if: ${{ steps.check.outputs.proceed == 'true' }}
+        env:
+          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          BROADCAST_TOKENS: ${{ secrets.BROADCAST_TOKENS }}
         run: |
           node -e "
             const { writeFileSync, appendFileSync } = require('fs');
             const phpEnv = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
             const envMap = {};
             for (const line of phpEnv.split('\n')) {
-              if (line.includes('=')) {
+              const eq = line.indexOf('=');
+              if (eq > 0) {
                 envMap[line.slice(0, eq)] = line.slice(eq + 1);
               }
             }
+            const c = (key, val) => \`  '\${key}' => '\${val}',\n\`;
             writeFileSync('build/config.php', '<?php\nreturn [\n');
-            appendFileSync('build/config.php', \`  'MYSQL_HOST' => '\${{ secrets.MYSQL_HOST }}',\n\`);
-            appendFileSync('build/config.php', \`  'MYSQL_PORT' => '\${{ secrets.MYSQL_PORT }}',\n\`);
-            appendFileSync('build/config.php', \`  'MYSQL_USER' => '\${{ secrets.MYSQL_USER }}',\n\`);
-            appendFileSync('build/config.php', \`  'MYSQL_PASSWORD' => '\${{ secrets.MYSQL_PASSWORD }}',\n\`);
-            appendFileSync('build/config.php', \`  'MYSQL_DATABASE' => '\${{ secrets.MYSQL_DATABASE }}',\n\`);
+            appendFileSync('build/config.php', c('MYSQL_HOST', process.env.MYSQL_HOST));
+            appendFileSync('build/config.php', c('MYSQL_PORT', process.env.MYSQL_PORT));
+            appendFileSync('build/config.php', c('MYSQL_USER', process.env.MYSQL_USER));
+            appendFileSync('build/config.php', c('MYSQL_PASSWORD', process.env.MYSQL_PASSWORD));
+            appendFileSync('build/config.php', c('MYSQL_DATABASE', process.env.MYSQL_DATABASE));
             for (const key of ['HOST_NAME', 'LOG_URL', 'SELF_HOSTED_SHARE', 'SELF_HOSTED_BROADCAST']) {
               if (envMap[key]) {
-                appendFileSync('build/config.php', \`  '\${key}' => '\${envMap[key]}',\n\`);
+                appendFileSync('build/config.php', c(key, envMap[key]));
               }
             }
-            appendFileSync('build/config.php', \`  'API_TOKEN' => '\${{ secrets.API_TOKEN }}',\n\`);
-            appendFileSync('build/config.php', \`  'BROADCAST_TOKENS' => '\${{ secrets.BROADCAST_TOKENS }}',\n\`);
+            appendFileSync('build/config.php', c('API_TOKEN', process.env.API_TOKEN));
+            appendFileSync('build/config.php', c('BROADCAST_TOKENS', process.env.BROADCAST_TOKENS));
             appendFileSync('build/config.php', '];\n');
           "
 
