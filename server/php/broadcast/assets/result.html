@@ -45,9 +45,10 @@
           }
           if (!res.ok) throw new Error(res.statusText);
           const { result } = await res.json();
-          if (result === lastResult) return;
-          lastResult = result;
-          iframe.srcdoc = result;
+          if (result !== lastResult) {
+            lastResult = result;
+            iframe.srcdoc = result;
+          }
         } catch (e) {
           // retry on next interval
         }
