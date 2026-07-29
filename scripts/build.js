@@ -73,14 +73,6 @@ const prepareDir = async () => {
   ]);
 };
 
-// TODO: remove this
-console.log('getEnvVars', getEnvVars(devMode));
-console.log(process.env.SELF_HOSTED_SHARE, String(process.env.SELF_HOSTED_SHARE) === 'true');
-console.log(
-  process.env.SELF_HOSTED_BROADCAST,
-  String(process.env.SELF_HOSTED_BROADCAST) === 'true',
-);
-
 /** @type {Partial<esbuild.BuildOptions>} */
 const baseOptions = {
   bundle: true,
