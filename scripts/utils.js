@@ -66,6 +66,7 @@ const getVars = (/** @type {boolean} */ devMode) => {
             : '/docs/';
   const CI = process.env.CI || false;
   const selfHosted = String(process.env.SELF_HOSTED) === 'true';
+  const hostName = String(process.env.HOST_NAME) || 'null';
   const selfHostedShare = String(process.env.SELF_HOSTED_SHARE) === 'true';
   const selfHostedBroadcast = String(process.env.SELF_HOSTED_BROADCAST) === 'true';
   const selfHostedBroadcastPort = Number(process.env.BROADCAST_PORT) || 3030;
@@ -80,6 +81,7 @@ const getVars = (/** @type {boolean} */ devMode) => {
     docsBaseUrl,
     CI,
     selfHosted,
+    hostName,
     selfHostedShare,
     selfHostedBroadcast,
     selfHostedBroadcastPort,
@@ -98,6 +100,7 @@ const getEnvVars = (/** @type {boolean} */ devMode) => {
     docsBaseUrl,
     CI,
     selfHosted,
+    hostName,
     selfHostedShare,
     selfHostedBroadcast,
     selfHostedBroadcastPort,
@@ -113,6 +116,7 @@ const getEnvVars = (/** @type {boolean} */ devMode) => {
     'process.env.DOCS_BASE_URL': JSON.stringify(String(docsBaseUrl)),
     'process.env.CI': JSON.stringify(String(CI)),
     'process.env.SELF_HOSTED': JSON.stringify(String(selfHosted)),
+    'process.env.HOST_NAME': JSON.stringify(String(hostName)),
     'process.env.SELF_HOSTED_SHARE': JSON.stringify(String(selfHostedShare)),
     'process.env.SELF_HOSTED_BROADCAST': JSON.stringify(String(selfHostedBroadcast)),
     'process.env.BROADCAST_PORT': JSON.stringify(String(selfHostedBroadcastPort)),

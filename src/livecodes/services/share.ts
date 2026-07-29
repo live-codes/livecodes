@@ -109,3 +109,14 @@ export const shareService: ShareService =
     : allowedOrigin()
       ? apiService
       : dpasteService;
+
+console.log({
+  SELF_HOSTED: process.env.SELF_HOSTED,
+  SELF_HOSTED_SHARE: process.env.SELF_HOSTED_SHARE,
+  SELF_HOSTED_BROADCAST: process.env.SELF_HOSTED_BROADCAST,
+  SELF_HOSTED_BROADCAST_PORT: process.env.BROADCAST_PORT,
+  SELF_HOSTED_SANDBOX_HOST_NAME: process.env.SANDBOX_HOST_NAME,
+  SELF_HOSTED_SANDBOX_PORT: process.env.SANDBOX_PORT,
+  FIREBASE_CONFIG: process.env.FIREBASE_CONFIG,
+  HOST_NAME: process.env.HOST_NAME,
+});
