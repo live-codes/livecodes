@@ -30,7 +30,7 @@ jobs:
         id: check
         run: |
           if [ -z "${{ secrets.FTP_HOST }}" ]; then
-            echo "FTP_HOST and/or MYSQL_HOST is not set — cancelling deployment."
+            echo "FTP_HOST is not set — cancelling deployment."
             echo "proceed=false" >> $GITHUB_OUTPUT
           else
             echo "proceed=true" >> $GITHUB_OUTPUT
@@ -119,7 +119,7 @@ jobs:
         id: check
         run: |
           if [ -z "${{ secrets.SSH_HOST }}" ]; then
-            echo "SSH_HOST and/or MYSQL_HOST is not set — cancelling deployment."
+            echo "SSH_HOST is not set — cancelling deployment."
             echo "proceed=false" >> $GITHUB_OUTPUT
           else
             echo "proceed=true" >> $GITHUB_OUTPUT

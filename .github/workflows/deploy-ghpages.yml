@@ -1,13 +1,12 @@
 # Deploys the static app to GitHub Pages.
 # Triggered on push to `main`, or can be triggered manually with specific branch.
-# Requires the secrets (`CI_APP_ID`, `CI_APP_PRIVATE_KEY`) to be configured.
+# Requires the secrets (`CI_APP_ID`, `CI_APP_PRIVATE_KEY`) to be configured, otherwise falls back to `github.token`.
 
 name: Deploy to GitHub Pages
 on:
   push:
     branches:
       - main
-      - deploy-to-php
   workflow_dispatch:
     inputs:
       branch:

@@ -1,3 +1,5 @@
+// also in functions\allowed-origin.ts
+
 const getHostname = (origin: string) => {
   try {
     return new URL(origin).hostname;
@@ -16,7 +18,8 @@ export const allowedOrigin = (origin = location.origin) => {
       (matchesDomain(hostname, 'livecodes.io') ||
         matchesDomain(hostname, 'livecodes.pages.dev') ||
         matchesDomain(hostname, 'localpen.pages.dev') ||
-        matchesDomain(hostname, 'localhost') ||
+        matchesDomain(hostname, 'localpen.pages.dev') ||
+        (process.env.HOST_NAME && matchesDomain(hostname, process.env.HOST_NAME)) ||
         hostname === '127.0.0.1' ||
         hostname.endsWith('.test')),
   );
