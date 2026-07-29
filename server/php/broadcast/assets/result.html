@@ -34,6 +34,7 @@
     <script>
       const iframe = document.getElementById('result');
       const channel = location.pathname.split('/').filter(Boolean).pop();
+      let lastResult = '';
       const poll = async () => {
         try {
           const res = await fetch('/broadcast/state.php?channel=' + encodeURIComponent(channel));
@@ -44,6 +45,8 @@
           }
           if (!res.ok) throw new Error(res.statusText);
           const { result } = await res.json();
+          if (result === lastResult) return;
+          lastResult = result;
           iframe.srcdoc = result;
         } catch (e) {
           // retry on next interval
