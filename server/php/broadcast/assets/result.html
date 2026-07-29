@@ -37,7 +37,9 @@
       let lastResult = '';
       const poll = async () => {
         try {
-          const res = await fetch('/broadcast/state.php?channel=' + encodeURIComponent(channel));
+          const res = await fetch('/broadcast/state.php?channel=' + encodeURIComponent(channel), {
+            cache: 'no-store',
+          });
           if (res.status === 404) {
             iframe.srcdoc =
               '<div style="text-align: center; padding: 2em;">Broadcast disconnected!</div>';
