@@ -72,10 +72,15 @@ const prepareDir = async () => {
     copyFile('src/livecodes/html/app-base.html', 'app.html'),
   ]);
 };
+
 // TODO: remove this
 console.log('getEnvVars', getEnvVars(devMode));
-console.log(process.env.SELF_HOSTED_SHARE);
-console.log(process.env.SELF_HOSTED_BROADCAST);
+console.log(process.env.SELF_HOSTED_SHARE, String(process.env.SELF_HOSTED_SHARE) === 'true');
+console.log(
+  process.env.SELF_HOSTED_BROADCAST,
+  String(process.env.SELF_HOSTED_BROADCAST) === 'true',
+);
+
 /** @type {Partial<esbuild.BuildOptions>} */
 const baseOptions = {
   bundle: true,
