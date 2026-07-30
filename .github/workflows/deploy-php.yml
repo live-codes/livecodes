@@ -62,8 +62,8 @@ jobs:
           node -e "
             const { appendFileSync } = require('fs');
             const env = (process.env.PHP_ENV_RAW || '').replace(/\r/g, '');
+            appendFileSync(process.env.GITHUB_ENV, 'SELF_HOSTED=true\n');
             appendFileSync(process.env.GITHUB_ENV, 'DOCS_BASE_URL=null\n');
-            const env = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
             for (const line of env.split('\n')) {
               if (line.includes('=')) {
                 appendFileSync(process.env.GITHUB_ENV, line + '\n');
