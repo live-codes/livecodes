@@ -42,6 +42,12 @@ if ($method !== 'POST') {
 }
 
 $rawBody = file_get_contents('php://input');
+$maxBodyBytes = 2 * 1024 * 1024; // adjust as appropriate
+if ($rawBody !== false && strlen($rawBody) > $maxBodyBytes) {
+    http_response_code(413);
+    echo 'Payload Too Large!';
+    exit;
+}
 $data = $rawBody !== false && $rawBody !== '' ? json_decode($rawBody) : null;
 if ($data === null) {
     http_response_code(400);

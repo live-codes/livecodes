@@ -60,9 +60,10 @@ try {
             ? 'A Code Playground That Just Works!'
             : encodeHTML($description !== '' ? $description : 'A project on LiveCodes.');
 
+    $originHtml = encodeHTML($origin);
     $modifiedBody = str_replace(
         'href="oembed?url=https%3A%2F%2Flivecodes.io&format=json"',
-        'href="' . $origin . '/oembed?url=' . $oembedUrl . '&format=json"',
+        'href="' . $originHtml . '/oembed?url=' . $oembedUrl . '&format=json"',
         $originalBody,
     );
     $modifiedBody = preg_replace_callback(
@@ -82,7 +83,7 @@ try {
     );
     $modifiedBody = preg_replace_callback(
         '#content="https://livecodes\.io/livecodes#',
-        fn() => 'content="' . $origin . '/livecodes',
+        fn() => 'content="' . $originHtml . '/livecodes',
         $modifiedBody,
     );
 

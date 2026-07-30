@@ -84,8 +84,8 @@ foreach (['markup', 'style', 'script'] as $editor) {
 }
 
 $storedResult = strlen($result) < 300000 ? $result : '';
-$dataJson = json_encode($reducedData);
-if ($dataJson === '[]') {
+$dataJson = json_encode($reducedData, JSON_INVALID_UTF8_SUBSTITUTE);
+if (!is_string($dataJson) || $dataJson === '[]') {
     $dataJson = '{}';
 }
 $storedData = strlen($dataJson) < 500000 ? $dataJson : '{}';

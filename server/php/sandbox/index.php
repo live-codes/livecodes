@@ -42,7 +42,7 @@ $reqPath = ltrim($reqPath, '/');
 
 $filePath = realpath($sandboxDir . '/' . $reqPath);
 // guard against path traversal and missing files
-if ($filePath === false || !str_starts_with($filePath, $sandboxDir) || !is_file($filePath)) {
+if ($filePath === false || !str_starts_with($filePath, $sandboxDir . DIRECTORY_SEPARATOR) || !is_file($filePath)) {
     $sendVersionIndex(404);
     exit;
 }

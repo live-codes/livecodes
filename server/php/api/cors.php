@@ -11,10 +11,9 @@ require_once __DIR__ . '/../inc/utils.php';
 sendCorsHeaders();
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-$origin = $_SERVER['HTTP_ORIGIN'] ?? null;
-$hostname = getConfig('HOST_NAME', 'localhost');
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-if (($origin && stripos($origin, $hostname) === false) || ($method !== 'GET' && $method !== 'POST')) {
+if (!allowedOrigin($origin) || ($method !== 'GET' && $method !== 'POST')) {
     http_response_code(403);
     echo 'Forbidden!';
     exit;

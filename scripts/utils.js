@@ -66,7 +66,7 @@ const getVars = (/** @type {boolean} */ devMode) => {
             : '/docs/';
   const CI = process.env.CI || false;
   const selfHosted = String(process.env.SELF_HOSTED) === 'true';
-  const hostName = String(process.env.HOST_NAME) || 'null';
+  const hostName = process.env.HOST_NAME || 'null';
   const selfHostedShare = String(process.env.SELF_HOSTED_SHARE) === 'true';
   const selfHostedBroadcast = String(process.env.SELF_HOSTED_BROADCAST) === 'true';
   const selfHostedBroadcastPort = Number(process.env.BROADCAST_PORT) || 443;

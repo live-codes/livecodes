@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - main
+      - deploy-to-php
   workflow_dispatch:
     inputs:
       branch:
@@ -55,10 +56,12 @@ jobs:
 
       - name: Load PHP_ENV configuration
         if: ${{ steps.check.outputs.proceed == 'true' }}
+        env:
+          PHP_ENV_RAW: ${{ vars.PHP_ENV }}
         run: |
           node -e "
             const { appendFileSync } = require('fs');
-            appendFileSync(process.env.GITHUB_ENV, 'SELF_HOSTED=true\n');
+            const env = (process.env.PHP_ENV_RAW || '').replace(/\r/g, '');
             appendFileSync(process.env.GITHUB_ENV, 'DOCS_BASE_URL=null\n');
             const env = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
             for (const line of env.split('\n')) {
@@ -97,7 +100,8 @@ jobs:
                 envMap[line.slice(0, eq)] = line.slice(eq + 1);
               }
             }
-            const c = (key, val) => \`  '\${key}' => '\${val}',\n\`;
+            const esc = (v) => String(v).replace(/\\\\/g, '\\\\\\\\').replace(/'/g, "\\\\'");
+            const c = (key, val) => (val ? \`  '\${key}' => '\${esc(val)}',\n\` : '');
             writeFileSync('build/config.php', '<?php\nreturn [\n');
             appendFileSync('build/config.php', c('MYSQL_HOST', process.env.MYSQL_HOST));
             appendFileSync('build/config.php', c('MYSQL_PORT', process.env.MYSQL_PORT));
@@ -145,8 +149,8 @@ jobs:
       - name: Checkout code
         if: ${{ steps.check.outputs.proceed == 'true' }}
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.branch || 'main' }}
+        # with:
+        #   ref: ${{ github.event.inputs.branch || 'main' }}
 
       - name: Use Node.js
         if: ${{ steps.check.outputs.proceed == 'true' }}
@@ -162,10 +166,12 @@ jobs:
 
       - name: Load PHP_ENV configuration
         if: ${{ steps.check.outputs.proceed == 'true' }}
+        env:
+          PHP_ENV_RAW: ${{ vars.PHP_ENV }}
         run: |
           node -e "
             const { appendFileSync } = require('fs');
-            const env = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
+            const env = (process.env.PHP_ENV_RAW || '').replace(/\r/g, '');
             appendFileSync(process.env.GITHUB_ENV, 'SELF_HOSTED=true\n');
             appendFileSync(process.env.GITHUB_ENV, 'DOCS_BASE_URL=null\n');
             for (const line of env.split('\n')) {
@@ -204,7 +210,8 @@ jobs:
                 envMap[line.slice(0, eq)] = line.slice(eq + 1);
               }
             }
-            const c = (key, val) => \`  '\${key}' => '\${val}',\n\`;
+            const esc = (v) => String(v).replace(/\\\\/g, '\\\\\\\\').replace(/'/g, "\\\\'");
+            const c = (key, val) => (val ? \`  '\${key}' => '\${esc(val)}',\n\` : '');
             writeFileSync('build/config.php', '<?php\nreturn [\n');
             appendFileSync('build/config.php', c('MYSQL_HOST', process.env.MYSQL_HOST));
             appendFileSync('build/config.php', c('MYSQL_PORT', process.env.MYSQL_PORT));

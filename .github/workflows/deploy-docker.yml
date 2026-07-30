@@ -27,13 +27,16 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_KEY }}
           passphrase: ${{ secrets.VPS_PASSPHRASE }}
+          envs: DEPLOY_BRANCH
           script: |
             set -e
             cd livecodes
-            git checkout ${{ github.event.inputs.branch || 'main' }}
-            git pull origin ${{ github.event.inputs.branch || 'main' }}
+            git checkout "$DEPLOY_BRANCH"
+            git pull origin "$DEPLOY_BRANCH"
             echo "${{ vars.VPS_ENV }}" > .env
             docker compose build
             docker compose up -d
             docker container prune -f
             docker image prune -a -f
+        env:
+          DEPLOY_BRANCH: ${{ github.event.inputs.branch || 'main' }}
