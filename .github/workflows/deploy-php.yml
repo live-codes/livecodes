@@ -92,7 +92,7 @@ jobs:
         run: |
           node -e "
             const { writeFileSync, appendFileSync } = require('fs');
-            const phpEnv = `${{ vars.PHP_ENV }}`.replace(/\r/g, '');
+            const phpEnv = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
             const envMap = {};
             for (const line of phpEnv.split('\n')) {
               const eq = line.indexOf('=');
@@ -100,7 +100,7 @@ jobs:
                 envMap[line.slice(0, eq)] = line.slice(eq + 1);
               }
             }
-            const esc = (v) => String(v).replace(/\\\\/g, '\\\\\\\\').replace(/'/g, `\\\\'`);
+            const esc = (v) => String(v).replace(/\\\\/g, '\\\\\\\\').replace(/'/g, \`\\\\'\`);
             const c = (key, val) => (val ? \`  '\${key}' => '\${esc(val)}',\n\` : '');
             writeFileSync('build/config.php', '<?php\nreturn [\n');
             appendFileSync('build/config.php', c('MYSQL_HOST', process.env.MYSQL_HOST));
@@ -202,7 +202,7 @@ jobs:
         run: |
           node -e "
             const { writeFileSync, appendFileSync } = require('fs');
-            const phpEnv = `${{ vars.PHP_ENV }}`.replace(/\r/g, '');
+            const phpEnv = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
             const envMap = {};
             for (const line of phpEnv.split('\n')) {
               const eq = line.indexOf('=');
@@ -210,7 +210,7 @@ jobs:
                 envMap[line.slice(0, eq)] = line.slice(eq + 1);
               }
             }
-            const esc = (v) => String(v).replace(/\\\\/g, '\\\\\\\\').replace(/'/g, `\\\\'`);
+            const esc = (v) => String(v).replace(/\\\\/g, '\\\\\\\\').replace(/'/g, \`\\\\'\`);
             const c = (key, val) => (val ? \`  '\${key}' => '\${esc(val)}',\n\` : '');
             writeFileSync('build/config.php', '<?php\nreturn [\n');
             appendFileSync('build/config.php', c('MYSQL_HOST', process.env.MYSQL_HOST));
