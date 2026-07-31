@@ -8,7 +8,7 @@ LiveCodes is a [client-side app](../why.mdx#client-side). It can be easily self-
 
 All core functionalities (e.g. editors, compilers, formatters, code execution, etc) run in the browser.
 However, some features require [external services](./services.mdx) which depend on server-side implementations (e.g. [sharing](../features/share.mdx) short URLs, [broadcast server](../features/broadcast.mdx), etc).
-The PHP setup described here provides implementations for self-hosting these services, as an alternative to the [docker setup](./docker.mdx) (which requires a VPS).
+The PHP setup described here provides implementations for self-hosting these services, as an alternative to the [Docker setup](./docker.mdx) (which requires a VPS).
 
 This allows self-hosted instances on shared hosting to have the same features as the hosted app ([livecodes.io](https://livecodes.io)).
 
@@ -134,7 +134,7 @@ The database and required tables are created automatically on first request if t
   Custom 404 page for resources that are not found.
 
 :::info note
-Unlike the [docker setup](./docker.mdx), automatic HTTPS is **not** included. TLS certificates should be provided by the hosting provider (most shared hosts offer free certificates).
+Unlike the [Docker setup](./docker.mdx), automatic HTTPS is **not** included. TLS certificates should be provided by the hosting provider (most shared hosts offer free certificates).
 :::
 
 ## Server Configuration
