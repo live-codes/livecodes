@@ -9,6 +9,7 @@ const { cleanTypes } = require('./clean-types');
 const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
 const { buildStyles } = require('./styles');
+const { createTemplatesJson } = require('./templates-json.mjs');
 const { buildI18n, buildLocalePathLoader } = require('./i18n');
 const { arrToObj, mkdir, uint8arrayToString, iife, getFileNames, getEnvVars } = require('./utils');
 
@@ -303,31 +304,11 @@ const workersBuild = () =>
   });
 
 const functionsBuild = () =>
-  Promise.all([
-    esbuild.build({
-      ...baseOptions,
-      outdir: 'functions/vendors',
-      entryPoints: ['src/livecodes/utils/compression.ts'],
-    }),
-    esbuild
-      .build({
-        ...baseOptions,
-        outdir: undefined,
-        outfile: 'functions/vendors/templates.js',
-        entryPoints: ['src/livecodes/templates/starter/index.ts'],
-        define: {
-          ...baseOptions.define,
-          'window.deps.translateString': 'getTemplateName',
-        },
-      })
-      .then(() => {
-        fs.writeFileSync(
-          'functions/vendors/templates.js',
-          `var getTemplateName = (_, templateName) => templateName;\n${fs.readFileSync('functions/vendors/templates.js', 'utf8')}`,
-          'utf8',
-        );
-      }),
-  ]);
+  esbuild.build({
+    ...baseOptions,
+    outdir: 'functions/vendors',
+    entryPoints: ['src/livecodes/utils/compression.ts'],
+  });
 
 const stylesBuild = () => buildStyles(devMode);
 
@@ -347,6 +328,7 @@ prepareDir().then(async () => {
     await applyHash({ devMode });
     await injectCss();
     if (devMode) {
+      createTemplatesJson();
       fs.writeFileSync(
         path.resolve('build/tmp/trigger-reload.txt'),
         new Date().toISOString(),
