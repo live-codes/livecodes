@@ -5,11 +5,11 @@
   "description": "A Code Playground That Just Works!",
   "author": "Hatem Hosny",
   "license": "MIT",
-  "keywords": [],
   "private": true,
   "repository": {
     "url": "https://github.com/live-codes/livecodes"
   },
+  "engines": { "node": ">=22" },
   "scripts": {
     "start": "run-p copy:assets watch serve",
     "docs": "cd docs && npm run start",

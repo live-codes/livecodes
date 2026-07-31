@@ -328,7 +328,7 @@ prepareDir().then(async () => {
     await applyHash({ devMode });
     await injectCss();
     if (devMode) {
-      createTemplatesJson();
+      await createTemplatesJson();
       fs.writeFileSync(
         path.resolve('build/tmp/trigger-reload.txt'),
         new Date().toISOString(),

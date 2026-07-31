@@ -13,7 +13,7 @@ const jsonOutputFile = '../server/php/inc/starter-templates.json';
 const getDirname = (/** @type {string} */ metaUrl) => path.dirname(fileURLToPath(metaUrl));
 export const dirname = getDirname(import.meta.url);
 
-export const createTemplatesJson = () => {
+export const createTemplatesJson = async () => {
   globalThis.window = {
     ...globalThis.window,
     deps: { translateString: (_i18nKey, title) => title },
@@ -23,26 +23,25 @@ export const createTemplatesJson = () => {
   const moduleContent = fs.readFileSync(path.resolve(dirname, templatesModule), 'utf8');
   const moduleUrl = 'data:text/javascript;base64,' + Buffer.from(moduleContent).toString('base64');
 
-  import(moduleUrl)
-    .then((mod) => {
-      const templates = mod.starterTemplates.reduce(
-        (acc, template) => ({
-          ...acc,
-          [template.name]: template.title,
-        }),
-        {},
-      );
-      const json = JSON.stringify(templates, null, 2);
+  try {
+    const mod = await import(moduleUrl);
+    const templates = mod.starterTemplates.reduce(
+      (acc, template) => ({
+        ...acc,
+        [template.name]: template.title,
+      }),
+      {},
+    );
+    const json = JSON.stringify(templates, null, 2);
 
-      fs.writeFileSync(path.resolve(dirname, jsonOutputFile), json);
-      fs.writeFileSync(
-        path.resolve(dirname, jsOutputFile),
-        `export const starterTemplates = ` + json,
-      );
-    })
-    .catch(() => {
-      console.warn(`Failed to load ${templatesModule}`);
-    });
+    fs.writeFileSync(path.resolve(dirname, jsonOutputFile), json);
+    fs.writeFileSync(
+      path.resolve(dirname, jsOutputFile),
+      `export const starterTemplates = ` + json,
+    );
+  } catch {
+    console.warn(`Failed to load ${templatesModule}`);
+  }
 };
 
 if (import.meta.main) {
