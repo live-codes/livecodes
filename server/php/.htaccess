@@ -1,6 +1,7 @@
 # LiveCodes - PHP server (shared hosting)
 # Routes dynamic endpoints to PHP scripts and applies cache headers
-# equivalent to src/_headers. Requires mod_rewrite and mod_headers.
+# equivalent to server/src/app.ts and src/_headers
+# Requires mod_rewrite and mod_headers
 
 DirectoryIndex index.php index.html
 ErrorDocument 404 /404.html

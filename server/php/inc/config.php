@@ -27,6 +27,7 @@ function getConfig(?string $key = null, string $default = '')
             'MYSQL_USER',
             'MYSQL_PASSWORD',
             'MYSQL_DATABASE',
+            'SELF_HOSTED',
             'HOST_NAME',
             'LOG_URL',
             'API_TOKEN',

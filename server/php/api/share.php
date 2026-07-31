@@ -21,7 +21,7 @@ if ($method === 'GET') {
         exit;
     }
 
-    $stmt = getDb()->prepare('SELECT `config` FROM `share` WHERE LOWER(`id`) = LOWER(?)');
+    $stmt = getDb()->prepare('SELECT `config` FROM `share` WHERE `id` = ?');
     $stmt->execute([$id]);
     $value = $stmt->fetchColumn();
     if (!is_string($value) || $value === '') {

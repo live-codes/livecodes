@@ -108,6 +108,7 @@ jobs:
             appendFileSync('build/config.php', c('MYSQL_USER', process.env.MYSQL_USER));
             appendFileSync('build/config.php', c('MYSQL_PASSWORD', process.env.MYSQL_PASSWORD));
             appendFileSync('build/config.php', c('MYSQL_DATABASE', process.env.MYSQL_DATABASE));
+            appendFileSync('build/config.php', c('SELF_HOSTED', 'true'));
             for (const key of ['HOST_NAME', 'LOG_URL', 'SELF_HOSTED_SHARE', 'SELF_HOSTED_BROADCAST']) {
               if (envMap[key]) {
                 appendFileSync('build/config.php', c(key, envMap[key]));
@@ -218,6 +219,7 @@ jobs:
             appendFileSync('build/config.php', c('MYSQL_USER', process.env.MYSQL_USER));
             appendFileSync('build/config.php', c('MYSQL_PASSWORD', process.env.MYSQL_PASSWORD));
             appendFileSync('build/config.php', c('MYSQL_DATABASE', process.env.MYSQL_DATABASE));
+            appendFileSync('build/config.php', c('SELF_HOSTED', 'true'));
             for (const key of ['HOST_NAME', 'LOG_URL', 'SELF_HOSTED_SHARE', 'SELF_HOSTED_BROADCAST']) {
               if (envMap[key]) {
                 appendFileSync('build/config.php', c(key, envMap[key]));

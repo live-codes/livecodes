@@ -3,7 +3,8 @@
 /**
  * Decompression-only implementation of the lz-string algorithm,
  * compatible with the JavaScript library lz-string by pieroxy
- * (https://github.com/pieroxy/lz-string), which is MIT/WTFPL licensed.
+ * (https://github.com/pieroxy/lz-string), which is MIT licensed.
+ * License: https://github.com/pieroxy/lz-string/blob/9a3d312847ed13d394a908adc03dbdf9e62d44d8/LICENSE.md
  *
  * Only `decompressFromEncodedURIComponent` and `decompressFromBase64`
  * are implemented (that is all LiveCodes server functions need).

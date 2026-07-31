@@ -7,8 +7,8 @@ require_once dirname(__DIR__) . '/vendor/lzstring.php';
 function encodeHTML(string $html): string
 {
     return str_replace(
-        ['&', '<', '>', "'", '"'],
-        ['&amp;', '&lt;', '&gt;', '&#39;', '&#34;'],
+        ['&',     '<',    '>',    "'",      '"'],
+        ['&amp;', '&lt;', '&gt;', '&#39;',  '&#34;'],
         $html,
     );
 }
@@ -156,7 +156,7 @@ function importProject(string $id): array
     if (strlen($id) === 14) {
         // self-hosted share ids are stored in the local database
         try {
-            $stmt = getDb()->prepare('SELECT `config` FROM `share` WHERE LOWER(`id`) = LOWER(?)');
+            $stmt = getDb()->prepare('SELECT `config` FROM `share` WHERE `id` = ?');
             $stmt->execute([$id]);
             $value = $stmt->fetchColumn();
             if (is_string($value)) {

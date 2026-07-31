@@ -17,6 +17,9 @@ $data = [
     'resource' => 'app',
     'method' => $method,
     'date' => date(DATE_W3C),
+
+    'country' => $_SERVER['CF-IPCountry'] ?? null,
+
     'accept' => $_SERVER['HTTP_ACCEPT'] ?? null,
     'accept-encoding' => $_SERVER['HTTP_ACCEPT_ENCODING'] ?? null,
     'accept-language' => $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? null,
