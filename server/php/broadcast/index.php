@@ -12,6 +12,12 @@
 
 require_once __DIR__ . '/../inc/utils.php';
 
+if (getConfig('SELF_HOSTED_BROADCAST') !== 'true') {
+    http_response_code(400);
+    echo 'Broadcast service is disabled!';
+    exit;
+}
+
 sendCorsHeaders();
 header('Content-Type: application/json');
 

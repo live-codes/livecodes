@@ -7,6 +7,12 @@
 
 require_once __DIR__ . '/../inc/utils.php';
 
+if (getConfig('SELF_HOSTED_BROADCAST') !== 'true') {
+    http_response_code(400);
+    echo 'Broadcast service is disabled!';
+    exit;
+}
+
 $channel = isset($_GET['id']) && is_string($_GET['id']) ? $_GET['id'] : '';
 
 $stmt = getDb()->prepare('SELECT `data` FROM `broadcast_channels` WHERE `channel` = ?');

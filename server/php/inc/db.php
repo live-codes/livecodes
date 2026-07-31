@@ -13,6 +13,10 @@ function getDb(): PDO
         return $pdo;
     }
 
+    if (getConfig('SELF_HOSTED_SHARE') !== 'true' && getConfig('SELF_HOSTED_BROADCAST') !== 'true') {
+        throw new RuntimeException('Self-hosted services are disabled!');
+    }
+
     $host = getConfig('MYSQL_HOST', 'localhost');
     $port = getConfig('MYSQL_PORT', '3306');
     $user = getConfig('MYSQL_USER');
@@ -44,23 +48,27 @@ function getDb(): PDO
         $pdo->exec("USE `$dbName`");
     }
 
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS `share` (' .
-            '`id` CHAR(14) NOT NULL PRIMARY KEY, ' .
-            '`config` MEDIUMTEXT NOT NULL, ' .
-            '`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP' .
-            ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4',
-    );
+    if (getConfig('SELF_HOSTED_SHARE') === 'true') {
+      $pdo->exec(
+          'CREATE TABLE IF NOT EXISTS `share` (' .
+              '`id` CHAR(14) NOT NULL PRIMARY KEY, ' .
+              '`config` MEDIUMTEXT NOT NULL, ' .
+              '`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP' .
+              ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4',
+      );
+  }
 
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS `broadcast_channels` (' .
-            '`channel` VARCHAR(11) NOT NULL PRIMARY KEY, ' .
-            '`channel_token` VARCHAR(11) NOT NULL, ' .
-            '`result` MEDIUMTEXT NULL, ' .
-            '`data` MEDIUMTEXT NULL, ' .
-            '`last_accessed` BIGINT NOT NULL' .
-            ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4',
-    );
+    if (getConfig('SELF_HOSTED_BROADCAST') === 'true') {
+      $pdo->exec(
+          'CREATE TABLE IF NOT EXISTS `broadcast_channels` (' .
+              '`channel` VARCHAR(11) NOT NULL PRIMARY KEY, ' .
+              '`channel_token` VARCHAR(11) NOT NULL, ' .
+              '`result` MEDIUMTEXT NULL, ' .
+              '`data` MEDIUMTEXT NULL, ' .
+              '`last_accessed` BIGINT NOT NULL' .
+              ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4',
+      );
+    }
 
     return $pdo;
 }

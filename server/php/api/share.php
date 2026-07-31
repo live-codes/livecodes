@@ -11,6 +11,12 @@ require_once __DIR__ . '/../inc/utils.php';
 
 sendCorsHeaders();
 
+if (getConfig('SELF_HOSTED_SHARE') !== 'true') {
+    http_response_code(400);
+    echo 'Share service is disabled!';
+    exit;
+}
+
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
 if ($method === 'GET') {
