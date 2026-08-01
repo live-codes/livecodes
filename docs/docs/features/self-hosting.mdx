@@ -35,6 +35,8 @@ Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. Yo
 
 Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration), etc.). When prompted, the build command is `npm run build` and the build output directory is `build`.
 
+Additionally, several GitHub Actions workflows are included to automatically build and deploy the app when a new commit is pushed (e.g. to the `main` branch). Deploy targets include GitHub Pages, FTP and SSH. See the [Deployment guide](../advanced/deployment.mdx) for the available deploy actions, when they are triggered, and the required secrets and variables.
+
 ### Docker Setup
 
 In addition to the _static_ app provided by the previous methods, the included [Docker setup](../advanced/docker.mdx) provides alternative implementations for server-side features available in the [hosted app](https://livecodes.io),
@@ -51,6 +53,14 @@ For customization and detailed guide, see [Docker setup](../advanced/docker.mdx)
 ### PHP Setup on Shared Hosting
 
 For shared hosting that supports PHP and MySQL, the included [PHP setup](../advanced/php.mdx) provides the same services as the Docker setup, without installing anything on the server. It is deployed via FTP/SSH using the included GitHub Actions workflow.
+
+## Deployment
+
+For continuous deployment, you can use the included [GitHub Actions](https://github.com/features/actions) workflows to automatically build and deploy the app when a new commit is pushed (e.g. to the `main` branch).
+
+Deploy targets include [GitHub Pages](https://pages.github.com/), FTP, SSH, the [Docker setup](../advanced/docker.mdx) (VPS) and the [PHP setup](../advanced/php.mdx) (shared hosting).
+
+See the [Deployment guide](../advanced/deployment.mdx) for the available deploy actions, when they are triggered, and the required secrets and variables.
 
 ## Custom Build
 

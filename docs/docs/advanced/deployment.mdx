@@ -1,0 +1,206 @@
+# Deployment
+
+This guide explains how to deploy a self-hosted instance of LiveCodes using the included [GitHub Actions](https://github.com/features/actions) workflows, and the `npm run deploy` script.
+
+LiveCodes is a [client-side app](../why.mdx#client-side), so the built static app can be deployed to almost any static file server or CDN (see the [Self-Hosting guide](../features/self-hosting.mdx)).
+If you need the server-side [services](./services.mdx) (short-URL [sharing](../features/share.mdx), [broadcast server](../features/broadcast.mdx), etc), you can use the [Docker setup](./docker.mdx) (for a VPS) or the [PHP setup](./php.mdx) (for shared hosting) — both include GitHub Actions workflows for continuous deployment.
+
+## Deploy Actions
+
+The following deployment actions are available in the forked repository:
+
+| Action | Target | Requirements |
+| --- | --- | --- |
+| [Deploy to GitHub Pages](#deploy-to-github-pages) | Static app on [GitHub Pages](https://pages.github.com/) | No secrets required |
+| [Deploy to FTP](#deploy-via-ftp) | Static app on an FTP server | FTP secrets |
+| [Deploy via SSH](#deploy-via-ssh) | Static app on a server | SSH secrets |
+| [Deploy to Docker](#deploy-to-docker) | [Docker setup](./docker.mdx) on a VPS | Variable `VPS_ENV` + SSH secrets |
+| [Deploy to PHP](#deploy-to-php) | [PHP setup](./php.mdx) on shared hosting | Variable `PHP_ENV` + MySQL secrets + FTP and/or SSH secrets |
+
+All actions run automatically on push to the `main` branch, and can also be triggered manually from the **Actions** tab, optionally specifying the branch to deploy (defaults to `main`).
+
+## npm Script
+
+### `npm run deploy`
+
+Builds the app and publishes it to [GitHub Pages](https://pages.github.com/):
+
+```shell
+npm run deploy
+```
+
+This is used by the [Deploy to GitHub Pages action](#deploy-to-github-pages), and can also be run locally.
+
+## Repository Settings
+
+Actions are enabled/disabled using [repository variables](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) (non-sensitive configuration) and [secrets](https://docs.github.com/en/actions/how-tos/security-for-github-actions/security-guides/using-secrets-in-github-actions) (sensitive values).
+Both are configured in the forked repo settings: **Settings → Secrets and variables → Actions**.
+
+The following variables are used:
+
+| Variable | Used by | Purpose |
+| --- | --- | --- |
+| `VPS_ENV` | [Deploy to Docker](#deploy-to-docker) | `.env`-format key=value pairs for the Docker [environment variables](./docker.mdx#environment-variables). **Required** — the action only runs when it is set |
+| `PHP_ENV` | [Deploy to PHP](#deploy-to-php) | `.env`-format key=value pairs for non-sensitive PHP configuration. **Required** — the action only runs when it is set. When set, the standalone [Deploy to FTP](#deploy-via-ftp) and [Deploy via SSH](#deploy-via-ssh) actions are skipped |
+
+So for a plain static deploy, leave `PHP_ENV` **unset**.
+
+## Deploy to GitHub Pages
+
+Deploys the static app to [GitHub Pages](https://pages.github.com/).
+
+**Required secrets/variables:** None.
+
+**Optional secrets** (to authenticate the deploy with a GitHub App instead of the default token):
+
+| Secret | Description |
+| --- | --- |
+| `CI_APP_ID` | (optional) GitHub App ID |
+| `CI_APP_PRIVATE_KEY` | (optional) GitHub App private key |
+
+When both are set, the deploy is authenticated with the GitHub App; otherwise the default token is used.
+
+## Deploy via FTP
+
+Deploys the static app to an FTP server.
+
+**Required secrets:**
+
+| Secret | Description |
+| --- | --- |
+| `FTP_HOST` | FTP server hostname |
+| `FTP_USER` | FTP user |
+| `FTP_PASSWORD` | FTP password |
+
+**Optional secrets:**
+
+| Secret | Description |
+| --- | --- |
+| `FTP_PORT` | FTP port |
+| `FTP_PROTOCOL` | FTP protocol (`ftp`, `ftps` or `ftps-legacy`) |
+| `FTP_PATH` | Remote path of the document root (e.g. `/public_html/`) |
+
+:::info note
+The action only runs when `FTP_HOST` is set. It does **not** run when the repository variable `PHP_ENV` is set (use the [Deploy to PHP action](#deploy-to-php) instead, which can also deploy via FTP).
+:::
+
+## Deploy via SSH
+
+Deploys the static app to a server over SSH.
+
+**Required secrets:**
+
+| Secret | Description |
+| --- | --- |
+| `SSH_HOST` | SSH server hostname |
+| `SSH_USER` | SSH user |
+| `SSH_KEY` | SSH private key |
+
+**Optional secrets:**
+
+| Secret | Description |
+| --- | --- |
+| `SSH_PORT` | SSH port |
+| `SSH_PATH` | Remote path of the document root |
+
+:::info note
+The action only runs when `SSH_HOST` is set. It does **not** run when the repository variable `PHP_ENV` is set (use the [Deploy to PHP action](#deploy-to-php) instead, which can also deploy via SSH).
+:::
+
+## Deploy to Docker
+
+Deploys the [Docker setup](./docker.mdx) to a VPS over SSH: updates the app on the server, applies the `VPS_ENV` configuration, and restarts the Docker containers.
+
+This assumes you have followed the [Docker Getting Started](./docker.mdx#getting-started) instructions and cloned the repo to your VPS.
+
+**Required variable:**
+
+| Variable | Description |
+| --- | --- |
+| `VPS_ENV` | `.env`-format key=value pairs for the Docker [environment variables](./docker.mdx#environment-variables) (e.g. `HOST_NAME`, `PORT`, `SELF_HOSTED_SHARE`, `SELF_HOSTED_BROADCAST`, `BROADCAST_TOKENS`, `SANDBOX_HOST_NAME`, `FIREBASE_CONFIG`, `LOG_URL`). The action only runs when it is set |
+
+**Required secrets:**
+
+| Secret | Description |
+| --- | --- |
+| `VPS_HOST` | SSH hostname of the VPS |
+| `VPS_USER` | SSH user |
+| `VPS_KEY` | SSH private key |
+
+**Optional secret:**
+
+| Secret | Description |
+| --- | --- |
+| `VPS_PASSPHRASE` | Passphrase of the SSH private key, if any |
+
+## Deploy to PHP
+
+Deploys the [PHP setup](./php.mdx) to shared hosting: builds the app, prepares the PHP server files and configuration, and uploads everything to your hosting over FTP and/or SSH (each runs only when the corresponding credentials are configured).
+
+This assumes you have followed the [PHP Getting Started](./php.mdx#getting-started) instructions (MySQL database and a sandbox subdomain).
+
+**Required variable:**
+
+| Variable | Description |
+| --- | --- |
+| `PHP_ENV` | Non-sensitive config as `.env`-format key=value pairs, one per line. The action only runs when it is set |
+
+**`PHP_ENV` supported keys** (same as the [Docker environment variables](./docker.mdx#environment-variables)):
+
+| Key | Description |
+| --- | --- |
+| `HOST_NAME` | Hostname of the app (e.g. `example.com`) |
+| `SANDBOX_HOST_NAME` | Hostname of the sandbox (e.g. `sandbox.example.com`) |
+| `SELF_HOSTED_SHARE` | Enable [share service](../features/share.mdx) (`true`/`false`) |
+| `SELF_HOSTED_BROADCAST` | Enable [broadcast server](../features/broadcast.mdx) (`true`/`false`) |
+| `FIREBASE_CONFIG` | (optional) [Firebase config object](https://firebase.google.com/docs/web/learn-more#config-object) (JSON), used for [authentication](../features/github-integration.mdx) |
+| `LOG_URL` | (optional) Full URL to send server-side analytics (e.g. `https://api.website.com/log`) |
+
+Example:
+
+```ini
+HOST_NAME=example.com
+SANDBOX_HOST_NAME=sandbox.example.com
+SELF_HOSTED_SHARE=true
+SELF_HOSTED_BROADCAST=true
+FIREBASE_CONFIG={"apiKey":"..."}
+LOG_URL=https://api.example.com/log
+```
+
+**Required secrets:**
+
+| Secret | Description |
+| --- | --- |
+| `MYSQL_HOST` | MySQL hostname (usually `localhost`) |
+| `MYSQL_USER` | MySQL user |
+| `MYSQL_PASSWORD` | MySQL password |
+| `MYSQL_DATABASE` | MySQL database name |
+
+**Optional secrets:**
+
+| Secret | Description |
+| --- | --- |
+| `MYSQL_PORT` | MySQL port (default `3306`) |
+| `BROADCAST_TOKENS` | (optional) Comma-separated list of broadcast [user tokens](../features/broadcast.mdx#technical-details) |
+| `API_TOKEN` | (optional) Token sent with the analytics requests |
+
+**Deploy via FTP** (runs when `FTP_HOST` is set):
+
+| Secret | Description |
+| --- | --- |
+| `FTP_HOST` | FTP server hostname |
+| `FTP_USER` | FTP user |
+| `FTP_PASSWORD` | FTP password |
+| `FTP_PORT` | FTP port |
+| `FTP_PROTOCOL` | FTP protocol (`ftp`, `ftps` or `ftps-legacy`) |
+| `FTP_PATH` | Remote path of the document root (e.g. `/public_html/`) |
+
+**Deploy via SSH** (runs when `SSH_HOST` is set):
+
+| Secret | Description |
+| --- | --- |
+| `SSH_HOST` | SSH server hostname |
+| `SSH_USER` | SSH user |
+| `SSH_KEY` | SSH private key |
+| `SSH_PORT` | SSH port |
+| `SSH_PATH` | Remote path of the document root |

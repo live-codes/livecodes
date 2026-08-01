@@ -108,6 +108,7 @@ const sidebars: SidebarsConfig = {
             'advanced/services',
             'advanced/docker',
             'advanced/php',
+            'advanced/deployment',
           ],
         },
         {
