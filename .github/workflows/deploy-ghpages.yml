@@ -1,0 +1,66 @@
+# Deploys the static app to GitHub Pages.
+# Triggered on push to `main`, or can be triggered manually with specific branch.
+# Requires the secrets (`CI_APP_ID`, `CI_APP_PRIVATE_KEY`) to be configured, otherwise falls back to `github.token`.
+
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: false
+        default: "main"
+
+permissions:
+  contents: write
+
+env:
+  NODE_VERSION: 24.x
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: "--max_old_space_size=8192"
+    steps:
+      - name: Check GitHub App secrets
+        id: check-secrets
+        env:
+          CI_APP_ID: ${{ secrets.CI_APP_ID }}
+          CI_APP_PRIVATE_KEY: ${{ secrets.CI_APP_PRIVATE_KEY }}
+        if: ${{ env.CI_APP_ID != '' && env.CI_APP_PRIVATE_KEY != '' }}
+        run: echo "available=true" >> $GITHUB_OUTPUT
+
+      - name: Generate GitHub App token
+        if: ${{ steps.check-secrets.outputs.available == 'true' }}
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || 'main' }}
+          token: ${{ steps.generate-token.outputs.token || github.token }}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy
+        env:
+          DEPLOY_TOKEN: ${{ steps.generate-token.outputs.token || github.token }}
+        run: |
+          git remote set-url origin https://git:${DEPLOY_TOKEN}@github.com/${{github.repository}}.git
+          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"

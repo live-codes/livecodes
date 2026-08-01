@@ -1,4 +1,4 @@
-export const starterTemplates = {
+{
   "blank": "Blank Project",
   "javascript": "JavaScript Starter",
   "typescript": "TypeScript Starter",

@@ -12,5 +12,6 @@ dist
 /test-results/
 /playwright-report/
 /playwright/.cache/
+server/php
 src/livecodes/i18n/locales/tmp/
 lokalise_tmp

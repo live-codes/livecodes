@@ -1,0 +1,34 @@
+# Deployment
+
+LiveCodes uses GitHub Actions to deploy to multiple targets on push to `main`. Each deployment workflow is gated by repository variables or secrets so only the intended targets run.
+
+## Workflows
+
+| Workflow file | Name | Trigger | Guard |
+|---|---|---|---|
+| `deploy-ghpages.yml` | Deploy to GitHub Pages | push to `main` | (none — always runs) |
+| `deploy-docker.yml` | Deploy to Docker | push to `main`, manual | `vars.VPS_ENV` must be set |
+| `deploy-php.yml` | Deploy to PHP | push to `main`, manual | `vars.PHP_ENV` must be set |
+| `deploy-ftp.yml` | Deploy to FTP | push to `main`, manual | `vars.PHP_ENV` must NOT be set |
+| `deploy-ssh.yml` | Deploy via SSH | push to `main`, manual | `vars.PHP_ENV` must NOT be set |
+
+## Guard Logic
+
+- **`deploy-docker`** runs when `VPS_ENV` is configured in the repository variables. This prevents the workflow from failing on forks that don't use Docker.
+- **`deploy-php`** runs when `PHP_ENV` is configured. It combines FTP and SSH jobs for PHP shared hosting deployments.
+- **`deploy-ftp`** and **`deploy-ssh`** run when `PHP_ENV` is NOT configured. They deploy static builds (without PHP server-side services) to FTP or SSH hosts. This avoids deploying to the same target from both `deploy-php` and the standalone workflows.
+
+## Configuration
+
+All deploy workflows rely on [GitHub Actions secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) and [variables](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) configured in the repository settings (**Settings → Secrets and variables → Actions**).
+
+- **`VPS_ENV`** and **`PHP_ENV`** are repository variables containing non-sensitive config in `.env` format (key=value pairs, one per line). They act as the single source for build-time environment variables and server runtime config. Sensitive values (MySQL credentials, SSH keys, API tokens) are kept in GitHub Secrets.
+
+For details on specific secrets and variables required by each target, see:
+
+- [Docker Setup](../advanced/docker.mdx#deployment)
+- [PHP Setup](../advanced/php.mdx#deployment)
+
+## Manual Triggers
+
+All workflows except `deploy-ghpages` support `workflow_dispatch` for manual runs from the **Actions** tab. You can optionally specify a branch to deploy.
