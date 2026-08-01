@@ -78,6 +78,12 @@ This directory contains comprehensive documentation for contributors working on 
 | ---------------------------- | --------------------------------------- |
 | [release.mdx](./release.mdx) | Release workflow and version management |
 
+### Deployment
+
+| Document                           | Description                                   |
+| ---------------------------------- | --------------------------------------------- |
+| [deployment.mdx](./deployment.mdx) | GitHub Actions deployment workflows and guards |
+
 ## Code Style
 
 LiveCodes follows specific coding conventions documented in `AGENTS.md` at the repository root. Key points:
