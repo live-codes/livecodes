@@ -66,11 +66,12 @@ const getVars = (/** @type {boolean} */ devMode) => {
             : '/docs/';
   const CI = process.env.CI || false;
   const selfHosted = String(process.env.SELF_HOSTED) === 'true';
+  const hostName = process.env.HOST_NAME || 'null';
   const selfHostedShare = String(process.env.SELF_HOSTED_SHARE) === 'true';
   const selfHostedBroadcast = String(process.env.SELF_HOSTED_BROADCAST) === 'true';
-  const selfHostedBroadcastPort = Number(process.env.BROADCAST_PORT) || 3030;
-  const selfHostedSandboxHostName = process.env.SANDBOX_HOST_NAME || 'localhost';
-  const selfHostedSandboxPort = Number(process.env.SANDBOX_PORT) || 8090;
+  const selfHostedBroadcastPort = Number(process.env.BROADCAST_PORT) || 443;
+  const selfHostedSandboxHostName = process.env.SANDBOX_HOST_NAME || 'null';
+  const selfHostedSandboxPort = Number(process.env.SANDBOX_PORT) || 443;
   const firebaseConfig = process.env.FIREBASE_CONFIG || 'null';
   return {
     appVersion,
@@ -80,6 +81,7 @@ const getVars = (/** @type {boolean} */ devMode) => {
     docsBaseUrl,
     CI,
     selfHosted,
+    hostName,
     selfHostedShare,
     selfHostedBroadcast,
     selfHostedBroadcastPort,
@@ -98,6 +100,7 @@ const getEnvVars = (/** @type {boolean} */ devMode) => {
     docsBaseUrl,
     CI,
     selfHosted,
+    hostName,
     selfHostedShare,
     selfHostedBroadcast,
     selfHostedBroadcastPort,
@@ -106,19 +109,20 @@ const getEnvVars = (/** @type {boolean} */ devMode) => {
     selfHostedSandboxPort,
   } = getVars(devMode);
   return {
-    'process.env.VERSION': `"${appVersion || ''}"`,
-    'process.env.SDK_VERSION': `"${sdkVersion || ''}"`,
-    'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
-    'process.env.REPO_URL': `"${repoUrl || ''}"`,
-    'process.env.DOCS_BASE_URL': `"${docsBaseUrl}"`,
-    'process.env.CI': `"${CI}"`,
-    'process.env.SELF_HOSTED': `"${selfHosted}"`,
-    'process.env.SELF_HOSTED_SHARE': `"${selfHostedShare}"`,
-    'process.env.SELF_HOSTED_BROADCAST': `"${selfHostedBroadcast}"`,
-    'process.env.BROADCAST_PORT': `"${selfHostedBroadcastPort}"`,
-    'process.env.SANDBOX_HOST_NAME': `"${selfHostedSandboxHostName}"`,
-    'process.env.SANDBOX_PORT': `"${selfHostedSandboxPort}"`,
-    'process.env.FIREBASE_CONFIG': `"${firebaseConfig}"`,
+    'process.env.VERSION': JSON.stringify(String(appVersion || '')),
+    'process.env.SDK_VERSION': JSON.stringify(String(sdkVersion || '')),
+    'process.env.GIT_COMMIT': JSON.stringify(String(gitCommit || '')),
+    'process.env.REPO_URL': JSON.stringify(String(repoUrl || '')),
+    'process.env.DOCS_BASE_URL': JSON.stringify(String(docsBaseUrl)),
+    'process.env.CI': JSON.stringify(String(CI)),
+    'process.env.SELF_HOSTED': JSON.stringify(String(selfHosted)),
+    'process.env.HOST_NAME': JSON.stringify(String(hostName)),
+    'process.env.SELF_HOSTED_SHARE': JSON.stringify(String(selfHostedShare)),
+    'process.env.SELF_HOSTED_BROADCAST': JSON.stringify(String(selfHostedBroadcast)),
+    'process.env.BROADCAST_PORT': JSON.stringify(String(selfHostedBroadcastPort)),
+    'process.env.SANDBOX_HOST_NAME': JSON.stringify(String(selfHostedSandboxHostName)),
+    'process.env.SANDBOX_PORT': JSON.stringify(String(selfHostedSandboxPort)),
+    'process.env.FIREBASE_CONFIG': JSON.stringify(String(firebaseConfig)),
     define: 'undefined', // prevent using AMD (e.g. in lz-string),
   };
 };
