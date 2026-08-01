@@ -1,0 +1,241 @@
+# Deploys to shared hosting. Supports PHP/MySQL server-side services.
+# Triggered on push to `main`, or can be triggered manually with specific branch.
+# Requires the variable `PHP_ENV` to be configured.
+
+name: Deploy to PHP
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: false
+        default: "main"
+
+env:
+  NODE_VERSION: 24.x
+
+jobs:
+  deploy-ftp:
+    if: ${{ vars.PHP_ENV != '' }}
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: "--max_old_space_size=8192"
+    steps:
+      - name: Check if FTP credentials are configured
+        id: check
+        run: |
+          if [ -z "${{ secrets.FTP_HOST }}" ]; then
+            echo "FTP_HOST is not set — cancelling deployment."
+            echo "proceed=false" >> $GITHUB_OUTPUT
+          else
+            echo "proceed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout code
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || 'main' }}
+
+      - name: Use Node.js
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        run: npm ci
+
+      - name: Load PHP_ENV configuration
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        env:
+          PHP_ENV_RAW: ${{ vars.PHP_ENV }}
+        run: |
+          node -e "
+            const { appendFileSync } = require('fs');
+            const env = (process.env.PHP_ENV_RAW || '').replace(/\r/g, '');
+            appendFileSync(process.env.GITHUB_ENV, 'SELF_HOSTED=true\n');
+            appendFileSync(process.env.GITHUB_ENV, 'DOCS_BASE_URL=null\n');
+            for (const line of env.split('\n')) {
+              if (line.includes('=')) {
+                appendFileSync(process.env.GITHUB_ENV, line + '\n');
+              }
+            }
+          "
+
+      - name: Build
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        run: npm run build:app
+
+      - name: Add PHP server files
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        run: npm run copy-php
+
+      - name: Create server config
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        env:
+          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          BROADCAST_TOKENS: ${{ secrets.BROADCAST_TOKENS }}
+        run: |
+          node -e "
+            const { writeFileSync, appendFileSync } = require('fs');
+            const phpEnv = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
+            const envMap = {};
+            for (const line of phpEnv.split('\n')) {
+              const eq = line.indexOf('=');
+              if (eq > 0) {
+                envMap[line.slice(0, eq)] = line.slice(eq + 1);
+              }
+            }
+            const esc = (v) => String(v).replace(/\\\\/g, '\\\\\\\\').replace(/'/g, \`\\\\'\`);
+            const c = (key, val) => (val ? \`  '\${key}' => '\${esc(val)}',\n\` : '');
+            writeFileSync('build/config.php', '<?php\nreturn [\n');
+            appendFileSync('build/config.php', c('MYSQL_HOST', process.env.MYSQL_HOST));
+            appendFileSync('build/config.php', c('MYSQL_PORT', process.env.MYSQL_PORT));
+            appendFileSync('build/config.php', c('MYSQL_USER', process.env.MYSQL_USER));
+            appendFileSync('build/config.php', c('MYSQL_PASSWORD', process.env.MYSQL_PASSWORD));
+            appendFileSync('build/config.php', c('MYSQL_DATABASE', process.env.MYSQL_DATABASE));
+            appendFileSync('build/config.php', c('SELF_HOSTED', 'true'));
+            for (const key of ['HOST_NAME', 'LOG_URL', 'SELF_HOSTED_SHARE', 'SELF_HOSTED_BROADCAST']) {
+              if (envMap[key]) {
+                appendFileSync('build/config.php', c(key, envMap[key]));
+              }
+            }
+            appendFileSync('build/config.php', c('API_TOKEN', process.env.API_TOKEN));
+            appendFileSync('build/config.php', c('BROADCAST_TOKENS', process.env.BROADCAST_TOKENS));
+            appendFileSync('build/config.php', '];\n');
+          "
+
+      - name: Deploy to FTP server
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ${{ secrets.FTP_PROTOCOL }}
+          server-dir: ${{ secrets.FTP_PATH }}
+          local-dir: ./build/
+
+  deploy-ssh:
+    if: ${{ vars.PHP_ENV != '' }}
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: "--max_old_space_size=8192"
+    steps:
+      - name: Check if SSH credentials are configured
+        id: check
+        run: |
+          if [ -z "${{ secrets.SSH_HOST }}" ]; then
+            echo "SSH_HOST is not set — cancelling deployment."
+            echo "proceed=false" >> $GITHUB_OUTPUT
+          else
+            echo "proceed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout code
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || 'main' }}
+
+      - name: Use Node.js
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        run: npm ci
+
+      - name: Load PHP_ENV configuration
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        env:
+          PHP_ENV_RAW: ${{ vars.PHP_ENV }}
+        run: |
+          node -e "
+            const { appendFileSync } = require('fs');
+            const env = (process.env.PHP_ENV_RAW || '').replace(/\r/g, '');
+            appendFileSync(process.env.GITHUB_ENV, 'SELF_HOSTED=true\n');
+            appendFileSync(process.env.GITHUB_ENV, 'DOCS_BASE_URL=null\n');
+            for (const line of env.split('\n')) {
+              if (line.includes('=')) {
+                appendFileSync(process.env.GITHUB_ENV, line + '\n');
+              }
+            }
+          "
+
+      - name: Build
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        run: npm run build:app
+
+      - name: Add PHP server files
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        run: npm run copy-php
+
+      - name: Create server config
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        env:
+          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          BROADCAST_TOKENS: ${{ secrets.BROADCAST_TOKENS }}
+        run: |
+          node -e "
+            const { writeFileSync, appendFileSync } = require('fs');
+            const phpEnv = \`${{ vars.PHP_ENV }}\`.replace(/\r/g, '');
+            const envMap = {};
+            for (const line of phpEnv.split('\n')) {
+              const eq = line.indexOf('=');
+              if (eq > 0) {
+                envMap[line.slice(0, eq)] = line.slice(eq + 1);
+              }
+            }
+            const esc = (v) => String(v).replace(/\\\\/g, '\\\\\\\\').replace(/'/g, \`\\\\'\`);
+            const c = (key, val) => (val ? \`  '\${key}' => '\${esc(val)}',\n\` : '');
+            writeFileSync('build/config.php', '<?php\nreturn [\n');
+            appendFileSync('build/config.php', c('MYSQL_HOST', process.env.MYSQL_HOST));
+            appendFileSync('build/config.php', c('MYSQL_PORT', process.env.MYSQL_PORT));
+            appendFileSync('build/config.php', c('MYSQL_USER', process.env.MYSQL_USER));
+            appendFileSync('build/config.php', c('MYSQL_PASSWORD', process.env.MYSQL_PASSWORD));
+            appendFileSync('build/config.php', c('MYSQL_DATABASE', process.env.MYSQL_DATABASE));
+            appendFileSync('build/config.php', c('SELF_HOSTED', 'true'));
+            for (const key of ['HOST_NAME', 'LOG_URL', 'SELF_HOSTED_SHARE', 'SELF_HOSTED_BROADCAST']) {
+              if (envMap[key]) {
+                appendFileSync('build/config.php', c(key, envMap[key]));
+              }
+            }
+            appendFileSync('build/config.php', c('API_TOKEN', process.env.API_TOKEN));
+            appendFileSync('build/config.php', c('BROADCAST_TOKENS', process.env.BROADCAST_TOKENS));
+            appendFileSync('build/config.php', '];\n');
+          "
+
+      - name: Deploy via SSH
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: SamKirkland/web-deploy@v1
+        with:
+          target-server: ${{ secrets.SSH_HOST }}
+          remote-user: ${{ secrets.SSH_USER }}
+          private-ssh-key: ${{ secrets.SSH_KEY }}
+          ssh-port: ${{ secrets.SSH_PORT }}
+          destination-path: ${{ secrets.SSH_PATH }}
+          source-path: ./build/
