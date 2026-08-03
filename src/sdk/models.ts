@@ -530,6 +530,16 @@ export type ToolName = 'console' | 'compiled' | 'tests';
 export type ToolsPaneStatus = 'closed' | 'open' | 'full' | 'none' | '';
 
 /**
+ * Sidebar sections.
+ */
+export type SidebarSectionName = 'files';
+
+/**
+ * Status of the tools pane.
+ */
+export type SidebarStatus = 'closed' | 'open' | 'none' | '';
+
+/**
  * API commands for the SDK.
  */
 export type APICommands = 'setBroadcastToken' | 'showVersion';
@@ -1186,10 +1196,10 @@ export interface AppConfig {
    * @example
    * ```js
    * {
-   *   "tools": {
-   *     "enabled": ["console", "compiled"],
-   *     "active": "console",
-   *     "status": "open"
+   *   tools: {
+   *     enabled: ["console", "compiled"],
+   *     active: "console",
+   *     status: "open"
    *   }
    * }
    * ```
@@ -1199,6 +1209,27 @@ export interface AppConfig {
     active: ToolName | '';
     status: ToolsPaneStatus;
   }>;
+
+  /**
+   * Sets enabled and active sections and status of sidebar.
+   * @default { enabled: "all", active: "", status: "" }
+   * @example
+   * ```js
+   * {
+   *   sidebar: {
+   *     files: {},
+   *     enabled: ["files"],
+   *     active: "files",
+   *     status: "open"
+   *   }
+   * }
+   * ```
+   */
+  sidebar: Partial<Record<SidebarSectionName, Record<string, any>>> & {
+    enabled?: SidebarSectionName[] | 'all';
+    active?: SidebarSectionName | '';
+    status?: SidebarStatus;
+  };
 
   /**
    * Sets result page [zoom level](https://livecodes.io/docs/features/result#result-page-zoom).

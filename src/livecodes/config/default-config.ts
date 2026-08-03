@@ -50,6 +50,12 @@ export const defaultConfig: Config = {
     language: 'typescript',
     content: '',
   },
+  sidebar: {
+    files: {},
+    enabled: 'all',
+    active: '',
+    status: '',
+  },
   tools: {
     enabled: 'all',
     active: '',

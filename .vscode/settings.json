@@ -25,7 +25,8 @@
     "services",
     "CommandMenu",
     "Accessibility",
-    "self-hosting"
+    "self-hosting",
+    "Sidebar"
   ],
   "html.customData": ["./.vscode/html.html-data.json"]
 }

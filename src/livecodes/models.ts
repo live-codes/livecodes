@@ -13,6 +13,8 @@ import type {
   Language,
   Processor,
   ScreenName,
+  SidebarSectionName,
+  SidebarStatus,
   SourceFile,
   TemplateName,
   TestResult,
@@ -287,6 +289,48 @@ export interface ToolsPane {
   console?: Console;
   compiled?: CompiledCodeViewer;
   tests?: TestViewer;
+}
+
+export interface SidebarSection {
+  name: SidebarSectionName;
+  title: string;
+  icon: string;
+  load: () => Promise<void>;
+  onActivate: () => void;
+  onDeactivate: () => void;
+}
+
+export type SidebarSectionList = Array<{
+  name: SidebarSectionName;
+  factory:
+    | string // url to a module whose default export is a factory function
+    | ((
+        container: HTMLElement,
+        options: {
+          config: Config;
+          baseUrl: string;
+          editors: Editors;
+          eventsManager: EventsManager;
+          isEmbed: boolean;
+        },
+      ) => SidebarSection | Promise<SidebarSection>);
+}>;
+
+export interface FilesSection extends SidebarSection {
+  title: 'Files';
+}
+
+export interface Sidebar {
+  load: () => Promise<void>;
+  open: () => void;
+  close: () => void;
+  hide: () => void;
+  getStatus: () => SidebarStatus;
+  getActiveSection: () => SidebarSectionName;
+  setActiveSection: (name: SidebarSectionName) => void;
+  disableSection: (name: SidebarSectionName) => void;
+  enableSection: (name: SidebarSectionName) => void;
+  files?: FilesSection;
 }
 
 export interface CodeEditor {

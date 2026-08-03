@@ -147,6 +147,7 @@ import { createMultiFileResultPage } from './result/multi-file-result-page';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import type { GitHubFile } from './services/github';
 import { permanentUrlService } from './services/permanent-url';
+import { createSidebar } from './sidebar/sidebar';
 import {
   createStores,
   fakeStorage,
@@ -6091,6 +6092,18 @@ const initializePlayground = async (
   });
   configureEmmet(getConfig());
   setAppLanguage();
+  createSidebar({
+    config: getConfig(),
+    baseUrl,
+    editors,
+    eventsManager,
+    isEmbed,
+    setSidebar: (sidebarConfig) => {
+      setConfig({...getConfig(), sidebar: sidebarConfig});
+    },
+  }).then(async (sidebar) => {
+    await sidebar.load();
+  });
 };
 
 const createApi = (): API => {

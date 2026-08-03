@@ -5,6 +5,8 @@ import type {
   EditorId,
   Language,
   MultiFileConfig,
+  SidebarSection,
+  SidebarStatus,
   SourceFile,
   Tool,
   ToolsPaneStatus,
@@ -47,6 +49,8 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const themes: Array<Config['theme']> = ['light', 'dark'];
   const layout: Array<Config['layout']> = ['responsive', 'horizontal', 'vertical'];
   const editorModes: Array<Config['editorMode']> = ['vim', 'emacs'];
+  const sidebarSections: Array<SidebarSection['name']> = ['files'];
+  const sidebarStatus: SidebarStatus[] = ['', 'closed', 'open', 'none'];
   const tools: Array<Tool['name'] | 'zoom'> = ['console', 'compiled', 'tests', 'zoom'];
   const toolsPaneStatus: ToolsPaneStatus[] = ['', 'full', 'closed', 'open', 'none'];
   const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar', 'auto'];
@@ -134,6 +138,28 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(x && is(x.position, 'object') ? { position: x.position } : {}),
   });
 
+  const validateSidebarProps = (x: Config['sidebar']): Config['sidebar'] => ({
+    ...defaultConfig.sidebar,
+    ...(x && Array.isArray(x.enabled)
+      ? { enabled: x.enabled.filter((t) => sidebarSections.includes(t)) }
+      : {
+          ...(x && x.enabled == null && x.status === 'none'
+            ? { enabled: [] }
+            : { enabled: defaultConfig.sidebar.enabled }),
+        }),
+    ...(x &&
+    x.active != null &&
+    includes(sidebarSections, x.active) &&
+    (x.enabled === 'all' ||
+      x.enabled == null ||
+      (Array.isArray(x.enabled) && includes(x.enabled, x.active)))
+      ? { active: x.active }
+      : { active: defaultConfig.sidebar.active }),
+    ...(x && x.status != null && includes(sidebarStatus, x.status)
+      ? { status: x.status }
+      : { status: defaultConfig.sidebar.status }),
+  });
+
   const validateToolsProps = (x: Config['tools']): Config['tools'] => ({
     ...defaultConfig.tools,
     ...(x && Array.isArray(x.enabled)
@@ -210,6 +236,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.mainFile, 'string') ? { mainFile: config.mainFile } : {}),
     ...(is(config.fileLanguages, 'object') ? { fileLanguages: validFileLanguages } : {}),
     ...(is(config.lockFiles, 'boolean') ? { lockFiles: config.lockFiles } : {}),
+    ...(is(config.sidebar, 'object')
+      ? { sidebar: validateSidebarProps(config.sidebar as Config['sidebar']) }
+      : {}),
     ...(is(config.tools, 'object')
       ? { tools: validateToolsProps(config.tools as Config['tools']) }
       : {}),
