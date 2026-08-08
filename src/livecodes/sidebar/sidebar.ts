@@ -5,6 +5,7 @@ import type {
   Sidebar,
   SidebarSection,
   SidebarSectionList,
+  SidebarSectionName,
   SidebarStatus,
 } from '../models';
 
@@ -14,6 +15,7 @@ export const createSidebar = async ({
   editors,
   eventsManager,
   isEmbed,
+  dir = 'ltr',
   setSidebar,
 }: {
   config: Config;
@@ -21,11 +23,16 @@ export const createSidebar = async ({
   editors: Editors;
   eventsManager: EventsManager;
   isEmbed: boolean;
+  dir: 'ltr' | 'rtl' | undefined;
   setSidebar: (sidebar: Config['sidebar']) => void;
 }): Promise<Sidebar> => {
   const sidebar = document.getElementById('sidebar');
   const sidebarButtons = document.getElementById('sidebar-buttons');
   const sidebarContent = document.getElementById('sidebar-content');
+
+  if (!sidebarButtons || !sidebarContent) {
+    return createFakeSidebar({ config });
+  }
 
   const fullList: SidebarSectionList = [
     {
@@ -35,8 +42,11 @@ export const createSidebar = async ({
     },
   ];
 
+  const isMultiFile = config.files.length > 0;
   const isEnabled = (section: SidebarSectionList[number]) =>
-    config.sidebar.enabled === 'all' || config.sidebar.enabled?.includes(section.name) === true;
+    section.name === 'files' && !isMultiFile
+      ? false
+      : config.sidebar.enabled === 'all' || config.sidebar.enabled?.includes(section.name) === true;
 
   const sectionList: SidebarSectionList = fullList.filter(isEnabled);
 
@@ -85,6 +95,7 @@ export const createSidebar = async ({
           editors,
           eventsManager,
           isEmbed,
+          dir,
         });
 
         const btn: HTMLButtonElement | null = document.querySelector(
@@ -123,13 +134,13 @@ export const createSidebar = async ({
   };
 
   const updateConfig = () => {
-    setSidebar({
-      ...config.sidebar,
-      enabled:
-        sections.length === allSections.length ? 'all' : sections.map((section) => section.name),
-      active: activeSection || undefined,
-      status,
-    });
+    // setSidebar({
+    //   ...config.sidebar,
+    //   enabled:
+    //     sections.length === allSections.length ? 'all' : sections.map((section) => section.name),
+    //   active: activeSection || undefined,
+    //   status,
+    // });
   };
 
   const setActiveSection = (name: SidebarSection['name'] | null) => {
@@ -191,13 +202,13 @@ export const createSidebar = async ({
         if (sidebarButtons) {
           sidebarButtons.style.pointerEvents = 'auto';
         }
-        sections.forEach(async (section) => {
-          await section.load();
-        });
+        await Promise.all(sections.map((section) => section.load()));
       }
     }
     if (status === 'open') {
       open(activeSection);
+    } else if (status === 'closed') {
+      close();
     }
   };
 
@@ -249,6 +260,15 @@ export const createSidebar = async ({
     updateConfig();
   };
 
+  const destroy = () => {
+    sidebarButtons.innerHTML = '';
+    sidebarContent.innerHTML = '';
+
+    sections.forEach((section) => section.destroy?.());
+  };
+
+  await load();
+
   const api: Sidebar = {
     load,
     open,
@@ -264,7 +284,23 @@ export const createSidebar = async ({
       (acc, section, index) => ({ ...acc, [section.name]: sections[index] }),
       {},
     ),
+    destroy,
   };
 
   return api;
 };
+
+const noop = () => undefined;
+
+export const createFakeSidebar = ({ config }: { config: Config }): Sidebar => ({
+  load: async () => undefined,
+  open: noop,
+  close: noop,
+  hide: noop,
+  getStatus: () => config.sidebar.status ?? '',
+  getActiveSection: () => (config.sidebar.active ?? '') as SidebarSectionName,
+  setActiveSection: noop,
+  disableSection: noop,
+  enableSection: noop,
+  destroy: noop,
+});

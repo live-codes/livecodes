@@ -24,6 +24,7 @@ export interface CustomEvents {
   testResults: 'livecodes-test-results';
   console: 'livecodes-console';
   destroy: 'livecodes-destroy';
+  settings: 'livecodes-settings';
   resizeEditor: 'livecodes-resize-editor';
   apiResponse: 'livecodes-api-response';
   i18n: 'livecodes-i18n';

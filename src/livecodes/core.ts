@@ -131,6 +131,7 @@ import type {
   SDKEvent,
   Screen,
   ShareData,
+  Sidebar,
   SourceFile,
   Template,
   TestResult,
@@ -239,6 +240,7 @@ let editors: Editors;
 let customEditors: CustomEditors;
 let currentEditorConfig: EditorConfig;
 let toolsPane: ToolsPane | undefined;
+let sidebar: Sidebar | undefined;
 export let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
 let resultLanguages: Language[] = [];
@@ -2039,6 +2041,21 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
     deleteFile(file.filename);
   }
   configureMultiFile(combinedConfig);
+
+  sidebar?.destroy();
+  sidebar = await createSidebar({
+    config: combinedConfig,
+    baseUrl,
+    editors,
+    eventsManager,
+    isEmbed,
+    dir: i18n?.getLanguageDirection(),
+    setSidebar: (sidebarConfig) => {
+      setConfig({ ...getConfig(), sidebar: sidebarConfig });
+    },
+  });
+  sidebar.load();
+
   if (newConfig.mode || newConfig.view) {
     window.deps?.showMode?.(combinedConfig.mode, combinedConfig.view);
   }
@@ -2226,6 +2243,16 @@ const dispatchChangeEvent = debounce(async () => {
   document.dispatchEvent(changeEvent);
   parent.dispatchEvent(changeEvent);
 }, 50);
+
+const dispatchSettingsEvent = ({ theme }: { theme?: Config['theme'] } = {}) =>
+  debounce(async () => {
+    const settingsEvent: CustomEvent<{ config: SDKConfig } | void> = new CustomEvent(
+      customEvents.settings,
+      { detail: { config: getSDKConfig(getConfig()), ...(theme ? { theme } : {}) } },
+    );
+    document.dispatchEvent(settingsEvent);
+    parent.dispatchEvent(settingsEvent);
+  }, 50)();
 
 const setSavedStatus = async () => {
   if (isEmbed) return;
@@ -2635,6 +2662,7 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   });
   toolsPane?.console?.setTheme?.(theme);
   UI.getNinjaKeys()?.classList.toggle('dark', theme === 'dark');
+  dispatchSettingsEvent({ theme });
 };
 
 const transitionTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
@@ -2671,6 +2699,7 @@ const changeThemeColor = (newTheme?: Theme | undefined, newThemeColor?: string |
   if (customColorInput) {
     customColorInput.value = colorToHex(color);
   }
+  dispatchSettingsEvent();
 };
 
 const getDefaultColor = () => `hsl(214, 40%, 50%)`;
@@ -3715,6 +3744,7 @@ const handleSettings = () => {
           await run();
         }
       }
+      dispatchSettingsEvent();
     });
   });
 
@@ -3725,6 +3755,7 @@ const handleSettings = () => {
     delayValue.textContent = String(value / 1000);
     setConfig({ ...getConfig(), delay: value });
     setUserConfig(getUserConfig(getConfig()));
+    dispatchSettingsEvent();
   });
 
   const themeColorSelector = UI.getThemeColorSelector()!;
@@ -3763,12 +3794,14 @@ const handleChangeTheme = () => {
     eventsManager.addEventListener(lightThemeButton, 'click', () => {
       setUserConfig({ theme: 'dark' });
       transitionTheme('dark', getConfig().editorTheme);
+      dispatchSettingsEvent();
     });
   }
   if (darkThemeButton) {
     eventsManager.addEventListener(darkThemeButton, 'click', () => {
       setUserConfig({ theme: 'light' });
       transitionTheme('light', getConfig().editorTheme);
+      dispatchSettingsEvent();
     });
   }
 };
@@ -4715,6 +4748,7 @@ const changeEditorSettings = (newConfig: Partial<UserConfig> | null) => {
   }
   showEditorModeStatus(updatedConfig.activeEditor || 'markup');
   getActiveEditor()?.focus();
+  dispatchSettingsEvent();
 };
 
 const handleEditorSettings = () => {
@@ -6092,18 +6126,6 @@ const initializePlayground = async (
   });
   configureEmmet(getConfig());
   setAppLanguage();
-  createSidebar({
-    config: getConfig(),
-    baseUrl,
-    editors,
-    eventsManager,
-    isEmbed,
-    setSidebar: (sidebarConfig) => {
-      setConfig({...getConfig(), sidebar: sidebarConfig});
-    },
-  }).then(async (sidebar) => {
-    await sidebar.load();
-  });
 };
 
 const createApi = (): API => {

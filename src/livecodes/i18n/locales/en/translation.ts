@@ -903,6 +903,20 @@ const translation = {
     },
     shortURL: 'Get short URL',
   },
+  sidebar: {
+    files: {
+      collapseAll: 'Collapse All',
+      copy: 'Copy',
+      copyPath: 'Copy Path',
+      cut: 'Cut',
+      delete: 'Delete',
+      expandAll: 'Expand All',
+      newFile: 'New File',
+      newFolder: 'New Folder',
+      paste: 'Paste',
+      rename: 'Rename',
+    },
+  },
   snippets: {
     action: {
       copy: 'Copy',

@@ -2356,6 +2356,46 @@
     "notes": "",
     "translation": "Get short URL"
   },
+  "sidebar.files.collapseAll": {
+    "notes": "",
+    "translation": "Collapse All"
+  },
+  "sidebar.files.copy": {
+    "notes": "",
+    "translation": "Copy"
+  },
+  "sidebar.files.copyPath": {
+    "notes": "",
+    "translation": "Copy Path"
+  },
+  "sidebar.files.cut": {
+    "notes": "",
+    "translation": "Cut"
+  },
+  "sidebar.files.delete": {
+    "notes": "",
+    "translation": "Delete"
+  },
+  "sidebar.files.expandAll": {
+    "notes": "",
+    "translation": "Expand All"
+  },
+  "sidebar.files.newFile": {
+    "notes": "",
+    "translation": "New File"
+  },
+  "sidebar.files.newFolder": {
+    "notes": "",
+    "translation": "New Folder"
+  },
+  "sidebar.files.paste": {
+    "notes": "",
+    "translation": "Paste"
+  },
+  "sidebar.files.rename": {
+    "notes": "",
+    "translation": "Rename"
+  },
   "snippets.action.copy": {
     "notes": "",
     "translation": "Copy"

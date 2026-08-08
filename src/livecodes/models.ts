@@ -298,6 +298,7 @@ export interface SidebarSection {
   load: () => Promise<void>;
   onActivate: () => void;
   onDeactivate: () => void;
+  destroy: () => void;
 }
 
 export type SidebarSectionList = Array<{
@@ -312,6 +313,7 @@ export type SidebarSectionList = Array<{
           editors: Editors;
           eventsManager: EventsManager;
           isEmbed: boolean;
+          dir: 'ltr' | 'rtl';
         },
       ) => SidebarSection | Promise<SidebarSection>);
 }>;
@@ -331,6 +333,7 @@ export interface Sidebar {
   disableSection: (name: SidebarSectionName) => void;
   enableSection: (name: SidebarSectionName) => void;
   files?: FilesSection;
+  destroy: () => void;
 }
 
 export interface CodeEditor {

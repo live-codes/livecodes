@@ -71,67 +71,6 @@
     }
   }
 
-  #editors {
-    &:has(#sidebar:not(.hidden)) .editor {
-      margin-inline-start: 38px;
-      max-width: calc(100% - 38px);
-    }
-
-    #sidebar {
-      display: flex;
-      height: calc(100% - var(--s32));
-      inset-inline-start: 0;
-      position: absolute;
-      top: 0;
-
-      #sidebar-buttons {
-        height: 100%;
-        width: 38px;
-
-        button {
-          height: 32px;
-
-          &:hover,
-          &.active {
-            background: var(--btn-bg-active);
-            color: var(--btn-active);
-          }
-        }
-      }
-
-      #sidebar-content {
-        background: var(--sidebar-bg);
-        color: var(--modal-text-color);
-        font-size: var(--s14);
-        height: 100%;
-        overflow: auto;
-        transition: width 0.3s ease-in-out;
-        width: 0;
-
-        &.open {
-          width: 20vw;
-        }
-
-        .sidebar-loading {
-          padding: var(--s16);
-          text-align: center;
-        }
-      }
-
-      .sidebar-panel {
-        background-color: var(--sidebar-panel-bg);
-        display: none;
-        height: 100%;
-        margin-inline-end: 5px;
-        overflow: auto;
-
-        &.active {
-          display: block;
-        }
-      }
-    }
-  }
-
   &.layout-vertical {
     #editors #sidebar #sidebar-content.open {
       width: calc(100% - 40px);

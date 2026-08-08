@@ -9,7 +9,9 @@
   "repository": {
     "url": "https://github.com/live-codes/livecodes"
   },
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "start": "run-p copy:assets watch serve",
     "docs": "cd docs && npm run start",
@@ -76,6 +78,7 @@
     "validate-skills": "npx @tanstack/intent@latest validate .agents/skills"
   },
   "dependencies": {
+    "@live-codes/file-tree": "0.4.0",
     "@live-codes/solid-sdk": "0.5.0",
     "@snackbar/core": "1.7.0",
     "codejar": "4.1.1",

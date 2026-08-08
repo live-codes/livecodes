@@ -113,6 +113,18 @@
       text-align: start;
     }
   }
+
+  /* file tree */
+  .ft-root {
+    --ft-bg: var(--color95);
+    --ft-color: var(--dark-color);
+    --ft-node-hover: var(--color90);
+    --ft-node-selected: var(--color80);
+    --ft-toolbar-bg: var(--layout);
+    --ft-toolbar-border: var(--color80);
+    --ft-context-bg: var(--dropdown);
+    --ft-context-color: var(--dark-color);
+  }
 }
 
 ::view-transition-old(root) {

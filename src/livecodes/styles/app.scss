@@ -382,7 +382,7 @@ html.dark {
 html {
   .tagify {
     --tags-border-color: var(--input-border-color) !important;
-    background: var(--input-bg-color); // color2);
+    background: var(--input-bg-color);
     border-radius: var(--rs);
 
     &.tagify--focus {
@@ -403,6 +403,8 @@ html {
 @include meta.load-css('inc-icons-share');
 
 @include meta.load-css('inc-multi-file');
+
+@include meta.load-css('inc-sidebar');
 
 :focus-visible {
   box-shadow: var(--outline-shadow);
@@ -481,7 +483,7 @@ a:visited {
 }
 
 hr {
-  border-color: var(--color2);
+  border-color: var(--color20);
   margin: 1.5rem 0;
 }
 
@@ -993,9 +995,9 @@ a#result-button {
   position: relative;
   top: 0;
 
-  #sidebar {
-    display: none;
-  }
+  // #sidebar {
+  //   display: none;
+  // }
 
   > .editor {
     font-variant-ligatures: discretionary-ligatures;
@@ -2264,7 +2266,7 @@ pre[class*='language-'].line-numbers > code {
     --inner-uncheck: var(--input-color);
     --focus: 1px var(--input-border-active);
     --border-hover: var(--input-border-active); // radio border
-    --background: var(--color2);
+    --background: var(--color20);
     --disabled: var(--color20, #f6f8ff);
     --disabled-inner: var(--color30, #e1e6f9);
     appearance: none;
@@ -2419,6 +2421,43 @@ pre[class*='language-'].line-numbers > code {
     &:checked {
       --s: 0.5;
     }
+  }
+}
+
+/* file tree */
+.ft-root {
+  --ft-bg: var(--sidebar-panel-bg);
+  --ft-color: var(--link);
+  --ft-node-hover: var(--darker-bg-color);
+  --ft-node-selected: var(--darker-bg-active);
+  --ft-toolbar-bg: var(--layout);
+  --ft-toolbar-border: var(--color30);
+  --ft-toolbar-btn: var(--btn-bg-color);
+  --ft-toolbar-btn-color: var(--btn-color);
+  --ft-toolbar-btn-hover: var(--btn-bg-active);
+  --ft-toolbar-btn-color-hover: var(--btn-active);
+  --ft-context-bg: var(--dropdown-bg-color);
+  --ft-context-border: var(--dark-bg-color);
+  --ft-context-color: var(--dropdown-color);
+  --ft-context-hover: var(--dropdown-bg-active);
+  --ft-input-bg: var(--input-bg-color);
+  --ft-input-color: var(--input-color);
+  --ft-input-border: var(--input-border-color);
+  --ft-border-radius: 0;
+
+  border-radius: 0;
+
+  * {
+    scrollbar-color: unset;
+    scrollbar-width: unset;
+  }
+
+  .ft-toolbar__btn {
+    border-radius: var(--btn-border-radius);
+  }
+
+  .ft-context-menu__item {
+    padding: 0 8px;
   }
 }
 
