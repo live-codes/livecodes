@@ -964,7 +964,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   document.body.classList.toggle('result', mode === 'result');
   document.body.classList.toggle('no-result', mode === 'editor' || mode === 'codeblock');
   if ((mode === 'full' || mode === 'simple') && !split) {
-    split = createSplitPanes();
+    split = createSplitPanes({ dir: i18n?.getLanguageDirection() });
   }
   if (mode === 'focus') {
     toolsPane?.setActiveTool('console');
@@ -5674,7 +5674,7 @@ const basicHandlers = () => {
       }
     },
   });
-  split = createSplitPanes();
+  split = createSplitPanes({ dir: i18n?.getLanguageDirection() });
   typeLoader = createTypeLoader(baseUrl);
 
   handleLogoLink();
