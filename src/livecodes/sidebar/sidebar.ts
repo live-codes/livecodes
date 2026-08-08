@@ -37,7 +37,6 @@ export const createSidebar = async ({
   const fullList: SidebarSectionList = [
     {
       name: 'files',
-      // factory: createFilesTree,
       factory: baseUrl + '{{hash:files.js}}',
     },
   ];
@@ -164,13 +163,6 @@ export const createSidebar = async ({
         }
       });
 
-    sections.forEach((section) => {
-      if (section.name === name) {
-        section.onActivate();
-      } else {
-        section.onDeactivate();
-      }
-    });
     updateConfig();
   };
 
@@ -182,7 +174,6 @@ export const createSidebar = async ({
 
   const close = () => {
     sidebarContent?.classList.remove('open');
-    sections.forEach((section) => section.onDeactivate());
     status = 'closed';
     setTimeout(() => setActiveSection(null), 300);
   };
@@ -205,6 +196,7 @@ export const createSidebar = async ({
         await Promise.all(sections.map((section) => section.load()));
       }
     }
+    setActiveSection(activeSection);
     if (status === 'open') {
       open(activeSection);
     } else if (status === 'closed') {
@@ -212,73 +204,23 @@ export const createSidebar = async ({
     }
   };
 
-  const disableSection = (name: SidebarSection['name']) => {
-    const id = sections.findIndex((s) => s?.name === name);
-    if (id === -1) return;
-    const section = sections[id];
-    if (activeSection === section.name) {
-      const newId = id === sections.length - 1 ? id - 1 : id + 1;
-      setActiveSection(sections[newId].name);
-    }
-    delete sections[id];
-    if (name in api) {
-      delete api[name];
-    }
-    const sectionButton = document.querySelector<HTMLElement>(
-      '#sidebar-buttons [data-section="' + name + '"]',
-    );
-    if (sectionButton) {
-      sectionButton.classList.remove('active');
-      sectionButton.classList.add('hidden');
-    }
-    if (sections.filter((t) => t).length === 0) {
-      setHidden(true);
-    }
-    updateConfig();
-  };
-
-  const enableSection = (name: SidebarSection['name']) => {
-    // wrong title
-    const id = allSections.findIndex((s) => s.name === name);
-    if (id === -1) return;
-    // already enabled
-    if (sections.find((s) => s?.name === name)) return;
-
-    api[name] = allSections[id] as any;
-    sections[id] = allSections[id];
-
-    if (sections.length === 1) {
-      setActiveSection(name);
-    }
-
-    const sectionButton = document.querySelector<HTMLElement>(
-      '#sidebar-buttons [data-section="' + name + '"]',
-    );
-    if (sectionButton) {
-      sectionButton.classList.remove('hidden');
-    }
-    updateConfig();
-  };
-
   const destroy = () => {
     sidebarButtons.innerHTML = '';
     sidebarContent.innerHTML = '';
-
     sections.forEach((section) => section.destroy?.());
+    sections.length = 0;
+    setHidden(true);
   };
 
   await load();
 
   const api: Sidebar = {
-    load,
     open,
     close,
     hide: () => setHidden(true),
     getStatus: () => status ?? '',
     getActiveSection: () => activeSection ?? 'files',
     setActiveSection,
-    disableSection,
-    enableSection,
     // files
     ...sectionList.reduce(
       (acc, section, index) => ({ ...acc, [section.name]: sections[index] }),
@@ -293,14 +235,11 @@ export const createSidebar = async ({
 const noop = () => undefined;
 
 export const createFakeSidebar = ({ config }: { config: Config }): Sidebar => ({
-  load: async () => undefined,
   open: noop,
   close: noop,
   hide: noop,
   getStatus: () => config.sidebar.status ?? '',
   getActiveSection: () => (config.sidebar.active ?? '') as SidebarSectionName,
   setActiveSection: noop,
-  disableSection: noop,
-  enableSection: noop,
   destroy: noop,
 });

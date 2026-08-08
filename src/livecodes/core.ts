@@ -579,6 +579,10 @@ const addFile = async (
   }
   setSavedStatus();
   dispatchChangeEvent();
+  if (sidebar?.files) {
+    const newConfig = getConfig();
+    sidebar?.files?.update({ files: newConfig.files, activeEditor: newConfig.activeEditor });
+  }
   return true;
 };
 
@@ -620,6 +624,10 @@ const renameFile = (filename: string, newName: string) => {
     editorIds[id] = validName;
   }
   changeLanguage(language, undefined, false, validName);
+  if (sidebar?.files) {
+    const newConfig = getConfig();
+    sidebar?.files?.update({ files: newConfig.files, activeEditor: newConfig.activeEditor });
+  }
   return true;
 };
 
@@ -653,6 +661,10 @@ const deleteFile = (filename: string) => {
   }
   setSavedStatus();
   dispatchChangeEvent();
+  if (sidebar?.files) {
+    const newConfig = getConfig();
+    sidebar?.files?.update({ files: newConfig.files, activeEditor: newConfig.activeEditor });
+  }
 };
 
 const createEditorUI = (title: string, isHidden = false) => {
@@ -1019,6 +1031,7 @@ const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = fa
   }
   configureEditorTools(getActiveEditor()?.getLanguage());
   showEditorModeStatus(editorId);
+  sidebar?.files?.update({ activeEditor: editorId });
 };
 
 const showEditorModeStatus = (editorId: EditorId | (string & {})) => {
@@ -2043,18 +2056,24 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
   configureMultiFile(combinedConfig);
 
   sidebar?.destroy();
-  sidebar = await createSidebar({
-    config: combinedConfig,
-    baseUrl,
-    editors,
-    eventsManager,
-    isEmbed,
-    dir: i18n?.getLanguageDirection(),
-    setSidebar: (sidebarConfig) => {
-      setConfig({ ...getConfig(), sidebar: sidebarConfig });
-    },
-  });
-  sidebar.load();
+  if (
+    combinedConfig.sidebar.status === 'none' ||
+    (Array.isArray(combinedConfig.sidebar.enabled) && combinedConfig.sidebar.enabled.length === 0)
+  ) {
+    sidebar = undefined;
+  } else {
+    sidebar = await createSidebar({
+      config: combinedConfig,
+      baseUrl,
+      editors,
+      eventsManager,
+      isEmbed,
+      dir: i18n?.getLanguageDirection(),
+      setSidebar: (sidebarConfig) => {
+        setConfig({ ...getConfig(), sidebar: sidebarConfig });
+      },
+    });
+  }
 
   if (newConfig.mode || newConfig.view) {
     window.deps?.showMode?.(combinedConfig.mode, combinedConfig.view);

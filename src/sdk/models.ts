@@ -1345,7 +1345,7 @@ export interface ContentConfig {
   fileLanguages?: Partial<Record<Language, Language>>;
 
   /**
-   * When `true`, the user won't be able to add/rename/re-order/delete files. The file content can still be edited.
+   * When `true`, the user won't be able to add/rename/move/delete files. The file content can still be edited.
    * @default false
    */
   lockFiles?: boolean;

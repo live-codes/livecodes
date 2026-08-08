@@ -296,8 +296,6 @@ export interface SidebarSection {
   title: string;
   icon: string;
   load: () => Promise<void>;
-  onActivate: () => void;
-  onDeactivate: () => void;
   destroy: () => void;
 }
 
@@ -320,18 +318,22 @@ export type SidebarSectionList = Array<{
 
 export interface FilesSection extends SidebarSection {
   title: 'Files';
+  update: ({
+    files,
+    activeEditor,
+  }: {
+    files?: Config['files'];
+    activeEditor?: Config['activeEditor'];
+  }) => void;
 }
 
 export interface Sidebar {
-  load: () => Promise<void>;
   open: () => void;
   close: () => void;
   hide: () => void;
   getStatus: () => SidebarStatus;
   getActiveSection: () => SidebarSectionName;
   setActiveSection: (name: SidebarSectionName) => void;
-  disableSection: (name: SidebarSectionName) => void;
-  enableSection: (name: SidebarSectionName) => void;
   files?: FilesSection;
   destroy: () => void;
 }

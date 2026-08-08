@@ -1,10 +1,10 @@
 import { FileTree, type FileTreeStringKey } from '@live-codes/file-tree';
-import { customEvents } from '../events';
-import type { FilesSection, SDKConfig, SidebarSectionList } from '../models';
+import { customEvents } from '../events/custom-events';
+import type { Config, FilesSection, SDKConfig, SidebarSectionList } from '../models';
 
 export const createFilesTree: SidebarSectionList[number]['factory'] = async (
   container,
-  { config, baseUrl, editors, eventsManager, isEmbed, dir },
+  { config, editors, eventsManager, isEmbed, dir },
 ): Promise<FilesSection> => {
   let { theme = 'dark' } = config;
   container.innerHTML = '';
@@ -28,28 +28,51 @@ export const createFilesTree: SidebarSectionList[number]['factory'] = async (
     theme,
     direction: dir,
     t: (key) => strings[key],
+    readOnly: Boolean(config.readonly || config.lockFiles),
   });
 
-  document.addEventListener(customEvents.settings, (ev: CustomEventInit<SDKConfig>) => {
-    if (!ev.detail) return;
-    const newTheme = ev.detail.theme;
-    if (newTheme && theme !== newTheme) {
-      theme = newTheme;
-      tree.setTheme(theme);
+  eventsManager.addEventListener(
+    document,
+    customEvents.settings,
+    (ev: CustomEventInit<SDKConfig>) => {
+      if (!ev.detail) return;
+      const newTheme = ev.detail.theme;
+      if (newTheme && theme !== newTheme) {
+        theme = newTheme;
+        tree.setTheme(theme);
+      }
+    },
+  );
+
+  tree.on('select', (ev) => {});
+  tree.on('rename', (ev) => {});
+  tree.on('delete', (ev) => {});
+  tree.on('move', (ev) => {});
+  tree.on('copy', (ev) => {});
+  tree.on('create', (ev) => {});
+  tree.on('drop', (ev) => {});
+
+  const update = ({
+    files,
+    activeEditor,
+  }: {
+    files?: Config['files'];
+    activeEditor?: Config['activeEditor'];
+  }) => {
+    if (files) {
+      tree.setData(files.map((f) => ({ ...f, path: f.filename, type: 'file' })));
     }
-  });
+    if (activeEditor) {
+      tree.select(activeEditor);
+    }
+  };
 
   return {
     name: 'files',
     title: 'Files',
     icon: '',
     load: () => Promise.resolve(),
-    onActivate: () => {
-      //
-    },
-    onDeactivate: () => {
-      //
-    },
+    update,
     destroy: () => tree.destroy(),
   };
 };
