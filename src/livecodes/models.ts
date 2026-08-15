@@ -142,6 +142,7 @@ export interface CompileInfo {
   importedContent?: string;
   imports?: Record<string, string>;
   errors?: string[];
+  sourceMaps?: Record<string, string>;
 }
 
 export interface CompileResult {
@@ -292,6 +293,7 @@ export interface Console extends Tool {
   evaluate: (code: string) => void;
   reloadEditor: (config: Config) => Promise<void>;
   setTheme?: (theme: Theme) => void;
+  setSourceMap?: (sourceMaps: Record<string, string> | null | undefined) => void;
 }
 
 export interface CompiledCodeViewer extends Tool {
