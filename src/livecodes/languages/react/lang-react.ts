@@ -26,7 +26,7 @@ export const react: LanguageSpecs = {
           'babel-plugin-react-compiler' as any,
           config,
         );
-        return (window as any).Babel.transform(code, {
+        const result = (window as any).Babel.transform(code, {
           filename: 'script.tsx',
           presets: [
             ['env', { modules: false, ...presetEnvConfig }],
@@ -35,7 +35,14 @@ export const react: LanguageSpecs = {
           ],
           plugins: [[(window as any).reactCompiler.reactCompiler, reactCompilerConfig]],
           ...babelConfig,
-        }).code;
+          sourceMaps: true,
+        });
+        return {
+          code: result.code,
+          info: {
+            sourceMaps: result.map ? { script: JSON.stringify(result.map) } : undefined,
+          },
+        };
       },
   },
   extensions: ['react.jsx', 'react-jsx'],

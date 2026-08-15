@@ -115,6 +115,19 @@ export const createResultPage = async ({
   // editor markup
   const markup = code.markup.compiled;
   dom.body.innerHTML += markup;
+  const consoleEnabled =
+    !forExport &&
+    (config.tools?.enabled === 'all' ||
+      config.tools?.enabled == null ||
+      config.tools?.enabled.includes('console'));
+  const markupInlineScripts = dom.body.querySelectorAll<HTMLScriptElement>('script:not([src])');
+  const shouldMarkInlineScripts = consoleEnabled && markupInlineScripts.length > 0;
+  if (shouldMarkInlineScripts) {
+    // Mark inline scripts from markup so runtime can recover absolute markup line numbers.
+    markupInlineScripts.forEach((script, index) => {
+      script.dataset.livecodesMarkupScriptId = String(index + 1);
+    });
+  }
 
   // user-defined import map in <script type="importmap">
   type ImportMap = Partial<{ [key in 'imports' | 'scopes']: Record<string, string> }>;
@@ -425,25 +438,52 @@ export const createResultPage = async ({
     // editor script
     const script = code.script.compiled;
     const scriptElement = dom.createElement('script');
+    scriptElement.dataset.livecodesScript = 'editor';
+
+    const languageScriptType = getLanguageCompiler(code.script.language)?.scriptType;
+    const scriptType =
+      languageScriptType ||
+      config.customSettings.scriptType ||
+      (isModuleScript(script) ? 'module' : undefined);
+
+    const sourceMap =
+      // allow having sourceMappingURL for javascript (with no sourceMap)
+      config.script.language === 'javascript' ? '{}' : compileInfo.sourceMaps?.script;
+    let sourceMapObj = {};
+    let hasValidSourceMap = false;
+    try {
+      sourceMapObj = {
+        ...JSON.parse(sourceMap as string),
+        file: 'script.js',
+        sources: ['script'],
+        sourcesContent: [config.script.content || ''],
+      };
+      hasValidSourceMap = true;
+    } catch (e) {
+      // invalid sourceMap
+    }
+    const sourceMappingURL = `data:application/json;base64,${btoa(JSON.stringify(sourceMapObj))}`;
+
+    const supportsSourceUrl =
+      consoleEnabled &&
+      hasValidSourceMap &&
+      (!scriptType || scriptType === 'module' || /(java|ecma)script/i.test(scriptType));
+
+    const scriptContent = supportsSourceUrl
+      ? `${script}\n//# sourceURL=script.js\n//# sourceMappingURL=${sourceMappingURL}`
+      : script;
+
     if (singleFile) {
-      scriptElement.innerHTML = escapeScript(script);
+      scriptElement.innerHTML = escapeScript(scriptContent);
     } else {
       scriptElement.src = './script.js';
     }
-    dom.body.appendChild(scriptElement);
 
-    // script type
-    const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
     if (scriptType) {
       scriptElement.type = scriptType;
-    } else if (config.customSettings.scriptType != null) {
-      // do not add type if scriptType === ''
-      if (config.customSettings.scriptType) {
-        scriptElement.type = config.customSettings.scriptType;
-      }
-    } else if (isModuleScript(script)) {
-      scriptElement.type = 'module';
     }
+
+    dom.body.appendChild(scriptElement);
   }
 
   // React JSX runtime
@@ -483,6 +523,57 @@ window.browserJest.run().then(results => {
 });
     `;
     dom.body.appendChild(testScript);
+  }
+
+  if (shouldMarkInlineScripts) {
+    const tempHtml = '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+    const bodyTagMatch = /<body[^>]*>/.exec(tempHtml);
+    let markupLineOffset = 0;
+    if (bodyTagMatch) {
+      const afterBodyTag = bodyTagMatch.index + bodyTagMatch[0].length;
+      const bodyContentStart = tempHtml[afterBodyTag] === '\n' ? afterBodyTag + 1 : afterBodyTag;
+      markupLineOffset = (tempHtml.slice(0, bodyContentStart).match(/\n/g) ?? []).length;
+    }
+
+    let scriptLineOffset = 0;
+    const editorScriptMatch = /\bdata-livecodes-script=(['"])editor\1/.exec(tempHtml);
+    if (editorScriptMatch) {
+      const scriptTagEnd = tempHtml.indexOf('>', editorScriptMatch.index);
+      if (scriptTagEnd >= 0) {
+        const scriptContentStartRaw = scriptTagEnd + 1;
+        const scriptContentStart =
+          tempHtml[scriptContentStartRaw] === '\n'
+            ? scriptContentStartRaw + 1
+            : scriptContentStartRaw;
+        scriptLineOffset = (tempHtml.slice(0, scriptContentStart).match(/\n/g) ?? []).length;
+      }
+    }
+
+    const markupScriptTagMatches = tempHtml.matchAll(
+      /<script\b[^>]*data-livecodes-markup-script-id=(['"])(\d+)\1[^>]*>/gi,
+    );
+    for (const match of markupScriptTagMatches) {
+      const scriptId = match[2];
+      const tagIndex = match.index;
+      if (tagIndex == null) continue;
+      const scriptTagLine = (tempHtml.slice(0, tagIndex).match(/\n/g) ?? []).length + 1;
+      const scriptElement = dom.body.querySelector<HTMLScriptElement>(
+        `script[data-livecodes-markup-script-id="${scriptId}"]`,
+      );
+      if (scriptElement) {
+        scriptElement.dataset.livecodesMarkupScriptLine = String(scriptTagLine - markupLineOffset);
+        const startsWithNewLine = /^(\r\n|\n|\r)/.test(scriptElement.textContent ?? '');
+        scriptElement.dataset.livecodesMarkupScriptStackBase = startsWithNewLine ? '2' : '1';
+      }
+    }
+    dom.body
+      .querySelectorAll<HTMLScriptElement>('script[data-livecodes-markup-script-id]')
+      .forEach((scriptElement) => {
+        delete scriptElement.dataset.livecodesMarkupScriptId;
+      });
+
+    dom.body.dataset.livecodesMarkupLineOffset = String(markupLineOffset);
+    dom.body.dataset.livecodesScriptLineOffset = String(scriptLineOffset);
   }
 
   return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
