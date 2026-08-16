@@ -2138,9 +2138,6 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
       isEmbed,
       direction: i18n?.getLanguageDirection(),
       getConfig,
-      setSidebar: (sidebarConfig) => {
-        setConfig({ ...getConfig(), sidebar: sidebarConfig });
-      },
     });
   }
 
@@ -5576,11 +5573,10 @@ const handleFullscreen = async () => {
 const handleDropFiles = () => {
   if (isEmbed) return;
 
-  eventsManager.addEventListener(document, 'drop', (event: DragEvent) => {
-    event.preventDefault();
-    if (!event.dataTransfer) return;
-    const files = event.dataTransfer.files;
-    const items = event.dataTransfer.items; // for directories
+  const handleDrop = (dataTransfer: DataTransfer | null, path = '') => {
+    if (!dataTransfer) return;
+    const files = dataTransfer.files;
+    const items = dataTransfer.items; // for directories
     if (!files?.length && !items?.length) return;
     const entries = { files, items };
     modal.show(loadingMessage(), { size: 'small', autoFocus: false });
@@ -5597,7 +5593,8 @@ const handleDropFiles = () => {
             modal.close();
           })();
         } else {
-          for (const file of fileConfig.files || []) {
+          const files = fileConfig.files?.map((f) => ({ ...f, filename: path + f.filename })) || [];
+          for (const file of files) {
             if (currentConfig.files.find((f) => f.filename === file.filename)) {
               editors[file.filename]?.setValue(file.content);
             } else {
@@ -5617,7 +5614,7 @@ const handleDropFiles = () => {
               editors[file.filename]?.setValue(file.content);
             }
           }
-          showEditor(fileConfig.files?.[0].filename);
+          showEditor(files[0].filename);
           modal.close();
         }
       })
@@ -5625,6 +5622,17 @@ const handleDropFiles = () => {
         notifications.error(message);
         modal.close();
       });
+  };
+
+  eventsManager.addEventListener(document, 'drop', (ev: DragEvent) => {
+    ev.preventDefault();
+    handleDrop(ev.dataTransfer);
+  });
+
+  eventsManager.addEventListener<any>(document, customEvents.files, (ev) => {
+    if (ev.detail.action !== 'drop') return;
+    const path = ev.detail.path ? ev.detail.path + '/' : '';
+    handleDrop(ev.detail.dataTransfer, path);
   });
 
   eventsManager.addEventListener(document, 'dragover', (event: DragEvent) => {

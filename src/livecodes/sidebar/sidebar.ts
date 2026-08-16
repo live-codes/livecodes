@@ -17,7 +17,6 @@ export const createSidebar = async ({
   isEmbed,
   direction = 'ltr',
   getConfig,
-  setSidebar,
 }: {
   config: Config;
   baseUrl: string;
@@ -26,7 +25,6 @@ export const createSidebar = async ({
   isEmbed: boolean;
   direction: 'ltr' | 'rtl' | undefined;
   getConfig: () => Config;
-  setSidebar: (sidebar: Config['sidebar']) => void;
 }): Promise<Sidebar> => {
   const sidebar = document.getElementById('sidebar');
   const sidebarButtons = document.getElementById('sidebar-buttons');
@@ -196,7 +194,6 @@ export const createSidebar = async ({
         if (sidebarButtons) {
           sidebarButtons.style.pointerEvents = 'auto';
         }
-        await Promise.all(sections.map((section) => section.load()));
       }
     }
     setActiveSection(activeSection);

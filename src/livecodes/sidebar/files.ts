@@ -29,13 +29,12 @@ export const createFilesTree: SidebarSectionList[number]['factory'] = async (
     refresh: window.deps.translateString('sidebar.files.refresh', 'Refresh'),
   };
 
-  const data: FileTreeNodeData[] = config.files.map((f) => ({ path: f.filename, type: 'file' }));
-  const selected = config.activeEditor
-    ? data.find((f) => f.path === config.activeEditor)?.path
-    : undefined;
+  const getDataFromFiles = (files: Config['files']): FileTreeNodeData[] =>
+    files.map((f) => ({ path: f.filename, type: 'file' }));
+
   const tree = new FileTree(container, {
-    data,
-    selected,
+    data: getDataFromFiles(config.files),
+    selected: config.activeEditor,
     theme,
     direction,
     t: (key) => strings[key],
@@ -52,19 +51,6 @@ export const createFilesTree: SidebarSectionList[number]['factory'] = async (
       ],
     },
   });
-
-  eventsManager.addEventListener(
-    document,
-    customEvents.settings,
-    (ev: CustomEventInit<SDKConfig>) => {
-      if (!ev.detail) return;
-      const newTheme = ev.detail.theme;
-      if (newTheme && theme !== newTheme) {
-        theme = newTheme;
-        tree.setTheme(theme);
-      }
-    },
-  );
 
   tree.on('select', (ev) => {
     if (ev.source === 'api') return;
@@ -153,11 +139,13 @@ export const createFilesTree: SidebarSectionList[number]['factory'] = async (
 
   tree.on('drop', (ev) => {
     if (ev.source === 'api') return;
+    ev.preventDefault();
     document.dispatchEvent(
       new CustomEvent(customEvents.files, {
         detail: {
           action: 'drop',
-          data: ev.data,
+          dataTransfer: ev.data,
+          path: ev.path,
         },
       }),
     );
@@ -195,7 +183,7 @@ export const createFilesTree: SidebarSectionList[number]['factory'] = async (
 
     if (files && !updated) {
       // fallback to full rerender (resets the tree expand/collapse state)
-      tree.setData(files.map((f) => ({ ...f, path: f.filename, type: 'file' })));
+      tree.setData(getDataFromFiles(files));
     }
 
     if (activeEditor && tree.getData().find((f) => f.path === activeEditor)) {
@@ -205,22 +193,38 @@ export const createFilesTree: SidebarSectionList[number]['factory'] = async (
 
   const refresh = () => {
     config = getConfig();
-    const d: FileTreeNodeData[] = config.files.map((f) => ({
-      path: f.filename,
-      type: 'file',
-    }));
-    const s = config.activeEditor ? d.find((f) => f.path === config.activeEditor)?.path : undefined;
-    tree.setData(d);
-    if (s) tree.select(s);
+    const data: FileTreeNodeData[] = getDataFromFiles(config.files);
+    tree.setData(data);
+    if (config.activeEditor) tree.select(config.activeEditor);
+  };
+
+  const setTheme = (ev: CustomEventInit<SDKConfig>) => {
+    if (!ev.detail) return;
+    const newTheme = ev.detail.theme;
+    if (newTheme && theme !== newTheme) {
+      theme = newTheme;
+      tree.setTheme(theme);
+    }
+  };
+
+  const stopPropagation = (ev: Event) => {
+    ev.stopPropagation();
+  };
+
+  eventsManager.addEventListener(document, customEvents.settings, setTheme);
+  eventsManager.addEventListener(container, 'drop', stopPropagation); // avoid triggering import in app
+
+  const destroy = () => {
+    tree.destroy();
+    eventsManager.removeEventListener(document, customEvents.settings, setTheme);
+    eventsManager.removeEventListener(container, 'drop', stopPropagation);
   };
 
   return {
     name: 'files',
     title: 'Files',
-    icon: '',
-    load: () => Promise.resolve(),
     update,
-    destroy: () => tree.destroy(),
+    destroy,
   };
 };
 

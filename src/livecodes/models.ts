@@ -294,8 +294,7 @@ export interface ToolsPane {
 export interface SidebarSection {
   name: SidebarSectionName;
   title: string;
-  icon: string;
-  load: () => Promise<void>;
+  icon?: string;
   destroy: () => void;
 }
 
