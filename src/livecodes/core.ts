@@ -550,14 +550,6 @@ const addFile = async (
   const validName = checkFileName(filename, config);
   if (!validName) return false;
   const fileLanguage = getFileLanguage(validName, config) || 'javascript';
-  const container = createEditorUI(validName);
-  const editor = await createEditor({
-    ...editorOptions,
-    container,
-    editorId: validName,
-    language: fileLanguage,
-    value: '',
-  });
   setConfig({
     ...config,
     activeEditor: validName,
@@ -570,10 +562,6 @@ const addFile = async (
       },
     ],
   });
-  editorLanguages![validName] = fileLanguage;
-  editors[validName] = editor;
-  editorIds.push(validName);
-  handleChangeContent(editor);
   if (config.autoupdate) {
     run();
   }
@@ -581,9 +569,35 @@ const addFile = async (
   dispatchChangeEvent();
   if (sidebar?.files) {
     const newConfig = getConfig();
-    sidebar?.files?.update({ files: newConfig.files, activeEditor: newConfig.activeEditor });
+    sidebar?.files?.update({
+      files: newConfig.files,
+      activeEditor: newConfig.activeEditor,
+      action: 'create',
+      path: filename,
+    });
   }
+  await openFile(validName, fileLanguage, editorOptions);
   return true;
+};
+
+const openFile = async (
+  filename: string,
+  language: Language | undefined,
+  editorOptions: Omit<EditorOptions, 'container' | 'editorId' | 'language' | 'value'>,
+) => {
+  const container = createEditorUI(filename);
+  language ??= getFileLanguage(filename, getConfig()) || 'javascript';
+  const editor = await createEditor({
+    ...editorOptions,
+    container,
+    editorId: filename,
+    language,
+    value: '',
+  });
+  editorLanguages![filename] = language;
+  editors[filename] = editor;
+  editorIds.push(filename);
+  handleChangeContent(editor);
 };
 
 const renameFile = (filename: string, newName: string) => {
@@ -610,6 +624,9 @@ const renameFile = (filename: string, newName: string) => {
     if (editorTitle.dataset.editor === filename) {
       editorTitle.dataset.editor = validName;
     }
+    if (editorTitle.innerText === filename) {
+      editorTitle.innerText = validName;
+    }
   });
   if (editorLanguages && editorLanguages[filename]) {
     editorLanguages[validName] = editorLanguages[filename];
@@ -626,7 +643,13 @@ const renameFile = (filename: string, newName: string) => {
   changeLanguage(language, undefined, false, validName);
   if (sidebar?.files) {
     const newConfig = getConfig();
-    sidebar?.files?.update({ files: newConfig.files, activeEditor: newConfig.activeEditor });
+    sidebar?.files?.update({
+      files: newConfig.files,
+      activeEditor: newConfig.activeEditor,
+      action: 'rename',
+      path: newName,
+      oldPath: filename,
+    });
   }
   return true;
 };
@@ -663,7 +686,12 @@ const deleteFile = (filename: string) => {
   dispatchChangeEvent();
   if (sidebar?.files) {
     const newConfig = getConfig();
-    sidebar?.files?.update({ files: newConfig.files, activeEditor: newConfig.activeEditor });
+    sidebar?.files?.update({
+      files: newConfig.files,
+      activeEditor: newConfig.activeEditor,
+      action: 'delete',
+      path: filename,
+    });
   }
 };
 
@@ -689,41 +717,31 @@ const createEditorUI = (title: string, isHidden = false) => {
   return container;
 };
 
-const createEditors = async (config: Config) => {
-  let isReload = false;
-  if (editors) {
-    isReload = true;
-    Object.keys(editors).forEach((editorId: EditorId) => {
-      if (editorId in editors) {
-        editors[editorId].destroy();
-        delete editors[editorId];
-      }
-      if (editorLanguages && editorId in editorLanguages) delete editorLanguages[editorId];
-      const id = editorIds.indexOf(editorId);
-      if (id > -1) editorIds.splice(id, 1);
-    });
-    resetEditorModeStatus();
-  }
-
-  const findActiveEditor = () =>
-    config.activeEditor ||
-    (config.languages?.length && getLanguageEditorId(config.languages[0])) ||
-    (config.markup.content
-      ? 'markup'
-      : config.style.content
-        ? 'style'
-        : config.script.content
-          ? 'script'
-          : config.files?.length
-            ? config.files[0].filename
-            : 'markup');
-
+const getEditorOptions = (
+  editorId: EditorId,
+  {
+    container,
+    language,
+    value,
+    options,
+  }: {
+    container?: HTMLElement;
+    language?: Language;
+    value?: string;
+    options?: Partial<EditorOptions>;
+  } = {},
+): EditorOptions => {
+  const config = getConfig();
   const baseOptions = {
+    container: container ?? null,
+    language: language ?? getFileLanguage(editorId, config) ?? 'javascript',
+    value: value ?? '',
     baseUrl,
     mode: config.mode,
     readonly: config.readonly,
     ...getEditorConfig(config),
-    activeEditor: findActiveEditor(),
+    editorId,
+    activeEditor: editorId,
     isEmbed,
     isLite,
     isHeadless,
@@ -731,6 +749,7 @@ const createEditors = async (config: Config) => {
     getLanguageExtension,
     getFormatterConfig: () => getFormatterConfig(getConfig()),
     getFontFamily,
+    ...options,
   };
 
   const markupOptions: EditorOptions = {
@@ -763,6 +782,49 @@ const createEditors = async (config: Config) => {
         'javascript',
     value: languageIsEnabled(config.script.language, config) ? config.script.content || '' : '',
   };
+
+  return editorId === 'markup'
+    ? markupOptions
+    : editorId === 'style'
+      ? styleOptions
+      : editorId === 'script'
+        ? scriptOptions
+        : baseOptions;
+};
+
+const createEditors = async (config: Config) => {
+  let isReload = false;
+  if (editors) {
+    isReload = true;
+    Object.keys(editors).forEach((editorId: EditorId) => {
+      if (editorId in editors) {
+        editors[editorId].destroy();
+        delete editors[editorId];
+      }
+      if (editorLanguages && editorId in editorLanguages) delete editorLanguages[editorId];
+      const id = editorIds.indexOf(editorId);
+      if (id > -1) editorIds.splice(id, 1);
+    });
+    resetEditorModeStatus();
+  }
+
+  const findActiveEditor = () =>
+    config.activeEditor ||
+    (config.languages?.length && getLanguageEditorId(config.languages[0])) ||
+    (config.markup.content
+      ? 'markup'
+      : config.style.content
+        ? 'style'
+        : config.script.content
+          ? 'script'
+          : config.files?.length
+            ? config.files[0].filename
+            : 'markup');
+
+  const baseOptions = getEditorOptions(findActiveEditor());
+  const markupOptions = getEditorOptions('markup');
+  const styleOptions = getEditorOptions('style');
+  const scriptOptions = getEditorOptions('script');
 
   if (config.files?.length) {
     if (!config.lockFiles && !config.readonly) {
@@ -986,7 +1048,10 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
 
-const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = false) => {
+const showEditor = (
+  editorId: EditorId | (string & {}) = 'markup',
+  { isUpdate = false, source }: { isUpdate?: boolean; source?: 'sidebar-files' } = {},
+) => {
   const config = getConfig();
   if (!editors[editorId] || getSource(editorId, config)?.hidden) return;
   const titles = [...UI.getEditorTitles()];
@@ -1016,7 +1081,7 @@ const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = fa
       editorDiv.style.visibility = 'hidden';
     }
   });
-  if (!isEmbed && !isUpdate) {
+  if (!isEmbed && !isUpdate && source !== 'sidebar-files') {
     editors[editorId]?.focus();
   }
   if (!isUpdate) {
@@ -1031,7 +1096,10 @@ const showEditor = (editorId: EditorId | (string & {}) = 'markup', isUpdate = fa
   }
   configureEditorTools(getActiveEditor()?.getLanguage());
   showEditorModeStatus(editorId);
-  sidebar?.files?.update({ activeEditor: editorId });
+  if (source !== 'sidebar-files') {
+    // do not override sidebar files multi-select
+    sidebar?.files?.update({ activeEditor: editorId });
+  }
 };
 
 const showEditorModeStatus = (editorId: EditorId | (string & {})) => {
@@ -1213,7 +1281,7 @@ const changeLanguage = async (
   } else {
     editor.setLanguage(language, value ?? (getSource(editorId, getConfig())?.content || ''));
     setEditorTitle(editorId as EditorId, language);
-    showEditor(editorId, isUpdate);
+    showEditor(editorId, { isUpdate });
   }
   phpHelper({ editor: editors.script });
   if (!isEmbed && !isUpdate) {
@@ -2068,7 +2136,8 @@ const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig
       editors,
       eventsManager,
       isEmbed,
-      dir: i18n?.getLanguageDirection(),
+      direction: i18n?.getLanguageDirection(),
+      getConfig,
       setSidebar: (sidebarConfig) => {
         setConfig({ ...getConfig(), sidebar: sidebarConfig });
       },
@@ -5339,6 +5408,51 @@ const handleResultLoading = () => {
   eventsManager.addEventListener(window, 'message', showResultModeDrawer);
 };
 
+const handleFileEvents = () => {
+  eventsManager.addEventListener(document, customEvents.files, (ev: CustomEvent) => {
+    const action = ev.detail?.action;
+    if (!action) return;
+
+    const files = getConfig().files;
+    const oldPath = ev.detail.oldPath;
+    const path = ev.detail.path;
+
+    if (action === 'select') {
+      showEditor(path, { source: 'sidebar-files' });
+    }
+
+    // rename is handled in src/livecodes/UI/create-language-menus.ts
+
+    if (action === 'delete') {
+      deleteFile(path);
+    }
+
+    if (action === 'copy') {
+      const currentConfig = getConfig();
+      const fileAdd = (filename: string, content: string) => {
+        addFile(filename, {
+          baseUrl,
+          mode: currentConfig.mode,
+          readonly: currentConfig.readonly,
+          ...getEditorConfig(currentConfig),
+          isEmbed,
+          isLite,
+          isHeadless,
+          mapLanguage,
+          getLanguageExtension,
+          getFormatterConfig: () => getFormatterConfig(currentConfig),
+          getFontFamily,
+        }).then(() => {
+          editors[filename]?.setValue(content);
+        });
+      };
+
+      const oldFile = files.find((f) => f.filename === oldPath);
+      fileAdd(path, oldFile?.content || '');
+    }
+  });
+};
+
 const createToolButton = (id: string, title: string, innerHTML: string) => {
   const btn = document.createElement('div');
   btn.id = id;
@@ -5753,6 +5867,7 @@ const basicHandlers = () => {
   handleEditorTools();
   handleProcessors();
   handleResultLoading();
+  handleFileEvents();
   handleTestResults();
   handleConsole();
   handleI18n();

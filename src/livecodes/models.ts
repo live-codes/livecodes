@@ -311,19 +311,20 @@ export type SidebarSectionList = Array<{
           editors: Editors;
           eventsManager: EventsManager;
           isEmbed: boolean;
-          dir: 'ltr' | 'rtl';
+          direction: 'ltr' | 'rtl';
+          getConfig: () => Config;
         },
       ) => SidebarSection | Promise<SidebarSection>);
 }>;
 
 export interface FilesSection extends SidebarSection {
   title: 'Files';
-  update: ({
-    files,
-    activeEditor,
-  }: {
+  update: (payload: {
     files?: Config['files'];
     activeEditor?: Config['activeEditor'];
+    action?: 'create' | 'rename' | 'delete';
+    path?: string;
+    oldPath?: string;
   }) => void;
 }
 

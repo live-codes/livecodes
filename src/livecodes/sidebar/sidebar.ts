@@ -15,7 +15,8 @@ export const createSidebar = async ({
   editors,
   eventsManager,
   isEmbed,
-  dir = 'ltr',
+  direction = 'ltr',
+  getConfig,
   setSidebar,
 }: {
   config: Config;
@@ -23,7 +24,8 @@ export const createSidebar = async ({
   editors: Editors;
   eventsManager: EventsManager;
   isEmbed: boolean;
-  dir: 'ltr' | 'rtl' | undefined;
+  direction: 'ltr' | 'rtl' | undefined;
+  getConfig: () => Config;
   setSidebar: (sidebar: Config['sidebar']) => void;
 }): Promise<Sidebar> => {
   const sidebar = document.getElementById('sidebar');
@@ -94,7 +96,8 @@ export const createSidebar = async ({
           editors,
           eventsManager,
           isEmbed,
-          dir,
+          direction,
+          getConfig,
         });
 
         const btn: HTMLButtonElement | null = document.querySelector(

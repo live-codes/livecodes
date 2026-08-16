@@ -380,9 +380,6 @@ const translation = {
       hint: 'Change Language',
       message: 'Loading {{lang}}. This may take a while!',
     },
-    confirm: {
-      deleteFile: 'Delete file: {{filename}}?',
-    },
     copy: {
       copied: 'Code copied to clipboard',
       copiedAsDataURL: 'Code copied as data URL',
@@ -416,6 +413,10 @@ const translation = {
       exists: 'File already exists!',
       invalidName: 'Invalid file name!',
       invalidType: 'Invalid file type!',
+    },
+    files: {
+      deleteFile: 'Delete: {{path}}?',
+      deleteMainFile: 'Cannot delete main file!',
     },
     fork: {
       success: 'Forked as a new project',
@@ -914,6 +915,7 @@ const translation = {
       newFile: 'New File',
       newFolder: 'New Folder',
       paste: 'Paste',
+      refresh: 'Refresh',
       rename: 'Rename',
     },
   },

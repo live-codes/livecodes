@@ -1,3 +1,4 @@
+import { customEvents } from '../events';
 import { languageIsEnabled, processorIsEnabled } from '../languages/utils';
 import type {
   Config,
@@ -237,8 +238,8 @@ export const createMultiFileEditorTab = ({
     deleteButton.addEventListener('click', () => {
       if (
         confirm(
-          window.deps.translateString('core.confirm.deleteFile', 'Delete file: {{filename}}?', {
-            filename: currentFileName,
+          window.deps.translateString('core.files.deleteFile', 'Delete: {{path}}?', {
+            path: currentFileName,
           }),
         )
       ) {
@@ -329,6 +330,17 @@ export const createMultiFileEditorTab = ({
   editorSelector.addEventListener('dblclick', onDblClick);
   editorSelector.addEventListener('keydown', onF2);
   label.addEventListener('keydown', onKeyDown);
+  document.addEventListener<any>(customEvents.files, (ev: CustomEvent) => {
+    const action = ev.detail?.action;
+    if (!action) return;
+    if (action === 'rename') {
+      console.log(ev.detail);
+      if (ev.detail.oldPath === currentFileName) {
+        setLabelText(ev.detail.path);
+        accept();
+      }
+    }
+  });
 
   const scrollTo = document.querySelector('#multi-file-scroll-to');
   getEditorTabScroller()?.insertBefore(editorSelector, scrollTo);

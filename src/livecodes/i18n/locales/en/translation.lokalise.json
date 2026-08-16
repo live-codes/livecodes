@@ -936,10 +936,6 @@
     "notes": "",
     "translation": "Loading {{lang}}. This may take a while!"
   },
-  "core.confirm.deleteFile": {
-    "notes": "",
-    "translation": "Delete file: {{filename}}?"
-  },
   "core.copy.copied": {
     "notes": "",
     "translation": "Code copied to clipboard"
@@ -1043,6 +1039,14 @@
   "core.file.invalidType": {
     "notes": "",
     "translation": "Invalid file type!"
+  },
+  "core.files.deleteFile": {
+    "notes": "",
+    "translation": "Delete: {{path}}?"
+  },
+  "core.files.deleteMainFile": {
+    "notes": "",
+    "translation": "Cannot delete main file!"
   },
   "core.fork.success": {
     "notes": "",
@@ -2391,6 +2395,10 @@
   "sidebar.files.paste": {
     "notes": "",
     "translation": "Paste"
+  },
+  "sidebar.files.refresh": {
+    "notes": "",
+    "translation": "Refresh"
   },
   "sidebar.files.rename": {
     "notes": "",
