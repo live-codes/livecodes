@@ -42,12 +42,17 @@ export const createSidebar = async ({
   ];
 
   const isMultiFile = config.files.length > 0;
-  const isEnabled = (section: SidebarSectionList[number]) =>
-    section.name === 'files' && !isMultiFile
+  const isEnabled = (name: SidebarSectionName): boolean => {
+    const section = fullList.find((s) => s.name === name);
+    return !section
       ? false
-      : config.sidebar.enabled === 'all' || config.sidebar.enabled?.includes(section.name) === true;
+      : section.name === 'files' && !isMultiFile
+        ? false
+        : config.sidebar.enabled === 'all' ||
+          config.sidebar.enabled?.includes(section.name) === true;
+  };
 
-  const sectionList: SidebarSectionList = fullList.filter(isEnabled);
+  const sectionList: SidebarSectionList = fullList.filter((s) => isEnabled(s.name));
 
   let status: SidebarStatus | undefined;
   let activeSection: SidebarSection['name'] | null = sectionList[0]?.name || null;
@@ -221,6 +226,7 @@ export const createSidebar = async ({
     getStatus: () => status ?? '',
     getActiveSection: () => activeSection ?? 'files',
     setActiveSection,
+    isEnabled,
     // files
     ...sectionList.reduce(
       (acc, section, index) => ({ ...acc, [section.name]: sections[index] }),
@@ -241,5 +247,6 @@ export const createFakeSidebar = ({ config }: { config: Config }): Sidebar => ({
   getStatus: () => config.sidebar.status ?? '',
   getActiveSection: () => (config.sidebar.active ?? '') as SidebarSectionName,
   setActiveSection: noop,
+  isEnabled: () => false,
   destroy: noop,
 });

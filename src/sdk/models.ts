@@ -1155,8 +1155,13 @@ export type SourceFile = Prettify<
      * Name of the file with extension, including path (e.g. `index.html` or `components/Counter.jsx`).
      */
     filename: string;
-  } & Required<Pick<Editor, 'content' | 'language'>> &
-    Partial<Pick<Editor, 'hidden' | 'position' | 'foldedLines'>>
+  } & Required<Pick<Editor, 'content' | 'language'>> & {
+      /**
+       * If `true`, the file is opened in the editor.
+       * @default false
+       */
+      open?: boolean;
+    } & Partial<Pick<Editor, 'hidden' | 'position' | 'foldedLines'>>
 >;
 
 /**
@@ -1461,9 +1466,13 @@ export interface ContentConfig {
  */
 export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
+export interface SDKAppConfig extends Omit<AppConfig, 'sidebar'> {
+  sidebar: AppConfig['sidebar'] | false;
+}
+
 export interface SingleFileConfig
   extends Omit<ContentConfig, 'files' | 'mainFile' | 'fileLanguages' | 'lockFiles'>,
-    AppConfig,
+    SDKAppConfig,
     UserConfig {
   files: never;
   mainFile: never;
@@ -1484,7 +1493,7 @@ export interface MultiFileConfig
       | 'htmlAttrs'
       | 'head'
     >,
-    AppConfig,
+    SDKAppConfig,
     UserConfig {
   files: NonEmptyArray<{ filename: string } & Partial<SourceFile>>;
   markup: never;

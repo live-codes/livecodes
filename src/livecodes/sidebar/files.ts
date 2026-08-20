@@ -30,7 +30,7 @@ export const createFilesTree: SidebarSectionList[number]['factory'] = async (
   };
 
   const getDataFromFiles = (files: Config['files']): FileTreeNodeData[] =>
-    files.map((f) => ({ path: f.filename, type: 'file' }));
+    files.filter((f) => !f.hidden).map((f) => ({ path: f.filename, type: 'file' }));
 
   const tree = new FileTree(container, {
     data: getDataFromFiles(config.files),

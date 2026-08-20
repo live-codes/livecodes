@@ -5,6 +5,7 @@ import type {
   EditorId,
   Language,
   MultiFileConfig,
+  SDKAppConfig,
   SidebarSection,
   SidebarStatus,
   SourceFile,
@@ -109,6 +110,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
             getLanguageByAlias(x.language) ||
             getFileLanguage(x.filename, { ...config, fileLanguages: validFileLanguages }) ||
             'text',
+          ...(is(x.open, 'boolean') ? { open: x.open } : {}),
           ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
           ...(is(x.position, 'object') ? { position: x.position } : {}),
           ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
@@ -138,27 +140,33 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(x && is(x.position, 'object') ? { position: x.position } : {}),
   });
 
-  const validateSidebarProps = (x: Config['sidebar']): Config['sidebar'] => ({
-    ...defaultConfig.sidebar,
-    ...(x && Array.isArray(x.enabled)
-      ? { enabled: x.enabled.filter((t) => sidebarSections.includes(t)) }
+  const validateSidebarProps = (x: SDKAppConfig['sidebar']): Config['sidebar'] =>
+    x === false
+      ? {
+          ...defaultConfig.sidebar,
+          status: 'none',
+        }
       : {
-          ...(x && x.enabled == null && x.status === 'none'
-            ? { enabled: [] }
-            : { enabled: defaultConfig.sidebar.enabled }),
-        }),
-    ...(x &&
-    x.active != null &&
-    includes(sidebarSections, x.active) &&
-    (x.enabled === 'all' ||
-      x.enabled == null ||
-      (Array.isArray(x.enabled) && includes(x.enabled, x.active)))
-      ? { active: x.active }
-      : { active: defaultConfig.sidebar.active }),
-    ...(x && x.status != null && includes(sidebarStatus, x.status)
-      ? { status: x.status }
-      : { status: defaultConfig.sidebar.status }),
-  });
+          ...defaultConfig.sidebar,
+          ...(x && Array.isArray(x.enabled)
+            ? { enabled: x.enabled.filter((t) => sidebarSections.includes(t)) }
+            : {
+                ...(x && x.enabled == null && x.status === 'none'
+                  ? { enabled: [] }
+                  : { enabled: defaultConfig.sidebar.enabled }),
+              }),
+          ...(x &&
+          x.active != null &&
+          includes(sidebarSections, x.active) &&
+          (x.enabled === 'all' ||
+            x.enabled == null ||
+            (Array.isArray(x.enabled) && includes(x.enabled, x.active)))
+            ? { active: x.active }
+            : { active: defaultConfig.sidebar.active }),
+          ...(x && x.status != null && includes(sidebarStatus, x.status)
+            ? { status: x.status }
+            : { status: defaultConfig.sidebar.status }),
+        };
 
   const validateToolsProps = (x: Config['tools']): Config['tools'] => ({
     ...defaultConfig.tools,

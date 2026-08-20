@@ -542,10 +542,7 @@ const checkFileName = (filename: string, config: Config, currentName?: string) =
   return null;
 };
 
-const addFile = async (
-  filename: string,
-  editorOptions: Omit<EditorOptions, 'container' | 'editorId' | 'language' | 'value'>,
-) => {
+const addFile = async (filename: string, content?: string) => {
   const config = getConfig();
   const validName = checkFileName(filename, config);
   if (!validName) return false;
@@ -558,7 +555,7 @@ const addFile = async (
       {
         filename: validName,
         language: fileLanguage,
-        content: '',
+        content: content || '',
       },
     ],
   });
@@ -576,23 +573,26 @@ const addFile = async (
       path: filename,
     });
   }
-  await openFile(validName, fileLanguage, editorOptions);
   return true;
 };
 
 const openFile = async (
   filename: string,
-  language: Language | undefined,
-  editorOptions: Omit<EditorOptions, 'container' | 'editorId' | 'language' | 'value'>,
+  editorOptions?: Omit<EditorOptions, 'container' | 'editorId' | 'language' | 'value'>,
 ) => {
+  const config = getConfig();
+  const file = config.files.find((f) => f.filename === filename);
+  if (file?.hidden || editors[filename]) return;
   const container = createEditorUI(filename);
-  language ??= getFileLanguage(filename, getConfig()) || 'javascript';
+  const language = file?.language || getFileLanguage(filename, config) || 'javascript';
+  const value = file?.content || '';
+  editorOptions ??= getEditorOptions(filename, { container, language, value });
   const editor = await createEditor({
     ...editorOptions,
     container,
     editorId: filename,
     language,
-    value: '',
+    value,
   });
   editorLanguages![filename] = language;
   editors[filename] = editor;
@@ -751,45 +751,50 @@ const getEditorOptions = (
     getFontFamily,
     ...options,
   };
+  if (!['markup', 'style', 'script'].includes(editorId)) {
+    return baseOptions;
+  }
 
-  const markupOptions: EditorOptions = {
-    ...baseOptions,
-    container: UI.getMarkupElement(),
-    editorId: 'markup',
-    language: languageIsEnabled(config.markup.language, config)
-      ? config.markup.language
-      : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') as Language) ||
-        'html',
-    value: languageIsEnabled(config.markup.language, config) ? config.markup.content || '' : '',
-  };
-  const styleOptions: EditorOptions = {
-    ...baseOptions,
-    container: UI.getStyleElement(),
-    editorId: 'style',
-    language: languageIsEnabled(config.style.language, config)
-      ? config.style.language
-      : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') as Language) ||
-        'css',
-    value: languageIsEnabled(config.style.language, config) ? config.style.content || '' : '',
-  };
-  const scriptOptions: EditorOptions = {
-    ...baseOptions,
-    container: UI.getScriptElement(),
-    editorId: 'script',
-    language: languageIsEnabled(config.script.language, config)
-      ? config.script.language
-      : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') as Language) ||
-        'javascript',
-    value: languageIsEnabled(config.script.language, config) ? config.script.content || '' : '',
-  };
+  if (editorId === 'markup') {
+    return {
+      ...baseOptions,
+      container: UI.getMarkupElement(),
+      editorId: 'markup',
+      language: languageIsEnabled(config.markup.language, config)
+        ? config.markup.language
+        : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') as Language) ||
+          'html',
+      value: languageIsEnabled(config.markup.language, config) ? config.markup.content || '' : '',
+    };
+  }
 
-  return editorId === 'markup'
-    ? markupOptions
-    : editorId === 'style'
-      ? styleOptions
-      : editorId === 'script'
-        ? scriptOptions
-        : baseOptions;
+  if (editorId === 'style') {
+    return {
+      ...baseOptions,
+      container: UI.getStyleElement(),
+      editorId: 'style',
+      language: languageIsEnabled(config.style.language, config)
+        ? config.style.language
+        : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') as Language) ||
+          'css',
+      value: languageIsEnabled(config.style.language, config) ? config.style.content || '' : '',
+    };
+  }
+
+  if (editorId === 'script') {
+    return {
+      ...baseOptions,
+      container: UI.getScriptElement(),
+      editorId: 'script',
+      language: languageIsEnabled(config.script.language, config)
+        ? config.script.language
+        : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') as Language) ||
+          'javascript',
+      value: languageIsEnabled(config.script.language, config) ? config.script.content || '' : '',
+    };
+  }
+
+  return baseOptions;
 };
 
 const createEditors = async (config: Config) => {
@@ -821,7 +826,6 @@ const createEditors = async (config: Config) => {
             ? config.files[0].filename
             : 'markup');
 
-  const baseOptions = getEditorOptions(findActiveEditor());
   const markupOptions = getEditorOptions('markup');
   const styleOptions = getEditorOptions('style');
   const scriptOptions = getEditorOptions('script');
@@ -833,7 +837,7 @@ const createEditors = async (config: Config) => {
           createMultiFileEditorTab({
             title: '        ',
             showEditor,
-            addFile: async (filename: string) => addFile(filename, baseOptions),
+            addFile: async (filename: string) => addFile(filename),
             renameFile,
             deleteFile,
             isMainFile: false,
@@ -853,19 +857,10 @@ const createEditors = async (config: Config) => {
     changingContent = true;
     editorIds.length = 0;
     for (const file of config.files) {
-      const editorId = file.filename as EditorId;
-      const container = createEditorUI(file.filename, file.hidden);
-      const editorOptions = {
-        ...baseOptions,
-        container,
-        editorId,
-        language: file.language || getFileLanguage(file.filename, config) || 'text',
-        value: file.content || '',
-      };
-      const editor = await createEditor(editorOptions);
-      editorLanguages[editorId] = file.language!;
-      editors[editorId] = editor;
-      editorIds.push(editorId);
+      if (!file.hidden && (file.open || !sidebar?.isEnabled('files'))) {
+        const editorOptions = getEditorOptions(file.filename);
+        await openFile(file.filename, editorOptions);
+      }
     }
     changingContent = false;
   } else {
@@ -1053,7 +1048,14 @@ const showEditor = (
   { isUpdate = false, source }: { isUpdate?: boolean; source?: 'sidebar-files' } = {},
 ) => {
   const config = getConfig();
-  if (!editors[editorId] || getSource(editorId, config)?.hidden) return;
+
+  if (getSource(editorId, config)?.hidden) return;
+  if (!editors[editorId]) {
+    if (config.files.find((f) => f.filename === editorId)) {
+      openFile(editorId, getEditorOptions(editorId)).then(() => showEditor(editorId));
+    }
+    return;
+  }
   const titles = [...UI.getEditorTitles()];
   const editorIsVisible = () => titles.map((title) => title.dataset.editor).includes(editorId);
   if (!editorIsVisible()) {
@@ -2118,17 +2120,23 @@ const loadConfig = async (
 const applyConfig = async (newConfig: Partial<Config>, reload = false, oldConfig?: Config) => {
   const currentConfig = oldConfig || getConfig();
   const combinedConfig: Config = { ...currentConfig, ...newConfig };
-  for (const file of oldConfig?.files || []) {
-    deleteFile(file.filename);
+  const oldFilenames = new Set([
+    ...(oldConfig?.files || []).map((f) => f.filename),
+    ...Object.keys(editors).filter((f) => !['markup', 'style', 'script'].includes(f)),
+  ]);
+  for (const filename of oldFilenames) {
+    deleteFile(filename);
   }
   configureMultiFile(combinedConfig);
 
   sidebar?.destroy();
   if (
+    !combinedConfig.sidebar ||
     combinedConfig.sidebar.status === 'none' ||
     (Array.isArray(combinedConfig.sidebar.enabled) && combinedConfig.sidebar.enabled.length === 0)
   ) {
     sidebar = undefined;
+    document.getElementById('sidebar')?.classList.add('hidden');
   } else {
     sidebar = await createSidebar({
       config: combinedConfig,
@@ -5425,21 +5433,8 @@ const handleFileEvents = () => {
     }
 
     if (action === 'copy') {
-      const currentConfig = getConfig();
       const fileAdd = (filename: string, content: string) => {
-        addFile(filename, {
-          baseUrl,
-          mode: currentConfig.mode,
-          readonly: currentConfig.readonly,
-          ...getEditorConfig(currentConfig),
-          isEmbed,
-          isLite,
-          isHeadless,
-          mapLanguage,
-          getLanguageExtension,
-          getFormatterConfig: () => getFormatterConfig(currentConfig),
-          getFontFamily,
-        }).then(() => {
+        addFile(filename).then(() => {
           editors[filename]?.setValue(content);
         });
       };
@@ -5598,19 +5593,7 @@ const handleDropFiles = () => {
             if (currentConfig.files.find((f) => f.filename === file.filename)) {
               editors[file.filename]?.setValue(file.content);
             } else {
-              await addFile(file.filename, {
-                baseUrl,
-                mode: currentConfig.mode,
-                readonly: currentConfig.readonly,
-                ...getEditorConfig(currentConfig),
-                isEmbed,
-                isLite,
-                isHeadless,
-                mapLanguage,
-                getLanguageExtension,
-                getFormatterConfig: () => getFormatterConfig(currentConfig),
-                getFontFamily,
-              });
+              await addFile(file.filename);
               editors[file.filename]?.setValue(file.content);
             }
           }

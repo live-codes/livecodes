@@ -10,6 +10,7 @@ export const javascript: Template = {
   files: [
     {
       filename: 'index.html',
+      open: true,
       language: 'html',
       content: `<!doctype html>
 <html lang="en">
@@ -27,6 +28,7 @@ export const javascript: Template = {
     },
     {
       filename: 'src/main.js',
+      open: true,
       language: 'javascript',
       content: `import "./style.css";
 import javascriptLogo from "./javascript.svg";
@@ -153,6 +155,7 @@ button:focus-visible {
     },
     {
       filename: 'src/counter.js',
+      open: true,
       language: 'javascript',
       content: `export function setupCounter(element) {
   let counter = 0;

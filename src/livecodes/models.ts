@@ -334,6 +334,7 @@ export interface Sidebar {
   getStatus: () => SidebarStatus;
   getActiveSection: () => SidebarSectionName;
   setActiveSection: (name: SidebarSectionName) => void;
+  isEnabled: (name: SidebarSectionName) => boolean;
   files?: FilesSection;
   destroy: () => void;
 }
