@@ -37,15 +37,33 @@ export const typescript: LanguageSpecs = {
     url: typescriptUrl,
     factory:
       () =>
-      async (code, { config, language }) =>
-        (window as any).ts.transpile(code, {
+      async (code, { config, language }) => {
+        const ts = (window as any).ts;
+        const rawOptions = {
           ...typescriptOptions,
           ...(['jsx', 'tsx', 'typescript'].includes(language) && !hasCustomJsxRuntime(code, config)
             ? { jsx: 'react-jsx' }
             : {}),
           ...getLanguageCustomSettings('typescript', config),
           ...getLanguageCustomSettings(language, config),
-        }),
+          sourceMap: true,
+        };
+        const { options: compilerOptions, errors } = ts.convertCompilerOptionsFromJson(
+          rawOptions,
+          '',
+        );
+        if (errors?.length) {
+          // eslint-disable-next-line no-console
+          console.warn('TypeScript compiler option errors:', errors);
+        }
+        const result = ts.transpileModule(code, { compilerOptions });
+        return {
+          code: result.outputText.replace(/\n?\/\/# sourceMappingURL=\S+/m, ''),
+          info: {
+            sourceMaps: result.sourceMapText ? { script: result.sourceMapText } : undefined,
+          },
+        };
+      },
   },
   extensions: ['ts', 'mts', 'typescript'],
   editor: 'script',

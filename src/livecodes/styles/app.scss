@@ -1257,6 +1257,28 @@ a.tools-pane-title {
   .luna-console-count {
     color: #fff;
   }
+
+  .luna-console-log-item {
+    .console-line-number {
+      color: inherit !important;
+      cursor: pointer;
+      flex-shrink: 0;
+      font-size: 0.8em;
+      opacity: 0.45;
+      padding: 3px 8px 3px 4px;
+      user-select: none;
+      white-space: nowrap;
+
+      &:hover {
+        opacity: 0.8;
+        text-decoration: underline;
+      }
+    }
+
+    .luna-console-stack {
+      display: none;
+    }
+  }
 }
 
 #console-input-indicator {

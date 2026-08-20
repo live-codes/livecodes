@@ -493,11 +493,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     return { lineNumber, column };
   };
 
-  const setPosition = ({ lineNumber, column = 1 }: EditorPosition) => {
-    const col = column - 1; // columns in codemirror start at 0
-    const line = view.state.doc.lines > lineNumber ? lineNumber : view.state.doc.lines;
+  const setPosition = ({ lineNumber, column }: EditorPosition) => {
+    const col = column && column > 0 ? column : 1;
+    const line = Math.max(1, Math.min(lineNumber, view.state.doc.lines));
     const lineInfo = view.state.doc.line(line);
-    const columnNumber = lineInfo.length > col ? col : lineInfo.length;
+    const columnNumber = Math.max(0, Math.min(col - 1, lineInfo.length));
     const position = lineInfo.from + columnNumber;
     view.dispatch({
       selection: { anchor: position },

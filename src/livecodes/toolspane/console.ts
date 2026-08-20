@@ -1,7 +1,15 @@
 import LunaConsole from 'luna-console';
 import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '../UI';
+import {
+  buildSourceLineMap,
+  getOriginalPosition,
+  isConsoleDisplaySource,
+  toPositiveLineNumber,
+  type ConsoleDisplaySource,
+} from '../compiler/source-maps';
 import { getEditorConfig } from '../config';
 import { createEditor, getFontFamily } from '../editor';
+import { customEvents } from '../events/custom-events';
 import { getLanguageExtension, mapLanguage } from '../languages';
 import type {
   CodeEditor,
@@ -25,6 +33,24 @@ export const createConsole = (
 ): Console => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let editor: CodeEditor;
+  let sourceMapsRecord: Record<string, string> | null | undefined;
+  // Lazy-decoded cache: source map key → decoded line map.
+  // Keyed by filename today ('script'), by actual filename in multi-file future ('tax-calculator.ts').
+  const sourceLineMapsCache = new Map<string, Map<number, number>>();
+  let lineNumbersEnabled = false;
+
+  const getSourceLineMap = (key: string): Map<number, number> | null => {
+    if (!sourceMapsRecord) return null;
+    if (sourceLineMapsCache.has(key)) return sourceLineMapsCache.get(key)!;
+    const raw = sourceMapsRecord[key];
+    if (!raw) return null;
+    const decoded = buildSourceLineMap(raw);
+    sourceLineMapsCache.set(key, decoded);
+    return decoded;
+  };
+  const lineNumberQueue: Array<string | null> = [];
+  let lastProcessedSource: string | null = null;
+  let lastProcessedLine: number | undefined;
 
   let consoleElement: HTMLElement;
   const sourceSelector = '#result > iframe';
@@ -68,14 +94,84 @@ export const createConsole = (
       return arg.content;
     });
 
+  const getSource = (source: unknown): ConsoleDisplaySource =>
+    isConsoleDisplaySource(source) ? source : 'script';
+
+  const setupInsertListener = () => {
+    (consoleEmulator as any).on('insert', (log: any) => {
+      const logItem = log?.container?.querySelector?.('.luna-console-log-item');
+      if (!logItem) return;
+      const sourceLine = lineNumberQueue.shift() ?? null;
+      if (!sourceLine) return;
+      // If badge already exists: Luna re-emitted 'insert' for a dedup (addCount) on the same
+      // source+line entry. The queue slot is consumed above; keep the existing badge unchanged.
+      if (logItem.querySelector('.console-line-number')) return;
+      // Parse "key:line" or "key:line:column". Parse from the right.
+      const lastColonIdx = sourceLine.lastIndexOf(':');
+      const secondLastColonIdx = sourceLine.lastIndexOf(':', lastColonIdx - 1);
+      let filename: string;
+      let lineStr: string;
+      let colStr: string | undefined;
+      if (secondLastColonIdx >= 0) {
+        // Format: "key:line:column" or "key:line:col" where line/col are numeric
+        filename = sourceLine.slice(0, secondLastColonIdx);
+        lineStr = sourceLine.slice(secondLastColonIdx + 1, lastColonIdx);
+        colStr = sourceLine.slice(lastColonIdx + 1);
+      } else if (lastColonIdx >= 0) {
+        // Format: "key:line"
+        filename = sourceLine.slice(0, lastColonIdx);
+        lineStr = sourceLine.slice(lastColonIdx + 1);
+      } else {
+        // No colons — shouldn't happen with valid input
+        filename = '';
+        lineStr = '';
+      }
+      const lineNumber = parseInt(lineStr, 10);
+      const columnNumber: number | undefined = colStr ? parseInt(colStr, 10) : undefined;
+      const hasColumn = colStr !== undefined && !isNaN(Number(colStr));
+      if (filename && !isNaN(lineNumber)) {
+        const badge = document.createElement('a');
+        badge.href = '#';
+        badge.className = 'console-line-number';
+        badge.textContent = `${filename}:${lineStr}`;
+
+        badge.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          window.dispatchEvent(
+            new CustomEvent(customEvents.consoleNavigate, {
+              detail: {
+                editorId: filename,
+                line: lineNumber,
+                column: hasColumn ? columnNumber : undefined,
+              },
+            }),
+          );
+        });
+        (logItem as HTMLElement).appendChild(badge);
+      }
+    });
+  };
+
   const createConsoleEmulator = () => {
     if (consoleEmulator) {
       consoleEmulator.destroy();
-      consoleEmulator = new LunaConsole(consoleElement);
+      // asyncRender: false is required so that Luna's lastLog dedup check runs synchronously
+      // before we reset it for the next message. With async rendering, the reset races the check.
+      consoleEmulator = new LunaConsole(consoleElement, {
+        theme: config.theme,
+        asyncRender: false,
+      });
+      setupInsertListener();
       return consoleEmulator;
     }
 
-    consoleEmulator = new LunaConsole(consoleElement, { theme: config.theme });
+    consoleEmulator = new LunaConsole(consoleElement, {
+      theme: config.theme,
+      asyncRender: false,
+    });
+    setupInsertListener();
+
     eventsManager.addEventListener(window, 'message', (event: any) => {
       if (
         !consoleElement ||
@@ -107,9 +203,72 @@ export const createConsole = (
       if (api.includes(message.method)) {
         if (message.method === 'clear') {
           // prevent passing args (silent) to `clear` method
+          lineNumberQueue.length = 0;
+          lastProcessedSource = null;
+          lastProcessedLine = undefined;
           consoleEmulator.clear();
         } else {
-          (consoleEmulator as any)[message.method](...convertTypes(message.args));
+          const args = convertTypes(message.args);
+          // groupEnd modifies an existing log entry — no 'insert' event fires, skip queue
+          if (message.method !== 'groupEnd') {
+            const lineDisplayMethods = ['log', 'error', 'warn', 'info', 'output'];
+            if (
+              lineNumbersEnabled &&
+              message.lineNumber !== undefined &&
+              lineDisplayMethods.includes(message.method)
+            ) {
+              const source = getSource(message.source);
+              const rawLineNumber = toPositiveLineNumber(message.lineNumber);
+              const rawColumnNumber = toPositiveLineNumber(message.columnNumber);
+              if (!rawLineNumber) {
+                lineNumberQueue.push(null);
+                (consoleEmulator as any)[message.method](...args);
+                updateMark();
+                return;
+              }
+              // Console messages have no filename, so use first source-map key.
+              const mapKey =
+                source === 'script' && sourceMapsRecord
+                  ? Object.keys(sourceMapsRecord)[0] ?? 'script'
+                  : source;
+              let lineNumber: number = rawLineNumber;
+              let columnNumber: number | undefined = rawColumnNumber;
+              const hasColumn = columnNumber !== undefined;
+              if (source === 'script' && sourceMapsRecord && mapKey) {
+                const rawMap = sourceMapsRecord[mapKey];
+                if (columnNumber !== undefined) {
+                  const position = getOriginalPosition(rawMap, rawLineNumber, columnNumber);
+                  if (position) {
+                    lineNumber = position.line;
+                    columnNumber = position.column;
+                  }
+                } else {
+                  const mappedLine = toPositiveLineNumber(
+                    getSourceLineMap(mapKey)?.get(rawLineNumber),
+                  );
+                  if (mappedLine) {
+                    lineNumber = mappedLine;
+                  }
+                }
+              }
+              const columnSuffix = hasColumn ? `:${columnNumber}` : '';
+              lineNumberQueue.push(`${mapKey}:${lineNumber}${columnSuffix}`);
+              // Break Luna's deduplication when source OR line changes.
+              // Only identical messages from the exact same source+line (e.g. a loop) are grouped.
+              if (lastProcessedSource !== source || lastProcessedLine !== lineNumber) {
+                (consoleEmulator as any).lastLog = null;
+                lastProcessedSource = source;
+                lastProcessedLine = lineNumber;
+              }
+            } else if (!message.silent) {
+              // Non-display methods that DO produce a Luna DOM entry (group, count, dir, etc.)
+              // still need a queue slot so the FIFO stays aligned.
+              // Silent methods (time, assert(true), table with no args) produce no DOM entry
+              // and must not push — otherwise the queue drifts.
+              lineNumberQueue.push(null);
+            }
+          }
+          (consoleEmulator as any)[message.method](...args);
         }
         updateMark();
       }
@@ -310,12 +469,31 @@ export const createConsole = (
     getEditor: () => editor,
     reloadEditor,
     setTheme: (theme: Theme) => exec(() => consoleEmulator?.setOption('theme', theme)),
+    setSourceMap: (sourceMaps: Record<string, string> | null | undefined) => {
+      // null  = plain JS (accurate raw lines, no mapping needed) → enable line numbers
+      // undefined = suppress (Python, Ruby, WASM, etc.)          → disable line numbers
+      // Record   = compiled language with source maps            → enable + map lines
+      // Keys today: { script: '...' }. Multi-file future: { 'tax-calculator.ts': '...', 'test.js': '...' }
+      sourceMapsRecord = sourceMaps;
+      sourceLineMapsCache.clear();
+      lineNumbersEnabled = sourceMaps !== undefined;
+      // Reset queue state on each run so stale slots from the previous run
+      // (e.g. a 'time' call that was later removed) don't shift badges.
+      lineNumberQueue.length = 0;
+      lastProcessedSource = null;
+      lastProcessedLine = undefined;
+    },
     log: (...args) => exec(() => consoleEmulator?.log(...args)),
     info: (...args) => exec(() => consoleEmulator?.info(...args)),
     table: (...args) => exec(() => consoleEmulator?.table(...args)),
     warn: (...args) => exec(() => consoleEmulator?.warn(...args)),
     error: (...args) => exec(() => consoleEmulator?.error(...args)),
-    clear: (silent) => exec(() => consoleEmulator?.clear(silent)),
+    clear: (silent) => {
+      lineNumberQueue.length = 0;
+      lastProcessedSource = null;
+      lastProcessedLine = undefined;
+      exec(() => consoleEmulator?.clear(silent));
+    },
     // filterLog: (filter) => exec(() => consoleEmulator?.filterLog(filter)),
     evaluate: (code) => exec(() => consoleEmulator?.evaluate(code)),
   };

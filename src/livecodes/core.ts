@@ -1491,6 +1491,10 @@ const getResultPage = async ({
   });
   const compiledScript = scriptCompileResult.code;
 
+  const { sourceMaps } = scriptCompileResult.info ?? {};
+  const consoleSourceMaps = sourceMaps ?? (scriptLanguage === 'javascript' ? null : undefined);
+  toolsPane?.console?.setSourceMap?.(consoleSourceMaps);
+
   let compileInfo: CompileInfo = mergeCompileInfo(
     markupCompileResult.info,
     scriptCompileResult.info,
@@ -1742,6 +1746,10 @@ const mergeCompileInfo = (compileInfo: CompileInfo, newCompileInfo: CompileInfo)
   imports: {
     ...compileInfo.imports,
     ...newCompileInfo.imports,
+  },
+  sourceMaps: {
+    ...compileInfo.sourceMaps,
+    ...newCompileInfo.sourceMaps,
   },
 });
 
@@ -6363,6 +6371,11 @@ const createApi = (): API => {
       throw new Error(window.deps.translateString('core.error.invalidPanelId', 'Invalid panel id'));
     }
   };
+
+  eventsManager.addEventListener(window, customEvents.consoleNavigate, (e: any) => {
+    const { editorId, line, column } = e.detail;
+    apiShow(editorId, { line, column });
+  });
 
   const apiRunTests: API['runTests'] = () =>
     new Promise((resolve) => {
