@@ -272,13 +272,13 @@ const resolveConsoleCallSiteFromDocLine = (
 
   // Multi-file call sites: each module is injected as its own data URL carrying
   // `//# sourceURL=<filename>`, so the frame names a bare file and its line is
-  // module-local (mapped through that file's own source map). Single-file inline
-  // scripts instead rely on document offsets (markupOffset/scriptOffset) to
-  // resolve the line, so only treat a frame as a source file when there are no
-  // document offsets (i.e. multi-file mode).
-  const hasDocOffsets = markupOffset > 0 || scriptOffset > 0;
+  // module-local (mapped through that file's own source map). The multi-file
+  // result page sets `data-livecodes-multi-file` on <body> to opt the sandbox
+  // into this resolution; single-file applies its document-offset markup/script
+  // logic instead.
+  const isMultiFile = document.body?.dataset.livecodesMultiFile === 'true';
   const frameUrl = callerFrame ? getFrameUrl(callerFrame) : undefined;
-  if (!hasDocOffsets && frameUrl && isSourceUrlFilename(frameUrl)) {
+  if (isMultiFile && frameUrl && isSourceUrlFilename(frameUrl)) {
     return {
       lineNumber: docLine,
       columnNumber: column,

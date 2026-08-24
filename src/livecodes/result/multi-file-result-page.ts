@@ -124,6 +124,8 @@ export const createMultiFileResultPage = async ({
     utilsScript.innerHTML = 'window.livecodes = window.livecodes || {};';
     dom.head.appendChild(utilsScript);
   } else {
+    dom.body.dataset.livecodesMultiFile = 'true';
+
     const templateDomParser = new DOMParser();
     const templateDom = templateDomParser.parseFromString(template, 'text/html');
     const script = templateDom.querySelector('script')!;
