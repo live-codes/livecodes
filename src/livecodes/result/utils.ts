@@ -149,6 +149,7 @@ export const proxyConsole = () => {
             lineNumber: callSite.lineNumber,
             columnNumber: callSite.columnNumber,
             source: callSite.source,
+            filename: callSite.filename,
             silent,
           },
           '*',
@@ -167,6 +168,7 @@ export const proxyConsole = () => {
         lineNumber: callSite.lineNumber,
         columnNumber: callSite.columnNumber,
         source: callSite.source,
+        filename: callSite.filename,
       },
       '*',
     );

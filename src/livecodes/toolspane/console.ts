@@ -221,15 +221,24 @@ export const createConsole = (
                 updateMark();
                 return;
               }
-              // Console messages have no filename, so use first source-map key.
-              const mapKey = sourceMapsRecord
-                ? Object.keys(sourceMapsRecord)[0] ?? 'script'
-                : source;
+              // Prefer the filename reported by the sandbox (multi-file projects,
+              // where each module is a separate data URL with its own source map).
+              // Fall back to the first source-map key (single-file) or the source.
+              const messageFilename =
+                typeof message.filename === 'string' ? message.filename : undefined;
+              const hasMap =
+                !!sourceMapsRecord && Object.keys(sourceMapsRecord).length > 0;
+              const mapKey =
+                (messageFilename && sourceMapsRecord?.[messageFilename]
+                  ? messageFilename
+                  : undefined) ??
+                (hasMap ? Object.keys(sourceMapsRecord!)[0] ?? 'script' : undefined) ??
+                (messageFilename ?? source);
               let lineNumber: number = rawLineNumber;
               let columnNumber: number | undefined = rawColumnNumber;
               const hasColumn = columnNumber !== undefined;
-              if (sourceMapsRecord && mapKey) {
-                const rawMap = sourceMapsRecord[mapKey];
+              const rawMap = hasMap && mapKey ? sourceMapsRecord![mapKey] : undefined;
+              if (rawMap) {
                 if (columnNumber !== undefined) {
                   const position = getOriginalPosition(rawMap, rawLineNumber, columnNumber);
                   if (position) {
@@ -238,7 +247,7 @@ export const createConsole = (
                   }
                 } else {
                   const mappedLine = toPositiveLineNumber(
-                    getSourceLineMap(mapKey)?.get(rawLineNumber),
+                    getSourceLineMap(mapKey!)?.get(rawLineNumber),
                   );
                   if (mappedLine) {
                     lineNumber = mappedLine;
@@ -247,11 +256,11 @@ export const createConsole = (
               }
               const columnSuffix = hasColumn ? `:${columnNumber}` : '';
               lineNumberQueue.push(`${mapKey}:${lineNumber}${columnSuffix}`);
-              // Break Luna's deduplication when source OR line changes.
-              // Only identical messages from the exact same source+line (e.g. a loop) are grouped.
-              if (lastProcessedSource !== source || lastProcessedLine !== lineNumber) {
+              // Break Luna's deduplication when the badge identity (file+line) changes.
+              // Only identical messages from the same file+line (e.g. a loop) are grouped.
+              if (lastProcessedSource !== mapKey || lastProcessedLine !== lineNumber) {
                 (consoleEmulator as any).lastLog = null;
-                lastProcessedSource = source;
+                lastProcessedSource = mapKey;
                 lastProcessedLine = lineNumber;
               }
             } else if (!message.silent) {

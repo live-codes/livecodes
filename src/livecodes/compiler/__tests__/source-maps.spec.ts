@@ -1,6 +1,7 @@
 import {
   buildSourceLineMap,
   decodeVlq,
+  getConsoleCallSiteFromError,
   getOriginalPosition,
   toPositiveLineNumber,
 } from '../source-maps';
@@ -301,5 +302,53 @@ describe('getOriginalPosition', () => {
 
   test('returns undefined for empty mappings', () => {
     expect(getOriginalPosition(JSON.stringify({ mappings: '' }), 1, 1)).toBeUndefined();
+  });
+});
+
+describe('getConsoleCallSiteFromError (multi-file)', () => {
+  const stackWith = (frame: string) =>
+    `Error: boom\n    at throwError (${frame})\n    at <anonymous> (script.js:1:1)`;
+
+  const resetBodyOffsets = () => {
+    // multi-file pages have no document line offsets set on <body>
+    delete document.body?.dataset.livecodesMarkupLineOffset;
+    delete document.body?.dataset.livecodesScriptLineOffset;
+  };
+
+  beforeEach(resetBodyOffsets);
+
+  test('detects the filename from a bare sourceURL frame', () => {
+    const callSite = getConsoleCallSiteFromError(12, stackWith('tax-calculator.ts:12:5'));
+    expect(callSite.filename).toBe('tax-calculator.ts');
+    expect(callSite.lineNumber).toBe(12);
+    expect(callSite.columnNumber).toBe(5);
+    expect(callSite.source).toBe('script');
+  });
+
+  test('handles the "at fn (file.ts:l:c)" frame format', () => {
+    const callSite = getConsoleCallSiteFromError(3, stackWith('utils.ts:3:1'));
+    expect(callSite.filename).toBe('utils.ts');
+    expect(callSite.lineNumber).toBe(3);
+  });
+
+  test('does not treat a plain script frame as a multi-file filename', () => {
+    const callSite = getConsoleCallSiteFromError(1, stackWith('script.js:1:1'));
+    expect(callSite.filename).toBeUndefined();
+  });
+
+  test('does not treat a data URL frame as a multi-file filename', () => {
+    const frame = 'data:text/javascript;base64,aGVsbG8=:4:2';
+    const callSite = getConsoleCallSiteFromError(4, stackWith(frame));
+    expect(callSite.filename).toBeUndefined();
+  });
+
+  test('does not treat a blob URL frame as a multi-file filename', () => {
+    const callSite = getConsoleCallSiteFromError(7, stackWith('blob:https://x/y-a1b2c3:7:1'));
+    expect(callSite.filename).toBeUndefined();
+  });
+
+  test('falls back to no filename for frames without a trailing line:col', () => {
+    const callSite = getConsoleCallSiteFromError(2, `Error: boom\n    at fn`);
+    expect(callSite.filename).toBeUndefined();
   });
 });

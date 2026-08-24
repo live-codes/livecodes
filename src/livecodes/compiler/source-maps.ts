@@ -12,10 +12,12 @@ export interface ConsoleCallSite {
   markupOffset?: number;
   scriptOffset?: number;
   externalScriptFrame?: boolean;
+  // Set for multi-file projects: the file the call site belongs to (matches
+  // the `//# sourceURL=<filename>` injected by the result page, and the key in
+  // CompileInfo.sourceMaps). When present, `lineNumber` is that file's
+  // module-local compiled line, to be mapped through that file's own source map.
+  filename?: string;
 }
-
-export const isConsoleDisplaySource = (source: unknown): source is ConsoleDisplaySource =>
-  source === 'markup' || source === 'style' || source === 'script';
 
 // ─── Line number utilities ─────────────────────────────────────────────────────
 
@@ -203,6 +205,34 @@ const getOffsets = () => ({
   script: Number(document.body?.dataset?.livecodesScriptLineOffset ?? 0),
 });
 
+// Extracts the frame's URL token (the file the frame belongs to), e.g.
+//   "    at fn (tax-calculator.ts:12:5)"  → "tax-calculator.ts"
+//   "  utils.ts:5:1"                      → "utils.ts"
+// Used for multi-file call sites, where each module is a data URL carrying
+// `//# sourceURL=<filename>`.
+const getFrameUrl = (callerFrame: string): string | undefined => {
+  const match = callerFrame.match(/\(?([^\s()]+):\d+:\d+\)?[\s]*$/);
+  if (!match) return undefined;
+  let url = match[1];
+  // strip surrounding parens and leading path decorations from sourceURL
+  url = url.replace(/^\(/, '').replace(/\)$/, '');
+  url = url.replace(/^[~/]*(\.\/)*/, '');
+  return url || undefined;
+};
+
+// A filename extracted from the frame is only a usable multi-file source key when
+// the frame is a bare sourceURL (module-local), not an external/data URL or an
+// unknown builtin frame. Plain JS files are excluded: single-file uses
+// `//# sourceURL=script.js`, and only non-JS source files carry per-file maps.
+const isSourceUrlFilename = (url: string): boolean =>
+  url.length > 0 &&
+  !url.startsWith('data:') &&
+  !isExternalScriptFrame(url) &&
+  !/\.m?js$/i.test(url) && // skip plain JS (single-file bootstrapper)
+  !/^[a-zA-Z][\w+.-]*:/.test(url) && // some scheme prefix (http://, blob:, etc.)
+  url.includes('.') && // require an extension, e.g. utils.ts
+  !url.endsWith(':');
+
 const isExternalScriptFrame = (frame: string) =>
   /data:text\/javascript/i.test(frame) ||
   /blob:/i.test(frame) ||
@@ -216,7 +246,10 @@ const getCandidateFrame = (stack: string) => {
       !/result-utils(?:\.[\w-]+)?\.js/i.test(frame) &&
       frame.match(/:(\d+):\d+\)?[\s]*$/),
   );
-  return codeFrames.find(isExternalScriptFrame) ?? codeFrames[0] ?? '';
+  // Prefer a frame naming a real sourceURL file (multi-file projects), so an
+  // external `.js` bootstrapper or frame doesn't shadow the user's file.
+  const sourceUrlFrame = codeFrames.find((frame) => isSourceUrlFilename(getFrameUrl(frame) ?? ''));
+  return sourceUrlFrame ?? codeFrames.find(isExternalScriptFrame) ?? codeFrames[0] ?? '';
 };
 
 const getLineNumberFromFrame = (callerFrame: string): number | undefined => {
@@ -236,6 +269,25 @@ const resolveConsoleCallSiteFromDocLine = (
 ): ConsoleCallSite => {
   const { markup: markupOffset, script: scriptOffset } = getOffsets();
   const externalScriptFrame = isExternalScriptFrame(callerFrame ?? '');
+
+  // Multi-file call sites: each module is injected as its own data URL carrying
+  // `//# sourceURL=<filename>`, so the frame names a bare file and its line is
+  // module-local (mapped through that file's own source map). Single-file inline
+  // scripts instead rely on document offsets, so only use this branch when a
+  // real sourceURL filename is present.
+  const frameUrl = callerFrame ? getFrameUrl(callerFrame) : undefined;
+  if (frameUrl && isSourceUrlFilename(frameUrl)) {
+    return {
+      lineNumber: docLine,
+      columnNumber: column,
+      source: 'script',
+      callerFrame,
+      markupOffset,
+      scriptOffset,
+      externalScriptFrame,
+      filename: frameUrl,
+    };
+  }
 
   if (externalScriptFrame || (!markupOffset && !scriptOffset)) {
     return {
