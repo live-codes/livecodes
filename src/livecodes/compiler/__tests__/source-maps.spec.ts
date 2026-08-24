@@ -331,19 +331,38 @@ describe('getConsoleCallSiteFromError (multi-file)', () => {
     expect(callSite.lineNumber).toBe(3);
   });
 
-  test('does not treat a plain script frame as a multi-file filename', () => {
+  test('detects a plain JS file of a multi-file project (no source map)', () => {
+    const callSite = getConsoleCallSiteFromError(4, stackWith('counter.js:4:1'));
+    expect(callSite.filename).toBe('counter.js');
+    expect(callSite.lineNumber).toBe(4);
+  });
+
+  test('a multi-file project may legitimately contain a script.js file', () => {
+    const callSite = getConsoleCallSiteFromError(1, stackWith('script.js:1:1'));
+    expect(callSite.filename).toBe('script.js');
+    expect(callSite.lineNumber).toBe(1);
+  });
+
+  test('single-file: with document offsets, the script.js bootstrap is not a filename', () => {
+    // single-file pages set document line offsets on <body>
+    document.body!.dataset.livecodesScriptLineOffset = '10';
+    document.body!.dataset.livecodesMarkupLineOffset = '3';
     const callSite = getConsoleCallSiteFromError(1, stackWith('script.js:1:1'));
     expect(callSite.filename).toBeUndefined();
+    expect(callSite.source).toBe('script');
   });
 
   test('does not treat a data URL frame as a multi-file filename', () => {
     const frame = 'data:text/javascript;base64,aGVsbG8=:4:2';
-    const callSite = getConsoleCallSiteFromError(4, stackWith(frame));
+    const callSite = getConsoleCallSiteFromError(4, `Error: boom\n    at throwError (${frame})`);
     expect(callSite.filename).toBeUndefined();
   });
 
   test('does not treat a blob URL frame as a multi-file filename', () => {
-    const callSite = getConsoleCallSiteFromError(7, stackWith('blob:https://x/y-a1b2c3:7:1'));
+    const callSite = getConsoleCallSiteFromError(
+      7,
+      `Error: boom\n    at throwError (blob:https://x/y-a1b2c3:7:1)`,
+    );
     expect(callSite.filename).toBeUndefined();
   });
 

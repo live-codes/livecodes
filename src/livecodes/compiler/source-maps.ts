@@ -220,15 +220,15 @@ const getFrameUrl = (callerFrame: string): string | undefined => {
   return url || undefined;
 };
 
-// A filename extracted from the frame is only a usable multi-file source key when
-// the frame is a bare sourceURL (module-local), not an external/data URL or an
-// unknown builtin frame. Plain JS files are excluded: single-file uses
-// `//# sourceURL=script.js`, and only non-JS source files carry per-file maps.
+// A filename extracted from the frame is only a usable source key when the frame
+// is a bare sourceURL (module-local), not an external/data URL or an unknown
+// builtin frame. This intentionally includes plain `.js` files (e.g. `counter.js`
+// or even a multi-file project's own `script.js`); distinguishing single-file from
+// multi-file is done by the caller via the presence of document line offsets.
 const isSourceUrlFilename = (url: string): boolean =>
   url.length > 0 &&
   !url.startsWith('data:') &&
   !isExternalScriptFrame(url) &&
-  !/\.m?js$/i.test(url) && // skip plain JS (single-file bootstrapper)
   !/^[a-zA-Z][\w+.-]*:/.test(url) && // some scheme prefix (http://, blob:, etc.)
   url.includes('.') && // require an extension, e.g. utils.ts
   !url.endsWith(':');
@@ -273,10 +273,12 @@ const resolveConsoleCallSiteFromDocLine = (
   // Multi-file call sites: each module is injected as its own data URL carrying
   // `//# sourceURL=<filename>`, so the frame names a bare file and its line is
   // module-local (mapped through that file's own source map). Single-file inline
-  // scripts instead rely on document offsets, so only use this branch when a
-  // real sourceURL filename is present.
+  // scripts instead rely on document offsets (markupOffset/scriptOffset) to
+  // resolve the line, so only treat a frame as a source file when there are no
+  // document offsets (i.e. multi-file mode).
+  const hasDocOffsets = markupOffset > 0 || scriptOffset > 0;
   const frameUrl = callerFrame ? getFrameUrl(callerFrame) : undefined;
-  if (frameUrl && isSourceUrlFilename(frameUrl)) {
+  if (!hasDocOffsets && frameUrl && isSourceUrlFilename(frameUrl)) {
     return {
       lineNumber: docLine,
       columnNumber: column,

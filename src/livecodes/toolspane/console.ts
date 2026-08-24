@@ -229,11 +229,12 @@ export const createConsole = (
               const hasMap =
                 !!sourceMapsRecord && Object.keys(sourceMapsRecord).length > 0;
               const mapKey =
-                (messageFilename && sourceMapsRecord?.[messageFilename]
-                  ? messageFilename
-                  : undefined) ??
+                // A filename reported by the sandbox is the most specific key: when it
+                // has a source map it is used for mapping; otherwise (e.g. a plain `.js`
+                // file with no map) the raw line is already correct, so still label it.
+                messageFilename ??
                 (hasMap ? Object.keys(sourceMapsRecord!)[0] ?? 'script' : undefined) ??
-                (messageFilename ?? source);
+                source;
               let lineNumber: number = rawLineNumber;
               let columnNumber: number | undefined = rawColumnNumber;
               const hasColumn = columnNumber !== undefined;
