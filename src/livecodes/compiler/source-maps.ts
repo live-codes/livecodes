@@ -234,46 +234,46 @@ const resolveConsoleCallSiteFromDocLine = (
   callerFrame?: string,
   column?: number,
 ): ConsoleCallSite => {
-  const { markup, script } = getOffsets();
+  const { markup: markupOffset, script: scriptOffset } = getOffsets();
   const externalScriptFrame = isExternalScriptFrame(callerFrame ?? '');
 
-  if (externalScriptFrame || (!markup && !script)) {
+  if (externalScriptFrame || (!markupOffset && !scriptOffset)) {
     return {
       lineNumber: docLine,
       columnNumber: column,
       source: 'script',
       callerFrame,
-      markupOffset: markup,
-      scriptOffset: script,
+      markupOffset,
+      scriptOffset,
       externalScriptFrame,
     };
   }
 
-  if (script > 0) {
-    const source: ConsoleSource = docLine >= script ? 'script' : 'markup';
+  if (scriptOffset > 0) {
+    const source: ConsoleSource = docLine >= scriptOffset ? 'script' : 'markup';
     const lineNumber =
       source === 'script'
-        ? toUserLine(docLine, script) ?? docLine
-        : getMarkupInlineScriptLine(docLine, markup) ?? docLine;
+        ? toUserLine(docLine, scriptOffset) ?? docLine
+        : getMarkupInlineScriptLine(docLine, markupOffset) ?? docLine;
     return {
       lineNumber,
       columnNumber: column,
       source,
       callerFrame,
-      markupOffset: markup,
-      scriptOffset: script,
+      markupOffset: markupOffset,
+      scriptOffset,
       externalScriptFrame,
     };
   }
 
-  if (markup > 0) {
+  if (markupOffset > 0) {
     return {
-      lineNumber: getMarkupInlineScriptLine(docLine, markup) ?? docLine,
+      lineNumber: getMarkupInlineScriptLine(docLine, markupOffset) ?? docLine,
       columnNumber: column,
       source: 'markup',
       callerFrame,
-      markupOffset: markup,
-      scriptOffset: script,
+      markupOffset,
+      scriptOffset,
       externalScriptFrame,
     };
   }
@@ -283,8 +283,8 @@ const resolveConsoleCallSiteFromDocLine = (
     columnNumber: column,
     source: 'script',
     callerFrame,
-    markupOffset: markup,
-    scriptOffset: script,
+    markupOffset,
+    scriptOffset,
     externalScriptFrame,
   };
 };

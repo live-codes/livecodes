@@ -135,6 +135,20 @@ export const createMultiFileResultPage = async ({
     dom.head.appendChild(utilsScript);
   }
 
+  const consoleEnabled =
+    !forExport &&
+    (config.tools?.enabled === 'all' ||
+      config.tools?.enabled == null ||
+      config.tools?.enabled.includes('console'));
+  const markupInlineScripts = dom.body.querySelectorAll<HTMLScriptElement>('script:not([src])');
+  const shouldMarkInlineScripts = consoleEnabled && markupInlineScripts.length > 0;
+  if (shouldMarkInlineScripts) {
+    // Mark inline scripts from markup so runtime can recover absolute markup line numbers.
+    markupInlineScripts.forEach((script, index) => {
+      script.dataset.livecodesMarkupScriptId = String(index + 1);
+    });
+  }
+
   // user-defined import map in <script type="importmap">
   type ImportMap = Partial<{ [key in 'imports' | 'scopes']: Record<string, string> }>;
   let userDefinedImportmap: ImportMap = {};
@@ -250,6 +264,33 @@ export const createMultiFileResultPage = async ({
     if (getLanguageEditorId(file.language) === 'style') {
       file.compiled = getStylesheetWithImports(file);
       return;
+    }
+
+    if (getLanguageEditorId(file.language) === 'script') {
+      const sourceMap =
+        // allow having sourceMappingURL for javascript (with no sourceMap)
+        config.script.language === 'javascript' ? '{}' : compileInfo.sourceMaps?.[file.filename];
+      if (sourceMap) {
+        let sourceMapObj = {};
+        let hasValidSourceMap = false;
+        try {
+          sourceMapObj = {
+            ...JSON.parse(sourceMap as string),
+            file: file.filename,
+            sources: [file.filename],
+            sourcesContent: [file.content || ''],
+          };
+          hasValidSourceMap = true;
+        } catch (e) {
+          // invalid sourceMap
+        }
+        console.log(sourceMapObj);
+        const sourceMappingURL = `data:application/json;base64,${btoa(JSON.stringify(sourceMapObj))}`;
+        const supportsSourceUrl = consoleEnabled && hasValidSourceMap;
+        file.compiled = supportsSourceUrl
+          ? `${file.compiled}\n//# sourceURL=${file.filename}\n//# sourceMappingURL=${sourceMappingURL}`
+          : file.compiled;
+      }
     }
 
     // ESM imports are resolved using importmaps to data URLs

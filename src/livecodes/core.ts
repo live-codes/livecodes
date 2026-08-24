@@ -1645,6 +1645,10 @@ const getMultiFileResultPage = async ({
     }
   }
 
+  const { sourceMaps } = compileInfo ?? {};
+  const consoleSourceMaps = sourceMaps ?? null;
+  toolsPane?.console?.setSourceMap?.(consoleSourceMaps);
+
   const mainFile = compiledFiles.find((f) => f.filename === getMainFile(config));
   const compiledContent =
     compiledFiles

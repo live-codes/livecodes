@@ -3,9 +3,7 @@ import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '..
 import {
   buildSourceLineMap,
   getOriginalPosition,
-  isConsoleDisplaySource,
   toPositiveLineNumber,
-  type ConsoleDisplaySource,
 } from '../compiler/source-maps';
 import { getEditorConfig } from '../config';
 import { createEditor, getFontFamily } from '../editor';
@@ -93,9 +91,6 @@ export const createConsole = (
       }
       return arg.content;
     });
-
-  const getSource = (source: unknown): ConsoleDisplaySource =>
-    isConsoleDisplaySource(source) ? source : 'script';
 
   const setupInsertListener = () => {
     (consoleEmulator as any).on('insert', (log: any) => {
@@ -217,7 +212,7 @@ export const createConsole = (
               message.lineNumber !== undefined &&
               lineDisplayMethods.includes(message.method)
             ) {
-              const source = getSource(message.source);
+              const source = message.source;
               const rawLineNumber = toPositiveLineNumber(message.lineNumber);
               const rawColumnNumber = toPositiveLineNumber(message.columnNumber);
               if (!rawLineNumber) {
@@ -227,14 +222,13 @@ export const createConsole = (
                 return;
               }
               // Console messages have no filename, so use first source-map key.
-              const mapKey =
-                source === 'script' && sourceMapsRecord
-                  ? Object.keys(sourceMapsRecord)[0] ?? 'script'
-                  : source;
+              const mapKey = sourceMapsRecord
+                ? Object.keys(sourceMapsRecord)[0] ?? 'script'
+                : source;
               let lineNumber: number = rawLineNumber;
               let columnNumber: number | undefined = rawColumnNumber;
               const hasColumn = columnNumber !== undefined;
-              if (source === 'script' && sourceMapsRecord && mapKey) {
+              if (sourceMapsRecord && mapKey) {
                 const rawMap = sourceMapsRecord[mapKey];
                 if (columnNumber !== undefined) {
                   const position = getOriginalPosition(rawMap, rawLineNumber, columnNumber);
