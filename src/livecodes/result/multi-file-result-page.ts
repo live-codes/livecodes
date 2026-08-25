@@ -148,9 +148,33 @@ export const createMultiFileResultPage = async ({
   const markupInlineScripts = dom.body.querySelectorAll<HTMLScriptElement>('script:not([src])');
   const shouldMarkInlineScripts = consoleEnabled && markupInlineScripts.length > 0;
   if (shouldMarkInlineScripts) {
-    // Mark inline scripts from markup so runtime can recover absolute markup line numbers.
+    // Mark inline scripts from the main file so the runtime can recover their
+    // file-relative line numbers. Compute the line against the *original* main
+    // file content (before LiveCodes prepends its own scripts to <head>), so the
+    // line matches the editor's coordinates for the main file.
+    const mainFileLines = mainFileHTML.split('\n');
+    const inlineScriptTagLines: number[] = [];
+    let inScriptTag = false;
+    mainFileLines.forEach((line, i) => {
+      if (!inScriptTag) {
+        // a line containing an inline `<script>` opening tag (no src=, not importmap)
+        if (/<script\b[^>]*>/i.test(line) && !/src\s*=/i.test(line) && !/importmap/i.test(line)) {
+          inlineScriptTagLines.push(i + 1);
+          inScriptTag = true;
+        }
+      } else if (/<\/script>/i.test(line)) {
+        inScriptTag = false;
+      }
+    });
     markupInlineScripts.forEach((script, index) => {
       script.dataset.livecodesMarkupScriptId = String(index + 1);
+      const startsWithNewLine = /^(\r\n|\n|\r)/.test(script.textContent ?? '');
+      script.dataset.livecodesMarkupScriptStackBase = startsWithNewLine ? '2' : '1';
+      const tagLine = inlineScriptTagLines[index];
+      if (tagLine) {
+        // line where this script's content begins (tag line + 1 for a leading newline)
+        script.dataset.livecodesMarkupScriptLine = String(tagLine + (startsWithNewLine ? 1 : 0));
+      }
     });
   }
 
@@ -699,52 +723,28 @@ window.browserJest.run().then(results => {
     dom.body.appendChild(testScript);
   }
 
-  // Mark inline scripts from the main file so the sandbox can recover their
-  // markup line numbers. The raw stack frame line is the same collapsed
-  // injection point for every inline script, so the per-script start line and a
-  // module prologue are used to identify it. Lines are reported against the
-  // main file's own editor coordinates (file-relative).
+  // The inline scripts were marked (with their file-relative lines) when the
+  // main file was first parsed; only the deferred module prologue and the
+  // per-script cleanup remain here.
   if (shouldMarkInlineScripts) {
-    const tempHtml = '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
-    // `<!DOCTYPE html>\n` is prepended here; the main file's own doctype (if any)
-    // is dropped during parsing, so page line 1 corresponds to file line 1 only
-    // when the main file carries its own doctype, otherwise file lines start one
-    // line later (offset 1).
-    const hasOwnDoctype = /^\s*<!doctype/i.test(mainFileHTML);
-    const filesOffset = hasOwnDoctype ? 0 : 1;
-
-    const markupScriptTagMatches = tempHtml.matchAll(
-      /<script\b[^>]*data-livecodes-markup-script-id=(['"])(\d+)\1[^>]*>/gi,
-    );
-    for (const match of markupScriptTagMatches) {
-      const scriptId = match[2];
-      const tagIndex = match.index;
-      if (tagIndex == null) continue;
-      const scriptTagLine = (tempHtml.slice(0, tagIndex).match(/\n/g) ?? []).length + 1;
-      const scriptElement = dom.body.querySelector<HTMLScriptElement>(
-        `script[data-livecodes-markup-script-id="${scriptId}"]`,
-      );
-      if (scriptElement) {
-        const startsWithNewLine = /^(\r\n|\n|\r)/.test(scriptElement.textContent ?? '');
-        scriptElement.dataset.livecodesMarkupScriptStackBase = startsWithNewLine ? '2' : '1';
-        // file-relative line where this script's content begins
-        const fileScriptLine = scriptTagLine - filesOffset + (startsWithNewLine ? 1 : 0);
-        scriptElement.dataset.livecodesMarkupScriptLine = String(fileScriptLine);
-        // module scripts run deferred (document.currentScript is null); see single-file.
+    dom.body
+      .querySelectorAll<HTMLScriptElement>('script[data-livecodes-markup-script-id]')
+      .forEach((scriptElement) => {
+        // module scripts run deferred (document.currentScript is null); prepend a
+        // low-cost prologue that records the module's file-relative start line so
+        // the sandbox can identify it (see multi-file inline resolver).
         if (
           scriptElement.type === 'module' &&
           !/^\s*(import|export)\b/.test(scriptElement.textContent ?? '')
         ) {
-          scriptElement.textContent =
-            // eslint-disable-next-line prettier/prettier
-            `document.body.dataset.livecodesCurrentMarkupScriptLine = ${JSON.stringify(String(fileScriptLine))};` +
-            scriptElement.textContent;
+          const fileScriptLine = scriptElement.dataset.livecodesMarkupScriptLine;
+          if (fileScriptLine) {
+            scriptElement.textContent =
+              // eslint-disable-next-line prettier/prettier
+              `document.body.dataset.livecodesCurrentMarkupScriptLine = ${JSON.stringify(fileScriptLine)};` +
+              scriptElement.textContent;
+          }
         }
-      }
-    }
-    dom.body
-      .querySelectorAll<HTMLScriptElement>('script[data-livecodes-markup-script-id]')
-      .forEach((scriptElement) => {
         delete scriptElement.dataset.livecodesMarkupScriptId;
       });
 

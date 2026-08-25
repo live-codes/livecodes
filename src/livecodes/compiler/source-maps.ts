@@ -170,6 +170,9 @@ const getCurrentMarkupScriptStackBase = (): number => {
 };
 
 const getMarkupInlineScriptLine = (docLine: number, markupOffset: number): number | undefined => {
+  // `data-livecodes-markup-script-line` is the editor line where the script's
+  // content begins. The raw frame `docLine` increases one line per editor line
+  // within the script, so adding `docLine - stackBase` recovers the per-log line.
   const currentScriptStartLine = getCurrentMarkupScriptStartLine();
   if (currentScriptStartLine) {
     const stackBase = getCurrentMarkupScriptStackBase();
