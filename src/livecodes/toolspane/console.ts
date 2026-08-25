@@ -128,7 +128,8 @@ export const createConsole = (
         const badge = document.createElement('a');
         badge.href = '#';
         badge.className = 'console-line-number';
-        badge.textContent = `${filename}:${lineStr}`;
+        badge.textContent = `${filename.split('/').pop()}:${lineStr}`;
+        badge.title = `${filename}:${lineStr}`;
 
         badge.addEventListener('click', (e) => {
           e.preventDefault();
