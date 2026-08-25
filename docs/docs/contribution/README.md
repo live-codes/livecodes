@@ -23,11 +23,11 @@ This directory contains comprehensive documentation for contributors working on 
 
 ### Editor & UI
 
-| Document                                             | Description                                                   |
-| ---------------------------------------------------- | ------------------------------------------------------------- |
-| [editor-system.mdx](./editor-system.mdx)             | Multi-editor support (Monaco, CodeMirror, CodeJar) and themes |
-| [ui-design-system.mdx](./ui-design-system.mdx)       | UI components, styling, theming, and responsive design        |
-| [tools-pane-system.mdx](./tools-pane-system.mdx)     | Console, compiled code viewer, and test runner                |
+| Document                                              | Description                                                   |
+| ----------------------------------------------------- | ------------------------------------------------------------- |
+| [editor-system.mdx](./editor-system.mdx)              | Multi-editor support (Monaco, CodeMirror, CodeJar) and themes |
+| [ui-design-system.mdx](./ui-design-system.mdx)        | UI components, styling, theming, and responsive design        |
+| [tools-pane-system.mdx](./tools-pane-system.mdx)      | Console, compiled code viewer, and test runner                |
 | [notifications-system.md](./notifications-system.mdx) | Toast notification system                                     |
 
 ### Language Support
@@ -40,12 +40,13 @@ This directory contains comprehensive documentation for contributors working on 
 
 ### Features
 
-| Document                                                   | Description                                               |
-| ---------------------------------------------------------- | --------------------------------------------------------- |
-| [import-system.mdx](./import-system.mdx)                   | Import from GitHub, GitLab, files, URLs, and more         |
-| [export-system.mdx](./export-system.mdx)                   | Export to JSON, ZIP, HTML, CodePen, JSFiddle, GitHub Gist |
-| [result-page.mdx](./result-page.mdx)                       | Result iframe generation and sandbox creation             |
-| [code-formatting-system.mdx](./code-formatting-system.mdx) | Prettier integration and custom formatters                |
+| Document                                                                     | Description                                               |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------- |
+| [import-system.mdx](./import-system.mdx)                                     | Import from GitHub, GitLab, files, URLs, and more         |
+| [export-system.mdx](./export-system.mdx)                                     | Export to JSON, ZIP, HTML, CodePen, JSFiddle, GitHub Gist |
+| [result-page.mdx](./result-page.mdx)                                         | Result iframe generation and sandbox creation             |
+| [sourcemaps-console-line-numbers.mdx](./sourcemaps-console-line-numbers.mdx) | Console log/error line mapping via source maps            |
+| [code-formatting-system.mdx](./code-formatting-system.mdx)                   | Prettier integration and custom formatters                |
 
 ### Services & Infrastructure
 
@@ -80,8 +81,8 @@ This directory contains comprehensive documentation for contributors working on 
 
 ### Deployment
 
-| Document                           | Description                                   |
-| ---------------------------------- | --------------------------------------------- |
+| Document                           | Description                                    |
+| ---------------------------------- | ---------------------------------------------- |
 | [deployment.mdx](./deployment.mdx) | GitHub Actions deployment workflows and guards |
 
 ## Code Style
