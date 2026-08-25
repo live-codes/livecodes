@@ -156,18 +156,6 @@ const toUserLine = (docLine: number, offset: number): number | undefined => {
   return toPositiveLineNumber(docLine - offset);
 };
 
-const getMarkupInlineScriptStartLines = () => {
-  const scriptTags = Array.from(
-    document.body?.querySelectorAll<HTMLScriptElement>(
-      'script[data-livecodes-markup-script-line]',
-    ) ?? [],
-  );
-  return scriptTags
-    .map((script) => Number(script.dataset.livecodesMarkupScriptLine))
-    .filter((line) => Number.isFinite(line) && line > 0)
-    .sort((a, b) => a - b);
-};
-
 const getCurrentMarkupScriptStartLine = () => {
   const script = document.currentScript;
   if (!script) return undefined;
@@ -188,14 +176,30 @@ const getMarkupInlineScriptLine = (docLine: number, markupOffset: number): numbe
     return toPositiveLineNumber(currentScriptStartLine + docLine - stackBase);
   }
 
-  if (docLine < markupOffset) {
-    const firstScriptStartLine = getMarkupInlineScriptStartLines()[0];
-    if (firstScriptStartLine) {
-      return toPositiveLineNumber(firstScriptStartLine + docLine - 1);
-    }
+  // `type="module"` inline scripts run deferred, so `document.currentScript` is
+  // null while they execute. The result page prepends a low-cost prologue to
+  // each inline module that records its own markup start line on <body>; use it
+  // to identify the module that is currently logging. (The raw frame line is the
+  // same collapsed injection point for every inline script, so it cannot
+  // identify the module on its own.)
+  const moduleMarkupLine = document.body?.dataset.livecodesCurrentMarkupScriptLine;
+  if (moduleMarkupLine) {
+    return toPositiveLineNumber(Number(moduleMarkupLine));
   }
 
   return toUserLine(docLine, markupOffset);
+};
+
+// Multi-file inline scripts: the per-script `data-livecodes-markup-script-line`
+// (or the module prologue marker) is already the exact file-relative line, so
+// return it directly without the document-relative docLine correction used in
+// single-file.
+const getMultifileInlineScriptLine = (): number | undefined => {
+  const currentScriptStartLine = getCurrentMarkupScriptStartLine();
+  if (currentScriptStartLine) return currentScriptStartLine;
+  const moduleMarkupLine = document.body?.dataset.livecodesCurrentMarkupScriptLine;
+  if (moduleMarkupLine) return toPositiveLineNumber(Number(moduleMarkupLine));
+  return undefined;
 };
 
 // ─── Console call-site detector ───────────────────────────────────────────────
@@ -277,6 +281,7 @@ const resolveConsoleCallSiteFromDocLine = (
   // into this resolution; single-file applies its document-offset markup/script
   // logic instead.
   const isMultiFile = document.body?.dataset.livecodesMultiFile === 'true';
+  const mainFile = document.body?.dataset.livecodesMainFile || '';
   const frameUrl = callerFrame ? getFrameUrl(callerFrame) : undefined;
   if (isMultiFile && frameUrl && isSourceUrlFilename(frameUrl)) {
     return {
@@ -289,6 +294,26 @@ const resolveConsoleCallSiteFromDocLine = (
       externalScriptFrame,
       filename: frameUrl,
     };
+  }
+
+  // Multi-file: an inline script of the main markup file (no `sourceURL`, so no
+  // filename branch above) is reported against the main file rather than the
+  // generic single-file 'markup' source. Its line is the file-relative line
+  // recorded on the script (already exact), not the document-relative docLine.
+  if (isMultiFile && mainFile) {
+    const markupLine = getMultifileInlineScriptLine();
+    if (markupLine) {
+      return {
+        lineNumber: markupLine,
+        columnNumber: column,
+        source: 'script',
+        callerFrame,
+        markupOffset,
+        scriptOffset,
+        externalScriptFrame,
+        filename: mainFile,
+      };
+    }
   }
 
   if (externalScriptFrame || (!markupOffset && !scriptOffset)) {

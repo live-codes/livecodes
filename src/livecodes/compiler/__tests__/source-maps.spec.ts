@@ -315,6 +315,8 @@ describe('getConsoleCallSiteFromError (multi-file)', () => {
     delete document.body?.dataset.livecodesMarkupLineOffset;
     delete document.body?.dataset.livecodesScriptLineOffset;
     delete document.body?.dataset.livecodesMultiFile;
+    delete document.body?.dataset.livecodesMainFile;
+    delete document.body?.dataset.livecodesCurrentMarkupScriptLine;
   };
 
   beforeEach(resetBodyState);
@@ -375,6 +377,21 @@ describe('getConsoleCallSiteFromError (multi-file)', () => {
     document.body!.dataset.livecodesMultiFile = 'true';
     const callSite = getConsoleCallSiteFromError(2, `Error: boom\n    at fn`);
     expect(callSite.filename).toBeUndefined();
+  });
+
+  test('multi-file: an inline script reports the main file name', () => {
+    document.body!.dataset.livecodesMultiFile = 'true';
+    document.body!.dataset.livecodesMainFile = 'index.html';
+    document.body!.dataset.livecodesMarkupLineOffset = '4';
+    // inline module prologue records its markup start line on <body>
+    document.body!.dataset.livecodesCurrentMarkupScriptLine = '11';
+    const callSite = getConsoleCallSiteFromError(
+      2,
+      `Error: boom\n    at <anonymous> (http://x:2:15)`,
+    );
+    expect(callSite.filename).toBe('index.html');
+    expect(callSite.source).toBe('script');
+    expect(callSite.lineNumber).toBe(11);
   });
 });
 

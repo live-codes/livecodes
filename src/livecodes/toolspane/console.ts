@@ -223,17 +223,20 @@ export const createConsole = (
               }
               // Prefer the filename reported by the sandbox (multi-file projects,
               // where each module is a separate data URL with its own source map).
-              // Fall back to the first source-map key (single-file) or the source.
+              // Fall back to the first source-map key (single-file script) or the
+              // source. Markup-inline call sites must NOT be remapped through a
+              // script source map — keep their 'markup' source as-is.
               const messageFilename =
                 typeof message.filename === 'string' ? message.filename : undefined;
-              const hasMap =
-                !!sourceMapsRecord && Object.keys(sourceMapsRecord).length > 0;
+              const hasMap = !!sourceMapsRecord && Object.keys(sourceMapsRecord).length > 0;
               const mapKey =
                 // A filename reported by the sandbox is the most specific key: when it
                 // has a source map it is used for mapping; otherwise (e.g. a plain `.js`
                 // file with no map) the raw line is already correct, so still label it.
                 messageFilename ??
-                (hasMap ? Object.keys(sourceMapsRecord!)[0] ?? 'script' : undefined) ??
+                (hasMap && source !== 'markup'
+                  ? Object.keys(sourceMapsRecord!)[0] ?? 'script'
+                  : undefined) ??
                 source;
               let lineNumber: number = rawLineNumber;
               let columnNumber: number | undefined = rawColumnNumber;

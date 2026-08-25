@@ -125,6 +125,9 @@ export const createMultiFileResultPage = async ({
     dom.head.appendChild(utilsScript);
   } else {
     dom.body.dataset.livecodesMultiFile = 'true';
+    // The name of the main markup file, so inline markup scripts can be reported
+    // against it (e.g. `index.html`) rather than a generic 'markup' source.
+    dom.body.dataset.livecodesMainFile = mainFile || '';
 
     const templateDomParser = new DOMParser();
     const templateDom = templateDomParser.parseFromString(template, 'text/html');
@@ -694,6 +697,58 @@ window.browserJest.run().then(results => {
 });
     `;
     dom.body.appendChild(testScript);
+  }
+
+  // Mark inline scripts from the main file so the sandbox can recover their
+  // markup line numbers. The raw stack frame line is the same collapsed
+  // injection point for every inline script, so the per-script start line and a
+  // module prologue are used to identify it. Lines are reported against the
+  // main file's own editor coordinates (file-relative).
+  if (shouldMarkInlineScripts) {
+    const tempHtml = '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+    // `<!DOCTYPE html>\n` is prepended here; the main file's own doctype (if any)
+    // is dropped during parsing, so page line 1 corresponds to file line 1 only
+    // when the main file carries its own doctype, otherwise file lines start one
+    // line later (offset 1).
+    const hasOwnDoctype = /^\s*<!doctype/i.test(mainFileHTML);
+    const filesOffset = hasOwnDoctype ? 0 : 1;
+
+    const markupScriptTagMatches = tempHtml.matchAll(
+      /<script\b[^>]*data-livecodes-markup-script-id=(['"])(\d+)\1[^>]*>/gi,
+    );
+    for (const match of markupScriptTagMatches) {
+      const scriptId = match[2];
+      const tagIndex = match.index;
+      if (tagIndex == null) continue;
+      const scriptTagLine = (tempHtml.slice(0, tagIndex).match(/\n/g) ?? []).length + 1;
+      const scriptElement = dom.body.querySelector<HTMLScriptElement>(
+        `script[data-livecodes-markup-script-id="${scriptId}"]`,
+      );
+      if (scriptElement) {
+        const startsWithNewLine = /^(\r\n|\n|\r)/.test(scriptElement.textContent ?? '');
+        scriptElement.dataset.livecodesMarkupScriptStackBase = startsWithNewLine ? '2' : '1';
+        // file-relative line where this script's content begins
+        const fileScriptLine = scriptTagLine - filesOffset + (startsWithNewLine ? 1 : 0);
+        scriptElement.dataset.livecodesMarkupScriptLine = String(fileScriptLine);
+        // module scripts run deferred (document.currentScript is null); see single-file.
+        if (
+          scriptElement.type === 'module' &&
+          !/^\s*(import|export)\b/.test(scriptElement.textContent ?? '')
+        ) {
+          scriptElement.textContent =
+            // eslint-disable-next-line prettier/prettier
+            `document.body.dataset.livecodesCurrentMarkupScriptLine = ${JSON.stringify(String(fileScriptLine))};` +
+            scriptElement.textContent;
+        }
+      }
+    }
+    dom.body
+      .querySelectorAll<HTMLScriptElement>('script[data-livecodes-markup-script-id]')
+      .forEach((scriptElement) => {
+        delete scriptElement.dataset.livecodesMarkupScriptId;
+      });
+
+    dom.body.dataset.livecodesMarkupLineOffset = String(0);
   }
 
   lastOutput = '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
