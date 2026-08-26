@@ -577,20 +577,11 @@ window.browserJest.run().then(results => {
       if (scriptElement) {
         const startsWithNewLine = /^(\r\n|\n|\r)/.test(scriptElement.textContent ?? '');
         scriptElement.dataset.livecodesMarkupScriptStackBase = startsWithNewLine ? '2' : '1';
-        // editor markup line where this script's content begins (tag line, plus one
-        // when the content starts on a new line)
         const markupStartLine = scriptTagLine - markupLineOffset + (startsWithNewLine ? 1 : 0);
         scriptElement.dataset.livecodesMarkupScriptLine = String(markupStartLine);
-        // `type="module"` inline scripts run deferred (document.currentScript is
-        // null), so the sandbox cannot identify them from the stack frame. Prepend
-        // a low-cost prologue that records the current module's markup start line;
-        // the console resolver reads it when currentScript is unavailable.
-        if (
-          scriptElement.type === 'module' &&
-          !/^\s*(import|export)\b/.test(scriptElement.textContent ?? '')
-        ) {
+        // module scripts run deferred (document.currentScript is null)
+        if (scriptElement.type === 'module') {
           scriptElement.textContent =
-            // eslint-disable-next-line prettier/prettier
             `document.body.dataset.livecodesCurrentMarkupScriptLine = ${JSON.stringify(String(markupStartLine))};` +
             scriptElement.textContent;
         }

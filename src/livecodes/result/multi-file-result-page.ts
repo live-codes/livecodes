@@ -723,24 +723,15 @@ window.browserJest.run().then(results => {
     dom.body.appendChild(testScript);
   }
 
-  // The inline scripts were marked (with their file-relative lines) when the
-  // main file was first parsed; only the deferred module prologue and the
-  // per-script cleanup remain here.
   if (shouldMarkInlineScripts) {
     dom.body
       .querySelectorAll<HTMLScriptElement>('script[data-livecodes-markup-script-id]')
       .forEach((scriptElement) => {
-        // module scripts run deferred (document.currentScript is null); prepend a
-        // low-cost prologue that records the module's file-relative start line so
-        // the sandbox can identify it (see multi-file inline resolver).
-        if (
-          scriptElement.type === 'module' &&
-          !/^\s*(import|export)\b/.test(scriptElement.textContent ?? '')
-        ) {
+        // module scripts run deferred (document.currentScript is null)
+        if (scriptElement.type === 'module') {
           const fileScriptLine = scriptElement.dataset.livecodesMarkupScriptLine;
           if (fileScriptLine) {
             scriptElement.textContent =
-              // eslint-disable-next-line prettier/prettier
               `document.body.dataset.livecodesCurrentMarkupScriptLine = ${JSON.stringify(fileScriptLine)};` +
               scriptElement.textContent;
           }

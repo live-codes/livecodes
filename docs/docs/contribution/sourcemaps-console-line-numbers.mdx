@@ -9,7 +9,7 @@ layer is tested.
 
 When user code runs, `console.log`/`console.error` output is relayed from the sandboxed result
 iframe to the parent app and rendered by the Console tool. Each console entry can carry a
-**source badge** (e.g. `script:7`, `markup:16`, `index.html:10`, or `src/main.js:2`) that, when
+**source badge** (e.g. `script:7`, `markup:16`, `index.html:10`, or `main.js:2`) that, when
 clicked, navigates the editor to that file and line.
 
 Three pieces work together to produce a badge:
@@ -166,9 +166,6 @@ When modifying this system, keep these invariants in mind:
 
 - Multi-file inline lines are computed against the **original main-file content** (before
   LiveCodes appends its own `<head>` scripts), so the numbers match the editor.
-- Inline module scripts that begin with `import`/`export` do not get the prologue (prepending
-  before a top-level `import` would be a syntax error); their top-level logs resolve to the
-  script content-start line.
 - The raw frame `docLine` is unstable across page layouts; do not build logic on an absolute
   collapsed value.
 
