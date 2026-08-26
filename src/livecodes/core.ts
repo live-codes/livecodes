@@ -596,8 +596,36 @@ const openFile = async (
   });
   editorLanguages![filename] = language;
   editors[filename] = editor;
-  editorIds.push(filename);
+  if (!editorIds.includes(filename)) {
+    editorIds.push(filename);
+  }
   handleChangeContent(editor);
+};
+
+const closeFile = (filename: string) => {
+  if (editorLanguages && editorLanguages[filename]) {
+    delete editorLanguages[filename];
+  }
+  if (editors[filename]) {
+    editors[filename].destroy();
+    delete editors[filename];
+  }
+  const id = editorIds.findIndex((editorId) => editorId === filename);
+  if (id > -1) {
+    if (editorIds.length > 1) {
+      const editorIdToShow = id === 0 ? 1 : id - 1;
+      showEditor(editorIds[editorIdToShow]);
+    }
+    editorIds.splice(id, 1);
+  }
+  UI.getEditorDivs().forEach((editorDiv) => {
+    if (editorDiv.dataset.editorId === filename) {
+      editorDiv.remove();
+    }
+  });
+  UI.getEditorTab(filename)?.remove();
+  setSavedStatus();
+  dispatchChangeEvent();
 };
 
 const renameFile = (filename: string, newName: string) => {
@@ -660,30 +688,10 @@ const deleteFile = (filename: string) => {
     ...config,
     files: config.files.filter((f) => f.filename !== filename),
   });
-  if (editorLanguages && editorLanguages[filename]) {
-    delete editorLanguages[filename];
-  }
-  if (editors[filename]) {
-    editors[filename].destroy();
-    delete editors[filename];
-  }
-  const id = editorIds.findIndex((editorId) => editorId === filename);
-  if (id > -1) {
-    const editorIdToShow = id === 0 ? 1 : id - 1;
-    showEditor(editorIds[editorIdToShow]);
-    editorIds.splice(id, 1);
-  }
-  UI.getEditorDivs().forEach((editorDiv) => {
-    if (editorDiv.dataset.editorId === filename) {
-      editorDiv.remove();
-    }
-  });
-  UI.getEditorTab(filename)?.remove();
+  closeFile(filename);
   if (config.autoupdate) {
     run();
   }
-  setSavedStatus();
-  dispatchChangeEvent();
   if (sidebar?.files) {
     const newConfig = getConfig();
     sidebar?.files?.update({
@@ -709,10 +717,12 @@ const createEditorUI = (title: string, isHidden = false) => {
     showEditor,
     renameFile,
     deleteFile,
+    closeFile,
     isMainFile: title === getMainFile(config),
     isNewFile: false,
     isHidden,
     isLocked: config.lockFiles || config.readonly,
+    isFilesSectionEnabled: sidebar?.isEnabled('files'),
   });
   return container;
 };
@@ -840,9 +850,11 @@ const createEditors = async (config: Config) => {
             addFile: async (filename: string) => addFile(filename),
             renameFile,
             deleteFile,
+            closeFile,
             isMainFile: false,
             isNewFile: true,
             isLocked: false,
+            isFilesSectionEnabled: sidebar?.isEnabled('files'),
           }),
       });
     }
@@ -1048,9 +1060,8 @@ const showEditor = (
   { isUpdate = false, source }: { isUpdate?: boolean; source?: 'sidebar-files' } = {},
 ) => {
   const config = getConfig();
-
   if (getSource(editorId, config)?.hidden) return;
-  if (!editors[editorId]) {
+  if (!editorIds.includes(editorId)) {
     if (config.files.find((f) => f.filename === editorId)) {
       openFile(editorId, getEditorOptions(editorId)).then(() => showEditor(editorId));
     }

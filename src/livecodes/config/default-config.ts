@@ -51,7 +51,6 @@ export const defaultConfig: Config = {
     content: '',
   },
   sidebar: {
-    files: {},
     enabled: 'all',
     active: '',
     status: '',

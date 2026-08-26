@@ -313,7 +313,6 @@ export const createMultiFileResultPage = async ({
         } catch (e) {
           // invalid sourceMap
         }
-        console.log(sourceMapObj);
         const sourceMappingURL = `data:application/json;base64,${btoa(JSON.stringify(sourceMapObj))}`;
         const supportsSourceUrl = consoleEnabled && hasValidSourceMap;
         file.compiled = supportsSourceUrl

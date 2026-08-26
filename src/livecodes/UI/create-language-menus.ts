@@ -178,20 +178,24 @@ export const createMultiFileEditorTab = ({
   addFile,
   renameFile,
   deleteFile,
+  closeFile,
   isMainFile,
   isNewFile = false,
   isHidden = false,
   isLocked = false,
+  isFilesSectionEnabled = false,
 }: {
   title: string;
   showEditor: (filename: string) => void;
   addFile?: (filename: string) => Promise<boolean>;
   renameFile: (filename: string, newName: string) => boolean;
   deleteFile: (filename: string) => void;
+  closeFile: (filename: string) => void;
   isMainFile: boolean;
   isNewFile: boolean;
   isHidden?: boolean;
   isLocked?: boolean;
+  isFilesSectionEnabled?: boolean;
 }) => {
   let currentFileName = title;
   if (getEditorTab(currentFileName)) return;
@@ -231,11 +235,21 @@ export const createMultiFileEditorTab = ({
     label.appendChild(fileNameSpan);
   }
 
-  if (!isMainFile && !isLocked) {
+  if (isFilesSectionEnabled) {
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('delete-file-button');
+    closeButton.innerHTML = deleteIcon;
+    closeButton.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      closeFile(currentFileName);
+    });
+    editorSelector.appendChild(closeButton);
+  } else if (!isMainFile && !isLocked) {
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-file-button');
     deleteButton.innerHTML = deleteIcon;
-    deleteButton.addEventListener('click', () => {
+    deleteButton.addEventListener('click', (ev) => {
+      ev.stopPropagation();
       if (
         confirm(
           window.deps.translateString('core.files.deleteFile', 'Delete: {{path}}?', {
