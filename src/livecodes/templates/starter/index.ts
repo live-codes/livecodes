@@ -19,6 +19,7 @@ import { d3Starter } from './d3-starter';
 import { daisyuiStarter } from './daisyui-starter';
 import { diagramsStarter } from './diagrams-starter';
 import { fennelStarter } from './fennel-starter';
+import { fsharpStarter } from './fsharp-starter';
 import { gleamStarter } from './gleam-starter';
 import { goStarter } from './go-starter';
 import { goWasmStarter } from './go-wasm-starter';
@@ -120,6 +121,7 @@ export const starterTemplates = [
   cppWasmStarter,
   javaStarter,
   csharpWasmStarter,
+  fsharpStarter,
   perlStarter,
   luaStarter,
   luaWasmStarter,

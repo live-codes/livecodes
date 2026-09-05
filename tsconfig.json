@@ -50,6 +50,10 @@
     "skipLibCheck": true
   },
   "compileOnSave": true,
-  "include": ["src/**/*.ts", "src/sdk/react.tsx"],
+  "include": [
+    "src/**/*.ts",
+    "src/sdk/react.tsx",
+    "src/livecodes/languages/fsharp-wasm/lang-fsharp-wasm-worker.raw.js"
+  ],
   "exclude": ["**/node_modules/**"]
 }
