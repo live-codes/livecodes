@@ -70,7 +70,7 @@ export const fetchBlocksSource = async (
       }
     }
   }
-  return code.replace(new RegExp(pattern, 'g'), () => blocks.pop() || '');
+  return code.replace(new RegExp(pattern, 'g'), () => blocks.shift() || '');
 };
 
 const postProcess = async (content: string, config: Config, language: LanguageOrProcessor) => {
@@ -177,7 +177,7 @@ export const compileBlocks = async (
       ),
     );
   }
-  return fullCode.replace(new RegExp(pattern, 'g'), () => blocks.pop() || '');
+  return fullCode.replace(new RegExp(pattern, 'g'), () => blocks.shift() || '');
 };
 
 export const compileAllBlocks = async (
