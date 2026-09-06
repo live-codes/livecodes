@@ -16,7 +16,7 @@
     "translation": "लाइवकोड्स को ओपन सोर्स परियोजनाओं, वेब सेवाओं और योगदानकर्ताओं द्वारा संभव बनाया गया है। <tag-1> क्रेडिट देखें </tag-1>"
   },
   "about.credits.para2": {
-    "translation": "© 2024 हेटेम होस्नी। लाइवकोड्स को MIT लाइसेंस के तहत लाइसेंस प्राप्त है।"
+    "translation": "© 2021-2026 हेटेम होस्नी। लाइवकोड्स को MIT लाइसेंस के तहत लाइसेंस प्राप्त है।"
   },
   "about.documentations.heading": {
     "translation": "दस्तावेज़ीकरण"
@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "कोड को डेटा URL के रूप में कॉपी करें"
   },
-  "commandMenu.disableAI": {
-    "translation": "एआई कोड सहायक अक्षम करें"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "ऑटो सेव अक्षम करें"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "विम मोड अक्षम करें"
-  },
-  "commandMenu.enableAI": {
-    "translation": "AI कोड सहायक सक्षम करें"
   },
   "commandMenu.enableAutoSave": {
     "translation": "स्वतः सहेजें सक्षम करें"
@@ -942,12 +936,6 @@
   "editorSettings.emmet": {
     "translation": "Emmet सक्षम करें *"
   },
-  "editorSettings.enableAI.heading": {
-    "translation": "AI कोड सहायक सक्षम करें"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "<tag-1><tag-2></tag-2></tag-1> द्वारा संचालित"
-  },
   "editorSettings.foldRegions": {
     "translation": "मोड़ो (संकुचित) क्षेत्र *"
   },
@@ -968,6 +956,9 @@
   },
   "editorSettings.lineNumbersRelative": {
     "translation": "सापेक्ष पंक्ति संख्या *"
+  },
+  "editorSettings.minimap": {
+    "translation": "मिनीमैप सक्षम करें *"
   },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "CodeJar में उपलब्ध नहीं"
@@ -1911,6 +1902,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "आपके पास कोई सहेजे गए टेम्पलेट नहीं हैं।"
   },
+  "templates.search.label": {
+    "translation": "टेम्प्लेट में खोजें"
+  },
+  "templates.search.placeholder": {
+    "translation": "टेम्प्लेट में खोजें..."
+  },
   "templates.starter.angular": {
     "translation": "Angular स्टार्टर"
   },
@@ -1950,6 +1947,15 @@
   "templates.starter.cpp": {
     "translation": "C++ स्टार्टर"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "C++ (Wasm) स्टार्टर"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C# (Wasm) स्टार्टर"
+  },
+  "templates.starter.d3": {
+    "translation": "D3 स्टार्टर"
+  },
   "templates.starter.daisyui": {
     "translation": "daisyUI स्टार्टर"
   },
@@ -1964,6 +1970,9 @@
   },
   "templates.starter.go": {
     "translation": "Go स्टार्टर"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Go (Wasm) स्टार्टर"
   },
   "templates.starter.heading": {
     "translation": "स्टार्टर टेम्पलेट्स"
@@ -2016,11 +2025,17 @@
   "templates.starter.mdx": {
     "translation": "MDX स्टार्टर"
   },
+  "templates.starter.minizinc": {
+    "translation": "MiniZinc स्टार्टर"
+  },
   "templates.starter.ocaml": {
     "translation": "OCaml स्टार्टर"
   },
   "templates.starter.perl": {
     "translation": "Perl स्टार्टर"
+  },
+  "templates.starter.phaser": {
+    "translation": "Phaser स्टार्टर"
   },
   "templates.starter.php": {
     "translation": "PHP स्टार्टर"
@@ -2039,6 +2054,9 @@
   },
   "templates.starter.python": {
     "translation": "Python स्टार्टर"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Python (Wasm) स्टार्टर"
   },
   "templates.starter.r": {
     "translation": "R स्टार्टर"

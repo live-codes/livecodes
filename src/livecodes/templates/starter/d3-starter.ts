@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const d3Starter: Template = {
   name: 'd3',
-  title: 'D3 Starter',
+  title: window.deps.translateString('templates.starter.d3', 'D3 Starter'),
   thumbnail: 'assets/templates/d3.svg',
   activeEditor: 'script',
   markup: {

@@ -127,6 +127,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Sito web di Go</2></1> <3><4>Documentazione di Go</4></3> <5> <6>Repo di GopherJS</6> </5> <7> <8>Impara X in Y minuti, dove X=Go</8> </7> <9><10>Carica modello di partenza</10></9>',
     name: 'Go',
   },
+  goWasm: {
+    desc: 'Interprete Go in esecuzione su WebAssembly, utilizzando Yaegi',
+    link: '<1><2>Sito ufficiale di Go</2></1> <3><4>Yaegi</4></3> <5> <6>Imparare X in Y minuti, dove X=Go</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Caricare il modello di partenza</10> </9>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: 'Compilatore Haml per template di vista JavaScript lato client utilizzando clientside-haml-js.',
     link: '<1><2>Sito ufficiale di Haml</2></1> <3> <4>Documentazione di Haml</4> </3> <5> <6>Repository GitHub di clientside-haml-js</6> </5> <7> <8>Impara X in Y minuti, dove X=haml</8> </7> <9> <10>Documentazione LiveCodes</10> </9>',
@@ -146,6 +151,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'JVM in esecuzione nel browser utilizzando DoppioJVM.',
     link: '<1> <2>Sito ufficiale di Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Imparare X in Y minuti, dove X=java</6> </5> <7> <8> Caricare il modello iniziale</8> </7>',
     name: 'Java',
+  },
+  javascript: {
+    desc: 'Il linguaggio di scripting del web.',
+    link: '<1> <2>JavaScript su MDN</2> </1> <3> <4>Imparare X in Y minuti, dove X=JavaScript</4> </3> <5> <6>Documentazione LiveCodes</6> </5> <7> <8>Caricare il modello di partenza</8> </7>',
+    name: 'JavaScript',
   },
   jinja: {
     desc: 'Jinja è un motore di template veloce, espressivo ed estensibile.',
@@ -203,6 +213,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: "Markdown per l'era dei componenti. <1></1>MDX ti permette di scrivere senza problemi JSX nei tuoi documenti Markdown.",
     link: '<1><2>Documentazione MDX</2></1> <3><4>Carica modello di partenza</4></3>',
     name: 'MDX',
+  },
+  minizinc: {
+    desc: 'MiniZinc è un linguaggio di modellazione dei vincoli di alto livello che consente di esprimere e risolvere facilmente problemi di ottimizzazione discreta.',
+    link: '<1> <2>Sito ufficiale di MiniZinc</2> </1> <3> <4>Documentazione di MiniZinc</4> </3> <5> <6>Tutorial di MiniZinc</6> </5> <7> <8>Documentazione di LiveCodes</8> </7> <9> <10>Modello di avvio del caricamento</10> </9>',
+    name: 'MiniZinc',
   },
   mjml: {
     desc: "MJML è un linguaggio di markup progettato per ridurre la fatica di codifica di un'email responsive.",

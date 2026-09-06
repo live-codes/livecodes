@@ -1,3 +1,73 @@
 # Julia
 
-TODO...
+[Julia](https://julialang.org/) is a high-level, high-performance programming language for scientific computing. It is designed for numerical analysis, data science, and computational science with syntax familiar to users of other technical computing environments.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="julia" height="80vh"></LiveCodes>
+
+### JavaScript Interoperability
+
+Julia programs run asynchronously in a Web Worker. JavaScript can interact with the Julia runtime using the `livecodes.julia` global:
+
+- `livecodes.julia.input` — set this to pass input to the Julia script (accessible as `livecodesInput`)
+- `livecodes.julia.run(input?)` — execute the Julia script, returns a promise with the output string
+- `livecodes.julia.loaded` — a promise that resolves when the Julia runtime is ready
+- `livecodes.julia.output` — the last output string
+
+### Live Reload
+
+The Julia runtime is a large download. Initial loading may take some time, after which subsequent runs should be faster.
+
+By default, when code is updated, the environment is re-used. This behavior is used for performance reasons. However, in order to get full reload and start a new environment, insert this comment in the code:
+
+```julia
+# __livecodes_reload__
+```
+
+Think of this like restarting the kernel in Jupyter notebooks.
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Language Info
+
+### Name
+
+`julia`
+
+### Extensions
+
+`.jl`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Julia](https://julialang.org/) compiled to WebAssembly
+
+### Version
+
+1.3.0-DEV.560
+
+## Code Formatting
+
+Not supported.
+
+## Limitations
+
+Currently Julia standard library and external packages are not supported.
+
+## Starter Template
+
+https://livecodes.io/?template=julia
+
+## Links
+
+- [Julia](https://julialang.org/)
+- [Julia Documentation](https://docs.julialang.org/)

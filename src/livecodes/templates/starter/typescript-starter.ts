@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const typescriptStarter: Template = {
   name: 'typescript',
+  aliases: ['ts'],
   title: window.deps.translateString('templates.starter.typescript', 'TypeScript Starter'),
   thumbnail: 'assets/templates/typescript.svg',
   activeEditor: 'script',

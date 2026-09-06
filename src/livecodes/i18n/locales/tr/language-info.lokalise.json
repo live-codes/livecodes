@@ -1,0 +1,786 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "artTemplate.desc": {
+    "translation": "Yüksek performanslı JavaScript şablonlama motoru."
+  },
+  "artTemplate.link": {
+    "translation": "<tag-1> <tag-2>art-template resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>art-template dokümantasyonu</tag-4> </tag-3>"
+  },
+  "artTemplate.name": {
+    "translation": "art-template"
+  },
+  "asciidoc.desc": {
+    "translation": "Asciidoctor kullanılarak HTML'e derlenmiş AsciiDoc."
+  },
+  "asciidoc.link": {
+    "translation": "<tag-1> <tag-2>AsciiDoc resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Asciidoctor resmi web sitesi</tag-4> </tag-3> <tag-5> <tag-6>Asciidoctor dokümantasyonu</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=asciidoc</tag-8> </tag-7>"
+  },
+  "asciidoc.name": {
+    "translation": "AsciiDoc"
+  },
+  "assemblyscript.desc": {
+    "translation": "WebAssembly için TypeScript benzeri bir dil."
+  },
+  "assemblyscript.link": {
+    "translation": "<tag-1> <tag-2>AssemblyScript resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>AssemblyScript dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "assemblyscript.name": {
+    "translation": "AssemblyScript"
+  },
+  "astro.desc": {
+    "translation": "Daha az istemci taraflı Javascript ile daha hızlı web siteleri oluşturun. (Hala Beta'da)"
+  },
+  "astro.link": {
+    "translation": "<tag-1> <tag-2>Astro resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Astro dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "astro.name": {
+    "translation": "Astro"
+  },
+  "babel.desc": {
+    "translation": "JavaScript derleyicisi"
+  },
+  "babel.link": {
+    "translation": "<tag-1><tag-2>Resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>Babel dokümantasyonu</tag-4> </tag-3>"
+  },
+  "babel.name": {
+    "translation": "Babel"
+  },
+  "bbcode.desc": {
+    "translation": "BBCode (\"Bulletin Board Code\"), birçok internet forum yazılımında mesajları biçimlendirmek için kullanılan hafif bir işaretleme dilidir."
+  },
+  "bbcode.link": {
+    "translation": "<tag-1><tag-2>bbcode.org</tag-2></tag-1> <tag-3> <tag-4>BBCode rehberi</tag-4> </tag-3> <tag-5> <tag-6>Wikipedia'da BBCode</tag-6> </tag-5>"
+  },
+  "bbcode.name": {
+    "translation": "BBCode"
+  },
+  "blockly.desc": {
+    "translation": "Görsel programlama düzenleyicileri oluşturmak için bir JavaScript kütüphanesi."
+  },
+  "blockly.link": {
+    "translation": "<tag-1> <tag-2>Resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Rehberler</tag-4> </tag-3> <tag-5> <tag-6>Referans</tag-6> </tag-5> <tag-7> <tag-8>Örnekler</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "blockly.name": {
+    "translation": "Blockly"
+  },
+  "civet.desc": {
+    "translation": "Civet, TypeScript veya JavaScript'e derlenen bir programlama dilidir, böylece mevcut araçları kullanabilir ancak daha kısa ve güçlü bir sözdizimi sağlayabilirsiniz."
+  },
+  "civet.link": {
+    "translation": "<tag-1> <tag-2>Civet resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Civet kopya kağıdı</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "civet.name": {
+    "translation": "Civet"
+  },
+  "clio.desc": {
+    "translation": "Clio, JavaScript'e derlenen hızlı, dağıtık, fonksiyonel bir programlama dilidir."
+  },
+  "clio.link": {
+    "translation": "<tag-1> <tag-2>Clio resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Clio dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "clio.name": {
+    "translation": "Clio"
+  },
+  "clojurescript.desc": {
+    "translation": "ClojureScript, JavaScript'i hedefleyen bir <tag-1>Clojure</tag-1> derleyicisidir. <tag-2></tag-2>LiveCodes'ta, tarayıcıda <tag-3>Cherry</tag-3> kullanarak çalışır."
+  },
+  "clojurescript.link": {
+    "translation": "<tag-1> <tag-2>ClojureScript resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Clojure resmi web sitesi</tag-4> </tag-3> <tag-5> <tag-6>Cherry repo'su</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "clojurescript.name": {
+    "translation": "ClojureScript (CLJS)"
+  },
+  "coffeescript.desc": {
+    "translation": "Sade JavaScript."
+  },
+  "coffeescript.link": {
+    "translation": "<tag-1> <tag-2>CoffeeScript resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Y Dakikada X Öğrenin, X=coffeescript</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "coffeescript.name": {
+    "translation": "CoffeeScript"
+  },
+  "commonlisp.desc": {
+    "translation": "JSCL (Common Lisp'ten önyüklemeli bir Lisp'ten Javascript'e derleyici) kullanılarak Javascript üzerinde bir Common Lisp uygulaması."
+  },
+  "commonlisp.link": {
+    "translation": "<tag-1> <tag-2>Common-Lisp.net</tag-2> </tag-1> <tag-3> <tag-4>JSCL Projesi</tag-4> </tag-3> <tag-5> <tag-6>Common Lisp Kaynakları</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=Common Lisp</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "commonlisp.name": {
+    "translation": "Common Lisp"
+  },
+  "cpp.desc1": {
+    "translation": "JSCPP (JavaScript ile yazılmış basit bir C++ yorumlayıcısı) kullanılarak C++ desteği."
+  },
+  "cpp.desc2": {
+    "translation": "Bu, C++'ın tam bir uygulaması değildir. Detaylar için lütfen <tag-1>JSCPP dokümantasyonuna</tag-1> bakın."
+  },
+  "cpp.link": {
+    "translation": "<tag-1> <tag-2>Standart C++ Vakfı</tag-2> </tag-1> <tag-3> <tag-4>JSCPP</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=C++</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "cpp.name": {
+    "translation": "C++"
+  },
+  "cppWasm.desc": {
+    "translation": "WebAssembly üzerinde çalışan, <tag-2>polylang.io</tag-2> tarafından uyarlanmış <tag-1>wasm-clang</tag-1> kullanan Clang C/C++ derleyicisi."
+  },
+  "cppWasm.link": {
+    "translation": "<tag-1> <tag-2>Standart C++ Vakfı</tag-2> </tag-1> <tag-3> <tag-4>Clang resmi web sitesi</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=C++</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "cppWasm.name": {
+    "translation": "C/C++ (Wasm)"
+  },
+  "csharpWasm.desc": {
+    "translation": "WebAssembly üzerinde çalışan C# derleyicisi, <tag-1>Blazor</tag-1> kullanılarak."
+  },
+  "csharpWasm.link": {
+    "translation": "<tag-1> <tag-2>C# dil dokümantasyonu</tag-2> </tag-1> <tag-3> <tag-4>Y Dakikada X Öğrenin, X=C#</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "csharpWasm.name": {
+    "translation": "C# (Wasm)"
+  },
+  "diagrams.desc1": {
+    "translation": "(Deneysel)"
+  },
+  "diagrams.desc2": {
+    "translation": "Kod olarak diyagramlar. Destekledikleri:"
+  },
+  "diagrams.desc3": {
+    "translation": "<tag-1> <tag-2>Cytoscape</tag-2> </tag-1> <tag-3> <tag-4>ELK</tag-4> (<tag-5>elkjs</tag-5> kullanarak) </tag-3> <tag-6> <tag-7>Gnuplot</tag-7> (<tag-8>gnuplot-JS</tag-8> kullanarak) </tag-6> <tag-9> <tag-10>Graphviz</tag-10> (<tag-11>@hpcc-js/wasm</tag-11> kullanarak) </tag-9> <tag-12> <tag-13>Mermaid</tag-13> </tag-12> <tag-14> <tag-15>Nomnoml</tag-15> </tag-14> <tag-16> <tag-17>Pintora</tag-17> </tag-16> <tag-18> <tag-19>Plotly</tag-19> </tag-18> <tag-20> <tag-21>Svgbob</tag-21> </tag-20> <tag-22> <tag-23>Vega</tag-23> </tag-22> <tag-24> <tag-25>VegaLite</tag-25> </tag-24> <tag-26> <tag-27>WaveDrom</tag-27> </tag-26>"
+  },
+  "diagrams.link": {
+    "translation": "<tag-1> <tag-2>Başlangıç şablonunu yükle</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes Dokümantasyonu</tag-4> </tag-3>"
+  },
+  "diagrams.name": {
+    "translation": "Diagrams"
+  },
+  "dot.desc": {
+    "translation": "Node.js ve tarayıcılar için en hızlı ve öz javascript şablon motoru."
+  },
+  "dot.link": {
+    "translation": "<tag-1> <tag-2>Resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes Dokümantasyonu</tag-4> </tag-3>"
+  },
+  "dot.name": {
+    "translation": "doT.js"
+  },
+  "ejs.desc": {
+    "translation": "Gömülü JavaScript şablonlama."
+  },
+  "ejs.link": {
+    "translation": "<tag-1><tag-2>Resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>LiveCodes Dokümantasyonu</tag-4> </tag-3>"
+  },
+  "ejs.name": {
+    "translation": "EJS"
+  },
+  "eta.desc": {
+    "translation": "Node, Deno ve tarayıcı için gömülü JS şablon motoru. Hafif, hızlı ve eklenti destekli. TypeScript ile yazılmıştır."
+  },
+  "eta.link": {
+    "translation": "<tag-1><tag-2>Resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>Dokümantasyon</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5>"
+  },
+  "eta.name": {
+    "translation": "Eta"
+  },
+  "fennel.desc": {
+    "translation": "Fennel, Lua'nın hızını, basitliğini ve erişimini bir lisp sözdizimi ve makro sisteminin esnekliğiyle birleştiren bir programlama dilidir."
+  },
+  "fennel.link": {
+    "translation": "<tag-1> <tag-2>Fennel resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Fennel'e Başlarken</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "fennel.name": {
+    "translation": "Fennel"
+  },
+  "flow.desc": {
+    "translation": "Flow, JavaScript için statik bir tip denetleyicisidir."
+  },
+  "flow.link": {
+    "translation": "<tag-1> <tag-2>Flow resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Flow dokümantasyonu</tag-4> </tag-3>"
+  },
+  "flow.name": {
+    "translation": "Flow"
+  },
+  "gleam.desc1": {
+    "translation": "Gleam, ölçeklenebilen, tür-güvenli sistemler oluşturmak için kullanımı kolay bir dildir!"
+  },
+  "gleam.desc2": {
+    "translation": "Gleam, Erlang veya JavaScript'e derlenen statik tipli bir fonksiyonel programlama dilidir."
+  },
+  "gleam.link": {
+    "translation": "<tag-1><tag-2>Gleam web sitesi</tag-2></tag-1> <tag-3> <tag-4>Gleam dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Gleam dil turu</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "gleam.name": {
+    "translation": "Gleam"
+  },
+  "go.desc1": {
+    "translation": "Go (Golang), basit, güvenilir ve verimli yazılımlar oluşturmayı kolaylaştıran açık kaynaklı bir programlama dilidir."
+  },
+  "go.desc2": {
+    "translation": "Burada, GopherJS kullanılarak JavaScript'e derlenir."
+  },
+  "go.link": {
+    "translation": "<tag-1><tag-2>Go web sitesi</tag-2></tag-1> <tag-3><tag-4>Go dokümantasyonu</tag-4></tag-3> <tag-5> <tag-6>GopherJS repo'su</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "go.name": {
+    "translation": "Go"
+  },
+  "goWasm.desc": {
+    "translation": "Yaegi kullanılarak WebAssembly üzerinde çalışan Go yorumlayıcısı."
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>Go resmi web sitesi</tag-2></tag-1> <tag-3><tag-4>Yaegi</tag-4></tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=Go</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
+  "haml.desc": {
+    "translation": "clientside-haml-js kullanılarak istemci tarafı javascript görünüm şablonları için Haml derleyicisi."
+  },
+  "haml.link": {
+    "translation": "<tag-1><tag-2>Haml resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>Haml dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>clientside-haml-js GitHub repo'su</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=haml</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9>"
+  },
+  "haml.name": {
+    "translation": "Haml"
+  },
+  "handlebars.desc": {
+    "translation": "Steroidli minimal şablonlama."
+  },
+  "handlebars.link": {
+    "translation": "<tag-1><tag-2>Resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>LiveCodes Dokümantasyonu</tag-4> </tag-3>"
+  },
+  "handlebars.name": {
+    "translation": "Handlebars"
+  },
+  "imba.desc": {
+    "translation": "Kullanımı kolay full-stack dil."
+  },
+  "imba.link": {
+    "translation": "<tag-1><tag-2>Resmi web sitesi</tag-2></tag-1>"
+  },
+  "imba.name": {
+    "translation": "Imba"
+  },
+  "java.desc": {
+    "translation": "DoppioJVM kullanılarak tarayıcıda çalışan JVM."
+  },
+  "java.link": {
+    "translation": "<tag-1> <tag-2>Java resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "java.name": {
+    "translation": "Java"
+  },
+  "javascript.desc": {
+    "translation": "Web'in komut dosyası dili."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>MDN'de JavaScript</tag-2> </tag-1> <tag-3> <tag-4>Y dakikada X öğrenin, burada X=JavaScript</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükleyin</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
+  "jinja.desc": {
+    "translation": "Jinja, hızlı, etkileyici, genişletilebilir bir şablon motorudur."
+  },
+  "jinja.link": {
+    "translation": "<tag-1> <tag-2>Resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Şablon dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>JavaScript uygulaması</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7>"
+  },
+  "jinja.name": {
+    "translation": "Jinja"
+  },
+  "jsx.desc": {
+    "translation": "JSX, LiveCodes'ta TypeScript Derleyicisi kullanılarak JavaScript'e derlenir. Varsayılan olarak JSX çalışma zamanı olarak React'i kullanır."
+  },
+  "jsx.link": {
+    "translation": "<tag-1> <tag-2>React resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>React dokümantasyonunda JSX</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5>"
+  },
+  "jsx.name": {
+    "translation": "JSX"
+  },
+  "julia.desc1": {
+    "translation": "LiveCodes'taki Julia dil desteği hala deneyseldir."
+  },
+  "julia.desc2": {
+    "translation": "WASM üzerinde çalışan Julia derleyicisi ve Julia Base, <tag-2>polylang.io</tag-2> tarafından uyarlanmış <tag-1>julia-wasm</tag-1> kullanılarak."
+  },
+  "julia.link": {
+    "translation": "<tag-1> <tag-2>Julia resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Julia dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=Julia</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "julia.name": {
+    "translation": "Julia"
+  },
+  "less.desc": {
+    "translation": "Bu CSS, sadece biraz daha fazlasıyla."
+  },
+  "less.link": {
+    "translation": "<tag-1><tag-2>Less resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>Y Dakikada X Öğrenin, X=less</tag-4> </tag-3>"
+  },
+  "less.name": {
+    "translation": "Less"
+  },
+  "liquid.desc": {
+    "translation": "Basit, etkileyici ve güvenli bir şablon motoru."
+  },
+  "liquid.link": {
+    "translation": "<tag-1> <tag-2>LiquidJS resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>LiquidJS dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5>"
+  },
+  "liquid.name": {
+    "translation": "LiquidJS"
+  },
+  "livescript.desc": {
+    "translation": "JavaScript'e derlenen bir dil."
+  },
+  "livescript.link": {
+    "translation": "<tag-1> <tag-2>LiveScript resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Y Dakikada X Öğrenin, X=LiveScript</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "livescript.name": {
+    "translation": "LiveScript"
+  },
+  "lua.desc": {
+    "translation": "fengari-web kullanılarak tarayıcıda çalışan Lua."
+  },
+  "lua.link": {
+    "translation": "<tag-1><tag-2>Lua resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>Lua dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Fengari resmi web sitesi</tag-6> </tag-5> <tag-7> <tag-8>fengari-web GitHub repo'su</tag-8> </tag-7> <tag-9> <tag-10>Y Dakikada X Öğrenin, X=Lua</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Dokümantasyonu</tag-12> </tag-11> <tag-13> <tag-14>Başlangıç şablonunu yükle</tag-14> </tag-13>"
+  },
+  "lua.name": {
+    "translation": "Lua"
+  },
+  "luaWasm.desc": {
+    "translation": "Tarayıcıda Wasmoon kullanılarak çalışan Lua, WebAssembly ile yapılmış JS bağlamaları olan gerçek bir lua 5.4 sanal makinesidir."
+  },
+  "luaWasm.link": {
+    "translation": "<tag-1><tag-2>Lua resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>Lua dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Wasmoon GitHub repo'su</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=Lua</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "luaWasm.name": {
+    "translation": "Lua (Wasm)"
+  },
+  "malina.desc": {
+    "translation": "Svelte'den ilham alan frontend derleyicisi."
+  },
+  "malina.link": {
+    "translation": "<tag-1> <tag-2>Malina.js repo'su</tag-2> </tag-1> <tag-3> <tag-4>Malina.js dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "malina.name": {
+    "translation": "Malina.js"
+  },
+  "markdown.desc": {
+    "translation": "Marked kullanılarak HTML'e derlenmiş Markdown."
+  },
+  "markdown.link": {
+    "translation": "<tag-1> <tag-2>Markdown resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Marked dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=markdown</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "markdown.name": {
+    "translation": "Markdown"
+  },
+  "mdx.desc": {
+    "translation": "Bileşen çağı için Markdown. <tag-1></tag-1>MDX, Markdown belgelerinizde sorunsuzca JSX yazmanıza olanak tanır."
+  },
+  "mdx.link": {
+    "translation": "<tag-1><tag-2>MDX dokümantasyonu</tag-2></tag-1> <tag-3> <tag-4>Başlangıç şablonunu yükle</tag-4> </tag-3>"
+  },
+  "mdx.name": {
+    "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "MiniZinc, ayrık optimizasyon problemlerini kolayca ifade etmenizi ve çözmenizi sağlayan yüksek seviyeli bir kısıt modelleme dilidir."
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>MiniZinc resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>MiniZinc belgeleri</tag-4> </tag-3> <tag-5> <tag-6>MiniZinc eğitimi</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
+  },
+  "mjml.desc": {
+    "translation": "MJML, duyarlı bir e-posta kodlamanın zorluğunu azaltmak için tasarlanmış bir işaretleme dilidir."
+  },
+  "mjml.link": {
+    "translation": "<tag-1><tag-2>MJML resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>MJML dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>MJML resmi şablonları</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7>"
+  },
+  "mjml.name": {
+    "translation": "MJML"
+  },
+  "mustache.desc": {
+    "translation": "Mantıksız şablonlar."
+  },
+  "mustache.link": {
+    "translation": "<tag-1> <tag-2>Resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>mustache(5) kılavuzu</tag-4> </tag-3> <tag-5> <tag-6>JavaScript uygulaması</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7>"
+  },
+  "mustache.name": {
+    "translation": "Mustache"
+  },
+  "nunjucks.desc": {
+    "translation": "JavaScript için zengin ve güçlü bir şablonlama dili. Nunjucks aslında <tag-1>jinja2</tag-1>'nin bir portudur."
+  },
+  "nunjucks.link": {
+    "translation": "<tag-1> <tag-2>Resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes Dokümantasyonu</tag-4> </tag-3>"
+  },
+  "nunjucks.name": {
+    "translation": "Nunjucks"
+  },
+  "ocaml.desc1": {
+    "translation": "OCaml, fonksiyonel, zorunlu ve nesne yönelimli stilleri destekleyen endüstriyel güçte bir programlama dilidir."
+  },
+  "ocaml.desc2": {
+    "translation": "OCaml'ı JavaScript'e derlemek için burada ReScript derleyicisi kullanılır."
+  },
+  "ocaml.link": {
+    "translation": "<tag-1><tag-2>OCaml web sitesi</tag-2></tag-1> <tag-3> <tag-4>OCaml dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>ReScript web sitesi</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=OCaml</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "ocaml.name": {
+    "translation": "OCaml"
+  },
+  "perl.desc": {
+    "translation": "Perlito kullanılarak tarayıcıda çalışan Perl."
+  },
+  "perl.link": {
+    "translation": "<tag-1> <tag-2>Perl resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Perl dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Perlito5 Benioku</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=perl</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "perl.name": {
+    "translation": "Perl"
+  },
+  "php.desc": {
+    "translation": "Uniter kullanılarak tarayıcıda çalışan PHP."
+  },
+  "php.link": {
+    "translation": "<tag-1><tag-2>PHP resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>PHP dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Uniter GitHub repo'su</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=PHP</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "php.name": {
+    "translation": "PHP"
+  },
+  "phpWasm.desc": {
+    "translation": "Tarayıcıda PHP, WebAssembly tarafından desteklenir ve php-wasm kullanır."
+  },
+  "phpWasm.link": {
+    "translation": "<tag-1><tag-2>PHP resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>PHP dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>php-wasm GitHub repo'su</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=PHP</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "phpWasm.name": {
+    "translation": "PHP (Wasm)"
+  },
+  "postgresql.desc": {
+    "translation": "PGlite kullanılarak WASM olarak paketlenmiş PostgreSQL."
+  },
+  "postgresql.link": {
+    "translation": "<tag-1> <tag-2>PostgreSQL resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>PostgreSQL dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>PGlite GitHub repo'su</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=SQL</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "postgresql.name": {
+    "translation": "PostgreSQL"
+  },
+  "prolog.desc": {
+    "translation": "JavaScript'te açık kaynaklı bir Prolog yorumlayıcısı."
+  },
+  "prolog.link": {
+    "translation": "<tag-1> <tag-2>Tau Prolog resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Tau Prolog dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>SWI-Prolog</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=Prolog</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "prolog.name": {
+    "translation": "Tau Prolog"
+  },
+  "pug.desc": {
+    "translation": "Sağlam, zarif, zengin özellikli şablon motoru."
+  },
+  "pug.link": {
+    "translation": "<tag-1> <tag-2>Pug dokümantasyonu</tag-2> </tag-1> <tag-3> <tag-4>Y Dakikada X Öğrenin, X=Pug</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5>"
+  },
+  "pug.name": {
+    "translation": "Pug"
+  },
+  "python.desc": {
+    "translation": "Brython kullanılarak tarayıcıda çalışan Python."
+  },
+  "python.link": {
+    "translation": "<tag-1> <tag-2>Python resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Python dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Brython dokümantasyonu</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=Python</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "python.name": {
+    "translation": "Python"
+  },
+  "pythonWasm.desc1": {
+    "translation": "Bilimsel yığın ile Python, Pyodide kullanılarak WebAssembly'e derlenmiştir."
+  },
+  "pythonWasm.desc2": {
+    "translation": "Pyodide, NumPy, Pandas, Matplotlib, SciPy, scikit-learn ve daha fazlasını içeren Python bilimsel yığınını kullanmaya olanak tanır. Ek olarak, PyPi'den saf Python wheel'leri yüklemek mümkündür."
+  },
+  "pythonWasm.link": {
+    "translation": "<tag-1> <tag-2>Python resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Python dokümantasyonu</tag-4> </tag-3> <tag-5><tag-6>Pyodide dokümantasyonu</tag-6></tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=Python</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "pythonWasm.name": {
+    "translation": "Python (Wasm)"
+  },
+  "r.desc": {
+    "translation": "WebR kullanılarak tarayıcıda çalışan R."
+  },
+  "r.link": {
+    "translation": "<tag-1> <tag-2>R projesi resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>R Kılavuzları</tag-4> </tag-3> <tag-5> <tag-6>Veri Bilimi için R (2e)</tag-6> </tag-5> <tag-7> <tag-8>WebR dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>Y Dakikada X Öğrenin, X=R</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Dokümantasyonu</tag-12> </tag-11> <tag-13> <tag-14>Başlangıç şablonunu yükle</tag-14> </tag-13>"
+  },
+  "r.name": {
+    "translation": "R"
+  },
+  "react.desc": {
+    "translation": "React Derleyicisi, React uygulamalarını otomatik olarak optimize eden, yalnızca derleme zamanında çalışan bir araçtır."
+  },
+  "react.link": {
+    "translation": "<tag-1> <tag-2>React resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>React Derleyicisi</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "react.name": {
+    "translation": "React Compiler"
+  },
+  "reactNative.desc": {
+    "translation": "Web için React Native, React DOM ile birlikte çalışabilen, React Native Bileşenleri ve API'lerinin erişilebilir bir uygulamasıdır."
+  },
+  "reactNative.link": {
+    "translation": "<tag-1> <tag-2>React resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>React Native web sitesi</tag-4> </tag-3> <tag-5> <tag-6>Web için React Native web sitesi</tag-6> </tag-5> <tag-7> <tag-8>React Native dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "reactNative.name": {
+    "translation": "React Native for Web"
+  },
+  "reactNativeTsx.desc": {
+    "translation": "Web için React Native, React DOM ile birlikte çalışabilen, React Native Bileşenleri ve API'lerinin erişilebilir bir uygulamasıdır."
+  },
+  "reactNativeTsx.link": {
+    "translation": "<tag-1> <tag-2>React resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>React Native web sitesi</tag-4> </tag-3> <tag-5> <tag-6>Web için React Native web sitesi</tag-6> </tag-5> <tag-7> <tag-8>React Native dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>TypeScript web sitesi</tag-10> </tag-9> <tag-11> <tag-12>TypeScript dokümantasyonu</tag-12> </tag-11> <tag-13> <tag-14>LiveCodes Dokümantasyonu</tag-14> </tag-13> <tag-15> <tag-16>Başlangıç şablonunu yükle (JSX)</tag-16> </tag-15>"
+  },
+  "reactNativeTsx.name": {
+    "translation": "React Native for Web (TypeScript ile)"
+  },
+  "reactTsx.desc": {
+    "translation": "React Derleyicisi, React uygulamalarını otomatik olarak optimize eden, yalnızca derleme zamanında çalışan bir araçtır."
+  },
+  "reactTsx.link": {
+    "translation": "<tag-1> <tag-2>React resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>React Derleyicisi</tag-4> </tag-3> <tag-5> <tag-6>TypeScript web sitesi</tag-6> </tag-5> <tag-7> <tag-8>TypeScript dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle (JSX)</tag-12> </tag-11>"
+  },
+  "reactTsx.name": {
+    "translation": "React Compiler (TypeScript ile)"
+  },
+  "reason.desc1": {
+    "translation": "Reason, hem JavaScript hem de OCaml ekosistemlerinden yararlanırken basit, hızlı ve kaliteli, tür-güvenli kod yazmanıza olanak tanır."
+  },
+  "reason.desc2": {
+    "translation": "Reason'ı JavaScript'e derlemek için burada ReScript derleyicisi kullanılır."
+  },
+  "reason.link": {
+    "translation": "<tag-1><tag-2>Reason web sitesi</tag-2></tag-1> <tag-3> <tag-4>Reason dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>ReasonReact</tag-6> </tag-5> <tag-7> <tag-8>ReScript web sitesi</tag-8> </tag-7> <tag-9> <tag-10>Y Dakikada X Öğrenin, X=reason</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "reason.name": {
+    "translation": "Reason"
+  },
+  "rescript.desc": {
+    "translation": "ReScript, verimli ve insan tarafından okunabilir JavaScript'e derlenen, sağlam bir şekilde tiplendirilmiş bir dildir."
+  },
+  "rescript.link": {
+    "translation": "<tag-1> <tag-2>ReScript web sitesi</tag-2> </tag-1> <tag-3> <tag-4>ReScript / React</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "rescript.name": {
+    "translation": "ReScript"
+  },
+  "richtext.desc1": {
+    "translation": "Quill kullanarak:"
+  },
+  "richtext.desc2": {
+    "translation": "Güçlü zengin metin düzenleyiciniz."
+  },
+  "richtext.link": {
+    "translation": "<tag-1> <tag-2>Quill resmi web sitesi</tag-2> </tag-1>"
+  },
+  "richtext.name": {
+    "translation": "Zengin Metin Düzenleyici"
+  },
+  "riot.desc": {
+    "translation": "Basit ve zarif bileşen tabanlı kullanıcı arayüzü kütüphanesi."
+  },
+  "riot.link": {
+    "translation": "<tag-1> <tag-2>Riot.js resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Riot.js dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "riot.name": {
+    "translation": "Riot.js"
+  },
+  "ruby.desc": {
+    "translation": "Opal kullanılarak tarayıcıda çalışan Ruby."
+  },
+  "ruby.link": {
+    "translation": "<tag-1> <tag-2>Ruby resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Ruby dokümantasyonu</tag-4> </tag-3> <tag-5><tag-6>Opal resmi web sitesi</tag-6></tag-5> <tag-7> <tag-8>Opal standart kütüphane CDN'i</tag-8> </tag-7> <tag-9> <tag-10>Y Dakikada X Öğrenin, X=ruby</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Dokümantasyonu</tag-12> </tag-11> <tag-13> <tag-14>Başlangıç şablonunu yükle</tag-14> </tag-13>"
+  },
+  "ruby.name": {
+    "translation": "Ruby"
+  },
+  "rubyWasm.desc": {
+    "translation": "Tarayıcıda ruby-wasm (CRuby'nin WebAssembly portlarının bir koleksiyonu) kullanılarak çalışan Ruby."
+  },
+  "rubyWasm.link": {
+    "translation": "<tag-1> <tag-2>Ruby resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Ruby dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>ruby.wasm web sitesi</tag-6> </tag-5> <tag-7><tag-8>CRuby</tag-8></tag-7> <tag-9> <tag-10>Y Dakikada X Öğrenin, X=ruby</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes Dokümantasyonu</tag-12> </tag-11> <tag-13> <tag-14>Başlangıç şablonunu yükle</tag-14> </tag-13>"
+  },
+  "rubyWasm.name": {
+    "translation": "Ruby (WASM)"
+  },
+  "sass.desc": {
+    "translation": "Sözdizimsel Olarak Harika Stil Sayfaları."
+  },
+  "sass.link": {
+    "translation": "<tag-1> <tag-2>Sass resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Sass dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Sass (girintili) sözdizimi</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=sass</tag-8> </tag-7>"
+  },
+  "sass.name": {
+    "translation": "Sass"
+  },
+  "scheme.desc": {
+    "translation": "biwascheme kullanılarak tarayıcıda çalışan Scheme."
+  },
+  "scheme.link": {
+    "translation": "<tag-1> <tag-2>Scheme Programlama Dili</tag-2> </tag-1> <tag-3> <tag-4>BiwaScheme resmi web sitesi</tag-4> </tag-3> <tag-5> <tag-6>BiwaScheme referansı</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "scheme.name": {
+    "translation": "Scheme"
+  },
+  "scss.desc": {
+    "translation": "Sözdizimsel Olarak Harika Stil Sayfaları."
+  },
+  "scss.link": {
+    "translation": "<tag-1> <tag-2>Sass resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Sass dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>SCSS sözdizimi</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=sass</tag-8> </tag-7>"
+  },
+  "scss.name": {
+    "translation": "SCSS"
+  },
+  "solid.desc": {
+    "translation": "Kullanıcı arayüzleri oluşturmak için bildirimsel, verimli ve esnek bir JavaScript kütüphanesi."
+  },
+  "solid.link": {
+    "translation": "<tag-1><tag-2>Resmi web sitesi</tag-2></tag-1> <tag-3><tag-4>Dokümantasyon</tag-4></tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle (TSX)</tag-8> </tag-7>"
+  },
+  "solid.name": {
+    "translation": "Solid"
+  },
+  "solid.tsx.desc": {
+    "translation": "Kullanıcı arayüzleri oluşturmak için bildirimsel, verimli ve esnek bir JavaScript kütüphanesi."
+  },
+  "solid.tsx.link": {
+    "translation": "<tag-1><tag-2>Resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>Solid dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>TypeScript web sitesi</tag-6> </tag-5> <tag-7> <tag-8>TypeScript dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "solid.tsx.name": {
+    "translation": "Solid (TypeScript ile)"
+  },
+  "sql.desc": {
+    "translation": "SQL.js kullanılarak JavaScript'e derlenmiş SQLite."
+  },
+  "sql.link": {
+    "translation": "<tag-1> <tag-2>SQLite resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>SQLite sözdizimi dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>SQL.js resmi web sitesi</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=SQL</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "sql.name": {
+    "translation": "SQLite"
+  },
+  "stencil.desc": {
+    "translation": "Web Bileşenleri ve Yüksek Performanslı Web Uygulamaları için bir Derleyici."
+  },
+  "stencil.link": {
+    "translation": "<tag-1> <tag-2>Stencil resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Stencil dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "stencil.name": {
+    "translation": "Stencil"
+  },
+  "styleProcessors.link": {
+    "translation": "<tag-1> <tag-2>Tailwind CSS</tag-2> </tag-1> <tag-3> <tag-4>Windi CSS</tag-4> </tag-3> <tag-5> <tag-6>UnoCSS</tag-6> </tag-5> <tag-7> <tag-8>Lightning CSS</tag-8> </tag-7> <tag-9> <tag-10>PostCSS</tag-10> Eklentileri: <tag-11> <tag-12> <tag-13>Autoprefixer</tag-13> </tag-12> <tag-14> <tag-15>postcss-preset-env</tag-15> </tag-14> <tag-16> <tag-17>postcss-import-url</tag-17> </tag-16> <tag-18> <tag-19>postcss-modules</tag-19> </tag-18> </tag-11> </tag-9>"
+  },
+  "styleProcessors.name": {
+    "translation": "CSS Çerçeveleri ve İşlemcileri"
+  },
+  "stylis.desc": {
+    "translation": "Hafif css ön işlemcisi."
+  },
+  "stylis.link": {
+    "translation": "<tag-1> <tag-2>Stylis resmi web sitesi</tag-2> </tag-1>"
+  },
+  "stylis.name": {
+    "translation": "Stylis"
+  },
+  "stylus.desc": {
+    "translation": "Etkileyici, Dinamik, Sağlam CSS."
+  },
+  "stylus.link": {
+    "translation": "<tag-1> <tag-2>Stylus resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Y Dakikada X Öğrenin, X=stylus</tag-4> </tag-3>"
+  },
+  "stylus.name": {
+    "translation": "Stylus"
+  },
+  "sucrase.desc": {
+    "translation": "Modern JS çalışma zamanlarını hedefleyebildiğinizde Babel'e süper hızlı bir alternatif."
+  },
+  "sucrase.link": {
+    "translation": "<tag-1> <tag-2>Sucrase resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Sucrase GitHub Repo'su</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Dokümantasyonu</tag-6> </tag-5>"
+  },
+  "sucrase.name": {
+    "translation": "Sucrase"
+  },
+  "svelte.desc": {
+    "translation": "Sibernetik olarak geliştirilmiş web uygulamaları."
+  },
+  "svelte.link": {
+    "translation": "<tag-1> <tag-2>Svelte resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Svelte dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Başlangıç şablonunu yükle</tag-6> </tag-5>"
+  },
+  "svelte.name": {
+    "translation": "Svelte"
+  },
+  "tcl.desc": {
+    "translation": "Tarayıcıda, <tag-1>wacl</tag-1> kullanılarak çalışan Tcl."
+  },
+  "tcl.link": {
+    "translation": "<tag-1> <tag-2>Tcl resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>wacl repo'su</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=Tcl</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "tcl.name": {
+    "translation": "Tcl (Tool Command Language)"
+  },
+  "teal.desc": {
+    "translation": "Lua'nın tipli bir diyalekti."
+  },
+  "teal.link": {
+    "translation": "<tag-1> <tag-2>Teal GitHub repo'su</tag-2> </tag-1> <tag-3> <tag-4>Teal dokümanları</tag-4> </tag-3> <tag-5> <tag-6>Teal eğitimi</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "teal.name": {
+    "translation": "Teal"
+  },
+  "tsx.desc": {
+    "translation": "JSX içinde TypeScript. TSX, LiveCodes'ta TypeScript Derleyicisi kullanılarak JavaScript'e derlenir. Varsayılan olarak JSX çalışma zamanı olarak React'i kullanır."
+  },
+  "tsx.link": {
+    "translation": "<tag-1> <tag-2>React resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>React dokümantasyonunda JSX</tag-4> </tag-3> <tag-5> <tag-6>Typescript dokümantasyonu</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7>"
+  },
+  "tsx.name": {
+    "translation": "TSX"
+  },
+  "twig.desc": {
+    "translation": "<tag-1>Twig</tag-1> PHP şablonlama dilinin <tag-2>Twig.js</tag-2> tarafından bir JavaScript uygulaması."
+  },
+  "twig.link": {
+    "translation": "<tag-1> <tag-2>Twig resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Twig Dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Twig.js Repo'su</tag-6> </tag-5> <tag-7> <tag-8>Twig.js Dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9>"
+  },
+  "twig.name": {
+    "translation": "Twig"
+  },
+  "typescript.desc": {
+    "translation": "JavaScript'in Tipli bir Üst Kümesi."
+  },
+  "typescript.link": {
+    "translation": "<tag-1> <tag-2>Resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>TypeScript dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=TypeScript</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "typescript.name": {
+    "translation": "TypeScript"
+  },
+  "vue.link": {
+    "translation": "<tag-1> <tag-2>Vue.js v3 resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Vue3 dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Vue3 tek dosya bileşenleri</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "vue.name": {
+    "translation": "Vue3 Tek Dosya Bileşenleri"
+  },
+  "vue2.desc": {
+    "translation": "vue3-sfc-loader kullanılarak yüklendi."
+  },
+  "vue2.link": {
+    "translation": "<tag-1><tag-2>Vue.js resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>Vue2 dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Vue2 tek dosya bileşenleri</tag-6> </tag-5> <tag-7> <tag-8>vue3-sfc-loader GitHub repo'su</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9>"
+  },
+  "vue2.name": {
+    "translation": "Vue2 Tek Dosya Bileşenleri"
+  },
+  "wat.desc1": {
+    "translation": "WebAssembly (wasm) ikili formatının düşük seviyeli metinsel gösterimi."
+  },
+  "wat.desc2": {
+    "translation": "wabt.js kullanılarak wasm'a dönüştürülür."
+  },
+  "wat.link": {
+    "translation": "<tag-1><tag-2>WebAssembly.org</tag-2></tag-1> <tag-3> <tag-4>WebAssembly Metin Özellikleri</tag-4> </tag-3> <tag-5> <tag-6>MDN'de WebAssembly</tag-6> </tag-5> <tag-7> <tag-8>WebAssembly metin formatını anlama</tag-8> </tag-7> <tag-9> <tag-10>wabt.js dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Y Dakikada X Öğrenin, X=WebAssembly</tag-12> </tag-11> <tag-13> <tag-14>Başlangıç şablonunu yükle</tag-14> </tag-13>"
+  },
+  "wat.name": {
+    "translation": "WebAssembly Metin Formatı"
+  }
+}

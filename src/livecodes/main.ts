@@ -5,7 +5,7 @@ import appHTML from './html/app.html?raw';
 import type { API, CDN, Config, CustomEvents, EmbedOptions } from './models';
 import { modulesService } from './services/modules';
 import { isInIframe } from './utils/utils';
-import { codeMirrorBaseUrl, esModuleShimsPath } from './vendors';
+import { codeMirrorBaseUrl, creltUrl, esModuleShimsPath } from './vendors';
 
 export type { API, Config };
 
@@ -21,7 +21,7 @@ export let isEmbed =
   (params.get('embed') != null && params.get('embed') !== 'false') ||
   isInIframe();
 const loadingParam = params.get('loading');
-export const clickToLoad = isEmbed && loadingParam !== 'eager';
+export const clickToLoad = isEmbed && loadingParam === 'click';
 export const loading: EmbedOptions['loading'] = !isEmbed
   ? 'eager'
   : loadingParam === 'lazy' || loadingParam === 'click' || loadingParam === 'eager'
@@ -84,6 +84,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
 
       const iframe = document.createElement('iframe');
       iframe.name = 'app';
+      iframe.title = 'LiveCodes App';
       iframe.style.display = 'none';
       const disableAIQuery = disableAI ? `?disableAI` : '';
       iframe.src = './app.html' + disableAIQuery;
@@ -107,6 +108,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
     `,
           )
           .replace(/{{codemirrorCoreUrl}}/g, `${codeMirrorBaseUrl}codemirror-core.js`)
+          .replace(/{{creltUrl}}/g, creltUrl)
           .replace(/src="[^"]*?\.svg"/g, (str: string) => (isHeadless ? 'src=""' : str))
           .replace(
             /{{codeiumMeta}}/g,
@@ -131,6 +133,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
         registerSDKEvent(customEvents.appLoaded);
         registerSDKEvent(customEvents.ready);
         registerSDKEvent(customEvents.change, true);
+        registerSDKEvent(customEvents.run, true);
         registerSDKEvent(customEvents.testResults, true);
         registerSDKEvent(customEvents.console, true);
         registerSDKEvent(customEvents.destroy);

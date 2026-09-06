@@ -6,9 +6,11 @@ import { getLanguageCustomSettings } from '../utils';
 export const react: LanguageSpecs = {
   name: 'react',
   title: 'React',
-  parser: {
-    name: 'babel',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
   },
   compiler: {
     dependencies: ['babel'],
@@ -24,7 +26,7 @@ export const react: LanguageSpecs = {
           'babel-plugin-react-compiler' as any,
           config,
         );
-        return (window as any).Babel.transform(code, {
+        const result = (window as any).Babel.transform(code, {
           filename: 'script.tsx',
           presets: [
             ['env', { modules: false, ...presetEnvConfig }],
@@ -33,10 +35,22 @@ export const react: LanguageSpecs = {
           ],
           plugins: [[(window as any).reactCompiler.reactCompiler, reactCompilerConfig]],
           ...babelConfig,
-        }).code;
+          sourceMaps: true,
+        });
+        return {
+          code: result.code,
+          info: {
+            sourceMaps: result.map ? { script: JSON.stringify(result.map) } : undefined,
+          },
+        };
       },
   },
   extensions: ['react.jsx', 'react-jsx'],
   editor: 'script',
   editorLanguage: 'javascript',
+  editorSupport: {
+    compilerOptions: {
+      jsx: 4, // monaco.languages.typescript.JsxEmit.ReactJSX,
+    },
+  },
 };

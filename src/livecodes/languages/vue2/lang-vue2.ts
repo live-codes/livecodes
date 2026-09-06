@@ -8,9 +8,11 @@ export const vue2: LanguageSpecs = {
   name: 'vue2',
   title: 'Vue 2',
   longTitle: 'Vue 2 SFC',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     factory: (_config, baseUrl) => {

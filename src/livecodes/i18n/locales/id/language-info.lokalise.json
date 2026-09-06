@@ -1,0 +1,786 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "artTemplate.desc": {
+    "translation": "Mesin templating JavaScript berkinerja tinggi."
+  },
+  "artTemplate.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi art-template</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi art-template</tag-4> </tag-3>"
+  },
+  "artTemplate.name": {
+    "translation": "art-template"
+  },
+  "asciidoc.desc": {
+    "translation": "AsciiDoc dikompilasi ke HTML menggunakan Asciidoctor."
+  },
+  "asciidoc.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi AsciiDoc</tag-2> </tag-1> <tag-3> <tag-4>Situs web resmi Asciidoctor</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi Asciidoctor</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=asciidoc</tag-8> </tag-7>"
+  },
+  "asciidoc.name": {
+    "translation": "AsciiDoc"
+  },
+  "assemblyscript.desc": {
+    "translation": "Bahasa seperti TypeScript untuk WebAssembly."
+  },
+  "assemblyscript.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi AssemblyScript</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi AssemblyScript</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "assemblyscript.name": {
+    "translation": "AssemblyScript"
+  },
+  "astro.desc": {
+    "translation": "Bangun situs web yang lebih cepat dengan lebih sedikit Javascript sisi klien. (Masih dalam Beta)"
+  },
+  "astro.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Astro</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Astro</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "astro.name": {
+    "translation": "Astro"
+  },
+  "babel.desc": {
+    "translation": "Kompiler JavaScript"
+  },
+  "babel.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi Babel</tag-4> </tag-3>"
+  },
+  "babel.name": {
+    "translation": "Babel"
+  },
+  "bbcode.desc": {
+    "translation": "BBCode (\"Bulletin Board Code\") adalah bahasa markup ringan yang digunakan untuk memformat pesan di banyak perangkat lunak forum Internet."
+  },
+  "bbcode.link": {
+    "translation": "<tag-1><tag-2>bbcode.org</tag-2></tag-1> <tag-3> <tag-4>Panduan BBCode</tag-4> </tag-3> <tag-5> <tag-6>BBCode di Wikipedia</tag-6> </tag-5>"
+  },
+  "bbcode.name": {
+    "translation": "BBCode"
+  },
+  "blockly.desc": {
+    "translation": "Pustaka JavaScript untuk membangun editor pemrograman visual."
+  },
+  "blockly.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi</tag-2> </tag-1> <tag-3> <tag-4>Panduan</tag-4> </tag-3> <tag-5> <tag-6>Referensi</tag-6> </tag-5> <tag-7> <tag-8>Contoh</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "blockly.name": {
+    "translation": "Blockly"
+  },
+  "civet.desc": {
+    "translation": "Civet adalah bahasa pemrograman yang dikompilasi ke TypeScript atau JavaScript, sehingga Anda dapat menggunakan alat yang ada tetapi mengaktifkan sintaks yang ringkas dan powerful."
+  },
+  "civet.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Civet</tag-2> </tag-1> <tag-3> <tag-4>Cheatsheet Civet</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "civet.name": {
+    "translation": "Civet"
+  },
+  "clio.desc": {
+    "translation": "Clio adalah bahasa pemrograman fungsional terdistribusi yang cepat yang dikompilasi ke JavaScript."
+  },
+  "clio.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Clio</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Clio</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "clio.name": {
+    "translation": "Clio"
+  },
+  "clojurescript.desc": {
+    "translation": "ClojureScript adalah kompiler untuk <tag-1>Clojure</tag-1> yang menargetkan JavaScript. <tag-2></tag-2>Di LiveCodes, berjalan di browser menggunakan <tag-3>Cherry</tag-3>"
+  },
+  "clojurescript.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>Situs web resmi Clojure</tag-4> </tag-3> <tag-5> <tag-6>Repo Cherry</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=clojure</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "clojurescript.name": {
+    "translation": "ClojureScript (CLJS)"
+  },
+  "coffeescript.desc": {
+    "translation": "JavaScript yang sederhana."
+  },
+  "coffeescript.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi CoffeeScript</tag-2> </tag-1> <tag-3> <tag-4>Pelajari X dalam Y menit, dengan X=coffeescript</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "coffeescript.name": {
+    "translation": "CoffeeScript"
+  },
+  "commonlisp.desc": {
+    "translation": "Implementasi Common Lisp di Javascript menggunakan JSCL (kompiler Lisp-ke-Javascript yang di-bootstrap dari Common Lisp)."
+  },
+  "commonlisp.link": {
+    "translation": "<tag-1> <tag-2>Common-Lisp.net</tag-2> </tag-1> <tag-3> <tag-4>Proyek JSCL</tag-4> </tag-3> <tag-5> <tag-6>Sumber Daya Common Lisp</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=Common Lisp</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "commonlisp.name": {
+    "translation": "Common Lisp"
+  },
+  "cpp.desc1": {
+    "translation": "Dukungan C++ menggunakan JSCPP (interpreter C++ sederhana yang ditulis dalam JavaScript)."
+  },
+  "cpp.desc2": {
+    "translation": "Ini bukan implementasi lengkap dari C++. Silakan lihat <tag-1>dokumentasi JSCPP</tag-1> untuk detail."
+  },
+  "cpp.link": {
+    "translation": "<tag-1> <tag-2>Yayasan Standard C++</tag-2> </tag-1> <tag-3> <tag-4>JSCPP</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=C++</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "cpp.name": {
+    "translation": "C++"
+  },
+  "cppWasm.desc": {
+    "translation": "Kompiler Clang C/C++ berjalan di WebAssembly, menggunakan <tag-1>wasm-clang</tag-1> yang diadaptasi oleh <tag-2>polylang.io</tag-2>"
+  },
+  "cppWasm.link": {
+    "translation": "<tag-1> <tag-2>Yayasan Standard C++</tag-2> </tag-1> <tag-3> <tag-4>Situs web resmi Clang</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=C++</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "cppWasm.name": {
+    "translation": "C/C++ (Wasm)"
+  },
+  "csharpWasm.desc": {
+    "translation": "Kompiler C# berjalan di WebAssembly, menggunakan <tag-1>Blazor</tag-1>"
+  },
+  "csharpWasm.link": {
+    "translation": "<tag-1> <tag-2>Dokumentasi bahasa C#</tag-2> </tag-1> <tag-3> <tag-4>Pelajari X dalam Y menit, dengan X=C#</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "csharpWasm.name": {
+    "translation": "C# (Wasm)"
+  },
+  "diagrams.desc1": {
+    "translation": "(Eksperimental)"
+  },
+  "diagrams.desc2": {
+    "translation": "Diagram-sebagai-kode. Mendukung:"
+  },
+  "diagrams.desc3": {
+    "translation": "<tag-1> <tag-2>Cytoscape</tag-2> </tag-1> <tag-3> <tag-4>ELK</tag-4> (menggunakan <tag-5>elkjs</tag-5>) </tag-3> <tag-6> <tag-7>Gnuplot</tag-7> (menggunakan <tag-8>gnuplot-JS</tag-8>) </tag-6> <tag-9> <tag-10>Graphviz</tag-10> (menggunakan <tag-11>@hpcc-js/wasm</tag-11>) </tag-9> <tag-12> <tag-13>Mermaid</tag-13> </tag-12> <tag-14> <tag-15>Nomnoml</tag-15> </tag-14> <tag-16> <tag-17>Pintora</tag-17> </tag-16> <tag-18> <tag-19>Plotly</tag-19> </tag-18> <tag-20> <tag-21>Svgbob</tag-21> </tag-20> <tag-22> <tag-23>Vega</tag-23> </tag-22> <tag-24> <tag-25>VegaLite</tag-25> </tag-24> <tag-26> <tag-27>WaveDrom</tag-27> </tag-26>"
+  },
+  "diagrams.link": {
+    "translation": "<tag-1> <tag-2>Muat template pemula</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi LiveCodes</tag-4> </tag-3>"
+  },
+  "diagrams.name": {
+    "translation": "Diagram"
+  },
+  "dot.desc": {
+    "translation": "Mesin template javascript tercepat + ringkas untuk Node.js dan browser."
+  },
+  "dot.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi LiveCodes</tag-4> </tag-3>"
+  },
+  "dot.name": {
+    "translation": "doT.js"
+  },
+  "ejs.desc": {
+    "translation": "Templating JavaScript Tertanam."
+  },
+  "ejs.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi LiveCodes</tag-4> </tag-3>"
+  },
+  "ejs.name": {
+    "translation": "EJS"
+  },
+  "eta.desc": {
+    "translation": "Mesin template JS tertanam untuk Node, Deno, dan browser. Ringan, cepat, dan pluggable. Ditulis dalam TypeScript."
+  },
+  "eta.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5>"
+  },
+  "eta.name": {
+    "translation": "Eta"
+  },
+  "fennel.desc": {
+    "translation": "Fennel adalah bahasa pemrograman yang menggabungkan kecepatan, kesederhanaan, dan jangkauan Lua dengan fleksibilitas sintaks lisp dan sistem makro."
+  },
+  "fennel.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Fennel</tag-2> </tag-1> <tag-3> <tag-4>Memulai dengan Fennel</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "fennel.name": {
+    "translation": "Fennel"
+  },
+  "flow.desc": {
+    "translation": "Flow adalah pemeriksa tipe statis untuk JavaScript."
+  },
+  "flow.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Flow</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Flow</tag-4> </tag-3>"
+  },
+  "flow.name": {
+    "translation": "Flow"
+  },
+  "gleam.desc1": {
+    "translation": "Gleam adalah bahasa ramah untuk membangun sistem yang aman dan dapat diskalakan!"
+  },
+  "gleam.desc2": {
+    "translation": "Gleam adalah bahasa pemrograman fungsional bertipe statis, yang dikompilasi ke Erlang atau JavaScript."
+  },
+  "gleam.link": {
+    "translation": "<tag-1><tag-2>Situs web Gleam</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi Gleam</tag-4> </tag-3> <tag-5> <tag-6>Tur bahasa Gleam</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "gleam.name": {
+    "translation": "Gleam"
+  },
+  "go.desc1": {
+    "translation": "Go (Golang) adalah bahasa pemrograman open source yang memudahkan untuk membangun perangkat lunak yang sederhana, andal, dan efisien."
+  },
+  "go.desc2": {
+    "translation": "Di sini, dikompilasi ke JavaScript menggunakan GopherJS."
+  },
+  "go.link": {
+    "translation": "<tag-1><tag-2>Situs web Go</tag-2></tag-1> <tag-3><tag-4>Dokumentasi Go</tag-4></tag-3> <tag-5> <tag-6>Repo GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=Go</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "go.name": {
+    "translation": "Go"
+  },
+  "goWasm.desc": {
+    "translation": "Interpreter Go berjalan di WebAssembly, menggunakan Yaegi"
+  },
+  "goWasm.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi Go</tag-2></tag-1> <tag-3><tag-4>Yaegi</tag-4></tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=Go</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "goWasm.name": {
+    "translation": "Go (Wasm)"
+  },
+  "haml.desc": {
+    "translation": "Kompiler Haml untuk template tampilan javascript sisi klien menggunakan clientside-haml-js."
+  },
+  "haml.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi Haml</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi Haml</tag-4> </tag-3> <tag-5> <tag-6>Repo GitHub clientside-haml-js</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=haml</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9>"
+  },
+  "haml.name": {
+    "translation": "Haml"
+  },
+  "handlebars.desc": {
+    "translation": "Templating minimal yang powerful."
+  },
+  "handlebars.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi LiveCodes</tag-4> </tag-3>"
+  },
+  "handlebars.name": {
+    "translation": "Handlebars"
+  },
+  "imba.desc": {
+    "translation": "Bahasa full-stack yang ramah."
+  },
+  "imba.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi</tag-2></tag-1>"
+  },
+  "imba.name": {
+    "translation": "Imba"
+  },
+  "java.desc": {
+    "translation": "JVM berjalan di browser menggunakan DoppioJVM."
+  },
+  "java.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Java</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=java</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "java.name": {
+    "translation": "Java"
+  },
+  "javascript.desc": {
+    "translation": "Bahasa skrip web."
+  },
+  "javascript.link": {
+    "translation": "<tag-1> <tag-2>JavaScript di MDN</tag-2> </tag-1> <tag-3> <tag-4>Belajar X dalam Y menit, di mana X = JavaScript</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat templat pemula</tag-8> </tag-7>"
+  },
+  "javascript.name": {
+    "translation": "JavaScript"
+  },
+  "jinja.desc": {
+    "translation": "Jinja adalah mesin templating yang cepat, ekspresif, dan dapat diperluas."
+  },
+  "jinja.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi template</tag-4> </tag-3> <tag-5> <tag-6>Implementasi JavaScript</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7>"
+  },
+  "jinja.name": {
+    "translation": "Jinja"
+  },
+  "jsx.desc": {
+    "translation": "JSX dikompilasi ke JavaScript di LiveCodes menggunakan TypeScript Compiler. Secara default menggunakan React sebagai JSX runtime."
+  },
+  "jsx.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi React</tag-2> </tag-1> <tag-3> <tag-4>JSX di dokumentasi React</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5>"
+  },
+  "jsx.name": {
+    "translation": "JSX"
+  },
+  "julia.desc1": {
+    "translation": "Dukungan bahasa Julia di LiveCodes masih eksperimental"
+  },
+  "julia.desc2": {
+    "translation": "Kompiler Julia dan Julia Base berjalan di WASM, menggunakan <tag-1>julia-wasm</tag-1> yang diadaptasi oleh <tag-2>polylang.io</tag-2>"
+  },
+  "julia.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Julia</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Julia</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=Julia</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "julia.name": {
+    "translation": "Julia"
+  },
+  "less.desc": {
+    "translation": "Ini CSS, dengan sedikit lebih banyak."
+  },
+  "less.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi Less</tag-2></tag-1> <tag-3> <tag-4>Pelajari X dalam Y menit, dengan X=less</tag-4> </tag-3>"
+  },
+  "less.name": {
+    "translation": "Less"
+  },
+  "liquid.desc": {
+    "translation": "Mesin template yang sederhana, ekspresif, dan aman."
+  },
+  "liquid.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi LiquidJS</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi LiquidJS</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5>"
+  },
+  "liquid.name": {
+    "translation": "LiquidJS"
+  },
+  "livescript.desc": {
+    "translation": "Bahasa yang dikompilasi ke JavaScript."
+  },
+  "livescript.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi LiveScript</tag-2> </tag-1> <tag-3> <tag-4>Pelajari X dalam Y menit, dengan X=LiveScript</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "livescript.name": {
+    "translation": "LiveScript"
+  },
+  "lua.desc": {
+    "translation": "Lua berjalan di browser menggunakan fengari-web."
+  },
+  "lua.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi Lua</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi Lua</tag-4> </tag-3> <tag-5> <tag-6>Situs web resmi Fengari</tag-6> </tag-5> <tag-7> <tag-8>Repo GitHub fengari-web</tag-8> </tag-7> <tag-9> <tag-10>Pelajari X dalam Y menit, dengan X=Lua</tag-10> </tag-9> <tag-11> <tag-12>Dokumentasi LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>Muat template pemula</tag-14> </tag-13>"
+  },
+  "lua.name": {
+    "translation": "Lua"
+  },
+  "luaWasm.desc": {
+    "translation": "Lua berjalan di browser menggunakan Wasmoon, VM lua 5.4 asli dengan binding JS yang dibuat dengan WebAssembly."
+  },
+  "luaWasm.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi Lua</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi Lua</tag-4> </tag-3> <tag-5> <tag-6>Repo GitHub Wasmoon</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=Lua</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "luaWasm.name": {
+    "translation": "Lua (Wasm)"
+  },
+  "malina.desc": {
+    "translation": "Kompiler frontend, terinspirasi oleh Svelte."
+  },
+  "malina.link": {
+    "translation": "<tag-1> <tag-2>Repo Malina.js</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Malina.js</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "malina.name": {
+    "translation": "Malina.js"
+  },
+  "markdown.desc": {
+    "translation": "Markdown dikompilasi ke HTML menggunakan Marked."
+  },
+  "markdown.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Markdown</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Marked</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=markdown</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "markdown.name": {
+    "translation": "Markdown"
+  },
+  "mdx.desc": {
+    "translation": "Markdown untuk era komponen. <tag-1></tag-1>MDX memungkinkan Anda menulis JSX dengan mulus di dokumen Markdown Anda."
+  },
+  "mdx.link": {
+    "translation": "<tag-1><tag-2>Dokumentasi MDX</tag-2></tag-1> <tag-3> <tag-4>Muat template pemula</tag-4> </tag-3>"
+  },
+  "mdx.name": {
+    "translation": "MDX"
+  },
+  "minizinc.desc": {
+    "translation": "MiniZinc adalah bahasa pemodelan batasan tingkat tinggi yang memungkinkan Anda mengekspresikan dan memecahkan masalah optimasi diskrit dengan mudah."
+  },
+  "minizinc.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi MiniZinc</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi MiniZinc</tag-4> </tag-3> <tag-5> <tag-6>Tutorial MiniZinc</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "minizinc.name": {
+    "translation": "MiniZinc"
+  },
+  "mjml.desc": {
+    "translation": "MJML adalah bahasa markup yang dirancang untuk mengurangi kesulitan dalam mengkode email responsif."
+  },
+  "mjml.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi MJML</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi MJML</tag-4> </tag-3> <tag-5> <tag-6>Template resmi MJML</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7>"
+  },
+  "mjml.name": {
+    "translation": "MJML"
+  },
+  "mustache.desc": {
+    "translation": "Template tanpa logika."
+  },
+  "mustache.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi</tag-2> </tag-1> <tag-3> <tag-4>Manual mustache(5)</tag-4> </tag-3> <tag-5> <tag-6>Implementasi JavaScript</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7>"
+  },
+  "mustache.name": {
+    "translation": "Mustache"
+  },
+  "nunjucks.desc": {
+    "translation": "Bahasa templating yang kaya dan powerful untuk JavaScript. Nunjucks pada dasarnya adalah port dari <tag-1>jinja2</tag-1>"
+  },
+  "nunjucks.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi LiveCodes</tag-4> </tag-3>"
+  },
+  "nunjucks.name": {
+    "translation": "Nunjucks"
+  },
+  "ocaml.desc1": {
+    "translation": "OCaml adalah bahasa pemrograman tingkat industri yang mendukung gaya fungsional, imperatif, dan berorientasi objek."
+  },
+  "ocaml.desc2": {
+    "translation": "Kompiler ReScript digunakan di sini untuk mengkompilasi OCaml ke JavaScript."
+  },
+  "ocaml.link": {
+    "translation": "<tag-1><tag-2>Situs web OCaml</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi OCaml</tag-4> </tag-3> <tag-5> <tag-6>Situs web ReScript</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=OCaml</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "ocaml.name": {
+    "translation": "OCaml"
+  },
+  "perl.desc": {
+    "translation": "Perl berjalan di browser menggunakan Perlito."
+  },
+  "perl.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Perl</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Perl</tag-4> </tag-3> <tag-5> <tag-6>Readme Perlito5</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=perl</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "perl.name": {
+    "translation": "Perl"
+  },
+  "php.desc": {
+    "translation": "PHP berjalan di browser menggunakan Uniter."
+  },
+  "php.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi PHP</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi PHP</tag-4> </tag-3> <tag-5> <tag-6>Repo GitHub Uniter</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=PHP</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "php.name": {
+    "translation": "PHP"
+  },
+  "phpWasm.desc": {
+    "translation": "PHP di Browser, didukung oleh WebAssembly, menggunakan php-wasm."
+  },
+  "phpWasm.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi PHP</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi PHP</tag-4> </tag-3> <tag-5> <tag-6>Repo GitHub php-wasm</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=PHP</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "phpWasm.name": {
+    "translation": "PHP (Wasm)"
+  },
+  "postgresql.desc": {
+    "translation": "PostgreSQL dikemas sebagai WASM menggunakan PGlite"
+  },
+  "postgresql.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi PostgreSQL</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi PostgreSQL</tag-4> </tag-3> <tag-5> <tag-6>Repo GitHub PGlite</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=SQL</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "postgresql.name": {
+    "translation": "PostgreSQL"
+  },
+  "prolog.desc": {
+    "translation": "Interpreter Prolog open source di JavaScript."
+  },
+  "prolog.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Tau Prolog</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Tau Prolog</tag-4> </tag-3> <tag-5> <tag-6>SWI-Prolog</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=Prolog</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "prolog.name": {
+    "translation": "Tau Prolog"
+  },
+  "pug.desc": {
+    "translation": "Mesin template yang tangguh, elegan, dan kaya fitur."
+  },
+  "pug.link": {
+    "translation": "<tag-1> <tag-2>Dokumentasi Pug</tag-2> </tag-1> <tag-3> <tag-4>Pelajari X dalam Y menit, dengan X=Pug</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5>"
+  },
+  "pug.name": {
+    "translation": "Pug"
+  },
+  "python.desc": {
+    "translation": "Python berjalan di browser menggunakan Brython."
+  },
+  "python.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Python</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Python</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi Brython</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=Python</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "python.name": {
+    "translation": "Python"
+  },
+  "pythonWasm.desc1": {
+    "translation": "Python dengan stack ilmiah, dikompilasi ke WebAssembly menggunakan Pyodide."
+  },
+  "pythonWasm.desc2": {
+    "translation": "Pyodide memungkinkan penggunaan stack ilmiah Python termasuk NumPy, Pandas, Matplotlib, SciPy, scikit-learn, dan banyak lagi. Selain itu, dimungkinkan untuk menginstal wheel Python murni dari PyPi."
+  },
+  "pythonWasm.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Python</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Python</tag-4> </tag-3> <tag-5><tag-6>Dokumentasi Pyodide</tag-6></tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=Python</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "pythonWasm.name": {
+    "translation": "Python (Wasm)"
+  },
+  "r.desc": {
+    "translation": "R berjalan di browser menggunakan WebR."
+  },
+  "r.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi R project</tag-2> </tag-1> <tag-3> <tag-4>Manual R</tag-4> </tag-3> <tag-5> <tag-6>R for Data Science (2e)</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi WebR</tag-8> </tag-7> <tag-9> <tag-10>Pelajari X dalam Y menit, dengan X=R</tag-10> </tag-9> <tag-11> <tag-12>Dokumentasi LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>Muat template pemula</tag-14> </tag-13>"
+  },
+  "r.name": {
+    "translation": "R"
+  },
+  "react.desc": {
+    "translation": "React Compiler adalah alat build-time saja yang secara otomatis mengoptimalkan aplikasi React."
+  },
+  "react.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi React</tag-2> </tag-1> <tag-3> <tag-4>React Compiler</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "react.name": {
+    "translation": "React Compiler"
+  },
+  "reactNative.desc": {
+    "translation": "React Native for Web adalah implementasi yang dapat diakses dari Komponen dan API React Native yang dapat beroperasi dengan React DOM."
+  },
+  "reactNative.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi React</tag-2> </tag-1> <tag-3> <tag-4>Situs web React Native</tag-4> </tag-3> <tag-5> <tag-6>Situs web React Native for Web</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi React Native</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "reactNative.name": {
+    "translation": "React Native for Web"
+  },
+  "reactNativeTsx.desc": {
+    "translation": "React Native for Web adalah implementasi yang dapat diakses dari Komponen dan API React Native yang dapat beroperasi dengan React DOM."
+  },
+  "reactNativeTsx.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi React</tag-2> </tag-1> <tag-3> <tag-4>Situs web React Native</tag-4> </tag-3> <tag-5> <tag-6>Situs web React Native for Web</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi React Native</tag-8> </tag-7> <tag-9> <tag-10>Situs web TypeScript</tag-10> </tag-9> <tag-11> <tag-12>Dokumentasi TypeScript</tag-12> </tag-11> <tag-13> <tag-14>Dokumentasi LiveCodes</tag-14> </tag-13> <tag-15> <tag-16>Muat template pemula (JSX)</tag-16> </tag-15>"
+  },
+  "reactNativeTsx.name": {
+    "translation": "React Native for Web (dengan TypeScript)"
+  },
+  "reactTsx.desc": {
+    "translation": "React Compiler adalah alat build-time saja yang secara otomatis mengoptimalkan aplikasi React."
+  },
+  "reactTsx.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi React</tag-2> </tag-1> <tag-3> <tag-4>React Compiler</tag-4> </tag-3> <tag-5> <tag-6>Situs web TypeScript</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi TypeScript</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula (JSX)</tag-12> </tag-11>"
+  },
+  "reactTsx.name": {
+    "translation": "React Compiler (dengan TypeScript)"
+  },
+  "reason.desc1": {
+    "translation": "Reason memungkinkan Anda menulis kode yang sederhana, cepat, dan aman dengan memanfaatkan ekosistem JavaScript & OCaml."
+  },
+  "reason.desc2": {
+    "translation": "Kompiler ReScript digunakan di sini untuk mengkompilasi Reason ke JavaScript."
+  },
+  "reason.link": {
+    "translation": "<tag-1><tag-2>Situs web Reason</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi Reason</tag-4> </tag-3> <tag-5> <tag-6>ReasonReact</tag-6> </tag-5> <tag-7> <tag-8>Situs web ReScript</tag-8> </tag-7> <tag-9> <tag-10>Pelajari X dalam Y menit, dengan X=reason</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "reason.name": {
+    "translation": "Reason"
+  },
+  "rescript.desc": {
+    "translation": "ReScript adalah bahasa bertipe kuat yang dikompilasi ke JavaScript yang efisien dan mudah dibaca manusia."
+  },
+  "rescript.link": {
+    "translation": "<tag-1> <tag-2>Situs web ReScript</tag-2> </tag-1> <tag-3> <tag-4>ReScript / React</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "rescript.name": {
+    "translation": "ReScript"
+  },
+  "richtext.desc1": {
+    "translation": "Menggunakan Quill:"
+  },
+  "richtext.desc2": {
+    "translation": "Editor teks kaya yang powerful."
+  },
+  "richtext.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Quill</tag-2> </tag-1>"
+  },
+  "richtext.name": {
+    "translation": "Editor Teks Kaya"
+  },
+  "riot.desc": {
+    "translation": "Pustaka UI berbasis komponen yang sederhana dan elegan."
+  },
+  "riot.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Riot.js</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Riot.js</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "riot.name": {
+    "translation": "Riot.js"
+  },
+  "ruby.desc": {
+    "translation": "Ruby berjalan di browser menggunakan Opal."
+  },
+  "ruby.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Ruby</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Ruby</tag-4> </tag-3> <tag-5><tag-6>Situs web resmi Opal</tag-6></tag-5> <tag-7> <tag-8>CDN pustaka standar Opal</tag-8> </tag-7> <tag-9> <tag-10>Pelajari X dalam Y menit, dengan X=ruby</tag-10> </tag-9> <tag-11> <tag-12>Dokumentasi LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>Muat template pemula</tag-14> </tag-13>"
+  },
+  "ruby.name": {
+    "translation": "Ruby"
+  },
+  "rubyWasm.desc": {
+    "translation": "Ruby berjalan di browser menggunakan ruby-wasm (kumpulan port WebAssembly dari CRuby)."
+  },
+  "rubyWasm.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Ruby</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Ruby</tag-4> </tag-3> <tag-5> <tag-6>Situs web ruby.wasm</tag-6> </tag-5> <tag-7><tag-8>CRuby</tag-8></tag-7> <tag-9> <tag-10>Pelajari X dalam Y menit, dengan X=ruby</tag-10> </tag-9> <tag-11> <tag-12>Dokumentasi LiveCodes</tag-12> </tag-11> <tag-13> <tag-14>Muat template pemula</tag-14> </tag-13>"
+  },
+  "rubyWasm.name": {
+    "translation": "Ruby (WASM)"
+  },
+  "sass.desc": {
+    "translation": "Syntactically Awesome Style Sheets."
+  },
+  "sass.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Sass</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Sass</tag-4> </tag-3> <tag-5> <tag-6>Sintaks Sass (yang berindentasi)</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=sass</tag-8> </tag-7>"
+  },
+  "sass.name": {
+    "translation": "Sass"
+  },
+  "scheme.desc": {
+    "translation": "Scheme berjalan di browser menggunakan biwascheme."
+  },
+  "scheme.link": {
+    "translation": "<tag-1> <tag-2>Bahasa Pemrograman Scheme</tag-2> </tag-1> <tag-3> <tag-4>Situs web resmi BiwaScheme</tag-4> </tag-3> <tag-5> <tag-6>Referensi BiwaScheme</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "scheme.name": {
+    "translation": "Scheme"
+  },
+  "scss.desc": {
+    "translation": "Syntactically Awesome Style Sheets."
+  },
+  "scss.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Sass</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Sass</tag-4> </tag-3> <tag-5> <tag-6>Sintaks SCSS</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=sass</tag-8> </tag-7>"
+  },
+  "scss.name": {
+    "translation": "SCSS"
+  },
+  "solid.desc": {
+    "translation": "Pustaka JavaScript yang deklaratif, efisien, dan fleksibel untuk membangun antarmuka pengguna."
+  },
+  "solid.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi</tag-2></tag-1> <tag-3><tag-4>Dokumentasi</tag-4></tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula (TSX)</tag-8> </tag-7>"
+  },
+  "solid.name": {
+    "translation": "Solid"
+  },
+  "solid.tsx.desc": {
+    "translation": "Pustaka JavaScript yang deklaratif, efisien, dan fleksibel untuk membangun antarmuka pengguna."
+  },
+  "solid.tsx.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi Solid</tag-4> </tag-3> <tag-5> <tag-6>Situs web TypeScript</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi TypeScript</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "solid.tsx.name": {
+    "translation": "Solid (dengan TypeScript)"
+  },
+  "sql.desc": {
+    "translation": "SQLite dikompilasi ke JavaScript menggunakan SQL.js"
+  },
+  "sql.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi SQLite</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi sintaks SQLite</tag-4> </tag-3> <tag-5> <tag-6>Situs web resmi SQL.js</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=SQL</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "sql.name": {
+    "translation": "SQLite"
+  },
+  "stencil.desc": {
+    "translation": "Kompiler untuk Komponen Web dan Aplikasi Web Berkinerja Tinggi."
+  },
+  "stencil.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Stencil</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Stencil</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "stencil.name": {
+    "translation": "Stencil"
+  },
+  "styleProcessors.link": {
+    "translation": "<tag-1> <tag-2>Tailwind CSS</tag-2> </tag-1> <tag-3> <tag-4>Windi CSS</tag-4> </tag-3> <tag-5> <tag-6>UnoCSS</tag-6> </tag-5> <tag-7> <tag-8>Lightning CSS</tag-8> </tag-7> <tag-9> <tag-10>PostCSS</tag-10> Plugin: <tag-11> <tag-12> <tag-13>Autoprefixer</tag-13> </tag-12> <tag-14> <tag-15>postcss-preset-env</tag-15> </tag-14> <tag-16> <tag-17>postcss-import-url</tag-17> </tag-16> <tag-18> <tag-19>postcss-modules</tag-19> </tag-18> </tag-11> </tag-9>"
+  },
+  "styleProcessors.name": {
+    "translation": "Framework dan Prosesor CSS"
+  },
+  "stylis.desc": {
+    "translation": "Preprocessor css yang ringan."
+  },
+  "stylis.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Stylis</tag-2> </tag-1>"
+  },
+  "stylis.name": {
+    "translation": "Stylis"
+  },
+  "stylus.desc": {
+    "translation": "CSS yang Ekspresif, Dinamis, dan Tangguh."
+  },
+  "stylus.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Stylus</tag-2> </tag-1> <tag-3> <tag-4>Pelajari X dalam Y menit, dengan X=stylus</tag-4> </tag-3>"
+  },
+  "stylus.name": {
+    "translation": "Stylus"
+  },
+  "sucrase.desc": {
+    "translation": "Alternatif super cepat untuk Babel saat Anda dapat menargetkan runtime JS modern."
+  },
+  "sucrase.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Sucrase</tag-2> </tag-1> <tag-3> <tag-4>Repo GitHub Sucrase</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5>"
+  },
+  "sucrase.name": {
+    "translation": "Sucrase"
+  },
+  "svelte.desc": {
+    "translation": "Aplikasi web yang disempurnakan secara sibernetika."
+  },
+  "svelte.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Svelte</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Svelte</tag-4> </tag-3> <tag-5> <tag-6>Muat template pemula</tag-6> </tag-5>"
+  },
+  "svelte.name": {
+    "translation": "Svelte"
+  },
+  "tcl.desc": {
+    "translation": "Tcl berjalan di browser, menggunakan <tag-1>wacl</tag-1>."
+  },
+  "tcl.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Tcl</tag-2> </tag-1> <tag-3> <tag-4>Repo wacl</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=Tcl</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "tcl.name": {
+    "translation": "Tcl (Tool Command Language)"
+  },
+  "teal.desc": {
+    "translation": "Dialek Lua yang diketik."
+  },
+  "teal.link": {
+    "translation": "<tag-1> <tag-2>Repo GitHub Teal</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Teal</tag-4> </tag-3> <tag-5> <tag-6>Tutorial Teal</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "teal.name": {
+    "translation": "Teal"
+  },
+  "tsx.desc": {
+    "translation": "TypeScript di JSX. TSX dikompilasi ke JavaScript di LiveCodes menggunakan TypeScript Compiler. Secara default menggunakan React sebagai JSX runtime."
+  },
+  "tsx.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi React</tag-2> </tag-1> <tag-3> <tag-4>JSX di dokumentasi React</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi Typescript</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7>"
+  },
+  "tsx.name": {
+    "translation": "TSX"
+  },
+  "twig.desc": {
+    "translation": "Implementasi JavaScript dari bahasa templating <tag-1>Twig</tag-1> PHP oleh <tag-2>Twig.js</tag-2>"
+  },
+  "twig.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Twig</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Twig</tag-4> </tag-3> <tag-5> <tag-6>Repo Twig.js</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi Twig.js</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9>"
+  },
+  "twig.name": {
+    "translation": "Twig"
+  },
+  "typescript.desc": {
+    "translation": "Superset JavaScript yang Diketik."
+  },
+  "typescript.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi TypeScript</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=TypeScript</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "typescript.name": {
+    "translation": "TypeScript"
+  },
+  "vue.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Vue.js v3</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Vue3</tag-4> </tag-3> <tag-5> <tag-6>Komponen file tunggal Vue3</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "vue.name": {
+    "translation": "Komponen File Tunggal Vue3"
+  },
+  "vue2.desc": {
+    "translation": "Dimuat menggunakan vue3-sfc-loader."
+  },
+  "vue2.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi Vue.js</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi Vue2</tag-4> </tag-3> <tag-5> <tag-6>Komponen file tunggal Vue2</tag-6> </tag-5> <tag-7> <tag-8>Repo GitHub vue3-sfc-loader</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9>"
+  },
+  "vue2.name": {
+    "translation": "Komponen File Tunggal Vue2"
+  },
+  "wat.desc1": {
+    "translation": "Representasi tekstual tingkat rendah dari format biner WebAssembly (wasm)."
+  },
+  "wat.desc2": {
+    "translation": "Dikonversi ke wasm menggunakan wabt.js."
+  },
+  "wat.link": {
+    "translation": "<tag-1><tag-2>WebAssembly.org</tag-2></tag-1> <tag-3> <tag-4>Spesifikasi Teks WebAssembly</tag-4> </tag-3> <tag-5> <tag-6>WebAssembly di MDN</tag-6> </tag-5> <tag-7> <tag-8>Memahami format teks WebAssembly</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi wabt.js</tag-10> </tag-9> <tag-11> <tag-12>Pelajari X dalam Y menit, dengan X=WebAssembly</tag-12> </tag-11> <tag-13> <tag-14>Muat template pemula</tag-14> </tag-13>"
+  },
+  "wat.name": {
+    "translation": "Format Teks WebAssembly"
+  }
+}

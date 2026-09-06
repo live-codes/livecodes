@@ -1,0 +1,268 @@
+# Storage System
+
+This guide describes the storage system in LiveCodes, located in `src/livecodes/storage/`.
+
+## Overview
+
+LiveCodes uses client-side storage to persist user data including projects, templates, assets, snippets, user preferences, and synchronization data. The storage system provides a unified interface for both asynchronous (IndexedDB via LocalForage) and synchronous (localStorage) storage operations.
+
+## Architecture
+
+### Storage Types
+
+The system provides two storage abstractions:
+
+1. **Storage** - Asynchronous key-value storage using LocalForage (IndexedDB)
+2. **SimpleStorage** - Synchronous key-value storage using localStorage
+3. **ProjectStorage** - Specialized Storage for project data with additional metadata
+
+### Store Names
+
+Each store has a unique name in IndexedDB/localStorage:
+
+```typescript
+type StoreName =
+  | '__livecodes_data__' // projects
+  | '__livecodes_templates__'
+  | '__livecodes_assets__'
+  | '__livecodes_snippets__'
+  | '__livecodes_project_recover__'
+  | '__livecodes_user_config__'
+  | '__livecodes_user_data__'
+  | '__livecodes_app_data__'
+  | '__livecodes_sync_data__'
+  | '__livecodes_key__'; // encryption key
+```
+
+### Stores Object
+
+All stores are managed through a central `Stores` object:
+
+```typescript
+interface Stores {
+  projects: ProjectStorage | undefined;
+  templates: ProjectStorage | undefined;
+  assets: Storage<Asset> | undefined;
+  snippets: Storage<Snippet> | undefined;
+  recover: SimpleStorage<RecoverItem> | undefined;
+  userConfig: SimpleStorage<UserConfig> | undefined;
+  userData: Storage<Partial<UserData>> | undefined;
+  appData: SimpleStorage<AppData> | undefined;
+  sync: Storage<StoredSyncData> | undefined;
+}
+```
+
+## Storage Interfaces
+
+### Storage Interface
+
+Generic asynchronous storage with pub/sub:
+
+```typescript
+interface Storage<T> extends Subscribable<T[]> {
+  getList: () => Promise<string[]>;
+  getAllData: () => Promise<T[]>;
+  getItem: (id: string) => Promise<T | null>;
+  addItem: (item: T) => Promise<string>;
+  updateItem: (id: string, item: T) => Promise<string>;
+  deleteItem: (id: string) => Promise<void>;
+  bulkInsert: (data: T[]) => Promise<void>;
+  restore: (data: T[]) => Promise<void>;
+  clear: () => Promise<void>;
+}
+```
+
+### SimpleStorage Interface
+
+Synchronous key-value storage:
+
+```typescript
+interface SimpleStorage<T> extends Subscribable<T | null> {
+  getValue: () => T | null;
+  setValue: (value: T | null) => void;
+  clear: () => void;
+}
+```
+
+### ProjectStorage Interface
+
+Specialized storage for projects:
+
+```typescript
+interface ProjectStorage extends Omit<Storage<StorageItem>, 'getList' | 'addItem' | 'updateItem'> {
+  getList: () => Promise<SavedProject[]>;
+  addItem: (config: ContentConfig) => Promise<string>;
+  updateItem: (id: string, config: ContentConfig) => Promise<string>;
+}
+```
+
+## Data Types
+
+### StorageItem
+
+Project items stored in IndexedDB:
+
+```typescript
+interface StorageItem {
+  id: string;
+  config: ContentConfig;
+  lastModified: number;
+}
+```
+
+### SavedProject
+
+Metadata returned by `getList()`:
+
+```typescript
+interface SavedProject {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  languages: Language[];
+  lastModified: number;
+}
+```
+
+## Initialization
+
+Stores are created empty and then initialized:
+
+```typescript
+const stores: Stores = createStores();
+
+// Called during app initialization
+await initializeStores(stores, isEmbed);
+```
+
+For embeds, stores are not initialized (storage access is blocked):
+
+```typescript
+export const initializeStores = async (stores: Stores, isEmbed: boolean) => {
+  if (isEmbed) return;
+  stores.projects = await createProjectStorage('__livecodes_data__', isEmbed);
+  stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
+  // ... other stores
+};
+```
+
+## Fake Storage
+
+For embeds or fallback scenarios, fake storage objects return empty/noop implementations:
+
+```typescript
+export const fakeStorage: Storage<any> = {
+  getList: async () => [],
+  getAllData: async () => [],
+  getItem: async () => null,
+  // ... all methods return empty/noop
+};
+```
+
+## Usage in core.ts
+
+### Project Storage
+
+Saving and loading projects:
+
+```typescript
+// Save a new project
+projectId = (await stores.projects?.addItem(projectConfig)) || '';
+
+// Update existing project
+await stores.projects?.updateItem(projectId, projectConfig);
+
+// Load saved project
+const savedConfig = projectId && (await stores.projects?.getItem(projectId))?.config;
+
+// Get all projects
+const userProjects = (await stores.projects?.getList()) || [];
+```
+
+### User Configuration
+
+Storing and retrieving user preferences:
+
+```typescript
+// Set user configuration
+stores.userConfig?.setValue({
+  ...stores.userConfig.getValue(),
+  ...newConfig,
+});
+
+// Get user configuration
+const userConfig = stores.userConfig?.getValue();
+```
+
+### Recovery
+
+Auto-save for recovery of unsaved projects:
+
+```typescript
+// Set recovery data
+stores.recover?.setValue({
+  config: getContentConfig(getConfig()),
+  lastModified: Date.now(),
+});
+
+// Clear recovery on save
+stores.recover?.clear();
+
+// Get recovery data
+const unsavedItem = stores.recover?.getValue();
+```
+
+### Subscriptions
+
+React to storage changes:
+
+```typescript
+const projectSubscription = stores.projects?.subscribe(requestPersistence);
+const templateSubscription = stores.templates?.subscribe(updateRecentProjects);
+```
+
+## Encryption
+
+The `encrypt.ts` module provides RSA encryption for sensitive data:
+
+```typescript
+// Encrypt data
+const encrypted = await encrypt(text);
+
+// Decrypt data
+const decrypted = await decrypt(encrypted);
+```
+
+Uses Web Crypto API with RSA-OAEP for secure storage of authentication tokens.
+
+## Storage Backends
+
+### LocalForage (IndexedDB)
+
+Used for larger data like projects, templates, and assets. Provides:
+
+- Asynchronous API
+- IndexedDB with fallbacks
+- Persistent storage
+- Larger quota than localStorage
+
+### localStorage
+
+Used for simple preferences and recovery data:
+
+- Synchronous API
+- Smaller quota (~5MB)
+- Faster reads/writes
+- Survives browser restarts
+
+## Related Files
+
+- `src/livecodes/storage/index.ts` - Barrel exports
+- `src/livecodes/storage/models.ts` - Type definitions
+- `src/livecodes/storage/stores.ts` - Store creation and initialization
+- `src/livecodes/storage/storage.ts` - LocalForage storage implementation
+- `src/livecodes/storage/project-storage.ts` - Project-specialized storage
+- `src/livecodes/storage/simple-storage.ts` - localStorage implementation
+- `src/livecodes/storage/fake-storage.ts` - Noop implementations
+- `src/livecodes/storage/encrypt.ts` - RSA encryption utilities

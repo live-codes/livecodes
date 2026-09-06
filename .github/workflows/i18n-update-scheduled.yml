@@ -5,7 +5,7 @@ name: i18n-update-scheduled
 
 on:
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: "0 0 * * 0"
   push:
     branches:
       - develop
@@ -16,7 +16,7 @@ env:
   LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
   BRANCH: i18n/develop
   LOKALISE_BRANCH: master
-  NODE_VERSION: 18.x
+  NODE_VERSION: 24.x
   CI: true
 
 jobs:
@@ -55,8 +55,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
 
       - name: Install dependencies
         run: npm ci

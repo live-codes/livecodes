@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const cppStarter: Template = {
   name: 'cpp',
+  aliases: ['c++'],
   title: window.deps.translateString('templates.starter.cpp', 'C++ Starter'),
   thumbnail: 'assets/templates/cpp.svg',
   activeEditor: 'script',
@@ -41,7 +42,7 @@ export const cppStarter: Template = {
 
       const [title, count] = output.split('\\n');
 
-      if (parseInt(count) !== NaN) {
+      if (!isNaN(Number(count))) {
         window.count = count;
         counter.innerText = window.count;
       }

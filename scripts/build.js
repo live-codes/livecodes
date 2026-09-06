@@ -2,10 +2,14 @@ const esbuild = require('esbuild');
 const { minify: minifyHTML, default: minifyHTMLPlugin } = require('esbuild-plugin-minify-html');
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
 
+const { bundleTypes } = require('./bundle-types');
+const { cleanTypes } = require('./clean-types');
 const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
 const { buildStyles } = require('./styles');
+const { createTemplatesJson } = require('./templates-json.mjs');
 const { buildI18n, buildLocalePathLoader } = require('./i18n');
 const { arrToObj, mkdir, uint8arrayToString, iife, getFileNames, getEnvVars } = require('./utils');
 
@@ -82,22 +86,29 @@ const baseOptions = {
   define: {
     ...getEnvVars(devMode),
   },
-  loader: { '.html': 'text', '.ttf': 'file' },
+  loader: { '.html': 'text', '.raw.js': 'text', '.ttf': 'file' },
   logLevel: 'error',
-  external: ['codemirror', '@codemirror/*', '@lezer/*', '@replit/codemirror-*'],
+  external: ['codemirror', '@codemirror/*', '@lezer/*', '@replit/codemirror-*', 'rainbowbrackets'],
   plugins: [...(devMode ? [] : [minifyHTMLPlugin(minifyHTMLOptions)])],
 };
 
 const sdkBuild = async () => {
   const sdkSrcDir = 'src/sdk/';
-  const sdkSrcMod = sdkSrcDir + 'index.ts';
   const sdkOutDir = 'sdk/';
 
   await Promise.all([
     copyFile('LICENSE', sdkOutDir + 'LICENSE'),
     copyFile('README.md', sdkOutDir + 'README.md'),
     copyFile(sdkSrcDir + 'package.sdk.json', sdkOutDir + 'package.json'),
+    copyFile(sdkSrcDir + 'LiveCodes.svelte', sdkOutDir + 'LiveCodes.svelte'),
   ]);
+
+  if (!devMode) {
+    fs.promises.cp(path.resolve('.agents', 'skills'), path.resolve(outDir, sdkOutDir, 'skills'), {
+      recursive: true,
+      filter: (srcPath) => !srcPath.includes('_artifacts'),
+    });
+  }
 
   const sdkOptions = {
     ...baseOptions,
@@ -108,43 +119,50 @@ const sdkBuild = async () => {
   return Promise.all([
     esbuild.build({
       ...sdkOptions,
-      entryPoints: [sdkSrcMod],
-      outdir: undefined,
-      outfile: path.resolve(outDir, sdkOutDir, 'livecodes.js'),
+      entryPoints: {
+        livecodes: sdkSrcDir + 'index.ts',
+        preact: sdkSrcDir + 'preact.ts',
+        react: sdkSrcDir + 'react.tsx',
+        solid: sdkSrcDir + 'solid.ts',
+        svelte: sdkSrcDir + 'svelte.ts',
+        vue: sdkSrcDir + 'vue.ts',
+      },
+      outdir: path.resolve(outDir, sdkOutDir),
+      external: ['preact', 'react', 'solid-js', 'svelte', 'vue'],
+      jsx: 'automatic',
+      alias: {
+        '@vue/runtime-core': 'vue',
+      },
     }),
     esbuild.build({
       ...sdkOptions,
-      entryPoints: [sdkSrcMod],
+      entryPoints: [sdkSrcDir + 'index.ts'],
       outdir: undefined,
       outfile: path.resolve(outDir, sdkOutDir, 'livecodes.cjs'),
       format: 'cjs',
     }),
     esbuild.build({
       ...sdkOptions,
-      entryPoints: [sdkSrcMod],
-      outdir: undefined,
-      outfile: path.resolve(outDir, sdkOutDir, 'livecodes.umd.js'),
-      format: 'iife',
-      globalName: 'livecodes',
-    }),
-    esbuild.build({
-      ...sdkOptions,
-      entryPoints: [sdkSrcDir + 'react.tsx'],
-      outdir: undefined,
-      outfile: path.resolve(outDir, sdkOutDir, 'react.js'),
-      external: ['react'],
-      jsx: 'automatic',
-    }),
-    esbuild.build({
-      ...sdkOptions,
-      entryPoints: [sdkSrcDir + 'vue.ts'],
-      outdir: undefined,
-      outfile: path.resolve(outDir, sdkOutDir, 'vue.js'),
-      external: ['vue'],
-      alias: {
-        '@vue/runtime-core': 'vue',
+      entryPoints: {
+        'livecodes.umd': sdkSrcDir + 'livecodes.umd.ts',
+        'web-components': sdkSrcDir + 'web-components.ts',
       },
+      outdir: path.resolve(outDir, sdkOutDir),
+      format: 'iife',
     }),
+    /** @type {Promise<void>} */ (
+      new Promise((resolve) => {
+        exec('npx tsc -p tsconfig.sdk.json', () => {
+          cleanTypes();
+          if (!devMode) {
+            // for backward compatibility
+            // and to provide a bundled file for use as custom types in livecodes if needed
+            bundleTypes();
+          }
+          resolve();
+        });
+      })
+    ),
   ]);
 };
 
@@ -157,11 +175,6 @@ const esmBuild = () =>
       'headless.ts',
       'templates/starter/index.ts',
       'editor/monaco/monaco.ts',
-      'editor/monaco/languages/monaco-lang-astro.ts',
-      'editor/monaco/languages/monaco-lang-clio.ts',
-      'editor/monaco/languages/monaco-lang-imba.ts',
-      // 'editor/monaco/languages/monaco-lang-sql.ts',
-      'editor/monaco/languages/monaco-lang-wat.ts',
       'editor/codemirror/codemirror.ts',
       'editor/codejar/codejar.ts',
       'editor/blockly/blockly.ts',
@@ -215,11 +228,14 @@ const iifeBuild = () =>
       'languages/java/lang-java-script.ts',
       'languages/cpp/lang-cpp-script.ts',
       'languages/cpp-wasm/lang-cpp-wasm-script.ts',
+      'languages/go-wasm/lang-go-wasm-script.ts',
       'languages/csharp-wasm/lang-csharp-wasm-script.ts',
       'languages/zig-wasm/lang-zig-wasm-script.ts',
       'languages/dot/lang-dot-compiler.ts',
       'languages/ejs/lang-ejs-compiler.ts',
       'languages/eta/lang-eta-compiler.ts',
+      'languages/fsharp/lang-fsharp-compiler.ts',
+      'languages/fsharp-wasm/lang-fsharp-wasm-script.ts',
       'languages/haml/lang-haml-compiler.ts',
       'languages/handlebars/lang-handlebars-compiler.ts',
       'languages/imba/lang-imba-compiler.ts',
@@ -228,6 +244,9 @@ const iifeBuild = () =>
       'languages/liquid/lang-liquid-compiler.ts',
       'languages/lua-wasm/lang-lua-wasm-script.ts',
       'languages/malina/lang-malina-compiler.ts',
+      'languages/markdown/lang-markdown-compiler.ts',
+      'languages/markdown/lang-markdown-script.ts',
+      'languages/minizinc/lang-minizinc-script.ts',
       'languages/mustache/lang-mustache-compiler.ts',
       'languages/nunjucks/lang-nunjucks-compiler.ts',
       'languages/perl/lang-perl-script.ts',
@@ -288,31 +307,11 @@ const workersBuild = () =>
   });
 
 const functionsBuild = () =>
-  Promise.all([
-    esbuild.build({
-      ...baseOptions,
-      outdir: 'functions/vendors',
-      entryPoints: ['src/livecodes/utils/compression.ts'],
-    }),
-    esbuild
-      .build({
-        ...baseOptions,
-        outdir: undefined,
-        outfile: 'functions/vendors/templates.js',
-        entryPoints: ['src/livecodes/templates/starter/index.ts'],
-        define: {
-          ...baseOptions.define,
-          'window.deps.translateString': 'getTemplateName',
-        },
-      })
-      .then(() => {
-        fs.writeFileSync(
-          'functions/vendors/templates.js',
-          `var getTemplateName = (_, templateName) => templateName;\n${fs.readFileSync('functions/vendors/templates.js', 'utf8')}`,
-          'utf8',
-        );
-      }),
-  ]);
+  esbuild.build({
+    ...baseOptions,
+    outdir: 'functions/vendors',
+    entryPoints: ['src/livecodes/utils/compression.ts'],
+  });
 
 const stylesBuild = () => buildStyles(devMode);
 
@@ -332,6 +331,7 @@ prepareDir().then(async () => {
     await applyHash({ devMode });
     await injectCss();
     if (devMode) {
+      await createTemplatesJson();
       fs.writeFileSync(
         path.resolve('build/tmp/trigger-reload.txt'),
         new Date().toISOString(),

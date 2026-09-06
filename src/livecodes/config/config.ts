@@ -49,6 +49,7 @@ export const getAppConfig = (config: Config | AppConfig): AppConfig =>
     mode: config.mode,
     tools: config.tools,
     zoom: config.zoom,
+    disableHomeLink: config.disableHomeLink,
   });
 
 export const getUserConfig = (config: Config | UserConfig): UserConfig =>
@@ -81,8 +82,9 @@ export const getEditorConfig = (config: Config | UserConfig): EditorConfig =>
     wordWrap: config.wordWrap,
     closeBrackets: config.closeBrackets,
     foldRegions: config.foldRegions,
+    minimap: config.minimap,
     emmet: config.emmet,
-    enableAI: config.enableAI,
+    // enableAI: config.enableAI,
     editorMode: config.editorMode,
   });
 

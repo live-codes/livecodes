@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const vento: LanguageSpecs = {
   name: 'vento',
   title: 'Vento',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: vendorsBaseUrl + 'vento/vento.js',

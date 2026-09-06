@@ -21,8 +21,11 @@ import { ejs } from './ejs';
 import { eta } from './eta';
 import { fennel } from './fennel';
 import { flow } from './flow';
+import { fsharp } from './fsharp';
+import { fsharpWasm } from './fsharp-wasm';
 import { gleam } from './gleam';
 import { go } from './go';
+import { goWasm } from './go-wasm';
 import { haml } from './haml';
 import { handlebars } from './handlebars';
 import { html } from './html';
@@ -40,6 +43,7 @@ import { luaWasm } from './lua-wasm';
 import { malina } from './malina';
 import { markdown } from './markdown';
 import { mdx } from './mdx';
+import { minizinc } from './minizinc';
 import { mjml } from './mjml';
 import { mustache } from './mustache';
 import { nunjucks } from './nunjucks';
@@ -144,12 +148,15 @@ export const languages: LanguageSpecs[] = [
   ruby,
   rubyWasm,
   go,
+  goWasm,
   php,
   phpWasm,
   cpp,
   cppWasm,
   java,
   csharpWasm,
+  fsharp,
+  fsharpWasm,
   perl,
   lua,
   luaWasm,
@@ -166,6 +173,7 @@ export const languages: LanguageSpecs[] = [
   sql,
   postgresql,
   prolog,
+  minizinc,
   blockly,
   zigWasm,
 ];

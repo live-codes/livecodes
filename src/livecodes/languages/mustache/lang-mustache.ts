@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const mustache: LanguageSpecs = {
   name: 'mustache',
   title: 'Mustache',
-  parser: {
-    name: 'glimmer',
-    pluginUrls: [parserPlugins.glimmer],
+  formatter: {
+    prettier: {
+      name: 'glimmer',
+      pluginUrls: [parserPlugins.glimmer],
+    },
   },
   compiler: {
     url: mustacheUrl,

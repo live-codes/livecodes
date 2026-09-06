@@ -45,9 +45,58 @@ The setting "Embed Type" allows selection from different variations of the gener
 
 ### SDK
 
-The LiveCodes [SDK](../sdk/index.mdx) can be used to embed playgrounds, specify [embed](../sdk/js-ts.mdx#embed-options) and [configuration](../configuration/index.mdx) options and allows communication with the embedded playground with many [SDK methods](../sdk/js-ts.mdx#sdk-methods).
+The LiveCodes [SDK](../sdk/index.mdx) can be used to embed playgrounds and specify [embed](../sdk/js-ts.mdx#embed-options) and [configuration](../configuration/index.mdx) options.
+In addition, the SDK allows communication with the embedded playground with many [SDK methods](../sdk/js-ts.mdx#sdk-methods).
 
 This method provides more control and allows advanced scenarios.
+
+```js title="index.js"
+import { createPlayground } from 'livecodes';
+
+createPlayground('#container', {
+  // embed options
+});
+```
+
+## Embed via URL
+
+LiveCodes playgrounds can be embedded in many websites and apps simply by pasting a LiveCodes link. This works on platforms that support [oEmbed](https://oembed.com/) (e.g. [Notion](https://www.notion.com/) and many others).
+
+To embed a playground in a supported platform, paste a LiveCodes URL (**short** [share URL](./share.mdx) or a URL with [query params](../configuration/query-params.mdx)). The platform will automatically resolve the embed.
+
+Watch a [video demo](https://x.com/hatem_hosny_/status/2075653559706624472/video/1).
+
+### Medium
+
+[Medium](https://medium.com/) supports embedding LiveCodes playgrounds by pasting a LiveCodes URL on its own line in the editor.
+
+### DEV
+
+[DEV](https://dev.to/) supports embedding LiveCodes playgrounds using liquid tags:<br />
+`{% embed https://livecodes.io/?x=id/zsrkkqxhw3i %}`
+
+### WordPress
+
+The official [LiveCodes Embed](https://wordpress.org/plugins/livecodes-embed/) plugin allows embedding playgrounds in [WordPress](https://wordpress.org/), by pasting a LiveCodes URL on its own line in the Block editor or the classic editor.
+It also adds **LiveCodes** to the block inserter.
+
+### oEmbed
+
+LiveCodes is registered on the [oEmbed provider registry](https://oembed.com/providers.json). Auto-discovery is also supported via `<link>` meta tags, so any platform that supports oEmbed discovery can automatically embed LiveCodes playgrounds.
+
+### Iframely
+
+[Iframely](https://iframely.com/) is a popular oEmbed proxy that many platforms use. LiveCodes is supported by Iframely out of the box.
+
+### Embedly
+
+[Embedly](https://embed.ly/) is a popular embed provider which supports embedding LiveCodes playgrounds.
+
+## Community Plugins
+
+### Obsidian
+
+The [Obsidian](https://obsidian.md/) plugin [Livecodes Playground](https://community.obsidian.md/plugins/livecodes-playground) (by [gapmiss](https://github.com/gapmiss)), allows embedding LiveCodes playgrounds in Obsidian.
 
 ## Avoid Breaking Changes
 
@@ -58,6 +107,23 @@ To avoid breaking changes that would cause the embedded playgrounds to stop work
 - For project code, [specify the versions](./module-resolution.mdx#package-version) of the imported packages and [external resources](./external-resources.mdx). [Custom import maps](./module-resolution.mdx#custom-module-resolution) can be set to control the module import behavior.
 
 Check the [Permanent URL](./permanent-url.mdx) section for more details.
+
+## Self-Hosted Playgrounds
+
+Self-hosted instances can be embedded using any of the following options:
+
+- Using the [SDK](#sdk): Specify [`EmbedOptions.appUrl`](../sdk/js-ts.mdx#appurl).
+- Using [oEmbed](#oembed): The [Docker setup](../advanced/docker.mdx) provides an oEmbed service at `/oembed`.
+- Using WordPress: The [WordPress plugin](https://wordpress.org/plugins/livecodes-embed/) allows embedding self-hosted instances. Example:
+
+```php title="functions.php"
+add_filter( 'livecodes_embed_url_pattern', function () {
+  return '!^https?://livecodes\.example\.com/.*$!i';
+} );
+add_filter( 'livecodes_embed_provider_endpoint', function () {
+  return 'https://livecodes.example.com/oembed';
+} );
+```
 
 ## Differences from Full App
 

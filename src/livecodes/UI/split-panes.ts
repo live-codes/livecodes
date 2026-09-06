@@ -87,6 +87,7 @@ export const createSplitPanes = (layout: 'vertical' | 'horizontal' = 'horizontal
 
   const destroy = (preserveStyles?: boolean | undefined, preserveGutters?: boolean | undefined) => {
     if (!destroyed) {
+      setAnimation(false);
       split?.destroy(preserveStyles, preserveGutters);
       destroyed = true;
     }

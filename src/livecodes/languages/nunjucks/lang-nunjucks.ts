@@ -8,9 +8,11 @@ export const runtimeUrl = nunjucksBaseUrl + 'nunjucks-slim.min.js';
 export const nunjucks: LanguageSpecs = {
   name: 'nunjucks',
   title: 'Nunjucks',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url,

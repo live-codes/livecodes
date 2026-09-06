@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 715 115" width="715" height="115" role="img" aria-label="Try in LiveCodes (dark)">
+  <defs>
+    <linearGradient id="tilcd-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1825"/>
+      <stop offset="100%" stop-color="#080d16"/>
+    </linearGradient>
+    <filter id="tilcd-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feFlood flood-color="#00c8ff" flood-opacity=".35" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="tilcd-dot-glow" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Button background -->
+  <rect x="1" y="1" width="713" height="113" rx="18" fill="url(#tilcd-bg)" stroke="rgba(0,200,255,0.25)" stroke-width="1.5"/>
+  <!-- Icon badge -->
+  <rect x="16" y="17" width="80" height="80" rx="12" fill="rgba(255,255,255,0.06)" stroke="rgba(0,200,255,0.2)" stroke-width="1"/>
+  <g filter="url(#tilcd-glow)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="38,45 27,57 38,69" stroke="#00c8ff" stroke-width="7"/>
+    <line x1="62" y1="41" x2="45" y2="75" stroke="#00e5c8" stroke-width="7"/>
+    <polyline points="72,45 83,57 72,69" stroke="#00c8ff" stroke-width="7"/>
+  </g>
+  <circle cx="75" cy="30" r="5" fill="#ff4d4d" filter="url(#tilcd-dot-glow)"/>
+  <!-- Label: "Try in" -->
+  <text x="116" y="48" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="400" fill="rgba(255,255,255,0.5)" letter-spacing="0">Try in</text>
+  <!-- Wordmark: "LiveCodes" -->
+  <text x="116" y="88" font-family="'Helvetica Neue', Arial, sans-serif" font-size="44" font-weight="700" fill="#ffffff" letter-spacing="-1">LiveCodes</text>
+</svg>

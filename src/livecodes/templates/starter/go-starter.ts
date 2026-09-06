@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const goStarter: Template = {
   name: 'go',
+  aliases: ['golang'],
   title: window.deps.translateString('templates.starter.go', 'Go Starter'),
   thumbnail: 'assets/templates/go.svg',
   activeEditor: 'script',

@@ -16,7 +16,7 @@
     "translation": "LiveCodes کو اوپن سورس پروجیکٹس، ویب سروسز اور تعاون کنندگان کے ذریعے ممکن بنایا گیا ہے۔ <tag-1> کریڈٹ دیکھیں </tag-1>"
   },
   "about.credits.para2": {
-    "translation": "© 2024 حاتم حسنی LiveCodes MIT لائسنس کے تحت لائسنس یافتہ ہے۔"
+    "translation": "© 2021-2026 حاتم حسنی LiveCodes MIT لائسنس کے تحت لائسنس یافتہ ہے۔"
   },
   "about.documentations.heading": {
     "translation": "دستاویزات"
@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "کوڈ کو ڈیٹا یو آر ایل کے طور پر کاپی کریں"
   },
-  "commandMenu.disableAI": {
-    "translation": "AI کوڈ اسسٹنٹ کو غیر فعال کریں۔"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "آٹو سیو کو غیر فعال کریں۔"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "ویم موڈ کو غیر فعال کریں۔"
-  },
-  "commandMenu.enableAI": {
-    "translation": "اے آئی کوڈ اسسٹنٹ فعال کریں"
   },
   "commandMenu.enableAutoSave": {
     "translation": "آٹو سیو کو فعال کریں۔"
@@ -942,12 +936,6 @@
   "editorSettings.emmet": {
     "translation": "ایمیٹ فعال کریں *"
   },
-  "editorSettings.enableAI.heading": {
-    "translation": "اے آئی کوڈ اسسٹنٹ فعال کریں"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "<tag-1><tag-2></tag-2></tag-1> کی طرف سے طاقت یافتہ"
-  },
   "editorSettings.foldRegions": {
     "translation": "فولڈ (سخت) علاقوں *"
   },
@@ -968,6 +956,9 @@
   },
   "editorSettings.lineNumbersRelative": {
     "translation": "متعلقہ لائن نمبر *"
+  },
+  "editorSettings.minimap": {
+    "translation": "Minimap کو فعال کریں *"
   },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "کوڈ جار میں دستیاب نہیں"
@@ -1911,6 +1902,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "آپ کے پاس کوئی محفوظ شدہ سانچے نہیں ہیں۔"
   },
+  "templates.search.label": {
+    "translation": "ٹیمپلیٹس میں تلاش کریں"
+  },
+  "templates.search.placeholder": {
+    "translation": "ٹیمپلیٹس میں تلاش کریں..."
+  },
   "templates.starter.angular": {
     "translation": "اینگولر شروعاتی"
   },
@@ -1950,6 +1947,15 @@
   "templates.starter.cpp": {
     "translation": "سی++ شروعاتی"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "سی++ (واسم) شروعاتی"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "C# (واسم) شروعاتی"
+  },
+  "templates.starter.d3": {
+    "translation": "D3 شروعاتی"
+  },
   "templates.starter.daisyui": {
     "translation": "daisyUI شروعاتی"
   },
@@ -1964,6 +1970,9 @@
   },
   "templates.starter.go": {
     "translation": "گو شروعاتی"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "گو (واسم) شروعاتی"
   },
   "templates.starter.heading": {
     "translation": "شروعاتی سانچے"
@@ -2016,11 +2025,17 @@
   "templates.starter.mdx": {
     "translation": "ایم ڈی ایکس شروعاتی"
   },
+  "templates.starter.minizinc": {
+    "translation": "MiniZinc شروعاتی"
+  },
   "templates.starter.ocaml": {
     "translation": "اوکامل شروعاتی"
   },
   "templates.starter.perl": {
     "translation": "پرل شروعاتی"
+  },
+  "templates.starter.phaser": {
+    "translation": "فیزر شروعاتی"
   },
   "templates.starter.php": {
     "translation": "پی ایچ پی شروعاتی"
@@ -2039,6 +2054,9 @@
   },
   "templates.starter.python": {
     "translation": "پائتھن شروعاتی"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "پائتھن (واسم) شروعاتی"
   },
   "templates.starter.r": {
     "translation": "آر شروعاتی"

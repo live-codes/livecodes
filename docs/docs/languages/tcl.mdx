@@ -1,3 +1,61 @@
 # Tcl
 
-TODO...
+[Tcl](https://www.tcl.tk/) (Tool Command Language) is a powerful, interpretable scripting language known for its simple syntax and extensibility. It is commonly used for embedded systems, rapid prototyping, and GUI scripting.
+
+LiveCodes runs Tcl in the browser using [Wacl](https://github.com/ecky-l/wacl) (a Tcl distribution for WebAssembly).
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="tcl" height="80vh"></LiveCodes>
+
+### JavaScript Interoperability
+
+Tcl programs run asynchronously in LiveCodes. JavaScript can interact with the Tcl interpreter using the `livecodes.tcl` global:
+
+- `livecodes.tcl.input` — set this to pass input to the Tcl script (accessible via `gets stdin`)
+- `livecodes.tcl.run()` — execute the Tcl script, returns a promise with `{ output, error }`
+- `livecodes.tcl.loaded` — a promise that resolves when the interpreter is ready
+- `livecodes.tcl.output` — the last output string
+
+### DOM Access
+
+The Tcl script can interact with the DOM using `::wacl::dom`:
+
+```tcl
+::wacl::dom attr "#my-element" innerText "Hello from Tcl!"
+```
+
+## Language Info
+
+### Name
+
+`tcl`
+
+### Extensions
+
+`.tcl`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Wacl](https://github.com/ecky-l/wacl) (Tcl v8.6.6 compiled to WebAssembly)
+
+## Code Formatting
+
+Not supported.
+
+## Starter Template
+
+https://livecodes.io/?template=tcl
+
+## Links
+
+- [Tcl](https://www.tcl.tk/)
+- [Wacl](https://github.com/ecky-l/wacl)

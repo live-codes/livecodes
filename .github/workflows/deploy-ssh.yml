@@ -1,0 +1,70 @@
+# Deploys the static app via SSH.
+# Triggered on push to `main`, or can be triggered manually with specific branch.
+# Requires the SSH secrets (`SSH_HOST`, `SSH_USER`, `SSH_KEY`) to be configured.
+# Does not run when the variable `PHP_ENV` is set.
+
+name: Deploy via SSH
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: false
+        default: "main"
+
+env:
+  NODE_VERSION: 24.x
+
+jobs:
+  deploy:
+    if: ${{ vars.PHP_ENV == '' }}
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: "--max_old_space_size=8192"
+    steps:
+      - name: Check if SSH_HOST is configured
+        id: check
+        run: |
+          if [ -z "${{ secrets.SSH_HOST }}" ]; then
+            echo "SSH_HOST is not set — cancelling deployment."
+            echo "proceed=false" >> $GITHUB_OUTPUT
+          else
+            echo "proceed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout code
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || 'main' }}
+
+      - name: Use Node.js
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        run: npm ci
+
+      - name: Build
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        run: npm run build
+
+      - name: Deploy via SSH
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: SamKirkland/web-deploy@v1
+        with:
+          target-server: ${{ secrets.SSH_HOST }}
+          remote-user: ${{ secrets.SSH_USER }}
+          private-ssh-key: ${{ secrets.SSH_KEY }}
+          ssh-port: ${{ secrets.SSH_PORT }}
+          destination-path: ${{ secrets.SSH_PATH }}
+          source-path: ./build/

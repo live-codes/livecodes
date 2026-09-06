@@ -185,6 +185,31 @@ Maintainers are responsible for managing the i18n workflow and ensuring the qual
 
 We consider the i18n process to consist of two parts:
 
+```mermaid
+flowchart TD
+    subgraph "No-Source Update"
+        A[Lokalise master branch] --> B[i18n/develop branch]
+        B --> C[Auto PR if changes]
+    end
+    
+    subgraph "Source Update"
+        D[Developers add strings<br/>data-i18n / translateString] --> E[npm run i18n-export]
+        E --> F[Generate .lokalise.json<br/>and .ts files]
+        F --> G[Commit & push]
+        G --> H[PR created & reviewed]
+        H --> I[PR merged]
+        I --> J[Auto comment: .i18n-update-push]
+        J --> K[Comment triggers workflow<br/>Creates i18n/branch]
+        K --> L[Push source to Lokalise]
+        L --> M[Translators work on Lokalise]
+        M --> N[Comment .i18n-update-pull]
+        N --> O[Pull translations<br/>Update .ts files]
+        O --> P[Create PR to develop]
+        P --> Q[Merge to develop]
+        Q --> R[Say merge to master<br/>to sync Lokalise]
+    end
+```
+
 #### No-Source Update
 
 This means there are no changes to the source code/texts, only translations are updated. Adding new languages or updating existing translations are examples of this part.

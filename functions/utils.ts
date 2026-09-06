@@ -67,8 +67,8 @@ export const getProjectInfo = async (url: URL): Promise<ProjectInfo> => {
       description: config.description || '',
     };
   }
-  const template = url.searchParams.get('template');
-  const templateName = template ? starterTemplates.find((t) => t.name === template)?.title : '';
+  const template = url.searchParams.get('template') as keyof typeof starterTemplates;
+  const templateName = template ? starterTemplates[template] || '' : '';
   if (templateName) {
     return {
       title: templateName,
@@ -80,3 +80,11 @@ export const getProjectInfo = async (url: URL): Promise<ProjectInfo> => {
     description: '',
   };
 };
+
+export const encodeHTML = (html: string) =>
+  html
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/'/g, '&#39;')
+    .replace(/"/g, '&#34;');

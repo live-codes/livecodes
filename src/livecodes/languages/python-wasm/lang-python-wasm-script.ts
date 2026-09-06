@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { fontAwesomeUrl, pyodideBaseUrl } from '../../vendors';
+import { pyodideBaseUrl } from '../../vendors';
 
 declare const loadPyodide: any;
 
@@ -50,12 +50,6 @@ window.addEventListener('load', async () => {
   }
 
   async function prepareEnv() {
-    // needed for matplotlib icons
-    const stylesheet = document.createElement('link');
-    stylesheet.rel = 'stylesheet';
-    stylesheet.href = fontAwesomeUrl;
-    document.head.append(stylesheet);
-
     await pyodideReady;
     const patchInput = `
 from js import prompt
@@ -63,8 +57,6 @@ def input(p):
     return prompt(p)
 __builtins__.input = input
 `.trim();
-    // in Pyodide v0.26.x runPythonAsync does not resolve in the following times
-    // use runPython instead
     await livecodes.pyodide.runPythonAsync(patchInput);
   }
 
@@ -82,8 +74,6 @@ __builtins__.input = input
       try {
         await livecodes.micropip.install(pkg);
       } catch (err) {
-        // in Pyodide v0.26.x this needs to be done,
-        // otherwise the following micropip installs do not resolve
         // livecodes.excludedPackages.push(pkg);
       }
     }
@@ -96,8 +86,6 @@ __builtins__.input = input
     await loadPackagesInCode(code);
     try {
       livecodes.pyodideState = livecodes.pyodide.pyodide_py._state.save_state();
-      // in Pyodide v0.26.x runPythonAsync does not resolve in the following times
-      // use runPython instead
       await livecodes.pyodide.runPythonAsync(code);
     } catch (err) {
       // eslint-disable-next-line no-console

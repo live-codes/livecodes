@@ -157,7 +157,7 @@ describe('validateConfig', () => {
       script: { invalid: 'hi' },
     } as any;
 
-    const correctConfig = {};
+    const correctConfig = { script: { language: 'javascript' } };
     expect(validateConfig(testConfig)).toEqual(correctConfig);
   });
 

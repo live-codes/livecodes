@@ -1,3 +1,110 @@
 # PurgeCSS
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[PurgeCSS](https://purgecss.com/) is a tool to remove unused CSS from your stylesheets. It analyzes your content and CSS files to determine which selectors are actually used, then removes the unused ones to reduce file size.
+
+## Usage
+
+PurgeCSS is a [CSS processor](../features/css.mdx#css-processors) that can be enabled from the style editor menu, or configured via the [`processors`](../configuration/configuration-object.mdx#processors) property of the [configuration object](../configuration/configuration-object.mdx).
+
+When enabled, PurgeCSS analyzes the _compiled_ HTML and JavaScript code in your project to identify used CSS selectors, then removes any unused styles from the CSS output.
+
+PurgeCSS can be used alongside other processors. Multiple processors are applied in the order they appear in the style editor menu.
+
+### Demo
+
+export const purgecssConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>PurgeCSS Demo</h1>
+  <p>Only the <strong>used</strong> styles are kept. Check the <strong>Compiled</strong> tab to see the purged output.</p>
+  <button>Primary Button</button>
+</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `/* used in HTML */
+.container {
+  font-family: sans-serif;
+  max-width: 600px;
+  margin: 2em auto;
+}
+
+/* used in JS */
+.btn-primary {
+  background: #4a90d9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+/* not used */
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+.unused-class {
+  color: red;
+  font-size: 2em;
+}
+`,
+  },
+  script: {
+    language: 'js',
+    content: `const btn = document.querySelector('button');
+btn.classList.add('btn-primary');
+`,
+  },
+  processors: ['purgecss'],
+  tools: { active: 'compiled', status: 'open' },
+};
+
+<LiveCodes config={purgecssConfig} height="80vh"></LiveCodes>
+
+## Processor Info
+
+### Name
+
+`purgecss`
+
+### Editor
+
+`style`
+
+## Processor
+
+[PurgeCSS](https://purgecss.com/)
+
+### Version
+
+`@fullhuman/postcss-purgecss`: v7.0.2
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `purgecss` are passed as options to PurgeCSS. Please check the [documentation](https://purgecss.com/configuration.html) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "purgecss": {
+    "safelist": ["unused-class"]
+  }
+}
+```
+
+## Links
+
+- [PurgeCSS](https://purgecss.com/)
+- [PurgeCSS on GitHub](https://github.com/FullHuman/purgecss)
+- [CSS Processors](../features/css.mdx#css-processors) in LiveCodes

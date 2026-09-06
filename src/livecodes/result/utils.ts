@@ -1,3 +1,5 @@
+import { getConsoleCallSite, getConsoleCallSiteFromError } from '../compiler/source-maps';
+
 // modified from https://github.com/alexindigo/precise-typeof/blob/master/index.js
 export const typeOf = (obj: any) => {
   function isElement(o: any) {
@@ -128,17 +130,43 @@ export const proxyConsole = () => {
           return;
         }
         (target[method as keyof typeof console] as any)(...args);
-        parent.postMessage({ type: 'console', method, args: consoleArgs(args) }, '*');
+        const callSite = getConsoleCallSite();
+        // Methods that produce no visual output in Luna (don't fire the 'insert' event):
+        // - 'time' always silent (stores start time, no DOM entry)
+        // - 'countReset' always silent (resets counter in memory, no DOM entry)
+        // - 'assert' when assertion passes (first arg truthy = no failure shown)
+        // - 'table' with no args (nothing to render)
+        const silent =
+          method === 'time' ||
+          method === 'countReset' ||
+          (method === 'assert' && !!args[0]) ||
+          (method === 'table' && args.length === 0);
+        parent.postMessage(
+          {
+            type: 'console',
+            method,
+            args: consoleArgs(args),
+            lineNumber: callSite.lineNumber,
+            columnNumber: callSite.columnNumber,
+            source: callSite.source,
+            silent,
+          },
+          '*',
+        );
       };
     },
   });
 
   window.addEventListener('error', (error) => {
+    const callSite = getConsoleCallSiteFromError(error.lineno, error.error?.stack);
     parent.postMessage(
       {
         type: 'console',
         method: 'error',
         args: consoleArgs([error.message]),
+        lineNumber: callSite.lineNumber,
+        columnNumber: callSite.columnNumber,
+        source: callSite.source,
       },
       '*',
     );

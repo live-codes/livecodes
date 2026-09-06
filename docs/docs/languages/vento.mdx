@@ -74,7 +74,7 @@ window.livecodes.templateData = { name: 'LiveCodes' };
 
 ### Version
 
-`ventojs`: v1.12.16
+`ventojs`: v2.2.0
 
 ## Code Formatting
 

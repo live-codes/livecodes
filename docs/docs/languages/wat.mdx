@@ -1,3 +1,121 @@
-# WebAssembly Text
+# WebAssembly Text Format
 
-TODO...
+[WebAssembly Text Format](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format) (WAT) is the human-readable text representation of WebAssembly. It uses S-expressions and allows writing low-level code that compiles to the binary Wasm format that browsers execute.
+
+LiveCodes compiles WAT to WebAssembly using [`wabt.js`](https://github.com/AssemblyScript/wabt.js) (the WebAssembly Binary Toolkit).
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="wat" height="80vh"></LiveCodes>
+
+### Loading the Wasm Module
+
+The compiled WebAssembly module is loaded using the `livecodes.loadWasm()` method, which optionally takes an import object and returns a promise that resolves to an object containing the instantiated `wasmModule` and the raw `binary`:
+
+```js
+const { wasmModule } = await livecodes.loadWasm();
+const { increment } = wasmModule.exports;
+```
+
+### Import Object
+
+The import object passed to `loadWasm()` maps to the imports declared in the WAT module. Functions, memories, and other values can be provided from JavaScript:
+
+```wat title="WAT"
+(module
+  (import "env" "log" (func $log (param i32)))
+  (func (export "run") (call $log (i32.const 42)))
+)
+```
+
+```js title="JavaScript"
+const { wasmModule } = await livecodes.loadWasm({
+  env: { log: (val) => console.log(val) },
+});
+wasmModule.exports.run(); // logs 42
+```
+
+For writing strings from Wasm to JavaScript, the shared memory buffer can be accessed via `wasmModule.exports.memory` and decoded with `TextDecoder`:
+
+```wat title="WAT"
+(module
+  (import "title" "change" (func $changeTitle (param i32) (param i32)))
+  (memory (export "memory") 1)
+  (data (i32.const 0) "Hello, WAT!")
+  (func (export "setTitle")
+    (call $changeTitle (i32.const 0) (i32.const 11))
+  )
+)
+```
+
+```js title="JavaScript"
+const { wasmModule } = await livecodes.loadWasm({
+  title: {
+    change: (offset, length) => {
+      const bytes = new Uint8Array(wasmModule.exports.memory.buffer, offset, length);
+      const text = new TextDecoder('utf8').decode(bytes);
+      document.querySelector('#title').innerText = text;
+    },
+  },
+});
+wasmModule.exports.setTitle();
+```
+
+## Language Info
+
+### Name
+
+`wat`
+
+### Aliases
+
+`wast`, `webassembly`, `wasm`
+
+### Extensions
+
+`.wat`, `.wast`, `.webassembly`, `.wasm`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[wabt.js](https://github.com/AssemblyScript/wabt.js) (WebAssembly Binary Toolkit)
+
+### Version
+
+`wabt`: v1.0.35
+
+## Code Formatting
+
+Using [wast-refmt](https://github.com/xtuc/webassemblyjs/tree/master/packages/wast-refmt).
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `wat` are passed as compiler features to the WAT parser. Supported features include `simd`, `threads`, `bulk_memory`, `reference_types`, and more.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "wat": {
+    "threads": false
+  }
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=wat
+
+## Links
+
+- [WebAssembly Text Format on MDN](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format)
+- [wabt.js](https://github.com/AssemblyScript/wabt.js)

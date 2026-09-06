@@ -1,0 +1,240 @@
+---
+title: Creating Shareable URLs
+---
+
+# Creating Shareable URLs
+
+Learn how to add a **Share** button to an embedded LiveCodes playground so users can save and share the exact code they have edited.
+
+Try the [live demo](https://hatemhosny.github.io/livecodes-custom-share/).
+
+## What We'll Build
+
+A web page that:
+
+1. Embeds a LiveCodes playground with default starter code
+2. Lets users edit the code directly in the playground
+3. Provides a **Share** button that captures the current playground state
+4. Compresses the config into the page URL hash and copies it to clipboard
+5. When someone opens that shared URL, the page decompresses the hash and loads the exact same playground state
+
+## Why Compress/Decompress?
+
+The LiveCodes SDK exports two standalone utility functions:
+
+- **[`compress(string)`](../sdk/js-ts.mdx#compress)**: Compresses a string into a URI-safe base64 format
+- **[`decompress(string)`](../sdk/js-ts.mdx#decompress)**: Decompresses it back to the original string
+
+These are re-exports from `lz-string` and are useful when you want to:
+
+- Build your own share URL logic
+- Store compressed configs in `localStorage` or a database
+- Modify the config object before loading it
+- Add custom data to the URL hash
+- Create bookmarklets or browser extensions
+
+:::info
+If you only need a playground URL that opens in LiveCodes App, use instead the SDK method [`getShareUrl`](../sdk/js-ts.mdx#getshareurl) of the playground instance or the standalone function [`getPlaygroundUrl`](../sdk/js-ts.mdx#getplaygroundurl).
+
+[`compress`](../sdk/js-ts.mdx#compress)/[`decompress`](../sdk/js-ts.mdx#decompress) are lower-level utilities for custom use cases.
+:::
+
+## Full Example
+
+Save this as `index.html` and open it in a browser:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LiveCodes Share Demo</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+    }
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .toolbar {
+      padding: 12px 16px;
+      background: #1e1e1e;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      gap: 12px;
+    }
+    #shareBtn {
+      padding: 8px 16px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    #shareBtn:hover {
+      background: #0056b3;
+    }
+    #shareStatus {
+      font-size: 13px;
+      color: #9cdcfe;
+    }
+    #playground {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="toolbar">
+      <button id="shareBtn">Share</button>
+      <span id="shareStatus"></span>
+    </div>
+    <div id="playground" data-default-styles="false"></div>
+  </div>
+
+  <script type="module">
+    import { createPlayground, compress, decompress } from 'https://cdn.jsdelivr.net/npm/livecodes';
+
+    const defaultConfig = {
+      markup: {
+        language: 'html',
+        content: '<h1>Hello World</h1>',
+      },
+      style: {
+        language: 'css',
+        content: 'h1 { color: royalblue; font-family: system-ui; }',
+      },
+      script: {
+        language: 'javascript',
+        content: 'console.log("Hello from LiveCodes!");',
+      },
+    };
+
+    function getConfigFromHash() {
+      const hash = location.hash.slice(1);
+      if (!hash) return defaultConfig;
+      try {
+        const decompressed = decompress(hash);
+        if (decompressed) {
+          return JSON.parse(decompressed);
+        }
+      } catch {
+        // invalid hash
+      }
+      return defaultConfig;
+    }
+
+    const config = getConfigFromHash();
+
+    const playground = await createPlayground('#playground', { config });
+
+    document.getElementById('shareBtn').addEventListener('click', async () => {
+      const currentConfig = await playground.getConfig();
+      const compressed = compress(JSON.stringify(currentConfig));
+
+      const url = new URL(location.href);
+      url.hash = compressed;
+
+      try {
+        await navigator.clipboard.writeText(url.href);
+        document.getElementById('shareStatus').textContent = 'URL copied to clipboard!';
+        setTimeout(() => {
+          document.getElementById('shareStatus').textContent = '';
+        }, 2000);
+      } catch {
+        document.getElementById('shareStatus').textContent = 'Copy failed. URL: ' + url.href;
+      }
+    });
+  </script>
+</body>
+</html>
+```
+
+## How It Works
+
+### Loading from URL Hash
+
+When the page loads, we check the URL hash for a compressed config:
+
+```js
+function getConfigFromHash() {
+  const hash = location.hash.slice(1);
+  if (!hash) return defaultConfig;
+  try {
+    const decompressed = decompress(hash);
+    if (decompressed) {
+      return JSON.parse(decompressed);
+    }
+  } catch {
+    // invalid hash
+  }
+  return defaultConfig;
+}
+```
+
+If a hash is present, we decompress it and parse it as JSON. If not (or if it's invalid), we fall back to the default starter config.
+
+### Creating the Playground
+
+We pass the loaded config to `createPlayground`:
+
+```js
+const config = getConfigFromHash();
+
+const playground = await createPlayground('#playground', { config });
+```
+
+### Sharing the Current State
+
+When the user clicks **Share**, we get the current config from the playground, compress it, update the URL hash, and copy the URL to clipboard:
+
+```js
+document.getElementById('shareBtn').addEventListener('click', async () => {
+  const currentConfig = await playground.getConfig();
+  const compressed = compress(JSON.stringify(currentConfig));
+
+  const url = new URL(location.href);
+  url.hash = compressed;
+
+  await navigator.clipboard.writeText(url.href);
+});
+```
+
+:::caution
+`decompress` returns `null` if the input is invalid. Always check the result before parsing.
+:::
+
+## Testing Your App
+
+1. Open the page: it shows the default starter code
+2. Edit the code in the playground
+3. Click **Share**: the URL is copied to clipboard
+4. Paste the URL in a new tab: it loads the exact code you edited
+
+## Challenge: Enhance Your App
+
+Try adding these features:
+
+- Add a "Reset" button to restore the default config
+- [Watch for code changes](../sdk/js-ts.mdx#watch) and store the config in `localStorage` for "Recover Unsaved" feature
+- Add a dropdown to select different starter templates
+- Show a QR code for the share URL
+
+## Next Steps
+
+- [SDK Methods](../sdk/js-ts.mdx): Learn more about the LiveCodes SDK
+- [Configuration](../configuration/configuration-object.mdx): Explore the full config object
+- [Import/Export](../features/import.mdx): Import and export projects
+
+## Complete Code Summary
+
+**Concepts Covered**: Embedded playground, URL hash manipulation, compression, config objects, clipboard API
+
+**Key SDK Functions**: [`createPlayground`](../sdk/js-ts.mdx#createplayground), [`getConfig`](../sdk/js-ts.mdx#getconfig), [`compress`](../sdk/js-ts.mdx#compress), [`decompress`](../sdk/js-ts.mdx#decompress)

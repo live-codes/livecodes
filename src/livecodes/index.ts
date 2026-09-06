@@ -9,6 +9,12 @@ const loadingEl = document.querySelector<HTMLElement>('#loading')!;
 const loadingText = document.querySelector<HTMLElement>('#loading-text')!;
 const loadingHTML = loadingEl.innerHTML;
 
+document.documentElement.style.display = 'unset';
+
+if (params.get('theme') === 'light') {
+  document.body.classList.add('light');
+}
+
 if (isEmbed) {
   parent.postMessage(
     { type: customEvents.init, payload: { appVersion: process.env.VERSION } },
@@ -16,10 +22,12 @@ if (isEmbed) {
   );
 
   document.body.classList.add('embed');
-  if (clickToLoad) {
-    loadingEl.classList.add('click-to-load');
-    loadingEl.title = 'Click to Load';
-    loadingText.innerText = 'Click to load LiveCodes';
+  if (loading !== 'eager') {
+    if (clickToLoad) {
+      loadingEl.classList.add('click-to-load');
+      loadingEl.title = 'Click to Load';
+      loadingText.innerText = 'Click to load LiveCodes';
+    }
 
     // load on click
     loadingEl.addEventListener('click', load);
@@ -73,6 +81,7 @@ function loaded() {
   loadingEl.style.opacity = '0';
   setTimeout(() => {
     loadingEl.remove();
+    document.body.classList.remove('light');
   }, 500);
 
   document.querySelector<HTMLElement>(rootSelector)!.style.opacity = '1';

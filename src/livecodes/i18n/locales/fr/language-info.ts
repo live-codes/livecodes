@@ -128,6 +128,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Site web de Go</2></1> <3><4>Documentation de Go</4></3> <5> <6>Dépôt GopherJS</6> </5> <7> <8>Apprenez X en Y minutes, où X=Go</8> </7> <9><10>Charger le modèle de démarrage</10></9>',
     name: 'Go',
   },
+  goWasm: {
+    desc: 'Interpréteur Go fonctionnant sur WebAssembly, utilisant Yaegi',
+    link: '<1><2>Site officiel de Go</2></1> <3><4>Yaegi</4></3> <5> <6>Apprendre X en Y minutes, où X=Go</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Charger un modèle de démarrage</10> </9>',
+    name: 'Go (Wasm)',
+  },
   haml: {
     desc: 'Compilateur Haml pour les modèles de vue JavaScript côté client utilisant clientside-haml-js.',
     link: '<1><2>Site officiel de Haml</2></1> <3> <4>Documentation de Haml</4> </3> <5> <6>Dépôt GitHub de clientside-haml-js</6> </5> <7> <8>Apprenez X en Y minutes, où X=haml</8> </7> <9> <10>Documentation LiveCodes</10> </9>',
@@ -147,6 +152,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: "JVM fonctionnant dans le navigateur à l'aide de DoppioJVM.",
     link: '<1> <2>Site officiel de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Apprendre X en Y minutes, où X=java</6> </5> <7> <8> Charger le modèle de démarrage</8> </7>',
     name: 'Java',
+  },
+  javascript: {
+    desc: 'Le langage de script du web.',
+    link: '<1> <2>JavaScript sur MDN</2> </1> <3> <4>Apprendre X en Y minutes, où X=JavaScript</4> </3> <5> <6>Documentation LiveCodes</6> </5> <7> <8>Charger le modèle de démarrage</8> </7>',
+    name: 'JavaScript',
   },
   jinja: {
     desc: 'Jinja est un moteur de création de modèles rapide, expressif et extensible.',
@@ -204,6 +214,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: "Markdown pour l'ère des composants. <1></1>MDX vous permet d'écrire du JSX de manière transparente dans vos documents Markdown.",
     link: '<1><2>Documentation MDX</2></1> <3><4>Charger le modèle de démarrage</4></3>',
     name: 'MDX',
+  },
+  minizinc: {
+    desc: "MiniZinc est un langage de modélisation des contraintes de haut niveau qui permet d'exprimer et de résoudre facilement des problèmes d'optimisation discrets.",
+    link: '<1> <2>Site officiel de MiniZinc</2> </1> <3> <4>Documentation de MiniZinc</4> </3> <5> <6>Tutoriel de MiniZinc</6> </5> <7> <8>Documentations de LiveCodes</8> </7> <9> <10>Modèle de démarrage de charge</10> </9>',
+    name: 'MiniZinc',
   },
   mjml: {
     desc: "MJML est un langage de balisage conçu pour réduire la difficulté de codage d'un e-mail responsive.",

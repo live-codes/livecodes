@@ -1,4 +1,6 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
 export const julia: LanguageSpecs = {
   name: 'julia',
@@ -12,5 +14,12 @@ export const julia: LanguageSpecs = {
   },
   extensions: ['jl'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'julia.js' },
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-julia.js')).julia),
+    },
+  },
   largeDownload: true,
 };

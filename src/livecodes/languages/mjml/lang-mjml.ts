@@ -6,9 +6,11 @@ import { parserPlugins } from '../prettier';
 export const mjml: LanguageSpecs = {
   name: 'mjml',
   title: 'MJML',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: mjmlUrl,

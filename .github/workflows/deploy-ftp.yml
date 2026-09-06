@@ -1,0 +1,71 @@
+# Deploys the static app to FTP.
+# Triggered on push to `main`, or can be triggered manually with specific branch.
+# Requires the FTP secrets (`FTP_HOST`, `FTP_USER`, `FTP_PASSWORD`) to be configured.
+# Does not run when the variable `PHP_ENV` is set.
+
+name: Deploy to FTP
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: false
+        default: "main"
+
+env:
+  NODE_VERSION: 24.x
+
+jobs:
+  deploy:
+    if: ${{ vars.PHP_ENV == '' }}
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: "--max_old_space_size=8192"
+    steps:
+      - name: Check if FTP_HOST is configured
+        id: check
+        run: |
+          if [ -z "${{ secrets.FTP_HOST }}" ]; then
+            echo "FTP_HOST is not set — cancelling deployment."
+            echo "proceed=false" >> $GITHUB_OUTPUT
+          else
+            echo "proceed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout code
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || 'main' }}
+
+      - name: Use Node.js
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        run: npm ci
+
+      - name: Build
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        run: npm run build
+
+      - name: Deploy to FTP server
+        if: ${{ steps.check.outputs.proceed == 'true' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ${{ secrets.FTP_PROTOCOL }}
+          local-dir: ./build/
+          server-dir: ${{ secrets.FTP_PATH }}

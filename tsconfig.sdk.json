@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "rootDir": "src/sdk",
-    "outDir": "build/sdk",
+    "outDir": "build/sdk/types",
     "moduleResolution": "node",
-    "target": "es6",
+    "target": "es2020",
     "module": "esnext",
     "declaration": true,
     "inlineSourceMap": true,
@@ -14,6 +14,7 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "removeComments": false /* Do not remove jsdoc comments. */,
+    "emitDeclarationOnly": true,
 
     /* Strict Type-Checking Options */
     // "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
@@ -35,16 +36,13 @@
     "listFiles": false /* Print names of files part of the compilation. */,
     "pretty": true /* Stylize errors and messages using color and context. */,
 
-    /* Experimental Options */
-    // "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
-    // "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
-
     "jsx": "react-jsx",
     "lib": ["es2020", "dom", "dom.iterable"],
     "types": ["node", "jest", "react"],
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "skipLibCheck": true
   },
   "compileOnSave": true,
   "include": ["src/sdk/**/*.ts", "src/sdk/**/*.tsx"],
-  "exclude": ["**/node_modules/**"]
+  "exclude": ["**/node_modules/**", "**/__tests__/**", "**/*internal*", "**/*use-*", "**/*.umd*"]
 }

@@ -11,10 +11,16 @@ html {
 
 body,
 #livecodes {
-  background-color: #fff;
-  color: #111;
+  background-color: #080d16;
+  color: #e2e8f0;
   height: 100%;
   overflow: hidden;
+}
+
+body.light,
+body.light #livecodes {
+  background-color: #f8fafc;
+  color: #080d16;
 }
 
 #livecodes {
@@ -34,25 +40,39 @@ body,
   top: 0;
   transition: opacity 0.4s ease-in-out;
   width: 100%;
+  z-index: 999;
 }
 
-#loading img {
-  height: 100px;
+.logo-wrapper {
+  align-items: center;
+  display: flex;
+  height: 160px;
+  justify-content: center;
+  margin-top: -1rem;
+  max-height: 50vh;
+  max-width: 50vh;
+  width: 160px;
 }
 
 #loading-text,
 .noscript {
-  animation: pulsate 3s infinite;
-  font-family: monospace;
-  font-size: 1.3em;
-  margin: 15px auto;
-  position: relative;
+  color: #557093;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    monospace;
+  font-size: 1.1em;
+  letter-spacing: 0.05em;
+  margin: 0;
   text-align: center;
 }
 
 .noscript {
   animation: none;
-  color: red;
+  color: #ff4d4d;
   font-weight: bold;
   max-width: 80vw;
 }
@@ -62,32 +82,18 @@ body,
   padding-right: 0.5em;
 }
 
-.embed #loading > * {
-  transform: scale(0.8);
+#loading:not(.click-to-load) .live-dot {
+  animation: liveIndicatorGlow 2s ease-in-out infinite;
 }
 
-.embed #loading-text {
-  padding: 0.3em;
+#loading:not(.click-to-load) #loading-text {
+  animation: loadingTextPulse 2s ease-in-out infinite;
 }
 
-.click-to-load {
-  background-color: rgba(48, 48, 48, 0.05);
-  cursor: pointer;
-}
-
-.click-to-load #loading-text {
-  animation: none;
-  background: rgba(48, 48, 48, 0.5);
-  border: 1px solid rgba(48, 48, 48, 0.5);
-  border-radius: 2px;
-  color: rgb(235, 235, 235);
-  padding: 5px;
-}
-
-@keyframes pulsate {
+@keyframes liveIndicatorGlow {
   0%,
   100% {
-    opacity: 0.2;
+    opacity: 0.4;
   }
 
   50% {
@@ -95,65 +101,31 @@ body,
   }
 }
 
-@keyframes pulse {
+@keyframes loadingTextPulse {
   0%,
   100% {
-    transform: scale(0.8) translateY(-4%) translateX(-7%);
+    opacity: 0.35;
   }
 
   50% {
-    transform: scale(1);
+    opacity: 0.95;
   }
 }
 
-@keyframes colorPulse {
-  0%,
-  100% {
-    stop-color: #8a8a8a;
-  }
-
-  50% {
-    stop-color: #d7d7d7;
-  }
+.embed #loading > * {
+  transform: scale(0.8);
 }
 
-@keyframes colorPulse2 {
-  0%,
-  100% {
-    stop-color: #444;
-  }
-
-  50% {
-    stop-color: #626262;
-  }
+.click-to-load {
+  background-color: rgba(8, 13, 22, 0.7);
+  cursor: pointer;
 }
 
-svg .B {
-  stroke: none;
-}
-
-svg .C {
-  fill: url('#C');
-}
-
-svg .E {
-  fill-rule: nonzero;
-}
-
-#loading:not(.click-to-load) svg #cube-container {
-  animation: pulsate 3s ease-in-out infinite;
-  transform-origin: center;
-}
-
-#loading:not(.click-to-load) svg #inner-cube {
-  animation: pulse 3s ease-in-out infinite;
-  transform-origin: center;
-}
-
-#loading:not(.click-to-load) svg #gradient-stop-1 {
-  animation: colorPulse 1s ease-in-out infinite;
-}
-
-#loading:not(.click-to-load) svg #gradient-stop-2 {
-  animation: colorPulse2 1s ease-in-out infinite;
+.click-to-load #loading-text {
+  animation: none;
+  background: #0d1825;
+  border: 1px solid #1a2f44;
+  border-radius: 6px;
+  color: #f1f5f9;
+  padding: 8px 16px;
 }

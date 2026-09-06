@@ -1,3 +1,94 @@
 # Stencil
 
-TODO...
+[Stencil](https://stenciljs.com/) is a compiler for generating Web Components. It combines the best concepts of modern frameworks — reactive data-binding, TypeScript, and JSX — into a tool that produces standards-compliant custom elements.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="stencil" height="80vh"></LiveCodes>
+
+### Component Syntax
+
+Stencil components are written in TypeScript with decorators and JSX. They are rendered as custom HTML elements:
+
+```tsx
+import { Component, Prop, State, h } from "@stencil/core";
+
+@Component({
+  tag: "my-counter",
+  styles: `button { font: 1em sans-serif; }`,
+})
+export class MyCounter {
+  @Prop() label: string;
+  @State() count = 0;
+
+  render() {
+    return (
+      <div>
+        <p>{this.label}: {this.count}</p>
+        <button onClick={() => this.count++}>Click me</button>
+      </div>
+    );
+  }
+}
+```
+
+The component is then used in HTML as a custom element:
+
+```html
+<my-counter label="Counter"></my-counter>
+```
+
+## Language Info
+
+### Name
+
+`stencil`
+
+### Extensions
+
+`.stencil.tsx`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Stencil compiler](https://stenciljs.com/docs/compiler-api)
+
+### Version
+
+`@stencil/core`: v3.2.2
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `stencil` are passed as transpile options to the Stencil compiler. Please check the [documentation](https://github.com/ionic-team/stencil/blob/1b8b7ec21f2622d05c9aafa417b2abdd4f2597a4/src/declarations/stencil-public-compiler.ts#L2311) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "stencil": {
+    "target": "es2019"
+  }
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=stencil
+
+## Links
+
+- [Stencil](https://stenciljs.com/)
+- [Stencil on GitHub](https://github.com/stenciljs/core)

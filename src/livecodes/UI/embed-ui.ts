@@ -418,7 +418,7 @@ export const createEmbedUI = async ({
     return decodeURIComponent(iframeUrl.href);
   };
 
-  const codeTemlates = {
+  const codeTemplates = {
     cdn: (data: FormData) => {
       const containerId = getContainerId();
       const containerHtml = `<div id="${containerId}"></div>`;
@@ -473,21 +473,17 @@ export default function App() {
     svelte(data: FormData) {
       const options = getOptions(data);
       const formatted = JSON.stringify(options, null, 2);
-      const indented = indentCode(formatted, 2);
+      const indented = indentCode(formatted, 4);
       return `
 <script>
-  import { onMount } from 'svelte';
-  import { createPlayground } from 'livecodes';
-  const options = ${indented};
-  let container;
-  let playground;
-  onMount(() => {
-    createPlayground(container, options).then((p) => (playground = p));
-    return () => playground?.destroy();
-  });
+  import LiveCodes from "livecodes/svelte";
+
+  export default function App() {
+    const options = ${indented};
+  }
 </script>
 
-<div bind:this="{container}"></div>
+<LiveCodes {...options} />
 `.trimStart();
     },
     iframe: (data: FormData) => {
@@ -654,7 +650,7 @@ export default function App() {
 
     previewIframe.src = getIframeUrl(formData);
     const embedType = (formData as any).type;
-    const code = (codeTemlates as any)[embedType]?.(formData);
+    const code = (codeTemplates as any)[embedType]?.(formData);
     const embedTypeLanguages: Record<string, Language> = {
       npm: 'javascript',
       react: 'jsx',

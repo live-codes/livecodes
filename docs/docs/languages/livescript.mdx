@@ -1,3 +1,62 @@
 # LiveScript
 
-TODO...
+[LiveScript](https://livescript.net/) is a language that compiles to JavaScript. It is a fork of Coco, which is itself derived from CoffeeScript. LiveScript features a rich syntax with function composition, pattern matching, and many other functional programming features.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="livescript" height="60vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`livescript`
+
+### Extensions
+
+`.ls`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[LiveScript compiler](https://livescript.net/)
+
+### Version
+
+`livescript`: v1.6.1
+
+## Code Formatting
+
+Not supported.
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `livescript` are passed as options to the LiveScript compiler. Please check the [documentation](https://livescript.net/#usage) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "livescript": {
+    "bare": true
+  }
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=livescript
+
+## Links
+
+- [LiveScript](https://livescript.net/)
+- [LiveScript on GitHub](https://github.com/gkz/LiveScript)

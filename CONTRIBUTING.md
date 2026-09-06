@@ -1,9 +1,9 @@
 # Contributing
 
-Contributions are always welcome, no matter how large or small. Before contributing,
+Contributions are always welcome. Before contributing,
 please read the [code of conduct](CODE_OF_CONDUCT.md).
 
-Some thoughts to help you contribute to this project
+Some thoughts to help you contribute to this project:
 
 ## General Recommendations
 
@@ -121,15 +121,22 @@ If you would like to contribute to the project for the first time, please consid
 
 Also, all questions are [welcomed](https://github.com/live-codes/livecodes/discussions).
 
-## Specific Topics
+## System Documentation
 
-- [Adding Languages](./docs/docs/contribution/adding-languages.mdx)
-- [Release](./docs/docs/contribution/release.mdx)
-- [i18n](./docs/docs/contribution/i18n.mdx)
+For detailed documentation on specific systems, see the [Contribution Guide](./docs/docs/contribution/README.md) which includes comprehensive documentation for:
+
+- **Core Systems**: Architecture, Compiler, Config, Storage
+- **Editor & UI**: Editor System, UI Design, Tools Pane
+- **Language Support**: Adding Languages, Type Loader
+- **Features**: Import/Export, Result Page, Code Formatting
+- **Services & Infrastructure**: Services, Build System
+- **Internationalization**: i18n workflow
+- **Testing & Development**: Storybook setup
+- **Release**: Release workflow and version management
 
 ## Funding
 
-LiveCodes is a part of GitHub Sponsors. If you would like to contribute, please note the [sponsor page](https://livecodes.io/docs/sponsor) for details.
+LiveCodes is a part of GitHub Sponsors. If you would like to support the project, please refer to the [sponsor page](https://livecodes.io/docs/sponsor) for details.
 
 ## License
 

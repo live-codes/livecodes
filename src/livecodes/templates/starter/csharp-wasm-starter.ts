@@ -2,7 +2,8 @@ import type { Template } from '../../models';
 
 export const csharpWasmStarter: Template = {
   name: 'csharp-wasm',
-  title: 'C# (Wasm) Starter',
+  aliases: ['c#-wasm'],
+  title: window.deps.translateString('templates.starter.csharp-wasm', 'C# (Wasm) Starter'),
   thumbnail: 'assets/templates/csharp.svg',
   activeEditor: 'script',
   markup: {
@@ -42,7 +43,7 @@ export const csharpWasmStarter: Template = {
 
       const [title, count] = output.split('\\n');
 
-      if (parseInt(count) !== NaN) {
+      if (!isNaN(Number(count))) {
         window.count = count;
         counter.innerText = window.count;
       }

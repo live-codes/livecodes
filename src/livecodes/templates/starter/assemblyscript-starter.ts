@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const assemblyscriptStarter: Template = {
   name: 'assemblyscript',
+  aliases: ['as'],
   title: window.deps.translateString('templates.starter.assemblyscript', 'AssemblyScript Starter'),
   thumbnail: 'assets/templates/assemblyscript.svg',
   activeEditor: 'script',

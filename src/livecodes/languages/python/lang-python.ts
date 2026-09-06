@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
 import { getLanguageCustomSettings } from '../../utils/utils';
-import { brythonBaseUrl } from '../../vendors';
+import { brythonBaseUrl, codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
 const brythonUrl = brythonBaseUrl + 'brython.min.js';
 const stdlibUrl = brythonBaseUrl + 'brython_stdlib.js';
@@ -21,4 +21,11 @@ export const python: LanguageSpecs = {
   },
   extensions: ['py'],
   editor: 'script',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'python.js' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-python.js')).python(),
+    },
+  },
 };

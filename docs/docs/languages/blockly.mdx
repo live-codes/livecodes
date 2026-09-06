@@ -1,3 +1,133 @@
 # Blockly
 
-TODO...
+[Blockly](https://developers.google.com/blockly) is a visual programming editor developed by Google. It allows users to write code by dragging and dropping blocks together, which are then translated into executable JavaScript.
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="blockly" height="80vh"></LiveCodes>
+
+### How It Works
+
+In LiveCodes, Blockly is used as the code editor for the script panel. The block workspace is serialized as XML and stored as the code content. When the project runs, the XML is compiled to JavaScript and executed.
+
+### Adding Custom Blocks
+
+You can extend Blockly by adding custom blocks to the toolbox. Custom blocks are defined in two parts: a block XML definition for the toolbox and a JavaScript file containing the block logic and code generator.
+
+Blocks can be loaded either inline or from external URLs. Use `<xml>` tags with `type="blockly/xml"` and `<script>` tags with `type="blockly/script"` in your HTML:
+
+```html
+<!-- Load custom block XML definitions -->
+<xml
+  data-src="https://example.com/my-blocks.xml"
+  data-type="blockly/xml"
+  style="display: none"
+></xml>
+
+<!-- Load custom block JavaScript implementations -->
+<script
+  src="https://example.com/my-blocks.js"
+  type="blockly/script"
+></script>
+```
+
+The inline equivalent uses the same attributes without `src`:
+
+```html
+<xml data-type="blockly/xml" style="display: none">
+  <xml xmlns="https://developers.google.com/blockly/xml">
+    <category name="My Blocks" colour="#5CA699">
+      <block type="my_alert">
+        <value name="message">
+          <shadow type="text">
+            <field name="TEXT">Hello!</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+  </xml>
+</xml>
+
+<script type="blockly/script">
+Blockly.Blocks.my_alert = {
+  init() {
+    this.appendValueInput('message', 'text').appendField('alert');
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#5CA699');
+    this.setTooltip('Show an alert dialog');
+  },
+};
+
+Blockly.JavaScript.forBlock.my_alert = function (block) {
+  const message = Blockly.JavaScript.valueToCode(block, 'message', Blockly.JavaScript.ORDER_NONE);
+  return `alert(${message});\n`;
+};
+</script>
+```
+
+For a complete example, see the [DOM blocks source](https://github.com/live-codes/blockly-utils/tree/master/src).
+
+:::tip
+
+You may want to add the code defining custom blocks in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+:::
+
+### DOM Blocks
+
+Custom DOM manipulation blocks are provided by [`@live-codes/blockly-utils`](https://www.npmjs.com/package/@live-codes/blockly-utils).
+These blocks allow reading and writing to DOM elements, handling events, creating elements, and more.
+
+See [blockly starter template](https://livecodes.io/?template=blockly) for a demo.
+
+They can be used by adding the following code to the HTML:
+
+```html
+<xml
+  data-src="https://cdn.jsdelivr.net/npm/@live-codes/blockly-utils@0.2.0/src/dom-blocks.xml"
+  data-type="blockly/xml"
+  style="display: none"
+></xml>
+<script
+  src="https://cdn.jsdelivr.net/npm/@live-codes/blockly-utils@0.2.0/src/dom-blocks.js"
+  type="blockly/script"
+></script>
+```
+
+## Language Info
+
+### Name
+
+`blockly`
+
+### Extensions
+
+`.blockly.xml`, `.xml`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Blockly](https://developers.google.com/blockly)
+
+### Version
+
+`blockly`: v11.1.1
+
+## Starter Template
+
+https://livecodes.io/?template=blockly
+
+## Links
+
+- [Blockly](https://developers.google.com/blockly)
+- [Blockly on GitHub](https://github.com/google/blockly)
+- [@live-codes/blockly-utils](https://www.npmjs.com/package/@live-codes/blockly-utils)

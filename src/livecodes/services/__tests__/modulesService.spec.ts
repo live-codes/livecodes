@@ -38,6 +38,12 @@ describe('modulesService', () => {
 
     expect(url('esm.sh:uuid')).toEqual('https://esm.sh/uuid');
 
+    expect(url('jsr:uuid')).toEqual('https://esm.sh/jsr/uuid');
+
+    expect(url('pr:uuid@10')).toEqual('https://esm.sh/pr/uuid@10');
+
+    expect(url('pkg.pr.new:uuid@10')).toEqual('https://esm.sh/pkg.pr.new/uuid@10');
+
     expect(url('unpkg:uuid')).toEqual('https://unpkg.com/uuid?module');
 
     expect(url('bundlejs:uuid')).toEqual('https://deno.bundlejs.com/?file&q=uuid');

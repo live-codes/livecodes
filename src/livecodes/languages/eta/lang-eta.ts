@@ -5,9 +5,11 @@ import { parserPlugins } from '../prettier';
 export const eta: LanguageSpecs = {
   name: 'eta',
   title: 'Eta',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
   },
   compiler: {
     url: etaUrl,

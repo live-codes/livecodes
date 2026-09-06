@@ -1,0 +1,241 @@
+# skills/_artifacts/skill_tree.yaml
+# Generated from domain_map.yaml and skill_spec.md
+# Step 2 of scaffold workflow
+
+library:
+  name: 'livecodes'
+  version: '0.13.0'
+  repository: 'https://github.com/live-codes/livecodes'
+  description: 'A feature-rich, open-source, client-side code playground supporting 90+ languages/frameworks with SDK for embedding'
+generated_from:
+  domain_map: 'skills/_artifacts/domain_map.yaml'
+  skill_spec: 'skills/_artifacts/skill_spec.md'
+generated_at: '2025-03-28'
+
+# This is a single-repo (not monorepo), so no package field is needed.
+# Using flat structure since skills are task-focused and there are 13 skills.
+
+skills:
+  # === Root Skill ===
+
+  - name: 'LiveCodes Overview'
+    slug: 'livecodes'
+    type: 'core'
+    domain: null
+    path: '.agents/skills/livecodes/SKILL.md'
+    description: >
+      Open-source, client-side code playground supporting 90+ languages/frameworks.
+      Runs entirely in the browser with SDK for embedding. Entry point for all LiveCodes skills.
+    requires: []
+    sources:
+      - 'live-codes/livecodes:README.md'
+      - 'live-codes/livecodes:docs/docs/overview.mdx'
+      - 'live-codes/livecodes:docs/docs/getting-started.mdx'
+
+  # === Core Skills ===
+
+  - name: 'Create Embedded Playground'
+    slug: 'sdk-embedding'
+    type: 'core'
+    domain: 'sdk-embedding'
+    path: '.agents/skills/livecodes/sdk-embedding/SKILL.md'
+    description: >
+      Create and configure embedded playgrounds using createPlayground(),
+      getPlaygroundUrl(), compress(), decompress(), container setup,
+      EmbedOptions, loading modes (eager/lazy/click),
+      and appUrl for self-hosted instances.
+    requires: []
+    sources:
+      - 'live-codes/livecodes:docs/docs/sdk/js-ts.mdx'
+      - 'live-codes/livecodes:src/sdk/index.ts'
+      - 'live-codes/livecodes:src/sdk/models.ts'
+
+  - name: 'Use SDK Methods'
+    slug: 'sdk-methods'
+    type: 'core'
+    domain: 'sdk-embedding'
+    path: '.agents/skills/livecodes/sdk-methods/SKILL.md'
+    description: >
+      Use SDK methods to interact with playgrounds: run, getCode, setConfig,
+      getConfig, watch, runTests, format, getShareUrl, show, destroy.
+    requires:
+      - 'sdk-embedding'
+    sources:
+      - 'live-codes/livecodes:docs/docs/sdk/js-ts.mdx'
+      - 'live-codes/livecodes:src/sdk/index.ts'
+
+  - name: 'Configure Playground'
+    slug: 'configuration'
+    type: 'core'
+    domain: 'configuration'
+    path: '.agents/skills/livecodes/configuration/SKILL.md'
+    description: >
+      Configure playground behavior through Config object, query parameters,
+      EmbedOptions, editor settings, processors, external resources, and custom settings.
+    requires: []
+    sources:
+      - 'live-codes/livecodes:docs/docs/configuration/configuration-object.mdx'
+      - 'live-codes/livecodes:docs/docs/configuration/query-params.mdx'
+      - 'live-codes/livecodes:src/sdk/models.ts'
+
+  - name: 'Work with Languages'
+    slug: 'language-support'
+    type: 'core'
+    domain: 'languages'
+    path: '.agents/skills/livecodes/language-support/SKILL.md'
+    description: >
+      Work with 90+ supported languages, compilers, CSS processors,
+      and WASM-compiled languages for markup, style, and script editors.
+    requires: []
+    sources:
+      - 'live-codes/livecodes:docs/docs/languages/index.mdx'
+      - 'live-codes/livecodes:docs/docs/languages/_template.mdx'
+      - 'live-codes/livecodes:src/livecodes/languages/'
+    references:
+      - 'references/languages.md'
+
+  - name: 'Resolve Modules'
+    slug: 'module-resolution'
+    type: 'core'
+    domain: 'languages'
+    path: '.agents/skills/livecodes/module-resolution/SKILL.md'
+    description: >
+      Import npm, deno.land/x, jsr, and GitHub modules without build steps
+      using automatic CDN resolution, custom import maps, and CDN provider prefixes.
+    requires: []
+    sources:
+      - 'live-codes/livecodes:docs/docs/features/module-resolution.mdx'
+      - 'live-codes/livecodes:src/livecodes/compiler/import-map.ts'
+
+  - name: 'Write and Run Tests'
+    slug: 'testing'
+    type: 'core'
+    domain: 'languages'
+    path: '.agents/skills/livecodes/testing/SKILL.md'
+    description: >
+      Write and run automated tests with Jest and Testing Library
+      in the browser, including importing code from script editor.
+    requires: []
+    sources:
+      - 'live-codes/livecodes:docs/docs/features/tests.mdx'
+
+  - name: 'Use Display Modes'
+    slug: 'display-modes'
+    type: 'core'
+    domain: 'configuration'
+    path: '.agents/skills/livecodes/display-modes/SKILL.md'
+    description: >
+      Configure how the playground is displayed: full, focus, simple,
+      lite, editor, codeblock, and result modes.
+    requires:
+      - 'configuration'
+    sources:
+      - 'live-codes/livecodes:docs/docs/features/display-modes.mdx'
+      - 'live-codes/livecodes:docs/docs/features/lite.mdx'
+
+  - name: 'Use Headless Mode'
+    slug: 'headless-mode'
+    type: 'core'
+    domain: 'sdk-embedding'
+    path: '.agents/skills/livecodes/headless-mode/SKILL.md'
+    description: >
+      Run playground without visible UI using SDK methods for compiled
+      code output, console watching, and programmatic control.
+    requires:
+      - 'sdk-embedding'
+      - 'sdk-methods'
+    sources:
+      - 'live-codes/livecodes:docs/docs/sdk/headless.mdx'
+
+  - name: 'Import and Export Code'
+    slug: 'import-export'
+    type: 'core'
+    domain: 'configuration'
+    path: '.agents/skills/livecodes/import-export/SKILL.md'
+    description: >
+      Import code from GitHub gists/files/repos, GitLab, URLs, DOM,
+      and local files. Export projects as HTML, JSON, ZIP, or to external services.
+    requires: []
+    sources:
+      - 'live-codes/livecodes:docs/docs/features/import.mdx'
+      - 'live-codes/livecodes:docs/docs/features/export.mdx'
+
+  # === Framework Skills ===
+
+  - name: 'Use Framework SDK Wrappers'
+    slug: 'framework-wrappers'
+    type: 'framework'
+    domain: 'sdk-embedding'
+    path: '.agents/skills/livecodes/framework-wrappers/SKILL.md'
+    description: >
+      Use SDK with React, Vue, Svelte, Solid, Preact, and Web Components.
+      sdkReady callback, reactive props, and framework-specific patterns.
+    requires:
+      - 'sdk-embedding'
+      - 'sdk-methods'
+    sources:
+      - 'live-codes/livecodes:docs/docs/sdk/react.mdx'
+      - 'live-codes/livecodes:docs/docs/sdk/vue.mdx'
+      - 'live-codes/livecodes:docs/docs/sdk/svelte.mdx'
+      - 'live-codes/livecodes:docs/docs/sdk/solid.mdx'
+      - 'live-codes/livecodes:docs/docs/sdk/preact.mdx'
+      - 'live-codes/livecodes:docs/docs/sdk/web-components.mdx'
+      - 'live-codes/livecodes:src/sdk/react.tsx'
+      - 'live-codes/livecodes:src/sdk/vue.ts'
+
+  # === Lifecycle Skills ===
+
+  - name: 'Get Started'
+    slug: 'getting-started'
+    type: 'lifecycle'
+    domain: null
+    path: '.agents/skills/livecodes/getting-started/SKILL.md'
+    description: >
+      Quick start for standalone app at livecodes.io, embedding playgrounds
+      with CDN or npm, and self-hosting basics.
+    requires: []
+    sources:
+      - 'live-codes/livecodes:README.md'
+      - 'live-codes/livecodes:docs/docs/getting-started.mdx'
+
+  # === Composition Skills ===
+
+  - name: 'Integrate with Documentation Sites'
+    slug: 'markdown-integration'
+    type: 'composition'
+    domain: 'integration'
+    path: '.agents/skills/livecodes/markdown-integration/SKILL.md'
+    description: >
+      Integrate LiveCodes with documentation sites using remark-livecodes,
+      markdown-it-livecodes, gatsby-remark-livecodes, or marked-livecodes
+      for Docusaurus, Astro, VitePress, Next.js, and Storybook.
+    requires:
+      - 'sdk-embedding'
+    sources:
+      - 'live-codes/livecodes:docs/docs/markdown-to-livecodes.mdx'
+
+  - name: 'Self-Host LiveCodes'
+    slug: 'self-hosting'
+    type: 'composition'
+    domain: 'integration'
+    path: '.agents/skills/livecodes/self-hosting/SKILL.md'
+    description: >
+      Deploy LiveCodes to static file servers, GitHub Pages, or Docker.
+      Configure SDK appUrl, BASE_URL for subdirectories, and handle services.
+    requires:
+      - 'sdk-embedding'
+    sources:
+      - 'live-codes/livecodes:docs/docs/features/self-hosting.mdx'
+
+  - name: 'Use GitHub Action'
+    slug: 'gh-action'
+    type: 'composition'
+    domain: 'integration'
+    path: '.agents/skills/livecodes/gh-action/SKILL.md'
+    description: >
+      Use the "Preview in LiveCodes" GitHub Action to generate preview playground links
+      for pull request code changes. Automates playground creation and PR comments.
+    requires: []
+    sources:
+      - 'live-codes/preview-in-livecodes:README.md'
+      - 'live-codes/livecodes:docs/docs/gh-action.mdx'

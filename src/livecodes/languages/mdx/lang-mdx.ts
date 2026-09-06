@@ -38,9 +38,11 @@ createRoot(document.querySelector('#__livecodes_mdx_root__')).render(<MDXContent
 export const mdx: LanguageSpecs = {
   name: 'mdx',
   title: 'MDX',
-  parser: {
-    name: 'markdown',
-    pluginUrls: [parserPlugins.markdown, parserPlugins.html],
+  formatter: {
+    prettier: {
+      name: 'markdown',
+      pluginUrls: [parserPlugins.markdown, parserPlugins.html],
+    },
   },
   compiler: {
     factory: () => async (code) => code,

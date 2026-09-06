@@ -16,7 +16,7 @@
     "translation": "LiveCodes es posible gracias a proyectos de código abierto, servicios web y colaboradores. <tag-1> Ver créditos </tag-1>"
   },
   "about.credits.para2": {
-    "translation": "© 2024 Hatem Hosny. LiveCodes tiene licencia MIT."
+    "translation": "© 2021-2026 Hatem Hosny. LiveCodes tiene licencia MIT."
   },
   "about.documentations.heading": {
     "translation": "Documentación"
@@ -513,9 +513,6 @@
   "commandMenu.copyAsDataUrl": {
     "translation": "Copiar código como URL de datos"
   },
-  "commandMenu.disableAI": {
-    "translation": "Desactivar AI Code Assistant"
-  },
   "commandMenu.disableAutoSave": {
     "translation": "Desactivar guardado automático"
   },
@@ -533,9 +530,6 @@
   },
   "commandMenu.disableVim": {
     "translation": "Desactivar el modo Vim"
-  },
-  "commandMenu.enableAI": {
-    "translation": "Habilitar asistente de código IA"
   },
   "commandMenu.enableAutoSave": {
     "translation": "Activar guardado automático"
@@ -942,12 +936,6 @@
   "editorSettings.emmet": {
     "translation": "Habilitar Emmet *"
   },
-  "editorSettings.enableAI.heading": {
-    "translation": "Habilitar asistente de código IA"
-  },
-  "editorSettings.enableAI.note": {
-    "translation": "Impulsado por <tag-1><tag-2></tag-2></tag-1>"
-  },
   "editorSettings.foldRegions": {
     "translation": "Plegar (colapsar) regiones *"
   },
@@ -968,6 +956,9 @@
   },
   "editorSettings.lineNumbersRelative": {
     "translation": "Números de línea relativos *"
+  },
+  "editorSettings.minimap": {
+    "translation": "Activar Minimapa *"
   },
   "editorSettings.notAvailableInCodeJar": {
     "translation": "No disponible en CodeJar"
@@ -1911,6 +1902,12 @@
   "templates.noUserTemplates.heading": {
     "translation": "No tienes plantillas guardadas."
   },
+  "templates.search.label": {
+    "translation": "Buscar en plantillas"
+  },
+  "templates.search.placeholder": {
+    "translation": "Buscar en plantillas..."
+  },
   "templates.starter.angular": {
     "translation": "Inicio Angular"
   },
@@ -1950,6 +1947,15 @@
   "templates.starter.cpp": {
     "translation": "Inicio C++"
   },
+  "templates.starter.cpp-wasm": {
+    "translation": "Inicio C++ (Wasm)"
+  },
+  "templates.starter.csharp-wasm": {
+    "translation": "Inicio C# (Wasm)"
+  },
+  "templates.starter.d3": {
+    "translation": "Inicio D3"
+  },
   "templates.starter.daisyui": {
     "translation": "Inicio daisyUI"
   },
@@ -1964,6 +1970,9 @@
   },
   "templates.starter.go": {
     "translation": "Inicio Go"
+  },
+  "templates.starter.go-wasm": {
+    "translation": "Inicio Go (Wasm)"
   },
   "templates.starter.heading": {
     "translation": "Plantillas de Inicio"
@@ -2016,11 +2025,17 @@
   "templates.starter.mdx": {
     "translation": "Inicio MDX"
   },
+  "templates.starter.minizinc": {
+    "translation": "Inicio MiniZinc"
+  },
   "templates.starter.ocaml": {
     "translation": "Inicio Ocaml"
   },
   "templates.starter.perl": {
     "translation": "Inicio Perl"
+  },
+  "templates.starter.phaser": {
+    "translation": "Inicio Phaser"
   },
   "templates.starter.php": {
     "translation": "Inicio PHP"
@@ -2039,6 +2054,9 @@
   },
   "templates.starter.python": {
     "translation": "Inicio Python"
+  },
+  "templates.starter.python-wasm": {
+    "translation": "Inicio Python (Wasm)"
   },
   "templates.starter.r": {
     "translation": "Inicio R"

@@ -2,6 +2,35 @@
 
 To start a new release:
 
+```mermaid
+flowchart TD
+    A["Checkout develop branch"] --> B["Ensure no uncommitted changes"]
+    B --> C["npm run start-release"]
+    C --> D{App or SDK?}
+    
+    D -->|App| E["Increment appVersion<br/>in package.json"]
+    D -->|SDK| F["Increment version<br/>in src/sdk/package.sdk.json"]
+    
+    E --> G["Generate changelog"]
+    F --> G
+    
+    G --> H["Create release branch<br/>releases/v{version}"]
+    H --> I["Push to GitHub<br/>triggers preview deploy"]
+    I --> J["Create PR to develop"]
+    
+    J --> K["PR merged"]
+    K --> L["GitHub Action workflow"]
+    
+    L --> M["Build app/SDK"]
+    M --> N["Create & push release tag"]
+    N --> O["Compress build to zip/tar"]
+    O --> P["Create GitHub release<br/>with changelog"]
+    
+    P --> Q{App or SDK?}
+    Q -->|App| R["Create permanent URL<br/>v{version}.livecodes.io"]
+    Q -->|SDK| S["Publish to npm"]
+```
+
 - Checkout the branch `develop`.
 - Make sure there are no uncommitted changes.
 - Run `npm run start-release` and answer the prompts. This will:
@@ -25,9 +54,7 @@ To start a new release:
   - If App release -> create a permanent URL (v\{version\}.livecodes.io) which is a proxy to preview deploy.
   - If SDK release -> publish to npm.
 
-:::info
+## Note
 
 App versions are numeric e.g. `v20`  
 SDK versions are semver e.g. `v1.2.3`
-
-:::

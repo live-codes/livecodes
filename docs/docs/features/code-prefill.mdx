@@ -2,50 +2,88 @@
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-There are many ways to pre-fill code into playgrounds. This is generally achieved either by the [SDK](../sdk/index.mdx) or using [query params](../configuration/query-params.mdx).
+There are many ways to pre-fill code into playgrounds:
 
-## Prefill using SDK
+## LiveCodes SDK
 
-When creating an embedded playground, the following [embed options](../sdk/js-ts.mdx#embed-options) allow prefill with code:
+This is the recommended way to create playgrounds and pre-fill them with code.
 
-### config
+When creating an embedded playground using the [LiveCodes SDK](../sdk/index.mdx), the following [embed options](../sdk/js-ts.mdx#embed-options) allow pre-fill with code:
 
-[EmbedOptions.config](../sdk/js-ts.mdx#config)
+### `config`
 
-loads a [configuration object](../configuration/configuration-object.mdx) (or a URL to JSON file representing the configuration object)
+[`EmbedOptions.config`](../sdk/js-ts.mdx#config)
 
-<LiveCodes
-  config={{
-    markup: { language: 'html', content: '<h1>Hello World!</h1>' },
-    style: { language: 'css', content: 'h1 { color: blue; }' },
-  }}
-></LiveCodes>
+Loads a [configuration object](../configuration/configuration-object.mdx) (or a URL to JSON file representing the configuration object)
 
-### import
+```js
+import { createPlayground } from "livecodes";
 
-[EmbedOptions.import](../sdk/js-ts.mdx#import)
+const options = {
+  config: {
+    markup: {
+      language: "html",
+      content: "<h1>Hello World!</h1>",
+    },
+    style: {
+      language: "css",
+      content: "h1 { color: blue; }",
+    },
+  },
+};
+createPlayground("#container", options);
+```
 
-allows [importing](./import.mdx) from many sources.
+### `import`
+
+[`EmbedOptions.import`](../sdk/js-ts.mdx#import)
+
+Allows [importing](./import.mdx) from many sources.
 
 Examples:
 
-Import GitHub directory:
+- Import GitHub directory:
 
-<LiveCodes import="https://github.com/bradtraversy/50projects50days/tree/master/progress-steps"></LiveCodes>
+```js
+import { createPlayground } from "livecodes";
 
-Import shared project:
+const options = {
+  import:
+    "https://github.com/bradtraversy/50projects50days/tree/master/progress-steps",
+};
+createPlayground("#container", options);
+```
+<p></p>
 
-<LiveCodes import="id/6ys2b8txf33"></LiveCodes>
+- Import [shared projects](./share.mdx):
 
-### template
+```js
+import { createPlayground } from "livecodes";
 
-[EmbedOptions.template](../sdk/js-ts.mdx#template)
+const options = {
+  import: "id/6ys2b8txf33",
+};
+createPlayground("#container", options);
+```
 
-loads one of the [starter templates](./templates.mdx).
+See the [import](./import.mdx) docs for more information.
 
-<LiveCodes template="react"></LiveCodes>
+### `template`
 
-## Prefill using query params
+[`EmbedOptions.template`](../sdk/js-ts.mdx#template)
+
+Loads one of the [starter templates](./templates.mdx).
+
+```js
+import { createPlayground } from "livecodes";
+
+const options = {
+  template: "react",
+};
+createPlayground("#container", options);
+```
+
+## Query params
 
 [Query parameters](../configuration/query-params.mdx) can provide easy and powerful ways for configuring the playground.
 
@@ -54,14 +92,176 @@ Example:
 <a href="https://livecodes.io/?md=**Hello World!**" target="_blank">
   {'https://livecodes.io/?md=**Hello World!**'}
 </a>
-<br />
-<br />
 
-<LiveCodes params={{ md: '**Hello World!**' }}></LiveCodes>
+## Markdown Code Blocks
 
-## Auto-Prefill from page DOM
+[Markdown to LiveCodes](../markdown-to-livecodes.mdx) allows converting Markdown code blocks into LiveCodes playgrounds by adding the `livecodes` parameter to the code block language meta.
+This is useful for documentation, tutorials, and blog posts where you want to make code examples editable and runnable without writing any JavaScript.
 
-TODO...
+Example:
+
+````md {1}
+```jsx livecodes
+import { useState } from "react";
+
+function App() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <p>You clicked {count} times.</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+
+export default App;
+```
+````
+
+
+## Auto Pre-fill from page DOM
+
+The [LiveCodes SDK](../sdk/index.mdx) UMD script can automatically convert static code blocks on the page into interactive playgrounds. This is useful for documentation, tutorials, and blog posts where you want to make code examples editable and runnable without writing any JavaScript.
+
+### How It Works
+
+Add the LiveCodes UMD script to your page with the `data-prefill` attribute. On page load, the script finds all elements with the class `livecodes` and replaces each one with an embedded playground.
+The code content is extracted from elements that have a `data-lang` attribute inside the `.livecodes` element. The `data-lang` attribute is used to determine which language and code editor to use.
+
+```html livecodes render=link
+<code class="livecodes">
+<pre data-lang="html">
+<h1>Hello World!</h1>
+</pre>
+</code>
+
+<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js" data-prefill></script>
+```
+<p></p>
+
+### Multiple Languages
+
+You can include multiple `<pre>` blocks with different `data-lang` values to populate several editors in the same playground. For example, to create a playground with HTML, CSS, and TypeScript:
+
+```html livecodes render=link
+<code class="livecodes">
+<pre data-lang="html">
+This code is in HTML code blocks
+<div>With <strong>HTML</strong> <i>tags</i></div>
+</pre>
+
+<pre data-lang="css">
+body {
+  text-align: center;
+}
+.blue {
+  color: blue;
+}
+</pre>
+
+<pre data-lang="typescript">
+const p = document.createElement('p');
+p.classList.add('blue');
+p.innerHTML = 'hello from Typescript!';
+document.body.appendChild(p);
+</pre>
+</code>
+
+<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js" data-prefill></script>
+```
+<p></p>
+
+### Configuration via Data Attributes
+
+Each `.livecodes` element can optionally accept the following data attributes:
+
+**`data-options`**: A JSON string representing [embed options](../sdk/js-ts.mdx#embed-options), such as `appUrl`, `config`, `import`, `loading`, `params`, and `template`.
+
+```html livecodes render=link
+<code
+  class="livecodes"
+  data-options='{"loading": "click", "config": {"activeEditor": "script"}}'
+>
+<pre data-lang="javascript">
+console.log('Hello World!');
+</pre>
+</code>
+
+<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js" data-prefill></script>
+```
+<p></p>
+
+**`data-height`**: A number (in pixels) or a CSS value representing the height of the playground (see below).
+
+### Setting the Height
+
+The playground height can be set using inline styles:
+
+```html {1} livecodes render=link
+<code class="livecodes" style="height: 400px;">
+<pre data-lang="html">
+<h1>Hello World!</h1>
+</pre>
+</code>
+
+<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js" data-prefill></script>
+```
+<p></p>
+
+Alternatively, the height can be set using the `data-height` attribute.
+
+```html {1} livecodes render=link
+<code class="livecodes" data-height="400">
+<pre data-lang="html">
+<h1>Hello World!</h1>
+</pre>
+</code>
+
+<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js" data-prefill></script>
+```
+<p></p>
+
+### Escaping Code
+
+It is recommended to escape code inside the code blocks using HTML entities (e.g. `&lt;` instead of `<` and `&gt;` instead of `>`) to avoid being evaluated by the browser as HTML.
+However, this is not strictly required.
+
+Example:
+
+```html
+<code class="livecodes">
+  <pre data-lang="html">
+    &lt;h1&gt;Hello World!&lt;/h1&gt;
+  </pre>
+</code>
+```
+
+:::caution
+
+The `data-prefill` attribute must be set on the `<script>` tag itself to activate auto pre-fill.
+Without it, the auto-prefill behavior is disabled and `.livecodes` elements are left untouched.
+
+:::
+
+:::tip
+
+If you want to hide the code blocks before the playground loads, you may hide them using CSS.
+
+```html
+<style>
+  .livecodes pre { visibility: hidden; }
+</style>
+```
+
+Alternatively, use `template` tags instead of `pre` tags.
+
+:::
+
+:::note
+
+If `data-options` contains invalid JSON, a warning is logged to the console and the playground is created without the invalid attribute's values.
+
+:::
 
 ## Related
 

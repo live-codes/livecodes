@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 56" width="340" height="56" role="img" aria-label="Edit in LiveCodes (dark)">
+  <defs>
+    <linearGradient id="eilcsd-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1825"/>
+      <stop offset="100%" stop-color="#080d16"/>
+    </linearGradient>
+    <filter id="eilcsd-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.5" result="b"/>
+      <feFlood flood-color="#00c8ff" flood-opacity=".35" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="eilcsd-dot-glow" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="1.5" result="b"/>
+      <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Badge background -->
+  <rect x="1" y="1" width="338" height="54" rx="10" fill="url(#eilcsd-bg)" stroke="rgba(0,200,255,0.25)" stroke-width="1"/>
+  <!-- Icon badge -->
+  <rect x="9" y="8" width="40" height="40" rx="7" fill="rgba(255,255,255,0.06)" stroke="rgba(0,200,255,0.15)" stroke-width="1"/>
+  <g filter="url(#eilcsd-glow)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="20,22 15,28 20,34" stroke="#00c8ff" stroke-width="3.5"/>
+    <line x1="31" y1="20" x2="23" y2="36" stroke="#00e5c8" stroke-width="3.5"/>
+    <polyline points="36,22 41,28 36,34" stroke="#00c8ff" stroke-width="3.5"/>
+  </g>
+  <circle cx="38" cy="14" r="3" fill="#ff4d4d" filter="url(#eilcsd-dot-glow)"/>
+  <!-- Text -->
+  <text x="60" y="24" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="rgba(255,255,255,0.45)">Edit in</text>
+  <text x="60" y="41" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700" fill="#ffffff" letter-spacing="-0.5">LiveCodes</text>
+</svg>

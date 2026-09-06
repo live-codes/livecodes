@@ -80,20 +80,20 @@ const FeatureList2: FeatureItem[] = [
     ),
   },
 
-  {
-    title: 'AI Code Assistant',
-    image: './img/magic-wand.svg',
-    description: (
-      <>
-        Leverage the <Link to="./features/ai">power of AI</Link> to help you write/learn code, using
-        the <strong>free</strong> Copilot alternative. It understands the context of your code and
-        comments to generate suggestions. It has a wide range of language support, and it works
-        everywhere (in the <Link to="./getting-started#standalone-app">standalone app</Link>,{' '}
-        <Link to="./features/embeds">embedded playgrounds</Link> and{' '}
-        <Link to="./features/self-hosting">self-hosted</Link> apps).
-      </>
-    ),
-  },
+  // {
+  //   title: 'AI Code Assistant',
+  //   image: './img/magic-wand.svg',
+  //   description: (
+  //     <>
+  //       Leverage the <Link to="./features/ai">power of AI</Link> to help you write/learn code, using
+  //       the <strong>free</strong> Copilot alternative. It understands the context of your code and
+  //       comments to generate suggestions. It has a wide range of language support, and it works
+  //       everywhere (in the <Link to="./getting-started#standalone-app">standalone app</Link>,{' '}
+  //       <Link to="./features/embeds">embedded playgrounds</Link> and{' '}
+  //       <Link to="./features/self-hosting">self-hosted</Link> apps).
+  //     </>
+  //   ),
+  // },
   {
     title: 'Mobile-Friendly',
     image: './img/responsive.svg',
@@ -148,12 +148,13 @@ const FeatureList3: FeatureItem[] = [
         It is easy to <Link to="./getting-started">get started</Link>. LiveCodes is highly{' '}
         <Link to="./configuration/configuration-object">configurable</Link> (even by URL{' '}
         <Link to="./configuration/query-params">query params</Link>). The{' '}
-        <Link to="./sdk/">SDK</Link> facilitates <Link to="./features/embeds">embedding</Link>{' '}
-        playgrounds and allows easy <Link to="./sdk/js-ts#sdk-methods">communication</Link> with
-        them. The SDK is available for <Link to="./sdk/js-ts">vanilla JS/TS</Link>,{' '}
-        <Link to="./sdk/react">React</Link>, <Link to="./sdk/vue">Vue</Link> and{' '}
-        <Link to="./sdk/svelte">Svelte</Link>. There is also a{' '}
-        <Link to="./sdk/headless">headless mode</Link> for full control over the UI.
+        <Link to="./sdk/">SDK</Link> allows <Link to="./features/embeds">creating</Link> and{' '}
+        <Link to="./sdk/js-ts#sdk-methods">communicating</Link> with embedded playgrounds. It is
+        available for <Link to="./sdk/js-ts">vanilla JS/TS</Link>,{' '}
+        <Link to="./sdk/preact">Preact</Link>, <Link to="./sdk/react">React</Link>,{' '}
+        <Link to="./sdk/solid">Solid</Link>, <Link to="./sdk/svelte">Svelte</Link>,{' '}
+        <Link to="./sdk/vue">Vue</Link> and <Link to="./sdk/web-components">Web Components</Link>, .
+        There is also a <Link to="./sdk/headless">headless mode</Link> for full control over the UI.
       </>
     ),
   },
@@ -241,7 +242,7 @@ import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteC
 createPlayground('#container', {
   params: {
     markdown: '# Hello LiveCodes!',
-    css: 'h1 {color: dodgerblue;}',
+    css: 'h1 {color: #00c8ff;}',
     js: 'console.log("Hello, from JS!");',
     console: 'open',
   },
@@ -265,7 +266,7 @@ export default function HomepageFeatures(): ReactNode {
               style={{
                 height: '70vh',
                 width: '95%',
-                boxShadow: '0 0 20px var(--ifm-color-secondary-darkest)',
+                boxShadow: '0 0 28px rgba(0, 200, 255, 0.35), 0 0 0 1px rgba(0, 200, 255, 0.1)',
               }}
               showCode={false}
               loading="eager"
@@ -391,20 +392,16 @@ export default function HomepageFeatures(): ReactNode {
                           1
                         </a>
                         ,{' '}
-                        <a href="https://vercel.com/" target="_blank" rel="noopener">
+                        <a href="https://www.netlify.com/" target="_blank" rel="noopener">
                           2
                         </a>
                         ,{' '}
-                        <a href="https://www.netlify.com/" target="_blank" rel="noopener">
+                        <a href="https://firebase.google.com/" target="_blank" rel="noopener">
                           3
                         </a>
                         ,{' '}
-                        <a href="https://firebase.google.com/" target="_blank" rel="noopener">
-                          4
-                        </a>
-                        ,{' '}
                         <a href="https://pages.github.com/" target="_blank" rel="noopener">
-                          5
+                          4
                         </a>
                       </sup>
                     </li>

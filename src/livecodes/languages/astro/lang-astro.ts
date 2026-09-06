@@ -7,9 +7,11 @@ const compilerURL = astroBaseUrl + 'compiler.min.js';
 export const astro: LanguageSpecs = {
   name: 'astro',
   title: 'Astro',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html, parserPlugins.babel],
+  formatter: {
+    prettier: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html, parserPlugins.babel],
+    },
   },
   compiler: {
     url: compilerURL,

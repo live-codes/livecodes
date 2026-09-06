@@ -1,3 +1,141 @@
 # Less
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[Less](https://lesscss.org/) (Leaner Style Sheets) is a CSS preprocessor that extends CSS with variables, nesting, mixins, functions and operations. It uses a CSS-like syntax with curly braces and semicolons, so every valid CSS stylesheet is also valid Less.
+
+## Demo
+
+export const lessConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Hello, Less!</h1>
+  <p>This is styled with <strong>Less</strong>.</p>
+  <ul class="features">
+    <li>Variables</li>
+    <li>Nesting</li>
+    <li>Mixins</li>
+  </ul>
+</div>
+`,
+  },
+  style: {
+    language: 'less',
+    content: `@primary: #3182ce;
+@bg: #f0f4f8;
+@radius: 8px;
+
+.flex-center() {
+  display: flex;
+  gap: 1em;
+}
+
+.container {
+  font-family: sans-serif;
+  max-width: 600px;
+  margin: 2em auto;
+  padding: 1.5em;
+  border-radius: @radius;
+  background: @bg;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    color: #2d3748;
+  }
+
+  p {
+    color: #4a5568;
+    line-height: 1.6;
+  }
+}
+
+.features {
+  .flex-center();
+  list-style: none;
+  padding: 0;
+
+  li {
+    background: @primary;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: @radius;
+  }
+}
+`,
+  },
+};
+
+<LiveCodes config={lessConfig} />
+
+## Usage
+
+Less code added to the [style editor](../features/projects.mdx#style-editor) is compiled to CSS before being added to the [result page](../features/result.mdx).
+
+Less uses a CSS-like syntax with curly braces and semicolons. Variables are prefixed with `@`, and mixins let you reuse groups of declarations.
+
+For more details about CSS support in LiveCodes, including CSS processors, style imports, CSS modules, and CSS frameworks, see the [CSS feature documentation](../features/css.mdx).
+
+## Loading External Styles
+
+Less supports importing external stylesheets using the `@import` rule. [Bare module](../features/module-resolution.mdx#bare-module-imports) specifiers are resolved to full CDN URLs.
+
+```less
+@import 'bootstrap/less/bootstrap';
+```
+
+:::tip
+
+For more information about loading and importing styles, see the [Style Imports](../features/css.mdx#style-imports) documentation.
+
+:::
+
+## Language Info
+
+### Name
+
+`less`
+
+### Extensions
+
+`.less`
+
+### Editor
+
+`style`
+
+## Compiler
+
+[Less](https://lesscss.org/) is compiled using the official [Less.js](https://lesscss.org/usage/#using-less-in-the-browser) compiler (running in the browser).
+
+### Version
+
+`less`: v4.4.2
+
+### Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `less` are passed as a JSON object to the Less compiler during compile. Please check the [Less options documentation](https://lesscss.org/usage/#less-options) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "less": {
+    "math": "strict"
+  }
+}
+```
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io/).
+
+## Links
+
+- [Less Official Website](https://lesscss.org/)
+- [Less Documentation](https://lesscss.org/features/)
+- [Less on GitHub](https://github.com/less/less.js)
+- [CSS feature documentation in LiveCodes](../features/css.mdx)

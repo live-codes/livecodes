@@ -2,6 +2,7 @@ import type { Template } from '../../models';
 
 export const javascriptStarter: Template = {
   name: 'javascript',
+  aliases: ['js'],
   title: window.deps.translateString('templates.starter.javascript', 'JavaScript Starter'),
   thumbnail: 'assets/templates/javascript.svg',
   activeEditor: 'script',

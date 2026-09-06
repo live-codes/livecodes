@@ -37,23 +37,11 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const themes: Array<Config['theme']> = ['light', 'dark'];
   const layout: Array<Config['layout']> = ['responsive', 'horizontal', 'vertical'];
   const editorModes: Array<Config['editorMode']> = ['vim', 'emacs'];
-  const tools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
+  const tools: Array<Tool['name'] | 'zoom'> = ['console', 'compiled', 'tests', 'zoom'];
   const toolsPaneStatus: ToolsPaneStatus[] = ['', 'full', 'closed', 'open', 'none'];
   const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar', 'auto'];
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const zoomLevels: Array<Config['zoom']> = [1, 0.5, 0.25];
-
-  const isEditor = (x: any) =>
-    is(x, 'object') &&
-    (is(x.language, 'string') ||
-      is(x.title, 'string') ||
-      is(x.content, 'string') ||
-      is(x.contentUrl, 'string') ||
-      is(x.hiddenContent, 'string') ||
-      is(x.hiddenContentUrl, 'string') ||
-      is(x.foldedLines, 'array', 'object') ||
-      is(x.order, 'number') ||
-      is(x.selector, 'string'));
 
   const isFoldedLines = (x: any) => is(x, 'object') && (is(x.from, 'number') || is(x.to, 'number'));
 
@@ -108,8 +96,11 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
         }),
     ...(x &&
     x.active != null &&
-    includes(tools, x.active) &&
-    (typeof x.enabled === 'string' ||
+    includes(
+      tools.filter((t) => t !== 'zoom'),
+      x.active,
+    ) &&
+    (x.enabled === 'all' ||
       x.enabled == null ||
       (Array.isArray(x.enabled) && includes(x.enabled, x.active)))
       ? { active: x.active }
@@ -150,13 +141,13 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.languages, 'array', 'string')
       ? { languages: removeDuplicates(config.languages) }
       : {}),
-    ...(isEditor(config.markup)
+    ...(is(config.markup, 'object')
       ? { markup: validateEditorProps(config.markup as Editor, 'markup') }
       : {}),
-    ...(isEditor(config.style)
+    ...(is(config.style, 'object')
       ? { style: validateEditorProps(config.style as Editor, 'style') }
       : {}),
-    ...(isEditor(config.script)
+    ...(is(config.script, 'object')
       ? { script: validateEditorProps(config.script as Editor, 'script') }
       : {}),
     ...(is(config.tools, 'object')
@@ -191,11 +182,13 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.semicolons, 'boolean') ? { semicolons: config.semicolons } : {}),
     ...(is(config.singleQuote, 'boolean') ? { singleQuote: config.singleQuote } : {}),
     ...(is(config.trailingComma, 'boolean') ? { trailingComma: config.trailingComma } : {}),
+    ...(is(config.minimap, 'boolean') ? { minimap: config.minimap } : {}),
     ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),
-    ...(is(config.enableAI, 'boolean') ? { enableAI: config.enableAI } : {}),
+    // ...(is(config.enableAI, 'boolean') ? { enableAI: config.enableAI } : {}),
     ...(includes(editorModes, config.editorMode) ? { editorMode: config.editorMode } : {}),
     ...(is(config.imports, 'object') ? { imports: config.imports } : {}),
     ...(is(config.types, 'object') ? { types: config.types } : {}),
+    ...(is(config.disableHomeLink, 'boolean') ? { disableHomeLink: config.disableHomeLink } : {}),
     ...(is(config.version, 'string') ? { version: config.version } : {}),
   };
 };

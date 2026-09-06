@@ -1,3 +1,107 @@
 # Stylis
 
-TODO...
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+[Stylis](https://stylis.js.org/) is a lightweight CSS preprocessor and parser. It supports CSS-like syntax with nesting, auto-prefixing, and other transformations.
+
+## Demo
+
+export const stylisConfig = {
+  activeEditor: 'style',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Hello, Stylis!</h1>
+  <p>A lightweight CSS preprocessor.</p>
+  <div class="box">
+    <p>Nested styles with auto-prefixing</p>
+  </div>
+</div>
+`,
+  },
+  style: {
+    language: 'stylis',
+    content: `.container {
+  font-family: sans-serif;
+  max-width: 600px;
+  margin: 2em auto;
+  padding: 1.5em;
+
+  h1 {
+    color: #2d3748;
+  }
+
+  p {
+    color: #4a5568;
+  }
+}
+
+.box {
+  background: #4a90d9;
+  color: white;
+  padding: 1em;
+  border-radius: 8px;
+  user-select: none;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}`,
+  },
+};
+
+<LiveCodes config={stylisConfig} height="80vh"></LiveCodes>
+
+
+## Usage
+
+Stylis code added to the [style editor](../features/projects.mdx#style-editor) is compiled to CSS before being added to the [result page](../features/result.mdx).
+
+For more details about CSS support in LiveCodes, including CSS processors, style imports, CSS modules, and CSS frameworks, see the [CSS feature documentation](../features/css.mdx).
+
+### Loading External Styles
+
+Stylis supports importing external stylesheets using the `@import` rule. [Bare module](../features/module-resolution.mdx#bare-module-imports) specifiers are resolved to full CDN URLs.
+
+```stylis
+@import "normalize.css";
+```
+
+:::tip
+
+For more information about loading and importing styles, see the [Style Imports](../features/css.mdx#style-imports) documentation.
+
+:::
+
+## Language Info
+
+### Name
+
+`stylis`
+
+### Extensions
+
+`.stylis`
+
+### Editor
+
+`style`
+
+## Compiler
+
+[Stylis](https://stylis.js.org/)
+
+### Version
+
+`stylis`: v4.3.6
+
+## Code Formatting
+
+Not supported.
+
+## Links
+
+- [Stylis Official Website](https://stylis.js.org/)
+- [Stylis on GitHub](https://github.com/thysultan/stylis)
+- [CSS feature documentation in LiveCodes](../features/css.mdx)

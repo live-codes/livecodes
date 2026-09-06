@@ -1,15 +1,16 @@
-FROM node:24.1.0-alpine3.21 AS builder
+FROM node:24.4.1-alpine3.22 AS builder
 
 RUN apk update --no-cache && apk add --no-cache git
 
 WORKDIR /app
 
 COPY package*.json ./
-COPY docs/package*.json docs/
-COPY storybook/package*.json storybook/
 COPY server/package*.json server/
+COPY patches/ patches/
 
-RUN npm ci
+RUN npm ci --ignore-scripts
+# postinstall script without installing docs and storybook
+RUN npx patch-package && npm run install:server
 
 COPY . .
 
@@ -21,13 +22,11 @@ ARG SANDBOX_HOST_NAME
 ARG SANDBOX_PORT
 ARG FIREBASE_CONFIG
 ARG DOCS_BASE_URL
+ARG NODE_OPTIONS
 
-RUN if [ "$DOCS_BASE_URL" == "null" ]; \
-  then npm run build:app; \
-  else npm run build; \
-  fi
+RUN npm run build:app
 
-FROM node:24.1.0-alpine3.21 AS server
+FROM node:24.4.1-alpine3.22 AS server
 
 RUN addgroup -S appgroup
 RUN adduser -S appuser -G appgroup

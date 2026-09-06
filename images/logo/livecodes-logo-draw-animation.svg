@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="LiveCodes icon animated draw with background fade">
+  <defs>
+    <linearGradient id="lci-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1825"/>
+      <stop offset="100%" stop-color="#080d16"/>
+    </linearGradient>
+
+    <pattern id="lci-dots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r=".75" fill="rgba(255,255,255,.04)"/>
+    </pattern>
+
+    <filter id="lci-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14" result="b"/>
+      <feFlood flood-color="#00c8ff" flood-opacity=".32" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="lci-dot-glow" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feFlood flood-color="#ff4d4d" flood-opacity=".7" result="c"/>
+      <feComposite in="c" in2="b" operator="in" result="cb"/>
+      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rectangles fade in before the logo animation starts -->
+  <rect width="512" height="512" rx="80" fill="url(#lci-bg)" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="0s" dur="0.6s" fill="freeze" />
+  </rect>
+  <rect width="512" height="512" rx="80" fill="url(#lci-dots)" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="0s" dur="0.6s" fill="freeze" />
+  </rect>
+
+  <!-- Drawn strokes with glow filter applied. Each path animates its stroke-dashoffset in sequence.
+       All stroke animations begin after the background fade completes (first stroke begins at 0.65s). -->
+  <g filter="url(#lci-glow)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Left bracket -->
+    <path
+      d="M146 176 L86 256 L146 336"
+      stroke="#00c8ff"
+      stroke-width="44"
+      pathLength="1"
+      stroke-dasharray="1"
+      stroke-dashoffset="1"
+    >
+      <animate attributeName="stroke-dashoffset" from="1" to="0" begin="0.65s" dur="0.6s" fill="freeze" />
+    </path>
+
+    <!-- Slash -->
+    <path
+      d="M310 160 L202 352"
+      stroke="#00e5c8"
+      stroke-width="44"
+      pathLength="1"
+      stroke-dasharray="1"
+      stroke-dashoffset="1"
+    >
+      <animate attributeName="stroke-dashoffset" from="1" to="0" begin="1.3s" dur="0.6s" fill="freeze" />
+    </path>
+
+    <!-- Right bracket -->
+    <path
+      d="M366 176 L426 256 L366 336"
+      stroke="#00c8ff"
+      stroke-width="44"
+      pathLength="1"
+      stroke-dasharray="1"
+      stroke-dashoffset="1"
+    >
+      <animate attributeName="stroke-dashoffset" from="1" to="0" begin="1.95s" dur="0.6s" fill="freeze" />
+    </path>
+  </g>
+
+  <!-- Live dot: appears in place by increasing opacity.
+       Its timing is shifted so it pops after the right bracket finishes. -->
+  <g filter="url(#lci-dot-glow)">
+    <circle cx="395" cy="100" r="26" fill="#ff4d4d" opacity="0">
+      <!-- fade in -->
+      <animate attributeName="opacity" from="0" to="1" begin="2.6s" dur="0.18s" fill="freeze" />
+    </circle>
+  </g>
+</svg>

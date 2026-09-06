@@ -1,0 +1,336 @@
+# Language Support System
+
+This guide describes the language support system in LiveCodes, located in `src/livecodes/languages/`.
+
+## Overview
+
+LiveCodes supports 90+ languages spanning multiple categories:
+
+- Web languages (HTML, CSS, JavaScript)
+- Framework-specific syntax (JSX, Vue SFC, Svelte, Astro)
+- Transpiled languages (TypeScript, CoffeeScript, LiveScript)
+- CSS processors (SCSS, Less, Stylus, PostCSS)
+- Traditional languages (Python, Ruby, Go, PHP, C++)
+- Authoring languages (Markdown, AsciiDoc, Pug)
+- Visual/low-code editors (Blockly, richtext)
+- And many more
+
+See the [Languages](https://livecodes.io/docs/languages) docs for more information.
+
+## How It Works
+
+All language compilation and processing occur in the browser, on the client-side. There is no backend server involved. This is generally achieved by one of the following approaches:
+
+- Using a **compiler** that compiles the language to JavaScript (e.g. TypeScript, React compiler, Vue compiler, etc). The compiled JavaScript code is then sent to the result page and executed in the browser.
+- Providing a **runtime** that runs the language in the browser (e.g. Pyodide, WebR, ruby.wasm, etc). The runtime is embedded in the result page and executes the code in the browser.
+
+These compilers and runtimes can be provided either as **JavaScript** or **WebAssembly (Wasm)**.
+
+## Architecture
+
+```mermaid
+graph TD
+    A["languages/index.ts<br/>exports: languages, processors, utils, prettier, css-presets"]
+
+    A --> B[languages.ts]
+    A --> C[processors.ts]
+    A --> D[prettier.ts]
+
+    B --> E["lang-{name}/<br/>lang-*.ts<br/>lang-*-script.ts<br/>lang-*-compiler.ts"]
+    C --> F["{processor}/<br/>processor-*.ts"]
+
+    D --> G["parserPlugins"]
+
+    B["Language[]"]
+    C["Processor[]"]
+```
+
+---
+
+## Language Specification
+
+Defined in `models.ts`:
+
+```typescript
+interface LanguageSpecs {
+  name: Language; // Language identifier (e.g., 'typescript')
+  title: string; // Display name (e.g., 'TypeScript')
+  longTitle?: string; // Extended display name
+  info?: boolean; // Has info screen?
+  formatter?: LanguageFormatter; // Prettier or custom formatter
+  compiler: Compiler | Language; // Compiler or alias to another language
+  extensions: Language[]; // File extensions (e.g., ['ts', 'tsx'])
+  editor: EditorId; // Editor pane: 'markup', 'style', 'script'
+  editorLanguage?: Language; // Override editor language
+  editorSupport?: LanguageEditorSupport; // Editor-specific support
+  preset?: CssPresetId; // CSS preset (for CSS languages)
+  largeDownload?: boolean; // Show loading warning?
+}
+```
+
+---
+
+## Editor Support
+
+Languages can specify editor-specific support:
+
+```typescript
+interface LanguageEditorSupport {
+  monaco?: {
+    languageSupport?: string | (() => Promise<any>);
+    compilerOptions?: Record<string, unknown>;
+  };
+  codemirror?: {
+    languageSupport?: string | (() => Promise<LanguageSupport>);
+  };
+}
+```
+
+### Monaco Editor Support
+
+```typescript
+// lang-php.ts
+editorSupport: {
+    monaco: {
+      languageSupport: monacoLanguagesBaseUrl + 'php.js',
+    },
+},
+```
+
+### CodeMirror Editor Support
+
+```typescript
+// lang-html.ts
+editorSupport: {
+  codemirror: {
+    languageSupport: async () => {
+      const { html } = await import(codemirrorImports.html);
+      return html();
+    },
+  },
+},
+```
+
+---
+
+## Formatter Configuration
+
+Two types of formatters:
+
+### 1. Prettier-based
+
+```typescript
+// lang-html.ts
+formatter: {
+  prettier: {
+    name: 'html',
+    pluginUrls: [parserPlugins.html],
+  },
+},
+```
+
+### 2. Custom Formatter
+
+```typescript
+// lang-go.ts
+formatter: {
+  factory: () => {
+    importScripts(go2jsBaseUrl + 'go2js-format.js');
+    return async (code: string) => {
+      const [formatted, err] = (globalThis as any).go2jsFormat(code);
+      if (err) return { formatted: code, cursorOffset: 0 };
+      return { formatted, cursorOffset: 0 };
+    };
+  },
+},
+```
+
+---
+
+## Compiler Configuration
+
+The compiler is specified using a factory function that runs once to load the compiler. It returns a function that runs every time the code is compiled.
+
+Compilers can be defined in two ways:
+
+### 1. Inline Definition
+
+```typescript
+// lang-html.ts
+compiler: {
+  factory: () => async (code) => code, // No transformation
+},
+```
+
+### 2. Loaded from URL
+
+To avoid increasing the bundle size, it is encouraged to lazy-load the compiler from an external URL.
+
+```typescript
+// lang-go.ts
+compiler: {
+  url: go2jsBaseUrl + 'go2js-compile.js',
+  factory: () => (code) => new Promise((resolve) => {
+    (globalThis as any).go2jsCompile(code, url, (err, jsCode) => {
+      resolve(jsCode);
+    });
+  }),
+},
+```
+
+```typescript
+// lang-markdown.ts
+compiler: {
+  factory: (_config, baseUrl) => {
+    (self as any).importScripts(baseUrl + '{{hash:lang-markdown-compiler.js}}');
+    return (self as any).createMarkdownCompiler();
+  },
+  scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-markdown-script.js}}'],
+},
+```
+
+The build system will automatically add the hash to the URL to prevent cache issues.
+
+A scripts array can be used to load additional runtime scripts that are required by the compiler and should be loaded in the result page.
+
+### 3. Alias to Another Language
+
+```typescript
+// lang-tsx.ts
+compiler: 'typescript', // Use TypeScript compiler
+```
+
+---
+
+## Language Categories
+
+By editor pane (`editor` property):
+
+| Category   | Languages                                | Editor Pane |
+| ---------- | ---------------------------------------- | ----------- |
+| **Markup** | HTML, Markdown, MDX, Astro, Pug, etc.    | `markup`    |
+| **Style**  | CSS, SCSS, Less, Stylus, etc.            | `style`     |
+| **Script** | JavaScript, TypeScript, Python, Go, etc. | `script`    |
+
+---
+
+## Processors
+
+PostCSS plugins and CSS tools run after style compilation:
+
+```typescript
+// processors.ts
+export const processors: ProcessorSpecs[] = [
+  tailwindcss,
+  windicss,
+  unocss,
+  tokencss,
+  purgecss,
+  postcssImportUrl,
+  autoprefixer,
+  postcssPresetEnv,
+  lightningcss,
+  cssnano,
+  cssModules,
+  postcss, // Keep last
+];
+```
+
+Each processor has:
+
+```typescript
+interface ProcessorSpecs {
+  name: Processor;
+  title: string;
+  isPostcssPlugin: boolean;
+  needsHTML?: boolean; // Requires HTML for processing
+  compiler: { url; factory };
+  editor: EditorId;
+  hidden?: boolean;
+}
+```
+
+---
+
+## Utility Functions
+
+`languages/utils.ts` provides helper functions:
+
+```typescript
+// Alias resolution
+getLanguageByAlias('ts'); // → 'typescript'
+getLanguageByAlias('tsx'); // → 'tsx'
+getLanguageExtension('typescript'); // → 'ts'
+
+// Language info
+getLanguageTitle('typescript'); // → 'TypeScript'
+getLanguageSpecs('vue'); // → LanguageSpecs object
+getLanguageEditorId('php'); // → 'script'
+
+// Compiler access
+getLanguageCompiler('vue'); // → Compiler object
+
+// JSX detection
+hasJsx('jsx'); // → true
+hasJsx('typescript'); // → false
+
+// Language mapping for editors
+mapLanguage('vue', 'monaco'); // → 'vue' (Monaco language)
+
+// Validation
+languageIsEnabled('python', config);
+processorIsEnabled('tailwindcss', config);
+processorIsActivated('autoprefixer', config);
+
+// Custom settings
+getCustomSettings('typescript', config);
+
+// Auto-detection
+detectLanguage(code, ['javascript', 'typescript']);
+```
+
+---
+
+## Adding a New Language
+
+See [Adding Languages Guide](./adding-languages.mdx)
+
+## Prettier Parser Plugins
+
+Available in `languages/prettier.ts`:
+
+```typescript
+export const parserPlugins = {
+  babel: prettierBaseUrl + 'plugins/babel.js',
+  estree: prettierBaseUrl + 'plugins/estree.js',
+  html: prettierBaseUrl + 'plugins/html.js',
+  markdown: prettierBaseUrl + 'plugins/markdown.js',
+  postcss: prettierBaseUrl + 'plugins/postcss.js',
+  php: prettierPhpUrl,
+  pug: vendorsBaseUrl + 'prettier/parser-pug.js',
+  java: vendorsBaseUrl + 'prettier/parser-java.js',
+};
+```
+
+---
+
+## Processor Pipeline
+
+Processors are applied in order after style compilation:
+
+```typescript
+// In compiler
+for (const processor of processors) {
+  if (processorIsActivated(processor.name, config)) {
+    css = await processor.compiler.factory(config, baseUrl)(css);
+  }
+}
+```
+
+---
+
+## Related Documentation
+
+- [Compiler System](./compiler-system.mdx) - How languages are compiled
+- [Editor System](./editor-system.mdx) - Editor-specific language support
+- [Adding Languages](./adding-languages.mdx) - Step-by-step guide to add new languages

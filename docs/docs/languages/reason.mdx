@@ -1,3 +1,109 @@
 # Reason
 
-TODO...
+[Reason](https://reasonml.github.io/) is a programming language that compiles to JavaScript. It is a syntax extension and toolchain for OCaml, and is designed for building type-safe applications, with strong support for React via [ReasonReact](https://reasonml.github.io/reason-react/).
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="reason" height="80vh"></LiveCodes>
+
+### Standard Library
+
+Reason's standard library modules (e.g. `Belt`, `Array`, `List`) are available directly without explicit imports:
+
+Example:
+
+```reason
+let doubled = [1, 2, 3]->Belt.List.map((n) => n * 2);
+Js.log(doubled);
+```
+
+### Module Imports
+
+npm modules can be imported as described in the section about [module resolution](../features/module-resolution.mdx), using the `[@bs.module]` attribute:
+
+Example:
+
+```reason
+[@bs.module "canvas-confetti"] external confetti: unit => unit = "default";
+confetti();
+```
+
+### ReasonReact
+
+Reason has support for React via [ReasonReact](https://reasonml.github.io/reason-react/). Components use the `[@react.component]` decorator and leverage Reason's type system for props.
+
+Example:
+
+```reason
+module App = {
+  [@react.component]
+  let make = (~name) => {
+    let title = "Hello, " ++ name ++ "!"
+    let (count, setCount) = React.useState(() => 0);
+
+    <div className="container">
+      <h1> {React.string(title)} </h1>
+      <p> {React.string("You clicked " ++ string_of_int(count) ++ " times")} </p>
+      <button onClick={_ => setCount(_ => count + 1)}>
+        {React.string("Click me")}
+      </button>
+    </div>
+  };
+};
+
+switch (ReactDOM.querySelector("#app")) {
+| Some(root) => ReactDOM.render(<App name="ReasonReact" />, root)
+| None => ()
+};
+```
+
+:::warning
+ReasonReact does not support React 19. Use an import map (in [custom settings](../advanced/custom-settings.mdx)) to pin React to v18:
+
+```json title="Custom Settings"
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react/": "https://esm.sh/react@18.3.1/",
+    "react-dom": "https://esm.sh/react-dom@18.3.1"
+  }
+}
+```
+
+:::
+
+## Language Info
+
+### Name
+
+`reason`
+
+### Extensions
+
+`.re`, `.rei`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[ReScript compiler (v9)](https://rescript-lang.org/) (the last version with Reason syntax support)
+
+### Version
+
+`rescript`: v9.1.2
+
+## Starter Template
+
+https://livecodes.io/?template=reason
+
+## Links
+
+- [Reason](https://reasonml.github.io/)
+- [ReasonReact](https://reasonml.github.io/reason-react/)
+- [ReScript](https://rescript-lang.org/)

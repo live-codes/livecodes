@@ -4,6 +4,197 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v49](https://github.com/live-codes/livecodes/compare/v48...v49) (2026-05-08)
+
+### Highlights for this release
+
+- Storybook instances are available for all SDKs, with full docs and examples. See [Storybook](https://livecodes.io/stories/).
+- Markdown now supports code syntax highlighting and mermaid diagrams. See [starter template](https://livecodes.io/?template=markdown).
+
+### Features
+
+- **Compilers:** add syntax highlighting and mermaid diagrams for markdown ([a9be20e](https://github.com/live-codes/livecodes/commit/a9be20e58dced18ff601a3cb0d1f974d13cfa7ff))
+- **Config:** add `minimap` config option ([f814418](https://github.com/live-codes/livecodes/commit/f814418d02b11e2c4f4768791b7ebf842afa81eb))
+- **Result:** dynamically generate iframe `allow` attribute based on browser support ([ddc7c1e](https://github.com/live-codes/livecodes/commit/ddc7c1e9245b610a7f039461abad53cc476a4897))
+- **UI:** use transition animation when changing theme ([ec66954](https://github.com/live-codes/livecodes/commit/ec669546e5a410c3ed0bbb706049a683536ebcd2))
+
+### Bug Fixes
+
+- **App:** fix exceeding localstorage quota ([3e5f03c](https://github.com/live-codes/livecodes/commit/3e5f03cfecd3ffe3d8bc3d6511fa525af9a8ac7e))
+- **Compilers:** add solid compiler importmap ([30618c5](https://github.com/live-codes/livecodes/commit/30618c51de2ef3a60d4613489426ff9346eb841d))
+- **Compilers:** fix sass imports ([3a59549](https://github.com/live-codes/livecodes/commit/3a5954975586f53ebf40ff1aee70fcaf39ba7351))
+- **Embed:** fix "click to load" flash when loading embeds ([e7f36f3](https://github.com/live-codes/livecodes/commit/e7f36f3c134ab42f97e9dcc362b7f96f1eb67d99))
+- **Embed:** fix result mode motion ([f22dc5d](https://github.com/live-codes/livecodes/commit/f22dc5d724d734e139526ce67deb8d51055dd4f7))
+- **Embed:** remove result mode drawer in embeds ([2f147ae](https://github.com/live-codes/livecodes/commit/2f147aef81bacefae276535aa63d2ae58b671f7e))
+
+---
+
+## [sdk-v0.14.1](https://github.com/live-codes/livecodes/compare/sdk-v0.14.0...sdk-v0.14.1) (2026-05-08)
+
+---
+
+## [sdk-v0.14.0](https://github.com/live-codes/livecodes/compare/sdk-v0.13.0...sdk-v0.14.0) (2026-05-08)
+
+### Highlights for this release
+
+- The SDK now, in addition to React and Vue, provides support for Svelte, Solid, Preact, and Web Components. See [docs](https://livecodes.io/docs/sdk).
+- The SDK is now also published to [jsr.io](https://jsr.io/@livecodes/sdk) as `@livecodes/sdk`. See [docs](https://livecodes.io/docs/sdk/jsr).
+- Skills are published with SDK for use with AI agents. See [AI guide](https://livecodes.io/docs/ai-guide).
+- The SDK exports new utility functions for compressing and decompressing code (URI-friendly base64-encoded). This is useful for allowing users to provide share links (using URL hash) for embedded playgrounds. See [guide](https://livecodes.io/docs/tutorials/creating-shareable-urls).
+- `setConfig` SDK method can now accept a config URL.
+- "Prefill from DOM" is fixed. See [docs](https://livecodes.io/docs/features/code-prefill#auto-pre-fill-from-page-dom).
+- In addition to other improvements and bug fixes.
+
+### Features
+
+- **SDK:** add preact sdk ([d561bc8](https://github.com/live-codes/livecodes/commit/d561bc832f5f61dda5f9dfe649269e90cfe57843))
+- **SDK:** add SDK Svelte component ([337a774](https://github.com/live-codes/livecodes/commit/337a774ac106c1eefb2b130f7ed0db68655bb112))
+- **SDK:** add web-components SDK ([fef131e](https://github.com/live-codes/livecodes/commit/fef131ee181a4572cf62a32cf9adedc707960dc2))
+- **SDK:** allow passing a config URL to `setConfig` SDK method. ([35497a5](https://github.com/live-codes/livecodes/commit/35497a572bc3d43857c492b17c9252366d6ae277))
+- **SDK:** allow setting content in web-components sdk using child elements ([824681b](https://github.com/live-codes/livecodes/commit/824681b65c7bd75790e85ad4415fd083f7e60619))
+- **SDK:** export `compress` and `decompress` utility functions from SDK ([621a41d](https://github.com/live-codes/livecodes/commit/621a41df462500f9acb076f6a86abeb924067c88))
+- **SDK:** export types from framework SDKs ([df813d6](https://github.com/live-codes/livecodes/commit/df813d6a9f0aedc2f50bd7f70b888a44c6dd24ec))
+
+### Bug Fixes
+
+- **SDK:** fix and document prefill from DOM ([d6aa0d0](https://github.com/live-codes/livecodes/commit/d6aa0d014cb566d5b59bbb2ed9440c9dead69d14))
+- **SDK:** fix updating height in SDK ([8a9d8a1](https://github.com/live-codes/livecodes/commit/8a9d8a1dc3af7ae67fb39a9d56ac945da5804142))
+- **SDK:** remove event handlers from array ([3e107e2](https://github.com/live-codes/livecodes/commit/3e107e25cbd4b69fca4078a2ee639565f726a9ad))
+
+### Performance Improvements
+
+- **SDK:** timeout SDK calls, then clear event listeners ([7a24970](https://github.com/live-codes/livecodes/commit/7a249706390cfb1a468bda3689f4c174084e9d62))
+
+---
+
+## [v48](https://github.com/live-codes/livecodes/compare/v47...v48) (2026-02-08)
+
+### Features
+
+- **Templates:** add search functionality for user templates ([ef91608](https://github.com/live-codes/livecodes/commit/ef91608380bfa1273a8454a5a39a2d9787e1b57f))
+- **Compilers:** add minizinc language support ([f3476d4](https://github.com/live-codes/livecodes/commit/f3476d4ad16c8c7ee36a4b5647a7b0d641055b95))
+- **Compilers:** upgrade svelte to v5.39.12 ([43f99c2](https://github.com/live-codes/livecodes/commit/43f99c29dcc5a663a7181cd0e053c8cfef107475))
+- **Compilers:** Update typescript to v5.9.3 ([d1181b8](https://github.com/live-codes/livecodes/pull/911/commits/d1181b8c6e52fbe7fcab56e78198f234e706b86b))
+- **Compilers:** Update Pyodide to 0.29.0 ([079fbb0](https://github.com/live-codes/livecodes/pull/912/commits/079fbb0ec90afb154f99b6bc4772e1949c0d082f))
+- **Compilers:** Updated language compilers for BBob, Jinja, MDX, React, React Native, Solid, Vento, Vue. ([619edf7](https://github.com/live-codes/livecodes/pull/914/commits/619edf786abb4cf17780615151072e729e23e50d))
+- **Compilers:** Update Ruby Wasm to v2.7.2 which provides Ruby v3.4. ([57166be](https://github.com/live-codes/livecodes/pull/897/commits/57166be6f803508e213d46b263ec408418c6810c))
+- **docs:** add JavaScript language documentation ([2148b87](https://github.com/live-codes/livecodes/commit/2148b87346309207291e45c66da34b1e88931cb9))
+- **docs:** add Astro language documentation ([8022516](https://github.com/live-codes/livecodes/pull/905/commits/80225162f249ef70dca86b95f9867d45f465a151))
+- **docs:** add tutorials section to documentation ([d8b9639](https://github.com/live-codes/livecodes/pull/908/commits/d8b9639777f37d6737d1052f987a9bee15570788))
+- **i18n:** add Bengali, Indonesian and Dutch ([22adf4d](https://github.com/live-codes/livecodes/commit/22adf4ddbf18e0e4b5b9331ed908f01962202feb))
+- **i18n:** Add Turkish translation ([5130cde](https://github.com/live-codes/livecodes/commit/5130cde6200dd501cac0f87eecaa5eb32aa9e7fc))
+- **services:** serve local sandbox in dev ([2cbf01c](https://github.com/live-codes/livecodes/commit/2cbf01c635ae0e9640907dc8c330e690d0ff4dc4))
+
+### Bug Fixes
+
+- **App:** fix selecting default editor in editor settings ([2349702](https://github.com/live-codes/livecodes/commit/2349702a2edc8c31f685e63531c10e7f6d7fb110))
+- **CommandMenu:** do not open command menu with Ctrl+Shift+K ([7cbb103](https://github.com/live-codes/livecodes/commit/7cbb103e7a5b74a02bf06fa1a1eb0458e9a1e907))
+- **Editor:** remove AI code assistant ([cf2734d](https://github.com/live-codes/livecodes/commit/cf2734d1800c3e208eaf4531710822cbf3c6b1c9))
+- **Result:** prevent frequent rerenders ([43b1f62](https://github.com/live-codes/livecodes/commit/43b1f62651ce133ce5bb82c83b5628d0c7c0b86c))
+
+### Credits
+
+Significant contributions and suggestions were made by:
+
+@a0m0rajab , @BassemHalim , @HossamSaberr , @m2y11138 , @ahmed-atiah , @iamAmer, @nhussein2026 , @mtantawy , @sharno , @TutTrue
+
+Thank you ❤️
+
+---
+
+## [sdk-v0.13.0](https://github.com/live-codes/livecodes/compare/v47...sdk-v0.13.0) (2026-02-08)
+
+### Highlights for this release
+
+- Add `minizinc` to `Language` (Minizinc language support).
+- Add `bn`, `nl`, `id` and `tr` to `AppLanguage` (Bengali, Dutch, Indonesian and Turkish translations).
+- Remove `enableAI` config option (see [#937](https://github.com/live-codes/livecodes/pull/937))
+
+---
+
+## [v47](https://github.com/live-codes/livecodes/compare/v46...v47) (2025-10-04)
+
+### Highlights for this release
+
+- The main feature in this release is adding a Docker setup for self-hosting LiveCodes with implementations for server-side features available in the [hosted app](https://livecodes.io), e.g. automatic HTTPS, Open Graph meta tags, oEmbed, custom headers, short-URL share, broadcast server, separate origin sandbox to run code, custom 404 page, etc. See [docs](https://livecodes.io/docs/advanced/docker) for more details.
+- This release also adds support for Go language using [Yaegi](https://github.com/traefik/yaegi) compiled to WASM, and updates `python-wasm` to use Pyodide v0.28.3 (running Python 3.13.2).
+- Code can now be [imported](https://livecodes.io/docs/features/import) from images using OCR.
+- Unpublished npm packages can be imported from pkg.pr.new. See [docs](https://livecodes.io/docs/features/module-resolution#pkgprnew) for more details.
+- Compiler errors are now shown in the integrated console.
+- Added Persian language support.
+
+In addition to many improvements and bug fixes.
+
+### Features
+
+- **Docs:** remove links to vercel ([8662daa](https://github.com/live-codes/livecodes/pull/884/commits/8662daa85bc24bf5b4f91c42ceec7bf3756a9b5c))
+- **Compilers:** add support for Go using Yaegi compiled to WASM ([422c649](https://github.com/live-codes/livecodes/commit/422c6495ae9fe853592be568c1d532b224c65f0e))
+- **Compilers:** update python-wasm to use Pyodide v0.28.3 ([4f99d6c](https://github.com/live-codes/livecodes/commit/4f99d6c2795593a4b8f9fdefeceb9408eb160483))
+- **Code-to-Image:** add share url to png meta data ([58b2f26](https://github.com/live-codes/livecodes/commit/58b2f2668f895d2bdbd2be4e73fdea1f93acd332))
+- **Compilers:** show compiler error messages in console ([dd3514a](https://github.com/live-codes/livecodes/commit/dd3514a31d7a6a0bb213b849c935ea000be42b82))
+- **Config:** allow setting customSettings in query params ([a15492a](https://github.com/live-codes/livecodes/commit/a15492acef77bd0cc5a67c22e3d18166cc39ba54))
+- **Config:** set config objects in query params ([2532f23](https://github.com/live-codes/livecodes/commit/2532f23a39a8a6389c343c7c8c3ec75c7c41a9e9))
+- **i18n:** add Persian language ([940ba28](https://github.com/live-codes/livecodes/commit/940ba280649e95dbc09bf03bbfca22a5c0d80a8b))
+- **Import:** allow importing code from images (OCR) ([7347299](https://github.com/live-codes/livecodes/commit/73472995e4d99cae7321a17fd79627b3485771e5))
+- **Import:** extract `htmlAttrs` ([2900706](https://github.com/live-codes/livecodes/commit/290070644828453410551e2f16d4a0fbde162eae))
+- **Modules:** import unpublished modules under development from pkg.pr.new ([2cd50ea](https://github.com/live-codes/livecodes/commit/2cd50eab069acb1eff5e1505a7afbb1233dc7aee))
+- **self-hosting:** add broadcast server to self-host ([865e1f3](https://github.com/live-codes/livecodes/commit/865e1f31d9f416f1dd91653d9d7fba8e2117edf9))
+- **self-hosting:** custom log url ([31159ea](https://github.com/live-codes/livecodes/commit/31159eacdf7e32c36c5bf0b3c22d386996e88d31))
+- **self-hosting:** docker continuous deployment ([c3429f6](https://github.com/live-codes/livecodes/commit/c3429f6067931d4496a935cee138219bfacd403b))
+- **self-hosting:** self-host share service ([1759b84](https://github.com/live-codes/livecodes/commit/1759b84be38331e93b2963f38b4896fec1783102))
+- **UI:** show a mark when project info fields (`head` or `htmlAttrs`) are modified ([4a5917e](https://github.com/live-codes/livecodes/commit/4a5917e476e1bd1f8f06d192f8ac0e31c4edce43))
+- **UI:** show loading notification when importing from UI ([cd056bb](https://github.com/live-codes/livecodes/commit/cd056bb4a6e16ac29fc9115294e0ccb76ea10361))
+
+### Bug Fixes
+
+- **App:** fix persistent loading message in compiled code viewer ([3076b59](https://github.com/live-codes/livecodes/commit/3076b5985d1ac7f6df7a2a06398f7a1737e19d98))
+- **CommandMenu:** fix selecting languages in command menu ([43339a8](https://github.com/live-codes/livecodes/commit/43339a8d5f8e8f89a913cc61b901e8b18c6c7b8d))
+- **Compilers:** do not add Tailwind compiled CSS in code blocks ([5eca80e](https://github.com/live-codes/livecodes/commit/5eca80e38c4d025c2226ab30a434cc0d0bea80cd))
+- **Config:** fix changing editor config from SDK ([b717efc](https://github.com/live-codes/livecodes/commit/b717efcd10e2c3d7af3a2edf6dfd2fac373f0424))
+- **Config:** fix loading user config ([533e221](https://github.com/live-codes/livecodes/commit/533e2217dd6dc5c3d0a70907478d1150bf044c6f))
+- **Config:** fix updating editor config ([1f0292c](https://github.com/live-codes/livecodes/commit/1f0292c199eeb338b797ba84d6f4f195e8bbcbae))
+- **docs:** correct broken links due to .mdx/.md mismatch ([5395c81](https://github.com/live-codes/livecodes/commit/5395c81d83c786d2f2fcd67f8d661945717570d9))
+- **Editor:** do not show lineNumbers in console editor ([f077639](https://github.com/live-codes/livecodes/commit/f077639c0420a7eb4e4ac5ad1ae5b90547b92a9e))
+- **i18n:** fix formatting / jsdoc & use unknown instead of any ([a6f5a7a](https://github.com/live-codes/livecodes/commit/a6f5a7aa0374550522bad9f747d0ca0d3c217d63))
+- **i18n:** no need for extra type checking workflow, revert [#718](https://github.com/live-codes/livecodes/issues/718) ([5bd4181](https://github.com/live-codes/livecodes/commit/5bd4181275f4173c2596db5d3634d19291cbdc59))
+- **i18n:** optimize i18n types performance ([2a17e3c](https://github.com/live-codes/livecodes/commit/2a17e3c662ab800d7c403cbf6bbd6cdde10567ac))
+- **Result:** allow importing stylesheets in markup editor ([76a3e1c](https://github.com/live-codes/livecodes/commit/76a3e1ce4682563020edfd3f1f6ef9beb69a584e))
+- **Result:** avoid rerenders on firefox (sandbox v9) ([245cdc7](https://github.com/live-codes/livecodes/commit/245cdc719933ba3db49b94401390b5e8379b4ef0))
+
+### Credits
+
+- @abight-devsanctuary added docker support
+- @Muhammad-Ayman added support for go-wasm
+- @zyf722 improved type checking for i18n files
+- @sbelluzzo updated python-wasm
+- @Red007Master and @seifsapagh added fixes to docs
+- @Yusyuriv reported multiple re-renders in Firefox
+- @MhmoudAlim , @mtantawy , @mrgb7, @MariamElansary and @aabouzaid suggested features and reviewed PRs
+
+Thank you ❤️
+
+---
+
+## [sdk-v0.12.0](https://github.com/live-codes/livecodes/compare/sdk-v0.11.1...sdk-v0.12.0) (2025-10-04)
+
+### Features
+
+- **SDK:** allow return value of `getShareUrl()` to be used as `appUrl` ([1294cb9](https://github.com/live-codes/livecodes/commit/1294cb97a82c5c01ee6685e2c7acbdfc37f61e12))
+
+### Bug Fixes
+
+- **SDK:** clean-up SDK event handlers ([3c1184f](https://github.com/live-codes/livecodes/commit/3c1184f9555e609ab757ab66ba4162a2f33e4f7d))
+- **SDK:** fix `height` in Vue SDK ([79b4a70](https://github.com/live-codes/livecodes/commit/79b4a70629c34497bc5cff78e0acacc90e0d5e00))
+- **SDK:** force destroy playground even if stuck (e.g. in infinite loop) ([c44fe3e](https://github.com/live-codes/livecodes/commit/c44fe3ecaf069cccb7711028664bcd89a79ef824))
+
+### Credits
+
+- @felixhuttmann added force destroying playground even if stuck
+
+Thank you ❤️
+
+---
+
 ## [sdk-v0.11.1](https://github.com/live-codes/livecodes/compare/v46...sdk-v0.11.1) (2025-05-24)
 
 ### Bug Fixes

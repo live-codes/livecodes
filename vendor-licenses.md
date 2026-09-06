@@ -76,6 +76,12 @@ ES Module Shims: [MIT License](https://github.com/guybedford/es-module-shims/blo
 
 Eta: [MIT License](https://github.com/eta-dev/eta/blob/b25689e67cd07937a4595bca8ba39fe52cd76948/LICENSE)
 
+Fable: [MIT License](https://github.com/fable-compiler/Fable/blob/67e8540a21183248826d1b65b3d8e3eddc8d5825/LICENSE)
+
+F#: [MIT License](https://github.com/dotnet/fsharp/blob/df0e60991911eed31f861bb38403a389346055e2/License.txt)
+
+.NET runtime: [MIT License](https://github.com/dotnet/runtime/blob/20f7be9ec07eafd5b756df30de33a9452c9e1c14/LICENSE.TXT)
+
 fengari-web: [MIT License](https://github.com/fengari-lua/fengari-web/blob/77d35f5e1516f431cbb96e165b4272f2fc9b0b3a/LICENSE)
 
 Fennel: [MIT License](https://git.sr.ht/~technomancy/fennel/tree/e70ebb133b9d472246502dee8be119360ec568ca/item/LICENSE)
@@ -147,6 +153,8 @@ meta-png: [ISC License](https://github.com/lucach/meta-png/blob/b9a79d98157af068
 mhsdesign/jit-browser-tailwindcss: [MIT License](https://github.com/mhsdesign/jit-browser-tailwindcss/blob/60fccdfbbd4e7c816a97e4627d070dd8ec19d415/package.json#L30)
 
 MDX: [MIT License](https://github.com/mdx-js/mdx/blob/7fd1d9a4272754951e70dbaecff07a0ae402e13e/license)
+
+minizinc-js: [MPL-2.0 License](https://github.com/MiniZinc/minizinc-js/blob/3f7c34f0549195e5a66cf0f2d6f34cb5bce867f4/LICENSE)
 
 MJML: [MIT License](https://github.com/mjmlio/mjml/blob/988819de3375867c09585d28f555166b97415200/LICENSE.md)
 
@@ -315,3 +323,7 @@ WebR: [License](https://github.com/r-wasm/webr/blob/e47ab9854c9306c410f302579c66
 Whirl: [MIT License](https://github.com/jh3y/whirl/tree/8de79b76a13200ccbd8b0b75b4f79978ef1ee890)
 
 Windi CSS: [MIT License](https://github.com/windicss/windicss/blob/bcd50d877e62630f191602ddeabd9f677cc6d90c/LICENSE)
+
+Yaegi: [Apache License 2.0](https://github.com/traefik/yaegi/blob/d93266d013f393a20122ef0dd3f579d411a066be/LICENSE)
+
+yaegi-wasm: [Apache License 2.0](https://github.com/Muhammad-Ayman/yaegi-wasm/blob/528a6bbac7464dc8911e50e0d617512f3e247e8c/LICENSE)
