@@ -128,7 +128,7 @@ const languageInfo = {
     name: 'F#',
   },
   fsharpWasm: {
-    desc: 'The real F# compiler and .NET runtime running on WebAssembly. <1></1>This matches the behavior of the official F# compiler and allows using <2>System.Console</2> APIs and standard input. <3></3>However, the .NET WebAssembly runtime needs to be downloaded in the result page, which can take some time on the first run.',
+    desc: 'The real F# compiler and .NET runtime running on WebAssembly. <1></1>This matches the behavior of the official F# compiler. However, the .NET WebAssembly runtime needs to be downloaded in the result page, which can take some time on the first run.',
     link: '<1><2>F# official website</2></1> <3> <4>F# documentation</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'F# (Wasm)',
   },

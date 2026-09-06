@@ -281,8 +281,8 @@
     "translation": "F#"
   },
   "fsharpWasm.desc": {
-    "notes": "### <tag-1> ###\n<br  />\n\n### <tag-2> ###\n<code  />\n\n### <tag-3> ###\n<br  />\n\n",
-    "translation": "The real F# compiler and .NET runtime running on WebAssembly. <tag-1></tag-1>This matches the behavior of the official F# compiler and allows using <tag-2>System.Console</tag-2> APIs and standard input. <tag-3></tag-3>However, the .NET WebAssembly runtime needs to be downloaded in the result page, which can take some time on the first run."
+    "notes": "### <tag-1> ###\n<br  />\n\n",
+    "translation": "The real F# compiler and .NET runtime running on WebAssembly. <tag-1></tag-1>This matches the behavior of the official F# compiler. However, the .NET WebAssembly runtime needs to be downloaded in the result page, which can take some time on the first run."
   },
   "fsharpWasm.link": {
     "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://fsharp.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learn.microsoft.com/en-us/dotnet/fsharp/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/fsharp-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=fsharp-wasm\" class=\"button\" target=\"_parent\" data-template=\"fsharp-wasm\" />\n\n",
