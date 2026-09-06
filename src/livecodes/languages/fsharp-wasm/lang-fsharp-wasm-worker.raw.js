@@ -1,6 +1,6 @@
 (async function () {
   let ready = false;
-  /** @type {{ FSharpRunner: { RunFsharp: (arg0: any) => any; }; } | null} */
+  /** @type {{ FSharpRunner: { RunFsharp: (arg0: any, arg1: any) => any; }; } | null} */
   let exportsObj = null;
   /** @type {any[]} */
   const queue = [];
@@ -12,10 +12,10 @@
     else compile(data);
   };
 
-  /** @param {{ source: any; id: any; }} msg */
+  /** @param {{ source: any; stdin: any; id: any; }} msg */
   async function compile(msg) {
     try {
-      const json = await exportsObj?.FSharpRunner.RunFsharp(msg.source);
+      const json = await exportsObj?.FSharpRunner.RunFsharp(msg.source, msg.stdin ?? '');
       self.postMessage({ type: 'result', id: msg.id, json });
     } catch (err) {
       self.postMessage({
@@ -28,6 +28,10 @@
   }
 
   try {
+    // see https://github.com/dotnet/runtime/issues/114918
+    // and https://github.com/dotnet/runtime/pull/92280
+    // @ts-ignore
+    self.dotnetSidecar = true;
     // @ts-ignore
     const dotnetModule = await import(self.baseUrl + '_framework/dotnet.js');
     const runtime = await dotnetModule.dotnet.withDiagnosticTracing(false).create();

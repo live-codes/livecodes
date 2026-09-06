@@ -49,6 +49,7 @@ export const starterTemplates = {
   "java": "Java Starter",
   "csharp-wasm": "C# (Wasm) Starter",
   "fsharp": "F# Starter",
+  "fsharp-wasm": "F# (Wasm) Starter",
   "perl": "Perl Starter",
   "lua": "Lua Starter",
   "lua-wasm": "Lua (Wasm) Starter",

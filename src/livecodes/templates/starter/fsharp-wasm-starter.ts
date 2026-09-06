@@ -73,21 +73,12 @@ export const fsharpWasmStarter: Template = {
   script: {
     language: 'fsharp-wasm',
     content: `
-using System;
+let title = "F#"
+printfn "%s" title
 
-class Program
-{
-    static void Main()
-    {
-        string title = "C#";
-        Console.WriteLine(title);
-
-        string input = Console.ReadLine();
-        int count = int.Parse(input);
-        count += 1;
-        Console.WriteLine(count);
-    }
-}
+let input = System.Console.ReadLine()
+let count = int input + 1
+printfn "%d" count
 `.trimStart(),
   },
 };

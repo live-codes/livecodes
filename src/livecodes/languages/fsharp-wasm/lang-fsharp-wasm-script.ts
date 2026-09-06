@@ -49,9 +49,11 @@ function createMainThreadRunner() {
     return state.initPromise;
   }
 
-  function run(source: string) {
+  function run(source: string, input?: string) {
     return init().then(function () {
-      return state.exports.FSharpRunner.RunFsharp(String(source)).then(JSON.parse);
+      return state.exports.FSharpRunner.RunFsharp(String(source), String(input ?? '')).then(
+        JSON.parse,
+      );
     });
   }
 
@@ -145,13 +147,7 @@ function createWorkerRunner() {
       const toDataUrl = (content: string, type = 'text/javascript') =>
         `data:${type};charset=UTF-8;base64,` + btoa(content);
 
-      // see https://github.com/dotnet/runtime/issues/114918
-      // and https://github.com/dotnet/runtime/pull/92280
-      const workerUrl = toDataUrl(`
-          self.baseUrl = "${fsharpWasmBaseUrl}";
-          self.dotnetSidecar = true;
-          ${workerContent}
-        `);
+      const workerUrl = toDataUrl(`self.baseUrl = "${fsharpWasmBaseUrl}";\n\n${workerContent}`);
       worker = new Worker(workerUrl);
       worker.onmessage = onMessage;
       worker.onerror = onError as any;
@@ -196,7 +192,7 @@ function createWorkerRunner() {
     });
   }
 
-  function run(source: string) {
+  function run(source: string, input?: string) {
     try {
       ensureWorker();
     } catch (err) {
@@ -208,13 +204,13 @@ function createWorkerRunner() {
         worker?.terminate();
         worker = null;
         spawn();
-        return readyPromise?.then(runNow);
+        return readyPromise?.then(() => runNow(source, input));
       }
-      return runNow(source);
+      return runNow(source, input);
     });
   }
 
-  function runNow(source: string) {
+  function runNow(source: string, input?: string) {
     const id = nextId++;
     runsOnWorker++;
     return new Promise(function (resolve, reject) {
@@ -228,7 +224,7 @@ function createWorkerRunner() {
         reject(new Error('F# compile timed out; restarted the compiler.'));
       }, RUN_TIMEOUT_MS);
       pending[id] = { resolve, reject, timer };
-      worker?.postMessage({ type: 'compile', source, id });
+      worker?.postMessage({ type: 'compile', source, stdin: input ?? '', id });
     });
   }
 
@@ -267,9 +263,9 @@ function createRunner() {
     return mainRunner.init();
   }
 
-  function run(source: string) {
+  function run(source: string, input?: string) {
     return init()?.then(function () {
-      return (runner && !fellBack ? runner : mainRunner).run(source);
+      return (runner && !fellBack ? runner : mainRunner).run(source, input);
     });
   }
 
@@ -316,7 +312,7 @@ livecodesApi.run = async function (input: string | undefined) {
 
   await livecodesApi.init;
   try {
-    const result = await livecodesApi.runner?.run(code);
+    const result = await livecodesApi.runner?.run(code, input);
     if (!result.ok) {
       const error = (result.errors || []).map(formatError).join('\n');
       livecodesApi.output = null;
