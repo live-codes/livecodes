@@ -47,7 +47,7 @@ export const juliaStarter: Template = {
 
       const [title, count] = parseOutput(output);
 
-      if (!isNaN(parseInt(count))) {
+      if (!isNaN(Number(count))) {
         window.count = count;
         counter.innerText = window.count;
       }

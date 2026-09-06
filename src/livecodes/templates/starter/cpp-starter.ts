@@ -42,7 +42,7 @@ export const cppStarter: Template = {
 
       const [title, count] = output.split('\\n');
 
-      if (!isNaN(parseInt(count))) {
+      if (!isNaN(Number(count))) {
         window.count = count;
         counter.innerText = window.count;
       }
