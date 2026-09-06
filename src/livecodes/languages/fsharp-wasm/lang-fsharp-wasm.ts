@@ -5,7 +5,7 @@ export const fsharpWasm: LanguageSpecs = {
   title: 'F# (Wasm)',
   compiler: {
     factory: () => async (code) => code,
-    scripts: ({ baseUrl }) => [baseUrl + 'lang-fsharp-wasm-script.js'],
+    scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-fsharp-wasm-script.js}}'],
     scriptType: 'text/fsharp-wasm',
     compiledCodeLanguage: 'fsharp',
     // The compiler runs inside a Web Worker that is respawned every few runs, so
