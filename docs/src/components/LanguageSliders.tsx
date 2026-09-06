@@ -90,6 +90,8 @@ export default function Sliders() {
       { name: 'cpp-wasm', title: 'C++ (Wasm)' },
       { name: 'java', title: 'Java' },
       { name: 'csharp-wasm', title: 'C# (Wasm)' },
+      { name: 'fsharp', title: 'F#' },
+      { name: 'fsharp-wasm', title: 'F# (Wasm)' },
       { name: 'perl', title: 'Perl' },
       { name: 'lua', title: 'Lua' },
       { name: 'lua-wasm', title: 'Lua (Wasm)' },

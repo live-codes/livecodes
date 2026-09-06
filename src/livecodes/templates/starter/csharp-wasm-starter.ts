@@ -43,7 +43,7 @@ export const csharpWasmStarter: Template = {
 
       const [title, count] = output.split('\\n');
 
-      if (parseInt(count) !== NaN) {
+      if (!isNaN(Number(count))) {
         window.count = count;
         counter.innerText = window.count;
       }
