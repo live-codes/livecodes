@@ -248,6 +248,8 @@ export const fontVictorMonoUrl = /* @__PURE__ */ getUrl('victormono@1.5.4/dist/i
 
 export const fscreenUrl = /* @__PURE__ */ getUrl('fscreen@1.2.0/dist/fscreen.esm.js');
 
+export const fsharpWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/fsharp-wasm@0.3.0/');
+
 export const githubMarkdownCss = /* @__PURE__ */ getUrl(
   'github-markdown-css@5.1.0/github-markdown.css',
 );
@@ -320,7 +322,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.2.0/dist/',
+  '@live-codes/monaco-languages@0.3.1/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');

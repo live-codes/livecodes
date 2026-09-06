@@ -1,39 +1,39 @@
 import type { Template } from '../../models';
 
-export const cppWasmStarter: Template = {
-  name: 'cpp-wasm',
-  aliases: ['clang', 'c++-wasm'],
-  title: window.deps.translateString('templates.starter.cpp-wasm', 'C++ (Wasm) Starter'),
-  thumbnail: 'assets/templates/cpp.svg',
+export const fsharpWasmStarter: Template = {
+  name: 'fsharp-wasm',
+  aliases: ['f#-wasm'],
+  title: window.deps.translateString('templates.starter.fsharp-wasm', 'F# (Wasm) Starter'),
+  thumbnail: 'assets/templates/fsharp.svg',
   activeEditor: 'script',
   markup: {
     language: 'html',
     content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
-  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/cpp.svg" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/fsharp.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button" disabled>Loading...</button>
 </div>
 
 <script>
   // set initial input
-  livecodes.cpp.input = "-1";
+  livecodes.fsharp.input = "-1";
 
   addEventListener('load', async () => {
     const button = document.querySelector("#counter-button");
 
     // wait till loaded
-    await livecodes.cpp.loaded;
+    await livecodes.fsharp.loaded;
 
     // get initial output
-    const initialOutput = livecodes.cpp.output;
+    const initialOutput = livecodes.fsharp.output;
     update(initialOutput);
 
     button.onclick = async () => {
       button.disabled = true;
       // run with new input
-      const {output, error, exitCode} = await livecodes.cpp.run(window.count);
+      const {output, error, exitCode} = await livecodes.fsharp.run(window.count);
       update(output);
     };
 
@@ -71,22 +71,14 @@ export const cppWasmStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'cpp-wasm',
+    language: 'fsharp-wasm',
     content: `
-#include <iostream>
-using namespace std;
+let title = "F#"
+printfn "%s" title
 
-int main() {
-    char title[] = "C++";
-    cout << title << endl;
-
-    int count;
-    cin >> count;
-    count += 1;
-    cout << count << endl;
-
-    return 0;
-}
+let input = System.Console.ReadLine()
+let count = int input + 1
+printfn "%d" count
 `.trimStart(),
   },
 };

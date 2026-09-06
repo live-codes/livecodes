@@ -49,6 +49,8 @@ const templates = [
   { name: 'cpp-wasm', title: 'C++ (Wasm) Starter', thumbnail: 'cpp.svg' },
   { name: 'java', title: 'Java Starter', thumbnail: 'java.svg' },
   { name: 'csharp-wasm', title: 'C# (Wasm)', thumbnail: 'csharp.svg' },
+  { name: 'fsharp', title: 'F# Starter', thumbnail: 'fsharp.svg' },
+  { name: 'fsharp-wasm', title: 'F# (Wasm) Starter', thumbnail: 'fsharp.svg' },
   { name: 'perl', title: 'Perl Starter', thumbnail: 'perl.svg' },
   { name: 'lua', title: 'Lua Starter', thumbnail: 'lua.svg' },
   { name: 'lua-wasm', title: 'Lua (wasm) Starter', thumbnail: 'lua.svg' },
