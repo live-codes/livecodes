@@ -205,6 +205,7 @@ export interface Compiler {
     | 'text/cpp'
     | 'text/java'
     | 'text/csharp-wasm'
+    | 'text/fsharp-wasm'
     | 'text/perl'
     | 'text/julia'
     | 'text/biwascheme'

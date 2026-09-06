@@ -2736,6 +2736,14 @@
     "notes": "",
     "translation": "Fennel Starter"
   },
+  "templates.starter.fsharp": {
+    "notes": "",
+    "translation": "F# Starter"
+  },
+  "templates.starter.fsharp-wasm": {
+    "notes": "",
+    "translation": "F# (Wasm) Starter"
+  },
   "templates.starter.gleam": {
     "notes": "",
     "translation": "Gleam Starter"

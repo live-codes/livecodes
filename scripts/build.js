@@ -86,7 +86,7 @@ const baseOptions = {
   define: {
     ...getEnvVars(devMode),
   },
-  loader: { '.html': 'text', '.ttf': 'file' },
+  loader: { '.html': 'text', '.raw.js': 'text', '.ttf': 'file' },
   logLevel: 'error',
   external: ['codemirror', '@codemirror/*', '@lezer/*', '@replit/codemirror-*', 'rainbowbrackets'],
   plugins: [...(devMode ? [] : [minifyHTMLPlugin(minifyHTMLOptions)])],
@@ -234,6 +234,8 @@ const iifeBuild = () =>
       'languages/dot/lang-dot-compiler.ts',
       'languages/ejs/lang-ejs-compiler.ts',
       'languages/eta/lang-eta-compiler.ts',
+      'languages/fsharp/lang-fsharp-compiler.ts',
+      'languages/fsharp-wasm/lang-fsharp-wasm-script.ts',
       'languages/haml/lang-haml-compiler.ts',
       'languages/handlebars/lang-handlebars-compiler.ts',
       'languages/imba/lang-imba-compiler.ts',

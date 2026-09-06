@@ -23,6 +23,8 @@ import { ejs } from './ejs';
 import { eta } from './eta';
 import { fennel } from './fennel';
 import { flow } from './flow';
+import { fsharp } from './fsharp';
+import { fsharpWasm } from './fsharp-wasm';
 import { gleam } from './gleam';
 import { go } from './go';
 import { goWasm } from './go-wasm';
@@ -156,6 +158,8 @@ export const languages: LanguageSpecs[] = [
   cppWasm,
   java,
   csharpWasm,
+  fsharp,
+  fsharpWasm,
   perl,
   lua,
   luaWasm,
