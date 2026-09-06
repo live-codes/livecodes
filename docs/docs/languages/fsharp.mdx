@@ -6,7 +6,7 @@ In LiveCodes, F# code is compiled to JavaScript using [Fable](https://fable.io/)
 
 :::info Note
 
-LiveCodes also supports running F# on the real .NET runtime using a WebAssembly-based F# compiler, which allows using `System.Console` APIs and standard input. Read documentation [here](./fsharp-wasm.mdx).
+LiveCodes also supports running F# on the real .NET runtime using a WebAssembly-based F# compiler. Read documentation [here](./fsharp-wasm.mdx).
 
 :::
 
@@ -35,20 +35,19 @@ let counter () =
   let button = document.querySelector("#counter-button")
   let display = document.querySelector("#counter")
   button.addEventListener("click", fun _ ->
-    count.Value <- count.Value + 1
-    display.textContent <- string count.Value
+    count.Value \<- count.Value + 1
+    display.textContent \<- string count.Value
   )
 
 let main () =
   let name = document.querySelector("#name")
-  name.textContent <- "F#"
+  name.textContent \<- "F#"
   printfn "Hello from F#!"
   counter ()
 `,
   },
-  mode: 'simple',
   tools: {
-    status: 'full',
+    status: 'open',
   },
 };
 

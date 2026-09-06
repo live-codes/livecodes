@@ -76,6 +76,12 @@ ES Module Shims: [MIT License](https://github.com/guybedford/es-module-shims/blo
 
 Eta: [MIT License](https://github.com/eta-dev/eta/blob/b25689e67cd07937a4595bca8ba39fe52cd76948/LICENSE)
 
+Fable: [MIT License](https://github.com/fable-compiler/Fable/blob/67e8540a21183248826d1b65b3d8e3eddc8d5825/LICENSE)
+
+F#: [MIT License](https://github.com/dotnet/fsharp/blob/df0e60991911eed31f861bb38403a389346055e2/License.txt)
+
+.NET runtime: [MIT License](https://github.com/dotnet/runtime/blob/20f7be9ec07eafd5b756df30de33a9452c9e1c14/LICENSE.TXT)
+
 fengari-web: [MIT License](https://github.com/fengari-lua/fengari-web/blob/77d35f5e1516f431cbb96e165b4272f2fc9b0b3a/LICENSE)
 
 Fennel: [MIT License](https://git.sr.ht/~technomancy/fennel/tree/e70ebb133b9d472246502dee8be119360ec568ca/item/LICENSE)

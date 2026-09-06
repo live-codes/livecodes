@@ -17,7 +17,7 @@ export const fsharp: LanguageSpecs = {
     monaco: { languageSupport: monacoLanguagesBaseUrl + 'fsharp.js' },
     codemirror: {
       languageSupport: async () =>
-        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-mllike.js')).fsharp),
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-mllike.js')).fSharp),
     },
     codejar: { language: 'fsharp' },
   },
