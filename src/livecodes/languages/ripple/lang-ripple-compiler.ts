@@ -58,7 +58,9 @@ import { getLanguageByAlias } from '../utils';
         return compiled;
       },
     });
-    const processedCode = await compileBlocks(fullCode, 'style', config);
+    const processedCode = await compileBlocks(fullCode, 'style', config, {
+      ignoreComments: true,
+    });
     const { js, css } = await compile(processedCode, filename);
 
     const cssCode =
