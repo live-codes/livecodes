@@ -198,6 +198,27 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fsharp.desc1": {
+    "translation": "F#, .NET platformunda çalışan, platformlar arası, açık kaynaklı bir işlevsel programlama dilidir."
+  },
+  "fsharp.desc2": {
+    "translation": "Burada, Fable kullanılarak JavaScript’e derlenir."
+  },
+  "fsharp.link": {
+    "translation": "<tag-1><tag-2>F# resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>F# belgeleri</tag-4> </tag-3> <tag-5> <tag-6>Fable resmi web sitesi</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "fsharp.name": {
+    "translation": "F#"
+  },
+  "fsharpWasm.desc": {
+    "translation": "WebAssembly üzerinde çalışan gerçek F# derleyicisi ve .NET çalışma zamanı. <tag-1></tag-1>Bu, resmi F# derleyicisinin davranışıyla aynıdır. Ancak, sonuç sayfasında .NET WebAssembly çalışma zamanının indirilmesi gerekir; bu da ilk çalıştırmada biraz zaman alabilir."
+  },
+  "fsharpWasm.link": {
+    "translation": "<tag-1><tag-2>F# resmi web sitesi</tag-2></tag-1> <tag-3> <tag-4>F# belgeleri</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Belgeleri</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "fsharpWasm.name": {
+    "translation": "F# (Wasm)"
+  },
   "gleam.desc1": {
     "translation": "Gleam, ölçeklenebilen, tür-güvenli sistemler oluşturmak için kullanımı kolay bir dildir!"
   },

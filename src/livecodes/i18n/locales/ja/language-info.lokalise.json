@@ -198,6 +198,27 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fsharp.desc1": {
+    "translation": "F# は、.NET プラットフォーム上で動作する、クロスプラットフォームのオープンソース関数型プログラミング言語です。"
+  },
+  "fsharp.desc2": {
+    "translation": "ここでは、Fable を使用して JavaScript にコンパイルされています。"
+  },
+  "fsharp.link": {
+    "translation": "<tag-1><tag-2>F# 公式サイト</tag-2></tag-1> <tag-3> <tag-4>F# ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>Fable 公式サイト</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートの読み込み</tag-10> </tag-9>"
+  },
+  "fsharp.name": {
+    "translation": "F#"
+  },
+  "fsharpWasm.desc": {
+    "translation": "WebAssembly上で動作する本物のF#コンパイラと.NETランタイム。<tag-1></tag-1>これは公式のF#コンパイラの動作と一致しています。ただし、検索結果ページから.NET WebAssemblyランタイムをダウンロードする必要があり、初回実行時には多少時間がかかる場合があります。"
+  },
+  "fsharpWasm.link": {
+    "translation": "<tag-1><tag-2>F# 公式サイト</tag-2></tag-1> <tag-3> <tag-4>F# ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ドキュメント</tag-6> </tag-5> <tag-7> <tag-8>スターターテンプレートの読み込み</tag-8> </tag-7>"
+  },
+  "fsharpWasm.name": {
+    "translation": "F# (Wasm)"
+  },
   "gleam.desc1": {
     "translation": "Gleam は、スケーラブルな型安全システムを構築するためのフレンドリーな言語です！"
   },

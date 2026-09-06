@@ -198,6 +198,27 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fsharp.desc1": {
+    "translation": "F# adalah bahasa pemrograman fungsional lintas platform dan sumber terbuka yang berjalan di platform .NET."
+  },
+  "fsharp.desc2": {
+    "translation": "Di sini, kode tersebut dikompilasi menjadi JavaScript menggunakan Fable."
+  },
+  "fsharp.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi F#</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi F#</tag-4> </tag-3> <tag-5> <tag-6>Situs web resmi Fable</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat templat awal</tag-10> </tag-9>"
+  },
+  "fsharp.name": {
+    "translation": "F#"
+  },
+  "fsharpWasm.desc": {
+    "translation": "Kompiler F# asli dan runtime .NET yang berjalan di WebAssembly. <tag-1></tag-1>Hal ini sesuai dengan perilaku kompiler F# resmi. Namun, runtime .NET WebAssembly perlu diunduh di halaman hasil, yang mungkin membutuhkan waktu cukup lama saat dijalankan untuk pertama kalinya."
+  },
+  "fsharpWasm.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi F#</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi F#</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat templat awal</tag-8> </tag-7>"
+  },
+  "fsharpWasm.name": {
+    "translation": "F# (Wasm)"
+  },
   "gleam.desc1": {
     "translation": "Gleam adalah bahasa ramah untuk membangun sistem yang aman dan dapat diskalakan!"
   },

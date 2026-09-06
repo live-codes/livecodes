@@ -113,6 +113,18 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sito ufficiale di Flow</2> </1> <3> <4>Documentazione di Flow</4> </3>',
     name: 'Flow',
   },
+  fsharp: {
+    desc1:
+      'F# è un linguaggio di programmazione funzionale multipiattaforma e open source che gira sulla piattaforma .NET.',
+    desc2: 'Qui viene compilato in JavaScript utilizzando Fable.',
+    link: '<1><2>Sito web ufficiale di F#</2></1> <3> <4>Documentazione di F#</4> </3> <5> <6>Sito web ufficiale di Fable</6> </5> <7> <8>Documentazione LiveCodes</8> </7> <9> <10>Carica modello di avvio</10> </9>',
+    name: 'F#',
+  },
+  fsharpWasm: {
+    desc: 'Il vero compilatore F# e il runtime .NET in esecuzione su WebAssembly. <1></1>Questo corrisponde al comportamento del compilatore F# ufficiale. Tuttavia, nella pagina dei risultati è necessario scaricare il runtime .NET per WebAssembly, operazione che può richiedere un po’ di tempo al primo avvio.',
+    link: '<1><2>Sito web ufficiale di F#</2></1> <3> <4>Documentazione di F#</4> </3> <5> <6>Documentazione di LiveCodes</6> </5> <7> <8>Carica il modello di avvio</8> </7>',
+    name: 'F# (Wasm)',
+  },
   gleam: {
     desc1: 'Gleam è un linguaggio amichevole per costruire sistemi type-safe che scalano!',
     desc2:

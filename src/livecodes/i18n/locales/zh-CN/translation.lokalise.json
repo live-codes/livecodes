@@ -1965,6 +1965,12 @@
   "templates.starter.fennel": {
     "translation": "Fennel 启动模板"
   },
+  "templates.starter.fsharp": {
+    "translation": "F# 启动模板"
+  },
+  "templates.starter.fsharp-wasm": {
+    "translation": "F#（WASM）启动模板"
+  },
   "templates.starter.gleam": {
     "translation": "Gleam 启动模板"
   },

@@ -1965,6 +1965,12 @@
   "templates.starter.fennel": {
     "translation": "Inicio Fennel"
   },
+  "templates.starter.fsharp": {
+    "translation": "Inicio F#"
+  },
+  "templates.starter.fsharp-wasm": {
+    "translation": "Inicio F# (Wasm)"
+  },
   "templates.starter.gleam": {
     "translation": "Inicio Gleam"
   },
