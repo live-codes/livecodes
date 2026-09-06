@@ -1,0 +1,107 @@
+# F# (Wasm)
+
+[F#](https://fsharp.org/) is a cross-platform, open-source functional programming language that runs on the .NET platform. It features strong type inference, pattern matching, and a concise syntax that also supports object-oriented and imperative programming styles.
+
+In LiveCodes, F# (Wasm) runs on the real .NET runtime using a WebAssembly-based F# compiler (the [F# compiler service](https://fsharp.github.io/fsharp-compiler-docs/fcs/) compiled to WebAssembly).
+
+:::info Note
+
+Unlike the [F# compiler that compiles to JavaScript using Fable](./fsharp.mdx), F# (Wasm) uses the actual F# compiler and .NET runtime. This matches the behavior of the official F# compiler and allows using `System.Console` APIs (e.g. `Console.ReadLine()` for standard input). However, the .NET WebAssembly runtime needs to be downloaded in the result page, which can take some time on the first run.
+
+:::
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const fsharpWasmConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'fsharp-wasm',
+    content: `let rec fibonacci n =
+    if n <= 1 then n
+    else fibonacci (n - 1) + fibonacci (n - 2)
+
+for i in 0 .. 10 do
+    printfn "fibonacci %d = %d" i (fibonacci i)`,
+  },
+  mode: 'simple',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={fsharpWasmConfig}></LiveCodes>
+
+### Standard I/O
+
+F# (Wasm) code runs in the context of the [result page](../features/result.mdx). Standard output (e.g. `printfn`) is captured and displayed in the [console](../features/console.mdx). Standard input is read using `System.Console.ReadLine()`.
+
+### Communication with JavaScript
+
+A few helper properties and methods are available in the browser global `livecodes.fsharp` object:
+
+- `livecodes.fsharp.input`: The initial standard input passed to the F# code.
+- `livecodes.fsharp.loaded`: A promise that resolves when the F# environment (the .NET WebAssembly runtime) is fully loaded. Other helpers should be used after this promise resolves.
+- `livecodes.fsharp.output`: The standard output from the F# code execution.
+- `livecodes.fsharp.error`: The error message (if any) from the F# code execution.
+- `livecodes.fsharp.exitCode`: The exit code of the F# code execution.
+- `livecodes.fsharp.run`: A function that runs the F# code with new input. This function takes a string as input and returns a promise that resolves with an object containing the `output`, `error`, and `exitCode` properties.
+
+Example:
+
+<LiveCodes template="fsharp-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`fsharp-wasm`
+
+### Aliases / Extensions
+
+`fs`, `fsx`, `fsharp`, `wasm.fs`, `fs-wasm`, `wasm.fsx`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The real [F# compiler service](https://fsharp.github.io/fsharp-compiler-docs/fcs/) running on a .NET WebAssembly runtime.
+
+### Version
+
+F# 10.1 (FSharp.Compiler.Service 43.12.400), running on .NET 10.0
+
+## Code Formatting
+
+Not supported.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the F# code, which forces a full page reload.
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Example Usage
+
+```fsharp
+printfn "Hello, LiveCodes F#!"
+
+let input = System.Console.ReadLine()
+printfn "You entered: %s" input
+```
+
+## Starter Template
+
+https://livecodes.io/?template=fsharp-wasm
+
+## Links
+
+- [F#](https://fsharp.org/)
+- [F# documentation](https://learn.microsoft.com/en-us/dotnet/fsharp/)
+- [F# compiler service](https://fsharp.github.io/fsharp-compiler-docs/fcs/)
+- [F# using Fable](./fsharp.mdx) in LiveCodes

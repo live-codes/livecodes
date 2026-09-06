@@ -1,0 +1,113 @@
+# F#
+
+[F#](https://fsharp.org/) is a cross-platform, open-source functional programming language that runs on the .NET platform. It features strong type inference, pattern matching, and a concise syntax that also supports object-oriented and imperative programming styles.
+
+In LiveCodes, F# code is compiled to JavaScript using [Fable](https://fable.io/), an F# to JavaScript compiler. The compiled code runs in the result page, giving it access to the page DOM and browser APIs.
+
+:::info Note
+
+LiveCodes also supports running F# on the real .NET runtime using a WebAssembly-based F# compiler, which allows using `System.Console` APIs and standard input. Read documentation [here](./fsharp-wasm.mdx).
+
+:::
+
+## Usage
+
+### Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const fsharpConfig = {
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<h1>Hello, <span id="name">World</span>!</h1>
+<button id="counter-button">Click me</button>
+<p>You clicked <span id="counter">0</span> times.</p>`,
+  },
+  script: {
+    language: 'fsharp',
+    content: `module Hello
+
+open Browser.Dom
+
+let counter () =
+  let count = ref 0
+  let button = document.querySelector("#counter-button")
+  let display = document.querySelector("#counter")
+  button.addEventListener("click", fun _ ->
+    count.Value <- count.Value + 1
+    display.textContent <- string count.Value
+  )
+
+let main () =
+  let name = document.querySelector("#name")
+  name.textContent <- "F#"
+  printfn "Hello from F#!"
+  counter ()
+`,
+  },
+  mode: 'simple',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={fsharpConfig}></LiveCodes>
+
+### JavaScript Interoperability
+
+Since F# code is compiled to JavaScript and runs in the context of the [result page](../features/result.mdx), it can interact with the page DOM and browser APIs using Fable's browser bindings (e.g. the [`Browser.Dom`](https://fable.io/docs/communicate/js-from-fable.html) module).
+
+Check the [starter template](#starter-template) for another example.
+
+## Language Info
+
+### Name
+
+`fsharp`
+
+### Aliases / Extensions
+
+`fs`, `fsx`, `fsharp`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Fable](https://fable.io/), the F# to JavaScript compiler.
+
+### Version
+
+Fable v3.8.0 (targeting F# 8)
+
+## Code Formatting
+
+Not supported.
+
+## Example Usage
+
+```fsharp
+module Hello
+
+open Browser.Dom
+
+let main () =
+  let name = document.querySelector("#name")
+  name.textContent <- "F#"
+  printfn "Hello from F#!"
+```
+
+The [starter template](#starter-template) shows a more complete example that demonstrates DOM access and event handling.
+
+## Starter Template
+
+https://livecodes.io/?template=fsharp
+
+## Links
+
+- [F#](https://fsharp.org/)
+- [F# documentation](https://learn.microsoft.com/en-us/dotnet/fsharp/)
+- [Fable](https://fable.io/)
+- [F# (Wasm)](./fsharp-wasm.mdx) in LiveCodes

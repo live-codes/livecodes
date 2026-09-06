@@ -120,6 +120,18 @@ const languageInfo = {
     link: '<1> <2>Flow official website</2> </1> <3> <4>Flow documentation</4> </3>',
     name: 'Flow',
   },
+  fsharp: {
+    desc1:
+      'F# is a cross-platform, open-source functional programming language that runs on the .NET platform.',
+    desc2: 'Here, it is compiled to JavaScript using Fable.',
+    link: '<1><2>F# official website</2></1> <3> <4>F# documentation</4> </3> <5> <6>Fable official website</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'F#',
+  },
+  fsharpWasm: {
+    desc: 'The real F# compiler and .NET runtime running on WebAssembly. <1></1>This matches the behavior of the official F# compiler and allows using <2>System.Console</2> APIs and standard input. <3></3>However, the .NET WebAssembly runtime needs to be downloaded in the result page, which can take some time on the first run.',
+    link: '<1><2>F# official website</2></1> <3> <4>F# documentation</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'F# (Wasm)',
+  },
   gleam: {
     desc1: 'Gleam is a friendly language for building type-safe systems that scale!',
     desc2:
