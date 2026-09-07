@@ -198,6 +198,27 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fsharp.desc1": {
+    "translation": "F# یک زبان برنامه‌نویسی تابعی متن‌باز و چندسکویی است که بر روی پلتفرم .NET اجرا می‌شود."
+  },
+  "fsharp.desc2": {
+    "translation": "در اینجا، با استفاده از Fable به جاوااسکریپت کامپایل شده است."
+  },
+  "fsharp.link": {
+    "translation": "<tag-1><tag-2>وب‌سایت رسمی F#</tag-2></tag-1> <tag-3> <tag-4>مستندات F#</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت رسمی Fable</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگیری قالب شروع</tag-10> </tag-9>"
+  },
+  "fsharp.name": {
+    "translation": "F#"
+  },
+  "fsharpWasm.desc": {
+    "translation": "کامپایلر واقعی F# و محیط اجرایی .NET که روی WebAssembly اجرا می‌شود. <tag-1></tag-1>این با رفتار کامپایلر رسمی F# مطابقت دارد. با این حال، محیط اجرایی .NET WebAssembly باید در صفحه نتایج دانلود شود که در اولین اجرا می‌تواند مدتی طول بکشد."
+  },
+  "fsharpWasm.link": {
+    "translation": "<tag-1><tag-2>وب‌سایت رسمی F#</tag-2></tag-1> <tag-3> <tag-4>اسناد F#</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگیری قالب شروع</tag-8> </tag-7>"
+  },
+  "fsharpWasm.name": {
+    "translation": "F# (Wasm)"
+  },
   "gleam.desc1": {
     "translation": "Gleam یک زبان دوستانه برای ساخت سیستم‌های مقیاس‌پذیر با امنیت نوع است!"
   },

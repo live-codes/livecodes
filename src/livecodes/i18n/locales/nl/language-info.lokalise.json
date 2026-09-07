@@ -198,6 +198,27 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fsharp.desc1": {
+    "translation": "F# is een platformonafhankelijke, open-source functionele programmeertaal die op het .NET-platform draait."
+  },
+  "fsharp.desc2": {
+    "translation": "Hier wordt het met behulp van Fable naar JavaScript gecompileerd."
+  },
+  "fsharp.link": {
+    "translation": "<tag-1><tag-2>Officiële website van F#</tag-2></tag-1> <tag-3> <tag-4>F#-documentatie</tag-4> </tag-3> <tag-5> <tag-6>Officiële website van Fable</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+  },
+  "fsharp.name": {
+    "translation": "F#"
+  },
+  "fsharpWasm.desc": {
+    "translation": "De echte F#-compiler en de .NET-runtime draaien op WebAssembly. <tag-1></tag-1>Dit komt overeen met het gedrag van de officiële F#-compiler. De .NET WebAssembly-runtime moet echter op de resultatenpagina worden gedownload, wat bij de eerste keer opstarten enige tijd kan duren."
+  },
+  "fsharpWasm.link": {
+    "translation": "<tag-1><tag-2>Officiële website van F#</tag-2></tag-1> <tag-3> <tag-4>F#-documentatie</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes-documentatie</tag-6> </tag-5> <tag-7> <tag-8>Startersjabloon laden</tag-8> </tag-7>"
+  },
+  "fsharpWasm.name": {
+    "translation": "F# (Wasm)"
+  },
   "gleam.desc1": {
     "translation": "Gleam is een vriendelijke taal voor het bouwen van type-veilige systemen die schalen!"
   },

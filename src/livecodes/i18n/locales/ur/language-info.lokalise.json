@@ -198,6 +198,27 @@
   "flow.name": {
     "translation": "فلو"
   },
+  "fsharp.desc1": {
+    "translation": "F# ایک کراس پلیٹ فارم، اوپن سورس فنکشنل پروگرامنگ لینگویج ہے جو .NET پلیٹ فارم پر چلتی ہے۔"
+  },
+  "fsharp.desc2": {
+    "translation": "یہاں، اسے Fable کا استعمال کرتے ہوئے JavaScript پر مرتب کیا گیا ہے۔"
+  },
+  "fsharp.link": {
+    "translation": "<tag-1><tag-2>F# آفیشل ویب سائٹ</tag-2></tag-1> <tag-3> <tag-4>F# دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>Fable آفیشل ویب سائٹ</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentations</tag-8> </tag-7> <tag-9> <tag-10>لوڈ اسٹارٹر ٹیمپلیٹ</tag-10> </tag-9>"
+  },
+  "fsharp.name": {
+    "translation": "F#"
+  },
+  "fsharpWasm.desc": {
+    "translation": "حقیقی F# کمپائلر اور .NET رن ٹائم WebAssembly پر چل رہا ہے۔ <tag-1></tag-1>یہ آفیشل F# کمپائلر کے رویے سے میل کھاتا ہے۔ تاہم، .NET WebAssembly رن ٹائم کو رزلٹ پیج میں ڈاؤن لوڈ کرنے کی ضرورت ہے، جس میں پہلے رن پر کچھ وقت لگ سکتا ہے۔"
+  },
+  "fsharpWasm.link": {
+    "translation": "<tag-1><tag-2>F# آفیشل ویب سائٹ</tag-2></tag-1> <tag-3> <tag-4>F# دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes دستاویزی</tag-6> </tag-5> <tag-7> <tag-8>لوڈ اسٹارٹر ٹیمپلیٹ</tag-8> </tag-7>"
+  },
+  "fsharpWasm.name": {
+    "translation": "F# (Wasm)"
+  },
   "gleam.desc1": {
     "translation": "گلیم ٹائپ-محفوظ نظام بنانے کے لیے ایک دوستانہ زبان ہے جو پیمانہ بناتی ہے!"
   },

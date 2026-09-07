@@ -1965,6 +1965,12 @@
   "templates.starter.fennel": {
     "translation": "Pemula Fennel"
   },
+  "templates.starter.fsharp": {
+    "translation": "Pemula F#"
+  },
+  "templates.starter.fsharp-wasm": {
+    "translation": "Pemula F# (Wasm)"
+  },
   "templates.starter.gleam": {
     "translation": "Pemula Gleam"
   },
