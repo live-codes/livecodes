@@ -240,8 +240,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const loadMonacoLanguage = async (lang: Language) => {
     const langSupport = getLanguageSpecs(lang)?.editorSupport?.monaco?.languageSupport;
-    if (langSupport && !loadedLanguages.has(lang)) {
-      loadedLanguages.add(lang);
+    const mappedLanguage = mapLanguage(lang, 'monaco');
+    if (langSupport && !loadedLanguages.has(mappedLanguage)) {
+      loadedLanguages.add(mappedLanguage);
       const loadLanguage =
         typeof langSupport === 'string'
           ? (await import(langSupport)).default
