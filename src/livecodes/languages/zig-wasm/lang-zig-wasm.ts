@@ -1,4 +1,6 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
 export const zigWasm: LanguageSpecs = {
   name: 'zig-wasm',
@@ -12,6 +14,13 @@ export const zigWasm: LanguageSpecs = {
   },
   extensions: ['zig'],
   editor: 'script',
-  editorLanguage: 'rust',
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'zig.js', language: 'zig' },
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-rust.js')).rust),
+    },
+    codejar: { language: 'zig' },
+  },
   largeDownload: true,
 };

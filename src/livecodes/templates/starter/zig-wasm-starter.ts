@@ -23,7 +23,31 @@ export const zigWasmStarter: Template = {
     const button = document.querySelector("#counter-button");
 
     // wait till loaded
-    await livecodes.zig.loaded;
+    try {
+      await livecodes.zig.loaded;
+    } catch {
+      // failed to initialize the Zig environment; show the error and enable retry
+      const counter = document.querySelector("#counter");
+      const name = document.querySelector("#name");
+      counter.innerText = "failed";
+      name.innerText = "Error";
+      button.innerText = "Retry";
+      button.disabled = false;
+      button.onclick = async () => {
+        button.disabled = true;
+        button.innerText = "Loading...";
+        const {output, error, exitCode} = await livecodes.zig.run(window.count);
+        if (error) {
+          counter.innerText = "failed";
+          name.innerText = "Error";
+          button.innerText = "Retry";
+          button.disabled = false;
+        } else {
+          update(output);
+        }
+      };
+      return;
+    }
 
     // get initial output
     const initialOutput = livecodes.zig.output;

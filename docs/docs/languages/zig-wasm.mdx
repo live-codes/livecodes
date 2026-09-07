@@ -65,7 +65,7 @@ fn binarySearch(comptime T: type, arr: []const T, item: T) i32 {
 The Zig code runs in the context of the result page. A few helper properties and methods are available in the browser global `livecodes.zig` object:
 
 - `livecodes.zig.input`: The initial standard input passed to the Zig code.
-- `livecodes.zig.loaded`: A promise that resolves when the Zig environment (WebAssembly runtime) is fully loaded. Other helpers should be used after this promise resolves.
+- `livecodes.zig.loaded`: A promise that resolves when the Zig environment (WebAssembly runtime) is fully loaded (and rejects if it fails to load). Other helpers should be used after this promise resolves.
 - `livecodes.zig.output`: The standard output from the Zig code execution.
 - `livecodes.zig.run`: A function that runs the Zig code with new input. This function takes a string as input and returns a promise that resolves with an object containing the `output`, `error`, and `exitCode` properties.
 
