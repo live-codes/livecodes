@@ -1965,6 +1965,12 @@
   "templates.starter.fennel": {
     "translation": "فینل شروعاتی"
   },
+  "templates.starter.fsharp": {
+    "translation": "F# شروعاتی"
+  },
+  "templates.starter.fsharp-wasm": {
+    "translation": "F# (واسم) شروعاتی"
+  },
   "templates.starter.gleam": {
     "translation": "گلیم شروعاتی"
   },

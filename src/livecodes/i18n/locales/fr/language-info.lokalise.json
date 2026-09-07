@@ -198,6 +198,27 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fsharp.desc1": {
+    "translation": "F# est un langage de programmation fonctionnel open source et multiplateforme qui s'exécute sur la plateforme .NET."
+  },
+  "fsharp.desc2": {
+    "translation": "Ici, il est compilé en JavaScript à l'aide de Fable."
+  },
+  "fsharp.link": {
+    "translation": "<tag-1><tag-2>Site officiel de F#</tag-2></tag-1> <tag-3> <tag-4>Documentation F#</tag-4> </tag-3> <tag-5> <tag-6>Site officiel de Fable</tag-6> </tag-5> <tag-7> <tag-8>Documentations LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Charger un modèle de démarrage</tag-10> </tag-9>"
+  },
+  "fsharp.name": {
+    "translation": "F#"
+  },
+  "fsharpWasm.desc": {
+    "translation": "Le véritable compilateur F# et le runtime .NET fonctionnant sur WebAssembly. <tag-1></tag-1>Cela correspond au comportement du compilateur F# officiel. Cependant, le runtime .NET WebAssembly doit être téléchargé depuis la page de résultats, ce qui peut prendre un certain temps lors de la première exécution."
+  },
+  "fsharpWasm.link": {
+    "translation": "<tag-1><tag-2>Site officiel de F#</tag-2></tag-1> <tag-3> <tag-4>Documentation F#</tag-4> </tag-3> <tag-5> <tag-6>Documentation LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Charger un modèle de démarrage</tag-8> </tag-7>"
+  },
+  "fsharpWasm.name": {
+    "translation": "F# (Wasm)"
+  },
   "gleam.desc1": {
     "translation": "Gleam est un langage convivial pour construire des systèmes sûrs au niveau des types qui peuvent évoluer !"
   },

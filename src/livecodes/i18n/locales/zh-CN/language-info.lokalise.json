@@ -198,6 +198,27 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fsharp.desc1": {
+    "translation": "F# 是一种基于 .NET 平台的跨平台、开源函数式编程语言。"
+  },
+  "fsharp.desc2": {
+    "translation": "这里，它使用 Fable 编译成了 JavaScript。"
+  },
+  "fsharp.link": {
+    "translation": "<tag-1><tag-2>F# 官方网站</tag-2></tag-1> <tag-3> <tag-4>F# 文档</tag-4> </tag-3> <tag-5> <tag-6>Fable 官方网站</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+  },
+  "fsharp.name": {
+    "translation": "F#"
+  },
+  "fsharpWasm.desc": {
+    "translation": "在 WebAssembly 上运行的真实 F# 编译器和 .NET 运行时。<tag-1></tag-1>这与官方 F# 编译器的行为一致。不过，需要在结果页面下载 .NET WebAssembly 运行时，首次运行时可能需要一些时间。"
+  },
+  "fsharpWasm.link": {
+    "translation": "<tag-1><tag-2>F# 官方网站</tag-2></tag-1> <tag-3> <tag-4>F# 文档</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes 文档</tag-6> </tag-5> <tag-7> <tag-8>加载入门模板</tag-8> </tag-7>"
+  },
+  "fsharpWasm.name": {
+    "translation": "F# (Wasm)"
+  },
   "gleam.desc1": {
     "translation": "Gleam 是一种对构建可扩展的类型安全系统友好的编程语言！"
   },
