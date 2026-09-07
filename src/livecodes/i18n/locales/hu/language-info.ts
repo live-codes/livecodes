@@ -114,6 +114,18 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Flow hivatalos weboldal</2> </1> <3> <4>Flow dokumentáció</4> </3>',
     name: 'Flow',
   },
+  fsharp: {
+    desc1:
+      'Az F# egy platformfüggetlen, nyílt forráskódú funkcionális programozási nyelv, amely a .NET-platformon fut.',
+    desc2: 'Itt a Fable segítségével JavaScript-re fordítják.',
+    link: '<1><2>Az F# hivatalos weboldala</2></1> <3> <4>F# dokumentáció</4> </3> <5> <6>A Fable hivatalos weboldala</6> </5> <7> <8>LiveCodes dokumentációk</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'F#',
+  },
+  fsharpWasm: {
+    desc: 'A valódi F#-fordító és a .NET futtatókörnyezet a WebAssembly-n. <1></1>Ez megegyezik a hivatalos F#-fordító viselkedésével. Azonban az eredményoldalon le kell tölteni a .NET WebAssembly futtatókörnyezetet, ami az első futtatáskor némi időt vehet igénybe.',
+    link: '<1><2>Az F# hivatalos weboldala</2></1> <3> <4>F# dokumentáció</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
+    name: 'F# (Wasm)',
+  },
   gleam: {
     desc1: 'A Gleam egy barátságos nyelv típusbiztos rendszerek építéséhez, amelyek skálázhatók!',
     desc2:

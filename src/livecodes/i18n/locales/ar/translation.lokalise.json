@@ -1965,6 +1965,12 @@
   "templates.starter.fennel": {
     "translation": "قالب Fennel"
   },
+  "templates.starter.fsharp": {
+    "translation": "قالب F#"
+  },
+  "templates.starter.fsharp-wasm": {
+    "translation": "قالب F# (Wasm)"
+  },
   "templates.starter.gleam": {
     "translation": "قالب Gleam"
   },

@@ -198,6 +198,27 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fsharp.desc1": {
+    "translation": "F# هي لغة برمجة وظيفية مفتوحة المصدر ومتوافقة مع مختلف الأنظمة الأساسية، وتعمل على منصة .NET."
+  },
+  "fsharp.desc2": {
+    "translation": "هنا، يتم تحويله إلى لغة جافا سكريبت باستخدام Fable."
+  },
+  "fsharp.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي لـ F#</tag-2></tag-1> <tag-3> <tag-4>وثائق F#</tag-4> </tag-3> <tag-5> <tag-6>الموقع الرسمي لـ Fable</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البداية</tag-10> </tag-9>"
+  },
+  "fsharp.name": {
+    "translation": "F#"
+  },
+  "fsharpWasm.desc": {
+    "translation": "المُترجم الحقيقي لـ F# وبيئة تشغيل .NET تعملان على WebAssembly. <tag-1></tag-1>وهذا يتطابق مع سلوك المُترجم الرسمي لـ F#. ومع ذلك، يلزم تنزيل بيئة تشغيل .NET WebAssembly في صفحة النتائج، وهو ما قد يستغرق بعض الوقت عند التشغيل لأول مرة."
+  },
+  "fsharpWasm.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي لـ F#</tag-2></tag-1> <tag-3> <tag-4>وثائق F#</tag-4> </tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>تحميل قالب البدء</tag-8> </tag-7>"
+  },
+  "fsharpWasm.name": {
+    "translation": "F# (Wasm)"
+  },
   "gleam.desc1": {
     "translation": "جليم هي لغة ودودة لبناء أنظمة آمنة الأنواع قابلة للتوسع!"
   },
