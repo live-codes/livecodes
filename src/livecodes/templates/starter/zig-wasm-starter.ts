@@ -1,8 +1,8 @@
 import type { Template } from '../../models';
 
 export const zigWasmStarter: Template = {
-  name: 'zig-wasm',
-  title: 'Zig (Wasm) Starter',
+  name: 'zig',
+  title: 'Zig Starter',
   thumbnail: 'assets/templates/zig.svg',
   activeEditor: 'script',
   markup: {
@@ -10,7 +10,7 @@ export const zigWasmStarter: Template = {
     content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
-  <img class="logo" alt="logo" src="http://127.0.0.1:8080/livecodes/assets/templates/zig.svg" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/zig.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button" disabled>Loading...</button>
 </div>
@@ -42,7 +42,8 @@ export const zigWasmStarter: Template = {
 
       const [title, count] = output.split('\\n');
 
-      if (parseInt(count) !== NaN) {
+      const parsedCount = parseInt(count, 10);
+      if (!Number.isNaN(parsedCount)) {
         window.count = count;
         counter.innerText = window.count;
       }

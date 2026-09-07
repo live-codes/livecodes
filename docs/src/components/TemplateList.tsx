@@ -71,7 +71,7 @@ const templates = [
   { name: 'minizinc', title: 'MiniZinc Starter', thumbnail: 'minizinc.png' },
   { name: 'blockly', title: 'Blockly Starter', thumbnail: 'blockly.svg' },
   { name: 'diagrams', title: 'Diagrams Starter', thumbnail: 'diagrams.svg' },
-  { name: 'zig-wasm', title: 'Zig (Wasm)', thumbnail: 'zig.svg' },
+  { name: 'zig', title: 'Zig Starter', thumbnail: 'zig.svg' },
 ];
 
 export default function TemplateList() {

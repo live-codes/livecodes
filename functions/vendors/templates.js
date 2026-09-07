@@ -69,5 +69,6 @@ export const starterTemplates = {
   "prolog": "Prolog Starter",
   "minizinc": "MiniZinc Starter",
   "blockly": "Blockly Starter",
-  "diagrams": "Diagrams Starter"
+  "diagrams": "Diagrams Starter",
+  "zig": "Zig Starter"
 }

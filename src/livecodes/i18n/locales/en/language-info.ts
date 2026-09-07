@@ -459,6 +459,11 @@ const languageInfo = {
     link: '<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Text Specs</4> </3> <5> <6>WebAssembly on MDN</6> </5> <7> <8>Understanding WebAssembly text format</8> </7> <9> <10>wabt.js documentation</10> </9> <11> <12>Learn X in Y minutes, where X=WebAssembly</12> </11> <13> <14>Load starter template</14> </13>',
     name: 'WebAssembly Text Format',
   },
+  zigWasm: {
+    desc: 'Zig compiler running on WebAssembly.',
+    link: '<1> <2>Zig language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=Zig</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'Zig (Wasm)',
+  },
 } as const satisfies I18nTranslationTemplate;
 
 export default languageInfo;

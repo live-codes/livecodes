@@ -121,6 +121,7 @@ export const starterTemplates = [
   phpWasmStarter,
   cppStarter,
   cppWasmStarter,
+  zigWasmStarter,
   javaStarter,
   csharpWasmStarter,
   fsharpStarter,
@@ -145,5 +146,4 @@ export const starterTemplates = [
   minizincStarter,
   blocklyStarter,
   diagramsStarter,
-  zigWasmStarter,
 ];

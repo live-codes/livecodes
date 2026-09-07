@@ -326,7 +326,7 @@ export const getCommandMenuActions = ({
         'minizinc',
         'blockly',
         'diagrams',
-        'zig-wasm',
+        'zig',
       ).map((template) => ({
         id: 'Starter template: ' + template,
         title: window.deps.translateString('commandMenu.template', 'Template') + ': ' + template,
