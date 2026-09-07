@@ -36,6 +36,7 @@ const createZigCompilationCache = () => {
     metaView[0] = 0;
     metaView[1] = 0;
     compiledModules.clear();
+    sourceKeys.clear();
   };
 
   const findEntry = (codeHash: number): { offset: number; size: number } | null => {
@@ -52,17 +53,22 @@ const createZigCompilationCache = () => {
     return null;
   };
 
+  // store the exact source alongside the cached wasm so that hash collisions
+  // (the hash is only a lookup aid, not the source identity) never return a
+  // cached module compiled from different code
+  const sourceKeys: Map<number, string> = new Map();
+
   const getCachedWasm = (code: string): Uint8Array | null => {
     const hash = createHash(code);
     const entry = findEntry(hash);
-
-    if (!entry) return null;
+    if (!entry || sourceKeys.get(hash) !== code) return null;
 
     return dataView.slice(entry.offset, entry.offset + entry.size);
   };
 
   const getCachedModule = (code: string): WebAssembly.Module | null => {
     const hash = createHash(code);
+    if (sourceKeys.get(hash) !== code) return null;
     return compiledModules.get(hash.toString()) || null;
   };
 
@@ -90,9 +96,10 @@ const createZigCompilationCache = () => {
     metaView[baseIdx + 2] = size;
     metaView[0] = entryCount + 1;
     metaView[1] = currentOffset + size;
+    sourceKeys.set(hash, code);
 
     try {
-      const module = await WebAssembly.compile(wasmData);
+      const module = await WebAssembly.compile(wasmData as any);
       compiledModules.set(hash.toString(), module);
       return module;
     } catch (error) {
@@ -103,10 +110,18 @@ const createZigCompilationCache = () => {
 
   const setCompiledModule = (code: string, module: WebAssembly.Module): void => {
     const hash = createHash(code);
-    compiledModules.set(hash.toString(), module);
+    if (sourceKeys.get(hash) === code) {
+      compiledModules.set(hash.toString(), module);
+    }
   };
 
-  return { getCachedWasm, getCachedModule, cacheWasm, setCompiledModule, clear };
+  return {
+    getCachedWasm,
+    getCachedModule,
+    cacheWasm,
+    setCompiledModule,
+    clear,
+  };
 };
 
 const compilationCache = createZigCompilationCache();
@@ -199,7 +214,7 @@ const lazyCompileZig = async (
     if (cachedModule) {
       return { wasmData: cachedWasm, module: cachedModule };
     }
-    const module = await WebAssembly.compile(cachedWasm);
+    const module = await WebAssembly.compile(cachedWasm as any);
     compilationCache.setCompiledModule(code, module);
     return { wasmData: cachedWasm, module };
   }
@@ -241,7 +256,7 @@ const lazyCompileZig = async (
     const sharedWasmBuffer = new SharedArrayBuffer(wasmArrayBuffer.byteLength);
     const sharedWasmView = new Uint8Array(sharedWasmBuffer);
     sharedWasmView.set(new Uint8Array(wasmArrayBuffer));
-    compilerModule = await WebAssembly.compile(sharedWasmView);
+    compilerModule = await WebAssembly.compile(sharedWasmView as any);
   } else {
     compilerModule = await WebAssembly.compile(wasmArrayBuffer);
   }
@@ -274,7 +289,7 @@ const runZigCode = async (
   const errors: string[] = [];
 
   try {
-    await livecodes.zig.init;
+    await ensureZigInit();
 
     if (!livecodes.zig.zigStdLib) {
       return { output: null, error: 'Zig environment not ready' };
@@ -312,7 +327,7 @@ const runZigCode = async (
   }
 };
 
-livecodes.zig.init ??= (async () => {
+const initZigEnvironment = async (): Promise<void> => {
   if (livecodes.zig.ready) return;
 
   console.log('Initializing Zig environment...');
@@ -340,10 +355,24 @@ livecodes.zig.init ??= (async () => {
   } catch (err) {
     console.error('failed to initialize Zig environment:', err);
     livecodes.zig.ready = false;
-    livecodes.zig.init = null;
+    livecodes.zig.failed = true;
+    livecodes.zig.error = getErrorMessage(err);
     throw err;
   }
-})();
+};
+
+const ensureZigInit = (): Promise<void> => {
+  if (!livecodes.zig.init || livecodes.zig.failed) {
+    // clear the failure state so a retried initialization can succeed
+    livecodes.zig.failed = false;
+    livecodes.zig.error = undefined;
+    livecodes.zig.init = initZigEnvironment().catch((err) => {
+      livecodes.zig.init = null;
+      throw err;
+    });
+  }
+  return livecodes.zig.init;
+};
 
 livecodes.zig.run ??= async (input?: string) => {
   let code = '';
@@ -370,13 +399,33 @@ livecodes.zig.run ??= async (input?: string) => {
   return { output, error, exitCode: error ? 1 : 0 };
 };
 
-livecodes.zig.loaded = new Promise<void>((resolve) => {
-  const interval = setInterval(() => {
-    if (livecodes.zig.ready) {
-      clearInterval(interval);
+let loadedInterval: ReturnType<typeof setInterval> | undefined;
+let loadedReject: ((reason?: unknown) => void) | undefined;
+
+const failLoaded = (error: unknown) => {
+  if (loadedInterval) {
+    clearInterval(loadedInterval);
+    loadedInterval = undefined;
+  }
+  loadedReject?.(error instanceof Error ? error : new Error(String(error)));
+};
+
+// start loading the Zig environment (the run function also ensures it on demand)
+ensureZigInit();
+
+livecodes.zig.loaded ??= new Promise<void>((resolve, reject) => {
+  loadedReject = reject;
+  const check = () => {
+    if (livecodes.zig.failed) {
+      failLoaded(livecodes.zig.error);
+    } else if (livecodes.zig.ready) {
+      clearInterval(loadedInterval);
+      loadedInterval = undefined;
       resolve();
     }
-  }, 50);
+  };
+  loadedInterval = setInterval(check, 50);
+  check();
 });
 
 window.addEventListener('load', async () => {

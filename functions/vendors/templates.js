@@ -46,6 +46,7 @@ export const starterTemplates = {
   "php-wasm": "PHP (Wasm) Starter",
   "cpp": "C++ Starter",
   "cpp-wasm": "C++ (Wasm) Starter",
+  "zig": "Zig Starter",
   "java": "Java Starter",
   "csharp-wasm": "C# (Wasm) Starter",
   "fsharp": "F# Starter",
@@ -69,6 +70,5 @@ export const starterTemplates = {
   "prolog": "Prolog Starter",
   "minizinc": "MiniZinc Starter",
   "blockly": "Blockly Starter",
-  "diagrams": "Diagrams Starter",
-  "zig": "Zig Starter"
+  "diagrams": "Diagrams Starter"
 }
