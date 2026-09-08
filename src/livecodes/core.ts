@@ -5308,7 +5308,7 @@ const initializePlayground = async (
   const appConfig = options?.config ?? {};
   const codeImportConfig = importCompressedCode(importUrl);
   const sdkConfig = importCompressedCode(params.config ?? '');
-  const initialConfig = { ...codeImportConfig, ...appConfig, ...sdkConfig };
+  let initialConfig = { ...codeImportConfig, ...appConfig, ...sdkConfig };
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isHeadless = options?.isHeadless ?? false;
   isLite =
@@ -5325,8 +5325,21 @@ const initializePlayground = async (
 
   window.history.replaceState(null, '', './'); // fix URL from "/app" to "/"
   await initializeStores(stores, isEmbed);
+  
+  const activityId = params.activityId;
+  let activityConfig: Partial<Config> | undefined;
+  if (activityId) {
+    const existing = await stores.projects?.getItem(activityId);
+    if (existing) {
+      activityConfig = existing.config;
+      projectId = activityId;
+    } else {
+      projectId = activityId; // first save for this activity will create it under this id
+    }
+  }
+
   const userConfig = stores.userConfig?.getValue() ?? {};
-  setConfig(buildConfig({ ...getConfig(), ...userConfig, ...initialConfig }));
+  setConfig(buildConfig({ ...getConfig(), ...userConfig, ...initialConfig, ...activityConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = (window as any).compiler = await getCompiler({
     config: getConfig(),

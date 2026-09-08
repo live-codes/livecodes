@@ -1,4 +1,4 @@
-import { getPlaygroundUrl } from 'livecodes';
+import { getPlaygroundUrl as getPlaygroundUrlBase } from 'livecodes';
 import type { Config } from 'livecodes';
 
 
@@ -77,10 +77,33 @@ const SA_defaultConfig: Partial<Config> = {
     editorMode: undefined,
 };
 
+const custom1: Partial<Config> = {
+    markup: {
+        language: 'html',
+        content: 'bogus'
+    }
+};
 
-let url = getPlaygroundUrl({
-    appUrl: 'http://localhost:8080',
-    config: SA_defaultConfig,
-});
 
-console.log(url);
+function getPlaygroundUrl(appUrl: string, config: Partial<Config>, activityId?: string | null): string {
+    //call livecodes sdk to get base playground URL
+    const baseURL = getPlaygroundUrlBase({
+        appUrl: appUrl,
+        config: config, 
+    });
+
+    const url = new URL(baseURL);
+    
+    //append activity id
+    if (activityId && activityId.trim() !== '') {
+        url.searchParams.set('activityId', activityId);
+    } else {
+        url.searchParams.set('activityId', '0');
+    }
+    
+    return url.toString();
+}
+
+
+
+console.log(getPlaygroundUrl('http://localhost:8080', SA_defaultConfig, '1234'));
