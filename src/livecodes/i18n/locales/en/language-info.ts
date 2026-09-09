@@ -461,7 +461,7 @@ const languageInfo = {
   },
   zigWasm: {
     desc: 'Zig compiler running on WebAssembly.',
-    link: '<1> <2>Zig language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=Zig</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    link: '<1> <2>Zig website</2> </1> <3> <4>Zig language documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Zig</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Zig (Wasm)',
   },
 } as const satisfies I18nTranslationTemplate;

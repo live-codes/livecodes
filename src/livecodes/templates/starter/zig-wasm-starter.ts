@@ -40,7 +40,7 @@ export const zigWasmStarter: Template = {
       const counter = document.querySelector("#counter");
       const name = document.querySelector("#name");
 
-      const [title, count] = (output || 'zig\\n0').split('\\n');
+      const [title, count] = output.split('\\n');
 
       if (!isNaN(Number(count))) {
         window.count = count;
@@ -85,7 +85,6 @@ pub fn main() !void {
     const input = try stdin.readUntilDelimiterOrEof(&buf, '\\n');
     const count = try std.fmt.parseInt(i32, input.?, 10);
     try stdout.print("{}\\n", .{count + 1});
-
 }
 `.trimStart(),
   },

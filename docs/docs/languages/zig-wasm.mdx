@@ -13,41 +13,32 @@ export const zigConfig = {
   activeEditor: 'script',
   script: {
     language: 'zig-wasm',
-    content: `const std = @import("std");
-
+    content: `const std = @import("std");\n
 pub fn main() !void {
-    const stdout = std.io.getStdOut().writer();
-    
+    const stdout = std.io.getStdOut().writer();\n
     const sorted_array = [_]i32{ 1, 3, 5, 7, 9, 11, 13, 15 };
-    const item_to_search: i32 = 7;
-
-    const result = binarySearch(i32, &sorted_array, item_to_search);
-
+    const item_to_search: i32 = 7;\n
+    const result = binarySearch(i32, &sorted_array, item_to_search);\n
     if (result == -1) {
         try stdout.print("Result: Item not found in the array.\\n", .{});
     } else {
         try stdout.print("Result: Item found at index -> {}\\n", .{result});
     }
-}
-
+}\n
 fn binarySearch(comptime T: type, arr: []const T, item: T) i32 {
     var left: usize = 0;
-    var right: usize = arr.len;
-    
+    var right: usize = arr.len;\n
     while (left < right) {
-        const mid = left + (right - left) / 2;
-        
+        const mid = left + (right - left) / 2;\n
         if (arr[mid] == item) {
             return @intCast(mid);
-        }
-        
+        }\n
         if (arr[mid] > item) {
             right = mid;
         } else {
             left = mid + 1;
         }
-    }
-    
+    }\n
     return -1;
 }`,
   },
@@ -71,7 +62,7 @@ The Zig code runs in the context of the result page. A few helper properties and
 
 Example:
 
-<LiveCodes template="zig" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+<LiveCodes template="zig-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
 
 ## Language Info
 
@@ -105,21 +96,12 @@ By default, new code changes are sent to the result page for re-evaluation witho
 
 This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
 
-## Example Usage
-
-```zig
-const std = @import("std");
-
-pub fn main() !void {
-    const stdout = std.io.getStdOut().writer();
-    try stdout.print("Hello, LiveCodes Zig!\\n", .{});
-}
-```
-
 ## Starter Template
 
-https://livecodes.io/?template=zig
+https://livecodes.io/?template=zig-wasm
 
 ## Links
 
 - [Zig](https://ziglang.org/)
+- [Zig documentation](https://ziglang.org/documentation/master/index.html)
+

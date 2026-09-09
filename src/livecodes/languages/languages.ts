@@ -153,6 +153,7 @@ export const languages: LanguageSpecs[] = [
   phpWasm,
   cpp,
   cppWasm,
+  zigWasm,
   java,
   csharpWasm,
   fsharp,
@@ -175,5 +176,4 @@ export const languages: LanguageSpecs[] = [
   prolog,
   minizinc,
   blockly,
-  zigWasm,
 ];
