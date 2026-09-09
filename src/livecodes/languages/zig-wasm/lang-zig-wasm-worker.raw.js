@@ -1,3 +1,4 @@
+// @ts-nocheck
 (async function () {
   let ready = false;
   let wasi = null;
@@ -259,7 +260,6 @@
       self.postMessage({
         type: 'error',
         id: msg.id,
-        // @ts-ignore
         message: String((err && err.stack) || err),
       });
     }
@@ -275,7 +275,6 @@
     } catch (err) {
       self.postMessage({
         type: 'fatal',
-        // @ts-ignore
         message: String((err && err.stack) || err),
       });
     }
