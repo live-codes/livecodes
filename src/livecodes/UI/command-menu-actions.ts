@@ -302,6 +302,7 @@ export const getCommandMenuActions = ({
         'php-wasm',
         'cpp',
         'cpp-wasm',
+        'zig-wasm',
         'java',
         'csharp-wasm',
         'fsharp',
