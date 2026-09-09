@@ -140,6 +140,10 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
     Alias to [`activeEditor`](./configuration-object.mdx#activeeditor).
 
+  - `activityId`: `string`.
+
+    An id used to key this project's autosaved state in the browser's local storage, independent of the normal randomly-generated project id. On load, if a saved project already exists for this `activityId`, it is loaded instead of any starter code supplied via `config` or other query parameters. Not part of the [configuration object](./configuration-object.mdx) — it is not included in exported projects or generated share URLs.
+
   - `tools`: `"open" | "full" | "closed" | "console" | "compiled" | "tests" | "none"`
 
     The [tools pane](../features/tools-pane.mdx) status.

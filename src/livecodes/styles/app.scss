@@ -1821,7 +1821,7 @@ a.editor-title {
 }
 
 .focus-mode {
-  #app-menu-button-project,
+  //#app-menu-button-project,
   #app-menu-button-settings,
   #app-menu-button-help,
   .language-menu-button,
@@ -1837,6 +1837,15 @@ a.editor-title {
   .tools-pane-title:not(.console),
   .tool-buttons {
     visibility: hidden;
+  }
+
+  #deploy-li,
+  #broadcast-li,
+  #embed-li,
+  #share-li,
+  #custom-settings-li,
+  #external-resources-li {
+    display: none;
   }
 
   #focus-btn {

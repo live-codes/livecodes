@@ -1682,6 +1682,7 @@ export type UrlQueryParams = Partial<
       lite: boolean;
       x: string;
       files: string; // comma-separated files (e.g. import from GitHub dir)
+      activityId: string;
       raw: Language;
       language: Language;
       lang: Language;
