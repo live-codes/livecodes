@@ -113,18 +113,6 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Flow resmi web sitesi</2> </1> <3> <4>Flow dokümantasyonu</4> </3>',
     name: 'Flow',
   },
-  fsharp: {
-    desc1:
-      'F#, .NET platformunda çalışan, platformlar arası, açık kaynaklı bir işlevsel programlama dilidir.',
-    desc2: 'Burada, Fable kullanılarak JavaScript’e derlenir.',
-    link: '<1><2>F# resmi web sitesi</2></1> <3> <4>F# belgeleri</4> </3> <5> <6>Fable resmi web sitesi</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
-    name: 'F#',
-  },
-  fsharpWasm: {
-    desc: 'WebAssembly üzerinde çalışan gerçek F# derleyicisi ve .NET çalışma zamanı. <1></1>Bu, resmi F# derleyicisinin davranışıyla aynıdır. Ancak, sonuç sayfasında .NET WebAssembly çalışma zamanının indirilmesi gerekir; bu da ilk çalıştırmada biraz zaman alabilir.',
-    link: '<1><2>F# resmi web sitesi</2></1> <3> <4>F# belgeleri</4> </3> <5> <6>LiveCodes Belgeleri</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
-    name: 'F# (Wasm)',
-  },
   gleam: {
     desc1:
       'Gleam, ölçeklenebilen, tür-güvenli sistemler oluşturmak için kullanımı kolay bir dildir!',

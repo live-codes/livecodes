@@ -112,17 +112,6 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Flow 官方网站</2> </1> <3> <4>Flow 文档</4> </3>',
     name: 'Flow',
   },
-  fsharp: {
-    desc1: 'F# 是一种基于 .NET 平台的跨平台、开源函数式编程语言。',
-    desc2: '这里，它使用 Fable 编译成了 JavaScript。',
-    link: '<1><2>F# 官方网站</2></1> <3> <4>F# 文档</4> </3> <5> <6>Fable 官方网站</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
-    name: 'F#',
-  },
-  fsharpWasm: {
-    desc: '在 WebAssembly 上运行的真实 F# 编译器和 .NET 运行时。<1></1>这与官方 F# 编译器的行为一致。不过，需要在结果页面下载 .NET WebAssembly 运行时，首次运行时可能需要一些时间。',
-    link: '<1><2>F# 官方网站</2></1> <3> <4>F# 文档</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
-    name: 'F# (Wasm)',
-  },
   gleam: {
     desc1: 'Gleam 是一种对构建可扩展的类型安全系统友好的编程语言！',
     desc2: 'Gleam 是一种静态类型的函数式编程语言，可编译为 Erlang 或 JavaScript。',

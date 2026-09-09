@@ -114,18 +114,6 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi Flow</2> </1> <3> <4>Dokumentasi Flow</4> </3>',
     name: 'Flow',
   },
-  fsharp: {
-    desc1:
-      'F# adalah bahasa pemrograman fungsional lintas platform dan sumber terbuka yang berjalan di platform .NET.',
-    desc2: 'Di sini, kode tersebut dikompilasi menjadi JavaScript menggunakan Fable.',
-    link: '<1><2>Situs web resmi F#</2></1> <3> <4>Dokumentasi F#</4> </3> <5> <6>Situs web resmi Fable</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
-    name: 'F#',
-  },
-  fsharpWasm: {
-    desc: 'Kompiler F# asli dan runtime .NET yang berjalan di WebAssembly. <1></1>Hal ini sesuai dengan perilaku kompiler F# resmi. Namun, runtime .NET WebAssembly perlu diunduh di halaman hasil, yang mungkin membutuhkan waktu cukup lama saat dijalankan untuk pertama kalinya.',
-    link: '<1><2>Situs web resmi F#</2></1> <3> <4>Dokumentasi F#</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat templat awal</8> </7>',
-    name: 'F# (Wasm)',
-  },
   gleam: {
     desc1: 'Gleam adalah bahasa ramah untuk membangun sistem yang aman dan dapat diskalakan!',
     desc2:

@@ -995,8 +995,6 @@ const translation: I18nTranslation = {
       daisyui: 'Starter daisyUI',
       diagrams: 'Starter Diagrammi',
       fennel: 'Starter Fennel',
-      fsharp: 'Starter F#',
-      'fsharp-wasm': 'Starter F# (Wasm)',
       gleam: 'Starter Gleam',
       go: 'Starter Go',
       'go-wasm': 'Starter Go (Wasm)',
