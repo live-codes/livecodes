@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const zigWasmStarter: Template = {
   name: 'zig-wasm',
-  title: 'Zig (Wasm) Starter',
+  title: window.deps.translateString('templates.starter.zig-wasm', 'Zig (Wasm) Starter'),
   thumbnail: 'assets/templates/zig.svg',
   activeEditor: 'script',
   markup: {
