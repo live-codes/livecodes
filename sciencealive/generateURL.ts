@@ -98,7 +98,6 @@ function getPlaygroundUrl(appUrl: string, config: Partial<Config>, activityId?: 
     if (activityId && activityId.trim() !== '') {
         url.searchParams.set('activityId', activityId);
     } else {
-        url.searchParams.set('activityId', '0');
     }
     
     return url.toString();
