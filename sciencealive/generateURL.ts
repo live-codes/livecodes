@@ -28,7 +28,7 @@ const SA_defaultConfig: Partial<Config> = {
     view: 'split',
     mode: 'focus',
     theme: 'dark',
-    themeColor: undefined,
+    themeColor: 'hsl(42,%2022%,%2091%)',
     recoverUnsaved: true,
     welcome: false,
     readonly: false,

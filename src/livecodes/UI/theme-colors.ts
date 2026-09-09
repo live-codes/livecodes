@@ -6,5 +6,6 @@ export const themeColors = [
   { name: 'red', themeColor: 'hsl(0, 40%, 50%)' },
   { name: 'violet', themeColor: 'hsl(262, 40%, 50%)' },
   { name: 'slate', themeColor: 'hsl(220, 20%, 50%)' },
+  { name: 'SA', themeColor: 'hsl(42, 22%, 91%)'},
   { name: 'custom', themeColor: undefined },
 ] as const;
