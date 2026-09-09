@@ -46,6 +46,7 @@ export const starterTemplates = {
   "php-wasm": "PHP (Wasm) Starter",
   "cpp": "C++ Starter",
   "cpp-wasm": "C++ (Wasm) Starter",
+  "zig-wasm": "Zig (Wasm) Starter",
   "java": "Java Starter",
   "csharp-wasm": "C# (Wasm) Starter",
   "fsharp": "F# Starter",

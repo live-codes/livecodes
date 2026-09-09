@@ -279,6 +279,8 @@ export const jsclUrl = /* @__PURE__ */ getUrl(
   'gh:jscl-project/jscl-project.github.io@058adc599f0d012718ef3ad28e704a92c4dd741e/jscl.js',
 );
 
+export const jsUntarUrl = /* @__PURE__ */ getUrl('js-untar@2.0.0/build/dist/untar.js');
+
 export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
@@ -488,8 +490,12 @@ export const vueSfcLoaderCdnBaseUrl = /* @__PURE__ */ getUrl('vue3-sfc-loader@0.
 
 export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.35/index.js');
 
+export const wasiShimUrl = /* @__PURE__ */ getUrl('@bjorn3/browser_wasi_shim@0.3.0/dist/index.js');
+
 export const wasmoonUrl = /* @__PURE__ */ getUrl('wasmoon@1.16.0/dist/index.js');
 
 export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');
 
 export const webRBaseUrl = /* @__PURE__ */ getUrl('webr@0.4.0/dist/');
+
+export const zigWasmBaseUrl = /* @__PURE__ */ getUrl('@seth0x41/zig-wasm@1.0.0/');
