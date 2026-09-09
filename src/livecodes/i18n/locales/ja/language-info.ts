@@ -136,7 +136,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go（Golang）は、シンプルで信頼性が高く効率的なソフトウェアを簡単に構築できるオープンソースのプログラミング言語です。',
     desc2: 'ここでは、GopherJS を使用して JavaScript にコンパイルされます。',
-    link: '<1><2>Go ウェブサイト</2></1> <3><4>Go ドキュメント</4></3> <5> <6>GopherJS リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=Go</8> </7> <9><10>スターターテンプレートを読み込む</10></9>',
+    link: '<1><2>Go ウェブサイト</2></1> <3><4>Go ドキュメント</4></3> <5> <6>GopherJS リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=Go</8> </7> <9> <10>LiveCodes ドキュメント</10> </9> <11> <12>スターターテンプレートを読み込む</12> </11>',
     name: 'Go',
   },
   goWasm: {
@@ -161,7 +161,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'DoppioJVMを使ってブラウザで動作するJVM。',
-    link: '<1> <2>Java公式サイト    DoppioJVM    XをY分で学ぶ、X=Java    スターターテンプレートのロード</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
+    link: '<1> <2>Java公式サイト</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>XをY分で学ぶ、X=Java</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートのロード</10> </9>',
     name: 'Java',
   },
   javascript: {
