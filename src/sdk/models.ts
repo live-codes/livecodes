@@ -406,7 +406,7 @@ export type TemplateName =
   | 'csharp-wasm'
   | 'fsharp'
   | 'fsharp-wasm'
-  | 'zig'
+  | 'zig-wasm'
   | 'perl'
   | 'lua'
   | 'lua-wasm'

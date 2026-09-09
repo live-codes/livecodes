@@ -1,8 +1,8 @@
 import type { Template } from '../../models';
 
 export const zigWasmStarter: Template = {
-  name: 'zig',
-  title: 'Zig Starter',
+  name: 'zig-wasm',
+  title: 'Zig (Wasm) Starter',
   thumbnail: 'assets/templates/zig.svg',
   activeEditor: 'script',
   markup: {
@@ -23,31 +23,7 @@ export const zigWasmStarter: Template = {
     const button = document.querySelector("#counter-button");
 
     // wait till loaded
-    try {
-      await livecodes.zig.loaded;
-    } catch {
-      // failed to initialize the Zig environment; show the error and enable retry
-      const counter = document.querySelector("#counter");
-      const name = document.querySelector("#name");
-      counter.innerText = "failed";
-      name.innerText = "Error";
-      button.innerText = "Retry";
-      button.disabled = false;
-      button.onclick = async () => {
-        button.disabled = true;
-        button.innerText = "Loading...";
-        const {output, error, exitCode} = await livecodes.zig.run(window.count);
-        if (error) {
-          counter.innerText = "failed";
-          name.innerText = "Error";
-          button.innerText = "Retry";
-          button.disabled = false;
-        } else {
-          update(output);
-        }
-      };
-      return;
-    }
+    await livecodes.zig.loaded;
 
     // get initial output
     const initialOutput = livecodes.zig.output;
@@ -64,10 +40,9 @@ export const zigWasmStarter: Template = {
       const counter = document.querySelector("#counter");
       const name = document.querySelector("#name");
 
-      const [title, count] = output.split('\\n');
+      const [title, count] = (output || 'zig\\n0').split('\\n');
 
-      const parsedCount = parseInt(count, 10);
-      if (!Number.isNaN(parsedCount)) {
+      if (!isNaN(Number(count))) {
         window.count = count;
         counter.innerText = window.count;
       }
@@ -79,7 +54,6 @@ export const zigWasmStarter: Template = {
     }
   });
 </script>
-
 `.trimStart(),
   },
   style: {

@@ -3,6 +3,7 @@ import { getErrorMessage, loadScript } from '../../utils/utils';
 import { jsUntarUrl, wasiShimUrl, zigWasmBaseUrl } from '../../vendors';
 
 livecodes.zig ??= {};
+livecodes.zig.ready = false;
 
 // check if SharedArrayBuffer supported by the browser else it will use ArrayBuffer
 const isSharedArrayBufferSupported = typeof SharedArrayBuffer !== 'undefined';
@@ -126,7 +127,7 @@ const createZigCompilationCache = () => {
 
 const compilationCache = createZigCompilationCache();
 
-let untar: any;
+let untar: any = livecodes.zig.untar;
 let wasi: {
   WASI: any;
   File: any;
@@ -134,17 +135,17 @@ let wasi: {
   OpenFile: any;
   PreopenDirectory: any;
   ConsoleStdout: any;
-};
+} = livecodes.zig.wasi;
 
 const ensureDependencies = async (): Promise<void> => {
   if (!untar) {
     await loadScript(jsUntarUrl, 'untar');
-    untar = (window as any).untar;
+    untar = livecodes.zig.untar = (window as any).untar;
     if (!untar) throw new Error('js-untar failed to load');
   }
 
   if (!wasi) {
-    wasi = await import(wasiShimUrl);
+    wasi = livecodes.zig.wasi = await import(wasiShimUrl);
   }
 };
 
@@ -413,7 +414,7 @@ const failLoaded = (error: unknown) => {
 // start loading the Zig environment (the run function also ensures it on demand)
 ensureZigInit();
 
-livecodes.zig.loaded ??= new Promise<void>((resolve, reject) => {
+livecodes.zig.loaded = new Promise<void>((resolve, reject) => {
   loadedReject = reject;
   const check = () => {
     if (livecodes.zig.failed) {
