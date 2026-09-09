@@ -803,5 +803,14 @@
   },
   "wat.name": {
     "translation": "WebAssembly ٹیکسٹ فارمیٹ"
+  },
+  "zigWasm.desc": {
+    "translation": "Zig کمپائلر WebAssembly پر چل رہا ہے۔"
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>زیگ ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>زیگ زبان کی دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>X=Zig — زیگ کو چند منٹوں میں سیکھیں</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>اسٹارٹر ٹیمپلیٹ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

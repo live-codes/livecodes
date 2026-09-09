@@ -1049,6 +1049,7 @@ const translation: I18nTranslation = {
       vue: 'Vue SFC Başlangıç',
       vue2: 'Vue 2 Başlangıç',
       wat: 'WebAssembly Text Başlangıç',
+      'zig-wasm': 'Zig (Wasm) Başlangıç',
     },
     user: {
       heading: 'Şablonlarım',

@@ -1048,6 +1048,7 @@ const translation: I18nTranslation = {
       vue: 'ویو شروعاتی',
       vue2: 'ویو 2 شروعاتی',
       wat: 'ویب اسمبلی ٹیکسٹ شروعاتی',
+      'zig-wasm': 'Zig (واسم) شروعاتی',
     },
     user: {
       heading: 'میرے سانچے',

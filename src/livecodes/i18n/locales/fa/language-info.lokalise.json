@@ -803,5 +803,14 @@
   },
   "wat.name": {
     "translation": "فرمت متنی WebAssembly"
+  },
+  "zigWasm.desc": {
+    "translation": "کامپایلر Zig که روی WebAssembly اجرا می‌شود."
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>وبسایت زیگ</tag-2> </tag-1> <tag-3> <tag-4>مستندات زبان زیگ</tag-4> </tag-3> <tag-5> <tag-6>زبان زیگ را در چند دقیقه بیاموزید</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

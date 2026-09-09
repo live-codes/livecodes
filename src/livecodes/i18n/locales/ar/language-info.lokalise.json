@@ -803,5 +803,14 @@
   },
   "wat.name": {
     "translation": "تنسيق نص WebAssembly"
+  },
+  "zigWasm.desc": {
+    "translation": "مترجم Zig يعمل على WebAssembly."
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>موقع Zig</tag-2> </tag-1> <tag-3> <tag-4>وثائق لغة Zig</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقيقة، حيث X = Zig</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البداية</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

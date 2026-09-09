@@ -446,6 +446,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>WebAssembly.org</2></1> <3> <4> WebAssembly 文本规范</4> </3> <5> <6> MDN 上的 WebAssembly</6> </5> <7> <8> 理解 WebAssembly 文本格式</8> </7> <9> <10> wabt.js 文档</10> </9> <11> <12> 在 Y 分钟内学习 X，其中 X=WebAssembly</12> </11> <13> <14> 加载启动模板</14> </13>',
     name: 'WebAssembly 文本格式',
   },
+  zigWasm: {
+    desc: '在 WebAssembly 上运行的 Zig 编译器。',
+    link: '<1> <2>Zig 网站</2> </1> <3> <4>Zig 语言文档</4> </3> <5> <6>Y分钟掌握X，其中X=Zig</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Zig (Wasm)',
+  },
 };
 
 export default languageInfo;

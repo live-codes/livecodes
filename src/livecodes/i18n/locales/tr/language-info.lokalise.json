@@ -803,5 +803,14 @@
   },
   "wat.name": {
     "translation": "WebAssembly Metin Formatı"
+  },
+  "zigWasm.desc": {
+    "translation": "WebAssembly üzerinde çalışan Zig derleyicisi."
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>Zig web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Zig dil belgeleri</tag-4> </tag-3> <tag-5> <tag-6>Y dakikada X'i öğrenin, burada X=Zig</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

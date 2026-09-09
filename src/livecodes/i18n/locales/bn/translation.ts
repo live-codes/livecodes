@@ -1048,6 +1048,7 @@ const translation: I18nTranslation = {
       vue: 'Vue SFC স্টার্টার',
       vue2: 'Vue 2 স্টার্টার',
       wat: 'WebAssembly Text স্টার্টার',
+      'zig-wasm': 'Zig (Wasm) স্টার্টার',
     },
     user: {
       heading: 'আমার টেমপ্লেট',

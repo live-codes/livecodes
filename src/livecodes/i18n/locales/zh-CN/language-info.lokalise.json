@@ -803,5 +803,14 @@
   },
   "wat.name": {
     "translation": "WebAssembly 文本格式"
+  },
+  "zigWasm.desc": {
+    "translation": "在 WebAssembly 上运行的 Zig 编译器。"
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>Zig 网站</tag-2> </tag-1> <tag-3> <tag-4>Zig 语言文档</tag-4> </tag-3> <tag-5> <tag-6>Y分钟掌握X，其中X=Zig</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

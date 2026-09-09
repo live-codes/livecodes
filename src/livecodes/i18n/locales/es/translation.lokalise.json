@@ -2127,6 +2127,9 @@
   "templates.starter.wat": {
     "translation": "Inicio WebAssembly Text"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "Inicio Zig (Wasm)"
+  },
   "templates.user.heading": {
     "translation": "Mis Plantillas"
   },

@@ -452,6 +452,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>WebAssembly.org</2></1> <3> <4>مشخصات متنی WebAssembly</4> </3> <5> <6>WebAssembly در MDN</6> </5> <7> <8>درک فرمت متنی WebAssembly</8> </7> <9> <10>مستندات wabt.js</10> </9> <11> <12>یادگیری X در Y دقیقه، جایی که X=WebAssembly</12> </11> <13> <14>بارگذاری قالب شروع کننده</14> </13>',
     name: 'فرمت متنی WebAssembly',
   },
+  zigWasm: {
+    desc: 'کامپایلر Zig که روی WebAssembly اجرا می‌شود.',
+    link: '<1> <2>وبسایت زیگ</2> </1> <3> <4>مستندات زبان زیگ</4> </3> <5> <6>زبان زیگ را در چند دقیقه بیاموزید</6> </5> <7> <8>مستندات LiveCodes</8> </7> <9> <10>بارگذاری قالب شروع</10> </9>',
+    name: 'Zig (Wasm)',
+  },
 };
 
 export default languageInfo;
