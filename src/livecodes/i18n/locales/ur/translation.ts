@@ -994,6 +994,8 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUI شروعاتی',
       diagrams: 'ڈایاگرامز شروعاتی',
       fennel: 'فینل شروعاتی',
+      fsharp: 'F# شروعاتی',
+      'fsharp-wasm': 'F# (واسم) شروعاتی',
       gleam: 'گلیم شروعاتی',
       go: 'گو شروعاتی',
       'go-wasm': 'گو (واسم) شروعاتی',
