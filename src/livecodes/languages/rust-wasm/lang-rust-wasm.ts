@@ -1,10 +1,17 @@
 import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
 import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
+import { parserPlugins } from '../prettier';
 
 export const rustWasm: LanguageSpecs = {
   name: 'rust-wasm',
   title: 'Rust (Wasm)',
+  formatter: {
+    prettier: {
+      name: 'rust',
+      pluginUrls: [parserPlugins.rust],
+    },
+  },
   compiler: {
     factory: () => async (code) => code,
     scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-rust-wasm-script.js}}'],

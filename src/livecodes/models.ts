@@ -99,6 +99,7 @@ export type ParserName =
   | 'php'
   | 'pug'
   | 'java'
+  | 'rust'
   | 'minizinc';
 
 export interface PrettierParser {
