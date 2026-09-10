@@ -238,7 +238,7 @@
     "translation": "یہاں، یہ گوفر جے ایس کا استعمال کرتے ہوئے جاوا اسکرپٹ میں کمپائل کیا جاتا ہے۔"
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>گو ویب سائٹ</tag-2></tag-1> <tag-3><tag-4>گو دستاویزات</tag-4></tag-3> <tag-5> <tag-6>گوفر جے ایس ریپو</tag-6> </tag-5> <tag-7> <tag-8>X کو Y منٹ میں سیکھیں، جہاں X=گو</tag-8> </tag-7> <tag-9><tag-10>ابتدائی سانچہ لوڈ کریں</tag-10></tag-9>"
+    "translation": "<tag-1><tag-2>گو ویب سائٹ</tag-2></tag-1> <tag-3><tag-4>گو دستاویزات</tag-4></tag-3> <tag-5> <tag-6>گوفر جے ایس ریپو</tag-6> </tag-5> <tag-7> <tag-8>X کو Y منٹ میں سیکھیں، جہاں X=گو</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes دستاویزات</tag-10> </tag-9> <tag-11> <tag-12>ابتدائی سانچہ لوڈ کریں</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "گو"
@@ -283,7 +283,7 @@
     "translation": "DoppioJVM کا استعمال کرتے ہوئے براؤزر میں JVM چل رہا ہے۔"
   },
   "java.link": {
-    "translation": "<tag-1> <tag-2> Java آفیشل ویب سائٹ </tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM </tag-4> </tag-3> <tag-5> <tag-6> Y منٹ میں X سیکھیں، جہاں X=java </tag-6> </tag-5> <tag-7> <tag-8> </tag-8> </tag-7> شروع کریں"
+    "translation": "<tag-1> <tag-2>Java آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Y منٹ میں X سیکھیں، جہاں X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>ابتدائی سانچہ لوڈ کریں</tag-10> </tag-9>"
   },
   "java.name": {
     "translation": "Java"
@@ -301,7 +301,7 @@
     "translation": "جنجا ایک تیز، اظہار خیال، توسیع پذیر ٹیمپلیٹنگ انجن ہے."
   },
   "jinja.link": {
-    "translation": "<tag-1> <tag-2> آفیشل ویب سائٹ </tag-2> </tag-1> <tag-3> <tag-4> ٹیمپلیٹ دستاویزات </tag-4> </tag-3> <tag-5> <tag-6> JavaScript کا نفاذ </tag-6> </tag-5> <tag-7> <tag-8> LiveCodes Dog- </tag-7> > </tag-8>"
+    "translation": "<tag-1> <tag-2>آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>ٹیمپلیٹ دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>JavaScript کا نفاذ</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7>"
   },
   "jinja.name": {
     "translation": "Jinja"
@@ -803,5 +803,14 @@
   },
   "wat.name": {
     "translation": "WebAssembly ٹیکسٹ فارمیٹ"
+  },
+  "zigWasm.desc": {
+    "translation": "Zig کمپائلر WebAssembly پر چل رہا ہے۔"
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>زیگ ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>زیگ زبان کی دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>X=Zig — زیگ کو چند منٹوں میں سیکھیں</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>اسٹارٹر ٹیمپلیٹ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

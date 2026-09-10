@@ -238,7 +238,7 @@
     "translation": "Ici, il est compilé en JavaScript en utilisant GopherJS."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Site web de Go</tag-2></tag-1> <tag-3><tag-4>Documentation de Go</tag-4></tag-3> <tag-5> <tag-6>Dépôt GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Apprenez X en Y minutes, où X=Go</tag-8> </tag-7> <tag-9><tag-10>Charger le modèle de démarrage</tag-10></tag-9>"
+    "translation": "<tag-1><tag-2>Site web de Go</tag-2></tag-1> <tag-3><tag-4>Documentation de Go</tag-4></tag-3> <tag-5> <tag-6>Dépôt GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Apprenez X en Y minutes, où X=Go</tag-8> </tag-7> <tag-9> <tag-10>Documentation LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Charger le modèle de démarrage</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"
@@ -283,7 +283,7 @@
     "translation": "JVM fonctionnant dans le navigateur à l'aide de DoppioJVM."
   },
   "java.link": {
-    "translation": "<tag-1> <tag-2>Site officiel de Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Apprendre X en Y minutes, où X=java</tag-6> </tag-5> <tag-7> <tag-8> Charger le modèle de démarrage</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Site officiel de Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Apprendre X en Y minutes, où X=java</tag-6> </tag-5> <tag-7> <tag-8>Documentation LiveCodes</tag-8> </tag-7> <tag-9> <tag-10> Charger le modèle de démarrage</tag-10> </tag-9>"
   },
   "java.name": {
     "translation": "Java"
@@ -803,5 +803,14 @@
   },
   "wat.name": {
     "translation": "Format Texte WebAssembly"
+  },
+  "zigWasm.desc": {
+    "translation": "Compilateur Zig fonctionnant sur WebAssembly."
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>Site web de Zig</tag-2> </tag-1> <tag-3> <tag-4>Documentation du langage Zig</tag-4> </tag-3> <tag-5> <tag-6>Apprenez X en Y minutes, où X = Zig</tag-6> </tag-5> <tag-7> <tag-8>Documentation LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Charger un modèle de démarrage</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

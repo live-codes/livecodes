@@ -2127,6 +2127,9 @@
   "templates.starter.wat": {
     "translation": "WebAssembly Text Başlangıç"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "Zig (Wasm) Başlangıç"
+  },
   "templates.user.heading": {
     "translation": "Şablonlarım"
   },

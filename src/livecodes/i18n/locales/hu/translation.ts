@@ -1049,6 +1049,7 @@ const translation: I18nTranslation = {
       vue: 'Vue SFC kezdő',
       vue2: 'Vue 2 kezdő',
       wat: 'WebAssembly Text kezdő',
+      'zig-wasm': 'Zig (Wasm) kezdő',
     },
     user: {
       heading: 'Saját sablonok',

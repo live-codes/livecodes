@@ -2127,6 +2127,9 @@
   "templates.starter.wat": {
     "translation": "Starter WebAssembly Text"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "Starter Zig (Wasm)"
+  },
   "templates.user.heading": {
     "translation": "I Miei Modelli"
   },

@@ -803,5 +803,14 @@
   },
   "wat.name": {
     "translation": "WebAssembly Text Format"
+  },
+  "zigWasm.desc": {
+    "translation": "Zig-compiler die op WebAssembly draait."
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>Zig-website</tag-2> </tag-1> <tag-3> <tag-4>Documentatie over de taal Zig</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X = Zig</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }
