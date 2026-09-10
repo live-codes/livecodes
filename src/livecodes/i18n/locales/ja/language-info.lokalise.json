@@ -238,7 +238,7 @@
     "translation": "ここでは、GopherJS を使用して JavaScript にコンパイルされます。"
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Go ウェブサイト</tag-2></tag-1> <tag-3><tag-4>Go ドキュメント</tag-4></tag-3> <tag-5> <tag-6>GopherJS リポジトリ</tag-6> </tag-5> <tag-7> <tag-8>X分でYを学ぶ、X=Go</tag-8> </tag-7> <tag-9><tag-10>スターターテンプレートを読み込む</tag-10></tag-9>"
+    "translation": "<tag-1><tag-2>Go ウェブサイト</tag-2></tag-1> <tag-3><tag-4>Go ドキュメント</tag-4></tag-3> <tag-5> <tag-6>GopherJS リポジトリ</tag-6> </tag-5> <tag-7> <tag-8>X分でYを学ぶ、X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ドキュメント</tag-10> </tag-9> <tag-11> <tag-12>スターターテンプレートを読み込む</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"
@@ -283,7 +283,7 @@
     "translation": "DoppioJVMを使ってブラウザで動作するJVM。"
   },
   "java.link": {
-    "translation": "<tag-1> <tag-2>Java公式サイト    DoppioJVM    XをY分で学ぶ、X=Java    スターターテンプレートのロード</tag-2> </tag-1> <tag-3> <tag-4></tag-4> </tag-3> <tag-5> <tag-6></tag-6> </tag-5> <tag-7> <tag-8></tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Java公式サイト</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>XをY分で学ぶ、X=Java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートのロード</tag-10> </tag-9>"
   },
   "java.name": {
     "translation": "Java"
@@ -803,5 +803,14 @@
   },
   "wat.name": {
     "translation": "WebAssembly テキストフォーマット"
+  },
+  "zigWasm.desc": {
+    "translation": "WebAssembly上で動作するZigコンパイラ。"
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>Zigのウェブサイト</tag-2> </tag-1> <tag-3> <tag-4>Zig言語のドキュメント</tag-4> </tag-3> <tag-5> <tag-6>「XをY分で学ぶ」（X=Zig）</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートを読み込む</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

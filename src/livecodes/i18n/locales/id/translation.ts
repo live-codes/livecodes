@@ -1048,6 +1048,7 @@ const translation: I18nTranslation = {
       vue: 'Pemula Vue SFC',
       vue2: 'Pemula Vue 2',
       wat: 'Pemula Teks WebAssembly',
+      'zig-wasm': 'Pemula Zig (Wasm)',
     },
     user: {
       heading: 'Template Saya',

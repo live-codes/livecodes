@@ -803,5 +803,14 @@
   },
   "wat.name": {
     "translation": "WebAssembly টেক্সট ফরম্যাট"
+  },
+  "zigWasm.desc": {
+    "translation": "জিগ কম্পাইলার ওয়েবঅ্যাসেম্বলিতে চলছে।"
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>Zig ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>জিগ ল্যাঙ্গুয়েজ ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=Zig</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }
