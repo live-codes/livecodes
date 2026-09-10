@@ -14,7 +14,7 @@ export const defaultConfig: Config = {
   view: 'split',
   mode: 'full',
   theme: 'dark',
-  themeColor: undefined,
+  themeColor: 'hsl(42, 22%, 91%)',
   layout: 'responsive',
   editorTheme: undefined,
   appLanguage: undefined,
