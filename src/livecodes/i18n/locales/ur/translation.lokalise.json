@@ -1965,6 +1965,12 @@
   "templates.starter.fennel": {
     "translation": "فینل شروعاتی"
   },
+  "templates.starter.fsharp": {
+    "translation": "F# شروعاتی"
+  },
+  "templates.starter.fsharp-wasm": {
+    "translation": "F# (واسم) شروعاتی"
+  },
   "templates.starter.gleam": {
     "translation": "گلیم شروعاتی"
   },
@@ -2120,6 +2126,9 @@
   },
   "templates.starter.wat": {
     "translation": "ویب اسمبلی ٹیکسٹ شروعاتی"
+  },
+  "templates.starter.zig-wasm": {
+    "translation": "Zig (واسم) شروعاتی"
   },
   "templates.user.heading": {
     "translation": "میرے سانچے"

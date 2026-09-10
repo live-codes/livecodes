@@ -1965,6 +1965,12 @@
   "templates.starter.fennel": {
     "translation": "شروع کننده Fennel"
   },
+  "templates.starter.fsharp": {
+    "translation": "شروع کننده F#"
+  },
+  "templates.starter.fsharp-wasm": {
+    "translation": "شروع کننده F# (Wasm)"
+  },
   "templates.starter.gleam": {
     "translation": "شروع کننده Gleam"
   },
@@ -2120,6 +2126,9 @@
   },
   "templates.starter.wat": {
     "translation": "شروع کننده WebAssembly Text"
+  },
+  "templates.starter.zig-wasm": {
+    "translation": "شروع کننده Zig (Wasm)"
   },
   "templates.user.heading": {
     "translation": "قالب‌های من"

@@ -112,6 +112,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Flow 官方网站</2> </1> <3> <4>Flow 文档</4> </3>',
     name: 'Flow',
   },
+  fsharp: {
+    desc1: 'F# 是一种基于 .NET 平台的跨平台、开源函数式编程语言。',
+    desc2: '这里，它使用 Fable 编译成了 JavaScript。',
+    link: '<1><2>F# 官方网站</2></1> <3> <4>F# 文档</4> </3> <5> <6>Fable 官方网站</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'F#',
+  },
+  fsharpWasm: {
+    desc: '在 WebAssembly 上运行的真实 F# 编译器和 .NET 运行时。<1></1>这与官方 F# 编译器的行为一致。不过，需要在结果页面下载 .NET WebAssembly 运行时，首次运行时可能需要一些时间。',
+    link: '<1><2>F# 官方网站</2></1> <3> <4>F# 文档</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
+    name: 'F# (Wasm)',
+  },
   gleam: {
     desc1: 'Gleam 是一种对构建可扩展的类型安全系统友好的编程语言！',
     desc2: 'Gleam 是一种静态类型的函数式编程语言，可编译为 Erlang 或 JavaScript。',
@@ -121,7 +132,7 @@ const languageInfo: I18nLangInfoTranslation = {
   go: {
     desc1: 'Go（Golang）是一种开源编程语言，可以轻松构建简单、可靠、高效的软件。',
     desc2: '此处使用 GopherJS 将其编译为 JavaScript。',
-    link: '<1><2>Go 官方网站</2></1> <3><4>Go 文档</4></3> <5> <6>GopherJS 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=Go</8> </7> <9><10>加载启动模板</10></9>',
+    link: '<1><2>Go 官方网站</2></1> <3><4>Go 文档</4></3> <5> <6>GopherJS 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=Go</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
     name: 'Go',
   },
   goWasm: {
@@ -146,7 +157,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: '使用 DoppioJVM 在浏览器中运行的 JVM。',
-    link: '<1> <2>Java 官方网站    DoppioJVM    在 Y 分钟内学习 X，其中 X=java    加载启动模板</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
+    link: '<1> <2>Java 官方网站</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=java</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
     name: 'Java',
   },
   javascript: {
@@ -434,6 +445,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc2: '使用 wabt.js 将其转换为 wasm。',
     link: '<1><2>WebAssembly.org</2></1> <3> <4> WebAssembly 文本规范</4> </3> <5> <6> MDN 上的 WebAssembly</6> </5> <7> <8> 理解 WebAssembly 文本格式</8> </7> <9> <10> wabt.js 文档</10> </9> <11> <12> 在 Y 分钟内学习 X，其中 X=WebAssembly</12> </11> <13> <14> 加载启动模板</14> </13>',
     name: 'WebAssembly 文本格式',
+  },
+  zigWasm: {
+    desc: '在 WebAssembly 上运行的 Zig 编译器。',
+    link: '<1> <2>Zig 网站</2> </1> <3> <4>Zig 语言文档</4> </3> <5> <6>Y分钟掌握X，其中X=Zig</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Zig (Wasm)',
   },
 };
 

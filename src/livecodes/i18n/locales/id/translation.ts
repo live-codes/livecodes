@@ -994,6 +994,8 @@ const translation: I18nTranslation = {
       daisyui: 'Pemula daisyUI',
       diagrams: 'Pemula Diagram',
       fennel: 'Pemula Fennel',
+      fsharp: 'Pemula F#',
+      'fsharp-wasm': 'Pemula F# (Wasm)',
       gleam: 'Pemula Gleam',
       go: 'Pemula Go',
       'go-wasm': 'Pemula Go (Wasm)',
@@ -1046,6 +1048,7 @@ const translation: I18nTranslation = {
       vue: 'Pemula Vue SFC',
       vue2: 'Pemula Vue 2',
       wat: 'Pemula Teks WebAssembly',
+      'zig-wasm': 'Pemula Zig (Wasm)',
     },
     user: {
       heading: 'Template Saya',

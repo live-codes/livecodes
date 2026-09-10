@@ -113,6 +113,18 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Site officiel de Flow</2> </1> <3> <4>Documentation de Flow</4> </3>',
     name: 'Flow',
   },
+  fsharp: {
+    desc1:
+      "F# est un langage de programmation fonctionnel open source et multiplateforme qui s'exécute sur la plateforme .NET.",
+    desc2: "Ici, il est compilé en JavaScript à l'aide de Fable.",
+    link: '<1><2>Site officiel de F#</2></1> <3> <4>Documentation F#</4> </3> <5> <6>Site officiel de Fable</6> </5> <7> <8>Documentations LiveCodes</8> </7> <9> <10>Charger un modèle de démarrage</10> </9>',
+    name: 'F#',
+  },
+  fsharpWasm: {
+    desc: 'Le véritable compilateur F# et le runtime .NET fonctionnant sur WebAssembly. <1></1>Cela correspond au comportement du compilateur F# officiel. Cependant, le runtime .NET WebAssembly doit être téléchargé depuis la page de résultats, ce qui peut prendre un certain temps lors de la première exécution.',
+    link: '<1><2>Site officiel de F#</2></1> <3> <4>Documentation F#</4> </3> <5> <6>Documentation LiveCodes</6> </5> <7> <8>Charger un modèle de démarrage</8> </7>',
+    name: 'F# (Wasm)',
+  },
   gleam: {
     desc1:
       'Gleam est un langage convivial pour construire des systèmes sûrs au niveau des types qui peuvent évoluer !',
@@ -125,7 +137,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) est un langage de programmation open source qui facilite la création de logiciels simples, fiables et efficaces.',
     desc2: 'Ici, il est compilé en JavaScript en utilisant GopherJS.',
-    link: '<1><2>Site web de Go</2></1> <3><4>Documentation de Go</4></3> <5> <6>Dépôt GopherJS</6> </5> <7> <8>Apprenez X en Y minutes, où X=Go</8> </7> <9><10>Charger le modèle de démarrage</10></9>',
+    link: '<1><2>Site web de Go</2></1> <3><4>Documentation de Go</4></3> <5> <6>Dépôt GopherJS</6> </5> <7> <8>Apprenez X en Y minutes, où X=Go</8> </7> <9> <10>Documentation LiveCodes</10> </9> <11> <12>Charger le modèle de démarrage</12> </11>',
     name: 'Go',
   },
   goWasm: {
@@ -150,7 +162,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: "JVM fonctionnant dans le navigateur à l'aide de DoppioJVM.",
-    link: '<1> <2>Site officiel de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Apprendre X en Y minutes, où X=java</6> </5> <7> <8> Charger le modèle de démarrage</8> </7>',
+    link: '<1> <2>Site officiel de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Apprendre X en Y minutes, où X=java</6> </5> <7> <8>Documentation LiveCodes</8> </7> <9> <10> Charger le modèle de démarrage</10> </9>',
     name: 'Java',
   },
   javascript: {
@@ -440,6 +452,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc2: 'Il est converti en wasm en utilisant wabt.js.',
     link: '<1><2>WebAssembly.org</2></1> <3> <4>Spécifications du format texte WebAssembly</4> </3> <5> <6>WebAssembly sur MDN</6> </5> <7> <8>Comprendre le format texte WebAssembly</8> </7> <9> <10>Documentation wabt.js</10> </9> <11> <12>Apprenez X en Y minutes, où X=WebAssembly</12> </11> <13><14>Charger le modèle de démarrage</14></13>',
     name: 'Format Texte WebAssembly',
+  },
+  zigWasm: {
+    desc: 'Compilateur Zig fonctionnant sur WebAssembly.',
+    link: '<1> <2>Site web de Zig</2> </1> <3> <4>Documentation du langage Zig</4> </3> <5> <6>Apprenez X en Y minutes, où X = Zig</6> </5> <7> <8>Documentation LiveCodes</8> </7> <9> <10>Charger un modèle de démarrage</10> </9>',
+    name: 'Zig (Wasm)',
   },
 };
 

@@ -198,6 +198,27 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fsharp.desc1": {
+    "translation": "F# è un linguaggio di programmazione funzionale multipiattaforma e open source che gira sulla piattaforma .NET."
+  },
+  "fsharp.desc2": {
+    "translation": "Qui viene compilato in JavaScript utilizzando Fable."
+  },
+  "fsharp.link": {
+    "translation": "<tag-1><tag-2>Sito web ufficiale di F#</tag-2></tag-1> <tag-3> <tag-4>Documentazione di F#</tag-4> </tag-3> <tag-5> <tag-6>Sito web ufficiale di Fable</tag-6> </tag-5> <tag-7> <tag-8>Documentazione LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carica modello di avvio</tag-10> </tag-9>"
+  },
+  "fsharp.name": {
+    "translation": "F#"
+  },
+  "fsharpWasm.desc": {
+    "translation": "Il vero compilatore F# e il runtime .NET in esecuzione su WebAssembly. <tag-1></tag-1>Questo corrisponde al comportamento del compilatore F# ufficiale. Tuttavia, nella pagina dei risultati è necessario scaricare il runtime .NET per WebAssembly, operazione che può richiedere un po’ di tempo al primo avvio."
+  },
+  "fsharpWasm.link": {
+    "translation": "<tag-1><tag-2>Sito web ufficiale di F#</tag-2></tag-1> <tag-3> <tag-4>Documentazione di F#</tag-4> </tag-3> <tag-5> <tag-6>Documentazione di LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Carica il modello di avvio</tag-8> </tag-7>"
+  },
+  "fsharpWasm.name": {
+    "translation": "F# (Wasm)"
+  },
   "gleam.desc1": {
     "translation": "Gleam è un linguaggio amichevole per costruire sistemi type-safe che scalano!"
   },
@@ -217,7 +238,7 @@
     "translation": "Qui, viene compilato in JavaScript utilizzando GopherJS."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Sito web di Go</tag-2></tag-1> <tag-3><tag-4>Documentazione di Go</tag-4></tag-3> <tag-5> <tag-6>Repo di GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Impara X in Y minuti, dove X=Go</tag-8> </tag-7> <tag-9><tag-10>Carica modello di partenza</tag-10></tag-9>"
+    "translation": "<tag-1><tag-2>Sito web di Go</tag-2></tag-1> <tag-3><tag-4>Documentazione di Go</tag-4></tag-3> <tag-5> <tag-6>Repo di GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Impara X in Y minuti, dove X=Go</tag-8> </tag-7> <tag-9> <tag-10>Documentazione LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Carica modello di partenza</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"
@@ -262,7 +283,7 @@
     "translation": "JVM in esecuzione nel browser utilizzando DoppioJVM."
   },
   "java.link": {
-    "translation": "<tag-1> <tag-2>Sito ufficiale di Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Imparare X in Y minuti, dove X=java</tag-6> </tag-5> <tag-7> <tag-8> Caricare il modello iniziale</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Sito ufficiale di Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Imparare X in Y minuti, dove X=java</tag-6> </tag-5> <tag-7> <tag-8>Documentazione LiveCodes</tag-8> </tag-7> <tag-9> <tag-10> Caricare il modello iniziale</tag-10> </tag-9>"
   },
   "java.name": {
     "translation": "Java"
@@ -782,5 +803,14 @@
   },
   "wat.name": {
     "translation": "Formato testuale WebAssembly"
+  },
+  "zigWasm.desc": {
+    "translation": "Compilatore Zig in esecuzione su WebAssembly."
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>Sito web di Zig</tag-2> </tag-1> <tag-3> <tag-4>Documentazione sul linguaggio Zig</tag-4> </tag-3> <tag-5> <tag-6>Impara X in Y minuti, dove X = Zig</tag-6> </tag-5> <tag-7> <tag-8>Documentazione LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carica il modello di avvio</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

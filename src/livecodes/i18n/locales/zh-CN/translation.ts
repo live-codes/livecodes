@@ -992,6 +992,8 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUI 启动模板',
       diagrams: '图表启动模板',
       fennel: 'Fennel 启动模板',
+      fsharp: 'F# 启动模板',
+      'fsharp-wasm': 'F#（WASM）启动模板',
       gleam: 'Gleam 启动模板',
       go: 'Go 启动模板',
       'go-wasm': 'Go（WASM）启动模板',
@@ -1044,6 +1046,7 @@ const translation: I18nTranslation = {
       vue: 'Vue 单文件组件启动模板',
       vue2: 'Vue 2 启动模板',
       wat: 'WebAssembly 启动模板',
+      'zig-wasm': 'Zig（WASM）启动模板',
     },
     user: {
       heading: '我的模板',

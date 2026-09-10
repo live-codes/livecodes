@@ -995,6 +995,8 @@ const translation: I18nTranslation = {
       daisyui: 'شروع کننده daisyUI',
       diagrams: 'شروع کننده نمودارها',
       fennel: 'شروع کننده Fennel',
+      fsharp: 'شروع کننده F#',
+      'fsharp-wasm': 'شروع کننده F# (Wasm)',
       gleam: 'شروع کننده Gleam',
       go: 'شروع کننده Go',
       'go-wasm': 'شروع کننده Go (Wasm)',
@@ -1047,6 +1049,7 @@ const translation: I18nTranslation = {
       vue: 'شروع کننده Vue SFC',
       vue2: 'شروع کننده Vue 2',
       wat: 'شروع کننده WebAssembly Text',
+      'zig-wasm': 'شروع کننده Zig (Wasm)',
     },
     user: {
       heading: 'قالب‌های من',

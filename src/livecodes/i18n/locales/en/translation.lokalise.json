@@ -2952,6 +2952,10 @@
     "notes": "",
     "translation": "WebAssembly Text Starter"
   },
+  "templates.starter.zig-wasm": {
+    "notes": "",
+    "translation": "Zig (Wasm) Starter"
+  },
   "templates.user.heading": {
     "notes": "",
     "translation": "My Templates"

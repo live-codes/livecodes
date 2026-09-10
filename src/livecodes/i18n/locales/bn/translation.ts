@@ -994,6 +994,8 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUI স্টার্টার',
       diagrams: 'Diagrams স্টার্টার',
       fennel: 'Fennel স্টার্টার',
+      fsharp: 'F# স্টার্টার',
+      'fsharp-wasm': 'F# (Wasm) স্টার্টার',
       gleam: 'Gleam স্টার্টার',
       go: 'Go স্টার্টার',
       'go-wasm': 'Go (Wasm) স্টার্টার',
@@ -1046,6 +1048,7 @@ const translation: I18nTranslation = {
       vue: 'Vue SFC স্টার্টার',
       vue2: 'Vue 2 স্টার্টার',
       wat: 'WebAssembly Text স্টার্টার',
+      'zig-wasm': 'Zig (Wasm) স্টার্টার',
     },
     user: {
       heading: 'আমার টেমপ্লেট',

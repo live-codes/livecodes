@@ -113,6 +113,18 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Flow 公式ウェブサイト</2> </1> <3> <4>Flow ドキュメント</4> </3>',
     name: 'Flow',
   },
+  fsharp: {
+    desc1:
+      'F# は、.NET プラットフォーム上で動作する、クロスプラットフォームのオープンソース関数型プログラミング言語です。',
+    desc2: 'ここでは、Fable を使用して JavaScript にコンパイルされています。',
+    link: '<1><2>F# 公式サイト</2></1> <3> <4>F# ドキュメント</4> </3> <5> <6>Fable 公式サイト</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートの読み込み</10> </9>',
+    name: 'F#',
+  },
+  fsharpWasm: {
+    desc: 'WebAssembly上で動作する本物のF#コンパイラと.NETランタイム。<1></1>これは公式のF#コンパイラの動作と一致しています。ただし、検索結果ページから.NET WebAssemblyランタイムをダウンロードする必要があり、初回実行時には多少時間がかかる場合があります。',
+    link: '<1><2>F# 公式サイト</2></1> <3> <4>F# ドキュメント</4> </3> <5> <6>LiveCodes ドキュメント</6> </5> <7> <8>スターターテンプレートの読み込み</8> </7>',
+    name: 'F# (Wasm)',
+  },
   gleam: {
     desc1: 'Gleam は、スケーラブルな型安全システムを構築するためのフレンドリーな言語です！',
     desc2:
@@ -124,7 +136,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go（Golang）は、シンプルで信頼性が高く効率的なソフトウェアを簡単に構築できるオープンソースのプログラミング言語です。',
     desc2: 'ここでは、GopherJS を使用して JavaScript にコンパイルされます。',
-    link: '<1><2>Go ウェブサイト</2></1> <3><4>Go ドキュメント</4></3> <5> <6>GopherJS リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=Go</8> </7> <9><10>スターターテンプレートを読み込む</10></9>',
+    link: '<1><2>Go ウェブサイト</2></1> <3><4>Go ドキュメント</4></3> <5> <6>GopherJS リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=Go</8> </7> <9> <10>LiveCodes ドキュメント</10> </9> <11> <12>スターターテンプレートを読み込む</12> </11>',
     name: 'Go',
   },
   goWasm: {
@@ -149,7 +161,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'DoppioJVMを使ってブラウザで動作するJVM。',
-    link: '<1> <2>Java公式サイト    DoppioJVM    XをY分で学ぶ、X=Java    スターターテンプレートのロード</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
+    link: '<1> <2>Java公式サイト</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>XをY分で学ぶ、X=Java</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートのロード</10> </9>',
     name: 'Java',
   },
   javascript: {
@@ -440,6 +452,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc2: 'wabt.js を使用して wasm に変換されます。',
     link: '<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly テキスト仕様</4> </3> <5> <6>MDN の WebAssembly</6> </5> <7> <8>WebAssembly テキストフォーマットの理解</8> </7> <9> <10>wabt.js ドキュメント</10> </9> <11> <12>X分でYを学ぶ、X=WebAssembly</12> </11> <13><14>スターターテンプレートを読み込む</14></13>',
     name: 'WebAssembly テキストフォーマット',
+  },
+  zigWasm: {
+    desc: 'WebAssembly上で動作するZigコンパイラ。',
+    link: '<1> <2>Zigのウェブサイト</2> </1> <3> <4>Zig言語のドキュメント</4> </3> <5> <6>「XをY分で学ぶ」（X=Zig）</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
+    name: 'Zig (Wasm)',
   },
 };
 

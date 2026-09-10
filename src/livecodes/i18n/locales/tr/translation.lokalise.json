@@ -1965,6 +1965,12 @@
   "templates.starter.fennel": {
     "translation": "Fennel Başlangıç"
   },
+  "templates.starter.fsharp": {
+    "translation": "F# Başlangıç"
+  },
+  "templates.starter.fsharp-wasm": {
+    "translation": "F# (Wasm) Başlangıç"
+  },
   "templates.starter.gleam": {
     "translation": "Gleam Başlangıç"
   },
@@ -2120,6 +2126,9 @@
   },
   "templates.starter.wat": {
     "translation": "WebAssembly Text Başlangıç"
+  },
+  "templates.starter.zig-wasm": {
+    "translation": "Zig (Wasm) Başlangıç"
   },
   "templates.user.heading": {
     "translation": "Şablonlarım"

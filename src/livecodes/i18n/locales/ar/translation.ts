@@ -994,6 +994,8 @@ const translation: I18nTranslation = {
       daisyui: 'قالب daisyUI',
       diagrams: 'قالب الرسوم البيانية',
       fennel: 'قالب Fennel',
+      fsharp: 'قالب F#',
+      'fsharp-wasm': 'قالب F# (Wasm)',
       gleam: 'قالب Gleam',
       go: 'قالب Go',
       'go-wasm': 'قالب Go (Wasm)',
@@ -1046,6 +1048,7 @@ const translation: I18nTranslation = {
       vue: 'قالب Vue',
       vue2: 'قالب Vue 2',
       wat: 'قالب WebAssembly Text',
+      'zig-wasm': 'قالب Zig (Wasm)',
     },
     user: {
       heading: 'قوالبي',

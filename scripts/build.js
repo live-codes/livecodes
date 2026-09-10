@@ -231,6 +231,7 @@ const iifeBuild = () =>
       'languages/cpp-wasm/lang-cpp-wasm-script.ts',
       'languages/go-wasm/lang-go-wasm-script.ts',
       'languages/csharp-wasm/lang-csharp-wasm-script.ts',
+      'languages/zig-wasm/lang-zig-wasm-script.ts',
       'languages/dot/lang-dot-compiler.ts',
       'languages/ejs/lang-ejs-compiler.ts',
       'languages/eta/lang-eta-compiler.ts',

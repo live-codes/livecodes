@@ -1965,6 +1965,12 @@
   "templates.starter.fennel": {
     "translation": "Pemula Fennel"
   },
+  "templates.starter.fsharp": {
+    "translation": "Pemula F#"
+  },
+  "templates.starter.fsharp-wasm": {
+    "translation": "Pemula F# (Wasm)"
+  },
   "templates.starter.gleam": {
     "translation": "Pemula Gleam"
   },
@@ -2120,6 +2126,9 @@
   },
   "templates.starter.wat": {
     "translation": "Pemula Teks WebAssembly"
+  },
+  "templates.starter.zig-wasm": {
+    "translation": "Pemula Zig (Wasm)"
   },
   "templates.user.heading": {
     "translation": "Template Saya"

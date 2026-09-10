@@ -1094,6 +1094,7 @@ const translation = {
       vue: 'Vue SFC Starter',
       vue2: 'Vue 2 Starter',
       wat: 'WebAssembly Text Starter',
+      'zig-wasm': 'Zig (Wasm) Starter',
     },
     user: {
       heading: 'My Templates',

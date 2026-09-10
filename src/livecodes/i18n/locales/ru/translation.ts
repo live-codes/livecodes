@@ -994,6 +994,8 @@ const translation: I18nTranslation = {
       daisyui: 'Стартер daisyUI',
       diagrams: 'Стартер диаграмм',
       fennel: 'Стартер Fennel',
+      fsharp: 'Стартер F#',
+      'fsharp-wasm': 'Стартер F# (Wasm)',
       gleam: 'Стартер Gleam',
       go: 'Стартер Go',
       'go-wasm': 'Стартер Go (Wasm)',
@@ -1046,6 +1048,7 @@ const translation: I18nTranslation = {
       vue: 'Стартер Vue',
       vue2: 'Стартер Vue 2',
       wat: 'Стартер WebAssembly Text',
+      'zig-wasm': 'Стартер Zig (Wasm)',
     },
     user: {
       heading: 'Мои шаблоны',

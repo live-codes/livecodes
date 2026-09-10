@@ -995,6 +995,8 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUI-starter',
       diagrams: 'Diagrammen-starter',
       fennel: 'Fennel-starter',
+      fsharp: 'F#-starter',
+      'fsharp-wasm': 'F# (Wasm)-starter',
       gleam: 'Gleam-starter',
       go: 'Go-starter',
       'go-wasm': 'Go (Wasm)-starter',
@@ -1047,6 +1049,7 @@ const translation: I18nTranslation = {
       vue: 'Vue SFC-starter',
       vue2: 'Vue 2-starter',
       wat: 'WebAssembly Text-starter',
+      'zig-wasm': 'Zig (Wasm)-starter',
     },
     user: {
       heading: 'Mijn sjablonen',

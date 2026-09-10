@@ -995,6 +995,8 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUIスターター',
       diagrams: 'ダイアグラムスターター',
       fennel: 'Fennelスターター',
+      fsharp: 'F#スターター',
+      'fsharp-wasm': 'F#（Wasm）スターター',
       gleam: 'Gleamスターター',
       go: 'Goスターター',
       'go-wasm': 'Go（Wasm）スターター',
@@ -1047,6 +1049,7 @@ const translation: I18nTranslation = {
       vue: 'Vue スターター',
       vue2: 'Vue 2スターター',
       wat: 'WebAssembly Textスターター',
+      'zig-wasm': 'Zig（Wasm）スターター',
     },
     user: {
       heading: 'マイテンプレート',

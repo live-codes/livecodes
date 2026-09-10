@@ -113,6 +113,18 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Flow resmi web sitesi</2> </1> <3> <4>Flow dokümantasyonu</4> </3>',
     name: 'Flow',
   },
+  fsharp: {
+    desc1:
+      'F#, .NET platformunda çalışan, platformlar arası, açık kaynaklı bir işlevsel programlama dilidir.',
+    desc2: 'Burada, Fable kullanılarak JavaScript’e derlenir.',
+    link: '<1><2>F# resmi web sitesi</2></1> <3> <4>F# belgeleri</4> </3> <5> <6>Fable resmi web sitesi</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'F#',
+  },
+  fsharpWasm: {
+    desc: 'WebAssembly üzerinde çalışan gerçek F# derleyicisi ve .NET çalışma zamanı. <1></1>Bu, resmi F# derleyicisinin davranışıyla aynıdır. Ancak, sonuç sayfasında .NET WebAssembly çalışma zamanının indirilmesi gerekir; bu da ilk çalıştırmada biraz zaman alabilir.',
+    link: '<1><2>F# resmi web sitesi</2></1> <3> <4>F# belgeleri</4> </3> <5> <6>LiveCodes Belgeleri</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
+    name: 'F# (Wasm)',
+  },
   gleam: {
     desc1:
       'Gleam, ölçeklenebilen, tür-güvenli sistemler oluşturmak için kullanımı kolay bir dildir!',
@@ -440,6 +452,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc2: "wabt.js kullanılarak wasm'a dönüştürülür.",
     link: "<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Metin Özellikleri</4> </3> <5> <6>MDN'de WebAssembly</6> </5> <7> <8>WebAssembly metin formatını anlama</8> </7> <9> <10>wabt.js dokümantasyonu</10> </9> <11> <12>Y Dakikada X Öğrenin, X=WebAssembly</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>",
     name: 'WebAssembly Metin Formatı',
+  },
+  zigWasm: {
+    desc: 'WebAssembly üzerinde çalışan Zig derleyicisi.',
+    link: "<1> <2>Zig web sitesi</2> </1> <3> <4>Zig dil belgeleri</4> </3> <5> <6>Y dakikada X'i öğrenin, burada X=Zig</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    name: 'Zig (Wasm)',
   },
 };
 

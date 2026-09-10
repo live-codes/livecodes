@@ -113,6 +113,18 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Flow officiële website</2> </1> <3> <4>Flow documentatie</4> </3>',
     name: 'Flow',
   },
+  fsharp: {
+    desc1:
+      'F# is een platformonafhankelijke, open-source functionele programmeertaal die op het .NET-platform draait.',
+    desc2: 'Hier wordt het met behulp van Fable naar JavaScript gecompileerd.',
+    link: '<1><2>Officiële website van F#</2></1> <3> <4>F#-documentatie</4> </3> <5> <6>Officiële website van Fable</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Starterssjabloon laden</10> </9>',
+    name: 'F#',
+  },
+  fsharpWasm: {
+    desc: 'De echte F#-compiler en de .NET-runtime draaien op WebAssembly. <1></1>Dit komt overeen met het gedrag van de officiële F#-compiler. De .NET WebAssembly-runtime moet echter op de resultatenpagina worden gedownload, wat bij de eerste keer opstarten enige tijd kan duren.',
+    link: '<1><2>Officiële website van F#</2></1> <3> <4>F#-documentatie</4> </3> <5> <6>LiveCodes-documentatie</6> </5> <7> <8>Startersjabloon laden</8> </7>',
+    name: 'F# (Wasm)',
+  },
   gleam: {
     desc1: 'Gleam is een vriendelijke taal voor het bouwen van type-veilige systemen die schalen!',
     desc2:
@@ -439,6 +451,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc2: 'Het wordt geconverteerd naar wasm met wabt.js.',
     link: '<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Text Specs</4> </3> <5> <6>WebAssembly op MDN</6> </5> <7> <8>WebAssembly tekstformaat begrijpen</8> </7> <9> <10>wabt.js documentatie</10> </9> <11> <12>Leer X in Y minuten, waarbij X=WebAssembly</12> </11> <13> <14>Startsjabloon laden</14> </13>',
     name: 'WebAssembly Text Format',
+  },
+  zigWasm: {
+    desc: 'Zig-compiler die op WebAssembly draait.',
+    link: '<1> <2>Zig-website</2> </1> <3> <4>Documentatie over de taal Zig</4> </3> <5> <6>Leer X in Y minuten, waarbij X = Zig</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Starterssjabloon laden</10> </9>',
+    name: 'Zig (Wasm)',
   },
 };
 

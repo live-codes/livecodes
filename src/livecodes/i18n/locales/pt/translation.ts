@@ -995,6 +995,8 @@ const translation: I18nTranslation = {
       daisyui: 'Iniciante daisyUI',
       diagrams: 'Iniciante Diagrams',
       fennel: 'Iniciante Fennel',
+      fsharp: 'Iniciante F#',
+      'fsharp-wasm': 'Iniciante F# (Wasm)',
       gleam: 'Iniciante Gleam',
       go: 'Iniciante Go',
       'go-wasm': 'Iniciante Go (Wasm)',
@@ -1047,6 +1049,7 @@ const translation: I18nTranslation = {
       vue: 'Iniciante Vue',
       vue2: 'Iniciante Vue 2',
       wat: 'Iniciante WebAssembly Text',
+      'zig-wasm': 'Iniciante Zig (Wasm)',
     },
     user: {
       heading: 'Meus Modelos',

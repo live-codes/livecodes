@@ -87,6 +87,8 @@ import { vue, vueApp } from './vue';
 import { vue2 } from './vue2';
 import { wat } from './wat';
 import { yaml } from './yaml';
+import { zigWasm } from './zig-wasm';
+
 export const languages: LanguageSpecs[] = [
   html,
   markdown,
@@ -156,6 +158,7 @@ export const languages: LanguageSpecs[] = [
   phpWasm,
   cpp,
   cppWasm,
+  zigWasm,
   java,
   csharpWasm,
   fsharp,

@@ -110,6 +110,7 @@ export default function Sliders() {
       { name: 'prolog', title: 'Prolog' },
       { name: 'minizinc', title: 'MiniZinc' },
       { name: 'blockly', title: 'Blockly' },
+      { name: 'zig-wasm', title: 'Zig (Wasm)' },
     ],
   };
   const slides = ['markup', 'style', 'script'];

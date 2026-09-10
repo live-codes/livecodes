@@ -994,6 +994,8 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUI شروعاتی',
       diagrams: 'ڈایاگرامز شروعاتی',
       fennel: 'فینل شروعاتی',
+      fsharp: 'F# شروعاتی',
+      'fsharp-wasm': 'F# (واسم) شروعاتی',
       gleam: 'گلیم شروعاتی',
       go: 'گو شروعاتی',
       'go-wasm': 'گو (واسم) شروعاتی',
@@ -1046,6 +1048,7 @@ const translation: I18nTranslation = {
       vue: 'ویو شروعاتی',
       vue2: 'ویو 2 شروعاتی',
       wat: 'ویب اسمبلی ٹیکسٹ شروعاتی',
+      'zig-wasm': 'Zig (واسم) شروعاتی',
     },
     user: {
       heading: 'میرے سانچے',

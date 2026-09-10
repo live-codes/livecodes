@@ -994,6 +994,8 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUI स्टार्टर',
       diagrams: 'आरेख स्टार्टर',
       fennel: 'Fennel स्टार्टर',
+      fsharp: 'F# स्टार्टर',
+      'fsharp-wasm': 'F# (Wasm) स्टार्टर',
       gleam: 'Gleam स्टार्टर',
       go: 'Go स्टार्टर',
       'go-wasm': 'Go (Wasm) स्टार्टर',
@@ -1046,6 +1048,7 @@ const translation: I18nTranslation = {
       vue: 'Vue स्टार्टर',
       vue2: 'Vue 2 स्टार्टर',
       wat: 'WebAssembly Text स्टार्टर',
+      'zig-wasm': 'Zig (Wasm) स्टार्टर',
     },
     user: {
       heading: 'मेरे टेम्पलेट्स',

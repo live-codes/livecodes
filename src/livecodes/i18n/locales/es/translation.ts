@@ -994,6 +994,8 @@ const translation: I18nTranslation = {
       daisyui: 'Inicio daisyUI',
       diagrams: 'Inicio Diagramas',
       fennel: 'Inicio Fennel',
+      fsharp: 'Inicio F#',
+      'fsharp-wasm': 'Inicio F# (Wasm)',
       gleam: 'Inicio Gleam',
       go: 'Inicio Go',
       'go-wasm': 'Inicio Go (Wasm)',
@@ -1046,6 +1048,7 @@ const translation: I18nTranslation = {
       vue: 'Inicio Vue',
       vue2: 'Inicio Vue 2',
       wat: 'Inicio WebAssembly Text',
+      'zig-wasm': 'Inicio Zig (Wasm)',
     },
     user: {
       heading: 'Mis Plantillas',

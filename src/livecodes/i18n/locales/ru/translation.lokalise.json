@@ -1965,6 +1965,12 @@
   "templates.starter.fennel": {
     "translation": "Стартер Fennel"
   },
+  "templates.starter.fsharp": {
+    "translation": "Стартер F#"
+  },
+  "templates.starter.fsharp-wasm": {
+    "translation": "Стартер F# (Wasm)"
+  },
   "templates.starter.gleam": {
     "translation": "Стартер Gleam"
   },
@@ -2120,6 +2126,9 @@
   },
   "templates.starter.wat": {
     "translation": "Стартер WebAssembly Text"
+  },
+  "templates.starter.zig-wasm": {
+    "translation": "Стартер Zig (Wasm)"
   },
   "templates.user.heading": {
     "translation": "Мои шаблоны"

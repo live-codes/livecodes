@@ -995,6 +995,8 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUI kezdő',
       diagrams: 'Diagramok kezdő',
       fennel: 'Fennel kezdő',
+      fsharp: 'F# kezdő',
+      'fsharp-wasm': 'F# (Wasm) kezdő',
       gleam: 'Gleam kezdő',
       go: 'Go kezdő',
       'go-wasm': 'Go (Wasm) kezdő',
@@ -1047,6 +1049,7 @@ const translation: I18nTranslation = {
       vue: 'Vue SFC kezdő',
       vue2: 'Vue 2 kezdő',
       wat: 'WebAssembly Text kezdő',
+      'zig-wasm': 'Zig (Wasm) kezdő',
     },
     user: {
       heading: 'Saját sablonok',

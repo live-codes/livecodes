@@ -996,6 +996,8 @@ const translation: I18nTranslation = {
       daisyui: 'Démarrage daisyUI',
       diagrams: 'Démarrage Diagrammes',
       fennel: 'Démarrage Fennel',
+      fsharp: 'Démarrage F#',
+      'fsharp-wasm': 'Démarrage F# (Wasm)',
       gleam: 'Démarrage Gleam',
       go: 'Démarrage Go',
       'go-wasm': 'Démarrage Go (Wasm)',
@@ -1048,6 +1050,7 @@ const translation: I18nTranslation = {
       vue: 'Démarrage Vue',
       vue2: 'Démarrage Vue 2',
       wat: 'Démarrage WebAssembly Text',
+      'zig-wasm': 'Démarrage Zig (Wasm)',
     },
     user: {
       heading: 'Mes Modèles',
