@@ -836,6 +836,18 @@
     "notes": "",
     "translation": "Ruby (WASM)"
   },
+  "rustWasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://github.com/rust-lang/miri\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "Rust is interpreted by <tag-1>Miri</tag-1> (the Rust mid-level IR interpreter) compiled to WebAssembly, running entirely in the browser."
+  },
+  "rustWasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.rust-lang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://doc.rust-lang.org/book/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/rust/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/rust-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=rust-wasm\" class=\"button\" target=\"_parent\" data-template=\"rust-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>Rust official website</tag-2> </tag-1> <tag-3> <tag-4>The Rust Book</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=Rust</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "notes": "",
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "notes": "",
     "translation": "Syntactically Awesome Style Sheets."

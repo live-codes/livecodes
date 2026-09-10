@@ -429,6 +429,11 @@ export const rubyWasmScriptUrl = /* @__PURE__ */ getUrl(
   '@ruby/wasm-wasi@2.7.2/dist/browser.umd.js',
 );
 
+export const rustWasmUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/rust-wasm@0.2.0/dist/worker.iife.js',
+);
+export const wasmRustcBaseUrl = /* @__PURE__ */ getUrl('@live-codes/wasm-rustc@0.2.0/');
+
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 
 export const spacingJsUrl = /* @__PURE__ */ getUrl('spacingjs@1.0.7/dist/bundle.js');

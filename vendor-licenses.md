@@ -28,6 +28,8 @@ BiwaScheme: [MIT License](https://github.com/biwascheme/biwascheme/blob/7a95e757
 
 Blockly: [Apache-2.0 License](https://github.com/google/blockly/blob/3ae4a618429c87fc002e512e5a2504af382325fd/LICENSE)
 
+browser_wasi_shim: [MIT License](https://github.com/bjorn3/browser_wasi_shim/blob/b068ec2c22d68581c48f2592f8cca1681bf71a98/LICENSE-MIT) OR [Apache License 2.0](https://github.com/bjorn3/browser_wasi_shim/blob/b068ec2c22d68581c48f2592f8cca1681bf71a98/LICENSE-APACHE)
+
 BrowserFS: [MIT License](https://github.com/jvilk/BrowserFS/blob/76fd5122fcf3ad6bff3315550aafb041cfb6a72e/license.md)
 
 brython: [BSD-3-Clause license](https://github.com/brython-dev/brython/blob/c579e26d7e24c37c77f00fc345af0248ca6be8eb/LICENCE.txt)
@@ -156,6 +158,8 @@ MDX: [MIT License](https://github.com/mdx-js/mdx/blob/7fd1d9a4272754951e70dbaecf
 
 minizinc-js: [MPL-2.0 License](https://github.com/MiniZinc/minizinc-js/blob/3f7c34f0549195e5a66cf0f2d6f34cb5bce867f4/LICENSE)
 
+Miri: [MIT License](https://github.com/rust-lang/miri/blob/92ea60bf0effd37aea533cd19c9702c43b90abe7/LICENSE-MIT) OR [Apache License 2.0](https://github.com/rust-lang/miri/blob/92ea60bf0effd37aea533cd19c9702c43b90abe7/LICENSE-APACHE)
+
 MJML: [MIT License](https://github.com/mjmlio/mjml/blob/988819de3375867c09585d28f555166b97415200/LICENSE.md)
 
 Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f849d3f2653d1097652a7d9e1d01d242cc225da8/LICENSE.md)
@@ -245,6 +249,8 @@ reset.css: [The Unlicense](https://github.com/shannonmoeller/reset-css/blob/d4b2
 Riot: [MIT License](https://github.com/riot/riot/blob/2b08ebf8c7fa3f338d24b7320ee7f18c36b7ae74/LICENSE.txt)
 
 ruby.wasm: [MIT License](https://github.com/ruby/ruby.wasm/blob/097b7ca8d2ed2a98eea4dcf2da8089bb8ff06e07/LICENSE)
+
+Rust (compiler and standard library): [MIT License](https://github.com/rust-lang/rust/blob/018018e881e2db0956f229dbb543e21f058d1ce7/LICENSE-MIT) OR [Apache License 2.0](https://github.com/rust-lang/rust/blob/018018e881e2db0956f229dbb543e21f058d1ce7/LICENSE-APACHE)
 
 Sass.js: [MIT License](https://github.com/medialize/sass.js/blob/71d9bed2cad10969efda9905aa1bddacc480f372/LICENSE)
 

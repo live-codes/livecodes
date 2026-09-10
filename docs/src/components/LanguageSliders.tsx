@@ -88,6 +88,8 @@ export default function Sliders() {
       { name: 'php-wasm', title: 'PHP (Wasm)' },
       { name: 'cpp', title: 'C++' },
       { name: 'cpp-wasm', title: 'C++ (Wasm)' },
+      { name: 'rust-wasm', title: 'Rust (Wasm)' },
+      { name: 'zig-wasm', title: 'Zig (Wasm)' },
       { name: 'java', title: 'Java' },
       { name: 'csharp-wasm', title: 'C# (Wasm)' },
       { name: 'fsharp', title: 'F#' },
@@ -110,7 +112,6 @@ export default function Sliders() {
       { name: 'prolog', title: 'Prolog' },
       { name: 'minizinc', title: 'MiniZinc' },
       { name: 'blockly', title: 'Blockly' },
-      { name: 'zig-wasm', title: 'Zig (Wasm)' },
     ],
   };
   const slides = ['markup', 'style', 'script'];

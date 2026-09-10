@@ -242,6 +242,27 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
+  test('rust-wasm Starter', async ({ page, getTestUrl, editor }) => {
+    // the interpreter and the stdlib sysroot are downloaded on first run
+    test.setTimeout(300_000);
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Rust (Wasm) Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await expect(getResult().locator('#rust-output')).toContainText('sum = 88', {
+      timeout: 280_000,
+    });
+    await expect(getResult().locator('h1')).toHaveText('Rust (Wasm)');
+  });
+
   test('d3 Starter', async ({ page, getTestUrl, editor }) => {
     test.slow();
 
