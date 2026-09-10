@@ -262,7 +262,7 @@ livecodesApi.run = async function (input: string | undefined) {
   }
 };
 
-livecodesApi.loaded ??= new Promise<void>(function (resolve) {
+livecodesApi.loaded = new Promise<void>(function (resolve) {
   const interval = setInterval(function () {
     if (livecodesApi.ready) {
       clearInterval(interval);
