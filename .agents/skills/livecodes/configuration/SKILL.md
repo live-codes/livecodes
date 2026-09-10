@@ -347,7 +347,7 @@ Each editor config object supports:
 | `formatOnsave`   | `boolean`                                    | `false`                | Format code on save                        |
 | `layout`         | `"horizontal" \| "vertical" \| "responsive"` | `"responsive"`         | Editor layout                              |
 | `theme`          | `"light" \| "dark"`                          | `"dark"`               | App theme                                  |
-| `themeColor`     | `string`                                     | `"hsl(214, 40%, 50%)"` | App theme color                            |
+| `themeColor`     | `string`                                     | `'hsl(42, 22%, 91%)'` | App theme color                            |
 | `editorTheme`    | `string \| string[]`                         | —                      | Editor themes (see docs)                   |
 | `appLanguage`    | `string`                                     | —                      | UI language code (e.g., `"ar"`, `"zh-CN"`) |
 | `recoverUnsaved` | `boolean`                                    | `true`                 | Enable recovery of unsaved project         |
