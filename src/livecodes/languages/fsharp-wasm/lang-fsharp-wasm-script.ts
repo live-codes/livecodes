@@ -9,7 +9,7 @@ declare const window: Window & {
       ready?: boolean;
       init?: Promise<void> | null;
       run?: (source: string | undefined) => Promise<any>;
-      runner?: ReturnType<typeof createRunner>;
+      runner?: ReturnType<typeof createWorkerRunner>;
       loaded?: Promise<void>;
       input?: string;
       output?: string | null;
@@ -23,48 +23,8 @@ declare const window: Window & {
 const MAX_RUNS = 3;
 // Per-run timeout: if a compile never answers (hang), kill + respawn the worker.
 const RUN_TIMEOUT_MS = 30000;
-// Worker boot timeout: if it never becomes ready, fall back to main thread.
+// Worker boot timeout: if it never becomes ready, give up.
 const BOOT_TIMEOUT_MS = 60000;
-
-// ---- main-thread runner (fallback) -------------------------------------
-function createMainThreadRunner() {
-  const state: { ready: boolean; initPromise: Promise<void> | null; exports: any } = {
-    ready: false,
-    initPromise: null,
-    exports: null,
-  };
-
-  function init() {
-    if (state.ready) return Promise.resolve();
-    if (!state.initPromise) {
-      state.initPromise = (async function () {
-        const dotnetModule = await import(fsharpWasmBaseUrl + '_framework/dotnet.js');
-        const runtime = await dotnetModule.dotnet.withDiagnosticTracing(false).create();
-        const config = runtime.getConfig();
-        state.exports = await runtime.getAssemblyExports(config.mainAssemblyName);
-        await runtime.runMain();
-        state.ready = true;
-      })();
-    }
-    return state.initPromise;
-  }
-
-  function run(source: string, input?: string) {
-    return init().then(function () {
-      return state.exports.FSharpRunner.RunFsharp(String(source), String(input ?? '')).then(
-        JSON.parse,
-      );
-    });
-  }
-
-  return {
-    init,
-    run,
-    get ready() {
-      return state.ready;
-    },
-  };
-}
 
 // ---- worker runner -------------------------------------------------------
 function createWorkerRunner() {
@@ -91,7 +51,7 @@ function createWorkerRunner() {
         rejectReady = null;
       }
     } else if (msg.type === 'fatal') {
-      // Boot failed — tear down and reject init so the caller falls back.
+      // Boot failed — tear down so the next init spawns a fresh worker.
       if (worker) {
         worker.terminate();
         worker = null;
@@ -192,13 +152,13 @@ function createWorkerRunner() {
     });
   }
 
-  function run(source: string, input?: string) {
+  function run(source: string, input?: string): Promise<any> {
     try {
       ensureWorker();
     } catch (err) {
       return Promise.reject(err);
     }
-    return readyPromise?.then(function () {
+    return readyPromise!.then(function () {
       if (runsOnWorker >= MAX_RUNS) {
         // Respawn a fresh runtime before the next compile (avoid the hang).
         worker?.terminate();
@@ -237,52 +197,12 @@ function createWorkerRunner() {
   };
 }
 
-// ---- choose runner --------------------------------------------------------
-function isNode() {
-  return (
-    typeof process !== 'undefined' && process.versions != null && process.versions.node != null
-  );
-}
-
-function createRunner() {
-  const useWorker = !isNode() && typeof Worker === 'function';
-  let runner = useWorker ? createWorkerRunner() : null;
-  const mainRunner = createMainThreadRunner();
-  let fellBack = false;
-
-  function init() {
-    if (runner && !fellBack) {
-      return runner.init().catch(function (err) {
-        // eslint-disable-next-line no-console
-        console.error('F# worker unavailable, falling back to main thread:', err);
-        fellBack = true;
-        runner = null;
-        return mainRunner.init();
-      });
-    }
-    return mainRunner.init();
-  }
-
-  function run(source: string, input?: string) {
-    return init()?.then(function () {
-      return (runner && !fellBack ? runner : mainRunner).run(source, input);
-    });
-  }
-
-  return {
-    init,
-    run,
-    get ready() {
-      return runner && !fellBack ? runner.ready : mainRunner.ready;
-    },
-  };
-}
-
 // ---- LiveCodes integration ----------------------------------------------
 window.livecodes.fsharp ??= {};
 
 const livecodesApi = window.livecodes.fsharp;
-livecodesApi.runner ??= createRunner();
+livecodesApi.ready = false;
+livecodesApi.runner ??= createWorkerRunner();
 
 livecodesApi.init ??= (function () {
   if (livecodesApi.ready) return;
