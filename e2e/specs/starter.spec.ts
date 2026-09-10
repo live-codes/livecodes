@@ -243,7 +243,7 @@ test.describe('Starter Templates from UI', () => {
   });
 
   test('rust-wasm Starter', async ({ page, getTestUrl, editor }) => {
-    // the interpreter and the stdlib sysroot are downloaded on first run
+    // the interpreter and the stdlib sysroot are downloaded on the first run
     test.setTimeout(300_000);
 
     await page.goto(getTestUrl());
@@ -257,10 +257,17 @@ test.describe('Starter Templates from UI', () => {
     await waitForEditorFocus(app);
     await waitForResultUpdate();
 
-    await expect(getResult().locator('#rust-output')).toContainText('sum = 88', {
-      timeout: 280_000,
-    });
-    await expect(getResult().locator('h1')).toHaveText('Rust (Wasm)');
+    // the counter stays disabled until the runtime has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 280_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, Rust!');
+    // Each click triggers an asynchronous run, so the counter is asserted with
+    // retries rather than read once.
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
   test('d3 Starter', async ({ page, getTestUrl, editor }) => {

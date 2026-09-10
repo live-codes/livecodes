@@ -41,10 +41,11 @@ fn main() {
 
 The Rust code runs in the context of the result page. A few helper properties and methods are available in the browser global `livecodes.rust` object:
 
+- `livecodes.rust.input`: The standard input passed to the Rust program. It can be set before the initial run, or passed to `run` for subsequent runs.
 - `livecodes.rust.loaded`: A promise that resolves when the Rust environment (WebAssembly interpreter and standard library) is fully loaded (and rejects if it fails to load). Other helpers should be used after this promise resolves.
 - `livecodes.rust.output`: The standard output from the Rust code execution.
 - `livecodes.rust.exitCode`: The exit code of the last run.
-- `livecodes.rust.run`: A function that runs the Rust code again, returning a promise that resolves with an object containing the `output`, `error`, and `exitCode` properties.
+- `livecodes.rust.run`: A function that runs the Rust code again with new input. It takes a string as input and returns a promise that resolves with an object containing the `output`, `error`, and `exitCode` properties.
 
 Example:
 
@@ -66,7 +67,7 @@ Example:
 
 ## Compiler
 
-Miri, the Rust mid-level IR interpreter, compiled to WebAssembly. It is loaded and run inside a Web Worker in the result page, and reports compiler diagnostics, program output and exit codes.
+[Miri](https://github.com/rust-lang/miri), the Rust mid-level IR interpreter, compiled to WebAssembly.
 
 ### Version
 
@@ -79,7 +80,6 @@ Code formatting is not currently available for Rust.
 ## Limitations
 
 - Programs are single-file. Crates and external dependencies are not supported.
-- Standard input (`stdin`) is not available.
 - Execution is interpreted, so it is considerably slower than native Rust.
 - Threads (`std::thread`) are not supported.
 - Undefined-behaviour checks are disabled in this build, because a playground is interested in whether a program works rather than whether it is sound.

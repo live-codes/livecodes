@@ -430,7 +430,7 @@ export const rubyWasmScriptUrl = /* @__PURE__ */ getUrl(
 );
 
 export const rustWasmUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/rust-wasm@0.2.0/dist/worker.iife.js',
+  '@live-codes/rust-wasm@0.3.0/dist/worker.iife.js',
 );
 export const wasmRustcBaseUrl = /* @__PURE__ */ getUrl('@live-codes/wasm-rustc@0.2.0/');
 

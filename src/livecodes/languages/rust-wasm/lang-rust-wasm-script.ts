@@ -136,7 +136,7 @@ function createRunner() {
     await ready;
   }
 
-  function run(code: string): Promise<RunResult> {
+  function run(code: string, input: string): Promise<RunResult> {
     return ensureReady().then(
       () =>
         new Promise<RunResult>((resolve, reject) => {
@@ -148,7 +148,7 @@ function createRunner() {
             failAll(new Error('Rust execution timed out; the interpreter was restarted.'));
           }, RUN_TIMEOUT_MS);
           pending[id] = { resolve, reject, timer };
-          worker?.postMessage({ type: 'run', id, code });
+          worker?.postMessage({ type: 'run', id, code, input });
         }),
     );
   }
@@ -217,7 +217,7 @@ rust.run = async (input?: string) => {
   }
 
   try {
-    const result = await rust.runner!.run(code);
+    const result = await rust.runner!.run(code, `${input ?? ''}`);
     const stdout = result.stdout ?? '';
     // Compiler diagnostics and a program's own stderr both arrive here, which is
     // how rustc behaves natively, so they share one stream.
