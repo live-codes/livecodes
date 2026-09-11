@@ -89,7 +89,7 @@ function loadParser(language: Language): PrettierParser | undefined {
   return parser;
 }
 
-const loadFormatter = (language: Language): FormatFn | undefined => {
+const loadFormatter = async (language: Language): Promise<FormatFn | undefined> => {
   if (language in formatters) {
     return formatters[language];
   }
@@ -97,7 +97,7 @@ const loadFormatter = (language: Language): FormatFn | undefined => {
   const formatter = getFormatter(language);
   if (!formatter || !('factory' in formatter)) return;
 
-  formatters[language] = formatter.factory(baseUrl, language);
+  formatters[language] = await formatter.factory(baseUrl, language);
   return formatters[language];
 };
 
@@ -128,7 +128,7 @@ const format = async (
     );
   }
   if (getFormatter(language) != null) {
-    const formatFn = loadFormatter(language);
+    const formatFn = await loadFormatter(language);
     const result = await formatFn?.(value, cursorOffset);
     return result || unFormatted;
   }
