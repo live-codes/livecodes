@@ -6,14 +6,14 @@ export const scienceAliveStarter: Template = {
   title: 'Science Alive Starter',
   thumbnail: 'assets/templates/blank.svg',
   activeEditor: 'script',
-  languages: ['html', 'css', 'js', 'python'],
+  languages: ['html', 'css', 'py'],
 
   markup: {
     language: 'html',
     content: `
 <div class="container">
   <h1 id="header">Science Alive!</h1>
-  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/python.svg" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/wattson.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
@@ -40,7 +40,7 @@ export const scienceAliveStarter: Template = {
 from browser import document
 import time
 
-title = 'Python'
+title = 'Wattson'
 document['header'].html = f"Hello, {title}!"
 
 counter = 0

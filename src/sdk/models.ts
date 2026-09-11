@@ -866,7 +866,7 @@ export interface EditorConfig {
 
   /**
    * Sets the app theme color.
-   * If `undefined`, it is set to `"hsl(214, 40%, 50%)"`.
+   * If `undefined`, it is set to `'hsl(42, 22%, 91%)'`.
    * @default undefined
    */
   themeColor: string | undefined;

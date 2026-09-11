@@ -28,7 +28,7 @@ const SA_defaultConfig: Partial<Config> = {
     view: 'split',
     mode: 'focus',
     theme: 'dark',
-    themeColor: undefined,
+    themeColor: 'hsl(42, 22%, 91%)',
     recoverUnsaved: true,
     welcome: false,
     readonly: false,
@@ -93,6 +93,11 @@ function getPlaygroundUrl(appUrl: string, config: Partial<Config>, activityId?: 
     });
 
     const url = new URL(baseURL);
+
+    /* //append themeColour (passing through config as hsl breaks in encoding)
+    if (config.themeColor){
+        url.searchParams.set('themeColor', config.themeColor);
+    } */
     
     //append activity id
     if (activityId && activityId.trim() !== '') {
@@ -102,7 +107,5 @@ function getPlaygroundUrl(appUrl: string, config: Partial<Config>, activityId?: 
     
     return url.toString();
 }
-
-
 
 console.log(getPlaygroundUrl('http://localhost:8080', SA_defaultConfig, '1234'));

@@ -1194,7 +1194,7 @@ const setWindowTitle = () => {
       : '';
 
   parent.document.title =
-    hostLabel + (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
+    hostLabel + (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'Wattsons-Playground';
 };
 
 const setExternalResourcesMark = () => {
@@ -4970,7 +4970,7 @@ const basicHandlers = () => {
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
-  handleLogoLink();
+  //handleLogoLink(); disable for simplicity
   handleResize();
   handleIframeResize();
   handleIframeScroll();
