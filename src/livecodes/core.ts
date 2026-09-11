@@ -4970,7 +4970,7 @@ const basicHandlers = () => {
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
-  handleLogoLink();
+  //handleLogoLink(); disable for simplicity
   handleResize();
   handleIframeResize();
   handleIframeScroll();
