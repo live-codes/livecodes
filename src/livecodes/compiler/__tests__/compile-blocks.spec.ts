@@ -54,7 +54,7 @@ describe('maskComments', () => {
   });
 
   test('leaves strings, template literals, and URLs alone', () => {
-    const code = "const a = 'http://x // y'; const b = `//${1}`; url(http://z) <style>";
+    const code = `const a = 'http://x // y'; const b = \`//\${1}\`; url(http://z) <style>`;
     expect(maskComments(code)).toBe(code);
   });
 });
