@@ -312,6 +312,8 @@ wabt.js: [Apache-2.0 license](https://github.com/AssemblyScript/wabt.js/blob/182
 
 wacl: [BSD 3-Clause License](https://github.com/ecky-l/wacl/blob/9daacabb0102a9986f33263261350edfeebdd83b/LICENSE)
 
+@wasm-fmt/clang-format: [MIT License](https://github.com/wasm-fmt/clang-format/blob/6a84f2d980e5ff4145bd9178a49cd5146e48df78/LICENSE)
+
 @wasm-fmt/ruff_fmt: [MIT License](https://github.com/wasm-fmt/ruff_fmt/blob/6dc277e1be013159858c7de6b150063baa7214bb/LICENSE)
 
 @wasm-fmt/zig_fmt: [MIT License](https://github.com/wasm-fmt/zig_fmt/blob/d998e708899565d509b6875c52c236bc36c00ca8/LICENSE)
