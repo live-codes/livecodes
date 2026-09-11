@@ -182,6 +182,7 @@ const esmBuild = () =>
       'import/import-src.ts',
       'services/firebase.ts',
       'services/google-fonts.ts',
+      'sidebar/files.ts',
       'languages/language-info.ts',
       'export/export.ts',
       'sync/sync.ts',

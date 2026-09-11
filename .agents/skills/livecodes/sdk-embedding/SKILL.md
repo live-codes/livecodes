@@ -7,7 +7,7 @@ description: >
   containers, or setting up SDK integration.
 type: core
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 sources:
   - live-codes/livecodes:docs/docs/sdk/js-ts.mdx
   - live-codes/livecodes:src/sdk/index.ts

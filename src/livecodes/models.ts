@@ -13,6 +13,9 @@ import type {
   Language,
   Processor,
   ScreenName,
+  SidebarSectionName,
+  SidebarStatus,
+  SourceFile,
   TemplateName,
   TestResult,
   Theme,
@@ -22,11 +25,13 @@ import type {
 } from '../sdk/models';
 
 export interface Editors {
+  [key: string]: CodeEditor;
   markup: CodeEditor;
   style: CodeEditor;
   script: CodeEditor;
 }
 export interface EditorLanguages {
+  [key: string]: Language;
   markup: Language;
   style: Language;
   script: Language;
@@ -65,6 +70,7 @@ export interface LanguageSpecs {
   editorSupport?: LanguageEditorSupport;
   preset?: CssPresetId;
   largeDownload?: boolean;
+  multiFileSupport?: boolean;
 }
 
 export interface ProcessorSpecs {
@@ -90,6 +96,9 @@ export type ParserName =
   | 'babel'
   | 'babel-ts'
   | 'babel-flow'
+  | 'json'
+  | 'json5'
+  | 'jsonc'
   | 'glimmer'
   | 'html'
   | 'markdown'
@@ -130,6 +139,7 @@ export interface EditorLibrary {
 }
 
 export interface CompileOptions {
+  filename: string;
   html?: string;
   blockly?: BlocklyContent;
   forceCompile?: boolean;
@@ -137,7 +147,7 @@ export interface CompileOptions {
 }
 
 export interface CompileInfo {
-  cssModules?: Record<string, string>;
+  cssModules?: Record<string, Record<string, string>>;
   modifiedHTML?: string;
   importedContent?: string;
   imports?: Record<string, string>;
@@ -220,52 +230,6 @@ export interface Compilers {
   [language: string]: Compiler;
 }
 
-export type TemplateAlias =
-  | 'js'
-  | 'ts'
-  | 'ng'
-  | 'bs'
-  | 'tailwind'
-  | 'tw'
-  | 'coffee'
-  | 'ls'
-  | 'py'
-  | 'pyodide'
-  | 'py-wasm'
-  | 'r-lang'
-  | 'rlang'
-  | 'rb'
-  | 'rb-wasm'
-  | 'golang'
-  | 'golang-wasm'
-  | 'c++'
-  | 'clang'
-  | 'c++-wasm'
-  | 'c#-wasm'
-  | 'cs-wasm'
-  | 'f#'
-  | 'fs'
-  | 'f#-wasm'
-  | 'fs-wasm'
-  | 'pl'
-  | 'lisp'
-  | 'cljs'
-  | 'md'
-  | 'as'
-  | 'postgres'
-  | 'pg'
-  | 'pgsql'
-  | 'mzn';
-
-export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &
-  Partial<ContentConfig> & {
-    name: TemplateName;
-    aliases?: TemplateAlias[];
-    thumbnail: string;
-    tools?: Config['tools'];
-    autotest?: Config['autotest'];
-  };
-
 export interface Tool {
   name: ToolName;
   title: string;
@@ -331,12 +295,61 @@ export interface ToolsPane {
   tests?: TestViewer;
 }
 
+export interface SidebarSection {
+  name: SidebarSectionName;
+  title: string;
+  icon?: string;
+  destroy: () => void;
+}
+
+export type SidebarSectionList = Array<{
+  name: SidebarSectionName;
+  factory:
+    | string // url to a module whose default export is a factory function
+    | ((
+        container: HTMLElement,
+        options: {
+          config: Config;
+          baseUrl: string;
+          editors: Editors;
+          eventsManager: EventsManager;
+          isEmbed: boolean;
+          direction: 'ltr' | 'rtl';
+          getConfig: () => Config;
+        },
+      ) => SidebarSection | Promise<SidebarSection>);
+}>;
+
+export interface FilesSection extends SidebarSection {
+  title: 'Files';
+  update: (payload: {
+    files?: Config['files'];
+    activeEditor?: Config['activeEditor'];
+    action?: 'create' | 'rename' | 'delete';
+    path?: string;
+    oldPath?: string;
+  }) => void;
+}
+
+export interface Sidebar {
+  open: () => void;
+  close: () => void;
+  hide: () => void;
+  getStatus: () => SidebarStatus;
+  getActiveSection: () => SidebarSectionName;
+  setActiveSection: (name: SidebarSectionName) => void;
+  isEnabled: (name: SidebarSectionName) => boolean;
+  files?: FilesSection;
+  destroy: () => void;
+}
+
 export interface CodeEditor {
   getValue: () => string;
   setValue: (value?: string, newState?: boolean) => void;
   getLanguage: () => Language;
   setLanguage: (language: Language, value?: string) => void;
   getEditorId: () => string;
+  setEditorId: (filename: string, language?: Language) => void;
   focus: () => void;
   getPosition: () => EditorPosition;
   setPosition: (position: EditorPosition) => void;
@@ -535,11 +548,13 @@ export type EditorCache = Editor & {
   modified?: string;
 };
 
-export type Cache = ContentConfig & {
+export type Cache = Omit<ContentConfig, 'files'> & {
   markup: EditorCache;
   style: EditorCache;
   script: EditorCache;
   tests?: EditorCache;
+  files: Array<SourceFile & { compiled: string; modified?: string }>;
+  mainFile?: string;
   result?: string;
   styleOnlyUpdate?: boolean;
 };
@@ -623,3 +638,7 @@ export interface INinjaAction {
   ) => boolean;
   keepOpen?: boolean;
 }
+
+export type ConfigWithCompiled = Omit<Config, 'files'> & {
+  files: Array<SourceFile & { compiled: string }>;
+};

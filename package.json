@@ -9,7 +9,9 @@
   "repository": {
     "url": "https://github.com/live-codes/livecodes"
   },
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "start": "run-p copy:assets watch serve",
     "docs": "cd docs && npm run start",
@@ -76,6 +78,7 @@
     "validate-skills": "npx @tanstack/intent@latest validate .agents/skills"
   },
   "dependencies": {
+    "@live-codes/file-tree": "0.10.1",
     "@live-codes/solid-sdk": "0.5.0",
     "@snackbar/core": "1.7.0",
     "codejar": "4.1.1",
@@ -112,8 +115,8 @@
     "@types/prettier": "2.1.6",
     "@types/prismjs": "1.16.3",
     "@types/react": "19.0.10",
-    "@typescript-eslint/eslint-plugin": "8.24.1",
-    "@typescript-eslint/parser": "8.24.1",
+    "@typescript-eslint/eslint-plugin": "8.55.0",
+    "@typescript-eslint/parser": "8.55.0",
     "@typescript/vfs": "1.5.3",
     "@vue/runtime-core": "3.2.45",
     "autoprefixer": "10.4.2",
@@ -127,11 +130,10 @@
     "esbuild-plugin-minify-html": "0.1.2",
     "esbuild-plugin-replace": "1.4.0",
     "eslint": "9.20.1",
-    "eslint-config-prettier": "10.0.1",
-    "eslint-plugin-import": "2.31.0",
-    "eslint-plugin-jest": "28.11.0",
-    "eslint-plugin-jsdoc": "50.6.3",
-    "eslint-plugin-no-only-tests": "3.3.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-jest": "29.13.0",
+    "eslint-plugin-jsdoc": "62.5.4",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-storybook": "10.3.1",
     "gh-pages": "6.1.0",
@@ -152,10 +154,10 @@
     "stylelint": "17.3.0",
     "stylelint-config-sass-guidelines": "13.0.0",
     "ts-jest": "29.1.0",
-    "tslib": "2.6.2",
-    "typedoc": "0.25.13",
-    "typedoc-plugin-missing-exports": "2.2.0",
-    "typescript": "5.4.5"
+    "tslib": "2.8.1",
+    "typedoc": "0.28.16",
+    "typedoc-plugin-missing-exports": "4.1.2",
+    "typescript": "5.9.3"
   },
   "prettier": {
     "semi": true,

@@ -4,7 +4,7 @@
 
 library:
   name: 'livecodes'
-  version: '0.13.0'
+  version: '0.14.1'
   repository: 'https://github.com/live-codes/livecodes'
   description: 'A feature-rich, open-source, client-side code playground supporting 90+ languages/frameworks with SDK for embedding'
 generated_from:

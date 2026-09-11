@@ -26,4 +26,5 @@ export const markdown: LanguageSpecs = {
         (await import(codeMirrorBaseUrl + 'codemirror-lang-markdown.js')).markdown(),
     },
   },
+  multiFileSupport: true,
 };

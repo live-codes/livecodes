@@ -28,4 +28,5 @@ export const livescript: LanguageSpecs = {
         ),
     },
   },
+  multiFileSupport: true,
 };

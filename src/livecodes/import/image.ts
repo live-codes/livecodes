@@ -1,5 +1,5 @@
 import { detectLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
-import type { ContentConfig } from '../models';
+import type { SDKConfig } from '../models';
 import { blobToBase64, loadScript } from '../utils/utils';
 import { metaPngUrl, tesseractUrl } from '../vendors';
 import { importCompressedCode } from './code';
@@ -86,7 +86,7 @@ const cleanUpCode = async (code: string) => {
   return code;
 };
 
-export const importFromImage = async (blob: Blob): Promise<Partial<ContentConfig>> => {
+export const importFromImage = async (blob: Blob): Promise<Partial<SDKConfig>> => {
   try {
     const metaPng: any = await loadScript(metaPngUrl, 'MetaPNG');
     const arrayBuffer = await blob.arrayBuffer();

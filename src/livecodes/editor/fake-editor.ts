@@ -1,9 +1,8 @@
-import { getLanguageEditorId } from '../languages';
+import { getFileLanguage } from '../languages';
 import type { CodeEditor, EditorOptions } from '../models';
 
 export const createFakeEditor = (options: EditorOptions): CodeEditor => {
-  let value = options.value;
-  let language = options.language;
+  let { value, language, editorId } = options;
   return {
     getValue: () => value,
     setValue: (v = '') => {
@@ -16,7 +15,11 @@ export const createFakeEditor = (options: EditorOptions): CodeEditor => {
         value = v;
       }
     },
-    getEditorId: () => getLanguageEditorId(language) || 'markup',
+    getEditorId: () => editorId,
+    setEditorId: (fileName) => {
+      editorId = fileName;
+      language = getFileLanguage(fileName, {}) || language;
+    },
     focus: () => undefined,
     getPosition: () => ({ lineNumber: 1, column: 1 }),
     setPosition: () => undefined,

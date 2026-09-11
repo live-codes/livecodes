@@ -11,7 +11,7 @@
 // eslint-disable-next-line import/order
 import { createPlayground } from './index';
 import { parseChildren } from './internal';
-import type { Config, EmbedOptions, Playground, TemplateName } from './models';
+import type { EmbedOptions, Playground, SDKConfig, TemplateName } from './models';
 export type { Code, Config, EmbedOptions, Language, Playground } from './models';
 
 /**
@@ -201,7 +201,7 @@ class LiveCodesElement extends HTMLElement {
       if (!this._connected || !this._playground) return;
       const childConfig = parseChildren(this);
       if (childConfig) {
-        this._playground.setConfig(childConfig as Partial<Config>);
+        this._playground.setConfig(childConfig as Partial<SDKConfig>);
       }
     });
 
@@ -228,7 +228,7 @@ class LiveCodesElement extends HTMLElement {
    * Parses the `config` attribute as JSON if present.
    * Returns `undefined` if the attribute is absent or invalid JSON.
    */
-  private _getConfigAttribute(): Partial<Config> | undefined {
+  private _getConfigAttribute(): Partial<SDKConfig> | undefined {
     const attr = this.getAttribute('config');
     if (attr == null) return undefined;
     try {
@@ -285,11 +285,11 @@ class LiveCodesElement extends HTMLElement {
       } else {
         // Merge: configAttr (lowest) < childConfig < configProp (highest)
         // Children are declarative defaults; properties are explicit overrides.
-        const merged: Partial<Config> = {
+        const merged = {
           ...(configAttr || {}),
           ...(childConfig || {}),
-          ...((configProp as Partial<Config>) || {}),
-        };
+          ...(configProp || {}),
+        } as Partial<SDKConfig>;
         options.config = merged;
       }
     }

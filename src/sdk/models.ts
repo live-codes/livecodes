@@ -32,6 +32,7 @@ export type Prettify<T> = {
 export type Language =
   | 'html'
   | 'htm'
+  | 'svg'
   | 'markdown'
   | 'md'
   | 'mdown'
@@ -83,6 +84,8 @@ export type Language =
   | 'js'
   | 'mjs'
   | 'json'
+  | 'json5'
+  | 'jsonc'
   | 'babel'
   | 'es'
   | 'sucrase'
@@ -109,11 +112,14 @@ export type Language =
   | 'svelte'
   | 'svelte-app'
   | 'app.svelte'
+  | 'svelte.js'
+  | 'svelte.ts'
   | 'stencil'
   | 'stencil.tsx'
   | 'solid'
   | 'solid.jsx'
   | 'solid.tsx'
+  | 'solid-tsx'
   | 'riot'
   | 'riotjs'
   | 'malina'
@@ -252,12 +258,52 @@ export type Language =
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
-  | 'pintora';
+  | 'pintora'
+  | 'text'
+  | 'txt'
+  | 'csv'
+  | 'tsv'
+  | 'plaintext'
+  | 'yaml'
+  | 'yml'
+  | 'binary'
+  | 'png'
+  | 'jpg'
+  | 'jpeg'
+  | 'gif'
+  | 'webp'
+  | 'bmp'
+  | 'tif'
+  | 'tiff'
+  | 'ico'
+  | 'ttf'
+  | 'otf'
+  | 'woff'
+  | 'woff2'
+  | 'mp4'
+  | 'mpeg'
+  | 'webm'
+  | 'ogv'
+  | 'ogg'
+  | 'mov'
+  | 'mp3'
+  | 'm4a'
+  | 'wav'
+  | 'oga'
+  | 'mid'
+  | 'midi'
+  | 'dotenv'
+  | 'env'
+  | 'env.local'
+  | 'env.development'
+  | 'env.production'
+  | 'env.development.local'
+  | 'env.production.local';
 
 /**
  * The identifier for each code editor pane in the playground.
  */
-export type EditorId = 'markup' | 'style' | 'script';
+export type EditorId = 'markup' | 'style' | 'script' | (string & {});
 
 /**
  * Represents a position in a code editor,
@@ -351,6 +397,18 @@ export type AppLanguage =
   | 'ur'
   | 'zh-CN';
 
+export type Template = (
+  | Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'>
+  | Pick<ContentConfig, 'title' | 'mainFile' | 'files' | 'fileLanguages'>
+) &
+  Partial<ContentConfig> & {
+    name: TemplateName;
+    aliases?: TemplateAlias[];
+    thumbnail: string;
+    tools?: Config['tools'];
+    autotest?: Config['autotest'];
+  };
+
 /**
  * Starter template names.
  */
@@ -426,7 +484,57 @@ export type TemplateName =
   | 'prolog'
   | 'minizinc'
   | 'blockly'
-  | 'diagrams';
+  | 'diagrams'
+  | 'multifile-blank'
+  | 'multifile-basic'
+  | 'multifile-javascript'
+  | 'multifile-typescript'
+  | 'multifile-react'
+  | 'multifile-vue'
+  | 'multifile-preact'
+  | 'multifile-svelte'
+  | 'multifile-solid'
+  | 'multifile-lit'
+  | 'multifile-jest';
+
+export type TemplateAlias =
+  | 'js'
+  | 'ts'
+  | 'ng'
+  | 'bs'
+  | 'tailwind'
+  | 'tw'
+  | 'coffee'
+  | 'ls'
+  | 'py'
+  | 'pyodide'
+  | 'py-wasm'
+  | 'r-lang'
+  | 'rlang'
+  | 'rb'
+  | 'rb-wasm'
+  | 'golang'
+  | 'golang-wasm'
+  | 'c++'
+  | 'clang'
+  | 'c++-wasm'
+  | 'c#-wasm'
+  | 'cs-wasm'
+  | 'f#'
+  | 'fs'
+  | 'f#-wasm'
+  | 'fs-wasm'
+  | 'pl'
+  | 'lisp'
+  | 'cljs'
+  | 'md'
+  | 'as'
+  | 'postgres'
+  | 'pg'
+  | 'pgsql'
+  | 'mzn'
+  | 'multifile-js'
+  | 'multifile-ts';
 
 /**
  * Tools in the tools pane.
@@ -437,6 +545,16 @@ export type ToolName = 'console' | 'compiled' | 'tests';
  * Status of the tools pane.
  */
 export type ToolsPaneStatus = 'closed' | 'open' | 'full' | 'none' | '';
+
+/**
+ * Sidebar sections.
+ */
+export type SidebarSectionName = 'files';
+
+/**
+ * Status of the tools pane.
+ */
+export type SidebarStatus = 'closed' | 'open' | 'none' | '';
 
 /**
  * API commands for the SDK.
@@ -719,6 +837,13 @@ export interface Editor {
   contentUrl?: string;
 
   /**
+   * If `true`, the code editor is hidden, however its code is still evaluated.
+   *
+   * This can be useful in embedded playgrounds (e.g. for hiding irrelevant code).
+   */
+  hidden?: boolean;
+
+  /**
    * Hidden content that gets evaluated without being visible in the code editor.
    *
    * This can be useful in embedded playgrounds (e.g. for adding helper functions, utilities or tests)
@@ -733,14 +858,6 @@ export interface Editor {
   hiddenContentUrl?: string;
 
   /**
-   * Lines that get folded when the editor loads.
-   *
-   * This can be used for less relevant content.
-   * @example [{ from: 5, to: 8 }, { from: 15, to: 20 }]
-   */
-  foldedLines?: Array<{ from: number; to: number }>;
-
-  /**
    * If set, this is used as the title of the editor in the UI,
    * overriding the default title set to the language name
    * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
@@ -748,6 +865,9 @@ export interface Editor {
   title?: string;
 
   /**
+   * @deprecated
+   * Use `hidden` instead.
+   *
    * If `true`, the title of the code editor is hidden, however its code is still evaluated.
    *
    * This can be useful in embedded playgrounds (e.g. for hiding unnecessary code).
@@ -764,6 +884,14 @@ export interface Editor {
    * A CSS selector to load content from [DOM import](https://livecodes.io/docs/features/import#import-code-from-dom).
    */
   selector?: string;
+
+  /**
+   * Lines that get folded when the editor loads.
+   *
+   * This can be used for less relevant content.
+   * @example [{ from: 5, to: 8 }, { from: 15, to: 20 }]
+   */
+  foldedLines?: Array<{ from: number; to: number }>;
 
   /**
    * The initial position of the cursor in the code editor.
@@ -817,6 +945,7 @@ export type CustomSettings = Partial<
     convertCommonjs: boolean;
     defaultCDN: CDN;
     types: Types;
+    fileLanguages: Config['fileLanguages'];
   }
 >;
 
@@ -1038,6 +1167,21 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
   appLanguage: AppLanguage | undefined;
 }
 
+export type SourceFile = Prettify<
+  {
+    /**
+     * Name of the file with extension, including path (e.g. `index.html` or `components/Counter.jsx`).
+     */
+    filename: string;
+  } & Required<Pick<Editor, 'content' | 'language'>> & {
+      /**
+       * If `true`, the file is opened in the editor.
+       * @default false
+       */
+      open?: boolean;
+    } & Partial<Pick<Editor, 'hidden' | 'position' | 'foldedLines'>>
+>;
+
 /**
  * These are properties that define how the app behaves.
  */
@@ -1075,10 +1219,10 @@ export interface AppConfig {
    * @example
    * ```js
    * {
-   *   "tools": {
-   *     "enabled": ["console", "compiled"],
-   *     "active": "console",
-   *     "status": "open"
+   *   tools: {
+   *     enabled: ["console", "compiled"],
+   *     active: "console",
+   *     status: "open"
    *   }
    * }
    * ```
@@ -1088,6 +1232,27 @@ export interface AppConfig {
     active: ToolName | '';
     status: ToolsPaneStatus;
   }>;
+
+  /**
+   * Sets enabled and active sections and status of sidebar.
+   * @default { enabled: "all", active: "", status: "" }
+   * @example
+   * ```js
+   * {
+   *   sidebar: {
+   *     files: {},
+   *     enabled: ["files"],
+   *     active: "files",
+   *     status: "open"
+   *   }
+   * }
+   * ```
+   */
+  sidebar: Partial<Record<SidebarSectionName, Record<string, any>>> & {
+    enabled?: SidebarSectionName[] | 'all';
+    active?: SidebarSectionName | '';
+    status?: SidebarStatus;
+  };
 
   /**
    * Sets result page [zoom level](https://livecodes.io/docs/features/result#result-page-zoom).
@@ -1181,6 +1346,32 @@ export interface ContentConfig {
    * @default { language: "javascript", content: "" }
    */
   script: Prettify<Editor>;
+
+  /**
+   * List of source files.
+   */
+  files: SourceFile[];
+
+  /**
+   * The name of the main markup file.
+   * @default "index.html"
+   */
+  mainFile?: string;
+
+  /**
+   * An object with file extensions and languages to use for them.
+   * This overrides the default mapping of file extensions to languages.
+   * It is ignored for files that have the `language` property explicitly set (see {@link Config.files}).
+   * @example
+   * { jsx: "solid", tsx: "solid.tsx" }
+   */
+  fileLanguages?: Partial<Record<Language, Language>>;
+
+  /**
+   * When `true`, the user won't be able to add/rename/move/delete files. The file content can still be edited.
+   * @default false
+   */
+  lockFiles?: boolean;
 
   /**
    * List of URLs for [external stylesheets](https://livecodes.io/docs/features/external-resources) to add to the [result page](https://livecodes.io/docs/features/result).
@@ -1293,43 +1484,114 @@ export interface ContentConfig {
  */
 export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
+export interface SDKAppConfig extends Omit<AppConfig, 'sidebar'> {
+  sidebar: AppConfig['sidebar'] | false;
+}
+
+export interface SingleFileConfig
+  extends Omit<ContentConfig, 'files' | 'mainFile' | 'fileLanguages' | 'lockFiles'>,
+    SDKAppConfig,
+    UserConfig {
+  files: never;
+  mainFile: never;
+  fileLanguages: never;
+  lockFiles: never;
+}
+
+export interface MultiFileConfig
+  extends Omit<
+      ContentConfig,
+      | 'files'
+      | 'markup'
+      | 'style'
+      | 'script'
+      | 'stylesheets'
+      | 'scripts'
+      | 'cssPreset'
+      | 'htmlAttrs'
+      | 'head'
+    >,
+    SDKAppConfig,
+    UserConfig {
+  files: NonEmptyArray<{ filename: string } & Partial<SourceFile>>;
+  markup: never;
+  style: never;
+  script: never;
+  stylesheets: never;
+  scripts: never;
+  cssPreset: never;
+  htmlAttrs: never;
+  head: never;
+}
+
+export type SDKConfig = Prettify<SingleFileConfig> | Prettify<MultiFileConfig>;
+export type ExportedConfig =
+  | Prettify<Omit<SingleFileConfig, 'files' | 'mainFile' | 'fileLanguages' | 'lockFiles'>>
+  | Prettify<
+      Omit<
+        MultiFileConfig,
+        | 'markup'
+        | 'style'
+        | 'script'
+        | 'stylesheets'
+        | 'scripts'
+        | 'cssPreset'
+        | 'htmlAttrs'
+        | 'head'
+      >
+    >;
+
 /**
- * An object that contains the language, content and compiled code for each of the 3 [code editors](https://livecodes.io/docs/features/projects)
+ * An object that contains the language, content and compiled code for each of the [code editors](https://livecodes.io/docs/features/projects)/files
  * and the [result page](https://livecodes.io/docs/features/result) HTML.
  *
  * See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
  */
-export interface Code {
-  /** Markup editor code. */
-  markup: {
-    /** The language of the code. */
-    language: Language;
-    /** The source code. */
-    content: string;
-    /** The compiled code. */
-    compiled: string;
-  };
-  /** Style editor code. */
-  style: {
-    /** The language of the code. */
-    language: Language;
-    /** The source code. */
-    content: string;
-    /** The compiled code. */
-    compiled: string;
-  };
-  /** Script editor code. */
-  script: {
-    /** The language of the code. */
-    language: Language;
-    /** The source code. */
-    content: string;
-    /** The compiled code. */
-    compiled: string;
-  };
+export type Code = {
   /** The HTML content of the result page. */
   result: string;
-}
+} & (
+  | {
+      /** Markup editor code. */
+      markup: {
+        /** The language of the code. */
+        language: Language;
+        /** The source code. */
+        content: string;
+        /** The compiled code. */
+        compiled: string;
+      };
+      /** Style editor code. */
+      style: {
+        /** The language of the code. */
+        language: Language;
+        /** The source code. */
+        content: string;
+        /** The compiled code. */
+        compiled: string;
+      };
+      /** Script editor code. */
+      script: {
+        /** The language of the code. */
+        language: Language;
+        /** The source code. */
+        content: string;
+        /** The compiled code. */
+        compiled: string;
+      };
+    }
+  | {
+      files: Array<{
+        filename: string;
+        language: Language;
+        content: string;
+        compiled: string;
+      }>;
+      mainFile: string;
+    }
+);
+
+export type NonEmptyArray<T> = [T, ...T[]];
 
 /**
  * Union of all watch function types for playground events.
@@ -1484,7 +1746,7 @@ export interface API {
    * });
    * ```
    */
-  getConfig: (contentOnly?: boolean) => Promise<Config>;
+  getConfig: (contentOnly?: boolean) => Promise<ExportedConfig>;
 
   /**
    * Loads a new project using the passed configuration object.
@@ -1508,7 +1770,7 @@ export interface API {
    * });
    * ```
    */
-  setConfig: (config: Partial<Config> | string) => Promise<Config>;
+  setConfig: (config: Partial<SDKConfig> | string) => Promise<ExportedConfig>;
 
   /**
    * Gets the playground code (including source code, source language and compiled code) for each editor (markup, style, script), in addition to result page HTML.
@@ -1759,7 +2021,7 @@ export interface EmbedOptions {
    * If supplied and is not an object or a valid URL, an error is thrown.
    * @default {}
    */
-  config?: Partial<Config> | string;
+  config?: Partial<SDKConfig> | string;
 
   /**
    * If `true`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).

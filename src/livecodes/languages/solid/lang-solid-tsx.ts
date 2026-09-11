@@ -11,7 +11,7 @@ export const solidTsx: LanguageSpecs = {
     },
   },
   compiler: 'solid',
-  extensions: ['solid.tsx'],
+  extensions: ['solid.tsx', 'solid-tsx'],
   editor: 'script',
   editorLanguage: 'typescript',
   editorSupport: {
@@ -24,4 +24,5 @@ export const solidTsx: LanguageSpecs = {
       jsxFragmentFactory: 'Fragment',
     },
   },
+  multiFileSupport: true,
 };

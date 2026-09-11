@@ -43,4 +43,5 @@ export const clojurescript: LanguageSpecs = {
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-clojure.js')).clojure),
     },
   },
+  multiFileSupport: true,
 };

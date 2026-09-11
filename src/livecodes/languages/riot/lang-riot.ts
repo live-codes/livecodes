@@ -26,4 +26,5 @@ export const riot: LanguageSpecs = {
   extensions: ['riot', 'riotjs'],
   editor: 'script',
   editorLanguage: 'html',
+  multiFileSupport: true,
 };

@@ -46,7 +46,7 @@ export const svelte: LanguageSpecs = {
     },
     inlineScript: 'globalThis.process = { env: { NODE_ENV: "production" } };',
   },
-  extensions: ['svelte'],
+  extensions: ['svelte', 'svelte.js', 'svelte.ts'],
   editor: 'script',
   editorSupport: {
     monaco: { languageSupport: monacoLanguagesBaseUrl + 'svelte.js' },
@@ -56,6 +56,7 @@ export const svelte: LanguageSpecs = {
     },
     codejar: { language: 'html' },
   },
+  multiFileSupport: true,
 };
 
 export const svelteApp: LanguageSpecs = {

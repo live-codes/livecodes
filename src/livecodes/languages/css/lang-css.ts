@@ -25,4 +25,5 @@ export const css: LanguageSpecs = {
       },
     },
   },
+  multiFileSupport: true,
 };

@@ -1,7 +1,13 @@
 import Split from 'split.js';
 import { customEvents } from '../events';
 
-export const createSplitPanes = (layout: 'vertical' | 'horizontal' = 'horizontal') => {
+export const createSplitPanes = ({
+  layout = 'horizontal',
+  dir = 'ltr',
+}: {
+  layout?: 'vertical' | 'horizontal';
+  dir?: 'ltr' | 'rtl';
+} = {}) => {
   let destroyed = false;
   let split: Split.Instance;
 
@@ -16,6 +22,11 @@ export const createSplitPanes = (layout: 'vertical' | 'horizontal' = 'horizontal
       gutterSize,
       elementStyle: (_dimension, size, gutterSize) => {
         window.dispatchEvent(new Event(customEvents.resizeEditor));
+        if (dir === 'rtl') {
+          return {
+            'flex-basis': `calc(${100 - size}% - ${gutterSize}px)`,
+          };
+        }
         return {
           'flex-basis': `calc(${size}% - ${gutterSize}px)`,
         };

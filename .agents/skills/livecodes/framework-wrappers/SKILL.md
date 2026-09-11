@@ -6,7 +6,7 @@ description: >
   Load this skill when embedding LiveCodes in a framework application.
 type: framework
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 requires:
   - sdk-embedding
   - sdk-methods

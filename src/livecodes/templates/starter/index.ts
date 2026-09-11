@@ -1,5 +1,6 @@
 // this is bundled to build/livecodes/templates.js
 
+import { multifileTemplates } from '../multifile/index';
 import { angularStarter } from './angular-starter';
 import { assemblyscriptStarter } from './assemblyscript-starter';
 import { astroStarter } from './astro-starter';
@@ -146,4 +147,5 @@ export const starterTemplates = [
   minizincStarter,
   blocklyStarter,
   diagramsStarter,
+  ...multifileTemplates,
 ];

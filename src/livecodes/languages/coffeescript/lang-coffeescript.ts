@@ -27,4 +27,5 @@ export const coffeescript: LanguageSpecs = {
         ),
     },
   },
+  multiFileSupport: true,
 };

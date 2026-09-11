@@ -34,7 +34,7 @@ graph TD
         A --> L[compiler-utils.ts]
         A --> M[utils.ts]
     end
-    
+
     B["Type definitions"]
     C["Main compiler factory"]
     D["Compiler instance getter"]
@@ -158,8 +158,13 @@ interface CompileInfo {
   importedContent?: string;
   imports?: Record<string, string>;
   errors?: string[];
+  sourceMaps?: Record<string, string>;
 }
 ```
+
+Compiled languages can populate `sourceMaps` (a record keyed by filename) used to map
+runtime console logs/errors back to source lines; see
+[Source Maps & Console Line Numbers](./sourcemaps-console-line-numbers.mdx).
 
 ## Compilation Flow
 
@@ -314,13 +319,13 @@ Workers and main thread communicate via typed messages:
 sequenceDiagram
     participant Main as Main Thread
     participant Worker as Worker
-    
+
     Main->>Worker: init (config)
     Worker->>Main: init-success
-    
+
     Main->>Worker: load (typescript)
     Worker->>Main: loaded (typescript)
-    
+
     Main->>Worker: compile (code, language)
     Worker->>Main: compiled (result)
 ```

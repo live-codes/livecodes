@@ -14,4 +14,5 @@ export const stylis: LanguageSpecs = {
   extensions: ['stylis'],
   editor: 'style',
   editorLanguage: 'scss',
+  multiFileSupport: true,
 };

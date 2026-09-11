@@ -40,6 +40,8 @@
   --dropdown: var(--color95);
   --layout: var(--color90);
   --modal: var(--color95);
+  --sidebar-bg: var(--color90);
+  --sidebar-panel-bg: var(--color95);
 
   --gutter-split-bg-handle: var(--color40);
 
@@ -110,6 +112,18 @@
       --placeholder-color-focus: var(--input-color) !important;
       text-align: start;
     }
+  }
+
+  /* file tree */
+  .ft-root {
+    --ft-bg: var(--color95);
+    --ft-color: var(--dark-color);
+    --ft-node-hover: var(--color90);
+    --ft-node-selected: var(--color80);
+    --ft-toolbar-bg: var(--layout);
+    --ft-toolbar-border: var(--color80);
+    --ft-context-bg: var(--dropdown);
+    --ft-context-color: var(--dark-color);
   }
 }
 

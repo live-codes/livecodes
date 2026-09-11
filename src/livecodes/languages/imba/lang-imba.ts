@@ -16,4 +16,5 @@ export const imba: LanguageSpecs = {
   },
   extensions: ['imba'],
   editor: 'script',
+  multiFileSupport: true,
 };

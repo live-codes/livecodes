@@ -1,6 +1,6 @@
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
 import { getPlaygroundUrl } from '../index';
-import type { Config, EmbedOptions, UrlQueryParams } from '../models';
+import type { EmbedOptions, SDKConfig, UrlQueryParams } from '../models';
 
 test('empty options object', () => {
   const url = new URL(getPlaygroundUrl());
@@ -59,7 +59,7 @@ test('empty config object should return appUrl', () => {
 });
 
 test('non-empty config object stores compressed config in config hashParam', () => {
-  const config: Partial<Config> = {
+  const config: Partial<SDKConfig> = {
     view: 'split',
   };
   const appUrl = 'https://example.com';
@@ -148,7 +148,7 @@ test('config as invalid URL string throws', () => {
 });
 
 test('config with title adds title to searchParams', () => {
-  const config: Partial<Config> = {
+  const config: Partial<SDKConfig> = {
     title: 'My Project',
     markup: { language: 'html', content: '<p>hi</p>' },
   };
@@ -158,7 +158,7 @@ test('config with title adds title to searchParams', () => {
 });
 
 test('config with "Untitled Project" title does NOT add title to searchParams', () => {
-  const config: Partial<Config> = {
+  const config: Partial<SDKConfig> = {
     title: 'Untitled Project',
     markup: { language: 'html', content: '<p>hi</p>' },
   };
@@ -168,7 +168,7 @@ test('config with "Untitled Project" title does NOT add title to searchParams', 
 });
 
 test('config with description adds description to searchParams', () => {
-  const config: Partial<Config> = {
+  const config: Partial<SDKConfig> = {
     description: 'A cool project',
     markup: { language: 'html', content: '' },
   };
@@ -178,7 +178,7 @@ test('config with description adds description to searchParams', () => {
 });
 
 test('config with empty description does NOT add description to searchParams', () => {
-  const config: Partial<Config> = {
+  const config: Partial<SDKConfig> = {
     description: '',
     markup: { language: 'html', content: '<p>hi</p>' },
   };
@@ -227,7 +227,7 @@ test('view option with config that already has view falls back to searchParam', 
 });
 
 test('lite does not override existing config.mode', () => {
-  const config: Partial<Config> = { mode: 'full' };
+  const config: Partial<SDKConfig> = { mode: 'full' };
   const url = new URL(getPlaygroundUrl({ lite: true, config }));
 
   // config already has mode set, so lite falls back to searchParam

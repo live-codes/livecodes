@@ -7,7 +7,7 @@ description: >
   Python, Ruby, or Go.
 type: core
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 sources:
   - live-codes/livecodes:docs/docs/languages/index.mdx
   - live-codes/livecodes:docs/docs/languages/_template.mdx

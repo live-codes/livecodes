@@ -6,7 +6,7 @@ description: >
   when setting up project content, configuring CSS processors, or customizing display.
 type: core
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 sources:
   - live-codes/livecodes:docs/docs/configuration/configuration-object.mdx
   - live-codes/livecodes:docs/docs/configuration/query-params.mdx

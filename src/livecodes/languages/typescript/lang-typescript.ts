@@ -37,15 +37,15 @@ export const typescript: LanguageSpecs = {
     url: typescriptUrl,
     factory:
       () =>
-      async (code, { config }) => {
+      async (code, { config, language, options }) => {
         const ts = (window as any).ts;
         const rawOptions = {
           ...typescriptOptions,
-          ...(['jsx', 'tsx'].includes(config.script.language) && !hasCustomJsxRuntime(code, config)
+          ...(['jsx', 'tsx', 'typescript'].includes(language) && !hasCustomJsxRuntime(code, config)
             ? { jsx: 'react-jsx' }
             : {}),
           ...getLanguageCustomSettings('typescript', config),
-          ...getLanguageCustomSettings(config.script.language, config),
+          ...getLanguageCustomSettings(language, config),
           sourceMap: true,
         };
         const { options: compilerOptions, errors } = ts.convertCompilerOptionsFromJson(
@@ -57,10 +57,11 @@ export const typescript: LanguageSpecs = {
           console.warn('TypeScript compiler option errors:', errors);
         }
         const result = ts.transpileModule(code, { compilerOptions });
+        const filename = options.filename || 'script';
         return {
           code: result.outputText.replace(/\n?\/\/# sourceMappingURL=\S+/m, ''),
           info: {
-            sourceMaps: result.sourceMapText ? { script: result.sourceMapText } : undefined,
+            sourceMaps: result.sourceMapText ? { [filename]: result.sourceMapText } : undefined,
           },
         };
       },
@@ -79,4 +80,5 @@ export const typescript: LanguageSpecs = {
       strictNullChecks: true,
     },
   },
+  multiFileSupport: true,
 };

@@ -133,7 +133,15 @@
             </a>
             <div class="enable-motion"></div>
           </div>
-          <div id="select-editor"></div>
+          <div id="select-editor">
+            <button class="editor-scroll-btn editor-scroll-start">
+              <i class="icon-arrow-down"></i>
+            </button>
+            <div class="editors-scroller"></div>
+            <button class="editor-scroll-btn editor-scroll-end">
+              <i class="icon-arrow-down"></i>
+            </button>
+          </div>
         </div>
         <div class="toolbar-render">
           <div>
@@ -199,6 +207,10 @@
       </div>
       <div id="editor-container">
         <div id="editors">
+          <div id="sidebar">
+            <div id="sidebar-buttons" class="tool-buttons"></div>
+            <div id="sidebar-content"></div>
+          </div>
           <div id="markup" class="editor"></div>
           <div id="style" class="editor"></div>
           <div id="script" class="editor"></div>

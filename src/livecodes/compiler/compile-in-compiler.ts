@@ -6,7 +6,7 @@ export const compileInCompiler = async (
   content: string,
   language: LanguageOrProcessor | undefined,
   config: Config,
-  options: CompileOptions = {},
+  options: CompileOptions = { filename: 'script' },
   worker: Worker = self as unknown as Worker,
 ): Promise<CompileResult> =>
   new Promise((resolve) => {

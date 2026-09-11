@@ -11,3 +11,8 @@ export const addCodeInStyleBlocks = (css: string, html: string) => {
   }
   return css;
 };
+
+export const hasTailwindImport = (css: string) => {
+  const pattern = /@import\s+('tailwindcss')|("tailwindcss")\s*;/g;
+  return new RegExp(pattern).test(css);
+};

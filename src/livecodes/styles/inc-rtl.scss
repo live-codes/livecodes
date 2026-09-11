@@ -1,5 +1,5 @@
 html[dir='rtl'] {
-  #editors,
+  .editor *,
   #tools-pane,
   .custom-editor {
     direction: ltr;
@@ -27,6 +27,20 @@ html[dir='rtl'] {
 
   .submenu {
     right: 98%;
+  }
+
+  #select-editor .editor-scroll-btn {
+    &.editor-scroll-start {
+      i.icon-arrow-down {
+        transform: rotate(270deg);
+      }
+    }
+
+    &.editor-scroll-end {
+      i.icon-arrow-down {
+        transform: rotate(90deg);
+      }
+    }
   }
 
   #modal .close-button {

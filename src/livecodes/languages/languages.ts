@@ -5,6 +5,7 @@ import { assemblyscript } from './assemblyscript';
 import { astro } from './astro';
 import { babel } from './babel';
 import { bbcode } from './bbcode';
+import { binary } from './binary';
 import { blockly } from './blockly';
 import { civet } from './civet';
 import { clio } from './clio';
@@ -17,6 +18,7 @@ import { csharpWasm } from './csharp-wasm';
 import { css } from './css';
 import { diagrams } from './diagrams';
 import { dot } from './dot';
+import { dotenv } from './dotenv/lang-dotenv';
 import { ejs } from './ejs';
 import { eta } from './eta';
 import { fennel } from './fennel';
@@ -33,6 +35,7 @@ import { imba } from './imba';
 import { java } from './java';
 import { javascript } from './javascript';
 import { jinja } from './jinja';
+import { json, json5, jsonc } from './json';
 import { jsx, tsx } from './jsx';
 import { julia } from './julia';
 import { less } from './less';
@@ -76,12 +79,14 @@ import { sucrase } from './sucrase';
 import { svelte, svelteApp } from './svelte';
 import { tcl } from './tcl';
 import { teal } from './teal';
+import { text } from './text';
 import { twig } from './twig';
 import { typescript } from './typescript';
 import { vento } from './vento';
 import { vue, vueApp } from './vue';
 import { vue2 } from './vue2';
 import { wat } from './wat';
+import { yaml } from './yaml';
 import { zigWasm } from './zig-wasm';
 
 export const languages: LanguageSpecs[] = [
@@ -176,4 +181,11 @@ export const languages: LanguageSpecs[] = [
   prolog,
   minizinc,
   blockly,
+  text,
+  json,
+  json5,
+  jsonc,
+  yaml,
+  binary,
+  dotenv,
 ];

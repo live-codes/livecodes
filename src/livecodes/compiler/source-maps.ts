@@ -12,10 +12,12 @@ export interface ConsoleCallSite {
   markupOffset?: number;
   scriptOffset?: number;
   externalScriptFrame?: boolean;
+  // Set for multi-file projects: the file the call site belongs to (matches
+  // the `//# sourceURL=<filename>` injected by the result page, and the key in
+  // CompileInfo.sourceMaps). When present, `lineNumber` is that file's
+  // module-local compiled line, to be mapped through that file's own source map.
+  filename?: string;
 }
-
-export const isConsoleDisplaySource = (source: unknown): source is ConsoleDisplaySource =>
-  source === 'markup' || source === 'style' || source === 'script';
 
 // ─── Line number utilities ─────────────────────────────────────────────────────
 
@@ -154,18 +156,6 @@ const toUserLine = (docLine: number, offset: number): number | undefined => {
   return toPositiveLineNumber(docLine - offset);
 };
 
-const getMarkupInlineScriptStartLines = () => {
-  const scriptTags = Array.from(
-    document.body?.querySelectorAll<HTMLScriptElement>(
-      'script[data-livecodes-markup-script-line]',
-    ) ?? [],
-  );
-  return scriptTags
-    .map((script) => Number(script.dataset.livecodesMarkupScriptLine))
-    .filter((line) => Number.isFinite(line) && line > 0)
-    .sort((a, b) => a - b);
-};
-
 const getCurrentMarkupScriptStartLine = () => {
   const script = document.currentScript;
   if (!script) return undefined;
@@ -180,20 +170,39 @@ const getCurrentMarkupScriptStackBase = (): number => {
 };
 
 const getMarkupInlineScriptLine = (docLine: number, markupOffset: number): number | undefined => {
+  // `data-livecodes-markup-script-line` is the editor line where the script's
+  // content begins. The raw frame `docLine` increases one line per editor line
+  // within the script, so adding `docLine - stackBase` recovers the per-log line.
   const currentScriptStartLine = getCurrentMarkupScriptStartLine();
   if (currentScriptStartLine) {
     const stackBase = getCurrentMarkupScriptStackBase();
     return toPositiveLineNumber(currentScriptStartLine + docLine - stackBase);
   }
 
-  if (docLine < markupOffset) {
-    const firstScriptStartLine = getMarkupInlineScriptStartLines()[0];
-    if (firstScriptStartLine) {
-      return toPositiveLineNumber(firstScriptStartLine + docLine - 1);
-    }
+  // `type="module"` inline scripts run deferred, so `document.currentScript` is
+  // null while they execute. The result page prepends a low-cost prologue to
+  // each inline module that records its own markup start line on <body>; use it
+  // to identify the module that is currently logging. (The raw frame line is the
+  // same collapsed injection point for every inline script, so it cannot
+  // identify the module on its own.)
+  const moduleMarkupLine = document.body?.dataset.livecodesCurrentMarkupScriptLine;
+  if (moduleMarkupLine) {
+    return toPositiveLineNumber(Number(moduleMarkupLine));
   }
 
   return toUserLine(docLine, markupOffset);
+};
+
+// Multi-file inline scripts: the per-script `data-livecodes-markup-script-line`
+// (or the module prologue marker) is already the exact file-relative line, so
+// return it directly without the document-relative docLine correction used in
+// single-file.
+const getMultifileInlineScriptLine = (): number | undefined => {
+  const currentScriptStartLine = getCurrentMarkupScriptStartLine();
+  if (currentScriptStartLine) return currentScriptStartLine;
+  const moduleMarkupLine = document.body?.dataset.livecodesCurrentMarkupScriptLine;
+  if (moduleMarkupLine) return toPositiveLineNumber(Number(moduleMarkupLine));
+  return undefined;
 };
 
 // ─── Console call-site detector ───────────────────────────────────────────────
@@ -202,6 +211,34 @@ const getOffsets = () => ({
   markup: Number(document.body?.dataset?.livecodesMarkupLineOffset ?? 0),
   script: Number(document.body?.dataset?.livecodesScriptLineOffset ?? 0),
 });
+
+// Extracts the frame's URL token (the file the frame belongs to), e.g.
+//   "    at fn (tax-calculator.ts:12:5)"  → "tax-calculator.ts"
+//   "  utils.ts:5:1"                      → "utils.ts"
+// Used for multi-file call sites, where each module is a data URL carrying
+// `//# sourceURL=<filename>`.
+const getFrameUrl = (callerFrame: string): string | undefined => {
+  const match = callerFrame.match(/\(?([^\s()]+):\d+:\d+\)?[\s]*$/);
+  if (!match) return undefined;
+  let url = match[1];
+  // strip surrounding parens and leading path decorations from sourceURL
+  url = url.replace(/^\(/, '').replace(/\)$/, '');
+  url = url.replace(/^[~/]*(\.\/)*/, '');
+  return url || undefined;
+};
+
+// A filename extracted from the frame is only a usable source key when the frame
+// is a bare sourceURL (module-local), not an external/data URL or an unknown
+// builtin frame. This intentionally includes plain `.js` files (e.g. `counter.js`
+// or even a multi-file project's own `script.js`); distinguishing single-file from
+// multi-file is done by the caller via the presence of document line offsets.
+const isSourceUrlFilename = (url: string): boolean =>
+  url.length > 0 &&
+  !url.startsWith('data:') &&
+  !isExternalScriptFrame(url) &&
+  !/^[a-zA-Z][\w+.-]*:/.test(url) && // some scheme prefix (http://, blob:, etc.)
+  url.includes('.') && // require an extension, e.g. utils.ts
+  !url.endsWith(':');
 
 const isExternalScriptFrame = (frame: string) =>
   /data:text\/javascript/i.test(frame) ||
@@ -216,7 +253,10 @@ const getCandidateFrame = (stack: string) => {
       !/result-utils(?:\.[\w-]+)?\.js/i.test(frame) &&
       frame.match(/:(\d+):\d+\)?[\s]*$/),
   );
-  return codeFrames.find(isExternalScriptFrame) ?? codeFrames[0] ?? '';
+  // Prefer a frame naming a real sourceURL file (multi-file projects), so an
+  // external `.js` bootstrapper or frame doesn't shadow the user's file.
+  const sourceUrlFrame = codeFrames.find((frame) => isSourceUrlFilename(getFrameUrl(frame) ?? ''));
+  return sourceUrlFrame ?? codeFrames.find(isExternalScriptFrame) ?? codeFrames[0] ?? '';
 };
 
 const getLineNumberFromFrame = (callerFrame: string): number | undefined => {
@@ -234,46 +274,88 @@ const resolveConsoleCallSiteFromDocLine = (
   callerFrame?: string,
   column?: number,
 ): ConsoleCallSite => {
-  const { markup, script } = getOffsets();
+  const { markup: markupOffset, script: scriptOffset } = getOffsets();
   const externalScriptFrame = isExternalScriptFrame(callerFrame ?? '');
 
-  if (externalScriptFrame || (!markup && !script)) {
+  // Multi-file call sites: each module is injected as its own data URL carrying
+  // `//# sourceURL=<filename>`, so the frame names a bare file and its line is
+  // module-local (mapped through that file's own source map). The multi-file
+  // result page sets `data-livecodes-multi-file` on <body> to opt the sandbox
+  // into this resolution; single-file applies its document-offset markup/script
+  // logic instead.
+  const isMultiFile = document.body?.dataset.livecodesMultiFile === 'true';
+  const mainFile = document.body?.dataset.livecodesMainFile || '';
+  const frameUrl = callerFrame ? getFrameUrl(callerFrame) : undefined;
+  if (isMultiFile && frameUrl && isSourceUrlFilename(frameUrl)) {
     return {
       lineNumber: docLine,
       columnNumber: column,
       source: 'script',
       callerFrame,
-      markupOffset: markup,
-      scriptOffset: script,
+      markupOffset,
+      scriptOffset,
+      externalScriptFrame,
+      filename: frameUrl,
+    };
+  }
+
+  // Multi-file: an inline script of the main markup file (no `sourceURL`, so no
+  // filename branch above) is reported against the main file rather than the
+  // generic single-file 'markup' source. Its line is the file-relative line
+  // recorded on the script (already exact), not the document-relative docLine.
+  if (isMultiFile && mainFile) {
+    const markupLine = getMultifileInlineScriptLine();
+    if (markupLine) {
+      return {
+        lineNumber: markupLine,
+        columnNumber: column,
+        source: 'script',
+        callerFrame,
+        markupOffset,
+        scriptOffset,
+        externalScriptFrame,
+        filename: mainFile,
+      };
+    }
+  }
+
+  if (externalScriptFrame || (!markupOffset && !scriptOffset)) {
+    return {
+      lineNumber: docLine,
+      columnNumber: column,
+      source: 'script',
+      callerFrame,
+      markupOffset,
+      scriptOffset,
       externalScriptFrame,
     };
   }
 
-  if (script > 0) {
-    const source: ConsoleSource = docLine >= script ? 'script' : 'markup';
+  if (scriptOffset > 0) {
+    const source: ConsoleSource = docLine >= scriptOffset ? 'script' : 'markup';
     const lineNumber =
       source === 'script'
-        ? toUserLine(docLine, script) ?? docLine
-        : getMarkupInlineScriptLine(docLine, markup) ?? docLine;
+        ? toUserLine(docLine, scriptOffset) ?? docLine
+        : getMarkupInlineScriptLine(docLine, markupOffset) ?? docLine;
     return {
       lineNumber,
       columnNumber: column,
       source,
       callerFrame,
-      markupOffset: markup,
-      scriptOffset: script,
+      markupOffset: markupOffset,
+      scriptOffset,
       externalScriptFrame,
     };
   }
 
-  if (markup > 0) {
+  if (markupOffset > 0) {
     return {
-      lineNumber: getMarkupInlineScriptLine(docLine, markup) ?? docLine,
+      lineNumber: getMarkupInlineScriptLine(docLine, markupOffset) ?? docLine,
       columnNumber: column,
       source: 'markup',
       callerFrame,
-      markupOffset: markup,
-      scriptOffset: script,
+      markupOffset,
+      scriptOffset,
       externalScriptFrame,
     };
   }
@@ -283,8 +365,8 @@ const resolveConsoleCallSiteFromDocLine = (
     columnNumber: column,
     source: 'script',
     callerFrame,
-    markupOffset: markup,
-    scriptOffset: script,
+    markupOffset,
+    scriptOffset,
     externalScriptFrame,
   };
 };

@@ -6,7 +6,7 @@ description: >
   output without display.
 type: core
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 requires:
   - sdk-embedding
   - sdk-methods

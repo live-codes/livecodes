@@ -1,7 +1,20 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import type { Config, Editor, EditorId, Language, Tool, ToolsPaneStatus } from '../models';
-import { removeDuplicates } from '../utils';
+import { getFileLanguage, getLanguageByAlias, getLanguageEditorId } from '../languages';
+import type {
+  Config,
+  Editor,
+  EditorId,
+  Language,
+  MultiFileConfig,
+  SDKAppConfig,
+  SidebarSection,
+  SidebarStatus,
+  SourceFile,
+  Tool,
+  ToolsPaneStatus,
+} from '../models';
+import { handleSlash, objectFilter, removeDuplicates } from '../utils';
 import { defaultConfig } from './default-config';
+import { getValidFileName, isEditorId } from './utils';
 
 export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   type types = 'array' | 'boolean' | 'object' | 'number' | 'string' | 'undefined';
@@ -37,6 +50,8 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const themes: Array<Config['theme']> = ['light', 'dark'];
   const layout: Array<Config['layout']> = ['responsive', 'horizontal', 'vertical'];
   const editorModes: Array<Config['editorMode']> = ['vim', 'emacs'];
+  const sidebarSections: Array<SidebarSection['name']> = ['files'];
+  const sidebarStatus: SidebarStatus[] = ['', 'closed', 'open', 'none'];
   const tools: Array<Tool['name'] | 'zoom'> = ['console', 'compiled', 'tests', 'zoom'];
   const toolsPaneStatus: ToolsPaneStatus[] = ['', 'full', 'closed', 'open', 'none'];
   const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar', 'auto'];
@@ -45,7 +60,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
 
   const isFoldedLines = (x: any) => is(x, 'object') && (is(x.from, 'number') || is(x.to, 'number'));
 
-  const fixSfcLanguage = (lang: Language, editorId: EditorId) =>
+  const fixSfcLanguage = (lang: Language | undefined, editorId: EditorId) =>
     editorId !== 'markup'
       ? lang
       : lang === 'svelte'
@@ -54,17 +69,22 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
           ? 'vue-app'
           : lang;
 
+  const getEditorDefaultLanguage = (editorId: EditorId) =>
+    (isEditorId(editorId) ? defaultConfig[editorId].language : getFileLanguage(editorId, config)) ||
+    'html';
+
   const validateEditorProps = (x: Editor, editorId: EditorId): Editor => ({
-    language: fixSfcLanguage(
-      getLanguageEditorId(fixSfcLanguage(x.language, editorId)) === editorId
-        ? getLanguageByAlias(x.language) || defaultConfig[editorId].language
-        : defaultConfig[editorId].language,
-      editorId,
-    ),
+    language:
+      fixSfcLanguage(
+        getLanguageEditorId(fixSfcLanguage(x.language, editorId)) === editorId
+          ? getLanguageByAlias(x.language) || getEditorDefaultLanguage(editorId)
+          : getEditorDefaultLanguage(editorId),
+        editorId,
+      ) || getEditorDefaultLanguage(editorId),
     ...(is(x.title, 'string') ? { title: x.title } : {}),
     ...(is(x.content, 'string') ? { content: x.content } : {}),
     ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
-    ...(is(x.hideTitle, 'boolean') ? { hideTitle: x.hideTitle } : {}),
+    ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
     ...(is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),
     ...(is(x.hiddenContentUrl, 'string') ? { hiddenContentUrl: x.hiddenContentUrl } : {}),
     ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
@@ -75,6 +95,41 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.position, 'object') ? { position: x.position } : {}),
   });
 
+  const validateFileProps = (
+    x: Partial<SourceFile>,
+    config: Partial<Config>,
+  ): SourceFile | undefined =>
+    x.filename && is(x.filename, 'string') && handleSlash(x.filename).includes('.')
+      ? {
+          filename: (() => {
+            const name = getValidFileName(x.filename, config);
+            return typeof name === 'string' ? name : '';
+          })(),
+          content: is(x.content, 'string') ? x.content ?? '' : '',
+          language:
+            getLanguageByAlias(x.language) ||
+            getFileLanguage(x.filename, { ...config, fileLanguages: validFileLanguages }) ||
+            'text',
+          ...(is(x.open, 'boolean') ? { open: x.open } : {}),
+          ...(is(x.hidden, 'boolean') ? { hidden: x.hidden } : {}),
+          ...(is(x.position, 'object') ? { position: x.position } : {}),
+          ...(is(x.foldedLines, 'array', 'object') && x.foldedLines?.every(isFoldedLines)
+            ? { foldedLines: x.foldedLines }
+            : {}),
+        }
+      : undefined;
+
+  const validatefileLanguages = (fileLanguages: Record<string, string> = {}) =>
+    objectFilter(
+      fileLanguages,
+      (v, k) => getLanguageByAlias(k) != null && getLanguageByAlias(v) != null,
+    ) as Partial<Record<Language, Language>>;
+
+  const validFileLanguages = validatefileLanguages(config.fileLanguages);
+
+  const validateActiveEditor = (config: Partial<Config>) =>
+    includes([...editorIds, ...(config.files || []).map((f) => f.filename)], config.activeEditor);
+
   const validateTestsProps = (x: Partial<Config['tests']>): Partial<Config['tests']> => ({
     ...(x && is(x.language, 'string') ? { language: x.language } : {}),
     ...(x && is(x.content, 'string') ? { content: x.content } : {}),
@@ -84,6 +139,34 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(x && is(x.selector, 'string') ? { selector: x.selector } : {}),
     ...(x && is(x.position, 'object') ? { position: x.position } : {}),
   });
+
+  const validateSidebarProps = (x: SDKAppConfig['sidebar']): Config['sidebar'] =>
+    x === false
+      ? {
+          ...defaultConfig.sidebar,
+          status: 'none',
+        }
+      : {
+          ...defaultConfig.sidebar,
+          ...(x && Array.isArray(x.enabled)
+            ? { enabled: x.enabled.filter((t) => sidebarSections.includes(t)) }
+            : {
+                ...(x && x.enabled == null && x.status === 'none'
+                  ? { enabled: [] }
+                  : { enabled: defaultConfig.sidebar.enabled }),
+              }),
+          ...(x &&
+          x.active != null &&
+          includes(sidebarSections, x.active) &&
+          (x.enabled === 'all' ||
+            x.enabled == null ||
+            (Array.isArray(x.enabled) && includes(x.enabled, x.active)))
+            ? { active: x.active }
+            : { active: defaultConfig.sidebar.active }),
+          ...(x && x.status != null && includes(sidebarStatus, x.status)
+            ? { status: x.status }
+            : { status: defaultConfig.sidebar.status }),
+        };
 
   const validateToolsProps = (x: Config['tools']): Config['tools'] => ({
     ...defaultConfig.tools,
@@ -137,7 +220,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.showSpacing, 'boolean') ? { showSpacing: config.showSpacing } : {}),
     ...(is(config.readonly, 'boolean') ? { readonly: config.readonly } : {}),
     ...(is(config.allowLangChange, 'boolean') ? { allowLangChange: config.allowLangChange } : {}),
-    ...(includes(editorIds, config.activeEditor) ? { activeEditor: config.activeEditor } : {}),
+    ...(validateActiveEditor(config) ? { activeEditor: config.activeEditor } : {}),
     ...(is(config.languages, 'array', 'string')
       ? { languages: removeDuplicates(config.languages) }
       : {}),
@@ -149,6 +232,20 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
       : {}),
     ...(is(config.script, 'object')
       ? { script: validateEditorProps(config.script as Editor, 'script') }
+      : {}),
+    ...(is((config as MultiFileConfig).files, 'array', 'object')
+      ? {
+          files:
+            (config.files
+              ?.map((f) => validateFileProps(f, config))
+              .filter((f) => Boolean(f?.filename)) as Config['files']) || [],
+        }
+      : {}),
+    ...(is(config.mainFile, 'string') ? { mainFile: config.mainFile } : {}),
+    ...(is(config.fileLanguages, 'object') ? { fileLanguages: validFileLanguages } : {}),
+    ...(is(config.lockFiles, 'boolean') ? { lockFiles: config.lockFiles } : {}),
+    ...(is(config.sidebar, 'object')
+      ? { sidebar: validateSidebarProps(config.sidebar as Config['sidebar']) }
       : {}),
     ...(is(config.tools, 'object')
       ? { tools: validateToolsProps(config.tools as Config['tools']) }

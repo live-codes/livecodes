@@ -7,7 +7,7 @@ description: >
   or resolving import conflicts.
 type: core
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 sources:
   - live-codes/livecodes:docs/docs/features/module-resolution.mdx
   - live-codes/livecodes:src/livecodes/compiler/import-map.ts

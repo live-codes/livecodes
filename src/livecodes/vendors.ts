@@ -126,6 +126,10 @@ export const doppioJvmBaseUrl = 'https://unpkg.com/@seth0x41/doppio@1.0.0/';
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
+export const draggableUrl = /* @__PURE__ */ getUrl(
+  '@shopify/draggable@1.2.1/build/umd/index.min.js',
+);
+
 export const ejsUrl = /* @__PURE__ */ getUrl('ejs@4.0.1/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
@@ -279,7 +283,11 @@ export const jsclUrl = /* @__PURE__ */ getUrl(
   'gh:jscl-project/jscl-project.github.io@058adc599f0d012718ef3ad28e704a92c4dd741e/jscl.js',
 );
 
+export const json5Url = /* @__PURE__ */ getUrl('json5@2.2.3/dist/index.min.js');
+
 export const jsUntarUrl = /* @__PURE__ */ getUrl('js-untar@2.0.0/build/dist/untar.js');
+
+export const jsYamlUrl = /* @__PURE__ */ getUrl('js-yaml@4.1.1/dist/js-yaml.min.js');
 
 export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
@@ -330,10 +338,6 @@ export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
 
 export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.1/dist/monaco-vim.js');
-
-export const monacoVolarUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-volar@0.1.0/dist/index.js',
-);
 
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
 

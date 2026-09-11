@@ -5,7 +5,7 @@
  * @module
  */
 
-import type { Config, EditorId, Language } from './models';
+import type { EditorId, Language, SDKConfig } from './models';
 
 /**
  * Custom events emitted by LiveCodes playground.
@@ -20,11 +20,13 @@ export interface CustomEvents {
   appLoaded: 'livecodes-app-loaded';
   ready: 'livecodes-ready';
   change: 'livecodes-change';
+  files: 'livecodes-files';
   run: 'livecodes-run';
   testResults: 'livecodes-test-results';
   console: 'livecodes-console';
   consoleNavigate: 'livecodes-console-navigate';
   destroy: 'livecodes-destroy';
+  settings: 'livecodes-settings';
   resizeEditor: 'livecodes-resize-editor';
   apiResponse: 'livecodes-api-response';
   i18n: 'livecodes-i18n';
@@ -111,22 +113,18 @@ export const getIframeAllowAttribute = (): string =>
 /**
  * A file entry parsed from a child element with a `filename` attribute.
  */
-interface ParsedFile {
-  filename: string;
-  content: string;
-  language?: Language;
-}
+type ParsedFile = Pick<SDKConfig['files'][number], 'filename' | 'content' | 'language'>;
 
 /**
  * The result of parsing children: a partial config that can be merged
  * with an explicit config object (children take precedence for content).
  */
 export type ParsedChildrenConfig = Partial<
-  Pick<Config, 'markup' | 'style' | 'script' | 'activeEditor'> & { files: ParsedFile[] }
+  Pick<SDKConfig, 'markup' | 'style' | 'script' | 'activeEditor'> & { files: ParsedFile[] }
 >;
 
 /** Maps HTML element tag names to their corresponding editor IDs. */
-const tagToEditor: Record<string, EditorId> = {
+const tagToEditor: Record<string, 'markup' | 'style' | 'script'> = {
   template: 'markup',
   style: 'style',
   script: 'script',

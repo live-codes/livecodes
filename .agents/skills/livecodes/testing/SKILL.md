@@ -6,7 +6,7 @@ description: >
   Load this skill when writing tests for playground code or running tests via SDK.
 type: core
 library: livecodes
-library_version: 0.13.0
+library_version: 0.14.1
 sources:
   - live-codes/livecodes:docs/docs/features/tests.mdx
 ---

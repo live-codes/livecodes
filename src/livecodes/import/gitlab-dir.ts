@@ -22,16 +22,24 @@ export const importFromGitlabDir = async (url: string, params: { [key: string]: 
     const branch = pathSplit[5] || repoInfo.default_branch;
     const projectId = repoInfo.id;
     const dir = pathSplit.slice(6, pathSplit.length).join('/');
-    const apiURL = `${urlObj.origin}/api/v4/projects/${projectId}/repository/tree?per_page=100&ref=${branch}&path=${dir}`;
-    const dirFiles = await fetch(apiURL)
-      .then((res) => {
-        if (!res.ok) throw new Error('Cannot fetch: ' + apiURL);
-        return res.json();
-      })
-      .then((data) => data.filter((node: any) => node.type === 'blob'));
+    const getAllFiles = async (dirPath: string) => {
+      const apiURL = `${urlObj.origin}/api/v4/projects/${projectId}/repository/tree?per_page=100&ref=${branch}&path=${dirPath}`;
+      const dirFiles: Array<{ name: string; path: string; type: string }> = await fetch(apiURL)
+        .then((res) => {
+          if (!res.ok) throw new Error('Cannot fetch: ' + apiURL);
+          return res.json();
+        })
+        .then((data) =>
+          Promise.all(
+            data.map((node: any) => (node.type === 'blob' ? node : getAllFiles(node.path))),
+          ),
+        );
+      return dirFiles.flat();
+    };
 
+    const allFiles = await getAllFiles(dir);
     const files = await Promise.all(
-      Object.values(dirFiles).map(async (file: any) => {
+      Object.values(allFiles).map(async (file: any) => {
         const filename = file.path.split('/')[file.path.split('/').length - 1];
         const rawURL = `${
           urlObj.origin
@@ -42,10 +50,12 @@ export const importFromGitlabDir = async (url: string, params: { [key: string]: 
           if (!res.ok) throw new Error('Cannot fetch: ' + file.url);
           return res.text();
         });
+        const relativePath = dir ? file.path.replace(`${dir}/`, '') : file.path;
 
         return {
           filename,
           content,
+          path: relativePath,
         };
       }),
     );

@@ -13,7 +13,7 @@ import { getIframeAllowAttribute, type CustomEvents } from './internal';
 import type {
   API,
   Code,
-  Config,
+  SDKConfig as Config,
   EmbedOptions,
   Language,
   Playground,
@@ -177,7 +177,10 @@ export async function createPlayground(
         frame.style.borderRadius = containerElement.style.borderRadius;
       }
       registerEventHandler(function initHandler(
-        e: MessageEvent<{ type: CustomEvents['init']; payload: { appVersion: string } }>,
+        e: MessageEvent<{
+          type: CustomEvents['init'];
+          payload: { appVersion: string };
+        }>,
       ) {
         if (
           e.source !== frame.contentWindow ||
@@ -237,7 +240,9 @@ export async function createPlayground(
       ? Promise.reject(alreadyDestroyedMessage)
       : new Promise<void>(async (resolve) => {
           if (livecodesReady.settled) resolve();
-          const message: { type: CustomEvents['load'] } = { type: 'livecodes-load' };
+          const message: { type: CustomEvents['load'] } = {
+            type: 'livecodes-load',
+          };
           iframe.contentWindow?.postMessage(message, origin);
           await livecodesReady;
           resolve();

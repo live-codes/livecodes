@@ -14,4 +14,5 @@ export const bbcode: LanguageSpecs = {
   },
   extensions: ['bbcode', 'bb'],
   editor: 'markup',
+  multiFileSupport: true,
 };

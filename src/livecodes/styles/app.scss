@@ -60,6 +60,8 @@
   --dropdown: var(--color15);
   --layout: var(--color10);
   --modal: var(--color15);
+  --sidebar-bg: var(--color10);
+  --sidebar-panel-bg: var(--color15);
 
   // elements
   --btn-bg-color: var(--layout); // transparent; or var(--darker-bg-color);
@@ -380,7 +382,7 @@ html.dark {
 html {
   .tagify {
     --tags-border-color: var(--input-border-color) !important;
-    background: var(--input-bg-color); // color2);
+    background: var(--input-bg-color);
     border-radius: var(--rs);
 
     &.tagify--focus {
@@ -399,6 +401,10 @@ html {
 @include meta.load-css('inc-icons');
 
 @include meta.load-css('inc-icons-share');
+
+@include meta.load-css('inc-multi-file');
+
+@include meta.load-css('inc-sidebar');
 
 :focus-visible {
   box-shadow: var(--outline-shadow);
@@ -477,7 +483,7 @@ a:visited {
 }
 
 hr {
-  border-color: var(--color2);
+  border-color: var(--color20);
   margin: 1.5rem 0;
 }
 
@@ -668,6 +674,10 @@ kbd {
       margin: 0 var(--s4);
       min-width: var(--s40);
     }
+  }
+
+  #add-file-button {
+    display: none;
   }
 
   #project-title {
@@ -985,6 +995,10 @@ a#result-button {
   position: relative;
   top: 0;
 
+  // #sidebar {
+  //   display: none;
+  // }
+
   > .editor {
     font-variant-ligatures: discretionary-ligatures;
     visibility: hidden;
@@ -1138,6 +1152,7 @@ a#result-button {
 
 #result {
   background-color: #fff;
+  position: relative;
   resize: both;
 
   &.full {
@@ -1433,9 +1448,47 @@ a.tools-pane-title {
   margin: 0 0 calc(-1 * var(--s2)) var(--s8);
   position: relative;
 
-  > ul {
+  > div.editors-scroller {
     display: flex;
     height: 100%;
+  }
+
+  .editor-scroll-btn {
+    align-items: center;
+    background: var(--editor-title-bg-color);
+    border-block: 1px solid var(--editor-title-bg-color);
+    border-inline: 2px solid var(--toolbar-bg-color);
+    border-top-left-radius: var(--editor-title-border-radius);
+    border-top-right-radius: var(--editor-title-border-radius);
+    color: var(--editor-title-color);
+    cursor: pointer;
+    display: none;
+    font-size: inherit;
+    justify-content: center;
+    margin-right: 2px;
+    top: 1px;
+
+    &:hover {
+      background-color: var(--editor-title-bg-active);
+      border-color: var(--editor-title-bg-active);
+      color: var(--editor-title-active);
+    }
+
+    &.hidden {
+      visibility: hidden;
+    }
+
+    &.editor-scroll-start {
+      i.icon-arrow-down {
+        transform: rotate(90deg);
+      }
+    }
+
+    &.editor-scroll-end {
+      i.icon-arrow-down {
+        transform: rotate(270deg);
+      }
+    }
   }
 }
 
@@ -1466,6 +1519,7 @@ a.editor-title {
   > span {
     display: inline-block;
     flex-grow: 1;
+    min-width: 3em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1518,6 +1572,33 @@ a.editor-title {
     .dropdown-menu {
       animation: fadeIn 0.4s forwards;
       display: block;
+    }
+  }
+
+  &[data-multi-file='true'] {
+    width: fit-content;
+
+    > span {
+      padding: 0 4px;
+    }
+  }
+
+  .delete-file-button {
+    background: transparent;
+    border: 0;
+    color: var(--editor-title-color);
+    cursor: pointer;
+    height: 100%;
+    margin-inline-end: -7px;
+    margin-inline-start: 0;
+    width: var(--s16);
+
+    i {
+      font-size: var(--s10);
+    }
+
+    &:hover {
+      color: var(--editor-title-active);
     }
   }
 }
@@ -1875,6 +1956,16 @@ a.editor-title {
     position: absolute;
   }
 
+  #editors {
+    #sidebar {
+      display: none;
+    }
+
+    .editor {
+      margin-inline-start: 0;
+    }
+  }
+
   @media only screen and (max-width: 768px) {
     #toolbar {
       #run-button,
@@ -2197,7 +2288,7 @@ pre[class*='language-'].line-numbers > code {
     --inner-uncheck: var(--input-color);
     --focus: 1px var(--input-border-active);
     --border-hover: var(--input-border-active); // radio border
-    --background: var(--color2);
+    --background: var(--color20);
     --disabled: var(--color20, #f6f8ff);
     --disabled-inner: var(--color30, #e1e6f9);
     appearance: none;
@@ -2355,10 +2446,53 @@ pre[class*='language-'].line-numbers > code {
   }
 }
 
+/* file tree */
+.ft-root {
+  --ft-bg: var(--sidebar-panel-bg);
+  --ft-color: var(--link);
+  --ft-node-hover: var(--darker-bg-color);
+  --ft-node-selected: var(--darker-bg-active);
+  --ft-toolbar-bg: var(--layout);
+  --ft-toolbar-border: var(--color30);
+  --ft-toolbar-btn: var(--btn-bg-color);
+  --ft-toolbar-btn-color: var(--btn-color);
+  --ft-toolbar-btn-hover: var(--btn-bg-active);
+  --ft-toolbar-btn-color-hover: var(--btn-active);
+  --ft-context-bg: var(--dropdown-bg-color);
+  --ft-context-border: var(--dark-bg-color);
+  --ft-context-color: var(--dropdown-color);
+  --ft-context-hover: var(--dropdown-bg-active);
+  --ft-input-bg: var(--input-bg-color);
+  --ft-input-color: var(--input-color);
+  --ft-input-border: var(--input-border-color);
+  --ft-drop-indicator: var(--outline-color);
+  --ft-border-radius: 0;
+
+  border-radius: 0;
+  outline-color: transparent;
+
+  * {
+    scrollbar-color: unset;
+    scrollbar-width: unset;
+  }
+
+  .ft-toolbar__btn {
+    border-radius: var(--btn-border-radius);
+  }
+
+  .ft-context-menu__item {
+    padding: 0 8px;
+  }
+}
+
 /* z-index */
 body {
   .modal-tabs li.active {
     z-index: 1;
+  }
+
+  #sidebar-content {
+    z-index: 5;
   }
 
   #console .luna-console-error {

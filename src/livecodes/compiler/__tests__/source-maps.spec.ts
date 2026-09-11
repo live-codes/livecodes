@@ -1,6 +1,7 @@
 import {
   buildSourceLineMap,
   decodeVlq,
+  getConsoleCallSiteFromError,
   getOriginalPosition,
   toPositiveLineNumber,
 } from '../source-maps';
@@ -301,5 +302,123 @@ describe('getOriginalPosition', () => {
 
   test('returns undefined for empty mappings', () => {
     expect(getOriginalPosition(JSON.stringify({ mappings: '' }), 1, 1)).toBeUndefined();
+  });
+});
+
+describe('getConsoleCallSiteFromError (multi-file)', () => {
+  const stackWith = (frame: string) =>
+    `Error: boom\n    at throwError (${frame})\n    at <anonymous> (script.js:1:1)`;
+
+  const resetBodyState = () => {
+    // multi-file pages have no document line offsets and set the multi-file flag;
+    // single-file pages set offsets and no flag.
+    delete document.body?.dataset.livecodesMarkupLineOffset;
+    delete document.body?.dataset.livecodesScriptLineOffset;
+    delete document.body?.dataset.livecodesMultiFile;
+    delete document.body?.dataset.livecodesMainFile;
+    delete document.body?.dataset.livecodesCurrentMarkupScriptLine;
+  };
+
+  beforeEach(resetBodyState);
+
+  test('detects the filename from a bare sourceURL frame', () => {
+    document.body!.dataset.livecodesMultiFile = 'true';
+    const callSite = getConsoleCallSiteFromError(12, stackWith('tax-calculator.ts:12:5'));
+    expect(callSite.filename).toBe('tax-calculator.ts');
+    expect(callSite.lineNumber).toBe(12);
+    expect(callSite.columnNumber).toBe(5);
+    expect(callSite.source).toBe('script');
+  });
+
+  test('handles the "at fn (file.ts:l:c)" frame format', () => {
+    document.body!.dataset.livecodesMultiFile = 'true';
+    const callSite = getConsoleCallSiteFromError(3, stackWith('utils.ts:3:1'));
+    expect(callSite.filename).toBe('utils.ts');
+    expect(callSite.lineNumber).toBe(3);
+  });
+
+  test('does not set a filename when not flagged as multi-file', () => {
+    // without the multi-file flag, a `.ts` frame does not map to a filename
+    const callSite = getConsoleCallSiteFromError(12, stackWith('tax-calculator.ts:12:5'));
+    expect(callSite.filename).toBeUndefined();
+  });
+
+  test('detects a plain JS file of a multi-file project (no source map)', () => {
+    document.body!.dataset.livecodesMultiFile = 'true';
+    const callSite = getConsoleCallSiteFromError(4, stackWith('counter.js:4:1'));
+    expect(callSite.filename).toBe('counter.js');
+    expect(callSite.lineNumber).toBe(4);
+  });
+
+  test('a multi-file project may legitimately contain a script.js file', () => {
+    document.body!.dataset.livecodesMultiFile = 'true';
+    const callSite = getConsoleCallSiteFromError(1, stackWith('script.js:1:1'));
+    expect(callSite.filename).toBe('script.js');
+    expect(callSite.lineNumber).toBe(1);
+  });
+
+  test('does not treat a data URL frame as a multi-file filename', () => {
+    document.body!.dataset.livecodesMultiFile = 'true';
+    const frame = 'data:text/javascript;base64,aGVsbG8=:4:2';
+    const callSite = getConsoleCallSiteFromError(4, `Error: boom\n    at throwError (${frame})`);
+    expect(callSite.filename).toBeUndefined();
+  });
+
+  test('does not treat a blob URL frame as a multi-file filename', () => {
+    document.body!.dataset.livecodesMultiFile = 'true';
+    const callSite = getConsoleCallSiteFromError(
+      7,
+      `Error: boom\n    at throwError (blob:https://x/y-a1b2c3:7:1)`,
+    );
+    expect(callSite.filename).toBeUndefined();
+  });
+
+  test('falls back to no filename for frames without a trailing line:col', () => {
+    document.body!.dataset.livecodesMultiFile = 'true';
+    const callSite = getConsoleCallSiteFromError(2, `Error: boom\n    at fn`);
+    expect(callSite.filename).toBeUndefined();
+  });
+
+  test('multi-file: an inline script reports the main file name', () => {
+    document.body!.dataset.livecodesMultiFile = 'true';
+    document.body!.dataset.livecodesMainFile = 'index.html';
+    document.body!.dataset.livecodesMarkupLineOffset = '4';
+    // inline module prologue records its markup start line on <body>
+    document.body!.dataset.livecodesCurrentMarkupScriptLine = '11';
+    const callSite = getConsoleCallSiteFromError(
+      2,
+      `Error: boom\n    at <anonymous> (http://x:2:15)`,
+    );
+    expect(callSite.filename).toBe('index.html');
+    expect(callSite.source).toBe('script');
+    expect(callSite.lineNumber).toBe(11);
+  });
+});
+
+describe('getConsoleCallSiteFromError (single-file)', () => {
+  const stackWith = (frame: string) =>
+    `Error: boom\n    at throwError (${frame})\n    at <anonymous> (script.js:1:1)`;
+
+  const resetBodyState = () => {
+    delete document.body?.dataset.livecodesMarkupLineOffset;
+    delete document.body?.dataset.livecodesScriptLineOffset;
+    delete document.body?.dataset.livecodesMultiFile;
+  };
+
+  beforeEach(resetBodyState);
+
+  test('script editor (no inline markup, no offsets): script.js is not a filename', () => {
+    // single-file pages never set the multi-file flag, even with no document offsets
+    const callSite = getConsoleCallSiteFromError(1, stackWith('script.js:1:1'));
+    expect(callSite.filename).toBeUndefined();
+    expect(callSite.source).toBe('script');
+  });
+
+  test('with document offsets, the script.js bootstrap is not a filename', () => {
+    document.body!.dataset.livecodesScriptLineOffset = '10';
+    document.body!.dataset.livecodesMarkupLineOffset = '3';
+    const callSite = getConsoleCallSiteFromError(1, stackWith('script.js:1:1'));
+    expect(callSite.filename).toBeUndefined();
+    expect(callSite.source).toBe('script');
   });
 });

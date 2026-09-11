@@ -6,7 +6,8 @@ import { modulesService } from '../../services';
 import { getLanguageCustomSettings } from '../../utils/utils';
 import { tailwindcss3Url, tailwindcssBaseUrl, vendorsBaseUrl } from '../../vendors';
 import { lightningcssFeatures } from '../lightningcss/processor-lightningcss-compiler';
-import { addCodeInStyleBlocks } from './utils';
+import { getLanguageEditorId } from '../utils';
+import { addCodeInStyleBlocks, hasTailwindImport } from './utils';
 
 declare const self: any;
 
@@ -192,16 +193,32 @@ self.createTailwindcssCompiler = (): CompilerFunction => {
   };
 
   const tailwind4: CompilerFunction = async (code, { config, options }) => {
-    const prepareCode = (css: string, html: string) => {
-      let result = replaceStyleImports(css, [/tailwindcss/g]);
-      if (!result.includes('@import')) {
+    const isMultiFile = config.files.length > 0;
+
+    if (isMultiFile && !hasTailwindImport(code)) return code;
+
+    const prepareCode = (css: string, html: string, isMultiFile = false) => {
+      let result = replaceStyleImports(css, { exceptions: [/tailwindcss/g] });
+      if (!result.includes('@import') && !isMultiFile) {
         result = `@import "tailwindcss";${result}`;
       }
       return addCodeInStyleBlocks(result, html);
     };
 
-    const html = `<template>${options.html}\n<script>${config.script.content}</script></template>`;
-    const css = prepareCode(code, html);
+    const html = isMultiFile
+      ? '<template>' +
+        config.files
+          .map((f) => ({
+            type: getLanguageEditorId(f.language),
+            content: f.content,
+          }))
+          .filter((f) => f.type !== 'style')
+          .map((f) => (f.type === 'markup' ? f.content : `<script>${f.content}</script>`))
+          .join('\n') +
+        '</template>'
+      : `<template>${options.html}\n<script>${config.script.content}</script></template>`;
+    const css = prepareCode(code, html, isMultiFile);
+
     try {
       const compiler = await self.tailwindcss.compile(css, {
         base: '/',

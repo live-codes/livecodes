@@ -1,5 +1,6 @@
 import { expect, type Frame, type Page } from '@playwright/test';
 import type { UrlQueryParams } from '../../src/livecodes/models';
+import { getPlaygroundUrl, type Config } from '../../src/sdk/index';
 import { getLoadedApp } from '../helpers';
 import { test } from '../test-fixtures';
 
@@ -46,6 +47,19 @@ const openWithCode = async (
       [scriptParam]: encodeURIComponent(script),
     }),
   );
+  const { app, waitForResultUpdate } = await getLoadedApp(page);
+  await waitForResultUpdate();
+  await app.click('#tools-pane-titles > .console');
+  return { app, waitForResultUpdate };
+};
+
+const openWithMultiFileConfig = async (
+  page: Page,
+  getTestUrl: () => string,
+  config: Partial<Config>,
+) => {
+  const url = getPlaygroundUrl({ appUrl: getTestUrl(), config });
+  await page.goto(url);
   const { app, waitForResultUpdate } = await getLoadedApp(page);
   await waitForResultUpdate();
   await app.click('#tools-pane-titles > .console');
@@ -496,5 +510,148 @@ test.describe('Console line logs', () => {
     await app.waitForTimeout(300);
     entries = await getConsoleEntries(app);
     expect(entries.find((e) => e.text === 'hello')?.sourceLine).toBe('script:2');
+  });
+});
+
+// Regression tests: inline scripts (classic and `type="module"`) and script files
+// in single-file and multi-file projects must be reported against the correct
+// source/file with the correct line number, whether or not a source map exists
+// (js = no source map, ts = source map present).
+test.describe('Console line logs: source & line mapping', () => {
+  const waitForLogs = async (app: Frame, count: number) => {
+    await waitForConsoleEntries(app, count);
+    await app.waitForTimeout(300);
+    return getConsoleEntries(app);
+  };
+  const byText = (entries: ConsoleEntry[]) =>
+    Object.fromEntries(entries.map((e) => [e.text, e.sourceLine]));
+
+  // single-file markup with module (line 4) and classic (line 8) inline logs
+  const singleMarkup = (moduleLog: string, classicLog: string) =>
+    [
+      '<div>app</div>', // 1
+      '', // 2
+      '<script type="module">', // 3
+      `  console.log('${moduleLog}')`, // 4
+      '</script>', // 5
+      '', // 6
+      '<script>', // 7
+      `  console.log('${classicLog}')`, // 8
+      '</script>', // 9
+    ].join('\n');
+
+  const assertSingle = (
+    map: Record<string, string | null>,
+    moduleLog: string,
+    classicLog: string,
+  ) => {
+    // markup inline module and classic scripts keep their 'markup' source and content line
+    expect(map[moduleLog]).toBe('markup:4');
+    expect(map[classicLog]).toBe('markup:8');
+    // the script editor maps to its own line via 'script'
+    expect(map['script-log']).toBe('script:1');
+  };
+
+  test('single-file JavaScript (no source map): inline classic, inline module, script', async ({
+    page,
+    getTestUrl,
+  }) => {
+    const { app } = await openWithCode(page, getTestUrl, {
+      markup: singleMarkup('m', 'c'),
+      script: "console.log('script-log')",
+      language: 'js',
+    });
+    const entries = await waitForLogs(app, 3);
+    assertSingle(byText(entries), 'm', 'c');
+  });
+
+  test('single-file TypeScript (source map): inline classic, inline module, script', async ({
+    page,
+    getTestUrl,
+  }) => {
+    const { app } = await openWithCode(page, getTestUrl, {
+      markup: singleMarkup('m', 'c'),
+      script: "console.log('script-log')",
+      language: 'ts',
+    });
+    const entries = await waitForLogs(app, 3);
+    assertSingle(byText(entries), 'm', 'c');
+  });
+
+  // multi-file mainFile (index.html) with module (line 13) and classic (line 10)
+  // inline logs, plus a script file imported as a module
+  const multiIndex = (classicLog: string, moduleLog: string, entryPoint: string) =>
+    [
+      '<!doctype html>', // 1
+      '<html lang="en">', // 2
+      '  <head>', // 3
+      '    <title>t</title>', // 4
+      '  </head>', // 5
+      '  <body>', // 6
+      '    <div id="app"></div>', // 7
+      `    <script type="module" src="${entryPoint}"></script>`, // 8
+      '    <script>', // 9
+      `      console.log('${classicLog}')`, // 10
+      '    </script>', // 11
+      '    <script type="module">', // 12
+      `      console.log('${moduleLog}')`, // 13
+      '    </script>', // 14
+      '  </body>', // 15
+      '</html>', // 16
+    ].join('\n');
+
+  const assertMulti = (
+    map: Record<string, string | null>,
+    classicLog: string,
+    moduleLog: string,
+    mainFile: string,
+  ) => {
+    // main file inline scripts report the main file name with their file line
+    expect(map[classicLog]).toBe(`${mainFile}:10`);
+    expect(map[moduleLog]).toBe(`${mainFile}:13`);
+  };
+
+  test('multi-file JavaScript: mainFile inline/classic+module and script module', async ({
+    page,
+    getTestUrl,
+  }) => {
+    const { app } = await openWithMultiFileConfig(page, getTestUrl, {
+      activeEditor: 'index.html',
+      mainFile: 'index.html',
+      files: [
+        {
+          filename: 'index.html',
+          language: 'html',
+          content: multiIndex('ic', 'im', 'src/main.js'),
+        },
+        { filename: 'src/main.js', language: 'javascript', content: "console.log('main-js')" },
+      ],
+    });
+    const entries = await waitForLogs(app, 3);
+    const map = byText(entries);
+    assertMulti(map, 'ic', 'im', 'index.html');
+    expect(map['main-js']).toBe('src/main.js:1');
+  });
+
+  test('multi-file TypeScript: mainFile inline/classic+module and script module', async ({
+    page,
+    getTestUrl,
+  }) => {
+    const { app } = await openWithMultiFileConfig(page, getTestUrl, {
+      activeEditor: 'index.html',
+      mainFile: 'index.html',
+      files: [
+        {
+          filename: 'index.html',
+          language: 'html',
+          content: multiIndex('ic', 'im', 'src/main.ts'),
+        },
+        { filename: 'src/main.ts', language: 'typescript', content: "console.log('main-ts')" },
+      ],
+    });
+    const entries = await waitForLogs(app, 3);
+    const map = byText(entries);
+    assertMulti(map, 'ic', 'im', 'index.html');
+    expect(map['main-ts']).toBe('src/main.ts:1');
   });
 });

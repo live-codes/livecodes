@@ -88,6 +88,11 @@ foreach (['markup', 'style', 'script'] as $editor) {
         $reducedData[$editor]['compiled'] = '';
     }
 }
+if (isset($reducedData['files']) && is_array($reducedData['files'])) {
+    foreach ($reducedData['files'] as &$f) {
+        $f['compiled'] = '';
+    }
+}
 
 $storedResult = strlen($result) < 300000 ? $result : '';
 $dataJson = json_encode($reducedData, JSON_INVALID_UTF8_SUBSTITUTE);

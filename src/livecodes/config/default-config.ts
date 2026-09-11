@@ -40,11 +40,20 @@ export const defaultConfig: Config = {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
+  files: [],
+  mainFile: undefined,
+  fileLanguages: {},
+  lockFiles: false,
   imports: {},
   types: {},
   tests: {
     language: 'typescript',
     content: '',
+  },
+  sidebar: {
+    enabled: 'all',
+    active: '',
+    status: '',
   },
   tools: {
     enabled: 'all',

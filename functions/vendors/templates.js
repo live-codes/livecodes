@@ -70,5 +70,16 @@ export const starterTemplates = {
   "prolog": "Prolog Starter",
   "minizinc": "MiniZinc Starter",
   "blockly": "Blockly Starter",
-  "diagrams": "Diagrams Starter"
+  "diagrams": "Diagrams Starter",
+  "multifile-blank": "Blank Template",
+  "multifile-basic": "Basic Template",
+  "multifile-javascript": "JavaScript Template",
+  "multifile-typescript": "TypeScript Template",
+  "multifile-react": "React Template",
+  "multifile-vue": "Vue Template",
+  "multifile-preact": "Preact Template",
+  "multifile-svelte": "Svelte Template",
+  "multifile-solid": "Solid Template",
+  "multifile-lit": "Lit Template",
+  "multifile-jest": "Jest Template"
 }
