@@ -78,6 +78,56 @@ test.describe('SDK options', () => {
     expect(titleText).toBe('Hello, World!');
   });
 
+  test('activityId', async ({ page, getTestUrl }) => {
+    const activityId = 'test-activity-' + Date.now(); 
+
+    const starterConfig: Partial<Config> = {
+      markup: {
+        language: 'markdown',
+        content: `# Starter Content`,
+      },
+    };
+
+    // First visit: no saved project exists yet for this activityId
+    const firstUrl = getPlaygroundUrl({
+      appUrl: getTestUrl(),
+      activityId,
+      config: starterConfig,
+    });
+    await page.goto(firstUrl);
+
+    const first = await getLoadedApp(page);
+    await waitForEditorFocus(first.app);
+    await first.waitForResultUpdate();
+
+    let titleText = await first.getResult().innerText('h1');
+    expect(titleText).toBe('Starter Content');
+
+    // Save the project under this activityId.
+    await page.keyboard.press('Control+S');
+    await page.waitForTimeout(500); // give the async IndexedDB write time to complete
+
+    // Second visit: same activityId, but a DIFFERENT starter config.
+    const secondUrl = getPlaygroundUrl({
+      appUrl: getTestUrl(),
+      activityId,
+      config: {
+        markup: {
+          language: 'markdown',
+          content: `# Different Starter`,
+        },
+      },
+    });
+    await page.goto(secondUrl);
+
+    const second = await getLoadedApp(page);
+    await waitForEditorFocus(second.app);
+    await second.waitForResultUpdate();
+
+    titleText = await second.getResult().innerText('h1');
+    expect(titleText).toBe('Starter Content'); // saved project wins, not "Different Starter"
+  });
+
   test('options override: template -> import -> config -> params', async ({ page, getTestUrl }) => {
     const url = getPlaygroundUrl({
       appUrl: getTestUrl(),
