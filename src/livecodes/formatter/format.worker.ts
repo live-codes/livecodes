@@ -11,7 +11,7 @@ declare const importScripts: (...args: string[]) => void;
 let baseUrl: string;
 const parsers: { [key: string]: PrettierParser } = {};
 const plugins: { [key: string]: any } = {};
-const formatters: { [key: string]: FormatFn } = {};
+const formatters: { [key: string]: Promise<FormatFn> } = {};
 
 const loadPrettier = () => {
   importScripts(prettierUrl);
@@ -34,18 +34,16 @@ const getFormatter = (language: Language) =>
   languages.find((lang) => lang.name === language)?.formatter;
 
 const load = (languages: Language[]) => {
-  try {
-    languages.forEach((language) => {
-      if (getParser(language) != null) {
-        loadParser(language);
-      } else if (getFormatter(language) != null) {
-        loadFormatter(language);
-      }
-    });
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.warn('Failed to load formatter');
-  }
+  languages.forEach((language) => {
+    if (getParser(language) != null) {
+      loadParser(language);
+    } else if (getFormatter(language) != null) {
+      loadFormatter(language).catch(() => {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to load formatter for: ' + language);
+      });
+    }
+  });
 };
 
 function loadParser(language: Language): PrettierParser | undefined {
@@ -97,8 +95,13 @@ const loadFormatter = async (language: Language): Promise<FormatFn | undefined> 
   const formatter = getFormatter(language);
   if (!formatter || !('factory' in formatter)) return;
 
-  formatters[language] = await formatter.factory(baseUrl, language);
-  return formatters[language];
+  formatters[language] = Promise.resolve(formatter.factory(baseUrl, language));
+  try {
+    return await formatters[language];
+  } catch (error) {
+    delete formatters[language];
+    throw error;
+  }
 };
 
 const format = async (
