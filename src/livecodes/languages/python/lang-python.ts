@@ -1,6 +1,7 @@
 import type { LanguageSpecs } from '../../models';
 import { getLanguageCustomSettings } from '../../utils/utils';
 import { brythonBaseUrl, codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
+import { pythonFormatter } from '../python-wasm/lang-python-wasm';
 
 const brythonUrl = brythonBaseUrl + 'brython.min.js';
 const stdlibUrl = brythonBaseUrl + 'brython_stdlib.js';
@@ -8,6 +9,7 @@ const stdlibUrl = brythonBaseUrl + 'brython_stdlib.js';
 export const python: LanguageSpecs = {
   name: 'python',
   title: 'Python',
+  formatter: pythonFormatter,
   compiler: {
     factory: () => async (code) => code,
     scripts: ({ compiled, config }) => {
