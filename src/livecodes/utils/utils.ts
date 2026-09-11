@@ -307,6 +307,46 @@ export const removeStrings = /* @__PURE__ */ (src: string) =>
 
 export const removeCommentsAndStrings = (src: string) => removeStrings(removeComments(src));
 
+/**
+ * Blank out JavaScript comments (`// …` to the end of the line and `/* … *\/`),
+ * keeping every index and line break in place, so the block patterns can run
+ * over the result and still address the original code. String literals are
+ * skipped so a `//` inside one (a URL) is not a comment, and `://` is never one.
+ */
+export const maskComments = (code: string) => {
+  let out = '';
+  let i = 0;
+  const blank = (end: number) => {
+    out += code.slice(i, end).replace(/[^\n]/g, ' ');
+    i = end;
+  };
+  while (i < code.length) {
+    const ch = code[i];
+    const next = code[i + 1];
+    if (ch === '/' && next === '/' && code[i - 1] !== ':') {
+      const end = code.indexOf('\n', i);
+      blank(end === -1 ? code.length : end);
+    } else if (ch === '/' && next === '*') {
+      const end = code.indexOf('*/', i + 2);
+      blank(end === -1 ? code.length : end + 2);
+    } else if (ch === '"' || ch === "'" || ch === '`') {
+      let end = i + 1;
+      while (end < code.length && code[end] !== ch) {
+        if (code[end] === '\\') end++;
+        else if (ch !== '`' && code[end] === '\n') break;
+        end++;
+      }
+      end = Math.min(end + 1, code.length);
+      out += code.slice(i, end);
+      i = end;
+    } else {
+      out += ch;
+      i++;
+    }
+  }
+  return out;
+};
+
 export const getLanguageCustomSettings = /* @__PURE__ */ (
   language: Language | Processor,
   config: Config,

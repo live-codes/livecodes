@@ -1,4 +1,4 @@
-import { debounce, decodeHTML, encodeHTML, safeName, toCamelCase } from '..';
+import { debounce, decodeHTML, encodeHTML, maskComments, safeName, toCamelCase } from '..';
 import { defaultConfig } from '../../config';
 import { compress, decompress } from '../compression';
 
@@ -66,5 +66,19 @@ describe('utils', () => {
     expect(toCamelCase('__my_class__name__')).toBe('myClassName');
     expect(toCamelCase('..my.class..name..')).toBe('myClassName');
     expect(toCamelCase('myClassName')).toBe('myClassName');
+  });
+});
+
+describe('maskComments', () => {
+  test('blanks line and block comments, keeping indexes and line breaks', () => {
+    const code = 'a // one\nb /* two\nthree */ c';
+    const masked = maskComments(code);
+    expect(masked).toHaveLength(code.length);
+    expect(masked).toBe('a       \nb       \n         c');
+  });
+
+  test('leaves strings, template literals, and URLs alone', () => {
+    const code = `const a = 'http://x // y'; const b = \`//\${1}\`; url(http://z) <style>`;
+    expect(maskComments(code)).toBe(code);
   });
 });
