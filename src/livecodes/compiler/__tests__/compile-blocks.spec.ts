@@ -1,5 +1,5 @@
 import type { Config } from '../../models';
-import { compileBlocks, maskComments } from '../compile-blocks';
+import { compileBlocks } from '../compile-blocks';
 
 describe('compileBlocks', () => {
   const config = { processors: [] } as unknown as Config;
@@ -42,19 +42,5 @@ export function App() @{
   test('keeps a single block untouched', async () => {
     const code = `<template><div /></template>\n<style>div { color: red; }</style>\n`;
     expect(await compileBlocks(code, 'style', config)).toBe(code);
-  });
-});
-
-describe('maskComments', () => {
-  test('blanks line and block comments, keeping indexes and line breaks', () => {
-    const code = 'a // one\nb /* two\nthree */ c';
-    const masked = maskComments(code);
-    expect(masked).toHaveLength(code.length);
-    expect(masked).toBe('a       \nb       \n         c');
-  });
-
-  test('leaves strings, template literals, and URLs alone', () => {
-    const code = `const a = 'http://x // y'; const b = \`//\${1}\`; url(http://z) <style>`;
-    expect(maskComments(code)).toBe(code);
   });
 });
