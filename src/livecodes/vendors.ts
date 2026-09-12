@@ -501,6 +501,10 @@ export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.35/index.js');
 
 export const wasiShimUrl = /* @__PURE__ */ getUrl('@bjorn3/browser_wasi_shim@0.3.0/dist/index.js');
 
+export const wasmFmtClangBaseUrl = /* @__PURE__ */ getUrl('@wasm-fmt/clang-format@23.1.0/');
+export const wasmFmtRuffBaseUrl = /* @__PURE__ */ getUrl('@wasm-fmt/ruff_fmt@0.15.20/');
+export const wasmFmtZigBaseUrl = /* @__PURE__ */ getUrl('@wasm-fmt/zig_fmt@0.16.0/');
+
 export const wasmoonUrl = /* @__PURE__ */ getUrl('wasmoon@1.16.0/dist/index.js');
 
 export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');

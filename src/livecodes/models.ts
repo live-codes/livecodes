@@ -105,19 +105,19 @@ export type ParserName =
 export interface PrettierParser {
   name: ParserName;
   plugins?: any[];
-  pluginUrls: string[];
+  pluginUrls?: string[];
 }
 export type FormatFn = (
   value: string,
   cursorOffset: number,
   formatterConfig?: Partial<FormatterConfig>,
-) => Promise<{ formatted: string; cursorOffset: number }>;
+) => Promise<{ formatted: string; cursorOffset?: number }>;
 
 export type LanguageFormatter =
   | {
-      factory: (baseUrl: string, language: Language) => FormatFn;
+      factory: (baseUrl: string, language: Language) => FormatFn | Promise<FormatFn>;
     }
-  | { prettier: PrettierParser };
+  | { prettier: PrettierParser | (() => PrettierParser | Promise<PrettierParser>) };
 
 export interface CssPreset {
   id: CssPresetId;

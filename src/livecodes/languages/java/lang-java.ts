@@ -1,14 +1,16 @@
 import type { LanguageSpecs } from '../../models';
-import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
-import { parserPlugins } from '../prettier';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, wasmFmtClangBaseUrl } from '../../vendors';
 
 export const java: LanguageSpecs = {
   name: 'java',
   title: 'Java',
   formatter: {
-    prettier: {
-      name: 'java',
-      pluginUrls: [parserPlugins.java],
+    factory: async () => {
+      const formatter = await import(wasmFmtClangBaseUrl + 'clang-format-web.js');
+      await formatter.default();
+      return async (code) => ({
+        formatted: await formatter.format(code, 'main.java', 'Google'),
+      });
     },
   },
   compiler: {

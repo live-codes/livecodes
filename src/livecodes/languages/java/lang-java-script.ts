@@ -188,6 +188,7 @@ const getWorkerSrc = () => `
 
 // Java API
 livecodes.java = livecodes.java || {};
+livecodes.java.ready = false;
 livecodes.java.run =
   livecodes.java.run ||
   ((input = '') =>

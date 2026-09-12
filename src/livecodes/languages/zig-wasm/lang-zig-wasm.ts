@@ -1,10 +1,17 @@
 import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, wasmFmtZigBaseUrl } from '../../vendors';
 
 export const zigWasm: LanguageSpecs = {
   name: 'zig-wasm',
   title: 'Zig (Wasm)',
+  formatter: {
+    factory: async () => {
+      const formatter = await import(wasmFmtZigBaseUrl + 'zig_fmt_web.js');
+      await formatter.default();
+      return async (code) => ({ formatted: await formatter.format(code) });
+    },
+  },
   compiler: {
     factory: () => async (code) => code,
     scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-zig-wasm-script.js}}'],
