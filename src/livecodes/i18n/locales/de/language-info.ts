@@ -137,7 +137,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) ist eine Open-Source-Programmiersprache, mit der einfache, zuverlässige und effiziente Software erstellt werden kann.',
     desc2: 'Hier wird es mit GopherJS nach JavaScript kompiliert.',
-    link: '<1><2>Go Website</2></1> <3><4>Go Dokumentation</4></3> <5> <6>GopherJS Repository</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=Go</8> </7> <9> <10>LiveCodes Dokumentation</10> </9> <11> <12>Starter-Vorlage laden</12> </11>',
+    link: '<1><2>Go Website</2></1> <3><4>Go Dokumentation</4></3> <5> <6>GopherJS Repository</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=Go</8> </7> <9><10>Starter-Vorlage laden</10></9>',
     name: 'Go',
   },
   goWasm: {
@@ -162,7 +162,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'JVM läuft im Browser mit DoppioJVM.',
-    link: '<1> <2>Offizielle Java-Website</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Lernen Sie X in Y Minuten, wobei X=java</6> </5> <7> <8>LiveCodes Dokumentation</8> </7> <9> <10> Laden Sie die Startvorlage</10> </9>',
+    link: '<1> <2>Offizielle Java-Website</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Lernen Sie X in Y Minuten, wobei X=java</6> </5> <7> <8> Laden Sie die Startvorlage</8> </7>',
     name: 'Java',
   },
   javascript: {
@@ -452,11 +452,6 @@ const languageInfo: I18nLangInfoTranslation = {
     desc2: 'Es wird mit wabt.js in wasm umgewandelt.',
     link: '<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly-Textspezifikationen</4> </3> <5> <6>WebAssembly auf MDN</6> </5> <7> <8>Verständnis des WebAssembly-Textformats</8> </7> <9> <10>wabt.js-Dokumentation</10> </9> <11> <12>Lerne X in Y Minuten, wobei X=WebAssembly</12> </11> <13><14>Starter-Vorlage laden</14></13>',
     name: 'WebAssembly-Textformat',
-  },
-  zigWasm: {
-    desc: 'Zig-Compiler, der auf WebAssembly läuft.',
-    link: '<1> <2>Zig-Website</2> </1> <3> <4>Zig-Sprachdokumentation</4> </3> <5> <6>Lerne X in Y Minuten, wobei X = Zig</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
-    name: 'Zig (Wasm)',
   },
 };
 

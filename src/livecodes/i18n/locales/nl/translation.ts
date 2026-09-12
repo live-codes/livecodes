@@ -1049,7 +1049,6 @@ const translation: I18nTranslation = {
       vue: 'Vue SFC-starter',
       vue2: 'Vue 2-starter',
       wat: 'WebAssembly Text-starter',
-      'zig-wasm': 'Zig (Wasm)-starter',
     },
     user: {
       heading: 'Mijn sjablonen',
