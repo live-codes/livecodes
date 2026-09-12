@@ -354,6 +354,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Ruby resmi web sitesi</2> </1> <3> <4>Ruby dokümantasyonu</4> </3> <5> <6>ruby.wasm web sitesi</6> </5> <7><8>CRuby</8></7> <9> <10>Y Dakikada X Öğrenin, X=ruby</10> </9> <11> <12>LiveCodes Dokümantasyonu</12> </11> <13> <14>Başlangıç şablonunu yükle</14> </13>',
     name: 'Ruby (WASM)',
   },
+  rustWasm: {
+    desc: 'Rust, WebAssembly’ye derlenen <1>Miri</1> (Rust’un orta düzey IR yorumlayıcısı) tarafından yorumlanır ve tamamen tarayıcı içinde çalışır.',
+    link: "<1> <2>Rust resmi web sitesi</2> </1> <3> <4>Rust Kitabı</4> </3> <5> <6>Y dakikada X'i öğrenin, burada X=Rust</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    name: 'Rust (Wasm)',
+  },
   sass: {
     desc: 'Sözdizimsel Olarak Harika Stil Sayfaları.',
     link: '<1> <2>Sass resmi web sitesi</2> </1> <3> <4>Sass dokümantasyonu</4> </3> <5> <6>Sass (girintili) sözdizimi</6> </5> <7> <8>Y Dakikada X Öğrenin, X=sass</8> </7>',

@@ -627,6 +627,15 @@
   "rubyWasm.name": {
     "translation": "Ruby (WASM)"
   },
+  "rustWasm.desc": {
+    "translation": "<tag-1>Miri</tag-1> (রাস্টের মধ্য-স্তরের IR ইন্টারপ্রেটার) দ্বারা রাস্টকে ইন্টারপ্রেট করা হয়, WebAssembly-তে কম্পাইল করা হয় এবং এটি সম্পূর্ণভাবে ব্রাউজারে চলে।"
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>রাস্ট অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>দ্য রাস্ট বুক</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=রাস্ট</tag-6> </tag-5> <tag-7> <tag-8>লাইভকোডস ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "translation": "সিনট্যাক্টিক্যালি অসাধারণ স্টাইল শীট।"
   },

@@ -627,6 +627,15 @@
   "rubyWasm.name": {
     "translation": "Ruby（WASM）"
   },
+  "rustWasm.desc": {
+    "translation": "Rustは、<tag-1>Miri</tag-1>（Rustの中間表現（IR）インタプリタ）によって解釈され、WebAssemblyにコンパイルされた後、完全にブラウザ内で実行されます。"
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>Rust 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>『The Rust Book』</tag-4> </tag-3> <tag-5> <tag-6>「Y分でXを学ぶ」（X=Rust）</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートを読み込む</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "translation": "構文的にすばらしいスタイルシート。"
   },

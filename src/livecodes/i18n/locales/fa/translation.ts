@@ -1036,6 +1036,7 @@ const translation: I18nTranslation = {
       riot: 'شروع کننده Riot.js',
       ruby: 'شروع کننده Ruby',
       'ruby-wasm': 'شروع کننده Ruby (Wasm)',
+      'rust-wasm': 'شروع کننده Rust (Wasm)',
       scheme: 'شروع کننده Scheme',
       shadcnui: 'شروع کننده shadcn/ui',
       solid: 'شروع کننده Solid',

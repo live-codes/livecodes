@@ -627,6 +627,15 @@
   "rubyWasm.name": {
     "translation": "Ruby（WASM）"
   },
+  "rustWasm.desc": {
+    "translation": "Rust 由<tag-1>Miri</tag-1>（Rust 中级中间表示（IR）解释器）进行解释，编译为 WebAssembly，并在浏览器中完全运行。"
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>Rust 官方网站</tag-2> </tag-1> <tag-3> <tag-4>《Rust 入门指南》</tag-4> </tag-3> <tag-5> <tag-6>《Y分钟学会X》，其中X=Rust</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "translation": "语法超赞的样式表。"
   },

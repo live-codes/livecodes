@@ -347,6 +347,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Ruby 官方网站</2> </1> <3> <4>Ruby 文档</4> </3> <5> <6>ruby.wasm 网站</6> </5> <7><8>CRuby</8></7> <9> <10>在 Y 分钟内学习 X，其中 X=ruby</10> </9> <11> <12>LiveCodes 文档</12> </11> <13> <14>加载启动模板</14> </13>',
     name: 'Ruby（WASM）',
   },
+  rustWasm: {
+    desc: 'Rust 由<1>Miri</1>（Rust 中级中间表示（IR）解释器）进行解释，编译为 WebAssembly，并在浏览器中完全运行。',
+    link: '<1> <2>Rust 官方网站</2> </1> <3> <4>《Rust 入门指南》</4> </3> <5> <6>《Y分钟学会X》，其中X=Rust</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Rust (Wasm)',
+  },
   sass: {
     desc: '语法超赞的样式表。',
     link: '<1> <2>Sass 官方网站</2> </1> <3> <4>Sass 文档</4> </3> <5> <6>Sass（缩进）语法</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=sass</8> </7>',

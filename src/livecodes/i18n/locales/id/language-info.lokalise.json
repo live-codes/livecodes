@@ -627,6 +627,15 @@
   "rubyWasm.name": {
     "translation": "Ruby (WASM)"
   },
+  "rustWasm.desc": {
+    "translation": "Rust diinterpretasikan oleh <tag-1>Miri</tag-1> (interpreter IR tingkat menengah Rust) yang dikompilasi ke WebAssembly, dan dijalankan sepenuhnya di dalam browser."
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Rust</tag-2> </tag-1> <tag-3> <tag-4>Buku Rust</tag-4> </tag-3> <tag-5> <tag-6>Belajar X dalam Y menit, di mana X = Rust</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat templat awal</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "translation": "Syntactically Awesome Style Sheets."
   },

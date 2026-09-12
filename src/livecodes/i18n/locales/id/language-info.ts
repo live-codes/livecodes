@@ -354,6 +354,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi Ruby</2> </1> <3> <4>Dokumentasi Ruby</4> </3> <5> <6>Situs web ruby.wasm</6> </5> <7><8>CRuby</8></7> <9> <10>Pelajari X dalam Y menit, dengan X=ruby</10> </9> <11> <12>Dokumentasi LiveCodes</12> </11> <13> <14>Muat template pemula</14> </13>',
     name: 'Ruby (WASM)',
   },
+  rustWasm: {
+    desc: 'Rust diinterpretasikan oleh <1>Miri</1> (interpreter IR tingkat menengah Rust) yang dikompilasi ke WebAssembly, dan dijalankan sepenuhnya di dalam browser.',
+    link: '<1> <2>Situs web resmi Rust</2> </1> <3> <4>Buku Rust</4> </3> <5> <6>Belajar X dalam Y menit, di mana X = Rust</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Rust (Wasm)',
+  },
   sass: {
     desc: 'Syntactically Awesome Style Sheets.',
     link: '<1> <2>Situs web resmi Sass</2> </1> <3> <4>Dokumentasi Sass</4> </3> <5> <6>Sintaks Sass (yang berindentasi)</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=sass</8> </7>',

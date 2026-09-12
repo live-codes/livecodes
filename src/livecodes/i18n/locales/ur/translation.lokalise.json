@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "روبی (واسم) شروعاتی"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "راست (واسم) شروعاتی"
+  },
   "templates.starter.scheme": {
     "translation": "اسکیم شروعاتی"
   },

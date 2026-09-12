@@ -627,6 +627,15 @@
   "rubyWasm.name": {
     "translation": "Ruby (WASM)"
   },
+  "rustWasm.desc": {
+    "translation": "Rust интерпретируется с помощью <tag-1>Miri</tag-1> (интерпретатора промежуточного представления среднего уровня для Rust), скомпилированного в WebAssembly, и выполняется полностью в браузере."
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>Официальный сайт Rust</tag-2> </tag-1> <tag-3> <tag-4>Книга по Rust</tag-4> </tag-3> <tag-5> <tag-6>«Изучите X за Y минут», где X = Rust</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Загрузить стартовый шаблон</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "translation": "Синтаксически удивительные таблицы стилей."
   },

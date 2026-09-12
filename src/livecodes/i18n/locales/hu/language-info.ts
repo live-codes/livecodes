@@ -354,6 +354,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Ruby hivatalos weboldal</2> </1> <3> <4>Ruby dokumentáció</4> </3> <5> <6>ruby.wasm weboldal</6> </5> <7><8>CRuby</8></7> <9> <10>Tanulj X-et Y perc alatt, ahol X=ruby</10> </9> <11> <12>LiveCodes dokumentáció</12> </11> <13> <14>Kezdő sablon betöltése</14> </13>',
     name: 'Ruby (WASM)',
   },
+  rustWasm: {
+    desc: 'A Rust-ot <1>a Miri</1> (a Rust középszintű IR-értelmezője) értelmezi, majd WebAssembly-re fordítja, és a program teljes egészében a böngészőben fut.',
+    link: '<1> <2>A Rust hivatalos weboldala</2> </1> <3> <4>A Rust könyv</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=Rust</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Indító sablon betöltése</10> </9>',
+    name: 'Rust (Wasm)',
+  },
   sass: {
     desc: 'Szintaktikusan Fantasztikus Stíluslapok.',
     link: '<1> <2>Sass hivatalos weboldal</2> </1> <3> <4>Sass dokumentáció</4> </3> <5> <6>Sass (a behúzott) szintaxis</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=sass</8> </7>',

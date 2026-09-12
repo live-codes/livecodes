@@ -1036,6 +1036,7 @@ const translation: I18nTranslation = {
       riot: 'Riot.js Başlangıç',
       ruby: 'Ruby Başlangıç',
       'ruby-wasm': 'Ruby (Wasm) Başlangıç',
+      'rust-wasm': 'Rust (Wasm) Başlangıç',
       scheme: 'Scheme Başlangıç',
       shadcnui: 'shadcn/ui Başlangıç',
       solid: 'Solid Başlangıç',
