@@ -99,6 +99,7 @@ export type ParserName =
   | 'php'
   | 'pug'
   | 'java'
+  | 'rust'
   | 'minizinc';
 
 export interface PrettierParser {
@@ -193,6 +194,8 @@ export interface Compiler {
     | 'text/x-uniter-php'
     | 'text/php-wasm'
     | 'text/cpp'
+    | 'text/rust-wasm'
+    | 'text/zig-wasm'
     | 'text/java'
     | 'text/csharp-wasm'
     | 'text/fsharp-wasm'
@@ -204,7 +207,6 @@ export interface Compiler {
     | 'text/prolog'
     | 'text/minizinc'
     | 'text/go-wasm'
-    | 'text/zig-wasm'
     | 'application/json'
     | 'application/lua'
     | 'text/fennel'
@@ -247,6 +249,8 @@ export type TemplateAlias =
   | 'fs'
   | 'f#-wasm'
   | 'fs-wasm'
+  | 'rust'
+  | 'rs'
   | 'pl'
   | 'lisp'
   | 'cljs'

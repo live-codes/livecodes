@@ -47,6 +47,8 @@ const templates = [
   { name: 'php-wasm', title: 'PHP (Wasm) Starter', thumbnail: 'php.svg' },
   { name: 'cpp', title: 'C++ Starter', thumbnail: 'cpp.svg' },
   { name: 'cpp-wasm', title: 'C++ (Wasm) Starter', thumbnail: 'cpp.svg' },
+  { name: 'rust-wasm', title: 'Rust (Wasm) Starter', thumbnail: 'rust.svg' },
+  { name: 'zig-wasm', title: 'Zig (Wasm) Starter', thumbnail: 'zig.svg' },
   { name: 'java', title: 'Java Starter', thumbnail: 'java.svg' },
   { name: 'csharp-wasm', title: 'C# (Wasm)', thumbnail: 'csharp.svg' },
   { name: 'fsharp', title: 'F# Starter', thumbnail: 'fsharp.svg' },
@@ -71,7 +73,6 @@ const templates = [
   { name: 'minizinc', title: 'MiniZinc Starter', thumbnail: 'minizinc.png' },
   { name: 'blockly', title: 'Blockly Starter', thumbnail: 'blockly.svg' },
   { name: 'diagrams', title: 'Diagrams Starter', thumbnail: 'diagrams.svg' },
-  { name: 'zig-wasm', title: 'Zig (Wasm) Starter', thumbnail: 'zig.svg' },
 ];
 
 export default function TemplateList() {

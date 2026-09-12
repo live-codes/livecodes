@@ -1,4 +1,10 @@
-import { prettierBaseUrl, prettierMinizincUrl, prettierPhpUrl, vendorsBaseUrl } from '../vendors';
+import {
+  prettierBaseUrl,
+  prettierMinizincUrl,
+  prettierPhpUrl,
+  prettierRustUrl,
+  vendorsBaseUrl,
+} from '../vendors';
 
 export const prettierUrl = prettierBaseUrl + 'standalone.js';
 export const parserPlugins = {
@@ -12,4 +18,5 @@ export const parserPlugins = {
   minizinc: prettierMinizincUrl,
   pug: vendorsBaseUrl + 'prettier/parser-pug.js',
   java: vendorsBaseUrl + 'prettier/parser-java.js',
+  rust: prettierRustUrl,
 };

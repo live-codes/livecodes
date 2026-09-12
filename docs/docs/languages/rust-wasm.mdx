@@ -1,0 +1,101 @@
+# Rust (Wasm)
+
+Rust is a general-purpose programming language designed for performance and safety.
+
+In LiveCodes, Rust runs in the browser by interpreting the source with [Miri](https://github.com/rust-lang/miri)
+(the Rust mid-level IR interpreter) compiled to WebAssembly. No backend is involved.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+export const rustConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'rust-wasm',
+    content: `use std::collections::HashMap;\n
+fn main() {
+    let text = "the quick brown fox jumps over the lazy dog";\n
+    let mut counts: HashMap<&str, u32> = HashMap::new();
+    for word in text.split_whitespace() {
+        *counts.entry(word).or_insert(0) += 1;
+    }\n
+    let mut words: Vec<(&str, u32)> = counts.into_iter().collect();
+    words.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(b.0)));\n
+    for (word, count) in &words {
+        println!("{word:<6} {count}");
+    }
+}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={rustConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The Rust code runs in the context of the result page. A few helper properties and methods are available in the browser global `livecodes.rust` object:
+
+- `livecodes.rust.input`: The standard input passed to the Rust program. It can be set before the initial run, or passed to `run` for subsequent runs.
+- `livecodes.rust.loaded`: A promise that resolves when the Rust environment (WebAssembly interpreter and standard library) is fully loaded (and rejects if it fails to load). Other helpers should be used after this promise resolves.
+- `livecodes.rust.output`: The standard output from the Rust code execution.
+- `livecodes.rust.exitCode`: The exit code of the last run.
+- `livecodes.rust.run`: A function that runs the Rust code again with new input. It takes a string as input and returns a promise that resolves with an object containing the `output`, `error`, and `exitCode` properties.
+
+Example:
+
+<LiveCodes template="rust-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`rust-wasm`
+
+### Aliases / Extensions
+
+`rust`, `rs`, `rust-wasm`, `rs-wasm`, `wasm.rs`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Miri](https://github.com/rust-lang/miri), the Rust mid-level IR interpreter, compiled to WebAssembly.
+
+### Version
+
+Miri built against Rust 1.79 (2024-06-15).
+
+## Code Formatting
+
+Using [Prettier](https://prettier.io) with the [Prettier Rust plugin](https://github.com/live-codes/prettier-plugin-rust).
+
+## Limitations
+
+- Programs are single-file. Crates and external dependencies are not supported.
+- Execution is interpreted, so it is considerably slower than native Rust.
+- Threads (`std::thread`) are not supported.
+- Undefined-behaviour checks are disabled in this build, because a playground is interested in whether a program works rather than whether it is sound.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the Rust WebAssembly environment. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the Rust code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Starter Template
+
+https://livecodes.io/?template=rust-wasm
+
+## Links
+
+- [Rust](https://www.rust-lang.org/)
+- [The Rust Book](https://doc.rust-lang.org/book/)
+- [Miri](https://github.com/rust-lang/miri)

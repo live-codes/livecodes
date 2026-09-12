@@ -2784,6 +2784,10 @@
     "notes": "",
     "translation": "Ruby (Wasm) Starter"
   },
+  "templates.starter.rust-wasm": {
+    "notes": "",
+    "translation": "Rust (Wasm) Starter"
+  },
   "templates.starter.scheme": {
     "notes": "",
     "translation": "Scheme Starter"

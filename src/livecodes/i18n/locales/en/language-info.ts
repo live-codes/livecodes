@@ -360,6 +360,11 @@ const languageInfo = {
     link: '<1> <2>Ruby official website</2> </1> <3> <4>Ruby documentation</4> </3> <5> <6>ruby.wasm website</6> </5> <7><8>CRuby</8></7> <9> <10>Learn X in Y minutes, where X=ruby</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>',
     name: 'Ruby (WASM)',
   },
+  rustWasm: {
+    desc: 'Rust is interpreted by <1>Miri</1> (the Rust mid-level IR interpreter) compiled to WebAssembly, running entirely in the browser.',
+    link: '<1> <2>Rust official website</2> </1> <3> <4>The Rust Book</4> </3> <5> <6>Learn X in Y minutes, where X=Rust</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Rust (Wasm)',
+  },
   sass: {
     desc: 'Syntactically Awesome Style Sheets.',
     link: '<1> <2>Sass official website</2> </1> <3> <4>Sass documentation</4> </3> <5> <6>Sass (the indented) syntax</6> </5> <7> <8>Learn X in Y minutes, where X=sass</8> </7>',

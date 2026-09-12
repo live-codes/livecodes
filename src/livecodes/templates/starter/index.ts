@@ -58,6 +58,7 @@ import { rescriptStarter } from './rescript-starter';
 import { riotStarter } from './riot-starter';
 import { rubyStarter } from './ruby-starter';
 import { rubyWasmStarter } from './ruby-wasm-starter';
+import { rustWasmStarter } from './rust-wasm-starter';
 import { schemeStarter } from './scheme-starter';
 import { shadcnuiStarter } from './shadcn-ui-starter';
 import { solidStarter } from './solid-starter';
@@ -121,6 +122,7 @@ export const starterTemplates = [
   phpWasmStarter,
   cppStarter,
   cppWasmStarter,
+  rustWasmStarter,
   zigWasmStarter,
   javaStarter,
   csharpWasmStarter,
