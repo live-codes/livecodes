@@ -1,0 +1,7 @@
+// ATTENTION: This file is auto-generated from source code. Do not edit manually!
+
+import type { I18nTranslation } from '../models';
+
+const translation: I18nTranslation = {};
+
+export default translation;

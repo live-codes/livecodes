@@ -1035,6 +1035,7 @@ const translation: I18nTranslation = {
       riot: 'Стартер Riot.js',
       ruby: 'Стартер Ruby',
       'ruby-wasm': 'Стартер Ruby (Wasm)',
+      'rust-wasm': 'Стартер Rust (Wasm)',
       scheme: 'Стартер Scheme',
       shadcnui: 'Стартер shadcn/ui',
       solid: 'Стартер Solid',
@@ -1048,7 +1049,6 @@ const translation: I18nTranslation = {
       vue: 'Стартер Vue',
       vue2: 'Стартер Vue 2',
       wat: 'Стартер WebAssembly Text',
-      'zig-wasm': 'Стартер Zig (Wasm)',
     },
     user: {
       heading: 'Мои шаблоны',

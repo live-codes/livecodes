@@ -1036,6 +1036,7 @@ const translation: I18nTranslation = {
       riot: 'Riot.js kezdő',
       ruby: 'Ruby kezdő',
       'ruby-wasm': 'Ruby (Wasm) kezdő',
+      'rust-wasm': 'Rust (Wasm) kezdő',
       scheme: 'Scheme kezdő',
       shadcnui: 'shadcn/ui kezdő',
       solid: 'Solid kezdő',
@@ -1049,7 +1050,6 @@ const translation: I18nTranslation = {
       vue: 'Vue SFC kezdő',
       vue2: 'Vue 2 kezdő',
       wat: 'WebAssembly Text kezdő',
-      'zig-wasm': 'Zig (Wasm) kezdő',
     },
     user: {
       heading: 'Saját sablonok',

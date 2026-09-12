@@ -132,7 +132,7 @@ const languageInfo: I18nLangInfoTranslation = {
   go: {
     desc1: 'Go（Golang）是一种开源编程语言，可以轻松构建简单、可靠、高效的软件。',
     desc2: '此处使用 GopherJS 将其编译为 JavaScript。',
-    link: '<1><2>Go 官方网站</2></1> <3><4>Go 文档</4></3> <5> <6>GopherJS 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=Go</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
+    link: '<1><2>Go 官方网站</2></1> <3><4>Go 文档</4></3> <5> <6>GopherJS 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=Go</8> </7> <9><10>加载启动模板</10></9>',
     name: 'Go',
   },
   goWasm: {
@@ -157,7 +157,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: '使用 DoppioJVM 在浏览器中运行的 JVM。',
-    link: '<1> <2>Java 官方网站</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=java</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
+    link: '<1> <2>Java 官方网站    DoppioJVM    在 Y 分钟内学习 X，其中 X=java    加载启动模板</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
     name: 'Java',
   },
   javascript: {
@@ -347,6 +347,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Ruby 官方网站</2> </1> <3> <4>Ruby 文档</4> </3> <5> <6>ruby.wasm 网站</6> </5> <7><8>CRuby</8></7> <9> <10>在 Y 分钟内学习 X，其中 X=ruby</10> </9> <11> <12>LiveCodes 文档</12> </11> <13> <14>加载启动模板</14> </13>',
     name: 'Ruby（WASM）',
   },
+  rustWasm: {
+    desc: 'Rust 由<1>Miri</1>（Rust 中级中间表示（IR）解释器）进行解释，编译为 WebAssembly，并在浏览器中完全运行。',
+    link: '<1> <2>Rust 官方网站</2> </1> <3> <4>《Rust 入门指南》</4> </3> <5> <6>《Y分钟学会X》，其中X=Rust</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Rust (Wasm)',
+  },
   sass: {
     desc: '语法超赞的样式表。',
     link: '<1> <2>Sass 官方网站</2> </1> <3> <4>Sass 文档</4> </3> <5> <6>Sass（缩进）语法</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=sass</8> </7>',
@@ -445,11 +450,6 @@ const languageInfo: I18nLangInfoTranslation = {
     desc2: '使用 wabt.js 将其转换为 wasm。',
     link: '<1><2>WebAssembly.org</2></1> <3> <4> WebAssembly 文本规范</4> </3> <5> <6> MDN 上的 WebAssembly</6> </5> <7> <8> 理解 WebAssembly 文本格式</8> </7> <9> <10> wabt.js 文档</10> </9> <11> <12> 在 Y 分钟内学习 X，其中 X=WebAssembly</12> </11> <13> <14> 加载启动模板</14> </13>',
     name: 'WebAssembly 文本格式',
-  },
-  zigWasm: {
-    desc: '在 WebAssembly 上运行的 Zig 编译器。',
-    link: '<1> <2>Zig 网站</2> </1> <3> <4>Zig 语言文档</4> </3> <5> <6>Y分钟掌握X，其中X=Zig</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
-    name: 'Zig (Wasm)',
   },
 };
 

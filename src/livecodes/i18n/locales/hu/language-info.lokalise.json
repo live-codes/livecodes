@@ -627,6 +627,15 @@
   "rubyWasm.name": {
     "translation": "Ruby (WASM)"
   },
+  "rustWasm.desc": {
+    "translation": "A Rust-ot <tag-1>a Miri</tag-1> (a Rust középszintű IR-értelmezője) értelmezi, majd WebAssembly-re fordítja, és a program teljes egészében a böngészőben fut."
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>A Rust hivatalos weboldala</tag-2> </tag-1> <tag-3> <tag-4>A Rust könyv</tag-4> </tag-3> <tag-5> <tag-6>Tanulj meg X-et Y perc alatt, ahol X=Rust</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Indító sablon betöltése</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "translation": "Szintaktikusan Fantasztikus Stíluslapok."
   },
@@ -803,14 +812,5 @@
   },
   "wat.name": {
     "translation": "WebAssembly Text Formátum"
-  },
-  "zigWasm.desc": {
-    "translation": "A Zig fordító WebAssembly-en fut."
-  },
-  "zigWasm.link": {
-    "translation": "<tag-1> <tag-2>A Zig weboldala</tag-2> </tag-1> <tag-3> <tag-4>A Zig nyelv dokumentációja</tag-4> </tag-3> <tag-5> <tag-6>Tanulj meg X-et Y perc alatt, ahol X=Zig</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Indító sablon betöltése</tag-10> </tag-9>"
-  },
-  "zigWasm.name": {
-    "translation": "Zig (Wasm)"
   }
 }

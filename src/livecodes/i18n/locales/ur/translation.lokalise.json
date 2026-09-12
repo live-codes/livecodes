@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "روبی (واسم) شروعاتی"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "راست (واسم) شروعاتی"
+  },
   "templates.starter.scheme": {
     "translation": "اسکیم شروعاتی"
   },
@@ -2126,9 +2129,6 @@
   },
   "templates.starter.wat": {
     "translation": "ویب اسمبلی ٹیکسٹ شروعاتی"
-  },
-  "templates.starter.zig-wasm": {
-    "translation": "Zig (واسم) شروعاتی"
   },
   "templates.user.heading": {
     "translation": "میرے سانچے"

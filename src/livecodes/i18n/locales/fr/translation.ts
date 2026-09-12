@@ -1037,6 +1037,7 @@ const translation: I18nTranslation = {
       riot: 'Démarrage Riot.js',
       ruby: 'Démarrage Ruby',
       'ruby-wasm': 'Démarrage Ruby (Wasm)',
+      'rust-wasm': 'Démarrage Rust (Wasm)',
       scheme: 'Démarrage Scheme',
       shadcnui: 'Démarrage shadcn/ui',
       solid: 'Démarrage Solid',
@@ -1050,7 +1051,6 @@ const translation: I18nTranslation = {
       vue: 'Démarrage Vue',
       vue2: 'Démarrage Vue 2',
       wat: 'Démarrage WebAssembly Text',
-      'zig-wasm': 'Démarrage Zig (Wasm)',
     },
     user: {
       heading: 'Mes Modèles',

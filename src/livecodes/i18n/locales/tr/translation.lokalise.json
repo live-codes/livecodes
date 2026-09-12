@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "Ruby (Wasm) Başlangıç"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "Rust (Wasm) Başlangıç"
+  },
   "templates.starter.scheme": {
     "translation": "Scheme Başlangıç"
   },
@@ -2126,9 +2129,6 @@
   },
   "templates.starter.wat": {
     "translation": "WebAssembly Text Başlangıç"
-  },
-  "templates.starter.zig-wasm": {
-    "translation": "Zig (Wasm) Başlangıç"
   },
   "templates.user.heading": {
     "translation": "Şablonlarım"

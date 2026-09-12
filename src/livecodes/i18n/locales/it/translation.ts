@@ -1036,6 +1036,7 @@ const translation: I18nTranslation = {
       riot: 'Starter Riot.js',
       ruby: 'Starter Ruby',
       'ruby-wasm': 'Starter Ruby (Wasm)',
+      'rust-wasm': 'Starter Rust (Wasm)',
       scheme: 'Starter Scheme',
       shadcnui: 'Starter shadcn/ui',
       solid: 'Starter Solid',
@@ -1049,7 +1050,6 @@ const translation: I18nTranslation = {
       vue: 'Starter Vue',
       vue2: 'Starter Vue 2',
       wat: 'Starter WebAssembly Text',
-      'zig-wasm': 'Starter Zig (Wasm)',
     },
     user: {
       heading: 'I Miei Modelli',

@@ -1035,6 +1035,7 @@ const translation: I18nTranslation = {
       riot: 'Pemula Riot.js',
       ruby: 'Pemula Ruby',
       'ruby-wasm': 'Pemula Ruby (Wasm)',
+      'rust-wasm': 'Pemula Rust (Wasm)',
       scheme: 'Pemula Scheme',
       shadcnui: 'Pemula shadcn/ui',
       solid: 'Pemula Solid',
@@ -1048,7 +1049,6 @@ const translation: I18nTranslation = {
       vue: 'Pemula Vue SFC',
       vue2: 'Pemula Vue 2',
       wat: 'Pemula Teks WebAssembly',
-      'zig-wasm': 'Pemula Zig (Wasm)',
     },
     user: {
       heading: 'Template Saya',

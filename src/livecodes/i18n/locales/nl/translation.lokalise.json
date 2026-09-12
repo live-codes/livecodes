@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "Ruby (Wasm)-starter"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "Rust (Wasm)-starter"
+  },
   "templates.starter.scheme": {
     "translation": "Scheme-starter"
   },
@@ -2126,9 +2129,6 @@
   },
   "templates.starter.wat": {
     "translation": "WebAssembly Text-starter"
-  },
-  "templates.starter.zig-wasm": {
-    "translation": "Zig (Wasm)-starter"
   },
   "templates.user.heading": {
     "translation": "Mijn sjablonen"

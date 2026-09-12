@@ -1036,6 +1036,7 @@ const translation: I18nTranslation = {
       riot: 'Iniciante Riot.js',
       ruby: 'Iniciante Ruby',
       'ruby-wasm': 'Iniciante Ruby (Wasm)',
+      'rust-wasm': 'Iniciante Rust (Wasm)',
       scheme: 'Iniciante Scheme',
       shadcnui: 'Modelo inicial shadcn/ui',
       solid: 'Iniciante Solid',
@@ -1049,7 +1050,6 @@ const translation: I18nTranslation = {
       vue: 'Iniciante Vue',
       vue2: 'Iniciante Vue 2',
       wat: 'Iniciante WebAssembly Text',
-      'zig-wasm': 'Iniciante Zig (Wasm)',
     },
     user: {
       heading: 'Meus Modelos',
