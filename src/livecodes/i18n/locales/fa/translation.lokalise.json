@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "شروع کننده Ruby (Wasm)"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "شروع کننده Rust (Wasm)"
+  },
   "templates.starter.scheme": {
     "translation": "شروع کننده Scheme"
   },
@@ -2126,9 +2129,6 @@
   },
   "templates.starter.wat": {
     "translation": "شروع کننده WebAssembly Text"
-  },
-  "templates.starter.zig-wasm": {
-    "translation": "شروع کننده Zig (Wasm)"
   },
   "templates.user.heading": {
     "translation": "قالب‌های من"

@@ -137,7 +137,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) es un lenguaje de programación de código abierto que facilita la construcción de software simple, confiable y eficiente.',
     desc2: 'Aquí, se compila a JavaScript usando GopherJS.',
-    link: '<1><2>Sitio web de Go</2></1> <3><4>Documentación de Go</4></3> <5> <6>Repositorio de GopherJS</6> </5> <7> <8>Aprende X en Y minutos, donde X=Go</8> </7> <9> <10>Documentación de LiveCodes</10> </9> <11> <12>Cargar plantilla inicial</12> </11>',
+    link: '<1><2>Sitio web de Go</2></1> <3><4>Documentación de Go</4></3> <5> <6>Repositorio de GopherJS</6> </5> <7> <8>Aprende X en Y minutos, donde X=Go</8> </7> <9><10>Cargar plantilla inicial</10></9>',
     name: 'Go',
   },
   goWasm: {
@@ -162,7 +162,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'JVM ejecutándose en el navegador utilizando DoppioJVM.',
-    link: '<1> <2>Sitio web oficial de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Aprenda X en Y minutos, donde X=java</6> </5> <7> <8>Documentación de LiveCodes</8> </7> <9> <10> Cargue la plantilla de inicio</10> </9>',
+    link: '<1> <2>Sitio web oficial de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Aprenda X en Y minutos, donde X=java</6> </5> <7> <8> Cargue la plantilla de inicio</8> </7>',
     name: 'Java',
   },
   javascript: {
@@ -354,6 +354,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sitio web oficial de Ruby</2> </1> <3> <4>Documentación de Ruby</4> </3> <5> <6>Sitio web de ruby.wasm</6> </5> <7><8>CRuby</8></7> <9> <10>Aprende X en Y minutos, donde X=ruby</10> </9> <11> <12>Documentación de LiveCodes</12> </11> <13> <14>Cargar plantilla inicial</14> </13>',
     name: 'Ruby (WASM)',
   },
+  rustWasm: {
+    desc: 'Rust se interpreta mediante <1>Miri</1> (el intérprete de IR de nivel intermedio de Rust), que se compila a WebAssembly y se ejecuta íntegramente en el navegador.',
+    link: '<1> <2>Página web oficial de Rust</2> </1> <3> <4>El libro de Rust</4> </3> <5> <6>Aprende X en Y minutos, donde X = Rust</6> </5> <7> <8>Documentación de LiveCodes</8> </7> <9> <10>Cargar plantilla de inicio</10> </9>',
+    name: 'Rust (Wasm)',
+  },
   sass: {
     desc: 'Hojas de Estilo Sintácticamente Impresionantes.',
     link: '<1> <2>Sitio web oficial de Sass</2> </1> <3> <4>Documentación de Sass</4> </3> <5> <6>Sintaxis de Sass (con indentación)</6> </5> <7> <8>Aprende X en Y minutos, donde X=sass</8> </7>',
@@ -452,11 +457,6 @@ const languageInfo: I18nLangInfoTranslation = {
     desc2: 'Se convierte a wasm usando wabt.js.',
     link: '<1><2>WebAssembly.org</2></1> <3> <4>Especificaciones del formato de texto de WebAssembly</4> </3> <5> <6>WebAssembly en MDN</6> </5> <7> <8>Entendiendo el formato de texto de WebAssembly</8> </7> <9> <10>Documentación de wabt.js</10> </9> <11> <12>Aprende X en Y minutos, donde X=WebAssembly</12> </11> <13><14>Cargar plantilla inicial</14></13>',
     name: 'Formato de Texto de WebAssembly',
-  },
-  zigWasm: {
-    desc: 'Compilador Zig que se ejecuta en WebAssembly.',
-    link: '<1> <2>Página web de Zig</2> </1> <3> <4>Documentación del lenguaje Zig</4> </3> <5> <6>Aprende X en Y minutos, donde X = Zig</6> </5> <7> <8>Documentación de LiveCodes</8> </7> <9> <10>Cargar plantilla de inicio</10> </9>',
-    name: 'Zig (Wasm)',
   },
 };
 

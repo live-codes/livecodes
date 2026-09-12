@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "Ruby (Wasm) kezdő"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "Rust (Wasm) kezdő"
+  },
   "templates.starter.scheme": {
     "translation": "Scheme kezdő"
   },
@@ -2126,9 +2129,6 @@
   },
   "templates.starter.wat": {
     "translation": "WebAssembly Text kezdő"
-  },
-  "templates.starter.zig-wasm": {
-    "translation": "Zig (Wasm) kezdő"
   },
   "templates.user.heading": {
     "translation": "Saját sablonok"

@@ -1035,6 +1035,7 @@ const translation: I18nTranslation = {
       riot: 'قالب Riot.js',
       ruby: 'قالب Ruby',
       'ruby-wasm': 'قالب Ruby-Wasm',
+      'rust-wasm': 'قالب Rust (Wasm)',
       scheme: 'قالب Scheme',
       shadcnui: 'قالب shadcn/ui',
       solid: 'قالب Solid',
@@ -1048,7 +1049,6 @@ const translation: I18nTranslation = {
       vue: 'قالب Vue',
       vue2: 'قالب Vue 2',
       wat: 'قالب WebAssembly Text',
-      'zig-wasm': 'قالب Zig (Wasm)',
     },
     user: {
       heading: 'قوالبي',

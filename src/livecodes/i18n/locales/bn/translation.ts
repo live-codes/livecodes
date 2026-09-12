@@ -1035,6 +1035,7 @@ const translation: I18nTranslation = {
       riot: 'Riot.js স্টার্টার',
       ruby: 'Ruby স্টার্টার',
       'ruby-wasm': 'Ruby (Wasm) স্টার্টার',
+      'rust-wasm': 'Rust (Wasm) স্টার্টার',
       scheme: 'Scheme স্টার্টার',
       shadcnui: 'shadcn/ui স্টার্টার',
       solid: 'Solid স্টার্টার',
@@ -1048,7 +1049,6 @@ const translation: I18nTranslation = {
       vue: 'Vue SFC স্টার্টার',
       vue2: 'Vue 2 স্টার্টার',
       wat: 'WebAssembly Text স্টার্টার',
-      'zig-wasm': 'Zig (Wasm) স্টার্টার',
     },
     user: {
       heading: 'আমার টেমপ্লেট',

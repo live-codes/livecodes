@@ -1036,6 +1036,7 @@ const translation: I18nTranslation = {
       riot: 'Riot.js-starter',
       ruby: 'Ruby-starter',
       'ruby-wasm': 'Ruby (Wasm)-starter',
+      'rust-wasm': 'Rust (Wasm)-starter',
       scheme: 'Scheme-starter',
       shadcnui: 'shadcn/ui-starter',
       solid: 'Solid-starter',
@@ -1049,7 +1050,6 @@ const translation: I18nTranslation = {
       vue: 'Vue SFC-starter',
       vue2: 'Vue 2-starter',
       wat: 'WebAssembly Text-starter',
-      'zig-wasm': 'Zig (Wasm)-starter',
     },
     user: {
       heading: 'Mijn sjablonen',

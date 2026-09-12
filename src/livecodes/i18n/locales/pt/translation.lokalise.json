@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "Iniciante Ruby (Wasm)"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "Iniciante Rust (Wasm)"
+  },
   "templates.starter.scheme": {
     "translation": "Iniciante Scheme"
   },
@@ -2126,9 +2129,6 @@
   },
   "templates.starter.wat": {
     "translation": "Iniciante WebAssembly Text"
-  },
-  "templates.starter.zig-wasm": {
-    "translation": "Iniciante Zig (Wasm)"
   },
   "templates.user.heading": {
     "translation": "Meus Modelos"

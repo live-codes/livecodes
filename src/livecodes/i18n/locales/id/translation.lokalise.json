@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "Pemula Ruby (Wasm)"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "Pemula Rust (Wasm)"
+  },
   "templates.starter.scheme": {
     "translation": "Pemula Scheme"
   },
@@ -2126,9 +2129,6 @@
   },
   "templates.starter.wat": {
     "translation": "Pemula Teks WebAssembly"
-  },
-  "templates.starter.zig-wasm": {
-    "translation": "Pemula Zig (Wasm)"
   },
   "templates.user.heading": {
     "translation": "Template Saya"

@@ -1035,6 +1035,7 @@ const translation: I18nTranslation = {
       riot: 'Inicio Riot.js',
       ruby: 'Inicio Ruby',
       'ruby-wasm': 'Inicio Ruby (Wasm)',
+      'rust-wasm': 'Inicio Rust (Wasm)',
       scheme: 'Inicio Scheme',
       shadcnui: 'Inicio shadcn/ui',
       solid: 'Inicio Solid',
@@ -1048,7 +1049,6 @@ const translation: I18nTranslation = {
       vue: 'Inicio Vue',
       vue2: 'Inicio Vue 2',
       wat: 'Inicio WebAssembly Text',
-      'zig-wasm': 'Inicio Zig (Wasm)',
     },
     user: {
       heading: 'Mis Plantillas',
