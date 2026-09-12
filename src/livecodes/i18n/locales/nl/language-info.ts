@@ -136,7 +136,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) is een open source programmeertaal die het gemakkelijk maakt om eenvoudige, betrouwbare en efficiënte software te bouwen.',
     desc2: 'Hier wordt het gecompileerd naar JavaScript met GopherJS.',
-    link: '<1><2>Go website</2></1> <3><4>Go documentatie</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Leer X in Y minuten, waarbij X=Go</8> </7> <9> <10>LiveCodes Documentatie</10> </9> <11> <12>Startsjabloon laden</12> </11>',
+    link: '<1><2>Ga naar de website</2></1> <3><4>Ga naar de documentatie</4></3> <5> <6>GopherJS-repository</6> </5> <7> <8>Leer X in Y minuten, waarbij X = Go</8> </7> <9> <10>LiveCodes-documentatie</10> </9> <11> <12>Laad een startsjabloon</12> </11>',
     name: 'Go',
   },
   goWasm: {

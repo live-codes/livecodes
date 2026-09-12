@@ -238,7 +238,7 @@
     "translation": "Di sini, dikompilasi ke JavaScript menggunakan GopherJS."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Situs web Go</tag-2></tag-1> <tag-3><tag-4>Dokumentasi Go</tag-4></tag-3> <tag-5> <tag-6>Repo GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=Go</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+    "translation": "<tag-1><tag-2>Kunjungi situs web</tag-2></tag-1> <tag-3><tag-4>Dokumentasi Go</tag-4></tag-3> <tag-5> <tag-6>Repositori GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, di mana X=Go</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat templat awal</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"

@@ -238,7 +238,7 @@
     "translation": "এখানে, এটি GopherJS ব্যবহার করে JavaScript-এ কম্পাইল হয়।"
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Go ওয়েবসাইট</tag-2></tag-1> <tag-3><tag-4>Go ডকুমেন্টেশন</tag-4></tag-3> <tag-5> <tag-6>GopherJS রেপো</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+    "translation": "<tag-1><tag-2>ওয়েবসাইটে যান</tag-2></tag-1> <tag-3><tag-4>গও ডকুমেন্টেশনে যান</tag-4></tag-3> <tag-5> <tag-6>GopherJS repo</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Go</tag-8> <tag-8> <tag-10>লাইভকোড ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"

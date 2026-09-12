@@ -238,7 +238,7 @@
     "translation": "Hier wordt het gecompileerd naar JavaScript met GopherJS."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Go website</tag-2></tag-1> <tag-3><tag-4>Go documentatie</tag-4></tag-3> <tag-5> <tag-6>GopherJS repo</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+    "translation": "<tag-1><tag-2>Ga naar de website</tag-2></tag-1> <tag-3><tag-4>Ga naar de documentatie</tag-4></tag-3> <tag-5> <tag-6>GopherJS-repository</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X = Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes-documentatie</tag-10> </tag-9> <tag-11> <tag-12>Laad een startsjabloon</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"
