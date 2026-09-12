@@ -107,6 +107,7 @@ const workerSrc = `
 `;
 
 livecodes.goWasm = livecodes.goWasm || {};
+livecodes.goWasm.ready = false;
 
 livecodes.goWasm.worker = livecodes.goWasm.worker || createWorkerFromContent(workerSrc);
 const worker: Worker = livecodes.goWasm.worker;

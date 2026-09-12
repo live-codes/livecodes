@@ -54,7 +54,7 @@ export interface FormattedMessage {
     value: string;
     cursorOffset: number;
     formatted: string;
-    formattedCursorOffset: number;
+    formattedCursorOffset: number | undefined;
   };
 }
 

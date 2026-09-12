@@ -51,6 +51,7 @@ window.CPP_READY.then(() => postMessage({ loaded: true }));
 };
 
 livecodes.cpp = livecodes.cpp || {};
+livecodes.cpp.ready = false;
 livecodes.cpp.run =
   livecodes.cpp.run ||
   ((input: string) =>

@@ -158,6 +158,7 @@ export type Language =
   | 'phpwasm'
   | 'wasm.php'
   | 'cpp'
+  | 'cc'
   | 'c'
   | 'C'
   | 'cp'
