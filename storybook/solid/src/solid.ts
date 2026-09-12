@@ -8,10 +8,9 @@
  */
 
 import { createComponent } from '@live-codes/solid-sdk';
-import type { Component, JSX } from 'solid-js';
-import { createPlayground } from 'livecodes';
- 
 import type { EmbedOptions, Playground } from 'livecodes';
+import { createPlayground } from 'livecodes';
+import type { Component, JSX } from 'solid-js';
 export type { Code, Config, EmbedOptions, Language, Playground } from 'livecodes';
 
 /**
