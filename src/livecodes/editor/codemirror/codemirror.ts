@@ -435,7 +435,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const newValue = await formatter(oldValue, offset, getFormatterConfig());
     setValue(newValue.formatted, false);
     const newOffset =
-      newValue.cursorOffset != null && newValue.cursorOffset >= 0 ? newValue.cursorOffset : 0;
+      newValue.cursorOffset != null && newValue.cursorOffset >= 0 ? newValue.cursorOffset : offset;
     view.dispatch({ selection: { anchor: newOffset } });
   };
 

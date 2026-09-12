@@ -262,7 +262,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const newValue = await formatter(oldValue, offset, getFormatterConfig());
     setValue(newValue.formatted);
     const newOffset =
-      newValue.cursorOffset != null && newValue.cursorOffset >= 0 ? newValue.cursorOffset : 0;
+      newValue.cursorOffset != null && newValue.cursorOffset >= 0 ? newValue.cursorOffset : offset;
     codejar?.restore({ start: newOffset, end: newOffset });
   };
 
