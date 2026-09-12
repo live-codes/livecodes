@@ -136,7 +136,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) é uma linguagem de programação de código aberto que torna fácil construir software simples, confiável e eficiente.',
     desc2: 'Aqui, é compilado para JavaScript usando GopherJS.',
-    link: '<1><2>Site do Go</2></1> <3><4>Documentação do Go</4></3> <5> <6>Repositório do GopherJS</6> </5> <7> <8>Aprenda X em Y minutos, onde X=Go</8> </7> <9> <10>Documentação do LiveCodes</10> </9> <11> <12>Carregar modelo inicial</12> </11>',
+    link: '<1><2>Site do Go</2></1> <3><4>Documentação do Go</4></3> <5> <6>Repositório do GopherJS</6> </5> <7> <8>Aprenda X em Y minutos, onde X=Go</8> </7> <9><10>Carregar modelo inicial</10></9>',
     name: 'Go',
   },
   goWasm: {
@@ -161,7 +161,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'JVM em execução no navegador usando DoppioJVM.',
-    link: '<1> <2>Sítio Web oficial de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Aprender X em Y minutos, onde X=java</6> </5> <7> <8>Documentação do LiveCodes</8> </7> <9> <10> Carregar modelo inicial</10> </9>',
+    link: '<1> <2>Sítio Web oficial de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Aprender X em Y minutos, onde X=java</6> </5> <7> <8> Carregar modelo inicial</8> </7>',
     name: 'Java',
   },
   javascript: {
@@ -352,6 +352,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Ruby rodando no navegador usando ruby-wasm (uma coleção de portas WebAssembly do CRuby).',
     link: '<1> <2>Site oficial do Ruby</2> </1> <3> <4>Documentação do Ruby</4> </3> <5> <6>Site do ruby.wasm</6> </5> <7><8>CRuby</8></7> <9> <10>Aprenda X em Y minutos, onde X=ruby</10> </9> <11> <12>Documentação do LiveCodes</12> </11> <13> <14>Carregar modelo inicial</14> </13>',
     name: 'Ruby (WASM)',
+  },
+  rustWasm: {
+    desc: 'O Rust é interpretado pelo <1>Miri</1> (o interpretador de IR de nível intermédio do Rust), compilado para WebAssembly, sendo executado na íntegra no navegador.',
+    link: '<1> <2>Site oficial do Rust</2> </1> <3> <4>O Livro do Rust</4> </3> <5> <6>Aprenda X em Y minutos, onde X = Rust</6> </5> <7> <8>Documentação do LiveCodes</8> </7> <9> <10>Carregar modelo inicial</10> </9>',
+    name: 'Rust (Wasm)',
   },
   sass: {
     desc: 'Folhas de Estilo Sintaticamente Incríveis.',

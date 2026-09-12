@@ -627,6 +627,15 @@
   "rubyWasm.name": {
     "translation": "Ruby (WASM)"
   },
+  "rustWasm.desc": {
+    "translation": "Rust wordt geïnterpreteerd door <tag-1>Miri</tag-1> (de IR-interpreter op middenniveau voor Rust), gecompileerd naar WebAssembly, en draait volledig in de browser."
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>Officiële website van Rust</tag-2> </tag-1> <tag-3> <tag-4>Het Rust-boek</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X = Rust</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "translation": "Syntactisch geweldige stylesheets."
   },

@@ -132,7 +132,7 @@ const languageInfo: I18nLangInfoTranslation = {
   go: {
     desc1: 'Go（Golang）是一种开源编程语言，可以轻松构建简单、可靠、高效的软件。',
     desc2: '此处使用 GopherJS 将其编译为 JavaScript。',
-    link: '<1><2>Go 官方网站</2></1> <3><4>Go 文档</4></3> <5> <6>GopherJS 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=Go</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
+    link: '<1><2>Go 官方网站</2></1> <3><4>Go 文档</4></3> <5> <6>GopherJS 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=Go</8> </7> <9><10>加载启动模板</10></9>',
     name: 'Go',
   },
   goWasm: {
@@ -157,7 +157,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: '使用 DoppioJVM 在浏览器中运行的 JVM。',
-    link: '<1> <2>Java 官方网站</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=java</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
+    link: '<1> <2>Java 官方网站    DoppioJVM    在 Y 分钟内学习 X，其中 X=java    加载启动模板</2> </1> <3> <4></4> </3> <5> <6></6> </5> <7> <8></8> </7>',
     name: 'Java',
   },
   javascript: {
@@ -346,6 +346,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: '使用 ruby-wasm（移植到 WebAssembly 中的 CRuby 集合）在浏览器中运行的 Ruby。',
     link: '<1> <2>Ruby 官方网站</2> </1> <3> <4>Ruby 文档</4> </3> <5> <6>ruby.wasm 网站</6> </5> <7><8>CRuby</8></7> <9> <10>在 Y 分钟内学习 X，其中 X=ruby</10> </9> <11> <12>LiveCodes 文档</12> </11> <13> <14>加载启动模板</14> </13>',
     name: 'Ruby（WASM）',
+  },
+  rustWasm: {
+    desc: 'Rust 由<1>Miri</1>（Rust 中级中间表示（IR）解释器）进行解释，编译为 WebAssembly，并在浏览器中完全运行。',
+    link: '<1> <2>Rust 官方网站</2> </1> <3> <4>《Rust 入门指南》</4> </3> <5> <6>《Y分钟学会X》，其中X=Rust</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Rust (Wasm)',
   },
   sass: {
     desc: '语法超赞的样式表。',

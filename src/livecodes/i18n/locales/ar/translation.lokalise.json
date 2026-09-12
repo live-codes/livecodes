@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "قالب Ruby-Wasm"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "قالب Rust (Wasm)"
+  },
   "templates.starter.scheme": {
     "translation": "قالب Scheme"
   },

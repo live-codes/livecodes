@@ -1035,6 +1035,7 @@ const translation: I18nTranslation = {
       riot: 'Inicio Riot.js',
       ruby: 'Inicio Ruby',
       'ruby-wasm': 'Inicio Ruby (Wasm)',
+      'rust-wasm': 'Inicio Rust (Wasm)',
       scheme: 'Inicio Scheme',
       shadcnui: 'Inicio shadcn/ui',
       solid: 'Inicio Solid',

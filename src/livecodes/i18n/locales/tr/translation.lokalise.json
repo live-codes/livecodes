@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "Ruby (Wasm) Başlangıç"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "Rust (Wasm) Başlangıç"
+  },
   "templates.starter.scheme": {
     "translation": "Scheme Başlangıç"
   },

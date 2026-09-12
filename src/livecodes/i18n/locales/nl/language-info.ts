@@ -353,6 +353,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Ruby officiële website</2> </1> <3> <4>Ruby documentatie</4> </3> <5> <6>ruby.wasm website</6> </5> <7><8>CRuby</8></7> <9> <10>Leer X in Y minuten, waarbij X=ruby</10> </9> <11> <12>LiveCodes Documentatie</12> </11> <13> <14>Startsjabloon laden</14> </13>',
     name: 'Ruby (WASM)',
   },
+  rustWasm: {
+    desc: 'Rust wordt geïnterpreteerd door <1>Miri</1> (de IR-interpreter op middenniveau voor Rust), gecompileerd naar WebAssembly, en draait volledig in de browser.',
+    link: '<1> <2>Officiële website van Rust</2> </1> <3> <4>Het Rust-boek</4> </3> <5> <6>Leer X in Y minuten, waarbij X = Rust</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Starterssjabloon laden</10> </9>',
+    name: 'Rust (Wasm)',
+  },
   sass: {
     desc: 'Syntactisch geweldige stylesheets.',
     link: '<1> <2>Sass officiële website</2> </1> <3> <4>Sass documentatie</4> </3> <5> <6>Sass (de ingesprongen) syntaxis</6> </5> <7> <8>Leer X in Y minuten, waarbij X=sass</8> </7>',

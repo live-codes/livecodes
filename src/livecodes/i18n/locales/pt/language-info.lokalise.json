@@ -238,7 +238,7 @@
     "translation": "Aqui, é compilado para JavaScript usando GopherJS."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Site do Go</tag-2></tag-1> <tag-3><tag-4>Documentação do Go</tag-4></tag-3> <tag-5> <tag-6>Repositório do GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Aprenda X em Y minutos, onde X=Go</tag-8> </tag-7> <tag-9> <tag-10>Documentação do LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Carregar modelo inicial</tag-12> </tag-11>"
+    "translation": "<tag-1><tag-2>Site do Go</tag-2></tag-1> <tag-3><tag-4>Documentação do Go</tag-4></tag-3> <tag-5> <tag-6>Repositório do GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Aprenda X em Y minutos, onde X=Go</tag-8> </tag-7> <tag-9><tag-10>Carregar modelo inicial</tag-10></tag-9>"
   },
   "go.name": {
     "translation": "Go"
@@ -283,7 +283,7 @@
     "translation": "JVM em execução no navegador usando DoppioJVM."
   },
   "java.link": {
-    "translation": "<tag-1> <tag-2>Sítio Web oficial de Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Aprender X em Y minutos, onde X=java</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10> Carregar modelo inicial</tag-10> </tag-9>"
+    "translation": "<tag-1> <tag-2>Sítio Web oficial de Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Aprender X em Y minutos, onde X=java</tag-6> </tag-5> <tag-7> <tag-8> Carregar modelo inicial</tag-8> </tag-7>"
   },
   "java.name": {
     "translation": "Java"
@@ -626,6 +626,15 @@
   },
   "rubyWasm.name": {
     "translation": "Ruby (WASM)"
+  },
+  "rustWasm.desc": {
+    "translation": "O Rust é interpretado pelo <tag-1>Miri</tag-1> (o interpretador de IR de nível intermédio do Rust), compilado para WebAssembly, sendo executado na íntegra no navegador."
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>Site oficial do Rust</tag-2> </tag-1> <tag-3> <tag-4>O Livro do Rust</tag-4> </tag-3> <tag-5> <tag-6>Aprenda X em Y minutos, onde X = Rust</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
   },
   "sass.desc": {
     "translation": "Folhas de Estilo Sintaticamente Incríveis."

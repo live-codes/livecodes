@@ -1033,6 +1033,7 @@ const translation: I18nTranslation = {
       riot: 'Riot.js 启动模板',
       ruby: 'Ruby 启动模板',
       'ruby-wasm': 'Ruby（Wasm）启动模板',
+      'rust-wasm': 'Rust（Wasm）启动模板',
       scheme: 'Scheme 启动模板',
       shadcnui: 'shadcn/ui 启动模板',
       solid: 'Solid 启动模板',
