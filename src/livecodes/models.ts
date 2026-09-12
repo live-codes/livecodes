@@ -104,7 +104,7 @@ export type ParserName =
 export interface PrettierParser {
   name: ParserName;
   plugins?: any[];
-  pluginUrls: string[];
+  pluginUrls?: string[];
 }
 export type FormatFn = (
   value: string,
@@ -116,7 +116,7 @@ export type LanguageFormatter =
   | {
       factory: (baseUrl: string, language: Language) => FormatFn | Promise<FormatFn>;
     }
-  | { prettier: PrettierParser };
+  | { prettier: PrettierParser | (() => PrettierParser | Promise<PrettierParser>) };
 
 export interface CssPreset {
   id: CssPresetId;
