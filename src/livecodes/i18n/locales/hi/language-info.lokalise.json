@@ -627,6 +627,15 @@
   "rubyWasm.name": {
     "translation": "Ruby (WASM)"
   },
+  "rustWasm.desc": {
+    "translation": "रस्ट को <tag-1>Miri</tag-1> (रस्ट मिड-लेवल आईआर इंटरप्रेटर) द्वारा व्याख्यायित किया जाता है, जिसे वेबअसेंबली में संकलित किया जाता है और यह पूरी तरह से ब्राउज़र में चलता है।"
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>रस्ट आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>द रस्ट बुक</tag-4> </tag-3> <tag-5> <tag-6>Y मिनट में X सीखें, जहाँ X=रस्ट</tag-6> </tag-5> <tag-7> <tag-8>लाइवकोड्स दस्तावेज़ीकरण</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "translation": "वाक्यरचनात्मक रूप से अद्भुत स्टाइल शीट्स।"
   },

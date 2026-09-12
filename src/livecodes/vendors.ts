@@ -324,7 +324,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.1/dist/',
+  '@live-codes/monaco-languages@0.3.2/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
@@ -367,6 +367,10 @@ export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
 
 export const prettierMinizincUrl = /* @__PURE__ */ getUrl(
   '@live-codes/prettier-plugin-minizinc@0.2.0/dist/standalone.js',
+);
+
+export const prettierRustUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/prettier-plugin-rust@0.2.0/index.global.js',
 );
 
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.22.2/standalone.js');
@@ -428,6 +432,11 @@ export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.4-wasm-wasi@2.7.2
 export const rubyWasmScriptUrl = /* @__PURE__ */ getUrl(
   '@ruby/wasm-wasi@2.7.2/dist/browser.umd.js',
 );
+
+export const rustWasmUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/rust-wasm@0.3.0/dist/worker.iife.js',
+);
+export const wasmRustcBaseUrl = /* @__PURE__ */ getUrl('@live-codes/wasm-rustc@0.2.0/');
 
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 
@@ -491,6 +500,10 @@ export const vueSfcLoaderCdnBaseUrl = /* @__PURE__ */ getUrl('vue3-sfc-loader@0.
 export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.35/index.js');
 
 export const wasiShimUrl = /* @__PURE__ */ getUrl('@bjorn3/browser_wasi_shim@0.3.0/dist/index.js');
+
+export const wasmFmtClangBaseUrl = /* @__PURE__ */ getUrl('@wasm-fmt/clang-format@23.1.0/');
+export const wasmFmtRuffBaseUrl = /* @__PURE__ */ getUrl('@wasm-fmt/ruff_fmt@0.15.20/');
+export const wasmFmtZigBaseUrl = /* @__PURE__ */ getUrl('@wasm-fmt/zig_fmt@0.16.0/');
 
 export const wasmoonUrl = /* @__PURE__ */ getUrl('wasmoon@1.16.0/dist/index.js');
 

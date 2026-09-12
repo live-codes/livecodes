@@ -627,6 +627,15 @@
   "rubyWasm.name": {
     "translation": "Ruby (WASM)"
   },
+  "rustWasm.desc": {
+    "translation": "زبان برنامه‌نویسی Rust توسط <tag-1>Miri</tag-1> (مفسر IR سطح میانی Rust) که به WebAssembly کامپایل شده و کاملاً در مرورگر اجرا می‌شود، تفسیر می‌شود."
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>وب‌سایت رسمی راست</tag-2> </tag-1> <tag-3> <tag-4>کتاب راست</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، که X=راست</tag-6> </tag-5> <tag-7> <tag-8>مستندات لایوکدز</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "translation": "شیوه‌نامه‌های شگفت انگیز از نظر نحوی."
   },

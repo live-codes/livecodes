@@ -1,15 +1,15 @@
 import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
-import { parserPlugins } from '../prettier';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, wasmFmtClangBaseUrl } from '../../vendors';
 
 export const csharpWasm: LanguageSpecs = {
   name: 'csharp-wasm',
   title: 'C# (Wasm)',
   formatter: {
-    prettier: {
-      name: 'java',
-      pluginUrls: [parserPlugins.java],
+    factory: async () => {
+      const formatter = await import(wasmFmtClangBaseUrl + 'clang-format-web.js');
+      await formatter.default();
+      return async (code) => ({ formatted: await formatter.format(code, 'main.cs', 'Microsoft') });
     },
   },
   compiler: {
@@ -22,7 +22,7 @@ export const csharpWasm: LanguageSpecs = {
   extensions: ['cs', 'csharp', 'wasm.cs', 'cs-wasm'],
   editor: 'script',
   editorSupport: {
-    monaco: { languageSupport: monacoLanguagesBaseUrl + 'csharp.js' },
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'csharp.js', language: 'csharp' },
     codemirror: {
       languageSupport: async () =>
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-clike.js')).csharp),

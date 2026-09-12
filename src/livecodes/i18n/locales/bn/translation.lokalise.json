@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "Ruby (Wasm) স্টার্টার"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "Rust (Wasm) স্টার্টার"
+  },
   "templates.starter.scheme": {
     "translation": "Scheme স্টার্টার"
   },

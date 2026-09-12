@@ -627,6 +627,15 @@
   "rubyWasm.name": {
     "translation": "روبی (ڈبلیو اے ایس ایم)"
   },
+  "rustWasm.desc": {
+    "translation": "زنگ کی تشریح <tag-1>Miri</tag-1> (زنگ کے درمیانی درجے کے IR ترجمان) کے ذریعے کی جاتی ہے جسے WebAssembly میں مرتب کیا گیا ہے، جو مکمل طور پر براؤزر میں چل رہا ہے۔"
+  },
+  "rustWasm.link": {
+    "translation": "<tag-1> <tag-2>رست آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>دی رست بک</tag-4> </tag-3> <tag-5> <tag-6>Y منٹ میں X سیکھیں، جہاں X=رست</tag-6> </tag-5> <tag-7> <tag-8>لائیو کوڈز دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>اسٹارٹر ٹیمپلیٹ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "rustWasm.name": {
+    "translation": "Rust (Wasm)"
+  },
   "sass.desc": {
     "translation": "نحوی طور پر شاندار اسٹائل شیٹس۔"
   },

@@ -1037,6 +1037,7 @@ const translation: I18nTranslation = {
       riot: 'Riot.js-Starter',
       ruby: 'Ruby-Starter',
       'ruby-wasm': 'Ruby (Wasm)-Starter',
+      'rust-wasm': 'Rust (Wasm)-Starter',
       scheme: 'Scheme-Starter',
       shadcnui: 'shadcn/ui-Starter',
       solid: 'Solid-Starter',

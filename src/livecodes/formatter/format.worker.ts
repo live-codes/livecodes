@@ -9,20 +9,23 @@ declare const prettierPlugins: { [key: string]: { parsers: any } };
 declare const importScripts: (...args: string[]) => void;
 
 let baseUrl: string;
-const parsers: { [key: string]: PrettierParser } = {};
+const parsers: { [key: string]: Promise<PrettierParser> } = {};
 const plugins: { [key: string]: any } = {};
-const formatters: { [key: string]: FormatFn } = {};
+const formatters: { [key: string]: Promise<FormatFn> } = {};
 
 const loadPrettier = () => {
   importScripts(prettierUrl);
 };
 
-const getParser = (language: Language): PrettierParser | undefined => {
+const getParser = (
+  language: Language,
+): PrettierParser | (() => PrettierParser | Promise<PrettierParser>) | undefined => {
   const formatter = languages.find((lang) => lang.name === language)?.formatter;
   if (!formatter || !('prettier' in formatter)) return;
   const parser = formatter.prettier;
   if (!parser) return;
-  if (parser.pluginUrls.find((url) => url.includes('babel'))) {
+  if (typeof parser === 'function') return parser;
+  if (parser.pluginUrls?.find((url) => url.includes('babel'))) {
     return {
       ...parser,
       pluginUrls: Array.from(new Set([...parser.pluginUrls, parserPlugins.estree])),
@@ -34,21 +37,22 @@ const getFormatter = (language: Language) =>
   languages.find((lang) => lang.name === language)?.formatter;
 
 const load = (languages: Language[]) => {
-  try {
-    languages.forEach((language) => {
-      if (getParser(language) != null) {
-        loadParser(language);
-      } else if (getFormatter(language) != null) {
-        loadFormatter(language);
-      }
-    });
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.warn('Failed to load formatter');
-  }
+  languages.forEach((language) => {
+    if (getParser(language) != null) {
+      loadParser(language).catch(() => {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to load formatter for: ' + language);
+      });
+    } else if (getFormatter(language) != null) {
+      loadFormatter(language).catch(() => {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to load formatter for: ' + language);
+      });
+    }
+  });
 };
 
-function loadParser(language: Language): PrettierParser | undefined {
+const loadParser = async (language: Language): Promise<PrettierParser | undefined> => {
   if (!(self as any).prettier) {
     loadPrettier();
   }
@@ -62,34 +66,40 @@ function loadParser(language: Language): PrettierParser | undefined {
   if (!(self as any).prettierPlugins) {
     (self as any).prettierPlugins = {};
   }
-  parser.plugins = parser.pluginUrls
-    .map((pluginUrl) => {
-      if (plugins[pluginUrl]) return true;
-      try {
-        importScripts(pluginUrl);
-        plugins[pluginUrl] = true;
-        if (!prettierPlugins.pug && (self as any).pluginPug) {
-          prettierPlugins.pug = (self as any).pluginPug;
-        }
-        if (!prettierPlugins.java && (self as any).pluginJava?.default) {
-          prettierPlugins.java = (self as any).pluginJava.default;
-        }
-        return true;
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn('Failed to load formatter for: ' + language);
-        return false;
-      }
-    })
-    .filter(Boolean);
 
-  if (parser.plugins.length > 0) {
-    parsers[language] = parser;
+  let parserPromise: Promise<PrettierParser> | undefined;
+
+  if (typeof parser === 'function') {
+    parserPromise = Promise.resolve(parser());
+  } else if (parser.pluginUrls && parser.pluginUrls.length > 0) {
+    parser.plugins = parser.pluginUrls
+      .map((pluginUrl) => {
+        if (plugins[pluginUrl]) return true;
+        try {
+          importScripts(pluginUrl);
+          plugins[pluginUrl] = true;
+          return true;
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.warn('Failed to load formatter for: ' + language);
+          return false;
+        }
+      })
+      .filter(Boolean);
+    parserPromise = Promise.resolve(parser);
   }
-  return parser;
-}
 
-const loadFormatter = (language: Language): FormatFn | undefined => {
+  if (!parserPromise) return;
+  parsers[language] = parserPromise;
+  try {
+    return await parsers[language];
+  } catch (error) {
+    delete parsers[language];
+    throw error;
+  }
+};
+
+const loadFormatter = async (language: Language): Promise<FormatFn | undefined> => {
   if (language in formatters) {
     return formatters[language];
   }
@@ -97,8 +107,13 @@ const loadFormatter = (language: Language): FormatFn | undefined => {
   const formatter = getFormatter(language);
   if (!formatter || !('factory' in formatter)) return;
 
-  formatters[language] = formatter.factory(baseUrl, language);
-  return formatters[language];
+  formatters[language] = Promise.resolve(formatter.factory(baseUrl, language));
+  try {
+    return await formatters[language];
+  } catch (error) {
+    delete formatters[language];
+    throw error;
+  }
 };
 
 const format = async (
@@ -110,7 +125,7 @@ const format = async (
   const unFormatted = { formatted: value, cursorOffset };
 
   if (getParser(language) != null) {
-    const parser = loadParser(language);
+    const parser = await loadParser(language);
     const options = {
       useTabs: formatterConfig.useTabs ?? defaultConfig.useTabs,
       tabWidth: formatterConfig.tabSize ?? defaultConfig.tabSize,
@@ -128,7 +143,7 @@ const format = async (
     );
   }
   if (getFormatter(language) != null) {
-    const formatFn = loadFormatter(language);
+    const formatFn = await loadFormatter(language);
     const result = await formatFn?.(value, cursorOffset);
     return result || unFormatted;
   }

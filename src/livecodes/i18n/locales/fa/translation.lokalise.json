@@ -2088,6 +2088,9 @@
   "templates.starter.ruby-wasm": {
     "translation": "شروع کننده Ruby (Wasm)"
   },
+  "templates.starter.rust-wasm": {
+    "translation": "شروع کننده Rust (Wasm)"
+  },
   "templates.starter.scheme": {
     "translation": "شروع کننده Scheme"
   },

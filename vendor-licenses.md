@@ -28,6 +28,8 @@ BiwaScheme: [MIT License](https://github.com/biwascheme/biwascheme/blob/7a95e757
 
 Blockly: [Apache-2.0 License](https://github.com/google/blockly/blob/3ae4a618429c87fc002e512e5a2504af382325fd/LICENSE)
 
+browser_wasi_shim: [MIT License](https://github.com/bjorn3/browser_wasi_shim/blob/b068ec2c22d68581c48f2592f8cca1681bf71a98/LICENSE-MIT) OR [Apache License 2.0](https://github.com/bjorn3/browser_wasi_shim/blob/b068ec2c22d68581c48f2592f8cca1681bf71a98/LICENSE-APACHE)
+
 BrowserFS: [MIT License](https://github.com/jvilk/BrowserFS/blob/76fd5122fcf3ad6bff3315550aafb041cfb6a72e/license.md)
 
 brython: [BSD-3-Clause license](https://github.com/brython-dev/brython/blob/c579e26d7e24c37c77f00fc345af0248ca6be8eb/LICENCE.txt)
@@ -156,6 +158,8 @@ MDX: [MIT License](https://github.com/mdx-js/mdx/blob/7fd1d9a4272754951e70dbaecf
 
 minizinc-js: [MPL-2.0 License](https://github.com/MiniZinc/minizinc-js/blob/3f7c34f0549195e5a66cf0f2d6f34cb5bce867f4/LICENSE)
 
+Miri: [MIT License](https://github.com/rust-lang/miri/blob/92ea60bf0effd37aea533cd19c9702c43b90abe7/LICENSE-MIT) OR [Apache License 2.0](https://github.com/rust-lang/miri/blob/92ea60bf0effd37aea533cd19c9702c43b90abe7/LICENSE-APACHE)
+
 MJML: [MIT License](https://github.com/mjmlio/mjml/blob/988819de3375867c09585d28f555166b97415200/LICENSE.md)
 
 Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f849d3f2653d1097652a7d9e1d01d242cc225da8/LICENSE.md)
@@ -246,6 +250,8 @@ Riot: [MIT License](https://github.com/riot/riot/blob/2b08ebf8c7fa3f338d24b7320e
 
 ruby.wasm: [MIT License](https://github.com/ruby/ruby.wasm/blob/097b7ca8d2ed2a98eea4dcf2da8089bb8ff06e07/LICENSE)
 
+Rust (compiler and standard library): [MIT License](https://github.com/rust-lang/rust/blob/018018e881e2db0956f229dbb543e21f058d1ce7/LICENSE-MIT) OR [Apache License 2.0](https://github.com/rust-lang/rust/blob/018018e881e2db0956f229dbb543e21f058d1ce7/LICENSE-APACHE)
+
 Sass.js: [MIT License](https://github.com/medialize/sass.js/blob/71d9bed2cad10969efda9905aa1bddacc480f372/LICENSE)
 
 SnackBar: [MIT License](https://github.com/egoist/snackbar/blob/4bc2fb7afd32d53a39661418fa5189dbb6e4aa86/LICENSE)
@@ -311,6 +317,12 @@ vue3-sfc-loader: [MIT License](https://github.com/FranckFreiburger/vue3-sfc-load
 wabt.js: [Apache-2.0 license](https://github.com/AssemblyScript/wabt.js/blob/182b4ee7d59f72c41a6dba97ed90fde9b79c8eb8/LICENSE)
 
 wacl: [BSD 3-Clause License](https://github.com/ecky-l/wacl/blob/9daacabb0102a9986f33263261350edfeebdd83b/LICENSE)
+
+@wasm-fmt/clang-format: [MIT License](https://github.com/wasm-fmt/clang-format/blob/6a84f2d980e5ff4145bd9178a49cd5146e48df78/LICENSE)
+
+@wasm-fmt/ruff_fmt: [MIT License](https://github.com/wasm-fmt/ruff_fmt/blob/6dc277e1be013159858c7de6b150063baa7214bb/LICENSE)
+
+@wasm-fmt/zig_fmt: [MIT License](https://github.com/wasm-fmt/zig_fmt/blob/d998e708899565d509b6875c52c236bc36c00ca8/LICENSE)
 
 wasm-refmt: [MIT License](https://github.com/xtuc/webassemblyjs/blob/45f733aa96476d74c8ac57598e13406a48a6fdc8/LICENSE)
 

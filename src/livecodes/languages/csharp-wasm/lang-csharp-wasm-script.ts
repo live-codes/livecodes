@@ -8,6 +8,7 @@ declare global {
 }
 
 livecodes.csharp ??= {};
+livecodes.csharp.ready = false;
 
 const waitFor = (condition: () => boolean | Promise<boolean>, timeout = 30_000) =>
   new Promise<boolean>((resolve) => {

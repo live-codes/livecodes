@@ -6,7 +6,7 @@ import {
 } from '../languages/utils';
 import type { CompileInfo, Config } from '../models';
 import { modulesService } from '../services/modules';
-import { getFileExtension } from '../utils/utils';
+import { getFileExtension, maskComments } from '../utils/utils';
 import { compileInCompiler } from './compile-in-compiler';
 import { hasStyleImports } from './import-map';
 import type { LanguageOrProcessor } from './models';
@@ -17,7 +17,44 @@ interface CompileBlocksOptions {
   languageAttribute?: 'lang' | 'type';
   prepareFn?: (code: string, config: Config) => Promise<string>;
   skipCompilers?: LanguageOrProcessor[];
+  /**
+   * Do not match block tags that sit inside JavaScript comments (`// …` and
+   * `/* … *\/`). For script-like languages (e.g. Ripple), where a comment may
+   * mention `<style>`.
+   */
+  ignoreComments?: boolean;
 }
+
+/**
+ * The block matches of `pattern` in `code`. With a `mask` (see `maskComments`)
+ * the matching runs over the mask and the groups are re-read from the original
+ * code, so a tag inside a comment is not a block while the blocks keep their
+ * authored content.
+ */
+const matchBlocks = (code: string, pattern: string, mask?: string): RegExpMatchArray[] => {
+  if (!mask) return [...code.matchAll(new RegExp(pattern, 'g'))];
+  return [...mask.matchAll(new RegExp(pattern, 'g'))].map((match) => {
+    const index = match.index ?? 0;
+    const element = code.slice(index, index + match[0].length);
+    return new RegExp(pattern).exec(element) ?? match;
+  });
+};
+
+/**
+ * Replace the matches of `pattern` in `code` with `blocks`, in document order.
+ */
+const replaceBlocks = (code: string, pattern: string, blocks: string[], mask?: string) => {
+  const re = new RegExp(pattern, 'g');
+  if (!mask) return code.replace(re, () => blocks.shift() || '');
+  let out = '';
+  let last = 0;
+  for (const match of mask.matchAll(re)) {
+    const index = match.index ?? 0;
+    out += code.slice(last, index) + (blocks.shift() || '');
+    last = index + match[0].length;
+  }
+  return out + code.slice(last);
+};
 
 /**
  * This is a workaround to prevent typescript removing default imports (components)
@@ -45,12 +82,13 @@ export const exportDefaultImports = (code: string) => {
 export const fetchBlocksSource = async (
   code: string,
   blockElement: 'template' | 'style' | 'script',
+  mask?: string,
 ) => {
   const getBlockPattern = (el: typeof blockElement) =>
     `(<${el}(?:[^>]*?))(?:\\ssrc=["']([^"'\\s]*?)["'])((?:[^>]*))(>(?:\\s*?)<\\/${el}>|\\/>)`;
   const pattern = getBlockPattern(blockElement);
   const blocks: string[] = [];
-  for (const arr of [...code.matchAll(new RegExp(pattern, 'g'))]) {
+  for (const arr of matchBlocks(code, pattern, mask)) {
     const [element, opentagPre, src, opentagPost, _closetag] = arr;
     if (!src) {
       blocks.push(element);
@@ -70,7 +108,7 @@ export const fetchBlocksSource = async (
       }
     }
   }
-  return code.replace(new RegExp(pattern, 'g'), () => blocks.pop() || '');
+  return replaceBlocks(code, pattern, blocks, mask);
 };
 
 const postProcess = async (content: string, config: Config, language: LanguageOrProcessor) => {
@@ -129,7 +167,8 @@ export const compileBlocks = async (
   config: Config,
   options: CompileBlocksOptions = {},
 ) => {
-  let fullCode = await fetchBlocksSource(code, blockElement);
+  const maskOf = (text: string) => (options.ignoreComments ? maskComments(text) : undefined);
+  let fullCode = await fetchBlocksSource(code, blockElement, maskOf(code));
 
   if (typeof options.prepareFn === 'function') {
     fullCode = await options.prepareFn(fullCode, config);
@@ -142,8 +181,9 @@ export const compileBlocks = async (
     `(<${el}\\s*)(?:([\\s\\S]*?)${langAttr}\\s*=\\s*["']([A-Za-z0-9 _]*)["'])?((?:[^>]*)>)([\\s\\S]*?)(<\\/${el}>)`;
 
   const pattern = getBlockPattern(blockElement, options.languageAttribute);
+  const mask = maskOf(fullCode);
   const blocks: string[] = [];
-  for (const arr of [...fullCode.matchAll(new RegExp(pattern, 'g'))]) {
+  for (const arr of matchBlocks(fullCode, pattern, mask)) {
     const [element, opentag, opentagPre = '', language = '', opentagPost, content, closetag] = arr;
     if ((!language || !content) && (blockElement !== 'style' || !hasProcessors)) {
       blocks.push(element);
@@ -177,7 +217,7 @@ export const compileBlocks = async (
       ),
     );
   }
-  return fullCode.replace(new RegExp(pattern, 'g'), () => blocks.pop() || '');
+  return replaceBlocks(fullCode, pattern, blocks, mask);
 };
 
 export const compileAllBlocks = async (

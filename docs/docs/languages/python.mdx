@@ -53,7 +53,7 @@ Brython v3.12.3, running Python v3.12
 
 ## Code Formatting
 
-Not supported.
+Using [@wasm-fmt/ruff_fmt](https://github.com/wasm-fmt/ruff_fmt).
 
 ## Example Usage
 
