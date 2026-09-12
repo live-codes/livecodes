@@ -39,7 +39,10 @@ const getFormatter = (language: Language) =>
 const load = (languages: Language[]) => {
   languages.forEach((language) => {
     if (getParser(language) != null) {
-      loadParser(language);
+      loadParser(language).catch(() => {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to load formatter for: ' + language);
+      });
     } else if (getFormatter(language) != null) {
       loadFormatter(language).catch(() => {
         // eslint-disable-next-line no-console
