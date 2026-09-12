@@ -137,7 +137,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) adalah bahasa pemrograman open source yang memudahkan untuk membangun perangkat lunak yang sederhana, andal, dan efisien.',
     desc2: 'Di sini, dikompilasi ke JavaScript menggunakan GopherJS.',
-    link: '<1><2>Kunjungi situs web</2></1> <3><4>Dokumentasi Go</4></3> <5> <6>Repositori GopherJS</6> </5> <7> <8>Pelajari X dalam Y menit, di mana X=Go</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat templat awal</12> </11>',
+    link: '<1><2>Situs web Go</2></1> <3><4>Dokumentasi Go</4></3> <5> <6>Repo GopherJS</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=Go</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat template pemula</12> </11>',
     name: 'Go',
   },
   goWasm: {

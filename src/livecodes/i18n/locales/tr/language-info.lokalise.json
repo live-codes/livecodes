@@ -238,7 +238,7 @@
     "translation": "Burada, GopherJS kullanılarak JavaScript'e derlenir."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Go web sitesi</tag-2></tag-1> <tag-3><tag-4>Go belgeleri</tag-4></tag-3> <tag-5> <tag-6>GopherJS deposu</tag-6> </tag-5> <tag-7> <tag-8>Y dakikada X'i öğrenin, burada X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Belgeleri</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+    "translation": "<tag-1><tag-2>Go web sitesi</tag-2></tag-1> <tag-3><tag-4>Go dokümantasyonu</tag-4></tag-3> <tag-5> <tag-6>GopherJS repo'su</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"

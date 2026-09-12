@@ -137,7 +137,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'A Go (Golang) egy nyílt forráskódú programozási nyelv, amely megkönnyíti az egyszerű, megbízható és hatékony szoftverek építését.',
     desc2: 'Itt a GopherJS segítségével JavaScript-re fordul.',
-    link: '<1><2>A Go weboldal</2></1> <3><4>Go dokumentáció</4></3> <5> <6>GopherJS-repozitórium</6> </5> <7> <8>Tanulja meg az X-et Y perc alatt, ahol X = Go</8> </7> <9> <10>LiveCodes dokumentációk</10> </9> <11> <12>Indító sablon betöltése</12> </11>',
+    link: '<1><2>Go weboldal</2></1> <3><4>Go dokumentáció</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=Go</8> </7> <9> <10>LiveCodes dokumentáció</10> </9> <11> <12>Kezdő sablon betöltése</12> </11>',
     name: 'Go',
   },
   goWasm: {

@@ -137,7 +137,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc1:
       'Go (Golang) es un lenguaje de programación de código abierto que facilita la construcción de software simple, confiable y eficiente.',
     desc2: 'Aquí, se compila a JavaScript usando GopherJS.',
-    link: '<1><2>Ir a la página web</2></1> <3><4>Documentación de Go</4></3> <5> <6>Repositorio de GopherJS</6> </5> <7> <8>Aprende X en Y minutos, donde X = Go</8> </7> <9> <10>Documentación de LiveCodes</10> </9> <11> <12>Cargar plantilla de inicio</12> </11>',
+    link: '<1><2>Sitio web de Go</2></1> <3><4>Documentación de Go</4></3> <5> <6>Repositorio de GopherJS</6> </5> <7> <8>Aprende X en Y minutos, donde X=Go</8> </7> <9> <10>Documentación de LiveCodes</10> </9> <11> <12>Cargar plantilla inicial</12> </11>',
     name: 'Go',
   },
   goWasm: {
@@ -162,7 +162,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   java: {
     desc: 'JVM ejecutándose en el navegador utilizando DoppioJVM.',
-    link: '<1> <2>Sitio web oficial de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Aprenda X en Y minutos, donde X=java</6> </5> <7> <8> Cargue la plantilla de inicio</8> </7>',
+    link: '<1> <2>Sitio web oficial de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Aprenda X en Y minutos, donde X=java</6> </5> <7> <8>Documentación de LiveCodes</8> </7> <9> <10> Cargue la plantilla de inicio</10> </9>',
     name: 'Java',
   },
   javascript: {

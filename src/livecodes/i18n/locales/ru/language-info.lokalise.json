@@ -238,7 +238,7 @@
     "translation": "Здесь он компилируется в JavaScript с помощью GopherJS."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Перейти на сайт</tag-2></tag-1> <tag-3><tag-4>Документация по Go</tag-4></tag-3> <tag-5> <tag-6>Репозиторий GopherJS</tag-6> </tag-5> <tag-7> <tag-8>«Изучите X за Y минут», где X = Go</tag-8> </tag-7> <tag-9> <tag-10>Документация LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Загрузить шаблон проекта</tag-12> </tag-11>"
+    "translation": "<tag-1><tag-2>Сайт Go</tag-2></tag-1> <tag-3><tag-4>Документация Go</tag-4></tag-3> <tag-5> <tag-6>Репозиторий GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Изучите X за Y минут, где X=Go</tag-8> </tag-7> <tag-9> <tag-10>Документация LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Загрузить стартовый шаблон</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"
@@ -283,7 +283,7 @@
     "translation": "JVM, работающая в браузере с помощью DoppioJVM."
   },
   "java.link": {
-    "translation": "<tag-1> <tag-2>Официальный сайт Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Узнай X за Y минут, где X=java</tag-6> </tag-5> <tag-7> <tag-8> Загрузи стартовый шаблон</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Официальный сайт Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Узнай X за Y минут, где X=java</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7> <tag-9> <tag-10> Загрузи стартовый шаблон</tag-10> </tag-9>"
   },
   "java.name": {
     "translation": "Java"

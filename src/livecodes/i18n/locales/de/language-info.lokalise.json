@@ -238,7 +238,7 @@
     "translation": "Hier wird es mit GopherJS nach JavaScript kompiliert."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Zur Go-Website</tag-2></tag-1> <tag-3><tag-4>Go-Dokumentation</tag-4></tag-3> <tag-5> <tag-6>GopherJS-Repo</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X = Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes-Dokumentationen</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+    "translation": "<tag-1><tag-2>Go Website</tag-2></tag-1> <tag-3><tag-4>Go Dokumentation</tag-4></tag-3> <tag-5> <tag-6>GopherJS Repository</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"
@@ -283,7 +283,7 @@
     "translation": "JVM läuft im Browser mit DoppioJVM."
   },
   "java.link": {
-    "translation": "<tag-1> <tag-2>Offizielle Java-Website</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Lernen Sie X in Y Minuten, wobei X=java</tag-6> </tag-5> <tag-7> <tag-8> Laden Sie die Startvorlage</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Offizielle Java-Website</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Lernen Sie X in Y Minuten, wobei X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokumentation</tag-8> </tag-7> <tag-9> <tag-10> Laden Sie die Startvorlage</tag-10> </tag-9>"
   },
   "java.name": {
     "translation": "Java"

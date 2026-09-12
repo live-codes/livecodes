@@ -238,7 +238,7 @@
     "translation": "Itt a GopherJS segítségével JavaScript-re fordul."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>A Go weboldal</tag-2></tag-1> <tag-3><tag-4>Go dokumentáció</tag-4></tag-3> <tag-5> <tag-6>GopherJS-repozitórium</tag-6> </tag-5> <tag-7> <tag-8>Tanulja meg az X-et Y perc alatt, ahol X = Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes dokumentációk</tag-10> </tag-9> <tag-11> <tag-12>Indító sablon betöltése</tag-12> </tag-11>"
+    "translation": "<tag-1><tag-2>Go weboldal</tag-2></tag-1> <tag-3><tag-4>Go dokumentáció</tag-4></tag-3> <tag-5> <tag-6>GopherJS repo</tag-6> </tag-5> <tag-7> <tag-8>Tanulj X-et Y perc alatt, ahol X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes dokumentáció</tag-10> </tag-9> <tag-11> <tag-12>Kezdő sablon betöltése</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"
