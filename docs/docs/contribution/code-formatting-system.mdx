@@ -327,7 +327,9 @@ The worker's `load` handler triggers loading for a set of languages without bloc
 const load = (languages: Language[]) => {
   languages.forEach((language) => {
     if (getParser(language) != null) {
-      loadParser(language);
+      loadParser(language).catch(() => {
+        console.warn('Failed to load formatter for: ' + language);
+      });
     } else if (getFormatter(language) != null) {
       loadFormatter(language).catch(() => {
         console.warn('Failed to load formatter for: ' + language);
