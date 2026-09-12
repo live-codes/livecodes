@@ -2130,6 +2130,9 @@
   "templates.starter.wat": {
     "translation": "Démarrage WebAssembly Text"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "Démarrage Zig (Wasm)"
+  },
   "templates.user.heading": {
     "translation": "Mes Modèles"
   },

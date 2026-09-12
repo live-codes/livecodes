@@ -2130,6 +2130,9 @@
   "templates.starter.wat": {
     "translation": "قالب WebAssembly Text"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "قالب Zig (Wasm)"
+  },
   "templates.user.heading": {
     "translation": "قوالبي"
   },

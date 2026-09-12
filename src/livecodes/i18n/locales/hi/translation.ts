@@ -1049,6 +1049,7 @@ const translation: I18nTranslation = {
       vue: 'Vue स्टार्टर',
       vue2: 'Vue 2 स्टार्टर',
       wat: 'WebAssembly Text स्टार्टर',
+      'zig-wasm': 'Zig (Wasm) स्टार्टर',
     },
     user: {
       heading: 'मेरे टेम्पलेट्स',

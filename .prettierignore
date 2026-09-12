@@ -2,4 +2,3 @@
 package.json
 src/modules
 **/*.mdx
-src/livecodes/i18n/locales/**/*.json

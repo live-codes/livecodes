@@ -1049,6 +1049,7 @@ const translation: I18nTranslation = {
       vue: 'قالب Vue',
       vue2: 'قالب Vue 2',
       wat: 'قالب WebAssembly Text',
+      'zig-wasm': 'قالب Zig (Wasm)',
     },
     user: {
       heading: 'قوالبي',

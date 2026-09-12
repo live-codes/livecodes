@@ -2130,6 +2130,9 @@
   "templates.starter.wat": {
     "translation": "WebAssembly Text-Starter"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "Zig (Wasm)-Starter"
+  },
   "templates.user.heading": {
     "translation": "Meine Vorlagen"
   },

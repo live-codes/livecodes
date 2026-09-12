@@ -238,7 +238,7 @@
     "translation": "Aquí, se compila a JavaScript usando GopherJS."
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Sitio web de Go</tag-2></tag-1> <tag-3><tag-4>Documentación de Go</tag-4></tag-3> <tag-5> <tag-6>Repositorio de GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Aprende X en Y minutos, donde X=Go</tag-8> </tag-7> <tag-9><tag-10>Cargar plantilla inicial</tag-10></tag-9>"
+    "translation": "<tag-1><tag-2>Sitio web de Go</tag-2></tag-1> <tag-3><tag-4>Documentación de Go</tag-4></tag-3> <tag-5> <tag-6>Repositorio de GopherJS</tag-6> </tag-5> <tag-7> <tag-8>Aprende X en Y minutos, donde X=Go</tag-8> </tag-7> <tag-9> <tag-10>Documentación de LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Cargar plantilla inicial</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"
@@ -283,7 +283,7 @@
     "translation": "JVM ejecutándose en el navegador utilizando DoppioJVM."
   },
   "java.link": {
-    "translation": "<tag-1> <tag-2>Sitio web oficial de Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Aprenda X en Y minutos, donde X=java</tag-6> </tag-5> <tag-7> <tag-8> Cargue la plantilla de inicio</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Sitio web oficial de Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Aprenda X en Y minutos, donde X=java</tag-6> </tag-5> <tag-7> <tag-8>Documentación de LiveCodes</tag-8> </tag-7> <tag-9> <tag-10> Cargue la plantilla de inicio</tag-10> </tag-9>"
   },
   "java.name": {
     "translation": "Java"
@@ -812,5 +812,14 @@
   },
   "wat.name": {
     "translation": "Formato de Texto de WebAssembly"
+  },
+  "zigWasm.desc": {
+    "translation": "Compilador Zig que se ejecuta en WebAssembly."
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>Página web de Zig</tag-2> </tag-1> <tag-3> <tag-4>Documentación del lenguaje Zig</tag-4> </tag-3> <tag-5> <tag-6>Aprende X en Y minutos, donde X = Zig</tag-6> </tag-5> <tag-7> <tag-8>Documentación de LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Cargar plantilla de inicio</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

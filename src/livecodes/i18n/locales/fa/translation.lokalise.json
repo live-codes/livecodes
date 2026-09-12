@@ -2130,6 +2130,9 @@
   "templates.starter.wat": {
     "translation": "شروع کننده WebAssembly Text"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "شروع کننده Zig (Wasm)"
+  },
   "templates.user.heading": {
     "translation": "قالب‌های من"
   },

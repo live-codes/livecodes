@@ -2130,6 +2130,9 @@
   "templates.starter.wat": {
     "translation": "Iniciante WebAssembly Text"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "Iniciante Zig (Wasm)"
+  },
   "templates.user.heading": {
     "translation": "Meus Modelos"
   },

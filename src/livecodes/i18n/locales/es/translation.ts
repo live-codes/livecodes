@@ -1049,6 +1049,7 @@ const translation: I18nTranslation = {
       vue: 'Inicio Vue',
       vue2: 'Inicio Vue 2',
       wat: 'Inicio WebAssembly Text',
+      'zig-wasm': 'Inicio Zig (Wasm)',
     },
     user: {
       heading: 'Mis Plantillas',

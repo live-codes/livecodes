@@ -2130,6 +2130,9 @@
   "templates.starter.wat": {
     "translation": "Pemula Teks WebAssembly"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "Pemula Zig (Wasm)"
+  },
   "templates.user.heading": {
     "translation": "Template Saya"
   },

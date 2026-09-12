@@ -238,7 +238,7 @@
     "translation": "此处使用 GopherJS 将其编译为 JavaScript。"
   },
   "go.link": {
-    "translation": "<tag-1><tag-2>Go 官方网站</tag-2></tag-1> <tag-3><tag-4>Go 文档</tag-4></tag-3> <tag-5> <tag-6>GopherJS 仓库</tag-6> </tag-5> <tag-7> <tag-8>在 Y 分钟内学习 X，其中 X=Go</tag-8> </tag-7> <tag-9><tag-10>加载启动模板</tag-10></tag-9>"
+    "translation": "<tag-1><tag-2>Go 官方网站</tag-2></tag-1> <tag-3><tag-4>Go 文档</tag-4></tag-3> <tag-5> <tag-6>GopherJS 仓库</tag-6> </tag-5> <tag-7> <tag-8>在 Y 分钟内学习 X，其中 X=Go</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes 文档</tag-10> </tag-9> <tag-11> <tag-12>加载启动模板</tag-12> </tag-11>"
   },
   "go.name": {
     "translation": "Go"
@@ -283,7 +283,7 @@
     "translation": "使用 DoppioJVM 在浏览器中运行的 JVM。"
   },
   "java.link": {
-    "translation": "<tag-1> <tag-2>Java 官方网站    DoppioJVM    在 Y 分钟内学习 X，其中 X=java    加载启动模板</tag-2> </tag-1> <tag-3> <tag-4></tag-4> </tag-3> <tag-5> <tag-6></tag-6> </tag-5> <tag-7> <tag-8></tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Java 官方网站</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>在 Y 分钟内学习 X，其中 X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载启动模板</tag-10> </tag-9>"
   },
   "java.name": {
     "translation": "Java"
@@ -812,5 +812,14 @@
   },
   "wat.name": {
     "translation": "WebAssembly 文本格式"
+  },
+  "zigWasm.desc": {
+    "translation": "在 WebAssembly 上运行的 Zig 编译器。"
+  },
+  "zigWasm.link": {
+    "translation": "<tag-1> <tag-2>Zig 网站</tag-2> </tag-1> <tag-3> <tag-4>Zig 语言文档</tag-4> </tag-3> <tag-5> <tag-6>Y分钟掌握X，其中X=Zig</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+  },
+  "zigWasm.name": {
+    "translation": "Zig (Wasm)"
   }
 }

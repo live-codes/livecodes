@@ -2130,6 +2130,9 @@
   "templates.starter.wat": {
     "translation": "WebAssembly Text kezdő"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "Zig (Wasm) kezdő"
+  },
   "templates.user.heading": {
     "translation": "Saját sablonok"
   },

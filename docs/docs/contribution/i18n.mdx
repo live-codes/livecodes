@@ -31,7 +31,7 @@ Extracted source texts are stored in two forms under `src/livecodes/i18n/locales
 
 > These files are generated and kept in sync with each other by the `i18n-export` npm script. See the [Scripts](#scripts) section for more details.
 
-Other directories under `src/livecodes/i18n/locales` are used to store the translated texts in other target languages, which only contain `.ts` files.
+Other directories under `src/livecodes/i18n/locales` are used to store the translated texts in other target languages. Each of them contains `.ts` files (used by the app) and generated `.lokalise.json` files (used for manually authoring translations on Lokalise).
 
 ## For Developers
 
@@ -159,11 +159,11 @@ Several npm scripts are available to facilitate the i18n workflow:
 
 - [`vscode-intellisense`](../../../scripts/vscode-intellisense.js): Generates the `html.html-data.json` file in the `.vscode` folder to enhance intellisense for the `data-i18n` attribute in HTML files in VSCode.
 - [`i18n-export`](../../../scripts/i18n-export.js): Extracts source texts from the codebase and generates `.ts` and `.lokalise.json` files under `src/livecodes/i18n/locales/en`.
-  - The `--save-tmp` flag can be used to save the extracted source texts to `i18n/locales/tmp` instead of `en` for debugging purposes.
+  - The `--save-temp` flag can be used to save the extracted source texts to `i18n/locales/tmp` instead of `en` for debugging purposes.
 - [`i18n-update-push` / `i18n-upload.mjs`](../../../scripts/i18n-upload.mjs): **(Only used in CI and should not be run locally)** Pushes the source texts in `.lokasile.json` files to Lokalise.
   - The `<branch>` argument is required to specify the branch to push to.
   - The `--force` flag can be used to skip the check for environment variable `CI` and allow running the script locally.
-- [`i18n-update-pull` / `i18n-import.mjs`](../../../scripts/i18n-import.mjs): **(Only used in CI and should not be run locally)** Pulls the translated texts from Lokalise and updates the `.ts` files under `src/livecodes/i18n/locales`. _Outdated translation will be deprecated during import._
+- [`i18n-update-pull` / `i18n-import.mjs`](../../../scripts/i18n-import.mjs): **(Only used in CI and should not be run locally)** Pulls the translated texts from Lokalise and updates the `.ts` files under `src/livecodes/i18n/locales`. _Outdated translation will be deprecated during import._ Keys that are missing from the Lokalise branch fall back to the existing translation in the repository, so translations are not lost when Lokalise is behind the codebase.
   - The `<branch>` argument is required to specify the branch to pull from.
   - The `--force` flag can be used to skip the check for environment variable `CI` and allow running the script locally.
   - The `--local` flag can be used to let the script use local resources in the directory defined by the `LOKALISE_TEMP` environment variable instead of fetching from Lokalise.
@@ -249,10 +249,10 @@ Here we do not want an extra i18n branch for simplicity, nor need to pull from L
 
 Four i18n-related workflows are set up in the repository:
 
-- [`i18n-update-notify`](../../../.github\workflows\i18n-update-notify.yml): Creates a comment on merged PRs to notify maintainers to trigger the `i18n-update-push` workflow.
-- [`i18n-update-push`](../../../.github\workflows\i18n-update-push.yml): Creates a new branch named `i18n/<owner>/<head-branch>`, runs `npm run i18n-export` again to ensure the source texts are up-to-date, pushes the changes on git, then pushes the changes to the `i18n/<owner>/<head-branch>` branch on Lokalise.
-- [`i18n-update-pull`](../../../.github\workflows\i18n-update-pull.yml): Pulls the translated texts from Lokalise, updates the `.ts` files under `src/livecodes/i18n/locales`, commits the changes to the `i18n/<owner>/<head-branch>` branch, then creates a PR to merge the changes back to the default branch `develop`.
-- [`i18n-update-scheduled`](../../../.github\workflows\i18n-update-scheduled.yml): Syncs between the `master` branch on Lokalise and the `i18n/develop` branch on the codebase, then automatically creates a PR if there are any changes.
+- [`i18n-update-notify`](../../../.github/workflows/i18n-update-notify.yml): Creates a comment on merged PRs to notify maintainers to trigger the `i18n-update-push` workflow.
+- [`i18n-update-push`](../../../.github/workflows/i18n-update-push.yml): Creates a new branch named `i18n/<owner>/<head-branch>`, runs `npm run i18n-export` again to ensure the source texts are up-to-date, pushes the changes on git, then pushes the changes to the `i18n/<owner>/<head-branch>` branch on Lokalise.
+- [`i18n-update-pull`](../../../.github/workflows/i18n-update-pull.yml): Pulls the translated texts from Lokalise, updates the `.ts` files under `src/livecodes/i18n/locales`, commits the changes to the `i18n/<owner>/<head-branch>` branch, then creates a PR to merge the changes back to the default branch `develop`.
+- [`i18n-update-scheduled`](../../../.github/workflows/i18n-update-scheduled.yml): Syncs between the `master` branch on Lokalise and the `i18n/develop` branch on the codebase, then automatically creates a PR if there are any changes.
 
 ### Hashing and Cache
 

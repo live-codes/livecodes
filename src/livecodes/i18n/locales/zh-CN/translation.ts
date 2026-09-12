@@ -1047,6 +1047,7 @@ const translation: I18nTranslation = {
       vue: 'Vue 单文件组件启动模板',
       vue2: 'Vue 2 启动模板',
       wat: 'WebAssembly 启动模板',
+      'zig-wasm': 'Zig（WASM）启动模板',
     },
     user: {
       heading: '我的模板',

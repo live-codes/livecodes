@@ -2130,6 +2130,9 @@
   "templates.starter.wat": {
     "translation": "ویب اسمبلی ٹیکسٹ شروعاتی"
   },
+  "templates.starter.zig-wasm": {
+    "translation": "Zig (واسم) شروعاتی"
+  },
   "templates.user.heading": {
     "translation": "میرے سانچے"
   },
