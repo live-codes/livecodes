@@ -2524,6 +2524,14 @@
     "notes": "",
     "translation": "Sync started..."
   },
+  "templates.haskell.heading": {
+    "notes": "",
+    "translation": "Haskell in the browser"
+  },
+  "templates.haskell.loading": {
+    "notes": "",
+    "translation": "Loading GHC..."
+  },
   "templates.heading": {
     "notes": "",
     "translation": "New Project"

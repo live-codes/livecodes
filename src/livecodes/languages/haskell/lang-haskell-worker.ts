@@ -1,5 +1,11 @@
 import { getErrorMessage, handleFetchError } from '../../utils/utils';
-import { bsdtarWasmUrl, ghcBrowserBaseUrl, ghcRootfsUrl, haskellWasiShimUrl } from '../../vendors';
+import {
+  bsdtarWasmSha256,
+  bsdtarWasmUrl,
+  ghcBrowserBaseUrl,
+  ghcRootfsUrl,
+  haskellWasiShimUrl,
+} from '../../vendors';
 import type { HaskellRequest, HaskellResponse } from './models';
 
 let run: ((args: string, source: string) => Promise<void>) | undefined;
@@ -9,6 +15,17 @@ let error = '';
 const reply = (message: HaskellResponse) => self.postMessage(message);
 // GHC runs against an in-memory WASI filesystem; these are not host /tmp paths.
 const ghcRuntimeDirectory = '/tmp'; // NOSONAR
+
+const verifyBsdtarWasm = async (wasm: ArrayBuffer) => {
+  const digest = await crypto.subtle.digest('SHA-256', wasm);
+  const sha256 = Array.from(new Uint8Array(digest), (byte) =>
+    byte.toString(16).padStart(2, '0'),
+  ).join('');
+  if (sha256 !== bsdtarWasmSha256) {
+    throw new Error('bsdtar.wasm integrity check failed.');
+  }
+  return wasm;
+};
 
 const init = async () => {
   const [{ ConsoleStdout, File, OpenFile, PreopenDirectory, WASI }, { DyLDBrowserHost, main }] =
@@ -30,7 +47,8 @@ const init = async () => {
   const [wasm, archive] = await Promise.all([
     fetch(bsdtarWasmUrl)
       .then(handleFetchError)
-      .then((res) => res.arrayBuffer()),
+      .then((res) => res.arrayBuffer())
+      .then(verifyBsdtarWasm),
     fetch(ghcRootfsUrl)
       .then(handleFetchError)
       .then((res) => res.arrayBuffer()),

@@ -1,5 +1,8 @@
 import type { Template } from '../../models';
 
+const heading = window.deps.translateString('templates.haskell.heading', 'Haskell in the browser');
+const loading = window.deps.translateString('templates.haskell.loading', 'Loading GHC...');
+
 export const haskellStarter: Template = {
   name: 'haskell',
   aliases: ['hs'],
@@ -8,8 +11,8 @@ export const haskellStarter: Template = {
   activeEditor: 'script',
   markup: {
     language: 'html',
-    content: `<h1>Haskell in the browser</h1>
-<pre id="output">Loading GHC...</pre>
+    content: `<h1>${heading}</h1>
+<pre id="output">${loading}</pre>
 
 <script>
   addEventListener('load', async () => {
