@@ -155,6 +155,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Resmi web sitesi</2></1> <3> <4>LiveCodes Dokümantasyonu</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: "<1>Haskell, tembel değerlendirmeye sahip, statik türlenmiş ve tamamen işlevsel bir programlama dilidir.</1> <2>LiveCodes, WebAssembly kullanarak GHC'yi tarayıcıda çalıştırır.</2>",
+    link: "<1><2>Haskell</2></1> <3> <4>Tarayıcıda GHC</4> </3> <5> <6>LiveCodes'ta Haskell</6> </5> <7> <8>Başlangıç şablonu</8> </7>",
+    name: 'Haskell',
+  },
   imba: {
     desc: 'Kullanımı kolay full-stack dil.',
     link: '<1><2>Resmi web sitesi</2></1>',

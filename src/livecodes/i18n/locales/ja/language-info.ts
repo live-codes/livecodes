@@ -154,6 +154,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>公式ウェブサイト</2></1> <3> <4>LiveCodes ドキュメント</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: '<1>Haskellは、遅延評価を備えた静的型付きの純粋関数型プログラミング言語です。</1> <2>LiveCodesはWebAssemblyを使用してブラウザでGHCを実行します。</2>',
+    link: '<1><2>Haskell</2></1> <3> <4>ブラウザ上のGHC</4> </3> <5> <6>LiveCodesのHaskell</6> </5> <7> <8>スターターテンプレート</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'フレンドリーなフルスタック言語。',
     link: '<1><2>公式ウェブサイト</2></1>',

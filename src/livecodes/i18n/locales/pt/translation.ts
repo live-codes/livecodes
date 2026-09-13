@@ -966,6 +966,10 @@ const translation: I18nTranslation = {
     syncStarted: 'Sincronização iniciada...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell no navegador',
+      loading: 'Carregando GHC...',
+    },
     heading: 'Novo Projeto',
     noUserTemplates: {
       desc: 'Você pode salvar um projeto como modelo a partir de <1></1>(Menu&nbsp;do&nbsp;App&nbsp;&gt;&nbsp;Salvar&nbsp;como&nbsp;&gt; Modelo).',
@@ -1000,6 +1004,7 @@ const translation: I18nTranslation = {
       gleam: 'Iniciante Gleam',
       go: 'Iniciante Go',
       'go-wasm': 'Iniciante Go (Wasm)',
+      haskell: 'Modelo inicial Haskell',
       heading: 'Modelos Iniciantes',
       imba: 'Iniciante Imba',
       java: 'Iniciante Java',

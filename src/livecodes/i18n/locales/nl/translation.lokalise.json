@@ -1893,6 +1893,12 @@
   "sync.syncStarted": {
     "translation": "Synchronisatie gestart..."
   },
+  "templates.haskell.heading": {
+    "translation": "Haskell in de browser"
+  },
+  "templates.haskell.loading": {
+    "translation": "GHC laden..."
+  },
   "templates.heading": {
     "translation": "Nieuw project"
   },
@@ -1979,6 +1985,9 @@
   },
   "templates.starter.go-wasm": {
     "translation": "Go (Wasm)-starter"
+  },
+  "templates.starter.haskell": {
+    "translation": "Haskell-starter"
   },
   "templates.starter.heading": {
     "translation": "Startsjablonen"

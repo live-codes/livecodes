@@ -153,6 +153,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>অফিসিয়াল ওয়েবসাইট</2></1> <3> <4>LiveCodes ডকুমেন্টেশন</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: '<1>Haskell হল একটি স্ট্যাটিক্যালি টাইপড, সম্পূর্ণ ফাংশনাল প্রোগ্রামিং ভাষা, যেখানে lazy evaluation রয়েছে।</1> <2>LiveCodes WebAssembly ব্যবহার করে ব্রাউজারে GHC চালায়।</2>',
+    link: '<1><2>Haskell</2></1> <3> <4>ব্রাউজারে GHC</4> </3> <5> <6>LiveCodes-এ Haskell</6> </5> <7> <8>স্টার্টার টেমপ্লেট</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'বন্ধুত্বপূর্ণ ফুল-স্ট্যাক ভাষা।',
     link: '<1><2>অফিসিয়াল ওয়েবসাইট</2></1>',

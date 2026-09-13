@@ -28,6 +28,7 @@ import { go } from './go';
 import { goWasm } from './go-wasm';
 import { haml } from './haml';
 import { handlebars } from './handlebars';
+import { haskell } from './haskell';
 import { html } from './html';
 import { imba } from './imba';
 import { java } from './java';
@@ -155,6 +156,7 @@ export const languages: LanguageSpecs[] = [
   cpp,
   cppWasm,
   rustWasm,
+  haskell,
   zigWasm,
   java,
   csharpWasm,

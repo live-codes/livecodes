@@ -154,6 +154,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>وب‌سایت رسمی</2></1> <3> <4>مستندات LiveCodes</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: '<1>هاسکل یک زبان برنامه‌نویسی تابعیِ کاملاً خالص و ایستا-نوع‌دار با ارزیابی تنبل است.</1> <2>LiveCodes، GHC را با استفاده از WebAssembly در مرورگر اجرا می‌کند.</2>',
+    link: '<1><2>Haskell</2></1> <3> <4>GHC در مرورگر</4> </3> <5> <6>هاسکل در LiveCodes</6> </5> <7> <8>قالب آغازین</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'زبان full-stack دوستانه.',
     link: '<1><2>وب‌سایت رسمی</2></1>',

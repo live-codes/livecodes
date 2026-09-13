@@ -152,6 +152,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>الموقع الرسمي</2></1> <3> <4>وثائق LiveCodes</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: '<1>هاسكل هي لغة برمجة وظيفية خالصة ومُكتوبة بشكل ثابت، مع تقييم كسول.</1> <2>LiveCodes يشغّل GHC في المتصفح باستخدام WebAssembly.</2>',
+    link: '<1><2>Haskell</2></1> <3> <4>GHC في المتصفح</4> </3> <5> <6>هاسكل في LiveCodes</6> </5> <7> <8>القالب الأولي</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'اللغة الودودة للتطوير الشامل.',
     link: '<1><2>الموقع الرسمي</2></1>',

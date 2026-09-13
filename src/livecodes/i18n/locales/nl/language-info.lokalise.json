@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "Handlebars"
   },
+  "haskell.desc": {
+    "translation": "Haskell is een statisch getypeerde, puur functionele programmeertaal met luie evaluatie. LiveCodes voert GHC in de browser uit met WebAssembly."
+  },
+  "haskell.link": {
+    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>GHC in de browser</tag-4> </tag-3> <tag-5> <tag-6>Haskell in LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "De vriendelijke full-stack taal."
   },

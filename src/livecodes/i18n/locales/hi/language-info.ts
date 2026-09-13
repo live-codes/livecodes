@@ -154,6 +154,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>आधिकारिक वेबसाइट</2></1> <3> <4>LiveCodes दस्तावेज़ीकरण</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: '<1>Haskell एक स्थिर रूप से टाइप की गई, पूर्णतः कार्यात्मक प्रोग्रामिंग भाषा है, जिसमें lazy evaluation होती है।</1> <2>LiveCodes WebAssembly का उपयोग करके ब्राउज़र में GHC चलाता है।</2>',
+    link: '<1><2>Haskell</2></1> <3> <4>ब्राउज़र में GHC</4> </3> <5> <6>LiveCodes में Haskell</6> </5> <7> <8>स्टार्टर टेम्पलेट</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'मित्रवत फुल-स्टैक भाषा।',
     link: '<1><2>आधिकारिक वेबसाइट</2></1>',

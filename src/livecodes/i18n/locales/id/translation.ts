@@ -965,6 +965,10 @@ const translation: I18nTranslation = {
     syncStarted: 'Sinkronisasi dimulai...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell di browser',
+      loading: 'Memuat GHC...',
+    },
     heading: 'Proyek Baru',
     noUserTemplates: {
       desc: 'Anda dapat menyimpan proyek sebagai template dari <1></1>(Menu&nbsp;aplikasi&nbsp;&gt;&nbsp;Simpan&nbsp;sebagai&nbsp;&gt; Template).',
@@ -999,6 +1003,7 @@ const translation: I18nTranslation = {
       gleam: 'Pemula Gleam',
       go: 'Pemula Go',
       'go-wasm': 'Pemula Go (Wasm)',
+      haskell: 'Pemula Haskell',
       heading: 'Template Pemula',
       imba: 'Pemula Imba',
       java: 'Pemula Java',

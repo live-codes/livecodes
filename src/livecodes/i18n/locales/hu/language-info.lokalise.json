@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "Handlebars"
   },
+  "haskell.desc": {
+    "translation": "A Haskell egy statikusan típusos, tisztán funkcionális programozási nyelv lusta kiértékeléssel. A LiveCodes WebAssembly használatával futtatja a GHC-t a böngészőben."
+  },
+  "haskell.link": {
+    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>GHC a böngészőben</tag-4> </tag-3> <tag-5> <tag-6>Haskell a LiveCodesban</tag-6> </tag-5> <tag-7> <tag-8>Kezdősablon</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "A barátságos full-stack nyelv."
   },

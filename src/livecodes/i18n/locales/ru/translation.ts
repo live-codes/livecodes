@@ -965,6 +965,10 @@ const translation: I18nTranslation = {
     syncStarted: 'Синхронизация начата...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell в браузере',
+      loading: 'Загрузка GHC...',
+    },
     heading: 'Новый проект',
     noUserTemplates: {
       desc: 'Вы можете сохранить проект как шаблон из <1></1>(Меню&nbsp;приложения&nbsp;&gt;&nbsp;Сохранить&nbsp;как&nbsp;&gt; Шаблон).',
@@ -999,6 +1003,7 @@ const translation: I18nTranslation = {
       gleam: 'Стартер Gleam',
       go: 'Стартер Go',
       'go-wasm': 'Стартер Go (Wasm)',
+      haskell: 'Стартер Haskell',
       heading: 'Стартовые шаблоны',
       imba: 'Стартер Imba',
       java: 'Стартер Java',

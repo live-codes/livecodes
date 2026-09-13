@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "ہینڈل بارز"
   },
+  "haskell.desc": {
+    "translation": "Haskell ایک مستحکم ٹائپ والی، خالص فنکشنل پروگرامنگ زبان ہے جس میں lazy evaluation ہوتی ہے۔ LiveCodes، WebAssembly استعمال کرتے ہوئے براؤزر میں GHC چلاتا ہے۔"
+  },
+  "haskell.link": {
+    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>براؤزر میں GHC</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes میں Haskell</tag-6> </tag-5> <tag-7> <tag-8>اسٹارٹر ٹیمپلیٹ</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "دوستانہ فل-اسٹیک زبان۔"
   },

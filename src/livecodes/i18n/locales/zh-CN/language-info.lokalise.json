@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "Handlebars"
   },
+  "haskell.desc": {
+    "translation": "Haskell 是一种具有惰性求值的静态类型纯函数式编程语言。LiveCodes 使用 WebAssembly 在浏览器中运行 GHC。"
+  },
+  "haskell.link": {
+    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>浏览器中的 GHC</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes 中的 Haskell</tag-6> </tag-5> <tag-7> <tag-8>启动模板</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "友好的全栈语言。"
   },

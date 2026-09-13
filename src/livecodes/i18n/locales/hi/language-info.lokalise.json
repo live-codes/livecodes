@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "Handlebars"
   },
+  "haskell.desc": {
+    "translation": "Haskell एक स्थिर रूप से टाइप की गई, पूर्णतः कार्यात्मक प्रोग्रामिंग भाषा है, जिसमें lazy evaluation होती है। LiveCodes WebAssembly का उपयोग करके ब्राउज़र में GHC चलाता है।"
+  },
+  "haskell.link": {
+    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>ब्राउज़र में GHC</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes में Haskell</tag-6> </tag-5> <tag-7> <tag-8>स्टार्टर टेम्पलेट</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "मित्रवत फुल-स्टैक भाषा।"
   },

@@ -972,6 +972,10 @@ const translation = {
     syncStarted: 'Sync started...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell in the browser',
+      loading: 'Loading GHC...',
+    },
     heading: 'New Project',
     noUserTemplates: {
       desc: 'You can save a project as a template from <1></1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
@@ -1006,6 +1010,7 @@ const translation = {
       gleam: 'Gleam Starter',
       go: 'Go Starter',
       'go-wasm': 'Go (Wasm) Starter',
+      haskell: 'Haskell Starter',
       heading: 'Starter Templates',
       imba: 'Imba Starter',
       java: 'Java Starter',

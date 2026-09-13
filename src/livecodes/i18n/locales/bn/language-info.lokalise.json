@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "Handlebars"
   },
+  "haskell.desc": {
+    "translation": "Haskell হল একটি স্ট্যাটিক্যালি টাইপড, সম্পূর্ণ ফাংশনাল প্রোগ্রামিং ভাষা, যেখানে lazy evaluation রয়েছে। LiveCodes WebAssembly ব্যবহার করে ব্রাউজারে GHC চালায়।"
+  },
+  "haskell.link": {
+    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>ব্রাউজারে GHC</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes-এ Haskell</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "বন্ধুত্বপূর্ণ ফুল-স্ট্যাক ভাষা।"
   },
