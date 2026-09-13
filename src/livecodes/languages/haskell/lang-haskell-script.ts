@@ -19,6 +19,9 @@ const workerUrl = new URL(
   '{{hash:lang-haskell-worker.js}}',
   (document.currentScript as HTMLScriptElement).src,
 ).href;
+const parentOrigin =
+  window.location.ancestorOrigins?.[0] ||
+  (document.referrer ? new URL(document.referrer).origin : window.location.origin);
 window.livecodes.haskell ??= {};
 const haskell = window.livecodes.haskell;
 haskell.runner ??= createHaskellRunner(() => {
@@ -42,7 +45,7 @@ haskell.run = async () => {
     haskell.exitCode = 0;
     return { output: '', error: '', exitCode: 0 };
   }
-  parent.postMessage({ type: 'loading', payload: true }, '*');
+  parent.postMessage({ type: 'loading', payload: true }, parentOrigin);
   try {
     const result = await haskell.runner!.run(code);
     haskell.output = result.output;
@@ -65,7 +68,7 @@ haskell.run = async () => {
     console.error(haskell.error);
     return { output: '', error: haskell.error, exitCode: 1 };
   } finally {
-    parent.postMessage({ type: 'loading', payload: false }, '*');
+    parent.postMessage({ type: 'loading', payload: false }, parentOrigin);
   }
 };
 

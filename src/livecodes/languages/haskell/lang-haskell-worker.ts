@@ -7,6 +7,8 @@ let output = '';
 let error = '';
 
 const reply = (message: HaskellResponse) => self.postMessage(message);
+// GHC runs against an in-memory WASI filesystem; these are not host /tmp paths.
+const ghcRuntimeDirectory = '/tmp'; // NOSONAR
 
 const init = async () => {
   const [{ ConsoleStdout, File, OpenFile, PreopenDirectory, WASI }, { DyLDBrowserHost, main }] =
@@ -49,12 +51,15 @@ const init = async () => {
         error += message + '\n';
       },
     }),
-    searchDirs: ['/tmp/clib', '/tmp/hslib/lib/wasm32-wasi-ghc-9.14.0.20251031-inplace'],
-    mainSoPath: '/tmp/libplayground001.so',
+    searchDirs: [
+      `${ghcRuntimeDirectory}/clib`,
+      `${ghcRuntimeDirectory}/hslib/lib/wasm32-wasi-ghc-9.14.0.20251031-inplace`,
+    ],
+    mainSoPath: `${ghcRuntimeDirectory}/libplayground001.so`,
     args: ['libplayground001.so', '+RTS', '-c', '-RTS'],
     isIserv: false,
   });
-  run = await dyld.exportFuncs.myMain('/tmp/hslib/lib');
+  run = await dyld.exportFuncs.myMain(`${ghcRuntimeDirectory}/hslib/lib`);
 };
 
 self.onmessage = async ({ data }: MessageEvent<HaskellRequest>) => {
