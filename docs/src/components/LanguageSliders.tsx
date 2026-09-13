@@ -89,6 +89,7 @@ export default function Sliders() {
       { name: 'cpp', title: 'C++' },
       { name: 'cpp-wasm', title: 'C++ (Wasm)' },
       { name: 'rust-wasm', title: 'Rust (Wasm)' },
+      { name: 'haskell', title: 'Haskell' },
       { name: 'zig-wasm', title: 'Zig (Wasm)' },
       { name: 'java', title: 'Java' },
       { name: 'csharp-wasm', title: 'C# (Wasm)' },

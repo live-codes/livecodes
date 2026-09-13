@@ -61,6 +61,7 @@ export const PHPWasm = livecodesStory({ template: 'php-wasm' });
 PHPWasm.storyName = 'PHP Wasm';
 export const Cpp = livecodesStory({ template: 'cpp' });
 export const CppWasm = livecodesStory({ template: 'cpp-wasm' });
+export const Haskell = livecodesStory({ template: 'haskell' });
 export const Java = livecodesStory({ template: 'java' });
 export const CSharpWasm = livecodesStory({ template: 'csharp-wasm' });
 export const FSharp = livecodesStory({ template: 'fsharp' });

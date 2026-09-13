@@ -438,6 +438,18 @@ export const rustWasmUrl = /* @__PURE__ */ getUrl(
 );
 export const wasmRustcBaseUrl = /* @__PURE__ */ getUrl('@live-codes/wasm-rustc@0.2.0/');
 
+export const ghcBrowserBaseUrl = /* @__PURE__ */ getUrl(
+  'https://cdn.jsdelivr.net/gh/haskell-wasm/ghc-in-browser@c57d8b6e37737d662aed05cab88f867918307053/',
+);
+export const ghcRootfsUrl = /* @__PURE__ */ getUrl(
+  'https://raw.githubusercontent.com/haskell-wasm/ghc-in-browser/c57d8b6e37737d662aed05cab88f867918307053/rootfs.tar.zst',
+);
+export const bsdtarWasmUrl = /* @__PURE__ */ getUrl(
+  'https://haskell-wasm.github.io/bsdtar-wasm/bsdtar.wasm',
+);
+export const haskellWasiShimUrl = /* @__PURE__ */ getUrl(
+  'https://esm.sh/gh/haskell-wasm/browser_wasi_shim@2f86b49dce50916e2984029c535321e34b234229',
+);
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 
 export const spacingJsUrl = /* @__PURE__ */ getUrl('spacingjs@1.0.7/dist/bundle.js');
