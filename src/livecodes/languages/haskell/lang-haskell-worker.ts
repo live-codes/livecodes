@@ -1,8 +1,8 @@
 import { getErrorMessage, handleFetchError } from '../../utils/utils';
 import {
   bsdtarWasmSha256,
-  bsdtarWasmUrl,
   ghcBrowserBaseUrl,
+  ghcRootfsSha256,
   ghcRootfsUrl,
   haskellWasiShimUrl,
 } from '../../vendors';
@@ -16,18 +16,18 @@ const reply = (message: HaskellResponse) => self.postMessage(message);
 // GHC runs against an in-memory WASI filesystem; these are not host /tmp paths.
 const ghcRuntimeDirectory = '/tmp'; // NOSONAR
 
-const verifyBsdtarWasm = async (wasm: ArrayBuffer) => {
-  const digest = await crypto.subtle.digest('SHA-256', wasm);
+const verifySha256 = async (data: ArrayBuffer, expectedSha256: string, assetName: string) => {
+  const digest = await crypto.subtle.digest('SHA-256', data);
   const sha256 = Array.from(new Uint8Array(digest), (byte) =>
     byte.toString(16).padStart(2, '0'),
   ).join('');
-  if (sha256 !== bsdtarWasmSha256) {
-    throw new Error('bsdtar.wasm integrity check failed.');
+  if (sha256 !== expectedSha256) {
+    throw new Error(`${assetName} integrity check failed.`);
   }
-  return wasm;
+  return data;
 };
 
-const init = async () => {
+const init = async (bsdtarUrl: string) => {
   const [{ ConsoleStdout, File, OpenFile, PreopenDirectory, WASI }, { DyLDBrowserHost, main }] =
     await Promise.all([import(haskellWasiShimUrl), import(ghcBrowserBaseUrl + 'dyld.mjs')]);
   const rootfs = new PreopenDirectory('/', []);
@@ -45,13 +45,14 @@ const init = async () => {
     { debug: false },
   );
   const [wasm, archive] = await Promise.all([
-    fetch(bsdtarWasmUrl)
+    fetch(bsdtarUrl)
       .then(handleFetchError)
       .then((res) => res.arrayBuffer())
-      .then(verifyBsdtarWasm),
+      .then((data) => verifySha256(data, bsdtarWasmSha256, 'bsdtar.wasm')),
     fetch(ghcRootfsUrl)
       .then(handleFetchError)
-      .then((res) => res.arrayBuffer()),
+      .then((res) => res.arrayBuffer())
+      .then((data) => verifySha256(data, ghcRootfsSha256, 'GHC rootfs')),
   ]);
   const { instance } = await WebAssembly.instantiate(wasm, {
     wasi_snapshot_preview1: wasi.wasiImport,
@@ -83,7 +84,7 @@ const init = async () => {
 self.onmessage = async ({ data }: MessageEvent<HaskellRequest>) => {
   if (data.type === 'init') {
     try {
-      await init();
+      await init(data.bsdtarUrl);
       reply({ type: 'ready' });
     } catch (err) {
       reply({

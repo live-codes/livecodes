@@ -966,6 +966,10 @@ const translation: I18nTranslation = {
     syncStarted: '同期を開始しました...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell in the browser',
+      loading: 'Loading GHC...',
+    },
     heading: '新規プロジェクト',
     noUserTemplates: {
       desc: 'プロジェクトをテンプレートとして保存するには、<1></1>（アプリメニュー&nbsp;&gt;&nbsp;別名で保存&nbsp;&gt;&nbsp;テンプレート）から行えます。',
@@ -1000,6 +1004,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleamスターター',
       go: 'Goスターター',
       'go-wasm': 'Go（Wasm）スターター',
+      haskell: 'Haskell Starter',
       heading: 'スターターテンプレート',
       imba: 'Imbaスターター',
       java: 'Javaスターター',

@@ -963,6 +963,10 @@ const translation: I18nTranslation = {
     syncStarted: '同步已开始...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell in the browser',
+      loading: 'Loading GHC...',
+    },
     heading: '新项目',
     noUserTemplates: {
       desc: '您可以通过<1></1>（菜单&nbsp;&gt;&nbsp;另存为&nbsp;&gt;&nbsp;模板）将项目另存为模板。',
@@ -997,6 +1001,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleam 启动模板',
       go: 'Go 启动模板',
       'go-wasm': 'Go（WASM）启动模板',
+      haskell: 'Haskell Starter',
       heading: '启动模板',
       imba: 'Imba 启动模板',
       java: 'Java 启动模板',

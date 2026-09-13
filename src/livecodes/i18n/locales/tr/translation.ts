@@ -966,6 +966,10 @@ const translation: I18nTranslation = {
     syncStarted: 'Senkronizasyon başlatıldı...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell in the browser',
+      loading: 'Loading GHC...',
+    },
     heading: 'Yeni Proje',
     noUserTemplates: {
       desc: 'Bir projeyi <1></1>(Uygulama&nbsp;menüsü&nbsp;&gt;&nbsp;Farklı&nbsp;Kaydet&nbsp;&gt; Şablon) yoluyla şablon olarak kaydedebilirsiniz.',
@@ -1000,6 +1004,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleam Başlangıç',
       go: 'Go Başlangıç',
       'go-wasm': 'Go (Wasm) Başlangıç',
+      haskell: 'Haskell Starter',
       heading: 'Başlangıç Şablonları',
       imba: 'Imba Başlangıç',
       java: 'Java Başlangıç',

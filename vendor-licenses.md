@@ -32,7 +32,7 @@ browser_wasi_shim: [MIT License](https://github.com/bjorn3/browser_wasi_shim/blo
 
 BrowserFS: [MIT License](https://github.com/jvilk/BrowserFS/blob/76fd5122fcf3ad6bff3315550aafb041cfb6a72e/license.md)
 
-bsdtar-wasm: [BSD licenses](https://github.com/haskell-wasm/bsdtar-wasm/blob/master/LICENSE)
+bsdtar-wasm: [BSD licenses](https://github.com/haskell-wasm/bsdtar-wasm/blob/012117de366c13285036f37b4fcd9a59d1a06fbb/LICENSE)
 
 GHC: [BSD-3-Clause and bundled component licenses](https://gitlab.haskell.org/ghc/ghc/-/blob/master/LICENSE)
 

@@ -15,13 +15,22 @@ declare const window: Window & {
   };
 };
 
-const workerUrl = new URL(
-  '{{hash:lang-haskell-worker.js}}',
-  (document.currentScript as HTMLScriptElement).src,
-).href;
+const scriptUrl = (document.currentScript as HTMLScriptElement).src;
+const workerUrl = new URL('{{hash:lang-haskell-worker.js}}', scriptUrl).href;
+const bsdtarUrl = new URL('assets/wasm/bsdtar.wasm', scriptUrl).href;
 const parentOrigin =
-  window.location.ancestorOrigins?.[0] ||
-  (document.referrer ? new URL(document.referrer).origin : window.location.origin);
+  window.parent === window
+    ? window.location.origin
+    : window.location.ancestorOrigins?.[0] ||
+      (() => {
+        if (!document.referrer) return '*';
+        try {
+          return new URL(document.referrer).origin;
+        } catch {
+          // Ignore malformed referrers and use the wildcard fallback below.
+          return '*';
+        }
+      })();
 window.livecodes.haskell ??= {};
 const haskell = window.livecodes.haskell;
 haskell.runner ??= createHaskellRunner(() => {
@@ -33,7 +42,11 @@ haskell.runner ??= createHaskellRunner(() => {
   } finally {
     URL.revokeObjectURL(url);
   }
-});
+}, bsdtarUrl);
+
+const postLoading = (payload: boolean) => {
+  parent.postMessage({ type: 'loading', payload }, parentOrigin); // NOSONAR - fallback is safe with source/origin checks in the parent.
+};
 
 haskell.run = async () => {
   const code = Array.from(document.querySelectorAll('script[type="text/haskell"]'))
@@ -45,7 +58,7 @@ haskell.run = async () => {
     haskell.exitCode = 0;
     return { output: '', error: '', exitCode: 0 };
   }
-  parent.postMessage({ type: 'loading', payload: true }, parentOrigin);
+  postLoading(true);
   try {
     const result = await haskell.runner!.run(code);
     haskell.output = result.output;
@@ -68,7 +81,7 @@ haskell.run = async () => {
     console.error(haskell.error);
     return { output: '', error: haskell.error, exitCode: 1 };
   } finally {
-    parent.postMessage({ type: 'loading', payload: false }, parentOrigin);
+    postLoading(false);
   }
 };
 

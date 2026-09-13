@@ -965,6 +965,10 @@ const translation: I18nTranslation = {
     syncStarted: 'بدأت المزامنة...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell in the browser',
+      loading: 'Loading GHC...',
+    },
     heading: 'مشروع جديد',
     noUserTemplates: {
       desc: 'يمكنك حفظ مشروع كقالب من <1></1>(قائمة التطبيق > حفظ باسم > قالب).',
@@ -999,6 +1003,7 @@ const translation: I18nTranslation = {
       gleam: 'قالب Gleam',
       go: 'قالب Go',
       'go-wasm': 'قالب Go (Wasm)',
+      haskell: 'Haskell Starter',
       heading: 'قوالب البداية',
       imba: 'قالب Imba',
       java: 'قالب Java',

@@ -1893,6 +1893,12 @@
   "sync.syncStarted": {
     "translation": "Sinkronisasi dimulai..."
   },
+  "templates.haskell.heading": {
+    "translation": "Haskell in the browser"
+  },
+  "templates.haskell.loading": {
+    "translation": "Loading GHC..."
+  },
   "templates.heading": {
     "translation": "Proyek Baru"
   },
@@ -1979,6 +1985,9 @@
   },
   "templates.starter.go-wasm": {
     "translation": "Pemula Go (Wasm)"
+  },
+  "templates.starter.haskell": {
+    "translation": "Haskell Starter"
   },
   "templates.starter.heading": {
     "translation": "Template Pemula"

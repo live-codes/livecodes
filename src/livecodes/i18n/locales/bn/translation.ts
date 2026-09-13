@@ -965,6 +965,10 @@ const translation: I18nTranslation = {
     syncStarted: 'সিঙ্ক শুরু হয়েছে...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell in the browser',
+      loading: 'Loading GHC...',
+    },
     heading: 'নতুন প্রজেক্ট',
     noUserTemplates: {
       desc: 'আপনি <1></1>(অ্যাপ&nbsp;মেনু&nbsp;&gt;&nbsp;সংরক্ষণ&nbsp;করুন&nbsp;&gt; টেমপ্লেট) থেকে একটি প্রজেক্ট টেমপ্লেট হিসাবে সংরক্ষণ করতে পারেন।',
@@ -999,6 +1003,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleam স্টার্টার',
       go: 'Go স্টার্টার',
       'go-wasm': 'Go (Wasm) স্টার্টার',
+      haskell: 'Haskell Starter',
       heading: 'স্টার্টার টেমপ্লেট',
       imba: 'Imba স্টার্টার',
       java: 'Java স্টার্টার',

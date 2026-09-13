@@ -18,7 +18,12 @@ describe('Haskell runner', () => {
       const worker = workers[workers.length - 1];
       worker.onmessage!.call(worker, { data } as MessageEvent<HaskellResponse>);
     };
-    return { runner: createHaskellRunner(createWorker), workers, respond, createWorker };
+    return {
+      runner: createHaskellRunner(createWorker, 'https://example.test/bsdtar.wasm'),
+      workers,
+      respond,
+      createWorker,
+    };
   };
 
   beforeEach(() => jest.useFakeTimers());
@@ -27,6 +32,10 @@ describe('Haskell runner', () => {
   test('rejects stalled initialization and allows retry', async () => {
     const { runner, workers, respond } = setup();
     const init = runner.init();
+    expect(workers[0].postMessage).toHaveBeenCalledWith({
+      type: 'init',
+      bsdtarUrl: 'https://example.test/bsdtar.wasm',
+    });
     const rejection = expect(init).rejects.toThrow('timed out');
     jest.advanceTimersByTime(300_000);
     await rejection;

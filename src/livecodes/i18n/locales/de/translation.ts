@@ -967,6 +967,10 @@ const translation: I18nTranslation = {
     syncStarted: 'Synchronisierung gestartet...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell in the browser',
+      loading: 'Loading GHC...',
+    },
     heading: 'Neues Projekt',
     noUserTemplates: {
       desc: 'Sie können ein Projekt als Vorlage speichern unter <1></1>(App-Menü&nbsp;&gt;&nbsp;Speichern&nbsp;unter&nbsp;&gt; Vorlage).',
@@ -1001,6 +1005,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleam-Starter',
       go: 'Go-Starter',
       'go-wasm': 'Go (Wasm)-Starter',
+      haskell: 'Haskell Starter',
       heading: 'Starter-Vorlagen',
       imba: 'Imba-Starter',
       java: 'Java-Starter',

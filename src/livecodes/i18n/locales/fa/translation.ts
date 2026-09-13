@@ -966,6 +966,10 @@ const translation: I18nTranslation = {
     syncStarted: 'همگام‌سازی آغاز شد...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell in the browser',
+      loading: 'Loading GHC...',
+    },
     heading: 'پروژه جدید',
     noUserTemplates: {
       desc: 'شما می‌توانید یک پروژه را به عنوان قالب از <1></1>(منوی&nbsp;برنامه&nbsp;&gt;&nbsp;ذخیره&nbsp;به&nbsp;عنوان&nbsp;&gt; قالب) ذخیره کنید.',
@@ -1000,6 +1004,7 @@ const translation: I18nTranslation = {
       gleam: 'شروع کننده Gleam',
       go: 'شروع کننده Go',
       'go-wasm': 'شروع کننده Go (Wasm)',
+      haskell: 'Haskell Starter',
       heading: 'قالب‌های شروع کننده',
       imba: 'شروع کننده Imba',
       java: 'شروع کننده جاوا',

@@ -4,7 +4,7 @@ export interface HaskellResult {
   exitCode: number;
 }
 
-export type HaskellRequest = { type: 'init' } | { type: 'run'; code: string };
+export type HaskellRequest = { type: 'init'; bsdtarUrl: string } | { type: 'run'; code: string };
 
 export type HaskellResponse =
   | { type: 'ready' }

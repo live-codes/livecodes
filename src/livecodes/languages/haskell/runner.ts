@@ -5,7 +5,7 @@ const BOOT_TIMEOUT_MS = 300_000;
 const RUN_TIMEOUT_MS = 120_000;
 
 /** Creates a serialized GHC worker runner that recovers after boot or execution failures. */
-export const createHaskellRunner = (createWorker: () => Worker) => {
+export const createHaskellRunner = (createWorker: () => Worker, bsdtarUrl: string) => {
   let worker: Worker | undefined;
   let ready: Promise<void> | undefined;
   let pending:
@@ -58,7 +58,7 @@ export const createHaskellRunner = (createWorker: () => Worker) => {
         pending.resolve(data);
         pending = undefined;
       };
-      ready = request({ type: 'init' }, BOOT_TIMEOUT_MS)
+      ready = request({ type: 'init', bsdtarUrl }, BOOT_TIMEOUT_MS)
         .then(() => undefined)
         .catch((err) => {
           ready = undefined;

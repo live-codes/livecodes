@@ -967,6 +967,10 @@ const translation: I18nTranslation = {
     syncStarted: 'Synchronisation démarrée...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell in the browser',
+      loading: 'Loading GHC...',
+    },
     heading: 'Nouveau Projet',
     noUserTemplates: {
       desc: 'Vous pouvez enregistrer un projet comme modèle depuis <1></1>(Menu&nbsp;Projet&nbsp;&gt;&nbsp;Enregistrer&nbsp;sous&nbsp;&gt; Modèle).',
@@ -1001,6 +1005,7 @@ const translation: I18nTranslation = {
       gleam: 'Démarrage Gleam',
       go: 'Démarrage Go',
       'go-wasm': 'Démarrage Go (Wasm)',
+      haskell: 'Haskell Starter',
       heading: 'Modèles de Démarrage',
       imba: 'Démarrage Imba',
       java: 'Démarrage Java',

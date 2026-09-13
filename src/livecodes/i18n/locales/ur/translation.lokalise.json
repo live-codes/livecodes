@@ -1893,6 +1893,12 @@
   "sync.syncStarted": {
     "translation": "مطابقت پذیری شروع ہو گئی..."
   },
+  "templates.haskell.heading": {
+    "translation": "Haskell in the browser"
+  },
+  "templates.haskell.loading": {
+    "translation": "Loading GHC..."
+  },
   "templates.heading": {
     "translation": "نیا پروجیکٹ"
   },
@@ -1979,6 +1985,9 @@
   },
   "templates.starter.go-wasm": {
     "translation": "گو (واسم) شروعاتی"
+  },
+  "templates.starter.haskell": {
+    "translation": "Haskell Starter"
   },
   "templates.starter.heading": {
     "translation": "شروعاتی سانچے"

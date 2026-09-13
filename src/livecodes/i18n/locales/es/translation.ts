@@ -965,6 +965,10 @@ const translation: I18nTranslation = {
     syncStarted: 'Sincronización iniciada...',
   },
   templates: {
+    haskell: {
+      heading: 'Haskell in the browser',
+      loading: 'Loading GHC...',
+    },
     heading: 'Nuevo Proyecto',
     noUserTemplates: {
       desc: 'Puedes guardar un proyecto como plantilla desde <1></1>(Menú de la aplicación &gt; Guardar como &gt; Plantilla).',
@@ -999,6 +1003,7 @@ const translation: I18nTranslation = {
       gleam: 'Inicio Gleam',
       go: 'Inicio Go',
       'go-wasm': 'Inicio Go (Wasm)',
+      haskell: 'Haskell Starter',
       heading: 'Plantillas de Inicio',
       imba: 'Inicio Imba',
       java: 'Inicio Java',
