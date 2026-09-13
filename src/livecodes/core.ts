@@ -5339,7 +5339,8 @@ const initializePlayground = async (
   }
 
   const userConfig = stores.userConfig?.getValue() ?? {};
-  setConfig(buildConfig({ ...getConfig(), ...userConfig, ...initialConfig, ...activityConfig }));
+  const builtConfig = buildConfig({ ...getConfig(), ...userConfig, ...initialConfig });
+  setConfig(activityConfig ? { ...builtConfig, ...activityConfig } : builtConfig);  
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = (window as any).compiler = await getCompiler({
     config: getConfig(),

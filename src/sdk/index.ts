@@ -413,6 +413,7 @@ export async function createPlayground(
 export function getPlaygroundUrl(options: EmbedOptions = {}): string {
   const {
     appUrl = 'https://livecodes.io',
+    activityId = '',
     params = {},
     config = {},
     headless,
@@ -498,6 +499,11 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
         playgroundUrl.searchParams.set(param, String(params[param]));
       });
     }
+  }
+
+  // Handle activityId
+  if (activityId && activityId.trim() !== '') {
+      hashParams.set('activityId', activityId);
   }
 
   if (importId) {

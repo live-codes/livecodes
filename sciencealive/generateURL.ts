@@ -1,5 +1,5 @@
-import { getPlaygroundUrl as getPlaygroundUrlBase } from 'livecodes';
-import type { Config } from 'livecodes';
+import { getPlaygroundUrl } from '../src/sdk';
+import type { Config } from '../src/sdk';
 
 
 const SA_defaultConfig: Partial<Config> = {
@@ -77,35 +77,12 @@ const SA_defaultConfig: Partial<Config> = {
     editorMode: undefined,
 };
 
-const custom1: Partial<Config> = {
-    markup: {
-        language: 'html',
-        content: 'bogus'
-    }
-};
 
 
-function getPlaygroundUrl(appUrl: string, config: Partial<Config>, activityId?: string | null): string {
-    //call livecodes sdk to get base playground URL
-    const baseURL = getPlaygroundUrlBase({
-        appUrl: appUrl,
-        config: config, 
-    });
+const URL = getPlaygroundUrl({
+    appUrl: 'http://localhost:8080',
+    activityId: '1234',
+    config: SA_defaultConfig,
+});
 
-    const url = new URL(baseURL);
-
-    /* //append themeColour (passing through config as hsl breaks in encoding)
-    if (config.themeColor){
-        url.searchParams.set('themeColor', config.themeColor);
-    } */
-    
-    //append activity id
-    if (activityId && activityId.trim() !== '') {
-        url.searchParams.set('activityId', activityId);
-    } else {
-    }
-    
-    return url.toString();
-}
-
-console.log(getPlaygroundUrl('http://localhost:8080', SA_defaultConfig, '1234'));
+console.log(URL);

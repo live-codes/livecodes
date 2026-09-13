@@ -1718,6 +1718,14 @@ export interface EmbedOptions {
   appUrl?: string;
 
   /**
+   * Allows loading an existing project with a matching ID
+   * If no matching project is found loads the playground as usual
+   *
+   * @default ''
+   */
+  activityId?: string;
+
+  /**
    * An object that represents the [URL Query parameters](https://livecodes.io/docs/configuration/query-params), that can be used to configure the playground.
    *
    * These 2 snippets produce similar output:
