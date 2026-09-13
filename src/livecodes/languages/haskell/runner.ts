@@ -1,3 +1,4 @@
+import { getErrorMessage } from '../../utils/utils';
 import type { HaskellRequest, HaskellResponse, HaskellResult } from './models';
 
 // GHC and its libraries are downloaded on first use (~49 MB compressed).
@@ -38,7 +39,7 @@ export const createHaskellRunner = (createWorker: () => Worker, bsdtarUrl: strin
       try {
         worker!.postMessage(message);
       } catch (err) {
-        fail(err as Error);
+        fail(new Error(getErrorMessage(err)));
       }
     });
 
