@@ -1050,6 +1050,7 @@ const translation: I18nTranslation = {
       vue: 'شروع کننده Vue SFC',
       vue2: 'شروع کننده Vue 2',
       wat: 'شروع کننده WebAssembly Text',
+      'zig-wasm': 'شروع کننده Zig (Wasm)',
     },
     user: {
       heading: 'قالب‌های من',

@@ -1050,6 +1050,7 @@ const translation: I18nTranslation = {
       vue: 'Starter Vue',
       vue2: 'Starter Vue 2',
       wat: 'Starter WebAssembly Text',
+      'zig-wasm': 'Starter Zig (Wasm)',
     },
     user: {
       heading: 'I Miei Modelli',
