@@ -4,6 +4,7 @@ import type { HaskellRequest, HaskellResponse, HaskellResult } from './models';
 const BOOT_TIMEOUT_MS = 300_000;
 const RUN_TIMEOUT_MS = 120_000;
 
+/** Creates a serialized GHC worker runner that recovers after boot or execution failures. */
 export const createHaskellRunner = (createWorker: () => Worker) => {
   let worker: Worker | undefined;
   let ready: Promise<void> | undefined;
