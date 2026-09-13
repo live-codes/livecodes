@@ -967,8 +967,8 @@ const translation: I18nTranslation = {
   },
   templates: {
     haskell: {
-      heading: 'Haskell in the browser',
-      loading: 'Loading GHC...',
+      heading: 'Tarayıcıda Haskell',
+      loading: 'GHC yükleniyor...',
     },
     heading: 'Yeni Proje',
     noUserTemplates: {
@@ -1004,7 +1004,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleam Başlangıç',
       go: 'Go Başlangıç',
       'go-wasm': 'Go (Wasm) Başlangıç',
-      haskell: 'Haskell Starter',
+      haskell: 'Haskell Başlangıç',
       heading: 'Başlangıç Şablonları',
       imba: 'Imba Başlangıç',
       java: 'Java Başlangıç',

@@ -156,8 +156,8 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Handlebars',
   },
   haskell: {
-    desc: '<1> Haskell is a statically typed, purely functional programming language with lazy evaluation. </1> <2>LiveCodes runs GHC in the browser using WebAssembly.</2>',
-    link: '<1><2>Haskell</2></1> <3> <4>GHC in the browser</4> </3> <5> <6>Haskell in LiveCodes</6> </5> <7> <8>Starter Template</8> </7>',
+    desc: '<1>Haskell ist eine statisch typisierte, rein funktionale Programmiersprache mit verzögerter Auswertung.</1> <2>LiveCodes führt GHC im Browser mit WebAssembly aus.</2>',
+    link: '<1><2>Haskell</2></1> <3> <4>GHC im Browser</4> </3> <5> <6>Haskell in LiveCodes</6> </5> <7> <8>Starter-Vorlage</8> </7>',
     name: 'Haskell',
   },
   imba: {

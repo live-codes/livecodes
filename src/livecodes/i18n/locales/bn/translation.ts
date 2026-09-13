@@ -966,8 +966,8 @@ const translation: I18nTranslation = {
   },
   templates: {
     haskell: {
-      heading: 'Haskell in the browser',
-      loading: 'Loading GHC...',
+      heading: 'ব্রাউজারে Haskell',
+      loading: 'GHC লোড হচ্ছে...',
     },
     heading: 'নতুন প্রজেক্ট',
     noUserTemplates: {
@@ -1003,7 +1003,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleam স্টার্টার',
       go: 'Go স্টার্টার',
       'go-wasm': 'Go (Wasm) স্টার্টার',
-      haskell: 'Haskell Starter',
+      haskell: 'Haskell স্টার্টার',
       heading: 'স্টার্টার টেমপ্লেট',
       imba: 'Imba স্টার্টার',
       java: 'Java স্টার্টার',

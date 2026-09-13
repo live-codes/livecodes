@@ -1894,10 +1894,10 @@
     "translation": "सिंक शुरू हुआ..."
   },
   "templates.haskell.heading": {
-    "translation": "Haskell in the browser"
+    "translation": "ब्राउज़र में Haskell"
   },
   "templates.haskell.loading": {
-    "translation": "Loading GHC..."
+    "translation": "GHC लोड हो रहा है..."
   },
   "templates.heading": {
     "translation": "नया प्रोजेक्ट"
@@ -1987,7 +1987,7 @@
     "translation": "Go (Wasm) स्टार्टर"
   },
   "templates.starter.haskell": {
-    "translation": "Haskell Starter"
+    "translation": "Haskell स्टार्टर"
   },
   "templates.starter.heading": {
     "translation": "स्टार्टर टेम्पलेट्स"

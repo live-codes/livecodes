@@ -155,8 +155,8 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Handlebars',
   },
   haskell: {
-    desc: '<1> Haskell is a statically typed, purely functional programming language with lazy evaluation. </1> <2>LiveCodes runs GHC in the browser using WebAssembly.</2>',
-    link: '<1><2>Haskell</2></1> <3> <4>GHC in the browser</4> </3> <5> <6>Haskell in LiveCodes</6> </5> <7> <8>Starter Template</8> </7>',
+    desc: '<1>Haskell एक स्थिर रूप से टाइप की गई, पूर्णतः कार्यात्मक प्रोग्रामिंग भाषा है, जिसमें lazy evaluation होती है।</1> <2>LiveCodes WebAssembly का उपयोग करके ब्राउज़र में GHC चलाता है।</2>',
+    link: '<1><2>Haskell</2></1> <3> <4>ब्राउज़र में GHC</4> </3> <5> <6>LiveCodes में Haskell</6> </5> <7> <8>स्टार्टर टेम्पलेट</8> </7>',
     name: 'Haskell',
   },
   imba: {

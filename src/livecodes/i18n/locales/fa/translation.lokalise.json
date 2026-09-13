@@ -1894,10 +1894,10 @@
     "translation": "همگام‌سازی آغاز شد..."
   },
   "templates.haskell.heading": {
-    "translation": "Haskell in the browser"
+    "translation": "هاسکل در مرورگر"
   },
   "templates.haskell.loading": {
-    "translation": "Loading GHC..."
+    "translation": "در حال بارگذاری GHC..."
   },
   "templates.heading": {
     "translation": "پروژه جدید"
@@ -1987,7 +1987,7 @@
     "translation": "شروع کننده Go (Wasm)"
   },
   "templates.starter.haskell": {
-    "translation": "Haskell Starter"
+    "translation": "قالب آغازین Haskell"
   },
   "templates.starter.heading": {
     "translation": "قالب‌های شروع کننده"

@@ -1894,10 +1894,10 @@
     "translation": "同步已开始..."
   },
   "templates.haskell.heading": {
-    "translation": "Haskell in the browser"
+    "translation": "浏览器中的 Haskell"
   },
   "templates.haskell.loading": {
-    "translation": "Loading GHC..."
+    "translation": "正在加载 GHC..."
   },
   "templates.heading": {
     "translation": "新项目"
@@ -1987,7 +1987,7 @@
     "translation": "Go（WASM）启动模板"
   },
   "templates.starter.haskell": {
-    "translation": "Haskell Starter"
+    "translation": "Haskell 启动模板"
   },
   "templates.starter.heading": {
     "translation": "启动模板"

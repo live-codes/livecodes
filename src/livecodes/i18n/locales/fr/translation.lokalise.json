@@ -1894,10 +1894,10 @@
     "translation": "Synchronisation démarrée..."
   },
   "templates.haskell.heading": {
-    "translation": "Haskell in the browser"
+    "translation": "Haskell dans le navigateur"
   },
   "templates.haskell.loading": {
-    "translation": "Loading GHC..."
+    "translation": "Chargement de GHC..."
   },
   "templates.heading": {
     "translation": "Nouveau Projet"
@@ -1987,7 +1987,7 @@
     "translation": "Démarrage Go (Wasm)"
   },
   "templates.starter.haskell": {
-    "translation": "Haskell Starter"
+    "translation": "Démarrage Haskell"
   },
   "templates.starter.heading": {
     "translation": "Modèles de Démarrage"

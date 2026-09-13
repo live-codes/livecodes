@@ -1894,10 +1894,10 @@
     "translation": "Senkronizasyon başlatıldı..."
   },
   "templates.haskell.heading": {
-    "translation": "Haskell in the browser"
+    "translation": "Tarayıcıda Haskell"
   },
   "templates.haskell.loading": {
-    "translation": "Loading GHC..."
+    "translation": "GHC yükleniyor..."
   },
   "templates.heading": {
     "translation": "Yeni Proje"
@@ -1987,7 +1987,7 @@
     "translation": "Go (Wasm) Başlangıç"
   },
   "templates.starter.haskell": {
-    "translation": "Haskell Starter"
+    "translation": "Haskell Başlangıç"
   },
   "templates.starter.heading": {
     "translation": "Başlangıç Şablonları"

@@ -1894,10 +1894,10 @@
     "translation": "Sinkronisasi dimulai..."
   },
   "templates.haskell.heading": {
-    "translation": "Haskell in the browser"
+    "translation": "Haskell di browser"
   },
   "templates.haskell.loading": {
-    "translation": "Loading GHC..."
+    "translation": "Memuat GHC..."
   },
   "templates.heading": {
     "translation": "Proyek Baru"
@@ -1987,7 +1987,7 @@
     "translation": "Pemula Go (Wasm)"
   },
   "templates.starter.haskell": {
-    "translation": "Haskell Starter"
+    "translation": "Pemula Haskell"
   },
   "templates.starter.heading": {
     "translation": "Template Pemula"

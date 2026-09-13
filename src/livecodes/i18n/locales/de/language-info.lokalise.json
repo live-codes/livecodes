@@ -271,10 +271,10 @@
     "translation": "Handlebars"
   },
   "haskell.desc": {
-    "translation": "<1> Haskell is a statically typed, purely functional programming language with lazy evaluation. </1> <2>LiveCodes runs GHC in the browser using WebAssembly.</2>"
+    "translation": "Haskell ist eine statisch typisierte, rein funktionale Programmiersprache mit verzögerter Auswertung. LiveCodes führt GHC im Browser mit WebAssembly aus."
   },
   "haskell.link": {
-    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>GHC in the browser</tag-4> </tag-3> <tag-5> <tag-6>Haskell in LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Starter Template</tag-8> </tag-7>"
+    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>GHC im Browser</tag-4> </tag-3> <tag-5> <tag-6>Haskell in LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage</tag-8> </tag-7>"
   },
   "haskell.name": {
     "translation": "Haskell"

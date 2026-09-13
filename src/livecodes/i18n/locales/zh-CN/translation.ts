@@ -964,8 +964,8 @@ const translation: I18nTranslation = {
   },
   templates: {
     haskell: {
-      heading: 'Haskell in the browser',
-      loading: 'Loading GHC...',
+      heading: '浏览器中的 Haskell',
+      loading: '正在加载 GHC...',
     },
     heading: '新项目',
     noUserTemplates: {
@@ -1001,7 +1001,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleam 启动模板',
       go: 'Go 启动模板',
       'go-wasm': 'Go（WASM）启动模板',
-      haskell: 'Haskell Starter',
+      haskell: 'Haskell 启动模板',
       heading: '启动模板',
       imba: 'Imba 启动模板',
       java: 'Java 启动模板',

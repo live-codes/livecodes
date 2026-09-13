@@ -967,8 +967,8 @@ const translation: I18nTranslation = {
   },
   templates: {
     haskell: {
-      heading: 'Haskell in the browser',
-      loading: 'Loading GHC...',
+      heading: 'هاسکل در مرورگر',
+      loading: 'در حال بارگذاری GHC...',
     },
     heading: 'پروژه جدید',
     noUserTemplates: {
@@ -1004,7 +1004,7 @@ const translation: I18nTranslation = {
       gleam: 'شروع کننده Gleam',
       go: 'شروع کننده Go',
       'go-wasm': 'شروع کننده Go (Wasm)',
-      haskell: 'Haskell Starter',
+      haskell: 'قالب آغازین Haskell',
       heading: 'قالب‌های شروع کننده',
       imba: 'شروع کننده Imba',
       java: 'شروع کننده جاوا',

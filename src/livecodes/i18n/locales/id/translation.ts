@@ -966,8 +966,8 @@ const translation: I18nTranslation = {
   },
   templates: {
     haskell: {
-      heading: 'Haskell in the browser',
-      loading: 'Loading GHC...',
+      heading: 'Haskell di browser',
+      loading: 'Memuat GHC...',
     },
     heading: 'Proyek Baru',
     noUserTemplates: {
@@ -1003,7 +1003,7 @@ const translation: I18nTranslation = {
       gleam: 'Pemula Gleam',
       go: 'Pemula Go',
       'go-wasm': 'Pemula Go (Wasm)',
-      haskell: 'Haskell Starter',
+      haskell: 'Pemula Haskell',
       heading: 'Template Pemula',
       imba: 'Pemula Imba',
       java: 'Pemula Java',

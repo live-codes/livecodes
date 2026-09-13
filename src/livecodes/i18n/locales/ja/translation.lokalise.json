@@ -1894,10 +1894,10 @@
     "translation": "同期を開始しました..."
   },
   "templates.haskell.heading": {
-    "translation": "Haskell in the browser"
+    "translation": "ブラウザ上のHaskell"
   },
   "templates.haskell.loading": {
-    "translation": "Loading GHC..."
+    "translation": "GHCを読み込んでいます..."
   },
   "templates.heading": {
     "translation": "新規プロジェクト"
@@ -1987,7 +1987,7 @@
     "translation": "Go（Wasm）スターター"
   },
   "templates.starter.haskell": {
-    "translation": "Haskell Starter"
+    "translation": "Haskellスターター"
   },
   "templates.starter.heading": {
     "translation": "スターターテンプレート"
