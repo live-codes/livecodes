@@ -44,8 +44,11 @@ haskell.runner ??= createHaskellRunner(() => {
   }
 }, bsdtarUrl);
 
+let activeRuns = 0;
+
 const postLoading = (payload: boolean) => {
-  parent.postMessage({ type: 'loading', payload }, parentOrigin); // NOSONAR - fallback is safe with source/origin checks in the parent.
+  activeRuns += payload ? 1 : -1;
+  parent.postMessage({ type: 'loading', payload: activeRuns > 0 }, parentOrigin); // NOSONAR - fallback is safe with source/origin checks in the parent.
 };
 
 haskell.run = async () => {

@@ -36,7 +36,7 @@ describe('Haskell runner', () => {
       type: 'init',
       bsdtarUrl: 'https://example.test/bsdtar.wasm',
     });
-    const rejection = expect(init).rejects.toThrow('timed out');
+    const rejection = expect(init).rejects.toThrow('Haskell initialization timed out.');
     jest.advanceTimersByTime(300_000);
     await rejection;
     expect(workers[0].terminate).toHaveBeenCalledTimes(1);
@@ -104,7 +104,7 @@ describe('Haskell runner', () => {
     respond({ type: 'ready' });
     await init;
     const first = runner.run('main = main');
-    const rejection = expect(first).rejects.toThrow('timed out');
+    const rejection = expect(first).rejects.toThrow('Haskell execution timed out.');
     await Promise.resolve();
     await Promise.resolve();
     jest.advanceTimersByTime(120_000);

@@ -28,12 +28,12 @@ export const createHaskellRunner = (createWorker: () => Worker, bsdtarUrl: strin
     }
   };
 
-  const request = (message: HaskellRequest, timeout: number) =>
+  const request = (message: HaskellRequest, timeout: number, timeoutMessage: string) =>
     new Promise<HaskellResponse>((resolve, reject) => {
       pending = {
         resolve,
         reject,
-        timer: setTimeout(() => fail(new Error('Haskell execution timed out.')), timeout),
+        timer: setTimeout(() => fail(new Error(timeoutMessage)), timeout),
       };
       try {
         worker!.postMessage(message);
@@ -58,7 +58,11 @@ export const createHaskellRunner = (createWorker: () => Worker, bsdtarUrl: strin
         pending.resolve(data);
         pending = undefined;
       };
-      ready = request({ type: 'init', bsdtarUrl }, BOOT_TIMEOUT_MS)
+      ready = request(
+        { type: 'init', bsdtarUrl },
+        BOOT_TIMEOUT_MS,
+        'Haskell initialization timed out.',
+      )
         .then(() => undefined)
         .catch((err) => {
           ready = undefined;
@@ -73,7 +77,11 @@ export const createHaskellRunner = (createWorker: () => Worker, bsdtarUrl: strin
   const run = (code: string): Promise<HaskellResult> => {
     const result = queue.then(async () => {
       await init();
-      const response = await request({ type: 'run', code }, RUN_TIMEOUT_MS);
+      const response = await request(
+        { type: 'run', code },
+        RUN_TIMEOUT_MS,
+        'Haskell execution timed out.',
+      );
       if (response.type !== 'result') throw new Error('Invalid Haskell worker response.');
       return response.result;
     });
