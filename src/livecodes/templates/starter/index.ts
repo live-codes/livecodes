@@ -24,6 +24,7 @@ import { fsharpWasmStarter } from './fsharp-wasm-starter';
 import { gleamStarter } from './gleam-starter';
 import { goStarter } from './go-starter';
 import { goWasmStarter } from './go-wasm-starter';
+import { haskellStarter } from './haskell-starter';
 import { imbaStarter } from './imba-starter';
 import { javaStarter } from './java-starter';
 import { javascriptStarter } from './javascript-starter';
@@ -87,6 +88,7 @@ export const starterTemplates = [
   solidStarter,
   litStarter,
   stencilStarter,
+  markdownStarter,
   mdxStarter,
   tailwindcssStarter,
   shadcnuiStarter,
@@ -128,18 +130,18 @@ export const starterTemplates = [
   csharpWasmStarter,
   fsharpStarter,
   fsharpWasmStarter,
+  haskellStarter,
+  schemeStarter,
+  commonlispStarter,
+  clojurescriptStarter,
+  gleamStarter,
   perlStarter,
   luaStarter,
   luaWasmStarter,
   tealStarter,
   fennelStarter,
   juliaStarter,
-  schemeStarter,
-  commonlispStarter,
-  clojurescriptStarter,
-  gleamStarter,
   tclStarter,
-  markdownStarter,
   assemblyscriptStarter,
   watStarter,
   sqlStarter,

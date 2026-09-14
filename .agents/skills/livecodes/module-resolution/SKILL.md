@@ -1,13 +1,14 @@
 ---
-name: livecodes/module-resolution
+name: module-resolution
 description: >
   Import npm, deno.land/x, jsr, and GitHub modules without build steps using
   automatic CDN resolution, custom import maps, and CDN provider prefixes.
   Load this skill when using bare module imports, configuring CDN providers,
   or resolving import conflicts.
-type: core
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: core
+  library: livecodes
+  library_version: 0.13.0
 sources:
   - live-codes/livecodes:docs/docs/features/module-resolution.mdx
   - live-codes/livecodes:src/livecodes/compiler/import-map.ts

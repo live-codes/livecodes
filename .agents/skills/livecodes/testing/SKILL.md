@@ -1,12 +1,13 @@
 ---
-name: livecodes/testing
+name: testing
 description: >
   Write and run automated tests with Jest and Testing Library in the browser.
   Import code from script editor, use watch mode, and run tests programmatically.
   Load this skill when writing tests for playground code or running tests via SDK.
-type: core
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: core
+  library: livecodes
+  library_version: 0.13.0
 sources:
   - live-codes/livecodes:docs/docs/features/tests.mdx
 ---

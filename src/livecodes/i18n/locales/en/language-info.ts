@@ -161,6 +161,11 @@ const languageInfo = {
     link: '<1><2>Official website</2></1> <3> <4>LiveCodes Documentations</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: 'Haskell running in the browser using MicroHs.',
+    link: '<1> <2>Haskell official website</2> </1> <3> <4>MicroHs on GitHub</4> </3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'The friendly full-stack language.',
     link: '<1><2>Official website</2></1>',

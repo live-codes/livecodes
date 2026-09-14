@@ -1,12 +1,13 @@
 ---
-name: livecodes/configuration
+name: configuration
 description: >
   Configure playground behavior through Config object, query parameters, EmbedOptions,
   editor settings, processors, external resources, and custom settings. Load this skill
   when setting up project content, configuring CSS processors, or customizing display.
-type: core
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: core
+  library: livecodes
+  library_version: 0.13.0
 sources:
   - live-codes/livecodes:docs/docs/configuration/configuration-object.mdx
   - live-codes/livecodes:docs/docs/configuration/query-params.mdx

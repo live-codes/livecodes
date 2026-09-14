@@ -1,13 +1,14 @@
 ---
-name: livecodes/sdk-embedding
+name: sdk-embedding
 description: >
   Create and configure embedded playgrounds using createPlayground(), EmbedOptions,
   container setup, loading modes (eager/lazy/click), and appUrl for self-hosted instances.
   Load this skill when embedding LiveCodes in web pages, configuring playground
   containers, or setting up SDK integration.
-type: core
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: core
+  library: livecodes
+  library_version: 0.13.0
 sources:
   - live-codes/livecodes:docs/docs/sdk/js-ts.mdx
   - live-codes/livecodes:src/sdk/index.ts

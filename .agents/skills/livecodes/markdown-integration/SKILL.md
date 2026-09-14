@@ -1,12 +1,13 @@
 ---
-name: livecodes/markdown-integration
+name: markdown-integration
 description: >
   Integrate LiveCodes with documentation sites using remark-livecodes,
   markdown-it-livecodes, gatsby-remark-livecodes, or marked-livecodes for
   Docusaurus, Astro, VitePress, Next.js, and Storybook.
-type: composition
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: composition
+  library: livecodes
+  library_version: 0.13.0
 requires:
   - sdk-embedding
 sources:
