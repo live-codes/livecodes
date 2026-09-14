@@ -1980,6 +1980,9 @@
   "templates.starter.go-wasm": {
     "translation": "Inicio Go (Wasm)"
   },
+  "templates.starter.haskell": {
+    "translation": "Inicio Haskell"
+  },
   "templates.starter.heading": {
     "translation": "Plantillas de Inicio"
   },

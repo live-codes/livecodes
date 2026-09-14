@@ -1980,6 +1980,9 @@
   "templates.starter.go-wasm": {
     "translation": "قالب Go (Wasm)"
   },
+  "templates.starter.haskell": {
+    "translation": "قالب Haskell"
+  },
   "templates.starter.heading": {
     "translation": "قوالب البداية"
   },

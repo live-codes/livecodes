@@ -1000,6 +1000,7 @@ const translation: I18nTranslation = {
       gleam: 'شروع کننده Gleam',
       go: 'شروع کننده Go',
       'go-wasm': 'شروع کننده Go (Wasm)',
+      haskell: 'شروع کننده Haskell',
       heading: 'قالب‌های شروع کننده',
       imba: 'شروع کننده Imba',
       java: 'شروع کننده جاوا',

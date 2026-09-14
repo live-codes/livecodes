@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "Handlebars"
   },
+  "haskell.desc": {
+    "translation": "Haskell draait in de browser met behulp van MicroHs."
+  },
+  "haskell.link": {
+    "translation": "<tag-1> <tag-2>Officiële website van Haskell</tag-2> </tag-1> <tag-3> <tag-4>MicroHs op GitHub</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes-documentatie</tag-6> </tag-5> <tag-7> <tag-8>Startersjabloon laden</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "De vriendelijke full-stack taal."
   },

@@ -154,6 +154,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>公式ウェブサイト</2></1> <3> <4>LiveCodes ドキュメント</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: 'MicroHs を使ってブラウザ上で動作する Haskell。',
+    link: '<1> <2>Haskellの公式サイト</2> </1> <3> <4>GitHub上のMicroHs</4> </3> <5> <6>LiveCodes ドキュメント</6> </5> <7> <8>スターターテンプレートの読み込み</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'フレンドリーなフルスタック言語。',
     link: '<1><2>公式ウェブサイト</2></1>',

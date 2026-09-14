@@ -154,6 +154,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Officiële website</2></1> <3> <4>LiveCodes Documentatie</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: 'Haskell draait in de browser met behulp van MicroHs.',
+    link: '<1> <2>Officiële website van Haskell</2> </1> <3> <4>MicroHs op GitHub</4> </3> <5> <6>LiveCodes-documentatie</6> </5> <7> <8>Startersjabloon laden</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'De vriendelijke full-stack taal.',
     link: '<1><2>Officiële website</2></1>',

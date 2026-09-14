@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "Handlebars"
   },
+  "haskell.desc": {
+    "translation": "Haskell, запущенный в браузере с помощью MicroHs."
+  },
+  "haskell.link": {
+    "translation": "<tag-1> <tag-2>Официальный сайт Haskell</tag-2> </tag-1> <tag-3> <tag-4>MicroHs на GitHub</tag-4> </tag-3> <tag-5> <tag-6>Документация LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Загрузить стартовый шаблон</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "Дружелюбный фулстек-язык."
   },
