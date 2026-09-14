@@ -999,6 +999,7 @@ const translation: I18nTranslation = {
       gleam: 'Pemula Gleam',
       go: 'Pemula Go',
       'go-wasm': 'Pemula Go (Wasm)',
+      haskell: 'Pemula Haskell',
       heading: 'Template Pemula',
       imba: 'Pemula Imba',
       java: 'Pemula Java',

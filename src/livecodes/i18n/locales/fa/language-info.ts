@@ -154,6 +154,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>وب‌سایت رسمی</2></1> <3> <4>مستندات LiveCodes</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: 'اجرای Haskell در مرورگر با استفاده از MicroHs.',
+    link: '<1> <2>وب‌سایت رسمی هاسکل</2> </1> <3> <4>MicroHs در گیت‌هاب</4> </3> <5> <6>مستندات LiveCodes</6> </5> <7> <8>بارگذاری قالب اولیه</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'زبان full-stack دوستانه.',
     link: '<1><2>وب‌سایت رسمی</2></1>',

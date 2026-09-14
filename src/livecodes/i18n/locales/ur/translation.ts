@@ -999,6 +999,7 @@ const translation: I18nTranslation = {
       gleam: 'گلیم شروعاتی',
       go: 'گو شروعاتی',
       'go-wasm': 'گو (واسم) شروعاتی',
+      haskell: 'ہاسکل شروعاتی',
       heading: 'شروعاتی سانچے',
       imba: 'امبا شروعاتی',
       java: 'جاوا شروعاتی',

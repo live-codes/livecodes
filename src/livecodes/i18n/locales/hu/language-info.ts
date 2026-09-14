@@ -155,6 +155,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Hivatalos weboldal</2></1> <3> <4>LiveCodes dokumentáció</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: 'A Haskell a MicroHs segítségével fut a böngészőben.',
+    link: '<1> <2>A Haskell hivatalos honlapja</2> </1> <3> <4>MicroHs a GitHubon</4> </3> <5> <6>LiveCodes dokumentációk</6> </5> <7> <8>Indító sablon betöltése</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'A barátságos full-stack nyelv.',
     link: '<1><2>Hivatalos weboldal</2></1>',

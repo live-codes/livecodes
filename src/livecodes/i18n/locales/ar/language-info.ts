@@ -152,6 +152,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>الموقع الرسمي</2></1> <3> <4>وثائق LiveCodes</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: 'تشغيل لغة هاسكل في المتصفح باستخدام MicroHs.',
+    link: '<1> <2>الموقع الرسمي لـ هاسكل</2> </1> <3> <4>MicroHs على GitHub</4> </3> <5> <6>وثائق LiveCodes</6> </5> <7> <8>تحميل قالب البداية</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'اللغة الودودة للتطوير الشامل.',
     link: '<1><2>الموقع الرسمي</2></1>',

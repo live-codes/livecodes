@@ -1000,6 +1000,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleam Başlangıç',
       go: 'Go Başlangıç',
       'go-wasm': 'Go (Wasm) Başlangıç',
+      haskell: 'Haskell Başlangıç',
       heading: 'Başlangıç Şablonları',
       imba: 'Imba Başlangıç',
       java: 'Java Başlangıç',

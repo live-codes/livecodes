@@ -155,6 +155,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Sitio web oficial</2></1> <3> <4>Documentación de LiveCodes</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: 'Haskell se ejecuta en el navegador mediante MicroHs.',
+    link: '<1> <2>Página web oficial de Haskell</2> </1> <3> <4>MicroHs en GitHub</4> </3> <5> <6>Documentación de LiveCodes</6> </5> <7> <8>Cargar plantilla de inicio</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: 'El lenguaje amigable de pila completa.',
     link: '<1><2>Sitio web oficial</2></1>',

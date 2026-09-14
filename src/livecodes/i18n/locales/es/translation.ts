@@ -999,6 +999,7 @@ const translation: I18nTranslation = {
       gleam: 'Inicio Gleam',
       go: 'Inicio Go',
       'go-wasm': 'Inicio Go (Wasm)',
+      haskell: 'Inicio Haskell',
       heading: 'Plantillas de Inicio',
       imba: 'Inicio Imba',
       java: 'Inicio Java',
