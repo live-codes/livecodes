@@ -4,9 +4,10 @@ description: >-
   Open-source, client-side code playground supporting 90+ languages/frameworks.
   Runs entirely in the browser with SDK for embedding. Entry point for all
   LiveCodes skills.
-type: core
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: core
+  library: livecodes
+  library_version: 0.13.0
 ---
 
 # LiveCodes Overview

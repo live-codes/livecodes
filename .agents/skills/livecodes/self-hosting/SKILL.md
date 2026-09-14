@@ -1,12 +1,13 @@
 ---
-name: livecodes/self-hosting
+name: self-hosting
 description: >
   Deploy LiveCodes to static servers, GitHub Pages, or Docker. Configure SDK appUrl,
   BASE_URL for subdirectories, and handle share/broadcast services. Load this skill
   when self-hosting LiveCodes or using a custom app URL.
-type: composition
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: composition
+  library: livecodes
+  library_version: 0.13.0
 requires:
   - sdk-embedding
 sources:

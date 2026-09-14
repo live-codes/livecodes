@@ -1,11 +1,12 @@
 ---
-name: livecodes/gh-action
+name: gh-action
 description: >
   Use the "Preview in LiveCodes" GitHub Action to generate preview playground links 
   for pull request code changes. Automates playground creation and PR comments.
-type: composition
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: composition
+  library: livecodes
+  library_version: 0.13.0
 requires: []
 sources:
   - live-codes/preview-in-livecodes:README.md

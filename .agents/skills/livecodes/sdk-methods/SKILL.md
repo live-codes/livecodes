@@ -1,13 +1,14 @@
 ---
-name: livecodes/sdk-methods
+name: sdk-methods
 description: >
   Use SDK methods to interact with playgrounds: run, getCode, setConfig, getConfig,
   watch, runTests, format, getShareUrl, show, destroy. Load this skill when
   programmatically controlling embedded playgrounds, reacting to code changes,
   or retrieving compiled output.
-type: core
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: core
+  library: livecodes
+  library_version: 0.13.0
 requires:
   - sdk-embedding
 sources:
