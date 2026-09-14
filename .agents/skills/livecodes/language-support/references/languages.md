@@ -131,6 +131,7 @@ Enabled via `processors` config:
 | ClojureScript | `clojurescript`, `clojure`, `cljs`, `clj` | Clojure                 |
 | Perl          | `perl`, `pl`, `pm`                        | Perl runtime            |
 | Gleam         | `gleam`                                   | Gleam language          |
+| Haskell       | `haskell`, `hs`, `lhs`                    | MicroHs (not GHC)       |
 | Tcl           | `tcl`                                     | Tcl interpreter         |
 | WebAssembly   | `wat`, `wast`, `wasm`, `webassembly`      | WAT format              |
 

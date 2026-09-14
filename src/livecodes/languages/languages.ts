@@ -28,6 +28,7 @@ import { go } from './go';
 import { goWasm } from './go-wasm';
 import { haml } from './haml';
 import { handlebars } from './handlebars';
+import { haskell } from './haskell';
 import { html } from './html';
 import { imba } from './imba';
 import { java } from './java';
@@ -160,16 +161,17 @@ export const languages: LanguageSpecs[] = [
   csharpWasm,
   fsharp,
   fsharpWasm,
+  haskell,
+  scheme,
+  commonlisp,
+  clojurescript,
+  gleam,
   perl,
   lua,
   luaWasm,
   teal,
   fennel,
   julia,
-  scheme,
-  commonlisp,
-  clojurescript,
-  gleam,
   tcl,
   assemblyscript,
   wat,

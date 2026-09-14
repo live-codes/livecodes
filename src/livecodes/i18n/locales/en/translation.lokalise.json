@@ -2640,6 +2640,10 @@
     "notes": "",
     "translation": "Go (Wasm) Starter"
   },
+  "templates.starter.haskell": {
+    "notes": "",
+    "translation": "Haskell Starter"
+  },
   "templates.starter.heading": {
     "notes": "",
     "translation": "Starter Templates"

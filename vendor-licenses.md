@@ -156,6 +156,8 @@ mhsdesign/jit-browser-tailwindcss: [MIT License](https://github.com/mhsdesign/ji
 
 MDX: [MIT License](https://github.com/mdx-js/mdx/blob/7fd1d9a4272754951e70dbaecff07a0ae402e13e/license)
 
+MicroHs: [Apache License 2.0](https://github.com/augustss/MicroHs/blob/455782164e75998b140d869c1b7cdde0c8a21508/LICENSE) (the Haskell packages bundled with it keep their own upstream licences)
+
 minizinc-js: [MPL-2.0 License](https://github.com/MiniZinc/minizinc-js/blob/3f7c34f0549195e5a66cf0f2d6f34cb5bce867f4/LICENSE)
 
 Miri: [MIT License](https://github.com/rust-lang/miri/blob/92ea60bf0effd37aea533cd19c9702c43b90abe7/LICENSE-MIT) OR [Apache License 2.0](https://github.com/rust-lang/miri/blob/92ea60bf0effd37aea533cd19c9702c43b90abe7/LICENSE-APACHE)
