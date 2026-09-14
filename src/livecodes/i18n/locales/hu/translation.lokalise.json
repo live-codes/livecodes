@@ -1980,6 +1980,9 @@
   "templates.starter.go-wasm": {
     "translation": "Go (Wasm) kezdő"
   },
+  "templates.starter.haskell": {
+    "translation": "Haskell kezdő"
+  },
   "templates.starter.heading": {
     "translation": "Kezdő sablonok"
   },

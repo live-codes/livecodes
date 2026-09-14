@@ -1980,6 +1980,9 @@
   "templates.starter.go-wasm": {
     "translation": "شروع کننده Go (Wasm)"
   },
+  "templates.starter.haskell": {
+    "translation": "شروع کننده Haskell"
+  },
   "templates.starter.heading": {
     "translation": "قالب‌های شروع کننده"
   },

@@ -1980,6 +1980,9 @@
   "templates.starter.go-wasm": {
     "translation": "Go (Wasm) স্টার্টার"
   },
+  "templates.starter.haskell": {
+    "translation": "Haskell স্টার্টার"
+  },
   "templates.starter.heading": {
     "translation": "স্টার্টার টেমপ্লেট"
   },

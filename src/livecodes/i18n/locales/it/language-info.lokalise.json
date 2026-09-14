@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "Handlebars"
   },
+  "haskell.desc": {
+    "translation": "Haskell in esecuzione nel browser tramite MicroHs."
+  },
+  "haskell.link": {
+    "translation": "<tag-1> <tag-2>Sito web ufficiale di Haskell</tag-2> </tag-1> <tag-3> <tag-4>MicroHs su GitHub</tag-4> </tag-3> <tag-5> <tag-6>Documentazione LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Carica il modello di avvio</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "Il linguaggio full-stack amichevole."
   },

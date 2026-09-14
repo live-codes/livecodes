@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "Handlebars"
   },
+  "haskell.desc": {
+    "translation": "Haskell berjalan di peramban menggunakan MicroHs."
+  },
+  "haskell.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Haskell</tag-2> </tag-1> <tag-3> <tag-4>MicroHs di GitHub</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat templat awal</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "Bahasa full-stack yang ramah."
   },
