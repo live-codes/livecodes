@@ -1,12 +1,13 @@
 ---
-name: livecodes/display-modes
+name: display-modes
 description: >
   Configure how the playground is displayed: full, focus, simple, lite, editor,
   codeblock, and result modes. Load this skill when choosing display mode for
   embeddings, configuring read-only views, or showing only result or editor.
-type: core
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: core
+  library: livecodes
+  library_version: 0.13.0
 requires:
   - configuration
 sources:

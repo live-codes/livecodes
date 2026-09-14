@@ -1,13 +1,14 @@
 ---
-name: livecodes/language-support
+name: language-support
 description: >
   Work with 90+ supported languages, compilers, CSS processors, and WASM-compiled
   languages for markup, style, and script editors. Load this skill when configuring
   languages, setting up CSS processors, or working with WASM-based languages like
   Python, Ruby, or Go.
-type: core
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: core
+  library: livecodes
+  library_version: 0.13.0
 sources:
   - live-codes/livecodes:docs/docs/languages/index.mdx
   - live-codes/livecodes:docs/docs/languages/_template.mdx

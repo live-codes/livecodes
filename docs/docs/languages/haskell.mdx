@@ -1,0 +1,161 @@
+# Haskell
+
+[Haskell](https://www.haskell.org/) is a statically typed, purely functional programming language.
+
+LiveCodes runs Haskell in the browser using [MicroHs](https://github.com/augustss/MicroHs), an extended subset of Haskell implemented with combinators.
+
+## Basic Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const params = {
+  haskell: `module Main where\n
+main :: IO ()
+main = do
+  putStrLn "Hello from MicroHs!"
+  print (take 10 fibs)
+  print (sum [1 .. 100])\n
+fibs :: [Integer]
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+`,
+  console: 'full',
+};
+
+<LiveCodes params={params}></LiveCodes>
+
+See below for more examples.
+
+## Usage
+
+By default the code is run on page load and the output is logged to the integrated console.
+In addition, helper methods are available to run the code from JavaScript.
+
+### Usage from JavaScript
+
+Helper methods are available in the browser global `livecodes.haskell` object:
+
+- `livecodes.haskell.loaded`: A promise that resolves after the run has completed. Useful
+  for waiting before interacting with the output.
+- `livecodes.haskell.run`: A method that compiles and runs the current editor code. It optionally
+  accepts a `string` that is provided to the program as `stdin` (see below), and returns a promise
+  that resolves to `{ output, error, exitCode }`.
+- `livecodes.haskell.input`: The input string passed to the next run.
+- `livecodes.haskell.output`: The `stdout` of the last run (or `null`).
+- `livecodes.haskell.error`: The compile error / exception of the last run (or `null`).
+- `livecodes.haskell.exitCode`: `0` on success, `1` on error, `124` on timeout.
+
+#### Example
+
+<LiveCodes template="haskell" height="80vh" params={{ activeEditor: 'markup' }}></LiveCodes>
+
+## Input (stdin)
+
+MicroHs's WebAssembly build has no usable standard input, so input is injected as source instead:
+
+1. `lcInput :: String`, `lcInputLines :: [String]` and `lcInputWords :: [String]` are always
+   available when input is passed, without any imports.
+2. The Prelude's `getLine`, `readLn`, `getContents` and `interact` are shadowed with equivalents
+   that consume the same input, so ordinary programs work unchanged:
+
+```haskell
+main :: IO ()
+main = do
+  [n, k] <- fmap (map read . words) getLine
+  print (n + k :: Int)
+```
+
+The starter template passes a value from the page to `livecodes.haskell.run`.
+
+## Modules
+
+`import` works as usual. Library modules are fetched on demand, so only the packages a program
+actually imports are downloaded:
+
+```haskell
+import qualified Data.Map as M
+
+main :: IO ()
+main = print (M.toList (M.fromList [(2, "b"), (1, "a")]))
+```
+
+`Data.Text`, `Data.ByteString`, `Data.Sequence` and more are embedded in the compiler, while
+`containers`, `mtl`, `transformers`, `array`, `parsec`, `pretty`, `time`, `random`, `HUnit`,
+`QuickCheck` and `hspec` are loaded from packages on first import. The
+[browser-haskell repository](https://github.com/live-codes/browser-haskell/blob/main/PACKAGES.md)
+lists every supported module and explains why some are not available. Imports that cannot be
+satisfied are reported *before* anything is compiled, with the reason:
+
+```text
+Not available in this playground:
+  Data.Aeson — not bundled with this playground
+  Language.Haskell.TH — Template Haskell is not supported by MicroHs (only its types, via ghc-compat)
+```
+
+A program is compiled as a single `Main` module, so your own code cannot be split across several
+source files. Keep helper types and functions in the same editor, optionally with an explicit
+`module Main where` header.
+
+## Language Info
+
+### Name
+
+`haskell`
+
+### Aliases
+
+`hs`, `lhs`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[MicroHs](https://github.com/augustss/MicroHs), an extended subset of Haskell implemented with combinators, packaged as
+[`@live-codes/browser-haskell`](https://www.npmjs.com/package/@live-codes/browser-haskell).
+
+The bundle (plus the `base` and `canvhs` packages) is downloaded once per result page.
+Additional library packages (`containers`, `mtl`, `parsec`, `QuickCheck`, `hspec`, …) are fetched
+on demand, only for the modules a program actually imports.
+
+### Version
+
+MicroHs `0.16.6.0`
+
+## Code Formatting
+
+Not supported.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the environment. This behavior can be disabled by adding the code comment `-- __livecodes_reload__` to the Haskell code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Limitations
+
+Please note that **MicroHs is not GHC**. It is a much smaller implementation, and the following
+are important differences:
+
+- **No Template Haskell, type families or `DeriveGeneric`** (though GADTs, `RankNTypes`,
+  `TypeApplications`, `OverloadedStrings` and record dot syntax all work).
+- **Not all ecosystem packages are available.** `megaparsec`, `vector`, `lens` and `aeson` cannot
+  be provided. Modules that were deliberately withheld (e.g. `Data.Binary`, whose reader hangs)
+  are reported with a reason instead of a bare "module not found".
+- **Terse diagnostics**, in MicroHs's own format (`"Data/List.hs",389:11`) rather than GHC's.
+- **Extensions are always on**, and many things that GHC would reject still compile.
+- **Execution is REPL-based**, so even a trivial program costs roughly a second.
+- **No interrupt.** A program that loops forever blocks the main thread and freezes the result
+  iframe; there is no way to interrupt it. A run that merely takes too long fails with exit code
+  `124`. Add `__livecodes_reload__` to the code to force a full reload of the result page.
+
+## Starter Template
+
+https://livecodes.io/?template=haskell
+
+## Links
+
+- [Haskell official website](https://www.haskell.org/)
+- [MicroHs on GitHub](https://github.com/augustss/MicroHs)
+- [MicroHs language support](https://github.com/augustss/MicroHs/wiki/Language)
+- [@live-codes/browser-haskell](https://www.npmjs.com/package/@live-codes/browser-haskell)

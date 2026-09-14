@@ -1,11 +1,12 @@
 ---
-name: livecodes/getting-started
+name: getting-started
 description: >
   Quick start for standalone app at livecodes.io, embedding playgrounds with CDN or npm,
   and self-hosting basics. Load this skill for initial setup and basic usage patterns.
-type: lifecycle
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: lifecycle
+  library: livecodes
+  library_version: 0.13.0
 sources:
   - live-codes/livecodes:README.md
   - live-codes/livecodes:docs/docs/getting-started.mdx

@@ -40,6 +40,10 @@ export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@11.1.1/');
 
 export const browserfsUrl = /* @__PURE__ */ getUrl('browserfs@1.4.3/dist/browserfs.min.js');
 
+export const browserHaskellBaseUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/browser-haskell@0.1.0/dist/',
+);
+
 export const browserJestUrl = /* @__PURE__ */ getUrl(
   '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',
 );
@@ -90,7 +94,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.0/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.1/build/');
 
 export const codemirrorMinimapUrl = /* @__PURE__ */ getUrl(
   '@replit/codemirror-minimap@0.5.2/dist/index.js',

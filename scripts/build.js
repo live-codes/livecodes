@@ -238,6 +238,7 @@ const iifeBuild = () =>
       'languages/fsharp-wasm/lang-fsharp-wasm-script.ts',
       'languages/haml/lang-haml-compiler.ts',
       'languages/handlebars/lang-handlebars-compiler.ts',
+      'languages/haskell/lang-haskell-script.ts',
       'languages/imba/lang-imba-compiler.ts',
       'languages/jinja/lang-jinja-compiler.ts',
       'languages/julia/lang-julia-script.ts',
