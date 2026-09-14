@@ -93,14 +93,14 @@ const setResult = (output: string | null, error: string | null, exitCode: number
 
 haskell.run = async (input?: string) => {
   const code = getCode();
-  haskell.input = input;
+  haskell.input = input ?? haskell.input ?? '';
 
   if (!code.trim()) return setResult(null, null, 0);
 
   parent.postMessage({ type: 'loading', payload: true }, '*');
   try {
     const haskellInstance = await getInstance();
-    const result = await haskellInstance.run({ code, stdin: `${input ?? ''}` });
+    const result = await haskellInstance.run({ code, stdin: `${haskell.input ?? ''}` });
 
     if (result.error != null || result.exitCode !== 0) {
       return setResult(

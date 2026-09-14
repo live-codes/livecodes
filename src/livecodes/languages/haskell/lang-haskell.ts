@@ -12,16 +12,15 @@ export const haskell: LanguageSpecs = {
       baseUrl + '{{hash:lang-haskell-script.js}}',
     ],
     scriptType: 'text/haskell',
+    liveReload: true,
   },
-  extensions: ['hs', 'lhs', 'haskell'],
+  extensions: ['hs', 'lhs'],
   editor: 'script',
   editorSupport: {
-    monaco: { languageSupport: monacoLanguagesBaseUrl + 'haskell.js', language: 'haskell' },
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'haskell.js' },
     codemirror: {
       languageSupport: async () =>
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-haskell.js')).haskell),
     },
-    codejar: { language: 'haskell' },
   },
-  largeDownload: true,
 };

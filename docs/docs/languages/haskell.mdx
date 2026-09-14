@@ -126,6 +126,12 @@ MicroHs `0.16.6.0`
 
 Not supported.
 
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the environment. This behavior can be disabled by adding the code comment `-- __livecodes_reload__` to the Haskell code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
 ## Limitations
 
 Please note that **MicroHs is not GHC**. It is a much smaller implementation, and the following
