@@ -1980,6 +1980,9 @@
   "templates.starter.go-wasm": {
     "translation": "Pemula Go (Wasm)"
   },
+  "templates.starter.haskell": {
+    "translation": "Pemula Haskell"
+  },
   "templates.starter.heading": {
     "translation": "Template Pemula"
   },

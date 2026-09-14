@@ -999,6 +999,7 @@ const translation: I18nTranslation = {
       gleam: 'قالب Gleam',
       go: 'قالب Go',
       'go-wasm': 'قالب Go (Wasm)',
+      haskell: 'قالب Haskell',
       heading: 'قوالب البداية',
       imba: 'قالب Imba',
       java: 'قالب Java',

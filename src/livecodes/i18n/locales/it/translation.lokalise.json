@@ -1980,6 +1980,9 @@
   "templates.starter.go-wasm": {
     "translation": "Starter Go (Wasm)"
   },
+  "templates.starter.haskell": {
+    "translation": "Starter Haskell"
+  },
   "templates.starter.heading": {
     "translation": "Modelli di Partenza"
   },

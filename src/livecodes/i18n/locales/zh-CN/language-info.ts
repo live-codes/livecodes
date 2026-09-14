@@ -150,6 +150,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>官方网站</2></1> <3> <4>LiveCodes 文档</4> </3>',
     name: 'Handlebars',
   },
+  haskell: {
+    desc: '使用 MicroHs 在浏览器中运行 Haskell。',
+    link: '<1> <2>Haskell 官方网站</2> </1> <3> <4>GitHub 上的 MicroHs</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
+    name: 'Haskell',
+  },
   imba: {
     desc: '友好的全栈语言。',
     link: '<1><2>官方网站</2></1>',

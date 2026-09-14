@@ -270,6 +270,15 @@
   "handlebars.name": {
     "translation": "Handlebars"
   },
+  "haskell.desc": {
+    "translation": "اجرای Haskell در مرورگر با استفاده از MicroHs."
+  },
+  "haskell.link": {
+    "translation": "<tag-1> <tag-2>وب‌سایت رسمی هاسکل</tag-2> </tag-1> <tag-3> <tag-4>MicroHs در گیت‌هاب</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب اولیه</tag-8> </tag-7>"
+  },
+  "haskell.name": {
+    "translation": "Haskell"
+  },
   "imba.desc": {
     "translation": "زبان full-stack دوستانه."
   },

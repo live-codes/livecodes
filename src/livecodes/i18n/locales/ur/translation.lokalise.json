@@ -1980,6 +1980,9 @@
   "templates.starter.go-wasm": {
     "translation": "گو (واسم) شروعاتی"
   },
+  "templates.starter.haskell": {
+    "translation": "ہاسکل شروعاتی"
+  },
   "templates.starter.heading": {
     "translation": "شروعاتی سانچے"
   },

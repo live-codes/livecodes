@@ -997,6 +997,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleam 启动模板',
       go: 'Go 启动模板',
       'go-wasm': 'Go（WASM）启动模板',
+      haskell: 'Haskell 启动模板',
       heading: '启动模板',
       imba: 'Imba 启动模板',
       java: 'Java 启动模板',
