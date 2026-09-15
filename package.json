@@ -17,14 +17,13 @@
     "serve": "run-p serve:*",
     "serve:app": "live-server build --watch=build/tmp/ --cors --quiet",
     "serve:sandbox": "live-server src/livecodes/html/sandbox/ --port=8085 --cors --quiet --no-browser",
-    "watch": "nodemon --watch src -e \"*\" --ignore src/livecodes/i18n/locale-paths.ts --exec \"npm run copy:custom-config && node ./scripts/build.js --dev\"",    
+    "watch": "nodemon --watch src -e \"*\" --ignore src/livecodes/i18n/locale-paths.ts ./scripts/build.js --dev",
     "prebuild": "npm run i18n-exclude pre",
     "postbuild": "npm run i18n-exclude post",
     "build": "run-s build:app build:docs",
     "build:app": "run-s clean copy:* && node ./scripts/build.js",
     "build:docs": "cd docs && npm run build",
     "copy:assets": "recursive-delete build/livecodes/assets && mkdirp build/livecodes/assets && recursive-copy src/livecodes/assets build/livecodes/assets",
-    "copy:custom-config": "recursive-delete build/livecodes/custom-config && mkdirp build/livecodes/custom-config && recursive-copy src/livecodes/custom-config build/livecodes/custom-config",
     "storybook:watch": "nodemon --watch storybook/_stories -e \"*\" ./scripts/generate-stories.mts",
     "storybook:serve": "cd storybook/react && npm run storybook",
     "typedocs": "run-s typedocs:*",
@@ -71,8 +70,7 @@
     "i18n-update-pull": "node ./scripts/i18n-import.mjs",
     "i18n-exclude": "node ./scripts/i18n-exclude.js",
     "i18n-lokalise-json": "node ./scripts/i18n-lokalise-json.mjs",
-    "validate-skills": "npx @tanstack/intent@latest validate .agents/skills",
-    "gen": "tsx ./sciencealive/generateURL.ts"
+    "validate-skills": "npx @tanstack/intent@latest validate .agents/skills"
   },
   "dependencies": {
     "@live-codes/solid-sdk": "0.5.0",
