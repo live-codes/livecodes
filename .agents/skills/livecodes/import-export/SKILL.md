@@ -1,12 +1,13 @@
 ---
-name: livecodes/import-export
+name: import-export
 description: >
   Import code from GitHub gists/files/repos, GitLab, URLs, DOM, and local files.
   Export projects as HTML, JSON, ZIP, or to external services. Load this skill
   when loading projects from external sources or exporting project state.
-type: core
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: core
+  library: livecodes
+  library_version: 0.13.0
 sources:
   - live-codes/livecodes:docs/docs/features/import.mdx
   - live-codes/livecodes:docs/docs/features/export.mdx

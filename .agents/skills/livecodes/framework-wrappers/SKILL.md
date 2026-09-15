@@ -1,12 +1,13 @@
 ---
-name: livecodes/framework-wrappers
+name: framework-wrappers
 description: >
   Use SDK with React, Vue, Svelte, Solid, Preact, and Web Components.
   sdkReady callback pattern, reactive props, and framework-specific setup.
   Load this skill when embedding LiveCodes in a framework application.
-type: framework
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: framework
+  library: livecodes
+  library_version: 0.13.0
 requires:
   - sdk-embedding
   - sdk-methods

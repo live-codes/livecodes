@@ -1,12 +1,13 @@
 ---
-name: livecodes/headless-mode
+name: headless-mode
 description: >
   Run playground without visible UI using SDK methods directly. Load this skill
   when building Markdown compilers, code formatters, or tools that need compiled
   output without display.
-type: core
-library: livecodes
-library_version: 0.13.0
+metadata:
+  type: core
+  library: livecodes
+  library_version: 0.13.0
 requires:
   - sdk-embedding
   - sdk-methods
