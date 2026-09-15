@@ -48,7 +48,6 @@ export const starterTemplates = {
   "cpp": "C++ Starter",
   "cpp-wasm": "C++ (Wasm) Starter",
   "rust-wasm": "Rust (Wasm) Starter",
-  "haskell": "Haskell Starter",
   "zig-wasm": "Zig (Wasm) Starter",
   "java": "Java Starter",
   "csharp-wasm": "C# (Wasm) Starter",
