@@ -32,10 +32,6 @@ browser_wasi_shim: [MIT License](https://github.com/bjorn3/browser_wasi_shim/blo
 
 BrowserFS: [MIT License](https://github.com/jvilk/BrowserFS/blob/76fd5122fcf3ad6bff3315550aafb041cfb6a72e/license.md)
 
-bsdtar-wasm: [BSD licenses](https://github.com/haskell-wasm/bsdtar-wasm/blob/012117de366c13285036f37b4fcd9a59d1a06fbb/LICENSE)
-
-GHC: [BSD-3-Clause and bundled component licenses](https://gitlab.haskell.org/ghc/ghc/-/blob/master/LICENSE)
-
 brython: [BSD-3-Clause license](https://github.com/brython-dev/brython/blob/c579e26d7e24c37c77f00fc345af0248ca6be8eb/LICENCE.txt)
 
 chai: [MIT License](https://github.com/chaijs/chai/blob/1a8247f30dbe0f54268a9748ae673caec75d6bfe/LICENSE)
@@ -159,6 +155,8 @@ meta-png: [ISC License](https://github.com/lucach/meta-png/blob/b9a79d98157af068
 mhsdesign/jit-browser-tailwindcss: [MIT License](https://github.com/mhsdesign/jit-browser-tailwindcss/blob/60fccdfbbd4e7c816a97e4627d070dd8ec19d415/package.json#L30)
 
 MDX: [MIT License](https://github.com/mdx-js/mdx/blob/7fd1d9a4272754951e70dbaecff07a0ae402e13e/license)
+
+MicroHs: [Apache License 2.0](https://github.com/augustss/MicroHs/blob/455782164e75998b140d869c1b7cdde0c8a21508/LICENSE) (the Haskell packages bundled with it keep their own upstream licences)
 
 minizinc-js: [MPL-2.0 License](https://github.com/MiniZinc/minizinc-js/blob/3f7c34f0549195e5a66cf0f2d6f34cb5bce867f4/LICENSE)
 

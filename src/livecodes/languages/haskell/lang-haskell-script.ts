@@ -1,103 +1,139 @@
-import { getErrorMessage } from '../../utils';
-import type { HaskellResult } from './models';
-import { createHaskellRunner } from './runner';
+import { browserHaskellBaseUrl } from '../../vendors';
+
+interface RunResult {
+  stdout: string;
+  stderr: string;
+  error: string | null;
+  output: string;
+  exitCode: number;
+  packages: string[];
+  durationMs: number;
+}
+
+interface HaskellInstance {
+  run: (options: { code: string; stdin?: string }) => Promise<RunResult>;
+}
+
+interface BrowserHaskellApi {
+  createHaskell: (options: { baseUrl: string; timeout?: number }) => Promise<HaskellInstance>;
+}
+
+interface HaskellApi {
+  init?: Promise<HaskellInstance> | null;
+  ready?: boolean;
+  input?: string;
+  output?: string | null;
+  error?: string | null;
+  exitCode?: number | null;
+  run?: (
+    input?: string,
+  ) => Promise<{ output: string | null; error: string | null; exitCode: number }>;
+  loaded?: Promise<void>;
+}
 
 declare const window: Window & {
   livecodes: {
-    haskell: {
-      loaded?: Promise<void>;
-      output?: string;
-      error?: string;
-      exitCode?: number;
-      run?: () => Promise<HaskellResult>;
-      runner?: ReturnType<typeof createHaskellRunner>;
-    };
+    haskell?: HaskellApi;
   };
 };
 
-const scriptUrl = (document.currentScript as HTMLScriptElement).src;
-const workerUrl = new URL('{{hash:lang-haskell-worker.js}}', scriptUrl).href;
-const bsdtarUrl = new URL('assets/wasm/bsdtar.wasm', scriptUrl).href;
-const parentOrigin =
-  window.parent === window
-    ? window.location.origin
-    : window.location.ancestorOrigins?.[0] ||
-      (() => {
-        if (!document.referrer) return '*';
-        try {
-          return new URL(document.referrer).origin;
-        } catch {
-          // Ignore malformed referrers and use the wildcard fallback below.
-          return '*';
-        }
-      })();
-window.livecodes.haskell ??= {};
-const haskell = window.livecodes.haskell;
-haskell.runner ??= createHaskellRunner(() => {
-  const url = URL.createObjectURL(
-    new Blob([`importScripts(${JSON.stringify(workerUrl)});`], { type: 'text/javascript' }),
-  );
-  try {
-    return new Worker(url);
-  } finally {
-    URL.revokeObjectURL(url);
-  }
-}, bsdtarUrl);
+// MicroHs has no way to preempt a running program, so this only bounds runs
+// that yield to the event loop; a hard loop still blocks the result page.
+const RUN_TIMEOUT_MS = 30_000;
 
-let activeRuns = 0;
-
-const postLoading = (payload: boolean) => {
-  activeRuns += payload ? 1 : -1;
-  parent.postMessage({ type: 'loading', payload: activeRuns > 0 }, parentOrigin); // NOSONAR - fallback is safe with source/origin checks in the parent.
+const getCode = () => {
+  let code = '';
+  document.querySelectorAll('script[type="text/haskell"]').forEach((script) => {
+    code += `${script.innerHTML}\n`;
+  });
+  return code;
 };
 
-haskell.run = async () => {
-  const code = Array.from(document.querySelectorAll('script[type="text/haskell"]'))
-    .map((script) => script.textContent)
-    .join('\n');
-  if (!code.trim()) {
-    haskell.output = '';
-    haskell.error = '';
-    haskell.exitCode = 0;
-    return { output: '', error: '', exitCode: 0 };
+const haskell = (window.livecodes.haskell ??= {});
+haskell.ready = false;
+haskell.input ??= '';
+
+const getInstance = async (): Promise<HaskellInstance> => {
+  let init = haskell.init;
+  if (!init) {
+    const lib = (globalThis as any).BrowserHaskell as BrowserHaskellApi | undefined;
+    if (!lib?.createHaskell) {
+      throw new Error('the Haskell runtime failed to load');
+    }
+    init = lib.createHaskell({
+      baseUrl: browserHaskellBaseUrl,
+      timeout: RUN_TIMEOUT_MS,
+    });
+    haskell.init = init;
   }
-  postLoading(true);
   try {
-    const result = await haskell.runner!.run(code);
-    haskell.output = result.output;
-    haskell.error = result.error;
-    haskell.exitCode = result.exitCode;
-    if (result.output) {
-      // eslint-disable-next-line no-console
-      console.log(result.output);
-    }
-    if (result.error) {
-      // eslint-disable-next-line no-console
-      console.error(result.error);
-    }
-    return result;
+    return await init;
   } catch (err) {
-    haskell.output = '';
-    haskell.error = getErrorMessage(err);
-    haskell.exitCode = 1;
-    // eslint-disable-next-line no-console
-    console.error(haskell.error);
-    return { output: '', error: haskell.error, exitCode: 1 };
-  } finally {
-    postLoading(false);
+    // Reset so a later run can retry the download.
+    haskell.init = null;
+    throw err;
   }
 };
 
-haskell.loaded = new Promise<void>((resolve, reject) => {
-  window.addEventListener(
-    'load',
-    async () => {
-      const result = await haskell.run!();
-      if (result.exitCode !== 0) reject(new Error(result.error));
-      else resolve();
-    },
-    { once: true },
-  );
+const setResult = (output: string | null, error: string | null, exitCode: number) => {
+  haskell.output = output;
+  haskell.error = error;
+  haskell.exitCode = exitCode;
+  haskell.ready = true;
+
+  if (error != null) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } else if (output != null) {
+    // eslint-disable-next-line no-console
+    console.log(output);
+  }
+  return { output, error, exitCode };
+};
+
+haskell.run = async (input?: string) => {
+  const code = getCode();
+  haskell.input = input ?? haskell.input ?? '';
+
+  if (!code.trim()) return setResult(null, null, 0);
+
+  parent.postMessage({ type: 'loading', payload: true }, '*');
+  try {
+    const haskellInstance = await getInstance();
+    const result = await haskellInstance.run({ code, stdin: `${haskell.input ?? ''}` });
+
+    if (result.error != null || result.exitCode !== 0) {
+      return setResult(
+        result.stdout || null,
+        result.error || `Exited with code ${result.exitCode}`,
+        result.exitCode || 1,
+      );
+    }
+
+    if (result.stderr) {
+      // eslint-disable-next-line no-console
+      console.warn(result.stderr);
+    }
+    return setResult(result.stdout || null, null, 0);
+  } catch (err) {
+    return setResult(null, `Error: ${(err as Error).message}`, 1);
+  } finally {
+    parent.postMessage({ type: 'loading', payload: false }, '*');
+  }
+};
+
+// Start downloading the wasm bundle right away.
+getInstance().catch(() => undefined);
+
+haskell.loaded = new Promise<void>((resolve) => {
+  const interval = setInterval(() => {
+    if (haskell.ready) {
+      clearInterval(interval);
+      resolve();
+    }
+  }, 50);
 });
-// Diagnostics are already displayed in the console when no consumer awaits loaded.
-haskell.loaded.catch(() => undefined);
+
+window.addEventListener('load', async () => {
+  await haskell.run?.(haskell.input);
+});

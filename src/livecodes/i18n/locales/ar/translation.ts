@@ -965,10 +965,6 @@ const translation: I18nTranslation = {
     syncStarted: 'بدأت المزامنة...',
   },
   templates: {
-    haskell: {
-      heading: 'هاسكل في المتصفح',
-      loading: 'جارٍ تحميل GHC...',
-    },
     heading: 'مشروع جديد',
     noUserTemplates: {
       desc: 'يمكنك حفظ مشروع كقالب من <1></1>(قائمة التطبيق > حفظ باسم > قالب).',

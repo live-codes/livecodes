@@ -157,8 +157,8 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Handlebars',
   },
   haskell: {
-    desc: '<1>Haskell — статически типизированный, чисто функциональный язык программирования с ленивыми вычислениями.</1> <2>LiveCodes запускает GHC в браузере с помощью WebAssembly.</2>',
-    link: '<1><2>Haskell</2></1> <3> <4>GHC в браузере</4> </3> <5> <6>Haskell в LiveCodes</6> </5> <7> <8>Стартовый шаблон</8> </7>',
+    desc: 'Haskell, запущенный в браузере с помощью MicroHs.',
+    link: '<1> <2>Официальный сайт Haskell</2> </1> <3> <4>MicroHs на GitHub</4> </3> <5> <6>Документация LiveCodes</6> </5> <7> <8>Загрузить стартовый шаблон</8> </7>',
     name: 'Haskell',
   },
   imba: {

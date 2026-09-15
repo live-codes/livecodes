@@ -151,8 +151,8 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Handlebars',
   },
   haskell: {
-    desc: '<1>Haskell 是一种具有惰性求值的静态类型纯函数式编程语言。</1> <2>LiveCodes 使用 WebAssembly 在浏览器中运行 GHC。</2>',
-    link: '<1><2>Haskell</2></1> <3> <4>浏览器中的 GHC</4> </3> <5> <6>LiveCodes 中的 Haskell</6> </5> <7> <8>启动模板</8> </7>',
+    desc: '使用 MicroHs 在浏览器中运行 Haskell。',
+    link: '<1> <2>Haskell 官方网站</2> </1> <3> <4>GitHub 上的 MicroHs</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
     name: 'Haskell',
   },
   imba: {

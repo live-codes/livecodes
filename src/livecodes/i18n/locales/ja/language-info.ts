@@ -155,8 +155,8 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Handlebars',
   },
   haskell: {
-    desc: '<1>Haskellは、遅延評価を備えた静的型付きの純粋関数型プログラミング言語です。</1> <2>LiveCodesはWebAssemblyを使用してブラウザでGHCを実行します。</2>',
-    link: '<1><2>Haskell</2></1> <3> <4>ブラウザ上のGHC</4> </3> <5> <6>LiveCodesのHaskell</6> </5> <7> <8>スターターテンプレート</8> </7>',
+    desc: 'MicroHs を使ってブラウザ上で動作する Haskell。',
+    link: '<1> <2>Haskellの公式サイト</2> </1> <3> <4>GitHub上のMicroHs</4> </3> <5> <6>LiveCodes ドキュメント</6> </5> <7> <8>スターターテンプレートの読み込み</8> </7>',
     name: 'Haskell',
   },
   imba: {

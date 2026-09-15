@@ -271,10 +271,10 @@
     "translation": "Handlebars"
   },
   "haskell.desc": {
-    "translation": "Haskell è un linguaggio di programmazione puramente funzionale e tipizzato staticamente, con valutazione lazy. LiveCodes esegue GHC nel browser usando WebAssembly."
+    "translation": "Haskell in esecuzione nel browser tramite MicroHs."
   },
   "haskell.link": {
-    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>GHC nel browser</tag-4> </tag-3> <tag-5> <tag-6>Haskell in LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Modello iniziale</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Sito web ufficiale di Haskell</tag-2> </tag-1> <tag-3> <tag-4>MicroHs su GitHub</tag-4> </tag-3> <tag-5> <tag-6>Documentazione LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Carica il modello di avvio</tag-8> </tag-7>"
   },
   "haskell.name": {
     "translation": "Haskell"

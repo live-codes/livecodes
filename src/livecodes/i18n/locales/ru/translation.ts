@@ -965,10 +965,6 @@ const translation: I18nTranslation = {
     syncStarted: 'Синхронизация начата...',
   },
   templates: {
-    haskell: {
-      heading: 'Haskell в браузере',
-      loading: 'Загрузка GHC...',
-    },
     heading: 'Новый проект',
     noUserTemplates: {
       desc: 'Вы можете сохранить проект как шаблон из <1></1>(Меню&nbsp;приложения&nbsp;&gt;&nbsp;Сохранить&nbsp;как&nbsp;&gt; Шаблон).',

@@ -1,8 +1,5 @@
 import type { Template } from '../../models';
 
-const heading = window.deps.translateString('templates.haskell.heading', 'Haskell in the browser');
-const loading = window.deps.translateString('templates.haskell.loading', 'Loading GHC...');
-
 export const haskellStarter: Template = {
   name: 'haskell',
   aliases: ['hs'],
@@ -11,48 +8,81 @@ export const haskellStarter: Template = {
   activeEditor: 'script',
   markup: {
     language: 'html',
-    content: `<h1>${heading}</h1>
-<pre id="output">${loading}</pre>
+    content: `
+<div class="container">
+  <h1>Hello, <span id="name">Haskell</span>!</h1>
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/haskell.svg" />
+  <p>You clicked <span id="counter">0</span> times.</p>
+  <button id="counter-button" disabled>Loading...</button>
+</div>
 
 <script>
+  // set initial input
+  livecodes.haskell.input = "-1";
+
   addEventListener('load', async () => {
-    const output = document.querySelector('#output');
-    try {
-      await livecodes.haskell.loaded;
-      output.textContent = livecodes.haskell.output;
-    } catch (error) {
-      output.textContent = livecodes.haskell.error;
+    const button = document.querySelector("#counter-button");
+
+    // wait till loaded
+    await livecodes.haskell.loaded;
+
+    // get initial output
+    update(livecodes.haskell.output);
+
+    button.onclick = async () => {
+      button.disabled = true;
+      // run with new input
+      const {output, error} = await livecodes.haskell.run(window.count);
+      if (error) {
+        console.error(error);
+      }
+      update(output);
+    };
+
+    function update(output) {
+      const counter = document.querySelector("#counter");
+      const name = document.querySelector("#name");
+
+      const [title, count] = String(output ?? '').split('\\n');
+
+      if (!isNaN(Number(count))) {
+        window.count = count;
+        counter.innerText = window.count;
+      }
+      if (title) {
+        name.innerText = title;
+      }
+      button.innerText = "Click me";
+      button.disabled = false;
     }
   });
 </script>
-`,
+`.trimStart(),
   },
   style: {
     language: 'css',
-    content: `body {
-  font-family: system-ui, sans-serif;
-  padding: 2rem;
-  color: #453a62;
+    content: `
+.container,
+.container button {
+  text-align: center;
+  font: 1em sans-serif;
 }
-
-pre {
-  padding: 1rem;
-  background: #f4f1f8;
-  white-space: pre-wrap;
+.logo {
+  width: 100px;
 }
-`,
+`.trimStart(),
   },
   script: {
     language: 'haskell',
-    content: `-- A lazy, infinite list of Fibonacci numbers.
-fibs :: [Integer]
-fibs = 0 : 1 : zipWith (+) fibs (drop 1 fibs)
-
+    content: `
 main :: IO ()
 main = do
-  putStrLn "Hello, Haskell!"
-  putStrLn "The first 10 Fibonacci numbers:"
-  print (take 10 fibs)
-`,
+  putStrLn "Haskell"
+  input <- getLine
+  let count = case reads input of
+        [(n, "")] -> n + 1
+        _ -> 0
+  print (count :: Int)
+`.trimStart(),
   },
 };

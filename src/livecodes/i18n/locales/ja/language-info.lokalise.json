@@ -271,10 +271,10 @@
     "translation": "Handlebars"
   },
   "haskell.desc": {
-    "translation": "Haskellは、遅延評価を備えた静的型付きの純粋関数型プログラミング言語です。LiveCodesはWebAssemblyを使用してブラウザでGHCを実行します。"
+    "translation": "MicroHs を使ってブラウザ上で動作する Haskell。"
   },
   "haskell.link": {
-    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>ブラウザ上のGHC</tag-4> </tag-3> <tag-5> <tag-6>LiveCodesのHaskell</tag-6> </tag-5> <tag-7> <tag-8>スターターテンプレート</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Haskellの公式サイト</tag-2> </tag-1> <tag-3> <tag-4>GitHub上のMicroHs</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ドキュメント</tag-6> </tag-5> <tag-7> <tag-8>スターターテンプレートの読み込み</tag-8> </tag-7>"
   },
   "haskell.name": {
     "translation": "Haskell"

@@ -966,10 +966,6 @@ const translation: I18nTranslation = {
     syncStarted: 'Szinkronizálás elindítva...',
   },
   templates: {
-    haskell: {
-      heading: 'Haskell a böngészőben',
-      loading: 'GHC betöltése...',
-    },
     heading: 'Új projekt',
     noUserTemplates: {
       desc: 'Projektet menthetsz sablonként innen: <1></1>(Alkalmazás&nbsp;menü&nbsp;&gt;&nbsp;Mentés&nbsp;másként&nbsp;&gt; Sablon).',
@@ -1004,7 +1000,7 @@ const translation: I18nTranslation = {
       gleam: 'Gleam kezdő',
       go: 'Go kezdő',
       'go-wasm': 'Go (Wasm) kezdő',
-      haskell: 'Haskell-kezdő',
+      haskell: 'Haskell kezdő',
       heading: 'Kezdő sablonok',
       imba: 'Imba kezdő',
       java: 'Java kezdő',

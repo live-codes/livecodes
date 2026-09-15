@@ -1893,12 +1893,6 @@
   "sync.syncStarted": {
     "translation": "Sincronização iniciada..."
   },
-  "templates.haskell.heading": {
-    "translation": "Haskell no navegador"
-  },
-  "templates.haskell.loading": {
-    "translation": "Carregando GHC..."
-  },
   "templates.heading": {
     "translation": "Novo Projeto"
   },
@@ -1987,7 +1981,7 @@
     "translation": "Iniciante Go (Wasm)"
   },
   "templates.starter.haskell": {
-    "translation": "Modelo inicial Haskell"
+    "translation": "Iniciante Haskell"
   },
   "templates.starter.heading": {
     "translation": "Modelos Iniciantes"

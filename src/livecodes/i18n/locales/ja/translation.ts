@@ -966,10 +966,6 @@ const translation: I18nTranslation = {
     syncStarted: '同期を開始しました...',
   },
   templates: {
-    haskell: {
-      heading: 'ブラウザ上のHaskell',
-      loading: 'GHCを読み込んでいます...',
-    },
     heading: '新規プロジェクト',
     noUserTemplates: {
       desc: 'プロジェクトをテンプレートとして保存するには、<1></1>（アプリメニュー&nbsp;&gt;&nbsp;別名で保存&nbsp;&gt;&nbsp;テンプレート）から行えます。',

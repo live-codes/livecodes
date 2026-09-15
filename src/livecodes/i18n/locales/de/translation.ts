@@ -967,10 +967,6 @@ const translation: I18nTranslation = {
     syncStarted: 'Synchronisierung gestartet...',
   },
   templates: {
-    haskell: {
-      heading: 'Haskell im Browser',
-      loading: 'GHC wird geladen...',
-    },
     heading: 'Neues Projekt',
     noUserTemplates: {
       desc: 'Sie können ein Projekt als Vorlage speichern unter <1></1>(App-Menü&nbsp;&gt;&nbsp;Speichern&nbsp;unter&nbsp;&gt; Vorlage).',

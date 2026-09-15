@@ -271,23 +271,28 @@ test.describe('Starter Templates from UI', () => {
   });
 
   test('haskell Starter', async ({ page, getTestUrl }) => {
-    test.setTimeout(480_000);
-    await page.goto(getTestUrl({ template: 'haskell' }));
-    const { getResult, waitForResultUpdate } = await getLoadedApp(page);
-    await waitForResultUpdate({ timeout: 420_000 });
-    await expect(getResult().locator('#output')).toHaveText(
-      'Hello, Haskell!\nThe first 10 Fibonacci numbers:\n[0,1,1,2,3,5,8,13,21,34]',
-      { timeout: 420_000 },
-    );
-    const run = (code: string) =>
-      getResult().evaluate(async (source) => {
-        document.querySelector('script[type="text/haskell"]')!.textContent = source;
-        return (window as any).livecodes.haskell.run();
-      }, code);
-    const failure = await run('main = missingValue');
-    expect(failure.error).toContain('missingValue');
-    const recovered = await run('main = print (sum [1..10])');
-    expect(recovered).toEqual({ output: '55\n', error: '', exitCode: 0 });
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Haskell Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the counter stays disabled until the runtime has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 60_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, Haskell!');
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
   test('d3 Starter', async ({ page, getTestUrl, editor }) => {
@@ -858,6 +863,27 @@ test.describe('Starter Templates from URL', () => {
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('haskell Starter (in URL)', async ({ page, getTestUrl }) => {
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'haskell' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the counter stays disabled until the runtime has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 60_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, Haskell!');
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
   test('D3 Starter (in URL)', async ({ page, getTestUrl, editor }) => {

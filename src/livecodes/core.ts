@@ -4598,11 +4598,7 @@ const handleTestEditor = () => {
 const handleResultLoading = () => {
   eventsManager.addEventListener(window, 'message', (event: any) => {
     const iframe = UI.getResultIFrameElement();
-    if (
-      !iframe ||
-      event.source !== iframe.contentWindow ||
-      event.origin !== sandboxService.getOrigin()
-    ) {
+    if (!iframe || event.source !== iframe.contentWindow) {
       return;
     }
     if (event.data.type === 'loading') {
@@ -4623,7 +4619,6 @@ const handleResultLoading = () => {
       isEmbed ||
       !iframe ||
       event.source !== iframe.contentWindow ||
-      event.origin !== sandboxService.getOrigin() ||
       event.data.type !== 'loading' ||
       event.data.payload !== false ||
       getConfig().mode !== 'result'

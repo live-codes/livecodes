@@ -1,20 +1,26 @@
+import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { monacoLanguagesBaseUrl } from '../../vendors';
+import { browserHaskellBaseUrl, codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
 export const haskell: LanguageSpecs = {
   name: 'haskell',
   title: 'Haskell',
   compiler: {
     factory: () => async (code) => code,
-    scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-haskell-script.js}}'],
+    scripts: ({ baseUrl }) => [
+      browserHaskellBaseUrl + 'browser-haskell.iife.js',
+      baseUrl + '{{hash:lang-haskell-script.js}}',
+    ],
     scriptType: 'text/haskell',
-    compiledCodeLanguage: 'haskell',
     liveReload: true,
   },
-  extensions: ['hs'],
+  extensions: ['hs', 'lhs'],
   editor: 'script',
   editorSupport: {
-    monaco: { languageSupport: monacoLanguagesBaseUrl + 'haskell.js', language: 'haskell' },
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'haskell.js' },
+    codemirror: {
+      languageSupport: async () =>
+        codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-haskell.js')).haskell),
+    },
   },
-  largeDownload: true,
 };

@@ -967,10 +967,6 @@ const translation: I18nTranslation = {
     syncStarted: 'Synchronisation démarrée...',
   },
   templates: {
-    haskell: {
-      heading: 'Haskell dans le navigateur',
-      loading: 'Chargement de GHC...',
-    },
     heading: 'Nouveau Projet',
     noUserTemplates: {
       desc: 'Vous pouvez enregistrer un projet comme modèle depuis <1></1>(Menu&nbsp;Projet&nbsp;&gt;&nbsp;Enregistrer&nbsp;sous&nbsp;&gt; Modèle).',

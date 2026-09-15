@@ -965,10 +965,6 @@ const translation: I18nTranslation = {
     syncStarted: 'Sinkronisasi dimulai...',
   },
   templates: {
-    haskell: {
-      heading: 'Haskell di browser',
-      loading: 'Memuat GHC...',
-    },
     heading: 'Proyek Baru',
     noUserTemplates: {
       desc: 'Anda dapat menyimpan proyek sebagai template dari <1></1>(Menu&nbsp;aplikasi&nbsp;&gt;&nbsp;Simpan&nbsp;sebagai&nbsp;&gt; Template).',

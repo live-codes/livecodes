@@ -965,10 +965,6 @@ const translation: I18nTranslation = {
     syncStarted: 'مطابقت پذیری شروع ہو گئی...',
   },
   templates: {
-    haskell: {
-      heading: 'براؤزر میں Haskell',
-      loading: 'GHC لوڈ ہو رہا ہے...',
-    },
     heading: 'نیا پروجیکٹ',
     noUserTemplates: {
       desc: 'آپ کسی پروجیکٹ کو سانچے کے طور پر محفوظ کر سکتے ہیں <1></1>(ایپ&nbsp;مینو&nbsp;&gt;&nbsp;بطور&nbsp;محفوظ&nbsp;کریں&nbsp;&gt; سانچہ)۔',
@@ -1003,7 +999,7 @@ const translation: I18nTranslation = {
       gleam: 'گلیم شروعاتی',
       go: 'گو شروعاتی',
       'go-wasm': 'گو (واسم) شروعاتی',
-      haskell: 'Haskell شروعاتی',
+      haskell: 'ہاسکل شروعاتی',
       heading: 'شروعاتی سانچے',
       imba: 'امبا شروعاتی',
       java: 'جاوا شروعاتی',

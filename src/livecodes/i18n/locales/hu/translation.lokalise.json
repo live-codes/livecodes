@@ -1893,12 +1893,6 @@
   "sync.syncStarted": {
     "translation": "Szinkronizálás elindítva..."
   },
-  "templates.haskell.heading": {
-    "translation": "Haskell a böngészőben"
-  },
-  "templates.haskell.loading": {
-    "translation": "GHC betöltése..."
-  },
   "templates.heading": {
     "translation": "Új projekt"
   },
@@ -1987,7 +1981,7 @@
     "translation": "Go (Wasm) kezdő"
   },
   "templates.starter.haskell": {
-    "translation": "Haskell-kezdő"
+    "translation": "Haskell kezdő"
   },
   "templates.starter.heading": {
     "translation": "Kezdő sablonok"

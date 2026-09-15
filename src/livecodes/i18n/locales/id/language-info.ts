@@ -156,8 +156,8 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Handlebars',
   },
   haskell: {
-    desc: '<1>Haskell adalah bahasa pemrograman fungsional murni dengan tipe statis dan evaluasi malas.</1> <2>LiveCodes menjalankan GHC di browser menggunakan WebAssembly.</2>',
-    link: '<1><2>Haskell</2></1> <3> <4>GHC di browser</4> </3> <5> <6>Haskell di LiveCodes</6> </5> <7> <8>Templat pemula</8> </7>',
+    desc: 'Haskell berjalan di peramban menggunakan MicroHs.',
+    link: '<1> <2>Situs web resmi Haskell</2> </1> <3> <4>MicroHs di GitHub</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat templat awal</8> </7>',
     name: 'Haskell',
   },
   imba: {

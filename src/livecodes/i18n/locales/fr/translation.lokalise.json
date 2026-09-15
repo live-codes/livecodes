@@ -1893,12 +1893,6 @@
   "sync.syncStarted": {
     "translation": "Synchronisation démarrée..."
   },
-  "templates.haskell.heading": {
-    "translation": "Haskell dans le navigateur"
-  },
-  "templates.haskell.loading": {
-    "translation": "Chargement de GHC..."
-  },
   "templates.heading": {
     "translation": "Nouveau Projet"
   },

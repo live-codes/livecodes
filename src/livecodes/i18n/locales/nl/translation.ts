@@ -966,10 +966,6 @@ const translation: I18nTranslation = {
     syncStarted: 'Synchronisatie gestart...',
   },
   templates: {
-    haskell: {
-      heading: 'Haskell in de browser',
-      loading: 'GHC laden...',
-    },
     heading: 'Nieuw project',
     noUserTemplates: {
       desc: 'Je kunt een project opslaan als sjabloon vanuit <1></1>(App-menu > Opslaan als > Sjabloon).',

@@ -155,8 +155,8 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Handlebars',
   },
   haskell: {
-    desc: '<1>Haskell is een statisch getypeerde, puur functionele programmeertaal met luie evaluatie.</1> <2>LiveCodes voert GHC in de browser uit met WebAssembly.</2>',
-    link: '<1><2>Haskell</2></1> <3> <4>GHC in de browser</4> </3> <5> <6>Haskell in LiveCodes</6> </5> <7> <8>Startsjabloon</8> </7>',
+    desc: 'Haskell draait in de browser met behulp van MicroHs.',
+    link: '<1> <2>Officiële website van Haskell</2> </1> <3> <4>MicroHs op GitHub</4> </3> <5> <6>LiveCodes-documentatie</6> </5> <7> <8>Startersjabloon laden</8> </7>',
     name: 'Haskell',
   },
   imba: {

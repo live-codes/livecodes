@@ -963,10 +963,6 @@ const translation: I18nTranslation = {
     syncStarted: '同步已开始...',
   },
   templates: {
-    haskell: {
-      heading: '浏览器中的 Haskell',
-      loading: '正在加载 GHC...',
-    },
     heading: '新项目',
     noUserTemplates: {
       desc: '您可以通过<1></1>（菜单&nbsp;&gt;&nbsp;另存为&nbsp;&gt;&nbsp;模板）将项目另存为模板。',

@@ -1893,12 +1893,6 @@
   "sync.syncStarted": {
     "translation": "সিঙ্ক শুরু হয়েছে..."
   },
-  "templates.haskell.heading": {
-    "translation": "ব্রাউজারে Haskell"
-  },
-  "templates.haskell.loading": {
-    "translation": "GHC লোড হচ্ছে..."
-  },
   "templates.heading": {
     "translation": "নতুন প্রজেক্ট"
   },

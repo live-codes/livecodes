@@ -966,10 +966,6 @@ const translation: I18nTranslation = {
     syncStarted: 'Senkronizasyon başlatıldı...',
   },
   templates: {
-    haskell: {
-      heading: 'Tarayıcıda Haskell',
-      loading: 'GHC yükleniyor...',
-    },
     heading: 'Yeni Proje',
     noUserTemplates: {
       desc: 'Bir projeyi <1></1>(Uygulama&nbsp;menüsü&nbsp;&gt;&nbsp;Farklı&nbsp;Kaydet&nbsp;&gt; Şablon) yoluyla şablon olarak kaydedebilirsiniz.',

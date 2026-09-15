@@ -271,10 +271,10 @@
     "translation": "Handlebars"
   },
   "haskell.desc": {
-    "translation": "Haskell, tembel değerlendirmeye sahip, statik türlenmiş ve tamamen işlevsel bir programlama dilidir. LiveCodes, WebAssembly kullanarak GHC'yi tarayıcıda çalıştırır."
+    "translation": "MicroHs kullanılarak tarayıcıda çalışan Haskell."
   },
   "haskell.link": {
-    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>Tarayıcıda GHC</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes'ta Haskell</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonu</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Haskell resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>GitHub'daki MicroHs</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Belgeleri</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
   },
   "haskell.name": {
     "translation": "Haskell"

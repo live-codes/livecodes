@@ -40,6 +40,10 @@ export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@11.1.1/');
 
 export const browserfsUrl = /* @__PURE__ */ getUrl('browserfs@1.4.3/dist/browserfs.min.js');
 
+export const browserHaskellBaseUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/browser-haskell@0.1.0/dist/',
+);
+
 export const browserJestUrl = /* @__PURE__ */ getUrl(
   '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',
 );
@@ -90,7 +94,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.0/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.1/build/');
 
 export const codemirrorMinimapUrl = /* @__PURE__ */ getUrl(
   '@replit/codemirror-minimap@0.5.2/dist/index.js',
@@ -438,17 +442,6 @@ export const rustWasmUrl = /* @__PURE__ */ getUrl(
 );
 export const wasmRustcBaseUrl = /* @__PURE__ */ getUrl('@live-codes/wasm-rustc@0.2.0/');
 
-export const ghcBrowserBaseUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.jsdelivr.net/gh/haskell-wasm/ghc-in-browser@c57d8b6e37737d662aed05cab88f867918307053/',
-);
-export const ghcRootfsUrl = /* @__PURE__ */ getUrl(
-  'https://raw.githubusercontent.com/haskell-wasm/ghc-in-browser/c57d8b6e37737d662aed05cab88f867918307053/rootfs.tar.zst',
-);
-export const ghcRootfsSha256 = '35f68f56fdb72111f150ba05ad31efed2f6fc77ee7026fb4b197ae7901a67adf';
-export const bsdtarWasmSha256 = 'e13ebb15ca0971f6629a6313bc043c532dd9be3a0e6bb0b7f8a395de835ad0c0';
-export const haskellWasiShimUrl = /* @__PURE__ */ getUrl(
-  'https://esm.sh/gh/haskell-wasm/browser_wasi_shim@2f86b49dce50916e2984029c535321e34b234229',
-);
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 
 export const spacingJsUrl = /* @__PURE__ */ getUrl('spacingjs@1.0.7/dist/bundle.js');

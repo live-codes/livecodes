@@ -271,10 +271,10 @@
     "translation": "Handlebars"
   },
   "haskell.desc": {
-    "translation": "A Haskell egy statikusan típusos, tisztán funkcionális programozási nyelv lusta kiértékeléssel. A LiveCodes WebAssembly használatával futtatja a GHC-t a böngészőben."
+    "translation": "A Haskell a MicroHs segítségével fut a böngészőben."
   },
   "haskell.link": {
-    "translation": "<tag-1><tag-2>Haskell</tag-2></tag-1> <tag-3> <tag-4>GHC a böngészőben</tag-4> </tag-3> <tag-5> <tag-6>Haskell a LiveCodesban</tag-6> </tag-5> <tag-7> <tag-8>Kezdősablon</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>A Haskell hivatalos honlapja</tag-2> </tag-1> <tag-3> <tag-4>MicroHs a GitHubon</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes dokumentációk</tag-6> </tag-5> <tag-7> <tag-8>Indító sablon betöltése</tag-8> </tag-7>"
   },
   "haskell.name": {
     "translation": "Haskell"

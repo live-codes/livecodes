@@ -965,10 +965,6 @@ const translation: I18nTranslation = {
     syncStarted: 'সিঙ্ক শুরু হয়েছে...',
   },
   templates: {
-    haskell: {
-      heading: 'ব্রাউজারে Haskell',
-      loading: 'GHC লোড হচ্ছে...',
-    },
     heading: 'নতুন প্রজেক্ট',
     noUserTemplates: {
       desc: 'আপনি <1></1>(অ্যাপ&nbsp;মেনু&nbsp;&gt;&nbsp;সংরক্ষণ&nbsp;করুন&nbsp;&gt; টেমপ্লেট) থেকে একটি প্রজেক্ট টেমপ্লেট হিসাবে সংরক্ষণ করতে পারেন।',

@@ -156,8 +156,8 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Handlebars',
   },
   haskell: {
-    desc: '<1>A Haskell egy statikusan típusos, tisztán funkcionális programozási nyelv lusta kiértékeléssel. A</1> <2>LiveCodes WebAssembly használatával futtatja a GHC-t a böngészőben.</2>',
-    link: '<1><2>Haskell</2></1> <3> <4>GHC a böngészőben</4> </3> <5> <6>Haskell a LiveCodesban</6> </5> <7> <8>Kezdősablon</8> </7>',
+    desc: 'A Haskell a MicroHs segítségével fut a böngészőben.',
+    link: '<1> <2>A Haskell hivatalos honlapja</2> </1> <3> <4>MicroHs a GitHubon</4> </3> <5> <6>LiveCodes dokumentációk</6> </5> <7> <8>Indító sablon betöltése</8> </7>',
     name: 'Haskell',
   },
   imba: {

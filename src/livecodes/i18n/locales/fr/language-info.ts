@@ -156,8 +156,8 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Handlebars',
   },
   haskell: {
-    desc: '<1>Haskell est un langage de programmation purement fonctionnel et à typage statique, avec évaluation paresseuse.</1> <2>LiveCodes exécute GHC dans le navigateur via WebAssembly.</2>',
-    link: '<1><2>Haskell</2></1> <3> <4>GHC dans le navigateur</4> </3> <5> <6>Haskell dans LiveCodes</6> </5> <7> <8>Modèle de démarrage</8> </7>',
+    desc: "Haskell s'exécute dans le navigateur grâce à MicroHs.",
+    link: '<1> <2>Site officiel de Haskell</2> </1> <3> <4>MicroHs sur GitHub</4> </3> <5> <6>Documentations LiveCodes</6> </5> <7> <8>Charger un modèle de démarrage</8> </7>',
     name: 'Haskell',
   },
   imba: {
