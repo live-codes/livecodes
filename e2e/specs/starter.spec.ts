@@ -244,7 +244,7 @@ test.describe('Starter Templates from UI', () => {
 
   test('rust-wasm Starter', async ({ page, getTestUrl, editor }) => {
     // the interpreter and the stdlib sysroot are downloaded on the first run
-    test.setTimeout(300_000);
+    test.slow();
 
     await page.goto(getTestUrl());
 
@@ -317,6 +317,33 @@ test.describe('Starter Templates from UI', () => {
     await getResult().click('text=Click me');
     await getResult().click('text=Click me');
 
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
+  test('vb-wasm Starter', async ({ page, getTestUrl }) => {
+    // the runtime, the Roslyn VB compiler and the reference assemblies (~43 MB)
+    // are downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=VB.NET (Wasm) Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the counter stays disabled until the runtime has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 280_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, VB.NET!');
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
@@ -908,6 +935,27 @@ test.describe('Starter Templates from URL', () => {
     await getResult().click('text=Click me');
 
     await expect(getResult().locator('h1')).toHaveText('Hello, Haskell!');
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
+  test('vb-wasm Starter (in URL)', async ({ page, getTestUrl }) => {
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'vb-wasm' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the counter stays disabled until the runtime has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 280_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, VB.NET!');
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 

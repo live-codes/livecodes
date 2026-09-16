@@ -94,7 +94,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.1/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.2/build/');
 
 export const codemirrorMinimapUrl = /* @__PURE__ */ getUrl(
   '@replit/codemirror-minimap@0.5.2/dist/index.js',
@@ -494,6 +494,8 @@ export const typescriptVersion = '5.9.3';
 export const typescriptUrl = getUrl(`typescript@${typescriptVersion}/lib/typescript.js`);
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
+
+export const vbWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/vb-wasm@0.1.1/');
 
 export const vegaCdnUrl = /* @__PURE__ */ getUrl('vega@5.25.0/build/vega.js');
 

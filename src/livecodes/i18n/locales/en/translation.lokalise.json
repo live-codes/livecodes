@@ -2840,6 +2840,10 @@
     "notes": "",
     "translation": "TypeScript Starter"
   },
+  "templates.starter.vb-wasm": {
+    "notes": "",
+    "translation": "VB.NET (Wasm) Starter"
+  },
   "templates.starter.vue": {
     "notes": "",
     "translation": "Vue SFC Starter"

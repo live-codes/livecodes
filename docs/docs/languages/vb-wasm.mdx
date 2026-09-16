@@ -1,0 +1,110 @@
+# VB.NET (Wasm)
+
+VB.NET is a multi-paradigm, object-oriented programming language, implemented on .NET, developed by Microsoft.
+
+In LiveCodes, VB.NET runs in the browser using the Roslyn VB compiler (`Microsoft.CodeAnalysis.VisualBasic`) compiled to WebAssembly, running on the .NET WebAssembly runtime.
+
+## Usage
+
+Demo:
+
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+export const vbWasmConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'vb-wasm',
+    content: `Imports System\n
+Module Program
+    Class Greeter
+        Private ReadOnly name As String\n
+        Public Sub New(name As String)
+            Me.name = name
+        End Sub\n
+        Public Function Greet() As String
+            Return $"Hello, {name}!"
+        End Function
+    End Class\n
+    Sub Main()
+        Dim names As String() = {"VB.NET", "WebAssembly"}\n
+        For Each name In names
+            Dim greeter As New Greeter(name)
+            Console.WriteLine(greeter.Greet())
+        Next
+    End Sub
+End Module`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={vbWasmConfig}></LiveCodes>
+
+
+### Communication with JavaScript
+
+The VB.NET code runs in the context of the result page. A few helper properties and methods are available in the browser global `livecodes.vb` object:
+
+- `livecodes.vb.input`: The initial standard input passed to the VB.NET code.
+- `livecodes.vb.loaded`: A promise that resolves when the VB.NET environment is fully loaded. Other helpers should be used after this promise resolves.
+- `livecodes.vb.output`: The standard output from the VB.NET code execution.
+- `livecodes.vb.run`: A function that runs the VB.NET code with new input. This function takes a string as input and returns a promise that resolves with an object containing the `output`, `error`, and `exitCode` properties.
+
+Example:
+
+
+<LiveCodes template="vb-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+
+## Language Info
+
+### Name
+
+`vb-wasm`
+
+### Aliases / Extensions
+
+`vb`, `vbnet`, `wasm.vb`, `vb-wasm`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The Roslyn VB compiler (`Microsoft.CodeAnalysis.VisualBasic`) and the BCL reference assemblies, compiled to WebAssembly and running on the .NET WebAssembly runtime.
+
+### Version
+
+Visual Basic 17.13, running on .NET 10
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the VB.NET environment. This behavior can be disabled by adding the code comment `' __livecodes_reload__` to the VB.NET code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Example Usage
+
+```vb
+Imports System
+
+Module Program
+    Sub Main()
+        Console.WriteLine("Hello, LiveCodes VB.NET!")
+    End Sub
+End Module
+```
+
+## Starter Template
+
+https://livecodes.io/?template=vb-wasm
+
+## Links
+
+- [Visual Basic](https://learn.microsoft.com/en-us/dotnet/visual-basic/)
+- [Roslyn](https://github.com/dotnet/roslyn)
+- [.NET WebAssembly runtime](https://github.com/dotnet/runtime/tree/main/src/mono/wasm)

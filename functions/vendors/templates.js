@@ -52,6 +52,7 @@ export const starterTemplates = {
   "zig-wasm": "Zig (Wasm) Starter",
   "java": "Java Starter",
   "csharp-wasm": "C# (Wasm) Starter",
+  "vb-wasm": "VB.NET (Wasm) Starter",
   "fsharp": "F# Starter",
   "fsharp-wasm": "F# (Wasm) Starter",
   "haskell": "Haskell Starter",
