@@ -171,6 +171,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elm.desc": {
+    "translation": "Elm se compila a JavaScript en el navegador mediante una versión de WebAssembly del compilador de Elm."
+  },
+  "elm.link": {
+    "translation": "<tag-1><tag-2>Página web oficial de Elm</tag-2></tag-1> <tag-3><tag-4>Guía de Elm</tag-4></tag-3> <tag-5> <tag-6>Documentación de LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Cargar plantilla de inicio</tag-8> </tag-7>"
+  },
+  "elm.name": {
+    "translation": "Elm"
+  },
   "eta.desc": {
     "translation": "Motor de plantillas JS integrado para Node, Deno y el navegador. Ligero, rápido y conectable. Escrito en TypeScript."
   },

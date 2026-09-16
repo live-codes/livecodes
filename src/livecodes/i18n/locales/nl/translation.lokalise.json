@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "Diagrammen-starter"
   },
+  "templates.starter.elm": {
+    "translation": "Elm-starter"
+  },
   "templates.starter.fennel": {
     "translation": "Fennel-starter"
   },

@@ -171,6 +171,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elm.desc": {
+    "translation": "Elm dikompilasi menjadi JavaScript di dalam browser melalui versi WebAssembly dari kompiler Elm."
+  },
+  "elm.link": {
+    "translation": "<tag-1><tag-2>Situs web resmi Elm</tag-2></tag-1> <tag-3><tag-4>Panduan Elm</tag-4></tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat templat awal</tag-8> </tag-7>"
+  },
+  "elm.name": {
+    "translation": "Elm"
+  },
   "eta.desc": {
     "translation": "Mesin template JS tertanam untuk Node, Deno, dan browser. Ringan, cepat, dan pluggable. Ditulis dalam TypeScript."
   },

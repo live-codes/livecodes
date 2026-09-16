@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "Iniciante Diagrams"
   },
+  "templates.starter.elm": {
+    "translation": "Iniciante Elm"
+  },
   "templates.starter.fennel": {
     "translation": "Iniciante Fennel"
   },

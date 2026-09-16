@@ -171,6 +171,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elm.desc": {
+    "translation": "زبان Elm توسط یک نسخه WebAssembly از کامپایلر Elm، در مرورگر به جاوااسکریپت کامپایل می‌شود."
+  },
+  "elm.link": {
+    "translation": "<tag-1><tag-2>وب‌سایت رسمی Elm</tag-2></tag-1> <tag-3><tag-4>راهنمای Elm</tag-4></tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری الگوی اولیه</tag-8> </tag-7>"
+  },
+  "elm.name": {
+    "translation": "Elm"
+  },
   "eta.desc": {
     "translation": "موتور قالب JS تعبیه شده برای Node، Deno و مرورگر. سبک، سریع و قابل توسعه. نوشته شده در TypeScript."
   },

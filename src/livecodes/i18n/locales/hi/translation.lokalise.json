@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "आरेख स्टार्टर"
   },
+  "templates.starter.elm": {
+    "translation": "Elm स्टार्टर"
+  },
   "templates.starter.fennel": {
     "translation": "Fennel स्टार्टर"
   },

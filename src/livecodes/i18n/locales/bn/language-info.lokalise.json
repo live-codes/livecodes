@@ -171,6 +171,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elm.desc": {
+    "translation": "Elm কম্পাইলারের একটি WebAssembly বিল্ড দ্বারা ব্রাউজারে JavaScript-এ কম্পাইল করা হয়।"
+  },
+  "elm.link": {
+    "translation": "<tag-1><tag-2>Elm অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3><tag-4>Elm গাইড</tag-4></tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "elm.name": {
+    "translation": "Elm"
+  },
   "eta.desc": {
     "translation": "Node, Deno এবং ব্রাউজারের জন্য এম্বেডেড JS টেমপ্লেট ইঞ্জিন। হালকা, দ্রুত এবং প্লাগযোগ্য। TypeScript-এ লেখা।"
   },

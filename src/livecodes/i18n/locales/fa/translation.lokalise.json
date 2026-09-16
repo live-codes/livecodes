@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "شروع کننده نمودارها"
   },
+  "templates.starter.elm": {
+    "translation": "شروع کننده Elm"
+  },
   "templates.starter.fennel": {
     "translation": "شروع کننده Fennel"
   },
