@@ -12,32 +12,49 @@ export const haskellWasmStarter: Template = {
 <div class="container">
   <h1>Hello, <span id="name">Haskell</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/haskell.svg" />
-  <pre id="output">Loading GHC...</pre>
-  <button id="run-button" disabled>Loading...</button>
+  <p>You clicked <span id="counter">0</span> times.</p>
+  <button id="counter-button" disabled>Loading...</button>
 </div>
 
 <script>
+  // set initial input
+  livecodes.haskellWasm.input = "-1";
+
   addEventListener('load', async () => {
-    const output = document.querySelector('#output');
-    const button = document.querySelector('#run-button');
+    const button = document.querySelector("#counter-button");
 
-    try {
-      // wait till the compiler is downloaded and the code has run
-      await livecodes.haskellWasm.loaded;
-      output.textContent = livecodes.haskellWasm.output;
-    } catch (error) {
-      output.textContent = livecodes.haskellWasm.error;
-    }
+    // wait till the compiler is downloaded and the code has run
+    await livecodes.haskellWasm.loaded;
 
-    button.innerText = 'Run again';
-    button.disabled = false;
+    // get initial output
+    update(livecodes.haskellWasm.output);
 
     button.onclick = async () => {
       button.disabled = true;
-      const { output: result, error } = await livecodes.haskellWasm.run();
-      output.textContent = error || result;
-      button.disabled = false;
+      // run again, passing the new input
+      const { output, error } = await livecodes.haskellWasm.run(window.count);
+      if (error) {
+        console.error(error);
+      }
+      update(output);
     };
+
+    function update(output) {
+      const counter = document.querySelector("#counter");
+      const name = document.querySelector("#name");
+
+      const [title, count] = String(output ?? '').split('\\n');
+
+      if (!isNaN(Number(count))) {
+        window.count = count;
+        counter.innerText = window.count;
+      }
+      if (title) {
+        name.innerText = title;
+      }
+      button.innerText = "Click me";
+      button.disabled = false;
+    }
   });
 </script>
 `.trimStart(),
@@ -53,26 +70,19 @@ export const haskellWasmStarter: Template = {
 .logo {
   width: 100px;
 }
-pre {
-  padding: 1rem;
-  background: #f4f1f8;
-  text-align: left;
-  white-space: pre-wrap;
-}
 `.trimStart(),
   },
   script: {
     language: 'haskell-wasm',
     content: `
--- A lazy, infinite list of Fibonacci numbers.
-fibs :: [Integer]
-fibs = 0 : 1 : zipWith (+) fibs (drop 1 fibs)
-
 main :: IO ()
 main = do
-  putStrLn "Hello, Haskell!"
-  putStrLn "The first 10 Fibonacci numbers:"
-  print (take 10 fibs)
+  putStrLn "Haskell"
+  input <- getLine
+  let count = case reads input of
+        [(n, "")] -> n + 1
+        _ -> 0
+  print (count :: Int)
 `.trimStart(),
   },
 };

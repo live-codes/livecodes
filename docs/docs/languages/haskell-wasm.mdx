@@ -39,9 +39,10 @@ Helper methods are available in the browser global `livecodes.haskellWasm` objec
 
 - `livecodes.haskellWasm.loaded`: A promise that resolves after the initial execution completes,
   or rejects if loading or execution fails. Compiler warnings do not reject it.
-- `livecodes.haskellWasm.run`: A method that runs the current editor code again and returns a
-  promise that resolves to `{ output, error, exitCode }`. Calls are queued, because GHC's
-  interactive session cannot execute concurrently.
+- `livecodes.haskellWasm.run`: A method that runs the current editor code again, optionally with
+  new input, and returns a promise that resolves to `{ output, error, exitCode }`. Calls are queued,
+  because GHC's interactive session cannot execute concurrently.
+- `livecodes.haskellWasm.input`: The input provided to the program as `stdin` (see below).
 - `livecodes.haskellWasm.output`: The `stdout` of the last run.
 - `livecodes.haskellWasm.error`: The compiler/runtime diagnostics of the last run (empty when there
   are none).
@@ -50,6 +51,21 @@ Helper methods are available in the browser global `livecodes.haskellWasm` objec
 Example:
 
 <LiveCodes template="haskell-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+## Input (stdin)
+
+The input string is provided to the program as standard input, so ordinary Haskell works unchanged:
+
+```haskell
+main :: IO ()
+main = do
+  name <- getLine
+  putStrLn ("Hello, " ++ name ++ "!")
+```
+
+Set `livecodes.haskellWasm.input` before the first run, or pass the input to
+`livecodes.haskellWasm.run(input)` for subsequent runs. The input is fed once per run, and reading
+past its end returns end-of-file.
 
 ## Language Info
 
@@ -92,7 +108,6 @@ This comment can be added in the `hiddenContent` property of the editor for embe
 - This integration uses GHC `9.14.0.20251031` and the libraries bundled with that build. Installing
   Cabal/Hackage packages is not supported.
 - Haskell runs in a worker, without direct access to the DOM or the page's JavaScript variables.
-- Interactive standard input is not supported (stdin is empty).
 - Output is line-buffered. Compiler diagnostics and program stderr share the `error` field, including
   warnings.
 - Initialization has a five-minute timeout; each compilation/execution has a two-minute timeout. A

@@ -2,6 +2,7 @@
 // Runs GHC in the browser (https://github.com/haskell-wasm/ghc-in-browser) inside a Web Worker.
 // The asset URLs are injected by the main thread when the worker is created.
 
+let dyld;
 let run;
 let output = '';
 let error = '';
@@ -50,7 +51,7 @@ const init = async () => {
   wasi.fds[0] = new OpenFile(new File(new Uint8Array(archive), { readonly: true }));
   if (wasi.start(instance) !== 0) throw new Error(error);
 
-  const dyld = await main({
+  dyld = await main({
     rpc: new DyLDBrowserHost({
       rootfs,
       stdout: (message) => {
@@ -89,6 +90,11 @@ self.onmessage = async ({ data }) => {
     if (!run) throw new Error('Haskell runtime is not initialized.');
     output = '';
     error = '';
+    // `setStdin` is provided by the patched runtime to back fd 0 with the
+    // current input; without it the program reads an empty stdin (EOF).
+    if (typeof dyld.setStdin === 'function') {
+      dyld.setStdin(typeof data.stdin === 'string' ? data.stdin : '');
+    }
     await run('-v0', data.code);
     reply({ type: 'result', result: { output, error, exitCode: 0 } });
   } catch (err) {

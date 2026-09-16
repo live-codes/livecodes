@@ -19,10 +19,11 @@ declare const window: Window & {
   livecodes: {
     haskellWasm: {
       loaded?: Promise<void>;
+      input?: string;
       output?: string;
       error?: string;
       exitCode?: number;
-      run?: () => Promise<HaskellWasmResult>;
+      run?: (input?: string) => Promise<HaskellWasmResult>;
       runner?: ReturnType<typeof createRunner>;
     };
   };
@@ -70,7 +71,7 @@ const createRunner = (createWorker: () => Worker) => {
   };
 
   const request = (
-    message: { type: 'init' } | { type: 'run'; code: string },
+    message: { type: 'init' } | { type: 'run'; code: string; stdin: string },
     timeout: number,
     timeoutMessage: string,
   ) =>
@@ -115,11 +116,11 @@ const createRunner = (createWorker: () => Worker) => {
     }
   };
 
-  const run = (code: string): Promise<HaskellWasmResult> => {
+  const run = (code: string, stdin: string): Promise<HaskellWasmResult> => {
     const result = queue.then(async () => {
       await init();
       const response = await request(
-        { type: 'run', code },
+        { type: 'run', code, stdin },
         RUN_TIMEOUT_MS,
         'Haskell execution timed out.',
       );
@@ -151,6 +152,7 @@ const parentOrigin =
 window.livecodes.haskellWasm ??= {};
 const haskellWasm = window.livecodes.haskellWasm;
 haskellWasm.runner ??= createRunner(createHaskellWorker);
+haskellWasm.input ??= '';
 
 let activeRuns = 0;
 
@@ -159,10 +161,11 @@ const postLoading = (payload: boolean) => {
   parent.postMessage({ type: 'loading', payload: activeRuns > 0 }, parentOrigin); // NOSONAR - fallback is safe with source/origin checks in the parent.
 };
 
-haskellWasm.run = async () => {
+haskellWasm.run = async (input?: string) => {
   const code = Array.from(document.querySelectorAll('script[type="text/haskell-wasm"]'))
     .map((script) => script.textContent)
     .join('\n');
+  haskellWasm.input = input ?? haskellWasm.input ?? '';
   if (!code.trim()) {
     haskellWasm.output = '';
     haskellWasm.error = '';
@@ -171,7 +174,7 @@ haskellWasm.run = async () => {
   }
   postLoading(true);
   try {
-    const result = await haskellWasm.runner!.run(code);
+    const result = await haskellWasm.runner!.run(code, haskellWasm.input);
     haskellWasm.output = result.output;
     haskellWasm.error = result.error;
     haskellWasm.exitCode = result.exitCode;
@@ -200,7 +203,7 @@ haskellWasm.loaded = new Promise<void>((resolve, reject) => {
   window.addEventListener(
     'load',
     async () => {
-      const result = await haskellWasm.run!();
+      const result = await haskellWasm.run!(haskellWasm.input);
       if (result.exitCode !== 0) reject(new Error(result.error));
       else resolve();
     },

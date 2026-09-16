@@ -254,7 +254,7 @@ export const fscreenUrl = /* @__PURE__ */ getUrl('fscreen@1.2.0/dist/fscreen.esm
 
 export const fsharpWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/fsharp-wasm@0.3.0/');
 
-export const ghcBrowserBaseUrl = /* @__PURE__ */ getUrl('unpkg:@live-codes/ghc-in-browser@0.1.0/');
+export const ghcBrowserBaseUrl = /* @__PURE__ */ getUrl('@live-codes/ghc-in-browser@0.2.0/');
 
 export const githubMarkdownCss = /* @__PURE__ */ getUrl(
   'github-markdown-css@5.1.0/github-markdown.css',
