@@ -1000,6 +1000,7 @@ const translation: I18nTranslation = {
       go: 'قالب Go',
       'go-wasm': 'قالب Go (Wasm)',
       haskell: 'قالب Haskell',
+      'haskell-wasm': 'قالب Haskell (Wasm)',
       heading: 'قوالب البداية',
       imba: 'قالب Imba',
       java: 'قالب Java',

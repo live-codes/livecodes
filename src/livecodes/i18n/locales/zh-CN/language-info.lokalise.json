@@ -279,6 +279,15 @@
   "haskell.name": {
     "translation": "Haskell"
   },
+  "haskellWasm.desc": {
+    "translation": "Haskell 由<tag-1>浏览器中的 GHC</tag-1>（即 GHC 的 WebAssembly 版本）进行编译和运行，该 GHC 完全在客户端运行。"
+  },
+  "haskellWasm.link": {
+    "translation": "<tag-1> <tag-2>Haskell 官方网站</tag-2> </tag-1> <tag-3> <tag-4>GHC 文档</tag-4> </tag-3> <tag-5> <tag-6>浏览器中的 GHC</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+  },
+  "haskellWasm.name": {
+    "translation": "Haskell (Wasm)"
+  },
   "imba.desc": {
     "translation": "友好的全栈语言。"
   },

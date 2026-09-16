@@ -1983,6 +1983,9 @@
   "templates.starter.haskell": {
     "translation": "شروع کننده Haskell"
   },
+  "templates.starter.haskell-wasm": {
+    "translation": "شروع کننده Haskell (Wasm)"
+  },
   "templates.starter.heading": {
     "translation": "قالب‌های شروع کننده"
   },

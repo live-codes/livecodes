@@ -1002,6 +1002,7 @@ const translation: I18nTranslation = {
       go: 'Démarrage Go',
       'go-wasm': 'Démarrage Go (Wasm)',
       haskell: 'Démarrage Haskell',
+      'haskell-wasm': 'Démarrage Haskell (Wasm)',
       heading: 'Modèles de Démarrage',
       imba: 'Démarrage Imba',
       java: 'Démarrage Java',
