@@ -55,6 +55,7 @@ const storyDef: StoryDef = {
   FSharp: { props: { template: 'fsharp' } },
   FSharpWasm: { props: { template: 'fsharp-wasm' } },
   Haskell: { props: { template: 'haskell' } },
+  HaskellWasm: { props: { template: 'haskell-wasm' } },
   Scheme: { props: { template: 'scheme' } },
   CommonLisp: { props: { template: 'commonlisp' } },
   ClojureScript: { props: { template: 'clojurescript' }, storyName: 'ClojureScript' },

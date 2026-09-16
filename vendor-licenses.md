@@ -34,6 +34,8 @@ BrowserFS: [MIT License](https://github.com/jvilk/BrowserFS/blob/76fd5122fcf3ad6
 
 brython: [BSD-3-Clause license](https://github.com/brython-dev/brython/blob/c579e26d7e24c37c77f00fc345af0248ca6be8eb/LICENCE.txt)
 
+bsdtar-wasm: [BSD licenses](https://github.com/haskell-wasm/bsdtar-wasm/blob/012117de366c13285036f37b4fcd9a59d1a06fbb/LICENSE)
+
 chai: [MIT License](https://github.com/chaijs/chai/blob/1a8247f30dbe0f54268a9748ae673caec75d6bfe/LICENSE)
 
 Cherry: [EPL-1.0 License](https://github.com/squint-cljs/cherry/blob/60adcf6e3a8fb940a80c6a193599da0272fe3058/epl-v10.html)
@@ -93,6 +95,8 @@ FlexSearch: [Apache License 2.0](https://github.com/nextapps-de/flexsearch/blob/
 flow-remove-types: [MIT License](https://github.com/facebook/flow/blob/3ebee9f08106eb8aefbf98111fee696d333b8456/packages/flow-remove-types/LICENSE)
 
 Fscreen: [MIT License](https://github.com/rafgraph/fscreen/blob/04244204efff724253df24f78336c9a2b7bc6505/LICENSE)
+
+GHC: [BSD-3-Clause and bundled component licenses](https://gitlab.haskell.org/ghc/ghc/-/blob/master/LICENSE)
 
 github-markdown-css: [MIT License](https://github.com/sindresorhus/github-markdown-css/blob/888d5a03223a2c14a8d3eb40e90a22f62469a46b/license)
 

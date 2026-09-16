@@ -53,7 +53,8 @@
   "include": [
     "src/**/*.ts",
     "src/sdk/react.tsx",
-    "src/livecodes/languages/fsharp-wasm/lang-fsharp-wasm-worker.raw.js"
+    "src/livecodes/languages/fsharp-wasm/lang-fsharp-wasm-worker.raw.js",
+    "src/livecodes/languages/haskell-wasm/lang-haskell-wasm-worker.raw.js"
   ],
   "exclude": ["**/node_modules/**", "src/livecodes/i18n/locales/**"]
 }

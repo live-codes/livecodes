@@ -29,6 +29,7 @@ import { goWasm } from './go-wasm';
 import { haml } from './haml';
 import { handlebars } from './handlebars';
 import { haskell } from './haskell';
+import { haskellWasm } from './haskell-wasm';
 import { html } from './html';
 import { imba } from './imba';
 import { java } from './java';
@@ -162,6 +163,7 @@ export const languages: LanguageSpecs[] = [
   fsharp,
   fsharpWasm,
   haskell,
+  haskellWasm,
   scheme,
   commonlisp,
   clojurescript,
