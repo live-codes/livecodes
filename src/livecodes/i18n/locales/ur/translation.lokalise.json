@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "ڈایاگرامز شروعاتی"
   },
+  "templates.starter.elm": {
+    "translation": "ایلم شروعاتی"
+  },
   "templates.starter.fennel": {
     "translation": "فینل شروعاتی"
   },

@@ -98,6 +98,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Sitio web oficial</2></1> <3> <4>Documentación de LiveCodes</4> </3>',
     name: 'EJS',
   },
+  elm: {
+    desc: 'Elm se compila a JavaScript en el navegador mediante una versión de WebAssembly del compilador de Elm.',
+    link: '<1><2>Página web oficial de Elm</2></1> <3><4>Guía de Elm</4></3> <5> <6>Documentación de LiveCodes</6> </5> <7> <8>Cargar plantilla de inicio</8> </7>',
+    name: 'Elm',
+  },
   eta: {
     desc: 'Motor de plantillas JS integrado para Node, Deno y el navegador. Ligero, rápido y conectable. Escrito en TypeScript.',
     link: '<1><2>Sitio web oficial</2></1> <3> <4>Documentación</4> </3> <5> <6>Documentación de LiveCodes</6> </5>',

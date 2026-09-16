@@ -993,6 +993,7 @@ const translation: I18nTranslation = {
       d3: 'قالب D3',
       daisyui: 'قالب daisyUI',
       diagrams: 'قالب الرسوم البيانية',
+      elm: 'قالب Elm',
       fennel: 'قالب Fennel',
       fsharp: 'قالب F#',
       'fsharp-wasm': 'قالب F# (Wasm)',

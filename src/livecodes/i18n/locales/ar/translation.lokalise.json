@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "قالب الرسوم البيانية"
   },
+  "templates.starter.elm": {
+    "translation": "قالب Elm"
+  },
   "templates.starter.fennel": {
     "translation": "قالب Fennel"
   },

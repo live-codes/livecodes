@@ -99,6 +99,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Situs web resmi</2></1> <3> <4>Dokumentasi LiveCodes</4> </3>',
     name: 'EJS',
   },
+  elm: {
+    desc: 'Elm dikompilasi menjadi JavaScript di dalam browser melalui versi WebAssembly dari kompiler Elm.',
+    link: '<1><2>Situs web resmi Elm</2></1> <3><4>Panduan Elm</4></3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat templat awal</8> </7>',
+    name: 'Elm',
+  },
   eta: {
     desc: 'Mesin template JS tertanam untuk Node, Deno, dan browser. Ringan, cepat, dan pluggable. Ditulis dalam TypeScript.',
     link: '<1><2>Situs web resmi</2></1> <3> <4>Dokumentasi</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5>',

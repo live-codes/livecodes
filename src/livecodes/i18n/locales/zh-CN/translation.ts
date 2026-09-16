@@ -991,6 +991,7 @@ const translation: I18nTranslation = {
       d3: 'D3 启动模板',
       daisyui: 'daisyUI 启动模板',
       diagrams: '图表启动模板',
+      elm: 'Elm 启动模板',
       fennel: 'Fennel 启动模板',
       fsharp: 'F# 启动模板',
       'fsharp-wasm': 'F#（WASM）启动模板',

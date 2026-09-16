@@ -994,6 +994,7 @@ const translation: I18nTranslation = {
       d3: 'D3 Başlangıç',
       daisyui: 'daisyUI Başlangıç',
       diagrams: 'Diyagramlar Başlangıç',
+      elm: 'Elm Başlangıç',
       fennel: 'Fennel Başlangıç',
       fsharp: 'F# Başlangıç',
       'fsharp-wasm': 'F# (Wasm) Başlangıç',

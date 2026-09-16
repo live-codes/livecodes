@@ -99,6 +99,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Hivatalos weboldal</2></1> <3> <4>LiveCodes dokumentáció</4> </3>',
     name: 'EJS',
   },
+  elm: {
+    desc: 'Az Elm-et a böngészőben az Elm-fordító WebAssembly-verziója fordítja le JavaScript-re.',
+    link: '<1><2>Az Elm hivatalos weboldala</2></1> <3><4>Elm útmutató</4></3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
+    name: 'Elm',
+  },
   eta: {
     desc: 'Beágyazott JS sablonmotor Node-hoz, Deno-hoz és a böngészőhöz. Könnyűsúlyú, gyors és bővíthető. TypeScript-ben írva.',
     link: '<1><2>Hivatalos weboldal</2></1> <3> <4>Dokumentáció</4> </3> <5> <6>LiveCodes dokumentáció</6> </5>',
