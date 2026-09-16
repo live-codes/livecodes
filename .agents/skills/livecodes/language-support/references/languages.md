@@ -121,6 +121,7 @@ Enabled via `processors` config:
 | C++           | `cpp`, `c`, `cpp-wasm`, `wasm.cpp`        | Clang WASM              |
 | Java          | `java`                                    | Java runtime            |
 | C#            | `csharp-wasm`, `cs`, `cs-wasm`, `wasm.cs` | C# WASM                 |
+| VB.NET        | `vb-wasm`, `vb`, `vbnet`, `wasm.vb`       | VB.NET WASM             |
 | R             | `r`, `rlang`, `rstats`, `r-wasm`          | R WASM                  |
 | Lua           | `lua`, `lua-wasm`, `luawasm`, `wasm.lua`  | Lua WASM                |
 | Teal          | `teal`, `tl`                              | Typed Lua               |

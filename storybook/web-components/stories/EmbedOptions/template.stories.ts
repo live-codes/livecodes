@@ -66,6 +66,7 @@ export const RustWasm = livecodesStory({ template: 'rust-wasm' });
 export const ZigWasm = livecodesStory({ template: 'zig-wasm' });
 export const Java = livecodesStory({ template: 'java' });
 export const CSharpWasm = livecodesStory({ template: 'csharp-wasm' });
+export const VbWasm = livecodesStory({ template: 'vb-wasm' });
 export const FSharp = livecodesStory({ template: 'fsharp' });
 export const FSharpWasm = livecodesStory({ template: 'fsharp-wasm' });
 export const Haskell = livecodesStory({ template: 'haskell' });

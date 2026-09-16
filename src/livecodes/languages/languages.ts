@@ -82,6 +82,7 @@ import { tcl } from './tcl';
 import { teal } from './teal';
 import { twig } from './twig';
 import { typescript } from './typescript';
+import { vbWasm } from './vb-wasm';
 import { vento } from './vento';
 import { vue, vueApp } from './vue';
 import { vue2 } from './vue2';
@@ -162,6 +163,7 @@ export const languages: LanguageSpecs[] = [
   zigWasm,
   java,
   csharpWasm,
+  vbWasm,
   fsharp,
   fsharpWasm,
   haskell,
