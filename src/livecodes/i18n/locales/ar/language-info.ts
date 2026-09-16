@@ -97,6 +97,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>الموقع الرسمي</2></1> <3> <4>وثائق LiveCodes</4> </3>',
     name: 'EJS',
   },
+  elm: {
+    desc: 'يتم ترجمة لغة Elm إلى JavaScript في المتصفح بواسطة إصدار WebAssembly من مُترجم Elm.',
+    link: '<1><2>الموقع الرسمي لـ Elm</2></1> <3><4>دليل Elm</4></3> <5> <6>وثائق LiveCodes</6> </5> <7> <8>تحميل قالب البداية</8> </7>',
+    name: 'Elm',
+  },
   eta: {
     desc: 'محرك قوالب JS مضمن لـ Node وDeno والمتصفح. خفيف وسريع وقابل للتوسيع. مكتوب بلغة TypeScript.',
     link: '<1><2>الموقع الرسمي</2></1> <3> <4>الوثائق</4> </3> <5> <6>وثائق LiveCodes</6> </5>',

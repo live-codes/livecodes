@@ -993,6 +993,7 @@ const translation: I18nTranslation = {
       d3: 'D3 স্টার্টার',
       daisyui: 'daisyUI স্টার্টার',
       diagrams: 'Diagrams স্টার্টার',
+      elm: 'Elm স্টার্টার',
       fennel: 'Fennel স্টার্টার',
       fsharp: 'F# স্টার্টার',
       'fsharp-wasm': 'F# (Wasm) স্টার্টার',

@@ -98,6 +98,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Officiële website</2></1> <3> <4>LiveCodes Documentatie</4> </3>',
     name: 'EJS',
   },
+  elm: {
+    desc: 'Elm wordt in de browser naar JavaScript gecompileerd door een WebAssembly-versie van de Elm-compiler.',
+    link: '<1><2>Officiële website van Elm</2></1> <3><4>Elm-handleiding</4></3> <5> <6>LiveCodes-documentatie</6> </5> <7> <8>Startersjabloon laden</8> </7>',
+    name: 'Elm',
+  },
   eta: {
     desc: 'Embedded JS-sjabloonengine voor Node, Deno en de browser. Lichtgewicht, snel en pluggable. Geschreven in TypeScript.',
     link: '<1><2>Officiële website</2></1> <3> <4>Documentatie</4> </3> <5> <6>LiveCodes Documentatie</6> </5>',

@@ -993,6 +993,7 @@ const translation: I18nTranslation = {
       d3: 'Pemula D3',
       daisyui: 'Pemula daisyUI',
       diagrams: 'Pemula Diagram',
+      elm: 'Pemula Elm',
       fennel: 'Pemula Fennel',
       fsharp: 'Pemula F#',
       'fsharp-wasm': 'Pemula F# (Wasm)',

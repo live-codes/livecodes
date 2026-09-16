@@ -98,6 +98,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>公式ウェブサイト</2></1> <3> <4>LiveCodes ドキュメント</4> </3>',
     name: 'EJS',
   },
+  elm: {
+    desc: 'Elmは、ElmコンパイラのWebAssemblyビルドによって、ブラウザ上でJavaScriptにコンパイルされます。',
+    link: '<1><2>Elm公式サイト</2></1> <3><4>Elmガイド</4></3> <5> <6>LiveCodes ドキュメント</6> </5> <7> <8>スターターテンプレートの読み込み</8> </7>',
+    name: 'Elm',
+  },
   eta: {
     desc: 'Node、Deno、ブラウザ用の埋め込み JS テンプレートエンジン。軽量、高速、プラガブル。TypeScript で書かれています。',
     link: '<1><2>公式ウェブサイト</2></1> <3> <4>ドキュメント</4> </3> <5> <6>LiveCodes ドキュメント</6> </5>',
