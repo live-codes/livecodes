@@ -1001,6 +1001,7 @@ const translation: I18nTranslation = {
       go: 'Go Başlangıç',
       'go-wasm': 'Go (Wasm) Başlangıç',
       haskell: 'Haskell Başlangıç',
+      'haskell-wasm': 'Haskell (Wasm) Başlangıç',
       heading: 'Başlangıç Şablonları',
       imba: 'Imba Başlangıç',
       java: 'Java Başlangıç',

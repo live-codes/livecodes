@@ -159,6 +159,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Site oficial do Haskell</2> </1> <3> <4>MicroHs no GitHub</4> </3> <5> <6>Documentação do LiveCodes</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
     name: 'Haskell',
   },
+  haskellWasm: {
+    desc: 'O Haskell é compilado e executado no navegador pelo <1>GHC in the browser</1>, uma versão do GHC em WebAssembly, que funciona inteiramente do lado do cliente.',
+    link: '<1> <2>Site oficial do Haskell</2> </1> <3> <4>Documentação do GHC</4> </3> <5> <6>O GHC no navegador</6> </5> <7> <8>Documentação do LiveCodes</8> </7> <9> <10>Carregar modelo inicial</10> </9>',
+    name: 'Haskell (Wasm)',
+  },
   imba: {
     desc: 'A linguagem amigável full-stack.',
     link: '<1><2>Site oficial</2></1>',

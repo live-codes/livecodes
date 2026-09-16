@@ -160,6 +160,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: "<1> <2>Haskell resmi web sitesi</2> </1> <3> <4>GitHub'daki MicroHs</4> </3> <5> <6>LiveCodes Belgeleri</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
     name: 'Haskell',
   },
+  haskellWasm: {
+    desc: 'Haskell, tamamen istemci tarafında çalışan GHC’nin bir WebAssembly derlemesi olan <1>“GHC in the browser”</1> tarafından derlenir ve tarayıcıda çalıştırılır.',
+    link: '<1> <2>Haskell resmi web sitesi</2> </1> <3> <4>GHC belgeleri</4> </3> <5> <6>Tarayıcıda GHC</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'Haskell (Wasm)',
+  },
   imba: {
     desc: 'Kullanımı kolay full-stack dil.',
     link: '<1><2>Resmi web sitesi</2></1>',

@@ -160,6 +160,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>A Haskell hivatalos honlapja</2> </1> <3> <4>MicroHs a GitHubon</4> </3> <5> <6>LiveCodes dokumentációk</6> </5> <7> <8>Indító sablon betöltése</8> </7>',
     name: 'Haskell',
   },
+  haskellWasm: {
+    desc: 'A Haskellt a böngészőben a <1>GHC in the browser</1>, a GHC WebAssembly-verziója fordítja le és futtatja, amely teljes egészében kliensoldalon fut.',
+    link: '<1> <2>A Haskell hivatalos honlapja</2> </1> <3> <4>A GHC dokumentációja</4> </3> <5> <6>A GHC a böngészőben</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Haskell (Wasm)',
+  },
   imba: {
     desc: 'A barátságos full-stack nyelv.',
     link: '<1><2>Hivatalos weboldal</2></1>',

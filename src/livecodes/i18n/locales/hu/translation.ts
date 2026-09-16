@@ -1001,6 +1001,7 @@ const translation: I18nTranslation = {
       go: 'Go kezdő',
       'go-wasm': 'Go (Wasm) kezdő',
       haskell: 'Haskell kezdő',
+      'haskell-wasm': 'Haskell (Wasm) kezdő',
       heading: 'Kezdő sablonok',
       imba: 'Imba kezdő',
       java: 'Java kezdő',

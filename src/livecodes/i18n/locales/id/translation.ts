@@ -1000,6 +1000,7 @@ const translation: I18nTranslation = {
       go: 'Pemula Go',
       'go-wasm': 'Pemula Go (Wasm)',
       haskell: 'Pemula Haskell',
+      'haskell-wasm': 'Pemula Haskell (Wasm)',
       heading: 'Template Pemula',
       imba: 'Pemula Imba',
       java: 'Pemula Java',

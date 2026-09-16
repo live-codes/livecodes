@@ -1002,6 +1002,7 @@ const translation: I18nTranslation = {
       go: 'Go-Starter',
       'go-wasm': 'Go (Wasm)-Starter',
       haskell: 'Haskell-Starter',
+      'haskell-wasm': 'Haskell (Wasm)-Starter',
       heading: 'Starter-Vorlagen',
       imba: 'Imba-Starter',
       java: 'Java-Starter',
