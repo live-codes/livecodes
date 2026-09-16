@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "Pemula Diagram"
   },
+  "templates.starter.elm": {
+    "translation": "Pemula Elm"
+  },
   "templates.starter.fennel": {
     "translation": "Pemula Fennel"
   },

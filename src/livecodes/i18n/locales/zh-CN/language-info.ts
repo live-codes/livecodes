@@ -97,6 +97,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>官方网站</2></1> <3> <4>LiveCodes 文档</4> </3>',
     name: 'EJS',
   },
+  elm: {
+    desc: 'Elm 通过 Elm 编译器的 WebAssembly 构建版本在浏览器中编译为 JavaScript。',
+    link: '<1><2>Elm 官方网站</2></1> <3><4>Elm 指南</4></3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
+    name: 'Elm',
+  },
   eta: {
     desc: '用于 Node、Deno 和浏览器的嵌入式 JS 模板引擎。轻巧、快速且可插拔。使用 TypeScript 编写。',
     link: '<1><2>官方网站</2></1> <3> <4>文档</4> </3> <5> <6>LiveCodes 文档</6> </5>',

@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "Diagrams স্টার্টার"
   },
+  "templates.starter.elm": {
+    "translation": "Elm স্টার্টার"
+  },
   "templates.starter.fennel": {
     "translation": "Fennel স্টার্টার"
   },

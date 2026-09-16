@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "图表启动模板"
   },
+  "templates.starter.elm": {
+    "translation": "Elm 启动模板"
+  },
   "templates.starter.fennel": {
     "translation": "Fennel 启动模板"
   },

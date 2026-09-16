@@ -98,6 +98,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Resmi web sitesi</2></1> <3> <4>LiveCodes Dokümantasyonu</4> </3>',
     name: 'EJS',
   },
+  elm: {
+    desc: "Elm, Elm derleyicisinin bir WebAssembly derlemesi aracılığıyla tarayıcıda JavaScript'e derlenir.",
+    link: '<1><2>Elm resmi web sitesi</2></1> <3><4>Elm kılavuzu</4></3> <5> <6>LiveCodes Belgeleri</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
+    name: 'Elm',
+  },
   eta: {
     desc: 'Node, Deno ve tarayıcı için gömülü JS şablon motoru. Hafif, hızlı ve eklenti destekli. TypeScript ile yazılmıştır.',
     link: '<1><2>Resmi web sitesi</2></1> <3> <4>Dokümantasyon</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5>',

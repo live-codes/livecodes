@@ -171,6 +171,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elm.desc": {
+    "translation": "Elm компилируется в JavaScript в браузере с помощью версии компилятора Elm, оптимизированной для WebAssembly."
+  },
+  "elm.link": {
+    "translation": "<tag-1><tag-2>Официальный сайт Elm</tag-2></tag-1> <tag-3><tag-4>Руководство по Elm</tag-4></tag-3> <tag-5> <tag-6>Документация по LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Загрузить стартовый шаблон</tag-8> </tag-7>"
+  },
+  "elm.name": {
+    "translation": "Elm"
+  },
   "eta.desc": {
     "translation": "Встроенный движок шаблонов JS для Node, Deno и браузера. Легкий, быстрый и расширяемый. Написан на TypeScript."
   },

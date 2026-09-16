@@ -171,6 +171,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elm.desc": {
+    "translation": "Elm est compilé en JavaScript dans le navigateur grâce à une version WebAssembly du compilateur Elm."
+  },
+  "elm.link": {
+    "translation": "<tag-1><tag-2>Site officiel d'Elm</tag-2></tag-1> <tag-3><tag-4>Guide d'Elm</tag-4></tag-3> <tag-5> <tag-6>Documentation LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Charger un modèle de démarrage</tag-8> </tag-7>"
+  },
+  "elm.name": {
+    "translation": "Elm"
+  },
   "eta.desc": {
     "translation": "Moteur de modèles JS embarqué pour Node, Deno et le navigateur. Léger, rapide et modulaire. Écrit en TypeScript."
   },

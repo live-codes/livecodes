@@ -995,6 +995,7 @@ const translation: I18nTranslation = {
       d3: 'Démarrage D3',
       daisyui: 'Démarrage daisyUI',
       diagrams: 'Démarrage Diagrammes',
+      elm: 'Démarrage Elm',
       fennel: 'Démarrage Fennel',
       fsharp: 'Démarrage F#',
       'fsharp-wasm': 'Démarrage F# (Wasm)',

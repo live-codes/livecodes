@@ -171,6 +171,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elm.desc": {
+    "translation": "Elm wordt in de browser naar JavaScript gecompileerd door een WebAssembly-versie van de Elm-compiler."
+  },
+  "elm.link": {
+    "translation": "<tag-1><tag-2>Officiële website van Elm</tag-2></tag-1> <tag-3><tag-4>Elm-handleiding</tag-4></tag-3> <tag-5> <tag-6>LiveCodes-documentatie</tag-6> </tag-5> <tag-7> <tag-8>Startersjabloon laden</tag-8> </tag-7>"
+  },
+  "elm.name": {
+    "translation": "Elm"
+  },
   "eta.desc": {
     "translation": "Embedded JS-sjabloonengine voor Node, Deno en de browser. Lichtgewicht, snel en pluggable. Geschreven in TypeScript."
   },

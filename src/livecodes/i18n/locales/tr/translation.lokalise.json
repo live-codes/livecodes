@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "Diyagramlar Başlangıç"
   },
+  "templates.starter.elm": {
+    "translation": "Elm Başlangıç"
+  },
   "templates.starter.fennel": {
     "translation": "Fennel Başlangıç"
   },

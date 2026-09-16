@@ -171,6 +171,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elm.desc": {
+    "translation": "يتم ترجمة لغة Elm إلى JavaScript في المتصفح بواسطة إصدار WebAssembly من مُترجم Elm."
+  },
+  "elm.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي لـ Elm</tag-2></tag-1> <tag-3><tag-4>دليل Elm</tag-4></tag-3> <tag-5> <tag-6>وثائق LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>تحميل قالب البداية</tag-8> </tag-7>"
+  },
+  "elm.name": {
+    "translation": "Elm"
+  },
   "eta.desc": {
     "translation": "محرك قوالب JS مضمن لـ Node وDeno والمتصفح. خفيف وسريع وقابل للتوسيع. مكتوب بلغة TypeScript."
   },

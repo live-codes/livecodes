@@ -171,6 +171,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elm.desc": {
+    "translation": "Elm, Elm derleyicisinin bir WebAssembly derlemesi aracılığıyla tarayıcıda JavaScript'e derlenir."
+  },
+  "elm.link": {
+    "translation": "<tag-1><tag-2>Elm resmi web sitesi</tag-2></tag-1> <tag-3><tag-4>Elm kılavuzu</tag-4></tag-3> <tag-5> <tag-6>LiveCodes Belgeleri</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "elm.name": {
+    "translation": "Elm"
+  },
   "eta.desc": {
     "translation": "Node, Deno ve tarayıcı için gömülü JS şablon motoru. Hafif, hızlı ve eklenti destekli. TypeScript ile yazılmıştır."
   },

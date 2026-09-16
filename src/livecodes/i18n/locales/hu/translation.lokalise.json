@@ -1962,6 +1962,9 @@
   "templates.starter.diagrams": {
     "translation": "Diagramok kezdő"
   },
+  "templates.starter.elm": {
+    "translation": "Elm kezdő"
+  },
   "templates.starter.fennel": {
     "translation": "Fennel kezdő"
   },
