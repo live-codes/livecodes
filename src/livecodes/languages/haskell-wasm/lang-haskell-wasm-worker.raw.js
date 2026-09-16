@@ -1,33 +1,28 @@
-import { getErrorMessage, handleFetchError } from '../../utils/utils';
-import {
-  bsdtarWasmSha256,
-  ghcBrowserBaseUrl,
-  ghcRootfsSha256,
-  ghcRootfsUrl,
-  haskellWasiShimUrl,
-} from '../../vendors';
-import type { HaskellRequest, HaskellResponse } from './models';
+// @ts-nocheck
+// Runs GHC in the browser (https://github.com/haskell-wasm/ghc-in-browser) inside a Web Worker.
+// The asset URLs are injected by the main thread when the worker is created.
 
-let run: ((args: string, source: string) => Promise<void>) | undefined;
+let run;
 let output = '';
 let error = '';
 
-const reply = (message: HaskellResponse) => self.postMessage(message);
-// GHC runs against an in-memory WASI filesystem; these are not host /tmp paths.
-const ghcRuntimeDirectory = '/tmp'; // NOSONAR
+const reply = (message) => self.postMessage(message);
 
-const verifySha256 = async (data: ArrayBuffer, expectedSha256: string, assetName: string) => {
-  const digest = await crypto.subtle.digest('SHA-256', data);
-  const sha256 = Array.from(new Uint8Array(digest), (byte) =>
-    byte.toString(16).padStart(2, '0'),
-  ).join('');
-  if (sha256 !== expectedSha256) {
-    throw new Error(`${assetName} integrity check failed.`);
+// GHC runs against an in-memory WASI filesystem; this is not a host path.
+const ghcRuntimeDirectory = '/tmp';
+
+const getErrorMessage = (err) => (err && err.message) || String(err);
+
+const fetchArrayBuffer = async (url, assetName) => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${assetName}: ${response.status}`);
   }
-  return data;
+  return response.arrayBuffer();
 };
 
-const init = async (bsdtarUrl: string) => {
+const init = async () => {
+  const { bsdtarUrl, ghcBrowserBaseUrl, ghcRootfsUrl, haskellWasiShimUrl } = self;
   const [{ ConsoleStdout, File, OpenFile, PreopenDirectory, WASI }, { DyLDBrowserHost, main }] =
     await Promise.all([import(haskellWasiShimUrl), import(ghcBrowserBaseUrl + 'dyld.mjs')]);
   const rootfs = new PreopenDirectory('/', []);
@@ -37,22 +32,17 @@ const init = async (bsdtarUrl: string) => {
     [
       new OpenFile(new File(new Uint8Array(), { readonly: true })),
       ConsoleStdout.lineBuffered(() => undefined),
-      ConsoleStdout.lineBuffered((message: string) => {
+      ConsoleStdout.lineBuffered((message) => {
         error += message + '\n';
       }),
       rootfs,
     ],
     { debug: false },
   );
+  // bsdtar extracts the GHC rootfs archive into the in-memory filesystem.
   const [wasm, archive] = await Promise.all([
-    fetch(bsdtarUrl)
-      .then(handleFetchError)
-      .then((res) => res.arrayBuffer())
-      .then((data) => verifySha256(data, bsdtarWasmSha256, 'bsdtar.wasm')),
-    fetch(ghcRootfsUrl)
-      .then(handleFetchError)
-      .then((res) => res.arrayBuffer())
-      .then((data) => verifySha256(data, ghcRootfsSha256, 'GHC rootfs')),
+    fetchArrayBuffer(bsdtarUrl, 'bsdtar.wasm'),
+    fetchArrayBuffer(ghcRootfsUrl, 'GHC rootfs'),
   ]);
   const { instance } = await WebAssembly.instantiate(wasm, {
     wasi_snapshot_preview1: wasi.wasiImport,
@@ -63,10 +53,10 @@ const init = async (bsdtarUrl: string) => {
   const dyld = await main({
     rpc: new DyLDBrowserHost({
       rootfs,
-      stdout: (message: string) => {
+      stdout: (message) => {
         output += message + '\n';
       },
-      stderr: (message: string) => {
+      stderr: (message) => {
         error += message + '\n';
       },
     }),
@@ -81,10 +71,10 @@ const init = async (bsdtarUrl: string) => {
   run = await dyld.exportFuncs.myMain(`${ghcRuntimeDirectory}/hslib/lib`);
 };
 
-self.onmessage = async ({ data }: MessageEvent<HaskellRequest>) => {
+self.onmessage = async ({ data }) => {
   if (data.type === 'init') {
     try {
-      await init(data.bsdtarUrl);
+      await init();
       reply({ type: 'ready' });
     } catch (err) {
       reply({

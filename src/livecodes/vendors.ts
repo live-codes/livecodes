@@ -254,6 +254,8 @@ export const fscreenUrl = /* @__PURE__ */ getUrl('fscreen@1.2.0/dist/fscreen.esm
 
 export const fsharpWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/fsharp-wasm@0.3.0/');
 
+export const ghcBrowserBaseUrl = /* @__PURE__ */ getUrl('unpkg:@live-codes/ghc-in-browser@0.1.0/');
+
 export const githubMarkdownCss = /* @__PURE__ */ getUrl(
   'github-markdown-css@5.1.0/github-markdown.css',
 );
@@ -265,6 +267,10 @@ export const go2jsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/go2js@0.5.0/buil
 export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.js');
 
 export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.8/dist/');
+
+export const haskellWasiShimUrl = /* @__PURE__ */ getUrl(
+  'https://esm.sh/gh/haskell-wasm/browser_wasi_shim@2f86b49dce50916e2984029c535321e34b234229',
+);
 
 export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.11.1');
 export const highlightjsStylesUrl = /* @__PURE__ */ getUrl(

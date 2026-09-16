@@ -69,6 +69,7 @@ export const CSharpWasm = livecodesStory({ template: 'csharp-wasm' });
 export const FSharp = livecodesStory({ template: 'fsharp' });
 export const FSharpWasm = livecodesStory({ template: 'fsharp-wasm' });
 export const Haskell = livecodesStory({ template: 'haskell' });
+export const HaskellWasm = livecodesStory({ template: 'haskell-wasm' });
 export const Scheme = livecodesStory({ template: 'scheme' });
 export const CommonLisp = livecodesStory({ template: 'commonlisp' });
 export const ClojureScript = livecodesStory({ template: 'clojurescript' });

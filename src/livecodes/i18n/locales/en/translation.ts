@@ -1007,6 +1007,7 @@ const translation = {
       go: 'Go Starter',
       'go-wasm': 'Go (Wasm) Starter',
       haskell: 'Haskell Starter',
+      'haskell-wasm': 'Haskell (Wasm) Starter',
       heading: 'Starter Templates',
       imba: 'Imba Starter',
       java: 'Java Starter',

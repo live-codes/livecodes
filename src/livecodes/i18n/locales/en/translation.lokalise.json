@@ -2644,6 +2644,10 @@
     "notes": "",
     "translation": "Haskell Starter"
   },
+  "templates.starter.haskell-wasm": {
+    "notes": "",
+    "translation": "Haskell (Wasm) Starter"
+  },
   "templates.starter.heading": {
     "notes": "",
     "translation": "Starter Templates"
