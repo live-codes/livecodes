@@ -54,6 +54,7 @@ export const starterTemplates = {
   "fsharp": "F# Starter",
   "fsharp-wasm": "F# (Wasm) Starter",
   "haskell": "Haskell Starter",
+  "haskell-wasm": "Haskell (Wasm) Starter",
   "scheme": "Scheme Starter",
   "commonlisp": "Common Lisp Starter",
   "clojurescript": "ClojureScript Starter",

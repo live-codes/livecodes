@@ -166,6 +166,11 @@ const languageInfo = {
     link: '<1> <2>Haskell official website</2> </1> <3> <4>MicroHs on GitHub</4> </3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'Haskell',
   },
+  haskellWasm: {
+    desc: 'Haskell is compiled and run in the browser by <1>GHC in the browser</1>, a WebAssembly build of GHC, running entirely client-side.',
+    link: '<1> <2>Haskell official website</2> </1> <3> <4>GHC documentation</4> </3> <5> <6>GHC in the browser</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Haskell (Wasm)',
+  },
   imba: {
     desc: 'The friendly full-stack language.',
     link: '<1><2>Official website</2></1>',

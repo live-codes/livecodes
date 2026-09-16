@@ -132,6 +132,7 @@ Enabled via `processors` config:
 | Perl          | `perl`, `pl`, `pm`                        | Perl runtime            |
 | Gleam         | `gleam`                                   | Gleam language          |
 | Haskell       | `haskell`, `hs`, `lhs`                    | MicroHs (not GHC)       |
+| Haskell (Wasm) | `haskell-wasm`, `hs-wasm`, `wasm.hs`, `hswasm` | GHC WASM             |
 | Tcl           | `tcl`                                     | Tcl interpreter         |
 | WebAssembly   | `wat`, `wast`, `wasm`, `webassembly`      | WAT format              |
 

@@ -310,6 +310,7 @@ export const getCommandMenuActions = ({
         'fsharp',
         'fsharp-wasm',
         'haskell',
+        'haskell-wasm',
         'scheme',
         'commonlisp',
         'clojurescript',

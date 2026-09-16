@@ -1,0 +1,124 @@
+# Haskell (Wasm)
+
+[Haskell](https://www.haskell.org/) is a statically typed, purely functional programming language with lazy evaluation.
+
+LiveCodes compiles and runs Haskell in the browser using [GHC in the browser](https://github.com/haskell-wasm/ghc-in-browser),
+a WebAssembly build of the [Glasgow Haskell Compiler (GHC)](https://www.haskell.org/ghc/) and its libraries.
+The compiler runs in a web worker, so no backend is involved.
+
+## Basic Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const params = {
+  'haskell-wasm': `-- A lazy, infinite list of Fibonacci numbers.
+fibs :: [Integer]
+fibs = 0 : 1 : zipWith (+) fibs (drop 1 fibs)
+
+main :: IO ()
+main = do
+  putStrLn "Hello, Haskell!"
+  print (take 10 fibs)
+  print (sum [1 .. 100])
+`,
+  console: 'full',
+};
+
+<LiveCodes params={params}></LiveCodes>
+
+See below for more examples.
+
+## Usage
+
+By default the code is run on page load and the output is logged to the integrated console.
+In addition, helper methods are available to run the code from JavaScript.
+
+### Communication with JavaScript
+
+Helper methods are available in the browser global `livecodes.haskellWasm` object:
+
+- `livecodes.haskellWasm.loaded`: A promise that resolves after the initial execution completes,
+  or rejects if loading or execution fails. Compiler warnings do not reject it.
+- `livecodes.haskellWasm.run`: A method that runs the current editor code again, optionally with
+  new input, and returns a promise that resolves to `{ output, error, exitCode }`. Calls are queued,
+  because GHC's interactive session cannot execute concurrently.
+- `livecodes.haskellWasm.input`: The input provided to the program as `stdin` (see below).
+- `livecodes.haskellWasm.output`: The `stdout` of the last run.
+- `livecodes.haskellWasm.error`: The compiler/runtime diagnostics of the last run (empty when there
+  are none).
+- `livecodes.haskellWasm.exitCode`: `0` on success, a non-zero value on error.
+
+Example:
+
+<LiveCodes template="haskell-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+## Input (stdin)
+
+The input string is provided to the program as standard input, so ordinary Haskell works unchanged:
+
+```haskell
+main :: IO ()
+main = do
+  name <- getLine
+  putStrLn ("Hello, " ++ name ++ "!")
+```
+
+Set `livecodes.haskellWasm.input` before the first run, or pass the input to
+`livecodes.haskellWasm.run(input)` for subsequent runs. The input is fed once per run, and reading
+past its end returns end-of-file.
+
+## Language Info
+
+### Name
+
+`haskell-wasm`
+
+### Aliases / Extensions
+
+`haskell-wasm`, `hs-wasm`, `wasm.hs`, `hswasm`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[GHC in the browser](https://github.com/haskell-wasm/ghc-in-browser), a WebAssembly build of GHC.
+
+The compiler and its bundled libraries (about 49 MB compressed) are downloaded on first use, and
+are then cached by the browser.
+
+### Version
+
+GHC `9.14.0.20251031`
+
+## Code Formatting
+
+Not supported.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the GHC WebAssembly environment. This behavior can be disabled by adding the code comment `-- __livecodes_reload__` to the Haskell code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Limitations
+
+- The first run downloads approximately 49 MB of compressed compiler and library data.
+- This integration uses GHC `9.14.0.20251031` and the libraries bundled with that build. Installing
+  Cabal/Hackage packages is not supported.
+- Haskell runs in a worker, without direct access to the DOM or the page's JavaScript variables.
+- Output is line-buffered. Compiler diagnostics and program stderr share the `error` field, including
+  warnings.
+- Initialization has a five-minute timeout; each compilation/execution has a two-minute timeout. A
+  timeout discards the worker, and a later run starts a new one.
+
+## Starter Template
+
+https://livecodes.io/?template=haskell-wasm
+
+## Links
+
+- [Haskell](https://www.haskell.org/)
+- [GHC documentation](https://www.haskell.org/ghc/documentation.html)
+- [GHC in the browser](https://github.com/haskell-wasm/ghc-in-browser)
