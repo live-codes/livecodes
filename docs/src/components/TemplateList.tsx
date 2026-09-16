@@ -33,6 +33,7 @@ const templates = [
   { name: 'civet', title: 'Civet Starter', thumbnail: 'civet.png' },
   { name: 'clio', title: 'Clio Starter', thumbnail: 'clio.png' },
   { name: 'imba', title: 'Imba Starter', thumbnail: 'imba.svg' },
+  { name: 'elm', title: 'Elm Starter', thumbnail: 'elm.svg' },
   { name: 'rescript', title: 'ReScript Starter', thumbnail: 'rescript.png' },
   { name: 'reason', title: 'Reason Starter', thumbnail: 'reason.svg' },
   { name: 'ocaml', title: 'Ocaml Starter', thumbnail: 'ocaml.svg' },

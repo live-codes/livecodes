@@ -295,6 +295,31 @@ test.describe('Starter Templates from UI', () => {
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
+  test('elm Starter', async ({ page, getTestUrl }) => {
+    // the Elm compiler (ulm.wasm, ~10.6 MB) is downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Elm Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // nothing is rendered until the compiler is downloaded and the code has run
+    await expect(getResult().locator('h1')).toHaveText('Hello, Elm!', { timeout: 280_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
   test('d3 Starter', async ({ page, getTestUrl, editor }) => {
     test.slow();
 

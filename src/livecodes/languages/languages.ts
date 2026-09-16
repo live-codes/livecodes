@@ -18,6 +18,7 @@ import { css } from './css';
 import { diagrams } from './diagrams';
 import { dot } from './dot';
 import { ejs } from './ejs';
+import { elm } from './elm';
 import { eta } from './eta';
 import { fennel } from './fennel';
 import { flow } from './flow';
@@ -142,6 +143,7 @@ export const languages: LanguageSpecs[] = [
   civet,
   clio,
   imba,
+  elm,
   rescript,
   reason,
   ocaml,
