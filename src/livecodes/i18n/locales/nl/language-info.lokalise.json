@@ -279,6 +279,15 @@
   "haskell.name": {
     "translation": "Haskell"
   },
+  "haskellWasm.desc": {
+    "translation": "Haskell wordt in de browser gecompileerd en uitgevoerd door <tag-1>GHC in de browser</tag-1>, een WebAssembly-versie van GHC die volledig aan de clientzijde draait."
+  },
+  "haskellWasm.link": {
+    "translation": "<tag-1> <tag-2>Officiële website van Haskell</tag-2> </tag-1> <tag-3> <tag-4>GHC-documentatie</tag-4> </tag-3> <tag-5> <tag-6>GHC in de browser</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startersjabloon laden</tag-10> </tag-9>"
+  },
+  "haskellWasm.name": {
+    "translation": "Haskell (Wasm)"
+  },
   "imba.desc": {
     "translation": "De vriendelijke full-stack taal."
   },

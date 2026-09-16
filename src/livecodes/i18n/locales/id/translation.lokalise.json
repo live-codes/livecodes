@@ -1983,6 +1983,9 @@
   "templates.starter.haskell": {
     "translation": "Pemula Haskell"
   },
+  "templates.starter.haskell-wasm": {
+    "translation": "Pemula Haskell (Wasm)"
+  },
   "templates.starter.heading": {
     "translation": "Template Pemula"
   },

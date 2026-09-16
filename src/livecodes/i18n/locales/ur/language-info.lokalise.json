@@ -279,6 +279,15 @@
   "haskell.name": {
     "translation": "Haskell"
   },
+  "haskellWasm.desc": {
+    "translation": "ہاسکل کو <tag-1>براؤزر میں GHC</tag-1> کے ذریعے براؤزر میں مرتب اور چلایا جاتا ہے، جو کہ GHC کی ایک WebAssembly تعمیر ہے، جو مکمل طور پر کلائنٹ سائیڈ پر چل رہا ہے۔"
+  },
+  "haskellWasm.link": {
+    "translation": "<tag-1> <tag-2>ہاسکل کی سرکاری ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>GHC دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>براؤزر میں GHC</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>اسٹارٹر ٹیمپلیٹ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "haskellWasm.name": {
+    "translation": "Haskell (Wasm)"
+  },
   "imba.desc": {
     "translation": "دوستانہ فل-اسٹیک زبان۔"
   },

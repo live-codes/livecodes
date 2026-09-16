@@ -160,6 +160,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi Haskell</2> </1> <3> <4>MicroHs di GitHub</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat templat awal</8> </7>',
     name: 'Haskell',
   },
+  haskellWasm: {
+    desc: 'Haskell dikompilasi dan dijalankan di dalam browser oleh <1>GHC in the browser</1>, yaitu versi GHC yang dibangun menggunakan WebAssembly, yang sepenuhnya berjalan di sisi klien.',
+    link: '<1> <2>Situs web resmi Haskell</2> </1> <3> <4>Dokumentasi GHC</4> </3> <5> <6>GHC di browser</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Haskell (Wasm)',
+  },
   imba: {
     desc: 'Bahasa full-stack yang ramah.',
     link: '<1><2>Situs web resmi</2></1>',

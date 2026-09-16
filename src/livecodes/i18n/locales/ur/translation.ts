@@ -1000,6 +1000,7 @@ const translation: I18nTranslation = {
       go: 'گو شروعاتی',
       'go-wasm': 'گو (واسم) شروعاتی',
       haskell: 'ہاسکل شروعاتی',
+      'haskell-wasm': 'ہاسکل (واسم) شروعاتی',
       heading: 'شروعاتی سانچے',
       imba: 'امبا شروعاتی',
       java: 'جاوا شروعاتی',

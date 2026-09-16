@@ -20,6 +20,7 @@ export const haskellWasm: LanguageSpecs = {
       languageSupport: async () =>
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-haskell.js')).haskell),
     },
+    codejar: { language: 'haskell' },
   },
   largeDownload: true,
 };

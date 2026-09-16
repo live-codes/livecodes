@@ -155,6 +155,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Haskell 官方网站</2> </1> <3> <4>GitHub 上的 MicroHs</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
     name: 'Haskell',
   },
+  haskellWasm: {
+    desc: 'Haskell 由<1>浏览器中的 GHC</1>（即 GHC 的 WebAssembly 版本）进行编译和运行，该 GHC 完全在客户端运行。',
+    link: '<1> <2>Haskell 官方网站</2> </1> <3> <4>GHC 文档</4> </3> <5> <6>浏览器中的 GHC</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Haskell (Wasm)',
+  },
   imba: {
     desc: '友好的全栈语言。',
     link: '<1><2>官方网站</2></1>',

@@ -1983,6 +1983,9 @@
   "templates.starter.haskell": {
     "translation": "Haskell 启动模板"
   },
+  "templates.starter.haskell-wasm": {
+    "translation": "Haskell (Wasm) 启动模板"
+  },
   "templates.starter.heading": {
     "translation": "启动模板"
   },

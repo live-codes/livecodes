@@ -1000,6 +1000,7 @@ const translation: I18nTranslation = {
       go: 'Inicio Go',
       'go-wasm': 'Inicio Go (Wasm)',
       haskell: 'Inicio Haskell',
+      'haskell-wasm': 'Inicio Haskell (Wasm)',
       heading: 'Plantillas de Inicio',
       imba: 'Inicio Imba',
       java: 'Inicio Java',

@@ -279,6 +279,15 @@
   "haskell.name": {
     "translation": "Haskell"
   },
+  "haskellWasm.desc": {
+    "translation": "يتم ترجمة لغة هاسكل وتشغيلها في المتصفح بواسطة <tag-1>GHC في المتصفح</tag-1>، وهو إصدار من GHC مبني على WebAssembly، ويعمل بالكامل من جانب العميل."
+  },
+  "haskellWasm.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي للغة هاسكل</tag-2> </tag-1> <tag-3> <tag-4>وثائق GHC</tag-4> </tag-3> <tag-5> <tag-6>GHC في المتصفح</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البداية</tag-10> </tag-9>"
+  },
+  "haskellWasm.name": {
+    "translation": "Haskell (Wasm)"
+  },
   "imba.desc": {
     "translation": "اللغة الودودة للتطوير الشامل."
   },
