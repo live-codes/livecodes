@@ -20,7 +20,7 @@ export const vbWasm: LanguageSpecs = {
       languageSupport: async () =>
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-vb.js')).vb),
     },
-    codejar: { language: 'vb' },
+    codejar: { language: 'vbnet' },
   },
   largeDownload: true,
 };
