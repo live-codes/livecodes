@@ -105,6 +105,11 @@ const languageInfo = {
     link: '<1><2>Official website</2></1> <3> <4>LiveCodes Documentations</4> </3>',
     name: 'EJS',
   },
+  elm: {
+    desc: 'Elm is compiled to JavaScript in the browser by a WebAssembly build of the Elm compiler.',
+    link: '<1><2>Elm official website</2></1> <3><4>Elm guide</4></3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'Elm',
+  },
   eta: {
     desc: 'Embedded JS template engine for Node, Deno, and the browser. Lightweight, fast, and pluggable. Written in TypeScript.',
     link: '<1><2>Official website</2></1> <3> <4>Documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>',

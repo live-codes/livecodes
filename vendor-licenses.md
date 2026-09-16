@@ -74,6 +74,8 @@ EJS: [Apache License 2.0](https://github.com/mde/ejs/blob/f47d7aedd51a983e4f7304
 
 elkjs-svg: [MIT License](https://github.com/EmilStenstrom/elkjs-svg/blob/4a8709b2407d23218904f523552c565a37764e40/LICENSE)
 
+Elm: [BSD-3-Clause License](https://github.com/elm/compiler/blob/1bd5b36915a38335195ca7792fe3995f53d84d5e/LICENSE)
+
 emmet-monaco-es: [MIT License](https://github.com/troy351/emmet-monaco-es/blob/b578210738fb591c65fb34530d28c0d0341fbb7d/LICENSE)
 
 ES Module Shims: [MIT License](https://github.com/guybedford/es-module-shims/blob/986733009f4c9374decd4c0348740134ff499157/LICENSE)

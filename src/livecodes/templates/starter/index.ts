@@ -18,6 +18,7 @@ import { csharpWasmStarter } from './csharp-wasm-starter';
 import { d3Starter } from './d3-starter';
 import { daisyuiStarter } from './daisyui-starter';
 import { diagramsStarter } from './diagrams-starter';
+import { elmStarter } from './elm-starter';
 import { fennelStarter } from './fennel-starter';
 import { fsharpStarter } from './fsharp-starter';
 import { fsharpWasmStarter } from './fsharp-wasm-starter';
@@ -111,6 +112,7 @@ export const starterTemplates = [
   civetStarter,
   clioStarter,
   imbaStarter,
+  elmStarter,
   rescriptStarter,
   reasonStarter,
   ocamlStarter,

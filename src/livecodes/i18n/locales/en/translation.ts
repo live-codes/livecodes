@@ -1000,6 +1000,7 @@ const translation = {
       d3: 'D3 Starter',
       daisyui: 'daisyUI Starter',
       diagrams: 'Diagrams Starter',
+      elm: 'Elm Starter',
       fennel: 'Fennel Starter',
       fsharp: 'F# Starter',
       'fsharp-wasm': 'F# (Wasm) Starter',
