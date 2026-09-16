@@ -74,6 +74,7 @@ export default function Sliders() {
       { name: 'civet', title: 'Civet' },
       { name: 'clio', title: 'Clio' },
       { name: 'imba', title: 'Imba' },
+      { name: 'elm', title: 'Elm' },
       { name: 'rescript', title: 'ReScript' },
       { name: 'reason', title: 'Reason' },
       { name: 'ocaml', title: 'OCaml' },

@@ -233,6 +233,7 @@ const iifeBuild = () =>
       'languages/zig-wasm/lang-zig-wasm-script.ts',
       'languages/dot/lang-dot-compiler.ts',
       'languages/ejs/lang-ejs-compiler.ts',
+      'languages/elm/lang-elm-compiler.ts',
       'languages/eta/lang-eta-compiler.ts',
       'languages/fsharp/lang-fsharp-compiler.ts',
       'languages/fsharp-wasm/lang-fsharp-wasm-script.ts',

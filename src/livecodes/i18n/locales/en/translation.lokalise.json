@@ -2616,6 +2616,10 @@
     "notes": "",
     "translation": "Diagrams Starter"
   },
+  "templates.starter.elm": {
+    "notes": "",
+    "translation": "Elm Starter"
+  },
   "templates.starter.fennel": {
     "notes": "",
     "translation": "Fennel Starter"

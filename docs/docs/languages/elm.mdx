@@ -1,0 +1,108 @@
+# Elm
+
+[Elm](https://elm-lang.org/) is a delightful language for reliable web applications.
+It is a purely functional language that compiles to JavaScript.
+
+LiveCodes compiles Elm in the browser using
+[@live-codes/elm-wasm](https://www.npmjs.com/package/@live-codes/elm-wasm),
+a WebAssembly build of the Elm compiler.
+
+## Basic Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const config = {
+  activeEditor: 'script',
+  script: {
+    language: 'elm',
+    content: `module Main exposing (main)\n
+import Browser
+import Html exposing (Html, button, div, h1, text)
+import Html.Events exposing (onClick)\n\n
+type alias Model =
+    Int\n\n
+type Msg
+    = Increment\n\n
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        Increment ->
+            model + 1\n\n
+view : Model -> Html Msg
+view model =
+    div []
+        [ h1 [] [ text ("You clicked " ++ String.fromInt model ++ " times.") ]
+        , button [ onClick Increment ] [ text "Click me" ]
+        ]\n\n
+main : Program () Model Msg
+main =
+    Browser.sandbox { init = 0, update = update, view = view }
+`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+};
+
+<LiveCodes config={config}></LiveCodes>
+
+See below for more examples.
+
+## Usage
+
+Write Elm code in the script editor. The module must expose `main` (e.g.
+`module Main exposing (main)`), as required by the Elm compiler.
+
+The code is compiled to JavaScript, then the compiled program is initialized in the result page
+by a `Elm.<ModuleName>.init({ node })` call into a `div` appended to the page body.
+If you wish to use a specific DOM element use `"livecodes-app"` as the element `id`.
+This works for the common program types (`Browser.sandbox`, `Browser.element`, `Browser.document` and `Browser.application`).
+
+Imports of modules from Elm packages are detected automatically. Packages the compiler ships with
+(a set of `elm/*` packages, provided as precompiled artifacts) are enabled without downloading
+anything; any other package is downloaded from jsDelivr and installed into the compiler's virtual
+file system.
+
+The generated JavaScript can be inspected in the **Compiled code** tool pane.
+
+## Language Info
+
+### Name
+
+`elm`
+
+### Aliases / Extensions
+
+`elm`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[@live-codes/elm-wasm](https://www.npmjs.com/package/@live-codes/elm-wasm), a WebAssembly build
+of the [Elm compiler](https://github.com/elm/compiler).
+
+### Version
+
+Elm 0.19.1 (`@live-codes/elm-wasm` 0.2.1)
+
+## Code Formatting
+
+Not supported.
+
+## Limitations
+
+- The first run downloads the compiler (~10.6 MB `ulm.wasm`) in addition to the Elm package
+  data.
+- Elm source is compiled as a single module. Other modules are provided by installed packages,
+  which are resolved at compile time (jsDelivr by default).
+
+## Starter Template
+
+https://livecodes.io/?template=elm
+
+## Links
+
+- [Elm](https://elm-lang.org/)
+- [Elm guide](https://guide.elm-lang.org/)

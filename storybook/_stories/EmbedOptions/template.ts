@@ -35,6 +35,7 @@ const storyDef: StoryDef = {
   Civet: { props: { template: 'civet' } },
   Clio: { props: { template: 'clio' } },
   Imba: { props: { template: 'imba' } },
+  Elm: { props: { template: 'elm' } },
   ReScript: { props: { template: 'rescript' }, storyName: 'ReScript' },
   Reason: { props: { template: 'reason' } },
   Ocaml: { props: { template: 'ocaml' } },

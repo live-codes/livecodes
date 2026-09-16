@@ -134,6 +134,8 @@ export const ejsUrl = /* @__PURE__ */ getUrl('ejs@4.0.1/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
+export const elmWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/elm-wasm@0.2.1/dist/');
+
 export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.5.0/dist/emmet-monaco.js');
 
 export const esModuleShimsPath = 'es-module-shims@1.10.0/dist/es-module-shims.js';
@@ -334,7 +336,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.2/dist/',
+  '@live-codes/monaco-languages@0.3.4/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');

@@ -289,6 +289,7 @@ export const getCommandMenuActions = ({
         'civet',
         'clio',
         'imba',
+        'elm',
         'rescript',
         'reason',
         'ocaml',

@@ -74,6 +74,7 @@ export const Scheme = livecodesStory({ template: 'scheme' });
 export const CommonLisp = livecodesStory({ template: 'commonlisp' });
 export const ClojureScript = livecodesStory({ template: 'clojurescript' });
 ClojureScript.storyName = 'ClojureScript';
+export const Elm = livecodesStory({ template: 'elm' });
 export const Perl = livecodesStory({ template: 'perl' });
 export const Lua = livecodesStory({ template: 'lua' });
 export const LuaWasm = livecodesStory({ template: 'lua-wasm' });
