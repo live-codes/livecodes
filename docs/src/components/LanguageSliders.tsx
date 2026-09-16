@@ -95,6 +95,7 @@ export default function Sliders() {
       { name: 'zig-wasm', title: 'Zig (Wasm)' },
       { name: 'java', title: 'Java' },
       { name: 'csharp-wasm', title: 'C# (Wasm)' },
+      { name: 'vb-wasm', title: 'VB.NET (Wasm)' },
       { name: 'fsharp', title: 'F#' },
       { name: 'fsharp-wasm', title: 'F# (Wasm)' },
       { name: 'scheme', title: 'Scheme' },
