@@ -1983,6 +1983,9 @@
   "templates.starter.haskell": {
     "translation": "Стартер Haskell"
   },
+  "templates.starter.haskell-wasm": {
+    "translation": "Стартер Haskell (Wasm)"
+  },
   "templates.starter.heading": {
     "translation": "Стартовые шаблоны"
   },

@@ -1983,6 +1983,9 @@
   "templates.starter.haskell": {
     "translation": "ہاسکل شروعاتی"
   },
+  "templates.starter.haskell-wasm": {
+    "translation": "ہاسکل (واسم) شروعاتی"
+  },
   "templates.starter.heading": {
     "translation": "شروعاتی سانچے"
   },

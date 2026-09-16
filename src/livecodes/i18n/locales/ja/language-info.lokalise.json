@@ -279,6 +279,15 @@
   "haskell.name": {
     "translation": "Haskell"
   },
+  "haskellWasm.desc": {
+    "translation": "Haskellは、ブラウザ<tag-1>内で動作するGHC（</tag-1>WebAssembly版GHC）によってコンパイルおよび実行され、その処理はすべてクライアント側で行われます。"
+  },
+  "haskellWasm.link": {
+    "translation": "<tag-1> <tag-2>Haskell 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>GHCのドキュメント</tag-4> </tag-3> <tag-5> <tag-6>ブラウザ上のGHC</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートの読み込み</tag-10> </tag-9>"
+  },
+  "haskellWasm.name": {
+    "translation": "Haskell (Wasm)"
+  },
   "imba.desc": {
     "translation": "フレンドリーなフルスタック言語。"
   },

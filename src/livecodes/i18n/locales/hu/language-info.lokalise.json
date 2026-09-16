@@ -279,6 +279,15 @@
   "haskell.name": {
     "translation": "Haskell"
   },
+  "haskellWasm.desc": {
+    "translation": "A Haskellt a böngészőben a <tag-1>GHC in the browser</tag-1>, a GHC WebAssembly-verziója fordítja le és futtatja, amely teljes egészében kliensoldalon fut."
+  },
+  "haskellWasm.link": {
+    "translation": "<tag-1> <tag-2>A Haskell hivatalos honlapja</tag-2> </tag-1> <tag-3> <tag-4>A GHC dokumentációja</tag-4> </tag-3> <tag-5> <tag-6>A GHC a böngészőben</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Kezdő sablon betöltése</tag-10> </tag-9>"
+  },
+  "haskellWasm.name": {
+    "translation": "Haskell (Wasm)"
+  },
   "imba.desc": {
     "translation": "A barátságos full-stack nyelv."
   },

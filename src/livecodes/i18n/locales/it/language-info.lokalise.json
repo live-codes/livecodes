@@ -279,6 +279,15 @@
   "haskell.name": {
     "translation": "Haskell"
   },
+  "haskellWasm.desc": {
+    "translation": "Haskell viene compilato ed eseguito nel browser da <tag-1>GHC nel browser</tag-1>, una versione di GHC basata su WebAssembly, che gira interamente sul lato client."
+  },
+  "haskellWasm.link": {
+    "translation": "<tag-1> <tag-2>Sito web ufficiale di Haskell</tag-2> </tag-1> <tag-3> <tag-4>Documentazione di GHC</tag-4> </tag-3> <tag-5> <tag-6>GHC nel browser</tag-6> </tag-5> <tag-7> <tag-8>Documentazione LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carica modello iniziale</tag-10> </tag-9>"
+  },
+  "haskellWasm.name": {
+    "translation": "Haskell (Wasm)"
+  },
   "imba.desc": {
     "translation": "Il linguaggio full-stack amichevole."
   },

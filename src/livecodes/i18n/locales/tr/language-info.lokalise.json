@@ -279,6 +279,15 @@
   "haskell.name": {
     "translation": "Haskell"
   },
+  "haskellWasm.desc": {
+    "translation": "Haskell, tamamen istemci tarafında çalışan GHC’nin bir WebAssembly derlemesi olan <tag-1>“GHC in the browser”</tag-1> tarafından derlenir ve tarayıcıda çalıştırılır."
+  },
+  "haskellWasm.link": {
+    "translation": "<tag-1> <tag-2>Haskell resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>GHC belgeleri</tag-4> </tag-3> <tag-5> <tag-6>Tarayıcıda GHC</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "haskellWasm.name": {
+    "translation": "Haskell (Wasm)"
+  },
   "imba.desc": {
     "translation": "Kullanımı kolay full-stack dil."
   },

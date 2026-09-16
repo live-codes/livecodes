@@ -279,6 +279,15 @@
   "haskell.name": {
     "translation": "Haskell"
   },
+  "haskellWasm.desc": {
+    "translation": "ব্রাউজারে হ্যাসকেল কম্পাইল ও রান করা হয় <tag-1>GHC in the browser</tag-1> দ্বারা, যা GHC-এর একটি WebAssembly বিল্ড এবং এটি সম্পূর্ণরূপে ক্লায়েন্ট-সাইডে চলে।"
+  },
+  "haskellWasm.link": {
+    "translation": "<tag-1> <tag-2>হ্যাসকেল (Haskell) অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>GHC ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>ব্রাউজারে GHC</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "haskellWasm.name": {
+    "translation": "Haskell (Wasm)"
+  },
   "imba.desc": {
     "translation": "বন্ধুত্বপূর্ণ ফুল-স্ট্যাক ভাষা।"
   },

@@ -1983,6 +1983,9 @@
   "templates.starter.haskell": {
     "translation": "Haskell Başlangıç"
   },
+  "templates.starter.haskell-wasm": {
+    "translation": "Haskell (Wasm) Başlangıç"
+  },
   "templates.starter.heading": {
     "translation": "Başlangıç Şablonları"
   },
