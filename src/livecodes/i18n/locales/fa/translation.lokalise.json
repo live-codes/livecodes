@@ -2130,6 +2130,9 @@
   "templates.starter.typescript": {
     "translation": "شروع کننده تایپ‌اسکریپت"
   },
+  "templates.starter.vb-wasm": {
+    "translation": "VB.NET (Wasm) Starter"
+  },
   "templates.starter.vue": {
     "translation": "شروع کننده Vue SFC"
   },

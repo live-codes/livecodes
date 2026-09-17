@@ -813,6 +813,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "vbWasm.desc": {
+    "translation": "VB.NET compiler running on WebAssembly, using <tag-1>Roslyn</tag-1> and the <tag-2>.NET WebAssembly runtime</tag-2>"
+  },
+  "vbWasm.link": {
+    "translation": "<tag-1> <tag-2>Visual Basic language documentation</tag-2> </tag-1> <tag-3> <tag-4>Learn X in Y minutes, where X=Visual Basic</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentation</tag-6> </tag-5> <tag-7> <tag-8>Load starter template</tag-8> </tag-7>"
+  },
+  "vbWasm.name": {
+    "translation": "VB.NET (Wasm)"
+  },
   "vue.link": {
     "translation": "<tag-1> <tag-2>Site officiel de Vue.js v3</tag-2> </tag-1> <tag-3> <tag-4>Documentation Vue3</tag-4> </tag-3> <tag-5> <tag-6>Composants à fichier unique Vue3</tag-6> </tag-5> <tag-7> <tag-8>Documentation LiveCodes</tag-8> </tag-7> <tag-9><tag-10>Charger le modèle de démarrage</tag-10></tag-9>"
   },

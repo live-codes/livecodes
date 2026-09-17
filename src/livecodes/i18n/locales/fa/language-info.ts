@@ -457,6 +457,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>وب‌سایت رسمی</2> </1> <3> <4>مستندات TypeScript</4> </3> <5> <6>یادگیری X در Y دقیقه، جایی که X=TypeScript</6> </5> <7> <8>بارگذاری قالب شروع کننده</8> </7>',
     name: 'TypeScript',
   },
+  vbWasm: {
+    desc: 'VB.NET compiler running on WebAssembly, using <1>Roslyn</1> and the <2>.NET WebAssembly runtime</2>',
+    link: '<1> <2>Visual Basic language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=Visual Basic</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'VB.NET (Wasm)',
+  },
   vue: {
     link: '<1> <2>وب‌سایت رسمی Vue.js v3</2> </1> <3> <4>مستندات Vue3</4> </3> <5> <6>کامپوننت‌های تک فایلی Vue3</6> </5> <7> <8>مستندات LiveCodes</8> </7> <9> <10>بارگذاری قالب شروع کننده</10> </9>',
     name: 'کامپوننت‌های تک فایلی Vue3',

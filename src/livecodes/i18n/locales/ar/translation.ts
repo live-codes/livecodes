@@ -1049,6 +1049,7 @@ const translation: I18nTranslation = {
       tcl: 'قالب Tcl',
       teal: 'قالب Teal',
       typescript: 'قالب TypeScript',
+      'vb-wasm': 'VB.NET (Wasm) Starter',
       vue: 'قالب Vue',
       vue2: 'قالب Vue 2',
       wat: 'قالب WebAssembly Text',

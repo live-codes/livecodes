@@ -451,6 +451,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>官方网站</2> </1> <3> <4>TypeScript 文档</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=TypeScript</6> </5> <7> <8>加载启动模板</8> </7>',
     name: 'TypeScript',
   },
+  vbWasm: {
+    desc: 'VB.NET compiler running on WebAssembly, using <1>Roslyn</1> and the <2>.NET WebAssembly runtime</2>',
+    link: '<1> <2>Visual Basic language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=Visual Basic</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'VB.NET (Wasm)',
+  },
   vue: {
     link: '<1> <2>Vue.js v3 官方网站</2> </1> <3> <4>Vue3 文档</4> </3> <5> <6>Vue3 单文件组件</6> </5> <7> <8>LiveCodes 文档</8> </7> <9><10>加载启动模板</10> </9>',
     name: 'Vue3 单文件组件',
