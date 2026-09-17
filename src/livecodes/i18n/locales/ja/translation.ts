@@ -1050,7 +1050,7 @@ const translation: I18nTranslation = {
       tcl: 'Tclスターター',
       teal: 'Tealスターター',
       typescript: 'TypeScriptスターター',
-      'vb-wasm': 'VB.NET (Wasm) Starter',
+      'vb-wasm': 'VB.NET（Wasm）スターター',
       vue: 'Vue スターター',
       vue2: 'Vue 2スターター',
       wat: 'WebAssembly Textスターター',

@@ -814,10 +814,10 @@
     "translation": "TypeScript"
   },
   "vbWasm.desc": {
-    "translation": "VB.NET compiler running on WebAssembly, using <tag-1>Roslyn</tag-1> and the <tag-2>.NET WebAssembly runtime</tag-2>"
+    "translation": "Compilateur VB.NET fonctionnant sur WebAssembly, utilisant <tag-1>Roslyn</tag-1> et le <tag-2>runtime .NET WebAssembly</tag-2>"
   },
   "vbWasm.link": {
-    "translation": "<tag-1> <tag-2>Visual Basic language documentation</tag-2> </tag-1> <tag-3> <tag-4>Learn X in Y minutes, where X=Visual Basic</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentation</tag-6> </tag-5> <tag-7> <tag-8>Load starter template</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Documentation sur le langage Visual Basic</tag-2> </tag-1> <tag-3> <tag-4> Apprenez X en Y minutes, où X=Visual Basic</tag-4> </tag-3> <tag-5> <tag-6> Documentation LiveCodes</tag-6> </tag-5> <tag-7> <tag-8> Charger le modèle de démarrage</tag-8> </tag-7>"
   },
   "vbWasm.name": {
     "translation": "VB.NET (Wasm)"

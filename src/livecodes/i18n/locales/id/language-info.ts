@@ -459,8 +459,8 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'TypeScript',
   },
   vbWasm: {
-    desc: 'VB.NET compiler running on WebAssembly, using <1>Roslyn</1> and the <2>.NET WebAssembly runtime</2>',
-    link: '<1> <2>Visual Basic language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=Visual Basic</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    desc: 'Kompiler VB.NET berjalan di WebAssembly, menggunakan <1>Roslyn</1> dan <2>runtime .NET WebAssembly</2>',
+    link: '<1> <2>Dokumentasi bahasa Visual Basic</2> </1> <3> <4>Pelajari X dalam Y menit, dengan X=Visual Basic</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat template pemula</8> </7>',
     name: 'VB.NET (Wasm)',
   },
   vue: {
