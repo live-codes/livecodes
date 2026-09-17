@@ -813,6 +813,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "vbWasm.desc": {
+    "translation": "Kompiler VB.NET berjalan di WebAssembly, menggunakan <tag-1>Roslyn</tag-1> dan <tag-2>runtime .NET WebAssembly</tag-2>"
+  },
+  "vbWasm.link": {
+    "translation": "<tag-1> <tag-2>Dokumentasi bahasa Visual Basic</tag-2> </tag-1> <tag-3> <tag-4>Pelajari X dalam Y menit, dengan X=Visual Basic</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "vbWasm.name": {
+    "translation": "VB.NET (Wasm)"
+  },
   "vue.link": {
     "translation": "<tag-1> <tag-2>Situs web resmi Vue.js v3</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Vue3</tag-4> </tag-3> <tag-5> <tag-6>Komponen file tunggal Vue3</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
   },

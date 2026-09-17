@@ -2130,6 +2130,9 @@
   "templates.starter.typescript": {
     "translation": "TypeScript Başlangıç"
   },
+  "templates.starter.vb-wasm": {
+    "translation": "VB.NET (Wasm) Başlangıç"
+  },
   "templates.starter.vue": {
     "translation": "Vue SFC Başlangıç"
   },
