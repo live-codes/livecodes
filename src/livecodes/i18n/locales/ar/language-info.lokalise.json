@@ -813,6 +813,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "vbWasm.desc": {
+    "translation": "مترجم VB.NET الذي يعمل على WebAssembly، باستخدام <tag-1>Roslyn</tag-1> و<tag-2>بيئة تشغيل .NET WebAssembly</tag-2>"
+  },
+  "vbWasm.link": {
+    "translation": "<tag-1> <tag-2>وثائق لغة Visual Basic</tag-2> </tag-1>   <tag-3> <tag-4> تعلم X في دقائق Y، حيث X = Visual Basic</tag-4> </tag-3>  <tag-5> <tag-6> وثائق LiveCodes</tag-6> </tag-5>   <tag-7> <tag-8> تحميل قالب البدء</tag-8> </tag-7>"
+  },
+  "vbWasm.name": {
+    "translation": "VB.NET (Wasm)"
+  },
   "vue.link": {
     "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Vue.js v3</tag-2> </tag-1> <tag-3> <tag-4>وثائق Vue3</tag-4> </tag-3> <tag-5> <tag-6>مكونات الملف الواحد في Vue3</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9><tag-10>تحميل القالب الأولي</tag-10></tag-9>"
   },

@@ -813,6 +813,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "vbWasm.desc": {
+    "translation": "VB.NET fordító WebAssembly-n futva, a <tag-1>Roslyn</tag-1> és a <tag-2>.NET WebAssembly futtatókörnyezet</tag-2> használatával"
+  },
+  "vbWasm.link": {
+    "translation": "<tag-1> <tag-2>Visual Basic nyelvi dokumentáció</tag-2> </tag-1> <tag-3> <tag-4>Tanulj X-et Y perc alatt, ahol X=Visual Basic</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes dokumentáció</tag-6> </tag-5> <tag-7> <tag-8>Kezdő sablon betöltése</tag-8> </tag-7>"
+  },
+  "vbWasm.name": {
+    "translation": "VB.NET (Wasm)"
+  },
   "vue.link": {
     "translation": "<tag-1> <tag-2>Vue.js v3 hivatalos weboldal</tag-2> </tag-1> <tag-3> <tag-4>Vue3 dokumentáció</tag-4> </tag-3> <tag-5> <tag-6>Vue3 egyfájlos komponensek</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Kezdő sablon betöltése</tag-10> </tag-9>"
   },

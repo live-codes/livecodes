@@ -2130,6 +2130,9 @@
   "templates.starter.typescript": {
     "translation": "Pemula TypeScript"
   },
+  "templates.starter.vb-wasm": {
+    "translation": "Pemula VB.NET (Wasm)"
+  },
   "templates.starter.vue": {
     "translation": "Pemula Vue SFC"
   },

@@ -813,6 +813,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "vbWasm.desc": {
+    "translation": "WebAssembly-তে চলমান VB.NET কম্পাইলার, <tag-1>Roslyn</tag-1> এবং <tag-2>.NET WebAssembly রানটাইম</tag-2> ব্যবহার করে"
+  },
+  "vbWasm.link": {
+    "translation": "<tag-1> <tag-2>Visual Basic ভাষা ডকুমেন্টেশন</tag-2> </tag-1> <tag-3> <tag-4>Y মিনিটে X শিখুন, যেখানে X=Visual Basic</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "vbWasm.name": {
+    "translation": "VB.NET (Wasm)"
+  },
   "vue.link": {
     "translation": "<tag-1> <tag-2>Vue.js v3 অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Vue3 ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Vue3 সিঙ্গেল ফাইল কম্পোনেন্ট</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
   },

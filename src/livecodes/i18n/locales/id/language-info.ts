@@ -458,6 +458,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi</2> </1> <3> <4>Dokumentasi TypeScript</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=TypeScript</6> </5> <7> <8>Muat template pemula</8> </7>',
     name: 'TypeScript',
   },
+  vbWasm: {
+    desc: 'Kompiler VB.NET berjalan di WebAssembly, menggunakan <1>Roslyn</1> dan <2>runtime .NET WebAssembly</2>',
+    link: '<1> <2>Dokumentasi bahasa Visual Basic</2> </1> <3> <4>Pelajari X dalam Y menit, dengan X=Visual Basic</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat template pemula</8> </7>',
+    name: 'VB.NET (Wasm)',
+  },
   vue: {
     link: '<1> <2>Situs web resmi Vue.js v3</2> </1> <3> <4>Dokumentasi Vue3</4> </3> <5> <6>Komponen file tunggal Vue3</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
     name: 'Komponen File Tunggal Vue3',

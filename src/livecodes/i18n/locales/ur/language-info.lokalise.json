@@ -813,6 +813,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "vbWasm.desc": {
+    "translation": "VB.NET کمپائلر ویب اسمبلی پر چل رہا ہے، <tag-1>Roslyn</tag-1> اور <tag-2>.NET WebAssembly رن ٹائم</tag-2> استعمال کر رہا ہے"
+  },
+  "vbWasm.link": {
+    "translation": "<tag-1> <tag-2> Visual Basic زبان کی دستاویزات </tag-2> </tag-1> <tag-3> <tag-4> Y منٹوں میں X سیکھیں، جہاں X=Visual Basic </tag-4> </tag-3> <tag-5> <tag-6> LiveCodes ڈاکومینٹیشن </tag-6> </tag-5> <tag-7> <tag-8> اسٹارٹر ٹیمپلیٹ لوڈ کریں </tag-8> </tag-7>"
+  },
+  "vbWasm.name": {
+    "translation": "VB.NET (Wasm)"
+  },
   "vue.link": {
     "translation": "<tag-1> <tag-2>Vue.js v3 کی سرکاری ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>Vue3 دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>Vue3 سنگل فائل کمپوننٹس</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9><tag-10>شروعاتی سانچہ لوڈ کریں</tag-10></tag-9>"
   },
