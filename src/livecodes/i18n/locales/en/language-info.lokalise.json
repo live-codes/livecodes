@@ -84,6 +84,18 @@
     "notes": "",
     "translation": "Blockly"
   },
+  "cWasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://clang.llvm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "C compiled to WebAssembly by <tag-1>Clang</tag-1>, running entirely in the browser."
+  },
+  "cWasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://en.cppreference.com/w/c\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://clang.llvm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/c/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/c-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=c-wasm\" class=\"button\" target=\"_parent\" data-template=\"c-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>C language reference</tag-2> </tag-1> <tag-3> <tag-4>Clang official website</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=C</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "cWasm.name": {
+    "notes": "",
+    "translation": "C (Wasm)"
+  },
   "civet.desc": {
     "notes": "",
     "translation": "Civet is a programming language that compiles to TypeScript or JavaScript, so you can use existing tooling but enable concise and powerful syntax."
@@ -161,16 +173,16 @@
     "translation": "C++"
   },
   "cppWasm.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"https://github.com/binji/wasm-clang\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://github.com/chris-koch-penn/polylang.io\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "Clang C/C++ compiler running on WebAssembly, using <tag-1>wasm-clang</tag-1> adapted by <tag-2>polylang.io</tag-2>"
+    "notes": "### <tag-1> ###\n<a href=\"https://clang.llvm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}languages/cpp\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "C++ compiled to WebAssembly by <tag-1>Clang</tag-1>, running entirely in the browser. This provides a real C++ compiler, unlike the <tag-2>JSCPP-based C++</tag-2> interpreter."
   },
   "cppWasm.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://isoclang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://clang.llvm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/c++/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=cpp-wasm\" class=\"button\" target=\"_parent\" data-template=\"cpp-wasm\" />\n\n",
-    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>Clang official website</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=C++</tag-6> </tag-5> <tag-7> <tag-8>Load starter template</tag-8> </tag-7>"
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://isocpp.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://clang.llvm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/c++/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/cpp-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=cpp-wasm\" class=\"button\" target=\"_parent\" data-template=\"cpp-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>Clang official website</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=C++</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
   },
   "cppWasm.name": {
     "notes": "",
-    "translation": "C/C++ (Wasm)"
+    "translation": "C++ (Wasm)"
   },
   "csharpWasm.desc": {
     "notes": "### <tag-1> ###\n<a href=\"https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor\" target=\"_blank\" rel=\"noopener\" />\n\n",
@@ -615,6 +627,30 @@
   "nunjucks.name": {
     "notes": "",
     "translation": "Nunjucks"
+  },
+  "objcWasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://clang.llvm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://github.com/gnustep/libobjc2\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "Objective-C compiled to WebAssembly by <tag-1>Clang</tag-1>, using the <tag-2>GNUstep</tag-2> Objective-C runtime. This is a runtime and not a class library, so Foundation is not available."
+  },
+  "objcWasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://developer.apple.com/documentation/objectivec\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/gnustep/libobjc2\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/objective-c/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/objc-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=objc-wasm\" class=\"button\" target=\"_parent\" data-template=\"objc-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>Objective-C documentation</tag-2> </tag-1> <tag-3> <tag-4>GNUstep libobjc2</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=Objective-C</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "objcWasm.name": {
+    "notes": "",
+    "translation": "Objective-C (Wasm)"
+  },
+  "objcppWasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://clang.llvm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://github.com/gnustep/libobjc2\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "Objective-C++ compiled to WebAssembly by <tag-1>Clang</tag-1>, using the <tag-2>GNUstep</tag-2> Objective-C runtime. This is a runtime and not a class library, so Foundation is not available."
+  },
+  "objcppWasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://developer.apple.com/documentation/objectivec\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/gnustep/libobjc2\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/objective-c/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/objcpp-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=objcpp-wasm\" class=\"button\" target=\"_parent\" data-template=\"objcpp-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>Objective-C documentation</tag-2> </tag-1> <tag-3> <tag-4>GNUstep libobjc2</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=Objective-C</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "objcppWasm.name": {
+    "notes": "",
+    "translation": "Objective-C++ (Wasm)"
   },
   "ocaml.desc1": {
     "notes": "",

@@ -1,0 +1,38 @@
+{
+  "title": {
+    "message": "LiveCodes",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "LiveCodes Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Docs": {
+    "message": "Docs",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.SDK": {
+    "message": "SDK",
+    "description": "Navbar item with label SDK"
+  },
+  "item.label.Blog": {
+    "message": "Blog",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Storybook": {
+    "message": "Storybook",
+    "description": "Navbar item with label Storybook"
+  },
+  "item.label.App": {
+    "message": "App",
+    "description": "Navbar item with label App"
+  },
+  "item.label.𝕏": {
+    "message": "𝕏",
+    "description": "Navbar item with label 𝕏"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

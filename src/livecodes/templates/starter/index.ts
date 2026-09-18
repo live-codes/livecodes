@@ -8,12 +8,12 @@ import { blank } from './blank';
 import { blocklyStarter } from './blockly-starter';
 import { bootstrapStarter } from './bootstrap-starter';
 import { civetStarter } from './civet-starter';
+import { cWasmStarter, cppWasmStarter, objcWasmStarter } from './clang-wasm-starters';
 import { clioStarter } from './clio-starter';
 import { clojurescriptStarter } from './clojurescript-starter';
 import { coffeescriptStarter } from './coffeescript-starter';
 import { commonlispStarter } from './commonlisp-starter';
 import { cppStarter } from './cpp-starter';
-import { cppWasmStarter } from './cpp-wasm-starter';
 import { csharpWasmStarter } from './csharp-wasm-starter';
 import { d3Starter } from './d3-starter';
 import { daisyuiStarter } from './daisyui-starter';
@@ -127,7 +127,9 @@ export const starterTemplates = [
   phpStarter,
   phpWasmStarter,
   cppStarter,
+  cWasmStarter,
   cppWasmStarter,
+  objcWasmStarter,
   rustWasmStarter,
   zigWasmStarter,
   javaStarter,
