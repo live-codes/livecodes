@@ -45,6 +45,8 @@ interface ClangWasmApi {
   error: string | null;
   exitCode: number | null;
   loaded: Promise<void>;
+  init: Promise<void> | null;
+  runners: Partial<Record<LanguageId, Runner>>;
   run: (input?: string) => Promise<RunResult>;
 }
 
@@ -169,8 +171,6 @@ const createRunner = (language: LanguageId): Runner => {
   return { ensureReady, run };
 };
 
-const runners: Partial<Record<LanguageId, Runner>> = {};
-
 const getLanguage = (): LanguageId | null => {
   for (const scriptType of SCRIPT_TYPES) {
     if (document.querySelector(`script[type="${scriptType}"]`)) {
@@ -210,12 +210,19 @@ const setResult = (
   return { input, output, error, exitCode };
 };
 
-let loading: Promise<void> | null = null;
+window.livecodes.clangWasm ??= {} as ClangWasmApi;
+
+const clangWasm = window.livecodes.clangWasm;
+clangWasm.ready = false;
+// The runner is parked on the persisted namespace so a live reload reuses the warm
+// worker (and its ~84 MB toolchain) instead of spawning a new one.
+clangWasm.runners ??= {};
 
 /** Start (once) downloading the toolchain, showing the loading indicator while it happens. */
 const ensureLoaded = (runner: Runner): Promise<void> => {
-  if (!loading) {
-    loading = (async () => {
+  let init = clangWasm.init;
+  if (!init) {
+    init = (async () => {
       parent.postMessage({ type: 'loading', payload: true }, '*');
       try {
         await runner.ensureReady();
@@ -224,60 +231,55 @@ const ensureLoaded = (runner: Runner): Promise<void> => {
       }
     })().catch((error: Error) => {
       // Reset so a later run can retry the download.
-      loading = null;
+      clangWasm.init = null;
       throw error;
     });
     // The failure is surfaced through `run`; do not also report it unhandled.
-    loading.catch(() => undefined);
+    init.catch(() => undefined);
+    clangWasm.init = init;
   }
-  return loading;
+  return init;
 };
 
-const clangWasm: ClangWasmApi = {
-  ready: false,
-  input: '',
-  output: null,
-  error: null,
-  exitCode: null,
-  loaded: new Promise<void>((resolve) => {
-    const interval = setInterval(() => {
-      if (clangWasm.ready) {
-        clearInterval(interval);
-        resolve();
-      }
-    }, 50);
-  }),
-  run: async (input?: string) => {
-    const stdin = `${input ?? ''}`;
-    const language = getLanguage();
-    if (!language) return setResult(stdin, null, null, null);
-
-    const code = getCode(language);
-    if (!code.trim()) return setResult(stdin, null, null, null);
-
-    const runner = (runners[language] = runners[language] || createRunner(language));
-
-    try {
-      await ensureLoaded(runner);
-    } catch (error) {
-      return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
+clangWasm.loaded = new Promise<void>((resolve) => {
+  const interval = setInterval(() => {
+    if (clangWasm.ready) {
+      clearInterval(interval);
+      resolve();
     }
+  }, 50);
+});
 
-    try {
-      const result = await runner.run(code, stdin);
-      // `errors` holds the compiler's diagnostics and is empty when the program compiled.
-      const errors = (result.errors || []).filter(Boolean);
-      if (errors.length) {
-        return setResult(stdin, null, errors.join('\n'), result.exitCode ?? 1);
-      }
-      return setResult(stdin, result.output ?? '', null, result.exitCode ?? 0);
-    } catch (error) {
-      return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
+clangWasm.run = async (input?: string) => {
+  const stdin = `${input ?? ''}`;
+  const language = getLanguage();
+  if (!language) return setResult(stdin, null, null, null);
+
+  const code = getCode(language);
+  if (!code.trim()) return setResult(stdin, null, null, null);
+
+  const runner = (clangWasm.runners[language] =
+    clangWasm.runners[language] || createRunner(language));
+
+  try {
+    await ensureLoaded(runner);
+  } catch (error) {
+    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
+  }
+
+  try {
+    const result = await runner.run(code, stdin);
+    // `errors` holds the compiler's diagnostics and is empty when the program compiled.
+    const errors = (result.errors || []).filter(Boolean);
+    if (errors.length) {
+      return setResult(stdin, null, errors.join('\n'), result.exitCode ?? 1);
     }
-  },
+    return setResult(stdin, result.output ?? '', null, result.exitCode ?? 0);
+  } catch (error) {
+    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
+  }
 };
 
-window.livecodes.clangWasm = clangWasm;
 // One alias per language, plus `cpp` for playgrounds written before the languages were split.
 window.livecodes.c = clangWasm;
 window.livecodes.cpp = clangWasm;
