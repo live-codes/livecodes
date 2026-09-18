@@ -1063,7 +1063,7 @@ svg
 (global counter (Counter:new nil))
 (global button (document:querySelector "#counter-button"))
 (button:addEventListener :click (fn [] (counter:increment) (counter:show)))
-`.trimStart()}};var $=["esm.sh","skypack","esm.run","jsdelivr.esm","fastly.jsdelivr.esm","gcore.jsdelivr.esm","testingcf.jsdelivr.esm","jsdelivr.b-cdn.esm","jspm"],B=["jsdelivr","fastly.jsdelivr","unpkg","gcore.jsdelivr","testingcf.jsdelivr","jsdelivr.b-cdn","npmcdn"],M=["jsdelivr.gh","fastly.jsdelivr.gh","statically","gcore.jsdelivr.gh","testingcf.jsdelivr.gh","jsdelivr.b-cdn.gh"],r={getModuleUrl:(e,{isModule:s=!0,defaultCDN:i="esm.sh",external:o}={})=>{e=e.replace(/#nobundle/g,"");let a=n=>!o||!n.includes("https://esm.sh")?n:n.includes("?")?`${n}&external=${o}`:`${n}?external=${o}`,l=q(e,s,i);return l?a(l):s?a("https://esm.sh/"+e):"https://cdn.jsdelivr.net/npm/"+e},getUrl:(e,s)=>e.startsWith("http")||e.startsWith("data:")?e:q(e,!1,s||$t())||e,cdnLists:{npm:B,module:$,gh:M},checkCDNs:async(e,s)=>{let i=[s,...r.cdnLists.npm].filter(Boolean);for(let o of i)try{if((await fetch(r.getUrl(e,o),{method:"HEAD"})).ok)return o}catch{}return r.cdnLists.npm[0]}},$t=()=>{if(globalThis.appCDN)return globalThis.appCDN;try{return new URL(location.href).searchParams.get("appCDN")||r.cdnLists.npm[0]}catch{return r.cdnLists.npm[0]}},q=(e,s,i)=>{let o=s&&e.startsWith("unpkg:")?"?module":"";e.startsWith("gh:")?e=e.replace("gh",M[0]):e.includes(":")||(e=(i||(s?$[0]:B[0]))+":"+e);for(let a of Bt){let[l,n]=a;if(l.test(e))return e.replace(l,n)+o}return null},Bt=[[/^(esm\.sh:)(.+)/i,"https://esm.sh/$2"],[/^(npm:)(.+)/i,"https://esm.sh/$2"],[/^(node:)(.+)/i,"https://esm.sh/$2"],[/^(jsr:)(.+)/i,"https://esm.sh/jsr/$2"],[/^(pr:)(.+)/i,"https://esm.sh/pr/$2"],[/^(pkg\.pr\.new:)(.+)/i,"https://esm.sh/pkg.pr.new/$2"],[/^(skypack:)(.+)/i,"https://cdn.skypack.dev/$2"],[/^(jsdelivr:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2"],[/^(fastly\.jsdelivr:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2"],[/^(gcore\.jsdelivr:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2"],[/^(testingcf\.jsdelivr:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2"],[/^(jsdelivr\.b-cdn:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2"],[/^(jsdelivr\.gh:)(.+)/i,"https://cdn.jsdelivr.net/gh/$2"],[/^(fastly\.jsdelivr\.gh:)(.+)/i,"https://fastly.jsdelivr.net/gh/$2"],[/^(gcore\.jsdelivr\.gh:)(.+)/i,"https://gcore.jsdelivr.net/gh/$2"],[/^(testingcf\.jsdelivr\.gh:)(.+)/i,"https://testingcf.jsdelivr.net/gh/$2"],[/^(jsdelivr\.b-cdn\.gh:)(.+)/i,"https://jsdelivr.b-cdn.net/gh/$2"],[/^(statically:)(.+)/i,"https://cdn.statically.io/gh/$2"],[/^(esm\.run:)(.+)/i,"https://esm.run/$2"],[/^(jsdelivr\.esm:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2/+esm"],[/^(fastly\.jsdelivr\.esm:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2/+esm"],[/^(gcore\.jsdelivr\.esm:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2/+esm"],[/^(testingcf\.jsdelivr\.esm:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2/+esm"],[/^(jsdelivr\.b-cdn\.esm:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2/+esm"],[/^(jspm:)(.+)/i,"https://jspm.dev/$2"],[/^(esbuild:)(.+)/i,"https://esbuild.vercel.app/$2"],[/^(bundle\.run:)(.+)/i,"https://bundle.run/$2"],[/^(unpkg:)(.+)/i,"https://unpkg.com/$2"],[/^(npmcdn:)(.+)/i,"https://npmcdn.com/$2"],[/^(bundlejs:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(bundle:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(deno:)(.+)/i,"https://deno.bundlejs.com/?file&q=https://deno.land/x/$2/mod.ts"],[/^(https:\/\/deno\.land\/.+)/i,"https://deno.bundlejs.com/?file&q=$1"],[/^(github:|https:\/\/github\.com\/)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,"https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/$2/$3@$4"],[/^(gist\.github:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(gitlab:|https:\/\/gitlab\.com\/)([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://gl.githack.com/$2/raw/$3"],[/^(bitbucket:|https:\/\/bitbucket\.org\/)([^\/]+\/[^\/]+)\/(?:raw|src)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://bb.githack.com/$2/raw/$3"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/]+)\/revisions\/([^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/$3/files/$4"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/HEAD/files/$3"],[/^(bitbucket:)\!api\/2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(api\.bitbucket:)2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(rawgit:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(rawgit:|https:\/\/raw\.githubusercontent\.com)(\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,"https://deno.bundlejs.com/?file&q=https://raw.githack.com/$2/$3"]];var{getUrl:P,getModuleUrl:se}=r;var c=P("gh:live-codes/gleam-precompiled@v0.5.0/");var Mt="5.9.3",oe=P(`typescript@${Mt}/lib/typescript.js`);var p=c+"build/packages/plinth/src/plinth/",m=c+"build/dev/javascript/plinth/plinth/",R={name:"gleam",title:getTemplateName("templates.starter.gleam","Gleam Starter"),thumbnail:"assets/templates/gleam.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var $=["esm.sh","skypack","esm.run","jsdelivr.esm","fastly.jsdelivr.esm","gcore.jsdelivr.esm","testingcf.jsdelivr.esm","jsdelivr.b-cdn.esm","jspm"],B=["jsdelivr","fastly.jsdelivr","unpkg","gcore.jsdelivr","testingcf.jsdelivr","jsdelivr.b-cdn","npmcdn"],M=["jsdelivr.gh","fastly.jsdelivr.gh","statically","gcore.jsdelivr.gh","testingcf.jsdelivr.gh","jsdelivr.b-cdn.gh"],r={getModuleUrl:(e,{isModule:s=!0,defaultCDN:i="esm.sh",external:o}={})=>{e=e.replace(/#nobundle/g,"");let a=n=>!o||!n.includes("https://esm.sh")?n:n.includes("?")?`${n}&external=${o}`:`${n}?external=${o}`,l=q(e,s,i);return l?a(l):s?a("https://esm.sh/"+e):"https://cdn.jsdelivr.net/npm/"+e},getUrl:(e,s)=>e.startsWith("http")||e.startsWith("data:")?e:q(e,!1,s||Bt())||e,cdnLists:{npm:B,module:$,gh:M},checkCDNs:async(e,s)=>{let i=[s,...r.cdnLists.npm].filter(Boolean);for(let o of i)try{if((await fetch(r.getUrl(e,o),{method:"HEAD"})).ok)return o}catch{}return r.cdnLists.npm[0]}},Bt=()=>{if(globalThis.appCDN)return globalThis.appCDN;try{return new URL(location.href).searchParams.get("appCDN")||r.cdnLists.npm[0]}catch{return r.cdnLists.npm[0]}},q=(e,s,i)=>{let o=s&&e.startsWith("unpkg:")?"?module":"";e.startsWith("gh:")?e=e.replace("gh",M[0]):e.includes(":")||(e=(i||(s?$[0]:B[0]))+":"+e);for(let a of Mt){let[l,n]=a;if(l.test(e))return e.replace(l,n)+o}return null},Mt=[[/^(esm\.sh:)(.+)/i,"https://esm.sh/$2"],[/^(npm:)(.+)/i,"https://esm.sh/$2"],[/^(node:)(.+)/i,"https://esm.sh/$2"],[/^(jsr:)(.+)/i,"https://esm.sh/jsr/$2"],[/^(pr:)(.+)/i,"https://esm.sh/pr/$2"],[/^(pkg\.pr\.new:)(.+)/i,"https://esm.sh/pkg.pr.new/$2"],[/^(skypack:)(.+)/i,"https://cdn.skypack.dev/$2"],[/^(jsdelivr:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2"],[/^(fastly\.jsdelivr:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2"],[/^(gcore\.jsdelivr:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2"],[/^(testingcf\.jsdelivr:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2"],[/^(jsdelivr\.b-cdn:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2"],[/^(jsdelivr\.gh:)(.+)/i,"https://cdn.jsdelivr.net/gh/$2"],[/^(fastly\.jsdelivr\.gh:)(.+)/i,"https://fastly.jsdelivr.net/gh/$2"],[/^(gcore\.jsdelivr\.gh:)(.+)/i,"https://gcore.jsdelivr.net/gh/$2"],[/^(testingcf\.jsdelivr\.gh:)(.+)/i,"https://testingcf.jsdelivr.net/gh/$2"],[/^(jsdelivr\.b-cdn\.gh:)(.+)/i,"https://jsdelivr.b-cdn.net/gh/$2"],[/^(statically:)(.+)/i,"https://cdn.statically.io/gh/$2"],[/^(esm\.run:)(.+)/i,"https://esm.run/$2"],[/^(jsdelivr\.esm:)(.+)/i,"https://cdn.jsdelivr.net/npm/$2/+esm"],[/^(fastly\.jsdelivr\.esm:)(.+)/i,"https://fastly.jsdelivr.net/npm/$2/+esm"],[/^(gcore\.jsdelivr\.esm:)(.+)/i,"https://gcore.jsdelivr.net/npm/$2/+esm"],[/^(testingcf\.jsdelivr\.esm:)(.+)/i,"https://testingcf.jsdelivr.net/npm/$2/+esm"],[/^(jsdelivr\.b-cdn\.esm:)(.+)/i,"https://jsdelivr.b-cdn.net/npm/$2/+esm"],[/^(jspm:)(.+)/i,"https://jspm.dev/$2"],[/^(esbuild:)(.+)/i,"https://esbuild.vercel.app/$2"],[/^(bundle\.run:)(.+)/i,"https://bundle.run/$2"],[/^(unpkg:)(.+)/i,"https://unpkg.com/$2"],[/^(npmcdn:)(.+)/i,"https://npmcdn.com/$2"],[/^(bundlejs:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(bundle:)(.+)/i,"https://deno.bundlejs.com/?file&q=$2"],[/^(deno:)(.+)/i,"https://deno.bundlejs.com/?file&q=https://deno.land/x/$2/mod.ts"],[/^(https:\/\/deno\.land\/.+)/i,"https://deno.bundlejs.com/?file&q=$1"],[/^(github:|https:\/\/github\.com\/)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,"https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/$2/$3@$4"],[/^(gist\.github:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(gitlab:|https:\/\/gitlab\.com\/)([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://gl.githack.com/$2/raw/$3"],[/^(bitbucket:|https:\/\/bitbucket\.org\/)([^\/]+\/[^\/]+)\/(?:raw|src)\/(.+?)(?:\?.*)?$/i,"https://deno.bundlejs.com/?file&q=https://bb.githack.com/$2/raw/$3"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/]+)\/revisions\/([^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/$3/files/$4"],[/^(bitbucket:)snippets\/([^\/]+\/[^\/\#\?]+)(?:\?[^#]*)?(?:\#file-(.+?))$/i,"https://bb.githack.com/!api/2.0/snippets/$2/HEAD/files/$3"],[/^(bitbucket:)\!api\/2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(api\.bitbucket:)2.0\/snippets\/([^\/]+\/[^\/]+\/[^\/]+)\/files\/(.+?)(?:\?.*)?$/i,"https://bb.githack.com/!api/2.0/snippets/$2/files/$3"],[/^(rawgit:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i,"https://gist.githack.com/$2"],[/^(rawgit:|https:\/\/raw\.githubusercontent\.com)(\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,"https://deno.bundlejs.com/?file&q=https://raw.githack.com/$2/$3"]];var{getUrl:P,getModuleUrl:oe}=r;var c=P("gh:live-codes/gleam-precompiled@v0.5.0/");var Pt="5.9.3",ne=P(`typescript@${Pt}/lib/typescript.js`);var m=c+"build/packages/plinth/src/plinth/",p=c+"build/dev/javascript/plinth/plinth/",R={name:"gleam",title:getTemplateName("templates.starter.gleam","Gleam Starter"),thumbnail:"assets/templates/gleam.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1 id="title">Hello, World!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/gleam.svg" />
@@ -1131,7 +1131,7 @@ pub fn hello(str: String) -> String
 // npm module
 @external(javascript, "npm:cowsay2", "say")
 pub fn cowsay(str: String) -> String
-`.trimStart()},customSettings:{imports:{"my_pkg/greet.js":c+"demo/greet.js"},gleam:{modules:{"plinth/browser/document":{srcUrl:p+"browser/document.gleam",compiledUrl:m+"browser/document.mjs"},"plinth/browser/element":{srcUrl:p+"browser/element.gleam",compiledUrl:m+"browser/element.mjs"},"plinth/browser/event":{srcUrl:p+"browser/event.gleam",compiledUrl:m+"browser/event.mjs"}}}}};var N={name:"go",aliases:["golang"],title:getTemplateName("templates.starter.go","Go Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},customSettings:{imports:{"my_pkg/greet.js":c+"demo/greet.js"},gleam:{modules:{"plinth/browser/document":{srcUrl:m+"browser/document.gleam",compiledUrl:p+"browser/document.mjs"},"plinth/browser/element":{srcUrl:m+"browser/element.gleam",compiledUrl:p+"browser/element.mjs"},"plinth/browser/event":{srcUrl:m+"browser/event.gleam",compiledUrl:p+"browser/event.mjs"}}}}};var N={name:"go",aliases:["golang"],title:getTemplateName("templates.starter.go","Go Starter"),thumbnail:"assets/templates/go.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/go.svg" />
@@ -1443,7 +1443,7 @@ public class Main {
     System.out.println(count);
   }
 }
-`.trimStart()}};var D={name:"javascript",aliases:["js"],title:getTemplateName("templates.starter.javascript","JavaScript Starter"),thumbnail:"assets/templates/javascript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var A={name:"javascript",aliases:["js"],title:getTemplateName("templates.starter.javascript","JavaScript Starter"),thumbnail:"assets/templates/javascript.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/javascript.svg" />
@@ -1471,7 +1471,7 @@ button.addEventListener("click", () => {
   count++;
   counter.innerText = count;
 });
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var A={name:"jest-react",title:getTemplateName("templates.starter.jest-react","Jest/React Starter"),thumbnail:"assets/templates/jest.svg",activeEditor:"script",autotest:!0,markup:{language:"html",content:""},style:{language:"css",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var D={name:"jest-react",title:getTemplateName("templates.starter.jest-react","Jest/React Starter"),thumbnail:"assets/templates/jest.svg",activeEditor:"script",autotest:!0,markup:{language:"html",content:""},style:{language:"css",content:`
 .container,
 .container button {
   text-align: center;
@@ -3013,7 +3013,7 @@ elif 12 <= current_time < 18:
       print('Good afternoon')
 else:
       print('Good evening')
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var pt={name:"python-wasm",aliases:["pyodide","py-wasm"],title:getTemplateName("templates.starter.python-wasm","Python (Wasm) Starter"),thumbnail:"assets/templates/python.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var mt={name:"python-wasm",aliases:["pyodide","py-wasm"],title:getTemplateName("templates.starter.python-wasm","Python (Wasm) Starter"),thumbnail:"assets/templates/python.svg",activeEditor:"script",markup:{language:"html",content:`
 <h1 id="title">Hello, World!</h1>
 <div id="loading">Loading...</div>
 <div id="plots"></div>
@@ -3076,7 +3076,7 @@ loading.innerHTML = ""
 
 # avoid leaving figures open
 plt.close("all")
-`.trimStart()}};var mt={name:"r",aliases:["r-lang","rlang"],title:getTemplateName("templates.starter.r","R Starter"),thumbnail:"assets/templates/r.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var pt={name:"r",aliases:["r-lang","rlang"],title:getTemplateName("templates.starter.r","R Starter"),thumbnail:"assets/templates/r.svg",activeEditor:"script",markup:{language:"html",content:`
 <div id="output">Loading...</div>
 
 <script>
@@ -3493,7 +3493,47 @@ end
     (cond ((< time-now 12) "Good morning")
           ((< time-now 18) "Good afternoon")
           (else "Good evening"))))
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var t="https://cdn.jsdelivr.net/npm/@hatemhosny/shadcdn@0.0.14/build/",xt={name:"shadcn-ui",title:getTemplateName("templates.starter.shadcnui","shadcn/ui Starter"),thumbnail:"assets/templates/shadcn-ui.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var xt={name:"science-alive",aliases:["sa"],title:"Science Alive Starter",thumbnail:"assets/templates/blank.svg",activeEditor:"script",languages:["html","css","py"],markup:{language:"html",content:`
+<div class="container">
+  <h1 id="header">Science Alive!</h1>
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/wattson.svg" />
+  <p>You clicked <span id="counter">0</span> times.</p>
+  <button id="counter-button">Click me</button>
+</div>
+`.trimStart()},style:{language:"css",content:`
+.container,
+.container button {
+  text-align: center;
+  font: 1em sans-serif;
+}
+.logo {
+  width: 150px;
+}
+`.trimStart()},script:{language:"python",content:`
+from browser import document
+import time
+
+title = 'Wattson'
+document['header'].html = f"Hello, {title}!"
+
+counter = 0
+
+def increment(ev):
+    global counter
+    counter += 1
+    document['counter'].html = str(counter)
+
+document["counter-button"].bind("click", increment)
+
+# check console
+current_time = int(time.strftime('%H'))
+if current_time < 12 :
+      print('Good morning')
+elif 12 <= current_time < 18:
+      print('Good afternoon')
+else:
+      print('Good evening')
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var t="https://cdn.jsdelivr.net/npm/@hatemhosny/shadcdn@0.0.14/build/",wt={name:"shadcn-ui",title:getTemplateName("templates.starter.shadcnui","shadcn/ui Starter"),thumbnail:"assets/templates/shadcn-ui.svg",activeEditor:"script",markup:{language:"html",content:`
 <link rel="stylesheet" href="${t}shadcdn.css">
 <link rel="stylesheet" href="${t}themes.css">
 `.trimStart()},style:{language:"css",content:`
@@ -3620,7 +3660,7 @@ function LoginForm({
     </div>
   );
 }
-`.trimStart()},processors:["tailwindcss"],imports:{},types:{},customSettings:{imports:{react:"https://esm.sh/react","react/":"https://esm.sh/react/","react-dom":"https://esm.sh/react-dom","react-dom/":"https://esm.sh/react-dom/","@":`${t}shadcdn.js`,"@/lib/utils":`${t}shadcdn.js`,"@/components/ui/accordion":`${t}shadcdn.js`,"@/components/ui/alert-dialog":`${t}shadcdn.js`,"@/components/ui/alert":`${t}shadcdn.js`,"@/components/ui/aspect-ratio":`${t}shadcdn.js`,"@/components/ui/avatar":`${t}shadcdn.js`,"@/components/ui/badge":`${t}shadcdn.js`,"@/components/ui/button":`${t}shadcdn.js`,"@/components/ui/calendar":`${t}shadcdn.js`,"@/components/ui/card":`${t}shadcdn.js`,"@/components/ui/checkbox":`${t}shadcdn.js`,"@/components/ui/collapsible":`${t}shadcdn.js`,"@/components/ui/command":`${t}shadcdn.js`,"@/components/ui/context-menu":`${t}shadcdn.js`,"@/components/ui/dialog":`${t}shadcdn.js`,"@/components/ui/dropdown-menu":`${t}shadcdn.js`,"@/components/ui/form":`${t}shadcdn.js`,"@/components/ui/hover-card":`${t}shadcdn.js`,"@/components/ui/input":`${t}shadcdn.js`,"@/components/ui/label":`${t}shadcdn.js`,"@/components/ui/menubar":`${t}shadcdn.js`,"@/components/ui/navigation-menu":`${t}shadcdn.js`,"@/components/ui/popover":`${t}shadcdn.js`,"@/components/ui/progress":`${t}shadcdn.js`,"@/components/ui/radio-group":`${t}shadcdn.js`,"@/components/ui/scroll-area":`${t}shadcdn.js`,"@/components/ui/select":`${t}shadcdn.js`,"@/components/ui/separator":`${t}shadcdn.js`,"@/components/ui/sheet":`${t}shadcdn.js`,"@/components/ui/skeleton":`${t}shadcdn.js`,"@/components/ui/slider":`${t}shadcdn.js`,"@/components/ui/switch":`${t}shadcdn.js`,"@/components/ui/table":`${t}shadcdn.js`,"@/components/ui/tabs":`${t}shadcdn.js`,"@/components/ui/textarea":`${t}shadcdn.js`,"@/components/ui/toast":`${t}shadcdn.js`,"@/components/ui/toaster":`${t}shadcdn.js`,"@/components/ui/toggle":`${t}shadcdn.js`,"@/components/ui/tooltip":`${t}shadcdn.js`,"@/components/ui/use-toast":`${t}shadcdn.js`,"@/components/ui/resizable":`${t}shadcdn.js`,"@/components/ui/input-otp":`${t}shadcdn.js`,"@/components/ui/breadcrumb":`${t}shadcdn.js`,"@/components/ui/toggle-group":`${t}shadcdn.js`,"@/components/ui/sonner":`${t}shadcdn.js`,"@/components/ui/pagination":`${t}shadcdn.js`,"@/components/ui/drawer":`${t}shadcdn.js`,"@/components/ui/carousel":`${t}shadcdn.js`,"@/components/ui/sidebar":`${t}shadcdn.js`,"@/components/ui/chart":`${t}shadcdn.js`},types:{"@/components":`${t}shadcdn.d.ts`,"@/utils":`${t}shadcdn.d.ts`}}};var wt={name:"solid",title:getTemplateName("templates.starter.solid","Solid Starter"),thumbnail:"assets/templates/solid.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:`
+`.trimStart()},processors:["tailwindcss"],imports:{},types:{},customSettings:{imports:{react:"https://esm.sh/react","react/":"https://esm.sh/react/","react-dom":"https://esm.sh/react-dom","react-dom/":"https://esm.sh/react-dom/","@":`${t}shadcdn.js`,"@/lib/utils":`${t}shadcdn.js`,"@/components/ui/accordion":`${t}shadcdn.js`,"@/components/ui/alert-dialog":`${t}shadcdn.js`,"@/components/ui/alert":`${t}shadcdn.js`,"@/components/ui/aspect-ratio":`${t}shadcdn.js`,"@/components/ui/avatar":`${t}shadcdn.js`,"@/components/ui/badge":`${t}shadcdn.js`,"@/components/ui/button":`${t}shadcdn.js`,"@/components/ui/calendar":`${t}shadcdn.js`,"@/components/ui/card":`${t}shadcdn.js`,"@/components/ui/checkbox":`${t}shadcdn.js`,"@/components/ui/collapsible":`${t}shadcdn.js`,"@/components/ui/command":`${t}shadcdn.js`,"@/components/ui/context-menu":`${t}shadcdn.js`,"@/components/ui/dialog":`${t}shadcdn.js`,"@/components/ui/dropdown-menu":`${t}shadcdn.js`,"@/components/ui/form":`${t}shadcdn.js`,"@/components/ui/hover-card":`${t}shadcdn.js`,"@/components/ui/input":`${t}shadcdn.js`,"@/components/ui/label":`${t}shadcdn.js`,"@/components/ui/menubar":`${t}shadcdn.js`,"@/components/ui/navigation-menu":`${t}shadcdn.js`,"@/components/ui/popover":`${t}shadcdn.js`,"@/components/ui/progress":`${t}shadcdn.js`,"@/components/ui/radio-group":`${t}shadcdn.js`,"@/components/ui/scroll-area":`${t}shadcdn.js`,"@/components/ui/select":`${t}shadcdn.js`,"@/components/ui/separator":`${t}shadcdn.js`,"@/components/ui/sheet":`${t}shadcdn.js`,"@/components/ui/skeleton":`${t}shadcdn.js`,"@/components/ui/slider":`${t}shadcdn.js`,"@/components/ui/switch":`${t}shadcdn.js`,"@/components/ui/table":`${t}shadcdn.js`,"@/components/ui/tabs":`${t}shadcdn.js`,"@/components/ui/textarea":`${t}shadcdn.js`,"@/components/ui/toast":`${t}shadcdn.js`,"@/components/ui/toaster":`${t}shadcdn.js`,"@/components/ui/toggle":`${t}shadcdn.js`,"@/components/ui/tooltip":`${t}shadcdn.js`,"@/components/ui/use-toast":`${t}shadcdn.js`,"@/components/ui/resizable":`${t}shadcdn.js`,"@/components/ui/input-otp":`${t}shadcdn.js`,"@/components/ui/breadcrumb":`${t}shadcdn.js`,"@/components/ui/toggle-group":`${t}shadcdn.js`,"@/components/ui/sonner":`${t}shadcdn.js`,"@/components/ui/pagination":`${t}shadcdn.js`,"@/components/ui/drawer":`${t}shadcdn.js`,"@/components/ui/carousel":`${t}shadcdn.js`,"@/components/ui/sidebar":`${t}shadcdn.js`,"@/components/ui/chart":`${t}shadcdn.js`},types:{"@/components":`${t}shadcdn.d.ts`,"@/utils":`${t}shadcdn.d.ts`}}};var St={name:"solid",title:getTemplateName("templates.starter.solid","Solid Starter"),thumbnail:"assets/templates/solid.svg",activeEditor:"script",markup:{language:"html",content:""},style:{language:"css",content:`
 .container,
 .container button {
   text-align: center;
@@ -3648,7 +3688,7 @@ function Counter(props: { name: string }) {
 export default function App() {
   return <Counter name="Solid" />;
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var St={name:"sql",title:getTemplateName("templates.starter.sql","SQL Starter"),thumbnail:"assets/templates/sqlite.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var kt={name:"sql",title:getTemplateName("templates.starter.sql","SQL Starter"),thumbnail:"assets/templates/sqlite.svg",activeEditor:"script",markup:{language:"html",content:`
 <div id="output">
   <details open>
     <summary>Tables</summary>
@@ -3752,7 +3792,7 @@ SELECT a.id, a.rev, a.quote
                ROW_NUMBER() OVER (PARTITION BY id ORDER BY rev DESC) rank
           FROM quotes) a
   WHERE a.rank = 1;
-`.trimStart()}};var kt={name:"stencil",title:getTemplateName("templates.starter.stencil","Stencil Starter"),thumbnail:"assets/templates/stencil.png",activeEditor:"script",markup:{language:"html",content:`<my-app title="Stencil"></my-app>
+`.trimStart()}};var _t={name:"stencil",title:getTemplateName("templates.starter.stencil","Stencil Starter"),thumbnail:"assets/templates/stencil.png",activeEditor:"script",markup:{language:"html",content:`<my-app title="Stencil"></my-app>
 `},style:{language:"css",content:""},script:{language:"stencil",content:`
 import { Component, Prop, h, State } from "@stencil/core";
 
@@ -3788,7 +3828,7 @@ export class App {
     );
   }
 }
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var _t={name:"svelte",title:getTemplateName("templates.starter.svelte","Svelte Starter"),thumbnail:"assets/templates/svelte.svg",activeEditor:"script",markup:{language:"svelte",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var jt={name:"svelte",title:getTemplateName("templates.starter.svelte","Svelte Starter"),thumbnail:"assets/templates/svelte.svg",activeEditor:"script",markup:{language:"svelte",content:`
 <script>
 import Counter from "./Component.svelte";
 <\/script>
@@ -3820,7 +3860,7 @@ import Counter from "./Component.svelte";
   <p>You clicked {counter} times.</p>
   <button on:click={increment}>Click me</button>
 </div>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var jt={name:"tailwindcss",aliases:["tw","tailwind"],title:getTemplateName("templates.starter.tailwindcss","Tailwind CSS Starter"),thumbnail:"assets/templates/tailwindcss.svg",activeEditor:"markup",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Tt={name:"tailwindcss",aliases:["tw","tailwind"],title:getTemplateName("templates.starter.tailwindcss","Tailwind CSS Starter"),thumbnail:"assets/templates/tailwindcss.svg",activeEditor:"markup",markup:{language:"html",content:`
 <div class="relative grid min-h-screen grid-cols-[1fr_2.5rem_auto_2.5rem_1fr] grid-rows-[1fr_1px_auto_1px_1fr] bg-white [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10">
   <div class="col-start-3 row-start-3 flex max-w-lg flex-col bg-gray-100 p-2 dark:bg-white/10">
     <div class="rounded-xl bg-white p-10 text-sm/7 text-gray-700 dark:bg-gray-950 dark:text-gray-300">
@@ -3899,7 +3939,7 @@ import Counter from "./Component.svelte";
 @theme {
   /* ... */
 }
-`.trimStart()},script:{language:"javascript",content:""},processors:["tailwindcss"]};var Tt={name:"tcl",title:getTemplateName("templates.starter.tcl","Tcl Starter"),thumbnail:"assets/templates/tcl.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},script:{language:"javascript",content:""},processors:["tailwindcss"]};var Ct={name:"tcl",title:getTemplateName("templates.starter.tcl","Tcl Starter"),thumbnail:"assets/templates/tcl.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/tcl.svg" />
@@ -3944,7 +3984,7 @@ if {[info exists count]} {
 }
 ::wacl::dom attr "#counter" innerText $count
 puts $count
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Ct={name:"teal",title:getTemplateName("templates.starter.teal","Teal Starter"),thumbnail:"assets/templates/teal.png",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Ut={name:"teal",title:getTemplateName("templates.starter.teal","Teal Starter"),thumbnail:"assets/templates/teal.png",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/teal.png" />
@@ -3993,7 +4033,7 @@ button:addEventListener("click", function()
   count = increment(count)
   counter_el.innerHTML = ("You clicked %d times."):format(count)
 end)
-`.trimStart()}};var Ut={name:"typescript",aliases:["ts"],title:getTemplateName("templates.starter.typescript","TypeScript Starter"),thumbnail:"assets/templates/typescript.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()}};var Et={name:"typescript",aliases:["ts"],title:getTemplateName("templates.starter.typescript","TypeScript Starter"),thumbnail:"assets/templates/typescript.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/typescript.svg" />
@@ -4037,7 +4077,7 @@ button.addEventListener(
   },
   false
 );
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Et={name:"vue",title:getTemplateName("templates.starter.vue","Vue SFC Starter"),thumbnail:"assets/templates/vue.svg",activeEditor:"script",markup:{language:"vue",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Lt={name:"vue",title:getTemplateName("templates.starter.vue","Vue SFC Starter"),thumbnail:"assets/templates/vue.svg",activeEditor:"script",markup:{language:"vue",content:`
 <script setup lang="tsx">
 import Counter from './Component.vue';
 <\/script>
@@ -4081,7 +4121,7 @@ import Counter from './Component.vue';
     width: 150px;
   }
 </style>
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var Lt={name:"vue2",title:getTemplateName("templates.starter.vue2","Vue 2 Starter"),thumbnail:"assets/templates/vue.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var qt={name:"vue2",title:getTemplateName("templates.starter.vue2","Vue 2 Starter"),thumbnail:"assets/templates/vue.svg",activeEditor:"script",markup:{language:"html",content:`
 <div id="app">
   <h1>Hello, Vue!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/vue.svg" />
@@ -4109,7 +4149,7 @@ new Vue({
     },
   },
 });
-`.trimStart()},stylesheets:[],scripts:["{{ __CDN_URL__ }}vue@2"],cssPreset:"",imports:{},types:{}};var qt={name:"wat",title:getTemplateName("templates.starter.wat","WebAssembly Text Starter"),thumbnail:"assets/templates/webassembly.svg",activeEditor:"script",markup:{language:"html",content:`
+`.trimStart()},stylesheets:[],scripts:["{{ __CDN_URL__ }}vue@2"],cssPreset:"",imports:{},types:{}};var $t={name:"wat",title:getTemplateName("templates.starter.wat","WebAssembly Text Starter"),thumbnail:"assets/templates/webassembly.svg",activeEditor:"script",markup:{language:"html",content:`
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/webassembly.svg" />
@@ -4177,4 +4217,4 @@ new Vue({
     (i32.add (local.get $0) (i32.const 1))
   )
 )
-`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var vo=[b,D,Ut,ut,dt,Et,d,it,_t,wt,V,kt,Q,jt,xt,U,v,g,bt,Z,Y,h,G,O,A,C,ot,Lt,S,X,y,x,I,ht,gt,et,ct,pt,mt,ft,vt,N,H,nt,rt,_,j,W,T,st,F,J,Ct,L,z,yt,k,w,R,Tt,K,u,qt,St,at,lt,tt,f,E];export{vo as starterTemplates};
+`.trimStart()},stylesheets:[],scripts:[],cssPreset:"",imports:{},types:{}};var wo=[b,xt,A,Et,ut,dt,Lt,d,it,jt,St,V,_t,Q,Tt,wt,U,v,g,bt,Z,Y,h,G,O,D,C,ot,qt,S,X,y,x,I,ht,gt,et,ct,mt,pt,ft,vt,N,H,nt,rt,_,j,W,T,st,F,J,Ut,L,z,yt,k,w,R,Ct,K,u,$t,kt,at,lt,tt,f,E];export{wo as starterTemplates};
