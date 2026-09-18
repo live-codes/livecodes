@@ -2732,10 +2732,6 @@
     "notes": "",
     "translation": "Objective-C (Wasm) Starter"
   },
-  "templates.starter.objcpp-wasm": {
-    "notes": "",
-    "translation": "Objective-C++ (Wasm) Starter"
-  },
   "templates.starter.ocaml": {
     "notes": "",
     "translation": "Ocaml Starter"

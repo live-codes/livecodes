@@ -1029,7 +1029,6 @@ const translation = {
       mdx: 'MDX Starter',
       minizinc: 'MiniZinc Starter',
       'objc-wasm': 'Objective-C (Wasm) Starter',
-      'objcpp-wasm': 'Objective-C++ (Wasm) Starter',
       ocaml: 'Ocaml Starter',
       perl: 'Perl Starter',
       phaser: 'Phaser Starter',
