@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hellowattson-playground",
+  "account_id": "c79b013d5dffa41db3bcc4e826a24ad7",
+  "compatibility_date": "2026-05-20",
+  "assets": {
+    "directory": "build"
+  }
+}

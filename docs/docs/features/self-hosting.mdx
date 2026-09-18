@@ -35,6 +35,32 @@ Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. Yo
 
 Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration), etc.). When prompted, the build command is `npm run build` and the build output directory is `build`.
 
+### Cloudflare Workers
+
+The app can be deployed as a [Cloudflare Worker with Static Assets](https://developers.cloudflare.com/workers/static-assets/), which is not the same product as Cloudflare Pages listed under [Git Integration](#git-integration) above.
+
+Create a `wrangler.jsonc` at the repo root:
+
+```jsonc
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "your-worker-name",
+  "account_id": "your-cloudflare-account-id",
+  "compatibility_date": "2026-05-20",
+  "assets": {
+    "directory": "build"
+  }
+}
+```
+
+Note: `build` also contains `build/docs/` (this documentation site) alongside `build/livecodes/` (the app) when built with `npm run build`. Deploying the whole folder serves both; if you only want the app, use `npm run build:app` instead of the full `build` script, though this documentation site's docs directory does not conflict with the app and is generally safe to leave in place.
+
+Build with `BASE_URL="/"` so the app is served from the Worker's own root, rather than the GitHub Pages-specific `/livecodes/` subdirectory default:
+
+```shell
+npm run deploy:cloudflare
+```
+
 ### Docker Setup
 
 In addition to the _static_ app provided by the previous methods, the included [docker setup](../advanced/docker.mdx) provides alternative implementations for server-side features available in the [hosted app](https://livecodes.io),
