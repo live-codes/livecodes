@@ -280,7 +280,7 @@ const languageInfo = {
   },
   objcppWasm: {
     desc: 'Objective-C++ compiled to WebAssembly by <1>Clang</1>, using the <2>GNUstep</2> Objective-C runtime. This is a runtime and not a class library, so Foundation is not available.',
-    link: '<1> <2>Objective-C documentation</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Learn X in Y minutes, where X=Objective-C</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    link: '<1> <2>Objective-C documentation</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Learn X in Y minutes, where X=Objective-C</6> </5> <7> <8>LiveCodes Documentation</8> </7>',
     name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
