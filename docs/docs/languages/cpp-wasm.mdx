@@ -1,6 +1,6 @@
-# C/C++ (Wasm)
+# C++ (Wasm)
 
-The C++ (Wasm) language support in LiveCodes uses [Clang](https://clang.llvm.org/) compiled to WebAssembly via [`@chriskoch/cpp-wasm`](https://www.npmjs.com/package/@chriskoch/cpp-wasm). Unlike the [JSCPP-based C++](./cpp.mdx) interpreter, this provides a real C/C++ compiler running on WebAssembly.
+The C++ (Wasm) language support in LiveCodes uses [Clang](https://clang.llvm.org/) compiled to WebAssembly via [`@live-codes/clang-wasm`](https://www.npmjs.com/package/@live-codes/clang-wasm). Unlike the [JSCPP-based C++](./cpp.mdx) interpreter, this provides a real C++ compiler running on WebAssembly.
 
 ## Usage
 
@@ -19,8 +19,12 @@ C++ programs use `cin` for input and `cout` for output. Input is passed from Jav
 JavaScript can interact with the C++ runtime using the `livecodes.cpp` global:
 
 - `livecodes.cpp.input` — set this to pass input to the program (read by `cin`)
-- `livecodes.cpp.run(input?)` — execute the program with optional input, returns a promise that resolves to `{ input, output, exitCode, error }`
+- `livecodes.cpp.run(input?)` — compile and run the program with optional input, returns a promise that resolves to `{ input, output, error, exitCode }`
 - `livecodes.cpp.loaded` — a promise that resolves when the runtime is ready
+- `livecodes.cpp.error` — the compiler diagnostics, if the code failed to compile
+- `livecodes.cpp.exitCode` — the exit code of the program
+
+The same API is available as `livecodes.clangWasm` for all Clang-based languages.
 
 ### Live Reload
 
@@ -40,13 +44,9 @@ This comment can be added in the [`hiddenContent` property of the editor](../con
 
 `cpp-wasm`
 
-### Aliases
+### Aliases / Extensions
 
-`clang`, `c++-wasm`
-
-### Extensions
-
-`.wasm.cpp`, `.cppwasm`, `.cwasm`, `.clang.cpp`, `.clang`, `.cpp`, `.c`, `.C`, `.cp`, `.cxx`, `.c++`, `.cppm`, `.ixx`, `.ii`, `.hpp`, `.h`
+`cpp`, `cc`, `cp`, `cxx`, `c++`, `cppm`, `ixx`, `ii`, `hpp`, `cppwasm`, `cpp-wasm`, `wasm.cpp`, `clang`, `clang.cpp`, `clang-cpp`
 
 ### Editor
 
@@ -54,7 +54,7 @@ This comment can be added in the [`hiddenContent` property of the editor](../con
 
 ## Compiler
 
-[Clang](https://clang.llvm.org/) compiled to WebAssembly via [@chriskoch/cpp-wasm](https://www.npmjs.com/package/@chriskoch/cpp-wasm)
+[Clang](https://clang.llvm.org/) compiled to WebAssembly via [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm), with a complete libc++. The standards `gnu++11`, `gnu++14`, `gnu++17`, `gnu++20` and `gnu++23` are supported (default: `gnu++23`).
 
 ## Code Formatting
 
@@ -67,5 +67,6 @@ https://livecodes.io/?template=cpp-wasm
 ## Links
 
 - [Clang](https://clang.llvm.org/)
-- [@chriskoch/cpp-wasm](https://www.npmjs.com/package/@chriskoch/cpp-wasm)
+- [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm)
 - [C++ (JSCPP)](./cpp.mdx) in LiveCodes
+- [C (Wasm)](./c-wasm.mdx) in LiveCodes

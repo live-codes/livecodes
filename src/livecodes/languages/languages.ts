@@ -7,12 +7,12 @@ import { babel } from './babel';
 import { bbcode } from './bbcode';
 import { blockly } from './blockly';
 import { civet } from './civet';
+import { cWasm, cppWasm, objcWasm, objcppWasm } from './clang-wasm';
 import { clio } from './clio';
 import { clojurescript } from './clojurescript';
 import { coffeescript } from './coffeescript';
 import { commonlisp } from './commonlisp';
 import { cpp } from './cpp';
-import { cppWasm } from './cpp-wasm';
 import { csharpWasm } from './csharp-wasm';
 import { css } from './css';
 import { diagrams } from './diagrams';
@@ -158,7 +158,10 @@ export const languages: LanguageSpecs[] = [
   php,
   phpWasm,
   cpp,
+  cWasm,
   cppWasm,
+  objcWasm,
+  objcppWasm,
   rustWasm,
   zigWasm,
   java,
