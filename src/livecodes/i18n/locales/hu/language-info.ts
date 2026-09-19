@@ -458,6 +458,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Hivatalos weboldal</2> </1> <3> <4>TypeScript dokumentáció</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=TypeScript</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
     name: 'TypeScript',
   },
+  vbWasm: {
+    desc: 'VB.NET fordító WebAssembly-n futva, a <1>Roslyn</1> és a <2>.NET WebAssembly futtatókörnyezet</2> használatával',
+    link: '<1> <2>Visual Basic nyelvi dokumentáció</2> </1> <3> <4>Tanulj X-et Y perc alatt, ahol X=Visual Basic</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
+    name: 'VB.NET (Wasm)',
+  },
   vue: {
     link: '<1> <2>Vue.js v3 hivatalos weboldal</2> </1> <3> <4>Vue3 dokumentáció</4> </3> <5> <6>Vue3 egyfájlos komponensek</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'Vue3 egyfájlos komponensek',

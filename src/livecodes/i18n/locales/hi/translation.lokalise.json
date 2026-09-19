@@ -2130,6 +2130,9 @@
   "templates.starter.typescript": {
     "translation": "TypeScript स्टार्टर"
   },
+  "templates.starter.vb-wasm": {
+    "translation": "VB.NET (Wasm) स्टार्टर"
+  },
   "templates.starter.vue": {
     "translation": "Vue स्टार्टर"
   },

@@ -2130,6 +2130,9 @@
   "templates.starter.typescript": {
     "translation": "TypeScript 启动模板"
   },
+  "templates.starter.vb-wasm": {
+    "translation": "VB.NET（WASM）启动模板"
+  },
   "templates.starter.vue": {
     "translation": "Vue 单文件组件启动模板"
   },
