@@ -256,6 +256,7 @@ export const getCommandMenuActions = ({
       mdIcon: 'library_books',
       children: stringUnionToArray<TemplateName>()(
         'blank',
+        'science-alive',
         'javascript',
         'typescript',
         'react',
