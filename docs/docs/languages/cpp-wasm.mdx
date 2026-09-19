@@ -26,18 +26,6 @@ JavaScript can interact with the C++ runtime using the `livecodes.cpp` global:
 
 The same API is available as `livecodes.clangWasm` for all Clang-based languages.
 
-### Live Reload
-
-The Clang WebAssembly compiler is a large download. Initial loading may take some time, after which subsequent runs should be faster.
-
-By default, when code is updated, the environment is re-used. This behavior is used for performance reasons. However, in order to get full reload and start a new environment, insert this comment in the code:
-
-```cpp
-// __livecodes_reload__
-```
-
-This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
-
 ## Language Info
 
 ### Name
@@ -54,11 +42,17 @@ This comment can be added in the [`hiddenContent` property of the editor](../con
 
 ## Compiler
 
-[Clang](https://clang.llvm.org/) compiled to WebAssembly via [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm), with a complete libc++. The standards `gnu++11`, `gnu++14`, `gnu++17`, `gnu++20` and `gnu++23` are supported (default: `gnu++23`).
+[Clang](https://clang.llvm.org/) 22 compiled to WebAssembly via [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm), with a complete libc++. The standards `gnu++11`, `gnu++14`, `gnu++17`, `gnu++20` and `gnu++23` are supported (default: `gnu++23`).
 
 ## Code Formatting
 
 Using [@wasm-fmt/clang-format](https://github.com/wasm-fmt/clang-format), applying [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
+
+## Live Reload
+
+By default, new code changes are sent to the result page without a full page reload, avoiding the need to re-download the compiler. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the C++ code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
 
 ## Starter Template
 

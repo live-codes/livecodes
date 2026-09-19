@@ -56,7 +56,7 @@ export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.2.19/');
 
 export const cjs2esUrl = /* @__PURE__ */ getUrl('cjs2es@1.1.1/dist/cjs2es.browser.js');
 
-export const clangWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.1.0/');
+export const clangWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.2.0/');
 
 export const clioBaseUrl = /* @__PURE__ */ getUrl(
   '@live-codes/clio-browser-compiler@0.0.3/public/build/',

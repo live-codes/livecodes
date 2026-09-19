@@ -287,5 +287,7 @@ window.livecodes.objc = clangWasm;
 window.livecodes.objcpp = clangWasm;
 
 window.addEventListener('load', async () => {
+  parent.postMessage({ type: 'loading', payload: true }, '*');
   await clangWasm.run(clangWasm.input);
+  parent.postMessage({ type: 'loading', payload: false }, '*');
 });

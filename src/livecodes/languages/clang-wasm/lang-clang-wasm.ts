@@ -5,10 +5,12 @@ import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, wasmFmtClangBaseUrl } from '
 interface ClangWasmLanguage {
   name: Language;
   title: string;
+  longTitle?: string;
   scriptType: NonNullable<Compiler['scriptType']>;
   extensions: Language[];
   /** The name the source is compiled under, which also selects clang-format's language. */
   fileName: string;
+  editorLanguage: Language;
 }
 
 /**
@@ -19,12 +21,15 @@ interface ClangWasmLanguage {
 const createClangWasmLanguage = ({
   name,
   title,
+  longTitle,
   scriptType,
   extensions,
   fileName,
+  editorLanguage,
 }: ClangWasmLanguage): LanguageSpecs => ({
   name,
   title,
+  longTitle,
   formatter: {
     factory: async () => {
       const formatter = await import(wasmFmtClangBaseUrl + 'clang-format-web.js');
@@ -43,14 +48,14 @@ const createClangWasmLanguage = ({
   editor: 'script',
   editorSupport: {
     monaco: {
-      languageSupport: monacoLanguagesBaseUrl + name.replace('-wasm', '') + '.js',
-      language: name.replace('-wasm', '') as Language,
+      languageSupport: monacoLanguagesBaseUrl + editorLanguage + '.js',
+      language: editorLanguage,
     },
     codemirror: {
       languageSupport: async () =>
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-cpp.js')).cpp),
     },
-    codejar: { language: 'cpp' },
+    codejar: { language: editorLanguage === 'objcpp' ? 'objc' : editorLanguage },
   },
   largeDownload: true,
 });
@@ -61,6 +66,7 @@ export const cWasm: LanguageSpecs = createClangWasmLanguage({
   scriptType: 'text/c-wasm',
   extensions: ['c', 'h', 'cwasm', 'c-wasm', 'wasm.c', 'clang.c', 'clang-c'],
   fileName: 'main.c',
+  editorLanguage: 'c',
 });
 
 export const cppWasm: LanguageSpecs = createClangWasmLanguage({
@@ -85,19 +91,23 @@ export const cppWasm: LanguageSpecs = createClangWasmLanguage({
     'clang-cpp',
   ],
   fileName: 'main.cpp',
+  editorLanguage: 'cpp',
 });
 
 export const objcWasm: LanguageSpecs = createClangWasmLanguage({
   name: 'objc-wasm',
-  title: 'Objective-C (Wasm)',
+  title: 'Obj-C',
+  longTitle: 'Objective-C (Wasm)',
   scriptType: 'text/objc-wasm',
   extensions: ['m', 'objc', 'objc-wasm', 'objective-c', 'wasm.m', 'clang.m', 'clang-objc'],
   fileName: 'main.m',
+  editorLanguage: 'objc',
 });
 
 export const objcppWasm: LanguageSpecs = createClangWasmLanguage({
   name: 'objcpp-wasm',
-  title: 'Objective-C++ (Wasm)',
+  title: 'Obj-C++',
+  longTitle: 'Objective-C++ (Wasm)',
   scriptType: 'text/objcpp-wasm',
   extensions: [
     'mm',
@@ -110,4 +120,5 @@ export const objcppWasm: LanguageSpecs = createClangWasmLanguage({
     'clang-objcpp',
   ],
   fileName: 'main.mm',
+  editorLanguage: 'objcpp',
 });
