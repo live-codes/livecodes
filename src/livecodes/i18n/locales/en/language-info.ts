@@ -45,6 +45,11 @@ const languageInfo = {
     link: '<1> <2>Official website</2> </1> <3> <4>Guides</4> </3> <5> <6>Reference</6> </5> <7> <8>Samples</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Blockly',
   },
+  cWasm: {
+    desc: 'C compiled to WebAssembly by <1>Clang</1>, running entirely in the browser.',
+    link: '<1> <2>C language reference</2> </1> <3> <4>Clang official website</4> </3> <5> <6>Learn X in Y minutes, where X=C</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'C (Wasm)',
+  },
   civet: {
     desc: 'Civet is a programming language that compiles to TypeScript or JavaScript, so you can use existing tooling but enable concise and powerful syntax.',
     link: '<1> <2>Civet official website</2> </1> <3> <4>Civet cheatsheet</4> </3> <5> <6>Load starter template</6> </5>',
@@ -78,9 +83,9 @@ const languageInfo = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'Clang C/C++ compiler running on WebAssembly, using <1>wasm-clang</1> adapted by <2>polylang.io</2>',
-    link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang official website</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>Load starter template</8> </7>',
-    name: 'C/C++ (Wasm)',
+    desc: 'C++ compiled to WebAssembly by <1>Clang</1>, running entirely in the browser. This provides a real C++ compiler, unlike the <2>JSCPP-based C++</2> interpreter.',
+    link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang official website</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'C++ (Wasm)',
   },
   csharpWasm: {
     desc: 'C# compiler running on WebAssembly, using <1>Blazor</1>',
@@ -267,6 +272,16 @@ const languageInfo = {
     desc: 'A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <1>jinja2</1>',
     link: '<1> <2>Official website</2> </1> <3> <4>LiveCodes Documentations</4> </3>',
     name: 'Nunjucks',
+  },
+  objcWasm: {
+    desc: 'Objective-C compiled to WebAssembly by <1>Clang</1>, using the <2>GNUstep</2> Objective-C runtime. This is a runtime and not a class library, so Foundation is not available.',
+    link: '<1> <2>Objective-C documentation</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Learn X in Y minutes, where X=Objective-C</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Objective-C (Wasm)',
+  },
+  objcppWasm: {
+    desc: 'Objective-C++ compiled to WebAssembly by <1>Clang</1>, using the <2>GNUstep</2> Objective-C runtime. This is a runtime and not a class library, so Foundation is not available.',
+    link: '<1> <2>Objective-C documentation</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Learn X in Y minutes, where X=Objective-C</6> </5> <7> <8>LiveCodes Documentation</8> </7>',
+    name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
     desc1:

@@ -1,0 +1,124 @@
+# Objective-C++ (Wasm)
+
+Objective-C++ is the combination of Objective-C and C++ in a single translation unit, allowing C++ classes and Objective-C messaging to be used together.
+
+In LiveCodes, Objective-C++ runs in the browser using [Clang](https://clang.llvm.org/) compiled to WebAssembly, with [GNUstep's libobjc2](https://github.com/gnustep/libobjc2) as the Objective-C runtime.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const objcppWasmConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'objcpp-wasm',
+    content: `#import <objc/runtime.h>\n\n#include <iostream>
+#include <string>
+using namespace std;\n
+__attribute__((objc_root_class))
+@interface Greeter {
+    Class isa;
+}
+- (void)greet:(string)name;
+@end\n
+@implementation Greeter
+- (void)greet:(string)name {
+    cout << "Hello, " + name + "!" << endl;
+}
+@end\n
+int main() {
+    Greeter *greeter = class_createInstance(objc_getClass("Greeter"), 0);
+    [greeter greet:string("World")];
+    return 0;
+}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={objcppWasmConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The Objective-C++ code runs in the context of the result page. A few helper properties and methods are available in the browser global `livecodes.objcpp` object:
+
+- `livecodes.objcpp.input`: The initial standard input passed to the code.
+- `livecodes.objcpp.loaded`: A promise that resolves when the environment is fully loaded. Other helpers should be used after this promise resolves.
+- `livecodes.objcpp.output`: The standard output from the code execution.
+- `livecodes.objcpp.error`: The compiler diagnostics, if the code failed to compile.
+- `livecodes.objcpp.exitCode`: The exit code of the program.
+- `livecodes.objcpp.run`: A function that compiles and runs the code with new input. This function takes a string as input and returns a promise that resolves with an object containing the `output`, `error` and `exitCode` properties.
+
+The same API is available as `livecodes.clangWasm` for all Clang-based languages.
+
+## Language Info
+
+### Name
+
+`objcpp-wasm`
+
+### Aliases / Extensions
+
+`mm`, `objcpp`, `objcpp-wasm`, `objc++`, `objective-c++`, `wasm.mm`, `clang.mm`, `clang-objcpp`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Clang](https://clang.llvm.org/) compiled to WebAssembly via [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm), with a complete libc++.
+
+### Version
+
+Clang `v22.1.8`. The standards `gnu++11`, `gnu++14`, `gnu++17`, `gnu++20` and `gnu++23` are supported (default: `gnu++23`).
+
+## Limitations
+
+The Objective-C runtime is [GNUstep's libobjc2](https://github.com/gnustep/libobjc2), which is a runtime and not a class library. There is no `NSObject` and no `NSString`, and Foundation is not available. Programs declare their own root class (as in the example above) and create instances directly.
+
+Objective-C exceptions (`@try`/`@catch`/`@throw`) are not supported.
+
+## Custom Settings
+
+The Clang compiler can be configured using [custom settings](../advanced/custom-settings.mdx) added to the property `objcpp-wasm`:
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `std` | `string` | The Objective-C++ standard to compile with: `gnu++11`, `gnu++14`, `gnu++17`, `gnu++20` or `gnu++23`. Defaults to `gnu++23`. |
+| `compileArgs` | `string[]` | Extra clang flags, e.g. `["-Wall", "-O2"]`. |
+| `args` | `string[]` | Command-line arguments passed to the program (`argv`). |
+
+```json title="Custom Settings"
+{
+  "objcpp-wasm": {
+    "std": "gnu++20",
+    "compileArgs": ["-Wall", "-O2"],
+    "args": ["--name", "LiveCodes"]
+  }
+}
+```
+
+## Code Formatting
+
+Using [@wasm-fmt/clang-format](https://github.com/wasm-fmt/clang-format), applying [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
+
+## Live Reload
+
+By default, new code changes are sent to the result page without a full page reload, avoiding the need to re-download the compiler. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Links
+
+- [Clang](https://clang.llvm.org/)
+- [GNUstep libobjc2](https://github.com/gnustep/libobjc2)
+- [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm)
+- [C (Wasm)](./c-wasm.mdx) in LiveCodes
+- [C++ (Wasm)](./cpp-wasm.mdx) in LiveCodes
+- [Objective-C (Wasm)](./objc-wasm.mdx) in LiveCodes

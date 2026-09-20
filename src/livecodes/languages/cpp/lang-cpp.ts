@@ -24,7 +24,7 @@ export const cpp: LanguageSpecs = {
     scriptType: 'text/cpp',
     compiledCodeLanguage: 'cpp',
   },
-  extensions: ['cpp', 'cc', 'c', 'C', 'cp', 'cxx', 'c++', 'cppm', 'ixx', 'ii', 'hpp', 'h'],
+  extensions: ['cpp', 'cc', 'cp', 'cxx', 'c++', 'cppm', 'ixx', 'ii', 'hpp'],
   editor: 'script',
   editorSupport: {
     monaco: { languageSupport: monacoLanguagesBaseUrl + 'cpp.js' },

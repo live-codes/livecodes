@@ -1,0 +1,124 @@
+# C (Wasm)
+
+C is a general-purpose, procedural programming language.
+
+In LiveCodes, C runs in the browser using [Clang](https://clang.llvm.org/) compiled to WebAssembly. Unlike the [JSCPP-based C++](./cpp.mdx) interpreter, this is a real C compiler running entirely client-side.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const cWasmConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'c-wasm',
+    content: `#include <stdio.h>\n
+int main(void) {
+    printf("Hello, World!\\n");
+    return 0;
+}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={cWasmConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The C code runs in the context of the result page. A few helper properties and methods are available in the browser global `livecodes.c` object:
+
+- `livecodes.c.input`: The initial standard input passed to the C code.
+- `livecodes.c.loaded`: A promise that resolves when the C environment is fully loaded. Other helpers should be used after this promise resolves.
+- `livecodes.c.output`: The standard output from the C code execution.
+- `livecodes.c.error`: The compiler diagnostics, if the code failed to compile.
+- `livecodes.c.exitCode`: The exit code of the program.
+- `livecodes.c.run`: A function that compiles and runs the C code with new input. This function takes a string as input and returns a promise that resolves with an object containing the `output`, `error` and `exitCode` properties.
+
+Example:
+
+<LiveCodes template="c-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+The same API is available as `livecodes.clangWasm` for all Clang-based languages.
+
+## Language Info
+
+### Name
+
+`c-wasm`
+
+### Aliases / Extensions
+
+`c`, `h`, `cwasm`, `c-wasm`, `wasm.c`, `clang.c`, `clang-c`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Clang](https://clang.llvm.org/) compiled to WebAssembly via [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm), with a complete libc.
+
+### Version
+
+Clang `v22.1.8`. The standards `gnu11`, `gnu17` and `gnu23` are supported (default: `gnu23`).
+
+## Custom Settings
+
+The Clang compiler can be configured using [custom settings](../advanced/custom-settings.mdx) added to the property `c-wasm`:
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `std` | `string` | The C standard to compile with: `gnu11`, `gnu17` or `gnu23`. Defaults to `gnu23`. |
+| `compileArgs` | `string[]` | Extra clang flags, e.g. `["-Wall", "-O2"]`. |
+| `args` | `string[]` | Command-line arguments passed to the program (`argv`). |
+
+```json title="Custom Settings"
+{
+  "c-wasm": {
+    "std": "gnu17",
+    "compileArgs": ["-Wall", "-O2"],
+    "args": ["--name", "LiveCodes"]
+  }
+}
+```
+
+## Code Formatting
+
+Using [@wasm-fmt/clang-format](https://github.com/wasm-fmt/clang-format), applying [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
+
+## Live Reload
+
+By default, new code changes are sent to the result page without a full page reload, avoiding the need to re-download the compiler. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the C code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Example Usage
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    char name[] = "LiveCodes";
+    printf("Hello, %s!\n", name);
+    return 0;
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=c-wasm
+
+## Links
+
+- [Clang](https://clang.llvm.org/)
+- [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm)
+- [C language reference](https://en.cppreference.com/w/c)
+- [C++ (Wasm)](./cpp-wasm.mdx) in LiveCodes
+- [Objective-C (Wasm)](./objc-wasm.mdx) in LiveCodes
+- [Objective-C++ (Wasm)](./objcpp-wasm.mdx) in LiveCodes

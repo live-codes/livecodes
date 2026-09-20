@@ -118,7 +118,11 @@ Enabled via `processors` config:
 | Go (Wasm)     | `go-wasm`, `wasm.go`                      | Go WASM                 |
 | PHP           | `php`                                     | Uniter (PHP -> JS)      |
 | PHP           | `php`, `php-wasm`, `wasm.php`             | PHP WASM                |
-| C++           | `cpp`, `c`, `cpp-wasm`, `wasm.cpp`        | Clang WASM              |
+| C (Wasm)      | `c-wasm`, `cwasm`, `wasm.c`, `c`          | Clang WASM              |
+| C++           | `cpp`,                                    | JSCPP interpreter       |
+| C++ (Wasm)    | `cpp-wasm`, `clang`, `wasm.cpp`           | Clang WASM              |
+| Objective-C   | `objc-wasm`, `objc`, `wasm.m`             | Clang WASM              |
+| Objective-C++ | `objcpp-wasm`, `objcpp`, `wasm.mm`        | Clang WASM              |
 | Java          | `java`                                    | Java runtime            |
 | C#            | `csharp-wasm`, `cs`, `cs-wasm`, `wasm.cs` | C# WASM                 |
 | VB.NET        | `vb-wasm`, `vb`, `vbnet`, `wasm.vb`       | VB.NET WASM             |

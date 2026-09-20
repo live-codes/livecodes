@@ -182,7 +182,9 @@ export interface Compiler {
     | string[]
     | ((options: { compiled: string; baseUrl: string; config: Config }) => string[]);
   deferScripts?: boolean;
-  inlineScript?: string | ((options: { baseUrl: string }) => Promise<string>);
+  inlineScript?:
+    | string
+    | ((options: { baseUrl: string; config: Config }) => string | Promise<string>);
   inlineModule?: string | ((options: { baseUrl: string }) => Promise<string>);
   loadAsExternalModule?: boolean;
   scriptType?:
@@ -193,7 +195,11 @@ export interface Compiler {
     | 'text/ruby-wasm'
     | 'text/x-uniter-php'
     | 'text/php-wasm'
+    | 'text/c-wasm'
     | 'text/cpp'
+    | 'text/cpp-wasm'
+    | 'text/objc-wasm'
+    | 'text/objcpp-wasm'
     | 'text/rust-wasm'
     | 'text/zig-wasm'
     | 'text/java'
