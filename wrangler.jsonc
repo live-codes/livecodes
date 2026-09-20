@@ -3,6 +3,12 @@
   "name": "hellowattson-playground",
   "account_id": "c79b013d5dffa41db3bcc4e826a24ad7",
   "compatibility_date": "2026-05-20",
+  "workers_dev": true,
+  // Custom domain decided 2026-09-20 (hello-wattson#66); the workers.dev URL
+  // stays live so existing lesson links keep working.
+  "routes": [
+    { "pattern": "play.hellowattson.ca", "custom_domain": true }
+  ],
   "assets": {
     "directory": "build"
   }
