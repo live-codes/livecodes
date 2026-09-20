@@ -70,8 +70,9 @@ test.describe('Starter Templates from UI', () => {
       const titleText = await getResult().innerText('h1');
       expect(titleText).toBe(`Hello, ${template}!`);
 
-      const counterText = await getResult().innerText('text=You clicked');
-      expect(counterText).toBe('You clicked 3 times.');
+      // Stencil and other frameworks render asynchronously, so assert with
+      // retries rather than reading the counter once.
+      await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
     });
   });
 
@@ -854,8 +855,9 @@ test.describe('Starter Templates from URL', () => {
       const titleText = await getResult().innerText('h1');
       expect(titleText).toBe(`Hello, ${template}!`);
 
-      const counterText = await getResult().innerText('text=You clicked');
-      expect(counterText).toBe('You clicked 3 times.');
+      // Stencil and other frameworks render asynchronously, so assert with
+      // retries rather than reading the counter once.
+      await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
     });
   });
 
