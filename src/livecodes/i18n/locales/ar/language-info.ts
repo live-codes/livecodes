@@ -38,6 +38,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>الموقع الرسمي</2> </1> <3> <4>الأدلة</4> </3> <5> <6>المرجع</6> </5> <7> <8>النماذج</8> </7> <9> <10>تحميل القالب الأولي</10> </9>',
     name: 'Blockly',
   },
+  cWasm: {
+    desc: 'تم تجميع C إلى WebAssembly بواسطة <1>Clang</1>، ويعمل بالكامل داخل المتصفح.',
+    link: '<1> <2>مرجع لغة C</2> </1> <3> <4>الموقع الرسمي لـ Clang</4> </3> <5> <6>تعلم X في Y دقائق، حيث X=C</6> </5> <7> <8>وثائق LiveCodes</8> </7> <9> <10>تحميل القالب الأولي</10> </9>',
+    name: 'C (Wasm)',
+  },
   civet: {
     desc: 'Civet هي لغة برمجة تترجم إلى TypeScript أو JavaScript، لذا يمكنك استخدام الأدوات الموجودة ولكن مع تمكين بناء جملة قوي وموجز.',
     link: '<1> <2>الموقع الرسمي لـ Civet</2> </1> <3> <4>ورقة الغش لـ Civet</4> </3> <5> <6>تحميل القالب الأولي</6> </5>',
@@ -70,9 +75,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'مترجم Clang C/C++ يعمل على WebAssembly، باستخدام <1>wasm-clang</1> المعدل بواسطة <2>polylang.io</2>.',
-    link: '<1> <2>مؤسسة C++ القياسية</2> </1> <3> <4>الموقع الرسمي لـ Clang</4> </3> <5> <6>تعلم X في Y دقائق، حيث X=C++</6> </5> <7> <8>تحميل القالب الأولي</8> </7>',
-    name: 'C/C++ (Wasm)',
+    desc: 'تم تجميع C++ إلى WebAssembly بواسطة <1>Clang</1>، ويعمل بالكامل داخل المتصفح. يوفر هذا مترجمًا حقيقيًا لـ C++، على عكس مفسر <2>C++ المستند إلى JSCPP</2>.',
+    link: '<1> <2>مؤسسة C++ القياسية</2> </1> <3> <4>الموقع الرسمي لـ Clang</4> </3> <5> <6>تعلم X في Y دقائق، حيث X=C++</6> </5> <7> <8>وثائق LiveCodes</8> </7> <9> <10>تحميل القالب الأولي</10> </9>',
+    name: 'C++ (Wasm)',
   },
   csharpWasm: {
     desc: 'مترجم C# الذي يعمل على WebAssembly، باستخدام <1>Blazor</1>',
@@ -258,6 +263,16 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'لغة قوالب غنية وقوية لـ JavaScript. Nunjucks هو في الأساس نسخة من <1>jinja2</1>.',
     link: '<1> <2>الموقع الرسمي</2> </1> <3> <4>وثائق LiveCodes</4> </3>',
     name: 'Nunjucks',
+  },
+  objcWasm: {
+    desc: 'تم تجميع Objective-C إلى WebAssembly بواسطة <1>Clang</1>، باستخدام بيئة تشغيل Objective-C <2>GNUstep</2>. هذه بيئة تشغيل وليست مكتبة فئات، لذا لا تتوفر Foundation.',
+    link: '<1> <2>وثائق Objective-C</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>تعلم X في Y دقائق، حيث X=Objective-C</6> </5> <7> <8>وثائق LiveCodes</8> </7> <9> <10>تحميل القالب الأولي</10> </9>',
+    name: 'Objective-C (Wasm)',
+  },
+  objcppWasm: {
+    desc: 'تم تجميع Objective-C++ إلى WebAssembly بواسطة <1>Clang</1>، باستخدام بيئة تشغيل Objective-C <2>GNUstep</2>. هذه بيئة تشغيل وليست مكتبة فئات، لذا لا تتوفر Foundation.',
+    link: '<1> <2>وثائق Objective-C</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>تعلم X في Y دقائق، حيث X=Objective-C</6> </5> <7> <8>وثائق LiveCodes</8> </7>',
+    name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
     desc1: 'OCaml هي لغة برمجة صناعية تدعم الأنماط الوظيفية والإجرائية والكائنية.',

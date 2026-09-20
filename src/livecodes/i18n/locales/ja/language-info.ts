@@ -38,6 +38,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>公式ウェブサイト</2> </1> <3> <4>ガイド</4> </3> <5> <6>リファレンス</6> </5> <7> <8>サンプル</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
     name: 'Blockly',
   },
+  cWasm: {
+    desc: 'C は <1>Clang</1> によって WebAssembly にコンパイルされ、完全にブラウザ内で実行されます。',
+    link: '<1> <2>C 言語リファレンス</2> </1> <3> <4>Clang 公式ウェブサイト</4> </3> <5> <6>X分でYを学ぶ、X=C</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
+    name: 'C (Wasm)',
+  },
   civet: {
     desc: 'Civet は TypeScript または JavaScript にコンパイルされるプログラミング言語で、既存のツールを使用しながら簡潔で強力な構文を可能にします。',
     link: '<1> <2>Civet 公式ウェブサイト</2> </1> <3> <4>Civet チートシート</4> </3> <5> <6>スターターテンプレートを読み込む</6> </5>',
@@ -71,9 +76,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: '<2>polylang.io</2>によって適応された<1>wasm-clang</1>を使用して、WebAssembly上で動作するClang C/C++コンパイラ。',
-    link: '<1> <2>Standard C++ 財団</2> </1> <3> <4>Clang 公式ウェブサイト</4> </3> <5> <6>X分でYを学ぶ、X=C++</6> </5> <7> <8>スターターテンプレートを読み込む</8> </7>',
-    name: 'C/C++ (Wasm)',
+    desc: 'C++ は <1>Clang</1> によって WebAssembly にコンパイルされ、完全にブラウザ内で実行されます。これは、<2>JSCPP ベースの C++</2> インタプリタとは異なり、本物の C++ コンパイラを提供します。',
+    link: '<1> <2>Standard C++ 財団</2> </1> <3> <4>Clang 公式ウェブサイト</4> </3> <5> <6>X分でYを学ぶ、X=C++</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
+    name: 'C++ (Wasm)',
   },
   csharpWasm: {
     desc: 'WebAssembly 上で動作する C# コンパイラ。<1>Blazor を使用。</1>',
@@ -260,6 +265,16 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'JavaScript 用の豊富で強力なテンプレート言語。Nunjucks は本質的に<1>jinja2</1>のポートです。',
     link: '<1> <2>公式ウェブサイト</2> </1> <3> <4>LiveCodes ドキュメント</4> </3>',
     name: 'Nunjucks',
+  },
+  objcWasm: {
+    desc: 'Objective-C は <1>Clang</1> によって WebAssembly にコンパイルされ、<2>GNUstep</2> Objective-C ランタイムを使用します。これはランタイムでありクラスライブラリではないため、Foundation は利用できません。',
+    link: '<1> <2>Objective-C ドキュメント</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>X分でYを学ぶ、X=Objective-C</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
+    name: 'Objective-C (Wasm)',
+  },
+  objcppWasm: {
+    desc: 'Objective-C++ は <1>Clang</1> によって WebAssembly にコンパイルされ、<2>GNUstep</2> Objective-C ランタイムを使用します。これはランタイムでありクラスライブラリではないため、Foundation は利用できません。',
+    link: '<1> <2>Objective-C ドキュメント</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>X分でYを学ぶ、X=Objective-C</6> </5> <7> <8>LiveCodes ドキュメント</8> </7>',
+    name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
     desc1:

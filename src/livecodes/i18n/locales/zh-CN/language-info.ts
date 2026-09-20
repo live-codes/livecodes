@@ -38,6 +38,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>官方网站</2> </1> <3> <4>指南</4> </3> <5> <6>参考</6> </5> <7> <8>样例</8> </7> <9> <10>加载启动模板</10> </9>',
     name: 'Blockly',
   },
+  cWasm: {
+    desc: 'C 由 <1>Clang</1> 编译为 WebAssembly，完全在浏览器中运行。',
+    link: '<1> <2>C 语言参考</2> </1> <3> <4>Clang 官网</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=C</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
+    name: 'C (Wasm)',
+  },
   civet: {
     desc: 'Civet 是一种可编译为 TypeScript 或 JavaScript 的编程语言，因此您可以在保留现有工具链的同时，享受简洁而强大的语法。',
     link: '<1> <2>Civet 官方网站</2> </1> <3> <4>Civet 速查册</4> </3> <5> <6>加载启动模板</6> </5>',
@@ -70,9 +75,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: '运行在 WebAssembly 上的 Clang C/C++ 编译器，使用由 <2>polylang.io</2> 适配的 <1>wasm-clang</1> 。',
-    link: '<1> <2>标准 C++ 基金会</2> </1> <3> <4>Clang 官网</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=C++</6> </5> <7> <8>加载启动模板</8> </7>',
-    name: 'C/C++（WASM）',
+    desc: 'C++ 由 <1>Clang</1> 编译为 WebAssembly，完全在浏览器中运行。这提供了真正的 C++ 编译器，不同于基于 <2>JSCPP 的 C++</2> 解释器。',
+    link: '<1> <2>标准 C++ 基金会</2> </1> <3> <4>Clang 官网</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=C++</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
+    name: 'C++ (Wasm)',
   },
   csharpWasm: {
     desc: '在 WebAssembly 上运行的 C# 编译器，使用<1>Blazor</1>',
@@ -256,6 +261,16 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: '一种丰富而强大的 JavaScript 模板语言。Nunjucks 本质上是 <1>jinja2</1> 的一个移植。',
     link: '<1> <2>官方网站</2> </1> <3> <4>LiveCodes 文档</4> </3>',
     name: 'Nunjucks',
+  },
+  objcWasm: {
+    desc: 'Objective-C 由 <1>Clang</1> 编译为 WebAssembly，使用 <2>GNUstep</2> Objective-C 运行时。这是一个运行时，而不是类库，因此 Foundation 不可用。',
+    link: '<1> <2>Objective-C 文档</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=Objective-C</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
+    name: 'Objective-C (Wasm)',
+  },
+  objcppWasm: {
+    desc: 'Objective-C++ 由 <1>Clang</1> 编译为 WebAssembly，使用 <2>GNUstep</2> Objective-C 运行时。这是一个运行时，而不是类库，因此 Foundation 不可用。',
+    link: '<1> <2>Objective-C 文档</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=Objective-C</6> </5> <7> <8>LiveCodes 文档</8> </7>',
+    name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
     desc1: 'OCaml 是一种工业级编程语言，支持函数式、命令式和面向对象编程范式。',

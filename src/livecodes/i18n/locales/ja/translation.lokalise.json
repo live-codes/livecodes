@@ -1929,6 +1929,9 @@
   "templates.starter.bootstrap": {
     "translation": "Bootstrapスターター"
   },
+  "templates.starter.c-wasm": {
+    "translation": "C（Wasm）スターター"
+  },
   "templates.starter.civet": {
     "translation": "Civetスターター"
   },
@@ -2042,6 +2045,9 @@
   },
   "templates.starter.minizinc": {
     "translation": "MiniZincスターター"
+  },
+  "templates.starter.objc-wasm": {
+    "translation": "Objective-C（Wasm）スターター"
   },
   "templates.starter.ocaml": {
     "translation": "OCamlスターター"

@@ -1929,6 +1929,9 @@
   "templates.starter.bootstrap": {
     "translation": "شروع کننده Bootstrap"
   },
+  "templates.starter.c-wasm": {
+    "translation": "شروع کننده C (Wasm)"
+  },
   "templates.starter.civet": {
     "translation": "شروع کننده Civet"
   },
@@ -1948,7 +1951,7 @@
     "translation": "شروع کننده C++"
   },
   "templates.starter.cpp-wasm": {
-    "translation": "شروع کننده Go (Wasm)"
+    "translation": "شروع کننده C++ (Wasm)"
   },
   "templates.starter.csharp-wasm": {
     "translation": "شروع کننده C# (Wasm)"
@@ -2042,6 +2045,9 @@
   },
   "templates.starter.minizinc": {
     "translation": "شروع کننده MiniZinc"
+  },
+  "templates.starter.objc-wasm": {
+    "translation": "شروع کننده Objective-C (Wasm)"
   },
   "templates.starter.ocaml": {
     "translation": "شروع کننده Ocaml"

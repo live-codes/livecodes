@@ -38,6 +38,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Officiële website</2> </1> <3> <4>Handleidingen</4> </3> <5> <6>Referentie</6> </5> <7> <8>Voorbeelden</8> </7> <9> <10>Startsjabloon laden</10> </9>',
     name: 'Blockly',
   },
+  cWasm: {
+    desc: 'C gecompileerd naar WebAssembly door <1>Clang</1>, draait volledig in de browser.',
+    link: '<1> <2>C-taalreferentie</2> </1> <3> <4>Clang officiële website</4> </3> <5> <6>Leer X in Y minuten, waarbij X=C</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Startsjabloon laden</10> </9>',
+    name: 'C (Wasm)',
+  },
   civet: {
     desc: 'Civet is een programmeertaal die compileert naar TypeScript of JavaScript, zodat je bestaande tooling kunt gebruiken maar beknopte en krachtige syntaxis mogelijk maakt.',
     link: '<1> <2>Civet officiële website</2> </1> <3> <4>Civet cheatsheet</4> </3> <5> <6>Startsjabloon laden</6> </5>',
@@ -71,9 +76,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'Clang C/C++-compiler draaiend op WebAssembly, met <1>wasm-clang</1> aangepast door <2>polylang.io</2>',
-    link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang officiële website</4> </3> <5> <6>Leer X in Y minuten, waarbij X=C++</6> </5> <7> <8>Startsjabloon laden</8> </7>',
-    name: 'C/C++ (Wasm)',
+    desc: 'C++ gecompileerd naar WebAssembly door <1>Clang</1>, draait volledig in de browser. Dit biedt een echte C++-compiler, in tegenstelling tot de <2>JSCPP-gebaseerde C++</2>-interpreter.',
+    link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang officiële website</4> </3> <5> <6>Leer X in Y minuten, waarbij X=C++</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Startsjabloon laden</10> </9>',
+    name: 'C++ (Wasm)',
   },
   csharpWasm: {
     desc: 'C#-compiler draaiend op WebAssembly, met <1>Blazor</1>',
@@ -260,6 +265,16 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Een rijke en krachtige sjabloontaal voor JavaScript. Nunjucks is in wezen een port van <1>jinja2</1>',
     link: '<1> <2>Officiële website</2> </1> <3> <4>LiveCodes Documentatie</4> </3>',
     name: 'Nunjucks',
+  },
+  objcWasm: {
+    desc: 'Objective-C gecompileerd naar WebAssembly door <1>Clang</1>, met de <2>GNUstep</2> Objective-C-runtime. Dit is een runtime en geen klassenbibliotheek, dus Foundation is niet beschikbaar.',
+    link: '<1> <2>Objective-C-documentatie</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Leer X in Y minuten, waarbij X=Objective-C</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Startsjabloon laden</10> </9>',
+    name: 'Objective-C (Wasm)',
+  },
+  objcppWasm: {
+    desc: 'Objective-C++ gecompileerd naar WebAssembly door <1>Clang</1>, met de <2>GNUstep</2> Objective-C-runtime. Dit is een runtime en geen klassenbibliotheek, dus Foundation is niet beschikbaar.',
+    link: '<1> <2>Objective-C-documentatie</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Leer X in Y minuten, waarbij X=Objective-C</6> </5> <7> <8>LiveCodes-documentatie</8> </7>',
+    name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
     desc1:

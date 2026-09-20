@@ -38,6 +38,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Offizielle Website</2> </1> <3> <4>Anleitungen</4> </3> <5> <6>Referenz</6> </5> <7> <8>Beispiele</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
     name: 'Blockly',
   },
+  cWasm: {
+    desc: 'C wird von <1>Clang</1> zu WebAssembly kompiliert und läuft vollständig im Browser.',
+    link: '<1> <2>C-Sprachreferenz</2> </1> <3> <4>Clang offizielle Website</4> </3> <5> <6>Lerne X in Y Minuten, wobei X=C</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
+    name: 'C (Wasm)',
+  },
   civet: {
     desc: 'Civet ist eine Programmiersprache, die zu TypeScript oder JavaScript kompiliert wird, sodass Sie vorhandene Tools verwenden, aber eine prägnante und leistungsstarke Syntax ermöglichen können.',
     link: '<1> <2>Civet offizielle Website</2> </1> <3> <4>Civet Spickzettel</4> </3> <5> <6>Starter-Vorlage laden</6> </5>',
@@ -72,9 +77,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'Clang C/C++-Compiler läuft auf WebAssembly und verwendet <1>wasm-clang</1>, angepasst von <2>polylang.io</2>.',
-    link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang offizielle Website</4> </3> <5> <6>Lerne X in Y Minuten, wobei X=C++</6> </5> <7> <8>Starter-Vorlage laden</8> </7>',
-    name: 'C/C++ (Wasm)',
+    desc: 'C++ wird von <1>Clang</1> zu WebAssembly kompiliert und läuft vollständig im Browser. Dies bietet einen echten C++-Compiler, im Gegensatz zum <2>JSCPP-basierten C++</2>-Interpreter.',
+    link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang offizielle Website</4> </3> <5> <6>Lerne X in Y Minuten, wobei X=C++</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
+    name: 'C++ (Wasm)',
   },
   csharpWasm: {
     desc: 'C#-Compiler, der auf WebAssembly läuft, unter Verwendung von <1>Blazor</1>',
@@ -261,6 +266,16 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Eine leistungsstarke und vielseitige Templating-Sprache für JavaScript. Nunjucks ist im Wesentlichen eine Portierung von <1>jinja2</1>.',
     link: '<1> <2>Offizielle Website</2> </1> <3> <4>LiveCodes Dokumentation</4> </3>',
     name: 'Nunjucks',
+  },
+  objcWasm: {
+    desc: 'Objective-C wird von <1>Clang</1> zu WebAssembly kompiliert, wobei die <2>GNUstep</2>-Objective-C-Laufzeitumgebung verwendet wird. Dies ist eine Laufzeitumgebung und keine Klassenbibliothek, daher ist Foundation nicht verfügbar.',
+    link: '<1> <2>Objective-C-Dokumentation</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Lerne X in Y Minuten, wobei X=Objective-C</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
+    name: 'Objective-C (Wasm)',
+  },
+  objcppWasm: {
+    desc: 'Objective-C++ wird von <1>Clang</1> zu WebAssembly kompiliert, wobei die <2>GNUstep</2>-Objective-C-Laufzeitumgebung verwendet wird. Dies ist eine Laufzeitumgebung und keine Klassenbibliothek, daher ist Foundation nicht verfügbar.',
+    link: '<1> <2>Objective-C-Dokumentation</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Lerne X in Y Minuten, wobei X=Objective-C</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7>',
+    name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
     desc1:

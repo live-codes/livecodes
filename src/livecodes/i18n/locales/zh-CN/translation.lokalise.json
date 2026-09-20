@@ -1929,6 +1929,9 @@
   "templates.starter.bootstrap": {
     "translation": "Bootstrap 启动模板"
   },
+  "templates.starter.c-wasm": {
+    "translation": "C（WASM）启动模板"
+  },
   "templates.starter.civet": {
     "translation": "Civet 启动模板"
   },
@@ -2042,6 +2045,9 @@
   },
   "templates.starter.minizinc": {
     "translation": "MiniZinc 启动模板"
+  },
+  "templates.starter.objc-wasm": {
+    "translation": "Objective-C（WASM）启动模板"
   },
   "templates.starter.ocaml": {
     "translation": "Ocaml 启动模板"

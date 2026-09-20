@@ -1929,6 +1929,9 @@
   "templates.starter.bootstrap": {
     "translation": "Bootstrap স্টার্টার"
   },
+  "templates.starter.c-wasm": {
+    "translation": "C (Wasm) স্টার্টার"
+  },
   "templates.starter.civet": {
     "translation": "Civet স্টার্টার"
   },
@@ -2042,6 +2045,9 @@
   },
   "templates.starter.minizinc": {
     "translation": "MiniZinc স্টার্টার"
+  },
+  "templates.starter.objc-wasm": {
+    "translation": "Objective-C (Wasm) স্টার্টার"
   },
   "templates.starter.ocaml": {
     "translation": "Ocaml স্টার্টার"

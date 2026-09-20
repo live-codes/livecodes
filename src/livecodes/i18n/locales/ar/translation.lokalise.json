@@ -1929,6 +1929,9 @@
   "templates.starter.bootstrap": {
     "translation": "قالب Bootstrap"
   },
+  "templates.starter.c-wasm": {
+    "translation": "قالب C (Wasm)"
+  },
   "templates.starter.civet": {
     "translation": "قالب Civet"
   },
@@ -2042,6 +2045,9 @@
   },
   "templates.starter.minizinc": {
     "translation": "قالب MiniZinc"
+  },
+  "templates.starter.objc-wasm": {
+    "translation": "قالب Objective-C (Wasm)"
   },
   "templates.starter.ocaml": {
     "translation": "قالب Ocaml"

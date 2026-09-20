@@ -1929,6 +1929,9 @@
   "templates.starter.bootstrap": {
     "translation": "Inicio Bootstrap"
   },
+  "templates.starter.c-wasm": {
+    "translation": "Inicio C (Wasm)"
+  },
   "templates.starter.civet": {
     "translation": "Inicio Civet"
   },
@@ -2042,6 +2045,9 @@
   },
   "templates.starter.minizinc": {
     "translation": "Inicio MiniZinc"
+  },
+  "templates.starter.objc-wasm": {
+    "translation": "Inicio Objective-C (Wasm)"
   },
   "templates.starter.ocaml": {
     "translation": "Inicio Ocaml"
