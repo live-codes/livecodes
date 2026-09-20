@@ -38,6 +38,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Hivatalos weboldal</2> </1> <3> <4>Útmutatók</4> </3> <5> <6>Referencia</6> </5> <7> <8>Példák</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'Blockly',
   },
+  cWasm: {
+    desc: 'A C a <1>Clang</1> segítségével WebAssembly-re van fordítva, és teljes egészében a böngészőben fut.',
+    link: '<1> <2>C nyelvi referencia</2> </1> <3> <4>Clang hivatalos weboldal</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=C</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'C (Wasm)',
+  },
   civet: {
     desc: 'A Civet egy programozási nyelv, amely TypeScript-re vagy JavaScript-re fordul, így használhatsz meglévő eszközöket, de tömör és hatékony szintaxist engedélyezhetsz.',
     link: '<1> <2>Civet hivatalos weboldal</2> </1> <3> <4>Civet gyorsreferencia</4> </3> <5> <6>Kezdő sablon betöltése</6> </5>',
@@ -72,9 +77,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'Clang C/C++ fordító WebAssembly-n futva, a <1>wasm-clang</1> használatával, amelyet a <2>polylang.io</2> alkalmazott',
-    link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang hivatalos weboldal</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=C++</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
-    name: 'C/C++ (Wasm)',
+    desc: 'A C++ a <1>Clang</1> segítségével WebAssembly-re van fordítva, és teljes egészében a böngészőben fut. Ez egy valódi C++-fordítót biztosít, ellentétben a <2>JSCPP-alapú C++</2> értelmezővel.',
+    link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang hivatalos weboldal</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=C++</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'C++ (Wasm)',
   },
   csharpWasm: {
     desc: 'C# fordító WebAssembly-n futva, a <1>Blazor</1> használatával',
@@ -261,6 +266,16 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Egy gazdag és hatékony sablonnyelv JavaScript-hez. A Nunjucks lényegében a <1>jinja2</1> portja',
     link: '<1> <2>Hivatalos weboldal</2> </1> <3> <4>LiveCodes dokumentáció</4> </3>',
     name: 'Nunjucks',
+  },
+  objcWasm: {
+    desc: 'Az Objective-C a <1>Clang</1> segítségével WebAssembly-re van fordítva, a <2>GNUstep</2> Objective-C futtatókörnyezetet használva. Ez egy futtatókörnyezet, nem pedig osztálykönyvtár, ezért a Foundation nem érhető el.',
+    link: '<1> <2>Objective-C dokumentáció</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=Objective-C</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Objective-C (Wasm)',
+  },
+  objcppWasm: {
+    desc: 'Az Objective-C++ a <1>Clang</1> segítségével WebAssembly-re van fordítva, a <2>GNUstep</2> Objective-C futtatókörnyezetet használva. Ez egy futtatókörnyezet, nem pedig osztálykönyvtár, ezért a Foundation nem érhető el.',
+    link: '<1> <2>Objective-C dokumentáció</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=Objective-C</6> </5> <7> <8>LiveCodes dokumentáció</8> </7>',
+    name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
     desc1:

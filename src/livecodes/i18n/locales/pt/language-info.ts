@@ -38,6 +38,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Site oficial</2> </1> <3> <4>Guias</4> </3> <5> <6>Referência</6> </5> <7> <8>Exemplos</8> </7> <9> <10>Carregar modelo inicial</10> </9>',
     name: 'Blockly',
   },
+  cWasm: {
+    desc: 'C compilado para WebAssembly pelo <1>Clang</1>, sendo executado inteiramente no navegador.',
+    link: '<1> <2>Referência da linguagem C</2> </1> <3> <4>Site oficial do Clang</4> </3> <5> <6>Aprenda X em Y minutos, onde X=C</6> </5> <7> <8>Documentação do LiveCodes</8> </7> <9> <10>Carregar modelo inicial</10> </9>',
+    name: 'C (Wasm)',
+  },
   civet: {
     desc: 'Civet é uma linguagem de programação que compila para TypeScript ou JavaScript, permitindo que você use ferramentas existentes, mas habilite uma sintaxe concisa e poderosa.',
     link: '<1> <2>Site oficial do Civet</2> </1> <3> <4>Folha de dicas do Civet</4> </3> <5> <6>Carregar modelo inicial</6> </5>',
@@ -71,9 +76,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'Compilador Clang C/C++ executado em WebAssembly, usando <1>wasm-clang</1> adaptado por <2>polylang.io</2>.',
-    link: '<1> <2>Fundação C++ Padrão</2> </1> <3> <4>Site oficial do Clang</4> </3> <5> <6>Aprenda X em Y minutos, onde X=C++</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
-    name: 'C/C++ (Wasm)',
+    desc: 'C++ compilado para WebAssembly pelo <1>Clang</1>, sendo executado inteiramente no navegador. Isto fornece um compilador de C++ real, ao contrário do interpretador de <2>C++ baseado em JSCPP</2>.',
+    link: '<1> <2>Fundação C++ Padrão</2> </1> <3> <4>Site oficial do Clang</4> </3> <5> <6>Aprenda X em Y minutos, onde X=C++</6> </5> <7> <8>Documentação do LiveCodes</8> </7> <9> <10>Carregar modelo inicial</10> </9>',
+    name: 'C++ (Wasm)',
   },
   csharpWasm: {
     desc: 'Compilador C# executado no WebAssembly, usando <1>Blazor</1>',
@@ -260,6 +265,16 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Uma linguagem de modelação rica e poderosa para JavaScript. Nunjucks é essencialmente uma adaptação do <1>jinja2</1>.',
     link: '<1> <2>Site oficial</2> </1> <3> <4>Documentação do LiveCodes</4> </3>',
     name: 'Nunjucks',
+  },
+  objcWasm: {
+    desc: 'Objective-C compilado para WebAssembly pelo <1>Clang</1>, usando o runtime Objective-C <2>GNUstep</2>. Isto é um runtime e não uma biblioteca de classes, pelo que o Foundation não está disponível.',
+    link: '<1> <2>Documentação do Objective-C</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Aprenda X em Y minutos, onde X=Objective-C</6> </5> <7> <8>Documentação do LiveCodes</8> </7> <9> <10>Carregar modelo inicial</10> </9>',
+    name: 'Objective-C (Wasm)',
+  },
+  objcppWasm: {
+    desc: 'Objective-C++ compilado para WebAssembly pelo <1>Clang</1>, usando o runtime Objective-C <2>GNUstep</2>. Isto é um runtime e não uma biblioteca de classes, pelo que o Foundation não está disponível.',
+    link: '<1> <2>Documentação do Objective-C</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Aprenda X em Y minutos, onde X=Objective-C</6> </5> <7> <8>Documentação do LiveCodes</8> </7>',
+    name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
     desc1:

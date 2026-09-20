@@ -63,6 +63,15 @@
   "blockly.name": {
     "translation": "بلاکلی"
   },
+  "cWasm.desc": {
+    "translation": "C کو <tag-1>Clang</tag-1> کے ذریعے WebAssembly میں مرتب کیا گیا ہے اور یہ مکمل طور پر براؤزر میں چلتا ہے۔"
+  },
+  "cWasm.link": {
+    "translation": "<tag-1> <tag-2>سی زبان کا حوالہ</tag-2> </tag-1> <tag-3> <tag-4>کلینگ کی سرکاری ویب سائٹ</tag-4> </tag-3> <tag-5> <tag-6>X کو Y منٹ میں سیکھیں، جہاں X=C</tag-6> </tag-5> <tag-7> <tag-8>لائیو کوڈز دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>ابتدائی سانچہ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "cWasm.name": {
+    "translation": "C (Wasm)"
+  },
   "civet.desc": {
     "translation": "سیوٹ ایک پروگرامنگ زبان ہے جو ٹائپ اسکرپٹ یا جاوا اسکرپٹ میں کمپائل ہوتی ہے، تاکہ آپ موجودہ ٹولنگ استعمال کر سکیں لیکن مختصر اور طاقتور نحو کو فعال کر سکیں۔"
   },
@@ -121,13 +130,13 @@
     "translation": "سی++"
   },
   "cppWasm.desc": {
-    "translation": "ویب اسمبلی پر چلنے والا کلینگ سی/سی++ کمپائلر، <tag-1>ڈبلیو اے ایس ایم-کلینگ</tag-1> کا استعمال کرتے ہوئے جسے <tag-2>پولی لینگ.آئی او</tag-2> نے اپنایا ہے۔"
+    "translation": "C++ کو <tag-1>Clang</tag-1> کے ذریعے WebAssembly میں مرتب کیا گیا ہے اور یہ مکمل طور پر براؤزر میں چلتا ہے۔ یہ ایک حقیقی C++ کمپائلر فراہم کرتا ہے، برخلاف <tag-2>JSCPP پر مبنی C++</tag-2> ترجمان کے۔"
   },
   "cppWasm.link": {
-    "translation": "<tag-1> <tag-2>معیاری سی++ فاؤنڈیشن</tag-2> </tag-1> <tag-3> <tag-4>کلینگ کی سرکاری ویب سائٹ</tag-4> </tag-3> <tag-5> <tag-6>X کو Y منٹ میں سیکھیں، جہاں X=سی++</tag-6> </tag-5> <tag-7> <tag-8>ابتدائی سانچہ لوڈ کریں</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>معیاری سی++ فاؤنڈیشن</tag-2> </tag-1> <tag-3> <tag-4>کلینگ کی سرکاری ویب سائٹ</tag-4> </tag-3> <tag-5> <tag-6>X کو Y منٹ میں سیکھیں، جہاں X=سی++</tag-6> </tag-5> <tag-7> <tag-8>لائیو کوڈز دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>ابتدائی سانچہ لوڈ کریں</tag-10> </tag-9>"
   },
   "cppWasm.name": {
-    "translation": "سی/سی++ (ڈبلیو اے ایس ایم)"
+    "translation": "C++ (Wasm)"
   },
   "csharpWasm.desc": {
     "translation": "سی # کمپائلر ویب اسمبلی پر چل رہا ہے، استعمال کر رہا ہے <tag-1>Blazor</tag-1>"
@@ -461,6 +470,24 @@
   },
   "nunjucks.name": {
     "translation": "نن جکس"
+  },
+  "objcWasm.desc": {
+    "translation": "Objective-C کو <tag-1>Clang</tag-1> کے ذریعے WebAssembly میں مرتب کیا گیا ہے، جو <tag-2>GNUstep</tag-2> Objective-C رن ٹائم استعمال کرتا ہے۔ یہ ایک رن ٹائم ہے، کلاس لائبریری نہیں، لہٰذا Foundation دستیاب نہیں ہے۔"
+  },
+  "objcWasm.link": {
+    "translation": "<tag-1> <tag-2>Objective-C دستاویزات</tag-2> </tag-1> <tag-3> <tag-4>GNUstep libobjc2</tag-4> </tag-3> <tag-5> <tag-6>X کو Y منٹ میں سیکھیں، جہاں X=Objective-C</tag-6> </tag-5> <tag-7> <tag-8>لائیو کوڈز دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>ابتدائی سانچہ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "objcWasm.name": {
+    "translation": "Objective-C (Wasm)"
+  },
+  "objcppWasm.desc": {
+    "translation": "Objective-C++ کو <tag-1>Clang</tag-1> کے ذریعے WebAssembly میں مرتب کیا گیا ہے، جو <tag-2>GNUstep</tag-2> Objective-C رن ٹائم استعمال کرتا ہے۔ یہ ایک رن ٹائم ہے، کلاس لائبریری نہیں، لہٰذا Foundation دستیاب نہیں ہے۔"
+  },
+  "objcppWasm.link": {
+    "translation": "<tag-1> <tag-2>Objective-C دستاویزات</tag-2> </tag-1> <tag-3> <tag-4>GNUstep libobjc2</tag-4> </tag-3> <tag-5> <tag-6>X کو Y منٹ میں سیکھیں، جہاں X=Objective-C</tag-6> </tag-5> <tag-7> <tag-8>لائیو کوڈز دستاویزات</tag-8> </tag-7>"
+  },
+  "objcppWasm.name": {
+    "translation": "Objective-C++ (Wasm)"
   },
   "ocaml.desc1": {
     "translation": "او کیمل ایک صنعتی طاقت کی پروگرامنگ زبان ہے جو فنکشنل، امپیریٹیو اور آبجیکٹ اورینٹڈ طرزوں کی معاونت کرتی ہے۔"

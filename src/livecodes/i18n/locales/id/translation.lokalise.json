@@ -1929,6 +1929,9 @@
   "templates.starter.bootstrap": {
     "translation": "Pemula Bootstrap"
   },
+  "templates.starter.c-wasm": {
+    "translation": "Pemula C (Wasm)"
+  },
   "templates.starter.civet": {
     "translation": "Pemula Civet"
   },
@@ -2042,6 +2045,9 @@
   },
   "templates.starter.minizinc": {
     "translation": "Pemula MiniZinc"
+  },
+  "templates.starter.objc-wasm": {
+    "translation": "Pemula Objective-C (Wasm)"
   },
   "templates.starter.ocaml": {
     "translation": "Pemula Ocaml"

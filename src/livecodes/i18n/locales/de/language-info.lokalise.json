@@ -63,6 +63,15 @@
   "blockly.name": {
     "translation": "Blockly"
   },
+  "cWasm.desc": {
+    "translation": "C wird von <tag-1>Clang</tag-1> zu WebAssembly kompiliert und läuft vollständig im Browser."
+  },
+  "cWasm.link": {
+    "translation": "<tag-1> <tag-2>C-Sprachreferenz</tag-2> </tag-1> <tag-3> <tag-4>Clang offizielle Website</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=C</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
+  },
+  "cWasm.name": {
+    "translation": "C (Wasm)"
+  },
   "civet.desc": {
     "translation": "Civet ist eine Programmiersprache, die zu TypeScript oder JavaScript kompiliert wird, sodass Sie vorhandene Tools verwenden, aber eine prägnante und leistungsstarke Syntax ermöglichen können."
   },
@@ -121,13 +130,13 @@
     "translation": "C++"
   },
   "cppWasm.desc": {
-    "translation": "Clang C/C++-Compiler läuft auf WebAssembly und verwendet <tag-1>wasm-clang</tag-1>, angepasst von <tag-2>polylang.io</tag-2>."
+    "translation": "C++ wird von <tag-1>Clang</tag-1> zu WebAssembly kompiliert und läuft vollständig im Browser. Dies bietet einen echten C++-Compiler, im Gegensatz zum <tag-2>JSCPP-basierten C++</tag-2>-Interpreter."
   },
   "cppWasm.link": {
-    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>Clang offizielle Website</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=C++</tag-6> </tag-5> <tag-7> <tag-8>Starter-Vorlage laden</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>Clang offizielle Website</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=C++</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
   },
   "cppWasm.name": {
-    "translation": "C/C++ (Wasm)"
+    "translation": "C++ (Wasm)"
   },
   "csharpWasm.desc": {
     "translation": "C#-Compiler, der auf WebAssembly läuft, unter Verwendung von <tag-1>Blazor</tag-1>"
@@ -461,6 +470,24 @@
   },
   "nunjucks.name": {
     "translation": "Nunjucks"
+  },
+  "objcWasm.desc": {
+    "translation": "Objective-C wird von <tag-1>Clang</tag-1> zu WebAssembly kompiliert, wobei die <tag-2>GNUstep</tag-2>-Objective-C-Laufzeitumgebung verwendet wird. Dies ist eine Laufzeitumgebung und keine Klassenbibliothek, daher ist Foundation nicht verfügbar."
+  },
+  "objcWasm.link": {
+    "translation": "<tag-1> <tag-2>Objective-C-Dokumentation</tag-2> </tag-1> <tag-3> <tag-4>GNUstep libobjc2</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=Objective-C</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
+  },
+  "objcWasm.name": {
+    "translation": "Objective-C (Wasm)"
+  },
+  "objcppWasm.desc": {
+    "translation": "Objective-C++ wird von <tag-1>Clang</tag-1> zu WebAssembly kompiliert, wobei die <tag-2>GNUstep</tag-2>-Objective-C-Laufzeitumgebung verwendet wird. Dies ist eine Laufzeitumgebung und keine Klassenbibliothek, daher ist Foundation nicht verfügbar."
+  },
+  "objcppWasm.link": {
+    "translation": "<tag-1> <tag-2>Objective-C-Dokumentation</tag-2> </tag-1> <tag-3> <tag-4>GNUstep libobjc2</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X=Objective-C</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation</tag-8> </tag-7>"
+  },
+  "objcppWasm.name": {
+    "translation": "Objective-C++ (Wasm)"
   },
   "ocaml.desc1": {
     "translation": "OCaml ist eine industrietaugliche Programmiersprache, die funktionale, imperative und objektorientierte Stile unterstützt."

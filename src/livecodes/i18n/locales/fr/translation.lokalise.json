@@ -1929,6 +1929,9 @@
   "templates.starter.bootstrap": {
     "translation": "Démarrage Bootstrap"
   },
+  "templates.starter.c-wasm": {
+    "translation": "Démarrage C (Wasm)"
+  },
   "templates.starter.civet": {
     "translation": "Démarrage Civet"
   },
@@ -2042,6 +2045,9 @@
   },
   "templates.starter.minizinc": {
     "translation": "Démarrage MiniZinc"
+  },
+  "templates.starter.objc-wasm": {
+    "translation": "Démarrage Objective-C (Wasm)"
   },
   "templates.starter.ocaml": {
     "translation": "Démarrage OCaml"

@@ -1929,6 +1929,9 @@
   "templates.starter.bootstrap": {
     "translation": "بوٹ اسٹریپ شروعاتی"
   },
+  "templates.starter.c-wasm": {
+    "translation": "C (واسم) شروعاتی"
+  },
   "templates.starter.civet": {
     "translation": "سیویٹ شروعاتی"
   },
@@ -2042,6 +2045,9 @@
   },
   "templates.starter.minizinc": {
     "translation": "MiniZinc شروعاتی"
+  },
+  "templates.starter.objc-wasm": {
+    "translation": "Objective-C (واسم) شروعاتی"
   },
   "templates.starter.ocaml": {
     "translation": "اوکامل شروعاتی"

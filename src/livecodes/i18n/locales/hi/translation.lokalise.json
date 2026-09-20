@@ -1929,6 +1929,9 @@
   "templates.starter.bootstrap": {
     "translation": "Bootstrap स्टार्टर"
   },
+  "templates.starter.c-wasm": {
+    "translation": "C (Wasm) स्टार्टर"
+  },
   "templates.starter.civet": {
     "translation": "Civet स्टार्टर"
   },
@@ -2042,6 +2045,9 @@
   },
   "templates.starter.minizinc": {
     "translation": "MiniZinc स्टार्टर"
+  },
+  "templates.starter.objc-wasm": {
+    "translation": "Objective-C (Wasm) स्टार्टर"
   },
   "templates.starter.ocaml": {
     "translation": "OCaml स्टार्टर"

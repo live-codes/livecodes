@@ -63,6 +63,15 @@
   "blockly.name": {
     "translation": "Blockly"
   },
+  "cWasm.desc": {
+    "translation": "C gecompileerd naar WebAssembly door <tag-1>Clang</tag-1>, draait volledig in de browser."
+  },
+  "cWasm.link": {
+    "translation": "<tag-1> <tag-2>C-taalreferentie</tag-2> </tag-1> <tag-3> <tag-4>Clang officiële website</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=C</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "cWasm.name": {
+    "translation": "C (Wasm)"
+  },
   "civet.desc": {
     "translation": "Civet is een programmeertaal die compileert naar TypeScript of JavaScript, zodat je bestaande tooling kunt gebruiken maar beknopte en krachtige syntaxis mogelijk maakt."
   },
@@ -121,13 +130,13 @@
     "translation": "C++"
   },
   "cppWasm.desc": {
-    "translation": "Clang C/C++-compiler draaiend op WebAssembly, met <tag-1>wasm-clang</tag-1> aangepast door <tag-2>polylang.io</tag-2>"
+    "translation": "C++ gecompileerd naar WebAssembly door <tag-1>Clang</tag-1>, draait volledig in de browser. Dit biedt een echte C++-compiler, in tegenstelling tot de <tag-2>JSCPP-gebaseerde C++</tag-2>-interpreter."
   },
   "cppWasm.link": {
-    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>Clang officiële website</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=C++</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Standard C++ Foundation</tag-2> </tag-1> <tag-3> <tag-4>Clang officiële website</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=C++</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
   },
   "cppWasm.name": {
-    "translation": "C/C++ (Wasm)"
+    "translation": "C++ (Wasm)"
   },
   "csharpWasm.desc": {
     "translation": "C#-compiler draaiend op WebAssembly, met <tag-1>Blazor</tag-1>"
@@ -461,6 +470,24 @@
   },
   "nunjucks.name": {
     "translation": "Nunjucks"
+  },
+  "objcWasm.desc": {
+    "translation": "Objective-C gecompileerd naar WebAssembly door <tag-1>Clang</tag-1>, met de <tag-2>GNUstep</tag-2> Objective-C-runtime. Dit is een runtime en geen klassenbibliotheek, dus Foundation is niet beschikbaar."
+  },
+  "objcWasm.link": {
+    "translation": "<tag-1> <tag-2>Objective-C-documentatie</tag-2> </tag-1> <tag-3> <tag-4>GNUstep libobjc2</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=Objective-C</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "objcWasm.name": {
+    "translation": "Objective-C (Wasm)"
+  },
+  "objcppWasm.desc": {
+    "translation": "Objective-C++ gecompileerd naar WebAssembly door <tag-1>Clang</tag-1>, met de <tag-2>GNUstep</tag-2> Objective-C-runtime. Dit is een runtime en geen klassenbibliotheek, dus Foundation is niet beschikbaar."
+  },
+  "objcppWasm.link": {
+    "translation": "<tag-1> <tag-2>Objective-C-documentatie</tag-2> </tag-1> <tag-3> <tag-4>GNUstep libobjc2</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=Objective-C</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7>"
+  },
+  "objcppWasm.name": {
+    "translation": "Objective-C++ (Wasm)"
   },
   "ocaml.desc1": {
     "translation": "OCaml is een industriële programmeertaal die functionele, imperatieve en objectgeoriënteerde stijlen ondersteunt."

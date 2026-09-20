@@ -38,6 +38,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Resmi web sitesi</2> </1> <3> <4>Rehberler</4> </3> <5> <6>Referans</6> </5> <7> <8>Örnekler</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
     name: 'Blockly',
   },
+  cWasm: {
+    desc: "C, <1>Clang</1> tarafından WebAssembly'ye derlenir ve tamamen tarayıcı içinde çalışır.",
+    link: '<1> <2>C dili referansı</2> </1> <3> <4>Clang resmi web sitesi</4> </3> <5> <6>Y Dakikada X Öğrenin, X=C</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'C (Wasm)',
+  },
   civet: {
     desc: "Civet, TypeScript veya JavaScript'e derlenen bir programlama dilidir, böylece mevcut araçları kullanabilir ancak daha kısa ve güçlü bir sözdizimi sağlayabilirsiniz.",
     link: '<1> <2>Civet resmi web sitesi</2> </1> <3> <4>Civet kopya kağıdı</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>',
@@ -71,9 +76,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'WebAssembly üzerinde çalışan, <2>polylang.io</2> tarafından uyarlanmış <1>wasm-clang</1> kullanan Clang C/C++ derleyicisi.',
-    link: '<1> <2>Standart C++ Vakfı</2> </1> <3> <4>Clang resmi web sitesi</4> </3> <5> <6>Y Dakikada X Öğrenin, X=C++</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
-    name: 'C/C++ (Wasm)',
+    desc: "C++, <1>Clang</1> tarafından WebAssembly'ye derlenir ve tamamen tarayıcı içinde çalışır. Bu, <2>JSCPP tabanlı C++</2> yorumlayıcısının aksine gerçek bir C++ derleyicisi sağlar.",
+    link: '<1> <2>Standart C++ Vakfı</2> </1> <3> <4>Clang resmi web sitesi</4> </3> <5> <6>Y Dakikada X Öğrenin, X=C++</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'C++ (Wasm)',
   },
   csharpWasm: {
     desc: 'WebAssembly üzerinde çalışan C# derleyicisi, <1>Blazor</1> kullanılarak.',
@@ -261,6 +266,16 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: "JavaScript için zengin ve güçlü bir şablonlama dili. Nunjucks aslında <1>jinja2</1>'nin bir portudur.",
     link: '<1> <2>Resmi web sitesi</2> </1> <3> <4>LiveCodes Dokümantasyonu</4> </3>',
     name: 'Nunjucks',
+  },
+  objcWasm: {
+    desc: "Objective-C, <1>Clang</1> tarafından <2>GNUstep</2> Objective-C çalışma zamanı kullanılarak WebAssembly'ye derlenir. Bu bir çalışma zamanıdır, sınıf kitaplığı değildir, bu nedenle Foundation kullanılamaz.",
+    link: '<1> <2>Objective-C belgeleri</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Objective-C</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'Objective-C (Wasm)',
+  },
+  objcppWasm: {
+    desc: "Objective-C++, <1>Clang</1> tarafından <2>GNUstep</2> Objective-C çalışma zamanı kullanılarak WebAssembly'ye derlenir. Bu bir çalışma zamanıdır, sınıf kitaplığı değildir, bu nedenle Foundation kullanılamaz.",
+    link: '<1> <2>Objective-C belgeleri</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Objective-C</6> </5> <7> <8>LiveCodes Belgeleri</8> </7>',
+    name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
     desc1:

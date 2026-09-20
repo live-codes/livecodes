@@ -38,6 +38,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi</2> </1> <3> <4>Panduan</4> </3> <5> <6>Referensi</6> </5> <7> <8>Contoh</8> </7> <9> <10>Muat template pemula</10> </9>',
     name: 'Blockly',
   },
+  cWasm: {
+    desc: 'C dikompilasi ke WebAssembly oleh <1>Clang</1>, berjalan sepenuhnya di dalam browser.',
+    link: '<1> <2>Referensi bahasa C</2> </1> <3> <4>Situs web resmi Clang</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=C</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
+    name: 'C (Wasm)',
+  },
   civet: {
     desc: 'Civet adalah bahasa pemrograman yang dikompilasi ke TypeScript atau JavaScript, sehingga Anda dapat menggunakan alat yang ada tetapi mengaktifkan sintaks yang ringkas dan powerful.',
     link: '<1> <2>Situs web resmi Civet</2> </1> <3> <4>Cheatsheet Civet</4> </3> <5> <6>Muat template pemula</6> </5>',
@@ -72,9 +77,9 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'Kompiler Clang C/C++ berjalan di WebAssembly, menggunakan <1>wasm-clang</1> yang diadaptasi oleh <2>polylang.io</2>',
-    link: '<1> <2>Yayasan Standard C++</2> </1> <3> <4>Situs web resmi Clang</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=C++</6> </5> <7> <8>Muat template pemula</8> </7>',
-    name: 'C/C++ (Wasm)',
+    desc: 'C++ dikompilasi ke WebAssembly oleh <1>Clang</1>, berjalan sepenuhnya di dalam browser. Ini menyediakan kompiler C++ yang sesungguhnya, tidak seperti interpreter <2>C++ berbasis JSCPP</2>.',
+    link: '<1> <2>Yayasan Standard C++</2> </1> <3> <4>Situs web resmi Clang</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=C++</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
+    name: 'C++ (Wasm)',
   },
   csharpWasm: {
     desc: 'Kompiler C# berjalan di WebAssembly, menggunakan <1>Blazor</1>',
@@ -261,6 +266,16 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Bahasa templating yang kaya dan powerful untuk JavaScript. Nunjucks pada dasarnya adalah port dari <1>jinja2</1>',
     link: '<1> <2>Situs web resmi</2> </1> <3> <4>Dokumentasi LiveCodes</4> </3>',
     name: 'Nunjucks',
+  },
+  objcWasm: {
+    desc: 'Objective-C dikompilasi ke WebAssembly oleh <1>Clang</1>, menggunakan runtime Objective-C <2>GNUstep</2>. Ini adalah runtime dan bukan pustaka kelas, sehingga Foundation tidak tersedia.',
+    link: '<1> <2>Dokumentasi Objective-C</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=Objective-C</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
+    name: 'Objective-C (Wasm)',
+  },
+  objcppWasm: {
+    desc: 'Objective-C++ dikompilasi ke WebAssembly oleh <1>Clang</1>, menggunakan runtime Objective-C <2>GNUstep</2>. Ini adalah runtime dan bukan pustaka kelas, sehingga Foundation tidak tersedia.',
+    link: '<1> <2>Dokumentasi Objective-C</2> </1> <3> <4>GNUstep libobjc2</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=Objective-C</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7>',
+    name: 'Objective-C++ (Wasm)',
   },
   ocaml: {
     desc1:
