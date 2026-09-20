@@ -458,11 +458,6 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Resmi web sitesi</2> </1> <3> <4>TypeScript dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=TypeScript</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
     name: 'TypeScript',
   },
-  vbWasm: {
-    desc: 'WebAssembly üzerinde çalışan VB.NET derleyicisi, <1>Roslyn</1> ve <2>.NET WebAssembly çalışma zamanı</2> kullanılarak.',
-    link: '<1> <2>Visual Basic dil dokümantasyonu</2> </1> <3> <4>Y Dakikada X Öğrenin, X=Visual Basic</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
-    name: 'VB.NET (Wasm)',
-  },
   vue: {
     link: '<1> <2>Vue.js v3 resmi web sitesi</2> </1> <3> <4>Vue3 dokümantasyonu</4> </3> <5> <6>Vue3 tek dosya bileşenleri</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
     name: 'Vue3 Tek Dosya Bileşenleri',

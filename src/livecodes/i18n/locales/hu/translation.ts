@@ -1050,7 +1050,6 @@ const translation: I18nTranslation = {
       tcl: 'Tcl kezdő',
       teal: 'Teal kezdő',
       typescript: 'TypeScript kezdő',
-      'vb-wasm': 'VB.NET (Wasm) kezdő',
       vue: 'Vue SFC kezdő',
       vue2: 'Vue 2 kezdő',
       wat: 'WebAssembly Text kezdő',

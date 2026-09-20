@@ -458,11 +458,6 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sitio web oficial</2> </1> <3> <4>Documentación de TypeScript</4> </3> <5> <6>Aprende X en Y minutos, donde X=TypeScript</6> </5> <7> <8>Cargar plantilla inicial</8> </7>',
     name: 'TypeScript',
   },
-  vbWasm: {
-    desc: 'Compilador de VB.NET que funciona con WebAssembly, utilizando <1>Roslyn</1> y el <2>entorno de ejecución de .NET para WebAssembly</2>',
-    link: '<1> <2>Documentación del lenguaje Visual Basic</2> </1> <3> <4> Aprenda X en Y minutos, donde X=Visual Basic</4> </3> <5> <6> Documentación de LiveCodes</6> </5> <7> <8> Cargue la plantilla de inicio</8> </7>',
-    name: 'VB.NET (Wasm)',
-  },
   vue: {
     link: '<1> <2>Sitio web oficial de Vue.js v3</2> </1> <3> <4>Documentación de Vue3</4> </3> <5> <6>Componentes de archivo único de Vue3</6> </5> <7> <8>Documentación de LiveCodes</8> </7> <9><10>Cargar plantilla inicial</10></9>',
     name: 'Componentes de archivo único de Vue3',

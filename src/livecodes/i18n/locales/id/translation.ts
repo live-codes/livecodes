@@ -1049,7 +1049,6 @@ const translation: I18nTranslation = {
       tcl: 'Pemula Tcl',
       teal: 'Pemula Teal',
       typescript: 'Pemula TypeScript',
-      'vb-wasm': 'Pemula VB.NET (Wasm)',
       vue: 'Pemula Vue SFC',
       vue2: 'Pemula Vue 2',
       wat: 'Pemula Teks WebAssembly',
