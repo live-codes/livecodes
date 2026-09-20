@@ -2572,6 +2572,10 @@
     "notes": "",
     "translation": "Bootstrap Starter"
   },
+  "templates.starter.c-wasm": {
+    "notes": "",
+    "translation": "C (Wasm) Starter"
+  },
   "templates.starter.civet": {
     "notes": "",
     "translation": "Civet Starter"
@@ -2723,6 +2727,10 @@
   "templates.starter.minizinc": {
     "notes": "",
     "translation": "MiniZinc Starter"
+  },
+  "templates.starter.objc-wasm": {
+    "notes": "",
+    "translation": "Objective-C (Wasm) Starter"
   },
   "templates.starter.ocaml": {
     "notes": "",

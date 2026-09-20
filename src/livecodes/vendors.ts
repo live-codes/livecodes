@@ -56,6 +56,8 @@ export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.2.19/');
 
 export const cjs2esUrl = /* @__PURE__ */ getUrl('cjs2es@1.1.1/dist/cjs2es.browser.js');
 
+export const clangWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.2.0/');
+
 export const clioBaseUrl = /* @__PURE__ */ getUrl(
   '@live-codes/clio-browser-compiler@0.0.3/public/build/',
 );
@@ -107,8 +109,6 @@ export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
 export const colorisBaseUrl = /* @__PURE__ */ getUrl('@melloware/coloris@0.22.0/dist/');
 
 export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
-
-export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/');
 
 export const creltUrl = /* @__PURE__ */ getUrl('crelt@1.0.6/index.js');
 
@@ -336,7 +336,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.4/dist/',
+  '@live-codes/monaco-languages@0.3.5/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');

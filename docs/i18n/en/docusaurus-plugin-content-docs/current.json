@@ -1,0 +1,38 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.docsSidebar.category.Docs": {
+    "message": "Docs",
+    "description": "The label for category Docs in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Features": {
+    "message": "Features",
+    "description": "The label for category Features in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Configuration": {
+    "message": "Configuration",
+    "description": "The label for category Configuration in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.SDK": {
+    "message": "SDK",
+    "description": "The label for category SDK in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Advanced": {
+    "message": "Advanced",
+    "description": "The label for category Advanced in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Languages": {
+    "message": "Languages",
+    "description": "The label for category Languages in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Guides & Tutorials": {
+    "message": "Guides & Tutorials",
+    "description": "The label for category Guides & Tutorials in sidebar docsSidebar"
+  },
+  "sidebar.examplesSidebar.category.Display Modes": {
+    "message": "Display Modes",
+    "description": "The label for category Display Modes in sidebar examplesSidebar"
+  }
+}
