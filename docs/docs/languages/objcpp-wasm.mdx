@@ -72,13 +72,37 @@ The same API is available as `livecodes.clangWasm` for all Clang-based languages
 
 ## Compiler
 
-[Clang](https://clang.llvm.org/) 22 compiled to WebAssembly via [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm), with a complete libc++. The standards `gnu++11`, `gnu++14`, `gnu++17`, `gnu++20` and `gnu++23` are supported (default: `gnu++23`).
+[Clang](https://clang.llvm.org/) compiled to WebAssembly via [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm), with a complete libc++.
 
-### Limitations
+### Version
+
+Clang `v22.1.8`. The standards `gnu++11`, `gnu++14`, `gnu++17`, `gnu++20` and `gnu++23` are supported (default: `gnu++23`).
+
+## Limitations
 
 The Objective-C runtime is [GNUstep's libobjc2](https://github.com/gnustep/libobjc2), which is a runtime and not a class library. There is no `NSObject` and no `NSString`, and Foundation is not available. Programs declare their own root class (as in the example above) and create instances directly.
 
 Objective-C exceptions (`@try`/`@catch`/`@throw`) are not supported.
+
+## Custom Settings
+
+The Clang compiler can be configured using [custom settings](../advanced/custom-settings.mdx) added to the property `objcpp-wasm`:
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `std` | `string` | The Objective-C++ standard to compile with: `gnu++11`, `gnu++14`, `gnu++17`, `gnu++20` or `gnu++23`. Defaults to `gnu++23`. |
+| `compileArgs` | `string[]` | Extra clang flags, e.g. `["-Wall", "-O2"]`. |
+| `args` | `string[]` | Command-line arguments passed to the program (`argv`). |
+
+```json title="Custom Settings"
+{
+  "objcpp-wasm": {
+    "std": "gnu++20",
+    "compileArgs": ["-Wall", "-O2"],
+    "args": ["--name", "LiveCodes"]
+  }
+}
+```
 
 ## Code Formatting
 
@@ -95,4 +119,6 @@ This comment can be added in the `hiddenContent` property of the editor for embe
 - [Clang](https://clang.llvm.org/)
 - [GNUstep libobjc2](https://github.com/gnustep/libobjc2)
 - [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm)
+- [C (Wasm)](./c-wasm.mdx) in LiveCodes
+- [C++ (Wasm)](./cpp-wasm.mdx) in LiveCodes
 - [Objective-C (Wasm)](./objc-wasm.mdx) in LiveCodes

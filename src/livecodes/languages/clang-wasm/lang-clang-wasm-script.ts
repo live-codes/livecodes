@@ -20,6 +20,21 @@ const SCRIPT_TYPE_BY_LANGUAGE = Object.fromEntries(
   SCRIPT_TYPES.map((scriptType) => [LANGUAGES[scriptType], scriptType]),
 ) as Record<LanguageId, ScriptType>;
 
+/** The LiveCodes language names, which are the `config.customSettings` keys. */
+const LANGUAGE_NAMES: Record<LanguageId, string> = {
+  c: 'c-wasm',
+  cpp: 'cpp-wasm',
+  objc: 'objc-wasm',
+  objcpp: 'objcpp-wasm',
+};
+
+/** Options forwarded to `@live-codes/clang-wasm`'s `run`, read from `config.customSettings`. */
+interface ClangWasmSettings {
+  std?: string;
+  compileArgs?: string[];
+  args?: string[];
+}
+
 interface WorkerRunResult {
   output: string;
   errors: string[];
@@ -35,7 +50,7 @@ interface RunResult {
 
 interface Runner {
   ensureReady: () => Promise<void>;
-  run: (code: string, input: string) => Promise<WorkerRunResult>;
+  run: (code: string, input: string, options?: ClangWasmSettings) => Promise<WorkerRunResult>;
 }
 
 interface ClangWasmApi {
@@ -47,6 +62,7 @@ interface ClangWasmApi {
   loaded: Promise<void>;
   init: Promise<void> | null;
   runners: Partial<Record<LanguageId, Runner>>;
+  settings?: Record<string, ClangWasmSettings>;
   run: (input?: string) => Promise<RunResult>;
 }
 
@@ -54,8 +70,6 @@ declare const window: Window & {
   livecodes: Record<string, ClangWasmApi>;
 };
 
-// The compiler owns ~84 MB of memory, so it runs in a worker rather than on the page. The
-// published IIFE bundle only sets `self.clangWasm`, so the worker source is assembled here.
 const getWorkerSrc = (language: LanguageId) => `
 importScripts(${JSON.stringify(clangWasmBaseUrl + 'dist/clang-wasm.global.js')});
 
@@ -71,9 +85,9 @@ const getCompiler = () => {
 };
 
 addEventListener('message', async (event) => {
-  const { id, code, input } = event.data;
+  const { id, code, input, options } = event.data;
   try {
-    const result = await (await getCompiler()).run(code, input);
+    const result = await (await getCompiler()).run(code, input, options);
     postMessage({
       id,
       result: {
@@ -158,13 +172,13 @@ const createRunner = (language: LanguageId): Runner => {
     await ready;
   };
 
-  const run = (code: string, input: string) =>
+  const run = (code: string, input: string, options?: ClangWasmSettings) =>
     ensureReady().then(
       () =>
         new Promise<WorkerRunResult>((resolve, reject) => {
           const id = nextId++;
           pending[id] = { resolve, reject };
-          worker?.postMessage({ id, code, input });
+          worker?.postMessage({ id, code, input, options });
         }),
     );
 
@@ -215,8 +229,17 @@ window.livecodes.clangWasm ??= {} as ClangWasmApi;
 const clangWasm = window.livecodes.clangWasm;
 clangWasm.ready = false;
 // The runner is parked on the persisted namespace so a live reload reuses the warm
-// worker (and its ~84 MB toolchain) instead of spawning a new one.
+// worker instead of spawning a new one.
 clangWasm.runners ??= {};
+
+/**
+ * The custom settings of the running language, injected by the language's `inlineScript`.
+ * They are read on every run, so edits apply to the warm worker without relaunching it.
+ */
+const getSettings = (language: LanguageId): ClangWasmSettings => {
+  const settings = clangWasm.settings?.[LANGUAGE_NAMES[language]];
+  return settings != null && typeof settings === 'object' ? settings : {};
+};
 
 /** Start (once) downloading the toolchain, showing the loading indicator while it happens. */
 const ensureLoaded = (runner: Runner): Promise<void> => {
@@ -251,7 +274,7 @@ clangWasm.loaded = new Promise<void>((resolve) => {
 });
 
 clangWasm.run = async (input?: string) => {
-  const stdin = `${input ?? ''}`;
+  const stdin = `${input ?? clangWasm.input ?? ''}`;
   const language = getLanguage();
   if (!language) return setResult(stdin, null, null, null);
 
@@ -268,7 +291,7 @@ clangWasm.run = async (input?: string) => {
   }
 
   try {
-    const result = await runner.run(code, stdin);
+    const result = await runner.run(code, stdin, getSettings(language));
     // `errors` holds the compiler's diagnostics and is empty when the program compiled.
     const errors = (result.errors || []).filter(Boolean);
     if (errors.length) {

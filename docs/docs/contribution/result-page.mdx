@@ -312,7 +312,7 @@ const compiler = {
   // Inline script in <head>
   inlineScript: 'console.log("inline");',
   // or
-  inlineScript: async ({ baseUrl }) => '...',
+  inlineScript: async ({ baseUrl, config }) => '...',
 
   // Scripts that should be loaded as ES modules
   inlineModule: 'export default {};',

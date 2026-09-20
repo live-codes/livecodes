@@ -276,14 +276,15 @@ export const createResultPage = async ({
       dom.head.appendChild(depScript);
     });
     if (compiler.inlineScript) {
-      if (typeof compiler.inlineScript === 'function') {
-        compiler.inlineScript = await compiler.inlineScript({
-          baseUrl,
-        });
+      const inlineScriptContent =
+        typeof compiler.inlineScript === 'function'
+          ? await compiler.inlineScript({ baseUrl, config })
+          : compiler.inlineScript;
+      if (inlineScriptContent) {
+        const inlineScript = dom.createElement('script');
+        inlineScript.innerHTML = inlineScriptContent;
+        dom.head.appendChild(inlineScript);
       }
-      const inlineScript = dom.createElement('script');
-      inlineScript.innerHTML = compiler.inlineScript;
-      dom.head.appendChild(inlineScript);
     }
     if (compiler.imports) {
       compilerImports = {

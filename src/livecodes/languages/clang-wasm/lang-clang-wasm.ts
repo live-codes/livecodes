@@ -1,5 +1,6 @@
 import { codemirrorLegacy } from '../../editor/codemirror/utils';
-import type { Compiler, Language, LanguageSpecs } from '../../models';
+import type { Compiler, Config, Language, LanguageSpecs } from '../../models';
+import { getLanguageCustomSettings } from '../../utils';
 import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, wasmFmtClangBaseUrl } from '../../vendors';
 
 interface ClangWasmLanguage {
@@ -12,6 +13,24 @@ interface ClangWasmLanguage {
   fileName: string;
   editorLanguage: Language;
 }
+
+/**
+ * The Clang runtime is shared by all four languages and configured at run time through
+ * `config.customSettings[language]`, so the settings are handed to the shared runner script
+ * (once per language) as a global it reads on every run.
+ *
+ * The script is emitted even when there are no settings, replacing the previous object, so a
+ * setting removed in the editor does not linger: the page globals (and the warm worker) survive
+ * a live reload.
+ */
+const getSettingsScript = (language: Language, config: Config) => {
+  const settings = getLanguageCustomSettings(language, config);
+  // `\u003c` keeps a `</script>` in a setting (e.g. a compile argument) from closing the tag.
+  const serialized = JSON.stringify(settings).replace(/</g, '\\u003c');
+  return `window.livecodes = window.livecodes || {};
+window.livecodes.clangWasm = window.livecodes.clangWasm || {};
+window.livecodes.clangWasm.settings = { ${JSON.stringify(language)}: ${serialized} };`;
+};
 
 /**
  * C, C++, Objective-C and Objective-C++ are compiled by the same Clang build and run by the
@@ -40,6 +59,7 @@ const createClangWasmLanguage = ({
   compiler: {
     factory: () => async (code) => code,
     scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-clang-wasm-script.js}}'],
+    inlineScript: ({ config }) => getSettingsScript(name, config),
     scriptType,
     compiledCodeLanguage: name,
     liveReload: true,
