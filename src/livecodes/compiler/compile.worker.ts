@@ -102,6 +102,7 @@ const compile = async (
 ) => {
   const compiler = compilers[language]?.fn;
   if (!baseUrl || typeof compiler !== 'function') {
+    console.log(compiler);
     throw new Error('Failed to load compiler for: ' + language);
   }
 
