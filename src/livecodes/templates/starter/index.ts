@@ -10,6 +10,7 @@ import { bootstrapStarter } from './bootstrap-starter';
 import { civetStarter } from './civet-starter';
 import { cWasmStarter, cppWasmStarter, objcWasmStarter } from './clang-wasm-starters';
 import { clioStarter } from './clio-starter';
+import { cljsSelfHostedStarter } from './cljs-selfhosted-starter';
 import { clojurescriptStarter } from './clojurescript-starter';
 import { coffeescriptStarter } from './coffeescript-starter';
 import { commonlispStarter } from './commonlisp-starter';
@@ -142,6 +143,7 @@ export const starterTemplates = [
   schemeStarter,
   commonlispStarter,
   clojurescriptStarter,
+  cljsSelfHostedStarter,
   gleamStarter,
   perlStarter,
   luaStarter,

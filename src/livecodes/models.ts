@@ -214,7 +214,6 @@ export interface Compiler {
     | 'text/prolog'
     | 'text/haskell'
     | 'text/haskell-wasm'
-    | 'application/x-scittle'
     | 'text/minizinc'
     | 'text/go-wasm'
     | 'application/json'

@@ -318,6 +318,7 @@ export const getCommandMenuActions = ({
         'scheme',
         'commonlisp',
         'clojurescript',
+        'cljs-selfhosted',
         'gleam',
         'perl',
         'lua',

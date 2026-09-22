@@ -360,6 +360,59 @@
     </li>
   </ul>
 </section>
+<section data-lang="cljs-selfhosted">
+  <h3 data-i18n="language-info:cljsSelfhosted.name">CLJS (self-hosted)</h3>
+  <div data-i18n="language-info:cljsSelfhosted.desc" data-i18n-prop="innerHTML">
+    ClojureScript is compiled to JavaScript in the browser by the official
+    <a href="https://clojurescript.org/" target="_blank" rel="noopener">ClojureScript</a> compiler,
+    self-hosted in the compiler worker. It provides real <code>cljs.core</code> semantics and real
+    analyzer diagnostics. <br />npm packages are <strong>not</strong> supported, so
+    <code>(:require ["react" :as React])</code> fails with <code>No such namespace</code>. This is
+    unlike the
+    <a href="{{DOCS_BASE_URL}}languages/clojurescript" target="_blank" rel="noopener"
+      >Cherry-based ClojureScript</a
+    >, which imports npm packages as ES modules; use it for npm-dependent code.
+    <code>(:require ...)</code> only resolves <code>cljs.core</code>, <code>clojure.string</code>,
+    <code>clojure.set</code>, <code>clojure.walk</code>, <code>clojure.edn</code>,
+    <code>cljs.pprint</code>, <code>clojure.core.reducers</code>, <code>clojure.core.protocols</code>,
+    <code>clojure.data</code> and <code>clojure.zip</code>. <code>defmacro</code> works and is
+    evaluated at compile time. Source maps are on by default.
+  </div>
+  <ul data-i18n="language-info:cljsSelfhosted.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://clojurescript.org/" target="_blank" rel="noopener"
+        >ClojureScript official website</a
+      >
+    </li>
+    <li>
+      <a href="https://clojure.org/" target="_blank" rel="noopener">Clojure official website</a>
+    </li>
+    <li>
+      <a href="https://clojurescript.org/guides/self-hosting" target="_blank" rel="noopener"
+        >ClojureScript self-hosting guide</a
+      >
+    </li>
+    <li>
+      <a href="https://learnxinyminutes.com/docs/clojure/" target="_blank" rel="noopener"
+        >Learn X in Y minutes, where X=clojure</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/clojurescript" target="_blank" rel="noopener"
+        >LiveCodes Documentations</a
+      >
+    </li>
+    <li>
+      <a
+        href="?template=cljs-selfhosted"
+        class="button"
+        target="_parent"
+        data-template="cljs-selfhosted"
+        >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
 <section data-lang="coffeescript">
   <h3 data-i18n="language-info:coffeescript.name">CoffeeScript</h3>
   <div data-i18n="language-info:coffeescript.desc">Unfancy JavaScript.</div>

@@ -120,6 +120,18 @@
     "notes": "",
     "translation": "Clio"
   },
+  "cljsSelfhosted.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://clojurescript.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<code  />\n\n### <tag-3> ###\n<br  />\n\n### <tag-4> ###\n<strong  />\n\n### <tag-5> ###\n<code  />\n\n### <tag-6> ###\n<code  />\n\n### <tag-7> ###\n<a href=\"{{DOCS_BASE_URL}}languages/clojurescript\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-8> ###\n<code  />\n\n### <tag-9> ###\n<code  />\n\n### <tag-10> ###\n<code  />\n\n### <tag-11> ###\n<code  />\n\n### <tag-12> ###\n<code  />\n\n### <tag-13> ###\n<code  />\n\n### <tag-14> ###\n<code  />\n\n### <tag-15> ###\n<code  />\n\n### <tag-16> ###\n<code  />\n\n### <tag-17> ###\n<code  />\n\n### <tag-18> ###\n<code  />\n\n### <tag-19> ###\n<code  />\n\n",
+    "translation": "ClojureScript is compiled to JavaScript in the browser by the official <tag-1>ClojureScript</tag-1> compiler, self-hosted in the compiler worker. It provides real <tag-2>cljs.core</tag-2> semantics and real analyzer diagnostics. <tag-3></tag-3>npm packages are <tag-4>not</tag-4> supported, so <tag-5>(:require [\"react\" :as React])</tag-5> fails with <tag-6>No such namespace</tag-6>. This is unlike the <tag-7>Cherry-based ClojureScript</tag-7>, which imports npm packages as ES modules; use it for npm-dependent code. <tag-8>(:require ...)</tag-8> only resolves <tag-9>cljs.core</tag-9>, <tag-10>clojure.string</tag-10>, <tag-11>clojure.set</tag-11>, <tag-12>clojure.walk</tag-12>, <tag-13>clojure.edn</tag-13>, <tag-14>cljs.pprint</tag-14>, <tag-15>clojure.core.reducers</tag-15>, <tag-16>clojure.core.protocols</tag-16>, <tag-17>clojure.data</tag-17> and <tag-18>clojure.zip</tag-18>. <tag-19>defmacro</tag-19> works and is evaluated at compile time. Source maps are on by default."
+  },
+  "cljsSelfhosted.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://clojurescript.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://clojure.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://clojurescript.org/guides/self-hosting\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/clojure/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/clojurescript\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=cljs-selfhosted\" class=\"button\" target=\"_parent\" data-template=\"cljs-selfhosted\" />\n\n",
+    "translation": "<tag-1> <tag-2>ClojureScript official website</tag-2> </tag-1> <tag-3> <tag-4>Clojure official website</tag-4> </tag-3> <tag-5> <tag-6>ClojureScript self-hosting guide</tag-6> </tag-5> <tag-7> <tag-8>Learn X in Y minutes, where X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentations</tag-10> </tag-9> <tag-11> <tag-12>Load starter template</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "notes": "",
+    "translation": "CLJS (self-hosted)"
+  },
   "clojurescript.desc": {
     "notes": "### <tag-1> ###\n<a href=\"https://clojure.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<br  />\n\n### <tag-3> ###\n<a href=\"https://github.com/squint-cljs/cherry\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "ClojureScript is a compiler for <tag-1>Clojure</tag-1> that targets JavaScript. <tag-2></tag-2>In LiveCodes, it runs in the browser using <tag-3>Cherry</tag-3>"

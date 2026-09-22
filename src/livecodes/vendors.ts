@@ -62,10 +62,9 @@ export const clioBaseUrl = /* @__PURE__ */ getUrl(
   '@live-codes/clio-browser-compiler@0.0.3/public/build/',
 );
 
-export const cljsSelfHostedBaseUrl = 'http://127.0.0.1:8081/dist/';
-// export const cljsSelfHostedBaseUrl = /* @__PURE__ */ getUrl(
-//   '@live-codes/cljs-selfhosted-compiler@0.1.0/dist/',
-// );
+export const cljsSelfHostedBaseUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/cljs-selfhosted-compiler@0.1.1/dist/',
+);
 
 export const cm6ThemeBasicLightUrl = /* @__PURE__ */ getUrl(
   'cm6-theme-basic-light@0.2.0/dist/index.js',
@@ -454,8 +453,6 @@ export const rustWasmUrl = /* @__PURE__ */ getUrl(
   '@live-codes/rust-wasm@0.3.0/dist/worker.iife.js',
 );
 export const wasmRustcBaseUrl = /* @__PURE__ */ getUrl('@live-codes/wasm-rustc@0.2.0/');
-
-export const scittleUrl = /* @__PURE__ */ getUrl('scittle@0.8.32/dist/scittle.js');
 
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 

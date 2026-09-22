@@ -2584,6 +2584,10 @@
     "notes": "",
     "translation": "Clio Starter"
   },
+  "templates.starter.cljs-selfhosted": {
+    "notes": "",
+    "translation": "CLJS (self-hosted) Starter"
+  },
   "templates.starter.clojurescript": {
     "notes": "",
     "translation": "ClojureScript Starter"

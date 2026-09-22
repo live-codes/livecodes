@@ -62,6 +62,7 @@ export const starterTemplates = {
   "scheme": "Scheme Starter",
   "commonlisp": "Common Lisp Starter",
   "clojurescript": "ClojureScript Starter",
+  "cljs-selfhosted": "CLJS (self-hosted) Starter",
   "gleam": "Gleam Starter",
   "perl": "Perl Starter",
   "lua": "Lua Starter",

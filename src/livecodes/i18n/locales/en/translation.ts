@@ -992,6 +992,7 @@ const translation = {
       'c-wasm': 'C (Wasm) Starter',
       civet: 'Civet Starter',
       clio: 'Clio Starter',
+      'cljs-selfhosted': 'CLJS (self-hosted) Starter',
       clojurescript: 'ClojureScript Starter',
       coffeescript: 'CoffeeScript Starter',
       commonlisp: 'Common Lisp Starter',

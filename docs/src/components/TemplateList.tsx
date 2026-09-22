@@ -62,6 +62,7 @@ const templates = [
   { name: 'scheme', title: 'Scheme Starter', thumbnail: 'scheme.svg' },
   { name: 'commonlisp', title: 'Common Lisp Starter', thumbnail: 'commonlisp.svg' },
   { name: 'clojurescript', title: 'ClojureScript Starter', thumbnail: 'cljs.svg' },
+  { name: 'cljs-selfhosted', title: 'CLJS (self-hosted) Starter', thumbnail: 'cljs.svg' },
   { name: 'gleam', title: 'Gleam Starter', thumbnail: 'gleam.svg' },
   { name: 'perl', title: 'Perl Starter', thumbnail: 'perl.svg' },
   { name: 'lua', title: 'Lua Starter', thumbnail: 'lua.svg' },
