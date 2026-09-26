@@ -7,6 +7,7 @@ declare global {
       translateString: (key: string, value: string) => string;
       languages: typeof languages;
       processors: typeof processors;
+      loggedDeprecations?: string[];
     };
   }
 }
