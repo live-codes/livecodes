@@ -37,7 +37,7 @@ The official [ClojureScript compiler](https://clojurescript.org/), self-hosted i
 
 ### Version
 
-`@live-codes/cljs-selfhosted-compiler`: v0.2.0
+`@live-codes/cljs-selfhosted-compiler`: v0.3.0
 
 ## Usage
 
@@ -45,7 +45,7 @@ LiveCodes compiles ClojureScript to JavaScript in the browser using the official
 self-hosted in the compiler worker. This provides real `cljs.core` semantics and real analyzer
 diagnostics.
 
-`(:require ...)` can only resolve the namespaces that are bundled with the compiler:
+`(:require ...)` can resolve the namespaces that are bundled with the compiler:
 
 - `cljs.core`
 - `clojure.string`
@@ -61,8 +61,25 @@ diagnostics.
 - `cljs.math`
 - `cljs.proxy`
 - `cljs.stacktrace`
+- `cljs.test`
+
+Three reader namespaces are also require-able, because they are already present in the page runtime:
+
+- `cljs.reader`
+- `cljs.tools.reader`
+- `cljs.tools.reader.edn`
+
+They (and the `cljs.tools.reader.reader-types` and `cljs.tools.reader.impl.*` namespaces under them)
+are already present in the page runtime because `clojure.edn` pulls them in transitively, so they
+cost nothing extra; they are listed here because they are require-able and work.
 
 `defmacro` works and is evaluated at compile time. Source maps are on by default.
+
+`cljs.test`'s macros expand in the compiler worker like any other macro. `deftest`, `is`,
+`testing` and `run-tests` come from its `cljs/test.cljc` macros half, and `are` expands through
+`clojure.template`, which is served to the worker next to it. The compiled test file is page
+JavaScript that calls `cljs.test`'s runtime (`cljs/test.cljs`), which the page provides alongside
+the other bundled namespaces.
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 

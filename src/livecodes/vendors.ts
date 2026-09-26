@@ -63,7 +63,7 @@ export const clioBaseUrl = /* @__PURE__ */ getUrl(
 );
 
 export const cljsSelfHostedBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/cljs-selfhosted-compiler@0.2.0/dist/',
+  '@live-codes/cljs-selfhosted-compiler@0.3.0/dist/',
 );
 
 export const cm6ThemeBasicLightUrl = /* @__PURE__ */ getUrl(
