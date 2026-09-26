@@ -171,29 +171,6 @@ Can also be used in markup editor:
 | Vento      | `vento`, `vto`       |
 | Jinja      | `jinja`              |
 
-## ClojureScript Engines
-
-LiveCodes ships two ClojureScript engines. Pick based on whether you need npm packages or real
-compiler semantics:
-
-| Engine      | Name                       | Aliases           | Strengths                                                    |
-| ----------- | -------------------------- | ----------------- | ------------------------------------------------------------ |
-| Cherry      | `clojurescript-cherry`     | `cljs-cherry`     | Imports npm packages as ES modules; `#jsx` reader tag        |
-| Self-hosted | `clojurescript-selfhosted` | `cljs-selfhosted` | Official compiler: real `cljs.core`, `defmacro`, source maps |
-
-The self-hosted engine supports `(:require ...)` only for the namespaces bundled with the compiler
-(`cljs.core`, `clojure.string`, `clojure.set`, `clojure.walk`, `clojure.edn`, `cljs.pprint`,
-`clojure.core.reducers`, `clojure.core.protocols`, `clojure.data`, `clojure.zip`, `clojure.datafy`,
-`cljs.math`, `cljs.proxy`, `cljs.stacktrace`, `cljs.test`). npm imports fail with `No such namespace`.
-
-## Deprecated Language Aliases
-
-The ambiguous aliases `clojurescript`, `cljs`, `clj`, `cljc`, `edn`, and `clojure` currently resolve
-to the **Cherry** engine, but are scheduled to resolve to the self-hosted engine in the future.
-`getLanguageByAlias` prints a one-time `console.warn` per session when one of these is used.
-Pin explicit names (`clojurescript-cherry` or `clojurescript-selfhosted`) to avoid both the warning
-and the future behaviour change.
-
 ## CSS Presets
 
 Pre-built CSS stylesheets:

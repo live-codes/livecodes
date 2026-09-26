@@ -185,35 +185,6 @@ Understanding:
 
 Source: docs/docs/languages/python-wasm.mdx
 
-### MEDIUM ClojureScript uses the wrong engine for your code
-
-LiveCodes has two ClojureScript engines. Choosing the wrong one silently breaks imports:
-
-```javascript
-// WRONG - self-hosted engine cannot resolve npm packages
-script: {
-  language: 'clojurescript-selfhosted',
-  content: '(ns demo (:require ["react" :as React]))', // "No such namespace"
-}
-
-// CORRECT - Cherry imports npm packages as ES modules
-script: {
-  language: 'clojurescript-cherry',
-  content: '(ns demo (:require ["react" :as React]))',
-}
-```
-
-Use `clojurescript-selfhosted` (`cljs-selfhosted`) for the official compiler, real `cljs.core`
-semantics, `defmacro`, and source maps — but only its bundled namespaces are requirable. Use
-`clojurescript-cherry` (`cljs-cherry`) when you need npm packages.
-
-The aliases `clojurescript`, `cljs`, `clj`, `cljc`, `edn`, and `clojure` still resolve to Cherry
-but are deprecated: the first one used triggers a one-time `console.warn` per session, and they
-will point to the self-hosted compiler in the future. Pin an explicit name in code you do not want
-to change under you.
-
-Source: docs/docs/languages/clojurescript.mdx, docs/docs/languages/clojurescript-cherry.mdx
-
 ## Language Categories
 
 | Editor | Categories                          | Examples                                                  |
