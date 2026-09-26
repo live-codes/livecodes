@@ -1072,6 +1072,14 @@
     "notes": "",
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "notes": "### <tag-1> ###\n<code  />\n\n### <tag-2> ###\n<code  />\n\n",
+    "translation": "Swift is compiled to WebAssembly by the Swift compiler itself: <tag-1>swift-frontend</tag-1> and <tag-2>wasm-ld</tag-2>, both compiled to WebAssembly, run entirely in the browser. No server is involved."
+  },
+  "swiftWasm.name": {
+    "notes": "",
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "notes": "### <tag-1> ###\n<a href=\"https://github.com/ecky-l/wacl/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Tcl running in the browser, using <tag-1>wacl</tag-1>."

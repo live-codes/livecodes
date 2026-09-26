@@ -461,6 +461,10 @@ const languageInfo = {
     link: '<1> <2>Svelte official website</2> </1> <3> <4>Svelte documentation</4> </3> <5> <6>Load starter template</6> </5>',
     name: 'Svelte',
   },
+  swiftWasm: {
+    desc: 'Swift is compiled to WebAssembly by the Swift compiler itself: <1>swift-frontend</1> and <2>wasm-ld</2>, both compiled to WebAssembly, run entirely in the browser. No server is involved.',
+    name: 'Swift (Wasm)',
+  },
   tcl: {
     desc: 'Tcl running in the browser, using <1>wacl</1>.',
     link: '<1> <2>Tcl official website</2> </1> <3> <4>wacl repo</4> </3> <5> <6>Learn X in Y minutes, where X=Tcl</6> </5> <7> <8>Load starter template</8> </7>',

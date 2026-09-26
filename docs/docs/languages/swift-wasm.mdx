@@ -1,0 +1,119 @@
+# Swift (Wasm)
+
+[Swift](https://www.swift.org/) is a general-purpose programming language developed by Apple, designed for safety, performance and expressiveness.
+
+In LiveCodes, Swift is compiled to WebAssembly by the Swift compiler itself, running on WebAssembly: `swift-frontend` compiles the source and LLVM's `wasm-ld` links the result, entirely in the browser. No backend is involved.
+
+:::info Note
+
+The native `swiftc` is a driver that spawns the compiler frontend and the linker as separate processes, and WebAssembly cannot spawn processes. Here the two run as separate WebAssembly modules in the same [result page](../features/result.mdx), driven by JavaScript. The toolchain is about 70 MB and is downloaded on the first run, which can take some time.
+
+:::
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const swiftConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'swift-wasm',
+    content: `struct Greeting {
+  let name: String
+  var message: String { "Hello, \\(name)!" }
+}\n
+for name in ["World", "LiveCodes", "Swift"] {
+  print(Greeting(name: name).message)
+}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={swiftConfig}></LiveCodes>
+
+### Standard I/O
+
+Swift code runs in the context of the [result page](../features/result.mdx). Standard output (e.g. `print`) is captured and displayed in the [console](../features/console.mdx). Standard input is passed by setting the `livecodes.swift.input` property in JavaScript and is read in the Swift code using `readLine()`.
+
+### Communication with JavaScript
+
+The Swift code runs in the context of the result page. A few helper properties and methods are available in the browser global `livecodes.swift` object:
+
+- `livecodes.swift.input`: The standard input passed to the Swift program. It can be set before the initial run, or passed to `run` for subsequent runs.
+- `livecodes.swift.loaded`: A promise that resolves when the Swift environment (compiler, linker and standard library) is fully loaded (and rejects if it fails to load). Other helpers should be used after this promise resolves.
+- `livecodes.swift.ready`: A boolean that is `true` once the environment is loaded and a run has completed.
+- `livecodes.swift.output`: The standard output of the last run.
+- `livecodes.swift.error`: The compiler diagnostics or runtime error of the last run, if any.
+- `livecodes.swift.exitCode`: The exit code of the last run.
+- `livecodes.swift.run(input)`: Runs the code in the editor, optionally passing standard input, and returns a promise that resolves to `{ output, error, exitCode }`.
+
+```js
+await livecodes.swift.loaded;
+const { output, error, exitCode } = await livecodes.swift.run(livecodes.swift.input);
+console.log(output);
+```
+
+## Language Info
+
+### Name
+
+`swift-wasm`
+
+### Aliases / Extensions
+
+`swift`, `swift-wasm`, `wasm.swift`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The [Swift compiler](https://github.com/swiftlang/swift) frontend (`swift-frontend`) and LLVM's `wasm-ld` linker, both compiled to WebAssembly and running in the browser. The build is provided by [`swift-toolchain-wasm`](https://github.com/tothambrus11/swift-toolchain-wasm).
+
+### Version
+
+Swift 6.3.3
+
+## Code Formatting
+
+Not supported.
+
+## Limitations
+
+The compiler runs on WebAssembly, which affects what it can do:
+
+- Programs are single-file.
+- **Macros and compiler plugins are not supported.** Swift runs them as separate processes, and WebAssembly cannot spawn processes.
+- **The Swift-implemented optimizer passes are disabled** because C++ interop is not available for this target. This affects optimization quality, not correctness.
+- **A 4 GiB address space limit applies.** Single-file programs fit comfortably; very large modules may not.
+- The toolchain (about 70 MB) is downloaded on the first run.
+
+## Example Usage
+
+This example passes standard input and runs the code again on each click, using the browser global `livecodes.swift` (also check the code in the HTML editor):
+
+<LiveCodes template="swift-wasm" height="80vh"></LiveCodes>
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the Swift WebAssembly environment. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the Swift code, which forces a full page reload.
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Starter Template
+
+https://livecodes.io/?template=swift-wasm
+
+## Links
+
+- [Swift](https://www.swift.org/)
+- [The Swift Programming Language](https://docs.swift.org/swift-book/)
+- [Swift compiler](https://github.com/swiftlang/swift)
+- [swift-toolchain-wasm](https://github.com/tothambrus11/swift-toolchain-wasm)

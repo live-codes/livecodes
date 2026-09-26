@@ -1055,6 +1055,7 @@ const translation = {
       sql: 'SQL Starter',
       stencil: 'Stencil Starter',
       svelte: 'Svelte Starter',
+      'swift-wasm': 'Swift (Wasm) Starter',
       tailwindcss: 'Tailwind CSS Starter',
       tcl: 'Tcl Starter',
       teal: 'Teal Starter',

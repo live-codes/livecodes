@@ -456,6 +456,8 @@ export const wasmRustcBaseUrl = /* @__PURE__ */ getUrl('@live-codes/wasm-rustc@0
 
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 
+export const swiftWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/swift-wasm@0.1.0/');
+
 export const spacingJsUrl = /* @__PURE__ */ getUrl('spacingjs@1.0.7/dist/bundle.js');
 
 export const sqlFormatterUrl = /* @__PURE__ */ getUrl(

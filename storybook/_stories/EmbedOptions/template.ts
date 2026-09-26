@@ -52,6 +52,7 @@ const storyDef: StoryDef = {
   CppWasm: { props: { template: 'cpp-wasm' } },
   ObjcWasm: { props: { template: 'objc-wasm' } },
   RustWasm: { props: { template: 'rust-wasm' } },
+  SwiftWasm: { props: { template: 'swift-wasm' } },
   ZigWasm: { props: { template: 'zig-wasm' } },
   Java: { props: { template: 'java' } },
   CSharpWasm: { props: { template: 'csharp-wasm' } },

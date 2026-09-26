@@ -2836,6 +2836,10 @@
     "notes": "",
     "translation": "Svelte Starter"
   },
+  "templates.starter.swift-wasm": {
+    "notes": "",
+    "translation": "Swift (Wasm) Starter"
+  },
   "templates.starter.tailwindcss": {
     "notes": "",
     "translation": "Tailwind CSS Starter"
