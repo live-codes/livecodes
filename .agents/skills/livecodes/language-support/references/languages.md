@@ -108,39 +108,40 @@ Enabled via `processors` config:
 
 ### Backend Languages
 
-| Name          | Aliases                                   | Notes                   |
-| ------------- | ----------------------------------------- | ----------------------- |
-| Python        | `python`, `py`                            | Brython (Python -> JS)  |
-| Python (Wasm) | `pyodide`, `python-wasm`, `py-wasm`       | Pyodide runtime (~15MB) |
-| Ruby          | `ruby`, `rb`                              | Opal (Ruby -> JS)       |
-| Ruby (Wasm)   | `ruby-wasm`, `wasm.rb`                    | Ruby WASM               |
-| Go            | `go`, `golang`                            | Gopherjs (Go -> JS)     |
-| Go (Wasm)     | `go-wasm`, `wasm.go`                      | Go WASM                 |
-| PHP           | `php`                                     | Uniter (PHP -> JS)      |
-| PHP           | `php`, `php-wasm`, `wasm.php`             | PHP WASM                |
-| C (Wasm)      | `c-wasm`, `cwasm`, `wasm.c`, `c`          | Clang WASM              |
-| C++           | `cpp`,                                    | JSCPP interpreter       |
-| C++ (Wasm)    | `cpp-wasm`, `clang`, `wasm.cpp`           | Clang WASM              |
-| Objective-C   | `objc-wasm`, `objc`, `wasm.m`             | Clang WASM              |
-| Objective-C++ | `objcpp-wasm`, `objcpp`, `wasm.mm`        | Clang WASM              |
-| Java          | `java`                                    | Java runtime            |
-| C#            | `csharp-wasm`, `cs`, `cs-wasm`, `wasm.cs` | C# WASM                 |
-| VB.NET        | `vb-wasm`, `vb`, `vbnet`, `wasm.vb`       | VB.NET WASM             |
-| R             | `r`, `rlang`, `rstats`, `r-wasm`          | R WASM                  |
-| Lua           | `lua`, `lua-wasm`, `luawasm`, `wasm.lua`  | Lua WASM                |
-| Teal          | `teal`, `tl`                              | Typed Lua               |
-| Fennel        | `fennel`, `fnl`                           | Lua lisp                |
-| Julia         | `julia`, `jl`                             | Julia runtime           |
-| Scheme        | `scheme`, `scm`                           | BiwaScheme              |
-| Common Lisp   | `commonlisp`, `common-lisp`, `lisp`       | Common Lisp             |
-| ClojureScript | `clojurescript`, `clojure`, `cljs`, `clj` | Clojure                 |
-| Perl          | `perl`, `pl`, `pm`                        | Perl runtime            |
-| Gleam         | `gleam`                                   | Gleam language          |
-| Elm           | `elm`                                     | Elm compiler (WASM)     |
-| Haskell       | `haskell`, `hs`, `lhs`                    | MicroHs (not GHC)       |
-| Haskell (Wasm) | `haskell-wasm`, `hs-wasm`, `wasm.hs`, `hswasm` | GHC WASM             |
-| Tcl           | `tcl`                                     | Tcl interpreter         |
-| WebAssembly   | `wat`, `wast`, `wasm`, `webassembly`      | WAT format              |
+| Name                        | Aliases                                        | Notes                                                 |
+| --------------------------- | ---------------------------------------------- | ----------------------------------------------------- |
+| Python                      | `python`, `py`                                 | Brython (Python -> JS)                                |
+| Python (Wasm)               | `pyodide`, `python-wasm`, `py-wasm`            | Pyodide runtime (~15MB)                               |
+| Ruby                        | `ruby`, `rb`                                   | Opal (Ruby -> JS)                                     |
+| Ruby (Wasm)                 | `ruby-wasm`, `wasm.rb`                         | Ruby WASM                                             |
+| Go                          | `go`, `golang`                                 | Gopherjs (Go -> JS)                                   |
+| Go (Wasm)                   | `go-wasm`, `wasm.go`                           | Go WASM                                               |
+| PHP                         | `php`                                          | Uniter (PHP -> JS)                                    |
+| PHP                         | `php`, `php-wasm`, `wasm.php`                  | PHP WASM                                              |
+| C (Wasm)                    | `c-wasm`, `cwasm`, `wasm.c`, `c`               | Clang WASM                                            |
+| C++                         | `cpp`,                                         | JSCPP interpreter                                     |
+| C++ (Wasm)                  | `cpp-wasm`, `clang`, `wasm.cpp`                | Clang WASM                                            |
+| Objective-C                 | `objc-wasm`, `objc`, `wasm.m`                  | Clang WASM                                            |
+| Objective-C++               | `objcpp-wasm`, `objcpp`, `wasm.mm`             | Clang WASM                                            |
+| Java                        | `java`                                         | Java runtime                                          |
+| C#                          | `csharp-wasm`, `cs`, `cs-wasm`, `wasm.cs`      | C# WASM                                               |
+| VB.NET                      | `vb-wasm`, `vb`, `vbnet`, `wasm.vb`            | VB.NET WASM                                           |
+| R                           | `r`, `rlang`, `rstats`, `r-wasm`               | R WASM                                                |
+| Lua                         | `lua`, `lua-wasm`, `luawasm`, `wasm.lua`       | Lua WASM                                              |
+| Teal                        | `teal`, `tl`                                   | Typed Lua                                             |
+| Fennel                      | `fennel`, `fnl`                                | Lua lisp                                              |
+| Julia                       | `julia`, `jl`                                  | Julia runtime                                         |
+| Scheme                      | `scheme`, `scm`                                | BiwaScheme                                            |
+| Common Lisp                 | `commonlisp`, `common-lisp`, `lisp`            | Common Lisp                                           |
+| ClojureScript (Cherry)      | `clojurescript-cherry`, `cljs-cherry`          | Cherry transpiler; imports npm packages as ES modules |
+| ClojureScript (self-hosted) | `clojurescript-selfhosted`, `cljs-selfhosted`  | Official ClojureScript compiler; no npm imports       |
+| Perl                        | `perl`, `pl`, `pm`                             | Perl runtime                                          |
+| Gleam                       | `gleam`                                        | Gleam language                                        |
+| Elm                         | `elm`                                          | Elm compiler (WASM)                                   |
+| Haskell                     | `haskell`, `hs`, `lhs`                         | MicroHs (not GHC)                                     |
+| Haskell (Wasm)              | `haskell-wasm`, `hs-wasm`, `wasm.hs`, `hswasm` | GHC WASM                                              |
+| Tcl                         | `tcl`                                          | Tcl interpreter                                       |
+| WebAssembly                 | `wat`, `wast`, `wasm`, `webassembly`           | WAT format                                            |
 
 ### Data & Logic Languages
 
@@ -169,6 +170,29 @@ Can also be used in markup editor:
 | Twig       | `twig`               |
 | Vento      | `vento`, `vto`       |
 | Jinja      | `jinja`              |
+
+## ClojureScript Engines
+
+LiveCodes ships two ClojureScript engines. Pick based on whether you need npm packages or real
+compiler semantics:
+
+| Engine      | Name                       | Aliases           | Strengths                                                    |
+| ----------- | -------------------------- | ----------------- | ------------------------------------------------------------ |
+| Cherry      | `clojurescript-cherry`     | `cljs-cherry`     | Imports npm packages as ES modules; `#jsx` reader tag        |
+| Self-hosted | `clojurescript-selfhosted` | `cljs-selfhosted` | Official compiler: real `cljs.core`, `defmacro`, source maps |
+
+The self-hosted engine supports `(:require ...)` only for the namespaces bundled with the compiler
+(`cljs.core`, `clojure.string`, `clojure.set`, `clojure.walk`, `clojure.edn`, `cljs.pprint`,
+`clojure.core.reducers`, `clojure.core.protocols`, `clojure.data`, `clojure.zip`, `clojure.datafy`,
+`cljs.math`, `cljs.proxy`, `cljs.stacktrace`, `cljs.test`). npm imports fail with `No such namespace`.
+
+## Deprecated Language Aliases
+
+The ambiguous aliases `clojurescript`, `cljs`, `clj`, `cljc`, `edn`, and `clojure` currently resolve
+to the **Cherry** engine, but are scheduled to resolve to the self-hosted engine in the future.
+`getLanguageByAlias` prints a one-time `console.warn` per session when one of these is used.
+Pin explicit names (`clojurescript-cherry` or `clojurescript-selfhosted`) to avoid both the warning
+and the future behaviour change.
 
 ## CSS Presets
 
