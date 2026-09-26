@@ -63,6 +63,6 @@ export const clojurescriptCherry: LanguageSpecs = {
       languageSupport: async () =>
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-clojure.js')).clojure),
     },
-    codejar: { language: 'clojurescript' },
+    codejar: { language: 'clojure' },
   },
 };

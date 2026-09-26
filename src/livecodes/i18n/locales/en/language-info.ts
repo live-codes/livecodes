@@ -60,6 +60,9 @@ const languageInfo = {
     link: '<1> <2>Clio official website</2> </1> <3> <4>Clio documentation</4> </3> <5> <6>Load starter template</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
   cljsSelfhosted: {
     desc: 'ClojureScript is compiled to JavaScript in the browser by the official <1>ClojureScript</1> compiler, self-hosted in the compiler worker.',
     link: '<1> <2>ClojureScript official website</2> </1> <3> <4>Clojure official website</4> </3> <5> <6>ClojureScript self-hosting guide</6> </5> <7> <8>Learn X in Y minutes, where X=clojure</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
@@ -68,7 +71,6 @@ const languageInfo = {
   clojurescript: {
     desc: 'ClojureScript is a compiler for <1>Clojure</1> that targets JavaScript. <2></2>In LiveCodes, it runs in the browser using <3>Cherry</3>',
     link: '<1> <2>ClojureScript official website</2> </1> <3> <4>Clojure official website</4> </3> <5> <6>Cherry repo</6> </5> <7> <8>Learn X in Y minutes, where X=clojure</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
-    name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
     desc: 'Unfancy JavaScript.',
