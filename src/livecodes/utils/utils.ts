@@ -738,7 +738,10 @@ export const onLoad = /* @__PURE__ */ (fn: (...args: any[]) => any) => {
 
 export const getDocsUrl = () => {
   const docsBaseUrl = predefinedValues.DOCS_BASE_URL || 'docs';
-  return docsBaseUrl?.startsWith('http') ? docsBaseUrl : new URL(docsBaseUrl, location.href).href;
+  const docsUrl = docsBaseUrl.startsWith('http')
+    ? docsBaseUrl
+    : new URL(docsBaseUrl, location.href).href;
+  return docsUrl.endsWith('/') ? docsUrl : `${docsUrl}/`;
 };
 
 export const predefinedValues = {
