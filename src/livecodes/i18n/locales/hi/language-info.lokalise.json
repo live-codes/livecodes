@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "Clio"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "ClojureScript को ब्राउज़र में आधिकारिक <tag-1>ClojureScript</tag-1> कंपाइलर द्वारा JavaScript में कंपाइल किया जाता है, जो कंपाइलर वर्कर में स्व-होस्टेड होता है।"
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>ClojureScript आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Clojure आधिकारिक वेबसाइट</tag-4> </tag-3> <tag-5> <tag-6>ClojureScript स्व-होस्टिंग गाइड</tag-6> </tag-5> <tag-7> <tag-8>X को Y मिनटों में सीखें, जहां X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes दस्तावेज़ीकरण</tag-10> </tag-9> <tag-11> <tag-12>स्टार्टर टेम्पलेट लोड करें</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "CLJS (स्व-होस्टेड)"
+  },
   "clojurescript.desc": {
     "translation": "ClojureScript <tag-1>Clojure</tag-1> के लिए एक कंपाइलर है जो JavaScript को लक्षित करता है। <tag-2></tag-2>LiveCodes में, यह ब्राउज़र में <tag-3>Cherry</tag-3> का उपयोग करके चलता है।"
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>ClojureScript आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Clojure आधिकारिक वेबसाइट</tag-4> </tag-3> <tag-5> <tag-6>Cherry रेपो</tag-6> </tag-5> <tag-7> <tag-8>X को Y मिनटों में सीखें, जहां X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes दस्तावेज़ीकरण</tag-10> </tag-9> <tag-11> <tag-12>स्टार्टर टेम्पलेट लोड करें</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "ClojureScript (CLJS)"
   },
   "coffeescript.desc": {
     "translation": "सरल जावास्क्रिप्ट।"

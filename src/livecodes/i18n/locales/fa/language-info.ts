@@ -53,10 +53,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>وب‌سایت رسمی Clio</2> </1> <3> <4>مستندات Clio</4> </3> <5> <6>بارگذاری قالب شروع کننده</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
+  cljsSelfhosted: {
+    desc: 'ClojureScript توسط کامپایلر رسمی <1>ClojureScript</1> که به‌صورت خودمیزبان در ورکر کامپایلر اجرا می‌شود، در مرورگر به JavaScript کامپایل می‌شود.',
+    link: '<1> <2>وب‌سایت رسمی ClojureScript</2> </1> <3> <4>وب‌سایت رسمی Clojure</4> </3> <5> <6>راهنمای خودمیزبانی ClojureScript</6> </5> <7> <8>یادگیری X در Y دقیقه، جایی که X=clojure</8> </7> <9> <10>مستندات LiveCodes</10> </9> <11> <12>بارگذاری قالب شروع کننده</12> </11>',
+    name: 'CLJS (خودمیزبان)',
+  },
   clojurescript: {
     desc: 'ClojureScript یک کامپایلر برای <1>Clojure</1> است که JavaScript را هدف قرار می‌دهد. <2></2>در LiveCodes، با استفاده از <3>Cherry</3> در مرورگر اجرا می‌شود',
     link: '<1> <2>وب‌سایت رسمی ClojureScript</2> </1> <3> <4>وب‌سایت رسمی Clojure</4> </3> <5> <6>مخزن Cherry</6> </5> <7> <8>یادگیری X در Y دقیقه، جایی که X=clojure</8> </7> <9> <10>مستندات LiveCodes</10> </9> <11> <12>بارگذاری قالب شروع کننده</12> </11>',
-    name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
     desc: 'جاوااسکریپت ساده.',

@@ -53,10 +53,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Clio অফিসিয়াল ওয়েবসাইট</2> </1> <3> <4>Clio ডকুমেন্টেশন</4> </3> <5> <6>স্টার্টার টেমপ্লেট লোড করুন</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
+  cljsSelfhosted: {
+    desc: 'ClojureScript কম্পাইলার ওয়ার্কারে স্ব-হোস্টেড অফিসিয়াল <1>ClojureScript</1> কম্পাইলার দ্বারা ব্রাউজারে JavaScript-এ কম্পাইল হয়।',
+    link: '<1> <2>ClojureScript অফিসিয়াল ওয়েবসাইট</2> </1> <3> <4>Clojure অফিসিয়াল ওয়েবসাইট</4> </3> <5> <6>ClojureScript স্ব-হোস্টিং গাইড</6> </5> <7> <8>Y মিনিটে X শিখুন, যেখানে X=clojure</8> </7> <9> <10>LiveCodes ডকুমেন্টেশন</10> </9> <11> <12>স্টার্টার টেমপ্লেট লোড করুন</12> </11>',
+    name: 'CLJS (স্ব-হোস্টেড)',
+  },
   clojurescript: {
     desc: 'ClojureScript হলো <1>Clojure</1>-এর জন্য একটি কম্পাইলার যা JavaScript লক্ষ্য করে। <2></2>LiveCodes-এ, এটি <3>Cherry</3> ব্যবহার করে ব্রাউজারে চলে',
     link: '<1> <2>ClojureScript অফিসিয়াল ওয়েবসাইট</2> </1> <3> <4>Clojure অফিসিয়াল ওয়েবসাইট</4> </3> <5> <6>Cherry রেপো</6> </5> <7> <8>Y মিনিটে X শিখুন, যেখানে X=clojure</8> </7> <9> <10>LiveCodes ডকুমেন্টেশন</10> </9> <11> <12>স্টার্টার টেমপ্লেট লোড করুন</12> </11>',
-    name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
     desc: 'সাধারণ JavaScript।',

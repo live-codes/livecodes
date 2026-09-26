@@ -53,10 +53,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Clio offizielle Website</2> </1> <3> <4>Clio Dokumentation</4> </3> <5> <6>Starter-Vorlage laden</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
+  cljsSelfhosted: {
+    desc: 'ClojureScript wird im Browser vom offiziellen <1>ClojureScript</1>-Compiler zu JavaScript kompiliert, der im Compiler-Worker selbst gehostet wird.',
+    link: '<1> <2>ClojureScript offizielle Website</2> </1> <3> <4>Clojure offizielle Website</4> </3> <5> <6>Anleitung zum Selbsthosting von ClojureScript</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=clojure</8> </7> <9> <10>LiveCodes Dokumentation</10> </9> <11> <12>Starter-Vorlage laden</12> </11>',
+    name: 'CLJS (selbst gehostet)',
+  },
   clojurescript: {
     desc: 'ClojureScript ist ein Compiler für <1>Clojure</1>, der auf JavaScript abzielt. <2></2>In LiveCodes läuft es im Browser mit <3>Cherry</3>.',
     link: '<1> <2>ClojureScript offizielle Website</2> </1> <3> <4>Clojure offizielle Website</4> </3> <5> <6>Cherry Repository</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=clojure</8> </7> <9> <10>LiveCodes Dokumentation</10> </9> <11> <12>Starter-Vorlage laden</12> </11>',
-    name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
     desc: 'Schnörkelloses JavaScript.',

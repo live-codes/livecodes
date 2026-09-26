@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "Clio"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "ClojureScript 由官方 <tag-1>ClojureScript</tag-1> 编译器在编译工作线程中自托管，并在浏览器中编译为 JavaScript。"
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>ClojureScript 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Clojure 官方网站</tag-4> </tag-3> <tag-5> <tag-6>ClojureScript 自托管指南</tag-6> </tag-5> <tag-7> <tag-8>在 Y 分钟内学习 X，其中 X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes 文档</tag-10> </tag-9> <tag-11> <tag-12>加载启动模板</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "CLJS（自托管）"
+  },
   "clojurescript.desc": {
     "translation": "ClojureScript 是 <tag-1>Clojure</tag-1> 到 JavaScript 的编译器。<tag-2></tag-2>在 LiveCodes 中，它使用 <tag-3>Cherry</tag-3> 在浏览器中运行。"
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>ClojureScript 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Clojure 官方网站</tag-4> </tag-3> <tag-5> <tag-6>Cherry 仓库</tag-6> </tag-5> <tag-7> <tag-8>在 Y 分钟内学习 X，其中 X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes 文档</tag-10> </tag-9> <tag-11> <tag-12>加载启动模板</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "ClojureScript（CLJS）"
   },
   "coffeescript.desc": {
     "translation": "不花哨的 JavaScript。"

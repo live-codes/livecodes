@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "Clio"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "ClojureScript wordt in de browser gecompileerd naar JavaScript door de officiële <tag-1>ClojureScript</tag-1>-compiler, zelfgehost in de compiler-worker."
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>ClojureScript officiële website</tag-2> </tag-1> <tag-3> <tag-4>Clojure officiële website</tag-4> </tag-3> <tag-5> <tag-6>Handleiding voor zelfhosting van ClojureScript</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "CLJS (zelfgehost)"
+  },
   "clojurescript.desc": {
     "translation": "ClojureScript is een compiler voor <tag-1>Clojure</tag-1> die zich richt op JavaScript. <tag-2></tag-2>In LiveCodes draait het in de browser met <tag-3>Cherry</tag-3>"
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>ClojureScript officiële website</tag-2> </tag-1> <tag-3> <tag-4>Clojure officiële website</tag-4> </tag-3> <tag-5> <tag-6>Cherry repo</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "ClojureScript (CLJS)"
   },
   "coffeescript.desc": {
     "translation": "JavaScript zonder poespas."

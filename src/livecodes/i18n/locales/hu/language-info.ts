@@ -53,10 +53,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Clio hivatalos weboldal</2> </1> <3> <4>Clio dokumentáció</4> </3> <5> <6>Kezdő sablon betöltése</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
+  cljsSelfhosted: {
+    desc: 'A ClojureScript a böngészőben a hivatalos <1>ClojureScript</1> fordítóval JavaScriptre fordul, amely a fordító workerben saját üzemeltetésű.',
+    link: '<1> <2>ClojureScript hivatalos weboldal</2> </1> <3> <4>Clojure hivatalos weboldal</4> </3> <5> <6>ClojureScript saját üzemeltetési útmutató</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=clojure</8> </7> <9> <10>LiveCodes dokumentáció</10> </9> <11> <12>Kezdő sablon betöltése</12> </11>',
+    name: 'CLJS (saját üzemeltetésű)',
+  },
   clojurescript: {
     desc: 'A ClojureScript egy <1>Clojure</1> fordító, amely JavaScript-et céloz meg. <2></2>A LiveCodes-ben a böngészőben fut a <3>Cherry</3> segítségével',
     link: '<1> <2>ClojureScript hivatalos weboldal</2> </1> <3> <4>Clojure hivatalos weboldal</4> </3> <5> <6>Cherry repo</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=clojure</8> </7> <9> <10>LiveCodes dokumentáció</10> </9> <11> <12>Kezdő sablon betöltése</12> </11>',
-    name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
     desc: 'Egyszerű JavaScript.',

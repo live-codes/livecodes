@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "کلیو"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "ClojureScript کو براؤزر میں سرکاری <tag-1>ClojureScript</tag-1> کمپائلر کے ذریعے JavaScript میں کمپائل کیا جاتا ہے، جو کمپائلر ورکر میں خود میزبان ہوتا ہے۔"
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>کلوجر اسکرپٹ کی سرکاری ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>کلوجر کی سرکاری ویب سائٹ</tag-4> </tag-3> <tag-5> <tag-6>ClojureScript خود میزبانی گائیڈ</tag-6> </tag-5> <tag-7> <tag-8>X کو Y منٹ میں سیکھیں، جہاں X=کلوجر</tag-8> </tag-7> <tag-9> <tag-10>لائیو کوڈز دستاویزات</tag-10> </tag-9> <tag-11> <tag-12>ابتدائی سانچہ لوڈ کریں</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "سی ایل جے ایس (خود میزبان)"
+  },
   "clojurescript.desc": {
     "translation": "کلوجر اسکرپٹ <tag-1>کلوجر</tag-1> کے لیے ایک کمپائلر ہے جو جاوا اسکرپٹ کو ہدف بناتا ہے۔ <tag-2></tag-2>لائیو کوڈز میں، یہ براؤزر میں <tag-3>چیری</tag-3> کا استعمال کرتے ہوئے چلتا ہے۔"
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>کلوجر اسکرپٹ کی سرکاری ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>کلوجر کی سرکاری ویب سائٹ</tag-4> </tag-3> <tag-5> <tag-6>چیری ریپوزٹری</tag-6> </tag-5> <tag-7> <tag-8>X کو Y منٹ میں سیکھیں، جہاں X=کلوجر</tag-8> </tag-7> <tag-9> <tag-10>لائیو کوڈز دستاویزات</tag-10> </tag-9> <tag-11> <tag-12>ابتدائی سانچہ لوڈ کریں</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "کلوجر اسکرپٹ (سی ایل جے ایس)"
   },
   "coffeescript.desc": {
     "translation": "سادہ جاوا اسکرپٹ۔"

@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "Clio"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "ClojureScript dikompilasi ke JavaScript di browser oleh kompiler resmi <tag-1>ClojureScript</tag-1>, yang dihosting sendiri di worker kompiler."
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>Situs web resmi Clojure</tag-4> </tag-3> <tag-5> <tag-6>Panduan swa-hosting ClojureScript</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=clojure</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "CLJS (swa-hosting)"
+  },
   "clojurescript.desc": {
     "translation": "ClojureScript adalah kompiler untuk <tag-1>Clojure</tag-1> yang menargetkan JavaScript. <tag-2></tag-2>Di LiveCodes, berjalan di browser menggunakan <tag-3>Cherry</tag-3>"
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>Situs web resmi ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>Situs web resmi Clojure</tag-4> </tag-3> <tag-5> <tag-6>Repo Cherry</tag-6> </tag-5> <tag-7> <tag-8>Pelajari X dalam Y menit, dengan X=clojure</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "ClojureScript (CLJS)"
   },
   "coffeescript.desc": {
     "translation": "JavaScript yang sederhana."

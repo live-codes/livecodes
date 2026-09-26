@@ -53,10 +53,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Clio officiële website</2> </1> <3> <4>Clio documentatie</4> </3> <5> <6>Startsjabloon laden</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
+  cljsSelfhosted: {
+    desc: 'ClojureScript wordt in de browser gecompileerd naar JavaScript door de officiële <1>ClojureScript</1>-compiler, zelfgehost in de compiler-worker.',
+    link: '<1> <2>ClojureScript officiële website</2> </1> <3> <4>Clojure officiële website</4> </3> <5> <6>Handleiding voor zelfhosting van ClojureScript</6> </5> <7> <8>Leer X in Y minuten, waarbij X=clojure</8> </7> <9> <10>LiveCodes Documentatie</10> </9> <11> <12>Startsjabloon laden</12> </11>',
+    name: 'CLJS (zelfgehost)',
+  },
   clojurescript: {
     desc: 'ClojureScript is een compiler voor <1>Clojure</1> die zich richt op JavaScript. <2></2>In LiveCodes draait het in de browser met <3>Cherry</3>',
     link: '<1> <2>ClojureScript officiële website</2> </1> <3> <4>Clojure officiële website</4> </3> <5> <6>Cherry repo</6> </5> <7> <8>Leer X in Y minuten, waarbij X=clojure</8> </7> <9> <10>LiveCodes Documentatie</10> </9> <11> <12>Startsjabloon laden</12> </11>',
-    name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
     desc: 'JavaScript zonder poespas.',
