@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "Clio"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "يتم تجميع ClojureScript إلى JavaScript في المتصفح بواسطة مترجم <tag-1>ClojureScript</tag-1> الرسمي، المستضاف ذاتيًا في عامل المترجم."
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>الموقع الرسمي لـ Clojure</tag-4> </tag-3> <tag-5> <tag-6>دليل الاستضافة الذاتية لـ ClojureScript</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=clojure</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل القالب الأولي</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "CLJS (مستضاف ذاتيًا)"
+  },
   "clojurescript.desc": {
     "translation": "ClojureScript هو مترجم لـ <tag-1>Clojure</tag-1> يستهدف JavaScript. <tag-2></tag-2>في LiveCodes، يعمل في المتصفح باستخدام <tag-3>Cherry</tag-3>."
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>الموقع الرسمي لـ ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>الموقع الرسمي لـ Clojure</tag-4> </tag-3> <tag-5> <tag-6>مستودع Cherry</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=clojure</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل القالب الأولي</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "ClojureScript (CLJS)"
   },
   "coffeescript.desc": {
     "translation": "جافاسكريبت بسيطة."

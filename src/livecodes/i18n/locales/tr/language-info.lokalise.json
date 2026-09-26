@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "Clio"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "ClojureScript, derleyici worker'ında kendi kendine barındırılan resmi <tag-1>ClojureScript</tag-1> derleyicisi tarafından tarayıcıda JavaScript'e derlenir."
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>ClojureScript resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Clojure resmi web sitesi</tag-4> </tag-3> <tag-5> <tag-6>ClojureScript kendi sunucunda barındırma kılavuzu</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "CLJS (kendi sunucunda)"
+  },
   "clojurescript.desc": {
     "translation": "ClojureScript, JavaScript'i hedefleyen bir <tag-1>Clojure</tag-1> derleyicisidir. <tag-2></tag-2>LiveCodes'ta, tarayıcıda <tag-3>Cherry</tag-3> kullanarak çalışır."
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>ClojureScript resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Clojure resmi web sitesi</tag-4> </tag-3> <tag-5> <tag-6>Cherry repo'su</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "ClojureScript (CLJS)"
   },
   "coffeescript.desc": {
     "translation": "Sade JavaScript."

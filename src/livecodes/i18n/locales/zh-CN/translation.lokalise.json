@@ -1938,8 +1938,11 @@
   "templates.starter.clio": {
     "translation": "Clio 启动模板"
   },
+  "templates.starter.cljs-selfhosted": {
+    "translation": "CLJS（自托管）启动模板"
+  },
   "templates.starter.clojurescript": {
-    "translation": "ClojureScript 启动模板"
+    "translation": "ClojureScript (Cherry) 启动模板"
   },
   "templates.starter.coffeescript": {
     "translation": "CoffeeScript 启动模板"

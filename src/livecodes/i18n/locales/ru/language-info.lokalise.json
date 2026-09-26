@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "Clio"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "ClojureScript компилируется в JavaScript в браузере официальным компилятором <tag-1>ClojureScript</tag-1>, размещённым самостоятельно в воркере компилятора."
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>Официальный сайт ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>Официальный сайт Clojure</tag-4> </tag-3> <tag-5> <tag-6>Руководство по самостоятельному размещению ClojureScript</tag-6> </tag-5> <tag-7> <tag-8>Изучите X за Y минут, где X=clojure</tag-8> </tag-7> <tag-9> <tag-10>Документация LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Загрузить стартовый шаблон</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "CLJS (самостоятельный хостинг)"
+  },
   "clojurescript.desc": {
     "translation": "ClojureScript - это компилятор для <tag-1>Clojure</tag-1>, который нацелен на JavaScript. <tag-2></tag-2>В LiveCodes он работает в браузере с использованием <tag-3>Cherry</tag-3>."
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>Официальный сайт ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>Официальный сайт Clojure</tag-4> </tag-3> <tag-5> <tag-6>Репозиторий Cherry</tag-6> </tag-5> <tag-7> <tag-8>Изучите X за Y минут, где X=clojure</tag-8> </tag-7> <tag-9> <tag-10>Документация LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Загрузить стартовый шаблон</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "ClojureScript (CLJS)"
   },
   "coffeescript.desc": {
     "translation": "Непретенциозный JavaScript."

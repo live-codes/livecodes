@@ -1938,8 +1938,11 @@
   "templates.starter.clio": {
     "translation": "Iniciante Clio"
   },
+  "templates.starter.cljs-selfhosted": {
+    "translation": "Iniciante CLJS (auto-hospedado)"
+  },
   "templates.starter.clojurescript": {
-    "translation": "Iniciante ClojureScript"
+    "translation": "Iniciante ClojureScript (Cherry)"
   },
   "templates.starter.coffeescript": {
     "translation": "Iniciante CoffeeScript"

@@ -62,7 +62,14 @@ const storyDef: StoryDef = {
   HaskellWasm: { props: { template: 'haskell-wasm' } },
   Scheme: { props: { template: 'scheme' } },
   CommonLisp: { props: { template: 'commonlisp' } },
-  ClojureScript: { props: { template: 'clojurescript' }, storyName: 'ClojureScript' },
+  ClojureScriptCherry: {
+    props: { template: 'clojurescript-cherry' },
+    storyName: 'ClojureScript (Cherry)',
+  },
+  ClojureScriptSelfHosted: {
+    props: { template: 'clojurescript-selfhosted' },
+    storyName: 'ClojureScript (self-hosted)',
+  },
   Perl: { props: { template: 'perl' } },
   Lua: { props: { template: 'lua' } },
   LuaWasm: { props: { template: 'lua-wasm' } },

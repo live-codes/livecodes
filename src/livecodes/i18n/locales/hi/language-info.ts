@@ -53,10 +53,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Clio आधिकारिक वेबसाइट</2> </1> <3> <4>Clio दस्तावेज़ीकरण</4> </3> <5> <6>स्टार्टर टेम्पलेट लोड करें</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
+  cljsSelfhosted: {
+    desc: 'ClojureScript को ब्राउज़र में आधिकारिक <1>ClojureScript</1> कंपाइलर द्वारा JavaScript में कंपाइल किया जाता है, जो कंपाइलर वर्कर में स्व-होस्टेड होता है।',
+    link: '<1> <2>ClojureScript आधिकारिक वेबसाइट</2> </1> <3> <4>Clojure आधिकारिक वेबसाइट</4> </3> <5> <6>ClojureScript स्व-होस्टिंग गाइड</6> </5> <7> <8>X को Y मिनटों में सीखें, जहां X=clojure</8> </7> <9> <10>LiveCodes दस्तावेज़ीकरण</10> </9> <11> <12>स्टार्टर टेम्पलेट लोड करें</12> </11>',
+    name: 'CLJS (स्व-होस्टेड)',
+  },
   clojurescript: {
     desc: 'ClojureScript <1>Clojure</1> के लिए एक कंपाइलर है जो JavaScript को लक्षित करता है। <2></2>LiveCodes में, यह ब्राउज़र में <3>Cherry</3> का उपयोग करके चलता है।',
     link: '<1> <2>ClojureScript आधिकारिक वेबसाइट</2> </1> <3> <4>Clojure आधिकारिक वेबसाइट</4> </3> <5> <6>Cherry रेपो</6> </5> <7> <8>X को Y मिनटों में सीखें, जहां X=clojure</8> </7> <9> <10>LiveCodes दस्तावेज़ीकरण</10> </9> <11> <12>स्टार्टर टेम्पलेट लोड करें</12> </11>',
-    name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
     desc: 'सरल जावास्क्रिप्ट।',

@@ -28,7 +28,6 @@ const templates = [
   'Lua',
   'Fennel',
   'Scheme',
-  'ClojureScript',
   'Gleam',
   'Tcl',
 ];
@@ -74,6 +73,60 @@ test.describe('Starter Templates from UI', () => {
       // retries rather than reading the counter once.
       await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
     });
+  });
+
+  test('ClojureScript (Cherry) Starter', async ({ page, getTestUrl }) => {
+    // the cherry template is the old 'ClojureScript' starter: its menu label is
+    // 'ClojureScript (Cherry) Starter' and its heading is 'Hello, ClojureScript!',
+    // so it does not fit the generic template array above.
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=ClojureScript (Cherry) Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    // the heading is set by the compiled script, and only then is the click
+    // handler wired up, so wait for it before clicking
+    await expect(getResult().locator('h1')).toHaveText('Hello, ClojureScript!');
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
+  test('clojurescript-selfhosted Starter', async ({ page, getTestUrl }) => {
+    // the ClojureScript self-hosted compiler is downloaded from the CDN on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=CLJS (self-hosted) Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    // the heading is set by the compiled script, and only then is the click
+    // handler wired up, so wait for it before clicking
+    await expect(getResult().locator('h1')).toHaveText('Hello, ClojureScript!', {
+      timeout: 280_000,
+    });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
   test.skip('React Native Starter', async ({ page, getTestUrl }) => {
@@ -859,6 +912,51 @@ test.describe('Starter Templates from URL', () => {
       // retries rather than reading the counter once.
       await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
     });
+  });
+
+  test('ClojureScript (Cherry) Starter (in URL)', async ({ page, getTestUrl }) => {
+    // `clojurescript` is an alias of the cherry template again (the Cherry docs
+    // page links ?template=clojurescript), so it must still resolve.
+    await page.goto(getTestUrl({ template: 'clojurescript' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the heading is set by the compiled script, and only then is the click
+    // handler wired up, so wait for it before clicking
+    await expect(getResult().locator('h1')).toHaveText('Hello, ClojureScript!');
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
+  test('clojurescript-selfhosted Starter (in URL)', async ({ page, getTestUrl }) => {
+    // the ClojureScript self-hosted compiler is downloaded from the CDN on the first run
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'clojurescript-selfhosted' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the heading is set by the compiled script, and only then is the click
+    // handler wired up, so wait for it before clicking
+    await expect(getResult().locator('h1')).toHaveText('Hello, ClojureScript!', {
+      timeout: 280_000,
+    });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
   test.skip('React Native Starter (in URL)', async ({ page, getTestUrl }) => {

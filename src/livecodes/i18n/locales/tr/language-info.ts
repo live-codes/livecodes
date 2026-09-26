@@ -53,10 +53,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Clio resmi web sitesi</2> </1> <3> <4>Clio dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
+  cljsSelfhosted: {
+    desc: "ClojureScript, derleyici worker'ında kendi kendine barındırılan resmi <1>ClojureScript</1> derleyicisi tarafından tarayıcıda JavaScript'e derlenir.",
+    link: '<1> <2>ClojureScript resmi web sitesi</2> </1> <3> <4>Clojure resmi web sitesi</4> </3> <5> <6>ClojureScript kendi sunucunda barındırma kılavuzu</6> </5> <7> <8>Y Dakikada X Öğrenin, X=clojure</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>',
+    name: 'CLJS (kendi sunucunda)',
+  },
   clojurescript: {
     desc: "ClojureScript, JavaScript'i hedefleyen bir <1>Clojure</1> derleyicisidir. <2></2>LiveCodes'ta, tarayıcıda <3>Cherry</3> kullanarak çalışır.",
     link: "<1> <2>ClojureScript resmi web sitesi</2> </1> <3> <4>Clojure resmi web sitesi</4> </3> <5> <6>Cherry repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=clojure</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
-    name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
     desc: 'Sade JavaScript.',

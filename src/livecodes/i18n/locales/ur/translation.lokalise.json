@@ -1938,8 +1938,11 @@
   "templates.starter.clio": {
     "translation": "کلیو شروعاتی"
   },
+  "templates.starter.cljs-selfhosted": {
+    "translation": "سی ایل جے ایس (خود میزبان) شروعاتی"
+  },
   "templates.starter.clojurescript": {
-    "translation": "کلوجر اسکرپٹ شروعاتی"
+    "translation": "کلوجر اسکرپٹ (Cherry) شروعاتی"
   },
   "templates.starter.coffeescript": {
     "translation": "کافی اسکرپٹ شروعاتی"
