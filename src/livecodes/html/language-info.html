@@ -319,7 +319,7 @@
     </li>
   </ul>
 </section>
-<section data-lang="clojurescript">
+<section data-lang="clojurescript-cherry">
   <h3 data-i18n="language-info:clojurescript.name">ClojureScript (CLJS)</h3>
   <div data-i18n="language-info:clojurescript.desc" data-i18n-prop="innerHTML">
     ClojureScript is a compiler for
@@ -345,7 +345,7 @@
       >
     </li>
     <li>
-      <a href="{{DOCS_BASE_URL}}languages/clojurescript" target="_blank" rel="noopener"
+      <a href="{{DOCS_BASE_URL}}languages/clojurescript-cherry" target="_blank" rel="noopener"
         >LiveCodes Documentations</a
       >
     </li>
@@ -360,23 +360,12 @@
     </li>
   </ul>
 </section>
-<section data-lang="cljs-selfhosted">
+<section data-lang="clojurescript-selfhosted">
   <h3 data-i18n="language-info:cljsSelfhosted.name">CLJS (self-hosted)</h3>
   <div data-i18n="language-info:cljsSelfhosted.desc" data-i18n-prop="innerHTML">
     ClojureScript is compiled to JavaScript in the browser by the official
     <a href="https://clojurescript.org/" target="_blank" rel="noopener">ClojureScript</a> compiler,
-    self-hosted in the compiler worker. It provides real <code>cljs.core</code> semantics and real
-    analyzer diagnostics. <br />npm packages are <strong>not</strong> supported, so
-    <code>(:require ["react" :as React])</code> fails with <code>No such namespace</code>. This is
-    unlike the
-    <a href="{{DOCS_BASE_URL}}languages/clojurescript" target="_blank" rel="noopener"
-      >Cherry-based ClojureScript</a
-    >, which imports npm packages as ES modules; use it for npm-dependent code.
-    <code>(:require ...)</code> only resolves <code>cljs.core</code>, <code>clojure.string</code>,
-    <code>clojure.set</code>, <code>clojure.walk</code>, <code>clojure.edn</code>,
-    <code>cljs.pprint</code>, <code>clojure.core.reducers</code>, <code>clojure.core.protocols</code>,
-    <code>clojure.data</code> and <code>clojure.zip</code>. <code>defmacro</code> works and is
-    evaluated at compile time. Source maps are on by default.
+    self-hosted in the compiler worker.
   </div>
   <ul data-i18n="language-info:cljsSelfhosted.link" data-i18n-prop="innerHTML">
     <li>
@@ -404,10 +393,10 @@
     </li>
     <li>
       <a
-        href="?template=cljs-selfhosted"
+        href="?template=clojurescript-selfhosted"
         class="button"
         target="_parent"
-        data-template="cljs-selfhosted"
+        data-template="clojurescript-selfhosted"
         >Load starter template</a
       >
     </li>

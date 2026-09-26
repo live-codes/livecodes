@@ -1,7 +1,8 @@
 import type { Template } from '../../models';
 
 export const cljsSelfHostedStarter: Template = {
-  name: 'cljs-selfhosted',
+  name: 'clojurescript-selfhosted',
+  aliases: ['cljs-selfhosted'],
   title: window.deps.translateString(
     'templates.starter.cljs-selfhosted',
     'CLJS (self-hosted) Starter',
@@ -33,7 +34,7 @@ export const cljsSelfHostedStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'cljs-selfhosted',
+    language: 'clojurescript-selfhosted',
     content: `
 (ns starter.core)
 

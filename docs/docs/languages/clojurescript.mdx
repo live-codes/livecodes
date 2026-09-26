@@ -3,12 +3,17 @@
 [ClojureScript](https://clojurescript.org/) is a robust, practical, and fast programming language with a set of useful features that together form a simple, coherent, and powerful tool.
 
 ClojureScript is a compiler for [Clojure](https://clojure.org/) that targets
-JavaScript. <br />In LiveCodes, it runs in the browser using
-[Cherry](https://github.com/squint-cljs/cherry).
+JavaScript. <br />In LiveCodes, it runs in the browser using the official
+[ClojureScript](https://clojurescript.org/) compiler, [self-hosted](https://clojurescript.org/guides/self-hosting)
+in the compiler worker. The compiler is provided by the
+[`@live-codes/cljs-selfhosted-compiler`](https://www.npmjs.com/package/@live-codes/cljs-selfhosted-compiler)
+package.
 
 :::info Note
 
-Lisp language family supported in LiveCodes includes [Common Lisp](./commonlisp.mdx), [Scheme](./scheme.mdx), [ClojureScript](./clojurescript.mdx) and [Fennel](./fennel.mdx).
+The `clojurescript`, `cljs`, `clj`, `cljc`, `edn` and `clojure` aliases currently use the
+Cherry-based ClojureScript compiler and will switch to this self-hosted compiler in the future.
+Use the [`clojurescript-cherry`](./clojurescript-cherry.mdx) alias to keep using Cherry.
 
 :::
 
@@ -16,11 +21,11 @@ Lisp language family supported in LiveCodes includes [Common Lisp](./commonlisp.
 
 ### Name
 
-`clojurescript`
+`clojurescript-selfhosted`
 
-### Extensions
+### Aliases
 
-`cljs`, `cljc`, `clj`, `edn`, `clojure`
+`clojurescript`, `cljs-selfhosted`, `cljs`, `clj`, `cljc`, `edn`, `clojure`
 
 ### Editor
 
@@ -28,40 +33,96 @@ Lisp language family supported in LiveCodes includes [Common Lisp](./commonlisp.
 
 ## Compiler
 
-[Cherry](https://github.com/squint-cljs/cherry)
-
-If `JSX` is used (using `#jsx` reader tag - [example](https://github.com/squint-cljs/cherry/blob/60adcf6e3a8fb940a80c6a193599da0272fe3058/examples/jsx/pages/component.cljs)), it is also compiled ([JSX](./jsx.mdx)). See [example usage](#example-usage).
+The official [ClojureScript compiler](https://clojurescript.org/), self-hosted in the compiler worker.
 
 ### Version
 
-`cherry-cljs`: v0.2.18
+`@live-codes/cljs-selfhosted-compiler`: v0.2.0
 
-## Code Formatting
+## Usage
 
-Using [Parinfer](https://shaunlebron.github.io/parinfer/).
+LiveCodes compiles ClojureScript to JavaScript in the browser using the official compiler,
+self-hosted in the compiler worker. This provides real `cljs.core` semantics and real analyzer
+diagnostics.
 
-## Example Usage
+`(:require ...)` can only resolve the namespaces that are bundled with the compiler:
+
+- `cljs.core`
+- `clojure.string`
+- `clojure.set`
+- `clojure.walk`
+- `clojure.edn`
+- `cljs.pprint`
+- `clojure.core.reducers`
+- `clojure.core.protocols`
+- `clojure.data`
+- `clojure.zip`
+- `clojure.datafy`
+- `cljs.math`
+- `cljs.proxy`
+- `cljs.stacktrace`
+
+`defmacro` works and is evaluated at compile time. Source maps are on by default.
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-export const params = {
-  cljs: `(ns demo\n${'  '};; you can use npm modules\n${'  '}(:require ["canvas-confetti$default" :as confetti]))\n\n(let [el (js/document.getElementById "test")]\n${'  '}(.addEventListener el "click"\n ${'   '}(fn []\n ${'     '}(confetti)\n${'      '}(println "test"))))\n`,
-  html: '<button id="test">test</button>',
-  console: 'open',
+This example demonstrates usage and JavaScript interoperability:
+
+export const selfHostedCljsDemo = {
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<div class="container">
+  <h1>Hello, <span id="title">World</span>!</h1>
+  <p>You clicked <span id="counter">0</span> times.</p>
+  <button id="counter-button">Click me</button>
+</div>
+`,
+  },
+  style: {
+    language: 'css',
+    content: `.container,
+.container button {
+  text-align: center;
+  font: 1em sans-serif;
+}
+`,
+  },
+  script: {
+    language: 'clojurescript-selfhosted',
+    content: `(ns demo)\n
+(def title "ClojureScript")\n
+(set! (.-innerText (js/document.querySelector "#title")) title)\n
+(def counter (atom 0))\n
+;; you can use JS interop to wire up DOM events
+(.addEventListener
+  (js/document.querySelector "#counter-button")
+  "click"
+  (fn [_]
+    (swap! counter inc)
+    (set! (.-innerText (js/document.querySelector "#counter")) (str @counter))))\n
+;; check console
+(js/console.log (str "Hello, " title "!"))
+`,
+  },
 };
 
-<LiveCodes params={params}></LiveCodes>
+<LiveCodes config={selfHostedCljsDemo} height="70vh"></LiveCodes>
 
-Using React (with JSX):
+### npm Imports
 
-<LiveCodes template="clojurescript"></LiveCodes>
+npm packages are **not** supported, unlike the [Cherry-based ClojureScript](./clojurescript-cherry.mdx),
+which imports npm packages as ES modules. For example, `(:require ["react" :as React])` fails with
+`No such namespace`. Use the [Cherry-based ClojureScript](./clojurescript-cherry.mdx) for
+npm-dependent code.
 
 ## Starter Template
 
-https://livecodes.io/?template=clojurescript
+https://livecodes.io/?template=clojurescript-selfhosted
 
 ## Links
 
 - [ClojureScript official website](https://clojurescript.org/)
 - [Clojure official website](https://clojure.org/)
-- [Cherry repo](https://github.com/squint-cljs/cherry)
+- [ClojureScript self-hosting guide](https://clojurescript.org/guides/self-hosting)
+- [Cherry-based ClojureScript](./clojurescript-cherry.mdx) in LiveCodes (with npm imports)

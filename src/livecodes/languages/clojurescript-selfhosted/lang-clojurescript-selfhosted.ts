@@ -1,9 +1,9 @@
 import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { cljsSelfHostedBaseUrl, codeMirrorBaseUrl } from '../../vendors';
+import { cljsSelfHostedBaseUrl, codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
-export const cljsSelfHosted: LanguageSpecs = {
-  name: 'cljs-selfhosted',
+export const clojurescriptSelfHosted: LanguageSpecs = {
+  name: 'clojurescript-selfhosted',
   title: 'CLJS (self-hosted)',
   longTitle: 'ClojureScript (self-hosted compiler)',
   compiler: {
@@ -17,14 +17,18 @@ export const cljsSelfHosted: LanguageSpecs = {
     scripts: [cljsSelfHostedBaseUrl + 'cljs-runtime.js'],
     inlineScript: `(()=>{const cljs=(window.cljs=window.cljs||{});cljs.user=cljs.user||{};})();`,
   },
-  extensions: ['cljs-selfhosted'],
+  extensions: ['clojurescript', 'cljs-selfhosted', 'cljs', 'clj', 'cljc', 'edn', 'clojure'],
   editor: 'script',
-  editorLanguage: 'clojure',
   editorSupport: {
+    monaco: {
+      languageSupport: monacoLanguagesBaseUrl + 'clojurescript.js',
+      language: 'clojurescript',
+    },
     codemirror: {
       languageSupport: async () =>
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-clojure.js')).clojure),
     },
+    codejar: { language: 'clojurescript' },
   },
   largeDownload: true,
 };

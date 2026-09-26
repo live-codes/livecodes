@@ -4,12 +4,6 @@
 
 In LiveCodes, Scheme code runs in the browser using [BiwaScheme](https://www.biwascheme.org/), a Scheme interpreter written in JavaScript.
 
-:::info Note
-
-Lisp language family supported in LiveCodes includes [Common Lisp](./commonlisp.mdx), [Scheme](./scheme.mdx), [ClojureScript](./clojurescript.mdx) and [Fennel](./fennel.mdx).
-
-:::
-
 ## Usage
 
 LiveCodes runs Scheme code in the browser. BiwaScheme [implements](https://www.biwascheme.org/doc/features.html) most of the features of [R7RS small](https://small.r7rs.org/), including first-class continuation and tail call optimization.
@@ -45,14 +39,12 @@ export const basicSchemeDemo = {
   script: {
     language: 'scheme',
     content: `(let ((title "Scheme"))
-  (set-content! "#title" title))
-
+  (set-content! "#title" title))\n
 (let ((counter 0))
 (add-handler! "#counter-button" "click"
 (lambda (ev)
 (set! counter (+ counter 1))
-(set-content! "#counter" (number->string counter)))))
-
+(set-content! "#counter" (number->string counter)))))\n
 ; check console
 (let ((time-now (date-hour (current-date))))
 (console-log

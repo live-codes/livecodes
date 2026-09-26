@@ -1,11 +1,16 @@
 import { compileInCompiler } from '../../compiler';
 import { codemirrorLegacy } from '../../editor/codemirror/utils';
-import type { LanguageSpecs } from '../../models';
-import { cherryCljsBaseUrl, codeMirrorBaseUrl, squintCljsBaseUrl } from '../../vendors';
+import type { Language, LanguageSpecs } from '../../models';
+import {
+  cherryCljsBaseUrl,
+  codeMirrorBaseUrl,
+  monacoLanguagesBaseUrl,
+  squintCljsBaseUrl,
+} from '../../vendors';
 import { parenFormatter } from '../commonlisp';
 
-export const clojurescript: LanguageSpecs = {
-  name: 'clojurescript',
+export const clojurescriptCherry: LanguageSpecs = {
+  name: 'clojurescript-cherry',
   title: 'CLJS (cherry)',
   longTitle: 'ClojureScript (cherry)',
   formatter: {
@@ -34,13 +39,30 @@ export const clojurescript: LanguageSpecs = {
       'squint-cljs/src/squint/set.js': squintCljsBaseUrl + 'src/squint/set.js',
     },
   },
-  extensions: ['cljs', 'clj', 'cljc', 'edn', 'clojure'],
+  extensions: [
+    'clojurescript-cherry',
+    'cljs-cherry',
+    'clojurescript',
+    'cljs',
+    'clj',
+    'cljc',
+    'edn',
+    'clojure',
+  ],
+  deprecation: (lang: Language) =>
+    ['clojurescript', 'cljs', 'clj', 'cljc', 'edn', 'clojure'].includes(lang)
+      ? { old: 'clojurescript-cherry', new: 'clojurescript-selfhosted' }
+      : undefined,
   editor: 'script',
-  editorLanguage: 'clojure',
   editorSupport: {
+    monaco: {
+      languageSupport: monacoLanguagesBaseUrl + 'clojurescript.js',
+      language: 'clojurescript',
+    },
     codemirror: {
       languageSupport: async () =>
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-clojure.js')).clojure),
     },
+    codejar: { language: 'clojurescript' },
   },
 };

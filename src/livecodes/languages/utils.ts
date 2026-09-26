@@ -1,16 +1,32 @@
 import type { Compiler, Config, CustomSettings, Language, Processor } from '../models';
-import { getLanguageCustomSettings } from '../utils/utils';
+import { getDocsUrl, getLanguageCustomSettings } from '../utils/utils';
 import { highlightjsUrl } from '../vendors';
 
 export const getLanguageByAlias = (alias: string = ''): Language | undefined => {
   if (!alias) return;
   const aliasLowerCase = alias?.toLowerCase();
-  return window.deps.languages.find(
-    (language) =>
-      language.name === aliasLowerCase ||
-      language.title.toLowerCase() === aliasLowerCase ||
-      language.extensions.map((ext) => ext.toLowerCase()).includes(aliasLowerCase),
-  )?.name;
+  const language = window.deps.languages.find(
+    (lang) =>
+      lang.name === aliasLowerCase ||
+      lang.title.toLowerCase() === aliasLowerCase ||
+      lang.extensions.map((ext) => ext.toLowerCase()).includes(aliasLowerCase),
+  );
+  if (globalThis.window?.deps) window.deps.loggedDeprecations ??= [];
+  const deprecation = language?.deprecation?.(aliasLowerCase as Language);
+  if (
+    deprecation &&
+    window.deps.loggedDeprecations &&
+    !window.deps.loggedDeprecations.includes(deprecation.old)
+  ) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Deprecation warning: The language name "${alias}" will use the compiler "${deprecation.new}" in the future.`,
+      `If you want to continue using the current compiler, use the language name "${deprecation.old}" instead.`,
+      language?.name ? `Docs: ${getDocsUrl()}languages/${language.name}` : '',
+    );
+    window.deps.loggedDeprecations?.push(deprecation.old);
+  }
+  return language?.name;
 };
 
 export const getLanguageTitle = (language: Language) => {

@@ -52,7 +52,7 @@ export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.12.4/');
 
 export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@5.1.2');
 
-export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.2.19/');
+export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.6.38/');
 
 export const cjs2esUrl = /* @__PURE__ */ getUrl('cjs2es@1.1.1/dist/cjs2es.browser.js');
 
@@ -63,7 +63,7 @@ export const clioBaseUrl = /* @__PURE__ */ getUrl(
 );
 
 export const cljsSelfHostedBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/cljs-selfhosted-compiler@0.1.1/dist/',
+  '@live-codes/cljs-selfhosted-compiler@0.2.0/dist/',
 );
 
 export const cm6ThemeBasicLightUrl = /* @__PURE__ */ getUrl(
@@ -340,7 +340,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.5/dist/',
+  '@live-codes/monaco-languages@0.3.6/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');

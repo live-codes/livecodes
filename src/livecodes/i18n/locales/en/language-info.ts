@@ -61,7 +61,7 @@ const languageInfo = {
     name: 'Clio',
   },
   cljsSelfhosted: {
-    desc: 'ClojureScript is compiled to JavaScript in the browser by the official <1>ClojureScript</1> compiler, self-hosted in the compiler worker. It provides real <2>cljs.core</2> semantics and real analyzer diagnostics. <3></3>npm packages are <4>not</4> supported, so <5>(:require ["react" :as React])</5> fails with <6>No such namespace</6>. This is unlike the <7>Cherry-based ClojureScript</7>, which imports npm packages as ES modules; use it for npm-dependent code. <8>(:require ...)</8> only resolves <9>cljs.core</9>, <10>clojure.string</10>, <11>clojure.set</11>, <12>clojure.walk</12>, <13>clojure.edn</13>, <14>cljs.pprint</14>, <15>clojure.core.reducers</15>, <16>clojure.core.protocols</16>, <17>clojure.data</17> and <18>clojure.zip</18>. <19>defmacro</19> works and is evaluated at compile time. Source maps are on by default.',
+    desc: 'ClojureScript is compiled to JavaScript in the browser by the official <1>ClojureScript</1> compiler, self-hosted in the compiler worker.',
     link: '<1> <2>ClojureScript official website</2> </1> <3> <4>Clojure official website</4> </3> <5> <6>ClojureScript self-hosting guide</6> </5> <7> <8>Learn X in Y minutes, where X=clojure</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
     name: 'CLJS (self-hosted)',
   },

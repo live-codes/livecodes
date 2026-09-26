@@ -736,6 +736,11 @@ export const onLoad = /* @__PURE__ */ (fn: (...args: any[]) => any) => {
   }
 };
 
+export const getDocsUrl = () => {
+  const docsBaseUrl = predefinedValues.DOCS_BASE_URL || 'docs';
+  return docsBaseUrl?.startsWith('http') ? docsBaseUrl : new URL(docsBaseUrl, location.href).href;
+};
+
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
   SDK_VERSION: process.env.SDK_VERSION || '',

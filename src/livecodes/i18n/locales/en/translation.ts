@@ -993,7 +993,7 @@ const translation = {
       civet: 'Civet Starter',
       clio: 'Clio Starter',
       'cljs-selfhosted': 'CLJS (self-hosted) Starter',
-      clojurescript: 'ClojureScript Starter',
+      clojurescript: 'ClojureScript (Cherry) Starter',
       coffeescript: 'CoffeeScript Starter',
       commonlisp: 'Common Lisp Starter',
       cpp: 'C++ Starter',
