@@ -1,3 +1,4 @@
+import { getErrorMessage } from '../../utils';
 import { fanakBaseUrl } from '../../vendors';
 
 declare const livecodes: any;
@@ -21,6 +22,28 @@ const waitFor = async (condition: () => boolean | Promise<boolean>, timeout = 60
     await sleep(100);
   }
   return true;
+};
+
+// The result runs in an iframe; post status updates to the app origin. Mirrors
+// the other WASM language scripts (`haskell-wasm`).
+const parentOrigin =
+  window.parent === window
+    ? window.location.origin
+    : window.location.ancestorOrigins?.[0] ||
+      (() => {
+        if (!document.referrer) return '*';
+        try {
+          return new URL(document.referrer).origin;
+        } catch {
+          // Ignore malformed referrers and use the wildcard fallback below.
+          return '*';
+        }
+      })();
+
+let activeRuns = 0;
+const postLoading = (payload: boolean) => {
+  activeRuns += payload ? 1 : -1;
+  parent.postMessage({ type: 'loading', payload: activeRuns > 0 }, parentOrigin); // NOSONAR - fallback is safe with source/origin checks in the parent.
 };
 
 /**
@@ -54,11 +77,13 @@ const loadBlazorScript = () =>
     script.src = scriptSrc;
     script.setAttribute('autostart', 'false');
     script.onload = () => resolve();
-    script.onerror = (err) => reject(new Error(`Failed to load Blazor script: ${err}`));
+    script.onerror = () =>
+      reject(new Error(`Failed to load the Fanak compiler bundle from ${scriptSrc}`));
     document.head.appendChild(script);
   });
 
 const isReady = async () => {
+  if (!window.DotNet) return false;
   try {
     await window.DotNet.invokeMethodAsync('Fanak.Runner', 'RunCode', 'Unit main() { }', '');
     return true;
@@ -67,12 +92,51 @@ const isReady = async () => {
   }
 };
 
+livecodes.fanak.init ??= (async () => {
+  if (livecodes.fanak.ready) return;
+
+  // eslint-disable-next-line no-console
+  console.log('Initializing Fanak environment...');
+  postLoading(true);
+  try {
+    await loadBlazorScript();
+
+    if (!window.Blazor) {
+      throw new Error(`The Fanak compiler bundle at ${fanakBaseUrl} did not load`);
+    }
+
+    patchFetch();
+    await window.Blazor.start({
+      loadBootResource: (_type: string, name: string) => `${fanakBaseUrl}_framework/${name}`,
+    });
+
+    if (!(await waitFor(isReady))) {
+      throw new Error(`Timed out waiting for the Fanak runner at ${fanakBaseUrl}`);
+    }
+
+    // eslint-disable-next-line no-console
+    console.log('Fanak environment initialized successfully');
+  } catch (err) {
+    livecodes.fanak.ready = false;
+    livecodes.fanak.failed = true;
+    livecodes.fanak.error = getErrorMessage(err);
+    // eslint-disable-next-line no-console
+    console.error('Failed to initialize Fanak environment:', err);
+    throw err;
+  } finally {
+    postLoading(false);
+  }
+})();
+
 const runFanakCode = async (
   code: string,
   input = '',
 ): Promise<{ output: string | null; error: string | null }> => {
-  await livecodes.fanak.init;
   try {
+    await livecodes.fanak.init;
+    if (livecodes.fanak.failed) {
+      throw new Error(livecodes.fanak.error || 'Fanak runner failed to initialize');
+    }
     const { output, errors } = await window.DotNet.invokeMethodAsync(
       'Fanak.Runner',
       'RunCode',
@@ -81,54 +145,29 @@ const runFanakCode = async (
     );
     return { output: output ?? null, error: errors ?? null };
   } catch (err) {
-    return { output: null, error: 'Error: ' + (err as Error).message };
+    return { output: null, error: 'Error: ' + getErrorMessage(err) };
   }
 };
 
-livecodes.fanak.init ??= (async () => {
-  if (livecodes.fanak.ready) return;
-
-  // eslint-disable-next-line no-console
-  console.log('Initializing Fanak environment...');
-  parent.postMessage({ type: 'loading', payload: true }, '*');
-  try {
-    await loadBlazorScript();
-
-    if (!window.Blazor) throw new Error('Blazor failed to load properly');
-
-    patchFetch();
-    await window.Blazor.start({
-      loadBootResource: (_type: string, name: string) => `${fanakBaseUrl}_framework/${name}`,
-    });
-
-    if (!(await waitFor(isReady))) {
-      throw new Error('Timeout waiting for the Fanak runner to be ready');
-    }
-
-    // eslint-disable-next-line no-console
-    console.log('Fanak environment initialized successfully');
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to initialize Fanak environment:', err);
-    livecodes.fanak.ready = false;
-    livecodes.fanak.init = null;
-    throw err;
-  } finally {
-    parent.postMessage({ type: 'loading', payload: false }, '*');
-  }
-})();
+let runSequence = 0;
 
 livecodes.fanak.run ??= async (input?: string) => {
-  let code = '';
+  const runId = ++runSequence;
   livecodes.fanak.input = input;
   livecodes.fanak.output = null;
   livecodes.fanak.ready = false;
-  const scripts = document.querySelectorAll('script[type="text/fanak"]');
-  scripts.forEach((script) => (code += script.innerHTML + '\n'));
+
+  let code = '';
+  document
+    .querySelectorAll('script[type="text/fanak"]')
+    .forEach((script) => (code += script.innerHTML + '\n'));
 
   const { output, error } = !code.trim()
     ? { output: null, error: null }
     : await runFanakCode(code, input);
+
+  // A newer run started while this one was awaiting; keep the newer result.
+  if (runId !== runSequence) return { output: null, error: null, exitCode: 0 };
 
   if (error != null) {
     // eslint-disable-next-line no-console
@@ -145,9 +184,12 @@ livecodes.fanak.run ??= async (input?: string) => {
   return { output, error, exitCode: error ? 1 : 0 };
 };
 
-livecodes.fanak.loaded = new Promise<void>((resolve) => {
+livecodes.fanak.loaded = new Promise<void>((resolve, reject) => {
   const interval = setInterval(() => {
-    if (livecodes.fanak.ready) {
+    if (livecodes.fanak.failed) {
+      clearInterval(interval);
+      reject(new Error(livecodes.fanak.error || 'Failed to initialize the Fanak environment'));
+    } else if (livecodes.fanak.ready) {
       clearInterval(interval);
       resolve();
     }
@@ -155,7 +197,10 @@ livecodes.fanak.loaded = new Promise<void>((resolve) => {
 });
 
 window.addEventListener('load', async () => {
-  parent.postMessage({ type: 'loading', payload: true }, '*');
-  await livecodes.fanak.run(livecodes.fanak.input);
-  parent.postMessage({ type: 'loading', payload: false }, '*');
+  postLoading(true);
+  try {
+    await livecodes.fanak.run(livecodes.fanak.input);
+  } finally {
+    postLoading(false);
+  }
 });

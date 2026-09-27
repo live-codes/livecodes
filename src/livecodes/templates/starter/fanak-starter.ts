@@ -3,7 +3,7 @@ import type { Template } from '../../models';
 export const fanakStarter: Template = {
   name: 'fanak',
   title: window.deps.translateString('templates.starter.fanak', 'Fanak Starter'),
-  thumbnail: 'assets/templates/csharp.svg',
+  thumbnail: 'assets/templates/fanak.png',
   activeEditor: 'script',
   markup: {
     language: 'html',
@@ -15,10 +15,14 @@ export const fanakStarter: Template = {
 
 <script>
   addEventListener('load', async () => {
-    // wait till the compiler + program have run
-    await livecodes.fanak.loaded;
-    document.querySelector('#output').innerText =
-      livecodes.fanak.output ?? livecodes.fanak.error ?? '';
+    const output = document.querySelector('#output');
+    try {
+      // wait till the compiler + program have run
+      await livecodes.fanak.loaded;
+      output.innerText = livecodes.fanak.output ?? livecodes.fanak.error ?? '';
+    } catch (err) {
+      output.innerText = 'Failed to load the Fanak compiler: ' + (err && err.message ? err.message : err);
+    }
   });
 </script>
 `.trimStart(),
@@ -40,9 +44,9 @@ export const fanakStarter: Template = {
     language: 'fanak',
     content: `
 Unit main() {
-	println("Hello, Fanak!");
+	runUnit(println("Hello, Fanak!"));
 	int answer = 6 * 7;
-	println(answer);
+	runUnit(println(answer));
 }
 `.trimStart(),
   },

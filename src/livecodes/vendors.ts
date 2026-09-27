@@ -142,18 +142,7 @@ export const esModuleShimsPath = 'es-module-shims@1.10.0/dist/es-module-shims.js
 
 export const etaUrl = /* @__PURE__ */ getUrl('eta@3.4.0/dist/eta.umd.js');
 
-/**
- * Base URL of the Fanak compiler runner (a Blazor WASM bundle).
- *
- * Published to GitLab Pages by the Fanak repo's `pages` CI job: `latest/` is
- * refreshed on every release (and `main`), and each tag is also published
- * immutably under `runner/<tag>/`.
- *
- * Local development: build and serve the runner from the Fanak repo with
- * `make runner-serve` (http://127.0.0.1:8081/) and switch the value below.
- */
 export const fanakBaseUrl = 'https://ahmedwael216.gitlab.io/fanak/runner/latest/';
-// export const fanakBaseUrl = 'http://127.0.0.1:8081/';
 
 export const fflateUrl = /* @__PURE__ */ getUrl('fflate@0.8.1/esm/browser.js');
 
