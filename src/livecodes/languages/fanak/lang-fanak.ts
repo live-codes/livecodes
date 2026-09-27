@@ -1,6 +1,6 @@
 import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, fanakMonacoUrl } from '../../vendors';
 
 export const fanak: LanguageSpecs = {
   name: 'fanak',
@@ -18,9 +18,17 @@ export const fanak: LanguageSpecs = {
   extensions: ['fnk', 'fanak'],
   editor: 'script',
   editorSupport: {
-    // Fanak's syntax is C-like (`Unit main() { ... }`), so reuse the C#
-    // highlighting until a dedicated Monarch grammar is added.
-    monaco: { languageSupport: monacoLanguagesBaseUrl + 'csharp.js', language: 'csharp' },
+    monaco: {
+      language: 'fanak',
+      languageSupport: async (monaco: any) => {
+        try {
+          const module = await import(/* @vite-ignore */ fanakMonacoUrl);
+          await module.default?.(monaco, () => undefined);
+        } catch {
+          monaco.languages.register({ id: 'fanak' });
+        }
+      },
+    },
     codemirror: {
       languageSupport: async () =>
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-clike.js')).csharp),
