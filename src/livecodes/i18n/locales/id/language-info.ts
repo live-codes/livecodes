@@ -53,10 +53,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi Clio</2> </1> <3> <4>Dokumentasi Clio</4> </3> <5> <6>Muat template pemula</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
+  cljsSelfhosted: {
+    desc: 'ClojureScript dikompilasi ke JavaScript di browser oleh kompiler resmi <1>ClojureScript</1>, yang dihosting sendiri di worker kompiler.',
+    link: '<1> <2>Situs web resmi ClojureScript</2> </1> <3> <4>Situs web resmi Clojure</4> </3> <5> <6>Panduan swa-hosting ClojureScript</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=clojure</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat template pemula</12> </11>',
+    name: 'CLJS (swa-hosting)',
+  },
   clojurescript: {
     desc: 'ClojureScript adalah kompiler untuk <1>Clojure</1> yang menargetkan JavaScript. <2></2>Di LiveCodes, berjalan di browser menggunakan <3>Cherry</3>',
     link: '<1> <2>Situs web resmi ClojureScript</2> </1> <3> <4>Situs web resmi Clojure</4> </3> <5> <6>Repo Cherry</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=clojure</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat template pemula</12> </11>',
-    name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
     desc: 'JavaScript yang sederhana.',

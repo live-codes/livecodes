@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "Clio"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "ClojureScript se compila a JavaScript en el navegador mediante el compilador oficial de <tag-1>ClojureScript</tag-1>, autoalojado en el worker del compilador."
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>Sitio web oficial de ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>Sitio web oficial de Clojure</tag-4> </tag-3> <tag-5> <tag-6>Guía de autoalojamiento de ClojureScript</tag-6> </tag-5> <tag-7> <tag-8>Aprende X en Y minutos, donde X=clojure</tag-8> </tag-7> <tag-9> <tag-10>Documentación de LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Cargar plantilla inicial</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "CLJS (autoalojado)"
+  },
   "clojurescript.desc": {
     "translation": "ClojureScript es un compilador para <tag-1>Clojure</tag-1> que tiene como objetivo JavaScript. <tag-2></tag-2>En LiveCodes, se ejecuta en el navegador usando <tag-3>Cherry</tag-3>."
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>Sitio web oficial de ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>Sitio web oficial de Clojure</tag-4> </tag-3> <tag-5> <tag-6>Repositorio de Cherry</tag-6> </tag-5> <tag-7> <tag-8>Aprende X en Y minutos, donde X=clojure</tag-8> </tag-7> <tag-9> <tag-10>Documentación de LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Cargar plantilla inicial</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "ClojureScript (CLJS)"
   },
   "coffeescript.desc": {
     "translation": "JavaScript sin complicaciones."

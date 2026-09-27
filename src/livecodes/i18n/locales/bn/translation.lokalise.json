@@ -1938,8 +1938,11 @@
   "templates.starter.clio": {
     "translation": "Clio স্টার্টার"
   },
+  "templates.starter.cljs-selfhosted": {
+    "translation": "CLJS (স্ব-হোস্টেড) স্টার্টার"
+  },
   "templates.starter.clojurescript": {
-    "translation": "ClojureScript স্টার্টার"
+    "translation": "ClojureScript (Cherry) স্টার্টার"
   },
   "templates.starter.coffeescript": {
     "translation": "CoffeeScript স্টার্টার"

@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "Clio"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "ClojureScript は、コンパイラワーカーでセルフホストされた公式の <tag-1>ClojureScript</tag-1> コンパイラによって、ブラウザで JavaScript にコンパイルされます。"
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>ClojureScript 公式ウェブサイト</tag-2> </tag-1> <tag-3> <tag-4>Clojure 公式ウェブサイト</tag-4> </tag-3> <tag-5> <tag-6>ClojureScript セルフホスティングガイド</tag-6> </tag-5> <tag-7> <tag-8>X分でYを学ぶ、X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ドキュメント</tag-10> </tag-9> <tag-11> <tag-12>スターターテンプレートを読み込む</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "CLJS (セルフホスト)"
+  },
   "clojurescript.desc": {
     "translation": "ClojureScript は JavaScript をターゲットとする<tag-1>Clojure</tag-1>のコンパイラです。<tag-2></tag-2>LiveCodes では、<tag-3>Cherry</tag-3>を使用してブラウザで実行されます。"
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>ClojureScript 公式ウェブサイト</tag-2> </tag-1> <tag-3> <tag-4>Clojure 公式ウェブサイト</tag-4> </tag-3> <tag-5> <tag-6>Cherry リポジトリ</tag-6> </tag-5> <tag-7> <tag-8>X分でYを学ぶ、X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ドキュメント</tag-10> </tag-9> <tag-11> <tag-12>スターターテンプレートを読み込む</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "ClojureScript (CLJS)"
   },
   "coffeescript.desc": {
     "translation": "飾り気のない JavaScript。"

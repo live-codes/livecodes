@@ -1938,8 +1938,11 @@
   "templates.starter.clio": {
     "translation": "قالب Clio"
   },
+  "templates.starter.cljs-selfhosted": {
+    "translation": "قالب CLJS (مستضاف ذاتيًا)"
+  },
   "templates.starter.clojurescript": {
-    "translation": "قالب ClojureScript"
+    "translation": "قالب ClojureScript (Cherry)"
   },
   "templates.starter.coffeescript": {
     "translation": "قالب CoffeeScript"

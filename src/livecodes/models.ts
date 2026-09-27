@@ -60,6 +60,7 @@ export interface LanguageSpecs {
   formatter?: LanguageFormatter;
   compiler: Compiler | Language;
   extensions: Language[];
+  deprecation?: (lang: Language) => { old: Language; new: Language } | undefined;
   editor: EditorId;
   editorLanguage?: Language;
   editorSupport?: LanguageEditorSupport;
@@ -267,7 +268,10 @@ export type TemplateAlias =
   | 'hs-wasm'
   | 'pl'
   | 'lisp'
+  | 'clojurescript'
   | 'cljs'
+  | 'cljs-cherry'
+  | 'cljs-selfhosted'
   | 'md'
   | 'as'
   | 'postgres'

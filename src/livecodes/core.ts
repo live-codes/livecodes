@@ -149,6 +149,7 @@ import {
   copyToClipboard,
   ctrl,
   debounce,
+  getDocsUrl,
   getValidUrl,
   isMac,
   loadStylesheet,
@@ -192,6 +193,7 @@ declare global {
       ) => string;
       languages: typeof languages;
       processors: typeof processors;
+      loggedDeprecations?: string[];
     };
   }
 }
@@ -2367,10 +2369,7 @@ const getVersion = (log = true) => {
 
 const showConsoleMessage = () => {
   if (isEmbed) return;
-  const docsBaseUrl = predefinedValues.DOCS_BASE_URL || 'docs';
-  const docsUrl = docsBaseUrl?.startsWith('http')
-    ? docsBaseUrl
-    : new URL(docsBaseUrl, location.href).href;
+  const docsUrl = getDocsUrl();
 
   const items = [
     {

@@ -90,14 +90,23 @@
   "clio.name": {
     "translation": "Clio"
   },
+  "cljsCherry.name": {
+    "translation": "ClojureScript (Cherry)"
+  },
+  "cljsSelfhosted.desc": {
+    "translation": "ClojureScript توسط کامپایلر رسمی <tag-1>ClojureScript</tag-1> که به‌صورت خودمیزبان در ورکر کامپایلر اجرا می‌شود، در مرورگر به JavaScript کامپایل می‌شود."
+  },
+  "cljsSelfhosted.link": {
+    "translation": "<tag-1> <tag-2>وب‌سایت رسمی ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>وب‌سایت رسمی Clojure</tag-4> </tag-3> <tag-5> <tag-6>راهنمای خودمیزبانی ClojureScript</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=clojure</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
+  },
+  "cljsSelfhosted.name": {
+    "translation": "CLJS (خودمیزبان)"
+  },
   "clojurescript.desc": {
     "translation": "ClojureScript یک کامپایلر برای <tag-1>Clojure</tag-1> است که JavaScript را هدف قرار می‌دهد. <tag-2></tag-2>در LiveCodes، با استفاده از <tag-3>Cherry</tag-3> در مرورگر اجرا می‌شود"
   },
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>وب‌سایت رسمی Clojure</tag-4> </tag-3> <tag-5> <tag-6>مخزن Cherry</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=clojure</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
-  },
-  "clojurescript.name": {
-    "translation": "ClojureScript (CLJS)"
   },
   "coffeescript.desc": {
     "translation": "جاوااسکریپت ساده."

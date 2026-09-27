@@ -1938,8 +1938,11 @@
   "templates.starter.clio": {
     "translation": "Pemula Clio"
   },
+  "templates.starter.cljs-selfhosted": {
+    "translation": "Pemula CLJS (swa-hosting)"
+  },
   "templates.starter.clojurescript": {
-    "translation": "Pemula ClojureScript"
+    "translation": "Pemula ClojureScript (Cherry)"
   },
   "templates.starter.coffeescript": {
     "translation": "Pemula CoffeeScript"

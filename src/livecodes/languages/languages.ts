@@ -9,7 +9,8 @@ import { blockly } from './blockly';
 import { civet } from './civet';
 import { cWasm, cppWasm, objcWasm, objcppWasm } from './clang-wasm';
 import { clio } from './clio';
-import { clojurescript } from './clojurescript';
+import { clojurescriptCherry } from './clojurescript-cherry';
+import { clojurescriptSelfHosted } from './clojurescript-selfhosted';
 import { coffeescript } from './coffeescript';
 import { commonlisp } from './commonlisp';
 import { cpp } from './cpp';
@@ -175,7 +176,8 @@ export const languages: LanguageSpecs[] = [
   haskellWasm,
   scheme,
   commonlisp,
-  clojurescript,
+  clojurescriptCherry,
+  clojurescriptSelfHosted,
   gleam,
   perl,
   lua,

@@ -53,10 +53,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>الموقع الرسمي لـ Clio</2> </1> <3> <4>وثائق Clio</4> </3> <5> <6>تحميل القالب الأولي</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
+  cljsSelfhosted: {
+    desc: 'يتم تجميع ClojureScript إلى JavaScript في المتصفح بواسطة مترجم <1>ClojureScript</1> الرسمي، المستضاف ذاتيًا في عامل المترجم.',
+    link: '<1> <2>الموقع الرسمي لـ ClojureScript</2> </1> <3> <4>الموقع الرسمي لـ Clojure</4> </3> <5> <6>دليل الاستضافة الذاتية لـ ClojureScript</6> </5> <7> <8>تعلم X في Y دقائق، حيث X=clojure</8> </7> <9> <10>وثائق LiveCodes</10> </9> <11> <12>تحميل القالب الأولي</12> </11>',
+    name: 'CLJS (مستضاف ذاتيًا)',
+  },
   clojurescript: {
     desc: 'ClojureScript هو مترجم لـ <1>Clojure</1> يستهدف JavaScript. <2></2>في LiveCodes، يعمل في المتصفح باستخدام <3>Cherry</3>.',
     link: '<1> <2>الموقع الرسمي لـ ClojureScript</2> </1> <3> <4>الموقع الرسمي لـ Clojure</4> </3> <5> <6>مستودع Cherry</6> </5> <7> <8>تعلم X في Y دقائق، حيث X=clojure</8> </7> <9> <10>وثائق LiveCodes</10> </9> <11> <12>تحميل القالب الأولي</12> </11>',
-    name: 'ClojureScript (CLJS)',
   },
   coffeescript: {
     desc: 'جافاسكريبت بسيطة.',

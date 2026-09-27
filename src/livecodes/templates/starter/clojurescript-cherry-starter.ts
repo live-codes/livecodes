@@ -1,9 +1,12 @@
 import type { Template } from '../../models';
 
 export const clojurescriptStarter: Template = {
-  name: 'clojurescript',
-  aliases: ['cljs'],
-  title: window.deps.translateString('templates.starter.clojurescript', 'ClojureScript Starter'),
+  name: 'clojurescript-cherry',
+  aliases: ['cljs-cherry', 'clojurescript', 'cljs'],
+  title: window.deps.translateString(
+    'templates.starter.clojurescript',
+    'ClojureScript (Cherry) Starter',
+  ),
   thumbnail: 'assets/templates/cljs.svg',
   activeEditor: 'script',
   markup: {
@@ -26,7 +29,7 @@ export const clojurescriptStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'clojurescript',
+    language: 'clojurescript-cherry',
     content: `
 (ns react.component
   (:require

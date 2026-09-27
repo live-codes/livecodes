@@ -53,10 +53,17 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2> Clio 官方网站</2> </1> <3> <4> Clio 文档</4> </3> <5> <6>加载启动模板</6> </5>',
     name: 'Clio',
   },
+  cljsCherry: {
+    name: 'ClojureScript (Cherry)',
+  },
+  cljsSelfhosted: {
+    desc: 'ClojureScript 由官方 <1>ClojureScript</1> 编译器在编译工作线程中自托管，并在浏览器中编译为 JavaScript。',
+    link: '<1> <2>ClojureScript 官方网站</2> </1> <3> <4>Clojure 官方网站</4> </3> <5> <6>ClojureScript 自托管指南</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=clojure</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
+    name: 'CLJS（自托管）',
+  },
   clojurescript: {
     desc: 'ClojureScript 是 <1>Clojure</1> 到 JavaScript 的编译器。<2></2>在 LiveCodes 中，它使用 <3>Cherry</3> 在浏览器中运行。',
     link: '<1> <2>ClojureScript 官方网站</2> </1> <3> <4>Clojure 官方网站</4> </3> <5> <6>Cherry 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=clojure</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
-    name: 'ClojureScript（CLJS）',
   },
   coffeescript: {
     desc: '不花哨的 JavaScript。',
