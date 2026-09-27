@@ -804,6 +804,12 @@
   "svelte.name": {
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "translation": "يتم تجميع Swift إلى WebAssembly بواسطة مُترجم Swift نفسه: <tag-1>swift-frontend</tag-1> و<tag-2>wasm-ld</tag-2>، وكلاهما مُجمَّع إلى WebAssembly ويعمل بالكامل داخل المتصفح. لا يتضمن ذلك أي خادم."
+  },
+  "swiftWasm.name": {
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "translation": "Tcl يعمل في المتصفح، باستخدام <tag-1>wacl</tag-1>."
   },

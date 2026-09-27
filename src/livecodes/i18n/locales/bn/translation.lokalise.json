@@ -2127,6 +2127,9 @@
   "templates.starter.svelte": {
     "translation": "Svelte স্টার্টার"
   },
+  "templates.starter.swift-wasm": {
+    "translation": "Swift (Wasm) স্টার্টার"
+  },
   "templates.starter.tailwindcss": {
     "translation": "Tailwind CSS স্টার্টার"
   },

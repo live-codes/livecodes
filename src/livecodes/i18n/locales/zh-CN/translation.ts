@@ -1046,6 +1046,7 @@ const translation: I18nTranslation = {
       sql: 'SQL 启动模板',
       stencil: 'Stencil 启动模板',
       svelte: 'Svelte 启动模板',
+      'swift-wasm': 'Swift（WASM）启动模板',
       tailwindcss: 'Tailwind CSS 启动模板',
       tcl: 'Tcl 启动模板',
       teal: 'Teal 启动模板',

@@ -2127,6 +2127,9 @@
   "templates.starter.svelte": {
     "translation": "Svelte 启动模板"
   },
+  "templates.starter.swift-wasm": {
+    "translation": "Swift（WASM）启动模板"
+  },
   "templates.starter.tailwindcss": {
     "translation": "Tailwind CSS 启动模板"
   },

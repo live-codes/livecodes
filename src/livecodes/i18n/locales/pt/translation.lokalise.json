@@ -2127,6 +2127,9 @@
   "templates.starter.svelte": {
     "translation": "Iniciante Svelte"
   },
+  "templates.starter.swift-wasm": {
+    "translation": "Iniciante Swift (Wasm)"
+  },
   "templates.starter.tailwindcss": {
     "translation": "Iniciante Tailwind CSS"
   },

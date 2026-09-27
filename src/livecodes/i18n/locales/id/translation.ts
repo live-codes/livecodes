@@ -1048,6 +1048,7 @@ const translation: I18nTranslation = {
       sql: 'Pemula SQL',
       stencil: 'Pemula Stencil',
       svelte: 'Pemula Svelte',
+      'swift-wasm': 'Pemula Swift (Wasm)',
       tailwindcss: 'Pemula Tailwind CSS',
       tcl: 'Pemula Tcl',
       teal: 'Pemula Teal',

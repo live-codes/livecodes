@@ -455,6 +455,10 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sitio web oficial de Svelte</2> </1> <3> <4>Documentación de Svelte</4> </3> <5> <6>Cargar plantilla inicial</6> </5>',
     name: 'Svelte',
   },
+  swiftWasm: {
+    desc: 'Swift se compila a WebAssembly por el propio compilador de Swift: <1>swift-frontend</1> y <2>wasm-ld</2>, ambos compilados a WebAssembly, se ejecutan íntegramente en el navegador. No hay ningún servidor involucrado.',
+    name: 'Swift (Wasm)',
+  },
   tcl: {
     desc: 'Tcl ejecutándose en el navegador, usando <1>wacl</1>.',
     link: '<1> <2>Sitio web oficial de Tcl</2> </1> <3> <4>Repositorio de wacl</4> </3> <5> <6>Aprende X en Y minutos, donde X=Tcl</6> </5> <7> <8>Cargar plantilla inicial</8> </7>',

@@ -804,6 +804,12 @@
   "svelte.name": {
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "translation": "Swift স্বয়ং Swift কম্পাইলার দ্বারা WebAssembly-তে কম্পাইল করা হয়েছে: <tag-1>swift-frontend</tag-1> এবং <tag-2>wasm-ld</tag-2>, উভয়ই WebAssembly-তে কম্পাইল করা হয়েছে এবং সম্পূর্ণরূপে ব্রাউজারে চলে। কোনো সার্ভার জড়িত নয়।"
+  },
+  "swiftWasm.name": {
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "translation": "<tag-1>wacl</tag-1> ব্যবহার করে ব্রাউজারে চলমান Tcl।"
   },

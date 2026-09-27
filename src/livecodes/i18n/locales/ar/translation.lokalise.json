@@ -2127,6 +2127,9 @@
   "templates.starter.svelte": {
     "translation": "قالب Svelte"
   },
+  "templates.starter.swift-wasm": {
+    "translation": "قالب Swift (Wasm)"
+  },
   "templates.starter.tailwindcss": {
     "translation": "قالب Tailwind CSS"
   },

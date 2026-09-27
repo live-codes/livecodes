@@ -804,6 +804,12 @@
   "svelte.name": {
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "translation": "Swift کو خود Swift کمپائلر کے ذریعے WebAssembly میں مرتب کیا گیا ہے: <tag-1>swift-frontend</tag-1> اور <tag-2>wasm-ld</tag-2>, دونوں WebAssembly میں مرتب ہیں اور مکمل طور پر براؤزر میں چلتے ہیں۔ کوئی سرور شامل نہیں ہے۔"
+  },
+  "swiftWasm.name": {
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "translation": "<tag-1>wacl</tag-1> کا استعمال کرتے ہوئے براؤزر میں چلنے والی Tcl۔"
   },

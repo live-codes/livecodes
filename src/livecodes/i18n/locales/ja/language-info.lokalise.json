@@ -804,6 +804,12 @@
   "svelte.name": {
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "translation": "Swift は Swift コンパイラ自身によって WebAssembly にコンパイルされます。<tag-1>swift-frontend</tag-1> と <tag-2>wasm-ld</tag-2> はいずれも WebAssembly にコンパイルされ、完全にブラウザ内で実行されます。サーバーは関与しません。"
+  },
+  "swiftWasm.name": {
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "translation": "<tag-1>wacl</tag-1>を使用してブラウザで動作する Tcl。"
   },

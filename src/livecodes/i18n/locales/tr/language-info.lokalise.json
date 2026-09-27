@@ -804,6 +804,12 @@
   "svelte.name": {
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "translation": "Swift, Swift derleyicisinin kendisi tarafından WebAssembly'ye derlenir: <tag-1>swift-frontend</tag-1> ve <tag-2>wasm-ld</tag-2> de WebAssembly'ye derlenir ve tamamen tarayıcı içinde çalışır. Hiçbir sunucu devreye girmez."
+  },
+  "swiftWasm.name": {
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "translation": "Tarayıcıda, <tag-1>wacl</tag-1> kullanılarak çalışan Tcl."
   },

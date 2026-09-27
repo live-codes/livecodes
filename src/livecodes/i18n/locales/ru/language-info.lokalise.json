@@ -804,6 +804,12 @@
   "svelte.name": {
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "translation": "Swift компилируется в WebAssembly самим компилятором Swift: <tag-1>swift-frontend</tag-1> и <tag-2>wasm-ld</tag-2> также скомпилированы в WebAssembly и выполняются полностью в браузере. Сервер не задействован."
+  },
+  "swiftWasm.name": {
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "translation": "Tcl, работающий в браузере, с использованием <tag-1>wacl</tag-1>."
   },

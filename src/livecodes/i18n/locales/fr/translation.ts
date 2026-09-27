@@ -1050,6 +1050,7 @@ const translation: I18nTranslation = {
       sql: 'Démarrage SQL',
       stencil: 'Démarrage Stencil',
       svelte: 'Démarrage Svelte',
+      'swift-wasm': 'Démarrage Swift (Wasm)',
       tailwindcss: 'Démarrage Tailwind CSS',
       tcl: 'Démarrage Tcl',
       teal: 'Démarrage Teal',

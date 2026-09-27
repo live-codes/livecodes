@@ -804,6 +804,12 @@
   "svelte.name": {
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "translation": "A Swiftet maga a Swift-fordító fordítja WebAssembly-re: a <tag-1>swift-frontend</tag-1> és a <tag-2>wasm-ld</tag-2> is WebAssembly-re van fordítva, és teljes egészében a böngészőben fut. Nem vesz igénybe szervert."
+  },
+  "swiftWasm.name": {
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "translation": "Tcl fut a böngészőben, a <tag-1>wacl</tag-1> használatával."
   },

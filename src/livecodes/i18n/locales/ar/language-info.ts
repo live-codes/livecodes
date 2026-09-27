@@ -451,6 +451,10 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>الموقع الرسمي لـ Svelte</2> </1> <3> <4>وثائق Svelte</4> </3> <5> <6>تحميل القالب الأولي</6> </5>',
     name: 'Svelte',
   },
+  swiftWasm: {
+    desc: 'يتم تجميع Swift إلى WebAssembly بواسطة مُترجم Swift نفسه: <1>swift-frontend</1> و<2>wasm-ld</2>، وكلاهما مُجمَّع إلى WebAssembly ويعمل بالكامل داخل المتصفح. لا يتضمن ذلك أي خادم.',
+    name: 'Swift (Wasm)',
+  },
   tcl: {
     desc: 'Tcl يعمل في المتصفح، باستخدام <1>wacl</1>.',
     link: '<1> <2>الموقع الرسمي لـ Tcl</2> </1> <3> <4>مستودع wacl</4> </3> <5> <6>تعلم X في Y دقائق، حيث X=Tcl</6> </5> <7> <8>تحميل القالب الأولي</8> </7>',
