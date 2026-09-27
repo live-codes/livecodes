@@ -57,6 +57,7 @@ export const starterTemplates = {
   "vb-wasm": "VB.NET (Wasm) Starter",
   "fsharp": "F# Starter",
   "fsharp-wasm": "F# (Wasm) Starter",
+  "fanak": "Fanak Starter",
   "haskell": "Haskell Starter",
   "haskell-wasm": "Haskell (Wasm) Starter",
   "scheme": "Scheme Starter",
