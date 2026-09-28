@@ -19,6 +19,7 @@ interface SwiftResult {
 interface SwiftRuntime {
   warmUp: () => Promise<void>;
   run: (files: string, options?: { input?: string }) => Promise<SwiftResult>;
+  destroy: () => void;
 }
 
 interface SwiftRunResult {
@@ -34,6 +35,7 @@ declare const window: Window & {
   livecodes: {
     swift?: {
       ready?: boolean;
+      failed?: boolean;
       init?: Promise<void> | null;
       runtime?: SwiftRuntime;
       run?: (input?: string) => Promise<SwiftRunResult>;
@@ -54,9 +56,17 @@ const RUN_TIMEOUT_MS = 60_000;
 const formatDiagnostic = (diagnostic: SwiftDiagnostic) =>
   `${diagnostic.file}:${diagnostic.line}:${diagnostic.column}: ${diagnostic.severity}: ${diagnostic.message}`;
 
-const withTimeout = <T>(promise: Promise<T>, ms: number, message: string): Promise<T> =>
+const withTimeout = <T>(
+  promise: Promise<T>,
+  ms: number,
+  message: string,
+  onTimeout?: () => void,
+): Promise<T> =>
   new Promise<T>((resolve, reject) => {
-    const timer = setTimeout(() => reject(new Error(message)), ms);
+    const timer = setTimeout(() => {
+      onTimeout?.();
+      reject(new Error(message));
+    }, ms);
     promise.then(
       (value) => {
         clearTimeout(timer);
@@ -93,8 +103,11 @@ const ensureLoaded = (): Promise<void> => {
         parent.postMessage({ type: 'loading', payload: false }, '*');
       }
     })().catch((err: Error) => {
-      // Reset so a later run can retry the download.
+      // Reset so a later run can retry the download, and record the failure so
+      // `loaded` can reject instead of resolving into a broken environment.
       swift.init = null;
+      swift.failed = true;
+      swift.error = err.message;
       throw err;
     });
     // The failure is surfaced through `run`; do not also report it unhandled.
@@ -144,6 +157,14 @@ swift.run = async (input?: string) => {
       swift.runtime!.run(code, { input: input ?? '' }),
       RUN_TIMEOUT_MS,
       'Swift execution timed out.',
+      () => {
+        // The package has no per-run timeout and dispatches every run to a single
+        // worker, so a hung program (e.g. an infinite loop) leaves that worker busy.
+        // Tear it down so the next run starts from a fresh worker.
+        swift.runtime?.destroy();
+        swift.runtime = undefined;
+        swift.init = null;
+      },
     );
 
     const diagnostics = result.diagnostics.map(formatDiagnostic).join('\n');
@@ -169,9 +190,12 @@ swift.run = async (input?: string) => {
 
 ensureLoaded();
 
-swift.loaded = new Promise<void>((resolve) => {
+swift.loaded = new Promise<void>((resolve, reject) => {
   const interval = setInterval(() => {
-    if (swift.ready) {
+    if (swift.failed) {
+      clearInterval(interval);
+      reject(new Error(swift.error || 'Failed to initialize the Swift environment'));
+    } else if (swift.ready) {
       clearInterval(interval);
       resolve();
     }

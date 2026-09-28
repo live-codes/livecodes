@@ -23,8 +23,15 @@ export const swiftWasmStarter: Template = {
   addEventListener('load', async () => {
     const button = document.querySelector("#counter-button");
 
-    // wait till loaded
-    await livecodes.swift.loaded;
+    try {
+      // wait till loaded
+      await livecodes.swift.loaded;
+    } catch (error) {
+      // surface the boot error instead of crashing on a null output
+      button.innerText = "Error";
+      console.error(error);
+      return;
+    }
 
     // get initial output
     update(livecodes.swift.output);
