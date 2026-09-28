@@ -807,6 +807,9 @@
   "swiftWasm.desc": {
     "translation": "A Swiftet maga a Swift-fordító fordítja WebAssembly-re: a <tag-1>swift-frontend</tag-1> és a <tag-2>wasm-ld</tag-2> is WebAssembly-re van fordítva, és teljes egészében a böngészőben fut. Nem vesz igénybe szervert."
   },
+  "swiftWasm.link": {
+    "translation": "<tag-1> <tag-2>A Swift hivatalos weboldala</tag-2> </tag-1> <tag-3> <tag-4>A Swift programozási nyelv</tag-4> </tag-3> <tag-5> <tag-6>Tanulj meg X-et Y perc alatt, ahol X=Swift</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Indító sablon betöltése</tag-10> </tag-9>"
+  },
   "swiftWasm.name": {
     "translation": "Swift (Wasm)"
   },

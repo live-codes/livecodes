@@ -807,6 +807,9 @@
   "swiftWasm.desc": {
     "translation": "Swift wordt door de Swift-compiler zelf naar WebAssembly gecompileerd: <tag-1>swift-frontend</tag-1> en <tag-2>wasm-ld</tag-2> zijn beide naar WebAssembly gecompileerd en draaien volledig in de browser. Er is geen server bij betrokken."
   },
+  "swiftWasm.link": {
+    "translation": "<tag-1> <tag-2>Officiële website van Swift</tag-2> </tag-1> <tag-3> <tag-4>The Swift Programming Language</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X = Swift</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+  },
   "swiftWasm.name": {
     "translation": "Swift (Wasm)"
   },

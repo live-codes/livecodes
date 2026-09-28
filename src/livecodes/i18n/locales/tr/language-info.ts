@@ -457,6 +457,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   swiftWasm: {
     desc: "Swift, Swift derleyicisinin kendisi tarafından WebAssembly'ye derlenir: <1>swift-frontend</1> ve <2>wasm-ld</2> de WebAssembly'ye derlenir ve tamamen tarayıcı içinde çalışır. Hiçbir sunucu devreye girmez.",
+    link: "<1> <2>Swift resmi web sitesi</2> </1> <3> <4>Swift Programlama Dili</4> </3> <5> <6>Y dakikada X'i öğrenin, burada X=Swift</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
     name: 'Swift (Wasm)',
   },
   tcl: {

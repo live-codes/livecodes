@@ -463,6 +463,7 @@ const languageInfo = {
   },
   swiftWasm: {
     desc: 'Swift is compiled to WebAssembly by the Swift compiler itself: <1>swift-frontend</1> and <2>wasm-ld</2>, both compiled to WebAssembly, run entirely in the browser. No server is involved.',
+    link: '<1> <2>Swift official website</2> </1> <3> <4>The Swift Programming Language</4> </3> <5> <6>Learn X in Y minutes, where X=Swift</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Swift (Wasm)',
   },
   tcl: {

@@ -450,6 +450,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   swiftWasm: {
     desc: 'Swift 由 Swift 编译器自身编译为 WebAssembly：<1>swift-frontend</1> 和 <2>wasm-ld</2> 均编译为 WebAssembly，完全在浏览器中运行。不涉及任何服务器。',
+    link: '<1> <2>Swift 官方网站</2> </1> <3> <4>Swift 编程语言</4> </3> <5> <6>《Y分钟学会X》，其中X=Swift</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
     name: 'Swift (Wasm)',
   },
   tcl: {

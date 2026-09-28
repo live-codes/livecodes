@@ -458,6 +458,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   swiftWasm: {
     desc: 'Swift компилируется в WebAssembly самим компилятором Swift: <1>swift-frontend</1> и <2>wasm-ld</2> также скомпилированы в WebAssembly и выполняются полностью в браузере. Сервер не задействован.',
+    link: '<1> <2>Официальный сайт Swift</2> </1> <3> <4>Язык программирования Swift</4> </3> <5> <6>«Изучите X за Y минут», где X = Swift</6> </5> <7> <8>Документация LiveCodes</8> </7> <9> <10>Загрузить стартовый шаблон</10> </9>',
     name: 'Swift (Wasm)',
   },
   tcl: {

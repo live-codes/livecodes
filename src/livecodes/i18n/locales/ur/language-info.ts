@@ -459,6 +459,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   swiftWasm: {
     desc: 'Swift کو خود Swift کمپائلر کے ذریعے WebAssembly میں مرتب کیا گیا ہے: <1>swift-frontend</1> اور <2>wasm-ld</2>, دونوں WebAssembly میں مرتب ہیں اور مکمل طور پر براؤزر میں چلتے ہیں۔ کوئی سرور شامل نہیں ہے۔',
+    link: '<1> <2>Swift آفیشل ویب سائٹ</2> </1> <3> <4>Swift پروگرامنگ زبان</4> </3> <5> <6>Y منٹ میں X سیکھیں، جہاں X=Swift</6> </5> <7> <8>لائیو کوڈز دستاویزات</8> </7> <9> <10>اسٹارٹر ٹیمپلیٹ لوڈ کریں</10> </9>',
     name: 'Swift (Wasm)',
   },
   tcl: {

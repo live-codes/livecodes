@@ -453,6 +453,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   swiftWasm: {
     desc: 'يتم تجميع Swift إلى WebAssembly بواسطة مُترجم Swift نفسه: <1>swift-frontend</1> و<2>wasm-ld</2>، وكلاهما مُجمَّع إلى WebAssembly ويعمل بالكامل داخل المتصفح. لا يتضمن ذلك أي خادم.',
+    link: '<1> <2>الموقع الرسمي لـ Swift</2> </1> <3> <4>لغة البرمجة Swift</4> </3> <5> <6>تعلم X في Y دقائق، حيث X = Swift</6> </5> <7> <8>وثائق LiveCodes</8> </7> <9> <10>تحميل قالب البدء</10> </9>',
     name: 'Swift (Wasm)',
   },
   tcl: {

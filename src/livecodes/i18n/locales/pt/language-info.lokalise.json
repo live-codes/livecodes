@@ -807,6 +807,9 @@
   "swiftWasm.desc": {
     "translation": "O Swift é compilado para WebAssembly pelo próprio compilador Swift: <tag-1>swift-frontend</tag-1> e <tag-2>wasm-ld</tag-2>, ambos compilados para WebAssembly, são executados inteiramente no navegador. Nenhum servidor está envolvido."
   },
+  "swiftWasm.link": {
+    "translation": "<tag-1> <tag-2>Site oficial do Swift</tag-2> </tag-1> <tag-3> <tag-4>A Linguagem de Programação Swift</tag-4> </tag-3> <tag-5> <tag-6>Aprenda X em Y minutos, onde X = Swift</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
+  },
   "swiftWasm.name": {
     "translation": "Swift (Wasm)"
   },
