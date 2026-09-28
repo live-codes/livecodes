@@ -1048,6 +1048,7 @@ const translation: I18nTranslation = {
       sql: 'قالب SQL',
       stencil: 'قالب Stencil',
       svelte: 'قالب Svelte',
+      'swift-wasm': 'قالب Swift (Wasm)',
       tailwindcss: 'قالب Tailwind CSS',
       tcl: 'قالب Tcl',
       teal: 'قالب Teal',

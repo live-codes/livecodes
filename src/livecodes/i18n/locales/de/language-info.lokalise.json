@@ -804,6 +804,15 @@
   "svelte.name": {
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "translation": "Swift wird vom Swift-Compiler selbst zu WebAssembly kompiliert: <tag-1>swift-frontend</tag-1> und <tag-2>wasm-ld</tag-2> sind beide zu WebAssembly kompiliert und laufen vollständig im Browser. Es ist kein Server beteiligt."
+  },
+  "swiftWasm.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Website von Swift</tag-2> </tag-1> <tag-3> <tag-4>Die Swift Programmiersprache</tag-4> </tag-3> <tag-5> <tag-6>Lerne X in Y Minuten, wobei X = Swift</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>Startervorlage laden</tag-10> </tag-9>"
+  },
+  "swiftWasm.name": {
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "translation": "Tcl läuft im Browser mit <tag-1>wacl</tag-1>."
   },

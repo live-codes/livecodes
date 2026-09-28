@@ -51,6 +51,7 @@ export const starterTemplates = {
   "cpp-wasm": "C++ (Wasm) Starter",
   "objc-wasm": "Objective-C (Wasm) Starter",
   "rust-wasm": "Rust (Wasm) Starter",
+  "swift-wasm": "Swift (Wasm) Starter",
   "zig-wasm": "Zig (Wasm) Starter",
   "java": "Java Starter",
   "csharp-wasm": "C# (Wasm) Starter",

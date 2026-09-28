@@ -1048,6 +1048,7 @@ const translation: I18nTranslation = {
       sql: 'ایس کیو ایل شروعاتی',
       stencil: 'اسٹینسل شروعاتی',
       svelte: 'سویلٹ شروعاتی',
+      'swift-wasm': 'سوفٹ (واسم) شروعاتی',
       tailwindcss: 'ٹیل ونڈ سی ایس ایس شروعاتی',
       tcl: 'ٹی سی ایل شروعاتی',
       teal: 'ٹیل شروعاتی',

@@ -448,6 +448,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Svelte 官方网站</2> </1> <3> <4>Svelte 文档</4> </3> <5> <6>加载启动模板</6> </5>',
     name: 'Svelte',
   },
+  swiftWasm: {
+    desc: 'Swift 由 Swift 编译器自身编译为 WebAssembly：<1>swift-frontend</1> 和 <2>wasm-ld</2> 均编译为 WebAssembly，完全在浏览器中运行。不涉及任何服务器。',
+    link: '<1> <2>Swift 官方网站</2> </1> <3> <4>Swift 编程语言</4> </3> <5> <6>《Y分钟学会X》，其中X=Swift</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Swift (Wasm)',
+  },
   tcl: {
     desc: '使用 <1>wacl</1> 在浏览器中运行的 Tcl。',
     link: '<1> <2>Tcl 官方网站</2> </1> <3> <4>wacl 仓库</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=Tcl</6> </5> <7> <8>加载启动模板</8> </7>',

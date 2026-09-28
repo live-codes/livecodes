@@ -455,6 +455,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Svelte hivatalos weboldal</2> </1> <3> <4>Svelte dokumentáció</4> </3> <5> <6>Kezdő sablon betöltése</6> </5>',
     name: 'Svelte',
   },
+  swiftWasm: {
+    desc: 'A Swiftet maga a Swift-fordító fordítja WebAssembly-re: a <1>swift-frontend</1> és a <2>wasm-ld</2> is WebAssembly-re van fordítva, és teljes egészében a böngészőben fut. Nem vesz igénybe szervert.',
+    link: '<1> <2>A Swift hivatalos weboldala</2> </1> <3> <4>A Swift programozási nyelv</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=Swift</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Indító sablon betöltése</10> </9>',
+    name: 'Swift (Wasm)',
+  },
   tcl: {
     desc: 'Tcl fut a böngészőben, a <1>wacl</1> használatával.',
     link: '<1> <2>Tcl hivatalos weboldal</2> </1> <3> <4>wacl repo</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=Tcl</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',

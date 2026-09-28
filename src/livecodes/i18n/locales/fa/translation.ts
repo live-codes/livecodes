@@ -1049,6 +1049,7 @@ const translation: I18nTranslation = {
       sql: 'شروع کننده SQL',
       stencil: 'شروع کننده Stencil',
       svelte: 'شروع کننده Svelte',
+      'swift-wasm': 'شروع کننده Swift (Wasm)',
       tailwindcss: 'شروع کننده Tailwind CSS',
       tcl: 'شروع کننده Tcl',
       teal: 'شروع کننده Teal',

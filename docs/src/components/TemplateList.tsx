@@ -51,6 +51,7 @@ const templates = [
   { name: 'cpp-wasm', title: 'C++ (Wasm) Starter', thumbnail: 'cpp.svg' },
   { name: 'objc-wasm', title: 'Objective-C (Wasm) Starter', thumbnail: 'objective-c.svg' },
   { name: 'rust-wasm', title: 'Rust (Wasm) Starter', thumbnail: 'rust.svg' },
+  { name: 'swift-wasm', title: 'Swift (Wasm) Starter', thumbnail: 'swift.svg' },
   { name: 'haskell', title: 'Haskell Starter', thumbnail: 'haskell.svg' },
   { name: 'haskell-wasm', title: 'Haskell (Wasm) Starter', thumbnail: 'haskell.svg' },
   { name: 'zig-wasm', title: 'Zig (Wasm) Starter', thumbnail: 'zig.svg' },

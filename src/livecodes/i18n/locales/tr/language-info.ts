@@ -455,6 +455,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Svelte resmi web sitesi</2> </1> <3> <4>Svelte dokümantasyonu</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>',
     name: 'Svelte',
   },
+  swiftWasm: {
+    desc: "Swift, Swift derleyicisinin kendisi tarafından WebAssembly'ye derlenir: <1>swift-frontend</1> ve <2>wasm-ld</2> de WebAssembly'ye derlenir ve tamamen tarayıcı içinde çalışır. Hiçbir sunucu devreye girmez.",
+    link: "<1> <2>Swift resmi web sitesi</2> </1> <3> <4>Swift Programlama Dili</4> </3> <5> <6>Y dakikada X'i öğrenin, burada X=Swift</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    name: 'Swift (Wasm)',
+  },
   tcl: {
     desc: 'Tarayıcıda, <1>wacl</1> kullanılarak çalışan Tcl.',
     link: "<1> <2>Tcl resmi web sitesi</2> </1> <3> <4>wacl repo'su</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Tcl</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",

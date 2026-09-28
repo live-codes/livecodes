@@ -804,6 +804,15 @@
   "svelte.name": {
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "translation": "Swift توسط خود کامپایلر Swift به WebAssembly کامپایل می‌شود: <tag-1>swift-frontend</tag-1> و <tag-2>wasm-ld</tag-2> که هر دو به WebAssembly کامپایل شده‌اند و کاملاً در مرورگر اجرا می‌شوند. هیچ سروری درگیر نیست."
+  },
+  "swiftWasm.link": {
+    "translation": "<tag-1> <tag-2>وب‌سایت رسمی Swift</tag-2> </tag-1> <tag-3> <tag-4>زبان برنامه‌نویسی Swift</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، که X=Swift</tag-6> </tag-5> <tag-7> <tag-8>مستندات لایوکدز</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع</tag-10> </tag-9>"
+  },
+  "swiftWasm.name": {
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "translation": "Tcl که در مرورگر اجرا می‌شود، با استفاده از <tag-1>wacl</tag-1>."
   },

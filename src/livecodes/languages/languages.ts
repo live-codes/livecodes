@@ -80,6 +80,7 @@ import { stylis } from './stylis';
 import { stylus } from './stylus';
 import { sucrase } from './sucrase';
 import { svelte, svelteApp } from './svelte';
+import { swiftWasm } from './swift-wasm';
 import { tcl } from './tcl';
 import { teal } from './teal';
 import { twig } from './twig';
@@ -165,6 +166,7 @@ export const languages: LanguageSpecs[] = [
   objcWasm,
   objcppWasm,
   rustWasm,
+  swiftWasm,
   zigWasm,
   java,
   csharpWasm,

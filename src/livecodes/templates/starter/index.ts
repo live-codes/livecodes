@@ -70,6 +70,7 @@ import { solidStarter } from './solid-starter';
 import { sqlStarter } from './sql-starter';
 import { stencilStarter } from './stencil-starter';
 import { svelteStarter } from './svelte-starter';
+import { swiftWasmStarter } from './swift-wasm-starter';
 import { tailwindcssStarter } from './tailwindcss-starter';
 import { tclStarter } from './tcl-starter';
 import { tealStarter } from './teal-starter';
@@ -133,6 +134,7 @@ export const starterTemplates = [
   cppWasmStarter,
   objcWasmStarter,
   rustWasmStarter,
+  swiftWasmStarter,
   zigWasmStarter,
   javaStarter,
   csharpWasmStarter,
