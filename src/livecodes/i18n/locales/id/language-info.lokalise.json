@@ -804,6 +804,15 @@
   "svelte.name": {
     "translation": "Svelte"
   },
+  "swiftWasm.desc": {
+    "translation": "Swift dikompilasi ke WebAssembly oleh kompiler Swift itu sendiri: <tag-1>swift-frontend</tag-1> dan <tag-2>wasm-ld</tag-2>, keduanya dikompilasi ke WebAssembly dan berjalan sepenuhnya di dalam browser. Tidak ada server yang terlibat."
+  },
+  "swiftWasm.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Swift</tag-2> </tag-1> <tag-3> <tag-4>Bahasa Pemrograman Swift</tag-4> </tag-3> <tag-5> <tag-6>Belajar X dalam Y menit, di mana X = Swift</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat templat awal</tag-10> </tag-9>"
+  },
+  "swiftWasm.name": {
+    "translation": "Swift (Wasm)"
+  },
   "tcl.desc": {
     "translation": "Tcl berjalan di browser, menggunakan <tag-1>wacl</tag-1>."
   },

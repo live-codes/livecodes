@@ -2127,6 +2127,9 @@
   "templates.starter.svelte": {
     "translation": "سویلٹ شروعاتی"
   },
+  "templates.starter.swift-wasm": {
+    "translation": "سوفٹ (واسم) شروعاتی"
+  },
   "templates.starter.tailwindcss": {
     "translation": "ٹیل ونڈ سی ایس ایس شروعاتی"
   },

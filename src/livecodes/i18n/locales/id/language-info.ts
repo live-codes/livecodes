@@ -455,6 +455,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi Svelte</2> </1> <3> <4>Dokumentasi Svelte</4> </3> <5> <6>Muat template pemula</6> </5>',
     name: 'Svelte',
   },
+  swiftWasm: {
+    desc: 'Swift dikompilasi ke WebAssembly oleh kompiler Swift itu sendiri: <1>swift-frontend</1> dan <2>wasm-ld</2>, keduanya dikompilasi ke WebAssembly dan berjalan sepenuhnya di dalam browser. Tidak ada server yang terlibat.',
+    link: '<1> <2>Situs web resmi Swift</2> </1> <3> <4>Bahasa Pemrograman Swift</4> </3> <5> <6>Belajar X dalam Y menit, di mana X = Swift</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Swift (Wasm)',
+  },
   tcl: {
     desc: 'Tcl berjalan di browser, menggunakan <1>wacl</1>.',
     link: '<1> <2>Situs web resmi Tcl</2> </1> <3> <4>Repo wacl</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=Tcl</6> </5> <7> <8>Muat template pemula</8> </7>',

@@ -284,6 +284,8 @@ Sucrase: [MIT License](https://github.com/alangpierce/sucrase/blob/7284b3733aa11
 
 Svelte: [MIT License](https://github.com/sveltejs/svelte/blob/dafbdc286eef3de2243088a9a826e6899e20465c/LICENSE)
 
+Swift: [Apache License 2.0 with Runtime Library Exception](https://github.com/swiftlang/swift/blob/main/LICENSE.txt) (the Swift compiler frontend, the linker and the standard library, built to run on WebAssembly by [swift-toolchain-wasm](https://github.com/tothambrus11/swift-toolchain-wasm): [Apache License 2.0](https://github.com/tothambrus11/swift-toolchain-wasm/blob/main/LICENSE))
+
 SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7ac9127942111bf177f549b709a60be/LICENSE.txt)
 
 svgbob-wasm: [Apache License 2.0](https://github.com/agoose77/svgbob-wasm/blob/45e280096ee7f7a07981de2ce95aba343bc94123/LICENSE_APACHE)

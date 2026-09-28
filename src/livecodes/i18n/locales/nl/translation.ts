@@ -1049,6 +1049,7 @@ const translation: I18nTranslation = {
       sql: 'SQL-starter',
       stencil: 'Stencil-starter',
       svelte: 'Svelte-starter',
+      'swift-wasm': 'Swift (Wasm)-starter',
       tailwindcss: 'Tailwind CSS-starter',
       tcl: 'Tcl-starter',
       teal: 'Teal-starter',
