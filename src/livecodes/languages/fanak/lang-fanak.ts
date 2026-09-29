@@ -1,6 +1,6 @@
 import { codemirrorLegacy } from '../../editor/codemirror/utils';
 import type { LanguageSpecs } from '../../models';
-import { codeMirrorBaseUrl, fanakMonacoUrl } from '../../vendors';
+import { codeMirrorBaseUrl, fanakBaseUrl, fanakMonacoUrl } from '../../vendors';
 
 export const fanak: LanguageSpecs = {
   name: 'fanak',
@@ -22,8 +22,12 @@ export const fanak: LanguageSpecs = {
       language: 'fanak',
       languageSupport: async (monaco: any) => {
         try {
+          // The Monaco module runs the Fanak compiler (served from
+          // `fanakBaseUrl`) in a hidden frame for formatting, diagnostics and
+          // compiler-backed symbols. Hand it the URL as an explicit option;
+          // without it the module falls back to its offline heuristics.
           const module = await import(/* @vite-ignore */ fanakMonacoUrl);
-          await module.default?.(monaco, () => undefined);
+          await module.default?.(monaco, () => undefined, { baseUrl: fanakBaseUrl });
         } catch {
           monaco.languages.register({ id: 'fanak' });
         }

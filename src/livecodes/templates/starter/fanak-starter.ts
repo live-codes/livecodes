@@ -22,7 +22,7 @@ export const fanakStarter: Template = {
       // Show the error even when the program printed nothing (e.g. a panic),
       // while keeping any partial output.
       const parts = [livecodes.fanak.output, livecodes.fanak.error].filter(Boolean);
-      output.innerText = parts.join('\n');
+      output.innerText = parts.join('\\n');
     } catch (err) {
       output.innerText = 'Failed to load the Fanak compiler: ' + (err && err.message ? err.message : err);
     }
