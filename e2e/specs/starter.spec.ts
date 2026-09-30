@@ -296,6 +296,33 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
+  test('Pascal Starter', async ({ page, getTestUrl, editor }) => {
+    // the ~9 MB compiler is downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Pascal Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+    await app.waitForTimeout(30_000);
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Pascal!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
   test('rust-wasm Starter', async ({ page, getTestUrl, editor }) => {
     // the interpreter and the stdlib sysroot are downloaded on the first run
     test.slow();

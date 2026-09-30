@@ -53,6 +53,7 @@
   "rust-wasm": "Rust (Wasm) Starter",
   "swift-wasm": "Swift (Wasm) Starter",
   "zig-wasm": "Zig (Wasm) Starter",
+  "pascal": "Pascal Starter",
   "java": "Java Starter",
   "csharp-wasm": "C# (Wasm) Starter",
   "vb-wasm": "VB.NET (Wasm) Starter",

@@ -52,6 +52,7 @@ import { mjml } from './mjml';
 import { mustache } from './mustache';
 import { nunjucks } from './nunjucks';
 import { ocaml } from './ocaml';
+import { pascal } from './pascal';
 import { perl } from './perl';
 import { php } from './php';
 import { phpWasm } from './php-wasm';
@@ -167,6 +168,7 @@ export const languages: LanguageSpecs[] = [
   rustWasm,
   swiftWasm,
   zigWasm,
+  pascal,
   java,
   csharpWasm,
   vbWasm,

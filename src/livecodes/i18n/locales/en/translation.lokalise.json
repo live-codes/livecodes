@@ -2740,6 +2740,10 @@
     "notes": "",
     "translation": "Ocaml Starter"
   },
+  "templates.starter.pascal": {
+    "notes": "",
+    "translation": "Pascal Starter"
+  },
   "templates.starter.perl": {
     "notes": "",
     "translation": "Perl Starter"

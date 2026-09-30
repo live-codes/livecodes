@@ -45,6 +45,7 @@ import { markdownStarter } from './markdown-starter';
 import { mdxStarter } from './mdx-starter';
 import { minizincStarter } from './minizinc-starter';
 import { ocamlStarter } from './ocaml-starter';
+import { pascalStarter } from './pascal-starter';
 import { perlStarter } from './perl-starter';
 import { phaserStarter } from './phaser-starter';
 import { phpStarter } from './php-starter';
@@ -135,6 +136,7 @@ export const starterTemplates = [
   rustWasmStarter,
   swiftWasmStarter,
   zigWasmStarter,
+  pascalStarter,
   javaStarter,
   csharpWasmStarter,
   vbWasmStarter,

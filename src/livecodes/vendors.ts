@@ -365,6 +365,14 @@ export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1
 
 export const parinferUrl = /* @__PURE__ */ getUrl('parinfer@3.13.1/parinfer.js');
 
+export const pascalWasmScriptUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/pascal-wasm@0.1.0/dist/pascal-wasm.iife.min.js',
+);
+
+// The classic-script build has no module URL, so it cannot find `assets/` on its
+// own and needs to be told where they are.
+export const pascalWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/pascal-wasm@0.1.0/assets/');
+
 export const pathBrowserifyUrl = /* @__PURE__ */ getModuleUrl('path-browserify@1.0.1');
 
 export const pgliteUrl = /* @__PURE__ */ getUrl('@electric-sql/pglite@0.1.5/dist/index.js');

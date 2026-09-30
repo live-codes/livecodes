@@ -97,6 +97,7 @@ export default function Sliders() {
       { name: 'haskell', title: 'Haskell' },
       { name: 'haskell-wasm', title: 'Haskell (Wasm)' },
       { name: 'zig-wasm', title: 'Zig (Wasm)' },
+      { name: 'pascal', title: 'Pascal' },
       { name: 'java', title: 'Java' },
       { name: 'csharp-wasm', title: 'C# (Wasm)' },
       { name: 'vb-wasm', title: 'VB.NET (Wasm)' },
