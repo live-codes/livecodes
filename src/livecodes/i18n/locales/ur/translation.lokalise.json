@@ -2058,6 +2058,9 @@
   "templates.starter.ocaml": {
     "translation": "اوکامل شروعاتی"
   },
+  "templates.starter.pascal": {
+    "translation": "پاسکل شروعاتی"
+  },
   "templates.starter.perl": {
     "translation": "پرل شروعاتی"
   },

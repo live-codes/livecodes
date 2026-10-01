@@ -2058,6 +2058,9 @@
   "templates.starter.ocaml": {
     "translation": "Pemula Ocaml"
   },
+  "templates.starter.pascal": {
+    "translation": "Pemula Pascal"
+  },
   "templates.starter.perl": {
     "translation": "Pemula Perl"
   },

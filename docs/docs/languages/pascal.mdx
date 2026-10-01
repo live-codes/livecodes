@@ -1,0 +1,104 @@
+# Pascal
+
+[Pascal](https://www.freepascal.org/) is a procedural and object-oriented programming
+language, designed by Niklaus Wirth in 1970 and still widely used for teaching and for
+building native applications.
+
+LiveCodes runs Pascal in the browser using the [Free Pascal](https://www.freepascal.org/)
+team's [pas2js](https://www.freepascal.org/_new/docs/tools/pas2js/) transpiler, compiled
+to [WebAssembly](https://webassembly.org/). It transpiles Object Pascal to JavaScript,
+which then runs in the result page. No server is involved.
+
+## Usage
+
+Write a Pascal program in the script editor and press **Run**. Anything written with
+`Writeln` appears in the console.
+
+Because the compiled output is plain JavaScript, the program can use the DOM and other
+browser APIs. `uses web` brings the browser API into scope:
+
+```pascal
+program app;
+
+{$mode objfpc}{$H+}
+
+uses
+  web, sysutils;
+
+var
+  Count: Integer = 0;
+
+function HandleClick(Event: TJSEvent): boolean;
+var
+  Counter: TJSElement;
+begin
+  Count := Count + 1;
+  Counter := document.getElementById('counter');
+  if (Counter <> nil) then
+    Counter.innerHTML := 'You clicked ' + IntToStr(Count) + ' times.';
+end;
+
+var
+  Title: TJSElement;
+  Button: TJSElement;
+begin
+  Writeln('Hello from Pascal!');
+
+  Title := document.getElementById('title');
+  if (Title <> nil) then
+    Title.innerHTML := 'Pascal';
+
+  Button := document.getElementById('counter-button');
+  if (Button <> nil) then
+    Button.addEventListener('click', @HandleClick);
+end.
+```
+
+That is the starter template:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+<LiveCodes template="pascal" height="80vh"></LiveCodes>
+
+Uncaught exceptions are reported in the console; `ExitCode` may be set to signal a
+non-zero exit code.
+
+## Language Info
+
+### Name
+
+`pascal`
+
+### Aliases
+
+`pas`, `pp`, `pas2js`
+
+### Extension
+
+`.pas`, `.pp`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[pas2js](https://www.freepascal.org/_new/docs/tools/pas2js/), the Free Pascal compiler
+targeting JavaScript.
+
+### Version
+
+pas2js 3.3.1
+
+## Limitations
+
+- There is no `Readln` in the pas2js runtime, so programs cannot read from standard
+  input.
+
+## Links
+
+- [Pascal](https://www.freepascal.org/)
+- [Free Pascal documentation](https://www.freepascal.org/docs.html)
+- [pas2js documentation](https://www.freepascal.org/_new/docs/tools/pas2js/)
+- [pas2js wiki](https://wiki.freepascal.org/pas2js)
+- [WebAssembly](https://webassembly.org/) in LiveCodes

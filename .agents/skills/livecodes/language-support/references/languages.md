@@ -126,6 +126,8 @@ Enabled via `processors` config:
 | Java                        | `java`                                         | Java runtime                                          |
 | C#                          | `csharp-wasm`, `cs`, `cs-wasm`, `wasm.cs`      | C# WASM                                               |
 | VB.NET                      | `vb-wasm`, `vb`, `vbnet`, `wasm.vb`            | VB.NET WASM                                           |
+| F#                          | `fsharp`, `fs`, `fsx`                          | Fable (F# -> JS)                                      |
+| F# (Wasm)                   | `fsharp-wasm`, `fs-wasm`, `wasm.fs`            | .NET WASM                                             |
 | R                           | `r`, `rlang`, `rstats`, `r-wasm`               | R WASM                                                |
 | Lua                         | `lua`, `lua-wasm`, `luawasm`, `wasm.lua`       | Lua WASM                                              |
 | Teal                        | `teal`, `tl`                                   | Typed Lua                                             |
@@ -136,10 +138,14 @@ Enabled via `processors` config:
 | ClojureScript (Cherry)      | `clojurescript-cherry`, `cljs-cherry`          | Cherry transpiler; imports npm packages as ES modules |
 | ClojureScript (self-hosted) | `clojurescript-selfhosted`, `cljs-selfhosted`  | Official ClojureScript compiler; no npm imports       |
 | Perl                        | `perl`, `pl`, `pm`                             | Perl runtime                                          |
+| Pascal                      | `pascal`, `pas`, `pp`, `pas2js`                | pas2js (Pascal -> JS, WASM)                           |
 | Gleam                       | `gleam`                                        | Gleam language                                        |
 | Elm                         | `elm`                                          | Elm compiler (WASM)                                   |
 | Haskell                     | `haskell`, `hs`, `lhs`                         | MicroHs (not GHC)                                     |
 | Haskell (Wasm)              | `haskell-wasm`, `hs-wasm`, `wasm.hs`, `hswasm` | GHC WASM                                              |
+| Rust (Wasm)                 | `rust-wasm`, `rs-wasm`, `wasm.rs`              | Rust WASM                                             |
+| Swift (Wasm)                | `swift-wasm`, `swift`, `wasm.swift`            | Swift WASM                                            |
+| Zig (Wasm)                  | `zig-wasm`, `zig`                              | Zig WASM                                              |
 | Tcl                         | `tcl`                                          | Tcl interpreter                                       |
 | WebAssembly                 | `wat`, `wast`, `wasm`, `webassembly`           | WAT format                                            |
 
@@ -237,3 +243,4 @@ When loading files, extensions map to languages:
 | `.go`              | Go         |
 | `.php`             | PHP        |
 | `.java`            | Java       |
+| `.pas`, `.pp`      | Pascal     |

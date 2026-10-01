@@ -196,6 +196,8 @@ Parinfer.js: [MIT License](https://github.com/parinfer/parinfer.js/blob/cddc36ac
 
 path-browserify: [MIT License](https://github.com/browserify/path-browserify/blob/872fec31a8bac7b9b43be0e54ef3037e0202c5fb/LICENSE)
 
+pas2js (Free Pascal): [LGPL-2.1 License](https://github.com/fpc/pas2js/blob/main/LICENSE)
+
 Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac3771de31e009d4e099bac7013a619987/LICENSE.md)
 
 PGlite: [Apache License 2.0](https://github.com/electric-sql/pglite/blob/4da200e634f417fca2a8c17a3b0bae70cc2fe5af/LICENSE)

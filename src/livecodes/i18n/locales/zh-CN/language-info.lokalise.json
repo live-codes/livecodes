@@ -519,6 +519,15 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "pascal.desc": {
+    "translation": "使用 Free Pascal 团队的 pas2js 在浏览器中运行的 Pascal，并编译为 WebAssembly。"
+  },
+  "pascal.link": {
+    "translation": "<tag-1> <tag-2>Free Pascal 官网</tag-2> </tag-1> <tag-3> <tag-4>pas2js 文档</tag-4> </tag-3> <tag-5> <tag-6>pas2js wiki</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载启动模板</tag-10> </tag-9>"
+  },
+  "pascal.name": {
+    "translation": "Pascal"
+  },
   "perl.desc": {
     "translation": "使用 Perlito 在浏览器中运行的 Perl。"
   },

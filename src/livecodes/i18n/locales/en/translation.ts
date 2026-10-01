@@ -1032,6 +1032,7 @@ const translation = {
       minizinc: 'MiniZinc Starter',
       'objc-wasm': 'Objective-C (Wasm) Starter',
       ocaml: 'Ocaml Starter',
+      pascal: 'Pascal Starter',
       perl: 'Perl Starter',
       phaser: 'Phaser Starter',
       php: 'PHP Starter',

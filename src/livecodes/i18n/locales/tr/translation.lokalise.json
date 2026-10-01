@@ -2058,6 +2058,9 @@
   "templates.starter.ocaml": {
     "translation": "Ocaml Başlangıç"
   },
+  "templates.starter.pascal": {
+    "translation": "Pascal Başlangıç"
+  },
   "templates.starter.perl": {
     "translation": "Perl Başlangıç"
   },

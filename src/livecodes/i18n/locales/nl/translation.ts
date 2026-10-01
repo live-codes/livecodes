@@ -1026,6 +1026,7 @@ const translation: I18nTranslation = {
       minizinc: 'MiniZinc Starter',
       'objc-wasm': 'Objective-C (Wasm)-starter',
       ocaml: 'Ocaml-starter',
+      pascal: 'Pascal-starter',
       perl: 'Perl-starter',
       phaser: 'Phaser-starter',
       php: 'PHP-starter',

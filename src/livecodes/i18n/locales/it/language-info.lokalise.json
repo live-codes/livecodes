@@ -519,6 +519,15 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "pascal.desc": {
+    "translation": "Pascal in esecuzione nel browser utilizzando pas2js (del team Free Pascal), compilato in WebAssembly."
+  },
+  "pascal.link": {
+    "translation": "<tag-1> <tag-2>Sito ufficiale di Free Pascal</tag-2> </tag-1> <tag-3> <tag-4>Documentazione di pas2js</tag-4> </tag-3> <tag-5> <tag-6>pas2js wiki</tag-6> </tag-5> <tag-7> <tag-8>Documentazione LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carica modello di partenza</tag-10> </tag-9>"
+  },
+  "pascal.name": {
+    "translation": "Pascal"
+  },
   "perl.desc": {
     "translation": "Perl in esecuzione nel browser utilizzando Perlito."
   },

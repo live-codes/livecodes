@@ -1025,6 +1025,7 @@ const translation: I18nTranslation = {
       minizinc: 'MiniZinc স্টার্টার',
       'objc-wasm': 'Objective-C (Wasm) স্টার্টার',
       ocaml: 'Ocaml স্টার্টার',
+      pascal: 'Pascal স্টার্টার',
       perl: 'Perl স্টার্টার',
       phaser: 'Phaser স্টার্টার',
       php: 'PHP স্টার্টার',

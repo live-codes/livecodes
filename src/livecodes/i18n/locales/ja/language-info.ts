@@ -296,6 +296,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml ウェブサイト</2></1> <3> <4>OCaml ドキュメント</4> </3> <5> <6>ReScript ウェブサイト</6> </5> <7> <8>X分でYを学ぶ、X=OCaml</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
     name: 'OCaml',
   },
+  pascal: {
+    desc: 'pas2js（Free Pascal チームによる）を使用してブラウザで動作する Pascal。WebAssembly にコンパイルされます。',
+    link: '<1> <2>Free Pascal 公式ウェブサイト</2> </1> <3> <4>pas2js ドキュメント</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
+    name: 'Pascal',
+  },
   perl: {
     desc: 'Perlito を使用してブラウザで動作する Perl。',
     link: '<1> <2>Perl 公式ウェブサイト</2> </1> <3> <4>Perl ドキュメント</4> </3> <5> <6>Perlito5 Readme</6> </5> <7> <8>X分でYを学ぶ、X=perl</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',

@@ -2058,6 +2058,9 @@
   "templates.starter.ocaml": {
     "translation": "OCaml kezdő"
   },
+  "templates.starter.pascal": {
+    "translation": "Pascal kezdő"
+  },
   "templates.starter.perl": {
     "translation": "Perl kezdő"
   },

@@ -302,6 +302,11 @@ const languageInfo = {
     link: '<1><2>OCaml website</2></1> <3> <4>OCaml documentation</4> </3> <5> <6>ReScript website</6> </5> <7> <8>Learn X in Y minutes, where X=OCaml</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'OCaml',
   },
+  pascal: {
+    desc: 'Pascal running in the browser using pas2js (by the Free Pascal team) compiled to WebAssembly.',
+    link: '<1> <2>Free Pascal website</2> </1> <3> <4>pas2js documentation</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Pascal',
+  },
   perl: {
     desc: 'Perl running in the browser using Perlito.',
     link: '<1> <2>Perl official website</2> </1> <3> <4>Perl documentation</4> </3> <5> <6>Perlito5 Readme</6> </5> <7> <8>Learn X in Y minutes, where X=perl</8> </7> <9> <10>Load starter template</10> </9>',

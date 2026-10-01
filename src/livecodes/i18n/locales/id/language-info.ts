@@ -296,6 +296,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Situs web OCaml</2></1> <3> <4>Dokumentasi OCaml</4> </3> <5> <6>Situs web ReScript</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=OCaml</8> </7> <9> <10>Muat template pemula</10> </9>',
     name: 'OCaml',
   },
+  pascal: {
+    desc: 'Pascal berjalan di browser menggunakan pas2js (oleh tim Free Pascal), dikompilasi ke WebAssembly.',
+    link: '<1> <2>Situs web resmi Free Pascal</2> </1> <3> <4>Dokumentasi pas2js</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
+    name: 'Pascal',
+  },
   perl: {
     desc: 'Perl berjalan di browser menggunakan Perlito.',
     link: '<1> <2>Situs web resmi Perl</2> </1> <3> <4>Dokumentasi Perl</4> </3> <5> <6>Readme Perlito5</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=perl</8> </7> <9> <10>Muat template pemula</10> </9>',

@@ -296,6 +296,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml weboldal</2></1> <3> <4>OCaml dokumentáció</4> </3> <5> <6>ReScript weboldal</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=OCaml</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'OCaml',
   },
+  pascal: {
+    desc: 'A Pascal a pas2js (a Free Pascal csapatától) segítségével fut a böngészőben, WebAssembly-re fordítva.',
+    link: '<1> <2>Free Pascal hivatalos weboldal</2> </1> <3> <4>pas2js dokumentáció</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes dokumentációk</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Pascal',
+  },
   perl: {
     desc: 'Perl fut a böngészőben a Perlito használatával.',
     link: '<1> <2>Perl hivatalos weboldal</2> </1> <3> <4>Perl dokumentáció</4> </3> <5> <6>Perlito5 Readme</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=perl</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',

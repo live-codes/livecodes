@@ -519,6 +519,15 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "pascal.desc": {
+    "translation": "Pascal, Free Pascal ekibi tarafından pas2js kullanılarak tarayıcıda çalışır ve WebAssembly'ye derlenir."
+  },
+  "pascal.link": {
+    "translation": "<tag-1> <tag-2>Free Pascal resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>pas2js dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>pas2js wiki</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "pascal.name": {
+    "translation": "Pascal"
+  },
   "perl.desc": {
     "translation": "Perlito kullanılarak tarayıcıda çalışan Perl."
   },

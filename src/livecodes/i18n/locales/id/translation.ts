@@ -1025,6 +1025,7 @@ const translation: I18nTranslation = {
       minizinc: 'Pemula MiniZinc',
       'objc-wasm': 'Pemula Objective-C (Wasm)',
       ocaml: 'Pemula Ocaml',
+      pascal: 'Pemula Pascal',
       perl: 'Pemula Perl',
       phaser: 'Pemula Phaser',
       php: 'Pemula PHP',

@@ -519,6 +519,15 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "pascal.desc": {
+    "translation": "Free Pascal দলের pas2js ব্যবহার করে ব্রাউজারে Pascal চলছে, যা WebAssembly-তে কম্পাইল করা।"
+  },
+  "pascal.link": {
+    "translation": "<tag-1> <tag-2>Free Pascal অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>pas2js ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>pas2js wiki</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "pascal.name": {
+    "translation": "Pascal"
+  },
   "perl.desc": {
     "translation": "Perlito ব্যবহার করে ব্রাউজারে চলমান Perl।"
   },

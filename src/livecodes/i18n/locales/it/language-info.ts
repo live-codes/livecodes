@@ -295,6 +295,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Sito web di OCaml</2></1> <3> <4>Documentazione di OCaml</4> </3> <5> <6>Sito web di ReScript</6> </5> <7> <8>Impara X in Y minuti, dove X=OCaml</8> </7> <9> <10>Carica modello di partenza</10> </9>',
     name: 'OCaml',
   },
+  pascal: {
+    desc: 'Pascal in esecuzione nel browser utilizzando pas2js (del team Free Pascal), compilato in WebAssembly.',
+    link: '<1> <2>Sito ufficiale di Free Pascal</2> </1> <3> <4>Documentazione di pas2js</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>Documentazione LiveCodes</8> </7> <9> <10>Carica modello di partenza</10> </9>',
+    name: 'Pascal',
+  },
   perl: {
     desc: 'Perl in esecuzione nel browser utilizzando Perlito.',
     link: '<1> <2>Sito ufficiale di Perl</2> </1> <3> <4>Documentazione di Perl</4> </3> <5> <6>Readme di Perlito5</6> </5> <7> <8>Impara X in Y minuti, dove X=perl</8> </7> <9> <10>Carica modello di partenza</10> </9>',

@@ -100,7 +100,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.2/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.3/build/');
 
 export const codemirrorMinimapUrl = /* @__PURE__ */ getUrl(
   '@replit/codemirror-minimap@0.5.2/dist/index.js',
@@ -368,6 +368,14 @@ export const nunjucksBaseUrl = /* @__PURE__ */ getUrl('nunjucks@3.2.4/browser/')
 export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1.8.2/');
 
 export const parinferUrl = /* @__PURE__ */ getUrl('parinfer@3.13.1/parinfer.js');
+
+export const pascalWasmScriptUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/pascal-wasm@0.1.0/dist/pascal-wasm.iife.min.js',
+);
+
+// The classic-script build has no module URL, so it cannot find `assets/` on its
+// own and needs to be told where they are.
+export const pascalWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/pascal-wasm@0.1.0/assets/');
 
 export const pathBrowserifyUrl = /* @__PURE__ */ getModuleUrl('path-browserify@1.0.1');
 

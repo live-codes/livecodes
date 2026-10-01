@@ -296,6 +296,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml Website</2></1> <3> <4>OCaml Dokumentation</4> </3> <5> <6>ReScript Website</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=OCaml</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
     name: 'OCaml',
   },
+  pascal: {
+    desc: 'Pascal läuft im Browser mit pas2js (vom Free Pascal-Team) und wird zu WebAssembly kompiliert.',
+    link: '<1> <2>Offizielle Free Pascal-Website</2> </1> <3> <4>pas2js-Dokumentation</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes-Dokumentationen</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
+    name: 'Pascal',
+  },
   perl: {
     desc: 'Perl läuft im Browser mit Perlito.',
     link: '<1> <2>Perl offizielle Website</2> </1> <3> <4>Perl Dokumentation</4> </3> <5> <6>Perlito5 Readme</6> </5> <7> <8>Lerne X in Y Minuten, wobei X=Perl</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
