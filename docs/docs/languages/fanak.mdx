@@ -65,7 +65,28 @@ The prelude is implicit in every file. The standard library is opt-in with
 
 ## Code Formatting
 
-Using the Fanak compiler's own formatter.
+In the Monaco editor, formatting is provided by the Fanak language service
+(compiler-backed, using the Fanak compiler's own formatter). It is not
+available in the CodeMirror or CodeJar editors.
+
+## Communication with JavaScript
+
+The Fanak program runs in the context of the result page. A few helpers are
+available on the browser global `livecodes.fanak` object:
+
+- `livecodes.fanak.loaded`: a promise that resolves when the compiler and the
+  program have finished running.
+- `livecodes.fanak.output`: the program's standard output (a string), or `null`.
+- `livecodes.fanak.error`: the program's error output (a string), or `null`.
+- `livecodes.fanak.exitCode`: `0` on success, `1` on error.
+- `livecodes.fanak.run`: re-runs the program and returns a promise resolving to an
+  object with `output`, `error` and `exitCode`. (It accepts an `input` argument
+  for host parity, but Fanak has no standard-input primitive yet, so it is
+  currently ignored.)
+
+Example:
+
+<LiveCodes template="fanak" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
 
 ## Live Reload
 
