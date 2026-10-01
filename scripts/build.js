@@ -253,6 +253,7 @@ const iifeBuild = () =>
       'languages/minizinc/lang-minizinc-script.ts',
       'languages/mustache/lang-mustache-compiler.ts',
       'languages/nunjucks/lang-nunjucks-compiler.ts',
+      'languages/pascal/lang-pascal-compiler.ts',
       'languages/perl/lang-perl-script.ts',
       'languages/php-wasm/lang-php-wasm-script.ts',
       'languages/prolog/lang-prolog-script.ts',

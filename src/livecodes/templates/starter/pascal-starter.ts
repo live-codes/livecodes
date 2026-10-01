@@ -34,8 +34,6 @@ export const pascalStarter: Template = {
     content: `
 program app;
 
-{$mode objfpc}{$H+}
-
 uses
   web, sysutils;
 
