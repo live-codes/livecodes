@@ -207,6 +207,15 @@
   "eta.name": {
     "translation": "Eta"
   },
+  "fanak.desc": {
+    "translation": "Fanak 是一种编译为 CIL (.NET) 的函数式编程语言。其编译器和 .NET WebAssembly 运行时完全在浏览器中运行，并从 Fanak 项目获取，因此首次运行时会下载运行时，可能需要一些时间。"
+  },
+  "fanak.link": {
+    "translation": "<tag-1> <tag-2>Fanak 仓库</tag-2> </tag-1> <tag-3> <tag-4>Fanak 文档</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes 文档</tag-6> </tag-5> <tag-7> <tag-8>加载入门模板</tag-8> </tag-7>"
+  },
+  "fanak.name": {
+    "translation": "Fanak"
+  },
   "fennel.desc": {
     "translation": "Fennel 是一种编程语言，它结合了 Lua 的快速、简洁和广泛性以及 Lisp 语法和宏系统的灵活性。"
   },

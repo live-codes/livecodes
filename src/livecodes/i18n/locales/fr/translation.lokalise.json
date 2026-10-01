@@ -1971,6 +1971,9 @@
   "templates.starter.elm": {
     "translation": "Démarrage Elm"
   },
+  "templates.starter.fanak": {
+    "translation": "Démarrage Fanak"
+  },
   "templates.starter.fennel": {
     "translation": "Démarrage Fennel"
   },

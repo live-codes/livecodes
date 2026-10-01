@@ -119,6 +119,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>官方网站</2></1> <3> <4>文档</4> </3> <5> <6>LiveCodes 文档</6> </5>',
     name: 'Eta',
   },
+  fanak: {
+    desc: 'Fanak 是一种编译为 CIL (.NET) 的函数式编程语言。其编译器和 .NET WebAssembly 运行时完全在浏览器中运行，并从 Fanak 项目获取，因此首次运行时会下载运行时，可能需要一些时间。',
+    link: '<1> <2>Fanak 仓库</2> </1> <3> <4>Fanak 文档</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
+    name: 'Fanak',
+  },
   fennel: {
     desc: 'Fennel 是一种编程语言，它结合了 Lua 的快速、简洁和广泛性以及 Lisp 语法和宏系统的灵活性。',
     link: '<1> <2>Fennel 官方网站</2> </1> <3> <4>Fennel 入门</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载启动模板</8> </7>',

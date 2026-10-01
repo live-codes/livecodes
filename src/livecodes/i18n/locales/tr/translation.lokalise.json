@@ -1971,6 +1971,9 @@
   "templates.starter.elm": {
     "translation": "Elm Başlangıç"
   },
+  "templates.starter.fanak": {
+    "translation": "Fanak Başlangıç"
+  },
   "templates.starter.fennel": {
     "translation": "Fennel Başlangıç"
   },
