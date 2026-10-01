@@ -1971,6 +1971,9 @@
   "templates.starter.elm": {
     "translation": "شروع کننده Elm"
   },
+  "templates.starter.fanak": {
+    "translation": "شروع کننده Fanak"
+  },
   "templates.starter.fennel": {
     "translation": "شروع کننده Fennel"
   },

@@ -207,6 +207,15 @@
   "eta.name": {
     "translation": "Eta"
   },
+  "fanak.desc": {
+    "translation": "Fanak, CIL (.NET) diline derlenen işlevsel bir programlama dilidir. Derleyicisi ve .NET WebAssembly çalışma zamanı tamamen tarayıcıda çalışır ve Fanak projesinden alınır; bu nedenle ilk çalıştırmada çalışma zamanı indirilir ve bu biraz zaman alabilir."
+  },
+  "fanak.link": {
+    "translation": "<tag-1> <tag-2>Fanak deposu</tag-2> </tag-1> <tag-3> <tag-4>Fanak belgeleri</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Belgeleri</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "fanak.name": {
+    "translation": "Fanak"
+  },
   "fennel.desc": {
     "translation": "Fennel, Lua'nın hızını, basitliğini ve erişimini bir lisp sözdizimi ve makro sisteminin esnekliğiyle birleştiren bir programlama dilidir."
   },

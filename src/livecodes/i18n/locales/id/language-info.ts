@@ -121,6 +121,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Situs web resmi</2></1> <3> <4>Dokumentasi</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5>',
     name: 'Eta',
   },
+  fanak: {
+    desc: 'Fanak adalah bahasa pemrograman fungsional yang dikompilasi ke CIL (.NET). Kompiler dan runtime .NET WebAssembly-nya berjalan sepenuhnya di browser, diambil dari proyek Fanak, sehingga proses pertama kali dijalankan akan mengunduh runtime dan mungkin membutuhkan waktu sejenak.',
+    link: '<1> <2>Repo Fanak</2> </1> <3> <4>Dokumentasi Fanak</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat templat awal</8> </7>',
+    name: 'Fanak',
+  },
   fennel: {
     desc: 'Fennel adalah bahasa pemrograman yang menggabungkan kecepatan, kesederhanaan, dan jangkauan Lua dengan fleksibilitas sintaks lisp dan sistem makro.',
     link: '<1> <2>Situs web resmi Fennel</2> </1> <3> <4>Memulai dengan Fennel</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat template pemula</8> </7>',

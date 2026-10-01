@@ -207,6 +207,15 @@
   "eta.name": {
     "translation": "Eta"
   },
+  "fanak.desc": {
+    "translation": "Fanak یک زبان برنامه‌نویسی تابعی است که به CIL (.NET) کامپایل می‌شود. کامپایلر آن و محیط اجرایی .NET WebAssembly کاملاً در مرورگر اجرا می‌شوند و از پروژه Fanak دریافت می‌شوند، بنابراین اولین اجرا محیط اجرایی را دانلود می‌کند و ممکن است کمی طول بکشد."
+  },
+  "fanak.link": {
+    "translation": "<tag-1> <tag-2>مخزن Fanak</tag-2> </tag-1> <tag-3> <tag-4>مستندات Fanak</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگیری قالب شروع</tag-8> </tag-7>"
+  },
+  "fanak.name": {
+    "translation": "Fanak"
+  },
   "fennel.desc": {
     "translation": "Fennel یک زبان برنامه‌نویسی است که سرعت، سادگی و دسترسی Lua را با انعطاف‌پذیری نحو لیسپ و سیستم ماکرو ترکیب می‌کند."
   },

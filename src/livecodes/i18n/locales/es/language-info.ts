@@ -120,6 +120,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Sitio web oficial</2></1> <3> <4>Documentación</4> </3> <5> <6>Documentación de LiveCodes</6> </5>',
     name: 'Eta',
   },
+  fanak: {
+    desc: 'Fanak es un lenguaje de programación funcional que compila a CIL (.NET). Su compilador y el entorno de ejecución .NET para WebAssembly se ejecutan completamente en el navegador, obtenidos del proyecto Fanak, por lo que la primera ejecución descarga el entorno de ejecución y puede tardar un momento.',
+    link: '<1> <2>repositorio de Fanak</2> </1> <3> <4>Documentación de Fanak</4> </3> <5> <6>Documentación de LiveCodes</6> </5> <7> <8>Cargar plantilla de inicio</8> </7>',
+    name: 'Fanak',
+  },
   fennel: {
     desc: 'Fennel es un lenguaje de programación que combina la velocidad, simplicidad y alcance de Lua con la flexibilidad de una sintaxis de lisp y un sistema de macros.',
     link: '<1> <2>Sitio web oficial de Fennel</2> </1> <3> <4>Introducción a Fennel</4> </3> <5> <6>Documentación de LiveCodes</6> </5> <7> <8>Cargar plantilla inicial</8> </7>',

@@ -315,6 +315,7 @@ export const getCommandMenuActions = ({
         'vb-wasm',
         'fsharp',
         'fsharp-wasm',
+        'fanak',
         'haskell',
         'haskell-wasm',
         'scheme',

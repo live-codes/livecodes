@@ -127,6 +127,11 @@ const languageInfo = {
     link: '<1><2>Official website</2></1> <3> <4>Documentation</4> </3> <5> <6>LiveCodes Documentations</6> </5>',
     name: 'Eta',
   },
+  fanak: {
+    desc: 'Fanak is a functional programming language that compiles to CIL (.NET). Its compiler and .NET WebAssembly runtime run entirely in the browser, fetched from the Fanak project, so the first run downloads the runtime and can take a moment.',
+    link: '<1> <2>Fanak repository</2> </1> <3> <4>Fanak documentation</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'Fanak',
+  },
   fennel: {
     desc: 'Fennel is a programming language that brings together the speed, simplicity, and reach of Lua with the flexibility of a lisp syntax and macro system.',
     link: '<1> <2>Fennel official website</2> </1> <3> <4>Getting Started with Fennel</4> </3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template</8> </7>',

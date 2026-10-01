@@ -1,0 +1,115 @@
+# Fanak
+
+Fanak is a functional programming language that compiles to CIL (.NET). It has
+algebraic data types with pattern matching, typeclasses, higher-order functions
+and a small effectful standard library.
+
+In LiveCodes, Fanak compiles and runs entirely in the browser: the Fanak
+compiler and a .NET WebAssembly runtime (Blazor WebAssembly) are fetched from
+the Fanak project, the program's assembly is emitted in memory, and the result
+runs in the page.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+export const fanakConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'fanak',
+    content: `import std;
+
+Unit main() {
+    List<int> xs = List.empty<int>().add(1).add(2).add(3);
+    List<int> tens = xs.iter().map((int x) => x * 10).toList();
+    runUnit(println(tens));
+}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={fanakConfig}></LiveCodes>
+
+## Language Info
+
+### Name
+
+`fanak`
+
+### Aliases / Extensions
+
+`fnk`, `fanak`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The Fanak compiler and .NET WebAssembly runtime (Blazor WebAssembly), fetched
+from the [Fanak project](https://gitlab.com/AhmedWael216/fanak) and run entirely
+in the browser. There is no server round-trip; the first run downloads the
+runtime and can take a moment.
+
+The prelude is implicit in every file. The standard library is opt-in with
+`import std;`.
+
+### Version
+
+0.1.0
+
+## Code Formatting
+
+In the Monaco editor, formatting is provided by the Fanak language service
+(compiler-backed, using the Fanak compiler's own formatter). It is not
+available in the CodeMirror or CodeJar editors.
+
+## Communication with JavaScript
+
+The Fanak program runs in the context of the result page. A few helpers are
+available on the browser global `livecodes.fanak` object:
+
+- `livecodes.fanak.loaded`: a promise that resolves when the compiler and the
+  program have finished running.
+- `livecodes.fanak.output`: the program's standard output (a string), or `null`.
+- `livecodes.fanak.error`: the program's error output (a string), or `null`.
+- `livecodes.fanak.exitCode`: `0` on success, `1` on error.
+- `livecodes.fanak.run`: re-runs the program and returns a promise resolving to an
+  object with `output`, `error` and `exitCode`. (It accepts an `input` argument
+  for host parity, but Fanak has no standard-input primitive yet, so it is
+  currently ignored.)
+
+Example:
+
+<LiveCodes template="fanak" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation
+without a full page reload, avoiding the need to reinitialize the compiler.
+
+## Example Usage
+
+```fanak
+import std;
+
+Unit main() {
+    // Options, lambdas and pattern matching
+    Option<int> answer = Some(6 * 7);
+    runUnit(println(answer.getOr(0))); // 42
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=fanak
+
+## Links
+
+- [Fanak](https://gitlab.com/AhmedWael216/fanak)
+- [Fanak documentation](https://ahmedwael216.gitlab.io/fanak/)

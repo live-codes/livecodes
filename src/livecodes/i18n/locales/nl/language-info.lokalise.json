@@ -207,6 +207,15 @@
   "eta.name": {
     "translation": "Eta"
   },
+  "fanak.desc": {
+    "translation": "Fanak is een functionele programmeertaal die compileert naar CIL (.NET). De compiler en de .NET WebAssembly-runtime draaien volledig in de browser en worden opgehaald uit het Fanak-project, dus de eerste keer dat je het uitvoert wordt de runtime gedownload en kan het even duren."
+  },
+  "fanak.link": {
+    "translation": "<tag-1> <tag-2>Fanak-repo</tag-2> </tag-1> <tag-3> <tag-4>Fanak-documentatie</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes-documentatie</tag-6> </tag-5> <tag-7> <tag-8>Startersjabloon laden</tag-8> </tag-7>"
+  },
+  "fanak.name": {
+    "translation": "Fanak"
+  },
   "fennel.desc": {
     "translation": "Fennel is een programmeertaal die de snelheid, eenvoud en bereik van Lua combineert met de flexibiliteit van een lisp-syntaxis en macrosysteem."
   },

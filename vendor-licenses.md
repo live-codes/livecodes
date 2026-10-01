@@ -86,6 +86,8 @@ Fable: [MIT License](https://github.com/fable-compiler/Fable/blob/67e8540a211832
 
 F#: [MIT License](https://github.com/dotnet/fsharp/blob/df0e60991911eed31f861bb38403a389346055e2/License.txt)
 
+Fanak: [Apache License 2.0](https://gitlab.com/AhmedWael216/fanak/-/blob/main/LICENSE)
+
 .NET runtime: [MIT License](https://github.com/dotnet/runtime/blob/20f7be9ec07eafd5b756df30de33a9452c9e1c14/LICENSE.TXT)
 
 fengari-web: [MIT License](https://github.com/fengari-lua/fengari-web/blob/77d35f5e1516f431cbb96e165b4272f2fc9b0b3a/LICENSE)

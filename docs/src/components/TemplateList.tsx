@@ -61,6 +61,7 @@ const templates = [
   { name: 'vb-wasm', title: 'VB.NET (Wasm)', thumbnail: 'vb.svg' },
   { name: 'fsharp', title: 'F# Starter', thumbnail: 'fsharp.svg' },
   { name: 'fsharp-wasm', title: 'F# (Wasm) Starter', thumbnail: 'fsharp.svg' },
+  { name: 'fanak', title: 'Fanak Starter', thumbnail: 'fanak.png' },
   { name: 'scheme', title: 'Scheme Starter', thumbnail: 'scheme.svg' },
   { name: 'commonlisp', title: 'Common Lisp Starter', thumbnail: 'commonlisp.svg' },
   { name: 'clojurescript', title: 'ClojureScript Starter', thumbnail: 'cljs.svg' },

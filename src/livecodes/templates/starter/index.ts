@@ -20,6 +20,7 @@ import { d3Starter } from './d3-starter';
 import { daisyuiStarter } from './daisyui-starter';
 import { diagramsStarter } from './diagrams-starter';
 import { elmStarter } from './elm-starter';
+import { fanakStarter } from './fanak-starter';
 import { fennelStarter } from './fennel-starter';
 import { fsharpStarter } from './fsharp-starter';
 import { fsharpWasmStarter } from './fsharp-wasm-starter';
@@ -142,6 +143,7 @@ export const starterTemplates = [
   vbWasmStarter,
   fsharpStarter,
   fsharpWasmStarter,
+  fanakStarter,
   haskellStarter,
   haskellWasmStarter,
   schemeStarter,

@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUI स्टार्टर',
       diagrams: 'आरेख स्टार्टर',
       elm: 'Elm स्टार्टर',
+      fanak: 'Fanak स्टार्टर',
       fennel: 'Fennel स्टार्टर',
       fsharp: 'F# स्टार्टर',
       'fsharp-wasm': 'F# (Wasm) स्टार्टर',

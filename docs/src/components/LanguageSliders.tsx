@@ -103,6 +103,7 @@ export default function Sliders() {
       { name: 'vb-wasm', title: 'VB.NET (Wasm)' },
       { name: 'fsharp', title: 'F#' },
       { name: 'fsharp-wasm', title: 'F# (Wasm)' },
+      { name: 'fanak', title: 'Fanak' },
       { name: 'scheme', title: 'Scheme' },
       { name: 'commonlisp', title: 'Lisp' },
       { name: 'clojurescript-cherry', title: 'CLJS (Cherry)' },

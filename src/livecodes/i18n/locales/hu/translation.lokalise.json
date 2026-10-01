@@ -1971,6 +1971,9 @@
   "templates.starter.elm": {
     "translation": "Elm kezdő"
   },
+  "templates.starter.fanak": {
+    "translation": "Fanak kezdő"
+  },
   "templates.starter.fennel": {
     "translation": "Fennel kezdő"
   },

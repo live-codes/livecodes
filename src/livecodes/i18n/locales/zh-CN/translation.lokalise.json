@@ -1971,6 +1971,9 @@
   "templates.starter.elm": {
     "translation": "Elm 启动模板"
   },
+  "templates.starter.fanak": {
+    "translation": "Fanak 启动模板"
+  },
   "templates.starter.fennel": {
     "translation": "Fennel 启动模板"
   },

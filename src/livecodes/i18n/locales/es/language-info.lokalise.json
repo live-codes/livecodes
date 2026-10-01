@@ -207,6 +207,15 @@
   "eta.name": {
     "translation": "Eta"
   },
+  "fanak.desc": {
+    "translation": "Fanak es un lenguaje de programación funcional que compila a CIL (.NET). Su compilador y el entorno de ejecución .NET para WebAssembly se ejecutan completamente en el navegador, obtenidos del proyecto Fanak, por lo que la primera ejecución descarga el entorno de ejecución y puede tardar un momento."
+  },
+  "fanak.link": {
+    "translation": "<tag-1> <tag-2>repositorio de Fanak</tag-2> </tag-1> <tag-3> <tag-4>Documentación de Fanak</tag-4> </tag-3> <tag-5> <tag-6>Documentación de LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Cargar plantilla de inicio</tag-8> </tag-7>"
+  },
+  "fanak.name": {
+    "translation": "Fanak"
+  },
   "fennel.desc": {
     "translation": "Fennel es un lenguaje de programación que combina la velocidad, simplicidad y alcance de Lua con la flexibilidad de una sintaxis de lisp y un sistema de macros."
   },
