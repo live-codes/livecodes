@@ -1971,6 +1971,9 @@
   "templates.starter.elm": {
     "translation": "قالب Elm"
   },
+  "templates.starter.fanak": {
+    "translation": "قالب Fanak"
+  },
   "templates.starter.fennel": {
     "translation": "قالب Fennel"
   },

@@ -1003,6 +1003,7 @@ const translation = {
       daisyui: 'daisyUI Starter',
       diagrams: 'Diagrams Starter',
       elm: 'Elm Starter',
+      fanak: 'Fanak Starter',
       fennel: 'Fennel Starter',
       fsharp: 'F# Starter',
       'fsharp-wasm': 'F# (Wasm) Starter',

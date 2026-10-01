@@ -207,6 +207,15 @@
   "eta.name": {
     "translation": "Eta"
   },
+  "fanak.desc": {
+    "translation": "A Fanak egy funkcionális programozási nyelv, amely CIL (.NET) kódra fordul. A fordítója és a .NET WebAssembly futtatókörnyezet teljes egészében a böngészőben fut, a Fanak projektből letöltve, ezért az első futtatáskor a futtatókörnyezet letöltése megtörténik, ami eltarthat egy ideig."
+  },
+  "fanak.link": {
+    "translation": "<tag-1> <tag-2>Fanak tároló</tag-2> </tag-1> <tag-3> <tag-4>Fanak dokumentáció</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes dokumentáció</tag-6> </tag-5> <tag-7> <tag-8>Kezdő sablon betöltése</tag-8> </tag-7>"
+  },
+  "fanak.name": {
+    "translation": "Fanak"
+  },
   "fennel.desc": {
     "translation": "A Fennel egy programozási nyelv, amely ötvözi a Lua sebességét, egyszerűségét és elérhetőségét a lisp szintaxis és makrórendszer rugalmasságával."
   },

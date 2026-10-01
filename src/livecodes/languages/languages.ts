@@ -21,6 +21,7 @@ import { dot } from './dot';
 import { ejs } from './ejs';
 import { elm } from './elm';
 import { eta } from './eta';
+import { fanak } from './fanak';
 import { fennel } from './fennel';
 import { flow } from './flow';
 import { fsharp } from './fsharp';
@@ -172,6 +173,7 @@ export const languages: LanguageSpecs[] = [
   vbWasm,
   fsharp,
   fsharpWasm,
+  fanak,
   haskell,
   haskellWasm,
   scheme,

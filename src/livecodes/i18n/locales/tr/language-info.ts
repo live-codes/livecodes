@@ -120,6 +120,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Resmi web sitesi</2></1> <3> <4>Dokümantasyon</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5>',
     name: 'Eta',
   },
+  fanak: {
+    desc: 'Fanak, CIL (.NET) diline derlenen işlevsel bir programlama dilidir. Derleyicisi ve .NET WebAssembly çalışma zamanı tamamen tarayıcıda çalışır ve Fanak projesinden alınır; bu nedenle ilk çalıştırmada çalışma zamanı indirilir ve bu biraz zaman alabilir.',
+    link: '<1> <2>Fanak deposu</2> </1> <3> <4>Fanak belgeleri</4> </3> <5> <6>LiveCodes Belgeleri</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
+    name: 'Fanak',
+  },
   fennel: {
     desc: "Fennel, Lua'nın hızını, basitliğini ve erişimini bir lisp sözdizimi ve makro sisteminin esnekliğiyle birleştiren bir programlama dilidir.",
     link: "<1> <2>Fennel resmi web sitesi</2> </1> <3> <4>Fennel'e Başlarken</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",

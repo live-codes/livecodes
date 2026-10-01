@@ -997,6 +997,7 @@ const translation: I18nTranslation = {
       daisyui: 'شروع کننده daisyUI',
       diagrams: 'شروع کننده نمودارها',
       elm: 'شروع کننده Elm',
+      fanak: 'شروع کننده Fanak',
       fennel: 'شروع کننده Fennel',
       fsharp: 'شروع کننده F#',
       'fsharp-wasm': 'شروع کننده F# (Wasm)',

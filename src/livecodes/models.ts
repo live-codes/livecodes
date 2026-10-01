@@ -205,6 +205,7 @@ export interface Compiler {
     | 'text/zig-wasm'
     | 'text/java'
     | 'text/csharp-wasm'
+    | 'text/fanak'
     | 'text/vb-wasm'
     | 'text/fsharp-wasm'
     | 'text/perl'

@@ -207,6 +207,15 @@
   "eta.name": {
     "translation": "Eta"
   },
+  "fanak.desc": {
+    "translation": "Fanak adalah bahasa pemrograman fungsional yang dikompilasi ke CIL (.NET). Kompiler dan runtime .NET WebAssembly-nya berjalan sepenuhnya di browser, diambil dari proyek Fanak, sehingga proses pertama kali dijalankan akan mengunduh runtime dan mungkin membutuhkan waktu sejenak."
+  },
+  "fanak.link": {
+    "translation": "<tag-1> <tag-2>Repo Fanak</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Fanak</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat templat awal</tag-8> </tag-7>"
+  },
+  "fanak.name": {
+    "translation": "Fanak"
+  },
   "fennel.desc": {
     "translation": "Fennel adalah bahasa pemrograman yang menggabungkan kecepatan, kesederhanaan, dan jangkauan Lua dengan fleksibilitas sintaks lisp dan sistem makro."
   },

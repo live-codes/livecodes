@@ -121,6 +121,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Hivatalos weboldal</2></1> <3> <4>Dokumentáció</4> </3> <5> <6>LiveCodes dokumentáció</6> </5>',
     name: 'Eta',
   },
+  fanak: {
+    desc: 'A Fanak egy funkcionális programozási nyelv, amely CIL (.NET) kódra fordul. A fordítója és a .NET WebAssembly futtatókörnyezet teljes egészében a böngészőben fut, a Fanak projektből letöltve, ezért az első futtatáskor a futtatókörnyezet letöltése megtörténik, ami eltarthat egy ideig.',
+    link: '<1> <2>Fanak tároló</2> </1> <3> <4>Fanak dokumentáció</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
+    name: 'Fanak',
+  },
   fennel: {
     desc: 'A Fennel egy programozási nyelv, amely ötvözi a Lua sebességét, egyszerűségét és elérhetőségét a lisp szintaxis és makrórendszer rugalmasságával.',
     link: '<1> <2>Fennel hivatalos weboldal</2> </1> <3> <4>Kezdés a Fennel-lel</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',

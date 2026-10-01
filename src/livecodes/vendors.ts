@@ -146,6 +146,10 @@ export const esModuleShimsPath = 'es-module-shims@1.10.0/dist/es-module-shims.js
 
 export const etaUrl = /* @__PURE__ */ getUrl('eta@3.4.0/dist/eta.umd.js');
 
+export const fanakBaseUrl = 'https://ahmedwael216.gitlab.io/fanak/runner/latest/';
+
+export const fanakMonacoUrl = 'https://ahmedwael216.gitlab.io/fanak/monaco/fanak.js';
+
 export const fflateUrl = /* @__PURE__ */ getUrl('fflate@0.8.1/esm/browser.js');
 
 export const flexSearchUrl = /* @__PURE__ */ getUrl('flexsearch@0.7.21/dist/flexsearch.bundle.js');
