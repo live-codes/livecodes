@@ -1022,6 +1022,7 @@ const translation: I18nTranslation = {
       minizinc: 'MiniZinc 启动模板',
       'objc-wasm': 'Objective-C（WASM）启动模板',
       ocaml: 'Ocaml 启动模板',
+      pascal: 'Pascal 启动模板',
       perl: 'Perl 启动模板',
       phaser: 'Phaser 启动模板',
       php: 'PHP 启动模板',

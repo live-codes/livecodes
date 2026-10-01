@@ -2055,6 +2055,9 @@
   "templates.starter.ocaml": {
     "translation": "OCamlスターター"
   },
+  "templates.starter.pascal": {
+    "translation": "Pascalスターター"
+  },
   "templates.starter.perl": {
     "translation": "Perlスターター"
   },

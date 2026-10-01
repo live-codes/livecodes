@@ -1025,6 +1025,7 @@ const translation: I18nTranslation = {
       minizinc: 'MiniZinc Başlangıç',
       'objc-wasm': 'Objective-C (Wasm) Başlangıç',
       ocaml: 'Ocaml Başlangıç',
+      pascal: 'Pascal Başlangıç',
       perl: 'Perl Başlangıç',
       phaser: 'Phaser Başlangıç',
       php: 'PHP Başlangıç',

@@ -1024,6 +1024,7 @@ const translation: I18nTranslation = {
       minizinc: 'Inicio MiniZinc',
       'objc-wasm': 'Inicio Objective-C (Wasm)',
       ocaml: 'Inicio Ocaml',
+      pascal: 'Inicio Pascal',
       perl: 'Inicio Perl',
       phaser: 'Inicio Phaser',
       php: 'Inicio PHP',

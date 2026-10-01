@@ -2055,6 +2055,9 @@
   "templates.starter.ocaml": {
     "translation": "شروع کننده Ocaml"
   },
+  "templates.starter.pascal": {
+    "translation": "شروع کننده Pascal"
+  },
   "templates.starter.perl": {
     "translation": "شروع کننده Perl"
   },

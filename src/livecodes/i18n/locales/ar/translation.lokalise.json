@@ -2055,6 +2055,9 @@
   "templates.starter.ocaml": {
     "translation": "قالب Ocaml"
   },
+  "templates.starter.pascal": {
+    "translation": "قالب Pascal"
+  },
   "templates.starter.perl": {
     "translation": "قالب Perl"
   },

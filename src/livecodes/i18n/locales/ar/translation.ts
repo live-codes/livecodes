@@ -1024,6 +1024,7 @@ const translation: I18nTranslation = {
       minizinc: 'قالب MiniZinc',
       'objc-wasm': 'قالب Objective-C (Wasm)',
       ocaml: 'قالب Ocaml',
+      pascal: 'قالب Pascal',
       perl: 'قالب Perl',
       phaser: 'قالب Phaser',
       php: 'قالب PHP',

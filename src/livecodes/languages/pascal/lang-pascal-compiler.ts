@@ -28,11 +28,25 @@ const formatDiagnostics = (diagnostics: string) => {
 };
 
 (self as any).createPascalCompiler = (): CompilerFunction => {
-  const compilerPromise = pascalWasm.createCompiler({ baseUrl: pascalWasmBaseUrl });
+  let compiler: ReturnType<typeof pascalWasm.createCompiler> | undefined;
+
+  const getCompiler = () => {
+    if (!compiler) {
+      compiler = pascalWasm.createCompiler({ baseUrl: pascalWasmBaseUrl });
+      // do not keep a failed boot (e.g. a transient network error)
+      compiler.catch(() => {
+        compiler = undefined;
+      });
+    }
+    return compiler;
+  };
+
+  // the compiler (a ~9 MB WASM module) is loaded once and kept warm
+  getCompiler().catch(() => undefined);
+
   return async (code) => {
     if (!code.trim()) return '';
-    const compiler = await compilerPromise;
-    const { js, diagnostics } = await compiler.compile(code);
+    const { js, diagnostics } = await (await getCompiler()).compile(code);
     if (!js) {
       return { code: '', info: { errors: formatDiagnostics(diagnostics) } };
     }
