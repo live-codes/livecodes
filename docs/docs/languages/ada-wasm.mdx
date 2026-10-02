@@ -1,0 +1,129 @@
+# Ada (Wasm)
+
+[Ada](https://www.adaic.org/) is a statically typed, high-level programming language designed for safety, reliability and maintainability.
+
+In LiveCodes, Ada is compiled and run entirely in the browser by [HAC](https://github.com/zertovitch/hac), an Ada compiler written in Ada and compiled to WebAssembly. No backend is involved.
+
+:::info Note
+
+HAC implements a subset of Ada 2022 (roughly the "Pascal subset" plus packages): no access types (pointers), no generics, and only constrained types. I/O is provided by the built-in `HAT` package.
+
+:::
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const adaConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'ada-wasm',
+    content: `with HAT; use HAT;\n
+procedure Ada_Demo is
+  function Fibonacci (N : Natural) return Natural is
+  begin
+    if N < 2 then
+      return N;
+    else
+      return Fibonacci (N - 1) + Fibonacci (N - 2);
+    end if;
+  end Fibonacci;
+begin
+  Put_Line ("Hello from Ada, running in your browser!");
+  for I in 0 .. 10 loop
+    Put ("Fib (");
+    Put (I, 1);
+    Put (") = ");
+    Put_Line (Fibonacci (I), 1);
+  end loop;
+end Ada_Demo;`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={adaConfig}></LiveCodes>
+
+### Standard I/O
+
+Ada code runs in the context of the [result page](../features/result.mdx). Standard output (e.g. `HAT.Put` and `HAT.Put_Line`) is captured and displayed in the [console](../features/console.mdx). Standard input is passed by setting the `livecodes.ada.input` property in JavaScript and is read in Ada using `HAT.Get`/`HAT.Get_Line`.
+
+### Communication with JavaScript
+
+The Ada code runs in the context of the result page. A few helper properties and methods are available in the browser global `livecodes.ada` object:
+
+- `livecodes.ada.input`: The standard input passed to the Ada program. It can be set before the initial run, or passed to `run` for subsequent runs.
+- `livecodes.ada.loaded`: A promise that resolves when the Ada compiler is fully loaded (and rejects if it fails to load). Other helpers should be used after this promise resolves.
+- `livecodes.ada.output`: The standard output of the last run.
+- `livecodes.ada.error`: The compiler diagnostics or runtime error of the last run, if any.
+- `livecodes.ada.exitCode`: The exit code of the last run.
+- `livecodes.ada.run(input)`: Runs the code in the editor, optionally passing standard input, and returns a promise that resolves to `{ output, error, exitCode }`.
+
+```js
+await livecodes.ada.loaded;
+const { output, error, exitCode } = await livecodes.ada.run(livecodes.ada.input);
+console.log(output);
+```
+
+## Language Info
+
+### Name
+
+`ada-wasm`
+
+### Aliases / Extensions
+
+`ada`, `adb`, `ads`, `hac`, `wasm.ada`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[HAC](https://github.com/zertovitch/hac) (HAC Ada Compiler), an Ada compiler and p-code virtual machine written in Ada, compiled to WebAssembly. It is packaged for the browser by [`@live-codes/ada-wasm`](https://www.npmjs.com/package/@live-codes/ada-wasm).
+
+### Version
+
+HAC 0.45
+
+## Code Formatting
+
+Not supported.
+
+## Limitations
+
+HAC implements a subset of Ada, so not all Ada programs compile:
+
+- No access types (pointers), no generics, and only constrained types.
+- `String` support is limited; use `HAT.VString` for variable-length strings.
+- Tasking is partially implemented.
+- Programs are single-file. Use the `HAT` package for input/output.
+
+## Example Usage
+
+This example passes standard input and runs the code again on each click, using the browser global `livecodes.ada` (also check the code in the HTML editor):
+
+<LiveCodes template="ada-wasm" height="80vh"></LiveCodes>
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the Ada WebAssembly compiler. This behavior can be disabled by adding the code comment `-- __livecodes_reload__` to the Ada code, which forces a full page reload.
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Starter Template
+
+https://livecodes.io/?template=ada-wasm
+
+## Links
+
+- [Ada Information Clearinghouse](https://www.adaic.org/)
+- [Ada Programming (Wikibooks)](https://en.wikibooks.org/wiki/Ada_Programming)
+- [HAC Ada Compiler](https://github.com/zertovitch/hac)
+- [@live-codes/ada-wasm](https://www.npmjs.com/package/@live-codes/ada-wasm)

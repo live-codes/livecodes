@@ -78,6 +78,8 @@ const storyDef: StoryDef = {
   Fennel: { props: { template: 'fennel' } },
   Julia: { props: { template: 'julia' } },
   Tcl: { props: { template: 'tcl' } },
+  AdaWasm: { props: { template: 'ada-wasm' } },
+  Pascal: { props: { template: 'pascal' } },
   AssemblyScript: { props: { template: 'assemblyscript' }, storyName: 'AssemblyScript' },
   WebAssemblyText: { props: { template: 'wat' }, storyName: 'WebAssembly Text' },
   SQL: { props: { template: 'sql' } },

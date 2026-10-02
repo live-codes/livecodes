@@ -1,5 +1,6 @@
 // this is bundled to build/livecodes/templates.js
 
+import { adaWasmStarter } from './ada-wasm-starter';
 import { angularStarter } from './angular-starter';
 import { assemblyscriptStarter } from './assemblyscript-starter';
 import { astroStarter } from './astro-starter';
@@ -137,7 +138,6 @@ export const starterTemplates = [
   rustWasmStarter,
   swiftWasmStarter,
   zigWasmStarter,
-  pascalStarter,
   javaStarter,
   csharpWasmStarter,
   vbWasmStarter,
@@ -158,6 +158,8 @@ export const starterTemplates = [
   fennelStarter,
   juliaStarter,
   tclStarter,
+  adaWasmStarter,
+  pascalStarter,
   assemblyscriptStarter,
   watStarter,
   sqlStarter,

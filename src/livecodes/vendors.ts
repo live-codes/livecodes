@@ -7,6 +7,8 @@ export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
+export const adaWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/ada-wasm@0.1.1/');
+
 export const artTemplateUrl = /* @__PURE__ */ getUrl('art-template@4.13.2/lib/template-web.js');
 
 export const asciidocUrl = /* @__PURE__ */ getUrl(
@@ -344,7 +346,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.6/dist/',
+  '@live-codes/monaco-languages@0.3.8/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');

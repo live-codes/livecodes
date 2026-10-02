@@ -268,6 +268,7 @@ const iifeBuild = () =>
       'languages/solid/lang-solid-compiler.ts',
       'languages/sql/lang-sql-compiler.ts',
       'languages/swift-wasm/lang-swift-wasm-script.ts',
+      'languages/ada-wasm/lang-ada-wasm-script.ts',
       'languages/sql/lang-sql-script.ts',
       'languages/svelte/lang-svelte-compiler.ts',
       'languages/tcl/lang-tcl-script.ts',
