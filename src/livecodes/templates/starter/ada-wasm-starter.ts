@@ -47,7 +47,7 @@ export const adaWasmStarter: Template = {
       const counter = document.querySelector("#counter");
       const name = document.querySelector("#name");
 
-      const [title, count] = output.split('\\n').map(s => s.trim());
+      const [title, count] = output.split('\\n');
 
       if (!isNaN(Number(count))) {
         window.count = Number(count);
@@ -88,7 +88,6 @@ begin
   -- program that prints the next value.
   Get (Current);
   Put_Line ("Ada");
-  -- The second argument is the field width; 1 avoids the default padding.
   Put_Line (Current + 1, 1);
 end Ada_Demo;
 `.trimStart(),
