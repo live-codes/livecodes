@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "Cari di templat..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "Pemula Ada (Wasm)"
+  },
   "templates.starter.angular": {
     "translation": "Pemula Angular"
   },

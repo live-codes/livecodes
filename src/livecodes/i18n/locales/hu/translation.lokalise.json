@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "Sablonok keresése..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "Ada (Wasm) kezdő"
+  },
   "templates.starter.angular": {
     "translation": "Angular kezdő"
   },

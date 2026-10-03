@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "Şablonlarda arama yapın..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "Ada (Wasm) Başlangıç"
+  },
   "templates.starter.angular": {
     "translation": "Angular Başlangıç"
   },

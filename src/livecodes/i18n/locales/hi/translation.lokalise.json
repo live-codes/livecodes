@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "टेम्प्लेट में खोजें..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "Ada (Wasm) स्टार्टर"
+  },
   "templates.starter.angular": {
     "translation": "Angular स्टार्टर"
   },

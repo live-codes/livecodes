@@ -975,6 +975,7 @@ const translation: I18nTranslation = {
       placeholder: 'ٹیمپلیٹس میں تلاش کریں...',
     },
     starter: {
+      'ada-wasm': 'Ada (واسم) شروعاتی',
       angular: 'اینگولر شروعاتی',
       assemblyscript: 'اسمبلی اسکرپٹ شروعاتی',
       astro: 'ایسٹرو شروعاتی',

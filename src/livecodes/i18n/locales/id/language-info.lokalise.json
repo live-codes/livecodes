@@ -1,5 +1,14 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "adaWasm.desc": {
+    "translation": "Ada dikompilasi dan dijalankan sepenuhnya di dalam browser oleh <1>HAC</1>, kompiler Ada yang ditulis dalam bahasa Ada dan dikompilasi ke WebAssembly. Tidak ada server yang terlibat."
+  },
+  "adaWasm.link": {
+    "translation": "<tag-1> <tag-2>Pusat Informasi Ada</tag-2> </tag-1> <tag-3> <tag-4>Pemrograman Ada (Wikibooks)</tag-4> </tag-3> <tag-5> <tag-6>Repo HAC</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat templat awal</tag-10> </tag-9>"
+  },
+  "adaWasm.name": {
+    "translation": "Ada (Wasm)"
+  },
   "artTemplate.desc": {
     "translation": "Mesin templating JavaScript berkinerja tinggi."
   },

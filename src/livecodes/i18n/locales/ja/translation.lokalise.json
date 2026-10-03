@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "テンプレートで検索..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "Ada（Wasm）スターター"
+  },
   "templates.starter.angular": {
     "translation": "Angularスターター"
   },

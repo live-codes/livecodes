@@ -975,6 +975,7 @@ const translation: I18nTranslation = {
       placeholder: 'بحث في القوالب...',
     },
     starter: {
+      'ada-wasm': 'قالب Ada (Wasm)',
       angular: 'قالب Angular',
       assemblyscript: 'قالب AssemblyScript',
       astro: 'قالب Astro',

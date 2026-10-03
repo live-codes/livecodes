@@ -1,5 +1,14 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "adaWasm.desc": {
+    "translation": "Ada は Ada で書かれ WebAssembly にコンパイルされた Ada コンパイラである <1>HAC</1> によって、完全にブラウザ内でコンパイルおよび実行されます。サーバーは関与しません。"
+  },
+  "adaWasm.link": {
+    "translation": "<tag-1> <tag-2>Ada 情報センター</tag-2> </tag-1> <tag-3> <tag-4>Ada プログラミング（Wikibooks）</tag-4> </tag-3> <tag-5> <tag-6>HAC リポジトリ</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートを読み込む</tag-10> </tag-9>"
+  },
+  "adaWasm.name": {
+    "translation": "Ada (Wasm)"
+  },
   "artTemplate.desc": {
     "translation": "高性能な JavaScript テンプレートエンジン。"
   },

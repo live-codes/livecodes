@@ -1,5 +1,14 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "adaWasm.desc": {
+    "translation": "Ada 由用 Ada 编写并编译为 WebAssembly 的 Ada 编译器 <1>HAC</1> 完全在浏览器中编译和运行。不涉及任何服务器。"
+  },
+  "adaWasm.link": {
+    "translation": "<tag-1> <tag-2>Ada 信息交换中心</tag-2> </tag-1> <tag-3> <tag-4>Ada 编程（Wikibooks）</tag-4> </tag-3> <tag-5> <tag-6>HAC 仓库</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+  },
+  "adaWasm.name": {
+    "translation": "Ada (Wasm)"
+  },
   "artTemplate.desc": {
     "translation": "高性能 JavaScript 模板引擎。"
   },

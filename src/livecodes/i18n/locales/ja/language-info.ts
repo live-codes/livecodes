@@ -3,6 +3,11 @@
 import type { I18nLangInfoTranslation } from '../models';
 
 const languageInfo: I18nLangInfoTranslation = {
+  adaWasm: {
+    desc: 'Ada は Ada で書かれ WebAssembly にコンパイルされた Ada コンパイラである <1>HAC</1> によって、完全にブラウザ内でコンパイルおよび実行されます。サーバーは関与しません。',
+    link: '<1> <2>Ada 情報センター</2> </1> <3> <4>Ada プログラミング（Wikibooks）</4> </3> <5> <6>HAC リポジトリ</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
+    name: 'Ada (Wasm)',
+  },
   artTemplate: {
     desc: '高性能な JavaScript テンプレートエンジン。',
     link: '<1> <2>art-template 公式ウェブサイト</2> </1> <3> <4>art-template ドキュメント</4> </3>',

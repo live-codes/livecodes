@@ -3,6 +3,11 @@
 import type { I18nLangInfoTranslation } from '../models';
 
 const languageInfo: I18nLangInfoTranslation = {
+  adaWasm: {
+    desc: 'Ada dikompilasi dan dijalankan sepenuhnya di dalam browser oleh <1>HAC</1>, kompiler Ada yang ditulis dalam bahasa Ada dan dikompilasi ke WebAssembly. Tidak ada server yang terlibat.',
+    link: '<1> <2>Pusat Informasi Ada</2> </1> <3> <4>Pemrograman Ada (Wikibooks)</4> </3> <5> <6>Repo HAC</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Ada (Wasm)',
+  },
   artTemplate: {
     desc: 'Mesin templating JavaScript berkinerja tinggi.',
     link: '<1> <2>Situs web resmi art-template</2> </1> <3> <4>Dokumentasi art-template</4> </3>',

@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "在模板中搜索..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "Ada（WASM）启动模板"
+  },
   "templates.starter.angular": {
     "translation": "Angular 启动模板"
   },

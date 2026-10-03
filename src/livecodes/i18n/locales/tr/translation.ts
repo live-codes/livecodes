@@ -976,6 +976,7 @@ const translation: I18nTranslation = {
       placeholder: 'Şablonlarda arama yapın...',
     },
     starter: {
+      'ada-wasm': 'Ada (Wasm) Başlangıç',
       angular: 'Angular Başlangıç',
       assemblyscript: 'AssemblyScript Başlangıç',
       astro: 'Astro Başlangıç',

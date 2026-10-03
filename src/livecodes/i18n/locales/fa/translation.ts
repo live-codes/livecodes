@@ -976,6 +976,7 @@ const translation: I18nTranslation = {
       placeholder: 'جستجو در قالب‌ها...',
     },
     starter: {
+      'ada-wasm': 'شروع کننده Ada (Wasm)',
       angular: 'شروع کننده انگولار',
       assemblyscript: 'شروع کننده AssemblyScript',
       astro: 'شروع کننده Astro',

@@ -3,6 +3,11 @@
 import type { I18nLangInfoTranslation } from '../models';
 
 const languageInfo: I18nLangInfoTranslation = {
+  adaWasm: {
+    desc: 'يتم تجميع Ada وتشغيله بالكامل داخل المتصفح بواسطة <1>HAC</1>، وهو مُترجم Ada مكتوب بلغة Ada ومُجمَّع إلى WebAssembly. لا يتضمن ذلك أي خادم.',
+    link: '<1> <2>مركز معلومات Ada</2> </1> <3> <4>برمجة Ada (ويكيبوكس)</4> </3> <5> <6>مستودع HAC</6> </5> <7> <8>وثائق LiveCodes</8> </7> <9> <10>تحميل قالب البداية</10> </9>',
+    name: 'Ada (Wasm)',
+  },
   artTemplate: {
     desc: 'محرك قوالب جافا سكريبت عالي الأداء.',
     link: '<1> <2>الموقع الرسمي لـ art-template</2> </1> <3> <4>وثائق art-template</4> </3>',

@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "টেমপ্লেটগুলিতে অনুসন্ধান করুন..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "Ada (Wasm) স্টার্টার"
+  },
   "templates.starter.angular": {
     "translation": "Angular স্টার্টার"
   },

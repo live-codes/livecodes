@@ -1,5 +1,14 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "adaWasm.desc": {
+    "translation": "Ada সম্পূর্ণরূপে ব্রাউজারে <1>HAC</1> দ্বারা কম্পাইল ও চালিত হয়, যা Ada-তে লেখা এবং WebAssembly-তে কম্পাইল করা একটি Ada কম্পাইলার। কোনো সার্ভার জড়িত নয়।"
+  },
+  "adaWasm.link": {
+    "translation": "<tag-1> <tag-2>Ada তথ্য কেন্দ্র</tag-2> </tag-1> <tag-3> <tag-4>Ada প্রোগ্রামিং (উইকিবই)</tag-4> </tag-3> <tag-5> <tag-6>HAC রিপো</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "adaWasm.name": {
+    "translation": "Ada (Wasm)"
+  },
   "artTemplate.desc": {
     "translation": "উচ্চ কর্মক্ষমতা সম্পন্ন JavaScript টেমপ্লেটিং ইঞ্জিন।"
   },

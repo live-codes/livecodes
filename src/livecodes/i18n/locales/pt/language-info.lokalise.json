@@ -1,5 +1,14 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "adaWasm.desc": {
+    "translation": "O Ada é compilado e executado inteiramente no navegador pelo <1>HAC</1>, um compilador Ada escrito em Ada e compilado para WebAssembly. Nenhum servidor está envolvido."
+  },
+  "adaWasm.link": {
+    "translation": "<tag-1> <tag-2>Centro de Informação Ada</tag-2> </tag-1> <tag-3> <tag-4>Programação em Ada (Wikibooks)</tag-4> </tag-3> <tag-5> <tag-6>Repositório do HAC</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
+  },
+  "adaWasm.name": {
+    "translation": "Ada (Wasm)"
+  },
   "artTemplate.desc": {
     "translation": "Mecanismo de modelagem JavaScript de alto desempenho."
   },

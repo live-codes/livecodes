@@ -1,5 +1,14 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "adaWasm.desc": {
+    "translation": "Ada به‌طور کامل در مرورگر توسط <1>HAC</1> کامپایل و اجرا می‌شود، که یک کامپایلر Ada نوشته‌شده به زبان Ada و کامپایل‌شده به WebAssembly است. هیچ سروری درگیر نیست."
+  },
+  "adaWasm.link": {
+    "translation": "<tag-1> <tag-2>مرکز اطلاعات Ada</tag-2> </tag-1> <tag-3> <tag-4>برنامه‌نویسی Ada (ویکی‌کتاب)</tag-4> </tag-3> <tag-5> <tag-6>مخزن HAC</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع</tag-10> </tag-9>"
+  },
+  "adaWasm.name": {
+    "translation": "Ada (Wasm)"
+  },
   "artTemplate.desc": {
     "translation": "موتور قالب‌ساز JavaScript با کارایی بالا."
   },

@@ -1,5 +1,14 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "adaWasm.desc": {
+    "translation": "Ada wordt volledig in de browser gecompileerd en uitgevoerd door <1>HAC</1>, een in Ada geschreven en naar WebAssembly gecompileerde Ada-compiler. Er is geen server bij betrokken."
+  },
+  "adaWasm.link": {
+    "translation": "<tag-1> <tag-2>Ada Informatiecentrum</tag-2> </tag-1> <tag-3> <tag-4>Programmeren in Ada (Wikibooks)</tag-4> </tag-3> <tag-5> <tag-6>HAC-repo</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+  },
+  "adaWasm.name": {
+    "translation": "Ada (Wasm)"
+  },
   "artTemplate.desc": {
     "translation": "Krachtige JavaScript-sjabloonengine met hoge prestaties."
   },

@@ -3,6 +3,11 @@
 import type { I18nLangInfoTranslation } from '../models';
 
 const languageInfo: I18nLangInfoTranslation = {
+  adaWasm: {
+    desc: "Ada, Ada ile yazılmış ve WebAssembly'ye derlenmiş bir Ada derleyicisi olan <1>HAC</1> tarafından tamamen tarayıcı içinde derlenir ve çalıştırılır. Hiçbir sunucu devreye girmez.",
+    link: "<1> <2>Ada Bilgi Merkezi</2> </1> <3> <4>Ada programlama (Wikibooks)</4> </3> <5> <6>HAC repo'su</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    name: 'Ada (Wasm)',
+  },
   artTemplate: {
     desc: 'Yüksek performanslı JavaScript şablonlama motoru.',
     link: '<1> <2>art-template resmi web sitesi</2> </1> <3> <4>art-template dokümantasyonu</4> </3>',

@@ -3,6 +3,11 @@
 import type { I18nLangInfoTranslation } from '../models';
 
 const languageInfo: I18nLangInfoTranslation = {
+  adaWasm: {
+    desc: 'Ada 由用 Ada 编写并编译为 WebAssembly 的 Ada 编译器 <1>HAC</1> 完全在浏览器中编译和运行。不涉及任何服务器。',
+    link: '<1> <2>Ada 信息交换中心</2> </1> <3> <4>Ada 编程（Wikibooks）</4> </3> <5> <6>HAC 仓库</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Ada (Wasm)',
+  },
   artTemplate: {
     desc: '高性能 JavaScript 模板引擎。',
     link: '<1> <2> art-template 官方网站</2> </1> <3> <4> art-template 文档</4> </3>',

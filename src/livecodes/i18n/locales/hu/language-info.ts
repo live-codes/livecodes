@@ -3,6 +3,11 @@
 import type { I18nLangInfoTranslation } from '../models';
 
 const languageInfo: I18nLangInfoTranslation = {
+  adaWasm: {
+    desc: 'Az Ada-t teljes egészében a böngészőben fordítja le és futtatja a <1>HAC</1>, egy Ada nyelven írt, WebAssembly-re fordított Ada-fordító. Nem vesz igénybe szervert.',
+    link: '<1> <2>Ada Információs Központ</2> </1> <3> <4>Ada programozás (Wikibooks)</4> </3> <5> <6>HAC repo</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Indító sablon betöltése</10> </9>',
+    name: 'Ada (Wasm)',
+  },
   artTemplate: {
     desc: 'Nagy teljesítményű JavaScript sablonmotor.',
     link: '<1> <2>art-template hivatalos weboldal</2> </1> <3> <4>art-template dokumentáció</4> </3>',
