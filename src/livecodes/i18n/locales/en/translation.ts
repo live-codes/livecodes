@@ -984,6 +984,7 @@ const translation = {
     starter: {
       'ada-wasm': 'Ada (Wasm) Starter',
       angular: 'Angular Starter',
+      'assembly-wasm': 'Assembly (Wasm) Starter',
       assemblyscript: 'AssemblyScript Starter',
       astro: 'Astro Starter',
       backbone: 'Backbone Starter',

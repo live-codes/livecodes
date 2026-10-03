@@ -333,6 +333,7 @@ export const getCommandMenuActions = ({
         'pascal',
         'assemblyscript',
         'wat',
+        'assembly-wasm',
         'sql',
         'postgresql',
         'prolog',

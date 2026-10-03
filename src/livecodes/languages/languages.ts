@@ -2,6 +2,7 @@ import type { LanguageSpecs } from '../models';
 import { adaWasm } from './ada-wasm';
 import { artTemplate } from './art-template';
 import { asciidoc } from './asciidoc';
+import { assemblyWasm } from './assembly-wasm';
 import { assemblyscript } from './assemblyscript';
 import { astro } from './astro';
 import { babel } from './babel';
@@ -194,6 +195,7 @@ export const languages: LanguageSpecs[] = [
   pascal,
   assemblyscript,
   wat,
+  assemblyWasm,
   sql,
   postgresql,
   prolog,

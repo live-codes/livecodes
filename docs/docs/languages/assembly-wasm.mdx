@@ -1,0 +1,147 @@
+# Assembly (Wasm)
+
+[x86-64 assembly](https://en.wikipedia.org/wiki/X86_assembly_language) is the low-level language of the machine: instructions are handed to the CPU as-is, with no compiler in between.
+
+In LiveCodes, assembly is assembled by [Keystone](https://www.keystone-engine.org/) and executed by [Unicorn](https://www.unicorn-engine.org/) — a real assembler and a real CPU emulator, both compiled to WebAssembly and running entirely in the browser. No backend is involved.
+
+:::info Note
+
+The browser has no operating system for a program to talk to, so a small set of Linux-style `syscall`s is served by the page: `read` (`0`), `write` (`1`) and `exit` (`60`). Everything else returns `-ENOSYS`. There is no libc, no dynamic linking and no filesystem.
+
+:::
+
+## Usage
+
+Demo (a 64-bit division loop that prints the sum of 1..100):
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const assemblyConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'assembly-wasm',
+    content: `; Prints the sum of 1..100 using a real 64-bit division loop.
+
+    xor rax, rax           ; total = 0
+    mov rcx, 100           ; count = 100
+
+accumulate:
+    add rax, rcx
+    dec rcx
+    jnz accumulate         ; rax = 5050
+
+    lea rdi, [rip + buf + 31]
+    mov byte ptr [rdi], 10 ; trailing newline
+    mov rbx, 10            ; divisor
+
+digit:
+    dec rdi
+    xor rdx, rdx
+    div rbx                ; rdx:rax / 10 -> quotient in rax, remainder in rdx
+    add dl, 48             ; remainder -> ASCII
+    mov byte ptr [rdi], dl
+    test rax, rax
+    jnz digit
+
+    lea rdx, [rip + buf + 32]
+    sub rdx, rdi           ; length = end - start
+    mov rax, 1             ; write(1, digits, length)
+    mov rsi, rdi
+    mov rdi, 1
+    syscall
+
+    mov rax, 60            ; exit(0)
+    xor rdi, rdi
+    syscall
+
+buf:
+    .zero 32`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={assemblyConfig}></LiveCodes>
+
+### Standard I/O
+
+Assembly code runs in the context of the [result page](../features/result.mdx). Standard output (the `write` syscall) is captured and displayed in the [console](../features/console.mdx). Standard input (the `read` syscall) is passed by setting the `livecodes.assemblyWasm.input` property in JavaScript.
+
+### Communication with JavaScript
+
+The assembly code runs in the context of the result page. A few helper properties and methods are available in the browser global `livecodes.assemblyWasm` object (also available as `livecodes.asm`):
+
+- `livecodes.assemblyWasm.input`: The standard input passed to the program. It can be set before the initial run, or passed to `run` for subsequent runs.
+- `livecodes.assemblyWasm.loaded`: A promise that resolves when the assembler and the emulator are fully loaded (and rejects if they fail to load). Other helpers should be used after this promise resolves.
+- `livecodes.assemblyWasm.output`: The standard output of the last run.
+- `livecodes.assemblyWasm.error`: The assembly diagnostics or runtime error of the last run, if any.
+- `livecodes.assemblyWasm.exitCode`: The exit code of the last run.
+- `livecodes.assemblyWasm.run(input)`: Assembles and runs the code in the editor, optionally passing standard input, and returns a promise that resolves to `{ output, error, exitCode }`.
+
+```js
+await livecodes.assemblyWasm.loaded;
+const { output, error, exitCode } = await livecodes.assemblyWasm.run(livecodes.assemblyWasm.input);
+console.log(output);
+```
+
+## Language Info
+
+### Name
+
+`assembly-wasm`
+
+### Aliases / Extensions
+
+`assembly`, `asm`, `asm-wasm`, `x86`, `x86-64`, `nasm`, `wasm.asm`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[Keystone](https://www.keystone-engine.org/) assembles the source to x86-64 machine code and [Unicorn](https://www.unicorn-engine.org/) executes it. Both are compiled to WebAssembly and loaded at run time by [`@live-codes/assembly-wasm`](https://www.npmjs.com/package/@live-codes/assembly-wasm), which bundles neither of them.
+
+### Version
+
+`keystone`: 0.9.2, `unicorn`: 2.1.4
+
+## Code Formatting
+
+Not supported.
+
+## Limitations
+
+- **x86-64, Intel syntax only.** Keystone and Unicorn both support other architectures; only x86-64 is wired up.
+- **A syscall shim, not Linux.** Only `read`, `write` and `exit` are served. There is no libc, no filesystem and no `argv` or environment.
+- **Two memory regions.** The program and its data are mapped at `0x1000000` (64 KiB, and execution starts at the first byte), and the stack at `0x2000000` (64 KiB). There is no linker and no memory allocation.
+- **Integers are decimal.** Write `0x` for hexadecimal and `0b` for binary. Keystone reads an unprefixed integer as hexadecimal, so the source is re-based before it is assembled; a leading zero is decimal too, and there is no implicit octal.
+- **Comments.** `;` is accepted (as are `#` and `//`), and a `;` inside a string is data.
+- **A program that never exits is stopped** after 10,000,000 instructions, which at the emulator's speed (a few million instructions per second) takes a few seconds. This is the only limit on a runaway loop: the emulator's own wall-clock timeout needs threads, which this WebAssembly build does not have.
+- **About 5 MB is downloaded** on the first run, and cached afterwards.
+
+## Example Usage
+
+This example passes standard input and runs the code again on each click, using the browser global `livecodes.assemblyWasm` (also check the code in the HTML editor):
+
+<LiveCodes template="assembly-wasm" height="80vh"></LiveCodes>
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-assembly and execution without a full page reload, avoiding the need to load the runtimes again. This behavior can be disabled by adding the comment `; __livecodes_reload__` to the assembly code, which forces a full page reload.
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Starter Template
+
+https://livecodes.io/?template=assembly-wasm
+
+## Links
+
+- [Keystone assembler framework](https://www.keystone-engine.org/)
+- [Unicorn CPU emulator framework](https://www.unicorn-engine.org/)
+- [X86 Assembly (Wikibooks)](https://en.wikibooks.org/wiki/X86_Assembly)
+- [@live-codes/assembly-wasm](https://www.npmjs.com/package/@live-codes/assembly-wasm)
