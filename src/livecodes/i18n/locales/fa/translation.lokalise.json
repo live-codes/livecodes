@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "جستجو در قالب‌ها..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "شروع کننده Ada (Wasm)"
+  },
   "templates.starter.angular": {
     "translation": "شروع کننده انگولار"
   },

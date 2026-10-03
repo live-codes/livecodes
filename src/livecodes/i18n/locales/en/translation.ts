@@ -982,6 +982,7 @@ const translation = {
       placeholder: 'Search templates...',
     },
     starter: {
+      'ada-wasm': 'Ada (Wasm) Starter',
       angular: 'Angular Starter',
       assemblyscript: 'AssemblyScript Starter',
       astro: 'Astro Starter',

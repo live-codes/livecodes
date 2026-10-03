@@ -975,6 +975,7 @@ const translation: I18nTranslation = {
       placeholder: 'Cari di templat...',
     },
     starter: {
+      'ada-wasm': 'Pemula Ada (Wasm)',
       angular: 'Pemula Angular',
       assemblyscript: 'Pemula AssemblyScript',
       astro: 'Pemula Astro',

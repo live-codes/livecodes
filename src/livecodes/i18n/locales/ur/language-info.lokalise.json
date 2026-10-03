@@ -1,5 +1,14 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "adaWasm.desc": {
+    "translation": "Ada کو مکمل طور پر براؤزر میں <1>HAC</1> کے ذریعے مرتب اور چلایا جاتا ہے، جو Ada میں لکھا گیا اور WebAssembly میں مرتب کردہ ایک Ada کمپائلر ہے۔ کوئی سرور شامل نہیں ہے۔"
+  },
+  "adaWasm.link": {
+    "translation": "<tag-1> <tag-2>Ada معلوماتی مرکز</tag-2> </tag-1> <tag-3> <tag-4>Ada پروگرامنگ (ویکی کتب)</tag-4> </tag-3> <tag-5> <tag-6>HAC ریپو</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>اسٹارٹر ٹیمپلیٹ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "adaWasm.name": {
+    "translation": "Ada (Wasm)"
+  },
   "artTemplate.desc": {
     "translation": "اعلی کارکردگی والا جاوا اسکرپٹ ٹیمپلیٹنگ انجن۔"
   },

@@ -977,6 +977,7 @@ const translation: I18nTranslation = {
       placeholder: 'Recherche dans les modèles...',
     },
     starter: {
+      'ada-wasm': 'Démarrage Ada (Wasm)',
       angular: 'Démarrage Angular',
       assemblyscript: 'Démarrage AssemblyScript',
       astro: 'Démarrage Astro',

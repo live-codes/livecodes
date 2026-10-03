@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "Поиск в шаблонах..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "Стартер Ada (Wasm)"
+  },
   "templates.starter.angular": {
     "translation": "Стартер Angular"
   },

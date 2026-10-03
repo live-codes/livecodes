@@ -380,6 +380,32 @@ test.describe('Starter Templates from UI', () => {
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
+  test('ada-wasm Starter', async ({ page, getTestUrl }) => {
+    // the HAC Ada compiler (~1.4 MB) is downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Ada (Wasm) Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the counter stays disabled until the compiler has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 120_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, Ada!');
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
   test('c-wasm Starter', async ({ page, getTestUrl }) => {
     // the compiler, linker and sysroot (~29 MB) are downloaded on the first run
     test.slow();

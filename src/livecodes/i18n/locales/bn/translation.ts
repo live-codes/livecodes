@@ -975,6 +975,7 @@ const translation: I18nTranslation = {
       placeholder: 'টেমপ্লেটগুলিতে অনুসন্ধান করুন...',
     },
     starter: {
+      'ada-wasm': 'Ada (Wasm) স্টার্টার',
       angular: 'Angular স্টার্টার',
       assemblyscript: 'AssemblyScript স্টার্টার',
       astro: 'Astro স্টার্টার',

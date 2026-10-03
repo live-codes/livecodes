@@ -3,6 +3,11 @@
 import type { I18nLangInfoTranslation } from '../models';
 
 const languageInfo: I18nLangInfoTranslation = {
+  adaWasm: {
+    desc: 'Ada wordt volledig in de browser gecompileerd en uitgevoerd door <1>HAC</1>, een in Ada geschreven en naar WebAssembly gecompileerde Ada-compiler. Er is geen server bij betrokken.',
+    link: '<1> <2>Ada Informatiecentrum</2> </1> <3> <4>Programmeren in Ada (Wikibooks)</4> </3> <5> <6>HAC-repo</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Starterssjabloon laden</10> </9>',
+    name: 'Ada (Wasm)',
+  },
   artTemplate: {
     desc: 'Krachtige JavaScript-sjabloonengine met hoge prestaties.',
     link: '<1> <2>art-template officiële website</2> </1> <3> <4>art-template documentatie</4> </3>',

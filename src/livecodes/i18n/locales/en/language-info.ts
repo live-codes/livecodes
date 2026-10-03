@@ -10,6 +10,11 @@ import type { I18nTranslationTemplate } from '../models';
 // In view of this, properties declared in I18nAttributes (and those attributes might be used in future) shall not be used as a nested key.
 
 const languageInfo = {
+  adaWasm: {
+    desc: 'Ada is compiled and run entirely in the browser by <1>HAC</1>, an Ada compiler written in Ada and compiled to WebAssembly. No server is involved.',
+    link: '<1> <2>Ada Information Clearinghouse</2> </1> <3> <4>Ada Programming (Wikibooks)</4> </3> <5> <6>HAC repo</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Ada (Wasm)',
+  },
   artTemplate: {
     desc: 'High performance JavaScript templating engine.',
     link: '<1> <2>art-template official website</2> </1> <3> <4>art-template documentation</4> </3>',

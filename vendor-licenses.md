@@ -4,6 +4,8 @@ This is a list of software packages used by LiveCodes (sorted alphabetically) an
 
 Acorn: [MIT License](https://github.com/acornjs/acorn/blob/fb4c5820138c21f93edd801985be5061db21a672/acorn/LICENSE)
 
+Ada (HAC): [MIT License](https://github.com/zertovitch/hac/blob/master/LICENSE) (the HAC Ada Compiler, compiled to WebAssembly and packaged by [@live-codes/ada-wasm](https://www.npmjs.com/package/@live-codes/ada-wasm): [MIT License](https://github.com/live-codes/browser-ada/blob/main/LICENSE). The bundled GNAT/AdaWebPack WebAssembly runtime is [GPL-3.0-or-later with the GCC Runtime Library Exception](https://www.gnu.org/licenses/gcc-exception-3.1.html))
+
 art-template: [MIT License](https://github.com/aui/art-template/blob/71333a3a6df78f231cb5d795d13872bf4fcd52c2/LICENSE)
 
 Asciidoctor.js: [MIT License](https://github.com/asciidoctor/asciidoctor.js/blob/9d57b34084966f35d5c542ae4feed4941bf57903/LICENSE)

@@ -3,6 +3,11 @@
 import type { I18nLangInfoTranslation } from '../models';
 
 const languageInfo: I18nLangInfoTranslation = {
+  adaWasm: {
+    desc: 'Ada به‌طور کامل در مرورگر توسط <1>HAC</1> کامپایل و اجرا می‌شود، که یک کامپایلر Ada نوشته‌شده به زبان Ada و کامپایل‌شده به WebAssembly است. هیچ سروری درگیر نیست.',
+    link: '<1> <2>مرکز اطلاعات Ada</2> </1> <3> <4>برنامه‌نویسی Ada (ویکی‌کتاب)</4> </3> <5> <6>مخزن HAC</6> </5> <7> <8>مستندات LiveCodes</8> </7> <9> <10>بارگذاری قالب شروع</10> </9>',
+    name: 'Ada (Wasm)',
+  },
   artTemplate: {
     desc: 'موتور قالب‌ساز JavaScript با کارایی بالا.',
     link: '<1> <2>وب‌سایت رسمی art-template</2> </1> <3> <4>مستندات art-template</4> </3>',

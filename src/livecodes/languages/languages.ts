@@ -1,4 +1,5 @@
 import type { LanguageSpecs } from '../models';
+import { adaWasm } from './ada-wasm';
 import { artTemplate } from './art-template';
 import { asciidoc } from './asciidoc';
 import { assemblyscript } from './assemblyscript';
@@ -169,7 +170,6 @@ export const languages: LanguageSpecs[] = [
   rustWasm,
   swiftWasm,
   zigWasm,
-  pascal,
   java,
   csharpWasm,
   vbWasm,
@@ -190,6 +190,8 @@ export const languages: LanguageSpecs[] = [
   fennel,
   julia,
   tcl,
+  adaWasm,
+  pascal,
   assemblyscript,
   wat,
   sql,

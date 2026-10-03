@@ -1,5 +1,14 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "adaWasm.desc": {
+    "translation": "Ada, Ada ile yazılmış ve WebAssembly'ye derlenmiş bir Ada derleyicisi olan <1>HAC</1> tarafından tamamen tarayıcı içinde derlenir ve çalıştırılır. Hiçbir sunucu devreye girmez."
+  },
+  "adaWasm.link": {
+    "translation": "<tag-1> <tag-2>Ada Bilgi Merkezi</tag-2> </tag-1> <tag-3> <tag-4>Ada programlama (Wikibooks)</tag-4> </tag-3> <tag-5> <tag-6>HAC repo'su</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "adaWasm.name": {
+    "translation": "Ada (Wasm)"
+  },
   "artTemplate.desc": {
     "translation": "Yüksek performanslı JavaScript şablonlama motoru."
   },

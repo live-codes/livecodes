@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "بحث في القوالب..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "قالب Ada (Wasm)"
+  },
   "templates.starter.angular": {
     "translation": "قالب Angular"
   },

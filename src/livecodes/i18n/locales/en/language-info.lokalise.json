@@ -1,5 +1,17 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "adaWasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://github.com/zertovitch/hac\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "Ada is compiled and run entirely in the browser by <tag-1>HAC</tag-1>, an Ada compiler written in Ada and compiled to WebAssembly. No server is involved."
+  },
+  "adaWasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.adaic.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://en.wikibooks.org/wiki/Ada_Programming\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/zertovitch/hac\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/ada-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=ada-wasm\" class=\"button\" target=\"_parent\" data-template=\"ada-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>Ada Information Clearinghouse</tag-2> </tag-1> <tag-3> <tag-4>Ada Programming (Wikibooks)</tag-4> </tag-3> <tag-5> <tag-6>HAC repo</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "adaWasm.name": {
+    "notes": "",
+    "translation": "Ada (Wasm)"
+  },
   "artTemplate.desc": {
     "notes": "",
     "translation": "High performance JavaScript templating engine."

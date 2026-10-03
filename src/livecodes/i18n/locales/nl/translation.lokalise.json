@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "Zoeken in sjablonen..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "Ada (Wasm)-starter"
+  },
   "templates.starter.angular": {
     "translation": "Angular-starter"
   },

@@ -3,6 +3,11 @@
 import type { I18nLangInfoTranslation } from '../models';
 
 const languageInfo: I18nLangInfoTranslation = {
+  adaWasm: {
+    desc: 'Ada সম্পূর্ণরূপে ব্রাউজারে <1>HAC</1> দ্বারা কম্পাইল ও চালিত হয়, যা Ada-তে লেখা এবং WebAssembly-তে কম্পাইল করা একটি Ada কম্পাইলার। কোনো সার্ভার জড়িত নয়।',
+    link: '<1> <2>Ada তথ্য কেন্দ্র</2> </1> <3> <4>Ada প্রোগ্রামিং (উইকিবই)</4> </3> <5> <6>HAC রিপো</6> </5> <7> <8>LiveCodes ডকুমেন্টেশন</8> </7> <9> <10>স্টার্টার টেমপ্লেট লোড করুন</10> </9>',
+    name: 'Ada (Wasm)',
+  },
   artTemplate: {
     desc: 'উচ্চ কর্মক্ষমতা সম্পন্ন JavaScript টেমপ্লেটিং ইঞ্জিন।',
     link: '<1> <2>art-template অফিসিয়াল ওয়েবসাইট</2> </1> <3> <4>art-template ডকুমেন্টেশন</4> </3>',

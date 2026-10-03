@@ -976,6 +976,7 @@ const translation: I18nTranslation = {
       placeholder: 'Sablonok keresése...',
     },
     starter: {
+      'ada-wasm': 'Ada (Wasm) kezdő',
       angular: 'Angular kezdő',
       assemblyscript: 'AssemblyScript kezdő',
       astro: 'Astro kezdő',

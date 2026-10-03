@@ -973,6 +973,7 @@ const translation: I18nTranslation = {
       placeholder: '在模板中搜索...',
     },
     starter: {
+      'ada-wasm': 'Ada（WASM）启动模板',
       angular: 'Angular 启动模板',
       assemblyscript: 'AssemblyScript 启动模板',
       astro: 'Astro 启动模板',

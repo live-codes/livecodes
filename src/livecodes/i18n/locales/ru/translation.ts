@@ -975,6 +975,7 @@ const translation: I18nTranslation = {
       placeholder: 'Поиск в шаблонах...',
     },
     starter: {
+      'ada-wasm': 'Стартер Ada (Wasm)',
       angular: 'Стартер Angular',
       assemblyscript: 'Стартер AssemblyScript',
       astro: 'Стартер Astro',

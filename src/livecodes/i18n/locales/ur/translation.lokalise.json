@@ -1908,6 +1908,9 @@
   "templates.search.placeholder": {
     "translation": "ٹیمپلیٹس میں تلاش کریں..."
   },
+  "templates.starter.ada-wasm": {
+    "translation": "Ada (واسم) شروعاتی"
+  },
   "templates.starter.angular": {
     "translation": "اینگولر شروعاتی"
   },

@@ -976,6 +976,7 @@ const translation: I18nTranslation = {
       placeholder: 'Zoeken in sjablonen...',
     },
     starter: {
+      'ada-wasm': 'Ada (Wasm)-starter',
       angular: 'Angular-starter',
       assemblyscript: 'AssemblyScript-starter',
       astro: 'Astro-starter',
