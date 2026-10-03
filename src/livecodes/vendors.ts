@@ -15,6 +15,8 @@ export const asciidocUrl = /* @__PURE__ */ getUrl(
   '@asciidoctor/core@2.2.8/dist/browser/asciidoctor.js',
 );
 
+export const assemblyWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/assembly-wasm@0.1.0/');
+
 export const assemblyscriptLoaderUrl = /* @__PURE__ */ getUrl(
   '@assemblyscript/loader@0.27.29/umd/index.js',
 );
@@ -307,6 +309,17 @@ export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
 
+// The x86-64 assembler and CPU emulator behind the `assembly-wasm` language. Both are
+// published separately and are loaded at run time by @live-codes/assembly-wasm, which
+// deliberately bundles neither of them.
+export const keystoneJsUrl = /* @__PURE__ */ getUrl(
+  '@alexaltea/keystone-js@0.9.2/dist/keystone.js',
+);
+
+export const keystoneJsWasmUrl = /* @__PURE__ */ getUrl(
+  '@alexaltea/keystone-js@0.9.2/dist/keystone.wasm',
+);
+
 export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.14.0/dist/liquid.browser.min.js');
 
 export const localforageUrl = /* @__PURE__ */ getUrl('localforage@1.10.0/dist/localforage.min.js');
@@ -346,7 +359,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.8/dist/',
+  '@live-codes/monaco-languages@0.3.9/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
@@ -512,6 +525,10 @@ export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
 export const typescriptVersion = '5.9.3';
 export const typescriptUrl = getUrl(`typescript@${typescriptVersion}/lib/typescript.js`);
+
+export const unicornJsX86Url = /* @__PURE__ */ getUrl(
+  '@alexaltea/unicorn-js@2.1.4/dist/unicorn_x86.js',
+);
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 

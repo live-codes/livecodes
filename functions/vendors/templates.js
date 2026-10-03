@@ -77,6 +77,7 @@ export const starterTemplates = {
   "pascal": "Pascal Starter",
   "assemblyscript": "AssemblyScript Starter",
   "wat": "WebAssembly Text Starter",
+  "assembly-wasm": "Assembly (Wasm) Starter",
   "sql": "SQL Starter",
   "postgresql": "PostgreSQL Starter",
   "prolog": "Prolog Starter",

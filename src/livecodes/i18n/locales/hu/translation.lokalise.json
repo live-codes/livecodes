@@ -1914,6 +1914,9 @@
   "templates.starter.angular": {
     "translation": "Angular kezdő"
   },
+  "templates.starter.assembly-wasm": {
+    "translation": "Assembly (Wasm) kezdő"
+  },
   "templates.starter.assemblyscript": {
     "translation": "AssemblyScript kezdő"
   },

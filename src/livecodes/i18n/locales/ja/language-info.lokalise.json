@@ -27,6 +27,15 @@
   "asciidoc.name": {
     "translation": "AsciiDoc"
   },
+  "assemblyWasm.desc": {
+    "translation": "x86-64 アセンブリは <tag-1>Keystone</tag-1> によってアセンブルされ、<tag-2>Unicorn</tag-2> によって実行されます。どちらも WebAssembly にコンパイルされ、完全にブラウザ内で動作します。"
+  },
+  "assemblyWasm.link": {
+    "translation": "<tag-1> <tag-2>Keystone 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>Unicorn 公式サイト</tag-4> </tag-3> <tag-5> <tag-6>X86 アセンブリ（Wikibooks）</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートを読み込む</tag-10> </tag-9>"
+  },
+  "assemblyWasm.name": {
+    "translation": "Assembly (Wasm)"
+  },
   "assemblyscript.desc": {
     "translation": "WebAssembly 用の TypeScript に似た言語。"
   },

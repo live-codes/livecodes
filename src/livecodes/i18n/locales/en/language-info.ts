@@ -25,6 +25,11 @@ const languageInfo = {
     link: '<1> <2>AsciiDoc official website</2> </1> <3> <4>Asciidoctor official website</4> </3> <5> <6>Asciidoctor documentation</6> </5> <7> <8>Learn X in Y minutes, where X=asciidoc</8> </7>',
     name: 'AsciiDoc',
   },
+  assemblyWasm: {
+    desc: 'x86-64 assembly assembled by <1>Keystone</1> and executed by <2>Unicorn</2>, both compiled to WebAssembly and running entirely in the browser.',
+    link: '<1> <2>Keystone official website</2> </1> <3> <4>Unicorn official website</4> </3> <5> <6>X86 Assembly (Wikibooks)</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Assembly (Wasm)',
+  },
   assemblyscript: {
     desc: 'A TypeScript-like language for WebAssembly.',
     link: '<1> <2>AssemblyScript official website</2> </1> <3> <4>AssemblyScript documentation</4> </3> <5> <6>Load starter template</6> </5>',

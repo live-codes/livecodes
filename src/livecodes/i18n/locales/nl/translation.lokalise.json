@@ -1914,6 +1914,9 @@
   "templates.starter.angular": {
     "translation": "Angular-starter"
   },
+  "templates.starter.assembly-wasm": {
+    "translation": "Assembly (Wasm)-starter"
+  },
   "templates.starter.assemblyscript": {
     "translation": "AssemblyScript-starter"
   },

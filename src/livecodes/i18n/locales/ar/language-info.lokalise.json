@@ -27,6 +27,15 @@
   "asciidoc.name": {
     "translation": "AsciiDoc"
   },
+  "assemblyWasm.desc": {
+    "translation": "يتم تجميع تعليمات x86-64 بواسطة <tag-1>Keystone</tag-1> وتنفيذها بواسطة <tag-2>Unicorn</tag-2>، وكلاهما مُجمَّع إلى WebAssembly ويعمل بالكامل داخل المتصفح."
+  },
+  "assemblyWasm.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Keystone</tag-2> </tag-1> <tag-3> <tag-4>الموقع الرسمي لـ Unicorn</tag-4> </tag-3> <tag-5> <tag-6>تجميع X86 (ويكيبوكس)</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البدء</tag-10> </tag-9>"
+  },
+  "assemblyWasm.name": {
+    "translation": "Assembly (Wasm)"
+  },
   "assemblyscript.desc": {
     "translation": "لغة شبيهة بـ TypeScript لـ WebAssembly."
   },

@@ -18,6 +18,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi AsciiDoc</2> </1> <3> <4>Situs web resmi Asciidoctor</4> </3> <5> <6>Dokumentasi Asciidoctor</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=asciidoc</8> </7>',
     name: 'AsciiDoc',
   },
+  assemblyWasm: {
+    desc: 'Assembly x86-64 dirakit oleh <1>Keystone</1> dan dijalankan oleh <2>Unicorn</2>, keduanya dikompilasi ke WebAssembly dan dijalankan sepenuhnya di dalam browser.',
+    link: '<1> <2>Situs web resmi Keystone</2> </1> <3> <4>Situs web resmi Unicorn</4> </3> <5> <6>Assembly X86 (Wikibooks)</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Assembly (Wasm)',
+  },
   assemblyscript: {
     desc: 'Bahasa seperti TypeScript untuk WebAssembly.',
     link: '<1> <2>Situs web resmi AssemblyScript</2> </1> <3> <4>Dokumentasi AssemblyScript</4> </3> <5> <6>Muat template pemula</6> </5>',

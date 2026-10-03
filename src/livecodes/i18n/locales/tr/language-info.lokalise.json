@@ -27,6 +27,15 @@
   "asciidoc.name": {
     "translation": "AsciiDoc"
   },
+  "assemblyWasm.desc": {
+    "translation": "x86-64 assembly kodu <tag-1>Keystone</tag-1> tarafından derlenir ve <tag-2>Unicorn</tag-2> tarafından yürütülür; her ikisi de WebAssembly’ye derlenir ve tamamen tarayıcı içinde çalışır."
+  },
+  "assemblyWasm.link": {
+    "translation": "<tag-1> <tag-2>Keystone resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Unicorn resmi web sitesi</tag-4> </tag-3> <tag-5> <tag-6>X86 Assembly (Wikibooks)</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "assemblyWasm.name": {
+    "translation": "Assembly (Wasm)"
+  },
   "assemblyscript.desc": {
     "translation": "WebAssembly için TypeScript benzeri bir dil."
   },

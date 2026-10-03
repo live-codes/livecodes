@@ -1914,6 +1914,9 @@
   "templates.starter.angular": {
     "translation": "Angular Başlangıç"
   },
+  "templates.starter.assembly-wasm": {
+    "translation": "Assembly (Wasm) Başlangıç"
+  },
   "templates.starter.assemblyscript": {
     "translation": "AssemblyScript Başlangıç"
   },

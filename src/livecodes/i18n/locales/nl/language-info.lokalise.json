@@ -27,6 +27,15 @@
   "asciidoc.name": {
     "translation": "AsciiDoc"
   },
+  "assemblyWasm.desc": {
+    "translation": "x86-64-assembly wordt geassembleerd door <tag-1>Keystone</tag-1> en uitgevoerd door <tag-2>Unicorn</tag-2>, beide gecompileerd naar WebAssembly en draaien volledig in de browser."
+  },
+  "assemblyWasm.link": {
+    "translation": "<tag-1> <tag-2>Officiële website van Keystone</tag-2> </tag-1> <tag-3> <tag-4>Officiële website van Unicorn</tag-4> </tag-3> <tag-5> <tag-6>X86-assembly (Wikibooks)</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+  },
+  "assemblyWasm.name": {
+    "translation": "Assembly (Wasm)"
+  },
   "assemblyscript.desc": {
     "translation": "Een TypeScript-achtige taal voor WebAssembly."
   },

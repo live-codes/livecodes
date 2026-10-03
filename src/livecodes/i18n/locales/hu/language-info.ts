@@ -18,6 +18,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>AsciiDoc hivatalos weboldal</2> </1> <3> <4>Asciidoctor hivatalos weboldal</4> </3> <5> <6>Asciidoctor dokumentáció</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=asciidoc</8> </7>',
     name: 'AsciiDoc',
   },
+  assemblyWasm: {
+    desc: 'Az x86-64 assembly-t a <1>Keystone</1> állítja össze és az <2>Unicorn</2> hajtja végre; mindkettő WebAssembly-re van fordítva, és teljes egészében a böngészőben fut.',
+    link: '<1> <2>A Keystone hivatalos weboldala</2> </1> <3> <4>Az Unicorn hivatalos weboldala</4> </3> <5> <6>X86 assembly (Wikibooks)</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Indító sablon betöltése</10> </9>',
+    name: 'Assembly (Wasm)',
+  },
   assemblyscript: {
     desc: 'TypeScript-szerű nyelv WebAssembly-hez.',
     link: '<1> <2>AssemblyScript hivatalos weboldal</2> </1> <3> <4>AssemblyScript dokumentáció</4> </3> <5> <6>Kezdő sablon betöltése</6> </5>',

@@ -2,6 +2,7 @@
 
 import { adaWasmStarter } from './ada-wasm-starter';
 import { angularStarter } from './angular-starter';
+import { assemblyWasmStarter } from './assembly-wasm-starter';
 import { assemblyscriptStarter } from './assemblyscript-starter';
 import { astroStarter } from './astro-starter';
 import { backboneStarter } from './backbone-starter';
@@ -162,6 +163,7 @@ export const starterTemplates = [
   pascalStarter,
   assemblyscriptStarter,
   watStarter,
+  assemblyWasmStarter,
   sqlStarter,
   postgresqlStarter,
   prologStarter,

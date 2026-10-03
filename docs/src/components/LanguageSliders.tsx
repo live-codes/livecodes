@@ -119,6 +119,7 @@ export default function Sliders() {
       { name: 'pascal', title: 'Pascal' },
       { name: 'assemblyscript', title: 'AssemblyScript' },
       { name: 'wat', title: 'WAT' },
+      { name: 'assembly-wasm', title: 'Assembly (Wasm)' },
       { name: 'sql', title: 'SQL' },
       { name: 'postgresql', title: 'PostgreSQL' },
       { name: 'prolog', title: 'Prolog' },

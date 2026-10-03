@@ -10,6 +10,8 @@ art-template: [MIT License](https://github.com/aui/art-template/blob/71333a3a6df
 
 Asciidoctor.js: [MIT License](https://github.com/asciidoctor/asciidoctor.js/blob/9d57b34084966f35d5c542ae4feed4941bf57903/LICENSE)
 
+Assembly (Wasm): [MIT License](https://github.com/live-codes/browser-assembly/blob/main/packages/assembly-wasm/LICENSE) (the [@live-codes/assembly-wasm](https://www.npmjs.com/package/@live-codes/assembly-wasm) package, which bundles neither of the runtimes it loads; see Keystone and Unicorn)
+
 AssemblyScript: [Apache License 2.0](https://github.com/AssemblyScript/assemblyscript/blob/a0c27fadd027a32542420160deff04dc31e10f59/LICENSE)
 
 Astring: [MIT License](https://github.com/davidbonnet/astring/blob/8ac784be966a20eda44de32f79db1a6e44832659/LICENSE)
@@ -135,6 +137,8 @@ JSCL: [MIT License](https://cdn.jsdelivr.net/gh/jscl-project/jscl-project.github
 JSCPP: [MIT License](https://github.com/felixhao28/JSCPP/blob/befbd6b48666007151c259c5dd291ab028ad4c04/LICENSE)
 
 JSZip: [MIT License](https://github.com/Stuk/jszip/blob/3db5fdc85586ef6c26d15b503c45ce8e42905d77/LICENSE.markdown)
+
+Keystone: [GPL-2.0 license](https://github.com/keystone-engine/keystone/blob/master/COPYING) (assembles the x86-64 machine code for Assembly (Wasm). Loaded at run time from its own package, not bundled by LiveCodes)
 
 konnors-ninja-keys: [MIT License](https://github.com/KonnorRogers/konnors-ninja-keys/blob/6dde465ab2c64329c4284a1f95d9d7501acdb86a/LICENSE)
 
@@ -315,6 +319,8 @@ turbopascal: [BSD 2-Clause License](https://github.com/MikeRalphson/turbopascal/
 Twig.js: [BSD 2-Clause License](https://github.com/twigjs/twig.js/blob/59d991d35b267c9721eb41b31eb1e813565316e9/LICENSE)
 
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
+
+Unicorn: [GPL-2.0 license](https://github.com/unicorn-engine/unicorn/blob/master/COPYING) (executes the x86-64 machine code for Assembly (Wasm). Loaded at run time from its own package, not bundled by LiveCodes)
 
 Uniter: [MIT License](https://github.com/asmblah/uniter/blob/304fa1108393f4238fa4fb09c5cfad30a7690493/MIT-LICENSE.txt)
 

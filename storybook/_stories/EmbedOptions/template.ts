@@ -82,6 +82,7 @@ const storyDef: StoryDef = {
   Pascal: { props: { template: 'pascal' } },
   AssemblyScript: { props: { template: 'assemblyscript' }, storyName: 'AssemblyScript' },
   WebAssemblyText: { props: { template: 'wat' }, storyName: 'WebAssembly Text' },
+  AssemblyWasm: { props: { template: 'assembly-wasm' }, storyName: 'Assembly (Wasm)' },
   SQL: { props: { template: 'sql' } },
   PostgreSQL: { props: { template: 'postgresql' } },
   Prolog: { props: { template: 'prolog' } },

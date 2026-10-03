@@ -36,6 +36,18 @@
     "notes": "",
     "translation": "AsciiDoc"
   },
+  "assemblyWasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://www.keystone-engine.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://www.unicorn-engine.org/\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "x86-64 assembly assembled by <tag-1>Keystone</tag-1> and executed by <tag-2>Unicorn</tag-2>, both compiled to WebAssembly and running entirely in the browser."
+  },
+  "assemblyWasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.keystone-engine.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://www.unicorn-engine.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://en.wikibooks.org/wiki/X86_Assembly\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/assembly-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=assembly-wasm\" class=\"button\" target=\"_parent\" data-template=\"assembly-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>Keystone official website</tag-2> </tag-1> <tag-3> <tag-4>Unicorn official website</tag-4> </tag-3> <tag-5> <tag-6>X86 Assembly (Wikibooks)</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "assemblyWasm.name": {
+    "notes": "",
+    "translation": "Assembly (Wasm)"
+  },
   "assemblyscript.desc": {
     "notes": "",
     "translation": "A TypeScript-like language for WebAssembly."

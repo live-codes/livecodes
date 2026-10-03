@@ -977,6 +977,7 @@ const translation: I18nTranslation = {
     starter: {
       'ada-wasm': 'Стартер Ada (Wasm)',
       angular: 'Стартер Angular',
+      'assembly-wasm': 'Стартер Assembly (Wasm)',
       assemblyscript: 'Стартер AssemblyScript',
       astro: 'Стартер Astro',
       backbone: 'Стартер Backbone',
