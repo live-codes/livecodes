@@ -27,6 +27,15 @@
   "asciidoc.name": {
     "translation": "AsciiDoc"
   },
+  "assemblyWasm.desc": {
+    "translation": "x86-64 অ্যাসেম্বলি <tag-1>Keystone</tag-1> দ্বারা অ্যাসেম্বল করা হয় এবং <tag-2>Unicorn</tag-2> দ্বারা চালিত হয়, উভয়ই WebAssembly-তে কম্পাইল করা হয় এবং সম্পূর্ণভাবে ব্রাউজারে চলে।"
+  },
+  "assemblyWasm.link": {
+    "translation": "<tag-1> <tag-2>Keystone অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Unicorn অফিসিয়াল ওয়েবসাইট</tag-4> </tag-3> <tag-5> <tag-6>X86 অ্যাসেম্বলি (উইকিবই)</tag-6> </tag-5> <tag-7> <tag-8>লাইভকোডস ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "assemblyWasm.name": {
+    "translation": "Assembly (Wasm)"
+  },
   "assemblyscript.desc": {
     "translation": "WebAssembly-এর জন্য TypeScript-এর মতো একটি ভাষা।"
   },

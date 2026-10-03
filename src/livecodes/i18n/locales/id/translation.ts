@@ -977,6 +977,7 @@ const translation: I18nTranslation = {
     starter: {
       'ada-wasm': 'Pemula Ada (Wasm)',
       angular: 'Pemula Angular',
+      'assembly-wasm': 'Pemula Assembly (Wasm)',
       assemblyscript: 'Pemula AssemblyScript',
       astro: 'Pemula Astro',
       backbone: 'Pemula Backbone',

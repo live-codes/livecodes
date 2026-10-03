@@ -1914,6 +1914,9 @@
   "templates.starter.angular": {
     "translation": "Angular স্টার্টার"
   },
+  "templates.starter.assembly-wasm": {
+    "translation": "Assembly (Wasm) স্টার্টার"
+  },
   "templates.starter.assemblyscript": {
     "translation": "AssemblyScript স্টার্টার"
   },

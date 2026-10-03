@@ -18,6 +18,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sito ufficiale di AsciiDoc</2> </1> <3> <4>Sito ufficiale di Asciidoctor</4> </3> <5> <6>Documentazione di Asciidoctor</6> </5> <7> <8>Impara X in Y minuti, dove X=asciidoc</8> </7>',
     name: 'AsciiDoc',
   },
+  assemblyWasm: {
+    desc: "L'assembly x86-64 viene assemblato da <1>Keystone</1> ed eseguito da <2>Unicorn</2>, entrambi compilati in WebAssembly ed eseguiti interamente nel browser.",
+    link: '<1> <2>Sito web ufficiale di Keystone</2> </1> <3> <4>Sito web ufficiale di Unicorn</4> </3> <5> <6>Assembly X86 (Wikibooks)</6> </5> <7> <8>Documentazione di LiveCodes</8> </7> <9> <10>Carica il modello di partenza</10> </9>',
+    name: 'Assembly (Wasm)',
+  },
   assemblyscript: {
     desc: 'Un linguaggio simile a TypeScript per WebAssembly.',
     link: '<1> <2>Sito ufficiale di AssemblyScript</2> </1> <3> <4>Documentazione di AssemblyScript</4> </3> <5> <6>Carica il modello di partenza</6> </5>',

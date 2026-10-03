@@ -27,6 +27,15 @@
   "asciidoc.name": {
     "translation": "AsciiDoc"
   },
+  "assemblyWasm.desc": {
+    "translation": "Le code assembleur x86-64 est assemblé par <tag-1>Keystone</tag-1> et exécuté par <tag-2>Unicorn</tag-2>, tous deux compilés en WebAssembly et s'exécutant entièrement dans le navigateur."
+  },
+  "assemblyWasm.link": {
+    "translation": "<tag-1> <tag-2>Site officiel de Keystone</tag-2> </tag-1> <tag-3> <tag-4>Site officiel d'Unicorn</tag-4> </tag-3> <tag-5> <tag-6>Assembleur X86 (Wikibooks)</tag-6> </tag-5> <tag-7> <tag-8>Documentation LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Charger un modèle de démarrage</tag-10> </tag-9>"
+  },
+  "assemblyWasm.name": {
+    "translation": "Assembly (Wasm)"
+  },
   "assemblyscript.desc": {
     "translation": "Un langage similaire à TypeScript pour WebAssembly."
   },

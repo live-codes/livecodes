@@ -1914,6 +1914,9 @@
   "templates.starter.angular": {
     "translation": "Pemula Angular"
   },
+  "templates.starter.assembly-wasm": {
+    "translation": "Pemula Assembly (Wasm)"
+  },
   "templates.starter.assemblyscript": {
     "translation": "Pemula AssemblyScript"
   },

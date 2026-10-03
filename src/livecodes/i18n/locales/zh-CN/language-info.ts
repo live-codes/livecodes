@@ -18,6 +18,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>AsciiDoc 官方网站</2> </1> <3> <4>Asciidoctor 官方网站</4> </3> <5> <6>Asciidoctor 文档</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=asciidoc</8> </7>',
     name: 'AsciiDoc',
   },
+  assemblyWasm: {
+    desc: 'x86-64 汇编由 <1>Keystone</1> 汇编，并由 <2>Unicorn</2> 执行，二者均编译为 WebAssembly 并完全在浏览器中运行。',
+    link: '<1> <2>Keystone 官方网站</2> </1> <3> <4>Unicorn 官方网站</4> </3> <5> <6>X86 汇编（Wikibooks）</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Assembly (Wasm)',
+  },
   assemblyscript: {
     desc: '一种类似于 TypeScript 的 WebAssembly 语言。',
     link: '<1> <2>AssemblyScript 官方网站</2> </1> <3> <4>AssemblyScript 文档</4> </3> <5> <6>加载启动模板</6> </5>',

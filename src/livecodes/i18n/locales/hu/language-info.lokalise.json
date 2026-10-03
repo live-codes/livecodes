@@ -27,6 +27,15 @@
   "asciidoc.name": {
     "translation": "AsciiDoc"
   },
+  "assemblyWasm.desc": {
+    "translation": "Az x86-64 assembly-t a <tag-1>Keystone</tag-1> állítja össze és az <tag-2>Unicorn</tag-2> hajtja végre; mindkettő WebAssembly-re van fordítva, és teljes egészében a böngészőben fut."
+  },
+  "assemblyWasm.link": {
+    "translation": "<tag-1> <tag-2>A Keystone hivatalos weboldala</tag-2> </tag-1> <tag-3> <tag-4>Az Unicorn hivatalos weboldala</tag-4> </tag-3> <tag-5> <tag-6>X86 assembly (Wikibooks)</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Indító sablon betöltése</tag-10> </tag-9>"
+  },
+  "assemblyWasm.name": {
+    "translation": "Assembly (Wasm)"
+  },
   "assemblyscript.desc": {
     "translation": "TypeScript-szerű nyelv WebAssembly-hez."
   },

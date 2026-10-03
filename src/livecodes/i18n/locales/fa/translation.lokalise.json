@@ -1914,6 +1914,9 @@
   "templates.starter.angular": {
     "translation": "شروع کننده انگولار"
   },
+  "templates.starter.assembly-wasm": {
+    "translation": "شروع کننده Assembly (Wasm)"
+  },
   "templates.starter.assemblyscript": {
     "translation": "شروع کننده AssemblyScript"
   },

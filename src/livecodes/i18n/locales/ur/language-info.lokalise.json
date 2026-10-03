@@ -27,6 +27,15 @@
   "asciidoc.name": {
     "translation": "ایسکی ڈاک"
   },
+  "assemblyWasm.desc": {
+    "translation": "x86-64 اسمبلی <tag-1>Keystone</tag-1> کے ذریعے اسمبل کی جاتی ہے اور <tag-2>Unicorn</tag-2> کے ذریعے چلائی جاتی ہے، دونوں WebAssembly میں مرتب کیے گئے ہیں اور مکمل طور پر براؤزر میں چلتے ہیں۔"
+  },
+  "assemblyWasm.link": {
+    "translation": "<tag-1> <tag-2>Keystone آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>Unicorn آفیشل ویب سائٹ</tag-4> </tag-3> <tag-5> <tag-6>X86 اسمبلی (ویکی کتب)</tag-6> </tag-5> <tag-7> <tag-8>لائیو کوڈز دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>ابتدائی سانچہ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "assemblyWasm.name": {
+    "translation": "Assembly (Wasm)"
+  },
   "assemblyscript.desc": {
     "translation": "ویب اسمبلی کے لیے ٹائپ اسکرپٹ جیسی زبان۔"
   },

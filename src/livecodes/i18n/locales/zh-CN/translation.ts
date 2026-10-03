@@ -975,6 +975,7 @@ const translation: I18nTranslation = {
     starter: {
       'ada-wasm': 'Ada（WASM）启动模板',
       angular: 'Angular 启动模板',
+      'assembly-wasm': 'Assembly（Wasm）启动模板',
       assemblyscript: 'AssemblyScript 启动模板',
       astro: 'Astro 启动模板',
       backbone: 'Backbone 启动模板',

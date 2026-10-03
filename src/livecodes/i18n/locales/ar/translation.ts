@@ -977,6 +977,7 @@ const translation: I18nTranslation = {
     starter: {
       'ada-wasm': 'قالب Ada (Wasm)',
       angular: 'قالب Angular',
+      'assembly-wasm': 'قالب Assembly (Wasm)',
       assemblyscript: 'قالب AssemblyScript',
       astro: 'قالب Astro',
       backbone: 'قالب Backbone',

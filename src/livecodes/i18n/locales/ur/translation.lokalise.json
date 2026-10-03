@@ -1914,6 +1914,9 @@
   "templates.starter.angular": {
     "translation": "اینگولر شروعاتی"
   },
+  "templates.starter.assembly-wasm": {
+    "translation": "اسمبلی (واسم) شروعاتی"
+  },
   "templates.starter.assemblyscript": {
     "translation": "اسمبلی اسکرپٹ شروعاتی"
   },

@@ -27,6 +27,15 @@
   "asciidoc.name": {
     "translation": "AsciiDoc"
   },
+  "assemblyWasm.desc": {
+    "translation": "x86-64 汇编由 <tag-1>Keystone</tag-1> 汇编，并由 <tag-2>Unicorn</tag-2> 执行，二者均编译为 WebAssembly 并完全在浏览器中运行。"
+  },
+  "assemblyWasm.link": {
+    "translation": "<tag-1> <tag-2>Keystone 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Unicorn 官方网站</tag-4> </tag-3> <tag-5> <tag-6>X86 汇编（Wikibooks）</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+  },
+  "assemblyWasm.name": {
+    "translation": "Assembly (Wasm)"
+  },
   "assemblyscript.desc": {
     "translation": "一种类似于 TypeScript 的 WebAssembly 语言。"
   },
