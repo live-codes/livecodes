@@ -1,4 +1,4 @@
-import type { Compiler, CompileOptions, Config } from '../../../models';
+import type { CompileOptions, Compiler, Config } from '../../../models';
 import { adaWasm } from '../lang-ada-wasm';
 
 describe('ada-wasm', () => {
@@ -8,14 +8,14 @@ describe('ada-wasm', () => {
     expect(adaWasm.name).toBe('ada-wasm');
     expect(adaWasm.title).toBe('Ada (Wasm)');
     expect(adaWasm.extensions).toEqual(
-      expect.arrayContaining(['ada', 'ada-wasm', 'adb', 'ads', 'hac', 'wasm.ada']),
+      expect.arrayContaining(['ada', 'adb', 'ads', 'hac', 'wasm.ada']),
     );
   });
 
   test('uses the script editor with the ada-wasm script type', () => {
     expect(adaWasm.editor).toBe('script');
     expect(compiler.scriptType).toBe('text/ada-wasm');
-    expect(compiler.compiledCodeLanguage).toBe('ada');
+    expect(compiler.compiledCodeLanguage).toBe('ada-wasm');
   });
 
   test('loads only the runner script on the page (the runtime lives in a worker)', () => {
