@@ -6,7 +6,7 @@ In LiveCodes, assembly is assembled by [Keystone](https://www.keystone-engine.or
 
 :::info Note
 
-The browser has no operating system for a program to talk to, so a small set of Linux-style `syscall`s is served by the page: `read` (`0`), `write` (`1`) and `exit` (`60`). Everything else returns `-ENOSYS`. There is no libc, no dynamic linking and no filesystem.
+The browser has no operating system for a program to talk to, so a small set of Linux-style `syscall`s is served by the page: `read` (`0`), `write` (`1`) and `exit` (`60`, also `exit_group` at `231`). Everything else returns `-ENOSYS`. There is no libc, no dynamic linking and no filesystem.
 
 :::
 
@@ -95,7 +95,7 @@ console.log(output);
 
 ### Aliases / Extensions
 
-`assembly`, `asm`, `asm-wasm`, `x86`, `x86-64`, `nasm`, `wasm.asm`
+`assembly`, `asm`, `asm-wasm`, `assembly-wasm`, `x86`, `x86-64`, `nasm`, `wasm.asm`
 
 ### Editor
 
@@ -116,7 +116,7 @@ Not supported.
 ## Limitations
 
 - **x86-64, Intel syntax only.** Keystone and Unicorn both support other architectures; only x86-64 is wired up.
-- **A syscall shim, not Linux.** Only `read`, `write` and `exit` are served. There is no libc, no filesystem and no `argv` or environment.
+- **A syscall shim, not Linux.** Only `read`, `write` and `exit` (and its alias `exit_group`) are served. There is no libc, no filesystem and no `argv` or environment.
 - **Two memory regions.** The program and its data are mapped at `0x1000000` (64 KiB, and execution starts at the first byte), and the stack at `0x2000000` (64 KiB). There is no linker and no memory allocation.
 - **Integers are decimal.** Write `0x` for hexadecimal and `0b` for binary. Keystone reads an unprefixed integer as hexadecimal, so the source is re-based before it is assembled; a leading zero is decimal too, and there is no implicit octal.
 - **Comments.** `;` is accepted (as are `#` and `//`), and a `;` inside a string is data.

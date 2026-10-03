@@ -34,15 +34,25 @@ export const assemblyWasmStarter: Template = {
     }
 
     // get initial output
-    update(livecodes.assemblyWasm.output);
+    show(livecodes.assemblyWasm.output, livecodes.assemblyWasm.error);
 
     button.onclick = async () => {
       button.disabled = true;
       // The current count is the program's standard input, so every run is a fresh
       // program that reads it, adds one and prints the result.
-      const { output } = await livecodes.assemblyWasm.run(window.count);
-      update(output);
+      const { output, error } = await livecodes.assemblyWasm.run(window.count);
+      show(output, error);
     };
+
+    // surface a program that does not assemble instead of crashing on a null output
+    function show(output, error) {
+      if (error != null || output == null) {
+        button.innerText = "Error";
+        console.error(error);
+        return;
+      }
+      update(output);
+    }
 
     function update(output) {
       const counter = document.querySelector("#counter");

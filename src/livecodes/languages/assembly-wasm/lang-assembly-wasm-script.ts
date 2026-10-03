@@ -18,6 +18,8 @@ import {
 
 const SCRIPT_TYPE = 'text/assembly';
 
+const BOOT_TIMEOUT_MS = 2 * 60_000;
+
 interface WorkerRunResult {
   output: string;
   errors: string[];
@@ -34,6 +36,7 @@ interface RunResult {
 interface Runner {
   ensureReady: () => Promise<void>;
   run: (code: string, input: string) => Promise<WorkerRunResult>;
+  destroy: () => void;
 }
 
 interface AssemblyWasmApi {
@@ -52,6 +55,29 @@ interface AssemblyWasmApi {
 declare const window: Window & {
   livecodes: Record<string, AssemblyWasmApi>;
 };
+
+const withTimeout = <T>(
+  promise: Promise<T>,
+  ms: number,
+  message: string,
+  onTimeout?: () => void,
+): Promise<T> =>
+  new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => {
+      onTimeout?.();
+      reject(new Error(message));
+    }, ms);
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (error) => {
+        clearTimeout(timer);
+        reject(error);
+      },
+    );
+  });
 
 const getWorkerSrc = () => `
 importScripts(${JSON.stringify(assemblyWasmBaseUrl + 'dist/assembly-wasm.global.js')});
@@ -111,13 +137,13 @@ const createRunner = (): Runner => {
     pending = {};
   };
 
-  const teardown = (error: Error) => {
+  const teardown = (error?: Error) => {
     worker?.terminate();
     worker = null;
     ready = null;
     settleReady?.(error);
     settleReady = null;
-    failAll(error);
+    if (error) failAll(error);
   };
 
   const onMessage = (event: MessageEvent) => {
@@ -168,7 +194,7 @@ const createRunner = (): Runner => {
         }),
     );
 
-  return { ensureReady, run };
+  return { ensureReady, run, destroy: () => teardown() };
 };
 
 const setResult = (
@@ -196,9 +222,6 @@ window.livecodes.assemblyWasm ??= {} as AssemblyWasmApi;
 const assemblyWasm = window.livecodes.assemblyWasm;
 assemblyWasm.ready = false;
 assemblyWasm.failed = false;
-// The runner is parked on the persisted namespace so a live reload reuses the warm
-// worker instead of loading the runtimes again.
-assemblyWasm.runner ??= undefined;
 
 /** Start (once) downloading the runtimes, showing the loading indicator while it happens. */
 const ensureLoaded = (runner: Runner): Promise<void> => {
@@ -208,7 +231,12 @@ const ensureLoaded = (runner: Runner): Promise<void> => {
     init = (async () => {
       parent.postMessage({ type: 'loading', payload: true }, '*');
       try {
-        await runner.ensureReady();
+        await withTimeout(
+          runner.ensureReady(),
+          BOOT_TIMEOUT_MS,
+          'Timed out while loading the Assembly runtimes.',
+          () => runner.destroy(),
+        );
       } finally {
         parent.postMessage({ type: 'loading', payload: false }, '*');
       }
@@ -247,6 +275,8 @@ assemblyWasm.run = async (input?: string) => {
   });
   if (!code.trim()) return setResult(stdin, null, null, 0);
 
+  // Park the runner on the persisted namespace so a live reload reuses the warm
+  // worker instead of loading the runtimes again.
   const runner = (assemblyWasm.runner = assemblyWasm.runner || createRunner());
 
   try {
