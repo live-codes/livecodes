@@ -32,6 +32,7 @@ interface Runner {
 
 interface AdaWasmApi {
   ready: boolean;
+  failed: boolean;
   input: string;
   output: string | null;
   error: string | null;
@@ -203,11 +204,13 @@ window.livecodes.adaWasm ??= {} as AdaWasmApi;
 
 const adaWasm = window.livecodes.adaWasm;
 adaWasm.ready = false;
+adaWasm.failed = false;
 
 /** Start (once) loading the runtime in a worker, showing the loading indicator. */
 const ensureLoaded = (runner: Runner): Promise<void> => {
   let init = adaWasm.init;
   if (!init) {
+    adaWasm.failed = false;
     init = (async () => {
       parent.postMessage({ type: 'loading', payload: true }, '*');
       try {
@@ -223,6 +226,7 @@ const ensureLoaded = (runner: Runner): Promise<void> => {
     })().catch((error: Error) => {
       // Reset so a later run can retry the download.
       adaWasm.init = null;
+      adaWasm.failed = true;
       throw error;
     });
     // The failure is surfaced through `run`; do not also report it unhandled.
@@ -232,9 +236,12 @@ const ensureLoaded = (runner: Runner): Promise<void> => {
   return init;
 };
 
-adaWasm.loaded = new Promise<void>((resolve) => {
+adaWasm.loaded = new Promise<void>((resolve, reject) => {
   const interval = setInterval(() => {
-    if (adaWasm.ready) {
+    if (adaWasm.failed) {
+      clearInterval(interval);
+      reject(new Error(adaWasm.error || 'Failed to initialize the Ada environment'));
+    } else if (adaWasm.ready) {
       clearInterval(interval);
       resolve();
     }
