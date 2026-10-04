@@ -2572,6 +2572,10 @@
     "notes": "",
     "translation": "Blank Project"
   },
+  "templates.starter.blazor-wasm": {
+    "notes": "",
+    "translation": "Blazor (Wasm) Starter"
+  },
   "templates.starter.blockly": {
     "notes": "",
     "translation": "Blockly Starter"

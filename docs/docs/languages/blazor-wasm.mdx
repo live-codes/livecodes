@@ -1,0 +1,134 @@
+# Blazor (Wasm)
+
+[Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) is a framework for building interactive web UIs with C# and Razor, running on .NET WebAssembly.
+
+In LiveCodes, Razor components are compiled in the browser by the real Razor compiler and Roslyn, and rendered by Blazor WebAssembly. Nothing is sent to a server: the compiler, the .NET runtime and the reference assemblies all run in the page.
+
+## Usage
+
+Demo:
+
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+export const blazorConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'blazor-wasm',
+    content: `<h1>Counter</h1>
+
+<p>Current count: <strong>@count</strong></p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int count = 0;
+
+    private void IncrementCount() => count++;
+}`,
+  },
+  style: {
+    language: 'css',
+    content: `.btn {
+  font: inherit;
+  padding: 0.4em 1.1em;
+  cursor: pointer;
+}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={blazorConfig}></LiveCodes>
+
+
+### Communication with JavaScript
+
+The component runs in the context of the result page. A few helpers are available in the browser global `livecodes.blazorWasm` object:
+
+- `livecodes.blazorWasm.loaded`: A promise that resolves when the .NET WebAssembly runtime, Roslyn and the Razor compiler are loaded. Other helpers should be used after this promise resolves.
+- `livecodes.blazorWasm.render`: A function that compiles and renders Razor markup. It takes a string of Razor markup as input and returns a promise that resolves with an object containing the `output`, `error`, and `exitCode` properties.
+- `livecodes.blazorWasm.runner`: The underlying [`@live-codes/blazor-wasm`](https://www.npmjs.com/package/@live-codes/blazor-wasm) runner, which also exposes `renderProject` (multi-file projects), `render`, `navigateTo` (for `@page` routing) and `payloads`.
+- `livecodes.blazorWasm.routes`: The routes declared by `@page` directives in the rendered component.
+- `livecodes.blazorWasm.navigateTo`: A function that drives the host's client-side navigation, for `@page` routing.
+
+Example:
+
+
+<LiveCodes template="blazor-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+
+## Language Info
+
+### Name
+
+`blazor-wasm`
+
+### Aliases / Extensions
+
+`razor`, `blazor`, `razor-wasm`, `wasm.razor`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The real Razor compiler and Roslyn, compiled to WebAssembly, together with the .NET WebAssembly runtime and the Blazor WebAssembly host — loaded at run time from the [`@live-codes/blazor-wasm`](https://www.npmjs.com/package/@live-codes/blazor-wasm) package.
+
+### Version
+
+.NET 10
+
+## Limitations
+
+### Blazor components only
+
+Only **Blazor components** (`.razor`) are supported, not Razor Pages or MVC views. MVC-only directives such as `@model`, `@section` and tag helpers neither compile nor run. Use the Blazor equivalents:
+
+| Razor Pages / MVC                     | Blazor equivalent                                                         |
+| ------------------------------------- | ------------------------------------------------------------------------- |
+| `@model T`                            | `[Parameter] public T Model { get; set; }`                                |
+| `@section Name { ... }`               | a layout component that renders `@Body` (or a `RenderFragment` parameter) |
+| tag helpers (`@addTagHelper`, `asp-`) | Blazor components and plain HTML with `@onclick` / `@bind`                |
+| `@functions { ... }`                  | `@code { ... }`                                                           |
+| `@inherits RazorPage<T>`              | `@inherits ComponentBase` (components already derive from `ComponentBase`) |
+
+`@inject` works, but only for services the host already registers (`NavigationManager`, `IJSRuntime`, ...). `Program.cs` is not editable, so custom services cannot be registered. Razor Pages need the MVC view engine (`ViewContext`, tag-helper activation, sections, model binding, `HttpContext`), which a Blazor WebAssembly host does not include — even compiling a `.cshtml` file would fail at run time.
+
+### Other limitations
+
+- The first Razor compile takes a few seconds while the Razor generator warms up. Warm renders are fast.
+- The runtime and the reference assemblies are downloaded on the first run, so the first compile is a large download.
+- `wwwroot/` files are served as data URLs, so `url(...)` inside CSS and `fetch()` do not resolve; only `src`/`href`/`poster` attributes are rewritten.
+
+## Example Usage
+
+```razor
+<h1>Hello, Blazor!</h1>
+
+<button @onclick="Increment">You clicked @count times</button>
+
+@code {
+    private int count;
+
+    private void Increment() => count++;
+}
+```
+
+## Live Reload
+
+Because the component tree is rendered into the result page DOM, a code change reloads the result page and initializes the .NET WebAssembly runtime again. Adding the code comment `// __livecodes_reload__` has no additional effect (a full reload is always used).
+
+## Starter Template
+
+https://livecodes.io/?template=blazor-wasm
+
+## Links
+
+- [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor)
+- [Blazor components](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/)
+- [Razor syntax reference](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/razor)
+- [@live-codes/blazor-wasm](https://www.npmjs.com/package/@live-codes/blazor-wasm)
