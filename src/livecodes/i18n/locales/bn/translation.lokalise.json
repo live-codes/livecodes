@@ -1929,6 +1929,9 @@
   "templates.starter.blank": {
     "translation": "ফাঁকা প্রজেক্ট"
   },
+  "templates.starter.blazor-wasm": {
+    "translation": "Blazor (Wasm) স্টার্টার"
+  },
   "templates.starter.blockly": {
     "translation": "Blockly স্টার্টার"
   },

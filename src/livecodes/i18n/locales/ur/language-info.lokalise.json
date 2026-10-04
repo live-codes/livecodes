@@ -72,6 +72,15 @@
   "bbcode.name": {
     "translation": "بی بی کوڈ"
   },
+  "blazorWasm.desc": {
+    "translation": "Razor کمپونینٹس کو حقیقی <tag-1>Razor کمپائلر</tag-1> اور <tag-2>Roslyn</tag-2> کے ذریعے مرتب کیا جاتا ہے، اور .NET WebAssembly رن ٹائم پر <tag-3>Blazor WebAssembly</tag-3> کے ذریعے رینڈر کیا جاتا ہے — سب کچھ براؤزر میں، بغیر کسی سرور کے۔"
+  },
+  "blazorWasm.link": {
+    "translation": "<tag-1> <tag-2>Blazor دستاویزات</tag-2> </tag-1> <tag-3> <tag-4>ASP.NET Core Blazor کمپونینٹس</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes دستاویزی</tag-6> </tag-5> <tag-7> <tag-8>لوڈ اسٹارٹر ٹیمپلیٹ</tag-8> </tag-7>"
+  },
+  "blazorWasm.name": {
+    "translation": "Blazor (Wasm)"
+  },
   "blockly.desc": {
     "translation": "بصری پروگرامنگ ایڈیٹرز بنانے کے لیے ایک جاوا اسکرپٹ لائبریری۔"
   },

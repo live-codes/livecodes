@@ -1929,6 +1929,9 @@
   "templates.starter.blank": {
     "translation": "Leeres Projekt"
   },
+  "templates.starter.blazor-wasm": {
+    "translation": "Blazor (Wasm)-Starter"
+  },
   "templates.starter.blockly": {
     "translation": "Blockly-Starter"
   },

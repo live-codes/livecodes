@@ -982,6 +982,7 @@ const translation: I18nTranslation = {
       astro: 'Pemula Astro',
       backbone: 'Pemula Backbone',
       blank: 'Proyek Kosong',
+      'blazor-wasm': 'Pemula Blazor (Wasm)',
       blockly: 'Pemula Blockly',
       bootstrap: 'Pemula Bootstrap',
       'c-wasm': 'Pemula C (Wasm)',

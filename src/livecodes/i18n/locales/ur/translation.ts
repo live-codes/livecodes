@@ -982,6 +982,7 @@ const translation: I18nTranslation = {
       astro: 'ایسٹرو شروعاتی',
       backbone: 'بیک بون شروعاتی',
       blank: 'خالی پروجیکٹ',
+      'blazor-wasm': 'Blazor (واسم) شروعاتی',
       blockly: 'بلاکلی شروعاتی',
       bootstrap: 'بوٹ اسٹریپ شروعاتی',
       'c-wasm': 'C (واسم) شروعاتی',

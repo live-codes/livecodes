@@ -1929,6 +1929,9 @@
   "templates.starter.blank": {
     "translation": "Projet Vide"
   },
+  "templates.starter.blazor-wasm": {
+    "translation": "Démarrage Blazor (Wasm)"
+  },
   "templates.starter.blockly": {
     "translation": "Démarrage Blockly"
   },

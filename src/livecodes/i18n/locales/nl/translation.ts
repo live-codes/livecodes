@@ -983,6 +983,7 @@ const translation: I18nTranslation = {
       astro: 'Astro-starter',
       backbone: 'Backbone-starter',
       blank: 'Leeg project',
+      'blazor-wasm': 'Blazor (Wasm)-starter',
       blockly: 'Blockly-starter',
       bootstrap: 'Bootstrap-starter',
       'c-wasm': 'C (Wasm)-starter',

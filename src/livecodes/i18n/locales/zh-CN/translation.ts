@@ -980,6 +980,7 @@ const translation: I18nTranslation = {
       astro: 'Astro 启动模板',
       backbone: 'Backbone 启动模板',
       blank: '空白项目',
+      'blazor-wasm': 'Blazor（WASM）启动模板',
       blockly: 'Blockly 启动模板',
       bootstrap: 'Bootstrap 启动模板',
       'c-wasm': 'C（WASM）启动模板',

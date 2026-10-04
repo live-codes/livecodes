@@ -1929,6 +1929,9 @@
   "templates.starter.blank": {
     "translation": "قالب فارغ"
   },
+  "templates.starter.blazor-wasm": {
+    "translation": "قالب Blazor (Wasm)"
+  },
   "templates.starter.blockly": {
     "translation": "قالب Blockly"
   },

@@ -72,6 +72,15 @@
   "bbcode.name": {
     "translation": "BBCode"
   },
+  "blazorWasm.desc": {
+    "translation": "Komponen Razor dikompilasi oleh <tag-1>kompiler Razor</tag-1> asli dan <tag-2>Roslyn</tag-2>, lalu dirender oleh <tag-3>Blazor WebAssembly</tag-3> pada runtime .NET WebAssembly — semuanya di browser, tanpa server."
+  },
+  "blazorWasm.link": {
+    "translation": "<tag-1> <tag-2>Dokumentasi Blazor</tag-2> </tag-1> <tag-3> <tag-4>Komponen ASP.NET Core Blazor</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "blazorWasm.name": {
+    "translation": "Blazor (Wasm)"
+  },
   "blockly.desc": {
     "translation": "Pustaka JavaScript untuk membangun editor pemrograman visual."
   },

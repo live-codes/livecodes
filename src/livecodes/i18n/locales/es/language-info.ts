@@ -43,6 +43,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>bbcode.org</2></1> <3> <4>Guía de BBCode</4> </3> <5> <6>BBCode en Wikipedia</6> </5>',
     name: 'BBCode',
   },
+  blazorWasm: {
+    desc: 'Componentes de Razor compilados por el verdadero <1>compilador de Razor</1> y <2>Roslyn</2>, y renderizados por <3>Blazor WebAssembly</3> en el tiempo de ejecución de .NET WebAssembly — todo en el navegador, sin servidor.',
+    link: '<1> <2>Documentación de Blazor</2> </1> <3> <4>Componentes de ASP.NET Core Blazor</4> </3> <5> <6>Documentación de LiveCodes</6> </5> <7> <8>Cargar plantilla de inicio</8> </7>',
+    name: 'Blazor (Wasm)',
+  },
   blockly: {
     desc: 'Una biblioteca JavaScript para construir editores de programación visual.',
     link: '<1> <2>Sitio web oficial</2> </1> <3> <4>Guías</4> </3> <5> <6>Referencia</6> </5> <7> <8>Ejemplos</8> </7> <9> <10>Cargar plantilla inicial</10> </9>',

@@ -1929,6 +1929,9 @@
   "templates.starter.blank": {
     "translation": "空白项目"
   },
+  "templates.starter.blazor-wasm": {
+    "translation": "Blazor（WASM）启动模板"
+  },
   "templates.starter.blockly": {
     "translation": "Blockly 启动模板"
   },

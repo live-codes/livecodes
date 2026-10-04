@@ -68,7 +68,11 @@ const loadScript = (src: string) =>
     const script = document.createElement('script');
     script.src = src;
     script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`Failed to load ${src}`));
+    script.onerror = () => {
+      // Remove the failed script so a later attempt can issue a fresh request.
+      script.remove();
+      reject(new Error(`Failed to load ${src}`));
+    };
     document.head.appendChild(script);
   });
 
@@ -93,12 +97,45 @@ const formatErrors = (errors?: Diagnostic[]) =>
         .join('\n')
     : null;
 
+const initCSharp = (): Promise<void> => {
+  if (!livecodes.csharp.init) {
+    const init = (async () => {
+      // eslint-disable-next-line no-console
+      console.log('Initializing C# environment...');
+      try {
+        const runner = await getRunner();
+        await withTimeout(
+          runner.ready(),
+          BOOT_TIMEOUT_MS,
+          'Timed out while loading the C# WebAssembly runtime.',
+          () => {
+            livecodes.csharp.runner = undefined;
+          },
+        );
+        // eslint-disable-next-line no-console
+        console.log('C# environment initialized successfully');
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to initialize C# environment:', err);
+        livecodes.csharp.ready = false;
+        // Reset so a later run recreates the initialization and retries the download.
+        livecodes.csharp.init = null;
+        throw err;
+      }
+    })();
+    // The failure is surfaced through `run`; do not also report it unhandled.
+    init.catch(() => undefined);
+    livecodes.csharp.init = init;
+  }
+  return livecodes.csharp.init;
+};
+
 const runCSharpCode = async (
   code: string,
   input = '',
 ): Promise<{ output: string | null; error: string | null }> => {
   try {
-    await livecodes.csharp.init;
+    await initCSharp();
     const { output, errors } = await (livecodes.csharp.runner as CSharpRunner).run(code, input);
     return { output: output ?? null, error: formatErrors(errors) };
   } catch (err) {
@@ -106,31 +143,8 @@ const runCSharpCode = async (
   }
 };
 
-livecodes.csharp.init ??= (async () => {
-  if (livecodes.csharp.ready) return;
-
-  // eslint-disable-next-line no-console
-  console.log('Initializing C# environment...');
-  try {
-    const runner = await getRunner();
-    await withTimeout(
-      runner.ready(),
-      BOOT_TIMEOUT_MS,
-      'Timed out while loading the C# WebAssembly runtime.',
-      () => {
-        livecodes.csharp.runner = undefined;
-      },
-    );
-    // eslint-disable-next-line no-console
-    console.log('C# environment initialized successfully');
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to initialize C# environment:', err);
-    livecodes.csharp.ready = false;
-    livecodes.csharp.init = null;
-    throw err;
-  }
-})();
+// Start downloading the runtime as soon as the result page loads.
+initCSharp();
 
 livecodes.csharp.run ??= async (input?: string) => {
   let code = '';
