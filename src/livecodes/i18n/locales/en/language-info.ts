@@ -157,6 +157,11 @@ const languageInfo = {
     link: '<1> <2>Flow official website</2> </1> <3> <4>Flow documentation</4> </3>',
     name: 'Flow',
   },
+  fortran: {
+    desc: 'Modern Fortran compiled to WebAssembly by <1>LFortran</1>, running entirely in the browser. There is no server and no link step: the compiler emits the program as a wasm module and runs it in place. It is about 19&nbsp;MB compressed, fetched once when the language is first run.',
+    link: '<1> <2>Learn Fortran</2> </1> <3> <4>LFortran official website</4> </3> <5> <6>Fortran language website</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Fortran',
+  },
   fsharp: {
     desc1:
       'F# is a cross-platform, open-source functional programming language that runs on the .NET platform.',

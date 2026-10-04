@@ -50,6 +50,7 @@
   "c-wasm": "C (Wasm) Starter",
   "cpp-wasm": "C++ (Wasm) Starter",
   "objc-wasm": "Objective-C (Wasm) Starter",
+  "fortran-wasm": "Fortran Starter",
   "rust-wasm": "Rust (Wasm) Starter",
   "swift-wasm": "Swift (Wasm) Starter",
   "zig-wasm": "Zig (Wasm) Starter",

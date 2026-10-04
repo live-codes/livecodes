@@ -2648,6 +2648,10 @@
     "notes": "",
     "translation": "Fennel Starter"
   },
+  "templates.starter.fortran-wasm": {
+    "notes": "",
+    "translation": "Fortran Starter"
+  },
   "templates.starter.fsharp": {
     "notes": "",
     "translation": "F# Starter"

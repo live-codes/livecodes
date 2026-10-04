@@ -48,6 +48,7 @@ const templates = [
   { name: 'php-wasm', title: 'PHP (Wasm) Starter', thumbnail: 'php.svg' },
   { name: 'cpp', title: 'C++ Starter', thumbnail: 'cpp.svg' },
   { name: 'c-wasm', title: 'C (Wasm) Starter', thumbnail: 'c.svg' },
+  { name: 'fortran-wasm', title: 'Fortran Starter', thumbnail: 'fortran.svg' },
   { name: 'cpp-wasm', title: 'C++ (Wasm) Starter', thumbnail: 'cpp.svg' },
   { name: 'objc-wasm', title: 'Objective-C (Wasm) Starter', thumbnail: 'objective-c.svg' },
   { name: 'rust-wasm', title: 'Rust (Wasm) Starter', thumbnail: 'rust.svg' },

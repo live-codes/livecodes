@@ -108,6 +108,12 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
 
 export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.3/build/');
 
+// Fortran is not among the grammars @live-codes/codemirror builds, but CodeMirror 6's legacy modes
+// include one. Referenced from here like every other CDN asset.
+export const codeMirrorLegacyModesBaseUrl = /* @__PURE__ */ getUrl(
+  '@codemirror/legacy-modes@6.4.0/mode/',
+);
+
 export const codemirrorMinimapUrl = /* @__PURE__ */ getUrl(
   '@replit/codemirror-minimap@0.5.2/dist/index.js',
 );
@@ -263,6 +269,8 @@ export const fontSudoVarUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com
 export const fontUbuntuMonoUrl = /* @__PURE__ */ getUrl('@fontsource/ubuntu-mono@4.5.11/index.css');
 
 export const fontVictorMonoUrl = /* @__PURE__ */ getUrl('victormono@1.5.4/dist/index.css');
+
+export const fortranWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/lfortran-wasm@0.2.0/');
 
 export const fscreenUrl = /* @__PURE__ */ getUrl('fscreen@1.2.0/dist/fscreen.esm.js');
 

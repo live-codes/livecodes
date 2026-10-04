@@ -25,6 +25,7 @@ import { diagramsStarter } from './diagrams-starter';
 import { elmStarter } from './elm-starter';
 import { fanakStarter } from './fanak-starter';
 import { fennelStarter } from './fennel-starter';
+import { fortranWasmStarter } from './fortran-wasm-starter';
 import { fsharpStarter } from './fsharp-starter';
 import { fsharpWasmStarter } from './fsharp-wasm-starter';
 import { gleamStarter } from './gleam-starter';
@@ -137,6 +138,7 @@ export const starterTemplates = [
   cWasmStarter,
   cppWasmStarter,
   objcWasmStarter,
+  fortranWasmStarter,
   rustWasmStarter,
   swiftWasmStarter,
   zigWasmStarter,
