@@ -14,15 +14,11 @@ export const blazorConfig = {
   activeEditor: 'script',
   script: {
     language: 'blazor-wasm',
-    content: `<h1>Counter</h1>
-
-<p>Current count: <strong>@count</strong></p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
+    content: `<h1>Counter</h1>\n
+<p>Current count: <strong>@count</strong></p>\n
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>\n
 @code {
-    private int count = 0;
-
+    private int count = 0;\n
     private void IncrementCount() => count++;
 }`,
   },
