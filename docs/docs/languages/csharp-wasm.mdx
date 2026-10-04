@@ -14,17 +14,14 @@ export const csharpConfig = {
   activeEditor: 'script',
   script: {
     language: 'csharp-wasm',
-    content: `using System;
-
+    content: `using System;\n
 public class Program
 {
     public static void Main()
     {
         int[] sortedArray = { 1, 3, 5, 7, 9, 11, 13, 15 };
-        int itemToSearch = 7;
-
-        int result = BinarySearch(sortedArray, 0, sortedArray.Length - 1, itemToSearch);
-
+        int itemToSearch = 7;\n
+        int result = BinarySearch(sortedArray, 0, sortedArray.Length - 1, itemToSearch);\n
         if (result == -1)
         {
             Console.WriteLine("Result: Item not found in the array.");
@@ -33,8 +30,7 @@ public class Program
         {
             Console.WriteLine($"Result: Item found at index -> {result}");
         }
-    }
-
+    }\n
     public static int BinarySearch(int[] arr, int left, int right, int item)
     {
         if (right >= left)
@@ -43,13 +39,11 @@ public class Program
             if (arr[mid] == item)
             {
                 return mid;
-            }
-
+            }\n
             if (arr[mid] > item)
             {
                 return BinarySearch(arr, left, mid - 1, item);
-            }
-
+            }\n
             return BinarySearch(arr, mid + 1, right, item);
         }
         return -1;
@@ -97,11 +91,11 @@ Example:
 
 ## Compiler
 
-Blazor WebAssembly with .NET WebAssembly runtime.
+The .NET WebAssembly runtime with Roslyn, loaded at run time from the [`@live-codes/blazor-wasm`](https://www.npmjs.com/package/@live-codes/blazor-wasm) package — the same bundle that backs the [Blazor (Wasm)](./blazor-wasm.mdx) language. Console programs are compiled and run through the bundle's `RunCode`.
 
 ### Version
 
-.NET 9.0
+.NET 10
 
 ## Code Formatting
 

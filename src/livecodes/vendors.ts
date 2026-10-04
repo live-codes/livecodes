@@ -122,8 +122,6 @@ export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 
 export const creltUrl = /* @__PURE__ */ getUrl('crelt@1.0.6/index.js');
 
-export const csharpWasmBaseUrl = /* @__PURE__ */ getUrl('@seth0x41/csharp-wasm@1.0.3/');
-
 export const yaegiWasmBaseUrl = /* @__PURE__ */ getUrl('yaegi-wasm@1.0.2/src/');
 
 export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@2.3.1/dist/csstree.js');

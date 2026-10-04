@@ -30,7 +30,7 @@ BBob: [MIT License](https://github.com/JiLiZART/BBob/blob/17edb9e3e6572e72ab9cb0
 
 BiwaScheme: [MIT License](https://github.com/biwascheme/biwascheme/blob/7a95e757af8b7278d19a87d6067bf1f91f59bc62/MIT-LICENSE.txt)
 
-Blazor (Wasm): [MIT License](https://github.com/live-codes/browser-blazor/blob/main/LICENSE) (the [@live-codes/blazor-wasm](https://www.npmjs.com/package/@live-codes/blazor-wasm) package, which loads the .NET WebAssembly runtime, Roslyn and the Razor compiler; see .NET runtime and Roslyn)
+Blazor (Wasm): [MIT License](https://github.com/live-codes/browser-blazor/blob/a66e9afd1c1c8df641111c21b88f84c9f191eb7e/LICENSE)
 
 Blockly: [Apache-2.0 License](https://github.com/google/blockly/blob/3ae4a618429c87fc002e512e5a2504af382325fd/LICENSE)
 
@@ -268,7 +268,7 @@ reset.css: [The Unlicense](https://github.com/shannonmoeller/reset-css/blob/d4b2
 
 Riot: [MIT License](https://github.com/riot/riot/blob/2b08ebf8c7fa3f338d24b7320ee7f18c36b7ae74/LICENSE.txt)
 
-Roslyn: [MIT License](https://github.com/dotnet/roslyn/blob/main/License.txt) (the C# and Visual Basic compiler, used by Blazor (Wasm) and the .NET-based languages; loaded at run time, not bundled by LiveCodes)
+Roslyn: [MIT License](https://github.com/dotnet/roslyn/blob/8d2c75f24c88ea99a01a8579ecb67e303d566670/License.txt)
 
 ruby.wasm: [MIT License](https://github.com/ruby/ruby.wasm/blob/097b7ca8d2ed2a98eea4dcf2da8089bb8ff06e07/LICENSE)
 
