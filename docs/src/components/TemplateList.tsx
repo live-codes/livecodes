@@ -57,6 +57,7 @@ const templates = [
   { name: 'zig-wasm', title: 'Zig (Wasm) Starter', thumbnail: 'zig.svg' },
   { name: 'java', title: 'Java Starter', thumbnail: 'java.svg' },
   { name: 'csharp-wasm', title: 'C# (Wasm)', thumbnail: 'csharp.svg' },
+  { name: 'blazor-wasm', title: 'Blazor (Wasm) Starter', thumbnail: 'blazor.svg' },
   { name: 'vb-wasm', title: 'VB.NET (Wasm)', thumbnail: 'vb.svg' },
   { name: 'fsharp', title: 'F# Starter', thumbnail: 'fsharp.svg' },
   { name: 'fsharp-wasm', title: 'F# (Wasm) Starter', thumbnail: 'fsharp.svg' },

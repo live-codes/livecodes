@@ -982,6 +982,7 @@ const translation: I18nTranslation = {
       astro: 'Astro স্টার্টার',
       backbone: 'Backbone স্টার্টার',
       blank: 'ফাঁকা প্রজেক্ট',
+      'blazor-wasm': 'Blazor (Wasm) স্টার্টার',
       blockly: 'Blockly স্টার্টার',
       bootstrap: 'Bootstrap স্টার্টার',
       'c-wasm': 'C (Wasm) স্টার্টার',

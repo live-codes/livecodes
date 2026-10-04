@@ -72,6 +72,15 @@
   "bbcode.name": {
     "translation": "BBCode"
   },
+  "blazorWasm.desc": {
+    "translation": "کامپوننت‌های Razor توسط <tag-1>کامپایلر واقعی Razor</tag-1> و <tag-2>Roslyn</tag-2> کامپایل می‌شوند و توسط <tag-3>Blazor WebAssembly</tag-3> روی محیط اجرایی .NET WebAssembly رندر می‌شوند — همه در مرورگر، بدون سرور."
+  },
+  "blazorWasm.link": {
+    "translation": "<tag-1> <tag-2>مستندات Blazor</tag-2> </tag-1> <tag-3> <tag-4>کامپوننت‌های ASP.NET Core Blazor</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع</tag-8> </tag-7>"
+  },
+  "blazorWasm.name": {
+    "translation": "Blazor (Wasm)"
+  },
   "blockly.desc": {
     "translation": "یک کتابخانه JavaScript برای ساخت ویرایشگرهای برنامه‌نویسی بصری."
   },

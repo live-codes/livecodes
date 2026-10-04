@@ -311,6 +311,7 @@ export const getCommandMenuActions = ({
         'zig-wasm',
         'java',
         'csharp-wasm',
+        'blazor-wasm',
         'vb-wasm',
         'fsharp',
         'fsharp-wasm',

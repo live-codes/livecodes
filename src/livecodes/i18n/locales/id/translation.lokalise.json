@@ -1929,6 +1929,9 @@
   "templates.starter.blank": {
     "translation": "Proyek Kosong"
   },
+  "templates.starter.blazor-wasm": {
+    "translation": "Pemula Blazor (Wasm)"
+  },
   "templates.starter.blockly": {
     "translation": "Pemula Blockly"
   },

@@ -30,6 +30,8 @@ BBob: [MIT License](https://github.com/JiLiZART/BBob/blob/17edb9e3e6572e72ab9cb0
 
 BiwaScheme: [MIT License](https://github.com/biwascheme/biwascheme/blob/7a95e757af8b7278d19a87d6067bf1f91f59bc62/MIT-LICENSE.txt)
 
+Blazor (Wasm): [MIT License](https://github.com/live-codes/browser-blazor/blob/a66e9afd1c1c8df641111c21b88f84c9f191eb7e/LICENSE)
+
 Blockly: [Apache-2.0 License](https://github.com/google/blockly/blob/3ae4a618429c87fc002e512e5a2504af382325fd/LICENSE)
 
 browser_wasi_shim: [MIT License](https://github.com/bjorn3/browser_wasi_shim/blob/b068ec2c22d68581c48f2592f8cca1681bf71a98/LICENSE-MIT) OR [Apache License 2.0](https://github.com/bjorn3/browser_wasi_shim/blob/b068ec2c22d68581c48f2592f8cca1681bf71a98/LICENSE-APACHE)
@@ -265,6 +267,8 @@ ReScript/React: [MIT License](https://github.com/rescript-lang/rescript-react/bl
 reset.css: [The Unlicense](https://github.com/shannonmoeller/reset-css/blob/d4b2236cb260016e8f57d532a602b4e58acf6f03/license)
 
 Riot: [MIT License](https://github.com/riot/riot/blob/2b08ebf8c7fa3f338d24b7320ee7f18c36b7ae74/LICENSE.txt)
+
+Roslyn: [MIT License](https://github.com/dotnet/roslyn/blob/8d2c75f24c88ea99a01a8579ecb67e303d566670/License.txt)
 
 ruby.wasm: [MIT License](https://github.com/ruby/ruby.wasm/blob/097b7ca8d2ed2a98eea4dcf2da8089bb8ff06e07/LICENSE)
 

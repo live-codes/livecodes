@@ -982,6 +982,7 @@ const translation: I18nTranslation = {
       astro: 'قالب Astro',
       backbone: 'قالب Backbone',
       blank: 'قالب فارغ',
+      'blazor-wasm': 'قالب Blazor (Wasm)',
       blockly: 'قالب Blockly',
       bootstrap: 'قالب Bootstrap',
       'c-wasm': 'قالب C (Wasm)',

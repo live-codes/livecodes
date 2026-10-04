@@ -72,6 +72,15 @@
   "bbcode.name": {
     "translation": "BBCode"
   },
+  "blazorWasm.desc": {
+    "translation": "Razor 组件由真正的 <tag-1>Razor 编译器</tag-1> 和 <tag-2>Roslyn</tag-2> 编译，并由 .NET WebAssembly 运行时上的 <tag-3>Blazor WebAssembly</tag-3> 渲染 — 全部在浏览器中完成，无需服务器。"
+  },
+  "blazorWasm.link": {
+    "translation": "<tag-1> <tag-2>Blazor 文档</tag-2> </tag-1> <tag-3> <tag-4>ASP.NET Core Blazor 组件</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes 文档</tag-6> </tag-5> <tag-7> <tag-8>加载入门模板</tag-8> </tag-7>"
+  },
+  "blazorWasm.name": {
+    "translation": "Blazor (Wasm)"
+  },
   "blockly.desc": {
     "translation": "用于构建可视化编程编辑器的 JavaScript 库。"
   },

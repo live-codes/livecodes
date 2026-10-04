@@ -561,6 +561,31 @@ test.describe('Starter Templates from UI', () => {
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
+  test('Blazor (Wasm) Starter', async ({ page, getTestUrl }) => {
+    // the .NET runtime, Roslyn and the Razor compiler (~40 MB) are downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Blazor (Wasm) Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the component renders once the runtime and the Razor compiler have loaded
+    await expect(getResult().locator('h1')).toHaveText('Hello, Blazor!', { timeout: 280_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
   test('d3 Starter', async ({ page, getTestUrl, editor }) => {
     test.slow();
 
@@ -1305,6 +1330,27 @@ test.describe('Starter Templates from URL', () => {
     await getResult().click('text=Click me');
 
     await expect(getResult().locator('h1')).toHaveText('Hello, VB.NET!');
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
+  test('Blazor (Wasm) Starter (in URL)', async ({ page, getTestUrl }) => {
+    // the .NET runtime, Roslyn and the Razor compiler (~40 MB) are downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'blazor-wasm' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the component renders once the runtime and the Razor compiler have loaded
+    await expect(getResult().locator('h1')).toHaveText('Hello, Blazor!', { timeout: 280_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 

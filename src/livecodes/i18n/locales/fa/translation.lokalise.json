@@ -1929,6 +1929,9 @@
   "templates.starter.blank": {
     "translation": "پروژه خالی"
   },
+  "templates.starter.blazor-wasm": {
+    "translation": "شروع کننده Blazor (Wasm)"
+  },
   "templates.starter.blockly": {
     "translation": "شروع کننده Blockly"
   },

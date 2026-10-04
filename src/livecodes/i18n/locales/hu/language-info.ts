@@ -43,6 +43,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>bbcode.org</2></1> <3> <4>BBCode útmutató</4> </3> <5> <6>BBCode a Wikipédián</6> </5>',
     name: 'BBCode',
   },
+  blazorWasm: {
+    desc: 'A Razor komponenseket a valódi <1>Razor-fordító</1> és a <2>Roslyn</2> fordítja, és a <3>Blazor WebAssembly</3> jeleníti meg a .NET WebAssembly futtatókörnyezetben — mindez a böngészőben, szerver nélkül.',
+    link: '<1> <2>Blazor dokumentáció</2> </1> <3> <4>ASP.NET Core Blazor komponensek</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
+    name: 'Blazor (Wasm)',
+  },
   blockly: {
     desc: 'JavaScript könyvtár vizuális programozási szerkesztők építéséhez.',
     link: '<1> <2>Hivatalos weboldal</2> </1> <3> <4>Útmutatók</4> </3> <5> <6>Referencia</6> </5> <7> <8>Példák</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',

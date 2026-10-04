@@ -7,6 +7,7 @@ import { assemblyscriptStarter } from './assemblyscript-starter';
 import { astroStarter } from './astro-starter';
 import { backboneStarter } from './backbone-starter';
 import { blank } from './blank';
+import { blazorWasmStarter } from './blazor-wasm-starter';
 import { blocklyStarter } from './blockly-starter';
 import { bootstrapStarter } from './bootstrap-starter';
 import { civetStarter } from './civet-starter';
@@ -141,6 +142,7 @@ export const starterTemplates = [
   zigWasmStarter,
   javaStarter,
   csharpWasmStarter,
+  blazorWasmStarter,
   vbWasmStarter,
   fsharpStarter,
   fsharpWasmStarter,

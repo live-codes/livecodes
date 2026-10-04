@@ -43,6 +43,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>bbcode.org</2></1> <3> <4>BBCode 指南</4> </3> <5> <6>维基百科上的 BBCode</6> </5>',
     name: 'BBCode',
   },
+  blazorWasm: {
+    desc: 'Razor 组件由真正的 <1>Razor 编译器</1> 和 <2>Roslyn</2> 编译，并由 .NET WebAssembly 运行时上的 <3>Blazor WebAssembly</3> 渲染 — 全部在浏览器中完成，无需服务器。',
+    link: '<1> <2>Blazor 文档</2> </1> <3> <4>ASP.NET Core Blazor 组件</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
+    name: 'Blazor (Wasm)',
+  },
   blockly: {
     desc: '用于构建可视化编程编辑器的 JavaScript 库。',
     link: '<1> <2>官方网站</2> </1> <3> <4>指南</4> </3> <5> <6>参考</6> </5> <7> <8>样例</8> </7> <9> <10>加载启动模板</10> </9>',

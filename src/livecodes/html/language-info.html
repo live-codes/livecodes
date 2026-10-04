@@ -190,6 +190,50 @@
     </li>
   </ul>
 </section>
+<section data-lang="blazor-wasm">
+  <h3 data-i18n="language-info:blazorWasm.name">Blazor (Wasm)</h3>
+  <div data-i18n="language-info:blazorWasm.desc" data-i18n-prop="innerHTML">
+    Razor components compiled by the real
+    <a href="https://github.com/dotnet/razor" target="_blank" rel="noopener">Razor compiler</a> and
+    <a href="https://github.com/dotnet/roslyn" target="_blank" rel="noopener">Roslyn</a>, and
+    rendered by
+    <a
+      href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor"
+      target="_blank"
+      rel="noopener"
+      >Blazor WebAssembly</a
+    >
+    on the .NET WebAssembly runtime — all in the browser, with no server.
+  </div>
+  <ul data-i18n="language-info:blazorWasm.link" data-i18n-prop="innerHTML">
+    <li>
+      <a
+        href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor"
+        target="_blank"
+        rel="noopener"
+        >Blazor documentation</a
+      >
+    </li>
+    <li>
+      <a
+        href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/"
+        target="_blank"
+        rel="noopener"
+        >ASP.NET Core Blazor components</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/blazor-wasm" target="_blank" rel="noopener"
+        >LiveCodes Documentation</a
+      >
+    </li>
+    <li>
+      <a href="?template=blazor-wasm" class="button" target="_parent" data-template="blazor-wasm"
+        >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
 <section data-lang="blockly">
   <h3 data-i18n="language-info:blockly.name">Blockly</h3>
   <div data-i18n="language-info:blockly.desc">
@@ -219,6 +263,39 @@
     </li>
     <li>
       <a href="?template=blockly" class="button" target="_parent" data-template="blockly"
+        >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
+<section data-lang="c-wasm">
+  <h3 data-i18n="language-info:cWasm.name">C (Wasm)</h3>
+  <div data-i18n="language-info:cWasm.desc" data-i18n-prop="innerHTML">
+    C compiled to WebAssembly by
+    <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang</a>, running entirely in
+    the browser.
+  </div>
+  <ul data-i18n="language-info:cWasm.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://en.cppreference.com/w/c" target="_blank" rel="noopener"
+        >C language reference</a
+      >
+    </li>
+    <li>
+      <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang official website</a>
+    </li>
+    <li>
+      <a href="https://learnxinyminutes.com/docs/c/" target="_blank" rel="noopener"
+        >Learn X in Y minutes, where X=C</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/c-wasm" target="_blank" rel="noopener"
+        >LiveCodes Documentation</a
+      >
+    </li>
+    <li>
+      <a href="?template=c-wasm" class="button" target="_parent" data-template="c-wasm"
         >Load starter template</a
       >
     </li>
@@ -259,170 +336,6 @@
     <li>
       <a href="?template=clio" class="button" target="_parent" data-template="clio"
         >Load starter template</a
-      >
-    </li>
-  </ul>
-</section>
-<section data-lang="cpp">
-  <h3 data-i18n="language-info:cpp.name">C++</h3>
-  <div data-i18n="language-info:cpp.desc1">
-    C++ support using JSCPP (a simple C++ interpreter written in JavaScript).
-  </div>
-  <div data-i18n="language-info:cpp.desc2" data-i18n-prop="innerHTML">
-    It is not a complete implementation of C++. Please refer to
-    <a href="https://github.com/felixhao28/JSCPP" target="_blank" rel="noopener"
-      >JSCPP documentation</a
-    >
-    for details.
-  </div>
-  <ul data-i18n="language-info:cpp.link" data-i18n-prop="innerHTML">
-    <li>
-      <a href="https://isocpp.org/" target="_blank" rel="noopener">Standard C++ Foundation</a>
-    </li>
-    <li>
-      <a href="https://github.com/felixhao28/JSCPP" target="_blank" rel="noopener">JSCPP</a>
-    </li>
-    <li>
-      <a href="https://learnxinyminutes.com/docs/c++/" target="_blank" rel="noopener"
-        >Learn X in Y minutes, where X=C++</a
-      >
-    </li>
-    <li>
-      <a href="?template=cpp" class="button" target="_parent" data-template="cpp"
-        >Load starter template</a
-      >
-    </li>
-  </ul>
-</section>
-<section data-lang="c-wasm">
-  <h3 data-i18n="language-info:cWasm.name">C (Wasm)</h3>
-  <div data-i18n="language-info:cWasm.desc" data-i18n-prop="innerHTML">
-    C compiled to WebAssembly by
-    <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang</a>, running entirely in
-    the browser.
-  </div>
-  <ul data-i18n="language-info:cWasm.link" data-i18n-prop="innerHTML">
-    <li>
-      <a href="https://en.cppreference.com/w/c" target="_blank" rel="noopener"
-        >C language reference</a
-      >
-    </li>
-    <li>
-      <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang official website</a>
-    </li>
-    <li>
-      <a href="https://learnxinyminutes.com/docs/c/" target="_blank" rel="noopener"
-        >Learn X in Y minutes, where X=C</a
-      >
-    </li>
-    <li>
-      <a href="{{DOCS_BASE_URL}}languages/c-wasm" target="_blank" rel="noopener"
-        >LiveCodes Documentation</a
-      >
-    </li>
-    <li>
-      <a href="?template=c-wasm" class="button" target="_parent" data-template="c-wasm"
-        >Load starter template</a
-      >
-    </li>
-  </ul>
-</section>
-<section data-lang="cpp-wasm">
-  <h3 data-i18n="language-info:cppWasm.name">C++ (Wasm)</h3>
-  <div data-i18n="language-info:cppWasm.desc" data-i18n-prop="innerHTML">
-    C++ compiled to WebAssembly by
-    <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang</a>, running entirely in
-    the browser. This provides a real C++ compiler, unlike the
-    <a href="{{DOCS_BASE_URL}}languages/cpp" target="_blank" rel="noopener">JSCPP-based C++</a>
-    interpreter.
-  </div>
-  <ul data-i18n="language-info:cppWasm.link" data-i18n-prop="innerHTML">
-    <li>
-      <a href="https://isocpp.org/" target="_blank" rel="noopener">Standard C++ Foundation</a>
-    </li>
-    <li>
-      <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang official website</a>
-    </li>
-    <li>
-      <a href="https://learnxinyminutes.com/docs/c++/" target="_blank" rel="noopener"
-        >Learn X in Y minutes, where X=C++</a
-      >
-    </li>
-    <li>
-      <a href="{{DOCS_BASE_URL}}languages/cpp-wasm" target="_blank" rel="noopener"
-        >LiveCodes Documentation</a
-      >
-    </li>
-    <li>
-      <a href="?template=cpp-wasm" class="button" target="_parent" data-template="cpp-wasm"
-        >Load starter template</a
-      >
-    </li>
-  </ul>
-</section>
-<section data-lang="objc-wasm">
-  <h3 data-i18n="language-info:objcWasm.name">Objective-C (Wasm)</h3>
-  <div data-i18n="language-info:objcWasm.desc" data-i18n-prop="innerHTML">
-    Objective-C compiled to WebAssembly by
-    <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang</a>, using the
-    <a href="https://github.com/gnustep/libobjc2" target="_blank" rel="noopener">GNUstep</a>
-    Objective-C runtime. This is a runtime and not a class library, so Foundation is not available.
-  </div>
-  <ul data-i18n="language-info:objcWasm.link" data-i18n-prop="innerHTML">
-    <li>
-      <a href="https://developer.apple.com/documentation/objectivec" target="_blank" rel="noopener"
-        >Objective-C documentation</a
-      >
-    </li>
-    <li>
-      <a href="https://github.com/gnustep/libobjc2" target="_blank" rel="noopener"
-        >GNUstep libobjc2</a
-      >
-    </li>
-    <li>
-      <a href="https://learnxinyminutes.com/docs/objective-c/" target="_blank" rel="noopener"
-        >Learn X in Y minutes, where X=Objective-C</a
-      >
-    </li>
-    <li>
-      <a href="{{DOCS_BASE_URL}}languages/objc-wasm" target="_blank" rel="noopener"
-        >LiveCodes Documentation</a
-      >
-    </li>
-    <li>
-      <a href="?template=objc-wasm" class="button" target="_parent" data-template="objc-wasm"
-        >Load starter template</a
-      >
-    </li>
-  </ul>
-</section>
-<section data-lang="objcpp-wasm">
-  <h3 data-i18n="language-info:objcppWasm.name">Objective-C++ (Wasm)</h3>
-  <div data-i18n="language-info:objcppWasm.desc" data-i18n-prop="innerHTML">
-    Objective-C++ compiled to WebAssembly by
-    <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang</a>, using the
-    <a href="https://github.com/gnustep/libobjc2" target="_blank" rel="noopener">GNUstep</a>
-    Objective-C runtime. This is a runtime and not a class library, so Foundation is not available.
-  </div>
-  <ul data-i18n="language-info:objcppWasm.link" data-i18n-prop="innerHTML">
-    <li>
-      <a href="https://developer.apple.com/documentation/objectivec" target="_blank" rel="noopener"
-        >Objective-C documentation</a
-      >
-    </li>
-    <li>
-      <a href="https://github.com/gnustep/libobjc2" target="_blank" rel="noopener"
-        >GNUstep libobjc2</a
-      >
-    </li>
-    <li>
-      <a href="https://learnxinyminutes.com/docs/objective-c/" target="_blank" rel="noopener"
-        >Learn X in Y minutes, where X=Objective-C</a
-      >
-    </li>
-    <li>
-      <a href="{{DOCS_BASE_URL}}languages/objcpp-wasm" target="_blank" rel="noopener"
-        >LiveCodes Documentation</a
       >
     </li>
   </ul>
@@ -556,6 +469,70 @@
     </li>
     <li>
       <a href="?template=commonlisp" class="button" target="_parent" data-template="commonlisp"
+        >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
+<section data-lang="cpp">
+  <h3 data-i18n="language-info:cpp.name">C++</h3>
+  <div data-i18n="language-info:cpp.desc1">
+    C++ support using JSCPP (a simple C++ interpreter written in JavaScript).
+  </div>
+  <div data-i18n="language-info:cpp.desc2" data-i18n-prop="innerHTML">
+    It is not a complete implementation of C++. Please refer to
+    <a href="https://github.com/felixhao28/JSCPP" target="_blank" rel="noopener"
+      >JSCPP documentation</a
+    >
+    for details.
+  </div>
+  <ul data-i18n="language-info:cpp.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://isocpp.org/" target="_blank" rel="noopener">Standard C++ Foundation</a>
+    </li>
+    <li>
+      <a href="https://github.com/felixhao28/JSCPP" target="_blank" rel="noopener">JSCPP</a>
+    </li>
+    <li>
+      <a href="https://learnxinyminutes.com/docs/c++/" target="_blank" rel="noopener"
+        >Learn X in Y minutes, where X=C++</a
+      >
+    </li>
+    <li>
+      <a href="?template=cpp" class="button" target="_parent" data-template="cpp"
+        >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
+<section data-lang="cpp-wasm">
+  <h3 data-i18n="language-info:cppWasm.name">C++ (Wasm)</h3>
+  <div data-i18n="language-info:cppWasm.desc" data-i18n-prop="innerHTML">
+    C++ compiled to WebAssembly by
+    <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang</a>, running entirely in
+    the browser. This provides a real C++ compiler, unlike the
+    <a href="{{DOCS_BASE_URL}}languages/cpp" target="_blank" rel="noopener">JSCPP-based C++</a>
+    interpreter.
+  </div>
+  <ul data-i18n="language-info:cppWasm.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://isocpp.org/" target="_blank" rel="noopener">Standard C++ Foundation</a>
+    </li>
+    <li>
+      <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang official website</a>
+    </li>
+    <li>
+      <a href="https://learnxinyminutes.com/docs/c++/" target="_blank" rel="noopener"
+        >Learn X in Y minutes, where X=C++</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/cpp-wasm" target="_blank" rel="noopener"
+        >LiveCodes Documentation</a
+      >
+    </li>
+    <li>
+      <a href="?template=cpp-wasm" class="button" target="_parent" data-template="cpp-wasm"
         >Load starter template</a
       >
     </li>
@@ -723,6 +700,36 @@
     </li>
   </ul>
 </section>
+<section data-lang="fanak">
+  <h3 data-i18n="language-info:fanak.name">Fanak</h3>
+  <div data-i18n="language-info:fanak.desc" data-i18n-prop="innerHTML">
+    Fanak is a functional programming language that compiles to CIL (.NET). Its compiler and .NET
+    WebAssembly runtime run entirely in the browser, fetched from the Fanak project, so the first
+    run downloads the runtime and can take a moment.
+  </div>
+  <ul data-i18n="language-info:fanak.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://gitlab.com/AhmedWael216/fanak" target="_blank" rel="noopener"
+        >Fanak repository</a
+      >
+    </li>
+    <li>
+      <a href="https://ahmedwael216.gitlab.io/fanak/" target="_blank" rel="noopener"
+        >Fanak documentation</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/fanak" target="_blank" rel="noopener"
+        >LiveCodes Documentation</a
+      >
+    </li>
+    <li>
+      <a href="?template=fanak" class="button" target="_parent" data-template="fanak"
+        >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
 <section data-lang="fennel">
   <h3 data-i18n="language-info:fennel.name">Fennel</h3>
   <div data-i18n="language-info:fennel.desc">
@@ -812,36 +819,6 @@
     </li>
     <li>
       <a href="?template=fsharp-wasm" class="button" target="_parent" data-template="fsharp-wasm"
-        >Load starter template</a
-      >
-    </li>
-  </ul>
-</section>
-<section data-lang="fanak">
-  <h3 data-i18n="language-info:fanak.name">Fanak</h3>
-  <div data-i18n="language-info:fanak.desc" data-i18n-prop="innerHTML">
-    Fanak is a functional programming language that compiles to CIL (.NET). Its compiler and .NET
-    WebAssembly runtime run entirely in the browser, fetched from the Fanak project, so the first
-    run downloads the runtime and can take a moment.
-  </div>
-  <ul data-i18n="language-info:fanak.link" data-i18n-prop="innerHTML">
-    <li>
-      <a href="https://gitlab.com/AhmedWael216/fanak" target="_blank" rel="noopener"
-        >Fanak repository</a
-      >
-    </li>
-    <li>
-      <a href="https://ahmedwael216.gitlab.io/fanak/" target="_blank" rel="noopener"
-        >Fanak documentation</a
-      >
-    </li>
-    <li>
-      <a href="{{DOCS_BASE_URL}}languages/fanak" target="_blank" rel="noopener"
-        >LiveCodes Documentation</a
-      >
-    </li>
-    <li>
-      <a href="?template=fanak" class="button" target="_parent" data-template="fanak"
         >Load starter template</a
       >
     </li>
@@ -1468,6 +1445,73 @@
     </li>
   </ul>
 </section>
+<section data-lang="objc-wasm">
+  <h3 data-i18n="language-info:objcWasm.name">Objective-C (Wasm)</h3>
+  <div data-i18n="language-info:objcWasm.desc" data-i18n-prop="innerHTML">
+    Objective-C compiled to WebAssembly by
+    <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang</a>, using the
+    <a href="https://github.com/gnustep/libobjc2" target="_blank" rel="noopener">GNUstep</a>
+    Objective-C runtime. This is a runtime and not a class library, so Foundation is not available.
+  </div>
+  <ul data-i18n="language-info:objcWasm.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://developer.apple.com/documentation/objectivec" target="_blank" rel="noopener"
+        >Objective-C documentation</a
+      >
+    </li>
+    <li>
+      <a href="https://github.com/gnustep/libobjc2" target="_blank" rel="noopener"
+        >GNUstep libobjc2</a
+      >
+    </li>
+    <li>
+      <a href="https://learnxinyminutes.com/docs/objective-c/" target="_blank" rel="noopener"
+        >Learn X in Y minutes, where X=Objective-C</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/objc-wasm" target="_blank" rel="noopener"
+        >LiveCodes Documentation</a
+      >
+    </li>
+    <li>
+      <a href="?template=objc-wasm" class="button" target="_parent" data-template="objc-wasm"
+        >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
+<section data-lang="objcpp-wasm">
+  <h3 data-i18n="language-info:objcppWasm.name">Objective-C++ (Wasm)</h3>
+  <div data-i18n="language-info:objcppWasm.desc" data-i18n-prop="innerHTML">
+    Objective-C++ compiled to WebAssembly by
+    <a href="https://clang.llvm.org/" target="_blank" rel="noopener">Clang</a>, using the
+    <a href="https://github.com/gnustep/libobjc2" target="_blank" rel="noopener">GNUstep</a>
+    Objective-C runtime. This is a runtime and not a class library, so Foundation is not available.
+  </div>
+  <ul data-i18n="language-info:objcppWasm.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://developer.apple.com/documentation/objectivec" target="_blank" rel="noopener"
+        >Objective-C documentation</a
+      >
+    </li>
+    <li>
+      <a href="https://github.com/gnustep/libobjc2" target="_blank" rel="noopener"
+        >GNUstep libobjc2</a
+      >
+    </li>
+    <li>
+      <a href="https://learnxinyminutes.com/docs/objective-c/" target="_blank" rel="noopener"
+        >Learn X in Y minutes, where X=Objective-C</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/objcpp-wasm" target="_blank" rel="noopener"
+        >LiveCodes Documentation</a
+      >
+    </li>
+  </ul>
+</section>
 <section data-lang="ocaml">
   <h3 data-i18n="language-info:ocaml.name">OCaml</h3>
   <div data-i18n="language-info:ocaml.desc1">
@@ -1556,37 +1600,6 @@
     </li>
   </ul>
 </section>
-<section data-lang="postgresql">
-  <h3 data-i18n="language-info:postgresql.name">PostgreSQL</h3>
-  <div data-i18n="language-info:postgresql.desc">PostgreSQL packaged as WASM using PGlite</div>
-  <ul data-i18n="language-info:postgresql.link" data-i18n-prop="innerHTML">
-    <li>
-      <a href="https://www.postgresql.org/" target="_blank" rel="noopener"
-        >PostgreSQL official website</a
-      >
-    </li>
-    <li>
-      <a href="https://www.postgresql.org/docs/" target="_blank" rel="noopener"
-        >PostgreSQL documentation</a
-      >
-    </li>
-    <li>
-      <a href="https://github.com/electric-sql/pglite" target="_blank" rel="noopener"
-        >PGlite GitHub repo</a
-      >
-    </li>
-    <li>
-      <a href="https://learnxinyminutes.com/docs/sql/" target="_blank" rel="noopener"
-        >Learn X in Y minutes, where X=SQL</a
-      >
-    </li>
-    <li>
-      <a href="?template=postgresql" class="button" target="_parent" data-template="postgresql"
-        >Load starter template</a
-      >
-    </li>
-  </ul>
-</section>
 <section data-lang="php">
   <h3 data-i18n="language-info:php.name">PHP</h3>
   <div data-i18n="language-info:php.desc">PHP running in the browser using Uniter.</div>
@@ -1649,6 +1662,37 @@
     </li>
   </ul>
 </section>
+<section data-lang="postgresql">
+  <h3 data-i18n="language-info:postgresql.name">PostgreSQL</h3>
+  <div data-i18n="language-info:postgresql.desc">PostgreSQL packaged as WASM using PGlite</div>
+  <ul data-i18n="language-info:postgresql.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://www.postgresql.org/" target="_blank" rel="noopener"
+        >PostgreSQL official website</a
+      >
+    </li>
+    <li>
+      <a href="https://www.postgresql.org/docs/" target="_blank" rel="noopener"
+        >PostgreSQL documentation</a
+      >
+    </li>
+    <li>
+      <a href="https://github.com/electric-sql/pglite" target="_blank" rel="noopener"
+        >PGlite GitHub repo</a
+      >
+    </li>
+    <li>
+      <a href="https://learnxinyminutes.com/docs/sql/" target="_blank" rel="noopener"
+        >Learn X in Y minutes, where X=SQL</a
+      >
+    </li>
+    <li>
+      <a href="?template=postgresql" class="button" target="_parent" data-template="postgresql"
+        >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
 <section data-lang="prolog">
   <h3 data-i18n="language-info:prolog.name">Tau Prolog</h3>
   <div data-i18n="language-info:prolog.desc">An open source Prolog interpreter in JavaScript.</div>
@@ -1699,6 +1743,36 @@
     </li>
   </ul>
 </section>
+<section data-lang="python">
+  <h3 data-i18n="language-info:python.name">Python</h3>
+  <div data-i18n="language-info:python.desc">Python running in the browser using Brython.</div>
+  <ul data-i18n="language-info:python.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://www.python.org/" target="_blank" rel="noopener">Python official website</a>
+    </li>
+    <li>
+      <a href="https://www.python.org/doc/" target="_blank" rel="noopener">Python documentation</a>
+    </li>
+    <li>
+      <a href="https://brython.info/" target="_blank" rel="noopener">Brython documentation</a>
+    </li>
+    <li>
+      <a href="https://learnxinyminutes.com/docs/python/" target="_blank" rel="noopener"
+        >Learn X in Y minutes, where X=Python</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/python" target="_blank" rel="noopener"
+        >LiveCodes Documentations</a
+      >
+    </li>
+    <li>
+      <a href="?template=python" class="button" target="_parent" data-template="python"
+        >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
 <section data-lang="python-wasm">
   <h3 data-i18n="language-info:pythonWasm.name">Python (Wasm)</h3>
   <div data-i18n="language-info:pythonWasm.desc1">
@@ -1728,36 +1802,6 @@
     </li>
     <li>
       <a href="?template=python-wasm" class="button" target="_parent" data-template="python-wasm"
-        >Load starter template</a
-      >
-    </li>
-  </ul>
-</section>
-<section data-lang="python">
-  <h3 data-i18n="language-info:python.name">Python</h3>
-  <div data-i18n="language-info:python.desc">Python running in the browser using Brython.</div>
-  <ul data-i18n="language-info:python.link" data-i18n-prop="innerHTML">
-    <li>
-      <a href="https://www.python.org/" target="_blank" rel="noopener">Python official website</a>
-    </li>
-    <li>
-      <a href="https://www.python.org/doc/" target="_blank" rel="noopener">Python documentation</a>
-    </li>
-    <li>
-      <a href="https://brython.info/" target="_blank" rel="noopener">Brython documentation</a>
-    </li>
-    <li>
-      <a href="https://learnxinyminutes.com/docs/python/" target="_blank" rel="noopener"
-        >Learn X in Y minutes, where X=Python</a
-      >
-    </li>
-    <li>
-      <a href="{{DOCS_BASE_URL}}languages/python" target="_blank" rel="noopener"
-        >LiveCodes Documentations</a
-      >
-    </li>
-    <li>
-      <a href="?template=python" class="button" target="_parent" data-template="python"
         >Load starter template</a
       >
     </li>
@@ -1802,42 +1846,6 @@
     </li>
   </ul>
 </section>
-<section data-lang="react-tsx">
-  <h3 data-i18n="language-info:reactTsx.name">React Compiler (with TypeScript)</h3>
-  <div data-i18n="language-info:reactTsx.desc">
-    React Compiler is a build-time only tool that automatically optimizes React apps.
-  </div>
-  <ul data-i18n="language-info:reactTsx.link" data-i18n-prop="innerHTML">
-    <li>
-      <a href="https://react.dev/" target="_blank" rel="noopener">React official website</a>
-    </li>
-    <li>
-      <a href="https://react.dev/learn/react-compiler" target="_blank" rel="noopener"
-        >React Compiler</a
-      >
-    </li>
-    <li>
-      <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener"
-        >TypeScript website</a
-      >
-    </li>
-    <li>
-      <a href="https://www.typescriptlang.org/docs/" target="_blank" rel="noopener"
-        >TypeScript documentation</a
-      >
-    </li>
-    <li>
-      <a href="{{DOCS_BASE_URL}}languages/react-tsx" target="_blank" rel="noopener"
-        >LiveCodes Documentations</a
-      >
-    </li>
-    <li>
-      <a href="?template=react" class="button" target="_parent" data-template="react-tsx"
-        >Load starter template (JSX)</a
-      >
-    </li>
-  </ul>
-</section>
 <section data-lang="react">
   <h3 data-i18n="language-info:react.name">React Compiler</h3>
   <div data-i18n="language-info:react.desc">
@@ -1859,6 +1867,41 @@
     </li>
     <li>
       <a href="?template=react" class="button" target="_parent" data-template="react"
+        >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
+<section data-lang="react-native">
+  <h3 data-i18n="language-info:reactNative.name">React Native for Web</h3>
+  <div data-i18n="language-info:reactNative.desc">
+    React Native for Web is an accessible implementation of React Native's Components and APIs that
+    is interoperable with React DOM.
+  </div>
+  <ul data-i18n="language-info:reactNative.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://react.dev/" target="_blank" rel="noopener">React official website</a>
+    </li>
+    <li>
+      <a href="https://reactnative.dev/" target="_blank" rel="noopener">React Native website</a>
+    </li>
+    <li>
+      <a href="https://necolas.github.io/react-native-web/" target="_blank" rel="noopener"
+        >React Native for Web website</a
+      >
+    </li>
+    <li>
+      <a href="https://reactnative.dev/docs/getting-started" target="_blank" rel="noopener"
+        >React Native documentation</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/react-native" target="_blank" rel="noopener"
+        >LiveCodes Documentations</a
+      >
+    </li>
+    <li>
+      <a href="?template=react-native" class="button" target="_parent" data-template="react-native"
         >Load starter template</a
       >
     </li>
@@ -1909,37 +1952,38 @@
     </li>
   </ul>
 </section>
-<section data-lang="react-native">
-  <h3 data-i18n="language-info:reactNative.name">React Native for Web</h3>
-  <div data-i18n="language-info:reactNative.desc">
-    React Native for Web is an accessible implementation of React Native's Components and APIs that
-    is interoperable with React DOM.
+<section data-lang="react-tsx">
+  <h3 data-i18n="language-info:reactTsx.name">React Compiler (with TypeScript)</h3>
+  <div data-i18n="language-info:reactTsx.desc">
+    React Compiler is a build-time only tool that automatically optimizes React apps.
   </div>
-  <ul data-i18n="language-info:reactNative.link" data-i18n-prop="innerHTML">
+  <ul data-i18n="language-info:reactTsx.link" data-i18n-prop="innerHTML">
     <li>
       <a href="https://react.dev/" target="_blank" rel="noopener">React official website</a>
     </li>
     <li>
-      <a href="https://reactnative.dev/" target="_blank" rel="noopener">React Native website</a>
-    </li>
-    <li>
-      <a href="https://necolas.github.io/react-native-web/" target="_blank" rel="noopener"
-        >React Native for Web website</a
+      <a href="https://react.dev/learn/react-compiler" target="_blank" rel="noopener"
+        >React Compiler</a
       >
     </li>
     <li>
-      <a href="https://reactnative.dev/docs/getting-started" target="_blank" rel="noopener"
-        >React Native documentation</a
+      <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener"
+        >TypeScript website</a
       >
     </li>
     <li>
-      <a href="{{DOCS_BASE_URL}}languages/react-native" target="_blank" rel="noopener"
+      <a href="https://www.typescriptlang.org/docs/" target="_blank" rel="noopener"
+        >TypeScript documentation</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/react-tsx" target="_blank" rel="noopener"
         >LiveCodes Documentations</a
       >
     </li>
     <li>
-      <a href="?template=react-native" class="button" target="_parent" data-template="react-native"
-        >Load starter template</a
+      <a href="?template=react" class="button" target="_parent" data-template="react-tsx"
+        >Load starter template (JSX)</a
       >
     </li>
   </ul>
@@ -2217,6 +2261,26 @@
     </li>
   </ul>
 </section>
+<section data-lang="solid">
+  <h3 data-i18n="language-info:solid.name">Solid</h3>
+  <div data-i18n="language-info:solid.desc">
+    A declarative, efficient and flexible JavaScript library for building user interfaces.
+  </div>
+  <ul data-i18n="language-info:solid.link" data-i18n-prop="innerHTML">
+    <li><a href="https://www.solidjs.com/" target="_blank" rel="noopener">Official website</a></li>
+    <li><a href="https://www.solidjs.com/docs" target="_blank" rel="noopener">Documentation</a></li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/solid" target="_blank" rel="noopener"
+        >LiveCodes Documentations</a
+      >
+    </li>
+    <li>
+      <a href="?template=solid" class="button" target="_parent" data-template="solid"
+        >Load starter template (TSX)</a
+      >
+    </li>
+  </ul>
+</section>
 <section data-lang="solid.tsx">
   <h3 data-i18n="language-info:solid.tsx.name">Solid (with TypeScript)</h3>
   <div data-i18n="language-info:solid.tsx.desc">
@@ -2245,26 +2309,6 @@
     <li>
       <a href="?template=solid" class="button" target="_parent" data-template="solid"
         >Load starter template</a
-      >
-    </li>
-  </ul>
-</section>
-<section data-lang="solid">
-  <h3 data-i18n="language-info:solid.name">Solid</h3>
-  <div data-i18n="language-info:solid.desc">
-    A declarative, efficient and flexible JavaScript library for building user interfaces.
-  </div>
-  <ul data-i18n="language-info:solid.link" data-i18n-prop="innerHTML">
-    <li><a href="https://www.solidjs.com/" target="_blank" rel="noopener">Official website</a></li>
-    <li><a href="https://www.solidjs.com/docs" target="_blank" rel="noopener">Documentation</a></li>
-    <li>
-      <a href="{{DOCS_BASE_URL}}languages/solid" target="_blank" rel="noopener"
-        >LiveCodes Documentations</a
-      >
-    </li>
-    <li>
-      <a href="?template=solid" class="button" target="_parent" data-template="solid"
-        >Load starter template (TSX)</a
       >
     </li>
   </ul>

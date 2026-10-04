@@ -56,6 +56,7 @@ const storyDef: StoryDef = {
   ZigWasm: { props: { template: 'zig-wasm' } },
   Java: { props: { template: 'java' } },
   CSharpWasm: { props: { template: 'csharp-wasm' } },
+  BlazorWasm: { props: { template: 'blazor-wasm' }, storyName: 'Blazor (Wasm)' },
   VbWasm: { props: { template: 'vb-wasm' } },
   FSharp: { props: { template: 'fsharp' } },
   FSharpWasm: { props: { template: 'fsharp-wasm' } },

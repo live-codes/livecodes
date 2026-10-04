@@ -72,6 +72,15 @@
   "bbcode.name": {
     "translation": "BBCode"
   },
+  "blazorWasm.desc": {
+    "translation": "Componenti Razor compilati dal vero <tag-1>compilatore Razor</tag-1> e <tag-2>Roslyn</tag-2>, e renderizzati da <tag-3>Blazor WebAssembly</tag-3> sul runtime .NET WebAssembly — tutto nel browser, senza server."
+  },
+  "blazorWasm.link": {
+    "translation": "<tag-1> <tag-2>Documentazione Blazor</tag-2> </tag-1> <tag-3> <tag-4>Componenti ASP.NET Core Blazor</tag-4> </tag-3> <tag-5> <tag-6>Documentazione LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Carica il modello iniziale</tag-8> </tag-7>"
+  },
+  "blazorWasm.name": {
+    "translation": "Blazor (Wasm)"
+  },
   "blockly.desc": {
     "translation": "Una libreria JavaScript per la creazione di editor di programmazione visuale."
   },

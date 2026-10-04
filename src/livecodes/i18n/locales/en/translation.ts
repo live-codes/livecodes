@@ -989,6 +989,7 @@ const translation = {
       astro: 'Astro Starter',
       backbone: 'Backbone Starter',
       blank: 'Blank Project',
+      'blazor-wasm': 'Blazor (Wasm) Starter',
       blockly: 'Blockly Starter',
       bootstrap: 'Bootstrap Starter',
       'c-wasm': 'C (Wasm) Starter',

@@ -40,6 +40,8 @@ export const bbobPresetHtmlUrl = /* @__PURE__ */ getUrl(
 
 export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
+export const blazorWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/blazor-wasm@0.1.1/');
+
 export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@11.1.1/');
 
 export const browserfsUrl = /* @__PURE__ */ getUrl('browserfs@1.4.3/dist/browserfs.min.js');
@@ -119,8 +121,6 @@ export const colorisBaseUrl = /* @__PURE__ */ getUrl('@melloware/coloris@0.22.0/
 export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 
 export const creltUrl = /* @__PURE__ */ getUrl('crelt@1.0.6/index.js');
-
-export const csharpWasmBaseUrl = /* @__PURE__ */ getUrl('@seth0x41/csharp-wasm@1.0.3/');
 
 export const yaegiWasmBaseUrl = /* @__PURE__ */ getUrl('yaegi-wasm@1.0.2/src/');
 
@@ -309,9 +309,6 @@ export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
 
-// The x86-64 assembler and CPU emulator behind the `assembly-wasm` language. Both are
-// published separately and are loaded at run time by @live-codes/assembly-wasm, which
-// deliberately bundles neither of them.
 export const keystoneJsUrl = /* @__PURE__ */ getUrl(
   '@alexaltea/keystone-js@0.9.2/dist/keystone.js',
 );
@@ -359,7 +356,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.9/dist/',
+  '@live-codes/monaco-languages@0.3.10/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');

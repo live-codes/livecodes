@@ -72,6 +72,15 @@
   "bbcode.name": {
     "translation": "BBCode"
   },
+  "blazorWasm.desc": {
+    "translation": "A Razor komponenseket a valódi <tag-1>Razor-fordító</tag-1> és a <tag-2>Roslyn</tag-2> fordítja, és a <tag-3>Blazor WebAssembly</tag-3> jeleníti meg a .NET WebAssembly futtatókörnyezetben — mindez a böngészőben, szerver nélkül."
+  },
+  "blazorWasm.link": {
+    "translation": "<tag-1> <tag-2>Blazor dokumentáció</tag-2> </tag-1> <tag-3> <tag-4>ASP.NET Core Blazor komponensek</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes dokumentáció</tag-6> </tag-5> <tag-7> <tag-8>Kezdő sablon betöltése</tag-8> </tag-7>"
+  },
+  "blazorWasm.name": {
+    "translation": "Blazor (Wasm)"
+  },
   "blockly.desc": {
     "translation": "JavaScript könyvtár vizuális programozási szerkesztők építéséhez."
   },

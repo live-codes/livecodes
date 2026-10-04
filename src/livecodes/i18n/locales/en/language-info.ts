@@ -50,6 +50,11 @@ const languageInfo = {
     link: '<1><2>bbcode.org</2></1> <3> <4>BBCode guide</4> </3> <5> <6>BBCode on Wikipedia</6> </5>',
     name: 'BBCode',
   },
+  blazorWasm: {
+    desc: 'Razor components compiled by the real <1>Razor compiler</1> and <2>Roslyn</2>, and rendered by <3>Blazor WebAssembly</3> on the .NET WebAssembly runtime — all in the browser, with no server.',
+    link: '<1> <2>Blazor documentation</2> </1> <3> <4>ASP.NET Core Blazor components</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'Blazor (Wasm)',
+  },
   blockly: {
     desc: 'A JavaScript library for building visual programming editors.',
     link: '<1> <2>Official website</2> </1> <3> <4>Guides</4> </3> <5> <6>Reference</6> </5> <7> <8>Samples</8> </7> <9> <10>Load starter template</10> </9>',

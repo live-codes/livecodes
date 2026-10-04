@@ -1929,6 +1929,9 @@
   "templates.starter.blank": {
     "translation": "Leeg project"
   },
+  "templates.starter.blazor-wasm": {
+    "translation": "Blazor (Wasm)-starter"
+  },
   "templates.starter.blockly": {
     "translation": "Blockly-starter"
   },

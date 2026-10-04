@@ -7,6 +7,7 @@ import { assemblyscript } from './assemblyscript';
 import { astro } from './astro';
 import { babel } from './babel';
 import { bbcode } from './bbcode';
+import { blazorWasm } from './blazor-wasm';
 import { blockly } from './blockly';
 import { civet } from './civet';
 import { cWasm, cppWasm, objcWasm, objcppWasm } from './clang-wasm';
@@ -173,6 +174,7 @@ export const languages: LanguageSpecs[] = [
   zigWasm,
   java,
   csharpWasm,
+  blazorWasm,
   vbWasm,
   fsharp,
   fsharpWasm,

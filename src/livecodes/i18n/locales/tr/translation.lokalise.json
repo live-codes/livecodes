@@ -1929,6 +1929,9 @@
   "templates.starter.blank": {
     "translation": "Boş Proje"
   },
+  "templates.starter.blazor-wasm": {
+    "translation": "Blazor (Wasm) Başlangıç"
+  },
   "templates.starter.blockly": {
     "translation": "Blockly Başlangıç"
   },

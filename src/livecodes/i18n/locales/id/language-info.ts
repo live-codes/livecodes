@@ -43,6 +43,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>bbcode.org</2></1> <3> <4>Panduan BBCode</4> </3> <5> <6>BBCode di Wikipedia</6> </5>',
     name: 'BBCode',
   },
+  blazorWasm: {
+    desc: 'Komponen Razor dikompilasi oleh <1>kompiler Razor</1> asli dan <2>Roslyn</2>, lalu dirender oleh <3>Blazor WebAssembly</3> pada runtime .NET WebAssembly — semuanya di browser, tanpa server.',
+    link: '<1> <2>Dokumentasi Blazor</2> </1> <3> <4>Komponen ASP.NET Core Blazor</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat template pemula</8> </7>',
+    name: 'Blazor (Wasm)',
+  },
   blockly: {
     desc: 'Pustaka JavaScript untuk membangun editor pemrograman visual.',
     link: '<1> <2>Situs web resmi</2> </1> <3> <4>Panduan</4> </3> <5> <6>Referensi</6> </5> <7> <8>Contoh</8> </7> <9> <10>Muat template pemula</10> </9>',

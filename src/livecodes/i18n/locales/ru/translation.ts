@@ -982,6 +982,7 @@ const translation: I18nTranslation = {
       astro: 'Стартер Astro',
       backbone: 'Стартер Backbone',
       blank: 'Пустой проект',
+      'blazor-wasm': 'Стартер Blazor (Wasm)',
       blockly: 'Стартер Blockly',
       bootstrap: 'Стартер Bootstrap',
       'c-wasm': 'Стартер C (Wasm)',

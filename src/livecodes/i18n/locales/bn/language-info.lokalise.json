@@ -72,6 +72,15 @@
   "bbcode.name": {
     "translation": "BBCode"
   },
+  "blazorWasm.desc": {
+    "translation": "Razor কম্পোনেন্টগুলি প্রকৃত <tag-1>Razor কম্পাইলার</tag-1> এবং <tag-2>Roslyn</tag-2> দ্বারা কম্পাইল করা হয় এবং .NET WebAssembly রানটাইমে <tag-3>Blazor WebAssembly</tag-3> দ্বারা রেন্ডার করা হয় — সবই ব্রাউজারে, কোনো সার্ভার ছাড়াই।"
+  },
+  "blazorWasm.link": {
+    "translation": "<tag-1> <tag-2>Blazor ডকুমেন্টেশন</tag-2> </tag-1> <tag-3> <tag-4>ASP.NET Core Blazor কম্পোনেন্ট</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "blazorWasm.name": {
+    "translation": "Blazor (Wasm)"
+  },
   "blockly.desc": {
     "translation": "ভিজুয়াল প্রোগ্রামিং এডিটর তৈরির জন্য একটি JavaScript লাইব্রেরি।"
   },

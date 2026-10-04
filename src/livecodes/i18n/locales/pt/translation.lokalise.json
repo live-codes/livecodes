@@ -1929,6 +1929,9 @@
   "templates.starter.blank": {
     "translation": "Projeto em Branco"
   },
+  "templates.starter.blazor-wasm": {
+    "translation": "Iniciante Blazor (Wasm)"
+  },
   "templates.starter.blockly": {
     "translation": "Iniciante Blockly"
   },

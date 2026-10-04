@@ -96,6 +96,18 @@
     "notes": "",
     "translation": "BBCode"
   },
+  "blazorWasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://github.com/dotnet/razor\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://github.com/dotnet/roslyn\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<a href=\"https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "Razor components compiled by the real <tag-1>Razor compiler</tag-1> and <tag-2>Roslyn</tag-2>, and rendered by <tag-3>Blazor WebAssembly</tag-3> on the .NET WebAssembly runtime — all in the browser, with no server."
+  },
+  "blazorWasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learn.microsoft.com/en-us/aspnet/core/blazor/components/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/blazor-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=blazor-wasm\" class=\"button\" target=\"_parent\" data-template=\"blazor-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>Blazor documentation</tag-2> </tag-1> <tag-3> <tag-4>ASP.NET Core Blazor components</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentation</tag-6> </tag-5> <tag-7> <tag-8>Load starter template</tag-8> </tag-7>"
+  },
+  "blazorWasm.name": {
+    "notes": "",
+    "translation": "Blazor (Wasm)"
+  },
   "blockly.desc": {
     "notes": "",
     "translation": "A JavaScript library for building visual programming editors."

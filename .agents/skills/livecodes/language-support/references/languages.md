@@ -125,6 +125,7 @@ Enabled via `processors` config:
 | Objective-C++               | `objcpp-wasm`, `objcpp`, `wasm.mm`                                                  | Clang WASM                                            |
 | Java                        | `java`                                                                              | Java runtime                                          |
 | C#                          | `csharp-wasm`, `cs`, `cs-wasm`, `wasm.cs`                                           | C# WASM                                               |
+| Blazor (Wasm)               | `blazor-wasm`, `blazor`, `razor`, `razor-wasm`, `wasm.razor`                        | Razor components rendered by Blazor (WASM)            |
 | VB.NET                      | `vb-wasm`, `vb`, `vbnet`, `wasm.vb`                                                 | VB.NET WASM                                           |
 | F#                          | `fsharp`, `fs`, `fsx`                                                               | Fable (F# -> JS)                                      |
 | F# (Wasm)                   | `fsharp-wasm`, `fs-wasm`, `wasm.fs`                                                 | .NET WASM                                             |
