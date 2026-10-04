@@ -12,7 +12,7 @@ import { blazorWasmBaseUrl } from '../../vendors';
 // loader patches `fetch` for `credentials: 'omit'` on its own.
 //
 // The component tree is bound to the result page DOM, so the language does not use live reload:
-// a code change reloads the result page (see the docs).
+// a code change reloads the result page.
 
 const SCRIPT_TYPE = 'text/razor';
 // Downloading the .NET runtime, Roslyn and the Razor compiler is a large download.

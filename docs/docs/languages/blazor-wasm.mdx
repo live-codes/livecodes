@@ -41,7 +41,7 @@ export const blazorConfig = {
 
 The component runs in the context of the result page. A few helpers are available in the browser global `livecodes.blazorWasm` object:
 
-- `livecodes.blazorWasm.loaded`: A promise that resolves when the .NET WebAssembly runtime, Roslyn and the Razor compiler are loaded. Other helpers should be used after this promise resolves.
+`livecodes.blazorWasm.loaded`: A promise that resolves when the .NET WebAssembly runtime has loaded. The Roslyn and Razor compiler payloads are fetched lazily on the first render, so other helpers should be used after this promise resolves.
 - `livecodes.blazorWasm.render`: A function that compiles and renders Razor markup. It takes a string of Razor markup as input and returns a promise that resolves with an object containing the `output`, `error`, and `exitCode` properties.
 - `livecodes.blazorWasm.runner`: The underlying [`@live-codes/blazor-wasm`](https://www.npmjs.com/package/@live-codes/blazor-wasm) runner, which also exposes `renderProject` (multi-file projects), `render`, `navigateTo` (for `@page` routing) and `payloads`.
 - `livecodes.blazorWasm.routes`: The routes declared by `@page` directives in the rendered component.
