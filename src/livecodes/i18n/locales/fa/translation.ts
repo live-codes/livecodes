@@ -1002,6 +1002,7 @@ const translation: I18nTranslation = {
       elm: 'شروع کننده Elm',
       fanak: 'شروع کننده Fanak',
       fennel: 'شروع کننده Fennel',
+      'fortran-wasm': 'شروع کننده Fortran',
       fsharp: 'شروع کننده F#',
       'fsharp-wasm': 'شروع کننده F# (Wasm)',
       gleam: 'شروع کننده Gleam',

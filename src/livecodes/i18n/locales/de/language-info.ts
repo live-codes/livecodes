@@ -143,7 +143,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   fennel: {
     desc: 'Fennel ist eine Programmiersprache, die die Geschwindigkeit, Einfachheit und Reichweite von Lua mit der Flexibilität einer Lisp-Syntax und eines Makrosystems verbindet.',
-    link: '<1> <2>Fennel offizielle Website</2> </1> <3> <4>Erste Schritte mit Fennel</4> </3> <5> <6>LiveCodes Dokumentation</6> </5> <7> <8>Starter-Vorlage laden</8> </7>',
+    link: '<1> <2>Fennel offizielle Website</2> </1> <3> <4>Erste Schritte mit Fennel</4> </3> <5> <6>Lerne X in Y Minuten, wobei X = Fennel</6> </5> <7> <8>LiveCodes Dokumentation</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
     name: 'Fennel',
   },
   flow: {
@@ -151,16 +151,21 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Flow offizielle Website</2> </1> <3> <4>Flow Dokumentation</4> </3>',
     name: 'Flow',
   },
+  'fortran-wasm': {
+    desc: 'Modernes Fortran wird von <1>LFortran</1> nach WebAssembly kompiliert und läuft vollständig im Browser.',
+    link: '<1> <2>Fortran lernen</2> </1> <3> <4>Offizielle Website von LFortran</4> </3> <5> <6>Website der Sprache Fortran</6> </5> <7> <8>Lerne X in Y Minuten, wobei X = Fortran</8> </7> <9> <10>LiveCodes-Dokumentation</10> </9> <11> <12>Startervorlage laden</12> </11>',
+    name: 'Fortran (Wasm)',
+  },
   fsharp: {
     desc1:
       'F# ist eine plattformübergreifende Open-Source-Sprache für funktionale Programmierung, die auf der .NET-Plattform läuft.',
     desc2: 'Hier wird der Code mithilfe von Fable in JavaScript kompiliert.',
-    link: '<1><2>Offizielle F#-Website</2></1> <3> <4>F#-Dokumentation</4> </3> <5> <6>Offizielle Fable-Website</6> </5> <7> <8>LiveCodes-Dokumentationen</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
+    link: '<1><2>Offizielle F#-Website</2></1> <3> <4>F#-Dokumentation</4> </3> <5> <6>Offizielle Fable-Website</6> </5> <7> <8>Lerne X in Y Minuten, wobei X = F#</8> </7> <9> <10>LiveCodes-Dokumentationen</10> </9> <11> <12>Starter-Vorlage laden</12> </11>',
     name: 'F#',
   },
   fsharpWasm: {
     desc: 'Der echte F#-Compiler und die .NET-Laufzeitumgebung, die auf WebAssembly laufen. <1></1>Dies entspricht dem Verhalten des offiziellen F#-Compilers. Allerdings muss die .NET-WebAssembly-Laufzeitumgebung auf der Ergebnisseite heruntergeladen werden, was beim ersten Start einige Zeit in Anspruch nehmen kann.',
-    link: '<1><2>Offizielle F#-Website</2></1> <3> <4>F#-Dokumentation</4> </3> <5> <6>LiveCodes-Dokumentation</6> </5> <7> <8>Startervorlage laden</8> </7>',
+    link: '<1><2>Offizielle F#-Website</2></1> <3> <4>F#-Dokumentation</4> </3> <5> <6>Lerne X in Y Minuten, wobei X = F#</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9> <10>Startervorlage laden</10> </9>',
     name: 'F# (Wasm)',
   },
   gleam: {

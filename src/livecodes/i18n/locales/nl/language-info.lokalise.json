@@ -247,7 +247,7 @@
     "translation": "Fennel is een programmeertaal die de snelheid, eenvoud en bereik van Lua combineert met de flexibiliteit van een lisp-syntaxis en macrosysteem."
   },
   "fennel.link": {
-    "translation": "<tag-1> <tag-2>Fennel officiële website</tag-2> </tag-1> <tag-3> <tag-4>Aan de slag met Fennel</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentatie</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Fennel officiële website</tag-2> </tag-1> <tag-3> <tag-4>Aan de slag met Fennel</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X = Fennel</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
   },
   "fennel.name": {
     "translation": "Fennel"
@@ -261,6 +261,15 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fortran-wasm.desc": {
+    "translation": "Moderne Fortran wordt door <tag-1>LFortran</tag-1> gecompileerd naar WebAssembly en draait volledig in de browser."
+  },
+  "fortran-wasm.link": {
+    "translation": "<tag-1> <tag-2>Fortran leren</tag-2> </tag-1> <tag-3> <tag-4>Officiële website van LFortran</tag-4> </tag-3> <tag-5> <tag-6>Website van de taal Fortran</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X = Fortran</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes-documentatie</tag-10> </tag-9> <tag-11> <tag-12>Starterssjabloon laden</tag-12> </tag-11>"
+  },
+  "fortran-wasm.name": {
+    "translation": "Fortran (Wasm)"
+  },
   "fsharp.desc1": {
     "translation": "F# is een platformonafhankelijke, open-source functionele programmeertaal die op het .NET-platform draait."
   },
@@ -268,7 +277,7 @@
     "translation": "Hier wordt het met behulp van Fable naar JavaScript gecompileerd."
   },
   "fsharp.link": {
-    "translation": "<tag-1><tag-2>Officiële website van F#</tag-2></tag-1> <tag-3> <tag-4>F#-documentatie</tag-4> </tag-3> <tag-5> <tag-6>Officiële website van Fable</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+    "translation": "<tag-1><tag-2>Officiële website van F#</tag-2></tag-1> <tag-3> <tag-4>F#-documentatie</tag-4> </tag-3> <tag-5> <tag-6>Officiële website van Fable</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X = F#</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes-documentatie</tag-10> </tag-9> <tag-11> <tag-12>Starterssjabloon laden</tag-12> </tag-11>"
   },
   "fsharp.name": {
     "translation": "F#"
@@ -277,7 +286,7 @@
     "translation": "De echte F#-compiler en de .NET-runtime draaien op WebAssembly. <tag-1></tag-1>Dit komt overeen met het gedrag van de officiële F#-compiler. De .NET WebAssembly-runtime moet echter op de resultatenpagina worden gedownload, wat bij de eerste keer opstarten enige tijd kan duren."
   },
   "fsharpWasm.link": {
-    "translation": "<tag-1><tag-2>Officiële website van F#</tag-2></tag-1> <tag-3> <tag-4>F#-documentatie</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes-documentatie</tag-6> </tag-5> <tag-7> <tag-8>Startersjabloon laden</tag-8> </tag-7>"
+    "translation": "<tag-1><tag-2>Officiële website van F#</tag-2></tag-1> <tag-3> <tag-4>F#-documentatie</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X = F#</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startersjabloon laden</tag-10> </tag-9>"
   },
   "fsharpWasm.name": {
     "translation": "F# (Wasm)"

@@ -1008,6 +1008,7 @@ const translation = {
       elm: 'Elm Starter',
       fanak: 'Fanak Starter',
       fennel: 'Fennel Starter',
+      'fortran-wasm': 'Fortran Starter',
       fsharp: 'F# Starter',
       'fsharp-wasm': 'F# (Wasm) Starter',
       gleam: 'Gleam Starter',

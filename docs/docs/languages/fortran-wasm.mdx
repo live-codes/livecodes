@@ -1,0 +1,125 @@
+# Fortran (Wasm)
+
+Fortran is a compiled, imperative programming language designed for numeric computation and scientific computing.
+
+Fortran in LiveCodes is compiled to WebAssembly by [LFortran](https://lfortran.org/) and run in the
+browser, with no server. This is modern Fortran (free form), not a Fortran 77 subset.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const fortranConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'fortran-wasm',
+    content: `program hello
+print *, 'Hello, World!'
+end program`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={fortranConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The program runs in the context of the result page. A few helpers are available in the browser global
+`livecodes.fortran` object:
+
+- `livecodes.fortran.input`: the standard input passed to the program.
+- `livecodes.fortran.loaded`: a promise that resolves when the compiler has downloaded and the program
+  has run. Other helpers should be used after it resolves.
+- `livecodes.fortran.output`: the program's standard output.
+- `livecodes.fortran.error`: the compiler diagnostics, if the code failed to compile.
+- `livecodes.fortran.exitCode`: the exit code of the program.
+- `livecodes.fortran.run`: compiles and runs the code again with new input, returning a promise that
+  resolves with `output`, `error` and `exitCode`.
+
+Example:
+
+<LiveCodes template="fortran-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+```fortran
+program hello
+print *, 'Hello, World!'
+end program
+```
+
+Array sections, whole-array arithmetic and intrinsics behave as expected:
+
+```fortran
+program slice
+real :: a(4)
+a = [10.0, 20.0, 30.0, 40.0]
+print *, a(2:3)      ! 20.0 and 30.0, not all four elements
+print *, sum(a)      ! 100.0
+end program
+```
+
+`READ` reads from the **stdin** pane, in the same way as the other console languages.
+
+## Language Info
+
+### Name
+
+`fortran-wasm`
+
+### Aliases / Extensions
+
+`f90`, `f95`, `f03`, `f08`, `f`, `for`, `ftn`, `fortran`, `lfortran`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[LFortran](https://lfortran.org/) compiled to WebAssembly.
+
+### Version
+
+LFortran 0.66.0, with LLVM 22.1.8 and LLD, built with Emscripten 4.0.9.
+
+## Code Formatting
+
+Not currently supported.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload. This behavior can be disabled by adding the code comment `! __livecodes_reload__` to the Fortran code, which forces a full page reload.
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Example Usage
+
+```fortran
+program stats
+integer :: i
+real :: x(5), total
+x = [1.0, 2.0, 3.0, 4.0, 5.0]
+total = 0.0
+do i = 1, 5
+   total = total + x(i)
+end do
+print *, 'Sum  = ', total
+print *, 'Mean = ', total / 5.0
+end program
+```
+
+## Starter Template
+
+https://livecodes.io/?template=fortran-wasm
+
+## Links
+
+- [LFortran](https://lfortran.org/)
+- [Fortran language website](https://fortran-lang.org/)
+- [Learn Fortran](https://fortran-lang.org/learn/)
+- [@live-codes/lfortran-wasm](https://www.npmjs.com/package/@live-codes/lfortran-wasm)

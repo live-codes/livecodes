@@ -27,6 +27,7 @@ import { eta } from './eta';
 import { fanak } from './fanak';
 import { fennel } from './fennel';
 import { flow } from './flow';
+import { fortranWasm } from './fortran-wasm';
 import { fsharp } from './fsharp';
 import { fsharpWasm } from './fsharp-wasm';
 import { gleam } from './gleam';
@@ -169,6 +170,7 @@ export const languages: LanguageSpecs[] = [
   cppWasm,
   objcWasm,
   objcppWasm,
+  fortranWasm,
   rustWasm,
   swiftWasm,
   zigWasm,

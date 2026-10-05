@@ -1986,6 +1986,9 @@
   "templates.starter.fennel": {
     "translation": "Pemula Fennel"
   },
+  "templates.starter.fortran-wasm": {
+    "translation": "Pemula Fortran"
+  },
   "templates.starter.fsharp": {
     "translation": "Pemula F#"
   },

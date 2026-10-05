@@ -143,7 +143,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   fennel: {
     desc: 'Fennel adalah bahasa pemrograman yang menggabungkan kecepatan, kesederhanaan, dan jangkauan Lua dengan fleksibilitas sintaks lisp dan sistem makro.',
-    link: '<1> <2>Situs web resmi Fennel</2> </1> <3> <4>Memulai dengan Fennel</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat template pemula</8> </7>',
+    link: '<1> <2>Situs web resmi Fennel</2> </1> <3> <4>Memulai dengan Fennel</4> </3> <5> <6>Belajar X dalam Y menit, di mana X = Fennel</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
     name: 'Fennel',
   },
   flow: {
@@ -151,16 +151,21 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi Flow</2> </1> <3> <4>Dokumentasi Flow</4> </3>',
     name: 'Flow',
   },
+  'fortran-wasm': {
+    desc: 'Fortran modern dikompilasi ke WebAssembly oleh <1>LFortran</1>, berjalan sepenuhnya di dalam browser.',
+    link: '<1> <2>Belajar Fortran</2> </1> <3> <4>Situs web resmi LFortran</4> </3> <5> <6>Situs web bahasa Fortran</6> </5> <7> <8>Belajar X dalam Y menit, di mana X = Fortran</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat templat awal</12> </11>',
+    name: 'Fortran (Wasm)',
+  },
   fsharp: {
     desc1:
       'F# adalah bahasa pemrograman fungsional lintas platform dan sumber terbuka yang berjalan di platform .NET.',
     desc2: 'Di sini, kode tersebut dikompilasi menjadi JavaScript menggunakan Fable.',
-    link: '<1><2>Situs web resmi F#</2></1> <3> <4>Dokumentasi F#</4> </3> <5> <6>Situs web resmi Fable</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    link: '<1><2>Situs web resmi F#</2></1> <3> <4>Dokumentasi F#</4> </3> <5> <6>Situs web resmi Fable</6> </5> <7> <8>Belajar X dalam Y menit, di mana X = F#</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat templat awal</12> </11>',
     name: 'F#',
   },
   fsharpWasm: {
     desc: 'Kompiler F# asli dan runtime .NET yang berjalan di WebAssembly. <1></1>Hal ini sesuai dengan perilaku kompiler F# resmi. Namun, runtime .NET WebAssembly perlu diunduh di halaman hasil, yang mungkin membutuhkan waktu cukup lama saat dijalankan untuk pertama kalinya.',
-    link: '<1><2>Situs web resmi F#</2></1> <3> <4>Dokumentasi F#</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat templat awal</8> </7>',
+    link: '<1><2>Situs web resmi F#</2></1> <3> <4>Dokumentasi F#</4> </3> <5> <6>Belajar X dalam Y menit, di mana X = F#</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
     name: 'F# (Wasm)',
   },
   gleam: {

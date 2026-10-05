@@ -1003,6 +1003,7 @@ const translation: I18nTranslation = {
       elm: 'Démarrage Elm',
       fanak: 'Démarrage Fanak',
       fennel: 'Démarrage Fennel',
+      'fortran-wasm': 'Démarrage Fortran',
       fsharp: 'Démarrage F#',
       'fsharp-wasm': 'Démarrage F# (Wasm)',
       gleam: 'Démarrage Gleam',

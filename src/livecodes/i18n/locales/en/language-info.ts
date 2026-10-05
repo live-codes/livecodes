@@ -149,7 +149,7 @@ const languageInfo = {
   },
   fennel: {
     desc: 'Fennel is a programming language that brings together the speed, simplicity, and reach of Lua with the flexibility of a lisp syntax and macro system.',
-    link: '<1> <2>Fennel official website</2> </1> <3> <4>Getting Started with Fennel</4> </3> <5> <6>LiveCodes Documentations</6> </5> <7> <8>Load starter template</8> </7>',
+    link: '<1> <2>Fennel official website</2> </1> <3> <4>Getting Started with Fennel</4> </3> <5> <6>Learn X in Y minutes, where X=Fennel</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Fennel',
   },
   flow: {
@@ -157,16 +157,21 @@ const languageInfo = {
     link: '<1> <2>Flow official website</2> </1> <3> <4>Flow documentation</4> </3>',
     name: 'Flow',
   },
+  'fortran-wasm': {
+    desc: 'Modern Fortran compiled to WebAssembly by <1>LFortran</1>, running entirely in the browser.',
+    link: '<1> <2>Learn Fortran</2> </1> <3> <4>LFortran official website</4> </3> <5> <6>Fortran language website</6> </5> <7> <8>Learn X in Y minutes, where X=Fortran</8> </7> <9> <10>LiveCodes Documentation</10> </9> <11> <12>Load starter template</12> </11>',
+    name: 'Fortran (Wasm)',
+  },
   fsharp: {
     desc1:
       'F# is a cross-platform, open-source functional programming language that runs on the .NET platform.',
     desc2: 'Here, it is compiled to JavaScript using Fable.',
-    link: '<1><2>F# official website</2></1> <3> <4>F# documentation</4> </3> <5> <6>Fable official website</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>',
+    link: '<1><2>F# official website</2></1> <3> <4>F# documentation</4> </3> <5> <6>Fable official website</6> </5> <7> <8>Learn X in Y minutes, where X=F#</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
     name: 'F#',
   },
   fsharpWasm: {
     desc: 'The real F# compiler and .NET runtime running on WebAssembly. <1></1>This matches the behavior of the official F# compiler. However, the .NET WebAssembly runtime needs to be downloaded in the result page, which can take some time on the first run.',
-    link: '<1><2>F# official website</2></1> <3> <4>F# documentation</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    link: '<1><2>F# official website</2></1> <3> <4>F# documentation</4> </3> <5> <6>Learn X in Y minutes, where X=F#</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'F# (Wasm)',
   },
   gleam: {

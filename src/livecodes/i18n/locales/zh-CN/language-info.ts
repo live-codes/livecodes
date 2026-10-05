@@ -141,7 +141,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   fennel: {
     desc: 'Fennel 是一种编程语言，它结合了 Lua 的快速、简洁和广泛性以及 Lisp 语法和宏系统的灵活性。',
-    link: '<1> <2>Fennel 官方网站</2> </1> <3> <4>Fennel 入门</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载启动模板</8> </7>',
+    link: '<1> <2>Fennel 官方网站</2> </1> <3> <4>Fennel 入门</4> </3> <5> <6>《Y分钟学会X》，其中X=Fennel</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
     name: 'Fennel',
   },
   flow: {
@@ -149,15 +149,20 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Flow 官方网站</2> </1> <3> <4>Flow 文档</4> </3>',
     name: 'Flow',
   },
+  'fortran-wasm': {
+    desc: '现代 Fortran 由 <1>LFortran</1> 编译为 WebAssembly，完全在浏览器中运行。',
+    link: '<1> <2>学习 Fortran</2> </1> <3> <4>LFortran 官方网站</4> </3> <5> <6>Fortran 语言网站</6> </5> <7> <8>《Y分钟学会X》，其中X=Fortran</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载入门模板</12> </11>',
+    name: 'Fortran (Wasm)',
+  },
   fsharp: {
     desc1: 'F# 是一种基于 .NET 平台的跨平台、开源函数式编程语言。',
     desc2: '这里，它使用 Fable 编译成了 JavaScript。',
-    link: '<1><2>F# 官方网站</2></1> <3> <4>F# 文档</4> </3> <5> <6>Fable 官方网站</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    link: '<1><2>F# 官方网站</2></1> <3> <4>F# 文档</4> </3> <5> <6>Fable 官方网站</6> </5> <7> <8>《Y分钟学会X》，其中X=F#</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载入门模板</12> </11>',
     name: 'F#',
   },
   fsharpWasm: {
     desc: '在 WebAssembly 上运行的真实 F# 编译器和 .NET 运行时。<1></1>这与官方 F# 编译器的行为一致。不过，需要在结果页面下载 .NET WebAssembly 运行时，首次运行时可能需要一些时间。',
-    link: '<1><2>F# 官方网站</2></1> <3> <4>F# 文档</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
+    link: '<1><2>F# 官方网站</2></1> <3> <4>F# 文档</4> </3> <5> <6>《Y分钟学会X》，其中X=F#</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
     name: 'F# (Wasm)',
   },
   gleam: {

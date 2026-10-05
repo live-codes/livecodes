@@ -247,7 +247,7 @@
     "translation": "Fennel یک زبان برنامه‌نویسی است که سرعت، سادگی و دسترسی Lua را با انعطاف‌پذیری نحو لیسپ و سیستم ماکرو ترکیب می‌کند."
   },
   "fennel.link": {
-    "translation": "<tag-1> <tag-2>وب‌سایت رسمی Fennel</tag-2> </tag-1> <tag-3> <tag-4>شروع کار با Fennel</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع کننده</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>وب‌سایت رسمی Fennel</tag-2> </tag-1> <tag-3> <tag-4>شروع کار با Fennel</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، که X=Fennel</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
   },
   "fennel.name": {
     "translation": "Fennel"
@@ -261,6 +261,15 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fortran-wasm.desc": {
+    "translation": "فورتران مدرن توسط <tag-1>LFortran</tag-1> به WebAssembly کامپایل می‌شود و کاملاً در مرورگر اجرا می‌شود."
+  },
+  "fortran-wasm.link": {
+    "translation": "<tag-1> <tag-2>یادگیری Fortran</tag-2> </tag-1> <tag-3> <tag-4>وبسایت رسمی LFortran</tag-4> </tag-3> <tag-5> <tag-6>وبسایت زبان Fortran</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، که X=Fortran</tag-8> </tag-7> <tag-9> <tag-10>مستندات لایوکدز</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع</tag-12> </tag-11>"
+  },
+  "fortran-wasm.name": {
+    "translation": "Fortran (Wasm)"
+  },
   "fsharp.desc1": {
     "translation": "F# یک زبان برنامه‌نویسی تابعی متن‌باز و چندسکویی است که بر روی پلتفرم .NET اجرا می‌شود."
   },
@@ -268,7 +277,7 @@
     "translation": "در اینجا، با استفاده از Fable به جاوااسکریپت کامپایل شده است."
   },
   "fsharp.link": {
-    "translation": "<tag-1><tag-2>وب‌سایت رسمی F#</tag-2></tag-1> <tag-3> <tag-4>مستندات F#</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت رسمی Fable</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگیری قالب شروع</tag-10> </tag-9>"
+    "translation": "<tag-1><tag-2>وب‌سایت رسمی F#</tag-2></tag-1> <tag-3> <tag-4>مستندات F#</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت رسمی Fable</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، که X=F#</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگیری قالب شروع</tag-12> </tag-11>"
   },
   "fsharp.name": {
     "translation": "F#"
@@ -277,7 +286,7 @@
     "translation": "کامپایلر واقعی F# و محیط اجرایی .NET که روی WebAssembly اجرا می‌شود. <tag-1></tag-1>این با رفتار کامپایلر رسمی F# مطابقت دارد. با این حال، محیط اجرایی .NET WebAssembly باید در صفحه نتایج دانلود شود که در اولین اجرا می‌تواند مدتی طول بکشد."
   },
   "fsharpWasm.link": {
-    "translation": "<tag-1><tag-2>وب‌سایت رسمی F#</tag-2></tag-1> <tag-3> <tag-4>اسناد F#</tag-4> </tag-3> <tag-5> <tag-6>مستندات LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>بارگیری قالب شروع</tag-8> </tag-7>"
+    "translation": "<tag-1><tag-2>وب‌سایت رسمی F#</tag-2></tag-1> <tag-3> <tag-4>اسناد F#</tag-4> </tag-3> <tag-5> <tag-6>یادگیری X در Y دقیقه، که X=F#</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگیری قالب شروع</tag-10> </tag-9>"
   },
   "fsharpWasm.name": {
     "translation": "F# (Wasm)"

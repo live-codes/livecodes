@@ -264,6 +264,8 @@ export const fontUbuntuMonoUrl = /* @__PURE__ */ getUrl('@fontsource/ubuntu-mono
 
 export const fontVictorMonoUrl = /* @__PURE__ */ getUrl('victormono@1.5.4/dist/index.css');
 
+export const fortranWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/lfortran-wasm@0.3.0/');
+
 export const fscreenUrl = /* @__PURE__ */ getUrl('fscreen@1.2.0/dist/fscreen.esm.js');
 
 export const fsharpWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/fsharp-wasm@0.3.0/');

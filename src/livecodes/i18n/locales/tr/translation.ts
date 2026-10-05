@@ -1002,6 +1002,7 @@ const translation: I18nTranslation = {
       elm: 'Elm Başlangıç',
       fanak: 'Fanak Başlangıç',
       fennel: 'Fennel Başlangıç',
+      'fortran-wasm': 'Fortran Başlangıç',
       fsharp: 'F# Başlangıç',
       'fsharp-wasm': 'F# (Wasm) Başlangıç',
       gleam: 'Gleam Başlangıç',

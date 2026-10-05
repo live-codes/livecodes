@@ -247,7 +247,7 @@
     "translation": "Fennel एक प्रोग्रामिंग भाषा है जो Lua की गति, सरलता, और पहुंच को लिस्प सिंटैक्स और मैक्रो सिस्टम की लचीलेपन के साथ जोड़ती है।"
   },
   "fennel.link": {
-    "translation": "<tag-1> <tag-2>Fennel आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Fennel के साथ शुरुआत करना</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes दस्तावेज़ीकरण</tag-6> </tag-5> <tag-7> <tag-8>स्टार्टर टेम्पलेट लोड करें</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Fennel आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Fennel के साथ शुरुआत करना</tag-4> </tag-3> <tag-5> <tag-6>Y मिनट में X सीखें, जहाँ X=Fennel</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes दस्तावेज़ीकरण</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
   },
   "fennel.name": {
     "translation": "Fennel"
@@ -261,6 +261,15 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fortran-wasm.desc": {
+    "translation": "आधुनिक फोरट्रान को <tag-1>LFortran</tag-1> द्वारा WebAssembly में संकलित किया जाता है, जो पूरी तरह से ब्राउज़र में चलता है।"
+  },
+  "fortran-wasm.link": {
+    "translation": "<tag-1> <tag-2>फोरट्रान सीखें</tag-2> </tag-1> <tag-3> <tag-4>LFortran आधिकारिक वेबसाइट</tag-4> </tag-3> <tag-5> <tag-6>फोरट्रान भाषा वेबसाइट</tag-6> </tag-5> <tag-7> <tag-8>Y मिनट में X सीखें, जहाँ X=Fortran</tag-8> </tag-7> <tag-9> <tag-10>लाइवकोड्स दस्तावेज़ीकरण</tag-10> </tag-9> <tag-11> <tag-12>स्टार्टर टेम्पलेट लोड करें</tag-12> </tag-11>"
+  },
+  "fortran-wasm.name": {
+    "translation": "Fortran (Wasm)"
+  },
   "fsharp.desc1": {
     "translation": "F# एक क्रॉस-प्लेटफ़ॉर्म, ओपन-सोर्स फ़ंक्शनल प्रोग्रामिंग भाषा है जो .NET प्लेटफ़ॉर्म पर चलती है।"
   },
@@ -268,7 +277,7 @@
     "translation": "यहां, इसे फेबल का उपयोग करके जावास्क्रिप्ट में संकलित किया जाता है।"
   },
   "fsharp.link": {
-    "translation": "<tag-1><tag-2>एफ# आधिकारिक वेबसाइट</tag-2></tag-1> <tag-3> <tag-4>एफ# दस्तावेज</tag-4> </tag-3> <tag-5> <tag-6>कल्पित आधिकारिक वेबसाइट</tag-6> </tag-5> <tag-7> <tag-8>लाइवकोड दस्तावेज</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर लोड करें टेम्पलेट</tag-10> </tag-9>"
+    "translation": "<tag-1><tag-2>एफ# आधिकारिक वेबसाइट</tag-2></tag-1> <tag-3> <tag-4>एफ# दस्तावेज</tag-4> </tag-3> <tag-5> <tag-6>कल्पित आधिकारिक वेबसाइट</tag-6> </tag-5> <tag-7> <tag-8>Y मिनट में X सीखें, जहाँ X=F#</tag-8> </tag-7> <tag-9> <tag-10>लाइवकोड दस्तावेज</tag-10> </tag-9> <tag-11> <tag-12>स्टार्टर लोड करें टेम्पलेट</tag-12> </tag-11>"
   },
   "fsharp.name": {
     "translation": "F#"
@@ -277,7 +286,7 @@
     "translation": "वेबअसेंबली पर चलने वाला असली F# कंपाइलर और .NET रनटाइम। <tag-1></tag-1> यह आधिकारिक F# कंपाइलर के व्यवहार से मेल खाता है। हालाँकि, .NET वेबअसेंबली रनटाइम को परिणाम पृष्ठ में डाउनलोड करने की आवश्यकता होती है, जिसमें पहली बार चलाने पर कुछ समय लग सकता है।"
   },
   "fsharpWasm.link": {
-    "translation": "<tag-1><tag-2>एफ# आधिकारिक वेबसाइट</tag-2></tag-1> <tag-3> <tag-4>एफ# दस्तावेज</tag-4> </tag-3> <tag-5> <tag-6>लाइवकोड दस्तावेजीकरण</tag-6> </tag-5> <tag-7> <tag-8>स्टार्टर टेम्पलेट लोड करें</tag-8> </tag-7>"
+    "translation": "<tag-1><tag-2>एफ# आधिकारिक वेबसाइट</tag-2></tag-1> <tag-3> <tag-4>एफ# दस्तावेज</tag-4> </tag-3> <tag-5> <tag-6>Y मिनट में X सीखें, जहाँ X=F#</tag-6> </tag-5> <tag-7> <tag-8>लाइवकोड दस्तावेजीकरण</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
   },
   "fsharpWasm.name": {
     "translation": "F# (Wasm)"

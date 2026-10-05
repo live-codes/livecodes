@@ -247,7 +247,7 @@
     "translation": "Fennel 是一种编程语言，它结合了 Lua 的快速、简洁和广泛性以及 Lisp 语法和宏系统的灵活性。"
   },
   "fennel.link": {
-    "translation": "<tag-1> <tag-2>Fennel 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Fennel 入门</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes 文档</tag-6> </tag-5> <tag-7> <tag-8>加载启动模板</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Fennel 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Fennel 入门</tag-4> </tag-3> <tag-5> <tag-6>《Y分钟学会X》，其中X=Fennel</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载启动模板</tag-10> </tag-9>"
   },
   "fennel.name": {
     "translation": "Fennel"
@@ -261,6 +261,15 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fortran-wasm.desc": {
+    "translation": "现代 Fortran 由 <tag-1>LFortran</tag-1> 编译为 WebAssembly，完全在浏览器中运行。"
+  },
+  "fortran-wasm.link": {
+    "translation": "<tag-1> <tag-2>学习 Fortran</tag-2> </tag-1> <tag-3> <tag-4>LFortran 官方网站</tag-4> </tag-3> <tag-5> <tag-6>Fortran 语言网站</tag-6> </tag-5> <tag-7> <tag-8>《Y分钟学会X》，其中X=Fortran</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes 文档</tag-10> </tag-9> <tag-11> <tag-12>加载入门模板</tag-12> </tag-11>"
+  },
+  "fortran-wasm.name": {
+    "translation": "Fortran (Wasm)"
+  },
   "fsharp.desc1": {
     "translation": "F# 是一种基于 .NET 平台的跨平台、开源函数式编程语言。"
   },
@@ -268,7 +277,7 @@
     "translation": "这里，它使用 Fable 编译成了 JavaScript。"
   },
   "fsharp.link": {
-    "translation": "<tag-1><tag-2>F# 官方网站</tag-2></tag-1> <tag-3> <tag-4>F# 文档</tag-4> </tag-3> <tag-5> <tag-6>Fable 官方网站</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+    "translation": "<tag-1><tag-2>F# 官方网站</tag-2></tag-1> <tag-3> <tag-4>F# 文档</tag-4> </tag-3> <tag-5> <tag-6>Fable 官方网站</tag-6> </tag-5> <tag-7> <tag-8>《Y分钟学会X》，其中X=F#</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes 文档</tag-10> </tag-9> <tag-11> <tag-12>加载入门模板</tag-12> </tag-11>"
   },
   "fsharp.name": {
     "translation": "F#"
@@ -277,7 +286,7 @@
     "translation": "在 WebAssembly 上运行的真实 F# 编译器和 .NET 运行时。<tag-1></tag-1>这与官方 F# 编译器的行为一致。不过，需要在结果页面下载 .NET WebAssembly 运行时，首次运行时可能需要一些时间。"
   },
   "fsharpWasm.link": {
-    "translation": "<tag-1><tag-2>F# 官方网站</tag-2></tag-1> <tag-3> <tag-4>F# 文档</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes 文档</tag-6> </tag-5> <tag-7> <tag-8>加载入门模板</tag-8> </tag-7>"
+    "translation": "<tag-1><tag-2>F# 官方网站</tag-2></tag-1> <tag-3> <tag-4>F# 文档</tag-4> </tag-3> <tag-5> <tag-6>《Y分钟学会X》，其中X=F#</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
   },
   "fsharpWasm.name": {
     "translation": "F# (Wasm)"

@@ -1001,6 +1001,7 @@ const translation: I18nTranslation = {
       elm: 'قالب Elm',
       fanak: 'قالب Fanak',
       fennel: 'قالب Fennel',
+      'fortran-wasm': 'قالب Fortran',
       fsharp: 'قالب F#',
       'fsharp-wasm': 'قالب F# (Wasm)',
       gleam: 'قالب Gleam',

@@ -1986,6 +1986,9 @@
   "templates.starter.fennel": {
     "translation": "فینل شروعاتی"
   },
+  "templates.starter.fortran-wasm": {
+    "translation": "Fortran شروعاتی"
+  },
   "templates.starter.fsharp": {
     "translation": "F# شروعاتی"
   },

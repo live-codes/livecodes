@@ -247,7 +247,7 @@
     "translation": "فینل ایک پروگرامنگ زبان ہے جو لوا کی رفتار، سادگی اور پہنچ کو لسپ نحو اور میکرو سسٹم کی لچک کے ساتھ جمع کرتی ہے۔"
   },
   "fennel.link": {
-    "translation": "<tag-1> <tag-2>فینل کی سرکاری ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>فینل کے ساتھ شروعات</tag-4> </tag-3> <tag-5> <tag-6>لائیو کوڈز دستاویزات</tag-6> </tag-5> <tag-7> <tag-8>ابتدائی سانچہ لوڈ کریں</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>فینل کی سرکاری ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>فینل کے ساتھ شروعات</tag-4> </tag-3> <tag-5> <tag-6>Y منٹ میں X سیکھیں، جہاں X=Fennel</tag-6> </tag-5> <tag-7> <tag-8>لائیو کوڈز دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>ابتدائی سانچہ لوڈ کریں</tag-10> </tag-9>"
   },
   "fennel.name": {
     "translation": "فینل"
@@ -261,6 +261,15 @@
   "flow.name": {
     "translation": "فلو"
   },
+  "fortran-wasm.desc": {
+    "translation": "جدید فورٹران <tag-1>LFortran</tag-1> کے ذریعے WebAssembly میں مرتب کیا جاتا ہے، جو مکمل طور پر براؤزر میں چلتا ہے۔"
+  },
+  "fortran-wasm.link": {
+    "translation": "<tag-1> <tag-2>فورٹران سیکھیں</tag-2> </tag-1> <tag-3> <tag-4>LFortran آفیشل ویب سائٹ</tag-4> </tag-3> <tag-5> <tag-6>فورٹران زبان کی ویب سائٹ</tag-6> </tag-5> <tag-7> <tag-8>Y منٹ میں X سیکھیں، جہاں X=Fortran</tag-8> </tag-7> <tag-9> <tag-10>لائیو کوڈز دستاویزات</tag-10> </tag-9> <tag-11> <tag-12>اسٹارٹر ٹیمپلیٹ لوڈ کریں</tag-12> </tag-11>"
+  },
+  "fortran-wasm.name": {
+    "translation": "Fortran (Wasm)"
+  },
   "fsharp.desc1": {
     "translation": "F# ایک کراس پلیٹ فارم، اوپن سورس فنکشنل پروگرامنگ لینگویج ہے جو .NET پلیٹ فارم پر چلتی ہے۔"
   },
@@ -268,7 +277,7 @@
     "translation": "یہاں، اسے Fable کا استعمال کرتے ہوئے JavaScript پر مرتب کیا گیا ہے۔"
   },
   "fsharp.link": {
-    "translation": "<tag-1><tag-2>F# آفیشل ویب سائٹ</tag-2></tag-1> <tag-3> <tag-4>F# دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>Fable آفیشل ویب سائٹ</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentations</tag-8> </tag-7> <tag-9> <tag-10>لوڈ اسٹارٹر ٹیمپلیٹ</tag-10> </tag-9>"
+    "translation": "<tag-1><tag-2>F# آفیشل ویب سائٹ</tag-2></tag-1> <tag-3> <tag-4>F# دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>Fable آفیشل ویب سائٹ</tag-6> </tag-5> <tag-7> <tag-8>Y منٹ میں X سیکھیں، جہاں X=F#</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentations</tag-10> </tag-9> <tag-11> <tag-12>لوڈ اسٹارٹر ٹیمپلیٹ</tag-12> </tag-11>"
   },
   "fsharp.name": {
     "translation": "F#"
@@ -277,7 +286,7 @@
     "translation": "حقیقی F# کمپائلر اور .NET رن ٹائم WebAssembly پر چل رہا ہے۔ <tag-1></tag-1>یہ آفیشل F# کمپائلر کے رویے سے میل کھاتا ہے۔ تاہم، .NET WebAssembly رن ٹائم کو رزلٹ پیج میں ڈاؤن لوڈ کرنے کی ضرورت ہے، جس میں پہلے رن پر کچھ وقت لگ سکتا ہے۔"
   },
   "fsharpWasm.link": {
-    "translation": "<tag-1><tag-2>F# آفیشل ویب سائٹ</tag-2></tag-1> <tag-3> <tag-4>F# دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes دستاویزی</tag-6> </tag-5> <tag-7> <tag-8>لوڈ اسٹارٹر ٹیمپلیٹ</tag-8> </tag-7>"
+    "translation": "<tag-1><tag-2>F# آفیشل ویب سائٹ</tag-2></tag-1> <tag-3> <tag-4>F# دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>Y منٹ میں X سیکھیں، جہاں X=F#</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزی</tag-8> </tag-7> <tag-9> <tag-10>لوڈ اسٹارٹر ٹیمپلیٹ</tag-10> </tag-9>"
   },
   "fsharpWasm.name": {
     "translation": "F# (Wasm)"

@@ -1001,6 +1001,7 @@ const translation: I18nTranslation = {
       elm: 'Inicio Elm',
       fanak: 'Inicio Fanak',
       fennel: 'Inicio Fennel',
+      'fortran-wasm': 'Inicio Fortran',
       fsharp: 'Inicio F#',
       'fsharp-wasm': 'Inicio F# (Wasm)',
       gleam: 'Inicio Gleam',
