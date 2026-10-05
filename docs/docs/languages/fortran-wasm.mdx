@@ -1,25 +1,20 @@
-# Fortran
+# Fortran (Wasm)
+
+Fortran is a compiled, imperative programming language designed for numeric computation and scientific computing.
 
 Fortran in LiveCodes is compiled to WebAssembly by [LFortran](https://lfortran.org/) and run in the
-browser, with no server. There is no separate link step: a browser has no linker subprocess to hand a
-binary to, so the compiler emits the program as a wasm module and loads it in place.
-
-Everything happens in the tab. The compiler is about **19 MB compressed** and is fetched once, the
-first time Fortran is run; the loading indicator is shown while it downloads, and the same worker is
-reused afterwards.
-
-This is modern Fortran (free form), not a Fortran 77 subset.
+browser, with no server. This is modern Fortran (free form), not a Fortran 77 subset.
 
 ## Usage
 
 Demo:
 
-import LiveCodes from '../../src/components/LiveCodes.tsx';
+import LiveCodes from '../../src/components/LiveCodes.js';
 
 export const fortranConfig = {
   activeEditor: 'script',
   script: {
-    language: 'fortran',
+    language: 'fortran-wasm',
     content: `program hello
 print *, 'Hello, World!'
 end program`,
@@ -51,8 +46,6 @@ Example:
 
 <LiveCodes template="fortran-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
 
-The same API is also available as `livecodes.f90`.
-
 ```fortran
 program hello
 print *, 'Hello, World!'
@@ -76,11 +69,11 @@ end program
 
 ### Name
 
-`fortran`
+`fortran-wasm`
 
 ### Aliases / Extensions
 
-`fortran`, `f90`, `f95`, `f03`, `f08`, `f`, `for`, `ftn`, `fortran-wasm`, `lfortran`
+`f90`, `f95`, `f03`, `f08`, `f`, `for`, `ftn`, `fortran`, `lfortran`
 
 ### Editor
 
@@ -88,19 +81,11 @@ end program
 
 ## Compiler
 
-[@live-codes/lfortran-wasm](https://www.npmjs.com/package/@live-codes/lfortran-wasm)
-
-The package builds LFortran with its LLVM backend and LLD, and exposes `createCompiler()` →
-`run(code, stdin)` returning `{ stdout, errors, exitCode }`. Its wasm is served gzipped and
-decompressed in the client.
+[LFortran](https://lfortran.org/) compiled to WebAssembly.
 
 ### Version
 
-LFortran 0.65.0, with LLVM 22.1.8 and LLD, built with Emscripten 4.0.9.
-
-## Custom Settings
-
-Not currently supported.
+LFortran 0.66.0, with LLVM 22.1.8 and LLD, built with Emscripten 4.0.9.
 
 ## Code Formatting
 
@@ -108,8 +93,9 @@ Not currently supported.
 
 ## Live Reload
 
-Live reload is supported. As with the other wasm languages, you can opt out for a page with the
-comment `// __livecodes_reload__`.
+By default, new code changes are sent to the result page for re-evaluation without a full page reload. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the Fortran code, which forces a full page reload.
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
 
 ## Example Usage
 
@@ -127,10 +113,13 @@ print *, 'Mean = ', total / 5.0
 end program
 ```
 
+## Starter Template
+
+https://livecodes.io/?template=fortran-wasm
+
 ## Links
 
 - [LFortran](https://lfortran.org/)
 - [Fortran language website](https://fortran-lang.org/)
 - [Learn Fortran](https://fortran-lang.org/learn/)
 - [@live-codes/lfortran-wasm](https://www.npmjs.com/package/@live-codes/lfortran-wasm)
-- [LiveCodes Documentation](https://livecodes.io/docs/)

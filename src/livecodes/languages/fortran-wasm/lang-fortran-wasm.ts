@@ -3,9 +3,8 @@ import type { LanguageSpecs } from '../../models';
 import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
 export const fortranWasm: LanguageSpecs = {
-  name: 'fortran',
-  title: 'Fortran',
-  longTitle: 'Fortran (Wasm)',
+  name: 'fortran-wasm',
+  title: 'Fortran (Wasm)',
   compiler: {
     factory: () => async (code) => code,
     scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-fortran-wasm-script.js}}'],
@@ -13,18 +12,7 @@ export const fortranWasm: LanguageSpecs = {
     compiledCodeLanguage: 'fortran',
     liveReload: true,
   },
-  extensions: [
-    'fortran',
-    'f90',
-    'f95',
-    'f03',
-    'f08',
-    'f',
-    'for',
-    'ftn',
-    'fortran-wasm',
-    'lfortran',
-  ],
+  extensions: ['f90', 'f95', 'f03', 'f08', 'f', 'for', 'ftn', 'fortran', 'lfortran'],
   editor: 'script',
   editorSupport: {
     monaco: {
