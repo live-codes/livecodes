@@ -1,8 +1,12 @@
 import type { Template } from '../../models';
 
 /**
- * The Fortran starter: the smallest program that shows the compiler working, with the
- * `livecodes.fortran` API used from the markup so the output is visible without opening the console.
+ * The Fortran starter, matching the other Wasm starters: the markup drives the program through the
+ * `livecodes.fortran` API. The program's first line names the language — which is what the heading
+ * shows — and the second is a counter the button increments by re-running with new input.
+ *
+ * The program deliberately avoids `print *` inside a loop: that is a live upstream codegen bug (see the
+ * package README), and a starter is the wrong place to trip over it.
  */
 export const fortranWasmStarter: Template = {
   name: 'fortran-wasm',
@@ -13,21 +17,49 @@ export const fortranWasmStarter: Template = {
     language: 'html',
     content: `
 <div class="container">
-  <h1>Fortran</h1>
+  <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/fortran.svg" />
-  <p>Program output:</p>
-  <pre id="output">Loading the compiler…</pre>
+  <p>You clicked <span id="counter">0</span> times.</p>
+  <button id="counter-button" disabled>Loading...</button>
 </div>
 
 <script>
+  // set initial input
+  livecodes.fortran.input = "-1";
+
   addEventListener('load', async () => {
-    const output = document.querySelector('#output');
-    // The compiler is ~19 MB compressed and is downloaded once, the first time the language runs.
-    // The loaded promise resolves when that has happened; run then resolves with this run's output,
-    // so the pane does not depend on which run finished last.
+    const button = document.querySelector("#counter-button");
+
+    // wait till loaded
     await livecodes.fortran.loaded;
-    const { output: text, error } = await livecodes.fortran.run();
-    output.innerText = text || error || '(no output)';
+
+    // get initial output
+    const initialOutput = livecodes.fortran.output;
+    update(initialOutput);
+
+    button.onclick = async () => {
+      button.disabled = true;
+      // run with new input
+      const { output } = await livecodes.fortran.run(window.count);
+      update(output);
+    };
+
+    function update(output) {
+      const counter = document.querySelector("#counter");
+      const name = document.querySelector("#name");
+
+      const [title, count] = (output || '').split('\\n');
+
+      if (!isNaN(Number(count))) {
+        window.count = count;
+        counter.innerText = window.count;
+      }
+      if (title) {
+        name.innerText = title;
+      }
+      button.innerText = "Click me";
+      button.disabled = false;
+    }
   });
 </script>
 `.trimStart(),
@@ -35,32 +67,28 @@ export const fortranWasmStarter: Template = {
   style: {
     language: 'css',
     content: `
-.container {
+.container,
+.container button {
   text-align: center;
   font: 1em sans-serif;
 }
 .logo {
-  width: 120px;
-}
-pre {
-  text-align: left;
-  background: #f4f4f4;
-  padding: 1em;
-  border-radius: 6px;
-  white-space: pre-wrap;
+  width: 150px;
 }
 `.trimStart(),
   },
   script: {
     language: 'fortran',
     content: `
-program hello
+program counter
 implicit none
-real :: x(5)
-x = [1.0, 2.0, 3.0, 4.0, 5.0]
-print *, 'Hello, World!'
-print *, 'sum  = ', sum(x)
-print *, 'mean = ', sum(x) / size(x)
+integer :: count
+
+print *, 'Fortran'
+
+read *, count
+count = count + 1
+print *, count
 end program
 `.trimStart(),
   },
