@@ -1001,6 +1001,7 @@ const translation: I18nTranslation = {
       elm: 'Pemula Elm',
       fanak: 'Pemula Fanak',
       fennel: 'Pemula Fennel',
+      'fortran-wasm': 'Pemula Fortran',
       fsharp: 'Pemula F#',
       'fsharp-wasm': 'Pemula F# (Wasm)',
       gleam: 'Pemula Gleam',

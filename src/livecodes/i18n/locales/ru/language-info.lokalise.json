@@ -247,7 +247,7 @@
     "translation": "Fennel - это язык программирования, который объединяет скорость, простоту и охват Lua с гибкостью синтаксиса и системы макросов Lisp."
   },
   "fennel.link": {
-    "translation": "<tag-1> <tag-2>Официальный сайт Fennel</tag-2> </tag-1> <tag-3> <tag-4>Начало работы с Fennel</tag-4> </tag-3> <tag-5> <tag-6>Документация LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Загрузить стартовый шаблон</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Официальный сайт Fennel</tag-2> </tag-1> <tag-3> <tag-4>Начало работы с Fennel</tag-4> </tag-3> <tag-5> <tag-6>«Изучите X за Y минут», где X = Fennel</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Загрузить стартовый шаблон</tag-10> </tag-9>"
   },
   "fennel.name": {
     "translation": "Fennel"
@@ -261,6 +261,15 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fortran-wasm.desc": {
+    "translation": "Современный Fortran компилируется в WebAssembly с помощью <tag-1>LFortran</tag-1> и полностью выполняется в браузере."
+  },
+  "fortran-wasm.link": {
+    "translation": "<tag-1> <tag-2>Изучите Fortran</tag-2> </tag-1> <tag-3> <tag-4>Официальный сайт LFortran</tag-4> </tag-3> <tag-5> <tag-6>Сайт языка Fortran</tag-6> </tag-5> <tag-7> <tag-8>«Изучите X за Y минут», где X = Fortran</tag-8> </tag-7> <tag-9> <tag-10>Документация LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Загрузить стартовый шаблон</tag-12> </tag-11>"
+  },
+  "fortran-wasm.name": {
+    "translation": "Fortran (Wasm)"
+  },
   "fsharp.desc1": {
     "translation": "F# — это кроссплатформенный язык функционального программирования с открытым исходным кодом, работающий на платформе .NET."
   },
@@ -268,7 +277,7 @@
     "translation": "Здесь код компилируется в JavaScript с помощью Fable."
   },
   "fsharp.link": {
-    "translation": "<tag-1><tag-2>Официальный сайт F#</tag-2></tag-1> <tag-3> <tag-4>Документация по F#</tag-4> </tag-3> <tag-5> <tag-6>Официальный сайт Fable</tag-6> </tag-5> <tag-7> <tag-8>Документация по LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Загрузить стартовый шаблон</tag-10> </tag-9>"
+    "translation": "<tag-1><tag-2>Официальный сайт F#</tag-2></tag-1> <tag-3> <tag-4>Документация по F#</tag-4> </tag-3> <tag-5> <tag-6>Официальный сайт Fable</tag-6> </tag-5> <tag-7> <tag-8>«Изучите X за Y минут», где X = F#</tag-8> </tag-7> <tag-9> <tag-10>Документация по LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Загрузить стартовый шаблон</tag-12> </tag-11>"
   },
   "fsharp.name": {
     "translation": "F#"
@@ -277,7 +286,7 @@
     "translation": "Настоящий компилятор F# и среда выполнения .NET, работающие на WebAssembly. <tag-1></tag-1>Это соответствует поведению официального компилятора F#. Однако на странице результатов необходимо загрузить среду выполнения .NET для WebAssembly, что при первом запуске может занять некоторое время."
   },
   "fsharpWasm.link": {
-    "translation": "<tag-1><tag-2>Официальный сайт F#</tag-2></tag-1> <tag-3> <tag-4>Документация по F#</tag-4> </tag-3> <tag-5> <tag-6>Документация LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Загрузить стартовый шаблон</tag-8> </tag-7>"
+    "translation": "<tag-1><tag-2>Официальный сайт F#</tag-2></tag-1> <tag-3> <tag-4>Документация по F#</tag-4> </tag-3> <tag-5> <tag-6>«Изучите X за Y минут», где X = F#</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Загрузить стартовый шаблон</tag-10> </tag-9>"
   },
   "fsharpWasm.name": {
     "translation": "F# (Wasm)"

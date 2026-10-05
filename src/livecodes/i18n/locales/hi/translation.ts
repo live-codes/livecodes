@@ -1001,6 +1001,7 @@ const translation: I18nTranslation = {
       elm: 'Elm स्टार्टर',
       fanak: 'Fanak स्टार्टर',
       fennel: 'Fennel स्टार्टर',
+      'fortran-wasm': 'Fortran स्टार्टर',
       fsharp: 'F# स्टार्टर',
       'fsharp-wasm': 'F# (Wasm) स्टार्टर',
       gleam: 'Gleam स्टार्टर',

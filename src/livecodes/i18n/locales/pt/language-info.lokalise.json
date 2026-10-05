@@ -247,7 +247,7 @@
     "translation": "Fennel é uma linguagem de programação que une a velocidade, simplicidade e alcance do Lua com a flexibilidade de uma sintaxe lisp e sistema de macros."
   },
   "fennel.link": {
-    "translation": "<tag-1> <tag-2>Site oficial do Fennel</tag-2> </tag-1> <tag-3> <tag-4>Começando com Fennel</tag-4> </tag-3> <tag-5> <tag-6>Documentação do LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Carregar modelo inicial</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Site oficial do Fennel</tag-2> </tag-1> <tag-3> <tag-4>Começando com Fennel</tag-4> </tag-3> <tag-5> <tag-6>Aprenda X em Y minutos, onde X = Fennel</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
   },
   "fennel.name": {
     "translation": "Fennel"
@@ -261,6 +261,15 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fortran-wasm.desc": {
+    "translation": "Fortran moderno compilado para WebAssembly pelo <tag-1>LFortran</tag-1>, executado na íntegra no navegador."
+  },
+  "fortran-wasm.link": {
+    "translation": "<tag-1> <tag-2>Aprender Fortran</tag-2> </tag-1> <tag-3> <tag-4>Site oficial do LFortran</tag-4> </tag-3> <tag-5> <tag-6>Site da linguagem Fortran</tag-6> </tag-5> <tag-7> <tag-8>Aprenda X em Y minutos, onde X = Fortran</tag-8> </tag-7> <tag-9> <tag-10>Documentação do LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Carregar modelo inicial</tag-12> </tag-11>"
+  },
+  "fortran-wasm.name": {
+    "translation": "Fortran (Wasm)"
+  },
   "fsharp.desc1": {
     "translation": "O F# é uma linguagem de programação funcional, multiplataforma e de código aberto que funciona na plataforma .NET."
   },
@@ -268,7 +277,7 @@
     "translation": "Aqui, é compilado para JavaScript utilizando o Fable."
   },
   "fsharp.link": {
-    "translation": "<tag-1><tag-2>Site oficial do F#</tag-2></tag-1> <tag-3> <tag-4>Documentação do F#</tag-4> </tag-3> <tag-5> <tag-6>Site oficial do Fable</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
+    "translation": "<tag-1><tag-2>Site oficial do F#</tag-2></tag-1> <tag-3> <tag-4>Documentação do F#</tag-4> </tag-3> <tag-5> <tag-6>Site oficial do Fable</tag-6> </tag-5> <tag-7> <tag-8>Aprenda X em Y minutos, onde X = F#</tag-8> </tag-7> <tag-9> <tag-10>Documentação do LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Carregar modelo inicial</tag-12> </tag-11>"
   },
   "fsharp.name": {
     "translation": "F#"
@@ -277,7 +286,7 @@
     "translation": "O verdadeiro compilador F# e o ambiente de execução .NET a funcionar no WebAssembly. <tag-1></tag-1>Isto corresponde ao comportamento do compilador oficial do F#. No entanto, o ambiente de execução .NET para WebAssembly tem de ser descarregado na página de resultados, o que pode demorar algum tempo na primeira execução."
   },
   "fsharpWasm.link": {
-    "translation": "<tag-1><tag-2>Site oficial do F#</tag-2></tag-1> <tag-3> <tag-4>Documentação do F#</tag-4> </tag-3> <tag-5> <tag-6>Documentação do LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Carregar modelo inicial</tag-8> </tag-7>"
+    "translation": "<tag-1><tag-2>Site oficial do F#</tag-2></tag-1> <tag-3> <tag-4>Documentação do F#</tag-4> </tag-3> <tag-5> <tag-6>Aprenda X em Y minutos, onde X = F#</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
   },
   "fsharpWasm.name": {
     "translation": "F# (Wasm)"

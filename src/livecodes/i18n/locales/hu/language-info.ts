@@ -143,7 +143,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   fennel: {
     desc: 'A Fennel egy programozási nyelv, amely ötvözi a Lua sebességét, egyszerűségét és elérhetőségét a lisp szintaxis és makrórendszer rugalmasságával.',
-    link: '<1> <2>Fennel hivatalos weboldal</2> </1> <3> <4>Kezdés a Fennel-lel</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
+    link: '<1> <2>Fennel hivatalos weboldal</2> </1> <3> <4>Kezdés a Fennel-lel</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=Fennel</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'Fennel',
   },
   flow: {
@@ -151,16 +151,21 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Flow hivatalos weboldal</2> </1> <3> <4>Flow dokumentáció</4> </3>',
     name: 'Flow',
   },
+  'fortran-wasm': {
+    desc: 'A modern Fortran a <1>LFortran</1> segítségével WebAssembly-re fordul, és teljes egészében a böngészőben fut.',
+    link: '<1> <2>Fortran tanulása</2> </1> <3> <4>Az LFortran hivatalos weboldala</4> </3> <5> <6>A Fortran nyelv weboldala</6> </5> <7> <8>Tanulj meg X-et Y perc alatt, ahol X=Fortran</8> </7> <9> <10>LiveCodes dokumentáció</10> </9> <11> <12>Indító sablon betöltése</12> </11>',
+    name: 'Fortran (Wasm)',
+  },
   fsharp: {
     desc1:
       'Az F# egy platformfüggetlen, nyílt forráskódú funkcionális programozási nyelv, amely a .NET-platformon fut.',
     desc2: 'Itt a Fable segítségével JavaScript-re fordítják.',
-    link: '<1><2>Az F# hivatalos weboldala</2></1> <3> <4>F# dokumentáció</4> </3> <5> <6>A Fable hivatalos weboldala</6> </5> <7> <8>LiveCodes dokumentációk</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    link: '<1><2>Az F# hivatalos weboldala</2></1> <3> <4>F# dokumentáció</4> </3> <5> <6>A Fable hivatalos weboldala</6> </5> <7> <8>Tanulj meg X-et Y perc alatt, ahol X=F#</8> </7> <9> <10>LiveCodes dokumentációk</10> </9> <11> <12>Kezdő sablon betöltése</12> </11>',
     name: 'F#',
   },
   fsharpWasm: {
     desc: 'A valódi F#-fordító és a .NET futtatókörnyezet a WebAssembly-n. <1></1>Ez megegyezik a hivatalos F#-fordító viselkedésével. Azonban az eredményoldalon le kell tölteni a .NET WebAssembly futtatókörnyezetet, ami az első futtatáskor némi időt vehet igénybe.',
-    link: '<1><2>Az F# hivatalos weboldala</2></1> <3> <4>F# dokumentáció</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
+    link: '<1><2>Az F# hivatalos weboldala</2></1> <3> <4>F# dokumentáció</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=F#</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'F# (Wasm)',
   },
   gleam: {

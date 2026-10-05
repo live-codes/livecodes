@@ -247,7 +247,7 @@
     "translation": "Fennel adalah bahasa pemrograman yang menggabungkan kecepatan, kesederhanaan, dan jangkauan Lua dengan fleksibilitas sintaks lisp dan sistem makro."
   },
   "fennel.link": {
-    "translation": "<tag-1> <tag-2>Situs web resmi Fennel</tag-2> </tag-1> <tag-3> <tag-4>Memulai dengan Fennel</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Situs web resmi Fennel</tag-2> </tag-1> <tag-3> <tag-4>Memulai dengan Fennel</tag-4> </tag-3> <tag-5> <tag-6>Belajar X dalam Y menit, di mana X = Fennel</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
   },
   "fennel.name": {
     "translation": "Fennel"
@@ -261,6 +261,15 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fortran-wasm.desc": {
+    "translation": "Fortran modern dikompilasi ke WebAssembly oleh <tag-1>LFortran</tag-1>, berjalan sepenuhnya di dalam browser."
+  },
+  "fortran-wasm.link": {
+    "translation": "<tag-1> <tag-2>Belajar Fortran</tag-2> </tag-1> <tag-3> <tag-4>Situs web resmi LFortran</tag-4> </tag-3> <tag-5> <tag-6>Situs web bahasa Fortran</tag-6> </tag-5> <tag-7> <tag-8>Belajar X dalam Y menit, di mana X = Fortran</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat templat awal</tag-12> </tag-11>"
+  },
+  "fortran-wasm.name": {
+    "translation": "Fortran (Wasm)"
+  },
   "fsharp.desc1": {
     "translation": "F# adalah bahasa pemrograman fungsional lintas platform dan sumber terbuka yang berjalan di platform .NET."
   },
@@ -268,7 +277,7 @@
     "translation": "Di sini, kode tersebut dikompilasi menjadi JavaScript menggunakan Fable."
   },
   "fsharp.link": {
-    "translation": "<tag-1><tag-2>Situs web resmi F#</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi F#</tag-4> </tag-3> <tag-5> <tag-6>Situs web resmi Fable</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat templat awal</tag-10> </tag-9>"
+    "translation": "<tag-1><tag-2>Situs web resmi F#</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi F#</tag-4> </tag-3> <tag-5> <tag-6>Situs web resmi Fable</tag-6> </tag-5> <tag-7> <tag-8>Belajar X dalam Y menit, di mana X = F#</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat templat awal</tag-12> </tag-11>"
   },
   "fsharp.name": {
     "translation": "F#"
@@ -277,7 +286,7 @@
     "translation": "Kompiler F# asli dan runtime .NET yang berjalan di WebAssembly. <tag-1></tag-1>Hal ini sesuai dengan perilaku kompiler F# resmi. Namun, runtime .NET WebAssembly perlu diunduh di halaman hasil, yang mungkin membutuhkan waktu cukup lama saat dijalankan untuk pertama kalinya."
   },
   "fsharpWasm.link": {
-    "translation": "<tag-1><tag-2>Situs web resmi F#</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi F#</tag-4> </tag-3> <tag-5> <tag-6>Dokumentasi LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Muat templat awal</tag-8> </tag-7>"
+    "translation": "<tag-1><tag-2>Situs web resmi F#</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi F#</tag-4> </tag-3> <tag-5> <tag-6>Belajar X dalam Y menit, di mana X = F#</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat templat awal</tag-10> </tag-9>"
   },
   "fsharpWasm.name": {
     "translation": "F# (Wasm)"

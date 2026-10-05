@@ -80,9 +80,14 @@ getCompiler().then(
 );
 `;
 
+// A single compile + run is normally quick; a long timeout guards against hangs (e.g. an infinite
+// loop in the user program) by killing and respawning the worker.
+const RUN_TIMEOUT_MS = 120000;
+
 interface Pending {
   resolve: (result: WorkerRunResult) => void;
   reject: (error: Error) => void;
+  timer: ReturnType<typeof setTimeout>;
 }
 
 const createRunner = (): Runner => {
@@ -94,7 +99,9 @@ const createRunner = (): Runner => {
 
   const failAll = (error: Error) => {
     for (const id of Object.keys(pending)) {
-      pending[Number(id)].reject(error);
+      const request = pending[Number(id)];
+      clearTimeout(request.timer);
+      request.reject(error);
     }
     pending = {};
   };
@@ -123,6 +130,7 @@ const createRunner = (): Runner => {
     const request = pending[message.id];
     if (!request) return;
     delete pending[message.id];
+    clearTimeout(request.timer);
     if (message.error != null) {
       request.reject(new Error(message.error));
     } else {
@@ -149,9 +157,19 @@ const createRunner = (): Runner => {
     ensureReady().then(
       () =>
         new Promise<WorkerRunResult>((resolve, reject) => {
+          // `ensureReady` can resolve after the worker has been torn down (crash or timeout), so
+          // the worker may be gone by the time the request is registered.
+          if (!worker) {
+            reject(new Error('The Fortran worker is not available'));
+            return;
+          }
           const id = nextId++;
-          pending[id] = { resolve, reject };
-          worker?.postMessage({ id, code, input });
+          const timer = setTimeout(() => {
+            // The worker hung — kill it and reject, so the next run respawns a fresh worker.
+            teardown(new Error('The Fortran compiler timed out'));
+          }, RUN_TIMEOUT_MS);
+          pending[id] = { resolve, reject, timer };
+          worker.postMessage({ id, code, input });
         }),
     );
 

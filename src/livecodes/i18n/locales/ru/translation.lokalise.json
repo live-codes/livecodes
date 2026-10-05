@@ -1986,6 +1986,9 @@
   "templates.starter.fennel": {
     "translation": "Стартер Fennel"
   },
+  "templates.starter.fortran-wasm": {
+    "translation": "Стартер Fortran"
+  },
   "templates.starter.fsharp": {
     "translation": "Стартер F#"
   },

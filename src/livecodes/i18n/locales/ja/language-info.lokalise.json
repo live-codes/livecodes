@@ -247,7 +247,7 @@
     "translation": "Fennel は、Lua のスピード、シンプルさ、リーチと、Lisp 構文とマクロシステムの柔軟性を組み合わせたプログラミング言語です。"
   },
   "fennel.link": {
-    "translation": "<tag-1> <tag-2>Fennel 公式ウェブサイト</tag-2> </tag-1> <tag-3> <tag-4>Fennel 入門</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ドキュメント</tag-6> </tag-5> <tag-7> <tag-8>スターターテンプレートを読み込む</tag-8> </tag-7>"
+    "translation": "<tag-1> <tag-2>Fennel 公式ウェブサイト</tag-2> </tag-1> <tag-3> <tag-4>Fennel 入門</tag-4> </tag-3> <tag-5> <tag-6>「Y分でXを学ぶ」（X=Fennel）</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートを読み込む</tag-10> </tag-9>"
   },
   "fennel.name": {
     "translation": "Fennel"
@@ -261,6 +261,15 @@
   "flow.name": {
     "translation": "Flow"
   },
+  "fortran-wasm.desc": {
+    "translation": "モダンな Fortran は <tag-1>LFortran</tag-1> によって WebAssembly にコンパイルされ、ブラウザ内で完全に実行されます。"
+  },
+  "fortran-wasm.link": {
+    "translation": "<tag-1> <tag-2>Fortran を学ぶ</tag-2> </tag-1> <tag-3> <tag-4>LFortran 公式サイト</tag-4> </tag-3> <tag-5> <tag-6>Fortran 言語のウェブサイト</tag-6> </tag-5> <tag-7> <tag-8>「Y分でXを学ぶ」（X=Fortran）</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ドキュメント</tag-10> </tag-9> <tag-11> <tag-12>スターターテンプレートを読み込む</tag-12> </tag-11>"
+  },
+  "fortran-wasm.name": {
+    "translation": "Fortran (Wasm)"
+  },
   "fsharp.desc1": {
     "translation": "F# は、.NET プラットフォーム上で動作する、クロスプラットフォームのオープンソース関数型プログラミング言語です。"
   },
@@ -268,7 +277,7 @@
     "translation": "ここでは、Fable を使用して JavaScript にコンパイルされています。"
   },
   "fsharp.link": {
-    "translation": "<tag-1><tag-2>F# 公式サイト</tag-2></tag-1> <tag-3> <tag-4>F# ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>Fable 公式サイト</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートの読み込み</tag-10> </tag-9>"
+    "translation": "<tag-1><tag-2>F# 公式サイト</tag-2></tag-1> <tag-3> <tag-4>F# ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>Fable 公式サイト</tag-6> </tag-5> <tag-7> <tag-8>「Y分でXを学ぶ」（X=F#）</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ドキュメント</tag-10> </tag-9> <tag-11> <tag-12>スターターテンプレートの読み込み</tag-12> </tag-11>"
   },
   "fsharp.name": {
     "translation": "F#"
@@ -277,7 +286,7 @@
     "translation": "WebAssembly上で動作する本物のF#コンパイラと.NETランタイム。<tag-1></tag-1>これは公式のF#コンパイラの動作と一致しています。ただし、検索結果ページから.NET WebAssemblyランタイムをダウンロードする必要があり、初回実行時には多少時間がかかる場合があります。"
   },
   "fsharpWasm.link": {
-    "translation": "<tag-1><tag-2>F# 公式サイト</tag-2></tag-1> <tag-3> <tag-4>F# ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes ドキュメント</tag-6> </tag-5> <tag-7> <tag-8>スターターテンプレートの読み込み</tag-8> </tag-7>"
+    "translation": "<tag-1><tag-2>F# 公式サイト</tag-2></tag-1> <tag-3> <tag-4>F# ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>「Y分でXを学ぶ」（X=F#）</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートの読み込み</tag-10> </tag-9>"
   },
   "fsharpWasm.name": {
     "translation": "F# (Wasm)"
