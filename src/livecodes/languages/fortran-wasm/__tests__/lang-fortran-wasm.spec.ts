@@ -1,9 +1,9 @@
 import { fortranWasm } from '../lang-fortran-wasm';
 
 describe('Fortran (Wasm) language spec', () => {
-  it('is registered as fortran, with the wasm compiler script', () => {
-    expect(fortranWasm.name).toBe('fortran');
-    expect(fortranWasm.title).toBe('Fortran');
+  it('is registered as fortran-wasm, with the wasm compiler script', () => {
+    expect(fortranWasm.name).toBe('fortran-wasm');
+    expect(fortranWasm.title).toBe('Fortran (Wasm)');
     expect(fortranWasm.compiler).toMatchObject({
       scriptType: 'text/fortran-wasm',
       compiledCodeLanguage: 'fortran',

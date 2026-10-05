@@ -161,75 +161,18 @@ const createRunner = (): Runner => {
 /**
  * Reads the program out of the result page.
  *
- * The code lives in a `<script type="text/fortran-wasm">` element, but not always as its text: the
- * result page writes it as `innerHTML` only in its single-file mode, and otherwise points the tag at
- * `./script.js` (`result-page.ts`, `if (singleFile) … else scriptElement.src = './script.js'`). A tag
- * of a non-executable type is never fetched by the browser, so that file has to be asked for
- * explicitly. Both are tried, and a tag carrying neither is reported rather than yielding a silent
- * nothing — which is indistinguishable from the language not working at all.
+ * The result page writes the code inline as the `innerHTML` of a
+ * `<script type="text/fortran-wasm">` element: core forces `singleFile` for non-module script types,
+ * so the tag never points at `./script.js`.
  */
-const readCodeOnce = async (): Promise<{ code: string; note: string }> => {
-  let scripts = Array.from(
-    document.querySelectorAll<HTMLScriptElement>(`script[type="${SCRIPT_TYPE}"]`),
-  );
-  let source = `type="${SCRIPT_TYPE}"`;
-  if (!scripts.length) {
-    scripts = Array.from(
-      document.querySelectorAll<HTMLScriptElement>('script[data-livecodes-script="editor"]'),
-    );
-    source = 'the editor script marker';
-  }
-  if (!scripts.length) {
-    return { code: '', note: 'no program script found on the result page' };
-  }
-
+const readCode = () => {
   let code = '';
-  let fetched = 0;
-  let failed = 0;
-  for (const script of scripts) {
-    const inline = script.textContent ?? '';
-    if (inline.trim()) {
-      code += `${inline}\n`;
-      continue;
-    }
-    if (script.src) {
-      try {
-        code += `${await (await fetch(script.src)).text()}\n`;
-        fetched += 1;
-      } catch {
-        failed += 1;
-      }
-    }
-  }
-
-  return {
-    code,
-    note:
-      `found ${scripts.length} script(s) by ${source}, ${fetched} fetched from src, ` +
-      `${failed} src fetch(es) failed`,
-  };
-};
-
-/**
- * Reads the program, waiting briefly for it to appear.
- *
- * The result page is asked to run as soon as it is built, and the program's script can be populated a
- * moment later — the same tag is empty in one tick and carries the code in the next. Reading once
- * therefore races, and losing the race is silent: no code, nothing to run, and a result that looks
- * like an empty program. A short retry turns that into a wait.
- */
-const readCode = async (attempts = 30, delayMs = 200): Promise<{ code: string; note: string }> => {
-  let last = { code: '', note: 'not read yet' };
-  for (let attempt = 1; attempt <= attempts; attempt += 1) {
-    last = await readCodeOnce();
-    if (last.code.trim()) {
-      return last;
-    }
-    if (attempt < attempts) {
-      await new Promise((resolve) => setTimeout(resolve, delayMs));
-    }
-  }
-  return { ...last, note: `${last.note}, after ${attempts} attempts` };
+  document
+    .querySelectorAll<HTMLScriptElement>(`script[type="${SCRIPT_TYPE}"]`)
+    .forEach((script) => {
+      code += `${script.textContent ?? ''}\n`;
+    });
+  return code;
 };
 
 const setResult = (
@@ -295,11 +238,11 @@ fortranWasm.loaded = new Promise<void>((resolve) => {
 fortranWasm.run = async (input?: string) => {
   const stdin = `${input ?? fortranWasm.input ?? ''}`;
 
-  const { code, note } = await readCode();
+  const code = readCode();
   if (!code.trim()) {
     // Loud on purpose: an empty program and a result page whose code could not be located look
     // identical from the outside otherwise, and the second is a bug.
-    console.error(`[fortran] no code to run — ${note}`);
+    console.error('[fortran] no code to run — no program script found on the result page');
     return setResult(stdin, null, null, null);
   }
 
