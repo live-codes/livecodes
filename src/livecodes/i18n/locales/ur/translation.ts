@@ -990,6 +990,7 @@ const translation: I18nTranslation = {
       clio: 'کلیو شروعاتی',
       'cljs-selfhosted': 'سی ایل جے ایس (خود میزبان) شروعاتی',
       clojurescript: 'کلوجر اسکرپٹ (Cherry) شروعاتی',
+      'cobol-wasm': 'COBOL شروعاتی',
       coffeescript: 'کافی اسکرپٹ شروعاتی',
       commonlisp: 'کامن لسپ شروعاتی',
       cpp: 'سی++ شروعاتی',

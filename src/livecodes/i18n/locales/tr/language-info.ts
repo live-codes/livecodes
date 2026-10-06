@@ -80,6 +80,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: "ClojureScript, JavaScript'i hedefleyen bir <1>Clojure</1> derleyicisidir. <2></2>LiveCodes'ta, tarayıcıda <3>Cherry</3> kullanarak çalışır.",
     link: "<1> <2>ClojureScript resmi web sitesi</2> </1> <3> <4>Clojure resmi web sitesi</4> </3> <5> <6>Cherry repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=clojure</8> </7> <9> <10>LiveCodes Dokümantasyonu</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
   },
+  'cobol-wasm': {
+    desc: 'Modern COBOL, <1>GnuCOBOL</1> tarafından WebAssembly’ye derlenir ve tamamen tarayıcı içinde çalışır.',
+    link: "<1> <2>GnuCOBOL resmi web sitesi</2> </1> <3> <4>Y dakikada X'i öğrenin, burada X=COBOL</4> </3> <5> <6>LiveCodes Belgeleri</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>",
+    name: 'COBOL (Wasm)',
+  },
   coffeescript: {
     desc: 'Sade JavaScript.',
     link: '<1> <2>CoffeeScript resmi web sitesi</2> </1> <3> <4>Y Dakikada X Öğrenin, X=coffeescript</4> </3> <5> <6>Başlangıç şablonunu yükle</6> </5>',

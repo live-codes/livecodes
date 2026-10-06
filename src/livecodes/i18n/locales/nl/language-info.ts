@@ -80,6 +80,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'ClojureScript is een compiler voor <1>Clojure</1> die zich richt op JavaScript. <2></2>In LiveCodes draait het in de browser met <3>Cherry</3>',
     link: '<1> <2>ClojureScript officiële website</2> </1> <3> <4>Clojure officiële website</4> </3> <5> <6>Cherry repo</6> </5> <7> <8>Leer X in Y minuten, waarbij X=clojure</8> </7> <9> <10>LiveCodes Documentatie</10> </9> <11> <12>Startsjabloon laden</12> </11>',
   },
+  'cobol-wasm': {
+    desc: 'Moderne COBOL wordt door <1>GnuCOBOL</1> gecompileerd naar WebAssembly en draait volledig in de browser.',
+    link: '<1> <2>Officiële website van GnuCOBOL</2> </1> <3> <4>Leer X in Y minuten, waarbij X = COBOL</4> </3> <5> <6>LiveCodes-documentatie</6> </5> <7> <8>Starterssjabloon laden</8> </7>',
+    name: 'COBOL (Wasm)',
+  },
   coffeescript: {
     desc: 'JavaScript zonder poespas.',
     link: '<1> <2>CoffeeScript officiële website</2> </1> <3> <4>Leer X in Y minuten, waarbij X=coffeescript</4> </3> <5> <6>Startsjabloon laden</6> </5>',

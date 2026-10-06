@@ -102,6 +102,12 @@ export const cm6ThemeSolarizedDarkUrl = /* @__PURE__ */ getUrl(
   'cm6-theme-solarized-dark@0.2.0/dist/index.js',
 );
 
+export const cobolWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/cobol-wasm@0.1.0/');
+
+// `@live-codes/cobol-wasm` pins this exact `@live-codes/clang-wasm` version for the Clang half of its
+// toolchain, and the runtime re-derives those assets' digests, so the two must stay in step.
+export const cobolWasmClangBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.3.0/assets/');
+
 export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );

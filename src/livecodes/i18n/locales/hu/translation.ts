@@ -991,6 +991,7 @@ const translation: I18nTranslation = {
       clio: 'Clio kezdő',
       'cljs-selfhosted': 'CLJS (saját üzemeltetésű) kezdő',
       clojurescript: 'ClojureScript (Cherry) kezdő',
+      'cobol-wasm': 'COBOL kezdő',
       coffeescript: 'CoffeeScript kezdő',
       commonlisp: 'Common Lisp kezdő',
       cpp: 'C++ kezdő',

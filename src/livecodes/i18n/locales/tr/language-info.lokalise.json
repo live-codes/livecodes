@@ -135,6 +135,15 @@
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>ClojureScript resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Clojure resmi web sitesi</tag-4> </tag-3> <tag-5> <tag-6>Cherry repo'su</tag-6> </tag-5> <tag-7> <tag-8>Y Dakikada X Öğrenin, X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Dokümantasyonu</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
   },
+  "cobol-wasm.desc": {
+    "translation": "Modern COBOL, <tag-1>GnuCOBOL</tag-1> tarafından WebAssembly’ye derlenir ve tamamen tarayıcı içinde çalışır."
+  },
+  "cobol-wasm.link": {
+    "translation": "<tag-1> <tag-2>GnuCOBOL resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Y dakikada X'i öğrenin, burada X=COBOL</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Belgeleri</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "cobol-wasm.name": {
+    "translation": "COBOL (Wasm)"
+  },
   "coffeescript.desc": {
     "translation": "Sade JavaScript."
   },

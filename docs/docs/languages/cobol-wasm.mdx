@@ -1,0 +1,156 @@
+# COBOL (Wasm)
+
+COBOL is a compiled, imperative programming language designed for business data processing.
+
+COBOL in LiveCodes is compiled to WebAssembly by the real [GnuCOBOL](https://gnucobol.sourceforge.io/)
+compiler and run in the browser, with no server. The toolchain translates COBOL to C, compiles that
+with Clang, links `libcob`, and runs the resulting WebAssembly module.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const cobolConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'cobol-wasm',
+    content: `IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO-WORLD.
+PROCEDURE DIVISION.
+    DISPLAY "Hello, World!".
+    STOP RUN.`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={cobolConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The program runs in the context of the result page. A few helpers are available in the browser global
+`livecodes.cobol` object:
+
+- `livecodes.cobol.input`: the standard input passed to the program.
+- `livecodes.cobol.loaded`: a promise that resolves when the compiler has downloaded and the program
+  has run, and rejects if the toolchain fails to load. Other helpers should be used after it resolves.
+- `livecodes.cobol.output`: the program's output (stdout and stderr combined).
+- `livecodes.cobol.error`: the compiler diagnostics, if the code failed to compile.
+- `livecodes.cobol.exitCode`: the exit code of the program.
+- `livecodes.cobol.run`: compiles and runs the code again with new input, returning a promise that
+  resolves with `output`, `error` and `exitCode`.
+
+Example:
+
+<LiveCodes template="cobol-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+```cobol
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO-WORLD.
+PROCEDURE DIVISION.
+    DISPLAY "Hello, World!".
+    STOP RUN.
+```
+
+`ACCEPT` reads from the **stdin** pane, in the same way as the other console languages:
+
+```cobol
+IDENTIFICATION DIVISION.
+PROGRAM-ID. GREET.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 WS-NAME PIC X(20).
+PROCEDURE DIVISION.
+    ACCEPT WS-NAME
+    DISPLAY "Hello, " WS-NAME
+    STOP RUN.
+```
+
+## Language Info
+
+### Name
+
+`cobol-wasm`
+
+### Aliases / Extensions
+
+`cobol`, `cob`, `cbl`, `cpy`, `gnucobol`, `wasm.cobol`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[GnuCOBOL](https://gnucobol.sourceforge.io/) 3.2 compiled to WebAssembly, with Clang and LLD for the
+generated C.
+
+### Custom Settings
+
+The GnuCOBOL compiler can be configured through the `customSettings` object, under the `cobol-wasm`
+key. The following options are supported:
+
+- `sourceFormat`: the COBOL source format, `free` (the default) or `fixed`.
+- `compileArgs`: extra GnuCOBOL (`cobc`) flags.
+- `cCompileArgs`: extra Clang flags for the generated C.
+- `args`: the program's command-line arguments.
+- `fileName`: the name the source is compiled under (`main.cob` by default).
+
+Example:
+
+```js
+const config = {
+  activeEditor: 'script',
+  script: {
+    language: 'cobol-wasm',
+    content: '...',
+  },
+  customSettings: {
+    'cobol-wasm': {
+      sourceFormat: 'fixed',
+    },
+  },
+};
+```
+
+## Code Formatting
+
+Not currently supported.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload. This behavior can be disabled by adding the code comment `*> __livecodes_reload__` to the COBOL code, which forces a full page reload.
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Example Usage
+
+```cobol
+IDENTIFICATION DIVISION.
+PROGRAM-ID. INVOICE.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 WS-RATE  PIC 9(3)V99 VALUE 25.50.
+01 WS-HOURS PIC 9(3) VALUE 40.
+01 WS-PAY   PIC 9(5)V99.
+PROCEDURE DIVISION.
+    COMPUTE WS-PAY = WS-RATE * WS-HOURS
+    DISPLAY "Rate: " WS-RATE
+    DISPLAY "Pay:  " WS-PAY
+    STOP RUN.
+```
+
+## Starter Template
+
+https://livecodes.io/?template=cobol-wasm
+
+## Links
+
+- [GnuCOBOL](https://gnucobol.sourceforge.io/)
+- [Learn X in Y minutes, where X=COBOL](https://learnxinyminutes.com/docs/cobol/)
+- [@live-codes/cobol-wasm](https://www.npmjs.com/package/@live-codes/cobol-wasm)

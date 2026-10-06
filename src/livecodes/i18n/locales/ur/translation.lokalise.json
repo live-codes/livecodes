@@ -1953,6 +1953,9 @@
   "templates.starter.clojurescript": {
     "translation": "کلوجر اسکرپٹ (Cherry) شروعاتی"
   },
+  "templates.starter.cobol-wasm": {
+    "translation": "COBOL شروعاتی"
+  },
   "templates.starter.coffeescript": {
     "translation": "کافی اسکرپٹ شروعاتی"
   },

@@ -135,6 +135,15 @@
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>وب‌سایت رسمی ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>وب‌سایت رسمی Clojure</tag-4> </tag-3> <tag-5> <tag-6>مخزن Cherry</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، جایی که X=clojure</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
+  "cobol-wasm.desc": {
+    "translation": "COBOL مدرن توسط <tag-1>GnuCOBOL</tag-1> به WebAssembly کامپایل می‌شود و کاملاً در مرورگر اجرا می‌شود."
+  },
+  "cobol-wasm.link": {
+    "translation": "<tag-1> <tag-2>وبسایت رسمی GnuCOBOL</tag-2> </tag-1> <tag-3> <tag-4>یادگیری X در Y دقیقه، که X=COBOL</tag-4> </tag-3> <tag-5> <tag-6>مستندات لایوکدز</tag-6> </tag-5> <tag-7> <tag-8>بارگذاری قالب شروع</tag-8> </tag-7>"
+  },
+  "cobol-wasm.name": {
+    "translation": "COBOL (Wasm)"
+  },
   "coffeescript.desc": {
     "translation": "جاوااسکریپت ساده."
   },

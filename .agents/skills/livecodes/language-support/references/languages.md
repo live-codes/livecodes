@@ -123,6 +123,7 @@ Enabled via `processors` config:
 | C++ (Wasm)                  | `cpp-wasm`, `clang`, `wasm.cpp`                                                     | Clang WASM                                            |
 | Objective-C                 | `objc-wasm`, `objc`, `wasm.m`                                                       | Clang WASM                                            |
 | Objective-C++               | `objcpp-wasm`, `objcpp`, `wasm.mm`                                                  | Clang WASM                                            |
+| COBOL (Wasm)                | `cobol-wasm`, `cobol`, `cob`, `cbl`, `cpy`, `gnucobol`, `wasm.cobol`                | GnuCOBOL (COBOL -> WASM)                              |
 | Java                        | `java`                                                                              | Java runtime                                          |
 | C#                          | `csharp-wasm`, `cs`, `cs-wasm`, `wasm.cs`                                           | C# WASM                                               |
 | Blazor (Wasm)               | `blazor-wasm`, `blazor`, `razor`, `razor-wasm`, `wasm.razor`                        | Razor components rendered by Blazor (WASM)            |

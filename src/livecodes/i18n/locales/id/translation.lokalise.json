@@ -1953,6 +1953,9 @@
   "templates.starter.clojurescript": {
     "translation": "Pemula ClojureScript (Cherry)"
   },
+  "templates.starter.cobol-wasm": {
+    "translation": "Pemula COBOL"
+  },
   "templates.starter.coffeescript": {
     "translation": "Pemula CoffeeScript"
   },

@@ -1953,6 +1953,9 @@
   "templates.starter.clojurescript": {
     "translation": "ClojureScript (Cherry)スターター"
   },
+  "templates.starter.cobol-wasm": {
+    "translation": "COBOLスターター"
+  },
   "templates.starter.coffeescript": {
     "translation": "CoffeeScriptスターター"
   },

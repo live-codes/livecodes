@@ -990,6 +990,7 @@ const translation: I18nTranslation = {
       clio: 'Pemula Clio',
       'cljs-selfhosted': 'Pemula CLJS (swa-hosting)',
       clojurescript: 'Pemula ClojureScript (Cherry)',
+      'cobol-wasm': 'Pemula COBOL',
       coffeescript: 'Pemula CoffeeScript',
       commonlisp: 'Pemula Common Lisp',
       cpp: 'Pemula C++',

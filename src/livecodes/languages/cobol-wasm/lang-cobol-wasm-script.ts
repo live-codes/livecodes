@@ -1,16 +1,22 @@
 /* eslint-disable no-console */
 import { getErrorMessage } from '../../utils/utils';
-import { vWasmBaseUrl, vWasmClangBaseUrl } from '../../vendors';
+import { cobolWasmBaseUrl, cobolWasmClangBaseUrl } from '../../vendors';
 import { createWorkerRunner, type Runner } from '../worker-runner';
 
-// One runner for one language. The compiler is @live-codes/v-wasm, loaded from its CDN build: the
-// IIFE defines `self.vWasm`, which the worker reaches with importScripts. It compiles V to C and
-// hands that to the same Clang toolchain the C/C++ languages use, then runs the linked module in
-// place, because a browser has no linker subprocess to hand a binary to.
-//
-// The V compiler is a classic Emscripten bundle: it decides it is in a worker by finding
-// `importScripts`, so it has to run in a classic worker (the one createWorkerFromContent builds).
-const SCRIPT_TYPE = 'text/v-wasm';
+// One runner for one language. GnuCOBOL is the real compiler (@live-codes/cobol-wasm), loaded from
+// its CDN build: the IIFE defines `self.cobolWasm`, which the worker reaches with importScripts.
+// It translates COBOL to C, compiles that with Clang and links libcob/GMP, then runs the resulting
+// WASI module in place, because a browser has no linker subprocess to hand a binary to.
+const SCRIPT_TYPE = 'text/cobol-wasm';
+
+/** Per-run options forwarded to `@live-codes/cobol-wasm`'s `run`, read from `config.customSettings`. */
+interface CobolWasmSettings {
+  sourceFormat?: 'free' | 'fixed';
+  compileArgs?: string[];
+  cCompileArgs?: string[];
+  args?: string[];
+  fileName?: string;
+}
 
 interface RunResult {
   input: string;
@@ -19,7 +25,7 @@ interface RunResult {
   exitCode: number | null;
 }
 
-interface VWasmApi {
+interface CobolWasmApi {
   ready: boolean;
   failed: boolean;
   input: string;
@@ -29,39 +35,39 @@ interface VWasmApi {
   loaded: Promise<void>;
   init: Promise<void> | null;
   runner: Runner | null;
+  settings?: CobolWasmSettings;
   run: (input?: string) => Promise<RunResult>;
 }
 
 declare const window: Window & {
-  livecodes: Record<string, VWasmApi>;
+  livecodes: Record<string, CobolWasmApi>;
 };
 
 const getWorkerSrc = () => `
-importScripts(${JSON.stringify(vWasmBaseUrl + 'dist/v-wasm.global.js')});
+importScripts(${JSON.stringify(cobolWasmBaseUrl + 'dist/cobol-wasm.global.js')});
 
 let compiler = null;
 
 const getCompiler = () => {
   compiler =
     compiler ||
-    self.vWasm.createCompiler({
-      baseUrl: ${JSON.stringify(vWasmBaseUrl + 'assets/v/')},
+    self.cobolWasm.createCompiler({
+      baseUrl: ${JSON.stringify(cobolWasmBaseUrl + 'assets/')},
       // The Clang half is pinned by the package, so it comes from that exact version's assets.
-      clangBaseUrl: ${JSON.stringify(vWasmClangBaseUrl)},
+      clangBaseUrl: ${JSON.stringify(cobolWasmClangBaseUrl)},
     });
   return compiler;
 };
 
 addEventListener('message', async (event) => {
-  const { id, code, input } = event.data;
+  const { id, code, input, options } = event.data;
   try {
-    const result = await (await getCompiler()).run(code, input);
+    const result = await (await getCompiler()).run(code, input, options);
     postMessage({
       id,
       result: {
         output: result.output,
-        // The package reports V's, clang's and the linker's diagnostics as a list of lines, empty
-        // when the program built and ran.
+        // The package reports the compiler's diagnostics here; empty when the program compiled.
         errors: result.errors || [],
         exitCode: result.exitCode,
       },
@@ -85,7 +91,7 @@ const RUN_TIMEOUT_MS = 120000;
  * Reads the program out of the result page.
  *
  * The result page writes the code inline as the `innerHTML` of a
- * `<script type="text/v-wasm">` element: core forces `singleFile` for non-module script types,
+ * `<script type="text/cobol-wasm">` element: core forces `singleFile` for non-module script types,
  * so the tag never points at `./script.js`.
  */
 const readCode = () => {
@@ -104,11 +110,11 @@ const setResult = (
   error: string | null,
   exitCode: number | null,
 ): RunResult => {
-  vWasm.input = input;
-  vWasm.output = output;
-  vWasm.error = error;
-  vWasm.exitCode = exitCode;
-  vWasm.ready = true;
+  cobolWasm.input = input;
+  cobolWasm.output = output;
+  cobolWasm.error = error;
+  cobolWasm.exitCode = exitCode;
+  cobolWasm.ready = true;
 
   if (error != null) {
     console.error(error);
@@ -118,14 +124,14 @@ const setResult = (
   return { input, output, error, exitCode };
 };
 
-window.livecodes.v ??= {} as VWasmApi;
+window.livecodes.cobol ??= {} as CobolWasmApi;
 
-const vWasm = window.livecodes.v;
-vWasm.ready = false;
-vWasm.failed = false;
+const cobolWasm = window.livecodes.cobol;
+cobolWasm.ready = false;
+cobolWasm.failed = false;
 // The runner is parked on the persisted namespace so a live reload reuses the warm worker, and the
-// V compiler plus Clang toolchain are not downloaded again, instead of spawning a new one.
-vWasm.runner ??= null;
+// ~25 MiB toolchain is not downloaded again, instead of spawning a new one.
+cobolWasm.runner ??= null;
 
 // The result runs in an iframe; post status updates to the app origin. Mirrors
 // the other WASM language scripts (`fanak`, `haskell-wasm`).
@@ -149,9 +155,9 @@ const postLoading = (payload: boolean) => {
 
 /** Start (once) downloading the compiler, showing the loading indicator while it happens. */
 const ensureLoaded = (runner: Runner): Promise<void> => {
-  let init = vWasm.init;
+  let init = cobolWasm.init;
   if (!init) {
-    vWasm.failed = false;
+    cobolWasm.failed = false;
     init = (async () => {
       postLoading(true);
       try {
@@ -161,42 +167,44 @@ const ensureLoaded = (runner: Runner): Promise<void> => {
       }
     })().catch((error: Error) => {
       // Reset so a later run can retry the download.
-      vWasm.init = null;
-      vWasm.failed = true;
+      cobolWasm.init = null;
+      cobolWasm.failed = true;
       throw error;
     });
     // The failure is surfaced through `run`; do not also report it unhandled.
     init.catch(() => undefined);
-    vWasm.init = init;
+    cobolWasm.init = init;
   }
   return init;
 };
 
-vWasm.loaded = new Promise<void>((resolve, reject) => {
+cobolWasm.loaded = new Promise<void>((resolve, reject) => {
   const interval = setInterval(() => {
-    if (vWasm.failed) {
+    if (cobolWasm.failed) {
       clearInterval(interval);
-      reject(new Error(vWasm.error || 'Failed to initialize the V environment'));
-    } else if (vWasm.ready) {
+      reject(new Error(cobolWasm.error || 'Failed to initialize the COBOL environment'));
+    } else if (cobolWasm.ready) {
       clearInterval(interval);
       resolve();
     }
   }, 50);
 });
 
-vWasm.run = async (input?: string) => {
-  const stdin = `${input ?? vWasm.input ?? ''}`;
+cobolWasm.run = async (input?: string) => {
+  const stdin = `${input ?? cobolWasm.input ?? ''}`;
+  cobolWasm.input = stdin;
 
   const code = readCode();
   if (!code.trim()) {
     // Loud on purpose: an empty program and a result page whose code could not be located look
     // identical from the outside otherwise, and the second is a bug.
-    console.error('[v] no code to run — no program script found on the result page');
+    console.error('[cobol] no code to run — no program script found on the result page');
     return setResult(stdin, null, null, null);
   }
 
-  const runner = (vWasm.runner =
-    vWasm.runner || createWorkerRunner({ getWorkerSrc, label: 'V', timeoutMs: RUN_TIMEOUT_MS }));
+  const runner = (cobolWasm.runner =
+    cobolWasm.runner ||
+    createWorkerRunner({ getWorkerSrc, label: 'COBOL', timeoutMs: RUN_TIMEOUT_MS }));
 
   try {
     await ensureLoaded(runner);
@@ -205,7 +213,7 @@ vWasm.run = async (input?: string) => {
   }
 
   try {
-    const result = await runner.run(code, stdin);
+    const result = await runner.run(code, stdin, cobolWasm.settings);
     // `errors` holds the compiler's diagnostics and is empty when the program ran.
     const errors = (result.errors || []).filter(Boolean);
     if (errors.length) {
@@ -217,12 +225,11 @@ vWasm.run = async (input?: string) => {
   }
 };
 
-window.livecodes.v = vWasm;
-// `vlang` is the language's longer name, and is a valid identifier here.
-window.livecodes.vlang = vWasm;
+// Aliases so both `livecodes.cobol` and `livecodes.cobolWasm` are available.
+window.livecodes.cobolWasm = cobolWasm;
 
 window.addEventListener('load', async () => {
   postLoading(true);
-  await vWasm.run(vWasm.input);
+  await cobolWasm.run(cobolWasm.input);
   postLoading(false);
 });

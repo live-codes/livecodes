@@ -80,6 +80,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'ClojureScript 是 <1>Clojure</1> 到 JavaScript 的编译器。<2></2>在 LiveCodes 中，它使用 <3>Cherry</3> 在浏览器中运行。',
     link: '<1> <2>ClojureScript 官方网站</2> </1> <3> <4>Clojure 官方网站</4> </3> <5> <6>Cherry 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=clojure</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
   },
+  'cobol-wasm': {
+    desc: '现代 COBOL 由 <1>GnuCOBOL</1> 编译为 WebAssembly，完全在浏览器中运行。',
+    link: '<1> <2>GnuCOBOL 官方网站</2> </1> <3> <4>《Y分钟学会X》，其中X=COBOL</4> </3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
+    name: 'COBOL (Wasm)',
+  },
   coffeescript: {
     desc: '不花哨的 JavaScript。',
     link: '<1> <2>CoffeeScript 官方网站</2> </1> <3> <4>在 Y 分钟内学习 X，其中 X=CoffeeScript</4> </3> <5> <6>加载启动模板</6> </5>',
