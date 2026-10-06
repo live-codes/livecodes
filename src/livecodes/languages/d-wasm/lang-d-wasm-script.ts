@@ -224,6 +224,25 @@ const setResult = (
   return { input, output, error, exitCode };
 };
 
+// The result runs in an iframe; post status updates to the app origin. Mirrors
+// the other WASM language scripts (`haskell-wasm`).
+const parentOrigin =
+  window.parent === window
+    ? window.location.origin
+    : window.location.ancestorOrigins?.[0] ||
+      (() => {
+        if (!document.referrer) return '*';
+        try {
+          return new URL(document.referrer).origin;
+        } catch {
+          // Ignore malformed referrers and use the wildcard fallback below.
+          return '*';
+        }
+      })();
+
+const postLoading = (payload: boolean) =>
+  parent.postMessage({ type: 'loading', payload }, parentOrigin); // NOSONAR - fallback is safe with source/origin checks in the parent.
+
 window.livecodes.d ??= {} as DWasmApi;
 
 const dWasm = window.livecodes.d;
@@ -237,11 +256,11 @@ const ensureLoaded = (runner: Runner): Promise<void> => {
   let init = dWasm.init;
   if (!init) {
     init = (async () => {
-      parent.postMessage({ type: 'loading', payload: true }, '*');
+      postLoading(true);
       try {
         await runner.ensureReady();
       } finally {
-        parent.postMessage({ type: 'loading', payload: false }, '*');
+        postLoading(false);
       }
     })().catch((error: Error) => {
       // Reset so a later run can retry the download.
@@ -300,7 +319,7 @@ dWasm.run = async (input?: string) => {
 window.livecodes.dlang = dWasm;
 
 window.addEventListener('load', async () => {
-  parent.postMessage({ type: 'loading', payload: true }, '*');
+  postLoading(true);
   await dWasm.run(dWasm.input);
-  parent.postMessage({ type: 'loading', payload: false }, '*');
+  postLoading(false);
 });
