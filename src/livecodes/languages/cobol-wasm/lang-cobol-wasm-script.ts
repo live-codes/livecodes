@@ -235,17 +235,37 @@ cobolWasm.failed = false;
 // ~25 MiB toolchain is not downloaded again, instead of spawning a new one.
 cobolWasm.runner ??= null;
 
+// The result runs in an iframe; post status updates to the app origin. Mirrors
+// the other WASM language scripts (`fanak`, `haskell-wasm`).
+const parentOrigin =
+  window.parent === window
+    ? window.location.origin
+    : window.location.ancestorOrigins?.[0] ||
+      (() => {
+        if (!document.referrer) return '*';
+        try {
+          return new URL(document.referrer).origin;
+        } catch {
+          // Ignore malformed referrers and use the wildcard fallback below.
+          return '*';
+        }
+      })();
+
+const postLoading = (payload: boolean) => {
+  parent.postMessage({ type: 'loading', payload }, parentOrigin); // NOSONAR - fallback is safe with source/origin checks in the parent.
+};
+
 /** Start (once) downloading the compiler, showing the loading indicator while it happens. */
 const ensureLoaded = (runner: Runner): Promise<void> => {
   let init = cobolWasm.init;
   if (!init) {
     cobolWasm.failed = false;
     init = (async () => {
-      parent.postMessage({ type: 'loading', payload: true }, '*');
+      postLoading(true);
       try {
         await runner.ensureReady();
       } finally {
-        parent.postMessage({ type: 'loading', payload: false }, '*');
+        postLoading(false);
       }
     })().catch((error: Error) => {
       // Reset so a later run can retry the download.
@@ -309,7 +329,7 @@ cobolWasm.run = async (input?: string) => {
 window.livecodes.cobolWasm = cobolWasm;
 
 window.addEventListener('load', async () => {
-  parent.postMessage({ type: 'loading', payload: true }, '*');
+  postLoading(true);
   await cobolWasm.run(cobolWasm.input);
-  parent.postMessage({ type: 'loading', payload: false }, '*');
+  postLoading(false);
 });
