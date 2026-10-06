@@ -114,6 +114,11 @@ const languageInfo = {
     link: '<1> <2>C# language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=C#</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'C# (Wasm)',
   },
+  'd-wasm': {
+    desc: 'D compiled to WebAssembly by <1>DMD</1>, running entirely in the browser.',
+    link: '<1> <2>D official website</2> </1> <3> <4>D language specification</4> </3> <5> <6>D language tour</6> </5> <7> <8>Learn X in Y minutes, where X=D</8> </7> <9> <10>LiveCodes Documentation</10> </9> <11> <12>Load starter template</12> </11>',
+    name: 'D (Wasm)',
+  },
   diagrams: {
     desc1: '(Experimental)',
     desc2: 'Diagrams-as-code. Supports:',

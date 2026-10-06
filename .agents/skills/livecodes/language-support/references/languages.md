@@ -141,6 +141,7 @@ Enabled via `processors` config:
 | Perl                        | `perl`, `pl`, `pm`                                                                  | Perl runtime                                          |
 | Pascal                      | `pascal`, `pas`, `pp`, `pas2js`                                                     | pas2js (Pascal -> JS, WASM)                           |
 | Ada (Wasm)                  | `ada`, `ada-wasm`, `adb`, `ads`, `hac`, `wasm.ada`                                  | HAC (Ada -> WASM)                                     |
+| D (Wasm)                    | `d-wasm`, `d`, `di`, `dlang`, `dmd`                                                 | DMD (D -> WASM)                                       |
 | Gleam                       | `gleam`                                                                             | Gleam language                                        |
 | Elm                         | `elm`                                                                               | Elm compiler (WASM)                                   |
 | Haskell                     | `haskell`, `hs`, `lhs`                                                              | MicroHs (not GHC)                                     |

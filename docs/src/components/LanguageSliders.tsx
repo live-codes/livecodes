@@ -93,6 +93,7 @@ export default function Sliders() {
       { name: 'objc-wasm', title: 'Objective-C (Wasm)' },
       { name: 'objcpp-wasm', title: 'Objective-C++ (Wasm)' },
       { name: 'fortran', title: 'Fortran' },
+      { name: 'd-wasm', title: 'D (Wasm)' },
       { name: 'rust-wasm', title: 'Rust (Wasm)' },
       { name: 'swift-wasm', title: 'Swift (Wasm)' },
       { name: 'haskell', title: 'Haskell' },

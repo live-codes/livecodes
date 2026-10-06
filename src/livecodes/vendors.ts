@@ -134,6 +134,8 @@ export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
   '@ddietr/codemirror-themes@1.4.2/dist/theme/',
 );
 
+export const dlangWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/dlang-wasm@0.1.0/');
+
 export const doppioJvmBaseUrl = 'https://unpkg.com/@seth0x41/doppio@1.0.0/';
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');

@@ -19,6 +19,7 @@ import { commonlisp } from './commonlisp';
 import { cpp } from './cpp';
 import { csharpWasm } from './csharp-wasm';
 import { css } from './css';
+import { dWasm } from './d-wasm';
 import { diagrams } from './diagrams';
 import { dot } from './dot';
 import { ejs } from './ejs';
@@ -171,6 +172,7 @@ export const languages: LanguageSpecs[] = [
   objcWasm,
   objcppWasm,
   fortranWasm,
+  dWasm,
   rustWasm,
   swiftWasm,
   zigWasm,

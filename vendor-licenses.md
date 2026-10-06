@@ -344,6 +344,10 @@ wabt.js: [Apache-2.0 license](https://github.com/AssemblyScript/wabt.js/blob/182
 
 wacl: [BSD 3-Clause License](https://github.com/ecky-l/wacl/blob/9daacabb0102a9986f33263261350edfeebdd83b/LICENSE)
 
+@live-codes/dlang-wasm: [MIT License](https://github.com/live-codes/browser-d/blob/main/LICENSE)
+
+DMD / druntime / Phobos (Wasm): [BSL-1.0 License](https://github.com/dlang/dmd/blob/master/LICENSE.txt)
+
 @live-codes/lfortran-wasm: [MIT License](https://github.com/live-codes/browser-fortran/blob/main/LICENSE)
 
 LFortran (Wasm): [BSD 3-Clause License](https://github.com/lfortran/lfortran/blob/main/LICENSE)
