@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import { createWorkerFromContent, getErrorMessage } from '../../utils/utils';
+import { getErrorMessage } from '../../utils/utils';
 import { vWasmBaseUrl, vWasmClangBaseUrl } from '../../vendors';
+import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // One runner for one language. The compiler is @live-codes/v-wasm, loaded from its CDN build: the
 // IIFE defines `self.vWasm`, which the worker reaches with importScripts. It compiles V to C and
@@ -11,22 +12,11 @@ import { vWasmBaseUrl, vWasmClangBaseUrl } from '../../vendors';
 // `importScripts`, so it has to run in a classic worker (the one createWorkerFromContent builds).
 const SCRIPT_TYPE = 'text/v-wasm';
 
-interface WorkerRunResult {
-  output: string;
-  errors: string[];
-  exitCode: number | null;
-}
-
 interface RunResult {
   input: string;
   output: string | null;
   error: string | null;
   exitCode: number | null;
-}
-
-interface Runner {
-  ensureReady: () => Promise<void>;
-  run: (code: string, input: string) => Promise<WorkerRunResult>;
 }
 
 interface VWasmApi {
@@ -90,98 +80,6 @@ getCompiler().then(
 // A single compile + run is normally quick; a long timeout guards against hangs (e.g. an infinite
 // loop in the user program) by killing and respawning the worker.
 const RUN_TIMEOUT_MS = 120000;
-
-interface Pending {
-  resolve: (result: WorkerRunResult) => void;
-  reject: (error: Error) => void;
-  timer: ReturnType<typeof setTimeout>;
-}
-
-const createRunner = (): Runner => {
-  let worker: Worker | null = null;
-  let ready: Promise<void> | null = null;
-  let settleReady: ((error?: Error) => void) | null = null;
-  let pending: Record<number, Pending> = {};
-  let nextId = 1;
-
-  const failAll = (error: Error) => {
-    for (const id of Object.keys(pending)) {
-      const request = pending[Number(id)];
-      clearTimeout(request.timer);
-      request.reject(error);
-    }
-    pending = {};
-  };
-
-  const teardown = (error: Error) => {
-    worker?.terminate();
-    worker = null;
-    ready = null;
-    settleReady?.(error);
-    settleReady = null;
-    failAll(error);
-  };
-
-  const onMessage = (event: MessageEvent) => {
-    const message = event.data ?? {};
-    if (message.type === 'ready') {
-      settleReady?.();
-      settleReady = null;
-      return;
-    }
-    if (message.type === 'error') {
-      // The runtime failed to load (network, or the browser is unsupported).
-      teardown(new Error(message.message));
-      return;
-    }
-    const request = pending[message.id];
-    if (!request) return;
-    delete pending[message.id];
-    clearTimeout(request.timer);
-    if (message.error != null) {
-      request.reject(new Error(message.error));
-    } else {
-      request.resolve(message.result);
-    }
-  };
-
-  const spawn = () => {
-    ready = new Promise<void>((resolve, reject) => {
-      settleReady = (error?: Error) => (error ? reject(error) : resolve());
-    });
-    worker = createWorkerFromContent(getWorkerSrc());
-    worker.onmessage = onMessage;
-    worker.onerror = (event) => teardown(new Error(`The V worker crashed: ${event.message}`));
-  };
-
-  /** Spawn the worker if needed and resolve once the compiler has loaded. */
-  const ensureReady = async () => {
-    if (!ready) spawn();
-    await ready;
-  };
-
-  const run = (code: string, input: string) =>
-    ensureReady().then(
-      () =>
-        new Promise<WorkerRunResult>((resolve, reject) => {
-          // `ensureReady` can resolve after the worker has been torn down (crash or timeout), so
-          // the worker may be gone by the time the request is registered.
-          if (!worker) {
-            reject(new Error('The V worker is not available'));
-            return;
-          }
-          const id = nextId++;
-          const timer = setTimeout(() => {
-            // The worker hung — kill it and reject, so the next run respawns a fresh worker.
-            teardown(new Error('The V compiler timed out'));
-          }, RUN_TIMEOUT_MS);
-          pending[id] = { resolve, reject, timer };
-          worker.postMessage({ id, code, input });
-        }),
-    );
-
-  return { ensureReady, run };
-};
 
 /**
  * Reads the program out of the result page.
@@ -297,7 +195,8 @@ vWasm.run = async (input?: string) => {
     return setResult(stdin, null, null, null);
   }
 
-  const runner = (vWasm.runner = vWasm.runner || createRunner());
+  const runner = (vWasm.runner =
+    vWasm.runner || createWorkerRunner({ getWorkerSrc, label: 'V', timeoutMs: RUN_TIMEOUT_MS }));
 
   try {
     await ensureLoaded(runner);

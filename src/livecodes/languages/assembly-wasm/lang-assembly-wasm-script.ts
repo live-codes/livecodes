@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
-import { createWorkerFromContent, getErrorMessage } from '../../utils/utils';
+import { getErrorMessage } from '../../utils/utils';
 import {
   assemblyWasmBaseUrl,
   keystoneJsUrl,
   keystoneJsWasmUrl,
   unicornJsX86Url,
 } from '../../vendors';
+import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // x86-64 assembly is assembled and executed by @live-codes/assembly-wasm, which loads
 // Keystone (the assembler) and Unicorn (the CPU emulator) as separate WebAssembly
@@ -20,23 +21,11 @@ const SCRIPT_TYPE = 'text/assembly';
 
 const BOOT_TIMEOUT_MS = 2 * 60_000;
 
-interface WorkerRunResult {
-  output: string;
-  errors: string[];
-  exitCode: number | null;
-}
-
 interface RunResult {
   input: string;
   output: string | null;
   error: string | null;
   exitCode: number | null;
-}
-
-interface Runner {
-  ensureReady: () => Promise<void>;
-  run: (code: string, input: string) => Promise<WorkerRunResult>;
-  destroy: () => void;
 }
 
 interface AssemblyWasmApi {
@@ -118,85 +107,6 @@ getCompiler().then(
 );
 `;
 
-interface Pending {
-  resolve: (result: WorkerRunResult) => void;
-  reject: (error: Error) => void;
-}
-
-const createRunner = (): Runner => {
-  let worker: Worker | null = null;
-  let ready: Promise<void> | null = null;
-  let settleReady: ((error?: Error) => void) | null = null;
-  let pending: Record<number, Pending> = {};
-  let nextId = 1;
-
-  const failAll = (error: Error) => {
-    for (const id of Object.keys(pending)) {
-      pending[Number(id)].reject(error);
-    }
-    pending = {};
-  };
-
-  const teardown = (error?: Error) => {
-    worker?.terminate();
-    worker = null;
-    ready = null;
-    settleReady?.(error);
-    settleReady = null;
-    if (error) failAll(error);
-  };
-
-  const onMessage = (event: MessageEvent) => {
-    const message = event.data ?? {};
-    if (message.type === 'ready') {
-      settleReady?.();
-      settleReady = null;
-      return;
-    }
-    if (message.type === 'error') {
-      // The runtime failed to load (network, or the browser is unsupported).
-      teardown(new Error(message.message));
-      return;
-    }
-    const request = pending[message.id];
-    if (!request) return;
-    delete pending[message.id];
-    if (message.error != null) {
-      request.reject(new Error(message.error));
-    } else {
-      request.resolve(message.result);
-    }
-  };
-
-  const spawn = () => {
-    ready = new Promise<void>((resolve, reject) => {
-      settleReady = (error?: Error) => (error ? reject(error) : resolve());
-    });
-    worker = createWorkerFromContent(getWorkerSrc());
-    worker.onmessage = onMessage;
-    worker.onerror = (event) =>
-      teardown(new Error(`The Assembly worker crashed: ${event.message}`));
-  };
-
-  /** Spawn the worker if needed and resolve once the runtime has loaded. */
-  const ensureReady = async () => {
-    if (!ready) spawn();
-    await ready;
-  };
-
-  const run = (code: string, input: string) =>
-    ensureReady().then(
-      () =>
-        new Promise<WorkerRunResult>((resolve, reject) => {
-          const id = nextId++;
-          pending[id] = { resolve, reject };
-          worker?.postMessage({ id, code, input });
-        }),
-    );
-
-  return { ensureReady, run, destroy: () => teardown() };
-};
-
 const setResult = (
   input: string,
   output: string | null,
@@ -277,7 +187,8 @@ assemblyWasm.run = async (input?: string) => {
 
   // Park the runner on the persisted namespace so a live reload reuses the warm
   // worker instead of loading the runtimes again.
-  const runner = (assemblyWasm.runner = assemblyWasm.runner || createRunner());
+  const runner = (assemblyWasm.runner =
+    assemblyWasm.runner || createWorkerRunner({ getWorkerSrc, label: 'Assembly' }));
 
   try {
     await ensureLoaded(runner);

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import { createWorkerFromContent, getErrorMessage } from '../../utils/utils';
+import { getErrorMessage } from '../../utils/utils';
 import { clangWasmBaseUrl } from '../../vendors';
+import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // One runner serves all four Clang languages. The language is read from the script tags the
 // compiler injected into the page, so only the script type differs between them.
@@ -35,22 +36,11 @@ interface ClangWasmSettings {
   args?: string[];
 }
 
-interface WorkerRunResult {
-  output: string;
-  errors: string[];
-  exitCode: number | null;
-}
-
 interface RunResult {
   input: string;
   output: string | null;
   error: string | null;
   exitCode: number | null;
-}
-
-interface Runner {
-  ensureReady: () => Promise<void>;
-  run: (code: string, input: string, options?: ClangWasmSettings) => Promise<WorkerRunResult>;
 }
 
 interface ClangWasmApi {
@@ -106,84 +96,6 @@ getCompiler().then(
   (error) => postMessage({ type: 'error', message: String((error && error.message) || error) }),
 );
 `;
-
-interface Pending {
-  resolve: (result: WorkerRunResult) => void;
-  reject: (error: Error) => void;
-}
-
-const createRunner = (language: LanguageId): Runner => {
-  let worker: Worker | null = null;
-  let ready: Promise<void> | null = null;
-  let settleReady: ((error?: Error) => void) | null = null;
-  let pending: Record<number, Pending> = {};
-  let nextId = 1;
-
-  const failAll = (error: Error) => {
-    for (const id of Object.keys(pending)) {
-      pending[Number(id)].reject(error);
-    }
-    pending = {};
-  };
-
-  const teardown = (error: Error) => {
-    worker?.terminate();
-    worker = null;
-    ready = null;
-    settleReady?.(error);
-    settleReady = null;
-    failAll(error);
-  };
-
-  const onMessage = (event: MessageEvent) => {
-    const message = event.data ?? {};
-    if (message.type === 'ready') {
-      settleReady?.();
-      settleReady = null;
-      return;
-    }
-    if (message.type === 'error') {
-      // The runtime failed to load (network, or the browser is unsupported).
-      teardown(new Error(message.message));
-      return;
-    }
-    const request = pending[message.id];
-    if (!request) return;
-    delete pending[message.id];
-    if (message.error != null) {
-      request.reject(new Error(message.error));
-    } else {
-      request.resolve(message.result);
-    }
-  };
-
-  const spawn = () => {
-    ready = new Promise<void>((resolve, reject) => {
-      settleReady = (error?: Error) => (error ? reject(error) : resolve());
-    });
-    worker = createWorkerFromContent(getWorkerSrc(language));
-    worker.onmessage = onMessage;
-    worker.onerror = (event) => teardown(new Error(`The Clang worker crashed: ${event.message}`));
-  };
-
-  /** Spawn the worker if needed and resolve once the compiler has loaded. */
-  const ensureReady = async () => {
-    if (!ready) spawn();
-    await ready;
-  };
-
-  const run = (code: string, input: string, options?: ClangWasmSettings) =>
-    ensureReady().then(
-      () =>
-        new Promise<WorkerRunResult>((resolve, reject) => {
-          const id = nextId++;
-          pending[id] = { resolve, reject };
-          worker?.postMessage({ id, code, input, options });
-        }),
-    );
-
-  return { ensureReady, run };
-};
 
 const getLanguage = (): LanguageId | null => {
   for (const scriptType of SCRIPT_TYPES) {
@@ -282,7 +194,8 @@ clangWasm.run = async (input?: string) => {
   if (!code.trim()) return setResult(stdin, null, null, null);
 
   const runner = (clangWasm.runners[language] =
-    clangWasm.runners[language] || createRunner(language));
+    clangWasm.runners[language] ||
+    createWorkerRunner({ getWorkerSrc: () => getWorkerSrc(language), label: 'Clang' }));
 
   try {
     await ensureLoaded(runner);
