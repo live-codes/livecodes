@@ -37,6 +37,8 @@ export const starterTemplates = {
   "rescript": "ReScript Starter",
   "reason": "Reason Starter",
   "ocaml": "Ocaml Starter",
+  "nim": "Nim Starter",
+  "nim-wasm": "Nim (Wasm) Starter",
   "python": "Python Starter",
   "python-wasm": "Python (Wasm) Starter",
   "r": "R Starter",

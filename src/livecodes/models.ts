@@ -201,6 +201,7 @@ export interface Compiler {
     | 'text/cpp-wasm'
     | 'text/objc-wasm'
     | 'text/objcpp-wasm'
+    | 'text/nim-wasm'
     | 'text/fortran-wasm'
     | 'text/d-wasm'
     | 'text/cobol-wasm'

@@ -712,6 +712,30 @@
     "notes": "",
     "translation": "Mustache"
   },
+  "nim.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://nim-lang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "Nim compiled to JavaScript by the <tag-1>Nim compiler</tag-1>, running entirely in the browser. The program runs in the result page, so it can drive the DOM directly."
+  },
+  "nim.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://nim-lang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://nim-lang.org/docs/manual.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://nim-lang.org/docs/lib.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/nim\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=nim\" class=\"button\" target=\"_parent\" data-template=\"nim\" />\n\n",
+    "translation": "<tag-1> <tag-2>Nim official website</tag-2> </tag-1> <tag-3> <tag-4>Nim manual</tag-4> </tag-3> <tag-5> <tag-6>Nim standard library</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "nim.name": {
+    "notes": "",
+    "translation": "Nim"
+  },
+  "nimWasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://clang.llvm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "Nim compiled to C and then to WebAssembly by <tag-1>Clang</tag-1>, running entirely in the browser. It supports standard input, command-line arguments and real exit codes."
+  },
+  "nimWasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://nim-lang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://nim-lang.org/docs/manual.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://nim-lang.org/docs/lib.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/nim-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=nim-wasm\" class=\"button\" target=\"_parent\" data-template=\"nim-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>Nim official website</tag-2> </tag-1> <tag-3> <tag-4>Nim manual</tag-4> </tag-3> <tag-5> <tag-6>Nim standard library</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "nimWasm.name": {
+    "notes": "",
+    "translation": "Nim (Wasm)"
+  },
   "nunjucks.desc": {
     "notes": "### <tag-1> ###\n<a href=\"http://jinja.pocoo.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <tag-1>jinja2</tag-1>"

@@ -375,6 +375,8 @@ export const monacoVolarUrl = /* @__PURE__ */ getUrl(
 
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
 
+export const nimWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/nim-wasm@0.4.0/');
+
 export const ninjaKeysUrl = /* @__PURE__ */ getUrl('@hatemhosny/ninja-keys@1.14.0/bundle/index.js');
 
 export const nomnomlCdnUrl = /* @__PURE__ */ getUrl('nomnoml@1.6.1/dist/nomnoml.js');

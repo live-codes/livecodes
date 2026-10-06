@@ -293,6 +293,8 @@ export const getCommandMenuActions = ({
         'rescript',
         'reason',
         'ocaml',
+        'nim',
+        'nim-wasm',
         'python',
         'python-wasm',
         'r',

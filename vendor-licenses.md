@@ -192,6 +192,8 @@ Monaspace font: [OFL-1.1 License](https://github.com/githubnext/monaspace/blob/3
 
 mustache.js: [MIT License](https://github.com/janl/mustache.js/blob/972fd2b27a036888acfcb60d6119317744fac7ee/LICENSE)
 
+Nim: [MIT License](https://github.com/nim-lang/Nim/blob/version-2-2/COPYING) (the Nim compiler, compiled to WebAssembly and packaged by [@live-codes/nim-wasm](https://www.npmjs.com/package/@live-codes/nim-wasm): [MIT License](https://github.com/live-codes/browser-nim/blob/main/LICENSE))
+
 nomnoml: [MIT License](https://github.com/skanaar/nomnoml/blob/87776185c2c57047e8e0bfc549d1c7093844daee/LICENSE)
 
 normalize.css: [MIT License](https://github.com/necolas/normalize.css/blob/fc091cce1534909334c1911709a39c22d406977b/LICENSE.md)

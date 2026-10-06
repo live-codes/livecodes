@@ -78,6 +78,8 @@ export default function Sliders() {
       { name: 'rescript', title: 'ReScript' },
       { name: 'reason', title: 'Reason' },
       { name: 'ocaml', title: 'OCaml' },
+      { name: 'nim', title: 'Nim' },
+      { name: 'nim-wasm', title: 'Nim (Wasm)' },
       { name: 'python', title: 'Python' },
       { name: 'python-wasm', title: 'Python (Wasm)' },
       { name: 'r', title: 'R' },
