@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import { createWorkerFromContent, getErrorMessage } from '../../utils/utils';
+import { getErrorMessage } from '../../utils/utils';
 import { adaWasmBaseUrl } from '../../vendors';
+import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // Ada is compiled and run by HAC (@live-codes/ada-wasm), a single self-contained
 // WebAssembly bundle. It runs inside a dedicated worker so a non-terminating
@@ -24,12 +25,6 @@ interface RunResult {
   exitCode: number | null;
 }
 
-interface Runner {
-  ensureReady: () => Promise<void>;
-  run: (code: string, input: string) => Promise<WorkerRunResult>;
-  destroy: () => void;
-}
-
 interface AdaWasmApi {
   ready: boolean;
   failed: boolean;
@@ -39,7 +34,7 @@ interface AdaWasmApi {
   exitCode: number | null;
   loaded: Promise<void>;
   init: Promise<void> | null;
-  runner?: Runner;
+  runner?: Runner<WorkerRunResult>;
   run: (input?: string) => Promise<RunResult>;
 }
 
@@ -103,83 +98,6 @@ getRuntime().then(
 );
 `;
 
-interface Pending {
-  resolve: (result: WorkerRunResult) => void;
-  reject: (error: Error) => void;
-}
-
-const createRunner = (): Runner => {
-  let worker: Worker | null = null;
-  let ready: Promise<void> | null = null;
-  let settleReady: ((error?: Error) => void) | null = null;
-  let pending: Record<number, Pending> = {};
-  let nextId = 1;
-
-  const failAll = (error: Error) => {
-    for (const id of Object.keys(pending)) {
-      pending[Number(id)].reject(error);
-    }
-    pending = {};
-  };
-
-  const teardown = (error?: Error) => {
-    worker?.terminate();
-    worker = null;
-    ready = null;
-    settleReady?.(error);
-    settleReady = null;
-    if (error) failAll(error);
-  };
-
-  const onMessage = (event: MessageEvent) => {
-    const message = event.data ?? {};
-    if (message.type === 'ready') {
-      settleReady?.();
-      settleReady = null;
-      return;
-    }
-    if (message.type === 'error') {
-      // The runtime failed to load (network, or the browser is unsupported).
-      teardown(new Error(message.message));
-      return;
-    }
-    const request = pending[message.id];
-    if (!request) return;
-    delete pending[message.id];
-    if (message.error != null) {
-      request.reject(new Error(message.error));
-    } else {
-      request.resolve(message.result);
-    }
-  };
-
-  const spawn = () => {
-    ready = new Promise<void>((resolve, reject) => {
-      settleReady = (error?: Error) => (error ? reject(error) : resolve());
-    });
-    worker = createWorkerFromContent(getWorkerSrc());
-    worker.onmessage = onMessage;
-    worker.onerror = (event) => teardown(new Error(`The Ada worker crashed: ${event.message}`));
-  };
-
-  const ensureReady = async () => {
-    if (!ready) spawn();
-    await ready;
-  };
-
-  const run = (code: string, input: string) =>
-    ensureReady().then(
-      () =>
-        new Promise<WorkerRunResult>((resolve, reject) => {
-          const id = nextId++;
-          pending[id] = { resolve, reject };
-          worker?.postMessage({ id, code, input });
-        }),
-    );
-
-  return { ensureReady, run, destroy: () => teardown() };
-};
-
 const setResult = (
   input: string,
   output: string | null,
@@ -207,7 +125,7 @@ adaWasm.ready = false;
 adaWasm.failed = false;
 
 /** Start (once) loading the runtime in a worker, showing the loading indicator. */
-const ensureLoaded = (runner: Runner): Promise<void> => {
+const ensureLoaded = (runner: Runner<WorkerRunResult>): Promise<void> => {
   let init = adaWasm.init;
   if (!init) {
     adaWasm.failed = false;
@@ -258,7 +176,8 @@ adaWasm.run = async (input?: string) => {
   });
   if (!code.trim()) return setResult(stdin, null, null, 0);
 
-  const runner = (adaWasm.runner = adaWasm.runner || createRunner());
+  const runner = (adaWasm.runner =
+    adaWasm.runner || createWorkerRunner<WorkerRunResult>({ getWorkerSrc, label: 'Ada' }));
 
   try {
     await ensureLoaded(runner);
