@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { getErrorMessage } from '../../utils/utils';
-import { cobolWasmBaseUrl, cobolWasmClangBaseUrl } from '../../vendors';
+import { clangWasmBaseUrl, cobolWasmBaseUrl } from '../../vendors';
 import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // One runner for one language. GnuCOBOL is the real compiler (@live-codes/cobol-wasm), loaded from
@@ -54,7 +54,7 @@ const getCompiler = () => {
     self.cobolWasm.createCompiler({
       baseUrl: ${JSON.stringify(cobolWasmBaseUrl + 'assets/')},
       // The Clang half is pinned by the package, so it comes from that exact version's assets.
-      clangBaseUrl: ${JSON.stringify(cobolWasmClangBaseUrl)},
+      clangBaseUrl: ${JSON.stringify(clangWasmBaseUrl + 'assets/')},
     });
   return compiler;
 };

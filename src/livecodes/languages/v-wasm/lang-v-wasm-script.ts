@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { getErrorMessage } from '../../utils/utils';
-import { vWasmBaseUrl, vWasmClangBaseUrl } from '../../vendors';
+import { clangWasmBaseUrl, vWasmBaseUrl } from '../../vendors';
 import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // One runner for one language. The compiler is @live-codes/v-wasm, loaded from its CDN build: the
@@ -47,7 +47,7 @@ const getCompiler = () => {
     self.vWasm.createCompiler({
       baseUrl: ${JSON.stringify(vWasmBaseUrl + 'assets/v/')},
       // The Clang half is pinned by the package, so it comes from that exact version's assets.
-      clangBaseUrl: ${JSON.stringify(vWasmClangBaseUrl)},
+      clangBaseUrl: ${JSON.stringify(clangWasmBaseUrl + 'assets/')},
     });
   return compiler;
 };

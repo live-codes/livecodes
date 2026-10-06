@@ -62,7 +62,7 @@ export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.6.38/');
 
 export const cjs2esUrl = /* @__PURE__ */ getUrl('cjs2es@1.1.1/dist/cjs2es.browser.js');
 
-export const clangWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.2.0/');
+export const clangWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.3.0/');
 
 export const clioBaseUrl = /* @__PURE__ */ getUrl(
   '@live-codes/clio-browser-compiler@0.0.3/public/build/',
@@ -103,10 +103,6 @@ export const cm6ThemeSolarizedDarkUrl = /* @__PURE__ */ getUrl(
 );
 
 export const cobolWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/cobol-wasm@0.1.0/');
-
-// `@live-codes/cobol-wasm` pins this exact `@live-codes/clang-wasm` version for the Clang half of its
-// toolchain, and the runtime re-derives those assets' digests, so the two must stay in step.
-export const cobolWasmClangBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.3.0/assets/');
 
 export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
@@ -536,10 +532,6 @@ export const unicornJsX86Url = /* @__PURE__ */ getUrl(
 );
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
-
-// `@live-codes/v-wasm` bundles this exact `@live-codes/clang-wasm` version for the Clang half of its
-// pipeline, so its assets are fetched from that version rather than the one the C/C++ languages use.
-export const vWasmClangBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.3.0/assets/');
 
 export const vWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/v-wasm@0.1.0/');
 
