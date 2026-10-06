@@ -1971,6 +1971,9 @@
   "templates.starter.csharp-wasm": {
     "translation": "قالب C# (Wasm)"
   },
+  "templates.starter.d-wasm": {
+    "translation": "قالب D"
+  },
   "templates.starter.d3": {
     "translation": "قالب D3"
   },

@@ -1971,6 +1971,9 @@
   "templates.starter.csharp-wasm": {
     "translation": "C# (Wasm) স্টার্টার"
   },
+  "templates.starter.d-wasm": {
+    "translation": "D স্টার্টার"
+  },
   "templates.starter.d3": {
     "translation": "D3 স্টার্টার"
   },

@@ -997,6 +997,7 @@ const translation: I18nTranslation = {
       cpp: 'شروع کننده C++',
       'cpp-wasm': 'شروع کننده C++ (Wasm)',
       'csharp-wasm': 'شروع کننده C# (Wasm)',
+      'd-wasm': 'شروع کننده D',
       d3: 'شروع کننده D3',
       daisyui: 'شروع کننده daisyUI',
       diagrams: 'شروع کننده نمودارها',

@@ -20,6 +20,7 @@ import { coffeescriptStarter } from './coffeescript-starter';
 import { commonlispStarter } from './commonlisp-starter';
 import { cppStarter } from './cpp-starter';
 import { csharpWasmStarter } from './csharp-wasm-starter';
+import { dWasmStarter } from './d-wasm-starter';
 import { d3Starter } from './d3-starter';
 import { daisyuiStarter } from './daisyui-starter';
 import { diagramsStarter } from './diagrams-starter';
@@ -142,6 +143,7 @@ export const starterTemplates = [
   objcWasmStarter,
   cobolWasmStarter,
   fortranWasmStarter,
+  dWasmStarter,
   vWasmStarter,
   rustWasmStarter,
   swiftWasmStarter,

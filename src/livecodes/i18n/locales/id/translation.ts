@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       cpp: 'Pemula C++',
       'cpp-wasm': 'Pemula C++ (Wasm)',
       'csharp-wasm': 'Pemula C# (Wasm)',
+      'd-wasm': 'Pemula D',
       d3: 'Pemula D3',
       daisyui: 'Pemula daisyUI',
       diagrams: 'Pemula Diagram',

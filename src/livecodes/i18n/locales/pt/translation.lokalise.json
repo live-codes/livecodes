@@ -1971,6 +1971,9 @@
   "templates.starter.csharp-wasm": {
     "translation": "Iniciante C# (Wasm)"
   },
+  "templates.starter.d-wasm": {
+    "translation": "Iniciante D"
+  },
   "templates.starter.d3": {
     "translation": "Iniciante D3"
   },

@@ -1,0 +1,141 @@
+# D (Wasm)
+
+D is a general-purpose, statically typed, compiled programming language with C-like syntax, garbage collection, and a rich standard library.
+
+D in LiveCodes is compiled to WebAssembly by [DMD](https://dlang.org/) and run in the browser, with
+no server. It uses the WebAssembly backend of [dkorpel's dmd-explorer](https://dkorpel.github.io/dmd-explorer/),
+packaged as [`@live-codes/dlang-wasm`](https://www.npmjs.com/package/@live-codes/dlang-wasm).
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const dConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'd-wasm',
+    content: `import std.stdio;\n
+void main()
+{
+    writeln("Hello, World!");
+}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={dConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The program runs in the context of the result page. A few helpers are available in the browser global
+`livecodes.d` object:
+
+- `livecodes.d.input`: the standard input passed to the program.
+- `livecodes.d.loaded`: a promise that resolves when the compiler has downloaded and the program
+  has run. Other helpers should be used after it resolves.
+- `livecodes.d.output`: the program's output (standard output and standard error, in the order they
+  were written).
+- `livecodes.d.error`: the compiler diagnostics, if the code failed to compile.
+- `livecodes.d.exitCode`: the exit code of the program.
+- `livecodes.d.run`: compiles and runs the code again with new input, returning a promise that
+  resolves with `output`, `error` and `exitCode`.
+
+The same object is also available as `livecodes.dlang`.
+
+Example:
+
+<LiveCodes template="d-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+```d
+import std.stdio;
+
+void main()
+{
+    writeln("Hello, World!");
+}
+```
+
+Templates, ranges and the algorithms in Phobos behave as expected:
+
+```d
+import std.stdio;
+import std.algorithm : map, sum;
+import std.range : iota;
+
+void main()
+{
+    auto squares = iota(1, 6).map!(x => x * x);
+    writeln(squares);      // [1, 4, 9, 16, 25]
+    writeln(squares.sum);  // 55
+}
+```
+
+`readln` reads from the **stdin** pane, in the same way as the other console languages.
+
+## Language Info
+
+### Name
+
+`d-wasm`
+
+### Aliases / Extensions
+
+`d`, `di`, `dlang`, `dmd`
+
+### Editor
+
+`script`
+
+## Compiler
+
+[DMD](https://dlang.org/) (the D reference compiler) compiled to WebAssembly, with druntime and
+Phobos, from [dkorpel's dmd-explorer](https://dkorpel.github.io/dmd-explorer/).
+
+### Version
+
+`DMD`: v2.113
+
+## Code Formatting
+
+Not currently supported.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the D code, which forces a full page reload.
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Example Usage
+
+```d
+import std.stdio;
+
+void main()
+{
+    int sum = 0;
+    foreach (i; 1 .. 6)
+    {
+        sum += i;
+    }
+    writeln("Sum = ", sum);      // Sum = 15
+    writeln("Mean = ", sum / 5); // Mean = 3
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=d-wasm
+
+## Links
+
+- [D official website](https://dlang.org/)
+- [D language specification](https://dlang.org/spec/spec.html)
+- [D language tour](https://tour.dlang.org/)
+- [Learn D in Y minutes](https://learnxinyminutes.com/docs/d/)
+- [@live-codes/dlang-wasm](https://www.npmjs.com/package/@live-codes/dlang-wasm)

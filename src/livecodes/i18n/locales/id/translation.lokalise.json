@@ -1971,6 +1971,9 @@
   "templates.starter.csharp-wasm": {
     "translation": "Pemula C# (Wasm)"
   },
+  "templates.starter.d-wasm": {
+    "translation": "Pemula D"
+  },
   "templates.starter.d3": {
     "translation": "Pemula D3"
   },

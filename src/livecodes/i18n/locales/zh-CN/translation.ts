@@ -994,6 +994,7 @@ const translation: I18nTranslation = {
       cpp: 'C++ 启动模板',
       'cpp-wasm': 'C++（WASM）启动模板',
       'csharp-wasm': 'C#（WASM）启动模板',
+      'd-wasm': 'D 启动模板',
       d3: 'D3 启动模板',
       daisyui: 'daisyUI 启动模板',
       diagrams: '图表启动模板',

@@ -1971,6 +1971,9 @@
   "templates.starter.csharp-wasm": {
     "translation": "Démarrage C# (Wasm)"
   },
+  "templates.starter.d-wasm": {
+    "translation": "Démarrage D"
+  },
   "templates.starter.d3": {
     "translation": "Démarrage D3"
   },

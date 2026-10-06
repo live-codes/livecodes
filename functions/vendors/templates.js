@@ -52,6 +52,7 @@ export const starterTemplates = {
   "objc-wasm": "Objective-C (Wasm) Starter",
   "cobol-wasm": "COBOL Starter",
   "fortran-wasm": "Fortran Starter",
+  "d-wasm": "D Starter",
   "v-wasm": "V Starter",
   "rust-wasm": "Rust (Wasm) Starter",
   "swift-wasm": "Swift (Wasm) Starter",

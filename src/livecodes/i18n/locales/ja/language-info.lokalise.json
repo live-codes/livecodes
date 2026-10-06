@@ -192,6 +192,15 @@
   "csharpWasm.name": {
     "translation": "C# (Wasm)"
   },
+  "d-wasm.desc": {
+    "translation": "D は <tag-1>DMD</tag-1> によって WebAssembly にコンパイルされ、ブラウザ内で完全に実行されます。"
+  },
+  "d-wasm.link": {
+    "translation": "<tag-1> <tag-2>D 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>D 言語仕様</tag-4> </tag-3> <tag-5> <tag-6>D 言語ツアー</tag-6> </tag-5> <tag-7> <tag-8>「Y分でXを学ぶ」（X=D）</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ドキュメント</tag-10> </tag-9> <tag-11> <tag-12>スターターテンプレートを読み込む</tag-12> </tag-11>"
+  },
+  "d-wasm.name": {
+    "translation": "D (Wasm)"
+  },
   "diagrams.desc1": {
     "translation": "（実験的）"
   },

@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       cpp: 'سی++ شروعاتی',
       'cpp-wasm': 'سی++ (واسم) شروعاتی',
       'csharp-wasm': 'C# (واسم) شروعاتی',
+      'd-wasm': 'D شروعاتی',
       d3: 'D3 شروعاتی',
       daisyui: 'daisyUI شروعاتی',
       diagrams: 'ڈایاگرامز شروعاتی',

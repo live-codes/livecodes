@@ -256,6 +256,18 @@
     "notes": "",
     "translation": "C# (Wasm)"
   },
+  "d-wasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://dlang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "D compiled to WebAssembly by <tag-1>DMD</tag-1>, running entirely in the browser."
+  },
+  "d-wasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://dlang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://dlang.org/spec/spec.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://tour.dlang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/d/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/d-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=d-wasm\" class=\"button\" target=\"_parent\" data-template=\"d-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>D official website</tag-2> </tag-1> <tag-3> <tag-4>D language specification</tag-4> </tag-3> <tag-5> <tag-6>D language tour</tag-6> </tag-5> <tag-7> <tag-8>Learn X in Y minutes, where X=D</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentation</tag-10> </tag-9> <tag-11> <tag-12>Load starter template</tag-12> </tag-11>"
+  },
+  "d-wasm.name": {
+    "notes": "",
+    "translation": "D (Wasm)"
+  },
   "diagrams.desc1": {
     "notes": "",
     "translation": "(Experimental)"

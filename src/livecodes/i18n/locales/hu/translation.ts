@@ -997,6 +997,7 @@ const translation: I18nTranslation = {
       cpp: 'C++ kezdő',
       'cpp-wasm': 'C++ (Wasm) kezdő',
       'csharp-wasm': 'C# (Wasm) kezdő',
+      'd-wasm': 'D kezdő',
       d3: 'D3 kezdő',
       daisyui: 'daisyUI kezdő',
       diagrams: 'Diagramok kezdő',
