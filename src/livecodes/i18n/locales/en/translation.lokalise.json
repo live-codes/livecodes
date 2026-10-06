@@ -2880,6 +2880,10 @@
     "notes": "",
     "translation": "TypeScript Starter"
   },
+  "templates.starter.v-wasm": {
+    "notes": "",
+    "translation": "V Starter"
+  },
   "templates.starter.vb-wasm": {
     "notes": "",
     "translation": "VB.NET (Wasm) Starter"

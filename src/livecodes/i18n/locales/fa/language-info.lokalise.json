@@ -912,6 +912,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "v-wasm.desc": {
+    "translation": "کامپایلر V که روی WebAssembly اجرا می‌شود."
+  },
+  "v-wasm.link": {
+    "translation": "<tag-1> <tag-2>وبسایت V</tag-2> </tag-1> <tag-3> <tag-4>مستندات زبان V</tag-4> </tag-3> <tag-5> <tag-6>زبان V را در چند دقیقه بیاموزید</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع</tag-10> </tag-9>"
+  },
+  "v-wasm.name": {
+    "translation": "V (Wasm)"
+  },
   "vbWasm.desc": {
     "translation": "کامپایلر VB.NET که روی WebAssembly اجرا می‌شود، با استفاده از <tag-1>Roslyn</tag-1> و <tag-2>محیط اجرایی .NET WebAssembly</tag-2>"
   },

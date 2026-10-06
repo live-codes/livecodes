@@ -521,6 +521,11 @@ const languageInfo = {
     link: '<1> <2>Official website</2> </1> <3> <4>TypeScript documentation</4> </3> <5> <6>Learn X in Y minutes, where X=TypeScript</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'TypeScript',
   },
+  'v-wasm': {
+    desc: 'V compiler running on WebAssembly.',
+    link: '<1> <2>V website</2> </1> <3> <4>V language documentation</4> </3> <5> <6>Learn X in Y minutes, where X=V</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'V (Wasm)',
+  },
   vbWasm: {
     desc: 'VB.NET compiler running on WebAssembly, using <1>Roslyn</1> and the <2>.NET WebAssembly runtime</2>',
     link: '<1> <2>Visual Basic language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=Visual Basic</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',

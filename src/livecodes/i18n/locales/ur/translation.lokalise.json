@@ -2160,6 +2160,9 @@
   "templates.starter.typescript": {
     "translation": "ٹائپ اسکرپٹ شروعاتی"
   },
+  "templates.starter.v-wasm": {
+    "translation": "V شروعاتی"
+  },
   "templates.starter.vb-wasm": {
     "translation": "VB.NET (واسم) شروعاتی"
   },

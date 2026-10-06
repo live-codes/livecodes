@@ -531,6 +531,12 @@ export const unicornJsX86Url = /* @__PURE__ */ getUrl(
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 
+// `@live-codes/v-wasm` bundles this exact `@live-codes/clang-wasm` version for the Clang half of its
+// pipeline, so its assets are fetched from that version rather than the one the C/C++ languages use.
+export const vWasmClangBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.3.0/assets/');
+
+export const vWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/v-wasm@0.1.0/');
+
 export const vbWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/vb-wasm@0.1.1/');
 
 export const vegaCdnUrl = /* @__PURE__ */ getUrl('vega@5.25.0/build/vega.js');

@@ -912,6 +912,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "v-wasm.desc": {
+    "translation": "Компилятор V, работающий на WebAssembly."
+  },
+  "v-wasm.link": {
+    "translation": "<tag-1> <tag-2>Сайт V</tag-2> </tag-1> <tag-3> <tag-4>Документация по языку V</tag-4> </tag-3> <tag-5> <tag-6>Изучите X за Y минут, где X = V</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Загрузить стартовый шаблон</tag-10> </tag-9>"
+  },
+  "v-wasm.name": {
+    "translation": "V (Wasm)"
+  },
   "vbWasm.desc": {
     "translation": "Компилятор VB.NET, работающий на WebAssembly, с использованием <tag-1>Roslyn</tag-1> и <tag-2>среды выполнения .NET для WebAssembly</tag-2>"
   },

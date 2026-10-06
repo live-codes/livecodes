@@ -2160,6 +2160,9 @@
   "templates.starter.typescript": {
     "translation": "TypeScript kezdő"
   },
+  "templates.starter.v-wasm": {
+    "translation": "V kezdő"
+  },
   "templates.starter.vb-wasm": {
     "translation": "VB.NET (Wasm) kezdő"
   },

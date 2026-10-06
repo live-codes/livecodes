@@ -148,6 +148,7 @@ Enabled via `processors` config:
 | Rust (Wasm)                 | `rust-wasm`, `rs-wasm`, `wasm.rs`                                                   | Rust WASM                                             |
 | Swift (Wasm)                | `swift-wasm`, `swift`, `wasm.swift`                                                 | Swift WASM                                            |
 | Zig (Wasm)                  | `zig-wasm`, `zig`                                                                   | Zig WASM                                              |
+| V (Wasm)                    | `v-wasm`, `v`, `vlang`, `wasm.v`, `vsh`                                             | V compiler in WASM                                    |
 | Tcl                         | `tcl`                                                                               | Tcl interpreter                                       |
 | WebAssembly                 | `wat`, `wast`, `wasm`, `webassembly`                                                | WAT format                                            |
 | Assembly (Wasm)             | `assembly-wasm`, `assembly`, `asm`, `asm-wasm`, `x86`, `x86-64`, `nasm`, `wasm.asm` | Keystone + Unicorn (WASM), x86-64 assembly            |

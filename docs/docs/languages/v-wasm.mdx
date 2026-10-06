@@ -1,0 +1,109 @@
+# V (Wasm)
+
+V is a statically typed, compiled programming language designed for building maintainable software.
+
+In LiveCodes, V runs in the browser using WebAssembly: the V compiler is compiled to WebAssembly and
+the C it emits is compiled and linked by the same Clang toolchain the C/C++ languages use. No server is
+involved.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const vConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'v-wasm',
+    content: `fn main() {
+	println('Hello, World!')
+}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={vConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The program runs in the context of the result page. A few helpers are available in the browser global
+`livecodes.v` object:
+
+- `livecodes.v.input`: the standard input passed to the program.
+- `livecodes.v.loaded`: a promise that resolves when the compiler has downloaded and the program has
+  run. It rejects if the environment fails to load. Other helpers should be used after it resolves.
+- `livecodes.v.output`: the program's standard output.
+- `livecodes.v.error`: the compiler diagnostics, if the code failed to compile.
+- `livecodes.v.exitCode`: the exit code of the program.
+- `livecodes.v.run`: compiles and runs the code again with new input, returning a promise that
+  resolves with `output`, `error` and `exitCode`.
+
+Example:
+
+<LiveCodes template="v-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+```v
+fn main() {
+	println('Hello, World!')
+}
+```
+
+The program can read from the **stdin** pane, in the same way as the other console languages:
+
+```v
+import os
+
+fn main() {
+	name := os.input('What is your name? ')
+	println('Hello, ' + name + '!')
+}
+```
+
+## Language Info
+
+### Name
+
+`v-wasm`
+
+### Aliases / Extensions
+
+`v`, `vlang`, `v-wasm`, `wasm.v`, `vsh`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The V compiler compiled to WebAssembly, with its generated C compiled and linked by
+[Clang](https://clang.llvm.org/) compiled to WebAssembly.
+
+### Version
+
+V 0.5.2, built with Emscripten, and the `@live-codes/clang-wasm` toolchain.
+
+## Code Formatting
+
+Not currently supported.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the V WebAssembly environment. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the V code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Starter Template
+
+https://livecodes.io/?template=v-wasm
+
+## Links
+
+- [V official website](https://vlang.io/)
+- [V documentation](https://github.com/vlang/v/blob/master/doc/docs.md)
+- [Learn X in Y minutes, where X=V](https://learnxinyminutes.com/v/)
+- [@live-codes/v-wasm](https://www.npmjs.com/package/@live-codes/v-wasm)

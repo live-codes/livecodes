@@ -1059,6 +1059,7 @@ const translation: I18nTranslation = {
       tcl: 'Tcl স্টার্টার',
       teal: 'Teal স্টার্টার',
       typescript: 'TypeScript স্টার্টার',
+      'v-wasm': 'V স্টার্টার',
       'vb-wasm': 'VB.NET (Wasm) স্টার্টার',
       vue: 'Vue SFC স্টার্টার',
       vue2: 'Vue 2 স্টার্টার',

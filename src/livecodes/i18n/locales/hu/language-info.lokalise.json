@@ -912,6 +912,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "v-wasm.desc": {
+    "translation": "A V fordító WebAssembly-en fut."
+  },
+  "v-wasm.link": {
+    "translation": "<tag-1> <tag-2>A V weboldala</tag-2> </tag-1> <tag-3> <tag-4>A V nyelv dokumentációja</tag-4> </tag-3> <tag-5> <tag-6>Tanulj meg X-et Y perc alatt, ahol X=V</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Indító sablon betöltése</tag-10> </tag-9>"
+  },
+  "v-wasm.name": {
+    "translation": "V (Wasm)"
+  },
   "vbWasm.desc": {
     "translation": "VB.NET fordító WebAssembly-n futva, a <tag-1>Roslyn</tag-1> és a <tag-2>.NET WebAssembly futtatókörnyezet</tag-2> használatával"
   },
