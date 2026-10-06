@@ -344,6 +344,10 @@ wabt.js: [Apache-2.0 license](https://github.com/AssemblyScript/wabt.js/blob/182
 
 wacl: [BSD 3-Clause License](https://github.com/ecky-l/wacl/blob/9daacabb0102a9986f33263261350edfeebdd83b/LICENSE)
 
+@live-codes/dlang-wasm: [MIT License](https://github.com/live-codes/browser-d/blob/main/LICENSE)
+
+DMD / druntime / Phobos (Wasm): [BSL-1.0 License](https://github.com/dlang/dmd/blob/master/LICENSE.txt)
+
 @live-codes/cobol-wasm: [MIT License](https://github.com/live-codes/browser-cobol/blob/main/LICENSE) (the [@live-codes/cobol-wasm](https://www.npmjs.com/package/@live-codes/cobol-wasm) package's own code is MIT, but it ships GnuCOBOL in its assets and so declares `(MIT AND GPL-3.0-or-later)`. Neither GnuCOBOL nor Clang is bundled by LiveCodes; both are loaded at run time)
 
 GnuCOBOL (Wasm): [GPL-3.0-or-later License](https://github.com/OCamlPro/gnucobol/blob/master/COPYING) (the COBOL compiler, shipped in `@live-codes/cobol-wasm`'s assets and loaded at run time by LiveCodes. Its `libcob` runtime is [LGPL-3.0-or-later](https://github.com/OCamlPro/gnucobol/blob/master/COPYING.LESSER), as is the GMP library it links)

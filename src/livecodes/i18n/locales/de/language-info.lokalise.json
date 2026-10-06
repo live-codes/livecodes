@@ -192,6 +192,15 @@
   "csharpWasm.name": {
     "translation": "C# (Wasm)"
   },
+  "d-wasm.desc": {
+    "translation": "D wird von <tag-1>DMD</tag-1> nach WebAssembly kompiliert und läuft vollständig im Browser."
+  },
+  "d-wasm.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Website von D</tag-2> </tag-1> <tag-3> <tag-4>D-Sprachspezifikation</tag-4> </tag-3> <tag-5> <tag-6>D Sprachführung</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X = D</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes-Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Startervorlage laden</tag-12> </tag-11>"
+  },
+  "d-wasm.name": {
+    "translation": "D (Wasm)"
+  },
   "diagrams.desc1": {
     "translation": "(Experimentell)"
   },

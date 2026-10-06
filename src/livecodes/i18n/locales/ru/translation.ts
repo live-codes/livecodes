@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       cpp: 'Стартер C++',
       'cpp-wasm': 'Стартер C++ (Wasm)',
       'csharp-wasm': 'Стартер C# (Wasm)',
+      'd-wasm': 'Стартер D',
       d3: 'Стартер D3',
       daisyui: 'Стартер daisyUI',
       diagrams: 'Стартер диаграмм',

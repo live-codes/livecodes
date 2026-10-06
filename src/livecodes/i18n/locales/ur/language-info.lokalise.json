@@ -192,6 +192,15 @@
   "csharpWasm.name": {
     "translation": "C# (Wasm)"
   },
+  "d-wasm.desc": {
+    "translation": "D <tag-1>DMD</tag-1> کے ذریعے WebAssembly میں مرتب کیا جاتا ہے، جو مکمل طور پر براؤزر میں چلتا ہے۔"
+  },
+  "d-wasm.link": {
+    "translation": "<tag-1> <tag-2>D آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>D زبان کی تفصیلات</tag-4> </tag-3> <tag-5> <tag-6>D زبان کا دورہ</tag-6> </tag-5> <tag-7> <tag-8>Y منٹ میں X سیکھیں، جہاں X=D</tag-8> </tag-7> <tag-9> <tag-10>لائیو کوڈز دستاویزات</tag-10> </tag-9> <tag-11> <tag-12>اسٹارٹر ٹیمپلیٹ لوڈ کریں</tag-12> </tag-11>"
+  },
+  "d-wasm.name": {
+    "translation": "D (Wasm)"
+  },
   "diagrams.desc1": {
     "translation": "(تجرباتی)"
   },

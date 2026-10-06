@@ -192,6 +192,15 @@
   "csharpWasm.name": {
     "translation": "C# (Wasm)"
   },
+  "d-wasm.desc": {
+    "translation": "D dikompilasi ke WebAssembly oleh <tag-1>DMD</tag-1>, berjalan sepenuhnya di dalam browser."
+  },
+  "d-wasm.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi D</tag-2> </tag-1> <tag-3> <tag-4>Spesifikasi bahasa D</tag-4> </tag-3> <tag-5> <tag-6>Tur bahasa D</tag-6> </tag-5> <tag-7> <tag-8>Belajar X dalam Y menit, di mana X = D</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat templat awal</tag-12> </tag-11>"
+  },
+  "d-wasm.name": {
+    "translation": "D (Wasm)"
+  },
   "diagrams.desc1": {
     "translation": "(Eksperimental)"
   },

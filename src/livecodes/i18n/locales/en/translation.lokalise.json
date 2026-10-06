@@ -2628,6 +2628,10 @@
     "notes": "",
     "translation": "C# (Wasm) Starter"
   },
+  "templates.starter.d-wasm": {
+    "notes": "",
+    "translation": "D Starter"
+  },
   "templates.starter.d3": {
     "notes": "",
     "translation": "D3 Starter"

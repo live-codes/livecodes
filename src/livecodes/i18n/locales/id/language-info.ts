@@ -113,6 +113,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Dokumentasi bahasa C#</2> </1> <3> <4>Pelajari X dalam Y menit, dengan X=C#</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat template pemula</8> </7>',
     name: 'C# (Wasm)',
   },
+  'd-wasm': {
+    desc: 'D dikompilasi ke WebAssembly oleh <1>DMD</1>, berjalan sepenuhnya di dalam browser.',
+    link: '<1> <2>Situs web resmi D</2> </1> <3> <4>Spesifikasi bahasa D</4> </3> <5> <6>Tur bahasa D</6> </5> <7> <8>Belajar X dalam Y menit, di mana X = D</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat templat awal</12> </11>',
+    name: 'D (Wasm)',
+  },
   diagrams: {
     desc1: '(Eksperimental)',
     desc2: 'Diagram-sebagai-kode. Mendukung:',
