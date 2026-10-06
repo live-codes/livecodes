@@ -203,6 +203,7 @@ export interface Compiler {
     | 'text/objcpp-wasm'
     | 'text/fortran-wasm'
     | 'text/d-wasm'
+    | 'text/cobol-wasm'
     | 'text/rust-wasm'
     | 'text/zig-wasm'
     | 'text/java'

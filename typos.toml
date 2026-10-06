@@ -27,6 +27,7 @@ arange = "arange"
 touchs = "touchs"
 decid = "decid"
 Wirth = "Wirth"
+cpy = "cpy"
 
 [type.svg]
 # Skip check contents for svg files

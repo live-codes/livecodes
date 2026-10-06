@@ -80,6 +80,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'ClojureScript adalah kompiler untuk <1>Clojure</1> yang menargetkan JavaScript. <2></2>Di LiveCodes, berjalan di browser menggunakan <3>Cherry</3>',
     link: '<1> <2>Situs web resmi ClojureScript</2> </1> <3> <4>Situs web resmi Clojure</4> </3> <5> <6>Repo Cherry</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=clojure</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat template pemula</12> </11>',
   },
+  'cobol-wasm': {
+    desc: 'COBOL modern dikompilasi ke WebAssembly oleh <1>GnuCOBOL</1>, berjalan sepenuhnya di dalam browser.',
+    link: '<1> <2>Situs web resmi GnuCOBOL</2> </1> <3> <4>Belajar X dalam Y menit, di mana X = COBOL</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat templat awal</8> </7>',
+    name: 'COBOL (Wasm)',
+  },
   coffeescript: {
     desc: 'JavaScript yang sederhana.',
     link: '<1> <2>Situs web resmi CoffeeScript</2> </1> <3> <4>Pelajari X dalam Y menit, dengan X=coffeescript</4> </3> <5> <6>Muat template pemula</6> </5>',

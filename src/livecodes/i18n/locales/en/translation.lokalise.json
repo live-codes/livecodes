@@ -2604,6 +2604,10 @@
     "notes": "",
     "translation": "ClojureScript (Cherry) Starter"
   },
+  "templates.starter.cobol-wasm": {
+    "notes": "",
+    "translation": "COBOL Starter"
+  },
   "templates.starter.coffeescript": {
     "notes": "",
     "translation": "CoffeeScript Starter"

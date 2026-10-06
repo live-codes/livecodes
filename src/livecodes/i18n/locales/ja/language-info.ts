@@ -80,6 +80,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'ClojureScript は JavaScript をターゲットとする<1>Clojure</1>のコンパイラです。<2></2>LiveCodes では、<3>Cherry</3>を使用してブラウザで実行されます。',
     link: '<1> <2>ClojureScript 公式ウェブサイト</2> </1> <3> <4>Clojure 公式ウェブサイト</4> </3> <5> <6>Cherry リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=clojure</8> </7> <9> <10>LiveCodes ドキュメント</10> </9> <11> <12>スターターテンプレートを読み込む</12> </11>',
   },
+  'cobol-wasm': {
+    desc: 'モダンな COBOL は <1>GnuCOBOL</1> によって WebAssembly にコンパイルされ、ブラウザ内で完全に実行されます。',
+    link: '<1> <2>GnuCOBOL 公式サイト</2> </1> <3> <4>「Y分でXを学ぶ」（X=COBOL）</4> </3> <5> <6>LiveCodes ドキュメント</6> </5> <7> <8>スターターテンプレートを読み込む</8> </7>',
+    name: 'COBOL (Wasm)',
+  },
   coffeescript: {
     desc: '飾り気のない JavaScript。',
     link: '<1> <2>CoffeeScript 公式ウェブサイト</2> </1> <3> <4>X分でYを学ぶ、X=coffeescript</4> </3> <5> <6>スターターテンプレートを読み込む</6> </5>',

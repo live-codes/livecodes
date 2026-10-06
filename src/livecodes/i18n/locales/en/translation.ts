@@ -997,6 +997,7 @@ const translation = {
       clio: 'Clio Starter',
       'cljs-selfhosted': 'CLJS (self-hosted) Starter',
       clojurescript: 'ClojureScript (Cherry) Starter',
+      'cobol-wasm': 'COBOL Starter',
       coffeescript: 'CoffeeScript Starter',
       commonlisp: 'Common Lisp Starter',
       cpp: 'C++ Starter',

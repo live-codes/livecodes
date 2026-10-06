@@ -87,6 +87,11 @@ const languageInfo = {
     desc: 'ClojureScript is a compiler for <1>Clojure</1> that targets JavaScript. <2></2>In LiveCodes, it runs in the browser using <3>Cherry</3>',
     link: '<1> <2>ClojureScript official website</2> </1> <3> <4>Clojure official website</4> </3> <5> <6>Cherry repo</6> </5> <7> <8>Learn X in Y minutes, where X=clojure</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
   },
+  'cobol-wasm': {
+    desc: 'COBOL compiled to WebAssembly by the real <1>GnuCOBOL</1> compiler, running entirely in the browser.',
+    link: '<1> <2>GnuCOBOL official website</2> </1> <3> <4>Learn X in Y minutes, where X=COBOL</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'COBOL (Wasm)',
+  },
   coffeescript: {
     desc: 'Unfancy JavaScript.',
     link: '<1> <2>CoffeeScript official website</2> </1> <3> <4>Learn X in Y minutes, where X=coffeescript</4> </3> <5> <6>Load starter template</6> </5>',
