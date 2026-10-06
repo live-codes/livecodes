@@ -9,7 +9,10 @@ import { createWorkerRunner, type Runner } from '../worker-runner';
 
 const SCRIPT_TYPE = 'text/nim-wasm';
 
-/** Options forwarded to `@live-codes/nim-wasm`'s `run`, read from `config.customSettings`. */
+/**
+ * Options read from `config.customSettings`: `compileArgs` is fixed when the compiler is created,
+ * while `args` is a per-run option.
+ */
 interface NimWasmSettings {
   compileArgs?: string[];
   args?: string[];
@@ -24,6 +27,7 @@ interface RunResult {
 
 interface NimWasmApi {
   ready: boolean;
+  failed: boolean;
   input: string;
   output: string | null;
   error: string | null;
@@ -43,30 +47,50 @@ const getWorkerSrc = () => `
 importScripts(${JSON.stringify(clangWasmBaseUrl + 'dist/clang-wasm-toolchain.global.js')});
 importScripts(${JSON.stringify(nimWasmBaseUrl + 'dist/nim-wasm.global.js')});
 
+let toolchain = null;
 let compiler = null;
+let compilerArgs = null;
 
-const getCompiler = () => {
-  compiler =
-    compiler ||
-    (async () => {
-      // Compile through the Clang runtime this page already uses, rather than the second copy the
-      // Nim IIFE carries inside it, so only one runtime is ever loaded.
-      const toolchain = await self.clangWasmToolchain.createToolchain({
-        baseUrl: ${JSON.stringify(clangWasmBaseUrl + 'assets/')},
-      });
-      return self.nimWasm.createCompiler({
-        target: 'wasm',
-        baseUrl: ${JSON.stringify(nimWasmBaseUrl + 'assets/nim/')},
-        toolchain,
-      });
-    })();
+const getToolchain = () => {
+  toolchain =
+    toolchain ||
+    self.clangWasmToolchain.createToolchain({
+      baseUrl: ${JSON.stringify(clangWasmBaseUrl + 'assets/')},
+    });
+  return toolchain;
+};
+
+const getCompiler = (compileArgs = []) => {
+  const key = JSON.stringify(compileArgs);
+  if (compiler && compilerArgs === key) return compiler;
+  compilerArgs = key;
+  const previous = compiler;
+  compiler = (async () => {
+    // Compile through the Clang runtime this page already uses, rather than the second copy the
+    // Nim IIFE carries inside it, so only one runtime is ever loaded.
+    const built = await getToolchain();
+    const next = await self.nimWasm.createCompiler({
+      target: 'wasm',
+      baseUrl: ${JSON.stringify(nimWasmBaseUrl + 'assets/nim/')},
+      toolchain: built,
+      compileArgs,
+    });
+    // compileArgs is fixed when a compiler is created, so a change builds a new one and
+    // releases the old; the shared toolchain belongs to this page and is not released.
+    if (previous) previous.then((old) => old.dispose()).catch(() => undefined);
+    return next;
+  })();
   return compiler;
 };
 
 addEventListener('message', async (event) => {
   const { id, code, input, options } = event.data;
   try {
-    const result = await (await getCompiler()).run(code, input, options);
+    const result = await (await getCompiler(options && options.compileArgs)).run(
+      code,
+      input,
+      options,
+    );
     postMessage({
       id,
       result: {
@@ -112,6 +136,7 @@ window.livecodes.nimWasm ??= {} as NimWasmApi;
 
 const nimWasm = window.livecodes.nimWasm;
 nimWasm.ready = false;
+nimWasm.failed = false;
 
 /** The custom settings of the running language, injected by the language's `inlineScript`. */
 const getSettings = (): NimWasmSettings => {
@@ -131,6 +156,7 @@ const getCode = () => {
 const ensureLoaded = (runner: Runner): Promise<void> => {
   let init = nimWasm.init;
   if (!init) {
+    nimWasm.failed = false;
     init = (async () => {
       reportLoading(true);
       try {
@@ -139,8 +165,9 @@ const ensureLoaded = (runner: Runner): Promise<void> => {
         reportLoading(false);
       }
     })().catch((error: Error) => {
-      // Reset so a later run can retry the download.
+      // Reset so a later run can retry the download, and let `loaded` reject.
       nimWasm.init = null;
+      nimWasm.failed = true;
       throw error;
     });
     // The failure is surfaced through `run`; do not also report it unhandled.
@@ -150,9 +177,12 @@ const ensureLoaded = (runner: Runner): Promise<void> => {
   return init;
 };
 
-nimWasm.loaded = new Promise<void>((resolve) => {
+nimWasm.loaded = new Promise<void>((resolve, reject) => {
   const interval = setInterval(() => {
-    if (nimWasm.ready) {
+    if (nimWasm.failed) {
+      clearInterval(interval);
+      reject(new Error(nimWasm.error || 'Failed to initialize the Nim compiler'));
+    } else if (nimWasm.ready) {
       clearInterval(interval);
       resolve();
     }

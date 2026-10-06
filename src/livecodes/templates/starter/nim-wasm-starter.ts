@@ -22,7 +22,15 @@ export const nimWasmStarter: Template = {
   addEventListener('load', async () => {
     const button = document.querySelector("#counter-button");
 
-    await livecodes.nimWasm.loaded;
+    try {
+      await livecodes.nimWasm.loaded;
+    } catch (error) {
+      // surface the boot error instead of crashing on a null output
+      button.innerText = "Error";
+      console.error(error);
+      return;
+    }
+
     update(livecodes.nimWasm.output);
 
     button.onclick = async () => {
@@ -35,7 +43,7 @@ export const nimWasmStarter: Template = {
       const counter = document.querySelector("#counter");
       const name = document.querySelector("#name");
 
-      const [title, count] = output.split('\\n');
+      const [title, count] = (output || '').split('\\n');
 
       if (!isNaN(Number(count))) {
         window.count = count;

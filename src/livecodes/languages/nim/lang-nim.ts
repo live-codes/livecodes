@@ -13,12 +13,17 @@ export const nim: LanguageSpecs = {
     factory: () => {
       let compiler: Promise<any> | null = null;
       const getCompiler = () => {
-        compiler =
-          compiler ||
-          (self as any).nimWasm.createCompiler({
+        if (!compiler) {
+          const created: Promise<any> = (self as any).nimWasm.createCompiler({
             target: 'js',
             baseUrl: nimWasmBaseUrl + 'assets/nim/',
           });
+          // do not keep a failed boot (e.g. a transient network error)
+          created.catch(() => {
+            compiler = null;
+          });
+          compiler = created;
+        }
         return compiler;
       };
       return async (code: string): Promise<CompileResult> => {
