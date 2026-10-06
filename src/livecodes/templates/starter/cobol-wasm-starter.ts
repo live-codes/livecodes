@@ -22,7 +22,7 @@ export const cobolWasmStarter: Template = {
 
 <script>
   // set initial input
-  livecodes.cobol.input = "0";
+  livecodes.cobol.input = "-1";
 
   addEventListener('load', async () => {
     const button = document.querySelector("#counter-button");
@@ -88,12 +88,14 @@ IDENTIFICATION DIVISION.
 PROGRAM-ID. COUNTER.
 DATA DIVISION.
 WORKING-STORAGE SECTION.
-01 WS-COUNT PIC 9(3).
+01 WS-COUNT PIC S9(3).
+01 WS-OUT PIC ZZZ9.
 PROCEDURE DIVISION.
     DISPLAY "COBOL"
     ACCEPT WS-COUNT
     ADD 1 TO WS-COUNT
-    DISPLAY WS-COUNT
+    MOVE WS-COUNT TO WS-OUT
+    DISPLAY FUNCTION TRIM(WS-OUT)
     STOP RUN.
 `.trimStart(),
   },
