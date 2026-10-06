@@ -1,5 +1,6 @@
 import { getErrorMessage } from '../../utils/utils';
 import { ghcBrowserBaseUrl, haskellWasiShimUrl } from '../../vendors';
+import { getParentOrigin } from '../wasm-runtime';
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import workerContent from './lang-haskell-wasm-worker.raw.js?raw';
@@ -135,19 +136,7 @@ const createRunner = (createWorker: () => Worker) => {
   return { init, run };
 };
 
-const parentOrigin =
-  window.parent === window
-    ? window.location.origin
-    : window.location.ancestorOrigins?.[0] ||
-      (() => {
-        if (!document.referrer) return '*';
-        try {
-          return new URL(document.referrer).origin;
-        } catch {
-          // Ignore malformed referrers and use the wildcard fallback below.
-          return '*';
-        }
-      })();
+const parentOrigin = getParentOrigin();
 
 window.livecodes.haskellWasm ??= {};
 const haskellWasm = window.livecodes.haskellWasm;

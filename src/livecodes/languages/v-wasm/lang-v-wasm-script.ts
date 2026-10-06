@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { getErrorMessage } from '../../utils/utils';
 import { clangWasmBaseUrl, vWasmBaseUrl } from '../../vendors';
+import { createLoadingReporter, runCompiler } from '../wasm-runtime';
 import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // One runner for one language. The compiler is @live-codes/v-wasm, loaded from its CDN build: the
@@ -127,25 +127,8 @@ vWasm.failed = false;
 // V compiler plus Clang toolchain are not downloaded again, instead of spawning a new one.
 vWasm.runner ??= null;
 
-// The result runs in an iframe; post status updates to the app origin. Mirrors
-// the other WASM language scripts (`fanak`, `haskell-wasm`).
-const parentOrigin =
-  window.parent === window
-    ? window.location.origin
-    : window.location.ancestorOrigins?.[0] ||
-      (() => {
-        if (!document.referrer) return '*';
-        try {
-          return new URL(document.referrer).origin;
-        } catch {
-          // Ignore malformed referrers and use the wildcard fallback below.
-          return '*';
-        }
-      })();
-
-const postLoading = (payload: boolean) => {
-  parent.postMessage({ type: 'loading', payload }, parentOrigin); // NOSONAR - fallback is safe with source/origin checks in the parent.
-};
+// The result runs in an iframe; post status updates to the app origin.
+const postLoading = createLoadingReporter();
 
 /** Start (once) downloading the compiler, showing the loading indicator while it happens. */
 const ensureLoaded = (runner: Runner): Promise<void> => {
@@ -198,23 +181,7 @@ vWasm.run = async (input?: string) => {
   const runner = (vWasm.runner =
     vWasm.runner || createWorkerRunner({ getWorkerSrc, label: 'V', timeoutMs: RUN_TIMEOUT_MS }));
 
-  try {
-    await ensureLoaded(runner);
-  } catch (error) {
-    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
-  }
-
-  try {
-    const result = await runner.run(code, stdin);
-    // `errors` holds the compiler's diagnostics and is empty when the program ran.
-    const errors = (result.errors || []).filter(Boolean);
-    if (errors.length) {
-      return setResult(stdin, null, errors.join('\n'), result.exitCode ?? 1);
-    }
-    return setResult(stdin, result.output ?? '', null, result.exitCode ?? 0);
-  } catch (error) {
-    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
-  }
+  return runCompiler(runner, ensureLoaded, code, stdin, setResult);
 };
 
 window.livecodes.v = vWasm;

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { getErrorMessage } from '../../utils/utils';
 import { fortranWasmBaseUrl } from '../../vendors';
+import { runCompiler } from '../wasm-runtime';
 import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // One runner for one language. The compiler itself is @live-codes/lfortran-wasm, loaded from its
@@ -166,23 +166,7 @@ fortranWasm.run = async (input?: string) => {
     fortranWasm.runner ||
     createWorkerRunner({ getWorkerSrc, label: 'Fortran', timeoutMs: RUN_TIMEOUT_MS }));
 
-  try {
-    await ensureLoaded(runner);
-  } catch (error) {
-    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
-  }
-
-  try {
-    const result = await runner.run(code, stdin);
-    // `errors` holds the compiler's diagnostics and is empty when the program ran.
-    const errors = (result.errors || []).filter(Boolean);
-    if (errors.length) {
-      return setResult(stdin, null, errors.join('\n'), result.exitCode ?? 1);
-    }
-    return setResult(stdin, result.output ?? '', null, result.exitCode ?? 0);
-  } catch (error) {
-    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
-  }
+  return runCompiler(runner, ensureLoaded, code, stdin, setResult);
 };
 
 window.livecodes.fortran = fortranWasm;

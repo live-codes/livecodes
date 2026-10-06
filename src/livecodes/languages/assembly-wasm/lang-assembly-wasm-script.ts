@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
-import { getErrorMessage } from '../../utils/utils';
 import {
   assemblyWasmBaseUrl,
   keystoneJsUrl,
   keystoneJsWasmUrl,
   unicornJsX86Url,
 } from '../../vendors';
+import { runCompiler } from '../wasm-runtime';
 import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // x86-64 assembly is assembled and executed by @live-codes/assembly-wasm, which loads
@@ -190,24 +190,7 @@ assemblyWasm.run = async (input?: string) => {
   const runner = (assemblyWasm.runner =
     assemblyWasm.runner || createWorkerRunner({ getWorkerSrc, label: 'Assembly' }));
 
-  try {
-    await ensureLoaded(runner);
-  } catch (error) {
-    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
-  }
-
-  try {
-    const result = await runner.run(code, stdin);
-    // `errors` holds the assembler's diagnostics and any runtime fault, and is empty
-    // when the program assembled and exited cleanly.
-    const errors = (result.errors || []).filter(Boolean);
-    if (errors.length) {
-      return setResult(stdin, null, errors.join('\n'), result.exitCode ?? 1);
-    }
-    return setResult(stdin, result.output ?? '', null, result.exitCode ?? 0);
-  } catch (error) {
-    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
-  }
+  return runCompiler(runner, ensureLoaded, code, stdin, setResult);
 };
 
 // Alias, so both `livecodes.assemblyWasm` and `livecodes.asm` are available in markup.

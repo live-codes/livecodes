@@ -24,8 +24,8 @@ describe('V (Wasm) language spec', () => {
 
   test('uses a code editor with V support', () => {
     expect(vWasm.editor).toBe('script');
-    // There is no dedicated V mode, so the Go mode stands in for the editors that lack one.
-    expect(vWasm.editorSupport?.monaco?.language).toBe('go');
+    // Monaco ships a V mode; CodeMirror has none, so the Go mode stands in there.
+    expect(vWasm.editorSupport?.monaco?.language).toBe('v');
     // Prism does ship a V grammar, so CodeJar uses the real one.
     expect(vWasm.editorSupport?.codejar?.language).toBe('v');
   });
