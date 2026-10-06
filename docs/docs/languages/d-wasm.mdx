@@ -16,8 +16,7 @@ export const dConfig = {
   activeEditor: 'script',
   script: {
     language: 'd-wasm',
-    content: `import std.stdio;
-
+    content: `import std.stdio;\n
 void main()
 {
     writeln("Hello, World!");
@@ -96,11 +95,11 @@ void main()
 ## Compiler
 
 [DMD](https://dlang.org/) (the D reference compiler) compiled to WebAssembly, with druntime and
-Phobos.
+Phobos, from [dkorpel's dmd-explorer](https://dkorpel.github.io/dmd-explorer/).
 
 ### Version
 
-DMD, built with the WebAssembly backend from [dkorpel's dmd-explorer](https://dkorpel.github.io/dmd-explorer/).
+`DMD`: v2.113
 
 ## Code Formatting
 

@@ -15,8 +15,7 @@ export const dWasm: LanguageSpecs = {
   extensions: ['d', 'di', 'dlang', 'dmd'],
   editor: 'script',
   editorSupport: {
-    // Monaco has no D language, so D is highlighted as C++ (its closest built-in relative).
-    monaco: { languageSupport: monacoLanguagesBaseUrl + 'cpp.js', language: 'cpp' },
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'd.js', language: 'd' },
     codemirror: {
       languageSupport: async () =>
         codemirrorLegacy((await import(codeMirrorBaseUrl + 'codemirror-lang-d.js')).d),
