@@ -135,6 +135,15 @@
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>ClojureScript অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Clojure অফিসিয়াল ওয়েবসাইট</tag-4> </tag-3> <tag-5> <tag-6>Cherry রেপো</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
   },
+  "cobol-wasm.desc": {
+    "translation": "আধুনিক COBOL <tag-1>GnuCOBOL</tag-1> দ্বারা WebAssembly-তে কম্পাইল করা হয় এবং সম্পূর্ণভাবে ব্রাউজারে চলে।"
+  },
+  "cobol-wasm.link": {
+    "translation": "<tag-1> <tag-2>GnuCOBOL অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Y মিনিটে X শিখুন, যেখানে X=COBOL</tag-4> </tag-3> <tag-5> <tag-6>লাইভকোডস ডকুমেন্টেশন</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "cobol-wasm.name": {
+    "translation": "COBOL (Wasm)"
+  },
   "coffeescript.desc": {
     "translation": "সাধারণ JavaScript।"
   },

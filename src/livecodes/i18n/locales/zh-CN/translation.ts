@@ -988,6 +988,7 @@ const translation: I18nTranslation = {
       clio: 'Clio 启动模板',
       'cljs-selfhosted': 'CLJS（自托管）启动模板',
       clojurescript: 'ClojureScript (Cherry) 启动模板',
+      'cobol-wasm': 'COBOL 启动模板',
       coffeescript: 'CoffeeScript 启动模板',
       commonlisp: 'Common Lisp 启动模板',
       cpp: 'C++ 启动模板',

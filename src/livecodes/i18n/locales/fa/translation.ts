@@ -991,6 +991,7 @@ const translation: I18nTranslation = {
       clio: 'شروع کننده Clio',
       'cljs-selfhosted': 'شروع کننده CLJS (خودمیزبان)',
       clojurescript: 'شروع کننده ClojureScript (Cherry)',
+      'cobol-wasm': 'شروع کننده COBOL',
       coffeescript: 'شروع کننده CoffeeScript',
       commonlisp: 'شروع کننده Common Lisp',
       cpp: 'شروع کننده C++',

@@ -180,6 +180,18 @@
     "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://clojurescript.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://clojure.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/squint-cljs/cherry\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/clojure/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/clojurescript-cherry\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=clojurescript\" class=\"button\" target=\"_parent\" data-template=\"clojurescript\" />\n\n",
     "translation": "<tag-1> <tag-2>ClojureScript official website</tag-2> </tag-1> <tag-3> <tag-4>Clojure official website</tag-4> </tag-3> <tag-5> <tag-6>Cherry repo</tag-6> </tag-5> <tag-7> <tag-8>Learn X in Y minutes, where X=clojure</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentations</tag-10> </tag-9> <tag-11> <tag-12>Load starter template</tag-12> </tag-11>"
   },
+  "cobol-wasm.desc": {
+    "notes": "### <tag-1> ###\n<a href=\"https://gnucobol.sourceforge.io/\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "COBOL compiled to WebAssembly by the real <tag-1>GnuCOBOL</tag-1> compiler, running entirely in the browser."
+  },
+  "cobol-wasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://gnucobol.sourceforge.io/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://learnxinyminutes.com/docs/cobol/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/cobol-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=cobol-wasm\" class=\"button\" target=\"_parent\" data-template=\"cobol-wasm\" />\n\n",
+    "translation": "<tag-1> <tag-2>GnuCOBOL official website</tag-2> </tag-1> <tag-3> <tag-4>Learn X in Y minutes, where X=COBOL</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentation</tag-6> </tag-5> <tag-7> <tag-8>Load starter template</tag-8> </tag-7>"
+  },
+  "cobol-wasm.name": {
+    "notes": "",
+    "translation": "COBOL (Wasm)"
+  },
   "coffeescript.desc": {
     "notes": "",
     "translation": "Unfancy JavaScript."

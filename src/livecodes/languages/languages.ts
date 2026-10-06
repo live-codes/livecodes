@@ -14,6 +14,7 @@ import { cWasm, cppWasm, objcWasm, objcppWasm } from './clang-wasm';
 import { clio } from './clio';
 import { clojurescriptCherry } from './clojurescript-cherry';
 import { clojurescriptSelfHosted } from './clojurescript-selfhosted';
+import { cobolWasm } from './cobol-wasm';
 import { coffeescript } from './coffeescript';
 import { commonlisp } from './commonlisp';
 import { cpp } from './cpp';
@@ -171,6 +172,7 @@ export const languages: LanguageSpecs[] = [
   objcWasm,
   objcppWasm,
   fortranWasm,
+  cobolWasm,
   rustWasm,
   swiftWasm,
   zigWasm,

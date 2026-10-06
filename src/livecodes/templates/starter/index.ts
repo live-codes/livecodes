@@ -15,6 +15,7 @@ import { cWasmStarter, cppWasmStarter, objcWasmStarter } from './clang-wasm-star
 import { clioStarter } from './clio-starter';
 import { clojurescriptStarter } from './clojurescript-cherry-starter';
 import { cljsSelfHostedStarter } from './clojurescript-selfhosted-starter';
+import { cobolWasmStarter } from './cobol-wasm-starter';
 import { coffeescriptStarter } from './coffeescript-starter';
 import { commonlispStarter } from './commonlisp-starter';
 import { cppStarter } from './cpp-starter';
@@ -138,6 +139,7 @@ export const starterTemplates = [
   cWasmStarter,
   cppWasmStarter,
   objcWasmStarter,
+  cobolWasmStarter,
   fortranWasmStarter,
   rustWasmStarter,
   swiftWasmStarter,

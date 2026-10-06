@@ -991,6 +991,7 @@ const translation: I18nTranslation = {
       clio: 'Clioスターター',
       'cljs-selfhosted': 'CLJS (セルフホスト)スターター',
       clojurescript: 'ClojureScript (Cherry)スターター',
+      'cobol-wasm': 'COBOLスターター',
       coffeescript: 'CoffeeScriptスターター',
       commonlisp: 'Common Lispスターター',
       cpp: 'C++スターター',
