@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       cpp: 'C++ স্টার্টার',
       'cpp-wasm': 'C++ (Wasm) স্টার্টার',
       'csharp-wasm': 'C# (Wasm) স্টার্টার',
+      'd-wasm': 'D স্টার্টার',
       d3: 'D3 স্টার্টার',
       daisyui: 'daisyUI স্টার্টার',
       diagrams: 'Diagrams স্টার্টার',

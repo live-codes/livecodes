@@ -996,6 +996,7 @@ const translation: I18nTranslation = {
       cpp: 'قالب C++',
       'cpp-wasm': 'قالب C++ (Wasm)',
       'csharp-wasm': 'قالب C# (Wasm)',
+      'd-wasm': 'قالب D',
       d3: 'قالب D3',
       daisyui: 'قالب daisyUI',
       diagrams: 'قالب الرسوم البيانية',

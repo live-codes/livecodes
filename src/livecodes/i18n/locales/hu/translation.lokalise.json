@@ -1971,6 +1971,9 @@
   "templates.starter.csharp-wasm": {
     "translation": "C# (Wasm) kezdő"
   },
+  "templates.starter.d-wasm": {
+    "translation": "D kezdő"
+  },
   "templates.starter.d3": {
     "translation": "D3 kezdő"
   },

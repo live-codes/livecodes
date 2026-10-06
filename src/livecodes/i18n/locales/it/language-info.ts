@@ -112,6 +112,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Documentazione sul linguaggio C#</2> </1> <3> <4> Imparare X in Y minuti, dove X=C#</4> </3> <5> <6> Documentazione LiveCodes</6> </5> <7> <8> Carica il modello iniziale</8> </7>',
     name: 'C# (Wasm)',
   },
+  'd-wasm': {
+    desc: 'D compilato in WebAssembly da <1>DMD</1>, eseguito interamente nel browser.',
+    link: '<1> <2>Sito web ufficiale di D</2> </1> <3> <4>Specifica del linguaggio D</4> </3> <5> <6>Tour del linguaggio D</6> </5> <7> <8>Impara X in Y minuti, dove X = D</8> </7> <9> <10>Documentazione di LiveCodes</10> </9> <11> <12>Carica il modello di avvio</12> </11>',
+    name: 'D (Wasm)',
+  },
   diagrams: {
     desc1: '(Sperimentale)',
     desc2: 'Diagrammi come codice. Supporta:',

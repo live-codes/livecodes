@@ -1971,6 +1971,9 @@
   "templates.starter.csharp-wasm": {
     "translation": "شروع کننده C# (Wasm)"
   },
+  "templates.starter.d-wasm": {
+    "translation": "شروع کننده D"
+  },
   "templates.starter.d3": {
     "translation": "شروع کننده D3"
   },

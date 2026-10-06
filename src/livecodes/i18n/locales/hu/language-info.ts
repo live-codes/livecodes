@@ -113,6 +113,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>C# nyelvi dokumentáció</2> </1> <3> <4>Tanulj X-et Y perc alatt, ahol X=C#</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
     name: 'C# (Wasm)',
   },
+  'd-wasm': {
+    desc: 'A D a <1>DMD</1> segítségével WebAssembly-re fordul, és teljes egészében a böngészőben fut.',
+    link: '<1> <2>A D hivatalos weboldala</2> </1> <3> <4>D nyelvi specifikáció</4> </3> <5> <6>D nyelvi túra</6> </5> <7> <8>Tanulj meg X-et Y perc alatt, ahol X=D</8> </7> <9> <10>LiveCodes dokumentáció</10> </9> <11> <12>Indító sablon betöltése</12> </11>',
+    name: 'D (Wasm)',
+  },
   diagrams: {
     desc1: '(Kísérleti)',
     desc2: 'Diagramok-kódként. Támogatja:',

@@ -1971,6 +1971,9 @@
   "templates.starter.csharp-wasm": {
     "translation": "C#（WASM）启动模板"
   },
+  "templates.starter.d-wasm": {
+    "translation": "D 启动模板"
+  },
   "templates.starter.d3": {
     "translation": "D3 启动模板"
   },

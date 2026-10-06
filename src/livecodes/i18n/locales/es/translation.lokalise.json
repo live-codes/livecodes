@@ -1971,6 +1971,9 @@
   "templates.starter.csharp-wasm": {
     "translation": "Inicio C# (Wasm)"
   },
+  "templates.starter.d-wasm": {
+    "translation": "Inicio D"
+  },
   "templates.starter.d3": {
     "translation": "Inicio D3"
   },
