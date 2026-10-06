@@ -14,11 +14,9 @@ export const vWasm: LanguageSpecs = {
   extensions: ['v', 'vlang', 'v-wasm', 'wasm.v', 'vsh'],
   editor: 'script',
   editorSupport: {
-    // There is no dedicated V mode in either editor, so the Go mode stands in: V's syntax is
-    // deliberately close to Go's. Prism does ship a real V grammar, so CodeJar uses that.
     monaco: {
-      languageSupport: monacoLanguagesBaseUrl + 'go.js',
-      language: 'go',
+      languageSupport: monacoLanguagesBaseUrl + 'v.js',
+      language: 'v',
     },
     codemirror: {
       languageSupport: async () => (await import(codeMirrorBaseUrl + 'codemirror-lang-go.js')).go(),
