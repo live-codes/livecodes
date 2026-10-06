@@ -309,6 +309,7 @@ export const getCommandMenuActions = ({
         'cobol-wasm',
         'fortran-wasm',
         'd-wasm',
+        'v-wasm',
         'rust-wasm',
         'swift-wasm',
         'zig-wasm',

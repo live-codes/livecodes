@@ -525,6 +525,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi</2> </1> <3> <4>Dokumentasi TypeScript</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=TypeScript</6> </5> <7> <8>Muat template pemula</8> </7>',
     name: 'TypeScript',
   },
+  'v-wasm': {
+    desc: 'Kompiler V yang berjalan di WebAssembly.',
+    link: '<1> <2>Situs web V</2> </1> <3> <4>Dokumentasi bahasa V</4> </3> <5> <6>Pelajari X dalam Y menit, di mana X = V</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'V (Wasm)',
+  },
   vbWasm: {
     desc: 'Kompiler VB.NET berjalan di WebAssembly, menggunakan <1>Roslyn</1> dan <2>runtime .NET WebAssembly</2>',
     link: '<1> <2>Dokumentasi bahasa Visual Basic</2> </1> <3> <4>Pelajari X dalam Y menit, dengan X=Visual Basic</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat template pemula</8> </7>',

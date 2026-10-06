@@ -51,6 +51,7 @@ const templates = [
   { name: 'cobol-wasm', title: 'COBOL Starter', thumbnail: 'cobol.svg' },
   { name: 'fortran-wasm', title: 'Fortran Starter', thumbnail: 'fortran.svg' },
   { name: 'd-wasm', title: 'D Starter', thumbnail: 'd.svg' },
+  { name: 'v-wasm', title: 'V Starter', thumbnail: 'v.svg' },
   { name: 'cpp-wasm', title: 'C++ (Wasm) Starter', thumbnail: 'cpp.svg' },
   { name: 'objc-wasm', title: 'Objective-C (Wasm) Starter', thumbnail: 'objective-c.svg' },
   { name: 'rust-wasm', title: 'Rust (Wasm) Starter', thumbnail: 'rust.svg' },

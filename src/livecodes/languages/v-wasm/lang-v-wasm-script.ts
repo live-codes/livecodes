@@ -1,13 +1,16 @@
 /* eslint-disable no-console */
-import { fortranWasmBaseUrl } from '../../vendors';
-import { runCompiler } from '../wasm-runtime';
+import { clangWasmBaseUrl, vWasmBaseUrl } from '../../vendors';
+import { createLoadingReporter, runCompiler } from '../wasm-runtime';
 import { createWorkerRunner, type Runner } from '../worker-runner';
 
-// One runner for one language. The compiler itself is @live-codes/lfortran-wasm, loaded from its
-// CDN build: the IIFE defines `self.lfortranWasm`, which the worker reaches with importScripts.
-// It compiles to WebAssembly and runs the program in place, because a browser has no linker
-// subprocess to hand a binary to.
-const SCRIPT_TYPE = 'text/fortran-wasm';
+// One runner for one language. The compiler is @live-codes/v-wasm, loaded from its CDN build: the
+// IIFE defines `self.vWasm`, which the worker reaches with importScripts. It compiles V to C and
+// hands that to the same Clang toolchain the C/C++ languages use, then runs the linked module in
+// place, because a browser has no linker subprocess to hand a binary to.
+//
+// The V compiler is a classic Emscripten bundle: it decides it is in a worker by finding
+// `importScripts`, so it has to run in a classic worker (the one createWorkerFromContent builds).
+const SCRIPT_TYPE = 'text/v-wasm';
 
 interface RunResult {
   input: string;
@@ -16,8 +19,9 @@ interface RunResult {
   exitCode: number | null;
 }
 
-interface FortranWasmApi {
+interface VWasmApi {
   ready: boolean;
+  failed: boolean;
   input: string;
   output: string | null;
   error: string | null;
@@ -29,19 +33,21 @@ interface FortranWasmApi {
 }
 
 declare const window: Window & {
-  livecodes: Record<string, FortranWasmApi>;
+  livecodes: Record<string, VWasmApi>;
 };
 
 const getWorkerSrc = () => `
-importScripts(${JSON.stringify(fortranWasmBaseUrl + 'dist/lfortran-wasm.global.js')});
+importScripts(${JSON.stringify(vWasmBaseUrl + 'dist/v-wasm.global.js')});
 
 let compiler = null;
 
 const getCompiler = () => {
   compiler =
     compiler ||
-    self.lfortranWasm.createCompiler({
-      baseUrl: ${JSON.stringify(fortranWasmBaseUrl + 'assets/')},
+    self.vWasm.createCompiler({
+      baseUrl: ${JSON.stringify(vWasmBaseUrl + 'assets/v/')},
+      // The Clang half is pinned by the package, so it comes from that exact version's assets.
+      clangBaseUrl: ${JSON.stringify(clangWasmBaseUrl + 'assets/')},
     });
   return compiler;
 };
@@ -53,9 +59,10 @@ addEventListener('message', async (event) => {
     postMessage({
       id,
       result: {
-        output: result.stdout,
-        // The package reports diagnostics as one rendered string; the runner's contract is a list.
-        errors: result.errors ? [result.errors] : [],
+        output: result.output,
+        // The package reports V's, clang's and the linker's diagnostics as a list of lines, empty
+        // when the program built and ran.
+        errors: result.errors || [],
         exitCode: result.exitCode,
       },
     });
@@ -78,7 +85,7 @@ const RUN_TIMEOUT_MS = 120000;
  * Reads the program out of the result page.
  *
  * The result page writes the code inline as the `innerHTML` of a
- * `<script type="text/fortran-wasm">` element: core forces `singleFile` for non-module script types,
+ * `<script type="text/v-wasm">` element: core forces `singleFile` for non-module script types,
  * so the tag never points at `./script.js`.
  */
 const readCode = () => {
@@ -97,11 +104,11 @@ const setResult = (
   error: string | null,
   exitCode: number | null,
 ): RunResult => {
-  fortranWasm.input = input;
-  fortranWasm.output = output;
-  fortranWasm.error = error;
-  fortranWasm.exitCode = exitCode;
-  fortranWasm.ready = true;
+  vWasm.input = input;
+  vWasm.output = output;
+  vWasm.error = error;
+  vWasm.exitCode = exitCode;
+  vWasm.ready = true;
 
   if (error != null) {
     console.error(error);
@@ -111,70 +118,78 @@ const setResult = (
   return { input, output, error, exitCode };
 };
 
-window.livecodes.fortran ??= {} as FortranWasmApi;
+window.livecodes.v ??= {} as VWasmApi;
 
-const fortranWasm = window.livecodes.fortran;
-fortranWasm.ready = false;
+const vWasm = window.livecodes.v;
+vWasm.ready = false;
+vWasm.failed = false;
 // The runner is parked on the persisted namespace so a live reload reuses the warm worker, and the
-// 19 MiB compiler is not downloaded again, instead of spawning a new one.
-fortranWasm.runner ??= null;
+// V compiler plus Clang toolchain are not downloaded again, instead of spawning a new one.
+vWasm.runner ??= null;
+
+// The result runs in an iframe; post status updates to the app origin.
+const postLoading = createLoadingReporter();
 
 /** Start (once) downloading the compiler, showing the loading indicator while it happens. */
 const ensureLoaded = (runner: Runner): Promise<void> => {
-  let init = fortranWasm.init;
+  let init = vWasm.init;
   if (!init) {
+    vWasm.failed = false;
     init = (async () => {
-      parent.postMessage({ type: 'loading', payload: true }, '*');
+      postLoading(true);
       try {
         await runner.ensureReady();
       } finally {
-        parent.postMessage({ type: 'loading', payload: false }, '*');
+        postLoading(false);
       }
     })().catch((error: Error) => {
       // Reset so a later run can retry the download.
-      fortranWasm.init = null;
+      vWasm.init = null;
+      vWasm.failed = true;
       throw error;
     });
     // The failure is surfaced through `run`; do not also report it unhandled.
     init.catch(() => undefined);
-    fortranWasm.init = init;
+    vWasm.init = init;
   }
   return init;
 };
 
-fortranWasm.loaded = new Promise<void>((resolve) => {
+vWasm.loaded = new Promise<void>((resolve, reject) => {
   const interval = setInterval(() => {
-    if (fortranWasm.ready) {
+    if (vWasm.failed) {
+      clearInterval(interval);
+      reject(new Error(vWasm.error || 'Failed to initialize the V environment'));
+    } else if (vWasm.ready) {
       clearInterval(interval);
       resolve();
     }
   }, 50);
 });
 
-fortranWasm.run = async (input?: string) => {
-  const stdin = `${input ?? fortranWasm.input ?? ''}`;
+vWasm.run = async (input?: string) => {
+  const stdin = `${input ?? vWasm.input ?? ''}`;
 
   const code = readCode();
   if (!code.trim()) {
     // Loud on purpose: an empty program and a result page whose code could not be located look
     // identical from the outside otherwise, and the second is a bug.
-    console.error('[fortran] no code to run — no program script found on the result page');
+    console.error('[v] no code to run — no program script found on the result page');
     return setResult(stdin, null, null, null);
   }
 
-  const runner = (fortranWasm.runner =
-    fortranWasm.runner ||
-    createWorkerRunner({ getWorkerSrc, label: 'Fortran', timeoutMs: RUN_TIMEOUT_MS }));
+  const runner = (vWasm.runner =
+    vWasm.runner || createWorkerRunner({ getWorkerSrc, label: 'V', timeoutMs: RUN_TIMEOUT_MS }));
 
   return runCompiler(runner, ensureLoaded, code, stdin, setResult);
 };
 
-window.livecodes.fortran = fortranWasm;
-// `f90` is the extension most Fortran in the wild is written as, and is a valid identifier here.
-window.livecodes.f90 = fortranWasm;
+window.livecodes.v = vWasm;
+// `vlang` is the language's longer name, and is a valid identifier here.
+window.livecodes.vlang = vWasm;
 
 window.addEventListener('load', async () => {
-  parent.postMessage({ type: 'loading', payload: true }, '*');
-  await fortranWasm.run(fortranWasm.input);
-  parent.postMessage({ type: 'loading', payload: false }, '*');
+  postLoading(true);
+  await vWasm.run(vWasm.input);
+  postLoading(false);
 });

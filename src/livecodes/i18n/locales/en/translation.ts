@@ -1068,6 +1068,7 @@ const translation = {
       tcl: 'Tcl Starter',
       teal: 'Teal Starter',
       typescript: 'TypeScript Starter',
+      'v-wasm': 'V Starter',
       'vb-wasm': 'VB.NET (Wasm) Starter',
       vue: 'Vue SFC Starter',
       vue2: 'Vue 2 Starter',

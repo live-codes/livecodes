@@ -224,6 +224,7 @@ export interface Compiler {
     | 'text/go-wasm'
     | 'text/swift-wasm'
     | 'text/ada-wasm'
+    | 'text/v-wasm'
     | 'text/assembly'
     | 'application/json'
     | 'application/lua'

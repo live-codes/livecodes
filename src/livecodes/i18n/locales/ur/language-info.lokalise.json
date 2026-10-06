@@ -930,6 +930,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "v-wasm.desc": {
+    "translation": "V کمپائلر WebAssembly پر چل رہا ہے۔"
+  },
+  "v-wasm.link": {
+    "translation": "<tag-1> <tag-2>V ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>V زبان کی دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>X=V — V کو چند منٹوں میں سیکھیں</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>اسٹارٹر ٹیمپلیٹ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "v-wasm.name": {
+    "translation": "V (Wasm)"
+  },
   "vbWasm.desc": {
     "translation": "VB.NET کمپائلر ویب اسمبلی پر چل رہا ہے، <tag-1>Roslyn</tag-1> اور <tag-2>.NET WebAssembly رن ٹائم</tag-2> استعمال کر رہا ہے"
   },

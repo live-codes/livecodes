@@ -525,6 +525,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Hivatalos weboldal</2> </1> <3> <4>TypeScript dokumentáció</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=TypeScript</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
     name: 'TypeScript',
   },
+  'v-wasm': {
+    desc: 'A V fordító WebAssembly-en fut.',
+    link: '<1> <2>A V weboldala</2> </1> <3> <4>A V nyelv dokumentációja</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=V</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Indító sablon betöltése</10> </9>',
+    name: 'V (Wasm)',
+  },
   vbWasm: {
     desc: 'VB.NET fordító WebAssembly-n futva, a <1>Roslyn</1> és a <2>.NET WebAssembly futtatókörnyezet</2> használatával',
     link: '<1> <2>Visual Basic nyelvi dokumentáció</2> </1> <3> <4>Tanulj X-et Y perc alatt, ahol X=Visual Basic</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',

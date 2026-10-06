@@ -356,6 +356,10 @@ GnuCOBOL (Wasm): [GPL-3.0-or-later License](https://github.com/OCamlPro/gnucobol
 
 LFortran (Wasm): [BSD 3-Clause License](https://github.com/lfortran/lfortran/blob/main/LICENSE)
 
+@live-codes/v-wasm: [MIT License](https://github.com/live-codes/browser-v/blob/main/LICENSE)
+
+V (Wasm): [MIT License](https://github.com/vlang/v/blob/master/LICENSE) (the V compiler and its standard library, compiled to WebAssembly by @live-codes/v-wasm; the Clang toolchain it links through is covered by LLVM / LLD below)
+
 LLVM / LLD (Wasm): [Apache License 2.0 with LLVM-exception](https://github.com/llvm/llvm-project/blob/main/LICENSE.TXT)
 
 @wasm-fmt/clang-format: [MIT License](https://github.com/wasm-fmt/clang-format/blob/6a84f2d980e5ff4145bd9178a49cd5146e48df78/LICENSE)

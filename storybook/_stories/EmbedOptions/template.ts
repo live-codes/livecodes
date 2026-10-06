@@ -54,6 +54,7 @@ const storyDef: StoryDef = {
   DWasm: { props: { template: 'd-wasm' } },
   CobolWasm: { props: { template: 'cobol-wasm' }, storyName: 'COBOL (Wasm)' },
   FortranWasm: { props: { template: 'fortran-wasm' }, storyName: 'Fortran (Wasm)' },
+  VWasm: { props: { template: 'v-wasm' } },
   RustWasm: { props: { template: 'rust-wasm' } },
   SwiftWasm: { props: { template: 'swift-wasm' } },
   ZigWasm: { props: { template: 'zig-wasm' } },

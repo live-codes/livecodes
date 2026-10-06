@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { getErrorMessage } from '../../utils/utils';
-import { cobolWasmBaseUrl, cobolWasmClangBaseUrl } from '../../vendors';
+import { clangWasmBaseUrl, cobolWasmBaseUrl } from '../../vendors';
+import { createLoadingReporter, runCompiler } from '../wasm-runtime';
 import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // One runner for one language. GnuCOBOL is the real compiler (@live-codes/cobol-wasm), loaded from
@@ -54,7 +54,7 @@ const getCompiler = () => {
     self.cobolWasm.createCompiler({
       baseUrl: ${JSON.stringify(cobolWasmBaseUrl + 'assets/')},
       // The Clang half is pinned by the package, so it comes from that exact version's assets.
-      clangBaseUrl: ${JSON.stringify(cobolWasmClangBaseUrl)},
+      clangBaseUrl: ${JSON.stringify(clangWasmBaseUrl + 'assets/')},
     });
   return compiler;
 };
@@ -133,25 +133,8 @@ cobolWasm.failed = false;
 // ~25 MiB toolchain is not downloaded again, instead of spawning a new one.
 cobolWasm.runner ??= null;
 
-// The result runs in an iframe; post status updates to the app origin. Mirrors
-// the other WASM language scripts (`fanak`, `haskell-wasm`).
-const parentOrigin =
-  window.parent === window
-    ? window.location.origin
-    : window.location.ancestorOrigins?.[0] ||
-      (() => {
-        if (!document.referrer) return '*';
-        try {
-          return new URL(document.referrer).origin;
-        } catch {
-          // Ignore malformed referrers and use the wildcard fallback below.
-          return '*';
-        }
-      })();
-
-const postLoading = (payload: boolean) => {
-  parent.postMessage({ type: 'loading', payload }, parentOrigin); // NOSONAR - fallback is safe with source/origin checks in the parent.
-};
+// The result runs in an iframe; post status updates to the app origin.
+const postLoading = createLoadingReporter();
 
 /** Start (once) downloading the compiler, showing the loading indicator while it happens. */
 const ensureLoaded = (runner: Runner): Promise<void> => {
@@ -206,23 +189,7 @@ cobolWasm.run = async (input?: string) => {
     cobolWasm.runner ||
     createWorkerRunner({ getWorkerSrc, label: 'COBOL', timeoutMs: RUN_TIMEOUT_MS }));
 
-  try {
-    await ensureLoaded(runner);
-  } catch (error) {
-    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
-  }
-
-  try {
-    const result = await runner.run(code, stdin, cobolWasm.settings);
-    // `errors` holds the compiler's diagnostics and is empty when the program ran.
-    const errors = (result.errors || []).filter(Boolean);
-    if (errors.length) {
-      return setResult(stdin, null, errors.join('\n'), result.exitCode ?? 1);
-    }
-    return setResult(stdin, result.output ?? '', null, result.exitCode ?? 0);
-  } catch (error) {
-    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
-  }
+  return runCompiler(runner, ensureLoaded, code, stdin, setResult, cobolWasm.settings);
 };
 
 // Aliases so both `livecodes.cobol` and `livecodes.cobolWasm` are available.

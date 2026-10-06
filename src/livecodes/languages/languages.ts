@@ -92,6 +92,7 @@ import { tcl } from './tcl';
 import { teal } from './teal';
 import { twig } from './twig';
 import { typescript } from './typescript';
+import { vWasm } from './v-wasm';
 import { vbWasm } from './vb-wasm';
 import { vento } from './vento';
 import { vue, vueApp } from './vue';
@@ -181,6 +182,7 @@ export const languages: LanguageSpecs[] = [
   java,
   csharpWasm,
   blazorWasm,
+  vWasm,
   vbWasm,
   fsharp,
   fsharpWasm,

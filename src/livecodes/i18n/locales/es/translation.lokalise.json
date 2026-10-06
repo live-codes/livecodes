@@ -2166,6 +2166,9 @@
   "templates.starter.typescript": {
     "translation": "Inicio TypeScript"
   },
+  "templates.starter.v-wasm": {
+    "translation": "Inicio V"
+  },
   "templates.starter.vb-wasm": {
     "translation": "Inicio VB.NET (Wasm)"
   },

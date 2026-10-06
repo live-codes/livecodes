@@ -1,5 +1,6 @@
 import { getErrorMessage } from '../../utils';
 import { fanakBaseUrl } from '../../vendors';
+import { getParentOrigin } from '../wasm-runtime';
 
 declare const livecodes: any;
 
@@ -24,21 +25,8 @@ const waitFor = async (condition: () => boolean | Promise<boolean>, timeout = 60
   return true;
 };
 
-// The result runs in an iframe; post status updates to the app origin. Mirrors
-// the other WASM language scripts (`haskell-wasm`).
-const parentOrigin =
-  window.parent === window
-    ? window.location.origin
-    : window.location.ancestorOrigins?.[0] ||
-      (() => {
-        if (!document.referrer) return '*';
-        try {
-          return new URL(document.referrer).origin;
-        } catch {
-          // Ignore malformed referrers and use the wildcard fallback below.
-          return '*';
-        }
-      })();
+// The result runs in an iframe; post status updates to the app origin.
+const parentOrigin = getParentOrigin();
 
 let activeRuns = 0;
 const postLoading = (payload: boolean) => {

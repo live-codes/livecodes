@@ -1062,6 +1062,7 @@ const translation: I18nTranslation = {
       tcl: 'شروع کننده Tcl',
       teal: 'شروع کننده Teal',
       typescript: 'شروع کننده تایپ‌اسکریپت',
+      'v-wasm': 'شروع کننده V',
       'vb-wasm': 'شروع کننده VB.NET (Wasm)',
       vue: 'شروع کننده Vue SFC',
       vue2: 'شروع کننده Vue 2',

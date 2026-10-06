@@ -525,6 +525,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sitio web oficial</2> </1> <3> <4>Documentación de TypeScript</4> </3> <5> <6>Aprende X en Y minutos, donde X=TypeScript</6> </5> <7> <8>Cargar plantilla inicial</8> </7>',
     name: 'TypeScript',
   },
+  'v-wasm': {
+    desc: 'Compilador V que se ejecuta en WebAssembly.',
+    link: '<1> <2>Página web de V</2> </1> <3> <4>Documentación del lenguaje V</4> </3> <5> <6>Aprende X en Y minutos, donde X = V</6> </5> <7> <8>Documentación de LiveCodes</8> </7> <9> <10>Cargar plantilla de inicio</10> </9>',
+    name: 'V (Wasm)',
+  },
   vbWasm: {
     desc: 'Compilador de VB.NET que funciona con WebAssembly, utilizando <1>Roslyn</1> y el <2>entorno de ejecución de .NET para WebAssembly</2>',
     link: '<1> <2>Documentación del lenguaje Visual Basic</2> </1> <3> <4> Aprenda X en Y minutos, donde X=Visual Basic</4> </3> <5> <6> Documentación de LiveCodes</6> </5> <7> <8> Cargue la plantilla de inicio</8> </7>',

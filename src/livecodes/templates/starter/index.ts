@@ -82,6 +82,7 @@ import { tailwindcssStarter } from './tailwindcss-starter';
 import { tclStarter } from './tcl-starter';
 import { tealStarter } from './teal-starter';
 import { typescriptStarter } from './typescript-starter';
+import { vWasmStarter } from './v-wasm-starter';
 import { vbWasmStarter } from './vb-wasm-starter';
 import { vueSfcStarter } from './vue-sfc-starter';
 import { vue2Starter } from './vue2-starter';
@@ -143,6 +144,7 @@ export const starterTemplates = [
   cobolWasmStarter,
   fortranWasmStarter,
   dWasmStarter,
+  vWasmStarter,
   rustWasmStarter,
   swiftWasmStarter,
   zigWasmStarter,

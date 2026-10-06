@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { getErrorMessage } from '../../utils/utils';
 import { clangWasmBaseUrl } from '../../vendors';
+import { runCompiler } from '../wasm-runtime';
 import { createWorkerRunner, type Runner } from '../worker-runner';
 
 // One runner serves all four Clang languages. The language is read from the script tags the
@@ -197,23 +197,7 @@ clangWasm.run = async (input?: string) => {
     clangWasm.runners[language] ||
     createWorkerRunner({ getWorkerSrc: () => getWorkerSrc(language), label: 'Clang' }));
 
-  try {
-    await ensureLoaded(runner);
-  } catch (error) {
-    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
-  }
-
-  try {
-    const result = await runner.run(code, stdin, getSettings(language));
-    // `errors` holds the compiler's diagnostics and is empty when the program compiled.
-    const errors = (result.errors || []).filter(Boolean);
-    if (errors.length) {
-      return setResult(stdin, null, errors.join('\n'), result.exitCode ?? 1);
-    }
-    return setResult(stdin, result.output ?? '', null, result.exitCode ?? 0);
-  } catch (error) {
-    return setResult(stdin, null, `Error: ${getErrorMessage(error)}`, 1);
-  }
+  return runCompiler(runner, ensureLoaded, code, stdin, setResult, getSettings(language));
 };
 
 // One alias per language, plus `cpp` for playgrounds written before the languages were split.

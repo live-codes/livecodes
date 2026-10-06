@@ -1061,6 +1061,7 @@ const translation: I18nTranslation = {
       tcl: 'Inicio Tcl',
       teal: 'Inicio Teal',
       typescript: 'Inicio TypeScript',
+      'v-wasm': 'Inicio V',
       'vb-wasm': 'Inicio VB.NET (Wasm)',
       vue: 'Inicio Vue',
       vue2: 'Inicio Vue 2',

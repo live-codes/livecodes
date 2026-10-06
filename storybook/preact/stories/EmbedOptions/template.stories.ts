@@ -67,6 +67,7 @@ export const CppWasm = livecodesStory({ template: 'cpp-wasm' });
 export const ObjcWasm = livecodesStory({ template: 'objc-wasm' });
 export const FortranWasm = livecodesStory({ template: 'fortran-wasm' });
 export const DWasm = livecodesStory({ template: 'd-wasm' });
+export const VWasm = livecodesStory({ template: 'v-wasm' });
 export const RustWasm = livecodesStory({ template: 'rust-wasm' });
 export const SwiftWasm = livecodesStory({ template: 'swift-wasm' });
 export const ZigWasm = livecodesStory({ template: 'zig-wasm' });

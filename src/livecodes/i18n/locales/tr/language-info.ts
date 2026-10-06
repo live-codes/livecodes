@@ -525,6 +525,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Resmi web sitesi</2> </1> <3> <4>TypeScript dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=TypeScript</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
     name: 'TypeScript',
   },
+  'v-wasm': {
+    desc: 'WebAssembly üzerinde çalışan V derleyicisi.',
+    link: "<1> <2>V web sitesi</2> </1> <3> <4>V dil belgeleri</4> </3> <5> <6>Y dakikada X'i öğrenin, burada X=V</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    name: 'V (Wasm)',
+  },
   vbWasm: {
     desc: 'WebAssembly üzerinde çalışan VB.NET derleyicisi, <1>Roslyn</1> ve <2>.NET WebAssembly çalışma zamanı</2> kullanılarak.',
     link: '<1> <2>Visual Basic dil dokümantasyonu</2> </1> <3> <4>Y Dakikada X Öğrenin, X=Visual Basic</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
