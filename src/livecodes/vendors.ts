@@ -366,7 +366,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.10/dist/',
+  '@live-codes/monaco-languages@0.3.11/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');

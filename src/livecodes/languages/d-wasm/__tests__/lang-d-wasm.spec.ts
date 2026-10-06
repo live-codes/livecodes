@@ -20,9 +20,9 @@ describe('D (Wasm) language spec', () => {
     expect(dWasm.largeDownload).toBe(true);
   });
 
-  test('uses the C++ editor, since Monaco has no D language', () => {
+  test('provides D editor support in all editors', () => {
     expect(dWasm.editor).toBe('script');
-    expect(dWasm.editorSupport?.monaco?.language).toBe('cpp');
+    expect(dWasm.editorSupport?.monaco?.language).toBe('d');
     expect(dWasm.editorSupport?.codejar?.language).toBe('d');
   });
 });
