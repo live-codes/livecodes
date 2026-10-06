@@ -80,6 +80,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'A ClojureScript egy <1>Clojure</1> fordító, amely JavaScript-et céloz meg. <2></2>A LiveCodes-ben a böngészőben fut a <3>Cherry</3> segítségével',
     link: '<1> <2>ClojureScript hivatalos weboldal</2> </1> <3> <4>Clojure hivatalos weboldal</4> </3> <5> <6>Cherry repo</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=clojure</8> </7> <9> <10>LiveCodes dokumentáció</10> </9> <11> <12>Kezdő sablon betöltése</12> </11>',
   },
+  'cobol-wasm': {
+    desc: 'A modern COBOL a <1>GnuCOBOL</1> segítségével WebAssembly-re fordul, és teljes egészében a böngészőben fut.',
+    link: '<1> <2>Az GnuCOBOL hivatalos weboldala</2> </1> <3> <4>Tanulj meg X-et Y perc alatt, ahol X=COBOL</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Indító sablon betöltése</8> </7>',
+    name: 'COBOL (Wasm)',
+  },
   coffeescript: {
     desc: 'Egyszerű JavaScript.',
     link: '<1> <2>CoffeeScript hivatalos weboldal</2> </1> <3> <4>Tanulj X-et Y perc alatt, ahol X=coffeescript</4> </3> <5> <6>Kezdő sablon betöltése</6> </5>',

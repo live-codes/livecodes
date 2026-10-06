@@ -990,6 +990,7 @@ const translation: I18nTranslation = {
       clio: 'قالب Clio',
       'cljs-selfhosted': 'قالب CLJS (مستضاف ذاتيًا)',
       clojurescript: 'قالب ClojureScript (Cherry)',
+      'cobol-wasm': 'قالب COBOL',
       coffeescript: 'قالب CoffeeScript',
       commonlisp: 'قالب Common Lisp',
       cpp: 'قالب C++',

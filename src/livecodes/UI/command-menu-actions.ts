@@ -306,6 +306,7 @@ export const getCommandMenuActions = ({
         'c-wasm',
         'cpp-wasm',
         'objc-wasm',
+        'cobol-wasm',
         'fortran-wasm',
         'rust-wasm',
         'swift-wasm',

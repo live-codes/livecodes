@@ -135,6 +135,15 @@
   "clojurescript.link": {
     "translation": "<tag-1> <tag-2>Sito ufficiale di ClojureScript</tag-2> </tag-1> <tag-3> <tag-4>Sito ufficiale di Clojure</tag-4> </tag-3> <tag-5> <tag-6>Repository di Cherry</tag-6> </tag-5> <tag-7> <tag-8>Impara X in Y minuti, dove X=clojure</tag-8> </tag-7> <tag-9> <tag-10>Documentazione di LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Carica il modello di partenza</tag-12> </tag-11>"
   },
+  "cobol-wasm.desc": {
+    "translation": "COBOL moderno compilato in WebAssembly da <tag-1>GnuCOBOL</tag-1>, eseguito interamente nel browser."
+  },
+  "cobol-wasm.link": {
+    "translation": "<tag-1> <tag-2>Sito web ufficiale di GnuCOBOL</tag-2> </tag-1> <tag-3> <tag-4>Impara X in Y minuti, dove X = COBOL</tag-4> </tag-3> <tag-5> <tag-6>Documentazione di LiveCodes</tag-6> </tag-5> <tag-7> <tag-8>Carica il modello di avvio</tag-8> </tag-7>"
+  },
+  "cobol-wasm.name": {
+    "translation": "COBOL (Wasm)"
+  },
   "coffeescript.desc": {
     "translation": "JavaScript senza fronzoli."
   },

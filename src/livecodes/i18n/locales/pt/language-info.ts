@@ -80,6 +80,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'ClojureScript é um compilador para <1>Clojure</1> que tem como alvo JavaScript. <2></2>No LiveCodes, ele é executado no navegador usando <3>Cherry</3>.',
     link: '<1> <2>Site oficial do ClojureScript</2> </1> <3> <4>Site oficial do Clojure</4> </3> <5> <6>Repositório do Cherry</6> </5> <7> <8>Aprenda X em Y minutos, onde X=clojure</8> </7> <9> <10>Documentação do LiveCodes</10> </9> <11> <12>Carregar modelo inicial</12> </11>',
   },
+  'cobol-wasm': {
+    desc: 'COBOL moderno compilado para WebAssembly pelo <1>GnuCOBOL</1>, executado na íntegra no navegador.',
+    link: '<1> <2>Site oficial do GnuCOBOL</2> </1> <3> <4>Aprenda X em Y minutos, onde X = COBOL</4> </3> <5> <6>Documentação do LiveCodes</6> </5> <7> <8>Carregar modelo inicial</8> </7>',
+    name: 'COBOL (Wasm)',
+  },
   coffeescript: {
     desc: 'JavaScript sem frescura.',
     link: '<1> <2>Site oficial do CoffeeScript</2> </1> <3> <4>Aprenda X em Y minutos, onde X=coffeescript</4> </3> <5> <6>Carregar modelo inicial</6> </5>',
