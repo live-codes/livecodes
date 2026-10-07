@@ -322,7 +322,7 @@ const languageInfo = {
   },
   nunjucks: {
     desc: 'A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <1>jinja2</1>',
-    link: '<1> <2>Official website</2> </1> <3> <4>Learn X in Y minutes, where X=Nim</4> </3> <5> <6>LiveCodes Documentations</6> </5>',
+    link: '<1> <2>Official website</2> </1> <3> <4>LiveCodes Documentations</4> </3>',
     name: 'Nunjucks',
   },
   objcWasm: {
