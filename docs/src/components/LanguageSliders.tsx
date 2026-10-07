@@ -80,6 +80,7 @@ export default function Sliders() {
       { name: 'ocaml', title: 'OCaml' },
       { name: 'nim', title: 'Nim' },
       { name: 'nim-wasm', title: 'Nim (Wasm)' },
+      { name: 'janet-wasm', title: 'Janet (Wasm)' },
       { name: 'python', title: 'Python' },
       { name: 'python-wasm', title: 'Python (Wasm)' },
       { name: 'r', title: 'R' },

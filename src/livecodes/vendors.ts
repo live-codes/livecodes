@@ -313,6 +313,8 @@ export const jsUntarUrl = /* @__PURE__ */ getUrl('js-untar@2.0.0/build/dist/unta
 
 export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
+export const janetWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/janet-wasm@0.1.0/');
+
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
 
 export const keystoneJsUrl = /* @__PURE__ */ getUrl(

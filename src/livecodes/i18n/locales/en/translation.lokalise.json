@@ -2696,6 +2696,10 @@
     "notes": "",
     "translation": "Imba Starter"
   },
+  "templates.starter.janet-wasm": {
+    "notes": "",
+    "translation": "Janet (Wasm) Starter"
+  },
   "templates.starter.java": {
     "notes": "",
     "translation": "Java Starter"

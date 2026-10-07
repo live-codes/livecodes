@@ -295,6 +295,7 @@ export const getCommandMenuActions = ({
         'ocaml',
         'nim',
         'nim-wasm',
+        'janet-wasm',
         'python',
         'python-wasm',
         'r',

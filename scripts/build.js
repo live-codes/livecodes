@@ -229,6 +229,7 @@ const iifeBuild = () =>
       'languages/cpp/lang-cpp-script.ts',
       'languages/clang-wasm/lang-clang-wasm-script.ts',
       'languages/nim/lang-nim-wasm-script.ts',
+      'languages/janet-wasm/lang-janet-wasm-script.ts',
       'languages/fortran-wasm/lang-fortran-wasm-script.ts',
       'languages/d-wasm/lang-d-wasm-script.ts',
       'languages/cobol-wasm/lang-cobol-wasm-script.ts',

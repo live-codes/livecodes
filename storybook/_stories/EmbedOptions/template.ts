@@ -41,6 +41,7 @@ const storyDef: StoryDef = {
   Ocaml: { props: { template: 'ocaml' } },
   Nim: { props: { template: 'nim' } },
   NimWasm: { props: { template: 'nim-wasm' } },
+  JanetWasm: { props: { template: 'janet-wasm' } },
   Python: { props: { template: 'python' } },
   PythonWasm: { props: { template: 'python-wasm' } },
   R: { props: { template: 'r' } },
