@@ -1027,6 +1027,8 @@ const translation: I18nTranslation = {
       markdown: 'Markdown 启动模板',
       mdx: 'MDX 启动模板',
       minizinc: 'MiniZinc 启动模板',
+      nim: 'Nim 启动模板',
+      'nim-wasm': 'Nim（WASM）启动模板',
       'objc-wasm': 'Objective-C（WASM）启动模板',
       ocaml: 'Ocaml 启动模板',
       pascal: 'Pascal 启动模板',

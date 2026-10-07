@@ -1029,6 +1029,8 @@ const translation: I18nTranslation = {
       markdown: 'Стартер Markdown',
       mdx: 'Стартер MDX',
       minizinc: 'Стартер MiniZinc',
+      nim: 'Стартер Nim',
+      'nim-wasm': 'Стартер Nim (Wasm)',
       'objc-wasm': 'Стартер Objective-C (Wasm)',
       ocaml: 'Стартер OCaml',
       pascal: 'Стартер Pascal',

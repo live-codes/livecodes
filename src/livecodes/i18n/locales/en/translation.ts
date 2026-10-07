@@ -1036,6 +1036,8 @@ const translation = {
       markdown: 'Markdown Starter',
       mdx: 'MDX Starter',
       minizinc: 'MiniZinc Starter',
+      nim: 'Nim Starter',
+      'nim-wasm': 'Nim (Wasm) Starter',
       'objc-wasm': 'Objective-C (Wasm) Starter',
       ocaml: 'Ocaml Starter',
       pascal: 'Pascal Starter',

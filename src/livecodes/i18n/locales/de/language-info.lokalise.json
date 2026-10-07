@@ -534,6 +534,24 @@
   "mustache.name": {
     "translation": "Mustache"
   },
+  "nim.desc": {
+    "translation": "Nim wird vom <tag-1>Nim-Compiler</tag-1> zu JavaScript kompiliert und läuft vollständig im Browser. Das Programm läuft auf der Ergebnisseite und kann daher das DOM direkt steuern."
+  },
+  "nim.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Website von Nim</tag-2> </tag-1> <tag-3> <tag-4>Nim-Handbuch</tag-4> </tag-3> <tag-5> <tag-6>Nim-Standardbibliothek</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X = Nim</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes-Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+  },
+  "nim.name": {
+    "translation": "Nim"
+  },
+  "nimWasm.desc": {
+    "translation": "Nim wird vom <tag-1>Nim-Compiler</tag-1> (zu WebAssembly kompiliert) zu C und dann von <tag-2>Clang</tag-2> zu WebAssembly kompiliert, und läuft vollständig im Browser. Es unterstützt Standardeingabe, Befehlszeilenargumente und echte Exit-Codes."
+  },
+  "nimWasm.link": {
+    "translation": "<tag-1> <tag-2>Offizielle Website von Nim</tag-2> </tag-1> <tag-3> <tag-4>Nim-Handbuch</tag-4> </tag-3> <tag-5> <tag-6>Nim-Standardbibliothek</tag-6> </tag-5> <tag-7> <tag-8>Lerne X in Y Minuten, wobei X = Nim</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes-Dokumentation</tag-10> </tag-9> <tag-11> <tag-12>Starter-Vorlage laden</tag-12> </tag-11>"
+  },
+  "nimWasm.name": {
+    "translation": "Nim (Wasm)"
+  },
   "nunjucks.desc": {
     "translation": "Eine leistungsstarke und vielseitige Templating-Sprache für JavaScript. Nunjucks ist im Wesentlichen eine Portierung von <tag-1>jinja2</tag-1>."
   },

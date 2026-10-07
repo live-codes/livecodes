@@ -299,6 +299,16 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>官方网站</2> </1> <3> <4>Mustache 5 手册</4> </3> <5> <6>JavaScript 实现</6> </5> <7> <8>LiveCodes 文档</8> </7>',
     name: 'Mustache',
   },
+  nim: {
+    desc: 'Nim 由 <1>Nim 编译器</1> 编译为 JavaScript，完全在浏览器中运行。程序在结果页面中运行，因此可以直接操作 DOM。',
+    link: '<1> <2>Nim 官方网站</2> </1> <3> <4>Nim 手册</4> </3> <5> <6>Nim 标准库</6> </5> <7> <8>《Y分钟学会X》，其中X=Nim</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
+    name: 'Nim',
+  },
+  nimWasm: {
+    desc: 'Nim 由 <1>Nim 编译器</1>（编译为 WebAssembly）编译为 C，然后由 <2>Clang</2> 编译为 WebAssembly，完全在浏览器中运行。它支持标准输入、命令行参数和真实的退出代码。',
+    link: '<1> <2>Nim 官方网站</2> </1> <3> <4>Nim 手册</4> </3> <5> <6>Nim 标准库</6> </5> <7> <8>《Y分钟学会X》，其中X=Nim</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载启动模板</12> </11>',
+    name: 'Nim (Wasm)',
+  },
   nunjucks: {
     desc: '一种丰富而强大的 JavaScript 模板语言。Nunjucks 本质上是 <1>jinja2</1> 的一个移植。',
     link: '<1> <2>官方网站</2> </1> <3> <4>LiveCodes 文档</4> </3>',

@@ -1029,6 +1029,8 @@ const translation: I18nTranslation = {
       markdown: 'مارک ڈاؤن شروعاتی',
       mdx: 'ایم ڈی ایکس شروعاتی',
       minizinc: 'MiniZinc شروعاتی',
+      nim: 'Nim شروعاتی',
+      'nim-wasm': 'Nim (واسم) شروعاتی',
       'objc-wasm': 'Objective-C (واسم) شروعاتی',
       ocaml: 'اوکامل شروعاتی',
       pascal: 'پاسکل شروعاتی',

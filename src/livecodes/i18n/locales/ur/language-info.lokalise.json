@@ -534,6 +534,24 @@
   "mustache.name": {
     "translation": "مسٹیش"
   },
+  "nim.desc": {
+    "translation": "Nim کو <tag-1>Nim کمپائلر</tag-1> کے ذریعے JavaScript میں مرتب کیا گیا ہے اور یہ مکمل طور پر براؤزر میں چلتا ہے۔ پروگرام رزلٹ پیج میں چلتا ہے، لہذا یہ براہ راست DOM کو کنٹرول کر سکتا ہے۔"
+  },
+  "nim.link": {
+    "translation": "<tag-1> <tag-2>Nim آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>Nim مینوئل</tag-4> </tag-3> <tag-5> <tag-6>Nim معیاری لائبریری</tag-6> </tag-5> <tag-7> <tag-8>Y منٹ میں X سیکھیں، جہاں X=Nim</tag-8> </tag-7> <tag-9> <tag-10>لائیو کوڈز دستاویزات</tag-10> </tag-9> <tag-11> <tag-12>ابتدائی سانچہ لوڈ کریں</tag-12> </tag-11>"
+  },
+  "nim.name": {
+    "translation": "Nim"
+  },
+  "nimWasm.desc": {
+    "translation": "Nim کو <tag-1>Nim کمپائلر</tag-1> کے ذریعے C میں (WebAssembly میں مرتب شدہ) اور پھر <tag-2>Clang</tag-2> کے ذریعے WebAssembly میں مرتب کیا گیا ہے اور یہ مکمل طور پر براؤزر میں چلتا ہے۔ یہ معیاری ان پٹ، کمانڈ لائن آرگیومنٹس اور حقیقی ایگزٹ کوڈز کی حمایت کرتا ہے۔"
+  },
+  "nimWasm.link": {
+    "translation": "<tag-1> <tag-2>Nim آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>Nim مینوئل</tag-4> </tag-3> <tag-5> <tag-6>Nim معیاری لائبریری</tag-6> </tag-5> <tag-7> <tag-8>Y منٹ میں X سیکھیں، جہاں X=Nim</tag-8> </tag-7> <tag-9> <tag-10>لائیو کوڈز دستاویزات</tag-10> </tag-9> <tag-11> <tag-12>ابتدائی سانچہ لوڈ کریں</tag-12> </tag-11>"
+  },
+  "nimWasm.name": {
+    "translation": "Nim (Wasm)"
+  },
   "nunjucks.desc": {
     "translation": "جاوا اسکرپٹ کے لیے ایک امیر اور طاقتور ٹیمپلیٹنگ زبان۔ نن جکس بنیادی طور پر <tag-1>جنجا2</tag-1> کا ایک پورٹ ہے۔"
   },

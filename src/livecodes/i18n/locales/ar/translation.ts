@@ -1029,6 +1029,8 @@ const translation: I18nTranslation = {
       markdown: 'قالب Markdown',
       mdx: 'قالب MDX',
       minizinc: 'قالب MiniZinc',
+      nim: 'قالب Nim',
+      'nim-wasm': 'قالب Nim (Wasm)',
       'objc-wasm': 'قالب Objective-C (Wasm)',
       ocaml: 'قالب Ocaml',
       pascal: 'قالب Pascal',

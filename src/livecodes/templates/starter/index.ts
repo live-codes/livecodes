@@ -51,6 +51,8 @@ import { malinaStarter } from './malina-starter';
 import { markdownStarter } from './markdown-starter';
 import { mdxStarter } from './mdx-starter';
 import { minizincStarter } from './minizinc-starter';
+import { nimStarter } from './nim-starter';
+import { nimWasmStarter } from './nim-wasm-starter';
 import { ocamlStarter } from './ocaml-starter';
 import { pascalStarter } from './pascal-starter';
 import { perlStarter } from './perl-starter';
@@ -128,6 +130,8 @@ export const starterTemplates = [
   rescriptStarter,
   reasonStarter,
   ocamlStarter,
+  nimStarter,
+  nimWasmStarter,
   pythonStarter,
   pythonWasmStarter,
   rStarter,

@@ -57,6 +57,7 @@ import { mdx } from './mdx';
 import { minizinc } from './minizinc';
 import { mjml } from './mjml';
 import { mustache } from './mustache';
+import { nim, nimWasm } from './nim';
 import { nunjucks } from './nunjucks';
 import { ocaml } from './ocaml';
 import { pascal } from './pascal';
@@ -159,6 +160,8 @@ export const languages: LanguageSpecs[] = [
   rescript,
   reason,
   ocaml,
+  nim,
+  nimWasm,
   python,
   pythonWasm,
   r,

@@ -2070,6 +2070,12 @@
   "templates.starter.minizinc": {
     "translation": "MiniZinc স্টার্টার"
   },
+  "templates.starter.nim": {
+    "translation": "Nim স্টার্টার"
+  },
+  "templates.starter.nim-wasm": {
+    "translation": "Nim (Wasm) স্টার্টার"
+  },
   "templates.starter.objc-wasm": {
     "translation": "Objective-C (Wasm) স্টার্টার"
   },

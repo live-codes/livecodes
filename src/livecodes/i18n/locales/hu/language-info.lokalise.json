@@ -534,6 +534,24 @@
   "mustache.name": {
     "translation": "Mustache"
   },
+  "nim.desc": {
+    "translation": "A Nim a <tag-1>Nim fordító</tag-1> segítségével JavaScript-re van fordítva, és teljes egészében a böngészőben fut. A program az eredményoldalon fut, így közvetlenül vezérelheti a DOM-ot."
+  },
+  "nim.link": {
+    "translation": "<tag-1> <tag-2>A Nim hivatalos weboldala</tag-2> </tag-1> <tag-3> <tag-4>Nim kézikönyv</tag-4> </tag-3> <tag-5> <tag-6>Nim standard könyvtár</tag-6> </tag-5> <tag-7> <tag-8>Tanulj meg X-et Y perc alatt, ahol X=Nim</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes dokumentáció</tag-10> </tag-9> <tag-11> <tag-12>Kezdő sablon betöltése</tag-12> </tag-11>"
+  },
+  "nim.name": {
+    "translation": "Nim"
+  },
+  "nimWasm.desc": {
+    "translation": "A Nim a <tag-1>Nim fordító</tag-1> segítségével C-re (WebAssembly-re fordítva), majd a <tag-2>Clang</tag-2> segítségével WebAssembly-re van fordítva, és teljes egészében a böngészőben fut. Támogatja a szabványos bemenetet, a parancssori argumentumokat és a valódi kilépési kódokat."
+  },
+  "nimWasm.link": {
+    "translation": "<tag-1> <tag-2>A Nim hivatalos weboldala</tag-2> </tag-1> <tag-3> <tag-4>Nim kézikönyv</tag-4> </tag-3> <tag-5> <tag-6>Nim standard könyvtár</tag-6> </tag-5> <tag-7> <tag-8>Tanulj meg X-et Y perc alatt, ahol X=Nim</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes dokumentáció</tag-10> </tag-9> <tag-11> <tag-12>Kezdő sablon betöltése</tag-12> </tag-11>"
+  },
+  "nimWasm.name": {
+    "translation": "Nim (Wasm)"
+  },
   "nunjucks.desc": {
     "translation": "Egy gazdag és hatékony sablonnyelv JavaScript-hez. A Nunjucks lényegében a <tag-1>jinja2</tag-1> portja"
   },

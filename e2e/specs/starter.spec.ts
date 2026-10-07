@@ -484,6 +484,56 @@ test.describe('Starter Templates from UI', () => {
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
+  test('nim Starter', async ({ page, getTestUrl }) => {
+    // the compiler is downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Nim Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the heading is set by the compiled program, and only then is the click handler wired up
+    await expect(getResult().locator('h1')).toHaveText('Hello, Nim!', { timeout: 120_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
+  test('nim-wasm Starter', async ({ page, getTestUrl }) => {
+    // the compiler, linker and sysroot (~29 MB) are downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Nim (Wasm) Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the counter stays disabled until the compiler has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 280_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, Nim!');
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
   test('haskell Starter', async ({ page, getTestUrl }) => {
     test.slow();
 
@@ -1228,6 +1278,48 @@ test.describe('Starter Templates from URL', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
+  test('nim Starter (in URL)', async ({ page, getTestUrl }) => {
+    // the compiler is downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'nim' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the heading is set by the compiled program, and only then is the click handler wired up
+    await expect(getResult().locator('h1')).toHaveText('Hello, Nim!', { timeout: 120_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
+  test('nim-wasm Starter (in URL)', async ({ page, getTestUrl }) => {
+    // the compiler, linker and sysroot (~29 MB) are downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'nim-wasm' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the counter stays disabled until the compiler has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 280_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, Nim!');
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
   test('haskell Starter (in URL)', async ({ page, getTestUrl }) => {
     test.slow();
 

@@ -1030,6 +1030,8 @@ const translation: I18nTranslation = {
       markdown: 'Markdown kezdő',
       mdx: 'MDX kezdő',
       minizinc: 'MiniZinc kezdő',
+      nim: 'Nim kezdő',
+      'nim-wasm': 'Nim (Wasm) kezdő',
       'objc-wasm': 'Objective-C (Wasm) kezdő',
       ocaml: 'OCaml kezdő',
       pascal: 'Pascal kezdő',

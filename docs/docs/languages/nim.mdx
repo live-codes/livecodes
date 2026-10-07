@@ -1,0 +1,88 @@
+# Nim
+
+[Nim](https://nim-lang.org/) is a statically typed, compiled systems programming language.
+
+In LiveCodes, Nim runs in the browser using the [Nim compiler](https://nim-lang.org/) compiled to WebAssembly, through Nim's JavaScript backend. The compiled program runs in the result page, so it can drive the DOM directly (e.g. through the `dom` and `jsffi` modules).
+
+> For Nim's WebAssembly backend, which supports standard input, command-line arguments and real exit codes, see [Nim (Wasm)](./nim-wasm.mdx).
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const nimConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'nim',
+    content: `echo "Hello, World!"`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={nimConfig}></LiveCodes>
+
+### Communication with the result page
+
+Nim's JavaScript backend emits one self-sufficient program that runs in the result page. It has a document and a console, so `echo` writes to the console, and the browser modules that ship with the compiler (`dom`, `jsffi`, `jsconsole`, `jscore`, `jsre` and `asyncjs`) are on its search path:
+
+```nim
+import dom
+
+document.title = "Nim in LiveCodes"
+let element = document.createElement("p")
+element.innerText = "Hello from Nim!"
+document.body.appendChild(element)
+```
+
+Example:
+
+<LiveCodes template="nim" params={{ compiled: 'open' }} height="80vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`nim`
+
+### Aliases / Extensions
+
+`nim`, `nims`, `nimble`, `nim-js`, `js.nim`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The [Nim compiler](https://nim-lang.org/) (Nim's `js` backend) compiled to WebAssembly, packaged as [@live-codes/nim-wasm](https://www.npmjs.com/package/@live-codes/nim-wasm). It is compiled with `execute: false`, and the emitted program runs in the result page.
+
+### Version
+
+Nim `v2.2.4`.
+
+## Example Usage
+
+```nim
+import std/strutils
+
+echo "Hello, World!"
+echo "2 + 2 = ", 2 + 2
+```
+
+## Starter Template
+
+https://livecodes.io/?template=nim
+
+## Links
+
+- [Nim official website](https://nim-lang.org/)
+- [Nim manual](https://nim-lang.org/docs/manual.html)
+- [Nim standard library](https://nim-lang.org/docs/lib.html)
+- [@live-codes/nim-wasm](https://www.npmjs.com/package/@live-codes/nim-wasm)
+- [Nim (Wasm)](./nim-wasm.mdx) in LiveCodes
