@@ -1,0 +1,119 @@
+# Janet (Wasm)
+
+[Janet](https://janet-lang.org/) is a lightweight, embeddable, Lisp-like (Clojure-like), dynamically
+typed programming language.
+
+In LiveCodes, Janet runs in the browser on the Janet interpreter compiled to WebAssembly, entirely
+client-side. No server is involved.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const janetConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'janet-wasm',
+    content: `(print "Hello, World!")`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={janetConfig}></LiveCodes>
+
+### Standard I/O
+
+The program runs on the [result page](../features/result.mdx). Anything it prints is captured and
+shown in the [console](../features/console.mdx). Standard input is passed by setting the
+`livecodes.janetWasm.input` property in JavaScript before the program runs. It is read in Janet with
+`(file/read stdin :all)` and friends; a program that never reads never notices it was there. To run
+again with new input, call `livecodes.janetWasm.run(input)`.
+
+### Communication with JavaScript
+
+A few helper properties and methods are available in the browser global `livecodes.janetWasm`
+object:
+
+- `livecodes.janetWasm.input`: the standard input passed to the program.
+- `livecodes.janetWasm.loaded`: a promise that resolves when the interpreter has downloaded and the
+  program has run once. It rejects if the runtime fails to load. Other helpers should be used after
+  it resolves.
+- `livecodes.janetWasm.output`: the program's output, standard output and standard error in the
+  order the program wrote them.
+- `livecodes.janetWasm.error`: the interpreter diagnostics, if the program failed.
+- `livecodes.janetWasm.exitCode`: the exit code of the program (`0` ok, `1` runtime error, `2`
+  compile error, `4` parse error).
+- `livecodes.janetWasm.run(input)`: runs the code again with new input, returning a promise that
+  resolves to `{ output, error, exitCode }`.
+
+Example:
+
+<LiveCodes template="janet-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`janet-wasm`
+
+### Aliases / Extensions
+
+`janet`, `wasm.janet`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The [Janet](https://janet-lang.org/) interpreter compiled to WebAssembly (built with Emscripten), packaged by
+[@live-codes/janet-wasm](https://www.npmjs.com/package/@live-codes/janet-wasm).
+
+### Version
+
+Janet 1.42.1.
+
+## Code Formatting
+
+Not currently supported.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page
+reload, avoiding the need to reload the interpreter. This behavior can be disabled by adding the code
+comment `# __livecodes_reload__` to the Janet code, which forces a full page reload.
+
+This comment can be added in the [`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for embedded playgrounds.
+
+## Example Usage
+
+```janet
+(defn fib [n]
+  (if (< n 2)
+    n
+    (+ (fib (- n 1)) (fib (- n 2)))))
+
+(each n (range 10)
+  (prin (fib n) " "))
+(print)
+```
+
+Each run is independent: definitions from one run do not survive into the next.
+
+## Starter Template
+
+https://livecodes.io/?template=janet-wasm
+
+## Links
+
+- [Janet official website](https://janet-lang.org/)
+- [Janet documentation](https://janet-lang.org/docs/index.html)
+- [Learn X in Y minutes, where X=Janet](https://learnxinyminutes.com/janet/)
+- [Janet for Mortals](https://janet.guide/)
+- [@live-codes/janet-wasm](https://www.npmjs.com/package/@live-codes/janet-wasm)

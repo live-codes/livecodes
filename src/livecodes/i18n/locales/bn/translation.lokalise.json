@@ -2022,6 +2022,9 @@
   "templates.starter.imba": {
     "translation": "Imba স্টার্টার"
   },
+  "templates.starter.janet-wasm": {
+    "translation": "Janet (Wasm) স্টার্টার"
+  },
   "templates.starter.java": {
     "translation": "Java স্টার্টার"
   },

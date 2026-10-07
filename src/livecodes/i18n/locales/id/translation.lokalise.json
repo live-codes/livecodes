@@ -2022,6 +2022,9 @@
   "templates.starter.imba": {
     "translation": "Pemula Imba"
   },
+  "templates.starter.janet-wasm": {
+    "translation": "Pemula Janet (Wasm)"
+  },
   "templates.starter.java": {
     "translation": "Pemula Java"
   },

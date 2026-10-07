@@ -36,6 +36,7 @@ import { goWasmStarter } from './go-wasm-starter';
 import { haskellStarter } from './haskell-starter';
 import { haskellWasmStarter } from './haskell-wasm-starter';
 import { imbaStarter } from './imba-starter';
+import { janetWasmStarter } from './janet-wasm-starter';
 import { javaStarter } from './java-starter';
 import { javascriptStarter } from './javascript-starter';
 import { jestReactStarter } from './jest-react-starter';
@@ -132,6 +133,7 @@ export const starterTemplates = [
   ocamlStarter,
   nimStarter,
   nimWasmStarter,
+  janetWasmStarter,
   pythonStarter,
   pythonWasmStarter,
   rStarter,

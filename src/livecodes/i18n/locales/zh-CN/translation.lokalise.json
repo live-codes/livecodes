@@ -2022,6 +2022,9 @@
   "templates.starter.imba": {
     "translation": "Imba 启动模板"
   },
+  "templates.starter.janet-wasm": {
+    "translation": "Janet（Wasm）启动模板"
+  },
   "templates.starter.java": {
     "translation": "Java 启动模板"
   },

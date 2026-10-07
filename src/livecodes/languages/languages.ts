@@ -41,6 +41,7 @@ import { haskell } from './haskell';
 import { haskellWasm } from './haskell-wasm';
 import { html } from './html';
 import { imba } from './imba';
+import { janetWasm } from './janet-wasm';
 import { java } from './java';
 import { javascript } from './javascript';
 import { jinja } from './jinja';
@@ -162,6 +163,7 @@ export const languages: LanguageSpecs[] = [
   ocaml,
   nim,
   nimWasm,
+  janetWasm,
   python,
   pythonWasm,
   r,

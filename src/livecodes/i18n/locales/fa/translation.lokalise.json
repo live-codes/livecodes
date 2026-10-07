@@ -2022,6 +2022,9 @@
   "templates.starter.imba": {
     "translation": "شروع کننده Imba"
   },
+  "templates.starter.janet-wasm": {
+    "translation": "شروع کننده Janet (Wasm)"
+  },
   "templates.starter.java": {
     "translation": "شروع کننده جاوا"
   },

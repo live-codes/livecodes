@@ -387,6 +387,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "janetWasm.desc": {
+    "translation": "<tag-1>Janet</tag-1> 解释器编译为 WebAssembly，并在浏览器中完全运行。它支持标准输入和真实的退出代码。"
+  },
+  "janetWasm.link": {
+    "translation": "<tag-1><tag-2>Janet 官方网站</tag-2></tag-1> <tag-3> <tag-4>Janet 文档</tag-4> </tag-3> <tag-5> <tag-6>《Y分钟学会X》，其中X=Janet</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+  },
+  "janetWasm.name": {
+    "translation": "Janet (Wasm)"
+  },
   "java.desc": {
     "translation": "使用 DoppioJVM 在浏览器中运行的 JVM。"
   },

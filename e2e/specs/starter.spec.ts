@@ -534,6 +534,32 @@ test.describe('Starter Templates from UI', () => {
     await expect(getResult().locator('h1')).toHaveText('Hello, Nim!');
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
+  test('janet-wasm Starter', async ({ page, getTestUrl }) => {
+    // the interpreter (~0.9 MB) is downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Janet (Wasm) Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the counter stays disabled until the interpreter has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 120_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, Janet!');
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
   test('haskell Starter', async ({ page, getTestUrl }) => {
     test.slow();
 
@@ -1320,6 +1346,28 @@ test.describe('Starter Templates from URL', () => {
     await expect(getResult().locator('h1')).toHaveText('Hello, Nim!');
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
+  test('janet-wasm Starter (in URL)', async ({ page, getTestUrl }) => {
+    // the interpreter (~0.9 MB) is downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'janet-wasm' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the counter stays disabled until the interpreter has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 120_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, Janet!');
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
   test('haskell Starter (in URL)', async ({ page, getTestUrl }) => {
     test.slow();
 

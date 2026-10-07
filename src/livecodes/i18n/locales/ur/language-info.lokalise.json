@@ -387,6 +387,15 @@
   "imba.name": {
     "translation": "امبا"
   },
+  "janetWasm.desc": {
+    "translation": "<tag-1>Janet</tag-1> انٹرپریٹر کو WebAssembly میں مرتب کیا گیا ہے جو مکمل طور پر براؤزر میں چلتا ہے۔ یہ معیاری ان پٹ اور حقیقی ایگزٹ کوڈز کی حمایت کرتا ہے۔"
+  },
+  "janetWasm.link": {
+    "translation": "<tag-1><tag-2>Janet آفیشل ویب سائٹ</tag-2></tag-1> <tag-3> <tag-4>Janet دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>Y منٹ میں X سیکھیں، جہاں X=Janet</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزی</tag-8> </tag-7> <tag-9> <tag-10>لوڈ اسٹارٹر ٹیمپلیٹ</tag-10> </tag-9>"
+  },
+  "janetWasm.name": {
+    "translation": "Janet (Wasm)"
+  },
   "java.desc": {
     "translation": "DoppioJVM کا استعمال کرتے ہوئے براؤزر میں JVM چل رہا ہے۔"
   },

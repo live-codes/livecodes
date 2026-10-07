@@ -1011,6 +1011,7 @@ const translation: I18nTranslation = {
       'haskell-wasm': 'Haskell (Wasm) 启动模板',
       heading: '启动模板',
       imba: 'Imba 启动模板',
+      'janet-wasm': 'Janet（Wasm）启动模板',
       java: 'Java 启动模板',
       javascript: 'JavaScript 启动模板',
       jest: 'Jest 启动模板',

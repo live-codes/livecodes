@@ -202,6 +202,7 @@ export interface Compiler {
     | 'text/objc-wasm'
     | 'text/objcpp-wasm'
     | 'text/nim-wasm'
+    | 'text/janet-wasm'
     | 'text/fortran-wasm'
     | 'text/d-wasm'
     | 'text/cobol-wasm'
@@ -292,6 +293,7 @@ export type TemplateAlias =
   | 'postgres'
   | 'pg'
   | 'pgsql'
+  | 'janet'
   | 'mzn';
 
 export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &

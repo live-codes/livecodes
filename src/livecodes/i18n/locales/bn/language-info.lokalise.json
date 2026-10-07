@@ -387,6 +387,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "janetWasm.desc": {
+    "translation": "<tag-1>Janet</tag-1> ইন্টারপ্রেটার WebAssembly-তে কম্পাইল করা হয়েছে এবং এটি সম্পূর্ণভাবে ব্রাউজারে চলে। এটি স্ট্যান্ডার্ড ইনপুট এবং প্রকৃত এক্সিট কোড সমর্থন করে।"
+  },
+  "janetWasm.link": {
+    "translation": "<tag-1><tag-2>Janet অফিসিয়াল ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>Janet ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=Janet</tag-6> </tag-5> <tag-7> <tag-8>লাইভকোড ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "janetWasm.name": {
+    "translation": "Janet (Wasm)"
+  },
   "java.desc": {
     "translation": "DoppioJVM ব্যবহার করে ব্রাউজারে চলমান JVM।"
   },

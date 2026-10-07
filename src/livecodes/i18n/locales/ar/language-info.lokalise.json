@@ -387,6 +387,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "janetWasm.desc": {
+    "translation": "مفسر <tag-1>Janet</tag-1> المُجمَّع إلى WebAssembly يعمل بالكامل داخل المتصفح. يدعم الإدخال القياسي ورموز الخروج الحقيقية."
+  },
+  "janetWasm.link": {
+    "translation": "<tag-1><tag-2>الموقع الرسمي لـ Janet</tag-2></tag-1> <tag-3> <tag-4>وثائق Janet</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقيقة، حيث X = Janet</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البدء</tag-10> </tag-9>"
+  },
+  "janetWasm.name": {
+    "translation": "Janet (Wasm)"
+  },
   "java.desc": {
     "translation": "JVM يعمل في المتصفح باستخدام DoppioJVM."
   },

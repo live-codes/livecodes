@@ -1014,6 +1014,7 @@ const translation: I18nTranslation = {
       'haskell-wasm': 'Haskell (Wasm) Başlangıç',
       heading: 'Başlangıç Şablonları',
       imba: 'Imba Başlangıç',
+      'janet-wasm': 'Janet (Wasm) Başlangıç',
       java: 'Java Başlangıç',
       javascript: 'JavaScript Başlangıç',
       jest: 'Jest Başlangıç',

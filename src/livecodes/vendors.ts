@@ -108,7 +108,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.4/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.5/build/');
 
 export const codemirrorMinimapUrl = /* @__PURE__ */ getUrl(
   '@replit/codemirror-minimap@0.5.2/dist/index.js',
@@ -312,6 +312,8 @@ export const jsclUrl = /* @__PURE__ */ getUrl(
 export const jsUntarUrl = /* @__PURE__ */ getUrl('js-untar@2.0.0/build/dist/untar.js');
 
 export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
+
+export const janetWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/janet-wasm@0.1.0/');
 
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
 

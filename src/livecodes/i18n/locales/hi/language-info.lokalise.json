@@ -387,6 +387,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "janetWasm.desc": {
+    "translation": "<tag-1>Janet</tag-1> इंटरप्रेटर को वेबअसेंबली में संकलित किया जाता है और यह पूरी तरह से ब्राउज़र में चलता है। यह मानक इनपुट और वास्तविक निकास कोड का समर्थन करता है।"
+  },
+  "janetWasm.link": {
+    "translation": "<tag-1><tag-2>Janet आधिकारिक वेबसाइट</tag-2></tag-1> <tag-3> <tag-4>Janet दस्तावेज</tag-4> </tag-3> <tag-5> <tag-6>Y मिनट में X सीखें, जहाँ X=Janet</tag-6> </tag-5> <tag-7> <tag-8>लाइवकोड दस्तावेजीकरण</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
+  },
+  "janetWasm.name": {
+    "translation": "Janet (Wasm)"
+  },
   "java.desc": {
     "translation": "DoppioJVM का उपयोग करके ब्राउज़र में JVM चल रहा है।"
   },

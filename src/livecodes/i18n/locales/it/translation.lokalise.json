@@ -2022,6 +2022,9 @@
   "templates.starter.imba": {
     "translation": "Starter Imba"
   },
+  "templates.starter.janet-wasm": {
+    "translation": "Starter Janet (Wasm)"
+  },
   "templates.starter.java": {
     "translation": "Starter Java"
   },
