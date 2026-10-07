@@ -19,7 +19,7 @@ export const vWasm: LanguageSpecs = {
       language: 'v',
     },
     codemirror: {
-      languageSupport: async () => (await import(codeMirrorBaseUrl + 'codemirror-lang-go.js')).go(),
+      languageSupport: async () => (await import(codeMirrorBaseUrl + 'codemirror-lang-v.js')).v(),
     },
     codejar: { language: 'v' },
   },

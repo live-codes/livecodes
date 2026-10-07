@@ -1,6 +1,5 @@
 import type { CompileResult, LanguageSpecs } from '../../models';
-import { nimWasmBaseUrl } from '../../vendors';
-import { nimEditorSupport } from './nim-editor';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, nimWasmBaseUrl } from '../../vendors';
 
 // Nim's JavaScript backend, for pages that want a document: the compiler emits one self-sufficient
 // file, so it is compiled with `execute: false` and the result is run in the result page. That is
@@ -36,10 +35,14 @@ export const nim: LanguageSpecs = {
         return { code: `(() => {\n${result.compiledCode}\n})();`, info: {} };
       };
     },
-    compiledCodeLanguage: 'javascript',
-    liveReload: true,
   },
-  extensions: ['nim', 'nims', 'nimble'],
+  extensions: ['nim', 'nims', 'nimble', 'nim-js', 'js.nim'],
   editor: 'script',
-  editorSupport: nimEditorSupport,
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'nim.js' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-nim.js')).nim(),
+    },
+  },
 };

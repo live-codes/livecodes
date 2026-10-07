@@ -65,7 +65,7 @@ const getCompiler = (compileArgs = []) => {
   if (compiler && compilerArgs === key) return compiler;
   compilerArgs = key;
   const previous = compiler;
-  compiler = (async () => {
+  const created = (async () => {
     // Compile through the Clang runtime this page already uses, rather than the second copy the
     // Nim IIFE carries inside it, so only one runtime is ever loaded.
     const built = await getToolchain();
@@ -80,6 +80,13 @@ const getCompiler = (compileArgs = []) => {
     if (previous) previous.then((old) => old.dispose()).catch(() => undefined);
     return next;
   })();
+  created.catch(() => {
+    if (compiler === created) {
+      compiler = null;
+      compilerArgs = null;
+    }
+  });
+  compiler = created;
   return compiler;
 };
 

@@ -316,13 +316,13 @@ const languageInfo = {
     name: 'Nim',
   },
   nimWasm: {
-    desc: 'Nim compiled to C and then to WebAssembly by <1>Clang</1>, running entirely in the browser. It supports standard input, command-line arguments and real exit codes.',
-    link: '<1> <2>Nim official website</2> </1> <3> <4>Nim manual</4> </3> <5> <6>Nim standard library</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    desc: 'Nim compiled to C by the <1>Nim compiler</1> (compiled to WebAssembly) and then to WebAssembly by <2>Clang</2>, running entirely in the browser. It supports standard input, command-line arguments and real exit codes.',
+    link: '<1> <2>Nim official website</2> </1> <3> <4>Nim manual</4> </3> <5> <6>Nim standard library</6> </5> <7> <8>Learn X in Y minutes, where X=Nim</8> </7> <9> <10>LiveCodes Documentation</10> </9> <11> <12>Load starter template</12> </11>',
     name: 'Nim (Wasm)',
   },
   nunjucks: {
     desc: 'A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <1>jinja2</1>',
-    link: '<1> <2>Official website</2> </1> <3> <4>LiveCodes Documentations</4> </3>',
+    link: '<1> <2>Official website</2> </1> <3> <4>Learn X in Y minutes, where X=Nim</4> </3> <5> <6>LiveCodes Documentations</6> </5>',
     name: 'Nunjucks',
   },
   objcWasm: {

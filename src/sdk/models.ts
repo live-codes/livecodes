@@ -319,6 +319,8 @@ export type Language =
   | 'nim-wasm'
   | 'nimwasm'
   | 'wasm.nim'
+  | 'nim-js'
+  | 'js.nim'
   | 'tcl'
   | 'wat'
   | 'wast'

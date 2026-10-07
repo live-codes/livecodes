@@ -1,6 +1,6 @@
 import type { Config, LanguageSpecs } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
-import { nimEditorSupport } from './nim-editor';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
 // Nim's WebAssembly target compiles to C and then through the Clang toolchain, so it runs like the
 // Clang languages: the compiler here is a pass-through and the source reaches the result page as a
@@ -25,8 +25,15 @@ export const nimWasm: LanguageSpecs = {
     compiledCodeLanguage: 'nim-wasm',
     liveReload: true,
   },
-  extensions: ['nimwasm', 'nim-wasm', 'wasm.nim'],
+  extensions: ['nimwasm', 'wasm.nim'],
   editor: 'script',
-  editorSupport: nimEditorSupport,
+  editorSupport: {
+    monaco: { languageSupport: monacoLanguagesBaseUrl + 'nim.js', language: 'nim' },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-nim.js')).nim(),
+    },
+    codejar: { language: 'nim' },
+  },
   largeDownload: true,
 };
