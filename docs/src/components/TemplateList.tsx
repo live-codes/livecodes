@@ -39,7 +39,7 @@ const templates = [
   { name: 'ocaml', title: 'Ocaml Starter', thumbnail: 'ocaml.svg' },
   { name: 'nim', title: 'Nim Starter', thumbnail: 'nim.svg' },
   { name: 'nim-wasm', title: 'Nim (Wasm) Starter', thumbnail: 'nim.svg' },
-  { name: 'janet-wasm', title: 'Janet (Wasm) Starter', thumbnail: 'janet.svg' },
+  { name: 'janet-wasm', title: 'Janet (Wasm) Starter', thumbnail: 'janet.png' },
   { name: 'python', title: 'Python Starter', thumbnail: 'python.svg' },
   { name: 'python-wasm', title: 'Python (Wasm) Starter', thumbnail: 'python.svg' },
   { name: 'r', title: 'R Starter', thumbnail: 'r.svg' },

@@ -1,4 +1,5 @@
 import type { LanguageSpecs } from '../../models';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
 export const janetWasm: LanguageSpecs = {
   name: 'janet-wasm',
@@ -12,4 +13,15 @@ export const janetWasm: LanguageSpecs = {
   },
   extensions: ['janet', 'wasm.janet'],
   editor: 'script',
+  editorSupport: {
+    monaco: {
+      languageSupport: monacoLanguagesBaseUrl + 'janet.js',
+      language: 'janet',
+    },
+    codemirror: {
+      languageSupport: async () =>
+        (await import(codeMirrorBaseUrl + 'codemirror-lang-janet.js')).janet(),
+    },
+    codejar: { language: 'clojure' },
+  },
 };
