@@ -534,6 +534,24 @@
   "mustache.name": {
     "translation": "Mustache"
   },
+  "nim.desc": {
+    "translation": "Nim dikompilasi ke JavaScript oleh <tag-1>kompilator Nim</tag-1>, berjalan sepenuhnya di dalam browser. Program berjalan di halaman hasil, sehingga dapat mengontrol DOM secara langsung."
+  },
+  "nim.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Nim</tag-2> </tag-1> <tag-3> <tag-4>Manual Nim</tag-4> </tag-3> <tag-5> <tag-6>pustaka standar Nim</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "nim.name": {
+    "translation": "Nim"
+  },
+  "nimWasm.desc": {
+    "translation": "Nim dikompilasi ke C oleh <tag-1>kompilator Nim</tag-1> (dikompilasi ke WebAssembly) dan kemudian ke WebAssembly oleh <tag-2>Clang</tag-2>, berjalan sepenuhnya di dalam browser. Ini mendukung input standar, argumen baris perintah, dan kode keluar nyata."
+  },
+  "nimWasm.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Nim</tag-2> </tag-1> <tag-3> <tag-4>Manual Nim</tag-4> </tag-3> <tag-5> <tag-6>pustaka standar Nim</tag-6> </tag-5> <tag-7> <tag-8>Belajar X dalam Y menit, di mana X = Nim</tag-8> </tag-7> <tag-9> <tag-10>Dokumentasi LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Muat template pemula</tag-12> </tag-11>"
+  },
+  "nimWasm.name": {
+    "translation": "Nim (Wasm)"
+  },
   "nunjucks.desc": {
     "translation": "Bahasa templating yang kaya dan powerful untuk JavaScript. Nunjucks pada dasarnya adalah port dari <tag-1>jinja2</tag-1>"
   },

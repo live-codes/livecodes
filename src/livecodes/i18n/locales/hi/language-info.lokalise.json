@@ -534,6 +534,24 @@
   "mustache.name": {
     "translation": "Mustache"
   },
+  "nim.desc": {
+    "translation": "Nim को <tag-1>Nim कंपाइलर</tag-1> द्वारा JavaScript में संकलित किया गया है, जो पूरी तरह से ब्राउज़र में चलता है। प्रोग्राम परिणाम पृष्ठ में चलता है, इसलिए यह सीधे DOM को नियंत्रित कर सकता है।"
+  },
+  "nim.link": {
+    "translation": "<tag-1> <tag-2>Nim आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Nim मैनुअल</tag-4> </tag-3> <tag-5> <tag-6>Nim मानक पुस्तकालय</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes दस्तावेज़ीकरण</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
+  },
+  "nim.name": {
+    "translation": "Nim"
+  },
+  "nimWasm.desc": {
+    "translation": "Nim को <tag-1>Nim कंपाइलर</tag-1> द्वारा C में (WebAssembly में संकलित) और फिर <tag-2>Clang</tag-2> द्वारा WebAssembly में संकलित किया गया है, जो पूरी तरह से ब्राउज़र में चलता है। यह मानक इनपुट, कमांड-लाइन तर्क और वास्तविक निकास कोड का समर्थन करता है।"
+  },
+  "nimWasm.link": {
+    "translation": "<tag-1> <tag-2>Nim आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Nim मैनुअल</tag-4> </tag-3> <tag-5> <tag-6>Nim मानक पुस्तकालय</tag-6> </tag-5> <tag-7> <tag-8>Y मिनट में X सीखें, जहाँ X=Nim</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes दस्तावेज़ीकरण</tag-10> </tag-9> <tag-11> <tag-12>स्टार्टर टेम्पलेट लोड करें</tag-12> </tag-11>"
+  },
+  "nimWasm.name": {
+    "translation": "Nim (Wasm)"
+  },
   "nunjucks.desc": {
     "translation": "JavaScript के लिए एक समृद्ध और शक्तिशाली टेम्प्लेटिंग भाषा। Nunjucks अनिवार्य रूप से <tag-1>jinja2</tag-1> का एक पोर्ट है।"
   },

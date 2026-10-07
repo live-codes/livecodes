@@ -1029,6 +1029,8 @@ const translation: I18nTranslation = {
       markdown: 'Pemula Markdown',
       mdx: 'Pemula MDX',
       minizinc: 'Pemula MiniZinc',
+      nim: 'Pemula Nim',
+      'nim-wasm': 'Pemula Nim (Wasm)',
       'objc-wasm': 'Pemula Objective-C (Wasm)',
       ocaml: 'Pemula Ocaml',
       pascal: 'Pemula Pascal',

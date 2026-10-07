@@ -534,6 +534,24 @@
   "mustache.name": {
     "translation": "Mustache"
   },
+  "nim.desc": {
+    "translation": "Nim compilato in JavaScript dal <tag-1>compilatore Nim</tag-1>, in esecuzione interamente nel browser. Il programma viene eseguito nella pagina dei risultati, quindi può controllare direttamente il DOM."
+  },
+  "nim.link": {
+    "translation": "<tag-1> <tag-2>Sito web ufficiale di Nim</tag-2> </tag-1> <tag-3> <tag-4>Manuale Nim</tag-4> </tag-3> <tag-5> <tag-6>libreria standard di Nim</tag-6> </tag-5> <tag-7> <tag-8>Documentazione di LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carica il modello di partenza</tag-10> </tag-9>"
+  },
+  "nim.name": {
+    "translation": "Nim"
+  },
+  "nimWasm.desc": {
+    "translation": "Nim compilato in C dal <tag-1>compilatore Nim</tag-1> (compilato in WebAssembly) e poi in WebAssembly da <tag-2>Clang</tag-2>, in esecuzione interamente nel browser. Supporta input standard, argomenti della riga di comando e codici di uscita reali."
+  },
+  "nimWasm.link": {
+    "translation": "<tag-1> <tag-2>Sito web ufficiale di Nim</tag-2> </tag-1> <tag-3> <tag-4>Manuale Nim</tag-4> </tag-3> <tag-5> <tag-6>libreria standard di Nim</tag-6> </tag-5> <tag-7> <tag-8>Impara X in Y minuti, dove X = Nim</tag-8> </tag-7> <tag-9> <tag-10>Documentazione di LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Carica il modello di partenza</tag-12> </tag-11>"
+  },
+  "nimWasm.name": {
+    "translation": "Nim (Wasm)"
+  },
   "nunjucks.desc": {
     "translation": "Un linguaggio di modello ricco e potente per JavaScript. Nunjucks è essenzialmente una porta di <tag-1>jinja2</tag-1>."
   },

@@ -534,6 +534,24 @@
   "mustache.name": {
     "translation": "Mustache"
   },
+  "nim.desc": {
+    "translation": "Nim gecompileerd naar JavaScript door de <tag-1>Nim-compiler</tag-1>, draait volledig in de browser. Het programma draait in de resultatenpagina en kan dus rechtstreeks het DOM aansturen."
+  },
+  "nim.link": {
+    "translation": "<tag-1> <tag-2>Officiële website van Nim</tag-2> </tag-1> <tag-3> <tag-4>Nim-handleiding</tag-4> </tag-3> <tag-5> <tag-6>Nim standard library</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startsjabloon laden</tag-10> </tag-9>"
+  },
+  "nim.name": {
+    "translation": "Nim"
+  },
+  "nimWasm.desc": {
+    "translation": "Nim gecompileerd naar C door de <tag-1>Nim-compiler</tag-1> (gecompileerd naar WebAssembly) en vervolgens naar WebAssembly door <tag-2>Clang</tag-2>, draait volledig in de browser. Het ondersteunt standaardinvoer, opdrachtregelargumenten en echte exitcodes."
+  },
+  "nimWasm.link": {
+    "translation": "<tag-1> <tag-2>Officiële website van Nim</tag-2> </tag-1> <tag-3> <tag-4>Nim-handleiding</tag-4> </tag-3> <tag-5> <tag-6>Nim standard library</tag-6> </tag-5> <tag-7> <tag-8>Leer X in Y minuten, waarbij X = Nim</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Documentatie</tag-10> </tag-9> <tag-11> <tag-12>Startsjabloon laden</tag-12> </tag-11>"
+  },
+  "nimWasm.name": {
+    "translation": "Nim (Wasm)"
+  },
   "nunjucks.desc": {
     "translation": "Een rijke en krachtige sjabloontaal voor JavaScript. Nunjucks is in wezen een port van <tag-1>jinja2</tag-1>"
   },

@@ -2070,6 +2070,12 @@
   "templates.starter.minizinc": {
     "translation": "Pemula MiniZinc"
   },
+  "templates.starter.nim": {
+    "translation": "Pemula Nim"
+  },
+  "templates.starter.nim-wasm": {
+    "translation": "Pemula Nim (Wasm)"
+  },
   "templates.starter.objc-wasm": {
     "translation": "Pemula Objective-C (Wasm)"
   },

@@ -2070,6 +2070,12 @@
   "templates.starter.minizinc": {
     "translation": "Iniciante MiniZinc"
   },
+  "templates.starter.nim": {
+    "translation": "Iniciante Nim"
+  },
+  "templates.starter.nim-wasm": {
+    "translation": "Iniciante Nim (Wasm)"
+  },
   "templates.starter.objc-wasm": {
     "translation": "Iniciante Objective-C (Wasm)"
   },

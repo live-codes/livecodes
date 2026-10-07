@@ -2070,6 +2070,12 @@
   "templates.starter.minizinc": {
     "translation": "Démarrage MiniZinc"
   },
+  "templates.starter.nim": {
+    "translation": "Démarrage Nim"
+  },
+  "templates.starter.nim-wasm": {
+    "translation": "Démarrage Nim (Wasm)"
+  },
   "templates.starter.objc-wasm": {
     "translation": "Démarrage Objective-C (Wasm)"
   },

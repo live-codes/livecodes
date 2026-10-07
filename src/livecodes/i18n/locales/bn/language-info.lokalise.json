@@ -534,6 +534,24 @@
   "mustache.name": {
     "translation": "Mustache"
   },
+  "nim.desc": {
+    "translation": "Nim <tag-1>Nim কম্পাইলার</tag-1> দ্বারা JavaScript-এ কম্পাইল করা হয়েছে এবং সম্পূর্ণরূপে ব্রাউজারে চলে। প্রোগ্রামটি রেজাল্ট পেজে চলে, তাই এটি সরাসরি DOM নিয়ন্ত্রণ করতে পারে।"
+  },
+  "nim.link": {
+    "translation": "<tag-1> <tag-2>Nim অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Nim ম্যানুয়াল</tag-4> </tag-3> <tag-5> <tag-6>Nim স্ট্যান্ডার্ড লাইব্রেরি</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "nim.name": {
+    "translation": "Nim"
+  },
+  "nimWasm.desc": {
+    "translation": "Nim <tag-1>Nim কম্পাইলার</tag-1> (WebAssembly-এ কম্পাইল করা) দ্বারা C-তে এবং তারপর <tag-2>Clang</tag-2> দ্বারা WebAssembly-তে কম্পাইল করা হয়েছে এবং সম্পূর্ণরূপে ব্রাউজারে চলে। এটি স্ট্যান্ডার্ড ইনপুট, কমান্ড-লাইন আর্গুমেন্ট এবং প্রকৃত এক্সিট কোড সমর্থন করে।"
+  },
+  "nimWasm.link": {
+    "translation": "<tag-1> <tag-2>Nim অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Nim ম্যানুয়াল</tag-4> </tag-3> <tag-5> <tag-6>Nim স্ট্যান্ডার্ড লাইব্রেরি</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Nim</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "nimWasm.name": {
+    "translation": "Nim (Wasm)"
+  },
   "nunjucks.desc": {
     "translation": "JavaScript-এর জন্য একটি সমৃদ্ধ এবং শক্তিশালী টেমপ্লেটিং ভাষা। Nunjucks মূলত <tag-1>jinja2</tag-1> এর একটি পোর্ট"
   },

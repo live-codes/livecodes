@@ -304,6 +304,16 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Hivatalos weboldal</2> </1> <3> <4>mustache(5) kézikönyv</4> </3> <5> <6>JavaScript implementáció</6> </5> <7> <8>LiveCodes dokumentáció</8> </7>',
     name: 'Mustache',
   },
+  nim: {
+    desc: 'A Nim a <1>Nim fordító</1> segítségével JavaScript-re van fordítva, és teljes egészében a böngészőben fut. A program az eredményoldalon fut, így közvetlenül vezérelheti a DOM-ot.',
+    link: '<1> <2>A Nim hivatalos weboldala</2> </1> <3> <4>Nim kézikönyv</4> </3> <5> <6>Nim standard könyvtár</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Nim',
+  },
+  nimWasm: {
+    desc: 'A Nim a <1>Nim fordító</1> segítségével C-re (WebAssembly-re fordítva), majd a <2>Clang</2> segítségével WebAssembly-re van fordítva, és teljes egészében a böngészőben fut. Támogatja a szabványos bemenetet, a parancssori argumentumokat és a valódi kilépési kódokat.',
+    link: '<1> <2>A Nim hivatalos weboldala</2> </1> <3> <4>Nim kézikönyv</4> </3> <5> <6>Nim standard könyvtár</6> </5> <7> <8>Tanulj meg X-et Y perc alatt, ahol X=Nim</8> </7> <9> <10>LiveCodes dokumentáció</10> </9> <11> <12>Kezdő sablon betöltése</12> </11>',
+    name: 'Nim (Wasm)',
+  },
   nunjucks: {
     desc: 'Egy gazdag és hatékony sablonnyelv JavaScript-hez. A Nunjucks lényegében a <1>jinja2</1> portja',
     link: '<1> <2>Hivatalos weboldal</2> </1> <3> <4>LiveCodes dokumentáció</4> </3>',

@@ -1030,6 +1030,8 @@ const translation: I18nTranslation = {
       markdown: 'شروع کننده Markdown',
       mdx: 'شروع کننده MDX',
       minizinc: 'شروع کننده MiniZinc',
+      nim: 'شروع کننده Nim',
+      'nim-wasm': 'شروع کننده Nim (Wasm)',
       'objc-wasm': 'شروع کننده Objective-C (Wasm)',
       ocaml: 'شروع کننده Ocaml',
       pascal: 'شروع کننده Pascal',

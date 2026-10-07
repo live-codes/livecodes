@@ -303,6 +303,16 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Officiële website</2> </1> <3> <4>mustache(5) handleiding</4> </3> <5> <6>JavaScript-implementatie</6> </5> <7> <8>LiveCodes Documentatie</8> </7>',
     name: 'Mustache',
   },
+  nim: {
+    desc: 'Nim gecompileerd naar JavaScript door de <1>Nim-compiler</1>, draait volledig in de browser. Het programma draait in de resultatenpagina en kan dus rechtstreeks het DOM aansturen.',
+    link: '<1> <2>Officiële website van Nim</2> </1> <3> <4>Nim-handleiding</4> </3> <5> <6>Nim standard library</6> </5> <7> <8>LiveCodes Documentatie</8> </7> <9> <10>Startsjabloon laden</10> </9>',
+    name: 'Nim',
+  },
+  nimWasm: {
+    desc: 'Nim gecompileerd naar C door de <1>Nim-compiler</1> (gecompileerd naar WebAssembly) en vervolgens naar WebAssembly door <2>Clang</2>, draait volledig in de browser. Het ondersteunt standaardinvoer, opdrachtregelargumenten en echte exitcodes.',
+    link: '<1> <2>Officiële website van Nim</2> </1> <3> <4>Nim-handleiding</4> </3> <5> <6>Nim standard library</6> </5> <7> <8>Leer X in Y minuten, waarbij X = Nim</8> </7> <9> <10>LiveCodes Documentatie</10> </9> <11> <12>Startsjabloon laden</12> </11>',
+    name: 'Nim (Wasm)',
+  },
   nunjucks: {
     desc: 'Een rijke en krachtige sjabloontaal voor JavaScript. Nunjucks is in wezen een port van <1>jinja2</1>',
     link: '<1> <2>Officiële website</2> </1> <3> <4>LiveCodes Documentatie</4> </3>',

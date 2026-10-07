@@ -304,6 +304,16 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi</2> </1> <3> <4>Manual mustache(5)</4> </3> <5> <6>Implementasi JavaScript</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7>',
     name: 'Mustache',
   },
+  nim: {
+    desc: 'Nim dikompilasi ke JavaScript oleh <1>kompilator Nim</1>, berjalan sepenuhnya di dalam browser. Program berjalan di halaman hasil, sehingga dapat mengontrol DOM secara langsung.',
+    link: '<1> <2>Situs web resmi Nim</2> </1> <3> <4>Manual Nim</4> </3> <5> <6>pustaka standar Nim</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
+    name: 'Nim',
+  },
+  nimWasm: {
+    desc: 'Nim dikompilasi ke C oleh <1>kompilator Nim</1> (dikompilasi ke WebAssembly) dan kemudian ke WebAssembly oleh <2>Clang</2>, berjalan sepenuhnya di dalam browser. Ini mendukung input standar, argumen baris perintah, dan kode keluar nyata.',
+    link: '<1> <2>Situs web resmi Nim</2> </1> <3> <4>Manual Nim</4> </3> <5> <6>pustaka standar Nim</6> </5> <7> <8>Belajar X dalam Y menit, di mana X = Nim</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat template pemula</12> </11>',
+    name: 'Nim (Wasm)',
+  },
   nunjucks: {
     desc: 'Bahasa templating yang kaya dan powerful untuk JavaScript. Nunjucks pada dasarnya adalah port dari <1>jinja2</1>',
     link: '<1> <2>Situs web resmi</2> </1> <3> <4>Dokumentasi LiveCodes</4> </3>',

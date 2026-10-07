@@ -2070,6 +2070,12 @@
   "templates.starter.minizinc": {
     "translation": "قالب MiniZinc"
   },
+  "templates.starter.nim": {
+    "translation": "قالب Nim"
+  },
+  "templates.starter.nim-wasm": {
+    "translation": "قالب Nim (Wasm)"
+  },
   "templates.starter.objc-wasm": {
     "translation": "قالب Objective-C (Wasm)"
   },

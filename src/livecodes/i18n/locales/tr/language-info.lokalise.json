@@ -534,6 +534,24 @@
   "mustache.name": {
     "translation": "Mustache"
   },
+  "nim.desc": {
+    "translation": "Nim, <tag-1>Nim derleyicisi</tag-1> tarafından JavaScript'e derlenir ve tamamen tarayıcı içinde çalışır. Program sonuç sayfasında çalışır, böylece DOM'u doğrudan kontrol edebilir."
+  },
+  "nim.link": {
+    "translation": "<tag-1> <tag-2>Nim resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Nim kılavuzu</tag-4> </tag-3> <tag-5> <tag-6>Nim standart kütüphanesi</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "nim.name": {
+    "translation": "Nim"
+  },
+  "nimWasm.desc": {
+    "translation": "Nim, <tag-1>Nim derleyicisi</tag-1> tarafından C'ye (WebAssembly'ye derlenmiş) ve ardından <tag-2>Clang</tag-2> tarafından WebAssembly'ye derlenir ve tamamen tarayıcı içinde çalışır. Standart girişi, komut satırı argümanlarını ve gerçek çıkış kodlarını destekler."
+  },
+  "nimWasm.link": {
+    "translation": "<tag-1> <tag-2>Nim resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Nim kılavuzu</tag-4> </tag-3> <tag-5> <tag-6>Nim standart kütüphanesi</tag-6> </tag-5> <tag-7> <tag-8>Y dakikada X'i öğrenin, burada X=Nim</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Belgeleri</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "nimWasm.name": {
+    "translation": "Nim (Wasm)"
+  },
   "nunjucks.desc": {
     "translation": "JavaScript için zengin ve güçlü bir şablonlama dili. Nunjucks aslında <tag-1>jinja2</tag-1>'nin bir portudur."
   },

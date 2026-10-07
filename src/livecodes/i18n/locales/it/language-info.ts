@@ -303,6 +303,16 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sito ufficiale</2> </1> <3> <4>Manuale mustache(5)</4> </3> <5> <6>Implementazione JavaScript</6> </5> <7> <8>Documentazione LiveCodes</8> </7>',
     name: 'Mustache',
   },
+  nim: {
+    desc: 'Nim compilato in JavaScript dal <1>compilatore Nim</1>, in esecuzione interamente nel browser. Il programma viene eseguito nella pagina dei risultati, quindi può controllare direttamente il DOM.',
+    link: '<1> <2>Sito web ufficiale di Nim</2> </1> <3> <4>Manuale Nim</4> </3> <5> <6>libreria standard di Nim</6> </5> <7> <8>Documentazione di LiveCodes</8> </7> <9> <10>Carica il modello di partenza</10> </9>',
+    name: 'Nim',
+  },
+  nimWasm: {
+    desc: 'Nim compilato in C dal <1>compilatore Nim</1> (compilato in WebAssembly) e poi in WebAssembly da <2>Clang</2>, in esecuzione interamente nel browser. Supporta input standard, argomenti della riga di comando e codici di uscita reali.',
+    link: '<1> <2>Sito web ufficiale di Nim</2> </1> <3> <4>Manuale Nim</4> </3> <5> <6>libreria standard di Nim</6> </5> <7> <8>Impara X in Y minuti, dove X = Nim</8> </7> <9> <10>Documentazione di LiveCodes</10> </9> <11> <12>Carica il modello di partenza</12> </11>',
+    name: 'Nim (Wasm)',
+  },
   nunjucks: {
     desc: 'Un linguaggio di modello ricco e potente per JavaScript. Nunjucks è essenzialmente una porta di <1>jinja2</1>.',
     link: '<1> <2>Sito ufficiale</2> </1> <3> <4>Documentazione LiveCodes</4> </3>',
