@@ -2,8 +2,8 @@ import type { CompileResult, LanguageSpecs } from '../../models';
 import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, nimWasmBaseUrl } from '../../vendors';
 
 // Nim's JavaScript backend, for pages that want a document: the compiler emits one self-sufficient
-// file, so it is compiled with `execute: false` and the result is run in the result page. That is
-// the shape the TypeScript compiler's factory has; `compiledCodeLanguage` says the output is JS.
+// file, so it is compiled with `execute: false` and the result is run in the result page, the same
+// shape as the TypeScript compiler's factory.
 export const nim: LanguageSpecs = {
   name: 'nim',
   title: 'Nim',
