@@ -538,7 +538,7 @@
     "translation": "Nim compilé en JavaScript par le <tag-1>compilateur Nim</tag-1>, s'exécutant entièrement dans le navigateur. Le programme s'exécute dans la page de résultats, il peut donc manipuler le DOM directement."
   },
   "nim.link": {
-    "translation": "<tag-1> <tag-2>Site officiel de Nim</tag-2> </tag-1> <tag-3> <tag-4>Manuel Nim</tag-4> </tag-3> <tag-5> <tag-6>bibliothèque standard de Nim</tag-6> </tag-5> <tag-7> <tag-8>Documentation LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Charger le modèle de démarrage</tag-10> </tag-9>"
+    "translation": "<tag-1> <tag-2>Site officiel de Nim</tag-2> </tag-1> <tag-3> <tag-4>Manuel Nim</tag-4> </tag-3> <tag-5> <tag-6>bibliothèque standard de Nim</tag-6> </tag-5> <tag-7> <tag-8>Apprenez X en Y minutes, où X = Nim</tag-8> </tag-7> <tag-9> <tag-10>Documentation LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Charger le modèle de démarrage</tag-12> </tag-11>"
   },
   "nim.name": {
     "translation": "Nim"

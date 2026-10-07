@@ -306,7 +306,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   nim: {
     desc: 'Nim dikompilasi ke JavaScript oleh <1>kompilator Nim</1>, berjalan sepenuhnya di dalam browser. Program berjalan di halaman hasil, sehingga dapat mengontrol DOM secara langsung.',
-    link: '<1> <2>Situs web resmi Nim</2> </1> <3> <4>Manual Nim</4> </3> <5> <6>pustaka standar Nim</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
+    link: '<1> <2>Situs web resmi Nim</2> </1> <3> <4>Manual Nim</4> </3> <5> <6>pustaka standar Nim</6> </5> <7> <8>Belajar X dalam Y menit, di mana X = Nim</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat template pemula</12> </11>',
     name: 'Nim',
   },
   nimWasm: {

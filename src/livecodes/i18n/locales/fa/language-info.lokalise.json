@@ -538,7 +538,7 @@
     "translation": "Nim توسط <tag-1>کامپایلر Nim</tag-1> به JavaScript کامپایل شده و کاملاً در مرورگر اجرا می‌شود. برنامه در صفحه نتایج اجرا می‌شود، بنابراین می‌تواند DOM را مستقیماً کنترل کند."
   },
   "nim.link": {
-    "translation": "<tag-1> <tag-2>وب‌سایت رسمی Nim</tag-2> </tag-1> <tag-3> <tag-4>راهنمای Nim</tag-4> </tag-3> <tag-5> <tag-6>کتابخانه استاندارد Nim</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع کننده</tag-10> </tag-9>"
+    "translation": "<tag-1> <tag-2>وب‌سایت رسمی Nim</tag-2> </tag-1> <tag-3> <tag-4>راهنمای Nim</tag-4> </tag-3> <tag-5> <tag-6>کتابخانه استاندارد Nim</tag-6> </tag-5> <tag-7> <tag-8>یادگیری X در Y دقیقه، که X=Nim</tag-8> </tag-7> <tag-9> <tag-10>مستندات LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>بارگذاری قالب شروع کننده</tag-12> </tag-11>"
   },
   "nim.name": {
     "translation": "Nim"

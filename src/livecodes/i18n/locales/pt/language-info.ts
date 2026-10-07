@@ -305,7 +305,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   nim: {
     desc: 'Nim compilado para JavaScript pelo <1>compilador Nim</1>, sendo executado inteiramente no navegador. O programa é executado na página de resultados, portanto pode controlar o DOM diretamente.',
-    link: '<1> <2>Site oficial do Nim</2> </1> <3> <4>Manual do Nim</4> </3> <5> <6>biblioteca padrão do Nim</6> </5> <7> <8>Documentação do LiveCodes</8> </7> <9> <10>Carregar modelo inicial</10> </9>',
+    link: '<1> <2>Site oficial do Nim</2> </1> <3> <4>Manual do Nim</4> </3> <5> <6>biblioteca padrão do Nim</6> </5> <7> <8>Aprenda X em Y minutos, onde X = Nim</8> </7> <9> <10>Documentação do LiveCodes</10> </9> <11> <12>Carregar modelo inicial</12> </11>',
     name: 'Nim',
   },
   nimWasm: {

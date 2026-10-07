@@ -538,7 +538,7 @@
     "translation": "Nim は <tag-1>Nim コンパイラ</tag-1> によって JavaScript にコンパイルされ、完全にブラウザ内で実行されます。プログラムは結果ページで実行されるため、DOM を直接操作できます。"
   },
   "nim.link": {
-    "translation": "<tag-1> <tag-2>Nim 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>Nim マニュアル</tag-4> </tag-3> <tag-5> <tag-6>Nim標準ライブラリ</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートを読み込む</tag-10> </tag-9>"
+    "translation": "<tag-1> <tag-2>Nim 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>Nim マニュアル</tag-4> </tag-3> <tag-5> <tag-6>Nim標準ライブラリ</tag-6> </tag-5> <tag-7> <tag-8>「Y分でXを学ぶ」（X=Nim）</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ドキュメント</tag-10> </tag-9> <tag-11> <tag-12>スターターテンプレートを読み込む</tag-12> </tag-11>"
   },
   "nim.name": {
     "translation": "Nim"

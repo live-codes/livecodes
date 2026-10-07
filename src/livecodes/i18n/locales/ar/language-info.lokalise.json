@@ -538,7 +538,7 @@
     "translation": "تم تجميع Nim إلى JavaScript بواسطة <tag-1>مترجم Nim</tag-1>، ويعمل بالكامل داخل المتصفح. يعمل البرنامج في صفحة النتائج، لذا يمكنه التحكم في DOM مباشرةً."
   },
   "nim.link": {
-    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Nim</tag-2> </tag-1> <tag-3> <tag-4>دليل Nim</tag-4> </tag-3> <tag-5> <tag-6>مكتبة Nim القياسية</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البداية</tag-10> </tag-9>"
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Nim</tag-2> </tag-1> <tag-3> <tag-4>دليل Nim</tag-4> </tag-3> <tag-5> <tag-6>مكتبة Nim القياسية</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقائق، حيث X=Nim</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل قالب البداية</tag-12> </tag-11>"
   },
   "nim.name": {
     "translation": "Nim"

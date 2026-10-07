@@ -306,7 +306,7 @@ const languageInfo: I18nLangInfoTranslation = {
   },
   nim: {
     desc: "Nim, <1>Nim derleyicisi</1> tarafından JavaScript'e derlenir ve tamamen tarayıcı içinde çalışır. Program sonuç sayfasında çalışır, böylece DOM'u doğrudan kontrol edebilir.",
-    link: '<1> <2>Nim resmi web sitesi</2> </1> <3> <4>Nim kılavuzu</4> </3> <5> <6>Nim standart kütüphanesi</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    link: "<1> <2>Nim resmi web sitesi</2> </1> <3> <4>Nim kılavuzu</4> </3> <5> <6>Nim standart kütüphanesi</6> </5> <7> <8>Y dakikada X'i öğrenin, burada X=Nim</8> </7> <9> <10>LiveCodes Belgeleri</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
     name: 'Nim',
   },
   nimWasm: {

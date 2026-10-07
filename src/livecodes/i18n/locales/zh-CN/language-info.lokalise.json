@@ -538,7 +538,7 @@
     "translation": "Nim 由 <tag-1>Nim 编译器</tag-1> 编译为 JavaScript，完全在浏览器中运行。程序在结果页面中运行，因此可以直接操作 DOM。"
   },
   "nim.link": {
-    "translation": "<tag-1> <tag-2>Nim 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Nim 手册</tag-4> </tag-3> <tag-5> <tag-6>Nim 标准库</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载启动模板</tag-10> </tag-9>"
+    "translation": "<tag-1> <tag-2>Nim 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Nim 手册</tag-4> </tag-3> <tag-5> <tag-6>Nim 标准库</tag-6> </tag-5> <tag-7> <tag-8>《Y分钟学会X》，其中X=Nim</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes 文档</tag-10> </tag-9> <tag-11> <tag-12>加载启动模板</tag-12> </tag-11>"
   },
   "nim.name": {
     "translation": "Nim"
