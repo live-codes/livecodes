@@ -312,7 +312,7 @@ const languageInfo = {
   },
   nim: {
     desc: 'Nim compiled to JavaScript by the <1>Nim compiler</1>, running entirely in the browser. The program runs in the result page, so it can drive the DOM directly.',
-    link: '<1> <2>Nim official website</2> </1> <3> <4>Nim manual</4> </3> <5> <6>Nim standard library</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    link: '<1> <2>Nim official website</2> </1> <3> <4>Nim manual</4> </3> <5> <6>Nim standard library</6> </5> <7> <8>Learn X in Y minutes, where X=Nim</8> </7> <9> <10>LiveCodes Documentation</10> </9> <11> <12>Load starter template</12> </11>',
     name: 'Nim',
   },
   nimWasm: {
