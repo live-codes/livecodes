@@ -217,6 +217,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>官方网站</2></1>',
     name: 'Imba',
   },
+  janetWasm: {
+    desc: '<1>Janet</1> 解释器编译为 WebAssembly，并在浏览器中完全运行。它支持标准输入和真实的退出代码。',
+    link: '<1><2>Janet 官方网站</2></1> <3> <4>Janet 文档</4> </3> <5> <6>《Y分钟学会X》，其中X=Janet</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Janet (Wasm)',
+  },
   java: {
     desc: '使用 DoppioJVM 在浏览器中运行的 JVM。',
     link: '<1> <2>Java 官方网站</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=java</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',

@@ -1013,6 +1013,7 @@ const translation: I18nTranslation = {
       'haskell-wasm': 'ہاسکل (واسم) شروعاتی',
       heading: 'شروعاتی سانچے',
       imba: 'امبا شروعاتی',
+      'janet-wasm': 'Janet (واسم) شروعاتی',
       java: 'جاوا شروعاتی',
       javascript: 'جاوا اسکرپٹ شروعاتی',
       jest: 'جیسٹ شروعاتی',

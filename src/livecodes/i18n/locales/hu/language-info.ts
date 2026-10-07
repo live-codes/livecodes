@@ -222,6 +222,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Hivatalos weboldal</2></1>',
     name: 'Imba',
   },
+  janetWasm: {
+    desc: 'A <1>Janet</1> értelmező WebAssembly-re van fordítva, és teljes egészében a böngészőben fut. Támogatja a szabványos bemenetet és a valódi kilépési kódokat.',
+    link: '<1><2>Az Janet hivatalos weboldala</2></1> <3> <4>Janet dokumentáció</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=Janet</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Janet (Wasm)',
+  },
   java: {
     desc: 'JVM fut a böngészőben a DoppioJVM használatával.',
     link: '<1> <2>Java hivatalos weboldal</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=java</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',

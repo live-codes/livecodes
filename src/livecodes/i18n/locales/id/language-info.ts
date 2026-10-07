@@ -222,6 +222,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Situs web resmi</2></1>',
     name: 'Imba',
   },
+  janetWasm: {
+    desc: 'Interpreter <1>Janet</1> dikompilasi ke WebAssembly dan dijalankan sepenuhnya di dalam browser. Ini mendukung input standar dan kode keluar nyata.',
+    link: '<1><2>Situs web resmi Janet</2></1> <3> <4>Dokumentasi Janet</4> </3> <5> <6>Belajar X dalam Y menit, di mana X = Janet</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Janet (Wasm)',
+  },
   java: {
     desc: 'JVM berjalan di browser menggunakan DoppioJVM.',
     link: '<1> <2>Situs web resmi Java</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=java</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',

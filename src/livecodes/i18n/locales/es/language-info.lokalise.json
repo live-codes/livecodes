@@ -387,6 +387,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "janetWasm.desc": {
+    "translation": "El intérprete de <tag-1>Janet</tag-1> se compila a WebAssembly y se ejecuta íntegramente en el navegador. Admite entrada estándar y códigos de salida reales."
+  },
+  "janetWasm.link": {
+    "translation": "<tag-1><tag-2>Página web oficial de Janet</tag-2></tag-1> <tag-3> <tag-4>Documentación de Janet</tag-4> </tag-3> <tag-5> <tag-6>Aprende X en Y minutos, donde X = Janet</tag-6> </tag-5> <tag-7> <tag-8>Documentación de LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Cargar plantilla de inicio</tag-10> </tag-9>"
+  },
+  "janetWasm.name": {
+    "translation": "Janet (Wasm)"
+  },
   "java.desc": {
     "translation": "JVM ejecutándose en el navegador utilizando DoppioJVM."
   },
