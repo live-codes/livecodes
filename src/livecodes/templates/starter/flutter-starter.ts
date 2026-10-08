@@ -11,7 +11,7 @@ export const flutterStarter: Template = {
   activeEditor: 'script',
   markup: {
     language: 'html',
-    content: '',
+    content: '<div>Loading...</div>',
   },
   style: {
     language: 'css',
