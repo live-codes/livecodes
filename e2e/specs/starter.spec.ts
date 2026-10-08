@@ -1853,19 +1853,15 @@ test.describe('Starter Templates from URL', () => {
     await waitForEditorFocus(app);
     await waitForResultUpdate();
 
-    const titleText = await getResult().innerText('h1');
-    expect(titleText).toBe('Hello from Dart');
+    // the button stays disabled until the compiled program has run and wired it up
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 280_000 });
 
-    // what the program printed proves it was compiled and run
-    await app.click('#tools-pane-titles > .console');
-    await app.waitForFunction(
-      () =>
-        [...document.querySelectorAll('#console-container .luna-console-log-item')].some((item) =>
-          item.textContent?.includes('Hello from Dart!'),
-        ),
-      undefined,
-      { timeout: 280_000 },
-    );
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, Dart!');
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
   test('Flutter Starter', async ({ page, getTestUrl }) => {

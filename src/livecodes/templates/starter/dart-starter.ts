@@ -1,10 +1,5 @@
 import type { Template } from '../../models';
 
-/**
- * The Dart starter. The code is compiled to JavaScript in the compile worker and the bundle runs
- * in the result page, so the markup and styles are just the page around it; what the program
- * prints goes to the console.
- */
 export const dartStarter: Template = {
   name: 'dart',
   aliases: ['dartlang'],
@@ -15,17 +10,18 @@ export const dartStarter: Template = {
     language: 'html',
     content: `
 <div class="container">
-  <h1>Hello from Dart</h1>
+  <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/dart.svg" />
-  <p>This program is compiled to JavaScript and run in this page.</p>
-  <p>Open the console to see its output.</p>
+  <p>You clicked <span id="counter">0</span> times.</p>
+  <button id="counter-button" disabled>Loading...</button>
 </div>
 `.trimStart(),
   },
   style: {
     language: 'css',
     content: `
-.container {
+.container,
+.container button {
   text-align: center;
   font: 1em sans-serif;
 }
@@ -37,25 +33,36 @@ export const dartStarter: Template = {
   script: {
     language: 'dart',
     content: `
+import 'dart:js_interop';
+
+@JS('document')
+external Document get document;
+
+extension type Document(JSObject _) implements JSObject {
+  external Element? querySelector(String selectors);
+}
+
+extension type Element(JSObject _) implements JSObject {
+  external set textContent(String value);
+  external set disabled(bool value);
+  external set onclick(JSFunction? value);
+}
+
 void main() {
-  print('Hello from Dart!');
+  document.querySelector('#name')?.textContent = 'Dart';
 
-  final fibonacci = <int>[0, 1];
-  while (fibonacci.length < 10) {
-    fibonacci.add(fibonacci[fibonacci.length - 1] + fibonacci[fibonacci.length - 2]);
-  }
-  print('Fibonacci: \$fibonacci');
+  final counter = document.querySelector('#counter');
+  final button = document.querySelector('#counter-button');
+  if (counter == null || button == null) return;
 
-  final squares = {for (var i = 1; i <= 5; i++) i: i * i};
-  for (final entry in squares.entries) {
-    print('\${entry.key}² = \${entry.value}');
-  }
+  var count = 0;
+  button.disabled = false;
+  button.textContent = 'Click me';
+  button.onclick = (JSAny? _) {
+    count++;
+    counter.textContent = '\$count';
+  }.toJS;
 }
 `.trimStart(),
-  },
-  tools: {
-    enabled: 'all',
-    active: 'console',
-    status: 'open',
   },
 };

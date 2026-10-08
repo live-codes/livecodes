@@ -1,8 +1,8 @@
 import type { Template } from '../../models';
 
 /**
- * The Flutter starter. The compiled app boots the Flutter engine and renders into the result page
- * itself, so there is no markup or stylesheet to go with it.
+ * The Flutter starter, matching the other starters: the app renders the heading, the logo and the
+ * counter itself, since Flutter draws its own UI in the result page.
  */
 export const flutterStarter: Template = {
   name: 'flutter',
@@ -42,28 +42,19 @@ class _CounterAppState extends State<CounterApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: const Color(0xFF14141A),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Flutter, client-side',
-                style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 20),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                '\$_count',
-                style: const TextStyle(
-                  color: Color(0xFF4AC2F7),
-                  fontSize: 56,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              const Text('Hello, Flutter!', style: TextStyle(fontSize: 24)),
+              const SizedBox(height: 16),
+              const FlutterLogo(size: 120),
+              const SizedBox(height: 16),
+              Text('You clicked \$_count times.', style: const TextStyle(fontSize: 16)),
               const SizedBox(height: 12),
               ElevatedButton(
                 onPressed: () => setState(() => _count++),
-                child: const Text('Increment'),
+                child: const Text('Click me'),
               ),
             ],
           ),

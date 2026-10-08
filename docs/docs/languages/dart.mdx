@@ -26,7 +26,32 @@ export const dartConfig = {
 
 <LiveCodes config={dartConfig}></LiveCodes>
 
-The compiled JavaScript runs in the context of the [result page](../features/result.mdx), so a Dart program has the page, its DOM and the markup and styles from the other editors. What the program prints goes to the console.
+The compiled JavaScript runs in the context of the [result page](../features/result.mdx), so a Dart program has the page, its DOM and the markup and styles from the other editors.
+
+### Accessing the DOM
+
+`dart:js_interop` ships with the SDK, so the program can reach the page directly — no packages and no network needed:
+
+```dart
+import 'dart:js_interop';
+
+@JS('document')
+external Document get document;
+
+extension type Document(JSObject _) implements JSObject {
+  external Element? querySelector(String selectors);
+}
+
+extension type Element(JSObject _) implements JSObject {
+  external set textContent(String value);
+}
+
+void main() {
+  document.querySelector('#name')?.textContent = 'Dart';
+}
+```
+
+What the program prints goes to the console.
 
 Templates, collections and pattern matching behave as expected:
 
