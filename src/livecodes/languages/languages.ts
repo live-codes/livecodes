@@ -21,6 +21,7 @@ import { cpp } from './cpp';
 import { csharpWasm } from './csharp-wasm';
 import { css } from './css';
 import { dWasm } from './d-wasm';
+import { dart } from './dart';
 import { diagrams } from './diagrams';
 import { dot } from './dot';
 import { ejs } from './ejs';
@@ -29,6 +30,7 @@ import { eta } from './eta';
 import { fanak } from './fanak';
 import { fennel } from './fennel';
 import { flow } from './flow';
+import { flutter } from './flutter';
 import { fortranWasm } from './fortran-wasm';
 import { fsharp } from './fsharp';
 import { fsharpWasm } from './fsharp-wasm';
@@ -180,6 +182,8 @@ export const languages: LanguageSpecs[] = [
   objcppWasm,
   fortranWasm,
   dWasm,
+  dart,
+  flutter,
   cobolWasm,
   rustWasm,
   swiftWasm,
