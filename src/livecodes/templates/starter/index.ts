@@ -23,10 +23,12 @@ import { csharpWasmStarter } from './csharp-wasm-starter';
 import { dWasmStarter } from './d-wasm-starter';
 import { d3Starter } from './d3-starter';
 import { daisyuiStarter } from './daisyui-starter';
+import { dartStarter } from './dart-starter';
 import { diagramsStarter } from './diagrams-starter';
 import { elmStarter } from './elm-starter';
 import { fanakStarter } from './fanak-starter';
 import { fennelStarter } from './fennel-starter';
+import { flutterStarter } from './flutter-starter';
 import { fortranWasmStarter } from './fortran-wasm-starter';
 import { fsharpStarter } from './fsharp-starter';
 import { fsharpWasmStarter } from './fsharp-wasm-starter';
@@ -186,4 +188,6 @@ export const starterTemplates = [
   minizincStarter,
   blocklyStarter,
   diagramsStarter,
+  dartStarter,
+  flutterStarter,
 ];

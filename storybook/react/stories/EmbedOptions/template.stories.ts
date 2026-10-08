@@ -113,3 +113,5 @@ export const Prolog = livecodesStory({ template: 'prolog' });
 export const Minizinc = livecodesStory({ template: 'minizinc' });
 export const Blockly = livecodesStory({ template: 'blockly' });
 export const Diagrams = livecodesStory({ template: 'diagrams' });
+export const Dart = livecodesStory({ template: 'dart' });
+export const Flutter = livecodesStory({ template: 'flutter' });

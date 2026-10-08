@@ -557,7 +557,9 @@ export type TemplateName =
   | 'prolog'
   | 'minizinc'
   | 'blockly'
-  | 'diagrams';
+  | 'diagrams'
+  | 'dart'
+  | 'flutter';
 
 /**
  * Tools in the tools pane.

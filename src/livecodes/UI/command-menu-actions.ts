@@ -348,6 +348,8 @@ export const getCommandMenuActions = ({
         'minizinc',
         'blockly',
         'diagrams',
+        'dart',
+        'flutter',
       ).map((template) => ({
         id: 'Starter template: ' + template,
         title: window.deps.translateString('commandMenu.template', 'Template') + ': ' + template,

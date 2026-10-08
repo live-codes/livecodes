@@ -72,7 +72,7 @@ const loadLanguageCompiler = async (
             compilers[languageCompiler.aliasTo].fn = languageCompiler.fn;
           }
         } catch (err) {
-          throw err;
+          // throw err;
           tries -= 1;
           if (tries > 0) {
             // eslint-disable-next-line no-console

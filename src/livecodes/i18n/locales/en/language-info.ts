@@ -124,6 +124,11 @@ const languageInfo = {
     link: '<1> <2>D official website</2> </1> <3> <4>D language specification</4> </3> <5> <6>D language tour</6> </5> <7> <8>Learn X in Y minutes, where X=D</8> </7> <9> <10>LiveCodes Documentation</10> </9> <11> <12>Load starter template</12> </11>',
     name: 'D (Wasm)',
   },
+  dart: {
+    desc: "Dart is compiled to JavaScript by the Dart team's client-side toolchain (DDC) — the same one that powers DartPad — running entirely in the browser. The compiled bundle then runs in the result page. No server is involved.",
+    link: '<1> <2>Dart official website</2> </1> <3> <4>Dart documentation</4> </3> <5> <6>DartPad</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Dart',
+  },
   diagrams: {
     desc1: '(Experimental)',
     desc2: 'Diagrams-as-code. Supports:',
@@ -166,6 +171,11 @@ const languageInfo = {
     desc: 'Flow is a static type checker for JavaScript.',
     link: '<1> <2>Flow official website</2> </1> <3> <4>Flow documentation</4> </3>',
     name: 'Flow',
+  },
+  flutter: {
+    desc: 'Flutter is compiled to JavaScript with the same client-side toolchain as Dart, and the Flutter engine is then booted in the result page, where the app renders. No server is involved.',
+    link: '<1> <2>Flutter official website</2> </1> <3> <4>Flutter documentation</4> </3> <5> <6>Introduction to widgets</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Flutter',
   },
   'fortran-wasm': {
     desc: 'Modern Fortran compiled to WebAssembly by <1>LFortran</1>, running entirely in the browser.',

@@ -97,6 +97,8 @@ const storyDef: StoryDef = {
   Minizinc: { props: { template: 'minizinc' } },
   Blockly: { props: { template: 'blockly' } },
   Diagrams: { props: { template: 'diagrams' } },
+  Dart: { props: { template: 'dart' } },
+  Flutter: { props: { template: 'flutter' } },
 };
 
 export default storyDef;

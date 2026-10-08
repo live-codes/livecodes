@@ -294,7 +294,8 @@ export type TemplateAlias =
   | 'pg'
   | 'pgsql'
   | 'janet'
-  | 'mzn';
+  | 'mzn'
+  | 'dartlang';
 
 export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &
   Partial<ContentConfig> & {

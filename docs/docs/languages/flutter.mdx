@@ -1,0 +1,108 @@
+# Flutter
+
+[Flutter](https://flutter.dev/) is Google's open-source framework for building natively compiled, multi-platform applications from a single codebase.
+
+Flutter in LiveCodes is compiled in the browser, with no server, using the same client-side toolchain as [Dart](./dart.mdx) — packaged as [`@live-codes/dart-wasm`](https://www.npmjs.com/package/@live-codes/dart-wasm). The compiled app then boots the Flutter engine in the result page.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const flutterConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'flutter',
+    content: `import 'package:flutter/material.dart';\n\nvoid main() {\n  runApp(\n    const Center(\n      child: Text('Hello, World!', textDirection: TextDirection.ltr),\n    ),\n  );\n}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+};
+
+<LiveCodes config={flutterConfig}></LiveCodes>
+
+The app renders in the context of the [result page](../features/result.mdx), so it fills the result pane and responds to user interaction, just like any other Flutter web app.
+
+A stateful counter is the usual way to see a rebuild:
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const CounterApp());
+}
+
+class CounterApp extends StatefulWidget {
+  const CounterApp({super.key});
+
+  @override
+  State<CounterApp> createState() => _CounterAppState();
+}
+
+class _CounterAppState extends State<CounterApp> {
+  int _count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('$_count', style: const TextStyle(fontSize: 56)),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: () => setState(() => _count++),
+                child: const Text('Increment'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+## Language Info
+
+### Name
+
+`flutter`
+
+### Extensions
+
+`flutter`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The Dart team's client-side toolchain (DDC), taken from the [`dartpad`](https://pub.dev/packages/dartpad) package's web assets, on the Flutter toolchain. The Flutter engine is loaded from the same assets, and the CanvasKit renderer from [gstatic](https://www.gstatic.com/flutter-canvaskit/).
+
+### Version
+
+DartPad SDK 0.0.9
+
+## Code Formatting
+
+Not currently supported.
+
+## Live Reload
+
+A Flutter app boots the engine once, so each run reloads the result page.
+
+## Starter Template
+
+https://livecodes.io/?template=flutter
+
+## Links
+
+- [Flutter official website](https://flutter.dev/)
+- [Flutter documentation](https://docs.flutter.dev/)
+- [Introduction to widgets](https://docs.flutter.dev/ui)
+- [@live-codes/dart-wasm](https://www.npmjs.com/package/@live-codes/dart-wasm)

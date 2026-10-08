@@ -93,6 +93,8 @@ const templates = [
   { name: 'minizinc', title: 'MiniZinc Starter', thumbnail: 'minizinc.png' },
   { name: 'blockly', title: 'Blockly Starter', thumbnail: 'blockly.svg' },
   { name: 'diagrams', title: 'Diagrams Starter', thumbnail: 'diagrams.svg' },
+  { name: 'dart', title: 'Dart Starter', thumbnail: 'dart.svg' },
+  { name: 'flutter', title: 'Flutter Starter', thumbnail: 'flutter.svg' },
 ];
 
 export default function TemplateList() {

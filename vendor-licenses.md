@@ -70,6 +70,8 @@ dot: [MIT License](https://github.com/olado/doT/blob/031d3bb7520eed6b93886df2b65
 
 dart-sass: [MIT License](https://github.com/sass/dart-sass/blob/e3bf3eb3a3a8708877a86a08c7e3bee92160ac1f/LICENSE)
 
+Dart: [BSD-3-Clause License](https://github.com/dart-lang/sdk/blob/e6f4207adef69106d7519a79144efdb5c1acc4d0/LICENSE)
+
 DoppioJVM: [MIT License](https://github.com/plasma-umass/doppio/blob/9a8bcf705c74f91301a542abfe8b7175ca757259/LICENSE)
 
 dts-bundle: [MIT License](https://github.com/TypeStrong/dts-bundle/blob/2ca1591e890dc4276efc4bb0893367e6ff32a039/LICENSE-MIT)
@@ -103,6 +105,8 @@ Fennel: [MIT License](https://git.sr.ht/~technomancy/fennel/tree/e70ebb133b9d472
 FlexSearch: [Apache License 2.0](https://github.com/nextapps-de/flexsearch/blob/9abb781357f04e7db8529654c6941009771f4bf1/LICENSE)
 
 flow-remove-types: [MIT License](https://github.com/facebook/flow/blob/3ebee9f08106eb8aefbf98111fee696d333b8456/packages/flow-remove-types/LICENSE)
+
+Flutter: [BSD-3-Clause License](https://github.com/flutter/flutter/blob/9b5759043457c99e316507474dea424e15cfb0c0/LICENSE)
 
 Fscreen: [MIT License](https://github.com/rafgraph/fscreen/blob/04244204efff724253df24f78336c9a2b7bc6505/LICENSE)
 
@@ -345,6 +349,8 @@ vue3-sfc-loader: [MIT License](https://github.com/FranckFreiburger/vue3-sfc-load
 wabt.js: [Apache-2.0 license](https://github.com/AssemblyScript/wabt.js/blob/182b4ee7d59f72c41a6dba97ed90fde9b79c8eb8/LICENSE)
 
 wacl: [BSD 3-Clause License](https://github.com/ecky-l/wacl/blob/9daacabb0102a9986f33263261350edfeebdd83b/LICENSE)
+
+@live-codes/dart-wasm: [MIT License](https://github.com/live-codes/browser-dart/blob/main/LICENSE)
 
 @live-codes/dlang-wasm: [MIT License](https://github.com/live-codes/browser-d/blob/main/LICENSE)
 

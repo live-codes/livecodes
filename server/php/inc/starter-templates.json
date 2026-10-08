@@ -91,5 +91,7 @@
   "prolog": "Prolog Starter",
   "minizinc": "MiniZinc Starter",
   "blockly": "Blockly Starter",
-  "diagrams": "Diagrams Starter"
+  "diagrams": "Diagrams Starter",
+  "dart": "Dart Starter",
+  "flutter": "Flutter Starter"
 }
