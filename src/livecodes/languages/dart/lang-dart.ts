@@ -19,8 +19,9 @@ export const dart: LanguageSpecs = {
       dartWasmBaseUrl + 'dart-wasm.iife.js',
       baseUrl + '{{hash:lang-dart-script.js}}',
     ],
+    liveReload: false,
   },
-  extensions: ['dart'],
+  extensions: ['dart', 'dartlang'],
   editor: 'script',
   editorSupport: {
     monaco: { languageSupport: monacoLanguagesBaseUrl + 'dart.js', language: 'dart' },
