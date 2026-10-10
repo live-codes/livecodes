@@ -132,6 +132,8 @@ export const cytoscapeSvgUrl = /* @__PURE__ */ getUrl('cytoscape-svg@0.4.0/cytos
 
 export const cytoscapeUrl = /* @__PURE__ */ getUrl('cytoscape@3.25.0/dist/cytoscape.min.js');
 
+export const dartWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/dart-wasm@0.6.0/dist/');
+
 export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
   '@ddietr/codemirror-themes@1.4.2/dist/theme/',
 );

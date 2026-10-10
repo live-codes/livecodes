@@ -197,6 +197,9 @@ export type Language =
   | 'dlang'
   | 'dmd'
   | 'd-wasm'
+  | 'dart'
+  | 'dartlang'
+  | 'flutter'
   | 'v'
   | 'vlang'
   | 'v-wasm'
@@ -554,7 +557,9 @@ export type TemplateName =
   | 'prolog'
   | 'minizinc'
   | 'blockly'
-  | 'diagrams';
+  | 'diagrams'
+  | 'dart'
+  | 'flutter';
 
 /**
  * Tools in the tools pane.

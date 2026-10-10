@@ -1,0 +1,115 @@
+# Dart
+
+[Dart](https://dart.dev/) is a client-optimized, statically typed programming language developed by Google, with a focus on building fast apps on any platform.
+
+Dart in LiveCodes is compiled to JavaScript in the browser, with no server. It uses the Dart team's own client-side toolchain — DDC, the analyzer and a subset of `pub`, the same one that powers [DartPad](https://dartpad.dev/) — packaged as [`@live-codes/dart-wasm`](https://www.npmjs.com/package/@live-codes/dart-wasm).
+
+:::info
+
+For Flutter support in LiveCodes, see [Flutter](./flutter.mdx).
+
+:::
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const dartConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'dart',
+    content: `void main() {\n  print('Hello, World!');\n}`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+    active: 'console',
+  },
+};
+
+<LiveCodes config={dartConfig}></LiveCodes>
+
+The compiled JavaScript runs in the context of the [result page](../features/result.mdx), so a Dart program has the page, its DOM and the markup and styles from the other editors.
+
+### Accessing the DOM
+
+`dart:js_interop` ships with the SDK, so the program can reach the page directly — no packages and no network needed:
+
+```ts
+import 'dart:js_interop';
+
+@JS('document')
+external Document get document;
+
+extension type Document(JSObject _) implements JSObject {
+  external Element? querySelector(String selectors);
+}
+
+extension type Element(JSObject _) implements JSObject {
+  external set textContent(String value);
+}
+
+void main() {
+  document.querySelector('#name')?.textContent = 'Dart';
+}
+```
+
+What the program prints goes to the console.
+
+Templates, collections and pattern matching behave as expected:
+
+```ts
+void main() {
+  final fibonacci = <int>[0, 1];
+  while (fibonacci.length < 10) {
+    fibonacci.add(fibonacci[fibonacci.length - 1] + fibonacci[fibonacci.length - 2]);
+  }
+  print('Fibonacci: $fibonacci');
+
+  final squares = {for (var i = 1; i <= 5; i++) i: i * i};
+  for (final entry in squares.entries) {
+    print('${entry.key}² = ${entry.value}');
+  }
+}
+```
+
+## Language Info
+
+### Name
+
+`dart`
+
+### Aliases / Extensions
+
+`dartlang`, `dart`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The Dart team's client-side toolchain: DDC (the Dart development compiler), using the [`dartpad`](https://pub.dev/packages/dartpad) package.
+
+### Version
+
+DartPad SDK 0.0.9
+
+## Code Formatting
+
+Dart's official formatter (the [`dart_style`](https://pub.dev/packages/dart_style) package behind `dart format`).
+
+## Starter Template
+
+https://livecodes.io/?template=dart
+
+## Links
+
+- [Dart official website](https://dart.dev/)
+- [Dart documentation](https://dart.dev/guides)
+- [DartPad](https://dartpad.dev/)
+- [@live-codes/dart-wasm](https://www.npmjs.com/package/@live-codes/dart-wasm)
+- [Flutter](./flutter.mdx) in LiveCodes

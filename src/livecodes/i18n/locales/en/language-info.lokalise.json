@@ -268,6 +268,18 @@
     "notes": "",
     "translation": "D (Wasm)"
   },
+  "dart.desc": {
+    "notes": "",
+    "translation": "Dart is compiled to JavaScript by the Dart team's client-side toolchain (DDC) — the same one that powers DartPad — running entirely in the browser. The compiled bundle then runs in the result page. No server is involved."
+  },
+  "dart.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://dart.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://dart.dev/guides\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://dart.dev/tools/dartpad\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/dart\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=dart\" class=\"button\" target=\"_parent\" data-template=\"dart\" />\n\n",
+    "translation": "<tag-1> <tag-2>Dart official website</tag-2> </tag-1> <tag-3> <tag-4>Dart documentation</tag-4> </tag-3> <tag-5> <tag-6>DartPad</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "dart.name": {
+    "notes": "",
+    "translation": "Dart"
+  },
   "diagrams.desc1": {
     "notes": "",
     "translation": "(Experimental)"
@@ -371,6 +383,18 @@
   "flow.name": {
     "notes": "",
     "translation": "Flow"
+  },
+  "flutter.desc": {
+    "notes": "",
+    "translation": "Flutter is compiled to JavaScript with the same client-side toolchain as Dart, and the Flutter engine is then booted in the result page, where the app renders. No server is involved."
+  },
+  "flutter.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://flutter.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://docs.flutter.dev/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://docs.flutter.dev/ui\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/flutter\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=flutter\" class=\"button\" target=\"_parent\" data-template=\"flutter\" />\n\n",
+    "translation": "<tag-1> <tag-2>Flutter official website</tag-2> </tag-1> <tag-3> <tag-4>Flutter documentation</tag-4> </tag-3> <tag-5> <tag-6>Introduction to widgets</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "flutter.name": {
+    "notes": "",
+    "translation": "Flutter"
   },
   "fortran-wasm.desc": {
     "notes": "### <tag-1> ###\n<a href=\"https://lfortran.org/\" target=\"_blank\" rel=\"noopener\" />\n\n",

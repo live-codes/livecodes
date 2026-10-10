@@ -2640,6 +2640,10 @@
     "notes": "",
     "translation": "daisyUI Starter"
   },
+  "templates.starter.dart": {
+    "notes": "",
+    "translation": "Dart Starter"
+  },
   "templates.starter.diagrams": {
     "notes": "",
     "translation": "Diagrams Starter"
@@ -2655,6 +2659,10 @@
   "templates.starter.fennel": {
     "notes": "",
     "translation": "Fennel Starter"
+  },
+  "templates.starter.flutter": {
+    "notes": "",
+    "translation": "Flutter Starter"
   },
   "templates.starter.fortran-wasm": {
     "notes": "",
