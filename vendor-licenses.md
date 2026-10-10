@@ -352,6 +352,12 @@ wacl: [BSD 3-Clause License](https://github.com/ecky-l/wacl/blob/9daacabb0102a99
 
 @live-codes/dart-wasm: [MIT License](https://github.com/live-codes/browser-dart/blob/main/LICENSE)
 
+@live-codes/crystal-wasm: [MIT License](https://github.com/live-codes/browser-crystal/blob/main/LICENSE)
+
+Crystal compiler and standard library: [Apache-2.0 License](https://github.com/crystal-lang/crystal/blob/master/LICENSE)
+
+LLVM and the wasm sysroot libraries: [Apache-2.0 WITH LLVM-exception](https://github.com/llvm/llvm-project/blob/main/LICENSE.TXT) and [MIT](https://github.com/WebAssembly/wasi-libc/blob/main/LICENSE.md)
+
 @live-codes/dlang-wasm: [MIT License](https://github.com/live-codes/browser-d/blob/main/LICENSE)
 
 DMD / druntime / Phobos (Wasm): [BSL-1.0 License](https://github.com/dlang/dmd/blob/master/LICENSE.txt)

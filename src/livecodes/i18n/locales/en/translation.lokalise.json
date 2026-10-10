@@ -2624,6 +2624,10 @@
     "notes": "",
     "translation": "C++ (Wasm) Starter"
   },
+  "templates.starter.crystal-wasm": {
+    "notes": "",
+    "translation": "Crystal Starter"
+  },
   "templates.starter.csharp-wasm": {
     "notes": "",
     "translation": "C# (Wasm) Starter"

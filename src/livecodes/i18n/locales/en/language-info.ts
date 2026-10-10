@@ -114,6 +114,11 @@ const languageInfo = {
     link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang official website</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'C++ (Wasm)',
   },
+  'crystal-wasm': {
+    desc: "Crystal's own compiler, compiled to WebAssembly — with LLVM's linker and the WASI sysroot it links against — running entirely in the browser.",
+    link: '<1> <2>Crystal official website</2> </1> <3> <4>Crystal language reference</4> </3> <5> <6>Standard library API</6> </5> <7> <8>Learn X in Y minutes, where X=Crystal</8> </7> <9> <10>LiveCodes Documentation</10> </9> <11> <12>Load starter template</12> </11>',
+    name: 'Crystal (Wasm)',
+  },
   csharpWasm: {
     desc: 'C# compiler running on WebAssembly, using <1>Blazor</1>',
     link: '<1> <2>C# language documentation</2> </1> <3> <4>Learn X in Y minutes, where X=C#</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',

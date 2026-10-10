@@ -1002,6 +1002,7 @@ const translation = {
       commonlisp: 'Common Lisp Starter',
       cpp: 'C++ Starter',
       'cpp-wasm': 'C++ (Wasm) Starter',
+      'crystal-wasm': 'Crystal Starter',
       'csharp-wasm': 'C# (Wasm) Starter',
       'd-wasm': 'D Starter',
       d3: 'D3 Starter',

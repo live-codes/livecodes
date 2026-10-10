@@ -19,6 +19,7 @@ import { cobolWasmStarter } from './cobol-wasm-starter';
 import { coffeescriptStarter } from './coffeescript-starter';
 import { commonlispStarter } from './commonlisp-starter';
 import { cppStarter } from './cpp-starter';
+import { crystalWasmStarter } from './crystal-wasm-starter';
 import { csharpWasmStarter } from './csharp-wasm-starter';
 import { dWasmStarter } from './d-wasm-starter';
 import { d3Starter } from './d3-starter';
@@ -135,6 +136,7 @@ export const starterTemplates = [
   ocamlStarter,
   nimStarter,
   nimWasmStarter,
+  crystalWasmStarter,
   janetWasmStarter,
   pythonStarter,
   pythonWasmStarter,

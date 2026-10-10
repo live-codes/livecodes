@@ -18,6 +18,7 @@ import { cobolWasm } from './cobol-wasm';
 import { coffeescript } from './coffeescript';
 import { commonlisp } from './commonlisp';
 import { cpp } from './cpp';
+import { crystalWasm } from './crystal';
 import { csharpWasm } from './csharp-wasm';
 import { css } from './css';
 import { dWasm } from './d-wasm';
@@ -165,6 +166,7 @@ export const languages: LanguageSpecs[] = [
   ocaml,
   nim,
   nimWasm,
+  crystalWasm,
   janetWasm,
   python,
   pythonWasm,
