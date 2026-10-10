@@ -1,18 +1,10 @@
-import type { CompilerFunction } from '../../models';
 import { getCompileResult } from '../../compiler/utils';
+import type { CompilerFunction } from '../../models';
 import { getErrorMessage } from '../../utils/utils';
 import { getLanguageCustomSettings } from '../utils';
 
 declare const self: any;
 
-/**
- * The Dart compiler, running in LiveCodes' compile worker.
- *
- * `@live-codes/dart-wasm` is importScripts'd by the language spec, so `self.DartWasm` is available
- * here. Its compiler half needs no DOM: it boots the DartPad worker (DDC, the analyzer and a
- * subset of `pub`) and hands back DDC's output as data, which is why this can be a worker compiler
- * rather than a runtime in the result page.
- */
 (self as any).createDartCompiler = (options: {
   engine: 'dart' | 'flutter';
   assetBaseUrl: string;

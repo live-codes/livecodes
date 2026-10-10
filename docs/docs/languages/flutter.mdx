@@ -4,6 +4,12 @@
 
 Flutter in LiveCodes is compiled in the browser, with no server, using the same client-side toolchain as [Dart](./dart.mdx) — packaged as [`@live-codes/dart-wasm`](https://www.npmjs.com/package/@live-codes/dart-wasm). The compiled app then boots the Flutter engine in the result page.
 
+:::info
+
+For Dart language support in LiveCodes, see [Dart](./dart.mdx).
+
+:::
+
 ## Usage
 
 Demo:
@@ -26,7 +32,7 @@ The app renders in the context of the [result page](../features/result.mdx), so 
 
 A stateful counter is the usual way to see a rebuild:
 
-```dart
+```ts
 import 'package:flutter/material.dart';
 
 void main() {
@@ -82,7 +88,7 @@ class _CounterAppState extends State<CounterApp> {
 
 ## Compiler
 
-The Dart team's client-side toolchain (DDC), taken from the [`dartpad`](https://pub.dev/packages/dartpad) package's web assets, on the Flutter toolchain. The Flutter engine is loaded from the same assets, and the CanvasKit renderer from [gstatic](https://www.gstatic.com/flutter-canvaskit/).
+The Dart team's client-side toolchain (DDC), using the [`dartpad`](https://pub.dev/packages/dartpad) package and the [CanvasKit](https://pub.dev/packages/canvas_kit) renderer.
 
 ### Version
 
@@ -90,11 +96,7 @@ DartPad SDK 0.0.9
 
 ## Code Formatting
 
-Not currently supported.
-
-## Live Reload
-
-A Flutter app boots the engine once, so each run reloads the result page.
+Dart's official formatter (the [`dart_style`](https://pub.dev/packages/dart_style) package behind `dart format`).
 
 ## Starter Template
 
@@ -106,3 +108,4 @@ https://livecodes.io/?template=flutter
 - [Flutter documentation](https://docs.flutter.dev/)
 - [Introduction to widgets](https://docs.flutter.dev/ui)
 - [@live-codes/dart-wasm](https://www.npmjs.com/package/@live-codes/dart-wasm)
+- [Dart](./dart.mdx) in LiveCodes

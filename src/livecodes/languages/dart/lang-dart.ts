@@ -5,21 +5,25 @@ import { codeMirrorBaseUrl, dartWasmBaseUrl, monacoLanguagesBaseUrl } from '../.
 export const dart: LanguageSpecs = {
   name: 'dart',
   title: 'Dart',
+  formatter: {
+    factory: async () => {
+      (self as any).importScripts(dartWasmBaseUrl + 'dart-wasm.iife.js');
+      const formatter = await (self as any).DartWasm.createCompiler({
+        baseUrl: dartWasmBaseUrl,
+      });
+      return async (code) => ({ formatted: await formatter?.format(code) });
+    },
+  },
   compiler: {
-    // The package's IIFE is importScripts'd into the compile worker; it is DOM-free, which is why
-    // the compiler can run there. `lang-dart-compiler.js` drives it.
     url: dartWasmBaseUrl + 'dart-wasm.iife.js',
     factory: (_config, baseUrl) => {
       (self as any).importScripts(baseUrl + '{{hash:lang-dart-compiler.js}}');
       return (self as any).createDartCompiler({ engine: 'dart', assetBaseUrl: dartWasmBaseUrl });
     },
-    // The compiled JavaScript is a DDC bundle that binds against the precompiled SDK runtime, so
-    // the result page loads the package and the runtime loader before it.
     scripts: ({ baseUrl }) => [
       dartWasmBaseUrl + 'dart-wasm.iife.js',
       baseUrl + '{{hash:lang-dart-script.js}}',
     ],
-    liveReload: false,
   },
   extensions: ['dart', 'dartlang'],
   editor: 'script',
