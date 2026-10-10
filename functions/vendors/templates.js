@@ -39,6 +39,7 @@ export const starterTemplates = {
   "ocaml": "Ocaml Starter",
   "nim": "Nim Starter",
   "nim-wasm": "Nim (Wasm) Starter",
+  "crystal-wasm": "Crystal Starter",
   "janet-wasm": "Janet (Wasm) Starter",
   "python": "Python Starter",
   "python-wasm": "Python (Wasm) Starter",

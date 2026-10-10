@@ -183,6 +183,15 @@
   "cppWasm.name": {
     "translation": "C++ (Wasm)"
   },
+  "crystal-wasm.desc": {
+    "translation": "Crystal का अपना कंपाइलर, WebAssembly में संकलित — LLVM के लिंकर और WASI sysroot के साथ जिससे यह लिंक करता है — पूरी तरह से ब्राउज़र में चलता है।"
+  },
+  "crystal-wasm.link": {
+    "translation": "<tag-1> <tag-2>Crystal आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Crystal भाषा संदर्भ</tag-4> </tag-3> <tag-5> <tag-6>मानक पुस्तकालय API</tag-6> </tag-5> <tag-7> <tag-8>Y मिनट में X सीखें, जहाँ X=Crystal</tag-8> </tag-7> <tag-9> <tag-10>लाइवकोड दस्तावेजीकरण</tag-10> </tag-9> <tag-11> <tag-12>स्टार्टर टेम्पलेट लोड करें</tag-12> </tag-11>"
+  },
+  "crystal-wasm.name": {
+    "translation": "Crystal (Wasm)"
+  },
   "csharpWasm.desc": {
     "translation": "C# कंपाइलर WebAssembly पर चल रहा है, का उपयोग करके <tag-1>ब्लेज़र</tag-1>"
   },
@@ -200,6 +209,15 @@
   },
   "d-wasm.name": {
     "translation": "D (Wasm)"
+  },
+  "dart.desc": {
+    "translation": "Dart को Dart टीम की क्लाइंट-साइड टूलचेन (DDC) द्वारा JavaScript में संकलित किया जाता है — वही जो DartPad को चलाती है — और यह पूरी तरह से ब्राउज़र में चलता है। फिर संकलित बंडल परिणाम पृष्ठ पर चलता है। कोई सर्वर शामिल नहीं है।"
+  },
+  "dart.link": {
+    "translation": "<tag-1> <tag-2>Dart आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Dart दस्तावेज</tag-4> </tag-3> <tag-5> <tag-6>DartPad</tag-6> </tag-5> <tag-7> <tag-8>लाइवकोड दस्तावेजीकरण</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
+  },
+  "dart.name": {
+    "translation": "Dart"
   },
   "diagrams.desc1": {
     "translation": "(प्रायोगिक)"
@@ -278,6 +296,15 @@
   },
   "flow.name": {
     "translation": "Flow"
+  },
+  "flutter.desc": {
+    "translation": "Flutter को Dart के समान क्लाइंट-साइड टूलचेन के साथ JavaScript में संकलित किया जाता है, और फिर Flutter इंजन परिणाम पृष्ठ पर बूट होता है, जहाँ ऐप रेंडर होता है। कोई सर्वर शामिल नहीं है।"
+  },
+  "flutter.link": {
+    "translation": "<tag-1> <tag-2>Flutter आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Flutter दस्तावेज</tag-4> </tag-3> <tag-5> <tag-6>विजेट का परिचय</tag-6> </tag-5> <tag-7> <tag-8>लाइवकोड दस्तावेजीकरण</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
+  },
+  "flutter.name": {
+    "translation": "Flutter"
   },
   "fortran-wasm.desc": {
     "translation": "आधुनिक फोरट्रान को <tag-1>LFortran</tag-1> द्वारा WebAssembly में संकलित किया जाता है, जो पूरी तरह से ब्राउज़र में चलता है।"

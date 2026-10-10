@@ -1,0 +1,130 @@
+# Crystal (Wasm)
+
+[Crystal](https://crystal-lang.org/) is a statically typed, compiled language with a Ruby-like syntax.
+
+In LiveCodes, Crystal is compiled and run entirely in the browser by Crystal's compiler, compiled to WebAssembly. Nothing runs on a server.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const crystalConfig = {
+  mode: 'simple',
+  activeEditor: 'script',
+  script: {
+    language: 'crystal-wasm',
+    content: `begin
+  raise "boom"
+rescue ex : Exception
+  puts "caught: #{ex.message}"
+end\n
+name = gets
+puts "hello #{name}"
+`,
+  },
+  tools: { status: 'full' },
+};
+
+<LiveCodes config={crystalConfig}></LiveCodes>
+
+The first run downloads about 22 MB of compressed compiler, linker and standard library, and compiles them; later runs reuse them.
+
+
+### Communication with JavaScript
+
+The Crystal code is compiled and run in a web worker. The following helpers are available in the browser global `livecodes.crystalWasm` object:
+
+- `livecodes.crystalWasm.input`: The standard input passed to the program.
+- `livecodes.crystalWasm.loaded`: A promise that resolves when the compiler is loaded and the program has run once.
+- `livecodes.crystalWasm.output`: The program's output.
+- `livecodes.crystalWasm.error`: The compiler diagnostics, if the code failed to compile.
+- `livecodes.crystalWasm.exitCode`: The program's exit code.
+- `livecodes.crystalWasm.run`: A function that compiles and runs the code with new input. It takes a string as input and returns a promise that resolves with an object containing `output`, `error` and `exitCode`.
+
+Example:
+
+<LiveCodes template="crystal-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`crystal-wasm`
+
+### Aliases and Extensions
+
+`cr`, `crystal`
+
+### Editor
+
+`script`
+
+## Compiler
+
+Crystal's compiler, compiled to WebAssembly.
+
+### Version
+
+Crystal 1.17.0, linked against LLVM 20.1.8 with the WASI sysroot from wasi-sdk 33.
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `crystal-wasm` are passed as a JSON object to the `compiler` during compile. Please check the [documentation](../advanced/custom-settings.mdx) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "crystal-wasm": {}
+}
+```
+
+`args` is passed to the program as its command-line arguments, and `compileArgs` is added to the `crystal build` command line.
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "crystal-wasm": {
+    "args": ["--flag", "value"],
+    "compileArgs": ["-Dpreview_mt"]
+  }
+}
+```
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the Crystal environment. This behavior can be disabled by adding the code comment `# __livecodes_reload__` to the Crystal code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Limitations
+
+{/* - Crystal 1.17.0 only: the wasm target does not build on newer releases. */}
+- Memory is never reclaimed — `wasm32` selects Crystal's no-GC allocator — so a long-running program will grow.
+- No threads, sockets or subprocesses: WASI preview 1 has none, and a program is given an empty filesystem.
+
+## Example Usage
+
+```ruby
+puts "hello from Crystal, compiled in your browser"
+
+1.upto(5) do |n|
+  puts "#{n} squared is #{n * n}"
+end
+```
+
+## Starter Template
+
+https://livecodes.io/?template=crystal-wasm
+
+## Links
+
+- [Crystal official website](https://crystal-lang.org/)
+- [Crystal language reference](https://crystal-lang.org/reference/)
+- [Standard library API](https://crystal-lang.org/api/)
+- [Learn X in Y minutes, where X=Crystal](https://learnxinyminutes.com/crystal/)

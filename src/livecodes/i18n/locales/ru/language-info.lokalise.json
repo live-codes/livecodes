@@ -183,6 +183,15 @@
   "cppWasm.name": {
     "translation": "C++ (Wasm)"
   },
+  "crystal-wasm.desc": {
+    "translation": "Собственный компилятор Crystal, скомпилированный в WebAssembly — вместе с компоновщиком LLVM и sysroot WASI, с которым он связывается — полностью выполняется в браузере."
+  },
+  "crystal-wasm.link": {
+    "translation": "<tag-1> <tag-2>Официальный сайт Crystal</tag-2> </tag-1> <tag-3> <tag-4>Справочник по языку Crystal</tag-4> </tag-3> <tag-5> <tag-6>API стандартной библиотеки</tag-6> </tag-5> <tag-7> <tag-8>«Изучите X за Y минут», где X = Crystal</tag-8> </tag-7> <tag-9> <tag-10>Документация LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Загрузить стартовый шаблон</tag-12> </tag-11>"
+  },
+  "crystal-wasm.name": {
+    "translation": "Crystal (Wasm)"
+  },
   "csharpWasm.desc": {
     "translation": "Компилятор C#, работающий на WebAssembly, с использованием <tag-1>Blazor</tag-1>"
   },
@@ -200,6 +209,15 @@
   },
   "d-wasm.name": {
     "translation": "D (Wasm)"
+  },
+  "dart.desc": {
+    "translation": "Dart компилируется в JavaScript клиентской цепочкой инструментов команды Dart (DDC) — той же, что лежит в основе DartPad — и полностью выполняется в браузере. Затем скомпилированный бандл выполняется на странице результата. Сервер не задействован."
+  },
+  "dart.link": {
+    "translation": "<tag-1> <tag-2>Официальный сайт Dart</tag-2> </tag-1> <tag-3> <tag-4>Документация по Dart</tag-4> </tag-3> <tag-5> <tag-6>DartPad</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Загрузить стартовый шаблон</tag-10> </tag-9>"
+  },
+  "dart.name": {
+    "translation": "Dart"
   },
   "diagrams.desc1": {
     "translation": "(Экспериментально)"
@@ -278,6 +296,15 @@
   },
   "flow.name": {
     "translation": "Flow"
+  },
+  "flutter.desc": {
+    "translation": "Flutter компилируется в JavaScript той же клиентской цепочкой инструментов, что и Dart, после чего движок Flutter загружается на странице результата, где отрисовывается приложение. Сервер не задействован."
+  },
+  "flutter.link": {
+    "translation": "<tag-1> <tag-2>Официальный сайт Flutter</tag-2> </tag-1> <tag-3> <tag-4>Документация по Flutter</tag-4> </tag-3> <tag-5> <tag-6>Введение в виджеты</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Загрузить стартовый шаблон</tag-10> </tag-9>"
+  },
+  "flutter.name": {
+    "translation": "Flutter"
   },
   "fortran-wasm.desc": {
     "translation": "Современный Fortran компилируется в WebAssembly с помощью <tag-1>LFortran</tag-1> и полностью выполняется в браузере."

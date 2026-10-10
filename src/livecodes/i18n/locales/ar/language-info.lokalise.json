@@ -183,6 +183,15 @@
   "cppWasm.name": {
     "translation": "C++ (Wasm)"
   },
+  "crystal-wasm.desc": {
+    "translation": "مترجم Crystal الخاص، المُجمَّع إلى WebAssembly — مع رابط LLVM ونظام WASI sysroot الذي يرتبط به — يعمل بالكامل داخل المتصفح."
+  },
+  "crystal-wasm.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Crystal</tag-2> </tag-1> <tag-3> <tag-4>مرجع لغة Crystal</tag-4> </tag-3> <tag-5> <tag-6>واجهة برمجة المكتبة القياسية</tag-6> </tag-5> <tag-7> <tag-8>تعلم X في Y دقيقة، حيث X = Crystal</tag-8> </tag-7> <tag-9> <tag-10>وثائق LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>تحميل قالب البدء</tag-12> </tag-11>"
+  },
+  "crystal-wasm.name": {
+    "translation": "Crystal (Wasm)"
+  },
   "csharpWasm.desc": {
     "translation": "مترجم C# الذي يعمل على WebAssembly، باستخدام <tag-1>Blazor</tag-1>"
   },
@@ -200,6 +209,15 @@
   },
   "d-wasm.name": {
     "translation": "D (Wasm)"
+  },
+  "dart.desc": {
+    "translation": "يتم تجميع Dart إلى JavaScript بواسطة سلسلة أدوات Dart من جهة العميل (DDC) — نفسها التي تشغّل DartPad — وتعمل بالكامل داخل المتصفح. ثم تعمل الحزمة المُجمَّعة في صفحة النتيجة. لا يشارك أي خادم."
+  },
+  "dart.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Dart</tag-2> </tag-1> <tag-3> <tag-4>وثائق Dart</tag-4> </tag-3> <tag-5> <tag-6>DartPad</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البدء</tag-10> </tag-9>"
+  },
+  "dart.name": {
+    "translation": "Dart"
   },
   "diagrams.desc1": {
     "translation": "(تجريبي)"
@@ -278,6 +296,15 @@
   },
   "flow.name": {
     "translation": "Flow"
+  },
+  "flutter.desc": {
+    "translation": "يتم تجميع Flutter إلى JavaScript باستخدام سلسلة الأدوات من جهة العميل نفسها التي يستخدمها Dart، ثم يتم تشغيل محرك Flutter في صفحة النتيجة، حيث يُعرض التطبيق. لا يشارك أي خادم."
+  },
+  "flutter.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Flutter</tag-2> </tag-1> <tag-3> <tag-4>وثائق Flutter</tag-4> </tag-3> <tag-5> <tag-6>مقدمة إلى الودجات</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البدء</tag-10> </tag-9>"
+  },
+  "flutter.name": {
+    "translation": "Flutter"
   },
   "fortran-wasm.desc": {
     "translation": "يتم تجميع Fortran الحديثة إلى WebAssembly بواسطة <tag-1>LFortran</tag-1>، وتعمل بالكامل داخل المتصفح."

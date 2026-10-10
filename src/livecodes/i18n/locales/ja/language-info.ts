@@ -107,6 +107,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Standard C++ 財団</2> </1> <3> <4>Clang 公式ウェブサイト</4> </3> <5> <6>X分でYを学ぶ、X=C++</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
     name: 'C++ (Wasm)',
   },
+  'crystal-wasm': {
+    desc: 'Crystal 自身のコンパイラを WebAssembly にコンパイルしたもの — LLVM のリンカーと、リンク先の WASI sysroot を伴い — ブラウザ内で完全に実行されます。',
+    link: '<1> <2>Crystal 公式サイト</2> </1> <3> <4>Crystal 言語リファレンス</4> </3> <5> <6>標準ライブラリ API</6> </5> <7> <8>「Y分でXを学ぶ」（X=Crystal）</8> </7> <9> <10>LiveCodes ドキュメント</10> </9> <11> <12>スターターテンプレートの読み込み</12> </11>',
+    name: 'Crystal (Wasm)',
+  },
   csharpWasm: {
     desc: 'WebAssembly 上で動作する C# コンパイラ。<1>Blazor を使用。</1>',
     link: '<1> <2>C# 言語のドキュメント</2> </1> <3> <4>X を Y 分で学習します (X=C の場合)#</4> </3> <5> <6>LiveCodesドキュメンテーション</6> </5> <7> <8>スターターテンプレートをロードする</8> </7>',
@@ -116,6 +121,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'D は <1>DMD</1> によって WebAssembly にコンパイルされ、ブラウザ内で完全に実行されます。',
     link: '<1> <2>D 公式サイト</2> </1> <3> <4>D 言語仕様</4> </3> <5> <6>D 言語ツアー</6> </5> <7> <8>「Y分でXを学ぶ」（X=D）</8> </7> <9> <10>LiveCodes ドキュメント</10> </9> <11> <12>スターターテンプレートを読み込む</12> </11>',
     name: 'D (Wasm)',
+  },
+  dart: {
+    desc: 'Dart は Dart チームのクライアントサイドツールチェーン（DDC）— DartPad を動かしているものと同じ — によって JavaScript にコンパイルされ、ブラウザ内で完全に実行されます。コンパイルされたバンドルはその後、結果ページで実行されます。サーバーは関与しません。',
+    link: '<1> <2>Dart 公式サイト</2> </1> <3> <4>Dart ドキュメント</4> </3> <5> <6>DartPad</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートの読み込み</10> </9>',
+    name: 'Dart',
   },
   diagrams: {
     desc1: '（実験的）',
@@ -159,6 +169,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Flow は JavaScript 用の静的型チェッカーです。',
     link: '<1> <2>Flow 公式ウェブサイト</2> </1> <3> <4>Flow ドキュメント</4> </3>',
     name: 'Flow',
+  },
+  flutter: {
+    desc: 'Flutter は Dart と同じクライアントサイドツールチェーンで JavaScript にコンパイルされ、その後 Flutter エンジンが結果ページで起動し、そこでアプリがレンダリングされます。サーバーは関与しません。',
+    link: '<1> <2>Flutter 公式サイト</2> </1> <3> <4>Flutter ドキュメント</4> </3> <5> <6>ウィジェット入門</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートの読み込み</10> </9>',
+    name: 'Flutter',
   },
   'fortran-wasm': {
     desc: 'モダンな Fortran は <1>LFortran</1> によって WebAssembly にコンパイルされ、ブラウザ内で完全に実行されます。',

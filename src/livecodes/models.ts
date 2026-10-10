@@ -207,6 +207,7 @@ export interface Compiler {
     | 'text/d-wasm'
     | 'text/cobol-wasm'
     | 'text/rust-wasm'
+    | 'text/crystal-wasm'
     | 'text/zig-wasm'
     | 'text/java'
     | 'text/csharp-wasm'
@@ -295,6 +296,7 @@ export type TemplateAlias =
   | 'pgsql'
   | 'janet'
   | 'mzn'
+  | 'crystal'
   | 'dartlang';
 
 export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &

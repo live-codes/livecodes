@@ -183,6 +183,15 @@
   "cppWasm.name": {
     "translation": "C++ (Wasm)"
   },
+  "crystal-wasm.desc": {
+    "translation": "Crystal-এর নিজস্ব কম্পাইলার, WebAssembly-তে কম্পাইল করা — LLVM-এর লিঙ্কার এবং যে WASI sysroot-এর সাথে এটি লিঙ্ক করে, তা সহ — সম্পূর্ণভাবে ব্রাউজারে চলে।"
+  },
+  "crystal-wasm.link": {
+    "translation": "<tag-1> <tag-2>Crystal অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Crystal ভাষার রেফারেন্স</tag-4> </tag-3> <tag-5> <tag-6>স্ট্যান্ডার্ড লাইব্রেরি API</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Crystal</tag-8> </tag-7> <tag-9> <tag-10>লাইভকোড ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "crystal-wasm.name": {
+    "translation": "Crystal (Wasm)"
+  },
   "csharpWasm.desc": {
     "translation": "WebAssembly-তে চলমান C# কম্পাইলার, <tag-1>Blazor</tag-1> ব্যবহার করে"
   },
@@ -200,6 +209,15 @@
   },
   "d-wasm.name": {
     "translation": "D (Wasm)"
+  },
+  "dart.desc": {
+    "translation": "Dart-কে Dart দলের ক্লায়েন্ট-সাইড টুলচেইন (DDC) দ্বারা JavaScript-এ কম্পাইল করা হয় — যেটি DartPad চালায় — এবং এটি সম্পূর্ণভাবে ব্রাউজারে চলে। এরপর কম্পাইল করা বান্ডেলটি ফলাফল পৃষ্ঠায় চলে। কোনো সার্ভার জড়িত নয়।"
+  },
+  "dart.link": {
+    "translation": "<tag-1> <tag-2>Dart অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Dart ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>DartPad</tag-6> </tag-5> <tag-7> <tag-8>লাইভকোড ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "dart.name": {
+    "translation": "Dart"
   },
   "diagrams.desc1": {
     "translation": "(পরীক্ষামূলক)"
@@ -278,6 +296,15 @@
   },
   "flow.name": {
     "translation": "Flow"
+  },
+  "flutter.desc": {
+    "translation": "Flutter-কে Dart-এর মতো একই ক্লায়েন্ট-সাইড টুলচেইন দিয়ে JavaScript-এ কম্পাইল করা হয়, এবং এরপর Flutter ইঞ্জিন ফলাফল পৃষ্ঠায় বুট হয়, যেখানে অ্যাপটি রেন্ডার হয়। কোনো সার্ভার জড়িত নয়।"
+  },
+  "flutter.link": {
+    "translation": "<tag-1> <tag-2>Flutter অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Flutter ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>উইজেটের পরিচিতি</tag-6> </tag-5> <tag-7> <tag-8>লাইভকোড ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "flutter.name": {
+    "translation": "Flutter"
   },
   "fortran-wasm.desc": {
     "translation": "আধুনিক Fortran <tag-1>LFortran</tag-1> দ্বারা WebAssembly-তে কম্পাইল করা হয় এবং সম্পূর্ণভাবে ব্রাউজারে চলে।"

@@ -107,6 +107,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Standart C++ Vakfı</2> </1> <3> <4>Clang resmi web sitesi</4> </3> <5> <6>Y Dakikada X Öğrenin, X=C++</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
     name: 'C++ (Wasm)',
   },
+  'crystal-wasm': {
+    desc: "Crystal'in kendi derleyicisi, WebAssembly'ye derlenmiş — LLVM'in bağlayıcısı ve bağlandığı WASI sysroot ile birlikte — tamamen tarayıcı içinde çalışır.",
+    link: "<1> <2>Crystal resmi web sitesi</2> </1> <3> <4>Crystal dili referansı</4> </3> <5> <6>Standart kütüphane API'si</6> </5> <7> <8>Y dakikada X'i öğrenin, burada X=Crystal</8> </7> <9> <10>LiveCodes Belgeleri</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    name: 'Crystal (Wasm)',
+  },
   csharpWasm: {
     desc: 'WebAssembly üzerinde çalışan C# derleyicisi, <1>Blazor</1> kullanılarak.',
     link: '<1> <2>C# dil dokümantasyonu</2> </1> <3> <4>Y Dakikada X Öğrenin, X=C#</4> </3> <5> <6>LiveCodes Dokümantasyonu</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
@@ -116,6 +121,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'D, <1>DMD</1> tarafından WebAssembly’ye derlenir ve tamamen tarayıcı içinde çalışır.',
     link: "<1> <2>D resmi web sitesi</2> </1> <3> <4>D dil spesifikasyonu</4> </3> <5> <6>D dil turu</6> </5> <7> <8>Y dakikada X'i öğrenin, burada X=D</8> </7> <9> <10>LiveCodes Belgeleri</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
     name: 'D (Wasm)',
+  },
+  dart: {
+    desc: "Dart, Dart ekibinin istemci taraflı araç zinciri (DDC) — DartPad'i çalıştıran aynı araç zinciri — tarafından JavaScript'e derlenir ve tamamen tarayıcı içinde çalışır. Derlenen paket daha sonra sonuç sayfasında çalışır. Hiçbir sunucu devrede değildir.",
+    link: '<1> <2>Dart resmi web sitesi</2> </1> <3> <4>Dart belgeleri</4> </3> <5> <6>DartPad</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'Dart',
   },
   diagrams: {
     desc1: '(Deneysel)',
@@ -159,6 +169,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Flow, JavaScript için statik bir tip denetleyicisidir.',
     link: '<1> <2>Flow resmi web sitesi</2> </1> <3> <4>Flow dokümantasyonu</4> </3>',
     name: 'Flow',
+  },
+  flutter: {
+    desc: "Flutter, Dart ile aynı istemci taraflı araç zinciriyle JavaScript'e derlenir ve ardından Flutter motoru, uygulamanın oluşturulduğu sonuç sayfasında başlatılır. Hiçbir sunucu devrede değildir.",
+    link: "<1> <2>Flutter resmi web sitesi</2> </1> <3> <4>Flutter belgeleri</4> </3> <5> <6>Widget'lara giriş</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    name: 'Flutter',
   },
   'fortran-wasm': {
     desc: 'Modern Fortran, <1>LFortran</1> tarafından WebAssembly’ye derlenir ve tamamen tarayıcı içinde çalışır.',

@@ -64,6 +64,8 @@ export const cjs2esUrl = /* @__PURE__ */ getUrl('cjs2es@1.1.1/dist/cjs2es.browse
 
 export const clangWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.3.0/');
 
+export const crystalWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/crystal-wasm@0.2.0/');
+
 export const clioBaseUrl = /* @__PURE__ */ getUrl(
   '@live-codes/clio-browser-compiler@0.0.3/public/build/',
 );
@@ -366,7 +368,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.11/dist/',
+  '@live-codes/monaco-languages@0.3.13/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');

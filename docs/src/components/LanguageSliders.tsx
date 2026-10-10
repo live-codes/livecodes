@@ -98,6 +98,7 @@ export default function Sliders() {
       { name: 'cobol-wasm', title: 'COBOL (Wasm)' },
       { name: 'fortran', title: 'Fortran' },
       { name: 'd-wasm', title: 'D (Wasm)' },
+      { name: 'crystal-wasm', title: 'Crystal (Wasm)' },
       { name: 'dart', title: 'Dart' },
       { name: 'flutter', title: 'Flutter' },
       { name: 'v-wasm', title: 'V (Wasm)' },
