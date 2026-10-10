@@ -1968,6 +1968,9 @@
   "templates.starter.cpp-wasm": {
     "translation": "C++ (Wasm)-Starter"
   },
+  "templates.starter.crystal-wasm": {
+    "translation": "Crystal-Starter"
+  },
   "templates.starter.csharp-wasm": {
     "translation": "C# (Wasm)-Starter"
   },
@@ -1980,6 +1983,9 @@
   "templates.starter.daisyui": {
     "translation": "daisyUI-Starter"
   },
+  "templates.starter.dart": {
+    "translation": "Dart-Starter"
+  },
   "templates.starter.diagrams": {
     "translation": "Diagramm-Starter"
   },
@@ -1991,6 +1997,9 @@
   },
   "templates.starter.fennel": {
     "translation": "Fennel-Starter"
+  },
+  "templates.starter.flutter": {
+    "translation": "Flutter-Starter"
   },
   "templates.starter.fortran-wasm": {
     "translation": "Fortran-Starter"

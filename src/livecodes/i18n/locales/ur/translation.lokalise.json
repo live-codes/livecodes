@@ -1968,6 +1968,9 @@
   "templates.starter.cpp-wasm": {
     "translation": "سی++ (واسم) شروعاتی"
   },
+  "templates.starter.crystal-wasm": {
+    "translation": "Crystal شروعاتی"
+  },
   "templates.starter.csharp-wasm": {
     "translation": "C# (واسم) شروعاتی"
   },
@@ -1980,6 +1983,9 @@
   "templates.starter.daisyui": {
     "translation": "daisyUI شروعاتی"
   },
+  "templates.starter.dart": {
+    "translation": "Dart شروعاتی"
+  },
   "templates.starter.diagrams": {
     "translation": "ڈایاگرامز شروعاتی"
   },
@@ -1991,6 +1997,9 @@
   },
   "templates.starter.fennel": {
     "translation": "فینل شروعاتی"
+  },
+  "templates.starter.flutter": {
+    "translation": "Flutter شروعاتی"
   },
   "templates.starter.fortran-wasm": {
     "translation": "Fortran شروعاتی"

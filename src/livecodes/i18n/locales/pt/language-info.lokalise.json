@@ -183,6 +183,15 @@
   "cppWasm.name": {
     "translation": "C++ (Wasm)"
   },
+  "crystal-wasm.desc": {
+    "translation": "O compilador próprio do Crystal, compilado para WebAssembly — com o linker do LLVM e o sysroot WASI com o qual se liga — sendo executado na íntegra no navegador."
+  },
+  "crystal-wasm.link": {
+    "translation": "<tag-1> <tag-2>Site oficial do Crystal</tag-2> </tag-1> <tag-3> <tag-4>Referência da linguagem Crystal</tag-4> </tag-3> <tag-5> <tag-6>API da biblioteca padrão</tag-6> </tag-5> <tag-7> <tag-8>Aprenda X em Y minutos, onde X = Crystal</tag-8> </tag-7> <tag-9> <tag-10>Documentação do LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Carregar modelo inicial</tag-12> </tag-11>"
+  },
+  "crystal-wasm.name": {
+    "translation": "Crystal (Wasm)"
+  },
   "csharpWasm.desc": {
     "translation": "Compilador C# executado no WebAssembly, usando <tag-1>Blazor</tag-1>"
   },
@@ -200,6 +209,15 @@
   },
   "d-wasm.name": {
     "translation": "D (Wasm)"
+  },
+  "dart.desc": {
+    "translation": "O Dart é compilado para JavaScript pela cadeia de ferramentas do lado do cliente da equipe Dart (DDC) — a mesma que alimenta o DartPad — sendo executado na íntegra no navegador. O pacote compilado então roda na página de resultado. Nenhum servidor está envolvido."
+  },
+  "dart.link": {
+    "translation": "<tag-1> <tag-2>Site oficial do Dart</tag-2> </tag-1> <tag-3> <tag-4>Documentação do Dart</tag-4> </tag-3> <tag-5> <tag-6>DartPad</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
+  },
+  "dart.name": {
+    "translation": "Dart"
   },
   "diagrams.desc1": {
     "translation": "(Experimental)"
@@ -278,6 +296,15 @@
   },
   "flow.name": {
     "translation": "Flow"
+  },
+  "flutter.desc": {
+    "translation": "O Flutter é compilado para JavaScript com a mesma cadeia de ferramentas do lado do cliente do Dart, e o motor Flutter é então iniciado na página de resultado, onde o aplicativo é renderizado. Nenhum servidor está envolvido."
+  },
+  "flutter.link": {
+    "translation": "<tag-1> <tag-2>Site oficial do Flutter</tag-2> </tag-1> <tag-3> <tag-4>Documentação do Flutter</tag-4> </tag-3> <tag-5> <tag-6>Introdução aos widgets</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
+  },
+  "flutter.name": {
+    "translation": "Flutter"
   },
   "fortran-wasm.desc": {
     "translation": "Fortran moderno compilado para WebAssembly pelo <tag-1>LFortran</tag-1>, executado na íntegra no navegador."

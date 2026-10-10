@@ -1968,6 +1968,9 @@
   "templates.starter.cpp-wasm": {
     "translation": "Pemula C++ (Wasm)"
   },
+  "templates.starter.crystal-wasm": {
+    "translation": "Pemula Crystal"
+  },
   "templates.starter.csharp-wasm": {
     "translation": "Pemula C# (Wasm)"
   },
@@ -1980,6 +1983,9 @@
   "templates.starter.daisyui": {
     "translation": "Pemula daisyUI"
   },
+  "templates.starter.dart": {
+    "translation": "Pemula Dart"
+  },
   "templates.starter.diagrams": {
     "translation": "Pemula Diagram"
   },
@@ -1991,6 +1997,9 @@
   },
   "templates.starter.fennel": {
     "translation": "Pemula Fennel"
+  },
+  "templates.starter.flutter": {
+    "translation": "Pemula Flutter"
   },
   "templates.starter.fortran-wasm": {
     "translation": "Pemula Fortran"

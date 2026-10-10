@@ -108,6 +108,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang hivatalos weboldal</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=C++</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'C++ (Wasm)',
   },
+  'crystal-wasm': {
+    desc: 'A Crystal saját fordítója WebAssembly-re fordítva — az LLVM linkerével és a WASI sysroot-tal, amelyhez kapcsolódik — teljes egészében a böngészőben fut.',
+    link: '<1> <2>A Crystal hivatalos weboldala</2> </1> <3> <4>Crystal nyelvi referencia</4> </3> <5> <6>Standard könyvtár API</6> </5> <7> <8>Tanulj meg X-et Y perc alatt, ahol X=Crystal</8> </7> <9> <10>LiveCodes dokumentáció</10> </9> <11> <12>Kezdő sablon betöltése</12> </11>',
+    name: 'Crystal (Wasm)',
+  },
   csharpWasm: {
     desc: 'C# fordító WebAssembly-n futva, a <1>Blazor</1> használatával',
     link: '<1> <2>C# nyelvi dokumentáció</2> </1> <3> <4>Tanulj X-et Y perc alatt, ahol X=C#</4> </3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
@@ -117,6 +122,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'A D a <1>DMD</1> segítségével WebAssembly-re fordul, és teljes egészében a böngészőben fut.',
     link: '<1> <2>A D hivatalos weboldala</2> </1> <3> <4>D nyelvi specifikáció</4> </3> <5> <6>D nyelvi túra</6> </5> <7> <8>Tanulj meg X-et Y perc alatt, ahol X=D</8> </7> <9> <10>LiveCodes dokumentáció</10> </9> <11> <12>Indító sablon betöltése</12> </11>',
     name: 'D (Wasm)',
+  },
+  dart: {
+    desc: 'A Dartot a Dart csapat kliensoldali eszközlánca (DDC) fordítja JavaScriptre — ugyanaz, amely a DartPadot működteti —, és teljes egészében a böngészőben fut. A lefordított csomag ezután az eredményoldalon fut. Nem vesz részt szerver.',
+    link: '<1> <2>A Dart hivatalos weboldala</2> </1> <3> <4>Dart dokumentáció</4> </3> <5> <6>DartPad</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Dart',
   },
   diagrams: {
     desc1: '(Kísérleti)',
@@ -160,6 +170,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'A Flow egy statikus típusellenőrző JavaScript-hez.',
     link: '<1> <2>Flow hivatalos weboldal</2> </1> <3> <4>Flow dokumentáció</4> </3>',
     name: 'Flow',
+  },
+  flutter: {
+    desc: 'A Flutter a Darttal azonos kliensoldali eszközlánccal fordul JavaScriptre, majd a Flutter motor az eredményoldalon indul el, ahol az alkalmazás megjelenik. Nem vesz részt szerver.',
+    link: '<1> <2>A Flutter hivatalos weboldala</2> </1> <3> <4>Flutter dokumentáció</4> </3> <5> <6>Bevezetés a widgetekbe</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Flutter',
   },
   'fortran-wasm': {
     desc: 'A modern Fortran a <1>LFortran</1> segítségével WebAssembly-re fordul, és teljes egészében a böngészőben fut.',

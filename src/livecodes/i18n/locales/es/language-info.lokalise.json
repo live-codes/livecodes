@@ -183,6 +183,15 @@
   "cppWasm.name": {
     "translation": "C++ (Wasm)"
   },
+  "crystal-wasm.desc": {
+    "translation": "El propio compilador de Crystal, compilado a WebAssembly — con el enlazador de LLVM y el sysroot de WASI contra el que enlaza — ejecutándose íntegramente en el navegador."
+  },
+  "crystal-wasm.link": {
+    "translation": "<tag-1> <tag-2>Página web oficial de Crystal</tag-2> </tag-1> <tag-3> <tag-4>Referencia del lenguaje Crystal</tag-4> </tag-3> <tag-5> <tag-6>API de la biblioteca estándar</tag-6> </tag-5> <tag-7> <tag-8>Aprende X en Y minutos, donde X = Crystal</tag-8> </tag-7> <tag-9> <tag-10>Documentación de LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Cargar plantilla de inicio</tag-12> </tag-11>"
+  },
+  "crystal-wasm.name": {
+    "translation": "Crystal (Wasm)"
+  },
   "csharpWasm.desc": {
     "translation": "Compilador de C# que funciona con WebAssembly, utilizando <tag-1>Blazor</tag-1>"
   },
@@ -200,6 +209,15 @@
   },
   "d-wasm.name": {
     "translation": "D (Wasm)"
+  },
+  "dart.desc": {
+    "translation": "Dart se compila a JavaScript mediante la cadena de herramientas del lado del cliente del equipo de Dart (DDC) — la misma que impulsa DartPad — ejecutándose íntegramente en el navegador. El paquete compilado se ejecuta entonces en la página de resultados. No interviene ningún servidor."
+  },
+  "dart.link": {
+    "translation": "<tag-1> <tag-2>Página web oficial de Dart</tag-2> </tag-1> <tag-3> <tag-4>Documentación de Dart</tag-4> </tag-3> <tag-5> <tag-6>DartPad</tag-6> </tag-5> <tag-7> <tag-8>Documentación de LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Cargar plantilla de inicio</tag-10> </tag-9>"
+  },
+  "dart.name": {
+    "translation": "Dart"
   },
   "diagrams.desc1": {
     "translation": "(Experimental)"
@@ -278,6 +296,15 @@
   },
   "flow.name": {
     "translation": "Flow"
+  },
+  "flutter.desc": {
+    "translation": "Flutter se compila a JavaScript con la misma cadena de herramientas del lado del cliente que Dart, y el motor de Flutter se inicia luego en la página de resultados, donde se renderiza la aplicación. No interviene ningún servidor."
+  },
+  "flutter.link": {
+    "translation": "<tag-1> <tag-2>Página web oficial de Flutter</tag-2> </tag-1> <tag-3> <tag-4>Documentación de Flutter</tag-4> </tag-3> <tag-5> <tag-6>Introducción a los widgets</tag-6> </tag-5> <tag-7> <tag-8>Documentación de LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Cargar plantilla de inicio</tag-10> </tag-9>"
+  },
+  "flutter.name": {
+    "translation": "Flutter"
   },
   "fortran-wasm.desc": {
     "translation": "Fortran moderno compilado a WebAssembly por <tag-1>LFortran</tag-1>, ejecutándose íntegramente en el navegador."

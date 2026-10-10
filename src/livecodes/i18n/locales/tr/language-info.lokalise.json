@@ -183,6 +183,15 @@
   "cppWasm.name": {
     "translation": "C++ (Wasm)"
   },
+  "crystal-wasm.desc": {
+    "translation": "Crystal'in kendi derleyicisi, WebAssembly'ye derlenmiş — LLVM'in bağlayıcısı ve bağlandığı WASI sysroot ile birlikte — tamamen tarayıcı içinde çalışır."
+  },
+  "crystal-wasm.link": {
+    "translation": "<tag-1> <tag-2>Crystal resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Crystal dili referansı</tag-4> </tag-3> <tag-5> <tag-6>Standart kütüphane API'si</tag-6> </tag-5> <tag-7> <tag-8>Y dakikada X'i öğrenin, burada X=Crystal</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes Belgeleri</tag-10> </tag-9> <tag-11> <tag-12>Başlangıç şablonunu yükle</tag-12> </tag-11>"
+  },
+  "crystal-wasm.name": {
+    "translation": "Crystal (Wasm)"
+  },
   "csharpWasm.desc": {
     "translation": "WebAssembly üzerinde çalışan C# derleyicisi, <tag-1>Blazor</tag-1> kullanılarak."
   },
@@ -200,6 +209,15 @@
   },
   "d-wasm.name": {
     "translation": "D (Wasm)"
+  },
+  "dart.desc": {
+    "translation": "Dart, Dart ekibinin istemci taraflı araç zinciri (DDC) — DartPad'i çalıştıran aynı araç zinciri — tarafından JavaScript'e derlenir ve tamamen tarayıcı içinde çalışır. Derlenen paket daha sonra sonuç sayfasında çalışır. Hiçbir sunucu devrede değildir."
+  },
+  "dart.link": {
+    "translation": "<tag-1> <tag-2>Dart resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Dart belgeleri</tag-4> </tag-3> <tag-5> <tag-6>DartPad</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "dart.name": {
+    "translation": "Dart"
   },
   "diagrams.desc1": {
     "translation": "(Deneysel)"
@@ -278,6 +296,15 @@
   },
   "flow.name": {
     "translation": "Flow"
+  },
+  "flutter.desc": {
+    "translation": "Flutter, Dart ile aynı istemci taraflı araç zinciriyle JavaScript'e derlenir ve ardından Flutter motoru, uygulamanın oluşturulduğu sonuç sayfasında başlatılır. Hiçbir sunucu devrede değildir."
+  },
+  "flutter.link": {
+    "translation": "<tag-1> <tag-2>Flutter resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Flutter belgeleri</tag-4> </tag-3> <tag-5> <tag-6>Widget'lara giriş</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "flutter.name": {
+    "translation": "Flutter"
   },
   "fortran-wasm.desc": {
     "translation": "Modern Fortran, <tag-1>LFortran</tag-1> tarafından WebAssembly’ye derlenir ve tamamen tarayıcı içinde çalışır."

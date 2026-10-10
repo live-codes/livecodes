@@ -1968,6 +1968,9 @@
   "templates.starter.cpp-wasm": {
     "translation": "C++（WASM）启动模板"
   },
+  "templates.starter.crystal-wasm": {
+    "translation": "Crystal 启动模板"
+  },
   "templates.starter.csharp-wasm": {
     "translation": "C#（WASM）启动模板"
   },
@@ -1980,6 +1983,9 @@
   "templates.starter.daisyui": {
     "translation": "daisyUI 启动模板"
   },
+  "templates.starter.dart": {
+    "translation": "Dart 启动模板"
+  },
   "templates.starter.diagrams": {
     "translation": "图表启动模板"
   },
@@ -1991,6 +1997,9 @@
   },
   "templates.starter.fennel": {
     "translation": "Fennel 启动模板"
+  },
+  "templates.starter.flutter": {
+    "translation": "Flutter 启动模板"
   },
   "templates.starter.fortran-wasm": {
     "translation": "Fortran 启动模板"

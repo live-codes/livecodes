@@ -107,6 +107,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Fondazione Standard C++</2> </1> <3> <4>Sito ufficiale di Clang</4> </3> <5> <6>Impara X in Y minuti, dove X=C++</6> </5> <7> <8>Documentazione di LiveCodes</8> </7> <9> <10>Carica il modello di partenza</10> </9>',
     name: 'C++ (Wasm)',
   },
+  'crystal-wasm': {
+    desc: 'Il compilatore proprio di Crystal, compilato in WebAssembly — con il linker di LLVM e il sysroot WASI a cui si collega — eseguito interamente nel browser.',
+    link: '<1> <2>Sito web ufficiale di Crystal</2> </1> <3> <4>Riferimento del linguaggio Crystal</4> </3> <5> <6>API della libreria standard</6> </5> <7> <8>Impara X in Y minuti, dove X = Crystal</8> </7> <9> <10>Documentazione di LiveCodes</10> </9> <11> <12>Carica il modello di avvio</12> </11>',
+    name: 'Crystal (Wasm)',
+  },
   csharpWasm: {
     desc: 'Compilatore C# in esecuzione su WebAssembly, utilizzando <1>Blazor</1>',
     link: '<1> <2>Documentazione sul linguaggio C#</2> </1> <3> <4> Imparare X in Y minuti, dove X=C#</4> </3> <5> <6> Documentazione LiveCodes</6> </5> <7> <8> Carica il modello iniziale</8> </7>',
@@ -116,6 +121,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'D compilato in WebAssembly da <1>DMD</1>, eseguito interamente nel browser.',
     link: '<1> <2>Sito web ufficiale di D</2> </1> <3> <4>Specifica del linguaggio D</4> </3> <5> <6>Tour del linguaggio D</6> </5> <7> <8>Impara X in Y minuti, dove X = D</8> </7> <9> <10>Documentazione di LiveCodes</10> </9> <11> <12>Carica il modello di avvio</12> </11>',
     name: 'D (Wasm)',
+  },
+  dart: {
+    desc: 'Dart è compilato in JavaScript dalla toolchain lato client del team Dart (DDC) — la stessa che alimenta DartPad — eseguito interamente nel browser. Il bundle compilato viene poi eseguito nella pagina dei risultati. Non è coinvolto alcun server.',
+    link: '<1> <2>Sito web ufficiale di Dart</2> </1> <3> <4>Documentazione di Dart</4> </3> <5> <6>DartPad</6> </5> <7> <8>Documentazione di LiveCodes</8> </7> <9> <10>Carica il modello di avvio</10> </9>',
+    name: 'Dart',
   },
   diagrams: {
     desc1: '(Sperimentale)',
@@ -159,6 +169,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Flow è un controllo di tipo statico per JavaScript.',
     link: '<1> <2>Sito ufficiale di Flow</2> </1> <3> <4>Documentazione di Flow</4> </3>',
     name: 'Flow',
+  },
+  flutter: {
+    desc: "Flutter è compilato in JavaScript con la stessa toolchain lato client di Dart, poi il motore Flutter viene avviato nella pagina dei risultati, dove l'app viene renderizzata. Non è coinvolto alcun server.",
+    link: '<1> <2>Sito web ufficiale di Flutter</2> </1> <3> <4>Documentazione di Flutter</4> </3> <5> <6>Introduzione ai widget</6> </5> <7> <8>Documentazione di LiveCodes</8> </7> <9> <10>Carica il modello di avvio</10> </9>',
+    name: 'Flutter',
   },
   'fortran-wasm': {
     desc: 'Fortran moderno compilato in WebAssembly da <1>LFortran</1>, eseguito interamente nel browser.',

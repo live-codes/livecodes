@@ -108,6 +108,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Yayasan Standard C++</2> </1> <3> <4>Situs web resmi Clang</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=C++</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
     name: 'C++ (Wasm)',
   },
+  'crystal-wasm': {
+    desc: 'Kompiler milik Crystal sendiri, dikompilasi ke WebAssembly — dengan linker LLVM dan sysroot WASI yang ditautkannya — berjalan sepenuhnya di dalam browser.',
+    link: '<1> <2>Situs web resmi Crystal</2> </1> <3> <4>Referensi bahasa Crystal</4> </3> <5> <6>API pustaka standar</6> </5> <7> <8>Belajar X dalam Y menit, di mana X = Crystal</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat templat awal</12> </11>',
+    name: 'Crystal (Wasm)',
+  },
   csharpWasm: {
     desc: 'Kompiler C# berjalan di WebAssembly, menggunakan <1>Blazor</1>',
     link: '<1> <2>Dokumentasi bahasa C#</2> </1> <3> <4>Pelajari X dalam Y menit, dengan X=C#</4> </3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat template pemula</8> </7>',
@@ -117,6 +122,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'D dikompilasi ke WebAssembly oleh <1>DMD</1>, berjalan sepenuhnya di dalam browser.',
     link: '<1> <2>Situs web resmi D</2> </1> <3> <4>Spesifikasi bahasa D</4> </3> <5> <6>Tur bahasa D</6> </5> <7> <8>Belajar X dalam Y menit, di mana X = D</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat templat awal</12> </11>',
     name: 'D (Wasm)',
+  },
+  dart: {
+    desc: 'Dart dikompilasi ke JavaScript oleh toolchain sisi klien tim Dart (DDC) — yang sama yang menjalankan DartPad — dan berjalan sepenuhnya di dalam browser. Bundel hasil kompilasi kemudian berjalan di halaman hasil. Tidak ada server yang terlibat.',
+    link: '<1> <2>Situs web resmi Dart</2> </1> <3> <4>Dokumentasi Dart</4> </3> <5> <6>DartPad</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Dart',
   },
   diagrams: {
     desc1: '(Eksperimental)',
@@ -160,6 +170,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Flow adalah pemeriksa tipe statis untuk JavaScript.',
     link: '<1> <2>Situs web resmi Flow</2> </1> <3> <4>Dokumentasi Flow</4> </3>',
     name: 'Flow',
+  },
+  flutter: {
+    desc: 'Flutter dikompilasi ke JavaScript dengan toolchain sisi klien yang sama seperti Dart, lalu mesin Flutter dijalankan di halaman hasil, tempat aplikasi dirender. Tidak ada server yang terlibat.',
+    link: '<1> <2>Situs web resmi Flutter</2> </1> <3> <4>Dokumentasi Flutter</4> </3> <5> <6>Pengenalan widget</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Flutter',
   },
   'fortran-wasm': {
     desc: 'Fortran modern dikompilasi ke WebAssembly oleh <1>LFortran</1>, berjalan sepenuhnya di dalam browser.',

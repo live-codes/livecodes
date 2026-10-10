@@ -183,6 +183,15 @@
   "cppWasm.name": {
     "translation": "C++ (Wasm)"
   },
+  "crystal-wasm.desc": {
+    "translation": "Crystal 自身のコンパイラを WebAssembly にコンパイルしたもの — LLVM のリンカーと、リンク先の WASI sysroot を伴い — ブラウザ内で完全に実行されます。"
+  },
+  "crystal-wasm.link": {
+    "translation": "<tag-1> <tag-2>Crystal 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>Crystal 言語リファレンス</tag-4> </tag-3> <tag-5> <tag-6>標準ライブラリ API</tag-6> </tag-5> <tag-7> <tag-8>「Y分でXを学ぶ」（X=Crystal）</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes ドキュメント</tag-10> </tag-9> <tag-11> <tag-12>スターターテンプレートの読み込み</tag-12> </tag-11>"
+  },
+  "crystal-wasm.name": {
+    "translation": "Crystal (Wasm)"
+  },
   "csharpWasm.desc": {
     "translation": "WebAssembly 上で動作する C# コンパイラ。<tag-1>Blazor を使用。</tag-1>"
   },
@@ -200,6 +209,15 @@
   },
   "d-wasm.name": {
     "translation": "D (Wasm)"
+  },
+  "dart.desc": {
+    "translation": "Dart は Dart チームのクライアントサイドツールチェーン（DDC）— DartPad を動かしているものと同じ — によって JavaScript にコンパイルされ、ブラウザ内で完全に実行されます。コンパイルされたバンドルはその後、結果ページで実行されます。サーバーは関与しません。"
+  },
+  "dart.link": {
+    "translation": "<tag-1> <tag-2>Dart 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>Dart ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>DartPad</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートの読み込み</tag-10> </tag-9>"
+  },
+  "dart.name": {
+    "translation": "Dart"
   },
   "diagrams.desc1": {
     "translation": "（実験的）"
@@ -278,6 +296,15 @@
   },
   "flow.name": {
     "translation": "Flow"
+  },
+  "flutter.desc": {
+    "translation": "Flutter は Dart と同じクライアントサイドツールチェーンで JavaScript にコンパイルされ、その後 Flutter エンジンが結果ページで起動し、そこでアプリがレンダリングされます。サーバーは関与しません。"
+  },
+  "flutter.link": {
+    "translation": "<tag-1> <tag-2>Flutter 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>Flutter ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>ウィジェット入門</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートの読み込み</tag-10> </tag-9>"
+  },
+  "flutter.name": {
+    "translation": "Flutter"
   },
   "fortran-wasm.desc": {
     "translation": "モダンな Fortran は <tag-1>LFortran</tag-1> によって WebAssembly にコンパイルされ、ブラウザ内で完全に実行されます。"

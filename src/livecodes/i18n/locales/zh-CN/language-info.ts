@@ -106,6 +106,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>标准 C++ 基金会</2> </1> <3> <4>Clang 官网</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=C++</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
     name: 'C++ (Wasm)',
   },
+  'crystal-wasm': {
+    desc: 'Crystal 自带的编译器，编译为 WebAssembly — 搭配 LLVM 的链接器及其所链接的 WASI sysroot — 完全在浏览器中运行。',
+    link: '<1> <2>Crystal 官方网站</2> </1> <3> <4>Crystal 语言参考</4> </3> <5> <6>标准库 API</6> </5> <7> <8>《Y分钟学会X》，其中X=Crystal</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载入门模板</12> </11>',
+    name: 'Crystal (Wasm)',
+  },
   csharpWasm: {
     desc: '在 WebAssembly 上运行的 C# 编译器，使用<1>Blazor</1>',
     link: '<1> <2> C# 语言文档</2> </1> <3> <4>在 Y 分钟内学习 X，其中 X=C# </4> </3> <5> <6> LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',
@@ -115,6 +120,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'D 由 <1>DMD</1> 编译为 WebAssembly，完全在浏览器中运行。',
     link: '<1> <2>D 官方网站</2> </1> <3> <4>D 语言规范</4> </3> <5> <6>D 语言导览</6> </5> <7> <8>《Y分钟学会X》，其中X=D</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载入门模板</12> </11>',
     name: 'D (Wasm)',
+  },
+  dart: {
+    desc: 'Dart 由 Dart 团队的客户端工具链（DDC）— 也就是驱动 DartPad 的同一套工具链 — 编译为 JavaScript，完全在浏览器中运行。编译后的包随后在结果页面中运行。不涉及任何服务器。',
+    link: '<1> <2>Dart 官方网站</2> </1> <3> <4>Dart 文档</4> </3> <5> <6>DartPad</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Dart',
   },
   diagrams: {
     desc1: '（实验性）',
@@ -158,6 +168,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Flow 是 JavaScript 的静态类型检查器。',
     link: '<1> <2>Flow 官方网站</2> </1> <3> <4>Flow 文档</4> </3>',
     name: 'Flow',
+  },
+  flutter: {
+    desc: 'Flutter 使用与 Dart 相同的客户端工具链编译为 JavaScript，随后 Flutter 引擎在结果页面中启动并渲染应用。不涉及任何服务器。',
+    link: '<1> <2>Flutter 官方网站</2> </1> <3> <4>Flutter 文档</4> </3> <5> <6>Widget 简介</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Flutter',
   },
   'fortran-wasm': {
     desc: '现代 Fortran 由 <1>LFortran</1> 编译为 WebAssembly，完全在浏览器中运行。',
