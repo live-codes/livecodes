@@ -72,6 +72,31 @@ class _CounterAppState extends State<CounterApp> {
 }
 ```
 
+### Root Element
+
+Flutter draws its own UI, so it renders into an element in the [result page](../features/result.mdx).
+Use `"livecodes-app"` as the element `id` to render into a specific element. Otherwise a `div` element is added to `document.body` and rendered into.
+
+The app is sized to that element's box, so the element must have a size. An empty `div` in normal flow has none, and `width`/`height` in percent resolve against an unsized body.
+
+Example:
+
+export const flutterRootDemo = {
+  activeEditor: 'script',
+  script: {
+    language: 'flutter',
+    content: `import 'package:flutter/material.dart';\n\nvoid main() {\n  runApp(\n    const Center(\n      child: Text('Hello, World!', textDirection: TextDirection.ltr),\n    ),\n  );\n}`,
+  },
+  markup: {
+    language: 'html',
+    content: `<h1>Custom Root Element</h1>
+<div id="livecodes-app" style="width: 300px; height: 240px; border: 1px solid #888; margin: auto"></div>
+`,
+  },
+};
+
+<LiveCodes config={flutterRootDemo} height="80vh"></LiveCodes>
+
 ## Language Info
 
 ### Name
