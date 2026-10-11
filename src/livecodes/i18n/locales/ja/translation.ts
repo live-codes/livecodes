@@ -1044,6 +1044,7 @@ const translation: I18nTranslation = {
       php: 'PHPスターター',
       'php-wasm': 'PHP（Wasm）スターター',
       postgresql: 'PostgreSQLスターター',
+      duckdb: 'DuckDBスターター',
       preact: 'Preactスターター',
       prolog: 'Prologスターター',
       python: 'Pythonスターター',

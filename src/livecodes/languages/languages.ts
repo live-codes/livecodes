@@ -25,6 +25,7 @@ import { dWasm } from './d-wasm';
 import { dart } from './dart';
 import { diagrams } from './diagrams';
 import { dot } from './dot';
+import { duckdb } from './duckdb';
 import { ejs } from './ejs';
 import { elm } from './elm';
 import { eta } from './eta';
@@ -219,6 +220,7 @@ export const languages: LanguageSpecs[] = [
   assemblyWasm,
   sql,
   postgresql,
+  duckdb,
   prolog,
   minizinc,
   blockly,

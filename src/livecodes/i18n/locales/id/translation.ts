@@ -1043,6 +1043,7 @@ const translation: I18nTranslation = {
       php: 'Pemula PHP',
       'php-wasm': 'Pemula PHP (Wasm)',
       postgresql: 'Pemula PostgreSQL',
+      duckdb: 'Pemula DuckDB',
       preact: 'Pemula Preact',
       prolog: 'Pemula Prolog',
       python: 'Pemula Python',

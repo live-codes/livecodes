@@ -381,6 +381,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi PostgreSQL</2> </1> <3> <4>Dokumentasi PostgreSQL</4> </3> <5> <6>Repo GitHub PGlite</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=SQL</8> </7> <9> <10>Muat template pemula</10> </9>',
     name: 'PostgreSQL',
   },
+  duckdb: {
+    desc: 'DuckDB dikemas sebagai WASM menggunakan DuckDB-Wasm',
+    link: '<1> <2>Situs web resmi DuckDB</2> </1> <3> <4>Dokumentasi DuckDB</4> </3> <5> <6>Repo GitHub DuckDB-Wasm</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=SQL</8> </7> <9> <10>Muat template pemula</10> </9>',
+    name: 'DuckDB',
+  },
   prolog: {
     desc: 'Interpreter Prolog open source di JavaScript.',
     link: '<1> <2>Situs web resmi Tau Prolog</2> </1> <3> <4>Dokumentasi Tau Prolog</4> </3> <5> <6>SWI-Prolog</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=Prolog</8> </7> <9> <10>Muat template pemula</10> </9>',

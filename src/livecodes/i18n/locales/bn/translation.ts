@@ -1043,6 +1043,7 @@ const translation: I18nTranslation = {
       php: 'PHP স্টার্টার',
       'php-wasm': 'PHP (Wasm) স্টার্টার',
       postgresql: 'PostgreSQL স্টার্টার',
+      duckdb: 'DuckDB স্টার্টার',
       preact: 'Preact স্টার্টার',
       prolog: 'Prolog স্টার্টার',
       python: 'Python স্টার্টার',

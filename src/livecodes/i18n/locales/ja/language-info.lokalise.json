@@ -1,7 +1,7 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
   "adaWasm.desc": {
-    "translation": "Ada は Ada で書かれ WebAssembly にコンパイルされた Ada コンパイラである <1>HAC</1> によって、完全にブラウザ内でコンパイルおよび実行されます。サーバーは関与しません。"
+    "translation": "Ada は Ada で書かれ WebAssembly にコンパイルされた Ada コンパイラである <tag-1>HAC</tag-1> によって、完全にブラウザ内でコンパイルおよび実行されます。サーバーは関与しません。"
   },
   "adaWasm.link": {
     "translation": "<tag-1> <tag-2>Ada 情報センター</tag-2> </tag-1> <tag-3> <tag-4>Ada プログラミング（Wikibooks）</tag-4> </tag-3> <tag-5> <tag-6>HAC リポジトリ</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートを読み込む</tag-10> </tag-9>"
@@ -242,6 +242,15 @@
   },
   "dot.name": {
     "translation": "doT.js"
+  },
+  "duckdb.desc": {
+    "translation": "DuckDB-Wasm を使用して WASM としてパッケージ化された DuckDB"
+  },
+  "duckdb.link": {
+    "translation": "<tag-1> <tag-2>DuckDB 公式ウェブサイト</tag-2> </tag-1> <tag-3> <tag-4>DuckDB ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>DuckDB-Wasm GitHub リポジトリ</tag-6> </tag-5> <tag-7> <tag-8>X分でYを学ぶ、X=SQL</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートを読み込む</tag-10> </tag-9>"
+  },
+  "duckdb.name": {
+    "translation": "DuckDB"
   },
   "ejs.desc": {
     "translation": "埋め込み JavaScript テンプレート。"

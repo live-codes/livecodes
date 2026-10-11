@@ -345,6 +345,7 @@ export const getCommandMenuActions = ({
         'assembly-wasm',
         'sql',
         'postgresql',
+        'duckdb',
         'prolog',
         'minizinc',
         'blockly',

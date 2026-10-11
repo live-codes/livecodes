@@ -1989,6 +1989,9 @@
   "templates.starter.diagrams": {
     "translation": "आरेख स्टार्टर"
   },
+  "templates.starter.duckdb": {
+    "translation": "DuckDB स्टार्टर"
+  },
   "templates.starter.elm": {
     "translation": "Elm स्टार्टर"
   },

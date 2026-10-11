@@ -163,6 +163,7 @@ Enabled via `processors` config:
 | ---------- | ------------------------------------------------------------ | ------------------- |
 | SQL        | `sql`, `sqlite`, `sqlite3`                                   | SQLite in browser   |
 | PostgreSQL | `pg.sql`, `pgsql.sql`, `pgsql`, `pg`, `pglite`, `postgresql` | PGLite              |
+| DuckDB     | `duckdb`, `duckdb.sql`                                       | DuckDB-Wasm         |
 | Prolog     | `prolog.pl`, `prolog`                                        | Prolog logic        |
 | MiniZinc   | `minizinc`, `mzn`, `dzn`                                     | Constraint modeling |
 | JSON       | `json`                                                       | JSON data           |

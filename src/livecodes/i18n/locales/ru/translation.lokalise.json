@@ -1989,6 +1989,9 @@
   "templates.starter.diagrams": {
     "translation": "Стартер диаграмм"
   },
+  "templates.starter.duckdb": {
+    "translation": "Стартер DuckDB"
+  },
   "templates.starter.elm": {
     "translation": "Стартер Elm"
   },

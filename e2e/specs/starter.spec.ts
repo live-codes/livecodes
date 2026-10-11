@@ -1804,6 +1804,18 @@ test.describe('Starter Templates from URL', () => {
     expect(resultText).toContain('Whatever you do, do it well. – Walt Disney');
   });
 
+  test('DuckDB Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'duckdb' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    const resultText = await getResult().innerText('table');
+    expect(resultText).toContain('Whatever you do, do it well. – Walt Disney');
+  });
+
   test('Prolog Starter (in URL)', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl({ template: 'prolog' }));
 

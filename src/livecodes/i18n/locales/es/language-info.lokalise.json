@@ -1,7 +1,7 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
   "adaWasm.desc": {
-    "translation": "Ada se compila y ejecuta íntegramente en el navegador mediante <1>HAC</1>, un compilador de Ada escrito en Ada y compilado a WebAssembly. No hay ningún servidor involucrado."
+    "translation": "Ada se compila y ejecuta íntegramente en el navegador mediante <tag-1>HAC</tag-1>, un compilador de Ada escrito en Ada y compilado a WebAssembly. No hay ningún servidor involucrado."
   },
   "adaWasm.link": {
     "translation": "<tag-1> <tag-2>Centro de Información de Ada</tag-2> </tag-1> <tag-3> <tag-4>Programación en Ada (Wikibooks)</tag-4> </tag-3> <tag-5> <tag-6>Repositorio de HAC</tag-6> </tag-5> <tag-7> <tag-8>Documentación de LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Cargar plantilla de inicio</tag-10> </tag-9>"
@@ -242,6 +242,15 @@
   },
   "dot.name": {
     "translation": "doT.js"
+  },
+  "duckdb.desc": {
+    "translation": "DuckDB empaquetado como WASM usando DuckDB-Wasm"
+  },
+  "duckdb.link": {
+    "translation": "<tag-1> <tag-2>Sitio web oficial de DuckDB</tag-2> </tag-1> <tag-3> <tag-4>Documentación de DuckDB</tag-4> </tag-3> <tag-5> <tag-6>Repositorio GitHub de DuckDB-Wasm</tag-6> </tag-5> <tag-7> <tag-8>Aprende X en Y minutos, donde X=SQL</tag-8> </tag-7> <tag-9> <tag-10>Cargar plantilla inicial</tag-10> </tag-9>"
+  },
+  "duckdb.name": {
+    "translation": "DuckDB"
   },
   "ejs.desc": {
     "translation": "Plantillas de JavaScript integradas."

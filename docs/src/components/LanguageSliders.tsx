@@ -133,6 +133,7 @@ export default function Sliders() {
       { name: 'assembly-wasm', title: 'Assembly (Wasm)' },
       { name: 'sql', title: 'SQL' },
       { name: 'postgresql', title: 'PostgreSQL' },
+      { name: 'duckdb', title: 'DuckDB' },
       { name: 'prolog', title: 'Prolog' },
       { name: 'minizinc', title: 'MiniZinc' },
       { name: 'blockly', title: 'Blockly' },

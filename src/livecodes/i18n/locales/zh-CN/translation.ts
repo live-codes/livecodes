@@ -1041,6 +1041,7 @@ const translation: I18nTranslation = {
       php: 'PHP 启动模板',
       'php-wasm': 'PHP（WASM）启动模板',
       postgresql: 'PostgreSQL 启动模板',
+      duckdb: 'DuckDB 启动模板',
       preact: 'Preact 启动模板',
       prolog: 'Prolog 启动模板',
       python: 'Python 启动模板',

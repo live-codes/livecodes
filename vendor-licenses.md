@@ -74,6 +74,8 @@ Dart: [BSD-3-Clause License](https://github.com/dart-lang/sdk/blob/e6f4207adef69
 
 DoppioJVM: [MIT License](https://github.com/plasma-umass/doppio/blob/9a8bcf705c74f91301a542abfe8b7175ca757259/LICENSE)
 
+DuckDB-Wasm: [MIT License](https://github.com/duckdb/duckdb-wasm/blob/main/LICENSE)
+
 dts-bundle: [MIT License](https://github.com/TypeStrong/dts-bundle/blob/2ca1591e890dc4276efc4bb0893367e6ff32a039/LICENSE-MIT)
 
 EasyQRCodeJS: [MIT License](https://github.com/ushelp/EasyQRCodeJS/blob/573373b110d706132a41cc8abb5b297016b80094/LICENSE)

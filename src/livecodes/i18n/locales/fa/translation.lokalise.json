@@ -1989,6 +1989,9 @@
   "templates.starter.diagrams": {
     "translation": "شروع کننده نمودارها"
   },
+  "templates.starter.duckdb": {
+    "translation": "شروع کننده DuckDB"
+  },
   "templates.starter.elm": {
     "translation": "شروع کننده Elm"
   },

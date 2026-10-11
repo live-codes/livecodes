@@ -381,6 +381,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>PostgreSQL 公式ウェブサイト</2> </1> <3> <4>PostgreSQL ドキュメント</4> </3> <5> <6>PGlite GitHub リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=SQL</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
     name: 'PostgreSQL',
   },
+  duckdb: {
+    desc: 'DuckDB-Wasm を使用して WASM としてパッケージ化された DuckDB',
+    link: '<1> <2>DuckDB 公式ウェブサイト</2> </1> <3> <4>DuckDB ドキュメント</4> </3> <5> <6>DuckDB-Wasm GitHub リポジトリ</6> </5> <7> <8>X分でYを学ぶ、X=SQL</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
+    name: 'DuckDB',
+  },
   prolog: {
     desc: 'JavaScript で書かれたオープンソースの Prolog インタプリタ。',
     link: '<1> <2>Tau Prolog 公式ウェブサイト</2> </1> <3> <4>Tau Prolog ドキュメント</4> </3> <5> <6>SWI-Prolog</6> </5> <7> <8>X分でYを学ぶ、X=Prolog</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',

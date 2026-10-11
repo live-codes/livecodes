@@ -89,6 +89,7 @@ export const starterTemplates = {
   "assembly-wasm": "Assembly (Wasm) Starter",
   "sql": "SQL Starter",
   "postgresql": "PostgreSQL Starter",
+  "duckdb": "DuckDB Starter",
   "prolog": "Prolog Starter",
   "minizinc": "MiniZinc Starter",
   "blockly": "Blockly Starter",

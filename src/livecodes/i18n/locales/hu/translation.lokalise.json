@@ -1989,6 +1989,9 @@
   "templates.starter.diagrams": {
     "translation": "Diagramok kezdő"
   },
+  "templates.starter.duckdb": {
+    "translation": "DuckDB kezdő"
+  },
   "templates.starter.elm": {
     "translation": "Elm kezdő"
   },

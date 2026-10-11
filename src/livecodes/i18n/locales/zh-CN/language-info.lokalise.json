@@ -1,7 +1,7 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
   "adaWasm.desc": {
-    "translation": "Ada 由用 Ada 编写并编译为 WebAssembly 的 Ada 编译器 <1>HAC</1> 完全在浏览器中编译和运行。不涉及任何服务器。"
+    "translation": "Ada 由用 Ada 编写并编译为 WebAssembly 的 Ada 编译器 <tag-1>HAC</tag-1> 完全在浏览器中编译和运行。不涉及任何服务器。"
   },
   "adaWasm.link": {
     "translation": "<tag-1> <tag-2>Ada 信息交换中心</tag-2> </tag-1> <tag-3> <tag-4>Ada 编程（Wikibooks）</tag-4> </tag-3> <tag-5> <tag-6>HAC 仓库</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
@@ -242,6 +242,15 @@
   },
   "dot.name": {
     "translation": "doT.js"
+  },
+  "duckdb.desc": {
+    "translation": "使用 DuckDB-Wasm 打包为 WASM 的 DuckDB。"
+  },
+  "duckdb.link": {
+    "translation": "<tag-1> <tag-2>DuckDB官网</tag-2> </tag-1> <tag-3> <tag-4>DuckDB文档</tag-4> </tag-3> <tag-5> <tag-6>DuckDB-Wasm GitHub 仓库</tag-6> </tag-5> <tag-7> <tag-8>在 Y 分钟内学习 X，其中 X=SQL</tag-8> </tag-7> <tag-9> <tag-10>加载启动模板</tag-10> </tag-9>"
+  },
+  "duckdb.name": {
+    "translation": "DuckDB"
   },
   "ejs.desc": {
     "translation": "嵌入式 JavaScript 模板。"
