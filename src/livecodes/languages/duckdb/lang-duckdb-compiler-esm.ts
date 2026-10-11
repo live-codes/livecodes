@@ -38,7 +38,7 @@ const createDB = async (duckdb: any) => {
 };
 
 export const duckdbCompiler: CompilerFunction = async (code, { config }) => {
-  if (!code.trim()) return '{ data: [] }';
+  if (!code.trim()) return '{ "data": [] }';
   const duckdb = await getDuckDB();
 
   const options = getLanguageCustomSettings('duckdb', config);
