@@ -67,14 +67,43 @@ export const duckdbCompiler: CompilerFunction = async (code, { config }) => {
   const conn = await db.connect();
 
   try {
-    const result = await conn.query(code);
-    return `${JSON.stringify({ data: transformData(result) }, jsonReplacer, 2)}`;
+    // `conn.query` materializes only the first result-returning statement, so
+    // statements are run one at a time and their results collected.
+    const statements = splitStatements(code, await db.tokenize(code));
+    const data: Array<{ columns: string[]; values: unknown[][] }> = [];
+    for (const statement of statements) {
+      const result = await conn.query(`${statement}\n; SELECT 0 AS "${resultMarker}"`);
+      const fields = result?.schema?.fields ?? [];
+      // DDL/DML statements return no query result; appending the marker query
+      // makes them return the marker instead, so they can be skipped.
+      if (fields.length === 1 && fields[0].name === resultMarker) continue;
+      data.push(...transformData(result));
+    }
+    return `${JSON.stringify({ data }, jsonReplacer, 2)}`;
   } catch (error: any) {
     return `${JSON.stringify({ error: error.message }, null, 2)}`;
   } finally {
     await conn.close();
     await db.terminate();
   }
+};
+
+const resultMarker = '__livecodes_result__';
+
+const splitStatements = (code: string, tokens: { offsets: number[] }): string[] => {
+  const bytes = new TextEncoder().encode(code);
+  const statements: string[] = [];
+  let start = 0;
+  for (const offset of [...tokens.offsets, bytes.length]) {
+    if (offset === bytes.length || bytes[offset] === 0x3b) {
+      const statement = new TextDecoder().decode(bytes.subarray(start, offset)).trim();
+      if (statement) {
+        statements.push(statement);
+      }
+      start = offset + 1;
+    }
+  }
+  return statements;
 };
 
 const jsonReplacer = (_key: string, value: any) => {
