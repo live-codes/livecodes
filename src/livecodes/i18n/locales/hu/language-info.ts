@@ -381,6 +381,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>PostgreSQL hivatalos weboldal</2> </1> <3> <4>PostgreSQL dokumentáció</4> </3> <5> <6>PGlite GitHub repo</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=SQL</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'PostgreSQL',
   },
+  duckdb: {
+    desc: 'DuckDB WASM-ként csomagolva a DuckDB-Wasm használatával',
+    link: '<1> <2>DuckDB hivatalos weboldal</2> </1> <3> <4>DuckDB dokumentáció</4> </3> <5> <6>DuckDB-Wasm GitHub repo</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=SQL</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'DuckDB',
+  },
   prolog: {
     desc: 'Egy nyílt forráskódú Prolog értelmező JavaScript-ben.',
     link: '<1> <2>Tau Prolog hivatalos weboldal</2> </1> <3> <4>Tau Prolog dokumentáció</4> </3> <5> <6>SWI-Prolog</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=Prolog</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',

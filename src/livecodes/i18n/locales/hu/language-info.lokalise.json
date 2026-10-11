@@ -1,7 +1,7 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
   "adaWasm.desc": {
-    "translation": "Az Ada-t teljes egészében a böngészőben fordítja le és futtatja a <1>HAC</1>, egy Ada nyelven írt, WebAssembly-re fordított Ada-fordító. Nem vesz igénybe szervert."
+    "translation": "Az Ada-t teljes egészében a böngészőben fordítja le és futtatja a <tag-1>HAC</tag-1>, egy Ada nyelven írt, WebAssembly-re fordított Ada-fordító. Nem vesz igénybe szervert."
   },
   "adaWasm.link": {
     "translation": "<tag-1> <tag-2>Ada Információs Központ</tag-2> </tag-1> <tag-3> <tag-4>Ada programozás (Wikibooks)</tag-4> </tag-3> <tag-5> <tag-6>HAC repo</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Indító sablon betöltése</tag-10> </tag-9>"
@@ -242,6 +242,15 @@
   },
   "dot.name": {
     "translation": "doT.js"
+  },
+  "duckdb.desc": {
+    "translation": "DuckDB WASM-ként csomagolva a DuckDB-Wasm használatával"
+  },
+  "duckdb.link": {
+    "translation": "<tag-1> <tag-2>DuckDB hivatalos weboldal</tag-2> </tag-1> <tag-3> <tag-4>DuckDB dokumentáció</tag-4> </tag-3> <tag-5> <tag-6>DuckDB-Wasm GitHub repo</tag-6> </tag-5> <tag-7> <tag-8>Tanulj X-et Y perc alatt, ahol X=SQL</tag-8> </tag-7> <tag-9> <tag-10>Kezdő sablon betöltése</tag-10> </tag-9>"
+  },
+  "duckdb.name": {
+    "translation": "DuckDB"
   },
   "ejs.desc": {
     "translation": "Beágyazott JavaScript sablonozás."

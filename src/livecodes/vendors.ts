@@ -146,6 +146,10 @@ export const doppioJvmBaseUrl = 'https://unpkg.com/@seth0x41/doppio@1.0.0/';
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
+export const duckdbWasmBaseUrl = /* @__PURE__ */ getUrl('@duckdb/duckdb-wasm@1.32.0/dist/');
+
+export const duckdbWasmModuleUrl = /* @__PURE__ */ getModuleUrl('@duckdb/duckdb-wasm@1.32.0');
+
 export const ejsUrl = /* @__PURE__ */ getUrl('ejs@4.0.1/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');

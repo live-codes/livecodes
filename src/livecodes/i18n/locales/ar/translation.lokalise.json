@@ -1989,6 +1989,9 @@
   "templates.starter.diagrams": {
     "translation": "قالب الرسوم البيانية"
   },
+  "templates.starter.duckdb": {
+    "translation": "قالب DuckDB"
+  },
   "templates.starter.elm": {
     "translation": "قالب Elm"
   },

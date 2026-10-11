@@ -2652,6 +2652,10 @@
     "notes": "",
     "translation": "Diagrams Starter"
   },
+  "templates.starter.duckdb": {
+    "notes": "",
+    "translation": "DuckDB Starter"
+  },
   "templates.starter.elm": {
     "notes": "",
     "translation": "Elm Starter"

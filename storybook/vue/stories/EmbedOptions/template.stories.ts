@@ -111,6 +111,7 @@ export const AssemblyWasm = livecodesStory({ template: 'assembly-wasm' });
 AssemblyWasm.storyName = 'Assembly (Wasm)';
 export const SQL = livecodesStory({ template: 'sql' });
 export const PostgreSQL = livecodesStory({ template: 'postgresql' });
+export const DuckDB = livecodesStory({ template: 'duckdb' });
 export const Prolog = livecodesStory({ template: 'prolog' });
 export const Minizinc = livecodesStory({ template: 'minizinc' });
 export const Blockly = livecodesStory({ template: 'blockly' });

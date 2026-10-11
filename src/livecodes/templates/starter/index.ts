@@ -26,6 +26,7 @@ import { d3Starter } from './d3-starter';
 import { daisyuiStarter } from './daisyui-starter';
 import { dartStarter } from './dart-starter';
 import { diagramsStarter } from './diagrams-starter';
+import { duckdbStarter } from './duckdb-starter';
 import { elmStarter } from './elm-starter';
 import { fanakStarter } from './fanak-starter';
 import { fennelStarter } from './fennel-starter';
@@ -186,6 +187,7 @@ export const starterTemplates = [
   assemblyWasmStarter,
   sqlStarter,
   postgresqlStarter,
+  duckdbStarter,
   prologStarter,
   minizincStarter,
   blocklyStarter,

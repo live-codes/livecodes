@@ -1989,6 +1989,9 @@
   "templates.starter.diagrams": {
     "translation": "Pemula Diagram"
   },
+  "templates.starter.duckdb": {
+    "translation": "Pemula DuckDB"
+  },
   "templates.starter.elm": {
     "translation": "Pemula Elm"
   },

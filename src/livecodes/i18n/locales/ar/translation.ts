@@ -1043,6 +1043,7 @@ const translation: I18nTranslation = {
       php: 'قالب PHP',
       'php-wasm': 'قالب PHP (Wasm)',
       postgresql: 'قالب PostgreSQL',
+      duckdb: 'قالب DuckDB',
       preact: 'قالب Preact',
       prolog: 'قالب Prolog',
       python: 'قالب Python',

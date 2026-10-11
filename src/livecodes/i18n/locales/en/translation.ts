@@ -1009,6 +1009,7 @@ const translation = {
       daisyui: 'daisyUI Starter',
       dart: 'Dart Starter',
       diagrams: 'Diagrams Starter',
+      duckdb: 'DuckDB Starter',
       elm: 'Elm Starter',
       fanak: 'Fanak Starter',
       fennel: 'Fennel Starter',

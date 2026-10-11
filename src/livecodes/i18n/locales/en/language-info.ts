@@ -147,6 +147,11 @@ const languageInfo = {
     link: '<1> <2>Official website</2> </1> <3> <4>LiveCodes Documentations</4> </3>',
     name: 'doT.js',
   },
+  duckdb: {
+    desc: 'DuckDB packaged as WASM using DuckDB-Wasm',
+    link: '<1> <2>DuckDB official website</2> </1> <3> <4>DuckDB documentation</4> </3> <5> <6>DuckDB-Wasm GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=SQL</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'DuckDB',
+  },
   ejs: {
     desc: 'Embedded JavaScript templating.',
     link: '<1><2>Official website</2></1> <3> <4>LiveCodes Documentations</4> </3>',

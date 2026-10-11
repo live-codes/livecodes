@@ -375,6 +375,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>PostgreSQL官网</2> </1> <3> <4>PostgreSQL文档</4> </3> <5> <6>PGlite GitHub 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=SQL</8> </7> <9> <10>加载启动模板</10> </9>',
     name: 'PostgreSQL',
   },
+  duckdb: {
+    desc: '使用 DuckDB-Wasm 打包为 WASM 的 DuckDB。',
+    link: '<1> <2>DuckDB官网</2> </1> <3> <4>DuckDB文档</4> </3> <5> <6>DuckDB-Wasm GitHub 仓库</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=SQL</8> </7> <9> <10>加载启动模板</10> </9>',
+    name: 'DuckDB',
+  },
   prolog: {
     desc: 'JavaScript 中的开源 Prolog 解释器。',
     link: '<1> <2>Tau Prolog 官方网站</2> </1> <3> <4>Tau Prolog 文档</4> </3> <5> <6>SWI-Prolog</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=Prolog</8> </7> <9> <10>加载启动模板</10> </9>',

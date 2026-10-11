@@ -381,6 +381,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: "<1> <2>PostgreSQL resmi web sitesi</2> </1> <3> <4>PostgreSQL dokümantasyonu</4> </3> <5> <6>PGlite GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=SQL</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
     name: 'PostgreSQL',
   },
+  duckdb: {
+    desc: 'DuckDB-Wasm kullanılarak WASM olarak paketlenmiş DuckDB.',
+    link: "<1> <2>DuckDB resmi web sitesi</2> </1> <3> <4>DuckDB dokümantasyonu</4> </3> <5> <6>DuckDB-Wasm GitHub repo'su</6> </5> <7> <8>Y Dakikada X Öğrenin, X=SQL</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    name: 'DuckDB',
+  },
   prolog: {
     desc: "JavaScript'te açık kaynaklı bir Prolog yorumlayıcısı.",
     link: '<1> <2>Tau Prolog resmi web sitesi</2> </1> <3> <4>Tau Prolog dokümantasyonu</4> </3> <5> <6>SWI-Prolog</6> </5> <7> <8>Y Dakikada X Öğrenin, X=Prolog</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',

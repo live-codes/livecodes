@@ -1043,6 +1043,7 @@ const translation: I18nTranslation = {
       php: 'پی ایچ پی شروعاتی',
       'php-wasm': 'پی ایچ پی (واسم) شروعاتی',
       postgresql: 'پوسٹگریس کیو ایل شروعاتی',
+      duckdb: 'ڈک ڈی بی شروعاتی',
       preact: 'پری ایکٹ شروعاتی',
       prolog: 'پرولوگ شروعاتی',
       python: 'پائتھن شروعاتی',

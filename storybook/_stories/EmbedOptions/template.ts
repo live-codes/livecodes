@@ -94,6 +94,7 @@ const storyDef: StoryDef = {
   AssemblyWasm: { props: { template: 'assembly-wasm' }, storyName: 'Assembly (Wasm)' },
   SQL: { props: { template: 'sql' } },
   PostgreSQL: { props: { template: 'postgresql' } },
+  DuckDB: { props: { template: 'duckdb' } },
   Prolog: { props: { template: 'prolog' } },
   Minizinc: { props: { template: 'minizinc' } },
   Blockly: { props: { template: 'blockly' } },

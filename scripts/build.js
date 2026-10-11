@@ -201,6 +201,7 @@ const esmBuild = () =>
       'UI/code-to-image.ts',
       'languages/diagrams/lang-diagrams-compiler-esm.ts',
       'languages/postgresql/lang-postgresql-compiler-esm.ts',
+      'languages/duckdb/lang-duckdb-compiler-esm.ts',
       'languages/r/lang-r-script-esm.ts',
       'languages/rescript/lang-rescript-compiler-esm.ts',
       'i18n/i18n.ts',

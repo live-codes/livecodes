@@ -381,6 +381,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Site officiel de PostgreSQL</2> </1> <3> <4>Documentation PostgreSQL</4> </3> <5> <6>Dépôt GitHub PGlite</6> </5> <7> <8>Apprenez X en Y minutes, où X=SQL</8> </7> <9> <10>Charger le modèle de démarrage</10> </9>',
     name: 'PostgreSQL',
   },
+  duckdb: {
+    desc: 'DuckDB packagé en WASM en utilisant DuckDB-Wasm',
+    link: '<1> <2>Site officiel de DuckDB</2> </1> <3> <4>Documentation DuckDB</4> </3> <5> <6>Dépôt GitHub DuckDB-Wasm</6> </5> <7> <8>Apprenez X en Y minutes, où X=SQL</8> </7> <9> <10>Charger le modèle de démarrage</10> </9>',
+    name: 'DuckDB',
+  },
   prolog: {
     desc: 'Un interpréteur Prolog open source en JavaScript.',
     link: '<1> <2>Site officiel de Tau Prolog</2> </1> <3> <4>Documentation Tau Prolog</4> </3> <5> <6>SWI-Prolog</6> </5> <7> <8>Apprenez X en Y minutes, où X=Prolog</8> </7> <9> <10>Charger le modèle de démarrage</10> </9>',

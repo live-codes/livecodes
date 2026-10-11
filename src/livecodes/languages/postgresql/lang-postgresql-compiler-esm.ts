@@ -10,7 +10,7 @@ declare global {
 }
 
 export const pgSqlCompiler: CompilerFunction = async (code, { config }) => {
-  if (!code.trim()) return '{ data: [] }';
+  if (!code.trim()) return '{ "data": [] }';
   window.PGlite = window.PGlite || (await import(pgliteUrl)).PGlite;
 
   const options = getLanguageCustomSettings('pgsql', config);
