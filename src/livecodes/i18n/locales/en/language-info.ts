@@ -367,6 +367,14 @@ const languageInfo = {
     link: '<1><2>OCaml website</2></1> <3> <4>OCaml documentation</4> </3> <5> <6>ReScript website</6> </5> <7> <8>Learn X in Y minutes, where X=OCaml</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'OCaml',
   },
+  ocamlJs: {
+    desc1:
+      'OCaml is an industrial-strength programming language supporting functional, imperative and object-oriented styles.',
+    desc2:
+      'The OCaml compiler runs in the browser and compiles to JavaScript. Nothing is sent to a server.',
+    link: '<1><2>OCaml website</2></1> <3> <4>OCaml documentation</4> </3> <5> <6>Learn X in Y minutes, where X=OCaml</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'OCaml (JS)',
+  },
   pascal: {
     desc: 'Pascal running in the browser using pas2js (by the Free Pascal team) compiled to WebAssembly.',
     link: '<1> <2>Free Pascal website</2> </1> <3> <4>pas2js documentation</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',

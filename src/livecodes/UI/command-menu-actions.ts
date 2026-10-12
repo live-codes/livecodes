@@ -293,6 +293,7 @@ export const getCommandMenuActions = ({
         'rescript',
         'reason',
         'ocaml',
+        'ocaml-js',
         'nim',
         'nim-wasm',
         'janet-wasm',

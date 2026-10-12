@@ -477,6 +477,8 @@ export const reasonReactUrl = /* @__PURE__ */ getUrl(
 
 export const reasonStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@9.1.3/lib/es6/');
 
+export const ocamlJsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/ocaml@0.2.0/');
+
 export const rescriptCdnBaseUrl = /* @__PURE__ */ getUrl('https://cdn.rescript-lang.org/v11.1.2/');
 
 export const rescriptStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@11.1.2/lib/es6/');

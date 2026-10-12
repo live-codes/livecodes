@@ -37,6 +37,7 @@ const templates = [
   { name: 'rescript', title: 'ReScript Starter', thumbnail: 'rescript.png' },
   { name: 'reason', title: 'Reason Starter', thumbnail: 'reason.svg' },
   { name: 'ocaml', title: 'Ocaml Starter', thumbnail: 'ocaml.svg' },
+  { name: 'ocaml-js', title: 'OCaml (JS) Starter', thumbnail: 'ocaml.svg' },
   { name: 'nim', title: 'Nim Starter', thumbnail: 'nim.svg' },
   { name: 'nim-wasm', title: 'Nim (Wasm) Starter', thumbnail: 'nim.svg' },
   { name: 'janet-wasm', title: 'Janet (Wasm) Starter', thumbnail: 'janet.png' },

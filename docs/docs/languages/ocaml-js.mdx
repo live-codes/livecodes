@@ -1,0 +1,93 @@
+# OCaml (JS)
+
+[OCaml](https://ocaml.org/) is an industrial-strength programming language supporting functional, imperative and object-oriented styles.
+
+LiveCodes runs the OCaml compiler itself, built with [js_of_ocaml](https://github.com/ocsigen/js_of_ocaml), so compilation happens in the browser and nothing is sent to a server. The compiler emits a JavaScript program, which the result page then runs.
+
+:::info Note
+
+LiveCodes also has an `ocaml` language, which runs the [ReScript](https://rescript-lang.org/) compiler. It is deprecated in favour of this one. Read documentation [here](./ocaml.mdx).
+
+:::
+
+## Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const params = {
+  'ocaml-js': 'let () =\n  print_endline "Hello, World!"\n',
+  console: 'full',
+};
+
+<LiveCodes params={params}></LiveCodes>
+
+## Usage
+
+LiveCodes runs OCaml in the browser, including the standard library.
+
+Because the compiled program *is* JavaScript by the time it runs, it can interact with the page. JavaScript interoperability and DOM access come from [js_of_ocaml](https://github.com/ocsigen/js_of_ocaml)'s `Js` and `Dom_html` with `open Js_of_ocaml` (see the [example below](#example-usage)).
+
+## Modules and Libraries
+
+The standard library is always available. Beyond it, these are linked on demand — the archive is fetched the first time a program names one of its modules, so a program that uses none of them downloads none of them.
+
+- **js_of_ocaml** — `Js`, `Dom_html`, and the rest of the browser APIs
+- **Str**, **Unix**, **Graphics** — from the OCaml distribution
+- **Lwt**, **js_of_ocaml-lwt** — promises and concurrency
+- **Re** — regular expressions
+- **jsonm**, **xmlm**, **uutf** — JSON, XML and Unicode text
+- **fmt**, **logs** — formatting and logging
+- **base64** — base64 encoding
+- **Zarith** — `Z` and `Q`, arbitrary-precision integers and rationals
+
+Everything here runs in the browser, so a library has to be pure OCaml, or have a JavaScript replacement for its C stubs — Zarith's are provided by `zarith_stubs_js`. Anything needing real threads, processes or a filesystem will not work, whatever is linked.
+
+This is the set built with the compiler. Other opam packages are not available.
+
+## Language Info
+
+### Name
+
+`ocaml-js`
+
+### Extensions
+
+`js.ocaml`, `js.ml`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The OCaml compiler — the same `compiler-libs` frontend that compiles ordinary OCaml — compiled to JavaScript with [js_of_ocaml](https://github.com/ocsigen/js_of_ocaml). It is published as [@live-codes/ocaml](https://www.npmjs.com/package/@live-codes/ocaml).
+
+### Version
+
+`@live-codes/ocaml`: v0.2.0
+
+## Code Formatting
+
+Not supported.
+
+## Limitations
+
+There is no ppx support, since a ppx would have to run at compile time and compilation happens at run time here. So `##`, `##.` and `[%js]` are not available; use `Js.Unsafe` and the rest of the bindings instead.
+
+## Example Usage
+
+This example counts button clicks in the DOM, using `Dom_html`:
+
+<LiveCodes template="ocaml-js" height="80vh"></LiveCodes>
+
+## Starter Template
+
+https://livecodes.io/?template=ocaml-js
+
+## Links
+
+- [OCaml website](https://ocaml.org/)
+- [OCaml documentation](https://ocaml.org/docs/)
+- [@live-codes/ocaml on npm](https://www.npmjs.com/package/@live-codes/ocaml)
+- [js_of_ocaml](https://github.com/ocsigen/js_of_ocaml)
+- [OCaml with the ReScript compiler](./ocaml.mdx) in LiveCodes
