@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "ocamlJs.desc1": {
+    "translation": "OCaml 是一种工业级编程语言，支持函数式、命令式和面向对象编程范式。"
+  },
+  "ocamlJs.desc2": {
+    "translation": "OCaml 编译器在浏览器中运行并编译为 JavaScript。不会向服务器发送任何内容。"
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>OCaml 官方网站</tag-2></tag-1> <tag-3> <tag-4>OCaml 文档</tag-4> </tag-3> <tag-5> <tag-6>在 Y 分钟内学习 X，其中 X=OCaml</tag-6> </tag-5> <tag-7> <tag-8>加载启动模板</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "使用 Free Pascal 团队的 pas2js 在浏览器中运行的 Pascal，并编译为 WebAssembly。"
   },

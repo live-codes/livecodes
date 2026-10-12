@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "ocamlJs.desc1": {
+    "translation": "OCaml एक औद्योगिक-स्तरीय प्रोग्रामिंग भाषा है जो कार्यात्मक, आदेशात्मक और ऑब्जेक्ट-उन्मुख शैलियों का समर्थन करती है।"
+  },
+  "ocamlJs.desc2": {
+    "translation": "OCaml कंपाइलर ब्राउज़र में चलता है और JavaScript में कंपाइल करता है। किसी सर्वर पर कुछ नहीं भेजा जाता है।"
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>OCaml वेबसाइट</tag-2></tag-1> <tag-3> <tag-4>OCaml दस्तावेज़ीकरण</tag-4> </tag-3> <tag-5> <tag-6>X को Y मिनटों में सीखें, जहां X=OCaml</tag-6> </tag-5> <tag-7> <tag-8>स्टार्टर टेम्पलेट लोड करें</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "Free Pascal टीम द्वारा pas2js का उपयोग करके ब्राउज़र में चलने वाला Pascal, जो WebAssembly में संकलित है।"
   },

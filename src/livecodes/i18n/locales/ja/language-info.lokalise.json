@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "ocamlJs.desc1": {
+    "translation": "OCaml は、関数型、命令型、オブジェクト指向スタイルをサポートする産業用プログラミング言語です。"
+  },
+  "ocamlJs.desc2": {
+    "translation": "OCaml コンパイラはブラウザ内で実行され、JavaScript にコンパイルされます。サーバーには何も送信されません。"
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>OCaml ウェブサイト</tag-2></tag-1> <tag-3> <tag-4>OCaml ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>X分でYを学ぶ、X=OCaml</tag-6> </tag-5> <tag-7> <tag-8>スターターテンプレートを読み込む</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "pas2js（Free Pascal チームによる）を使用してブラウザで動作する Pascal。WebAssembly にコンパイルされます。"
   },

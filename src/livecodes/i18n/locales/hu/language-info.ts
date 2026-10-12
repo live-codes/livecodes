@@ -356,6 +356,13 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml weboldal</2></1> <3> <4>OCaml dokumentáció</4> </3> <5> <6>ReScript weboldal</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=OCaml</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'OCaml',
   },
+  ocamlJs: {
+    desc1:
+      'Az OCaml egy ipari szintű programozási nyelv, amely támogatja a funkcionális, imperatív és objektumorientált stílusokat.',
+    desc2: 'Az OCaml-fordító a böngészőben fut és JavaScript-re fordít. Semmit sem küld szerverre.',
+    link: '<1><2>OCaml weboldal</2></1> <3> <4>OCaml dokumentáció</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=OCaml</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
+    name: 'OCaml (JS)',
+  },
   pascal: {
     desc: 'A Pascal a pas2js (a Free Pascal csapatától) segítségével fut a böngészőben, WebAssembly-re fordítva.',
     link: '<1> <2>Free Pascal hivatalos weboldal</2> </1> <3> <4>pas2js dokumentáció</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes dokumentációk</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',

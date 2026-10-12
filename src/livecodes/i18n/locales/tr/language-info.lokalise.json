@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "ocamlJs.desc1": {
+    "translation": "OCaml, fonksiyonel, zorunlu ve nesne yönelimli stilleri destekleyen endüstriyel güçte bir programlama dilidir."
+  },
+  "ocamlJs.desc2": {
+    "translation": "OCaml derleyicisi tarayıcıda çalışır ve JavaScript'e derler. Sunucuya hiçbir şey gönderilmez."
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>OCaml web sitesi</tag-2></tag-1> <tag-3> <tag-4>OCaml dokümantasyonu</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=OCaml</tag-6> </tag-5> <tag-7> <tag-8>Başlangıç şablonunu yükle</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "Pascal, Free Pascal ekibi tarafından pas2js kullanılarak tarayıcıda çalışır ve WebAssembly'ye derlenir."
   },

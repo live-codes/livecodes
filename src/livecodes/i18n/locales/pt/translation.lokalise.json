@@ -2097,6 +2097,9 @@
   "templates.starter.ocaml": {
     "translation": "Iniciante OCaml"
   },
+  "templates.starter.ocaml-js": {
+    "translation": "Iniciante OCaml (JS)"
+  },
   "templates.starter.pascal": {
     "translation": "Iniciante Pascal"
   },

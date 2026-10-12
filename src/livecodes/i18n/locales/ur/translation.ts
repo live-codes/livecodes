@@ -1037,6 +1037,7 @@ const translation: I18nTranslation = {
       'nim-wasm': 'Nim (واسم) شروعاتی',
       'objc-wasm': 'Objective-C (واسم) شروعاتی',
       ocaml: 'اوکامل شروعاتی',
+      'ocaml-js': 'OCaml (JS) شروعاتی',
       pascal: 'پاسکل شروعاتی',
       perl: 'پرل شروعاتی',
       phaser: 'فیزر شروعاتی',

@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "ocamlJs.desc1": {
+    "translation": "OCaml هي لغة برمجة صناعية تدعم الأنماط الوظيفية والإجرائية والكائنية."
+  },
+  "ocamlJs.desc2": {
+    "translation": "يعمل مُترجم OCaml في المتصفح ويُترجم إلى JavaScript. لا يُرسَل أي شيء إلى خادم."
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>موقع OCaml</tag-2></tag-1> <tag-3> <tag-4>وثائق OCaml</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقائق، حيث X=OCaml</tag-6> </tag-5> <tag-7> <tag-8>تحميل القالب الأولي</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "Pascal يعمل في المتصفح باستخدام pas2js (من فريق Free Pascal) ومُجمَّع إلى WebAssembly."
   },

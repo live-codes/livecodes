@@ -1035,6 +1035,7 @@ const translation: I18nTranslation = {
       'nim-wasm': 'Nim（WASM）启动模板',
       'objc-wasm': 'Objective-C（WASM）启动模板',
       ocaml: 'Ocaml 启动模板',
+      'ocaml-js': 'OCaml（JS）启动模板',
       pascal: 'Pascal 启动模板',
       perl: 'Perl 启动模板',
       phaser: 'Phaser 启动模板',

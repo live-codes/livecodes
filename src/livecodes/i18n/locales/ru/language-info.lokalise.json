@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "ocamlJs.desc1": {
+    "translation": "OCaml - это язык программирования промышленного уровня, поддерживающий функциональный, императивный и объектно-ориентированный стили."
+  },
+  "ocamlJs.desc2": {
+    "translation": "Компилятор OCaml работает в браузере и компилирует в JavaScript. Ничего не отправляется на сервер."
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>Сайт OCaml</tag-2></tag-1> <tag-3> <tag-4>Документация OCaml</tag-4> </tag-3> <tag-5> <tag-6>Изучите X за Y минут, где X=OCaml</tag-6> </tag-5> <tag-7> <tag-8>Загрузить стартовый шаблон</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "Pascal, работающий в браузере с использованием pas2js (от команды Free Pascal), скомпилирован в WebAssembly."
   },

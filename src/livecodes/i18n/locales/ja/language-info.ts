@@ -356,6 +356,14 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml ウェブサイト</2></1> <3> <4>OCaml ドキュメント</4> </3> <5> <6>ReScript ウェブサイト</6> </5> <7> <8>X分でYを学ぶ、X=OCaml</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
     name: 'OCaml',
   },
+  ocamlJs: {
+    desc1:
+      'OCaml は、関数型、命令型、オブジェクト指向スタイルをサポートする産業用プログラミング言語です。',
+    desc2:
+      'OCaml コンパイラはブラウザ内で実行され、JavaScript にコンパイルされます。サーバーには何も送信されません。',
+    link: '<1><2>OCaml ウェブサイト</2></1> <3> <4>OCaml ドキュメント</4> </3> <5> <6>X分でYを学ぶ、X=OCaml</6> </5> <7> <8>スターターテンプレートを読み込む</8> </7>',
+    name: 'OCaml (JS)',
+  },
   pascal: {
     desc: 'pas2js（Free Pascal チームによる）を使用してブラウザで動作する Pascal。WebAssembly にコンパイルされます。',
     link: '<1> <2>Free Pascal 公式ウェブサイト</2> </1> <3> <4>pas2js ドキュメント</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',

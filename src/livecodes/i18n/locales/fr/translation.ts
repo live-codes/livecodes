@@ -1039,6 +1039,7 @@ const translation: I18nTranslation = {
       'nim-wasm': 'Démarrage Nim (Wasm)',
       'objc-wasm': 'Démarrage Objective-C (Wasm)',
       ocaml: 'Démarrage OCaml',
+      'ocaml-js': 'Démarrage OCaml (JS)',
       pascal: 'Démarrage Pascal',
       perl: 'Démarrage Perl',
       phaser: 'Démarrage Phaser',

@@ -350,6 +350,12 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml 官方网站</2></1> <3> <4>OCaml 文档</4> </3> <5> <6>ReScript 网站</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=OCaml</8> </7> <9> <10>加载启动模板</10> </9>',
     name: 'OCaml',
   },
+  ocamlJs: {
+    desc1: 'OCaml 是一种工业级编程语言，支持函数式、命令式和面向对象编程范式。',
+    desc2: 'OCaml 编译器在浏览器中运行并编译为 JavaScript。不会向服务器发送任何内容。',
+    link: '<1><2>OCaml 官方网站</2></1> <3> <4>OCaml 文档</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=OCaml</6> </5> <7> <8>加载启动模板</8> </7>',
+    name: 'OCaml (JS)',
+  },
   pascal: {
     desc: '使用 Free Pascal 团队的 pas2js 在浏览器中运行的 Pascal，并编译为 WebAssembly。',
     link: '<1> <2>Free Pascal 官网</2> </1> <3> <4>pas2js 文档</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',

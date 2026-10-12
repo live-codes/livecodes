@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "ocamlJs.desc1": {
+    "translation": "OCaml is een industriële programmeertaal die functionele, imperatieve en objectgeoriënteerde stijlen ondersteunt."
+  },
+  "ocamlJs.desc2": {
+    "translation": "De OCaml-compiler draait in de browser en compileert naar JavaScript. Er wordt niets naar een server verzonden."
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>OCaml website</tag-2></tag-1> <tag-3> <tag-4>OCaml documentatie</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X=OCaml</tag-6> </tag-5> <tag-7> <tag-8>Startsjabloon laden</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "Pascal draaiend in de browser met pas2js (van het Free Pascal-team), gecompileerd naar WebAssembly."
   },

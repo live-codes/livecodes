@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "ocamlJs.desc1": {
+    "translation": "OCaml é uma linguagem de programação de nível industrial que suporta estilos funcionais, imperativos e orientados a objetos."
+  },
+  "ocamlJs.desc2": {
+    "translation": "O compilador OCaml é executado no navegador e compila para JavaScript. Nada é enviado a um servidor."
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>Site do OCaml</tag-2></tag-1> <tag-3> <tag-4>Documentação do OCaml</tag-4> </tag-3> <tag-5> <tag-6>Aprenda X em Y minutos, onde X=OCaml</tag-6> </tag-5> <tag-7> <tag-8>Carregar modelo inicial</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "Pascal rodando no navegador usando pas2js (pela equipe do Free Pascal), compilado para WebAssembly."
   },

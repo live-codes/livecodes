@@ -9,7 +9,7 @@ export const ocaml: LanguageSpecs = {
   // This entry runs the ReScript compiler, not OCaml. `ocaml-js` is the real one;
   // until the swap, `ocaml` still resolves here, with a warning.
   deprecation: (lang: Language) =>
-    ['ocaml', 'ml', 'mli'].includes(lang) ? { old: 'ocaml', new: 'ocaml-js' } : undefined,
+    ['ocaml', 'ml', 'mli'].includes(lang) ? { old: 'rescript-ocaml', new: 'ocaml-js' } : undefined,
   extensions: ['ml', 'mli', 'rescript-ocaml'],
   editor: 'script',
   editorSupport: {
