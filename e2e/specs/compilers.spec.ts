@@ -1500,7 +1500,7 @@ export class App {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text=OCaml (JS)');
+    await (await app.$('[data-lang="ocaml-js"]'))?.click();
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       [
