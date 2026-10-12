@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "ocamlJs.desc1": {
+    "translation": "OCaml একটি শিল্প-মানের প্রোগ্রামিং ভাষা যা ফাংশনাল, ইম্পেরেটিভ এবং অবজেক্ট-ওরিয়েন্টেড স্টাইল সমর্থন করে।"
+  },
+  "ocamlJs.desc2": {
+    "translation": "OCaml কম্পাইলার ব্রাউজারে চলে এবং JavaScript-এ কম্পাইল করে। কোনো সার্ভারে কিছু পাঠানো হয় না।"
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>OCaml ওয়েবসাইট</tag-2></tag-1> <tag-3> <tag-4>OCaml ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=OCaml</tag-6> </tag-5> <tag-7> <tag-8>স্টার্টার টেমপ্লেট লোড করুন</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "Free Pascal দলের pas2js ব্যবহার করে ব্রাউজারে Pascal চলছে, যা WebAssembly-তে কম্পাইল করা।"
   },

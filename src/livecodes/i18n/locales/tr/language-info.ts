@@ -356,6 +356,14 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml web sitesi</2></1> <3> <4>OCaml dokümantasyonu</4> </3> <5> <6>ReScript web sitesi</6> </5> <7> <8>Y Dakikada X Öğrenin, X=OCaml</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
     name: 'OCaml',
   },
+  ocamlJs: {
+    desc1:
+      'OCaml, fonksiyonel, zorunlu ve nesne yönelimli stilleri destekleyen endüstriyel güçte bir programlama dilidir.',
+    desc2:
+      "OCaml derleyicisi tarayıcıda çalışır ve JavaScript'e derler. Sunucuya hiçbir şey gönderilmez.",
+    link: '<1><2>OCaml web sitesi</2></1> <3> <4>OCaml dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=OCaml</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
+    name: 'OCaml (JS)',
+  },
   pascal: {
     desc: "Pascal, Free Pascal ekibi tarafından pas2js kullanılarak tarayıcıda çalışır ve WebAssembly'ye derlenir.",
     link: '<1> <2>Free Pascal resmi web sitesi</2> </1> <3> <4>pas2js dokümantasyonu</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',

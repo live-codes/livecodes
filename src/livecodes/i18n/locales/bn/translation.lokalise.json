@@ -2097,6 +2097,9 @@
   "templates.starter.ocaml": {
     "translation": "Ocaml স্টার্টার"
   },
+  "templates.starter.ocaml-js": {
+    "translation": "OCaml (JS) স্টার্টার"
+  },
   "templates.starter.pascal": {
     "translation": "Pascal স্টার্টার"
   },

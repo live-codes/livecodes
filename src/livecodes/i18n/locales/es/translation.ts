@@ -1037,6 +1037,7 @@ const translation: I18nTranslation = {
       'nim-wasm': 'Inicio Nim (Wasm)',
       'objc-wasm': 'Inicio Objective-C (Wasm)',
       ocaml: 'Inicio Ocaml',
+      'ocaml-js': 'Inicio OCaml (JS)',
       pascal: 'Inicio Pascal',
       perl: 'Inicio Perl',
       phaser: 'Inicio Phaser',

@@ -356,6 +356,14 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Site web OCaml</2></1> <3> <4>Documentation OCaml</4> </3> <5> <6>Site web ReScript</6> </5> <7> <8>Apprenez X en Y minutes, où X=OCaml</8> </7> <9> <10>Charger le modèle de démarrage</10> </9>',
     name: 'OCaml',
   },
+  ocamlJs: {
+    desc1:
+      'OCaml est un langage de programmation de qualité industrielle supportant les styles fonctionnel, impératif et orienté objet.',
+    desc2:
+      "Le compilateur OCaml s'exécute dans le navigateur et compile en JavaScript. Rien n'est envoyé à un serveur.",
+    link: '<1><2>Site web OCaml</2></1> <3> <4>Documentation OCaml</4> </3> <5> <6>Apprenez X en Y minutes, où X=OCaml</6> </5> <7> <8>Charger le modèle de démarrage</8> </7>',
+    name: 'OCaml (JS)',
+  },
   pascal: {
     desc: "Pascal s'exécutant dans le navigateur en utilisant pas2js (par l'équipe Free Pascal), compilé en WebAssembly.",
     link: '<1> <2>Site officiel de Free Pascal</2> </1> <3> <4>Documentation pas2js</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>Documentations LiveCodes</8> </7> <9> <10>Charger le modèle de démarrage</10> </9>',
