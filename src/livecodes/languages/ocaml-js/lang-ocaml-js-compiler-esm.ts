@@ -17,9 +17,15 @@ interface OcamlCompiler {
 let loading: Promise<OcamlCompiler> | undefined;
 
 const getCompiler = (): Promise<OcamlCompiler> => {
-  loading ??= import(ocamlJsCompilerUrl).then(({ createCompiler }) =>
-    createCompiler({ baseUrl: ocamlJsAssetsBaseUrl }),
-  );
+  if (!loading) {
+    loading = import(ocamlJsCompilerUrl).then(({ createCompiler }) =>
+      createCompiler({ baseUrl: ocamlJsAssetsBaseUrl }),
+    );
+    // do not keep a failed boot (e.g. a transient network error)
+    loading.catch(() => {
+      loading = undefined;
+    });
+  }
   return loading;
 };
 
