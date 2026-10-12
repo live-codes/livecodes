@@ -77,6 +77,7 @@ export default function Sliders() {
       { name: 'elm', title: 'Elm' },
       { name: 'rescript', title: 'ReScript' },
       { name: 'reason', title: 'Reason' },
+      { name: 'ocaml-js', title: 'OCaml (JS)' },
       { name: 'ocaml', title: 'OCaml' },
       { name: 'nim', title: 'Nim' },
       { name: 'nim-wasm', title: 'Nim (Wasm)' },

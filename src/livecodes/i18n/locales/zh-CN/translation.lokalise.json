@@ -2097,6 +2097,9 @@
   "templates.starter.ocaml": {
     "translation": "Ocaml 启动模板"
   },
+  "templates.starter.ocaml-js": {
+    "translation": "OCaml（JS）启动模板"
+  },
   "templates.starter.pascal": {
     "translation": "Pascal 启动模板"
   },

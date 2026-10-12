@@ -268,6 +268,8 @@ quill-html-edit-button: [MIT License](https://github.com/benwinding/quill-html-e
 
 require.js: [MIT License](https://github.com/marella/require.js/blob/e88122fb11fdd10fb649dd8999723d34074ed647/LICENSE)
 
+@live-codes/ocaml: [LGPL-2.1-or-later with OCaml linking exception](https://github.com/live-codes/browser-ocaml/blob/main/packages/ocaml/LICENSE)
+
 ReScript: [License](https://github.com/rescript-lang/rescript-compiler/blob/d93260cb2d4be63e387959e69f3204af85e5b1b3/LICENSE)
 
 ReScript/React: [MIT License](https://github.com/rescript-lang/rescript-react/blob/c3017ec4bbce5847c3b2da8d2d536450a3e2fd6d/LICENSE)

@@ -2796,6 +2796,10 @@
     "notes": "",
     "translation": "Ocaml Starter"
   },
+  "templates.starter.ocaml-js": {
+    "notes": "",
+    "translation": "OCaml (JS) Starter"
+  },
   "templates.starter.pascal": {
     "notes": "",
     "translation": "Pascal Starter"

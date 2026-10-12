@@ -39,6 +39,7 @@ const storyDef: StoryDef = {
   ReScript: { props: { template: 'rescript' }, storyName: 'ReScript' },
   Reason: { props: { template: 'reason' } },
   Ocaml: { props: { template: 'ocaml' } },
+  OcamlJs: { props: { template: 'ocaml-js' } },
   Nim: { props: { template: 'nim' } },
   NimWasm: { props: { template: 'nim-wasm' } },
   JanetWasm: { props: { template: 'janet-wasm' } },

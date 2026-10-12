@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "او کیمل"
   },
+  "ocamlJs.desc1": {
+    "translation": "او کیمل ایک صنعتی طاقت کی پروگرامنگ زبان ہے جو فنکشنل، امپیریٹیو اور آبجیکٹ اورینٹڈ طرزوں کی معاونت کرتی ہے۔"
+  },
+  "ocamlJs.desc2": {
+    "translation": "OCaml کمپائلر براؤزر میں چلتا ہے اور JavaScript میں کمپائل کرتا ہے۔ سرور پر کچھ نہیں بھیجا جاتا۔"
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>او کیمل ویب سائٹ</tag-2></tag-1> <tag-3> <tag-4>او کیمل دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>X کو Y منٹ میں سیکھیں، جہاں X=او کیمل</tag-6> </tag-5> <tag-7> <tag-8>ابتدائی سانچہ لوڈ کریں</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "Free Pascal ٹیم کے pas2js کا استعمال کرتے ہوئے براؤزر میں چلنے والا Pascal، جو WebAssembly میں مرتب کیا گیا ہے۔"
   },

@@ -2097,6 +2097,9 @@
   "templates.starter.ocaml": {
     "translation": "Pemula Ocaml"
   },
+  "templates.starter.ocaml-js": {
+    "translation": "Pemula OCaml (JS)"
+  },
   "templates.starter.pascal": {
     "translation": "Pemula Pascal"
   },

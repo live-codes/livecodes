@@ -65,6 +65,7 @@ import { mustache } from './mustache';
 import { nim, nimWasm } from './nim';
 import { nunjucks } from './nunjucks';
 import { ocaml } from './ocaml';
+import { ocamlJs } from './ocaml-js';
 import { pascal } from './pascal';
 import { perl } from './perl';
 import { php } from './php';
@@ -165,6 +166,7 @@ export const languages: LanguageSpecs[] = [
   rescript,
   reason,
   ocaml,
+  ocamlJs,
   nim,
   nimWasm,
   crystalWasm,

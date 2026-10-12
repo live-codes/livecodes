@@ -738,9 +738,15 @@ export const onLoad = /* @__PURE__ */ (fn: (...args: any[]) => any) => {
 
 export const getDocsUrl = () => {
   const docsBaseUrl = predefinedValues.DOCS_BASE_URL || 'docs/';
-  const docsUrl = docsBaseUrl.startsWith('http')
-    ? docsBaseUrl
-    : new URL(docsBaseUrl, location.href).href;
+  let docsUrl = docsBaseUrl;
+  if (!docsBaseUrl.startsWith('http')) {
+    try {
+      docsUrl = new URL(docsBaseUrl, location.href).href;
+    } catch {
+      // `location.href` is not always usable as a base, e.g. in a worker loaded from
+      // a data:/blob: URL. Fall back to the configured (relative) value.
+    }
+  }
   return docsUrl.endsWith('/') ? docsUrl : `${docsUrl}/`;
 };
 

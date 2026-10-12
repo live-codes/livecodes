@@ -37,6 +37,7 @@
   "rescript": "ReScript Starter",
   "reason": "Reason Starter",
   "ocaml": "Ocaml Starter",
+  "ocaml-js": "OCaml (JS) Starter",
   "nim": "Nim Starter",
   "nim-wasm": "Nim (Wasm) Starter",
   "crystal-wasm": "Crystal Starter",

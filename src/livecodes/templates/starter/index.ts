@@ -58,6 +58,7 @@ import { mdxStarter } from './mdx-starter';
 import { minizincStarter } from './minizinc-starter';
 import { nimStarter } from './nim-starter';
 import { nimWasmStarter } from './nim-wasm-starter';
+import { ocamlJsStarter } from './ocaml-js-starter';
 import { ocamlStarter } from './ocaml-starter';
 import { pascalStarter } from './pascal-starter';
 import { perlStarter } from './perl-starter';
@@ -135,6 +136,7 @@ export const starterTemplates = [
   rescriptStarter,
   reasonStarter,
   ocamlStarter,
+  ocamlJsStarter,
   nimStarter,
   nimWasmStarter,
   crystalWasmStarter,

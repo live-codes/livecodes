@@ -1045,6 +1045,7 @@ const translation = {
       'nim-wasm': 'Nim (Wasm) Starter',
       'objc-wasm': 'Objective-C (Wasm) Starter',
       ocaml: 'Ocaml Starter',
+      'ocaml-js': 'OCaml (JS) Starter',
       pascal: 'Pascal Starter',
       perl: 'Perl Starter',
       phaser: 'Phaser Starter',

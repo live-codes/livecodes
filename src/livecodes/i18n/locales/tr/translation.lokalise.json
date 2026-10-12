@@ -2097,6 +2097,9 @@
   "templates.starter.ocaml": {
     "translation": "Ocaml Başlangıç"
   },
+  "templates.starter.ocaml-js": {
+    "translation": "OCaml (JS) Başlangıç"
+  },
   "templates.starter.pascal": {
     "translation": "Pascal Başlangıç"
   },

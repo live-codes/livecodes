@@ -2097,6 +2097,9 @@
   "templates.starter.ocaml": {
     "translation": "قالب Ocaml"
   },
+  "templates.starter.ocaml-js": {
+    "translation": "قالب OCaml (JS)"
+  },
   "templates.starter.pascal": {
     "translation": "قالب Pascal"
   },

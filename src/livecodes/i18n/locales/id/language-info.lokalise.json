@@ -636,6 +636,18 @@
   "ocaml.name": {
     "translation": "OCaml"
   },
+  "ocamlJs.desc1": {
+    "translation": "OCaml adalah bahasa pemrograman tingkat industri yang mendukung gaya fungsional, imperatif, dan berorientasi objek."
+  },
+  "ocamlJs.desc2": {
+    "translation": "Kompiler OCaml berjalan di browser dan mengompilasi ke JavaScript. Tidak ada yang dikirim ke server."
+  },
+  "ocamlJs.link": {
+    "translation": "<tag-1><tag-2>Situs web OCaml</tag-2></tag-1> <tag-3> <tag-4>Dokumentasi OCaml</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=OCaml</tag-6> </tag-5> <tag-7> <tag-8>Muat template pemula</tag-8> </tag-7>"
+  },
+  "ocamlJs.name": {
+    "translation": "OCaml (JS)"
+  },
   "pascal.desc": {
     "translation": "Pascal berjalan di browser menggunakan pas2js (oleh tim Free Pascal), dikompilasi ke WebAssembly."
   },
