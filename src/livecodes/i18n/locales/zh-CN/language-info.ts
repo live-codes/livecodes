@@ -356,6 +356,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml 官方网站</2></1> <3> <4>OCaml 文档</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=OCaml</6> </5> <7> <8>加载启动模板</8> </7>',
     name: 'OCaml (JS)',
   },
+  'odin-wasm': {
+    desc: 'Odin 自带的编译器，编译为 WebAssembly，完全在浏览器中运行。',
+    link: '<1> <2>Odin 官方网站</2> </1> <3> <4>Odin 概览</4> </3> <5> <6>标准库 API</6> </5> <7> <8>《Y分钟学会X》，其中X=Odin</8> </7> <9> <10>LiveCodes 文档</10> </9> <11> <12>加载入门模板</12> </11>',
+    name: 'Odin (Wasm)',
+  },
   pascal: {
     desc: '使用 Free Pascal 团队的 pas2js 在浏览器中运行的 Pascal，并编译为 WebAssembly。',
     link: '<1> <2>Free Pascal 官网</2> </1> <3> <4>pas2js 文档</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',

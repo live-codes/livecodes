@@ -364,6 +364,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml ウェブサイト</2></1> <3> <4>OCaml ドキュメント</4> </3> <5> <6>X分でYを学ぶ、X=OCaml</6> </5> <7> <8>スターターテンプレートを読み込む</8> </7>',
     name: 'OCaml (JS)',
   },
+  'odin-wasm': {
+    desc: 'Odin 自身のコンパイラを WebAssembly にコンパイルしたもので、ブラウザ内で完全に実行されます。',
+    link: '<1> <2>Odin 公式サイト</2> </1> <3> <4>Odin の概要</4> </3> <5> <6>標準ライブラリ API</6> </5> <7> <8>「Y分でXを学ぶ」（X=Odin）</8> </7> <9> <10>LiveCodes ドキュメント</10> </9> <11> <12>スターターテンプレートの読み込み</12> </11>',
+    name: 'Odin (Wasm)',
+  },
   pascal: {
     desc: 'pas2js（Free Pascal チームによる）を使用してブラウザで動作する Pascal。WebAssembly にコンパイルされます。',
     link: '<1> <2>Free Pascal 公式ウェブサイト</2> </1> <3> <4>pas2js ドキュメント</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',

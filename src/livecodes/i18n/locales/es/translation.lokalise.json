@@ -2100,6 +2100,9 @@
   "templates.starter.ocaml-js": {
     "translation": "Inicio OCaml (JS)"
   },
+  "templates.starter.odin-wasm": {
+    "translation": "Inicio Odin"
+  },
   "templates.starter.pascal": {
     "translation": "Inicio Pascal"
   },

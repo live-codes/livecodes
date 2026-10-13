@@ -363,6 +363,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml weboldal</2></1> <3> <4>OCaml dokumentáció</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=OCaml</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
     name: 'OCaml (JS)',
   },
+  'odin-wasm': {
+    desc: 'Az Odin saját fordítója WebAssembly-re fordítva, teljes egészében a böngészőben fut.',
+    link: '<1> <2>Az Odin hivatalos weboldala</2> </1> <3> <4>Az Odin áttekintése</4> </3> <5> <6>Standard könyvtár API</6> </5> <7> <8>Tanulj meg X-et Y perc alatt, ahol X=Odin</8> </7> <9> <10>LiveCodes dokumentáció</10> </9> <11> <12>Kezdő sablon betöltése</12> </11>',
+    name: 'Odin (Wasm)',
+  },
   pascal: {
     desc: 'A Pascal a pas2js (a Free Pascal csapatától) segítségével fut a böngészőben, WebAssembly-re fordítva.',
     link: '<1> <2>Free Pascal hivatalos weboldal</2> </1> <3> <4>pas2js dokumentáció</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes dokumentációk</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',

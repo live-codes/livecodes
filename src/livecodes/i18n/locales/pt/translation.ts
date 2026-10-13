@@ -1039,6 +1039,7 @@ const translation: I18nTranslation = {
       'objc-wasm': 'Iniciante Objective-C (Wasm)',
       ocaml: 'Iniciante OCaml',
       'ocaml-js': 'Iniciante OCaml (JS)',
+      'odin-wasm': 'Iniciante Odin',
       pascal: 'Iniciante Pascal',
       perl: 'Iniciante Perl',
       phaser: 'Iniciante Phaser',

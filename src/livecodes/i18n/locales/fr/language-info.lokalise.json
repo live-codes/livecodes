@@ -648,6 +648,15 @@
   "ocamlJs.name": {
     "translation": "OCaml (JS)"
   },
+  "odin-wasm.desc": {
+    "translation": "Le compilateur propre à Odin, compilé en WebAssembly, s'exécutant entièrement dans le navigateur."
+  },
+  "odin-wasm.link": {
+    "translation": "<tag-1> <tag-2>Site officiel d'Odin</tag-2> </tag-1> <tag-3> <tag-4>Présentation d'Odin</tag-4> </tag-3> <tag-5> <tag-6>API de la bibliothèque standard</tag-6> </tag-5> <tag-7> <tag-8>Apprenez X en Y minutes, où X = Odin</tag-8> </tag-7> <tag-9> <tag-10>Documentation LiveCodes</tag-10> </tag-9> <tag-11> <tag-12>Charger un modèle de démarrage</tag-12> </tag-11>"
+  },
+  "odin-wasm.name": {
+    "translation": "Odin (Wasm)"
+  },
   "pascal.desc": {
     "translation": "Pascal s'exécutant dans le navigateur en utilisant pas2js (par l'équipe Free Pascal), compilé en WebAssembly."
   },

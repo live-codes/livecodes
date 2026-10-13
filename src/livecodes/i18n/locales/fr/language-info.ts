@@ -364,6 +364,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Site web OCaml</2></1> <3> <4>Documentation OCaml</4> </3> <5> <6>Apprenez X en Y minutes, où X=OCaml</6> </5> <7> <8>Charger le modèle de démarrage</8> </7>',
     name: 'OCaml (JS)',
   },
+  'odin-wasm': {
+    desc: "Le compilateur propre à Odin, compilé en WebAssembly, s'exécutant entièrement dans le navigateur.",
+    link: "<1> <2>Site officiel d'Odin</2> </1> <3> <4>Présentation d'Odin</4> </3> <5> <6>API de la bibliothèque standard</6> </5> <7> <8>Apprenez X en Y minutes, où X = Odin</8> </7> <9> <10>Documentation LiveCodes</10> </9> <11> <12>Charger un modèle de démarrage</12> </11>",
+    name: 'Odin (Wasm)',
+  },
   pascal: {
     desc: "Pascal s'exécutant dans le navigateur en utilisant pas2js (par l'équipe Free Pascal), compilé en WebAssembly.",
     link: '<1> <2>Site officiel de Free Pascal</2> </1> <3> <4>Documentation pas2js</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>Documentations LiveCodes</8> </7> <9> <10>Charger le modèle de démarrage</10> </9>',

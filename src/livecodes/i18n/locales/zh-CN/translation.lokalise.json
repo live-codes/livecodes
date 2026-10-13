@@ -2100,6 +2100,9 @@
   "templates.starter.ocaml-js": {
     "translation": "OCaml（JS）启动模板"
   },
+  "templates.starter.odin-wasm": {
+    "translation": "Odin 启动模板"
+  },
   "templates.starter.pascal": {
     "translation": "Pascal 启动模板"
   },

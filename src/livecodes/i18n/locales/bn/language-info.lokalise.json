@@ -648,6 +648,15 @@
   "ocamlJs.name": {
     "translation": "OCaml (JS)"
   },
+  "odin-wasm.desc": {
+    "translation": "Odin-এর নিজস্ব কম্পাইলার, WebAssembly-তে কম্পাইল করা, সম্পূর্ণভাবে ব্রাউজারে চলে।"
+  },
+  "odin-wasm.link": {
+    "translation": "<tag-1> <tag-2>Odin অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Odin-এর সংক্ষিপ্ত বিবরণ</tag-4> </tag-3> <tag-5> <tag-6>স্ট্যান্ডার্ড লাইব্রেরি API</tag-6> </tag-5> <tag-7> <tag-8>Y মিনিটে X শিখুন, যেখানে X=Odin</tag-8> </tag-7> <tag-9> <tag-10>লাইভকোড ডকুমেন্টেশন</tag-10> </tag-9> <tag-11> <tag-12>স্টার্টার টেমপ্লেট লোড করুন</tag-12> </tag-11>"
+  },
+  "odin-wasm.name": {
+    "translation": "Odin (Wasm)"
+  },
   "pascal.desc": {
     "translation": "Free Pascal দলের pas2js ব্যবহার করে ব্রাউজারে Pascal চলছে, যা WebAssembly-তে কম্পাইল করা।"
   },

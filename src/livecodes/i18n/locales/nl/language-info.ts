@@ -363,6 +363,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml website</2></1> <3> <4>OCaml documentatie</4> </3> <5> <6>Leer X in Y minuten, waarbij X=OCaml</6> </5> <7> <8>Startsjabloon laden</8> </7>',
     name: 'OCaml (JS)',
   },
+  'odin-wasm': {
+    desc: 'Odins eigen compiler, gecompileerd naar WebAssembly, draait volledig in de browser.',
+    link: '<1> <2>Officiële website van Odin</2> </1> <3> <4>Overzicht van Odin</4> </3> <5> <6>API van de standaardbibliotheek</6> </5> <7> <8>Leer X in Y minuten, waarbij X = Odin</8> </7> <9> <10>LiveCodes-documentatie</10> </9> <11> <12>Startersjabloon laden</12> </11>',
+    name: 'Odin (Wasm)',
+  },
   pascal: {
     desc: 'Pascal draaiend in de browser met pas2js (van het Free Pascal-team), gecompileerd naar WebAssembly.',
     link: '<1> <2>Free Pascal officiële website</2> </1> <3> <4>pas2js-documentatie</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Startsjabloon laden</10> </9>',

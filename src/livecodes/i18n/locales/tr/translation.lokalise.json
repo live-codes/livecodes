@@ -2100,6 +2100,9 @@
   "templates.starter.ocaml-js": {
     "translation": "OCaml (JS) Başlangıç"
   },
+  "templates.starter.odin-wasm": {
+    "translation": "Odin Başlangıç"
+  },
   "templates.starter.pascal": {
     "translation": "Pascal Başlangıç"
   },
