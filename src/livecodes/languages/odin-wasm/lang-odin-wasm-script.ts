@@ -19,6 +19,11 @@ import { createWorkerRunner, type Runner } from '../worker-runner';
 const SCRIPT_TYPE = 'text/odin-wasm';
 const DEFAULT_TARGET = 'wasi_wasm32';
 
+// A single compile + run is normally quick; a long timeout guards against hangs (e.g. an infinite
+// loop in the user program) by killing and respawning the worker. The wasm call cannot be
+// interrupted any other way.
+const RUN_TIMEOUT_MS = 120000;
+
 /**
  * Options read from `config.customSettings`: `compileArgs` and `target` are fixed when the compiler
  * is created, while `args` is a per-run option.
@@ -347,7 +352,8 @@ odinWasm.run = async (input?: string) => {
 
   const settings = getSettings();
   const runner = (odinWasm.runner =
-    odinWasm.runner || createWorkerRunner({ getWorkerSrc, label: 'Odin' }));
+    odinWasm.runner ||
+    createWorkerRunner({ getWorkerSrc, label: 'Odin', timeoutMs: RUN_TIMEOUT_MS }));
 
   if ((settings.target ?? DEFAULT_TARGET) === 'js_wasm32') {
     return runOnPage(code, stdin, settings, runner);
