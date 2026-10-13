@@ -375,6 +375,11 @@ const languageInfo = {
     link: '<1><2>OCaml website</2></1> <3> <4>OCaml documentation</4> </3> <5> <6>Learn X in Y minutes, where X=OCaml</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'OCaml (JS)',
   },
+  'odin-wasm': {
+    desc: "Odin's own compiler, compiled to WebAssembly, running entirely in the browser.",
+    link: '<1> <2>Odin official website</2> </1> <3> <4>Overview of Odin</4> </3> <5> <6>Standard library API</6> </5> <7> <8>Learn X in Y minutes, where X=Odin</8> </7> <9> <10>LiveCodes Documentation</10> </9> <11> <12>Load starter template</12> </11>',
+    name: 'Odin (Wasm)',
+  },
   pascal: {
     desc: 'Pascal running in the browser using pas2js (by the Free Pascal team) compiled to WebAssembly.',
     link: '<1> <2>Free Pascal website</2> </1> <3> <4>pas2js documentation</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',

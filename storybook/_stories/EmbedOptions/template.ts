@@ -55,6 +55,7 @@ const storyDef: StoryDef = {
   CWasm: { props: { template: 'c-wasm' } },
   CppWasm: { props: { template: 'cpp-wasm' } },
   CrystalWasm: { props: { template: 'crystal-wasm' }, storyName: 'Crystal (Wasm)' },
+  OdinWasm: { props: { template: 'odin-wasm' }, storyName: 'Odin (Wasm)' },
   ObjcWasm: { props: { template: 'objc-wasm' } },
   DWasm: { props: { template: 'd-wasm' } },
   CobolWasm: { props: { template: 'cobol-wasm' }, storyName: 'COBOL (Wasm)' },

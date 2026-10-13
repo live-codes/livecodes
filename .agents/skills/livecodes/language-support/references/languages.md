@@ -122,6 +122,7 @@ Enabled via `processors` config:
 | C++                         | `cpp`,                                                                              | JSCPP interpreter                                     |
 | C++ (Wasm)                  | `cpp-wasm`, `clang`, `wasm.cpp`                                                     | Clang WASM                                            |
 | Crystal (Wasm)              | `crystal-wasm`, `cr`, `crystal`                                                     | Crystal -> WASM (Clang/LLVM + WASI)                   |
+| Odin (Wasm)                 | `odin-wasm`, `odin`                                                                 | Odin (wodin, direct wasm backend + WASI)              |
 | Objective-C                 | `objc-wasm`, `objc`, `wasm.m`                                                       | Clang WASM                                            |
 | Objective-C++               | `objcpp-wasm`, `objcpp`, `wasm.mm`                                                  | Clang WASM                                            |
 | COBOL (Wasm)                | `cobol-wasm`, `cobol`, `cob`, `cbl`, `cpy`, `gnucobol`, `wasm.cobol`                | GnuCOBOL (COBOL -> WASM)                              |

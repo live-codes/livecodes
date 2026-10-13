@@ -380,6 +380,34 @@ test.describe('Starter Templates from UI', () => {
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
+  test('odin-wasm Starter', async ({ page, getTestUrl, editor }) => {
+    // the compiler and the standard library (~6 MB) are downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Odin Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the counter stays disabled until the toolchain has loaded and run once
+    await expect(getResult().locator('#counter-button')).toBeEnabled({ timeout: 180_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('h1')).toHaveText('Hello, Odin!');
+    // Each click triggers an asynchronous run, so the counter is asserted with
+    // retries rather than read once.
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
   test('ada-wasm Starter', async ({ page, getTestUrl }) => {
     // the HAC Ada compiler (~1.4 MB) is downloaded on the first run
     test.slow();

@@ -314,6 +314,7 @@ export const getCommandMenuActions = ({
         'fortran-wasm',
         'd-wasm',
         'crystal-wasm',
+        'odin-wasm',
         'v-wasm',
         'rust-wasm',
         'swift-wasm',

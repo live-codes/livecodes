@@ -1,0 +1,253 @@
+# Odin (Wasm)
+
+[Odin](https://odin-lang.org/) is a general-purpose programming language with distinct typing, built for high performance, modern systems and built-in data-oriented data types.
+
+In LiveCodes, Odin is compiled and run entirely in the browser by Odin's compiler, compiled to WebAssembly. Nothing runs on a server.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const odinConfig = {
+  mode: 'simple',
+  activeEditor: 'script',
+  script: {
+    language: 'odin-wasm',
+    content: `package main\n
+import "core:fmt"\n
+main :: proc() {
+	program := "+ + * - /"
+	accumulator := 0\n
+	for token in program {
+		switch token {
+		case '+': accumulator += 1
+		case '-': accumulator -= 1
+		case '*': accumulator *= 2
+		case '/': accumulator /= 2
+		case: // ignore everything else
+		}
+	}\n
+	fmt.printfln("The program \\"%s\\" calculates the value %d", program, accumulator)
+}
+`,
+  },
+  tools: { status: 'full' },
+};
+
+export const odinCanvasConfig = {
+  mode: 'simple',
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<canvas id="canvas" width="480" height="240"></canvas>
+<script>
+  window.drawDot = () => {
+    const c = document.getElementById('canvas');
+    const ctx = c.getContext('2d');
+    const t = performance.now() / 1000;
+    ctx.fillStyle = '#0f1116';
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.fillStyle = '#3b82f6';
+    ctx.beginPath();
+    ctx.arc(c.width / 2 + Math.cos(t) * 90, c.height / 2 + Math.sin(t) * 55, 16, 0, Math.PI * 2);
+    ctx.fill();
+  };
+</script>`,
+  },
+  script: {
+    language: 'odin-wasm',
+    content: `package main\n
+import "core:fmt"
+import "core:sys/wasm/js"\n
+main :: proc() {
+	fmt.println("drawing on the canvas")
+}\n
+@(export)
+step :: proc(dt: f64, _: rawptr) -> bool {
+	js.evaluate("drawDot()")
+	return true
+}
+`,
+  },
+  customSettings: { 'odin-wasm': { target: 'js_wasm32' } },
+  tools: { status: 'full' },
+};
+
+<LiveCodes config={odinConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The code is compiled in a web worker. Where it then runs depends on the target it is built for, which
+is set in [custom settings](../advanced/custom-settings.mdx):
+
+| Target | Runs on | What it reaches |
+| --- | --- | --- |
+| `wasi_wasm32` (default) | a WASI host, in the worker | `core:fmt`, standard input, arguments, exit codes |
+| `js_wasm32` | this page, on Odin's own JS runtime | the DOM and a `<canvas>`, through `core:sys/wasm/js` |
+
+```json title="Custom Settings"
+{
+  "odin-wasm": { "target": "js_wasm32" }
+}
+```
+
+Either way the following helpers are available in the browser global `livecodes.odinWasm` object:
+
+- `livecodes.odinWasm.input`: The standard input passed to the program.
+- `livecodes.odinWasm.loaded`: A promise that resolves when the compiler is loaded and the program has run once.
+- `livecodes.odinWasm.output`: The program's output.
+- `livecodes.odinWasm.error`: The compiler diagnostics, if the code failed to compile.
+- `livecodes.odinWasm.exitCode`: The program's exit code.
+- `livecodes.odinWasm.run`: A function that compiles and runs the code with new input. It takes a string as input and returns a promise that resolves with an object containing `output`, `error` and `exitCode`.
+
+Example:
+
+<LiveCodes template="odin-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+#### JavaScript interop, the DOM and canvas
+
+With `target: "js_wasm32"` the program runs on the page, on Odin's own JavaScript runtime, so
+[`core:sys/wasm/js`](https://pkg.odin-lang.org/core/sys/wasm/js/) reaches what the page has: the
+document, elements, events, WebGL and a canvas.
+
+- `js.evaluate(str)` evaluates JavaScript in the page — the shortest path to anything the bindings do
+  not wrap.
+- The DOM bindings: `js.get_element_value_string`, `js.set_element_value_string`, `js.set_element_style`,
+  `js.set_document_title`, `js.get_bounding_client_rect`.
+- The event listeners in `core:sys/wasm/js/events`, and the `webgl` / `webgl2` bindings for a canvas.
+- A program that exports `step :: proc(dt: f64, ctx: rawptr) -> bool` is driven once per animation
+  frame, as Odin's runtime does it, and the canvas is yours to draw on. Such a program still needs a
+  `main`: Odin requires an entry point.
+
+A canvas, drawn from Odin through `js.evaluate`:
+
+<LiveCodes config={odinCanvasConfig} height="60vh"></LiveCodes>
+
+```odin
+package main
+
+import "core:fmt"
+import "core:sys/wasm/js"
+
+main :: proc() {
+	fmt.println("drawing on the canvas")
+}
+
+@(export)
+step :: proc(dt: f64, _: rawptr) -> bool {
+	js.evaluate("drawDot()")
+	return true
+}
+```
+
+The page's markup provides the canvas and the `drawDot` function; the JavaScript runtime, not the
+program, owns the DOM, so the two meet through `js.evaluate`.
+
+### Reading standard input
+
+The input (`livecodes.odinWasm.input`, or whatever is passed to `run`) reaches the program **byte for
+byte** — nothing appends a newline to it. That matters for a line-based program, because Odin's
+`bufio.reader_read_string` returns the data *together with* `.EOF` when the last line has no trailing
+newline (the same as Go's `ReadString`). Read the data first, then stop on the error:
+
+```odin
+for {
+	line, err := bufio.reader_read_string(&reader, '\n')
+	if len(line) > 0 {
+		// use the line
+	}
+	if err != nil {
+		break
+	}
+}
+```
+
+## Language Info
+
+### Name
+
+`odin-wasm`
+
+### Aliases and Extensions
+
+`odin`
+
+### Editor
+
+`script`
+
+## Compiler
+
+Odin's compiler, compiled to WebAssembly by [wodin](https://github.com/karl-zylinski/wodin).
+
+### Version
+
+Odin Compiler Version: `dev-2026-09`
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `odin-wasm` are passed as a JSON object to the `compiler` during compile. Please check the [documentation](../advanced/custom-settings.mdx) for full reference.
+
+Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "odin-wasm": {}
+}
+```
+
+`args` is passed to the program as its command-line arguments, `compileArgs` is added to the `odin build` command line, and `target` selects the target the program is built for (`wasi_wasm32`, the default, which runs on a WASI host, or `js_wasm32`, which runs on the browser's JavaScript runtime).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "odin-wasm": {
+    "args": ["--flag", "value"],
+    "compileArgs": ["-o:speed"]
+  }
+}
+```
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload, avoiding the need to reinitialize the Odin environment. This behavior can be disabled by adding the code comment `// __livecodes_reload__` to the Odin code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Limitations
+
+- The `vendor` collection is not shipped: a program that imports a `vendor:` package will not find it.
+- No threads, files, sockets or subprocesses: WASI preview 1 has none, and a program is given an empty filesystem.
+- A program that never returns blocks the tab; both targets run synchronously.
+
+## Example Usage
+
+```odin
+package main
+
+import "core:fmt"
+
+main :: proc() {
+	fmt.println("hello from Odin, compiled in your browser")
+
+	for n in 1..=5 {
+		fmt.printfln("%d squared is %d", n, n * n)
+	}
+}
+```
+
+## Starter Template
+
+https://livecodes.io/?template=odin-wasm
+
+## Links
+
+- [Odin official website](https://odin-lang.org/)
+- [Overview of Odin](https://odin-lang.org/docs/overview/)
+- [Standard library API](https://pkg.odin-lang.org/)
+- [Learn X in Y minutes, where X=Odin](https://learnxinyminutes.com/odin/)

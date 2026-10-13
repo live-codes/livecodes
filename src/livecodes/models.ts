@@ -208,6 +208,7 @@ export interface Compiler {
     | 'text/cobol-wasm'
     | 'text/rust-wasm'
     | 'text/crystal-wasm'
+    | 'text/odin-wasm'
     | 'text/zig-wasm'
     | 'text/java'
     | 'text/csharp-wasm'
@@ -297,6 +298,7 @@ export type TemplateAlias =
   | 'janet'
   | 'mzn'
   | 'crystal'
+  | 'odin'
   | 'dartlang';
 
 export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &

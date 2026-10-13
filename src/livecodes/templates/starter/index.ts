@@ -60,6 +60,7 @@ import { nimStarter } from './nim-starter';
 import { nimWasmStarter } from './nim-wasm-starter';
 import { ocamlJsStarter } from './ocaml-js-starter';
 import { ocamlStarter } from './ocaml-starter';
+import { odinWasmStarter } from './odin-wasm-starter';
 import { pascalStarter } from './pascal-starter';
 import { perlStarter } from './perl-starter';
 import { phaserStarter } from './phaser-starter';
@@ -140,6 +141,7 @@ export const starterTemplates = [
   nimStarter,
   nimWasmStarter,
   crystalWasmStarter,
+  odinWasmStarter,
   janetWasmStarter,
   pythonStarter,
   pythonWasmStarter,
