@@ -64,7 +64,7 @@ export const cjs2esUrl = /* @__PURE__ */ getUrl('cjs2es@1.1.1/dist/cjs2es.browse
 
 export const clangWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/clang-wasm@0.3.0/');
 
-export const crystalWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/crystal-wasm@0.3.0/');
+export const crystalWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/crystal-wasm@0.4.0/');
 
 export const clioBaseUrl = /* @__PURE__ */ getUrl(
   '@live-codes/clio-browser-compiler@0.0.3/public/build/',
