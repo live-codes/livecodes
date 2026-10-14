@@ -1046,6 +1046,7 @@ const translation = {
       'objc-wasm': 'Objective-C (Wasm) Starter',
       ocaml: 'Ocaml Starter',
       'ocaml-js': 'OCaml (JS) Starter',
+      'odin-wasm': 'Odin Starter',
       pascal: 'Pascal Starter',
       perl: 'Perl Starter',
       phaser: 'Phaser Starter',

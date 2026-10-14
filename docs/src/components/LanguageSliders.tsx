@@ -100,6 +100,7 @@ export default function Sliders() {
       { name: 'fortran', title: 'Fortran' },
       { name: 'd-wasm', title: 'D (Wasm)' },
       { name: 'crystal-wasm', title: 'Crystal (Wasm)' },
+      { name: 'odin-wasm', title: 'Odin (Wasm)' },
       { name: 'dart', title: 'Dart' },
       { name: 'flutter', title: 'Flutter' },
       { name: 'v-wasm', title: 'V (Wasm)' },

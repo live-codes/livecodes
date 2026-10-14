@@ -364,6 +364,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>OCaml web sitesi</2></1> <3> <4>OCaml dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=OCaml</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
     name: 'OCaml (JS)',
   },
+  'odin-wasm': {
+    desc: "Odin'in kendi derleyicisi, WebAssembly'ye derlenmiş, tamamen tarayıcı içinde çalışır.",
+    link: "<1> <2>Odin resmi web sitesi</2> </1> <3> <4>Odin'e genel bakış</4> </3> <5> <6>Standart kütüphane API'si</6> </5> <7> <8>Y dakikada X'i öğrenin, burada X=Odin</8> </7> <9> <10>LiveCodes Belgeleri</10> </9> <11> <12>Başlangıç şablonunu yükle</12> </11>",
+    name: 'Odin (Wasm)',
+  },
   pascal: {
     desc: "Pascal, Free Pascal ekibi tarafından pas2js kullanılarak tarayıcıda çalışır ve WebAssembly'ye derlenir.",
     link: '<1> <2>Free Pascal resmi web sitesi</2> </1> <3> <4>pas2js dokümantasyonu</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',

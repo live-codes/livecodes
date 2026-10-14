@@ -41,6 +41,7 @@ export const starterTemplates = {
   "nim": "Nim Starter",
   "nim-wasm": "Nim (Wasm) Starter",
   "crystal-wasm": "Crystal Starter",
+  "odin-wasm": "Odin Starter",
   "janet-wasm": "Janet (Wasm) Starter",
   "python": "Python Starter",
   "python-wasm": "Python (Wasm) Starter",

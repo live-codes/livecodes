@@ -360,6 +360,8 @@ wacl: [BSD 3-Clause License](https://github.com/ecky-l/wacl/blob/9daacabb0102a99
 
 Crystal compiler and standard library: [Apache-2.0 License](https://github.com/crystal-lang/crystal/blob/master/LICENSE)
 
+Odin compiler and standard library: [zlib License](https://github.com/odin-lang/Odin/blob/e87445a582ba74f526670ed94d68d9be95de2f8b/LICENSE)
+
 LLVM and the wasm sysroot libraries: [Apache-2.0 WITH LLVM-exception](https://github.com/llvm/llvm-project/blob/main/LICENSE.TXT) and [MIT](https://github.com/WebAssembly/wasi-libc/blob/main/LICENSE.md)
 
 @live-codes/dlang-wasm: [MIT License](https://github.com/live-codes/browser-d/blob/main/LICENSE)

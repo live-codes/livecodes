@@ -56,6 +56,7 @@ const templates = [
   { name: 'fortran-wasm', title: 'Fortran Starter', thumbnail: 'fortran.svg' },
   { name: 'd-wasm', title: 'D Starter', thumbnail: 'd.svg' },
   { name: 'crystal-wasm', title: 'Crystal Starter', thumbnail: 'crystal.svg' },
+  { name: 'odin-wasm', title: 'Odin Starter', thumbnail: 'odin.svg' },
   { name: 'v-wasm', title: 'V Starter', thumbnail: 'v.svg' },
   { name: 'cpp-wasm', title: 'C++ (Wasm) Starter', thumbnail: 'cpp.svg' },
   { name: 'objc-wasm', title: 'Objective-C (Wasm) Starter', thumbnail: 'objective-c.svg' },

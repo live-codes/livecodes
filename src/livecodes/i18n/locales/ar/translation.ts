@@ -1038,6 +1038,7 @@ const translation: I18nTranslation = {
       'objc-wasm': 'قالب Objective-C (Wasm)',
       ocaml: 'قالب Ocaml',
       'ocaml-js': 'قالب OCaml (JS)',
+      'odin-wasm': 'قالب Odin',
       pascal: 'قالب Pascal',
       perl: 'قالب Perl',
       phaser: 'قالب Phaser',

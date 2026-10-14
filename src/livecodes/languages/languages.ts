@@ -66,6 +66,7 @@ import { nim, nimWasm } from './nim';
 import { nunjucks } from './nunjucks';
 import { ocaml } from './ocaml';
 import { ocamlJs } from './ocaml-js';
+import { odinWasm } from './odin-wasm';
 import { pascal } from './pascal';
 import { perl } from './perl';
 import { php } from './php';
@@ -170,6 +171,7 @@ export const languages: LanguageSpecs[] = [
   nim,
   nimWasm,
   crystalWasm,
+  odinWasm,
   janetWasm,
   python,
   pythonWasm,

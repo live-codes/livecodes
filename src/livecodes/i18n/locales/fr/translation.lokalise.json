@@ -2100,6 +2100,9 @@
   "templates.starter.ocaml-js": {
     "translation": "Démarrage OCaml (JS)"
   },
+  "templates.starter.odin-wasm": {
+    "translation": "Démarrage Odin"
+  },
   "templates.starter.pascal": {
     "translation": "Démarrage Pascal"
   },

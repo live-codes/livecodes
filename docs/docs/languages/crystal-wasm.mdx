@@ -67,7 +67,7 @@ Crystal's compiler, compiled to WebAssembly.
 
 ### Version
 
-Crystal 1.17.0, linked against LLVM 20.1.8 with the WASI sysroot from wasi-sdk 33.
+Crystal v1.22.0
 
 ## Custom Settings
 
@@ -104,7 +104,6 @@ This comment can be added in the `hiddenContent` property of the editor for embe
 
 ## Limitations
 
-{/* - Crystal 1.17.0 only: the wasm target does not build on newer releases. */}
 - Memory is never reclaimed — `wasm32` selects Crystal's no-GC allocator — so a long-running program will grow.
 - No threads, sockets or subprocesses: WASI preview 1 has none, and a program is given an empty filesystem.
 

@@ -2800,6 +2800,10 @@
     "notes": "",
     "translation": "OCaml (JS) Starter"
   },
+  "templates.starter.odin-wasm": {
+    "notes": "",
+    "translation": "Odin Starter"
+  },
   "templates.starter.pascal": {
     "notes": "",
     "translation": "Pascal Starter"

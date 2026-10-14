@@ -1038,6 +1038,7 @@ const translation: I18nTranslation = {
       'objc-wasm': 'Pemula Objective-C (Wasm)',
       ocaml: 'Pemula Ocaml',
       'ocaml-js': 'Pemula OCaml (JS)',
+      'odin-wasm': 'Pemula Odin',
       pascal: 'Pemula Pascal',
       perl: 'Pemula Perl',
       phaser: 'Pemula Phaser',

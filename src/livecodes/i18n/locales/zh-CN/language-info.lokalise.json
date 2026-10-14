@@ -648,6 +648,15 @@
   "ocamlJs.name": {
     "translation": "OCaml (JS)"
   },
+  "odin-wasm.desc": {
+    "translation": "Odin 自带的编译器，编译为 WebAssembly，完全在浏览器中运行。"
+  },
+  "odin-wasm.link": {
+    "translation": "<tag-1> <tag-2>Odin 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Odin 概览</tag-4> </tag-3> <tag-5> <tag-6>标准库 API</tag-6> </tag-5> <tag-7> <tag-8>《Y分钟学会X》，其中X=Odin</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes 文档</tag-10> </tag-9> <tag-11> <tag-12>加载入门模板</tag-12> </tag-11>"
+  },
+  "odin-wasm.name": {
+    "translation": "Odin (Wasm)"
+  },
   "pascal.desc": {
     "translation": "使用 Free Pascal 团队的 pas2js 在浏览器中运行的 Pascal，并编译为 WebAssembly。"
   },

@@ -364,6 +364,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Situs web OCaml</2></1> <3> <4>Dokumentasi OCaml</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=OCaml</6> </5> <7> <8>Muat template pemula</8> </7>',
     name: 'OCaml (JS)',
   },
+  'odin-wasm': {
+    desc: 'Kompiler milik Odin sendiri, dikompilasi ke WebAssembly, berjalan sepenuhnya di dalam browser.',
+    link: '<1> <2>Situs web resmi Odin</2> </1> <3> <4>Ikhtisar Odin</4> </3> <5> <6>API pustaka standar</6> </5> <7> <8>Belajar X dalam Y menit, di mana X = Odin</8> </7> <9> <10>Dokumentasi LiveCodes</10> </9> <11> <12>Muat templat awal</12> </11>',
+    name: 'Odin (Wasm)',
+  },
   pascal: {
     desc: 'Pascal berjalan di browser menggunakan pas2js (oleh tim Free Pascal), dikompilasi ke WebAssembly.',
     link: '<1> <2>Situs web resmi Free Pascal</2> </1> <3> <4>Dokumentasi pas2js</4> </3> <5> <6>pas2js wiki</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
