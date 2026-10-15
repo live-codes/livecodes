@@ -1802,6 +1802,7 @@ a.editor-title {
   &.embed #toolbar .toolbar-render #light-theme-button,
   &.embed #toolbar .toolbar-render #dark-theme-button,
   #editors #editor-tools,
+  #console-input,
   #result-popup-btn,
   #broadcast-status-btn {
     display: none !important;
@@ -1838,12 +1839,6 @@ a.editor-title {
   }
 
   .tools-pane-title.has-mark .mark {
-    display: none !important;
-  }
-}
-
-.simple-mode {
-  #console-input {
     display: none !important;
   }
 }

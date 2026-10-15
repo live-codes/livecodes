@@ -67,12 +67,13 @@ export const simpleConfig = {
 This mode is mainly useful for embedded playgrounds.
 It shows a single editor together with the [console](./console.mdx) maximized (filling the output area), with the result page collapsed.
 The [tools pane](./tools-pane.mdx) is fixed to show only the console; it cannot be resized or closed.
-The console can still be used as a REPL, and the code can be run from the editor.
+The console input is hidden, and the code can be run from the editor.
+This mode is particularly useful for [WASM-based languages](../languages/index.mdx) (e.g. Python, Ruby, PHP, C, ...) whose output is mainly text-based (sent to the console).
 
-Demo: JS with console
+Demo: Python with console
 
 <LiveCodes
-  params={{ mode: 'console', js: 'console.log("hello world")' }}
+  params={{ mode: 'console', py: "print('hello world')" }}
 ></LiveCodes>
 
 ## `lite`
