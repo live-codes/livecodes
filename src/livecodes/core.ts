@@ -703,6 +703,12 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   if (mode === 'focus') {
     toolsPane?.setActiveTool('console');
   }
+  if (mode === 'console') {
+    toolsPane?.setActiveTool('console');
+    if (!['open', 'full'].includes(toolsPane?.getStatus() || '')) {
+      toolsPane?.maximize();
+    }
+  }
   window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
 

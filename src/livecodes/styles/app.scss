@@ -1802,7 +1802,6 @@ a.editor-title {
   &.embed #toolbar .toolbar-render #light-theme-button,
   &.embed #toolbar .toolbar-render #dark-theme-button,
   #editors #editor-tools,
-  #console-input,
   #result-popup-btn,
   #broadcast-status-btn {
     display: none !important;
@@ -1843,6 +1842,12 @@ a.editor-title {
   }
 }
 
+.simple-mode {
+  #console-input {
+    display: none !important;
+  }
+}
+
 .console-mode {
   #toolbar {
     margin-bottom: 0;
@@ -1856,12 +1861,13 @@ a.editor-title {
     display: none !important;
   }
 
-  a.tools-pane-title {
+  #tools-pane-bar {
     cursor: default;
+    pointer-events: none;
   }
 
-  .gutter.gutter-vertical {
-    cursor: default;
+  #tools-pane-buttons {
+    pointer-events: auto;
   }
 }
 

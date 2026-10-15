@@ -224,7 +224,7 @@ export const createToolsPane = (
       toolTitle.dataset.id = String(index);
       toolTitle.classList.add('tools-pane-title', tool.name);
       toolTitle.innerHTML = tool.title;
-      if (tool.name === 'console' && config.mode !== 'console') {
+      if (tool.name === 'console') {
         toolTitle.title = '(Ctrl/⌘ + Alt + C)';
       }
       toolsPaneTitles.appendChild(toolTitle);
@@ -235,7 +235,6 @@ export const createToolsPane = (
         'click',
         (event: any) => {
           event.preventDefault();
-          if (config.mode === 'console') return;
           if (event.detail === 0 || event.detail === 1) {
             timer = setTimeout(() => {
               if (toolsSplit.getSizes()[0] > 90) {
@@ -255,7 +254,6 @@ export const createToolsPane = (
         'dblclick',
         (event) => {
           event.preventDefault();
-          if (config.mode === 'console') return;
           clearTimeout(timer);
           if (toolsSplit.getSizes()[0] < 10) {
             close();
@@ -270,7 +268,6 @@ export const createToolsPane = (
         'touchstart',
         (event) => {
           event.preventDefault();
-          if (config.mode === 'console') return;
           if (toolsSplit.getSizes()[0] > 90) {
             open(index);
           } else if (!toolTitle.classList.contains('active')) {
@@ -291,7 +288,7 @@ export const createToolsPane = (
       'resize',
       () => {
         const toolsPane = document.querySelector('#tools-pane') as HTMLElement;
-        if (!toolsPane || config.mode === 'console') return;
+        if (!toolsPane) return;
         if (toolsSplit.getSizes()[0] < 10) {
           result.style.height = '0';
           toolsPane.style.height = `calc(100% - ${gutterSize}px)`;
@@ -313,6 +310,14 @@ export const createToolsPane = (
     buttons.id = 'tools-pane-buttons';
     buttons.classList.add('tool-buttons');
     toolsPaneBar.appendChild(buttons);
+    // prevent starting a drag when clicking the buttons
+    eventsManager.addEventListener(buttons, 'mousedown', (event) => event.stopPropagation(), false);
+    eventsManager.addEventListener(
+      buttons,
+      'touchstart',
+      (event) => event.stopPropagation(),
+      false,
+    );
 
     const closeButton = document.createElement('button');
     closeButton.classList.add('console-close-button');
@@ -378,10 +383,6 @@ export const createToolsPane = (
       });
     }
     setActiveTool(activeToolId);
-
-    if (config.mode === 'console') {
-      toolsSplit.destroy(/* preserveStyles= */ false, /* preserveGutters= */ true);
-    }
   };
 
   const observeStyleChange = () => {
