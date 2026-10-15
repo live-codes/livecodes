@@ -30,6 +30,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     'focus',
     'lite',
     'simple',
+    'console',
     'editor',
     'codeblock',
     'result',

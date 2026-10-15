@@ -310,6 +310,14 @@ export const createToolsPane = (
     buttons.id = 'tools-pane-buttons';
     buttons.classList.add('tool-buttons');
     toolsPaneBar.appendChild(buttons);
+    // prevent starting a drag when clicking the buttons
+    eventsManager.addEventListener(buttons, 'mousedown', (event) => event.stopPropagation(), false);
+    eventsManager.addEventListener(
+      buttons,
+      'touchstart',
+      (event) => event.stopPropagation(),
+      false,
+    );
 
     const closeButton = document.createElement('button');
     closeButton.classList.add('console-close-button');

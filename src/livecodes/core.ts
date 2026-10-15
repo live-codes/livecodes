@@ -628,6 +628,7 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
     focus: '111',
     simple: '111',
     lite: '111',
+    console: '111',
     editor: '110',
     codeblock: '010',
     result: '001',
@@ -693,13 +694,20 @@ const showMode = (mode?: Config['mode'], view?: Config['view']) => {
   document.body.classList.toggle('simple-mode', mode === 'simple');
   document.body.classList.toggle('focus-mode', mode === 'focus');
   document.body.classList.toggle('lite-mode', mode === 'lite');
+  document.body.classList.toggle('console-mode', mode === 'console');
   document.body.classList.toggle('result', mode === 'result');
   document.body.classList.toggle('no-result', mode === 'editor' || mode === 'codeblock');
-  if ((mode === 'full' || mode === 'simple') && !split) {
+  if ((mode === 'full' || mode === 'simple' || mode === 'console') && !split) {
     split = createSplitPanes();
   }
   if (mode === 'focus') {
     toolsPane?.setActiveTool('console');
+  }
+  if (mode === 'console') {
+    toolsPane?.setActiveTool('console');
+    if (!['open', 'full'].includes(toolsPane?.getStatus() || '')) {
+      toolsPane?.maximize();
+    }
   }
   window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
@@ -5105,6 +5113,17 @@ const configureSimpleMode = (config: Config) => {
   });
 };
 
+const configureConsoleMode = (config: Config) => {
+  setConfig({
+    ...config,
+    tools: {
+      enabled: Array.isArray(config.tools?.enabled) ? config.tools.enabled : ['console'],
+      active: config.tools?.active || 'console',
+      status: config.tools?.status || 'full',
+    },
+  });
+};
+
 const configureModes = ({
   config,
   isEmbed,
@@ -5128,6 +5147,9 @@ const configureModes = ({
   }
   if (config.mode === 'simple') {
     configureSimpleMode(config);
+  }
+  if (config.mode === 'console') {
+    configureConsoleMode(config);
   }
 };
 
@@ -5331,7 +5353,9 @@ const initializePlayground = async (
     isLite ||
     (options?.isEmbed ?? false) ||
     initialConfig.mode === 'simple' ||
-    params.mode === 'simple';
+    params.mode === 'simple' ||
+    initialConfig.mode === 'console' ||
+    params.mode === 'console';
 
   window.history.replaceState(null, '', './'); // fix URL from "/app" to "/"
   await initializeStores(stores, isEmbed);

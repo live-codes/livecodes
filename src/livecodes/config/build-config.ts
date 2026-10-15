@@ -224,7 +224,7 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
     paramsConfig.languages = params.languages
       .split(',')
       .map((lang) => lang.trim())
-      .map(getLanguageByAlias)
+      .map((lang) => getLanguageByAlias(lang))
       .filter(Boolean) as Language[];
   }
 

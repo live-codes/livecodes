@@ -1226,7 +1226,7 @@ export interface AppConfig {
    * Sets the [display mode](https://livecodes.io/docs/features/display-modes).
    * @default "full"
    */
-  mode: 'full' | 'focus' | 'lite' | 'simple' | 'editor' | 'codeblock' | 'result';
+  mode: 'full' | 'focus' | 'lite' | 'simple' | 'console' | 'editor' | 'codeblock' | 'result';
 
   /**
    * Sets enabled and active tools and status of [tools pane](https://livecodes.io/docs/features/tools-pane).

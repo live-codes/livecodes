@@ -28,7 +28,9 @@ const loadTemplates = async (baseUrl: string): Promise<Template[]> =>
 export const getStarterTemplates = async (config: Config, baseUrl: string): Promise<Template[]> =>
   (await loadTemplates(baseUrl))
     .filter((template) => {
-      const enabledLanguages = config.languages?.map(getLanguageByAlias).filter(Boolean);
+      const enabledLanguages = config.languages
+        ?.map((language) => getLanguageByAlias(language, { warn: false }))
+        .filter(Boolean);
       if (!enabledLanguages) return true;
       if (template.name === 'blank') return true;
 
@@ -38,7 +40,7 @@ export const getStarterTemplates = async (config: Config, baseUrl: string): Prom
         template.script?.language,
       ];
       for (const language of templateLanguages) {
-        const lang = getLanguageByAlias(language);
+        const lang = getLanguageByAlias(language, { warn: false });
         if (!lang || !enabledLanguages.includes(lang)) return false;
       }
       return true;

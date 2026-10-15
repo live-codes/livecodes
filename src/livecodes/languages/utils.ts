@@ -1,8 +1,32 @@
-import type { Compiler, Config, CustomSettings, Language, Processor } from '../models';
+import type {
+  Compiler,
+  Config,
+  CustomSettings,
+  Language,
+  LanguageSpecs,
+  Processor,
+} from '../models';
 import { getDocsUrl, getLanguageCustomSettings } from '../utils/utils';
 import { highlightjsUrl } from '../vendors';
 
-export const getLanguageByAlias = (alias: string = ''): Language | undefined => {
+const logDeprecation = (alias: string, language?: LanguageSpecs) => {
+  if (!globalThis.window?.deps) return;
+  window.deps.loggedDeprecations ??= [];
+  const deprecation = language?.deprecation?.(alias.toLowerCase() as Language);
+  if (!deprecation || window.deps.loggedDeprecations.includes(deprecation.old)) return;
+  // eslint-disable-next-line no-console
+  console.warn(
+    `Deprecation warning: The language name "${alias}" will use the compiler "${deprecation.new}" in the future.`,
+    `If you want to continue using the current compiler, use the language name "${deprecation.old}" instead.`,
+    language?.name ? `Docs: ${getDocsUrl()}languages/${language.name}` : '',
+  );
+  window.deps.loggedDeprecations.push(deprecation.old);
+};
+
+export const getLanguageByAlias = (
+  alias: string = '',
+  options: { warn?: boolean } = {},
+): Language | undefined => {
   if (!alias) return;
   const aliasLowerCase = alias?.toLowerCase();
   const language = window.deps.languages.find(
@@ -11,20 +35,10 @@ export const getLanguageByAlias = (alias: string = ''): Language | undefined => 
       lang.title.toLowerCase() === aliasLowerCase ||
       lang.extensions.map((ext) => ext.toLowerCase()).includes(aliasLowerCase),
   );
-  if (globalThis.window?.deps) window.deps.loggedDeprecations ??= [];
-  const deprecation = language?.deprecation?.(aliasLowerCase as Language);
-  if (
-    deprecation &&
-    window.deps.loggedDeprecations &&
-    !window.deps.loggedDeprecations.includes(deprecation.old)
-  ) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Deprecation warning: The language name "${alias}" will use the compiler "${deprecation.new}" in the future.`,
-      `If you want to continue using the current compiler, use the language name "${deprecation.old}" instead.`,
-      language?.name ? `Docs: ${getDocsUrl()}languages/${language.name}` : '',
-    );
-    window.deps.loggedDeprecations?.push(deprecation.old);
+  // only warn when the alias is actually used (e.g. from config or user selection),
+  // not when enumerating languages (menus, compiler list, starter templates)
+  if (options.warn !== false) {
+    logDeprecation(alias, language);
   }
   return language?.name;
 };
@@ -71,7 +85,7 @@ export const mapLanguage = (
   'html';
 
 export const languageIsEnabled = (language: Language, config: Config) => {
-  const lang = getLanguageByAlias(language);
+  const lang = getLanguageByAlias(language, { warn: false });
   if (!lang) return false;
   if (!config.languages) return true;
   if (
@@ -80,7 +94,10 @@ export const languageIsEnabled = (language: Language, config: Config) => {
   ) {
     return true;
   }
-  return config.languages?.map(getLanguageByAlias).filter(Boolean).includes(lang);
+  return config.languages
+    ?.map((alias) => getLanguageByAlias(alias, { warn: false }))
+    .filter(Boolean)
+    .includes(lang);
 };
 
 export const processorIsEnabled = (processor: Processor, config: Config) => {

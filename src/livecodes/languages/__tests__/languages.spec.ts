@@ -1,4 +1,10 @@
-import { getLanguageByAlias, getLanguageEditorId, getLanguageExtension, mapLanguage } from '..';
+import {
+  getLanguageByAlias,
+  getLanguageEditorId,
+  getLanguageExtension,
+  languageIsEnabled,
+  mapLanguage,
+} from '..';
 
 describe('languages', () => {
   test('getLanguageByAlias', () => {
@@ -34,5 +40,31 @@ describe('languages', () => {
     expect(mapLanguage('javascript')).toBe('javascript');
     expect(mapLanguage('ruby')).toBe('ruby');
     expect(mapLanguage('html')).toBe('html');
+  });
+
+  describe('deprecation warnings', () => {
+    let warn: jest.SpyInstance;
+
+    beforeEach(() => {
+      (window as any).deps.loggedDeprecations = [];
+      warn = jest.spyOn(console, 'warn').mockImplementation(() => {
+        //
+      });
+    });
+
+    afterEach(() => {
+      warn.mockRestore();
+    });
+
+    test('warns when a deprecated language name is used', () => {
+      expect(getLanguageByAlias('ocaml')).toBe('ocaml');
+      expect(warn).toHaveBeenCalled();
+    });
+
+    test('does not warn while enumerating languages', () => {
+      languageIsEnabled('ocaml', { languages: undefined } as any);
+      languageIsEnabled('ocaml', { languages: ['html', 'css', 'javascript'] } as any);
+      expect(warn).not.toHaveBeenCalled();
+    });
   });
 });
