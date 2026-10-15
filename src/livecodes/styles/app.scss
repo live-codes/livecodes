@@ -1793,7 +1793,8 @@ a.editor-title {
   }
 }
 
-.simple-mode {
+.simple-mode,
+.console-mode {
   .editor-title:not(.active),
   &.embed #toolbar .toolbar-render #result-button,
   &.embed #toolbar .toolbar-render #fullscreen-button,
@@ -1839,6 +1840,28 @@ a.editor-title {
 
   .tools-pane-title.has-mark .mark {
     display: none !important;
+  }
+}
+
+.console-mode {
+  #toolbar {
+    margin-bottom: 0;
+    transform: none;
+    width: 100%;
+  }
+
+  #zoom-button,
+  .console-close-button,
+  #size-label {
+    display: none !important;
+  }
+
+  a.tools-pane-title {
+    cursor: default;
+  }
+
+  .gutter.gutter-vertical {
+    cursor: default;
   }
 }
 
