@@ -188,55 +188,10 @@ export interface Compiler {
     | ((options: { baseUrl: string; config: Config }) => string | Promise<string>);
   inlineModule?: string | ((options: { baseUrl: string }) => Promise<string>);
   loadAsExternalModule?: boolean;
-  scriptType?:
-    | 'module'
-    | 'text/liquid'
-    | 'text/python'
-    | 'text/r'
-    | 'text/ruby-wasm'
-    | 'text/x-uniter-php'
-    | 'text/php-wasm'
-    | 'text/c-wasm'
-    | 'text/cpp'
-    | 'text/cpp-wasm'
-    | 'text/objc-wasm'
-    | 'text/objcpp-wasm'
-    | 'text/nim-wasm'
-    | 'text/janet-wasm'
-    | 'text/fortran-wasm'
-    | 'text/d-wasm'
-    | 'text/cobol-wasm'
-    | 'text/rust-wasm'
-    | 'text/crystal-wasm'
-    | 'text/odin-wasm'
-    | 'text/zig-wasm'
-    | 'text/java'
-    | 'text/csharp-wasm'
-    | 'text/razor'
-    | 'text/fanak'
-    | 'text/vb-wasm'
-    | 'text/fsharp-wasm'
-    | 'text/perl'
-    | 'text/julia'
-    | 'text/biwascheme'
-    | 'text/commonlisp'
-    | 'text/tcl'
-    | 'text/prolog'
-    | 'text/haskell'
-    | 'text/haskell-wasm'
-    | 'text/minizinc'
-    | 'text/go-wasm'
-    | 'text/swift-wasm'
-    | 'text/ada-wasm'
-    | 'text/v-wasm'
-    | 'text/assembly'
-    | 'application/json'
-    | 'application/lua'
-    | 'text/fennel'
-    | 'application/wasm-uint8';
+  scriptType?: ScriptType | ((options: { config: Config }) => ScriptType | undefined);
   liveReload?: boolean;
   aliasTo?: Language;
-  compiledCodeLanguage?: Language;
+  compiledCodeLanguage?: Language | ((options: { config: Config }) => Language | undefined);
   imports?: { [key: string]: string };
   types?: Types;
 }
@@ -244,6 +199,53 @@ export interface Compiler {
 export interface Compilers {
   [language: string]: Compiler;
 }
+
+export type ScriptType =
+  | 'module'
+  | 'text/liquid'
+  | 'text/python'
+  | 'text/r'
+  | 'text/ruby-wasm'
+  | 'text/x-uniter-php'
+  | 'text/php-wasm'
+  | 'text/c-wasm'
+  | 'text/cpp'
+  | 'text/cpp-wasm'
+  | 'text/objc-wasm'
+  | 'text/objcpp-wasm'
+  | 'text/nim-wasm'
+  | 'text/janet-wasm'
+  | 'text/fortran-wasm'
+  | 'text/d-wasm'
+  | 'text/cobol-wasm'
+  | 'text/rust-wasm'
+  | 'text/crystal-wasm'
+  | 'text/odin-wasm'
+  | 'text/zig-wasm'
+  | 'text/java'
+  | 'text/csharp-wasm'
+  | 'text/razor'
+  | 'text/fanak'
+  | 'text/vb-wasm'
+  | 'text/fsharp-wasm'
+  | 'text/perl'
+  | 'text/julia'
+  | 'text/biwascheme'
+  | 'text/commonlisp'
+  | 'text/tcl'
+  | 'text/prolog'
+  | 'text/haskell'
+  | 'text/haskell-wasm'
+  | 'text/minizinc'
+  | 'text/go-wasm'
+  | 'text/swift-wasm'
+  | 'text/ada-wasm'
+  | 'text/v-wasm'
+  | 'text/assembly'
+  | 'application/json'
+  | 'application/lua'
+  | 'text/fennel'
+  | 'application/wasm-uint8';
 
 export type TemplateAlias =
   | 'js'

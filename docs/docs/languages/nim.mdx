@@ -2,13 +2,16 @@
 
 [Nim](https://nim-lang.org/) is a statically typed, compiled systems programming language.
 
-In LiveCodes, Nim runs in the browser using the [Nim compiler](https://nim-lang.org/) compiled to WebAssembly, through Nim's JavaScript backend. The compiled program runs in the result page, so it can drive the DOM directly (e.g. through the `dom` and `jsffi` modules).
+In LiveCodes, Nim runs in the browser using the [Nim compiler](https://nim-lang.org/) compiled to WebAssembly. The `nim` language drives any of Nim's backends, selected with the `target` [custom setting](#custom-settings):
 
-> For Nim's WebAssembly backend, which supports standard input, command-line arguments and real exit codes, see [Nim (Wasm)](./nim-wasm.mdx).
+- **`js`** (default) — Nim's JavaScript backend. The emitted program runs in the result page, so it can drive the DOM directly (e.g. through the `dom` and `jsffi` modules).
+- **`c`** and **`cpp`** — Nim's C and C++ backends. The generated source is compiled and run in a worker by the [Clang](https://clang.llvm.org/) toolchain, the same one used for [C (Wasm)](./c-wasm.mdx), and the C/C++ that Nim generated is shown in the compiled code view.
+
+> For Nim's `c` backend as a dedicated language, with standard input, command-line arguments and real exit codes, see [Nim (Wasm)](./nim-wasm.mdx).
 
 ## Usage
 
-Demo:
+Demo (JavaScript backend):
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
@@ -27,9 +30,25 @@ export const nimConfig = {
 
 <LiveCodes config={nimConfig}></LiveCodes>
 
+### Choosing a backend
+
+Set `target` in [custom settings](../advanced/custom-settings.mdx):
+
+```json title="Custom Settings"
+{
+  "nim": {
+    "target": "cpp"
+  }
+}
+```
+
+The `c` and `cpp` targets compile and run in a worker, like [C (Wasm)](./c-wasm.mdx), so they have no document. They do have C interop, exact 64-bit integers, `cast`, pointers and `sizeof` — the capabilities the JavaScript backend lacks. Standard input and command-line arguments are not exposed by this language; use [Nim (Wasm)](./nim-wasm.mdx) for those.
+
+With either target, the **compiled** code view shows what Nim emitted: the JavaScript program, or the C/C++ that was handed to Clang.
+
 ### Communication with the result page
 
-Nim's JavaScript backend emits one self-sufficient program that runs in the result page. It has a document and a console, so `echo` writes to the console, and the browser modules that ship with the compiler (`dom`, `jsffi`, `jsconsole`, `jscore`, `jsre` and `asyncjs`) are on its search path:
+With the default `js` backend, Nim emits one self-sufficient program that runs in the result page. It has a document and a console, so `echo` writes to the console, and the browser modules that ship with the compiler (`dom`, `jsffi`, `jsconsole`, `jscore`, `jsre` and `asyncjs`) are on its search path:
 
 ```nim
 import dom
@@ -60,11 +79,27 @@ Example:
 
 ## Compiler
 
-The [Nim compiler](https://nim-lang.org/) (Nim's `js` backend) compiled to WebAssembly, packaged as [@live-codes/nim-wasm](https://www.npmjs.com/package/@live-codes/nim-wasm). It is compiled with `execute: false`, and the emitted program runs in the result page.
+The [Nim compiler](https://nim-lang.org/) (Nim's `js`, `c` or `cpp` backend) compiled to WebAssembly, packaged as [@live-codes/nim-wasm](https://www.npmjs.com/package/@live-codes/nim-wasm). The `c` and `cpp` targets emit one self-contained source string, which the [Clang](https://clang.llvm.org/) toolchain of [@live-codes/clang-wasm](https://www.npmjs.com/package/@live-codes/clang-wasm) compiles and links.
 
 ### Version
 
-Nim `v2.2.4`.
+Nim `v2.2.4`. Clang `v22.1.8` for the `c` and `cpp` targets.
+
+## Custom Settings
+
+The compiler can be configured using [custom settings](../advanced/custom-settings.mdx) added to the property `nim`:
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `target` | `"js" \| "c" \| "cpp"` | The Nim backend. Defaults to `js`. |
+
+```json title="Custom Settings"
+{
+  "nim": {
+    "target": "c"
+  }
+}
+```
 
 ## Example Usage
 
@@ -86,3 +121,5 @@ https://livecodes.io/?template=nim
 - [Nim standard library](https://nim-lang.org/docs/lib.html)
 - [@live-codes/nim-wasm](https://www.npmjs.com/package/@live-codes/nim-wasm)
 - [Nim (Wasm)](./nim-wasm.mdx) in LiveCodes
+- [C (Wasm)](./c-wasm.mdx) in LiveCodes
+- [C++ (Wasm)](./cpp-wasm.mdx) in LiveCodes

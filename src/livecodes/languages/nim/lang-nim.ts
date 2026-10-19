@@ -1,5 +1,6 @@
-import type { CompileResult, LanguageSpecs } from '../../models';
+import type { Language, LanguageSpecs, ScriptType } from '../../models';
 import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, nimWasmBaseUrl } from '../../vendors';
+import { getLanguageCustomSettings } from '../utils';
 
 // Nim's JavaScript backend, for pages that want a document: the compiler emits one self-sufficient
 // file, so it is compiled with `execute: false` and the result is run in the result page, the same
@@ -10,30 +11,49 @@ export const nim: LanguageSpecs = {
   compiler: {
     url: nimWasmBaseUrl + 'dist/nim-wasm.global.js',
     factory: () => {
-      let compiler: Promise<any> | null = null;
-      const getCompiler = () => {
-        if (!compiler) {
+      const compilers: Record<'js' | 'c' | 'cpp', Promise<any> | null> = {
+        js: null,
+        c: null,
+        cpp: null,
+      };
+      const getCompiler = (target: 'js' | 'c' | 'cpp' = 'js') => {
+        if (!compilers[target]) {
           const created: Promise<any> = (self as any).nimWasm.createCompiler({
-            target: 'js',
+            target,
+            emit: 'single',
             baseUrl: nimWasmBaseUrl + 'assets/nim/',
           });
           // do not keep a failed boot (e.g. a transient network error)
           created.catch(() => {
-            compiler = null;
+            compilers[target] = null;
           });
-          compiler = created;
+          compilers[target] = created;
         }
-        return compiler;
+        return compilers[target];
       };
-      return async (code: string): Promise<CompileResult> => {
-        const result = await (await getCompiler()).run(code, '', { execute: false });
+      return async (code: string, { config }) => {
+        const target = getLanguageCustomSettings('nim', config)?.target || 'js';
+        const result = await (await getCompiler(target)).run(code, '', { execute: false });
         if (!result.compiledCode) {
           return { code: '', info: { errors: result.errors || ['Nim produced no output.'] } };
         }
-        // The emitted program declares its runtime at the top level and calls `main()` at the
-        // end, so it gets a scope of its own rather than sharing the page's globals.
-        return { code: `(() => {\n${result.compiledCode}\n})();`, info: {} };
+        if (target === 'js') {
+          return { code: '(() => {\n' + result.compiledCode + '\n})();', info: {} };
+        }
+        return { code: result.compiledCode, info: {} };
       };
+    },
+    compiledCodeLanguage: ({ config }) => {
+      const target = getLanguageCustomSettings('nim', config)?.target || 'js';
+      return target === 'js' ? 'js' : ((target + '-wasm') as Language);
+    },
+    scripts: ({ baseUrl, config }) => {
+      const target = getLanguageCustomSettings('nim', config)?.target || 'js';
+      return target === 'js' ? [] : [baseUrl + '{{hash:lang-clang-wasm-script.js}}'];
+    },
+    scriptType: ({ config }) => {
+      const target = getLanguageCustomSettings('nim', config)?.target || 'js';
+      return target === 'js' ? undefined : (`text/${target}-wasm` as ScriptType);
     },
   },
   extensions: ['nim', 'nims', 'nimble', 'nim-js', 'js.nim'],
