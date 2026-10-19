@@ -89,6 +89,14 @@ The registry above is fixed. `libraries` adds entries to it from [custom setting
 }
 ```
 
+It can then be used in a program:
+
+```nim
+import checksums/sha1
+
+echo $secureHash("Hello World")
+```
+
 Each array item is a public GitHub repository link (optionally `/tree/<ref>`), or an object with `url` and optional `name`, `ref`, `modules`, `requires` and `backends`. Sources that are not in a public repository can be inlined:
 
 ```json title="Custom Settings"
