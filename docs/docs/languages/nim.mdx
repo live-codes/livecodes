@@ -65,11 +65,11 @@ echo User(name: "Ada", age: 36).toJson
 
 The 41-package registry covers JSON, YAML and TOML (`jsony`, `yaml`, `parsetoml`), parsers (`npeg`), text
 and Unicode (`regex`, `unicodedb`, `graphemes`, `normalize`, `strunicode`, `stew`), maths (`bigints`,
-`vmath`), data structures (`rbtree`, `binaryheap`, `compactdict`), iterator and functional helpers
-(`itertools`, `iterutils`, `optionsutils`, `patty`, `with`, `zero_functional`), colour (`chroma`,
-`termstyle`), serialization and compression (`jstin`, `msgpack4nim`, `zippy`, `pnm`, `nimsvg`), command
-lines (`cligen`, `argparse`, `docopt`), templating (`mustache`), UI (`karax`, `nimquery`), timing
-(`timeit`) and cryptography (`nimcrypto`).
+`vmath`), data structures (`rbtree`, `binaryheap`, `compactdict`), iterator, functional and macro helpers
+(`itertools`, `iterutils`, `optionsutils`, `patty`, `with`, `zero_functional`, `unpack`, `fusion`,
+`macroutils`, `ast_pattern_matching`), colour (`chroma`, `termstyle`), serialization and compression
+(`jstin`, `msgpack4nim`, `zippy`, `pnm`, `nimsvg`), command lines (`cligen`, `argparse`, `docopt`),
+templating (`mustache`), UI (`karax`, `nimquery`), timing (`timeit`) and cryptography (`nimcrypto`).
 
 Some packages only work on one backend: `compactdict`, `mustache`, `zippy`, `msgpack4nim`, `nimsvg`,
 `cligen`, `argparse`, `docopt` and `nimcrypto` need the C/C++ targets (the `wasm` target compiles through
