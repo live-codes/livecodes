@@ -77,7 +77,7 @@ describe('nim compiler factory', () => {
     });
 
     expect(calls).toHaveLength(1);
-    expect(calls[0]).toMatchObject({ target: 'c', emit: 'single' });
+    expect(calls[0]).toMatchObject({ target: 'c', emit: 'single', packages: true });
     expect(result).toEqual({ code: 'compiled-c', info: {} });
   });
 
@@ -100,5 +100,22 @@ describe('nim compiler factory', () => {
 
     await compile('c', { config: configWith({ nim: { target: 'c' } }) });
     expect(calls.map((call) => call.target)).toEqual(['cpp', 'c']);
+  });
+
+  test('packages are on by default and can be turned off', async () => {
+    const calls = createCompilerMock();
+    const compile = await compilerFactory();
+    const js = { config: configWith({ nim: { target: 'js' } }) };
+    const jsWithoutPackages = {
+      config: configWith({ nim: { target: 'js', packages: false } }),
+    };
+
+    await compile('a', js);
+    await compile('b', jsWithoutPackages);
+    await compile('c', jsWithoutPackages);
+
+    // A different `packages` setting is a different compiler, and the same one is reused.
+    expect(calls).toHaveLength(2);
+    expect(calls.map((call) => call.packages)).toEqual([true, false]);
   });
 });

@@ -16,6 +16,7 @@ const SCRIPT_TYPE = 'text/nim-wasm';
 interface NimWasmSettings {
   compileArgs?: string[];
   args?: string[];
+  packages?: boolean;
 }
 
 interface RunResult {
@@ -60,8 +61,10 @@ const getToolchain = () => {
   return toolchain;
 };
 
-const getCompiler = (compileArgs = []) => {
-  const key = JSON.stringify(compileArgs);
+const getCompiler = (options = {}) => {
+  const compileArgs = options.compileArgs || [];
+  const packages = options.packages !== false;
+  const key = JSON.stringify({ compileArgs, packages });
   if (compiler && compilerArgs === key) return compiler;
   compilerArgs = key;
   const previous = compiler;
@@ -74,9 +77,10 @@ const getCompiler = (compileArgs = []) => {
       baseUrl: ${JSON.stringify(nimWasmBaseUrl + 'assets/nim/')},
       toolchain: built,
       compileArgs,
+      packages,
     });
-    // compileArgs is fixed when a compiler is created, so a change builds a new one and
-    // releases the old; the shared toolchain belongs to this page and is not released.
+    // compileArgs and packages are fixed when a compiler is created, so a change builds a new
+    // one and releases the old; the shared toolchain belongs to this page and is not released.
     if (previous) previous.then((old) => old.dispose()).catch(() => undefined);
     return next;
   })();
@@ -93,11 +97,7 @@ const getCompiler = (compileArgs = []) => {
 addEventListener('message', async (event) => {
   const { id, code, input, options } = event.data;
   try {
-    const result = await (await getCompiler(options && options.compileArgs)).run(
-      code,
-      input,
-      options,
-    );
+    const result = await (await getCompiler(options)).run(code, input, options);
     postMessage({
       id,
       result: {
