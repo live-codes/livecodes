@@ -152,7 +152,10 @@ export const getContent = ({
             ),
   };
 
-  const scriptType = getLanguageCompiler?.(config.script.language)?.scriptType;
+  let scriptType = getLanguageCompiler?.(config.script.language)?.scriptType;
+  if (typeof scriptType === 'function') {
+    scriptType = scriptType({ config });
+  }
   if (!isScriptSupported && scriptType && scriptType !== 'module') {
     if (editorId === 'markup') {
       return (

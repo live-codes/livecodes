@@ -116,7 +116,10 @@ export const createDeployUI = async ({
     newRepo: boolean,
   ) => {
     const forExport = true;
-    const scriptType = deps.getLanguageCompiler(deps.getConfig().script.language)?.scriptType;
+    let scriptType = deps.getLanguageCompiler(deps.getConfig().script.language)?.scriptType;
+    if (typeof scriptType === 'function') {
+      scriptType = scriptType({ config: deps.getConfig() });
+    }
     const singleFile = scriptType != null && scriptType !== 'module';
     newRepoNameError.innerHTML = '';
 

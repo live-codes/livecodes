@@ -897,6 +897,13 @@ const registerRun = (editorId: EditorId, editors: Editors) => {
   });
 };
 
+const getCompiledCodeLanguage = (lang: Language, config: Config) => {
+  const compiledLanguage = getLanguageCompiler(lang)?.compiledCodeLanguage;
+  if (typeof compiledLanguage === 'string') return compiledLanguage;
+  if (!compiledLanguage) return null;
+  return compiledLanguage({ config });
+};
+
 const updateCompiledCode = () => {
   const getCompiledLanguage = (editorId: EditorId) => {
     const defaultLang: { [key in EditorId]: Language } = {
@@ -904,10 +911,12 @@ const updateCompiledCode = () => {
       style: 'css',
       script: 'javascript',
     };
-    const lang = getLanguageCompiler(getConfig()[editorId].language)?.compiledCodeLanguage;
+    const config = getConfig();
+    const lang = getCompiledCodeLanguage(config[editorId].language, config);
     return {
       language: lang || defaultLang[editorId],
-      label: lang === 'json' ? 'JSON' : getLanguageByAlias(lang) || lang || defaultLang[editorId],
+      label:
+        lang === 'json' ? 'JSON' : getLanguageByAlias(lang || '') || lang || defaultLang[editorId],
     };
   };
   const compiledLanguages: { [key in EditorId]: { language: Language; label: string } } = {
@@ -963,7 +972,10 @@ const getResultPage = async ({
   const styleLanguage = config.style.language;
   const scriptLanguage = config.script.language;
   const testsLanguage = config.tests?.language || 'typescript';
-  const scriptType = getLanguageCompiler(scriptLanguage)?.scriptType;
+  let scriptType = getLanguageCompiler(scriptLanguage)?.scriptType;
+  if (typeof scriptType === 'function') {
+    scriptType = scriptType({ config });
+  }
 
   const forceCompileStyles =
     [...config.processors, ...getCache().processors].find((name) =>
@@ -1154,10 +1166,11 @@ const flushResult = () => {
 
   iframe.contentWindow.postMessage({ flush: true }, '*');
 
+  const config = getConfig();
   const compiledLanguages = {
-    markup: getLanguageCompiler(getConfig().markup.language)?.compiledCodeLanguage || 'html',
-    style: getLanguageCompiler(getConfig().style.language)?.compiledCodeLanguage || 'css',
-    script: getLanguageCompiler(getConfig().script.language)?.compiledCodeLanguage || 'javascript',
+    markup: getCompiledCodeLanguage(config.markup.language, config) || 'html',
+    style: getCompiledCodeLanguage(config.style.language, config) || 'css',
+    script: getCompiledCodeLanguage(config.script.language, config) || 'javascript',
   };
 
   const loadingComments: Partial<Record<Language, string>> = {
