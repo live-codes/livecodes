@@ -442,13 +442,14 @@ export const createResultPage = async ({
     scriptElement.dataset.livecodesScript = 'editor';
 
     const languageScriptType = getLanguageCompiler(code.script.language)?.scriptType;
-    let scriptType =
-      languageScriptType ||
+    const resolvedLanguageScriptType =
+      typeof languageScriptType === 'function'
+        ? languageScriptType({ config })
+        : languageScriptType;
+    const scriptType =
+      resolvedLanguageScriptType ||
       config.customSettings.scriptType ||
       (isModuleScript(script) ? 'module' : undefined);
-    if (typeof scriptType === 'function') {
-      scriptType = scriptType({ config });
-    }
 
     const sourceMap =
       // allow having sourceMappingURL for javascript (with no sourceMap)

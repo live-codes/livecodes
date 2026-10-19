@@ -45,7 +45,7 @@ export const nim: LanguageSpecs = {
     },
     compiledCodeLanguage: ({ config }) => {
       const target = getLanguageCustomSettings('nim', config)?.target || 'js';
-      return target === 'js' ? 'js' : ((target + '-wasm') as Language);
+      return target === 'js' ? 'javascript' : ((target + '-wasm') as Language);
     },
     scripts: ({ baseUrl, config }) => {
       const target = getLanguageCustomSettings('nim', config)?.target || 'js';

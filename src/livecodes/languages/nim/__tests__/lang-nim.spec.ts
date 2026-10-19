@@ -15,17 +15,13 @@ const resolveConfig = <T>(value: Configured<T> | undefined, config: Config): T |
 
 const scriptsFor = (config: Config) =>
   (
-    compiler.scripts as (options: {
-      compiled: string;
-      baseUrl: string;
-      config: Config;
-    }) => string[]
+    compiler.scripts as (options: { compiled: string; baseUrl: string; config: Config }) => string[]
   )({ compiled: '', baseUrl: 'https://example.test/livecodes/', config });
 
 describe('nim custom settings', () => {
   test('defaults to the JavaScript backend', () => {
     const config = configWith({});
-    expect(resolveConfig<Language>(compiler.compiledCodeLanguage, config)).toBe('js');
+    expect(resolveConfig<Language>(compiler.compiledCodeLanguage, config)).toBe('javascript');
     expect(resolveConfig(compiler.scriptType, config)).toBeUndefined();
     expect(scriptsFor(config)).toEqual([]);
   });
