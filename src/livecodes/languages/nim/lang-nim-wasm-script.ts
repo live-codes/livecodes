@@ -17,6 +17,7 @@ interface NimWasmSettings {
   compileArgs?: string[];
   args?: string[];
   packages?: boolean;
+  libraries?: unknown;
 }
 
 interface RunResult {
@@ -61,14 +62,24 @@ const getToolchain = () => {
   return toolchain;
 };
 
-const getCompiler = (options = {}) => {
+const libraryCache = new Map();
+const getCompiler = async (options = {}) => {
   const compileArgs = options.compileArgs || [];
-  const packages = options.packages !== false;
-  const key = JSON.stringify({ compileArgs, packages });
+  const requestedPackages = options.packages !== false;
+  const libraries = options.libraries;
+  const key = JSON.stringify({
+    compileArgs,
+    packages: requestedPackages,
+    libraries: libraries ?? null,
+  });
   if (compiler && compilerArgs === key) return compiler;
   compilerArgs = key;
   const previous = compiler;
   const created = (async () => {
+    const entries = libraries
+      ? await self.nimWasm.resolveLibraries(libraries, { cache: libraryCache })
+      : {};
+    const packages = Object.keys(entries).length ? entries : requestedPackages;
     // Compile through the Clang runtime this page already uses, rather than the second copy the
     // Nim IIFE carries inside it, so only one runtime is ever loaded.
     const built = await getToolchain();
@@ -79,8 +90,9 @@ const getCompiler = (options = {}) => {
       compileArgs,
       packages,
     });
-    // compileArgs and packages are fixed when a compiler is created, so a change builds a new
-    // one and releases the old; the shared toolchain belongs to this page and is not released.
+    // compileArgs, packages and libraries are fixed when a compiler is created, so a change
+    // builds a new one and releases the old; the shared toolchain belongs to this page and is
+    // not released.
     if (previous) previous.then((old) => old.dispose()).catch(() => undefined);
     return next;
   })();

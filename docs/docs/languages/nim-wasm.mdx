@@ -73,6 +73,7 @@ The compiler can be configured using [custom settings](../advanced/custom-settin
 | `compileArgs` | `string[]` | Extra Nim flags, e.g. `["--define:release2"]`. |
 | `args` | `string[]` | Command-line arguments passed to the program. |
 | `packages` | `boolean` | Import external packages from the bundled registry. Defaults to `true`. |
+| `libraries` | `string[] \| object` | Public GitHub links or inline library entries added to the bundled registry. See [Adding a library](#adding-a-library). |
 
 ```json title="Custom Settings"
 {
@@ -109,7 +110,38 @@ functional helpers (`zero_functional` included), colour, serialization/compressi
 works here too. Other Nimble packages are not available, and packages that need a C library, sockets,
 threads or a subprocess cannot run in the browser.
 
-Set `"packages": false` to turn package imports off.
+### Adding a library
+
+The registry above is fixed. `libraries` adds entries to it from [custom settings](../advanced/custom-settings.mdx), without rebuilding anything:
+
+```json title="Custom Settings"
+{
+  "nim-wasm": {
+    "libraries": ["https://github.com/nim-lang/checksums"]
+  }
+}
+```
+
+Each array item is a public GitHub repository link (optionally `/tree/<ref>`), or an object with `url` and optional `name`, `ref`, `modules`, `requires` and `backends`. Sources that are not in a public repository can be inlined:
+
+```json title="Custom Settings"
+{
+  "nim-wasm": {
+    "libraries": {
+      "mylib": {
+        "modules": ["mylib"],
+        "files": {
+          "mylib.nim": "proc hi*(): string = \"hi\"\n"
+        }
+      }
+    }
+  }
+}
+```
+
+A library is resolved in the worker when the program runs, and the bundled registry stays available. User libraries are not hash-pinned: they are whatever the repository or the custom settings supply. Only public GitHub repositories are fetched; for private sources, use the package's `libraryFromFiles` API.
+
+Set `"packages": false` to turn package imports off. Adding an entry to `libraries` enables the package loader even when `packages` is `false`, and brings the bundled registry with it.
 
 ## Live Reload
 

@@ -56,6 +56,9 @@ const createCompilerMock = () => {
         run: async () => ({ compiledCode: `compiled-${options.target}` }),
       });
     },
+    resolveLibraries: async () => ({
+      demo: { name: 'demo', modules: ['demo'], files: { 'demo.nim': '' } },
+    }),
   };
   return calls;
 };
@@ -102,6 +105,22 @@ describe('nim compiler factory', () => {
     expect(calls.map((call) => call.target)).toEqual(['cpp', 'c']);
   });
 
+  test('resolves custom libraries and caches the compiler by them', async () => {
+    const calls = createCompilerMock();
+    const compile = await compilerFactory();
+    const config = configWith({
+      nim: { target: 'js', libraries: ['https://github.com/acme/demo'] },
+    });
+
+    await compile('a', { config });
+    expect(calls).toHaveLength(1);
+    expect(calls[0].packages).toMatchObject({
+      demo: { name: 'demo', modules: ['demo'], files: { 'demo.nim': '' } },
+    });
+
+    await compile('b', { config });
+    expect(calls).toHaveLength(1);
+  });
   test('packages are on by default and can be turned off', async () => {
     const calls = createCompilerMock();
     const compile = await compilerFactory();
