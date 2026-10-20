@@ -154,6 +154,7 @@ Enabled via `processors` config:
 | Zig (Wasm)                  | `zig-wasm`, `zig`                                                                   | Zig WASM                                              |
 | V (Wasm)                    | `v-wasm`, `v`, `vlang`, `wasm.v`, `vsh`                                             | V compiler in WASM                                    |
 | Janet (Wasm)                | `janet-wasm`, `janet`, `wasm.janet`                                                 | Janet interpreter (WASM)                              |
+| Elixir (Wasm)               | `elixir-wasm`, `ex`, `exs`, `elixir`, `wasm.ex`                                     | Elixir compiler in WASM                               |
 | Tcl                         | `tcl`                                                                               | Tcl interpreter                                       |
 | WebAssembly                 | `wat`, `wast`, `wasm`, `webassembly`                                                | WAT format                                            |
 | Assembly (Wasm)             | `assembly-wasm`, `assembly`, `asm`, `asm-wasm`, `x86`, `x86-64`, `nasm`, `wasm.asm` | Keystone + Unicorn (WASM), x86-64 assembly            |

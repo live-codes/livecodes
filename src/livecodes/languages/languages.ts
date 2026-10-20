@@ -27,6 +27,7 @@ import { diagrams } from './diagrams';
 import { dot } from './dot';
 import { duckdb } from './duckdb';
 import { ejs } from './ejs';
+import { elixirWasm } from './elixir-wasm';
 import { elm } from './elm';
 import { eta } from './eta';
 import { fanak } from './fanak';
@@ -203,6 +204,7 @@ export const languages: LanguageSpecs[] = [
   fsharp,
   fsharpWasm,
   fanak,
+  elixirWasm,
   haskell,
   haskellWasm,
   scheme,

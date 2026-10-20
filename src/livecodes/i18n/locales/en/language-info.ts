@@ -157,6 +157,11 @@ const languageInfo = {
     link: '<1><2>Official website</2></1> <3> <4>LiveCodes Documentations</4> </3>',
     name: 'EJS',
   },
+  elixirWasm: {
+    desc: 'Elixir compiler running on WebAssembly, using <1>AtomVM</1>',
+    link: '<1> <2>Elixir official website</2> </1> <3> <4>Elixir documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Elixir</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Elixir (Wasm)',
+  },
   elm: {
     desc: 'Elm is compiled to JavaScript in the browser by a WebAssembly build of the Elm compiler.',
     link: '<1><2>Elm official website</2></1> <3><4>Elm guide</4></3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',

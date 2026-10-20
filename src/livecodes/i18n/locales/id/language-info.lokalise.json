@@ -261,6 +261,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elixirWasm.desc": {
+    "translation": "Kompiler Elixir yang berjalan di WebAssembly, menggunakan <tag-1>AtomVM</tag-1>"
+  },
+  "elixirWasm.link": {
+    "translation": "<tag-1> <tag-2>Situs web Elixir</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi bahasa Elixir</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, di mana X = Elixir</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat templat awal</tag-10> </tag-9>"
+  },
+  "elixirWasm.name": {
+    "translation": "Elixir (Wasm)"
+  },
   "elm.desc": {
     "translation": "Elm dikompilasi menjadi JavaScript di dalam browser melalui versi WebAssembly dari kompiler Elm."
   },

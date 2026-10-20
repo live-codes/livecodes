@@ -152,6 +152,10 @@ export const duckdbWasmModuleUrl = /* @__PURE__ */ getModuleUrl('@duckdb/duckdb-
 
 export const ejsUrl = /* @__PURE__ */ getUrl('ejs@4.0.1/ejs.js');
 
+export const elixirWasmBaseUrl = /* @__PURE__ */ getUrl(
+  'gh:live-codes/elixir-browser-eval@6b354dab35fb7454ba2812f935b52b398ca1bec8/wasm/',
+);
+
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
 export const elmWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/elm-wasm@0.2.1/dist/');

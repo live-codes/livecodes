@@ -78,6 +78,7 @@ CobolWasm.storyName = 'COBOL (Wasm)';
 export const FortranWasm = livecodesStory({ template: 'fortran-wasm' });
 FortranWasm.storyName = 'Fortran (Wasm)';
 export const VWasm = livecodesStory({ template: 'v-wasm' });
+export const ElixirWasm = livecodesStory({ template: 'elixir-wasm' });
 export const RustWasm = livecodesStory({ template: 'rust-wasm' });
 export const SwiftWasm = livecodesStory({ template: 'swift-wasm' });
 export const ZigWasm = livecodesStory({ template: 'zig-wasm' });

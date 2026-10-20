@@ -1010,6 +1010,7 @@ const translation = {
       dart: 'Dart Starter',
       diagrams: 'Diagrams Starter',
       duckdb: 'DuckDB Starter',
+      'elixir-wasm': 'Elixir Starter',
       elm: 'Elm Starter',
       fanak: 'Fanak Starter',
       fennel: 'Fennel Starter',

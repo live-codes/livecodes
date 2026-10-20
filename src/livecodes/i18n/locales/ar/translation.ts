@@ -1002,6 +1002,7 @@ const translation: I18nTranslation = {
       daisyui: 'قالب daisyUI',
       dart: 'قالب Dart',
       diagrams: 'قالب الرسوم البيانية',
+      'elixir-wasm': 'قالب Elixir',
       elm: 'قالب Elm',
       fanak: 'قالب Fanak',
       fennel: 'قالب Fennel',

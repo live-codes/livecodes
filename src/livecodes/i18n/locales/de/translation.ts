@@ -1004,6 +1004,7 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUI-Starter',
       dart: 'Dart-Starter',
       diagrams: 'Diagramm-Starter',
+      'elixir-wasm': 'Elixir-Starter',
       elm: 'Elm-Starter',
       fanak: 'Fanak-Starter',
       fennel: 'Fennel-Starter',

@@ -58,6 +58,7 @@ const templates = [
   { name: 'crystal-wasm', title: 'Crystal Starter', thumbnail: 'crystal.svg' },
   { name: 'odin-wasm', title: 'Odin Starter', thumbnail: 'odin.svg' },
   { name: 'v-wasm', title: 'V Starter', thumbnail: 'v.svg' },
+  { name: 'elixir-wasm', title: 'Elixir Starter', thumbnail: 'elixir.svg' },
   { name: 'cpp-wasm', title: 'C++ (Wasm) Starter', thumbnail: 'cpp.svg' },
   { name: 'objc-wasm', title: 'Objective-C (Wasm) Starter', thumbnail: 'objective-c.svg' },
   { name: 'rust-wasm', title: 'Rust (Wasm) Starter', thumbnail: 'rust.svg' },

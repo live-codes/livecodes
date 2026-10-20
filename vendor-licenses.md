@@ -380,6 +380,12 @@ LFortran (Wasm): [BSD 3-Clause License](https://github.com/lfortran/lfortran/blo
 
 V (Wasm): [MIT License](https://github.com/vlang/v/blob/master/LICENSE) (the V compiler and its standard library, compiled to WebAssembly by @live-codes/v-wasm; the Clang toolchain it links through is covered by LLVM / LLD below)
 
+Elixir (Wasm): [Apache License 2.0](https://github.com/elixir-lang/elixir/blob/main/LICENSE) (the Elixir 1.17.3 compiler and standard library, packaged for browser execution)
+
+Popcorn: [Apache License 2.0](https://github.com/software-mansion/popcorn/blob/main/LICENSE) (the browser bridge and AtomVM packaging used by the pinned Elixir runtime)
+
+AtomVM: [Apache License 2.0](https://github.com/atomvm/AtomVM/blob/main/LICENSE) (the lightweight Erlang VM running the compiled Elixir code in WebAssembly)
+
 @live-codes/janet-wasm: [MIT License](https://github.com/live-codes/browser-janet/blob/main/packages/janet-wasm/LICENSE)
 
 Janet (Wasm): [MIT License](https://github.com/janet-lang/janet/blob/master/LICENSE) (the Janet interpreter, compiled to WebAssembly by @live-codes/janet-wasm)

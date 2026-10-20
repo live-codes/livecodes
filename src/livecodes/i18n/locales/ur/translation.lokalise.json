@@ -1992,6 +1992,9 @@
   "templates.starter.duckdb": {
     "translation": "ڈک ڈی بی شروعاتی"
   },
+  "templates.starter.elixir-wasm": {
+    "translation": "Elixir شروعاتی"
+  },
   "templates.starter.elm": {
     "translation": "ایلم شروعاتی"
   },

@@ -145,6 +145,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Resmi web sitesi</2></1> <3> <4>LiveCodes Dokümantasyonu</4> </3>',
     name: 'EJS',
   },
+  elixirWasm: {
+    desc: 'WebAssembly üzerinde çalışan Elixir derleyicisi, <1>AtomVM</1> kullanılarak.',
+    link: "<1> <2>Elixir web sitesi</2> </1> <3> <4>Elixir dil belgeleri</4> </3> <5> <6>Y dakikada X'i öğrenin, burada X=Elixir</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    name: 'Elixir (Wasm)',
+  },
   elm: {
     desc: "Elm, Elm derleyicisinin bir WebAssembly derlemesi aracılığıyla tarayıcıda JavaScript'e derlenir.",
     link: '<1><2>Elm resmi web sitesi</2></1> <3><4>Elm kılavuzu</4></3> <5> <6>LiveCodes Belgeleri</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',

@@ -144,6 +144,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>官方网站</2></1> <3> <4>LiveCodes 文档</4> </3>',
     name: 'EJS',
   },
+  elixirWasm: {
+    desc: '在 WebAssembly 上运行的 Elixir 编译器，使用<1>AtomVM</1>',
+    link: '<1> <2>Elixir 网站</2> </1> <3> <4>Elixir 语言文档</4> </3> <5> <6>Y分钟掌握X，其中X=Elixir</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Elixir (Wasm)',
+  },
   elm: {
     desc: 'Elm 通过 Elm 编译器的 WebAssembly 构建版本在浏览器中编译为 JavaScript。',
     link: '<1><2>Elm 官方网站</2></1> <3><4>Elm 指南</4></3> <5> <6>LiveCodes 文档</6> </5> <7> <8>加载入门模板</8> </7>',

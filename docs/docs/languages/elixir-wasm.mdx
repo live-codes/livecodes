@@ -1,0 +1,150 @@
+# Elixir (Wasm)
+
+Elixir is a dynamic, functional language for building scalable and maintainable applications, powered by the Erlang VM.
+
+In LiveCodes, Elixir runs in the browser using WebAssembly: the Elixir compiler and standard library execute on [AtomVM](https://atomvm.org/), a lightweight Erlang VM with a WebAssembly target. No server is involved.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const elixirConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'elixir-wasm',
+    content: `IO.puts("Hello, Elixir!")`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={elixirConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The program runs in the context of the result page. A few helpers are available in the browser global
+`livecodes.elixir` object:
+
+- `livecodes.elixir.input`: the standard input passed to the program.
+- `livecodes.elixir.loaded`: a promise that resolves after the runtime has downloaded and the first
+  program run has completed. It rejects if the environment fails to load. Other helpers should be
+  used after it resolves.
+- `livecodes.elixir.output`: the program's standard output.
+- `livecodes.elixir.value`: the inspected return value of the program.
+- `livecodes.elixir.warnings`: warnings emitted while compiling or running the program.
+- `livecodes.elixir.error`: the syntax or runtime error, if the program failed.
+- `livecodes.elixir.exitCode`: the exit code of the program.
+- `livecodes.elixir.run`: runs the current code with new input, reusing the booted VM, and returns a
+  promise that resolves with `output`, `value`, `warnings`, `error` and `exitCode`.
+- `livecodes.elixir.retry`: restarts the runtime after a failed initialization. A VM crash in a
+  normal run is recovered automatically on the next run.
+
+Example:
+
+<LiveCodes template="elixir-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+```elixir
+IO.puts("Hello, Elixir!")
+
+squares = Enum.map(1..5, &(&1 * &1))
+IO.inspect(squares, label: "squares")
+```
+
+### Runtime lifecycle
+
+The VM runs in a persistent worker owned by the result window. Updating the code
+rewrites the result document but does not destroy the worker, so normal edits
+reuse the booted VM instead of downloading and initializing it again.
+
+Each worker boot compiles a small Elixir prelude. That takes a few seconds on
+the first run; subsequent runs only evaluate the user code. Evaluations time out
+after 60 seconds. If a newer run is waiting and the active evaluation does not
+finish within 10 seconds, the worker is terminated and recreated so the newer
+run is not blocked. Pending edits are coalesced to the latest one. A VM crash is
+reported in `error`; the next run starts a fresh worker automatically. Use
+`retry()` when initialization itself failed.
+
+## Language Info
+
+### Name
+
+`elixir-wasm`
+
+### Aliases / Extensions
+
+`ex`, `exs`, `elixir`, `elixir-wasm`, `wasm.ex`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The Elixir toolchain compiled to WebAssembly, running on
+[AtomVM](https://github.com/atomvm/AtomVM) with the
+[Popcorn](https://popcorn.swmansion.com/) browser runtime. The assets are pinned to
+`live-codes/elixir-browser-eval@6b354dab35fb7454ba2812f935b52b398ca1bec8`.
+
+### Version
+
+Elixir 1.17.3 on OTP 27, with AtomVM 0.7.0-dev (32-bit).
+
+### Limitations
+
+AtomVM implements a subset of the Erlang VM and its standard library. Features that depend on a full
+operating system (for example file I/O and OS processes) may be missing or behave differently.
+Examples include `File.write!/2` (`not_implemented`), `Date.utc_today/0`, `Task.async/await`,
+`Regex.match?/2`, and the `JSON` module. `System.halt/1` terminates the VM instead of returning an
+exit status; the runtime reports the crash and the next run boots a fresh worker. Frameworks that
+require a server, such as Phoenix and LiveView, are out of scope for the playground.
+
+The runtime uses WebAssembly threads, so the result page must be cross-origin isolated
+(`SharedArrayBuffer` is unavailable otherwise) and the environment never finishes loading
+without it. This needs `Cross-Origin-Opener-Policy: same-origin` /
+`Cross-Origin-Embedder-Policy: credentialless` headers on both the app and the sandbox
+origin, plus the `cross-origin-isolated` iframe permission (which LiveCodes sets
+automatically). Note that plain `same-origin` (not `same-origin-allow-popups`) is required
+for isolation, which severs popup/opener links — popup-based OAuth logins need a redirect
+flow instead. The dev servers and deployment configs in this repo already send these headers;
+other self-hosted setups and the production sandbox deployment must send them too. Browsers
+without `credentialless` support (e.g. Safari) cannot isolate and are not supported for this
+language.
+
+## Code Formatting
+
+Not currently supported.
+
+## Performance
+
+On the benchmark machine, a cold start took about 9 seconds from navigation to the first result;
+about 5 seconds of that is the Elixir runtime, including a 3.6 second prelude compile. After the
+first run, a warm `run()` takes about 120 ms and a normal edit takes about 200 ms because the VM is
+reused. Three edits made during a 3 second evaluation complete in about 3.3 seconds, with pending runs
+coalesced to the latest one. See
+[`src/livecodes/languages/elixir-wasm/benchmark.md`](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/languages/elixir-wasm/benchmark.md)
+for methodology, the complete cold-start breakdown, and the AtomVM/Popcorn comparison.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload
+or a VM restart. This behavior can be disabled by adding the code comment `# __livecodes_reload__` to
+the Elixir code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Starter Template
+
+https://livecodes.io/?template=elixir-wasm
+
+## Links
+
+- [Elixir official website](https://elixir-lang.org/)
+- [Elixir documentation](https://hexdocs.pm/elixir/)
+- [Learn X in Y minutes, where X=Elixir](https://learnxinyminutes.com/elixir/)
+- [AtomVM](https://atomvm.org/)
+- [Popcorn: Elixir and Wasm](https://popcorn.swmansion.com/)
