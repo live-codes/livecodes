@@ -56,6 +56,9 @@ const createCompilerMock = () => {
         run: async () => ({ compiledCode: `compiled-${options.target}` }),
       });
     },
+    resolveLibraries: async () => ({
+      demo: { name: 'demo', modules: ['demo'], files: { 'demo.nim': '' } },
+    }),
   };
   return calls;
 };
@@ -77,7 +80,7 @@ describe('nim compiler factory', () => {
     });
 
     expect(calls).toHaveLength(1);
-    expect(calls[0]).toMatchObject({ target: 'c', emit: 'single' });
+    expect(calls[0]).toMatchObject({ target: 'c', emit: 'single', packages: true });
     expect(result).toEqual({ code: 'compiled-c', info: {} });
   });
 
@@ -100,5 +103,38 @@ describe('nim compiler factory', () => {
 
     await compile('c', { config: configWith({ nim: { target: 'c' } }) });
     expect(calls.map((call) => call.target)).toEqual(['cpp', 'c']);
+  });
+
+  test('resolves custom libraries and caches the compiler by them', async () => {
+    const calls = createCompilerMock();
+    const compile = await compilerFactory();
+    const config = configWith({
+      nim: { target: 'js', libraries: ['https://github.com/acme/demo'] },
+    });
+
+    await compile('a', { config });
+    expect(calls).toHaveLength(1);
+    expect(calls[0].packages).toMatchObject({
+      demo: { name: 'demo', modules: ['demo'], files: { 'demo.nim': '' } },
+    });
+
+    await compile('b', { config });
+    expect(calls).toHaveLength(1);
+  });
+  test('packages are on by default and can be turned off', async () => {
+    const calls = createCompilerMock();
+    const compile = await compilerFactory();
+    const js = { config: configWith({ nim: { target: 'js' } }) };
+    const jsWithoutPackages = {
+      config: configWith({ nim: { target: 'js', packages: false } }),
+    };
+
+    await compile('a', js);
+    await compile('b', jsWithoutPackages);
+    await compile('c', jsWithoutPackages);
+
+    // A different `packages` setting is a different compiler, and the same one is reused.
+    expect(calls).toHaveLength(2);
+    expect(calls.map((call) => call.packages)).toEqual([true, false]);
   });
 });

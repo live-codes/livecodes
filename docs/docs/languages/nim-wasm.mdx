@@ -62,7 +62,7 @@ The [Nim compiler](https://nim-lang.org/) (Nim's `c` backend) compiled to WebAss
 
 ### Version
 
-Nim `v2.2.4`, Clang `v22.1.8`.
+Nim `v2.2.12`, Clang `v22.1.8`.
 
 ## Custom Settings
 
@@ -72,6 +72,8 @@ The compiler can be configured using [custom settings](../advanced/custom-settin
 | --- | --- | --- |
 | `compileArgs` | `string[]` | Extra Nim flags, e.g. `["--define:release2"]`. |
 | `args` | `string[]` | Command-line arguments passed to the program. |
+| `packages` | `boolean` | Import external packages from the bundled registry. Defaults to `true`. |
+| `libraries` | `string[] \| object` | Public GitHub links or inline library entries added to the bundled registry. See [Adding a library](#adding-a-library). |
 
 ```json title="Custom Settings"
 {
@@ -81,6 +83,73 @@ The compiler can be configured using [custom settings](../advanced/custom-settin
   }
 }
 ```
+
+## External Packages
+
+Programs can import one of 41 Nimble packages from a pinned registry. A package is fetched — its source
+files, from its Git repository at a fixed commit — only when a program imports it, so the initial
+download is unchanged:
+
+```nim
+import jsony
+
+type User = object
+  name: string
+  age: int
+
+echo """{"name":"Ada","age":36}""".fromJson(User)
+echo User(name: "Ada", age: 36).toJson
+```
+
+This target compiles through Nim's C backend, so the packages that need C memory or `stdin`/`stdout`
+are available as well: `compactdict`, `mustache`, `zippy`, `msgpack4nim`, `nimsvg`, `cligen`, `argparse`,
+`docopt` and `nimcrypto`. `results` works here too, as it does on the JavaScript target. The
+JavaScript-only packages (`karax`, `nimquery`, `strunicode`) are not. The rest of the 41-package registry
+— JSON/YAML/TOML, parsers, text and Unicode (`stew` included), maths, data structures, iterator and
+functional helpers (`zero_functional` included), colour, serialization/compression, templating and timing —
+works here too. Other Nimble packages are not available, and packages that need a C library, sockets,
+threads or a subprocess cannot run in the browser.
+
+### Adding a library
+
+The registry above is fixed. `libraries` adds entries to it from [custom settings](../advanced/custom-settings.mdx), without rebuilding anything:
+
+```json title="Custom Settings"
+{
+  "nim-wasm": {
+    "libraries": ["https://github.com/nim-lang/checksums"]
+  }
+}
+```
+
+It can then be used in a program:
+
+```nim
+import checksums/sha1
+
+echo $secureHash("Hello World")
+```
+
+Each array item is a public GitHub repository link (optionally `/tree/<ref>`), or an object with `url` and optional `name`, `ref`, `modules`, `requires` and `backends`. Sources that are not in a public repository can be inlined:
+
+```json title="Custom Settings"
+{
+  "nim-wasm": {
+    "libraries": {
+      "mylib": {
+        "modules": ["mylib"],
+        "files": {
+          "mylib.nim": "proc hi*(): string = \"hi\"\n"
+        }
+      }
+    }
+  }
+}
+```
+
+A library is resolved in the worker when the program runs, and the bundled registry stays available. User libraries are not hash-pinned: they are whatever the repository or the custom settings supply. Only public GitHub repositories are fetched; for private sources, use the package's `libraryFromFiles` API.
+
+Set `"packages": false` to turn package imports off. Adding an entry to `libraries` enables the package loader even when `packages` is `false`, and brings the bundled registry with it.
 
 ## Live Reload
 

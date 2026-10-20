@@ -16,6 +16,8 @@ const SCRIPT_TYPE = 'text/nim-wasm';
 interface NimWasmSettings {
   compileArgs?: string[];
   args?: string[];
+  packages?: boolean;
+  libraries?: unknown;
 }
 
 interface RunResult {
@@ -60,12 +62,24 @@ const getToolchain = () => {
   return toolchain;
 };
 
-const getCompiler = (compileArgs = []) => {
-  const key = JSON.stringify(compileArgs);
+const libraryCache = new Map();
+const getCompiler = async (options = {}) => {
+  const compileArgs = options.compileArgs || [];
+  const requestedPackages = options.packages !== false;
+  const libraries = options.libraries;
+  const key = JSON.stringify({
+    compileArgs,
+    packages: requestedPackages,
+    libraries: libraries ?? null,
+  });
   if (compiler && compilerArgs === key) return compiler;
   compilerArgs = key;
   const previous = compiler;
   const created = (async () => {
+    const entries = libraries
+      ? await self.nimWasm.resolveLibraries(libraries, { cache: libraryCache })
+      : {};
+    const packages = Object.keys(entries).length ? entries : requestedPackages;
     // Compile through the Clang runtime this page already uses, rather than the second copy the
     // Nim IIFE carries inside it, so only one runtime is ever loaded.
     const built = await getToolchain();
@@ -74,9 +88,11 @@ const getCompiler = (compileArgs = []) => {
       baseUrl: ${JSON.stringify(nimWasmBaseUrl + 'assets/nim/')},
       toolchain: built,
       compileArgs,
+      packages,
     });
-    // compileArgs is fixed when a compiler is created, so a change builds a new one and
-    // releases the old; the shared toolchain belongs to this page and is not released.
+    // compileArgs, packages and libraries are fixed when a compiler is created, so a change
+    // builds a new one and releases the old; the shared toolchain belongs to this page and is
+    // not released.
     if (previous) previous.then((old) => old.dispose()).catch(() => undefined);
     return next;
   })();
@@ -93,11 +109,7 @@ const getCompiler = (compileArgs = []) => {
 addEventListener('message', async (event) => {
   const { id, code, input, options } = event.data;
   try {
-    const result = await (await getCompiler(options && options.compileArgs)).run(
-      code,
-      input,
-      options,
-    );
+    const result = await (await getCompiler(options)).run(code, input, options);
     postMessage({
       id,
       result: {

@@ -46,6 +46,78 @@ The `c` and `cpp` targets compile and run in a worker, like [C (Wasm)](./c-wasm.
 
 With either target, the **compiled** code view shows what Nim emitted: the JavaScript program, or the C/C++ that was handed to Clang.
 
+### External packages
+
+The `nim` language can import a set of Nimble packages from a pinned registry. Nothing is downloaded
+until a program imports one, and then only that package's source files are fetched (from its Git
+repository at a fixed commit), so a program that uses none costs nothing extra:
+
+```nim
+import jsony
+
+type User = object
+  name: string
+  age: int
+
+echo """{"name":"Ada","age":36}""".fromJson(User)
+echo User(name: "Ada", age: 36).toJson
+```
+
+The 41-package registry covers JSON, YAML and TOML (`jsony`, `yaml`, `parsetoml`), parsers (`npeg`), text
+and Unicode (`regex`, `unicodedb`, `graphemes`, `normalize`, `strunicode`, `stew`), maths (`bigints`,
+`vmath`), data structures (`rbtree`, `binaryheap`, `compactdict`), iterator, functional and macro helpers
+(`itertools`, `iterutils`, `optionsutils`, `patty`, `with`, `zero_functional`, `unpack`, `fusion`,
+`macroutils`, `ast_pattern_matching`), colour (`chroma`, `termstyle`), serialization and compression
+(`jstin`, `msgpack4nim`, `zippy`, `pnm`, `nimsvg`), command lines (`cligen`, `argparse`, `docopt`),
+templating (`mustache`), UI (`karax`, `nimquery`), timing (`timeit`) and cryptography (`nimcrypto`).
+
+Some packages only work on one backend: `compactdict`, `mustache`, `zippy`, `msgpack4nim`, `nimsvg`,
+`cligen`, `argparse`, `docopt` and `nimcrypto` need the C/C++ targets (the `wasm` target compiles through
+C, so they work there too), while `karax`, `nimquery` and `strunicode` need the JavaScript target.
+`results` works on both. Other Nimble packages are not available, and packages that need a C library,
+sockets, threads or a subprocess cannot run in the browser.
+
+### Adding a library
+
+The registry above is fixed. `libraries` adds entries to it from [custom settings](../advanced/custom-settings.mdx), without rebuilding anything:
+
+```json title="Custom Settings"
+{
+  "nim": {
+    "libraries": ["https://github.com/nim-lang/checksums"]
+  }
+}
+```
+
+It can then be used in a program:
+
+```nim
+import checksums/sha1
+
+echo $secureHash("Hello World")
+```
+
+Each array item is a public GitHub repository link (optionally `/tree/<ref>`), or an object with `url` and optional `name`, `ref`, `modules`, `requires` and `backends`. Sources that are not in a public repository can be inlined:
+
+```json title="Custom Settings"
+{
+  "nim": {
+    "libraries": {
+      "mylib": {
+        "modules": ["mylib"],
+        "files": {
+          "mylib.nim": "proc hi*(): string = \"hi\"\n"
+        }
+      }
+    }
+  }
+}
+```
+
+A library is resolved when the program runs, and the bundled registry stays available. User libraries are not hash-pinned: they are whatever the repository or the custom settings supply. Only public GitHub repositories are fetched; for private sources, use the package's `libraryFromFiles` API.
+
+Set `"packages": false` in custom settings to turn package imports off. Adding an entry to `libraries` enables the package loader even when `packages` is `false`, and brings the bundled registry with it.
+
 ### Communication with the result page
 
 With the default `js` backend, Nim emits one self-sufficient program that runs in the result page. It has a document and a console, so `echo` writes to the console, and the browser modules that ship with the compiler (`dom`, `jsffi`, `jsconsole`, `jscore`, `jsre` and `asyncjs`) are on its search path:
@@ -83,7 +155,7 @@ The [Nim compiler](https://nim-lang.org/) (Nim's `js`, `c` or `cpp` backend) com
 
 ### Version
 
-Nim `v2.2.4`. Clang `v22.1.8` for the `c` and `cpp` targets.
+Nim `v2.2.12`. Clang `v22.1.8` for the `c` and `cpp` targets.
 
 ## Custom Settings
 
@@ -92,6 +164,8 @@ The compiler can be configured using [custom settings](../advanced/custom-settin
 | Property | Type | Description |
 | --- | --- | --- |
 | `target` | `"js" \| "c" \| "cpp"` | The Nim backend. Defaults to `js`. |
+| `packages` | `boolean` | Import external packages from the bundled registry. Defaults to `true`. |
+| `libraries` | `string[] \| object` | Public GitHub links or inline library entries added to the bundled registry. See [Adding a library](#adding-a-library). |
 
 ```json title="Custom Settings"
 {
