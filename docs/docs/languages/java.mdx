@@ -2,7 +2,13 @@
 
 Java is a high-level, general-purpose, memory-safe, object-oriented programming language.
 
-In LiveCodes, Java runs in the browser using [DoppioJVM](https://github.com/plasma-umass/doppio).
+In LiveCodes, Java source is compiled to WebAssembly **in the browser**: a build of OpenJDK's `javac`
+and the [TeaVM](https://teavm.org) AOT compiler run as a single WebAssembly module inside a Web
+Worker. Nothing is sent to a server, and modern Java (records, `var`, text blocks, switch
+expressions) is supported.
+
+The language is named `java-wasm`; `java` is an alias for it (it used to select the DoppioJVM engine,
+which is still available as [`java-doppio`](./java-doppio.mdx)).
 
 ## Usage
 
@@ -13,7 +19,7 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 export const javaConfig = {
   activeEditor: 'script',
   script: {
-    language: 'java',
+    language: 'java-wasm',
     content: `public class BinarySearchSnippet {
   /**
    * Search an item with binarySearch algorithm.
@@ -58,7 +64,7 @@ export const javaConfig = {
   editor: 'auto',
   tools: {
     status: 'full',
-},
+  },
 };
 
 <LiveCodes config={javaConfig}></LiveCodes>
@@ -83,7 +89,7 @@ Example:
 
 ### Name
 
-`java`
+`java-wasm` (alias: `java`)
 
 ### Extension
 
@@ -95,11 +101,13 @@ Example:
 
 ## Compiler
 
-[DoppioJVM](https://github.com/plasma-umass/doppio)
+A [fork of teavm-javac](https://github.com/Vsprocessing/teavm-javac) packaging OpenJDK's `javac` and
+the TeaVM AOT compiler as WebAssembly, run in a Web Worker by
+[`@live-codes/java-wasm`](https://github.com/live-codes/java).
 
 ### Version
 
-`DoppioJVM`: v0.5.0, which runs Java 8 JDK.
+`teavm-javac` built on TeaVM `0.14.1`, with `javac` from OpenJDK 25.
 
 ## Code Formatting
 
@@ -119,4 +127,5 @@ https://livecodes.io/?template=java
 ## Links
 
 - [Java](https://www.java.com/)
-- [DoppioJVM](https://github.com/plasma-umass/doppio)
+- [TeaVM](https://teavm.org/)
+- [teavm-javac](https://github.com/Vsprocessing/teavm-javac)

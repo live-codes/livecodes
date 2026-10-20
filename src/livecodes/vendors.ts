@@ -323,6 +323,8 @@ export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
 export const janetWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/janet-wasm@0.1.0/');
 
+export const javaWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/java-wasm@0.1.0/');
+
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
 
 export const keystoneJsUrl = /* @__PURE__ */ getUrl(

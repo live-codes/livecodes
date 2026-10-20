@@ -1261,17 +1261,19 @@
     </li>
   </ul>
 </section>
-<section data-lang="java">
-  <h3 data-i18n="language-info:java.name">Java</h3>
-  <div data-i18n="language-info:java.desc" data-i18n-prop="innerHTML">
-    JVM running in the browser using DoppioJVM.
+<section data-lang="java-wasm">
+  <h3 data-i18n="language-info:javaWasm.name">Java (Wasm)</h3>
+  <div data-i18n="language-info:javaWasm.desc" data-i18n-prop="innerHTML">
+    Java is compiled to WebAssembly in the browser by OpenJDK's javac and the TeaVM AOT compiler.
+    Modern Java (records, switch expressions, text blocks) is supported, and nothing is sent to a
+    server.
   </div>
-  <ul data-i18n="language-info:java.link" data-i18n-prop="innerHTML">
+  <ul data-i18n="language-info:javaWasm.link" data-i18n-prop="innerHTML">
     <li>
       <a href="https://www.java.com/" target="_blank" rel="noopener">Java official website</a>
     </li>
     <li>
-      <a href="https://github.com/plasma-umass/doppio" target="_blank" rel="noopener">DoppioJVM</a>
+      <a href="https://teavm.org/" target="_blank" rel="noopener">TeaVM</a>
     </li>
     <li>
       <a href="https://learnxinyminutes.com/java/" target="_blank" rel="noopener"
@@ -1286,6 +1288,30 @@
     <li>
       <a href="?template=java" class="button" target="_parent" data-template="java"
         >Load starter template</a
+      >
+    </li>
+  </ul>
+</section>
+<section data-lang="java-doppio">
+  <h3 data-i18n="language-info:javaDoppio.name">Java (Doppio)</h3>
+  <div data-i18n="language-info:java.desc" data-i18n-prop="innerHTML">
+    JVM running in the browser using DoppioJVM (JDK 8, interpreted in JavaScript).
+  </div>
+  <ul data-i18n="language-info:java.link" data-i18n-prop="innerHTML">
+    <li>
+      <a href="https://www.java.com/" target="_blank" rel="noopener">Java official website</a>
+    </li>
+    <li>
+      <a href="https://github.com/plasma-umass/doppio" target="_blank" rel="noopener">DoppioJVM</a>
+    </li>
+    <li>
+      <a href="https://learnxinyminutes.com/java/" target="_blank" rel="noopener"
+        >Learn X in Y minutes, where X=java</a
+      >
+    </li>
+    <li>
+      <a href="{{DOCS_BASE_URL}}languages/java-doppio" target="_blank" rel="noopener"
+        >LiveCodes Documentation</a
       >
     </li>
   </ul>

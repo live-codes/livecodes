@@ -258,6 +258,16 @@ const languageInfo = {
     link: '<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Java',
   },
+  javaDoppio: {
+    desc: 'JVM running in the browser using DoppioJVM (JDK 8, interpreted in JavaScript).',
+    link: '<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7>',
+    name: 'Java (Doppio)',
+  },
+  javaWasm: {
+    desc: "Java is compiled to WebAssembly in the browser by OpenJDK's javac and the TeaVM AOT compiler. Modern Java (records, switch expressions, text blocks) is supported, and nothing is sent to a server.",
+    link: '<1> <2>Java official website</2> </1> <3> <4>TeaVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Java (Wasm)',
+  },
   javascript: {
     desc: 'The scripting language of the web.',
     link: '<1> <2>JavaScript on MDN</2> </1> <3> <4>Learn X in Y minutes, where X=JavaScript</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
