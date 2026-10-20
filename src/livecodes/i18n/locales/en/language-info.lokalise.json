@@ -576,17 +576,29 @@
     "notes": "",
     "translation": "Janet (Wasm)"
   },
-  "java.desc": {
+  "javaDoppio.desc": {
     "notes": "",
-    "translation": "JVM running in the browser using DoppioJVM."
+    "translation": "JVM running in the browser using DoppioJVM (JDK 8, interpreted in JavaScript)."
   },
-  "java.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.java.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/plasma-umass/doppio\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/java/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/java\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=java\" class=\"button\" target=\"_parent\" data-template=\"java\" />\n\n",
-    "translation": "<tag-1> <tag-2>Java official website</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  "javaDoppio.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.java.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/plasma-umass/doppio\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/java/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/java-doppio\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "<tag-1> <tag-2>Java official website</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7>"
   },
-  "java.name": {
+  "javaDoppio.name": {
     "notes": "",
-    "translation": "Java"
+    "translation": "Java (Doppio)"
+  },
+  "javaWasm.desc": {
+    "notes": "",
+    "translation": "Java is compiled to WebAssembly in the browser by OpenJDK's javac and the TeaVM AOT compiler. Modern Java (records, switch expressions, text blocks) is supported, and nothing is sent to a server."
+  },
+  "javaWasm.link": {
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.java.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://teavm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/java/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/java\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=java\" class=\"button\" target=\"_parent\" data-template=\"java\" />\n\n",
+    "translation": "<tag-1> <tag-2>Java official website</tag-2> </tag-1> <tag-3> <tag-4>TeaVM</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
+  },
+  "javaWasm.name": {
+    "notes": "",
+    "translation": "Java (Wasm)"
   },
   "javascript.desc": {
     "notes": "",
