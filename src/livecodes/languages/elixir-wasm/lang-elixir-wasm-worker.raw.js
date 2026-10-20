@@ -226,7 +226,7 @@ async function startVm(avmBundle, init) {
     let fn;
     try {
       const indirectEval = eval;
-      fn = indirectEval(scriptString);
+      fn = indirectEval(scriptString); // NOSONAR - required by AtomVM's sandboxed JS interop
     } catch (e) {
       send(MESSAGES.STDERR, `onRunTrackedJs eval failed: ${(e && (e.stack || e.message)) || e}\n`);
       return null;
