@@ -382,6 +382,8 @@ V (Wasm): [MIT License](https://github.com/vlang/v/blob/master/LICENSE) (the V c
 
 Elixir (Wasm): [Apache License 2.0](https://github.com/elixir-lang/elixir/blob/main/LICENSE) (the Elixir 1.17.3 compiler and standard library, packaged for browser execution)
 
+Elixir logo: registered trademark of The Elixir Team, used under [nominative use](https://elixir-lang.org/trademarks/) to identify the supported language.
+
 Popcorn: [Apache License 2.0](https://github.com/software-mansion/popcorn/blob/main/LICENSE) (the browser bridge and AtomVM packaging used by the pinned Elixir runtime)
 
 AtomVM: [Apache License 2.0](https://github.com/atomvm/AtomVM/blob/main/LICENSE) (the lightweight Erlang VM running the compiled Elixir code in WebAssembly)

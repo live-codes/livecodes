@@ -3,14 +3,14 @@ import type { Template } from '../../models';
 export const elixirWasmStarter: Template = {
   name: 'elixir-wasm',
   title: window.deps.translateString('templates.starter.elixir-wasm', 'Elixir Starter'),
-  thumbnail: 'assets/templates/elixir.svg',
+  thumbnail: 'assets/templates/elixir.png',
   activeEditor: 'script',
   markup: {
     language: 'html',
     content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
-  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/elixir.svg" />
+  <img class="logo" alt="Elixir logo" src="{{ __livecodes_baseUrl__ }}assets/templates/elixir.png" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button" disabled>Loading...</button>
 </div>
