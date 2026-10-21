@@ -105,6 +105,7 @@ export default function Sliders() {
       { name: 'flutter', title: 'Flutter' },
       { name: 'v-wasm', title: 'V (Wasm)' },
       { name: 'rust-wasm', title: 'Rust (Wasm)' },
+      { name: 'scala-wasm', title: 'Scala (Wasm)' },
       { name: 'swift-wasm', title: 'Swift (Wasm)' },
       { name: 'haskell', title: 'Haskell' },
       { name: 'haskell-wasm', title: 'Haskell (Wasm)' },

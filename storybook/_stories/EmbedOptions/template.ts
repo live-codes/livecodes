@@ -62,6 +62,7 @@ const storyDef: StoryDef = {
   FortranWasm: { props: { template: 'fortran-wasm' }, storyName: 'Fortran (Wasm)' },
   VWasm: { props: { template: 'v-wasm' } },
   RustWasm: { props: { template: 'rust-wasm' } },
+  Scala: { props: { template: 'scala' } },
   SwiftWasm: { props: { template: 'swift-wasm' } },
   ZigWasm: { props: { template: 'zig-wasm' } },
   Java: { props: { template: 'java' } },

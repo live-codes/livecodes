@@ -500,6 +500,11 @@ const languageInfo = {
     link: '<1> <2>Sass official website</2> </1> <3> <4>Sass documentation</4> </3> <5> <6>Sass (the indented) syntax</6> </5> <7> <8>Learn X in Y minutes, where X=sass</8> </7>',
     name: 'Sass',
   },
+  scalaWasm: {
+    desc: 'Scala 3 is compiled and linked in the browser by the Scala 3 compiler and the Scala.js linker, both running on WebAssembly. Nothing is sent to a server.',
+    link: '<1> <2>Scala official website</2> </1> <3> <4>Scala documentation</4> </3> <5> <6>Scala.js official website</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Scala (Wasm)',
+  },
   scheme: {
     desc: 'Scheme running in the browser using biwascheme.',
     link: '<1> <2>The Scheme Programming Language</2> </1> <3> <4>BiwaScheme official website</4> </3> <5> <6>BiwaScheme reference</6> </5> <7> <8>Load starter template</8> </7>',

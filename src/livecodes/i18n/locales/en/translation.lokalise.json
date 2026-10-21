@@ -2880,6 +2880,10 @@
     "notes": "",
     "translation": "Rust (Wasm) Starter"
   },
+  "templates.starter.scala": {
+    "notes": "",
+    "translation": "Scala Starter"
+  },
   "templates.starter.scheme": {
     "notes": "",
     "translation": "Scheme Starter"

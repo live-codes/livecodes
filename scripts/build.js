@@ -229,6 +229,7 @@ const iifeBuild = () =>
       'languages/commonlisp/lang-commonlisp-script.ts',
       'languages/java-8/lang-java-8-script.ts',
       'languages/java-wasm/lang-java-wasm-script.ts',
+      'languages/scala-wasm/lang-scala-wasm-script.ts',
       'languages/cpp/lang-cpp-script.ts',
       'languages/clang-wasm/lang-clang-wasm-script.ts',
       'languages/nim/lang-nim-wasm-script.ts',
