@@ -1057,6 +1057,7 @@ const translation: I18nTranslation = {
       rescript: 'ری اسکرپٹ شروعاتی',
       riot: 'رائٹ.جے ایس شروعاتی',
       ruby: 'روبی شروعاتی',
+      scala: 'اسکالا شروعاتی',
       'ruby-wasm': 'روبی (واسم) شروعاتی',
       'rust-wasm': 'راست (واسم) شروعاتی',
       scheme: 'اسکیم شروعاتی',

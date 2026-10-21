@@ -1058,6 +1058,7 @@ const translation: I18nTranslation = {
       rescript: 'ReScript kezdő',
       riot: 'Riot.js kezdő',
       ruby: 'Ruby kezdő',
+      scala: 'Scala kezdő',
       'ruby-wasm': 'Ruby (Wasm) kezdő',
       'rust-wasm': 'Rust (Wasm) kezdő',
       scheme: 'Scheme kezdő',

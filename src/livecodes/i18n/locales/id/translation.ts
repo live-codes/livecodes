@@ -1057,6 +1057,7 @@ const translation: I18nTranslation = {
       rescript: 'Pemula ReScript',
       riot: 'Pemula Riot.js',
       ruby: 'Pemula Ruby',
+      scala: 'Pemula Scala',
       'ruby-wasm': 'Pemula Ruby (Wasm)',
       'rust-wasm': 'Pemula Rust (Wasm)',
       scheme: 'Pemula Scheme',

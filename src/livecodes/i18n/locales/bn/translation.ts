@@ -1057,6 +1057,7 @@ const translation: I18nTranslation = {
       rescript: 'ReScript স্টার্টার',
       riot: 'Riot.js স্টার্টার',
       ruby: 'Ruby স্টার্টার',
+      scala: 'Scala স্টার্টার',
       'ruby-wasm': 'Ruby (Wasm) স্টার্টার',
       'rust-wasm': 'Rust (Wasm) স্টার্টার',
       scheme: 'Scheme স্টার্টার',

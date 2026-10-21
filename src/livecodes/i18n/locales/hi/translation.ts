@@ -1057,6 +1057,7 @@ const translation: I18nTranslation = {
       rescript: 'ReScript स्टार्टर',
       riot: 'Riot.js स्टार्टर',
       ruby: 'Ruby स्टार्टर',
+      scala: 'Scala स्टार्टर',
       'ruby-wasm': 'Ruby (Wasm) स्टार्टर',
       'rust-wasm': 'Rust (Wasm) स्टार्टर',
       scheme: 'Scheme स्टार्टर',

@@ -1055,6 +1055,7 @@ const translation: I18nTranslation = {
       rescript: 'ReScript 启动模板',
       riot: 'Riot.js 启动模板',
       ruby: 'Ruby 启动模板',
+      scala: 'Scala 启动模板',
       'ruby-wasm': 'Ruby（Wasm）启动模板',
       'rust-wasm': 'Rust（Wasm）启动模板',
       scheme: 'Scheme 启动模板',

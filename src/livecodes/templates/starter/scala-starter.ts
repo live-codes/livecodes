@@ -21,8 +21,15 @@ export const scalaStarter: Template = {
   addEventListener('load', async () => {
     const button = document.querySelector("#counter-button");
 
-    // wait till loaded
-    await livecodes.scala.loaded;
+    try {
+      // wait till loaded
+      await livecodes.scala.loaded;
+    } catch (error) {
+      // surface the boot error instead of crashing on a null output
+      button.innerText = "Error";
+      console.error(error);
+      return;
+    }
 
     // get initial output
     const initialOutput = livecodes.scala.output;

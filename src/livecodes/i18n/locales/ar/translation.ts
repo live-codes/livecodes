@@ -1057,6 +1057,7 @@ const translation: I18nTranslation = {
       rescript: 'قالب ReScript',
       riot: 'قالب Riot.js',
       ruby: 'قالب Ruby',
+      scala: 'قالب Scala',
       'ruby-wasm': 'قالب Ruby-Wasm',
       'rust-wasm': 'قالب Rust (Wasm)',
       scheme: 'قالب Scheme',

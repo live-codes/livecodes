@@ -2160,6 +2160,9 @@
   "templates.starter.rust-wasm": {
     "translation": "قالب Rust (Wasm)"
   },
+  "templates.starter.scala": {
+    "translation": "قالب Scala"
+  },
   "templates.starter.scheme": {
     "translation": "قالب Scheme"
   },

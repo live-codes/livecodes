@@ -1058,6 +1058,7 @@ const translation: I18nTranslation = {
       rescript: 'شروع کننده ReScript',
       riot: 'شروع کننده Riot.js',
       ruby: 'شروع کننده Ruby',
+      scala: 'شروع کننده Scala',
       'ruby-wasm': 'شروع کننده Ruby (Wasm)',
       'rust-wasm': 'شروع کننده Rust (Wasm)',
       scheme: 'شروع کننده Scheme',

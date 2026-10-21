@@ -1059,6 +1059,7 @@ const translation: I18nTranslation = {
       rescript: 'ReScript-Starter',
       riot: 'Riot.js-Starter',
       ruby: 'Ruby-Starter',
+      scala: 'Scala-Starter',
       'ruby-wasm': 'Ruby (Wasm)-Starter',
       'rust-wasm': 'Rust (Wasm)-Starter',
       scheme: 'Scheme-Starter',
