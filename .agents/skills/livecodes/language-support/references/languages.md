@@ -126,7 +126,8 @@ Enabled via `processors` config:
 | Objective-C                 | `objc-wasm`, `objc`, `wasm.m`                                                       | Clang WASM                                            |
 | Objective-C++               | `objcpp-wasm`, `objcpp`, `wasm.mm`                                                  | Clang WASM                                            |
 | COBOL (Wasm)                | `cobol-wasm`, `cobol`, `cob`, `cbl`, `cpy`, `gnucobol`, `wasm.cobol`                | GnuCOBOL (COBOL -> WASM)                              |
-| Java                        | `java`                                                                              | Java runtime                                          |
+| Java (Wasm)                 | `java-wasm`, `java`                                                                 | TeaVM (Java -> WASM)                                  |
+| Java 8                      | `java-8`, `java8`                                                                   | DoppioJVM (Java -> JS)                                |
 | C#                          | `csharp-wasm`, `cs`, `cs-wasm`, `wasm.cs`                                           | C# WASM                                               |
 | Blazor (Wasm)               | `blazor-wasm`, `blazor`, `razor`, `razor-wasm`, `wasm.razor`                        | Razor components rendered by Blazor (WASM)            |
 | VB.NET                      | `vb-wasm`, `vb`, `vbnet`, `wasm.vb`                                                 | VB.NET WASM                                           |

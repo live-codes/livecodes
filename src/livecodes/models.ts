@@ -223,6 +223,7 @@ export type ScriptType =
   | 'text/odin-wasm'
   | 'text/zig-wasm'
   | 'text/java'
+  | 'text/java-wasm'
   | 'text/csharp-wasm'
   | 'text/razor'
   | 'text/fanak'

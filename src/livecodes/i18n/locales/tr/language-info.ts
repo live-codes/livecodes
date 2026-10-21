@@ -242,10 +242,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: "<1><2>Janet resmi web sitesi</2></1> <3> <4>Janet belgeleri</4> </3> <5> <6>Y dakikada X'i öğrenin, burada X=Janet</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: 'DoppioJVM kullanılarak tarayıcıda çalışan JVM.',
-    link: '<1> <2>Java resmi web sitesi</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Y Dakikada X Öğrenin, X=java</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
-    name: 'Java',
+  java8: {
+    desc: 'DoppioJVM kullanılarak tarayıcıda çalışan JVM (JDK 8, JavaScript ile yorumlanır).',
+    link: '<1> <2>Java resmi web sitesi</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Y Dakikada X Öğrenin, X=java</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7>',
+    name: 'Java 8',
+  },
+  javaWasm: {
+    desc: "Java, tarayıcıda OpenJDK'nın javac'ı ve TeaVM AOT derleyicisi tarafından WebAssembly'ye derlenir. Modern Java (record'lar, switch ifadeleri, metin blokları) desteklenir, ve hiçbir şey sunucuya gönderilmez.",
+    link: '<1> <2>Java resmi web sitesi</2> </1> <3> <4>TeaVM</4> </3> <5> <6>Y Dakikada X Öğrenin, X=java</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: "Web'in komut dosyası dili.",

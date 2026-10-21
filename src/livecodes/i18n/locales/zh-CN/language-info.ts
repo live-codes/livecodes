@@ -237,10 +237,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Janet 官方网站</2></1> <3> <4>Janet 文档</4> </3> <5> <6>《Y分钟学会X》，其中X=Janet</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: '使用 DoppioJVM 在浏览器中运行的 JVM。',
-    link: '<1> <2>Java 官方网站</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=java</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
-    name: 'Java',
+  java8: {
+    desc: '使用 DoppioJVM 在浏览器中运行的 JVM（JDK 8，以 JavaScript 解释执行）。',
+    link: '<1> <2>Java 官方网站</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=java</6> </5> <7> <8>LiveCodes 文档</8> </7>',
+    name: 'Java 8',
+  },
+  javaWasm: {
+    desc: 'Java 由 OpenJDK 的 javac 和 TeaVM AOT 编译器在浏览器中编译为 WebAssembly。支持现代 Java（记录、switch 表达式、文本块），并且不会向服务器发送任何内容。',
+    link: '<1> <2>Java 官方网站</2> </1> <3> <4>TeaVM</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=java</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: '网络脚本语言',

@@ -432,14 +432,23 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "java.desc": {
-    "translation": "使用 DoppioJVM 在浏览器中运行的 JVM。"
+  "java8.desc": {
+    "translation": "使用 DoppioJVM 在浏览器中运行的 JVM（JDK 8，以 JavaScript 解释执行）。"
   },
-  "java.link": {
-    "translation": "<tag-1> <tag-2>Java 官方网站</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>在 Y 分钟内学习 X，其中 X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载启动模板</tag-10> </tag-9>"
+  "java8.link": {
+    "translation": "<tag-1> <tag-2>Java 官方网站</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>在 Y 分钟内学习 X，其中 X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7>"
   },
-  "java.name": {
-    "translation": "Java"
+  "java8.name": {
+    "translation": "Java 8"
+  },
+  "javaWasm.desc": {
+    "translation": "Java 由 OpenJDK 的 javac 和 TeaVM AOT 编译器在浏览器中编译为 WebAssembly。支持现代 Java（记录、switch 表达式、文本块），并且不会向服务器发送任何内容。"
+  },
+  "javaWasm.link": {
+    "translation": "<tag-1> <tag-2>Java 官方网站</tag-2> </tag-1> <tag-3> <tag-4>TeaVM</tag-4> </tag-3> <tag-5> <tag-6>在 Y 分钟内学习 X，其中 X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载启动模板</tag-10> </tag-9>"
+  },
+  "javaWasm.name": {
+    "translation": "Java (Wasm)"
   },
   "javascript.desc": {
     "translation": "网络脚本语言"

@@ -326,6 +326,8 @@ Tau Prolog: [BSD 3-Clause License](https://github.com/tau-prolog/tau-prolog/blob
 
 Teal: [MIT License](https://github.com/teal-language/tl/blob/e907fbe56a70d44b65095e16ae2d1eae61c12066/LICENSE)
 
+TeaVM (and the [teavm-javac](https://github.com/Vsprocessing/teavm-javac) fork used for Java): [Apache License 2.0](https://github.com/konsoletyper/teavm/blob/cfc0ce2a9874a4ce38b48adb90bc91ca0e755289/LICENSE). The bundled javac and class library from OpenJDK are [GPL-2.0 with the Classpath Exception](https://openjdk.org/legal/gplv2+ce.html).
+
 ThemeMirror: [MIT License](https://github.com/vadimdemedes/thememirror/blob/94a6475a9113ec03d880fcb817aadcc5a16e82e4/package.json#L5)
 
 turbopascal: [BSD 2-Clause License](https://github.com/MikeRalphson/turbopascal/blob/cfcc5ee6d93f32664bb6127aa751c68841ca5c1d/LICENSE)

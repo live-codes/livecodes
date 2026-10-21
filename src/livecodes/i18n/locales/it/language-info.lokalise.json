@@ -432,14 +432,23 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "java.desc": {
-    "translation": "JVM in esecuzione nel browser utilizzando DoppioJVM."
+  "java8.desc": {
+    "translation": "JVM in esecuzione nel browser utilizzando DoppioJVM (JDK 8, interpretato in JavaScript)."
   },
-  "java.link": {
-    "translation": "<tag-1> <tag-2>Sito ufficiale di Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Imparare X in Y minuti, dove X=java</tag-6> </tag-5> <tag-7> <tag-8>Documentazione LiveCodes</tag-8> </tag-7> <tag-9> <tag-10> Caricare il modello iniziale</tag-10> </tag-9>"
+  "java8.link": {
+    "translation": "<tag-1> <tag-2>Sito ufficiale di Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Imparare X in Y minuti, dove X=java</tag-6> </tag-5> <tag-7> <tag-8>Documentazione LiveCodes</tag-8> </tag-7>"
   },
-  "java.name": {
-    "translation": "Java"
+  "java8.name": {
+    "translation": "Java 8"
+  },
+  "javaWasm.desc": {
+    "translation": "Java viene compilato in WebAssembly nel browser da javac di OpenJDK e dal compilatore AOT di TeaVM. È supportato il Java moderno (record, espressioni switch, blocchi di testo), e nulla viene inviato a un server."
+  },
+  "javaWasm.link": {
+    "translation": "<tag-1> <tag-2>Sito ufficiale di Java</tag-2> </tag-1> <tag-3> <tag-4> TeaVM</tag-4> </tag-3> <tag-5> <tag-6> Imparare X in Y minuti, dove X=java</tag-6> </tag-5> <tag-7> <tag-8>Documentazione LiveCodes</tag-8> </tag-7> <tag-9> <tag-10> Caricare il modello iniziale</tag-10> </tag-9>"
+  },
+  "javaWasm.name": {
+    "translation": "Java (Wasm)"
   },
   "javascript.desc": {
     "translation": "Il linguaggio di scripting del web."
