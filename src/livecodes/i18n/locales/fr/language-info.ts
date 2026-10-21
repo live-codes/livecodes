@@ -494,6 +494,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Site officiel de Sass</2> </1> <3> <4>Documentation Sass</4> </3> <5> <6>Syntaxe Sass (indentée)</6> </5> <7> <8>Apprenez X en Y minutes, où X=sass</8> </7>',
     name: 'Sass',
   },
+  scalaWasm: {
+    desc: "Scala 3 est compilé et lié dans le navigateur par le compilateur Scala 3 et l'éditeur de liens Scala.js, tous deux exécutés sur WebAssembly. Rien n'est envoyé à un serveur.",
+    link: '<1> <2>Site officiel de Scala</2> </1> <3> <4>Documentation Scala</4> </3> <5> <6>Site officiel de Scala.js</6> </5> <7> <8>Documentation LiveCodes</8> </7> <9> <10>Charger un modèle de démarrage</10> </9>',
+    name: 'Scala (Wasm)',
+  },
   scheme: {
     desc: "Scheme s'exécutant dans le navigateur en utilisant biwascheme.",
     link: '<1> <2>Le langage de programmation Scheme</2> </1> <3> <4>Site officiel de BiwaScheme</4> </3> <5> <6>Référence BiwaScheme</6> </5> <7> <8>Charger le modèle de démarrage</8> </7>',

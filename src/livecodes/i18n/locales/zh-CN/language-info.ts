@@ -485,6 +485,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sass 官方网站</2> </1> <3> <4>Sass 文档</4> </3> <5> <6>Sass（缩进）语法</6> </5> <7> <8>在 Y 分钟内学习 X，其中 X=sass</8> </7>',
     name: 'Sass',
   },
+  scalaWasm: {
+    desc: 'Scala 3 由 Scala 3 编译器和 Scala.js 链接器在浏览器中编译和链接，两者均运行在 WebAssembly 上。不会向服务器发送任何内容。',
+    link: '<1> <2>Scala 官方网站</2> </1> <3> <4>Scala 文档</4> </3> <5> <6>Scala.js 官方网站</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Scala (Wasm)',
+  },
   scheme: {
     desc: '使用 biwascheme 在浏览器中运行的 Scheme。',
     link: '<1> <2>Scheme 编程语言</2> </1> <3> <4>BiwaScheme 官方网站</4> </3> <5> <6>BiwaScheme 参考</6> </5> <7> <8>加载启动模板</8> </7>',

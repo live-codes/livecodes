@@ -873,6 +873,15 @@
   "sass.name": {
     "translation": "ساس"
   },
+  "scalaWasm.desc": {
+    "translation": "Scala 3 کو براؤزر میں Scala 3 کمپائلر اور Scala.js لنکر کے ذریعے مرتب اور لنک کیا جاتا ہے، دونوں WebAssembly پر چلتے ہیں۔ سرور پر کچھ نہیں بھیجا جاتا۔"
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>Scala آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>Scala دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>Scala.js آفیشل ویب سائٹ</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزی</tag-8> </tag-7> <tag-9> <tag-10>لوڈ اسٹارٹر ٹیمپلیٹ</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
+  },
   "scheme.desc": {
     "translation": "بیوا اسکیم کا استعمال کرتے ہوئے براؤزر میں چلنے والا اسکیم۔"
   },

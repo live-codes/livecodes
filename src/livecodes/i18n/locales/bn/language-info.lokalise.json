@@ -873,6 +873,15 @@
   "sass.name": {
     "translation": "Sass"
   },
+  "scalaWasm.desc": {
+    "translation": "Scala 3 ব্রাউজারে Scala 3 কম্পাইলার এবং Scala.js লিঙ্কার দ্বারা কম্পাইল ও লিঙ্ক করা হয়, উভয়ই WebAssembly-তে চলে। কোনো সার্ভারে কিছু পাঠানো হয় না।"
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>Scala অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Scala ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Scala.js অফিসিয়াল ওয়েবসাইট</tag-6> </tag-5> <tag-7> <tag-8>লাইভকোড ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
+  },
   "scheme.desc": {
     "translation": "biwascheme ব্যবহার করে ব্রাউজারে চলমান Scheme।"
   },

@@ -873,6 +873,15 @@
   "sass.name": {
     "translation": "Sass"
   },
+  "scalaWasm.desc": {
+    "translation": "Scala 3 wordt in de browser gecompileerd en gelinkt door de Scala 3-compiler en de Scala.js-linker, die beide op WebAssembly draaien. Er wordt niets naar een server verzonden."
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>Officiële website van Scala</tag-2> </tag-1> <tag-3> <tag-4>Scala-documentatie</tag-4> </tag-3> <tag-5> <tag-6>Officiële website van Scala.js</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Startersjabloon laden</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
+  },
   "scheme.desc": {
     "translation": "Scheme draaiend in de browser met biwascheme."
   },
