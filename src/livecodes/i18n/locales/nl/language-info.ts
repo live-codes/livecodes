@@ -241,10 +241,10 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Officiële website van Janet</2></1> <3> <4>Janet-documentatie</4> </3> <5> <6>Leer X in Y minuten, waarbij X = Janet</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Startersjabloon laden</10> </9>',
     name: 'Janet (Wasm)',
   },
-  javaDoppio: {
+  java8: {
     desc: 'JVM draaiend in de browser met DoppioJVM (JDK 8, geïnterpreteerd in JavaScript).',
     link: '<1> <2>Java officiële website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Leer X in Y minuten, waarbij X=java</6> </5> <7> <8>LiveCodes Documentatie</8> </7>',
-    name: 'Java (Doppio)',
+    name: 'Java 8',
   },
   javaWasm: {
     desc: 'Java wordt in de browser naar WebAssembly gecompileerd door javac van OpenJDK en de AOT-compiler van TeaVM. Moderne Java (records, switch-expressies, tekstblokken) wordt ondersteund, en er wordt niets naar een server verzonden.',

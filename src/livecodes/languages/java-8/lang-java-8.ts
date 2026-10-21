@@ -1,10 +1,9 @@
 import type { LanguageSpecs } from '../../models';
 import { codeMirrorBaseUrl, monacoLanguagesBaseUrl, wasmFmtClangBaseUrl } from '../../vendors';
 
-export const javaDoppio: LanguageSpecs = {
-  name: 'java-doppio',
-  title: 'Java (Doppio)',
-  longTitle: 'Java (DoppioJVM, JDK 8)',
+export const java8: LanguageSpecs = {
+  name: 'java-8',
+  title: 'Java 8',
   formatter: {
     factory: async () => {
       const formatter = await import(wasmFmtClangBaseUrl + 'clang-format-web.js');
@@ -16,12 +15,12 @@ export const javaDoppio: LanguageSpecs = {
   },
   compiler: {
     factory: () => async (code) => code,
-    scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-java-doppio-script.js}}'],
+    scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-java-8-script.js}}'],
     scriptType: 'text/java',
     compiledCodeLanguage: 'java',
     liveReload: true,
   },
-  extensions: ['java-doppio', 'java8', 'doppio'],
+  extensions: ['java-8', 'java8'],
   editor: 'script',
   editorSupport: {
     monaco: { languageSupport: monacoLanguagesBaseUrl + 'java.js', language: 'java' },

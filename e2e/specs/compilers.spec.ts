@@ -1654,22 +1654,19 @@ document.getElementById('header').innerHTML = f"Hello, {title}"`);
     test.skip(editor === 'codejar', 'please fix');
     test.slow(); // the engine downloads ~8 MB and generates WebAssembly
 
-    await page.goto(getTestUrl({ tools: 'console|open' }));
-
-    const { app, waitForResultUpdate } = await getLoadedApp(page);
-
-    await app.click(':nth-match([title="Change Language"], 3)');
-    await app.click('text="Java (WebAssembly)"');
-    await waitForEditorFocus(app);
-    await page.keyboard.insertText(`
-public class Main {
+    const code = `public class Main {
   public static void main(String[] args) {
     System.out.println("Hello from Java");
   }
 }
-`);
+`;
 
+    // Code is passed in the URL (rather than typed) so the first run cannot race the editor.
+    await page.goto(getTestUrl({ tools: 'console|open', active: 'script', 'java-wasm': code }));
+
+    const { app, waitForResultUpdate } = await getLoadedApp(page);
     await waitForResultUpdate();
+
     await app.waitForFunction(
       () =>
         [...document.querySelectorAll('#console-container .luna-console-log-item')].some((item) =>

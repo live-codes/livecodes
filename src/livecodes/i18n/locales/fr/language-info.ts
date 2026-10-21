@@ -242,10 +242,10 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Site officiel de Janet</2></1> <3> <4>Documentation Janet</4> </3> <5> <6>Apprenez X en Y minutes, où X = Janet</6> </5> <7> <8>Documentation LiveCodes</8> </7> <9> <10>Charger un modèle de démarrage</10> </9>',
     name: 'Janet (Wasm)',
   },
-  javaDoppio: {
+  java8: {
     desc: "JVM fonctionnant dans le navigateur à l'aide de DoppioJVM (JDK 8, interprété en JavaScript).",
     link: '<1> <2>Site officiel de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Apprendre X en Y minutes, où X=java</6> </5> <7> <8>Documentation LiveCodes</8> </7>',
-    name: 'Java (Doppio)',
+    name: 'Java 8',
   },
   javaWasm: {
     desc: "Java est compilé en WebAssembly dans le navigateur par javac d'OpenJDK et le compilateur AOT de TeaVM. Le Java moderne (records, expressions switch, blocs de texte) est pris en charge, et rien n'est envoyé à un serveur.",

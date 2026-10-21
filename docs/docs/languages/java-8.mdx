@@ -1,14 +1,14 @@
-# Java (Doppio)
+# Java 8
 
 Java is a high-level, general-purpose, memory-safe, object-oriented programming language.
 
-This is the original LiveCodes Java engine: [DoppioJVM](https://github.com/plasma-umass/doppio), a JVM
-JDK 8 interpreter written in JavaScript. It can run older Java, but it cannot compile modern Java
-source (records, `var`, text blocks, switch expressions).
+This is LiveCodes' Java 8 engine: source is compiled and run in the browser by a JDK 8 JVM
+interpreter. It runs classic Java, but it cannot compile modern Java source (records, `var`, text
+blocks, switch expressions).
 
 The [`java-wasm`](./java.mdx) engine (also selected by `java`) compiles modern Java to WebAssembly in
-the browser and is faster and much smaller. Use `java-doppio` only when you need the JVM
-interpreter's behaviour.
+the browser and is faster and much smaller. Use `java-8` only when you need Java 8 behavior for
+language-level compatibility.
 
 ## Usage
 
@@ -16,13 +16,13 @@ Demo:
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-export const javaDoppioConfig = {
+export const java8Config = {
   activeEditor: 'script',
   script: {
-    language: 'java-doppio',
+    language: 'java-8',
     content: `public class Main {
   public static void main(String[] args) {
-    System.out.println("Hello from DoppioJVM");
+    System.out.println("Hello from Java 8");
   }
 }
 `,
@@ -34,7 +34,7 @@ export const javaDoppioConfig = {
   },
 };
 
-<LiveCodes config={javaDoppioConfig}></LiveCodes>
+<LiveCodes config={java8Config}></LiveCodes>
 
 ### Communication with JavaScript
 
@@ -52,7 +52,7 @@ A few helper properties and methods are available in the browser global `livecod
 
 ### Name
 
-`java-doppio`
+`java-8` (alias: `java8`)
 
 ### Extension
 

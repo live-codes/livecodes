@@ -241,10 +241,10 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Janet 公式サイト</2></1> <3> <4>Janet ドキュメント</4> </3> <5> <6>「Y分でXを学ぶ」（X=Janet）</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートの読み込み</10> </9>',
     name: 'Janet (Wasm)',
   },
-  javaDoppio: {
+  java8: {
     desc: 'DoppioJVMを使ってブラウザで動作するJVM（JDK 8、JavaScriptで解釈実行）。',
     link: '<1> <2>Java公式サイト</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>XをY分で学ぶ、X=Java</6> </5> <7> <8>LiveCodes ドキュメント</8> </7>',
-    name: 'Java (Doppio)',
+    name: 'Java 8',
   },
   javaWasm: {
     desc: 'Javaは、OpenJDKのjavacとTeaVM AOTコンパイラによってブラウザ内でWebAssemblyにコンパイルされます。モダンなJava（レコード、switch式、テキストブロック）がサポートされ、サーバーには何も送信されません。',

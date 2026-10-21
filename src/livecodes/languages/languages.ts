@@ -46,7 +46,7 @@ import { haskellWasm } from './haskell-wasm';
 import { html } from './html';
 import { imba } from './imba';
 import { janetWasm } from './janet-wasm';
-import { javaDoppio } from './java-doppio';
+import { java8 } from './java-8';
 import { javaWasm } from './java-wasm';
 import { javascript } from './javascript';
 import { jinja } from './jinja';
@@ -197,7 +197,7 @@ export const languages: LanguageSpecs[] = [
   swiftWasm,
   zigWasm,
   javaWasm,
-  javaDoppio,
+  java8,
   csharpWasm,
   blazorWasm,
   vWasm,

@@ -9,7 +9,6 @@ import {
 export const javaWasm: LanguageSpecs = {
   name: 'java-wasm',
   title: 'Java (Wasm)',
-  longTitle: 'Java (WebAssembly)',
   formatter: {
     factory: async () => {
       const formatter = await import(wasmFmtClangBaseUrl + 'clang-format-web.js');

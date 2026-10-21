@@ -227,7 +227,7 @@ const iifeBuild = () =>
       'languages/astro/lang-astro-compiler.ts',
       'languages/clio/lang-clio-compiler.ts',
       'languages/commonlisp/lang-commonlisp-script.ts',
-      'languages/java-doppio/lang-java-doppio-script.ts',
+      'languages/java-8/lang-java-8-script.ts',
       'languages/java-wasm/lang-java-wasm-script.ts',
       'languages/cpp/lang-cpp-script.ts',
       'languages/clang-wasm/lang-clang-wasm-script.ts',

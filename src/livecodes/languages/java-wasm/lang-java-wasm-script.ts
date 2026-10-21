@@ -10,8 +10,21 @@ livecodes.java.ready = false;
 
 let runtime;
 
+// The runner is a separate <script>; dynamically inserted scripts are async, so it may not have
+// executed yet when this file runs.
+const waitForJavaWasm = async (timeoutMs = 120_000) => {
+  const deadline = Date.now() + timeoutMs;
+  while (!window.JavaWasm) {
+    if (Date.now() > deadline) {
+      throw new Error('the JavaWasm runtime script did not load');
+    }
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  }
+  return window.JavaWasm;
+};
+
 const getRuntime = async () => {
-  runtime ??= await window.JavaWasm.createRuntime({
+  runtime ??= await (await waitForJavaWasm()).createRuntime({
     baseUrl: javaWasmDistUrl,
     // each run starts with an empty file system
     persistFiles: false,

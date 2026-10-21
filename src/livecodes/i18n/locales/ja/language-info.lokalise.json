@@ -432,14 +432,14 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "javaDoppio.desc": {
+  "java8.desc": {
     "translation": "DoppioJVMを使ってブラウザで動作するJVM（JDK 8、JavaScriptで解釈実行）。"
   },
-  "javaDoppio.link": {
+  "java8.link": {
     "translation": "<tag-1> <tag-2>Java公式サイト</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>XをY分で学ぶ、X=Java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7>"
   },
-  "javaDoppio.name": {
-    "translation": "Java (Doppio)"
+  "java8.name": {
+    "translation": "Java 8"
   },
   "javaWasm.desc": {
     "translation": "Javaは、OpenJDKのjavacとTeaVM AOTコンパイラによってブラウザ内でWebAssemblyにコンパイルされます。モダンなJava（レコード、switch式、テキストブロック）がサポートされ、サーバーには何も送信されません。"

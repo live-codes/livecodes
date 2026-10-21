@@ -432,14 +432,14 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "javaDoppio.desc": {
+  "java8.desc": {
     "translation": "JVM, работающая в браузере с помощью DoppioJVM (JDK 8, интерпретируется в JavaScript)."
   },
-  "javaDoppio.link": {
+  "java8.link": {
     "translation": "<tag-1> <tag-2>Официальный сайт Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Узнай X за Y минут, где X=java</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7>"
   },
-  "javaDoppio.name": {
-    "translation": "Java (Doppio)"
+  "java8.name": {
+    "translation": "Java 8"
   },
   "javaWasm.desc": {
     "translation": "Java компилируется в WebAssembly в браузере с помощью javac из OpenJDK и AOT-компилятора TeaVM. Поддерживается современная версия Java (records, switch-выражения, текстовые блоки), и ничего не отправляется на сервер."

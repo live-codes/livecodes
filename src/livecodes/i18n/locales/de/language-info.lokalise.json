@@ -432,14 +432,14 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "javaDoppio.desc": {
+  "java8.desc": {
     "translation": "JVM läuft im Browser mit DoppioJVM (JDK 8, in JavaScript interpretiert)."
   },
-  "javaDoppio.link": {
+  "java8.link": {
     "translation": "<tag-1> <tag-2>Offizielle Java-Website</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Lernen Sie X in Y Minuten, wobei X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokumentation</tag-8> </tag-7>"
   },
-  "javaDoppio.name": {
-    "translation": "Java (Doppio)"
+  "java8.name": {
+    "translation": "Java 8"
   },
   "javaWasm.desc": {
     "translation": "Java wird im Browser durch javac von OpenJDK und den TeaVM-AOT-Compiler zu WebAssembly kompiliert. Modernes Java (Records, switch-Ausdrücke, Textblöcke) wird unterstützt, und nichts wird an einen Server gesendet."
