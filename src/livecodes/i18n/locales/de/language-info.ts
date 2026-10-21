@@ -242,10 +242,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Offizielle Janet-Website</2></1> <3> <4>Janet-Dokumentation</4> </3> <5> <6>Lerne X in Y Minuten, wobei X = Janet</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9> <10>Startervorlage laden</10> </9>',
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: 'JVM läuft im Browser mit DoppioJVM.',
-    link: '<1> <2>Offizielle Java-Website</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Lernen Sie X in Y Minuten, wobei X=java</6> </5> <7> <8>LiveCodes Dokumentation</8> </7> <9> <10> Laden Sie die Startvorlage</10> </9>',
-    name: 'Java',
+  javaDoppio: {
+    desc: 'JVM läuft im Browser mit DoppioJVM (JDK 8, in JavaScript interpretiert).',
+    link: '<1> <2>Offizielle Java-Website</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Lernen Sie X in Y Minuten, wobei X=java</6> </5> <7> <8>LiveCodes Dokumentation</8> </7>',
+    name: 'Java (Doppio)',
+  },
+  javaWasm: {
+    desc: 'Java wird im Browser durch javac von OpenJDK und den TeaVM-AOT-Compiler zu WebAssembly kompiliert. Modernes Java (Records, switch-Ausdrücke, Textblöcke) wird unterstützt, und nichts wird an einen Server gesendet.',
+    link: '<1> <2>Offizielle Java-Website</2> </1> <3> <4> TeaVM</4> </3> <5> <6> Lernen Sie X in Y Minuten, wobei X=java</6> </5> <7> <8>LiveCodes Dokumentation</8> </7> <9> <10> Laden Sie die Startvorlage</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: 'Die Skriptsprache des Webs.',

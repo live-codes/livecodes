@@ -432,14 +432,23 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "java.desc": {
-    "translation": "JVM fut a böngészőben a DoppioJVM használatával."
+  "javaDoppio.desc": {
+    "translation": "JVM fut a böngészőben a DoppioJVM használatával (JDK 8, JavaScriptben értelmezve)."
   },
-  "java.link": {
-    "translation": "<tag-1> <tag-2>Java hivatalos weboldal</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Tanulj X-et Y perc alatt, ahol X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Kezdő sablon betöltése</tag-10> </tag-9>"
+  "javaDoppio.link": {
+    "translation": "<tag-1> <tag-2>Java hivatalos weboldal</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Tanulj X-et Y perc alatt, ahol X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7>"
   },
-  "java.name": {
-    "translation": "Java"
+  "javaDoppio.name": {
+    "translation": "Java (Doppio)"
+  },
+  "javaWasm.desc": {
+    "translation": "A Java a böngészőben az OpenJDK javac és a TeaVM AOT fordító segítségével WebAssembly-re fordul. A modern Java (recordok, switch kifejezések, szövegblokkok) támogatott, és semmi sem kerül elküldésre szerverre."
+  },
+  "javaWasm.link": {
+    "translation": "<tag-1> <tag-2>Java hivatalos weboldal</tag-2> </tag-1> <tag-3> <tag-4>TeaVM</tag-4> </tag-3> <tag-5> <tag-6>Tanulj X-et Y perc alatt, ahol X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Kezdő sablon betöltése</tag-10> </tag-9>"
+  },
+  "javaWasm.name": {
+    "translation": "Java (Wasm)"
   },
   "javascript.desc": {
     "translation": "A web szkriptnyelve."

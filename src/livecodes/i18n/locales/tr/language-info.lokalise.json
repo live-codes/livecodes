@@ -432,14 +432,23 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "java.desc": {
-    "translation": "DoppioJVM kullanılarak tarayıcıda çalışan JVM."
+  "javaDoppio.desc": {
+    "translation": "DoppioJVM kullanılarak tarayıcıda çalışan JVM (JDK 8, JavaScript ile yorumlanır)."
   },
-  "java.link": {
-    "translation": "<tag-1> <tag-2>Java resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  "javaDoppio.link": {
+    "translation": "<tag-1> <tag-2>Java resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7>"
   },
-  "java.name": {
-    "translation": "Java"
+  "javaDoppio.name": {
+    "translation": "Java (Doppio)"
+  },
+  "javaWasm.desc": {
+    "translation": "Java, tarayıcıda OpenJDK'nın javac'ı ve TeaVM AOT derleyicisi tarafından WebAssembly'ye derlenir. Modern Java (record'lar, switch ifadeleri, metin blokları) desteklenir, ve hiçbir şey sunucuya gönderilmez."
+  },
+  "javaWasm.link": {
+    "translation": "<tag-1> <tag-2>Java resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>TeaVM</tag-4> </tag-3> <tag-5> <tag-6>Y Dakikada X Öğrenin, X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Dokümantasyonu</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "javaWasm.name": {
+    "translation": "Java (Wasm)"
   },
   "javascript.desc": {
     "translation": "Web'in komut dosyası dili."

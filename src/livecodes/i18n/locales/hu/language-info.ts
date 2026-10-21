@@ -242,10 +242,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Az Janet hivatalos weboldala</2></1> <3> <4>Janet dokumentáció</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=Janet</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: 'JVM fut a böngészőben a DoppioJVM használatával.',
-    link: '<1> <2>Java hivatalos weboldal</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=java</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
-    name: 'Java',
+  javaDoppio: {
+    desc: 'JVM fut a böngészőben a DoppioJVM használatával (JDK 8, JavaScriptben értelmezve).',
+    link: '<1> <2>Java hivatalos weboldal</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=java</6> </5> <7> <8>LiveCodes dokumentáció</8> </7>',
+    name: 'Java (Doppio)',
+  },
+  javaWasm: {
+    desc: 'A Java a böngészőben az OpenJDK javac és a TeaVM AOT fordító segítségével WebAssembly-re fordul. A modern Java (recordok, switch kifejezések, szövegblokkok) támogatott, és semmi sem kerül elküldésre szerverre.',
+    link: '<1> <2>Java hivatalos weboldal</2> </1> <3> <4>TeaVM</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=java</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: 'A web szkriptnyelve.',

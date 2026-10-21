@@ -242,10 +242,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Situs web resmi Janet</2></1> <3> <4>Dokumentasi Janet</4> </3> <5> <6>Belajar X dalam Y menit, di mana X = Janet</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: 'JVM berjalan di browser menggunakan DoppioJVM.',
-    link: '<1> <2>Situs web resmi Java</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=java</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
-    name: 'Java',
+  javaDoppio: {
+    desc: 'JVM berjalan di browser menggunakan DoppioJVM (JDK 8, diinterpretasikan dalam JavaScript).',
+    link: '<1> <2>Situs web resmi Java</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=java</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7>',
+    name: 'Java (Doppio)',
+  },
+  javaWasm: {
+    desc: 'Java dikompilasi ke WebAssembly di browser oleh javac milik OpenJDK dan kompilator AOT TeaVM. Java modern (record, ekspresi switch, blok teks) didukung, dan tidak ada yang dikirim ke server.',
+    link: '<1> <2>Situs web resmi Java</2> </1> <3> <4>TeaVM</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=java</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: 'Bahasa skrip web.',
