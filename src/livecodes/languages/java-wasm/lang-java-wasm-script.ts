@@ -7,8 +7,7 @@ const javaWasmDistUrl = javaWasmBaseUrl + 'dist/';
 
 livecodes.java = livecodes.java || {};
 livecodes.java.ready = false;
-
-let runtime;
+livecodes.java.failed = false;
 
 // The runner is a separate <script>; dynamically inserted scripts are async, so it may not have
 // executed yet when this file runs.
@@ -23,13 +22,25 @@ const waitForJavaWasm = async (timeoutMs = 120_000) => {
   return window.JavaWasm;
 };
 
+// Park the runtime on the persistent `livecodes.java` namespace. With live reload the result page
+// rewrites the document and this script re-executes, so a module-scoped runtime would be lost and
+// re-created (leaking its worker) on every edit. Sharing a single init promise also makes
+// concurrent runs await the same boot.
 const getRuntime = async () => {
-  runtime ??= await (await waitForJavaWasm()).createRuntime({
-    baseUrl: javaWasmDistUrl,
-    // each run starts with an empty file system
-    persistFiles: false,
+  livecodes.java.init ??= (async () => {
+    const JavaWasm = await waitForJavaWasm();
+    livecodes.java.runtime = await JavaWasm.createRuntime({
+      baseUrl: javaWasmDistUrl,
+      // each run starts with an empty file system
+      persistFiles: false,
+    });
+  })().catch((err) => {
+    // Allow a later run to retry the download/boot instead of awaiting a rejected promise forever.
+    livecodes.java.init = null;
+    throw err;
   });
-  return runtime;
+  await livecodes.java.init;
+  return livecodes.java.runtime;
 };
 
 const getCode = () => {
@@ -54,6 +65,7 @@ livecodes.java.run = async (input = '') => {
   livecodes.java.input = input;
   livecodes.java.output = null;
   livecodes.java.ready = false;
+  livecodes.java.failed = false;
 
   if (!code.trim()) {
     livecodes.java.ready = true;
@@ -84,15 +96,21 @@ livecodes.java.run = async (input = '') => {
     console.error(error);
     livecodes.java.error = error;
     livecodes.java.exitCode = 1;
+    // A thrown error means the runtime failed to boot (a program error is returned via
+    // `result.ok`), so reject `loaded` rather than leaving the starter stuck on "Loading...".
+    livecodes.java.failed = true;
     return { input, output: null, error, exitCode: 1 };
   } finally {
     livecodes.java.ready = true;
   }
 };
 
-livecodes.java.loaded = new Promise<void>((resolve) => {
+livecodes.java.loaded = new Promise<void>((resolve, reject) => {
   const interval = setInterval(() => {
-    if (livecodes.java.ready) {
+    if (livecodes.java.failed) {
+      clearInterval(interval);
+      reject(new Error(livecodes.java.error || 'Failed to initialize the Java environment'));
+    } else if (livecodes.java.ready) {
       clearInterval(interval);
       resolve();
     }
