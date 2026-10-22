@@ -873,6 +873,15 @@
   "sass.name": {
     "translation": "Sass"
   },
+  "scalaWasm.desc": {
+    "translation": "Scala 3, tarayıcıda Scala 3 derleyicisi ve Scala.js bağlayıcısı tarafından derlenip bağlanır; her ikisi de WebAssembly üzerinde çalışır. Sunucuya hiçbir şey gönderilmez."
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>Scala resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Scala belgeleri</tag-4> </tag-3> <tag-5> <tag-6>Scala.js resmi web sitesi</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
+  },
   "scheme.desc": {
     "translation": "biwascheme kullanılarak tarayıcıda çalışan Scheme."
   },

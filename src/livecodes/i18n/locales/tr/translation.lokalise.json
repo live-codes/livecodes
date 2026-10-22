@@ -2160,6 +2160,9 @@
   "templates.starter.rust-wasm": {
     "translation": "Rust (Wasm) Başlangıç"
   },
+  "templates.starter.scala": {
+    "translation": "Scala Başlangıç"
+  },
   "templates.starter.scheme": {
     "translation": "Scheme Başlangıç"
   },

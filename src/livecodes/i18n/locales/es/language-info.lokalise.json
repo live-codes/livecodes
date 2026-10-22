@@ -873,6 +873,15 @@
   "sass.name": {
     "translation": "Sass"
   },
+  "scalaWasm.desc": {
+    "translation": "Scala 3 se compila y enlaza en el navegador mediante el compilador de Scala 3 y el enlazador de Scala.js, ambos ejecutándose en WebAssembly. No se envía nada a un servidor."
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>Página web oficial de Scala</tag-2> </tag-1> <tag-3> <tag-4>Documentación de Scala</tag-4> </tag-3> <tag-5> <tag-6>Página web oficial de Scala.js</tag-6> </tag-5> <tag-7> <tag-8>Documentación de LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Cargar plantilla de inicio</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
+  },
   "scheme.desc": {
     "translation": "Scheme ejecutándose en el navegador usando biwascheme."
   },

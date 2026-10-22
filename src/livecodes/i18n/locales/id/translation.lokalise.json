@@ -2160,6 +2160,9 @@
   "templates.starter.rust-wasm": {
     "translation": "Pemula Rust (Wasm)"
   },
+  "templates.starter.scala": {
+    "translation": "Pemula Scala"
+  },
   "templates.starter.scheme": {
     "translation": "Pemula Scheme"
   },

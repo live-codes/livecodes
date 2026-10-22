@@ -1059,6 +1059,7 @@ const translation: I18nTranslation = {
       ruby: 'Pemula Ruby',
       'ruby-wasm': 'Pemula Ruby (Wasm)',
       'rust-wasm': 'Pemula Rust (Wasm)',
+      scala: 'Pemula Scala',
       scheme: 'Pemula Scheme',
       shadcnui: 'Pemula shadcn/ui',
       solid: 'Pemula Solid',

@@ -1060,6 +1060,7 @@ const translation: I18nTranslation = {
       ruby: 'Ruby Başlangıç',
       'ruby-wasm': 'Ruby (Wasm) Başlangıç',
       'rust-wasm': 'Rust (Wasm) Başlangıç',
+      scala: 'Scala Başlangıç',
       scheme: 'Scheme Başlangıç',
       shadcnui: 'shadcn/ui Başlangıç',
       solid: 'Solid Başlangıç',

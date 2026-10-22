@@ -494,6 +494,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sass resmi web sitesi</2> </1> <3> <4>Sass dokümantasyonu</4> </3> <5> <6>Sass (girintili) sözdizimi</6> </5> <7> <8>Y Dakikada X Öğrenin, X=sass</8> </7>',
     name: 'Sass',
   },
+  scalaWasm: {
+    desc: 'Scala 3, tarayıcıda Scala 3 derleyicisi ve Scala.js bağlayıcısı tarafından derlenip bağlanır; her ikisi de WebAssembly üzerinde çalışır. Sunucuya hiçbir şey gönderilmez.',
+    link: '<1> <2>Scala resmi web sitesi</2> </1> <3> <4>Scala belgeleri</4> </3> <5> <6>Scala.js resmi web sitesi</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'Scala (Wasm)',
+  },
   scheme: {
     desc: 'biwascheme kullanılarak tarayıcıda çalışan Scheme.',
     link: '<1> <2>Scheme Programlama Dili</2> </1> <3> <4>BiwaScheme resmi web sitesi</4> </3> <5> <6>BiwaScheme referansı</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',

@@ -1059,6 +1059,7 @@ const translation: I18nTranslation = {
       ruby: 'Стартер Ruby',
       'ruby-wasm': 'Стартер Ruby (Wasm)',
       'rust-wasm': 'Стартер Rust (Wasm)',
+      scala: 'Стартер Scala',
       scheme: 'Стартер Scheme',
       shadcnui: 'Стартер shadcn/ui',
       solid: 'Стартер Solid',

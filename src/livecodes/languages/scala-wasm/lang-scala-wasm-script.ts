@@ -66,6 +66,28 @@ const formatDiagnostics = (diagnostics) =>
     })
     .join('\n');
 
+// The runtime dispatches every run to a single worker, so a program that never returns (e.g. an
+// infinite loop) would leave every later run hanging. Bound each run and tear the worker down.
+const RUN_TIMEOUT_MS = 120_000;
+
+const withTimeout = (promise, ms, message, onTimeout) =>
+  new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      onTimeout?.();
+      reject(new Error(message));
+    }, ms);
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (error) => {
+        clearTimeout(timer);
+        reject(error);
+      },
+    );
+  });
+
 livecodes.scala.run = async (input = '') => {
   const code = getCode();
   livecodes.scala.input = input;
@@ -79,7 +101,18 @@ livecodes.scala.run = async (input = '') => {
   }
 
   try {
-    const result = await (await getRuntime()).run(code, { input: toStdin(input) });
+    const runtime = await getRuntime();
+    const result = await withTimeout(
+      runtime.run(code, { input: toStdin(input) }),
+      RUN_TIMEOUT_MS,
+      'Scala execution timed out.',
+      () => {
+        // Drop the wedged worker so the next run boots a fresh one.
+        livecodes.scala.runtime?.destroy();
+        livecodes.scala.runtime = undefined;
+        livecodes.scala.init = null;
+      },
+    );
 
     if (result.output) {
       console.log(result.output);
