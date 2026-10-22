@@ -87,6 +87,7 @@ import { riot } from './riot';
 import { ruby } from './ruby';
 import { rubyWasm } from './ruby-wasm';
 import { rustWasm } from './rust-wasm';
+import { scalaWasm } from './scala-wasm';
 import { scheme } from './scheme';
 import { sass, scss } from './scss';
 import { solid, solidTsx } from './solid';
@@ -194,6 +195,7 @@ export const languages: LanguageSpecs[] = [
   flutter,
   cobolWasm,
   rustWasm,
+  scalaWasm,
   swiftWasm,
   zigWasm,
   javaWasm,

@@ -1059,6 +1059,7 @@ const translation: I18nTranslation = {
       ruby: 'قالب Ruby',
       'ruby-wasm': 'قالب Ruby-Wasm',
       'rust-wasm': 'قالب Rust (Wasm)',
+      scala: 'قالب Scala',
       scheme: 'قالب Scheme',
       shadcnui: 'قالب shadcn/ui',
       solid: 'قالب Solid',

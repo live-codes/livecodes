@@ -1059,6 +1059,7 @@ const translation: I18nTranslation = {
       ruby: 'روبی شروعاتی',
       'ruby-wasm': 'روبی (واسم) شروعاتی',
       'rust-wasm': 'راست (واسم) شروعاتی',
+      scala: 'اسکالا شروعاتی',
       scheme: 'اسکیم شروعاتی',
       shadcnui: 'shadcn/ui شروعاتی',
       solid: 'سالڈ شروعاتی',

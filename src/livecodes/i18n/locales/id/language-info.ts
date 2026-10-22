@@ -494,6 +494,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi Sass</2> </1> <3> <4>Dokumentasi Sass</4> </3> <5> <6>Sintaks Sass (yang berindentasi)</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=sass</8> </7>',
     name: 'Sass',
   },
+  scalaWasm: {
+    desc: 'Scala 3 dikompilasi dan ditautkan di browser oleh kompiler Scala 3 dan penaut Scala.js, keduanya berjalan di WebAssembly. Tidak ada yang dikirim ke server.',
+    link: '<1> <2>Situs web resmi Scala</2> </1> <3> <4>Dokumentasi Scala</4> </3> <5> <6>Situs web resmi Scala.js</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Scala (Wasm)',
+  },
   scheme: {
     desc: 'Scheme berjalan di browser menggunakan biwascheme.',
     link: '<1> <2>Bahasa Pemrograman Scheme</2> </1> <3> <4>Situs web resmi BiwaScheme</4> </3> <5> <6>Referensi BiwaScheme</6> </5> <7> <8>Muat template pemula</8> </7>',

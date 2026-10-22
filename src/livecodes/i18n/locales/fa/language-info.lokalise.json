@@ -873,6 +873,15 @@
   "sass.name": {
     "translation": "Sass"
   },
+  "scalaWasm.desc": {
+    "translation": "Scala 3 توسط کامپایلر Scala 3 و لینکر Scala.js، که هر دو روی WebAssembly اجرا می‌شوند، در مرورگر کامپایل و لینک می‌شود. هیچ چیزی به سرور فرستاده نمی‌شود."
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>وب‌سایت رسمی Scala</tag-2> </tag-1> <tag-3> <tag-4>اسناد Scala</tag-4> </tag-3> <tag-5> <tag-6>وب‌سایت رسمی Scala.js</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگیری قالب شروع</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
+  },
   "scheme.desc": {
     "translation": "Scheme که با استفاده از biwascheme در مرورگر اجرا می‌شود."
   },

@@ -493,6 +493,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sass hivatalos weboldal</2> </1> <3> <4>Sass dokumentáció</4> </3> <5> <6>Sass (a behúzott) szintaxis</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=sass</8> </7>',
     name: 'Sass',
   },
+  scalaWasm: {
+    desc: 'A Scala 3-at a böngészőben a Scala 3 fordító és a Scala.js linker fordítja le és fűzi össze, mindkettő WebAssembly-n fut. Semmit sem küld szerverre.',
+    link: '<1> <2>A Scala hivatalos weboldala</2> </1> <3> <4>Scala dokumentáció</4> </3> <5> <6>A Scala.js hivatalos weboldala</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Scala (Wasm)',
+  },
   scheme: {
     desc: 'Scheme fut a böngészőben a biwascheme használatával.',
     link: '<1> <2>A Scheme programozási nyelv</2> </1> <3> <4>BiwaScheme hivatalos weboldal</4> </3> <5> <6>BiwaScheme referencia</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',

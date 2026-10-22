@@ -317,6 +317,7 @@ export const getCommandMenuActions = ({
         'odin-wasm',
         'v-wasm',
         'rust-wasm',
+        'scala',
         'swift-wasm',
         'zig-wasm',
         'java',

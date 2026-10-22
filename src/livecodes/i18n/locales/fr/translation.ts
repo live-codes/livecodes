@@ -1061,6 +1061,7 @@ const translation: I18nTranslation = {
       ruby: 'Démarrage Ruby',
       'ruby-wasm': 'Démarrage Ruby (Wasm)',
       'rust-wasm': 'Démarrage Rust (Wasm)',
+      scala: 'Démarrage Scala',
       scheme: 'Démarrage Scheme',
       shadcnui: 'Démarrage shadcn/ui',
       solid: 'Démarrage Solid',

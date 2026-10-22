@@ -873,6 +873,15 @@
   "sass.name": {
     "translation": "Sass"
   },
+  "scalaWasm.desc": {
+    "translation": "Scala 3 由 Scala 3 编译器和 Scala.js 链接器在浏览器中编译和链接，两者均运行在 WebAssembly 上。不会向服务器发送任何内容。"
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>Scala 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Scala 文档</tag-4> </tag-3> <tag-5> <tag-6>Scala.js 官方网站</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
+  },
   "scheme.desc": {
     "translation": "使用 biwascheme 在浏览器中运行的 Scheme。"
   },

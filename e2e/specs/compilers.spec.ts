@@ -1677,6 +1677,30 @@ document.getElementById('header').innerHTML = f"Hello, {title}"`);
     );
   });
 
+  test('Scala (Wasm)', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codejar', 'please fix');
+    test.slow(); // the engine downloads the toolchain and compiles WebAssembly
+
+    const code = `@main def hello(): Unit =
+  println("Hello from Scala")
+`;
+
+    // Code is passed in the URL (rather than typed) so the first run cannot race the editor.
+    await page.goto(getTestUrl({ tools: 'console|open', active: 'script', 'scala-wasm': code }));
+
+    const { app, waitForResultUpdate } = await getLoadedApp(page);
+    await waitForResultUpdate();
+
+    await app.waitForFunction(
+      () =>
+        [...document.querySelectorAll('#console-container .luna-console-log-item')].some((item) =>
+          (item.textContent ?? '').includes('Hello from Scala'),
+        ),
+      undefined,
+      { timeout: 180_000 },
+    );
+  });
+
   test('Ruby', async ({ page, getTestUrl, editor }) => {
     test.skip(editor === 'codejar', 'please fix');
 

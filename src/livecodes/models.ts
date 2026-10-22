@@ -219,6 +219,7 @@ export type ScriptType =
   | 'text/d-wasm'
   | 'text/cobol-wasm'
   | 'text/rust-wasm'
+  | 'text/scala-wasm'
   | 'text/crystal-wasm'
   | 'text/odin-wasm'
   | 'text/zig-wasm'

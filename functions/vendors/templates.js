@@ -61,6 +61,7 @@ export const starterTemplates = {
   "d-wasm": "D Starter",
   "v-wasm": "V Starter",
   "rust-wasm": "Rust (Wasm) Starter",
+  "scala": "Scala Starter",
   "swift-wasm": "Swift (Wasm) Starter",
   "zig-wasm": "Zig (Wasm) Starter",
   "java": "Java Starter",

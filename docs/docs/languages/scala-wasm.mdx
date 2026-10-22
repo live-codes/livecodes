@@ -1,0 +1,145 @@
+# Scala (Wasm)
+
+[Scala](https://www.scala-lang.org/) is a statically typed language that combines functional and
+object-oriented programming. Scala 3 programs can target the JVM, JavaScript (via
+[Scala.js](https://www.scala-js.org/)) and native platforms.
+
+In LiveCodes, Scala source is compiled and linked **in the browser** by the Scala 3 compiler and the
+Scala.js linker, both compiled to WebAssembly. The program then runs in the
+[result page](../features/result.mdx). Nothing is sent to a server.
+
+:::info Note
+
+The toolchain is about 46 MB and is downloaded on the first run, which can take some time. Macros
+work but download a second compiler and about 23 MB of additional compiler IR the first time they
+are used.
+
+:::
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const scalaConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'scala-wasm',
+    content: `@main def hello(): Unit =
+  val squares = (1 to 5).map(n => n * n)
+  println("squares: " + squares.mkString(", "))
+  println("sum: " + squares.sum)
+`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={scalaConfig}></LiveCodes>
+
+### Standard I/O
+
+Scala code runs in the context of the result page. Standard output (e.g. `println`) is captured and
+displayed in the [console](../features/console.mdx). Standard input is passed by setting the
+`livecodes.scala.input` property in JavaScript.
+
+The input is a one-shot buffer: once it is exhausted, `readLine()` returns `null` and the typed
+`StdIn` readers throw `EOFException`. It is not an interactive terminal. The following read from the
+supplied buffer:
+
+- `scala.io.StdIn.readLine()` and the typed readers (`readInt`, `readDouble`, ...)
+- `scala.Console.in`
+- `System.in.read()` and `BufferedReader(new InputStreamReader(System.in))`
+
+`java.util.Scanner` and `scala.io.Source.stdin` have no working Scala.js implementation, and a
+parameterized `@main` method cannot be wrapped (use an object main or a parameterless `@main`).
+
+### Communication with JavaScript
+
+A few helper properties and methods are available in the browser global `livecodes.scala` object:
+
+- `livecodes.scala.input`: The standard input passed to the Scala program. It can be set before the
+  initial run, or passed to `run` for subsequent runs.
+- `livecodes.scala.loaded`: A promise that resolves when the Scala environment is ready (and rejects
+  if it fails to load). Other helpers should be used after this promise resolves.
+- `livecodes.scala.ready`: A boolean that is `true` once the environment is loaded and a run has
+  completed.
+- `livecodes.scala.output`: The standard output of the last run.
+- `livecodes.scala.error`: The compiler diagnostics or runtime error of the last run, if any.
+- `livecodes.scala.exitCode`: The exit code of the last run.
+- `livecodes.scala.run(input)`: Runs the code in the editor, optionally passing standard input, and
+  returns a promise that resolves to `{ output, error, exitCode }`.
+
+```js
+await livecodes.scala.loaded;
+const { output, error, exitCode } = await livecodes.scala.run(livecodes.scala.input);
+console.log(output);
+```
+
+## Language Info
+
+### Name
+
+`scala-wasm`
+
+### Aliases / Extensions
+
+`scala`, `scala-wasm`, `wasm.scala`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The [Scala 3 compiler](https://www.scala-lang.org/) and the [Scala.js](https://www.scala-js.org/) linker compiled to WebAssembly,
+provided by [`scala-toolchain-wasm`](https://github.com/tothambrus11/scala-toolchain-wasm) and
+packaged for LiveCodes by
+[`@live-codes/scala-wasm`](https://github.com/live-codes/scala-wasm).
+
+### Version
+
+Scala 3.8.3, Scala.js 1.20.2
+
+## Code Formatting
+
+Not supported.
+
+## Limitations
+
+- `java.util.Scanner` and `scala.io.Source.stdin` are not available.
+- A parameterized `@main` method cannot read the supplied standard input.
+
+## Example Usage
+
+This example passes standard input and runs the code again on each click, using the browser global
+`livecodes.scala` (also check the code in the HTML editor):
+
+<LiveCodes template="scala" height="80vh"></LiveCodes>
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page
+reload, avoiding the need to reinitialize the Scala WebAssembly environment. This behavior can be
+disabled by adding the code comment `// __livecodes_reload__` to the Scala code, which forces a full
+page reload.
+
+This comment can be added in the
+[`hiddenContent` property of the editor](../configuration/configuration-object.mdx#markup) for
+embedded playgrounds.
+
+## Starter Template
+
+https://livecodes.io/?template=scala
+
+## Links
+
+- [Scala](https://www.scala-lang.org/)
+- [Scala 3 documentation](https://docs.scala-lang.org/)
+- [Scala.js](https://www.scala-js.org/)
+- [scala-toolchain-wasm](https://github.com/tothambrus11/scala-toolchain-wasm)
+- [@live-codes/scala-wasm](https://github.com/live-codes/scala-wasm)

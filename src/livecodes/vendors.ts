@@ -502,6 +502,8 @@ export const rustWasmUrl = /* @__PURE__ */ getUrl(
 );
 export const wasmRustcBaseUrl = /* @__PURE__ */ getUrl('@live-codes/wasm-rustc@0.2.0/');
 
+export const scalaWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/scala-wasm@0.1.2/');
+
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 
 export const swiftWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/swift-wasm@0.1.0/');
