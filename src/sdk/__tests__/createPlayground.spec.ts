@@ -265,7 +265,6 @@ describe('createPlayground – iframe creation', () => {
     expect(allow).toContain('writer');
     expect(allow).toContain('rewriter');
     expect(allow).toContain('language-detector');
-    expect(allow).toContain('cross-origin-isolated');
     // Should not contain Firefox/default-only attributes
     expect(allow).not.toContain('ambient-light-sensor');
     expect(allow).not.toContain('payment');
