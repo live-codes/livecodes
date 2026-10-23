@@ -31,9 +31,10 @@ The program runs in a persistent worker owned by the result page, not in the res
 context. The browser global `livecodes.elixir` object is the result page's interface to that worker:
 
 - `livecodes.elixir.input`: the standard input passed to the program.
-- `livecodes.elixir.loaded`: a promise that resolves after the runtime has downloaded and the first
-  program run has completed. It rejects if the environment fails to load. Other helpers should be
-  used after it resolves.
+- `livecodes.elixir.loaded`: a promise that resolves after the initial program run has completed.
+  For a non-empty program, that includes downloading and booting the runtime; an empty initial
+  program resolves before the runtime is downloaded, and initialization starts on the first
+  non-empty run. It rejects if initialization fails. Other helpers should be used after it resolves.
 - `livecodes.elixir.output`: the program's standard output.
 - `livecodes.elixir.value`: the inspected return value of the program.
 - `livecodes.elixir.warnings`: warnings emitted while compiling or running the program.
