@@ -2,11 +2,4 @@
   for = "/*"
   [headers.values]
     access-control-allow-origin = "*"
-    # Cross-origin isolation (required by threaded Wasm runtimes such as
-    # Elixir on AtomVM, which runs in sandbox result frames).
-    # NOTE: COOP must be plain `same-origin`; `same-origin-allow-popups`
-    # does not yield an isolated context. This severs popup/opener links,
-    # so popup-based OAuth (Firebase signInWithPopup) needs a redirect flow.
-    cross-origin-opener-policy = "same-origin"
-    cross-origin-embedder-policy = "credentialless"
     cross-origin-resource-policy = "cross-origin"

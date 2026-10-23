@@ -33,8 +33,12 @@ export const elixirWasmStarter: Template = {
 
     button.onclick = async () => {
       button.disabled = true;
-      const { output } = await livecodes.elixir.run(window.count);
-      update(output);
+      try {
+        const { output } = await livecodes.elixir.run(window.count);
+        update(output);
+      } finally {
+        button.disabled = false;
+      }
     };
 
     function update(output) {

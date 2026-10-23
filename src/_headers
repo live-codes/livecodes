@@ -13,6 +13,4 @@
   cache-control: public, max-age=14400, must-revalidate
 
 /*
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Embedder-Policy: credentialless
   Cross-Origin-Resource-Policy: cross-origin

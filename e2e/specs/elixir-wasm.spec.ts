@@ -181,7 +181,7 @@ test.describe('Elixir (Wasm)', () => {
       isolated: window.crossOriginIsolated,
       sharedArrayBuffer: typeof SharedArrayBuffer !== 'undefined',
     }));
-    expect(isolation).toEqual({ isolated: true, sharedArrayBuffer: true });
+    expect(isolation).toEqual({ isolated: false, sharedArrayBuffer: false });
 
     const warm = await requireResultFrame(page).evaluate(async () => {
       const elixir = (window as any).livecodes.elixir;
@@ -377,9 +377,7 @@ test.describe('Elixir (Wasm)', () => {
     expect(rerun.error).toBeNull();
   });
 
-  test('serves the result frame with production cross-origin isolation headers', async ({
-    page,
-  }) => {
+  test('runs the result frame in the dev sandbox without isolation headers', async ({ page }) => {
     await page.goto(APP_URL, { waitUntil: 'domcontentloaded', timeout: 60_000 });
     const frame = await (async () => {
       const start = Date.now();
@@ -393,19 +391,24 @@ test.describe('Elixir (Wasm)', () => {
 
     const response = await page.request.get(frame.url());
     const headers = response.headers();
-    expect(headers['cross-origin-opener-policy']).toBe('same-origin');
-    expect(headers['cross-origin-embedder-policy']).toBe('credentialless');
+    expect(headers['cross-origin-opener-policy']).toBeUndefined();
+    expect(headers['cross-origin-embedder-policy']).toBeUndefined();
     expect(headers['cross-origin-resource-policy']).toBe('cross-origin');
 
     const isolated = await frame.evaluate(() => window.crossOriginIsolated);
-    expect(isolated).toBe(true);
+    expect(isolated).toBe(false);
+  });
 
-    // `src/_headers` is the production/static-host configuration; the dev
-    // server middleware sends the same values.
+  test('does not declare isolation headers in the static deploy configs', async () => {
     const { readFileSync } = await import('fs');
     const productionHeaders = readFileSync('src/_headers', 'utf8');
-    expect(productionHeaders).toContain('Cross-Origin-Opener-Policy: same-origin');
-    expect(productionHeaders).toContain('Cross-Origin-Embedder-Policy: credentialless');
+    expect(productionHeaders).not.toContain('Cross-Origin-Opener-Policy');
+    expect(productionHeaders).not.toContain('Cross-Origin-Embedder-Policy');
     expect(productionHeaders).toContain('Cross-Origin-Resource-Policy: cross-origin');
+
+    const netlifyConfig = readFileSync('src/netlify.toml', 'utf8');
+    expect(netlifyConfig).not.toContain('cross-origin-opener-policy');
+    expect(netlifyConfig).not.toContain('cross-origin-embedder-policy');
+    expect(netlifyConfig).toContain('cross-origin-resource-policy = "cross-origin"');
   });
 });

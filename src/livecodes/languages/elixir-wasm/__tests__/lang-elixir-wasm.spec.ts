@@ -2,7 +2,9 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { elixirWasm } from '../lang-elixir-wasm';
 
-const readSource = (file: string) => readFileSync(resolve(__dirname, '..', file), 'utf8');
+const readSource = (file: string) =>
+  readFileSync(resolve(__dirname, '..', '..', 'beam-wasm', file), 'utf8');
+const readLanguageSource = (file: string) => readFileSync(resolve(__dirname, '..', file), 'utf8');
 
 describe('Elixir (Wasm) language spec', () => {
   test('is registered as elixir-wasm, with the wasm compiler script', () => {
@@ -33,8 +35,9 @@ describe('Elixir (Wasm) language spec', () => {
 });
 
 describe('Elixir (Wasm) bridge', () => {
-  const bridge = readSource('lang-elixir-wasm-script.ts');
-  const worker = readSource('lang-elixir-wasm-worker.raw.js');
+  const bridge = readSource('runtime.ts');
+  const worker = readSource('lang-beam-wasm-worker.raw.js');
+  const script = readLanguageSource('lang-elixir-wasm-script.ts');
 
   test('keeps the VM in a module worker instead of an iframe', () => {
     expect(bridge).toContain("new Worker(url, { type: 'module' })");
@@ -46,7 +49,7 @@ describe('Elixir (Wasm) bridge', () => {
     expect(bridge).toContain("OK_TAG = '__LC_OK__'");
     expect(bridge).toContain("ERROR_TAG = '__LC_ERROR__'");
     expect(bridge).toContain("EXIT_TAG = '__LC_EXIT__'");
-    expect(bridge).toContain('Base.encode64');
+    expect(script).toContain('Base.encode64');
   });
 
   test('bounds calls and supersedes a blocked run', () => {
@@ -60,7 +63,8 @@ describe('Elixir (Wasm) bridge', () => {
     expect(worker).toContain("INIT: 'popcorn-init'");
     expect(worker).toContain("CALL: 'popcorn-call'");
     expect(worker).toContain('globalThis.window = globalThis');
-    expect(worker).toContain('mainScriptUrlOrBlob');
+    expect(worker).toContain('noInitialRun: true');
+    expect(worker).toContain("Module.callMain(['/data/bundle.avm'])");
     expect(worker).toContain('Module.onElixirReady');
     expect(worker).toContain('self.postMessage');
     expect(worker).not.toContain('window.parent.postMessage');

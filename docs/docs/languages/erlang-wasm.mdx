@@ -1,0 +1,150 @@
+# Erlang (Wasm)
+
+Erlang is a functional, concurrent language for building scalable and fault-tolerant systems.
+
+In LiveCodes, Erlang runs in the browser using WebAssembly on [AtomVM](https://atomvm.org/), the same lightweight Erlang VM used by [Elixir (Wasm)](./elixir-wasm.mdx). No server is involved.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const erlangConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'erlang-wasm',
+    content: `io:format("Hello, Erlang!~n").`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={erlangConfig}></LiveCodes>
+
+### Communication with JavaScript
+
+The program runs in a persistent worker owned by the result page, not in the result page's JavaScript
+context. The browser global `livecodes.erlang` object is the result page's interface to that worker:
+
+- `livecodes.erlang.input`: the standard input passed to the program.
+- `livecodes.erlang.loaded`: a promise that resolves after the runtime has downloaded and the first
+  program run has completed. It rejects if the environment fails to load. Other helpers should be
+  used after it resolves.
+- `livecodes.erlang.output`: the program's standard output.
+- `livecodes.erlang.value`: the inspected return value of the program.
+- `livecodes.erlang.warnings`: warnings emitted while compiling or running the program.
+- `livecodes.erlang.error`: the syntax or runtime error, if the program failed.
+- `livecodes.erlang.exitCode`: the exit code of the program.
+- `livecodes.erlang.run`: runs the current code with new input, reusing the booted VM, and returns a
+  promise that resolves with `output`, `value`, `warnings`, `error` and `exitCode`.
+- `livecodes.erlang.retry`: restarts the runtime after a failed initialization. A VM crash in a
+  normal run is recovered automatically on the next run.
+
+Example:
+
+<LiveCodes template="erlang-wasm" params={{ activeEditor: 'markup' }} height="80vh"></LiveCodes>
+
+```erlang
+io:format("Hello, Erlang!~n"),
+[X * X || X <- lists:seq(1, 5)].
+```
+
+### Modules and stdin
+
+Erlang expressions are comma-separated and must end with a dot. Code that starts with `-module(`
+is compiled and loaded into the running VM, so it stays callable in later runs:
+
+```erlang
+-module(m).
+-export([double/1]).
+
+double(X) -> X * 2.
+```
+
+Then run `m:double(21).` in a later run. `io:get_line("")` reads the standard input, and
+`erlang:halt(0)` (or a bare `halt(0)`) sets the exit code.
+
+The shared stdin device returns binaries. Use `binary_to_list/1` when an API needs a charlist,
+and remove the trailing newline with `binary:replace(Value, <<"\n">>, <<>>, [global])`
+(`string:trim/1` is not reliable on AtomVM).
+
+### Runtime lifecycle
+
+The VM runs in a persistent worker owned by the result window. Updating the code
+rewrites the result document but does not destroy the worker, so normal edits
+reuse the booted VM instead of downloading and initializing it again.
+
+Each worker boot compiles a small Elixir prelude that provides the shared I/O
+device for Erlang and Elixir. That takes a few seconds on the first run;
+subsequent runs only evaluate the user code. Evaluations time out after 60
+seconds. If a newer run is waiting and the active evaluation does not finish
+within 10 seconds, the worker is terminated and recreated so the newer run is
+not blocked. Pending edits are coalesced to the latest one. A VM crash is
+reported in `error`; the next run starts a fresh worker automatically. Use
+`retry()` when initialization itself failed.
+
+## Language Info
+
+### Name
+
+`erlang-wasm`
+
+### Aliases / Extensions
+
+`erl`, `erlang`, `erlang-wasm`, `wasm.erl`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The Erlang runtime compiled to WebAssembly, running on
+[AtomVM](https://github.com/atomvm/AtomVM) with the
+[Popcorn](https://popcorn.swmansion.com/) browser runtime. The single-threaded runtime is published
+as [`@hmh-3080/atomvm-wasm`](https://www.npmjs.com/package/@hmh-3080/atomvm-wasm); it shares the
+pinned `live-codes/elixir-browser-eval@6b354dab35fb7454ba2812f935b52b398ca1bec8` bytecode bundle
+with Elixir (Wasm).
+
+### Version
+
+AtomVM 0.7.0-dev (32-bit), with the Erlang runtime bundled in the shared Elixir/Erlang Wasm bundle.
+
+### Limitations
+
+AtomVM implements a subset of the Erlang VM and its standard library. Features that depend on a full
+operating system (for example file I/O and OS processes) may be missing or behave differently.
+Frameworks and applications that require a server are out of scope for the playground.
+
+The runtime is a single-threaded AtomVM build. It does not use WebAssembly threads,
+`SharedArrayBuffer`, or `Cross-Origin-Opener-Policy` / `Cross-Origin-Embedder-Policy`
+headers, so it runs in normal (non-isolated) result pages and keeps popup-based OAuth working.
+
+## Code Formatting
+
+Not currently supported.
+
+## Live Reload
+
+By default, new code changes are sent to the result page for re-evaluation without a full page reload
+or a VM restart. This behavior can be disabled by adding the code comment `% __livecodes_reload__` to
+the Erlang code, which forces a full page reload.
+
+This comment can be added in the `hiddenContent` property of the editor for embedded playgrounds.
+
+## Starter Template
+
+https://livecodes.io/?template=erlang-wasm
+
+## Links
+
+- [Erlang official website](https://www.erlang.org/)
+- [Erlang documentation](https://www.erlang.org/docs)
+- [Learn X in Y minutes, where X=Erlang](https://learnxinyminutes.com/erlang/)
+- [AtomVM](https://atomvm.org/)
+- [@hmh-3080/atomvm-wasm](https://www.npmjs.com/package/@hmh-3080/atomvm-wasm)
+- [Popcorn: Elixir and Wasm](https://popcorn.swmansion.com/)

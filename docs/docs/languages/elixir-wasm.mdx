@@ -27,8 +27,8 @@ export const elixirConfig = {
 
 ### Communication with JavaScript
 
-The program runs in the context of the result page. A few helpers are available in the browser global
-`livecodes.elixir` object:
+The program runs in a persistent worker owned by the result page, not in the result page's JavaScript
+context. The browser global `livecodes.elixir` object is the result page's interface to that worker:
 
 - `livecodes.elixir.input`: the standard input passed to the program.
 - `livecodes.elixir.loaded`: a promise that resolves after the runtime has downloaded and the first
@@ -87,7 +87,9 @@ reported in `error`; the next run starts a fresh worker automatically. Use
 
 The Elixir toolchain compiled to WebAssembly, running on
 [AtomVM](https://github.com/atomvm/AtomVM) with the
-[Popcorn](https://popcorn.swmansion.com/) browser runtime. The assets are pinned to
+[Popcorn](https://popcorn.swmansion.com/) browser runtime. The single-threaded runtime is published
+as [`@hmh-3080/atomvm-wasm`](https://www.npmjs.com/package/@hmh-3080/atomvm-wasm); the Elixir
+and Erlang bytecode bundle is pinned to
 `live-codes/elixir-browser-eval@6b354dab35fb7454ba2812f935b52b398ca1bec8`.
 
 ### Version
@@ -103,17 +105,9 @@ Examples include `File.write!/2` (`not_implemented`), `Date.utc_today/0`, `Task.
 exit status; the runtime reports the crash and the next run boots a fresh worker. Frameworks that
 require a server, such as Phoenix and LiveView, are out of scope for the playground.
 
-The runtime uses WebAssembly threads, so the result page must be cross-origin isolated
-(`SharedArrayBuffer` is unavailable otherwise) and the environment never finishes loading
-without it. This needs `Cross-Origin-Opener-Policy: same-origin` /
-`Cross-Origin-Embedder-Policy: credentialless` headers on both the app and the sandbox
-origin, plus the `cross-origin-isolated` iframe permission (which LiveCodes sets
-automatically). Note that plain `same-origin` (not `same-origin-allow-popups`) is required
-for isolation, which severs popup/opener links — popup-based OAuth logins need a redirect
-flow instead. The dev servers and deployment configs in this repo already send these headers;
-other self-hosted setups and the production sandbox deployment must send them too. Browsers
-without `credentialless` support (e.g. Safari) cannot isolate and are not supported for this
-language.
+The runtime is a single-threaded AtomVM build. It does not use WebAssembly threads,
+`SharedArrayBuffer`, or `Cross-Origin-Opener-Policy` / `Cross-Origin-Embedder-Policy`
+headers, so it runs in normal (non-isolated) result pages and keeps popup-based OAuth working.
 
 ## Code Formatting
 
@@ -147,4 +141,5 @@ https://livecodes.io/?template=elixir-wasm
 - [Elixir documentation](https://hexdocs.pm/elixir/)
 - [Learn X in Y minutes, where X=Elixir](https://learnxinyminutes.com/elixir/)
 - [AtomVM](https://atomvm.org/)
+- [@hmh-3080/atomvm-wasm](https://www.npmjs.com/package/@hmh-3080/atomvm-wasm)
 - [Popcorn: Elixir and Wasm](https://popcorn.swmansion.com/)

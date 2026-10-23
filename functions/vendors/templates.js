@@ -60,6 +60,7 @@ export const starterTemplates = {
   "fortran-wasm": "Fortran Starter",
   "d-wasm": "D Starter",
   "elixir-wasm": "Elixir Starter",
+  "erlang-wasm": "Erlang Starter",
   "v-wasm": "V Starter",
   "rust-wasm": "Rust (Wasm) Starter",
   "swift-wasm": "Swift (Wasm) Starter",

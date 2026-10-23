@@ -239,6 +239,7 @@ const iifeBuild = () =>
       'languages/cobol-wasm/lang-cobol-wasm-script.ts',
       'languages/v-wasm/lang-v-wasm-script.ts',
       'languages/elixir-wasm/lang-elixir-wasm-script.ts',
+      'languages/erlang-wasm/lang-erlang-wasm-script.ts',
       'languages/go-wasm/lang-go-wasm-script.ts',
       'languages/csharp-wasm/lang-csharp-wasm-script.ts',
       'languages/fanak/lang-fanak-script.ts',

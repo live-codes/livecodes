@@ -380,6 +380,8 @@ LFortran (Wasm): [BSD 3-Clause License](https://github.com/lfortran/lfortran/blo
 
 V (Wasm): [MIT License](https://github.com/vlang/v/blob/master/LICENSE) (the V compiler and its standard library, compiled to WebAssembly by @live-codes/v-wasm; the Clang toolchain it links through is covered by LLVM / LLD below)
 
+@hmh-3080/atomvm-wasm: [Apache License 2.0](https://www.npmjs.com/package/@hmh-3080/atomvm-wasm) (the single-threaded AtomVM WebAssembly runtime used by Elixir (Wasm) and Erlang (Wasm))
+
 Elixir (Wasm): [Apache License 2.0](https://github.com/elixir-lang/elixir/blob/main/LICENSE) (the Elixir 1.17.3 compiler and standard library, packaged for browser execution)
 
 Elixir logo: registered trademark of The Elixir Team, used under [nominative use](https://elixir-lang.org/trademarks/) to identify the supported language.

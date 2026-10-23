@@ -13,7 +13,9 @@ The browser-level lifecycle and performance assertions live in
   `live-codes/elixir-browser-eval@6b354dab35fb7454ba2812f935b52b398ca1bec8`.
 - Popcorn comparison: `@swmansion/popcorn@0.4.0-next.9` (the same version as
   Hex `popcorn 0.4.0-next.9`), Elixir 1.20.4 on OTP 29.0.6, full BEAM.
-- App and sandbox were served locally with COOP/COEP isolation headers.
+- The numbers below were taken with the earlier threaded build, which required COOP/COEP. The
+  shipped no-pthread build runs without isolation headers; the E2E suite asserts
+  `crossOriginIsolated === false`.
 
 ## Before and after
 
@@ -75,7 +77,7 @@ worker-level numbers.
 | Warm direct evaluation             |                                    4.4 ms |                              1.0-1.1 ms |
 | Total memory after warm evaluation |                                   32.9 MB |                                101.2 MB |
 | Worker memory only                 |                                   31.9 MB |                                100.0 MB |
-| Isolation headers tested           | COOP `same-origin`, COEP `credentialless` | COOP `same-origin`, COEP `require-corp` |
+| Isolation headers (threaded build) | COOP `same-origin`, COEP `credentialless` | COOP `same-origin`, COEP `require-corp` |
 
 Notes:
 

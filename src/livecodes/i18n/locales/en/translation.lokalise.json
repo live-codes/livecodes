@@ -2664,6 +2664,10 @@
     "notes": "",
     "translation": "Elm Starter"
   },
+  "templates.starter.erlang-wasm": {
+    "notes": "",
+    "translation": "Erlang Starter"
+  },
   "templates.starter.fanak": {
     "notes": "",
     "translation": "Fanak Starter"

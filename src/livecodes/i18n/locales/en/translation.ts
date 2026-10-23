@@ -1012,6 +1012,7 @@ const translation = {
       duckdb: 'DuckDB Starter',
       'elixir-wasm': 'Elixir Starter',
       elm: 'Elm Starter',
+      'erlang-wasm': 'Erlang Starter',
       fanak: 'Fanak Starter',
       fennel: 'Fennel Starter',
       flutter: 'Flutter Starter',
