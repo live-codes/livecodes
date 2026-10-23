@@ -113,16 +113,6 @@ headers, so it runs in normal (non-isolated) result pages and keeps popup-based 
 
 Not currently supported.
 
-## Performance
-
-On the benchmark machine, a cold start took about 9 seconds from navigation to the first result;
-about 5 seconds of that is the Elixir runtime, including a 3.6 second prelude compile. After the
-first run, a warm `run()` takes about 120 ms and a normal edit takes about 200 ms because the VM is
-reused. Three edits made during a 3 second evaluation complete in about 3.3 seconds, with pending runs
-coalesced to the latest one. See
-[`src/livecodes/languages/elixir-wasm/benchmark.md`](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/languages/elixir-wasm/benchmark.md)
-for methodology, the complete cold-start breakdown, and the AtomVM/Popcorn comparison.
-
 ## Live Reload
 
 By default, new code changes are sent to the result page for re-evaluation without a full page reload
