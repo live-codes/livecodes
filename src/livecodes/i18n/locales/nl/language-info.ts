@@ -246,10 +246,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Officiële website van Janet</2></1> <3> <4>Janet-documentatie</4> </3> <5> <6>Leer X in Y minuten, waarbij X = Janet</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Startersjabloon laden</10> </9>',
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: 'JVM draaiend in de browser met DoppioJVM.',
-    link: '<1> <2>Java officiële website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Leer X in Y minuten, waarbij X=java</6> </5> <7> <8>LiveCodes Documentatie</8> </7> <9> <10>Startsjabloon laden</10> </9>',
-    name: 'Java',
+  java8: {
+    desc: 'JVM draaiend in de browser met DoppioJVM (JDK 8, geïnterpreteerd in JavaScript).',
+    link: '<1> <2>Java officiële website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Leer X in Y minuten, waarbij X=java</6> </5> <7> <8>LiveCodes Documentatie</8> </7>',
+    name: 'Java 8',
+  },
+  javaWasm: {
+    desc: 'Java wordt in de browser naar WebAssembly gecompileerd door javac van OpenJDK en de AOT-compiler van TeaVM. Moderne Java (records, switch-expressies, tekstblokken) wordt ondersteund, en er wordt niets naar een server verzonden.',
+    link: '<1> <2>Java officiële website</2> </1> <3> <4>TeaVM</4> </3> <5> <6>Leer X in Y minuten, waarbij X=java</6> </5> <7> <8>LiveCodes Documentatie</8> </7> <9> <10>Startsjabloon laden</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: 'De scripttaal van het web.',
@@ -492,6 +497,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Syntactisch geweldige stylesheets.',
     link: '<1> <2>Sass officiële website</2> </1> <3> <4>Sass documentatie</4> </3> <5> <6>Sass (de ingesprongen) syntaxis</6> </5> <7> <8>Leer X in Y minuten, waarbij X=sass</8> </7>',
     name: 'Sass',
+  },
+  scalaWasm: {
+    desc: 'Scala 3 wordt in de browser gecompileerd en gelinkt door de Scala 3-compiler en de Scala.js-linker, die beide op WebAssembly draaien. Er wordt niets naar een server verzonden.',
+    link: '<1> <2>Officiële website van Scala</2> </1> <3> <4>Scala-documentatie</4> </3> <5> <6>Officiële website van Scala.js</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Startersjabloon laden</10> </9>',
+    name: 'Scala (Wasm)',
   },
   scheme: {
     desc: 'Scheme draaiend in de browser met biwascheme.',

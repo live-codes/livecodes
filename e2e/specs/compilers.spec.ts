@@ -1650,6 +1650,57 @@ document.getElementById('header').innerHTML = f"Hello, {title}"`);
     expect(resultText).toContain(`Hello, Python`);
   });
 
+  test('Java (Wasm)', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codejar', 'please fix');
+    test.slow(); // the engine downloads ~8 MB and generates WebAssembly
+
+    const code = `public class Main {
+  public static void main(String[] args) {
+    System.out.println("Hello from Java");
+  }
+}
+`;
+
+    // Code is passed in the URL (rather than typed) so the first run cannot race the editor.
+    await page.goto(getTestUrl({ tools: 'console|open', active: 'script', 'java-wasm': code }));
+
+    const { app, waitForResultUpdate } = await getLoadedApp(page);
+    await waitForResultUpdate();
+
+    await app.waitForFunction(
+      () =>
+        [...document.querySelectorAll('#console-container .luna-console-log-item')].some((item) =>
+          (item.textContent ?? '').includes('Hello from Java'),
+        ),
+      undefined,
+      { timeout: 120_000 },
+    );
+  });
+
+  test('Scala (Wasm)', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codejar', 'please fix');
+    test.slow(); // the engine downloads the toolchain and compiles WebAssembly
+
+    const code = `@main def hello(): Unit =
+  println("Hello from Scala")
+`;
+
+    // Code is passed in the URL (rather than typed) so the first run cannot race the editor.
+    await page.goto(getTestUrl({ tools: 'console|open', active: 'script', 'scala-wasm': code }));
+
+    const { app, waitForResultUpdate } = await getLoadedApp(page);
+    await waitForResultUpdate();
+
+    await app.waitForFunction(
+      () =>
+        [...document.querySelectorAll('#console-container .luna-console-log-item')].some((item) =>
+          (item.textContent ?? '').includes('Hello from Scala'),
+        ),
+      undefined,
+      { timeout: 180_000 },
+    );
+  });
+
   test('Ruby', async ({ page, getTestUrl, editor }) => {
     test.skip(editor === 'codejar', 'please fix');
 

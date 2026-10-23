@@ -1061,6 +1061,7 @@ const translation: I18nTranslation = {
       ruby: 'شروع کننده Ruby',
       'ruby-wasm': 'شروع کننده Ruby (Wasm)',
       'rust-wasm': 'شروع کننده Rust (Wasm)',
+      scala: 'شروع کننده Scala',
       scheme: 'شروع کننده Scheme',
       shadcnui: 'شروع کننده shadcn/ui',
       solid: 'شروع کننده Solid',

@@ -247,10 +247,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: "<1><2>Janet resmi web sitesi</2></1> <3> <4>Janet belgeleri</4> </3> <5> <6>Y dakikada X'i öğrenin, burada X=Janet</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: 'DoppioJVM kullanılarak tarayıcıda çalışan JVM.',
-    link: '<1> <2>Java resmi web sitesi</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Y Dakikada X Öğrenin, X=java</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
-    name: 'Java',
+  java8: {
+    desc: 'DoppioJVM kullanılarak tarayıcıda çalışan JVM (JDK 8, JavaScript ile yorumlanır).',
+    link: '<1> <2>Java resmi web sitesi</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Y Dakikada X Öğrenin, X=java</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7>',
+    name: 'Java 8',
+  },
+  javaWasm: {
+    desc: "Java, tarayıcıda OpenJDK'nın javac'ı ve TeaVM AOT derleyicisi tarafından WebAssembly'ye derlenir. Modern Java (record'lar, switch ifadeleri, metin blokları) desteklenir, ve hiçbir şey sunucuya gönderilmez.",
+    link: '<1> <2>Java resmi web sitesi</2> </1> <3> <4>TeaVM</4> </3> <5> <6>Y Dakikada X Öğrenin, X=java</6> </5> <7> <8>LiveCodes Dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: "Web'in komut dosyası dili.",
@@ -493,6 +498,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Sözdizimsel Olarak Harika Stil Sayfaları.',
     link: '<1> <2>Sass resmi web sitesi</2> </1> <3> <4>Sass dokümantasyonu</4> </3> <5> <6>Sass (girintili) sözdizimi</6> </5> <7> <8>Y Dakikada X Öğrenin, X=sass</8> </7>',
     name: 'Sass',
+  },
+  scalaWasm: {
+    desc: 'Scala 3, tarayıcıda Scala 3 derleyicisi ve Scala.js bağlayıcısı tarafından derlenip bağlanır; her ikisi de WebAssembly üzerinde çalışır. Sunucuya hiçbir şey gönderilmez.',
+    link: '<1> <2>Scala resmi web sitesi</2> </1> <3> <4>Scala belgeleri</4> </3> <5> <6>Scala.js resmi web sitesi</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'Scala (Wasm)',
   },
   scheme: {
     desc: 'biwascheme kullanılarak tarayıcıda çalışan Scheme.',

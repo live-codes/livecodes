@@ -63,6 +63,7 @@ export const starterTemplates = {
   "erlang-wasm": "Erlang Starter",
   "v-wasm": "V Starter",
   "rust-wasm": "Rust (Wasm) Starter",
+  "scala": "Scala Starter",
   "swift-wasm": "Swift (Wasm) Starter",
   "zig-wasm": "Zig (Wasm) Starter",
   "java": "Java Starter",

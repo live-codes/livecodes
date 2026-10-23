@@ -2163,6 +2163,9 @@
   "templates.starter.rust-wasm": {
     "translation": "شروع کننده Rust (Wasm)"
   },
+  "templates.starter.scala": {
+    "translation": "شروع کننده Scala"
+  },
   "templates.starter.scheme": {
     "translation": "شروع کننده Scheme"
   },

@@ -319,6 +319,7 @@ export const getCommandMenuActions = ({
         'erlang-wasm',
         'v-wasm',
         'rust-wasm',
+        'scala',
         'swift-wasm',
         'zig-wasm',
         'java',

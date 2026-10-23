@@ -2163,6 +2163,9 @@
   "templates.starter.rust-wasm": {
     "translation": "Rust (Wasm) स्टार्टर"
   },
+  "templates.starter.scala": {
+    "translation": "Scala स्टार्टर"
+  },
   "templates.starter.scheme": {
     "translation": "Scheme स्टार्टर"
   },

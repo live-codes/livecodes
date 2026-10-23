@@ -1061,6 +1061,7 @@ const translation: I18nTranslation = {
       ruby: 'Ruby kezdő',
       'ruby-wasm': 'Ruby (Wasm) kezdő',
       'rust-wasm': 'Rust (Wasm) kezdő',
+      scala: 'Scala kezdő',
       scheme: 'Scheme kezdő',
       shadcnui: 'shadcn/ui kezdő',
       solid: 'Solid kezdő',

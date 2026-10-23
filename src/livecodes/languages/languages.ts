@@ -48,7 +48,8 @@ import { haskellWasm } from './haskell-wasm';
 import { html } from './html';
 import { imba } from './imba';
 import { janetWasm } from './janet-wasm';
-import { java } from './java';
+import { java8 } from './java-8';
+import { javaWasm } from './java-wasm';
 import { javascript } from './javascript';
 import { jinja } from './jinja';
 import { jsx, tsx } from './jsx';
@@ -88,6 +89,7 @@ import { riot } from './riot';
 import { ruby } from './ruby';
 import { rubyWasm } from './ruby-wasm';
 import { rustWasm } from './rust-wasm';
+import { scalaWasm } from './scala-wasm';
 import { scheme } from './scheme';
 import { sass, scss } from './scss';
 import { solid, solidTsx } from './solid';
@@ -195,9 +197,11 @@ export const languages: LanguageSpecs[] = [
   flutter,
   cobolWasm,
   rustWasm,
+  scalaWasm,
   swiftWasm,
   zigWasm,
-  java,
+  javaWasm,
+  java8,
   csharpWasm,
   blazorWasm,
   vWasm,

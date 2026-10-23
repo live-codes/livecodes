@@ -246,10 +246,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Janet 公式サイト</2></1> <3> <4>Janet ドキュメント</4> </3> <5> <6>「Y分でXを学ぶ」（X=Janet）</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートの読み込み</10> </9>',
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: 'DoppioJVMを使ってブラウザで動作するJVM。',
-    link: '<1> <2>Java公式サイト</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>XをY分で学ぶ、X=Java</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートのロード</10> </9>',
-    name: 'Java',
+  java8: {
+    desc: 'DoppioJVMを使ってブラウザで動作するJVM（JDK 8、JavaScriptで解釈実行）。',
+    link: '<1> <2>Java公式サイト</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>XをY分で学ぶ、X=Java</6> </5> <7> <8>LiveCodes ドキュメント</8> </7>',
+    name: 'Java 8',
+  },
+  javaWasm: {
+    desc: 'Javaは、OpenJDKのjavacとTeaVM AOTコンパイラによってブラウザ内でWebAssemblyにコンパイルされます。モダンなJava（レコード、switch式、テキストブロック）がサポートされ、サーバーには何も送信されません。',
+    link: '<1> <2>Java公式サイト</2> </1> <3> <4>TeaVM</4> </3> <5> <6>XをY分で学ぶ、X=Java</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートのロード</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: 'ウェブのスクリプト言語。',
@@ -493,6 +498,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: '構文的にすばらしいスタイルシート。',
     link: '<1> <2>Sass公式ウェブサイト</2> </1> <3> <4>Sassドキュメント</4> </3> <5> <6>Sass（インデント）構文</6> </5> <7> <8>X分でわかるSass（X in Y minutes）</8> </7>',
     name: 'Sass',
+  },
+  scalaWasm: {
+    desc: 'Scala 3 は Scala 3 コンパイラと Scala.js リンカーによってブラウザ内でコンパイルおよびリンクされ、どちらも WebAssembly 上で実行されます。サーバーには何も送信されません。',
+    link: '<1> <2>Scala 公式サイト</2> </1> <3> <4>Scala ドキュメント</4> </3> <5> <6>Scala.js 公式サイト</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートの読み込み</10> </9>',
+    name: 'Scala (Wasm)',
   },
   scheme: {
     desc: 'biwaschemeを使用してブラウザで実行されるScheme。',

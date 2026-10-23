@@ -325,6 +325,8 @@ export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
 export const janetWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/janet-wasm@0.1.0/');
 
+export const javaWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/java-wasm@0.1.0/');
+
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
 
 export const keystoneJsUrl = /* @__PURE__ */ getUrl(
@@ -501,6 +503,8 @@ export const rustWasmUrl = /* @__PURE__ */ getUrl(
   '@live-codes/rust-wasm@0.3.0/dist/worker.iife.js',
 );
 export const wasmRustcBaseUrl = /* @__PURE__ */ getUrl('@live-codes/wasm-rustc@0.2.0/');
+
+export const scalaWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/scala-wasm@0.1.2/');
 
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 

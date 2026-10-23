@@ -441,14 +441,23 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "java.desc": {
-    "translation": "DoppioJVMを使ってブラウザで動作するJVM。"
+  "java8.desc": {
+    "translation": "DoppioJVMを使ってブラウザで動作するJVM（JDK 8、JavaScriptで解釈実行）。"
   },
-  "java.link": {
-    "translation": "<tag-1> <tag-2>Java公式サイト</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>XをY分で学ぶ、X=Java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートのロード</tag-10> </tag-9>"
+  "java8.link": {
+    "translation": "<tag-1> <tag-2>Java公式サイト</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>XをY分で学ぶ、X=Java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7>"
   },
-  "java.name": {
-    "translation": "Java"
+  "java8.name": {
+    "translation": "Java 8"
+  },
+  "javaWasm.desc": {
+    "translation": "Javaは、OpenJDKのjavacとTeaVM AOTコンパイラによってブラウザ内でWebAssemblyにコンパイルされます。モダンなJava（レコード、switch式、テキストブロック）がサポートされ、サーバーには何も送信されません。"
+  },
+  "javaWasm.link": {
+    "translation": "<tag-1> <tag-2>Java公式サイト</tag-2> </tag-1> <tag-3> <tag-4>TeaVM</tag-4> </tag-3> <tag-5> <tag-6>XをY分で学ぶ、X=Java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートのロード</tag-10> </tag-9>"
+  },
+  "javaWasm.name": {
+    "translation": "Java (Wasm)"
   },
   "javascript.desc": {
     "translation": "ウェブのスクリプト言語。"
@@ -872,6 +881,15 @@
   },
   "sass.name": {
     "translation": "Sass"
+  },
+  "scalaWasm.desc": {
+    "translation": "Scala 3 は Scala 3 コンパイラと Scala.js リンカーによってブラウザ内でコンパイルおよびリンクされ、どちらも WebAssembly 上で実行されます。サーバーには何も送信されません。"
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>Scala 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>Scala ドキュメント</tag-4> </tag-3> <tag-5> <tag-6>Scala.js 公式サイト</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートの読み込み</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
   },
   "scheme.desc": {
     "translation": "biwaschemeを使用してブラウザで実行されるScheme。"

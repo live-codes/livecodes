@@ -441,14 +441,23 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "java.desc": {
-    "translation": "JVM fonctionnant dans le navigateur à l'aide de DoppioJVM."
+  "java8.desc": {
+    "translation": "JVM fonctionnant dans le navigateur à l'aide de DoppioJVM (JDK 8, interprété en JavaScript)."
   },
-  "java.link": {
-    "translation": "<tag-1> <tag-2>Site officiel de Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Apprendre X en Y minutes, où X=java</tag-6> </tag-5> <tag-7> <tag-8>Documentation LiveCodes</tag-8> </tag-7> <tag-9> <tag-10> Charger le modèle de démarrage</tag-10> </tag-9>"
+  "java8.link": {
+    "translation": "<tag-1> <tag-2>Site officiel de Java</tag-2> </tag-1> <tag-3> <tag-4> DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6> Apprendre X en Y minutes, où X=java</tag-6> </tag-5> <tag-7> <tag-8>Documentation LiveCodes</tag-8> </tag-7>"
   },
-  "java.name": {
-    "translation": "Java"
+  "java8.name": {
+    "translation": "Java 8"
+  },
+  "javaWasm.desc": {
+    "translation": "Java est compilé en WebAssembly dans le navigateur par javac d'OpenJDK et le compilateur AOT de TeaVM. Le Java moderne (records, expressions switch, blocs de texte) est pris en charge, et rien n'est envoyé à un serveur."
+  },
+  "javaWasm.link": {
+    "translation": "<tag-1> <tag-2>Site officiel de Java</tag-2> </tag-1> <tag-3> <tag-4> TeaVM</tag-4> </tag-3> <tag-5> <tag-6> Apprendre X en Y minutes, où X=java</tag-6> </tag-5> <tag-7> <tag-8>Documentation LiveCodes</tag-8> </tag-7> <tag-9> <tag-10> Charger le modèle de démarrage</tag-10> </tag-9>"
+  },
+  "javaWasm.name": {
+    "translation": "Java (Wasm)"
   },
   "javascript.desc": {
     "translation": "Le langage de script du web."
@@ -872,6 +881,15 @@
   },
   "sass.name": {
     "translation": "Sass"
+  },
+  "scalaWasm.desc": {
+    "translation": "Scala 3 est compilé et lié dans le navigateur par le compilateur Scala 3 et l'éditeur de liens Scala.js, tous deux exécutés sur WebAssembly. Rien n'est envoyé à un serveur."
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>Site officiel de Scala</tag-2> </tag-1> <tag-3> <tag-4>Documentation Scala</tag-4> </tag-3> <tag-5> <tag-6>Site officiel de Scala.js</tag-6> </tag-5> <tag-7> <tag-8>Documentation LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Charger un modèle de démarrage</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
   },
   "scheme.desc": {
     "translation": "Scheme s'exécutant dans le navigateur en utilisant biwascheme."

@@ -247,10 +247,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Situs web resmi Janet</2></1> <3> <4>Dokumentasi Janet</4> </3> <5> <6>Belajar X dalam Y menit, di mana X = Janet</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: 'JVM berjalan di browser menggunakan DoppioJVM.',
-    link: '<1> <2>Situs web resmi Java</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=java</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
-    name: 'Java',
+  java8: {
+    desc: 'JVM berjalan di browser menggunakan DoppioJVM (JDK 8, diinterpretasikan dalam JavaScript).',
+    link: '<1> <2>Situs web resmi Java</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=java</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7>',
+    name: 'Java 8',
+  },
+  javaWasm: {
+    desc: 'Java dikompilasi ke WebAssembly di browser oleh javac milik OpenJDK dan kompilator AOT TeaVM. Java modern (record, ekspresi switch, blok teks) didukung, dan tidak ada yang dikirim ke server.',
+    link: '<1> <2>Situs web resmi Java</2> </1> <3> <4>TeaVM</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=java</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: 'Bahasa skrip web.',
@@ -493,6 +498,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Syntactically Awesome Style Sheets.',
     link: '<1> <2>Situs web resmi Sass</2> </1> <3> <4>Dokumentasi Sass</4> </3> <5> <6>Sintaks Sass (yang berindentasi)</6> </5> <7> <8>Pelajari X dalam Y menit, dengan X=sass</8> </7>',
     name: 'Sass',
+  },
+  scalaWasm: {
+    desc: 'Scala 3 dikompilasi dan ditautkan di browser oleh kompiler Scala 3 dan penaut Scala.js, keduanya berjalan di WebAssembly. Tidak ada yang dikirim ke server.',
+    link: '<1> <2>Situs web resmi Scala</2> </1> <3> <4>Dokumentasi Scala</4> </3> <5> <6>Situs web resmi Scala.js</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Scala (Wasm)',
   },
   scheme: {
     desc: 'Scheme berjalan di browser menggunakan biwascheme.',

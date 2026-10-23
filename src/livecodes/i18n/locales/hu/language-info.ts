@@ -247,10 +247,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Az Janet hivatalos weboldala</2></1> <3> <4>Janet dokumentáció</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=Janet</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: 'JVM fut a böngészőben a DoppioJVM használatával.',
-    link: '<1> <2>Java hivatalos weboldal</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=java</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
-    name: 'Java',
+  java8: {
+    desc: 'JVM fut a böngészőben a DoppioJVM használatával (JDK 8, JavaScriptben értelmezve).',
+    link: '<1> <2>Java hivatalos weboldal</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=java</6> </5> <7> <8>LiveCodes dokumentáció</8> </7>',
+    name: 'Java 8',
+  },
+  javaWasm: {
+    desc: 'A Java a böngészőben az OpenJDK javac és a TeaVM AOT fordító segítségével WebAssembly-re fordul. A modern Java (recordok, switch kifejezések, szövegblokkok) támogatott, és semmi sem kerül elküldésre szerverre.',
+    link: '<1> <2>Java hivatalos weboldal</2> </1> <3> <4>TeaVM</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=java</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: 'A web szkriptnyelve.',
@@ -492,6 +497,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Szintaktikusan Fantasztikus Stíluslapok.',
     link: '<1> <2>Sass hivatalos weboldal</2> </1> <3> <4>Sass dokumentáció</4> </3> <5> <6>Sass (a behúzott) szintaxis</6> </5> <7> <8>Tanulj X-et Y perc alatt, ahol X=sass</8> </7>',
     name: 'Sass',
+  },
+  scalaWasm: {
+    desc: 'A Scala 3-at a böngészőben a Scala 3 fordító és a Scala.js linker fordítja le és fűzi össze, mindkettő WebAssembly-n fut. Semmit sem küld szerverre.',
+    link: '<1> <2>A Scala hivatalos weboldala</2> </1> <3> <4>Scala dokumentáció</4> </3> <5> <6>A Scala.js hivatalos weboldala</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Scala (Wasm)',
   },
   scheme: {
     desc: 'Scheme fut a böngészőben a biwascheme használatával.',

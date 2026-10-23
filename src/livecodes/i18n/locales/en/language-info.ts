@@ -263,10 +263,15 @@ const languageInfo = {
     link: '<1> <2>Janet official website</2> </1> <3> <4>Janet documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Janet</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: 'JVM running in the browser using DoppioJVM.',
-    link: '<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
-    name: 'Java',
+  java8: {
+    desc: 'Java 8, compiled and run in the browser by a JVM interpreter written in JavaScript.',
+    link: '<1> <2>Java official website</2> </1> <3> <4>DoppioJVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7>',
+    name: 'Java 8',
+  },
+  javaWasm: {
+    desc: "Java is compiled to WebAssembly in the browser by OpenJDK's javac and the TeaVM AOT compiler. Modern Java (records, switch expressions, text blocks) is supported, and nothing is sent to a server.",
+    link: '<1> <2>Java official website</2> </1> <3> <4>TeaVM</4> </3> <5> <6>Learn X in Y minutes, where X=java</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: 'The scripting language of the web.',
@@ -504,6 +509,11 @@ const languageInfo = {
     desc: 'Syntactically Awesome Style Sheets.',
     link: '<1> <2>Sass official website</2> </1> <3> <4>Sass documentation</4> </3> <5> <6>Sass (the indented) syntax</6> </5> <7> <8>Learn X in Y minutes, where X=sass</8> </7>',
     name: 'Sass',
+  },
+  scalaWasm: {
+    desc: 'Scala 3 is compiled and linked in the browser by the Scala 3 compiler and the Scala.js linker, both running on WebAssembly. Nothing is sent to a server.',
+    link: '<1> <2>Scala official website</2> </1> <3> <4>Scala documentation</4> </3> <5> <6>Scala.js official website</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Scala (Wasm)',
   },
   scheme: {
     desc: 'Scheme running in the browser using biwascheme.',

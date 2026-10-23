@@ -82,6 +82,7 @@ import { riotStarter } from './riot-starter';
 import { rubyStarter } from './ruby-starter';
 import { rubyWasmStarter } from './ruby-wasm-starter';
 import { rustWasmStarter } from './rust-wasm-starter';
+import { scalaStarter } from './scala-starter';
 import { schemeStarter } from './scheme-starter';
 import { shadcnuiStarter } from './shadcn-ui-starter';
 import { solidStarter } from './solid-starter';
@@ -165,6 +166,7 @@ export const starterTemplates = [
   erlangWasmStarter,
   vWasmStarter,
   rustWasmStarter,
+  scalaStarter,
   swiftWasmStarter,
   zigWasmStarter,
   javaStarter,

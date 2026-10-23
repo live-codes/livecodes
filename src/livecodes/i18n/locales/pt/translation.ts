@@ -1061,6 +1061,7 @@ const translation: I18nTranslation = {
       ruby: 'Iniciante Ruby',
       'ruby-wasm': 'Iniciante Ruby (Wasm)',
       'rust-wasm': 'Iniciante Rust (Wasm)',
+      scala: 'Iniciante Scala',
       scheme: 'Iniciante Scheme',
       shadcnui: 'Modelo inicial shadcn/ui',
       solid: 'Iniciante Solid',

@@ -441,14 +441,23 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "java.desc": {
-    "translation": "DoppioJVM کا استعمال کرتے ہوئے براؤزر میں JVM چل رہا ہے۔"
+  "java8.desc": {
+    "translation": "DoppioJVM کا استعمال کرتے ہوئے براؤزر میں JVM چل رہا ہے (JDK 8، JavaScript میں تشریح شدہ)۔"
   },
-  "java.link": {
-    "translation": "<tag-1> <tag-2>Java آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Y منٹ میں X سیکھیں، جہاں X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>ابتدائی سانچہ لوڈ کریں</tag-10> </tag-9>"
+  "java8.link": {
+    "translation": "<tag-1> <tag-2>Java آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Y منٹ میں X سیکھیں، جہاں X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7>"
   },
-  "java.name": {
-    "translation": "Java"
+  "java8.name": {
+    "translation": "Java 8"
+  },
+  "javaWasm.desc": {
+    "translation": "Java براؤزر میں OpenJDK کے javac اور TeaVM AOT کمپائلر کے ذریعے WebAssembly میں کمپائل ہوتی ہے۔ جدید Java (ریکارڈز، switch ایکسپریشنز، ٹیکسٹ بلاکس) کی معاونت ہے، اور سرور کو کچھ نہیں بھیجا جاتا۔"
+  },
+  "javaWasm.link": {
+    "translation": "<tag-1> <tag-2>Java آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>TeaVM</tag-4> </tag-3> <tag-5> <tag-6>Y منٹ میں X سیکھیں، جہاں X=java</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>ابتدائی سانچہ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "javaWasm.name": {
+    "translation": "Java (Wasm)"
   },
   "javascript.desc": {
     "translation": "ویب کی سکرپٹ کی زبان۔"
@@ -872,6 +881,15 @@
   },
   "sass.name": {
     "translation": "ساس"
+  },
+  "scalaWasm.desc": {
+    "translation": "Scala 3 کو براؤزر میں Scala 3 کمپائلر اور Scala.js لنکر کے ذریعے مرتب اور لنک کیا جاتا ہے، دونوں WebAssembly پر چلتے ہیں۔ سرور پر کچھ نہیں بھیجا جاتا۔"
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>Scala آفیشل ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>Scala دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>Scala.js آفیشل ویب سائٹ</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزی</tag-8> </tag-7> <tag-9> <tag-10>لوڈ اسٹارٹر ٹیمپلیٹ</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
   },
   "scheme.desc": {
     "translation": "بیوا اسکیم کا استعمال کرتے ہوئے براؤزر میں چلنے والا اسکیم۔"

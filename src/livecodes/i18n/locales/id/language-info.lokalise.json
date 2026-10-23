@@ -441,14 +441,23 @@
   "janetWasm.name": {
     "translation": "Janet (Wasm)"
   },
-  "java.desc": {
-    "translation": "JVM berjalan di browser menggunakan DoppioJVM."
+  "java8.desc": {
+    "translation": "JVM berjalan di browser menggunakan DoppioJVM (JDK 8, diinterpretasikan dalam JavaScript)."
   },
-  "java.link": {
-    "translation": "<tag-1> <tag-2>Situs web resmi Java</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=java</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  "java8.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Java</tag-2> </tag-1> <tag-3> <tag-4>DoppioJVM</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=java</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7>"
   },
-  "java.name": {
-    "translation": "Java"
+  "java8.name": {
+    "translation": "Java 8"
+  },
+  "javaWasm.desc": {
+    "translation": "Java dikompilasi ke WebAssembly di browser oleh javac milik OpenJDK dan kompilator AOT TeaVM. Java modern (record, ekspresi switch, blok teks) didukung, dan tidak ada yang dikirim ke server."
+  },
+  "javaWasm.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Java</tag-2> </tag-1> <tag-3> <tag-4>TeaVM</tag-4> </tag-3> <tag-5> <tag-6>Pelajari X dalam Y menit, dengan X=java</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat template pemula</tag-10> </tag-9>"
+  },
+  "javaWasm.name": {
+    "translation": "Java (Wasm)"
   },
   "javascript.desc": {
     "translation": "Bahasa skrip web."
@@ -872,6 +881,15 @@
   },
   "sass.name": {
     "translation": "Sass"
+  },
+  "scalaWasm.desc": {
+    "translation": "Scala 3 dikompilasi dan ditautkan di browser oleh kompiler Scala 3 dan penaut Scala.js, keduanya berjalan di WebAssembly. Tidak ada yang dikirim ke server."
+  },
+  "scalaWasm.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Scala</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi Scala</tag-4> </tag-3> <tag-5> <tag-6>Situs web resmi Scala.js</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat templat awal</tag-10> </tag-9>"
+  },
+  "scalaWasm.name": {
+    "translation": "Scala (Wasm)"
   },
   "scheme.desc": {
     "translation": "Scheme berjalan di browser menggunakan biwascheme."

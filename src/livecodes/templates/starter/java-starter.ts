@@ -69,7 +69,7 @@ export const javaStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'java',
+    language: 'java-wasm',
     content: `
 import java.io.BufferedReader;
 import java.io.IOException;

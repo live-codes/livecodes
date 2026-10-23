@@ -247,10 +247,15 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Site officiel de Janet</2></1> <3> <4>Documentation Janet</4> </3> <5> <6>Apprenez X en Y minutes, où X = Janet</6> </5> <7> <8>Documentation LiveCodes</8> </7> <9> <10>Charger un modèle de démarrage</10> </9>',
     name: 'Janet (Wasm)',
   },
-  java: {
-    desc: "JVM fonctionnant dans le navigateur à l'aide de DoppioJVM.",
-    link: '<1> <2>Site officiel de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Apprendre X en Y minutes, où X=java</6> </5> <7> <8>Documentation LiveCodes</8> </7> <9> <10> Charger le modèle de démarrage</10> </9>',
-    name: 'Java',
+  java8: {
+    desc: "JVM fonctionnant dans le navigateur à l'aide de DoppioJVM (JDK 8, interprété en JavaScript).",
+    link: '<1> <2>Site officiel de Java</2> </1> <3> <4> DoppioJVM</4> </3> <5> <6> Apprendre X en Y minutes, où X=java</6> </5> <7> <8>Documentation LiveCodes</8> </7>',
+    name: 'Java 8',
+  },
+  javaWasm: {
+    desc: "Java est compilé en WebAssembly dans le navigateur par javac d'OpenJDK et le compilateur AOT de TeaVM. Le Java moderne (records, expressions switch, blocs de texte) est pris en charge, et rien n'est envoyé à un serveur.",
+    link: '<1> <2>Site officiel de Java</2> </1> <3> <4> TeaVM</4> </3> <5> <6> Apprendre X en Y minutes, où X=java</6> </5> <7> <8>Documentation LiveCodes</8> </7> <9> <10> Charger le modèle de démarrage</10> </9>',
+    name: 'Java (Wasm)',
   },
   javascript: {
     desc: 'Le langage de script du web.',
@@ -493,6 +498,11 @@ const languageInfo: I18nLangInfoTranslation = {
     desc: 'Feuilles de style syntaxiquement impressionnantes.',
     link: '<1> <2>Site officiel de Sass</2> </1> <3> <4>Documentation Sass</4> </3> <5> <6>Syntaxe Sass (indentée)</6> </5> <7> <8>Apprenez X en Y minutes, où X=sass</8> </7>',
     name: 'Sass',
+  },
+  scalaWasm: {
+    desc: "Scala 3 est compilé et lié dans le navigateur par le compilateur Scala 3 et l'éditeur de liens Scala.js, tous deux exécutés sur WebAssembly. Rien n'est envoyé à un serveur.",
+    link: '<1> <2>Site officiel de Scala</2> </1> <3> <4>Documentation Scala</4> </3> <5> <6>Site officiel de Scala.js</6> </5> <7> <8>Documentation LiveCodes</8> </7> <9> <10>Charger un modèle de démarrage</10> </9>',
+    name: 'Scala (Wasm)',
   },
   scheme: {
     desc: "Scheme s'exécutant dans le navigateur en utilisant biwascheme.",
