@@ -192,17 +192,6 @@ test.describe('Elixir (Wasm)', () => {
     expect(warm.output).toBe('Elixir\n0');
     expect(warm.ms).toBeLessThan(5_000);
 
-    const workerCreatesBefore = initial.timings.filter(
-      (timing) => timing.name === 'worker-create-start',
-    ).length;
-    const edited = await setConfigAndRun(page, 'IO.puts("edited")\n:edited_value');
-    expect(edited.output).toBe('edited');
-    expect(edited.value).toBe(':edited_value');
-    expect(edited.error).toBeNull();
-    expect(edited.timings.filter((timing) => timing.name === 'worker-create-start').length).toBe(
-      workerCreatesBefore,
-    );
-
     const stdout = await runDirect(page, 'IO.puts("hello")');
     expect(stdout.output).toBe('hello');
     expect(stdout.value).toBe(':ok');
@@ -242,6 +231,21 @@ test.describe('Elixir (Wasm)', () => {
     expect(empty.error).toBeNull();
     expect(empty.exitCode).toBe(0);
     expect(empty.ready).toBe(true);
+  });
+
+  test('keeps the VM alive across config edits', async ({ page }) => {
+    const initial = await boot(page);
+    const workerCreatesBefore = initial.timings.filter(
+      (timing) => timing.name === 'worker-create-start',
+    ).length;
+
+    const edited = await setConfigAndRun(page, 'IO.puts("edited")\n:edited_value');
+    expect(edited.output).toBe('edited');
+    expect(edited.value).toBe(':edited_value');
+    expect(edited.error).toBeNull();
+    expect(edited.timings.filter((timing) => timing.name === 'worker-create-start').length).toBe(
+      workerCreatesBefore,
+    );
   });
 
   test('coalesces rapid edits and recovers from a VM crash', async ({ page }) => {
