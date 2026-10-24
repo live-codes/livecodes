@@ -261,6 +261,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elixirWasm.desc": {
+    "translation": "کامپایلر Elixir که روی WebAssembly اجرا می‌شود، با استفاده از <tag-1>AtomVM</tag-1>"
+  },
+  "elixirWasm.link": {
+    "translation": "<tag-1> <tag-2>وبسایت Elixir</tag-2> </tag-1> <tag-3> <tag-4>مستندات زبان Elixir</tag-4> </tag-3> <tag-5> <tag-6>زبان Elixir را در چند دقیقه بیاموزید</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع</tag-10> </tag-9>"
+  },
+  "elixirWasm.name": {
+    "translation": "Elixir (Wasm)"
+  },
   "elm.desc": {
     "translation": "زبان Elm توسط یک نسخه WebAssembly از کامپایلر Elm، در مرورگر به جاوااسکریپت کامپایل می‌شود."
   },

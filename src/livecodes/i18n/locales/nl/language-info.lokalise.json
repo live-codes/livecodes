@@ -261,6 +261,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elixirWasm.desc": {
+    "translation": "Elixir-compiler die op WebAssembly draait, met <tag-1>AtomVM</tag-1>"
+  },
+  "elixirWasm.link": {
+    "translation": "<tag-1> <tag-2>Elixir-website</tag-2> </tag-1> <tag-3> <tag-4>Documentatie over de taal Elixir</tag-4> </tag-3> <tag-5> <tag-6>Leer X in Y minuten, waarbij X = Elixir</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+  },
+  "elixirWasm.name": {
+    "translation": "Elixir (Wasm)"
+  },
   "elm.desc": {
     "translation": "Elm wordt in de browser naar JavaScript gecompileerd door een WebAssembly-versie van de Elm-compiler."
   },

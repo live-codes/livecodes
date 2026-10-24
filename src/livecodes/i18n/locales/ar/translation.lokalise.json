@@ -1992,6 +1992,9 @@
   "templates.starter.duckdb": {
     "translation": "قالب DuckDB"
   },
+  "templates.starter.elixir-wasm": {
+    "translation": "قالب Elixir"
+  },
   "templates.starter.elm": {
     "translation": "قالب Elm"
   },

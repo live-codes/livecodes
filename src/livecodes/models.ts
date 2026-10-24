@@ -243,6 +243,8 @@ export type ScriptType =
   | 'text/swift-wasm'
   | 'text/ada-wasm'
   | 'text/v-wasm'
+  | 'text/elixir-wasm'
+  | 'text/erlang-wasm'
   | 'text/assembly'
   | 'application/json'
   | 'application/lua'

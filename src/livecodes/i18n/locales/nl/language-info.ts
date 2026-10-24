@@ -145,6 +145,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Officiële website</2></1> <3> <4>LiveCodes Documentatie</4> </3>',
     name: 'EJS',
   },
+  elixirWasm: {
+    desc: 'Elixir-compiler die op WebAssembly draait, met <1>AtomVM</1>',
+    link: '<1> <2>Elixir-website</2> </1> <3> <4>Documentatie over de taal Elixir</4> </3> <5> <6>Leer X in Y minuten, waarbij X = Elixir</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Starterssjabloon laden</10> </9>',
+    name: 'Elixir (Wasm)',
+  },
   elm: {
     desc: 'Elm wordt in de browser naar JavaScript gecompileerd door een WebAssembly-versie van de Elm-compiler.',
     link: '<1><2>Officiële website van Elm</2></1> <3><4>Elm-handleiding</4></3> <5> <6>LiveCodes-documentatie</6> </5> <7> <8>Startersjabloon laden</8> </7>',

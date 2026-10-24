@@ -1992,6 +1992,9 @@
   "templates.starter.duckdb": {
     "translation": "Pemula DuckDB"
   },
+  "templates.starter.elixir-wasm": {
+    "translation": "Pemula Elixir"
+  },
   "templates.starter.elm": {
     "translation": "Pemula Elm"
   },
