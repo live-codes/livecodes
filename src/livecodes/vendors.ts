@@ -335,7 +335,7 @@ export const keystoneJsWasmUrl = /* @__PURE__ */ getUrl(
   '@alexaltea/keystone-js@0.9.2/dist/keystone.wasm',
 );
 
-export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.14.0/dist/liquid.browser.min.js');
+export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.30.0/dist/liquid.browser.min.js');
 
 export const localforageUrl = /* @__PURE__ */ getUrl('localforage@1.10.0/dist/localforage.min.js');
 
