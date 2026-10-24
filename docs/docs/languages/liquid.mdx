@@ -74,7 +74,7 @@ The official [LiquidJS compiler](https://www.npmjs.com/package/liquidjs).
 
 ### Version
 
-`liquidjs`: v10.14.0
+`liquidjs`: v10.30.0
 
 ## Code Formatting
 
