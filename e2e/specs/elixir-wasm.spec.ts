@@ -381,7 +381,9 @@ test.describe('Elixir (Wasm)', () => {
     expect(rerun.error).toBeNull();
   });
 
-  test('runs the result frame in the dev sandbox without isolation headers', async ({ page }) => {
+  test('runs the result frame in the dev sandbox without cross-origin isolation', async ({
+    page,
+  }) => {
     await page.goto(APP_URL, { waitUntil: 'domcontentloaded', timeout: 60_000 });
     const frame = await (async () => {
       const start = Date.now();
@@ -397,7 +399,6 @@ test.describe('Elixir (Wasm)', () => {
     const headers = response.headers();
     expect(headers['cross-origin-opener-policy']).toBeUndefined();
     expect(headers['cross-origin-embedder-policy']).toBeUndefined();
-    expect(headers['cross-origin-resource-policy']).toBe('cross-origin');
 
     const isolated = await frame.evaluate(() => window.crossOriginIsolated);
     expect(isolated).toBe(false);
@@ -408,11 +409,11 @@ test.describe('Elixir (Wasm)', () => {
     const productionHeaders = readFileSync('src/_headers', 'utf8');
     expect(productionHeaders).not.toContain('Cross-Origin-Opener-Policy');
     expect(productionHeaders).not.toContain('Cross-Origin-Embedder-Policy');
-    expect(productionHeaders).toContain('Cross-Origin-Resource-Policy: cross-origin');
+    expect(productionHeaders).not.toContain('Cross-Origin-Resource-Policy');
 
     const netlifyConfig = readFileSync('src/netlify.toml', 'utf8');
     expect(netlifyConfig).not.toContain('cross-origin-opener-policy');
     expect(netlifyConfig).not.toContain('cross-origin-embedder-policy');
-    expect(netlifyConfig).toContain('cross-origin-resource-policy = "cross-origin"');
+    expect(netlifyConfig).not.toContain('cross-origin-resource-policy');
   });
 });

@@ -11,6 +11,3 @@
 /livecodes/assets/*
   ! cache-control
   cache-control: public, max-age=14400, must-revalidate
-
-/*
-  Cross-Origin-Resource-Policy: cross-origin

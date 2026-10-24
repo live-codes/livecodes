@@ -2,4 +2,3 @@
   for = "/*"
   [headers.values]
     access-control-allow-origin = "*"
-    cross-origin-resource-policy = "cross-origin"
