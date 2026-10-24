@@ -3,8 +3,8 @@
 /*
  * Persistent Popcorn worker runtime for LiveCodes Beam (Elixir/Erlang) Wasm.
  *
- * Based on the iframe runtime shipped with
- * `live-codes/elixir-browser-eval` (itself from Software Mansion Popcorn).
+ * Based on Software Mansion Popcorn's iframe runtime, originally vendored through
+ * `live-codes/elixir-browser-eval`.
  * The runtime is hosted in a Worker owned by the result window, not in an
  * iframe owned by the result document. `document.open()/write()/close()` used
  * by LiveReload replaces the document but keeps the window (and therefore this

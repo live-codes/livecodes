@@ -88,10 +88,10 @@ reported in `error`; the next run starts a fresh worker automatically. Use
 
 The Elixir toolchain compiled to WebAssembly, running on
 [AtomVM](https://github.com/atomvm/AtomVM) with the
-[Popcorn](https://popcorn.swmansion.com/) browser runtime. The single-threaded runtime is published
-as [`@hmh-3080/atomvm-wasm`](https://www.npmjs.com/package/@hmh-3080/atomvm-wasm); the Elixir
-and Erlang bytecode bundle is pinned to
-`live-codes/elixir-browser-eval@6b354dab35fb7454ba2812f935b52b398ca1bec8`.
+[Popcorn](https://popcorn.swmansion.com/) browser runtime. The single-threaded runtime and the
+Elixir/Erlang bytecode bundle are built from source in
+[`live-codes/browser-elixir`](https://github.com/live-codes/browser-elixir); this playground pins
+commit `e9bd2faed8eb6e2bcacd4b42f8b57ea26a770831`.
 
 ### Version
 
@@ -132,5 +132,5 @@ https://livecodes.io/?template=elixir-wasm
 - [Elixir documentation](https://hexdocs.pm/elixir/)
 - [Learn X in Y minutes, where X=Elixir](https://learnxinyminutes.com/elixir/)
 - [AtomVM](https://atomvm.org/)
-- [@hmh-3080/atomvm-wasm](https://www.npmjs.com/package/@hmh-3080/atomvm-wasm)
+- [browser-elixir](https://github.com/live-codes/browser-elixir)
 - [Popcorn: Elixir and Wasm](https://popcorn.swmansion.com/)
