@@ -32,6 +32,7 @@ import { getEditorTheme } from '../themes';
 import { getCompilerOptions } from '../ts-compiler-options';
 import { customThemes, monacoThemes } from './monaco-themes';
 import { registerTwoSlash } from './register-twoslash';
+import { getUnclosedTag } from './tag-utils';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
@@ -676,14 +677,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   });
 
   const addCloseTag = (event: Monaco.IKeyboardEvent) => {
-    // select enabled languages
-    const addCloseLanguages = ['html', 'markdown', 'javascript', 'typescript']; // enable js & ts for jsx & tsx
+    const monacoLanguage = mapLanguage(language, 'monaco');
+    // enable javascript & typescript only for jsx & tsx to avoid autocompleting TS generics
+    const isJsx = ['javascript', 'typescript'].includes(monacoLanguage) && hasJsx(language);
+    const addCloseLanguages = ['html', 'markdown'];
 
     const model = editor.getModel();
     if (
       !model ||
-      !addCloseLanguages.includes(mapLanguage(language, 'monaco')) ||
-      (mapLanguage(language, 'monaco') === 'typescript' && !hasJsx(language)) || // avoid autocompleting TS generics
+      (!addCloseLanguages.includes(monacoLanguage) && !isJsx) ||
       editorOptions.autoClosingBrackets === 'never'
     ) {
       return;
@@ -743,16 +745,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           endColumn: selection.endColumn,
         });
 
-        // if ends with a HTML tag we are currently closing
-        const match = contentBeforeChange.match(/<([\w-]+)(?![^>]*\/>)[^>]*$/);
-        if (!match) {
+        // if the cursor is inside an unclosed HTML tag we are currently closing
+        const tag = getUnclosedTag(contentBeforeChange, isJsx);
+        if (!tag) {
           continue;
         }
 
-        const [fullMatch, tag] = match;
-
         // skip self-closing tags like <br> or <img>
-        if (isSelfClosing(tag) || fullMatch.trim().endsWith('/')) {
+        if (isSelfClosing(tag)) {
           continue;
         }
 
