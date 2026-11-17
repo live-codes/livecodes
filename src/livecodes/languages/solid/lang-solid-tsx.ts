@@ -19,7 +19,7 @@ export const solidTsx: LanguageSpecs = {
       checkJs: true,
       strictNullChecks: true,
       jsx: 1, // monaco.languages.typescript.JsxEmit.Preserve,
-      jsxImportSource: 'solid-js',
+      jsxImportSource: '@solidjs/web',
       jsxFactory: 'JSX',
       jsxFragmentFactory: 'Fragment',
     },

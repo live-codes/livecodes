@@ -3,7 +3,10 @@ import { getLanguageCustomSettings } from '../../utils';
 
 (self as any).createSolidCompiler = (): CompilerFunction => {
   const Babel = (self as any).Babel;
-  Babel.registerPreset('solid', (self as any).babelPresetSolid.solid);
+  const solidPlugin = (self as any).SolidBabelPlugin.solid;
+  Babel.registerPreset('solid', (_api: any, options: any) => ({
+    plugins: [[solidPlugin, options]],
+  }));
   return async (code, { config, language }) => {
     const isTsx = language === 'solid.tsx';
     const customSettings = getLanguageCustomSettings('solid', config);
@@ -14,7 +17,7 @@ import { getLanguageCustomSettings } from '../../utils';
         ['env', { modules: false }],
         ...(Array.isArray(customSettings.presets) ? customSettings.presets : []),
         ...(isTsx ? ['typescript'] : []),
-        ['solid', { generate: 'dom', hydratable: true }],
+        ['solid', { generate: 'dom', hydratable: true, ...customSettings }],
       ],
     }).code;
   };
