@@ -24,6 +24,13 @@ export const solid: LanguageSpecs = {
       'solid-js/': modulesService.getModuleUrl('solid-js@2') + '/',
       '@solidjs/web': modulesService.getModuleUrl('@solidjs/web@2', { external: 'solid-js' }),
     },
+    types: {
+      '@solidjs/web/jsx-runtime': {
+        url: vendorsBaseUrl + 'types/solid-js-2-jsx.d.ts',
+        declareAsModule: false,
+        autoload: true,
+      },
+    },
   },
   extensions: ['solid.jsx'],
   editor: 'script',
