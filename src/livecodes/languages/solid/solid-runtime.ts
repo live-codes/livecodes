@@ -1,5 +1,5 @@
 export const solidRuntime = `
-import { render, createComponent } from "solid-js/web";
+import { render, createComponent } from "@solidjs/web";
 import App from "./script";
 (() => {
   if (typeof App !== "function") return;
