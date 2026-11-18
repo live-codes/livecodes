@@ -319,7 +319,7 @@ const x: number = 1;
 npm install remark remark-livecodes     # remark-livecodes
 npm install marked marked-livecodes     # marked-livecodes
 npm install markdown-it markdown-it-livecodes  # markdown-it-livecodes
-npm install gatsby-plugin-remark gatsby-remark-livecodes  # Gatsby
+npm install gatsby-transformer-remark gatsby-remark-livecodes  # Gatsby
 ```
 
 Install the host library alongside the LiveCodes plugin. Each plugin wraps a specific Markdown processor.
