@@ -146,6 +146,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Situs web resmi</2></1> <3> <4>Dokumentasi LiveCodes</4> </3>',
     name: 'EJS',
   },
+  elixirWasm: {
+    desc: 'Kompiler Elixir yang berjalan di WebAssembly, menggunakan <1>AtomVM</1>',
+    link: '<1> <2>Situs web Elixir</2> </1> <3> <4>Dokumentasi bahasa Elixir</4> </3> <5> <6>Pelajari X dalam Y menit, di mana X = Elixir</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Elixir (Wasm)',
+  },
   elm: {
     desc: 'Elm dikompilasi menjadi JavaScript di dalam browser melalui versi WebAssembly dari kompiler Elm.',
     link: '<1><2>Situs web resmi Elm</2></1> <3><4>Panduan Elm</4></3> <5> <6>Dokumentasi LiveCodes</6> </5> <7> <8>Muat templat awal</8> </7>',

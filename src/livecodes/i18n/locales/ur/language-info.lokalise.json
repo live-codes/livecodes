@@ -261,6 +261,15 @@
   "ejs.name": {
     "translation": "ای جے ایس"
   },
+  "elixirWasm.desc": {
+    "translation": "Elixir کمپائلر WebAssembly پر چل رہا ہے، استعمال کر رہا ہے <tag-1>AtomVM</tag-1>"
+  },
+  "elixirWasm.link": {
+    "translation": "<tag-1> <tag-2>Elixir ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>Elixir زبان کی دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>X=Elixir — Elixir کو چند منٹوں میں سیکھیں</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>اسٹارٹر ٹیمپلیٹ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "elixirWasm.name": {
+    "translation": "Elixir (Wasm)"
+  },
   "elm.desc": {
     "translation": "ایلم (Elm) کو براؤزر میں ایلم کمپائلر کے ویب اسمبلی (WebAssembly) بلڈ کے ذریعے جاوا اسکرپٹ میں کمپائل کیا جاتا ہے۔"
   },

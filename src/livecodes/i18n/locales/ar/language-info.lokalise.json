@@ -261,6 +261,15 @@
   "ejs.name": {
     "translation": "EJS"
   },
+  "elixirWasm.desc": {
+    "translation": "مترجم Elixir يعمل على WebAssembly، باستخدام <tag-1>AtomVM</tag-1>"
+  },
+  "elixirWasm.link": {
+    "translation": "<tag-1> <tag-2>موقع Elixir</tag-2> </tag-1> <tag-3> <tag-4>وثائق لغة Elixir</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقيقة، حيث X = Elixir</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البداية</tag-10> </tag-9>"
+  },
+  "elixirWasm.name": {
+    "translation": "Elixir (Wasm)"
+  },
   "elm.desc": {
     "translation": "يتم ترجمة لغة Elm إلى JavaScript في المتصفح بواسطة إصدار WebAssembly من مُترجم Elm."
   },

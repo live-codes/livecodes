@@ -27,7 +27,9 @@ import { daisyuiStarter } from './daisyui-starter';
 import { dartStarter } from './dart-starter';
 import { diagramsStarter } from './diagrams-starter';
 import { duckdbStarter } from './duckdb-starter';
+import { elixirWasmStarter } from './elixir-wasm-starter';
 import { elmStarter } from './elm-starter';
+import { erlangWasmStarter } from './erlang-wasm-starter';
 import { fanakStarter } from './fanak-starter';
 import { fennelStarter } from './fennel-starter';
 import { flutterStarter } from './flutter-starter';
@@ -160,6 +162,8 @@ export const starterTemplates = [
   cobolWasmStarter,
   fortranWasmStarter,
   dWasmStarter,
+  elixirWasmStarter,
+  erlangWasmStarter,
   vWasmStarter,
   rustWasmStarter,
   scalaStarter,

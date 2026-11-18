@@ -1002,6 +1002,7 @@ const translation: I18nTranslation = {
       daisyui: 'daisyUI شروعاتی',
       dart: 'Dart شروعاتی',
       diagrams: 'ڈایاگرامز شروعاتی',
+      'elixir-wasm': 'Elixir شروعاتی',
       elm: 'ایلم شروعاتی',
       fanak: 'Fanak شروعاتی',
       fennel: 'فینل شروعاتی',

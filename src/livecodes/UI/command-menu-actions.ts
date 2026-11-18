@@ -315,6 +315,8 @@ export const getCommandMenuActions = ({
         'd-wasm',
         'crystal-wasm',
         'odin-wasm',
+        'elixir-wasm',
+        'erlang-wasm',
         'v-wasm',
         'rust-wasm',
         'scala',

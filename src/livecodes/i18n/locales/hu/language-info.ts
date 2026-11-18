@@ -146,6 +146,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Hivatalos weboldal</2></1> <3> <4>LiveCodes dokumentáció</4> </3>',
     name: 'EJS',
   },
+  elixirWasm: {
+    desc: 'Az Elixir fordító WebAssembly-en fut, a <1>AtomVM</1> használatával',
+    link: '<1> <2>Az Elixir weboldala</2> </1> <3> <4>Az Elixir nyelv dokumentációja</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=Elixir</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Indító sablon betöltése</10> </9>',
+    name: 'Elixir (Wasm)',
+  },
   elm: {
     desc: 'Az Elm-et a böngészőben az Elm-fordító WebAssembly-verziója fordítja le JavaScript-re.',
     link: '<1><2>Az Elm hivatalos weboldala</2></1> <3><4>Elm útmutató</4></3> <5> <6>LiveCodes dokumentáció</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',

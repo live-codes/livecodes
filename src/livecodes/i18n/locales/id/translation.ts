@@ -1002,6 +1002,7 @@ const translation: I18nTranslation = {
       daisyui: 'Pemula daisyUI',
       dart: 'Pemula Dart',
       diagrams: 'Pemula Diagram',
+      'elixir-wasm': 'Pemula Elixir',
       elm: 'Pemula Elm',
       fanak: 'Pemula Fanak',
       fennel: 'Pemula Fennel',

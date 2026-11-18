@@ -1992,6 +1992,9 @@
   "templates.starter.duckdb": {
     "translation": "DuckDB स्टार्टर"
   },
+  "templates.starter.elixir-wasm": {
+    "translation": "Elixir स्टार्टर"
+  },
   "templates.starter.elm": {
     "translation": "Elm स्टार्टर"
   },

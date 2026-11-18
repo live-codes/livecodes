@@ -145,6 +145,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>公式ウェブサイト</2></1> <3> <4>LiveCodes ドキュメント</4> </3>',
     name: 'EJS',
   },
+  elixirWasm: {
+    desc: 'WebAssembly上で動作するElixirコンパイラ。<1>AtomVM を使用。</1>',
+    link: '<1> <2>Elixirのウェブサイト</2> </1> <3> <4>Elixir言語のドキュメント</4> </3> <5> <6>「XをY分で学ぶ」（X=Elixir）</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
+    name: 'Elixir (Wasm)',
+  },
   elm: {
     desc: 'Elmは、ElmコンパイラのWebAssemblyビルドによって、ブラウザ上でJavaScriptにコンパイルされます。',
     link: '<1><2>Elm公式サイト</2></1> <3><4>Elmガイド</4></3> <5> <6>LiveCodes ドキュメント</6> </5> <7> <8>スターターテンプレートの読み込み</8> </7>',

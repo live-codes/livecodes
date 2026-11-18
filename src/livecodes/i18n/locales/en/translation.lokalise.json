@@ -2656,9 +2656,17 @@
     "notes": "",
     "translation": "DuckDB Starter"
   },
+  "templates.starter.elixir-wasm": {
+    "notes": "",
+    "translation": "Elixir Starter"
+  },
   "templates.starter.elm": {
     "notes": "",
     "translation": "Elm Starter"
+  },
+  "templates.starter.erlang-wasm": {
+    "notes": "",
+    "translation": "Erlang Starter"
   },
   "templates.starter.fanak": {
     "notes": "",
