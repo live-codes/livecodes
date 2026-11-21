@@ -13,7 +13,9 @@ sendCorsHeaders();
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-if (!allowedOrigin($origin) || ($method !== 'GET' && $method !== 'POST')) {
+// same-origin GET/HEAD requests do not send an Origin header, so an absent
+// Origin must not be rejected (it is not an authorization boundary either way)
+if (($origin !== '' && !allowedOrigin($origin)) || ($method !== 'GET' && $method !== 'POST')) {
     http_response_code(403);
     echo 'Forbidden!';
     exit;
@@ -45,9 +47,14 @@ if ($method === 'POST' && $contentType !== '') {
 $response = fetchUrl($url, $method, $method === 'POST' ? $rawBody : null, $headers, 30);
 
 if (!$response['ok']) {
-    $status = $response['status'] > 0 ? $response['status'] : 502;
+    $status = $response['status'] >= 400 && $response['status'] < 600 ? $response['status'] : 502;
     http_response_code($status);
-    echo $response['statusText'] !== '' ? $response['statusText'] : 'Bad Gateway!';
+    // proxied content is untrusted: never render it as active content on this origin
+    header('Content-Type: text/plain; charset=utf-8');
+    header('X-Content-Type-Options: nosniff');
+    header("Content-Security-Policy: sandbox; default-src 'none'");
+    header('Content-Disposition: attachment');
+    echo 'Upstream request failed.';
     exit;
 }
 
@@ -55,4 +62,8 @@ $responseContentType = $response['headers']['content-type'] ?? '';
 if ($responseContentType !== '') {
     header('Content-Type: ' . $responseContentType);
 }
+// proxied content is untrusted: never render it as active content on this origin
+header('X-Content-Type-Options: nosniff');
+header("Content-Security-Policy: sandbox; default-src 'none'");
+header('Content-Disposition: attachment');
 echo $response['body'];
