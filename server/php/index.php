@@ -136,6 +136,7 @@ function logToAPI(array $data): void
                 'Content-Type' => 'application/json',
             ],
             2,
+            true,
         );
     } catch (Throwable $e) {
         // logging failures are ignored
