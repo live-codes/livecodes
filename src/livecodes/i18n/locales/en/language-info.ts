@@ -295,6 +295,11 @@ const languageInfo = {
     link: '<1> <2>Julia official website</2> </1> <3> <4>Julia documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Julia</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'Julia',
   },
+  kotlin: {
+    desc: 'Kotlin is compiled to JavaScript in the browser by the real Kotlin compiler (K2), built as a WebAssembly module. The program runs in the result page. Nothing is sent to a server.',
+    link: '<1> <2>Kotlin official website</2> </1> <3> <4>Kotlin documentation</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    name: 'Kotlin',
+  },
   less: {
     desc: "It's CSS, with just a little more.",
     link: '<1><2>Less official website</2></1> <3> <4>Learn X in Y minutes, where X=less</4> </3>',

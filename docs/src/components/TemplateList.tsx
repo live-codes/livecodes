@@ -86,6 +86,7 @@ const templates = [
   { name: 'teal', title: 'Teal Starter', thumbnail: 'teal.png' },
   { name: 'fennel', title: 'Fennel Starter', thumbnail: 'fennel.svg' },
   { name: 'julia', title: 'Julia Starter', thumbnail: 'julia.svg' },
+  { name: 'kotlin', title: 'Kotlin Starter', thumbnail: 'kotlin.svg' },
   { name: 'tcl', title: 'Tcl Starter', thumbnail: 'tcl.svg' },
   { name: 'ada-wasm', title: 'Ada (Wasm) Starter', thumbnail: 'ada.svg' },
   { name: 'pascal', title: 'Pascal Starter', thumbnail: 'pascal.png' },

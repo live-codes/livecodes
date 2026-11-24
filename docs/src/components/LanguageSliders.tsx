@@ -108,6 +108,7 @@ export default function Sliders() {
       { name: 'erlang-wasm', title: 'Erlang (Wasm)' },
       { name: 'rust-wasm', title: 'Rust (Wasm)' },
       { name: 'scala-wasm', title: 'Scala (Wasm)' },
+      { name: 'kotlin', title: 'Kotlin' },
       { name: 'swift-wasm', title: 'Swift (Wasm)' },
       { name: 'haskell', title: 'Haskell' },
       { name: 'haskell-wasm', title: 'Haskell (Wasm)' },

@@ -226,6 +226,7 @@ const iifeBuild = () =>
       'languages/assemblyscript/lang-assemblyscript-compiler.ts',
       'languages/astro/lang-astro-compiler.ts',
       'languages/clio/lang-clio-compiler.ts',
+      'languages/kotlin/lang-kotlin-compiler.ts',
       'languages/commonlisp/lang-commonlisp-script.ts',
       'languages/java-8/lang-java-8-script.ts',
       'languages/java-wasm/lang-java-wasm-script.ts',

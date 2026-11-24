@@ -2752,6 +2752,10 @@
     "notes": "",
     "translation": "Knockout Starter"
   },
+  "templates.starter.kotlin": {
+    "notes": "",
+    "translation": "Kotlin Starter"
+  },
   "templates.starter.lit": {
     "notes": "",
     "translation": "Lit Starter"

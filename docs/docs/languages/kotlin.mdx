@@ -1,0 +1,102 @@
+# Kotlin
+
+[Kotlin](https://kotlinlang.org/) is a statically typed language that combines object-oriented and
+functional programming. It targets the JVM, JavaScript and native platforms.
+
+In LiveCodes, Kotlin source is compiled **in the browser** by the real K2 compiler, itself compiled
+to WebAssembly. The compiler emits JavaScript, which runs in the
+[result page](../features/result.mdx). Nothing is sent to a server.
+
+:::info Note
+
+The compiler is about 32 MB (compressed) and is downloaded on the first run, which can take some
+time. It is cached by the browser afterwards.
+
+:::
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const kotlinConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'kotlin',
+    content: `fun main() {
+    val squares = (1..5).map { it * it }
+    println("squares: " + squares.joinToString(", "))
+    println("sum: " + squares.sum())
+}
+`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={kotlinConfig}></LiveCodes>
+
+### Standard I/O
+
+Kotlin code runs in the context of the result page, so it can use the DOM directly. Standard output
+(e.g. `println`) is captured and displayed in the [console](../features/console.mdx).
+
+:::caution Output buffering
+
+Kotlin/JS writes console output through a line buffer: `println` appears immediately, while `print`
+without a newline appears only once the line is completed.
+
+:::
+
+## Language Info
+
+### Name
+
+`kotlin`
+
+### Aliases / Extensions
+
+`kt`, `kts`, `kotlin`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The [Kotlin compiler](https://kotlinlang.org/) (K2), built as a WebAssembly module with Oracle
+GraalVM Web Image and packaged for LiveCodes by
+[`@live-codes/kotlin-wasm`](https://github.com/live-codes/browser-kotlin).
+
+### Version
+
+Kotlin 2.5.0-dev-9169
+
+## Code Formatting
+
+Not supported.
+
+## Limitations
+
+- Single file, standard library only. No third-party libraries, Gradle or multi-file projects.
+- Standard input is not supported.
+- The compiler requires a browser with [WasmGC](https://webassembly.org/roadmap/) support
+  (Chrome/Edge 119+, Firefox 120+, Safari 18.2+) and `DecompressionStream`.
+- No semantic completion or inline analysis (the compiler's Analysis API is not included).
+
+## Example Usage
+
+Clicking the counter updates it from Kotlin, which runs in the result page and drives the DOM
+directly:
+
+<LiveCodes template="kotlin" height="80vh"></LiveCodes>
+
+## Links
+
+- [Kotlin](https://kotlinlang.org/)
+- [Kotlin documentation](https://kotlinlang.org/docs/home.html)
+- [browser-kotlin](https://github.com/live-codes/browser-kotlin)

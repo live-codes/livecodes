@@ -342,6 +342,7 @@ export const getCommandMenuActions = ({
         'teal',
         'fennel',
         'julia',
+        'kotlin',
         'tcl',
         'ada-wasm',
         'pascal',

@@ -65,6 +65,7 @@ const storyDef: StoryDef = {
   ErlangWasm: { props: { template: 'erlang-wasm' } },
   RustWasm: { props: { template: 'rust-wasm' } },
   Scala: { props: { template: 'scala' } },
+  Kotlin: { props: { template: 'kotlin' } },
   SwiftWasm: { props: { template: 'swift-wasm' } },
   ZigWasm: { props: { template: 'zig-wasm' } },
   Java: { props: { template: 'java' } },
