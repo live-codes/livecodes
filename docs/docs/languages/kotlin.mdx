@@ -9,8 +9,9 @@ to WebAssembly. The compiler emits JavaScript, which runs in the
 
 :::info Note
 
-The compiler is about 32 MB (compressed) and is downloaded on the first run, which can take some
-time. It is cached by the browser afterwards.
+The compiler is about 30 MB (compressed) and is downloaded on the first run, which can take some
+time. It is cached by the browser afterwards. Libraries are fetched separately, only when a program
+imports one.
 
 :::
 
@@ -45,10 +46,94 @@ export const kotlinConfig = {
 Kotlin code runs in the context of the result page, so it can use the DOM directly. Standard output
 (e.g. `println`) is captured and displayed in the [console](../features/console.mdx).
 
+`System.out.println` and `System.err.println` are available as they are on the JVM and go to the
+console. `readLine`, `readln` and `readlnOrNull` exist but there is no console input, so they return
+`null` (and `readln` throws, as it does at end of input on the JVM). `System.exit` is accepted but does
+not stop the program, because the result page has already run it as a script. These are compiled
+alongside the program and cost nothing when unused.
+
 :::caution Output buffering
 
 Kotlin/JS writes console output through a line buffer: `println` appears immediately, while `print`
 without a newline appears only once the line is completed.
+
+:::
+
+## Working with the DOM
+
+Kotlin/JS is not JavaScript with different syntax, and habits from JS or TypeScript often do not
+compile. The three that catch people first:
+
+### A trailing lambda cannot be an event handler
+
+The JS style passes the handler last, but Kotlin's `addEventListener` declares `options` last:
+
+```kotlin
+// Does not compile: "No value passed for parameter 'callback'"
+button.addEventListener("click") {
+    count += 1
+}
+```
+
+Pass the handler as the second argument instead:
+
+```kotlin
+import kotlinx.browser.document
+
+fun main() {
+    var count = 0
+
+    fun render() {
+        document.getElementById("counter")?.textContent = count.toString()
+    }
+
+    document.getElementById("counter-button")?.addEventListener("click", {
+        count += 1
+        render()
+    })
+    render()
+}
+```
+
+The lambda is converted to the expected callback type, so no explicit cast is needed. A typed lambda
+(`{ _: Event -> … }`) or an explicit `EventListener { … }` also work if you prefer to be explicit.
+
+### Elements are nullable, and `getElementById` returns a platform type
+
+Every `getElementById` result may be absent, so use `?.`. Without it the program does not compile —
+which is helpful, but means JS code copied over usually needs `?.` added.
+
+### Kotlin's `document` is the typed DOM, not `dynamic`
+
+`import kotlinx.browser.document` gives the browser a real Kotlin type, so a call must match a real
+signature. The alternative — declaring `external val document: dynamic` — compiles anything and is
+what makes mismatched calls look fine until run time. Prefer the import.
+
+## Libraries
+
+Common Kotlin libraries are available and are downloaded the first time a program imports one, so a
+program that imports nothing pays nothing.
+
+```kotlin
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+
+@Serializable
+data class Point(val x: Int, val y: Int)
+
+fun main() {
+    println(Json.encodeToString(Point(2, 3)))
+}
+```
+
+Available: `kotlinx.browser`, `kotlinx.html`, `kotlinx.coroutines`, `kotlinx.collections.immutable`,
+`kotlinx.datetime`, `kotlinx.serialization` (including `@Serializable`), `kotlinx.atomicfu` and
+`kotlin.test`.
+
+:::note
+
+Each library is fetched on demand, so the first run using one is slower than later runs. The compiler
+itself is downloaded and cached separately.
 
 :::
 
@@ -82,8 +167,9 @@ Not supported.
 
 ## Limitations
 
-- Single file, standard library only. No third-party libraries, Gradle or multi-file projects.
-- Standard input is not supported.
+- Single file, no Gradle and no multi-file projects. Library support is limited to the set listed
+  under [Libraries](#libraries).
+- Standard input is not supported; `readLine` and friends read nothing.
 - The compiler requires a browser with [WasmGC](https://webassembly.org/roadmap/) support
   (Chrome/Edge 119+, Firefox 120+, Safari 18.2+) and `DecompressionStream`.
 - No semantic completion or inline analysis (the compiler's Analysis API is not included).

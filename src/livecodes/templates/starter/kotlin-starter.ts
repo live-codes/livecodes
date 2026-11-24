@@ -32,7 +32,7 @@ export const kotlinStarter: Template = {
   script: {
     language: 'kotlin',
     content: `
-external val document: dynamic
+import kotlinx.browser.document
 
 fun main() {
     var count = 0
@@ -42,10 +42,10 @@ fun main() {
         document.getElementById("counter")?.textContent = count.toString()
     }
 
-    document.getElementById("counter-button")?.addEventListener("click") {
+    document.getElementById("counter-button")?.addEventListener("click", {
         count += 1
         render()
-    }
+    })
     render()
 
     println("Hello from Kotlin!")
