@@ -98,6 +98,55 @@ const stdinPrelude = (code: string): string => {
   return `${lines.join('\n')}\n`;
 };
 
+/**
+ * The timing APIs Kotlin/JS is missing, for `System.currentTimeMillis()` and `Thread`.
+ *
+ * Timed examples (`val start = System.currentTimeMillis()` … `after ${…/1000F}s`)
+ * appear throughout the coroutines and threading tutorials, and neither call
+ * exists on Kotlin/JS. They are supplied here rather than in the compiler image so
+ * the image keeps working unchanged.
+ *
+ * `currentTimeMillis` is an extension function: the image already declares
+ * `object System`, so a second declaration would clash, while an extension on the
+ * existing object resolves a call that has no matching member.
+ *
+ * `Thread` is unavoidable as a declaration, since no such type exists. JavaScript
+ * has a single thread, so `currentThread().name` reports what the JVM would call
+ * the main thread; the name is what these examples print.
+ *
+ * Each part is skipped when the program declares it, and appended so user line
+ * numbers do not move.
+ */
+const jvmShims = (code: string): string => {
+  // Matched with the receiver: the declaration is `fun System.currentTimeMillis()`,
+  // so a bare `fun currentTimeMillis(` test would never see the program's own.
+  const defines = (name: string) =>
+    new RegExp(`\\bfun\\s+(?:[\\w.]+\\.)?${name}\\s*\\(`).test(code);
+  const lines: string[] = [];
+
+  if (!defines('currentTimeMillis')) {
+    lines.push(
+      '@JsFun("() => Date.now()")',
+      'external fun __livecodesNowMs(): Double',
+      '',
+      'fun System.currentTimeMillis(): Long = __livecodesNowMs().toLong()',
+      '',
+    );
+  }
+  if (!/\bclass\s+Thread\b/.test(code)) {
+    lines.push(
+      'class Thread private constructor(val name: String) {',
+      '    companion object {',
+      '        private val mainThread = Thread("main")',
+      '        fun currentThread(): Thread = mainThread',
+      '    }',
+      '}',
+      '',
+    );
+  }
+  return lines.join('\n');
+};
+
 /** `js`: one module, wrapped so its declarations stay out of the page's global scope. */
 const jsResult = (files: CompiledFile[]): CompileResult => {
   const module = files.find((file) => file.name === 'main.mjs');
@@ -147,7 +196,10 @@ const wasmResult = (files: CompiledFile[]): CompileResult => {
 
     try {
       const compiler = await getCompiler(target);
-      const source = target === 'wasm' ? `${code}\n${stdinPrelude(code)}` : code;
+      // The wasm target needs the line readers; the JS target needs the timing
+      // APIs. Both are appended, so diagnostics keep the user's line numbers.
+      const source =
+        target === 'wasm' ? `${code}\n${stdinPrelude(code)}` : `${code}\n${jvmShims(code)}`;
       const result: CompileOutcome = await compiler.compile(source);
 
       if (!result.ok) return compileFailure(result.errors);

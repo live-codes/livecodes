@@ -217,7 +217,9 @@ describe('kotlin compiler script', () => {
       expect(sources[0].startsWith(code)).toBe(true);
     });
 
-    test('the js target is untouched by the wasm prelude', async () => {
+    test('the js target does not get the wasm line readers', async () => {
+      // Each target gets only its own shims: the wasm prelude's `@JsFun` stdin
+      // hook is meaningless on js, where the readers already exist.
       const sources: string[] = [];
       installMock((source) => {
         sources.push(source);
@@ -227,7 +229,46 @@ describe('kotlin compiler script', () => {
 
       await compile('fun main() { println(readLine()) }');
 
-      expect(sources[0]).toBe('fun main() { println(readLine()) }');
+      expect(sources[0]).not.toContain('__livecodesKotlinStdin');
+      expect(sources[0].startsWith('fun main() { println(readLine()) }')).toBe(true);
+    });
+
+    test('the js target gets the timing shims for System and Thread', async () => {
+      // Tutorials call System.currentTimeMillis() and Thread.currentThread(),
+      // neither of which Kotlin/JS provides.
+      const sources: string[] = [];
+      installMock((source) => {
+        sources.push(source);
+        return js;
+      });
+      const compile = await loadCompiler();
+
+      const code = 'fun main() { println(System.currentTimeMillis()) }';
+      await compile(code);
+
+      expect(sources[0].startsWith(code)).toBe(true);
+      expect(sources[0]).toContain('fun System.currentTimeMillis(): Long');
+      expect(sources[0]).toContain('class Thread');
+    });
+
+    test('the timing shims are skipped when the program declares its own', async () => {
+      const sources: string[] = [];
+      installMock((source) => {
+        sources.push(source);
+        return js;
+      });
+      const compile = await loadCompiler();
+
+      const code = [
+        'class Thread private constructor(val name: String) {',
+        '    companion object { fun currentThread(): Thread = Thread("custom") }',
+        '}',
+        'fun System.currentTimeMillis(): Long = 0L',
+      ].join('\n');
+      await compile(code);
+
+      expect(sources[0].match(/class Thread/g)).toHaveLength(1);
+      expect(sources[0].match(/fun System\.currentTimeMillis\(/g)).toHaveLength(1);
     });
   });
 

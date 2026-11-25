@@ -239,6 +239,57 @@ itself is downloaded and cached separately.
 
 :::
 
+### Coroutines
+
+`kotlinx.coroutines` is available on the JavaScript target: `launch`, `async`, `coroutineScope`,
+`delay` and the dispatchers all work, and `suspend fun main()` is supported.
+
+There are no threads in JavaScript, so `runBlocking` does not exist on Kotlin/JS — use `coroutineScope`
+inside `suspend fun main()`, or launch from `GlobalScope` and let the page keep running.
+
+```kotlin
+import kotlinx.coroutines.*
+
+suspend fun main() {
+    coroutineScope {
+        for (i in 1..3) {
+            launch {
+                delay(100L * i)
+                println("tick $i")
+            }
+        }
+    }
+    println("done")
+}
+```
+
+`System.currentTimeMillis()` and `Thread.currentThread()` are supplied for the JavaScript target, since
+tutorials use them for timing but Kotlin/JS has neither. Because there is one thread, `Thread.currentThread().name`
+is `main`.
+
+### Tests
+
+`kotlin.test` is available on the JavaScript target; assertions such as `assertEquals` and `assertTrue`
+work, and a failed assertion throws (`AssertionError: Expected <5>, actual <4>.`), which appears in the
+[console](../features/console.mdx).
+
+```kotlin
+import kotlin.test.*
+
+fun main() {
+    assertEquals(4, 2 + 2)
+    assertTrue(listOf(1, 2).size == 2)
+    println("all assertions passed")
+}
+```
+
+:::note
+
+The test results appear as console output, not in the Tests pane: that pane runs JavaScript tests written
+for [the test runner](../features/tests.mdx), not `kotlin.test` assertions.
+
+:::
+
 ## Working with the DOM
 
 Kotlin/JS is not JavaScript with different syntax, and habits from JS or TypeScript often do not
