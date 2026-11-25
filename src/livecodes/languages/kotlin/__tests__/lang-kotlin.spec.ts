@@ -2,6 +2,13 @@ import { kotlin } from '../lang-kotlin';
 
 const compiler = kotlin.compiler as any;
 
+const wasmConfig = { customSettings: { kotlin: { target: 'wasm' } } } as any;
+const jsConfig = { customSettings: {} } as any;
+const jsExplicit = { customSettings: { kotlin: { target: 'js' } } } as any;
+
+const evaluate = (value: unknown, config: any) =>
+  typeof value === 'function' ? (value as any)({ config, baseUrl: 'BASE/' }) : value;
+
 describe('Kotlin language spec', () => {
   test('is registered as kotlin, with the compile worker script', () => {
     expect(kotlin.name).toBe('kotlin');
@@ -9,12 +16,34 @@ describe('Kotlin language spec', () => {
     expect(typeof compiler).toBe('object');
   });
 
-  test('compiles to JavaScript, so it declares no wasm script type', () => {
-    // Kotlin/JS output is a plain script; the result page runs it directly.
-    expect(compiler.scriptType).toBeUndefined();
-    expect(compiler.compiledCodeLanguage).toBeUndefined();
-    expect(compiler.scripts).toBeUndefined();
-    expect(compiler.liveReload).toBeUndefined();
+  test('defaults to the js target: no wasm script type, no runtime script', () => {
+    // Existing projects do not set a target, so they must keep compiling to JS.
+    expect(evaluate(compiler.scriptType, jsConfig)).toBeUndefined();
+    expect(evaluate(compiler.compiledCodeLanguage, jsConfig)).toBeUndefined();
+    expect(evaluate(compiler.scripts, jsConfig)).toEqual([]);
+  });
+
+  test('target: js behaves the same as the default', () => {
+    expect(evaluate(compiler.scriptType, jsExplicit)).toBeUndefined();
+    expect(evaluate(compiler.scripts, jsExplicit)).toEqual([]);
+  });
+
+  test('target: wasm declares the typed script and its result-page runtime', () => {
+    expect(evaluate(compiler.scriptType, wasmConfig)).toBe('text/kotlin-wasm');
+    expect(evaluate(compiler.scripts, wasmConfig)).toHaveLength(1);
+  });
+
+  test('the wasm runtime script is a separate build entry', () => {
+    // `{{hash:...}}` is rewritten at build time, so the name must match build.js.
+    expect(evaluate(compiler.scripts, wasmConfig)[0]).toContain('lang-kotlin-wasm-script.js');
+  });
+
+  test('the compiled tab shows the emitted files as JSON for wasm', () => {
+    expect(evaluate(compiler.compiledCodeLanguage, wasmConfig)).toBe('json');
+  });
+
+  test('live reload is on, so wasm programs re-run without a page reload', () => {
+    expect(compiler.liveReload).toBe(true);
   });
 
   test('loads the compiler script in the compile worker', () => {

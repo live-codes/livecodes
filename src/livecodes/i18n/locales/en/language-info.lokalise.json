@@ -678,11 +678,11 @@
   },
   "kotlin.desc": {
     "notes": "",
-    "translation": "Kotlin is compiled to JavaScript in the browser by the real Kotlin compiler (K2), built as a WebAssembly module. The program runs in the result page. Nothing is sent to a server."
+    "translation": "Kotlin is compiled in the browser by the real Kotlin compiler (K2), built as a WebAssembly module. It emits JavaScript by default, or WebAssembly when the target is set to wasm. The program runs in the result page. Nothing is sent to a server."
   },
   "kotlin.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://kotlinlang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://kotlinlang.org/docs/home.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/kotlin\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=kotlin\" class=\"button\" target=\"_parent\" data-template=\"kotlin\" />\n\n",
-    "translation": "<tag-1> <tag-2>Kotlin official website</tag-2> </tag-1> <tag-3> <tag-4>Kotlin documentation</tag-4> </tag-3> <tag-5> <tag-6>LiveCodes Documentation</tag-6> </tag-5> <tag-7> <tag-8>Load starter template</tag-8> </tag-7>"
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://kotlinlang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://kotlinlang.org/docs/home.html\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/kotlin/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}languages/kotlin\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"?template=kotlin\" class=\"button\" target=\"_parent\" data-template=\"kotlin\" />\n\n",
+    "translation": "<tag-1> <tag-2>Kotlin official website</tag-2> </tag-1> <tag-3> <tag-4>Kotlin documentation</tag-4> </tag-3> <tag-5> <tag-6>Learn X in Y minutes, where X=Kotlin</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Documentation</tag-8> </tag-7> <tag-9> <tag-10>Load starter template</tag-10> </tag-9>"
   },
   "kotlin.name": {
     "notes": "",

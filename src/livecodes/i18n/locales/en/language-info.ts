@@ -296,8 +296,8 @@ const languageInfo = {
     name: 'Julia',
   },
   kotlin: {
-    desc: 'Kotlin is compiled to JavaScript in the browser by the real Kotlin compiler (K2), built as a WebAssembly module. The program runs in the result page. Nothing is sent to a server.',
-    link: '<1> <2>Kotlin official website</2> </1> <3> <4>Kotlin documentation</4> </3> <5> <6>LiveCodes Documentation</6> </5> <7> <8>Load starter template</8> </7>',
+    desc: 'Kotlin is compiled in the browser by the real Kotlin compiler (K2), built as a WebAssembly module. It emits JavaScript by default, or WebAssembly when the target is set to wasm. The program runs in the result page. Nothing is sent to a server.',
+    link: '<1> <2>Kotlin official website</2> </1> <3> <4>Kotlin documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Kotlin</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Kotlin',
   },
   less: {
