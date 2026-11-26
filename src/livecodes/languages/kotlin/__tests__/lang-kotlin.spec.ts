@@ -42,8 +42,11 @@ describe('Kotlin language spec', () => {
     expect(evaluate(compiler.compiledCodeLanguage, wasmConfig)).toBe('json');
   });
 
-  test('live reload is on, so wasm programs re-run without a page reload', () => {
-    expect(compiler.liveReload).toBe(true);
+  test('does not use live reload', () => {
+    // The live-reload path posts the result into the existing iframe and resolves
+    // without any loading->false message, so the tools-pane spinner never hides.
+    // Every run therefore replaces the result page.
+    expect(compiler.liveReload).toBeUndefined();
   });
 
   test('loads the compiler script in the compile worker', () => {

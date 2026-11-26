@@ -146,10 +146,25 @@ module.
 
 `println` and `print` write to the [console](../features/console.mdx) on both targets.
 
-:::caution Output buffering
+Kotlin/JS buffers console output until a newline, so a program that ends with `print` would lose its
+last partial line. LiveCodes flushes that buffer when `main` returns, so nothing is lost — including
+the common tutorial shape below, which ends with `print`.
 
-Kotlin/JS writes console output through a line buffer: `println` appears immediately, while `print`
-without a newline appears only once the line is completed.
+```kotlin
+fun main() {
+    println("Hi!")
+    print("Current count:")
+    for (i in 0..10) {
+        print(" $i")
+    }
+}
+```
+
+:::note
+
+This flush happens when `main` returns. Output printed later, from a coroutine still running after
+`main` has finished, appears in the console as it arrives but is not included in the value returned by
+`livecodes.kotlin.run`.
 
 :::
 

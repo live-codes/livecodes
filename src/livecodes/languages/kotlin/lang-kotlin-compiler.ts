@@ -147,14 +147,28 @@ const jvmShims = (code: string): string => {
   return lines.join('\n');
 };
 
-/** `js`: one module, wrapped so its declarations stay out of the page's global scope. */
+/**
+ * `js`: one module, wrapped so its declarations stay out of the page's global scope.
+ *
+ * The trailing flush matters: Kotlin/JS writes console output through a line
+ * buffer that only flushes on a newline. A program that ends with `print` — which
+ * tutorials do constantly — would otherwise lose everything after its last
+ * `println`. `mainWrapper()` is the compiler's own top-level call, so flushing
+ * immediately after it covers the end of `main`.
+ */
 const jsResult = (files: CompiledFile[]): CompileResult => {
   const module = files.find((file) => file.name === 'main.mjs');
   if (!module) {
     return { code: '', info: { errors: ['The Kotlin compiler produced no JavaScript.'] } };
   }
+  const flush = [
+    '  // Kotlin/JS buffers stdout until a newline; flush whatever `print` left.',
+    '  try { get_output().flush_shahbo_k$(); } catch (e) {}',
+  ].join('\n');
+  // A module without `main` has no wrapper to hook; `replace` then leaves it alone.
+  const content = module.content.replace(/^mainWrapper\(\);$/m, `mainWrapper();\n${flush}`);
   // Nim's JavaScript backend is wrapped the same way.
-  return { code: `(() => {\n${module.content}\n})();`, info: {} };
+  return { code: `(() => {\n${content}\n})();`, info: {} };
 };
 
 /**

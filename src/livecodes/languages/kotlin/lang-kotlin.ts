@@ -30,7 +30,6 @@ export const kotlin: LanguageSpecs = {
     scriptType: ({ config }) => (isWasm(config) ? 'text/kotlin-wasm' : undefined),
     // Mirrors `scriptType`: the compiled tab shows the emitted files as JSON.
     compiledCodeLanguage: ({ config }) => (isWasm(config) ? 'json' : undefined),
-    liveReload: true,
   },
   extensions: ['kt', 'kts', 'kotlin'],
   editor: 'script',

@@ -42,11 +42,19 @@ const loadCompiler = async (): Promise<(code: string, config?: any) => Promise<a
 };
 
 describe('kotlin compiler script', () => {
+  // Shaped like real Kotlin/JS output: a main function and the compiler's own
+  // top-level call, which is where the output buffer gets flushed.
   const js: CompileOutcome = {
     ok: true,
     compileMs: 1200,
     errors: [],
-    files: [{ name: 'main.mjs', content: 'function main(){}\nmain();', encoding: 'utf8' }],
+    files: [
+      {
+        name: 'main.mjs',
+        content: 'function main(){}\nfunction mainWrapper() {\n  main();\n}\nmainWrapper();',
+        encoding: 'utf8',
+      },
+    ],
   };
 
   afterEach(() => {
@@ -59,16 +67,33 @@ describe('kotlin compiler script', () => {
     }
   });
 
-  test('returns the emitted module wrapped in its own scope', async () => {
+  test('returns the emitted module wrapped in its own scope, flushing the output buffer', async () => {
     const calls = createInWorkerCompilerMock(js);
     const compile = await loadCompiler();
 
-    expect(await compile('fun main() {}')).toEqual({
-      code: '(() => {\nfunction main(){}\nmain();\n})();',
-      info: {},
-    });
+    const result: any = await compile('fun main() {}');
+    expect(result.info).toEqual({});
+    // Wrapped, so the module's declarations stay off the page's global scope.
+    expect(result.code.startsWith('(() => {\n')).toBe(true);
+    expect(result.code.endsWith('\n})();')).toBe(true);
+    // Kotlin/JS buffers stdout; `print` would be lost without this flush.
+    expect(result.code).toContain('mainWrapper();');
+    expect(result.code).toContain('get_output().flush_shahbo_k$()');
     // The JS target is what a result page can run.
     expect(calls[0]).toMatchObject({ target: 'js' });
+  });
+
+  test('a module with no main wrapper is passed through unchanged', async () => {
+    // Not every program produces mainWrapper(); nothing should be invented.
+    createInWorkerCompilerMock({
+      ...js,
+      files: [{ name: 'main.mjs', content: 'var x = 1;', encoding: 'utf8' }],
+    });
+    const compile = await loadCompiler();
+
+    const result: any = await compile('fun helper() {}');
+    expect(result.code).toBe('(() => {\nvar x = 1;\n})();');
+    expect(result.code).not.toContain('flush_shahbo_k$');
   });
 
   test('an empty program short-circuits without loading the toolchain', async () => {
