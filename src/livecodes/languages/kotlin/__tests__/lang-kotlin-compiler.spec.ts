@@ -4,12 +4,12 @@
 //
 // `createCompiler` - not `createInWorkerCompiler` - is what the script uses: it
 // starts a worker per target, because one worker cannot host two GraalVM images.
-type CompileOutcome = {
+interface CompileOutcome {
   ok: boolean;
   compileMs: number;
   errors: string[];
-  files: { name: string; content: string; encoding: 'utf8' | 'base64' }[];
-};
+  files: Array<{ name: string; content: string; encoding: 'utf8' | 'base64' }>;
+}
 
 /** Installs a mock package on `self`; `compile` receives the source text. */
 const installMock = (compile: (source: string) => CompileOutcome, calls: unknown[] = []) => {
@@ -138,6 +138,13 @@ describe('kotlin compiler script', () => {
       code: '',
       info: { errors: ['Failed to fetch'] },
     });
+
+    // The failure clears the memoised promise, so the next call loads again.
+    const calls = createInWorkerCompilerMock(js);
+    const result: any = await compile('fun main() {}');
+    expect(result.info).toEqual({});
+    expect(result.code).toContain('mainWrapper();');
+    expect(calls).toHaveLength(1);
   });
 
   describe('target: wasm', () => {
@@ -175,14 +182,21 @@ describe('kotlin compiler script', () => {
     });
 
     test('the payload cannot close the script element it is embedded in', async () => {
-      const calls = createInWorkerCompilerMock(wasm);
+      // A file that really contains `</script>`, not just a hypothetical one.
+      const content = 'export const _start = "</script><script>alert(1)</script>";';
+      installMock(() => ({
+        ...wasm,
+        files: wasm.files.map((file) => (file.name === 'main.mjs' ? { ...file, content } : file)),
+      }));
       const compile = await loadCompiler();
-      await compile('fun main() {}', wasmConfig);
 
       // Any `<` would allow `</script>` to appear inside the JSON.
       const result = await compile('fun main() {}', wasmConfig);
       expect(result.code).not.toContain('<');
-      expect(calls.length).toBeGreaterThan(0);
+
+      // Escaping must not alter the file the result page rebuilds.
+      const payload = JSON.parse(result.code);
+      expect(payload.find((file: any) => file.name === 'main.mjs').content).toBe(content);
     });
 
     test('reports a missing output file instead of producing an unrunnable payload', async () => {

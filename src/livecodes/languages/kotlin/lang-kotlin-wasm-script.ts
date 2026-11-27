@@ -1,5 +1,4 @@
 import { getErrorMessage } from '../../utils/utils';
-import { kotlinWasmBaseUrl } from '../../vendors';
 
 // Runs in the result page when `customSettings.kotlin.target` is `wasm`.
 //
@@ -9,8 +8,10 @@ import { kotlinWasmBaseUrl } from '../../vendors';
 // the Blob URL that replaces it. `main.mjs` instantiates the module and calls
 // `_start()` on import, so importing it runs the program.
 //
-// Console output needs no work: Kotlin/Wasm's `println` calls the page's
-// `console.log`, which LiveCodes already captures.
+// Output reaches JavaScript through the generated import object: `println` calls
+// `console.log`, while `print` calls a global `write` hook when one is installed
+// and otherwise falls back to `console.log`. Both are captured while the program
+// runs.
 
 const SCRIPT_TYPE = 'text/kotlin-wasm';
 
@@ -153,10 +154,12 @@ const installStdin = (input: string) => {
 /**
  * Records what the program prints while it runs.
  *
- * Kotlin/Wasm reaches JavaScript for output through hooks the compiler generates
- * in `main.import-object.mjs` — `kotlin.io.printlnImpl` and `printImpl` both end
- * in `console.log`. So capturing means observing `console` for the duration of
- * the run.
+ * Kotlin/Wasm reaches JavaScript for output through the compiler-generated
+ * `main.import-object.mjs`: `kotlin.io.printlnImpl` calls `console.log`, while
+ * `printImpl` calls a global `write` when one exists and otherwise falls back to
+ * `console.log`. Installing `write` therefore preserves the distinction — a
+ * trailing `print` does not become a line of its own, and consecutive prints are
+ * joined with the next `println`.
  *
  * The whole `window.console` value is swapped, rather than assigning to its
  * methods: LiveCodes replaces `console` with a Proxy whose `set` would land on
@@ -168,14 +171,24 @@ const installStdin = (input: string) => {
  */
 const captureOutput = () => {
   const original = window.console;
+  const originalWrite = (window as any).write;
   const printed: string[] = [];
+  let pending = '';
+
+  const forward = (text: string) => {
+    // eslint-disable-next-line no-console
+    console.log(text);
+  };
 
   const capturing = new Proxy(original, {
     get(target, property, receiver) {
       if (property === 'log' || property === 'info' || property === 'debug') {
         return (...args: unknown[]) => {
-          printed.push(args.map(String).join(' '));
-          (target[property] as (...a: unknown[]) => void).apply(target, args);
+          // A preceding `print` belongs on the same line as this one.
+          const text = pending + args.map(String).join(' ');
+          pending = '';
+          printed.push(text);
+          (target[property] as (...a: unknown[]) => void).apply(target, [text]);
         };
       }
       return Reflect.get(target, property, receiver);
@@ -183,14 +196,27 @@ const captureOutput = () => {
   });
 
   window.console = capturing;
+  (window as any).write = (text: unknown) => {
+    pending += String(text);
+  };
 
   return () => {
     window.console = original;
+    if (originalWrite === undefined) {
+      delete (window as any).write;
+    } else {
+      (window as any).write = originalWrite;
+    }
+    if (pending) {
+      printed.push(pending);
+      forward(pending);
+      pending = '';
+    }
     return printed.length ? printed.join('\n') : null;
   };
 };
 
-kotlin.run = async (input?: string) => {
+const runNow = async (input?: string) => {
   const stdin = `${input ?? kotlin.input ?? ''}`;
   kotlin.input = stdin;
   installStdin(stdin);
@@ -228,6 +254,16 @@ kotlin.run = async (input?: string) => {
   }
 };
 
+// Runs start one at a time: each captures and restores the console and the stdin
+// hook, so overlapping runs would restore each other's wrappers and read each
+// other's input. A failed run still lets the next one start.
+let runQueue: Promise<unknown> = Promise.resolve();
+kotlin.run = (input?: string) => {
+  const result = runQueue.then(() => runNow(input));
+  runQueue = result.catch(() => undefined);
+  return result;
+};
+
 kotlin.loaded = new Promise<void>((resolve, reject) => {
   const interval = setInterval(() => {
     if (kotlin.failed) {
@@ -241,11 +277,9 @@ kotlin.loaded = new Promise<void>((resolve, reject) => {
 });
 
 window.addEventListener('load', async () => {
-  parent.postMessage({ type: 'loading', payload: true }, '*');
+  // A LiveCodes result can be embedded by any origin, so the wildcard is the only
+  // target that works for a self-hosted playground on an arbitrary domain.
+  parent.postMessage({ type: 'loading', payload: true }, '*'); // NOSONAR
   await kotlin.run(kotlin.input);
-  parent.postMessage({ type: 'loading', payload: false }, '*');
+  parent.postMessage({ type: 'loading', payload: false }, '*'); // NOSONAR
 });
-
-// Keep the base URL referenced so the asset location stays discoverable from this
-// file; the compiler itself lives in the compile worker.
-void kotlinWasmBaseUrl;

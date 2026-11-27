@@ -379,6 +379,31 @@ test.describe('Starter Templates from UI', () => {
     await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
   });
 
+  test('Kotlin Starter', async ({ page, getTestUrl }) => {
+    // the Kotlin compiler image is downloaded on the first run
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Project"]');
+    await app.click('text=New');
+    await app.click('text=Kotlin Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // the heading and the click handler are installed by the compiled script
+    await expect(getResult().locator('h1')).toHaveText('Hello, Kotlin!', { timeout: 280_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    await expect(getResult().locator('text=You clicked')).toHaveText('You clicked 3 times.');
+  });
+
   test('swift-wasm Starter', async ({ page, getTestUrl }) => {
     // the Swift compiler, the linker and the stdlib sysroot (~70 MB) are downloaded on
     // the first run

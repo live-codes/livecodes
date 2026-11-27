@@ -7,7 +7,10 @@
  * still reaches the console, and that a failed run reports an error.
  */
 
-type Counter = { captured: string[]; forwarded: string[] };
+interface Counter {
+  captured: string[];
+  forwarded: string[];
+}
 
 const loadRuntime = async (): Promise<{ counter: Counter; api: any }> => {
   // LiveCodes installs a Proxy over the native console; reproduce that shape so a
@@ -75,5 +78,47 @@ describe('kotlin wasm result-page runtime', () => {
     expect(result.error).toMatch(/incomplete/);
     expect(result.exitCode).toBe(1);
     script.remove();
+  });
+
+  test('joins print with the next println and forwards the line to the console', async () => {
+    const { counter, api } = await loadRuntime();
+    const script = document.createElement('script');
+    script.type = 'text/kotlin-wasm';
+    script.textContent = JSON.stringify([
+      { name: 'main.mjs', content: 'export const _start = 1;', encoding: 'utf8' },
+      { name: 'main.import-object.mjs', content: 'export const x = 1;', encoding: 'utf8' },
+      { name: 'main.js-builtins.mjs', content: 'export const y = 1;', encoding: 'utf8' },
+      { name: 'main.wasm', content: '', encoding: 'base64' },
+    ]);
+    document.body.appendChild(script);
+
+    // A Blob-URL operation emitting output and then failing exercises capture
+    // without running a real Wasm program.
+    const originalCreate = URL.createObjectURL;
+    const originalRevoke = URL.revokeObjectURL;
+    let emitted = false;
+    URL.createObjectURL = () => {
+      if (!emitted) {
+        emitted = true;
+        const w = (globalThis as any).window;
+        w.write('a');
+        w.write('b');
+        w.console.log('c');
+      }
+      return 'blob:stub';
+    };
+    URL.revokeObjectURL = () => undefined;
+
+    try {
+      const result = await api.run('');
+      // `print` does not end the line; the following `println` does.
+      expect(result.output).toBe('abc');
+      expect(counter.captured).toContain('abc');
+      expect(counter.forwarded).toContain('log: abc');
+    } finally {
+      URL.createObjectURL = originalCreate;
+      URL.revokeObjectURL = originalRevoke;
+      script.remove();
+    }
   });
 });

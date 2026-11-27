@@ -190,7 +190,7 @@ program printed to standard output.
 `System.exit` is accepted but does not stop the program: the lines after it still run, and the exit
 code stays `0` unless the program throws.
 
-An uncaught exception aborts the program, prints its stack trace, and sets `exitCode` to `1` and
+An uncaught exception aborts the program, prints its error message, and sets `exitCode` to `1` and
 `livecodes.kotlin.error` to the message.
 
 ### Communication with JavaScript
