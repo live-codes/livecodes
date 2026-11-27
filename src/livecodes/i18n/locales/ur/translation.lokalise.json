@@ -2061,6 +2061,9 @@
   "templates.starter.knockout": {
     "translation": "ناک آؤٹ شروعاتی"
   },
+  "templates.starter.kotlin": {
+    "translation": "Kotlin شروعاتی"
+  },
   "templates.starter.lit": {
     "translation": "لٹ شروعاتی"
   },

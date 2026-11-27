@@ -1025,6 +1025,7 @@ const translation: I18nTranslation = {
       jquery: 'Pemula jQuery',
       julia: 'Pemula Julia',
       knockout: 'Pemula Knockout',
+      kotlin: 'Pemula Kotlin',
       lit: 'Pemula Lit',
       livescript: 'Pemula LiveScript',
       loading: 'Memuat template pemula...',

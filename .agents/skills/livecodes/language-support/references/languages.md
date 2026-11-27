@@ -151,6 +151,7 @@ Enabled via `processors` config:
 | Haskell                     | `haskell`, `hs`, `lhs`                                                              | MicroHs (not GHC)                                     |
 | Haskell (Wasm)              | `haskell-wasm`, `hs-wasm`, `wasm.hs`, `hswasm`                                      | GHC WASM                                              |
 | Rust (Wasm)                 | `rust-wasm`, `rs-wasm`, `wasm.rs`                                                   | Rust WASM                                             |
+| Kotlin                      | `kotlin`, `kt`, `kts`                                                               | K2 compiler (WASM); JS or Wasm target                 |
 | Scala (Wasm)                | `scala-wasm`, `scala`, `wasm.scala`                                                 | Scala 3 compiler + Scala.js linker (WASM)             |
 | Swift (Wasm)                | `swift-wasm`, `swift`, `wasm.swift`                                                 | Swift WASM                                            |
 | Zig (Wasm)                  | `zig-wasm`, `zig`                                                                   | Zig WASM                                              |

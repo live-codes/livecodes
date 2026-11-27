@@ -286,6 +286,8 @@ Rust (compiler and standard library): [MIT License](https://github.com/rust-lang
 
 Scala 3 compiler and Scala.js (provided by [scala-toolchain-wasm](https://github.com/tothambrus11/scala-toolchain-wasm)): [Apache License 2.0](https://github.com/scala/scala3/blob/main/LICENSE) and [Apache License 2.0](https://github.com/scala-js/scala-js/blob/main/LICENSE). The bundled Java class library (`rt.jar`) is [GPL-2.0 with the Classpath Exception](https://openjdk.org/legal/gplv2+ce.html).
 
+@live-codes/kotlin-wasm: [Apache License 2.0](https://github.com/live-codes/browser-kotlin/blob/4264c857d4c38ad7696188fabfc318eaa3d5f8ca/packages/kotlin-wasm/LICENSE).
+
 Sass.js: [MIT License](https://github.com/medialize/sass.js/blob/71d9bed2cad10969efda9905aa1bddacc480f372/LICENSE)
 
 SnackBar: [MIT License](https://github.com/egoist/snackbar/blob/4bc2fb7afd32d53a39661418fa5189dbb6e4aa86/LICENSE)

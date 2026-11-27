@@ -1023,6 +1023,7 @@ const translation: I18nTranslation = {
       jquery: 'jQuery 启动模板',
       julia: 'Julia 启动模板',
       knockout: 'Knockout 启动模板',
+      kotlin: 'Kotlin 启动模板',
       lit: 'Lit 启动模板',
       livescript: 'LiveScript 启动模板',
       loading: '正在加载启动模板...',

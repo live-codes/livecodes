@@ -498,6 +498,15 @@
   "julia.name": {
     "translation": "Julia"
   },
+  "kotlin.desc": {
+    "translation": "Kotlin को ब्राउज़र में वास्तविक Kotlin कंपाइलर (K2) द्वारा कंपाइल किया जाता है, जिसे WebAssembly मॉड्यूल के रूप में बनाया गया है। यह डिफ़ॉल्ट रूप से JavaScript उत्पन्न करता है, या जब लक्ष्य wasm पर सेट होता है तो WebAssembly। प्रोग्राम परिणाम पृष्ठ में चलता है। सर्वर को कुछ भी नहीं भेजा जाता है।"
+  },
+  "kotlin.link": {
+    "translation": "<tag-1> <tag-2>Kotlin आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Kotlin दस्तावेज़ीकरण</tag-4> </tag-3> <tag-5> <tag-6>X को Y मिनटों में सीखें, जहां X=Kotlin</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes दस्तावेज़ीकरण</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
+  },
+  "kotlin.name": {
+    "translation": "Kotlin"
+  },
   "less.desc": {
     "translation": "यह CSS है, बस थोड़ा और के साथ।"
   },

@@ -1026,6 +1026,7 @@ const translation: I18nTranslation = {
       jquery: 'jQuery Başlangıç',
       julia: 'Julia Başlangıç',
       knockout: 'Knockout Başlangıç',
+      kotlin: 'Kotlin Başlangıç',
       lit: 'Lit Başlangıç',
       livescript: 'LiveScript Başlangıç',
       loading: 'Başlangıç şablonları yükleniyor...',

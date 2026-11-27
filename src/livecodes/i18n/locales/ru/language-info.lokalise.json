@@ -498,6 +498,15 @@
   "julia.name": {
     "translation": "Julia"
   },
+  "kotlin.desc": {
+    "translation": "Kotlin компилируется в браузере настоящим компилятором Kotlin (K2), собранным как модуль WebAssembly. По умолчанию он создает JavaScript или WebAssembly, когда целью выбрано wasm. Программа выполняется на странице результатов. Ничего не отправляется на сервер."
+  },
+  "kotlin.link": {
+    "translation": "<tag-1> <tag-2>Официальный сайт Kotlin</tag-2> </tag-1> <tag-3> <tag-4>Документация Kotlin</tag-4> </tag-3> <tag-5> <tag-6>Изучите X за Y минут, где X=Kotlin</tag-6> </tag-5> <tag-7> <tag-8>Документация LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Загрузить стартовый шаблон</tag-10> </tag-9>"
+  },
+  "kotlin.name": {
+    "translation": "Kotlin"
+  },
   "less.desc": {
     "translation": "Это CSS, только чуть больше."
   },

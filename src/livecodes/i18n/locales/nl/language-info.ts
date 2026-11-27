@@ -278,6 +278,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Julia officiële website</2> </1> <3> <4>Julia documentatie</4> </3> <5> <6>Leer X in Y minuten, waarbij X=Julia</6> </5> <7> <8>Startsjabloon laden</8> </7>',
     name: 'Julia',
   },
+  kotlin: {
+    desc: 'Kotlin wordt in de browser gecompileerd door de echte Kotlin-compiler (K2), gebouwd als een WebAssembly-module. Standaard wordt JavaScript uitgevoerd, of WebAssembly wanneer het doel op wasm is ingesteld. Het programma draait op de resultaatpagina. Er wordt niets naar een server verzonden.',
+    link: '<1> <2>Kotlin officiële website</2> </1> <3> <4>Kotlin documentatie</4> </3> <5> <6>Leer X in Y minuten, waarbij X=Kotlin</6> </5> <7> <8>LiveCodes documentatie</8> </7> <9> <10>Startsjabloon laden</10> </9>',
+    name: 'Kotlin',
+  },
   less: {
     desc: 'Het is CSS, met net iets meer.',
     link: '<1><2>Less officiële website</2></1> <3> <4>Leer X in Y minuten, waarbij X=less</4> </3>',

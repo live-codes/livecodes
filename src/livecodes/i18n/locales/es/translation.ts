@@ -1025,6 +1025,7 @@ const translation: I18nTranslation = {
       jquery: 'Inicio jQuery',
       julia: 'Inicio Julia',
       knockout: 'Inicio Knockout',
+      kotlin: 'Inicio Kotlin',
       lit: 'Inicio Lit',
       livescript: 'Inicio LiveScript',
       loading: 'Cargando plantillas de inicio...',

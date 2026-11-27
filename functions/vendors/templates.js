@@ -86,6 +86,7 @@ export const starterTemplates = {
   "teal": "Teal Starter",
   "fennel": "Fennel Starter",
   "julia": "Julia Starter",
+  "kotlin": "Kotlin Starter",
   "tcl": "Tcl Starter",
   "ada-wasm": "Ada (Wasm) Starter",
   "pascal": "Pascal Starter",

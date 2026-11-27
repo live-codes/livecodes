@@ -1026,6 +1026,7 @@ const translation: I18nTranslation = {
       jquery: 'jQuery kezdő',
       julia: 'Julia kezdő',
       knockout: 'Knockout kezdő',
+      kotlin: 'Kotlin kezdő',
       lit: 'Lit kezdő',
       livescript: 'LiveScript kezdő',
       loading: 'Kezdő sablonok betöltése...',

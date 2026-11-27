@@ -278,6 +278,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Julia 公式ウェブサイト</2> </1> <3> <4>Julia ドキュメント</4> </3> <5> <6>X分でYを学ぶ、X=Julia</6> </5> <7> <8>スターターテンプレートを読み込む</8> </7>',
     name: 'Julia',
   },
+  kotlin: {
+    desc: 'Kotlin は、WebAssembly モジュールとして構築された実際の Kotlin コンパイラ (K2) によってブラウザでコンパイルされます。デフォルトでは JavaScript を出力し、ターゲットが wasm に設定されている場合は WebAssembly を出力します。プログラムは結果ページで実行されます。サーバーには何も送信されません。',
+    link: '<1> <2>Kotlin 公式ウェブサイト</2> </1> <3> <4>Kotlin ドキュメント</4> </3> <5> <6>X分でYを学ぶ、X=Kotlin</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
+    name: 'Kotlin',
+  },
   less: {
     desc: 'CSS に少し機能を追加したもの。',
     link: '<1><2>Less 公式ウェブサイト</2></1> <3> <4>X分でYを学ぶ、X=less</4> </3>',

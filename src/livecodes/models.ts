@@ -246,6 +246,7 @@ export type ScriptType =
   | 'text/elixir-wasm'
   | 'text/erlang-wasm'
   | 'text/assembly'
+  | 'text/kotlin-wasm'
   | 'application/json'
   | 'application/lua'
   | 'text/fennel'

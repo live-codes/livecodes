@@ -54,6 +54,7 @@ import { javascript } from './javascript';
 import { jinja } from './jinja';
 import { jsx, tsx } from './jsx';
 import { julia } from './julia';
+import { kotlin } from './kotlin';
 import { less } from './less';
 import { liquid } from './liquid';
 import { livescript } from './livescript';
@@ -224,6 +225,7 @@ export const languages: LanguageSpecs[] = [
   teal,
   fennel,
   julia,
+  kotlin,
   tcl,
   adaWasm,
   pascal,

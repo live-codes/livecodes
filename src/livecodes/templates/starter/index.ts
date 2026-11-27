@@ -50,6 +50,7 @@ import { jestStarter } from './jest-starter';
 import { jqueryStarter } from './jquery-starter';
 import { juliaStarter } from './julia-starter';
 import { knockoutStarter } from './knockout-starter';
+import { kotlinStarter } from './kotlin-starter';
 import { litStarter } from './lit-starter';
 import { livescriptStarter } from './livescript-starter';
 import { luaStarter } from './lua-starter';
@@ -189,6 +190,7 @@ export const starterTemplates = [
   tealStarter,
   fennelStarter,
   juliaStarter,
+  kotlinStarter,
   tclStarter,
   adaWasmStarter,
   pascalStarter,

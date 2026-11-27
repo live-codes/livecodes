@@ -2061,6 +2061,9 @@
   "templates.starter.knockout": {
     "translation": "قالب Knockout"
   },
+  "templates.starter.kotlin": {
+    "translation": "قالب Kotlin"
+  },
   "templates.starter.lit": {
     "translation": "قالب Lit"
   },

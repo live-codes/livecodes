@@ -1,0 +1,465 @@
+# Kotlin
+
+[Kotlin](https://kotlinlang.org/) is a statically typed language that combines object-oriented and
+functional programming. It targets the JVM, JavaScript and native platforms.
+
+In LiveCodes, Kotlin source is compiled **in the browser** by the real K2 compiler, itself compiled
+to WebAssembly. Nothing is sent to a server. The compiler can emit either
+[JavaScript](#javascript-target) or [WebAssembly](#wasm-target); see [Targets](#targets).
+
+:::info Note
+
+The compiler is about 30 MB (compressed) and is downloaded on the first run, which takes a few
+seconds. It is cached by the browser afterwards. Libraries are installed only when a program uses
+one.
+
+:::
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const kotlinConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'kotlin',
+    content: `fun main() {
+    val squares = (1..5).map { it * it }
+    println("squares: " + squares.joinToString(", "))
+    println("sum: " + squares.sum())
+}
+`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={kotlinConfig}></LiveCodes>
+
+## Targets
+
+The Kotlin compiler has two backends, chosen with the [`target`](#target) custom setting. They are
+not interchangeable: each emits different output, and only the JavaScript target can use libraries
+or the DOM.
+
+| `target` | The compiler emits | Runs as | Use for |
+| --- | --- | --- | --- |
+| `js` (default) | JavaScript, as a single self-contained ES module. | A plain script in the result page. | Anything that touches the DOM, and everything under [Libraries](#libraries). |
+| `wasm` | WebAssembly, plus the small JavaScript modules that load it. | A Wasm module instantiated by the result page. | Computation, where real WebAssembly is the point. |
+
+### JavaScript target
+
+The default. The compiler emits one JavaScript module, which the result page runs as a plain script.
+It can use the DOM and the [libraries](#libraries) above. See [Standard I/O](#standard-io) for what it
+can print and read.
+
+<LiveCodes template="kotlin" height="80vh"></LiveCodes>
+
+### Wasm target
+
+The compiler emits a WebAssembly module. The result page instantiates it, and the program runs there.
+Because it does not run in the page's JavaScript context:
+
+- **No libraries.** Only the standard library is available; the libraries under
+  [Libraries](#libraries) are compiled for JavaScript, which the wasm target cannot use.
+- **No DOM.** It is a console program: `println` output appears in the
+  [console](../features/console.mdx), and `readLine` reads the
+  [standard input](#standard-input).
+
+```kotlin
+fun main() {
+    val n = readlnOrNull()?.trim()?.toIntOrNull() ?: 10
+    println("counting to " + n)
+    for (i in 1..n) {
+        if (i % 2 == 0) println(i.toString() + " is even")
+    }
+    println("sum=" + (1..n).sum())
+}
+```
+
+This demo runs the program above with the `wasm` target. Its input comes from
+`livecodes.kotlin.input`, set in the markup editor, so the console can be rerun with a different
+input:
+
+export const kotlinWasmConfig = {
+  activeEditor: 'script',
+  markup: {
+    language: 'html',
+    content: `<p>Standard input: <input id="input" value="10" size="4" /> <button id="run">Run again</button></p>
+<script>
+  // The wasm target reads standard input from \`livecodes.kotlin.input\`.
+  livecodes.kotlin.input = document.getElementById('input').value;
+  document.getElementById('run').addEventListener('click', () => {
+    livecodes.kotlin.run(document.getElementById('input').value);
+  });
+</script>
+`,
+  },
+  script: {
+    language: 'kotlin',
+    content: `fun main() {
+    val n = readlnOrNull()?.trim()?.toIntOrNull() ?: 10
+    println("counting to " + n)
+    for (i in 1..n) {
+        if (i % 2 == 0) println(i.toString() + " is even")
+    }
+    println("sum=" + (1..n).sum())
+}
+`,
+  },
+  customSettings: {
+    kotlin: {
+      target: 'wasm',
+    },
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={kotlinWasmConfig}></LiveCodes>
+
+Switching target at run time works without reloading: each target loads its own compiler, and
+switching back reuses the one already loaded, so only the first use of a target pays its download.
+
+## Standard I/O
+
+What is available depends on the target, because the two run in different places: the JavaScript
+target runs in the result page's own JavaScript context, while the wasm target runs as a WebAssembly
+module.
+
+| | [`js`](#javascript-target) | [`wasm`](#wasm-target) |
+| --- | --- | --- |
+| `println`, `print` | Console | Console |
+| `System.out` / `System.err` | Console | Console |
+| `System.exit` | Accepted, but does not stop the program | Accepted, but does not stop the program |
+| `readLine`, `readln`, `readlnOrNull` | Compile, but read nothing | Read the supplied input |
+| [`livecodes.kotlin`](#communication-with-javascript) helpers | — | Available |
+
+### Output
+
+`println` and `print` write to the [console](../features/console.mdx) on both targets, including a
+final `print` with no trailing newline.
+
+```kotlin
+fun main() {
+    println("Hi!")
+    print("Current count:")
+    for (i in 0..10) {
+        print(" $i")
+    }
+}
+```
+
+:::note
+
+Output printed later, from a coroutine still running after `main` has finished, appears in the
+console as it arrives but is not included in the value returned by `livecodes.kotlin.run`.
+
+:::
+
+### Standard input
+
+The wasm target reads standard input with `readLine`, `readlnOrNull` and `readln`. It is pre-supplied
+input, not an interactive console: each call returns the next line, and once the input runs out they
+return `null` — so `readln` throws, as it does at end of input on the JVM.
+
+```kotlin
+fun main() {
+    val n = readlnOrNull()?.trim()?.toIntOrNull() ?: 10
+    println("sum=" + (1..n).sum())
+}
+```
+
+The JavaScript target has no console input: those calls compile but read nothing, and `readln` always
+throws.
+
+### Errors and exit
+
+`System.out.println` writes to the console exactly like `println`. `System.err.println` also goes to
+the console, marked as an error, but is not included in `livecodes.kotlin.output` — that holds what the
+program printed to standard output.
+
+`System.exit` is accepted but does not stop the program: the lines after it still run, and the exit
+code stays `0` unless the program throws.
+
+An uncaught exception aborts the program, prints its error message, and sets `exitCode` to `1` and
+`livecodes.kotlin.error` to the message.
+
+### Communication with JavaScript
+
+With the wasm target, the page can feed the program input and read back what it produced, through the
+`livecodes.kotlin` object:
+
+- `livecodes.kotlin.input`: The standard input passed to the program. Set it before the first run.
+- `livecodes.kotlin.loaded`: A promise that resolves when the environment is ready to run.
+- `livecodes.kotlin.output`: The standard output from the last run.
+- `livecodes.kotlin.error`: The error from the last run, if it failed.
+- `livecodes.kotlin.exitCode`: The exit code of the last run.
+- `livecodes.kotlin.run`: Runs the code with new input. It takes the input as a string and returns a
+  promise that resolves with an object containing the `output`, `error` and `exitCode` properties.
+
+```js
+// Before the first run: the program reads this as its standard input.
+livecodes.kotlin.input = '12';
+
+// Later, rerun with different input and read the result.
+const { output, error, exitCode } = await livecodes.kotlin.run('20');
+// output: "sum=210", error: null, exitCode: 0
+```
+
+The output also appears in the [console](../features/console.mdx): capturing it does not divert it.
+
+The demo under [Wasm target](#wasm-target) uses this API: its markup sets
+`livecodes.kotlin.input` and calls `livecodes.kotlin.run` from a button.
+
+This is specific to the wasm target, whose program the page can run again. The JavaScript target's
+program runs itself, so there is nothing to run again, and new input would not be read anyway.
+
+## Libraries
+
+The [JavaScript target](#javascript-target) can import common Kotlin libraries, which are downloaded
+the first time a program imports one, so a program that imports nothing pays nothing.
+
+```kotlin
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+
+@Serializable
+data class Point(val x: Int, val y: Int)
+
+fun main() {
+    println(Json.encodeToString(Point(2, 3)))
+}
+```
+
+Available: `kotlinx.browser`, `kotlinx.html`, `kotlinx.coroutines`, `kotlinx.collections.immutable`,
+`kotlinx.datetime`, `kotlinx.serialization` (including `@Serializable`), `kotlinx.atomicfu` and
+`kotlin.test`.
+
+:::note
+
+Each library is fetched on demand, so the first run using one is slower than later runs. The compiler
+itself is downloaded and cached separately. None of them are available on the
+[wasm target](#wasm-target).
+
+:::
+
+### Coroutines
+
+`kotlinx.coroutines` is available on the JavaScript target: `launch`, `async`, `coroutineScope`,
+`delay` and the dispatchers all work, and `suspend fun main()` is supported.
+
+There are no threads in JavaScript, so `runBlocking` does not exist on Kotlin/JS — use `coroutineScope`
+inside `suspend fun main()`, or launch from `GlobalScope` and let the page keep running.
+
+```kotlin
+import kotlinx.coroutines.*
+
+suspend fun main() {
+    coroutineScope {
+        for (i in 1..3) {
+            launch {
+                delay(100L * i)
+                println("tick $i")
+            }
+        }
+    }
+    println("done")
+}
+```
+
+### Tests
+
+`kotlin.test` works, with assertions such as `assertEquals` and `assertTrue`. A failed assertion throws
+(`AssertionError: Expected <5>, actual <4>.`), which appears in the
+[console](../features/console.mdx).
+
+```kotlin
+import kotlin.test.*
+
+fun main() {
+    assertEquals(4, 2 + 2)
+    assertTrue(listOf(1, 2).size == 2)
+    println("all assertions passed")
+}
+```
+
+:::note
+
+The results appear as console output, not in the Tests pane: that pane runs JavaScript tests written
+for [the test runner](../features/tests.mdx), not `kotlin.test` assertions.
+
+:::
+
+## JVM APIs
+
+Kotlin for the browser has no JVM standard library, so parts of `kotlin.*` that need it, and all of
+`java.*`, are absent. The pieces that tutorial code commonly uses work on both targets:
+
+| Area | Available |
+| --- | --- |
+| `System` | `out`, `err`, `exit`, `currentTimeMillis`, `nanoTime`, `lineSeparator`, `getProperty`, `getenv`, `gc`, `arraycopy` |
+| Formatting | `"…".format(…)`, `String.format`, `printf` — `%d %f %e %x %X %o %c %b %s %n %%`, with width, `-`, `0` and `,` flags |
+| `Math` | `PI`, `E`, `abs`, `max`, `min`, `sqrt`, `cbrt`, `pow`, `floor`, `ceil`, `round`, `random`, the trigonometric and logarithmic functions, `hypot`, `signum`, `toRadians`, `toDegrees` |
+| `Integer` | `parseInt`, `parseLong`, `toString`, `toHexString`, `toBinaryString`, `toOctalString`, `compare`, `signum`, `sum`, `MAX_VALUE`, `MIN_VALUE` |
+| `Character` | `isDigit`, `isLetter`, `isLetterOrDigit`, `isWhitespace`, `isUpperCase`, `isLowerCase`, `toUpperCase`, `toLowerCase`, `getNumericValue` |
+| `Arrays` | `toString`, `sort`, `equals`, `copyOf`, `asList` |
+| `Collections` | `sort`, `reverse`, `shuffle`, `max`, `min`, `swap` |
+| Threads | `Thread` (`currentThread`, `sleep`, `start`, `join`), `thread {}`, `synchronized`, `@Volatile`, `@Synchronized` |
+| Other | `Throwable.printStackTrace()` |
+
+```kotlin
+fun main() {
+    println("%.2f".format(Math.sqrt(2.0)))       // 1.41
+    println("%,d".format(1234567))               // 1,234,567
+    println(Integer.parseInt("42") + 1)          // 43
+    println(Arrays.toString(intArrayOf(1, 2)))   // [1, 2]
+}
+```
+
+These behave like the JVM's, with these differences:
+
+- `System.getProperty` and `System.getenv` return `null`, because there is no environment to read.
+- `synchronized`, `@Volatile` and `@Synchronized` are accepted but do nothing; there is one thread, so
+  there is nothing to guard. `Thread.sleep` does not sleep either, and `start()` runs the body
+  immediately rather than in parallel. `Thread.currentThread().name` is `main`.
+- `%f` rounds like JavaScript's `toFixed`, so a value with no exact binary representation may round
+  where the JVM would not: `%.3f` of `1.0005` gives `1.000`, not `1.001`.
+- `java.*` packages are not available: `import java.util.ArrayList` does not compile. Use the Kotlin
+  collections instead.
+
+## Working with the DOM
+
+This applies to the [JavaScript target](#javascript-target): the wasm target has no DOM.
+
+Kotlin/JS is not JavaScript with different syntax, and habits from JS or TypeScript often do not
+compile. The three that catch people first:
+
+### A trailing lambda cannot be an event handler
+
+The JS style passes the handler last, but Kotlin's `addEventListener` declares `options` last, so the
+lambda binds to the wrong parameter:
+
+```kotlin
+// Does not compile: "None of the following candidates is applicable" and
+// "No value passed for parameter 'callback'"
+button.addEventListener("click") {
+    count += 1
+}
+```
+
+Pass the handler as the second argument instead:
+
+```kotlin
+import kotlinx.browser.document
+
+fun main() {
+    var count = 0
+
+    fun render() {
+        document.getElementById("counter")?.textContent = count.toString()
+    }
+
+    document.getElementById("counter-button")?.addEventListener("click", {
+        count += 1
+        render()
+    })
+    render()
+}
+```
+
+The lambda is converted to the expected callback type, so no explicit cast is needed. A typed lambda
+(`{ _: Event -> … }`) or an explicit `EventListener { … }` also work if you prefer to be explicit.
+
+### Elements are nullable, and `getElementById` returns a platform type
+
+Every `getElementById` result may be absent, so use `?.`. Without it the program does not compile
+("Only safe (?.) or non-null asserted (!!.) calls are allowed") — which is helpful, but means JS code
+copied over usually needs `?.` added.
+
+### Kotlin's `document` is the typed DOM, not `dynamic`
+
+`import kotlinx.browser.document` gives the browser a real Kotlin type, so a call must match a real
+signature. The alternative — declaring `external val document: dynamic` — compiles anything, which
+is what makes mismatched calls look fine until run time. Prefer the import.
+
+## Language Info
+
+### Name
+
+`kotlin`
+
+### Aliases / Extensions
+
+`kt`, `kts`, `kotlin`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The [Kotlin compiler](https://kotlinlang.org/) (K2), built as a WebAssembly module with Oracle
+GraalVM Web Image and packaged for LiveCodes by
+[`@live-codes/kotlin-wasm`](https://github.com/live-codes/browser-kotlin).
+
+### Version
+
+Kotlin 2.5.0-dev-9169
+
+## Code Formatting
+
+Not supported.
+
+## Custom Settings
+
+[Custom settings](../advanced/custom-settings.mdx) added to the property `kotlin` configure the
+compiler.
+
+### `target`
+
+Which backend the compiler uses: `js` (the default) or `wasm`. See [Targets](#targets) for what each
+one emits and supports.
+
+```json title="Custom Settings"
+{
+  "kotlin": {
+    "target": "wasm"
+  }
+}
+```
+
+## Limitations
+
+Both targets:
+
+- Single file: no Gradle and no multi-file projects.
+- No `java.*` packages. See [JVM APIs](#jvm-apis) for what is available instead.
+- The compiler requires a browser with [WasmGC](https://webassembly.org/roadmap/) support
+  (Chrome/Edge 119+, Firefox 120+, Safari 18.2+) and `DecompressionStream`.
+- No semantic completion or inline analysis: the compiler's Analysis API is not included.
+
+The [JavaScript target](#javascript-target) additionally:
+
+- Supports libraries only from the set listed under [Libraries](#libraries).
+- Has no standard input: `readLine` and friends read nothing.
+
+The [wasm target](#wasm-target) additionally:
+
+- Supports the standard library only, with no DOM.
+- Is driven through [`livecodes.kotlin`](#communication-with-javascript), so a program that reads input
+  needs the page to supply it.
+
+## Links
+
+- [Kotlin](https://kotlinlang.org/)
+- [Kotlin documentation](https://kotlinlang.org/docs/home.html)
+- [browser-kotlin](https://github.com/live-codes/browser-kotlin)

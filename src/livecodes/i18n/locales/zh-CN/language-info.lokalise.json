@@ -498,6 +498,15 @@
   "julia.name": {
     "translation": "Julia"
   },
+  "kotlin.desc": {
+    "translation": "Kotlin 由真正的 Kotlin 编译器 (K2) 在浏览器中编译，该编译器以 WebAssembly 模块的形式构建。默认输出 JavaScript，当目标设置为 wasm 时输出 WebAssembly。程序在结果页面中运行。不会向服务器发送任何内容。"
+  },
+  "kotlin.link": {
+    "translation": "<tag-1> <tag-2>Kotlin 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Kotlin 文档</tag-4> </tag-3> <tag-5> <tag-6>在 Y 分钟内学习 X，其中 X=Kotlin</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载启动模板</tag-10> </tag-9>"
+  },
+  "kotlin.name": {
+    "translation": "Kotlin"
+  },
   "less.desc": {
     "translation": "只多了一点点内容的 CSS。"
   },
