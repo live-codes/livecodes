@@ -498,6 +498,15 @@
   "julia.name": {
     "translation": "Julia"
   },
+  "kotlin.desc": {
+    "translation": "Kotlin ব্রাউজারে আসল Kotlin কম্পাইলার (K2) দ্বারা কম্পাইল করা হয়, যা একটি WebAssembly মডিউল হিসেবে তৈরি। এটি ডিফল্টভাবে JavaScript আউটপুট দেয়, অথবা লক্ষ্য wasm-এ সেট করা হলে WebAssembly। প্রোগ্রামটি ফলাফল পৃষ্ঠায় চলে। সার্ভারে কিছু পাঠানো হয় না।"
+  },
+  "kotlin.link": {
+    "translation": "<tag-1> <tag-2>Kotlin অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Kotlin ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>Y মিনিটে X শিখুন, যেখানে X=Kotlin</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "kotlin.name": {
+    "translation": "Kotlin"
+  },
   "less.desc": {
     "translation": "এটি CSS, কিছুটা বেশি সহ।"
   },

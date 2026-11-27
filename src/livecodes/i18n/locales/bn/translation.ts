@@ -1025,6 +1025,7 @@ const translation: I18nTranslation = {
       jquery: 'jQuery স্টার্টার',
       julia: 'Julia স্টার্টার',
       knockout: 'Knockout স্টার্টার',
+      kotlin: 'Kotlin স্টার্টার',
       lit: 'Lit স্টার্টার',
       livescript: 'LiveScript স্টার্টার',
       loading: 'স্টার্টার টেমপ্লেট লোড হচ্ছে...',

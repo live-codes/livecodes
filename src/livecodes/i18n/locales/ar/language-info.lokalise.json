@@ -498,6 +498,15 @@
   "julia.name": {
     "translation": "Julia"
   },
+  "kotlin.desc": {
+    "translation": "يتم تجميع Kotlin في المتصفح بواسطة مترجم Kotlin الحقيقي (K2)، المُبنى كوحدة WebAssembly. يُصدر JavaScript افتراضيًا، أو WebAssembly عندما يتم تعيين الهدف إلى wasm. يعمل البرنامج في صفحة النتيجة. لا يتم إرسال أي شيء إلى خادم."
+  },
+  "kotlin.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Kotlin</tag-2> </tag-1> <tag-3> <tag-4>وثائق Kotlin</tag-4> </tag-3> <tag-5> <tag-6>تعلم X في Y دقيقة، حيث X=Kotlin</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البداية</tag-10> </tag-9>"
+  },
+  "kotlin.name": {
+    "translation": "Kotlin"
+  },
   "less.desc": {
     "translation": "إنه CSS، مع القليل من الإضافات."
   },

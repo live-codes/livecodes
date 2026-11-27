@@ -279,6 +279,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Site officiel de Julia</2> </1> <3> <4>Documentation de Julia</4> </3> <5> <6>Apprenez X en Y minutes, où X=Julia</6> </5> <7> <8>Charger le modèle de démarrage</8> </7>',
     name: 'Julia',
   },
+  kotlin: {
+    desc: "Kotlin est compilé dans le navigateur par le véritable compilateur Kotlin (K2), construit sous forme de module WebAssembly. Il génère du JavaScript par défaut, ou du WebAssembly lorsque la cible est définie sur wasm. Le programme s'exécute dans la page de résultats. Rien n'est envoyé à un serveur.",
+    link: '<1> <2>Site officiel de Kotlin</2> </1> <3> <4>Documentation de Kotlin</4> </3> <5> <6>Apprenez X en Y minutes, où X=Kotlin</6> </5> <7> <8>Documentation de LiveCodes</8> </7> <9> <10>Charger le modèle de démarrage</10> </9>',
+    name: 'Kotlin',
+  },
   less: {
     desc: "C'est du CSS, avec juste un peu plus.",
     link: '<1><2>Site officiel de Less</2></1> <3> <4>Apprenez X en Y minutes, où X=less</4> </3>',

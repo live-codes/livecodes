@@ -2061,6 +2061,9 @@
   "templates.starter.knockout": {
     "translation": "Knockout स्टार्टर"
   },
+  "templates.starter.kotlin": {
+    "translation": "Kotlin स्टार्टर"
+  },
   "templates.starter.lit": {
     "translation": "Lit स्टार्टर"
   },

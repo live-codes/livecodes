@@ -498,6 +498,15 @@
   "julia.name": {
     "translation": "Julia"
   },
+  "kotlin.desc": {
+    "translation": "Kotlin se compila en el navegador con el compilador real de Kotlin (K2), compilado como un módulo WebAssembly. Emite JavaScript por defecto, o WebAssembly cuando el destino se establece en wasm. El programa se ejecuta en la página de resultados. No se envía nada a un servidor."
+  },
+  "kotlin.link": {
+    "translation": "<tag-1> <tag-2>Sitio web oficial de Kotlin</tag-2> </tag-1> <tag-3> <tag-4>Documentación de Kotlin</tag-4> </tag-3> <tag-5> <tag-6>Aprende X en Y minutos, donde X=Kotlin</tag-6> </tag-5> <tag-7> <tag-8>Documentación de LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Cargar plantilla inicial</tag-10> </tag-9>"
+  },
+  "kotlin.name": {
+    "translation": "Kotlin"
+  },
   "less.desc": {
     "translation": "Es CSS, con un poco más."
   },

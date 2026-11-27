@@ -279,6 +279,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Julia hivatalos weboldal</2> </1> <3> <4>Julia dokumentáció</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=Julia</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
     name: 'Julia',
   },
+  kotlin: {
+    desc: 'A Kotlin a böngészőben a valódi Kotlin-fordítóval (K2) fordul le, amely WebAssembly-modulként van felépítve. Alapértelmezés szerint JavaScriptet bocsát ki, vagy WebAssembly-t, ha a cél wasm-ra van állítva. A program az eredményoldalon fut. Semmi sem kerül elküldésre egy szervernek.',
+    link: '<1> <2>Kotlin hivatalos weboldal</2> </1> <3> <4>Kotlin dokumentáció</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=Kotlin</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Kotlin',
+  },
   less: {
     desc: 'Ez CSS, csak egy kicsit több.',
     link: '<1><2>Less hivatalos weboldal</2></1> <3> <4>Tanulj X-et Y perc alatt, ahol X=less</4> </3>',

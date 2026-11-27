@@ -498,6 +498,15 @@
   "julia.name": {
     "translation": "Julia"
   },
+  "kotlin.desc": {
+    "translation": "A Kotlin a böngészőben a valódi Kotlin-fordítóval (K2) fordul le, amely WebAssembly-modulként van felépítve. Alapértelmezés szerint JavaScriptet bocsát ki, vagy WebAssembly-t, ha a cél wasm-ra van állítva. A program az eredményoldalon fut. Semmi sem kerül elküldésre egy szervernek."
+  },
+  "kotlin.link": {
+    "translation": "<tag-1> <tag-2>Kotlin hivatalos weboldal</tag-2> </tag-1> <tag-3> <tag-4>Kotlin dokumentáció</tag-4> </tag-3> <tag-5> <tag-6>Tanulj X-et Y perc alatt, ahol X=Kotlin</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Kezdő sablon betöltése</tag-10> </tag-9>"
+  },
+  "kotlin.name": {
+    "translation": "Kotlin"
+  },
   "less.desc": {
     "translation": "Ez CSS, csak egy kicsit több."
   },

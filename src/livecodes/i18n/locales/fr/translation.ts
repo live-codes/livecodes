@@ -1027,6 +1027,7 @@ const translation: I18nTranslation = {
       jquery: 'Démarrage jQuery',
       julia: 'Démarrage Julia',
       knockout: 'Démarrage Knockout',
+      kotlin: 'Démarrage Kotlin',
       lit: 'Démarrage Lit',
       livescript: 'Démarrage LiveScript',
       loading: 'Chargement des modèles de démarrage...',

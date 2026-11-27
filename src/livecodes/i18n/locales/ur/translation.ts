@@ -1025,6 +1025,7 @@ const translation: I18nTranslation = {
       jquery: 'جے کیوری شروعاتی',
       julia: 'جولیا شروعاتی',
       knockout: 'ناک آؤٹ شروعاتی',
+      kotlin: 'Kotlin شروعاتی',
       lit: 'لٹ شروعاتی',
       livescript: 'لائیو اسکرپٹ شروعاتی',
       loading: 'شروعاتی سانچے لوڈ ہو رہے ہیں...',

@@ -1027,6 +1027,7 @@ const translation: I18nTranslation = {
       jquery: 'jQuery-Starter',
       julia: 'Julia-Starter',
       knockout: 'Knockout-Starter',
+      kotlin: 'Kotlin-Starter',
       lit: 'Lit-Starter',
       livescript: 'LiveScript-Starter',
       loading: 'Lade Starter-Vorlagen...',

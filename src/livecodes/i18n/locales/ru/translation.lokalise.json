@@ -2061,6 +2061,9 @@
   "templates.starter.knockout": {
     "translation": "Стартер Knockout"
   },
+  "templates.starter.kotlin": {
+    "translation": "Стартер Kotlin"
+  },
   "templates.starter.lit": {
     "translation": "Стартер Lit"
   },

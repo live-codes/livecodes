@@ -274,6 +274,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Julia 官方网站</2> </1> <3> <4>Julia 文档</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=Julia</6> </5> <7> <8>加载启动模板</8> </7>',
     name: 'Julia',
   },
+  kotlin: {
+    desc: 'Kotlin 由真正的 Kotlin 编译器 (K2) 在浏览器中编译，该编译器以 WebAssembly 模块的形式构建。默认输出 JavaScript，当目标设置为 wasm 时输出 WebAssembly。程序在结果页面中运行。不会向服务器发送任何内容。',
+    link: '<1> <2>Kotlin 官方网站</2> </1> <3> <4>Kotlin 文档</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=Kotlin</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
+    name: 'Kotlin',
+  },
   less: {
     desc: '只多了一点点内容的 CSS。',
     link: '<1><2>Less 官方网站</2></1> <3> <4>在 Y 分钟内学习 X，其中 X=less</4> </3>',

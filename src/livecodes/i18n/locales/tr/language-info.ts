@@ -279,6 +279,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Julia resmi web sitesi</2> </1> <3> <4>Julia dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Julia</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
     name: 'Julia',
   },
+  kotlin: {
+    desc: 'Kotlin, tarayıcıda WebAssembly modülü olarak oluşturulmuş gerçek Kotlin derleyicisi (K2) tarafından derlenir. Varsayılan olarak JavaScript veya hedef wasm olarak ayarlandığında WebAssembly üretir. Program sonuç sayfasında çalışır. Sunucuya hiçbir şey gönderilmez.',
+    link: '<1> <2>Kotlin resmi web sitesi</2> </1> <3> <4>Kotlin dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Kotlin</6> </5> <7> <8>LiveCodes dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'Kotlin',
+  },
   less: {
     desc: 'Bu CSS, sadece biraz daha fazlasıyla.',
     link: '<1><2>Less resmi web sitesi</2></1> <3> <4>Y Dakikada X Öğrenin, X=less</4> </3>',

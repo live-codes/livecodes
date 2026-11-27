@@ -279,6 +279,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi Julia</2> </1> <3> <4>Dokumentasi Julia</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=Julia</6> </5> <7> <8>Muat template pemula</8> </7>',
     name: 'Julia',
   },
+  kotlin: {
+    desc: 'Kotlin dikompilasi di browser oleh kompiler Kotlin asli (K2), yang dibangun sebagai modul WebAssembly. Secara default menghasilkan JavaScript, atau WebAssembly saat target diatur ke wasm. Program berjalan di halaman hasil. Tidak ada yang dikirim ke server.',
+    link: '<1> <2>Situs web resmi Kotlin</2> </1> <3> <4>Dokumentasi Kotlin</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=Kotlin</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
+    name: 'Kotlin',
+  },
   less: {
     desc: 'Ini CSS, dengan sedikit lebih banyak.',
     link: '<1><2>Situs web resmi Less</2></1> <3> <4>Pelajari X dalam Y menit, dengan X=less</4> </3>',
