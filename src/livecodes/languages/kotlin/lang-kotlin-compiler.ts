@@ -71,83 +71,6 @@ const compileFailure = (errors: string[]): CompileResult => ({
 });
 
 /**
- * The line readers Kotlin/Wasm is missing.
- *
- * `readLine` is unresolved there and `readlnOrNull` always returns null, so a
- * program that reads input cannot compile. The input itself is not known when
- * compiling — the page receives it at run time — so these delegate to a hook the
- * result page installs. Each declaration is skipped when the program has its own.
- *
- * Appended, not prepended: every user line keeps its line number, so diagnostics
- * point where the user is looking.
- */
-const stdinPrelude = (code: string): string => {
-  const hook = '__livecodesKotlinWasmReadLine';
-  const defines = (name: string) => new RegExp(`\\bfun\\s+${name}\\s*\\(`).test(code);
-  const lines = [
-    `@JsFun("() => globalThis.${hook}()")`,
-    'external fun __livecodesKotlinStdin(): String?',
-    '',
-  ];
-  if (!defines('readlnOrNull'))
-    lines.push('fun readlnOrNull(): String? = __livecodesKotlinStdin()');
-  if (!defines('readLine')) lines.push('fun readLine(): String? = __livecodesKotlinStdin()');
-  if (!defines('readln')) {
-    lines.push('fun readln(): String = readlnOrNull() ?: throw NoSuchElementException("EOF")');
-  }
-  return `${lines.join('\n')}\n`;
-};
-
-/**
- * The timing APIs Kotlin/JS is missing, for `System.currentTimeMillis()` and `Thread`.
- *
- * Timed examples (`val start = System.currentTimeMillis()` … `after ${…/1000F}s`)
- * appear throughout the coroutines and threading tutorials, and neither call
- * exists on Kotlin/JS. They are supplied here rather than in the compiler image so
- * the image keeps working unchanged.
- *
- * `currentTimeMillis` is an extension function: the image already declares
- * `object System`, so a second declaration would clash, while an extension on the
- * existing object resolves a call that has no matching member.
- *
- * `Thread` is unavoidable as a declaration, since no such type exists. JavaScript
- * has a single thread, so `currentThread().name` reports what the JVM would call
- * the main thread; the name is what these examples print.
- *
- * Each part is skipped when the program declares it, and appended so user line
- * numbers do not move.
- */
-const jvmShims = (code: string): string => {
-  // Matched with the receiver: the declaration is `fun System.currentTimeMillis()`,
-  // so a bare `fun currentTimeMillis(` test would never see the program's own.
-  const defines = (name: string) =>
-    new RegExp(`\\bfun\\s+(?:[\\w.]+\\.)?${name}\\s*\\(`).test(code);
-  const lines: string[] = [];
-
-  if (!defines('currentTimeMillis')) {
-    lines.push(
-      '@JsFun("() => Date.now()")',
-      'external fun __livecodesNowMs(): Double',
-      '',
-      'fun System.currentTimeMillis(): Long = __livecodesNowMs().toLong()',
-      '',
-    );
-  }
-  if (!/\bclass\s+Thread\b/.test(code)) {
-    lines.push(
-      'class Thread private constructor(val name: String) {',
-      '    companion object {',
-      '        private val mainThread = Thread("main")',
-      '        fun currentThread(): Thread = mainThread',
-      '    }',
-      '}',
-      '',
-    );
-  }
-  return lines.join('\n');
-};
-
-/**
  * `js`: one module, wrapped so its declarations stay out of the page's global scope.
  *
  * The trailing flush matters: Kotlin/JS writes console output through a line
@@ -210,11 +133,10 @@ const wasmResult = (files: CompiledFile[]): CompileResult => {
 
     try {
       const compiler = await getCompiler(target);
-      // The wasm target needs the line readers; the JS target needs the timing
-      // APIs. Both are appended, so diagnostics keep the user's line numbers.
-      const source =
-        target === 'wasm' ? `${code}\n${stdinPrelude(code)}` : `${code}\n${jvmShims(code)}`;
-      const result: CompileOutcome = await compiler.compile(source);
+      // The package appends the JVM compatibility shims (both targets) and, on wasm,
+      // the stdin prelude. They are appended after the program, so diagnostics keep
+      // the user's line numbers without any offset mapping here.
+      const result: CompileOutcome = await compiler.compile(code);
 
       if (!result.ok) return compileFailure(result.errors);
       return target === 'wasm' ? wasmResult(result.files) : jsResult(result.files);

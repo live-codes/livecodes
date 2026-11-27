@@ -331,7 +331,7 @@ export const javaWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/java-wasm@0.1
 
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
 
-export const kotlinWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/kotlin-wasm@0.3.1/');
+export const kotlinWasmBaseUrl = /* @__PURE__ */ getUrl('@live-codes/kotlin-wasm@0.4.0/');
 
 export const keystoneJsUrl = /* @__PURE__ */ getUrl(
   '@alexaltea/keystone-js@0.9.2/dist/keystone.js',

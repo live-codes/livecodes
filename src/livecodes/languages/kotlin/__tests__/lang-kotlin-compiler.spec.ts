@@ -197,70 +197,12 @@ describe('kotlin compiler script', () => {
       expect(result.info.errors?.[0]).toContain('main.wasm');
     });
 
-    test('injects the line readers the wasm stdlib is missing', async () => {
-      const sources: string[] = [];
-      installMock((source) => {
-        sources.push(source);
-        return wasm;
-      });
-      const compile = await loadCompiler();
-
-      await compile('fun main() { println(readLine()) }', wasmConfig);
-
-      // `readLine` is unresolved on the wasm target, so it must be supplied.
-      expect(sources[0]).toContain('fun readLine()');
-      expect(sources[0]).toContain('__livecodesKotlinWasmReadLine');
-    });
-
-    test('does not redefine a reader the program declares itself', async () => {
-      const sources: string[] = [];
-      installMock((source) => {
-        sources.push(source);
-        return wasm;
-      });
-      const compile = await loadCompiler();
-
-      await compile(
-        'fun readLine(): String? = "mine"\nfun main() { println(readLine()) }',
-        wasmConfig,
-      );
-
-      expect(sources[0].match(/fun readLine\(/g)).toHaveLength(1);
-    });
-
-    test('the prelude is appended, so user line numbers do not move', async () => {
-      const sources: string[] = [];
-      installMock((source) => {
-        sources.push(source);
-        return wasm;
-      });
-      const compile = await loadCompiler();
-
-      const code = 'fun main() {\n  println(1)\n}';
-      await compile(code, wasmConfig);
-
-      expect(sources[0].startsWith(code)).toBe(true);
-    });
-
-    test('the js target does not get the wasm line readers', async () => {
-      // Each target gets only its own shims: the wasm prelude's `@JsFun` stdin
-      // hook is meaningless on js, where the readers already exist.
-      const sources: string[] = [];
-      installMock((source) => {
-        sources.push(source);
-        return js;
-      });
-      const compile = await loadCompiler();
-
-      await compile('fun main() { println(readLine()) }');
-
-      expect(sources[0]).not.toContain('__livecodesKotlinStdin');
-      expect(sources[0].startsWith('fun main() { println(readLine()) }')).toBe(true);
-    });
-
-    test('the js target gets the timing shims for System and Thread', async () => {
-      // Tutorials call System.currentTimeMillis() and Thread.currentThread(),
-      // neither of which Kotlin/JS provides.
+    test('hands the package the source unchanged, for it to append its shims', async () => {
+      // The JVM compatibility shims and the wasm stdin prelude live in
+      // @live-codes/kotlin-wasm (src/shim.js, src/prelude.js): they are not specific
+      // to LiveCodes, and the package is where both targets can share them. LiveCodes
+      // must therefore not inject anything of its own — two copies of `object Math`
+      // would not compile.
       const sources: string[] = [];
       installMock((source) => {
         sources.push(source);
@@ -271,29 +213,24 @@ describe('kotlin compiler script', () => {
       const code = 'fun main() { println(System.currentTimeMillis()) }';
       await compile(code);
 
-      expect(sources[0].startsWith(code)).toBe(true);
-      expect(sources[0]).toContain('fun System.currentTimeMillis(): Long');
-      expect(sources[0]).toContain('class Thread');
+      expect(sources[0]).toBe(code);
+      expect(sources[0]).not.toContain('object Math');
+      expect(sources[0]).not.toContain('fun String.format');
     });
 
-    test('the timing shims are skipped when the program declares its own', async () => {
+    test('hands the same source to the package for the wasm target', async () => {
       const sources: string[] = [];
       installMock((source) => {
         sources.push(source);
-        return js;
+        return wasm;
       });
       const compile = await loadCompiler();
 
-      const code = [
-        'class Thread private constructor(val name: String) {',
-        '    companion object { fun currentThread(): Thread = Thread("custom") }',
-        '}',
-        'fun System.currentTimeMillis(): Long = 0L',
-      ].join('\n');
-      await compile(code);
+      const code = 'fun main() { println(readLine()) }';
+      await compile(code, wasmConfig);
 
-      expect(sources[0].match(/class Thread/g)).toHaveLength(1);
-      expect(sources[0].match(/fun System\.currentTimeMillis\(/g)).toHaveLength(1);
+      // The package appends the stdin prelude, so LiveCodes passes the code through.
+      expect(sources[0]).toBe(code);
     });
   });
 

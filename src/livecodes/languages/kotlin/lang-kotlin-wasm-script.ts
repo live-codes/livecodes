@@ -41,13 +41,14 @@ declare const window: Window & {
 };
 
 /**
- * The hook the compile-time prelude calls to read a line.
+ * The hook the package's compile-time prelude calls to read a line.
  *
  * Kotlin/Wasm's `readlnOrNull` returns null and `readLine` is unresolved, so the
- * compiler injects the same prelude the package uses when input is supplied.
- * Keeping the name here in sync with the package's is what makes it work.
+ * package injects a prelude when input is supplied. The name must match
+ * `JS_STDIN_HOOK` in `src/prelude.js` of `@live-codes/kotlin-wasm` exactly,
+ * including case — that is what makes it work.
  */
-const STDIN_HOOK = '__livecodesKotlinWasmReadLine';
+const STDIN_HOOK = '__liveCodesKotlinWasmReadLine';
 
 const decodeBase64 = (content: string): Uint8Array => {
   const binary = atob(content);
