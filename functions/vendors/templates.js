@@ -43,6 +43,7 @@ export const starterTemplates = {
   "crystal-wasm": "Crystal Starter",
   "odin-wasm": "Odin Starter",
   "janet-wasm": "Janet (Wasm) Starter",
+  "io": "Io Starter",
   "python": "Python Starter",
   "python-wasm": "Python (Wasm) Starter",
   "r": "R Starter",

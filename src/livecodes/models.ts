@@ -215,6 +215,7 @@ export type ScriptType =
   | 'text/objcpp-wasm'
   | 'text/nim-wasm'
   | 'text/janet-wasm'
+  | 'text/io'
   | 'text/fortran-wasm'
   | 'text/d-wasm'
   | 'text/cobol-wasm'

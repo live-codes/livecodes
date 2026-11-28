@@ -400,6 +400,8 @@ AtomVM: [Apache License 2.0](https://github.com/atomvm/AtomVM/blob/main/LICENSE)
 
 Janet (Wasm): [MIT License](https://github.com/janet-lang/janet/blob/master/LICENSE) (the Janet interpreter, compiled to WebAssembly by @live-codes/janet-wasm)
 
+@iolanguage/io: [BSD 3-Clause License](https://github.com/IoLanguage/io/blob/d2a5fb6b189e990424d179ac6b62f3bcdd13c868/LICENSE.txt)
+
 LLVM / LLD (Wasm): [Apache License 2.0 with LLVM-exception](https://github.com/llvm/llvm-project/blob/main/LICENSE.TXT)
 
 @wasm-fmt/clang-format: [MIT License](https://github.com/wasm-fmt/clang-format/blob/6a84f2d980e5ff4145bd9178a49cd5146e48df78/LICENSE)

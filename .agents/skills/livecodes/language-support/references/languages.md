@@ -157,6 +157,7 @@ Enabled via `processors` config:
 | Zig (Wasm)                  | `zig-wasm`, `zig`                                                                   | Zig WASM                                              |
 | V (Wasm)                    | `v-wasm`, `v`, `vlang`, `wasm.v`, `vsh`                                             | V compiler in WASM                                    |
 | Janet (Wasm)                | `janet-wasm`, `janet`, `wasm.janet`                                                 | Janet interpreter (WASM)                              |
+| Io                          | `io`, `iolang`                                                                      | Io VM (WASM)                                          |
 | Elixir (Wasm)               | `elixir-wasm`, `ex`, `exs`, `elixir`, `wasm.ex`                                     | Elixir compiler in WASM                               |
 | Erlang (Wasm)               | `erlang-wasm`, `erl`, `erlang`, `wasm.erl`                                          | Erlang runtime in WASM (AtomVM)                       |
 | Tcl                         | `tcl`                                                                               | Tcl interpreter                                       |

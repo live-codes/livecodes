@@ -315,6 +315,8 @@ export const htmlToImageUrl = /* @__PURE__ */ getUrl('html-to-image@1.11.11/dist
 
 export const imbaBaseUrl = /* @__PURE__ */ getUrl('imba@2.0.0-alpha.229/dist/');
 
+export const ioBaseUrl = /* @__PURE__ */ getUrl(`@iolanguage/io@2026.11.25/`);
+
 export const jestTypesUrl = /* @__PURE__ */ getUrl('@types/jest@27.4.1/index.d.ts');
 
 export const jsclUrl = /* @__PURE__ */ getUrl(
@@ -380,7 +382,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.14/dist/',
+  '@live-codes/monaco-languages@0.3.16/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');

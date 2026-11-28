@@ -131,6 +131,7 @@ export default function Sliders() {
       { name: 'teal', title: 'Teal' },
       { name: 'fennel', title: 'Fennel' },
       { name: 'julia', title: 'Julia' },
+      { name: 'io', title: 'Io' },
       { name: 'tcl', title: 'Tcl' },
       { name: 'ada-wasm', title: 'Ada (Wasm)' },
       { name: 'pascal', title: 'Pascal' },
