@@ -297,6 +297,7 @@ export const getCommandMenuActions = ({
         'nim',
         'nim-wasm',
         'janet-wasm',
+        'io',
         'python',
         'python-wasm',
         'r',

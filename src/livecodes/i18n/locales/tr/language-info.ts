@@ -242,6 +242,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Resmi web sitesi</2></1>',
     name: 'Imba',
   },
+  io: {
+    desc: "<1>Io</1> programlama dilinin WebAssembly'ye derlenen ve tamamen tarayıcıda çalışan sanal makinesi. Io kodu JavaScript ve DOM'u çağırabilir.",
+    link: "<1> <2>Io resmi web sitesi</2> </1> <3> <4>Io GitHub deposu</4> </3> <5> <6>npm'de @iolanguage/io</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",
+    name: 'Io',
+  },
   janetWasm: {
     desc: "<1>Janet</1> yorumlayıcısı WebAssembly'ye derlenir ve tamamen tarayıcı içinde çalışır. Standart girişi ve gerçek çıkış kodlarını destekler.",
     link: "<1><2>Janet resmi web sitesi</2></1> <3> <4>Janet belgeleri</4> </3> <5> <6>Y dakikada X'i öğrenin, burada X=Janet</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",

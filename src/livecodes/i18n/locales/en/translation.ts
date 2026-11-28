@@ -1026,6 +1026,7 @@ const translation = {
       'haskell-wasm': 'Haskell (Wasm) Starter',
       heading: 'Starter Templates',
       imba: 'Imba Starter',
+      io: 'Io Starter',
       'janet-wasm': 'Janet (Wasm) Starter',
       java: 'Java Starter',
       javascript: 'JavaScript Starter',

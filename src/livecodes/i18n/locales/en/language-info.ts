@@ -258,6 +258,11 @@ const languageInfo = {
     link: '<1><2>Official website</2></1>',
     name: 'Imba',
   },
+  io: {
+    desc: 'The <1>Io</1> programming language VM, compiled to WebAssembly and running entirely in the browser. Io code can call JavaScript and the DOM.',
+    link: '<1> <2>Io official website</2> </1> <3> <4>Io GitHub repo</4> </3> <5> <6>@iolanguage/io on npm</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'Io',
+  },
   janetWasm: {
     desc: 'The <1>Janet</1> interpreter compiled to WebAssembly, running entirely in the browser. It supports standard input and real exit codes.',
     link: '<1> <2>Janet official website</2> </1> <3> <4>Janet documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Janet</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',

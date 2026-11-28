@@ -1,0 +1,96 @@
+# Io
+
+[Io](https://iolanguage.org/) is a small, dynamically typed, prototype-based programming language
+with a message-passing syntax.
+
+In LiveCodes, Io runs in the browser on its virtual machine compiled to WebAssembly, entirely
+client-side. No server is involved. Io code can call JavaScript and the DOM.
+
+## Usage
+
+Demo:
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const ioConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'io',
+    content: `"Hello, World!" println`,
+  },
+  mode: 'simple',
+  editor: 'auto',
+  tools: {
+    status: 'full',
+  },
+};
+
+<LiveCodes config={ioConfig}></LiveCodes>
+
+### Output
+
+The program runs on the [result page](../features/result.mdx). Anything it prints with `print`,
+`println` or `writeln` is captured and shown in the [console](../features/console.mdx). When an
+expression prints nothing, its value is shown as `==> value`, as in the Io REPL.
+
+```io
+"Hello, World!" println
+list(1, 2, 3) map(x, x * x) sum
+```
+
+### Communication with JavaScript
+
+Io reaches JavaScript through the `JS` object:
+
+```io
+JS document getElementById("message") set("innerText", "Hello from Io!")
+JS Math sqrt(144) println
+```
+
+A few helper properties and methods are available in the browser global `livecodes.io` object:
+
+- `livecodes.io.loaded`: a promise that resolves when the VM has downloaded and the program has run
+  once. It rejects if the runtime fails to load. Other helpers should be used after it resolves.
+- `livecodes.io.output`: the program's output.
+- `livecodes.io.error`: the error message, if the program failed.
+- `livecodes.io.status`: the evaluation status (`0` ok, `1` Io error, `-1` if the VM could not run
+  the code).
+- `livecodes.io.run()`: runs the current code again, returning a promise that resolves to
+  `{ output, error, status }`.
+
+## Language Info
+
+### Name
+
+`io`
+
+### Aliases / Extensions
+
+`io`, `iolang`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The [Io](https://iolanguage.org/) virtual machine compiled to WebAssembly, packaged by
+[@iolanguage/io](https://www.npmjs.com/package/@iolanguage/io).
+
+### Version
+
+`@iolanguage/io` 2026.11.25.
+
+## Code Formatting
+
+Not currently supported.
+
+## Starter Template
+
+https://livecodes.io/?template=io
+
+## Links
+
+- [Io official website](https://iolanguage.org/)
+- [Io source code](https://github.com/IoLanguage/io)
+- [@iolanguage/io on npm](https://www.npmjs.com/package/@iolanguage/io)

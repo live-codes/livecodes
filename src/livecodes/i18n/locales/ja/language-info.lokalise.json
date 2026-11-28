@@ -432,6 +432,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "io.desc": {
+    "translation": "プログラミング言語 <tag-1>Io</tag-1> の仮想マシンで、WebAssembly にコンパイルされ、完全にブラウザ内で実行されます。Io のコードは JavaScript と DOM を呼び出せます。"
+  },
+  "io.link": {
+    "translation": "<tag-1> <tag-2>Io 公式サイト</tag-2> </tag-1> <tag-3> <tag-4>Io の GitHub リポジトリ</tag-4> </tag-3> <tag-5> <tag-6>npm の @iolanguage/io</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートの読み込み</tag-10> </tag-9>"
+  },
+  "io.name": {
+    "translation": "Io"
+  },
   "janetWasm.desc": {
     "translation": "<tag-1>Janet</tag-1> インタプリタは WebAssembly にコンパイルされ、完全にブラウザ内で実行されます。標準入力と実際の終了コードをサポートします。"
   },

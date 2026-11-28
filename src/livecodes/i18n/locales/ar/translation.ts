@@ -1017,6 +1017,7 @@ const translation: I18nTranslation = {
       'haskell-wasm': 'قالب Haskell (Wasm)',
       heading: 'قوالب البداية',
       imba: 'قالب Imba',
+      io: 'قالب Io',
       'janet-wasm': 'قالب Janet (Wasm)',
       java: 'قالب Java',
       javascript: 'قالب JavaScript',

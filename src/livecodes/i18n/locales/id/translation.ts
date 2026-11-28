@@ -1017,6 +1017,7 @@ const translation: I18nTranslation = {
       'haskell-wasm': 'Pemula Haskell (Wasm)',
       heading: 'Template Pemula',
       imba: 'Pemula Imba',
+      io: 'Pemula Io',
       'janet-wasm': 'Pemula Janet (Wasm)',
       java: 'Pemula Java',
       javascript: 'Pemula JavaScript',

@@ -432,6 +432,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "io.desc": {
+    "translation": "<tag-1>Io</tag-1> programlama dilinin WebAssembly'ye derlenen ve tamamen tarayıcıda çalışan sanal makinesi. Io kodu JavaScript ve DOM'u çağırabilir."
+  },
+  "io.link": {
+    "translation": "<tag-1> <tag-2>Io resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Io GitHub deposu</tag-4> </tag-3> <tag-5> <tag-6>npm'de @iolanguage/io</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "io.name": {
+    "translation": "Io"
+  },
   "janetWasm.desc": {
     "translation": "<tag-1>Janet</tag-1> yorumlayıcısı WebAssembly'ye derlenir ve tamamen tarayıcı içinde çalışır. Standart girişi ve gerçek çıkış kodlarını destekler."
   },

@@ -1017,6 +1017,7 @@ const translation: I18nTranslation = {
       'haskell-wasm': 'Haskell (Wasm) স্টার্টার',
       heading: 'স্টার্টার টেমপ্লেট',
       imba: 'Imba স্টার্টার',
+      io: 'Io স্টার্টার',
       'janet-wasm': 'Janet (Wasm) স্টার্টার',
       java: 'Java স্টার্টার',
       javascript: 'JavaScript স্টার্টার',

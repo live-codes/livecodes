@@ -242,6 +242,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Hivatalos weboldal</2></1>',
     name: 'Imba',
   },
+  io: {
+    desc: 'Az <1>Io</1> programozási nyelv virtuális gépe, WebAssembly-re fordítva, amely teljes egészében a böngészőben fut. Az Io-kód JavaScriptet és a DOM-ot hívhat.',
+    link: '<1> <2>Az Io hivatalos weboldala</2> </1> <3> <4>Io GitHub-tára</4> </3> <5> <6>@iolanguage/io az npm-en</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
+    name: 'Io',
+  },
   janetWasm: {
     desc: 'A <1>Janet</1> értelmező WebAssembly-re van fordítva, és teljes egészében a böngészőben fut. Támogatja a szabványos bemenetet és a valódi kilépési kódokat.',
     link: '<1><2>Az Janet hivatalos weboldala</2></1> <3> <4>Janet dokumentáció</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=Janet</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',

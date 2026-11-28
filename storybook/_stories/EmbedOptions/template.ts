@@ -43,6 +43,7 @@ const storyDef: StoryDef = {
   Nim: { props: { template: 'nim' } },
   NimWasm: { props: { template: 'nim-wasm' } },
   JanetWasm: { props: { template: 'janet-wasm' } },
+  Io: { props: { template: 'io' } },
   Python: { props: { template: 'python' } },
   PythonWasm: { props: { template: 'python-wasm' } },
   R: { props: { template: 'r' } },

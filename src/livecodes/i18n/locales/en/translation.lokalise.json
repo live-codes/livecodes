@@ -2720,6 +2720,10 @@
     "notes": "",
     "translation": "Imba Starter"
   },
+  "templates.starter.io": {
+    "notes": "",
+    "translation": "Io Starter"
+  },
   "templates.starter.janet-wasm": {
     "notes": "",
     "translation": "Janet (Wasm) Starter"

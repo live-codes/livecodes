@@ -242,6 +242,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Offizielle Website</2></1>',
     name: 'Imba',
   },
+  io: {
+    desc: 'Die <1>Io</1>-Programmiersprachen-VM, zu WebAssembly kompiliert und vollständig im Browser ausgeführt. Io-Code kann JavaScript und das DOM aufrufen.',
+    link: '<1> <2>Offizielle Io-Website</2> </1> <3> <4>Io-GitHub-Repository</4> </3> <5> <6>@iolanguage/io auf npm</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9> <10>Startervorlage laden</10> </9>',
+    name: 'Io',
+  },
   janetWasm: {
     desc: 'Der <1>Janet</1>-Interpreter wird zu WebAssembly kompiliert und läuft vollständig im Browser. Er unterstützt Standardeingabe und echte Exit-Codes.',
     link: '<1><2>Offizielle Janet-Website</2></1> <3> <4>Janet-Dokumentation</4> </3> <5> <6>Lerne X in Y Minuten, wobei X = Janet</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9> <10>Startervorlage laden</10> </9>',

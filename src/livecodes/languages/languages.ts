@@ -47,6 +47,7 @@ import { haskell } from './haskell';
 import { haskellWasm } from './haskell-wasm';
 import { html } from './html';
 import { imba } from './imba';
+import { io } from './io';
 import { janetWasm } from './janet-wasm';
 import { java8 } from './java-8';
 import { javaWasm } from './java-wasm';
@@ -178,6 +179,7 @@ export const languages: LanguageSpecs[] = [
   crystalWasm,
   odinWasm,
   janetWasm,
+  io,
   python,
   pythonWasm,
   r,

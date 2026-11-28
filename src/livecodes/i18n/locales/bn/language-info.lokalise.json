@@ -432,6 +432,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "io.desc": {
+    "translation": "<tag-1>Io</tag-1> প্রোগ্রামিং ভাষার ভার্চুয়াল মেশিন, যা WebAssembly-তে কম্পাইল হয় এবং সম্পূর্ণভাবে ব্রাউজারে চলে। Io কোড JavaScript এবং DOM কল করতে পারে।"
+  },
+  "io.link": {
+    "translation": "<tag-1> <tag-2>Io অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>GitHub-এ Io রিপো</tag-4> </tag-3> <tag-5> <tag-6>npm-এ @iolanguage/io</tag-6> </tag-5> <tag-7> <tag-8>লাইভকোড ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "io.name": {
+    "translation": "Io"
+  },
   "janetWasm.desc": {
     "translation": "<tag-1>Janet</tag-1> ইন্টারপ্রেটার WebAssembly-তে কম্পাইল করা হয়েছে এবং এটি সম্পূর্ণভাবে ব্রাউজারে চলে। এটি স্ট্যান্ডার্ড ইনপুট এবং প্রকৃত এক্সিট কোড সমর্থন করে।"
   },

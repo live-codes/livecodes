@@ -1018,6 +1018,7 @@ const translation: I18nTranslation = {
       'haskell-wasm': 'شروع کننده Haskell (Wasm)',
       heading: 'قالب‌های شروع کننده',
       imba: 'شروع کننده Imba',
+      io: 'شروع کننده Io',
       'janet-wasm': 'شروع کننده Janet (Wasm)',
       java: 'شروع کننده جاوا',
       javascript: 'شروع کننده جاوااسکریپت',

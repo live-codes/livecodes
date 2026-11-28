@@ -41,6 +41,7 @@ const templates = [
   { name: 'nim', title: 'Nim Starter', thumbnail: 'nim.svg' },
   { name: 'nim-wasm', title: 'Nim (Wasm) Starter', thumbnail: 'nim.svg' },
   { name: 'janet-wasm', title: 'Janet (Wasm) Starter', thumbnail: 'janet.png' },
+  { name: 'io', title: 'Io Starter', thumbnail: 'io.svg' },
   { name: 'python', title: 'Python Starter', thumbnail: 'python.svg' },
   { name: 'python-wasm', title: 'Python (Wasm) Starter', thumbnail: 'python.svg' },
   { name: 'r', title: 'R Starter', thumbnail: 'r.svg' },
