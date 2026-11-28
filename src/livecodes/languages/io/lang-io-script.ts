@@ -45,7 +45,8 @@ interface IoApi {
 
 declare const livecodes: any;
 
-const api = (livecodes.io = livecodes.io || {}) as IoApi;
+livecodes.io ??= {} as IoApi;
+const api = livecodes.io as IoApi;
 
 // The result runs in an iframe; post status updates to the app origin.
 const postLoading = createLoadingReporter();
@@ -151,6 +152,6 @@ api.run = async () => {
   }
 };
 
-window.addEventListener('load', () => {
-  api.run();
+window.addEventListener('load', async () => {
+  await api.run();
 });

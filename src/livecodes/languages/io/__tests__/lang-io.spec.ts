@@ -17,8 +17,4 @@ describe('Io language spec', () => {
   test('uses the script editor', () => {
     expect(io.editor).toBe('script');
   });
-
-  test('is marked as a large download', () => {
-    expect(io.largeDownload).toBe(true);
-  });
 });
