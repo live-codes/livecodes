@@ -3,7 +3,7 @@
 [Typst](https://typst.app/) is a markup-based typesetting system that is designed to be as powerful
 as LaTeX while being much easier to learn and use.
 
-LiveCodes compiles and renders Typst documents entirely in the browser using
+LiveCodes compiles Typst documents to SVG entirely in the browser using
 [typst.ts](https://github.com/Myriad-Dreamin/typst.ts), which runs the Typst compiler and renderer
 compiled to WebAssembly. No server is involved.
 
@@ -12,8 +12,7 @@ compiled to WebAssembly. No server is involved.
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 export const typstConfig = {
-  activeEditor: 'script',
-  script: {
+  markup: {
     language: 'typst',
     content: `= Typst
 
@@ -30,6 +29,26 @@ export const typstConfig = {
 )
 `,
   },
+  style: {
+    language: 'css',
+    content: `body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
+  padding: 1rem;
+  background: #ececec;
+  box-sizing: border-box;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}`,
+  },
   editor: 'auto',
 };
 
@@ -37,26 +56,9 @@ export const typstConfig = {
 
 ## Usage
 
-The document is compiled and rendered to SVG on the [result page](../features/result.mdx) every time
-the code changes.
-
-### Usage from JavaScript
-
-Helper methods and properties are available in the browser global `livecodes.typst` object:
-
-- `livecodes.typst.loaded`: a promise that resolves when the first render attempt completes. It
-  rejects if the runtime fails to load.
-- `livecodes.typst.output`: the rendered SVG string (or `null` if rendering failed).
-- `livecodes.typst.error`: the error message, if compilation failed.
-- `livecodes.typst.run(code?)`: compiles and renders the supplied Typst source (or the current
-  editor content when called without arguments). It returns a promise that resolves to
-  `{ output, error, exitCode }`.
-
-```js
-await livecodes.typst.loaded;
-const { output, error } = await livecodes.typst.run('= Hello, Typst!');
-console.log(error ?? output);
-```
+Like [Markdown](./markdown.mdx), Typst is a markup language, so the document is written in the
+**markup** editor. The Typst compiler runs in the LiveCodes compiler worker, and the resulting SVG is
+sent to the [result page](../features/result.mdx) every time the code changes.
 
 ## Language Info
 
@@ -70,7 +72,7 @@ console.log(error ?? output);
 
 ### Editor
 
-`script`
+`markup`
 
 ## Compiler
 
@@ -83,8 +85,8 @@ by [typst.ts](https://github.com/Myriad-Dreamin/typst.ts).
 
 ## Limitations
 
-- The compiler and font assets are downloaded on first use, so the initial load can take a while.
-  The runtime is then reused for subsequent renders.
+- The compiler and font assets are downloaded on first use, so the initial compile can take a while.
+  The runtime is then reused for subsequent compiles.
 - Because the result is rendered as SVG, interactive PDF features (such as links and forms) are not
   available.
 - Typst packages that are not bundled with the compiler are fetched from the

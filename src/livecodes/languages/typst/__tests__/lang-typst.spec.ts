@@ -1,4 +1,4 @@
-import type { CompileOptions, Compiler, Config } from '../../../models';
+import type { Compiler, Config } from '../../../models';
 import { typst } from '../lang-typst';
 
 describe('typst', () => {
@@ -7,27 +7,39 @@ describe('typst', () => {
   test('has the expected name, title and extensions', () => {
     expect(typst.name).toBe('typst');
     expect(typst.title).toBe('Typst');
-    expect(typst.extensions).toEqual(expect.arrayContaining(['typ']));
+    expect(typst.extensions).toEqual(['typ']);
   });
 
-  test('uses the script editor with the typst script type', () => {
-    expect(typst.editor).toBe('script');
+  test('uses the markup editor, like markdown', () => {
+    expect(typst.editor).toBe('markup');
     expect(typst.editorLanguage).toBe('markdown');
-    expect(compiler.scriptType).toBe('text/typst');
-    expect(compiler.compiledCodeLanguage).toBe('typst');
-    expect(compiler.liveReload).toBe(true);
     expect(typst.largeDownload).toBe(true);
   });
 
-  test('loads only the ESM runner on the page, with an identity compiler factory', async () => {
-    const scripts =
-      typeof compiler.scripts === 'function'
-        ? compiler.scripts({ baseUrl: 'base/', config: {} as Config, compiled: '' })
-        : compiler.scripts;
-    expect(scripts).toEqual(['base/{{hash:lang-typst-script-esm.js}}']);
+  test('does not use the result-page runtime or live reload', () => {
+    expect(compiler.scripts).toBeUndefined();
+    expect(compiler.scriptType).toBeUndefined();
+    expect(compiler.inlineScript).toBeUndefined();
+    expect(compiler.compiledCodeLanguage).toBeUndefined();
+    expect(compiler.liveReload).toBeUndefined();
+  });
 
-    const fn = await compiler.factory({} as Config, '');
-    const code = '= Hello\n\nThis is *Typst*!';
-    expect(await fn(code, {} as CompileOptions as any)).toBe(code);
+  test('loads the compiler script in the compiler worker', async () => {
+    const importScripts = jest.fn();
+    const compile = jest.fn();
+    const createTypstCompiler = jest.fn(() => compile);
+    const global = globalThis as any;
+    global.importScripts = importScripts;
+    global.createTypstCompiler = createTypstCompiler;
+
+    try {
+      const fn = await compiler.factory({} as Config, 'base/');
+      expect(importScripts).toHaveBeenCalledWith('base/{{hash:lang-typst-compiler.js}}');
+      expect(createTypstCompiler).toHaveBeenCalled();
+      expect(fn).toBe(compile);
+    } finally {
+      delete global.importScripts;
+      delete global.createTypstCompiler;
+    }
   });
 });

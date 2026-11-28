@@ -17,22 +17,12 @@ export interface WorkerRunnerOptions {
   /**
    * The classic worker that loads the runtime. It must post `{ type: 'ready' | 'error' }` when the
    * runtime has loaded (or failed to), and a run result keyed by the request id otherwise.
-   * Ignored when `getWorker` is provided.
    */
-  getWorkerSrc?: () => string;
-  /**
-   * Creates the worker directly, e.g. for a module worker loaded from a URL. It must speak the same
-   * message protocol as `getWorkerSrc`.
-   */
-  getWorker?: () => Worker;
-  /** Posted once when the worker is spawned, e.g. to pass runtime URLs to it. */
-  initMessage?: unknown;
+  getWorkerSrc: () => string;
   /** Shown in crash, timeout and unavailability messages, e.g. `Fortran`. */
   label: string;
   /** Kill the worker when a single run does not settle within this many milliseconds. */
   timeoutMs?: number;
-  /** Kill the worker when it does not report `ready` within this many milliseconds. */
-  bootTimeoutMs?: number;
 }
 
 interface Pending<TResult> {
@@ -47,23 +37,14 @@ interface Pending<TResult> {
  */
 export const createWorkerRunner = <TResult = WorkerRunResult>({
   getWorkerSrc,
-  getWorker,
-  initMessage,
   label,
   timeoutMs,
-  bootTimeoutMs,
 }: WorkerRunnerOptions): Runner<TResult> => {
   let worker: Worker | null = null;
   let ready: Promise<void> | null = null;
   let settleReady: ((error?: Error) => void) | null = null;
   let pending: Record<number, Pending<TResult>> = {};
   let nextId = 1;
-  let bootTimer: ReturnType<typeof setTimeout> | null = null;
-
-  const clearBootTimer = () => {
-    if (bootTimer != null) clearTimeout(bootTimer);
-    bootTimer = null;
-  };
 
   const failAll = (error: Error) => {
     for (const id of Object.keys(pending)) {
@@ -75,7 +56,6 @@ export const createWorkerRunner = <TResult = WorkerRunResult>({
   };
 
   const teardown = (error?: Error) => {
-    clearBootTimer();
     worker?.terminate();
     worker = null;
     ready = null;
@@ -87,7 +67,6 @@ export const createWorkerRunner = <TResult = WorkerRunResult>({
   const onMessage = (event: MessageEvent) => {
     const message = event.data ?? {};
     if (message.type === 'ready') {
-      clearBootTimer();
       settleReady?.();
       settleReady = null;
       return;
@@ -112,24 +91,10 @@ export const createWorkerRunner = <TResult = WorkerRunResult>({
     ready = new Promise<void>((resolve, reject) => {
       settleReady = (error?: Error) => (error ? reject(error) : resolve());
     });
-    if (getWorker) {
-      worker = getWorker();
-    } else if (getWorkerSrc) {
-      worker = createWorkerFromContent(getWorkerSrc());
-    } else {
-      throw new Error(`No worker source provided for the ${label} runner`);
-    }
+    worker = createWorkerFromContent(getWorkerSrc());
     worker.onmessage = onMessage;
     worker.onerror = (event) =>
       teardown(new Error(`The ${label} worker crashed: ${event.message}`));
-    if (initMessage !== undefined) {
-      worker.postMessage(initMessage);
-    }
-    if (bootTimeoutMs != null) {
-      bootTimer = setTimeout(() => {
-        teardown(new Error(`The ${label} runtime timed out while loading`));
-      }, bootTimeoutMs);
-    }
   };
 
   /** Spawn the worker if needed and resolve once the runtime has loaded. */

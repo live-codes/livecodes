@@ -998,7 +998,6 @@ export type CustomSettings = Partial<
       | 'text/v-wasm'
       | 'text/elixir-wasm'
       | 'text/erlang-wasm'
-      | 'text/typst'
       | 'application/json'
       | 'application/lua'
       | 'text/fennel'

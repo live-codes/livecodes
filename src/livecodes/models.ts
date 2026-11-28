@@ -248,7 +248,6 @@ export type ScriptType =
   | 'text/erlang-wasm'
   | 'text/assembly'
   | 'text/kotlin-wasm'
-  | 'text/typst'
   | 'application/json'
   | 'application/lua'
   | 'text/fennel'

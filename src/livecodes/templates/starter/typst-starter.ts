@@ -4,16 +4,8 @@ export const typstStarter: Template = {
   name: 'typst',
   title: window.deps.translateString('templates.starter.typst', 'Typst Starter'),
   thumbnail: 'assets/templates/typst.svg',
-  activeEditor: 'script',
+  activeEditor: 'markup',
   markup: {
-    language: 'html',
-    content: '',
-  },
-  style: {
-    language: 'css',
-    content: '',
-  },
-  script: {
     language: 'typst',
     content: `
 #set page(margin: 2cm)
@@ -35,6 +27,32 @@ export const typstStarter: Template = {
   [Typst], [Runs in your browser],
 )
 `.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
+  padding: 1rem;
+  background: #ececec;
+  box-sizing: border-box;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+`.trimStart(),
+  },
+  script: {
+    language: 'javascript',
+    content: '',
   },
   stylesheets: [],
   scripts: [],
