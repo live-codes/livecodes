@@ -150,6 +150,8 @@ Keystone: [GPL-2.0 license](https://github.com/keystone-engine/keystone/blob/mas
 
 konnors-ninja-keys: [MIT License](https://github.com/KonnorRogers/konnors-ninja-keys/blob/6dde465ab2c64329c4284a1f95d9d7501acdb86a/LICENSE)
 
+LaTeX.js: [MIT License](https://github.com/michael-brade/LaTeX.js/blob/master/LICENSE) (bundles KaTeX: [MIT License](https://github.com/KaTeX/KaTeX/blob/main/LICENSE))
+
 Less: [Apache License 2.0](https://github.com/less/less.js/blob/870f9b2d8136bfbcdc9e1293bb0def51b54f9276/LICENSE)
 
 Lightning CSS: [Mozilla Public License 2.0](https://github.com/parcel-bundler/lightningcss/blob/3c9db12b684f34ea015a287f2a23b728ee5ade85/LICENSE)

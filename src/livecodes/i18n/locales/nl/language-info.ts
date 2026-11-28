@@ -288,6 +288,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Kotlin officiële website</2> </1> <3> <4>Kotlin documentatie</4> </3> <5> <6>Leer X in Y minuten, waarbij X=Kotlin</6> </5> <7> <8>LiveCodes documentatie</8> </7> <9> <10>Startsjabloon laden</10> </9>',
     name: 'Kotlin',
   },
+  latex: {
+    desc: 'LaTeX is een hoogwaardig zetsysteem voor technische en wetenschappelijke documenten. LiveCodes compileert LaTeX met LaTeX.js in de browser naar HTML.',
+    link: '<1> <2>LaTeX officiële website</2> </1> <3> <4>LaTeX-documentatie</4> </3> <5> <6>LaTeX.js GitHub-repository</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Starterssjabloon laden</10> </9>',
+    name: 'LaTeX',
+  },
   less: {
     desc: 'Het is CSS, met net iets meer.',
     link: '<1><2>Less officiële website</2></1> <3> <4>Leer X in Y minuten, waarbij X=less</4> </3>',

@@ -52,6 +52,7 @@ import { jqueryStarter } from './jquery-starter';
 import { juliaStarter } from './julia-starter';
 import { knockoutStarter } from './knockout-starter';
 import { kotlinStarter } from './kotlin-starter';
+import { latexStarter } from './latex-starter';
 import { litStarter } from './lit-starter';
 import { livescriptStarter } from './livescript-starter';
 import { luaStarter } from './lua-starter';
@@ -210,4 +211,5 @@ export const starterTemplates = [
   dartStarter,
   flutterStarter,
   typstStarter,
+  latexStarter,
 ];

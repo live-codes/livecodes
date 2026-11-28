@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "LaTeXは技術文書や科学文書のための高品質な組版システムです。LiveCodesはLaTeX.jsを使用して、ブラウザ内でLaTeXをHTMLにコンパイルします。"
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>LaTeX公式ウェブサイト</tag-2> </tag-1> <tag-3> <tag-4>LaTeXドキュメント</tag-4> </tag-3> <tag-5> <tag-6>LaTeX.js GitHubリポジトリ</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートを読み込む</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "CSS に少し機能を追加したもの。"
   },

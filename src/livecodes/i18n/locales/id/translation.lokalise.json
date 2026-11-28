@@ -2067,6 +2067,9 @@
   "templates.starter.kotlin": {
     "translation": "Pemula Kotlin"
   },
+  "templates.starter.latex": {
+    "translation": "Pemula LaTeX"
+  },
   "templates.starter.lit": {
     "translation": "Pemula Lit"
   },

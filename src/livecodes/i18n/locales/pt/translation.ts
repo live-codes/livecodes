@@ -1028,6 +1028,7 @@ const translation: I18nTranslation = {
       julia: 'Iniciante Julia',
       knockout: 'Iniciante Knockout',
       kotlin: 'Iniciante Kotlin',
+      latex: 'Iniciante LaTeX',
       lit: 'Iniciante Lit',
       livescript: 'Iniciante LiveScript',
       loading: 'Carregando modelos iniciantes...',

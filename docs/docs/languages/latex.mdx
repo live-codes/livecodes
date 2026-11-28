@@ -1,0 +1,104 @@
+# LaTeX
+
+[LaTeX](https://www.latex-project.org/) is a high-quality typesetting system for technical and
+scientific documents.
+
+LiveCodes supports LaTeX with a live preview of the typeset document. Documents are written in the
+markup editor and compiled to HTML in the browser using [LaTeX.js](https://github.com/michael-brade/LaTeX.js).
+
+## Basic Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const latexConfig = {
+  markup: {
+    language: 'latex',
+    content: `\\documentclass{article}
+
+\\title{Hello, LaTeX!}
+\\author{LiveCodes}
+\\date{\\today}
+
+\\begin{document}
+\\maketitle
+
+\\section{Introduction}
+
+This is a LaTeX document running in LiveCodes. It supports \\textbf{bold text}, \\emph{italic text},
+lists, links, and math.
+
+\\begin{itemize}
+\\item Written in the markup editor
+\\item Compiled in the browser
+\\item Previewed live
+\\end{itemize}
+
+\\section{Mathematics}
+
+Inline math like $E = mc^2$ and displayed equations are supported:
+
+\\[
+\\int_{-\\infty}^{\\infty} e^{-x^2} \\, dx = \\sqrt{\\pi}
+\\]
+
+\\end{document}
+`,
+},
+editor: 'auto',
+};
+
+<LiveCodes config={latexConfig} height="80vh"></LiveCodes>
+
+## Usage
+
+LaTeX documents are written in the **markup** editor and previewed live as you type. See the
+[starter template](#starter-template) for an example covering sections, lists, math,
+cross-references, and links.
+
+<LiveCodes template="latex" height="80vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`latex`
+
+### Extensions
+
+`tex`, `latex`, `ltx`
+
+### Editor
+
+`markup`
+
+## Compiler
+
+LaTeX is compiled to HTML in the browser by [LaTeX.js](https://github.com/michael-brade/LaTeX.js).
+It is a JavaScript LaTeX-to-HTML5 translator that uses a PEG parser and renders math with
+[KaTeX](https://katex.org/). The compiler runs in the compiler sandbox and the generated HTML is
+sent to the result page. Nothing is sent to a server.
+
+### Version
+
+`latex.js` v0.13.1
+
+## Limitations
+
+- LaTeX.js supports a subset of LaTeX. The document classes `article`, `book`, and `report` are
+  built in, along with parts of the `color`, `xcolor`, `graphics`, `graphicx`, `hyperref`,
+  `multicol`, `latexsym`, `gensymb`, `textcomp`, `textgreek`, and `stix` packages.
+- Tables, figures, and other floats are not implemented.
+- Packages and commands that are not supported by LaTeX.js cannot be loaded from a TeX
+  distribution. They are reported in the console when used.
+- The output is HTML, not PDF. PDF-specific features are not available.
+
+## Starter Template
+
+https://livecodes.io/?template=latex
+
+## Links
+
+- [LaTeX project website](https://www.latex-project.org/)
+- [LaTeX documentation](https://www.latex-project.org/help/documentation/)
+- [LaTeX.js GitHub repository](https://github.com/michael-brade/LaTeX.js)
+- [KaTeX](https://katex.org/)

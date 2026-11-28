@@ -289,6 +289,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi Kotlin</2> </1> <3> <4>Dokumentasi Kotlin</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=Kotlin</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat template pemula</10> </9>',
     name: 'Kotlin',
   },
+  latex: {
+    desc: 'LaTeX adalah sistem penataan huruf berkualitas tinggi untuk dokumen teknis dan ilmiah. LiveCodes mengompilasi LaTeX ke HTML di browser menggunakan LaTeX.js.',
+    link: '<1> <2>Situs web resmi LaTeX</2> </1> <3> <4>Dokumentasi LaTeX</4> </3> <5> <6>Repositori GitHub LaTeX.js</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'LaTeX',
+  },
   less: {
     desc: 'Ini CSS, dengan sedikit lebih banyak.',
     link: '<1><2>Situs web resmi Less</2></1> <3> <4>Pelajari X dalam Y menit, dengan X=less</4> </3>',

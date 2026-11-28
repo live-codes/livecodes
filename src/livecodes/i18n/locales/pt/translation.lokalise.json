@@ -2067,6 +2067,9 @@
   "templates.starter.kotlin": {
     "translation": "Iniciante Kotlin"
   },
+  "templates.starter.latex": {
+    "translation": "Iniciante LaTeX"
+  },
   "templates.starter.lit": {
     "translation": "Iniciante Lit"
   },

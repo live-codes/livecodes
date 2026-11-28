@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "LaTeX is een hoogwaardig zetsysteem voor technische en wetenschappelijke documenten. LiveCodes compileert LaTeX met LaTeX.js in de browser naar HTML."
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>LaTeX officiële website</tag-2> </tag-1> <tag-3> <tag-4>LaTeX-documentatie</tag-4> </tag-3> <tag-5> <tag-6>LaTeX.js GitHub-repository</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-documentatie</tag-8> </tag-7> <tag-9> <tag-10>Starterssjabloon laden</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "Het is CSS, met net iets meer."
   },

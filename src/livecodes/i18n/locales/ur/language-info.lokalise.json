@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "LaTeX تکنیکی اور سائنسی دستاویزات کے لیے اعلیٰ معیار کا ٹائپ سیٹنگ سسٹم ہے۔ LiveCodes براؤزر میں LaTeX.js استعمال کرتے ہوئے LaTeX کو HTML میں کمپائل کرتا ہے۔"
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>LaTeX کی سرکاری ویب سائٹ</tag-2> </tag-1> <tag-3> <tag-4>LaTeX دستاویزات</tag-4> </tag-3> <tag-5> <tag-6>LaTeX.js GitHub ریپوزٹری</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes دستاویزات</tag-8> </tag-7> <tag-9> <tag-10>اسٹارٹر ٹیمپلیٹ لوڈ کریں</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "یہ سی ایس ایس ہے، بس تھوڑا سا زیادہ کے ساتھ۔"
   },

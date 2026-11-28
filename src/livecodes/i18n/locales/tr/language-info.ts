@@ -289,6 +289,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Kotlin resmi web sitesi</2> </1> <3> <4>Kotlin dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=Kotlin</6> </5> <7> <8>LiveCodes dokümantasyonu</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
     name: 'Kotlin',
   },
+  latex: {
+    desc: "LaTeX, teknik ve bilimsel belgeler için yüksek kaliteli bir dizgi sistemidir. LiveCodes, LaTeX.js kullanarak LaTeX'i tarayıcıda HTML'e derler.",
+    link: '<1> <2>LaTeX resmi web sitesi</2> </1> <3> <4>LaTeX belgeleri</4> </3> <5> <6>LaTeX.js GitHub deposu</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'LaTeX',
+  },
   less: {
     desc: 'Bu CSS, sadece biraz daha fazlasıyla.',
     link: '<1><2>Less resmi web sitesi</2></1> <3> <4>Y Dakikada X Öğrenin, X=less</4> </3>',

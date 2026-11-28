@@ -2067,6 +2067,9 @@
   "templates.starter.kotlin": {
     "translation": "Kotlin স্টার্টার"
   },
+  "templates.starter.latex": {
+    "translation": "LaTeX স্টার্টার"
+  },
   "templates.starter.lit": {
     "translation": "Lit স্টার্টার"
   },

@@ -2067,6 +2067,9 @@
   "templates.starter.kotlin": {
     "translation": "Kotlin-starter"
   },
+  "templates.starter.latex": {
+    "translation": "LaTeX-starter"
+  },
   "templates.starter.lit": {
     "translation": "Lit-starter"
   },

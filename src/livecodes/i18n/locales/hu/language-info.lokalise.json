@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "A LaTeX kiváló minőségű szedőrendszer műszaki és tudományos dokumentumokhoz. A LiveCodes a LaTeX.js segítségével HTML-re fordítja a LaTeXet a böngészőben."
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>LaTeX hivatalos weboldala</tag-2> </tag-1> <tag-3> <tag-4>LaTeX dokumentáció</tag-4> </tag-3> <tag-5> <tag-6>LaTeX.js GitHub-tárhely</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Indító sablon betöltése</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "Ez CSS, csak egy kicsit több."
   },

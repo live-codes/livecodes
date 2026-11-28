@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "LaTeX ist ein hochwertiges Satzsystem für technische und wissenschaftliche Dokumente. LiveCodes kompiliert LaTeX mit LaTeX.js im Browser zu HTML."
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>Offizielle LaTeX-Website</tag-2> </tag-1> <tag-3> <tag-4>LaTeX-Dokumentation</tag-4> </tag-3> <tag-5> <tag-6>LaTeX.js GitHub-Repository</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes-Dokumentation</tag-8> </tag-7> <tag-9> <tag-10>Starter-Vorlage laden</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "Es ist CSS, mit ein bisschen mehr."
   },

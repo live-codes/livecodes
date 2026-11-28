@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "LaTeX è un sistema di composizione tipografica di alta qualità per documenti tecnici e scientifici. LiveCodes compila LaTeX in HTML nel browser usando LaTeX.js."
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>Sito ufficiale di LaTeX</tag-2> </tag-1> <tag-3> <tag-4>Documentazione di LaTeX</tag-4> </tag-3> <tag-5> <tag-6>Repository GitHub di LaTeX.js</tag-6> </tag-5> <tag-7> <tag-8>Documentazione LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carica il modello di avvio</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "È CSS, con un po' di più."
   },

@@ -1028,6 +1028,7 @@ const translation: I18nTranslation = {
       julia: 'Julia Başlangıç',
       knockout: 'Knockout Başlangıç',
       kotlin: 'Kotlin Başlangıç',
+      latex: 'LaTeX Başlangıç',
       lit: 'Lit Başlangıç',
       livescript: 'LiveScript Başlangıç',
       loading: 'Başlangıç şablonları yükleniyor...',
