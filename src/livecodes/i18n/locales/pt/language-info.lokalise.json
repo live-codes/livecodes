@@ -432,6 +432,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "io.desc": {
+    "translation": "A máquina virtual da linguagem de programação <tag-1>Io</tag-1>, compilada para WebAssembly e executada inteiramente no navegador. O código Io pode chamar JavaScript e o DOM."
+  },
+  "io.link": {
+    "translation": "<tag-1> <tag-2>Site oficial do Io</tag-2> </tag-1> <tag-3> <tag-4>Repositório do Io no GitHub</tag-4> </tag-3> <tag-5> <tag-6>@iolanguage/io no npm</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
+  },
+  "io.name": {
+    "translation": "Io"
+  },
   "janetWasm.desc": {
     "translation": "O interpretador <tag-1>Janet</tag-1> é compilado para WebAssembly, sendo executado na íntegra no navegador. Ele suporta entrada padrão e códigos de saída reais."
   },

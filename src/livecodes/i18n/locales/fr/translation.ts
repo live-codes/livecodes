@@ -1019,6 +1019,7 @@ const translation: I18nTranslation = {
       'haskell-wasm': 'Démarrage Haskell (Wasm)',
       heading: 'Modèles de Démarrage',
       imba: 'Démarrage Imba',
+      io: 'Démarrage Io',
       'janet-wasm': 'Démarrage Janet (Wasm)',
       java: 'Démarrage Java',
       javascript: 'Démarrage JavaScript',

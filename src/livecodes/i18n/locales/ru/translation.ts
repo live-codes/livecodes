@@ -1017,6 +1017,7 @@ const translation: I18nTranslation = {
       'haskell-wasm': 'Стартер Haskell (Wasm)',
       heading: 'Стартовые шаблоны',
       imba: 'Стартер Imba',
+      io: 'Стартер Io',
       'janet-wasm': 'Стартер Janet (Wasm)',
       java: 'Стартер Java',
       javascript: 'Стартер JavaScript',

@@ -2037,6 +2037,9 @@
   "templates.starter.imba": {
     "translation": "Imba kezdő"
   },
+  "templates.starter.io": {
+    "translation": "Io kezdő"
+  },
   "templates.starter.janet-wasm": {
     "translation": "Janet (Wasm) kezdő"
   },

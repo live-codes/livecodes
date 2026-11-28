@@ -432,6 +432,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "io.desc": {
+    "translation": "Mesin virtual bahasa pemrograman <tag-1>Io</tag-1>, dikompilasi ke WebAssembly dan berjalan sepenuhnya di dalam browser. Kode Io dapat memanggil JavaScript dan DOM."
+  },
+  "io.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi Io</tag-2> </tag-1> <tag-3> <tag-4>Repositori Io di GitHub</tag-4> </tag-3> <tag-5> <tag-6>@iolanguage/io di npm</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat templat awal</tag-10> </tag-9>"
+  },
+  "io.name": {
+    "translation": "Io"
+  },
   "janetWasm.desc": {
     "translation": "Interpreter <tag-1>Janet</tag-1> dikompilasi ke WebAssembly dan dijalankan sepenuhnya di dalam browser. Ini mendukung input standar dan kode keluar nyata."
   },

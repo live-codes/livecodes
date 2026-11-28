@@ -432,6 +432,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "io.desc": {
+    "translation": "<tag-1>Io</tag-1> 编程语言的虚拟机，编译为 WebAssembly 并在浏览器中完全运行。Io 代码可以调用 JavaScript 和 DOM。"
+  },
+  "io.link": {
+    "translation": "<tag-1> <tag-2>Io 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Io 的 GitHub 仓库</tag-4> </tag-3> <tag-5> <tag-6>npm 上的 @iolanguage/io</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes 文档</tag-8> </tag-7> <tag-9> <tag-10>加载入门模板</tag-10> </tag-9>"
+  },
+  "io.name": {
+    "translation": "Io"
+  },
   "janetWasm.desc": {
     "translation": "<tag-1>Janet</tag-1> 解释器编译为 WebAssembly，并在浏览器中完全运行。它支持标准输入和真实的退出代码。"
   },

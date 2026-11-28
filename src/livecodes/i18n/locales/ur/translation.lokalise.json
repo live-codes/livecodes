@@ -2037,6 +2037,9 @@
   "templates.starter.imba": {
     "translation": "امبا شروعاتی"
   },
+  "templates.starter.io": {
+    "translation": "Io شروعاتی"
+  },
   "templates.starter.janet-wasm": {
     "translation": "Janet (واسم) شروعاتی"
   },

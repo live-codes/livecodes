@@ -2037,6 +2037,9 @@
   "templates.starter.imba": {
     "translation": "قالب Imba"
   },
+  "templates.starter.io": {
+    "translation": "قالب Io"
+  },
   "templates.starter.janet-wasm": {
     "translation": "قالب Janet (Wasm)"
   },

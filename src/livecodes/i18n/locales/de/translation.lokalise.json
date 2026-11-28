@@ -2037,6 +2037,9 @@
   "templates.starter.imba": {
     "translation": "Imba-Starter"
   },
+  "templates.starter.io": {
+    "translation": "Io-Starter"
+  },
   "templates.starter.janet-wasm": {
     "translation": "Janet (Wasm)-Starter"
   },

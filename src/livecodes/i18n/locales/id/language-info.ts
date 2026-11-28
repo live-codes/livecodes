@@ -242,6 +242,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>Situs web resmi</2></1>',
     name: 'Imba',
   },
+  io: {
+    desc: 'Mesin virtual bahasa pemrograman <1>Io</1>, dikompilasi ke WebAssembly dan berjalan sepenuhnya di dalam browser. Kode Io dapat memanggil JavaScript dan DOM.',
+    link: '<1> <2>Situs web resmi Io</2> </1> <3> <4>Repositori Io di GitHub</4> </3> <5> <6>@iolanguage/io di npm</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Io',
+  },
   janetWasm: {
     desc: 'Interpreter <1>Janet</1> dikompilasi ke WebAssembly dan dijalankan sepenuhnya di dalam browser. Ini mendukung input standar dan kode keluar nyata.',
     link: '<1><2>Situs web resmi Janet</2></1> <3> <4>Dokumentasi Janet</4> </3> <5> <6>Belajar X dalam Y menit, di mana X = Janet</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',

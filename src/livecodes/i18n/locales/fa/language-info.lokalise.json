@@ -432,6 +432,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "io.desc": {
+    "translation": "ماشین مجازی زبان برنامه‌نویسی <tag-1>Io</tag-1>، کامپایل‌شده به WebAssembly و کاملاً در مرورگر اجرا می‌شود. کد Io می‌تواند JavaScript و DOM را فراخوانی کند."
+  },
+  "io.link": {
+    "translation": "<tag-1> <tag-2>وب‌سایت رسمی Io</tag-2> </tag-1> <tag-3> <tag-4>مخزن Io در GitHub</tag-4> </tag-3> <tag-5> <tag-6>@iolanguage/io در npm</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگیری قالب شروع</tag-10> </tag-9>"
+  },
+  "io.name": {
+    "translation": "Io"
+  },
   "janetWasm.desc": {
     "translation": "مفسر <tag-1>Janet</tag-1> که به WebAssembly کامپایل شده و کاملاً در مرورگر اجرا می‌شود. از ورودی استاندارد و کدهای خروج واقعی پشتیبانی می‌کند."
   },

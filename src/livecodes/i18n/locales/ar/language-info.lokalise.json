@@ -432,6 +432,15 @@
   "imba.name": {
     "translation": "Imba"
   },
+  "io.desc": {
+    "translation": "الآلة الافتراضية للغة البرمجة <tag-1>Io</tag-1>، مُجمَّعة إلى WebAssembly وتعمل بالكامل في المتصفح. يمكن لكود Io استدعاء JavaScript و DOM."
+  },
+  "io.link": {
+    "translation": "<tag-1> <tag-2>الموقع الرسمي لـ Io</tag-2> </tag-1> <tag-3> <tag-4>مستودع Io على GitHub</tag-4> </tag-3> <tag-5> <tag-6>@iolanguage/io على npm</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البدء</tag-10> </tag-9>"
+  },
+  "io.name": {
+    "translation": "Io"
+  },
   "janetWasm.desc": {
     "translation": "مفسر <tag-1>Janet</tag-1> المُجمَّع إلى WebAssembly يعمل بالكامل داخل المتصفح. يدعم الإدخال القياسي ورموز الخروج الحقيقية."
   },

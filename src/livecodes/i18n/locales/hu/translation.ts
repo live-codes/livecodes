@@ -1018,6 +1018,7 @@ const translation: I18nTranslation = {
       'haskell-wasm': 'Haskell (Wasm) kezdő',
       heading: 'Kezdő sablonok',
       imba: 'Imba kezdő',
+      io: 'Io kezdő',
       'janet-wasm': 'Janet (Wasm) kezdő',
       java: 'Java kezdő',
       javascript: 'JavaScript kezdő',

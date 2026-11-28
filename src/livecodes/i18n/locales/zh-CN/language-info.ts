@@ -237,6 +237,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1><2>官方网站</2></1>',
     name: 'Imba',
   },
+  io: {
+    desc: '<1>Io</1> 编程语言的虚拟机，编译为 WebAssembly 并在浏览器中完全运行。Io 代码可以调用 JavaScript 和 DOM。',
+    link: '<1> <2>Io 官方网站</2> </1> <3> <4>Io 的 GitHub 仓库</4> </3> <5> <6>npm 上的 @iolanguage/io</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Io',
+  },
   janetWasm: {
     desc: '<1>Janet</1> 解释器编译为 WebAssembly，并在浏览器中完全运行。它支持标准输入和真实的退出代码。',
     link: '<1><2>Janet 官方网站</2></1> <3> <4>Janet 文档</4> </3> <5> <6>《Y分钟学会X》，其中X=Janet</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',

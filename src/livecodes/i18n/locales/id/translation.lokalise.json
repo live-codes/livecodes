@@ -2037,6 +2037,9 @@
   "templates.starter.imba": {
     "translation": "Pemula Imba"
   },
+  "templates.starter.io": {
+    "translation": "Pemula Io"
+  },
   "templates.starter.janet-wasm": {
     "translation": "Pemula Janet (Wasm)"
   },
