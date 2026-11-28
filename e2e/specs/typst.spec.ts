@@ -11,9 +11,11 @@ test.describe('Typst', () => {
     });
     await page.goto(url);
 
-    const { getResult } = await getLoadedApp(page);
+    const { getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    // The first compile downloads the typst.ts compiler, renderer and fonts.
+    // Trigger the first compile, which downloads the typst.ts compiler, renderer and fonts.
+    await waitForResultUpdate();
+
     await expect
       .poll(() => getResult().locator('svg').count(), { timeout: 180_000 })
       .toBeGreaterThan(0);
