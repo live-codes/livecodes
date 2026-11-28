@@ -2760,6 +2760,10 @@
     "notes": "",
     "translation": "Kotlin Starter"
   },
+  "templates.starter.latex": {
+    "notes": "",
+    "translation": "LaTeX Starter"
+  },
   "templates.starter.lit": {
     "notes": "",
     "translation": "Lit Starter"

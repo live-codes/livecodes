@@ -2067,6 +2067,9 @@
   "templates.starter.kotlin": {
     "translation": "Kotlin شروعاتی"
   },
+  "templates.starter.latex": {
+    "translation": "LaTeX شروعاتی"
+  },
   "templates.starter.lit": {
     "translation": "لٹ شروعاتی"
   },

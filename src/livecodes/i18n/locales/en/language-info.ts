@@ -305,6 +305,11 @@ const languageInfo = {
     link: '<1> <2>Kotlin official website</2> </1> <3> <4>Kotlin documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Kotlin</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Kotlin',
   },
+  latex: {
+    desc: 'LaTeX is a high-quality typesetting system for technical and scientific documents. LiveCodes compiles LaTeX to HTML in the browser using LaTeX.js.',
+    link: '<1> <2>LaTeX official website</2> </1> <3> <4>LaTeX documentation</4> </3> <5> <6>LaTeX.js GitHub repository</6> </5> <7> <8>LiveCodes Documentation</8> </7> <9> <10>Load starter template</10> </9>',
+    name: 'LaTeX',
+  },
   less: {
     desc: "It's CSS, with just a little more.",
     link: '<1><2>Less official website</2></1> <3> <4>Learn X in Y minutes, where X=less</4> </3>',

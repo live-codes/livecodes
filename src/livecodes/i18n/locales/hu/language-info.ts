@@ -289,6 +289,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Kotlin hivatalos weboldal</2> </1> <3> <4>Kotlin dokumentáció</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=Kotlin</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Kezdő sablon betöltése</10> </9>',
     name: 'Kotlin',
   },
+  latex: {
+    desc: 'A LaTeX kiváló minőségű szedőrendszer műszaki és tudományos dokumentumokhoz. A LiveCodes a LaTeX.js segítségével HTML-re fordítja a LaTeXet a böngészőben.',
+    link: '<1> <2>LaTeX hivatalos weboldala</2> </1> <3> <4>LaTeX dokumentáció</4> </3> <5> <6>LaTeX.js GitHub-tárhely</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Indító sablon betöltése</10> </9>',
+    name: 'LaTeX',
+  },
   less: {
     desc: 'Ez CSS, csak egy kicsit több.',
     link: '<1><2>Less hivatalos weboldal</2></1> <3> <4>Tanulj X-et Y perc alatt, ahol X=less</4> </3>',

@@ -109,6 +109,7 @@ const storyDef: StoryDef = {
   Dart: { props: { template: 'dart' } },
   Flutter: { props: { template: 'flutter' } },
   Typst: { props: { template: 'typst' } },
+  LaTeX: { props: { template: 'latex' } },
 };
 
 export default storyDef;

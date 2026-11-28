@@ -1027,6 +1027,7 @@ const translation: I18nTranslation = {
       julia: 'قالب Julia',
       knockout: 'قالب Knockout',
       kotlin: 'قالب Kotlin',
+      latex: 'قالب LaTeX',
       lit: 'قالب Lit',
       livescript: 'قالب LiveScript',
       loading: 'جارٍ تحميل قوالب البداية...',

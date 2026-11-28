@@ -103,5 +103,6 @@ export const starterTemplates = {
   "diagrams": "Diagrams Starter",
   "dart": "Dart Starter",
   "flutter": "Flutter Starter",
-  "typst": "Typst Starter"
+  "typst": "Typst Starter",
+  "latex": "LaTeX Starter"
 }

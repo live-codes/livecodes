@@ -288,6 +288,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Kotlin 公式ウェブサイト</2> </1> <3> <4>Kotlin ドキュメント</4> </3> <5> <6>X分でYを学ぶ、X=Kotlin</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
     name: 'Kotlin',
   },
+  latex: {
+    desc: 'LaTeXは技術文書や科学文書のための高品質な組版システムです。LiveCodesはLaTeX.jsを使用して、ブラウザ内でLaTeXをHTMLにコンパイルします。',
+    link: '<1> <2>LaTeX公式ウェブサイト</2> </1> <3> <4>LaTeXドキュメント</4> </3> <5> <6>LaTeX.js GitHubリポジトリ</6> </5> <7> <8>LiveCodes ドキュメント</8> </7> <9> <10>スターターテンプレートを読み込む</10> </9>',
+    name: 'LaTeX',
+  },
   less: {
     desc: 'CSS に少し機能を追加したもの。',
     link: '<1><2>Less 公式ウェブサイト</2></1> <3> <4>X分でYを学ぶ、X=less</4> </3>',

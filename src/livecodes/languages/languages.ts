@@ -56,6 +56,7 @@ import { jinja } from './jinja';
 import { jsx, tsx } from './jsx';
 import { julia } from './julia';
 import { kotlin } from './kotlin';
+import { latex } from './latex';
 import { less } from './less';
 import { liquid } from './liquid';
 import { livescript } from './livescript';
@@ -123,6 +124,7 @@ export const languages: LanguageSpecs[] = [
   pug,
   asciidoc,
   typst,
+  latex,
   haml,
   mustache,
   handlebars,

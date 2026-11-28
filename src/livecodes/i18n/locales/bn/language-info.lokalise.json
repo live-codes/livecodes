@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "LaTeX হলো প্রযুক্তিগত ও বৈজ্ঞানিক নথির জন্য একটি উচ্চমানের টাইপসেটিং সিস্টেম। LiveCodes ব্রাউজারে LaTeX.js ব্যবহার করে LaTeX-কে HTML-এ কম্পাইল করে।"
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>LaTeX অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>LaTeX ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>GitHub-এ LaTeX.js রিপোজিটরি</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "এটি CSS, কিছুটা বেশি সহ।"
   },

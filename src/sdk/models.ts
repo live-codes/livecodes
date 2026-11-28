@@ -46,6 +46,9 @@ export type Language =
   | 'asc'
   | 'typst'
   | 'typ'
+  | 'latex'
+  | 'tex'
+  | 'ltx'
   | 'mustache'
   | 'handlebars'
   | 'hbs'
@@ -602,7 +605,8 @@ export type TemplateName =
   | 'diagrams'
   | 'dart'
   | 'flutter'
-  | 'typst';
+  | 'typst'
+  | 'latex';
 
 /**
  * Tools in the tools pane.

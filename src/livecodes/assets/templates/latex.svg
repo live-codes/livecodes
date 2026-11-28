@@ -1,0 +1,14 @@
+<svg
+  width="100"
+  height="40"
+  viewBox="0 0 100 40"
+  xmlns="http://www.w3.org/2000/svg">
+  <text
+    x="50"
+    y="28"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="23"
+    font-weight="bold"
+    fill="#008080">LaTeX</text>
+</svg>

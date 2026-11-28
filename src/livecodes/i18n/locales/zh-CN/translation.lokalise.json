@@ -2067,6 +2067,9 @@
   "templates.starter.kotlin": {
     "translation": "Kotlin 启动模板"
   },
+  "templates.starter.latex": {
+    "translation": "LaTeX 启动模板"
+  },
   "templates.starter.lit": {
     "translation": "Lit 启动模板"
   },

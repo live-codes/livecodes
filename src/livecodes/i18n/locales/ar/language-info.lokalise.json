@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "LaTeX هو نظام تنضيد عالي الجودة للمستندات التقنية والعلمية. يقوم LiveCodes بترجمة LaTeX إلى HTML في المتصفح باستخدام LaTeX.js."
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>موقع LaTeX الرسمي</tag-2> </tag-1> <tag-3> <tag-4>وثائق LaTeX</tag-4> </tag-3> <tag-5> <tag-6>مستودع LaTeX.js على GitHub</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البداية</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "إنه CSS، مع القليل من الإضافات."
   },

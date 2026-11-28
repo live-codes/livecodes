@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "LaTeX یک سیستم حروف‌چینی با کیفیت بالا برای اسناد فنی و علمی است. LiveCodes با استفاده از LaTeX.js، LaTeX را در مرورگر به HTML تبدیل می‌کند."
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>وبسایت رسمی LaTeX</tag-2> </tag-1> <tag-3> <tag-4>مستندات LaTeX</tag-4> </tag-3> <tag-5> <tag-6>مخزن GitHub LaTeX.js</tag-6> </tag-5> <tag-7> <tag-8>مستندات LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>بارگذاری قالب شروع</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "CSS است، فقط با کمی بیشتر."
   },

@@ -1028,6 +1028,7 @@ const translation: I18nTranslation = {
       julia: 'Julia kezdő',
       knockout: 'Knockout kezdő',
       kotlin: 'Kotlin kezdő',
+      latex: 'LaTeX kezdő',
       lit: 'Lit kezdő',
       livescript: 'LiveScript kezdő',
       loading: 'Kezdő sablonok betöltése...',

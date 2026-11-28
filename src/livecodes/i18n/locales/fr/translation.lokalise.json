@@ -2067,6 +2067,9 @@
   "templates.starter.kotlin": {
     "translation": "Démarrage Kotlin"
   },
+  "templates.starter.latex": {
+    "translation": "Démarrage LaTeX"
+  },
   "templates.starter.lit": {
     "translation": "Démarrage Lit"
   },

@@ -1028,6 +1028,7 @@ const translation: I18nTranslation = {
       julia: 'شروع کننده Julia',
       knockout: 'شروع کننده Knockout',
       kotlin: 'شروع کننده Kotlin',
+      latex: 'شروع کننده LaTeX',
       lit: 'شروع کننده Lit',
       livescript: 'شروع کننده LiveScript',
       loading: 'در حال بارگذاری قالب‌های شروع کننده...',

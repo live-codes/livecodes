@@ -34,6 +34,8 @@ export default function Sliders() {
       { name: 'mjml', title: 'MJML' },
       { name: 'diagrams', title: 'Diagrams' },
       { name: 'richtext', title: 'Rich Text' },
+      { name: 'typst', title: 'Typst' },
+      { name: 'latex', title: 'LaTeX' },
     ],
     style: [
       { name: 'css', title: 'CSS' },
@@ -144,7 +146,6 @@ export default function Sliders() {
       { name: 'prolog', title: 'Prolog' },
       { name: 'minizinc', title: 'MiniZinc' },
       { name: 'blockly', title: 'Blockly' },
-      { name: 'typst', title: 'Typst' },
     ],
   };
   const slides = ['markup', 'style', 'script'];

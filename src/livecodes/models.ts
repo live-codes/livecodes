@@ -307,7 +307,8 @@ export type TemplateAlias =
   | 'mzn'
   | 'crystal'
   | 'odin'
-  | 'dartlang';
+  | 'dartlang'
+  | 'tex';
 
 export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &
   Partial<ContentConfig> & {

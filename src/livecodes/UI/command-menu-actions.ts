@@ -360,6 +360,7 @@ export const getCommandMenuActions = ({
         'dart',
         'flutter',
         'typst',
+        'latex',
       ).map((template) => ({
         id: 'Starter template: ' + template,
         title: window.deps.translateString('commandMenu.template', 'Template') + ': ' + template,

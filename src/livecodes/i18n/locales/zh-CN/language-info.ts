@@ -284,6 +284,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Kotlin 官方网站</2> </1> <3> <4>Kotlin 文档</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=Kotlin</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载启动模板</10> </9>',
     name: 'Kotlin',
   },
+  latex: {
+    desc: 'LaTeX 是一个用于技术和科学文档的高质量排版系统。LiveCodes 使用 LaTeX.js 在浏览器中将 LaTeX 编译为 HTML。',
+    link: '<1> <2>LaTeX 官方网站</2> </1> <3> <4>LaTeX 文档</4> </3> <5> <6>LaTeX.js GitHub 仓库</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'LaTeX',
+  },
   less: {
     desc: '只多了一点点内容的 CSS。',
     link: '<1><2>Less 官方网站</2></1> <3> <4>在 Y 分钟内学习 X，其中 X=less</4> </3>',

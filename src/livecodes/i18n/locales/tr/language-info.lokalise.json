@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "LaTeX, teknik ve bilimsel belgeler için yüksek kaliteli bir dizgi sistemidir. LiveCodes, LaTeX.js kullanarak LaTeX'i tarayıcıda HTML'e derler."
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>LaTeX resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>LaTeX belgeleri</tag-4> </tag-3> <tag-5> <tag-6>LaTeX.js GitHub deposu</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "Bu CSS, sadece biraz daha fazlasıyla."
   },

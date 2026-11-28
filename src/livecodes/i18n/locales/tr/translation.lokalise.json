@@ -2067,6 +2067,9 @@
   "templates.starter.kotlin": {
     "translation": "Kotlin Başlangıç"
   },
+  "templates.starter.latex": {
+    "translation": "LaTeX Başlangıç"
+  },
   "templates.starter.lit": {
     "translation": "Lit Başlangıç"
   },

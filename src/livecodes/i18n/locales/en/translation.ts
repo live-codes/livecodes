@@ -1036,6 +1036,7 @@ const translation = {
       julia: 'Julia Starter',
       knockout: 'Knockout Starter',
       kotlin: 'Kotlin Starter',
+      latex: 'LaTeX Starter',
       lit: 'Lit Starter',
       livescript: 'LiveScript Starter',
       loading: 'Loading starter templates...',

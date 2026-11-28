@@ -112,6 +112,10 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
 
 export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.7/build/');
 
+export const codemirrorLegacyModesBaseUrl = /* @__PURE__ */ getUrl(
+  '@codemirror/legacy-modes@6.5.5/mode/',
+);
+
 export const codemirrorMinimapUrl = /* @__PURE__ */ getUrl(
   '@replit/codemirror-minimap@0.5.2/dist/index.js',
 );
@@ -342,6 +346,10 @@ export const keystoneJsUrl = /* @__PURE__ */ getUrl(
 export const keystoneJsWasmUrl = /* @__PURE__ */ getUrl(
   '@alexaltea/keystone-js@0.9.2/dist/keystone.wasm',
 );
+
+export const latexBaseUrl = /* @__PURE__ */ getUrl('latex.js@0.13.1/dist/');
+
+export const latexUrl = /* @__PURE__ */ getUrl('latex.js@0.13.1/dist/latex.js');
 
 export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.30.0/dist/liquid.browser.min.js');
 

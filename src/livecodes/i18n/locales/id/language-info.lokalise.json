@@ -516,6 +516,15 @@
   "kotlin.name": {
     "translation": "Kotlin"
   },
+  "latex.desc": {
+    "translation": "LaTeX adalah sistem penataan huruf berkualitas tinggi untuk dokumen teknis dan ilmiah. LiveCodes mengompilasi LaTeX ke HTML di browser menggunakan LaTeX.js."
+  },
+  "latex.link": {
+    "translation": "<tag-1> <tag-2>Situs web resmi LaTeX</tag-2> </tag-1> <tag-3> <tag-4>Dokumentasi LaTeX</tag-4> </tag-3> <tag-5> <tag-6>Repositori GitHub LaTeX.js</tag-6> </tag-5> <tag-7> <tag-8>Dokumentasi LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Muat templat awal</tag-10> </tag-9>"
+  },
+  "latex.name": {
+    "translation": "LaTeX"
+  },
   "less.desc": {
     "translation": "Ini CSS, dengan sedikit lebih banyak."
   },

@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{hyperref}
+
+\title{LaTeX in LiveCodes}
+\author{LiveCodes}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+LaTeX documents are written in the markup editor and compiled to HTML in the browser using
+\href{https://github.com/michael-brade/LaTeX.js}{LaTeX.js}. Changes are previewed live as you type.
+\end{abstract}
+
+\section{Getting started}
+\label{sec:start}
+
+Use \textbf{bold text}, \emph{italic text}, and \texttt{monospace text}. Sections, lists,
+cross-references, and math are all supported.
+
+\subsection{Lists}
+
+\begin{itemize}
+  \item Markup, sections, and cross-references
+  \item Lists, links, and verbatim text
+  \item Inline and displayed math
+\end{itemize}
+
+\begin{enumerate}
+  \item Write LaTeX in the markup editor.
+  \item Preview the compiled document in the result page.
+  \item Share or export your work.
+\end{enumerate}
+
+\section{Mathematics}
+
+Inline math like $E = mc^2$ and displayed equations are typeset with KaTeX:
+
+\[
+  \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
+\]
+
+\[
+  \sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+\]
+
+\section{Text formatting}
+
+Use \textbf{bold text} for emphasis, \emph{italic text} for definitions, and \texttt{monospace text}
+for identifiers. See Section \ref{sec:start} for the overview.
+
+\section{Links}
+
+See the \href{https://www.latex-project.org/}{LaTeX project website} and the
+\href{https://livecodes.io/docs/languages/latex}{LiveCodes documentation}.
+
+\end{document}

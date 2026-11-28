@@ -288,6 +288,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sito ufficiale di Kotlin</2> </1> <3> <4>Documentazione di Kotlin</4> </3> <5> <6>Impara X in Y minuti, dove X=Kotlin</6> </5> <7> <8>Documentazione di LiveCodes</8> </7> <9> <10>Carica modello di partenza</10> </9>',
     name: 'Kotlin',
   },
+  latex: {
+    desc: 'LaTeX è un sistema di composizione tipografica di alta qualità per documenti tecnici e scientifici. LiveCodes compila LaTeX in HTML nel browser usando LaTeX.js.',
+    link: '<1> <2>Sito ufficiale di LaTeX</2> </1> <3> <4>Documentazione di LaTeX</4> </3> <5> <6>Repository GitHub di LaTeX.js</6> </5> <7> <8>Documentazione LiveCodes</8> </7> <9> <10>Carica il modello di avvio</10> </9>',
+    name: 'LaTeX',
+  },
   less: {
     desc: "È CSS, con un po' di più.",
     link: '<1><2>Sito ufficiale di Less</2></1> <3> <4>Impara X in Y minuti, dove X=less</4> </3>',

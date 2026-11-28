@@ -1027,6 +1027,7 @@ const translation: I18nTranslation = {
       julia: 'جولیا شروعاتی',
       knockout: 'ناک آؤٹ شروعاتی',
       kotlin: 'Kotlin شروعاتی',
+      latex: 'LaTeX شروعاتی',
       lit: 'لٹ شروعاتی',
       livescript: 'لائیو اسکرپٹ شروعاتی',
       loading: 'شروعاتی سانچے لوڈ ہو رہے ہیں...',

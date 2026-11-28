@@ -2067,6 +2067,9 @@
   "templates.starter.kotlin": {
     "translation": "قالب Kotlin"
   },
+  "templates.starter.latex": {
+    "translation": "قالب LaTeX"
+  },
   "templates.starter.lit": {
     "translation": "قالب Lit"
   },

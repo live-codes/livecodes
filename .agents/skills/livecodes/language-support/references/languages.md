@@ -166,9 +166,10 @@ Enabled via `processors` config:
 
 ### Typesetting
 
-| Name  | Aliases        | Notes                 |
-| ----- | -------------- | --------------------- |
-| Typst | `typst`, `typ` | Typst compiler (WASM) |
+| Name  | Aliases               | Notes                  |
+| ----- | --------------------- | ---------------------- |
+| Typst | `typst`, `typ`        | Typst compiler (WASM)  |
+| LaTeX | `latex`, `tex`, `ltx` | LaTeX.js (HTML output) |
 
 ### Data & Logic Languages
 

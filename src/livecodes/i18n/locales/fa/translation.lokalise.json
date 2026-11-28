@@ -2067,6 +2067,9 @@
   "templates.starter.kotlin": {
     "translation": "شروع کننده Kotlin"
   },
+  "templates.starter.latex": {
+    "translation": "شروع کننده LaTeX"
+  },
   "templates.starter.lit": {
     "translation": "شروع کننده Lit"
   },
