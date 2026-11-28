@@ -44,6 +44,8 @@ export type Language =
   | 'asciidoc'
   | 'adoc'
   | 'asc'
+  | 'typst'
+  | 'typ'
   | 'mustache'
   | 'handlebars'
   | 'hbs'
@@ -599,7 +601,8 @@ export type TemplateName =
   | 'blockly'
   | 'diagrams'
   | 'dart'
-  | 'flutter';
+  | 'flutter'
+  | 'typst';
 
 /**
  * Tools in the tools pane.

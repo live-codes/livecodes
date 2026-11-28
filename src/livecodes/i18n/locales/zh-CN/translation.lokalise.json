@@ -2205,6 +2205,9 @@
   "templates.starter.typescript": {
     "translation": "TypeScript 启动模板"
   },
+  "templates.starter.typst": {
+    "translation": "Typst 启动模板"
+  },
   "templates.starter.v-wasm": {
     "translation": "V 启动模板"
   },

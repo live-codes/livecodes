@@ -1059,6 +1059,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "typst.desc": {
+    "translation": "A Typst egy új, jelölőnyelv-alapú szedőrendszer, amelyet arra terveztek, hogy olyan erős legyen, mint a LaTeX, miközben sokkal könnyebb megtanulni és használni."
+  },
+  "typst.link": {
+    "translation": "<tag-1> <tag-2>Typst hivatalos weboldala</tag-2> </tag-1> <tag-3> <tag-4>Typst dokumentáció</tag-4> </tag-3> <tag-5> <tag-6>typst.ts GitHub-tárhely</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes dokumentáció</tag-8> </tag-7> <tag-9> <tag-10>Indító sablon betöltése</tag-10> </tag-9>"
+  },
+  "typst.name": {
+    "translation": "Typst"
+  },
   "v-wasm.desc": {
     "translation": "A V fordító WebAssembly-en fut."
   },

@@ -1059,6 +1059,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "typst.desc": {
+    "translation": "Typstはマークアップベースの新しい組版システムで、LaTeXと同等の強力さを持ちながら、より簡単に学んで使えるように設計されています。"
+  },
+  "typst.link": {
+    "translation": "<tag-1> <tag-2>Typst公式ウェブサイト</tag-2> </tag-1> <tag-3> <tag-4>Typstドキュメント</tag-4> </tag-3> <tag-5> <tag-6>typst.ts GitHubリポジトリ</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ドキュメント</tag-8> </tag-7> <tag-9> <tag-10>スターターテンプレートを読み込む</tag-10> </tag-9>"
+  },
+  "typst.name": {
+    "translation": "Typst"
+  },
   "v-wasm.desc": {
     "translation": "WebAssembly上で動作するVコンパイラ。"
   },

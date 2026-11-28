@@ -2205,6 +2205,9 @@
   "templates.starter.typescript": {
     "translation": "TypeScript-Starter"
   },
+  "templates.starter.typst": {
+    "translation": "Typst-Starter"
+  },
   "templates.starter.v-wasm": {
     "translation": "V-Starter"
   },

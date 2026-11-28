@@ -598,6 +598,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Situs web resmi</2> </1> <3> <4>Dokumentasi TypeScript</4> </3> <5> <6>Pelajari X dalam Y menit, dengan X=TypeScript</6> </5> <7> <8>Muat template pemula</8> </7>',
     name: 'TypeScript',
   },
+  typst: {
+    desc: 'Typst adalah sistem penataan huruf berbasis markup baru yang dirancang agar sekuat LaTeX namun jauh lebih mudah dipelajari dan digunakan.',
+    link: '<1> <2>Situs web resmi Typst</2> </1> <3> <4>Dokumentasi Typst</4> </3> <5> <6>Repositori GitHub typst.ts</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',
+    name: 'Typst',
+  },
   'v-wasm': {
     desc: 'Kompiler V yang berjalan di WebAssembly.',
     link: '<1> <2>Situs web V</2> </1> <3> <4>Dokumentasi bahasa V</4> </3> <5> <6>Pelajari X dalam Y menit, di mana X = V</6> </5> <7> <8>Dokumentasi LiveCodes</8> </7> <9> <10>Muat templat awal</10> </9>',

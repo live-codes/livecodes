@@ -597,6 +597,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Sito ufficiale</2> </1> <3> <4>Documentazione di TypeScript</4> </3> <5> <6>Impara X in Y minuti, dove X=TypeScript</6> </5> <7> <8>Carica modello di partenza</8> </7>',
     name: 'TypeScript',
   },
+  typst: {
+    desc: 'Typst è un nuovo sistema di composizione tipografica basato sul markup, progettato per essere potente quanto LaTeX ma molto più facile da imparare e usare.',
+    link: '<1> <2>Sito ufficiale di Typst</2> </1> <3> <4>Documentazione di Typst</4> </3> <5> <6>Repository GitHub di typst.ts</6> </5> <7> <8>Documentazione LiveCodes</8> </7> <9> <10>Carica il modello di avvio</10> </9>',
+    name: 'Typst',
+  },
   'v-wasm': {
     desc: 'Compilatore V in esecuzione su WebAssembly.',
     link: '<1> <2>Sito web di V</2> </1> <3> <4>Documentazione sul linguaggio V</4> </3> <5> <6>Impara X in Y minuti, dove X = V</6> </5> <7> <8>Documentazione LiveCodes</8> </7> <9> <10>Carica il modello di avvio</10> </9>',

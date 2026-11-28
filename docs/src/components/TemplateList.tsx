@@ -104,6 +104,7 @@ const templates = [
   { name: 'diagrams', title: 'Diagrams Starter', thumbnail: 'diagrams.svg' },
   { name: 'dart', title: 'Dart Starter', thumbnail: 'dart.svg' },
   { name: 'flutter', title: 'Flutter Starter', thumbnail: 'flutter.svg' },
+  { name: 'typst', title: 'Typst Starter', thumbnail: 'typst.svg' },
 ];
 
 export default function TemplateList() {

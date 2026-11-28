@@ -1075,6 +1075,7 @@ const translation: I18nTranslation = {
       tcl: 'Tcl Başlangıç',
       teal: 'Teal Başlangıç',
       typescript: 'TypeScript Başlangıç',
+      typst: 'Typst Başlangıç',
       'v-wasm': 'V Başlangıç',
       'vb-wasm': 'VB.NET (Wasm) Başlangıç',
       vue: 'Vue SFC Başlangıç',

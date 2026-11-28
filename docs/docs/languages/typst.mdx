@@ -1,0 +1,133 @@
+# Typst
+
+[Typst](https://typst.app/) is a markup-based typesetting system that is designed to be as powerful
+as LaTeX while being much easier to learn and use.
+
+LiveCodes supports Typst with a live preview of the typeset document. Documents can use Typst's
+markup, styling, scripting and math features, as well as [packages from the Typst Universe](#packages).
+
+## Basic Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const typstConfig = {
+  markup: {
+    language: 'typst',
+    content: `= Typst
+
+*Typst* is a markup-based typesetting system that is designed to be as powerful as LaTeX while being much easier to learn and use.
+
+== Features
+
+- Markup with headings, lists, tables and figures
+- Scripting with variables, functions and loops
+- Inline and displayed math
+- Packages from the Typst Universe
+
+#let fib(n) = if n < 2 { n } else { fib(n - 1) + fib(n - 2) }
+
+The first ten Fibonacci numbers are #range(10).map(n => str(fib(n))).join(", ").
+
+$ sum_(i=1)^n i = (n (n + 1)) / 2 $
+
+#table(
+  columns: 2,
+  [*Language*], [*LiveCodes*],
+  [Typst], [Runs in your browser],
+)
+`,
+  },
+  style: {
+    language: 'css',
+    content: `body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
+  padding: 1rem;
+  background: #ececec;
+  box-sizing: border-box;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}`,
+  },
+  editor: 'auto',
+};
+
+<LiveCodes config={typstConfig} height="80vh"></LiveCodes>
+
+## Usage
+
+Typst documents are written in the **markup** editor and previewed live as you type. See the
+[starter template](#starter-template) for an example covering markup, styling, scripting, math, tables,
+figures and packages.
+
+<LiveCodes template="typst" height="80vh"></LiveCodes>
+
+## Packages
+
+Typst packages can be imported directly in the document and are fetched from the
+[Typst Universe](https://typst.app/universe/) when first used:
+
+```typst
+#import "@preview/mmdr:0.2.2": mermaid
+
+#figure(
+  mermaid("graph LR; A[Typst markup] --> B[Compiler]; B --> C[SVG result];"),
+  caption: [A Mermaid diagram rendered by the mmdr package.],
+)
+```
+
+The example above uses [`mmdr`](https://typst.app/universe/package/mmdr), which renders
+[Mermaid](https://mermaid.js.org/) diagrams.
+
+Packages are addressed as `@namespace/name:version`; the packages in the Typst Universe use the
+`@preview` namespace. The first compile that imports a package downloads it, so it may take longer
+and requires a network connection. Packages must be compatible with the bundled Typst version (see
+[Compiler](#compiler)).
+
+## Language Info
+
+### Name
+
+`typst`
+
+### Extension
+
+`typ`
+
+### Editor
+
+`markup`
+
+## Compiler
+
+The [Typst](https://github.com/typst/typst) compiler and renderer are compiled to WebAssembly and
+packaged by [typst.ts](https://github.com/Myriad-Dreamin/typst.ts).
+
+### Version
+
+`typst.ts` v0.7.0 (Typst v0.14.2)
+
+## Limitations
+
+- Because the result is rendered as SVG, interactive PDF features (such as links and forms) are not
+  available.
+
+## Starter Template
+
+https://livecodes.io/?template=typst
+
+## Links
+
+- [Typst](https://typst.app/)
+- [Typst documentation](https://typst.app/docs/)
+- [Typst Universe](https://typst.app/universe/)
+- [Typst GitHub repository](https://github.com/typst/typst)
+- [typst.ts](https://github.com/Myriad-Dreamin/typst.ts)

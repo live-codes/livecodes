@@ -2205,6 +2205,9 @@
   "templates.starter.typescript": {
     "translation": "ٹائپ اسکرپٹ شروعاتی"
   },
+  "templates.starter.typst": {
+    "translation": "Typst شروعاتی"
+  },
   "templates.starter.v-wasm": {
     "translation": "V شروعاتی"
   },

@@ -2205,6 +2205,9 @@
   "templates.starter.typescript": {
     "translation": "Pemula TypeScript"
   },
+  "templates.starter.typst": {
+    "translation": "Pemula Typst"
+  },
   "templates.starter.v-wasm": {
     "translation": "Pemula V"
   },

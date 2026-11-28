@@ -598,6 +598,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Resmi web sitesi</2> </1> <3> <4>TypeScript dokümantasyonu</4> </3> <5> <6>Y Dakikada X Öğrenin, X=TypeScript</6> </5> <7> <8>Başlangıç şablonunu yükle</8> </7>',
     name: 'TypeScript',
   },
+  typst: {
+    desc: 'Typst, LaTeX kadar güçlü olacak şekilde tasarlanmış, ancak öğrenmesi ve kullanması çok daha kolay olan, işaretlemeye dayalı yeni bir dizgi sistemidir.',
+    link: '<1> <2>Typst resmi web sitesi</2> </1> <3> <4>Typst belgeleri</4> </3> <5> <6>typst.ts GitHub deposu</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>',
+    name: 'Typst',
+  },
   'v-wasm': {
     desc: 'WebAssembly üzerinde çalışan V derleyicisi.',
     link: "<1> <2>V web sitesi</2> </1> <3> <4>V dil belgeleri</4> </3> <5> <6>Y dakikada X'i öğrenin, burada X=V</6> </5> <7> <8>LiveCodes Belgeleri</8> </7> <9> <10>Başlangıç şablonunu yükle</10> </9>",

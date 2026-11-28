@@ -1074,6 +1074,7 @@ const translation: I18nTranslation = {
       tcl: 'ٹی سی ایل شروعاتی',
       teal: 'ٹیل شروعاتی',
       typescript: 'ٹائپ اسکرپٹ شروعاتی',
+      typst: 'Typst شروعاتی',
       'v-wasm': 'V شروعاتی',
       'vb-wasm': 'VB.NET (واسم) شروعاتی',
       vue: 'ویو شروعاتی',

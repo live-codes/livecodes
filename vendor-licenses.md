@@ -340,6 +340,8 @@ Twig.js: [BSD 2-Clause License](https://github.com/twigjs/twig.js/blob/59d991d35
 
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
 
+Typst: [Apache License 2.0](https://github.com/typst/typst/blob/2a5eb389b0365ab8b08dd7bf9cb9f621cf835fa5/LICENSE)
+
 Unicorn: [GPL-2.0 license](https://github.com/unicorn-engine/unicorn/blob/master/COPYING) (executes the x86-64 machine code for Assembly (Wasm). Loaded at run time from its own package, not bundled by LiveCodes)
 
 Uniter: [MIT License](https://github.com/asmblah/uniter/blob/304fa1108393f4238fa4fb09c5cfad30a7690493/MIT-LICENSE.txt)

@@ -2944,6 +2944,10 @@
     "notes": "",
     "translation": "TypeScript Starter"
   },
+  "templates.starter.typst": {
+    "notes": "",
+    "translation": "Typst Starter"
+  },
   "templates.starter.v-wasm": {
     "notes": "",
     "translation": "V Starter"

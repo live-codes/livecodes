@@ -1072,6 +1072,7 @@ const translation: I18nTranslation = {
       tcl: 'Tcl 启动模板',
       teal: 'Teal 启动模板',
       typescript: 'TypeScript 启动模板',
+      typst: 'Typst 启动模板',
       'v-wasm': 'V 启动模板',
       'vb-wasm': 'VB.NET（WASM）启动模板',
       vue: 'Vue 单文件组件启动模板',

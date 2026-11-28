@@ -1059,6 +1059,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "typst.desc": {
+    "translation": "Typst হলো মার্কআপ-ভিত্তিক একটি নতুন টাইপসেটিং সিস্টেম, যা LaTeX-এর মতো শক্তিশালী হওয়ার পাশাপাশি শেখা ও ব্যবহারে অনেক সহজ।"
+  },
+  "typst.link": {
+    "translation": "<tag-1> <tag-2>Typst অফিসিয়াল ওয়েবসাইট</tag-2> </tag-1> <tag-3> <tag-4>Typst ডকুমেন্টেশন</tag-4> </tag-3> <tag-5> <tag-6>GitHub-এ typst.ts রিপোজিটরি</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes ডকুমেন্টেশন</tag-8> </tag-7> <tag-9> <tag-10>স্টার্টার টেমপ্লেট লোড করুন</tag-10> </tag-9>"
+  },
+  "typst.name": {
+    "translation": "Typst"
+  },
   "v-wasm.desc": {
     "translation": "V কম্পাইলার ওয়েবঅ্যাসেম্বলিতে চলছে।"
   },

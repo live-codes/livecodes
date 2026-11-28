@@ -1059,6 +1059,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "typst.desc": {
+    "translation": "Typst एक नई मार्कअप-आधारित टाइपसेटिंग प्रणाली है, जिसे LaTeX जितना शक्तिशाली और साथ ही सीखने व उपयोग करने में बहुत आसान बनाया गया है।"
+  },
+  "typst.link": {
+    "translation": "<tag-1> <tag-2>Typst की आधिकारिक वेबसाइट</tag-2> </tag-1> <tag-3> <tag-4>Typst दस्तावेज़ीकरण</tag-4> </tag-3> <tag-5> <tag-6>typst.ts GitHub रिपॉज़िटरी</tag-6> </tag-5> <tag-7> <tag-8>लाइवकोड दस्तावेज़ीकरण</tag-8> </tag-7> <tag-9> <tag-10>स्टार्टर टेम्पलेट लोड करें</tag-10> </tag-9>"
+  },
+  "typst.name": {
+    "translation": "Typst"
+  },
   "v-wasm.desc": {
     "translation": "वेबअसेंबली पर चल रहा V कंपाइलर।"
   },
