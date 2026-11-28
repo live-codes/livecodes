@@ -589,6 +589,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>官方网站</2> </1> <3> <4>TypeScript 文档</4> </3> <5> <6>在 Y 分钟内学习 X，其中 X=TypeScript</6> </5> <7> <8>加载启动模板</8> </7>',
     name: 'TypeScript',
   },
+  typst: {
+    desc: 'Typst 是一个全新的基于标记的排版系统，它力图在功能上媲美 LaTeX，同时更易于学习和使用。',
+    link: '<1> <2>Typst 官方网站</2> </1> <3> <4>Typst 文档</4> </3> <5> <6>typst.ts GitHub 仓库</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',
+    name: 'Typst',
+  },
   'v-wasm': {
     desc: '在 WebAssembly 上运行的 V 编译器。',
     link: '<1> <2>V 网站</2> </1> <3> <4>V 语言文档</4> </3> <5> <6>Y分钟掌握X，其中X=V</6> </5> <7> <8>LiveCodes 文档</8> </7> <9> <10>加载入门模板</10> </9>',

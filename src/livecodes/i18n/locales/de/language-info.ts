@@ -598,6 +598,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Offizielle Website</2> </1> <3> <4>TypeScript-Dokumentation</4> </3> <5> <6>Lerne X in Y Minuten, wobei X=TypeScript</6> </5> <7> <8>Starter-Vorlage laden</8> </7>',
     name: 'TypeScript',
   },
+  typst: {
+    desc: 'Typst ist ein neues markupbasiertes Satzsystem, das so leistungsfähig wie LaTeX sein soll und dabei viel einfacher zu erlernen und zu verwenden ist.',
+    link: '<1> <2>Offizielle Typst-Website</2> </1> <3> <4>Typst-Dokumentation</4> </3> <5> <6>typst.ts GitHub-Repository</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',
+    name: 'Typst',
+  },
   'v-wasm': {
     desc: 'V-Compiler, der auf WebAssembly läuft.',
     link: '<1> <2>V-Website</2> </1> <3> <4>V-Sprachdokumentation</4> </3> <5> <6>Lerne X in Y Minuten, wobei X = V</6> </5> <7> <8>LiveCodes-Dokumentation</8> </7> <9> <10>Starter-Vorlage laden</10> </9>',

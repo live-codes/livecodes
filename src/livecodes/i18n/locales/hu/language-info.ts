@@ -597,6 +597,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Hivatalos weboldal</2> </1> <3> <4>TypeScript dokumentáció</4> </3> <5> <6>Tanulj X-et Y perc alatt, ahol X=TypeScript</6> </5> <7> <8>Kezdő sablon betöltése</8> </7>',
     name: 'TypeScript',
   },
+  typst: {
+    desc: 'A Typst egy új, jelölőnyelv-alapú szedőrendszer, amelyet arra terveztek, hogy olyan erős legyen, mint a LaTeX, miközben sokkal könnyebb megtanulni és használni.',
+    link: '<1> <2>Typst hivatalos weboldala</2> </1> <3> <4>Typst dokumentáció</4> </3> <5> <6>typst.ts GitHub-tárhely</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Indító sablon betöltése</10> </9>',
+    name: 'Typst',
+  },
   'v-wasm': {
     desc: 'A V fordító WebAssembly-en fut.',
     link: '<1> <2>A V weboldala</2> </1> <3> <4>A V nyelv dokumentációja</4> </3> <5> <6>Tanulj meg X-et Y perc alatt, ahol X=V</6> </5> <7> <8>LiveCodes dokumentáció</8> </7> <9> <10>Indító sablon betöltése</10> </9>',

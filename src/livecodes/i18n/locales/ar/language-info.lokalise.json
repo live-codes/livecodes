@@ -1059,6 +1059,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "typst.desc": {
+    "translation": "Typst هو نظام تنضيد جديد قائم على الترميز، صُمم ليكون بقوة LaTeX مع سهولة أكبر في التعلم والاستخدام."
+  },
+  "typst.link": {
+    "translation": "<tag-1> <tag-2>موقع Typst الرسمي</tag-2> </tag-1> <tag-3> <tag-4>وثائق Typst</tag-4> </tag-3> <tag-5> <tag-6>مستودع typst.ts على GitHub</tag-6> </tag-5> <tag-7> <tag-8>وثائق LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>تحميل قالب البداية</tag-10> </tag-9>"
+  },
+  "typst.name": {
+    "translation": "Typst"
+  },
   "v-wasm.desc": {
     "translation": "مترجم V يعمل على WebAssembly."
   },

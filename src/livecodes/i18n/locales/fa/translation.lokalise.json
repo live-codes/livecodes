@@ -2205,6 +2205,9 @@
   "templates.starter.typescript": {
     "translation": "شروع کننده تایپ‌اسکریپت"
   },
+  "templates.starter.typst": {
+    "translation": "شروع کننده Typst"
+  },
   "templates.starter.v-wasm": {
     "translation": "شروع کننده V"
   },

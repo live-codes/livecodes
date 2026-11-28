@@ -1059,6 +1059,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "typst.desc": {
+    "translation": "Typst, LaTeX kadar güçlü olacak şekilde tasarlanmış, ancak öğrenmesi ve kullanması çok daha kolay olan, işaretlemeye dayalı yeni bir dizgi sistemidir."
+  },
+  "typst.link": {
+    "translation": "<tag-1> <tag-2>Typst resmi web sitesi</tag-2> </tag-1> <tag-3> <tag-4>Typst belgeleri</tag-4> </tag-3> <tag-5> <tag-6>typst.ts GitHub deposu</tag-6> </tag-5> <tag-7> <tag-8>LiveCodes Belgeleri</tag-8> </tag-7> <tag-9> <tag-10>Başlangıç şablonunu yükle</tag-10> </tag-9>"
+  },
+  "typst.name": {
+    "translation": "Typst"
+  },
   "v-wasm.desc": {
     "translation": "WebAssembly üzerinde çalışan V derleyicisi."
   },

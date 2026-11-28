@@ -1059,6 +1059,15 @@
   "typescript.name": {
     "translation": "TypeScript"
   },
+  "typst.desc": {
+    "translation": "Typst é um novo sistema de composição tipográfica baseado em marcação, concebido para ser tão poderoso como o LaTeX e, ao mesmo tempo, muito mais fácil de aprender e usar."
+  },
+  "typst.link": {
+    "translation": "<tag-1> <tag-2>Site oficial do Typst</tag-2> </tag-1> <tag-3> <tag-4>Documentação do Typst</tag-4> </tag-3> <tag-5> <tag-6>Repositório GitHub typst.ts</tag-6> </tag-5> <tag-7> <tag-8>Documentação do LiveCodes</tag-8> </tag-7> <tag-9> <tag-10>Carregar modelo inicial</tag-10> </tag-9>"
+  },
+  "typst.name": {
+    "translation": "Typst"
+  },
   "v-wasm.desc": {
     "translation": "Compilador V a funcionar no WebAssembly."
   },

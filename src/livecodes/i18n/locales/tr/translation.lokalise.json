@@ -2205,6 +2205,9 @@
   "templates.starter.typescript": {
     "translation": "TypeScript Başlangıç"
   },
+  "templates.starter.typst": {
+    "translation": "Typst Başlangıç"
+  },
   "templates.starter.v-wasm": {
     "translation": "V Başlangıç"
   },

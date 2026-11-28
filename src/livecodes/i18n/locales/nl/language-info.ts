@@ -597,6 +597,11 @@ const languageInfo: I18nLangInfoTranslation = {
     link: '<1> <2>Officiële website</2> </1> <3> <4>TypeScript documentatie</4> </3> <5> <6>Leer X in Y minuten, waarbij X=TypeScript</6> </5> <7> <8>Startsjabloon laden</8> </7>',
     name: 'TypeScript',
   },
+  typst: {
+    desc: 'Typst is een nieuw op markup gebaseerd zetsysteem dat ontworpen is om net zo krachtig te zijn als LaTeX, maar veel eenvoudiger te leren en te gebruiken.',
+    link: '<1> <2>Typst officiële website</2> </1> <3> <4>Typst-documentatie</4> </3> <5> <6>typst.ts GitHub-repository</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Starterssjabloon laden</10> </9>',
+    name: 'Typst',
+  },
   'v-wasm': {
     desc: 'V-compiler die op WebAssembly draait.',
     link: '<1> <2>V-website</2> </1> <3> <4>Documentatie over de taal V</4> </3> <5> <6>Leer X in Y minuten, waarbij X = V</6> </5> <7> <8>LiveCodes-documentatie</8> </7> <9> <10>Starterssjabloon laden</10> </9>',
