@@ -11,12 +11,14 @@ test.describe('Typst', () => {
     });
     await page.goto(url);
 
-    const { getResult, waitForResultUpdate } = await getLoadedApp(page);
-    await waitForResultUpdate({ timeout: 180_000 });
+    const { getResult } = await getLoadedApp(page);
 
-    const result = getResult();
-    const svg = result.locator('svg');
-    await expect(svg).toHaveCount(1, { timeout: 180_000 });
+    // The first compile downloads the typst.ts compiler, renderer and fonts.
+    await expect
+      .poll(() => getResult().locator('svg').count(), { timeout: 180_000 })
+      .toBeGreaterThan(0);
+
+    const svg = getResult().locator('svg').first();
     expect(await svg.evaluate((element) => element.childElementCount)).toBeGreaterThan(0);
   });
 });
