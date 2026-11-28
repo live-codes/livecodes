@@ -18,11 +18,11 @@ let queue = Promise.resolve();
 const post = (message) => self.postMessage(message);
 
 const formatError = (error) => {
-  const text = String((error && error.message) || error);
+  const text = String(error?.message || error);
   // typst.ts throws a Rust debug representation of the diagnostics, e.g.
   // `[SourceDiagnostic { severity: Error, span: Span(123), message: "expected expression", ... }]`.
   const messages = [...text.matchAll(/message:\s*"((?:[^"\\]|\\.)*)"/g)].map((match) =>
-    match[1].replace(/\\"/g, '"').replace(/\\n/g, '\n'),
+    match[1].replaceAll('\\"', '"').replaceAll('\\n', '\n'),
   );
   return messages.length > 0 ? messages.join('\n') : text;
 };
@@ -57,7 +57,7 @@ self.onmessage = (event) => {
       () => post({ type: 'ready' }),
       (error) => {
         initPromise = null;
-        post({ type: 'error', message: String((error && error.message) || error) });
+        post({ type: 'error', message: String(error?.message || error) });
       },
     );
     return;

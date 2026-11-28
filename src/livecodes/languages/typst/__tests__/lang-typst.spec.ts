@@ -19,15 +19,13 @@ describe('typst', () => {
     expect(typst.largeDownload).toBe(true);
   });
 
-  test('loads only the ESM runner on the page (the runtime lives in a worker)', () => {
+  test('loads only the ESM runner on the page, with an identity compiler factory', async () => {
     const scripts =
       typeof compiler.scripts === 'function'
         ? compiler.scripts({ baseUrl: 'base/', config: {} as Config, compiled: '' })
         : compiler.scripts;
     expect(scripts).toEqual(['base/{{hash:lang-typst-script-esm.js}}']);
-  });
 
-  test('compiler factory is the identity (compilation happens in the runner)', async () => {
     const fn = await compiler.factory({} as Config, '');
     const code = '= Hello\n\nThis is *Typst*!';
     expect(await fn(code, {} as CompileOptions as any)).toBe(code);
