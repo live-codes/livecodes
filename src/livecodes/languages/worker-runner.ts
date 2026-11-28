@@ -31,6 +31,8 @@ export interface WorkerRunnerOptions {
   label: string;
   /** Kill the worker when a single run does not settle within this many milliseconds. */
   timeoutMs?: number;
+  /** Kill the worker when it does not report `ready` within this many milliseconds. */
+  bootTimeoutMs?: number;
 }
 
 interface Pending<TResult> {
@@ -49,12 +51,19 @@ export const createWorkerRunner = <TResult = WorkerRunResult>({
   initMessage,
   label,
   timeoutMs,
+  bootTimeoutMs,
 }: WorkerRunnerOptions): Runner<TResult> => {
   let worker: Worker | null = null;
   let ready: Promise<void> | null = null;
   let settleReady: ((error?: Error) => void) | null = null;
   let pending: Record<number, Pending<TResult>> = {};
   let nextId = 1;
+  let bootTimer: ReturnType<typeof setTimeout> | null = null;
+
+  const clearBootTimer = () => {
+    if (bootTimer != null) clearTimeout(bootTimer);
+    bootTimer = null;
+  };
 
   const failAll = (error: Error) => {
     for (const id of Object.keys(pending)) {
@@ -66,6 +75,7 @@ export const createWorkerRunner = <TResult = WorkerRunResult>({
   };
 
   const teardown = (error?: Error) => {
+    clearBootTimer();
     worker?.terminate();
     worker = null;
     ready = null;
@@ -77,6 +87,7 @@ export const createWorkerRunner = <TResult = WorkerRunResult>({
   const onMessage = (event: MessageEvent) => {
     const message = event.data ?? {};
     if (message.type === 'ready') {
+      clearBootTimer();
       settleReady?.();
       settleReady = null;
       return;
@@ -113,6 +124,11 @@ export const createWorkerRunner = <TResult = WorkerRunResult>({
       teardown(new Error(`The ${label} worker crashed: ${event.message}`));
     if (initMessage !== undefined) {
       worker.postMessage(initMessage);
+    }
+    if (bootTimeoutMs != null) {
+      bootTimer = setTimeout(() => {
+        teardown(new Error(`The ${label} runtime timed out while loading`));
+      }, bootTimeoutMs);
     }
   };
 

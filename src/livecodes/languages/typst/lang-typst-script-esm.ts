@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import { getErrorMessage } from '../../utils/utils';
 import { typstBaseUrl, typstCompilerWasmUrl, typstRendererWasmUrl } from '../../vendors';
-import { withTimeout } from '../wasm-runtime';
 import { createWorkerRunner, type Runner } from '../worker-runner';
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
@@ -145,6 +144,7 @@ const getRunner = (): Runner<WorkerResult> =>
     },
     label: 'Typst',
     timeoutMs: RUN_TIMEOUT_MS,
+    bootTimeoutMs: BOOT_TIMEOUT_MS,
   }));
 
 /** Start (once) loading the runtime in a worker, showing the loading indicator. */
@@ -152,12 +152,7 @@ const ensureLoaded = (runner: Runner<WorkerResult>): Promise<void> => {
   let init = typst.init;
   if (!init) {
     typst.failed = false;
-    init = withTimeout(
-      runner.ensureReady(),
-      BOOT_TIMEOUT_MS,
-      'Timed out while loading the Typst compiler.',
-      () => runner.destroy(),
-    ).catch((error: Error) => {
+    init = runner.ensureReady().catch((error: Error) => {
       // Reset so a later run can retry the download.
       typst.init = null;
       typst.failed = true;
