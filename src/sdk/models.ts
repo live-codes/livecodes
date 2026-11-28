@@ -44,6 +44,8 @@ export type Language =
   | 'asciidoc'
   | 'adoc'
   | 'asc'
+  | 'typst'
+  | 'typ'
   | 'mustache'
   | 'handlebars'
   | 'hbs'
@@ -393,9 +395,7 @@ export type Language =
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
-  | 'pintora'
-  | 'typst'
-  | 'typ';
+  | 'pintora';
 
 /**
  * The identifier for each code editor pane in the playground.

@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { monacoLanguagesBaseUrl } from '../../vendors';
+import { codeMirrorBaseUrl, monacoLanguagesBaseUrl } from '../../vendors';
 
 export const io: LanguageSpecs = {
   name: 'io',
@@ -14,6 +14,9 @@ export const io: LanguageSpecs = {
   editor: 'script',
   editorSupport: {
     monaco: { languageSupport: monacoLanguagesBaseUrl + 'io.js' },
+    codemirror: {
+      languageSupport: async () => (await import(codeMirrorBaseUrl + 'codemirror-lang-io.js')).io(),
+    },
     codejar: { language: 'io' },
   },
 };

@@ -122,6 +122,7 @@ export const languages: LanguageSpecs[] = [
   astro,
   pug,
   asciidoc,
+  typst,
   haml,
   mustache,
   handlebars,
@@ -241,5 +242,4 @@ export const languages: LanguageSpecs[] = [
   prolog,
   minizinc,
   blockly,
-  typst,
 ];

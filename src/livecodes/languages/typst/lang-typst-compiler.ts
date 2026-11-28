@@ -1,5 +1,5 @@
 import type { CompilerFunction } from '../../models';
-import { typstBaseUrl, typstCompilerWasmUrl, typstRendererWasmUrl } from '../../vendors';
+import { typstCompilerWasmUrl, typstRendererWasmUrl, typstUrl } from '../../vendors';
 
 interface TypstSnippet {
   setCompilerInitOptions: (options: { getModule: () => string }) => void;
@@ -26,7 +26,7 @@ export const formatTypstError = /* @__PURE__ */ (error: unknown) => {
   let queue: Promise<unknown> = Promise.resolve();
 
   const load = async (): Promise<TypstSnippet> => {
-    const bundle = await import(typstBaseUrl + 'dist/esm/contrib/all-in-one-lite.bundle.js');
+    const bundle = await import(typstUrl);
     const instance: TypstSnippet = bundle.$typst ?? (self as any).$typst;
     if (!instance) {
       throw new Error('Failed to load the Typst compiler.');

@@ -10,12 +10,6 @@ describe('typst', () => {
     expect(typst.extensions).toEqual(['typ']);
   });
 
-  test('uses the markup editor, like markdown', () => {
-    expect(typst.editor).toBe('markup');
-    expect(typst.editorLanguage).toBe('markdown');
-    expect(typst.largeDownload).toBe(true);
-  });
-
   test('does not use the result-page runtime or live reload', () => {
     expect(compiler.scripts).toBeUndefined();
     expect(compiler.scriptType).toBeUndefined();

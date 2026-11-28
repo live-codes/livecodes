@@ -110,7 +110,7 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
   '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
 );
 
-export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.6/build/');
+export const codeMirrorBaseUrl = /* @__PURE__ */ getUrl('@live-codes/codemirror@0.4.7/build/');
 
 export const codemirrorMinimapUrl = /* @__PURE__ */ getUrl(
   '@replit/codemirror-minimap@0.5.2/dist/index.js',
@@ -382,7 +382,7 @@ export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
 export const monacoLanguagesBaseUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-languages@0.3.16/dist/',
+  '@live-codes/monaco-languages@0.3.17/dist/',
 );
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
@@ -557,12 +557,12 @@ export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 export const typescriptVersion = '5.9.3';
 export const typescriptUrl = getUrl(`typescript@${typescriptVersion}/lib/typescript.js`);
 
-export const typstBaseUrl = /* @__PURE__ */ getUrl('@myriaddreamin/typst.ts@0.7.0/');
-
+export const typstUrl = /* @__PURE__ */ getUrl(
+  '@myriaddreamin/typst.ts@0.7.0/dist/esm/contrib/all-in-one-lite.bundle.js',
+);
 export const typstCompilerWasmUrl = /* @__PURE__ */ getUrl(
   '@myriaddreamin/typst-ts-web-compiler@0.7.0/pkg/typst_ts_web_compiler_bg.wasm',
 );
-
 export const typstRendererWasmUrl = /* @__PURE__ */ getUrl(
   '@myriaddreamin/typst-ts-renderer@0.7.0/pkg/typst_ts_renderer_bg.wasm',
 );
