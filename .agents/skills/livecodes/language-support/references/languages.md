@@ -164,6 +164,12 @@ Enabled via `processors` config:
 | WebAssembly                 | `wat`, `wast`, `wasm`, `webassembly`                                                | WAT format                                            |
 | Assembly (Wasm)             | `assembly-wasm`, `assembly`, `asm`, `asm-wasm`, `x86`, `x86-64`, `nasm`, `wasm.asm` | Keystone + Unicorn (WASM), x86-64 assembly            |
 
+### Typesetting
+
+| Name  | Aliases        | Notes                 |
+| ----- | -------------- | --------------------- |
+| Typst | `typst`, `typ` | Typst compiler (WASM) |
+
 ### Data & Logic Languages
 
 | Name       | Aliases                                                      | Notes               |

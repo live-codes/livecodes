@@ -126,3 +126,4 @@ export const Blockly = livecodesStory({ template: 'blockly' });
 export const Diagrams = livecodesStory({ template: 'diagrams' });
 export const Dart = livecodesStory({ template: 'dart' });
 export const Flutter = livecodesStory({ template: 'flutter' });
+export const Typst = livecodesStory({ template: 'typst' });

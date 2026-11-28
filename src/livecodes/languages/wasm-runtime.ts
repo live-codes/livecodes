@@ -35,6 +35,30 @@ export type SetResult<TResult> = (
   exitCode: number | null,
 ) => TResult;
 
+/** Rejects with `message` if `promise` does not settle within `ms`, after calling `onTimeout`. */
+export const withTimeout = <T>(
+  promise: Promise<T>,
+  ms: number,
+  message: string,
+  onTimeout?: () => void,
+): Promise<T> =>
+  new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => {
+      onTimeout?.();
+      reject(new Error(message));
+    }, ms);
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (error) => {
+        clearTimeout(timer);
+        reject(error);
+      },
+    );
+  });
+
 /**
  * Runs `code` on a ready runner and maps the outcome through `setResult`, reporting both the
  * compiler's diagnostics and any failure to load the runtime as the result's error.

@@ -144,6 +144,7 @@ export default function Sliders() {
       { name: 'prolog', title: 'Prolog' },
       { name: 'minizinc', title: 'MiniZinc' },
       { name: 'blockly', title: 'Blockly' },
+      { name: 'typst', title: 'Typst' },
     ],
   };
   const slides = ['markup', 'style', 'script'];

@@ -106,6 +106,7 @@ import { tcl } from './tcl';
 import { teal } from './teal';
 import { twig } from './twig';
 import { typescript } from './typescript';
+import { typst } from './typst';
 import { vWasm } from './v-wasm';
 import { vbWasm } from './vb-wasm';
 import { vento } from './vento';
@@ -240,4 +241,5 @@ export const languages: LanguageSpecs[] = [
   prolog,
   minizinc,
   blockly,
+  typst,
 ];

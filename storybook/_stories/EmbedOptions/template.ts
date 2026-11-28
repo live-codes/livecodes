@@ -108,6 +108,7 @@ const storyDef: StoryDef = {
   Diagrams: { props: { template: 'diagrams' } },
   Dart: { props: { template: 'dart' } },
   Flutter: { props: { template: 'flutter' } },
+  Typst: { props: { template: 'typst' } },
 };
 
 export default storyDef;

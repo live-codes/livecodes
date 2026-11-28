@@ -557,6 +557,16 @@ export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 export const typescriptVersion = '5.9.3';
 export const typescriptUrl = getUrl(`typescript@${typescriptVersion}/lib/typescript.js`);
 
+export const typstBaseUrl = /* @__PURE__ */ getUrl('@myriaddreamin/typst.ts@0.7.0/');
+
+export const typstCompilerWasmUrl = /* @__PURE__ */ getUrl(
+  '@myriaddreamin/typst-ts-web-compiler@0.7.0/pkg/typst_ts_web_compiler_bg.wasm',
+);
+
+export const typstRendererWasmUrl = /* @__PURE__ */ getUrl(
+  '@myriaddreamin/typst-ts-renderer@0.7.0/pkg/typst_ts_renderer_bg.wasm',
+);
+
 export const unicornJsX86Url = /* @__PURE__ */ getUrl(
   '@alexaltea/unicorn-js@2.1.4/dist/unicorn_x86.js',
 );

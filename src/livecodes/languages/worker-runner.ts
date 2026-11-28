@@ -17,8 +17,16 @@ export interface WorkerRunnerOptions {
   /**
    * The classic worker that loads the runtime. It must post `{ type: 'ready' | 'error' }` when the
    * runtime has loaded (or failed to), and a run result keyed by the request id otherwise.
+   * Ignored when `getWorker` is provided.
    */
-  getWorkerSrc: () => string;
+  getWorkerSrc?: () => string;
+  /**
+   * Creates the worker directly, e.g. for a module worker loaded from a URL. It must speak the same
+   * message protocol as `getWorkerSrc`.
+   */
+  getWorker?: () => Worker;
+  /** Posted once when the worker is spawned, e.g. to pass runtime URLs to it. */
+  initMessage?: unknown;
   /** Shown in crash, timeout and unavailability messages, e.g. `Fortran`. */
   label: string;
   /** Kill the worker when a single run does not settle within this many milliseconds. */
@@ -37,6 +45,8 @@ interface Pending<TResult> {
  */
 export const createWorkerRunner = <TResult = WorkerRunResult>({
   getWorkerSrc,
+  getWorker,
+  initMessage,
   label,
   timeoutMs,
 }: WorkerRunnerOptions): Runner<TResult> => {
@@ -91,10 +101,19 @@ export const createWorkerRunner = <TResult = WorkerRunResult>({
     ready = new Promise<void>((resolve, reject) => {
       settleReady = (error?: Error) => (error ? reject(error) : resolve());
     });
-    worker = createWorkerFromContent(getWorkerSrc());
+    if (getWorker) {
+      worker = getWorker();
+    } else if (getWorkerSrc) {
+      worker = createWorkerFromContent(getWorkerSrc());
+    } else {
+      throw new Error(`No worker source provided for the ${label} runner`);
+    }
     worker.onmessage = onMessage;
     worker.onerror = (event) =>
       teardown(new Error(`The ${label} worker crashed: ${event.message}`));
+    if (initMessage !== undefined) {
+      worker.postMessage(initMessage);
+    }
   };
 
   /** Spawn the worker if needed and resolve once the runtime has loaded. */

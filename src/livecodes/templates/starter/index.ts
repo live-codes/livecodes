@@ -96,6 +96,7 @@ import { tailwindcssStarter } from './tailwindcss-starter';
 import { tclStarter } from './tcl-starter';
 import { tealStarter } from './teal-starter';
 import { typescriptStarter } from './typescript-starter';
+import { typstStarter } from './typst-starter';
 import { vWasmStarter } from './v-wasm-starter';
 import { vbWasmStarter } from './vb-wasm-starter';
 import { vueSfcStarter } from './vue-sfc-starter';
@@ -208,4 +209,5 @@ export const starterTemplates = [
   diagramsStarter,
   dartStarter,
   flutterStarter,
+  typstStarter,
 ];

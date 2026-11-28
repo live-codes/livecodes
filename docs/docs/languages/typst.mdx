@@ -1,0 +1,102 @@
+# Typst
+
+[Typst](https://typst.app/) is a markup-based typesetting system that is designed to be as powerful
+as LaTeX while being much easier to learn and use.
+
+LiveCodes compiles and renders Typst documents entirely in the browser using
+[typst.ts](https://github.com/Myriad-Dreamin/typst.ts), which runs the Typst compiler and renderer
+compiled to WebAssembly. No server is involved.
+
+## Basic Demo
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+
+export const typstConfig = {
+  activeEditor: 'script',
+  script: {
+    language: 'typst',
+    content: `= Typst
+
+*Typst* is a typesetting system that compiles to PDF and SVG.
+
+- Runs entirely in the browser using WebAssembly
+- Supports headings, lists and tables
+- Math: $ sum_(i=1)^n i = (n (n + 1)) / 2 $
+
+#table(
+  columns: 2,
+  [*Language*], [*LiveCodes*],
+  [Typst], [Runs in your browser],
+)
+`,
+  },
+  editor: 'auto',
+};
+
+<LiveCodes config={typstConfig} height="80vh"></LiveCodes>
+
+## Usage
+
+The document is compiled and rendered to SVG on the [result page](../features/result.mdx) every time
+the code changes.
+
+### Usage from JavaScript
+
+Helper methods and properties are available in the browser global `livecodes.typst` object:
+
+- `livecodes.typst.loaded`: a promise that resolves when the first render attempt completes. It
+  rejects if the runtime fails to load.
+- `livecodes.typst.output`: the rendered SVG string (or `null` if rendering failed).
+- `livecodes.typst.error`: the error message, if compilation failed.
+- `livecodes.typst.run(code?)`: compiles and renders the supplied Typst source (or the current
+  editor content when called without arguments). It returns a promise that resolves to
+  `{ output, error, exitCode }`.
+
+```js
+await livecodes.typst.loaded;
+const { output, error } = await livecodes.typst.run('= Hello, Typst!');
+console.log(error ?? output);
+```
+
+## Language Info
+
+### Name
+
+`typst`
+
+### Extension
+
+`typ`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The [Typst](https://github.com/typst/typst) compiler and renderer compiled to WebAssembly, packaged
+by [typst.ts](https://github.com/Myriad-Dreamin/typst.ts).
+
+### Version
+
+`typst.ts` v0.7.0
+
+## Limitations
+
+- The compiler and font assets are downloaded on first use, so the initial load can take a while.
+  The runtime is then reused for subsequent renders.
+- Because the result is rendered as SVG, interactive PDF features (such as links and forms) are not
+  available.
+- Typst packages that are not bundled with the compiler are fetched from the
+  [Typst package registry](https://typst.app/universe/) when used.
+
+## Starter Template
+
+https://livecodes.io/?template=typst
+
+## Links
+
+- [Typst](https://typst.app/)
+- [Typst documentation](https://typst.app/docs/)
+- [Typst GitHub repository](https://github.com/typst/typst)
+- [typst.ts](https://github.com/Myriad-Dreamin/typst.ts)

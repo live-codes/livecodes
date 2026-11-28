@@ -102,5 +102,6 @@ export const starterTemplates = {
   "blockly": "Blockly Starter",
   "diagrams": "Diagrams Starter",
   "dart": "Dart Starter",
-  "flutter": "Flutter Starter"
+  "flutter": "Flutter Starter",
+  "typst": "Typst Starter"
 }

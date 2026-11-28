@@ -393,7 +393,9 @@ export type Language =
   | 'blockly'
   | 'blockly.xml'
   | 'xml'
-  | 'pintora';
+  | 'pintora'
+  | 'typst'
+  | 'typ';
 
 /**
  * The identifier for each code editor pane in the playground.
@@ -599,7 +601,8 @@ export type TemplateName =
   | 'blockly'
   | 'diagrams'
   | 'dart'
-  | 'flutter';
+  | 'flutter'
+  | 'typst';
 
 /**
  * Tools in the tools pane.
@@ -995,6 +998,7 @@ export type CustomSettings = Partial<
       | 'text/v-wasm'
       | 'text/elixir-wasm'
       | 'text/erlang-wasm'
+      | 'text/typst'
       | 'application/json'
       | 'application/lua'
       | 'text/fennel'
